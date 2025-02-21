@@ -44,21 +44,21 @@ import {
   getBitstreamDownloadRoute,
   getForbiddenRoute,
 } from '../../../app-routing-paths';
-import { AuthService } from '../../../core/auth/auth.service';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { ItemRequestDataService } from '../../../core/data/item-request-data.service';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { Bitstream } from '../../../core/shared/bitstream.model';
-import { Item } from '../../../core/shared/item.model';
-import { ItemRequest } from '../../../core/shared/item-request.model';
+import { AuthService } from '../../../../../modules/core/src/lib/core/auth/auth.service';
+import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { BitstreamDataService } from '../../../../../modules/core/src/lib/core/data/bitstream-data.service';
+import { AuthorizationDataService } from '../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
+import { ItemRequestDataService } from '../../../../../modules/core/src/lib/core/data/item-request-data.service';
+import { EPerson } from '../../../../../modules/core/src/lib/core/eperson/models/eperson.model';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Bitstream } from '../../../../../modules/core/src/lib/core/shared/bitstream.model';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { ItemRequest } from '../../../../../modules/core/src/lib/core/shared/item-request.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '../../../core/shared/operators';
+} from '../../../../../modules/core/src/lib/core/shared/operators';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { getItemPageRoute } from '../../item-page-routing-paths';
 

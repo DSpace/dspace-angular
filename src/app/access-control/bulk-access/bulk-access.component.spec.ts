@@ -7,10 +7,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { Process } from '../../core/processes/process.model';
-import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Process } from '../../../../modules/core/src/lib/core/processes/process.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { NotificationsServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
 import { BulkAccessControlService } from '../../shared/access-control-form-container/bulk-access-control.service';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { SelectableListState } from '../../shared/object-list/selectable-list/selectable-list.reducer';

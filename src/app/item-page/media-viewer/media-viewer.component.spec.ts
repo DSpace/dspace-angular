@@ -12,14 +12,14 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { MockBitstreamFormat1 } from '../../core/mocks/item.mock';
-import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { MediaViewerItem } from '../../core/shared/media-viewer-item.model';
-import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
-import { createPaginatedList } from '../../core/utilities/testing/utils.test';
+import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
+import { BitstreamDataService } from '../../../../modules/core/src/lib/core/data/bitstream-data.service';
+import { MockBitstreamFormat1 } from '../../../../modules/core/src/lib/core/mocks/item.mock';
+import { TranslateLoaderMock } from '../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
+import { Bitstream } from '../../../../modules/core/src/lib/core/shared/bitstream.model';
+import { MediaViewerItem } from '../../../../modules/core/src/lib/core/shared/media-viewer-item.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { createPaginatedList } from '../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { MetadataFieldWrapperComponent } from '../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';

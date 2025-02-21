@@ -12,17 +12,17 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { IdentifierDataService } from '../../../core/data/identifier-data.service';
-import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
-import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
-import { Item } from '../../../core/shared/item.model';
+import { ConfigurationDataService } from '../../../../../modules/core/src/lib/core/data/configuration-data.service';
+import { AuthorizationDataService } from '../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { IdentifierDataService } from '../../../../../modules/core/src/lib/core/data/identifier-data.service';
+import { OrcidAuthService } from '../../../../../modules/core/src/lib/core/orcid/orcid-auth.service';
+import { ConfigurationProperty } from '../../../../../modules/core/src/lib/core/shared/configuration-property.model';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../core/utilities/remote-data.utils';
-import { HostWindowServiceStub } from '../../../core/utilities/testing/host-window-service.stub';
+} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { HostWindowServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/host-window-service.stub';
 import { HostWindowService } from '../../../shared/host-window.service';
 import { ItemStatusComponent } from './item-status.component';
 

@@ -19,26 +19,26 @@ import { environment } from '../../../environments/environment';
 import {
   SortDirection,
   SortOptions,
-} from '../../core/cache/models/sort-options.model';
+} from '../../../../modules/core/src/lib/core/cache/models/sort-options.model';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../core/config/app-config.interface';
+} from '../../../../modules/core/src/lib/core/config/app-config.interface';
 import {
   followLink,
   FollowLinkConfig,
-} from '../../core/data/follow-link-config.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
-import { Item } from '../../core/shared/item.model';
-import { toDSpaceObjectListRD } from '../../core/shared/operators';
-import { PaginatedSearchOptions } from '../../core/shared/paginated-search-options.model';
-import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
-import { SearchService } from '../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { ViewMode } from '../../core/shared/view-mode.model';
+} from '../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { PaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
+import { PaginationService } from '../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { DSpaceObjectType } from '../../../../modules/core/src/lib/core/shared/dspace-object-type.model';
+import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
+import { toDSpaceObjectListRD } from '../../../../modules/core/src/lib/core/shared/operators';
+import { PaginatedSearchOptions } from '../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
+import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+import { SearchService } from '../../../../modules/core/src/lib/core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
+import { ViewMode } from '../../../../modules/core/src/lib/core/shared/view-mode.model';
 import {
   fadeIn,
   fadeInOut,

@@ -21,27 +21,27 @@ import { of as observableOf } from 'rxjs';
 import {
   SortDirection,
   SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { buildPaginatedList } from '../../core/data/paginated-list.model';
-import { GroupDataService } from '../../core/eperson/group-data.service';
-import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { LinkHeadService } from '../../core/services/link-head.service';
-import { RouteService } from '../../core/services/route.service';
-import { BrowseEntry } from '../../core/shared/browse-entry.model';
-import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
-import { ITEM } from '../../core/shared/item.resource-type';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { ViewMode } from '../../core/shared/view-mode.model';
-import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
-import { HostWindowServiceStub } from '../../core/utilities/testing/host-window-service.stub';
-import { PaginationServiceStub } from '../../core/utilities/testing/pagination-service.stub';
-import { routeServiceStub } from '../../core/utilities/testing/route-service.stub';
-import { SearchConfigurationServiceStub } from '../../core/utilities/testing/search-configuration-service.stub';
-import { createPaginatedList } from '../../core/utilities/testing/utils.test';
+} from '../../../../modules/core/src/lib/core/cache/models/sort-options.model';
+import { ConfigurationDataService } from '../../../../modules/core/src/lib/core/data/configuration-data.service';
+import { buildPaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { GroupDataService } from '../../../../modules/core/src/lib/core/eperson/group-data.service';
+import { TranslateLoaderMock } from '../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
+import { PaginationService } from '../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { LinkHeadService } from '../../../../modules/core/src/lib/core/services/link-head.service';
+import { RouteService } from '../../../../modules/core/src/lib/core/services/route.service';
+import { BrowseEntry } from '../../../../modules/core/src/lib/core/shared/browse-entry.model';
+import { ConfigurationProperty } from '../../../../modules/core/src/lib/core/shared/configuration-property.model';
+import { ITEM } from '../../../../modules/core/src/lib/core/shared/item.resource-type';
+import { PageInfo } from '../../../../modules/core/src/lib/core/shared/page-info.model';
+import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+import { SearchConfigurationService } from '../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
+import { ViewMode } from '../../../../modules/core/src/lib/core/shared/view-mode.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { HostWindowServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/host-window-service.stub';
+import { PaginationServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
+import { routeServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/route-service.stub';
+import { SearchConfigurationServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/search-configuration-service.stub';
+import { createPaginatedList } from '../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { HostWindowService } from '../host-window.service';
 import { getMockThemeService } from '../mocks/theme-service.mock';
 import {

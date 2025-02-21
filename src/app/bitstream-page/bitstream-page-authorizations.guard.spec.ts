@@ -7,13 +7,13 @@ import {
   Observable,
   of as observableOf,
 } from 'rxjs';
-import { AuthService } from 'src/app/core/auth/auth.service';
-import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
+import { AuthService } from '../../../modules/core/src/lib/core/auth/auth.service';
+import { AuthorizationDataService } from '../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
 
-import { BitstreamDataService } from '../core/data/bitstream-data.service';
-import { Bitstream } from '../core/shared/bitstream.model';
-import { createSuccessfulRemoteDataObject$ } from '../core/utilities/remote-data.utils';
+import { BitstreamDataService } from '../../../modules/core/src/lib/core/data/bitstream-data.service';
+import { Bitstream } from '../../../modules/core/src/lib/core/shared/bitstream.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../modules/core/src/lib/core/utilities/remote-data.utils';
 import { bitstreamPageAuthorizationsGuard } from './bitstream-page-authorizations.guard';
 
 describe('bitstreamPageAuthorizationsGuard', () => {

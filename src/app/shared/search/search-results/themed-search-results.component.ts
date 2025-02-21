@@ -5,15 +5,15 @@ import {
   Output,
 } from '@angular/core';
 
-import { SortOptions } from '../../../core/cache/models/sort-options.model';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { ListableObject } from '../../../core/object-collection/listable-object.model';
-import { Context } from '../../../core/shared/context.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { PaginatedSearchOptions } from '../../../core/shared/paginated-search-options.model';
-import { SearchResult } from '../../../core/shared/search/models/search-result.model';
-import { ViewMode } from '../../../core/shared/view-mode.model';
+import { SortOptions } from '../../../../../modules/core/src/lib/core/cache/models/sort-options.model';
+import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { ListableObject } from '../../../../../modules/core/src/lib/core/object-collection/listable-object.model';
+import { Context } from '../../../../../modules/core/src/lib/core/shared/context.model';
+import { DSpaceObject } from '../../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { PaginatedSearchOptions } from '../../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
+import { SearchResult } from '../../../../../modules/core/src/lib/core/shared/search/models/search-result.model';
+import { ViewMode } from '../../../../../modules/core/src/lib/core/shared/view-mode.model';
 import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
 import { ThemedComponent } from '../../theme-support/themed.component';
 import {

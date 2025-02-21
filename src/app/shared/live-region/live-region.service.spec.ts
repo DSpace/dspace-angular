@@ -4,7 +4,7 @@ import {
   tick,
 } from '@angular/core/testing';
 
-import { UUIDService } from '../../core/shared/uuid.service';
+import { UUIDService } from '../../../../modules/core/src/lib/core/shared/uuid.service';
 import { LiveRegionService } from './live-region.service';
 
 describe('liveRegionService', () => {

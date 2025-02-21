@@ -28,14 +28,14 @@ import {
 import {
   SortDirection,
   SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { ListableObject } from '../../core/object-collection/listable-object.model';
-import { Context } from '../../core/shared/context.model';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
-import { ViewMode } from '../../core/shared/view-mode.model';
+} from '../../../../modules/core/src/lib/core/cache/models/sort-options.model';
+import { PaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
+import { ListableObject } from '../../../../modules/core/src/lib/core/object-collection/listable-object.model';
+import { Context } from '../../../../modules/core/src/lib/core/shared/context.model';
+import { PageInfo } from '../../../../modules/core/src/lib/core/shared/page-info.model';
+import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+import { ViewMode } from '../../../../modules/core/src/lib/core/shared/view-mode.model';
 import { ObjectDetailComponent } from '../object-detail/object-detail.component';
 import { ObjectGridComponent } from '../object-grid/object-grid.component';
 import { ThemedObjectListComponent } from '../object-list/themed-object-list.component';

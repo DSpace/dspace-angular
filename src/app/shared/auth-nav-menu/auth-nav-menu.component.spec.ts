@@ -23,15 +23,15 @@ import { AppState } from '../../app.reducer';
 import {
   authReducer,
   AuthState,
-} from '../../core/auth/auth.reducer';
-import { AuthService } from '../../core/auth/auth.service';
-import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
-import { APP_DATA_SERVICES_MAP } from '../../core/config/app-config.interface';
-import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
-import { BrowserOnlyMockPipe } from '../../core/utilities/testing/browser-only-mock.pipe';
-import { EPersonMock } from '../../core/utilities/testing/eperson.mock';
-import { HostWindowServiceStub } from '../../core/utilities/testing/host-window-service.stub';
-import { XSRFService } from '../../core/xsrf/xsrf.service';
+} from '../../../../modules/core/src/lib/core/auth/auth.reducer';
+import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
+import { AuthTokenInfo } from '../../../../modules/core/src/lib/core/auth/models/auth-token-info.model';
+import { APP_DATA_SERVICES_MAP } from '../../../../modules/core/src/lib/core/config/app-config.interface';
+import { ActivatedRouteStub } from '../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+import { BrowserOnlyMockPipe } from '../../../../modules/core/src/lib/core/utilities/testing/browser-only-mock.pipe';
+import { EPersonMock } from '../../../../modules/core/src/lib/core/utilities/testing/eperson.mock';
+import { HostWindowServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/host-window-service.stub';
+import { XSRFService } from '../../../../modules/core/src/lib/core/xsrf/xsrf.service';
 import { HostWindowService } from '../host-window.service';
 import { AuthNavMenuComponent } from './auth-nav-menu.component';
 

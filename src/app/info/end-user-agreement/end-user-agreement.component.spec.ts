@@ -13,11 +13,11 @@ import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { LogOutAction } from '../../core/auth/auth.actions';
-import { AuthService } from '../../core/auth/auth.service';
-import { EndUserAgreementService } from '../../core/end-user-agreement/end-user-agreement.service';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
+import { LogOutAction } from '../../../../modules/core/src/lib/core/auth/auth.actions';
+import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
+import { EndUserAgreementService } from '../../../../modules/core/src/lib/core/end-user-agreement/end-user-agreement.service';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { ActivatedRouteStub } from '../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { EndUserAgreementComponent } from './end-user-agreement.component';
 import { EndUserAgreementContentComponent } from './end-user-agreement-content/end-user-agreement-content.component';

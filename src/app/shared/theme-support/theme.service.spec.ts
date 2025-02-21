@@ -13,24 +13,24 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { hot } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { LinkService } from '../../core/cache/builders/link.service';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { RouterMock } from '../../core/mocks/router.mock';
-import { Collection } from '../../core/shared/collection.model';
-import { COLLECTION } from '../../core/shared/collection.resource-type';
-import { Community } from '../../core/shared/community.model';
-import { COMMUNITY } from '../../core/shared/community.resource-type';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { Item } from '../../core/shared/item.model';
-import { ITEM } from '../../core/shared/item.resource-type';
-import { NoOpAction } from '../../core/shared/ngrx/no-op.action';
+import { LinkService } from '../../../../modules/core/src/lib/core/cache/builders/link.service';
+import { ConfigurationDataService } from '../../../../modules/core/src/lib/core/data/configuration-data.service';
+import { DSpaceObjectDataService } from '../../../../modules/core/src/lib/core/data/dspace-object-data.service';
+import { RouterMock } from '../../../../modules/core/src/lib/core/mocks/router.mock';
+import { Collection } from '../../../../modules/core/src/lib/core/shared/collection.model';
+import { COLLECTION } from '../../../../modules/core/src/lib/core/shared/collection.resource-type';
+import { Community } from '../../../../modules/core/src/lib/core/shared/community.model';
+import { COMMUNITY } from '../../../../modules/core/src/lib/core/shared/community.resource-type';
+import { DSpaceObject } from '../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
+import { ITEM } from '../../../../modules/core/src/lib/core/shared/item.resource-type';
+import { NoOpAction } from '../../../../modules/core/src/lib/core/shared/ngrx/no-op.action';
 import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../core/utilities/remote-data.utils';
-import { ConfigurationDataServiceStub } from '../../core/utilities/testing/configuration-data.service.stub';
+} from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { ConfigurationDataServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/configuration-data.service.stub';
 import { SetThemeAction } from './theme.actions';
 import { Theme } from './theme.model';
 import { ThemeService } from './theme.service';

@@ -8,9 +8,9 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { ItemSearchResult } from '../../../../../../core/object-collection/item-search-result.model';
-import { Item } from '../../../../../../core/shared/item.model';
-import { ViewMode } from '../../../../../../core/shared/view-mode.model';
+import { ItemSearchResult } from '../../../../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
+import { Item } from '../../../../../../../../modules/core/src/lib/core/shared/item.model';
+import { ViewMode } from '../../../../../../../../modules/core/src/lib/core/shared/view-mode.model';
 import { getItemPageRoute } from '../../../../../../item-page/item-page-routing-paths';
 import { ThemedThumbnailComponent } from '../../../../../../thumbnail/themed-thumbnail.component';
 import { ThemedBadgesComponent } from '../../../../../object-collection/shared/badges/themed-badges.component';

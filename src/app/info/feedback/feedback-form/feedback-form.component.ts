@@ -18,19 +18,19 @@ import {
 import { take } from 'rxjs/operators';
 
 import { getHomePageRoute } from '../../../app-routing-paths';
-import { AuthService } from '../../../core/auth/auth.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { FeedbackDataService } from '../../../core/feedback/feedback-data.service';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { RouteService } from '../../../core/services/route.service';
+import { AuthService } from '../../../../../modules/core/src/lib/core/auth/auth.service';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { EPerson } from '../../../../../modules/core/src/lib/core/eperson/models/eperson.model';
+import { FeedbackDataService } from '../../../../../modules/core/src/lib/core/feedback/feedback-data.service';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { RouteService } from '../../../../../modules/core/src/lib/core/services/route.service';
 import {
   NativeWindowRef,
   NativeWindowService,
-} from '../../../core/services/window.service';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { URLCombiner } from '../../../core/url-combiner/url-combiner';
+} from '../../../../../modules/core/src/lib/core/services/window.service';
+import { NoContent } from '../../../../../modules/core/src/lib/core/shared/NoContent.model';
+import { getFirstCompletedRemoteData } from '../../../../../modules/core/src/lib/core/shared/operators';
+import { URLCombiner } from '../../../../../modules/core/src/lib/core/url-combiner/url-combiner';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ErrorComponent } from '../../../shared/error/error.component';
 

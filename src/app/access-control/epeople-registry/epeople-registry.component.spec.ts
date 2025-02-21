@@ -30,27 +30,27 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FindListOptions } from '../../core/data/find-list-options.model';
+import { AuthorizationDataService } from '../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { FindListOptions } from '../../../../modules/core/src/lib/core/data/find-list-options.model';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { RequestService } from '../../core/data/request.service';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { RouterMock } from '../../core/mocks/router.mock';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
+} from '../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
+import { RequestService } from '../../../../modules/core/src/lib/core/data/request.service';
+import { EPersonDataService } from '../../../../modules/core/src/lib/core/eperson/eperson-data.service';
+import { EPerson } from '../../../../modules/core/src/lib/core/eperson/models/eperson.model';
+import { RouterMock } from '../../../../modules/core/src/lib/core/mocks/router.mock';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { PaginationService } from '../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { PageInfo } from '../../../../modules/core/src/lib/core/shared/page-info.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
 import {
   EPersonMock,
   EPersonMock2,
-} from '../../core/utilities/testing/eperson.mock';
-import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../core/utilities/testing/pagination-service.stub';
+} from '../../../../modules/core/src/lib/core/utilities/testing/eperson.mock';
+import { NotificationsServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { PaginationServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';

@@ -13,14 +13,14 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { getForbiddenRoute } from '../../app-routing-paths';
-import { AuthService } from '../../core/auth/auth.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { SignpostingDataService } from '../../core/data/signposting-data.service';
-import { HardRedirectService } from '../../core/services/hard-redirect.service';
-import { ServerResponseService } from '../../core/services/server-response.service';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { FileService } from '../../core/shared/file.service';
-import { createSuccessfulRemoteDataObject } from '../../core/utilities/remote-data.utils';
+import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
+import { AuthorizationDataService } from '../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { SignpostingDataService } from '../../../../modules/core/src/lib/core/data/signposting-data.service';
+import { HardRedirectService } from '../../../../modules/core/src/lib/core/services/hard-redirect.service';
+import { ServerResponseService } from '../../../../modules/core/src/lib/core/services/server-response.service';
+import { Bitstream } from '../../../../modules/core/src/lib/core/shared/bitstream.model';
+import { FileService } from '../../../../modules/core/src/lib/core/shared/file.service';
+import { createSuccessfulRemoteDataObject } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
 import { BitstreamDownloadPageComponent } from './bitstream-download-page.component';
 
 describe('BitstreamDownloadPageComponent', () => {

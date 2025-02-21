@@ -1,6 +1,6 @@
 import { MemoizedSelector } from '@ngrx/store';
 
-import { keySelector } from '../core/json-patch/selectors';
+import { keySelector } from '../../../modules/core/src/lib/core/json-patch/selectors';
 import { subStateSelector } from '../shared/selector.util';
 import { SubmissionObjectEntry } from './objects/submission-objects.reducer';
 import { SubmissionSectionObject } from './objects/submission-section-object.model';

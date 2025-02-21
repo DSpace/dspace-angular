@@ -22,18 +22,18 @@ import {
   withLatestFrom,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { Collection } from '../../../core/shared/collection.model';
-import { Item } from '../../../core/shared/item.model';
+import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { CollectionDataService } from '../../../../../modules/core/src/lib/core/data/collection-data.service';
+import { FindListOptions } from '../../../../../modules/core/src/lib/core/data/find-list-options.model';
+import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
 import {
   getAllCompletedRemoteData,
   getAllSucceededRemoteDataPayload,
   getFirstSucceededRemoteDataPayload,
   getPaginatedListPayload,
-} from '../../../core/shared/operators';
+} from '../../../../../modules/core/src/lib/core/shared/operators';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 
 /**

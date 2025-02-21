@@ -5,7 +5,7 @@ import {
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { SearchConfigurationServiceStub } from '../../../../core/utilities/testing/search-configuration-service.stub';
+import { SearchConfigurationServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/search-configuration-service.stub';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
 import { AdminNotifyLogsResultComponent } from '../admin-notify-logs-result/admin-notify-logs-result.component';
 import { AdminNotifyIncomingComponent } from './admin-notify-incoming.component';

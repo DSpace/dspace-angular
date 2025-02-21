@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { Collection } from '../../../../../../app/core/shared/collection.model';
-import { Context } from '../../../../../../app/core/shared/context.model';
-import { ViewMode } from '../../../../../../app/core/shared/view-mode.model';
+import { Collection } from '../../../../../../../modules/core/src/lib/core/shared/collection.model';
+import { Context } from '../../../../../../../modules/core/src/lib/core/shared/context.model';
+import { ViewMode } from '../../../../../../../modules/core/src/lib/core/shared/view-mode.model';
 import { listableObjectComponent } from '../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
 import { CollectionListElementComponent as BaseComponent } from '../../../../../../app/shared/object-list/collection-list-element/collection-list-element.component';
 

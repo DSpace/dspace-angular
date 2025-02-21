@@ -13,10 +13,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { MenuItemType } from 'src/app/shared/menu/menu-item-type.model';
 
-import { ActivatedRouteStub } from '../../../../core/utilities/testing/active-router.stub';
-import { CSSVariableServiceStub } from '../../../../core/utilities/testing/css-variable-service.stub';
-import { MenuServiceStub } from '../../../../core/utilities/testing/menu-service.stub';
-import { RouterStub } from '../../../../core/utilities/testing/router.stub';
+import { ActivatedRouteStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+import { CSSVariableServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/css-variable-service.stub';
+import { MenuServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/menu-service.stub';
+import { RouterStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
 import { MenuService } from '../../../menu/menu.service';
 import { OnClickMenuItemModel } from '../../../menu/menu-item/models/onclick.model';
 import { CSSVariableService } from '../../../sass-helper/css-variable.service';

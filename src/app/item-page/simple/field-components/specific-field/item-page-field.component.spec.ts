@@ -15,20 +15,20 @@ import {
 } from '@ngx-translate/core';
 
 import { environment } from '../../../../../environments/environment';
-import { BrowseService } from '../../../../core/browse/browse.service';
-import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
-import { APP_CONFIG } from '../../../../core/config/app-config.interface';
-import { TranslateLoaderMock } from '../../../../core/mocks/translate-loader.mock';
-import { Item } from '../../../../core/shared/item.model';
-import { MathService } from '../../../../core/shared/math.service';
+import { BrowseService } from '../../../../../../modules/core/src/lib/core/browse/browse.service';
+import { BrowseDefinitionDataService } from '../../../../../../modules/core/src/lib/core/browse/browse-definition-data.service';
+import { APP_CONFIG } from '../../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { TranslateLoaderMock } from '../../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
+import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
+import { MathService } from '../../../../../../modules/core/src/lib/core/shared/math.service';
 import {
   MetadataMap,
   MetadataValue,
-} from '../../../../core/shared/metadata.models';
-import { createSuccessfulRemoteDataObject$ } from '../../../../core/utilities/remote-data.utils';
-import { BrowseDefinitionDataServiceStub } from '../../../../core/utilities/testing/browse-definition-data-service.stub';
-import { BrowseServiceStub } from '../../../../core/utilities/testing/browse-service.stub';
-import { createPaginatedList } from '../../../../core/utilities/testing/utils.test';
+} from '../../../../../../modules/core/src/lib/core/shared/metadata.models';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { BrowseDefinitionDataServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/browse-definition-data-service.stub';
+import { BrowseServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/browse-service.stub';
+import { createPaginatedList } from '../../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { MarkdownDirective } from '../../../../shared/utils/markdown.directive';
 import { MetadataValuesComponent } from '../../../field-components/metadata-values/metadata-values.component';
 import { ItemPageFieldComponent } from './item-page-field.component';

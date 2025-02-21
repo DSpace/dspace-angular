@@ -28,31 +28,31 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { DSONameService } from '../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
 import {
   SortDirection,
   SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { followLink } from '../../core/data/follow-link-config.model';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { Collection } from '../../core/shared/collection.model';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
-import { NoContent } from '../../core/shared/NoContent.model';
+} from '../../../../modules/core/src/lib/core/cache/models/sort-options.model';
+import { FeatureID } from '../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
+import { followLink } from '../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { ItemDataService } from '../../../../modules/core/src/lib/core/data/item-data.service';
+import { PaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Collection } from '../../../../modules/core/src/lib/core/shared/collection.model';
+import { DSpaceObject } from '../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { DSpaceObjectType } from '../../../../modules/core/src/lib/core/shared/dspace-object-type.model';
+import { NoContent } from '../../../../modules/core/src/lib/core/shared/NoContent.model';
 import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
   toDSpaceObjectListRD,
-} from '../../core/shared/operators';
-import { PaginatedSearchOptions } from '../../core/shared/paginated-search-options.model';
-import { SearchService } from '../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+} from '../../../../modules/core/src/lib/core/shared/operators';
+import { PaginatedSearchOptions } from '../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
+import { SearchService } from '../../../../modules/core/src/lib/core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import {
   fadeIn,

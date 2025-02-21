@@ -5,17 +5,17 @@ import { of as observableOf } from 'rxjs';
 import {
   SortDirection,
   SortOptions,
-} from '../../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { buildPaginatedList } from '../../../core/data/paginated-list.model';
+} from '../../../../../modules/core/src/lib/core/cache/models/sort-options.model';
+import { FindListOptions } from '../../../../../modules/core/src/lib/core/data/find-list-options.model';
+import { buildPaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
 import {
   getMockQualityAssuranceSourceRestService,
   qualityAssuranceSourceObjectMoreAbstract,
   qualityAssuranceSourceObjectMorePid,
-} from '../../../core/mocks/notifications.mock';
-import { QualityAssuranceSourceDataService } from '../../../core/notifications/qa/source/quality-assurance-source-data.service';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject } from '../../../core/utilities/remote-data.utils';
+} from '../../../../../modules/core/src/lib/core/mocks/notifications.mock';
+import { QualityAssuranceSourceDataService } from '../../../../../modules/core/src/lib/core/notifications/qa/source/quality-assurance-source-data.service';
+import { PageInfo } from '../../../../../modules/core/src/lib/core/shared/page-info.model';
+import { createSuccessfulRemoteDataObject } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
 import { QualityAssuranceSourceService } from './quality-assurance-source.service';
 
 describe('QualityAssuranceSourceService', () => {

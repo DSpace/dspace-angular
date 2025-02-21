@@ -7,8 +7,8 @@ import {
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { SiteDataService } from '../core/data/site-data.service';
-import { Site } from '../core/shared/site.model';
+import { SiteDataService } from '../../../modules/core/src/lib/core/data/site-data.service';
+import { Site } from '../../../modules/core/src/lib/core/shared/site.model';
 
 export const homePageResolver: ResolveFn<Site> = (
   route: ActivatedRouteSnapshot,

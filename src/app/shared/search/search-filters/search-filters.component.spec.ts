@@ -12,12 +12,12 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../environments/environment';
-import { APP_CONFIG } from '../../../core/config/app-config.interface';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
-import { SearchConfigurationServiceStub } from '../../../core/utilities/testing/search-configuration-service.stub';
-import { SearchFilterServiceStub } from '../../../core/utilities/testing/search-filter-service.stub';
-import { SearchServiceStub } from '../../../core/utilities/testing/search-service.stub';
+import { APP_CONFIG } from '../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { SearchService } from '../../../../../modules/core/src/lib/core/shared/search/search.service';
+import { SearchFilterService } from '../../../../../modules/core/src/lib/core/shared/search/search-filter.service';
+import { SearchConfigurationServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/search-configuration-service.stub';
+import { SearchFilterServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/search-filter-service.stub';
+import { SearchServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/search-service.stub';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { SearchFiltersComponent } from './search-filters.component';
 

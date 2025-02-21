@@ -17,19 +17,19 @@ import {
   mergeMap,
   tap,
 } from 'rxjs/operators';
-import { Context } from 'src/app/core/shared/context.model';
+import { Context } from '../../../../../../modules/core/src/lib/core/shared/context.model';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
-import { followLink } from '../../../../core/data/follow-link-config.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { PoolTaskSearchResult } from '../../../../core/object-collection/pool-task-search-result.model';
-import { Item } from '../../../../core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
+import { DSONameService } from '../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { LinkService } from '../../../../../../modules/core/src/lib/core/cache/builders/link.service';
+import { ObjectCacheService } from '../../../../../../modules/core/src/lib/core/cache/object-cache.service';
+import { followLink } from '../../../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { RemoteData } from '../../../../../../modules/core/src/lib/core/data/remote-data';
+import { PoolTaskSearchResult } from '../../../../../../modules/core/src/lib/core/object-collection/pool-task-search-result.model';
+import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
+import { getFirstCompletedRemoteData } from '../../../../../../modules/core/src/lib/core/shared/operators';
+import { ViewMode } from '../../../../../../modules/core/src/lib/core/shared/view-mode.model';
+import { WorkflowItem } from '../../../../../../modules/core/src/lib/core/submission/models/workflowitem.model';
+import { PoolTask } from '../../../../../../modules/core/src/lib/core/tasks/models/pool-task-object.model';
 import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';

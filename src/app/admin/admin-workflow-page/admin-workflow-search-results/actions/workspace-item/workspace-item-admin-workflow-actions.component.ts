@@ -26,14 +26,14 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { NotificationsService } from '../../../../../core/notifications/notifications.service';
-import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
-import { Item } from '../../../../../core/shared/item.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
-import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
-import { SupervisionOrder } from '../../../../../core/supervision-order/models/supervision-order.model';
-import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
+import { DSONameService } from '../../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { NotificationsService } from '../../../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { DSpaceObject } from '../../../../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
+import { getFirstSucceededRemoteDataPayload } from '../../../../../../../modules/core/src/lib/core/shared/operators';
+import { WorkspaceItem } from '../../../../../../../modules/core/src/lib/core/submission/models/workspaceitem.model';
+import { SupervisionOrder } from '../../../../../../../modules/core/src/lib/core/supervision-order/models/supervision-order.model';
+import { SupervisionOrderDataService } from '../../../../../../../modules/core/src/lib/core/supervision-order/supervision-order-data.service';
 import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../../../item-page/edit-item-page/edit-item-page.routing-paths';
 import { ConfirmationModalComponent } from '../../../../../shared/confirmation-modal/confirmation-modal.component';
 import { getSearchResultFor } from '../../../../../shared/search/search-result-element-decorator';

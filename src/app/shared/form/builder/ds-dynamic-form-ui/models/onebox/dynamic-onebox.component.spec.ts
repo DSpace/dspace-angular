@@ -35,20 +35,20 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../core/utilities/remote-data.utils';
+import { VocabularyEntry } from '../../../../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyOptions } from '../../../../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-options.model';
+import { VocabularyService } from '../../../../../../../../modules/core/src/lib/core/submission/vocabularies/vocabulary.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
 import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService,
-} from '../../../../../../core/utilities/testing/dynamic-form-mock-services';
-import { createTestComponent } from '../../../../../../core/utilities/testing/utils.test';
-import { VocabularyServiceStub } from '../../../../../../core/utilities/testing/vocabulary-service.stub';
+} from '../../../../../../../../modules/core/src/lib/core/utilities/testing/dynamic-form-mock-services';
+import { createTestComponent } from '../../../../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+import { VocabularyServiceStub } from '../../../../../../../../modules/core/src/lib/core/utilities/testing/vocabulary-service.stub';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
 import { VocabularyTreeviewComponent } from '../../../../vocabulary-treeview/vocabulary-treeview.component';
-import { FormFieldMetadataValueObject } from '../../../../../../core/config/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../../../../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
 import { DsDynamicOneboxComponent } from './dynamic-onebox.component';
 import { DynamicOneboxModel } from './dynamic-onebox.model';
 

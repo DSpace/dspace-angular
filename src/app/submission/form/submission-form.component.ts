@@ -25,14 +25,14 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
-import { SubmissionSectionModel } from '../../core/config/models/config-submission-section.model';
-import { Collection } from '../../core/shared/collection.model';
-import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { Item } from '../../core/shared/item.model';
-import { SubmissionObject } from '../../core/submission/models/submission-object.model';
-import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
+import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
+import { SubmissionDefinitionsModel } from '../../../../modules/core/src/lib/core/config/models/config-submission-definitions.model';
+import { SubmissionSectionModel } from '../../../../modules/core/src/lib/core/config/models/config-submission-section.model';
+import { Collection } from '../../../../modules/core/src/lib/core/shared/collection.model';
+import { HALEndpointService } from '../../../../modules/core/src/lib/core/shared/hal-endpoint.service';
+import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
+import { SubmissionObject } from '../../../../modules/core/src/lib/core/submission/models/submission-object.model';
+import { WorkspaceitemSectionsObject } from '../../../../modules/core/src/lib/core/submission/models/workspaceitem-sections.model';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { UploaderOptions } from '../../shared/upload/uploader/uploader-options.model';
 import { SectionVisibility } from '../objects/section-visibility.model';

@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { switchMap } from 'rxjs/operators';
 
-import { SiteDataService } from '../../core/data/site-data.service';
-import { Site } from '../../core/shared/site.model';
+import { SiteDataService } from '../../../../modules/core/src/lib/core/data/site-data.service';
+import { Site } from '../../../../modules/core/src/lib/core/shared/site.model';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { StatisticsPageDirective } from '../statistics-page/statistics-page.directive';

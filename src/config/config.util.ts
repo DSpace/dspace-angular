@@ -2,12 +2,12 @@ import { all } from 'deepmerge';
 
 // TODO: find a way to use the relative module path without braking the build
 import { hasNoValue } from '../../modules/shared/utils/src/lib/utils/empty.util';
-import { AppConfig } from '../app/core/config/app-config.interface';
+import { AppConfig } from '../../modules/core/src/lib/core/config/app-config.interface';
 import {
   NamedThemeConfig,
   ThemeConfig,
-} from '../app/core/config/theme.config';
-import { BASE_THEME_NAME } from '../app/core/config/theme.constants';
+} from '../../modules/core/src/lib/core/config/theme.config';
+import { BASE_THEME_NAME } from '../../modules/core/src/lib/core/config/theme.constants';
 import { environment } from '../environments/environment';
 
 /**

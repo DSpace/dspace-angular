@@ -6,21 +6,21 @@ import {
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { Context } from 'src/app/core/shared/context.model';
+import { Context } from '../../../../../../../modules/core/src/lib/core/shared/context.model';
 
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../../core/cache/builders/link.service';
+import { DSONameService } from '../../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { LinkService } from '../../../../../../../modules/core/src/lib/core/cache/builders/link.service';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../../core/config/app-config.interface';
-import { followLink } from '../../../../../core/data/follow-link-config.model';
-import { RemoteData } from '../../../../../core/data/remote-data';
-import { ClaimedApprovedTaskSearchResult } from '../../../../../core/object-collection/claimed-approved-task-search-result.model';
-import { ClaimedTaskSearchResult } from '../../../../../core/object-collection/claimed-task-search-result.model';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
-import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
-import { ClaimedTask } from '../../../../../core/tasks/models/claimed-task-object.model';
+} from '../../../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { followLink } from '../../../../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { RemoteData } from '../../../../../../../modules/core/src/lib/core/data/remote-data';
+import { ClaimedApprovedTaskSearchResult } from '../../../../../../../modules/core/src/lib/core/object-collection/claimed-approved-task-search-result.model';
+import { ClaimedTaskSearchResult } from '../../../../../../../modules/core/src/lib/core/object-collection/claimed-task-search-result.model';
+import { ViewMode } from '../../../../../../../modules/core/src/lib/core/shared/view-mode.model';
+import { WorkflowItem } from '../../../../../../../modules/core/src/lib/core/submission/models/workflowitem.model';
+import { ClaimedTask } from '../../../../../../../modules/core/src/lib/core/tasks/models/claimed-task-object.model';
 import { listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { VarDirective } from '../../../../utils/var.directive';

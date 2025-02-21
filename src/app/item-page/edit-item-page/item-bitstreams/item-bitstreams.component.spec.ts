@@ -15,31 +15,31 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
-import { BundleDataService } from '../../../core/data/bundle-data.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { RequestService } from '../../../core/data/request.service';
-import { getMockRequestService } from '../../../core/mocks/request.service.mock';
+import { ObjectCacheService } from '../../../../../modules/core/src/lib/core/cache/object-cache.service';
+import { BitstreamDataService } from '../../../../../modules/core/src/lib/core/data/bitstream-data.service';
+import { BundleDataService } from '../../../../../modules/core/src/lib/core/data/bundle-data.service';
+import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
+import { FieldChangeType } from '../../../../../modules/core/src/lib/core/data/object-updates/field-change-type.model';
+import { ObjectUpdatesService } from '../../../../../modules/core/src/lib/core/data/object-updates/object-updates.service';
+import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
+import { getMockRequestService } from '../../../../../modules/core/src/lib/core/mocks/request.service.mock';
 import {
   INotification,
   Notification,
-} from '../../../core/notifications/models/notification.model';
-import { NotificationType } from '../../../core/notifications/models/notification-type';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { Bitstream } from '../../../core/shared/bitstream.model';
-import { Bundle } from '../../../core/shared/bundle.model';
-import { Item } from '../../../core/shared/item.model';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+} from '../../../../../modules/core/src/lib/core/notifications/models/notification.model';
+import { NotificationType } from '../../../../../modules/core/src/lib/core/notifications/models/notification-type';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Bitstream } from '../../../../../modules/core/src/lib/core/shared/bitstream.model';
+import { Bundle } from '../../../../../modules/core/src/lib/core/shared/bundle.model';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { SearchConfigurationService } from '../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../core/utilities/remote-data.utils';
-import { BitstreamDataServiceStub } from '../../../core/utilities/testing/bitstream-data-service.stub';
-import { RouterStub } from '../../../core/utilities/testing/router.stub';
-import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
+} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { BitstreamDataServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/bitstream-data-service.stub';
+import { RouterStub } from '../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
+import { createPaginatedList } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { ObjectValuesPipe } from '../../../shared/utils/object-values-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';

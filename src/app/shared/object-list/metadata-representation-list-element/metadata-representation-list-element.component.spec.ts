@@ -8,8 +8,8 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 
-import { MetadatumRepresentation } from '../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
-import { mockData } from '../../../core/utilities/testing/browse-definition-data-service.stub';
+import { MetadatumRepresentation } from '../../../../../modules/core/src/lib/core/shared/metadata-representation/metadatum/metadatum-representation.model';
+import { mockData } from '../../../../../modules/core/src/lib/core/utilities/testing/browse-definition-data-service.stub';
 import { MetadataRepresentationListElementComponent } from './metadata-representation-list-element.component';
 
 // Mock metadata representation values

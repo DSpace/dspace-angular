@@ -1,5 +1,5 @@
 import { getAdminModuleRoute } from '../app-routing-paths';
-import { URLCombiner } from '../core/url-combiner/url-combiner';
+import { URLCombiner } from '../../../modules/core/src/lib/core/url-combiner/url-combiner';
 import { getQualityAssuranceEditRoute } from './admin-notifications/admin-notifications-routing-paths';
 
 export const REGISTRIES_MODULE_PATH = 'registries';

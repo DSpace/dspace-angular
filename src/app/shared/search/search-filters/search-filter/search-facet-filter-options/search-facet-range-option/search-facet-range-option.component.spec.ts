@@ -17,17 +17,17 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { PaginationService } from '../../../../../../core/pagination/pagination.service';
-import { PaginationComponentOptions } from '../../../../../../core/shared/pagination-component-options.model';
-import { FacetValue } from '../../../../../../core/shared/search/models/facet-value.model';
-import { FilterType } from '../../../../../../core/shared/search/models/filter-type.model';
-import { SearchFilterConfig } from '../../../../../../core/shared/search/models/search-filter-config.model';
-import { SearchService } from '../../../../../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
-import { PaginationServiceStub } from '../../../../../../core/utilities/testing/pagination-service.stub';
-import { RouterStub } from '../../../../../../core/utilities/testing/router.stub';
-import { SearchServiceStub } from '../../../../../../core/utilities/testing/search-service.stub';
+import { PaginationService } from '../../../../../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '../../../../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+import { FacetValue } from '../../../../../../../../modules/core/src/lib/core/shared/search/models/facet-value.model';
+import { FilterType } from '../../../../../../../../modules/core/src/lib/core/shared/search/models/filter-type.model';
+import { SearchFilterConfig } from '../../../../../../../../modules/core/src/lib/core/shared/search/models/search-filter-config.model';
+import { SearchService } from '../../../../../../../../modules/core/src/lib/core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
+import { SearchFilterService } from '../../../../../../../../modules/core/src/lib/core/shared/search/search-filter.service';
+import { PaginationServiceStub } from '../../../../../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
+import { RouterStub } from '../../../../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
+import { SearchServiceStub } from '../../../../../../../../modules/core/src/lib/core/utilities/testing/search-service.stub';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
 import {
   RANGE_FILTER_MAX_SUFFIX,

@@ -12,8 +12,8 @@ import {
   of,
 } from 'rxjs';
 
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { MetadataValue } from '../../../core/shared/metadata.models';
+import { DSpaceObject } from '../../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { MetadataValue } from '../../../../../modules/core/src/lib/core/shared/metadata.models';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { DsoEditMetadataForm } from '../dso-edit-metadata-form';
 import { DsoEditMetadataValueComponent } from '../dso-edit-metadata-value/dso-edit-metadata-value.component';

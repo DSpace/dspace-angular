@@ -15,13 +15,13 @@ import {
   mergeMap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { followLink } from '../../../../core/data/follow-link-config.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { EPerson } from '../../../../core/eperson/models/eperson.model';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
+import { DSONameService } from '../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { LinkService } from '../../../../../../modules/core/src/lib/core/cache/builders/link.service';
+import { followLink } from '../../../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { RemoteData } from '../../../../../../modules/core/src/lib/core/data/remote-data';
+import { EPerson } from '../../../../../../modules/core/src/lib/core/eperson/models/eperson.model';
+import { getFirstCompletedRemoteData } from '../../../../../../modules/core/src/lib/core/shared/operators';
+import { WorkflowItem } from '../../../../../../modules/core/src/lib/core/submission/models/workflowitem.model';
 
 /**
  * This component represents a badge with submitter information.

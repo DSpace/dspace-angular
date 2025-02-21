@@ -19,14 +19,14 @@ import { TranslateService } from '@ngx-translate/core';
 import cloneDeep from 'lodash/cloneDeep';
 
 import { environment } from '../../../environments/environment';
-import { LangConfig } from '../../core/config/lang-config.interface';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { NotificationsService } from '../../core/notifications/notifications.service';
+import { LangConfig } from '../../../../modules/core/src/lib/core/config/lang-config.interface';
+import { EPersonDataService } from '../../../../modules/core/src/lib/core/eperson/eperson-data.service';
+import { EPerson } from '../../../../modules/core/src/lib/core/eperson/models/eperson.model';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '../../core/shared/operators';
+} from '../../../../modules/core/src/lib/core/shared/operators';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../shared/form/form.component';
 

@@ -20,15 +20,15 @@ import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { ActionType } from '../../../core/resource-policy/models/action-type.model';
-import { PolicyType } from '../../../core/resource-policy/models/policy-type.model';
-import { Item } from '../../../core/shared/item.model';
-import { createSuccessfulRemoteDataObject } from '../../../core/utilities/remote-data.utils';
-import { EPersonMock } from '../../../core/utilities/testing/eperson.mock';
-import { GroupMock } from '../../../core/utilities/testing/group-mock';
-import { RouterStub } from '../../../core/utilities/testing/router.stub';
+import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { GroupDataService } from '../../../../../modules/core/src/lib/core/eperson/group-data.service';
+import { ActionType } from '../../../../../modules/core/src/lib/core/resource-policy/models/action-type.model';
+import { PolicyType } from '../../../../../modules/core/src/lib/core/resource-policy/models/policy-type.model';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { createSuccessfulRemoteDataObject } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { EPersonMock } from '../../../../../modules/core/src/lib/core/utilities/testing/eperson.mock';
+import { GroupMock } from '../../../../../modules/core/src/lib/core/utilities/testing/group-mock';
+import { RouterStub } from '../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
 import { ResourcePolicyEntryComponent } from './resource-policy-entry.component';
 import createSpyObj = jasmine.createSpyObj;
 

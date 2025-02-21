@@ -41,25 +41,25 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { ProcessDataService } from '../../core/data/processes/process-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { Process } from '../../core/processes/process.model';
-import { ProcessStatus } from '../../core/processes/process-status.model';
-import { redirectOn4xx } from '../../core/shared/authorized.operators';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
+import { DSONameService } from '../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { BitstreamDataService } from '../../../../modules/core/src/lib/core/data/bitstream-data.service';
+import { PaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { ProcessDataService } from '../../../../modules/core/src/lib/core/data/processes/process-data.service';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Process } from '../../../../modules/core/src/lib/core/processes/process.model';
+import { ProcessStatus } from '../../../../modules/core/src/lib/core/processes/process-status.model';
+import { redirectOn4xx } from '../../../../modules/core/src/lib/core/shared/authorized.operators';
+import { Bitstream } from '../../../../modules/core/src/lib/core/shared/bitstream.model';
+import { DSpaceObject } from '../../../../modules/core/src/lib/core/shared/dspace-object.model';
 import {
   getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '../../core/shared/operators';
-import { URLCombiner } from '../../core/url-combiner/url-combiner';
+} from '../../../../modules/core/src/lib/core/shared/operators';
+import { URLCombiner } from '../../../../modules/core/src/lib/core/url-combiner/url-combiner';
 import { AlertType } from '../../shared/alert/alert-type';
 import { ThemedFileDownloadLinkComponent } from '../../shared/file-download-link/themed-file-download-link.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';

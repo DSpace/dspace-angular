@@ -5,10 +5,10 @@ import {
   Output,
 } from '@angular/core';
 
-import { GenericConstructor } from '../../../../core/shared/generic-constructor';
-import { Item } from '../../../../core/shared/item.model';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
+import { GenericConstructor } from '../../../../../../modules/core/src/lib/core/shared/generic-constructor';
+import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
+import { WorkflowItem } from '../../../../../../modules/core/src/lib/core/submission/models/workflowitem.model';
+import { ClaimedTask } from '../../../../../../modules/core/src/lib/core/tasks/models/claimed-task-object.model';
 import { AbstractComponentLoaderComponent } from '../../../abstract-component-loader/abstract-component-loader.component';
 import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
 import { MyDSpaceActionsResult } from '../../mydspace-actions';

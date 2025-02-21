@@ -22,26 +22,26 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { APP_DATA_SERVICES_MAP } from '../../../../../core/config/app-config.interface';
-import { ExternalSourceDataService } from '../../../../../core/data/external-source-data.service';
-import { LookupRelationService } from '../../../../../core/data/lookup-relation.service';
-import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
-import { ItemSearchResult } from '../../../../../core/object-collection/item-search-result.model';
-import { Collection } from '../../../../../core/shared/collection.model';
-import { ExternalSource } from '../../../../../core/shared/external-source.model';
-import { RelationshipOptions } from '../../../../../core/shared/form/relationship-options.model';
-import { Item } from '../../../../../core/shared/item.model';
-import { PaginatedSearchOptions } from '../../../../../core/shared/paginated-search-options.model';
-import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
+import { RemoteDataBuildService } from '../../../../../../../modules/core/src/lib/core/cache/builders/remote-data-build.service';
+import { APP_DATA_SERVICES_MAP } from '../../../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { ExternalSourceDataService } from '../../../../../../../modules/core/src/lib/core/data/external-source-data.service';
+import { LookupRelationService } from '../../../../../../../modules/core/src/lib/core/data/lookup-relation.service';
+import { RelationshipDataService } from '../../../../../../../modules/core/src/lib/core/data/relationship-data.service';
+import { ItemSearchResult } from '../../../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
+import { Collection } from '../../../../../../../modules/core/src/lib/core/shared/collection.model';
+import { ExternalSource } from '../../../../../../../modules/core/src/lib/core/shared/external-source.model';
+import { RelationshipOptions } from '../../../../../../../modules/core/src/lib/core/shared/form/relationship-options.model';
+import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
+import { PaginatedSearchOptions } from '../../../../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
+import { SearchConfigurationService } from '../../../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
 import {
   AddRelationshipAction,
   RemoveRelationshipAction,
-} from '../../../../../core/states/name-variant/relationship.actions';
-import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
-import { createPaginatedList } from '../../../../../core/utilities/testing/utils.test';
-import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
+} from '../../../../../../../modules/core/src/lib/core/states/name-variant/relationship.actions';
+import { WorkspaceItem } from '../../../../../../../modules/core/src/lib/core/submission/models/workspaceitem.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { createPaginatedList } from '../../../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+import { XSRFService } from '../../../../../../../modules/core/src/lib/core/xsrf/xsrf.service';
 import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
 import { DsDynamicLookupRelationModalComponent } from './dynamic-lookup-relation-modal.component';

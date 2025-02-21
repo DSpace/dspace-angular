@@ -9,10 +9,10 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { CollectionDataService } from '../../core/data/collection-data.service';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { Collection } from '../../core/shared/collection.model';
+import { DSONameService } from '../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { CollectionDataService } from '../../../../modules/core/src/lib/core/data/collection-data.service';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Collection } from '../../../../modules/core/src/lib/core/shared/collection.model';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { DeleteComColPageComponent } from '../../shared/comcol/comcol-forms/delete-comcol-page/delete-comcol-page.component';
 import { VarDirective } from '../../shared/utils/var.directive';

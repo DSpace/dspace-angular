@@ -17,15 +17,15 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../../core/utilities/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../../core/utilities/testing/pagination-service.stub';
-import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
+import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { PaginationService } from '../../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { PaginationServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
+import { createPaginatedList } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { TruncatableComponent } from '../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../shared/truncatable/truncatable-part/truncatable-part.component';

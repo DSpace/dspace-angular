@@ -11,12 +11,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
-import { Item } from '../../../core/shared/item.model';
-import { Version } from '../../../core/shared/version.model';
-import { VersionHistory } from '../../../core/shared/version-history.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
-import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
+import { VersionHistoryDataService } from '../../../../../modules/core/src/lib/core/data/version-history-data.service';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { Version } from '../../../../../modules/core/src/lib/core/shared/version.model';
+import { VersionHistory } from '../../../../../modules/core/src/lib/core/shared/version-history.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { createPaginatedList } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { ItemVersionsNoticeComponent } from './item-versions-notice.component';
 
 describe('ItemVersionsNoticeComponent', () => {

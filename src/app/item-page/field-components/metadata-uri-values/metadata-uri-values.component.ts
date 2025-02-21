@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { MetadataValue } from '../../../core/shared/metadata.models';
+import { MetadataValue } from '../../../../../modules/core/src/lib/core/shared/metadata.models';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { MetadataValuesComponent } from '../metadata-values/metadata-values.component';
 

@@ -22,33 +22,33 @@ import { of as observableOf } from 'rxjs';
 import {
   SortDirection,
   SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { GroupDataService } from '../../core/eperson/group-data.service';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { LinkHeadService } from '../../core/services/link-head.service';
-import { RouteService } from '../../core/services/route.service';
-import { Collection } from '../../core/shared/collection.model';
-import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
-import { PaginatedSearchOptions } from '../../core/shared/paginated-search-options.model';
-import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
-import { SearchService } from '../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+} from '../../../../modules/core/src/lib/core/cache/models/sort-options.model';
+import { ConfigurationDataService } from '../../../../modules/core/src/lib/core/data/configuration-data.service';
+import { AuthorizationDataService } from '../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { ItemDataService } from '../../../../modules/core/src/lib/core/data/item-data.service';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
+import { GroupDataService } from '../../../../modules/core/src/lib/core/eperson/group-data.service';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { LinkHeadService } from '../../../../modules/core/src/lib/core/services/link-head.service';
+import { RouteService } from '../../../../modules/core/src/lib/core/services/route.service';
+import { Collection } from '../../../../modules/core/src/lib/core/shared/collection.model';
+import { ConfigurationProperty } from '../../../../modules/core/src/lib/core/shared/configuration-property.model';
+import { PaginatedSearchOptions } from '../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
+import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+import { SearchService } from '../../../../modules/core/src/lib/core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../core/utilities/remote-data.utils';
-import { HostWindowServiceStub } from '../../core/utilities/testing/host-window-service.stub';
-import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
-import { ObjectSelectServiceStub } from '../../core/utilities/testing/object-select-service.stub';
-import { RouterStub } from '../../core/utilities/testing/router.stub';
-import { SearchConfigurationServiceStub } from '../../core/utilities/testing/search-configuration-service.stub';
-import { SearchServiceStub } from '../../core/utilities/testing/search-service.stub';
-import { createPaginatedList } from '../../core/utilities/testing/utils.test';
+} from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { HostWindowServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/host-window-service.stub';
+import { NotificationsServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { ObjectSelectServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/object-select-service.stub';
+import { RouterStub } from '../../../../modules/core/src/lib/core/utilities/testing/router.stub';
+import { SearchConfigurationServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/search-configuration-service.stub';
+import { SearchServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/search-service.stub';
+import { createPaginatedList } from '../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { HostWindowService } from '../../shared/host-window.service';

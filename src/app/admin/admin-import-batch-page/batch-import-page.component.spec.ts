@@ -15,14 +15,14 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   BATCH_IMPORT_SCRIPT_NAME,
   ScriptDataService,
-} from '../../core/data/processes/script-data.service';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { ProcessParameter } from '../../core/processes/process-parameter.model';
+} from '../../../../modules/core/src/lib/core/data/processes/script-data.service';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { ProcessParameter } from '../../../../modules/core/src/lib/core/processes/process-parameter.model';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
+} from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { NotificationsServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
 import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';
 import { FileValueAccessorDirective } from '../../shared/utils/file-value-accessor.directive';
 import { FileValidator } from '../../shared/utils/require-file.validator';

@@ -13,11 +13,11 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 
-import { RequestService } from '../../../core/data/request.service';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
-import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
+import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { SearchService } from '../../../../../modules/core/src/lib/core/shared/search/search.service';
+import { WorkflowItem } from '../../../../../modules/core/src/lib/core/submission/models/workflowitem.model';
+import { WorkflowItemDataService } from '../../../../../modules/core/src/lib/core/submission/workflowitem-data.service';
 import { getWorkflowItemViewRoute } from '../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
 

@@ -23,26 +23,26 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { OrcidAuthService } from '../../core/orcid/orcid-auth.service';
-import { OrcidHistoryDataService } from '../../core/orcid/orcid-history-data.service';
-import { OrcidQueueDataService } from '../../core/orcid/orcid-queue-data.service';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
-import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
-import { Item } from '../../core/shared/item.model';
+import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
+import { ItemDataService } from '../../../../modules/core/src/lib/core/data/item-data.service';
+import { TranslateLoaderMock } from '../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { OrcidAuthService } from '../../../../modules/core/src/lib/core/orcid/orcid-auth.service';
+import { OrcidHistoryDataService } from '../../../../modules/core/src/lib/core/orcid/orcid-history-data.service';
+import { OrcidQueueDataService } from '../../../../modules/core/src/lib/core/orcid/orcid-queue-data.service';
+import { PaginationService } from '../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { ResearcherProfile } from '../../../../modules/core/src/lib/core/profile/model/researcher-profile.model';
+import { ResearcherProfileDataService } from '../../../../modules/core/src/lib/core/profile/researcher-profile-data.service';
+import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../core/utilities/testing/pagination-service.stub';
-import { createPaginatedList } from '../../core/utilities/testing/utils.test';
+} from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+import { NotificationsServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { PaginationServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
+import { createPaginatedList } from '../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { OrcidPageComponent } from './orcid-page.component';
 
 describe('OrcidPageComponent test suite', () => {

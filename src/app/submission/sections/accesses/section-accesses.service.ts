@@ -7,7 +7,7 @@ import {
   filter,
 } from 'rxjs/operators';
 
-import { WorkspaceitemSectionAccessesObject } from '../../../core/submission/models/workspaceitem-section-accesses.model';
+import { WorkspaceitemSectionAccessesObject } from '../../../../../modules/core/src/lib/core/submission/models/workspaceitem-section-accesses.model';
 import { submissionSectionDataFromIdSelector } from '../../selectors';
 import { SubmissionState } from '../../submission.reducers';
 

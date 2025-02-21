@@ -11,7 +11,7 @@ import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { Item } from '../../../../../core/shared/item.model';
+import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { TypeBadgeComponent } from './type-badge.component';
 

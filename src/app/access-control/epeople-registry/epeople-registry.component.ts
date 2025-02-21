@@ -33,27 +33,27 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
+import { DSONameService } from '../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { AuthorizationDataService } from '../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { RequestService } from '../../core/data/request.service';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { EpersonDtoModel } from '../../core/eperson/models/eperson-dto.model';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { NoContent } from '../../core/shared/NoContent.model';
+} from '../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
+import { RequestService } from '../../../../modules/core/src/lib/core/data/request.service';
+import { EPersonDataService } from '../../../../modules/core/src/lib/core/eperson/eperson-data.service';
+import { EPerson } from '../../../../modules/core/src/lib/core/eperson/models/eperson.model';
+import { EpersonDtoModel } from '../../../../modules/core/src/lib/core/eperson/models/eperson-dto.model';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { PaginationService } from '../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { NoContent } from '../../../../modules/core/src/lib/core/shared/NoContent.model';
 import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
-} from '../../core/shared/operators';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
+} from '../../../../modules/core/src/lib/core/shared/operators';
+import { PageInfo } from '../../../../modules/core/src/lib/core/shared/page-info.model';
+import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';

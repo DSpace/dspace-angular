@@ -43,16 +43,16 @@ import {
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../../../../../core/data/paginated-list.model';
-import { ConfidenceType } from '../../../../../../core/shared/confidence-type';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
-import { PageInfo } from '../../../../../../core/shared/page-info.model';
-import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+} from '../../../../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { ConfidenceType } from '../../../../../../../../modules/core/src/lib/core/shared/confidence-type';
+import { getFirstSucceededRemoteDataPayload } from '../../../../../../../../modules/core/src/lib/core/shared/operators';
+import { PageInfo } from '../../../../../../../../modules/core/src/lib/core/shared/page-info.model';
+import { VocabularyEntry } from '../../../../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyService } from '../../../../../../../../modules/core/src/lib/core/submission/vocabularies/vocabulary.service';
 import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
-import { FormFieldMetadataValueObject } from '../../../../../../core/config/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../../../../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
 

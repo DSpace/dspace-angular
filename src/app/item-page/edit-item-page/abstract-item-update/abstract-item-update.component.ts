@@ -25,16 +25,16 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
-import { APP_CONFIG } from '../../../core/config/app-config.interface';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
-import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { Item } from '../../../core/shared/item.model';
-import { getAllSucceededRemoteData } from '../../../core/shared/operators';
-import { getItemPageLinksToFollow } from '../../../core/shared/resolvers/item.resolver';
+import { APP_CONFIG } from '../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
+import { FieldUpdate } from '../../../../../modules/core/src/lib/core/data/object-updates/field-update.model';
+import { FieldUpdates } from '../../../../../modules/core/src/lib/core/data/object-updates/field-updates.model';
+import { ObjectUpdatesService } from '../../../../../modules/core/src/lib/core/data/object-updates/object-updates.service';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { getAllSucceededRemoteData } from '../../../../../modules/core/src/lib/core/shared/operators';
+import { getItemPageLinksToFollow } from '../../../../../modules/core/src/lib/core/shared/resolvers/item.resolver';
 import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
 import { getItemPageRoute } from '../../item-page-routing-paths';
 

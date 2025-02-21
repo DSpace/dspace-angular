@@ -30,28 +30,28 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { followLink } from '../../core/data/follow-link-config.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { VersionDataService } from '../../core/data/version-data.service';
-import { VersionHistoryDataService } from '../../core/data/version-history-data.service';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { Item } from '../../core/shared/item.model';
+import { ConfigurationDataService } from '../../../../modules/core/src/lib/core/data/configuration-data.service';
+import { AuthorizationDataService } from '../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
+import { followLink } from '../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { PaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
+import { VersionDataService } from '../../../../modules/core/src/lib/core/data/version-data.service';
+import { VersionHistoryDataService } from '../../../../modules/core/src/lib/core/data/version-history-data.service';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { PaginationService } from '../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
 import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
-} from '../../core/shared/operators';
-import { PaginatedSearchOptions } from '../../core/shared/paginated-search-options.model';
-import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
-import { Version } from '../../core/shared/version.model';
-import { VersionHistory } from '../../core/shared/version-history.model';
+} from '../../../../modules/core/src/lib/core/shared/operators';
+import { PaginatedSearchOptions } from '../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
+import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+import { Version } from '../../../../modules/core/src/lib/core/shared/version.model';
+import { VersionHistory } from '../../../../modules/core/src/lib/core/shared/version-history.model';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';

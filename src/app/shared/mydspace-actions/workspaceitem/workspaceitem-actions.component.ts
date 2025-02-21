@@ -22,22 +22,22 @@ import {
   Observable,
   switchMap,
 } from 'rxjs';
-import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
+import { AuthorizationDataService } from '../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
 
-import { AuthService } from '../../../core/auth/auth.service';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { RemoteData } from '../../../core/data/remote-data';
-import { RequestService } from '../../../core/data/request.service';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { Item } from '../../../core/shared/item.model';
-import { NoContent } from '../../../core/shared/NoContent.model';
+import { AuthService } from '../../../../../modules/core/src/lib/core/auth/auth.service';
+import { FeatureID } from '../../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { NoContent } from '../../../../../modules/core/src/lib/core/shared/NoContent.model';
 import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '../../../core/shared/operators';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
-import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
+} from '../../../../../modules/core/src/lib/core/shared/operators';
+import { SearchService } from '../../../../../modules/core/src/lib/core/shared/search/search.service';
+import { WorkspaceItem } from '../../../../../modules/core/src/lib/core/submission/models/workspaceitem.model';
+import { WorkspaceitemDataService } from '../../../../../modules/core/src/lib/core/submission/workspaceitem-data.service';
 import { getWorkspaceItemViewRoute } from '../../../workspaceitems-edit-page/workspaceitems-edit-page-routing-paths';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
 

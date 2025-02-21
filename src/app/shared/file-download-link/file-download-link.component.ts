@@ -25,11 +25,11 @@ import {
   getBitstreamDownloadRoute,
   getBitstreamRequestACopyRoute,
 } from '../../app-routing-paths';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { Item } from '../../core/shared/item.model';
+import { DSONameService } from '../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { AuthorizationDataService } from '../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
+import { Bitstream } from '../../../../modules/core/src/lib/core/shared/bitstream.model';
+import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
 
 @Component({
   selector: 'ds-base-file-download-link',

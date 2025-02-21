@@ -11,20 +11,20 @@ import { TranslateModule } from '@ngx-translate/core';
 import { hot } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { BitstreamFormatDataService } from '../../../core/data/bitstream-format-data.service';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
-import { BitstreamFormatSupportLevel } from '../../../core/shared/bitstream-format-support-level';
+import { BitstreamFormatDataService } from '../../../../../modules/core/src/lib/core/data/bitstream-format-data.service';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { PaginationService } from '../../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { BitstreamFormat } from '../../../../../modules/core/src/lib/core/shared/bitstream-format.model';
+import { BitstreamFormatSupportLevel } from '../../../../../modules/core/src/lib/core/shared/bitstream-format-support-level';
 import {
   createFailedRemoteDataObject$,
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../../core/utilities/testing/pagination-service.stub';
-import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
+} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { PaginationServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
+import { createPaginatedList } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
 import { BitstreamFormatsComponent } from './bitstream-formats.component';

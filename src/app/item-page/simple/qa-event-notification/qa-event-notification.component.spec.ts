@@ -10,18 +10,18 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { SplitPipe } from 'src/app/shared/utils/split.pipe';
 
-import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { APP_DATA_SERVICES_MAP } from '../../../core/config/app-config.interface';
-import { RequestService } from '../../../core/data/request.service';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
-import { QualityAssuranceSourceDataService } from '../../../core/notifications/qa/source/quality-assurance-source-data.service';
-import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../../core/utilities/testing/active-router.stub';
-import { HALEndpointServiceStub } from '../../../core/utilities/testing/hal-endpoint-service.stub';
-import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
+import { RemoteDataBuildService } from '../../../../../modules/core/src/lib/core/cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../../../../../modules/core/src/lib/core/cache/object-cache.service';
+import { APP_DATA_SERVICES_MAP } from '../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { QualityAssuranceSourceObject } from '../../../../../modules/core/src/lib/core/notifications/qa/models/quality-assurance-source.model';
+import { QualityAssuranceSourceDataService } from '../../../../../modules/core/src/lib/core/notifications/qa/source/quality-assurance-source-data.service';
+import { HALEndpointService } from '../../../../../modules/core/src/lib/core/shared/hal-endpoint.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+import { HALEndpointServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/hal-endpoint-service.stub';
+import { createPaginatedList } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { QaEventNotificationComponent } from './qa-event-notification.component';
 
 describe('QaEventNotificationComponent', () => {

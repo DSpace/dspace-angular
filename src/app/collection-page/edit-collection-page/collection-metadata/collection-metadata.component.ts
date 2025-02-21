@@ -25,18 +25,18 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { ItemTemplateDataService } from '../../../core/data/item-template-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { RequestService } from '../../../core/data/request.service';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { Collection } from '../../../core/shared/collection.model';
-import { Item } from '../../../core/shared/item.model';
-import { NoContent } from '../../../core/shared/NoContent.model';
+import { CollectionDataService } from '../../../../../modules/core/src/lib/core/data/collection-data.service';
+import { ItemTemplateDataService } from '../../../../../modules/core/src/lib/core/data/item-template-data.service';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { NoContent } from '../../../../../modules/core/src/lib/core/shared/NoContent.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '../../../core/shared/operators';
+} from '../../../../../modules/core/src/lib/core/shared/operators';
 import { ComcolMetadataComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-metadata/comcol-metadata.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { CollectionFormComponent } from '../../collection-form/collection-form.component';

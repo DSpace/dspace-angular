@@ -13,13 +13,13 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { SiteDataService } from '../../core/data/site-data.service';
-import { Site } from '../../core/shared/site.model';
-import { UsageReport } from '../../core/statistics/models/usage-report.model';
-import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
+import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
+import { DSONameService } from '../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { DSpaceObjectDataService } from '../../../../modules/core/src/lib/core/data/dspace-object-data.service';
+import { SiteDataService } from '../../../../modules/core/src/lib/core/data/site-data.service';
+import { Site } from '../../../../modules/core/src/lib/core/shared/site.model';
+import { UsageReport } from '../../../../modules/core/src/lib/core/statistics/models/usage-report.model';
+import { UsageReportDataService } from '../../../../modules/core/src/lib/core/statistics/usage-report-data.service';
 import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
 import { SiteStatisticsPageComponent } from './site-statistics-page.component';
 

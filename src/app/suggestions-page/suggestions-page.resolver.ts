@@ -6,10 +6,10 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { RemoteData } from '../core/data/remote-data';
-import { SuggestionTarget } from '../core/notifications/suggestions/models/suggestion-target.model';
-import { SuggestionTargetDataService } from '../core/notifications/suggestions/target/suggestion-target-data.service';
-import { getFirstCompletedRemoteData } from '../core/shared/operators';
+import { RemoteData } from '../../../modules/core/src/lib/core/data/remote-data';
+import { SuggestionTarget } from '../../../modules/core/src/lib/core/notifications/suggestions/models/suggestion-target.model';
+import { SuggestionTargetDataService } from '../../../modules/core/src/lib/core/notifications/suggestions/target/suggestion-target-data.service';
+import { getFirstCompletedRemoteData } from '../../../modules/core/src/lib/core/shared/operators';
 
 /**
  * Method for resolving a suggestion target based on the parameters in the current route

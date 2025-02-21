@@ -10,9 +10,9 @@ import {
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { Collection } from '../../../core/shared/collection.model';
-import { ActivatedRouteStub } from '../../../core/utilities/testing/active-router.stub';
+import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
+import { ActivatedRouteStub } from '../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
 import { DSONameServiceMock } from '../../mocks/dso-name.service.mock';
 import { CollectionListElementComponent } from './collection-list-element.component';
 

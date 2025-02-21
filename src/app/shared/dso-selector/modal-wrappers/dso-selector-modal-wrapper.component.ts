@@ -15,10 +15,10 @@ import {
 } from '@dspace/shared/utils';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { SortOptions } from '../../../core/cache/models/sort-options.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
+import { SortOptions } from '../../../../../modules/core/src/lib/core/cache/models/sort-options.model';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { DSpaceObject } from '../../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { DSpaceObjectType } from '../../../../../modules/core/src/lib/core/shared/dspace-object-type.model';
 
 export enum SelectorActionType {
   CREATE = 'create',

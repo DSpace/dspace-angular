@@ -13,8 +13,8 @@ import {
 } from '@kolkov/ngx-gallery';
 import { Observable } from 'rxjs';
 
-import { AuthService } from '../../../core/auth/auth.service';
-import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
+import { AuthService } from '../../../../../modules/core/src/lib/core/auth/auth.service';
+import { MediaViewerItem } from '../../../../../modules/core/src/lib/core/shared/media-viewer-item.model';
 
 /**
  * This component render an image gallery for the image viewer

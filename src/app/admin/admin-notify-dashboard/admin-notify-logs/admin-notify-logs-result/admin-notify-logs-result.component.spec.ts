@@ -8,8 +8,8 @@ import {
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { RouterStub } from '../../../../core/utilities/testing/router.stub';
-import { SearchConfigurationServiceStub } from '../../../../core/utilities/testing/search-configuration-service.stub';
+import { RouterStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
+import { SearchConfigurationServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/search-configuration-service.stub';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
 import { MockActivatedRoute } from '../../../../shared/mocks/active-router.mock';
 import { SearchLabelsComponent } from '../../../../shared/search/search-labels/search-labels.component';

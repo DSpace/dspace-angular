@@ -18,17 +18,17 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { RequestService } from '../../../../core/data/request.service';
-import { getMockRequestService } from '../../../../core/mocks/request.service.mock';
-import { NotificationsService } from '../../../../core/notifications/notifications.service';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
-import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
-import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
-import { ActivatedRouteStub } from '../../../../core/utilities/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../../../core/utilities/testing/notifications-service.stub';
-import { RouterStub } from '../../../../core/utilities/testing/router.stub';
-import { TranslateLoaderMock } from '../../../../core/utilities/testing/translate-loader.mock';
+import { RequestService } from '../../../../../../modules/core/src/lib/core/data/request.service';
+import { getMockRequestService } from '../../../../../../modules/core/src/lib/core/mocks/request.service.mock';
+import { NotificationsService } from '../../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { SearchService } from '../../../../../../modules/core/src/lib/core/shared/search/search.service';
+import { ClaimedTaskDataService } from '../../../../../../modules/core/src/lib/core/tasks/claimed-task-data.service';
+import { ClaimedTask } from '../../../../../../modules/core/src/lib/core/tasks/models/claimed-task-object.model';
+import { PoolTaskDataService } from '../../../../../../modules/core/src/lib/core/tasks/pool-task-data.service';
+import { ActivatedRouteStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+import { NotificationsServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { RouterStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
+import { TranslateLoaderMock } from '../../../../../../modules/core/src/lib/core/utilities/testing/translate-loader.mock';
 import { getMockSearchService } from '../../../mocks/search-service.mock';
 import { ClaimedTaskActionsEditMetadataComponent } from './claimed-task-actions-edit-metadata.component';
 

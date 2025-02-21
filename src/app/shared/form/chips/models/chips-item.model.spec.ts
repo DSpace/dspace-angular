@@ -1,4 +1,4 @@
-import { FormFieldMetadataValueObject } from '../../../../core/config/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
 import {
   ChipsItem,
   ChipsItemIcon,

@@ -12,10 +12,10 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
+import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
+import { AuthorizationDataService } from '../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
+import { HALEndpointService } from '../../../../modules/core/src/lib/core/shared/hal-endpoint.service';
 import { groupPageGuard } from './group-page.guard';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000; // Increase timeout to 10 seconds

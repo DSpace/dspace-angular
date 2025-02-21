@@ -25,21 +25,21 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { storeModuleConfig } from './app.reducer';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
-import { authReducer } from './core/auth/auth.reducer';
-import { AuthService } from './core/auth/auth.service';
-import { APP_CONFIG } from './core/config/app-config.interface';
-import { LocaleService } from './core/locale/locale.service';
-import { HeadTagService } from './core/metadata/head-tag.service';
-import { RouterMock } from './core/mocks/router.mock';
-import { TranslateLoaderMock } from './core/mocks/translate-loader.mock';
-import { RouteService } from './core/services/route.service';
+import { authReducer } from '../../modules/core/src/lib/core/auth/auth.reducer';
+import { AuthService } from '../../modules/core/src/lib/core/auth/auth.service';
+import { APP_CONFIG } from '../../modules/core/src/lib/core/config/app-config.interface';
+import { LocaleService } from '../../modules/core/src/lib/core/locale/locale.service';
+import { HeadTagService } from '../../modules/core/src/lib/core/metadata/head-tag.service';
+import { RouterMock } from '../../modules/core/src/lib/core/mocks/router.mock';
+import { TranslateLoaderMock } from '../../modules/core/src/lib/core/mocks/translate-loader.mock';
+import { RouteService } from '../../modules/core/src/lib/core/services/route.service';
 import {
   NativeWindowRef,
   NativeWindowService,
-} from './core/services/window.service';
-import { CSSVariableServiceStub } from './core/utilities/testing/css-variable-service.stub';
-import { HostWindowServiceStub } from './core/utilities/testing/host-window-service.stub';
-import { MenuServiceStub } from './core/utilities/testing/menu-service.stub';
+} from '../../modules/core/src/lib/core/services/window.service';
+import { CSSVariableServiceStub } from '../../modules/core/src/lib/core/utilities/testing/css-variable-service.stub';
+import { HostWindowServiceStub } from '../../modules/core/src/lib/core/utilities/testing/host-window-service.stub';
+import { MenuServiceStub } from '../../modules/core/src/lib/core/utilities/testing/menu-service.stub';
 import { ThemedRootComponent } from './root/themed-root.component';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 import { HostWindowService } from './shared/host-window.service';

@@ -15,7 +15,7 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { WorkspaceitemSectionIdentifiersObject } from '../../../core/submission/models/workspaceitem-section-identifiers.model';
+import { WorkspaceitemSectionIdentifiersObject } from '../../../../../modules/core/src/lib/core/submission/models/workspaceitem-section-identifiers.model';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { SubmissionService } from '../../submission.service';

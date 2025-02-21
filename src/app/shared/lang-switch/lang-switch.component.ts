@@ -11,8 +11,8 @@ import {
 } from '@ngx-translate/core';
 
 import { environment } from '../../../environments/environment';
-import { LangConfig } from '../../core/config/lang-config.interface';
-import { LocaleService } from '../../core/locale/locale.service';
+import { LangConfig } from '../../../../modules/core/src/lib/core/config/lang-config.interface';
+import { LocaleService } from '../../../../modules/core/src/lib/core/locale/locale.service';
 
 @Component({
   selector: 'ds-base-lang-switch',

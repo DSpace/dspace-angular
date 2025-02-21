@@ -5,8 +5,8 @@ import {
 } from '@angular/core';
 import { isNotEmpty } from '@dspace/shared/utils';
 
-import { Item } from '../../../../core/shared/item.model';
-import { getFilterByRelation } from '../../../../core/utilities/relation-query.utils';
+import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
+import { getFilterByRelation } from '../../../../../../modules/core/src/lib/core/utilities/relation-query.utils';
 import { ThemedConfigurationSearchPageComponent } from '../../../../search-page/themed-configuration-search-page.component';
 
 @Component({

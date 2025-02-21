@@ -25,13 +25,13 @@ import {
 } from 'ng2-file-upload';
 import { of as observableOf } from 'rxjs';
 
-import { DragService } from '../../../core/drag.service';
-import { CookieService } from '../../../core/services/cookie.service';
+import { DragService } from '../../../../../modules/core/src/lib/core/drag.service';
+import { CookieService } from '../../../../../modules/core/src/lib/core/services/cookie.service';
 import {
   XSRF_COOKIE,
   XSRF_REQUEST_HEADER,
   XSRF_RESPONSE_HEADER,
-} from '../../../core/xsrf/xsrf.constants';
+} from '../../../../../modules/core/src/lib/core/xsrf/xsrf.constants';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { UploaderOptions } from './uploader-options.model';
 import { UploaderProperties } from './uploader-properties.model';

@@ -15,13 +15,13 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
-import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { Item } from '../../../../core/shared/item.model';
-import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../core/utilities/remote-data.utils';
-import { createPaginatedList } from '../../../../core/utilities/testing/utils.test';
+import { FieldChangeType } from '../../../../../../modules/core/src/lib/core/data/object-updates/field-change-type.model';
+import { ObjectUpdatesService } from '../../../../../../modules/core/src/lib/core/data/object-updates/object-updates.service';
+import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
+import { Relationship } from '../../../../../../modules/core/src/lib/core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '../../../../../../modules/core/src/lib/core/shared/item-relationships/relationship-type.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { createPaginatedList } from '../../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
 import { ListableObjectComponentLoaderComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { ThemeService } from '../../../../shared/theme-support/theme.service';

@@ -14,11 +14,11 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { RequestService } from '../../../core/data/request.service';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { Item } from '../../../core/shared/item.model';
-import { SearchService } from '../../../core/shared/search/search.service';
+import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
+import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { SearchService } from '../../../../../modules/core/src/lib/core/shared/search/search.service';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
 

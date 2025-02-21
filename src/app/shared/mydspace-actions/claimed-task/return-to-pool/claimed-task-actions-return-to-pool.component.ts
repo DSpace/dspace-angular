@@ -12,12 +12,12 @@ import {
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { RemoteData } from '../../../../core/data/remote-data';
-import { RequestService } from '../../../../core/data/request.service';
-import { NotificationsService } from '../../../../core/notifications/notifications.service';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
+import { RemoteData } from '../../../../../../modules/core/src/lib/core/data/remote-data';
+import { RequestService } from '../../../../../../modules/core/src/lib/core/data/request.service';
+import { NotificationsService } from '../../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { DSpaceObject } from '../../../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { SearchService } from '../../../../../../modules/core/src/lib/core/shared/search/search.service';
+import { PoolTaskDataService } from '../../../../../../modules/core/src/lib/core/tasks/pool-task-data.service';
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 

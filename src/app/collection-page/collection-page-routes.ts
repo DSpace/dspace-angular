@@ -2,10 +2,10 @@ import { Route } from '@angular/router';
 
 import { browseByGuard } from '../browse-by/browse-by-guard';
 import { browseByI18nBreadcrumbResolver } from '../browse-by/browse-by-i18n-breadcrumb.resolver';
-import { authenticatedGuard } from '../core/auth/authenticated.guard';
-import { collectionBreadcrumbResolver } from '../core/breadcrumbs/collection-breadcrumb.resolver';
-import { communityBreadcrumbResolver } from '../core/breadcrumbs/community-breadcrumb.resolver';
-import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { authenticatedGuard } from '../../../modules/core/src/lib/core/auth/authenticated.guard';
+import { collectionBreadcrumbResolver } from '../../../modules/core/src/lib/core/breadcrumbs/collection-breadcrumb.resolver';
+import { communityBreadcrumbResolver } from '../../../modules/core/src/lib/core/breadcrumbs/community-breadcrumb.resolver';
+import { i18nBreadcrumbResolver } from '../../../modules/core/src/lib/core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
 import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
 import { dsoEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';

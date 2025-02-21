@@ -14,10 +14,10 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { Group } from '../../../../../../core/eperson/models/group.model';
-import { NotificationsService } from '../../../../../../core/notifications/notifications.service';
-import { SupervisionOrder } from '../../../../../../core/supervision-order/models/supervision-order.model';
-import { SupervisionOrderDataService } from '../../../../../../core/supervision-order/supervision-order-data.service';
+import { Group } from '../../../../../../../../modules/core/src/lib/core/eperson/models/group.model';
+import { NotificationsService } from '../../../../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { SupervisionOrder } from '../../../../../../../../modules/core/src/lib/core/supervision-order/models/supervision-order.model';
+import { SupervisionOrderDataService } from '../../../../../../../../modules/core/src/lib/core/supervision-order/supervision-order-data.service';
 import { EpersonGroupListComponent } from '../../../../../../shared/eperson-group-list/eperson-group-list.component';
 import { SupervisionOrderGroupSelectorComponent } from './supervision-order-group-selector.component';
 

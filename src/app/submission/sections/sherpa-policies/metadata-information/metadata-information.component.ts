@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Metadata } from '../../../../core/submission/models/sherpa-policies-details.model';
+import { Metadata } from '../../../../../../modules/core/src/lib/core/submission/models/sherpa-policies-details.model';
 
 /**
  * This component represents a section that contains the metadata information.

@@ -21,11 +21,11 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
+import { EntityTypeDataService } from '../../../../../modules/core/src/lib/core/data/entity-type-data.service';
+import { FindListOptions } from '../../../../../modules/core/src/lib/core/data/find-list-options.model';
+import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { ItemType } from '../../../../../modules/core/src/lib/core/shared/item-relationships/item-type.model';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedCreateItemParentSelectorComponent } from '../../../shared/dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';
 import { EntityDropdownComponent } from '../../../shared/entity-dropdown/entity-dropdown.component';

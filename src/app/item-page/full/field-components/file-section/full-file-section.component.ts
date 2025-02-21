@@ -20,20 +20,20 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { DSONameService } from '../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../core/config/app-config.interface';
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
-import { followLink } from '../../../../core/data/follow-link-config.model';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { NotificationsService } from '../../../../core/notifications/notifications.service';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { Item } from '../../../../core/shared/item.model';
-import { PaginationComponentOptions } from '../../../../core/shared/pagination-component-options.model';
+} from '../../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { BitstreamDataService } from '../../../../../../modules/core/src/lib/core/data/bitstream-data.service';
+import { followLink } from '../../../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { PaginatedList } from '../../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../../../modules/core/src/lib/core/data/remote-data';
+import { NotificationsService } from '../../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { PaginationService } from '../../../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { Bitstream } from '../../../../../../modules/core/src/lib/core/shared/bitstream.model';
+import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
+import { PaginationComponentOptions } from '../../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';

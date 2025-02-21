@@ -10,15 +10,15 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { BrowseService } from '../../../core/browse/browse.service';
-import { BrowseDefinitionDataService } from '../../../core/browse/browse-definition-data.service';
-import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { MetadataService } from '../../../core/metadata/metadata.service';
-import { Item } from '../../../core/shared/item.model';
-import { MetadataValue } from '../../../core/shared/metadata.models';
-import { MetadataRepresentation } from '../../../core/shared/metadata-representation/metadata-representation.model';
-import { MetadatumRepresentation } from '../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { BrowseService } from '../../../../../modules/core/src/lib/core/browse/browse.service';
+import { BrowseDefinitionDataService } from '../../../../../modules/core/src/lib/core/browse/browse-definition-data.service';
+import { RelationshipDataService } from '../../../../../modules/core/src/lib/core/data/relationship-data.service';
+import { MetadataService } from '../../../../../modules/core/src/lib/core/metadata/metadata.service';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { MetadataValue } from '../../../../../modules/core/src/lib/core/shared/metadata.models';
+import { MetadataRepresentation } from '../../../../../modules/core/src/lib/core/shared/metadata-representation/metadata-representation.model';
+import { MetadatumRepresentation } from '../../../../../modules/core/src/lib/core/shared/metadata-representation/metadatum/metadatum-representation.model';
+import { getFirstCompletedRemoteData } from '../../../../../modules/core/src/lib/core/shared/operators';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { MetadataRepresentationLoaderComponent } from '../../../shared/metadata-representation/metadata-representation-loader.component';

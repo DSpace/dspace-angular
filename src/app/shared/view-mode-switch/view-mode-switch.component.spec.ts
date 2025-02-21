@@ -16,10 +16,10 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
-import { SearchService } from '../../core/shared/search/search.service';
-import { ViewMode } from '../../core/shared/view-mode.model';
-import { SearchServiceStub } from '../../core/utilities/testing/search-service.stub';
+import { TranslateLoaderMock } from '../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
+import { SearchService } from '../../../../modules/core/src/lib/core/shared/search/search.service';
+import { ViewMode } from '../../../../modules/core/src/lib/core/shared/view-mode.model';
+import { SearchServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/search-service.stub';
 import { ViewModeSwitchComponent } from './view-mode-switch.component';
 
 @Component({

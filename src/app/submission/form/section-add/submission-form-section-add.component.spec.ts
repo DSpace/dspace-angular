@@ -18,10 +18,10 @@ import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { HostWindowServiceStub } from '../../../core/utilities/testing/host-window-service.stub';
-import { SectionsServiceStub } from '../../../core/utilities/testing/sections-service.stub';
-import { SubmissionServiceStub } from '../../../core/utilities/testing/submission-service.stub';
-import { createTestComponent } from '../../../core/utilities/testing/utils.test';
+import { HostWindowServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/host-window-service.stub';
+import { SectionsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/sections-service.stub';
+import { SubmissionServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/submission-service.stub';
+import { createTestComponent } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { HostWindowService } from '../../../shared/host-window.service';
 import {
   mockSubmissionCollectionId,

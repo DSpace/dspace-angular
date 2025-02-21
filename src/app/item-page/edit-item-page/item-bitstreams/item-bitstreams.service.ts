@@ -18,25 +18,25 @@ import {
 } from 'rxjs/operators';
 
 import { getBitstreamDownloadRoute } from '../../../app-routing-paths';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
-import { BundleDataService } from '../../../core/data/bundle-data.service';
-import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
-import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
-import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { RequestService } from '../../../core/data/request.service';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { Bitstream } from '../../../core/shared/bitstream.model';
-import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
-import { Bundle } from '../../../core/shared/bundle.model';
-import { NoContent } from '../../../core/shared/NoContent.model';
+import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { BitstreamDataService } from '../../../../../modules/core/src/lib/core/data/bitstream-data.service';
+import { BundleDataService } from '../../../../../modules/core/src/lib/core/data/bundle-data.service';
+import { FieldChangeType } from '../../../../../modules/core/src/lib/core/data/object-updates/field-change-type.model';
+import { FieldUpdate } from '../../../../../modules/core/src/lib/core/data/object-updates/field-update.model';
+import { FieldUpdates } from '../../../../../modules/core/src/lib/core/data/object-updates/field-updates.model';
+import { ObjectUpdatesService } from '../../../../../modules/core/src/lib/core/data/object-updates/object-updates.service';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Bitstream } from '../../../../../modules/core/src/lib/core/shared/bitstream.model';
+import { BitstreamFormat } from '../../../../../modules/core/src/lib/core/shared/bitstream-format.model';
+import { Bundle } from '../../../../../modules/core/src/lib/core/shared/bundle.model';
+import { NoContent } from '../../../../../modules/core/src/lib/core/shared/NoContent.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '../../../core/shared/operators';
-import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
+} from '../../../../../modules/core/src/lib/core/shared/operators';
+import { PaginationComponentOptions } from '../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
 import { LiveRegionService } from '../../../shared/live-region/live-region.service';
 import { ResponsiveColumnSizes } from '../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';

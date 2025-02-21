@@ -10,14 +10,14 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ItemTemplateDataService } from '../../core/data/item-template-data.service';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { Collection } from '../../core/shared/collection.model';
+import { ItemTemplateDataService } from '../../../../modules/core/src/lib/core/data/item-template-data.service';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Collection } from '../../../../modules/core/src/lib/core/shared/collection.model';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
+} from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { NotificationsServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
 import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';

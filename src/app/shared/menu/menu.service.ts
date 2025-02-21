@@ -33,7 +33,7 @@ import {
   AppState,
   keySelector,
 } from '../../app.reducer';
-import { compareArraysUsingIds } from '../../core/shared/item-relationships/item-relationships-utils';
+import { compareArraysUsingIds } from '../../../../modules/core/src/lib/core/shared/item-relationships/item-relationships-utils';
 import {
   ActivateMenuSectionAction,
   AddMenuSectionAction,

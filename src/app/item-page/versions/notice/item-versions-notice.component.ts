@@ -20,16 +20,16 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { RemoteData } from '../../../core/data/remote-data';
-import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
-import { Item } from '../../../core/shared/item.model';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { VersionHistoryDataService } from '../../../../../modules/core/src/lib/core/data/version-history-data.service';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
 import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '../../../core/shared/operators';
-import { Version } from '../../../core/shared/version.model';
-import { VersionHistory } from '../../../core/shared/version-history.model';
+} from '../../../../../modules/core/src/lib/core/shared/operators';
+import { Version } from '../../../../../modules/core/src/lib/core/shared/version.model';
+import { VersionHistory } from '../../../../../modules/core/src/lib/core/shared/version-history.model';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { getItemPageRoute } from '../../item-page-routing-paths';

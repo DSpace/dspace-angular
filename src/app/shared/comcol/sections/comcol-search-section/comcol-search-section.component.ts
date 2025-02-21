@@ -15,11 +15,11 @@ import { map } from 'rxjs/operators';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../core/config/app-config.interface';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { Collection } from '../../../../core/shared/collection.model';
-import { Community } from '../../../../core/shared/community.model';
-import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
+} from '../../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { RemoteData } from '../../../../../../modules/core/src/lib/core/data/remote-data';
+import { Collection } from '../../../../../../modules/core/src/lib/core/shared/collection.model';
+import { Community } from '../../../../../../modules/core/src/lib/core/shared/community.model';
+import { SearchConfigurationService } from '../../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
 import { ThemedSearchComponent } from '../../../search/themed-search.component';
 

@@ -25,26 +25,26 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
+import { DSONameService } from '../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { LinkService } from '../../../../../../modules/core/src/lib/core/cache/builders/link.service';
+import { ObjectCacheService } from '../../../../../../modules/core/src/lib/core/cache/object-cache.service';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../core/config/app-config.interface';
-import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
-import { followLink } from '../../../../core/data/follow-link-config.model';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { PoolTaskSearchResult } from '../../../../core/object-collection/pool-task-search-result.model';
-import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
-import { Context } from '../../../../core/shared/context.model';
-import { Item } from '../../../../core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { SubmissionDuplicateDataService } from '../../../../core/submission/submission-duplicate-data.service';
-import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
+} from '../../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { ConfigurationDataService } from '../../../../../../modules/core/src/lib/core/data/configuration-data.service';
+import { followLink } from '../../../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { PaginatedList } from '../../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../../../modules/core/src/lib/core/data/remote-data';
+import { PoolTaskSearchResult } from '../../../../../../modules/core/src/lib/core/object-collection/pool-task-search-result.model';
+import { ConfigurationProperty } from '../../../../../../modules/core/src/lib/core/shared/configuration-property.model';
+import { Context } from '../../../../../../modules/core/src/lib/core/shared/context.model';
+import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
+import { getFirstCompletedRemoteData } from '../../../../../../modules/core/src/lib/core/shared/operators';
+import { ViewMode } from '../../../../../../modules/core/src/lib/core/shared/view-mode.model';
+import { WorkflowItem } from '../../../../../../modules/core/src/lib/core/submission/models/workflowitem.model';
+import { SubmissionDuplicateDataService } from '../../../../../../modules/core/src/lib/core/submission/submission-duplicate-data.service';
+import { PoolTask } from '../../../../../../modules/core/src/lib/core/tasks/models/pool-task-object.model';
 import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { TruncatableService } from '../../../truncatable/truncatable.service';

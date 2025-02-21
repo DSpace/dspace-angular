@@ -9,15 +9,15 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { getDSORoute } from '../app-routing-paths';
-import { BreadcrumbConfig } from '../core/breadcrumbs/breadcrumb-config.model';
-import { DSOBreadcrumbsService } from '../core/breadcrumbs/dso-breadcrumbs.service';
-import { DSpaceObjectDataService } from '../core/data/dspace-object-data.service';
-import { Collection } from '../core/shared/collection.model';
-import { Community } from '../core/shared/community.model';
+import { BreadcrumbConfig } from '../../../modules/core/src/lib/core/breadcrumbs/breadcrumb-config.model';
+import { DSOBreadcrumbsService } from '../../../modules/core/src/lib/core/breadcrumbs/dso-breadcrumbs.service';
+import { DSpaceObjectDataService } from '../../../modules/core/src/lib/core/data/dspace-object-data.service';
+import { Collection } from '../../../modules/core/src/lib/core/shared/collection.model';
+import { Community } from '../../../modules/core/src/lib/core/shared/community.model';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '../core/shared/operators';
+} from '../../../modules/core/src/lib/core/shared/operators';
 
 /**
  * Method for resolving a breadcrumb config object

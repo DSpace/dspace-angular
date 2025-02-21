@@ -1,8 +1,8 @@
 import { Route } from '@angular/router';
 
-import { authenticatedGuard } from '../core/auth/authenticated.guard';
-import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { qualityAssuranceBreadcrumbResolver } from '../core/breadcrumbs/quality-assurance-breadcrumb.resolver';
+import { authenticatedGuard } from '../../../modules/core/src/lib/core/auth/authenticated.guard';
+import { i18nBreadcrumbResolver } from '../../../modules/core/src/lib/core/breadcrumbs/i18n-breadcrumb.resolver';
+import { qualityAssuranceBreadcrumbResolver } from '../../../modules/core/src/lib/core/breadcrumbs/quality-assurance-breadcrumb.resolver';
 import {
   NOTIFICATIONS_RECITER_SUGGESTION_PATH,
   QUALITY_ASSURANCE_EDIT_PATH,

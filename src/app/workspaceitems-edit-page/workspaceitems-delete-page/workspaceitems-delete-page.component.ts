@@ -24,17 +24,17 @@ import {
   take,
 } from 'rxjs';
 
-import { RemoteData } from '../../core/data/remote-data';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { RouteService } from '../../core/services/route.service';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { NoContent } from '../../core/shared/NoContent.model';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { RouteService } from '../../../../modules/core/src/lib/core/services/route.service';
+import { DSpaceObject } from '../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { NoContent } from '../../../../modules/core/src/lib/core/shared/NoContent.model';
 import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '../../core/shared/operators';
-import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
-import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
+} from '../../../../modules/core/src/lib/core/shared/operators';
+import { WorkspaceItem } from '../../../../modules/core/src/lib/core/submission/models/workspaceitem.model';
+import { WorkspaceitemDataService } from '../../../../modules/core/src/lib/core/submission/workspaceitem-data.service';
 import { ModifyItemOverviewComponent } from '../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 
 @Component({

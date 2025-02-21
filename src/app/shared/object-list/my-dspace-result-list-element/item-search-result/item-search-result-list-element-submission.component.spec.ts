@@ -14,11 +14,11 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of as observableOf } from 'rxjs';
 
 import { environment } from '../../../../../environments/environment';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { APP_CONFIG } from '../../../../core/config/app-config.interface';
-import { ItemSearchResult } from '../../../../core/object-collection/item-search-result.model';
-import { Context } from '../../../../core/shared/context.model';
-import { Item } from '../../../../core/shared/item.model';
+import { DSONameService } from '../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { APP_CONFIG } from '../../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { ItemSearchResult } from '../../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
+import { Context } from '../../../../../../modules/core/src/lib/core/shared/context.model';
+import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';

@@ -2,11 +2,11 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
-import { QualityAssuranceSourceObject } from 'src/app/core/notifications/qa/models/quality-assurance-source.model';
+import { QualityAssuranceSourceObject } from '../../../../modules/core/src/lib/core/notifications/qa/models/quality-assurance-source.model';
 
-import { QualityAssuranceSourceDataService } from '../../core/notifications/qa/source/quality-assurance-source-data.service';
-import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
-import { createPaginatedList } from '../../core/utilities/testing/utils.test';
+import { QualityAssuranceSourceDataService } from '../../../../modules/core/src/lib/core/notifications/qa/source/quality-assurance-source-data.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { createPaginatedList } from '../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { MyDspaceQaEventsNotificationsComponent } from './my-dspace-qa-events-notifications.component';
 
 describe('MyDspaceQaEventsNotificationsComponent', () => {

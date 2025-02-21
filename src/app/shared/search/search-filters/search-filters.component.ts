@@ -20,13 +20,13 @@ import { map } from 'rxjs/operators';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../core/config/app-config.interface';
-import { RemoteData } from '../../../core/data/remote-data';
-import { AppliedFilter } from '../../../core/shared/search/models/applied-filter.model';
-import { SearchFilterConfig } from '../../../core/shared/search/models/search-filter-config.model';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
+} from '../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { AppliedFilter } from '../../../../../modules/core/src/lib/core/shared/search/models/applied-filter.model';
+import { SearchFilterConfig } from '../../../../../modules/core/src/lib/core/shared/search/models/search-filter-config.model';
+import { SearchService } from '../../../../../modules/core/src/lib/core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
+import { SearchFilterService } from '../../../../../modules/core/src/lib/core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { currentPath } from '../../utils/route.utils';
 import { SearchFilterComponent } from './search-filter/search-filter.component';

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
-import { ItemSearchResult } from '../../../../core/object-collection/item-search-result.model';
-import { Context } from '../../../../core/shared/context.model';
-import { Item } from '../../../../core/shared/item.model';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { ItemSearchResult } from '../../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
+import { Context } from '../../../../../../modules/core/src/lib/core/shared/context.model';
+import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
+import { ViewMode } from '../../../../../../modules/core/src/lib/core/shared/view-mode.model';
 import { ItemActionsComponent } from '../../../mydspace-actions/item/item-actions.component';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';

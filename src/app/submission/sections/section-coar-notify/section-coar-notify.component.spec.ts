@@ -13,9 +13,9 @@ import {
   LdnService,
   LdnServiceByPattern,
 } from '../../../admin/admin-ldn-services/ldn-services-model/ldn-services.model';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
-import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
+import { JsonPatchOperationsBuilder } from '../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operations-builder';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { createPaginatedList } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { SectionsService } from '../sections.service';
 import { CoarNotifyConfigDataService } from './coar-notify-config-data.service';
 import { SubmissionSectionCoarNotifyComponent } from './section-coar-notify.component';

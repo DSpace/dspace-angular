@@ -8,11 +8,11 @@ import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../environments/environment.test';
-import { APP_CONFIG } from '../../core/config/app-config.interface';
-import { buildPaginatedList } from '../../core/data/paginated-list.model';
-import { SearchService } from '../../core/shared/search/search.service';
-import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
+import { APP_CONFIG } from '../../../../modules/core/src/lib/core/config/app-config.interface';
+import { buildPaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { SearchService } from '../../../../modules/core/src/lib/core/shared/search/search.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
 import { AdminNotifyDashboardComponent } from './admin-notify-dashboard.component';
 import { AdminNotifyMetricsComponent } from './admin-notify-metrics/admin-notify-metrics.component';
 import { AdminNotifyMessage } from './models/admin-notify-message.model';

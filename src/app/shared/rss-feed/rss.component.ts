@@ -28,16 +28,16 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import { SortOptions } from '../../core/cache/models/sort-options.model';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { GroupDataService } from '../../core/eperson/group-data.service';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { LinkHeadService } from '../../core/services/link-head.service';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { PaginatedSearchOptions } from '../../core/shared/paginated-search-options.model';
-import { SearchFilter } from '../../core/shared/search/models/search-filter.model';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { SortOptions } from '../../../../modules/core/src/lib/core/cache/models/sort-options.model';
+import { ConfigurationDataService } from '../../../../modules/core/src/lib/core/data/configuration-data.service';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
+import { GroupDataService } from '../../../../modules/core/src/lib/core/eperson/group-data.service';
+import { PaginationService } from '../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { LinkHeadService } from '../../../../modules/core/src/lib/core/services/link-head.service';
+import { getFirstCompletedRemoteData } from '../../../../modules/core/src/lib/core/shared/operators';
+import { PaginatedSearchOptions } from '../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
+import { SearchFilter } from '../../../../modules/core/src/lib/core/shared/search/models/search-filter.model';
+import { SearchConfigurationService } from '../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
 /**
  * The Rss feed button component.
  */

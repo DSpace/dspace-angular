@@ -7,10 +7,10 @@ import isEqual from 'lodash/isEqual';
 import isObject from 'lodash/isObject';
 import { BehaviorSubject } from 'rxjs';
 
-import { MetadataIconConfig } from '../../../../core/config/submission-config.interface';
-import { VocabularyEntry } from '../../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { PLACEHOLDER_PARENT_METADATA } from '../../../../core/config/models/ds-dynamic-form-constants';
-import { FormFieldMetadataValueObject } from '../../../../core/config/models/form-field-metadata-value.model';
+import { MetadataIconConfig } from '../../../../../../modules/core/src/lib/core/config/submission-config.interface';
+import { VocabularyEntry } from '../../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-entry.model';
+import { PLACEHOLDER_PARENT_METADATA } from '../../../../../../modules/core/src/lib/core/config/models/ds-dynamic-form-constants';
+import { FormFieldMetadataValueObject } from '../../../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
 import { ChipsItem } from './chips-item.model';
 
 export class Chips {

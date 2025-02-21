@@ -24,24 +24,24 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
+import { AuthorizationDataService } from '../../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
 import {
   BATCH_EXPORT_SCRIPT_NAME,
   ScriptDataService,
-} from '../../../../core/data/processes/script-data.service';
-import { TranslateLoaderMock } from '../../../../core/mocks/translate-loader.mock';
-import { NotificationsService } from '../../../../core/notifications/notifications.service';
-import { ProcessParameter } from '../../../../core/processes/process-parameter.model';
-import { Collection } from '../../../../core/shared/collection.model';
-import { Item } from '../../../../core/shared/item.model';
-import { SearchService } from '../../../../core/shared/search/search.service';
+} from '../../../../../../modules/core/src/lib/core/data/processes/script-data.service';
+import { TranslateLoaderMock } from '../../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
+import { NotificationsService } from '../../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { ProcessParameter } from '../../../../../../modules/core/src/lib/core/processes/process-parameter.model';
+import { Collection } from '../../../../../../modules/core/src/lib/core/shared/collection.model';
+import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
+import { SearchService } from '../../../../../../modules/core/src/lib/core/shared/search/search.service';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../../../core/utilities/testing/notifications-service.stub';
-import { SearchServiceStub } from '../../../../core/utilities/testing/search-service.stub';
+} from '../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { NotificationsServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { SearchServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/search-service.stub';
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
 import { ExportBatchSelectorComponent } from './export-batch-selector.component';
 

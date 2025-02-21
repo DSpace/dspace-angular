@@ -29,13 +29,13 @@ import { take } from 'rxjs/operators';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../core/config/app-config.interface';
-import { FilterType } from '../../../core/shared/search/models/filter-type.model';
-import { SearchFilterConfig } from '../../../core/shared/search/models/search-filter-config.model';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
-import { FilterConfig } from '../../../core/shared/search/search-filters/search-config.model';
+} from '../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { FilterType } from '../../../../../modules/core/src/lib/core/shared/search/models/filter-type.model';
+import { SearchFilterConfig } from '../../../../../modules/core/src/lib/core/shared/search/models/search-filter-config.model';
+import { SearchService } from '../../../../../modules/core/src/lib/core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
+import { SearchFilterService } from '../../../../../modules/core/src/lib/core/shared/search/search-filter.service';
+import { FilterConfig } from '../../../../../modules/core/src/lib/core/shared/search/search-filters/search-config.model';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { FilterInputSuggestionsComponent } from '../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
 import { InputSuggestion } from '../../input-suggestions/input-suggestions.model';

@@ -2,13 +2,13 @@ import { cold } from 'jasmine-marbles';
 import { EMPTY } from 'rxjs';
 
 import { PAGE_NOT_FOUND_PATH } from '../app-routing-paths';
-import { BitstreamDataService } from '../core/data/bitstream-data.service';
-import { RemoteData } from '../core/data/remote-data';
-import { RequestEntryState } from '../core/data/request-entry-state.model';
-import { BrowserHardRedirectService } from '../core/services/browser-hard-redirect.service';
-import { HardRedirectService } from '../core/services/hard-redirect.service';
-import { Bitstream } from '../core/shared/bitstream.model';
-import { RouterStub } from '../core/utilities/testing/router.stub';
+import { BitstreamDataService } from '../../../modules/core/src/lib/core/data/bitstream-data.service';
+import { RemoteData } from '../../../modules/core/src/lib/core/data/remote-data';
+import { RequestEntryState } from '../../../modules/core/src/lib/core/data/request-entry-state.model';
+import { BrowserHardRedirectService } from '../../../modules/core/src/lib/core/services/browser-hard-redirect.service';
+import { HardRedirectService } from '../../../modules/core/src/lib/core/services/hard-redirect.service';
+import { Bitstream } from '../../../modules/core/src/lib/core/shared/bitstream.model';
+import { RouterStub } from '../../../modules/core/src/lib/core/utilities/testing/router.stub';
 import { legacyBitstreamURLRedirectGuard } from './legacy-bitstream-url-redirect.guard';
 
 describe('legacyBitstreamURLRedirectGuard', () => {

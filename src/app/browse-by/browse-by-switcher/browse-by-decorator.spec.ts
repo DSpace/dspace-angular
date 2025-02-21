@@ -1,4 +1,4 @@
-import { BrowseByDataType } from '../../core/shared/browse-by-data-type';
+import { BrowseByDataType } from '../../../../modules/core/src/lib/core/shared/browse-by-data-type';
 import { BROWSE_BY_DECORATOR_MAP } from './browse-by-decorator';
 
 describe('BrowseByDecorator', () => {

@@ -15,16 +15,16 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ScriptDataService } from '../../core/data/processes/script-data.service';
-import { RequestService } from '../../core/data/request.service';
-import { RouterMock } from '../../core/mocks/router.mock';
-import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { ProcessParameter } from '../../core/processes/process-parameter.model';
-import { Script } from '../../core/scripts/script.model';
-import { ScriptParameter } from '../../core/scripts/script-parameter.model';
-import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
+import { ScriptDataService } from '../../../../modules/core/src/lib/core/data/processes/script-data.service';
+import { RequestService } from '../../../../modules/core/src/lib/core/data/request.service';
+import { RouterMock } from '../../../../modules/core/src/lib/core/mocks/router.mock';
+import { TranslateLoaderMock } from '../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { ProcessParameter } from '../../../../modules/core/src/lib/core/processes/process-parameter.model';
+import { Script } from '../../../../modules/core/src/lib/core/scripts/script.model';
+import { ScriptParameter } from '../../../../modules/core/src/lib/core/scripts/script-parameter.model';
+import { ActivatedRouteStub } from '../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+import { NotificationsServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
 import { ProcessFormComponent } from './process-form.component';
 import { ScriptsSelectComponent } from './scripts-select/scripts-select.component';
 

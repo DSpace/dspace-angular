@@ -26,23 +26,23 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import { ConfigurationDataService } from '../../../../../modules/core/src/lib/core/data/configuration-data.service';
+import { FindListOptions } from '../../../../../modules/core/src/lib/core/data/find-list-options.model';
+import { JsonPatchOperationPathCombiner } from '../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operations-builder';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
-} from '../../../core/shared/operators';
+} from '../../../../../modules/core/src/lib/core/shared/operators';
 import {
   Field,
   Option,
   SubmissionCcLicence,
-} from '../../../core/submission/models/submission-cc-license.model';
-import { WorkspaceitemSectionCcLicenseObject } from '../../../core/submission/models/workspaceitem-section-cc-license.model';
-import { SubmissionCcLicenseDataService } from '../../../core/submission/submission-cc-license-data.service';
-import { SubmissionCcLicenseUrlDataService } from '../../../core/submission/submission-cc-license-url-data.service';
+} from '../../../../../modules/core/src/lib/core/submission/models/submission-cc-license.model';
+import { WorkspaceitemSectionCcLicenseObject } from '../../../../../modules/core/src/lib/core/submission/models/workspaceitem-section-cc-license.model';
+import { SubmissionCcLicenseDataService } from '../../../../../modules/core/src/lib/core/submission/submission-cc-license-data.service';
+import { SubmissionCcLicenseUrlDataService } from '../../../../../modules/core/src/lib/core/submission/submission-cc-license-url-data.service';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { DsSelectComponent } from '../../../shared/ds-select/ds-select.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';

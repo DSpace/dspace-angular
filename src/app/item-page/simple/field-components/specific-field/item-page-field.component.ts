@@ -11,15 +11,15 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { BrowseService } from '../../../../core/browse/browse.service';
-import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
-import { BrowseDefinition } from '../../../../core/shared/browse-definition.model';
-import { Item } from '../../../../core/shared/item.model';
+import { BrowseService } from '../../../../../../modules/core/src/lib/core/browse/browse.service';
+import { BrowseDefinitionDataService } from '../../../../../../modules/core/src/lib/core/browse/browse-definition-data.service';
+import { BrowseDefinition } from '../../../../../../modules/core/src/lib/core/shared/browse-definition.model';
+import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
 import {
   getFirstCompletedRemoteData,
   getPaginatedListPayload,
   getRemoteDataPayload,
-} from '../../../../core/shared/operators';
+} from '../../../../../../modules/core/src/lib/core/shared/operators';
 import { MetadataValuesComponent } from '../../../field-components/metadata-values/metadata-values.component';
 import { ImageField } from './image-field';
 

@@ -21,16 +21,16 @@ import {
 } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
-import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
-import { ItemDataService } from 'src/app/core/data/item-data.service';
+import { AuthorizationDataService } from '../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
 
 import {
   SortDirection,
   SortOptions,
-} from '../../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { followLink } from '../../../core/data/follow-link-config.model';
-import { buildPaginatedList } from '../../../core/data/paginated-list.model';
+} from '../../../../../modules/core/src/lib/core/cache/models/sort-options.model';
+import { FindListOptions } from '../../../../../modules/core/src/lib/core/data/find-list-options.model';
+import { followLink } from '../../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { buildPaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
 import {
   getMockQualityAssuranceEventRestService,
   ItemMockPid8,
@@ -39,23 +39,23 @@ import {
   NotificationsMockDspaceObject,
   qualityAssuranceEventObjectMissingProjectFound,
   qualityAssuranceEventObjectMissingProjectNotFound,
-} from '../../../core/mocks/notifications.mock';
-import { getMockTranslateService } from '../../../core/mocks/translate.service.mock';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { QualityAssuranceEventDataService } from '../../../core/notifications/qa/events/quality-assurance-event-data.service';
-import { QualityAssuranceEventObject } from '../../../core/notifications/qa/models/quality-assurance-event.model';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
+} from '../../../../../modules/core/src/lib/core/mocks/notifications.mock';
+import { getMockTranslateService } from '../../../../../modules/core/src/lib/core/mocks/translate.service.mock';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { QualityAssuranceEventDataService } from '../../../../../modules/core/src/lib/core/notifications/qa/events/quality-assurance-event-data.service';
+import { QualityAssuranceEventObject } from '../../../../../modules/core/src/lib/core/notifications/qa/models/quality-assurance-event.model';
+import { PaginationService } from '../../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { PageInfo } from '../../../../../modules/core/src/lib/core/shared/page-info.model';
+import { PaginationComponentOptions } from '../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
 import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../../core/utilities/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../../core/utilities/testing/pagination-service.stub';
-import { createTestComponent } from '../../../core/utilities/testing/utils.test';
+} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { PaginationServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
+import { createTestComponent } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { QualityAssuranceEventData } from '../project-entry-import-modal/project-entry-import-modal.component';
 import { QualityAssuranceEventsComponent } from './quality-assurance-events.component';
 

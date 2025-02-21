@@ -19,15 +19,15 @@ import {
   mergeMap,
 } from 'rxjs/operators';
 
-import { AuthService } from '../core/auth/auth.service';
-import { DSONameService } from '../core/breadcrumbs/dso-name.service';
-import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../core/data/feature-authorization/feature-id';
-import { RemoteData } from '../core/data/remote-data';
-import { redirectOn4xx } from '../core/shared/authorized.operators';
-import { Bitstream } from '../core/shared/bitstream.model';
-import { Community } from '../core/shared/community.model';
-import { getAllSucceededRemoteDataPayload } from '../core/shared/operators';
+import { AuthService } from '../../../modules/core/src/lib/core/auth/auth.service';
+import { DSONameService } from '../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { AuthorizationDataService } from '../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
+import { RemoteData } from '../../../modules/core/src/lib/core/data/remote-data';
+import { redirectOn4xx } from '../../../modules/core/src/lib/core/shared/authorized.operators';
+import { Bitstream } from '../../../modules/core/src/lib/core/shared/bitstream.model';
+import { Community } from '../../../modules/core/src/lib/core/shared/community.model';
+import { getAllSucceededRemoteDataPayload } from '../../../modules/core/src/lib/core/shared/operators';
 import { fadeInOut } from '../shared/animations/fade';
 import { ThemedComcolPageBrowseByComponent } from '../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
 import { ThemedComcolPageContentComponent } from '../shared/comcol/comcol-page-content/themed-comcol-page-content.component';

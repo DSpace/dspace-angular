@@ -1,8 +1,8 @@
 /* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 
-import { ListableObject } from '../../../core/object-collection/listable-object.model';
-import { type } from '../../../core/shared/ngrx/type';
+import { ListableObject } from '../../../../../modules/core/src/lib/core/object-collection/listable-object.model';
+import { type } from '../../../../../modules/core/src/lib/core/shared/ngrx/type';
 
 /**
  * For each action type in an action group, make a simple

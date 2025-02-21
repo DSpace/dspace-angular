@@ -20,17 +20,17 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { AuthService } from '../core/auth/auth.service';
+import { AuthService } from '../../../modules/core/src/lib/core/auth/auth.service';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../core/data/paginated-list.model';
-import { RemoteData } from '../core/data/remote-data';
-import { EPerson } from '../core/eperson/models/eperson.model';
-import { PaginationService } from '../core/pagination/pagination.service';
-import { getAllCompletedRemoteData } from '../core/shared/operators';
-import { PageInfo } from '../core/shared/page-info.model';
-import { PaginationComponentOptions } from '../core/shared/pagination-component-options.model';
+} from '../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../modules/core/src/lib/core/data/remote-data';
+import { EPerson } from '../../../modules/core/src/lib/core/eperson/models/eperson.model';
+import { PaginationService } from '../../../modules/core/src/lib/core/pagination/pagination.service';
+import { getAllCompletedRemoteData } from '../../../modules/core/src/lib/core/shared/operators';
+import { PageInfo } from '../../../modules/core/src/lib/core/shared/page-info.model';
+import { PaginationComponentOptions } from '../../../modules/core/src/lib/core/shared/pagination-component-options.model';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';

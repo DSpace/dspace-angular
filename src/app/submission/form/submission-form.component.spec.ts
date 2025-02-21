@@ -17,13 +17,13 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { Item } from '../../core/shared/item.model';
-import { AuthServiceStub } from '../../core/utilities/testing/auth-service.stub';
-import { HALEndpointServiceStub } from '../../core/utilities/testing/hal-endpoint-service.stub';
-import { SubmissionServiceStub } from '../../core/utilities/testing/submission-service.stub';
-import { createTestComponent } from '../../core/utilities/testing/utils.test';
+import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
+import { HALEndpointService } from '../../../../modules/core/src/lib/core/shared/hal-endpoint.service';
+import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
+import { AuthServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/auth-service.stub';
+import { HALEndpointServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/hal-endpoint-service.stub';
+import { SubmissionServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/submission-service.stub';
+import { createTestComponent } from '../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import {
   mockSectionsData,

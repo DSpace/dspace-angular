@@ -31,19 +31,19 @@ import {
 } from 'rxjs/operators';
 
 import { getForbiddenRoute } from '../../app-routing-paths';
-import { AuthService } from '../../core/auth/auth.service';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { RemoteData } from '../../core/data/remote-data';
-import { SignpostingDataService } from '../../core/data/signposting-data.service';
-import { SignpostingLink } from '../../core/data/signposting-links.model';
-import { HardRedirectService } from '../../core/services/hard-redirect.service';
-import { ServerResponseService } from '../../core/services/server-response.service';
-import { redirectOn4xx } from '../../core/shared/authorized.operators';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { FileService } from '../../core/shared/file.service';
-import { getRemoteDataPayload } from '../../core/shared/operators';
+import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
+import { DSONameService } from '../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { AuthorizationDataService } from '../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
+import { SignpostingDataService } from '../../../../modules/core/src/lib/core/data/signposting-data.service';
+import { SignpostingLink } from '../../../../modules/core/src/lib/core/data/signposting-links.model';
+import { HardRedirectService } from '../../../../modules/core/src/lib/core/services/hard-redirect.service';
+import { ServerResponseService } from '../../../../modules/core/src/lib/core/services/server-response.service';
+import { redirectOn4xx } from '../../../../modules/core/src/lib/core/shared/authorized.operators';
+import { Bitstream } from '../../../../modules/core/src/lib/core/shared/bitstream.model';
+import { FileService } from '../../../../modules/core/src/lib/core/shared/file.service';
+import { getRemoteDataPayload } from '../../../../modules/core/src/lib/core/shared/operators';
 
 @Component({
   selector: 'ds-bitstream-download-page',

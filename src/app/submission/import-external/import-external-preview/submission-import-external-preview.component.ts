@@ -13,11 +13,11 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { mergeMap } from 'rxjs/operators';
 
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { ExternalSourceEntry } from '../../../core/shared/external-source-entry.model';
-import { MetadataValue } from '../../../core/shared/metadata.models';
-import { Metadata } from '../../../core/shared/metadata.utils';
-import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { ExternalSourceEntry } from '../../../../../modules/core/src/lib/core/shared/external-source-entry.model';
+import { MetadataValue } from '../../../../../modules/core/src/lib/core/shared/metadata.models';
+import { Metadata } from '../../../../../modules/core/src/lib/core/shared/metadata.utils';
+import { SubmissionObject } from '../../../../../modules/core/src/lib/core/submission/models/submission-object.model';
 import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionImportExternalCollectionComponent } from '../import-external-collection/submission-import-external-collection.component';

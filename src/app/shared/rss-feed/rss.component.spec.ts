@@ -13,27 +13,27 @@ import { of as observableOf } from 'rxjs';
 import {
   SortDirection,
   SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { GroupDataService } from '../../core/eperson/group-data.service';
-import { RouterMock } from '../../core/mocks/router.mock';
-import { getMockTranslateService } from '../../core/mocks/translate.service.mock';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { LinkHeadService } from '../../core/services/link-head.service';
-import { Collection } from '../../core/shared/collection.model';
-import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
-import { PaginatedSearchOptions } from '../../core/shared/paginated-search-options.model';
-import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
-import { SearchFilter } from '../../core/shared/search/models/search-filter.model';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+} from '../../../../modules/core/src/lib/core/cache/models/sort-options.model';
+import { ConfigurationDataService } from '../../../../modules/core/src/lib/core/data/configuration-data.service';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
+import { GroupDataService } from '../../../../modules/core/src/lib/core/eperson/group-data.service';
+import { RouterMock } from '../../../../modules/core/src/lib/core/mocks/router.mock';
+import { getMockTranslateService } from '../../../../modules/core/src/lib/core/mocks/translate.service.mock';
+import { PaginationService } from '../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { LinkHeadService } from '../../../../modules/core/src/lib/core/services/link-head.service';
+import { Collection } from '../../../../modules/core/src/lib/core/shared/collection.model';
+import { ConfigurationProperty } from '../../../../modules/core/src/lib/core/shared/configuration-property.model';
+import { PaginatedSearchOptions } from '../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
+import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+import { SearchFilter } from '../../../../modules/core/src/lib/core/shared/search/models/search-filter.model';
+import { SearchConfigurationService } from '../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../core/utilities/remote-data.utils';
-import { PaginationServiceStub } from '../../core/utilities/testing/pagination-service.stub';
-import { SearchConfigurationServiceStub } from '../../core/utilities/testing/search-configuration-service.stub';
-import { createPaginatedList } from '../../core/utilities/testing/utils.test';
+} from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { PaginationServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
+import { SearchConfigurationServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/search-configuration-service.stub';
+import { createPaginatedList } from '../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { MockActivatedRoute } from '../mocks/active-router.mock';
 import { RSSComponent } from './rss.component';
 

@@ -23,15 +23,15 @@ import {
   of,
 } from 'rxjs';
 
-import { APP_DATA_SERVICES_MAP } from '../../../../core/config/app-config.interface';
-import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
-import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service';
-import { SubmissionJsonPatchOperationsService } from '../../../../core/submission/submission-json-patch-operations.service';
-import { HALEndpointServiceStub } from '../../../../core/utilities/testing/hal-endpoint-service.stub';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../../../core/utilities/testing/submission-json-patch-operations-service.stub';
-import { SubmissionServiceStub } from '../../../../core/utilities/testing/submission-service.stub';
-import { createTestComponent } from '../../../../core/utilities/testing/utils.test';
+import { APP_DATA_SERVICES_MAP } from '../../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { JsonPatchOperationPathCombiner } from '../../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '../../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operations-builder';
+import { HALEndpointService } from '../../../../../../modules/core/src/lib/core/shared/hal-endpoint.service';
+import { SubmissionJsonPatchOperationsService } from '../../../../../../modules/core/src/lib/core/submission/submission-json-patch-operations.service';
+import { HALEndpointServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/hal-endpoint-service.stub';
+import { SubmissionJsonPatchOperationsServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/submission-json-patch-operations-service.stub';
+import { SubmissionServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/submission-service.stub';
+import { createTestComponent } from '../../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormService } from '../../../../shared/form/form.service';

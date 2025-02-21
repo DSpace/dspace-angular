@@ -21,27 +21,27 @@ import { environment } from '../../environments/environment';
 import {
   SortDirection,
   SortOptions,
-} from '../core/cache/models/sort-options.model';
-import { SuggestionConfig } from '../core/config/suggestion-config.interfaces';
-import { FindListOptions } from '../core/data/find-list-options.model';
-import { followLink } from '../core/data/follow-link-config.model';
-import { PaginatedList } from '../core/data/paginated-list.model';
-import { RemoteData } from '../core/data/remote-data';
-import { Suggestion } from '../core/notifications/suggestions/models/suggestion.model';
-import { SuggestionTarget } from '../core/notifications/suggestions/models/suggestion-target.model';
-import { SuggestionDataService } from '../core/notifications/suggestions/suggestion-data.service';
-import { SuggestionTargetDataService } from '../core/notifications/suggestions/target/suggestion-target-data.service';
-import { ResearcherProfile } from '../core/profile/model/researcher-profile.model';
-import { ResearcherProfileDataService } from '../core/profile/researcher-profile-data.service';
-import { NoContent } from '../core/shared/NoContent.model';
+} from '../../../modules/core/src/lib/core/cache/models/sort-options.model';
+import { SuggestionConfig } from '../../../modules/core/src/lib/core/config/suggestion-config.interfaces';
+import { FindListOptions } from '../../../modules/core/src/lib/core/data/find-list-options.model';
+import { followLink } from '../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { PaginatedList } from '../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../modules/core/src/lib/core/data/remote-data';
+import { Suggestion } from '../../../modules/core/src/lib/core/notifications/suggestions/models/suggestion.model';
+import { SuggestionTarget } from '../../../modules/core/src/lib/core/notifications/suggestions/models/suggestion-target.model';
+import { SuggestionDataService } from '../../../modules/core/src/lib/core/notifications/suggestions/suggestion-data.service';
+import { SuggestionTargetDataService } from '../../../modules/core/src/lib/core/notifications/suggestions/target/suggestion-target-data.service';
+import { ResearcherProfile } from '../../../modules/core/src/lib/core/profile/model/researcher-profile.model';
+import { ResearcherProfileDataService } from '../../../modules/core/src/lib/core/profile/researcher-profile-data.service';
+import { NoContent } from '../../../modules/core/src/lib/core/shared/NoContent.model';
 import {
   getFinishedRemoteData,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
   getFirstSucceededRemoteListPayload,
-} from '../core/shared/operators';
-import { WorkspaceItem } from '../core/submission/models/workspaceitem.model';
-import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
+} from '../../../modules/core/src/lib/core/shared/operators';
+import { WorkspaceItem } from '../../../modules/core/src/lib/core/submission/models/workspaceitem.model';
+import { WorkspaceitemDataService } from '../../../modules/core/src/lib/core/submission/workspaceitem-data.service';
 import { getSuggestionPageRoute } from '../suggestions-page/suggestions-page-routing-paths';
 
 /**

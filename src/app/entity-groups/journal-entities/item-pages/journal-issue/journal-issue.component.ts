@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { ViewMode } from '../../../../../../modules/core/src/lib/core/shared/view-mode.model';
 import { GenericItemPageFieldComponent } from '../../../../item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
 import { ThemedItemPageTitleFieldComponent } from '../../../../item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
 import { ItemComponent } from '../../../../item-page/simple/item-types/shared/item.component';

@@ -4,7 +4,7 @@ import {
   Input,
 } from '@angular/core';
 
-import { Bitstream } from '../../../core/shared/bitstream.model';
+import { Bitstream } from '../../../../../modules/core/src/lib/core/shared/bitstream.model';
 
 @Component({
   selector: 'ds-comcol-page-logo',

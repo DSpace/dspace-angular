@@ -14,10 +14,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../core/config/app-config.interface';
-import { RouteService } from '../core/services/route.service';
-import { SearchService } from '../core/shared/search/search.service';
-import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
+} from '../../../modules/core/src/lib/core/config/app-config.interface';
+import { RouteService } from '../../../modules/core/src/lib/core/services/route.service';
+import { SearchService } from '../../../modules/core/src/lib/core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../modules/core/src/lib/core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../my-dspace-page/my-dspace-configuration.service';
 import { pushInOut } from '../shared/animations/push';
 import { HostWindowService } from '../shared/host-window.service';

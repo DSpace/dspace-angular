@@ -11,16 +11,16 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { Item } from '../../core/shared/item.model';
-import { CorrectionTypeDataService } from '../../core/submission/correctiontype-data.service';
-import { CorrectionType } from '../../core/submission/models/correctiontype.model';
+import { AuthorizationDataService } from '../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
+import { CorrectionTypeDataService } from '../../../../modules/core/src/lib/core/submission/correctiontype-data.service';
+import { CorrectionType } from '../../../../modules/core/src/lib/core/submission/models/correctiontype.model';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
-import { createPaginatedList } from '../../core/utilities/testing/utils.test';
+} from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+import { createPaginatedList } from '../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import {
   DsoWithdrawnReinstateModalService,
   REQUEST_REINSTATE,

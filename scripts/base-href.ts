@@ -1,7 +1,7 @@
 import { existsSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
-import { AppConfig } from '../src/app/core/config/app-config.interface';
+import { AppConfig } from '../modules/core/src/lib/core/config/app-config.interface';
 import { buildAppConfig } from '../src/config/config.server';
 
 /**

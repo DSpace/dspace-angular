@@ -3,8 +3,8 @@ import {
   Input,
 } from '@angular/core';
 
-import { Context } from '../core/shared/context.model';
-import { ViewMode } from '../core/shared/view-mode.model';
+import { Context } from '../../../modules/core/src/lib/core/shared/context.model';
+import { ViewMode } from '../../../modules/core/src/lib/core/shared/view-mode.model';
 import { CollectionElementLinkType } from '../shared/object-collection/collection-element-link.type';
 import { SelectionConfig } from '../shared/search/search-results/search-results.component';
 import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';

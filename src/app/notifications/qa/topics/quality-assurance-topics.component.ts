@@ -27,16 +27,16 @@ import {
 } from 'rxjs/operators';
 
 import { getNotificatioQualityAssuranceRoute } from '../../../admin/admin-routing-paths';
-import { SortOptions } from '../../../core/cache/models/sort-options.model';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { QualityAssuranceTopicObject } from '../../../core/notifications/qa/models/quality-assurance-topic.model';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { Item } from '../../../core/shared/item.model';
+import { SortOptions } from '../../../../../modules/core/src/lib/core/cache/models/sort-options.model';
+import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
+import { QualityAssuranceTopicObject } from '../../../../../modules/core/src/lib/core/notifications/qa/models/quality-assurance-topic.model';
+import { PaginationService } from '../../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
 import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '../../../core/shared/operators';
-import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
+} from '../../../../../modules/core/src/lib/core/shared/operators';
+import { PaginationComponentOptions } from '../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { QualityAssuranceTopicsPageParams } from '../../../quality-assurance-notifications-pages/quality-assurance-topics-page/quality-assurance-topics-page-resolver.service';
 import { AlertComponent } from '../../../shared/alert/alert.component';

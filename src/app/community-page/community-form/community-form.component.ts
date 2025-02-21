@@ -19,12 +19,12 @@ import {
 } from '@ngx-translate/core';
 
 import { environment } from '../../../environments/environment';
-import { AuthService } from '../../core/auth/auth.service';
-import { ObjectCacheService } from '../../core/cache/object-cache.service';
-import { CommunityDataService } from '../../core/data/community-data.service';
-import { RequestService } from '../../core/data/request.service';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { Community } from '../../core/shared/community.model';
+import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
+import { ObjectCacheService } from '../../../../modules/core/src/lib/core/cache/object-cache.service';
+import { CommunityDataService } from '../../../../modules/core/src/lib/core/data/community-data.service';
+import { RequestService } from '../../../../modules/core/src/lib/core/data/request.service';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Community } from '../../../../modules/core/src/lib/core/shared/community.model';
 import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
 import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
 import { FormComponent } from '../../shared/form/form.component';

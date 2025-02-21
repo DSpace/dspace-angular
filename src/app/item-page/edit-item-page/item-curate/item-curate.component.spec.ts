@@ -11,9 +11,9 @@ import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { Item } from '../../../core/shared/item.model';
-import { createSuccessfulRemoteDataObject } from '../../../core/utilities/remote-data.utils';
+import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { createSuccessfulRemoteDataObject } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
 import { CurationFormComponent } from '../../../curation-form/curation-form.component';
 import { ItemCurateComponent } from './item-curate.component';
 

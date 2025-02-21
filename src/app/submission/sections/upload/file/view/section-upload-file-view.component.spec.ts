@@ -11,8 +11,8 @@ import {
 } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Metadata } from '../../../../../core/shared/metadata.utils';
-import { createTestComponent } from '../../../../../core/utilities/testing/utils.test';
+import { Metadata } from '../../../../../../../modules/core/src/lib/core/shared/metadata.utils';
+import { createTestComponent } from '../../../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { FormComponent } from '../../../../../shared/form/form.component';
 import { mockUploadFiles } from '../../../../../shared/mocks/submission.mock';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';

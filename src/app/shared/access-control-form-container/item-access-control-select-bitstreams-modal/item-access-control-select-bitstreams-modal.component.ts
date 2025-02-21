@@ -11,16 +11,16 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
-import { PaginatedList } from 'src/app/core/data/paginated-list.model';
-import { RemoteData } from 'src/app/core/data/remote-data';
-import { Bitstream } from 'src/app/core/shared/bitstream.model';
-import { Context } from 'src/app/core/shared/context.model';
+import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { Bitstream } from '../../../../../modules/core/src/lib/core/shared/bitstream.model';
+import { Context } from '../../../../../modules/core/src/lib/core/shared/context.model';
 
-import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { Item } from '../../../core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
+import { BitstreamDataService } from '../../../../../modules/core/src/lib/core/data/bitstream-data.service';
+import { PaginationService } from '../../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { getFirstCompletedRemoteData } from '../../../../../modules/core/src/lib/core/shared/operators';
+import { PaginationComponentOptions } from '../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
 import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
 
 export const ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID = 'item-access-control-select-bitstreams';

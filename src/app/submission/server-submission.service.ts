@@ -4,8 +4,8 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { RemoteData } from '../core/data/remote-data';
-import { SubmissionObject } from '../core/submission/models/submission-object.model';
+import { RemoteData } from '../../../modules/core/src/lib/core/data/remote-data';
+import { SubmissionObject } from '../../../modules/core/src/lib/core/submission/models/submission-object.model';
 import { SubmissionService } from './submission.service';
 
 /**

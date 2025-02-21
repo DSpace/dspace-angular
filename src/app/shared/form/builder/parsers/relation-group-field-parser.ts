@@ -1,13 +1,13 @@
 import { isNotEmpty } from '@dspace/shared/utils';
 
-import { FormRowModel } from '../../../../core/config/models/config-submission-form.model';
-import { FormFieldModel } from '../../../../core/shared/form/form-field.model';
-import { PLACEHOLDER_PARENT_METADATA } from '../../../../core/config/models/ds-dynamic-form-constants';
+import { FormRowModel } from '../../../../../../modules/core/src/lib/core/config/models/config-submission-form.model';
+import { FormFieldModel } from '../../../../../../modules/core/src/lib/core/shared/form/form-field.model';
+import { PLACEHOLDER_PARENT_METADATA } from '../../../../../../modules/core/src/lib/core/config/models/ds-dynamic-form-constants';
 import {
   DynamicRelationGroupModel,
   DynamicRelationGroupModelConfig,
 } from '../ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
-import { FormFieldMetadataValueObject } from '../../../../core/config/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
 import { FieldParser } from './field-parser';
 
 export class RelationGroupFieldParser extends FieldParser {

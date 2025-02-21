@@ -13,13 +13,13 @@ import {
   Observable,
   of as observableOf,
 } from 'rxjs';
-import { RemoteData } from 'src/app/core/data/remote-data';
+import { RemoteData } from '../../../../../../modules/core/src/lib/core/data/remote-data';
 
-import { RequestService } from '../../../../core/data/request.service';
-import { NotificationsService } from '../../../../core/notifications/notifications.service';
-import { ClaimedDeclinedTaskTaskSearchResult } from '../../../../core/object-collection/claimed-declined-task-task-search-result.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { SearchService } from '../../../../core/shared/search/search.service';
+import { RequestService } from '../../../../../../modules/core/src/lib/core/data/request.service';
+import { NotificationsService } from '../../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { ClaimedDeclinedTaskTaskSearchResult } from '../../../../../../modules/core/src/lib/core/object-collection/claimed-declined-task-task-search-result.model';
+import { DSpaceObject } from '../../../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { SearchService } from '../../../../../../modules/core/src/lib/core/shared/search/search.service';
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 

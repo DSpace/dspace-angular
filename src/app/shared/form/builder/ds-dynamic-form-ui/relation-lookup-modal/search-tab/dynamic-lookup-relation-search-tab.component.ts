@@ -16,25 +16,25 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { LookupRelationService } from '../../../../../../core/data/lookup-relation.service';
-import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
-import { RelationshipDataService } from '../../../../../../core/data/relationship-data.service';
-import { ListableObject } from '../../../../../../core/object-collection/listable-object.model';
-import { PaginationService } from '../../../../../../core/pagination/pagination.service';
-import { Context } from '../../../../../../core/shared/context.model';
-import { DSpaceObject } from '../../../../../../core/shared/dspace-object.model';
-import { RelationshipOptions } from '../../../../../../core/shared/form/relationship-options.model';
-import { Item } from '../../../../../../core/shared/item.model';
-import { Relationship } from '../../../../../../core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '../../../../../../core/shared/item-relationships/relationship-type.model';
+import { LookupRelationService } from '../../../../../../../../modules/core/src/lib/core/data/lookup-relation.service';
+import { PaginatedList } from '../../../../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RelationshipDataService } from '../../../../../../../../modules/core/src/lib/core/data/relationship-data.service';
+import { ListableObject } from '../../../../../../../../modules/core/src/lib/core/object-collection/listable-object.model';
+import { PaginationService } from '../../../../../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { Context } from '../../../../../../../../modules/core/src/lib/core/shared/context.model';
+import { DSpaceObject } from '../../../../../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { RelationshipOptions } from '../../../../../../../../modules/core/src/lib/core/shared/form/relationship-options.model';
+import { Item } from '../../../../../../../../modules/core/src/lib/core/shared/item.model';
+import { Relationship } from '../../../../../../../../modules/core/src/lib/core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '../../../../../../../../modules/core/src/lib/core/shared/item-relationships/relationship-type.model';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '../../../../../../core/shared/operators';
-import { SearchObjects } from '../../../../../../core/shared/search/models/search-objects.model';
-import { SearchResult } from '../../../../../../core/shared/search/models/search-result.model';
-import { SearchService } from '../../../../../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
+} from '../../../../../../../../modules/core/src/lib/core/shared/operators';
+import { SearchObjects } from '../../../../../../../../modules/core/src/lib/core/shared/search/models/search-objects.model';
+import { SearchResult } from '../../../../../../../../modules/core/src/lib/core/shared/search/models/search-result.model';
+import { SearchService } from '../../../../../../../../modules/core/src/lib/core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import { CollectionElementLinkType } from '../../../../../object-collection/collection-element-link.type';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';

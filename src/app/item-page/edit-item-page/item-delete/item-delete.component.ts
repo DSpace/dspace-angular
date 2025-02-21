@@ -39,25 +39,25 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { LinkService } from '../../../core/cache/builders/link.service';
-import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
-import { followLink } from '../../../core/data/follow-link-config.model';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { Item } from '../../../core/shared/item.model';
-import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
-import { MetadataValue } from '../../../core/shared/metadata.models';
-import { NoContent } from '../../../core/shared/NoContent.model';
+import { LinkService } from '../../../../../modules/core/src/lib/core/cache/builders/link.service';
+import { EntityTypeDataService } from '../../../../../modules/core/src/lib/core/data/entity-type-data.service';
+import { followLink } from '../../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
+import { ObjectUpdatesService } from '../../../../../modules/core/src/lib/core/data/object-updates/object-updates.service';
+import { RelationshipDataService } from '../../../../../modules/core/src/lib/core/data/relationship-data.service';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { Relationship } from '../../../../../modules/core/src/lib/core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '../../../../../modules/core/src/lib/core/shared/item-relationships/relationship-type.model';
+import { MetadataValue } from '../../../../../modules/core/src/lib/core/shared/metadata.models';
+import { NoContent } from '../../../../../modules/core/src/lib/core/shared/NoContent.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '../../../core/shared/operators';
-import { ViewMode } from '../../../core/shared/view-mode.model';
+} from '../../../../../modules/core/src/lib/core/shared/operators';
+import { ViewMode } from '../../../../../modules/core/src/lib/core/shared/view-mode.model';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { VarDirective } from '../../../shared/utils/var.directive';

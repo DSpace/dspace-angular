@@ -14,8 +14,8 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { SubmissionRestService } from '../../../core/submission/submission-rest.service';
-import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
+import { SubmissionRestService } from '../../../../../modules/core/src/lib/core/submission/submission-rest.service';
+import { SubmissionScopeType } from '../../../../../modules/core/src/lib/core/submission/submission-scope-type';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 import { SubmissionService } from '../../submission.service';

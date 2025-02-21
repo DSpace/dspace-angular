@@ -21,9 +21,9 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { SuggestionTarget } from '../../../core/notifications/suggestions/models/suggestion-target.model';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
+import { SuggestionTarget } from '../../../../../modules/core/src/lib/core/notifications/suggestions/models/suggestion-target.model';
+import { PaginationService } from '../../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { getSuggestionPageRoute } from '../../../suggestions-page/suggestions-page-routing-paths';

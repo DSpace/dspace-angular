@@ -11,20 +11,20 @@ import { AppState } from '../app.reducer';
 import {
   SortDirection,
   SortOptions,
-} from '../core/cache/models/sort-options.model';
-import { APP_CONFIG } from '../core/config/app-config.interface';
-import { CollectionDataService } from '../core/data/collection-data.service';
-import { CommunityDataService } from '../core/data/community-data.service';
-import { FindListOptions } from '../core/data/find-list-options.model';
-import { buildPaginatedList } from '../core/data/paginated-list.model';
-import { Collection } from '../core/shared/collection.model';
-import { Community } from '../core/shared/community.model';
-import { PageInfo } from '../core/shared/page-info.model';
+} from '../../../modules/core/src/lib/core/cache/models/sort-options.model';
+import { APP_CONFIG } from '../../../modules/core/src/lib/core/config/app-config.interface';
+import { CollectionDataService } from '../../../modules/core/src/lib/core/data/collection-data.service';
+import { CommunityDataService } from '../../../modules/core/src/lib/core/data/community-data.service';
+import { FindListOptions } from '../../../modules/core/src/lib/core/data/find-list-options.model';
+import { buildPaginatedList } from '../../../modules/core/src/lib/core/data/paginated-list.model';
+import { Collection } from '../../../modules/core/src/lib/core/shared/collection.model';
+import { Community } from '../../../modules/core/src/lib/core/shared/community.model';
+import { PageInfo } from '../../../modules/core/src/lib/core/shared/page-info.model';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../core/utilities/remote-data.utils';
-import { StoreMock } from '../core/utilities/testing/store.mock';
+} from '../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { StoreMock } from '../../../modules/core/src/lib/core/utilities/testing/store.mock';
 import {
   CommunityListService,
   toFlatNode,

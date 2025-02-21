@@ -1,9 +1,9 @@
 import { Route } from '@angular/router';
 
 import { REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
-import { authenticatedGuard } from '../core/auth/authenticated.guard';
-import { itemBreadcrumbResolver } from '../core/breadcrumbs/item-breadcrumb.resolver';
-import { itemPageResolver } from '../core/shared/resolvers/item-page.resolver';
+import { authenticatedGuard } from '../../../modules/core/src/lib/core/auth/authenticated.guard';
+import { itemBreadcrumbResolver } from '../../../modules/core/src/lib/core/breadcrumbs/item-breadcrumb.resolver';
+import { itemPageResolver } from '../../../modules/core/src/lib/core/shared/resolvers/item-page.resolver';
 import { dsoEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';

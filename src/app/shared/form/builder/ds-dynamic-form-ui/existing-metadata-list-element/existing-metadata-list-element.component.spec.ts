@@ -12,15 +12,15 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ItemSearchResult } from '../../../../../core/object-collection/item-search-result.model';
-import { RelationshipOptions } from '../../../../../core/shared/form/relationship-options.model';
-import { Item } from '../../../../../core/shared/item.model';
-import { Relationship } from '../../../../../core/shared/item-relationships/relationship.model';
-import { RemoveRelationshipAction } from '../../../../../core/states/name-variant/relationship.actions';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../../../../core/utilities/testing/active-router.stub';
-import { SubmissionServiceStub } from '../../../../../core/utilities/testing/submission-service.stub';
-import { TranslateLoaderMock } from '../../../../../core/utilities/testing/translate-loader.mock';
+import { ItemSearchResult } from '../../../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
+import { RelationshipOptions } from '../../../../../../../modules/core/src/lib/core/shared/form/relationship-options.model';
+import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
+import { Relationship } from '../../../../../../../modules/core/src/lib/core/shared/item-relationships/relationship.model';
+import { RemoveRelationshipAction } from '../../../../../../../modules/core/src/lib/core/states/name-variant/relationship.actions';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+import { SubmissionServiceStub } from '../../../../../../../modules/core/src/lib/core/utilities/testing/submission-service.stub';
+import { TranslateLoaderMock } from '../../../../../../../modules/core/src/lib/core/utilities/testing/translate-loader.mock';
 import { SubmissionService } from '../../../../../submission/submission.service';
 import { getMockThemeService } from '../../../../mocks/theme-service.mock';
 import { ItemSearchResultListElementComponent } from '../../../../object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';

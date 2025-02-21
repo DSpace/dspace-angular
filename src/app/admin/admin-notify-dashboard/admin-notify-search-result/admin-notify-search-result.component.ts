@@ -16,8 +16,8 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { SearchConfigurationService } from '../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { TabulatableResultListElementsComponent } from '../../../shared/object-list/search-result-list-element/tabulatable-search-result/tabulatable-result-list-elements.component';
 import { TruncatableComponent } from '../../../shared/truncatable/truncatable.component';

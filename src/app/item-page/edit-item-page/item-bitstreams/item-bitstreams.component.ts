@@ -39,23 +39,23 @@ import {
 import { AlertComponent } from 'src/app/shared/alert/alert.component';
 import { AlertType } from 'src/app/shared/alert/alert-type';
 
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
-import { BundleDataService } from '../../../core/data/bundle-data.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { RequestService } from '../../../core/data/request.service';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { Bundle } from '../../../core/shared/bundle.model';
-import { NoContent } from '../../../core/shared/NoContent.model';
+import { ObjectCacheService } from '../../../../../modules/core/src/lib/core/cache/object-cache.service';
+import { BitstreamDataService } from '../../../../../modules/core/src/lib/core/data/bitstream-data.service';
+import { BundleDataService } from '../../../../../modules/core/src/lib/core/data/bundle-data.service';
+import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
+import { ObjectUpdatesService } from '../../../../../modules/core/src/lib/core/data/object-updates/object-updates.service';
+import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Bundle } from '../../../../../modules/core/src/lib/core/shared/bundle.model';
+import { NoContent } from '../../../../../modules/core/src/lib/core/shared/NoContent.model';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '../../../core/shared/operators';
-import { PaginatedSearchOptions } from '../../../core/shared/paginated-search-options.model';
-import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
+} from '../../../../../modules/core/src/lib/core/shared/operators';
+import { PaginatedSearchOptions } from '../../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
+import { PaginationComponentOptions } from '../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';

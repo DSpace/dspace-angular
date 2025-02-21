@@ -28,15 +28,15 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { SignpostingDataService } from '../../core/data/signposting-data.service';
-import { LinkHeadService } from '../../core/services/link-head.service';
-import { ServerResponseService } from '../../core/services/server-response.service';
-import { Item } from '../../core/shared/item.model';
-import { MetadataMap } from '../../core/shared/metadata.models';
+import { NotifyInfoService } from '../../../../modules/core/src/lib/core/coar-notify/notify-info/notify-info.service';
+import { AuthorizationDataService } from '../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { ItemDataService } from '../../../../modules/core/src/lib/core/data/item-data.service';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
+import { SignpostingDataService } from '../../../../modules/core/src/lib/core/data/signposting-data.service';
+import { LinkHeadService } from '../../../../modules/core/src/lib/core/services/link-head.service';
+import { ServerResponseService } from '../../../../modules/core/src/lib/core/services/server-response.service';
+import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
+import { MetadataMap } from '../../../../modules/core/src/lib/core/shared/metadata.models';
 import { fadeInOut } from '../../shared/animations/fade';
 import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { ErrorComponent } from '../../shared/error/error.component';

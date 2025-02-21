@@ -12,15 +12,15 @@ import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '../core/auth/auth.service';
-import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { RemoteData } from '../core/data/remote-data';
-import { Bitstream } from '../core/shared/bitstream.model';
-import { FileService } from '../core/shared/file.service';
+import { AuthService } from '../../../modules/core/src/lib/core/auth/auth.service';
+import { AuthorizationDataService } from '../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { RemoteData } from '../../../modules/core/src/lib/core/data/remote-data';
+import { Bitstream } from '../../../modules/core/src/lib/core/shared/bitstream.model';
+import { FileService } from '../../../modules/core/src/lib/core/shared/file.service';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
-} from '../core/utilities/remote-data.utils';
+} from '../../../modules/core/src/lib/core/utilities/remote-data.utils';
 import { getMockThemeService } from '../shared/mocks/theme-service.mock';
 import { ThemeService } from '../shared/theme-support/theme.service';
 import { SafeUrlPipe } from '../shared/utils/safe-url-pipe';

@@ -12,15 +12,15 @@ import {
   map,
   Observable,
 } from 'rxjs';
-import { getFirstCompletedRemoteData } from 'src/app/core/shared/operators';
+import { getFirstCompletedRemoteData } from '../../../../modules/core/src/lib/core/shared/operators';
 
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { Item } from '../../core/shared/item.model';
-import { CorrectionTypeDataService } from '../../core/submission/correctiontype-data.service';
-import { CorrectionType } from '../../core/submission/models/correctiontype.model';
+import { AuthorizationDataService } from '../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
+import { PaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
+import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
+import { CorrectionTypeDataService } from '../../../../modules/core/src/lib/core/submission/correctiontype-data.service';
+import { CorrectionType } from '../../../../modules/core/src/lib/core/submission/models/correctiontype.model';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import {

@@ -19,23 +19,23 @@ import {
   map,
   of as observableOf,
 } from 'rxjs';
-import { CorrectionTypeDataService } from 'src/app/core/submission/correctiontype-data.service';
+import { CorrectionTypeDataService } from '../../../../modules/core/src/lib/core/submission/correctiontype-data.service';
 
 import { AdminSidebarComponent } from '../../admin/admin-sidebar/admin-sidebar.component';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
-import { Collection } from '../../core/shared/collection.model';
-import { Community } from '../../core/shared/community.model';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { Item } from '../../core/shared/item.model';
+import { DSpaceObjectDataService } from '../../../../modules/core/src/lib/core/data/dspace-object-data.service';
+import { AuthorizationDataService } from '../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { ResearcherProfileDataService } from '../../../../modules/core/src/lib/core/profile/researcher-profile-data.service';
+import { Collection } from '../../../../modules/core/src/lib/core/shared/collection.model';
+import { Community } from '../../../../modules/core/src/lib/core/shared/community.model';
+import { DSpaceObject } from '../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../core/utilities/remote-data.utils';
-import { MenuServiceStub } from '../../core/utilities/testing/menu-service.stub';
-import { createPaginatedList } from '../../core/utilities/testing/utils.test';
+} from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { MenuServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/menu-service.stub';
+import { createPaginatedList } from '../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { MenuService } from '../menu/menu.service';
 import { MenuID } from '../menu/menu-id.model';
 import { LinkMenuItemModel } from '../menu/menu-item/models/link.model';

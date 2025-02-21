@@ -19,17 +19,17 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { RouterMock } from '../../core/mocks/router.mock';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { RouteService } from '../../core/services/route.service';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
-import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
-import { createSuccessfulRemoteDataObject } from '../../core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
-import { LocationStub } from '../../core/utilities/testing/location.stub';
-import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
-import { routeServiceStub } from '../../core/utilities/testing/route-service.stub';
+import { RouterMock } from '../../../../modules/core/src/lib/core/mocks/router.mock';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { RouteService } from '../../../../modules/core/src/lib/core/services/route.service';
+import { DSpaceObject } from '../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { WorkspaceItem } from '../../../../modules/core/src/lib/core/submission/models/workspaceitem.model';
+import { WorkspaceitemDataService } from '../../../../modules/core/src/lib/core/submission/workspaceitem-data.service';
+import { createSuccessfulRemoteDataObject } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+import { LocationStub } from '../../../../modules/core/src/lib/core/utilities/testing/location.stub';
+import { NotificationsServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { routeServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/route-service.stub';
 import { WorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page.component';
 
 describe('WorkspaceitemsDeletePageComponent', () => {

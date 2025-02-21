@@ -11,9 +11,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { environment } from '../../../../environments/environment';
-import { APP_CONFIG } from '../../../core/config/app-config.interface';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { Item } from '../../../core/shared/item.model';
+import { APP_CONFIG } from '../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { ObjectUpdatesService } from '../../../../../modules/core/src/lib/core/data/object-updates/object-updates.service';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { ThemeService } from '../../../shared/theme-support/theme.service';

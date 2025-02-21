@@ -19,24 +19,24 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { LinkService } from '../../../core/cache/builders/link.service';
-import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { RelationshipTypeDataService } from '../../../core/data/relationship-type-data.service';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { Item } from '../../../core/shared/item.model';
-import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
-import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
+import { LinkService } from '../../../../../modules/core/src/lib/core/cache/builders/link.service';
+import { EntityTypeDataService } from '../../../../../modules/core/src/lib/core/data/entity-type-data.service';
+import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
+import { ObjectUpdatesService } from '../../../../../modules/core/src/lib/core/data/object-updates/object-updates.service';
+import { RelationshipDataService } from '../../../../../modules/core/src/lib/core/data/relationship-data.service';
+import { RelationshipTypeDataService } from '../../../../../modules/core/src/lib/core/data/relationship-type-data.service';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { ItemType } from '../../../../../modules/core/src/lib/core/shared/item-relationships/item-type.model';
+import { Relationship } from '../../../../../modules/core/src/lib/core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '../../../../../modules/core/src/lib/core/shared/item-relationships/relationship-type.model';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
-import { RouterStub } from '../../../core/utilities/testing/router.stub';
-import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
+} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { RouterStub } from '../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
+import { createPaginatedList } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { ThemeService } from '../../../shared/theme-support/theme.service';

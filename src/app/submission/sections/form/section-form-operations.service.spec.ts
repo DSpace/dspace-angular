@@ -13,14 +13,14 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { APP_DATA_SERVICES_MAP } from '../../../core/config/app-config.interface';
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
-import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { APP_DATA_SERVICES_MAP } from '../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { JsonPatchOperationPathCombiner } from '../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operations-builder';
+import { TranslateLoaderMock } from '../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
+import { VocabularyEntry } from '../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-entry.model';
 import { DynamicRowArrayModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
-import { FormFieldMetadataValueObject } from '../../../core/config/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
 import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 import {

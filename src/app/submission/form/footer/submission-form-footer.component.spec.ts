@@ -24,10 +24,10 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { SubmissionRestService } from '../../../core/submission/submission-rest.service';
-import { SubmissionRestServiceStub } from '../../../core/utilities/testing/submission-rest-service.stub';
-import { SubmissionServiceStub } from '../../../core/utilities/testing/submission-service.stub';
-import { createTestComponent } from '../../../core/utilities/testing/utils.test';
+import { SubmissionRestService } from '../../../../../modules/core/src/lib/core/submission/submission-rest.service';
+import { SubmissionRestServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/submission-rest-service.stub';
+import { SubmissionServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/submission-service.stub';
+import { createTestComponent } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { mockSubmissionId } from '../../../shared/mocks/submission.mock';
 import { SubmissionService } from '../../submission.service';

@@ -14,16 +14,16 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { FollowLinkConfig } from '../../../core/data/follow-link-config.model';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { Bitstream } from '../../../core/shared/bitstream.model';
-import { Item } from '../../../core/shared/item.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
-import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
+import { BitstreamDataService } from '../../../../../modules/core/src/lib/core/data/bitstream-data.service';
+import { FindListOptions } from '../../../../../modules/core/src/lib/core/data/find-list-options.model';
+import { FollowLinkConfig } from '../../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { PaginationService } from '../../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { Bitstream } from '../../../../../modules/core/src/lib/core/shared/bitstream.model';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { createPaginatedList } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
 import { ItemAccessControlSelectBitstreamsModalComponent } from './item-access-control-select-bitstreams-modal.component';
 

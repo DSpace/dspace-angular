@@ -15,14 +15,14 @@ import {
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { APP_DATA_SERVICES_MAP } from '../../core/config/app-config.interface';
-import { ArrayMoveChangeAnalyzer } from '../../core/data/array-move-change-analyzer.service';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { Item } from '../../core/shared/item.model';
-import { ITEM } from '../../core/shared/item.resource-type';
-import { MetadataValue } from '../../core/shared/metadata.models';
-import { TestDataService } from '../../core/utilities/testing/test-data-service.mock';
+import { APP_DATA_SERVICES_MAP } from '../../../../modules/core/src/lib/core/config/app-config.interface';
+import { ArrayMoveChangeAnalyzer } from '../../../../modules/core/src/lib/core/data/array-move-change-analyzer.service';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { DSpaceObject } from '../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
+import { ITEM } from '../../../../modules/core/src/lib/core/shared/item.resource-type';
+import { MetadataValue } from '../../../../modules/core/src/lib/core/shared/metadata.models';
+import { TestDataService } from '../../../../modules/core/src/lib/core/utilities/testing/test-data-service.mock';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
@@ -40,7 +40,7 @@ const SAVE_BTN = 'save';
 const DISCARD_BTN = 'discard';
 
 const mockDataServiceMap: any = new Map([
-  [ITEM.value, () => import('../../core/utilities/testing/test-data-service.mock').then(m => m.TestDataService)],
+  [ITEM.value, () => import('../../../../modules/core/src/lib/core/utilities/testing/test-data-service.mock').then(m => m.TestDataService)],
 ]);
 
 describe('DsoEditMetadataComponent', () => {

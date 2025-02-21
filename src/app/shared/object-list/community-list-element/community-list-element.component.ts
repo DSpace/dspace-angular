@@ -2,9 +2,9 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { Community } from '../../../core/shared/community.model';
-import { ViewMode } from '../../../core/shared/view-mode.model';
+import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { Community } from '../../../../../modules/core/src/lib/core/shared/community.model';
+import { ViewMode } from '../../../../../modules/core/src/lib/core/shared/view-mode.model';
 import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 

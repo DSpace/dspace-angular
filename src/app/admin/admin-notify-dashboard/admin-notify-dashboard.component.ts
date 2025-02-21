@@ -15,18 +15,18 @@ import { map } from 'rxjs/operators';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../core/config/app-config.interface';
+} from '../../../../modules/core/src/lib/core/config/app-config.interface';
 import {
   AdminNotifyMetricsBox,
   AdminNotifyMetricsRow,
-} from '../../core/config/models/admin-notify-metrics.model';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { PaginatedSearchOptions } from '../../core/shared/paginated-search-options.model';
-import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
-import { SearchObjects } from '../../core/shared/search/models/search-objects.model';
-import { SearchService } from '../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+} from '../../../../modules/core/src/lib/core/config/models/admin-notify-metrics.model';
+import { DSpaceObject } from '../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { getFirstCompletedRemoteData } from '../../../../modules/core/src/lib/core/shared/operators';
+import { PaginatedSearchOptions } from '../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
+import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+import { SearchObjects } from '../../../../modules/core/src/lib/core/shared/search/models/search-objects.model';
+import { SearchService } from '../../../../modules/core/src/lib/core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { AdminNotifyMetricsComponent } from './admin-notify-metrics/admin-notify-metrics.component';
 

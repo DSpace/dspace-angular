@@ -15,8 +15,8 @@ import {
 import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { RatingAdvancedWorkflowInfo } from '../../../core/tasks/models/rating-advanced-workflow-info.model';
-import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
+import { RatingAdvancedWorkflowInfo } from '../../../../../modules/core/src/lib/core/tasks/models/rating-advanced-workflow-info.model';
+import { WorkflowAction } from '../../../../../modules/core/src/lib/core/tasks/models/workflow-action-object.model';
 import { ModifyItemOverviewComponent } from '../../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { AdvancedWorkflowActionComponent } from '../advanced-workflow-action/advanced-workflow-action.component';

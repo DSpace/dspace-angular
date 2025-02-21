@@ -10,10 +10,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { CommunityDataService } from '../../core/data/community-data.service';
-import { RequestService } from '../../core/data/request.service';
-import { NotificationsService } from '../../core/notifications/notifications.service';
+import { DSONameService } from '../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { CommunityDataService } from '../../../../modules/core/src/lib/core/data/community-data.service';
+import { RequestService } from '../../../../modules/core/src/lib/core/data/request.service';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
 import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
 import { DeleteCommunityPageComponent } from './delete-community-page.component';
 

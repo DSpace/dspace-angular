@@ -6,7 +6,7 @@ import { hasValue } from '@dspace/shared/utils';
 import { Store } from '@ngrx/store';
 
 import { AppState } from '../../../app.reducer';
-import { ListableObject } from '../../../core/object-collection/listable-object.model';
+import { ListableObject } from '../../../../../modules/core/src/lib/core/object-collection/listable-object.model';
 import {
   SelectableListDeselectAction,
   SelectableListDeselectSingleAction,

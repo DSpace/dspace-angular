@@ -8,16 +8,16 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '../../../core/auth/auth.service';
-import { VersionDataService } from '../../../core/data/version-data.service';
-import { Item } from '../../../core/shared/item.model';
-import { Version } from '../../../core/shared/version.model';
+import { AuthService } from '../../../../../modules/core/src/lib/core/auth/auth.service';
+import { VersionDataService } from '../../../../../modules/core/src/lib/core/data/version-data.service';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { Version } from '../../../../../modules/core/src/lib/core/shared/version.model';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../../core/utilities/testing/active-router.stub';
-import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
+} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+import { createPaginatedList } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { createRelationshipsObservable } from '../../simple/item-types/shared/item.component.spec';
 import { VersionPageComponent } from './version-page.component';
 

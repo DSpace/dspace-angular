@@ -1,5 +1,5 @@
 import { getWorkspaceItemModuleRoute } from '../app-routing-paths';
-import { URLCombiner } from '../core/url-combiner/url-combiner';
+import { URLCombiner } from '../../../modules/core/src/lib/core/url-combiner/url-combiner';
 
 export function getWorkspaceItemViewRoute(wfiId: string) {
   return new URLCombiner(getWorkspaceItemModuleRoute(), wfiId, WORKSPACE_ITEM_VIEW_PATH).toString();

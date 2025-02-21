@@ -23,12 +23,12 @@ import {
 } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-import { SubmissionFormsModel } from '../../../../core/config/models/config-submission-forms.model';
-import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { WorkspaceitemSectionUploadFileObject } from '../../../../core/submission/models/workspaceitem-section-upload-file.model';
-import { SubmissionJsonPatchOperationsService } from '../../../../core/submission/submission-json-patch-operations.service';
+import { SubmissionFormsModel } from '../../../../../../modules/core/src/lib/core/config/models/config-submission-forms.model';
+import { JsonPatchOperationPathCombiner } from '../../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '../../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operations-builder';
+import { Bitstream } from '../../../../../../modules/core/src/lib/core/shared/bitstream.model';
+import { WorkspaceitemSectionUploadFileObject } from '../../../../../../modules/core/src/lib/core/submission/models/workspaceitem-section-upload-file.model';
+import { SubmissionJsonPatchOperationsService } from '../../../../../../modules/core/src/lib/core/submission/submission-json-patch-operations.service';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { FormService } from '../../../../shared/form/form.service';

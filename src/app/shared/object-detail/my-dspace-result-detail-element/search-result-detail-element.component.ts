@@ -4,9 +4,9 @@ import {
 } from '@angular/core';
 import { hasValue } from '@dspace/shared/utils';
 
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { Metadata } from '../../../core/shared/metadata.utils';
-import { SearchResult } from '../../../core/shared/search/models/search-result.model';
+import { DSpaceObject } from '../../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { Metadata } from '../../../../../modules/core/src/lib/core/shared/metadata.utils';
+import { SearchResult } from '../../../../../modules/core/src/lib/core/shared/search/models/search-result.model';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 
 /**

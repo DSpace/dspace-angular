@@ -36,29 +36,29 @@ import {
 import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-by.component';
 
 import { environment } from '../../../environments/environment';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { BrowseService } from '../../core/browse/browse.service';
-import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
+import { DSONameService } from '../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { BrowseService } from '../../../../modules/core/src/lib/core/browse/browse.service';
+import { BrowseEntrySearchOptions } from '../../../../modules/core/src/lib/core/browse/browse-entry-search-options.model';
 import {
   SortDirection,
   SortOptions,
-} from '../../core/cache/models/sort-options.model';
+} from '../../../../modules/core/src/lib/core/cache/models/sort-options.model';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../core/config/app-config.interface';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { BrowseEntry } from '../../core/shared/browse-entry.model';
-import { Context } from '../../core/shared/context.model';
-import { Item } from '../../core/shared/item.model';
-import { getFirstSucceededRemoteData } from '../../core/shared/operators';
-import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
+} from '../../../../modules/core/src/lib/core/config/app-config.interface';
+import { DSpaceObjectDataService } from '../../../../modules/core/src/lib/core/data/dspace-object-data.service';
+import { PaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
+import { PaginationService } from '../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { BrowseEntry } from '../../../../modules/core/src/lib/core/shared/browse-entry.model';
+import { Context } from '../../../../modules/core/src/lib/core/shared/context.model';
+import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
+import { getFirstSucceededRemoteData } from '../../../../modules/core/src/lib/core/shared/operators';
+import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { StartsWithType } from '../../shared/starts-with/starts-with-type';
-import { BrowseByDataType } from '../../core/shared/browse-by-data-type';
+import { BrowseByDataType } from '../../../../modules/core/src/lib/core/shared/browse-by-data-type';
 
 export const BBM_PAGINATION_ID = 'bbm';
 

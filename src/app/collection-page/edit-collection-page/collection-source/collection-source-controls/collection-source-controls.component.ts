@@ -23,22 +23,22 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
-import { CollectionDataService } from '../../../../core/data/collection-data.service';
-import { ProcessDataService } from '../../../../core/data/processes/process-data.service';
-import { ScriptDataService } from '../../../../core/data/processes/script-data.service';
-import { RequestService } from '../../../../core/data/request.service';
-import { NotificationsService } from '../../../../core/notifications/notifications.service';
-import { Process } from '../../../../core/processes/process.model';
-import { ProcessStatus } from '../../../../core/processes/process-status.model';
-import { Collection } from '../../../../core/shared/collection.model';
-import { ContentSource } from '../../../../core/shared/content-source.model';
-import { ContentSourceSetSerializer } from '../../../../core/shared/content-source-set-serializer';
+import { BitstreamDataService } from '../../../../../../modules/core/src/lib/core/data/bitstream-data.service';
+import { CollectionDataService } from '../../../../../../modules/core/src/lib/core/data/collection-data.service';
+import { ProcessDataService } from '../../../../../../modules/core/src/lib/core/data/processes/process-data.service';
+import { ScriptDataService } from '../../../../../../modules/core/src/lib/core/data/processes/script-data.service';
+import { RequestService } from '../../../../../../modules/core/src/lib/core/data/request.service';
+import { NotificationsService } from '../../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Process } from '../../../../../../modules/core/src/lib/core/processes/process.model';
+import { ProcessStatus } from '../../../../../../modules/core/src/lib/core/processes/process-status.model';
+import { Collection } from '../../../../../../modules/core/src/lib/core/shared/collection.model';
+import { ContentSource } from '../../../../../../modules/core/src/lib/core/shared/content-source.model';
+import { ContentSourceSetSerializer } from '../../../../../../modules/core/src/lib/core/shared/content-source-set-serializer';
 import {
   getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '../../../../core/shared/operators';
+} from '../../../../../../modules/core/src/lib/core/shared/operators';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 

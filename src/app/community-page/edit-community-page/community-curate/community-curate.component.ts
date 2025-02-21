@@ -13,9 +13,9 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { Community } from '../../../core/shared/community.model';
+import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { Community } from '../../../../../modules/core/src/lib/core/shared/community.model';
 import { CurationFormComponent } from '../../../curation-form/curation-form.component';
 
 /**

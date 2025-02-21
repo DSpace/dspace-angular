@@ -16,16 +16,16 @@ import {
 } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { RemoteData } from '../../../core/data/remote-data';
-import { RequestService } from '../../../core/data/request.service';
-import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { Item } from '../../../core/shared/item.model';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
-import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
-import { ClaimedTask } from '../../../core/tasks/models/claimed-task-object.model';
-import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
+import { WorkflowActionDataService } from '../../../../../modules/core/src/lib/core/data/workflow-action-data.service';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { SearchService } from '../../../../../modules/core/src/lib/core/shared/search/search.service';
+import { WorkflowItem } from '../../../../../modules/core/src/lib/core/submission/models/workflowitem.model';
+import { ClaimedTaskDataService } from '../../../../../modules/core/src/lib/core/tasks/claimed-task-data.service';
+import { ClaimedTask } from '../../../../../modules/core/src/lib/core/tasks/models/claimed-task-object.model';
+import { WorkflowAction } from '../../../../../modules/core/src/lib/core/tasks/models/workflow-action-object.model';
 import { getWorkflowItemViewRoute } from '../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { VarDirective } from '../../utils/var.directive';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';

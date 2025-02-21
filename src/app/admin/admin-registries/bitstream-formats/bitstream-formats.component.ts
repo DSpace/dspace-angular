@@ -18,16 +18,16 @@ import {
   toArray,
 } from 'rxjs/operators';
 
-import { BitstreamFormatDataService } from '../../../core/data/bitstream-format-data.service';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
+import { BitstreamFormatDataService } from '../../../../../modules/core/src/lib/core/data/bitstream-format-data.service';
+import { FindListOptions } from '../../../../../modules/core/src/lib/core/data/find-list-options.model';
+import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { PaginationService } from '../../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { BitstreamFormat } from '../../../../../modules/core/src/lib/core/shared/bitstream-format.model';
+import { NoContent } from '../../../../../modules/core/src/lib/core/shared/NoContent.model';
+import { getFirstCompletedRemoteData } from '../../../../../modules/core/src/lib/core/shared/operators';
+import { PaginationComponentOptions } from '../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 
 /**

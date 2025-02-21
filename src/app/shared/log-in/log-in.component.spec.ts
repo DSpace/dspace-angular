@@ -20,18 +20,18 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { authReducer } from '../../core/auth/auth.reducer';
-import { AuthService } from '../../core/auth/auth.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { NativeWindowMockFactory } from '../../core/mocks/mock-native-window-ref';
-import { HardRedirectService } from '../../core/services/hard-redirect.service';
-import { NativeWindowService } from '../../core/services/window.service';
-import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
+import { authReducer } from '../../../../modules/core/src/lib/core/auth/auth.reducer';
+import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
+import { AuthorizationDataService } from '../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { NativeWindowMockFactory } from '../../../../modules/core/src/lib/core/mocks/mock-native-window-ref';
+import { HardRedirectService } from '../../../../modules/core/src/lib/core/services/hard-redirect.service';
+import { NativeWindowService } from '../../../../modules/core/src/lib/core/services/window.service';
+import { ActivatedRouteStub } from '../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
 import {
   authMethodsMock,
   AuthServiceStub,
-} from '../../core/utilities/testing/auth-service.stub';
-import { createTestComponent } from '../../core/utilities/testing/utils.test';
+} from '../../../../modules/core/src/lib/core/utilities/testing/auth-service.stub';
+import { createTestComponent } from '../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { getMockThemeService } from '../mocks/theme-service.mock';
 import { ThemeService } from '../theme-support/theme.service';
 import { LogInComponent } from './log-in.component';

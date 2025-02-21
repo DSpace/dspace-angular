@@ -14,12 +14,12 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { TranslateLoaderMock } from '../../../../../core/mocks/translate-loader.mock';
-import { Context } from '../../../../../core/shared/context.model';
-import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
-import { PoolTask } from '../../../../../core/tasks/models/pool-task-object.model';
-import { createSuccessfulRemoteDataObject } from '../../../../../core/utilities/remote-data.utils';
-import { EPersonMock } from '../../../../../core/utilities/testing/eperson.mock';
+import { TranslateLoaderMock } from '../../../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
+import { Context } from '../../../../../../../modules/core/src/lib/core/shared/context.model';
+import { WorkflowItem } from '../../../../../../../modules/core/src/lib/core/submission/models/workflowitem.model';
+import { PoolTask } from '../../../../../../../modules/core/src/lib/core/tasks/models/pool-task-object.model';
+import { createSuccessfulRemoteDataObject } from '../../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { EPersonMock } from '../../../../../../../modules/core/src/lib/core/utilities/testing/eperson.mock';
 import { MyDSpaceStatusBadgeComponent } from './my-dspace-status-badge.component';
 
 let component: MyDSpaceStatusBadgeComponent;

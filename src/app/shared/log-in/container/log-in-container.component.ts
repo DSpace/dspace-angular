@@ -6,7 +6,7 @@ import {
   OnInit,
 } from '@angular/core';
 
-import { AuthMethod } from '../../../core/auth/models/auth.method';
+import { AuthMethod } from '../../../../../modules/core/src/lib/core/auth/models/auth.method';
 import {
   AuthMethodTypeComponent,
   rendersAuthMethodType,

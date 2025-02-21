@@ -48,27 +48,27 @@ import {
 import { environment } from '../../../../environments/environment';
 import { getCollectionEditRolesRoute } from '../../../collection-page/collection-page-routing-paths';
 import { getCommunityEditRolesRoute } from '../../../community-page/community-page-routing-paths';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { DSpaceObjectDataService } from '../../../core/data/dspace-object-data.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { followLink } from '../../../core/data/follow-link-config.model';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { RequestService } from '../../../core/data/request.service';
-import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { Group } from '../../../core/eperson/models/group.model';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { Collection } from '../../../core/shared/collection.model';
-import { Community } from '../../../core/shared/community.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { NoContent } from '../../../core/shared/NoContent.model';
+import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { DSpaceObjectDataService } from '../../../../../modules/core/src/lib/core/data/dspace-object-data.service';
+import { AuthorizationDataService } from '../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
+import { followLink } from '../../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
+import { GroupDataService } from '../../../../../modules/core/src/lib/core/eperson/group-data.service';
+import { Group } from '../../../../../modules/core/src/lib/core/eperson/models/group.model';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
+import { Community } from '../../../../../modules/core/src/lib/core/shared/community.model';
+import { DSpaceObject } from '../../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { NoContent } from '../../../../../modules/core/src/lib/core/shared/NoContent.model';
 import {
   getAllCompletedRemoteData,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '../../../core/shared/operators';
+} from '../../../../../modules/core/src/lib/core/shared/operators';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';

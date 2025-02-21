@@ -22,22 +22,22 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { ProcessDataService } from '../../core/data/processes/process-data.service';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { Process } from '../../core/processes/process.model';
-import { Bitstream } from '../../core/shared/bitstream.model';
+import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
+import { DSONameService } from '../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { BitstreamDataService } from '../../../../modules/core/src/lib/core/data/bitstream-data.service';
+import { PaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { ProcessDataService } from '../../../../modules/core/src/lib/core/data/processes/process-data.service';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Process } from '../../../../modules/core/src/lib/core/processes/process.model';
+import { Bitstream } from '../../../../modules/core/src/lib/core/shared/bitstream.model';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
-import { RouterStub } from '../../core/utilities/testing/router.stub';
-import { createPaginatedList } from '../../core/utilities/testing/utils.test';
+} from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+import { NotificationsServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { RouterStub } from '../../../../modules/core/src/lib/core/utilities/testing/router.stub';
+import { createPaginatedList } from '../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { ThemedFileDownloadLinkComponent } from '../../shared/file-download-link/themed-file-download-link.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';

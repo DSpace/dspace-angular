@@ -11,30 +11,30 @@ import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
-import { MetadataField } from 'src/app/core/metadata/metadata-field.model';
-import { MetadataSchema } from 'src/app/core/metadata/metadata-schema.model';
-import { RegistryService } from 'src/app/core/registry/registry.service';
-import { ConfidenceType } from 'src/app/core/shared/confidence-type';
-import { Vocabulary } from 'src/app/core/submission/vocabularies/models/vocabulary.model';
-import { VocabularyService } from 'src/app/core/submission/vocabularies/vocabulary.service';
+import { MetadataField } from '../../../../../modules/core/src/lib/core/metadata/metadata-field.model';
+import { MetadataSchema } from '../../../../../modules/core/src/lib/core/metadata/metadata-schema.model';
+import { RegistryService } from '../../../../../modules/core/src/lib/core/registry/registry.service';
+import { ConfidenceType } from '../../../../../modules/core/src/lib/core/shared/confidence-type';
+import { Vocabulary } from '../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary.model';
+import { VocabularyService } from '../../../../../modules/core/src/lib/core/submission/vocabularies/vocabulary.service';
 import { DynamicOneboxModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
 import { DynamicScrollableDropdownModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { Collection } from '../../../core/shared/collection.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { Item } from '../../../core/shared/item.model';
+import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
+import { RelationshipDataService } from '../../../../../modules/core/src/lib/core/data/relationship-data.service';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
+import { DSpaceObject } from '../../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
 import {
   MetadataValue,
   VIRTUAL_METADATA_PREFIX,
-} from '../../../core/shared/metadata.models';
-import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
-import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
-import { VocabularyServiceStub } from '../../../core/utilities/testing/vocabulary-service.stub';
+} from '../../../../../modules/core/src/lib/core/shared/metadata.models';
+import { ItemMetadataRepresentation } from '../../../../../modules/core/src/lib/core/shared/metadata-representation/item/item-metadata-representation.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { createPaginatedList } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+import { VocabularyServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/vocabulary-service.stub';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { DsDynamicOneboxComponent } from '../../../shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.component';
 import { DsDynamicScrollableDropdownComponent } from '../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component';

@@ -18,7 +18,7 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { GenericConstructor } from '../../../core/shared/generic-constructor';
+import { GenericConstructor } from '../../../../../modules/core/src/lib/core/shared/generic-constructor';
 import { MenuService } from '../menu.service';
 import { MenuID } from '../menu-id.model';
 import { getComponentForMenuItemType } from '../menu-item.decorator';

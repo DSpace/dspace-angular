@@ -11,11 +11,11 @@ import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { of as observableOf } from 'rxjs';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { RouteService } from '../../../core/services/route.service';
-import { BrowseEntry } from '../../../core/shared/browse-entry.model';
-import { ActivatedRouteStub } from '../../../core/utilities/testing/active-router.stub';
+import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { PaginationService } from '../../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { RouteService } from '../../../../../modules/core/src/lib/core/services/route.service';
+import { BrowseEntry } from '../../../../../modules/core/src/lib/core/shared/browse-entry.model';
+import { ActivatedRouteStub } from '../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
 import { DSONameServiceMock } from '../../mocks/dso-name.service.mock';
 import { TruncatePipe } from '../../utils/truncate.pipe';
 import { BrowseEntryListElementComponent } from './browse-entry-list-element.component';

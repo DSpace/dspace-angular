@@ -17,21 +17,21 @@ import {
   of,
 } from 'rxjs';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { APP_DATA_SERVICES_MAP } from '../../core/config/app-config.interface';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
-import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
-import { AuthServiceStub } from '../../core/utilities/testing/auth-service.stub';
-import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
-import { RouterStub } from '../../core/utilities/testing/router.stub';
-import { SectionsServiceStub } from '../../core/utilities/testing/sections-service.stub';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../core/utilities/testing/submission-json-patch-operations-service.stub';
-import { SubmissionServiceStub } from '../../core/utilities/testing/submission-service.stub';
-import { XSRFService } from '../../core/xsrf/xsrf.service';
+import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
+import { APP_DATA_SERVICES_MAP } from '../../../../modules/core/src/lib/core/config/app-config.interface';
+import { ItemDataService } from '../../../../modules/core/src/lib/core/data/item-data.service';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { HALEndpointService } from '../../../../modules/core/src/lib/core/shared/hal-endpoint.service';
+import { SubmissionJsonPatchOperationsService } from '../../../../modules/core/src/lib/core/submission/submission-json-patch-operations.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+import { AuthServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/auth-service.stub';
+import { NotificationsServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { RouterStub } from '../../../../modules/core/src/lib/core/utilities/testing/router.stub';
+import { SectionsServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/sections-service.stub';
+import { SubmissionJsonPatchOperationsServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/submission-json-patch-operations-service.stub';
+import { SubmissionServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/submission-service.stub';
+import { XSRFService } from '../../../../modules/core/src/lib/core/xsrf/xsrf.service';
 import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';

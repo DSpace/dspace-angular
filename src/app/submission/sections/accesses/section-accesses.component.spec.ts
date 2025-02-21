@@ -19,18 +19,18 @@ import { environment } from 'src/environments/environment.test';
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
-} from '../../../core/config/app-config.interface';
-import { SubmissionAccessesConfigDataService } from '../../../core/config/submission-accesses-config-data.service';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
-import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
+} from '../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { SubmissionAccessesConfigDataService } from '../../../../../modules/core/src/lib/core/config/submission-accesses-config-data.service';
+import { JsonPatchOperationsBuilder } from '../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operations-builder';
+import { SubmissionJsonPatchOperationsService } from '../../../../../modules/core/src/lib/core/submission/submission-json-patch-operations.service';
+import { SubmissionObjectDataService } from '../../../../../modules/core/src/lib/core/submission/submission-object-data.service';
 import {
   accessConditionChangeEvent,
   checkboxChangeEvent,
-} from '../../../core/utilities/testing/form-event.stub';
-import { SectionsServiceStub } from '../../../core/utilities/testing/sections-service.stub';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../../core/utilities/testing/submission-json-patch-operations-service.stub';
-import { XSRFService } from '../../../core/xsrf/xsrf.service';
+} from '../../../../../modules/core/src/lib/core/utilities/testing/form-event.stub';
+import { SectionsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/sections-service.stub';
+import { SubmissionJsonPatchOperationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/submission-json-patch-operations-service.stub';
+import { XSRFService } from '../../../../../modules/core/src/lib/core/xsrf/xsrf.service';
 import { dsDynamicFormControlMapFn } from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 import { DsDynamicTypeBindRelationService } from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';

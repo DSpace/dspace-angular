@@ -18,14 +18,14 @@ import { switchMap } from 'rxjs/operators';
 import {
   SortDirection,
   SortOptions,
-} from '../../../../core/cache/models/sort-options.model';
-import { CollectionDataService } from '../../../../core/data/collection-data.service';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { Collection } from '../../../../core/shared/collection.model';
-import { Community } from '../../../../core/shared/community.model';
-import { PaginationComponentOptions } from '../../../../core/shared/pagination-component-options.model';
+} from '../../../../../../modules/core/src/lib/core/cache/models/sort-options.model';
+import { CollectionDataService } from '../../../../../../modules/core/src/lib/core/data/collection-data.service';
+import { PaginatedList } from '../../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../../../modules/core/src/lib/core/data/remote-data';
+import { PaginationService } from '../../../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { Collection } from '../../../../../../modules/core/src/lib/core/shared/collection.model';
+import { Community } from '../../../../../../modules/core/src/lib/core/shared/community.model';
+import { PaginationComponentOptions } from '../../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
 import { fadeIn } from '../../../../shared/animations/fade';
 import { ErrorComponent } from '../../../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';

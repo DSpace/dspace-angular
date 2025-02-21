@@ -44,24 +44,24 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
-import { FieldUpdates } from '../../../core/data/object-updates/field-updates.model';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { RequestService } from '../../../core/data/request.service';
-import { INotification } from '../../../core/notifications/models/notification.model';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { Collection } from '../../../core/shared/collection.model';
+import { CollectionDataService } from '../../../../../modules/core/src/lib/core/data/collection-data.service';
+import { FieldUpdate } from '../../../../../modules/core/src/lib/core/data/object-updates/field-update.model';
+import { FieldUpdates } from '../../../../../modules/core/src/lib/core/data/object-updates/field-updates.model';
+import { ObjectUpdatesService } from '../../../../../modules/core/src/lib/core/data/object-updates/object-updates.service';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
+import { INotification } from '../../../../../modules/core/src/lib/core/notifications/models/notification.model';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
 import {
   ContentSource,
   ContentSourceHarvestType,
-} from '../../../core/shared/content-source.model';
-import { MetadataConfig } from '../../../core/shared/metadata-config.model';
+} from '../../../../../modules/core/src/lib/core/shared/content-source.model';
+import { MetadataConfig } from '../../../../../modules/core/src/lib/core/shared/metadata-config.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
-} from '../../../core/shared/operators';
+} from '../../../../../modules/core/src/lib/core/shared/operators';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { FormComponent } from '../../../shared/form/form.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';

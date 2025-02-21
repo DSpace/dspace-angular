@@ -11,11 +11,11 @@ import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { AuthService } from '../../../core/auth/auth.service';
-import { LinkService } from '../../../core/cache/builders/link.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { Collection } from '../../../core/shared/collection.model';
-import { ActivatedRouteStub } from '../../../core/utilities/testing/active-router.stub';
+import { AuthService } from '../../../../../modules/core/src/lib/core/auth/auth.service';
+import { LinkService } from '../../../../../modules/core/src/lib/core/cache/builders/link.service';
+import { AuthorizationDataService } from '../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
+import { ActivatedRouteStub } from '../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
 import { AuthServiceMock } from '../../mocks/auth.service.mock';
 import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { ThemeService } from '../../theme-support/theme.service';

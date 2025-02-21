@@ -13,16 +13,16 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { storeModuleConfig } from '../../../../app.reducer';
-import { authReducer } from '../../../../core/auth/auth.reducer';
-import { AuthService } from '../../../../core/auth/auth.service';
-import { AuthMethod } from '../../../../core/auth/models/auth.method';
-import { AuthMethodType } from '../../../../core/auth/models/auth.method-type';
-import { NativeWindowMockFactory } from '../../../../core/mocks/mock-native-window-ref';
-import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
-import { NativeWindowService } from '../../../../core/services/window.service';
-import { ActivatedRouteStub } from '../../../../core/utilities/testing/active-router.stub';
-import { AuthServiceStub } from '../../../../core/utilities/testing/auth-service.stub';
-import { RouterStub } from '../../../../core/utilities/testing/router.stub';
+import { authReducer } from '../../../../../../modules/core/src/lib/core/auth/auth.reducer';
+import { AuthService } from '../../../../../../modules/core/src/lib/core/auth/auth.service';
+import { AuthMethod } from '../../../../../../modules/core/src/lib/core/auth/models/auth.method';
+import { AuthMethodType } from '../../../../../../modules/core/src/lib/core/auth/models/auth.method-type';
+import { NativeWindowMockFactory } from '../../../../../../modules/core/src/lib/core/mocks/mock-native-window-ref';
+import { HardRedirectService } from '../../../../../../modules/core/src/lib/core/services/hard-redirect.service';
+import { NativeWindowService } from '../../../../../../modules/core/src/lib/core/services/window.service';
+import { ActivatedRouteStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+import { AuthServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/auth-service.stub';
+import { RouterStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
 import { LogInExternalProviderComponent } from './log-in-external-provider.component';
 
 describe('LogInExternalProviderComponent', () => {

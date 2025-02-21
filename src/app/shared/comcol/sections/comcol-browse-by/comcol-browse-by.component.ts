@@ -10,9 +10,9 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { BrowseByDataType } from '../../../../core/shared/browse-by-data-type';
+import { BrowseByDataType } from '../../../../../../modules/core/src/lib/core/shared/browse-by-data-type';
 import { BrowseBySwitcherComponent } from '../../../../browse-by/browse-by-switcher/browse-by-switcher.component';
-import { BrowseDefinition } from '../../../../core/shared/browse-definition.model';
+import { BrowseDefinition } from '../../../../../../modules/core/src/lib/core/shared/browse-definition.model';
 
 @Component({
   selector: 'ds-comcol-browse-by',

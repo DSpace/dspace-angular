@@ -20,25 +20,25 @@ import {
 } from 'rxjs';
 
 import { storeModuleConfig } from '../app.reducer';
-import { authReducer } from '../core/auth/auth.reducer';
-import { AuthService } from '../core/auth/auth.service';
-import { AuthTokenInfo } from '../core/auth/models/auth-token-info.model';
-import { RestResponse } from '../core/cache/response.models';
-import { ConfigurationDataService } from '../core/data/configuration-data.service';
-import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { EPersonDataService } from '../core/eperson/eperson-data.service';
-import { EPerson } from '../core/eperson/models/eperson.model';
-import { NotificationsService } from '../core/notifications/notifications.service';
-import { ConfigurationProperty } from '../core/shared/configuration-property.model';
+import { authReducer } from '../../../modules/core/src/lib/core/auth/auth.reducer';
+import { AuthService } from '../../../modules/core/src/lib/core/auth/auth.service';
+import { AuthTokenInfo } from '../../../modules/core/src/lib/core/auth/models/auth-token-info.model';
+import { RestResponse } from '../../../modules/core/src/lib/core/cache/response.models';
+import { ConfigurationDataService } from '../../../modules/core/src/lib/core/data/configuration-data.service';
+import { AuthorizationDataService } from '../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { EPersonDataService } from '../../../modules/core/src/lib/core/eperson/eperson-data.service';
+import { EPerson } from '../../../modules/core/src/lib/core/eperson/models/eperson.model';
+import { NotificationsService } from '../../../modules/core/src/lib/core/notifications/notifications.service';
+import { ConfigurationProperty } from '../../../modules/core/src/lib/core/shared/configuration-property.model';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../core/utilities/remote-data.utils';
+} from '../../../modules/core/src/lib/core/utilities/remote-data.utils';
 import {
   EmptySpecialGroupDataMock$,
   SpecialGroupDataMock$,
-} from '../core/utilities/testing/special-group.mock';
-import { createPaginatedList } from '../core/utilities/testing/utils.test';
+} from '../../../modules/core/src/lib/core/utilities/testing/special-group.mock';
+import { createPaginatedList } from '../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { SuggestionsNotificationComponent } from '../notifications/suggestions-notification/suggestions-notification.component';
 import { ErrorComponent } from '../shared/error/error.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';

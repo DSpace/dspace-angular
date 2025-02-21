@@ -22,8 +22,8 @@ import { environment } from '../../../environments/environment';
 import {
   SortDirection,
   SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
+} from '../../../../modules/core/src/lib/core/cache/models/sort-options.model';
+import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
 import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import {

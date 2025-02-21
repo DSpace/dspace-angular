@@ -9,10 +9,10 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 
-import { MetadataRepresentationType } from '../../../../core/shared/metadata-representation/metadata-representation.model';
-import { MetadatumRepresentation } from '../../../../core/shared/metadata-representation/metadatum/metadatum-representation.model';
-import { ValueListBrowseDefinition } from '../../../../core/shared/value-list-browse-definition.model';
-import { ActivatedRouteStub } from '../../../../core/utilities/testing/active-router.stub';
+import { MetadataRepresentationType } from '../../../../../../modules/core/src/lib/core/shared/metadata-representation/metadata-representation.model';
+import { MetadatumRepresentation } from '../../../../../../modules/core/src/lib/core/shared/metadata-representation/metadatum/metadatum-representation.model';
+import { ValueListBrowseDefinition } from '../../../../../../modules/core/src/lib/core/shared/value-list-browse-definition.model';
+import { ActivatedRouteStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
 import { BrowseLinkMetadataListElementComponent } from './browse-link-metadata-list-element.component';
 
 const mockMetadataRepresentation = Object.assign(new MetadatumRepresentation('type'), {

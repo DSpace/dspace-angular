@@ -18,24 +18,24 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { RequestService } from '../../core/data/request.service';
-import { getMockRequestService } from '../../core/mocks/request.service.mock';
-import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { Item } from '../../core/shared/item.model';
-import { SearchService } from '../../core/shared/search/search.service';
-import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
-import { ClaimedTaskDataService } from '../../core/tasks/claimed-task-data.service';
-import { PoolTask } from '../../core/tasks/models/pool-task-object.model';
-import { ProcessTaskResponse } from '../../core/tasks/models/process-task-response';
-import { PoolTaskDataService } from '../../core/tasks/pool-task-data.service';
+import { RequestService } from '../../../../modules/core/src/lib/core/data/request.service';
+import { getMockRequestService } from '../../../../modules/core/src/lib/core/mocks/request.service.mock';
+import { TranslateLoaderMock } from '../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
+import { SearchService } from '../../../../modules/core/src/lib/core/shared/search/search.service';
+import { WorkflowItem } from '../../../../modules/core/src/lib/core/submission/models/workflowitem.model';
+import { ClaimedTaskDataService } from '../../../../modules/core/src/lib/core/tasks/claimed-task-data.service';
+import { PoolTask } from '../../../../modules/core/src/lib/core/tasks/models/pool-task-object.model';
+import { ProcessTaskResponse } from '../../../../modules/core/src/lib/core/tasks/models/process-task-response';
+import { PoolTaskDataService } from '../../../../modules/core/src/lib/core/tasks/pool-task-data.service';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
-} from '../../core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
-import { RouterStub } from '../../core/utilities/testing/router.stub';
+} from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+import { NotificationsServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { RouterStub } from '../../../../modules/core/src/lib/core/utilities/testing/router.stub';
 import { getMockSearchService } from '../mocks/search-service.mock';
 import { PoolTaskActionsComponent } from './pool-task/pool-task-actions.component';
 

@@ -7,10 +7,10 @@ import {
 import { NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '../../../core/auth/auth.service';
-import { MockBitstreamFormat1 } from '../../../core/mocks/item.mock';
-import { Bitstream } from '../../../core/shared/bitstream.model';
-import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
+import { AuthService } from '../../../../../modules/core/src/lib/core/auth/auth.service';
+import { MockBitstreamFormat1 } from '../../../../../modules/core/src/lib/core/mocks/item.mock';
+import { Bitstream } from '../../../../../modules/core/src/lib/core/shared/bitstream.model';
+import { MediaViewerItem } from '../../../../../modules/core/src/lib/core/shared/media-viewer-item.model';
 import { MediaViewerImageComponent } from './media-viewer-image.component';
 
 describe('MediaViewerImageComponent', () => {

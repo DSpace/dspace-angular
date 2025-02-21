@@ -22,15 +22,15 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { ScriptDataService } from '../../../core/data/processes/script-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { Process } from '../../../core/processes/process.model';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { PaginatedSearchOptions } from '../../../core/shared/paginated-search-options.model';
-import { SearchFilter } from '../../../core/shared/search/models/search-filter.model';
+import { AuthorizationDataService } from '../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
+import { ScriptDataService } from '../../../../../modules/core/src/lib/core/data/processes/script-data.service';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Process } from '../../../../../modules/core/src/lib/core/processes/process.model';
+import { getFirstCompletedRemoteData } from '../../../../../modules/core/src/lib/core/shared/operators';
+import { PaginatedSearchOptions } from '../../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
+import { SearchFilter } from '../../../../../modules/core/src/lib/core/shared/search/models/search-filter.model';
 import { getProcessDetailRoute } from '../../../process-page/process-page-routing.paths';
 
 @Component({

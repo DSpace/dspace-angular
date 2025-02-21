@@ -29,16 +29,16 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { getGroupEditRoute } from '../../../access-control/access-control-routing-paths';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { Group } from '../../../core/eperson/models/group.model';
-import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { GroupDataService } from '../../../../../modules/core/src/lib/core/eperson/group-data.service';
+import { Group } from '../../../../../modules/core/src/lib/core/eperson/models/group.model';
+import { ResourcePolicy } from '../../../../../modules/core/src/lib/core/resource-policy/models/resource-policy.model';
+import { DSpaceObject } from '../../../../../modules/core/src/lib/core/shared/dspace-object.model';
 import {
   getAllSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '../../../core/shared/operators';
+} from '../../../../../modules/core/src/lib/core/shared/operators';
 import { HasValuePipe } from '../../utils/has-value.pipe';
 
 export interface ResourcePolicyCheckboxEntry {

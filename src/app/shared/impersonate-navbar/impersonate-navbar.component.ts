@@ -17,8 +17,8 @@ import {
 import { map } from 'rxjs/operators';
 
 import { AppState } from '../../app.reducer';
-import { AuthService } from '../../core/auth/auth.service';
-import { isAuthenticated } from '../../core/auth/selectors';
+import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
+import { isAuthenticated } from '../../../../modules/core/src/lib/core/auth/selectors';
 
 @Component({
   selector: 'ds-impersonate-navbar',

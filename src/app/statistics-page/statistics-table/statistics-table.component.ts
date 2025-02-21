@@ -15,16 +15,16 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { DSONameService } from '../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { DSpaceObjectDataService } from '../../../../modules/core/src/lib/core/data/dspace-object-data.service';
 import {
   getFinishedRemoteData,
   getRemoteDataPayload,
-} from '../../core/shared/operators';
+} from '../../../../modules/core/src/lib/core/shared/operators';
 import {
   Point,
   UsageReport,
-} from '../../core/statistics/models/usage-report.model';
+} from '../../../../modules/core/src/lib/core/statistics/models/usage-report.model';
 
 /**
  * Component representing a statistics table for a given usage report.

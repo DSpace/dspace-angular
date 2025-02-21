@@ -17,13 +17,13 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { buildPaginatedList } from '../../../core/data/paginated-list.model';
-import { ScriptDataService } from '../../../core/data/processes/script-data.service';
-import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
-import { Script } from '../../../core/scripts/script.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../../core/utilities/testing/active-router.stub';
-import { RouterStub } from '../../../core/utilities/testing/router.stub';
+import { buildPaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { ScriptDataService } from '../../../../../modules/core/src/lib/core/data/processes/script-data.service';
+import { TranslateLoaderMock } from '../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
+import { Script } from '../../../../../modules/core/src/lib/core/scripts/script.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+import { RouterStub } from '../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
 import { ScriptsSelectComponent } from './scripts-select.component';
 
 describe('ScriptsSelectComponent', () => {

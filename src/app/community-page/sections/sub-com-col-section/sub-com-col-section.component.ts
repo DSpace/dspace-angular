@@ -10,8 +10,8 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { RemoteData } from '../../../core/data/remote-data';
-import { Community } from '../../../core/shared/community.model';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { Community } from '../../../../../modules/core/src/lib/core/shared/community.model';
 import { ThemedCollectionPageSubCollectionListComponent } from './sub-collection-list/themed-community-page-sub-collection-list.component';
 import { ThemedCommunityPageSubCommunityListComponent } from './sub-community-list/themed-community-page-sub-community-list.component';
 

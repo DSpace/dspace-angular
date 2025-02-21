@@ -12,13 +12,13 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   SortDirection,
   SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { ListableObject } from '../../core/object-collection/listable-object.model';
-import { Context } from '../../core/shared/context.model';
-import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
-import { ViewMode } from '../../core/shared/view-mode.model';
+} from '../../../../modules/core/src/lib/core/cache/models/sort-options.model';
+import { PaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
+import { ListableObject } from '../../../../modules/core/src/lib/core/object-collection/listable-object.model';
+import { Context } from '../../../../modules/core/src/lib/core/shared/context.model';
+import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+import { ViewMode } from '../../../../modules/core/src/lib/core/shared/view-mode.model';
 import { fadeIn } from '../animations/fade';
 import { ErrorComponent } from '../error/error.component';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';

@@ -23,21 +23,21 @@ import {
   AppState,
   storeModuleConfig,
 } from '../../app.reducer';
-import { SubmissionSectionModel } from '../../core/config/models/config-submission-section.model';
-import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { Item } from '../../core/shared/item.model';
-import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
-import { SubmissionObjectDataService } from '../../core/submission/submission-object-data.service';
-import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
-import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
-import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
-import { SectionsServiceStub } from '../../core/utilities/testing/sections-service.stub';
-import { StoreMock } from '../../core/utilities/testing/store.mock';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../core/utilities/testing/submission-json-patch-operations-service.stub';
-import { mockSubmissionObjectDataService } from '../../core/utilities/testing/submission-oject-data-service.mock';
-import { SubmissionServiceStub } from '../../core/utilities/testing/submission-service.stub';
+import { SubmissionSectionModel } from '../../../../modules/core/src/lib/core/config/models/config-submission-section.model';
+import { TranslateLoaderMock } from '../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { HALEndpointService } from '../../../../modules/core/src/lib/core/shared/hal-endpoint.service';
+import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
+import { SubmissionJsonPatchOperationsService } from '../../../../modules/core/src/lib/core/submission/submission-json-patch-operations.service';
+import { SubmissionObjectDataService } from '../../../../modules/core/src/lib/core/submission/submission-object-data.service';
+import { WorkflowItemDataService } from '../../../../modules/core/src/lib/core/submission/workflowitem-data.service';
+import { WorkspaceitemDataService } from '../../../../modules/core/src/lib/core/submission/workspaceitem-data.service';
+import { NotificationsServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { SectionsServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/sections-service.stub';
+import { StoreMock } from '../../../../modules/core/src/lib/core/utilities/testing/store.mock';
+import { SubmissionJsonPatchOperationsServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/submission-json-patch-operations-service.stub';
+import { mockSubmissionObjectDataService } from '../../../../modules/core/src/lib/core/utilities/testing/submission-oject-data-service.mock';
+import { SubmissionServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/submission-service.stub';
 import {
   mockSectionsData,
   mockSectionsDataTwo,

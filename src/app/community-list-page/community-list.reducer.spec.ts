@@ -1,9 +1,9 @@
 import { of as observableOf } from 'rxjs';
 
-import { buildPaginatedList } from '../core/data/paginated-list.model';
-import { Community } from '../core/shared/community.model';
-import { PageInfo } from '../core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject$ } from '../core/utilities/remote-data.utils';
+import { buildPaginatedList } from '../../../modules/core/src/lib/core/data/paginated-list.model';
+import { Community } from '../../../modules/core/src/lib/core/shared/community.model';
+import { PageInfo } from '../../../modules/core/src/lib/core/shared/page-info.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../modules/core/src/lib/core/utilities/remote-data.utils';
 import { CommunityListSaveAction } from './community-list.actions';
 import { CommunityListReducer } from './community-list.reducer';
 import { toFlatNode } from './community-list-service';

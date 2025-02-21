@@ -18,10 +18,10 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { CommunityDataService } from '../../core/data/community-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { Community } from '../../core/shared/community.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { CommunityDataService } from '../../../../modules/core/src/lib/core/data/community-data.service';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
+import { Community } from '../../../../modules/core/src/lib/core/shared/community.model';
+import { getFirstCompletedRemoteData } from '../../../../modules/core/src/lib/core/shared/operators';
 
 /**
  * True when either a parent ID query parameter has been provided and the parent ID resolves to a valid parent community

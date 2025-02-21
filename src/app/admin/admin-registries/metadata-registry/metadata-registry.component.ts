@@ -25,15 +25,15 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { RegistryService } from '../../../core/registry/registry.service';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
+import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { MetadataSchema } from '../../../../../modules/core/src/lib/core/metadata/metadata-schema.model';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { PaginationService } from '../../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { RegistryService } from '../../../../../modules/core/src/lib/core/registry/registry.service';
+import { NoContent } from '../../../../../modules/core/src/lib/core/shared/NoContent.model';
+import { getFirstCompletedRemoteData } from '../../../../../modules/core/src/lib/core/shared/operators';
+import { PaginationComponentOptions } from '../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
 import { MetadataSchemaFormComponent } from './metadata-schema-form/metadata-schema-form.component';

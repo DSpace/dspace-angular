@@ -15,7 +15,7 @@ import {
 import { hasValue } from '@dspace/shared/utils';
 import { Subscription } from 'rxjs';
 
-import { PaginationService } from '../../core/pagination/pagination.service';
+import { PaginationService } from '../../../../modules/core/src/lib/core/pagination/pagination.service';
 import { StartsWithType } from './starts-with-type';
 
 /**

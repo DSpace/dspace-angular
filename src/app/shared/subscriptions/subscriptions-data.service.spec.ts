@@ -1,22 +1,22 @@
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../core/cache/object-cache.service';
-import { DSOChangeAnalyzer } from '../../core/data/dso-change-analyzer.service';
-import { RequestService } from '../../core/data/request.service';
-import { getMockRemoteDataBuildService } from '../../core/mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../../core/mocks/request.service.mock';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
+import { DSONameService } from '../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { RemoteDataBuildService } from '../../../../modules/core/src/lib/core/cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../../../../modules/core/src/lib/core/cache/object-cache.service';
+import { DSOChangeAnalyzer } from '../../../../modules/core/src/lib/core/data/dso-change-analyzer.service';
+import { RequestService } from '../../../../modules/core/src/lib/core/data/request.service';
+import { getMockRemoteDataBuildService } from '../../../../modules/core/src/lib/core/mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../../../modules/core/src/lib/core/mocks/request.service.mock';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { HALEndpointService } from '../../../../modules/core/src/lib/core/shared/hal-endpoint.service';
 import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../core/utilities/remote-data.utils';
-import { HALEndpointServiceStub } from '../../core/utilities/testing/hal-endpoint-service.stub';
-import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
-import { createPaginatedList } from '../../core/utilities/testing/utils.test';
+} from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { HALEndpointServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/hal-endpoint-service.stub';
+import { NotificationsServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { createPaginatedList } from '../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { Subscription } from './models/subscription.model';
 import { SubscriptionsDataService } from './subscriptions-data.service';
 

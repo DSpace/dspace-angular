@@ -43,15 +43,15 @@ import {
 import {
   SortDirection,
   SortOptions,
-} from '../../../core/cache/models/sort-options.model';
-import { followLink } from '../../../core/data/follow-link-config.model';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { RegistryService } from '../../../core/registry/registry.service';
+} from '../../../../../modules/core/src/lib/core/cache/models/sort-options.model';
+import { followLink } from '../../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { RegistryService } from '../../../../../modules/core/src/lib/core/registry/registry.service';
 import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   metadataFieldsToString,
-} from '../../../core/shared/operators';
+} from '../../../../../modules/core/src/lib/core/shared/operators';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { ClickOutsideDirective } from '../../../shared/utils/click-outside.directive';
 

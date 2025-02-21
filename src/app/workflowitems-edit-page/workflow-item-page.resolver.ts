@@ -6,11 +6,11 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { followLink } from '../core/data/follow-link-config.model';
-import { RemoteData } from '../core/data/remote-data';
-import { getFirstCompletedRemoteData } from '../core/shared/operators';
-import { WorkflowItem } from '../core/submission/models/workflowitem.model';
-import { WorkflowItemDataService } from '../core/submission/workflowitem-data.service';
+import { followLink } from '../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { RemoteData } from '../../../modules/core/src/lib/core/data/remote-data';
+import { getFirstCompletedRemoteData } from '../../../modules/core/src/lib/core/shared/operators';
+import { WorkflowItem } from '../../../modules/core/src/lib/core/submission/models/workflowitem.model';
+import { WorkflowItemDataService } from '../../../modules/core/src/lib/core/submission/workflowitem-data.service';
 
 export const workflowItemPageResolver: ResolveFn<RemoteData<WorkflowItem>> = (
   route: ActivatedRouteSnapshot,

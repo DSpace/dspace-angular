@@ -12,17 +12,17 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { Item } from 'src/app/core/shared/item.model';
+import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
 import {
   MetadataMap,
   MetadataValue,
-} from 'src/app/core/shared/metadata.models';
+} from '../../../../../../../modules/core/src/lib/core/shared/metadata.models';
 
 import { environment } from '../../../../../../environments/environment';
-import { APP_CONFIG } from '../../../../../core/config/app-config.interface';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
-import { TranslateLoaderMock } from '../../../../../core/utilities/testing/translate-loader.mock';
-import { createPaginatedList } from '../../../../../core/utilities/testing/utils.test';
+import { APP_CONFIG } from '../../../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { TranslateLoaderMock } from '../../../../../../../modules/core/src/lib/core/utilities/testing/translate-loader.mock';
+import { createPaginatedList } from '../../../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { ItemPageCcLicenseFieldComponent } from './item-page-cc-license-field.component';
 
 

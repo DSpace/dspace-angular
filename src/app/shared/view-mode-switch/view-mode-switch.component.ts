@@ -20,8 +20,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-import { SearchService } from '../../core/shared/search/search.service';
-import { ViewMode } from '../../core/shared/view-mode.model';
+import { SearchService } from '../../../../modules/core/src/lib/core/shared/search/search.service';
+import { ViewMode } from '../../../../modules/core/src/lib/core/shared/view-mode.model';
 import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
 import { currentPath } from '../utils/route.utils';
 

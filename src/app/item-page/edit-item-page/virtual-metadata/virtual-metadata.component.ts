@@ -23,10 +23,10 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../core/config/app-config.interface';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { Item } from '../../../core/shared/item.model';
-import { MetadataValue } from '../../../core/shared/metadata.models';
+} from '../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { ObjectUpdatesService } from '../../../../../modules/core/src/lib/core/data/object-updates/object-updates.service';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { MetadataValue } from '../../../../../modules/core/src/lib/core/shared/metadata.models';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
 

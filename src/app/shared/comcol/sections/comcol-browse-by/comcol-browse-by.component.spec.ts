@@ -10,11 +10,11 @@ import {
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 
-import { BrowseByDataType } from '../../../../core/shared/browse-by-data-type';
+import { BrowseByDataType } from '../../../../../../modules/core/src/lib/core/shared/browse-by-data-type';
 import { BrowseBySwitcherComponent } from '../../../../browse-by/browse-by-switcher/browse-by-switcher.component';
-import { BrowseDefinition } from '../../../../core/shared/browse-definition.model';
-import { GenericConstructor } from '../../../../core/shared/generic-constructor';
-import { ActivatedRouteStub } from '../../../../core/utilities/testing/active-router.stub';
+import { BrowseDefinition } from '../../../../../../modules/core/src/lib/core/shared/browse-definition.model';
+import { GenericConstructor } from '../../../../../../modules/core/src/lib/core/shared/generic-constructor';
+import { ActivatedRouteStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
 import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { ThemeService } from '../../../theme-support/theme.service';

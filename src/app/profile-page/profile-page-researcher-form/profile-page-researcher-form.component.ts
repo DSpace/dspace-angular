@@ -24,18 +24,18 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { followLink } from '../../core/data/follow-link-config.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
-import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
-import { NoContent } from '../../core/shared/NoContent.model';
+import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
+import { followLink } from '../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
+import { EPerson } from '../../../../modules/core/src/lib/core/eperson/models/eperson.model';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { ResearcherProfile } from '../../../../modules/core/src/lib/core/profile/model/researcher-profile.model';
+import { ResearcherProfileDataService } from '../../../../modules/core/src/lib/core/profile/researcher-profile-data.service';
+import { NoContent } from '../../../../modules/core/src/lib/core/shared/NoContent.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '../../core/shared/operators';
+} from '../../../../modules/core/src/lib/core/shared/operators';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { VarDirective } from '../../shared/utils/var.directive';

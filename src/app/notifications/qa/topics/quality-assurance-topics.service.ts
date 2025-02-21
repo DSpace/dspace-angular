@@ -3,17 +3,17 @@ import { hasValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { RequestParam } from '../../../core/cache/models/request-param.model';
+import { RequestParam } from '../../../../../modules/core/src/lib/core/cache/models/request-param.model';
 import {
   SortDirection,
   SortOptions,
-} from '../../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { QualityAssuranceTopicObject } from '../../../core/notifications/qa/models/quality-assurance-topic.model';
-import { QualityAssuranceTopicDataService } from '../../../core/notifications/qa/topics/quality-assurance-topic-data.service';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+} from '../../../../../modules/core/src/lib/core/cache/models/sort-options.model';
+import { FindListOptions } from '../../../../../modules/core/src/lib/core/data/find-list-options.model';
+import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { QualityAssuranceTopicObject } from '../../../../../modules/core/src/lib/core/notifications/qa/models/quality-assurance-topic.model';
+import { QualityAssuranceTopicDataService } from '../../../../../modules/core/src/lib/core/notifications/qa/topics/quality-assurance-topic-data.service';
+import { getFirstCompletedRemoteData } from '../../../../../modules/core/src/lib/core/shared/operators';
 
 /**
  * The service handling all Quality Assurance topic requests to the REST service.

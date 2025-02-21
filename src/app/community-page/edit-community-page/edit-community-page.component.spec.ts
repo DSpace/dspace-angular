@@ -10,7 +10,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { CommunityDataService } from '../../core/data/community-data.service';
+import { CommunityDataService } from '../../../../modules/core/src/lib/core/data/community-data.service';
 import { EditCommunityPageComponent } from './edit-community-page.component';
 
 describe('EditCommunityPageComponent', () => {

@@ -6,8 +6,8 @@ import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
-import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
+import { NotifyInfoService } from '../../../../modules/core/src/lib/core/coar-notify/notify-info/notify-info.service';
+import { ActivatedRouteStub } from '../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
 import { NotifyInfoComponent } from './notify-info.component';
 
 describe('NotifyInfoComponent', () => {

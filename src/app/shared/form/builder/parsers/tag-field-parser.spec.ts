@@ -1,7 +1,7 @@
-import { getMockTranslateService } from '../../../../core/mocks/translate.service.mock';
-import { FormFieldModel } from '../../../../core/shared/form/form-field.model';
+import { getMockTranslateService } from '../../../../../../modules/core/src/lib/core/mocks/translate.service.mock';
+import { FormFieldModel } from '../../../../../../modules/core/src/lib/core/shared/form/form-field.model';
 import { DynamicTagModel } from '../ds-dynamic-form-ui/models/tag/dynamic-tag.model';
-import { FormFieldMetadataValueObject } from '../../../../core/config/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
 import { ParserOptions } from './parser-options';
 import { TagFieldParser } from './tag-field-parser';
 

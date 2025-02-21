@@ -12,11 +12,11 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { ProcessDataService } from '../../core/data/processes/process-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { Process } from '../../core/processes/process.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { ProcessDataService } from '../../../../modules/core/src/lib/core/data/processes/process-data.service';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Process } from '../../../../modules/core/src/lib/core/processes/process.model';
+import { getFirstCompletedRemoteData } from '../../../../modules/core/src/lib/core/shared/operators';
 
 @Injectable({
   providedIn: 'root',

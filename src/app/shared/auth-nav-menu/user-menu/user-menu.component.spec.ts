@@ -25,14 +25,14 @@ import { AppState } from '../../../app.reducer';
 import {
   authReducer,
   AuthState,
-} from '../../../core/auth/auth.reducer';
-import { AuthService } from '../../../core/auth/auth.service';
-import { AuthTokenInfo } from '../../../core/auth/models/auth-token-info.model';
-import { APP_DATA_SERVICES_MAP } from '../../../core/config/app-config.interface';
-import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
-import { ActivatedRouteStub } from '../../../core/utilities/testing/active-router.stub';
-import { EPersonMock } from '../../../core/utilities/testing/eperson.mock';
-import { XSRFService } from '../../../core/xsrf/xsrf.service';
+} from '../../../../../modules/core/src/lib/core/auth/auth.reducer';
+import { AuthService } from '../../../../../modules/core/src/lib/core/auth/auth.service';
+import { AuthTokenInfo } from '../../../../../modules/core/src/lib/core/auth/models/auth-token-info.model';
+import { APP_DATA_SERVICES_MAP } from '../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { TranslateLoaderMock } from '../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
+import { ActivatedRouteStub } from '../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+import { EPersonMock } from '../../../../../modules/core/src/lib/core/utilities/testing/eperson.mock';
+import { XSRFService } from '../../../../../modules/core/src/lib/core/xsrf/xsrf.service';
 import { UserMenuComponent } from './user-menu.component';
 
 describe('UserMenuComponent', () => {

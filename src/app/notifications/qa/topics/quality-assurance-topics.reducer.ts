@@ -1,4 +1,4 @@
-import { QualityAssuranceTopicObject } from '../../../core/notifications/qa/models/quality-assurance-topic.model';
+import { QualityAssuranceTopicObject } from '../../../../../modules/core/src/lib/core/notifications/qa/models/quality-assurance-topic.model';
 import {
   QualityAssuranceTopicActionTypes,
   QualityAssuranceTopicsActions,

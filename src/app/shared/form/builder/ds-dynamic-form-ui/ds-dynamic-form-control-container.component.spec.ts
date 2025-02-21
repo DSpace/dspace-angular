@@ -61,13 +61,13 @@ import { environment } from '../../../../../environments/environment';
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
-} from '../../../../core/config/app-config.interface';
-import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
-import { Item } from '../../../../core/shared/item.model';
-import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
-import { SubmissionObjectDataService } from '../../../../core/submission/submission-object-data.service';
-import { VocabularyOptions } from '../../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { createSuccessfulRemoteDataObject } from '../../../../core/utilities/remote-data.utils';
+} from '../../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { RelationshipDataService } from '../../../../../../modules/core/src/lib/core/data/relationship-data.service';
+import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
+import { WorkspaceItem } from '../../../../../../modules/core/src/lib/core/submission/models/workspaceitem.model';
+import { SubmissionObjectDataService } from '../../../../../../modules/core/src/lib/core/submission/submission-object-data.service';
+import { VocabularyOptions } from '../../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-options.model';
+import { createSuccessfulRemoteDataObject } from '../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
 import { SubmissionService } from '../../../../submission/submission.service';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { FormBuilderService } from '../form-builder.service';

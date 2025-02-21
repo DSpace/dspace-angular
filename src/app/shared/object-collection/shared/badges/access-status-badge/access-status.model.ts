@@ -2,11 +2,11 @@ import {
   autoserialize,
   deserialize,
 } from 'cerialize';
-import { typedObject } from 'src/app/core/cache/builders/build-decorators';
-import { CacheableObject } from 'src/app/core/cache/cacheable-object.model';
-import { HALLink } from 'src/app/core/shared/hal-link.model';
-import { ResourceType } from 'src/app/core/shared/resource-type';
-import { excludeFromEquals } from 'src/app/core/utilities/equals.decorators';
+import { typedObject } from '../../../../../../../modules/core/src/lib/core/cache/builders/build-decorators';
+import { CacheableObject } from '../../../../../../../modules/core/src/lib/core/cache/cacheable-object.model';
+import { HALLink } from '../../../../../../../modules/core/src/lib/core/shared/hal-link.model';
+import { ResourceType } from '../../../../../../../modules/core/src/lib/core/shared/resource-type';
+import { excludeFromEquals } from '../../../../../../../modules/core/src/lib/core/utilities/equals.decorators';
 
 import { ACCESS_STATUS } from './access-status.resource-type';
 

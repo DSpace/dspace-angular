@@ -9,14 +9,14 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { RemoteData } from '../../core/data/remote-data';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { PaginatedSearchOptions } from '../../core/shared/paginated-search-options.model';
-import { SearchObjects } from '../../core/shared/search/models/search-objects.model';
-import { SearchService } from '../../core/shared/search/search.service';
-import { createNoContentRemoteDataObject } from '../../core/utilities/remote-data.utils';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
+import { EPerson } from '../../../../modules/core/src/lib/core/eperson/models/eperson.model';
+import { DSpaceObject } from '../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { getFirstCompletedRemoteData } from '../../../../modules/core/src/lib/core/shared/operators';
+import { PaginatedSearchOptions } from '../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
+import { SearchObjects } from '../../../../modules/core/src/lib/core/shared/search/models/search-objects.model';
+import { SearchService } from '../../../../modules/core/src/lib/core/shared/search/search.service';
+import { createNoContentRemoteDataObject } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
 
 /**
  * Service that handle profiles claim.

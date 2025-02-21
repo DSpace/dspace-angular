@@ -31,24 +31,24 @@ import {
 import { logStartupMessage } from '../../../startup-message';
 import { AppState } from '../../app/app.reducer';
 import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
-import { AuthService } from '../../app/core/auth/auth.service';
+import { AuthService } from '../../../modules/core/src/lib/core/auth/auth.service';
 import {
   APP_CONFIG,
   APP_CONFIG_STATE,
   AppConfig,
-} from '../../app/core/config/app-config.interface';
-import { DefaultAppConfig } from '../../app/core/config/default-app-config';
-import { coreSelector } from '../../app/core/core.selectors';
-import { CorrelationIdService } from '../../app/core/correlation-id/correlation-id.service';
-import { RequestService } from '../../app/core/data/request.service';
-import { RootDataService } from '../../app/core/data/root-data.service';
-import { LocaleService } from '../../app/core/locale/locale.service';
-import { HeadTagService } from '../../app/core/metadata/head-tag.service';
-import { HALEndpointService } from '../../app/core/shared/hal-endpoint.service';
+} from '../../../modules/core/src/lib/core/config/app-config.interface';
+import { DefaultAppConfig } from '../../../modules/core/src/lib/core/config/default-app-config';
+import { coreSelector } from '../../../modules/core/src/lib/core/core.selectors';
+import { CorrelationIdService } from '../../../modules/core/src/lib/core/correlation-id/correlation-id.service';
+import { RequestService } from '../../../modules/core/src/lib/core/data/request.service';
+import { RootDataService } from '../../../modules/core/src/lib/core/data/root-data.service';
+import { LocaleService } from '../../../modules/core/src/lib/core/locale/locale.service';
+import { HeadTagService } from '../../../modules/core/src/lib/core/metadata/head-tag.service';
+import { HALEndpointService } from '../../../modules/core/src/lib/core/shared/hal-endpoint.service';
 import {
   StoreAction,
   StoreActionTypes,
-} from '../../app/core/store.actions';
+} from '../../../modules/core/src/lib/core/store.actions';
 import { InitService } from '../../app/init.service';
 import { OrejimeService } from '../../app/shared/cookies/orejime.service';
 import { MenuService } from '../../app/shared/menu/menu.service';

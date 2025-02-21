@@ -23,18 +23,18 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { AuthService } from '../../../core/auth/auth.service';
-import { buildPaginatedList } from '../../../core/data/paginated-list.model';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { Item } from '../../../core/shared/item.model';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
+import { AuthService } from '../../../../../modules/core/src/lib/core/auth/auth.service';
+import { buildPaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { EPerson } from '../../../../../modules/core/src/lib/core/eperson/models/eperson.model';
+import { TranslateLoaderMock } from '../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { PageInfo } from '../../../../../modules/core/src/lib/core/shared/page-info.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
 import {
   subscriptionMock,
   subscriptionMock2,
-} from '../../../core/utilities/testing/subscriptions-data.mock';
+} from '../../../../../modules/core/src/lib/core/utilities/testing/subscriptions-data.mock';
 import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { ThemeService } from '../../theme-support/theme.service';
 import { SubscriptionsDataService } from '../subscriptions-data.service';

@@ -11,19 +11,19 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { BundleDataService } from '../../core/data/bundle-data.service';
+import { BitstreamDataService } from '../../../../modules/core/src/lib/core/data/bitstream-data.service';
+import { BundleDataService } from '../../../../modules/core/src/lib/core/data/bundle-data.service';
 import {
   followLink,
   FollowLinkConfig,
-} from '../../core/data/follow-link-config.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
-import { Bundle } from '../../core/shared/bundle.model';
-import { Item } from '../../core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+} from '../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { PaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
+import { Bitstream } from '../../../../modules/core/src/lib/core/shared/bitstream.model';
+import { BitstreamFormat } from '../../../../modules/core/src/lib/core/shared/bitstream-format.model';
+import { Bundle } from '../../../../modules/core/src/lib/core/shared/bundle.model';
+import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
+import { getFirstCompletedRemoteData } from '../../../../modules/core/src/lib/core/shared/operators';
 
 @Injectable({ providedIn: 'root' })
 export class MiradorViewerService {

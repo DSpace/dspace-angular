@@ -4,8 +4,8 @@ import {
   MemoizedSelector,
 } from '@ngrx/store';
 
-import { QualityAssuranceSourceObject } from '../core/notifications/qa/models/quality-assurance-source.model';
-import { QualityAssuranceTopicObject } from '../core/notifications/qa/models/quality-assurance-topic.model';
+import { QualityAssuranceSourceObject } from '../../../modules/core/src/lib/core/notifications/qa/models/quality-assurance-source.model';
+import { QualityAssuranceTopicObject } from '../../../modules/core/src/lib/core/notifications/qa/models/quality-assurance-topic.model';
 import { subStateSelector } from '../shared/selector.util';
 import {
   suggestionNotificationsSelector,

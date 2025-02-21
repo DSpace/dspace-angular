@@ -40,26 +40,26 @@ import {
 
 import { getDefaultThemeConfig } from '../../../config/config.util';
 import { environment } from '../../../environments/environment';
-import { LinkService } from '../../core/cache/builders/link.service';
+import { LinkService } from '../../../../modules/core/src/lib/core/cache/builders/link.service';
 import {
   HeadTagConfig,
   ThemeConfig,
-} from '../../core/config/theme.config';
-import { BASE_THEME_NAME } from '../../core/config/theme.constants';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { followLink } from '../../core/data/follow-link-config.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { distinctNext } from '../../core/shared/distinct-next';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
+} from '../../../../modules/core/src/lib/core/config/theme.config';
+import { BASE_THEME_NAME } from '../../../../modules/core/src/lib/core/config/theme.constants';
+import { DSpaceObjectDataService } from '../../../../modules/core/src/lib/core/data/dspace-object-data.service';
+import { followLink } from '../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
+import { distinctNext } from '../../../../modules/core/src/lib/core/shared/distinct-next';
+import { DSpaceObject } from '../../../../modules/core/src/lib/core/shared/dspace-object.model';
 import {
   NO_OP_ACTION_TYPE,
   NoOpAction,
-} from '../../core/shared/ngrx/no-op.action';
+} from '../../../../modules/core/src/lib/core/shared/ngrx/no-op.action';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '../../core/shared/operators';
+} from '../../../../modules/core/src/lib/core/shared/operators';
 import { GET_THEME_CONFIG_FOR_FACTORY } from '../object-collection/shared/listable-object/listable-object.decorator';
 import {
   SetThemeAction,

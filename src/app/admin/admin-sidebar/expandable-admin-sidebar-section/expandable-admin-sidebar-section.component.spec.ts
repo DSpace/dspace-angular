@@ -10,9 +10,9 @@ import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { CSSVariableServiceStub } from '../../../core/utilities/testing/css-variable-service.stub';
-import { MenuServiceStub } from '../../../core/utilities/testing/menu-service.stub';
-import { RouterStub } from '../../../core/utilities/testing/router.stub';
+import { CSSVariableServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/css-variable-service.stub';
+import { MenuServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/menu-service.stub';
+import { RouterStub } from '../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
 import { MenuService } from '../../../shared/menu/menu.service';
 import { CSSVariableService } from '../../../shared/sass-helper/css-variable.service';
 import { ExpandableAdminSidebarSectionComponent } from './expandable-admin-sidebar-section.component';

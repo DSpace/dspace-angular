@@ -31,21 +31,21 @@ import {
 } from 'rxjs/operators';
 import { AlertType } from 'src/app/shared/alert/alert-type';
 
-import { ExternalSourceDataService } from '../../core/data/external-source-data.service';
+import { ExternalSourceDataService } from '../../../../modules/core/src/lib/core/data/external-source-data.service';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { RouteService } from '../../core/services/route.service';
-import { Context } from '../../core/shared/context.model';
-import { ExternalSourceEntry } from '../../core/shared/external-source-entry.model';
-import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type.resource-type';
-import { getFinishedRemoteData } from '../../core/shared/operators';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { createSuccessfulRemoteDataObject } from '../../core/utilities/remote-data.utils';
+} from '../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
+import { RouteService } from '../../../../modules/core/src/lib/core/services/route.service';
+import { Context } from '../../../../modules/core/src/lib/core/shared/context.model';
+import { ExternalSourceEntry } from '../../../../modules/core/src/lib/core/shared/external-source-entry.model';
+import { NONE_ENTITY_TYPE } from '../../../../modules/core/src/lib/core/shared/item-relationships/item-type.resource-type';
+import { getFinishedRemoteData } from '../../../../modules/core/src/lib/core/shared/operators';
+import { PageInfo } from '../../../../modules/core/src/lib/core/shared/page-info.model';
+import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+import { SearchConfigurationService } from '../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
+import { createSuccessfulRemoteDataObject } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { fadeIn } from '../../shared/animations/fade';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';

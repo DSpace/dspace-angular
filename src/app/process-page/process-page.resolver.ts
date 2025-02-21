@@ -6,11 +6,11 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { followLink } from '../core/data/follow-link-config.model';
-import { ProcessDataService } from '../core/data/processes/process-data.service';
-import { RemoteData } from '../core/data/remote-data';
-import { Process } from '../core/processes/process.model';
-import { getFirstCompletedRemoteData } from '../core/shared/operators';
+import { followLink } from '../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { ProcessDataService } from '../../../modules/core/src/lib/core/data/processes/process-data.service';
+import { RemoteData } from '../../../modules/core/src/lib/core/data/remote-data';
+import { Process } from '../../../modules/core/src/lib/core/processes/process.model';
+import { getFirstCompletedRemoteData } from '../../../modules/core/src/lib/core/shared/operators';
 
 export const PROCESS_PAGE_FOLLOW_LINKS = [
   followLink('files'),

@@ -6,14 +6,14 @@ import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../environments/environment.test';
-import { APP_CONFIG } from '../../../core/config/app-config.interface';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
-import { RouterStub } from '../../../core/utilities/testing/router.stub';
-import { SearchConfigurationServiceStub } from '../../../core/utilities/testing/search-configuration-service.stub';
-import { SearchFilterServiceStub } from '../../../core/utilities/testing/search-filter-service.stub';
-import { SearchServiceStub } from '../../../core/utilities/testing/search-service.stub';
+import { APP_CONFIG } from '../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { SearchService } from '../../../../../modules/core/src/lib/core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
+import { SearchFilterService } from '../../../../../modules/core/src/lib/core/shared/search/search-filter.service';
+import { RouterStub } from '../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
+import { SearchConfigurationServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/search-configuration-service.stub';
+import { SearchFilterServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/search-filter-service.stub';
+import { SearchServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/search-service.stub';
 import { AdvancedSearchComponent } from './advanced-search.component';
 
 describe('AdvancedSearchComponent', () => {

@@ -11,15 +11,15 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { RequestService } from '../../../core/data/request.service';
-import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { RouteService } from '../../../core/services/route.service';
-import { getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
-import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
-import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
-import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
-import { WorkflowAction } from '../../../core/tasks/models/workflow-action-object.model';
+import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
+import { WorkflowActionDataService } from '../../../../../modules/core/src/lib/core/data/workflow-action-data.service';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { RouteService } from '../../../../../modules/core/src/lib/core/services/route.service';
+import { getFirstSucceededRemoteDataPayload } from '../../../../../modules/core/src/lib/core/shared/operators';
+import { WorkflowItemDataService } from '../../../../../modules/core/src/lib/core/submission/workflowitem-data.service';
+import { ClaimedTaskDataService } from '../../../../../modules/core/src/lib/core/tasks/claimed-task-data.service';
+import { ProcessTaskResponse } from '../../../../../modules/core/src/lib/core/tasks/models/process-task-response';
+import { WorkflowAction } from '../../../../../modules/core/src/lib/core/tasks/models/workflow-action-object.model';
 import { WorkflowItemActionPageDirective } from '../../workflow-item-action-page.component';
 
 /**

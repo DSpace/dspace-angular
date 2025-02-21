@@ -1,10 +1,10 @@
 import { of as observableOf } from 'rxjs';
 
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { Item } from '../../core/shared/item.model';
-import { SearchResult } from '../../core/shared/search/models/search-result.model';
-import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
-import { createPaginatedList } from '../../core/utilities/testing/utils.test';
+import { DSpaceObject } from '../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
+import { SearchResult } from '../../../../modules/core/src/lib/core/shared/search/models/search-result.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { createPaginatedList } from '../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 
 // REST Mock ---------------------------------------------------------------------
 // -------------------------------------------------------------------------------

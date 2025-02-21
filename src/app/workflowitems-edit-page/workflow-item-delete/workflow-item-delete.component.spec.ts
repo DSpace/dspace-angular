@@ -15,21 +15,21 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { RequestService } from '../../core/data/request.service';
-import { getMockRequestService } from '../../core/mocks/request.service.mock';
-import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { RouteService } from '../../core/services/route.service';
-import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
-import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
+import { RequestService } from '../../../../modules/core/src/lib/core/data/request.service';
+import { getMockRequestService } from '../../../../modules/core/src/lib/core/mocks/request.service.mock';
+import { TranslateLoaderMock } from '../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { RouteService } from '../../../../modules/core/src/lib/core/services/route.service';
+import { WorkflowItem } from '../../../../modules/core/src/lib/core/submission/models/workflowitem.model';
+import { WorkflowItemDataService } from '../../../../modules/core/src/lib/core/submission/workflowitem-data.service';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
-import { LocationStub } from '../../core/utilities/testing/location.stub';
-import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
-import { RouterStub } from '../../core/utilities/testing/router.stub';
+} from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+import { LocationStub } from '../../../../modules/core/src/lib/core/utilities/testing/location.stub';
+import { NotificationsServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { RouterStub } from '../../../../modules/core/src/lib/core/utilities/testing/router.stub';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { WorkflowItemDeleteComponent } from './workflow-item-delete.component';
 

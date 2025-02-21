@@ -13,7 +13,7 @@ import { dateToISOFormat } from '@dspace/shared/utils';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { AccessesConditionOption } from '../../../core/config/models/config-accesses-conditions-options.model';
+import { AccessesConditionOption } from '../../../../../modules/core/src/lib/core/config/models/config-accesses-conditions-options.model';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { ToDatePipe } from './to-date.pipe';
 

@@ -15,8 +15,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { of } from 'rxjs';
 
-import { BulkAccessConfigDataService } from '../../core/config/bulk-access-config-data.service';
-import { Item } from '../../core/shared/item.model';
+import { BulkAccessConfigDataService } from '../../../../modules/core/src/lib/core/config/bulk-access-config-data.service';
+import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
 import { AccessControlFormContainerComponent } from './access-control-form-container.component';
 import { createAccessControlInitialFormState } from './access-control-form-container-intial-state';

@@ -13,18 +13,18 @@ import {
   switchMap,
   tap,
 } from 'rxjs/operators';
-import { ConfigurationDataService } from 'src/app/core/data/configuration-data.service';
-import { RemoteData } from 'src/app/core/data/remote-data';
-import { ConfigurationProperty } from 'src/app/core/shared/configuration-property.model';
-import { getFirstCompletedRemoteData } from 'src/app/core/shared/operators';
+import { ConfigurationDataService } from '../../../../modules/core/src/lib/core/data/configuration-data.service';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
+import { ConfigurationProperty } from '../../../../modules/core/src/lib/core/shared/configuration-property.model';
+import { getFirstCompletedRemoteData } from '../../../../modules/core/src/lib/core/shared/operators';
 
 import {
   AuthActionTypes,
   RetrieveAuthenticatedEpersonSuccessAction,
-} from '../../core/auth/auth.actions';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { SuggestionTarget } from '../../core/notifications/suggestions/models/suggestion-target.model';
+} from '../../../../modules/core/src/lib/core/auth/auth.actions';
+import { PaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { SuggestionTarget } from '../../../../modules/core/src/lib/core/notifications/suggestions/models/suggestion-target.model';
 import { SuggestionsService } from '../suggestions.service';
 import {
   AddTargetAction,

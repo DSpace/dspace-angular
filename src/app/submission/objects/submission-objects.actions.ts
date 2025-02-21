@@ -1,15 +1,15 @@
 /* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 
-import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
-import { Item } from '../../core/shared/item.model';
-import { type } from '../../core/shared/ngrx/type';
-import { SubmissionObject } from '../../core/submission/models/submission-object.model';
-import { WorkspaceitemSectionUploadFileObject } from '../../core/submission/models/workspaceitem-section-upload-file.model';
+import { SubmissionDefinitionsModel } from '../../../../modules/core/src/lib/core/config/models/config-submission-definitions.model';
+import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
+import { type } from '../../../../modules/core/src/lib/core/shared/ngrx/type';
+import { SubmissionObject } from '../../../../modules/core/src/lib/core/submission/models/submission-object.model';
+import { WorkspaceitemSectionUploadFileObject } from '../../../../modules/core/src/lib/core/submission/models/workspaceitem-section-upload-file.model';
 import {
   WorkspaceitemSectionDataType,
   WorkspaceitemSectionsObject,
-} from '../../core/submission/models/workspaceitem-sections.model';
+} from '../../../../modules/core/src/lib/core/submission/models/workspaceitem-sections.model';
 import { SectionsType } from '../sections/sections-type';
 import {
   SectionScope,

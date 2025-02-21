@@ -14,17 +14,17 @@ import {
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { take } from 'rxjs/operators';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { DSONameService } from '../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
 import {
   BATCH_IMPORT_SCRIPT_NAME,
   ScriptDataService,
-} from '../../core/data/processes/script-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { Process } from '../../core/processes/process.model';
-import { ProcessParameter } from '../../core/processes/process-parameter.model';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+} from '../../../../modules/core/src/lib/core/data/processes/script-data.service';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Process } from '../../../../modules/core/src/lib/core/processes/process.model';
+import { ProcessParameter } from '../../../../modules/core/src/lib/core/processes/process-parameter.model';
+import { DSpaceObject } from '../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { getFirstCompletedRemoteData } from '../../../../modules/core/src/lib/core/shared/operators';
 import { getProcessDetailRoute } from '../../process-page/process-page-routing.paths';
 import { ImportBatchSelectorComponent } from '../../shared/dso-selector/modal-wrappers/import-batch-selector/import-batch-selector.component';
 import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';

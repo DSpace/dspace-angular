@@ -40,13 +40,13 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { AccessesConditionOption } from '../../../core/config/models/config-accesses-conditions-options.model';
-import { SubmissionAccessesConfigDataService } from '../../../core/config/submission-accesses-config-data.service';
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
-import { WorkspaceitemSectionAccessesObject } from '../../../core/submission/models/workspaceitem-section-accesses.model';
-import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
+import { AccessesConditionOption } from '../../../../../modules/core/src/lib/core/config/models/config-accesses-conditions-options.model';
+import { SubmissionAccessesConfigDataService } from '../../../../../modules/core/src/lib/core/config/submission-accesses-config-data.service';
+import { JsonPatchOperationPathCombiner } from '../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operations-builder';
+import { getFirstSucceededRemoteData } from '../../../../../modules/core/src/lib/core/shared/operators';
+import { WorkspaceitemSectionAccessesObject } from '../../../../../modules/core/src/lib/core/submission/models/workspaceitem-section-accesses.model';
+import { SubmissionJsonPatchOperationsService } from '../../../../../modules/core/src/lib/core/submission/submission-json-patch-operations.service';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';

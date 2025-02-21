@@ -12,8 +12,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import { AppState } from '../../app.reducer';
-import { LogOutAction } from '../../core/auth/auth.actions';
-import { getLogOutError } from '../../core/auth/selectors';
+import { LogOutAction } from '../../../../modules/core/src/lib/core/auth/auth.actions';
+import { getLogOutError } from '../../../../modules/core/src/lib/core/auth/selectors';
 import { fadeOut } from '../animations/fade';
 import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
 

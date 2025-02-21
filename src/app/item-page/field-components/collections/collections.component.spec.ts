@@ -11,23 +11,23 @@ import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { RemoteDataBuildService } from '../../../../../modules/core/src/lib/core/cache/builders/remote-data-build.service';
+import { CollectionDataService } from '../../../../../modules/core/src/lib/core/data/collection-data.service';
+import { FindListOptions } from '../../../../../modules/core/src/lib/core/data/find-list-options.model';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../../core/data/paginated-list.model';
-import { getMockRemoteDataBuildService } from '../../../core/mocks/remote-data-build.service.mock';
-import { Collection } from '../../../core/shared/collection.model';
-import { Item } from '../../../core/shared/item.model';
-import { PageInfo } from '../../../core/shared/page-info.model';
+} from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { getMockRemoteDataBuildService } from '../../../../../modules/core/src/lib/core/mocks/remote-data-build.service.mock';
+import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { PageInfo } from '../../../../../modules/core/src/lib/core/shared/page-info.model';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../../core/utilities/testing/active-router.stub';
+} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 import { CollectionsComponent } from './collections.component';
 

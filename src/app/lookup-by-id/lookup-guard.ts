@@ -7,10 +7,10 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { DsoRedirectService } from '../core/data/dso-redirect.service';
-import { RemoteData } from '../core/data/remote-data';
-import { IdentifierType } from '../core/data/request.models';
-import { DSpaceObject } from '../core/shared/dspace-object.model';
+import { DsoRedirectService } from '../../../modules/core/src/lib/core/data/dso-redirect.service';
+import { RemoteData } from '../../../modules/core/src/lib/core/data/remote-data';
+import { IdentifierType } from '../../../modules/core/src/lib/core/data/request.models';
+import { DSpaceObject } from '../../../modules/core/src/lib/core/shared/dspace-object.model';
 
 interface LookupParams {
   type: IdentifierType;

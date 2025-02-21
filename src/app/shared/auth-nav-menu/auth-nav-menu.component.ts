@@ -36,12 +36,12 @@ import {
   AuthService,
   LOGIN_ROUTE,
   LOGOUT_ROUTE,
-} from '../../core/auth/auth.service';
+} from '../../../../modules/core/src/lib/core/auth/auth.service';
 import {
   isAuthenticated,
   isAuthenticationLoading,
-} from '../../core/auth/selectors';
-import { EPerson } from '../../core/eperson/models/eperson.model';
+} from '../../../../modules/core/src/lib/core/auth/selectors';
+import { EPerson } from '../../../../modules/core/src/lib/core/eperson/models/eperson.model';
 import {
   fadeInOut,
   fadeOut,

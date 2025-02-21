@@ -30,13 +30,13 @@ import { environment } from '../../environments/environment';
 import { ThemedAdminSidebarComponent } from '../admin/admin-sidebar/themed-admin-sidebar.component';
 import { getPageInternalServerErrorRoute } from '../app-routing-paths';
 import { ThemedBreadcrumbsComponent } from '../breadcrumbs/themed-breadcrumbs.component';
-import { INotificationBoardOptions } from '../core/config/notifications-config.interfaces';
-import { ThemeConfig } from '../core/config/theme.config';
-import { NotificationsBoardComponent } from '../core/notifications/notifications-board/notifications-board.component';
+import { INotificationBoardOptions } from '../../../modules/core/src/lib/core/config/notifications-config.interfaces';
+import { ThemeConfig } from '../../../modules/core/src/lib/core/config/theme.config';
+import { NotificationsBoardComponent } from '../../../modules/core/src/lib/core/notifications/notifications-board/notifications-board.component';
 import {
   NativeWindowRef,
   NativeWindowService,
-} from '../core/services/window.service';
+} from '../../../modules/core/src/lib/core/services/window.service';
 import { ThemedFooterComponent } from '../footer/themed-footer.component';
 import { ThemedHeaderNavbarWrapperComponent } from '../header-nav-wrapper/themed-header-navbar-wrapper.component';
 import { slideSidebarPadding } from '../shared/animations/slide';

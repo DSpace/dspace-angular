@@ -14,21 +14,21 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { RequestService } from '../../../core/data/request.service';
-import { getMockRequestService } from '../../../core/mocks/request.service.mock';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { Collection } from '../../../core/shared/collection.model';
-import { Item } from '../../../core/shared/item.model';
-import { SearchService } from '../../../core/shared/search/search.service';
+import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
+import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
+import { getMockRequestService } from '../../../../../modules/core/src/lib/core/mocks/request.service.mock';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { SearchService } from '../../../../../modules/core/src/lib/core/shared/search/search.service';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
-import { RouterStub } from '../../../core/utilities/testing/router.stub';
-import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
+} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { RouterStub } from '../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
+import { createPaginatedList } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { AuthorizedCollectionSelectorComponent } from '../../../shared/dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 import { ItemMoveComponent } from './item-move.component';
 

@@ -9,7 +9,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 
-import { ThemeConfig } from '../../core/config/theme.config';
+import { ThemeConfig } from '../../../../modules/core/src/lib/core/config/theme.config';
 import { getMockThemeService } from '../mocks/theme-service.mock';
 import { VarDirective } from '../utils/var.directive';
 import { TestComponent } from './test/test.component.spec';

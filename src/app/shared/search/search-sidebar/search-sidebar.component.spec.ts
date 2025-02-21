@@ -12,9 +12,9 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../environments/environment.test';
-import { APP_CONFIG } from '../../../core/config/app-config.interface';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { SearchConfigurationServiceStub } from '../../../core/utilities/testing/search-configuration-service.stub';
+import { APP_CONFIG } from '../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { SearchConfigurationService } from '../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
+import { SearchConfigurationServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/search-configuration-service.stub';
 import { AdvancedSearchComponent } from '../advanced-search/advanced-search.component';
 import { ThemedSearchFiltersComponent } from '../search-filters/themed-search-filters.component';
 import { ThemedSearchSettingsComponent } from '../search-settings/themed-search-settings.component';

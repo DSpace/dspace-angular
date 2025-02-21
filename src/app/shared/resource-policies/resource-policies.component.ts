@@ -35,15 +35,15 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { followLink } from '../../core/data/follow-link-config.model';
-import { RequestService } from '../../core/data/request.service';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { GroupDataService } from '../../core/eperson/group-data.service';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { ResourcePolicy } from '../../core/resource-policy/models/resource-policy.model';
-import { ResourcePolicyDataService } from '../../core/resource-policy/resource-policy-data.service';
-import { getAllSucceededRemoteData } from '../../core/shared/operators';
+import { DSONameService } from '../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { followLink } from '../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { RequestService } from '../../../../modules/core/src/lib/core/data/request.service';
+import { EPersonDataService } from '../../../../modules/core/src/lib/core/eperson/eperson-data.service';
+import { GroupDataService } from '../../../../modules/core/src/lib/core/eperson/group-data.service';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { ResourcePolicy } from '../../../../modules/core/src/lib/core/resource-policy/models/resource-policy.model';
+import { ResourcePolicyDataService } from '../../../../modules/core/src/lib/core/resource-policy/resource-policy-data.service';
+import { getAllSucceededRemoteData } from '../../../../modules/core/src/lib/core/shared/operators';
 import { BtnDisabledDirective } from '../btn-disabled.directive';
 import {
   ResourcePolicyCheckboxEntry,

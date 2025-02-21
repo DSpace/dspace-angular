@@ -5,8 +5,8 @@ import {
 import { ActivatedRoute } from '@angular/router';
 
 import { environment } from '../../../../../environments/environment.test';
-import { APP_CONFIG } from '../../../../core/config/app-config.interface';
-import { ActivatedRouteStub } from '../../../../core/utilities/testing/active-router.stub';
+import { APP_CONFIG } from '../../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { ActivatedRouteStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
 import { ThemedSearchComponent } from '../../../search/themed-search.component';
 import { ComcolSearchSectionComponent } from './comcol-search-section.component';
 

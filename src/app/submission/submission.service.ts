@@ -32,24 +32,24 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
-import { ErrorResponse } from '../core/cache/response.models';
-import { SubmissionDefinitionsModel } from '../core/config/models/config-submission-definitions.model';
-import { RemoteData } from '../core/data/remote-data';
-import { RequestService } from '../core/data/request.service';
-import { HttpOptions } from '../core/dspace-rest/dspace-rest.service';
-import { NotificationsService } from '../core/notifications/notifications.service';
-import { RouteService } from '../core/services/route.service';
-import { Item } from '../core/shared/item.model';
-import { SearchService } from '../core/shared/search/search.service';
-import { SubmissionObject } from '../core/submission/models/submission-object.model';
-import { WorkspaceitemSectionsObject } from '../core/submission/models/workspaceitem-sections.model';
-import { SubmissionJsonPatchOperationsService } from '../core/submission/submission-json-patch-operations.service';
-import { SubmissionRestService } from '../core/submission/submission-rest.service';
-import { SubmissionScopeType } from '../core/submission/submission-scope-type';
+import { ErrorResponse } from '../../../modules/core/src/lib/core/cache/response.models';
+import { SubmissionDefinitionsModel } from '../../../modules/core/src/lib/core/config/models/config-submission-definitions.model';
+import { RemoteData } from '../../../modules/core/src/lib/core/data/remote-data';
+import { RequestService } from '../../../modules/core/src/lib/core/data/request.service';
+import { HttpOptions } from '../../../modules/core/src/lib/core/dspace-rest/dspace-rest.service';
+import { NotificationsService } from '../../../modules/core/src/lib/core/notifications/notifications.service';
+import { RouteService } from '../../../modules/core/src/lib/core/services/route.service';
+import { Item } from '../../../modules/core/src/lib/core/shared/item.model';
+import { SearchService } from '../../../modules/core/src/lib/core/shared/search/search.service';
+import { SubmissionObject } from '../../../modules/core/src/lib/core/submission/models/submission-object.model';
+import { WorkspaceitemSectionsObject } from '../../../modules/core/src/lib/core/submission/models/workspaceitem-sections.model';
+import { SubmissionJsonPatchOperationsService } from '../../../modules/core/src/lib/core/submission/submission-json-patch-operations.service';
+import { SubmissionRestService } from '../../../modules/core/src/lib/core/submission/submission-rest.service';
+import { SubmissionScopeType } from '../../../modules/core/src/lib/core/submission/submission-scope-type';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-} from '../core/utilities/remote-data.utils';
+} from '../../../modules/core/src/lib/core/utilities/remote-data.utils';
 import { SectionScope } from './objects/section-visibility.model';
 import { SubmissionError } from './objects/submission-error.model';
 import {

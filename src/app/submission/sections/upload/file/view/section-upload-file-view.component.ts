@@ -10,9 +10,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   MetadataMap,
   MetadataValue,
-} from '../../../../../core/shared/metadata.models';
-import { Metadata } from '../../../../../core/shared/metadata.utils';
-import { WorkspaceitemSectionUploadFileObject } from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
+} from '../../../../../../../modules/core/src/lib/core/shared/metadata.models';
+import { Metadata } from '../../../../../../../modules/core/src/lib/core/shared/metadata.utils';
+import { WorkspaceitemSectionUploadFileObject } from '../../../../../../../modules/core/src/lib/core/submission/models/workspaceitem-section-upload-file.model';
 import { FileSizePipe } from '../../../../../shared/utils/file-size-pipe';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
 import { SubmissionSectionUploadAccessConditionsComponent } from '../../accessConditions/submission-section-upload-access-conditions.component';

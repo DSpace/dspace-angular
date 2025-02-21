@@ -44,27 +44,27 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { SortOptions } from '../../../core/cache/models/sort-options.model';
+import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { SortOptions } from '../../../../../modules/core/src/lib/core/cache/models/sort-options.model';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { NotificationType } from '../../../core/notifications/models/notification-type';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { ListableObject } from '../../../core/object-collection/listable-object.model';
-import { Context } from '../../../core/shared/context.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
+} from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { NotificationType } from '../../../../../modules/core/src/lib/core/notifications/models/notification-type';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { ListableObject } from '../../../../../modules/core/src/lib/core/object-collection/listable-object.model';
+import { Context } from '../../../../../modules/core/src/lib/core/shared/context.model';
+import { DSpaceObject } from '../../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { DSpaceObjectType } from '../../../../../modules/core/src/lib/core/shared/dspace-object-type.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '../../../core/shared/operators';
-import { PaginatedSearchOptions } from '../../../core/shared/paginated-search-options.model';
-import { SearchResult } from '../../../core/shared/search/models/search-result.model';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { ViewMode } from '../../../core/shared/view-mode.model';
+} from '../../../../../modules/core/src/lib/core/shared/operators';
+import { PaginatedSearchOptions } from '../../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
+import { SearchResult } from '../../../../../modules/core/src/lib/core/shared/search/models/search-result.model';
+import { SearchService } from '../../../../../modules/core/src/lib/core/shared/search/search.service';
+import { ViewMode } from '../../../../../modules/core/src/lib/core/shared/view-mode.model';
 import { HoverClassDirective } from '../../hover-class.directive';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';

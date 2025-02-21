@@ -11,31 +11,31 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { RequestService } from '../../../core/data/request.service';
-import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { RouteService } from '../../../core/services/route.service';
-import { Item } from '../../../core/shared/item.model';
-import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
-import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
-import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
-import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
+import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
+import { WorkflowActionDataService } from '../../../../../modules/core/src/lib/core/data/workflow-action-data.service';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { RouteService } from '../../../../../modules/core/src/lib/core/services/route.service';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { WorkflowItem } from '../../../../../modules/core/src/lib/core/submission/models/workflowitem.model';
+import { WorkflowItemDataService } from '../../../../../modules/core/src/lib/core/submission/workflowitem-data.service';
+import { ClaimedTaskDataService } from '../../../../../modules/core/src/lib/core/tasks/claimed-task-data.service';
+import { ProcessTaskResponse } from '../../../../../modules/core/src/lib/core/tasks/models/process-task-response';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../core/utilities/remote-data.utils';
-import { ClaimedTaskDataServiceStub } from '../../../core/utilities/testing/claimed-task-data-service.stub';
+} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { ClaimedTaskDataServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/claimed-task-data-service.stub';
 import {
   EPersonMock,
   EPersonMock2,
-} from '../../../core/utilities/testing/eperson.mock';
-import { LocationStub } from '../../../core/utilities/testing/location.stub';
-import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
-import { RequestServiceStub } from '../../../core/utilities/testing/request-service.stub';
-import { routeServiceStub } from '../../../core/utilities/testing/route-service.stub';
-import { RouterStub } from '../../../core/utilities/testing/router.stub';
-import { WorkflowActionDataServiceStub } from '../../../core/utilities/testing/workflow-action-data-service.stub';
-import { WorkflowItemDataServiceStub } from '../../../core/utilities/testing/workflow-item-data-service.stub';
+} from '../../../../../modules/core/src/lib/core/utilities/testing/eperson.mock';
+import { LocationStub } from '../../../../../modules/core/src/lib/core/utilities/testing/location.stub';
+import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { RequestServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/request-service.stub';
+import { routeServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/route-service.stub';
+import { RouterStub } from '../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
+import { WorkflowActionDataServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/workflow-action-data-service.stub';
+import { WorkflowItemDataServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/workflow-item-data-service.stub';
 import {
   ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER,
   AdvancedWorkflowActionSelectReviewerComponent,

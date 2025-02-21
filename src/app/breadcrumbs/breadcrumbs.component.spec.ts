@@ -12,8 +12,8 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { Breadcrumb } from '../core/breadcrumbs/breadcrumb.model';
-import { TranslateLoaderMock } from '../core/utilities/testing/translate-loader.mock';
+import { Breadcrumb } from '../../../modules/core/src/lib/core/breadcrumbs/breadcrumb.model';
+import { TranslateLoaderMock } from '../../../modules/core/src/lib/core/utilities/testing/translate-loader.mock';
 import { VarDirective } from '../shared/utils/var.directive';
 import { BreadcrumbsComponent } from './breadcrumbs.component';
 import { BreadcrumbsService } from './breadcrumbs.service';

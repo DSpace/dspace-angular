@@ -30,35 +30,35 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { DSOChangeAnalyzer } from '../../../core/data/dso-change-analyzer.service';
-import { DSpaceObjectDataService } from '../../../core/data/dspace-object-data.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { RemoteDataBuildService } from '../../../../../modules/core/src/lib/core/cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../../../../../modules/core/src/lib/core/cache/object-cache.service';
+import { DSOChangeAnalyzer } from '../../../../../modules/core/src/lib/core/data/dso-change-analyzer.service';
+import { DSpaceObjectDataService } from '../../../../../modules/core/src/lib/core/data/dspace-object-data.service';
+import { AuthorizationDataService } from '../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
-import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { Group } from '../../../core/eperson/models/group.model';
-import { RouterMock } from '../../../core/mocks/router.mock';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { UUIDService } from '../../../core/shared/uuid.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../../core/utilities/testing/active-router.stub';
+} from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { EPersonDataService } from '../../../../../modules/core/src/lib/core/eperson/eperson-data.service';
+import { GroupDataService } from '../../../../../modules/core/src/lib/core/eperson/group-data.service';
+import { Group } from '../../../../../modules/core/src/lib/core/eperson/models/group.model';
+import { RouterMock } from '../../../../../modules/core/src/lib/core/mocks/router.mock';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { DSpaceObject } from '../../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { HALEndpointService } from '../../../../../modules/core/src/lib/core/shared/hal-endpoint.service';
+import { NoContent } from '../../../../../modules/core/src/lib/core/shared/NoContent.model';
+import { PageInfo } from '../../../../../modules/core/src/lib/core/shared/page-info.model';
+import { UUIDService } from '../../../../../modules/core/src/lib/core/shared/uuid.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
 import {
   GroupMock,
   GroupMock2,
-} from '../../../core/utilities/testing/group-mock';
-import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
-import { XSRFService } from '../../../core/xsrf/xsrf.service';
+} from '../../../../../modules/core/src/lib/core/utilities/testing/group-mock';
+import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { XSRFService } from '../../../../../modules/core/src/lib/core/xsrf/xsrf.service';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ContextHelpDirective } from '../../../shared/context-help.directive';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';

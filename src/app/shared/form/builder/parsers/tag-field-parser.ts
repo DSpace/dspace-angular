@@ -2,7 +2,7 @@ import {
   DynamicTagModel,
   DynamicTagModelConfig,
 } from '../ds-dynamic-form-ui/models/tag/dynamic-tag.model';
-import { FormFieldMetadataValueObject } from '../../../../core/config/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
 import { FieldParser } from './field-parser';
 
 export class TagFieldParser extends FieldParser {

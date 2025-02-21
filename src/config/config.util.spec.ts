@@ -1,5 +1,5 @@
-import { DefaultAppConfig } from '../app/core/config/default-app-config';
-import { HandleThemeConfig } from '../app/core/config/theme.config';
+import { DefaultAppConfig } from '../../modules/core/src/lib/core/config/default-app-config';
+import { HandleThemeConfig } from '../../modules/core/src/lib/core/config/theme.config';
 import { environment } from '../environments/environment.production';
 import { extendEnvironmentWithAppConfig } from './config.util';
 

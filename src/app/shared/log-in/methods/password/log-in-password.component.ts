@@ -35,17 +35,17 @@ import {
 import {
   AuthenticateAction,
   ResetAuthenticationMessagesAction,
-} from '../../../../core/auth/auth.actions';
-import { AuthService } from '../../../../core/auth/auth.service';
-import { AuthMethod } from '../../../../core/auth/models/auth.method';
+} from '../../../../../../modules/core/src/lib/core/auth/auth.actions';
+import { AuthService } from '../../../../../../modules/core/src/lib/core/auth/auth.service';
+import { AuthMethod } from '../../../../../../modules/core/src/lib/core/auth/models/auth.method';
 import {
   getAuthenticationError,
   getAuthenticationInfo,
-} from '../../../../core/auth/selectors';
-import { CoreState } from '../../../../core/core-state.model';
-import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
-import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
+} from '../../../../../../modules/core/src/lib/core/auth/selectors';
+import { CoreState } from '../../../../../../modules/core/src/lib/core/core-state.model';
+import { AuthorizationDataService } from '../../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
+import { HardRedirectService } from '../../../../../../modules/core/src/lib/core/services/hard-redirect.service';
 import { fadeOut } from '../../../animations/fade';
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';

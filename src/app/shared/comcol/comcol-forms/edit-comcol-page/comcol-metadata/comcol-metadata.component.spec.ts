@@ -13,15 +13,15 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ComColDataService } from '../../../../../core/data/comcol-data.service';
-import { NotificationsService } from '../../../../../core/notifications/notifications.service';
-import { Community } from '../../../../../core/shared/community.model';
+import { ComColDataService } from '../../../../../../../modules/core/src/lib/core/data/comcol-data.service';
+import { NotificationsService } from '../../../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Community } from '../../../../../../../modules/core/src/lib/core/shared/community.model';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../../../../core/utilities/testing/notifications-service.stub';
+} from '../../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { NotificationsServiceStub } from '../../../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
 import { ComcolMetadataComponent } from './comcol-metadata.component';
 
 describe('ComColMetadataComponent', () => {

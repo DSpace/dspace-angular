@@ -13,12 +13,12 @@ import {
 } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
+import { NotifyInfoService } from '../../../../modules/core/src/lib/core/coar-notify/notify-info/notify-info.service';
 import {
   LinkDefinition,
   LinkHeadService,
-} from '../../core/services/link-head.service';
-import { ServerResponseService } from '../../core/services/server-response.service';
+} from '../../../../modules/core/src/lib/core/services/link-head.service';
+import { ServerResponseService } from '../../../../modules/core/src/lib/core/services/server-response.service';
 
 @Component({
   selector: 'ds-home-coar',

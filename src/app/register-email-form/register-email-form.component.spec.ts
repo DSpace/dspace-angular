@@ -21,17 +21,17 @@ import {
   of,
 } from 'rxjs';
 
-import { RestResponse } from '../core/cache/response.models';
-import { ConfigurationDataService } from '../core/data/configuration-data.service';
-import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
-import { GoogleRecaptchaService } from '../core/google-recaptcha/google-recaptcha.service';
-import { CookieServiceMock } from '../core/mocks/cookie.service.mock';
-import { NotificationsService } from '../core/notifications/notifications.service';
-import { CookieService } from '../core/services/cookie.service';
-import { ConfigurationProperty } from '../core/shared/configuration-property.model';
-import { createSuccessfulRemoteDataObject$ } from '../core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../core/utilities/testing/notifications-service.stub';
-import { RouterStub } from '../core/utilities/testing/router.stub';
+import { RestResponse } from '../../../modules/core/src/lib/core/cache/response.models';
+import { ConfigurationDataService } from '../../../modules/core/src/lib/core/data/configuration-data.service';
+import { EpersonRegistrationService } from '../../../modules/core/src/lib/core/data/eperson-registration.service';
+import { GoogleRecaptchaService } from '../../../modules/core/src/lib/core/google-recaptcha/google-recaptcha.service';
+import { CookieServiceMock } from '../../../modules/core/src/lib/core/mocks/cookie.service.mock';
+import { NotificationsService } from '../../../modules/core/src/lib/core/notifications/notifications.service';
+import { CookieService } from '../../../modules/core/src/lib/core/services/cookie.service';
+import { ConfigurationProperty } from '../../../modules/core/src/lib/core/shared/configuration-property.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { NotificationsServiceStub } from '../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { RouterStub } from '../../../modules/core/src/lib/core/utilities/testing/router.stub';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { GoogleRecaptchaComponent } from '../shared/google-recaptcha/google-recaptcha.component';
 import {

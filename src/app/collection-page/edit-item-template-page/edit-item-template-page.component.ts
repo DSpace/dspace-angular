@@ -15,12 +15,12 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { ItemTemplateDataService } from '../../core/data/item-template-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { Collection } from '../../core/shared/collection.model';
-import { Item } from '../../core/shared/item.model';
-import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
+import { DSONameService } from '../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { ItemTemplateDataService } from '../../../../modules/core/src/lib/core/data/item-template-data.service';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
+import { Collection } from '../../../../modules/core/src/lib/core/shared/collection.model';
+import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
+import { getFirstSucceededRemoteDataPayload } from '../../../../modules/core/src/lib/core/shared/operators';
 import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';

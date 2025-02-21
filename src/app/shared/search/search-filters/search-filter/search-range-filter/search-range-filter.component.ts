@@ -25,11 +25,11 @@ import {
   startWith,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { RouteService } from '../../../../../core/services/route.service';
-import { SearchService } from '../../../../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
+import { RemoteDataBuildService } from '../../../../../../../modules/core/src/lib/core/cache/builders/remote-data-build.service';
+import { RouteService } from '../../../../../../../modules/core/src/lib/core/services/route.service';
+import { SearchService } from '../../../../../../../modules/core/src/lib/core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
+import { SearchFilterService } from '../../../../../../../modules/core/src/lib/core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { DebounceDirective } from '../../../../utils/debounce.directive';
 import {

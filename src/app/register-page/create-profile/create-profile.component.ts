@@ -24,22 +24,22 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import { AuthenticateAction } from '../../core/auth/auth.actions';
-import { LangConfig } from '../../core/config/lang-config.interface';
-import { CoreState } from '../../core/core-state.model';
-import { RemoteData } from '../../core/data/remote-data';
+import { AuthenticateAction } from '../../../../modules/core/src/lib/core/auth/auth.actions';
+import { LangConfig } from '../../../../modules/core/src/lib/core/config/lang-config.interface';
+import { CoreState } from '../../../../modules/core/src/lib/core/core-state.model';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
 import {
   END_USER_AGREEMENT_METADATA_FIELD,
   EndUserAgreementService,
-} from '../../core/end-user-agreement/end-user-agreement.service';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { NotificationsService } from '../../core/notifications/notifications.service';
+} from '../../../../modules/core/src/lib/core/end-user-agreement/end-user-agreement.service';
+import { EPersonDataService } from '../../../../modules/core/src/lib/core/eperson/eperson-data.service';
+import { EPerson } from '../../../../modules/core/src/lib/core/eperson/models/eperson.model';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '../../core/shared/operators';
-import { Registration } from '../../core/shared/registration.model';
+} from '../../../../modules/core/src/lib/core/shared/operators';
+import { Registration } from '../../../../modules/core/src/lib/core/shared/registration.model';
 import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 

@@ -1,8 +1,8 @@
-import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
-import { ItemSearchResult } from '../../../../../core/object-collection/item-search-result.model';
-import { Item } from '../../../../../core/shared/item.model';
-import { PageInfo } from '../../../../../core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
+import { buildPaginatedList } from '../../../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { ItemSearchResult } from '../../../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
+import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
+import { PageInfo } from '../../../../../../../modules/core/src/lib/core/shared/page-info.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
 import { getEntityGridElementTestComponent } from '../../../../../shared/object-grid/search-result-grid-element/item-search-result/item/item-search-result-grid-element.component.spec';
 import { JournalIssueSearchResultGridElementComponent } from './journal-issue-search-result-grid-element.component';
 

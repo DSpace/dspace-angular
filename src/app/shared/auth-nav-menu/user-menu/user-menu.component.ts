@@ -25,10 +25,10 @@ import {
   getProfileModuleRoute,
   getSubscriptionsModuleRoute,
 } from '../../../app-routing-paths';
-import { AuthService } from '../../../core/auth/auth.service';
-import { isAuthenticationLoading } from '../../../core/auth/selectors';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
+import { AuthService } from '../../../../../modules/core/src/lib/core/auth/auth.service';
+import { isAuthenticationLoading } from '../../../../../modules/core/src/lib/core/auth/selectors';
+import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { EPerson } from '../../../../../modules/core/src/lib/core/eperson/models/eperson.model';
 import { MYDSPACE_ROUTE } from '../../../my-dspace-page/my-dspace-page.component';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { LogOutComponent } from '../../log-out/log-out.component';

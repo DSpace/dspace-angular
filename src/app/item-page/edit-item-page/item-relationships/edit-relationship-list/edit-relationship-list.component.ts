@@ -42,38 +42,38 @@ import {
   toArray,
 } from 'rxjs/operators';
 
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { RequestParam } from '../../../../core/cache/models/request-param.model';
+import { LinkService } from '../../../../../../modules/core/src/lib/core/cache/builders/link.service';
+import { RequestParam } from '../../../../../../modules/core/src/lib/core/cache/models/request-param.model';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../core/config/app-config.interface';
-import { FollowLinkConfig } from '../../../../core/data/follow-link-config.model';
-import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
-import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
-import { FieldUpdates } from '../../../../core/data/object-updates/field-updates.model';
-import { RelationshipIdentifiable } from '../../../../core/data/object-updates/object-updates.reducer';
-import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { ItemSearchResult } from '../../../../core/object-collection/item-search-result.model';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { Collection } from '../../../../core/shared/collection.model';
-import { RelationshipOptions } from '../../../../core/shared/form/relationship-options.model';
-import { Item } from '../../../../core/shared/item.model';
-import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
-import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '../../../../core/shared/item-relationships/relationship-type.model';
+} from '../../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { FollowLinkConfig } from '../../../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { FieldChangeType } from '../../../../../../modules/core/src/lib/core/data/object-updates/field-change-type.model';
+import { FieldUpdate } from '../../../../../../modules/core/src/lib/core/data/object-updates/field-update.model';
+import { FieldUpdates } from '../../../../../../modules/core/src/lib/core/data/object-updates/field-updates.model';
+import { RelationshipIdentifiable } from '../../../../../../modules/core/src/lib/core/data/object-updates/object-updates.reducer';
+import { ObjectUpdatesService } from '../../../../../../modules/core/src/lib/core/data/object-updates/object-updates.service';
+import { PaginatedList } from '../../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RelationshipDataService } from '../../../../../../modules/core/src/lib/core/data/relationship-data.service';
+import { RemoteData } from '../../../../../../modules/core/src/lib/core/data/remote-data';
+import { ItemSearchResult } from '../../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
+import { PaginationService } from '../../../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { Collection } from '../../../../../../modules/core/src/lib/core/shared/collection.model';
+import { RelationshipOptions } from '../../../../../../modules/core/src/lib/core/shared/form/relationship-options.model';
+import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
+import { ItemType } from '../../../../../../modules/core/src/lib/core/shared/item-relationships/item-type.model';
+import { Relationship } from '../../../../../../modules/core/src/lib/core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '../../../../../../modules/core/src/lib/core/shared/item-relationships/relationship-type.model';
 import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
-} from '../../../../core/shared/operators';
-import { PaginationComponentOptions } from '../../../../core/shared/pagination-component-options.model';
-import { itemLinksToFollow } from '../../../../core/utilities/relation-query.utils';
+} from '../../../../../../modules/core/src/lib/core/shared/operators';
+import { PaginationComponentOptions } from '../../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+import { itemLinksToFollow } from '../../../../../../modules/core/src/lib/core/utilities/relation-query.utils';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { DsDynamicLookupRelationModalComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';

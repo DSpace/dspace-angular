@@ -16,17 +16,17 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { redirectOn4xx } from '../../core/shared/authorized.operators';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
+import { DSONameService } from '../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
+import { redirectOn4xx } from '../../../../modules/core/src/lib/core/shared/authorized.operators';
+import { DSpaceObject } from '../../../../modules/core/src/lib/core/shared/dspace-object.model';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '../../core/shared/operators';
-import { UsageReport } from '../../core/statistics/models/usage-report.model';
-import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
+} from '../../../../modules/core/src/lib/core/shared/operators';
+import { UsageReport } from '../../../../modules/core/src/lib/core/statistics/models/usage-report.model';
+import { UsageReportDataService } from '../../../../modules/core/src/lib/core/statistics/usage-report-data.service';
 
 @Directive()
 /**

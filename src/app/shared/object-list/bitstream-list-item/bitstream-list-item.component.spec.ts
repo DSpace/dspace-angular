@@ -6,7 +6,7 @@ import {
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../mocks/dso-name.service.mock';
 import { BitstreamListItemComponent } from './bitstream-list-item.component';
 

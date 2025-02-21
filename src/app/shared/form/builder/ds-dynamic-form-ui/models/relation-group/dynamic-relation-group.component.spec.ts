@@ -37,21 +37,21 @@ import { environment } from 'src/environments/environment.test';
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
-} from '../../../../../../core/config/app-config.interface';
-import { FormRowModel } from '../../../../../../core/config/models/config-submission-form.model';
-import { SubmissionFormsModel } from '../../../../../../core/config/models/config-submission-forms.model';
-import { FormFieldModel } from '../../../../../../core/shared/form/form-field.model';
-import { SubmissionObjectDataService } from '../../../../../../core/submission/submission-object-data.service';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import { createTestComponent } from '../../../../../../core/utilities/testing/utils.test';
-import { VocabularyServiceStub } from '../../../../../../core/utilities/testing/vocabulary-service.stub';
-import { XSRFService } from '../../../../../../core/xsrf/xsrf.service';
+} from '../../../../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { FormRowModel } from '../../../../../../../../modules/core/src/lib/core/config/models/config-submission-form.model';
+import { SubmissionFormsModel } from '../../../../../../../../modules/core/src/lib/core/config/models/config-submission-forms.model';
+import { FormFieldModel } from '../../../../../../../../modules/core/src/lib/core/shared/form/form-field.model';
+import { SubmissionObjectDataService } from '../../../../../../../../modules/core/src/lib/core/submission/submission-object-data.service';
+import { VocabularyService } from '../../../../../../../../modules/core/src/lib/core/submission/vocabularies/vocabulary.service';
+import { createTestComponent } from '../../../../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+import { VocabularyServiceStub } from '../../../../../../../../modules/core/src/lib/core/utilities/testing/vocabulary-service.stub';
+import { XSRFService } from '../../../../../../../../modules/core/src/lib/core/xsrf/xsrf.service';
 import { SubmissionService } from '../../../../../../submission/submission.service';
 import { Chips } from '../../../../chips/models/chips.model';
 import { FormComponent } from '../../../../form.component';
 import { FormService } from '../../../../form.service';
 import { FormBuilderService } from '../../../form-builder.service';
-import { FormFieldMetadataValueObject } from '../../../../../../core/config/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../../../../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
 import { dsDynamicFormControlMapFn } from '../../ds-dynamic-form-control-map-fn';
 import { DsDynamicTypeBindRelationService } from '../../ds-dynamic-type-bind-relation.service';
 import { DsDynamicInputModel } from '../ds-dynamic-input.model';

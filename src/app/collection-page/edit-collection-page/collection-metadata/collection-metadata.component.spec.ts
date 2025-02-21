@@ -14,21 +14,21 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '../../../core/auth/auth.service';
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { APP_DATA_SERVICES_MAP } from '../../../core/config/app-config.interface';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { CommunityDataService } from '../../../core/data/community-data.service';
-import { ItemTemplateDataService } from '../../../core/data/item-template-data.service';
-import { RequestService } from '../../../core/data/request.service';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { Collection } from '../../../core/shared/collection.model';
-import { Item } from '../../../core/shared/item.model';
+import { AuthService } from '../../../../../modules/core/src/lib/core/auth/auth.service';
+import { ObjectCacheService } from '../../../../../modules/core/src/lib/core/cache/object-cache.service';
+import { APP_DATA_SERVICES_MAP } from '../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { CollectionDataService } from '../../../../../modules/core/src/lib/core/data/collection-data.service';
+import { CommunityDataService } from '../../../../../modules/core/src/lib/core/data/community-data.service';
+import { ItemTemplateDataService } from '../../../../../modules/core/src/lib/core/data/item-template-data.service';
+import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../core/utilities/remote-data.utils';
+} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
 import { AuthServiceMock } from '../../../shared/mocks/auth.service.mock';
 import { getCollectionItemTemplateRoute } from '../../collection-page-routing-paths';
 import { CollectionMetadataComponent } from './collection-metadata.component';

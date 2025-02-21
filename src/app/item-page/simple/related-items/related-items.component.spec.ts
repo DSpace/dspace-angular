@@ -11,11 +11,11 @@ import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { APP_CONFIG } from '../../../core/config/app-config.interface';
-import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { Item } from '../../../core/shared/item.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
-import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
+import { APP_CONFIG } from '../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { RelationshipDataService } from '../../../../../modules/core/src/lib/core/data/relationship-data.service';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { createPaginatedList } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';

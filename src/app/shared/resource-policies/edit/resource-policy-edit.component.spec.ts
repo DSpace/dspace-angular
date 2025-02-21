@@ -22,21 +22,21 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { LinkService } from '../../../core/cache/builders/link.service';
-import { getMockLinkService } from '../../../core/mocks/link-service.mock';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { ActionType } from '../../../core/resource-policy/models/action-type.model';
-import { PolicyType } from '../../../core/resource-policy/models/policy-type.model';
-import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-policy.resource-type';
-import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
+import { LinkService } from '../../../../../modules/core/src/lib/core/cache/builders/link.service';
+import { getMockLinkService } from '../../../../../modules/core/src/lib/core/mocks/link-service.mock';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { ActionType } from '../../../../../modules/core/src/lib/core/resource-policy/models/action-type.model';
+import { PolicyType } from '../../../../../modules/core/src/lib/core/resource-policy/models/policy-type.model';
+import { RESOURCE_POLICY } from '../../../../../modules/core/src/lib/core/resource-policy/models/resource-policy.resource-type';
+import { ResourcePolicyDataService } from '../../../../../modules/core/src/lib/core/resource-policy/resource-policy-data.service';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
-} from '../../../core/utilities/remote-data.utils';
-import { GroupMock } from '../../../core/utilities/testing/group-mock';
-import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
-import { RouterStub } from '../../../core/utilities/testing/router.stub';
-import { createTestComponent } from '../../../core/utilities/testing/utils.test';
+} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { GroupMock } from '../../../../../modules/core/src/lib/core/utilities/testing/group-mock';
+import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { RouterStub } from '../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
+import { createTestComponent } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { getMockResourcePolicyService } from '../../mocks/mock-resource-policy-service';
 import {
   ResourcePolicyEvent,

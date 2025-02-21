@@ -6,40 +6,40 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
-import { RequestParam } from '../../../core/cache/models/request-param.model';
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
+import { RemoteDataBuildService } from '../../../../../modules/core/src/lib/core/cache/builders/remote-data-build.service';
+import { RequestParam } from '../../../../../modules/core/src/lib/core/cache/models/request-param.model';
+import { ObjectCacheService } from '../../../../../modules/core/src/lib/core/cache/object-cache.service';
 import {
   CreateData,
   CreateDataImpl,
-} from '../../../core/data/base/create-data';
+} from '../../../../../modules/core/src/lib/core/data/base/create-data';
 import {
   DeleteData,
   DeleteDataImpl,
-} from '../../../core/data/base/delete-data';
+} from '../../../../../modules/core/src/lib/core/data/base/delete-data';
 import {
   FindAllData,
   FindAllDataImpl,
-} from '../../../core/data/base/find-all-data';
-import { IdentifiableDataService } from '../../../core/data/base/identifiable-data.service';
+} from '../../../../../modules/core/src/lib/core/data/base/find-all-data';
+import { IdentifiableDataService } from '../../../../../modules/core/src/lib/core/data/base/identifiable-data.service';
 import {
   PatchData,
   PatchDataImpl,
-} from '../../../core/data/base/patch-data';
-import { SearchDataImpl } from '../../../core/data/base/search-data';
-import { ChangeAnalyzer } from '../../../core/data/change-analyzer';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { FollowLinkConfig } from '../../../core/data/follow-link-config.model';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { MultipartPostRequest } from '../../../core/data/request.models';
-import { RequestService } from '../../../core/data/request.service';
-import { RestRequest } from '../../../core/data/rest-request.model';
-import { RestRequestMethod } from '../../../core/data/rest-request-method';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
-import { NoContent } from '../../../core/shared/NoContent.model';
-import { URLCombiner } from '../../../core/url-combiner/url-combiner';
+} from '../../../../../modules/core/src/lib/core/data/base/patch-data';
+import { SearchDataImpl } from '../../../../../modules/core/src/lib/core/data/base/search-data';
+import { ChangeAnalyzer } from '../../../../../modules/core/src/lib/core/data/change-analyzer';
+import { FindListOptions } from '../../../../../modules/core/src/lib/core/data/find-list-options.model';
+import { FollowLinkConfig } from '../../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { MultipartPostRequest } from '../../../../../modules/core/src/lib/core/data/request.models';
+import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
+import { RestRequest } from '../../../../../modules/core/src/lib/core/data/rest-request.model';
+import { RestRequestMethod } from '../../../../../modules/core/src/lib/core/data/rest-request-method';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { HALEndpointService } from '../../../../../modules/core/src/lib/core/shared/hal-endpoint.service';
+import { NoContent } from '../../../../../modules/core/src/lib/core/shared/NoContent.model';
+import { URLCombiner } from '../../../../../modules/core/src/lib/core/url-combiner/url-combiner';
 import { LdnServiceConstrain } from '../ldn-services-model/ldn-service.constrain.model';
 import { LdnService } from '../ldn-services-model/ldn-services.model';
 

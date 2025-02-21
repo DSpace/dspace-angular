@@ -10,11 +10,11 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { ThemedAdminSidebarComponent } from '../admin/admin-sidebar/themed-admin-sidebar.component';
 import { ThemedBreadcrumbsComponent } from '../breadcrumbs/themed-breadcrumbs.component';
-import { RouterMock } from '../core/mocks/router.mock';
-import { NotificationsBoardComponent } from '../core/notifications/notifications-board/notifications-board.component';
-import { CSSVariableServiceStub } from '../core/utilities/testing/css-variable-service.stub';
-import { HostWindowServiceStub } from '../core/utilities/testing/host-window-service.stub';
-import { MenuServiceStub } from '../core/utilities/testing/menu-service.stub';
+import { RouterMock } from '../../../modules/core/src/lib/core/mocks/router.mock';
+import { NotificationsBoardComponent } from '../../../modules/core/src/lib/core/notifications/notifications-board/notifications-board.component';
+import { CSSVariableServiceStub } from '../../../modules/core/src/lib/core/utilities/testing/css-variable-service.stub';
+import { HostWindowServiceStub } from '../../../modules/core/src/lib/core/utilities/testing/host-window-service.stub';
+import { MenuServiceStub } from '../../../modules/core/src/lib/core/utilities/testing/menu-service.stub';
 import { ThemedFooterComponent } from '../footer/themed-footer.component';
 import { ThemedHeaderNavbarWrapperComponent } from '../header-nav-wrapper/themed-header-navbar-wrapper.component';
 import { HostWindowService } from '../shared/host-window.service';

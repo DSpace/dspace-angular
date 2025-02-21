@@ -30,14 +30,14 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { ScriptDataService } from '../../../core/data/processes/script-data.service';
-import { Script } from '../../../core/scripts/script.model';
+import { FindListOptions } from '../../../../../modules/core/src/lib/core/data/find-list-options.model';
+import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { ScriptDataService } from '../../../../../modules/core/src/lib/core/data/processes/script-data.service';
+import { Script } from '../../../../../modules/core/src/lib/core/scripts/script.model';
 import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '../../../core/shared/operators';
+} from '../../../../../modules/core/src/lib/core/shared/operators';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { controlContainerFactory } from '../process-form-factory';
 

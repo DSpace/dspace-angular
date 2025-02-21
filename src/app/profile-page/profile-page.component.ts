@@ -26,27 +26,27 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { AuthService } from '../core/auth/auth.service';
-import { DSONameService } from '../core/breadcrumbs/dso-name.service';
-import { ConfigurationDataService } from '../core/data/configuration-data.service';
-import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../core/data/feature-authorization/feature-id';
-import { followLink } from '../core/data/follow-link-config.model';
-import { PaginatedList } from '../core/data/paginated-list.model';
-import { RemoteData } from '../core/data/remote-data';
-import { EPersonDataService } from '../core/eperson/eperson-data.service';
-import { EPerson } from '../core/eperson/models/eperson.model';
-import { Group } from '../core/eperson/models/group.model';
-import { NotificationsService } from '../core/notifications/notifications.service';
-import { PaginationService } from '../core/pagination/pagination.service';
-import { ConfigurationProperty } from '../core/shared/configuration-property.model';
+import { AuthService } from '../../../modules/core/src/lib/core/auth/auth.service';
+import { DSONameService } from '../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { ConfigurationDataService } from '../../../modules/core/src/lib/core/data/configuration-data.service';
+import { AuthorizationDataService } from '../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
+import { followLink } from '../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { PaginatedList } from '../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../modules/core/src/lib/core/data/remote-data';
+import { EPersonDataService } from '../../../modules/core/src/lib/core/eperson/eperson-data.service';
+import { EPerson } from '../../../modules/core/src/lib/core/eperson/models/eperson.model';
+import { Group } from '../../../modules/core/src/lib/core/eperson/models/group.model';
+import { NotificationsService } from '../../../modules/core/src/lib/core/notifications/notifications.service';
+import { PaginationService } from '../../../modules/core/src/lib/core/pagination/pagination.service';
+import { ConfigurationProperty } from '../../../modules/core/src/lib/core/shared/configuration-property.model';
 import {
   getAllCompletedRemoteData,
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '../core/shared/operators';
-import { PaginationComponentOptions } from '../core/shared/pagination-component-options.model';
+} from '../../../modules/core/src/lib/core/shared/operators';
+import { PaginationComponentOptions } from '../../../modules/core/src/lib/core/shared/pagination-component-options.model';
 import { SuggestionsNotificationComponent } from '../notifications/suggestions-notification/suggestions-notification.component';
 import { ErrorComponent } from '../shared/error/error.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';

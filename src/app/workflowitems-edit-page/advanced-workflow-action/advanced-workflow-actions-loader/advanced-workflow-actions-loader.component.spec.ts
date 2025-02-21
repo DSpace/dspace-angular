@@ -19,7 +19,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
 import { PAGE_NOT_FOUND_PATH } from '../../../app-routing-paths';
-import { RouterStub } from '../../../core/utilities/testing/router.stub';
+import { RouterStub } from '../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
 import { DynamicComponentLoaderDirective } from '../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { rendersAdvancedWorkflowTaskOption } from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';

@@ -30,19 +30,19 @@ import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { of as observableOf } from 'rxjs';
 
-import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { VocabularyEntry } from '../../../../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyOptions } from '../../../../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-options.model';
+import { VocabularyService } from '../../../../../../../../modules/core/src/lib/core/submission/vocabularies/vocabulary.service';
 import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService,
-} from '../../../../../../core/utilities/testing/dynamic-form-mock-services';
-import { createTestComponent } from '../../../../../../core/utilities/testing/utils.test';
-import { VocabularyServiceStub } from '../../../../../../core/utilities/testing/vocabulary-service.stub';
+} from '../../../../../../../../modules/core/src/lib/core/utilities/testing/dynamic-form-mock-services';
+import { createTestComponent } from '../../../../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+import { VocabularyServiceStub } from '../../../../../../../../modules/core/src/lib/core/utilities/testing/vocabulary-service.stub';
 import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
-import { FormFieldMetadataValueObject } from '../../../../../../core/config/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../../../../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
 import { DsDynamicLookupComponent } from './dynamic-lookup.component';
 import {
   DynamicLookupModel,

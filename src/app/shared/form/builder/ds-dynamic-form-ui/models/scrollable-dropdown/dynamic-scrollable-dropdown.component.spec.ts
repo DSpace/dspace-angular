@@ -30,19 +30,19 @@ import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstr
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
-import { APP_DATA_SERVICES_MAP } from '../../../../../../core/config/app-config.interface';
-import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { APP_DATA_SERVICES_MAP } from '../../../../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { VocabularyEntry } from '../../../../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyOptions } from '../../../../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-options.model';
+import { VocabularyService } from '../../../../../../../../modules/core/src/lib/core/submission/vocabularies/vocabulary.service';
 import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService,
-} from '../../../../../../core/utilities/testing/dynamic-form-mock-services';
+} from '../../../../../../../../modules/core/src/lib/core/utilities/testing/dynamic-form-mock-services';
 import {
   createTestComponent,
   hasClass,
-} from '../../../../../../core/utilities/testing/utils.test';
-import { VocabularyServiceStub } from '../../../../../../core/utilities/testing/vocabulary-service.stub';
+} from '../../../../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+import { VocabularyServiceStub } from '../../../../../../../../modules/core/src/lib/core/utilities/testing/vocabulary-service.stub';
 import { DsDynamicScrollableDropdownComponent } from './dynamic-scrollable-dropdown.component';
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
 

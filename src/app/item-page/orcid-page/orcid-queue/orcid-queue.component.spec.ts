@@ -14,19 +14,19 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { OrcidQueue } from '../../../core/orcid/model/orcid-queue.model';
-import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
-import { OrcidHistoryDataService } from '../../../core/orcid/orcid-history-data.service';
-import { OrcidQueueDataService } from '../../../core/orcid/orcid-queue-data.service';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { Item } from '../../../core/shared/item.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../../core/utilities/testing/pagination-service.stub';
-import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
+import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { TranslateLoaderMock } from '../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { OrcidQueue } from '../../../../../modules/core/src/lib/core/orcid/model/orcid-queue.model';
+import { OrcidAuthService } from '../../../../../modules/core/src/lib/core/orcid/orcid-auth.service';
+import { OrcidHistoryDataService } from '../../../../../modules/core/src/lib/core/orcid/orcid-history-data.service';
+import { OrcidQueueDataService } from '../../../../../modules/core/src/lib/core/orcid/orcid-queue-data.service';
+import { PaginationService } from '../../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { PaginationServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
+import { createPaginatedList } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { OrcidQueueComponent } from './orcid-queue.component';
 

@@ -11,20 +11,20 @@ import {
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { PaginationService } from '../../../../../../core/pagination/pagination.service';
-import { PaginationComponentOptions } from '../../../../../../core/shared/pagination-component-options.model';
-import { AppliedFilter } from '../../../../../../core/shared/search/models/applied-filter.model';
-import { FilterType } from '../../../../../../core/shared/search/models/filter-type.model';
-import { SearchFilterConfig } from '../../../../../../core/shared/search/models/search-filter-config.model';
-import { SearchService } from '../../../../../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
-import { ActivatedRouteStub } from '../../../../../../core/utilities/testing/active-router.stub';
-import { PaginationServiceStub } from '../../../../../../core/utilities/testing/pagination-service.stub';
-import { RouterStub } from '../../../../../../core/utilities/testing/router.stub';
-import { SearchConfigurationServiceStub } from '../../../../../../core/utilities/testing/search-configuration-service.stub';
-import { SearchFilterServiceStub } from '../../../../../../core/utilities/testing/search-filter-service.stub';
-import { SearchServiceStub } from '../../../../../../core/utilities/testing/search-service.stub';
+import { PaginationService } from '../../../../../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '../../../../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+import { AppliedFilter } from '../../../../../../../../modules/core/src/lib/core/shared/search/models/applied-filter.model';
+import { FilterType } from '../../../../../../../../modules/core/src/lib/core/shared/search/models/filter-type.model';
+import { SearchFilterConfig } from '../../../../../../../../modules/core/src/lib/core/shared/search/models/search-filter-config.model';
+import { SearchService } from '../../../../../../../../modules/core/src/lib/core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
+import { SearchFilterService } from '../../../../../../../../modules/core/src/lib/core/shared/search/search-filter.service';
+import { ActivatedRouteStub } from '../../../../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+import { PaginationServiceStub } from '../../../../../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
+import { RouterStub } from '../../../../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
+import { SearchConfigurationServiceStub } from '../../../../../../../../modules/core/src/lib/core/utilities/testing/search-configuration-service.stub';
+import { SearchFilterServiceStub } from '../../../../../../../../modules/core/src/lib/core/utilities/testing/search-filter-service.stub';
+import { SearchServiceStub } from '../../../../../../../../modules/core/src/lib/core/utilities/testing/search-service.stub';
 import { SearchFacetSelectedOptionComponent } from './search-facet-selected-option.component';
 
 describe('SearchFacetSelectedOptionComponent', () => {

@@ -5,9 +5,9 @@ import {
 import { hasValue } from '@dspace/shared/utils';
 
 import { environment } from '../../environments/environment';
-import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
-import { notifyInfoGuard } from '../core/coar-notify/notify-info/notify-info.guard';
-import { feedbackGuard } from '../core/feedback/feedback.guard';
+import { i18nBreadcrumbResolver } from '../../../modules/core/src/lib/core/breadcrumbs/i18n-breadcrumb.resolver';
+import { notifyInfoGuard } from '../../../modules/core/src/lib/core/coar-notify/notify-info/notify-info.guard';
+import { feedbackGuard } from '../../../modules/core/src/lib/core/feedback/feedback.guard';
 import { ThemedEndUserAgreementComponent } from './end-user-agreement/themed-end-user-agreement.component';
 import { ThemedFeedbackComponent } from './feedback/themed-feedback.component';
 import {

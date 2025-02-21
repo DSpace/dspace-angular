@@ -26,7 +26,7 @@ import { environment } from '../../../../../../../environments/environment.test'
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
-} from '../../../../../../core/config/app-config.interface';
+} from '../../../../../../../../modules/core/src/lib/core/config/app-config.interface';
 import { SubmissionService } from '../../../../../../submission/submission.service';
 import { DsDynamicFormControlContainerComponent } from '../../ds-dynamic-form-control-container.component';
 import { dsDynamicFormControlMapFn } from '../../ds-dynamic-form-control-map-fn';

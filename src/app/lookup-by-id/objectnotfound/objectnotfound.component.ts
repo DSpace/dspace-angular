@@ -9,7 +9,7 @@ import {
   RouterLink,
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { ServerResponseService } from 'src/app/core/services/server-response.service';
+import { ServerResponseService } from '../../../../modules/core/src/lib/core/services/server-response.service';
 
 /**
  * This component representing the `PageNotFound` DSpace page.

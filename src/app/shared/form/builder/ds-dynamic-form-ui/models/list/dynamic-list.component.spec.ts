@@ -25,18 +25,18 @@ import {
 } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 
-import { ConfigurationDataService } from '../../../../../../core/data/configuration-data.service';
-import { ConfigurationProperty } from '../../../../../../core/shared/configuration-property.model';
-import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../core/utilities/remote-data.utils';
+import { ConfigurationDataService } from '../../../../../../../../modules/core/src/lib/core/data/configuration-data.service';
+import { ConfigurationProperty } from '../../../../../../../../modules/core/src/lib/core/shared/configuration-property.model';
+import { VocabularyEntry } from '../../../../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyOptions } from '../../../../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-options.model';
+import { VocabularyService } from '../../../../../../../../modules/core/src/lib/core/submission/vocabularies/vocabulary.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
 import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService,
-} from '../../../../../../core/utilities/testing/dynamic-form-mock-services';
-import { createTestComponent } from '../../../../../../core/utilities/testing/utils.test';
-import { VocabularyServiceStub } from '../../../../../../core/utilities/testing/vocabulary-service.stub';
+} from '../../../../../../../../modules/core/src/lib/core/utilities/testing/dynamic-form-mock-services';
+import { createTestComponent } from '../../../../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+import { VocabularyServiceStub } from '../../../../../../../../modules/core/src/lib/core/utilities/testing/vocabulary-service.stub';
 import { FormBuilderService } from '../../../form-builder.service';
 import { DsDynamicListComponent } from './dynamic-list.component';
 import { DynamicListCheckboxGroupModel } from './dynamic-list-checkbox-group.model';

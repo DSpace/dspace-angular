@@ -21,8 +21,8 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { TranslateLoaderMock } from '../core/mocks/translate-loader.mock';
-import { SearchService } from '../core/shared/search/search.service';
+import { TranslateLoaderMock } from '../../../modules/core/src/lib/core/mocks/translate-loader.mock';
+import { SearchService } from '../../../modules/core/src/lib/core/shared/search/search.service';
 import { SearchNavbarComponent } from './search-navbar.component';
 
 describe('SearchNavbarComponent', () => {

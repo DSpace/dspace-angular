@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 
-import { type } from '../../core/shared/ngrx/type';
+import { type } from '../../../../modules/core/src/lib/core/shared/ngrx/type';
 import { KeyValuePair } from '../key-value-pair.model';
 
 /**

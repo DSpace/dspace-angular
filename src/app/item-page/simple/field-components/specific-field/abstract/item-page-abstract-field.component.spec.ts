@@ -14,12 +14,12 @@ import {
 } from '@ngx-translate/core';
 
 import { environment } from '../../../../../../environments/environment';
-import { BrowseService } from '../../../../../core/browse/browse.service';
-import { BrowseDefinitionDataService } from '../../../../../core/browse/browse-definition-data.service';
-import { APP_CONFIG } from '../../../../../core/config/app-config.interface';
-import { BrowseDefinitionDataServiceStub } from '../../../../../core/utilities/testing/browse-definition-data-service.stub';
-import { BrowseServiceStub } from '../../../../../core/utilities/testing/browse-service.stub';
-import { TranslateLoaderMock } from '../../../../../core/utilities/testing/translate-loader.mock';
+import { BrowseService } from '../../../../../../../modules/core/src/lib/core/browse/browse.service';
+import { BrowseDefinitionDataService } from '../../../../../../../modules/core/src/lib/core/browse/browse-definition-data.service';
+import { APP_CONFIG } from '../../../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { BrowseDefinitionDataServiceStub } from '../../../../../../../modules/core/src/lib/core/utilities/testing/browse-definition-data-service.stub';
+import { BrowseServiceStub } from '../../../../../../../modules/core/src/lib/core/utilities/testing/browse-service.stub';
+import { TranslateLoaderMock } from '../../../../../../../modules/core/src/lib/core/utilities/testing/translate-loader.mock';
 import { ItemPageAbstractFieldComponent } from './item-page-abstract-field.component';
 
 let comp: ItemPageAbstractFieldComponent;

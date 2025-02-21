@@ -20,25 +20,25 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { ExternalSourceDataService } from '../../core/data/external-source-data.service';
-import { RouteService } from '../../core/services/route.service';
-import { ExternalSourceEntry } from '../../core/shared/external-source-entry.model';
-import { PaginatedSearchOptions } from '../../core/shared/paginated-search-options.model';
-import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { ExternalSourceDataService } from '../../../../modules/core/src/lib/core/data/external-source-data.service';
+import { RouteService } from '../../../../modules/core/src/lib/core/services/route.service';
+import { ExternalSourceEntry } from '../../../../modules/core/src/lib/core/shared/external-source-entry.model';
+import { PaginatedSearchOptions } from '../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
+import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+import { SearchConfigurationService } from '../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
-import { HostWindowServiceStub } from '../../core/utilities/testing/host-window-service.stub';
-import { routeServiceStub } from '../../core/utilities/testing/route-service.stub';
-import { RouterStub } from '../../core/utilities/testing/router.stub';
+} from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+import { HostWindowServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/host-window-service.stub';
+import { routeServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/route-service.stub';
+import { RouterStub } from '../../../../modules/core/src/lib/core/utilities/testing/router.stub';
 import {
   createPaginatedList,
   createTestComponent,
-} from '../../core/utilities/testing/utils.test';
+} from '../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { HostWindowService } from '../../shared/host-window.service';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';

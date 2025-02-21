@@ -20,19 +20,19 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { NativeWindowMockFactory } from '../../../core/mocks/mock-native-window-ref';
-import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
-import { ResearcherProfile } from '../../../core/profile/model/researcher-profile.model';
-import { NativeWindowService } from '../../../core/services/window.service';
-import { Item } from '../../../core/shared/item.model';
+import { NativeWindowMockFactory } from '../../../../../modules/core/src/lib/core/mocks/mock-native-window-ref';
+import { TranslateLoaderMock } from '../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { OrcidAuthService } from '../../../../../modules/core/src/lib/core/orcid/orcid-auth.service';
+import { ResearcherProfile } from '../../../../../modules/core/src/lib/core/profile/model/researcher-profile.model';
+import { NativeWindowService } from '../../../../../modules/core/src/lib/core/services/window.service';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
-import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
+} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { createPaginatedList } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { OrcidAuthComponent } from './orcid-auth.component';
 
 describe('OrcidAuthComponent test suite', () => {

@@ -3,8 +3,8 @@ import {
   Input,
 } from '@angular/core';
 
-import { Bitstream } from '../../../core/shared/bitstream.model';
-import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
+import { Bitstream } from '../../../../../modules/core/src/lib/core/shared/bitstream.model';
+import { MediaViewerItem } from '../../../../../modules/core/src/lib/core/shared/media-viewer-item.model';
 import { ThemedComponent } from '../../../shared/theme-support/themed.component';
 import { MediaViewerVideoComponent } from './media-viewer-video.component';
 

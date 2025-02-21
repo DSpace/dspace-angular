@@ -10,13 +10,13 @@ import {
 } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
-import { followLink } from '../../../../core/data/follow-link-config.model';
-import { CollectionSearchResult } from '../../../../core/object-collection/collection-search-result.model';
-import { Collection } from '../../../../core/shared/collection.model';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { DSONameService } from '../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { LinkService } from '../../../../../../modules/core/src/lib/core/cache/builders/link.service';
+import { BitstreamDataService } from '../../../../../../modules/core/src/lib/core/data/bitstream-data.service';
+import { followLink } from '../../../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { CollectionSearchResult } from '../../../../../../modules/core/src/lib/core/object-collection/collection-search-result.model';
+import { Collection } from '../../../../../../modules/core/src/lib/core/shared/collection.model';
+import { ViewMode } from '../../../../../../modules/core/src/lib/core/shared/view-mode.model';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';

@@ -16,9 +16,9 @@ import {
 } from '@ngx-translate/core';
 
 import { environment } from '../../../../environments/environment';
-import { APP_CONFIG } from '../../../core/config/app-config.interface';
-import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
-import { MetadataValue } from '../../../core/shared/metadata.models';
+import { APP_CONFIG } from '../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { TranslateLoaderMock } from '../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
+import { MetadataValue } from '../../../../../modules/core/src/lib/core/shared/metadata.models';
 import { MetadataUriValuesComponent } from './metadata-uri-values.component';
 
 let comp: MetadataUriValuesComponent;

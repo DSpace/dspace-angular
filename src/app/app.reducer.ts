@@ -16,7 +16,7 @@ import {
 import {
   notificationsReducer,
   NotificationsState,
-} from './core/notifications/notifications.reducers';
+} from '../../modules/core/src/lib/core/notifications/notifications.reducers';
 import {
   contextHelpReducer,
   ContextHelpState,

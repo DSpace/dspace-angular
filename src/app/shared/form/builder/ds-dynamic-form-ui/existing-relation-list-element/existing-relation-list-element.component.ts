@@ -21,16 +21,16 @@ import {
 import { filter } from 'rxjs/operators';
 
 import { AppState } from '../../../../../app.reducer';
-import { ItemSearchResult } from '../../../../../core/object-collection/item-search-result.model';
-import { RelationshipOptions } from '../../../../../core/shared/form/relationship-options.model';
-import { Item } from '../../../../../core/shared/item.model';
-import { ReorderableRelationship } from '../../../../../core/shared/item-relationships/reorderable-relationship.model';
+import { ItemSearchResult } from '../../../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
+import { RelationshipOptions } from '../../../../../../../modules/core/src/lib/core/shared/form/relationship-options.model';
+import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
+import { ReorderableRelationship } from '../../../../../../../modules/core/src/lib/core/shared/item-relationships/reorderable-relationship.model';
 import {
   getAllSucceededRemoteData,
   getRemoteDataPayload,
-} from '../../../../../core/shared/operators';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
-import { RemoveRelationshipAction } from '../../../../../core/states/name-variant/relationship.actions';
+} from '../../../../../../../modules/core/src/lib/core/shared/operators';
+import { ViewMode } from '../../../../../../../modules/core/src/lib/core/shared/view-mode.model';
+import { RemoveRelationshipAction } from '../../../../../../../modules/core/src/lib/core/states/name-variant/relationship.actions';
 import { SubmissionService } from '../../../../../submission/submission.service';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from '../../../../object-collection/shared/listable-object/listable-object-component-loader.component';

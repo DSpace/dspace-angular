@@ -18,18 +18,18 @@ import { environment } from 'src/environments/environment';
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
-} from '../../../../core/config/app-config.interface';
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
-import { MockBitstreamFormat1 } from '../../../../core/mocks/item.mock';
-import { TranslateLoaderMock } from '../../../../core/mocks/translate-loader.mock';
-import { NotificationsService } from '../../../../core/notifications/notifications.service';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { PageInfo } from '../../../../core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../../../core/utilities/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../../../core/utilities/testing/notifications-service.stub';
-import { createPaginatedList } from '../../../../core/utilities/testing/utils.test';
-import { XSRFService } from '../../../../core/xsrf/xsrf.service';
+} from '../../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { BitstreamDataService } from '../../../../../../modules/core/src/lib/core/data/bitstream-data.service';
+import { MockBitstreamFormat1 } from '../../../../../../modules/core/src/lib/core/mocks/item.mock';
+import { TranslateLoaderMock } from '../../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
+import { NotificationsService } from '../../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Bitstream } from '../../../../../../modules/core/src/lib/core/shared/bitstream.model';
+import { PageInfo } from '../../../../../../modules/core/src/lib/core/shared/page-info.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+import { NotificationsServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { createPaginatedList } from '../../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+import { XSRFService } from '../../../../../../modules/core/src/lib/core/xsrf/xsrf.service';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../../../shared/theme-support/theme.service';

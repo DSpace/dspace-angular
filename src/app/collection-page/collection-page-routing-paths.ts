@@ -1,4 +1,4 @@
-import { URLCombiner } from '../core/url-combiner/url-combiner';
+import { URLCombiner } from '../../../modules/core/src/lib/core/url-combiner/url-combiner';
 
 export const COLLECTION_PARENT_PARAMETER = 'parent';
 

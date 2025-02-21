@@ -15,7 +15,7 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
+import { TranslateLoaderMock } from '../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
 import { HealthResponseObj } from '../../shared/mocks/health-endpoint.mocks';
 import { ObjNgFor } from '../../shared/utils/object-ngfor.pipe';
 import { HealthComponentComponent } from './health-component/health-component.component';

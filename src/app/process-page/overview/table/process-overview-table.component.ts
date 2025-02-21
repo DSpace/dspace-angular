@@ -38,24 +38,24 @@ import {
   take,
   toArray,
 } from 'rxjs/operators';
-import { PaginationService } from 'src/app/core/pagination/pagination.service';
+import { PaginationService } from '../../../../../modules/core/src/lib/core/pagination/pagination.service';
 
-import { AuthService } from '../../../core/auth/auth.service';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { Process } from '../../../core/processes/process.model';
-import { ProcessStatus } from '../../../core/processes/process-status.model';
-import { RouteService } from '../../../core/services/route.service';
-import { redirectOn4xx } from '../../../core/shared/authorized.operators';
+import { AuthService } from '../../../../../modules/core/src/lib/core/auth/auth.service';
+import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { FindListOptions } from '../../../../../modules/core/src/lib/core/data/find-list-options.model';
+import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { EPersonDataService } from '../../../../../modules/core/src/lib/core/eperson/eperson-data.service';
+import { EPerson } from '../../../../../modules/core/src/lib/core/eperson/models/eperson.model';
+import { Process } from '../../../../../modules/core/src/lib/core/processes/process.model';
+import { ProcessStatus } from '../../../../../modules/core/src/lib/core/processes/process-status.model';
+import { RouteService } from '../../../../../modules/core/src/lib/core/services/route.service';
+import { redirectOn4xx } from '../../../../../modules/core/src/lib/core/shared/authorized.operators';
 import {
   getAllCompletedRemoteData,
   getFirstCompletedRemoteData,
-} from '../../../core/shared/operators';
-import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
+} from '../../../../../modules/core/src/lib/core/shared/operators';
+import { PaginationComponentOptions } from '../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { VarDirective } from '../../../shared/utils/var.directive';

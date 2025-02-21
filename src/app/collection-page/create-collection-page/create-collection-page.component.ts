@@ -6,13 +6,13 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { CollectionDataService } from '../../core/data/collection-data.service';
-import { CommunityDataService } from '../../core/data/community-data.service';
-import { RequestService } from '../../core/data/request.service';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { RouteService } from '../../core/services/route.service';
-import { Collection } from '../../core/shared/collection.model';
+import { DSONameService } from '../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { CollectionDataService } from '../../../../modules/core/src/lib/core/data/collection-data.service';
+import { CommunityDataService } from '../../../../modules/core/src/lib/core/data/community-data.service';
+import { RequestService } from '../../../../modules/core/src/lib/core/data/request.service';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { RouteService } from '../../../../modules/core/src/lib/core/services/route.service';
+import { Collection } from '../../../../modules/core/src/lib/core/shared/collection.model';
 import { CreateComColPageComponent } from '../../shared/comcol/comcol-forms/create-comcol-page/create-comcol-page.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { CollectionFormComponent } from '../collection-form/collection-form.component';

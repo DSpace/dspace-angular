@@ -15,18 +15,18 @@ import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ConfigurationDataService } from '../core/data/configuration-data.service';
-import { ProcessDataService } from '../core/data/processes/process-data.service';
-import { ScriptDataService } from '../core/data/processes/script-data.service';
-import { NotificationsService } from '../core/notifications/notifications.service';
-import { Process } from '../core/processes/process.model';
-import { ConfigurationProperty } from '../core/shared/configuration-property.model';
+import { ConfigurationDataService } from '../../../modules/core/src/lib/core/data/configuration-data.service';
+import { ProcessDataService } from '../../../modules/core/src/lib/core/data/processes/process-data.service';
+import { ScriptDataService } from '../../../modules/core/src/lib/core/data/processes/script-data.service';
+import { NotificationsService } from '../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Process } from '../../../modules/core/src/lib/core/processes/process.model';
+import { ConfigurationProperty } from '../../../modules/core/src/lib/core/shared/configuration-property.model';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../core/utilities/testing/notifications-service.stub';
-import { RouterStub } from '../core/utilities/testing/router.stub';
+} from '../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { NotificationsServiceStub } from '../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { RouterStub } from '../../../modules/core/src/lib/core/utilities/testing/router.stub';
 import { getProcessDetailRoute } from '../process-page/process-page-routing.paths';
 import { HandleService } from '../shared/handle.service';
 import { CurationFormComponent } from './curation-form.component';

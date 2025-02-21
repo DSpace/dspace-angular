@@ -1,5 +1,5 @@
 import { getCollectionPageRoute } from '../collection-page/collection-page-routing-paths';
-import { URLCombiner } from '../core/url-combiner/url-combiner';
+import { URLCombiner } from '../../../modules/core/src/lib/core/url-combiner/url-combiner';
 
 export const COMMUNITY_PARENT_PARAMETER = 'parent';
 

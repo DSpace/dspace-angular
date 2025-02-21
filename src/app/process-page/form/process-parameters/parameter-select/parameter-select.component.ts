@@ -13,8 +13,8 @@ import {
 } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ProcessParameter } from '../../../../core/processes/process-parameter.model';
-import { ScriptParameter } from '../../../../core/scripts/script-parameter.model';
+import { ProcessParameter } from '../../../../../../modules/core/src/lib/core/processes/process-parameter.model';
+import { ScriptParameter } from '../../../../../../modules/core/src/lib/core/scripts/script-parameter.model';
 import { controlContainerFactory } from '../../process-form-factory';
 import { ParameterValueInputComponent } from '../parameter-value-input/parameter-value-input.component';
 

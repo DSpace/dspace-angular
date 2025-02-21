@@ -32,11 +32,11 @@ import {
 
 import { getCollectionPageRoute } from '../../../collection-page/collection-page-routing-paths';
 import { getCommunityPageRoute } from '../../../community-page/community-page-routing-paths';
-import { BrowseService } from '../../../core/browse/browse.service';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { BrowseDefinition } from '../../../core/shared/browse-definition.model';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { BrowseService } from '../../../../../modules/core/src/lib/core/browse/browse.service';
+import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { BrowseDefinition } from '../../../../../modules/core/src/lib/core/shared/browse-definition.model';
+import { getFirstCompletedRemoteData } from '../../../../../modules/core/src/lib/core/shared/operators';
 
 export interface ComColPageNavOption {
   id: string;

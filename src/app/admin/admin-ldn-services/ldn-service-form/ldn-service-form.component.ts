@@ -39,13 +39,13 @@ import {
   Observable,
   Subscription,
 } from 'rxjs';
-import { RemoteData } from 'src/app/core/data/remote-data';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
 
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { FindListOptions } from '../../../../../modules/core/src/lib/core/data/find-list-options.model';
+import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { PaginationService } from '../../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { getFirstCompletedRemoteData } from '../../../../../modules/core/src/lib/core/shared/operators';
 import { IpV4Validator } from '../../../shared/utils/ipV4.validator';
 import { LdnItemfiltersService } from '../ldn-services-data/ldn-itemfilters-data.service';
 import { LdnServicesService } from '../ldn-services-data/ldn-services-data.service';

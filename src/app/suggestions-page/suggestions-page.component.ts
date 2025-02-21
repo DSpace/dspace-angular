@@ -25,26 +25,26 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { AuthService } from '../core/auth/auth.service';
+import { AuthService } from '../../../modules/core/src/lib/core/auth/auth.service';
 import {
   SortDirection,
   SortOptions,
-} from '../core/cache/models/sort-options.model';
-import { FindListOptions } from '../core/data/find-list-options.model';
-import { PaginatedList } from '../core/data/paginated-list.model';
-import { RemoteData } from '../core/data/remote-data';
-import { NotificationsService } from '../core/notifications/notifications.service';
-import { Suggestion } from '../core/notifications/suggestions/models/suggestion.model';
-import { SuggestionTarget } from '../core/notifications/suggestions/models/suggestion-target.model';
-import { PaginationService } from '../core/pagination/pagination.service';
-import { redirectOn4xx } from '../core/shared/authorized.operators';
+} from '../../../modules/core/src/lib/core/cache/models/sort-options.model';
+import { FindListOptions } from '../../../modules/core/src/lib/core/data/find-list-options.model';
+import { PaginatedList } from '../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../modules/core/src/lib/core/data/remote-data';
+import { NotificationsService } from '../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Suggestion } from '../../../modules/core/src/lib/core/notifications/suggestions/models/suggestion.model';
+import { SuggestionTarget } from '../../../modules/core/src/lib/core/notifications/suggestions/models/suggestion-target.model';
+import { PaginationService } from '../../../modules/core/src/lib/core/pagination/pagination.service';
+import { redirectOn4xx } from '../../../modules/core/src/lib/core/shared/authorized.operators';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '../core/shared/operators';
-import { PaginationComponentOptions } from '../core/shared/pagination-component-options.model';
-import { WorkspaceItem } from '../core/submission/models/workspaceitem.model';
-import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
+} from '../../../modules/core/src/lib/core/shared/operators';
+import { PaginationComponentOptions } from '../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+import { WorkspaceItem } from '../../../modules/core/src/lib/core/submission/models/workspaceitem.model';
+import { WorkspaceitemDataService } from '../../../modules/core/src/lib/core/submission/workspaceitem-data.service';
 import { SuggestionActionsComponent } from '../notifications/suggestion-actions/suggestion-actions.component';
 import { SuggestionApproveAndImport } from '../notifications/suggestion-list-element/suggestion-approve-and-import';
 import { SuggestionListElementComponent } from '../notifications/suggestion-list-element/suggestion-list-element.component';

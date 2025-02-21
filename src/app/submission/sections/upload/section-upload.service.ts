@@ -7,11 +7,11 @@ import {
   filter,
   map,
 } from 'rxjs/operators';
-import { JsonPatchOperationPathObject } from 'src/app/core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from 'src/app/core/json-patch/builder/json-patch-operations-builder';
-import { WorkspaceitemSectionUploadObject } from 'src/app/core/submission/models/workspaceitem-section-upload.model';
+import { JsonPatchOperationPathObject } from '../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operations-builder';
+import { WorkspaceitemSectionUploadObject } from '../../../../../modules/core/src/lib/core/submission/models/workspaceitem-section-upload.model';
 
-import { WorkspaceitemSectionUploadFileObject } from '../../../core/submission/models/workspaceitem-section-upload-file.model';
+import { WorkspaceitemSectionUploadFileObject } from '../../../../../modules/core/src/lib/core/submission/models/workspaceitem-section-upload-file.model';
 import {
   DeleteUploadedFileAction,
   EditFileDataAction,

@@ -22,8 +22,8 @@ import {
 } from '@ng-dynamic-forms/core';
 
 import { environment } from '../../../../../environments/environment';
-import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model';
-import { BitstreamFormatSupportLevel } from '../../../../core/shared/bitstream-format-support-level';
+import { BitstreamFormat } from '../../../../../../modules/core/src/lib/core/shared/bitstream-format.model';
+import { BitstreamFormatSupportLevel } from '../../../../../../modules/core/src/lib/core/shared/bitstream-format-support-level';
 import { FormComponent } from '../../../../shared/form/form.component';
 import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-paths';
 

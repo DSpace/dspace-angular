@@ -26,21 +26,21 @@ import {
   switchMap,
   tap,
 } from 'rxjs/operators';
-import { WorkspaceitemSectionUploadObject } from 'src/app/core/submission/models/workspaceitem-section-upload.model';
+import { WorkspaceitemSectionUploadObject } from '../../../../../modules/core/src/lib/core/submission/models/workspaceitem-section-upload.model';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { AccessConditionOption } from '../../../core/config/models/config-access-condition-option.model';
-import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
-import { SubmissionUploadsModel } from '../../../core/config/models/config-submission-uploads.model';
-import { SubmissionUploadsConfigDataService } from '../../../core/config/submission-uploads-config-data.service';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { followLink } from '../../../core/data/follow-link-config.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { Group } from '../../../core/eperson/models/group.model';
-import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
-import { Collection } from '../../../core/shared/collection.model';
-import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
+import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { AccessConditionOption } from '../../../../../modules/core/src/lib/core/config/models/config-access-condition-option.model';
+import { SubmissionFormsModel } from '../../../../../modules/core/src/lib/core/config/models/config-submission-forms.model';
+import { SubmissionUploadsModel } from '../../../../../modules/core/src/lib/core/config/models/config-submission-uploads.model';
+import { SubmissionUploadsConfigDataService } from '../../../../../modules/core/src/lib/core/config/submission-uploads-config-data.service';
+import { CollectionDataService } from '../../../../../modules/core/src/lib/core/data/collection-data.service';
+import { followLink } from '../../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { GroupDataService } from '../../../../../modules/core/src/lib/core/eperson/group-data.service';
+import { Group } from '../../../../../modules/core/src/lib/core/eperson/models/group.model';
+import { ResourcePolicyDataService } from '../../../../../modules/core/src/lib/core/resource-policy/resource-policy-data.service';
+import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
+import { getFirstSucceededRemoteData } from '../../../../../modules/core/src/lib/core/shared/operators';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { SubmissionObjectEntry } from '../../objects/submission-objects.reducer';

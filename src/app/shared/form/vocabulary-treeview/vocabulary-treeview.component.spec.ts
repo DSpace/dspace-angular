@@ -16,13 +16,13 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
-import { createTestComponent } from '../../../core/utilities/testing/utils.test';
-import { FormFieldMetadataValueObject } from '../../../core/config/models/form-field-metadata-value.model';
+import { PageInfo } from '../../../../../modules/core/src/lib/core/shared/page-info.model';
+import { VocabularyEntry } from '../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyEntryDetail } from '../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyOptions } from '../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-options.model';
+import { VocabularyService } from '../../../../../modules/core/src/lib/core/submission/vocabularies/vocabulary.service';
+import { createTestComponent } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+import { FormFieldMetadataValueObject } from '../../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
 import { VocabularyTreeviewComponent } from './vocabulary-treeview.component';
 import { VocabularyTreeviewService } from './vocabulary-treeview.service';
 import {

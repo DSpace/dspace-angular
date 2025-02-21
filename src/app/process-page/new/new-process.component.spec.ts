@@ -12,17 +12,17 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { LinkService } from '../../core/cache/builders/link.service';
-import { ProcessDataService } from '../../core/data/processes/process-data.service';
-import { ScriptDataService } from '../../core/data/processes/script-data.service';
-import { RequestService } from '../../core/data/request.service';
-import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { ProcessParameter } from '../../core/processes/process-parameter.model';
-import { Script } from '../../core/scripts/script.model';
-import { ScriptParameter } from '../../core/scripts/script-parameter.model';
-import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
+import { LinkService } from '../../../../modules/core/src/lib/core/cache/builders/link.service';
+import { ProcessDataService } from '../../../../modules/core/src/lib/core/data/processes/process-data.service';
+import { ScriptDataService } from '../../../../modules/core/src/lib/core/data/processes/script-data.service';
+import { RequestService } from '../../../../modules/core/src/lib/core/data/request.service';
+import { TranslateLoaderMock } from '../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { ProcessParameter } from '../../../../modules/core/src/lib/core/processes/process-parameter.model';
+import { Script } from '../../../../modules/core/src/lib/core/scripts/script.model';
+import { ScriptParameter } from '../../../../modules/core/src/lib/core/scripts/script-parameter.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { NotificationsServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
 import { HasValuePipe } from '../../shared/utils/has-value.pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ProcessFormComponent } from '../form/process-form.component';

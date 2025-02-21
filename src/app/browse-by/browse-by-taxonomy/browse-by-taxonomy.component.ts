@@ -23,11 +23,11 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { BrowseDefinition } from '../../core/shared/browse-definition.model';
-import { Context } from '../../core/shared/context.model';
-import { HierarchicalBrowseDefinition } from '../../core/shared/hierarchical-browse-definition.model';
-import { VocabularyEntryDetail } from '../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { VocabularyOptions } from '../../core/submission/vocabularies/models/vocabulary-options.model';
+import { BrowseDefinition } from '../../../../modules/core/src/lib/core/shared/browse-definition.model';
+import { Context } from '../../../../modules/core/src/lib/core/shared/context.model';
+import { HierarchicalBrowseDefinition } from '../../../../modules/core/src/lib/core/shared/hierarchical-browse-definition.model';
+import { VocabularyEntryDetail } from '../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyOptions } from '../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-options.model';
 import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by.component';
 import { ThemedComcolPageBrowseByComponent } from '../../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
 import { ThemedComcolPageContentComponent } from '../../shared/comcol/comcol-page-content/themed-comcol-page-content.component';
@@ -38,7 +38,7 @@ import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-ed
 import { VocabularyTreeviewComponent } from '../../shared/form/vocabulary-treeview/vocabulary-treeview.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { BrowseByDataType } from '../../core/shared/browse-by-data-type';
+import { BrowseByDataType } from '../../../../modules/core/src/lib/core/shared/browse-by-data-type';
 
 @Component({
   selector: 'ds-browse-by-taxonomy',

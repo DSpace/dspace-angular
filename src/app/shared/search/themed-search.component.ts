@@ -5,11 +5,11 @@ import {
   Output,
 } from '@angular/core';
 
-import { ListableObject } from '../../core/object-collection/listable-object.model';
-import { Context } from '../../core/shared/context.model';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { SearchObjects } from '../../core/shared/search/models/search-objects.model';
-import { ViewMode } from '../../core/shared/view-mode.model';
+import { ListableObject } from '../../../../modules/core/src/lib/core/object-collection/listable-object.model';
+import { Context } from '../../../../modules/core/src/lib/core/shared/context.model';
+import { DSpaceObject } from '../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { SearchObjects } from '../../../../modules/core/src/lib/core/shared/search/models/search-objects.model';
+import { ViewMode } from '../../../../modules/core/src/lib/core/shared/view-mode.model';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 import { ThemedComponent } from '../theme-support/themed.component';
 import { SearchComponent } from './search.component';

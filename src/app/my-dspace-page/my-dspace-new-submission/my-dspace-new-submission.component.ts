@@ -15,11 +15,11 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { SearchResult } from '../../core/shared/search/models/search-result.model';
+import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { DSpaceObject } from '../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { HALEndpointService } from '../../../../modules/core/src/lib/core/shared/hal-endpoint.service';
+import { SearchResult } from '../../../../modules/core/src/lib/core/shared/search/models/search-result.model';
 import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
 import { UploaderError } from '../../shared/upload/uploader/uploader-error.model';
 import { UploaderOptions } from '../../shared/upload/uploader/uploader-options.model';

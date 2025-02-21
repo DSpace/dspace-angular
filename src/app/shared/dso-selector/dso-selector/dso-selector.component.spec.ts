@@ -13,18 +13,18 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   SortDirection,
   SortOptions,
-} from '../../../core/cache/models/sort-options.model';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { ItemSearchResult } from '../../../core/object-collection/item-search-result.model';
-import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { Item } from '../../../core/shared/item.model';
-import { PaginatedSearchOptions } from '../../../core/shared/paginated-search-options.model';
-import { SearchService } from '../../../core/shared/search/search.service';
+} from '../../../../../modules/core/src/lib/core/cache/models/sort-options.model';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { ItemSearchResult } from '../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
+import { DSpaceObjectType } from '../../../../../modules/core/src/lib/core/shared/dspace-object-type.model';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { PaginatedSearchOptions } from '../../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
+import { SearchService } from '../../../../../modules/core/src/lib/core/shared/search/search.service';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../core/utilities/remote-data.utils';
-import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
+} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { createPaginatedList } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { ListableObjectComponentLoaderComponent } from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { DSOSelectorComponent } from './dso-selector.component';
 

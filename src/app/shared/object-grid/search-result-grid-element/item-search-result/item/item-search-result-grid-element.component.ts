@@ -6,11 +6,11 @@ import {
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
-import { ItemSearchResult } from '../../../../../core/object-collection/item-search-result.model';
-import { Item } from '../../../../../core/shared/item.model';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import { DSONameService } from '../../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { BitstreamDataService } from '../../../../../../../modules/core/src/lib/core/data/bitstream-data.service';
+import { ItemSearchResult } from '../../../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
+import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
+import { ViewMode } from '../../../../../../../modules/core/src/lib/core/shared/view-mode.model';
 import { getItemPageRoute } from '../../../../../item-page/item-page-routing-paths';
 import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
 import { focusShadow } from '../../../../animations/focus';

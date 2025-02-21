@@ -9,11 +9,11 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { RemoteData } from '../../../../../core/data/remote-data';
-import { RequestEntryState } from '../../../../../core/data/request-entry-state.model';
-import { Item } from '../../../../../core/shared/item.model';
-import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
-import { URLCombiner } from '../../../../../core/url-combiner/url-combiner';
+import { RemoteData } from '../../../../../../../modules/core/src/lib/core/data/remote-data';
+import { RequestEntryState } from '../../../../../../../modules/core/src/lib/core/data/request-entry-state.model';
+import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
+import { WorkflowItem } from '../../../../../../../modules/core/src/lib/core/submission/models/workflowitem.model';
+import { URLCombiner } from '../../../../../../../modules/core/src/lib/core/url-combiner/url-combiner';
 import {
   getWorkflowItemDeleteRoute,
   getWorkflowItemSendBackRoute,

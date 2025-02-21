@@ -24,17 +24,17 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import { AuthService } from '../../core/auth/auth.service';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { CAPTCHA_NAME } from '../../core/google-recaptcha/google-recaptcha.service';
-import { CookieService } from '../../core/services/cookie.service';
+import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
+import { ConfigurationDataService } from '../../../../modules/core/src/lib/core/data/configuration-data.service';
+import { EPersonDataService } from '../../../../modules/core/src/lib/core/eperson/eperson-data.service';
+import { EPerson } from '../../../../modules/core/src/lib/core/eperson/models/eperson.model';
+import { CAPTCHA_NAME } from '../../../../modules/core/src/lib/core/google-recaptcha/google-recaptcha.service';
+import { CookieService } from '../../../../modules/core/src/lib/core/services/cookie.service';
 import {
   NativeWindowRef,
   NativeWindowService,
-} from '../../core/services/window.service';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+} from '../../../../modules/core/src/lib/core/services/window.service';
+import { getFirstCompletedRemoteData } from '../../../../modules/core/src/lib/core/shared/operators';
 import { OrejimeService } from './orejime.service';
 import {
   ANONYMOUS_STORAGE_NAME_OREJIME,

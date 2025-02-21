@@ -24,13 +24,13 @@ import {
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { ListableObject } from '../../../core/object-collection/listable-object.model';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { createSuccessfulRemoteDataObject } from '../../../core/utilities/remote-data.utils';
+} from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { ListableObject } from '../../../../../modules/core/src/lib/core/object-collection/listable-object.model';
+import { PageInfo } from '../../../../../modules/core/src/lib/core/shared/page-info.model';
+import { PaginationComponentOptions } from '../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+import { SearchConfigurationService } from '../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
+import { createSuccessfulRemoteDataObject } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SelectableListItemControlComponent } from '../../../shared/object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';

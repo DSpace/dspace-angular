@@ -11,7 +11,7 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { NoOpAction } from '../core/shared/ngrx/no-op.action';
+import { NoOpAction } from '../../../modules/core/src/lib/core/shared/ngrx/no-op.action';
 import { HostWindowActionTypes } from '../shared/host-window.actions';
 import {
   CollapseMenuAction,

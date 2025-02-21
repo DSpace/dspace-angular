@@ -29,14 +29,14 @@ import { map } from 'rxjs/operators';
 import {
   SortDirection,
   SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { ListableObject } from '../../core/object-collection/listable-object.model';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { RouteService } from '../../core/services/route.service';
-import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
-import { ViewMode } from '../../core/shared/view-mode.model';
+} from '../../../../modules/core/src/lib/core/cache/models/sort-options.model';
+import { PaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
+import { ListableObject } from '../../../../modules/core/src/lib/core/object-collection/listable-object.model';
+import { PaginationService } from '../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { RouteService } from '../../../../modules/core/src/lib/core/services/route.service';
+import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+import { ViewMode } from '../../../../modules/core/src/lib/core/shared/view-mode.model';
 import {
   fadeIn,
   fadeInOut,

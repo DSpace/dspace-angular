@@ -5,9 +5,9 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { Breadcrumb } from '../core/breadcrumbs/breadcrumb.model';
-import { BreadcrumbsProviderService } from '../core/breadcrumbs/breadcrumbsProviderService';
-import { Process } from '../core/processes/process.model';
+import { Breadcrumb } from '../../../modules/core/src/lib/core/breadcrumbs/breadcrumb.model';
+import { BreadcrumbsProviderService } from '../../../modules/core/src/lib/core/breadcrumbs/breadcrumbsProviderService';
+import { Process } from '../../../modules/core/src/lib/core/processes/process.model';
 
 /**
  * Service to calculate process breadcrumbs for a single part of the route

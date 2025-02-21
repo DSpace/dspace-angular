@@ -11,17 +11,17 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   SortDirection,
   SortOptions,
-} from '../../../core/cache/models/sort-options.model';
-import { followLink } from '../../../core/data/follow-link-config.model';
-import { MetadataField } from '../../../core/metadata/metadata-field.model';
-import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { RegistryService } from '../../../core/registry/registry.service';
+} from '../../../../../modules/core/src/lib/core/cache/models/sort-options.model';
+import { followLink } from '../../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { MetadataField } from '../../../../../modules/core/src/lib/core/metadata/metadata-field.model';
+import { MetadataSchema } from '../../../../../modules/core/src/lib/core/metadata/metadata-schema.model';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { RegistryService } from '../../../../../modules/core/src/lib/core/registry/registry.service';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../core/utilities/remote-data.utils';
-import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
+} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { createPaginatedList } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { MetadataFieldSelectorComponent } from './metadata-field-selector.component';
 

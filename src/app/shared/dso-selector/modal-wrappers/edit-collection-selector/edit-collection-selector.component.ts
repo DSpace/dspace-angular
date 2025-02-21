@@ -14,9 +14,9 @@ import { getCollectionEditRoute } from '../../../../collection-page/collection-p
 import {
   SortDirection,
   SortOptions,
-} from '../../../../core/cache/models/sort-options.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
+} from '../../../../../../modules/core/src/lib/core/cache/models/sort-options.model';
+import { DSpaceObject } from '../../../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { DSpaceObjectType } from '../../../../../../modules/core/src/lib/core/shared/dspace-object-type.model';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,

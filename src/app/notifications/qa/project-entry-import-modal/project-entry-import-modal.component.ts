@@ -20,20 +20,20 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
+import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
 import {
   QualityAssuranceEventObject,
   SourceQualityAssuranceEventMessageObject,
-} from '../../../core/notifications/qa/models/quality-assurance-event.model';
-import { ListableObject } from '../../../core/object-collection/listable-object.model';
-import { Context } from '../../../core/shared/context.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { Item } from '../../../core/shared/item.model';
-import { PaginatedSearchOptions } from '../../../core/shared/paginated-search-options.model';
-import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
-import { SearchResult } from '../../../core/shared/search/models/search-result.model';
-import { SearchService } from '../../../core/shared/search/search.service';
+} from '../../../../../modules/core/src/lib/core/notifications/qa/models/quality-assurance-event.model';
+import { ListableObject } from '../../../../../modules/core/src/lib/core/object-collection/listable-object.model';
+import { Context } from '../../../../../modules/core/src/lib/core/shared/context.model';
+import { DSpaceObject } from '../../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { PaginatedSearchOptions } from '../../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
+import { PaginationComponentOptions } from '../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+import { SearchResult } from '../../../../../modules/core/src/lib/core/shared/search/models/search-result.model';
+import { SearchService } from '../../../../../modules/core/src/lib/core/shared/search/search.service';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';

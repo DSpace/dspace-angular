@@ -1,8 +1,8 @@
 /* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 
-import { QualityAssuranceTopicObject } from '../../../core/notifications/qa/models/quality-assurance-topic.model';
-import { type } from '../../../core/shared/ngrx/type';
+import { QualityAssuranceTopicObject } from '../../../../../modules/core/src/lib/core/notifications/qa/models/quality-assurance-topic.model';
+import { type } from '../../../../../modules/core/src/lib/core/shared/ngrx/type';
 
 /**
  * For each action type in an action group, make a simple

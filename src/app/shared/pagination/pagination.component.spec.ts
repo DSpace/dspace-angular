@@ -33,13 +33,13 @@ import { storeModuleConfig } from '../../app.reducer';
 import {
   SortDirection,
   SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../core/data/find-list-options.model';
-import { RouterMock } from '../../core/mocks/router.mock';
-import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
-import { createTestComponent } from '../../core/utilities/testing/utils.test';
+} from '../../../../modules/core/src/lib/core/cache/models/sort-options.model';
+import { FindListOptions } from '../../../../modules/core/src/lib/core/data/find-list-options.model';
+import { RouterMock } from '../../../../modules/core/src/lib/core/mocks/router.mock';
+import { TranslateLoaderMock } from '../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
+import { PaginationService } from '../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+import { createTestComponent } from '../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { HostWindowService } from '../host-window.service';
 import { MockActivatedRoute } from '../mocks/active-router.mock';
 import { HostWindowServiceMock } from '../mocks/host-window-service.mock';

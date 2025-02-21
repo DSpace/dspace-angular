@@ -9,8 +9,8 @@ import { Angulartics2 } from 'angulartics2';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { ReferrerService } from '../../../core/services/referrer.service';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { ReferrerService } from '../../../../../modules/core/src/lib/core/services/referrer.service';
+import { DSpaceObject } from '../../../../../modules/core/src/lib/core/shared/dspace-object.model';
 
 /**
  * This component triggers a page view statistic

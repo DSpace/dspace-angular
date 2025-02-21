@@ -47,10 +47,10 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../../../../../environments/environment';
-import { SubmissionFormsModel } from '../../../../../../core/config/models/config-submission-forms.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
-import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { SubmissionFormsModel } from '../../../../../../../../modules/core/src/lib/core/config/models/config-submission-forms.model';
+import { getFirstSucceededRemoteDataPayload } from '../../../../../../../../modules/core/src/lib/core/shared/operators';
+import { VocabularyEntryDetail } from '../../../../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyService } from '../../../../../../../../modules/core/src/lib/core/submission/vocabularies/vocabulary.service';
 import { shrinkInOut } from '../../../../../animations/shrink';
 import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
@@ -60,8 +60,8 @@ import { ChipsItem } from '../../../../chips/models/chips-item.model';
 import { FormComponent } from '../../../../form.component';
 import { FormService } from '../../../../form.service';
 import { FormBuilderService } from '../../../form-builder.service';
-import { FormFieldMetadataValueObject } from '../../../../../../core/config/models/form-field-metadata-value.model';
-import { PLACEHOLDER_PARENT_METADATA } from '../../../../../../core/config/models/ds-dynamic-form-constants';
+import { FormFieldMetadataValueObject } from '../../../../../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
+import { PLACEHOLDER_PARENT_METADATA } from '../../../../../../../../modules/core/src/lib/core/config/models/ds-dynamic-form-constants';
 import { DynamicRelationGroupModel } from './dynamic-relation-group.model';
 
 /**

@@ -17,26 +17,26 @@ import { cold } from 'jasmine-marbles';
 import uniqueId from 'lodash/uniqueId';
 import { of as observableOf } from 'rxjs';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { DSONameService } from '../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
 import {
   APP_DATA_SERVICES_MAP,
   LazyDataServicesMap,
-} from '../../core/config/app-config.interface';
-import { buildPaginatedList } from '../../core/data/paginated-list.model';
-import { RequestService } from '../../core/data/request.service';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { GroupDataService } from '../../core/eperson/group-data.service';
-import { EPERSON } from '../../core/eperson/models/eperson.resource-type';
-import { GROUP } from '../../core/eperson/models/group.resource-type';
-import { getMockRequestService } from '../../core/mocks/request.service.mock';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
-import { createSuccessfulRemoteDataObject } from '../../core/utilities/remote-data.utils';
-import { EPersonMock } from '../../core/utilities/testing/eperson.mock';
-import { GroupMock } from '../../core/utilities/testing/group-mock';
-import { PaginationServiceStub } from '../../core/utilities/testing/pagination-service.stub';
-import { createTestComponent } from '../../core/utilities/testing/utils.test';
+} from '../../../../modules/core/src/lib/core/config/app-config.interface';
+import { buildPaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RequestService } from '../../../../modules/core/src/lib/core/data/request.service';
+import { EPersonDataService } from '../../../../modules/core/src/lib/core/eperson/eperson-data.service';
+import { GroupDataService } from '../../../../modules/core/src/lib/core/eperson/group-data.service';
+import { EPERSON } from '../../../../modules/core/src/lib/core/eperson/models/eperson.resource-type';
+import { GROUP } from '../../../../modules/core/src/lib/core/eperson/models/group.resource-type';
+import { getMockRequestService } from '../../../../modules/core/src/lib/core/mocks/request.service.mock';
+import { PaginationService } from '../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { PageInfo } from '../../../../modules/core/src/lib/core/shared/page-info.model';
+import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+import { createSuccessfulRemoteDataObject } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { EPersonMock } from '../../../../modules/core/src/lib/core/utilities/testing/eperson.mock';
+import { GroupMock } from '../../../../modules/core/src/lib/core/utilities/testing/group-mock';
+import { PaginationServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
+import { createTestComponent } from '../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { DSONameServiceMock } from '../mocks/dso-name.service.mock';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { EpersonGroupListComponent } from './eperson-group-list.component';
@@ -45,8 +45,8 @@ import { EpersonSearchBoxComponent } from './eperson-search-box/eperson-search-b
 import { GroupSearchBoxComponent } from './group-search-box/group-search-box.component';
 
 const mockDataServiceMap: LazyDataServicesMap = new Map([
-  [EPERSON.value, () => import('../../core/eperson/eperson-data.service').then(m => m.EPersonDataService)],
-  [GROUP.value, () => import('../../core/eperson/group-data.service').then(m => m.GroupDataService)],
+  [EPERSON.value, () => import('../../../../modules/core/src/lib/core/eperson/eperson-data.service').then(m => m.EPersonDataService)],
+  [GROUP.value, () => import('../../../../modules/core/src/lib/core/eperson/group-data.service').then(m => m.GroupDataService)],
 ]);
 
 describe('EpersonGroupListComponent test suite', () => {

@@ -11,11 +11,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { environment } from '../../environments/environment.test';
-import { NotifyInfoService } from '../core/coar-notify/notify-info/notify-info.service';
-import { APP_CONFIG } from '../core/config/app-config.interface';
-import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { ActivatedRouteStub } from '../core/utilities/testing/active-router.stub';
-import { AuthorizationDataServiceStub } from '../core/utilities/testing/authorization-service.stub';
+import { NotifyInfoService } from '../../../modules/core/src/lib/core/coar-notify/notify-info/notify-info.service';
+import { APP_CONFIG } from '../../../modules/core/src/lib/core/config/app-config.interface';
+import { AuthorizationDataService } from '../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { ActivatedRouteStub } from '../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+import { AuthorizationDataServiceStub } from '../../../modules/core/src/lib/core/utilities/testing/authorization-service.stub';
 import { FooterComponent } from './footer.component';
 
 let comp: FooterComponent;

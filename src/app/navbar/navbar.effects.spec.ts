@@ -7,7 +7,7 @@ import {
 } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
 
-import { MenuServiceStub } from '../core/utilities/testing/menu-service.stub';
+import { MenuServiceStub } from '../../../modules/core/src/lib/core/utilities/testing/menu-service.stub';
 import { HostWindowResizeAction } from '../shared/host-window.actions';
 import { CollapseMenuAction } from '../shared/menu/menu.actions';
 import { MenuService } from '../shared/menu/menu.service';

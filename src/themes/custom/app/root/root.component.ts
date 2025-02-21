@@ -8,7 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { ThemedAdminSidebarComponent } from '../../../../app/admin/admin-sidebar/themed-admin-sidebar.component';
 import { ThemedBreadcrumbsComponent } from '../../../../app/breadcrumbs/themed-breadcrumbs.component';
-import { NotificationsBoardComponent } from '../../../../app/core/notifications/notifications-board/notifications-board.component';
+import { NotificationsBoardComponent } from '../../../../../modules/core/src/lib/core/notifications/notifications-board/notifications-board.component';
 import { ThemedFooterComponent } from '../../../../app/footer/themed-footer.component';
 import { ThemedHeaderNavbarWrapperComponent } from '../../../../app/header-nav-wrapper/themed-header-navbar-wrapper.component';
 import { RootComponent as BaseComponent } from '../../../../app/root/root.component';

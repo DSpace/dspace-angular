@@ -20,14 +20,14 @@ import {
 } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { getMockTranslateService } from '../../../core/mocks/translate.service.mock';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
-import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
-import { SectionsServiceStub } from '../../../core/utilities/testing/sections-service.stub';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../../core/utilities/testing/submission-json-patch-operations-service.stub';
-import { SubmissionServiceStub } from '../../../core/utilities/testing/submission-service.stub';
-import { createTestComponent } from '../../../core/utilities/testing/utils.test';
+import { getMockTranslateService } from '../../../../../modules/core/src/lib/core/mocks/translate.service.mock';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { SubmissionJsonPatchOperationsService } from '../../../../../modules/core/src/lib/core/submission/submission-json-patch-operations.service';
+import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { SectionsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/sections-service.stub';
+import { SubmissionJsonPatchOperationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/submission-json-patch-operations-service.stub';
+import { SubmissionServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/submission-service.stub';
+import { createTestComponent } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import {
   mockSectionsData,
   mockSubmissionCollectionId,

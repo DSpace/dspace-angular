@@ -17,10 +17,10 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { PageInfo } from '../../../../../core/shared/page-info.model';
-import { VocabularyEntry } from '../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
-import { FormFieldMetadataValueObject } from '../../../../../core/config/models/form-field-metadata-value.model';
+import { PageInfo } from '../../../../../../../modules/core/src/lib/core/shared/page-info.model';
+import { VocabularyEntry } from '../../../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyService } from '../../../../../../../modules/core/src/lib/core/submission/vocabularies/vocabulary.service';
+import { FormFieldMetadataValueObject } from '../../../../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
 import { DsDynamicInputModel } from './ds-dynamic-input.model';
 
 /**

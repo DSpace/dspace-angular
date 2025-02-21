@@ -4,8 +4,8 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 
-import { BreadcrumbConfig } from '../core/breadcrumbs/breadcrumb-config.model';
-import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { BreadcrumbConfig } from '../../../modules/core/src/lib/core/breadcrumbs/breadcrumb-config.model';
+import { i18nBreadcrumbResolver } from '../../../modules/core/src/lib/core/breadcrumbs/i18n-breadcrumb.resolver';
 
 /**
  * Method for resolving a browse-by i18n breadcrumb configuration object

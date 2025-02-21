@@ -15,15 +15,15 @@ import {
   Observable,
 } from 'rxjs';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { AuthMethod } from '../../core/auth/models/auth.method';
+import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
+import { AuthMethod } from '../../../../modules/core/src/lib/core/auth/models/auth.method';
 import {
   getAuthenticationError,
   getAuthenticationMethods,
   isAuthenticated,
   isAuthenticationLoading,
-} from '../../core/auth/selectors';
-import { CoreState } from '../../core/core-state.model';
+} from '../../../../modules/core/src/lib/core/auth/selectors';
+import { CoreState } from '../../../../modules/core/src/lib/core/core-state.model';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { LogInContainerComponent } from './container/log-in-container.component';
 import { rendersAuthMethodType } from './methods/log-in.methods-decorator';

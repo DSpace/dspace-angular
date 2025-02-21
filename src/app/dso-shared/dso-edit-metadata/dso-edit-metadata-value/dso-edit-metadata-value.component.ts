@@ -40,33 +40,33 @@ import {
   take,
   tap,
 } from 'rxjs/operators';
-import { RegistryService } from 'src/app/core/registry/registry.service';
-import { VocabularyService } from 'src/app/core/submission/vocabularies/vocabulary.service';
+import { RegistryService } from '../../../../../modules/core/src/lib/core/registry/registry.service';
+import { VocabularyService } from '../../../../../modules/core/src/lib/core/submission/vocabularies/vocabulary.service';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { followLink } from '../../../core/data/follow-link-config.model';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { MetadataService } from '../../../core/metadata/metadata.service';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { Collection } from '../../../core/shared/collection.model';
-import { ConfidenceType } from '../../../core/shared/confidence-type';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { Item } from '../../../core/shared/item.model';
-import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
+import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { followLink } from '../../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
+import { RelationshipDataService } from '../../../../../modules/core/src/lib/core/data/relationship-data.service';
+import { MetadataService } from '../../../../../modules/core/src/lib/core/metadata/metadata.service';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
+import { ConfidenceType } from '../../../../../modules/core/src/lib/core/shared/confidence-type';
+import { DSpaceObject } from '../../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { ItemMetadataRepresentation } from '../../../../../modules/core/src/lib/core/shared/metadata-representation/item/item-metadata-representation.model';
 import {
   MetadataRepresentation,
   MetadataRepresentationType,
-} from '../../../core/shared/metadata-representation/metadata-representation.model';
+} from '../../../../../modules/core/src/lib/core/shared/metadata-representation/metadata-representation.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
   metadataFieldsToString,
-} from '../../../core/shared/operators';
-import { Vocabulary } from '../../../core/submission/vocabularies/models/vocabulary.model';
-import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
+} from '../../../../../modules/core/src/lib/core/shared/operators';
+import { Vocabulary } from '../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary.model';
+import { VocabularyOptions } from '../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-options.model';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { DsDynamicOneboxComponent } from '../../../shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.component';
@@ -79,7 +79,7 @@ import {
   DynamicScrollableDropdownModel,
   DynamicScrollableDropdownModelConfig,
 } from '../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
-import { FormFieldMetadataValueObject } from '../../../core/config/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
 import { AuthorityConfidenceStateDirective } from '../../../shared/form/directives/authority-confidence-state.directive';
 import { ThemedTypeBadgeComponent } from '../../../shared/object-collection/shared/badges/type-badge/themed-type-badge.component';
 import { DebounceDirective } from '../../../shared/utils/debounce.directive';

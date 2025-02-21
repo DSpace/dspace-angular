@@ -9,15 +9,15 @@ import {
   Observable,
   of as observableOf,
 } from 'rxjs';
-import { AuthService } from 'src/app/core/auth/auth.service';
-import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from 'src/app/core/data/feature-authorization/feature-id';
+import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
+import { AuthorizationDataService } from '../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
 
-import { APP_DATA_SERVICES_MAP } from '../../core/config/app-config.interface';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { getMockTranslateService } from '../../core/mocks/translate.service.mock';
-import { Item } from '../../core/shared/item.model';
-import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
+import { APP_DATA_SERVICES_MAP } from '../../../../modules/core/src/lib/core/config/app-config.interface';
+import { ItemDataService } from '../../../../modules/core/src/lib/core/data/item-data.service';
+import { getMockTranslateService } from '../../../../modules/core/src/lib/core/mocks/translate.service.mock';
+import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
 import { itemPageDeleteGuard } from './item-page-delete.guard';
 
 describe('itemPageDeleteGuard', () => {

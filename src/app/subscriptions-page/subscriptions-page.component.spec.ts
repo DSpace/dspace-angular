@@ -21,18 +21,18 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '../core/auth/auth.service';
-import { buildPaginatedList } from '../core/data/paginated-list.model';
-import { TranslateLoaderMock } from '../core/mocks/translate-loader.mock';
-import { PaginationService } from '../core/pagination/pagination.service';
-import { PageInfo } from '../core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject$ } from '../core/utilities/remote-data.utils';
-import { PaginationServiceStub } from '../core/utilities/testing/pagination-service.stub';
+import { AuthService } from '../../../modules/core/src/lib/core/auth/auth.service';
+import { buildPaginatedList } from '../../../modules/core/src/lib/core/data/paginated-list.model';
+import { TranslateLoaderMock } from '../../../modules/core/src/lib/core/mocks/translate-loader.mock';
+import { PaginationService } from '../../../modules/core/src/lib/core/pagination/pagination.service';
+import { PageInfo } from '../../../modules/core/src/lib/core/shared/page-info.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { PaginationServiceStub } from '../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
 import {
   mockSubscriptionEperson,
   subscriptionMock,
   subscriptionMock2,
-} from '../core/utilities/testing/subscriptions-data.mock';
+} from '../../../modules/core/src/lib/core/utilities/testing/subscriptions-data.mock';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { MockActivatedRoute } from '../shared/mocks/active-router.mock';

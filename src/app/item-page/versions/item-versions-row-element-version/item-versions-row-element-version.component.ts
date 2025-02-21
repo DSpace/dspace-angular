@@ -32,23 +32,23 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { VersionDataService } from '../../../core/data/version-data.service';
-import { VersionHistoryDataService } from '../../../core/data/version-history-data.service';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { Item } from '../../../core/shared/item.model';
+import { AuthorizationDataService } from '../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
+import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { VersionDataService } from '../../../../../modules/core/src/lib/core/data/version-data.service';
+import { VersionHistoryDataService } from '../../../../../modules/core/src/lib/core/data/version-history-data.service';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '../../../core/shared/operators';
-import { Version } from '../../../core/shared/version.model';
-import { VersionHistory } from '../../../core/shared/version-history.model';
-import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
-import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
-import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
+} from '../../../../../modules/core/src/lib/core/shared/operators';
+import { Version } from '../../../../../modules/core/src/lib/core/shared/version.model';
+import { VersionHistory } from '../../../../../modules/core/src/lib/core/shared/version-history.model';
+import { WorkspaceItem } from '../../../../../modules/core/src/lib/core/submission/models/workspaceitem.model';
+import { WorkflowItemDataService } from '../../../../../modules/core/src/lib/core/submission/workflowitem-data.service';
+import { WorkspaceitemDataService } from '../../../../../modules/core/src/lib/core/submission/workspaceitem-data.service';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import {
   getItemEditVersionhistoryRoute,

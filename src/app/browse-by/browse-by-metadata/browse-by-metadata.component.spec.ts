@@ -23,34 +23,34 @@ import {
   Observable,
   of as observableOf,
 } from 'rxjs';
-import { RouteService } from 'src/app/core/services/route.service';
+import { RouteService } from '../../../../modules/core/src/lib/core/services/route.service';
 import { DsoEditMenuComponent } from 'src/app/shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { HostWindowService } from 'src/app/shared/host-window.service';
 import { ThemedLoadingComponent } from 'src/app/shared/loading/themed-loading.component';
 import { SelectableListService } from 'src/app/shared/object-list/selectable-list/selectable-list.service';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
-import { BrowseService } from '../../core/browse/browse.service';
-import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
-import { SortDirection } from '../../core/cache/models/sort-options.model';
-import { APP_CONFIG } from '../../core/config/app-config.interface';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { BrowseService } from '../../../../modules/core/src/lib/core/browse/browse.service';
+import { BrowseEntrySearchOptions } from '../../../../modules/core/src/lib/core/browse/browse-entry-search-options.model';
+import { SortDirection } from '../../../../modules/core/src/lib/core/cache/models/sort-options.model';
+import { APP_CONFIG } from '../../../../modules/core/src/lib/core/config/app-config.interface';
+import { DSpaceObjectDataService } from '../../../../modules/core/src/lib/core/data/dspace-object-data.service';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { RouterMock } from '../../core/mocks/router.mock';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { BrowseEntry } from '../../core/shared/browse-entry.model';
-import { Community } from '../../core/shared/community.model';
-import { Item } from '../../core/shared/item.model';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
-import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
-import { PaginationServiceStub } from '../../core/utilities/testing/pagination-service.stub';
-import { routeServiceStub } from '../../core/utilities/testing/route-service.stub';
+} from '../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
+import { RouterMock } from '../../../../modules/core/src/lib/core/mocks/router.mock';
+import { PaginationService } from '../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { BrowseEntry } from '../../../../modules/core/src/lib/core/shared/browse-entry.model';
+import { Community } from '../../../../modules/core/src/lib/core/shared/community.model';
+import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
+import { PageInfo } from '../../../../modules/core/src/lib/core/shared/page-info.model';
+import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+import { PaginationServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
+import { routeServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/route-service.stub';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';

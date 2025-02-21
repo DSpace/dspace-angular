@@ -13,9 +13,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { RoleService } from '../core/roles/role.service';
-import { Context } from '../core/shared/context.model';
-import { SearchService } from '../core/shared/search/search.service';
+import { RoleService } from '../../../modules/core/src/lib/core/roles/role.service';
+import { Context } from '../../../modules/core/src/lib/core/shared/context.model';
+import { SearchService } from '../../../modules/core/src/lib/core/shared/search/search.service';
 import { getMockThemeService } from '../shared/mocks/theme-service.mock';
 import { RoleDirective } from '../shared/roles/role.directive';
 import { ThemedSearchComponent } from '../shared/search/themed-search.component';

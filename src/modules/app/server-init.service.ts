@@ -21,10 +21,10 @@ import {
   APP_CONFIG,
   APP_CONFIG_STATE,
   AppConfig,
-} from '../../app/core/config/app-config.interface';
-import { CorrelationIdService } from '../../app/core/correlation-id/correlation-id.service';
-import { LocaleService } from '../../app/core/locale/locale.service';
-import { HeadTagService } from '../../app/core/metadata/head-tag.service';
+} from '../../../modules/core/src/lib/core/config/app-config.interface';
+import { CorrelationIdService } from '../../../modules/core/src/lib/core/correlation-id/correlation-id.service';
+import { LocaleService } from '../../../modules/core/src/lib/core/locale/locale.service';
+import { HeadTagService } from '../../../modules/core/src/lib/core/metadata/head-tag.service';
 import { InitService } from '../../app/init.service';
 import { MenuService } from '../../app/shared/menu/menu.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';

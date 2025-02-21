@@ -5,8 +5,8 @@ import {
 } from '@ngrx/store/testing';
 import { getTestScheduler } from 'jasmine-marbles';
 
-import { buildPaginatedList } from '../../core/data/paginated-list.model';
-import { PageInfo } from '../../core/shared/page-info.model';
+import { buildPaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { PageInfo } from '../../../../modules/core/src/lib/core/shared/page-info.model';
 import { KeyValuePair } from '../key-value-pair.model';
 import { CSSVariableService } from './css-variable.service';
 

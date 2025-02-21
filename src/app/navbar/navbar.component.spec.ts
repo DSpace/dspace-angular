@@ -23,23 +23,23 @@ import {
   AppState,
   storeModuleConfig,
 } from '../app.reducer';
-import { BrowseByDataType } from '../core/shared/browse-by-data-type';
-import { authReducer } from '../core/auth/auth.reducer';
-import { AuthTokenInfo } from '../core/auth/models/auth-token-info.model';
-import { BrowseService } from '../core/browse/browse.service';
-import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { buildPaginatedList } from '../core/data/paginated-list.model';
-import { FlatBrowseDefinition } from '../core/shared/flat-browse-definition.model';
-import { HierarchicalBrowseDefinition } from '../core/shared/hierarchical-browse-definition.model';
-import { Item } from '../core/shared/item.model';
-import { ValueListBrowseDefinition } from '../core/shared/value-list-browse-definition.model';
+import { BrowseByDataType } from '../../../modules/core/src/lib/core/shared/browse-by-data-type';
+import { authReducer } from '../../../modules/core/src/lib/core/auth/auth.reducer';
+import { AuthTokenInfo } from '../../../modules/core/src/lib/core/auth/models/auth-token-info.model';
+import { BrowseService } from '../../../modules/core/src/lib/core/browse/browse.service';
+import { AuthorizationDataService } from '../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { buildPaginatedList } from '../../../modules/core/src/lib/core/data/paginated-list.model';
+import { FlatBrowseDefinition } from '../../../modules/core/src/lib/core/shared/flat-browse-definition.model';
+import { HierarchicalBrowseDefinition } from '../../../modules/core/src/lib/core/shared/hierarchical-browse-definition.model';
+import { Item } from '../../../modules/core/src/lib/core/shared/item.model';
+import { ValueListBrowseDefinition } from '../../../modules/core/src/lib/core/shared/value-list-browse-definition.model';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../core/utilities/remote-data.utils';
-import { EPersonMock } from '../core/utilities/testing/eperson.mock';
-import { HostWindowServiceStub } from '../core/utilities/testing/host-window-service.stub';
-import { MenuServiceStub } from '../core/utilities/testing/menu-service.stub';
+} from '../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { EPersonMock } from '../../../modules/core/src/lib/core/utilities/testing/eperson.mock';
+import { HostWindowServiceStub } from '../../../modules/core/src/lib/core/utilities/testing/host-window-service.stub';
+import { MenuServiceStub } from '../../../modules/core/src/lib/core/utilities/testing/menu-service.stub';
 import { HostWindowService } from '../shared/host-window.service';
 import { MenuService } from '../shared/menu/menu.service';
 import { getMockThemeService } from '../shared/mocks/theme-service.mock';

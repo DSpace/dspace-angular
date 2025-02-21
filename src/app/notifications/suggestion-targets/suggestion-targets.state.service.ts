@@ -6,7 +6,7 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { SuggestionTarget } from '../../core/notifications/suggestions/models/suggestion-target.model';
+import { SuggestionTarget } from '../../../../modules/core/src/lib/core/notifications/suggestions/models/suggestion-target.model';
 import { SuggestionNotificationsState } from '../notifications.reducer';
 import {
   getCurrentUserSuggestionTargetsSelector,

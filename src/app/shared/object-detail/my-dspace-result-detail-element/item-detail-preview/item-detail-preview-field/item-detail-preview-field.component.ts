@@ -5,9 +5,9 @@ import {
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Item } from '../../../../../core/shared/item.model';
-import { Metadata } from '../../../../../core/shared/metadata.utils';
-import { SearchResult } from '../../../../../core/shared/search/models/search-result.model';
+import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
+import { Metadata } from '../../../../../../../modules/core/src/lib/core/shared/metadata.utils';
+import { SearchResult } from '../../../../../../../modules/core/src/lib/core/shared/search/models/search-result.model';
 import { MetadataFieldWrapperComponent } from '../../../../metadata-field-wrapper/metadata-field-wrapper.component';
 
 /**

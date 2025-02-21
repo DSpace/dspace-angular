@@ -25,9 +25,9 @@ import {
   AuthenticatedAction,
   AuthenticationSuccessAction,
   ResetAuthenticationMessagesAction,
-} from '../core/auth/auth.actions';
-import { AuthTokenInfo } from '../core/auth/models/auth-token-info.model';
-import { isAuthenticated } from '../core/auth/selectors';
+} from '../../../modules/core/src/lib/core/auth/auth.actions';
+import { AuthTokenInfo } from '../../../modules/core/src/lib/core/auth/models/auth-token-info.model';
+import { isAuthenticated } from '../../../modules/core/src/lib/core/auth/selectors';
 import { ThemedLogInComponent } from '../shared/log-in/themed-log-in.component';
 
 /**

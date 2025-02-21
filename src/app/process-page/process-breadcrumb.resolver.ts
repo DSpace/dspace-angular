@@ -7,12 +7,12 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { BreadcrumbConfig } from '../core/breadcrumbs/breadcrumb-config.model';
-import { followLink } from '../core/data/follow-link-config.model';
-import { ProcessDataService } from '../core/data/processes/process-data.service';
-import { RemoteData } from '../core/data/remote-data';
-import { Process } from '../core/processes/process.model';
-import { getFirstCompletedRemoteData } from '../core/shared/operators';
+import { BreadcrumbConfig } from '../../../modules/core/src/lib/core/breadcrumbs/breadcrumb-config.model';
+import { followLink } from '../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { ProcessDataService } from '../../../modules/core/src/lib/core/data/processes/process-data.service';
+import { RemoteData } from '../../../modules/core/src/lib/core/data/remote-data';
+import { Process } from '../../../modules/core/src/lib/core/processes/process.model';
+import { getFirstCompletedRemoteData } from '../../../modules/core/src/lib/core/shared/operators';
 import { ProcessBreadcrumbsService } from './process-breadcrumbs.service';
 
 /**

@@ -16,16 +16,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { RestResponse } from '../../../core/cache/response.models';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { Item } from '../../../core/shared/item.model';
+import { RestResponse } from '../../../../../modules/core/src/lib/core/cache/response.models';
+import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
-import { RouterStub } from '../../../core/utilities/testing/router.stub';
+} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { RouterStub } from '../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
 import { ItemPrivateComponent } from './item-private.component';
 
 let comp: ItemPrivateComponent;

@@ -11,8 +11,8 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { RawRestResponse } from '../core/dspace-rest/raw-rest-response.model';
-import { TranslateLoaderMock } from '../core/mocks/translate-loader.mock';
+import { RawRestResponse } from '../../../modules/core/src/lib/core/dspace-rest/raw-rest-response.model';
+import { TranslateLoaderMock } from '../../../modules/core/src/lib/core/mocks/translate-loader.mock';
 import {
   HealthInfoResponseObj,
   HealthResponseObj,

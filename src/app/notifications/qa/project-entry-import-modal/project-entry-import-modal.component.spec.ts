@@ -14,20 +14,20 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { buildPaginatedList } from '../../../core/data/paginated-list.model';
+import { buildPaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
 import {
   ItemMockPid10,
   NotificationsMockDspaceObject,
   qualityAssuranceEventObjectMissingProjectFound,
-} from '../../../core/mocks/notifications.mock';
-import { Item } from '../../../core/shared/item.model';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { PaginatedSearchOptions } from '../../../core/shared/paginated-search-options.model';
-import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { createSuccessfulRemoteDataObject } from '../../../core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../../core/utilities/testing/active-router.stub';
-import { createTestComponent } from '../../../core/utilities/testing/utils.test';
+} from '../../../../../modules/core/src/lib/core/mocks/notifications.mock';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { PageInfo } from '../../../../../modules/core/src/lib/core/shared/page-info.model';
+import { PaginatedSearchOptions } from '../../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
+import { PaginationComponentOptions } from '../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+import { SearchService } from '../../../../../modules/core/src/lib/core/shared/search/search.service';
+import { createSuccessfulRemoteDataObject } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+import { createTestComponent } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { getMockSearchService } from '../../../shared/mocks/search-service.mock';

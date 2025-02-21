@@ -20,21 +20,21 @@ import {
 } from 'rxjs/operators';
 
 import { PUBLICATION_CLAIMS_PATH } from './admin/admin-notifications/admin-notifications-routing-paths';
-import { AuthService } from './core/auth/auth.service';
-import { BrowseService } from './core/browse/browse.service';
-import { ConfigurationDataService } from './core/data/configuration-data.service';
-import { AuthorizationDataService } from './core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from './core/data/feature-authorization/feature-id';
-import { PaginatedList } from './core/data/paginated-list.model';
+import { AuthService } from '../../modules/core/src/lib/core/auth/auth.service';
+import { BrowseService } from '../../modules/core/src/lib/core/browse/browse.service';
+import { ConfigurationDataService } from '../../modules/core/src/lib/core/data/configuration-data.service';
+import { AuthorizationDataService } from '../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../modules/core/src/lib/core/data/feature-authorization/feature-id';
+import { PaginatedList } from '../../modules/core/src/lib/core/data/paginated-list.model';
 import {
   METADATA_EXPORT_SCRIPT_NAME,
   METADATA_IMPORT_SCRIPT_NAME,
   ScriptDataService,
-} from './core/data/processes/script-data.service';
-import { RemoteData } from './core/data/remote-data';
-import { BrowseDefinition } from './core/shared/browse-definition.model';
-import { ConfigurationProperty } from './core/shared/configuration-property.model';
-import { getFirstCompletedRemoteData } from './core/shared/operators';
+} from '../../modules/core/src/lib/core/data/processes/script-data.service';
+import { RemoteData } from '../../modules/core/src/lib/core/data/remote-data';
+import { BrowseDefinition } from '../../modules/core/src/lib/core/shared/browse-definition.model';
+import { ConfigurationProperty } from '../../modules/core/src/lib/core/shared/configuration-property.model';
+import { getFirstCompletedRemoteData } from '../../modules/core/src/lib/core/shared/operators';
 import { ThemedCreateCollectionParentSelectorComponent } from './shared/dso-selector/modal-wrappers/create-collection-parent-selector/themed-create-collection-parent-selector.component';
 import { ThemedCreateCommunityParentSelectorComponent } from './shared/dso-selector/modal-wrappers/create-community-parent-selector/themed-create-community-parent-selector.component';
 import { ThemedCreateItemParentSelectorComponent } from './shared/dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';

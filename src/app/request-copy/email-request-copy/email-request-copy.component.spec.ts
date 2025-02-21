@@ -8,7 +8,7 @@ import {
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { RequestCopyEmail } from '../../core/request-copy/request-copy-email.model';
+import { RequestCopyEmail } from '../../../../modules/core/src/lib/core/request-copy/request-copy-email.model';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { EmailRequestCopyComponent } from './email-request-copy.component';
 

@@ -8,9 +8,9 @@ import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment';
 
-import { AccessStatusDataService } from '../../../../../core/data/access-status-data.service';
-import { Item } from '../../../../../core/shared/item.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../core/utilities/remote-data.utils';
+import { AccessStatusDataService } from '../../../../../../../modules/core/src/lib/core/data/access-status-data.service';
+import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { AccessStatusObject } from './access-status.model';
 import { AccessStatusBadgeComponent } from './access-status-badge.component';

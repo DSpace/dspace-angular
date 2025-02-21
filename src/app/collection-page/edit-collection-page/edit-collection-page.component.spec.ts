@@ -10,7 +10,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { CollectionDataService } from '../../core/data/collection-data.service';
+import { CollectionDataService } from '../../../../modules/core/src/lib/core/data/collection-data.service';
 import { EditCollectionPageComponent } from './edit-collection-page.component';
 
 describe('EditCollectionPageComponent', () => {

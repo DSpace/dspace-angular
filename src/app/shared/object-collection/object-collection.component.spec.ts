@@ -12,8 +12,8 @@ import {
 import { provideMockStore } from '@ngrx/store/testing';
 import { of as observableOf } from 'rxjs';
 
-import { ViewMode } from '../../core/shared/view-mode.model';
-import { RouterStub } from '../../core/utilities/testing/router.stub';
+import { ViewMode } from '../../../../modules/core/src/lib/core/shared/view-mode.model';
+import { RouterStub } from '../../../../modules/core/src/lib/core/utilities/testing/router.stub';
 import { getMockThemeService } from '../mocks/theme-service.mock';
 import { ObjectDetailComponent } from '../object-detail/object-detail.component';
 import { ObjectGridComponent } from '../object-grid/object-grid.component';

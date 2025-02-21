@@ -24,11 +24,11 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { ListableObject } from '../../../../core/object-collection/listable-object.model';
-import { Context } from '../../../../core/shared/context.model';
-import { GenericConstructor } from '../../../../core/shared/generic-constructor';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { PaginatedList } from '../../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { ListableObject } from '../../../../../../modules/core/src/lib/core/object-collection/listable-object.model';
+import { Context } from '../../../../../../modules/core/src/lib/core/shared/context.model';
+import { GenericConstructor } from '../../../../../../modules/core/src/lib/core/shared/generic-constructor';
+import { ViewMode } from '../../../../../../modules/core/src/lib/core/shared/view-mode.model';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { CollectionElementLinkType } from '../../collection-element-link.type';
 import { getTabulatableObjectsComponent } from './tabulatable-objects.decorator';

@@ -10,15 +10,15 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { getFirstCompletedRemoteData } from 'src/app/core/shared/operators';
+import { getFirstCompletedRemoteData } from '../../../../../../../../modules/core/src/lib/core/shared/operators';
 
-import { DSONameService } from '../../../../../../core/breadcrumbs/dso-name.service';
-import { RemoteData } from '../../../../../../core/data/remote-data';
-import { RequestEntryState } from '../../../../../../core/data/request-entry-state.model';
-import { Group } from '../../../../../../core/eperson/models/group.model';
-import { NotificationsService } from '../../../../../../core/notifications/notifications.service';
-import { SupervisionOrder } from '../../../../../../core/supervision-order/models/supervision-order.model';
-import { SupervisionOrderDataService } from '../../../../../../core/supervision-order/supervision-order-data.service';
+import { DSONameService } from '../../../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { RemoteData } from '../../../../../../../../modules/core/src/lib/core/data/remote-data';
+import { RequestEntryState } from '../../../../../../../../modules/core/src/lib/core/data/request-entry-state.model';
+import { Group } from '../../../../../../../../modules/core/src/lib/core/eperson/models/group.model';
+import { NotificationsService } from '../../../../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { SupervisionOrder } from '../../../../../../../../modules/core/src/lib/core/supervision-order/models/supervision-order.model';
+import { SupervisionOrderDataService } from '../../../../../../../../modules/core/src/lib/core/supervision-order/supervision-order-data.service';
 import { EpersonGroupListComponent } from '../../../../../../shared/eperson-group-list/eperson-group-list.component';
 import { ErrorComponent } from '../../../../../../shared/error/error.component';
 

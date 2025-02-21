@@ -14,16 +14,16 @@ import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
-import { ItemDataService } from 'src/app/core/data/item-data.service';
+import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
 
 import {
   getMockNotificationsStateService,
   qualityAssuranceTopicObjectMoreAbstract,
   qualityAssuranceTopicObjectMorePid,
-} from '../../../core/mocks/notifications.mock';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../../../core/utilities/testing/pagination-service.stub';
-import { createTestComponent } from '../../../core/utilities/testing/utils.test';
+} from '../../../../../modules/core/src/lib/core/mocks/notifications.mock';
+import { PaginationService } from '../../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { PaginationServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
+import { createTestComponent } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';

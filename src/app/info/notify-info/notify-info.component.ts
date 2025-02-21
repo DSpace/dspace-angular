@@ -10,7 +10,7 @@ import {
   Observable,
 } from 'rxjs';
 
-import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-info.service';
+import { NotifyInfoService } from '../../../../modules/core/src/lib/core/coar-notify/notify-info/notify-info.service';
 
 @Component({
   selector: 'ds-notify-info',

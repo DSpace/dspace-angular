@@ -43,23 +43,23 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../../../core/auth/auth.service';
-import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
-import { ComColDataService } from '../../../../core/data/comcol-data.service';
-import { followLink } from '../../../../core/data/follow-link-config.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { RequestService } from '../../../../core/data/request.service';
-import { NotificationsService } from '../../../../core/notifications/notifications.service';
-import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { Collection } from '../../../../core/shared/collection.model';
-import { Community } from '../../../../core/shared/community.model';
+import { AuthService } from '../../../../../../modules/core/src/lib/core/auth/auth.service';
+import { ObjectCacheService } from '../../../../../../modules/core/src/lib/core/cache/object-cache.service';
+import { ComColDataService } from '../../../../../../modules/core/src/lib/core/data/comcol-data.service';
+import { followLink } from '../../../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { RemoteData } from '../../../../../../modules/core/src/lib/core/data/remote-data';
+import { RequestService } from '../../../../../../modules/core/src/lib/core/data/request.service';
+import { NotificationsService } from '../../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Bitstream } from '../../../../../../modules/core/src/lib/core/shared/bitstream.model';
+import { Collection } from '../../../../../../modules/core/src/lib/core/shared/collection.model';
+import { Community } from '../../../../../../modules/core/src/lib/core/shared/community.model';
 import {
   MetadataMap,
   MetadataValue,
-} from '../../../../core/shared/metadata.models';
-import { NoContent } from '../../../../core/shared/NoContent.model';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { ResourceType } from '../../../../core/shared/resource-type';
+} from '../../../../../../modules/core/src/lib/core/shared/metadata.models';
+import { NoContent } from '../../../../../../modules/core/src/lib/core/shared/NoContent.model';
+import { getFirstCompletedRemoteData } from '../../../../../../modules/core/src/lib/core/shared/operators';
+import { ResourceType } from '../../../../../../modules/core/src/lib/core/shared/resource-type';
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
 import { FormComponent } from '../../../form/form.component';
 import { UploaderComponent } from '../../../upload/uploader/uploader.component';

@@ -12,10 +12,10 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { ConfigurationDataService } from '../core/data/configuration-data.service';
-import { RemoteData } from '../core/data/remote-data';
-import { ConfigurationProperty } from '../core/shared/configuration-property.model';
-import { getFirstCompletedRemoteData } from '../core/shared/operators';
+import { ConfigurationDataService } from '../../../modules/core/src/lib/core/data/configuration-data.service';
+import { RemoteData } from '../../../modules/core/src/lib/core/data/remote-data';
+import { ConfigurationProperty } from '../../../modules/core/src/lib/core/shared/configuration-property.model';
+import { getFirstCompletedRemoteData } from '../../../modules/core/src/lib/core/shared/operators';
 
 export const CANONICAL_PREFIX_KEY = 'handle.canonical.prefix';
 

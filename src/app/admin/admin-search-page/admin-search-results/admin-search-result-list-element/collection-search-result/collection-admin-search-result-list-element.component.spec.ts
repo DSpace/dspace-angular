@@ -10,11 +10,11 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../../../environments/environment';
 import { getCollectionEditRoute } from '../../../../../collection-page/collection-page-routing-paths';
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { APP_CONFIG } from '../../../../../core/config/app-config.interface';
-import { CollectionSearchResult } from '../../../../../core/object-collection/collection-search-result.model';
-import { Collection } from '../../../../../core/shared/collection.model';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
+import { DSONameService } from '../../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { APP_CONFIG } from '../../../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { CollectionSearchResult } from '../../../../../../../modules/core/src/lib/core/object-collection/collection-search-result.model';
+import { Collection } from '../../../../../../../modules/core/src/lib/core/shared/collection.model';
+import { ViewMode } from '../../../../../../../modules/core/src/lib/core/shared/view-mode.model';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';

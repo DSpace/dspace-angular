@@ -5,17 +5,17 @@ import { TestScheduler } from 'rxjs/testing';
 import {
   SortDirection,
   SortOptions,
-} from '../core/cache/models/sort-options.model';
-import { FindListOptions } from '../core/data/find-list-options.model';
-import { followLink } from '../core/data/follow-link-config.model';
-import { SuggestionTarget } from '../core/notifications/suggestions/models/suggestion-target.model';
-import { SuggestionDataService } from '../core/notifications/suggestions/suggestion-data.service';
-import { SuggestionTargetDataService } from '../core/notifications/suggestions/target/suggestion-target-data.service';
-import { ResearcherProfile } from '../core/profile/model/researcher-profile.model';
-import { ResearcherProfileDataService } from '../core/profile/researcher-profile-data.service';
-import { ResourceType } from '../core/shared/resource-type';
-import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
-import { createSuccessfulRemoteDataObject$ } from '../core/utilities/remote-data.utils';
+} from '../../../modules/core/src/lib/core/cache/models/sort-options.model';
+import { FindListOptions } from '../../../modules/core/src/lib/core/data/find-list-options.model';
+import { followLink } from '../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { SuggestionTarget } from '../../../modules/core/src/lib/core/notifications/suggestions/models/suggestion-target.model';
+import { SuggestionDataService } from '../../../modules/core/src/lib/core/notifications/suggestions/suggestion-data.service';
+import { SuggestionTargetDataService } from '../../../modules/core/src/lib/core/notifications/suggestions/target/suggestion-target-data.service';
+import { ResearcherProfile } from '../../../modules/core/src/lib/core/profile/model/researcher-profile.model';
+import { ResearcherProfileDataService } from '../../../modules/core/src/lib/core/profile/researcher-profile-data.service';
+import { ResourceType } from '../../../modules/core/src/lib/core/shared/resource-type';
+import { WorkspaceitemDataService } from '../../../modules/core/src/lib/core/submission/workspaceitem-data.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../modules/core/src/lib/core/utilities/remote-data.utils';
 import { mockSuggestionPublicationOne } from '../shared/mocks/publication-claim.mock';
 import { SuggestionsService } from './suggestions.service';
 

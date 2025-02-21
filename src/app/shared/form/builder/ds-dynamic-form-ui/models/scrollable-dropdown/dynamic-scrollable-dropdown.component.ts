@@ -38,22 +38,22 @@ import {
   take,
   tap,
 } from 'rxjs/operators';
-import { LazyDataServicesMap } from 'src/app/core/data-services-map';
+import { LazyDataServicesMap } from '../../../../../../../../modules/core/src/lib/core/data-services-map';
 
-import { CacheableObject } from '../../../../../../core/cache/cacheable-object.model';
-import { APP_DATA_SERVICES_MAP } from '../../../../../../core/config/app-config.interface';
-import { FindAllDataImpl } from '../../../../../../core/data/base/find-all-data';
+import { CacheableObject } from '../../../../../../../../modules/core/src/lib/core/cache/cacheable-object.model';
+import { APP_DATA_SERVICES_MAP } from '../../../../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { FindAllDataImpl } from '../../../../../../../../modules/core/src/lib/core/data/base/find-all-data';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../../../core/data/remote-data';
-import { lazyDataService } from '../../../../../../core/lazy-data-service';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
-import { PageInfo } from '../../../../../../core/shared/page-info.model';
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+} from '../../../../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../../../../../modules/core/src/lib/core/data/remote-data';
+import { lazyDataService } from '../../../../../../../../modules/core/src/lib/core/lazy-data-service';
+import { getFirstSucceededRemoteDataPayload } from '../../../../../../../../modules/core/src/lib/core/shared/operators';
+import { PageInfo } from '../../../../../../../../modules/core/src/lib/core/shared/page-info.model';
+import { VocabularyService } from '../../../../../../../../modules/core/src/lib/core/submission/vocabularies/vocabulary.service';
 import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
-import { FormFieldMetadataValueObject } from '../../../../../../core/config/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../../../../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
 

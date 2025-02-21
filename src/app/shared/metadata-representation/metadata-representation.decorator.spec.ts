@@ -2,8 +2,8 @@
 import { v4 as uuidv4 } from 'uuid';
 
 import { environment } from '../../../environments/environment';
-import { Context } from '../../core/shared/context.model';
-import { MetadataRepresentationType } from '../../core/shared/metadata-representation/metadata-representation.model';
+import { Context } from '../../../../modules/core/src/lib/core/shared/context.model';
+import { MetadataRepresentationType } from '../../../../modules/core/src/lib/core/shared/metadata-representation/metadata-representation.model';
 import {
   DEFAULT_ENTITY_TYPE,
   DEFAULT_REPRESENTATION_TYPE,

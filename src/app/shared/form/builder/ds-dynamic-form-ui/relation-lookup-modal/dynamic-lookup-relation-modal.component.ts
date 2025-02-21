@@ -32,33 +32,33 @@ import {
 } from 'rxjs/operators';
 
 import { AppState } from '../../../../../app.reducer';
-import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { RequestParam } from '../../../../../core/cache/models/request-param.model';
-import { ExternalSourceDataService } from '../../../../../core/data/external-source-data.service';
-import { FindListOptions } from '../../../../../core/data/find-list-options.model';
-import { followLink } from '../../../../../core/data/follow-link-config.model';
-import { LookupRelationService } from '../../../../../core/data/lookup-relation.service';
-import { PaginatedList } from '../../../../../core/data/paginated-list.model';
-import { RelationshipDataService } from '../../../../../core/data/relationship-data.service';
-import { ItemSearchResult } from '../../../../../core/object-collection/item-search-result.model';
-import { ListableObject } from '../../../../../core/object-collection/listable-object.model';
-import { Context } from '../../../../../core/shared/context.model';
-import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
-import { ExternalSource } from '../../../../../core/shared/external-source.model';
-import { RelationshipOptions } from '../../../../../core/shared/form/relationship-options.model';
-import { Item } from '../../../../../core/shared/item.model';
-import { RelationshipType } from '../../../../../core/shared/item-relationships/relationship-type.model';
+import { RemoteDataBuildService } from '../../../../../../../modules/core/src/lib/core/cache/builders/remote-data-build.service';
+import { RequestParam } from '../../../../../../../modules/core/src/lib/core/cache/models/request-param.model';
+import { ExternalSourceDataService } from '../../../../../../../modules/core/src/lib/core/data/external-source-data.service';
+import { FindListOptions } from '../../../../../../../modules/core/src/lib/core/data/find-list-options.model';
+import { followLink } from '../../../../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { LookupRelationService } from '../../../../../../../modules/core/src/lib/core/data/lookup-relation.service';
+import { PaginatedList } from '../../../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RelationshipDataService } from '../../../../../../../modules/core/src/lib/core/data/relationship-data.service';
+import { ItemSearchResult } from '../../../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
+import { ListableObject } from '../../../../../../../modules/core/src/lib/core/object-collection/listable-object.model';
+import { Context } from '../../../../../../../modules/core/src/lib/core/shared/context.model';
+import { DSpaceObject } from '../../../../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { ExternalSource } from '../../../../../../../modules/core/src/lib/core/shared/external-source.model';
+import { RelationshipOptions } from '../../../../../../../modules/core/src/lib/core/shared/form/relationship-options.model';
+import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
+import { RelationshipType } from '../../../../../../../modules/core/src/lib/core/shared/item-relationships/relationship-type.model';
 import {
   getAllSucceededRemoteDataPayload,
   getFirstSucceededRemoteDataPayload,
-} from '../../../../../core/shared/operators';
-import { SearchResult } from '../../../../../core/shared/search/models/search-result.model';
-import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
+} from '../../../../../../../modules/core/src/lib/core/shared/operators';
+import { SearchResult } from '../../../../../../../modules/core/src/lib/core/shared/search/models/search-result.model';
+import { SearchConfigurationService } from '../../../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
 import {
   AddRelationshipAction,
   RemoveRelationshipAction,
   UpdateRelationshipNameVariantAction,
-} from '../../../../../core/states/name-variant/relationship.actions';
+} from '../../../../../../../modules/core/src/lib/core/states/name-variant/relationship.actions';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';

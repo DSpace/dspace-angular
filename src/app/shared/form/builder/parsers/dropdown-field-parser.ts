@@ -3,12 +3,12 @@ import { isNotEmpty } from '@dspace/shared/utils';
 import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 
-import { FormFieldModel } from '../../../../core/shared/form/form-field.model';
+import { FormFieldModel } from '../../../../../../modules/core/src/lib/core/shared/form/form-field.model';
 import {
   DynamicScrollableDropdownModel,
   DynamicScrollableDropdownModelConfig,
 } from '../ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
-import { FormFieldMetadataValueObject } from '../../../../core/config/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
 import {
   CONFIG_DATA,
   FieldParser,

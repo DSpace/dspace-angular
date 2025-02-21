@@ -34,34 +34,34 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { RestResponse } from '../../../../core/cache/response.models';
+import { RestResponse } from '../../../../../../modules/core/src/lib/core/cache/response.models';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
-import { GroupDataService } from '../../../../core/eperson/group-data.service';
-import { EPerson } from '../../../../core/eperson/models/eperson.model';
-import { Group } from '../../../../core/eperson/models/group.model';
-import { RouterMock } from '../../../../core/mocks/router.mock';
-import { getMockTranslateService } from '../../../../core/mocks/translate.service.mock';
-import { NotificationsService } from '../../../../core/notifications/notifications.service';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { PageInfo } from '../../../../core/shared/page-info.model';
+} from '../../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../../../modules/core/src/lib/core/data/remote-data';
+import { EPersonDataService } from '../../../../../../modules/core/src/lib/core/eperson/eperson-data.service';
+import { GroupDataService } from '../../../../../../modules/core/src/lib/core/eperson/group-data.service';
+import { EPerson } from '../../../../../../modules/core/src/lib/core/eperson/models/eperson.model';
+import { Group } from '../../../../../../modules/core/src/lib/core/eperson/models/group.model';
+import { RouterMock } from '../../../../../../modules/core/src/lib/core/mocks/router.mock';
+import { getMockTranslateService } from '../../../../../../modules/core/src/lib/core/mocks/translate.service.mock';
+import { NotificationsService } from '../../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { PaginationService } from '../../../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { PageInfo } from '../../../../../../modules/core/src/lib/core/shared/page-info.model';
 import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../../core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../../../core/utilities/testing/active-router.stub';
+} from '../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
 import {
   EPersonMock,
   EPersonMock2,
-} from '../../../../core/utilities/testing/eperson.mock';
-import { GroupMock } from '../../../../core/utilities/testing/group-mock';
-import { NotificationsServiceStub } from '../../../../core/utilities/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../../../core/utilities/testing/pagination-service.stub';
-import { TranslateLoaderMock } from '../../../../core/utilities/testing/translate-loader.mock';
+} from '../../../../../../modules/core/src/lib/core/utilities/testing/eperson.mock';
+import { GroupMock } from '../../../../../../modules/core/src/lib/core/utilities/testing/group-mock';
+import { NotificationsServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { PaginationServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
+import { TranslateLoaderMock } from '../../../../../../modules/core/src/lib/core/utilities/testing/translate-loader.mock';
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';

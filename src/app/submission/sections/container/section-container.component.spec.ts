@@ -14,9 +14,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { SectionsServiceStub } from '../../../core/utilities/testing/sections-service.stub';
-import { SubmissionServiceStub } from '../../../core/utilities/testing/submission-service.stub';
-import { createTestComponent } from '../../../core/utilities/testing/utils.test';
+import { SectionsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/sections-service.stub';
+import { SubmissionServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/submission-service.stub';
+import { createTestComponent } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import {
   mockSubmissionCollectionId,
   mockSubmissionId,

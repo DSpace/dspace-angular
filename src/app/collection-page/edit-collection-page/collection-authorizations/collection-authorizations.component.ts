@@ -10,8 +10,8 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { RemoteData } from '../../../core/data/remote-data';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { DSpaceObject } from '../../../../../modules/core/src/lib/core/shared/dspace-object.model';
 import { ResourcePoliciesComponent } from '../../../shared/resource-policies/resource-policies.component';
 
 @Component({

@@ -1,8 +1,8 @@
-import { getMockTranslateService } from '../../../../core/mocks/translate.service.mock';
-import { FormFieldModel } from '../../../../core/shared/form/form-field.model';
+import { getMockTranslateService } from '../../../../../../modules/core/src/lib/core/mocks/translate.service.mock';
+import { FormFieldModel } from '../../../../../../modules/core/src/lib/core/shared/form/form-field.model';
 import { DynamicListCheckboxGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-radio-group.model';
-import { FormFieldMetadataValueObject } from '../../../../core/config/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
 import { ListFieldParser } from './list-field-parser';
 import { ParserOptions } from './parser-options';
 

@@ -9,16 +9,16 @@ import {
   OnInit,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { Context } from 'src/app/core/shared/context.model';
-import { WorkflowItem } from 'src/app/core/submission/models/workflowitem.model';
+import { Context } from '../../../../../../modules/core/src/lib/core/shared/context.model';
+import { WorkflowItem } from '../../../../../../modules/core/src/lib/core/submission/models/workflowitem.model';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { DSONameService } from '../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../core/config/app-config.interface';
-import { Item } from '../../../../core/shared/item.model';
-import { SearchResult } from '../../../../core/shared/search/models/search-result.model';
+} from '../../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
+import { SearchResult } from '../../../../../../modules/core/src/lib/core/shared/search/models/search-result.model';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import { fadeInOut } from '../../../animations/fade';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';

@@ -6,14 +6,14 @@ import {
 import { hasValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../core/config/app-config.interface';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { Metadata } from '../../../core/shared/metadata.utils';
-import { SearchResult } from '../../../core/shared/search/models/search-result.model';
+} from '../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { DSpaceObject } from '../../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { Metadata } from '../../../../../modules/core/src/lib/core/shared/metadata.utils';
+import { SearchResult } from '../../../../../modules/core/src/lib/core/shared/search/models/search-result.model';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { TruncatableService } from '../../truncatable/truncatable.service';
 

@@ -13,15 +13,15 @@ import { of as observableOf } from 'rxjs';
 import {
   SortDirection,
   SortOptions,
-} from '../../../core/cache/models/sort-options.model';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
-import { ActivatedRouteStub } from '../../../core/utilities/testing/active-router.stub';
-import { PaginationServiceStub } from '../../../core/utilities/testing/pagination-service.stub';
-import { SearchServiceStub } from '../../../core/utilities/testing/search-service.stub';
-import { SidebarServiceStub } from '../../../core/utilities/testing/sidebar-service.stub';
+} from '../../../../../modules/core/src/lib/core/cache/models/sort-options.model';
+import { PaginationService } from '../../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+import { SearchService } from '../../../../../modules/core/src/lib/core/shared/search/search.service';
+import { SearchFilterService } from '../../../../../modules/core/src/lib/core/shared/search/search-filter.service';
+import { ActivatedRouteStub } from '../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+import { PaginationServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
+import { SearchServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/search-service.stub';
+import { SidebarServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/sidebar-service.stub';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { SidebarService } from '../../sidebar/sidebar.service';
 import { EnumKeysPipe } from '../../utils/enum-keys-pipe';

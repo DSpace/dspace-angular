@@ -30,18 +30,18 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
+import { RemoteDataBuildService } from '../../../../../../../modules/core/src/lib/core/cache/builders/remote-data-build.service';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../../core/config/app-config.interface';
-import { FilterVocabularyConfig } from '../../../../../core/config/filter-vocabulary-config';
-import { PageInfo } from '../../../../../core/shared/page-info.model';
-import { SearchService } from '../../../../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
-import { VocabularyEntryDetail } from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
+} from '../../../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { FilterVocabularyConfig } from '../../../../../../../modules/core/src/lib/core/config/filter-vocabulary-config';
+import { PageInfo } from '../../../../../../../modules/core/src/lib/core/shared/page-info.model';
+import { SearchService } from '../../../../../../../modules/core/src/lib/core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
+import { SearchFilterService } from '../../../../../../../modules/core/src/lib/core/shared/search/search-filter.service';
+import { VocabularyEntryDetail } from '../../../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyService } from '../../../../../../../modules/core/src/lib/core/submission/vocabularies/vocabulary.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 import { FilterInputSuggestionsComponent } from '../../../../input-suggestions/filter-suggestions/filter-input-suggestions.component';

@@ -13,19 +13,19 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { IdentifiableDataService } from '../../../core/data/base/identifiable-data.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { PostRequest } from '../../../core/data/request.models';
-import { RequestService } from '../../../core/data/request.service';
-import { RestRequest } from '../../../core/data/rest-request.model';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
+import { RemoteDataBuildService } from '../../../../../modules/core/src/lib/core/cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../../../../../modules/core/src/lib/core/cache/object-cache.service';
+import { IdentifiableDataService } from '../../../../../modules/core/src/lib/core/data/base/identifiable-data.service';
+import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
+import { PostRequest } from '../../../../../modules/core/src/lib/core/data/request.models';
+import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
+import { RestRequest } from '../../../../../modules/core/src/lib/core/data/rest-request.model';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { HALEndpointService } from '../../../../../modules/core/src/lib/core/shared/hal-endpoint.service';
 import {
   getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
-} from '../../../core/shared/operators';
+} from '../../../../../modules/core/src/lib/core/shared/operators';
 import { LdnServicesService } from '../../admin-ldn-services/ldn-services-data/ldn-services-data.service';
 import { AdminNotifyMessage } from '../models/admin-notify-message.model';
 

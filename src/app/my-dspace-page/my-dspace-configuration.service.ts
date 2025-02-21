@@ -13,24 +13,24 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { LinkService } from '../core/cache/builders/link.service';
-import { RemoteDataBuildService } from '../core/cache/builders/remote-data-build.service';
+import { LinkService } from '../../../modules/core/src/lib/core/cache/builders/link.service';
+import { RemoteDataBuildService } from '../../../modules/core/src/lib/core/cache/builders/remote-data-build.service';
 import {
   SortDirection,
   SortOptions,
-} from '../core/cache/models/sort-options.model';
+} from '../../../modules/core/src/lib/core/cache/models/sort-options.model';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../core/config/app-config.interface';
-import { RequestService } from '../core/data/request.service';
-import { PaginationService } from '../core/pagination/pagination.service';
-import { RoleService } from '../core/roles/role.service';
-import { RouteService } from '../core/services/route.service';
-import { Context } from '../core/shared/context.model';
-import { HALEndpointService } from '../core/shared/hal-endpoint.service';
-import { PaginationComponentOptions } from '../core/shared/pagination-component-options.model';
-import { SearchConfigurationService } from '../core/shared/search/search-configuration.service';
+} from '../../../modules/core/src/lib/core/config/app-config.interface';
+import { RequestService } from '../../../modules/core/src/lib/core/data/request.service';
+import { PaginationService } from '../../../modules/core/src/lib/core/pagination/pagination.service';
+import { RoleService } from '../../../modules/core/src/lib/core/roles/role.service';
+import { RouteService } from '../../../modules/core/src/lib/core/services/route.service';
+import { Context } from '../../../modules/core/src/lib/core/shared/context.model';
+import { HALEndpointService } from '../../../modules/core/src/lib/core/shared/hal-endpoint.service';
+import { PaginationComponentOptions } from '../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+import { SearchConfigurationService } from '../../../modules/core/src/lib/core/shared/search/search-configuration.service';
 import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
 import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
 

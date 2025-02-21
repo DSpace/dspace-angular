@@ -10,12 +10,12 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { LinkService } from '../../core/cache/builders/link.service';
-import { followLink } from '../../core/data/follow-link-config.model';
-import { ProcessDataService } from '../../core/data/processes/process-data.service';
-import { Process } from '../../core/processes/process.model';
-import { Script } from '../../core/scripts/script.model';
-import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
+import { LinkService } from '../../../../modules/core/src/lib/core/cache/builders/link.service';
+import { followLink } from '../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { ProcessDataService } from '../../../../modules/core/src/lib/core/data/processes/process-data.service';
+import { Process } from '../../../../modules/core/src/lib/core/processes/process.model';
+import { Script } from '../../../../modules/core/src/lib/core/scripts/script.model';
+import { getFirstSucceededRemoteDataPayload } from '../../../../modules/core/src/lib/core/shared/operators';
 import { HasValuePipe } from '../../shared/utils/has-value.pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ProcessFormComponent } from '../form/process-form.component';

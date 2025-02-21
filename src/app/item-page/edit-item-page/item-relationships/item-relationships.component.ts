@@ -24,23 +24,23 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
-import { followLink } from '../../../core/data/follow-link-config.model';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { RelationshipTypeDataService } from '../../../core/data/relationship-type-data.service';
-import { RequestService } from '../../../core/data/request.service';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { compareArraysUsingIds } from '../../../core/shared/item-relationships/item-relationships-utils';
-import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
-import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
+import { ObjectCacheService } from '../../../../../modules/core/src/lib/core/cache/object-cache.service';
+import { EntityTypeDataService } from '../../../../../modules/core/src/lib/core/data/entity-type-data.service';
+import { followLink } from '../../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
+import { ObjectUpdatesService } from '../../../../../modules/core/src/lib/core/data/object-updates/object-updates.service';
+import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RelationshipDataService } from '../../../../../modules/core/src/lib/core/data/relationship-data.service';
+import { RelationshipTypeDataService } from '../../../../../modules/core/src/lib/core/data/relationship-type-data.service';
+import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { compareArraysUsingIds } from '../../../../../modules/core/src/lib/core/shared/item-relationships/item-relationships-utils';
+import { ItemType } from '../../../../../modules/core/src/lib/core/shared/item-relationships/item-type.model';
+import { RelationshipType } from '../../../../../modules/core/src/lib/core/shared/item-relationships/relationship-type.model';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '../../../core/shared/operators';
+} from '../../../../../modules/core/src/lib/core/shared/operators';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';

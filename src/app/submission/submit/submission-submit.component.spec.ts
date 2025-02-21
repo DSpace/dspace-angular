@@ -18,14 +18,14 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ItemDataService } from '../../core/data/item-data.service';
-import { getMockTranslateService } from '../../core/mocks/translate.service.mock';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
-import { RouterStub } from '../../core/utilities/testing/router.stub';
-import { SubmissionServiceStub } from '../../core/utilities/testing/submission-service.stub';
+import { ItemDataService } from '../../../../modules/core/src/lib/core/data/item-data.service';
+import { getMockTranslateService } from '../../../../modules/core/src/lib/core/mocks/translate.service.mock';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+import { NotificationsServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { RouterStub } from '../../../../modules/core/src/lib/core/utilities/testing/router.stub';
+import { SubmissionServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/submission-service.stub';
 import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
 import { SubmissionService } from '../submission.service';
 import { SubmissionSubmitComponent } from './submission-submit.component';

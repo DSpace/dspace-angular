@@ -40,30 +40,30 @@ import { environment } from '../../../../environments/environment';
 import {
   SortDirection,
   SortOptions,
-} from '../../../core/cache/models/sort-options.model';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { followLink } from '../../../core/data/follow-link-config.model';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { QualityAssuranceEventDataService } from '../../../core/notifications/qa/events/quality-assurance-event-data.service';
+} from '../../../../../modules/core/src/lib/core/cache/models/sort-options.model';
+import { AuthorizationDataService } from '../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
+import { FindListOptions } from '../../../../../modules/core/src/lib/core/data/find-list-options.model';
+import { followLink } from '../../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
+import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { QualityAssuranceEventDataService } from '../../../../../modules/core/src/lib/core/notifications/qa/events/quality-assurance-event-data.service';
 import {
   QualityAssuranceEventObject,
   SourceQualityAssuranceEventMessageObject,
-} from '../../../core/notifications/qa/models/quality-assurance-event.model';
-import { ItemSearchResult } from '../../../core/object-collection/item-search-result.model';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { Item } from '../../../core/shared/item.model';
-import { Metadata } from '../../../core/shared/metadata.utils';
-import { NoContent } from '../../../core/shared/NoContent.model';
+} from '../../../../../modules/core/src/lib/core/notifications/qa/models/quality-assurance-event.model';
+import { ItemSearchResult } from '../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
+import { PaginationService } from '../../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { Metadata } from '../../../../../modules/core/src/lib/core/shared/metadata.utils';
+import { NoContent } from '../../../../../modules/core/src/lib/core/shared/NoContent.model';
 import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '../../../core/shared/operators';
-import { PaginationComponentOptions } from '../../../core/shared/pagination-component-options.model';
+} from '../../../../../modules/core/src/lib/core/shared/operators';
+import { PaginationComponentOptions } from '../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';

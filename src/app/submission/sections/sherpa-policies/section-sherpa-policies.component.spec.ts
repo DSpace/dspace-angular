@@ -18,11 +18,11 @@ import {
 import { of as observableOf } from 'rxjs';
 
 import { AppState } from '../../../app.reducer';
-import { APP_DATA_SERVICES_MAP } from '../../../core/config/app-config.interface';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { TranslateLoaderMock } from '../../../core/mocks/translate-loader.mock';
-import { SectionsServiceStub } from '../../../core/utilities/testing/sections-service.stub';
-import { SubmissionServiceStub } from '../../../core/utilities/testing/submission-service.stub';
+import { APP_DATA_SERVICES_MAP } from '../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { JsonPatchOperationsBuilder } from '../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operations-builder';
+import { TranslateLoaderMock } from '../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
+import { SectionsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/sections-service.stub';
+import { SubmissionServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/submission-service.stub';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { SherpaDataResponse } from '../../../shared/mocks/section-sherpa-policies.service.mock';
 import { SubmissionService } from '../../submission.service';

@@ -9,20 +9,20 @@ import {
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../core/cache/builders/link.service';
+import { DSONameService } from '../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { LinkService } from '../../../../../../modules/core/src/lib/core/cache/builders/link.service';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../core/config/app-config.interface';
-import { followLink } from '../../../../core/data/follow-link-config.model';
-import { ItemSearchResult } from '../../../../core/object-collection/item-search-result.model';
-import { WorkflowItemSearchResult } from '../../../../core/object-collection/workflow-item-search-result.model';
-import { Context } from '../../../../core/shared/context.model';
-import { Item } from '../../../../core/shared/item.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
+} from '../../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { followLink } from '../../../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { ItemSearchResult } from '../../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
+import { WorkflowItemSearchResult } from '../../../../../../modules/core/src/lib/core/object-collection/workflow-item-search-result.model';
+import { Context } from '../../../../../../modules/core/src/lib/core/shared/context.model';
+import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
+import { getFirstSucceededRemoteDataPayload } from '../../../../../../modules/core/src/lib/core/shared/operators';
+import { ViewMode } from '../../../../../../modules/core/src/lib/core/shared/view-mode.model';
+import { WorkflowItem } from '../../../../../../modules/core/src/lib/core/submission/models/workflowitem.model';
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { WorkflowitemActionsComponent } from '../../../mydspace-actions/workflowitem/workflowitem-actions.component';
 import { CollectionElementLinkType } from '../../../object-collection/collection-element-link.type';

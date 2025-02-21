@@ -6,7 +6,7 @@ import {
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { WorkflowItem } from '../../../../../core/submission/models/workflowitem.model';
+import { WorkflowItem } from '../../../../../../../modules/core/src/lib/core/submission/models/workflowitem.model';
 import {
   getWorkflowItemDeleteRoute,
   getWorkflowItemSendBackRoute,

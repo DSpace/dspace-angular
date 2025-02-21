@@ -10,14 +10,14 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { ObjectUpdatesService } from '../../core/data/object-updates/object-updates.service';
+import { ObjectUpdatesService } from '../../../../modules/core/src/lib/core/data/object-updates/object-updates.service';
 import {
   INotification,
   Notification,
-} from '../../core/notifications/models/notification.model';
-import { NotificationType } from '../../core/notifications/models/notification-type';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { RouterStub } from '../../core/utilities/testing/router.stub';
+} from '../../../../modules/core/src/lib/core/notifications/models/notification.model';
+import { NotificationType } from '../../../../modules/core/src/lib/core/notifications/models/notification-type';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { RouterStub } from '../../../../modules/core/src/lib/core/utilities/testing/router.stub';
 import { AbstractTrackableComponent } from './abstract-trackable.component';
 
 describe('AbstractTrackableComponent', () => {

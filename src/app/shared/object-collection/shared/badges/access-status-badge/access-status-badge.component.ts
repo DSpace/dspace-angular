@@ -16,12 +16,12 @@ import {
   catchError,
   map,
 } from 'rxjs/operators';
-import { AccessStatusDataService } from 'src/app/core/data/access-status-data.service';
+import { AccessStatusDataService } from '../../../../../../../modules/core/src/lib/core/data/access-status-data.service';
 import { environment } from 'src/environments/environment';
 
-import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
-import { Item } from '../../../../../core/shared/item.model';
-import { ITEM } from '../../../../../core/shared/item.resource-type';
+import { DSpaceObject } from '../../../../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
+import { ITEM } from '../../../../../../../modules/core/src/lib/core/shared/item.resource-type';
 import { AccessStatusObject } from './access-status.model';
 
 @Component({

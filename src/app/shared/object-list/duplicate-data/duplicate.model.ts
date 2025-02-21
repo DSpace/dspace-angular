@@ -3,10 +3,10 @@ import {
   deserialize,
 } from 'cerialize';
 
-import { CacheableObject } from '../../../core/cache/cacheable-object.model';
-import { HALLink } from '../../../core/shared/hal-link.model';
-import { MetadataMap } from '../../../core/shared/metadata.models';
-import { ResourceType } from '../../../core/shared/resource-type';
+import { CacheableObject } from '../../../../../modules/core/src/lib/core/cache/cacheable-object.model';
+import { HALLink } from '../../../../../modules/core/src/lib/core/shared/hal-link.model';
+import { MetadataMap } from '../../../../../modules/core/src/lib/core/shared/metadata.models';
+import { ResourceType } from '../../../../../modules/core/src/lib/core/shared/resource-type';
 import { DUPLICATE } from './duplicate.resource-type';
 
 /**

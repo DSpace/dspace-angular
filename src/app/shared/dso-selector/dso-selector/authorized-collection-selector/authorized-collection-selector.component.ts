@@ -19,22 +19,22 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { CollectionDataService } from '../../../../core/data/collection-data.service';
-import { FindListOptions } from '../../../../core/data/find-list-options.model';
-import { followLink } from '../../../../core/data/follow-link-config.model';
+import { DSONameService } from '../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { CollectionDataService } from '../../../../../../modules/core/src/lib/core/data/collection-data.service';
+import { FindListOptions } from '../../../../../../modules/core/src/lib/core/data/find-list-options.model';
+import { followLink } from '../../../../../../modules/core/src/lib/core/data/follow-link-config.model';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { NotificationsService } from '../../../../core/notifications/notifications.service';
-import { CollectionSearchResult } from '../../../../core/object-collection/collection-search-result.model';
-import { Collection } from '../../../../core/shared/collection.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { SearchResult } from '../../../../core/shared/search/models/search-result.model';
-import { SearchService } from '../../../../core/shared/search/search.service';
+} from '../../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../../../modules/core/src/lib/core/data/remote-data';
+import { NotificationsService } from '../../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { CollectionSearchResult } from '../../../../../../modules/core/src/lib/core/object-collection/collection-search-result.model';
+import { Collection } from '../../../../../../modules/core/src/lib/core/shared/collection.model';
+import { DSpaceObject } from '../../../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { getFirstCompletedRemoteData } from '../../../../../../modules/core/src/lib/core/shared/operators';
+import { SearchResult } from '../../../../../../modules/core/src/lib/core/shared/search/models/search-result.model';
+import { SearchService } from '../../../../../../modules/core/src/lib/core/shared/search/search.service';
 import { HoverClassDirective } from '../../../hover-class.directive';
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';

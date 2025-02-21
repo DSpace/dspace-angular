@@ -14,10 +14,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { ActivatedRouteStub } from '../../../core/utilities/testing/active-router.stub';
-import { PaginationServiceStub } from '../../../core/utilities/testing/pagination-service.stub';
-import { RouterStub } from '../../../core/utilities/testing/router.stub';
+import { PaginationService } from '../../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { ActivatedRouteStub } from '../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+import { PaginationServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
+import { RouterStub } from '../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
 import { EnumKeysPipe } from '../../utils/enum-keys-pipe';
 import { StartsWithTextComponent } from './starts-with-text.component';
 

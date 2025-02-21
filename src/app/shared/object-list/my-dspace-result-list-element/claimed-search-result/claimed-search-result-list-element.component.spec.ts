@@ -16,28 +16,28 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { environment } from '../../../../../environments/environment';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../core/cache/builders/link.service';
-import { ObjectCacheService } from '../../../../core/cache/object-cache.service';
-import { APP_CONFIG } from '../../../../core/config/app-config.interface';
-import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
-import { getMockLinkService } from '../../../../core/mocks/link-service.mock';
-import { NotificationsService } from '../../../../core/notifications/notifications.service';
-import { ClaimedTaskSearchResult } from '../../../../core/object-collection/claimed-task-search-result.model';
-import { ConfigurationProperty } from '../../../../core/shared/configuration-property.model';
-import { Context } from '../../../../core/shared/context.model';
-import { Item } from '../../../../core/shared/item.model';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
-import { SubmissionDuplicateDataService } from '../../../../core/submission/submission-duplicate-data.service';
-import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
+import { DSONameService } from '../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { LinkService } from '../../../../../../modules/core/src/lib/core/cache/builders/link.service';
+import { ObjectCacheService } from '../../../../../../modules/core/src/lib/core/cache/object-cache.service';
+import { APP_CONFIG } from '../../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { ConfigurationDataService } from '../../../../../../modules/core/src/lib/core/data/configuration-data.service';
+import { getMockLinkService } from '../../../../../../modules/core/src/lib/core/mocks/link-service.mock';
+import { NotificationsService } from '../../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { ClaimedTaskSearchResult } from '../../../../../../modules/core/src/lib/core/object-collection/claimed-task-search-result.model';
+import { ConfigurationProperty } from '../../../../../../modules/core/src/lib/core/shared/configuration-property.model';
+import { Context } from '../../../../../../modules/core/src/lib/core/shared/context.model';
+import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
+import { SearchService } from '../../../../../../modules/core/src/lib/core/shared/search/search.service';
+import { WorkflowItem } from '../../../../../../modules/core/src/lib/core/submission/models/workflowitem.model';
+import { SubmissionDuplicateDataService } from '../../../../../../modules/core/src/lib/core/submission/submission-duplicate-data.service';
+import { ClaimedTask } from '../../../../../../modules/core/src/lib/core/tasks/models/claimed-task-object.model';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../../../core/utilities/testing/notifications-service.stub';
-import { SearchServiceStub } from '../../../../core/utilities/testing/search-service.stub';
-import { createPaginatedList } from '../../../../core/utilities/testing/utils.test';
+} from '../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { NotificationsServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { SearchServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/search-service.stub';
+import { createPaginatedList } from '../../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';

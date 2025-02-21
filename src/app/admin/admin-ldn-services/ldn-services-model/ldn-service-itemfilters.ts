@@ -4,10 +4,10 @@ import {
   inheritSerialization,
 } from 'cerialize';
 
-import { typedObject } from '../../../core/cache/builders/build-decorators';
-import { CacheableObject } from '../../../core/cache/cacheable-object.model';
-import { ResourceType } from '../../../core/shared/resource-type';
-import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
+import { typedObject } from '../../../../../modules/core/src/lib/core/cache/builders/build-decorators';
+import { CacheableObject } from '../../../../../modules/core/src/lib/core/cache/cacheable-object.model';
+import { ResourceType } from '../../../../../modules/core/src/lib/core/shared/resource-type';
+import { excludeFromEquals } from '../../../../../modules/core/src/lib/core/utilities/equals.decorators';
 import { LDN_SERVICE_CONSTRAINT_FILTER } from './ldn-service.resource-type';
 
 /** A single filter value and its properties. */

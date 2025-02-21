@@ -28,22 +28,22 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { ExternalSourceDataService } from '../../../../../../core/data/external-source-data.service';
-import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../../../core/data/remote-data';
-import { ListableObject } from '../../../../../../core/object-collection/listable-object.model';
-import { PaginationService } from '../../../../../../core/pagination/pagination.service';
-import { Collection } from '../../../../../../core/shared/collection.model';
-import { Context } from '../../../../../../core/shared/context.model';
-import { ExternalSource } from '../../../../../../core/shared/external-source.model';
-import { ExternalSourceEntry } from '../../../../../../core/shared/external-source-entry.model';
-import { RelationshipOptions } from '../../../../../../core/shared/form/relationship-options.model';
-import { Item } from '../../../../../../core/shared/item.model';
-import { ItemType } from '../../../../../../core/shared/item-relationships/item-type.model';
-import { getFirstCompletedRemoteData } from '../../../../../../core/shared/operators';
-import { PaginatedSearchOptions } from '../../../../../../core/shared/paginated-search-options.model';
-import { PaginationComponentOptions } from '../../../../../../core/shared/pagination-component-options.model';
-import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
+import { ExternalSourceDataService } from '../../../../../../../../modules/core/src/lib/core/data/external-source-data.service';
+import { PaginatedList } from '../../../../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../../../../../modules/core/src/lib/core/data/remote-data';
+import { ListableObject } from '../../../../../../../../modules/core/src/lib/core/object-collection/listable-object.model';
+import { PaginationService } from '../../../../../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { Collection } from '../../../../../../../../modules/core/src/lib/core/shared/collection.model';
+import { Context } from '../../../../../../../../modules/core/src/lib/core/shared/context.model';
+import { ExternalSource } from '../../../../../../../../modules/core/src/lib/core/shared/external-source.model';
+import { ExternalSourceEntry } from '../../../../../../../../modules/core/src/lib/core/shared/external-source-entry.model';
+import { RelationshipOptions } from '../../../../../../../../modules/core/src/lib/core/shared/form/relationship-options.model';
+import { Item } from '../../../../../../../../modules/core/src/lib/core/shared/item.model';
+import { ItemType } from '../../../../../../../../modules/core/src/lib/core/shared/item-relationships/item-type.model';
+import { getFirstCompletedRemoteData } from '../../../../../../../../modules/core/src/lib/core/shared/operators';
+import { PaginatedSearchOptions } from '../../../../../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
+import { PaginationComponentOptions } from '../../../../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+import { SearchConfigurationService } from '../../../../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import {
   fadeIn,

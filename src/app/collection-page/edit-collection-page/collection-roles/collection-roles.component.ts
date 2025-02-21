@@ -11,13 +11,13 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { RemoteData } from '../../../core/data/remote-data';
-import { Collection } from '../../../core/shared/collection.model';
-import { HALLink } from '../../../core/shared/hal-link.model';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
+import { HALLink } from '../../../../../modules/core/src/lib/core/shared/hal-link.model';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '../../../core/shared/operators';
+} from '../../../../../modules/core/src/lib/core/shared/operators';
 import { ComcolRoleComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-role/comcol-role.component';
 
 /**

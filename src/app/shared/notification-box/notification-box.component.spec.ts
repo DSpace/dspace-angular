@@ -4,7 +4,7 @@ import {
 } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { AdminNotifyMetricsBox } from '../../core/config/models/admin-notify-metrics.model';
+import { AdminNotifyMetricsBox } from '../../../../modules/core/src/lib/core/config/models/admin-notify-metrics.model';
 import { NotificationBoxComponent } from './notification-box.component';
 
 describe('NotificationBoxComponent', () => {

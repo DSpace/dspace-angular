@@ -19,12 +19,12 @@ import {
 import { of as observableOf } from 'rxjs';
 
 import { storeModuleConfig } from '../../app.reducer';
-import { getMockTranslateService } from '../../core/mocks/translate.service.mock';
-import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
-import { NotificationsServiceStub } from '../../core/utilities/testing/notifications-service.stub';
-import { SubmissionServiceStub } from '../../core/utilities/testing/submission-service.stub';
+import { getMockTranslateService } from '../../../../modules/core/src/lib/core/mocks/translate.service.mock';
+import { TranslateLoaderMock } from '../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { SubmissionScopeType } from '../../../../modules/core/src/lib/core/submission/submission-scope-type';
+import { NotificationsServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { SubmissionServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/submission-service.stub';
 import { FormClearErrorsAction } from '../../shared/form/form.actions';
 import { FormService } from '../../shared/form/form.service';
 import { getMockFormService } from '../../shared/mocks/form-service.mock';

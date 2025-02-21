@@ -5,11 +5,11 @@ import {
 } from 'cerialize';
 import { Observable } from 'rxjs';
 
-import { typedObject } from '../../../core/cache/builders/build-decorators';
-import { ListableObject } from '../../../core/object-collection/listable-object.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { GenericConstructor } from '../../../core/shared/generic-constructor';
-import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
+import { typedObject } from '../../../../../modules/core/src/lib/core/cache/builders/build-decorators';
+import { ListableObject } from '../../../../../modules/core/src/lib/core/object-collection/listable-object.model';
+import { DSpaceObject } from '../../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { GenericConstructor } from '../../../../../modules/core/src/lib/core/shared/generic-constructor';
+import { excludeFromEquals } from '../../../../../modules/core/src/lib/core/utilities/equals.decorators';
 import { ADMIN_NOTIFY_MESSAGE } from './admin-notify-message.resource-type';
 
 /**

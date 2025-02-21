@@ -18,7 +18,7 @@ import {
   AppState,
   keySelector,
 } from '../../../app.reducer';
-import { ListableObject } from '../../../core/object-collection/listable-object.model';
+import { ListableObject } from '../../../../../modules/core/src/lib/core/object-collection/listable-object.model';
 import {
   SelectableListDeselectAction,
   SelectableListDeselectAllAction,

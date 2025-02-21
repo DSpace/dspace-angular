@@ -7,9 +7,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { RemoteData } from '../../../core/data/remote-data';
-import { Community } from '../../../core/shared/community.model';
-import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { Community } from '../../../../../modules/core/src/lib/core/shared/community.model';
+import { getFirstSucceededRemoteData } from '../../../../../modules/core/src/lib/core/shared/operators';
 import { AccessControlFormContainerComponent } from '../../../shared/access-control-form-container/access-control-form-container.component';
 
 @Component({

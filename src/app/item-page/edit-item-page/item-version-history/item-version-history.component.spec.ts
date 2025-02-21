@@ -12,8 +12,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { Item } from '../../../core/shared/item.model';
-import { createSuccessfulRemoteDataObject } from '../../../core/utilities/remote-data.utils';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { createSuccessfulRemoteDataObject } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { ItemVersionsComponent } from '../../versions/item-versions.component';
 import { ItemVersionHistoryComponent } from './item-version-history.component';

@@ -16,27 +16,27 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../../core/cache/builders/link.service';
+import { DSONameService } from '../../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { LinkService } from '../../../../../../../modules/core/src/lib/core/cache/builders/link.service';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../../core/config/app-config.interface';
-import { followLink } from '../../../../../core/data/follow-link-config.model';
-import { PaginatedList } from '../../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../../core/data/remote-data';
-import { WorkspaceItemSearchResult } from '../../../../../core/object-collection/workspace-item-search-result.model';
-import { Context } from '../../../../../core/shared/context.model';
-import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
-import { Item } from '../../../../../core/shared/item.model';
+} from '../../../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { followLink } from '../../../../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { PaginatedList } from '../../../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../../../../modules/core/src/lib/core/data/remote-data';
+import { WorkspaceItemSearchResult } from '../../../../../../../modules/core/src/lib/core/object-collection/workspace-item-search-result.model';
+import { Context } from '../../../../../../../modules/core/src/lib/core/shared/context.model';
+import { DSpaceObject } from '../../../../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
 import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '../../../../../core/shared/operators';
-import { ViewMode } from '../../../../../core/shared/view-mode.model';
-import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
-import { SupervisionOrder } from '../../../../../core/supervision-order/models/supervision-order.model';
-import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
+} from '../../../../../../../modules/core/src/lib/core/shared/operators';
+import { ViewMode } from '../../../../../../../modules/core/src/lib/core/shared/view-mode.model';
+import { WorkspaceItem } from '../../../../../../../modules/core/src/lib/core/submission/models/workspaceitem.model';
+import { SupervisionOrder } from '../../../../../../../modules/core/src/lib/core/supervision-order/models/supervision-order.model';
+import { SupervisionOrderDataService } from '../../../../../../../modules/core/src/lib/core/supervision-order/supervision-order-data.service';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { ListableObjectComponentLoaderComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';

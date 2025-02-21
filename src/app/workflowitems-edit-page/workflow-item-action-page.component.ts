@@ -22,17 +22,17 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { RemoteData } from '../core/data/remote-data';
-import { RequestService } from '../core/data/request.service';
-import { NotificationsService } from '../core/notifications/notifications.service';
-import { RouteService } from '../core/services/route.service';
-import { Item } from '../core/shared/item.model';
+import { RemoteData } from '../../../modules/core/src/lib/core/data/remote-data';
+import { RequestService } from '../../../modules/core/src/lib/core/data/request.service';
+import { NotificationsService } from '../../../modules/core/src/lib/core/notifications/notifications.service';
+import { RouteService } from '../../../modules/core/src/lib/core/services/route.service';
+import { Item } from '../../../modules/core/src/lib/core/shared/item.model';
 import {
   getAllSucceededRemoteData,
   getRemoteDataPayload,
-} from '../core/shared/operators';
-import { WorkflowItem } from '../core/submission/models/workflowitem.model';
-import { WorkflowItemDataService } from '../core/submission/workflowitem-data.service';
+} from '../../../modules/core/src/lib/core/shared/operators';
+import { WorkflowItem } from '../../../modules/core/src/lib/core/submission/models/workflowitem.model';
+import { WorkflowItemDataService } from '../../../modules/core/src/lib/core/submission/workflowitem-data.service';
 
 /**
  * Abstract component representing a page to perform an action on a workflow item

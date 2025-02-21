@@ -21,10 +21,10 @@ import {
 } from 'rxjs/operators';
 
 import { AppState } from '../../app.reducer';
-import { LogOutAction } from '../../core/auth/auth.actions';
-import { AuthService } from '../../core/auth/auth.service';
-import { EndUserAgreementService } from '../../core/end-user-agreement/end-user-agreement.service';
-import { NotificationsService } from '../../core/notifications/notifications.service';
+import { LogOutAction } from '../../../../modules/core/src/lib/core/auth/auth.actions';
+import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
+import { EndUserAgreementService } from '../../../../modules/core/src/lib/core/end-user-agreement/end-user-agreement.service';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { EndUserAgreementContentComponent } from './end-user-agreement-content/end-user-agreement-content.component';
 

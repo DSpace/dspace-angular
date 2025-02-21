@@ -15,13 +15,13 @@ import {
 } from 'jasmine-marbles';
 
 import { getBitstreamModuleRoute } from '../../app-routing-paths';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { Item } from '../../core/shared/item.model';
-import { URLCombiner } from '../../core/url-combiner/url-combiner';
-import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
-import { RouterLinkDirectiveStub } from '../../core/utilities/testing/router-link-directive.stub';
+import { AuthorizationDataService } from '../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
+import { Bitstream } from '../../../../modules/core/src/lib/core/shared/bitstream.model';
+import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
+import { URLCombiner } from '../../../../modules/core/src/lib/core/url-combiner/url-combiner';
+import { ActivatedRouteStub } from '../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+import { RouterLinkDirectiveStub } from '../../../../modules/core/src/lib/core/utilities/testing/router-link-directive.stub';
 import { getItemModuleRoute } from '../../item-page/item-page-routing-paths';
 import { FileDownloadLinkComponent } from './file-download-link.component';
 

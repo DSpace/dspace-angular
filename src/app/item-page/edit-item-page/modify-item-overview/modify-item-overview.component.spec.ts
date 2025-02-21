@@ -6,7 +6,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Item } from '../../../core/shared/item.model';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
 import { ModifyItemOverviewComponent } from './modify-item-overview.component';
 
 let comp: ModifyItemOverviewComponent;

@@ -45,26 +45,26 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { FindAllDataImpl } from '../../core/data/base/find-all-data';
-import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { BitstreamFormatDataService } from '../../core/data/bitstream-format-data.service';
-import { PrimaryBitstreamService } from '../../core/data/primary-bitstream.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
-import { BITSTREAM_FORMAT } from '../../core/shared/bitstream-format.resource-type';
-import { BitstreamFormatSupportLevel } from '../../core/shared/bitstream-format-support-level';
-import { Bundle } from '../../core/shared/bundle.model';
-import { Item } from '../../core/shared/item.model';
-import { Metadata } from '../../core/shared/metadata.utils';
+import { DSONameService } from '../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { FindAllDataImpl } from '../../../../modules/core/src/lib/core/data/base/find-all-data';
+import { BitstreamDataService } from '../../../../modules/core/src/lib/core/data/bitstream-data.service';
+import { BitstreamFormatDataService } from '../../../../modules/core/src/lib/core/data/bitstream-format-data.service';
+import { PrimaryBitstreamService } from '../../../../modules/core/src/lib/core/data/primary-bitstream.service';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Bitstream } from '../../../../modules/core/src/lib/core/shared/bitstream.model';
+import { BitstreamFormat } from '../../../../modules/core/src/lib/core/shared/bitstream-format.model';
+import { BITSTREAM_FORMAT } from '../../../../modules/core/src/lib/core/shared/bitstream-format.resource-type';
+import { BitstreamFormatSupportLevel } from '../../../../modules/core/src/lib/core/shared/bitstream-format-support-level';
+import { Bundle } from '../../../../modules/core/src/lib/core/shared/bundle.model';
+import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
+import { Metadata } from '../../../../modules/core/src/lib/core/shared/metadata.utils';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
-} from '../../core/shared/operators';
+} from '../../../../modules/core/src/lib/core/shared/operators';
 import { getEntityEditRoute } from '../../item-page/item-page-routing-paths';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { DynamicCustomSwitchModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';

@@ -3,18 +3,18 @@ import { Injectable } from '@angular/core';
 import { hasValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 
-import { RequestParam } from '../../core/cache/models/request-param.model';
+import { RequestParam } from '../../../../modules/core/src/lib/core/cache/models/request-param.model';
 import {
   SortDirection,
   SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { FindListOptions } from '../../core/data/find-list-options.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { ProcessDataService } from '../../core/data/processes/process-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { Process } from '../../core/processes/process.model';
-import { ProcessStatus } from '../../core/processes/process-status.model';
-import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
+} from '../../../../modules/core/src/lib/core/cache/models/sort-options.model';
+import { FindListOptions } from '../../../../modules/core/src/lib/core/data/find-list-options.model';
+import { PaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { ProcessDataService } from '../../../../modules/core/src/lib/core/data/processes/process-data.service';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
+import { Process } from '../../../../modules/core/src/lib/core/processes/process.model';
+import { ProcessStatus } from '../../../../modules/core/src/lib/core/processes/process-status.model';
+import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
 
 /**
  * The sortable fields for processes

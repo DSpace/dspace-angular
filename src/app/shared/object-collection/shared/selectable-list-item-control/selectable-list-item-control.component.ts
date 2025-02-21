@@ -15,7 +15,7 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { ListableObject } from '../../../../core/object-collection/listable-object.model';
+import { ListableObject } from '../../../../../../modules/core/src/lib/core/object-collection/listable-object.model';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
 import { VarDirective } from '../../../utils/var.directive';
 

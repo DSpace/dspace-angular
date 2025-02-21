@@ -23,20 +23,20 @@ import {
 } from 'rxjs';
 
 import { environment } from '../../../../../../environments/environment.test';
-import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { APP_CONFIG } from '../../../../../core/config/app-config.interface';
-import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../../core/data/remote-data';
-import { RequestEntryState } from '../../../../../core/data/request-entry-state.model';
-import { PageInfo } from '../../../../../core/shared/page-info.model';
-import { SearchFilterConfig } from '../../../../../core/shared/search/models/search-filter-config.model';
-import { SearchService } from '../../../../../core/shared/search/search.service';
-import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
-import { VocabularyEntryDetail } from '../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
-import { RouterStub } from '../../../../../core/utilities/testing/router.stub';
-import { SearchConfigurationServiceStub } from '../../../../../core/utilities/testing/search-configuration-service.stub';
-import { SearchServiceStub } from '../../../../../core/utilities/testing/search-service.stub';
+import { RemoteDataBuildService } from '../../../../../../../modules/core/src/lib/core/cache/builders/remote-data-build.service';
+import { APP_CONFIG } from '../../../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { buildPaginatedList } from '../../../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../../../../modules/core/src/lib/core/data/remote-data';
+import { RequestEntryState } from '../../../../../../../modules/core/src/lib/core/data/request-entry-state.model';
+import { PageInfo } from '../../../../../../../modules/core/src/lib/core/shared/page-info.model';
+import { SearchFilterConfig } from '../../../../../../../modules/core/src/lib/core/shared/search/models/search-filter-config.model';
+import { SearchService } from '../../../../../../../modules/core/src/lib/core/shared/search/search.service';
+import { SearchFilterService } from '../../../../../../../modules/core/src/lib/core/shared/search/search-filter.service';
+import { VocabularyEntryDetail } from '../../../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyService } from '../../../../../../../modules/core/src/lib/core/submission/vocabularies/vocabulary.service';
+import { RouterStub } from '../../../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
+import { SearchConfigurationServiceStub } from '../../../../../../../modules/core/src/lib/core/utilities/testing/search-configuration-service.stub';
+import { SearchServiceStub } from '../../../../../../../modules/core/src/lib/core/utilities/testing/search-service.stub';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { SearchHierarchyFilterComponent } from './search-hierarchy-filter.component';
 

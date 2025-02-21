@@ -25,18 +25,18 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { RequestService } from '../../../../core/data/request.service';
-import { getMockRequestService } from '../../../../core/mocks/request.service.mock';
-import { TranslateLoaderMock } from '../../../../core/mocks/translate-loader.mock';
-import { NotificationsService } from '../../../../core/notifications/notifications.service';
-import { ClaimedDeclinedTaskSearchResult } from '../../../../core/object-collection/claimed-declined-task-search-result.model';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
-import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
-import { ProcessTaskResponse } from '../../../../core/tasks/models/process-task-response';
-import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
-import { NotificationsServiceStub } from '../../../../core/utilities/testing/notifications-service.stub';
-import { RouterStub } from '../../../../core/utilities/testing/router.stub';
+import { RequestService } from '../../../../../../modules/core/src/lib/core/data/request.service';
+import { getMockRequestService } from '../../../../../../modules/core/src/lib/core/mocks/request.service.mock';
+import { TranslateLoaderMock } from '../../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
+import { NotificationsService } from '../../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { ClaimedDeclinedTaskSearchResult } from '../../../../../../modules/core/src/lib/core/object-collection/claimed-declined-task-search-result.model';
+import { SearchService } from '../../../../../../modules/core/src/lib/core/shared/search/search.service';
+import { ClaimedTaskDataService } from '../../../../../../modules/core/src/lib/core/tasks/claimed-task-data.service';
+import { ClaimedTask } from '../../../../../../modules/core/src/lib/core/tasks/models/claimed-task-object.model';
+import { ProcessTaskResponse } from '../../../../../../modules/core/src/lib/core/tasks/models/process-task-response';
+import { PoolTaskDataService } from '../../../../../../modules/core/src/lib/core/tasks/pool-task-data.service';
+import { NotificationsServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { RouterStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
 import { getMockSearchService } from '../../../mocks/search-service.mock';
 import { ClaimedTaskActionsRejectComponent } from './claimed-task-actions-reject.component';
 

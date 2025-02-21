@@ -27,6 +27,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": "./",
     "paths": {
+      "@dspace/core": ["modules/core/src/index.ts"],
       "@dspace/shared/utils": ["modules/shared/utils/src/index.ts"]
     }
   },

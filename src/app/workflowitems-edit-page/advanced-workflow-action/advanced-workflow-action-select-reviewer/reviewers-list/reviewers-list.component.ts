@@ -34,16 +34,16 @@ import {
   EPersonListActionConfig,
   MembersListComponent,
 } from '../../../../access-control/group-registry/group-form/members-list/members-list.component';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { PaginatedList } from '../../../../core/data/paginated-list.model';
-import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
-import { GroupDataService } from '../../../../core/eperson/group-data.service';
-import { EPerson } from '../../../../core/eperson/models/eperson.model';
-import { EpersonDtoModel } from '../../../../core/eperson/models/eperson-dto.model';
-import { Group } from '../../../../core/eperson/models/group.model';
-import { NotificationsService } from '../../../../core/notifications/notifications.service';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
+import { DSONameService } from '../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { PaginatedList } from '../../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { EPersonDataService } from '../../../../../../modules/core/src/lib/core/eperson/eperson-data.service';
+import { GroupDataService } from '../../../../../../modules/core/src/lib/core/eperson/group-data.service';
+import { EPerson } from '../../../../../../modules/core/src/lib/core/eperson/models/eperson.model';
+import { EpersonDtoModel } from '../../../../../../modules/core/src/lib/core/eperson/models/eperson-dto.model';
+import { Group } from '../../../../../../modules/core/src/lib/core/eperson/models/group.model';
+import { NotificationsService } from '../../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { PaginationService } from '../../../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { getFirstSucceededRemoteDataPayload } from '../../../../../../modules/core/src/lib/core/shared/operators';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';

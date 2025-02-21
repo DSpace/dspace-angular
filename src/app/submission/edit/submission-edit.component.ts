@@ -26,16 +26,16 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { Collection } from '../../core/shared/collection.model';
-import { Item } from '../../core/shared/item.model';
-import { getAllSucceededRemoteData } from '../../core/shared/operators';
-import { SubmissionObject } from '../../core/submission/models/submission-object.model';
-import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
-import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
+import { SubmissionDefinitionsModel } from '../../../../modules/core/src/lib/core/config/models/config-submission-definitions.model';
+import { ItemDataService } from '../../../../modules/core/src/lib/core/data/item-data.service';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Collection } from '../../../../modules/core/src/lib/core/shared/collection.model';
+import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
+import { getAllSucceededRemoteData } from '../../../../modules/core/src/lib/core/shared/operators';
+import { SubmissionObject } from '../../../../modules/core/src/lib/core/submission/models/submission-object.model';
+import { WorkspaceitemSectionsObject } from '../../../../modules/core/src/lib/core/submission/models/workspaceitem-sections.model';
+import { SubmissionJsonPatchOperationsService } from '../../../../modules/core/src/lib/core/submission/submission-json-patch-operations.service';
 import { SubmissionFormComponent } from '../form/submission-form.component';
 import { SubmissionError } from '../objects/submission-error.model';
 import { SubmissionService } from '../submission.service';

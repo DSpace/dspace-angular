@@ -31,20 +31,20 @@ import {
   toArray,
 } from 'rxjs/operators';
 
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { Identifier } from '../../../core/data/identifier.model';
-import { IdentifierData } from '../../../core/data/identifier-data.model';
-import { IdentifierDataService } from '../../../core/data/identifier-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
-import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
-import { Item } from '../../../core/shared/item.model';
+import { ConfigurationDataService } from '../../../../../modules/core/src/lib/core/data/configuration-data.service';
+import { AuthorizationDataService } from '../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
+import { Identifier } from '../../../../../modules/core/src/lib/core/data/identifier.model';
+import { IdentifierData } from '../../../../../modules/core/src/lib/core/data/identifier-data.model';
+import { IdentifierDataService } from '../../../../../modules/core/src/lib/core/data/identifier-data.service';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { OrcidAuthService } from '../../../../../modules/core/src/lib/core/orcid/orcid-auth.service';
+import { ConfigurationProperty } from '../../../../../modules/core/src/lib/core/shared/configuration-property.model';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
 import {
   getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
-} from '../../../core/shared/operators';
+} from '../../../../../modules/core/src/lib/core/shared/operators';
 import {
   fadeIn,
   fadeInOut,

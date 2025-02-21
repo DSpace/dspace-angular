@@ -3,7 +3,7 @@ import {
   Observable,
 } from 'rxjs';
 
-import { RoleType } from '../../core/roles/role-types';
+import { RoleType } from '../../../../modules/core/src/lib/core/roles/role-types';
 
 export class RoleServiceMock {
 

@@ -10,15 +10,15 @@ import {
   Operation,
 } from 'fast-json-patch';
 
-import { ArrayMoveChangeAnalyzer } from '../../core/data/array-move-change-analyzer.service';
-import { MetadataPatchAddOperation } from '../../core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-add-operation.model';
-import { MetadataPatchMoveOperation } from '../../core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-move-operation.model';
-import { MetadataPatchRemoveOperation } from '../../core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-remove-operation.model';
-import { MetadataPatchReplaceOperation } from '../../core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-replace-operation.model';
+import { ArrayMoveChangeAnalyzer } from '../../../../modules/core/src/lib/core/data/array-move-change-analyzer.service';
+import { MetadataPatchAddOperation } from '../../../../modules/core/src/lib/core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-add-operation.model';
+import { MetadataPatchMoveOperation } from '../../../../modules/core/src/lib/core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-move-operation.model';
+import { MetadataPatchRemoveOperation } from '../../../../modules/core/src/lib/core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-remove-operation.model';
+import { MetadataPatchReplaceOperation } from '../../../../modules/core/src/lib/core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-replace-operation.model';
 import {
   MetadataMap,
   MetadataValue,
-} from '../../core/shared/metadata.models';
+} from '../../../../modules/core/src/lib/core/shared/metadata.models';
 
 /**
  * Enumeration for the type of change occurring on a metadata value

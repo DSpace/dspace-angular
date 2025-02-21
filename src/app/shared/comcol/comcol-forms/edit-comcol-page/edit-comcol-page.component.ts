@@ -10,8 +10,8 @@ import { isNotEmpty } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { RemoteData } from '../../../../core/data/remote-data';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { RemoteData } from '../../../../../../modules/core/src/lib/core/data/remote-data';
+import { DSpaceObject } from '../../../../../../modules/core/src/lib/core/shared/dspace-object.model';
 
 /**
  * Component representing the edit page for communities and collections

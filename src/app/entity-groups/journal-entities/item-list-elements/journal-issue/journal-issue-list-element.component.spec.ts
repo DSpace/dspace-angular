@@ -12,12 +12,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { environment } from '../../../../../environments/environment.test';
-import { AuthService } from '../../../../core/auth/auth.service';
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { APP_CONFIG } from '../../../../core/config/app-config.interface';
-import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
-import { Item } from '../../../../core/shared/item.model';
-import { ActivatedRouteStub } from '../../../../core/utilities/testing/active-router.stub';
+import { AuthService } from '../../../../../../modules/core/src/lib/core/auth/auth.service';
+import { DSONameService } from '../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { APP_CONFIG } from '../../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { AuthorizationDataService } from '../../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
+import { ActivatedRouteStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
 import { AuthServiceMock } from '../../../../shared/mocks/auth.service.mock';
 import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
 import { mockTruncatableService } from '../../../../shared/mocks/mock-trucatable.service';

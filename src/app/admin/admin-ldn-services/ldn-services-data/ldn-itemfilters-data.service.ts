@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
+import { RemoteDataBuildService } from '../../../../../modules/core/src/lib/core/cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../../../../../modules/core/src/lib/core/cache/object-cache.service';
 import {
   FindAllData,
   FindAllDataImpl,
-} from '../../../core/data/base/find-all-data';
-import { IdentifiableDataService } from '../../../core/data/base/identifiable-data.service';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
-import { FollowLinkConfig } from '../../../core/data/follow-link-config.model';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { RequestService } from '../../../core/data/request.service';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
+} from '../../../../../modules/core/src/lib/core/data/base/find-all-data';
+import { IdentifiableDataService } from '../../../../../modules/core/src/lib/core/data/base/identifiable-data.service';
+import { FindListOptions } from '../../../../../modules/core/src/lib/core/data/find-list-options.model';
+import { FollowLinkConfig } from '../../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { HALEndpointService } from '../../../../../modules/core/src/lib/core/shared/hal-endpoint.service';
 import { Itemfilter } from '../ldn-services-model/ldn-service-itemfilters';
 
 /**

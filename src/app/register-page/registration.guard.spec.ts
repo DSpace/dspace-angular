@@ -5,14 +5,14 @@ import {
 } from '@angular/router';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '../core/auth/auth.service';
-import { EpersonRegistrationService } from '../core/data/eperson-registration.service';
-import { RemoteData } from '../core/data/remote-data';
-import { Registration } from '../core/shared/registration.model';
+import { AuthService } from '../../../modules/core/src/lib/core/auth/auth.service';
+import { EpersonRegistrationService } from '../../../modules/core/src/lib/core/data/eperson-registration.service';
+import { RemoteData } from '../../../modules/core/src/lib/core/data/remote-data';
+import { Registration } from '../../../modules/core/src/lib/core/shared/registration.model';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-} from '../core/utilities/remote-data.utils';
+} from '../../../modules/core/src/lib/core/utilities/remote-data.utils';
 import { registrationGuard } from './registration.guard';
 
 describe('registrationGuard', () => {

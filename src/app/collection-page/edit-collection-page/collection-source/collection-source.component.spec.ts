@@ -22,26 +22,26 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { FieldUpdate } from '../../../core/data/object-updates/field-update.model';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { RequestService } from '../../../core/data/request.service';
+import { CollectionDataService } from '../../../../../modules/core/src/lib/core/data/collection-data.service';
+import { FieldUpdate } from '../../../../../modules/core/src/lib/core/data/object-updates/field-update.model';
+import { ObjectUpdatesService } from '../../../../../modules/core/src/lib/core/data/object-updates/object-updates.service';
+import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
 import {
   INotification,
   Notification,
-} from '../../../core/notifications/models/notification.model';
-import { NotificationType } from '../../../core/notifications/models/notification-type';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { Collection } from '../../../core/shared/collection.model';
+} from '../../../../../modules/core/src/lib/core/notifications/models/notification.model';
+import { NotificationType } from '../../../../../modules/core/src/lib/core/notifications/models/notification-type';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
 import {
   ContentSource,
   ContentSourceHarvestType,
-} from '../../../core/shared/content-source.model';
+} from '../../../../../modules/core/src/lib/core/shared/content-source.model';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../core/utilities/remote-data.utils';
-import { RouterStub } from '../../../core/utilities/testing/router.stub';
+} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { RouterStub } from '../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
 import { FormComponent } from '../../../shared/form/form.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { CollectionSourceComponent } from './collection-source.component';

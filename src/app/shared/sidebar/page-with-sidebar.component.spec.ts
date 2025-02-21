@@ -7,7 +7,7 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of as observableOf } from 'rxjs';
 
-import { SidebarServiceStub } from '../../core/utilities/testing/sidebar-service.stub';
+import { SidebarServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/sidebar-service.stub';
 import { HostWindowService } from '../host-window.service';
 import { PageWithSidebarComponent } from './page-with-sidebar.component';
 import { SidebarService } from './sidebar.service';

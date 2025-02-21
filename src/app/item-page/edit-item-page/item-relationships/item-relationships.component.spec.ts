@@ -18,33 +18,33 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { RestResponse } from '../../../core/cache/response.models';
-import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { RelationshipDataService } from '../../../core/data/relationship-data.service';
-import { RelationshipTypeDataService } from '../../../core/data/relationship-type-data.service';
-import { RequestService } from '../../../core/data/request.service';
+import { ObjectCacheService } from '../../../../../modules/core/src/lib/core/cache/object-cache.service';
+import { RestResponse } from '../../../../../modules/core/src/lib/core/cache/response.models';
+import { EntityTypeDataService } from '../../../../../modules/core/src/lib/core/data/entity-type-data.service';
+import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
+import { FieldChangeType } from '../../../../../modules/core/src/lib/core/data/object-updates/field-change-type.model';
+import { ObjectUpdatesService } from '../../../../../modules/core/src/lib/core/data/object-updates/object-updates.service';
+import { RelationshipDataService } from '../../../../../modules/core/src/lib/core/data/relationship-data.service';
+import { RelationshipTypeDataService } from '../../../../../modules/core/src/lib/core/data/relationship-type-data.service';
+import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
 import {
   INotification,
   Notification,
-} from '../../../core/notifications/models/notification.model';
-import { NotificationType } from '../../../core/notifications/models/notification-type';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { Item } from '../../../core/shared/item.model';
-import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
-import { Relationship } from '../../../core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '../../../core/shared/item-relationships/relationship-type.model';
+} from '../../../../../modules/core/src/lib/core/notifications/models/notification.model';
+import { NotificationType } from '../../../../../modules/core/src/lib/core/notifications/models/notification-type';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { ItemType } from '../../../../../modules/core/src/lib/core/shared/item-relationships/item-type.model';
+import { Relationship } from '../../../../../modules/core/src/lib/core/shared/item-relationships/relationship.model';
+import { RelationshipType } from '../../../../../modules/core/src/lib/core/shared/item-relationships/relationship-type.model';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../core/utilities/remote-data.utils';
-import { ItemDataServiceStub } from '../../../core/utilities/testing/item-data.service.stub';
-import { relationshipTypes } from '../../../core/utilities/testing/relationship-types.mock';
-import { RouterStub } from '../../../core/utilities/testing/router.stub';
-import { createPaginatedList } from '../../../core/utilities/testing/utils.test';
+} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { ItemDataServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/item-data.service.stub';
+import { relationshipTypes } from '../../../../../modules/core/src/lib/core/utilities/testing/relationship-types.mock';
+import { RouterStub } from '../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
+import { createPaginatedList } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../../shared/theme-support/theme.service';

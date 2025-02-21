@@ -5,9 +5,9 @@ import {
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { ItemSearchResult } from '../../../../../../../../../app/core/object-collection/item-search-result.model';
-import { Context } from '../../../../../../../../../app/core/shared/context.model';
-import { ViewMode } from '../../../../../../../../../app/core/shared/view-mode.model';
+import { ItemSearchResult } from '../../../../../../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
+import { Context } from '../../../../../../../../../../modules/core/src/lib/core/shared/context.model';
+import { ViewMode } from '../../../../../../../../../../modules/core/src/lib/core/shared/view-mode.model';
 import { ThemedBadgesComponent } from '../../../../../../../../../app/shared/object-collection/shared/badges/themed-badges.component';
 import { listableObjectComponent } from '../../../../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
 import { ItemSearchResultListElementComponent as BaseComponent } from '../../../../../../../../../app/shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';

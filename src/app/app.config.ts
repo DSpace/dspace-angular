@@ -49,20 +49,20 @@ import {
   APP_ROUTING_SCROLL_CONF,
 } from './app-routes';
 import { BROWSE_BY_DECORATOR_MAP } from './browse-by/browse-by-switcher/browse-by-decorator';
-import { AuthInterceptor } from './core/auth/auth.interceptor';
+import { AuthInterceptor } from '../../modules/core/src/lib/core/auth/auth.interceptor';
 import {
   APP_CONFIG,
   AppConfig,
-} from './core/config/app-config.interface';
-import { LocaleInterceptor } from './core/locale/locale.interceptor';
-import { LogInterceptor } from './core/log/log.interceptor';
+} from '../../modules/core/src/lib/core/config/app-config.interface';
+import { LocaleInterceptor } from '../../modules/core/src/lib/core/locale/locale.interceptor';
+import { LogInterceptor } from '../../modules/core/src/lib/core/log/log.interceptor';
 import {
   models,
   provideCore,
-} from './core/provide-core';
-import { ClientCookieService } from './core/services/client-cookie.service';
-import { DSpaceRouterStateSerializer } from './core/shared/ngrx/dspace-router-state-serializer';
-import { XsrfInterceptor } from './core/xsrf/xsrf.interceptor';
+} from '../../modules/core/src/lib/core/provide-core';
+import { ClientCookieService } from '../../modules/core/src/lib/core/services/client-cookie.service';
+import { DSpaceRouterStateSerializer } from '../../modules/core/src/lib/core/shared/ngrx/dspace-router-state-serializer';
+import { XsrfInterceptor } from '../../modules/core/src/lib/core/xsrf/xsrf.interceptor';
 import { RootModule } from './root.module';
 import { AUTH_METHOD_FOR_DECORATOR_MAP } from './shared/log-in/methods/log-in.methods-decorator';
 import { METADATA_REPRESENTATION_COMPONENT_DECORATOR_MAP } from './shared/metadata-representation/metadata-representation.decorator';

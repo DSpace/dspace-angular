@@ -19,23 +19,23 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '../../../core/auth/auth.service';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { ItemRequestDataService } from '../../../core/data/item-request-data.service';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
-import { Bitstream } from '../../../core/shared/bitstream.model';
-import { Item } from '../../../core/shared/item.model';
-import { ItemRequest } from '../../../core/shared/item-request.model';
+import { AuthService } from '../../../../../modules/core/src/lib/core/auth/auth.service';
+import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { BitstreamDataService } from '../../../../../modules/core/src/lib/core/data/bitstream-data.service';
+import { AuthorizationDataService } from '../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { ItemRequestDataService } from '../../../../../modules/core/src/lib/core/data/item-request-data.service';
+import { EPerson } from '../../../../../modules/core/src/lib/core/eperson/models/eperson.model';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Bitstream } from '../../../../../modules/core/src/lib/core/shared/bitstream.model';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { ItemRequest } from '../../../../../modules/core/src/lib/core/shared/item-request.model';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../../core/utilities/testing/notifications-service.stub';
-import { RouterStub } from '../../../core/utilities/testing/router.stub';
+} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { RouterStub } from '../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-page.component';
 

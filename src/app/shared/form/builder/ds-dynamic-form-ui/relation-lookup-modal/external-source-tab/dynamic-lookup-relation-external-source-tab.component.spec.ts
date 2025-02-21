@@ -17,23 +17,23 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { ExternalSourceDataService } from '../../../../../../core/data/external-source-data.service';
-import { PaginationService } from '../../../../../../core/pagination/pagination.service';
-import { Collection } from '../../../../../../core/shared/collection.model';
-import { ExternalSource } from '../../../../../../core/shared/external-source.model';
-import { ExternalSourceEntry } from '../../../../../../core/shared/external-source-entry.model';
-import { RelationshipOptions } from '../../../../../../core/shared/form/relationship-options.model';
-import { Item } from '../../../../../../core/shared/item.model';
-import { ItemType } from '../../../../../../core/shared/item-relationships/item-type.model';
-import { PaginatedSearchOptions } from '../../../../../../core/shared/paginated-search-options.model';
-import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
+import { ExternalSourceDataService } from '../../../../../../../../modules/core/src/lib/core/data/external-source-data.service';
+import { PaginationService } from '../../../../../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { Collection } from '../../../../../../../../modules/core/src/lib/core/shared/collection.model';
+import { ExternalSource } from '../../../../../../../../modules/core/src/lib/core/shared/external-source.model';
+import { ExternalSourceEntry } from '../../../../../../../../modules/core/src/lib/core/shared/external-source-entry.model';
+import { RelationshipOptions } from '../../../../../../../../modules/core/src/lib/core/shared/form/relationship-options.model';
+import { Item } from '../../../../../../../../modules/core/src/lib/core/shared/item.model';
+import { ItemType } from '../../../../../../../../modules/core/src/lib/core/shared/item-relationships/item-type.model';
+import { PaginatedSearchOptions } from '../../../../../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
+import { SearchConfigurationService } from '../../../../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
 import {
   createFailedRemoteDataObject$,
   createPendingRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../../core/utilities/remote-data.utils';
-import { PaginationServiceStub } from '../../../../../../core/utilities/testing/pagination-service.stub';
-import { createPaginatedList } from '../../../../../../core/utilities/testing/utils.test';
+} from '../../../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { PaginationServiceStub } from '../../../../../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
+import { createPaginatedList } from '../../../../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { ErrorComponent } from '../../../../../error/error.component';
 import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
 import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';

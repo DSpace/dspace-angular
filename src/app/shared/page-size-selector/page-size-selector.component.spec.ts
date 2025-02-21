@@ -17,10 +17,10 @@ import {
 import {
   SortDirection,
   SortOptions,
-} from '../../core/cache/models/sort-options.model';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
-import { PaginationServiceStub } from '../../core/utilities/testing/pagination-service.stub';
+} from '../../../../modules/core/src/lib/core/cache/models/sort-options.model';
+import { PaginationService } from '../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+import { PaginationServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { EnumKeysPipe } from '../utils/enum-keys-pipe';
 import { VarDirective } from '../utils/var.directive';

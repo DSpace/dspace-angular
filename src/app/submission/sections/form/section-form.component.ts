@@ -35,26 +35,26 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
-import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { ConfigObject } from '../../../core/config/models/config.model';
-import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
-import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
-import { SubmissionFormsConfigDataService } from '../../../core/config/submission-forms-config-data.service';
-import { followLink } from '../../../core/data/follow-link-config.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { RequestService } from '../../../core/data/request.service';
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { NotificationsService } from '../../../core/notifications/notifications.service';
+import { ObjectCacheService } from '../../../../../modules/core/src/lib/core/cache/object-cache.service';
+import { ConfigObject } from '../../../../../modules/core/src/lib/core/config/models/config.model';
+import { FormRowModel } from '../../../../../modules/core/src/lib/core/config/models/config-submission-form.model';
+import { SubmissionFormsModel } from '../../../../../modules/core/src/lib/core/config/models/config-submission-forms.model';
+import { SubmissionFormsConfigDataService } from '../../../../../modules/core/src/lib/core/config/submission-forms-config-data.service';
+import { followLink } from '../../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
+import { JsonPatchOperationPathCombiner } from '../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operation-path-combiner';
+import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '../../../core/shared/operators';
-import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
-import { WorkflowItem } from '../../../core/submission/models/workflowitem.model';
-import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
-import { WorkspaceitemSectionFormObject } from '../../../core/submission/models/workspaceitem-section-form.model';
-import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
-import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
+} from '../../../../../modules/core/src/lib/core/shared/operators';
+import { SubmissionObject } from '../../../../../modules/core/src/lib/core/submission/models/submission-object.model';
+import { WorkflowItem } from '../../../../../modules/core/src/lib/core/submission/models/workflowitem.model';
+import { WorkspaceItem } from '../../../../../modules/core/src/lib/core/submission/models/workspaceitem.model';
+import { WorkspaceitemSectionFormObject } from '../../../../../modules/core/src/lib/core/submission/models/workspaceitem-section-form.model';
+import { SubmissionObjectDataService } from '../../../../../modules/core/src/lib/core/submission/submission-object-data.service';
+import { SubmissionScopeType } from '../../../../../modules/core/src/lib/core/submission/submission-scope-type';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 import { FormComponent } from '../../../shared/form/form.component';

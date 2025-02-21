@@ -13,16 +13,16 @@ import {
 } from 'rxjs/operators';
 
 import { getPageNotFoundRoute } from '../../../app-routing-paths';
-import { AuthService } from '../../../core/auth/auth.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { VersionDataService } from '../../../core/data/version-data.service';
-import { redirectOn4xx } from '../../../core/shared/authorized.operators';
-import { Item } from '../../../core/shared/item.model';
+import { AuthService } from '../../../../../modules/core/src/lib/core/auth/auth.service';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { VersionDataService } from '../../../../../modules/core/src/lib/core/data/version-data.service';
+import { redirectOn4xx } from '../../../../../modules/core/src/lib/core/shared/authorized.operators';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '../../../core/shared/operators';
-import { Version } from '../../../core/shared/version.model';
+} from '../../../../../modules/core/src/lib/core/shared/operators';
+import { Version } from '../../../../../modules/core/src/lib/core/shared/version.model';
 import { getItemPageRoute } from '../../item-page-routing-paths';
 
 @Component({

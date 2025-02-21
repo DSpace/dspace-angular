@@ -1,7 +1,7 @@
 import {
   qualityAssuranceSourceObjectMoreAbstract,
   qualityAssuranceSourceObjectMorePid,
-} from '../../../core/mocks/notifications.mock';
+} from '../../../../../modules/core/src/lib/core/mocks/notifications.mock';
 import {
   AddSourceAction,
   RetrieveAllSourceAction,

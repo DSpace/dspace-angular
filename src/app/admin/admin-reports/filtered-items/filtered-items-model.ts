@@ -1,6 +1,6 @@
-import { Item } from 'src/app/core/shared/item.model';
+import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
 
-import { Collection } from '../../../core/shared/collection.model';
+import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
 
 export class FilteredItems {
 

@@ -17,19 +17,19 @@ import {
   Observable,
 } from 'rxjs';
 
-import { SortOptions } from '../../../core/cache/models/sort-options.model';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../core/data/remote-data';
-import { ListableObject } from '../../../core/object-collection/listable-object.model';
-import { Context } from '../../../core/shared/context.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { PaginatedSearchOptions } from '../../../core/shared/paginated-search-options.model';
-import { AppliedFilter } from '../../../core/shared/search/models/applied-filter.model';
-import { SearchFilter } from '../../../core/shared/search/models/search-filter.model';
-import { SearchResult } from '../../../core/shared/search/models/search-result.model';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { ViewMode } from '../../../core/shared/view-mode.model';
+import { SortOptions } from '../../../../../modules/core/src/lib/core/cache/models/sort-options.model';
+import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { ListableObject } from '../../../../../modules/core/src/lib/core/object-collection/listable-object.model';
+import { Context } from '../../../../../modules/core/src/lib/core/shared/context.model';
+import { DSpaceObject } from '../../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { PaginatedSearchOptions } from '../../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
+import { AppliedFilter } from '../../../../../modules/core/src/lib/core/shared/search/models/applied-filter.model';
+import { SearchFilter } from '../../../../../modules/core/src/lib/core/shared/search/models/search-filter.model';
+import { SearchResult } from '../../../../../modules/core/src/lib/core/shared/search/models/search-result.model';
+import { SearchService } from '../../../../../modules/core/src/lib/core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
+import { ViewMode } from '../../../../../modules/core/src/lib/core/shared/view-mode.model';
 import {
   fadeIn,
   fadeInOut,

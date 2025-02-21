@@ -7,13 +7,13 @@ import {
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 
-import { BrowseDefinition } from '../../core/shared/browse-definition.model';
-import { GenericConstructor } from '../../core/shared/generic-constructor';
-import { ActivatedRouteStub } from '../../core/utilities/testing/active-router.stub';
+import { BrowseDefinition } from '../../../../modules/core/src/lib/core/shared/browse-definition.model';
+import { GenericConstructor } from '../../../../modules/core/src/lib/core/shared/generic-constructor';
+import { ActivatedRouteStub } from '../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
 import { DynamicComponentLoaderDirective } from '../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
-import { BrowseByDataType } from '../../core/shared/browse-by-data-type';
+import { BrowseByDataType } from '../../../../modules/core/src/lib/core/shared/browse-by-data-type';
 import { BrowseBySwitcherComponent } from '../browse-by-switcher/browse-by-switcher.component';
 import { BrowseByPageComponent } from './browse-by-page.component';
 

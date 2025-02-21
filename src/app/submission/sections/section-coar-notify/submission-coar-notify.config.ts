@@ -5,10 +5,10 @@ import {
   inheritSerialization,
 } from 'cerialize';
 
-import { typedObject } from '../../../core/cache/builders/build-decorators';
-import { CacheableObject } from '../../../core/cache/cacheable-object.model';
-import { ResourceType } from '../../../core/shared/resource-type';
-import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
+import { typedObject } from '../../../../../modules/core/src/lib/core/cache/builders/build-decorators';
+import { CacheableObject } from '../../../../../modules/core/src/lib/core/cache/cacheable-object.model';
+import { ResourceType } from '../../../../../modules/core/src/lib/core/shared/resource-type';
+import { excludeFromEquals } from '../../../../../modules/core/src/lib/core/utilities/equals.decorators';
 import { SUBMISSION_COAR_NOTIFY_CONFIG } from './section-coar-notify-service.resource-type';
 
 export  interface LdnPattern {

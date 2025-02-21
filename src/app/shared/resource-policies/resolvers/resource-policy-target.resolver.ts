@@ -12,14 +12,14 @@ import { isEmpty } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { APP_DATA_SERVICES_MAP } from '../../../core/config/app-config.interface';
-import { IdentifiableDataService } from '../../../core/data/base/identifiable-data.service';
-import { RemoteData } from '../../../core/data/remote-data';
-import { LazyDataServicesMap } from '../../../core/data-services-map';
-import { lazyDataService } from '../../../core/lazy-data-service';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { ResourceType } from '../../../core/shared/resource-type';
+import { APP_DATA_SERVICES_MAP } from '../../../../../modules/core/src/lib/core/config/app-config.interface';
+import { IdentifiableDataService } from '../../../../../modules/core/src/lib/core/data/base/identifiable-data.service';
+import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { LazyDataServicesMap } from '../../../../../modules/core/src/lib/core/data-services-map';
+import { lazyDataService } from '../../../../../modules/core/src/lib/core/lazy-data-service';
+import { DSpaceObject } from '../../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { getFirstCompletedRemoteData } from '../../../../../modules/core/src/lib/core/shared/operators';
+import { ResourceType } from '../../../../../modules/core/src/lib/core/shared/resource-type';
 
 /**
  * Method for resolving an item based on the parameters in the current route

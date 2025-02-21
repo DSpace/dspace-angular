@@ -28,16 +28,16 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { ConfigurationDataService } from '../core/data/configuration-data.service';
-import { ScriptDataService } from '../core/data/processes/script-data.service';
-import { RemoteData } from '../core/data/remote-data';
-import { NotificationsService } from '../core/notifications/notifications.service';
-import { Process } from '../core/processes/process.model';
-import { ConfigurationProperty } from '../core/shared/configuration-property.model';
+import { ConfigurationDataService } from '../../../modules/core/src/lib/core/data/configuration-data.service';
+import { ScriptDataService } from '../../../modules/core/src/lib/core/data/processes/script-data.service';
+import { RemoteData } from '../../../modules/core/src/lib/core/data/remote-data';
+import { NotificationsService } from '../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Process } from '../../../modules/core/src/lib/core/processes/process.model';
+import { ConfigurationProperty } from '../../../modules/core/src/lib/core/shared/configuration-property.model';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '../core/shared/operators';
+} from '../../../modules/core/src/lib/core/shared/operators';
 import { getProcessDetailRoute } from '../process-page/process-page-routing.paths';
 import { HandleService } from '../shared/handle.service';
 

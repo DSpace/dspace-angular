@@ -24,26 +24,26 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '../../core/data/bitstream-data.service';
-import { BitstreamFormatDataService } from '../../core/data/bitstream-format-data.service';
-import { PrimaryBitstreamService } from '../../core/data/primary-bitstream.service';
+import { DSONameService } from '../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { BitstreamDataService } from '../../../../modules/core/src/lib/core/data/bitstream-data.service';
+import { BitstreamFormatDataService } from '../../../../modules/core/src/lib/core/data/bitstream-format-data.service';
+import { PrimaryBitstreamService } from '../../../../modules/core/src/lib/core/data/primary-bitstream.service';
 import {
   INotification,
   Notification,
-} from '../../core/notifications/models/notification.model';
-import { NotificationType } from '../../core/notifications/models/notification-type';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
-import { BitstreamFormatSupportLevel } from '../../core/shared/bitstream-format-support-level';
-import { Item } from '../../core/shared/item.model';
-import { MetadataValueFilter } from '../../core/shared/metadata.models';
+} from '../../../../modules/core/src/lib/core/notifications/models/notification.model';
+import { NotificationType } from '../../../../modules/core/src/lib/core/notifications/models/notification-type';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Bitstream } from '../../../../modules/core/src/lib/core/shared/bitstream.model';
+import { BitstreamFormat } from '../../../../modules/core/src/lib/core/shared/bitstream-format.model';
+import { BitstreamFormatSupportLevel } from '../../../../modules/core/src/lib/core/shared/bitstream-format-support-level';
+import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
+import { MetadataValueFilter } from '../../../../modules/core/src/lib/core/shared/metadata.models';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../core/utilities/remote-data.utils';
-import { createPaginatedList } from '../../core/utilities/testing/utils.test';
+} from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { createPaginatedList } from '../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { getEntityEditRoute } from '../../item-page/item-page-routing-paths';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';

@@ -10,9 +10,9 @@ import {
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
-import { Item } from '../../../../core/shared/item.model';
+import { DSpaceObject } from '../../../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { DSpaceObjectType } from '../../../../../../modules/core/src/lib/core/shared/dspace-object-type.model';
+import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
 import { getItemEditRoute } from '../../../../item-page/item-page-routing-paths';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import {

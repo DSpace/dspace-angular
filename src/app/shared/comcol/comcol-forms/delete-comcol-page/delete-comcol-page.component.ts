@@ -16,14 +16,14 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { ComColDataService } from '../../../../core/data/comcol-data.service';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { NotificationsService } from '../../../../core/notifications/notifications.service';
-import { Collection } from '../../../../core/shared/collection.model';
-import { Community } from '../../../../core/shared/community.model';
-import { NoContent } from '../../../../core/shared/NoContent.model';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
+import { DSONameService } from '../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { ComColDataService } from '../../../../../../modules/core/src/lib/core/data/comcol-data.service';
+import { RemoteData } from '../../../../../../modules/core/src/lib/core/data/remote-data';
+import { NotificationsService } from '../../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Collection } from '../../../../../../modules/core/src/lib/core/shared/collection.model';
+import { Community } from '../../../../../../modules/core/src/lib/core/shared/community.model';
+import { NoContent } from '../../../../../../modules/core/src/lib/core/shared/NoContent.model';
+import { getFirstCompletedRemoteData } from '../../../../../../modules/core/src/lib/core/shared/operators';
 
 /**
  * Component representing the delete page for communities and collections

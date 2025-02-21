@@ -23,20 +23,20 @@ import {
 import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { CollectionDataService } from '../../core/data/collection-data.service';
-import { FindListOptions } from '../../core/data/find-list-options.model';
-import { FollowLinkConfig } from '../../core/data/follow-link-config.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { TranslateLoaderMock } from '../../core/mocks/translate-loader.mock';
-import { Collection } from '../../core/shared/collection.model';
-import { Community } from '../../core/shared/community.model';
+import { CollectionDataService } from '../../../../modules/core/src/lib/core/data/collection-data.service';
+import { FindListOptions } from '../../../../modules/core/src/lib/core/data/find-list-options.model';
+import { FollowLinkConfig } from '../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { PaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
+import { TranslateLoaderMock } from '../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
+import { Collection } from '../../../../modules/core/src/lib/core/shared/collection.model';
+import { Community } from '../../../../modules/core/src/lib/core/shared/community.model';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../core/utilities/remote-data.utils';
-import { MockElementRef } from '../../core/utilities/testing/element-ref.mock';
-import { createPaginatedList } from '../../core/utilities/testing/utils.test';
+} from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { MockElementRef } from '../../../../modules/core/src/lib/core/utilities/testing/element-ref.mock';
+import { createPaginatedList } from '../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { CollectionDropdownComponent } from '../../shared/collection-dropdown/collection-dropdown.component';
 import { CollectionSelectorComponent } from './collection-selector.component';
 

@@ -32,21 +32,21 @@ import {
 import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-by.component';
 
 import { environment } from '../../../environments/environment';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { BrowseService } from '../../core/browse/browse.service';
+import { DSONameService } from '../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { BrowseService } from '../../../../modules/core/src/lib/core/browse/browse.service';
 import {
   SortDirection,
   SortOptions,
-} from '../../core/cache/models/sort-options.model';
+} from '../../../../modules/core/src/lib/core/cache/models/sort-options.model';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../core/config/app-config.interface';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { Item } from '../../core/shared/item.model';
-import { PaginationComponentOptions } from '../../core/shared/pagination-component-options.model';
+} from '../../../../modules/core/src/lib/core/config/app-config.interface';
+import { DSpaceObjectDataService } from '../../../../modules/core/src/lib/core/data/dspace-object-data.service';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
+import { PaginationService } from '../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
+import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { StartsWithType } from '../../shared/starts-with/starts-with-type';
 import {

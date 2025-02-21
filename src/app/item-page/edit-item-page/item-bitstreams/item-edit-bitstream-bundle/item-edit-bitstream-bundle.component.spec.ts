@@ -15,18 +15,18 @@ import {
   Subject,
 } from 'rxjs';
 
-import { BundleDataService } from '../../../../core/data/bundle-data.service';
-import { FieldChangeType } from '../../../../core/data/object-updates/field-change-type.model';
-import { FieldUpdate } from '../../../../core/data/object-updates/field-update.model';
-import { ObjectUpdatesService } from '../../../../core/data/object-updates/object-updates.service';
-import { RequestService } from '../../../../core/data/request.service';
-import { getMockRequestService } from '../../../../core/mocks/request.service.mock';
-import { PaginationService } from '../../../../core/pagination/pagination.service';
-import { Bundle } from '../../../../core/shared/bundle.model';
-import { Item } from '../../../../core/shared/item.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../core/utilities/remote-data.utils';
-import { PaginationServiceStub } from '../../../../core/utilities/testing/pagination-service.stub';
-import { createPaginatedList } from '../../../../core/utilities/testing/utils.test';
+import { BundleDataService } from '../../../../../../modules/core/src/lib/core/data/bundle-data.service';
+import { FieldChangeType } from '../../../../../../modules/core/src/lib/core/data/object-updates/field-change-type.model';
+import { FieldUpdate } from '../../../../../../modules/core/src/lib/core/data/object-updates/field-update.model';
+import { ObjectUpdatesService } from '../../../../../../modules/core/src/lib/core/data/object-updates/object-updates.service';
+import { RequestService } from '../../../../../../modules/core/src/lib/core/data/request.service';
+import { getMockRequestService } from '../../../../../../modules/core/src/lib/core/mocks/request.service.mock';
+import { PaginationService } from '../../../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { Bundle } from '../../../../../../modules/core/src/lib/core/shared/bundle.model';
+import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { PaginationServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
+import { createPaginatedList } from '../../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
 import {

@@ -24,12 +24,12 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { EntityTypeDataService } from '../../core/data/entity-type-data.service';
-import { FindListOptions } from '../../core/data/find-list-options.model';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { ItemType } from '../../core/shared/item-relationships/item-type.model';
-import { getFirstSucceededRemoteWithNotEmptyData } from '../../core/shared/operators';
+import { EntityTypeDataService } from '../../../../modules/core/src/lib/core/data/entity-type-data.service';
+import { FindListOptions } from '../../../../modules/core/src/lib/core/data/find-list-options.model';
+import { PaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
+import { ItemType } from '../../../../modules/core/src/lib/core/shared/item-relationships/item-type.model';
+import { getFirstSucceededRemoteWithNotEmptyData } from '../../../../modules/core/src/lib/core/shared/operators';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 
 @Component({

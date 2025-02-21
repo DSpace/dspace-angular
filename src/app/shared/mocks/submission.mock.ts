@@ -1,10 +1,10 @@
-import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
-import { buildPaginatedList } from '../../core/data/paginated-list.model';
-import { Group } from '../../core/eperson/models/group.model';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
+import { SubmissionDefinitionsModel } from '../../../../modules/core/src/lib/core/config/models/config-submission-definitions.model';
+import { buildPaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { Group } from '../../../../modules/core/src/lib/core/eperson/models/group.model';
+import { PageInfo } from '../../../../modules/core/src/lib/core/shared/page-info.model';
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
 import { SubmissionObjectState } from '../../submission/objects/submission-objects.reducer';
-import { FormFieldMetadataValueObject } from '../../core/config/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
 
 export const mockSectionsData = {
   traditionalpageone: {

@@ -24,23 +24,23 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
+import { DSONameService } from '../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { AuthorizationDataService } from '../../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
 import {
   METADATA_EXPORT_SCRIPT_NAME,
   ScriptDataService,
-} from '../../../../core/data/processes/script-data.service';
-import { RemoteData } from '../../../../core/data/remote-data';
-import { NotificationsService } from '../../../../core/notifications/notifications.service';
-import { Process } from '../../../../core/processes/process.model';
-import { ProcessParameter } from '../../../../core/processes/process-parameter.model';
-import { Collection } from '../../../../core/shared/collection.model';
-import { Community } from '../../../../core/shared/community.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
-import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { createSuccessfulRemoteDataObject } from '../../../../core/utilities/remote-data.utils';
+} from '../../../../../../modules/core/src/lib/core/data/processes/script-data.service';
+import { RemoteData } from '../../../../../../modules/core/src/lib/core/data/remote-data';
+import { NotificationsService } from '../../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Process } from '../../../../../../modules/core/src/lib/core/processes/process.model';
+import { ProcessParameter } from '../../../../../../modules/core/src/lib/core/processes/process-parameter.model';
+import { Collection } from '../../../../../../modules/core/src/lib/core/shared/collection.model';
+import { Community } from '../../../../../../modules/core/src/lib/core/shared/community.model';
+import { DSpaceObject } from '../../../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { DSpaceObjectType } from '../../../../../../modules/core/src/lib/core/shared/dspace-object-type.model';
+import { getFirstCompletedRemoteData } from '../../../../../../modules/core/src/lib/core/shared/operators';
+import { createSuccessfulRemoteDataObject } from '../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
 import { getProcessDetailRoute } from '../../../../process-page/process-page-routing.paths';
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';

@@ -5,9 +5,9 @@ import {
   inheritSerialization,
 } from 'cerialize';
 
-import { typedObject } from '../../../core/cache/builders/build-decorators';
-import { CacheableObject } from '../../../core/cache/cacheable-object.model';
-import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
+import { typedObject } from '../../../../../modules/core/src/lib/core/cache/builders/build-decorators';
+import { CacheableObject } from '../../../../../modules/core/src/lib/core/cache/cacheable-object.model';
+import { excludeFromEquals } from '../../../../../modules/core/src/lib/core/utilities/equals.decorators';
 import { COAR_NOTIFY_WORKSPACEITEM } from './section-coar-notify-service.resource-type';
 
 /** An CoarNotify  and its properties. */

@@ -5,12 +5,12 @@ import {
 } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { EPersonDataService } from '../../../../core/eperson/eperson-data.service';
-import { EPerson } from '../../../../core/eperson/models/eperson.model';
+import { EPersonDataService } from '../../../../../../modules/core/src/lib/core/eperson/eperson-data.service';
+import { EPerson } from '../../../../../../modules/core/src/lib/core/eperson/models/eperson.model';
 import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '../../../../core/shared/operators';
+} from '../../../../../../modules/core/src/lib/core/shared/operators';
 
 @Component({
   selector: 'ds-eperson-data',

@@ -15,19 +15,19 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { AuthService } from '../../../../core/auth/auth.service';
-import { AuthMethod } from '../../../../core/auth/models/auth.method';
+import { AuthService } from '../../../../../../modules/core/src/lib/core/auth/auth.service';
+import { AuthMethod } from '../../../../../../modules/core/src/lib/core/auth/models/auth.method';
 import {
   isAuthenticated,
   isAuthenticationLoading,
-} from '../../../../core/auth/selectors';
-import { CoreState } from '../../../../core/core-state.model';
-import { HardRedirectService } from '../../../../core/services/hard-redirect.service';
+} from '../../../../../../modules/core/src/lib/core/auth/selectors';
+import { CoreState } from '../../../../../../modules/core/src/lib/core/core-state.model';
+import { HardRedirectService } from '../../../../../../modules/core/src/lib/core/services/hard-redirect.service';
 import {
   NativeWindowRef,
   NativeWindowService,
-} from '../../../../core/services/window.service';
-import { URLCombiner } from '../../../../core/url-combiner/url-combiner';
+} from '../../../../../../modules/core/src/lib/core/services/window.service';
+import { URLCombiner } from '../../../../../../modules/core/src/lib/core/url-combiner/url-combiner';
 
 @Component({
   selector: 'ds-log-in-external-provider',

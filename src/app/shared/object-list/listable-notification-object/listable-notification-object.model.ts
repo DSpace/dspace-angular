@@ -1,9 +1,9 @@
-import { typedObject } from '../../../core/cache/builders/build-decorators';
-import { TypedObject } from '../../../core/cache/typed-object.model';
-import { NotificationType } from '../../../core/notifications/models/notification-type';
-import { ListableObject } from '../../../core/object-collection/listable-object.model';
-import { GenericConstructor } from '../../../core/shared/generic-constructor';
-import { ResourceType } from '../../../core/shared/resource-type';
+import { typedObject } from '../../../../../modules/core/src/lib/core/cache/builders/build-decorators';
+import { TypedObject } from '../../../../../modules/core/src/lib/core/cache/typed-object.model';
+import { NotificationType } from '../../../../../modules/core/src/lib/core/notifications/models/notification-type';
+import { ListableObject } from '../../../../../modules/core/src/lib/core/object-collection/listable-object.model';
+import { GenericConstructor } from '../../../../../modules/core/src/lib/core/shared/generic-constructor';
+import { ResourceType } from '../../../../../modules/core/src/lib/core/shared/resource-type';
 import { LISTABLE_NOTIFICATION_OBJECT } from './listable-notification-object.resource-type';
 
 /**

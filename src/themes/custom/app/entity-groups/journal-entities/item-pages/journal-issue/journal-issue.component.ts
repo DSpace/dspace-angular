@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Context } from '../../../../../../../app/core/shared/context.model';
-import { ViewMode } from '../../../../../../../app/core/shared/view-mode.model';
+import { Context } from '../../../../../../../../modules/core/src/lib/core/shared/context.model';
+import { ViewMode } from '../../../../../../../../modules/core/src/lib/core/shared/view-mode.model';
 import { JournalIssueComponent as BaseComponent } from '../../../../../../../app/entity-groups/journal-entities/item-pages/journal-issue/journal-issue.component';
 import { GenericItemPageFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
 import { ThemedItemPageTitleFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/title/themed-item-page-field.component';

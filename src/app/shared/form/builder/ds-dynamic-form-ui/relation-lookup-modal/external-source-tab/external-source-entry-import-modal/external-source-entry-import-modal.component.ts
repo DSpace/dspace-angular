@@ -19,27 +19,27 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { ItemDataService } from '../../../../../../../core/data/item-data.service';
-import { LookupRelationService } from '../../../../../../../core/data/lookup-relation.service';
-import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
-import { RemoteData } from '../../../../../../../core/data/remote-data';
-import { NotificationsService } from '../../../../../../../core/notifications/notifications.service';
-import { ItemSearchResult } from '../../../../../../../core/object-collection/item-search-result.model';
-import { ListableObject } from '../../../../../../../core/object-collection/listable-object.model';
-import { Context } from '../../../../../../../core/shared/context.model';
-import { ExternalSourceEntry } from '../../../../../../../core/shared/external-source-entry.model';
-import { RelationshipOptions } from '../../../../../../../core/shared/form/relationship-options.model';
-import { Item } from '../../../../../../../core/shared/item.model';
-import { ItemType } from '../../../../../../../core/shared/item-relationships/item-type.model';
-import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
-import { Metadata } from '../../../../../../../core/shared/metadata.utils';
+import { ItemDataService } from '../../../../../../../../../modules/core/src/lib/core/data/item-data.service';
+import { LookupRelationService } from '../../../../../../../../../modules/core/src/lib/core/data/lookup-relation.service';
+import { PaginatedList } from '../../../../../../../../../modules/core/src/lib/core/data/paginated-list.model';
+import { RemoteData } from '../../../../../../../../../modules/core/src/lib/core/data/remote-data';
+import { NotificationsService } from '../../../../../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { ItemSearchResult } from '../../../../../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
+import { ListableObject } from '../../../../../../../../../modules/core/src/lib/core/object-collection/listable-object.model';
+import { Context } from '../../../../../../../../../modules/core/src/lib/core/shared/context.model';
+import { ExternalSourceEntry } from '../../../../../../../../../modules/core/src/lib/core/shared/external-source-entry.model';
+import { RelationshipOptions } from '../../../../../../../../../modules/core/src/lib/core/shared/form/relationship-options.model';
+import { Item } from '../../../../../../../../../modules/core/src/lib/core/shared/item.model';
+import { ItemType } from '../../../../../../../../../modules/core/src/lib/core/shared/item-relationships/item-type.model';
+import { MetadataValue } from '../../../../../../../../../modules/core/src/lib/core/shared/metadata.models';
+import { Metadata } from '../../../../../../../../../modules/core/src/lib/core/shared/metadata.utils';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '../../../../../../../core/shared/operators';
-import { PaginatedSearchOptions } from '../../../../../../../core/shared/paginated-search-options.model';
-import { PaginationComponentOptions } from '../../../../../../../core/shared/pagination-component-options.model';
-import { SearchResult } from '../../../../../../../core/shared/search/models/search-result.model';
+} from '../../../../../../../../../modules/core/src/lib/core/shared/operators';
+import { PaginatedSearchOptions } from '../../../../../../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
+import { PaginationComponentOptions } from '../../../../../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+import { SearchResult } from '../../../../../../../../../modules/core/src/lib/core/shared/search/models/search-result.model';
 import { SubmissionImportExternalCollectionComponent } from '../../../../../../../submission/import-external/import-external-collection/submission-import-external-collection.component';
 import { BtnDisabledDirective } from '../../../../../../btn-disabled.directive';
 import { CollectionListEntry } from '../../../../../../collection-dropdown/collection-dropdown.component';

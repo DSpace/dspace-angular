@@ -15,11 +15,11 @@ import {
 import cloneDeep from 'lodash/cloneDeep';
 import { of } from 'rxjs';
 
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { NotificationsService } from '../../core/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
+import { ConfigurationDataService } from '../../../../modules/core/src/lib/core/data/configuration-data.service';
+import { EPersonDataService } from '../../../../modules/core/src/lib/core/eperson/eperson-data.service';
+import { EPerson } from '../../../../modules/core/src/lib/core/eperson/models/eperson.model';
+import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../shared/form/form.component';
 import { VarDirective } from '../../shared/utils/var.directive';

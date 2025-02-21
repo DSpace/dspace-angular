@@ -1,4 +1,4 @@
-import { WorkspaceitemSectionDataType } from '../../../core/submission/models/workspaceitem-sections.model';
+import { WorkspaceitemSectionDataType } from '../../../../../modules/core/src/lib/core/submission/models/workspaceitem-sections.model';
 import { SubmissionSectionError } from '../../objects/submission-section-error.model';
 import { SectionsType } from '../sections-type';
 
