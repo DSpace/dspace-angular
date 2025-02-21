@@ -13,6 +13,8 @@ import { of } from 'rxjs';
 import { EPerson } from '../core/eperson/models/eperson.model';
 import { fakeAsync, flush } from '@angular/core/testing';
 import { createSuccessfulRemoteDataObject$, createFailedRemoteDataObject$ } from '../shared/remote-data.utils';
+import { KlaroService } from '../shared/cookies/klaro.service';
+import { KlaroServiceStub } from '../shared/cookies/klaro.service.stub';
 
 
 describe('accessibilitySettingsService', () => {
@@ -20,10 +22,12 @@ describe('accessibilitySettingsService', () => {
   let cookieService: CookieServiceMock;
   let authService: AuthServiceStub;
   let ePersonService: EPersonDataService;
+  let klaroService: KlaroService;
 
   beforeEach(() => {
     cookieService = new CookieServiceMock();
     authService = new AuthServiceStub();
+    klaroService = new KlaroServiceStub();
 
     ePersonService = jasmine.createSpyObj('ePersonService', {
       createPatchFromCache: of([{
@@ -37,6 +41,7 @@ describe('accessibilitySettingsService', () => {
       cookieService as unknown as CookieService,
       authService as unknown as AuthService,
       ePersonService,
+      klaroService,
     );
   });
 
