@@ -14,7 +14,7 @@ import {
 } from '@dspace/shared/utils';
 import { Subscription } from 'rxjs';
 
-import { GenericConstructor } from '../../../../modules/core/src/lib/core/shared/generic-constructor';
+import { GenericConstructor } from '@dspace/core';
 import { ThemeService } from '../theme-support/theme.service';
 import { DynamicComponentLoaderDirective } from './dynamic-component-loader.directive';
 

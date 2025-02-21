@@ -3,7 +3,7 @@ import {
   Input,
 } from '@angular/core';
 
-import { EPerson } from '../../../../modules/core/src/lib/core/eperson/models/eperson.model';
+import { EPerson } from '@dspace/core';
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { ProfilePageMetadataFormComponent } from './profile-page-metadata-form.component';
 

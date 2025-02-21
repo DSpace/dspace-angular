@@ -18,29 +18,29 @@ import {
   of,
 } from 'rxjs';
 
-import { DSONameService } from '../breadcrumbs/dso-name.service';
-import { AppConfig } from '../config/app-config.interface';
-import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
-import { PaginatedList } from '../data/paginated-list.model';
-import { RemoteData } from '../data/remote-data';
-import { RootDataService } from '../data/root-data.service';
+import { DSONameService } from '../breadcrumbs';
+import { AppConfig } from '../config';
+import { AuthorizationDataService } from '../data';
+import { PaginatedList } from '../data';
+import { RemoteData } from '../data';
+import { RootDataService } from '../data';
 import {
   ItemMock,
   MockBitstream1,
   MockBitstream2,
   MockBitstream3,
-} from '../mocks/item.mock';
-import { getMockTranslateService } from '../mocks/translate.service.mock';
-import { HardRedirectService } from '../services/hard-redirect.service';
-import { Bitstream } from '../shared/bitstream.model';
-import { Bundle } from '../shared/bundle.model';
-import { Item } from '../shared/item.model';
-import { MetadataValue } from '../shared/metadata.models';
+} from '../mocks';
+import { getMockTranslateService } from '../mocks';
+import { HardRedirectService } from '../services';
+import { Bitstream } from '../shared';
+import { Bundle } from '../shared';
+import { Item } from '../shared';
+import { MetadataValue } from '../shared';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../utilities/remote-data.utils';
-import { createPaginatedList } from '../utilities/testing/utils.test';
+} from '../utilities';
+import { createPaginatedList } from '../utilities';
 import { HeadTagService } from './head-tag.service';
 import {
   AddMetaTagAction,

@@ -44,24 +44,24 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
-import { CollectionDataService } from '../../../../../modules/core/src/lib/core/data/collection-data.service';
-import { FieldUpdate } from '../../../../../modules/core/src/lib/core/data/object-updates/field-update.model';
-import { FieldUpdates } from '../../../../../modules/core/src/lib/core/data/object-updates/field-updates.model';
-import { ObjectUpdatesService } from '../../../../../modules/core/src/lib/core/data/object-updates/object-updates.service';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
-import { INotification } from '../../../../../modules/core/src/lib/core/notifications/models/notification.model';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
+import { CollectionDataService } from '@dspace/core';
+import { FieldUpdate } from '@dspace/core';
+import { FieldUpdates } from '@dspace/core';
+import { ObjectUpdatesService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { INotification } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Collection } from '@dspace/core';
 import {
   ContentSource,
   ContentSourceHarvestType,
-} from '../../../../../modules/core/src/lib/core/shared/content-source.model';
-import { MetadataConfig } from '../../../../../modules/core/src/lib/core/shared/metadata-config.model';
+} from '@dspace/core';
+import { MetadataConfig } from '@dspace/core';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
-} from '../../../../../modules/core/src/lib/core/shared/operators';
+} from '@dspace/core';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { FormComponent } from '../../../shared/form/form.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
@@ -145,7 +145,7 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
   });
 
   /**
-   * The Dynamic Input Model for the Metadata Format used
+   * The Dynamic Input Model for the PolicyMetadata Format used
    */
   metadataConfigIdModel = new DynamicSelectModel({
     id: 'metadataConfigId',
@@ -257,7 +257,7 @@ export class CollectionSourceComponent extends AbstractTrackableComponent implem
   /**
    * The previously selected harvesting type
    * Used for switching between ContentSourceHarvestType.None and the previously selected value when enabling / disabling harvesting
-   * Defaults to ContentSourceHarvestType.Metadata
+   * Defaults to ContentSourceHarvestType.PolicyMetadata
    */
   previouslySelectedHarvestType = ContentSourceHarvestType.Metadata;
 

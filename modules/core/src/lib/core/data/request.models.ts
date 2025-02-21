@@ -1,8 +1,8 @@
 /* eslint-disable max-classes-per-file */
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { GenericConstructor } from '../shared/generic-constructor';
-import { SubmissionResponseParsingService } from '../submission/submission-response-parsing.service';
-import { TaskResponseParsingService } from '../tasks/task-response-parsing.service';
+import { HttpOptions } from '../dspace-rest';
+import { GenericConstructor } from '../shared';
+import { SubmissionResponseParsingService } from '../submission';
+import { TaskResponseParsingService } from '../tasks';
 import { BrowseResponseParsingService } from './browse-response-parsing.service';
 import { ContentSourceResponseParsingService } from './content-source-response-parsing.service';
 import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';

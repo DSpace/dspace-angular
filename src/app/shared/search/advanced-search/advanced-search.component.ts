@@ -29,16 +29,16 @@ import { take } from 'rxjs/operators';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { FilterType } from '../../../../../modules/core/src/lib/core/shared/search/models/filter-type.model';
-import { SearchFilterConfig } from '../../../../../modules/core/src/lib/core/shared/search/models/search-filter-config.model';
-import { SearchService } from '../../../../../modules/core/src/lib/core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../../../modules/core/src/lib/core/shared/search/search-filter.service';
-import { FilterConfig } from '../../../../../modules/core/src/lib/core/shared/search/search-filters/search-config.model';
+} from '@dspace/core';
+import { FilterType } from '@dspace/core';
+import { SearchFilterConfig } from '@dspace/core';
+import { SearchService } from '@dspace/core';
+import { SearchConfigurationService } from '@dspace/core';
+import { SearchFilterService } from '@dspace/core';
+import { FilterConfig } from '@dspace/core';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { FilterInputSuggestionsComponent } from '../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
-import { InputSuggestion } from '../../input-suggestions/input-suggestions.model';
+import { InputSuggestion } from '../../../../../modules/core/src/lib/core/config/models/input-suggestions.model';
 
 /**
  * This component represents the advanced search in the search sidebar.

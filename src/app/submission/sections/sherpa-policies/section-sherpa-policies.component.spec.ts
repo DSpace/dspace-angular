@@ -18,14 +18,14 @@ import {
 import { of as observableOf } from 'rxjs';
 
 import { AppState } from '../../../app.reducer';
-import { APP_DATA_SERVICES_MAP } from '../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { JsonPatchOperationsBuilder } from '../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operations-builder';
-import { TranslateLoaderMock } from '../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
-import { SectionsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/sections-service.stub';
-import { SubmissionServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/submission-service.stub';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core';
+import { JsonPatchOperationsBuilder } from '@dspace/core';
+import { TranslateLoaderMock } from '@dspace/core';
+import { SectionsServiceStub } from '@dspace/core';
+import { SubmissionServiceStub } from '@dspace/core';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { SherpaDataResponse } from '../../../shared/mocks/section-sherpa-policies.service.mock';
-import { SubmissionService } from '../../submission.service';
+import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
 import { SectionsService } from '../sections.service';
 import { MetadataInformationComponent } from './metadata-information/metadata-information.component';
 import { PublicationInformationComponent } from './publication-information/publication-information.component';

@@ -4,9 +4,9 @@ import {
   hasValue,
 } from '@dspace/shared/utils';
 
-import { GenericConstructor } from '../../shared/generic-constructor';
-import { HALResource } from '../../shared/hal-resource.model';
-import { ResourceType } from '../../shared/resource-type';
+import { GenericConstructor } from '../../shared';
+import { HALResource } from '../../shared';
+import { ResourceType } from '../../shared';
 import { CacheableObject } from '../cacheable-object.model';
 import { getResourceTypeValueFor } from '../object-cache.reducer';
 import { TypedObject } from '../typed-object.model';
@@ -139,7 +139,7 @@ export const getLinkDefinitions = <T extends HALResource>(source: GenericConstru
 };
 
 /**
- * Returns a specific LinkDefinition for a model class
+ * Returns a specific HeadLinkDefinition for a model class
  *
  * @param source the model class
  * @param linkName the name of the link

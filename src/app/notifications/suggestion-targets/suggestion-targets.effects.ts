@@ -13,18 +13,18 @@ import {
   switchMap,
   tap,
 } from 'rxjs/operators';
-import { ConfigurationDataService } from '../../../../modules/core/src/lib/core/data/configuration-data.service';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { ConfigurationProperty } from '../../../../modules/core/src/lib/core/shared/configuration-property.model';
-import { getFirstCompletedRemoteData } from '../../../../modules/core/src/lib/core/shared/operators';
+import { ConfigurationDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { ConfigurationProperty } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
 
 import {
   AuthActionTypes,
   RetrieveAuthenticatedEpersonSuccessAction,
-} from '../../../../modules/core/src/lib/core/auth/auth.actions';
-import { PaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { SuggestionTarget } from '../../../../modules/core/src/lib/core/notifications/suggestions/models/suggestion-target.model';
+} from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { SuggestionTarget } from '@dspace/core';
 import { SuggestionsService } from '../suggestions.service';
 import {
   AddTargetAction,

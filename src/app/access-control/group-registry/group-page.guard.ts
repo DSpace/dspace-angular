@@ -13,9 +13,9 @@ import { map } from 'rxjs/operators';
 import {
   someFeatureAuthorizationGuard,
   StringGuardParamFn,
-} from '../../../../modules/core/src/lib/core/data/feature-authorization/feature-authorization-guard/some-feature-authorization.guard';
-import { FeatureID } from '../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
-import { HALEndpointService } from '../../../../modules/core/src/lib/core/shared/hal-endpoint.service';
+} from '@dspace/core';
+import { FeatureID } from '@dspace/core';
+import { HALEndpointService } from '@dspace/core';
 
 const defaultGroupPageGetObjectUrl: StringGuardParamFn = (
   route: ActivatedRouteSnapshot,

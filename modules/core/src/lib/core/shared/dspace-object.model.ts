@@ -10,10 +10,10 @@ import {
   deserializeAs,
 } from 'cerialize';
 
-import { typedObject } from '../cache/builders/build-decorators';
-import { CacheableObject } from '../cache/cacheable-object.model';
-import { ListableObject } from '../object-collection/listable-object.model';
-import { excludeFromEquals } from '../utilities/equals.decorators';
+import { typedObject } from '../cache';
+import { CacheableObject } from '../cache';
+import { ListableObject } from '../object-collection';
+import { excludeFromEquals } from '../utilities';
 import { DSPACE_OBJECT } from './dspace-object.resource-type';
 import { GenericConstructor } from './generic-constructor';
 import { HALLink } from './hal-link.model';
@@ -117,7 +117,7 @@ export class DSpaceObject extends ListableObject implements CacheableObject {
   /**
    * Gets all matching metadata in this DSpaceObject.
    *
-   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
+   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[PolicyMetadata]].
    * @param {MetadataValueFilter} filter The value filter to use. If unspecified, no filtering will be done.
    * @returns {MetadataValue[]} the matching values or an empty array.
    */
@@ -128,7 +128,7 @@ export class DSpaceObject extends ListableObject implements CacheableObject {
   /**
    * Like [[allMetadata]], but only returns string values.
    *
-   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
+   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[PolicyMetadata]].
    * @param {MetadataValueFilter} filter The value filter to use. If unspecified, no filtering will be done.
    * @returns {string[]} the matching string values or an empty array.
    */
@@ -139,7 +139,7 @@ export class DSpaceObject extends ListableObject implements CacheableObject {
   /**
    * Gets the first matching MetadataValue object in this DSpaceObject, or `undefined`.
    *
-   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
+   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[PolicyMetadata]].
    * @param {MetadataValueFilter} filter The value filter to use. If unspecified, no filtering will be done.
    * @returns {MetadataValue} the first matching value, or `undefined`.
    */
@@ -150,7 +150,7 @@ export class DSpaceObject extends ListableObject implements CacheableObject {
   /**
    * Like [[firstMetadata]], but only returns a string value, or `undefined`.
    *
-   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
+   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[PolicyMetadata]].
    * @param {MetadataValueFilter} valueFilter The value filter to use. If unspecified, no filtering will be done.
    * @returns {string} the first matching string value, or `undefined`.
    */
@@ -161,7 +161,7 @@ export class DSpaceObject extends ListableObject implements CacheableObject {
   /**
    * Checks for a matching metadata value in this DSpaceObject.
    *
-   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
+   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[PolicyMetadata]].
    * @param {MetadataValueFilter} filter The value filter to use. If unspecified, no filtering will be done.
    * @returns {boolean} whether a match is found.
    */

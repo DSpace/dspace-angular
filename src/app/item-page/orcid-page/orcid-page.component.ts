@@ -26,17 +26,17 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
-import { ItemDataService } from '../../../../modules/core/src/lib/core/data/item-data.service';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { OrcidAuthService } from '../../../../modules/core/src/lib/core/orcid/orcid-auth.service';
-import { ResearcherProfile } from '../../../../modules/core/src/lib/core/profile/model/researcher-profile.model';
-import { redirectOn4xx } from '../../../../modules/core/src/lib/core/shared/authorized.operators';
-import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
+import { AuthService } from '@dspace/core';
+import { ItemDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { OrcidAuthService } from '@dspace/core';
+import { ResearcherProfile } from '@dspace/core';
+import { redirectOn4xx } from '@dspace/core';
+import { Item } from '@dspace/core';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '../../../../modules/core/src/lib/core/shared/operators';
+} from '@dspace/core';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';

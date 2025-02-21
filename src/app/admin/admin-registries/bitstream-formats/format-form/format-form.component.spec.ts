@@ -20,9 +20,9 @@ import {
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { BitstreamFormat } from '../../../../../../modules/core/src/lib/core/shared/bitstream-format.model';
-import { BitstreamFormatSupportLevel } from '../../../../../../modules/core/src/lib/core/shared/bitstream-format-support-level';
-import { RouterStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
+import { BitstreamFormat } from '@dspace/core';
+import { BitstreamFormatSupportLevel } from '@dspace/core';
+import { RouterStub } from '@dspace/core';
 import { FormComponent } from '../../../../shared/form/form.component';
 import { FormatFormComponent } from './format-form.component';
 

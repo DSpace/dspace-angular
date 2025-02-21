@@ -23,14 +23,14 @@ import {
 } from 'rxjs';
 
 import { CoreState } from '../core-state.model';
-import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
-import { type } from '../shared/ngrx/type';
+import { AuthorizationDataService } from '../data';
+import { type } from '../shared';
 import {
   authMethodsMock,
   AuthServiceStub,
-} from '../utilities/testing/auth-service.stub';
-import { EPersonMock } from '../utilities/testing/eperson.mock';
-import { mockStoreModuleConfig } from '../utilities/testing/mock-state-utilities';
+} from '../utilities';
+import { EPersonMock } from '../utilities';
+import { mockStoreModuleConfig } from '../utilities';
 import {
   AuthActionTypes,
   AuthenticatedAction,
@@ -54,7 +54,7 @@ import {
 import { AuthEffects } from './auth.effects';
 import { authReducer } from './auth.reducer';
 import { AuthService } from './auth.service';
-import { AuthStatus } from './models/auth-status.model';
+import { AuthStatus } from './models';
 import {
   isAuthenticated,
   isAuthenticatedLoaded,

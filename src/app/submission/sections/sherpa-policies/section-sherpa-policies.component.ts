@@ -16,15 +16,15 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { JsonPatchOperationPathCombiner } from '../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operations-builder';
-import { WorkspaceitemSectionSherpaPoliciesObject } from '../../../../../modules/core/src/lib/core/submission/models/workspaceitem-section-sherpa-policies.model';
+import { JsonPatchOperationPathCombiner } from '@dspace/core';
+import { JsonPatchOperationsBuilder } from '@dspace/core';
+import { WorkspaceitemSectionSherpaPoliciesObject } from '@dspace/core';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { VarDirective } from '../../../shared/utils/var.directive';
-import { SubmissionService } from '../../submission.service';
+import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
 import { SectionModelComponent } from '../models/section.model';
-import { SectionDataObject } from '../models/section-data.model';
+import { SectionDataObject } from '../../../../../modules/core/src/lib/core/submission/sections/section-data.model';
 import { SectionsService } from '../sections.service';
 import { MetadataInformationComponent } from './metadata-information/metadata-information.component';
 import { PublicationInformationComponent } from './publication-information/publication-information.component';

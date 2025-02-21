@@ -39,13 +39,13 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { PaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { RequestService } from '../../../../modules/core/src/lib/core/data/request.service';
-import { SystemWideAlertDataService } from '../../../../modules/core/src/lib/core/data/system-wide-alert-data.service';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { getFirstCompletedRemoteData } from '../../../../modules/core/src/lib/core/shared/operators';
-import { SystemWideAlert } from '../../../../modules/core/src/lib/core/system-wide-alert/system-wide-alert.model';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { SystemWideAlertDataService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
+import { SystemWideAlert } from '@dspace/core';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 
 

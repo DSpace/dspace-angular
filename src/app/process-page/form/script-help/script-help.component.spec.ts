@@ -11,10 +11,10 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { TranslateLoaderMock } from '../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
-import { Script } from '../../../../../modules/core/src/lib/core/scripts/script.model';
-import { ScriptParameter } from '../../../../../modules/core/src/lib/core/scripts/script-parameter.model';
-import { ScriptParameterType } from '../../../../../modules/core/src/lib/core/scripts/script-parameter-type.model';
+import { TranslateLoaderMock } from '@dspace/core';
+import { Script } from '@dspace/core';
+import { ScriptParameter } from '@dspace/core';
+import { ScriptParameterType } from '@dspace/core';
 import { ScriptHelpComponent } from './script-help.component';
 
 describe('ScriptHelpComponent', () => {

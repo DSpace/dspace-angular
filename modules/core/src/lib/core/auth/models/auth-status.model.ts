@@ -8,18 +8,18 @@ import { Observable } from 'rxjs';
 import {
   link,
   typedObject,
-} from '../../cache/builders/build-decorators';
-import { CacheableObject } from '../../cache/cacheable-object.model';
-import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
-import { PaginatedList } from '../../data/paginated-list.model';
-import { RemoteData } from '../../data/remote-data';
-import { EPerson } from '../../eperson/models/eperson.model';
-import { EPERSON } from '../../eperson/models/eperson.resource-type';
-import { Group } from '../../eperson/models/group.model';
-import { GROUP } from '../../eperson/models/group.resource-type';
-import { HALLink } from '../../shared/hal-link.model';
-import { ResourceType } from '../../shared/resource-type';
-import { excludeFromEquals } from '../../utilities/equals.decorators';
+} from '../../cache';
+import { CacheableObject } from '../../cache';
+import { IDToUUIDSerializer } from '../../cache';
+import { PaginatedList } from '../../data';
+import { RemoteData } from '../../data';
+import { EPerson } from '../../eperson';
+import { EPERSON } from '../../eperson';
+import { Group } from '../../eperson';
+import { GROUP } from '../../eperson';
+import { HALLink } from '../../shared';
+import { ResourceType } from '../../shared';
+import { excludeFromEquals } from '../../utilities';
 import { AuthMethod } from './auth.method';
 import { AuthError } from './auth-error.model';
 import { AUTH_STATUS } from './auth-status.resource-type';

@@ -4,9 +4,9 @@ import { createMockStore } from '@ngrx/store/testing';
 import { of as observableOf } from 'rxjs';
 
 import { CoreState } from '../../core-state.model';
-import { Notification } from '../../notifications/models/notification.model';
-import { NotificationType } from '../../notifications/models/notification-type';
-import { Relationship } from '../../shared/item-relationships/relationship.model';
+import { Notification } from '../../notifications';
+import { NotificationType } from '../../notifications';
+import { Relationship } from '../../shared';
 import { FieldChangeType } from './field-change-type.model';
 import {
   DiscardObjectUpdatesAction,

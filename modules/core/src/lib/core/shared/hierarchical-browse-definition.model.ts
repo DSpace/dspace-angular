@@ -5,8 +5,8 @@ import {
 } from 'cerialize';
 
 import { BrowseByDataType } from './browse-by-data-type';
-import { typedObject } from '../cache/builders/build-decorators';
-import { excludeFromEquals } from '../utilities/equals.decorators';
+import { typedObject } from '../cache';
+import { excludeFromEquals } from '../utilities';
 import { BrowseDefinition } from './browse-definition.model';
 import { HALLink } from './hal-link.model';
 import { HIERARCHICAL_BROWSE_DEFINITION } from './hierarchical-browse-definition.resource-type';

@@ -7,8 +7,8 @@ import {
   serializable,
 } from '@ng-dynamic-forms/core';
 
-import { VocabularyEntry } from '../../../../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyOptions } from '../../../../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-options.model';
+import { VocabularyEntry } from '@dspace/core';
+import { VocabularyOptions } from '@dspace/core';
 
 export interface DynamicListModelConfig extends DynamicRadioGroupModelConfig<any> {
   vocabularyOptions: VocabularyOptions;

@@ -17,9 +17,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { getAllSucceededRemoteDataPayload } from '../../../../../modules/core/src/lib/core/shared/operators';
+import { PaginatedList } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { getAllSucceededRemoteDataPayload } from '@dspace/core';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { ErrorComponent } from '../../error/error.component';

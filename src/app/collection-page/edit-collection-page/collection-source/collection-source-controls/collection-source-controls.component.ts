@@ -23,22 +23,22 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { BitstreamDataService } from '../../../../../../modules/core/src/lib/core/data/bitstream-data.service';
-import { CollectionDataService } from '../../../../../../modules/core/src/lib/core/data/collection-data.service';
-import { ProcessDataService } from '../../../../../../modules/core/src/lib/core/data/processes/process-data.service';
-import { ScriptDataService } from '../../../../../../modules/core/src/lib/core/data/processes/script-data.service';
-import { RequestService } from '../../../../../../modules/core/src/lib/core/data/request.service';
-import { NotificationsService } from '../../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Process } from '../../../../../../modules/core/src/lib/core/processes/process.model';
-import { ProcessStatus } from '../../../../../../modules/core/src/lib/core/processes/process-status.model';
-import { Collection } from '../../../../../../modules/core/src/lib/core/shared/collection.model';
-import { ContentSource } from '../../../../../../modules/core/src/lib/core/shared/content-source.model';
-import { ContentSourceSetSerializer } from '../../../../../../modules/core/src/lib/core/shared/content-source-set-serializer';
+import { BitstreamDataService } from '@dspace/core';
+import { CollectionDataService } from '@dspace/core';
+import { ProcessDataService } from '@dspace/core';
+import { ScriptDataService } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Process } from '@dspace/core';
+import { ProcessStatus } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { ContentSource } from '@dspace/core';
+import { ContentSourceSetSerializer } from '@dspace/core';
 import {
   getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '../../../../../../modules/core/src/lib/core/shared/operators';
+} from '@dspace/core';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 

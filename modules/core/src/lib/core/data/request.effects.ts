@@ -20,13 +20,13 @@ import {
   withLatestFrom,
 } from 'rxjs/operators';
 
-import { getClassForType } from '../cache/builders/build-decorators';
-import { ParsedResponse } from '../cache/response.models';
-import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
-import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
-import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+import { getClassForType } from '../cache';
+import { ParsedResponse } from '../cache';
+import { DSpaceSerializer } from '../dspace-rest';
+import { DspaceRestService } from '../dspace-rest';
+import { RawRestResponse } from '../dspace-rest';
 import { StoreActionTypes } from '../store.actions';
-import { XSRFService } from '../xsrf/xsrf.service';
+import { XSRFService } from '../xsrf';
 import {
   RequestActionTypes,
   RequestErrorAction,

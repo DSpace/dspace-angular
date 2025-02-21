@@ -26,12 +26,12 @@ import {
   of,
 } from 'rxjs';
 
-import { RemoteData } from '../../../../../../modules/core/src/lib/core/data/remote-data';
-import { RequestService } from '../../../../../../modules/core/src/lib/core/data/request.service';
-import { NotificationsService } from '../../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { ClaimedDeclinedTaskSearchResult } from '../../../../../../modules/core/src/lib/core/object-collection/claimed-declined-task-search-result.model';
-import { DSpaceObject } from '../../../../../../modules/core/src/lib/core/shared/dspace-object.model';
-import { SearchService } from '../../../../../../modules/core/src/lib/core/shared/search/search.service';
+import { RemoteData } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { ClaimedDeclinedTaskSearchResult } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
+import { SearchService } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 

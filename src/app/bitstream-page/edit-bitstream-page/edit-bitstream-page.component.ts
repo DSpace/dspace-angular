@@ -45,26 +45,26 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { FindAllDataImpl } from '../../../../modules/core/src/lib/core/data/base/find-all-data';
-import { BitstreamDataService } from '../../../../modules/core/src/lib/core/data/bitstream-data.service';
-import { BitstreamFormatDataService } from '../../../../modules/core/src/lib/core/data/bitstream-format-data.service';
-import { PrimaryBitstreamService } from '../../../../modules/core/src/lib/core/data/primary-bitstream.service';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Bitstream } from '../../../../modules/core/src/lib/core/shared/bitstream.model';
-import { BitstreamFormat } from '../../../../modules/core/src/lib/core/shared/bitstream-format.model';
-import { BITSTREAM_FORMAT } from '../../../../modules/core/src/lib/core/shared/bitstream-format.resource-type';
-import { BitstreamFormatSupportLevel } from '../../../../modules/core/src/lib/core/shared/bitstream-format-support-level';
-import { Bundle } from '../../../../modules/core/src/lib/core/shared/bundle.model';
-import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
-import { Metadata } from '../../../../modules/core/src/lib/core/shared/metadata.utils';
+import { DSONameService } from '@dspace/core';
+import { FindAllDataImpl } from '@dspace/core';
+import { BitstreamDataService } from '@dspace/core';
+import { BitstreamFormatDataService } from '@dspace/core';
+import { PrimaryBitstreamService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Bitstream } from '@dspace/core';
+import { BitstreamFormat } from '@dspace/core';
+import { BITSTREAM_FORMAT } from '@dspace/core';
+import { BitstreamFormatSupportLevel } from '@dspace/core';
+import { Bundle } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { Metadata } from '@dspace/core';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
-} from '../../../../modules/core/src/lib/core/shared/operators';
+} from '@dspace/core';
 import { getEntityEditRoute } from '../../item-page/item-page-routing-paths';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { DynamicCustomSwitchModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';

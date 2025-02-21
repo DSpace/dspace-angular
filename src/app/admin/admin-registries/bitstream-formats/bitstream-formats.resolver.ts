@@ -6,10 +6,10 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { BitstreamFormatDataService } from '../../../../../modules/core/src/lib/core/data/bitstream-format-data.service';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { BitstreamFormat } from '../../../../../modules/core/src/lib/core/shared/bitstream-format.model';
-import { getFirstCompletedRemoteData } from '../../../../../modules/core/src/lib/core/shared/operators';
+import { BitstreamFormatDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { BitstreamFormat } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
 
 /**
  * Method for resolving an bitstreamFormat based on the parameters in the current route

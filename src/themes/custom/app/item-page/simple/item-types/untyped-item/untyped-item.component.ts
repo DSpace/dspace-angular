@@ -6,9 +6,9 @@ import {
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Context } from '../../../../../../../../modules/core/src/lib/core/shared/context.model';
-import { Item } from '../../../../../../../../modules/core/src/lib/core/shared/item.model';
-import { ViewMode } from '../../../../../../../../modules/core/src/lib/core/shared/view-mode.model';
+import { Context } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
 import { CollectionsComponent } from '../../../../../../../app/item-page/field-components/collections/collections.component';
 import { ThemedMediaViewerComponent } from '../../../../../../../app/item-page/media-viewer/themed-media-viewer.component';
 import { MiradorViewerComponent } from '../../../../../../../app/item-page/mirador-viewer/mirador-viewer.component';

@@ -42,42 +42,42 @@ import {
   toArray,
 } from 'rxjs/operators';
 
-import { LinkService } from '../../../../../../modules/core/src/lib/core/cache/builders/link.service';
-import { RequestParam } from '../../../../../../modules/core/src/lib/core/cache/models/request-param.model';
+import { LinkService } from '@dspace/core';
+import { RequestParam } from '@dspace/core';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { FollowLinkConfig } from '../../../../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { FieldChangeType } from '../../../../../../modules/core/src/lib/core/data/object-updates/field-change-type.model';
-import { FieldUpdate } from '../../../../../../modules/core/src/lib/core/data/object-updates/field-update.model';
-import { FieldUpdates } from '../../../../../../modules/core/src/lib/core/data/object-updates/field-updates.model';
-import { RelationshipIdentifiable } from '../../../../../../modules/core/src/lib/core/data/object-updates/object-updates.reducer';
-import { ObjectUpdatesService } from '../../../../../../modules/core/src/lib/core/data/object-updates/object-updates.service';
-import { PaginatedList } from '../../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RelationshipDataService } from '../../../../../../modules/core/src/lib/core/data/relationship-data.service';
-import { RemoteData } from '../../../../../../modules/core/src/lib/core/data/remote-data';
-import { ItemSearchResult } from '../../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
-import { PaginationService } from '../../../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { Collection } from '../../../../../../modules/core/src/lib/core/shared/collection.model';
-import { RelationshipOptions } from '../../../../../../modules/core/src/lib/core/shared/form/relationship-options.model';
-import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
-import { ItemType } from '../../../../../../modules/core/src/lib/core/shared/item-relationships/item-type.model';
-import { Relationship } from '../../../../../../modules/core/src/lib/core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '../../../../../../modules/core/src/lib/core/shared/item-relationships/relationship-type.model';
+} from '@dspace/core';
+import { FollowLinkConfig } from '@dspace/core';
+import { FieldChangeType } from '@dspace/core';
+import { FieldUpdate } from '@dspace/core';
+import { FieldUpdates } from '@dspace/core';
+import { RelationshipIdentifiable } from '@dspace/core';
+import { ObjectUpdatesService } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RelationshipDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { ItemSearchResult } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { RelationshipOptions } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { ItemType } from '@dspace/core';
+import { Relationship } from '@dspace/core';
+import { RelationshipType } from '@dspace/core';
 import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
-} from '../../../../../../modules/core/src/lib/core/shared/operators';
-import { PaginationComponentOptions } from '../../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
-import { itemLinksToFollow } from '../../../../../../modules/core/src/lib/core/utilities/relation-query.utils';
+} from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
+import { itemLinksToFollow } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { DsDynamicLookupRelationModalComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
-import { SelectableListService } from '../../../../shared/object-list/selectable-list/selectable-list.service';
+import { SelectableListService } from '../../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { ObjectValuesPipe } from '../../../../shared/utils/object-values-pipe';
 import { VarDirective } from '../../../../shared/utils/var.directive';

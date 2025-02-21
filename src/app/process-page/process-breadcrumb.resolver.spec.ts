@@ -1,6 +1,6 @@
-import { ProcessDataService } from '../../../modules/core/src/lib/core/data/processes/process-data.service';
-import { Process } from '../../../modules/core/src/lib/core/processes/process.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { ProcessDataService } from '@dspace/core';
+import { Process } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { processBreadcrumbResolver } from './process-breadcrumb.resolver';
 
 describe('processBreadcrumbResolver', () => {

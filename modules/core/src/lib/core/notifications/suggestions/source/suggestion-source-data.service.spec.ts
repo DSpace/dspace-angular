@@ -7,22 +7,22 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../../cache/object-cache.service';
-import { RestResponse } from '../../../cache/response.models';
+import { RemoteDataBuildService } from '../../../cache';
+import { ObjectCacheService } from '../../../cache';
+import { RestResponse } from '../../../cache';
 import { CoreState } from '../../../core-state.model';
-import { FindAllData } from '../../../data/base/find-all-data';
-import { testFindAllDataImplementation } from '../../../data/base/find-all-data.spec';
-import { DefaultChangeAnalyzer } from '../../../data/default-change-analyzer.service';
-import { RemoteData } from '../../../data/remote-data';
-import { GetRequest } from '../../../data/request.models';
-import { RequestService } from '../../../data/request.service';
-import { RequestEntry } from '../../../data/request-entry.model';
-import { RequestEntryState } from '../../../data/request-entry-state.model';
-import { HALEndpointService } from '../../../shared/hal-endpoint.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../utilities/remote-data.utils';
+import { FindAllData } from '../../../data';
+import { testFindAllDataImplementation } from '../../../data';
+import { DefaultChangeAnalyzer } from '../../../data';
+import { RemoteData } from '../../../data';
+import { GetRequest } from '../../../data';
+import { RequestService } from '../../../data';
+import { RequestEntry } from '../../../data';
+import { RequestEntryState } from '../../../data';
+import { HALEndpointService } from '../../../shared';
+import { createSuccessfulRemoteDataObject$ } from '../../../utilities';
 import { NotificationsService } from '../../notifications.service';
-import { SuggestionSource } from '../models/suggestion-source.model';
+import { SuggestionSource } from '../models';
 import { SuggestionSourceDataService } from './suggestion-source-data.service';
 
 describe('SuggestionSourceDataService test', () => {

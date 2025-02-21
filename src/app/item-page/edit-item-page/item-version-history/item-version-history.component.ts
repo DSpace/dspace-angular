@@ -7,9 +7,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { getFirstSucceededRemoteData } from '../../../../../modules/core/src/lib/core/shared/operators';
+import { RemoteData } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { getFirstSucceededRemoteData } from '@dspace/core';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { ItemVersionsComponent } from '../../versions/item-versions.component';

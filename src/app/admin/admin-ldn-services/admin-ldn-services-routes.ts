@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
-import { i18nBreadcrumbResolver } from '../../../../modules/core/src/lib/core/breadcrumbs/i18n-breadcrumb.resolver';
-import { navigationBreadcrumbResolver } from '../../../../modules/core/src/lib/core/breadcrumbs/navigation-breadcrumb.resolver';
+import { i18nBreadcrumbResolver } from '@dspace/core';
+import { navigationBreadcrumbResolver } from '@dspace/core';
 import { LdnServiceFormComponent } from './ldn-service-form/ldn-service-form.component';
 import { LdnServicesOverviewComponent } from './ldn-services-directory/ldn-services-directory.component';
 

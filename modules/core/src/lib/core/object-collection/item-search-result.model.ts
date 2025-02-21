@@ -1,7 +1,7 @@
-import { GenericConstructor } from '../shared/generic-constructor';
-import { Item } from '../shared/item.model';
-import { SearchResult } from '../shared/search/models/search-result.model';
-import { inheritEquatable } from '../utilities/equals.decorators';
+import { GenericConstructor } from '../shared';
+import { Item } from '../shared';
+import { SearchResult } from '../shared';
+import { inheritEquatable } from '../utilities';
 import { ListableObject } from './listable-object.model';
 
 @inheritEquatable(SearchResult)

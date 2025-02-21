@@ -39,33 +39,33 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../breadcrumbs/dso-name.service';
+import { DSONameService } from '../breadcrumbs';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../config/app-config.interface';
+} from '../config';
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
-import { BundleDataService } from '../data/bundle-data.service';
-import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
-import { FindListOptions } from '../data/find-list-options.model';
-import { followLink } from '../data/follow-link-config.model';
-import { PaginatedList } from '../data/paginated-list.model';
-import { RemoteData } from '../data/remote-data';
-import { RootDataService } from '../data/root-data.service';
-import { getBitstreamDownloadRoute } from '../router/utils/routes-utils';
-import { HardRedirectService } from '../services/hard-redirect.service';
-import { Bitstream } from '../shared/bitstream.model';
-import { getDownloadableBitstream } from '../shared/bitstream.operators';
-import { BitstreamFormat } from '../shared/bitstream-format.model';
-import { Bundle } from '../shared/bundle.model';
-import { DSpaceObject } from '../shared/dspace-object.model';
-import { Item } from '../shared/item.model';
+import { BundleDataService } from '../data';
+import { AuthorizationDataService } from '../data';
+import { FindListOptions } from '../data';
+import { followLink } from '../data';
+import { PaginatedList } from '../data';
+import { RemoteData } from '../data';
+import { RootDataService } from '../data';
+import { getBitstreamDownloadRoute } from '../router';
+import { HardRedirectService } from '../services';
+import { Bitstream } from '../shared';
+import { getDownloadableBitstream } from '../shared';
+import { BitstreamFormat } from '../shared';
+import { Bundle } from '../shared';
+import { DSpaceObject } from '../shared';
+import { Item } from '../shared';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '../shared/operators';
-import { URLCombiner } from '../url-combiner/url-combiner';
+} from '../shared';
+import { URLCombiner } from '../url-combiner';
 import {
   AddMetaTagAction,
   ClearMetaTagAction,

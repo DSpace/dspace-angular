@@ -15,14 +15,14 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { SortOptions } from '../../../../../modules/core/src/lib/core/cache/models/sort-options.model';
-import { AuthorizationDataService } from '../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
-import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { DSpaceObject } from '../../../../../modules/core/src/lib/core/shared/dspace-object.model';
-import { PaginationComponentOptions } from '../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+import { DSONameService } from '@dspace/core';
+import { SortOptions } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { FeatureID } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
 import { ObjectSelectService } from '../object-select.service';
 
 /**

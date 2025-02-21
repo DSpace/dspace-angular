@@ -14,9 +14,9 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { RestRequestMethod } from '../../../../../modules/core/src/lib/core/data/rest-request-method';
-import { DspaceRestService } from '../../../../../modules/core/src/lib/core/dspace-rest/dspace-rest.service';
-import { RawRestResponse } from '../../../../../modules/core/src/lib/core/dspace-rest/raw-rest-response.model';
+import { RestRequestMethod } from '@dspace/core';
+import { DspaceRestService } from '@dspace/core';
+import { RawRestResponse } from '@dspace/core';
 import { environment } from 'src/environments/environment';
 
 import { FiltersComponent } from '../filters-section/filters-section.component';

@@ -7,9 +7,9 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { ServerResponseService } from '../../../../modules/core/src/lib/core/services/server-response.service';
+import { ServerResponseService } from '@dspace/core';
 
-import { ActivatedRouteStub } from '../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+import { ActivatedRouteStub } from '@dspace/core';
 import { ObjectNotFoundComponent } from './objectnotfound.component';
 
 describe('ObjectNotFoundComponent', () => {

@@ -11,9 +11,9 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../../../environments/environment';
-import { RouteService } from '../../../../../../modules/core/src/lib/core/services/route.service';
-import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
-import { ViewMode } from '../../../../../../modules/core/src/lib/core/shared/view-mode.model';
+import { RouteService } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
 import { getItemPageRoute } from '../../../item-page-routing-paths';
 import {
   getDSpaceQuery,

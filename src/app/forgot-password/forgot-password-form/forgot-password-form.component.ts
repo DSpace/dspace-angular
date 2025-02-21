@@ -15,17 +15,17 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AuthenticateAction } from '../../../../modules/core/src/lib/core/auth/auth.actions';
-import { CoreState } from '../../../../modules/core/src/lib/core/core-state.model';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { EPersonDataService } from '../../../../modules/core/src/lib/core/eperson/eperson-data.service';
-import { EPerson } from '../../../../modules/core/src/lib/core/eperson/models/eperson.model';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { AuthenticateAction } from '@dspace/core';
+import { CoreState } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { EPersonDataService } from '@dspace/core';
+import { EPerson } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '../../../../modules/core/src/lib/core/shared/operators';
-import { Registration } from '../../../../modules/core/src/lib/core/shared/registration.model';
+} from '@dspace/core';
+import { Registration } from '@dspace/core';
 import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';

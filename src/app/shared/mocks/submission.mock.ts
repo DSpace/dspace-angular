@@ -1,10 +1,10 @@
-import { SubmissionDefinitionsModel } from '../../../../modules/core/src/lib/core/config/models/config-submission-definitions.model';
-import { buildPaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { Group } from '../../../../modules/core/src/lib/core/eperson/models/group.model';
-import { PageInfo } from '../../../../modules/core/src/lib/core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { SubmissionObjectState } from '../../submission/objects/submission-objects.reducer';
-import { FormFieldMetadataValueObject } from '../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
+import { SubmissionDefinitionsModel } from '@dspace/core';
+import { buildPaginatedList } from '@dspace/core';
+import { Group } from '@dspace/core';
+import { PageInfo } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { SubmissionObjectState } from '../../../../modules/core/src/lib/core/states/submission/submission-objects.reducer';
+import { FormFieldMetadataValueObject } from '@dspace/core';
 
 export const mockSectionsData = {
   traditionalpageone: {

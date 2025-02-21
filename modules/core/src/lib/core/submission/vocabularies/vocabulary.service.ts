@@ -7,25 +7,25 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { RequestParam } from '../../cache/models/request-param.model';
-import { FindListOptions } from '../../data/find-list-options.model';
+import { RequestParam } from '../../cache';
+import { FindListOptions } from '../../data';
 import {
   followLink,
   FollowLinkConfig,
-} from '../../data/follow-link-config.model';
-import { PaginatedList } from '../../data/paginated-list.model';
-import { RemoteData } from '../../data/remote-data';
-import { RequestService } from '../../data/request.service';
+} from '../../data';
+import { PaginatedList } from '../../data';
+import { RemoteData } from '../../data';
+import { RequestService } from '../../data';
 import {
   getFirstSucceededRemoteDataPayload,
   getFirstSucceededRemoteListPayload,
-} from '../../shared/operators';
-import { PageInfo } from '../../shared/page-info.model';
-import { Vocabulary } from './models/vocabulary.model';
-import { VocabularyEntry } from './models/vocabulary-entry.model';
-import { VocabularyEntryDetail } from './models/vocabulary-entry-detail.model';
-import { VocabularyFindOptions } from './models/vocabulary-find-options.model';
-import { VocabularyOptions } from './models/vocabulary-options.model';
+} from '../../shared';
+import { PageInfo } from '../../shared';
+import { Vocabulary } from './models';
+import { VocabularyEntry } from './models';
+import { VocabularyEntryDetail } from './models';
+import { VocabularyFindOptions } from './models';
+import { VocabularyOptions } from './models';
 import { VocabularyDataService } from './vocabulary.data.service';
 import { VocabularyEntryDetailsDataService } from './vocabulary-entry-details.data.service';
 

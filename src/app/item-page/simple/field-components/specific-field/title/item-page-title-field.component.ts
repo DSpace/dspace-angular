@@ -5,8 +5,8 @@ import {
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DSONameService } from '../../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
+import { DSONameService } from '@dspace/core';
+import { Item } from '@dspace/core';
 
 @Component({
   selector: 'ds-base-item-page-title-field',

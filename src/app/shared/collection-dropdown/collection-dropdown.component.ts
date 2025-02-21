@@ -36,18 +36,18 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { CollectionDataService } from '../../../../modules/core/src/lib/core/data/collection-data.service';
-import { FindListOptions } from '../../../../modules/core/src/lib/core/data/find-list-options.model';
-import { followLink } from '../../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { PaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { Collection } from '../../../../modules/core/src/lib/core/shared/collection.model';
-import { Community } from '../../../../modules/core/src/lib/core/shared/community.model';
+import { DSONameService } from '@dspace/core';
+import { CollectionDataService } from '@dspace/core';
+import { FindListOptions } from '@dspace/core';
+import { followLink } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { Community } from '@dspace/core';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '../../../../modules/core/src/lib/core/shared/operators';
+} from '@dspace/core';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 
 /**

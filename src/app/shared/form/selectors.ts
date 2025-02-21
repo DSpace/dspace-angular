@@ -7,7 +7,7 @@ import { AppState } from '../../app.reducer';
 import {
   FormEntry,
   FormState,
-} from './form.reducer';
+} from '../../../../modules/core/src/lib/core/states/form/form.reducer';
 
 export const formStateSelector = (state: AppState) => state.forms;
 

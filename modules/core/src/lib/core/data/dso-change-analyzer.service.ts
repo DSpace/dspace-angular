@@ -5,8 +5,8 @@ import {
 } from 'fast-json-patch';
 import cloneDeep from 'lodash/cloneDeep';
 
-import { DSpaceObject } from '../shared/dspace-object.model';
-import { MetadataMap } from '../shared/metadata.models';
+import { DSpaceObject } from '../shared';
+import { MetadataMap } from '../shared';
 import { ChangeAnalyzer } from './change-analyzer';
 
 /**

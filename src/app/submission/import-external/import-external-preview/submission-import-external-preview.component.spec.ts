@@ -18,15 +18,15 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { ExternalSourceEntry } from '../../../../../modules/core/src/lib/core/shared/external-source-entry.model';
-import { Metadata } from '../../../../../modules/core/src/lib/core/shared/metadata.utils';
-import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { RouterStub } from '../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
-import { SubmissionServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/submission-service.stub';
-import { createTestComponent } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+import { NotificationsService } from '@dspace/core';
+import { ExternalSourceEntry } from '@dspace/core';
+import { Metadata } from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { RouterStub } from '@dspace/core';
+import { SubmissionServiceStub } from '@dspace/core';
+import { createTestComponent } from '@dspace/core';
 import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
-import { SubmissionService } from '../../submission.service';
+import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
 import { SubmissionImportExternalCollectionComponent } from '../import-external-collection/submission-import-external-collection.component';
 import { SubmissionImportExternalPreviewComponent } from './submission-import-external-preview.component';
 

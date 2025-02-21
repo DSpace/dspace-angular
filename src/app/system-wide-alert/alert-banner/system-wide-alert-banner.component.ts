@@ -27,11 +27,11 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { PaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { SystemWideAlertDataService } from '../../../../modules/core/src/lib/core/data/system-wide-alert-data.service';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { getAllSucceededRemoteDataPayload } from '../../../../modules/core/src/lib/core/shared/operators';
-import { SystemWideAlert } from '../../../../modules/core/src/lib/core/system-wide-alert/system-wide-alert.model';
+import { PaginatedList } from '@dspace/core';
+import { SystemWideAlertDataService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { getAllSucceededRemoteDataPayload } from '@dspace/core';
+import { SystemWideAlert } from '@dspace/core';
 
 /**
  * Component responsible for rendering a banner and the countdown for an active system-wide alert

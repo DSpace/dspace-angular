@@ -16,16 +16,16 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { SearchConfigurationService } from '../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
+import { PaginatedList } from '@dspace/core';
+import { SearchConfigurationService } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { TabulatableResultListElementsComponent } from '../../../shared/object-list/search-result-list-element/tabulatable-search-result/tabulatable-result-list-elements.component';
 import { TruncatableComponent } from '../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { AdminNotifyDetailModalComponent } from '../admin-notify-detail-modal/admin-notify-detail-modal.component';
-import { AdminNotifyMessage } from '../models/admin-notify-message.model';
-import { AdminNotifySearchResult } from '../models/admin-notify-message-search-result.model';
-import { AdminNotifyMessagesService } from '../services/admin-notify-messages.service';
+import { AdminNotifyMessage } from '../../../../../modules/core/src/lib/core/admin/admin-notify-message/models/admin-notify-message.model';
+import { AdminNotifySearchResult } from '../../../../../modules/core/src/lib/core/admin/admin-notify-message/models/admin-notify-message-search-result.model';
+import { AdminNotifyMessagesService } from '../../../../../modules/core/src/lib/core/admin/admin-notify-message/admin-notify-messages.service';
 
 @Component({
   selector: 'ds-admin-notify-search-result',

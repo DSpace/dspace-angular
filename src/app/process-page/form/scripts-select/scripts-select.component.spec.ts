@@ -17,13 +17,13 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { buildPaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { ScriptDataService } from '../../../../../modules/core/src/lib/core/data/processes/script-data.service';
-import { TranslateLoaderMock } from '../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
-import { Script } from '../../../../../modules/core/src/lib/core/scripts/script.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
-import { RouterStub } from '../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
+import { buildPaginatedList } from '@dspace/core';
+import { ScriptDataService } from '@dspace/core';
+import { TranslateLoaderMock } from '@dspace/core';
+import { Script } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { ActivatedRouteStub } from '@dspace/core';
+import { RouterStub } from '@dspace/core';
 import { ScriptsSelectComponent } from './scripts-select.component';
 
 describe('ScriptsSelectComponent', () => {

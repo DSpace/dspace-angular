@@ -2,17 +2,17 @@ import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { RequestParam } from '../cache/models/request-param.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { FindListOptions } from '../data/find-list-options.model';
-import { RemoteData } from '../data/remote-data';
-import { RequestService } from '../data/request.service';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { getFirstSucceededRemoteData } from '../shared/operators';
-import { ClaimedTask } from './models/claimed-task-object.model';
-import { ProcessTaskResponse } from './models/process-task-response';
+import { RemoteDataBuildService } from '../cache';
+import { RequestParam } from '../cache';
+import { ObjectCacheService } from '../cache';
+import { FindListOptions } from '../data';
+import { RemoteData } from '../data';
+import { RequestService } from '../data';
+import { HttpOptions } from '../dspace-rest';
+import { HALEndpointService } from '../shared';
+import { getFirstSucceededRemoteData } from '../shared';
+import { ClaimedTask } from './models';
+import { ProcessTaskResponse } from './models';
 import { TasksService } from './tasks.service';
 
 /**

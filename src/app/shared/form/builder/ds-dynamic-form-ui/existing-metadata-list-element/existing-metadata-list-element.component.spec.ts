@@ -12,19 +12,19 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ItemSearchResult } from '../../../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
-import { RelationshipOptions } from '../../../../../../../modules/core/src/lib/core/shared/form/relationship-options.model';
-import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
-import { Relationship } from '../../../../../../../modules/core/src/lib/core/shared/item-relationships/relationship.model';
-import { RemoveRelationshipAction } from '../../../../../../../modules/core/src/lib/core/states/name-variant/relationship.actions';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
-import { SubmissionServiceStub } from '../../../../../../../modules/core/src/lib/core/utilities/testing/submission-service.stub';
+import { ItemSearchResult } from '@dspace/core';
+import { RelationshipOptions } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { Relationship } from '@dspace/core';
+import { RemoveRelationshipAction } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { ActivatedRouteStub } from '@dspace/core';
+import { SubmissionServiceStub } from '@dspace/core';
 import { TranslateLoaderMock } from '../../../../../../../modules/core/src/lib/core/utilities/testing/translate-loader.mock';
-import { SubmissionService } from '../../../../../submission/submission.service';
+import { SubmissionService } from '../../../../../../../modules/core/src/lib/core/submission/submission.service';
 import { getMockThemeService } from '../../../../mocks/theme-service.mock';
 import { ItemSearchResultListElementComponent } from '../../../../object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
-import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
+import { SelectableListService } from '../../../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
 import { ThemeService } from '../../../../theme-support/theme.service';
 import {
   ExistingMetadataListElementComponent,

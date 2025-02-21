@@ -12,11 +12,11 @@ import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { of as observableOf } from 'rxjs';
 
-import { DSONameService } from '../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { APP_CONFIG } from '../../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { CommunitySearchResult } from '../../../../../../modules/core/src/lib/core/object-collection/community-search-result.model';
-import { Community } from '../../../../../../modules/core/src/lib/core/shared/community.model';
-import { ActivatedRouteStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+import { DSONameService } from '@dspace/core';
+import { APP_CONFIG } from '@dspace/core';
+import { CommunitySearchResult } from '@dspace/core';
+import { Community } from '@dspace/core';
+import { ActivatedRouteStub } from '@dspace/core';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { ThemeService } from '../../../theme-support/theme.service';

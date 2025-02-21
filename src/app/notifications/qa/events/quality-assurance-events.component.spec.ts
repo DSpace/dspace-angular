@@ -21,16 +21,16 @@ import {
 } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
-import { AuthorizationDataService } from '../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
+import { AuthorizationDataService } from '@dspace/core';
+import { ItemDataService } from '@dspace/core';
 
 import {
   SortDirection,
   SortOptions,
-} from '../../../../../modules/core/src/lib/core/cache/models/sort-options.model';
-import { FindListOptions } from '../../../../../modules/core/src/lib/core/data/find-list-options.model';
-import { followLink } from '../../../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { buildPaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
+} from '@dspace/core';
+import { FindListOptions } from '@dspace/core';
+import { followLink } from '@dspace/core';
+import { buildPaginatedList } from '@dspace/core';
 import {
   getMockQualityAssuranceEventRestService,
   ItemMockPid8,
@@ -39,23 +39,23 @@ import {
   NotificationsMockDspaceObject,
   qualityAssuranceEventObjectMissingProjectFound,
   qualityAssuranceEventObjectMissingProjectNotFound,
-} from '../../../../../modules/core/src/lib/core/mocks/notifications.mock';
-import { getMockTranslateService } from '../../../../../modules/core/src/lib/core/mocks/translate.service.mock';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { QualityAssuranceEventDataService } from '../../../../../modules/core/src/lib/core/notifications/qa/events/quality-assurance-event-data.service';
-import { QualityAssuranceEventObject } from '../../../../../modules/core/src/lib/core/notifications/qa/models/quality-assurance-event.model';
-import { PaginationService } from '../../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { PageInfo } from '../../../../../modules/core/src/lib/core/shared/page-info.model';
-import { PaginationComponentOptions } from '../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+} from '@dspace/core';
+import { getMockTranslateService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { QualityAssuranceEventDataService } from '@dspace/core';
+import { QualityAssuranceEventObject } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { PageInfo } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
 import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
-import { createTestComponent } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+} from '@dspace/core';
+import { ActivatedRouteStub } from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { PaginationServiceStub } from '@dspace/core';
+import { createTestComponent } from '@dspace/core';
 import { QualityAssuranceEventData } from '../project-entry-import-modal/project-entry-import-modal.component';
 import { QualityAssuranceEventsComponent } from './quality-assurance-events.component';
 

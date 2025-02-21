@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { ParsedResponse } from '../cache/response.models';
-import { BaseResponseParsingService } from '../data/base-response-parsing.service';
-import { ResponseParsingService } from '../data/parsing.service';
-import { RestRequest } from '../data/rest-request.model';
-import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+import { ObjectCacheService } from '../cache';
+import { ParsedResponse } from '../cache';
+import { BaseResponseParsingService } from '../data';
+import { ResponseParsingService } from '../data';
+import { RestRequest } from '../data';
+import { RawRestResponse } from '../dspace-rest';
 
 /**
  * Provides methods to parse response for a task request.

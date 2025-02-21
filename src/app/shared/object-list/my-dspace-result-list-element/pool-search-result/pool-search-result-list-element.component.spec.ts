@@ -14,24 +14,24 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of as observableOf } from 'rxjs';
 
-import { DSONameService } from '../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../../../modules/core/src/lib/core/cache/builders/link.service';
-import { ObjectCacheService } from '../../../../../../modules/core/src/lib/core/cache/object-cache.service';
-import { APP_CONFIG } from '../../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { ConfigurationDataService } from '../../../../../../modules/core/src/lib/core/data/configuration-data.service';
-import { getMockLinkService } from '../../../../../../modules/core/src/lib/core/mocks/link-service.mock';
-import { PoolTaskSearchResult } from '../../../../../../modules/core/src/lib/core/object-collection/pool-task-search-result.model';
-import { ConfigurationProperty } from '../../../../../../modules/core/src/lib/core/shared/configuration-property.model';
-import { Context } from '../../../../../../modules/core/src/lib/core/shared/context.model';
-import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
-import { WorkflowItem } from '../../../../../../modules/core/src/lib/core/submission/models/workflowitem.model';
-import { SubmissionDuplicateDataService } from '../../../../../../modules/core/src/lib/core/submission/submission-duplicate-data.service';
-import { PoolTask } from '../../../../../../modules/core/src/lib/core/tasks/models/pool-task-object.model';
+import { DSONameService } from '@dspace/core';
+import { LinkService } from '@dspace/core';
+import { ObjectCacheService } from '@dspace/core';
+import { APP_CONFIG } from '@dspace/core';
+import { ConfigurationDataService } from '@dspace/core';
+import { getMockLinkService } from '@dspace/core';
+import { PoolTaskSearchResult } from '@dspace/core';
+import { ConfigurationProperty } from '@dspace/core';
+import { Context } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { WorkflowItem } from '@dspace/core';
+import { SubmissionDuplicateDataService } from '@dspace/core';
+import { PoolTask } from '@dspace/core';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { createPaginatedList } from '../../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+} from '@dspace/core';
+import { createPaginatedList } from '@dspace/core';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';

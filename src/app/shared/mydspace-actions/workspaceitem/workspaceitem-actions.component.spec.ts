@@ -23,25 +23,25 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '../../../../../modules/core/src/lib/core/auth/auth.service';
-import { AuthorizationDataService } from '../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
-import { EPerson } from '../../../../../modules/core/src/lib/core/eperson/models/eperson.model';
-import { getMockRequestService } from '../../../../../modules/core/src/lib/core/mocks/request.service.mock';
-import { TranslateLoaderMock } from '../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { SearchService } from '../../../../../modules/core/src/lib/core/shared/search/search.service';
-import { WorkspaceItem } from '../../../../../modules/core/src/lib/core/submission/models/workspaceitem.model';
-import { WorkspaceitemDataService } from '../../../../../modules/core/src/lib/core/submission/workspaceitem-data.service';
+import { AuthService } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { EPerson } from '@dspace/core';
+import { getMockRequestService } from '@dspace/core';
+import { TranslateLoaderMock } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { SearchService } from '@dspace/core';
+import { WorkspaceItem } from '@dspace/core';
+import { WorkspaceitemDataService } from '@dspace/core';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { RouterStub } from '../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
+} from '@dspace/core';
+import { ActivatedRouteStub } from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { RouterStub } from '@dspace/core';
 import { getMockSearchService } from '../../mocks/search-service.mock';
 import { WorkspaceitemActionsComponent } from './workspaceitem-actions.component';
 

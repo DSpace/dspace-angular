@@ -30,34 +30,34 @@ import { getCommunityPageRoute } from '../../community-page/community-page-routi
 import {
   SortDirection,
   SortOptions,
-} from '../../../../modules/core/src/lib/core/cache/models/sort-options.model';
+} from '@dspace/core';
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
-} from '../../../../modules/core/src/lib/core/config/app-config.interface';
-import { CommunityDataService } from '../../../../modules/core/src/lib/core/data/community-data.service';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { RouteService } from '../../../../modules/core/src/lib/core/services/route.service';
-import { DSpaceObject } from '../../../../modules/core/src/lib/core/shared/dspace-object.model';
-import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
-import { PaginatedSearchOptions } from '../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
-import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
-import { FilterType } from '../../../../modules/core/src/lib/core/shared/search/models/filter-type.model';
-import { SearchFilterConfig } from '../../../../modules/core/src/lib/core/shared/search/models/search-filter-config.model';
-import { SearchObjects } from '../../../../modules/core/src/lib/core/shared/search/models/search-objects.model';
-import { SearchService } from '../../../../modules/core/src/lib/core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../../modules/core/src/lib/core/shared/search/search-filter.service';
+} from '@dspace/core';
+import { CommunityDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { RouteService } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { PaginatedSearchOptions } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
+import { FilterType } from '@dspace/core';
+import { SearchFilterConfig } from '@dspace/core';
+import { SearchObjects } from '@dspace/core';
+import { SearchService } from '@dspace/core';
+import { SearchConfigurationService } from '@dspace/core';
+import { SearchFilterService } from '@dspace/core';
 import {
   SearchConfig,
   SortConfig,
-} from '../../../../modules/core/src/lib/core/shared/search/search-filters/search-config.model';
+} from '@dspace/core';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { SidebarServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/sidebar-service.stub';
-import { XSRFService } from '../../../../modules/core/src/lib/core/xsrf/xsrf.service';
+} from '@dspace/core';
+import { SidebarServiceStub } from '@dspace/core';
+import { XSRFService } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { HostWindowService } from '../host-window.service';
 import { ThemedSearchFormComponent } from '../search-form/themed-search-form.component';

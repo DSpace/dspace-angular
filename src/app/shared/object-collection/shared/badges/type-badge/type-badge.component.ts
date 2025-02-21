@@ -9,8 +9,8 @@ import {
 } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { getResourceTypeValueFor } from '../../../../../../../modules/core/src/lib/core/cache/object-cache.reducer';
-import { DSpaceObject } from '../../../../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { getResourceTypeValueFor } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
 
 @Component({
   selector: 'ds-base-type-badge',

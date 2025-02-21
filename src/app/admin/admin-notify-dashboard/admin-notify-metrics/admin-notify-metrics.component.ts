@@ -6,8 +6,8 @@ import {
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { AdminNotifyMetricsRow } from '../../../../../modules/core/src/lib/core/config/models/admin-notify-metrics.model';
-import { ViewMode } from '../../../../../modules/core/src/lib/core/shared/view-mode.model';
+import { AdminNotifyMetricsRow } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
 import { NotificationBoxComponent } from '../../../shared/notification-box/notification-box.component';
 
 @Component({

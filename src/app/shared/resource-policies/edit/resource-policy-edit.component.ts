@@ -21,12 +21,12 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { ResourcePolicy } from '../../../../../modules/core/src/lib/core/resource-policy/models/resource-policy.model';
-import { RESOURCE_POLICY } from '../../../../../modules/core/src/lib/core/resource-policy/models/resource-policy.resource-type';
-import { ResourcePolicyDataService } from '../../../../../modules/core/src/lib/core/resource-policy/resource-policy-data.service';
-import { getFirstCompletedRemoteData } from '../../../../../modules/core/src/lib/core/shared/operators';
+import { RemoteData } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { ResourcePolicy } from '@dspace/core';
+import { RESOURCE_POLICY } from '@dspace/core';
+import { ResourcePolicyDataService } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
 import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../item-page/edit-item-page/edit-item-page.routing-paths';
 import {
   ResourcePolicyEvent,

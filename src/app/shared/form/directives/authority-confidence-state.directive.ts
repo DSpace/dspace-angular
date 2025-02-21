@@ -26,12 +26,12 @@ import { TranslateService } from '@ngx-translate/core';
 import findIndex from 'lodash/findIndex';
 
 import { environment } from '../../../../environments/environment';
-import { ConfidenceIconConfig } from '../../../../../modules/core/src/lib/core/config/submission-config.interface';
-import { ConfidenceType } from '../../../../../modules/core/src/lib/core/shared/confidence-type';
-import { MetadataValue } from '../../../../../modules/core/src/lib/core/shared/metadata.models';
-import { VocabularyEntry } from '../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyEntryDetail } from '../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { FormFieldMetadataValueObject } from '../../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
+import { ConfidenceIconConfig } from '@dspace/core';
+import { ConfidenceType } from '@dspace/core';
+import { MetadataValue } from '@dspace/core';
+import { VocabularyEntry } from '@dspace/core';
+import { VocabularyEntryDetail } from '@dspace/core';
+import { FormFieldMetadataValueObject } from '@dspace/core';
 
 /**
  * Directive to add to the element a bootstrap utility class based on metadata confidence value

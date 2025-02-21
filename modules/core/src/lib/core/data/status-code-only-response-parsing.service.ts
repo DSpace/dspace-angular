@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { RestResponse } from '../cache/response.models';
-import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+import { RestResponse } from '../cache';
+import { RawRestResponse } from '../dspace-rest';
 import { ResponseParsingService } from './parsing.service';
 import { RestRequest } from './rest-request.model';
 

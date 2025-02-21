@@ -13,8 +13,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { RouterMock } from '../../../../../../modules/core/src/lib/core/mocks/router.mock';
-import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
+import { RouterMock } from '@dspace/core';
+import { Item } from '@dspace/core';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 import { RelatedEntitiesSearchComponent } from '../related-entities-search/related-entities-search.component';
 import { TabbedRelatedEntitiesSearchComponent } from './tabbed-related-entities-search.component';

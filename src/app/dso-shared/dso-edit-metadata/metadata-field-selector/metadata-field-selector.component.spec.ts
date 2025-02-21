@@ -11,17 +11,17 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   SortDirection,
   SortOptions,
-} from '../../../../../modules/core/src/lib/core/cache/models/sort-options.model';
-import { followLink } from '../../../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { MetadataField } from '../../../../../modules/core/src/lib/core/metadata/metadata-field.model';
-import { MetadataSchema } from '../../../../../modules/core/src/lib/core/metadata/metadata-schema.model';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { RegistryService } from '../../../../../modules/core/src/lib/core/registry/registry.service';
+} from '@dspace/core';
+import { followLink } from '@dspace/core';
+import { MetadataField } from '@dspace/core';
+import { MetadataSchema } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { RegistryService } from '@dspace/core';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { createPaginatedList } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+} from '@dspace/core';
+import { createPaginatedList } from '@dspace/core';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { MetadataFieldSelectorComponent } from './metadata-field-selector.component';
 

@@ -4,16 +4,16 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { BrowseService } from '../../browse/browse.service';
+import { BrowseService } from '../../browse';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../data/paginated-list.model';
-import { RemoteData } from '../../data/remote-data';
-import { BrowseDefinition } from '../../shared/browse-definition.model';
-import { FlatBrowseDefinition } from '../../shared/flat-browse-definition.model';
-import { PageInfo } from '../../shared/page-info.model';
-import { ValueListBrowseDefinition } from '../../shared/value-list-browse-definition.model';
+} from '../../data';
+import { RemoteData } from '../../data';
+import { BrowseDefinition } from '../../shared';
+import { FlatBrowseDefinition } from '../../shared';
+import { PageInfo } from '../../shared';
+import { ValueListBrowseDefinition } from '../../shared';
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 
 // This data is in post-serialized form (metadata -> metadataKeys)

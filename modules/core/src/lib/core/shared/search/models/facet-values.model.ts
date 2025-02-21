@@ -4,10 +4,10 @@ import {
   inheritSerialization,
 } from 'cerialize';
 
-import { typedObject } from '../../../cache/builders/build-decorators';
-import { PaginatedList } from '../../../data/paginated-list.model';
-import { excludeFromEquals } from '../../../utilities/equals.decorators';
-import { FACET_VALUES } from '../types/facet-values.resource-type';
+import { typedObject } from '../../../cache';
+import { PaginatedList } from '../../../data';
+import { excludeFromEquals } from '../../../utilities';
+import { FACET_VALUES } from '../types';
 import { FacetValue } from './facet-value.model';
 import { FilterType } from './filter-type.model';
 import { SearchQueryResponse } from './search-query-response.model';

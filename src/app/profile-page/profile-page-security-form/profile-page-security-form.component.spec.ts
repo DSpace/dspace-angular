@@ -11,9 +11,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { RestResponse } from '../../../../modules/core/src/lib/core/cache/response.models';
-import { EPersonDataService } from '../../../../modules/core/src/lib/core/eperson/eperson-data.service';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { RestResponse } from '@dspace/core';
+import { EPersonDataService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../shared/form/form.component';

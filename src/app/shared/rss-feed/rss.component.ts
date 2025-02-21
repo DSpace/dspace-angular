@@ -28,16 +28,16 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import { SortOptions } from '../../../../modules/core/src/lib/core/cache/models/sort-options.model';
-import { ConfigurationDataService } from '../../../../modules/core/src/lib/core/data/configuration-data.service';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { GroupDataService } from '../../../../modules/core/src/lib/core/eperson/group-data.service';
-import { PaginationService } from '../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { LinkHeadService } from '../../../../modules/core/src/lib/core/services/link-head.service';
-import { getFirstCompletedRemoteData } from '../../../../modules/core/src/lib/core/shared/operators';
-import { PaginatedSearchOptions } from '../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
-import { SearchFilter } from '../../../../modules/core/src/lib/core/shared/search/models/search-filter.model';
-import { SearchConfigurationService } from '../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
+import { SortOptions } from '@dspace/core';
+import { ConfigurationDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { GroupDataService } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { LinkHeadService } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
+import { PaginatedSearchOptions } from '@dspace/core';
+import { SearchFilter } from '@dspace/core';
+import { SearchConfigurationService } from '@dspace/core';
 /**
  * The Rss feed button component.
  */

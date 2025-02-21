@@ -1,8 +1,8 @@
 /* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 
-import { Group } from '../../eperson/models/group.model';
-import { type } from '../../shared/ngrx/type';
+import { Group } from '../../eperson';
+import { type } from '../../shared';
 
 /**
  * For each action type in an action group, make a simple

@@ -27,8 +27,8 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
+import { RemoteData } from '@dspace/core';
+import { Item } from '@dspace/core';
 import {
   fadeIn,
   fadeInOut,

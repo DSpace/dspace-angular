@@ -24,23 +24,23 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthorizationDataService } from '../../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { AuthorizationDataService } from '@dspace/core';
 import {
   METADATA_EXPORT_SCRIPT_NAME,
   ScriptDataService,
-} from '../../../../../../modules/core/src/lib/core/data/processes/script-data.service';
-import { TranslateLoaderMock } from '../../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
-import { NotificationsService } from '../../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { ProcessParameter } from '../../../../../../modules/core/src/lib/core/processes/process-parameter.model';
-import { Collection } from '../../../../../../modules/core/src/lib/core/shared/collection.model';
-import { Community } from '../../../../../../modules/core/src/lib/core/shared/community.model';
-import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
+} from '@dspace/core';
+import { TranslateLoaderMock } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { ProcessParameter } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { Community } from '@dspace/core';
+import { Item } from '@dspace/core';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+} from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import { ExportMetadataSelectorComponent } from './export-metadata-selector.component';

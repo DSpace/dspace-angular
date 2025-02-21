@@ -9,8 +9,8 @@ import {
 import { By } from '@angular/platform-browser';
 
 import { environment } from '../../../environments/environment.test';
-import { MathService } from '../../../../modules/core/src/lib/core/shared/math.service';
-import { MockMathService } from '../../../../modules/core/src/lib/core/shared/math.service.spec';
+import { MathService } from '@dspace/core';
+import { MockMathService } from '@dspace/core';
 import { MarkdownDirective } from './markdown.directive';
 
 @Component({

@@ -18,9 +18,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../environments/environment';
-import { ConfidenceType } from '../../../../../modules/core/src/lib/core/shared/confidence-type';
-import { createTestComponent } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
-import { FormFieldMetadataValueObject } from '../../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
+import { ConfidenceType } from '@dspace/core';
+import { createTestComponent } from '@dspace/core';
+import { FormFieldMetadataValueObject } from '@dspace/core';
 import { AuthorityConfidenceStateDirective } from '../directives/authority-confidence-state.directive';
 import { ChipsComponent } from './chips.component';
 import { Chips } from './models/chips.model';

@@ -3,11 +3,11 @@ import {
   isNotEmpty,
 } from '@dspace/shared/utils';
 
-import { Collection } from '../../shared/collection.model';
-import { Community } from '../../shared/community.model';
-import { DSpaceObject } from '../../shared/dspace-object.model';
-import { Item } from '../../shared/item.model';
-import { URLCombiner } from '../../url-combiner/url-combiner';
+import { Collection } from '../../shared';
+import { Community } from '../../shared';
+import { DSpaceObject } from '../../shared';
+import { Item } from '../../shared';
+import { URLCombiner } from '../../url-combiner';
 
 
 export const HOME_PAGE_PATH = 'home';

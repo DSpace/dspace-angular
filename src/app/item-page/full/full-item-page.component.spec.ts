@@ -22,22 +22,22 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { NotifyInfoService } from '../../../../modules/core/src/lib/core/coar-notify/notify-info/notify-info.service';
-import { AuthorizationDataService } from '../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { ItemDataService } from '../../../../modules/core/src/lib/core/data/item-data.service';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { SignpostingDataService } from '../../../../modules/core/src/lib/core/data/signposting-data.service';
-import { HeadTagService } from '../../../../modules/core/src/lib/core/metadata/head-tag.service';
-import { TranslateLoaderMock } from '../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
-import { LinkHeadService } from '../../../../modules/core/src/lib/core/services/link-head.service';
-import { ServerResponseService } from '../../../../modules/core/src/lib/core/services/server-response.service';
-import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
+import { NotifyInfoService } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { ItemDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { SignpostingDataService } from '@dspace/core';
+import { HeadTagService } from '@dspace/core';
+import { TranslateLoaderMock } from '@dspace/core';
+import { LinkHeadService } from '@dspace/core';
+import { ServerResponseService } from '@dspace/core';
+import { Item } from '@dspace/core';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
-import { createPaginatedList } from '../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+} from '@dspace/core';
+import { ActivatedRouteStub } from '@dspace/core';
+import { createPaginatedList } from '@dspace/core';
 import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { HeadTagServiceMock } from '../../shared/mocks/head-tag-service.mock';

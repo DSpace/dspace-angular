@@ -21,15 +21,15 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { WorkspaceItem } from '../../../../../modules/core/src/lib/core/submission/models/workspaceitem.model';
-import { SubmissionJsonPatchOperationsService } from '../../../../../modules/core/src/lib/core/submission/submission-json-patch-operations.service';
-import { normalizeSectionData } from '../../../../../modules/core/src/lib/core/submission/submission-response-parsing.service';
+import { NotificationsService } from '@dspace/core';
+import { WorkspaceItem } from '@dspace/core';
+import { SubmissionJsonPatchOperationsService } from '@dspace/core';
+import { normalizeSectionData } from '@dspace/core';
 import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
 import { SectionsService } from '../../sections/sections.service';
-import { SectionsType } from '../../sections/sections-type';
-import { SubmissionService } from '../../submission.service';
+import { SectionsType } from '../../../../../modules/core/src/lib/core/submission/models/sections-type';
+import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
 import parseSectionErrors from '../../utils/parseSectionErrors';
 
 /**

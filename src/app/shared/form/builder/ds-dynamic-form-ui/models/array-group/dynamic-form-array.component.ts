@@ -37,8 +37,8 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 
-import { Relationship } from '../../../../../../../../modules/core/src/lib/core/shared/item-relationships/relationship.model';
-import { LiveRegionService } from '../../../../../live-region/live-region.service';
+import { Relationship } from '@dspace/core';
+import { LiveRegionService } from '../../../../../../../../modules/core/src/lib/core/services/live-region.service';
 import { DsDynamicFormControlContainerComponent } from '../../ds-dynamic-form-control-container.component';
 import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';
 

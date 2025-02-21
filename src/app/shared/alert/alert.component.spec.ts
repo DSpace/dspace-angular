@@ -14,7 +14,7 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { createTestComponent } from '../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+import { createTestComponent } from '@dspace/core';
 import { AlertComponent } from './alert.component';
 import { AlertType } from './alert-type';
 

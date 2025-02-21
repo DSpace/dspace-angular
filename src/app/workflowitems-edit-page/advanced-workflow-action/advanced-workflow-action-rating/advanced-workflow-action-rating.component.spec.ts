@@ -16,28 +16,28 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
-import { WorkflowActionDataService } from '../../../../../modules/core/src/lib/core/data/workflow-action-data.service';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { RouteService } from '../../../../../modules/core/src/lib/core/services/route.service';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { WorkflowItem } from '../../../../../modules/core/src/lib/core/submission/models/workflowitem.model';
-import { WorkflowItemDataService } from '../../../../../modules/core/src/lib/core/submission/workflowitem-data.service';
-import { ClaimedTaskDataService } from '../../../../../modules/core/src/lib/core/tasks/claimed-task-data.service';
-import { ProcessTaskResponse } from '../../../../../modules/core/src/lib/core/tasks/models/process-task-response';
-import { RatingAdvancedWorkflowInfo } from '../../../../../modules/core/src/lib/core/tasks/models/rating-advanced-workflow-info.model';
+import { RequestService } from '@dspace/core';
+import { WorkflowActionDataService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { RouteService } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { WorkflowItem } from '@dspace/core';
+import { WorkflowItemDataService } from '@dspace/core';
+import { ClaimedTaskDataService } from '@dspace/core';
+import { ProcessTaskResponse } from '@dspace/core';
+import { RatingAdvancedWorkflowInfo } from '@dspace/core';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { ClaimedTaskDataServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/claimed-task-data-service.stub';
-import { LocationStub } from '../../../../../modules/core/src/lib/core/utilities/testing/location.stub';
-import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { RequestServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/request-service.stub';
-import { routeServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/route-service.stub';
-import { RouterStub } from '../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
-import { WorkflowActionDataServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/workflow-action-data-service.stub';
-import { WorkflowItemDataServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/workflow-item-data-service.stub';
+} from '@dspace/core';
+import { ClaimedTaskDataServiceStub } from '@dspace/core';
+import { LocationStub } from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { RequestServiceStub } from '@dspace/core';
+import { routeServiceStub } from '@dspace/core';
+import { RouterStub } from '@dspace/core';
+import { WorkflowActionDataServiceStub } from '@dspace/core';
+import { WorkflowItemDataServiceStub } from '@dspace/core';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import {
   ADVANCED_WORKFLOW_TASK_OPTION_RATING,

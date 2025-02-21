@@ -1,7 +1,7 @@
 import {
   qualityAssuranceTopicObjectMoreAbstract,
   qualityAssuranceTopicObjectMorePid,
-} from '../../../../../modules/core/src/lib/core/mocks/notifications.mock';
+} from '@dspace/core';
 import {
   AddTopicsAction,
   RetrieveAllTopicsAction,

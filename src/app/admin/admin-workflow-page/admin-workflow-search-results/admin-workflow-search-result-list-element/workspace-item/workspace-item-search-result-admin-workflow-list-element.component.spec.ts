@@ -9,26 +9,26 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../../../environments/environment';
-import { AuthService } from '../../../../../../../modules/core/src/lib/core/auth/auth.service';
-import { DSONameService } from '../../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../../../../modules/core/src/lib/core/cache/builders/link.service';
-import { APP_CONFIG } from '../../../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { AuthorizationDataService } from '../../../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { followLink } from '../../../../../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { getMockLinkService } from '../../../../../../../modules/core/src/lib/core/mocks/link-service.mock';
-import { NotificationsService } from '../../../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { WorkflowItemSearchResult } from '../../../../../../../modules/core/src/lib/core/object-collection/workflow-item-search-result.model';
-import { DSpaceObject } from '../../../../../../../modules/core/src/lib/core/shared/dspace-object.model';
-import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
-import { ViewMode } from '../../../../../../../modules/core/src/lib/core/shared/view-mode.model';
-import { WorkflowItem } from '../../../../../../../modules/core/src/lib/core/submission/models/workflowitem.model';
-import { SupervisionOrderDataService } from '../../../../../../../modules/core/src/lib/core/supervision-order/supervision-order-data.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { AuthService } from '@dspace/core';
+import { DSONameService } from '@dspace/core';
+import { LinkService } from '@dspace/core';
+import { APP_CONFIG } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { followLink } from '@dspace/core';
+import { getMockLinkService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { WorkflowItemSearchResult } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
+import { WorkflowItem } from '@dspace/core';
+import { SupervisionOrderDataService } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
 import {
   supervisionOrderPaginatedListRD,
   supervisionOrderPaginatedListRD$,
-} from '../../../../../../../modules/core/src/lib/core/utilities/testing/supervision-order.mock';
+} from '@dspace/core';
 import { AuthServiceMock } from '../../../../../shared/mocks/auth.service.mock';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';

@@ -3,10 +3,10 @@ import { of as observableOf } from 'rxjs';
 import {
   SortDirection,
   SortOptions,
-} from '../cache/models/sort-options.model';
-import { FindListOptions } from '../data/find-list-options.model';
-import { PaginationComponentOptions } from '../shared/pagination-component-options.model';
-import { RouterStub } from '../utilities/testing/router.stub';
+} from '../cache';
+import { FindListOptions } from '../data';
+import { PaginationComponentOptions } from '../shared';
+import { RouterStub } from '../utilities';
 import { PaginationService } from './pagination.service';
 
 

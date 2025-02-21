@@ -7,10 +7,10 @@ import {
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { NotifyStatuses } from '../../../../../../modules/core/src/lib/core/notify-requests/notify-requests-status.model';
+import { NotifyStatuses } from '@dspace/core';
 import { TruncatableComponent } from '../../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../../shared/truncatable/truncatable-part/truncatable-part.component';
-import { RequestStatusEnum } from '../../../../../../modules/core/src/lib/core/notify-requests/notify-status.enum';
+import { RequestStatusEnum } from '@dspace/core';
 
 @Component({
   selector: 'ds-request-status-alert-box',

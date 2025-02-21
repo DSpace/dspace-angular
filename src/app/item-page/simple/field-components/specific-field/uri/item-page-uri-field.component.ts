@@ -3,7 +3,7 @@ import {
   Input,
 } from '@angular/core';
 
-import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
+import { Item } from '@dspace/core';
 import { MetadataUriValuesComponent } from '../../../../field-components/metadata-uri-values/metadata-uri-values.component';
 import { ItemPageFieldComponent } from '../item-page-field.component';
 

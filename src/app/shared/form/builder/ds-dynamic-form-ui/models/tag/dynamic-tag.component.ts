@@ -44,11 +44,11 @@ import { environment } from '../../../../../../../environments/environment';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../../../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../../../../modules/core/src/lib/core/shared/operators';
-import { PageInfo } from '../../../../../../../../modules/core/src/lib/core/shared/page-info.model';
-import { VocabularyEntry } from '../../../../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyService } from '../../../../../../../../modules/core/src/lib/core/submission/vocabularies/vocabulary.service';
+} from '@dspace/core';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core';
+import { PageInfo } from '@dspace/core';
+import { VocabularyEntry } from '@dspace/core';
+import { VocabularyService } from '@dspace/core';
 import { ChipsComponent } from '../../../../chips/chips.component';
 import { Chips } from '../../../../chips/models/chips.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';

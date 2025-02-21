@@ -5,11 +5,11 @@ import {
   Output,
 } from '@angular/core';
 
-import { PaginatedList } from '../../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../../modules/core/src/lib/core/data/remote-data';
-import { ListableObject } from '../../../../../../modules/core/src/lib/core/object-collection/listable-object.model';
-import { Context } from '../../../../../../modules/core/src/lib/core/shared/context.model';
-import { ViewMode } from '../../../../../../modules/core/src/lib/core/shared/view-mode.model';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { ListableObject } from '@dspace/core';
+import { Context } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
 import { CollectionElementLinkType } from '../../collection-element-link.type';
 
 @Component({

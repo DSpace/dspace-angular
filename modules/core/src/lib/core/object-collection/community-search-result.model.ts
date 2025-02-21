@@ -1,5 +1,5 @@
-import { Community } from '../shared/community.model';
-import { SearchResult } from '../shared/search/models/search-result.model';
+import { Community } from '../shared';
+import { SearchResult } from '../shared';
 
 export class CommunitySearchResult extends SearchResult<Community> {
 }

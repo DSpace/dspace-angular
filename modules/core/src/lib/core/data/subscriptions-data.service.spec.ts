@@ -1,0 +1,134 @@
+import { HttpClient } from '@angular/common/http';
+import { Store } from '@ngrx/store';
+
+import { DSONameService } from '@dspace/core';
+import { RemoteDataBuildService } from '@dspace/core';
+import { ObjectCacheService } from '@dspace/core';
+import { DSOChangeAnalyzer } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { getMockRemoteDataBuildService } from '@dspace/core';
+import { getMockRequestService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { HALEndpointService } from '@dspace/core';
+import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core';
+import { HALEndpointServiceStub } from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { createPaginatedList } from '@dspace/core';
+import { Subscription } from '../subscription/subscription.model';
+import { SubscriptionsDataService } from './subscriptions-data.service';
+
+describe('SubscriptionsDataService', () => {
+
+
+  let service: SubscriptionsDataService;
+
+  let comparator: DSOChangeAnalyzer<Subscription>;
+  let http: HttpClient;
+  let notificationsService: NotificationsService;
+  let requestService: RequestService;
+  let rdbService: RemoteDataBuildService;
+  let store: Store<any>;
+  let objectCache: ObjectCacheService;
+  let halService: HALEndpointService;
+  let nameService: DSONameService;
+
+  function initService() {
+    comparator = {} as any;
+    http = {} as HttpClient;
+    notificationsService = new NotificationsServiceStub() as any;
+    requestService = getMockRequestService();
+    rdbService = getMockRemoteDataBuildService();
+    halService = new HALEndpointServiceStub('linkPath') as any;
+    service = new SubscriptionsDataService(comparator, http, notificationsService, requestService, rdbService, store, objectCache, halService, nameService);
+    spyOn((service as any).deleteData, 'delete').and.returnValue(createNoContentRemoteDataObject$());
+  }
+
+  describe('createSubscription', () => {
+
+    beforeEach(() => {
+      initService();
+    });
+
+    it('should create the subscription', () => {
+      const id = 'test-id';
+      const ePerson = 'test-ePerson';
+      const subscription = new Subscription();
+      service.createSubscription(subscription, ePerson, id).subscribe((res) => {
+        expect(requestService.generateRequestId).toHaveBeenCalled();
+        expect(res.hasCompleted).toBeTrue();
+      });
+    });
+
+  });
+
+  describe('deleteSubscription', () => {
+
+    beforeEach(() => {
+      initService();
+    });
+
+    it('should delete the subscription', () => {
+      const id = 'test-id';
+      service.deleteSubscription(id).subscribe((res) => {
+        expect((service as any).deleteData.delete).toHaveBeenCalledWith(id);
+        expect(res.hasCompleted).toBeTrue();
+      });
+    });
+
+  });
+
+  describe('updateSubscription', () => {
+
+    beforeEach(() => {
+      initService();
+    });
+
+    it('should update the subscription', () => {
+      const id = 'test-id';
+      const ePerson = 'test-ePerson';
+      const subscription = new Subscription();
+      service.updateSubscription(subscription, ePerson, id).subscribe((res) => {
+        expect(requestService.generateRequestId).toHaveBeenCalled();
+        expect(res.hasCompleted).toBeTrue();
+      });
+    });
+
+  });
+
+  describe('findByEPerson', () => {
+
+    beforeEach(() => {
+      initService();
+    });
+
+    it('should update the subscription', () => {
+      const ePersonId = 'test-ePersonId';
+      spyOn(service, 'findListByHref').and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList()));
+      service.findByEPerson(ePersonId).subscribe((res) => {
+        expect(service.findListByHref).toHaveBeenCalled();
+        expect(res.hasCompleted).toBeTrue();
+      });
+    });
+
+  });
+
+  describe('getSubscriptionsByPersonDSO', () => {
+
+    beforeEach(() => {
+      initService();
+    });
+
+    it('should get the subscriptions', () => {
+      spyOn((service as any).searchData, 'searchBy');
+      const id = 'test-id';
+      const ePersonId = 'test-ePersonId';
+      service.getSubscriptionsByPersonDSO(ePersonId, id);
+      expect((service as any).searchData.searchBy).toHaveBeenCalled();
+    });
+
+  });
+
+});

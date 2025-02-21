@@ -17,26 +17,26 @@ import { cold } from 'jasmine-marbles';
 import uniqueId from 'lodash/uniqueId';
 import { of as observableOf } from 'rxjs';
 
-import { DSONameService } from '../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { DSONameService } from '@dspace/core';
 import {
   APP_DATA_SERVICES_MAP,
   LazyDataServicesMap,
-} from '../../../../modules/core/src/lib/core/config/app-config.interface';
-import { buildPaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RequestService } from '../../../../modules/core/src/lib/core/data/request.service';
-import { EPersonDataService } from '../../../../modules/core/src/lib/core/eperson/eperson-data.service';
-import { GroupDataService } from '../../../../modules/core/src/lib/core/eperson/group-data.service';
-import { EPERSON } from '../../../../modules/core/src/lib/core/eperson/models/eperson.resource-type';
-import { GROUP } from '../../../../modules/core/src/lib/core/eperson/models/group.resource-type';
-import { getMockRequestService } from '../../../../modules/core/src/lib/core/mocks/request.service.mock';
-import { PaginationService } from '../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { PageInfo } from '../../../../modules/core/src/lib/core/shared/page-info.model';
-import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
-import { createSuccessfulRemoteDataObject } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { EPersonMock } from '../../../../modules/core/src/lib/core/utilities/testing/eperson.mock';
-import { GroupMock } from '../../../../modules/core/src/lib/core/utilities/testing/group-mock';
-import { PaginationServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
-import { createTestComponent } from '../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+} from '@dspace/core';
+import { buildPaginatedList } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { EPersonDataService } from '@dspace/core';
+import { GroupDataService } from '@dspace/core';
+import { EPERSON } from '@dspace/core';
+import { GROUP } from '@dspace/core';
+import { getMockRequestService } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { PageInfo } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
+import { createSuccessfulRemoteDataObject } from '@dspace/core';
+import { EPersonMock } from '@dspace/core';
+import { GroupMock } from '@dspace/core';
+import { PaginationServiceStub } from '@dspace/core';
+import { createTestComponent } from '@dspace/core';
 import { DSONameServiceMock } from '../mocks/dso-name.service.mock';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { EpersonGroupListComponent } from './eperson-group-list.component';

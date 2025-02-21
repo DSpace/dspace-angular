@@ -7,25 +7,25 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
+import { RemoteDataBuildService } from '../cache';
+import { ObjectCacheService } from '../cache';
 import { CoreState } from '../core-state.model';
-import { getMockRequestService } from '../mocks/request.service.mock';
-import { NotificationsService } from '../notifications/notifications.service';
-import { Bitstream } from '../shared/bitstream.model';
-import { Community } from '../shared/community.model';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { getMockRequestService } from '../mocks';
+import { NotificationsService } from '../notifications';
+import { Bitstream } from '../shared';
+import { Community } from '../shared';
+import { HALEndpointService } from '../shared';
 import {
   createFailedRemoteDataObject,
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../utilities/remote-data.utils';
-import { testCreateDataImplementation } from './base/create-data.spec';
-import { testDeleteDataImplementation } from './base/delete-data.spec';
-import { testFindAllDataImplementation } from './base/find-all-data.spec';
-import { testPatchDataImplementation } from './base/patch-data.spec';
-import { testSearchDataImplementation } from './base/search-data.spec';
+} from '../utilities';
+import { testCreateDataImplementation } from './base';
+import { testDeleteDataImplementation } from './base';
+import { testFindAllDataImplementation } from './base';
+import { testPatchDataImplementation } from './base';
+import { testSearchDataImplementation } from './base';
 import { BitstreamDataService } from './bitstream-data.service';
 import { ComColDataService } from './comcol-data.service';
 import { CommunityDataService } from './community-data.service';

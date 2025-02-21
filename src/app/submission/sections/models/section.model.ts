@@ -18,7 +18,7 @@ import {
 } from 'rxjs/operators';
 
 import { SectionsService } from '../sections.service';
-import { SectionDataObject } from './section-data.model';
+import { SectionDataObject } from '../../../../../modules/core/src/lib/core/submission/sections/section-data.model';
 
 export interface SectionDataModel {
   sectionData: SectionDataObject;

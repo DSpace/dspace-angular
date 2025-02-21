@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { BaseDataService } from '../data/base/base-data.service';
+import { RemoteDataBuildService } from '../cache';
+import { ObjectCacheService } from '../cache';
+import { BaseDataService } from '../data';
 import {
   FindAllData,
   FindAllDataImpl,
-} from '../data/base/find-all-data';
-import { FindListOptions } from '../data/find-list-options.model';
-import { FollowLinkConfig } from '../data/follow-link-config.model';
-import { PaginatedList } from '../data/paginated-list.model';
-import { RemoteData } from '../data/remote-data';
-import { RequestService } from '../data/request.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { SubmissionCcLicence } from './models/submission-cc-license.model';
+} from '../data';
+import { FindListOptions } from '../data';
+import { FollowLinkConfig } from '../data';
+import { PaginatedList } from '../data';
+import { RemoteData } from '../data';
+import { RequestService } from '../data';
+import { HALEndpointService } from '../shared';
+import { SubmissionCcLicence } from './models';
 
 @Injectable({ providedIn: 'root' })
 export class SubmissionCcLicenseDataService extends BaseDataService<SubmissionCcLicence> implements FindAllData<SubmissionCcLicence> {

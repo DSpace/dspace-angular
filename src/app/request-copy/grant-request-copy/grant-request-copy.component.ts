@@ -18,17 +18,17 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
-import { ItemRequestDataService } from '../../../../modules/core/src/lib/core/data/item-request-data.service';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { RequestCopyEmail } from '../../../../modules/core/src/lib/core/request-copy/request-copy-email.model';
-import { redirectOn4xx } from '../../../../modules/core/src/lib/core/shared/authorized.operators';
-import { ItemRequest } from '../../../../modules/core/src/lib/core/shared/item-request.model';
+import { AuthService } from '@dspace/core';
+import { ItemRequestDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { RequestCopyEmail } from '@dspace/core';
+import { redirectOn4xx } from '@dspace/core';
+import { ItemRequest } from '@dspace/core';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '../../../../modules/core/src/lib/core/shared/operators';
+} from '@dspace/core';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ThemedEmailRequestCopyComponent } from '../email-request-copy/themed-email-request-copy.component';

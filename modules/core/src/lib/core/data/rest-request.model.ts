@@ -1,4 +1,4 @@
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { HttpOptions } from '../dspace-rest';
 import { RestRequestMethod } from './rest-request-method';
 
 /**

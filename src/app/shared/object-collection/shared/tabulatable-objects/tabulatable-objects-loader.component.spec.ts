@@ -8,10 +8,10 @@ import {
 import { By } from '@angular/platform-browser';
 import { provideMockStore } from '@ngrx/store/testing';
 
-import { PaginatedList } from '../../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { ListableObject } from '../../../../../../modules/core/src/lib/core/object-collection/listable-object.model';
-import { Context } from '../../../../../../modules/core/src/lib/core/shared/context.model';
-import { ViewMode } from '../../../../../../modules/core/src/lib/core/shared/view-mode.model';
+import { PaginatedList } from '@dspace/core';
+import { ListableObject } from '@dspace/core';
+import { Context } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
 import { TabulatableResultListElementsComponent } from '../../../object-list/search-result-list-element/tabulatable-search-result/tabulatable-result-list-elements.component';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { TestType } from '../listable-object/listable-object-component-loader.component.spec';

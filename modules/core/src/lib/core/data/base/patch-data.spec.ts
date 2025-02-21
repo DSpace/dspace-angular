@@ -16,15 +16,15 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../cache/object-cache.service';
-import { getMockRemoteDataBuildService } from '../../mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../../mocks/request.service.mock';
-import { DSpaceObject } from '../../shared/dspace-object.model';
-import { HALEndpointService } from '../../shared/hal-endpoint.service';
-import { Item } from '../../shared/item.model';
-import { createSuccessfulRemoteDataObject$ } from '../../utilities/remote-data.utils';
-import { HALEndpointServiceStub } from '../../utilities/testing/hal-endpoint-service.stub';
+import { RemoteDataBuildService } from '../../cache';
+import { ObjectCacheService } from '../../cache';
+import { getMockRemoteDataBuildService } from '../../mocks';
+import { getMockRequestService } from '../../mocks';
+import { DSpaceObject } from '../../shared';
+import { HALEndpointService } from '../../shared';
+import { Item } from '../../shared';
+import { createSuccessfulRemoteDataObject$ } from '../../utilities';
+import { HALEndpointServiceStub } from '../../utilities';
 import { ChangeAnalyzer } from '../change-analyzer';
 import { FindListOptions } from '../find-list-options.model';
 import { followLink } from '../follow-link-config.model';

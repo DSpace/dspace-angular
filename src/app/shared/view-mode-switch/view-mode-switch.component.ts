@@ -20,10 +20,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-import { SearchService } from '../../../../modules/core/src/lib/core/shared/search/search.service';
-import { ViewMode } from '../../../../modules/core/src/lib/core/shared/view-mode.model';
+import { SearchService } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
 import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
-import { currentPath } from '../utils/route.utils';
+import { currentPath } from '../../../../modules/core/src/lib/core/utilities/route.utils';
 
 /**
  * Component to switch between list and grid views.

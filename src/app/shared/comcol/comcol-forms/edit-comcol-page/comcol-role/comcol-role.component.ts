@@ -24,20 +24,20 @@ import {
 } from 'rxjs/operators';
 
 import { getGroupEditRoute } from '../../../../../access-control/access-control-routing-paths';
-import { DSONameService } from '../../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { RemoteData } from '../../../../../../../modules/core/src/lib/core/data/remote-data';
-import { RequestService } from '../../../../../../../modules/core/src/lib/core/data/request.service';
-import { GroupDataService } from '../../../../../../../modules/core/src/lib/core/eperson/group-data.service';
-import { Group } from '../../../../../../../modules/core/src/lib/core/eperson/models/group.model';
-import { NotificationsService } from '../../../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Collection } from '../../../../../../../modules/core/src/lib/core/shared/collection.model';
-import { Community } from '../../../../../../../modules/core/src/lib/core/shared/community.model';
-import { HALLink } from '../../../../../../../modules/core/src/lib/core/shared/hal-link.model';
-import { NoContent } from '../../../../../../../modules/core/src/lib/core/shared/NoContent.model';
+import { DSONameService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { GroupDataService } from '@dspace/core';
+import { Group } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { Community } from '@dspace/core';
+import { HALLink } from '@dspace/core';
+import { NoContent } from '@dspace/core';
 import {
   getAllCompletedRemoteData,
   getFirstCompletedRemoteData,
-} from '../../../../../../../modules/core/src/lib/core/shared/operators';
+} from '@dspace/core';
 import { AlertComponent } from '../../../../alert/alert.component';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
 import { HasNoValuePipe } from '../../../../utils/has-no-value.pipe';

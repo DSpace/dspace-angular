@@ -15,7 +15,7 @@ import { submissionEffects } from './submission.effects';
 import {
   submissionReducers,
   SubmissionState,
-} from './submission.reducers';
+} from '../../../modules/core/src/lib/core/states/submission/submission.reducers';
 
 export const provideSubmissionState = (): EnvironmentProviders => {
   return makeEnvironmentProviders([

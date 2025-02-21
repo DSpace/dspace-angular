@@ -7,11 +7,11 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { RemoteData } from '../data/remote-data';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { RemoteData } from '../data';
+import { HttpOptions } from '../dspace-rest';
 import { AuthService } from './auth.service';
-import { AuthStatus } from './models/auth-status.model';
-import { AuthTokenInfo } from './models/auth-token-info.model';
+import { AuthStatus } from './models';
+import { AuthTokenInfo } from './models';
 
 /**
  * The auth service.

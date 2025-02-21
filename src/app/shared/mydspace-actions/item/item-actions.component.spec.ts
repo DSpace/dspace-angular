@@ -18,15 +18,15 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
-import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
-import { getMockRequestService } from '../../../../../modules/core/src/lib/core/mocks/request.service.mock';
-import { TranslateLoaderMock } from '../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { SearchService } from '../../../../../modules/core/src/lib/core/shared/search/search.service';
-import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { RouterStub } from '../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
+import { ItemDataService } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { getMockRequestService } from '@dspace/core';
+import { TranslateLoaderMock } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { SearchService } from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { RouterStub } from '@dspace/core';
 import { getMockSearchService } from '../../mocks/search-service.mock';
 import { ItemActionsComponent } from './item-actions.component';
 

@@ -4,8 +4,8 @@ import {
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { GenericConstructor } from '../../../../../../../modules/core/src/lib/core/shared/generic-constructor';
-import { SearchFilterConfig } from '../../../../../../../modules/core/src/lib/core/shared/search/models/search-filter-config.model';
+import { GenericConstructor } from '@dspace/core';
+import { SearchFilterConfig } from '@dspace/core';
 import { AbstractComponentLoaderComponent } from '../../../../abstract-component-loader/abstract-component-loader.component';
 import { DynamicComponentLoaderDirective } from '../../../../abstract-component-loader/dynamic-component-loader.directive';
 import { renderFilterType } from '../search-filter-type-decorator';

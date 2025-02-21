@@ -17,10 +17,10 @@ import { environment } from '../../../../environments/environment';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { BrowseDefinition } from '../../../../../modules/core/src/lib/core/shared/browse-definition.model';
-import { MetadataValue } from '../../../../../modules/core/src/lib/core/shared/metadata.models';
-import { VALUE_LIST_BROWSE_DEFINITION } from '../../../../../modules/core/src/lib/core/shared/value-list-browse-definition.resource-type';
+} from '@dspace/core';
+import { BrowseDefinition } from '@dspace/core';
+import { MetadataValue } from '@dspace/core';
+import { VALUE_LIST_BROWSE_DEFINITION } from '@dspace/core';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { MarkdownDirective } from '../../../shared/utils/markdown.directive';
 import { ImageField } from '../../simple/field-components/specific-field/image-field';

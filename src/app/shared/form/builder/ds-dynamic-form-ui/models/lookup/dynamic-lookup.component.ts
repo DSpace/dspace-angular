@@ -43,16 +43,16 @@ import {
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../../../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { ConfidenceType } from '../../../../../../../../modules/core/src/lib/core/shared/confidence-type';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../../../../modules/core/src/lib/core/shared/operators';
-import { PageInfo } from '../../../../../../../../modules/core/src/lib/core/shared/page-info.model';
-import { VocabularyEntry } from '../../../../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyService } from '../../../../../../../../modules/core/src/lib/core/submission/vocabularies/vocabulary.service';
+} from '@dspace/core';
+import { ConfidenceType } from '@dspace/core';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core';
+import { PageInfo } from '@dspace/core';
+import { VocabularyEntry } from '@dspace/core';
+import { VocabularyService } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
-import { FormFieldMetadataValueObject } from '../../../../../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '@dspace/core';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
 

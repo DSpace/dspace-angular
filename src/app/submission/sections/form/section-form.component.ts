@@ -35,36 +35,36 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
-import { ObjectCacheService } from '../../../../../modules/core/src/lib/core/cache/object-cache.service';
-import { ConfigObject } from '../../../../../modules/core/src/lib/core/config/models/config.model';
-import { FormRowModel } from '../../../../../modules/core/src/lib/core/config/models/config-submission-form.model';
-import { SubmissionFormsModel } from '../../../../../modules/core/src/lib/core/config/models/config-submission-forms.model';
-import { SubmissionFormsConfigDataService } from '../../../../../modules/core/src/lib/core/config/submission-forms-config-data.service';
-import { followLink } from '../../../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
-import { JsonPatchOperationPathCombiner } from '../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operation-path-combiner';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { ObjectCacheService } from '@dspace/core';
+import { ConfigObject } from '@dspace/core';
+import { FormRowModel } from '@dspace/core';
+import { SubmissionFormsModel } from '@dspace/core';
+import { SubmissionFormsConfigDataService } from '@dspace/core';
+import { followLink } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { JsonPatchOperationPathCombiner } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '../../../../../modules/core/src/lib/core/shared/operators';
-import { SubmissionObject } from '../../../../../modules/core/src/lib/core/submission/models/submission-object.model';
-import { WorkflowItem } from '../../../../../modules/core/src/lib/core/submission/models/workflowitem.model';
-import { WorkspaceItem } from '../../../../../modules/core/src/lib/core/submission/models/workspaceitem.model';
-import { WorkspaceitemSectionFormObject } from '../../../../../modules/core/src/lib/core/submission/models/workspaceitem-section-form.model';
-import { SubmissionObjectDataService } from '../../../../../modules/core/src/lib/core/submission/submission-object-data.service';
-import { SubmissionScopeType } from '../../../../../modules/core/src/lib/core/submission/submission-scope-type';
+} from '@dspace/core';
+import { SubmissionObject } from '@dspace/core';
+import { WorkflowItem } from '@dspace/core';
+import { WorkspaceItem } from '@dspace/core';
+import { WorkspaceitemSectionFormObject } from '@dspace/core';
+import { SubmissionObjectDataService } from '@dspace/core';
+import { SubmissionScopeType } from '@dspace/core';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { SubmissionSectionError } from '../../objects/submission-section-error.model';
-import { SubmissionSectionObject } from '../../objects/submission-section-object.model';
-import { SubmissionService } from '../../submission.service';
+import { SubmissionSectionError } from '../../../../../modules/core/src/lib/core/submission/models/submission-section-error.model';
+import { SubmissionSectionObject } from '../../../../../modules/core/src/lib/core/states/submission/submission-section-object.model';
+import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
 import { SectionModelComponent } from '../models/section.model';
-import { SectionDataObject } from '../models/section-data.model';
+import { SectionDataObject } from '../../../../../modules/core/src/lib/core/submission/sections/section-data.model';
 import { SectionsService } from '../sections.service';
 import { SectionFormOperationsService } from './section-form-operations.service';
 

@@ -1,5 +1,5 @@
-import { ConfigObject } from '../config/models/config.model';
-import { SubmissionObject } from '../submission/models/submission-object.model';
+import { ConfigObject } from '../config';
+import { SubmissionObject } from '../submission';
 
 /**
  * Defines a type for submission request responses.

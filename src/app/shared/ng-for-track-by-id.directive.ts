@@ -4,7 +4,7 @@ import {
   Host,
 } from '@angular/core';
 
-import { DSpaceObject } from '../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { DSpaceObject } from '@dspace/core';
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector

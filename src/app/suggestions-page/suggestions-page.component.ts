@@ -25,26 +25,26 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../../modules/core/src/lib/core/auth/auth.service';
+import { AuthService } from '@dspace/core';
 import {
   SortDirection,
   SortOptions,
-} from '../../../modules/core/src/lib/core/cache/models/sort-options.model';
-import { FindListOptions } from '../../../modules/core/src/lib/core/data/find-list-options.model';
-import { PaginatedList } from '../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../modules/core/src/lib/core/data/remote-data';
-import { NotificationsService } from '../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Suggestion } from '../../../modules/core/src/lib/core/notifications/suggestions/models/suggestion.model';
-import { SuggestionTarget } from '../../../modules/core/src/lib/core/notifications/suggestions/models/suggestion-target.model';
-import { PaginationService } from '../../../modules/core/src/lib/core/pagination/pagination.service';
-import { redirectOn4xx } from '../../../modules/core/src/lib/core/shared/authorized.operators';
+} from '@dspace/core';
+import { FindListOptions } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Suggestion } from '@dspace/core';
+import { SuggestionTarget } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { redirectOn4xx } from '@dspace/core';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '../../../modules/core/src/lib/core/shared/operators';
-import { PaginationComponentOptions } from '../../../modules/core/src/lib/core/shared/pagination-component-options.model';
-import { WorkspaceItem } from '../../../modules/core/src/lib/core/submission/models/workspaceitem.model';
-import { WorkspaceitemDataService } from '../../../modules/core/src/lib/core/submission/workspaceitem-data.service';
+} from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
+import { WorkspaceItem } from '@dspace/core';
+import { WorkspaceitemDataService } from '@dspace/core';
 import { SuggestionActionsComponent } from '../notifications/suggestion-actions/suggestion-actions.component';
 import { SuggestionApproveAndImport } from '../notifications/suggestion-list-element/suggestion-approve-and-import';
 import { SuggestionListElementComponent } from '../notifications/suggestion-list-element/suggestion-list-element.component';

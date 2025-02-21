@@ -1,23 +1,23 @@
 import { ActionReducerMap } from '@ngrx/store';
 
-import { metadataRegistryReducer } from './states/metadata-registry/metadata-registry.reducers';
-import { authReducer } from './auth/auth.reducer';
-import { objectCacheReducer } from './cache/object-cache.reducer';
-import { serverSyncBufferReducer } from './cache/server-sync-buffer.reducer';
+import { metadataRegistryReducer } from './states';
+import { authReducer } from './auth';
+import { objectCacheReducer } from './cache';
+import { serverSyncBufferReducer } from './cache';
 import { CoreState } from './core-state.model';
-import { objectUpdatesReducer } from './data/object-updates/object-updates.reducer';
-import { requestReducer } from './data/request.reducer';
-import { historyReducer } from './history/history.reducer';
-import { indexReducer } from './index/index.reducer';
-import { jsonPatchOperationsReducer } from './json-patch/json-patch-operations.reducer';
-import { metaTagReducer } from './metadata/meta-tag.reducer';
-import { routeReducer } from './services/route.reducer';
-import { bitstreamFormatReducer } from './states/bitstream-format/bitstream-format.reducers';
-import { correlationIdReducer } from './states/correlation-id/correlation-id.reducer';
-import { ePeopleRegistryReducer } from './states/epeople-registry/epeople-registry.reducers';
-import { groupRegistryReducer } from './states/group-registry/group-registry.reducers';
-import { nameVariantReducer } from './states/name-variant/name-variant.reducer';
-import { notificationsReducer } from "./notifications/notifications.reducers";
+import { objectUpdatesReducer } from './data';
+import { requestReducer } from './data';
+import { historyReducer } from './history';
+import { indexReducer } from './index';
+import { jsonPatchOperationsReducer } from './json-patch';
+import { metaTagReducer } from './metadata';
+import { routeReducer } from './services';
+import { bitstreamFormatReducer } from './states';
+import { correlationIdReducer } from './states';
+import { ePeopleRegistryReducer } from './states';
+import { groupRegistryReducer } from './states';
+import { nameVariantReducer } from './states';
+import { notificationsReducer } from "./notifications";
 
 export const coreReducers: ActionReducerMap<CoreState> = {
   'bitstreamFormats': bitstreamFormatReducer,

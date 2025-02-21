@@ -3,8 +3,8 @@ import {
   Input,
 } from '@angular/core';
 
-import { Bitstream } from '../../../../modules/core/src/lib/core/shared/bitstream.model';
-import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
+import { Bitstream } from '@dspace/core';
+import { Item } from '@dspace/core';
 import { ThemedComponent } from '../theme-support/themed.component';
 import { FileDownloadLinkComponent } from './file-download-link.component';
 

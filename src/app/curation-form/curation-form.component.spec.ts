@@ -15,18 +15,18 @@ import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ConfigurationDataService } from '../../../modules/core/src/lib/core/data/configuration-data.service';
-import { ProcessDataService } from '../../../modules/core/src/lib/core/data/processes/process-data.service';
-import { ScriptDataService } from '../../../modules/core/src/lib/core/data/processes/script-data.service';
-import { NotificationsService } from '../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Process } from '../../../modules/core/src/lib/core/processes/process.model';
-import { ConfigurationProperty } from '../../../modules/core/src/lib/core/shared/configuration-property.model';
+import { ConfigurationDataService } from '@dspace/core';
+import { ProcessDataService } from '@dspace/core';
+import { ScriptDataService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Process } from '@dspace/core';
+import { ConfigurationProperty } from '@dspace/core';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { RouterStub } from '../../../modules/core/src/lib/core/utilities/testing/router.stub';
+} from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { RouterStub } from '@dspace/core';
 import { getProcessDetailRoute } from '../process-page/process-page-routing.paths';
 import { HandleService } from '../shared/handle.service';
 import { CurationFormComponent } from './curation-form.component';

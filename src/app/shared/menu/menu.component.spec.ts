@@ -33,19 +33,19 @@ import {
   AppState,
   storeModuleConfig,
 } from '../../app.reducer';
-import { authReducer } from '../../../../modules/core/src/lib/core/auth/auth.reducer';
-import { AuthorizationDataService } from '../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
-import { createSuccessfulRemoteDataObject } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { authReducer } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { getMockThemeService } from '../mocks/theme-service.mock';
 import { ThemeService } from '../theme-support/theme.service';
 import { MenuComponent } from './menu.component';
 import { MenuService } from './menu.service';
-import { MenuID } from './menu-id.model';
+import { MenuID } from '../../../../modules/core/src/lib/core/states/menu/menu-id.model';
 import { LinkMenuItemModel } from './menu-item/models/link.model';
-import { MenuItemType } from './menu-item-type.model';
+import { MenuItemType } from '../../../../modules/core/src/lib/core/states/menu/menu-item-type.model';
 import { rendersSectionForMenu } from './menu-section.decorator';
-import { MenuSection } from './menu-section.model';
+import { MenuSection } from '../../../../modules/core/src/lib/core/states/menu/menu-section.model';
 
 const mockMenuID = 'mock-menuID' as MenuID;
 

@@ -22,12 +22,12 @@ import { TestScheduler } from 'rxjs/testing';
 
 import { coreReducers } from '../core.reducers';
 import { CoreState } from '../core-state.model';
-import { RestRequestMethod } from '../data/rest-request-method';
-import { RemoveFromIndexBySubstringAction } from '../index/index.actions';
-import { IndexName } from '../index/index-name.model';
-import { HALLink } from '../shared/hal-link.model';
-import { Item } from '../shared/item.model';
-import { mockStoreModuleConfig } from '../utilities/testing/mock-state-utilities';
+import { RestRequestMethod } from '../data';
+import { RemoveFromIndexBySubstringAction } from '../index';
+import { IndexName } from '../index';
+import { HALLink } from '../shared';
+import { Item } from '../shared';
+import { mockStoreModuleConfig } from '../utilities';
 import {
   AddDependentsObjectCacheAction,
   AddPatchObjectCacheAction,

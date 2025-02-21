@@ -11,13 +11,13 @@ import { first } from 'rxjs/operators';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../config/app-config.interface';
+} from '../config';
 import {
   INotification,
   Notification,
-} from './models/notification.model';
-import { NotificationOptions } from './models/notification-options.model';
-import { NotificationType } from './models/notification-type';
+} from './models';
+import { NotificationOptions } from './models';
+import { NotificationType } from './models';
 import {
   NewNotificationAction,
   RemoveAllNotificationsAction,

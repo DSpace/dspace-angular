@@ -4,13 +4,13 @@ import {
   hasValue,
 } from '@dspace/shared/utils';
 
-import { ObjectCacheService } from '../cache/object-cache.service';
+import { ObjectCacheService } from '../cache';
 import {
   DSOSuccessResponse,
   RestResponse,
-} from '../cache/response.models';
-import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
-import { DSpaceObject } from '../shared/dspace-object.model';
+} from '../cache';
+import { RawRestResponse } from '../dspace-rest';
+import { DSpaceObject } from '../shared';
 import { BaseResponseParsingService } from './base-response-parsing.service';
 import { ResponseParsingService } from './parsing.service';
 import { RestRequest } from './rest-request.model';

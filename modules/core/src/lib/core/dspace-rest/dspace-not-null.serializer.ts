@@ -4,7 +4,7 @@ import {
 } from 'cerialize';
 
 import { Serializer } from '../serializer';
-import { GenericConstructor } from '../shared/generic-constructor';
+import { GenericConstructor } from '../shared';
 
 /**
  * This Serializer turns responses from DSpace's REST API

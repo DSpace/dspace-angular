@@ -20,16 +20,16 @@ import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { DSpaceObjectDataService } from '../../../../modules/core/src/lib/core/data/dspace-object-data.service';
-import { PaginationService } from '../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { DSpaceObject } from '../../../../modules/core/src/lib/core/shared/dspace-object.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../../modules/core/src/lib/core/shared/operators';
-import { SearchService } from '../../../../modules/core/src/lib/core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../../modules/core/src/lib/core/shared/search/search-filter.service';
+import { DSONameService } from '@dspace/core';
+import { DSpaceObjectDataService } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core';
+import { SearchService } from '@dspace/core';
+import { SearchConfigurationService } from '@dspace/core';
+import { SearchFilterService } from '@dspace/core';
 import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
-import { currentPath } from '../utils/route.utils';
+import { currentPath } from '../../../../modules/core/src/lib/core/utilities/route.utils';
 import { ScopeSelectorModalComponent } from './scope-selector-modal/scope-selector-modal.component';
 
 @Component({

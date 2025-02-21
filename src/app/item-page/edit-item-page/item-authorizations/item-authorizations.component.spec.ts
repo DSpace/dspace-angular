@@ -14,19 +14,19 @@ import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { LinkService } from '../../../../../modules/core/src/lib/core/cache/builders/link.service';
-import { getMockLinkService } from '../../../../../modules/core/src/lib/core/mocks/link-service.mock';
-import { Bitstream } from '../../../../../modules/core/src/lib/core/shared/bitstream.model';
-import { Bundle } from '../../../../../modules/core/src/lib/core/shared/bundle.model';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { LinkService } from '@dspace/core';
+import { getMockLinkService } from '@dspace/core';
+import { Bitstream } from '@dspace/core';
+import { Bundle } from '@dspace/core';
+import { Item } from '@dspace/core';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+} from '@dspace/core';
 import {
   createPaginatedList,
   createTestComponent,
-} from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+} from '@dspace/core';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ResourcePoliciesComponent } from '../../../shared/resource-policies/resource-policies.component';
 import { ItemAuthorizationsComponent } from './item-authorizations.component';

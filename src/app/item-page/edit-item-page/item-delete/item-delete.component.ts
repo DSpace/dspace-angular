@@ -39,25 +39,25 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { LinkService } from '../../../../../modules/core/src/lib/core/cache/builders/link.service';
-import { EntityTypeDataService } from '../../../../../modules/core/src/lib/core/data/entity-type-data.service';
-import { followLink } from '../../../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
-import { ObjectUpdatesService } from '../../../../../modules/core/src/lib/core/data/object-updates/object-updates.service';
-import { RelationshipDataService } from '../../../../../modules/core/src/lib/core/data/relationship-data.service';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { Relationship } from '../../../../../modules/core/src/lib/core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '../../../../../modules/core/src/lib/core/shared/item-relationships/relationship-type.model';
-import { MetadataValue } from '../../../../../modules/core/src/lib/core/shared/metadata.models';
-import { NoContent } from '../../../../../modules/core/src/lib/core/shared/NoContent.model';
+import { LinkService } from '@dspace/core';
+import { EntityTypeDataService } from '@dspace/core';
+import { followLink } from '@dspace/core';
+import { ItemDataService } from '@dspace/core';
+import { ObjectUpdatesService } from '@dspace/core';
+import { RelationshipDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { Relationship } from '@dspace/core';
+import { RelationshipType } from '@dspace/core';
+import { MetadataValue } from '@dspace/core';
+import { NoContent } from '@dspace/core';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '../../../../../modules/core/src/lib/core/shared/operators';
-import { ViewMode } from '../../../../../modules/core/src/lib/core/shared/view-mode.model';
+} from '@dspace/core';
+import { ViewMode } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { VarDirective } from '../../../shared/utils/var.directive';

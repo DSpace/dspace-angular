@@ -42,30 +42,30 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../../../../modules/core/src/lib/core/auth/auth.service';
-import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { EpersonRegistrationService } from '../../../../../modules/core/src/lib/core/data/eperson-registration.service';
-import { AuthorizationDataService } from '../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
-import { followLink } from '../../../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
-import { EPersonDataService } from '../../../../../modules/core/src/lib/core/eperson/eperson-data.service';
-import { GroupDataService } from '../../../../../modules/core/src/lib/core/eperson/group-data.service';
-import { EPerson } from '../../../../../modules/core/src/lib/core/eperson/models/eperson.model';
-import { Group } from '../../../../../modules/core/src/lib/core/eperson/models/group.model';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { PaginationService } from '../../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { NoContent } from '../../../../../modules/core/src/lib/core/shared/NoContent.model';
+import { AuthService } from '@dspace/core';
+import { DSONameService } from '@dspace/core';
+import { EpersonRegistrationService } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { FeatureID } from '@dspace/core';
+import { followLink } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { EPersonDataService } from '@dspace/core';
+import { GroupDataService } from '@dspace/core';
+import { EPerson } from '@dspace/core';
+import { Group } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { NoContent } from '@dspace/core';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '../../../../../modules/core/src/lib/core/shared/operators';
-import { PageInfo } from '../../../../../modules/core/src/lib/core/shared/page-info.model';
-import { PaginationComponentOptions } from '../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
-import { Registration } from '../../../../../modules/core/src/lib/core/shared/registration.model';
+} from '@dspace/core';
+import { PageInfo } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
+import { Registration } from '@dspace/core';
 import { TYPE_REQUEST_FORGOT } from '../../../register-email-form/register-email-form.component';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';

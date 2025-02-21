@@ -16,15 +16,15 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { IdentifiableDataService } from '../../../../modules/core/src/lib/core/data/base/identifiable-data.service';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { RequestService } from '../../../../modules/core/src/lib/core/data/request.service';
-import { NotificationOptions } from '../../../../modules/core/src/lib/core/notifications/models/notification-options.model';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { DSpaceObject } from '../../../../modules/core/src/lib/core/shared/dspace-object.model';
-import { getFirstSucceededRemoteData } from '../../../../modules/core/src/lib/core/shared/operators';
-import { ResourceType } from '../../../../modules/core/src/lib/core/shared/resource-type';
-import { SearchService } from '../../../../modules/core/src/lib/core/shared/search/search.service';
+import { IdentifiableDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { NotificationOptions } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
+import { getFirstSucceededRemoteData } from '@dspace/core';
+import { ResourceType } from '@dspace/core';
+import { SearchService } from '@dspace/core';
 import { MyDSpaceActionsServiceFactory } from './mydspace-actions-service.factory';
 
 export interface MyDSpaceActionsResult {

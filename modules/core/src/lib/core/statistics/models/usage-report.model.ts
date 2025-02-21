@@ -5,11 +5,11 @@ import {
   inheritSerialization,
 } from 'cerialize';
 
-import { typedObject } from '../../cache/builders/build-decorators';
-import { HALLink } from '../../shared/hal-link.model';
-import { HALResource } from '../../shared/hal-resource.model';
-import { ResourceType } from '../../shared/resource-type';
-import { excludeFromEquals } from '../../utilities/equals.decorators';
+import { typedObject } from '../../cache';
+import { HALLink } from '../../shared';
+import { HALResource } from '../../shared';
+import { ResourceType } from '../../shared';
+import { excludeFromEquals } from '../../utilities';
 import { USAGE_REPORT } from './usage-report.resource-type';
 
 /**

@@ -3,7 +3,7 @@ import {
   hasValue,
 } from '@dspace/shared/utils';
 
-import { RestRequestMethod } from '../data/rest-request-method';
+import { RestRequestMethod } from '../data';
 import {
   AddToSSBAction,
   EmptySSBAction,

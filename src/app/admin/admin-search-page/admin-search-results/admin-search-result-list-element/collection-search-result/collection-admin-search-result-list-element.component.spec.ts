@@ -10,11 +10,11 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../../../environments/environment';
 import { getCollectionEditRoute } from '../../../../../collection-page/collection-page-routing-paths';
-import { DSONameService } from '../../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { APP_CONFIG } from '../../../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { CollectionSearchResult } from '../../../../../../../modules/core/src/lib/core/object-collection/collection-search-result.model';
-import { Collection } from '../../../../../../../modules/core/src/lib/core/shared/collection.model';
-import { ViewMode } from '../../../../../../../modules/core/src/lib/core/shared/view-mode.model';
+import { DSONameService } from '@dspace/core';
+import { APP_CONFIG } from '@dspace/core';
+import { CollectionSearchResult } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';

@@ -1,7 +1,7 @@
-import { getMockTranslateService } from '../../../../../../modules/core/src/lib/core/mocks/translate.service.mock';
-import { FormFieldModel } from '../../../../../../modules/core/src/lib/core/shared/form/form-field.model';
+import { getMockTranslateService } from '@dspace/core';
+import { FormFieldModel } from '@dspace/core';
 import { DynamicLookupModel } from '../ds-dynamic-form-ui/models/lookup/dynamic-lookup.model';
-import { FormFieldMetadataValueObject } from '../../../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '@dspace/core';
 import { LookupFieldParser } from './lookup-field-parser';
 import { ParserOptions } from './parser-options';
 

@@ -37,15 +37,15 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '../config/app-config.interface';
+} from '../config';
 import { CoreState } from '../core-state.model';
-import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
-import { RequestActionTypes } from '../data/request.actions';
-import { EPerson } from '../eperson/models/eperson.model';
-import { NotificationsActionTypes } from '../notifications/notifications.actions';
+import { AuthorizationDataService } from '../data';
+import { RequestActionTypes } from '../data';
+import { EPerson } from '../eperson';
+import { NotificationsActionTypes } from '../notifications';
 import { StoreActionTypes } from '../store.actions';
-import { EnterZoneScheduler } from '../utilities/enter-zone.scheduler';
-import { LeaveZoneScheduler } from '../utilities/leave-zone.scheduler';
+import { EnterZoneScheduler } from '../utilities';
+import { LeaveZoneScheduler } from '../utilities';
 // import actions
 import {
   AuthActionTypes,
@@ -74,9 +74,9 @@ import {
 } from './auth.actions';
 // import services
 import { AuthService } from './auth.service';
-import { AuthMethod } from './models/auth.method';
-import { AuthStatus } from './models/auth-status.model';
-import { AuthTokenInfo } from './models/auth-token-info.model';
+import { AuthMethod } from './models';
+import { AuthStatus } from './models';
+import { AuthTokenInfo } from './models';
 import {
   isAuthenticated,
   isAuthenticatedLoaded,

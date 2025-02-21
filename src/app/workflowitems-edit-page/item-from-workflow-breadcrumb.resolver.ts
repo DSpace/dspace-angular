@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
 
-import { BreadcrumbConfig } from '../../../modules/core/src/lib/core/breadcrumbs/breadcrumb-config.model';
-import { SubmissionObject } from '../../../modules/core/src/lib/core/submission/models/submission-object.model';
-import { SubmissionParentBreadcrumbResolver } from '../../../modules/core/src/lib/core/submission/resolver/submission-parent-breadcrumb.resolver';
-import { SubmissionParentBreadcrumbsService } from '../../../modules/core/src/lib/core/submission/submission-parent-breadcrumb.service';
-import { WorkflowItemDataService } from '../../../modules/core/src/lib/core/submission/workflowitem-data.service';
+import { BreadcrumbConfig } from '@dspace/core';
+import { SubmissionObject } from '@dspace/core';
+import { SubmissionParentBreadcrumbResolver } from '@dspace/core';
+import { SubmissionParentBreadcrumbsService } from '@dspace/core';
+import { WorkflowItemDataService } from '@dspace/core';
 
 /**
  * This class represents a resolver that retrieves the breadcrumbs of the workflow item

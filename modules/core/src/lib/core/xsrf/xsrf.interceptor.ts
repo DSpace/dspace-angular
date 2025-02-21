@@ -20,9 +20,9 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { APP_CONFIG } from '../config/app-config.interface';
-import { CookieService } from '../services/cookie.service';
-import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
+import { APP_CONFIG } from '../config';
+import { CookieService } from '../services';
+import { RESTURLCombiner } from '../url-combiner';
 import {
   XSRF_COOKIE,
   XSRF_REQUEST_HEADER,

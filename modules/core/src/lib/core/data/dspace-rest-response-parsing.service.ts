@@ -9,25 +9,25 @@ import {
   isNotEmpty,
 } from '@dspace/shared/utils';
 
-import { getClassForType } from '../cache/builders/build-decorators';
-import { CacheableObject } from '../cache/cacheable-object.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { ParsedResponse } from '../cache/response.models';
+import { getClassForType } from '../cache';
+import { CacheableObject } from '../cache';
+import { ObjectCacheService } from '../cache';
+import { ParsedResponse } from '../cache';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../config/app-config.interface';
-import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
-import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+} from '../config';
+import { DSpaceSerializer } from '../dspace-rest';
+import { RawRestResponse } from '../dspace-rest';
 import {
   getEmbedSizeParams,
-  getUrlWithoutEmbedParams,
-} from '../index/index.selectors';
+  getUrlWithoutEmbedParams, isRestPaginatedList,
+} from '../index';
 import { Serializer } from '../serializer';
-import { DSpaceObject } from '../shared/dspace-object.model';
-import { GenericConstructor } from '../shared/generic-constructor';
-import { PageInfo } from '../shared/page-info.model';
-import { URLCombiner } from '../url-combiner/url-combiner';
+import { DSpaceObject } from '../shared';
+import { GenericConstructor } from '../shared';
+import { PageInfo } from '../shared';
+import { URLCombiner } from '../url-combiner';
 import {
   buildPaginatedList,
   PaginatedList,
@@ -46,19 +46,6 @@ export function isCacheableObject(obj: any): boolean {
   return hasValue(obj) && hasValue(obj._links) && hasValue(obj._links.self) && hasValue(obj._links.self.href);
 }
 
-/**
- * Return true if halObj has a value for `page` with properties
- * `size`, `totalElements`, `totalPages`, `number`
- *
- * @param {any} halObj The object to test
- */
-export function isRestPaginatedList(halObj: any): boolean {
-  return hasValue(halObj.page) &&
-    hasValue(halObj.page.size) &&
-    hasValue(halObj.page.totalElements) &&
-    hasValue(halObj.page.totalPages) &&
-    hasValue(halObj.page.number);
-}
 
 /**
  * Split a url into parts

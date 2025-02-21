@@ -24,39 +24,39 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { BrowseService } from '../browse/browse.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { RequestParam } from '../cache/models/request-param.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { NotificationsService } from '../notifications/notifications.service';
-import { Bundle } from '../shared/bundle.model';
-import { Collection } from '../shared/collection.model';
-import { ExternalSourceEntry } from '../shared/external-source-entry.model';
-import { GenericConstructor } from '../shared/generic-constructor';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Item } from '../shared/item.model';
-import { MetadataMap } from '../shared/metadata.models';
-import { NoContent } from '../shared/NoContent.model';
-import { PaginatedSearchOptions } from '../shared/paginated-search-options.model';
-import { sendRequest } from '../shared/request.operators';
-import { URLCombiner } from '../url-combiner/url-combiner';
+import { BrowseService } from '../browse';
+import { RemoteDataBuildService } from '../cache';
+import { RequestParam } from '../cache';
+import { ObjectCacheService } from '../cache';
+import { HttpOptions } from '../dspace-rest';
+import { NotificationsService } from '../notifications';
+import { Bundle } from '../shared';
+import { Collection } from '../shared';
+import { ExternalSourceEntry } from '../shared';
+import { GenericConstructor } from '../shared';
+import { HALEndpointService } from '../shared';
+import { Item } from '../shared';
+import { MetadataMap } from '../shared';
+import { NoContent } from '../shared';
+import { PaginatedSearchOptions } from '../shared';
+import { sendRequest } from '../shared';
+import { URLCombiner } from '../url-combiner';
 import {
   CreateData,
   CreateDataImpl,
-} from './base/create-data';
+} from './base';
 import {
   DeleteData,
   DeleteDataImpl,
-} from './base/delete-data';
+} from './base';
 import {
   ConstructIdEndpoint,
   IdentifiableDataService,
-} from './base/identifiable-data.service';
+} from './base';
 import {
   PatchData,
   PatchDataImpl,
-} from './base/patch-data';
+} from './base';
 import { BundleDataService } from './bundle-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { FindListOptions } from './find-list-options.model';

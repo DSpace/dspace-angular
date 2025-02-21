@@ -2,7 +2,7 @@ import {
   DsDynamicDisabledModelConfig,
   DynamicDisabledModel,
 } from '../ds-dynamic-form-ui/models/disabled/dynamic-disabled.model';
-import { FormFieldMetadataValueObject } from '../../../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '@dspace/core';
 import { FieldParser } from './field-parser';
 
 /**

@@ -13,9 +13,9 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 
-import { RequestService } from '../../../../../../modules/core/src/lib/core/data/request.service';
-import { NotificationsService } from '../../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { SearchService } from '../../../../../../modules/core/src/lib/core/shared/search/search.service';
+import { RequestService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { SearchService } from '@dspace/core';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 
 export const WORKFLOW_TASK_OPTION_EDIT_METADATA = 'submit_edit_metadata';

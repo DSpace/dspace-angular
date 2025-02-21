@@ -9,21 +9,21 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { FollowLinkConfig } from '../data/follow-link-config.model';
-import { RemoteData } from '../data/remote-data';
+import { RemoteDataBuildService } from '../cache';
+import { FollowLinkConfig } from '../data';
+import { RemoteData } from '../data';
 import {
   GetRequest,
   PostRequest,
-} from '../data/request.models';
-import { RequestService } from '../data/request.service';
-import { RestRequest } from '../data/rest-request.model';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { getFirstCompletedRemoteData } from '../shared/operators';
-import { URLCombiner } from '../url-combiner/url-combiner';
-import { AuthStatus } from './models/auth-status.model';
-import { ShortLivedToken } from './models/short-lived-token.model';
+} from '../data';
+import { RequestService } from '../data';
+import { RestRequest } from '../data';
+import { HttpOptions } from '../dspace-rest';
+import { HALEndpointService } from '../shared';
+import { getFirstCompletedRemoteData } from '../shared';
+import { URLCombiner } from '../url-combiner';
+import { AuthStatus } from './models';
+import { ShortLivedToken } from './models';
 
 /**
  * Abstract service to send authentication requests

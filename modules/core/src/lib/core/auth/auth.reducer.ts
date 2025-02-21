@@ -15,10 +15,10 @@ import {
   SetAuthCookieStatus,
   SetRedirectUrlAction,
 } from './auth.actions';
-import { AuthMethod } from './models/auth.method';
-import { AuthMethodType } from './models/auth.method-type';
+import { AuthMethod } from './models';
+import { AuthMethodType } from './models';
 // import models
-import { AuthTokenInfo } from './models/auth-token-info.model';
+import { AuthTokenInfo } from './models';
 
 /**
  * The auth state.

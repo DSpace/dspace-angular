@@ -38,24 +38,24 @@ import {
   take,
   toArray,
 } from 'rxjs/operators';
-import { PaginationService } from '../../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { PaginationService } from '@dspace/core';
 
-import { AuthService } from '../../../../../modules/core/src/lib/core/auth/auth.service';
-import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { FindListOptions } from '../../../../../modules/core/src/lib/core/data/find-list-options.model';
-import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { EPersonDataService } from '../../../../../modules/core/src/lib/core/eperson/eperson-data.service';
-import { EPerson } from '../../../../../modules/core/src/lib/core/eperson/models/eperson.model';
-import { Process } from '../../../../../modules/core/src/lib/core/processes/process.model';
-import { ProcessStatus } from '../../../../../modules/core/src/lib/core/processes/process-status.model';
-import { RouteService } from '../../../../../modules/core/src/lib/core/services/route.service';
-import { redirectOn4xx } from '../../../../../modules/core/src/lib/core/shared/authorized.operators';
+import { AuthService } from '@dspace/core';
+import { DSONameService } from '@dspace/core';
+import { FindListOptions } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { EPersonDataService } from '@dspace/core';
+import { EPerson } from '@dspace/core';
+import { Process } from '@dspace/core';
+import { ProcessStatus } from '@dspace/core';
+import { RouteService } from '@dspace/core';
+import { redirectOn4xx } from '@dspace/core';
 import {
   getAllCompletedRemoteData,
   getFirstCompletedRemoteData,
-} from '../../../../../modules/core/src/lib/core/shared/operators';
-import { PaginationComponentOptions } from '../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+} from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { VarDirective } from '../../../shared/utils/var.directive';

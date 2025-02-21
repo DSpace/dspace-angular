@@ -6,8 +6,8 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { QualityAssuranceSourceObject } from '../../../modules/core/src/lib/core/notifications/qa/models/quality-assurance-source.model';
-import { QualityAssuranceTopicObject } from '../../../modules/core/src/lib/core/notifications/qa/models/quality-assurance-topic.model';
+import { QualityAssuranceSourceObject } from '@dspace/core';
+import { QualityAssuranceTopicObject } from '@dspace/core';
 import { SuggestionNotificationsState } from './notifications.reducer';
 import { RetrieveAllSourceAction } from './qa/source/quality-assurance-source.actions';
 import { RetrieveAllTopicsAction } from './qa/topics/quality-assurance-topics.actions';

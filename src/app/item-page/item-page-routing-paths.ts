@@ -1,7 +1,7 @@
 import { isNotEmpty } from '@dspace/shared/utils';
 
-import { Item } from '../../../modules/core/src/lib/core/shared/item.model';
-import { URLCombiner } from '../../../modules/core/src/lib/core/url-combiner/url-combiner';
+import { Item } from '@dspace/core';
+import { URLCombiner } from '@dspace/core';
 
 export const ITEM_MODULE_PATH = 'items';
 

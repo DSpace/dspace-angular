@@ -1,4 +1,4 @@
-import { Group } from '../../eperson/models/group.model';
+import { Group } from '../../eperson';
 import {
   GroupRegistryAction,
   GroupRegistryActionTypes,

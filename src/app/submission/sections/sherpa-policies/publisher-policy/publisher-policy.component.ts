@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Policy } from '../../../../../../modules/core/src/lib/core/submission/models/sherpa-policies-details.model';
+import { Policy } from '@dspace/core';
 import { AlertType } from '../../../../shared/alert/alert-type';
 import { ContentAccordionComponent } from '../content-accordion/content-accordion.component';
 

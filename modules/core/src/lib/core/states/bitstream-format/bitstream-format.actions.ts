@@ -1,8 +1,8 @@
 /* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 
-import { BitstreamFormat } from '../../shared/bitstream-format.model';
-import { type } from '../../shared/ngrx/type';
+import { BitstreamFormat } from '../../shared';
+import { type } from '../../shared';
 
 /**
  * For each action type in an action group, make a simple

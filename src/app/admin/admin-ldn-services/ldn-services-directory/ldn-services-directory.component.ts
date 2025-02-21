@@ -27,19 +27,19 @@ import {
   map,
   switchMap,
 } from 'rxjs/operators';
-import { LdnServicesService } from 'src/app/admin/admin-ldn-services/ldn-services-data/ldn-services-data.service';
-import { PaginationService } from '../../../../../modules/core/src/lib/core/pagination/pagination.service';
+import { LdnServicesService } from '../../../../../modules/core/src/lib/core/admin/ldn-services-data/ldn-services-data.service';
+import { PaginationService } from '@dspace/core';
 
-import { FindListOptions } from '../../../../../modules/core/src/lib/core/data/find-list-options.model';
-import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { getFirstCompletedRemoteData } from '../../../../../modules/core/src/lib/core/shared/operators';
-import { PaginationComponentOptions } from '../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+import { FindListOptions } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { TruncatableComponent } from '../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../shared/truncatable/truncatable-part/truncatable-part.component';
-import { LdnService } from '../ldn-services-model/ldn-services.model';
+import { LdnService } from '../../../../../modules/core/src/lib/core/data/ldn/ldn-services.model';
 
 /**
  * The `LdnServicesOverviewComponent` is a component that provides an overview of LDN (Linked Data Notifications) services.

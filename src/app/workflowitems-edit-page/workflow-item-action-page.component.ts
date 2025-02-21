@@ -22,17 +22,17 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { RemoteData } from '../../../modules/core/src/lib/core/data/remote-data';
-import { RequestService } from '../../../modules/core/src/lib/core/data/request.service';
-import { NotificationsService } from '../../../modules/core/src/lib/core/notifications/notifications.service';
-import { RouteService } from '../../../modules/core/src/lib/core/services/route.service';
-import { Item } from '../../../modules/core/src/lib/core/shared/item.model';
+import { RemoteData } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { RouteService } from '@dspace/core';
+import { Item } from '@dspace/core';
 import {
   getAllSucceededRemoteData,
   getRemoteDataPayload,
-} from '../../../modules/core/src/lib/core/shared/operators';
-import { WorkflowItem } from '../../../modules/core/src/lib/core/submission/models/workflowitem.model';
-import { WorkflowItemDataService } from '../../../modules/core/src/lib/core/submission/workflowitem-data.service';
+} from '@dspace/core';
+import { WorkflowItem } from '@dspace/core';
+import { WorkflowItemDataService } from '@dspace/core';
 
 /**
  * Abstract component representing a page to perform an action on a workflow item

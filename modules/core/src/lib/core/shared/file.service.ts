@@ -9,13 +9,13 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { AuthService } from '../auth/auth.service';
-import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+import { AuthService } from '../auth';
+import { RawRestResponse } from '../dspace-rest';
 import {
   NativeWindowRef,
   NativeWindowService,
-} from '../services/window.service';
-import { URLCombiner } from '../url-combiner/url-combiner';
+} from '../services';
+import { URLCombiner } from '../url-combiner';
 
 /**
  * Provides utility methods to save files on the client-side.

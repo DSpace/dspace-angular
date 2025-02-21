@@ -1,4 +1,4 @@
-import { SubmissionObjectError } from '../../../../modules/core/src/lib/core/submission/models/submission-object.model';
+import { SubmissionObjectError } from '@dspace/core';
 import {
   default as parseSectionErrorPaths,
   SectionErrorPath,

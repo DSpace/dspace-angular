@@ -4,8 +4,8 @@ import {
   inheritSerialization,
 } from 'cerialize';
 
-import { typedObject } from '../../cache/builders/build-decorators';
-import { HALLink } from '../../shared/hal-link.model';
+import { typedObject } from '../../cache';
+import { HALLink } from '../../shared';
 import { ConfigObject } from './config.model';
 import { AccessesConditionOption } from './config-accesses-conditions-options.model';
 import { SUBMISSION_ACCESSES_TYPE } from './config-type';

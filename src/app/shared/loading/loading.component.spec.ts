@@ -11,7 +11,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 
-import { TranslateLoaderMock } from '../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
+import { TranslateLoaderMock } from '@dspace/core';
 import { LoadingComponent } from './loading.component';
 
 describe('LoadingComponent (inline template)', () => {

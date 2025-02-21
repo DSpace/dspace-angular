@@ -10,15 +10,15 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { BrowseService } from '../../../../../modules/core/src/lib/core/browse/browse.service';
-import { BrowseDefinitionDataService } from '../../../../../modules/core/src/lib/core/browse/browse-definition-data.service';
-import { RelationshipDataService } from '../../../../../modules/core/src/lib/core/data/relationship-data.service';
-import { MetadataService } from '../../../../../modules/core/src/lib/core/metadata/metadata.service';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { MetadataValue } from '../../../../../modules/core/src/lib/core/shared/metadata.models';
-import { MetadataRepresentation } from '../../../../../modules/core/src/lib/core/shared/metadata-representation/metadata-representation.model';
-import { MetadatumRepresentation } from '../../../../../modules/core/src/lib/core/shared/metadata-representation/metadatum/metadatum-representation.model';
-import { getFirstCompletedRemoteData } from '../../../../../modules/core/src/lib/core/shared/operators';
+import { BrowseService } from '@dspace/core';
+import { BrowseDefinitionDataService } from '@dspace/core';
+import { RelationshipDataService } from '@dspace/core';
+import { MetadataService } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { MetadataValue } from '@dspace/core';
+import { MetadataRepresentation } from '@dspace/core';
+import { MetadatumRepresentation } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { MetadataRepresentationLoaderComponent } from '../../../shared/metadata-representation/metadata-representation-loader.component';

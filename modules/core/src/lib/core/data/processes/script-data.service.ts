@@ -6,19 +6,19 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../cache/object-cache.service';
-import { Process } from '../../processes/process.model';
-import { ProcessParameter } from '../../processes/process-parameter.model';
-import { Script } from '../../scripts/script.model';
-import { HALEndpointService } from '../../shared/hal-endpoint.service';
-import { getFirstCompletedRemoteData } from '../../shared/operators';
-import { URLCombiner } from '../../url-combiner/url-combiner';
+import { RemoteDataBuildService } from '../../cache';
+import { ObjectCacheService } from '../../cache';
+import { Process } from '../../processes';
+import { ProcessParameter } from '../../processes';
+import { Script } from '../../scripts';
+import { HALEndpointService } from '../../shared';
+import { getFirstCompletedRemoteData } from '../../shared';
+import { URLCombiner } from '../../url-combiner';
 import {
   FindAllData,
   FindAllDataImpl,
-} from '../base/find-all-data';
-import { IdentifiableDataService } from '../base/identifiable-data.service';
+} from '../base';
+import { IdentifiableDataService } from '../base';
 import { FindListOptions } from '../find-list-options.model';
 import { FollowLinkConfig } from '../follow-link-config.model';
 import { PaginatedList } from '../paginated-list.model';

@@ -1,4 +1,4 @@
-import { DSpaceObject } from '../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { DSpaceObject } from '@dspace/core';
 
 export const UNDEFINED_NAME = 'Undefined';
 

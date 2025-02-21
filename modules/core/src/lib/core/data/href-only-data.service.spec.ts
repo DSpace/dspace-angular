@@ -1,5 +1,5 @@
-import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
-import { BaseDataService } from './base/base-data.service';
+import { createSuccessfulRemoteDataObject$ } from '../utilities';
+import { BaseDataService } from './base';
 import { FindListOptions } from './find-list-options.model';
 import {
   followLink,

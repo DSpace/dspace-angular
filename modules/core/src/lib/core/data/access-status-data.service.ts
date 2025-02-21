@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AccessStatusObject } from '../../../../../../src/app/shared/object-collection/shared/badges/access-status-badge/access-status.model';
+import { AccessStatusObject } from '../access-status/access-status.model';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Item } from '../shared/item.model';
-import { BaseDataService } from './base/base-data.service';
+import { RemoteDataBuildService } from '../cache';
+import { ObjectCacheService } from '../cache';
+import { HALEndpointService } from '../shared';
+import { Item } from '../shared';
+import { BaseDataService } from './base';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
 

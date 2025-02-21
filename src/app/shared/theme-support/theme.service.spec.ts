@@ -13,24 +13,24 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { hot } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { LinkService } from '../../../../modules/core/src/lib/core/cache/builders/link.service';
-import { ConfigurationDataService } from '../../../../modules/core/src/lib/core/data/configuration-data.service';
-import { DSpaceObjectDataService } from '../../../../modules/core/src/lib/core/data/dspace-object-data.service';
-import { RouterMock } from '../../../../modules/core/src/lib/core/mocks/router.mock';
-import { Collection } from '../../../../modules/core/src/lib/core/shared/collection.model';
-import { COLLECTION } from '../../../../modules/core/src/lib/core/shared/collection.resource-type';
-import { Community } from '../../../../modules/core/src/lib/core/shared/community.model';
-import { COMMUNITY } from '../../../../modules/core/src/lib/core/shared/community.resource-type';
-import { DSpaceObject } from '../../../../modules/core/src/lib/core/shared/dspace-object.model';
-import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
-import { ITEM } from '../../../../modules/core/src/lib/core/shared/item.resource-type';
-import { NoOpAction } from '../../../../modules/core/src/lib/core/shared/ngrx/no-op.action';
+import { LinkService } from '@dspace/core';
+import { ConfigurationDataService } from '@dspace/core';
+import { DSpaceObjectDataService } from '@dspace/core';
+import { RouterMock } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { COLLECTION } from '@dspace/core';
+import { Community } from '@dspace/core';
+import { COMMUNITY } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { ITEM } from '@dspace/core';
+import { NoOpAction } from '@dspace/core';
 import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { ConfigurationDataServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/configuration-data.service.stub';
+} from '@dspace/core';
+import { ConfigurationDataServiceStub } from '@dspace/core';
 import { SetThemeAction } from './theme.actions';
 import { Theme } from './theme.model';
 import { ThemeService } from './theme.service';

@@ -5,8 +5,8 @@ import {
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { AuthService } from '../../../modules/core/src/lib/core/auth/auth.service';
-import { ServerResponseService } from '../../../modules/core/src/lib/core/services/server-response.service';
+import { AuthService } from '@dspace/core';
+import { ServerResponseService } from '@dspace/core';
 
 /**
  * This component representing the `Forbidden` DSpace page.

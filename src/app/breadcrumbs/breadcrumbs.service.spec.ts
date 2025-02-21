@@ -11,9 +11,9 @@ import {
   Subject,
 } from 'rxjs';
 
-import { Breadcrumb } from '../../../modules/core/src/lib/core/breadcrumbs/breadcrumb.model';
-import { BreadcrumbConfig } from '../../../modules/core/src/lib/core/breadcrumbs/breadcrumb-config.model';
-import { BreadcrumbsProviderService } from '../../../modules/core/src/lib/core/breadcrumbs/breadcrumbsProviderService';
+import { Breadcrumb } from '@dspace/core';
+import { BreadcrumbConfig } from '@dspace/core';
+import { BreadcrumbsProviderService } from '@dspace/core';
 import { BreadcrumbsService } from './breadcrumbs.service';
 
 class TestBreadcrumbsService implements BreadcrumbsProviderService<string> {

@@ -7,7 +7,7 @@ import {
 } from 'jasmine-marbles';
 
 import { AppState } from '../app.reducer';
-import { CSSVariableServiceStub } from '../../../modules/core/src/lib/core/utilities/testing/css-variable-service.stub';
+import { CSSVariableServiceStub } from '@dspace/core';
 import {
   HostWindowService,
   WidthCategory,

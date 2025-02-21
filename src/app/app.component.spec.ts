@@ -25,21 +25,21 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { storeModuleConfig } from './app.reducer';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
-import { authReducer } from '../../modules/core/src/lib/core/auth/auth.reducer';
-import { AuthService } from '../../modules/core/src/lib/core/auth/auth.service';
-import { APP_CONFIG } from '../../modules/core/src/lib/core/config/app-config.interface';
-import { LocaleService } from '../../modules/core/src/lib/core/locale/locale.service';
-import { HeadTagService } from '../../modules/core/src/lib/core/metadata/head-tag.service';
-import { RouterMock } from '../../modules/core/src/lib/core/mocks/router.mock';
-import { TranslateLoaderMock } from '../../modules/core/src/lib/core/mocks/translate-loader.mock';
-import { RouteService } from '../../modules/core/src/lib/core/services/route.service';
+import { authReducer } from '@dspace/core';
+import { AuthService } from '@dspace/core';
+import { APP_CONFIG } from '@dspace/core';
+import { LocaleService } from '@dspace/core';
+import { HeadTagService } from '@dspace/core';
+import { RouterMock } from '@dspace/core';
+import { TranslateLoaderMock } from '@dspace/core';
+import { RouteService } from '@dspace/core';
 import {
   NativeWindowRef,
   NativeWindowService,
-} from '../../modules/core/src/lib/core/services/window.service';
-import { CSSVariableServiceStub } from '../../modules/core/src/lib/core/utilities/testing/css-variable-service.stub';
-import { HostWindowServiceStub } from '../../modules/core/src/lib/core/utilities/testing/host-window-service.stub';
-import { MenuServiceStub } from '../../modules/core/src/lib/core/utilities/testing/menu-service.stub';
+} from '@dspace/core';
+import { CSSVariableServiceStub } from '@dspace/core';
+import { HostWindowServiceStub } from '@dspace/core';
+import { MenuServiceStub } from '@dspace/core';
 import { ThemedRootComponent } from './root/themed-root.component';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 import { HostWindowService } from './shared/host-window.service';

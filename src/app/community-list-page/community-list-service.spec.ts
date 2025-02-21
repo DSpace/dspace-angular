@@ -11,20 +11,20 @@ import { AppState } from '../app.reducer';
 import {
   SortDirection,
   SortOptions,
-} from '../../../modules/core/src/lib/core/cache/models/sort-options.model';
-import { APP_CONFIG } from '../../../modules/core/src/lib/core/config/app-config.interface';
-import { CollectionDataService } from '../../../modules/core/src/lib/core/data/collection-data.service';
-import { CommunityDataService } from '../../../modules/core/src/lib/core/data/community-data.service';
-import { FindListOptions } from '../../../modules/core/src/lib/core/data/find-list-options.model';
-import { buildPaginatedList } from '../../../modules/core/src/lib/core/data/paginated-list.model';
-import { Collection } from '../../../modules/core/src/lib/core/shared/collection.model';
-import { Community } from '../../../modules/core/src/lib/core/shared/community.model';
-import { PageInfo } from '../../../modules/core/src/lib/core/shared/page-info.model';
+} from '@dspace/core';
+import { APP_CONFIG } from '@dspace/core';
+import { CollectionDataService } from '@dspace/core';
+import { CommunityDataService } from '@dspace/core';
+import { FindListOptions } from '@dspace/core';
+import { buildPaginatedList } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { Community } from '@dspace/core';
+import { PageInfo } from '@dspace/core';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { StoreMock } from '../../../modules/core/src/lib/core/utilities/testing/store.mock';
+} from '@dspace/core';
+import { StoreMock } from '@dspace/core';
 import {
   CommunityListService,
   toFlatNode,

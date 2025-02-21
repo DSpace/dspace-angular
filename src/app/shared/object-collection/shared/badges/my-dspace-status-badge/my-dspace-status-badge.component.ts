@@ -4,7 +4,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { Context } from '../../../../../../../modules/core/src/lib/core/shared/context.model';
+import { Context } from '@dspace/core';
 
 /**
  * This component represents a badge with mydspace item status

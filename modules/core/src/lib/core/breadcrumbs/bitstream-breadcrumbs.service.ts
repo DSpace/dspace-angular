@@ -12,20 +12,20 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { LinkService } from '../cache/builders/link.service';
-import { BitstreamDataService } from '../data/bitstream-data.service';
-import { RemoteData } from '../data/remote-data';
-import { getDSpaceObjectRoute } from '../router/utils/routes-utils';
-import { Bitstream } from '../shared/bitstream.model';
-import { Bundle } from '../shared/bundle.model';
-import { ChildHALResource } from '../shared/child-hal-resource.model';
-import { DSpaceObject } from '../shared/dspace-object.model';
-import { Item } from '../shared/item.model';
+import { LinkService } from '../cache';
+import { BitstreamDataService } from '../data';
+import { RemoteData } from '../data';
+import { getDSpaceObjectRoute } from '../router';
+import { Bitstream } from '../shared';
+import { Bundle } from '../shared';
+import { ChildHALResource } from '../shared';
+import { DSpaceObject } from '../shared';
+import { Item } from '../shared';
 import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '../shared/operators';
-import { BITSTREAM_PAGE_LINKS_TO_FOLLOW } from '../shared/resolvers/bitstream-page.resolver';
+} from '../shared';
+import { BITSTREAM_PAGE_LINKS_TO_FOLLOW } from '../shared';
 import { Breadcrumb } from './breadcrumb.model';
 import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
 import { DSONameService } from './dso-name.service';

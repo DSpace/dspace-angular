@@ -18,13 +18,13 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { GenericConstructor } from '../../../../../modules/core/src/lib/core/shared/generic-constructor';
+import { GenericConstructor } from '@dspace/core';
 import { MenuService } from '../menu.service';
-import { MenuID } from '../menu-id.model';
+import { MenuID } from '../../../../../modules/core/src/lib/core/states/menu/menu-id.model';
 import { getComponentForMenuItemType } from '../menu-item.decorator';
-import { MenuItemModel } from '../menu-item/models/menu-item.model';
-import { MenuItemType } from '../menu-item-type.model';
-import { MenuSection } from '../menu-section.model';
+import { MenuItemModel } from '../../../../../modules/core/src/lib/core/states/menu/menu-item.model';
+import { MenuItemType } from '../../../../../modules/core/src/lib/core/states/menu/menu-item-type.model';
+import { MenuSection } from '../../../../../modules/core/src/lib/core/states/menu/menu-section.model';
 
 /**
  * A basic implementation of a menu section's component

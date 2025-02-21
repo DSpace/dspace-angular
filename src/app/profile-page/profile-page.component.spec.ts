@@ -20,25 +20,25 @@ import {
 } from 'rxjs';
 
 import { storeModuleConfig } from '../app.reducer';
-import { authReducer } from '../../../modules/core/src/lib/core/auth/auth.reducer';
-import { AuthService } from '../../../modules/core/src/lib/core/auth/auth.service';
-import { AuthTokenInfo } from '../../../modules/core/src/lib/core/auth/models/auth-token-info.model';
-import { RestResponse } from '../../../modules/core/src/lib/core/cache/response.models';
-import { ConfigurationDataService } from '../../../modules/core/src/lib/core/data/configuration-data.service';
-import { AuthorizationDataService } from '../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { EPersonDataService } from '../../../modules/core/src/lib/core/eperson/eperson-data.service';
-import { EPerson } from '../../../modules/core/src/lib/core/eperson/models/eperson.model';
-import { NotificationsService } from '../../../modules/core/src/lib/core/notifications/notifications.service';
-import { ConfigurationProperty } from '../../../modules/core/src/lib/core/shared/configuration-property.model';
+import { authReducer } from '@dspace/core';
+import { AuthService } from '@dspace/core';
+import { AuthTokenInfo } from '@dspace/core';
+import { RestResponse } from '@dspace/core';
+import { ConfigurationDataService } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { EPersonDataService } from '@dspace/core';
+import { EPerson } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { ConfigurationProperty } from '@dspace/core';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../modules/core/src/lib/core/utilities/remote-data.utils';
+} from '@dspace/core';
 import {
   EmptySpecialGroupDataMock$,
   SpecialGroupDataMock$,
-} from '../../../modules/core/src/lib/core/utilities/testing/special-group.mock';
-import { createPaginatedList } from '../../../modules/core/src/lib/core/utilities/testing/utils.test';
+} from '@dspace/core';
+import { createPaginatedList } from '@dspace/core';
 import { SuggestionsNotificationComponent } from '../notifications/suggestions-notification/suggestions-notification.component';
 import { ErrorComponent } from '../shared/error/error.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';

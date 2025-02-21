@@ -25,17 +25,17 @@ import { Operation } from 'fast-json-patch';
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
-import { TranslateLoaderMock } from '../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { ResearcherProfile } from '../../../../../modules/core/src/lib/core/profile/model/researcher-profile.model';
-import { ResearcherProfileDataService } from '../../../../../modules/core/src/lib/core/profile/researcher-profile-data.service';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { TranslateLoaderMock } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { ResearcherProfile } from '@dspace/core';
+import { ResearcherProfileDataService } from '@dspace/core';
+import { Item } from '@dspace/core';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { createPaginatedList } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+} from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { createPaginatedList } from '@dspace/core';
 import { OrcidSyncSettingsComponent } from './orcid-sync-settings.component';
 
 describe('OrcidSyncSettingsComponent test suite', () => {

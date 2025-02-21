@@ -1,4 +1,4 @@
-import { UUIDService } from '../shared/uuid.service';
+import { UUIDService } from '../shared';
 
 export const defaultUUID = 'c4ce6905-290b-478f-979d-a333bbd7820f';
 

@@ -30,27 +30,27 @@ import { environment } from 'src/environments/environment.test';
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
-} from '../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { SubmissionFormsConfigDataService } from '../../../../../modules/core/src/lib/core/config/submission-forms-config-data.service';
-import { CollectionDataService } from '../../../../../modules/core/src/lib/core/data/collection-data.service';
-import { JsonPatchOperationPathCombiner } from '../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operations-builder';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
-import { License } from '../../../../../modules/core/src/lib/core/shared/license.model';
-import { SubmissionObjectDataService } from '../../../../../modules/core/src/lib/core/submission/submission-object-data.service';
+} from '@dspace/core';
+import { SubmissionFormsConfigDataService } from '@dspace/core';
+import { CollectionDataService } from '@dspace/core';
+import { JsonPatchOperationPathCombiner } from '@dspace/core';
+import { JsonPatchOperationsBuilder } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { License } from '@dspace/core';
+import { SubmissionObjectDataService } from '@dspace/core';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { SectionsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/sections-service.stub';
-import { SubmissionServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/submission-service.stub';
-import { createTestComponent } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
-import { XSRFService } from '../../../../../modules/core/src/lib/core/xsrf/xsrf.service';
+} from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { SectionsServiceStub } from '@dspace/core';
+import { SubmissionServiceStub } from '@dspace/core';
+import { createTestComponent } from '@dspace/core';
+import { XSRFService } from '@dspace/core';
 import { dsDynamicFormControlMapFn } from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
-import { FormFieldMetadataValueObject } from '../../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '@dspace/core';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
@@ -61,11 +61,11 @@ import {
   mockSubmissionId,
   mockSubmissionObject,
 } from '../../../shared/mocks/submission.mock';
-import { SubmissionService } from '../../submission.service';
+import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
-import { SectionDataObject } from '../models/section-data.model';
+import { SectionDataObject } from '../../../../../modules/core/src/lib/core/submission/sections/section-data.model';
 import { SectionsService } from '../sections.service';
-import { SectionsType } from '../sections-type';
+import { SectionsType } from '../../../../../modules/core/src/lib/core/submission/models/sections-type';
 import { SubmissionSectionLicenseComponent } from './section-license.component';
 
 function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {

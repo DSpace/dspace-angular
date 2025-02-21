@@ -1,5 +1,5 @@
-import { SortOptions } from '../../../../modules/core/src/lib/core/cache/models/sort-options.model';
-import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+import { SortOptions } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
 
 
 /**

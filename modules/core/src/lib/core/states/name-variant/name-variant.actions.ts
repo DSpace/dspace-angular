@@ -4,7 +4,7 @@
  */
 import { Action } from '@ngrx/store';
 
-import { type } from '../../shared/ngrx/type';
+import { type } from '../../shared';
 
 export const NameVariantActionTypes = {
   SET_NAME_VARIANT: type('dspace/name-variant/SET_NAME_VARIANT'),

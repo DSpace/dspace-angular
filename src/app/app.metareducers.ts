@@ -1,4 +1,4 @@
-import { StoreActionTypes } from '../../modules/core/src/lib/core/store.actions';
+import { StoreActionTypes } from '@dspace/core';
 
 // fallback ngrx debugger
 let actionCounter = 0;

@@ -15,17 +15,17 @@ import {
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../../../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../../../../modules/core/src/lib/core/data/remote-data';
-import { ItemSearchResult } from '../../../../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
-import { ListableObject } from '../../../../../../../../modules/core/src/lib/core/object-collection/listable-object.model';
-import { PaginationService } from '../../../../../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { Item } from '../../../../../../../../modules/core/src/lib/core/shared/item.model';
-import { PaginatedSearchOptions } from '../../../../../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
-import { PaginationComponentOptions } from '../../../../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
-import { SearchConfigurationService } from '../../../../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { PaginationServiceStub } from '../../../../../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
+} from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { ItemSearchResult } from '@dspace/core';
+import { ListableObject } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { PaginatedSearchOptions } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
+import { SearchConfigurationService } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { PaginationServiceStub } from '@dspace/core';
 import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
 import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
 import { VarDirective } from '../../../../../utils/var.directive';

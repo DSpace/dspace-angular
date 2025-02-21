@@ -26,17 +26,17 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { NotificationsService } from '../../../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { DSpaceObject } from '../../../../../../../modules/core/src/lib/core/shared/dspace-object.model';
-import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../../../modules/core/src/lib/core/shared/operators';
-import { WorkspaceItem } from '../../../../../../../modules/core/src/lib/core/submission/models/workspaceitem.model';
-import { SupervisionOrder } from '../../../../../../../modules/core/src/lib/core/supervision-order/models/supervision-order.model';
-import { SupervisionOrderDataService } from '../../../../../../../modules/core/src/lib/core/supervision-order/supervision-order-data.service';
+import { DSONameService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core';
+import { WorkspaceItem } from '@dspace/core';
+import { SupervisionOrder } from '@dspace/core';
+import { SupervisionOrderDataService } from '@dspace/core';
 import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../../../item-page/edit-item-page/edit-item-page.routing-paths';
 import { ConfirmationModalComponent } from '../../../../../shared/confirmation-modal/confirmation-modal.component';
-import { getSearchResultFor } from '../../../../../shared/search/search-result-element-decorator';
+import { getSearchResultFor } from '../../../../../../../modules/core/src/lib/core/config/models/search-result-element-decorator';
 import { getWorkspaceItemDeleteRoute } from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { SupervisionOrderGroupSelectorComponent } from './supervision-order-group-selector/supervision-order-group-selector.component';
 import {

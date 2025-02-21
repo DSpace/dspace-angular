@@ -5,11 +5,11 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 
-import { BitstreamFormatDataService } from '../../../../../../modules/core/src/lib/core/data/bitstream-format-data.service';
-import { RemoteData } from '../../../../../../modules/core/src/lib/core/data/remote-data';
-import { NotificationsService } from '../../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { BitstreamFormat } from '../../../../../../modules/core/src/lib/core/shared/bitstream-format.model';
-import { getFirstCompletedRemoteData } from '../../../../../../modules/core/src/lib/core/shared/operators';
+import { BitstreamFormatDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { BitstreamFormat } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
 import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-paths';
 import { FormatFormComponent } from '../format-form/format-form.component';
 

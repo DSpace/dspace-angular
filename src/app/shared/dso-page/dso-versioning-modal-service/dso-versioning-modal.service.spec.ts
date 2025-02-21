@@ -4,12 +4,12 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { buildPaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { MetadataMap } from '../../../../../modules/core/src/lib/core/shared/metadata.models';
-import { PageInfo } from '../../../../../modules/core/src/lib/core/shared/page-info.model';
-import { Version } from '../../../../../modules/core/src/lib/core/shared/version.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { buildPaginatedList } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { MetadataMap } from '@dspace/core';
+import { PageInfo } from '@dspace/core';
+import { Version } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { createRelationshipsObservable } from '../../../item-page/simple/item-types/shared/item.component.spec';
 import { DsoVersioningModalService } from './dso-versioning-modal.service';
 

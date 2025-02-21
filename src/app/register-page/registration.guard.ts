@@ -8,10 +8,10 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AuthService } from '../../../modules/core/src/lib/core/auth/auth.service';
-import { EpersonRegistrationService } from '../../../modules/core/src/lib/core/data/eperson-registration.service';
-import { redirectOn4xx } from '../../../modules/core/src/lib/core/shared/authorized.operators';
-import { getFirstCompletedRemoteData } from '../../../modules/core/src/lib/core/shared/operators';
+import { AuthService } from '@dspace/core';
+import { EpersonRegistrationService } from '@dspace/core';
+import { redirectOn4xx } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
 
 /**
  * A guard responsible for redirecting to 4xx pages upon retrieving a Registration object

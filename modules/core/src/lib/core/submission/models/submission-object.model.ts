@@ -5,21 +5,21 @@ import {
 } from 'cerialize';
 import { Observable } from 'rxjs';
 
-import { link } from '../../cache/builders/build-decorators';
-import { CacheableObject } from '../../cache/cacheable-object.model';
-import { SubmissionDefinitionsModel } from '../../config/models/config-submission-definitions.model';
-import { PaginatedList } from '../../data/paginated-list.model';
-import { RemoteData } from '../../data/remote-data';
-import { EPerson } from '../../eperson/models/eperson.model';
-import { EPERSON } from '../../eperson/models/eperson.resource-type';
-import { Collection } from '../../shared/collection.model';
-import { COLLECTION } from '../../shared/collection.resource-type';
-import { DSpaceObject } from '../../shared/dspace-object.model';
-import { HALLink } from '../../shared/hal-link.model';
-import { ITEM } from '../../shared/item.resource-type';
-import { SupervisionOrder } from '../../supervision-order/models/supervision-order.model';
-import { SUPERVISION_ORDER } from '../../supervision-order/models/supervision-order.resource-type';
-import { excludeFromEquals } from '../../utilities/equals.decorators';
+import { link } from '../../cache';
+import { CacheableObject } from '../../cache';
+import { SubmissionDefinitionsModel } from '../../config';
+import { PaginatedList } from '../../data';
+import { RemoteData } from '../../data';
+import { EPerson } from '../../eperson';
+import { EPERSON } from '../../eperson';
+import { Collection } from '../../shared';
+import { COLLECTION } from '../../shared';
+import { DSpaceObject } from '../../shared';
+import { HALLink } from '../../shared';
+import { ITEM } from '../../shared';
+import { SupervisionOrder } from '../../supervision-order';
+import { SUPERVISION_ORDER } from '../../supervision-order';
+import { excludeFromEquals } from '../../utilities';
 import { WorkspaceitemSectionsObject } from './workspaceitem-sections.model';
 
 export interface SubmissionObjectError {

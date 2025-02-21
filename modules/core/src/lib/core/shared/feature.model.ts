@@ -4,7 +4,7 @@ import {
   inheritSerialization,
 } from 'cerialize';
 
-import { typedObject } from '../cache/builders/build-decorators';
+import { typedObject } from '../cache';
 import { DSpaceObject } from './dspace-object.model';
 import { FEATURE } from './feature.resource-type';
 import { HALLink } from './hal-link.model';

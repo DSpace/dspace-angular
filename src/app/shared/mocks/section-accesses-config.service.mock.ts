@@ -1,6 +1,6 @@
-import { SubmissionFormsModel } from '../../../../modules/core/src/lib/core/config/models/config-submission-forms.model';
-import { SubmissionFormsConfigDataService } from '../../../../modules/core/src/lib/core/config/submission-forms-config-data.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { SubmissionFormsModel } from '@dspace/core';
+import { SubmissionFormsConfigDataService } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 
 const configRes = Object.assign(new SubmissionFormsModel(), {
   'id': 'AccessConditionDefaultConfiguration',

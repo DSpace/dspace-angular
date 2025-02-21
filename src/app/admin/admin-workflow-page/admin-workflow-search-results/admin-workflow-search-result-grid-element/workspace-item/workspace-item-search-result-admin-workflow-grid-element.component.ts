@@ -20,26 +20,26 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../../../../modules/core/src/lib/core/cache/builders/link.service';
-import { BitstreamDataService } from '../../../../../../../modules/core/src/lib/core/data/bitstream-data.service';
-import { followLink } from '../../../../../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { PaginatedList } from '../../../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../../../modules/core/src/lib/core/data/remote-data';
-import { WorkspaceItemSearchResult } from '../../../../../../../modules/core/src/lib/core/object-collection/workspace-item-search-result.model';
-import { Context } from '../../../../../../../modules/core/src/lib/core/shared/context.model';
-import { DSpaceObject } from '../../../../../../../modules/core/src/lib/core/shared/dspace-object.model';
-import { GenericConstructor } from '../../../../../../../modules/core/src/lib/core/shared/generic-constructor';
-import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
+import { DSONameService } from '@dspace/core';
+import { LinkService } from '@dspace/core';
+import { BitstreamDataService } from '@dspace/core';
+import { followLink } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { WorkspaceItemSearchResult } from '@dspace/core';
+import { Context } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
+import { GenericConstructor } from '@dspace/core';
+import { Item } from '@dspace/core';
 import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '../../../../../../../modules/core/src/lib/core/shared/operators';
-import { ViewMode } from '../../../../../../../modules/core/src/lib/core/shared/view-mode.model';
-import { WorkspaceItem } from '../../../../../../../modules/core/src/lib/core/submission/models/workspaceitem.model';
-import { SupervisionOrder } from '../../../../../../../modules/core/src/lib/core/supervision-order/models/supervision-order.model';
-import { SupervisionOrderDataService } from '../../../../../../../modules/core/src/lib/core/supervision-order/supervision-order-data.service';
+} from '@dspace/core';
+import { ViewMode } from '@dspace/core';
+import { WorkspaceItem } from '@dspace/core';
+import { SupervisionOrder } from '@dspace/core';
+import { SupervisionOrderDataService } from '@dspace/core';
 import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import {
   getListableObjectComponent,

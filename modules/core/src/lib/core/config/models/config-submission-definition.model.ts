@@ -4,9 +4,9 @@ import {
   inheritSerialization,
 } from 'cerialize';
 
-import { typedObject } from '../../cache/builders/build-decorators';
-import { PaginatedList } from '../../data/paginated-list.model';
-import { HALLink } from '../../shared/hal-link.model';
+import { typedObject } from '../../cache';
+import { PaginatedList } from '../../data';
+import { HALLink } from '../../shared';
 import { ConfigObject } from './config.model';
 import { SubmissionSectionModel } from './config-submission-section.model';
 import { SUBMISSION_DEFINITION_TYPE } from './config-type';

@@ -9,7 +9,7 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { RouterActionTypes } from '../router/router.actions';
+import { RouterActionTypes } from '../router';
 import {
   ResetRouteStateAction,
   RouteActionTypes,

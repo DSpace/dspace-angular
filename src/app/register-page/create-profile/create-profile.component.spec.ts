@@ -19,23 +19,23 @@ import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthenticateAction } from '../../../../modules/core/src/lib/core/auth/auth.actions';
-import { CoreState } from '../../../../modules/core/src/lib/core/core-state.model';
+import { AuthenticateAction } from '@dspace/core';
+import { CoreState } from '@dspace/core';
 import {
   END_USER_AGREEMENT_METADATA_FIELD,
   EndUserAgreementService,
-} from '../../../../modules/core/src/lib/core/end-user-agreement/end-user-agreement.service';
-import { EPersonDataService } from '../../../../modules/core/src/lib/core/eperson/eperson-data.service';
-import { EPerson } from '../../../../modules/core/src/lib/core/eperson/models/eperson.model';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Registration } from '../../../../modules/core/src/lib/core/shared/registration.model';
+} from '@dspace/core';
+import { EPersonDataService } from '@dspace/core';
+import { EPerson } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Registration } from '@dspace/core';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { RouterStub } from '../../../../modules/core/src/lib/core/utilities/testing/router.stub';
+} from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { RouterStub } from '@dspace/core';
 import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
 import { CreateProfileComponent } from './create-profile.component';
 

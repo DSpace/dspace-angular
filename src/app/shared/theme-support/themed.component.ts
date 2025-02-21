@@ -31,8 +31,8 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { BASE_THEME_NAME } from '../../../../modules/core/src/lib/core/config/theme.constants';
-import { GenericConstructor } from '../../../../modules/core/src/lib/core/shared/generic-constructor';
+import { BASE_THEME_NAME } from '@dspace/core';
+import { GenericConstructor } from '@dspace/core';
 import { ThemeService } from './theme.service';
 
 @Component({

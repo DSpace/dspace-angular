@@ -9,11 +9,11 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 
-import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../../../../modules/core/src/lib/core/shared/operators';
+import { ItemDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
 import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
 import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';
 

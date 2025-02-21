@@ -15,14 +15,14 @@ import {
 } from 'rxjs/operators';
 
 import { getNotificatioQualityAssuranceRoute } from '../../../admin/admin-routing-paths';
-import { RequestParam } from '../../../../../modules/core/src/lib/core/cache/models/request-param.model';
-import { FindListOptions } from '../../../../../modules/core/src/lib/core/data/find-list-options.model';
-import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { QualityAssuranceSourceObject } from '../../../../../modules/core/src/lib/core/notifications/qa/models/quality-assurance-source.model';
-import { QualityAssuranceSourceDataService } from '../../../../../modules/core/src/lib/core/notifications/qa/source/quality-assurance-source-data.service';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../../../../modules/core/src/lib/core/shared/operators';
+import { RequestParam } from '@dspace/core';
+import { FindListOptions } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { QualityAssuranceSourceObject } from '@dspace/core';
+import { QualityAssuranceSourceDataService } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
 import { SplitPipe } from '../../../shared/utils/split.pipe';
 
 @Component({

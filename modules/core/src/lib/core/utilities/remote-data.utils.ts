@@ -4,8 +4,8 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { RemoteData } from '../data/remote-data';
-import { RequestEntryState } from '../data/request-entry-state.model';
+import { RemoteData } from '../data';
+import { RequestEntryState } from '../data';
 
 /**
  * A fixed timestamp to use in tests

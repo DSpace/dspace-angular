@@ -1,7 +1,7 @@
-import { getMockTranslateService } from '../../../../../../modules/core/src/lib/core/mocks/translate.service.mock';
-import { FormFieldModel } from '../../../../../../modules/core/src/lib/core/shared/form/form-field.model';
+import { getMockTranslateService } from '@dspace/core';
+import { FormFieldModel } from '@dspace/core';
 import { DsDynamicTextAreaModel } from '../ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
-import { FormFieldMetadataValueObject } from '../../../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '@dspace/core';
 import { ParserOptions } from './parser-options';
 import { TextareaFieldParser } from './textarea-field-parser';
 

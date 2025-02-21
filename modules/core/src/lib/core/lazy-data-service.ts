@@ -7,7 +7,7 @@ import {
   Observable,
 } from 'rxjs';
 
-import { HALDataService } from './data/base/hal-data-service.interface';
+import { HALDataService } from './data';
 import { LazyDataServicesMap } from './data-services-map';
 
 /**

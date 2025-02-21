@@ -24,11 +24,11 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { PaginatedList } from '../../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { ListableObject } from '../../../../../../modules/core/src/lib/core/object-collection/listable-object.model';
-import { Context } from '../../../../../../modules/core/src/lib/core/shared/context.model';
-import { GenericConstructor } from '../../../../../../modules/core/src/lib/core/shared/generic-constructor';
-import { ViewMode } from '../../../../../../modules/core/src/lib/core/shared/view-mode.model';
+import { PaginatedList } from '@dspace/core';
+import { ListableObject } from '@dspace/core';
+import { Context } from '@dspace/core';
+import { GenericConstructor } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { CollectionElementLinkType } from '../../collection-element-link.type';
 import { getTabulatableObjectsComponent } from './tabulatable-objects.decorator';

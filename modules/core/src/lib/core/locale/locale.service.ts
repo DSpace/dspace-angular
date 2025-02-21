@@ -20,18 +20,18 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../auth';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../config/app-config.interface';
-import { LangConfig } from '../config/lang-config.interface';
-import { CookieService } from '../services/cookie.service';
-import { RouteService } from '../services/route.service';
+} from '../config';
+import { LangConfig } from '../config';
+import { CookieService } from '../services';
+import { RouteService } from '../services';
 import {
   NativeWindowRef,
   NativeWindowService,
-} from '../services/window.service';
+} from '../services';
 
 export const LANG_COOKIE = 'dsLanguage';
 

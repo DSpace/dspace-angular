@@ -20,83 +20,27 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { ImportType, PaginatedList, QualityAssuranceEventData } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
 import {
   QualityAssuranceEventObject,
   SourceQualityAssuranceEventMessageObject,
-} from '../../../../../modules/core/src/lib/core/notifications/qa/models/quality-assurance-event.model';
-import { ListableObject } from '../../../../../modules/core/src/lib/core/object-collection/listable-object.model';
-import { Context } from '../../../../../modules/core/src/lib/core/shared/context.model';
-import { DSpaceObject } from '../../../../../modules/core/src/lib/core/shared/dspace-object.model';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { PaginatedSearchOptions } from '../../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
-import { PaginationComponentOptions } from '../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
-import { SearchResult } from '../../../../../modules/core/src/lib/core/shared/search/models/search-result.model';
-import { SearchService } from '../../../../../modules/core/src/lib/core/shared/search/search.service';
+} from '@dspace/core';
+import { ListableObject } from '@dspace/core';
+import { Context } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { PaginatedSearchOptions } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
+import { SearchResult } from '@dspace/core';
+import { SearchService } from '@dspace/core';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { CollectionElementLinkType } from '../../../shared/object-collection/collection-element-link.type';
-import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
+import { SelectableListService } from '../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
 import { ThemedSearchResultsComponent } from '../../../shared/search/search-results/themed-search-results.component';
 
-/**
- * The possible types of import for the external entry
- */
-export enum ImportType {
-  None = 'None',
-  LocalEntity = 'LocalEntity',
-  LocalAuthority = 'LocalAuthority',
-  NewEntity = 'NewEntity',
-  NewAuthority = 'NewAuthority'
-}
-
-/**
- * The data type passed from the parent page
- */
-export interface QualityAssuranceEventData {
-  /**
-   * The Quality Assurance event
-   */
-  event: QualityAssuranceEventObject;
-  /**
-   * The Quality Assurance event Id (uuid)
-   */
-  id: string;
-  /**
-   * The publication title
-   */
-  title: string;
-  /**
-   * Contains the boolean that indicates if a project is present
-   */
-  hasProject: boolean;
-  /**
-   * The project title, if present
-   */
-  projectTitle: string;
-  /**
-   * The project id (uuid), if present
-   */
-  projectId: string;
-  /**
-   * The project handle, if present
-   */
-  handle: string;
-  /**
-   * The reject/discard reason
-   */
-  reason: string;
-  /**
-   * Contains the boolean that indicates if there is a running operation (REST call)
-   */
-  isRunning: boolean;
-  /**
-   * The related publication DSpace item
-   */
-  target?: Item;
-}
 
 @Component({
   selector: 'ds-project-entry-import-modal',

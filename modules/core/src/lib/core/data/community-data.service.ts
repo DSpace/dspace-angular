@@ -8,11 +8,11 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { NotificationsService } from '../notifications/notifications.service';
-import { Community } from '../shared/community.model';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { RemoteDataBuildService } from '../cache';
+import { ObjectCacheService } from '../cache';
+import { NotificationsService } from '../notifications';
+import { Community } from '../shared';
+import { HALEndpointService } from '../shared';
 import { BitstreamDataService } from './bitstream-data.service';
 import { ComColDataService } from './comcol-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';

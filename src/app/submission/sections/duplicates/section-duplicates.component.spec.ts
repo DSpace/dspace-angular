@@ -22,22 +22,22 @@ import { cold } from 'jasmine-marbles';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { of as observableOf } from 'rxjs';
 
-import { SubmissionFormsConfigDataService } from '../../../../../modules/core/src/lib/core/config/submission-forms-config-data.service';
-import { CollectionDataService } from '../../../../../modules/core/src/lib/core/data/collection-data.service';
-import { JsonPatchOperationPathCombiner } from '../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operations-builder';
-import { defaultUUID } from '../../../../../modules/core/src/lib/core/mocks/uuid.service.mock';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { PaginationService } from '../../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
-import { License } from '../../../../../modules/core/src/lib/core/shared/license.model';
-import { MetadataValue } from '../../../../../modules/core/src/lib/core/shared/metadata.models';
-import { SubmissionScopeType } from '../../../../../modules/core/src/lib/core/submission/submission-scope-type';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
-import { SectionsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/sections-service.stub';
-import { SubmissionServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/submission-service.stub';
+import { SubmissionFormsConfigDataService } from '@dspace/core';
+import { CollectionDataService } from '@dspace/core';
+import { JsonPatchOperationPathCombiner } from '@dspace/core';
+import { JsonPatchOperationsBuilder } from '@dspace/core';
+import { defaultUUID } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { License } from '@dspace/core';
+import { MetadataValue } from '@dspace/core';
+import { SubmissionScopeType } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { PaginationServiceStub } from '@dspace/core';
+import { SectionsServiceStub } from '@dspace/core';
+import { SubmissionServiceStub } from '@dspace/core';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormService } from '../../../shared/form/form.service';
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
@@ -47,14 +47,14 @@ import {
   mockSubmissionCollectionId,
   mockSubmissionId,
 } from '../../../shared/mocks/submission.mock';
-import { Duplicate } from '../../../shared/object-list/duplicate-data/duplicate.model';
-import { DUPLICATE } from '../../../shared/object-list/duplicate-data/duplicate.resource-type';
+import { Duplicate } from '../../../../../modules/core/src/lib/core/data/duplicate-data/duplicate.model';
+import { DUPLICATE } from '../../../../../modules/core/src/lib/core/data/duplicate-data/duplicate.resource-type';
 import { ObjNgFor } from '../../../shared/utils/object-ngfor.pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
-import { SubmissionService } from '../../submission.service';
+import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { SectionsService } from '../sections.service';
-import { SectionsType } from '../sections-type';
+import { SectionsType } from '../../../../../modules/core/src/lib/core/submission/models/sections-type';
 import { SubmissionSectionDuplicatesComponent } from './section-duplicates.component';
 
 function getMockSubmissionFormsConfigService(): SubmissionFormsConfigDataService {

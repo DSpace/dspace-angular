@@ -13,16 +13,16 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
-import { GroupDataService } from '../../../../../modules/core/src/lib/core/eperson/group-data.service';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
+import { DSONameService } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { GroupDataService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Collection } from '@dspace/core';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+} from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 import { CollectionRolesComponent } from './collection-roles.component';
 

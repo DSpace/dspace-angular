@@ -9,13 +9,13 @@ import {
 import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { LinkService } from '../cache/builders/link.service';
-import { getMockLinkService } from '../mocks/link-service.mock';
-import { getDSpaceObjectRoute } from '../router/utils/routes-utils';
-import { Collection } from '../shared/collection.model';
-import { Community } from '../shared/community.model';
-import { DSpaceObject } from '../shared/dspace-object.model';
-import { Item } from '../shared/item.model';
+import { LinkService } from '../cache';
+import { getMockLinkService } from '../mocks';
+import { getDSpaceObjectRoute } from '../router';
+import { Collection } from '../shared';
+import { Community } from '../shared';
+import { DSpaceObject } from '../shared';
+import { Item } from '../shared';
 import { Breadcrumb } from './breadcrumb.model';
 import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
 import { DSONameService } from './dso-name.service';

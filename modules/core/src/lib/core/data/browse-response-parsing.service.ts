@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { hasValue } from '@dspace/shared/utils';
 
-import { ObjectCacheService } from '../cache/object-cache.service';
+import { ObjectCacheService } from '../cache';
 import { Serializer } from '../serializer';
-import { BrowseDefinition } from '../shared/browse-definition.model';
-import { BROWSE_DEFINITION } from '../shared/browse-definition.resource-type';
-import { FlatBrowseDefinition } from '../shared/flat-browse-definition.model';
-import { FLAT_BROWSE_DEFINITION } from '../shared/flat-browse-definition.resource-type';
-import { HierarchicalBrowseDefinition } from '../shared/hierarchical-browse-definition.model';
-import { HIERARCHICAL_BROWSE_DEFINITION } from '../shared/hierarchical-browse-definition.resource-type';
-import { ValueListBrowseDefinition } from '../shared/value-list-browse-definition.model';
-import { VALUE_LIST_BROWSE_DEFINITION } from '../shared/value-list-browse-definition.resource-type';
+import { BrowseDefinition } from '../shared';
+import { BROWSE_DEFINITION } from '../shared';
+import { FlatBrowseDefinition } from '../shared';
+import { FLAT_BROWSE_DEFINITION } from '../shared';
+import { HierarchicalBrowseDefinition } from '../shared';
+import { HIERARCHICAL_BROWSE_DEFINITION } from '../shared';
+import { ValueListBrowseDefinition } from '../shared';
+import { VALUE_LIST_BROWSE_DEFINITION } from '../shared';
 import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
 
 /**

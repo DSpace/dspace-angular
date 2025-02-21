@@ -21,14 +21,14 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
-import { AuthorizationDataService } from '../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { ScriptDataService } from '../../../../modules/core/src/lib/core/data/processes/script-data.service';
-import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
-import { createSuccessfulRemoteDataObject } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { AuthServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/auth-service.stub';
-import { CSSVariableServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/css-variable-service.stub';
-import { MenuServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/menu-service.stub';
+import { AuthService } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { ScriptDataService } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { createSuccessfulRemoteDataObject } from '@dspace/core';
+import { AuthServiceStub } from '@dspace/core';
+import { CSSVariableServiceStub } from '@dspace/core';
+import { MenuServiceStub } from '@dspace/core';
 import { MenuService } from '../../shared/menu/menu.service';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { CSSVariableService } from '../../shared/sass-helper/css-variable.service';

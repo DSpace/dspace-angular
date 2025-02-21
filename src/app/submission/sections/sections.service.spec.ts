@@ -19,13 +19,13 @@ import {
 import { of as observableOf } from 'rxjs';
 
 import { storeModuleConfig } from '../../app.reducer';
-import { getMockTranslateService } from '../../../../modules/core/src/lib/core/mocks/translate.service.mock';
-import { TranslateLoaderMock } from '../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { SubmissionScopeType } from '../../../../modules/core/src/lib/core/submission/submission-scope-type';
-import { NotificationsServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { SubmissionServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/submission-service.stub';
-import { FormClearErrorsAction } from '../../shared/form/form.actions';
+import { getMockTranslateService } from '@dspace/core';
+import { TranslateLoaderMock } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { SubmissionScopeType } from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { SubmissionServiceStub } from '@dspace/core';
+import { FormClearErrorsAction } from '../../../../modules/core/src/lib/core/states/form/form.actions';
 import { FormService } from '../../shared/form/form.service';
 import { getMockFormService } from '../../shared/mocks/form-service.mock';
 import { getMockScrollToService } from '../../shared/mocks/scroll-to-service.mock';
@@ -35,7 +35,7 @@ import {
   mockSubmissionState,
   mockSubmissionStateWithoutUpload,
 } from '../../shared/mocks/submission.mock';
-import { SectionScope } from '../objects/section-visibility.model';
+import { SectionScope } from '../../../../modules/core/src/lib/core/submission/models/section-visibility.model';
 import {
   DisableSectionAction,
   EnableSectionAction,
@@ -43,13 +43,13 @@ import {
   RemoveSectionErrorsAction,
   SectionStatusChangeAction,
   UpdateSectionDataAction,
-} from '../objects/submission-objects.actions';
-import { SubmissionSectionError } from '../objects/submission-section-error.model';
-import { submissionReducers } from '../submission.reducers';
-import { SubmissionService } from '../submission.service';
+} from '../../../../modules/core/src/lib/core/states/submission/submission-objects.actions';
+import { SubmissionSectionError } from '../../../../modules/core/src/lib/core/submission/models/submission-section-error.model';
+import { submissionReducers } from '../../../../modules/core/src/lib/core/states/submission/submission.reducers';
+import { SubmissionService } from '../../../../modules/core/src/lib/core/submission/submission.service';
 import parseSectionErrors from '../utils/parseSectionErrors';
 import { SectionsService } from './sections.service';
-import { SectionsType } from './sections-type';
+import { SectionsType } from '../../../../modules/core/src/lib/core/submission/models/sections-type';
 
 describe('SectionsService test suite', () => {
   let notificationsServiceStub: NotificationsServiceStub;

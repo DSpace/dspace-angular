@@ -3,8 +3,8 @@ import {
   inheritSerialization,
 } from 'cerialize';
 
-import { typedObject } from '../../cache/builders/build-decorators';
-import { DSpaceObject } from '../../shared/dspace-object.model';
+import { typedObject } from '../../cache';
+import { DSpaceObject } from '../../shared';
 import { AdvancedWorkflowInfo } from './advanced-workflow-info.model';
 import { WORKFLOW_ACTION } from './workflow-action-object.resource-type';
 

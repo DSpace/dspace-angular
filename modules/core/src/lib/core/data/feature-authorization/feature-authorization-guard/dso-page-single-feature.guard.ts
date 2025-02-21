@@ -7,7 +7,7 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { DSpaceObject } from '../../../shared/dspace-object.model';
+import { DSpaceObject } from '../../../shared';
 import { RemoteData } from '../../remote-data';
 import { FeatureID } from '../feature-id';
 import { dsoPageSomeFeatureGuard } from './dso-page-some-feature.guard';

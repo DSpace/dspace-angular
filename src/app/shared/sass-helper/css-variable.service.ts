@@ -18,10 +18,10 @@ import {
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { PageInfo } from '../../../../modules/core/src/lib/core/shared/page-info.model';
-import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
-import { KeyValuePair } from '../key-value-pair.model';
+} from '@dspace/core';
+import { PageInfo } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
+import { KeyValuePair } from '../../../../modules/core/src/lib/core/config/models/key-value-pair.model';
 import {
   AddAllCSSVariablesAction,
   AddCSSVariableAction,

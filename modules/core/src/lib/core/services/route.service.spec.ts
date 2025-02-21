@@ -18,9 +18,9 @@ import { of as observableOf } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
 
-import { AddUrlToHistoryAction } from '../history/history.actions';
-import { RouterMock } from '../mocks/router.mock';
-import { ActivatedRouteStub } from '../utilities/testing/active-router.stub';
+import { AddUrlToHistoryAction } from '../history';
+import { RouterMock } from '../mocks';
+import { ActivatedRouteStub } from '../utilities';
 import { RouteService } from './route.service';
 
 describe('RouteService', () => {

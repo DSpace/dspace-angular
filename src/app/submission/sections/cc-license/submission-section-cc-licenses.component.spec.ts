@@ -10,19 +10,19 @@ import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { FormBuilderService } from 'src/app/shared/form/builder/form-builder.service';
 
-import { ConfigurationDataService } from '../../../../../modules/core/src/lib/core/data/configuration-data.service';
-import { JsonPatchOperationsBuilder } from '../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operations-builder';
-import { ConfigurationProperty } from '../../../../../modules/core/src/lib/core/shared/configuration-property.model';
-import { SUBMISSION_CC_LICENSE } from '../../../../../modules/core/src/lib/core/submission/models/submission-cc-licence.resource-type';
-import { SubmissionCcLicence } from '../../../../../modules/core/src/lib/core/submission/models/submission-cc-license.model';
-import { SubmissionCcLicenseDataService } from '../../../../../modules/core/src/lib/core/submission/submission-cc-license-data.service';
-import { SubmissionCcLicenseUrlDataService } from '../../../../../modules/core/src/lib/core/submission/submission-cc-license-url-data.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { createPaginatedList } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+import { ConfigurationDataService } from '@dspace/core';
+import { JsonPatchOperationsBuilder } from '@dspace/core';
+import { ConfigurationProperty } from '@dspace/core';
+import { SUBMISSION_CC_LICENSE } from '@dspace/core';
+import { SubmissionCcLicence } from '@dspace/core';
+import { SubmissionCcLicenseDataService } from '@dspace/core';
+import { SubmissionCcLicenseUrlDataService } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { createPaginatedList } from '@dspace/core';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { SectionDataObject } from '../models/section-data.model';
+import { SectionDataObject } from '../../../../../modules/core/src/lib/core/submission/sections/section-data.model';
 import { SectionsService } from '../sections.service';
-import { SectionsType } from '../sections-type';
+import { SectionsType } from '../../../../../modules/core/src/lib/core/submission/models/sections-type';
 import { SubmissionSectionCcLicensesComponent } from './submission-section-cc-licenses.component';
 
 describe('SubmissionSectionCcLicensesComponent', () => {

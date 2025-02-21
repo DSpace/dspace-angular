@@ -3,10 +3,10 @@ import {
   hasValue,
 } from '@dspace/shared/utils';
 
-import { GenericConstructor } from '../../shared/generic-constructor';
-import { Item } from '../../shared/item.model';
-import { Relationship } from '../../shared/item-relationships/relationship.model';
-import { RelationshipType } from '../../shared/item-relationships/relationship-type.model';
+import { GenericConstructor } from '../../shared';
+import { Item } from '../../shared';
+import { Relationship } from '../../shared';
+import { RelationshipType } from '../../shared';
 import { FieldChangeType } from './field-change-type.model';
 import { FieldUpdates } from './field-updates.model';
 import { Identifiable } from './identifiable.model';
@@ -23,7 +23,7 @@ import {
   SetEditableFieldUpdateAction,
   SetValidFieldUpdateAction,
 } from './object-updates.actions';
-import { PatchOperationService } from './patch-operation-service/patch-operation.service';
+import { PatchOperationService } from './patch-operation-service';
 
 /**
  * Path where discarded objects are saved

@@ -7,8 +7,8 @@ import {
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of as observableOf } from 'rxjs';
 
-import { HostWindowServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/host-window-service.stub';
-import { MenuServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/menu-service.stub';
+import { HostWindowServiceStub } from '@dspace/core';
+import { MenuServiceStub } from '@dspace/core';
 import { HostWindowService } from '../../shared/host-window.service';
 import { MenuService } from '../../shared/menu/menu.service';
 import { NavbarSectionComponent } from './navbar-section.component';

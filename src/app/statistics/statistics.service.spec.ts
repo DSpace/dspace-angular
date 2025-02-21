@@ -1,11 +1,11 @@
 import isEqual from 'lodash/isEqual';
 
-import { RequestService } from '../../../modules/core/src/lib/core/data/request.service';
-import { RestRequest } from '../../../modules/core/src/lib/core/data/rest-request.model';
-import { getMockRequestService } from '../../../modules/core/src/lib/core/mocks/request.service.mock';
-import { DSpaceObjectType } from '../../../modules/core/src/lib/core/shared/dspace-object-type.model';
-import { SearchOptions } from '../../../modules/core/src/lib/core/shared/search/models/search-options.model';
-import { HALEndpointServiceStub } from '../../../modules/core/src/lib/core/utilities/testing/hal-endpoint-service.stub';
+import { RequestService } from '@dspace/core';
+import { RestRequest } from '@dspace/core';
+import { getMockRequestService } from '@dspace/core';
+import { DSpaceObjectType } from '@dspace/core';
+import { SearchOptions } from '@dspace/core';
+import { HALEndpointServiceStub } from '@dspace/core';
 import { StatisticsService } from './statistics.service';
 
 describe('StatisticsService', () => {

@@ -12,11 +12,11 @@ import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { DSONameService } from '../../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { APP_CONFIG } from '../../../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { ItemSearchResult } from '../../../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
-import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
-import { ActivatedRouteStub } from '../../../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+import { DSONameService } from '@dspace/core';
+import { APP_CONFIG } from '@dspace/core';
+import { ItemSearchResult } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { ActivatedRouteStub } from '@dspace/core';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';

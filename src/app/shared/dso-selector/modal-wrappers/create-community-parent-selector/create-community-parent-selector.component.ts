@@ -21,11 +21,11 @@ import {
 import {
   SortDirection,
   SortOptions,
-} from '../../../../../../modules/core/src/lib/core/cache/models/sort-options.model';
-import { AuthorizationDataService } from '../../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
-import { DSpaceObject } from '../../../../../../modules/core/src/lib/core/shared/dspace-object.model';
-import { DSpaceObjectType } from '../../../../../../modules/core/src/lib/core/shared/dspace-object-type.model';
+} from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { FeatureID } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
+import { DSpaceObjectType } from '@dspace/core';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,

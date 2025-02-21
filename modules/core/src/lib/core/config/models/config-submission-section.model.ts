@@ -7,10 +7,10 @@ import {
 import {
   SectionScope,
   SectionVisibility,
-} from '../../../../../../../src/app/submission/objects/section-visibility.model';
-import { SectionsType } from '../../../../../../../src/app/submission/sections/sections-type';
-import { typedObject } from '../../cache/builders/build-decorators';
-import { HALLink } from '../../shared/hal-link.model';
+} from '../../submission/models/section-visibility.model';
+import { SectionsType } from '../../submission/models/sections-type';
+import { typedObject } from '../../cache';
+import { HALLink } from '../../shared';
 import { ConfigObject } from './config.model';
 import { SUBMISSION_SECTION_TYPE } from './config-type';
 

@@ -4,14 +4,14 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
 
-import { AuthorizationDataService } from '../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { QualityAssuranceEventDataService } from '../../../../../modules/core/src/lib/core/notifications/qa/events/quality-assurance-event-data.service';
-import { QualityAssuranceEventObject } from '../../../../../modules/core/src/lib/core/notifications/qa/models/quality-assurance-event.model';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../../../../modules/core/src/lib/core/shared/operators';
+import { AuthorizationDataService } from '@dspace/core';
+import { ItemDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { QualityAssuranceEventDataService } from '@dspace/core';
+import { QualityAssuranceEventObject } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
 import { ItemWithdrawnReinstateModalComponent } from '../../correction-suggestion/item-withdrawn-reinstate-modal.component';
 
 export const REQUEST_WITHDRAWN = 'REQUEST/WITHDRAWN';

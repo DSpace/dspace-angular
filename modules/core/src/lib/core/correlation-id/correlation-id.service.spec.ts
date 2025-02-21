@@ -7,10 +7,10 @@ import { MockStore } from '@ngrx/store/testing';
 
 import { coreReducers } from '../core.reducers';
 import { CoreState } from '../core-state.model';
-import { CookieServiceMock } from '../mocks/cookie.service.mock';
-import { UUIDService } from '../shared/uuid.service';
-import { SetCorrelationIdAction } from '../states/correlation-id/correlation-id.actions';
-import { mockStoreModuleConfig } from '../utilities/testing/mock-state-utilities';
+import { CookieServiceMock } from '../mocks';
+import { UUIDService } from '../shared';
+import { SetCorrelationIdAction } from '../states';
+import { mockStoreModuleConfig } from '../utilities';
 import { CorrelationIdService } from './correlation-id.service';
 
 describe('CorrelationIdService', () => {

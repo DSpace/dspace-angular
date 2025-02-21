@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 
-import { ObjectCacheService } from '../cache/object-cache.service';
+import { ObjectCacheService } from '../cache';
 import {
   FilteredDiscoveryQueryResponse,
   RestResponse,
-} from '../cache/response.models';
-import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+} from '../cache';
+import { RawRestResponse } from '../dspace-rest';
 import { BaseResponseParsingService } from './base-response-parsing.service';
 import { ResponseParsingService } from './parsing.service';
 import { RestRequest } from './rest-request.model';

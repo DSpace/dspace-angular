@@ -31,16 +31,16 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { CollectionDataService } from '../../../../../modules/core/src/lib/core/data/collection-data.service';
-import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
-import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
-import { DSpaceObjectType } from '../../../../../modules/core/src/lib/core/shared/dspace-object-type.model';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { NoContent } from '../../../../../modules/core/src/lib/core/shared/NoContent.model';
+import { DSONameService } from '@dspace/core';
+import { CollectionDataService } from '@dspace/core';
+import { ItemDataService } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { DSpaceObjectType } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { NoContent } from '@dspace/core';
 import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
@@ -48,10 +48,10 @@ import {
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
   toDSpaceObjectListRD,
-} from '../../../../../modules/core/src/lib/core/shared/operators';
-import { PaginatedSearchOptions } from '../../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
-import { SearchService } from '../../../../../modules/core/src/lib/core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
+} from '@dspace/core';
+import { PaginatedSearchOptions } from '@dspace/core';
+import { SearchService } from '@dspace/core';
+import { SearchConfigurationService } from '@dspace/core';
 import {
   fadeIn,
   fadeInOut,

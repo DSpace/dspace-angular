@@ -20,19 +20,19 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { NativeWindowMockFactory } from '../../../../../modules/core/src/lib/core/mocks/mock-native-window-ref';
-import { TranslateLoaderMock } from '../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { OrcidAuthService } from '../../../../../modules/core/src/lib/core/orcid/orcid-auth.service';
-import { ResearcherProfile } from '../../../../../modules/core/src/lib/core/profile/model/researcher-profile.model';
-import { NativeWindowService } from '../../../../../modules/core/src/lib/core/services/window.service';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { NativeWindowMockFactory } from '@dspace/core';
+import { TranslateLoaderMock } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { OrcidAuthService } from '@dspace/core';
+import { ResearcherProfile } from '@dspace/core';
+import { NativeWindowService } from '@dspace/core';
+import { Item } from '@dspace/core';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { createPaginatedList } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+} from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { createPaginatedList } from '@dspace/core';
 import { OrcidAuthComponent } from './orcid-auth.component';
 
 describe('OrcidAuthComponent test suite', () => {

@@ -6,25 +6,25 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { ItemType } from '../shared/item-relationships/item-type.model';
-import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
+import { RemoteDataBuildService } from '../cache';
+import { ObjectCacheService } from '../cache';
+import { HALEndpointService } from '../shared';
+import { ItemType } from '../shared';
+import { RelationshipType } from '../shared';
 import {
   getAllCompletedRemoteData,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '../shared/operators';
-import { BaseDataService } from './base/base-data.service';
+} from '../shared';
+import { BaseDataService } from './base';
 import {
   FindAllData,
   FindAllDataImpl,
-} from './base/find-all-data';
+} from './base';
 import {
   SearchData,
   SearchDataImpl,
-} from './base/search-data';
+} from './base';
 import { FindListOptions } from './find-list-options.model';
 import { FollowLinkConfig } from './follow-link-config.model';
 import { PaginatedList } from './paginated-list.model';

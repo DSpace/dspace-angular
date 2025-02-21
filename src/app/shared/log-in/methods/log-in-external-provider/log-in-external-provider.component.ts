@@ -15,19 +15,19 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { AuthService } from '../../../../../../modules/core/src/lib/core/auth/auth.service';
-import { AuthMethod } from '../../../../../../modules/core/src/lib/core/auth/models/auth.method';
+import { AuthService } from '@dspace/core';
+import { AuthMethod } from '@dspace/core';
 import {
   isAuthenticated,
   isAuthenticationLoading,
-} from '../../../../../../modules/core/src/lib/core/auth/selectors';
-import { CoreState } from '../../../../../../modules/core/src/lib/core/core-state.model';
-import { HardRedirectService } from '../../../../../../modules/core/src/lib/core/services/hard-redirect.service';
+} from '@dspace/core';
+import { CoreState } from '@dspace/core';
+import { HardRedirectService } from '@dspace/core';
 import {
   NativeWindowRef,
   NativeWindowService,
-} from '../../../../../../modules/core/src/lib/core/services/window.service';
-import { URLCombiner } from '../../../../../../modules/core/src/lib/core/url-combiner/url-combiner';
+} from '@dspace/core';
+import { URLCombiner } from '@dspace/core';
 
 @Component({
   selector: 'ds-log-in-external-provider',

@@ -28,34 +28,34 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { AuthService } from '../../../../../modules/core/src/lib/core/auth/auth.service';
-import { EpersonRegistrationService } from '../../../../../modules/core/src/lib/core/data/eperson-registration.service';
-import { AuthorizationDataService } from '../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { FindListOptions } from '../../../../../modules/core/src/lib/core/data/find-list-options.model';
-import { FollowLinkConfig } from '../../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { AuthService } from '@dspace/core';
+import { EpersonRegistrationService } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { FindListOptions } from '@dspace/core';
+import { FollowLinkConfig } from '@dspace/core';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
-import { EPersonDataService } from '../../../../../modules/core/src/lib/core/eperson/eperson-data.service';
-import { GroupDataService } from '../../../../../modules/core/src/lib/core/eperson/group-data.service';
-import { EPerson } from '../../../../../modules/core/src/lib/core/eperson/models/eperson.model';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { PaginationService } from '../../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { PageInfo } from '../../../../../modules/core/src/lib/core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
-import { AuthServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/auth-service.stub';
+} from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { EPersonDataService } from '@dspace/core';
+import { GroupDataService } from '@dspace/core';
+import { EPerson } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { PageInfo } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { ActivatedRouteStub } from '@dspace/core';
+import { AuthServiceStub } from '@dspace/core';
 import {
   EPersonMock,
   EPersonMock2,
-} from '../../../../../modules/core/src/lib/core/utilities/testing/eperson.mock';
-import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
-import { RouterStub } from '../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
-import { createPaginatedList } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+} from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { PaginationServiceStub } from '@dspace/core';
+import { RouterStub } from '@dspace/core';
+import { createPaginatedList } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';

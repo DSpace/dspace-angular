@@ -42,15 +42,15 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
-import { EPersonDataService } from '../../../../../modules/core/src/lib/core/eperson/eperson-data.service';
-import { GroupDataService } from '../../../../../modules/core/src/lib/core/eperson/group-data.service';
-import { ResourcePolicy } from '../../../../../modules/core/src/lib/core/resource-policy/models/resource-policy.model';
-import { RESOURCE_POLICY } from '../../../../../modules/core/src/lib/core/resource-policy/models/resource-policy.resource-type';
-import { DSpaceObject } from '../../../../../modules/core/src/lib/core/shared/dspace-object.model';
-import { getFirstSucceededRemoteData } from '../../../../../modules/core/src/lib/core/shared/operators';
+import { DSONameService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { EPersonDataService } from '@dspace/core';
+import { GroupDataService } from '@dspace/core';
+import { ResourcePolicy } from '@dspace/core';
+import { RESOURCE_POLICY } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
+import { getFirstSucceededRemoteData } from '@dspace/core';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { EpersonGroupListComponent } from '../../eperson-group-list/eperson-group-list.component';
 import { DsDynamicInputModel } from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';

@@ -14,19 +14,19 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { TranslateLoaderMock } from '../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { OrcidQueue } from '../../../../../modules/core/src/lib/core/orcid/model/orcid-queue.model';
-import { OrcidAuthService } from '../../../../../modules/core/src/lib/core/orcid/orcid-auth.service';
-import { OrcidHistoryDataService } from '../../../../../modules/core/src/lib/core/orcid/orcid-history-data.service';
-import { OrcidQueueDataService } from '../../../../../modules/core/src/lib/core/orcid/orcid-queue-data.service';
-import { PaginationService } from '../../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
-import { createPaginatedList } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+import { PaginatedList } from '@dspace/core';
+import { TranslateLoaderMock } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { OrcidQueue } from '@dspace/core';
+import { OrcidAuthService } from '@dspace/core';
+import { OrcidHistoryDataService } from '@dspace/core';
+import { OrcidQueueDataService } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { PaginationServiceStub } from '@dspace/core';
+import { createPaginatedList } from '@dspace/core';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { OrcidQueueComponent } from './orcid-queue.component';
 

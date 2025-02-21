@@ -25,26 +25,26 @@ import {
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { ObjectCacheService } from '../../../../../modules/core/src/lib/core/cache/object-cache.service';
-import { FormRowModel } from '../../../../../modules/core/src/lib/core/config/models/config-submission-form.model';
-import { SubmissionFormsConfigDataService } from '../../../../../modules/core/src/lib/core/config/submission-forms-config-data.service';
-import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
-import { JsonPatchOperationPathCombiner } from '../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operation-path-combiner';
-import { getMockTranslateService } from '../../../../../modules/core/src/lib/core/mocks/translate.service.mock';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { FormFieldModel } from '../../../../../modules/core/src/lib/core/shared/form/form-field.model';
-import { WorkflowItem } from '../../../../../modules/core/src/lib/core/submission/models/workflowitem.model';
-import { WorkspaceItem } from '../../../../../modules/core/src/lib/core/submission/models/workspaceitem.model';
-import { SubmissionObjectDataService } from '../../../../../modules/core/src/lib/core/submission/submission-object-data.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { SectionsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/sections-service.stub';
-import { SubmissionServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/submission-service.stub';
-import { createTestComponent } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+import { ObjectCacheService } from '@dspace/core';
+import { FormRowModel } from '@dspace/core';
+import { SubmissionFormsConfigDataService } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { JsonPatchOperationPathCombiner } from '@dspace/core';
+import { getMockTranslateService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { FormFieldModel } from '@dspace/core';
+import { WorkflowItem } from '@dspace/core';
+import { WorkspaceItem } from '@dspace/core';
+import { SubmissionObjectDataService } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { SectionsServiceStub } from '@dspace/core';
+import { SubmissionServiceStub } from '@dspace/core';
+import { createTestComponent } from '@dspace/core';
 import { DsDynamicInputModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DynamicRowGroupModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
-import { FormFieldMetadataValueObject } from '../../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '@dspace/core';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
@@ -57,11 +57,11 @@ import {
 } from '../../../shared/mocks/submission.mock';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
-import { SubmissionSectionError } from '../../objects/submission-section-error.model';
-import { SubmissionService } from '../../submission.service';
-import { SectionDataObject } from '../models/section-data.model';
+import { SubmissionSectionError } from '../../../../../modules/core/src/lib/core/submission/models/submission-section-error.model';
+import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
+import { SectionDataObject } from '../../../../../modules/core/src/lib/core/submission/sections/section-data.model';
 import { SectionsService } from '../sections.service';
-import { SectionsType } from '../sections-type';
+import { SectionsType } from '../../../../../modules/core/src/lib/core/submission/models/sections-type';
 import { SubmissionSectionFormComponent } from './section-form.component';
 import { SectionFormOperationsService } from './section-form-operations.service';
 
@@ -312,7 +312,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
 
     });
 
-    it('should return true when has Metadata Enrichment', () => {
+    it('should return true when has PolicyMetadata Enrichment', () => {
       const newSectionData = {
         'dc.title': [new FormFieldMetadataValueObject('test')],
       };
@@ -326,7 +326,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
       expect(compAsAny.inCurrentSubmissionScope).toHaveBeenCalledWith('dc.title');
     });
 
-    it('should return false when has not Metadata Enrichment', () => {
+    it('should return false when has not PolicyMetadata Enrichment', () => {
       const newSectionData = {
         'dc.title': [new FormFieldMetadataValueObject('test')],
       };
@@ -340,7 +340,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
       expect(compAsAny.inCurrentSubmissionScope).toHaveBeenCalledWith('dc.title');
     });
 
-    it('should return false when metadata has Metadata Enrichment but not belonging to sectionMetadata', () => {
+    it('should return false when metadata has PolicyMetadata Enrichment but not belonging to sectionMetadata', () => {
       const newSectionData = {
         'dc.title': [new FormFieldMetadataValueObject('test')],
       };

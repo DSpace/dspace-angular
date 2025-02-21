@@ -10,20 +10,20 @@ import {
   switchMap,
 } from 'rxjs';
 
-import { SubmissionService } from '../../../../../../src/app/submission/submission.service';
-import { Breadcrumb } from '../breadcrumbs/breadcrumb.model';
-import { BreadcrumbsProviderService } from '../breadcrumbs/breadcrumbsProviderService';
-import { DSOBreadcrumbsService } from '../breadcrumbs/dso-breadcrumbs.service';
-import { DSONameService } from '../breadcrumbs/dso-name.service';
-import { CollectionDataService } from '../data/collection-data.service';
-import { RemoteData } from '../data/remote-data';
-import { getDSpaceObjectRoute } from '../router/utils/routes-utils';
-import { Collection } from '../shared/collection.model';
+import { SubmissionService } from './submission.service';
+import { Breadcrumb } from '../breadcrumbs';
+import { BreadcrumbsProviderService } from '../breadcrumbs';
+import { DSOBreadcrumbsService } from '../breadcrumbs';
+import { DSONameService } from '../breadcrumbs';
+import { CollectionDataService } from '../data';
+import { RemoteData } from '../data';
+import { getDSpaceObjectRoute } from '../router';
+import { Collection } from '../shared';
 import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '../shared/operators';
-import { SubmissionObject } from './models/submission-object.model';
+} from '../shared';
+import { SubmissionObject } from './models';
 
 /**
  * Service to calculate the parent {@link DSpaceObject} breadcrumbs for a {@link SubmissionObject}

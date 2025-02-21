@@ -16,16 +16,16 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { PaginationService } from '../../../../../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { FacetValue } from '../../../../../../../../modules/core/src/lib/core/shared/search/models/facet-value.model';
-import { SearchFilterConfig } from '../../../../../../../../modules/core/src/lib/core/shared/search/models/search-filter-config.model';
-import { SearchService } from '../../../../../../../../modules/core/src/lib/core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../../../../../../modules/core/src/lib/core/shared/search/search-filter.service';
-import { LiveRegionService } from '../../../../../live-region/live-region.service';
-import { currentPath } from '../../../../../utils/route.utils';
+import { PaginationService } from '@dspace/core';
+import { FacetValue } from '@dspace/core';
+import { SearchFilterConfig } from '@dspace/core';
+import { SearchService } from '@dspace/core';
+import { SearchConfigurationService } from '@dspace/core';
+import { SearchFilterService } from '@dspace/core';
+import { LiveRegionService } from '../../../../../../../../modules/core/src/lib/core/services/live-region.service';
+import { currentPath } from '../../../../../../../../modules/core/src/lib/core/utilities/route.utils';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
-import { getFacetValueForType } from '../../../../search.utils';
+import { getFacetValueForType } from '../../../../../../../../modules/core/src/lib/core/utilities/search.utils';
 
 @Component({
   selector: 'ds-search-facet-option',

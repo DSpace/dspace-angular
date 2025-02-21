@@ -1,4 +1,4 @@
-import { LinkService } from '../cache/builders/link.service';
+import { LinkService } from '../cache';
 
 export function getMockLinkService(): LinkService {
   return jasmine.createSpyObj('linkService', {

@@ -22,9 +22,9 @@ import {
   RegExThemeConfig,
   ThemeConfig,
   UUIDThemeConfig,
-} from '../../../../modules/core/src/lib/core/config/theme.config';
-import { DSpaceObject } from '../../../../modules/core/src/lib/core/shared/dspace-object.model';
-import { HandleObject } from '../../../../modules/core/src/lib/core/shared/handle-object.model';
+} from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
+import { HandleObject } from '@dspace/core';
 import { HandleService } from '../handle.service';
 
 export class Theme {

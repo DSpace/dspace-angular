@@ -10,15 +10,15 @@ import {
   Operation,
 } from 'fast-json-patch';
 
-import { ArrayMoveChangeAnalyzer } from '../../../../modules/core/src/lib/core/data/array-move-change-analyzer.service';
-import { MetadataPatchAddOperation } from '../../../../modules/core/src/lib/core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-add-operation.model';
-import { MetadataPatchMoveOperation } from '../../../../modules/core/src/lib/core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-move-operation.model';
-import { MetadataPatchRemoveOperation } from '../../../../modules/core/src/lib/core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-remove-operation.model';
-import { MetadataPatchReplaceOperation } from '../../../../modules/core/src/lib/core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-replace-operation.model';
+import { ArrayMoveChangeAnalyzer } from '@dspace/core';
+import { MetadataPatchAddOperation } from '@dspace/core';
+import { MetadataPatchMoveOperation } from '@dspace/core';
+import { MetadataPatchRemoveOperation } from '@dspace/core';
+import { MetadataPatchReplaceOperation } from '@dspace/core';
 import {
   MetadataMap,
   MetadataValue,
-} from '../../../../modules/core/src/lib/core/shared/metadata.models';
+} from '@dspace/core';
 
 /**
  * Enumeration for the type of change occurring on a metadata value
@@ -182,7 +182,7 @@ export class DsoEditMetadataForm {
 
   /**
    * Current state of the form
-   * Key: Metadata field
+   * Key: PolicyMetadata field
    * Value: List of {@link DsoEditMetadataValue}s for the metadata field
    */
   fields: {

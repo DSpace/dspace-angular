@@ -16,27 +16,27 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../../../../modules/core/src/lib/core/cache/builders/link.service';
+import { DSONameService } from '@dspace/core';
+import { LinkService } from '@dspace/core';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { followLink } from '../../../../../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { PaginatedList } from '../../../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../../../modules/core/src/lib/core/data/remote-data';
-import { WorkspaceItemSearchResult } from '../../../../../../../modules/core/src/lib/core/object-collection/workspace-item-search-result.model';
-import { Context } from '../../../../../../../modules/core/src/lib/core/shared/context.model';
-import { DSpaceObject } from '../../../../../../../modules/core/src/lib/core/shared/dspace-object.model';
-import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
+} from '@dspace/core';
+import { followLink } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { WorkspaceItemSearchResult } from '@dspace/core';
+import { Context } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
+import { Item } from '@dspace/core';
 import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '../../../../../../../modules/core/src/lib/core/shared/operators';
-import { ViewMode } from '../../../../../../../modules/core/src/lib/core/shared/view-mode.model';
-import { WorkspaceItem } from '../../../../../../../modules/core/src/lib/core/submission/models/workspaceitem.model';
-import { SupervisionOrder } from '../../../../../../../modules/core/src/lib/core/supervision-order/models/supervision-order.model';
-import { SupervisionOrderDataService } from '../../../../../../../modules/core/src/lib/core/supervision-order/supervision-order-data.service';
+} from '@dspace/core';
+import { ViewMode } from '@dspace/core';
+import { WorkspaceItem } from '@dspace/core';
+import { SupervisionOrder } from '@dspace/core';
+import { SupervisionOrderDataService } from '@dspace/core';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { ListableObjectComponentLoaderComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';

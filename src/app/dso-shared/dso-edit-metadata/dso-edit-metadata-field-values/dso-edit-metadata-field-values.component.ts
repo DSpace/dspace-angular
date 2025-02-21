@@ -15,7 +15,7 @@ import {
   Observable,
 } from 'rxjs';
 
-import { DSpaceObject } from '../../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { DSpaceObject } from '@dspace/core';
 import {
   DsoEditMetadataChangeType,
   DsoEditMetadataForm,
@@ -46,7 +46,7 @@ export class DsoEditMetadataFieldValuesComponent {
   @Input() form: DsoEditMetadataForm;
 
   /**
-   * Metadata field to display values for
+   * PolicyMetadata field to display values for
    */
   @Input() mdField: string;
 

@@ -18,19 +18,19 @@ import {
 import { take } from 'rxjs/operators';
 
 import { getHomePageRoute } from '../../../app-routing-paths';
-import { AuthService } from '../../../../../modules/core/src/lib/core/auth/auth.service';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { EPerson } from '../../../../../modules/core/src/lib/core/eperson/models/eperson.model';
-import { FeedbackDataService } from '../../../../../modules/core/src/lib/core/feedback/feedback-data.service';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { RouteService } from '../../../../../modules/core/src/lib/core/services/route.service';
+import { AuthService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { EPerson } from '@dspace/core';
+import { FeedbackDataService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { RouteService } from '@dspace/core';
 import {
   NativeWindowRef,
   NativeWindowService,
-} from '../../../../../modules/core/src/lib/core/services/window.service';
-import { NoContent } from '../../../../../modules/core/src/lib/core/shared/NoContent.model';
-import { getFirstCompletedRemoteData } from '../../../../../modules/core/src/lib/core/shared/operators';
-import { URLCombiner } from '../../../../../modules/core/src/lib/core/url-combiner/url-combiner';
+} from '@dspace/core';
+import { NoContent } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
+import { URLCombiner } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ErrorComponent } from '../../../shared/error/error.component';
 

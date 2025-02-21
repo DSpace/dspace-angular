@@ -17,7 +17,7 @@ import {
 import { ImpersonateNavbarComponent } from '../shared/impersonate-navbar/impersonate-navbar.component';
 import { ThemedLangSwitchComponent } from '../shared/lang-switch/themed-lang-switch.component';
 import { MenuService } from '../shared/menu/menu.service';
-import { MenuID } from '../shared/menu/menu-id.model';
+import { MenuID } from '../../../modules/core/src/lib/core/states/menu/menu-id.model';
 import { ContextHelpToggleComponent } from './context-help-toggle/context-help-toggle.component';
 
 /**

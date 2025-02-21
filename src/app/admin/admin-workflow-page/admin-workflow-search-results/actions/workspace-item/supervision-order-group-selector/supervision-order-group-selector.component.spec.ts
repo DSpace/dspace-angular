@@ -14,10 +14,10 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { Group } from '../../../../../../../../modules/core/src/lib/core/eperson/models/group.model';
-import { NotificationsService } from '../../../../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { SupervisionOrder } from '../../../../../../../../modules/core/src/lib/core/supervision-order/models/supervision-order.model';
-import { SupervisionOrderDataService } from '../../../../../../../../modules/core/src/lib/core/supervision-order/supervision-order-data.service';
+import { Group } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { SupervisionOrder } from '@dspace/core';
+import { SupervisionOrderDataService } from '@dspace/core';
 import { EpersonGroupListComponent } from '../../../../../../shared/eperson-group-list/eperson-group-list.component';
 import { SupervisionOrderGroupSelectorComponent } from './supervision-order-group-selector.component';
 

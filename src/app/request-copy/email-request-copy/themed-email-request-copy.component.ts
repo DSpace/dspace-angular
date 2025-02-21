@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { ThemedComponent } from 'src/app/shared/theme-support/themed.component';
 
-import { RequestCopyEmail } from '../../../../modules/core/src/lib/core/request-copy/request-copy-email.model';
+import { RequestCopyEmail } from '@dspace/core';
 import { EmailRequestCopyComponent } from './email-request-copy.component';
 
 /**

@@ -7,20 +7,20 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { DSONameService } from '../../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../../../../modules/core/src/lib/core/cache/builders/link.service';
+import { DSONameService } from '@dspace/core';
+import { LinkService } from '@dspace/core';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { followLink } from '../../../../../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { RemoteData } from '../../../../../../../modules/core/src/lib/core/data/remote-data';
-import { ClaimedDeclinedTaskTaskSearchResult } from '../../../../../../../modules/core/src/lib/core/object-collection/claimed-declined-task-task-search-result.model';
-import { ClaimedTaskSearchResult } from '../../../../../../../modules/core/src/lib/core/object-collection/claimed-task-search-result.model';
-import { Context } from '../../../../../../../modules/core/src/lib/core/shared/context.model';
-import { ViewMode } from '../../../../../../../modules/core/src/lib/core/shared/view-mode.model';
-import { WorkflowItem } from '../../../../../../../modules/core/src/lib/core/submission/models/workflowitem.model';
-import { ClaimedTask } from '../../../../../../../modules/core/src/lib/core/tasks/models/claimed-task-object.model';
+} from '@dspace/core';
+import { followLink } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { ClaimedDeclinedTaskTaskSearchResult } from '@dspace/core';
+import { ClaimedTaskSearchResult } from '@dspace/core';
+import { Context } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
+import { WorkflowItem } from '@dspace/core';
+import { ClaimedTask } from '@dspace/core';
 import { listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { VarDirective } from '../../../../utils/var.directive';

@@ -6,11 +6,11 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { NotifyRequestsStatusDataService } from '../../../../../../modules/core/src/lib/core/data/notify-services-status-data.service';
+import { NotifyRequestsStatusDataService } from '@dspace/core';
 
-import { NotifyRequestsStatus } from '../../../../../../modules/core/src/lib/core/notify-requests/notify-requests-status.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { RequestStatusEnum } from '../../../../../../modules/core/src/lib/core/notify-requests/notify-status.enum';
+import { NotifyRequestsStatus } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { RequestStatusEnum } from '@dspace/core';
 import { RequestStatusAlertBoxComponent } from '../request-status-alert-box/request-status-alert-box.component';
 import { NotifyRequestsStatusComponent } from './notify-requests-status.component';
 

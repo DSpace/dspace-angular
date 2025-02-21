@@ -7,7 +7,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 
-import { ActivatedRouteStub } from '../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+import { ActivatedRouteStub } from '@dspace/core';
 import { ErrorComponent } from '../error/error.component';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { TabulatableObjectsLoaderComponent } from '../object-collection/shared/tabulatable-objects/tabulatable-objects-loader.component';

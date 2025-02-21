@@ -3,8 +3,8 @@ import {
   Input,
 } from '@angular/core';
 
-import { RemoteData } from '../../../modules/core/src/lib/core/data/remote-data';
-import { Bitstream } from '../../../modules/core/src/lib/core/shared/bitstream.model';
+import { RemoteData } from '@dspace/core';
+import { Bitstream } from '@dspace/core';
 import { ThemedComponent } from '../shared/theme-support/themed.component';
 import { ThumbnailComponent } from './thumbnail.component';
 

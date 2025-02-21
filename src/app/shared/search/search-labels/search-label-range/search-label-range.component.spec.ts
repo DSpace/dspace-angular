@@ -10,18 +10,18 @@ import {
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { PaginationService } from '../../../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '../../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
-import { AppliedFilter } from '../../../../../../modules/core/src/lib/core/shared/search/models/applied-filter.model';
-import { SearchService } from '../../../../../../modules/core/src/lib/core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../../../../modules/core/src/lib/core/shared/search/search-filter.service';
-import { ActivatedRouteStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
-import { PaginationServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
-import { SearchConfigurationServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/search-configuration-service.stub';
-import { SearchFilterServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/search-filter-service.stub';
-import { SearchServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/search-service.stub';
-import { addOperatorToFilterValue } from '../../search.utils';
+import { PaginationService } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
+import { AppliedFilter } from '@dspace/core';
+import { SearchService } from '@dspace/core';
+import { SearchConfigurationService } from '@dspace/core';
+import { SearchFilterService } from '@dspace/core';
+import { ActivatedRouteStub } from '@dspace/core';
+import { PaginationServiceStub } from '@dspace/core';
+import { SearchConfigurationServiceStub } from '@dspace/core';
+import { SearchFilterServiceStub } from '@dspace/core';
+import { SearchServiceStub } from '@dspace/core';
+import { addOperatorToFilterValue } from '../../../../../../modules/core/src/lib/core/utilities/search.utils';
 import { SearchLabelRangeComponent } from './search-label-range.component';
 
 describe('SearchLabelRangeComponent', () => {

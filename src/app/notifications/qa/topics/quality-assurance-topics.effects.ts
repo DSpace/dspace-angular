@@ -15,10 +15,10 @@ import {
   withLatestFrom,
 } from 'rxjs/operators';
 
-import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { QualityAssuranceTopicObject } from '../../../../../modules/core/src/lib/core/notifications/qa/models/quality-assurance-topic.model';
-import { QualityAssuranceTopicDataService } from '../../../../../modules/core/src/lib/core/notifications/qa/topics/quality-assurance-topic-data.service';
+import { PaginatedList } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { QualityAssuranceTopicObject } from '@dspace/core';
+import { QualityAssuranceTopicDataService } from '@dspace/core';
 import {
   AddTopicsAction,
   QualityAssuranceTopicActionTypes,

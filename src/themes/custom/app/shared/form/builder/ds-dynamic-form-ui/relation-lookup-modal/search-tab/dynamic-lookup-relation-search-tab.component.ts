@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { SearchConfigurationService } from '../../../../../../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
+import { SearchConfigurationService } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../../../../app/my-dspace-page/my-dspace-configuration.service';
 import { DsDynamicLookupRelationSearchTabComponent as BaseComponent } from '../../../../../../../../../app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/search-tab/dynamic-lookup-relation-search-tab.component';
 import { ThemedSearchComponent } from '../../../../../../../../../app/shared/search/themed-search.component';

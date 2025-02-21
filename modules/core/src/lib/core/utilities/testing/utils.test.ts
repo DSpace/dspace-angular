@@ -12,11 +12,11 @@ import {
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../data/paginated-list.model';
-import { RequestEntry } from '../../data/request-entry.model';
-import { RequestEntryState } from '../../data/request-entry-state.model';
-import { PageInfo } from '../../shared/page-info.model';
-import { UnCacheableObject } from '../../shared/uncacheable-object.model';
+} from '../../data';
+import { RequestEntry } from '../../data';
+import { RequestEntryState } from '../../data';
+import { PageInfo } from '../../shared';
+import { UnCacheableObject } from '../../shared';
 
 /**
  * Returns true if a Native Element has a specified css class.

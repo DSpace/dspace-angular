@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { DSpaceObject } from '../shared/dspace-object.model';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { IdentifiableDataService } from './base/identifiable-data.service';
+import { RemoteDataBuildService } from '../cache';
+import { ObjectCacheService } from '../cache';
+import { DSpaceObject } from '../shared';
+import { HALEndpointService } from '../shared';
+import { IdentifiableDataService } from './base';
 import { RequestService } from './request.service';
 
 @Injectable({ providedIn: 'root' })

@@ -1,7 +1,7 @@
 import {
   inject,
   TestBed,
-} from '@angular/core/testing';
+} from '@angular/core';
 import {
   NG_ASYNC_VALIDATORS,
   NG_VALIDATORS,
@@ -33,14 +33,14 @@ import {
 } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 
-import { FormRowModel } from '../../../../../modules/core/src/lib/core/config/models/config-submission-form.model';
-import { SubmissionFormsModel } from '../../../../../modules/core/src/lib/core/config/models/config-submission-forms.model';
-import { ConfigurationDataService } from '../../../../../modules/core/src/lib/core/data/configuration-data.service';
-import { getMockTranslateService } from '../../../../../modules/core/src/lib/core/mocks/translate.service.mock';
-import { ConfigurationProperty } from '../../../../../modules/core/src/lib/core/shared/configuration-property.model';
-import { FormFieldModel } from '../../../../../modules/core/src/lib/core/shared/form/form-field.model';
-import { VocabularyOptions } from '../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-options.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { FormRowModel } from '@dspace/core';
+import { SubmissionFormsModel } from '@dspace/core';
+import { ConfigurationDataService } from '@dspace/core';
+import { getMockTranslateService } from '@dspace/core';
+import { ConfigurationProperty } from '@dspace/core';
+import { FormFieldModel } from '@dspace/core';
+import { VocabularyOptions } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { DynamicDsDatePickerModel } from './ds-dynamic-form-ui/models/date-picker/date-picker.model';
 import { DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
@@ -56,7 +56,7 @@ import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/relation-
 import { DynamicScrollableDropdownModel } from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { DynamicTagModel } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
 import { FormBuilderService } from './form-builder.service';
-import { FormFieldMetadataValueObject } from '../../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '@dspace/core';
 
 describe('FormBuilderService test suite', () => {
 

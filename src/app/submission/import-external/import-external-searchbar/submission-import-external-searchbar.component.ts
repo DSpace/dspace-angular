@@ -23,21 +23,21 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { RequestParam } from '../../../../../modules/core/src/lib/core/cache/models/request-param.model';
-import { ExternalSourceDataService } from '../../../../../modules/core/src/lib/core/data/external-source-data.service';
-import { FindListOptions } from '../../../../../modules/core/src/lib/core/data/find-list-options.model';
+import { RequestParam } from '@dspace/core';
+import { ExternalSourceDataService } from '@dspace/core';
+import { FindListOptions } from '@dspace/core';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { ExternalSource } from '../../../../../modules/core/src/lib/core/shared/external-source.model';
+} from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { ExternalSource } from '@dspace/core';
 import {
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '../../../../../modules/core/src/lib/core/shared/operators';
-import { PageInfo } from '../../../../../modules/core/src/lib/core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+} from '@dspace/core';
+import { PageInfo } from '@dspace/core';
+import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { HostWindowService } from '../../../shared/host-window.service';
 

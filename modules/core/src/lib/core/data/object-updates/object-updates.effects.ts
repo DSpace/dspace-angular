@@ -23,14 +23,14 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { INotification } from '../../notifications/models/notification.model';
+import { INotification } from '../../notifications';
 import {
   NotificationsActions,
   NotificationsActionTypes,
   RemoveNotificationAction,
-} from '../../notifications/notifications.actions';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { NoOpAction } from '../../shared/ngrx/no-op.action';
+} from '../../notifications';
+import { NotificationsService } from '../../notifications';
+import { NoOpAction } from '../../shared';
 import {
   DiscardObjectUpdatesAction,
   ObjectUpdatesAction,

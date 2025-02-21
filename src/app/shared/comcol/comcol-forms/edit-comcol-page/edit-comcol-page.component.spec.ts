@@ -13,8 +13,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { Community } from '../../../../../../modules/core/src/lib/core/shared/community.model';
-import { DSpaceObject } from '../../../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { Community } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
 import { EditComColPageComponent } from './edit-comcol-page.component';
 
 describe('EditComColPageComponent', () => {

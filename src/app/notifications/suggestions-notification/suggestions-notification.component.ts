@@ -7,7 +7,7 @@ import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { SuggestionTarget } from '../../../../modules/core/src/lib/core/notifications/suggestions/models/suggestion-target.model';
+import { SuggestionTarget } from '@dspace/core';
 import { SuggestionTargetsStateService } from '../suggestion-targets/suggestion-targets.state.service';
 import { SuggestionsService } from '../suggestions.service';
 

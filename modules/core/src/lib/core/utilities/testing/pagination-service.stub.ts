@@ -3,9 +3,9 @@ import { of as observableOf } from 'rxjs';
 import {
   SortDirection,
   SortOptions,
-} from '../../cache/models/sort-options.model';
-import { FindListOptions } from '../../data/find-list-options.model';
-import { PaginationComponentOptions } from '../../shared/pagination-component-options.model';
+} from '../../cache';
+import { FindListOptions } from '../../data';
+import { PaginationComponentOptions } from '../../shared';
 
 export class PaginationServiceStub {
 

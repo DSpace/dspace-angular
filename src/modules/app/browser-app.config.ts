@@ -32,33 +32,33 @@ import {
 
 import { commonAppConfig } from '../../app/app.config';
 import { storeModuleConfig } from '../../app/app.reducer';
-import { AuthService } from '../../../modules/core/src/lib/core/auth/auth.service';
-import { AuthRequestService } from '../../../modules/core/src/lib/core/auth/auth-request.service';
-import { BrowserAuthRequestService } from '../../../modules/core/src/lib/core/auth/browser-auth-request.service';
-import { coreEffects } from '../../../modules/core/src/lib/core/core.effects';
-import { coreReducers } from '../../../modules/core/src/lib/core/core.reducers';
-import { CoreState } from '../../../modules/core/src/lib/core/core-state.model';
-import { LocaleService } from '../../../modules/core/src/lib/core/locale/locale.service';
-import { BrowserReferrerService } from '../../../modules/core/src/lib/core/services/browser.referrer.service';
+import { AuthService } from '@dspace/core';
+import { AuthRequestService } from '@dspace/core';
+import { BrowserAuthRequestService } from '@dspace/core';
+import { coreEffects } from '@dspace/core';
+import { coreReducers } from '@dspace/core';
+import { CoreState } from '@dspace/core';
+import { LocaleService } from '@dspace/core';
+import { BrowserReferrerService } from '@dspace/core';
 import {
   BrowserHardRedirectService,
   locationProvider,
   LocationToken,
-} from '../../../modules/core/src/lib/core/services/browser-hard-redirect.service';
-import { ClientCookieService } from '../../../modules/core/src/lib/core/services/client-cookie.service';
-import { CookieService } from '../../../modules/core/src/lib/core/services/cookie.service';
-import { HardRedirectService } from '../../../modules/core/src/lib/core/services/hard-redirect.service';
-import { ReferrerService } from '../../../modules/core/src/lib/core/services/referrer.service';
-import { ClientMathService } from '../../../modules/core/src/lib/core/shared/client-math.service';
-import { MathService } from '../../../modules/core/src/lib/core/shared/math.service';
-import { REQUEST } from '../../../modules/core/src/lib/core/tokens/express.tokens';
-import { BrowserXSRFService } from '../../../modules/core/src/lib/core/xsrf/browser-xsrf.service';
-import { XSRFService } from '../../../modules/core/src/lib/core/xsrf/xsrf.service';
+} from '@dspace/core';
+import { ClientCookieService } from '@dspace/core';
+import { CookieService } from '@dspace/core';
+import { HardRedirectService } from '@dspace/core';
+import { ReferrerService } from '@dspace/core';
+import { ClientMathService } from '@dspace/core';
+import { MathService } from '@dspace/core';
+import { REQUEST } from '@dspace/core';
+import { BrowserXSRFService } from '@dspace/core';
+import { XSRFService } from '@dspace/core';
 import { BrowserOrejimeService } from '../../app/shared/cookies/browser-orejime.service';
 import { OrejimeService } from '../../app/shared/cookies/orejime.service';
 import { MissingTranslationHelper } from '../../app/shared/translate/missing-translation.helper';
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
-import { SubmissionService } from '../../app/submission/submission.service';
+import { SubmissionService } from '../../../modules/core/src/lib/core/submission/submission.service';
 import { TranslateBrowserLoader } from '../../ngx-translate-loaders/translate-browser.loader';
 import { BrowserInitService } from './browser-init.service';
 

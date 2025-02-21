@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RemoteDataBuildService } from '../cache';
 import { CoreState } from '../core-state.model';
-import { SubmissionPatchRequest } from '../data/request.models';
-import { RequestService } from '../data/request.service';
-import { JsonPatchOperationsService } from '../json-patch/json-patch-operations.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { SubmitDataResponseDefinitionObject } from '../shared/submit-data-response-definition.model';
-import { URLCombiner } from '../url-combiner/url-combiner';
+import { SubmissionPatchRequest } from '../data';
+import { RequestService } from '../data';
+import { JsonPatchOperationsService } from '../json-patch';
+import { HALEndpointService } from '../shared';
+import { SubmitDataResponseDefinitionObject } from '../shared';
+import { URLCombiner } from '../url-combiner';
 
 /**
  * A service that provides methods to make JSON Patch requests.

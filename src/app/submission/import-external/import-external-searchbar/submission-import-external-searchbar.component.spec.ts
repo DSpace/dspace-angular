@@ -14,18 +14,18 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RequestParam } from '../../../../../modules/core/src/lib/core/cache/models/request-param.model';
-import { ExternalSourceDataService } from '../../../../../modules/core/src/lib/core/data/external-source-data.service';
-import { FindListOptions } from '../../../../../modules/core/src/lib/core/data/find-list-options.model';
+import { RequestParam } from '@dspace/core';
+import { ExternalSourceDataService } from '@dspace/core';
+import { FindListOptions } from '@dspace/core';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { ExternalSource } from '../../../../../modules/core/src/lib/core/shared/external-source.model';
-import { PageInfo } from '../../../../../modules/core/src/lib/core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { HostWindowServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/host-window-service.stub';
-import { createTestComponent } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+} from '@dspace/core';
+import { ExternalSource } from '@dspace/core';
+import { PageInfo } from '@dspace/core';
+import { createSuccessfulRemoteDataObject } from '@dspace/core';
+import { HostWindowServiceStub } from '@dspace/core';
+import { createTestComponent } from '@dspace/core';
 import { HostWindowService } from '../../../shared/host-window.service';
 import {
   externalSourceCiencia,

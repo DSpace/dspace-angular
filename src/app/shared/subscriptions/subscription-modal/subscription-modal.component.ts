@@ -39,21 +39,21 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../../../../modules/core/src/lib/core/auth/auth.service';
-import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { DSpaceObject } from '../../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { AuthService } from '@dspace/core';
+import { DSONameService } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '../../../../../modules/core/src/lib/core/shared/operators';
+} from '@dspace/core';
 import { AlertComponent } from '../../alert/alert.component';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { ThemedTypeBadgeComponent } from '../../object-collection/shared/badges/type-badge/themed-type-badge.component';
-import { Subscription } from '../models/subscription.model';
-import { SubscriptionsDataService } from '../subscriptions-data.service';
+import { Subscription } from '../../../../../modules/core/src/lib/core/subscription/subscription.model';
+import { SubscriptionsDataService } from '../../../../../modules/core/src/lib/core/data/subscriptions-data.service';
 
 @Component({
   selector: 'ds-subscription-modal',

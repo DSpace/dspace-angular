@@ -7,11 +7,11 @@ import {
   Injector,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AuthorizationDataService } from '../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { AuthorizationDataService } from '@dspace/core';
 
 import { MenuComponent } from '../../menu/menu.component';
 import { MenuService } from '../../menu/menu.service';
-import { MenuID } from '../../menu/menu-id.model';
+import { MenuID } from '../../../../../modules/core/src/lib/core/states/menu/menu-id.model';
 import { ThemeService } from '../../theme-support/theme.service';
 
 /**

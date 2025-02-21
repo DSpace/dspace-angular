@@ -24,18 +24,18 @@ import {
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { ListableObject } from '../../../../../modules/core/src/lib/core/object-collection/listable-object.model';
-import { PageInfo } from '../../../../../modules/core/src/lib/core/shared/page-info.model';
-import { PaginationComponentOptions } from '../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
-import { SearchConfigurationService } from '../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
-import { createSuccessfulRemoteDataObject } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+} from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { ListableObject } from '@dspace/core';
+import { PageInfo } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
+import { SearchConfigurationService } from '@dspace/core';
+import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SelectableListItemControlComponent } from '../../../shared/object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
-import { SelectableListState } from '../../../shared/object-list/selectable-list/selectable-list.reducer';
-import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
+import { SelectableListState } from '../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.reducer';
+import { SelectableListService } from '../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { ThemedSearchComponent } from '../../../shared/search/themed-search.component';
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';

@@ -1,5 +1,5 @@
-import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
-import { createPaginatedList } from '../utilities/testing/utils.test';
+import { createSuccessfulRemoteDataObject$ } from '../utilities';
+import { createPaginatedList } from '../utilities';
 import { Item } from './item.model';
 
 describe('Item', () => {

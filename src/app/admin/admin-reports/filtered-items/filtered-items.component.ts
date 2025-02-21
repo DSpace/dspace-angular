@@ -24,18 +24,18 @@ import {
   map,
   Observable,
 } from 'rxjs';
-import { CollectionDataService } from '../../../../../modules/core/src/lib/core/data/collection-data.service';
-import { CommunityDataService } from '../../../../../modules/core/src/lib/core/data/community-data.service';
-import { MetadataFieldDataService } from '../../../../../modules/core/src/lib/core/data/metadata-field-data.service';
-import { MetadataSchemaDataService } from '../../../../../modules/core/src/lib/core/data/metadata-schema-data.service';
-import { RestRequestMethod } from '../../../../../modules/core/src/lib/core/data/rest-request-method';
-import { DspaceRestService } from '../../../../../modules/core/src/lib/core/dspace-rest/dspace-rest.service';
-import { RawRestResponse } from '../../../../../modules/core/src/lib/core/dspace-rest/raw-rest-response.model';
-import { MetadataField } from '../../../../../modules/core/src/lib/core/metadata/metadata-field.model';
-import { MetadataSchema } from '../../../../../modules/core/src/lib/core/metadata/metadata-schema.model';
-import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
-import { Community } from '../../../../../modules/core/src/lib/core/shared/community.model';
-import { getFirstSucceededRemoteListPayload } from '../../../../../modules/core/src/lib/core/shared/operators';
+import { CollectionDataService } from '@dspace/core';
+import { CommunityDataService } from '@dspace/core';
+import { MetadataFieldDataService } from '@dspace/core';
+import { MetadataSchemaDataService } from '@dspace/core';
+import { RestRequestMethod } from '@dspace/core';
+import { DspaceRestService } from '@dspace/core';
+import { RawRestResponse } from '@dspace/core';
+import { MetadataField } from '@dspace/core';
+import { MetadataSchema } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { Community } from '@dspace/core';
+import { getFirstSucceededRemoteListPayload } from '@dspace/core';
 import { environment } from 'src/environments/environment';
 
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';

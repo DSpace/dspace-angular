@@ -4,11 +4,11 @@ import {
   OnInit,
 } from '@angular/core';
 
-import { Context } from '../../../../../../../modules/core/src/lib/core/shared/context.model';
-import { ExternalSourceEntry } from '../../../../../../../modules/core/src/lib/core/shared/external-source-entry.model';
-import { MetadataValue } from '../../../../../../../modules/core/src/lib/core/shared/metadata.models';
-import { Metadata } from '../../../../../../../modules/core/src/lib/core/shared/metadata.utils';
-import { ViewMode } from '../../../../../../../modules/core/src/lib/core/shared/view-mode.model';
+import { Context } from '@dspace/core';
+import { ExternalSourceEntry } from '@dspace/core';
+import { MetadataValue } from '@dspace/core';
+import { Metadata } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { AbstractListableElementComponent } from '../../../../../shared/object-collection/shared/object-collection-element/abstract-listable-element.component';
 

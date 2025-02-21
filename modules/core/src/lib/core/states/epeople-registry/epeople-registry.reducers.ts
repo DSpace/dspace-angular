@@ -1,4 +1,4 @@
-import { EPerson } from '../../eperson/models/eperson.model';
+import { EPerson } from '../../eperson';
 import {
   EPeopleRegistryAction,
   EPeopleRegistryActionTypes,

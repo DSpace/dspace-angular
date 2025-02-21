@@ -8,17 +8,17 @@ import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ItemSearchResult } from '../../../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
-import { RelationshipOptions } from '../../../../../../../modules/core/src/lib/core/shared/form/relationship-options.model';
-import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
-import { Relationship } from '../../../../../../../modules/core/src/lib/core/shared/item-relationships/relationship.model';
-import { ReorderableRelationship } from '../../../../../../../modules/core/src/lib/core/shared/item-relationships/reorderable-relationship.model';
-import { RemoveRelationshipAction } from '../../../../../../../modules/core/src/lib/core/states/name-variant/relationship.actions';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { SubmissionServiceStub } from '../../../../../../../modules/core/src/lib/core/utilities/testing/submission-service.stub';
-import { SubmissionService } from '../../../../../submission/submission.service';
+import { ItemSearchResult } from '@dspace/core';
+import { RelationshipOptions } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { Relationship } from '@dspace/core';
+import { ReorderableRelationship } from '@dspace/core';
+import { RemoveRelationshipAction } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { SubmissionServiceStub } from '@dspace/core';
+import { SubmissionService } from '../../../../../../../modules/core/src/lib/core/submission/submission.service';
 import { ListableObjectComponentLoaderComponent } from '../../../../object-collection/shared/listable-object/listable-object-component-loader.component';
-import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
+import { SelectableListService } from '../../../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
 import { ExistingRelationListElementComponent } from './existing-relation-list-element.component';
 
 describe('ExistingRelationListElementComponent', () => {

@@ -11,8 +11,8 @@ import {
   NgForm,
 } from '@angular/forms';
 
-import { ScriptParameter } from '../../../../../../modules/core/src/lib/core/scripts/script-parameter.model';
-import { ScriptParameterType } from '../../../../../../modules/core/src/lib/core/scripts/script-parameter-type.model';
+import { ScriptParameter } from '@dspace/core';
+import { ScriptParameterType } from '@dspace/core';
 import { controlContainerFactory } from '../../process-form-factory';
 import { BooleanValueInputComponent } from './boolean-value-input/boolean-value-input.component';
 import { DateValueInputComponent } from './date-value-input/date-value-input.component';

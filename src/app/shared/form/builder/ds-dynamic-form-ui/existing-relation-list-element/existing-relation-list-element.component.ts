@@ -21,20 +21,20 @@ import {
 import { filter } from 'rxjs/operators';
 
 import { AppState } from '../../../../../app.reducer';
-import { ItemSearchResult } from '../../../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
-import { RelationshipOptions } from '../../../../../../../modules/core/src/lib/core/shared/form/relationship-options.model';
-import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
-import { ReorderableRelationship } from '../../../../../../../modules/core/src/lib/core/shared/item-relationships/reorderable-relationship.model';
+import { ItemSearchResult } from '@dspace/core';
+import { RelationshipOptions } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { ReorderableRelationship } from '@dspace/core';
 import {
   getAllSucceededRemoteData,
   getRemoteDataPayload,
-} from '../../../../../../../modules/core/src/lib/core/shared/operators';
-import { ViewMode } from '../../../../../../../modules/core/src/lib/core/shared/view-mode.model';
-import { RemoveRelationshipAction } from '../../../../../../../modules/core/src/lib/core/states/name-variant/relationship.actions';
-import { SubmissionService } from '../../../../../submission/submission.service';
+} from '@dspace/core';
+import { ViewMode } from '@dspace/core';
+import { RemoveRelationshipAction } from '@dspace/core';
+import { SubmissionService } from '../../../../../../../modules/core/src/lib/core/submission/submission.service';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from '../../../../object-collection/shared/listable-object/listable-object-component-loader.component';
-import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
+import { SelectableListService } from '../../../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
 
 
 /**

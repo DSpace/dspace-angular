@@ -10,17 +10,17 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { getFirstSucceededRemoteDataPayload } from '../shared/operators';
-import { Version } from '../shared/version.model';
-import { VersionHistory } from '../shared/version-history.model';
-import { IdentifiableDataService } from './base/identifiable-data.service';
+import { RemoteDataBuildService } from '../cache';
+import { ObjectCacheService } from '../cache';
+import { HALEndpointService } from '../shared';
+import { getFirstSucceededRemoteDataPayload } from '../shared';
+import { Version } from '../shared';
+import { VersionHistory } from '../shared';
+import { IdentifiableDataService } from './base';
 import {
   PatchData,
   PatchDataImpl,
-} from './base/patch-data';
+} from './base';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { followLink } from './follow-link-config.model';
 import { RemoteData } from './remote-data';

@@ -12,18 +12,18 @@ import {
 } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { DSONameService } from '../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { DSONameService } from '@dspace/core';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { BitstreamDataService } from '../../../../../../modules/core/src/lib/core/data/bitstream-data.service';
-import { PaginatedList } from '../../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../../modules/core/src/lib/core/data/remote-data';
-import { NotificationsService } from '../../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Bitstream } from '../../../../../../modules/core/src/lib/core/shared/bitstream.model';
-import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../../../../../modules/core/src/lib/core/shared/operators';
+} from '@dspace/core';
+import { BitstreamDataService } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Bitstream } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';

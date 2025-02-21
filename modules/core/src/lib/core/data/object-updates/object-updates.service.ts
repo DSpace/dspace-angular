@@ -27,8 +27,8 @@ import {
 
 import { coreSelector } from '../../core.selectors';
 import { CoreState } from '../../core-state.model';
-import { INotification } from '../../notifications/models/notification.model';
-import { GenericConstructor } from '../../shared/generic-constructor';
+import { INotification } from '../../notifications';
+import { GenericConstructor } from '../../shared';
 import { FieldChangeType } from './field-change-type.model';
 import { FieldUpdates } from './field-updates.model';
 import { Identifiable } from './identifiable.model';
@@ -49,7 +49,7 @@ import {
   ObjectUpdatesState,
   VirtualMetadataSource,
 } from './object-updates.reducer';
-import { PatchOperationService } from './patch-operation-service/patch-operation.service';
+import { PatchOperationService } from './patch-operation-service';
 
 function objectUpdatesStateSelector(): MemoizedSelector<CoreState, ObjectUpdatesState> {
   return createSelector(coreSelector, (state: CoreState) => state['cache/object-updates']);

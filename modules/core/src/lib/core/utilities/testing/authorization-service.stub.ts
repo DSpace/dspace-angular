@@ -3,7 +3,7 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { FeatureID } from '../../data/feature-authorization/feature-id';
+import { FeatureID } from '../../data';
 
 export class AuthorizationDataServiceStub {
   isAuthorized(featureId?: FeatureID, objectUrl?: string, ePersonUuid?: string): Observable<boolean> {

@@ -7,9 +7,9 @@ import {
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { AdminNotifySearchResult } from '../../admin/admin-notify-dashboard/models/admin-notify-message-search-result.model';
-import { AdminNotifyMetricsBox } from '../../../../modules/core/src/lib/core/config/models/admin-notify-metrics.model';
-import { ViewMode } from '../../../../modules/core/src/lib/core/shared/view-mode.model';
+import { AdminNotifySearchResult } from '../../../../modules/core/src/lib/core/admin/admin-notify-message/models/admin-notify-message-search-result.model';
+import { AdminNotifyMetricsBox } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
 import { HoverClassDirective } from '../hover-class.directive';
 import { listableObjectComponent } from '../object-collection/shared/listable-object/listable-object.decorator';
 

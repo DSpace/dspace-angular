@@ -23,20 +23,20 @@ import {
 } from 'rxjs';
 
 import { environment } from '../../../../../../environments/environment.test';
-import { RemoteDataBuildService } from '../../../../../../../modules/core/src/lib/core/cache/builders/remote-data-build.service';
-import { APP_CONFIG } from '../../../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { buildPaginatedList } from '../../../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../../../modules/core/src/lib/core/data/remote-data';
-import { RequestEntryState } from '../../../../../../../modules/core/src/lib/core/data/request-entry-state.model';
-import { PageInfo } from '../../../../../../../modules/core/src/lib/core/shared/page-info.model';
-import { SearchFilterConfig } from '../../../../../../../modules/core/src/lib/core/shared/search/models/search-filter-config.model';
-import { SearchService } from '../../../../../../../modules/core/src/lib/core/shared/search/search.service';
-import { SearchFilterService } from '../../../../../../../modules/core/src/lib/core/shared/search/search-filter.service';
-import { VocabularyEntryDetail } from '../../../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { VocabularyService } from '../../../../../../../modules/core/src/lib/core/submission/vocabularies/vocabulary.service';
-import { RouterStub } from '../../../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
-import { SearchConfigurationServiceStub } from '../../../../../../../modules/core/src/lib/core/utilities/testing/search-configuration-service.stub';
-import { SearchServiceStub } from '../../../../../../../modules/core/src/lib/core/utilities/testing/search-service.stub';
+import { RemoteDataBuildService } from '@dspace/core';
+import { APP_CONFIG } from '@dspace/core';
+import { buildPaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { RequestEntryState } from '@dspace/core';
+import { PageInfo } from '@dspace/core';
+import { SearchFilterConfig } from '@dspace/core';
+import { SearchService } from '@dspace/core';
+import { SearchFilterService } from '@dspace/core';
+import { VocabularyEntryDetail } from '@dspace/core';
+import { VocabularyService } from '@dspace/core';
+import { RouterStub } from '@dspace/core';
+import { SearchConfigurationServiceStub } from '@dspace/core';
+import { SearchServiceStub } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { SearchHierarchyFilterComponent } from './search-hierarchy-filter.component';
 

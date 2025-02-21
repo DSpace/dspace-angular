@@ -21,26 +21,26 @@ import {
 } from 'rxjs/operators';
 
 import { getDSORoute } from '../../app-routing-paths';
-import { DSpaceObjectDataService } from '../../../../modules/core/src/lib/core/data/dspace-object-data.service';
-import { AuthorizationDataService } from '../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { ResearcherProfileDataService } from '../../../../modules/core/src/lib/core/profile/researcher-profile-data.service';
-import { Collection } from '../../../../modules/core/src/lib/core/shared/collection.model';
-import { Community } from '../../../../modules/core/src/lib/core/shared/community.model';
-import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
+import { DSpaceObjectDataService } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { FeatureID } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { ResearcherProfileDataService } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { Community } from '@dspace/core';
+import { Item } from '@dspace/core';
 import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '../../../../modules/core/src/lib/core/shared/operators';
-import { CorrectionTypeDataService } from '../../../../modules/core/src/lib/core/submission/correctiontype-data.service';
-import { URLCombiner } from '../../../../modules/core/src/lib/core/url-combiner/url-combiner';
+} from '@dspace/core';
+import { CorrectionTypeDataService } from '@dspace/core';
+import { URLCombiner } from '@dspace/core';
 import { MenuService } from '../menu/menu.service';
-import { MenuID } from '../menu/menu-id.model';
+import { MenuID } from '../../../../modules/core/src/lib/core/states/menu/menu-id.model';
 import { LinkMenuItemModel } from '../menu/menu-item/models/link.model';
 import { OnClickMenuItemModel } from '../menu/menu-item/models/onclick.model';
-import { MenuItemType } from '../menu/menu-item-type.model';
-import { MenuSection } from '../menu/menu-section.model';
+import { MenuItemType } from '../../../../modules/core/src/lib/core/states/menu/menu-item-type.model';
+import { MenuSection } from '../../../../modules/core/src/lib/core/states/menu/menu-section.model';
 import { SubscriptionModalComponent } from '../subscriptions/subscription-modal/subscription-modal.component';
 import { DsoVersioningModalService } from './dso-versioning-modal-service/dso-versioning-modal.service';
 import {

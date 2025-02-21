@@ -1,9 +1,9 @@
 import {
   followLink,
   FollowLinkConfig,
-} from '../../data/follow-link-config.model';
-import { WorkflowItem } from '../models/workflowitem.model';
-import { WorkspaceItem } from '../models/workspaceitem.model';
+} from '../../data';
+import { WorkflowItem } from '../models';
+import { WorkspaceItem } from '../models';
 
 /**
  * The self links defined in this list are expected to be requested somewhere in the near future

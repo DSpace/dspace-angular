@@ -1,4 +1,4 @@
-import { SuggestionTarget } from '../../../../modules/core/src/lib/core/notifications/suggestions/models/suggestion-target.model';
+import { SuggestionTarget } from '@dspace/core';
 import {
   SuggestionTargetActionTypes,
   SuggestionTargetsActions,

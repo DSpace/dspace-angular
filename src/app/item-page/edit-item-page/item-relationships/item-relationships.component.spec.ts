@@ -18,33 +18,33 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { ObjectCacheService } from '../../../../../modules/core/src/lib/core/cache/object-cache.service';
-import { RestResponse } from '../../../../../modules/core/src/lib/core/cache/response.models';
-import { EntityTypeDataService } from '../../../../../modules/core/src/lib/core/data/entity-type-data.service';
-import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
-import { FieldChangeType } from '../../../../../modules/core/src/lib/core/data/object-updates/field-change-type.model';
-import { ObjectUpdatesService } from '../../../../../modules/core/src/lib/core/data/object-updates/object-updates.service';
-import { RelationshipDataService } from '../../../../../modules/core/src/lib/core/data/relationship-data.service';
-import { RelationshipTypeDataService } from '../../../../../modules/core/src/lib/core/data/relationship-type-data.service';
-import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
+import { ObjectCacheService } from '@dspace/core';
+import { RestResponse } from '@dspace/core';
+import { EntityTypeDataService } from '@dspace/core';
+import { ItemDataService } from '@dspace/core';
+import { FieldChangeType } from '@dspace/core';
+import { ObjectUpdatesService } from '@dspace/core';
+import { RelationshipDataService } from '@dspace/core';
+import { RelationshipTypeDataService } from '@dspace/core';
+import { RequestService } from '@dspace/core';
 import {
   INotification,
   Notification,
-} from '../../../../../modules/core/src/lib/core/notifications/models/notification.model';
-import { NotificationType } from '../../../../../modules/core/src/lib/core/notifications/models/notification-type';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { ItemType } from '../../../../../modules/core/src/lib/core/shared/item-relationships/item-type.model';
-import { Relationship } from '../../../../../modules/core/src/lib/core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '../../../../../modules/core/src/lib/core/shared/item-relationships/relationship-type.model';
+} from '@dspace/core';
+import { NotificationType } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { ItemType } from '@dspace/core';
+import { Relationship } from '@dspace/core';
+import { RelationshipType } from '@dspace/core';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { ItemDataServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/item-data.service.stub';
-import { relationshipTypes } from '../../../../../modules/core/src/lib/core/utilities/testing/relationship-types.mock';
-import { RouterStub } from '../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
-import { createPaginatedList } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+} from '@dspace/core';
+import { ItemDataServiceStub } from '@dspace/core';
+import { relationshipTypes } from '@dspace/core';
+import { RouterStub } from '@dspace/core';
+import { createPaginatedList } from '@dspace/core';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../../shared/theme-support/theme.service';

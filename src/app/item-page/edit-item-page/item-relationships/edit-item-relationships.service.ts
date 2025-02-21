@@ -17,28 +17,28 @@ import {
   toArray,
 } from 'rxjs/operators';
 
-import { EntityTypeDataService } from '../../../../../modules/core/src/lib/core/data/entity-type-data.service';
-import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
-import { FieldChangeType } from '../../../../../modules/core/src/lib/core/data/object-updates/field-change-type.model';
-import { FieldUpdate } from '../../../../../modules/core/src/lib/core/data/object-updates/field-update.model';
-import { FieldUpdates } from '../../../../../modules/core/src/lib/core/data/object-updates/field-updates.model';
+import { EntityTypeDataService } from '@dspace/core';
+import { ItemDataService } from '@dspace/core';
+import { FieldChangeType } from '@dspace/core';
+import { FieldUpdate } from '@dspace/core';
+import { FieldUpdates } from '@dspace/core';
 import {
   DeleteRelationship,
   RelationshipIdentifiable,
-} from '../../../../../modules/core/src/lib/core/data/object-updates/object-updates.reducer';
-import { ObjectUpdatesService } from '../../../../../modules/core/src/lib/core/data/object-updates/object-updates.service';
-import { RelationshipDataService } from '../../../../../modules/core/src/lib/core/data/relationship-data.service';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { ItemType } from '../../../../../modules/core/src/lib/core/shared/item-relationships/item-type.model';
-import { Relationship } from '../../../../../modules/core/src/lib/core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '../../../../../modules/core/src/lib/core/shared/item-relationships/relationship-type.model';
-import { NoContent } from '../../../../../modules/core/src/lib/core/shared/NoContent.model';
+} from '@dspace/core';
+import { ObjectUpdatesService } from '@dspace/core';
+import { RelationshipDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { ItemType } from '@dspace/core';
+import { Relationship } from '@dspace/core';
+import { RelationshipType } from '@dspace/core';
+import { NoContent } from '@dspace/core';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '../../../../../modules/core/src/lib/core/shared/operators';
+} from '@dspace/core';
 
 @Injectable({
   providedIn: 'root',

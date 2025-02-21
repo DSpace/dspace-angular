@@ -15,11 +15,11 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { TranslateLoaderMock } from '../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
-import { Context } from '../../../../../modules/core/src/lib/core/shared/context.model';
-import { SearchService } from '../../../../../modules/core/src/lib/core/shared/search/search.service';
-import { RouterStub } from '../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
-import { SearchConfigurationServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/search-configuration-service.stub';
+import { TranslateLoaderMock } from '@dspace/core';
+import { Context } from '@dspace/core';
+import { SearchService } from '@dspace/core';
+import { RouterStub } from '@dspace/core';
+import { SearchConfigurationServiceStub } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { MyDSpaceConfigurationValueType } from '../../../my-dspace-page/my-dspace-configuration-value-type';
 import { MYDSPACE_ROUTE } from '../../../my-dspace-page/my-dspace-page.component';

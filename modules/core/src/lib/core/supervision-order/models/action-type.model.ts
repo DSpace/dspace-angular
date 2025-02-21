@@ -1,7 +1,7 @@
 /**
  * Enum representing the Action Type of a Resource Policy
  */
-export enum ActionType {
+export enum SupervisionActionType {
   /**
    * Action of reading, viewing or downloading something
    */

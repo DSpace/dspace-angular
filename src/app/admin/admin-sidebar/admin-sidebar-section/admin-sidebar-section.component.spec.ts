@@ -9,8 +9,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { CSSVariableServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/css-variable-service.stub';
-import { MenuServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/menu-service.stub';
+import { CSSVariableServiceStub } from '@dspace/core';
+import { MenuServiceStub } from '@dspace/core';
 import { MenuService } from '../../../shared/menu/menu.service';
 import { CSSVariableService } from '../../../shared/sass-helper/css-variable.service';
 import { AdminSidebarSectionComponent } from './admin-sidebar-section.component';

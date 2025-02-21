@@ -15,14 +15,14 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   BATCH_IMPORT_SCRIPT_NAME,
   ScriptDataService,
-} from '../../../../modules/core/src/lib/core/data/processes/script-data.service';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { ProcessParameter } from '../../../../modules/core/src/lib/core/processes/process-parameter.model';
+} from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { ProcessParameter } from '@dspace/core';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+} from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
 import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';
 import { FileValueAccessorDirective } from '../../shared/utils/file-value-accessor.directive';
 import { FileValidator } from '../../shared/utils/require-file.validator';

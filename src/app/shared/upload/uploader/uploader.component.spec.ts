@@ -14,11 +14,11 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { FileUploadModule } from 'ng2-file-upload';
 
-import { DragService } from '../../../../../modules/core/src/lib/core/drag.service';
-import { CookieServiceMock } from '../../../../../modules/core/src/lib/core/mocks/cookie.service.mock';
-import { HttpXsrfTokenExtractorMock } from '../../../../../modules/core/src/lib/core/mocks/http-xsrf-token-extractor.mock';
-import { CookieService } from '../../../../../modules/core/src/lib/core/services/cookie.service';
-import { createTestComponent } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+import { DragService } from '@dspace/core';
+import { CookieServiceMock } from '@dspace/core';
+import { HttpXsrfTokenExtractorMock } from '@dspace/core';
+import { CookieService } from '@dspace/core';
+import { createTestComponent } from '@dspace/core';
 import { UploaderComponent } from './uploader.component';
 import { UploaderOptions } from './uploader-options.model';
 

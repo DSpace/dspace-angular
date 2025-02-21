@@ -8,11 +8,11 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { RequestService } from '../../../modules/core/src/lib/core/data/request.service';
-import { RestRequest } from '../../../modules/core/src/lib/core/data/rest-request.model';
-import { DSpaceObject } from '../../../modules/core/src/lib/core/shared/dspace-object.model';
-import { HALEndpointService } from '../../../modules/core/src/lib/core/shared/hal-endpoint.service';
-import { SearchOptions } from '../../../modules/core/src/lib/core/shared/search/models/search-options.model';
+import { RequestService } from '@dspace/core';
+import { RestRequest } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
+import { HALEndpointService } from '@dspace/core';
+import { SearchOptions } from '@dspace/core';
 import { TrackRequest } from './track-request.model';
 
 /**

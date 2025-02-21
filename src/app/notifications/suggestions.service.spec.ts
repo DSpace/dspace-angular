@@ -5,17 +5,17 @@ import { TestScheduler } from 'rxjs/testing';
 import {
   SortDirection,
   SortOptions,
-} from '../../../modules/core/src/lib/core/cache/models/sort-options.model';
-import { FindListOptions } from '../../../modules/core/src/lib/core/data/find-list-options.model';
-import { followLink } from '../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { SuggestionTarget } from '../../../modules/core/src/lib/core/notifications/suggestions/models/suggestion-target.model';
-import { SuggestionDataService } from '../../../modules/core/src/lib/core/notifications/suggestions/suggestion-data.service';
-import { SuggestionTargetDataService } from '../../../modules/core/src/lib/core/notifications/suggestions/target/suggestion-target-data.service';
-import { ResearcherProfile } from '../../../modules/core/src/lib/core/profile/model/researcher-profile.model';
-import { ResearcherProfileDataService } from '../../../modules/core/src/lib/core/profile/researcher-profile-data.service';
-import { ResourceType } from '../../../modules/core/src/lib/core/shared/resource-type';
-import { WorkspaceitemDataService } from '../../../modules/core/src/lib/core/submission/workspaceitem-data.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../modules/core/src/lib/core/utilities/remote-data.utils';
+} from '@dspace/core';
+import { FindListOptions } from '@dspace/core';
+import { followLink } from '@dspace/core';
+import { SuggestionTarget } from '@dspace/core';
+import { SuggestionDataService } from '@dspace/core';
+import { SuggestionTargetDataService } from '@dspace/core';
+import { ResearcherProfile } from '@dspace/core';
+import { ResearcherProfileDataService } from '@dspace/core';
+import { ResourceType } from '@dspace/core';
+import { WorkspaceitemDataService } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { mockSuggestionPublicationOne } from '../shared/mocks/publication-claim.mock';
 import { SuggestionsService } from './suggestions.service';
 

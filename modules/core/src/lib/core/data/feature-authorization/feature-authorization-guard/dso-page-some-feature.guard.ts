@@ -11,8 +11,8 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { DSpaceObject } from '../../../shared/dspace-object.model';
-import { getAllSucceededRemoteDataPayload } from '../../../shared/operators';
+import { DSpaceObject } from '../../../shared';
+import { getAllSucceededRemoteDataPayload } from '../../../shared';
 import { RemoteData } from '../../remote-data';
 import { FeatureID } from '../feature-id';
 import {

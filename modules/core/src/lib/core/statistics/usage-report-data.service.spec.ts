@@ -6,7 +6,7 @@
  * http://www.dspace.org/license/
  */
 
-import { testSearchDataImplementation } from '../data/base/search-data.spec';
+import { testSearchDataImplementation } from '../data';
 import { UsageReportDataService } from './usage-report-data.service';
 
 describe('UsageReportDataService', () => {

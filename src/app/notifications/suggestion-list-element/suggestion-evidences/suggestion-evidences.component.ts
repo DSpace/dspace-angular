@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { SuggestionEvidences } from '../../../../../modules/core/src/lib/core/notifications/suggestions/models/suggestion.model';
+import { SuggestionEvidences } from '@dspace/core';
 import { fadeIn } from '../../../shared/animations/fade';
 import { ObjectKeysPipe } from '../../../shared/utils/object-keys-pipe';
 

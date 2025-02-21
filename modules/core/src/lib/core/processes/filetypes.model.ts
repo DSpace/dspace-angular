@@ -1,8 +1,8 @@
 import { autoserialize } from 'cerialize';
 
-import { typedObject } from '../cache/builders/build-decorators';
-import { ResourceType } from '../shared/resource-type';
-import { excludeFromEquals } from '../utilities/equals.decorators';
+import { typedObject } from '../cache';
+import { ResourceType } from '../shared';
+import { excludeFromEquals } from '../utilities';
 import { FILETYPES } from './filetypes.resource-type';
 
 /**

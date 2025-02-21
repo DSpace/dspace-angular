@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { Context } from '../../../../modules/core/src/lib/core/shared/context.model';
+import { Context } from '@dspace/core';
 import { ThemedConfigurationSearchPageComponent } from '../../search-page/themed-configuration-search-page.component';
 
 @Component({

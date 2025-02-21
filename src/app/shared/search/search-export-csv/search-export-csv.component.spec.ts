@@ -9,17 +9,17 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthorizationDataService } from '../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { ScriptDataService } from '../../../../../modules/core/src/lib/core/data/processes/script-data.service';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Process } from '../../../../../modules/core/src/lib/core/processes/process.model';
-import { PaginatedSearchOptions } from '../../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
-import { SearchFilter } from '../../../../../modules/core/src/lib/core/shared/search/models/search-filter.model';
+import { AuthorizationDataService } from '@dspace/core';
+import { ScriptDataService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Process } from '@dspace/core';
+import { PaginatedSearchOptions } from '@dspace/core';
+import { SearchFilter } from '@dspace/core';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+} from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
 import { getProcessDetailRoute } from '../../../process-page/process-page-routing.paths';
 import { SearchExportCsvComponent } from './search-export-csv.component';
 

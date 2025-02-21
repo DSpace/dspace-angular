@@ -15,8 +15,8 @@ import {
 
 import { BulkAccessControlService } from '../../shared/access-control-form-container/bulk-access-control.service';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import { SelectableListState } from '../../shared/object-list/selectable-list/selectable-list.reducer';
-import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
+import { SelectableListState } from '../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.reducer';
+import { SelectableListService } from '../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
 import { BulkAccessBrowseComponent } from './browse/bulk-access-browse.component';
 import { BulkAccessSettingsComponent } from './settings/bulk-access-settings.component';
 

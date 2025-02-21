@@ -7,23 +7,23 @@ import {
   filter,
   map,
 } from 'rxjs/operators';
-import { JsonPatchOperationPathObject } from '../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operations-builder';
-import { WorkspaceitemSectionUploadObject } from '../../../../../modules/core/src/lib/core/submission/models/workspaceitem-section-upload.model';
+import { JsonPatchOperationPathObject } from '@dspace/core';
+import { JsonPatchOperationsBuilder } from '@dspace/core';
+import { WorkspaceitemSectionUploadObject } from '@dspace/core';
 
-import { WorkspaceitemSectionUploadFileObject } from '../../../../../modules/core/src/lib/core/submission/models/workspaceitem-section-upload-file.model';
+import { WorkspaceitemSectionUploadFileObject } from '@dspace/core';
 import {
   DeleteUploadedFileAction,
   EditFileDataAction,
   EditFilePrimaryBitstreamAction,
   NewUploadedFileAction,
-} from '../../objects/submission-objects.actions';
+} from '../../../../../modules/core/src/lib/core/states/submission/submission-objects.actions';
 import {
   submissionSectionDataFromIdSelector,
   submissionUploadedFileFromUuidSelector,
   submissionUploadedFilesFromIdSelector,
-} from '../../selectors';
-import { SubmissionState } from '../../submission.reducers';
+} from '../../../../../modules/core/src/lib/core/states/submission/selectors';
+import { SubmissionState } from '../../../../../modules/core/src/lib/core/states/submission/submission.reducers';
 
 /**
  * A service that provides methods to handle submission's bitstream state.

@@ -17,13 +17,13 @@ import { Observable } from 'rxjs';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { FindListOptions } from '../../../../../modules/core/src/lib/core/data/find-list-options.model';
-import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RelationshipDataService } from '../../../../../modules/core/src/lib/core/data/relationship-data.service';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { ViewMode } from '../../../../../modules/core/src/lib/core/shared/view-mode.model';
+} from '@dspace/core';
+import { FindListOptions } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RelationshipDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';

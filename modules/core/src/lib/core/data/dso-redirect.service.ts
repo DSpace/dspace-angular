@@ -14,18 +14,18 @@ import { hasValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
+import { RemoteDataBuildService } from '../cache';
+import { ObjectCacheService } from '../cache';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../config/app-config.interface';
-import { getDSpaceObjectRoute } from '../router/utils/routes-utils';
-import { HardRedirectService } from '../services/hard-redirect.service';
-import { DSpaceObject } from '../shared/dspace-object.model';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { getFirstCompletedRemoteData } from '../shared/operators';
-import { IdentifiableDataService } from './base/identifiable-data.service';
+} from '../config';
+import { getDSpaceObjectRoute } from '../router';
+import { HardRedirectService } from '../services';
+import { DSpaceObject } from '../shared';
+import { HALEndpointService } from '../shared';
+import { getFirstCompletedRemoteData } from '../shared';
+import { IdentifiableDataService } from './base';
 import { RemoteData } from './remote-data';
 import { IdentifierType } from './request.models';
 import { RequestService } from './request.service';

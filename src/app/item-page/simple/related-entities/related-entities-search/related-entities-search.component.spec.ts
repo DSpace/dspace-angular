@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
+import { Item } from '@dspace/core';
 import { ThemedConfigurationSearchPageComponent } from '../../../../search-page/themed-configuration-search-page.component';
 import { RelatedEntitiesSearchComponent } from './related-entities-search.component';
 

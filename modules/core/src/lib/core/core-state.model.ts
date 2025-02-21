@@ -1,19 +1,19 @@
-import { MetadataRegistryState } from './states/metadata-registry/metadata-registry.reducers';
-import { AuthState } from './auth/auth.reducer';
-import { ObjectCacheState } from './cache/object-cache.reducer';
-import { ServerSyncBufferState } from './cache/server-sync-buffer.reducer';
-import { ObjectUpdatesState } from './data/object-updates/object-updates.reducer';
-import { RequestState } from './data/request-state.model';
-import { HistoryState } from './history/history.reducer';
-import { MetaIndexState } from './index/index.reducer';
-import { JsonPatchOperationsState } from './json-patch/json-patch-operations.reducer';
-import { MetaTagState } from './metadata/meta-tag.reducer';
-import { RouteState } from './services/route.reducer';
-import { BitstreamFormatRegistryState } from './states/bitstream-format/bitstream-format.reducers';
-import { EPeopleRegistryState } from './states/epeople-registry/epeople-registry.reducers';
-import { GroupRegistryState } from './states/group-registry/group-registry.reducers';
-import { NameVariantListsState } from './states/name-variant/name-variant.reducer';
-import { NotificationsState } from "./notifications/notifications.reducers";
+import { MetadataRegistryState } from './states';
+import { AuthState } from './auth';
+import { ObjectCacheState } from './cache';
+import { ServerSyncBufferState } from './cache';
+import { ObjectUpdatesState } from './data';
+import { RequestState } from './data';
+import { HistoryState } from './history';
+import { MetaIndexState } from './index';
+import { JsonPatchOperationsState } from './json-patch';
+import { MetaTagState } from './metadata';
+import { RouteState } from './services';
+import { BitstreamFormatRegistryState } from './states';
+import { EPeopleRegistryState } from './states';
+import { GroupRegistryState } from './states';
+import { NameVariantListsState } from './states';
+import { NotificationsState } from "./notifications";
 
 /**
  * The core sub-state in the NgRx store

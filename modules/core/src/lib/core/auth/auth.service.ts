@@ -35,36 +35,36 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '../config/app-config.interface';
+} from '../config';
 import { CoreState } from '../core-state.model';
-import { followLink } from '../data/follow-link-config.model';
+import { followLink } from '../data';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../data/paginated-list.model';
-import { RemoteData } from '../data/remote-data';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { EPersonDataService } from '../eperson/eperson-data.service';
-import { EPerson } from '../eperson/models/eperson.model';
-import { Group } from '../eperson/models/group.model';
-import { NotificationsService } from '../notifications/notifications.service';
-import { CookieService } from '../services/cookie.service';
-import { HardRedirectService } from '../services/hard-redirect.service';
-import { RouteService } from '../services/route.service';
+} from '../data';
+import { RemoteData } from '../data';
+import { HttpOptions } from '../dspace-rest';
+import { EPersonDataService } from '../eperson';
+import { EPerson } from '../eperson';
+import { Group } from '../eperson';
+import { NotificationsService } from '../notifications';
+import { CookieService } from '../services';
+import { HardRedirectService } from '../services';
+import { RouteService } from '../services';
 import {
   NativeWindowRef,
   NativeWindowService,
-} from '../services/window.service';
+} from '../services';
 import {
   getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
-} from '../shared/operators';
-import { PageInfo } from '../shared/page-info.model';
+} from '../shared';
+import { PageInfo } from '../shared';
 import {
   REQUEST,
   RESPONSE,
-} from '../tokens/express.tokens';
-import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
+} from '../tokens';
+import { createSuccessfulRemoteDataObject$ } from '../utilities';
 import {
   CheckAuthenticationTokenAction,
   RefreshTokenAction,
@@ -75,12 +75,12 @@ import {
   UnsetUserAsIdleAction,
 } from './auth.actions';
 import { AuthRequestService } from './auth-request.service';
-import { AuthMethod } from './models/auth.method';
-import { AuthStatus } from './models/auth-status.model';
+import { AuthMethod } from './models';
+import { AuthStatus } from './models';
 import {
   AuthTokenInfo,
   TOKENITEM,
-} from './models/auth-token-info.model';
+} from './models';
 import {
   getAuthenticatedUserId,
   getAuthenticationToken,

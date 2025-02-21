@@ -1,4 +1,4 @@
-import { QualityAssuranceSourceObject } from '../../../../../modules/core/src/lib/core/notifications/qa/models/quality-assurance-source.model';
+import { QualityAssuranceSourceObject } from '@dspace/core';
 import {
   QualityAssuranceSourceActions,
   QualityAssuranceSourceActionTypes,

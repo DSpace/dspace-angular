@@ -14,10 +14,10 @@ import {
   of,
 } from 'rxjs';
 
-import { LocaleService } from '../../../modules/core/src/lib/core/locale/locale.service';
-import { ActivatedRouteStub } from '../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
-import { HostWindowServiceStub } from '../../../modules/core/src/lib/core/utilities/testing/host-window-service.stub';
-import { MenuServiceStub } from '../../../modules/core/src/lib/core/utilities/testing/menu-service.stub';
+import { LocaleService } from '@dspace/core';
+import { ActivatedRouteStub } from '@dspace/core';
+import { HostWindowServiceStub } from '@dspace/core';
+import { MenuServiceStub } from '@dspace/core';
 import { ThemedSearchNavbarComponent } from '../search-navbar/themed-search-navbar.component';
 import { ThemedAuthNavMenuComponent } from '../shared/auth-nav-menu/themed-auth-nav-menu.component';
 import { HostWindowService } from '../shared/host-window.service';

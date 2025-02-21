@@ -3,7 +3,7 @@ import {
   Input,
 } from '@angular/core';
 
-import { MediaViewerItem } from '../../../../../modules/core/src/lib/core/shared/media-viewer-item.model';
+import { MediaViewerItem } from '@dspace/core';
 import { ThemedComponent } from '../../../shared/theme-support/themed.component';
 import { MediaViewerImageComponent } from './media-viewer-image.component';
 

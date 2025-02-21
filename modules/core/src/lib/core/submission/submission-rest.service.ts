@@ -12,9 +12,9 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ErrorResponse } from '../cache/response.models';
-import { RemoteData } from '../data/remote-data';
+import { RemoteDataBuildService } from '../cache';
+import { ErrorResponse } from '../cache';
+import { RemoteData } from '../data';
 import {
   DeleteRequest,
   PostRequest,
@@ -22,15 +22,15 @@ import {
   SubmissionPatchRequest,
   SubmissionPostRequest,
   SubmissionRequest,
-} from '../data/request.models';
-import { RequestService } from '../data/request.service';
-import { RequestError } from '../data/request-error.model';
-import { RestRequest } from '../data/rest-request.model';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { getFirstCompletedRemoteData } from '../shared/operators';
-import { SubmitDataResponseDefinitionObject } from '../shared/submit-data-response-definition.model';
-import { URLCombiner } from '../url-combiner/url-combiner';
+} from '../data';
+import { RequestService } from '../data';
+import { RequestError } from '../data';
+import { RestRequest } from '../data';
+import { HttpOptions } from '../dspace-rest';
+import { HALEndpointService } from '../shared';
+import { getFirstCompletedRemoteData } from '../shared';
+import { SubmitDataResponseDefinitionObject } from '../shared';
+import { URLCombiner } from '../url-combiner';
 import { SubmissionResponse } from './submission-response.model';
 
 /**

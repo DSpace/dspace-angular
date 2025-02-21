@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 
 import { MenuService } from '../../shared/menu/menu.service';
-import { MenuID } from '../../shared/menu/menu-id.model';
+import { MenuID } from '../../../../modules/core/src/lib/core/states/menu/menu-id.model';
 import { MenuSectionComponent } from '../../shared/menu/menu-section/menu-section.component';
 
 /**

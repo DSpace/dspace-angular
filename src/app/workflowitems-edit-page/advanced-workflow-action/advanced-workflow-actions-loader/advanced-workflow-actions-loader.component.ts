@@ -8,7 +8,7 @@ import { hasValue } from '@dspace/shared/utils';
 import { AbstractComponentLoaderComponent } from 'src/app/shared/abstract-component-loader/abstract-component-loader.component';
 
 import { PAGE_NOT_FOUND_PATH } from '../../../app-routing-paths';
-import { GenericConstructor } from '../../../../../modules/core/src/lib/core/shared/generic-constructor';
+import { GenericConstructor } from '@dspace/core';
 import { getAdvancedComponentByWorkflowTaskOption } from '../../../shared/mydspace-actions/claimed-task/switcher/claimed-task-actions-decorator';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
 

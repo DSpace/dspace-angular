@@ -7,8 +7,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { BrowseDefinition } from '../../../../modules/core/src/lib/core/shared/browse-definition.model';
-import { BrowseByDataType } from '../../../../modules/core/src/lib/core/shared/browse-by-data-type';
+import { BrowseDefinition } from '@dspace/core';
+import { BrowseByDataType } from '@dspace/core';
 import { BrowseBySwitcherComponent } from '../browse-by-switcher/browse-by-switcher.component';
 
 @Component({

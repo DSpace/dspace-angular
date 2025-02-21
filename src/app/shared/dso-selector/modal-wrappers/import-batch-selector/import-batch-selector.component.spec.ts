@@ -8,12 +8,12 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { NotificationsService } from '../../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Collection } from '../../../../../../modules/core/src/lib/core/shared/collection.model';
-import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
-import { SearchService } from '../../../../../../modules/core/src/lib/core/shared/search/search.service';
-import { NotificationsServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { SearchServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/search-service.stub';
+import { NotificationsService } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { SearchService } from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { SearchServiceStub } from '@dspace/core';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { ImportBatchSelectorComponent } from './import-batch-selector.component';

@@ -45,11 +45,11 @@ import {
 import { BtnDisabledDirective } from '../btn-disabled.directive';
 import { DsDynamicFormComponent } from './builder/ds-dynamic-form-ui/ds-dynamic-form.component';
 import { FormBuilderService } from './builder/form-builder.service';
-import { FormFieldMetadataValueObject } from '../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '@dspace/core';
 import {
   FormEntry,
   FormError,
-} from './form.reducer';
+} from '../../../../modules/core/src/lib/core/states/form/form.reducer';
 import { FormService } from './form.service';
 
 /**

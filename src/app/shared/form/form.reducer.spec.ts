@@ -7,8 +7,8 @@ import {
   FormRemoveAction,
   FormRemoveErrorAction,
   FormStatusChangeAction,
-} from './form.actions';
-import { formReducer } from './form.reducer';
+} from '../../../../modules/core/src/lib/core/states/form/form.actions';
+import { formReducer } from '../../../../modules/core/src/lib/core/states/form/form.reducer';
 
 describe('formReducer', () => {
 

@@ -1,7 +1,7 @@
-import { buildPaginatedList } from '../../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
-import { PageInfo } from '../../../../../../modules/core/src/lib/core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { buildPaginatedList } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { PageInfo } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import {
   createRelationshipsObservable,
   getItemPageFieldsTest,

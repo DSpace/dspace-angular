@@ -17,15 +17,15 @@ import {
 import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { ComColDataService } from '../../../../../../modules/core/src/lib/core/data/comcol-data.service';
-import { CommunityDataService } from '../../../../../../modules/core/src/lib/core/data/community-data.service';
-import { NotificationsService } from '../../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Community } from '../../../../../../modules/core/src/lib/core/shared/community.model';
+import { ComColDataService } from '@dspace/core';
+import { CommunityDataService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Community } from '@dspace/core';
 import {
   createFailedRemoteDataObject$,
   createNoContentRemoteDataObject$,
-} from '../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+} from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
 import { DeleteComColPageComponent } from './delete-comcol-page.component';
 
 describe('DeleteComColPageComponent', () => {

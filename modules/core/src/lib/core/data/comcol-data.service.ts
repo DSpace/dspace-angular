@@ -16,40 +16,40 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { RequestParam } from '../cache/models/request-param.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { NotificationsService } from '../notifications/notifications.service';
-import { Bitstream } from '../shared/bitstream.model';
-import { Collection } from '../shared/collection.model';
-import { Community } from '../shared/community.model';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { HALLink } from '../shared/hal-link.model';
-import { NoContent } from '../shared/NoContent.model';
-import { getFirstCompletedRemoteData } from '../shared/operators';
-import { URLCombiner } from '../url-combiner/url-combiner';
-import { createFailedRemoteDataObject$ } from '../utilities/remote-data.utils';
+import { RemoteDataBuildService } from '../cache';
+import { RequestParam } from '../cache';
+import { ObjectCacheService } from '../cache';
+import { NotificationsService } from '../notifications';
+import { Bitstream } from '../shared';
+import { Collection } from '../shared';
+import { Community } from '../shared';
+import { HALEndpointService } from '../shared';
+import { HALLink } from '../shared';
+import { NoContent } from '../shared';
+import { getFirstCompletedRemoteData } from '../shared';
+import { URLCombiner } from '../url-combiner';
+import { createFailedRemoteDataObject$ } from '../utilities';
 import {
   CreateData,
   CreateDataImpl,
-} from './base/create-data';
+} from './base';
 import {
   DeleteData,
   DeleteDataImpl,
-} from './base/delete-data';
+} from './base';
 import {
   FindAllData,
   FindAllDataImpl,
-} from './base/find-all-data';
-import { IdentifiableDataService } from './base/identifiable-data.service';
+} from './base';
+import { IdentifiableDataService } from './base';
 import {
   PatchData,
   PatchDataImpl,
-} from './base/patch-data';
+} from './base';
 import {
   SearchData,
   SearchDataImpl,
-} from './base/search-data';
+} from './base';
 import { BitstreamDataService } from './bitstream-data.service';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { FindListOptions } from './find-list-options.model';

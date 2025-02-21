@@ -33,7 +33,7 @@ import {
   AppState,
   keySelector,
 } from '../../app.reducer';
-import { compareArraysUsingIds } from '../../../../modules/core/src/lib/core/shared/item-relationships/item-relationships-utils';
+import { compareArraysUsingIds } from '@dspace/core';
 import {
   ActivateMenuSectionAction,
   AddMenuSectionAction,
@@ -49,11 +49,11 @@ import {
   ShowMenuSectionAction,
   ToggleActiveMenuSectionAction,
   ToggleMenuAction,
-} from './menu.actions';
-import { MenuID } from './menu-id.model';
-import { MenuSection } from './menu-section.model';
-import { MenuSections } from './menu-sections.model';
-import { MenuState } from './menu-state.model';
+} from '../../../../modules/core/src/lib/core/states/menu/menu.actions';
+import { MenuID } from '../../../../modules/core/src/lib/core/states/menu/menu-id.model';
+import { MenuSection } from '../../../../modules/core/src/lib/core/states/menu/menu-section.model';
+import { MenuSections } from '../../../../modules/core/src/lib/core/states/menu/menu-sections.model';
+import { MenuState } from '../../../../modules/core/src/lib/core/states/menu/menu-state.model';
 
 export function menuKeySelector<T>(key: string, selector): MemoizedSelector<MenuState, T> {
   return createSelector(selector, (state) => {

@@ -23,10 +23,10 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { ObjectUpdatesService } from '../../../../../modules/core/src/lib/core/data/object-updates/object-updates.service';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { MetadataValue } from '../../../../../modules/core/src/lib/core/shared/metadata.models';
+} from '@dspace/core';
+import { ObjectUpdatesService } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { MetadataValue } from '@dspace/core';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
 

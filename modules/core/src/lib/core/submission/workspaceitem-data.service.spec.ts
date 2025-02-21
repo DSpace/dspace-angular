@@ -16,30 +16,30 @@ import {
 import { map } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { RequestParam } from '../cache/models/request-param.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { RestResponse } from '../cache/response.models';
+import { RemoteDataBuildService } from '../cache';
+import { RequestParam } from '../cache';
+import { ObjectCacheService } from '../cache';
+import { RestResponse } from '../cache';
 import { CoreState } from '../core-state.model';
-import { DeleteData } from '../data/base/delete-data';
-import { testDeleteDataImplementation } from '../data/base/delete-data.spec';
-import { SearchData } from '../data/base/search-data';
-import { testSearchDataImplementation } from '../data/base/search-data.spec';
-import { HrefOnlyDataService } from '../data/href-only-data.service';
-import { PostRequest } from '../data/request.models';
-import { RequestService } from '../data/request.service';
-import { RequestEntry } from '../data/request-entry.model';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { getMockHrefOnlyDataService } from '../mocks/href-only-data.service.mock';
-import { NotificationsService } from '../notifications/notifications.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Item } from '../shared/item.model';
-import { PageInfo } from '../shared/page-info.model';
+import { DeleteData } from '../data';
+import { testDeleteDataImplementation } from '../data';
+import { SearchData } from '../data';
+import { testSearchDataImplementation } from '../data';
+import { HrefOnlyDataService } from '../data';
+import { PostRequest } from '../data';
+import { RequestService } from '../data';
+import { RequestEntry } from '../data';
+import { HttpOptions } from '../dspace-rest';
+import { getMockHrefOnlyDataService } from '../mocks';
+import { NotificationsService } from '../notifications';
+import { HALEndpointService } from '../shared';
+import { Item } from '../shared';
+import { PageInfo } from '../shared';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../utilities/remote-data.utils';
-import { WorkspaceItem } from './models/workspaceitem.model';
+} from '../utilities';
+import { WorkspaceItem } from './models';
 import { WorkspaceitemDataService } from './workspaceitem-data.service';
 
 describe('WorkspaceitemDataService test', () => {

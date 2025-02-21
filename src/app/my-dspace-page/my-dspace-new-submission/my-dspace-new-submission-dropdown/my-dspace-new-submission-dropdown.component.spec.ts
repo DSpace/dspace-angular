@@ -15,15 +15,15 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { EntityTypeDataService } from '../../../../../modules/core/src/lib/core/data/entity-type-data.service';
-import { ItemType } from '../../../../../modules/core/src/lib/core/shared/item-relationships/item-type.model';
-import { PageInfo } from '../../../../../modules/core/src/lib/core/shared/page-info.model';
-import { ResourceType } from '../../../../../modules/core/src/lib/core/shared/resource-type';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { EntityTypeDataService } from '@dspace/core';
+import { ItemType } from '@dspace/core';
+import { PageInfo } from '@dspace/core';
+import { ResourceType } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import {
   createPaginatedList,
   createTestComponent,
-} from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+} from '@dspace/core';
 import { MyDSpaceNewSubmissionDropdownComponent } from './my-dspace-new-submission-dropdown.component';
 
 export function getMockEntityTypeService(): EntityTypeDataService {

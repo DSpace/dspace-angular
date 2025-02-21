@@ -18,17 +18,17 @@ import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { HostWindowServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/host-window-service.stub';
-import { SectionsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/sections-service.stub';
-import { SubmissionServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/submission-service.stub';
-import { createTestComponent } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+import { HostWindowServiceStub } from '@dspace/core';
+import { SectionsServiceStub } from '@dspace/core';
+import { SubmissionServiceStub } from '@dspace/core';
+import { createTestComponent } from '@dspace/core';
 import { HostWindowService } from '../../../shared/host-window.service';
 import {
   mockSubmissionCollectionId,
   mockSubmissionId,
 } from '../../../shared/mocks/submission.mock';
 import { SectionsService } from '../../sections/sections.service';
-import { SubmissionService } from '../../submission.service';
+import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
 import { SubmissionFormSectionAddComponent } from './submission-form-section-add.component';
 
 const mockAvailableSections: any = [

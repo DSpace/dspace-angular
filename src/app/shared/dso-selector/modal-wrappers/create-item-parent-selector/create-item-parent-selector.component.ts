@@ -16,9 +16,9 @@ import { environment } from '../../../../../environments/environment';
 import {
   SortDirection,
   SortOptions,
-} from '../../../../../../modules/core/src/lib/core/cache/models/sort-options.model';
-import { DSpaceObject } from '../../../../../../modules/core/src/lib/core/shared/dspace-object.model';
-import { DSpaceObjectType } from '../../../../../../modules/core/src/lib/core/shared/dspace-object-type.model';
+} from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
+import { DSpaceObjectType } from '@dspace/core';
 import { AuthorizedCollectionSelectorComponent } from '../../dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 import {
   DSOSelectorModalWrapperComponent,

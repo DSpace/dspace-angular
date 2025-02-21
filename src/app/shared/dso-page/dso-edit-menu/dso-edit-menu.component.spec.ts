@@ -12,12 +12,12 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '../../../../../modules/core/src/lib/core/auth/auth.service';
-import { AuthorizationDataService } from '../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { AuthServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/auth-service.stub';
-import { MenuServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/menu-service.stub';
+import { AuthService } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { AuthServiceStub } from '@dspace/core';
+import { MenuServiceStub } from '@dspace/core';
 import { MenuService } from '../../menu/menu.service';
-import { MenuItemModel } from '../../menu/menu-item/models/menu-item.model';
+import { MenuItemModel } from '../../../../../modules/core/src/lib/core/states/menu/menu-item.model';
 import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { ThemeService } from '../../theme-support/theme.service';
 import { DsoEditMenuComponent } from './dso-edit-menu.component';

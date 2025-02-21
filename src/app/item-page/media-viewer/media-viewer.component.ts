@@ -19,16 +19,16 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import { MediaViewerConfig } from '../../../../modules/core/src/lib/core/config/media-viewer-config.interface';
-import { BitstreamDataService } from '../../../../modules/core/src/lib/core/data/bitstream-data.service';
-import { followLink } from '../../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { PaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { Bitstream } from '../../../../modules/core/src/lib/core/shared/bitstream.model';
-import { BitstreamFormat } from '../../../../modules/core/src/lib/core/shared/bitstream-format.model';
-import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
-import { MediaViewerItem } from '../../../../modules/core/src/lib/core/shared/media-viewer-item.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../../modules/core/src/lib/core/shared/operators';
+import { MediaViewerConfig } from '@dspace/core';
+import { BitstreamDataService } from '@dspace/core';
+import { followLink } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { Bitstream } from '@dspace/core';
+import { BitstreamFormat } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { MediaViewerItem } from '@dspace/core';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ThemedThumbnailComponent } from '../../thumbnail/themed-thumbnail.component';

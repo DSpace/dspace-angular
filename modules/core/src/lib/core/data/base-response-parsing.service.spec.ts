@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
-import { CacheableObject } from '../cache/cacheable-object.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { DSpaceObject } from '../shared/dspace-object.model';
+import { CacheableObject } from '../cache';
+import { ObjectCacheService } from '../cache';
+import { DSpaceObject } from '../shared';
 import { BaseResponseParsingService } from './base-response-parsing.service';
 import { GetRequest } from './request.models';
 import { RestRequest } from './rest-request.model';

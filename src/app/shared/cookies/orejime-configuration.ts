@@ -1,14 +1,14 @@
 import {
   IMPERSONATING_COOKIE,
   REDIRECT_COOKIE,
-} from '../../../../modules/core/src/lib/core/auth/auth.service';
-import { TOKENITEM } from '../../../../modules/core/src/lib/core/auth/models/auth-token-info.model';
+} from '@dspace/core';
+import { TOKENITEM } from '@dspace/core';
 import {
   CAPTCHA_COOKIE,
   CAPTCHA_NAME,
-} from '../../../../modules/core/src/lib/core/google-recaptcha/google-recaptcha.service';
-import { LANG_COOKIE } from '../../../../modules/core/src/lib/core/locale/locale.service';
-import { NativeWindowRef } from '../../../../modules/core/src/lib/core/services/window.service';
+} from '@dspace/core';
+import { LANG_COOKIE } from '@dspace/core';
+import { NativeWindowRef } from '@dspace/core';
 
 /**
  * Cookie for has_agreed_end_user

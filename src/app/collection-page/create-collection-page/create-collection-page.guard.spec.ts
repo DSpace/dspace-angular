@@ -1,11 +1,11 @@
 import { first } from 'rxjs/operators';
 
-import { RouterMock } from '../../../../modules/core/src/lib/core/mocks/router.mock';
-import { Community } from '../../../../modules/core/src/lib/core/shared/community.model';
+import { RouterMock } from '@dspace/core';
+import { Community } from '@dspace/core';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+} from '@dspace/core';
 import { createCollectionPageGuard } from './create-collection-page.guard';
 
 describe('createCollectionPageGuard', () => {

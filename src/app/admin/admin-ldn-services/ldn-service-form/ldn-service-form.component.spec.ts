@@ -35,14 +35,14 @@ import {
   of,
 } from 'rxjs';
 
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { RouteService } from '../../../../../modules/core/src/lib/core/services/route.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { RouterStub } from '../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
+import { NotificationsService } from '@dspace/core';
+import { RouteService } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { RouterStub } from '@dspace/core';
 import { MockActivatedRoute } from '../../../shared/mocks/active-router.mock';
-import { LdnItemfiltersService } from '../ldn-services-data/ldn-itemfilters-data.service';
-import { LdnServicesService } from '../ldn-services-data/ldn-services-data.service';
+import { LdnItemfiltersService } from '../../../../../modules/core/src/lib/core/admin/ldn-services-data/ldn-itemfilters-data.service';
+import { LdnServicesService } from '../../../../../modules/core/src/lib/core/admin/ldn-services-data/ldn-services-data.service';
 import { LdnServiceFormComponent } from './ldn-service-form.component';
 
 describe('LdnServiceFormEditComponent', () => {

@@ -25,9 +25,9 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import { BitstreamDataService } from '../../../../modules/core/src/lib/core/data/bitstream-data.service';
-import { BundleDataService } from '../../../../modules/core/src/lib/core/data/bundle-data.service';
-import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
+import { BitstreamDataService } from '@dspace/core';
+import { BundleDataService } from '@dspace/core';
+import { Item } from '@dspace/core';
 import {
   HostWindowService,
   WidthCategory,

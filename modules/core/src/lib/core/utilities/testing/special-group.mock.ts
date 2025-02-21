@@ -3,10 +3,10 @@ import { Observable } from 'rxjs';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../data/paginated-list.model';
-import { RemoteData } from '../../data/remote-data';
-import { Group } from '../../eperson/models/group.model';
-import { PageInfo } from '../../shared/page-info.model';
+} from '../../data';
+import { RemoteData } from '../../data';
+import { Group } from '../../eperson';
+import { PageInfo } from '../../shared';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,

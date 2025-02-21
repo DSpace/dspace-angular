@@ -4,10 +4,10 @@ import {
   deserialize,
 } from 'cerialize';
 
-import { typedObject } from '../cache/builders/build-decorators';
-import { TypedObject } from '../cache/typed-object.model';
-import { ListableObject } from '../object-collection/listable-object.model';
-import { excludeFromEquals } from '../utilities/equals.decorators';
+import { typedObject } from '../cache';
+import { TypedObject } from '../cache';
+import { ListableObject } from '../object-collection';
+import { excludeFromEquals } from '../utilities';
 import { BROWSE_ENTRY } from './browse-entry.resource-type';
 import { GenericConstructor } from './generic-constructor';
 import { HALLink } from './hal-link.model';

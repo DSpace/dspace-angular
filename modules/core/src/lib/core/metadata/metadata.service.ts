@@ -4,7 +4,7 @@ import { hasValue } from '@dspace/shared/utils';
 import {
   MetadataValue,
   VIRTUAL_METADATA_PREFIX,
-} from '../shared/metadata.models';
+} from '../shared';
 
 /**
  * Service for working with DSpace object metadata.
@@ -15,14 +15,14 @@ import {
 export class MetadataService {
 
   /**
-   * Returns true if this Metadata authority key starts with 'virtual::'
+   * Returns true if this PolicyMetadata authority key starts with 'virtual::'
    */
   public isVirtual(metadataValue: MetadataValue | undefined): boolean {
     return hasValue(metadataValue?.authority) && metadataValue.authority.startsWith(VIRTUAL_METADATA_PREFIX);
   }
 
   /**
-   * If this is a virtual Metadata, it returns everything in the authority key after 'virtual::'.
+   * If this is a virtual PolicyMetadata, it returns everything in the authority key after 'virtual::'.
    *
    * Returns undefined otherwise.
    */

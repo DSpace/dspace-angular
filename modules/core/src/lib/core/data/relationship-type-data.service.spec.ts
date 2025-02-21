@@ -1,18 +1,18 @@
 import { hasValueOperator } from '@dspace/shared/utils';
 import { of as observableOf } from 'rxjs';
 
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { getMockRemoteDataBuildService } from '../mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../mocks/request.service.mock';
-import { ItemType } from '../shared/item-relationships/item-type.model';
-import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
+import { ObjectCacheService } from '../cache';
+import { getMockRemoteDataBuildService } from '../mocks';
+import { getMockRequestService } from '../mocks';
+import { ItemType } from '../shared';
+import { RelationshipType } from '../shared';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../utilities/remote-data.utils';
-import { HALEndpointServiceStub } from '../utilities/testing/hal-endpoint-service.stub';
-import { ObjectCacheServiceStub } from '../utilities/testing/object-cache-service.stub';
-import { createPaginatedList } from '../utilities/testing/utils.test';
+} from '../utilities';
+import { HALEndpointServiceStub } from '../utilities';
+import { ObjectCacheServiceStub } from '../utilities';
+import { createPaginatedList } from '../utilities';
 import { RelationshipTypeDataService } from './relationship-type-data.service';
 import { RequestService } from './request.service';
 

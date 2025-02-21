@@ -5,10 +5,10 @@ import {
 import { RouterLink } from '@angular/router';
 
 import { getCollectionEditRoute } from '../../../../../collection-page/collection-page-routing-paths';
-import { CollectionSearchResult } from '../../../../../../../modules/core/src/lib/core/object-collection/collection-search-result.model';
-import { Collection } from '../../../../../../../modules/core/src/lib/core/shared/collection.model';
-import { Context } from '../../../../../../../modules/core/src/lib/core/shared/context.model';
-import { ViewMode } from '../../../../../../../modules/core/src/lib/core/shared/view-mode.model';
+import { CollectionSearchResult } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { Context } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { CollectionSearchResultGridElementComponent } from '../../../../../shared/object-grid/search-result-grid-element/collection-search-result/collection-search-result-grid-element.component';
 import { SearchResultGridElementComponent } from '../../../../../shared/object-grid/search-result-grid-element/search-result-grid-element.component';

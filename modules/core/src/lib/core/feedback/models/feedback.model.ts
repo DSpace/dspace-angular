@@ -3,9 +3,9 @@ import {
   inheritSerialization,
 } from 'cerialize';
 
-import { typedObject } from '../../cache/builders/build-decorators';
-import { DSpaceObject } from '../../shared/dspace-object.model';
-import { HALLink } from '../../shared/hal-link.model';
+import { typedObject } from '../../cache';
+import { DSpaceObject } from '../../shared';
+import { HALLink } from '../../shared';
 import { FEEDBACK } from './feedback.resource-type';
 
 @typedObject

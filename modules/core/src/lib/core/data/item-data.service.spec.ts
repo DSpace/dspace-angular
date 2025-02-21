@@ -7,18 +7,18 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { BrowseService } from '../browse/browse.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { RestResponse } from '../cache/response.models';
+import { BrowseService } from '../browse';
+import { ObjectCacheService } from '../cache';
+import { RestResponse } from '../cache';
 import { CoreState } from '../core-state.model';
-import { getMockRemoteDataBuildService } from '../mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../mocks/request.service.mock';
-import { NotificationsService } from '../notifications/notifications.service';
-import { ExternalSourceEntry } from '../shared/external-source-entry.model';
-import { HALEndpointServiceStub } from '../utilities/testing/hal-endpoint-service.stub';
-import { testCreateDataImplementation } from './base/create-data.spec';
-import { testDeleteDataImplementation } from './base/delete-data.spec';
-import { testPatchDataImplementation } from './base/patch-data.spec';
+import { getMockRemoteDataBuildService } from '../mocks';
+import { getMockRequestService } from '../mocks';
+import { NotificationsService } from '../notifications';
+import { ExternalSourceEntry } from '../shared';
+import { HALEndpointServiceStub } from '../utilities';
+import { testCreateDataImplementation } from './base';
+import { testDeleteDataImplementation } from './base';
+import { testPatchDataImplementation } from './base';
 import { FindListOptions } from './find-list-options.model';
 import { ItemDataService } from './item-data.service';
 import {

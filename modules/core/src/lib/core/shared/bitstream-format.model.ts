@@ -4,10 +4,10 @@ import {
   deserializeAs,
 } from 'cerialize';
 
-import { typedObject } from '../cache/builders/build-decorators';
-import { CacheableObject } from '../cache/cacheable-object.model';
-import { IDToUUIDSerializer } from '../cache/id-to-uuid-serializer';
-import { excludeFromEquals } from '../utilities/equals.decorators';
+import { typedObject } from '../cache';
+import { CacheableObject } from '../cache';
+import { IDToUUIDSerializer } from '../cache';
+import { excludeFromEquals } from '../utilities';
 import { BITSTREAM_FORMAT } from './bitstream-format.resource-type';
 import { BitstreamFormatSupportLevel } from './bitstream-format-support-level';
 import { HALLink } from './hal-link.model';

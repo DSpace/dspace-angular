@@ -25,9 +25,9 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { TranslateLoaderMock } from '../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
-import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
-import { createSuccessfulRemoteDataObject } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { TranslateLoaderMock } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { EditItemPageComponent } from './edit-item-page.component';
 
 describe('EditItemPageComponent', () => {

@@ -20,20 +20,20 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { DSONameService } from '@dspace/core';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { BitstreamDataService } from '../../../../../../modules/core/src/lib/core/data/bitstream-data.service';
-import { followLink } from '../../../../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { PaginatedList } from '../../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../../modules/core/src/lib/core/data/remote-data';
-import { NotificationsService } from '../../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { PaginationService } from '../../../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { Bitstream } from '../../../../../../modules/core/src/lib/core/shared/bitstream.model';
-import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
-import { PaginationComponentOptions } from '../../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+} from '@dspace/core';
+import { BitstreamDataService } from '@dspace/core';
+import { followLink } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { Bitstream } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';

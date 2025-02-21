@@ -5,18 +5,18 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { RequestParam } from '../../cache/models/request-param.model';
-import { EPerson } from '../../eperson/models/eperson.model';
-import { getMockObjectCacheService } from '../../mocks/object-cache.service.mock';
-import { Authorization } from '../../shared/authorization.model';
-import { Feature } from '../../shared/feature.model';
-import { Site } from '../../shared/site.model';
+import { RequestParam } from '../../cache';
+import { EPerson } from '../../eperson';
+import { getMockObjectCacheService } from '../../mocks';
+import { Authorization } from '../../shared';
+import { Feature } from '../../shared';
+import { Site } from '../../shared';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../utilities/remote-data.utils';
-import { createPaginatedList } from '../../utilities/testing/utils.test';
-import { testSearchDataImplementation } from '../base/search-data.spec';
+} from '../../utilities';
+import { createPaginatedList } from '../../utilities';
+import { testSearchDataImplementation } from '../base';
 import { FindListOptions } from '../find-list-options.model';
 import { SiteDataService } from '../site-data.service';
 import { AuthorizationDataService } from './authorization-data.service';

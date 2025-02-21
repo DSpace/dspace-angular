@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ListableObject } from '../../../../../../modules/core/src/lib/core/object-collection/listable-object.model';
+import { ListableObject } from '@dspace/core';
 
 @Component({
   selector: 'ds-importable-list-item-control',

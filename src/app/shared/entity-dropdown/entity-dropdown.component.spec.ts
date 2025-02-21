@@ -16,10 +16,10 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { TestScheduler } from 'rxjs/testing';
 
-import { EntityTypeDataService } from '../../../../modules/core/src/lib/core/data/entity-type-data.service';
-import { ItemType } from '../../../../modules/core/src/lib/core/shared/item-relationships/item-type.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { createPaginatedList } from '../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+import { EntityTypeDataService } from '@dspace/core';
+import { ItemType } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { createPaginatedList } from '@dspace/core';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { EntityDropdownComponent } from './entity-dropdown.component';
 

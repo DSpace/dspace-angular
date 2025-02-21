@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { BitstreamFormat } from '../../shared/bitstream-format.model';
+import { BitstreamFormat } from '../../shared';
 import {
   BitstreamFormatsRegistryDeselectAction,
   BitstreamFormatsRegistryDeselectAllAction,

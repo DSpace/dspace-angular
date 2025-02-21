@@ -20,8 +20,8 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { RoleService } from '../../../../modules/core/src/lib/core/roles/role.service';
-import { RoleType } from '../../../../modules/core/src/lib/core/roles/role-types';
+import { RoleService } from '@dspace/core';
+import { RoleType } from '@dspace/core';
 
 @Directive({
   selector: '[dsShowOnlyForRole],[dsShowExceptForRole]',

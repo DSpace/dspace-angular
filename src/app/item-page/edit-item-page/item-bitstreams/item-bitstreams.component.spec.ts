@@ -15,31 +15,31 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ObjectCacheService } from '../../../../../modules/core/src/lib/core/cache/object-cache.service';
-import { BitstreamDataService } from '../../../../../modules/core/src/lib/core/data/bitstream-data.service';
-import { BundleDataService } from '../../../../../modules/core/src/lib/core/data/bundle-data.service';
-import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
-import { FieldChangeType } from '../../../../../modules/core/src/lib/core/data/object-updates/field-change-type.model';
-import { ObjectUpdatesService } from '../../../../../modules/core/src/lib/core/data/object-updates/object-updates.service';
-import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
-import { getMockRequestService } from '../../../../../modules/core/src/lib/core/mocks/request.service.mock';
+import { ObjectCacheService } from '@dspace/core';
+import { BitstreamDataService } from '@dspace/core';
+import { BundleDataService } from '@dspace/core';
+import { ItemDataService } from '@dspace/core';
+import { FieldChangeType } from '@dspace/core';
+import { ObjectUpdatesService } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { getMockRequestService } from '@dspace/core';
 import {
   INotification,
   Notification,
-} from '../../../../../modules/core/src/lib/core/notifications/models/notification.model';
-import { NotificationType } from '../../../../../modules/core/src/lib/core/notifications/models/notification-type';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Bitstream } from '../../../../../modules/core/src/lib/core/shared/bitstream.model';
-import { Bundle } from '../../../../../modules/core/src/lib/core/shared/bundle.model';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { SearchConfigurationService } from '../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
+} from '@dspace/core';
+import { NotificationType } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Bitstream } from '@dspace/core';
+import { Bundle } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { SearchConfigurationService } from '@dspace/core';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { BitstreamDataServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/bitstream-data-service.stub';
-import { RouterStub } from '../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
-import { createPaginatedList } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+} from '@dspace/core';
+import { BitstreamDataServiceStub } from '@dspace/core';
+import { RouterStub } from '@dspace/core';
+import { createPaginatedList } from '@dspace/core';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { ObjectValuesPipe } from '../../../shared/utils/object-values-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';

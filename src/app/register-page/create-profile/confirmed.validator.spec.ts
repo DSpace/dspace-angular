@@ -1,7 +1,7 @@
 import {
   fakeAsync,
   waitForAsync,
-} from '@angular/core/testing';
+} from '@angular/core';
 import {
   UntypedFormBuilder,
   UntypedFormControl,

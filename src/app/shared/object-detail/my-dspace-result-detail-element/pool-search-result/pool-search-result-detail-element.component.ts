@@ -17,19 +17,19 @@ import {
   mergeMap,
   tap,
 } from 'rxjs/operators';
-import { Context } from '../../../../../../modules/core/src/lib/core/shared/context.model';
+import { Context } from '@dspace/core';
 
-import { DSONameService } from '../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../../../modules/core/src/lib/core/cache/builders/link.service';
-import { ObjectCacheService } from '../../../../../../modules/core/src/lib/core/cache/object-cache.service';
-import { followLink } from '../../../../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { RemoteData } from '../../../../../../modules/core/src/lib/core/data/remote-data';
-import { PoolTaskSearchResult } from '../../../../../../modules/core/src/lib/core/object-collection/pool-task-search-result.model';
-import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../../../../../modules/core/src/lib/core/shared/operators';
-import { ViewMode } from '../../../../../../modules/core/src/lib/core/shared/view-mode.model';
-import { WorkflowItem } from '../../../../../../modules/core/src/lib/core/submission/models/workflowitem.model';
-import { PoolTask } from '../../../../../../modules/core/src/lib/core/tasks/models/pool-task-object.model';
+import { DSONameService } from '@dspace/core';
+import { LinkService } from '@dspace/core';
+import { ObjectCacheService } from '@dspace/core';
+import { followLink } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { PoolTaskSearchResult } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
+import { WorkflowItem } from '@dspace/core';
+import { PoolTask } from '@dspace/core';
 import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';

@@ -14,10 +14,10 @@ import {
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Collection } from '../../../../../../modules/core/src/lib/core/shared/collection.model';
-import { MetadataValue } from '../../../../../../modules/core/src/lib/core/shared/metadata.models';
-import { createSuccessfulRemoteDataObject } from '../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { RouterStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
+import { Collection } from '@dspace/core';
+import { MetadataValue } from '@dspace/core';
+import { createSuccessfulRemoteDataObject } from '@dspace/core';
+import { RouterStub } from '@dspace/core';
 import { AuthorizedCollectionSelectorComponent } from '../../dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 import { CreateItemParentSelectorComponent } from './create-item-parent-selector.component';
 

@@ -15,17 +15,17 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
-import { DSONameService } from '../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { ItemDataService } from '../../../../modules/core/src/lib/core/data/item-data.service';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { redirectOn4xx } from '../../../../modules/core/src/lib/core/shared/authorized.operators';
-import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
-import { ItemRequest } from '../../../../modules/core/src/lib/core/shared/item-request.model';
+import { AuthService } from '@dspace/core';
+import { DSONameService } from '@dspace/core';
+import { ItemDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { redirectOn4xx } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { ItemRequest } from '@dspace/core';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '../../../../modules/core/src/lib/core/shared/operators';
+} from '@dspace/core';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../shared/utils/var.directive';

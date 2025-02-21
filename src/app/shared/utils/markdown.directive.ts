@@ -21,7 +21,7 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import { MathService } from '../../../../modules/core/src/lib/core/shared/math.service';
+import { MathService } from '@dspace/core';
 
 const markdownItLoader = async () => (await import('markdown-it')).default;
 type LazyMarkdownIt = ReturnType<typeof markdownItLoader>;

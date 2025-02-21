@@ -23,17 +23,17 @@ import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
-import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { CollectionDataService } from '../../../../../modules/core/src/lib/core/data/collection-data.service';
-import { CommunityDataService } from '../../../../../modules/core/src/lib/core/data/community-data.service';
-import { JsonPatchOperationPathCombiner } from '../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operations-builder';
-import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
-import { SubmissionJsonPatchOperationsService } from '../../../../../modules/core/src/lib/core/submission/submission-json-patch-operations.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/submission-json-patch-operations-service.stub';
-import { SubmissionServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/submission-service.stub';
-import { createTestComponent } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+import { DSONameService } from '@dspace/core';
+import { CollectionDataService } from '@dspace/core';
+import { CommunityDataService } from '@dspace/core';
+import { JsonPatchOperationPathCombiner } from '@dspace/core';
+import { JsonPatchOperationsBuilder } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { SubmissionJsonPatchOperationsService } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core';
+import { SubmissionServiceStub } from '@dspace/core';
+import { createTestComponent } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedCollectionDropdownComponent } from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
@@ -42,7 +42,7 @@ import {
   mockSubmissionRestResponse,
 } from '../../../shared/mocks/submission.mock';
 import { SectionsService } from '../../sections/sections.service';
-import { SubmissionService } from '../../submission.service';
+import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
 import { SubmissionFormCollectionComponent } from './submission-form-collection.component';
 
 describe('SubmissionFormCollectionComponent Component', () => {

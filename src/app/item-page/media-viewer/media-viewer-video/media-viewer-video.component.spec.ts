@@ -12,10 +12,10 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { MockBitstreamFormat1 } from '../../../../../modules/core/src/lib/core/mocks/item.mock';
-import { TranslateLoaderMock } from '../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
-import { Bitstream } from '../../../../../modules/core/src/lib/core/shared/bitstream.model';
-import { MediaViewerItem } from '../../../../../modules/core/src/lib/core/shared/media-viewer-item.model';
+import { MockBitstreamFormat1 } from '@dspace/core';
+import { TranslateLoaderMock } from '@dspace/core';
+import { Bitstream } from '@dspace/core';
+import { MediaViewerItem } from '@dspace/core';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { FileSizePipe } from '../../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';

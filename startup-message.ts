@@ -1,5 +1,5 @@
 import PACKAGE_JSON from './package.json';
-import { BuildConfig } from './modules/core/src/lib/core/config/build-config.interface';
+import { BuildConfig } from '@dspace/core';
 
 /**
  * Log a message at the start of the application containing the version number and the environment.

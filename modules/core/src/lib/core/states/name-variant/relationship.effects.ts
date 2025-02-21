@@ -30,28 +30,28 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { SelectableListService } from '../../../../../../../src/app/shared/object-list/selectable-list/selectable-list.service';
-import { SaveSubmissionSectionFormSuccessAction } from '../../../../../../../src/app/submission/objects/submission-objects.actions';
-import { SubmissionState } from '../../../../../../../src/app/submission/submission.reducers';
-import { ObjectCacheService } from '../../cache/object-cache.service';
-import { ServerSyncBufferActionTypes } from '../../cache/server-sync-buffer.actions';
-import { followLink } from '../../data/follow-link-config.model';
-import { RelationshipDataService } from '../../data/relationship-data.service';
-import { RelationshipTypeDataService } from '../../data/relationship-type-data.service';
-import { RemoteData } from '../../data/remote-data';
-import { RequestService } from '../../data/request.service';
-import { JsonPatchOperationsActionTypes } from '../../json-patch/json-patch-operations.actions';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { Item } from '../../shared/item.model';
-import { Relationship } from '../../shared/item-relationships/relationship.model';
-import { RelationshipType } from '../../shared/item-relationships/relationship-type.model';
+import { SelectableListService } from '../selectable-list/selectable-list.service';
+import { SaveSubmissionSectionFormSuccessAction } from '../submission/submission-objects.actions';
+import { SubmissionState } from '../submission/submission.reducers';
+import { ObjectCacheService } from '../../cache';
+import { ServerSyncBufferActionTypes } from '../../cache';
+import { followLink } from '../../data';
+import { RelationshipDataService } from '../../data';
+import { RelationshipTypeDataService } from '../../data';
+import { RemoteData } from '../../data';
+import { RequestService } from '../../data';
+import { JsonPatchOperationsActionTypes } from '../../json-patch';
+import { NotificationsService } from '../../notifications';
+import { Item } from '../../shared';
+import { Relationship } from '../../shared';
+import { RelationshipType } from '../../shared';
 import {
   DEBOUNCE_TIME_OPERATOR,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '../../shared/operators';
-import { SubmissionObject } from '../../submission/models/submission-object.model';
-import { SubmissionObjectDataService } from '../../submission/submission-object-data.service';
+} from '../../shared';
+import { SubmissionObject } from '../../submission';
+import { SubmissionObjectDataService } from '../../submission';
 import {
   AddRelationshipAction,
   RelationshipAction,

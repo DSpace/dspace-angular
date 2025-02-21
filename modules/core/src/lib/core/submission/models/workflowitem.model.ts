@@ -6,9 +6,9 @@ import {
 import {
   inheritLinkAnnotations,
   typedObject,
-} from '../../cache/builders/build-decorators';
-import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
-import { WORKFLOWITEM } from '../../eperson/models/workflowitem.resource-type';
+} from '../../cache';
+import { IDToUUIDSerializer } from '../../cache';
+import { WORKFLOWITEM } from '../../eperson';
 import { SubmissionObject } from './submission-object.model';
 
 /**

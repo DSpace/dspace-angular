@@ -24,8 +24,8 @@ import {
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { EPersonDataService } from '../../../../modules/core/src/lib/core/eperson/eperson-data.service';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { EPersonDataService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
 import { debounceTimeWorkaround as debounceTime } from '../../../../modules/core/src/lib/core/shared/operators';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { FormComponent } from '../../shared/form/form.component';

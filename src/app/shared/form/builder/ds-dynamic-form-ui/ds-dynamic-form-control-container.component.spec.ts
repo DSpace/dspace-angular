@@ -61,15 +61,15 @@ import { environment } from '../../../../../environments/environment';
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
-} from '../../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { RelationshipDataService } from '../../../../../../modules/core/src/lib/core/data/relationship-data.service';
-import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
-import { WorkspaceItem } from '../../../../../../modules/core/src/lib/core/submission/models/workspaceitem.model';
-import { SubmissionObjectDataService } from '../../../../../../modules/core/src/lib/core/submission/submission-object-data.service';
-import { VocabularyOptions } from '../../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-options.model';
-import { createSuccessfulRemoteDataObject } from '../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { SubmissionService } from '../../../../submission/submission.service';
-import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
+} from '@dspace/core';
+import { RelationshipDataService } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { WorkspaceItem } from '@dspace/core';
+import { SubmissionObjectDataService } from '@dspace/core';
+import { VocabularyOptions } from '@dspace/core';
+import { createSuccessfulRemoteDataObject } from '@dspace/core';
+import { SubmissionService } from '../../../../../../modules/core/src/lib/core/submission/submission.service';
+import { SelectableListService } from '../../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
 import { FormBuilderService } from '../form-builder.service';
 import { DsDynamicFormControlContainerComponent } from './ds-dynamic-form-control-container.component';
 import { dsDynamicFormControlMapFn } from './ds-dynamic-form-control-map-fn';

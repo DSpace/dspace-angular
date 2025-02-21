@@ -8,12 +8,12 @@
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../cache/object-cache.service';
-import { getMockRemoteDataBuildService } from '../../mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../../mocks/request.service.mock';
-import { HALEndpointService } from '../../shared/hal-endpoint.service';
-import { HALEndpointServiceStub } from '../../utilities/testing/hal-endpoint-service.stub';
+import { RemoteDataBuildService } from '../../cache';
+import { ObjectCacheService } from '../../cache';
+import { getMockRemoteDataBuildService } from '../../mocks';
+import { getMockRequestService } from '../../mocks';
+import { HALEndpointService } from '../../shared';
+import { HALEndpointServiceStub } from '../../utilities';
 import { followLink } from '../follow-link-config.model';
 import { RemoteData } from '../remote-data';
 import { RequestService } from '../request.service';

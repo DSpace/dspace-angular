@@ -1,5 +1,5 @@
-import { SearchResult } from '../shared/search/models/search-result.model';
-import { WorkspaceItem } from '../submission/models/workspaceitem.model';
+import { SearchResult } from '../shared';
+import { WorkspaceItem } from '../submission';
 
 /**
  * Represents a search result object of a WorkspaceItem object

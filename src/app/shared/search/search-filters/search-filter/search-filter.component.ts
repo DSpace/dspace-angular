@@ -31,15 +31,15 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { RemoteData } from '../../../../../../modules/core/src/lib/core/data/remote-data';
-import { AppliedFilter } from '../../../../../../modules/core/src/lib/core/shared/search/models/applied-filter.model';
-import { FacetValues } from '../../../../../../modules/core/src/lib/core/shared/search/models/facet-values.model';
-import { SearchFilterConfig } from '../../../../../../modules/core/src/lib/core/shared/search/models/search-filter-config.model';
-import { SearchOptions } from '../../../../../../modules/core/src/lib/core/shared/search/models/search-options.model';
-import { SearchService } from '../../../../../../modules/core/src/lib/core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../../../../modules/core/src/lib/core/shared/search/search-filter.service';
-import { SequenceService } from '../../../../../../modules/core/src/lib/core/shared/sequence.service';
+import { RemoteData } from '@dspace/core';
+import { AppliedFilter } from '@dspace/core';
+import { FacetValues } from '@dspace/core';
+import { SearchFilterConfig } from '@dspace/core';
+import { SearchOptions } from '@dspace/core';
+import { SearchService } from '@dspace/core';
+import { SearchConfigurationService } from '@dspace/core';
+import { SearchFilterService } from '@dspace/core';
+import { SequenceService } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
 import { slide } from '../../../animations/slide';
 import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';

@@ -26,18 +26,18 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { OrcidHistory } from '../../../../../modules/core/src/lib/core/orcid/model/orcid-history.model';
-import { OrcidQueue } from '../../../../../modules/core/src/lib/core/orcid/model/orcid-queue.model';
-import { OrcidAuthService } from '../../../../../modules/core/src/lib/core/orcid/orcid-auth.service';
-import { OrcidHistoryDataService } from '../../../../../modules/core/src/lib/core/orcid/orcid-history-data.service';
-import { OrcidQueueDataService } from '../../../../../modules/core/src/lib/core/orcid/orcid-queue-data.service';
-import { PaginationService } from '../../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../../../../modules/core/src/lib/core/shared/operators';
-import { PaginationComponentOptions } from '../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { OrcidHistory } from '@dspace/core';
+import { OrcidQueue } from '@dspace/core';
+import { OrcidAuthService } from '@dspace/core';
+import { OrcidHistoryDataService } from '@dspace/core';
+import { OrcidQueueDataService } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';

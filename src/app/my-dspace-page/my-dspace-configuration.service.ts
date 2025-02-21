@@ -13,24 +13,24 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { LinkService } from '../../../modules/core/src/lib/core/cache/builders/link.service';
-import { RemoteDataBuildService } from '../../../modules/core/src/lib/core/cache/builders/remote-data-build.service';
+import { LinkService } from '@dspace/core';
+import { RemoteDataBuildService } from '@dspace/core';
 import {
   SortDirection,
   SortOptions,
-} from '../../../modules/core/src/lib/core/cache/models/sort-options.model';
+} from '@dspace/core';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../modules/core/src/lib/core/config/app-config.interface';
-import { RequestService } from '../../../modules/core/src/lib/core/data/request.service';
-import { PaginationService } from '../../../modules/core/src/lib/core/pagination/pagination.service';
-import { RoleService } from '../../../modules/core/src/lib/core/roles/role.service';
-import { RouteService } from '../../../modules/core/src/lib/core/services/route.service';
-import { Context } from '../../../modules/core/src/lib/core/shared/context.model';
-import { HALEndpointService } from '../../../modules/core/src/lib/core/shared/hal-endpoint.service';
-import { PaginationComponentOptions } from '../../../modules/core/src/lib/core/shared/pagination-component-options.model';
-import { SearchConfigurationService } from '../../../modules/core/src/lib/core/shared/search/search-configuration.service';
+} from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { RoleService } from '@dspace/core';
+import { RouteService } from '@dspace/core';
+import { Context } from '@dspace/core';
+import { HALEndpointService } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
+import { SearchConfigurationService } from '@dspace/core';
 import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
 import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
 

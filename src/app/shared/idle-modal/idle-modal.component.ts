@@ -11,8 +11,8 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../environments/environment';
 import { AppState } from '../../app.reducer';
-import { LogOutAction } from '../../../../modules/core/src/lib/core/auth/auth.actions';
-import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
+import { LogOutAction } from '@dspace/core';
+import { AuthService } from '@dspace/core';
 
 @Component({
   selector: 'ds-idle-modal',

@@ -1,4 +1,4 @@
-import { Item } from '../../shared/item.model';
+import { Item } from '../../shared';
 import { IdentifiableDataServiceStub } from './identifiable-data-service.stub';
 
 /**

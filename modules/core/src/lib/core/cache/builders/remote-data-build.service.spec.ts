@@ -13,28 +13,28 @@ import { TestScheduler } from 'rxjs/testing';
 import {
   followLink,
   FollowLinkConfig,
-} from '../../data/follow-link-config.model';
+} from '../../data';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../data/paginated-list.model';
-import { RemoteData } from '../../data/remote-data';
-import { RequestService } from '../../data/request.service';
-import { RequestEntry } from '../../data/request-entry.model';
-import { RequestEntryState } from '../../data/request-entry-state.model';
-import { getMockLinkService } from '../../mocks/link-service.mock';
-import { getMockObjectCacheService } from '../../mocks/object-cache.service.mock';
-import { getMockRequestService } from '../../mocks/request.service.mock';
-import { HALLink } from '../../shared/hal-link.model';
-import { Item } from '../../shared/item.model';
-import { ITEM } from '../../shared/item.resource-type';
-import { PageInfo } from '../../shared/page-info.model';
-import { UnCacheableObject } from '../../shared/uncacheable-object.model';
+} from '../../data';
+import { RemoteData } from '../../data';
+import { RequestService } from '../../data';
+import { RequestEntry } from '../../data';
+import { RequestEntryState } from '../../data';
+import { getMockLinkService } from '../../mocks';
+import { getMockObjectCacheService } from '../../mocks';
+import { getMockRequestService } from '../../mocks';
+import { HALLink } from '../../shared';
+import { Item } from '../../shared';
+import { ITEM } from '../../shared';
+import { PageInfo } from '../../shared';
+import { UnCacheableObject } from '../../shared';
 import {
   createFailedRemoteDataObject,
   createPendingRemoteDataObject,
   createSuccessfulRemoteDataObject,
-} from '../../utilities/remote-data.utils';
+} from '../../utilities';
 import { ObjectCacheService } from '../object-cache.service';
 import { LinkService } from './link.service';
 import { RemoteDataBuildService } from './remote-data-build.service';

@@ -15,16 +15,16 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ScriptDataService } from '../../../../modules/core/src/lib/core/data/processes/script-data.service';
-import { RequestService } from '../../../../modules/core/src/lib/core/data/request.service';
-import { RouterMock } from '../../../../modules/core/src/lib/core/mocks/router.mock';
-import { TranslateLoaderMock } from '../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { ProcessParameter } from '../../../../modules/core/src/lib/core/processes/process-parameter.model';
-import { Script } from '../../../../modules/core/src/lib/core/scripts/script.model';
-import { ScriptParameter } from '../../../../modules/core/src/lib/core/scripts/script-parameter.model';
-import { ActivatedRouteStub } from '../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { ScriptDataService } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { RouterMock } from '@dspace/core';
+import { TranslateLoaderMock } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { ProcessParameter } from '@dspace/core';
+import { Script } from '@dspace/core';
+import { ScriptParameter } from '@dspace/core';
+import { ActivatedRouteStub } from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
 import { ProcessFormComponent } from './process-form.component';
 import { ScriptsSelectComponent } from './scripts-select/scripts-select.component';
 

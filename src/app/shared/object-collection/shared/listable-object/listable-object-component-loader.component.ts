@@ -7,11 +7,11 @@ import {
 } from '@angular/core';
 import { take } from 'rxjs/operators';
 
-import { ListableObject } from '../../../../../../modules/core/src/lib/core/object-collection/listable-object.model';
-import { Context } from '../../../../../../modules/core/src/lib/core/shared/context.model';
-import { DSpaceObject } from '../../../../../../modules/core/src/lib/core/shared/dspace-object.model';
-import { GenericConstructor } from '../../../../../../modules/core/src/lib/core/shared/generic-constructor';
-import { ViewMode } from '../../../../../../modules/core/src/lib/core/shared/view-mode.model';
+import { ListableObject } from '@dspace/core';
+import { Context } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
+import { GenericConstructor } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
 import { AbstractComponentLoaderComponent } from '../../../abstract-component-loader/abstract-component-loader.component';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { CollectionElementLinkType } from '../../collection-element-link.type';

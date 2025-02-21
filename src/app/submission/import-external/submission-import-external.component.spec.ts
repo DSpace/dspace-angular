@@ -20,25 +20,25 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { ExternalSourceDataService } from '../../../../modules/core/src/lib/core/data/external-source-data.service';
-import { RouteService } from '../../../../modules/core/src/lib/core/services/route.service';
-import { ExternalSourceEntry } from '../../../../modules/core/src/lib/core/shared/external-source-entry.model';
-import { PaginatedSearchOptions } from '../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
-import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
-import { SearchConfigurationService } from '../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
+import { ExternalSourceDataService } from '@dspace/core';
+import { RouteService } from '@dspace/core';
+import { ExternalSourceEntry } from '@dspace/core';
+import { PaginatedSearchOptions } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
+import { SearchConfigurationService } from '@dspace/core';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
-import { HostWindowServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/host-window-service.stub';
-import { routeServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/route-service.stub';
-import { RouterStub } from '../../../../modules/core/src/lib/core/utilities/testing/router.stub';
+} from '@dspace/core';
+import { ActivatedRouteStub } from '@dspace/core';
+import { HostWindowServiceStub } from '@dspace/core';
+import { routeServiceStub } from '@dspace/core';
+import { RouterStub } from '@dspace/core';
 import {
   createPaginatedList,
   createTestComponent,
-} from '../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+} from '@dspace/core';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { HostWindowService } from '../../shared/host-window.service';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';

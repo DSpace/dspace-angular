@@ -5,7 +5,7 @@
  *
  * http://www.dspace.org/license/
  */
-import { testFindAllDataImplementation } from '../data/base/find-all-data.spec';
+import { testFindAllDataImplementation } from '../data';
 import { SubmissionCcLicenseDataService } from './submission-cc-license-data.service';
 
 describe('SubmissionCcLicenseDataService', () => {

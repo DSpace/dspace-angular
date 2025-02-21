@@ -15,10 +15,10 @@ import {
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ActivatedRouteStub } from '../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
-import { QueryParamsDirectiveStub } from '../../../../../modules/core/src/lib/core/utilities/testing/query-params-directive.stub';
-import { RouterStub } from '../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
-import { RouterLinkDirectiveStub } from '../../../../../modules/core/src/lib/core/utilities/testing/router-link-directive.stub';
+import { ActivatedRouteStub } from '@dspace/core';
+import { QueryParamsDirectiveStub } from '@dspace/core';
+import { RouterStub } from '@dspace/core';
+import { RouterLinkDirectiveStub } from '@dspace/core';
 import { LinkMenuItemComponent } from './link-menu-item.component';
 
 describe('LinkMenuItemComponent', () => {

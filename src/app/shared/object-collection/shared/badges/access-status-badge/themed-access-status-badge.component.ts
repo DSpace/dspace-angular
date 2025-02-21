@@ -3,7 +3,7 @@ import {
   Input,
 } from '@angular/core';
 
-import { DSpaceObject } from '../../../../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { DSpaceObject } from '@dspace/core';
 import { ThemedComponent } from '../../../../theme-support/themed.component';
 import { AccessStatusBadgeComponent } from './access-status-badge.component';
 

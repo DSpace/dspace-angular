@@ -9,20 +9,20 @@ import {
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { DSONameService } from '../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../../../modules/core/src/lib/core/cache/builders/link.service';
+import { DSONameService } from '@dspace/core';
+import { LinkService } from '@dspace/core';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { followLink } from '../../../../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { ItemSearchResult } from '../../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
-import { WorkflowItemSearchResult } from '../../../../../../modules/core/src/lib/core/object-collection/workflow-item-search-result.model';
-import { Context } from '../../../../../../modules/core/src/lib/core/shared/context.model';
-import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../../modules/core/src/lib/core/shared/operators';
-import { ViewMode } from '../../../../../../modules/core/src/lib/core/shared/view-mode.model';
-import { WorkflowItem } from '../../../../../../modules/core/src/lib/core/submission/models/workflowitem.model';
+} from '@dspace/core';
+import { followLink } from '@dspace/core';
+import { ItemSearchResult } from '@dspace/core';
+import { WorkflowItemSearchResult } from '@dspace/core';
+import { Context } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
+import { WorkflowItem } from '@dspace/core';
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { WorkflowitemActionsComponent } from '../../../mydspace-actions/workflowitem/workflowitem-actions.component';
 import { CollectionElementLinkType } from '../../../object-collection/collection-element-link.type';

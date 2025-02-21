@@ -11,11 +11,11 @@ import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { AuthService } from '../../../../../modules/core/src/lib/core/auth/auth.service';
-import { LinkService } from '../../../../../modules/core/src/lib/core/cache/builders/link.service';
-import { AuthorizationDataService } from '../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
-import { ActivatedRouteStub } from '../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+import { AuthService } from '@dspace/core';
+import { LinkService } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { ActivatedRouteStub } from '@dspace/core';
 import { AuthServiceMock } from '../../mocks/auth.service.mock';
 import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { ThemeService } from '../../theme-support/theme.service';

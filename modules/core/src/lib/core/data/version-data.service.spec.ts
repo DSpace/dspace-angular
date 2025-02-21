@@ -6,19 +6,19 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { RestResponse } from '../cache/response.models';
-import { getMockHrefOnlyDataService } from '../mocks/href-only-data.service.mock';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Item } from '../shared/item.model';
-import { Version } from '../shared/version.model';
-import { VersionHistory } from '../shared/version-history.model';
+import { RemoteDataBuildService } from '../cache';
+import { ObjectCacheService } from '../cache';
+import { RestResponse } from '../cache';
+import { getMockHrefOnlyDataService } from '../mocks';
+import { HALEndpointService } from '../shared';
+import { Item } from '../shared';
+import { Version } from '../shared';
+import { VersionHistory } from '../shared';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../utilities/remote-data.utils';
-import { testPatchDataImplementation } from './base/patch-data.spec';
+} from '../utilities';
+import { testPatchDataImplementation } from './base';
 import { followLink } from './follow-link-config.model';
 import { HrefOnlyDataService } from './href-only-data.service';
 import { RequestService } from './request.service';

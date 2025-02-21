@@ -19,26 +19,26 @@ import { environment } from '../../../environments/environment';
 import {
   SortDirection,
   SortOptions,
-} from '../../../../modules/core/src/lib/core/cache/models/sort-options.model';
+} from '@dspace/core';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../modules/core/src/lib/core/config/app-config.interface';
+} from '@dspace/core';
 import {
   followLink,
   FollowLinkConfig,
-} from '../../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { PaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { PaginationService } from '../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { DSpaceObjectType } from '../../../../modules/core/src/lib/core/shared/dspace-object-type.model';
-import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
-import { toDSpaceObjectListRD } from '../../../../modules/core/src/lib/core/shared/operators';
-import { PaginatedSearchOptions } from '../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
-import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
-import { SearchService } from '../../../../modules/core/src/lib/core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
-import { ViewMode } from '../../../../modules/core/src/lib/core/shared/view-mode.model';
+} from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { DSpaceObjectType } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { toDSpaceObjectListRD } from '@dspace/core';
+import { PaginatedSearchOptions } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
+import { SearchService } from '@dspace/core';
+import { SearchConfigurationService } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
 import {
   fadeIn,
   fadeInOut,

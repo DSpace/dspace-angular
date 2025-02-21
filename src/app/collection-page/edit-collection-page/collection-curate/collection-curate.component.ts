@@ -13,9 +13,9 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
+import { DSONameService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { Collection } from '@dspace/core';
 import { CurationFormComponent } from '../../../curation-form/curation-form.component';
 
 /**

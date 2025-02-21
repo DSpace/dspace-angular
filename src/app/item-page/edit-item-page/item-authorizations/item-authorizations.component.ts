@@ -27,20 +27,20 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../../modules/core/src/lib/core/cache/builders/link.service';
-import { followLink } from '../../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { DSONameService } from '@dspace/core';
+import { LinkService } from '@dspace/core';
+import { followLink } from '@dspace/core';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { Bitstream } from '../../../../../modules/core/src/lib/core/shared/bitstream.model';
-import { Bundle } from '../../../../../modules/core/src/lib/core/shared/bundle.model';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+} from '@dspace/core';
+import { Bitstream } from '@dspace/core';
+import { Bundle } from '@dspace/core';
+import { Item } from '@dspace/core';
 import {
   getFirstSucceededRemoteDataPayload,
   getFirstSucceededRemoteDataWithNotEmptyPayload,
-} from '../../../../../modules/core/src/lib/core/shared/operators';
+} from '@dspace/core';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { NgForTrackByIdDirective } from '../../../shared/ng-for-track-by-id.directive';
 import { ResourcePoliciesComponent } from '../../../shared/resource-policies/resource-policies.component';

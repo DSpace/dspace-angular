@@ -10,12 +10,12 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { LinkService } from '../cache/builders/link.service';
-import { followLink } from '../data/follow-link-config.model';
-import { RemoteData } from '../data/remote-data';
-import { getDSpaceObjectRoute } from '../router/utils/routes-utils';
-import { ChildHALResource } from '../shared/child-hal-resource.model';
-import { DSpaceObject } from '../shared/dspace-object.model';
+import { LinkService } from '../cache';
+import { followLink } from '../data';
+import { RemoteData } from '../data';
+import { getDSpaceObjectRoute } from '../router';
+import { ChildHALResource } from '../shared';
+import { DSpaceObject } from '../shared';
 import { Breadcrumb } from './breadcrumb.model';
 import { BreadcrumbsProviderService } from './breadcrumbsProviderService';
 import { DSONameService } from './dso-name.service';

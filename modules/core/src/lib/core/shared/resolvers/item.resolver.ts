@@ -10,14 +10,14 @@ import { Observable } from 'rxjs';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../config/app-config.interface';
+} from '../../config';
 import {
   followLink,
   FollowLinkConfig,
-} from '../../data/follow-link-config.model';
-import { ItemDataService } from '../../data/item-data.service';
-import { RemoteData } from '../../data/remote-data';
-import { ResolvedAction } from '../../resolving/resolver.actions';
+} from '../../data';
+import { ItemDataService } from '../../data';
+import { RemoteData } from '../../data';
+import { ResolvedAction } from '../../resolving';
 import { Item } from '../item.model';
 import { getFirstCompletedRemoteData } from '../operators';
 import { CoreState } from "../../core-state.model";

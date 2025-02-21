@@ -8,10 +8,10 @@ import { Observable } from 'rxjs';
 import {
   link,
   typedObject,
-} from '../cache/builders/build-decorators';
-import { PaginatedList } from '../data/paginated-list.model';
-import { RemoteData } from '../data/remote-data';
-import { excludeFromEquals } from '../utilities/equals.decorators';
+} from '../cache';
+import { PaginatedList } from '../data';
+import { RemoteData } from '../data';
+import { excludeFromEquals } from '../utilities';
 import { DSpaceObject } from './dspace-object.model';
 import { HALLink } from './hal-link.model';
 import { Version } from './version.model';

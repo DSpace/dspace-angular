@@ -11,12 +11,12 @@ import {
 import {
   METADATA_IMPORT_SCRIPT_NAME,
   ScriptDataService,
-} from '../../../../modules/core/src/lib/core/data/processes/script-data.service';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Process } from '../../../../modules/core/src/lib/core/processes/process.model';
-import { ProcessParameter } from '../../../../modules/core/src/lib/core/processes/process-parameter.model';
-import { getFirstCompletedRemoteData } from '../../../../modules/core/src/lib/core/shared/operators';
+} from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Process } from '@dspace/core';
+import { ProcessParameter } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
 import { getProcessDetailRoute } from '../../process-page/process-page-routing.paths';
 import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';
 

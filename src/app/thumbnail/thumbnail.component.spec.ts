@@ -12,15 +12,15 @@ import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '../../../modules/core/src/lib/core/auth/auth.service';
-import { AuthorizationDataService } from '../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { RemoteData } from '../../../modules/core/src/lib/core/data/remote-data';
-import { Bitstream } from '../../../modules/core/src/lib/core/shared/bitstream.model';
-import { FileService } from '../../../modules/core/src/lib/core/shared/file.service';
+import { AuthService } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { Bitstream } from '@dspace/core';
+import { FileService } from '@dspace/core';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
-} from '../../../modules/core/src/lib/core/utilities/remote-data.utils';
+} from '@dspace/core';
 import { getMockThemeService } from '../shared/mocks/theme-service.mock';
 import { ThemeService } from '../shared/theme-support/theme.service';
 import { SafeUrlPipe } from '../shared/utils/safe-url-pipe';

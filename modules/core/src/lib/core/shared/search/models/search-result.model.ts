@@ -3,18 +3,18 @@ import {
   deserialize,
 } from 'cerialize';
 
-import { typedObject } from '../../../cache/builders/build-decorators';
-import { ListableObject } from '../../../object-collection/listable-object.model';
+import { typedObject } from '../../../cache';
+import { ListableObject } from '../../../object-collection';
 import {
   excludeFromEquals,
   fieldsForEquals,
-} from '../../../utilities/equals.decorators';
+} from '../../../utilities';
 import { DSpaceObject } from '../../dspace-object.model';
 import { GenericConstructor } from '../../generic-constructor';
 import { HALLink } from '../../hal-link.model';
 import { HALResource } from '../../hal-resource.model';
 import { MetadataMap } from '../../metadata.models';
-import { SEARCH_RESULT } from '../types/search-result.resource-type';
+import { SEARCH_RESULT } from '../types';
 
 /**
  * Represents a search result object of a certain (<T>) DSpaceObject

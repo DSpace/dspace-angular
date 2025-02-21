@@ -31,21 +31,21 @@ import {
   MetadataRegistryEditSchemaAction,
   MetadataRegistrySelectFieldAction,
   MetadataRegistrySelectSchemaAction,
-} from '../states/metadata-registry/metadata-registry.actions';
-import { MetadataRegistryState } from '../states/metadata-registry/metadata-registry.reducers';
-import { RequestParam } from '../cache/models/request-param.model';
+} from '../states';
+import { MetadataRegistryState } from '../states';
+import { RequestParam } from '../cache';
 import { CoreState } from '../core-state.model';
-import { FindListOptions } from '../data/find-list-options.model';
-import { FollowLinkConfig } from '../data/follow-link-config.model';
-import { MetadataFieldDataService } from '../data/metadata-field-data.service';
-import { MetadataSchemaDataService } from '../data/metadata-schema-data.service';
-import { PaginatedList } from '../data/paginated-list.model';
-import { RemoteData } from '../data/remote-data';
-import { MetadataField } from '../metadata/metadata-field.model';
-import { MetadataSchema } from '../metadata/metadata-schema.model';
-import { NotificationsService } from '../notifications/notifications.service';
-import { NoContent } from '../shared/NoContent.model';
-import { getFirstSucceededRemoteDataPayload } from '../shared/operators';
+import { FindListOptions } from '../data';
+import { FollowLinkConfig } from '../data';
+import { MetadataFieldDataService } from '../data';
+import { MetadataSchemaDataService } from '../data';
+import { PaginatedList } from '../data';
+import { RemoteData } from '../data';
+import { MetadataField } from '../metadata';
+import { MetadataSchema } from '../metadata';
+import { NotificationsService } from '../notifications';
+import { NoContent } from '../shared';
+import { getFirstSucceededRemoteDataPayload } from '../shared';
 
 const metadataRegistryStateSelector = (state: any) => state.core.metadataRegistry;
 const editMetadataSchemaSelector = createSelector(metadataRegistryStateSelector, (metadataState: MetadataRegistryState) => metadataState.editSchema);

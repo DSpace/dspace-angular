@@ -8,18 +8,18 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { Bitstream } from '../shared/bitstream.model';
-import { Bundle } from '../shared/bundle.model';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Item } from '../shared/item.model';
-import { PaginatedSearchOptions } from '../shared/paginated-search-options.model';
-import { IdentifiableDataService } from './base/identifiable-data.service';
+import { RemoteDataBuildService } from '../cache';
+import { ObjectCacheService } from '../cache';
+import { Bitstream } from '../shared';
+import { Bundle } from '../shared';
+import { HALEndpointService } from '../shared';
+import { Item } from '../shared';
+import { PaginatedSearchOptions } from '../shared';
+import { IdentifiableDataService } from './base';
 import {
   PatchData,
   PatchDataImpl,
-} from './base/patch-data';
+} from './base';
 import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { FindListOptions } from './find-list-options.model';
 import { FollowLinkConfig } from './follow-link-config.model';

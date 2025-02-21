@@ -1,4 +1,4 @@
-import { NotificationAnimationsType } from '../notifications/models/notification-animations-type';
+import { NotificationAnimationsType } from '../notifications';
 import { Config } from './config.interface';
 
 export interface INotificationBoardOptions extends Config {

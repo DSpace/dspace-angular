@@ -7,9 +7,9 @@ import {
 import {
   SortDirection,
   SortOptions,
-} from '../../cache/models/sort-options.model';
-import { PaginationComponentOptions } from '../../shared/pagination-component-options.model';
-import { SearchFilterConfig } from '../../shared/search/models/search-filter-config.model';
+} from '../../cache';
+import { PaginationComponentOptions } from '../../shared';
+import { SearchFilterConfig } from '../../shared';
 
 /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
 /**

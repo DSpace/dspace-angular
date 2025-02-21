@@ -1,4 +1,4 @@
-import { EPersonMock } from '../utilities/testing/eperson.mock';
+import { EPersonMock } from '../utilities';
 import {
   AddAuthenticationMessageAction,
   AuthenticateAction,
@@ -32,10 +32,10 @@ import {
   authReducer,
   AuthState,
 } from './auth.reducer';
-import { AuthMethod } from './models/auth.method';
-import { AuthMethodType } from './models/auth.method-type';
-import { AuthStatus } from './models/auth-status.model';
-import { AuthTokenInfo } from './models/auth-token-info.model';
+import { AuthMethod } from './models';
+import { AuthMethodType } from './models';
+import { AuthStatus } from './models';
+import { AuthTokenInfo } from './models';
 
 describe('authReducer', () => {
 

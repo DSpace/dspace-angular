@@ -24,22 +24,22 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { AuthorizationDataService } from '../../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
+import { DSONameService } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { FeatureID } from '@dspace/core';
 import {
   BATCH_EXPORT_SCRIPT_NAME,
   ScriptDataService,
-} from '../../../../../../modules/core/src/lib/core/data/processes/script-data.service';
-import { RemoteData } from '../../../../../../modules/core/src/lib/core/data/remote-data';
-import { NotificationsService } from '../../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Process } from '../../../../../../modules/core/src/lib/core/processes/process.model';
-import { ProcessParameter } from '../../../../../../modules/core/src/lib/core/processes/process-parameter.model';
-import { Collection } from '../../../../../../modules/core/src/lib/core/shared/collection.model';
-import { DSpaceObject } from '../../../../../../modules/core/src/lib/core/shared/dspace-object.model';
-import { DSpaceObjectType } from '../../../../../../modules/core/src/lib/core/shared/dspace-object-type.model';
-import { getFirstCompletedRemoteData } from '../../../../../../modules/core/src/lib/core/shared/operators';
-import { createSuccessfulRemoteDataObject } from '../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+} from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Process } from '@dspace/core';
+import { ProcessParameter } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
+import { DSpaceObjectType } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
+import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { getProcessDetailRoute } from '../../../../process-page/process-page-routing.paths';
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';

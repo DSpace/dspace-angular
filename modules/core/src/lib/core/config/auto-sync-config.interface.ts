@@ -1,4 +1,4 @@
-import { RestRequestMethod } from '../data/rest-request-method';
+import { RestRequestMethod } from '../data';
 
 /**
  * The number of seconds between automatic syncs to the

@@ -7,12 +7,12 @@ import { Observable } from 'rxjs';
 import {
   link,
   typedObject,
-} from '../../../cache/builders/build-decorators';
-import { CacheableObject } from '../../../cache/cacheable-object.model';
-import { PaginatedList } from '../../../data/paginated-list.model';
-import { RemoteData } from '../../../data/remote-data';
-import { HALLink } from '../../../shared/hal-link.model';
-import { excludeFromEquals } from '../../../utilities/equals.decorators';
+} from '../../../cache';
+import { CacheableObject } from '../../../cache';
+import { PaginatedList } from '../../../data';
+import { RemoteData } from '../../../data';
+import { HALLink } from '../../../shared';
+import { excludeFromEquals } from '../../../utilities';
 import {
   VOCABULARY,
   VOCABULARY_ENTRY,

@@ -14,23 +14,19 @@ import {
   CommunityListState,
 } from './community-list-page/community-list.reducer';
 import {
-  notificationsReducer,
-  NotificationsState,
-} from '../../modules/core/src/lib/core/notifications/notifications.reducers';
-import {
   contextHelpReducer,
   ContextHelpState,
 } from './shared/context-help.reducer';
 import {
   formReducer,
   FormState,
-} from './shared/form/form.reducer';
-import { menusReducer } from './shared/menu/menu.reducer';
-import { MenusState } from './shared/menu/menus-state.model';
+} from '../../modules/core/src/lib/core/states/form/form.reducer';
+import { menusReducer } from '../../modules/core/src/lib/core/states/menu/menu.reducer';
+import { MenusState } from '../../modules/core/src/lib/core/states/menu/menus-state.model';
 import {
   selectableListReducer,
   SelectableListsState,
-} from './shared/object-list/selectable-list/selectable-list.reducer';
+} from '../../modules/core/src/lib/core/states/selectable-list/selectable-list.reducer';
 import {
   ObjectSelectionListState,
   objectSelectionReducer,
@@ -46,7 +42,7 @@ import {
 import {
   filterReducer,
   SearchFiltersState,
-} from './shared/search/search-filters/search-filter/search-filter.reducer';
+} from '../../modules/core/src/lib/core/states/search-filters/search-filter.reducer';
 import {
   sidebarReducer,
   SidebarState,

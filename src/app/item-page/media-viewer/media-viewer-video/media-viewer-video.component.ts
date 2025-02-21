@@ -5,10 +5,10 @@ import {
 } from '@angular/core';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { Bitstream } from '../../../../../modules/core/src/lib/core/shared/bitstream.model';
+import { Bitstream } from '@dspace/core';
 
-import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { MediaViewerItem } from '../../../../../modules/core/src/lib/core/shared/media-viewer-item.model';
+import { DSONameService } from '@dspace/core';
+import { MediaViewerItem } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { CaptionInfo } from './caption-info';
 import { languageHelper } from './language-helper';

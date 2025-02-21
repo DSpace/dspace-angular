@@ -23,15 +23,15 @@ import {
   of,
 } from 'rxjs';
 
-import { APP_DATA_SERVICES_MAP } from '../../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { JsonPatchOperationPathCombiner } from '../../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operations-builder';
-import { HALEndpointService } from '../../../../../../modules/core/src/lib/core/shared/hal-endpoint.service';
-import { SubmissionJsonPatchOperationsService } from '../../../../../../modules/core/src/lib/core/submission/submission-json-patch-operations.service';
-import { HALEndpointServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/hal-endpoint-service.stub';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/submission-json-patch-operations-service.stub';
-import { SubmissionServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/submission-service.stub';
-import { createTestComponent } from '../../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core';
+import { JsonPatchOperationPathCombiner } from '@dspace/core';
+import { JsonPatchOperationsBuilder } from '@dspace/core';
+import { HALEndpointService } from '@dspace/core';
+import { SubmissionJsonPatchOperationsService } from '@dspace/core';
+import { HALEndpointServiceStub } from '@dspace/core';
+import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core';
+import { SubmissionServiceStub } from '@dspace/core';
+import { createTestComponent } from '@dspace/core';
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormService } from '../../../../shared/form/form.service';
@@ -46,7 +46,7 @@ import {
 import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../../../shared/theme-support/theme.service';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
-import { SubmissionService } from '../../../submission.service';
+import { SubmissionService } from '../../../../../../modules/core/src/lib/core/submission/submission.service';
 import { SectionUploadService } from '../section-upload.service';
 import { POLICY_DEFAULT_WITH_LIST } from '../section-upload-constants';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';

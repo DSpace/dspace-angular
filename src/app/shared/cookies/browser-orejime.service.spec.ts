@@ -6,19 +6,19 @@ import cloneDeep from 'lodash/cloneDeep';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
-import { RestResponse } from '../../../../modules/core/src/lib/core/cache/response.models';
-import { ConfigurationDataService } from '../../../../modules/core/src/lib/core/data/configuration-data.service';
-import { EPersonDataService } from '../../../../modules/core/src/lib/core/eperson/eperson-data.service';
-import { EPerson } from '../../../../modules/core/src/lib/core/eperson/models/eperson.model';
-import { getMockTranslateService } from '../../../../modules/core/src/lib/core/mocks/translate.service.mock';
-import { CookieService } from '../../../../modules/core/src/lib/core/services/cookie.service';
-import { ConfigurationProperty } from '../../../../modules/core/src/lib/core/shared/configuration-property.model';
-import { MetadataValue } from '../../../../modules/core/src/lib/core/shared/metadata.models';
+import { AuthService } from '@dspace/core';
+import { RestResponse } from '@dspace/core';
+import { ConfigurationDataService } from '@dspace/core';
+import { EPersonDataService } from '@dspace/core';
+import { EPerson } from '@dspace/core';
+import { getMockTranslateService } from '@dspace/core';
+import { CookieService } from '@dspace/core';
+import { ConfigurationProperty } from '@dspace/core';
+import { MetadataValue } from '@dspace/core';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+} from '@dspace/core';
 import {
   BrowserOrejimeService,
   COOKIE_MDFIELD,

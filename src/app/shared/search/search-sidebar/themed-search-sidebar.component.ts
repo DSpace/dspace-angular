@@ -9,11 +9,11 @@ import {
   Observable,
 } from 'rxjs';
 
-import { SortOptions } from '../../../../../modules/core/src/lib/core/cache/models/sort-options.model';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { PaginatedSearchOptions } from '../../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
-import { SearchFilterConfig } from '../../../../../modules/core/src/lib/core/shared/search/models/search-filter-config.model';
-import { ViewMode } from '../../../../../modules/core/src/lib/core/shared/view-mode.model';
+import { SortOptions } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { PaginatedSearchOptions } from '@dspace/core';
+import { SearchFilterConfig } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
 import { ThemedComponent } from '../../theme-support/themed.component';
 import { SearchConfigurationOption } from '../search-switch-configuration/search-configuration-option.model';
 import { SearchSidebarComponent } from './search-sidebar.component';

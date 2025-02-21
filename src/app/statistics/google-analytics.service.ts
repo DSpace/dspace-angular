@@ -10,8 +10,8 @@ import {
 } from 'angulartics2';
 import { combineLatest } from 'rxjs';
 
-import { ConfigurationDataService } from '../../../modules/core/src/lib/core/data/configuration-data.service';
-import { getFirstCompletedRemoteData } from '../../../modules/core/src/lib/core/shared/operators';
+import { ConfigurationDataService } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
 import { OrejimeService } from '../shared/cookies/orejime.service';
 import { GOOGLE_ANALYTICS_OREJIME_KEY } from '../shared/cookies/orejime-configuration';
 

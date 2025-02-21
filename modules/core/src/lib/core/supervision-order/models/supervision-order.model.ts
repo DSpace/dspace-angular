@@ -8,17 +8,17 @@ import { Observable } from 'rxjs';
 import {
   link,
   typedObject,
-} from '../../cache/builders/build-decorators';
-import { CacheableObject } from '../../cache/cacheable-object.model';
-import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
-import { RemoteData } from '../../data/remote-data';
-import { Group } from '../../eperson/models/group.model';
-import { GROUP } from '../../eperson/models/group.resource-type';
-import { HALLink } from '../../shared/hal-link.model';
-import { Item } from '../../shared/item.model';
-import { ITEM } from '../../shared/item.resource-type';
-import { ResourceType } from '../../shared/resource-type';
-import { excludeFromEquals } from '../../utilities/equals.decorators';
+} from '../../cache';
+import { CacheableObject } from '../../cache';
+import { IDToUUIDSerializer } from '../../cache';
+import { RemoteData } from '../../data';
+import { Group } from '../../eperson';
+import { GROUP } from '../../eperson';
+import { HALLink } from '../../shared';
+import { Item } from '../../shared';
+import { ITEM } from '../../shared';
+import { ResourceType } from '../../shared';
+import { excludeFromEquals } from '../../utilities';
 import { SUPERVISION_ORDER } from './supervision-order.resource-type';
 
 /**

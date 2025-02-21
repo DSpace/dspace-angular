@@ -9,11 +9,11 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { RemoteData } from '../../../../../../../modules/core/src/lib/core/data/remote-data';
-import { RequestEntryState } from '../../../../../../../modules/core/src/lib/core/data/request-entry-state.model';
-import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
-import { WorkflowItem } from '../../../../../../../modules/core/src/lib/core/submission/models/workflowitem.model';
-import { URLCombiner } from '../../../../../../../modules/core/src/lib/core/url-combiner/url-combiner';
+import { RemoteData } from '@dspace/core';
+import { RequestEntryState } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { WorkflowItem } from '@dspace/core';
+import { URLCombiner } from '@dspace/core';
 import {
   getWorkflowItemDeleteRoute,
   getWorkflowItemSendBackRoute,

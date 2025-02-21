@@ -8,19 +8,19 @@ import {
 } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
-import { ConfigurationDataService } from '../data/configuration-data.service';
-import { NativeWindowRefMock } from '../mocks/mock-native-window-ref';
-import { RouterMock } from '../mocks/router.mock';
-import { ResearcherProfile } from '../profile/model/researcher-profile.model';
-import { ResearcherProfileDataService } from '../profile/researcher-profile-data.service';
-import { ConfigurationProperty } from '../shared/configuration-property.model';
-import { Item } from '../shared/item.model';
-import { URLCombiner } from '../url-combiner/url-combiner';
+import { ConfigurationDataService } from '../data';
+import { NativeWindowRefMock } from '../mocks';
+import { RouterMock } from '../mocks';
+import { ResearcherProfile } from '../profile';
+import { ResearcherProfileDataService } from '../profile';
+import { ConfigurationProperty } from '../shared';
+import { Item } from '../shared';
+import { URLCombiner } from '../url-combiner';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../utilities/remote-data.utils';
-import { createPaginatedList } from '../utilities/testing/utils.test';
+} from '../utilities';
+import { createPaginatedList } from '../utilities';
 import { OrcidAuthService } from './orcid-auth.service';
 
 describe('OrcidAuthService', () => {

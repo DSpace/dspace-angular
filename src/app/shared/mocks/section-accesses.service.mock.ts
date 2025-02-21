@@ -1,6 +1,6 @@
 import { of as observableOf } from 'rxjs';
 
-import { SubmissionFormsModel } from '../../../../modules/core/src/lib/core/config/models/config-submission-forms.model';
+import { SubmissionFormsModel } from '@dspace/core';
 
 const dataRes = Object.assign(new SubmissionFormsModel(), {
   'id': 'AccessConditionDefaultConfiguration',

@@ -22,23 +22,23 @@ import {
   MetadataRegistryEditSchemaAction,
   MetadataRegistrySelectFieldAction,
   MetadataRegistrySelectSchemaAction,
-} from '../states/metadata-registry/metadata-registry.actions';
-import { FindListOptions } from '../data/find-list-options.model';
-import { MetadataFieldDataService } from '../data/metadata-field-data.service';
-import { MetadataSchemaDataService } from '../data/metadata-schema-data.service';
-import { RemoteData } from '../data/remote-data';
-import { MetadataField } from '../metadata/metadata-field.model';
-import { MetadataSchema } from '../metadata/metadata-schema.model';
-import { NotificationsService } from '../notifications/notifications.service';
-import { NoContent } from '../shared/NoContent.model';
+} from '../states';
+import { FindListOptions } from '../data';
+import { MetadataFieldDataService } from '../data';
+import { MetadataSchemaDataService } from '../data';
+import { RemoteData } from '../data';
+import { MetadataField } from '../metadata';
+import { MetadataSchema } from '../metadata';
+import { NotificationsService } from '../notifications';
+import { NoContent } from '../shared';
 import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../utilities/remote-data.utils';
-import { mockStoreModuleConfig } from '../utilities/testing/mock-state-utilities';
-import { NotificationsServiceStub } from '../utilities/testing/notifications-service.stub';
-import { StoreMock } from '../utilities/testing/store.mock';
-import { createPaginatedList } from '../utilities/testing/utils.test';
+} from '../utilities';
+import { mockStoreModuleConfig } from '../utilities';
+import { NotificationsServiceStub } from '../utilities';
+import { StoreMock } from '../utilities';
+import { createPaginatedList } from '../utilities';
 import { RegistryService } from './registry.service';
 
 @Component({

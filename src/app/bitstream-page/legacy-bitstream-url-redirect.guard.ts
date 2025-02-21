@@ -11,11 +11,11 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { PAGE_NOT_FOUND_PATH } from '../app-routing-paths';
-import { BitstreamDataService } from '../../../modules/core/src/lib/core/data/bitstream-data.service';
-import { RemoteData } from '../../../modules/core/src/lib/core/data/remote-data';
-import { HardRedirectService } from '../../../modules/core/src/lib/core/services/hard-redirect.service';
-import { Bitstream } from '../../../modules/core/src/lib/core/shared/bitstream.model';
-import { getFirstCompletedRemoteData } from '../../../modules/core/src/lib/core/shared/operators';
+import { BitstreamDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { HardRedirectService } from '@dspace/core';
+import { Bitstream } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
 
 /**
  * Redirects to a bitstream based on the handle of the item, and the sequence id or the filename of the

@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { type } from '../../../../modules/core/src/lib/core/shared/ngrx/type';
+import { type } from '@dspace/core';
 
 export const ThemeActionTypes = {
   SET: type('dspace/theme/SET'),

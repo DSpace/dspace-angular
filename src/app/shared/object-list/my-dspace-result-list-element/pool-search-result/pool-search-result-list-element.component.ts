@@ -25,31 +25,31 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../../../modules/core/src/lib/core/cache/builders/link.service';
-import { ObjectCacheService } from '../../../../../../modules/core/src/lib/core/cache/object-cache.service';
+import { DSONameService } from '@dspace/core';
+import { LinkService } from '@dspace/core';
+import { ObjectCacheService } from '@dspace/core';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { ConfigurationDataService } from '../../../../../../modules/core/src/lib/core/data/configuration-data.service';
-import { followLink } from '../../../../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { PaginatedList } from '../../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../../modules/core/src/lib/core/data/remote-data';
-import { PoolTaskSearchResult } from '../../../../../../modules/core/src/lib/core/object-collection/pool-task-search-result.model';
-import { ConfigurationProperty } from '../../../../../../modules/core/src/lib/core/shared/configuration-property.model';
-import { Context } from '../../../../../../modules/core/src/lib/core/shared/context.model';
-import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../../../../../modules/core/src/lib/core/shared/operators';
-import { ViewMode } from '../../../../../../modules/core/src/lib/core/shared/view-mode.model';
-import { WorkflowItem } from '../../../../../../modules/core/src/lib/core/submission/models/workflowitem.model';
-import { SubmissionDuplicateDataService } from '../../../../../../modules/core/src/lib/core/submission/submission-duplicate-data.service';
-import { PoolTask } from '../../../../../../modules/core/src/lib/core/tasks/models/pool-task-object.model';
+} from '@dspace/core';
+import { ConfigurationDataService } from '@dspace/core';
+import { followLink } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { PoolTaskSearchResult } from '@dspace/core';
+import { ConfigurationProperty } from '@dspace/core';
+import { Context } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
+import { WorkflowItem } from '@dspace/core';
+import { SubmissionDuplicateDataService } from '@dspace/core';
+import { PoolTask } from '@dspace/core';
 import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { VarDirective } from '../../../utils/var.directive';
-import { Duplicate } from '../../duplicate-data/duplicate.model';
+import { Duplicate } from '../../../../../../modules/core/src/lib/core/data/duplicate-data/duplicate.model';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
 import { ThemedItemListPreviewComponent } from '../item-list-preview/themed-item-list-preview.component';
 

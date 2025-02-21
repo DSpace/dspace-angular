@@ -13,10 +13,10 @@ import {
 } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { RequestService } from '../../../../modules/core/src/lib/core/data/request.service';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { RouteService } from '../../../../modules/core/src/lib/core/services/route.service';
-import { WorkflowItemDataService } from '../../../../modules/core/src/lib/core/submission/workflowitem-data.service';
+import { RequestService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { RouteService } from '@dspace/core';
+import { WorkflowItemDataService } from '@dspace/core';
 import { ModifyItemOverviewComponent } from '../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { WorkflowItemActionPageDirective } from '../workflow-item-action-page.component';

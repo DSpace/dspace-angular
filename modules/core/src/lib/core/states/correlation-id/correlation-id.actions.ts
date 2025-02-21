@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { type } from '../../shared/ngrx/type';
+import { type } from '../../shared';
 
 export const CorrelationIDActionTypes = {
   SET: type('dspace/core/correlationId/SET'),

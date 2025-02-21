@@ -22,17 +22,17 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../../modules/core/src/lib/core/auth/auth.service';
-import { DSONameService } from '../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { SortOptions } from '../../../modules/core/src/lib/core/cache/models/sort-options.model';
-import { AuthorizationDataService } from '../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
-import { RemoteData } from '../../../modules/core/src/lib/core/data/remote-data';
-import { redirectOn4xx } from '../../../modules/core/src/lib/core/shared/authorized.operators';
-import { Bitstream } from '../../../modules/core/src/lib/core/shared/bitstream.model';
-import { Collection } from '../../../modules/core/src/lib/core/shared/collection.model';
-import { getAllSucceededRemoteDataPayload } from '../../../modules/core/src/lib/core/shared/operators';
-import { PaginationComponentOptions } from '../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+import { AuthService } from '@dspace/core';
+import { DSONameService } from '@dspace/core';
+import { SortOptions } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { FeatureID } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { redirectOn4xx } from '@dspace/core';
+import { Bitstream } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { getAllSucceededRemoteDataPayload } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
 import {
   fadeIn,
   fadeInOut,

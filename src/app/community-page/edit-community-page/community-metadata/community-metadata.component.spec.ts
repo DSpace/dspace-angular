@@ -10,9 +10,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { CommunityDataService } from '../../../../../modules/core/src/lib/core/data/community-data.service';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { CommunityDataService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
 import { CommunityFormComponent } from '../../community-form/community-form.component';
 import { CommunityMetadataComponent } from './community-metadata.component';
 

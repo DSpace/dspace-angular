@@ -13,13 +13,13 @@ import {
   withLatestFrom,
 } from 'rxjs/operators';
 
-import { AuthService } from '../auth/auth.service';
-import { RemoteData } from '../data/remote-data';
+import { AuthService } from '../auth';
+import { RemoteData } from '../data';
 import {
   getEndUserAgreementPath,
   getForbiddenRoute,
   getPageNotFoundRoute,
-} from '../router/utils/routes-utils';
+} from '../router';
 
 export const REDIRECT_ON_4XX = new InjectionToken<<T>(router: Router, authService: AuthService) => (source: Observable<RemoteData<T>>) => Observable<RemoteData<T>>>('redirectOn4xx', {
   providedIn: 'root',

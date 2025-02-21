@@ -12,19 +12,19 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { BitstreamDataService } from '../../../../../../modules/core/src/lib/core/data/bitstream-data.service';
-import { CollectionDataService } from '../../../../../../modules/core/src/lib/core/data/collection-data.service';
-import { ProcessDataService } from '../../../../../../modules/core/src/lib/core/data/processes/process-data.service';
-import { ScriptDataService } from '../../../../../../modules/core/src/lib/core/data/processes/script-data.service';
-import { RequestService } from '../../../../../../modules/core/src/lib/core/data/request.service';
-import { NotificationsService } from '../../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Process } from '../../../../../../modules/core/src/lib/core/processes/process.model';
-import { Bitstream } from '../../../../../../modules/core/src/lib/core/shared/bitstream.model';
-import { Collection } from '../../../../../../modules/core/src/lib/core/shared/collection.model';
-import { ContentSource } from '../../../../../../modules/core/src/lib/core/shared/content-source.model';
-import { ContentSourceSetSerializer } from '../../../../../../modules/core/src/lib/core/shared/content-source-set-serializer';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { BitstreamDataService } from '@dspace/core';
+import { CollectionDataService } from '@dspace/core';
+import { ProcessDataService } from '@dspace/core';
+import { ScriptDataService } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Process } from '@dspace/core';
+import { Bitstream } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { ContentSource } from '@dspace/core';
+import { ContentSourceSetSerializer } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 import { CollectionSourceControlsComponent } from './collection-source-controls.component';
@@ -66,7 +66,7 @@ describe('CollectionSourceControlsComponent', () => {
         },
         {
           id: 'dim',
-          label: 'DSpace Intermediate Metadata',
+          label: 'DSpace Intermediate PolicyMetadata',
           nameSpace: 'http://www.dspace.org/xmlns/dspace/dim',
         },
       ],

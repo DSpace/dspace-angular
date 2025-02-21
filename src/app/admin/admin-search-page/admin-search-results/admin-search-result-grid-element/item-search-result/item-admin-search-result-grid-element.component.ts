@@ -8,13 +8,13 @@ import {
 } from '@angular/core';
 import { hasValue } from '@dspace/shared/utils';
 
-import { DSONameService } from '../../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '../../../../../../../modules/core/src/lib/core/data/bitstream-data.service';
-import { ItemSearchResult } from '../../../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
-import { Context } from '../../../../../../../modules/core/src/lib/core/shared/context.model';
-import { GenericConstructor } from '../../../../../../../modules/core/src/lib/core/shared/generic-constructor';
-import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
-import { ViewMode } from '../../../../../../../modules/core/src/lib/core/shared/view-mode.model';
+import { DSONameService } from '@dspace/core';
+import { BitstreamDataService } from '@dspace/core';
+import { ItemSearchResult } from '@dspace/core';
+import { Context } from '@dspace/core';
+import { GenericConstructor } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
 import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import {
   getListableObjectComponent,

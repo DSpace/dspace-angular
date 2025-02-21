@@ -2,14 +2,14 @@ import { TestBed } from '@angular/core/testing';
 
 import { getCollectionModuleRoute } from '../../collection-page/collection-page-routing-paths';
 import { getCommunityModuleRoute } from '../../community-page/community-page-routing-paths';
-import { ConfigurationDataService } from '../../../../modules/core/src/lib/core/data/configuration-data.service';
-import { Collection } from '../../../../modules/core/src/lib/core/shared/collection.model';
-import { COLLECTION } from '../../../../modules/core/src/lib/core/shared/collection.resource-type';
-import { Community } from '../../../../modules/core/src/lib/core/shared/community.model';
-import { COMMUNITY } from '../../../../modules/core/src/lib/core/shared/community.resource-type';
-import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
-import { ITEM } from '../../../../modules/core/src/lib/core/shared/item.resource-type';
-import { ConfigurationDataServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/configuration-data.service.stub';
+import { ConfigurationDataService } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { COLLECTION } from '@dspace/core';
+import { Community } from '@dspace/core';
+import { COMMUNITY } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { ITEM } from '@dspace/core';
+import { ConfigurationDataServiceStub } from '@dspace/core';
 import { getItemModuleRoute } from '../../item-page/item-page-routing-paths';
 import { HandleService } from '../handle.service';
 import {

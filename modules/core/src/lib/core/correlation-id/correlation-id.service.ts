@@ -7,10 +7,10 @@ import {
 import { take } from 'rxjs/operators';
 
 import { CoreState } from '../core-state.model';
-import { CookieService } from '../services/cookie.service';
-import { UUIDService } from '../shared/uuid.service';
-import { SetCorrelationIdAction } from '../states/correlation-id/correlation-id.actions';
-import { correlationIdSelector } from '../states/correlation-id/correlation-id.selector';
+import { CookieService } from '../services';
+import { UUIDService } from '../shared';
+import { SetCorrelationIdAction } from '../states';
+import { correlationIdSelector } from '../states';
 
 /**
  * Service to manage the correlation id, an id used to give context to server side logs

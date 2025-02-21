@@ -11,7 +11,7 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { URLBaser } from '../../../../modules/core/src/lib/core/url-baser/url-baser';
+import { URLBaser } from '@dspace/core';
 import { SidebarCollapseAction } from './sidebar.actions';
 
 /**

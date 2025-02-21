@@ -23,7 +23,7 @@ export class LinkHeadService {
    * @param tag LinkDefition is the parameters to define a link tag.
    * @returns Link tag that was created
    */
-  addTag(tag: LinkDefinition) {
+  addTag(tag: HeadLinkDefinition) {
 
     try {
       const renderer = this.rendererFactory.createRenderer(this.document, {
@@ -81,7 +81,7 @@ export class LinkHeadService {
   }
 }
 
-export declare type LinkDefinition = {
+export declare type HeadLinkDefinition = {
   charset?: string;
   crossorigin?: string;
   href?: string;

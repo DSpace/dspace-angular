@@ -17,8 +17,8 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { MenuID } from 'src/app/shared/menu/menu-id.model';
-import { MenuSection } from 'src/app/shared/menu/menu-section.model';
+import { MenuID } from '../../../../../../modules/core/src/lib/core/states/menu/menu-id.model';
+import { MenuSection } from '../../../../../../modules/core/src/lib/core/states/menu/menu-section.model';
 import { MenuSectionComponent } from 'src/app/shared/menu/menu-section/menu-section.component';
 
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';

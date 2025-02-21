@@ -12,13 +12,13 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { PaginationService } from '../../../../../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { AppliedFilter } from '../../../../../../../../modules/core/src/lib/core/shared/search/models/applied-filter.model';
-import { SearchFilterConfig } from '../../../../../../../../modules/core/src/lib/core/shared/search/models/search-filter-config.model';
-import { SearchService } from '../../../../../../../../modules/core/src/lib/core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../../../../../../modules/core/src/lib/core/shared/search/search-filter.service';
-import { currentPath } from '../../../../../utils/route.utils';
+import { PaginationService } from '@dspace/core';
+import { AppliedFilter } from '@dspace/core';
+import { SearchFilterConfig } from '@dspace/core';
+import { SearchService } from '@dspace/core';
+import { SearchConfigurationService } from '@dspace/core';
+import { SearchFilterService } from '@dspace/core';
+import { currentPath } from '../../../../../../../../modules/core/src/lib/core/utilities/route.utils';
 
 @Component({
   selector: 'ds-search-facet-selected-option',

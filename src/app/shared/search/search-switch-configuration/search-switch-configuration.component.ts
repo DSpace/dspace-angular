@@ -18,11 +18,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import findIndex from 'lodash/findIndex';
 import { Subscription } from 'rxjs';
 
-import { SearchService } from '../../../../../modules/core/src/lib/core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
+import { SearchService } from '@dspace/core';
+import { SearchConfigurationService } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { MyDSpaceConfigurationValueType } from '../../../my-dspace-page/my-dspace-configuration-value-type';
-import { currentPath } from '../../utils/route.utils';
+import { currentPath } from '../../../../../modules/core/src/lib/core/utilities/route.utils';
 import { SearchConfigurationOption } from './search-configuration-option.model';
 
 @Component({

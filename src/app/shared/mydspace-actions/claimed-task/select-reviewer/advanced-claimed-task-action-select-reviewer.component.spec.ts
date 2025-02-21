@@ -12,17 +12,17 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { RequestService } from '../../../../../../modules/core/src/lib/core/data/request.service';
-import { NotificationsService } from '../../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { SearchService } from '../../../../../../modules/core/src/lib/core/shared/search/search.service';
-import { WorkflowItem } from '../../../../../../modules/core/src/lib/core/submission/models/workflowitem.model';
-import { ClaimedTaskDataService } from '../../../../../../modules/core/src/lib/core/tasks/claimed-task-data.service';
-import { ClaimedTask } from '../../../../../../modules/core/src/lib/core/tasks/models/claimed-task-object.model';
-import { ActivatedRouteStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
-import { ClaimedTaskDataServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/claimed-task-data-service.stub';
-import { NotificationsServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { RouterStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
-import { SearchServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/search-service.stub';
+import { RequestService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { SearchService } from '@dspace/core';
+import { WorkflowItem } from '@dspace/core';
+import { ClaimedTaskDataService } from '@dspace/core';
+import { ClaimedTask } from '@dspace/core';
+import { ActivatedRouteStub } from '@dspace/core';
+import { ClaimedTaskDataServiceStub } from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { RouterStub } from '@dspace/core';
+import { SearchServiceStub } from '@dspace/core';
 import { ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-select-reviewer/advanced-workflow-action-select-reviewer.component';
 import { AdvancedClaimedTaskActionSelectReviewerComponent } from './advanced-claimed-task-action-select-reviewer.component';
 

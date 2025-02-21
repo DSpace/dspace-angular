@@ -12,14 +12,14 @@ import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '../../../../../../../../modules/core/src/lib/core/auth/auth.service';
-import { DSONameService } from '../../../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { APP_CONFIG } from '../../../../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { AuthorizationDataService } from '../../../../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { ItemSearchResult } from '../../../../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
-import { Item } from '../../../../../../../../modules/core/src/lib/core/shared/item.model';
-import { ActivatedRouteStub } from '../../../../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
-import { AuthServiceStub } from '../../../../../../../../modules/core/src/lib/core/utilities/testing/auth-service.stub';
+import { AuthService } from '@dspace/core';
+import { DSONameService } from '@dspace/core';
+import { APP_CONFIG } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { ItemSearchResult } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { ActivatedRouteStub } from '@dspace/core';
+import { AuthServiceStub } from '@dspace/core';
 import {
   DSONameServiceMock,
   UNDEFINED_NAME,

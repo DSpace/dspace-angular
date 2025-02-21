@@ -9,12 +9,12 @@ import { Observable } from 'rxjs';
 import {
   followLink,
   FollowLinkConfig,
-} from '../data/follow-link-config.model';
-import { RemoteData } from '../data/remote-data';
-import { ResolvedAction } from '../resolving/resolver.actions';
-import { getFirstCompletedRemoteData } from '../shared/operators';
+} from '../data';
+import { RemoteData } from '../data';
+import { ResolvedAction } from '../resolving';
+import { getFirstCompletedRemoteData } from '../shared';
 import { EPersonDataService } from './eperson-data.service';
-import { EPerson } from './models/eperson.model';
+import { EPerson } from './models';
 
 export const EPERSON_EDIT_FOLLOW_LINKS: FollowLinkConfig<EPerson>[] = [
   followLink('groups'),

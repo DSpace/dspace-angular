@@ -1,4 +1,4 @@
-import { URLCombiner } from '../../../modules/core/src/lib/core/url-combiner/url-combiner';
+import { URLCombiner } from '@dspace/core';
 
 export const SUGGESTION_MODULE_PATH = 'suggestions';
 

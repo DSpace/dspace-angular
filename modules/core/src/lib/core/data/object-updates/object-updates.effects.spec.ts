@@ -17,11 +17,11 @@ import { take } from 'rxjs/operators';
 import {
   INotification,
   Notification,
-} from '../../notifications/models/notification.model';
-import { NotificationType } from '../../notifications/models/notification-type';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { NoOpAction } from '../../shared/ngrx/no-op.action';
-import { NotificationsServiceStub } from '../../utilities/testing/notifications-service.stub';
+} from '../../notifications';
+import { NotificationType } from '../../notifications';
+import { NotificationsService } from '../../notifications';
+import { NoOpAction } from '../../shared';
+import { NotificationsServiceStub } from '../../utilities';
 import {
   DiscardObjectUpdatesAction,
   ObjectUpdatesAction,

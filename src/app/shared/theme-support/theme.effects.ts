@@ -9,7 +9,7 @@ import {
 import { map } from 'rxjs/operators';
 
 import { getDefaultThemeConfig } from '../../../config/config.util';
-import { BASE_THEME_NAME } from '../../../../modules/core/src/lib/core/config/theme.constants';
+import { BASE_THEME_NAME } from '@dspace/core';
 import { SetThemeAction } from './theme.actions';
 
 @Injectable()

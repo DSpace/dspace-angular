@@ -7,11 +7,11 @@ import {
   Input,
 } from '@angular/core';
 
-import { Context } from '../../../../modules/core/src/lib/core/shared/context.model';
-import { GenericConstructor } from '../../../../modules/core/src/lib/core/shared/generic-constructor';
+import { Context } from '@dspace/core';
+import { GenericConstructor } from '@dspace/core';
 import { AbstractComponentLoaderComponent } from '../../shared/abstract-component-loader/abstract-component-loader.component';
 import { DynamicComponentLoaderDirective } from '../../shared/abstract-component-loader/dynamic-component-loader.directive';
-import { BrowseByDataType } from '../../../../modules/core/src/lib/core/shared/browse-by-data-type';
+import { BrowseByDataType } from '@dspace/core';
 import { getComponentByBrowseByType } from './browse-by-decorator';
 
 @Component({

@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-namespace
 import * as deepFreeze from 'deep-freeze';
 
-import { Relationship } from '../../shared/item-relationships/relationship.model';
+import { Relationship } from '../../shared';
 import { FieldChangeType } from './field-change-type.model';
 import {
   AddFieldUpdateAction,

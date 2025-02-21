@@ -25,19 +25,19 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { FieldChangeType } from '../../../../../../modules/core/src/lib/core/data/object-updates/field-change-type.model';
-import { FieldUpdate } from '../../../../../../modules/core/src/lib/core/data/object-updates/field-update.model';
+import { FieldChangeType } from '@dspace/core';
+import { FieldUpdate } from '@dspace/core';
 import {
   DeleteRelationship,
   RelationshipIdentifiable,
-} from '../../../../../../modules/core/src/lib/core/data/object-updates/object-updates.reducer';
-import { ObjectUpdatesService } from '../../../../../../modules/core/src/lib/core/data/object-updates/object-updates.service';
-import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
+} from '@dspace/core';
+import { ObjectUpdatesService } from '@dspace/core';
+import { Item } from '@dspace/core';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '../../../../../../modules/core/src/lib/core/shared/operators';
-import { ViewMode } from '../../../../../../modules/core/src/lib/core/shared/view-mode.model';
+} from '@dspace/core';
+import { ViewMode } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { ListableObjectComponentLoaderComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { VirtualMetadataComponent } from '../../virtual-metadata/virtual-metadata.component';

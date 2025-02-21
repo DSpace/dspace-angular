@@ -3,10 +3,10 @@ import {
   inheritSerialization,
 } from 'cerialize';
 
-import { typedObject } from '../../cache/builders/build-decorators';
-import { HALResource } from '../../shared/hal-resource.model';
-import { ResourceType } from '../../shared/resource-type';
-import { excludeFromEquals } from '../../utilities/equals.decorators';
+import { typedObject } from '../../cache';
+import { HALResource } from '../../shared';
+import { ResourceType } from '../../shared';
+import { excludeFromEquals } from '../../utilities';
 import { SUBMISSION_CC_LICENSE } from './submission-cc-licence.resource-type';
 
 @typedObject

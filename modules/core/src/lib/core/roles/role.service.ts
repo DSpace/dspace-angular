@@ -5,7 +5,7 @@ import {
 } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
 
-import { CollectionDataService } from '../data/collection-data.service';
+import { CollectionDataService } from '../data';
 import { RoleType } from './role-types';
 
 /**

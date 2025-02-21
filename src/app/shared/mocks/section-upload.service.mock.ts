@@ -1,4 +1,4 @@
-import { SubmissionFormsConfigDataService } from '../../../../modules/core/src/lib/core/config/submission-forms-config-data.service';
+import { SubmissionFormsConfigDataService } from '@dspace/core';
 
 /**
  * Mock for [[SubmissionFormsConfigService]]

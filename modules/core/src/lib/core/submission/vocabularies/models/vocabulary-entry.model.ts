@@ -4,13 +4,13 @@ import {
   deserialize,
 } from 'cerialize';
 
-import { PLACEHOLDER_PARENT_METADATA } from '../../../config/models/ds-dynamic-form-constants';
-import { OtherInformation } from '../../../config/models/form-field-metadata-value.model';
-import { typedObject } from '../../../cache/builders/build-decorators';
-import { ListableObject } from '../../../object-collection/listable-object.model';
-import { GenericConstructor } from '../../../shared/generic-constructor';
-import { HALLink } from '../../../shared/hal-link.model';
-import { excludeFromEquals } from '../../../utilities/equals.decorators';
+import { PLACEHOLDER_PARENT_METADATA } from '../../../config';
+import { OtherInformation } from '../../../config';
+import { typedObject } from '../../../cache';
+import { ListableObject } from '../../../object-collection';
+import { GenericConstructor } from '../../../shared';
+import { HALLink } from '../../../shared';
+import { excludeFromEquals } from '../../../utilities';
 import { VOCABULARY_ENTRY } from './vocabularies.resource-type';
 
 /**

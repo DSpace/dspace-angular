@@ -23,21 +23,21 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { AuthService } from '../../../../../modules/core/src/lib/core/auth/auth.service';
-import { buildPaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { EPerson } from '../../../../../modules/core/src/lib/core/eperson/models/eperson.model';
-import { TranslateLoaderMock } from '../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { PageInfo } from '../../../../../modules/core/src/lib/core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { AuthService } from '@dspace/core';
+import { buildPaginatedList } from '@dspace/core';
+import { EPerson } from '@dspace/core';
+import { TranslateLoaderMock } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { PageInfo } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import {
   subscriptionMock,
   subscriptionMock2,
-} from '../../../../../modules/core/src/lib/core/utilities/testing/subscriptions-data.mock';
+} from '@dspace/core';
 import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { ThemeService } from '../../theme-support/theme.service';
-import { SubscriptionsDataService } from '../subscriptions-data.service';
+import { SubscriptionsDataService } from '../../../../../modules/core/src/lib/core/data/subscriptions-data.service';
 import { SubscriptionModalComponent } from './subscription-modal.component';
 
 describe('SubscriptionModalComponent', () => {

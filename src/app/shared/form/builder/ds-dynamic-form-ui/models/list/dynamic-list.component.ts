@@ -40,11 +40,11 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { PaginatedList } from '../../../../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../../../../modules/core/src/lib/core/shared/operators';
-import { PageInfo } from '../../../../../../../../modules/core/src/lib/core/shared/page-info.model';
-import { VocabularyEntry } from '../../../../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyService } from '../../../../../../../../modules/core/src/lib/core/submission/vocabularies/vocabulary.service';
+import { PaginatedList } from '@dspace/core';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core';
+import { PageInfo } from '@dspace/core';
+import { VocabularyEntry } from '@dspace/core';
+import { VocabularyService } from '@dspace/core';
 import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
 import { FormBuilderService } from '../../../form-builder.service';
 import { DynamicListCheckboxGroupModel } from './dynamic-list-checkbox-group.model';

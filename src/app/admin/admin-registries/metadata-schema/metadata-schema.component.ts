@@ -29,19 +29,19 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { MetadataField } from '../../../../../modules/core/src/lib/core/metadata/metadata-field.model';
-import { MetadataSchema } from '../../../../../modules/core/src/lib/core/metadata/metadata-schema.model';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { PaginationService } from '../../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { RegistryService } from '../../../../../modules/core/src/lib/core/registry/registry.service';
-import { NoContent } from '../../../../../modules/core/src/lib/core/shared/NoContent.model';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { MetadataField } from '@dspace/core';
+import { MetadataSchema } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { RegistryService } from '@dspace/core';
+import { NoContent } from '@dspace/core';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '../../../../../modules/core/src/lib/core/shared/operators';
-import { PaginationComponentOptions } from '../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+} from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
 import { VarDirective } from '../../../shared/utils/var.directive';

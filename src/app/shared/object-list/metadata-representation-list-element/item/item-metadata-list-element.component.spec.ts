@@ -9,7 +9,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { ItemMetadataRepresentation } from '../../../../../../modules/core/src/lib/core/shared/metadata-representation/item/item-metadata-representation.model';
+import { ItemMetadataRepresentation } from '@dspace/core';
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { ItemMetadataListElementComponent } from './item-metadata-list-element.component';
 

@@ -9,11 +9,11 @@ import {
   SearchFilterInitializeAction,
   SearchFilterResetPageAction,
   SearchFilterToggleAction,
-} from './search-filter.actions';
+} from '../../../../../../modules/core/src/lib/core/states/search-filters/search-filter.actions';
 import {
   filterReducer,
   SearchFiltersState,
-} from './search-filter.reducer';
+} from '../../../../../../modules/core/src/lib/core/states/search-filters/search-filter.reducer';
 
 const filterName1 = 'author';
 const filterName2 = 'scope';

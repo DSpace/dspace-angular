@@ -5,9 +5,9 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { GroupDataService } from '../../../../../../modules/core/src/lib/core/eperson/group-data.service';
-import { Group } from '../../../../../../modules/core/src/lib/core/eperson/models/group.model';
-import { getFirstSucceededRemoteListPayload } from '../../../../../../modules/core/src/lib/core/shared/operators';
+import { GroupDataService } from '@dspace/core';
+import { Group } from '@dspace/core';
+import { getFirstSucceededRemoteListPayload } from '@dspace/core';
 
 export class ValidateGroupExists {
 

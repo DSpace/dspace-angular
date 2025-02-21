@@ -15,18 +15,18 @@ import {
   Subject,
 } from 'rxjs';
 
-import { BundleDataService } from '../../../../../../modules/core/src/lib/core/data/bundle-data.service';
-import { FieldChangeType } from '../../../../../../modules/core/src/lib/core/data/object-updates/field-change-type.model';
-import { FieldUpdate } from '../../../../../../modules/core/src/lib/core/data/object-updates/field-update.model';
-import { ObjectUpdatesService } from '../../../../../../modules/core/src/lib/core/data/object-updates/object-updates.service';
-import { RequestService } from '../../../../../../modules/core/src/lib/core/data/request.service';
-import { getMockRequestService } from '../../../../../../modules/core/src/lib/core/mocks/request.service.mock';
-import { PaginationService } from '../../../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { Bundle } from '../../../../../../modules/core/src/lib/core/shared/bundle.model';
-import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { PaginationServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
-import { createPaginatedList } from '../../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+import { BundleDataService } from '@dspace/core';
+import { FieldChangeType } from '@dspace/core';
+import { FieldUpdate } from '@dspace/core';
+import { ObjectUpdatesService } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { getMockRequestService } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { Bundle } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { PaginationServiceStub } from '@dspace/core';
+import { createPaginatedList } from '@dspace/core';
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
 import {

@@ -8,11 +8,11 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../../../environments/environment';
-import { DSONameService } from '../../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { APP_CONFIG } from '../../../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { ItemSearchResult } from '../../../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
-import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
-import { ViewMode } from '../../../../../../../modules/core/src/lib/core/shared/view-mode.model';
+import { DSONameService } from '@dspace/core';
+import { APP_CONFIG } from '@dspace/core';
+import { ItemSearchResult } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';

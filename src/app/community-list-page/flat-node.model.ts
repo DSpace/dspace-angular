@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 
-import { Collection } from '../../../modules/core/src/lib/core/shared/collection.model';
-import { Community } from '../../../modules/core/src/lib/core/shared/community.model';
+import { Collection } from '@dspace/core';
+import { Community } from '@dspace/core';
 import { ShowMoreFlatNode } from './show-more-flat-node.model';
 
 /**

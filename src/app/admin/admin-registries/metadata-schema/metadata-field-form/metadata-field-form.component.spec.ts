@@ -11,10 +11,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { MetadataField } from '../../../../../../modules/core/src/lib/core/metadata/metadata-field.model';
-import { MetadataSchema } from '../../../../../../modules/core/src/lib/core/metadata/metadata-schema.model';
-import { RegistryService } from '../../../../../../modules/core/src/lib/core/registry/registry.service';
-import { RegistryServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/registry.service.stub';
+import { MetadataField } from '@dspace/core';
+import { MetadataSchema } from '@dspace/core';
+import { RegistryService } from '@dspace/core';
+import { RegistryServiceStub } from '@dspace/core';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../../shared/form/form.component';
 import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';

@@ -11,15 +11,15 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
-import { WorkflowActionDataService } from '../../../../../modules/core/src/lib/core/data/workflow-action-data.service';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { RouteService } from '../../../../../modules/core/src/lib/core/services/route.service';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../modules/core/src/lib/core/shared/operators';
-import { WorkflowItemDataService } from '../../../../../modules/core/src/lib/core/submission/workflowitem-data.service';
-import { ClaimedTaskDataService } from '../../../../../modules/core/src/lib/core/tasks/claimed-task-data.service';
-import { ProcessTaskResponse } from '../../../../../modules/core/src/lib/core/tasks/models/process-task-response';
-import { WorkflowAction } from '../../../../../modules/core/src/lib/core/tasks/models/workflow-action-object.model';
+import { RequestService } from '@dspace/core';
+import { WorkflowActionDataService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { RouteService } from '@dspace/core';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core';
+import { WorkflowItemDataService } from '@dspace/core';
+import { ClaimedTaskDataService } from '@dspace/core';
+import { ProcessTaskResponse } from '@dspace/core';
+import { WorkflowAction } from '@dspace/core';
 import { WorkflowItemActionPageDirective } from '../../workflow-item-action-page.component';
 
 /**

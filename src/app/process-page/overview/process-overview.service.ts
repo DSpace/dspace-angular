@@ -3,18 +3,18 @@ import { Injectable } from '@angular/core';
 import { hasValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 
-import { RequestParam } from '../../../../modules/core/src/lib/core/cache/models/request-param.model';
+import { RequestParam } from '@dspace/core';
 import {
   SortDirection,
   SortOptions,
-} from '../../../../modules/core/src/lib/core/cache/models/sort-options.model';
-import { FindListOptions } from '../../../../modules/core/src/lib/core/data/find-list-options.model';
-import { PaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { ProcessDataService } from '../../../../modules/core/src/lib/core/data/processes/process-data.service';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { Process } from '../../../../modules/core/src/lib/core/processes/process.model';
-import { ProcessStatus } from '../../../../modules/core/src/lib/core/processes/process-status.model';
-import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+} from '@dspace/core';
+import { FindListOptions } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { ProcessDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { Process } from '@dspace/core';
+import { ProcessStatus } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
 
 /**
  * The sortable fields for processes

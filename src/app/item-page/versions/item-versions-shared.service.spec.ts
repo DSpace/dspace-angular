@@ -2,17 +2,17 @@ import { TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
-import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
-import { VersionDataService } from '../../../../modules/core/src/lib/core/data/version-data.service';
-import { VersionHistoryDataService } from '../../../../modules/core/src/lib/core/data/version-history-data.service';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Version } from '../../../../modules/core/src/lib/core/shared/version.model';
-import { WorkflowItemDataService } from '../../../../modules/core/src/lib/core/submission/workflowitem-data.service';
-import { WorkspaceitemDataService } from '../../../../modules/core/src/lib/core/submission/workspaceitem-data.service';
+import { AuthService } from '@dspace/core';
+import { VersionDataService } from '@dspace/core';
+import { VersionHistoryDataService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Version } from '@dspace/core';
+import { WorkflowItemDataService } from '@dspace/core';
+import { WorkspaceitemDataService } from '@dspace/core';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
-} from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+} from '@dspace/core';
 import { ItemVersionsSharedService } from './item-versions-shared.service';
 
 describe('ItemVersionsSharedService', () => {

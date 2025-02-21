@@ -3,11 +3,10 @@ import { TestBed } from '@angular/core/testing';
 import { StoreModule } from '@ngrx/store';
 import uniqueId from 'lodash/uniqueId';
 
-import { Notification } from './models/notification.model';
-import { NotificationAnimationsType } from './models/notification-animations-type';
-import { NotificationOptions } from './models/notification-options.model';
-import { NotificationType } from './models/notification-type';
-import { NotificationComponent } from './notification/notification.component';
+import { Notification } from './models';
+import { NotificationAnimationsType } from './models';
+import { NotificationOptions } from './models';
+import { NotificationType } from './models';
 import {
   NewNotificationAction,
   RemoveAllNotificationsAction,
@@ -15,8 +14,7 @@ import {
 } from './notifications.actions';
 import { notificationsReducer } from './notifications.reducers';
 import { NotificationsService } from './notifications.service';
-import { NotificationsBoardComponent } from './notifications-board/notifications-board.component';
-import { mockStoreModuleConfig } from "../utilities/testing/mock-state-utilities";
+import { mockStoreModuleConfig } from "../utilities";
 
 describe('Notifications reducer', () => {
 

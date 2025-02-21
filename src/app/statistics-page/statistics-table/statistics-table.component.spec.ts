@@ -7,9 +7,9 @@ import {
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DSONameService } from '../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { DSpaceObjectDataService } from '../../../../modules/core/src/lib/core/data/dspace-object-data.service';
-import { UsageReport } from '../../../../modules/core/src/lib/core/statistics/models/usage-report.model';
+import { DSONameService } from '@dspace/core';
+import { DSpaceObjectDataService } from '@dspace/core';
+import { UsageReport } from '@dspace/core';
 import { StatisticsTableComponent } from './statistics-table.component';
 
 describe('StatisticsTableComponent', () => {

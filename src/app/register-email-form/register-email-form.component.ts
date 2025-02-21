@@ -36,21 +36,21 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { ConfigurationDataService } from '../../../modules/core/src/lib/core/data/configuration-data.service';
-import { EpersonRegistrationService } from '../../../modules/core/src/lib/core/data/eperson-registration.service';
-import { RemoteData } from '../../../modules/core/src/lib/core/data/remote-data';
+import { ConfigurationDataService } from '@dspace/core';
+import { EpersonRegistrationService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
 import {
   CAPTCHA_NAME,
   GoogleRecaptchaService,
-} from '../../../modules/core/src/lib/core/google-recaptcha/google-recaptcha.service';
-import { NotificationsService } from '../../../modules/core/src/lib/core/notifications/notifications.service';
-import { CookieService } from '../../../modules/core/src/lib/core/services/cookie.service';
-import { ConfigurationProperty } from '../../../modules/core/src/lib/core/shared/configuration-property.model';
+} from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { CookieService } from '@dspace/core';
+import { ConfigurationProperty } from '@dspace/core';
 import {
   getAllSucceededRemoteDataPayload,
   getFirstSucceededRemoteDataPayload,
-} from '../../../modules/core/src/lib/core/shared/operators';
-import { Registration } from '../../../modules/core/src/lib/core/shared/registration.model';
+} from '@dspace/core';
+import { Registration } from '@dspace/core';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';
 import { BtnDisabledDirective } from '../shared/btn-disabled.directive';

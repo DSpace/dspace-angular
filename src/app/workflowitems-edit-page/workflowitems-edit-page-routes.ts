@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
-import { authenticatedGuard } from '../../../modules/core/src/lib/core/auth/authenticated.guard';
-import { i18nBreadcrumbResolver } from '../../../modules/core/src/lib/core/breadcrumbs/i18n-breadcrumb.resolver';
+import { authenticatedGuard } from '@dspace/core';
+import { i18nBreadcrumbResolver } from '@dspace/core';
 import { ThemedFullItemPageComponent } from '../item-page/full/themed-full-item-page.component';
 import { ThemedSubmissionEditComponent } from '../submission/edit/themed-submission-edit.component';
 import { AdvancedWorkflowActionPageComponent } from './advanced-workflow-action/advanced-workflow-action-page/advanced-workflow-action-page.component';

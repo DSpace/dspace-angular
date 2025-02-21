@@ -22,29 +22,29 @@ import { of as observableOf } from 'rxjs';
 import {
   SortDirection,
   SortOptions,
-} from '../../../../../modules/core/src/lib/core/cache/models/sort-options.model';
-import { CollectionDataService } from '../../../../../modules/core/src/lib/core/data/collection-data.service';
-import { AuthorizationDataService } from '../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { PaginatedSearchOptions } from '../../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
-import { PaginationComponentOptions } from '../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
-import { SearchService } from '../../../../../modules/core/src/lib/core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
+} from '@dspace/core';
+import { CollectionDataService } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { ItemDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { PaginatedSearchOptions } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
+import { SearchService } from '@dspace/core';
+import { SearchConfigurationService } from '@dspace/core';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { HostWindowServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/host-window-service.stub';
-import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { ObjectSelectServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/object-select-service.stub';
-import { RouterStub } from '../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
-import { SearchServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/search-service.stub';
-import { createPaginatedList } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+} from '@dspace/core';
+import { HostWindowServiceStub } from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { ObjectSelectServiceStub } from '@dspace/core';
+import { RouterStub } from '@dspace/core';
+import { SearchServiceStub } from '@dspace/core';
+import { createPaginatedList } from '@dspace/core';
 import { ErrorComponent } from '../../../shared/error/error.component';
 import { HostWindowService } from '../../../shared/host-window.service';
 import { LoadingComponent } from '../../../shared/loading/loading.component';

@@ -43,15 +43,15 @@ import {
 import {
   SortDirection,
   SortOptions,
-} from '../../../../../modules/core/src/lib/core/cache/models/sort-options.model';
-import { followLink } from '../../../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { RegistryService } from '../../../../../modules/core/src/lib/core/registry/registry.service';
+} from '@dspace/core';
+import { followLink } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { RegistryService } from '@dspace/core';
 import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   metadataFieldsToString,
-} from '../../../../../modules/core/src/lib/core/shared/operators';
+} from '@dspace/core';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { ClickOutsideDirective } from '../../../shared/utils/click-outside.directive';
 

@@ -19,12 +19,12 @@ import {
 } from '@ngx-translate/core';
 
 import { environment } from '../../../environments/environment';
-import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
-import { ObjectCacheService } from '../../../../modules/core/src/lib/core/cache/object-cache.service';
-import { CommunityDataService } from '../../../../modules/core/src/lib/core/data/community-data.service';
-import { RequestService } from '../../../../modules/core/src/lib/core/data/request.service';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Community } from '../../../../modules/core/src/lib/core/shared/community.model';
+import { AuthService } from '@dspace/core';
+import { ObjectCacheService } from '@dspace/core';
+import { CommunityDataService } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Community } from '@dspace/core';
 import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
 import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
 import { FormComponent } from '../../shared/form/form.component';

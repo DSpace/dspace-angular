@@ -7,19 +7,19 @@ import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { LdnServicesService } from '../../../admin/admin-ldn-services/ldn-services-data/ldn-services-data.service';
-import { NotifyServicePattern } from '../../../admin/admin-ldn-services/ldn-services-model/ldn-service-patterns.model';
+import { LdnServicesService } from '../../../../../modules/core/src/lib/core/admin/ldn-services-data/ldn-services-data.service';
+import { NotifyServicePattern } from '../../../../../modules/core/src/lib/core/data/ldn/ldn-service-patterns.model';
 import {
   LdnService,
   LdnServiceByPattern,
-} from '../../../admin/admin-ldn-services/ldn-services-model/ldn-services.model';
-import { JsonPatchOperationsBuilder } from '../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operations-builder';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { createPaginatedList } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+} from '../../../../../modules/core/src/lib/core/data/ldn/ldn-services.model';
+import { JsonPatchOperationsBuilder } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { createPaginatedList } from '@dspace/core';
 import { SectionsService } from '../sections.service';
-import { CoarNotifyConfigDataService } from './coar-notify-config-data.service';
+import { CoarNotifyConfigDataService } from '../../../../../modules/core/src/lib/core/coar-notify/coar-notify-config-data.service';
 import { SubmissionSectionCoarNotifyComponent } from './section-coar-notify.component';
-import { SubmissionCoarNotifyConfig } from './submission-coar-notify.config';
+import { SubmissionCoarNotifyConfig } from '../../../../../modules/core/src/lib/core/coar-notify/submission-coar-notify.config';
 
 describe('SubmissionSectionCoarNotifyComponent', () => {
   let component: SubmissionSectionCoarNotifyComponent;

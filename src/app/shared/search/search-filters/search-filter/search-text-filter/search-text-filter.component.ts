@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { FilterInputSuggestionsComponent } from '../../../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
-import { addOperatorToFilterValue } from '../../../search.utils';
+import { addOperatorToFilterValue } from '../../../../../../../modules/core/src/lib/core/utilities/search.utils';
 import {
   facetLoad,
   SearchFacetFilterComponent,

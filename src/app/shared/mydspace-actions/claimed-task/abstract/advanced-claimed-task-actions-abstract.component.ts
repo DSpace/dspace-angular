@@ -11,11 +11,11 @@ import {
 } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
-import { RequestService } from '../../../../../../modules/core/src/lib/core/data/request.service';
-import { NotificationsService } from '../../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../../modules/core/src/lib/core/shared/operators';
-import { SearchService } from '../../../../../../modules/core/src/lib/core/shared/search/search.service';
-import { WorkflowItem } from '../../../../../../modules/core/src/lib/core/submission/models/workflowitem.model';
+import { RequestService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core';
+import { SearchService } from '@dspace/core';
+import { WorkflowItem } from '@dspace/core';
 import { getAdvancedWorkflowRoute } from '../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { ClaimedTaskActionsAbstractComponent } from './claimed-task-actions-abstract.component';
 

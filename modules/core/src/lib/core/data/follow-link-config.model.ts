@@ -1,6 +1,6 @@
 import { hasValue } from '@dspace/shared/utils';
 
-import { HALResource } from '../shared/hal-resource.model';
+import { HALResource } from '../shared';
 import { FindListOptions } from './find-list-options.model';
 
 /**

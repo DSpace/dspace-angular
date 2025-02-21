@@ -1,6 +1,6 @@
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { Item } from '@dspace/core';
 
-import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
+import { Collection } from '@dspace/core';
 
 export class FilteredItems {
 

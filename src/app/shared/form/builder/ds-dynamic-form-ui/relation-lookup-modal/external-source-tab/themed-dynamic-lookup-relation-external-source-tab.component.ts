@@ -5,12 +5,12 @@ import {
   Output,
 } from '@angular/core';
 
-import { ListableObject } from '../../../../../../../../modules/core/src/lib/core/object-collection/listable-object.model';
-import { Collection } from '../../../../../../../../modules/core/src/lib/core/shared/collection.model';
-import { Context } from '../../../../../../../../modules/core/src/lib/core/shared/context.model';
-import { ExternalSource } from '../../../../../../../../modules/core/src/lib/core/shared/external-source.model';
-import { RelationshipOptions } from '../../../../../../../../modules/core/src/lib/core/shared/form/relationship-options.model';
-import { Item } from '../../../../../../../../modules/core/src/lib/core/shared/item.model';
+import { ListableObject } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { Context } from '@dspace/core';
+import { ExternalSource } from '@dspace/core';
+import { RelationshipOptions } from '@dspace/core';
+import { Item } from '@dspace/core';
 import { ThemedComponent } from '../../../../../theme-support/themed.component';
 import { DsDynamicLookupRelationExternalSourceTabComponent } from './dynamic-lookup-relation-external-source-tab.component';
 

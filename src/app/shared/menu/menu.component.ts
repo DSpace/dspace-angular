@@ -23,14 +23,14 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { AuthorizationDataService } from '../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
-import { GenericConstructor } from '../../../../modules/core/src/lib/core/shared/generic-constructor';
+import { AuthorizationDataService } from '@dspace/core';
+import { FeatureID } from '@dspace/core';
+import { GenericConstructor } from '@dspace/core';
 import { ThemeService } from '../theme-support/theme.service';
 import { MenuService } from './menu.service';
-import { MenuID } from './menu-id.model';
+import { MenuID } from '../../../../modules/core/src/lib/core/states/menu/menu-id.model';
 import { getComponentForMenu } from './menu-section.decorator';
-import { MenuSection } from './menu-section.model';
+import { MenuSection } from '../../../../modules/core/src/lib/core/states/menu/menu-section.model';
 import { MenuSectionComponent } from './menu-section/menu-section.component';
 
 /**

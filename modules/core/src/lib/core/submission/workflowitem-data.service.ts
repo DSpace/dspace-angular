@@ -6,29 +6,29 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { RequestParam } from '../cache/models/request-param.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
+import { RemoteDataBuildService } from '../cache';
+import { RequestParam } from '../cache';
+import { ObjectCacheService } from '../cache';
 import {
   DeleteData,
   DeleteDataImpl,
-} from '../data/base/delete-data';
-import { IdentifiableDataService } from '../data/base/identifiable-data.service';
+} from '../data';
+import { IdentifiableDataService } from '../data';
 import {
   SearchData,
   SearchDataImpl,
-} from '../data/base/search-data';
-import { FindListOptions } from '../data/find-list-options.model';
-import { FollowLinkConfig } from '../data/follow-link-config.model';
-import { PaginatedList } from '../data/paginated-list.model';
-import { RemoteData } from '../data/remote-data';
-import { DeleteByIDRequest } from '../data/request.models';
-import { RequestService } from '../data/request.service';
-import { NotificationsService } from '../notifications/notifications.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { NoContent } from '../shared/NoContent.model';
-import { getFirstCompletedRemoteData } from '../shared/operators';
-import { WorkflowItem } from './models/workflowitem.model';
+} from '../data';
+import { FindListOptions } from '../data';
+import { FollowLinkConfig } from '../data';
+import { PaginatedList } from '../data';
+import { RemoteData } from '../data';
+import { DeleteByIDRequest } from '../data';
+import { RequestService } from '../data';
+import { NotificationsService } from '../notifications';
+import { HALEndpointService } from '../shared';
+import { NoContent } from '../shared';
+import { getFirstCompletedRemoteData } from '../shared';
+import { WorkflowItem } from './models';
 
 /**
  * A service that provides methods to make REST requests with workflow items endpoint.

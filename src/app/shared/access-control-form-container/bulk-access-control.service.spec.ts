@@ -2,12 +2,12 @@ import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ScriptDataService } from '../../../../modules/core/src/lib/core/data/processes/script-data.service';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Process } from '../../../../modules/core/src/lib/core/processes/process.model';
-import { ProcessParameter } from '../../../../modules/core/src/lib/core/processes/process-parameter.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { ScriptDataService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Process } from '@dspace/core';
+import { ProcessParameter } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
 import { BulkAccessControlService } from './bulk-access-control.service';
 
 describe('BulkAccessControlService', () => {

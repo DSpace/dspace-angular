@@ -18,14 +18,14 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { CacheableObject } from '../cache/cacheable-object.model';
-import { EndpointMap } from '../cache/response.models';
-import { APP_CONFIG } from '../config/app-config.interface';
-import { RemoteData } from '../data/remote-data';
-import { EndpointMapRequest } from '../data/request.models';
-import { RequestService } from '../data/request.service';
-import { RESTURLCombiner } from '../url-combiner/rest-url-combiner';
+import { RemoteDataBuildService } from '../cache';
+import { CacheableObject } from '../cache';
+import { EndpointMap } from '../cache';
+import { APP_CONFIG } from '../config';
+import { RemoteData } from '../data';
+import { EndpointMapRequest } from '../data';
+import { RequestService } from '../data';
+import { RESTURLCombiner } from '../url-combiner';
 import { getFirstCompletedRemoteData } from './operators';
 
 @Injectable({ providedIn: 'root' })

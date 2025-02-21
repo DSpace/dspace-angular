@@ -19,22 +19,22 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { CollectionDataService } from '../../../../../../modules/core/src/lib/core/data/collection-data.service';
-import { FindListOptions } from '../../../../../../modules/core/src/lib/core/data/find-list-options.model';
-import { followLink } from '../../../../../../modules/core/src/lib/core/data/follow-link-config.model';
+import { DSONameService } from '@dspace/core';
+import { CollectionDataService } from '@dspace/core';
+import { FindListOptions } from '@dspace/core';
+import { followLink } from '@dspace/core';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../../modules/core/src/lib/core/data/remote-data';
-import { NotificationsService } from '../../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { CollectionSearchResult } from '../../../../../../modules/core/src/lib/core/object-collection/collection-search-result.model';
-import { Collection } from '../../../../../../modules/core/src/lib/core/shared/collection.model';
-import { DSpaceObject } from '../../../../../../modules/core/src/lib/core/shared/dspace-object.model';
-import { getFirstCompletedRemoteData } from '../../../../../../modules/core/src/lib/core/shared/operators';
-import { SearchResult } from '../../../../../../modules/core/src/lib/core/shared/search/models/search-result.model';
-import { SearchService } from '../../../../../../modules/core/src/lib/core/shared/search/search.service';
+} from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { CollectionSearchResult } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
+import { SearchResult } from '@dspace/core';
+import { SearchService } from '@dspace/core';
 import { HoverClassDirective } from '../../../hover-class.directive';
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';

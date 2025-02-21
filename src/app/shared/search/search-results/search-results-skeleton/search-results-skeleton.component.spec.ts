@@ -4,8 +4,8 @@ import {
 } from '@angular/core/testing';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
-import { SearchService } from '../../../../../../modules/core/src/lib/core/shared/search/search.service';
-import { SearchServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/search-service.stub';
+import { SearchService } from '@dspace/core';
+import { SearchServiceStub } from '@dspace/core';
 import { SearchResultsSkeletonComponent } from './search-results-skeleton.component';
 
 describe('SearchResultsSkeletonComponent', () => {

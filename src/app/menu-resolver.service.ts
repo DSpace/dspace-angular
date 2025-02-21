@@ -20,21 +20,21 @@ import {
 } from 'rxjs/operators';
 
 import { PUBLICATION_CLAIMS_PATH } from './admin/admin-notifications/admin-notifications-routing-paths';
-import { AuthService } from '../../modules/core/src/lib/core/auth/auth.service';
-import { BrowseService } from '../../modules/core/src/lib/core/browse/browse.service';
-import { ConfigurationDataService } from '../../modules/core/src/lib/core/data/configuration-data.service';
-import { AuthorizationDataService } from '../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../modules/core/src/lib/core/data/feature-authorization/feature-id';
-import { PaginatedList } from '../../modules/core/src/lib/core/data/paginated-list.model';
+import { AuthService } from '@dspace/core';
+import { BrowseService } from '@dspace/core';
+import { ConfigurationDataService } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { FeatureID } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
 import {
   METADATA_EXPORT_SCRIPT_NAME,
   METADATA_IMPORT_SCRIPT_NAME,
   ScriptDataService,
-} from '../../modules/core/src/lib/core/data/processes/script-data.service';
-import { RemoteData } from '../../modules/core/src/lib/core/data/remote-data';
-import { BrowseDefinition } from '../../modules/core/src/lib/core/shared/browse-definition.model';
-import { ConfigurationProperty } from '../../modules/core/src/lib/core/shared/configuration-property.model';
-import { getFirstCompletedRemoteData } from '../../modules/core/src/lib/core/shared/operators';
+} from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { BrowseDefinition } from '@dspace/core';
+import { ConfigurationProperty } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
 import { ThemedCreateCollectionParentSelectorComponent } from './shared/dso-selector/modal-wrappers/create-collection-parent-selector/themed-create-collection-parent-selector.component';
 import { ThemedCreateCommunityParentSelectorComponent } from './shared/dso-selector/modal-wrappers/create-community-parent-selector/themed-create-community-parent-selector.component';
 import { ThemedCreateItemParentSelectorComponent } from './shared/dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';
@@ -44,12 +44,12 @@ import { ThemedEditItemSelectorComponent } from './shared/dso-selector/modal-wra
 import { ExportBatchSelectorComponent } from './shared/dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
 import { ExportMetadataSelectorComponent } from './shared/dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
 import { MenuService } from './shared/menu/menu.service';
-import { MenuID } from './shared/menu/menu-id.model';
+import { MenuID } from '../../modules/core/src/lib/core/states/menu/menu-id.model';
 import { LinkMenuItemModel } from './shared/menu/menu-item/models/link.model';
 import { OnClickMenuItemModel } from './shared/menu/menu-item/models/onclick.model';
 import { TextMenuItemModel } from './shared/menu/menu-item/models/text.model';
-import { MenuItemType } from './shared/menu/menu-item-type.model';
-import { MenuState } from './shared/menu/menu-state.model';
+import { MenuItemType } from '../../modules/core/src/lib/core/states/menu/menu-item-type.model';
+import { MenuState } from '../../modules/core/src/lib/core/states/menu/menu-state.model';
 
 /**
  * Creates all of the app's menus

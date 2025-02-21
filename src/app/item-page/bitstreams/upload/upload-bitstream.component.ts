@@ -32,20 +32,20 @@ import {
 
 import { environment } from '../../../../environments/environment';
 import { getBitstreamModuleRoute } from '../../../app-routing-paths';
-import { AuthService } from '../../../../../modules/core/src/lib/core/auth/auth.service';
-import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { BundleDataService } from '../../../../../modules/core/src/lib/core/data/bundle-data.service';
-import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
-import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Bundle } from '../../../../../modules/core/src/lib/core/shared/bundle.model';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { AuthService } from '@dspace/core';
+import { DSONameService } from '@dspace/core';
+import { BundleDataService } from '@dspace/core';
+import { ItemDataService } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Bundle } from '@dspace/core';
+import { Item } from '@dspace/core';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '../../../../../modules/core/src/lib/core/shared/operators';
+} from '@dspace/core';
 import { DsoInputSuggestionsComponent } from '../../../shared/input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
 import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';

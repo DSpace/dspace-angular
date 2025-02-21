@@ -19,11 +19,11 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { MockComponent } from 'ng-mocks';
 
-import { DSpaceObject } from '../../../../../modules/core/src/lib/core/shared/dspace-object.model';
-import { DSpaceObjectType } from '../../../../../modules/core/src/lib/core/shared/dspace-object-type.model';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { MetadataValue } from '../../../../../modules/core/src/lib/core/shared/metadata.models';
-import { createSuccessfulRemoteDataObject } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { DSpaceObject } from '@dspace/core';
+import { DSpaceObjectType } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { MetadataValue } from '@dspace/core';
+import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { DSOSelectorComponent } from '../dso-selector/dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,

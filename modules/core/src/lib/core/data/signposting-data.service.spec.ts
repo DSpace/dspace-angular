@@ -5,8 +5,8 @@ import {
 } from '@angular/core/testing';
 import { of } from 'rxjs';
 
-import { APP_CONFIG } from '../config/app-config.interface';
-import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
+import { APP_CONFIG } from '../config';
+import { DspaceRestService } from '../dspace-rest';
 import { SignpostingDataService } from './signposting-data.service';
 import { SignpostingLink } from './signposting-links.model';
 

@@ -19,18 +19,18 @@ import { environment } from 'src/environments/environment.test';
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
-} from '../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { SubmissionAccessesConfigDataService } from '../../../../../modules/core/src/lib/core/config/submission-accesses-config-data.service';
-import { JsonPatchOperationsBuilder } from '../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operations-builder';
-import { SubmissionJsonPatchOperationsService } from '../../../../../modules/core/src/lib/core/submission/submission-json-patch-operations.service';
-import { SubmissionObjectDataService } from '../../../../../modules/core/src/lib/core/submission/submission-object-data.service';
+} from '@dspace/core';
+import { SubmissionAccessesConfigDataService } from '@dspace/core';
+import { JsonPatchOperationsBuilder } from '@dspace/core';
+import { SubmissionJsonPatchOperationsService } from '@dspace/core';
+import { SubmissionObjectDataService } from '@dspace/core';
 import {
   accessConditionChangeEvent,
   checkboxChangeEvent,
-} from '../../../../../modules/core/src/lib/core/utilities/testing/form-event.stub';
-import { SectionsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/sections-service.stub';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/submission-json-patch-operations-service.stub';
-import { XSRFService } from '../../../../../modules/core/src/lib/core/xsrf/xsrf.service';
+} from '@dspace/core';
+import { SectionsServiceStub } from '@dspace/core';
+import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core';
+import { XSRFService } from '@dspace/core';
 import { dsDynamicFormControlMapFn } from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 import { DsDynamicTypeBindRelationService } from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
@@ -45,7 +45,7 @@ import {
   getSubmissionAccessesConfigService,
 } from '../../../shared/mocks/section-accesses-config.service.mock';
 import { mockAccessesFormData } from '../../../shared/mocks/submission.mock';
-import { SubmissionService } from '../../submission.service';
+import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { SectionsService } from '../sections.service';
 import { SubmissionSectionAccessesComponent } from './section-accesses.component';

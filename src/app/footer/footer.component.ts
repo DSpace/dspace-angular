@@ -16,13 +16,13 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { NotifyInfoService } from '../../../modules/core/src/lib/core/coar-notify/notify-info/notify-info.service';
+import { NotifyInfoService } from '@dspace/core';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../modules/core/src/lib/core/config/app-config.interface';
-import { AuthorizationDataService } from '../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
+} from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { FeatureID } from '@dspace/core';
 import { OrejimeService } from '../shared/cookies/orejime.service';
 
 @Component({

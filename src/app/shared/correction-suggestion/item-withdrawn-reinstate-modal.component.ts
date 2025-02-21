@@ -9,7 +9,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { AuthorizationDataService } from '../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { AuthorizationDataService } from '@dspace/core';
 import { ModalBeforeDismiss } from '../interfaces/modal-before-dismiss.interface';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 

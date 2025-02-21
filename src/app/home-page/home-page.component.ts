@@ -16,8 +16,8 @@ import { map } from 'rxjs/operators';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../modules/core/src/lib/core/config/app-config.interface';
-import { Site } from '../../../modules/core/src/lib/core/shared/site.model';
+} from '@dspace/core';
+import { Site } from '@dspace/core';
 import { SuggestionsPopupComponent } from '../notifications/suggestions-popup/suggestions-popup.component';
 import { ThemedConfigurationSearchPageComponent } from '../search-page/themed-configuration-search-page.component';
 import { ThemedSearchFormComponent } from '../shared/search-form/themed-search-form.component';

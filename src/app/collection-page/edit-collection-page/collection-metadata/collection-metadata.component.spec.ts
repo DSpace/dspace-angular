@@ -14,21 +14,21 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '../../../../../modules/core/src/lib/core/auth/auth.service';
-import { ObjectCacheService } from '../../../../../modules/core/src/lib/core/cache/object-cache.service';
-import { APP_DATA_SERVICES_MAP } from '../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { CollectionDataService } from '../../../../../modules/core/src/lib/core/data/collection-data.service';
-import { CommunityDataService } from '../../../../../modules/core/src/lib/core/data/community-data.service';
-import { ItemTemplateDataService } from '../../../../../modules/core/src/lib/core/data/item-template-data.service';
-import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { AuthService } from '@dspace/core';
+import { ObjectCacheService } from '@dspace/core';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core';
+import { CollectionDataService } from '@dspace/core';
+import { CommunityDataService } from '@dspace/core';
+import { ItemTemplateDataService } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { Item } from '@dspace/core';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+} from '@dspace/core';
 import { AuthServiceMock } from '../../../shared/mocks/auth.service.mock';
 import { getCollectionItemTemplateRoute } from '../../collection-page-routing-paths';
 import { CollectionMetadataComponent } from './collection-metadata.component';

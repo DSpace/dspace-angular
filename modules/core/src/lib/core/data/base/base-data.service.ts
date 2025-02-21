@@ -31,17 +31,17 @@ import {
 import {
   getLinkDefinition,
   LinkDefinition,
-} from '../../cache/builders/build-decorators';
-import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { CacheableObject } from '../../cache/cacheable-object.model';
-import { RequestParam } from '../../cache/models/request-param.model';
-import { ObjectCacheEntry } from '../../cache/object-cache.reducer';
-import { ObjectCacheService } from '../../cache/object-cache.service';
-import { GenericConstructor } from '../../shared/generic-constructor';
-import { HALEndpointService } from '../../shared/hal-endpoint.service';
-import { HALLink } from '../../shared/hal-link.model';
-import { getFirstCompletedRemoteData } from '../../shared/operators';
-import { URLCombiner } from '../../url-combiner/url-combiner';
+} from '../../cache';
+import { RemoteDataBuildService } from '../../cache';
+import { CacheableObject } from '../../cache';
+import { RequestParam } from '../../cache';
+import { ObjectCacheEntry } from '../../cache';
+import { ObjectCacheService } from '../../cache';
+import { GenericConstructor } from '../../shared';
+import { HALEndpointService } from '../../shared';
+import { HALLink } from '../../shared';
+import { getFirstCompletedRemoteData } from '../../shared';
+import { URLCombiner } from '../../url-combiner';
 import { FindListOptions } from '../find-list-options.model';
 import { FollowLinkConfig } from '../follow-link-config.model';
 import { PaginatedList } from '../paginated-list.model';

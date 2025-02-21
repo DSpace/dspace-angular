@@ -1,9 +1,9 @@
 import { Route } from '@angular/router';
 
-import { authenticatedGuard } from '../../../modules/core/src/lib/core/auth/authenticated.guard';
-import { bitstreamBreadcrumbResolver } from '../../../modules/core/src/lib/core/breadcrumbs/bitstream-breadcrumb.resolver';
-import { i18nBreadcrumbResolver } from '../../../modules/core/src/lib/core/breadcrumbs/i18n-breadcrumb.resolver';
-import { bitstreamPageResolver } from '../../../modules/core/src/lib/core/shared/resolvers/bitstream-page.resolver';
+import { authenticatedGuard } from '@dspace/core';
+import { bitstreamBreadcrumbResolver } from '@dspace/core';
+import { i18nBreadcrumbResolver } from '@dspace/core';
+import { bitstreamPageResolver } from '@dspace/core';
 import { ResourcePolicyCreateComponent } from '../shared/resource-policies/create/resource-policy-create.component';
 import { ResourcePolicyEditComponent } from '../shared/resource-policies/edit/resource-policy-edit.component';
 import { resourcePolicyResolver } from '../shared/resource-policies/resolvers/resource-policy.resolver';

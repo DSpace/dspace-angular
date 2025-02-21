@@ -23,13 +23,13 @@ import {
   takeWhile,
 } from 'rxjs/operators';
 
-import { PaginatedList } from '../data/paginated-list.model';
-import { RemoteData } from '../data/remote-data';
-import { MetadataField } from '../metadata/metadata-field.model';
-import { MetadataSchema } from '../metadata/metadata-schema.model';
+import { PaginatedList } from '../data';
+import { RemoteData } from '../data';
+import { MetadataField } from '../metadata';
+import { MetadataSchema } from '../metadata';
 import { BrowseDefinition } from './browse-definition.model';
 import { DSpaceObject } from './dspace-object.model';
-import { SearchResult } from './search/models/search-result.model';
+import { SearchResult } from './search';
 
 /**
  * Use this method instead of the RxJs debounceTime if you're waiting for debouncing in tests;

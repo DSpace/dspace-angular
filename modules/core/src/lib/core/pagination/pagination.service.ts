@@ -23,10 +23,10 @@ import {
 import {
   SortDirection,
   SortOptions,
-} from '../cache/models/sort-options.model';
-import { FindListOptions } from '../data/find-list-options.model';
-import { RouteService } from '../services/route.service';
-import { PaginationComponentOptions } from '../shared/pagination-component-options.model';
+} from '../cache';
+import { FindListOptions } from '../data';
+import { RouteService } from '../services';
+import { PaginationComponentOptions } from '../shared';
 import { PaginationRouteParams } from './pagination-route-params.interface';
 
 @Injectable({

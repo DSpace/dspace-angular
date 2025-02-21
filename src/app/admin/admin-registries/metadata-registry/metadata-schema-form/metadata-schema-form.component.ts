@@ -27,8 +27,8 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { MetadataSchema } from '../../../../../../modules/core/src/lib/core/metadata/metadata-schema.model';
-import { RegistryService } from '../../../../../../modules/core/src/lib/core/registry/registry.service';
+import { MetadataSchema } from '@dspace/core';
+import { RegistryService } from '@dspace/core';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../../shared/form/form.component';
 

@@ -5,12 +5,12 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { PaginatedSearchOptions } from '../../shared/paginated-search-options.model';
-import { SearchOptions } from '../../shared/search/models/search-options.model';
+import { PaginatedSearchOptions } from '../../shared';
+import { SearchOptions } from '../../shared';
 import {
   FilterConfig,
   SearchConfig,
-} from '../../shared/search/search-filters/search-config.model';
+} from '../../shared';
 
 /**
  * Stub class of {@link SearchConfigurationService}

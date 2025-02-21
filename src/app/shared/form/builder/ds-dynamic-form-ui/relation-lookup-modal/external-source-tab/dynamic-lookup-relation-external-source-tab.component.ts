@@ -28,22 +28,22 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { ExternalSourceDataService } from '../../../../../../../../modules/core/src/lib/core/data/external-source-data.service';
-import { PaginatedList } from '../../../../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../../../../modules/core/src/lib/core/data/remote-data';
-import { ListableObject } from '../../../../../../../../modules/core/src/lib/core/object-collection/listable-object.model';
-import { PaginationService } from '../../../../../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { Collection } from '../../../../../../../../modules/core/src/lib/core/shared/collection.model';
-import { Context } from '../../../../../../../../modules/core/src/lib/core/shared/context.model';
-import { ExternalSource } from '../../../../../../../../modules/core/src/lib/core/shared/external-source.model';
-import { ExternalSourceEntry } from '../../../../../../../../modules/core/src/lib/core/shared/external-source-entry.model';
-import { RelationshipOptions } from '../../../../../../../../modules/core/src/lib/core/shared/form/relationship-options.model';
-import { Item } from '../../../../../../../../modules/core/src/lib/core/shared/item.model';
-import { ItemType } from '../../../../../../../../modules/core/src/lib/core/shared/item-relationships/item-type.model';
-import { getFirstCompletedRemoteData } from '../../../../../../../../modules/core/src/lib/core/shared/operators';
-import { PaginatedSearchOptions } from '../../../../../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
-import { PaginationComponentOptions } from '../../../../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
-import { SearchConfigurationService } from '../../../../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
+import { ExternalSourceDataService } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { ListableObject } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { Context } from '@dspace/core';
+import { ExternalSource } from '@dspace/core';
+import { ExternalSourceEntry } from '@dspace/core';
+import { RelationshipOptions } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { ItemType } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
+import { PaginatedSearchOptions } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
+import { SearchConfigurationService } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import {
   fadeIn,
@@ -52,7 +52,7 @@ import {
 import { ErrorComponent } from '../../../../../error/error.component';
 import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
 import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
-import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
+import { SelectableListService } from '../../../../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
 import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
 import { ThemedSearchFormComponent } from '../../../../../search-form/themed-search-form.component';
 import { VarDirective } from '../../../../../utils/var.directive';

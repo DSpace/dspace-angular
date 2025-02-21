@@ -17,47 +17,47 @@ import {
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { RequestParam } from '../cache/models/request-param.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
+import { RemoteDataBuildService } from '../cache';
+import { RequestParam } from '../cache';
+import { ObjectCacheService } from '../cache';
 import { CoreState } from '../core-state.model';
-import { ChangeAnalyzer } from '../data/change-analyzer';
-import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
-import { FindListOptions } from '../data/find-list-options.model';
+import { ChangeAnalyzer } from '../data';
+import { DSOChangeAnalyzer } from '../data';
+import { FindListOptions } from '../data';
 import {
   PatchRequest,
   PostRequest,
-} from '../data/request.models';
-import { RequestService } from '../data/request.service';
-import { getMockRemoteDataBuildServiceHrefMap } from '../mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../mocks/request.service.mock';
-import { NotificationsService } from '../notifications/notifications.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Item } from '../shared/item.model';
+} from '../data';
+import { RequestService } from '../data';
+import { getMockRemoteDataBuildServiceHrefMap } from '../mocks';
+import { getMockRequestService } from '../mocks';
+import { NotificationsService } from '../notifications';
+import { HALEndpointService } from '../shared';
+import { Item } from '../shared';
 import {
   EPeopleRegistryCancelEPersonAction,
   EPeopleRegistryEditEPersonAction,
-} from '../states/epeople-registry/epeople-registry.actions';
+} from '../states';
 import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../utilities/remote-data.utils';
+} from '../utilities';
 import {
   EPersonMock,
   EPersonMock2,
-} from '../utilities/testing/eperson.mock';
-import { GroupMock } from '../utilities/testing/group-mock';
-import { HALEndpointServiceStub } from '../utilities/testing/hal-endpoint-service.stub';
-import { NotificationsServiceStub } from '../utilities/testing/notifications-service.stub';
+} from '../utilities';
+import { GroupMock } from '../utilities';
+import { HALEndpointServiceStub } from '../utilities';
+import { NotificationsServiceStub } from '../utilities';
 import {
   createPaginatedList,
   createRequestEntry$,
-} from '../utilities/testing/utils.test';
+} from '../utilities';
 import {
   editEPersonSelector,
   EPersonDataService,
 } from './eperson-data.service';
-import { EPerson } from './models/eperson.model';
+import { EPerson } from './models';
 
 describe('EPersonDataService', () => {
   let service: EPersonDataService;

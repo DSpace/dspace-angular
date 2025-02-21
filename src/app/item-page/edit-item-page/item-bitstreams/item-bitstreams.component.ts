@@ -39,23 +39,23 @@ import {
 import { AlertComponent } from 'src/app/shared/alert/alert.component';
 import { AlertType } from 'src/app/shared/alert/alert-type';
 
-import { ObjectCacheService } from '../../../../../modules/core/src/lib/core/cache/object-cache.service';
-import { BitstreamDataService } from '../../../../../modules/core/src/lib/core/data/bitstream-data.service';
-import { BundleDataService } from '../../../../../modules/core/src/lib/core/data/bundle-data.service';
-import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
-import { ObjectUpdatesService } from '../../../../../modules/core/src/lib/core/data/object-updates/object-updates.service';
-import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Bundle } from '../../../../../modules/core/src/lib/core/shared/bundle.model';
-import { NoContent } from '../../../../../modules/core/src/lib/core/shared/NoContent.model';
+import { ObjectCacheService } from '@dspace/core';
+import { BitstreamDataService } from '@dspace/core';
+import { BundleDataService } from '@dspace/core';
+import { ItemDataService } from '@dspace/core';
+import { ObjectUpdatesService } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Bundle } from '@dspace/core';
+import { NoContent } from '@dspace/core';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '../../../../../modules/core/src/lib/core/shared/operators';
-import { PaginatedSearchOptions } from '../../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
-import { PaginationComponentOptions } from '../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+} from '@dspace/core';
+import { PaginatedSearchOptions } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';

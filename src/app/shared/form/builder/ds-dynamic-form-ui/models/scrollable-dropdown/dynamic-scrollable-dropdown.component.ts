@@ -38,22 +38,22 @@ import {
   take,
   tap,
 } from 'rxjs/operators';
-import { LazyDataServicesMap } from '../../../../../../../../modules/core/src/lib/core/data-services-map';
+import { LazyDataServicesMap } from '@dspace/core';
 
-import { CacheableObject } from '../../../../../../../../modules/core/src/lib/core/cache/cacheable-object.model';
-import { APP_DATA_SERVICES_MAP } from '../../../../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { FindAllDataImpl } from '../../../../../../../../modules/core/src/lib/core/data/base/find-all-data';
+import { CacheableObject } from '@dspace/core';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core';
+import { FindAllDataImpl } from '@dspace/core';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../../../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../../../../modules/core/src/lib/core/data/remote-data';
-import { lazyDataService } from '../../../../../../../../modules/core/src/lib/core/lazy-data-service';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../../../../modules/core/src/lib/core/shared/operators';
-import { PageInfo } from '../../../../../../../../modules/core/src/lib/core/shared/page-info.model';
-import { VocabularyService } from '../../../../../../../../modules/core/src/lib/core/submission/vocabularies/vocabulary.service';
+} from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { lazyDataService } from '@dspace/core';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core';
+import { PageInfo } from '@dspace/core';
+import { VocabularyService } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
-import { FormFieldMetadataValueObject } from '../../../../../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '@dspace/core';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
 

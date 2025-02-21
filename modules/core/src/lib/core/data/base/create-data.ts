@@ -17,15 +17,15 @@ import {
   takeWhile,
 } from 'rxjs/operators';
 
-import { getClassForType } from '../../cache/builders/build-decorators';
-import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { CacheableObject } from '../../cache/cacheable-object.model';
-import { RequestParam } from '../../cache/models/request-param.model';
-import { ObjectCacheService } from '../../cache/object-cache.service';
-import { DSpaceSerializer } from '../../dspace-rest/dspace.serializer';
-import { NotificationOptions } from '../../notifications/models/notification-options.model';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { getClassForType } from '../../cache';
+import { RemoteDataBuildService } from '../../cache';
+import { CacheableObject } from '../../cache';
+import { RequestParam } from '../../cache';
+import { ObjectCacheService } from '../../cache';
+import { DSpaceSerializer } from '../../dspace-rest';
+import { NotificationOptions } from '../../notifications';
+import { NotificationsService } from '../../notifications';
+import { HALEndpointService } from '../../shared';
 import { RemoteData } from '../remote-data';
 import { CreateRequest } from '../request.models';
 import { RequestService } from '../request.service';

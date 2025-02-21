@@ -14,9 +14,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Context } from '../../../../../../modules/core/src/lib/core/shared/context.model';
-import { SearchConfigurationService } from '../../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
-import { ViewMode } from '../../../../../../modules/core/src/lib/core/shared/view-mode.model';
+import { Context } from '@dspace/core';
+import { SearchConfigurationService } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
 import { SearchLabelsComponent } from '../../../../shared/search/search-labels/search-labels.component';
 import { ThemedSearchComponent } from '../../../../shared/search/themed-search.component';

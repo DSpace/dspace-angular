@@ -16,13 +16,13 @@ import {
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { LinkService } from '../../../../../../modules/core/src/lib/core/cache/builders/link.service';
-import { getMockLinkService } from '../../../../../../modules/core/src/lib/core/mocks/link-service.mock';
-import { TranslateLoaderMock } from '../../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
-import { WorkflowItem } from '../../../../../../modules/core/src/lib/core/submission/models/workflowitem.model';
-import { PoolTask } from '../../../../../../modules/core/src/lib/core/tasks/models/pool-task-object.model';
-import { createSuccessfulRemoteDataObject } from '../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { EPersonMock } from '../../../../../../modules/core/src/lib/core/utilities/testing/eperson.mock';
+import { LinkService } from '@dspace/core';
+import { getMockLinkService } from '@dspace/core';
+import { TranslateLoaderMock } from '@dspace/core';
+import { WorkflowItem } from '@dspace/core';
+import { PoolTask } from '@dspace/core';
+import { createSuccessfulRemoteDataObject } from '@dspace/core';
+import { EPersonMock } from '@dspace/core';
 import { ItemSubmitterComponent } from './item-submitter.component';
 
 let component: ItemSubmitterComponent;

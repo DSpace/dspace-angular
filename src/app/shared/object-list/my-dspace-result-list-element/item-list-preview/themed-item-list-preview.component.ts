@@ -2,11 +2,11 @@ import {
   Component,
   Input,
 } from '@angular/core';
-import { Context } from '../../../../../../modules/core/src/lib/core/shared/context.model';
-import { WorkflowItem } from '../../../../../../modules/core/src/lib/core/submission/models/workflowitem.model';
+import { Context } from '@dspace/core';
+import { WorkflowItem } from '@dspace/core';
 
-import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
-import { SearchResult } from '../../../../../../modules/core/src/lib/core/shared/search/models/search-result.model';
+import { Item } from '@dspace/core';
+import { SearchResult } from '@dspace/core';
 import { ThemedComponent } from '../../../theme-support/themed.component';
 import { ItemListPreviewComponent } from './item-list-preview.component';
 

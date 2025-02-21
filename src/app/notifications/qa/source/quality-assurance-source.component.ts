@@ -20,10 +20,10 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { SortOptions } from '../../../../../modules/core/src/lib/core/cache/models/sort-options.model';
-import { QualityAssuranceSourceObject } from '../../../../../modules/core/src/lib/core/notifications/qa/models/quality-assurance-source.model';
-import { PaginationService } from '../../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+import { SortOptions } from '@dspace/core';
+import { QualityAssuranceSourceObject } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
 import { QualityAssuranceSourcePageParams } from '../../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-page-resolver.service';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';

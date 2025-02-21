@@ -11,18 +11,18 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { VersionDataService } from '../../../../../modules/core/src/lib/core/data/version-data.service';
-import { VersionHistoryDataService } from '../../../../../modules/core/src/lib/core/data/version-history-data.service';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { ItemDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { VersionDataService } from '@dspace/core';
+import { VersionHistoryDataService } from '@dspace/core';
+import { Item } from '@dspace/core';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '../../../../../modules/core/src/lib/core/shared/operators';
-import { Version } from '../../../../../modules/core/src/lib/core/shared/version.model';
-import { WorkspaceItem } from '../../../../../modules/core/src/lib/core/submission/models/workspaceitem.model';
-import { WorkspaceitemDataService } from '../../../../../modules/core/src/lib/core/submission/workspaceitem-data.service';
+} from '@dspace/core';
+import { Version } from '@dspace/core';
+import { WorkspaceItem } from '@dspace/core';
+import { WorkspaceitemDataService } from '@dspace/core';
 import { ItemVersionsSharedService } from '../../../item-page/versions/item-versions-shared.service';
 import { ItemVersionsSummaryModalComponent } from '../../../item-page/versions/item-versions-summary-modal/item-versions-summary-modal.component';
 

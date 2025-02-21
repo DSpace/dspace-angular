@@ -33,21 +33,21 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { CollectionDataService } from '../../../../../modules/core/src/lib/core/data/collection-data.service';
-import { followLink } from '../../../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { JsonPatchOperationPathCombiner } from '../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operations-builder';
-import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
-import { License } from '../../../../../modules/core/src/lib/core/shared/license.model';
-import { WorkspaceitemSectionLicenseObject } from '../../../../../modules/core/src/lib/core/submission/models/workspaceitem-section-license.model';
+import { CollectionDataService } from '@dspace/core';
+import { followLink } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { JsonPatchOperationPathCombiner } from '@dspace/core';
+import { JsonPatchOperationsBuilder } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { License } from '@dspace/core';
+import { WorkspaceitemSectionLicenseObject } from '@dspace/core';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
-import { SubmissionService } from '../../submission.service';
+import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { SectionModelComponent } from '../models/section.model';
-import { SectionDataObject } from '../models/section-data.model';
+import { SectionDataObject } from '../../../../../modules/core/src/lib/core/submission/sections/section-data.model';
 import { SectionsService } from '../sections.service';
 import {
   SECTION_LICENSE_FORM_LAYOUT,

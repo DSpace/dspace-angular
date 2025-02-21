@@ -18,17 +18,17 @@ import { switchMap } from 'rxjs/operators';
 import {
   SortDirection,
   SortOptions,
-} from '../../../../modules/core/src/lib/core/cache/models/sort-options.model';
+} from '@dspace/core';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../modules/core/src/lib/core/config/app-config.interface';
-import { CommunityDataService } from '../../../../modules/core/src/lib/core/data/community-data.service';
-import { PaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { PaginationService } from '../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { Community } from '../../../../modules/core/src/lib/core/shared/community.model';
-import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+} from '@dspace/core';
+import { CommunityDataService } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { Community } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
 import { fadeInOut } from '../../shared/animations/fade';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';

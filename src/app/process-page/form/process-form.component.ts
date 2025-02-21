@@ -19,14 +19,14 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 
-import { ScriptDataService } from '../../../../modules/core/src/lib/core/data/processes/script-data.service';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Process } from '../../../../modules/core/src/lib/core/processes/process.model';
-import { ProcessParameter } from '../../../../modules/core/src/lib/core/processes/process-parameter.model';
-import { Script } from '../../../../modules/core/src/lib/core/scripts/script.model';
-import { ScriptParameter } from '../../../../modules/core/src/lib/core/scripts/script-parameter.model';
-import { getFirstCompletedRemoteData } from '../../../../modules/core/src/lib/core/shared/operators';
+import { ScriptDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Process } from '@dspace/core';
+import { ProcessParameter } from '@dspace/core';
+import { Script } from '@dspace/core';
+import { ScriptParameter } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
 import { getProcessListRoute } from '../process-page-routing.paths';
 import { ProcessParametersComponent } from './process-parameters/process-parameters.component';
 import { ScriptHelpComponent } from './script-help/script-help.component';

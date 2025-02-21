@@ -4,10 +4,10 @@ import { isNotEmpty } from '@dspace/shared/utils';
 import {
   RestResponse,
   TokenResponse,
-} from '../cache/response.models';
-import { ResponseParsingService } from '../data/parsing.service';
-import { RestRequest } from '../data/rest-request.model';
-import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+} from '../cache';
+import { ResponseParsingService } from '../data';
+import { RestRequest } from '../data';
+import { RawRestResponse } from '../dspace-rest';
 
 @Injectable({ providedIn: 'root' })
 /**

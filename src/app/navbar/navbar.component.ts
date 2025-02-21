@@ -18,9 +18,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import { AppState } from '../app.reducer';
-import { isAuthenticated } from '../../../modules/core/src/lib/core/auth/selectors';
-import { BrowseService } from '../../../modules/core/src/lib/core/browse/browse.service';
-import { AuthorizationDataService } from '../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { isAuthenticated } from '@dspace/core';
+import { BrowseService } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
 import { slideMobileNav } from '../shared/animations/slide';
 import { ThemedUserMenuComponent } from '../shared/auth-nav-menu/user-menu/themed-user-menu.component';
 import {
@@ -29,7 +29,7 @@ import {
 } from '../shared/host-window.service';
 import { MenuComponent } from '../shared/menu/menu.component';
 import { MenuService } from '../shared/menu/menu.service';
-import { MenuID } from '../shared/menu/menu-id.model';
+import { MenuID } from '../../../modules/core/src/lib/core/states/menu/menu-id.model';
 import { ThemeService } from '../shared/theme-support/theme.service';
 
 /**

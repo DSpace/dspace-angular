@@ -4,7 +4,7 @@ import {
   MemoizedSelector,
 } from '@ngrx/store';
 
-import { SuggestionTarget } from '../../../../modules/core/src/lib/core/notifications/suggestions/models/suggestion-target.model';
+import { SuggestionTarget } from '@dspace/core';
 import { subStateSelector } from '../../shared/selector.util';
 import {
   suggestionNotificationsSelector,

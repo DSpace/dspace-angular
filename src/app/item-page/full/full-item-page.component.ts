@@ -28,15 +28,15 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { NotifyInfoService } from '../../../../modules/core/src/lib/core/coar-notify/notify-info/notify-info.service';
-import { AuthorizationDataService } from '../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { ItemDataService } from '../../../../modules/core/src/lib/core/data/item-data.service';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { SignpostingDataService } from '../../../../modules/core/src/lib/core/data/signposting-data.service';
-import { LinkHeadService } from '../../../../modules/core/src/lib/core/services/link-head.service';
-import { ServerResponseService } from '../../../../modules/core/src/lib/core/services/server-response.service';
-import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
-import { MetadataMap } from '../../../../modules/core/src/lib/core/shared/metadata.models';
+import { NotifyInfoService } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { ItemDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { SignpostingDataService } from '@dspace/core';
+import { LinkHeadService } from '@dspace/core';
+import { ServerResponseService } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { MetadataMap } from '@dspace/core';
 import { fadeInOut } from '../../shared/animations/fade';
 import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { ErrorComponent } from '../../shared/error/error.component';

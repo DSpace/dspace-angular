@@ -1,4 +1,4 @@
-import { UnCacheableObject } from '../shared/uncacheable-object.model';
+import { UnCacheableObject } from '../shared';
 
 export class SubmissionResponse implements UnCacheableObject {
   dataDefinition: any;

@@ -38,32 +38,33 @@ import {
 
 import { environment } from '../../../../environments/environment';
 import {
+  QualityAssuranceEventData,
   SortDirection,
   SortOptions,
-} from '../../../../../modules/core/src/lib/core/cache/models/sort-options.model';
-import { AuthorizationDataService } from '../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
-import { FindListOptions } from '../../../../../modules/core/src/lib/core/data/find-list-options.model';
-import { followLink } from '../../../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
-import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { QualityAssuranceEventDataService } from '../../../../../modules/core/src/lib/core/notifications/qa/events/quality-assurance-event-data.service';
+} from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { FeatureID } from '@dspace/core';
+import { FindListOptions } from '@dspace/core';
+import { followLink } from '@dspace/core';
+import { ItemDataService } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { QualityAssuranceEventDataService } from '@dspace/core';
 import {
   QualityAssuranceEventObject,
   SourceQualityAssuranceEventMessageObject,
-} from '../../../../../modules/core/src/lib/core/notifications/qa/models/quality-assurance-event.model';
-import { ItemSearchResult } from '../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
-import { PaginationService } from '../../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { Metadata } from '../../../../../modules/core/src/lib/core/shared/metadata.utils';
-import { NoContent } from '../../../../../modules/core/src/lib/core/shared/NoContent.model';
+} from '@dspace/core';
+import { ItemSearchResult } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { Metadata } from '@dspace/core';
+import { NoContent } from '@dspace/core';
 import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '../../../../../modules/core/src/lib/core/shared/operators';
-import { PaginationComponentOptions } from '../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+} from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
@@ -71,7 +72,6 @@ import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.c
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import {
   ProjectEntryImportModalComponent,
-  QualityAssuranceEventData,
 } from '../project-entry-import-modal/project-entry-import-modal.component';
 import { EPersonDataComponent } from './ePerson-data/ePerson-data.component';
 

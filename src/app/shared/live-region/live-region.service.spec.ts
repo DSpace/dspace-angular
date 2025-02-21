@@ -4,8 +4,8 @@ import {
   tick,
 } from '@angular/core/testing';
 
-import { UUIDService } from '../../../../modules/core/src/lib/core/shared/uuid.service';
-import { LiveRegionService } from './live-region.service';
+import { UUIDService } from '@dspace/core';
+import { LiveRegionService } from '../../../../modules/core/src/lib/core/services/live-region.service';
 
 describe('liveRegionService', () => {
   let service: LiveRegionService;

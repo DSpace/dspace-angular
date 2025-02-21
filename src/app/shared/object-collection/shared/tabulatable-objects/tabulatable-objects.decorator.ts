@@ -4,11 +4,11 @@ import {
 } from '@dspace/shared/utils';
 
 import { AdminNotifySearchResultComponent } from '../../../../admin/admin-notify-dashboard/admin-notify-search-result/admin-notify-search-result.component';
-import { AdminNotifySearchResult } from '../../../../admin/admin-notify-dashboard/models/admin-notify-message-search-result.model';
-import { ListableObject } from '../../../../../../modules/core/src/lib/core/object-collection/listable-object.model';
-import { Context } from '../../../../../../modules/core/src/lib/core/shared/context.model';
-import { GenericConstructor } from '../../../../../../modules/core/src/lib/core/shared/generic-constructor';
-import { ViewMode } from '../../../../../../modules/core/src/lib/core/shared/view-mode.model';
+import { AdminNotifySearchResult } from '../../../../../../modules/core/src/lib/core/admin/admin-notify-message/models/admin-notify-message-search-result.model';
+import { ListableObject } from '@dspace/core';
+import { Context } from '@dspace/core';
+import { GenericConstructor } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
 import { TabulatableResultListElementsComponent } from '../../../object-list/search-result-list-element/tabulatable-search-result/tabulatable-result-list-elements.component';
 import {
   DEFAULT_CONTEXT,

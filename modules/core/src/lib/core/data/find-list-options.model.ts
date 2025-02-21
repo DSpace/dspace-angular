@@ -1,5 +1,5 @@
-import { RequestParam } from '../cache/models/request-param.model';
-import { SortOptions } from '../cache/models/sort-options.model';
+import { RequestParam } from '../cache';
+import { SortOptions } from '../cache';
 
 /**
  * The options for a find list request

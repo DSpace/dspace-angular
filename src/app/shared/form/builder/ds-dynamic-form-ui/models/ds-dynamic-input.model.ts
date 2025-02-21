@@ -8,10 +8,10 @@ import {
 } from '@ng-dynamic-forms/core';
 import { Subject } from 'rxjs';
 
-import { RelationshipOptions } from '../../../../../../../modules/core/src/lib/core/shared/form/relationship-options.model';
-import { VocabularyOptions } from '../../../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-options.model';
-import { LanguageCode } from '../../models/form-field-language-value.model';
-import { FormFieldMetadataValueObject } from '../../../../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
+import { RelationshipOptions } from '@dspace/core';
+import { VocabularyOptions } from '@dspace/core';
+import { LanguageCode } from '../../../../../../../modules/core/src/lib/core/config/models/form-field-language-value.model';
+import { FormFieldMetadataValueObject } from '@dspace/core';
 
 export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
   vocabularyOptions?: VocabularyOptions;

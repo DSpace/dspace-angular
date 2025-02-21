@@ -20,26 +20,26 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { NotifyInfoService } from '../../../../modules/core/src/lib/core/coar-notify/notify-info/notify-info.service';
-import { AuthorizationDataService } from '../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { ItemDataService } from '../../../../modules/core/src/lib/core/data/item-data.service';
-import { SignpostingDataService } from '../../../../modules/core/src/lib/core/data/signposting-data.service';
-import { SignpostingLink } from '../../../../modules/core/src/lib/core/data/signposting-links.model';
-import { TranslateLoaderMock } from '../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
+import { NotifyInfoService } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { ItemDataService } from '@dspace/core';
+import { SignpostingDataService } from '@dspace/core';
+import { SignpostingLink } from '@dspace/core';
+import { TranslateLoaderMock } from '@dspace/core';
 import {
-  LinkDefinition,
+  HeadLinkDefinition,
   LinkHeadService,
-} from '../../../../modules/core/src/lib/core/services/link-head.service';
-import { ServerResponseService } from '../../../../modules/core/src/lib/core/services/server-response.service';
-import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
+} from '@dspace/core';
+import { ServerResponseService } from '@dspace/core';
+import { Item } from '@dspace/core';
 import {
   createFailedRemoteDataObject$,
   createPendingRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
-import { createPaginatedList } from '../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+} from '@dspace/core';
+import { ActivatedRouteStub } from '@dspace/core';
+import { createPaginatedList } from '@dspace/core';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
@@ -208,7 +208,7 @@ describe('ItemPageComponent', () => {
 
       // Check if linkHeadService.addTag() was called with the correct arguments
       expect(linkHeadService.addTag).toHaveBeenCalledTimes(mockSignpostingLinks.length + getCoarLdnLocalInboxUrls.length);
-      let expected: LinkDefinition = mockSignpostingLinks[0] as LinkDefinition;
+      let expected: HeadLinkDefinition = mockSignpostingLinks[0] as HeadLinkDefinition;
       expect(linkHeadService.addTag).toHaveBeenCalledWith(expected);
       expected = {
         href: 'http://test2.org',

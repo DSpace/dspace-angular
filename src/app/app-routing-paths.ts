@@ -2,11 +2,11 @@ import { hasValue } from '@dspace/shared/utils';
 
 import { getCollectionPageRoute } from './collection-page/collection-page-routing-paths';
 import { getCommunityPageRoute } from './community-page/community-page-routing-paths';
-import { Collection } from '../../modules/core/src/lib/core/shared/collection.model';
-import { Community } from '../../modules/core/src/lib/core/shared/community.model';
-import { DSpaceObject } from '../../modules/core/src/lib/core/shared/dspace-object.model';
-import { Item } from '../../modules/core/src/lib/core/shared/item.model';
-import { URLCombiner } from '../../modules/core/src/lib/core/url-combiner/url-combiner';
+import { Collection } from '@dspace/core';
+import { Community } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { URLCombiner } from '@dspace/core';
 import {
   getItemModuleRoute,
   getItemPageRoute,

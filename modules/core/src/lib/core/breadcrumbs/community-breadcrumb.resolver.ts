@@ -7,13 +7,13 @@ import {
 import { hasValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 
-import { CommunityDataService } from '../data/community-data.service';
+import { CommunityDataService } from '../data';
 import {
   followLink,
   FollowLinkConfig,
-} from '../data/follow-link-config.model';
-import { Community } from '../shared/community.model';
-import { DSpaceObject } from '../shared/dspace-object.model';
+} from '../data';
+import { Community } from '../shared';
+import { DSpaceObject } from '../shared';
 import { BreadcrumbConfig } from './breadcrumb-config.model';
 import {
   DSOBreadcrumbResolver,

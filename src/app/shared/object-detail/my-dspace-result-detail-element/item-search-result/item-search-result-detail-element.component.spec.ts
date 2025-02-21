@@ -10,10 +10,10 @@ import {
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of as observableOf } from 'rxjs';
 
-import { DSONameService } from '../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { ItemSearchResult } from '../../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
-import { Context } from '../../../../../../modules/core/src/lib/core/shared/context.model';
-import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
+import { DSONameService } from '@dspace/core';
+import { ItemSearchResult } from '@dspace/core';
+import { Context } from '@dspace/core';
+import { Item } from '@dspace/core';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { ItemActionsComponent } from '../../../mydspace-actions/item/item-actions.component';
 import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';

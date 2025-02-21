@@ -1,5 +1,5 @@
-import { RequestParam } from '../cache/models/request-param.model';
-import { FindListOptions } from '../data/find-list-options.model';
+import { RequestParam } from '../cache';
+import { FindListOptions } from '../data';
 import { SubmissionDuplicateDataService } from './submission-duplicate-data.service';
 
 /**

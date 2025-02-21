@@ -11,32 +11,32 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { RestResponse } from '../cache/response.models';
-import { testCreateDataImplementation } from '../data/base/create-data.spec';
-import { testDeleteDataImplementation } from '../data/base/delete-data.spec';
-import { testPatchDataImplementation } from '../data/base/patch-data.spec';
-import { testSearchDataImplementation } from '../data/base/search-data.spec';
-import { followLink } from '../data/follow-link-config.model';
-import { buildPaginatedList } from '../data/paginated-list.model';
-import { PostRequest } from '../data/request.models';
-import { RequestService } from '../data/request.service';
-import { RequestEntry } from '../data/request-entry.model';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { RouterMock } from '../mocks/router.mock';
-import { NotificationsService } from '../notifications/notifications.service';
-import { ConfigurationProperty } from '../shared/configuration-property.model';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Item } from '../shared/item.model';
-import { PageInfo } from '../shared/page-info.model';
+import { RemoteDataBuildService } from '../cache';
+import { ObjectCacheService } from '../cache';
+import { RestResponse } from '../cache';
+import { testCreateDataImplementation } from '../data';
+import { testDeleteDataImplementation } from '../data';
+import { testPatchDataImplementation } from '../data';
+import { testSearchDataImplementation } from '../data';
+import { followLink } from '../data';
+import { buildPaginatedList } from '../data';
+import { PostRequest } from '../data';
+import { RequestService } from '../data';
+import { RequestEntry } from '../data';
+import { HttpOptions } from '../dspace-rest';
+import { RouterMock } from '../mocks';
+import { NotificationsService } from '../notifications';
+import { ConfigurationProperty } from '../shared';
+import { HALEndpointService } from '../shared';
+import { Item } from '../shared';
+import { PageInfo } from '../shared';
 import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../utilities/remote-data.utils';
-import { createPaginatedList } from '../utilities/testing/utils.test';
-import { ResearcherProfile } from './model/researcher-profile.model';
+} from '../utilities';
+import { createPaginatedList } from '../utilities';
+import { ResearcherProfile } from './model';
 import { ResearcherProfileDataService } from './researcher-profile-data.service';
 
 describe('ResearcherProfileService', () => {

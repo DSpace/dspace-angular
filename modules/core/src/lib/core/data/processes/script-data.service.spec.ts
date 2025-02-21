@@ -6,7 +6,7 @@
  * http://www.dspace.org/license/
  */
 
-import { testFindAllDataImplementation } from '../base/find-all-data.spec';
+import { testFindAllDataImplementation } from '../base';
 import { ScriptDataService } from './script-data.service';
 
 describe('ScriptDataService', () => {

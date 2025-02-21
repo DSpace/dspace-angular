@@ -6,18 +6,18 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { IdentifiableDataService } from '../data/base/identifiable-data.service';
-import { RemoteData } from '../data/remote-data';
-import { PostRequest } from '../data/request.models';
-import { RequestService } from '../data/request.service';
-import { RestRequest } from '../data/rest-request.model';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { sendRequest } from '../shared/request.operators';
-import { OrcidHistory } from './model/orcid-history.model';
-import { OrcidQueue } from './model/orcid-queue.model';
+import { RemoteDataBuildService } from '../cache';
+import { ObjectCacheService } from '../cache';
+import { IdentifiableDataService } from '../data';
+import { RemoteData } from '../data';
+import { PostRequest } from '../data';
+import { RequestService } from '../data';
+import { RestRequest } from '../data';
+import { HttpOptions } from '../dspace-rest';
+import { HALEndpointService } from '../shared';
+import { sendRequest } from '../shared';
+import { OrcidHistory } from './model';
+import { OrcidQueue } from './model';
 
 /**
  * A service that provides methods to make REST requests with Orcid History endpoint.

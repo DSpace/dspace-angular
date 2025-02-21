@@ -3,11 +3,11 @@ import {
   of,
 } from 'rxjs';
 
-import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { LDN_SERVICE } from '../ldn-services-model/ldn-service.resource-type';
-import { LdnService } from '../ldn-services-model/ldn-services.model';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { LDN_SERVICE } from '../../../../../modules/core/src/lib/core/data/ldn/ldn-service.resource-type';
+import { LdnService } from '../../../../../modules/core/src/lib/core/data/ldn/ldn-services.model';
 
 export const mockLdnService: LdnService = {
   uuid: '1',

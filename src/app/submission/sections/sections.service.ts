@@ -27,16 +27,16 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { SubmissionFormsModel } from '../../../../modules/core/src/lib/core/config/models/config-submission-forms.model';
-import { JsonPatchOperationPathCombiner } from '../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operation-path-combiner';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { WorkspaceitemSectionDataType } from '../../../../modules/core/src/lib/core/submission/models/workspaceitem-sections.model';
-import { normalizeSectionData } from '../../../../modules/core/src/lib/core/submission/submission-response-parsing.service';
-import { SubmissionScopeType } from '../../../../modules/core/src/lib/core/submission/submission-scope-type';
-import { FormClearErrorsAction } from '../../shared/form/form.actions';
-import { FormError } from '../../shared/form/form.reducer';
+import { SubmissionFormsModel } from '@dspace/core';
+import { JsonPatchOperationPathCombiner } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { WorkspaceitemSectionDataType } from '@dspace/core';
+import { normalizeSectionData } from '@dspace/core';
+import { SubmissionScopeType } from '@dspace/core';
+import { FormClearErrorsAction } from '../../../../modules/core/src/lib/core/states/form/form.actions';
+import { FormError } from '../../../../modules/core/src/lib/core/states/form/form.reducer';
 import { FormService } from '../../shared/form/form.service';
-import { SectionScope } from '../objects/section-visibility.model';
+import { SectionScope } from '../../../../modules/core/src/lib/core/submission/models/section-visibility.model';
 import {
   DisableSectionAction,
   EnableSectionAction,
@@ -45,21 +45,21 @@ import {
   SectionStatusChangeAction,
   SetSectionFormId,
   UpdateSectionDataAction,
-} from '../objects/submission-objects.actions';
-import { SubmissionObjectEntry } from '../objects/submission-objects.reducer';
-import { SubmissionSectionError } from '../objects/submission-section-error.model';
-import { SubmissionSectionObject } from '../objects/submission-section-object.model';
+} from '../../../../modules/core/src/lib/core/states/submission/submission-objects.actions';
+import { SubmissionObjectEntry } from '../../../../modules/core/src/lib/core/states/submission/submission-objects.reducer';
+import { SubmissionSectionError } from '../../../../modules/core/src/lib/core/submission/models/submission-section-error.model';
+import { SubmissionSectionObject } from '../../../../modules/core/src/lib/core/states/submission/submission-section-object.model';
 import {
   submissionObjectFromIdSelector,
   submissionSectionDataFromIdSelector,
   submissionSectionErrorsFromIdSelector,
   submissionSectionFromIdSelector,
   submissionSectionServerErrorsFromIdSelector,
-} from '../selectors';
-import { SubmissionState } from '../submission.reducers';
-import { SubmissionService } from '../submission.service';
+} from '../../../../modules/core/src/lib/core/states/submission/selectors';
+import { SubmissionState } from '../../../../modules/core/src/lib/core/states/submission/submission.reducers';
+import { SubmissionService } from '../../../../modules/core/src/lib/core/submission/submission.service';
 import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
-import { SectionsType } from './sections-type';
+import { SectionsType } from '../../../../modules/core/src/lib/core/submission/models/sections-type';
 
 /**
  * A service that provides methods used in submission process.

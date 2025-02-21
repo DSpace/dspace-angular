@@ -15,21 +15,21 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { RequestService } from '../../../../modules/core/src/lib/core/data/request.service';
-import { getMockRequestService } from '../../../../modules/core/src/lib/core/mocks/request.service.mock';
-import { TranslateLoaderMock } from '../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { RouteService } from '../../../../modules/core/src/lib/core/services/route.service';
-import { WorkflowItem } from '../../../../modules/core/src/lib/core/submission/models/workflowitem.model';
-import { WorkflowItemDataService } from '../../../../modules/core/src/lib/core/submission/workflowitem-data.service';
+import { RequestService } from '@dspace/core';
+import { getMockRequestService } from '@dspace/core';
+import { TranslateLoaderMock } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { RouteService } from '@dspace/core';
+import { WorkflowItem } from '@dspace/core';
+import { WorkflowItemDataService } from '@dspace/core';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
-import { LocationStub } from '../../../../modules/core/src/lib/core/utilities/testing/location.stub';
-import { NotificationsServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { RouterStub } from '../../../../modules/core/src/lib/core/utilities/testing/router.stub';
+} from '@dspace/core';
+import { ActivatedRouteStub } from '@dspace/core';
+import { LocationStub } from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { RouterStub } from '@dspace/core';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { WorkflowItemDeleteComponent } from './workflow-item-delete.component';
 

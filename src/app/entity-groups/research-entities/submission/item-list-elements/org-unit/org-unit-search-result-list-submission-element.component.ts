@@ -9,23 +9,23 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { DSONameService } from '@dspace/core';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { BitstreamDataService } from '../../../../../../../modules/core/src/lib/core/data/bitstream-data.service';
-import { ItemDataService } from '../../../../../../../modules/core/src/lib/core/data/item-data.service';
-import { RelationshipDataService } from '../../../../../../../modules/core/src/lib/core/data/relationship-data.service';
-import { NotificationsService } from '../../../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { ItemSearchResult } from '../../../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
-import { Context } from '../../../../../../../modules/core/src/lib/core/shared/context.model';
-import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
-import { MetadataValue } from '../../../../../../../modules/core/src/lib/core/shared/metadata.models';
-import { ViewMode } from '../../../../../../../modules/core/src/lib/core/shared/view-mode.model';
+} from '@dspace/core';
+import { BitstreamDataService } from '@dspace/core';
+import { ItemDataService } from '@dspace/core';
+import { RelationshipDataService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { ItemSearchResult } from '@dspace/core';
+import { Context } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { MetadataValue } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
-import { SelectableListService } from '../../../../../shared/object-list/selectable-list/selectable-list.service';
+import { SelectableListService } from '../../../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { NameVariantModalComponent } from '../../name-variant-modal/name-variant-modal.component';
 import { OrgUnitInputSuggestionsComponent } from './org-unit-suggestions/org-unit-input-suggestions.component';

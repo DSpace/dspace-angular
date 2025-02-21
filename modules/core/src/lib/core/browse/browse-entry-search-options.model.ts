@@ -1,5 +1,5 @@
-import { SortOptions } from '../cache/models/sort-options.model';
-import { PaginationComponentOptions } from '../shared/pagination-component-options.model';
+import { SortOptions } from '../cache';
+import { PaginationComponentOptions } from '../shared';
 
 /**
  * A class that defines the search options to be used for fetching browse entries or items

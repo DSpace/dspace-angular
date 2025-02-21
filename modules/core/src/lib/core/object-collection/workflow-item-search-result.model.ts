@@ -1,5 +1,5 @@
-import { SearchResult } from '../shared/search/models/search-result.model';
-import { WorkflowItem } from '../submission/models/workflowitem.model';
+import { SearchResult } from '../shared';
+import { WorkflowItem } from '../submission';
 
 /**
  * Represents a search result object of a WorkflowItem object

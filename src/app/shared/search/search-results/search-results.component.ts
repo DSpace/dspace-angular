@@ -17,19 +17,19 @@ import {
   Observable,
 } from 'rxjs';
 
-import { SortOptions } from '../../../../../modules/core/src/lib/core/cache/models/sort-options.model';
-import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { ListableObject } from '../../../../../modules/core/src/lib/core/object-collection/listable-object.model';
-import { Context } from '../../../../../modules/core/src/lib/core/shared/context.model';
-import { DSpaceObject } from '../../../../../modules/core/src/lib/core/shared/dspace-object.model';
-import { PaginatedSearchOptions } from '../../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
-import { AppliedFilter } from '../../../../../modules/core/src/lib/core/shared/search/models/applied-filter.model';
-import { SearchFilter } from '../../../../../modules/core/src/lib/core/shared/search/models/search-filter.model';
-import { SearchResult } from '../../../../../modules/core/src/lib/core/shared/search/models/search-result.model';
-import { SearchService } from '../../../../../modules/core/src/lib/core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
-import { ViewMode } from '../../../../../modules/core/src/lib/core/shared/view-mode.model';
+import { SortOptions } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { ListableObject } from '@dspace/core';
+import { Context } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
+import { PaginatedSearchOptions } from '@dspace/core';
+import { AppliedFilter } from '@dspace/core';
+import { SearchFilter } from '@dspace/core';
+import { SearchResult } from '@dspace/core';
+import { SearchService } from '@dspace/core';
+import { SearchConfigurationService } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
 import {
   fadeIn,
   fadeInOut,

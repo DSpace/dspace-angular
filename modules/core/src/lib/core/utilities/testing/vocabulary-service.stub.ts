@@ -6,12 +6,12 @@ import {
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../data/paginated-list.model';
-import { RemoteData } from '../../data/remote-data';
-import { PageInfo } from '../../shared/page-info.model';
-import { Vocabulary } from '../../submission/vocabularies/models/vocabulary.model';
-import { VocabularyEntry } from '../../submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyOptions } from '../../submission/vocabularies/models/vocabulary-options.model';
+} from '../../data';
+import { RemoteData } from '../../data';
+import { PageInfo } from '../../shared';
+import { Vocabulary } from '../../submission';
+import { VocabularyEntry } from '../../submission';
+import { VocabularyOptions } from '../../submission';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 
 export class VocabularyServiceStub {

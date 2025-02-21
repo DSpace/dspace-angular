@@ -21,24 +21,24 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '../../../modules/core/src/lib/core/auth/auth.service';
-import { buildPaginatedList } from '../../../modules/core/src/lib/core/data/paginated-list.model';
-import { TranslateLoaderMock } from '../../../modules/core/src/lib/core/mocks/translate-loader.mock';
-import { PaginationService } from '../../../modules/core/src/lib/core/pagination/pagination.service';
-import { PageInfo } from '../../../modules/core/src/lib/core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { PaginationServiceStub } from '../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
+import { AuthService } from '@dspace/core';
+import { buildPaginatedList } from '@dspace/core';
+import { TranslateLoaderMock } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { PageInfo } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { PaginationServiceStub } from '@dspace/core';
 import {
   mockSubscriptionEperson,
   subscriptionMock,
   subscriptionMock2,
-} from '../../../modules/core/src/lib/core/utilities/testing/subscriptions-data.mock';
+} from '@dspace/core';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
 import { SubscriptionViewComponent } from '../shared/subscriptions/subscription-view/subscription-view.component';
-import { SubscriptionsDataService } from '../shared/subscriptions/subscriptions-data.service';
+import { SubscriptionsDataService } from '../../../modules/core/src/lib/core/data/subscriptions-data.service';
 import { VarDirective } from '../shared/utils/var.directive';
 import { SubscriptionsPageComponent } from './subscriptions-page.component';
 

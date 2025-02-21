@@ -11,12 +11,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { VersionHistoryDataService } from '../../../../../modules/core/src/lib/core/data/version-history-data.service';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { Version } from '../../../../../modules/core/src/lib/core/shared/version.model';
-import { VersionHistory } from '../../../../../modules/core/src/lib/core/shared/version-history.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { createPaginatedList } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+import { VersionHistoryDataService } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { Version } from '@dspace/core';
+import { VersionHistory } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { createPaginatedList } from '@dspace/core';
 import { ItemVersionsNoticeComponent } from './item-versions-notice.component';
 
 describe('ItemVersionsNoticeComponent', () => {

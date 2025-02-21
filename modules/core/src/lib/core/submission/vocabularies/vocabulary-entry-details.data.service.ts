@@ -8,24 +8,24 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../cache/object-cache.service';
+import { RemoteDataBuildService } from '../../cache';
+import { ObjectCacheService } from '../../cache';
 import {
   FindAllData,
   FindAllDataImpl,
-} from '../../data/base/find-all-data';
-import { IdentifiableDataService } from '../../data/base/identifiable-data.service';
+} from '../../data';
+import { IdentifiableDataService } from '../../data';
 import {
   SearchData,
   SearchDataImpl,
-} from '../../data/base/search-data';
-import { FindListOptions } from '../../data/find-list-options.model';
-import { FollowLinkConfig } from '../../data/follow-link-config.model';
-import { PaginatedList } from '../../data/paginated-list.model';
-import { RemoteData } from '../../data/remote-data';
-import { RequestService } from '../../data/request.service';
-import { HALEndpointService } from '../../shared/hal-endpoint.service';
-import { VocabularyEntryDetail } from './models/vocabulary-entry-detail.model';
+} from '../../data';
+import { FindListOptions } from '../../data';
+import { FollowLinkConfig } from '../../data';
+import { PaginatedList } from '../../data';
+import { RemoteData } from '../../data';
+import { RequestService } from '../../data';
+import { HALEndpointService } from '../../shared';
+import { VocabularyEntryDetail } from './models';
 
 /**
  * Data service to retrieve vocabulary entry details from the REST server.

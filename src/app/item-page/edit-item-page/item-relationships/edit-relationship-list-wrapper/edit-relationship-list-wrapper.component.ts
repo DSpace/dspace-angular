@@ -14,9 +14,9 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
-import { ItemType } from '../../../../../../modules/core/src/lib/core/shared/item-relationships/item-type.model';
-import { RelationshipType } from '../../../../../../modules/core/src/lib/core/shared/item-relationships/relationship-type.model';
+import { Item } from '@dspace/core';
+import { ItemType } from '@dspace/core';
+import { RelationshipType } from '@dspace/core';
 import { EditItemRelationshipsService } from '../edit-item-relationships.service';
 import { EditRelationshipListComponent } from '../edit-relationship-list/edit-relationship-list.component';
 

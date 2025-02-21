@@ -7,8 +7,8 @@ import {
   serializable,
 } from '@ng-dynamic-forms/core';
 
-import { FormRowModel } from '../../../../../../../../modules/core/src/lib/core/config/models/config-submission-form.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../../../../../../../../modules/core/src/lib/core/config/models/ds-dynamic-form-constants';
+import { FormRowModel } from '@dspace/core';
+import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '@dspace/core';
 import {
   DsDynamicInputModel,
   DsDynamicInputModelConfig,

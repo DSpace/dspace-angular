@@ -18,11 +18,11 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { getFirstSucceededRemoteData } from '../../../../../modules/core/src/lib/core/shared/operators';
+import { ItemDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { getFirstSucceededRemoteData } from '@dspace/core';
 import {
   getItemEditRoute,
   getItemPageRoute,

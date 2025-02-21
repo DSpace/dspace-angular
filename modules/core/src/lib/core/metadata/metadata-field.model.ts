@@ -8,14 +8,14 @@ import { Observable } from 'rxjs';
 import {
   link,
   typedObject,
-} from '../cache/builders/build-decorators';
-import { RemoteData } from '../data/remote-data';
-import { ListableObject } from '../object-collection/listable-object.model';
-import { GenericConstructor } from '../shared/generic-constructor';
-import { HALLink } from '../shared/hal-link.model';
-import { HALResource } from '../shared/hal-resource.model';
-import { ResourceType } from '../shared/resource-type';
-import { excludeFromEquals } from '../utilities/equals.decorators';
+} from '../cache';
+import { RemoteData } from '../data';
+import { ListableObject } from '../object-collection';
+import { GenericConstructor } from '../shared';
+import { HALLink } from '../shared';
+import { HALResource } from '../shared';
+import { ResourceType } from '../shared';
+import { excludeFromEquals } from '../utilities';
 import { METADATA_FIELD } from './metadata-field.resource-type';
 import { MetadataSchema } from './metadata-schema.model';
 import { METADATA_SCHEMA } from './metadata-schema.resource-type';

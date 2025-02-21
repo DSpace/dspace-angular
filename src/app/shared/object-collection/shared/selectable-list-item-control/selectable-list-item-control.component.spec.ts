@@ -11,9 +11,9 @@ import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ListableObject } from '../../../../../../modules/core/src/lib/core/object-collection/listable-object.model';
-import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
-import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
+import { ListableObject } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { SelectableListService } from '../../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
 import { VarDirective } from '../../../utils/var.directive';
 import { SelectableListItemControlComponent } from './selectable-list-item-control.component';
 

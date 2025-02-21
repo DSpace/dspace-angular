@@ -10,10 +10,10 @@ import {
 } from '@dspace/shared/utils';
 import { Store } from '@ngrx/store';
 
-import { FormFieldLanguageValueObject } from '../../../../../../../src/app/shared/form/builder/models/form-field-language-value.model';
-import { FormFieldMetadataValueObject } from '../../config/models/form-field-metadata-value.model';
+import { FormFieldLanguageValueObject } from '../../config/models/form-field-language-value.model';
+import { FormFieldMetadataValueObject } from '../../config';
 import { CoreState } from '../../core-state.model';
-import { VocabularyEntry } from '../../submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyEntry } from '../../submission';
 import {
   FlushPatchOperationAction,
   NewPatchAddOperationAction,

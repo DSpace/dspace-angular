@@ -5,17 +5,17 @@ import { of as observableOf } from 'rxjs';
 import {
   SortDirection,
   SortOptions,
-} from '../../../../../modules/core/src/lib/core/cache/models/sort-options.model';
-import { FindListOptions } from '../../../../../modules/core/src/lib/core/data/find-list-options.model';
-import { buildPaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
+} from '@dspace/core';
+import { FindListOptions } from '@dspace/core';
+import { buildPaginatedList } from '@dspace/core';
 import {
   getMockQualityAssuranceSourceRestService,
   qualityAssuranceSourceObjectMoreAbstract,
   qualityAssuranceSourceObjectMorePid,
-} from '../../../../../modules/core/src/lib/core/mocks/notifications.mock';
-import { QualityAssuranceSourceDataService } from '../../../../../modules/core/src/lib/core/notifications/qa/source/quality-assurance-source-data.service';
-import { PageInfo } from '../../../../../modules/core/src/lib/core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+} from '@dspace/core';
+import { QualityAssuranceSourceDataService } from '@dspace/core';
+import { PageInfo } from '@dspace/core';
+import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { QualityAssuranceSourceService } from './quality-assurance-source.service';
 
 describe('QualityAssuranceSourceService', () => {

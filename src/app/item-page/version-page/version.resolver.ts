@@ -11,12 +11,12 @@ import { AppState } from '../../app.reducer';
 import {
   followLink,
   FollowLinkConfig,
-} from '../../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { VersionDataService } from '../../../../modules/core/src/lib/core/data/version-data.service';
-import { ResolvedAction } from '../../../../modules/core/src/lib/core/resolving/resolver.actions';
-import { getFirstCompletedRemoteData } from '../../../../modules/core/src/lib/core/shared/operators';
-import { Version } from '../../../../modules/core/src/lib/core/shared/version.model';
+} from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { VersionDataService } from '@dspace/core';
+import { ResolvedAction } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
+import { Version } from '@dspace/core';
 
 /**
  * The self links defined in this list are expected to be requested somewhere in the near future

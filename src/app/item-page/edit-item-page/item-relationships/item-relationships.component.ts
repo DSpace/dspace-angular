@@ -24,23 +24,23 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { ObjectCacheService } from '../../../../../modules/core/src/lib/core/cache/object-cache.service';
-import { EntityTypeDataService } from '../../../../../modules/core/src/lib/core/data/entity-type-data.service';
-import { followLink } from '../../../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
-import { ObjectUpdatesService } from '../../../../../modules/core/src/lib/core/data/object-updates/object-updates.service';
-import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RelationshipDataService } from '../../../../../modules/core/src/lib/core/data/relationship-data.service';
-import { RelationshipTypeDataService } from '../../../../../modules/core/src/lib/core/data/relationship-type-data.service';
-import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { compareArraysUsingIds } from '../../../../../modules/core/src/lib/core/shared/item-relationships/item-relationships-utils';
-import { ItemType } from '../../../../../modules/core/src/lib/core/shared/item-relationships/item-type.model';
-import { RelationshipType } from '../../../../../modules/core/src/lib/core/shared/item-relationships/relationship-type.model';
+import { ObjectCacheService } from '@dspace/core';
+import { EntityTypeDataService } from '@dspace/core';
+import { followLink } from '@dspace/core';
+import { ItemDataService } from '@dspace/core';
+import { ObjectUpdatesService } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RelationshipDataService } from '@dspace/core';
+import { RelationshipTypeDataService } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { compareArraysUsingIds } from '@dspace/core';
+import { ItemType } from '@dspace/core';
+import { RelationshipType } from '@dspace/core';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '../../../../../modules/core/src/lib/core/shared/operators';
+} from '@dspace/core';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';

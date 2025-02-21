@@ -11,17 +11,17 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
+import { RemoteDataBuildService } from '../cache';
+import { ObjectCacheService } from '../cache';
 import { CoreState } from '../core-state.model';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { NotificationsService } from '../notifications/notifications.service';
-import { ConfigurationProperty } from '../shared/configuration-property.model';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Item } from '../shared/item.model';
-import { getFirstCompletedRemoteData } from '../shared/operators';
-import { sendRequest } from '../shared/request.operators';
-import { BaseDataService } from './base/base-data.service';
+import { HttpOptions } from '../dspace-rest';
+import { NotificationsService } from '../notifications';
+import { ConfigurationProperty } from '../shared';
+import { HALEndpointService } from '../shared';
+import { Item } from '../shared';
+import { getFirstCompletedRemoteData } from '../shared';
+import { sendRequest } from '../shared';
+import { BaseDataService } from './base';
 import { ConfigurationDataService } from './configuration-data.service';
 import { DefaultChangeAnalyzer } from './default-change-analyzer.service';
 import { IdentifierData } from './identifier-data.model';

@@ -8,11 +8,11 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 
-import { Context } from '../../../../modules/core/src/lib/core/shared/context.model';
+import { Context } from '@dspace/core';
 import {
   MetadataRepresentation,
   MetadataRepresentationType,
-} from '../../../../modules/core/src/lib/core/shared/metadata-representation/metadata-representation.model';
+} from '@dspace/core';
 import { DynamicComponentLoaderDirective } from '../abstract-component-loader/dynamic-component-loader.directive';
 import { getMockThemeService } from '../mocks/theme-service.mock';
 import { PlainTextMetadataListElementComponent } from '../object-list/metadata-representation-list-element/plain-text/plain-text-metadata-list-element.component';

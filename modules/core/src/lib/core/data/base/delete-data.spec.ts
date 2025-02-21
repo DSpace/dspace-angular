@@ -11,18 +11,18 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../cache/object-cache.service';
-import { getMockRemoteDataBuildService } from '../../mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../../mocks/request.service.mock';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { RemoteDataBuildService } from '../../cache';
+import { ObjectCacheService } from '../../cache';
+import { getMockRemoteDataBuildService } from '../../mocks';
+import { getMockRequestService } from '../../mocks';
+import { NotificationsService } from '../../notifications';
+import { HALEndpointService } from '../../shared';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../utilities/remote-data.utils';
-import { HALEndpointServiceStub } from '../../utilities/testing/hal-endpoint-service.stub';
+} from '../../utilities';
+import { HALEndpointServiceStub } from '../../utilities';
 import { FindListOptions } from '../find-list-options.model';
 import { followLink } from '../follow-link-config.model';
 import { RemoteData } from '../remote-data';

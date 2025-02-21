@@ -7,13 +7,13 @@ import { Observable } from 'rxjs';
 import {
   link,
   typedObject,
-} from '../../cache/builders/build-decorators';
-import { PaginatedList } from '../../data/paginated-list.model';
-import { RemoteData } from '../../data/remote-data';
-import { ListableObject } from '../../object-collection/listable-object.model';
-import { DSpaceObject } from '../../shared/dspace-object.model';
-import { GenericConstructor } from '../../shared/generic-constructor';
-import { HALLink } from '../../shared/hal-link.model';
+} from '../../cache';
+import { PaginatedList } from '../../data';
+import { RemoteData } from '../../data';
+import { ListableObject } from '../../object-collection';
+import { DSpaceObject } from '../../shared';
+import { GenericConstructor } from '../../shared';
+import { HALLink } from '../../shared';
 import { EPERSON } from './eperson.resource-type';
 import { Group } from './group.model';
 import { GROUP } from './group.resource-type';

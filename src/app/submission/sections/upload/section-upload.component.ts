@@ -26,27 +26,27 @@ import {
   switchMap,
   tap,
 } from 'rxjs/operators';
-import { WorkspaceitemSectionUploadObject } from '../../../../../modules/core/src/lib/core/submission/models/workspaceitem-section-upload.model';
+import { WorkspaceitemSectionUploadObject } from '@dspace/core';
 
-import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { AccessConditionOption } from '../../../../../modules/core/src/lib/core/config/models/config-access-condition-option.model';
-import { SubmissionFormsModel } from '../../../../../modules/core/src/lib/core/config/models/config-submission-forms.model';
-import { SubmissionUploadsModel } from '../../../../../modules/core/src/lib/core/config/models/config-submission-uploads.model';
-import { SubmissionUploadsConfigDataService } from '../../../../../modules/core/src/lib/core/config/submission-uploads-config-data.service';
-import { CollectionDataService } from '../../../../../modules/core/src/lib/core/data/collection-data.service';
-import { followLink } from '../../../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { GroupDataService } from '../../../../../modules/core/src/lib/core/eperson/group-data.service';
-import { Group } from '../../../../../modules/core/src/lib/core/eperson/models/group.model';
-import { ResourcePolicyDataService } from '../../../../../modules/core/src/lib/core/resource-policy/resource-policy-data.service';
-import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
-import { getFirstSucceededRemoteData } from '../../../../../modules/core/src/lib/core/shared/operators';
+import { DSONameService } from '@dspace/core';
+import { AccessConditionOption } from '@dspace/core';
+import { SubmissionFormsModel } from '@dspace/core';
+import { SubmissionUploadsModel } from '@dspace/core';
+import { SubmissionUploadsConfigDataService } from '@dspace/core';
+import { CollectionDataService } from '@dspace/core';
+import { followLink } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { GroupDataService } from '@dspace/core';
+import { Group } from '@dspace/core';
+import { ResourcePolicyDataService } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { getFirstSucceededRemoteData } from '@dspace/core';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
-import { SubmissionObjectEntry } from '../../objects/submission-objects.reducer';
-import { SubmissionService } from '../../submission.service';
+import { SubmissionObjectEntry } from '../../../../../modules/core/src/lib/core/states/submission/submission-objects.reducer';
+import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
 import { SectionModelComponent } from '../models/section.model';
-import { SectionDataObject } from '../models/section-data.model';
+import { SectionDataObject } from '../../../../../modules/core/src/lib/core/submission/sections/section-data.model';
 import { SectionsService } from '../sections.service';
 import { SubmissionSectionUploadAccessConditionsComponent } from './accessConditions/submission-section-upload-access-conditions.component';
 import { ThemedSubmissionSectionUploadFileComponent } from './file/themed-section-upload-file.component';

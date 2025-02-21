@@ -18,12 +18,12 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
 
-import { FormFieldModel } from '../../../../../../modules/core/src/lib/core/shared/form/form-field.model';
-import { RelationshipOptions } from '../../../../../../modules/core/src/lib/core/shared/form/relationship-options.model';
-import { SubmissionScopeType } from '../../../../../../modules/core/src/lib/core/submission/submission-scope-type';
-import { VocabularyOptions } from '../../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-options.model';
-import { SectionVisibility } from '../../../../submission/objects/section-visibility.model';
-import { VisibilityType } from '../../../../submission/sections/visibility-type';
+import { FormFieldModel } from '@dspace/core';
+import { RelationshipOptions } from '@dspace/core';
+import { SubmissionScopeType } from '@dspace/core';
+import { VocabularyOptions } from '@dspace/core';
+import { SectionVisibility } from '../../../../../../modules/core/src/lib/core/submission/models/section-visibility.model';
+import { VisibilityType } from '../../../../../../modules/core/src/lib/core/submission/models/visibility-type';
 import {
   DsDynamicInputModel,
   DsDynamicInputModelConfig,
@@ -32,7 +32,7 @@ import {
   DynamicRowArrayModel,
   DynamicRowArrayModelConfig,
 } from '../ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
-import { FormFieldMetadataValueObject } from '../../../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '@dspace/core';
 import { setLayout } from './parser.utils';
 import { ParserOptions } from './parser-options';
 import { ParserType } from './parser-type';

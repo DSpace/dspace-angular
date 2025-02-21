@@ -1,6 +1,6 @@
 import { of } from 'rxjs';
 
-import { LiveRegionService } from './live-region.service';
+import { LiveRegionService } from '../../../../modules/core/src/lib/core/services/live-region.service';
 
 export function getLiveRegionServiceStub(): LiveRegionService {
   return new LiveRegionServiceStub() as unknown as LiveRegionService;

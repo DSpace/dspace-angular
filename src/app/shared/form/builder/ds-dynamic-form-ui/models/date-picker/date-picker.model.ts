@@ -15,7 +15,7 @@ import {
   Subject,
 } from 'rxjs';
 
-import { MetadataValue } from '../../../../../../../../modules/core/src/lib/core/shared/metadata.models';
+import { MetadataValue } from '@dspace/core';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER = 'DATE';
 

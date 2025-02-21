@@ -7,11 +7,11 @@ import {
 import {
   DeleteRelationship,
   RelationshipIdentifiable,
-} from '../../data/object-updates/object-updates.reducer';
-import { RemoteData } from '../../data/remote-data';
-import { Item } from '../../shared/item.model';
-import { Relationship } from '../../shared/item-relationships/relationship.model';
-import { NoContent } from '../../shared/NoContent.model';
+} from '../../data';
+import { RemoteData } from '../../data';
+import { Item } from '../../shared';
+import { Relationship } from '../../shared';
+import { NoContent } from '../../shared';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 
 /**

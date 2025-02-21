@@ -3,8 +3,8 @@ import {
   inheritSerialization,
 } from 'cerialize';
 
-import { typedObject } from '../../cache/builders/build-decorators';
-import { ResourceType } from '../../shared/resource-type';
+import { typedObject } from '../../cache';
+import { ResourceType } from '../../shared';
 import { AdvancedWorkflowInfo } from './advanced-workflow-info.model';
 import { SELECT_REVIEWER_ADVANCED_WORKFLOW_INFO } from './advanced-workflow-info.resource-type';
 

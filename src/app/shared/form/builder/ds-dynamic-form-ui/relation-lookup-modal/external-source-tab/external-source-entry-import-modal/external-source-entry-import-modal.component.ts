@@ -19,32 +19,32 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { ItemDataService } from '../../../../../../../../../modules/core/src/lib/core/data/item-data.service';
-import { LookupRelationService } from '../../../../../../../../../modules/core/src/lib/core/data/lookup-relation.service';
-import { PaginatedList } from '../../../../../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../../../../../modules/core/src/lib/core/data/remote-data';
-import { NotificationsService } from '../../../../../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { ItemSearchResult } from '../../../../../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
-import { ListableObject } from '../../../../../../../../../modules/core/src/lib/core/object-collection/listable-object.model';
-import { Context } from '../../../../../../../../../modules/core/src/lib/core/shared/context.model';
-import { ExternalSourceEntry } from '../../../../../../../../../modules/core/src/lib/core/shared/external-source-entry.model';
-import { RelationshipOptions } from '../../../../../../../../../modules/core/src/lib/core/shared/form/relationship-options.model';
-import { Item } from '../../../../../../../../../modules/core/src/lib/core/shared/item.model';
-import { ItemType } from '../../../../../../../../../modules/core/src/lib/core/shared/item-relationships/item-type.model';
-import { MetadataValue } from '../../../../../../../../../modules/core/src/lib/core/shared/metadata.models';
-import { Metadata } from '../../../../../../../../../modules/core/src/lib/core/shared/metadata.utils';
+import { ItemDataService } from '@dspace/core';
+import { LookupRelationService } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { ItemSearchResult } from '@dspace/core';
+import { ListableObject } from '@dspace/core';
+import { Context } from '@dspace/core';
+import { ExternalSourceEntry } from '@dspace/core';
+import { RelationshipOptions } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { ItemType } from '@dspace/core';
+import { MetadataValue } from '@dspace/core';
+import { Metadata } from '@dspace/core';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '../../../../../../../../../modules/core/src/lib/core/shared/operators';
-import { PaginatedSearchOptions } from '../../../../../../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
-import { PaginationComponentOptions } from '../../../../../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
-import { SearchResult } from '../../../../../../../../../modules/core/src/lib/core/shared/search/models/search-result.model';
+} from '@dspace/core';
+import { PaginatedSearchOptions } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
+import { SearchResult } from '@dspace/core';
 import { SubmissionImportExternalCollectionComponent } from '../../../../../../../submission/import-external/import-external-collection/submission-import-external-collection.component';
 import { BtnDisabledDirective } from '../../../../../../btn-disabled.directive';
 import { CollectionListEntry } from '../../../../../../collection-dropdown/collection-dropdown.component';
 import { CollectionElementLinkType } from '../../../../../../object-collection/collection-element-link.type';
-import { SelectableListService } from '../../../../../../object-list/selectable-list/selectable-list.service';
+import { SelectableListService } from '../../../../../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
 import { ThemedSearchResultsComponent } from '../../../../../../search/search-results/themed-search-results.component';
 
 /**

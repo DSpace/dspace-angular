@@ -23,23 +23,23 @@ import {
   AppState,
   storeModuleConfig,
 } from '../app.reducer';
-import { BrowseByDataType } from '../../../modules/core/src/lib/core/shared/browse-by-data-type';
-import { authReducer } from '../../../modules/core/src/lib/core/auth/auth.reducer';
-import { AuthTokenInfo } from '../../../modules/core/src/lib/core/auth/models/auth-token-info.model';
-import { BrowseService } from '../../../modules/core/src/lib/core/browse/browse.service';
-import { AuthorizationDataService } from '../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { buildPaginatedList } from '../../../modules/core/src/lib/core/data/paginated-list.model';
-import { FlatBrowseDefinition } from '../../../modules/core/src/lib/core/shared/flat-browse-definition.model';
-import { HierarchicalBrowseDefinition } from '../../../modules/core/src/lib/core/shared/hierarchical-browse-definition.model';
-import { Item } from '../../../modules/core/src/lib/core/shared/item.model';
-import { ValueListBrowseDefinition } from '../../../modules/core/src/lib/core/shared/value-list-browse-definition.model';
+import { BrowseByDataType } from '@dspace/core';
+import { authReducer } from '@dspace/core';
+import { AuthTokenInfo } from '@dspace/core';
+import { BrowseService } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { buildPaginatedList } from '@dspace/core';
+import { FlatBrowseDefinition } from '@dspace/core';
+import { HierarchicalBrowseDefinition } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { ValueListBrowseDefinition } from '@dspace/core';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { EPersonMock } from '../../../modules/core/src/lib/core/utilities/testing/eperson.mock';
-import { HostWindowServiceStub } from '../../../modules/core/src/lib/core/utilities/testing/host-window-service.stub';
-import { MenuServiceStub } from '../../../modules/core/src/lib/core/utilities/testing/menu-service.stub';
+} from '@dspace/core';
+import { EPersonMock } from '@dspace/core';
+import { HostWindowServiceStub } from '@dspace/core';
+import { MenuServiceStub } from '@dspace/core';
 import { HostWindowService } from '../shared/host-window.service';
 import { MenuService } from '../shared/menu/menu.service';
 import { getMockThemeService } from '../shared/mocks/theme-service.mock';

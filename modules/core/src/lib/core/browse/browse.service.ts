@@ -15,32 +15,32 @@ import {
   startWith,
 } from 'rxjs/operators';
 
-import { SortDirection } from '../cache/models/sort-options.model';
+import { SortDirection } from '../cache';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../config/app-config.interface';
+} from '../config';
 import {
   followLink,
   FollowLinkConfig,
-} from '../data/follow-link-config.model';
-import { HrefOnlyDataService } from '../data/href-only-data.service';
-import { PaginatedList } from '../data/paginated-list.model';
-import { RemoteData } from '../data/remote-data';
-import { RequestService } from '../data/request.service';
-import { BrowseDefinition } from '../shared/browse-definition.model';
-import { BrowseEntry } from '../shared/browse-entry.model';
-import { FlatBrowseDefinition } from '../shared/flat-browse-definition.model';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Item } from '../shared/item.model';
+} from '../data';
+import { HrefOnlyDataService } from '../data';
+import { PaginatedList } from '../data';
+import { RemoteData } from '../data';
+import { RequestService } from '../data';
+import { BrowseDefinition } from '../shared';
+import { BrowseEntry } from '../shared';
+import { FlatBrowseDefinition } from '../shared';
+import { HALEndpointService } from '../shared';
+import { Item } from '../shared';
 import {
   getBrowseDefinitionLinks,
   getFirstOccurrence,
   getFirstSucceededRemoteData,
   getPaginatedListPayload,
   getRemoteDataPayload,
-} from '../shared/operators';
-import { URLCombiner } from '../url-combiner/url-combiner';
+} from '../shared';
+import { URLCombiner } from '../url-combiner';
 import { BrowseDefinitionDataService } from './browse-definition-data.service';
 import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
 

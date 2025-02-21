@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { type } from './shared/ngrx/type';
+import { type } from './shared';
 import { CoreState } from "./core-state.model";
 
 export const StoreActionTypes = {

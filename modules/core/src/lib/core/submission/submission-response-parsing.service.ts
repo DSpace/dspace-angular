@@ -6,18 +6,18 @@ import {
 } from '@dspace/shared/utils';
 import { deepClone } from 'fast-json-patch';
 
-import { FormFieldMetadataValueObject } from '../config/models/form-field-metadata-value.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { ParsedResponse } from '../cache/response.models';
-import { ConfigObject } from '../config/models/config.model';
-import { BaseResponseParsingService } from '../data/base-response-parsing.service';
-import { DSOResponseParsingService } from '../data/dso-response-parsing.service';
-import { ResponseParsingService } from '../data/parsing.service';
-import { RestRequest } from '../data/rest-request.model';
-import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
-import { SubmissionObject } from './models/submission-object.model';
-import { WorkflowItem } from './models/workflowitem.model';
-import { WorkspaceItem } from './models/workspaceitem.model';
+import { FormFieldMetadataValueObject } from '../config';
+import { ObjectCacheService } from '../cache';
+import { ParsedResponse } from '../cache';
+import { ConfigObject } from '../config';
+import { BaseResponseParsingService } from '../data';
+import { DSOResponseParsingService } from '../data';
+import { ResponseParsingService } from '../data';
+import { RestRequest } from '../data';
+import { RawRestResponse } from '../dspace-rest';
+import { SubmissionObject } from './models';
+import { WorkflowItem } from './models';
+import { WorkspaceItem } from './models';
 
 /**
  * Export a function to check if object has same properties of FormFieldMetadataValueObject

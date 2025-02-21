@@ -17,27 +17,27 @@ import {
   of,
 } from 'rxjs';
 
-import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
-import { APP_DATA_SERVICES_MAP } from '../../../../modules/core/src/lib/core/config/app-config.interface';
-import { ItemDataService } from '../../../../modules/core/src/lib/core/data/item-data.service';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { HALEndpointService } from '../../../../modules/core/src/lib/core/shared/hal-endpoint.service';
-import { SubmissionJsonPatchOperationsService } from '../../../../modules/core/src/lib/core/submission/submission-json-patch-operations.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
-import { AuthServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/auth-service.stub';
-import { NotificationsServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { RouterStub } from '../../../../modules/core/src/lib/core/utilities/testing/router.stub';
-import { SectionsServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/sections-service.stub';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/submission-json-patch-operations-service.stub';
-import { SubmissionServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/submission-service.stub';
-import { XSRFService } from '../../../../modules/core/src/lib/core/xsrf/xsrf.service';
+import { AuthService } from '@dspace/core';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core';
+import { ItemDataService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { HALEndpointService } from '@dspace/core';
+import { SubmissionJsonPatchOperationsService } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { ActivatedRouteStub } from '@dspace/core';
+import { AuthServiceStub } from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { RouterStub } from '@dspace/core';
+import { SectionsServiceStub } from '@dspace/core';
+import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core';
+import { SubmissionServiceStub } from '@dspace/core';
+import { XSRFService } from '@dspace/core';
 import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { SubmissionFormComponent } from '../form/submission-form.component';
 import { SectionsService } from '../sections/sections.service';
-import { SubmissionService } from '../submission.service';
+import { SubmissionService } from '../../../../modules/core/src/lib/core/submission/submission.service';
 import { SubmissionEditComponent } from './submission-edit.component';
 
 describe('SubmissionEditComponent Component', () => {

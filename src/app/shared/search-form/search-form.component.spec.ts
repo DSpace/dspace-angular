@@ -12,18 +12,18 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DSpaceObjectDataService } from '../../../../modules/core/src/lib/core/data/dspace-object-data.service';
-import { PaginationService } from '../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { Community } from '../../../../modules/core/src/lib/core/shared/community.model';
-import { DSpaceObject } from '../../../../modules/core/src/lib/core/shared/dspace-object.model';
-import { SearchService } from '../../../../modules/core/src/lib/core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../../modules/core/src/lib/core/shared/search/search-filter.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { PaginationServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
-import { RouterStub } from '../../../../modules/core/src/lib/core/utilities/testing/router.stub';
-import { SearchFilterServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/search-filter-service.stub';
-import { SearchServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/search-service.stub';
+import { DSpaceObjectDataService } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { Community } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
+import { SearchService } from '@dspace/core';
+import { SearchConfigurationService } from '@dspace/core';
+import { SearchFilterService } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { PaginationServiceStub } from '@dspace/core';
+import { RouterStub } from '@dspace/core';
+import { SearchFilterServiceStub } from '@dspace/core';
+import { SearchServiceStub } from '@dspace/core';
 import { SearchFormComponent } from './search-form.component';
 
 describe('SearchFormComponent', () => {

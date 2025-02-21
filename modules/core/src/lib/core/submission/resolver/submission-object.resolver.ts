@@ -5,11 +5,11 @@ import {
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { IdentifiableDataService } from '../../data/base/identifiable-data.service';
-import { RemoteData } from '../../data/remote-data';
-import { Item } from '../../shared/item.model';
-import { getFirstCompletedRemoteData } from '../../shared/operators';
-import { SubmissionObject } from '../models/submission-object.model';
+import { IdentifiableDataService } from '../../data';
+import { RemoteData } from '../../data';
+import { Item } from '../../shared';
+import { getFirstCompletedRemoteData } from '../../shared';
+import { SubmissionObject } from '../models';
 import { SUBMISSION_LINKS_TO_FOLLOW } from './submission-links-to-follow';
 
 /**

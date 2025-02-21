@@ -8,8 +8,8 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../data/feature-authorization/feature-id';
+import { AuthorizationDataService } from '../data';
+import { FeatureID } from '../data';
 import { Bitstream } from './bitstream.model';
 
 /**

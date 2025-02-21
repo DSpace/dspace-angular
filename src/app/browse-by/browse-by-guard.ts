@@ -21,10 +21,10 @@ import {
 } from 'rxjs/operators';
 
 import { PAGE_NOT_FOUND_PATH } from '../app-routing-paths';
-import { BrowseDefinitionDataService } from '../../../modules/core/src/lib/core/browse/browse-definition-data.service';
-import { RemoteData } from '../../../modules/core/src/lib/core/data/remote-data';
-import { BrowseDefinition } from '../../../modules/core/src/lib/core/shared/browse-definition.model';
-import { getFirstCompletedRemoteData } from '../../../modules/core/src/lib/core/shared/operators';
+import { BrowseDefinitionDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { BrowseDefinition } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
 
 export const browseByGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,

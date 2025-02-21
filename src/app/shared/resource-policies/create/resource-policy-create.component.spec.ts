@@ -22,26 +22,26 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { LinkService } from '../../../../../modules/core/src/lib/core/cache/builders/link.service';
-import { getMockLinkService } from '../../../../../modules/core/src/lib/core/mocks/link-service.mock';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { ActionType } from '../../../../../modules/core/src/lib/core/resource-policy/models/action-type.model';
-import { PolicyType } from '../../../../../modules/core/src/lib/core/resource-policy/models/policy-type.model';
-import { ResourcePolicyDataService } from '../../../../../modules/core/src/lib/core/resource-policy/resource-policy-data.service';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { LinkService } from '@dspace/core';
+import { getMockLinkService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { ActionType } from '@dspace/core';
+import { PolicyType } from '@dspace/core';
+import { ResourcePolicyDataService } from '@dspace/core';
+import { Item } from '@dspace/core';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { EPersonMock } from '../../../../../modules/core/src/lib/core/utilities/testing/eperson.mock';
-import { GroupMock } from '../../../../../modules/core/src/lib/core/utilities/testing/group-mock';
-import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { RouterStub } from '../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
+} from '@dspace/core';
+import { EPersonMock } from '@dspace/core';
+import { GroupMock } from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { RouterStub } from '@dspace/core';
 import {
   createPaginatedList,
   createTestComponent,
-} from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+} from '@dspace/core';
 import { getMockResourcePolicyService } from '../../mocks/mock-resource-policy-service';
 import {
   ResourcePolicyEvent,

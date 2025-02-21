@@ -14,11 +14,11 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of as observableOf } from 'rxjs';
 
 import { environment } from '../../../../../environments/environment';
-import { DSONameService } from '../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { APP_CONFIG } from '../../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { ItemSearchResult } from '../../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
-import { Context } from '../../../../../../modules/core/src/lib/core/shared/context.model';
-import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
+import { DSONameService } from '@dspace/core';
+import { APP_CONFIG } from '@dspace/core';
+import { ItemSearchResult } from '@dspace/core';
+import { Context } from '@dspace/core';
+import { Item } from '@dspace/core';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';

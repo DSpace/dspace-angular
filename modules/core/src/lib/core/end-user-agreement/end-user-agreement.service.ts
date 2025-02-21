@@ -10,10 +10,10 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { AuthService } from '../auth/auth.service';
-import { EPersonDataService } from '../eperson/eperson-data.service';
-import { CookieService } from '../services/cookie.service';
-import { getFirstCompletedRemoteData } from '../shared/operators';
+import { AuthService } from '../auth';
+import { EPersonDataService } from '../eperson';
+import { CookieService } from '../services';
+import { getFirstCompletedRemoteData } from '../shared';
 
 export const END_USER_AGREEMENT_COOKIE = 'hasAgreedEndUser';
 export const END_USER_AGREEMENT_METADATA_FIELD = 'dspace.agreements.end-user';

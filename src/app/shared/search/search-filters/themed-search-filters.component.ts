@@ -4,8 +4,8 @@ import {
 } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { SearchFilterConfig } from '../../../../../modules/core/src/lib/core/shared/search/models/search-filter-config.model';
+import { RemoteData } from '@dspace/core';
+import { SearchFilterConfig } from '@dspace/core';
 import { ThemedComponent } from '../../theme-support/themed.component';
 import { SearchFiltersComponent } from './search-filters.component';
 

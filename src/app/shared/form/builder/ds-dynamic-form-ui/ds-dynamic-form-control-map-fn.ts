@@ -25,7 +25,7 @@ import {
   DynamicNGBootstrapTimePickerComponent,
 } from '@ng-dynamic-forms/ui-ng-bootstrap';
 
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../../../../../../modules/core/src/lib/core/config/models/ds-dynamic-form-constants';
+import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '@dspace/core';
 import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-array.component';
 import { CustomSwitchComponent } from './models/custom-switch/custom-switch.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/custom-switch.model';

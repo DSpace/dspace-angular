@@ -6,7 +6,7 @@ import {
 } from '@angular/router';
 import { hasNoValue } from '@dspace/shared/utils';
 
-import { currentPathFromSnapshot } from '../../../../../../src/app/shared/utils/route.utils';
+import { currentPathFromSnapshot } from '../utilities/route.utils';
 import { BreadcrumbConfig } from './breadcrumb-config.model';
 import { I18nBreadcrumbsService } from './i18n-breadcrumbs.service';
 

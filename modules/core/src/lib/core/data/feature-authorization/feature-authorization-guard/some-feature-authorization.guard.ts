@@ -13,8 +13,8 @@ import {
 } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { AuthService } from '../../../auth/auth.service';
-import { returnForbiddenUrlTreeOrLoginOnAllFalse } from '../../../shared/authorized.operators';
+import { AuthService } from '../../../auth';
+import { returnForbiddenUrlTreeOrLoginOnAllFalse } from '../../../shared';
 import { AuthorizationDataService } from '../authorization-data.service';
 import { FeatureID } from '../feature-id';
 

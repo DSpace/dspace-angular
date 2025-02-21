@@ -20,14 +20,14 @@ import {
 } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
 
-import { buildPaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { TranslateLoaderMock } from '../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
-import { PageInfo } from '../../../../../modules/core/src/lib/core/shared/page-info.model';
-import { VocabularyEntry } from '../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyEntryDetail } from '../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { VocabularyOptions } from '../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-options.model';
-import { VocabularyService } from '../../../../../modules/core/src/lib/core/submission/vocabularies/vocabulary.service';
-import { createSuccessfulRemoteDataObject } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { buildPaginatedList } from '@dspace/core';
+import { TranslateLoaderMock } from '@dspace/core';
+import { PageInfo } from '@dspace/core';
+import { VocabularyEntry } from '@dspace/core';
+import { VocabularyEntryDetail } from '@dspace/core';
+import { VocabularyOptions } from '@dspace/core';
+import { VocabularyService } from '@dspace/core';
+import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { VocabularyTreeviewService } from './vocabulary-treeview.service';
 import {
   LOAD_MORE_NODE,

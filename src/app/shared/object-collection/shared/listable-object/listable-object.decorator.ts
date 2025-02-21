@@ -6,11 +6,11 @@ import {
 } from '@dspace/shared/utils';
 
 import { environment } from '../../../../../environments/environment';
-import { ThemeConfig } from '../../../../../../modules/core/src/lib/core/config/theme.config';
-import { ListableObject } from '../../../../../../modules/core/src/lib/core/object-collection/listable-object.model';
-import { Context } from '../../../../../../modules/core/src/lib/core/shared/context.model';
-import { GenericConstructor } from '../../../../../../modules/core/src/lib/core/shared/generic-constructor';
-import { ViewMode } from '../../../../../../modules/core/src/lib/core/shared/view-mode.model';
+import { ThemeConfig } from '@dspace/core';
+import { ListableObject } from '@dspace/core';
+import { Context } from '@dspace/core';
+import { GenericConstructor } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
 
 export const DEFAULT_VIEW_MODE = ViewMode.ListElement;
 export const DEFAULT_CONTEXT = Context.Any;

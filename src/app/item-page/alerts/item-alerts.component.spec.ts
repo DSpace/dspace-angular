@@ -11,16 +11,16 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { AuthorizationDataService } from '../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
-import { CorrectionTypeDataService } from '../../../../modules/core/src/lib/core/submission/correctiontype-data.service';
-import { CorrectionType } from '../../../../modules/core/src/lib/core/submission/models/correctiontype.model';
+import { AuthorizationDataService } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { CorrectionTypeDataService } from '@dspace/core';
+import { CorrectionType } from '@dspace/core';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
-import { createPaginatedList } from '../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+} from '@dspace/core';
+import { ActivatedRouteStub } from '@dspace/core';
+import { createPaginatedList } from '@dspace/core';
 import {
   DsoWithdrawnReinstateModalService,
   REQUEST_REINSTATE,

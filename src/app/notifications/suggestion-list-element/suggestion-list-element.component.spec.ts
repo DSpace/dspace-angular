@@ -10,7 +10,7 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
 import { ItemSearchResultListElementComponent } from '../../../themes/custom/app/shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
-import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
+import { Item } from '@dspace/core';
 import { mockSuggestionPublicationOne } from '../../shared/mocks/publication-claim.mock';
 import { SuggestionActionsComponent } from '../suggestion-actions/suggestion-actions.component';
 import { SuggestionEvidencesComponent } from './suggestion-evidences/suggestion-evidences.component';

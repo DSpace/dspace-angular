@@ -5,7 +5,7 @@
  *
  * http://www.dspace.org/license/
  */
-import { SortDirection } from '../cache/models/sort-options.model';
+import { SortDirection } from '../cache';
 
 export interface PaginationRouteParams {
   page?: number

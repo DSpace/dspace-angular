@@ -22,18 +22,18 @@ import {
   withLatestFrom,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { CollectionDataService } from '../../../../../modules/core/src/lib/core/data/collection-data.service';
-import { FindListOptions } from '../../../../../modules/core/src/lib/core/data/find-list-options.model';
-import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { DSONameService } from '@dspace/core';
+import { CollectionDataService } from '@dspace/core';
+import { FindListOptions } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { Item } from '@dspace/core';
 import {
   getAllCompletedRemoteData,
   getAllSucceededRemoteDataPayload,
   getFirstSucceededRemoteDataPayload,
   getPaginatedListPayload,
-} from '../../../../../modules/core/src/lib/core/shared/operators';
+} from '@dspace/core';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 
 /**

@@ -7,8 +7,8 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../data/feature-authorization/feature-id';
+import { AuthorizationDataService } from '../data';
+import { FeatureID } from '../data';
 
 /**
  * A guard for redirecting users to the feedback page if user is authorized

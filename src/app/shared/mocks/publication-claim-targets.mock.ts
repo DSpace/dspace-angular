@@ -1,5 +1,5 @@
-import { SuggestionTarget } from '../../../../modules/core/src/lib/core/notifications/suggestions/models/suggestion-target.model';
-import { ResourceType } from '../../../../modules/core/src/lib/core/shared/resource-type';
+import { SuggestionTarget } from '@dspace/core';
+import { ResourceType } from '@dspace/core';
 
 // REST Mock ---------------------------------------------------------------------
 // -------------------------------------------------------------------------------

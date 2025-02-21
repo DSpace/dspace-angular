@@ -1,19 +1,19 @@
 import { of as observableOf } from 'rxjs';
 
-import { QualityAssuranceEventDataService } from '../notifications/qa/events/quality-assurance-event-data.service';
-import { QualityAssuranceEventObject } from '../notifications/qa/models/quality-assurance-event.model';
-import { QualityAssuranceSourceObject } from '../notifications/qa/models/quality-assurance-source.model';
-import { QualityAssuranceTopicObject } from '../notifications/qa/models/quality-assurance-topic.model';
-import { QualityAssuranceTopicDataService } from '../notifications/qa/topics/quality-assurance-topic-data.service';
-import { DSpaceObject } from '../shared/dspace-object.model';
-import { Item } from '../shared/item.model';
-import { ResourceType } from '../shared/resource-type';
-import { SearchResult } from '../shared/search/models/search-result.model';
+import { QualityAssuranceEventDataService } from '../notifications';
+import { QualityAssuranceEventObject } from '../notifications';
+import { QualityAssuranceSourceObject } from '../notifications';
+import { QualityAssuranceTopicObject } from '../notifications';
+import { QualityAssuranceTopicDataService } from '../notifications';
+import { DSpaceObject } from '../shared';
+import { Item } from '../shared';
+import { ResourceType } from '../shared';
+import { SearchResult } from '../shared';
 import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../utilities/remote-data.utils';
+} from '../utilities';
 
 // REST Mock ---------------------------------------------------------------------
 // -------------------------------------------------------------------------------

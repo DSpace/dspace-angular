@@ -20,16 +20,16 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { BulkAccessConfigDataService } from '../../../../modules/core/src/lib/core/config/bulk-access-config-data.service';
-import { BulkAccessConditionOptions } from '../../../../modules/core/src/lib/core/config/models/bulk-access-condition-options.model';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { DSpaceObject } from '../../../../modules/core/src/lib/core/shared/dspace-object.model';
-import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../../../modules/core/src/lib/core/shared/operators';
+import { BulkAccessConfigDataService } from '@dspace/core';
+import { BulkAccessConditionOptions } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
 import { AlertComponent } from '../alert/alert.component';
 import { AlertType } from '../alert/alert-type';
 import { BtnDisabledDirective } from '../btn-disabled.directive';
-import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
+import { SelectableListService } from '../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
 import { AccessControlArrayFormComponent } from './access-control-array-form/access-control-array-form.component';
 import { createAccessControlInitialFormState } from './access-control-form-container-intial-state';
 import { BulkAccessControlService } from './bulk-access-control.service';

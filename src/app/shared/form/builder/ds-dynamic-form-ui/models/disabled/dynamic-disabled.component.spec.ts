@@ -22,7 +22,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService,
-} from '../../../../../../../../modules/core/src/lib/core/utilities/testing/dynamic-form-mock-services';
+} from '@dspace/core';
 import { DsDynamicDisabledComponent } from './dynamic-disabled.component';
 import { DynamicDisabledModel } from './dynamic-disabled.model';
 

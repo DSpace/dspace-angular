@@ -13,15 +13,15 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
-import { DSONameService } from '../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { ItemDataService } from '../../../../modules/core/src/lib/core/data/item-data.service';
-import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
-import { ItemRequest } from '../../../../modules/core/src/lib/core/shared/item-request.model';
+import { AuthService } from '@dspace/core';
+import { DSONameService } from '@dspace/core';
+import { ItemDataService } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { ItemRequest } from '@dspace/core';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+} from '@dspace/core';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import { VarDirective } from '../../shared/utils/var.directive';
 import {

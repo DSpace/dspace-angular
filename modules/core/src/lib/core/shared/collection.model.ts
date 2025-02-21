@@ -8,12 +8,12 @@ import { Observable } from 'rxjs';
 import {
   link,
   typedObject,
-} from '../cache/builders/build-decorators';
-import { PaginatedList } from '../data/paginated-list.model';
-import { RemoteData } from '../data/remote-data';
-import { ResourcePolicy } from '../resource-policy/models/resource-policy.model';
-import { RESOURCE_POLICY } from '../resource-policy/models/resource-policy.resource-type';
-import { excludeFromEquals } from '../utilities/equals.decorators';
+} from '../cache';
+import { PaginatedList } from '../data';
+import { RemoteData } from '../data';
+import { ResourcePolicy } from '../resource-policy';
+import { RESOURCE_POLICY } from '../resource-policy';
+import { excludeFromEquals } from '../utilities';
 import { Bitstream } from './bitstream.model';
 import { BITSTREAM } from './bitstream.resource-type';
 import { ChildHALResource } from './child-hal-resource.model';

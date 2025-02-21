@@ -1,4 +1,4 @@
-import { currentPath } from './route.utils';
+import { currentPath } from '../../../../modules/core/src/lib/core/utilities/route.utils';
 
 describe('Route Utils', () => {
   const urlTree = {

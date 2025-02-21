@@ -39,20 +39,20 @@ import {
   Observable,
   Subscription,
 } from 'rxjs';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
+import { RemoteData } from '@dspace/core';
 
-import { FindListOptions } from '../../../../../modules/core/src/lib/core/data/find-list-options.model';
-import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { PaginationService } from '../../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { getFirstCompletedRemoteData } from '../../../../../modules/core/src/lib/core/shared/operators';
+import { FindListOptions } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
 import { IpV4Validator } from '../../../shared/utils/ipV4.validator';
-import { LdnItemfiltersService } from '../ldn-services-data/ldn-itemfilters-data.service';
-import { LdnServicesService } from '../ldn-services-data/ldn-services-data.service';
-import { LDN_SERVICE } from '../ldn-services-model/ldn-service.resource-type';
-import { Itemfilter } from '../ldn-services-model/ldn-service-itemfilters';
-import { NotifyServicePattern } from '../ldn-services-model/ldn-service-patterns.model';
-import { LdnService } from '../ldn-services-model/ldn-services.model';
+import { LdnItemfiltersService } from '../../../../../modules/core/src/lib/core/admin/ldn-services-data/ldn-itemfilters-data.service';
+import { LdnServicesService } from '../../../../../modules/core/src/lib/core/admin/ldn-services-data/ldn-services-data.service';
+import { LDN_SERVICE } from '../../../../../modules/core/src/lib/core/data/ldn/ldn-service.resource-type';
+import { Itemfilter } from '../../../../../modules/core/src/lib/core/data/ldn/ldn-service-itemfilters';
+import { NotifyServicePattern } from '../../../../../modules/core/src/lib/core/data/ldn/ldn-service-patterns.model';
+import { LdnService } from '../../../../../modules/core/src/lib/core/data/ldn/ldn-services.model';
 import { notifyPatterns } from '../ldn-services-patterns/ldn-service-coar-patterns';
 
 /**

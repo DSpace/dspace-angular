@@ -1,9 +1,9 @@
-import { typedObject } from '../../../../../modules/core/src/lib/core/cache/builders/build-decorators';
-import { TypedObject } from '../../../../../modules/core/src/lib/core/cache/typed-object.model';
-import { NotificationType } from '../../../../../modules/core/src/lib/core/notifications/models/notification-type';
-import { ListableObject } from '../../../../../modules/core/src/lib/core/object-collection/listable-object.model';
-import { GenericConstructor } from '../../../../../modules/core/src/lib/core/shared/generic-constructor';
-import { ResourceType } from '../../../../../modules/core/src/lib/core/shared/resource-type';
+import { typedObject } from '@dspace/core';
+import { TypedObject } from '@dspace/core';
+import { NotificationType } from '@dspace/core';
+import { ListableObject } from '@dspace/core';
+import { GenericConstructor } from '@dspace/core';
+import { ResourceType } from '@dspace/core';
 import { LISTABLE_NOTIFICATION_OBJECT } from './listable-notification-object.resource-type';
 
 /**

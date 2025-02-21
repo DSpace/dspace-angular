@@ -1,4 +1,4 @@
-import { SubmissionPatchRequest } from '../../data/request.models';
+import { SubmissionPatchRequest } from '../../data';
 
 export class SubmissionJsonPatchOperationsServiceStub {
   protected linkPath = 'workspaceitems';

@@ -23,20 +23,20 @@ import {
 import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { CollectionDataService } from '../../../../modules/core/src/lib/core/data/collection-data.service';
-import { FindListOptions } from '../../../../modules/core/src/lib/core/data/find-list-options.model';
-import { FollowLinkConfig } from '../../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { PaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { TranslateLoaderMock } from '../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
-import { Collection } from '../../../../modules/core/src/lib/core/shared/collection.model';
-import { Community } from '../../../../modules/core/src/lib/core/shared/community.model';
+import { CollectionDataService } from '@dspace/core';
+import { FindListOptions } from '@dspace/core';
+import { FollowLinkConfig } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { TranslateLoaderMock } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { Community } from '@dspace/core';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { MockElementRef } from '../../../../modules/core/src/lib/core/utilities/testing/element-ref.mock';
-import { createPaginatedList } from '../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+} from '@dspace/core';
+import { MockElementRef } from '@dspace/core';
+import { createPaginatedList } from '@dspace/core';
 import { CollectionDropdownComponent } from '../../shared/collection-dropdown/collection-dropdown.component';
 import { CollectionSelectorComponent } from './collection-selector.component';
 

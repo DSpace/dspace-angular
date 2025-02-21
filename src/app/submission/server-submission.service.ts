@@ -4,9 +4,9 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { RemoteData } from '../../../modules/core/src/lib/core/data/remote-data';
-import { SubmissionObject } from '../../../modules/core/src/lib/core/submission/models/submission-object.model';
-import { SubmissionService } from './submission.service';
+import { RemoteData } from '@dspace/core';
+import { SubmissionObject } from '@dspace/core';
+import { SubmissionService } from '../../../modules/core/src/lib/core/submission/submission.service';
 
 /**
  * Instance of SubmissionService used on SSR.

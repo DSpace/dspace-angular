@@ -13,16 +13,16 @@ import {
 } from 'rxjs/operators';
 
 import { getPageNotFoundRoute } from '../../../app-routing-paths';
-import { AuthService } from '../../../../../modules/core/src/lib/core/auth/auth.service';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { VersionDataService } from '../../../../../modules/core/src/lib/core/data/version-data.service';
-import { redirectOn4xx } from '../../../../../modules/core/src/lib/core/shared/authorized.operators';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { AuthService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { VersionDataService } from '@dspace/core';
+import { redirectOn4xx } from '@dspace/core';
+import { Item } from '@dspace/core';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '../../../../../modules/core/src/lib/core/shared/operators';
-import { Version } from '../../../../../modules/core/src/lib/core/shared/version.model';
+} from '@dspace/core';
+import { Version } from '@dspace/core';
 import { getItemPageRoute } from '../../item-page-routing-paths';
 
 @Component({

@@ -40,26 +40,26 @@ import {
 
 import { getDefaultThemeConfig } from '../../../config/config.util';
 import { environment } from '../../../environments/environment';
-import { LinkService } from '../../../../modules/core/src/lib/core/cache/builders/link.service';
+import { LinkService } from '@dspace/core';
 import {
   HeadTagConfig,
   ThemeConfig,
-} from '../../../../modules/core/src/lib/core/config/theme.config';
-import { BASE_THEME_NAME } from '../../../../modules/core/src/lib/core/config/theme.constants';
-import { DSpaceObjectDataService } from '../../../../modules/core/src/lib/core/data/dspace-object-data.service';
-import { followLink } from '../../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { distinctNext } from '../../../../modules/core/src/lib/core/shared/distinct-next';
-import { DSpaceObject } from '../../../../modules/core/src/lib/core/shared/dspace-object.model';
+} from '@dspace/core';
+import { BASE_THEME_NAME } from '@dspace/core';
+import { DSpaceObjectDataService } from '@dspace/core';
+import { followLink } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { distinctNext } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
 import {
   NO_OP_ACTION_TYPE,
   NoOpAction,
-} from '../../../../modules/core/src/lib/core/shared/ngrx/no-op.action';
+} from '@dspace/core';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '../../../../modules/core/src/lib/core/shared/operators';
+} from '@dspace/core';
 import { GET_THEME_CONFIG_FOR_FACTORY } from '../object-collection/shared/listable-object/listable-object.decorator';
 import {
   SetThemeAction,

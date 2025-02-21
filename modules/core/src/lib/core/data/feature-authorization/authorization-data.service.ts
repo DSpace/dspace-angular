@@ -14,17 +14,17 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { RequestParam } from '../../cache/models/request-param.model';
-import { ObjectCacheService } from '../../cache/object-cache.service';
-import { Authorization } from '../../shared/authorization.model';
-import { HALEndpointService } from '../../shared/hal-endpoint.service';
-import { getFirstCompletedRemoteData } from '../../shared/operators';
-import { BaseDataService } from '../base/base-data.service';
+import { RemoteDataBuildService } from '../../cache';
+import { RequestParam } from '../../cache';
+import { ObjectCacheService } from '../../cache';
+import { Authorization } from '../../shared';
+import { HALEndpointService } from '../../shared';
+import { getFirstCompletedRemoteData } from '../../shared';
+import { BaseDataService } from '../base';
 import {
   SearchData,
   SearchDataImpl,
-} from '../base/search-data';
+} from '../base';
 import { FindListOptions } from '../find-list-options.model';
 import {
   followLink,

@@ -1,7 +1,7 @@
 import { Route } from '@angular/router';
 
-import { authenticatedGuard } from '../../../modules/core/src/lib/core/auth/authenticated.guard';
-import { i18nBreadcrumbResolver } from '../../../modules/core/src/lib/core/breadcrumbs/i18n-breadcrumb.resolver';
+import { authenticatedGuard } from '@dspace/core';
+import { i18nBreadcrumbResolver } from '@dspace/core';
 import { ThemedSubmissionSubmitComponent } from '../submission/submit/themed-submission-submit.component';
 
 export const ROUTES: Route[] = [

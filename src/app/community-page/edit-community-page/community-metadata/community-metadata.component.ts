@@ -6,9 +6,9 @@ import {
 } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
-import { CommunityDataService } from '../../../../../modules/core/src/lib/core/data/community-data.service';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Community } from '../../../../../modules/core/src/lib/core/shared/community.model';
+import { CommunityDataService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Community } from '@dspace/core';
 import { ComcolMetadataComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-metadata/comcol-metadata.component';
 import { CommunityFormComponent } from '../../community-form/community-form.component';
 

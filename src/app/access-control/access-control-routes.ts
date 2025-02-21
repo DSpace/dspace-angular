@@ -5,10 +5,10 @@ import {
   DynamicErrorMessagesMatcher,
 } from '@ng-dynamic-forms/core';
 
-import { i18nBreadcrumbResolver } from '../../../modules/core/src/lib/core/breadcrumbs/i18n-breadcrumb.resolver';
-import { groupAdministratorGuard } from '../../../modules/core/src/lib/core/data/feature-authorization/feature-authorization-guard/group-administrator.guard';
-import { siteAdministratorGuard } from '../../../modules/core/src/lib/core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
-import { EPersonResolver } from '../../../modules/core/src/lib/core/eperson/eperson-resolver.service';
+import { i18nBreadcrumbResolver } from '@dspace/core';
+import { groupAdministratorGuard } from '@dspace/core';
+import { siteAdministratorGuard } from '@dspace/core';
+import { EPersonResolver } from '@dspace/core';
 import {
   EPERSON_PATH,
   GROUP_PATH,

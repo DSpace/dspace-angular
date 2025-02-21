@@ -4,7 +4,7 @@ import {
   Input,
 } from '@angular/core';
 
-import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
+import { Item } from '@dspace/core';
 import { MetadataValuesComponent } from '../../../../field-components/metadata-values/metadata-values.component';
 import { ItemPageFieldComponent } from '../item-page-field.component';
 

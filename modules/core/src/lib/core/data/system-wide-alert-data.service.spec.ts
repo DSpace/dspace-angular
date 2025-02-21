@@ -1,6 +1,6 @@
-import { testCreateDataImplementation } from './base/create-data.spec';
-import { testFindAllDataImplementation } from './base/find-all-data.spec';
-import { testPutDataImplementation } from './base/put-data.spec';
+import { testCreateDataImplementation } from './base';
+import { testFindAllDataImplementation } from './base';
+import { testPutDataImplementation } from './base';
 import { SystemWideAlertDataService } from './system-wide-alert-data.service';
 
 describe('SystemWideAlertDataService', () => {

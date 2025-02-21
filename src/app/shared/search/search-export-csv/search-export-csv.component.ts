@@ -22,15 +22,15 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { AuthorizationDataService } from '../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
-import { ScriptDataService } from '../../../../../modules/core/src/lib/core/data/processes/script-data.service';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Process } from '../../../../../modules/core/src/lib/core/processes/process.model';
-import { getFirstCompletedRemoteData } from '../../../../../modules/core/src/lib/core/shared/operators';
-import { PaginatedSearchOptions } from '../../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
-import { SearchFilter } from '../../../../../modules/core/src/lib/core/shared/search/models/search-filter.model';
+import { AuthorizationDataService } from '@dspace/core';
+import { FeatureID } from '@dspace/core';
+import { ScriptDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Process } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
+import { PaginatedSearchOptions } from '@dspace/core';
+import { SearchFilter } from '@dspace/core';
 import { getProcessDetailRoute } from '../../../process-page/process-page-routing.paths';
 
 @Component({

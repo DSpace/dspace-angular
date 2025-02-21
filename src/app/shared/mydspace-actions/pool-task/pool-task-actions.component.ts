@@ -20,17 +20,17 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { DSpaceObject } from '../../../../../modules/core/src/lib/core/shared/dspace-object.model';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { SearchService } from '../../../../../modules/core/src/lib/core/shared/search/search.service';
-import { WorkflowItem } from '../../../../../modules/core/src/lib/core/submission/models/workflowitem.model';
-import { ClaimedTaskDataService } from '../../../../../modules/core/src/lib/core/tasks/claimed-task-data.service';
-import { PoolTask } from '../../../../../modules/core/src/lib/core/tasks/models/pool-task-object.model';
-import { ProcessTaskResponse } from '../../../../../modules/core/src/lib/core/tasks/models/process-task-response';
-import { PoolTaskDataService } from '../../../../../modules/core/src/lib/core/tasks/pool-task-data.service';
+import { RemoteData } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { SearchService } from '@dspace/core';
+import { WorkflowItem } from '@dspace/core';
+import { ClaimedTaskDataService } from '@dspace/core';
+import { PoolTask } from '@dspace/core';
+import { ProcessTaskResponse } from '@dspace/core';
+import { PoolTaskDataService } from '@dspace/core';
 import { getWorkflowItemViewRoute } from '../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { MyDSpaceReloadableActionsComponent } from '../mydspace-reloadable-actions';

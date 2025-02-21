@@ -8,10 +8,10 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { of as observableOf } from 'rxjs';
 
-import { RestRequestMethod } from '../data/rest-request-method';
-import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
-import { AuthServiceStub } from '../utilities/testing/auth-service.stub';
-import { RouterStub } from '../utilities/testing/router.stub';
+import { RestRequestMethod } from '../data';
+import { DspaceRestService } from '../dspace-rest';
+import { AuthServiceStub } from '../utilities';
+import { RouterStub } from '../utilities';
 import { AuthInterceptor } from './auth.interceptor';
 import { AuthService } from './auth.service';
 

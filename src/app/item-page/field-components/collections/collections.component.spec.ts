@@ -11,23 +11,23 @@ import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { RemoteDataBuildService } from '../../../../../modules/core/src/lib/core/cache/builders/remote-data-build.service';
-import { CollectionDataService } from '../../../../../modules/core/src/lib/core/data/collection-data.service';
-import { FindListOptions } from '../../../../../modules/core/src/lib/core/data/find-list-options.model';
+import { DSONameService } from '@dspace/core';
+import { RemoteDataBuildService } from '@dspace/core';
+import { CollectionDataService } from '@dspace/core';
+import { FindListOptions } from '@dspace/core';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { getMockRemoteDataBuildService } from '../../../../../modules/core/src/lib/core/mocks/remote-data-build.service.mock';
-import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { PageInfo } from '../../../../../modules/core/src/lib/core/shared/page-info.model';
+} from '@dspace/core';
+import { getMockRemoteDataBuildService } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { PageInfo } from '@dspace/core';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+} from '@dspace/core';
+import { ActivatedRouteStub } from '@dspace/core';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 import { CollectionsComponent } from './collections.component';
 

@@ -13,12 +13,12 @@ import {
 } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { NotifyInfoService } from '../../../../modules/core/src/lib/core/coar-notify/notify-info/notify-info.service';
+import { NotifyInfoService } from '@dspace/core';
 import {
-  LinkDefinition,
+  HeadLinkDefinition,
   LinkHeadService,
-} from '../../../../modules/core/src/lib/core/services/link-head.service';
-import { ServerResponseService } from '../../../../modules/core/src/lib/core/services/server-response.service';
+} from '@dspace/core';
+import { ServerResponseService } from '@dspace/core';
 
 @Component({
   selector: 'ds-home-coar',
@@ -28,9 +28,9 @@ import { ServerResponseService } from '../../../../modules/core/src/lib/core/ser
 export class HomeCoarComponent implements OnInit, OnDestroy {
 
   /**
-   * An array of LinkDefinition objects representing inbox links for the home page.
+   * An array of HeadLinkDefinition objects representing inbox links for the home page.
    */
-  inboxLinks: LinkDefinition[] = [];
+  inboxLinks: HeadLinkDefinition[] = [];
 
   subs: Subscription[] = [];
 
@@ -59,7 +59,7 @@ export class HomeCoarComponent implements OnInit, OnDestroy {
    */
   ngOnDestroy(): void {
     this.subs.forEach((sub: Subscription) => sub.unsubscribe());
-    this.inboxLinks.forEach((link: LinkDefinition) => {
+    this.inboxLinks.forEach((link: HeadLinkDefinition) => {
       this.linkHeadService.removeTag(`href='${link.href}'`);
     });
   }
@@ -73,7 +73,7 @@ export class HomeCoarComponent implements OnInit, OnDestroy {
     let links = '';
     coarRestApiUrls.forEach((coarRestApiUrl: string) => {
       // Add link to head
-      const tag: LinkDefinition = {
+      const tag: HeadLinkDefinition = {
         href: coarRestApiUrl,
         rel: rel,
       };

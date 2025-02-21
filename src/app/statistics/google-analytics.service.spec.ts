@@ -4,12 +4,12 @@ import {
 } from 'angulartics2';
 import { of } from 'rxjs';
 
-import { ConfigurationDataService } from '../../../modules/core/src/lib/core/data/configuration-data.service';
-import { ConfigurationProperty } from '../../../modules/core/src/lib/core/shared/configuration-property.model';
+import { ConfigurationDataService } from '@dspace/core';
+import { ConfigurationProperty } from '@dspace/core';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../modules/core/src/lib/core/utilities/remote-data.utils';
+} from '@dspace/core';
 import { OrejimeService } from '../shared/cookies/orejime.service';
 import { GOOGLE_ANALYTICS_OREJIME_KEY } from '../shared/cookies/orejime-configuration';
 import { GoogleAnalyticsService } from './google-analytics.service';

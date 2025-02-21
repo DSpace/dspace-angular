@@ -4,14 +4,14 @@ import {
 } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { AppConfig } from '../config/app-config.interface';
-import { HardRedirectService } from '../services/hard-redirect.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Item } from '../shared/item.model';
-import { createSuccessfulRemoteDataObject } from '../utilities/remote-data.utils';
-import { EMBED_SEPARATOR } from './base/base-data.service';
+import { RemoteDataBuildService } from '../cache';
+import { ObjectCacheService } from '../cache';
+import { AppConfig } from '../config';
+import { HardRedirectService } from '../services';
+import { HALEndpointService } from '../shared';
+import { Item } from '../shared';
+import { createSuccessfulRemoteDataObject } from '../utilities';
+import { EMBED_SEPARATOR } from './base';
 import { DsoRedirectService } from './dso-redirect.service';
 import { followLink } from './follow-link-config.model';
 import {

@@ -30,8 +30,8 @@ import { of as observableOf } from 'rxjs';
 import {
   mockDynamicFormLayoutService,
   mockDynamicFormValidationService,
-} from '../../../../../../../../modules/core/src/lib/core/utilities/testing/dynamic-form-mock-services';
-import { createTestComponent } from '../../../../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+} from '@dspace/core';
+import { createTestComponent } from '@dspace/core';
 import { DsDatePickerComponent } from './date-picker.component';
 import { DynamicDsDatePickerModel } from './date-picker.model';
 

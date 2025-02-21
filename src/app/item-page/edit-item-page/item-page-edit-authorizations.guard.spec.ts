@@ -9,15 +9,15 @@ import {
   Observable,
   of as observableOf,
 } from 'rxjs';
-import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
-import { AuthorizationDataService } from '../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
+import { AuthService } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { FeatureID } from '@dspace/core';
 
-import { APP_DATA_SERVICES_MAP } from '../../../../modules/core/src/lib/core/config/app-config.interface';
-import { ItemDataService } from '../../../../modules/core/src/lib/core/data/item-data.service';
-import { getMockTranslateService } from '../../../../modules/core/src/lib/core/mocks/translate.service.mock';
-import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core';
+import { ItemDataService } from '@dspace/core';
+import { getMockTranslateService } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { itemPageEditAuthorizationsGuard } from './item-page-edit-authorizations.guard';
 
 describe('itemPageEditAuthorizationsGuard', () => {

@@ -11,8 +11,8 @@ import { MetadataFieldWrapperComponent } from 'src/app/shared/metadata-field-wra
 import { ThemedResultsBackButtonComponent } from 'src/app/shared/results-back-button/themed-results-back-button.component';
 import { ThemedThumbnailComponent } from 'src/app/thumbnail/themed-thumbnail.component';
 
-import { Context } from '../../../../../../../../modules/core/src/lib/core/shared/context.model';
-import { ViewMode } from '../../../../../../../../modules/core/src/lib/core/shared/view-mode.model';
+import { Context } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
 import { PersonComponent as BaseComponent } from '../../../../../../../app/entity-groups/research-entities/item-pages/person/person.component';
 import { listableObjectComponent } from '../../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
 

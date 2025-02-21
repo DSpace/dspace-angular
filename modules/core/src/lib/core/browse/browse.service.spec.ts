@@ -6,22 +6,22 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RequestService } from '../data/request.service';
-import { RequestEntry } from '../data/request-entry.model';
-import { getMockHrefOnlyDataService } from '../mocks/href-only-data.service.mock';
-import { getMockRequestService } from '../mocks/request.service.mock';
-import { FlatBrowseDefinition } from '../shared/flat-browse-definition.model';
-import { HierarchicalBrowseDefinition } from '../shared/hierarchical-browse-definition.model';
-import { ValueListBrowseDefinition } from '../shared/value-list-browse-definition.model';
+import { RequestService } from '../data';
+import { RequestEntry } from '../data';
+import { getMockHrefOnlyDataService } from '../mocks';
+import { getMockRequestService } from '../mocks';
+import { FlatBrowseDefinition } from '../shared';
+import { HierarchicalBrowseDefinition } from '../shared';
+import { ValueListBrowseDefinition } from '../shared';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../utilities/remote-data.utils';
-import { HALEndpointServiceStub } from '../utilities/testing/hal-endpoint-service.stub';
+} from '../utilities';
+import { HALEndpointServiceStub } from '../utilities';
 import {
   createPaginatedList,
   getFirstUsedArgumentOfSpyMethod,
-} from '../utilities/testing/utils.test';
+} from '../utilities';
 import { BrowseService } from './browse.service';
 import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
 

@@ -5,15 +5,15 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RemoteDataBuildService } from '../cache';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../data/paginated-list.model';
-import { RemoteData } from '../data/remote-data';
-import { RequestEntry } from '../data/request-entry.model';
-import { PageInfo } from '../shared/page-info.model';
-import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
+} from '../data';
+import { RemoteData } from '../data';
+import { RequestEntry } from '../data';
+import { PageInfo } from '../shared';
+import { createSuccessfulRemoteDataObject$ } from '../utilities';
 
 export function getMockRemoteDataBuildService(toRemoteDataObservable$?: Observable<RemoteData<any>>, buildList$?: Observable<RemoteData<PaginatedList<any>>>): RemoteDataBuildService {
   return {

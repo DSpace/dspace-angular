@@ -8,13 +8,13 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 
-import { FlatBrowseDefinition } from '../../../../modules/core/src/lib/core/shared/flat-browse-definition.model';
-import { NonHierarchicalBrowseDefinition } from '../../../../modules/core/src/lib/core/shared/non-hierarchical-browse-definition';
-import { ValueListBrowseDefinition } from '../../../../modules/core/src/lib/core/shared/value-list-browse-definition.model';
+import { FlatBrowseDefinition } from '@dspace/core';
+import { NonHierarchicalBrowseDefinition } from '@dspace/core';
+import { ValueListBrowseDefinition } from '@dspace/core';
 import { DynamicComponentLoaderDirective } from '../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
-import { BrowseByDataType } from '../../../../modules/core/src/lib/core/shared/browse-by-data-type';
+import { BrowseByDataType } from '@dspace/core';
 import { BrowseBySwitcherComponent } from './browse-by-switcher.component';
 
 @Component({

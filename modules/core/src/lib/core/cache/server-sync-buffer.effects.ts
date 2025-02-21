@@ -36,13 +36,13 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '../config/app-config.interface';
+} from '../config';
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
-import { PatchRequest } from '../data/request.models';
-import { RequestService } from '../data/request.service';
-import { RestRequestMethod } from '../data/rest-request-method';
-import { NoOpAction } from '../shared/ngrx/no-op.action';
+import { PatchRequest } from '../data';
+import { RequestService } from '../data';
+import { RestRequestMethod } from '../data';
+import { NoOpAction } from '../shared';
 import { ApplyPatchObjectCacheAction } from './object-cache.actions';
 import { ObjectCacheEntry } from './object-cache.reducer';
 import { ObjectCacheService } from './object-cache.service';

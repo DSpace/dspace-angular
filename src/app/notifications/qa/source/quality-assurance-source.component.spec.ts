@@ -18,10 +18,10 @@ import {
   getMockNotificationsStateService,
   qualityAssuranceSourceObjectMoreAbstract,
   qualityAssuranceSourceObjectMorePid,
-} from '../../../../../modules/core/src/lib/core/mocks/notifications.mock';
-import { PaginationService } from '../../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { PaginationServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
-import { createTestComponent } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+} from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { PaginationServiceStub } from '@dspace/core';
+import { createTestComponent } from '@dspace/core';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';

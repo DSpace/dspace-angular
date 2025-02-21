@@ -6,11 +6,11 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { followLink } from '../../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { ItemTemplateDataService } from '../../../../modules/core/src/lib/core/data/item-template-data.service';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../../../modules/core/src/lib/core/shared/operators';
+import { followLink } from '@dspace/core';
+import { ItemTemplateDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
 
 export const itemTemplatePageResolver: ResolveFn<RemoteData<Item>> = (
   route: ActivatedRouteSnapshot,

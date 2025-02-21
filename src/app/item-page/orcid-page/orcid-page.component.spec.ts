@@ -23,26 +23,26 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
-import { ItemDataService } from '../../../../modules/core/src/lib/core/data/item-data.service';
-import { TranslateLoaderMock } from '../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { OrcidAuthService } from '../../../../modules/core/src/lib/core/orcid/orcid-auth.service';
-import { OrcidHistoryDataService } from '../../../../modules/core/src/lib/core/orcid/orcid-history-data.service';
-import { OrcidQueueDataService } from '../../../../modules/core/src/lib/core/orcid/orcid-queue-data.service';
-import { PaginationService } from '../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { ResearcherProfile } from '../../../../modules/core/src/lib/core/profile/model/researcher-profile.model';
-import { ResearcherProfileDataService } from '../../../../modules/core/src/lib/core/profile/researcher-profile-data.service';
-import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
+import { AuthService } from '@dspace/core';
+import { ItemDataService } from '@dspace/core';
+import { TranslateLoaderMock } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { OrcidAuthService } from '@dspace/core';
+import { OrcidHistoryDataService } from '@dspace/core';
+import { OrcidQueueDataService } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { ResearcherProfile } from '@dspace/core';
+import { ResearcherProfileDataService } from '@dspace/core';
+import { Item } from '@dspace/core';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
-import { createPaginatedList } from '../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+} from '@dspace/core';
+import { ActivatedRouteStub } from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { PaginationServiceStub } from '@dspace/core';
+import { createPaginatedList } from '@dspace/core';
 import { OrcidPageComponent } from './orcid-page.component';
 
 describe('OrcidPageComponent test suite', () => {

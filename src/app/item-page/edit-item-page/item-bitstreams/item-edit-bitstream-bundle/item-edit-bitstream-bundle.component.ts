@@ -35,27 +35,27 @@ import {
   take,
   tap,
 } from 'rxjs/operators';
-import { PaginatedList } from '../../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../../modules/core/src/lib/core/data/remote-data';
-import { Bitstream } from '../../../../../../modules/core/src/lib/core/shared/bitstream.model';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { Bitstream } from '@dspace/core';
 
-import { DSONameService } from '../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { BundleDataService } from '../../../../../../modules/core/src/lib/core/data/bundle-data.service';
-import { followLink } from '../../../../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { FieldChangeType } from '../../../../../../modules/core/src/lib/core/data/object-updates/field-change-type.model';
-import { FieldUpdate } from '../../../../../../modules/core/src/lib/core/data/object-updates/field-update.model';
-import { FieldUpdates } from '../../../../../../modules/core/src/lib/core/data/object-updates/field-updates.model';
-import { ObjectUpdatesService } from '../../../../../../modules/core/src/lib/core/data/object-updates/object-updates.service';
-import { RequestService } from '../../../../../../modules/core/src/lib/core/data/request.service';
-import { PaginationService } from '../../../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { Bundle } from '../../../../../../modules/core/src/lib/core/shared/bundle.model';
-import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
+import { DSONameService } from '@dspace/core';
+import { BundleDataService } from '@dspace/core';
+import { followLink } from '@dspace/core';
+import { FieldChangeType } from '@dspace/core';
+import { FieldUpdate } from '@dspace/core';
+import { FieldUpdates } from '@dspace/core';
+import { ObjectUpdatesService } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { Bundle } from '@dspace/core';
+import { Item } from '@dspace/core';
 import {
   getAllSucceededRemoteData,
   paginatedListToArray,
-} from '../../../../../../modules/core/src/lib/core/shared/operators';
-import { PaginatedSearchOptions } from '../../../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
-import { PaginationComponentOptions } from '../../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+} from '@dspace/core';
+import { PaginatedSearchOptions } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';

@@ -3,9 +3,9 @@ import {
   deserialize,
 } from 'cerialize';
 
-import { typedObject } from '../cache/builders/build-decorators';
-import { CacheableObject } from '../cache/cacheable-object.model';
-import { excludeFromEquals } from '../utilities/equals.decorators';
+import { typedObject } from '../cache';
+import { CacheableObject } from '../cache';
+import { excludeFromEquals } from '../utilities';
 import { HALLink } from './hal-link.model';
 import { ITEM_REQUEST } from './item-request.resource-type';
 import { ResourceType } from './resource-type';

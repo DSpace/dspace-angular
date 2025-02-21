@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import {
   link,
   typedObject,
-} from '../cache/builders/build-decorators';
-import { RemoteData } from '../data/remote-data';
+} from '../cache';
+import { RemoteData } from '../data';
 import { Collection } from './collection.model';
 import { COLLECTION } from './collection.resource-type';
 import { Item } from './item.model';

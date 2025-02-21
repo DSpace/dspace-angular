@@ -1,4 +1,4 @@
-import { GenericConstructor } from '../shared/generic-constructor';
+import { GenericConstructor } from '../shared';
 import { ResponseParsingService } from './parsing.service';
 import { RestRequest } from './rest-request.model';
 

@@ -11,15 +11,15 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { BrowseService } from '../../../../../../modules/core/src/lib/core/browse/browse.service';
-import { BrowseDefinitionDataService } from '../../../../../../modules/core/src/lib/core/browse/browse-definition-data.service';
-import { BrowseDefinition } from '../../../../../../modules/core/src/lib/core/shared/browse-definition.model';
-import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
+import { BrowseService } from '@dspace/core';
+import { BrowseDefinitionDataService } from '@dspace/core';
+import { BrowseDefinition } from '@dspace/core';
+import { Item } from '@dspace/core';
 import {
   getFirstCompletedRemoteData,
   getPaginatedListPayload,
   getRemoteDataPayload,
-} from '../../../../../../modules/core/src/lib/core/shared/operators';
+} from '@dspace/core';
 import { MetadataValuesComponent } from '../../../field-components/metadata-values/metadata-values.component';
 import { ImageField } from './image-field';
 

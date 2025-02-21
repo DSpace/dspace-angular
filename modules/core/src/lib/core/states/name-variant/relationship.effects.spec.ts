@@ -16,22 +16,22 @@ import {
 } from 'rxjs';
 import { last } from 'rxjs/operators';
 
-import { SelectableListService } from '../../../../../../../src/app/shared/object-list/selectable-list/selectable-list.service';
-import { ObjectCacheService } from '../../cache/object-cache.service';
-import { RestResponse } from '../../cache/response.models';
-import { RelationshipDataService } from '../../data/relationship-data.service';
-import { RelationshipTypeDataService } from '../../data/relationship-type-data.service';
-import { RequestService } from '../../data/request.service';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { Item } from '../../shared/item.model';
-import { ItemType } from '../../shared/item-relationships/item-type.model';
-import { Relationship } from '../../shared/item-relationships/relationship.model';
-import { RelationshipType } from '../../shared/item-relationships/relationship-type.model';
-import { MetadataValue } from '../../shared/metadata.models';
-import { DEBOUNCE_TIME_OPERATOR } from '../../shared/operators';
-import { WorkspaceItem } from '../../submission/models/workspaceitem.model';
-import { SubmissionObjectDataService } from '../../submission/submission-object-data.service';
-import { createSuccessfulRemoteDataObject$ } from '../../utilities/remote-data.utils';
+import { SelectableListService } from '../selectable-list/selectable-list.service';
+import { ObjectCacheService } from '../../cache';
+import { RestResponse } from '../../cache';
+import { RelationshipDataService } from '../../data';
+import { RelationshipTypeDataService } from '../../data';
+import { RequestService } from '../../data';
+import { NotificationsService } from '../../notifications';
+import { Item } from '../../shared';
+import { ItemType } from '../../shared';
+import { Relationship } from '../../shared';
+import { RelationshipType } from '../../shared';
+import { MetadataValue } from '../../shared';
+import { DEBOUNCE_TIME_OPERATOR } from '../../shared';
+import { WorkspaceItem } from '../../submission';
+import { SubmissionObjectDataService } from '../../submission';
+import { createSuccessfulRemoteDataObject$ } from '../../utilities';
 import {
   AddRelationshipAction,
   RelationshipActionTypes,

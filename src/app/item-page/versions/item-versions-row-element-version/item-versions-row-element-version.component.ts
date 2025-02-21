@@ -32,23 +32,23 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { AuthorizationDataService } from '../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
-import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { VersionDataService } from '../../../../../modules/core/src/lib/core/data/version-data.service';
-import { VersionHistoryDataService } from '../../../../../modules/core/src/lib/core/data/version-history-data.service';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { AuthorizationDataService } from '@dspace/core';
+import { FeatureID } from '@dspace/core';
+import { ItemDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { VersionDataService } from '@dspace/core';
+import { VersionHistoryDataService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Item } from '@dspace/core';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '../../../../../modules/core/src/lib/core/shared/operators';
-import { Version } from '../../../../../modules/core/src/lib/core/shared/version.model';
-import { VersionHistory } from '../../../../../modules/core/src/lib/core/shared/version-history.model';
-import { WorkspaceItem } from '../../../../../modules/core/src/lib/core/submission/models/workspaceitem.model';
-import { WorkflowItemDataService } from '../../../../../modules/core/src/lib/core/submission/workflowitem-data.service';
-import { WorkspaceitemDataService } from '../../../../../modules/core/src/lib/core/submission/workspaceitem-data.service';
+} from '@dspace/core';
+import { Version } from '@dspace/core';
+import { VersionHistory } from '@dspace/core';
+import { WorkspaceItem } from '@dspace/core';
+import { WorkflowItemDataService } from '@dspace/core';
+import { WorkspaceitemDataService } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import {
   getItemEditVersionhistoryRoute,

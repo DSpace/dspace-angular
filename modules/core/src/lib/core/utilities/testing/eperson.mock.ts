@@ -1,4 +1,4 @@
-import { EPerson } from '../../eperson/models/eperson.model';
+import { EPerson } from '../../eperson';
 
 export const EPersonMock: EPerson = Object.assign(new EPerson(), {
   handle: null,

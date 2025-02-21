@@ -8,8 +8,8 @@ import {
 } from '@ng-dynamic-forms/core';
 import { Subject } from 'rxjs';
 
-import { VocabularyEntry } from '../../../../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyOptions } from '../../../../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-options.model';
+import { VocabularyEntry } from '@dspace/core';
+import { VocabularyOptions } from '@dspace/core';
 
 export interface DynamicListCheckboxGroupModelConfig extends DynamicFormGroupModelConfig {
   vocabularyOptions: VocabularyOptions;

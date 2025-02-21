@@ -9,8 +9,8 @@ import {
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { AppliedFilter } from '../../../../../modules/core/src/lib/core/shared/search/models/applied-filter.model';
-import { SearchService } from '../../../../../modules/core/src/lib/core/shared/search/search.service';
+import { AppliedFilter } from '@dspace/core';
+import { SearchService } from '@dspace/core';
 import { ObjectKeysPipe } from '../../utils/object-keys-pipe';
 import { SearchLabelComponent } from './search-label/search-label.component';
 import { SearchLabelLoaderComponent } from './search-label-loader/search-label-loader.component';

@@ -29,23 +29,23 @@ import { getCommunityPageRoute } from '../community-page/community-page-routing-
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../modules/core/src/lib/core/config/app-config.interface';
-import { CollectionDataService } from '../../../modules/core/src/lib/core/data/collection-data.service';
-import { CommunityDataService } from '../../../modules/core/src/lib/core/data/community-data.service';
-import { FindListOptions } from '../../../modules/core/src/lib/core/data/find-list-options.model';
-import { followLink } from '../../../modules/core/src/lib/core/data/follow-link-config.model';
+} from '@dspace/core';
+import { CollectionDataService } from '@dspace/core';
+import { CommunityDataService } from '@dspace/core';
+import { FindListOptions } from '@dspace/core';
+import { followLink } from '@dspace/core';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../modules/core/src/lib/core/data/remote-data';
-import { Collection } from '../../../modules/core/src/lib/core/shared/collection.model';
-import { Community } from '../../../modules/core/src/lib/core/shared/community.model';
+} from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { Community } from '@dspace/core';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
-} from '../../../modules/core/src/lib/core/shared/operators';
-import { PageInfo } from '../../../modules/core/src/lib/core/shared/page-info.model';
+} from '@dspace/core';
+import { PageInfo } from '@dspace/core';
 import { CommunityListSaveAction } from './community-list.actions';
 import { CommunityListState } from './community-list.reducer';
 import { FlatNode } from './flat-node.model';

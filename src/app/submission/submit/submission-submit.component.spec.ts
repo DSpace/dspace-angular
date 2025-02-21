@@ -18,16 +18,16 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ItemDataService } from '../../../../modules/core/src/lib/core/data/item-data.service';
-import { getMockTranslateService } from '../../../../modules/core/src/lib/core/mocks/translate.service.mock';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { RouterStub } from '../../../../modules/core/src/lib/core/utilities/testing/router.stub';
-import { SubmissionServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/submission-service.stub';
+import { ItemDataService } from '@dspace/core';
+import { getMockTranslateService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { ActivatedRouteStub } from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { RouterStub } from '@dspace/core';
+import { SubmissionServiceStub } from '@dspace/core';
 import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
-import { SubmissionService } from '../submission.service';
+import { SubmissionService } from '../../../../modules/core/src/lib/core/submission/submission.service';
 import { SubmissionSubmitComponent } from './submission-submit.component';
 
 describe('SubmissionSubmitComponent Component', () => {

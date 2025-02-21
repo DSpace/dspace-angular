@@ -6,7 +6,7 @@ import {
 } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ExternalSourceEntry } from '../../../../../../../modules/core/src/lib/core/shared/external-source-entry.model';
+import { ExternalSourceEntry } from '@dspace/core';
 import { ExternalSourceEntryListSubmissionElementComponent } from './external-source-entry-list-submission-element.component';
 
 describe('ExternalSourceEntryListSubmissionElementComponent', () => {

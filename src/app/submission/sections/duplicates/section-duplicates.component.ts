@@ -15,15 +15,15 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { Metadata } from '../../../../../modules/core/src/lib/core/shared/metadata.utils';
-import { WorkspaceitemSectionDuplicatesObject } from '../../../../../modules/core/src/lib/core/submission/models/workspaceitem-section-duplicates.model';
-import { URLCombiner } from '../../../../../modules/core/src/lib/core/url-combiner/url-combiner';
+import { Metadata } from '@dspace/core';
+import { WorkspaceitemSectionDuplicatesObject } from '@dspace/core';
+import { URLCombiner } from '@dspace/core';
 import { getItemModuleRoute } from '../../../item-page/item-page-routing-paths';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { VarDirective } from '../../../shared/utils/var.directive';
-import { SubmissionService } from '../../submission.service';
+import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
 import { SectionModelComponent } from '../models/section.model';
-import { SectionDataObject } from '../models/section-data.model';
+import { SectionDataObject } from '../../../../../modules/core/src/lib/core/submission/sections/section-data.model';
 import { SectionsService } from '../sections.service';
 
 /**

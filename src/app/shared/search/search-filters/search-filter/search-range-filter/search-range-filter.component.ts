@@ -25,11 +25,11 @@ import {
   startWith,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../../../../../../../modules/core/src/lib/core/cache/builders/remote-data-build.service';
-import { RouteService } from '../../../../../../../modules/core/src/lib/core/services/route.service';
-import { SearchService } from '../../../../../../../modules/core/src/lib/core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../../../../../modules/core/src/lib/core/shared/search/search-filter.service';
+import { RemoteDataBuildService } from '@dspace/core';
+import { RouteService } from '@dspace/core';
+import { SearchService } from '@dspace/core';
+import { SearchConfigurationService } from '@dspace/core';
+import { SearchFilterService } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { DebounceDirective } from '../../../../utils/debounce.directive';
 import {

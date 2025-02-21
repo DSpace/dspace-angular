@@ -1,4 +1,4 @@
-import { INotification } from './models/notification.model';
+import { INotification } from './models';
 import {
   NotificationsActions,
   NotificationsActionTypes,

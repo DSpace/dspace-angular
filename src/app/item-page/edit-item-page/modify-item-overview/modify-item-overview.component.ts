@@ -6,8 +6,8 @@ import {
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { MetadataMap } from '../../../../../modules/core/src/lib/core/shared/metadata.models';
+import { Item } from '@dspace/core';
+import { MetadataMap } from '@dspace/core';
 
 @Component({
   selector: 'ds-modify-item-overview',

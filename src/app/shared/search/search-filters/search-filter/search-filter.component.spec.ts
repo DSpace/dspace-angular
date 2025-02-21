@@ -15,18 +15,18 @@ import {
   Observable,
   of as observableOf,
 } from 'rxjs';
-import { SearchFilterService } from '../../../../../../modules/core/src/lib/core/shared/search/search-filter.service';
+import { SearchFilterService } from '@dspace/core';
 
-import { AppliedFilter } from '../../../../../../modules/core/src/lib/core/shared/search/models/applied-filter.model';
-import { FacetValues } from '../../../../../../modules/core/src/lib/core/shared/search/models/facet-values.model';
-import { FilterType } from '../../../../../../modules/core/src/lib/core/shared/search/models/filter-type.model';
-import { SearchFilterConfig } from '../../../../../../modules/core/src/lib/core/shared/search/models/search-filter-config.model';
-import { SearchService } from '../../../../../../modules/core/src/lib/core/shared/search/search.service';
-import { SequenceService } from '../../../../../../modules/core/src/lib/core/shared/sequence.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { SearchConfigurationServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/search-configuration-service.stub';
-import { SearchFilterServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/search-filter-service.stub';
-import { SearchServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/search-service.stub';
+import { AppliedFilter } from '@dspace/core';
+import { FacetValues } from '@dspace/core';
+import { FilterType } from '@dspace/core';
+import { SearchFilterConfig } from '@dspace/core';
+import { SearchService } from '@dspace/core';
+import { SequenceService } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { SearchConfigurationServiceStub } from '@dspace/core';
+import { SearchFilterServiceStub } from '@dspace/core';
+import { SearchServiceStub } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
 import { SearchFacetFilterWrapperComponent } from './search-facet-filter-wrapper/search-facet-filter-wrapper.component';
 import { SearchFilterComponent } from './search-filter.component';

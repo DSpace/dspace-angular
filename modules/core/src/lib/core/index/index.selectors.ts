@@ -7,9 +7,9 @@ import {
   MemoizedSelector,
 } from '@ngrx/store';
 
-import { coreSelector } from '../core.selectors';
-import { CoreState } from '../core-state.model';
-import { URLCombiner } from '../url-combiner/url-combiner';
+import { coreSelector } from '@dspace/core';
+import { CoreState } from '@dspace/core';
+import { URLCombiner } from '@dspace/core';
 import {
   IndexState,
   MetaIndexState,

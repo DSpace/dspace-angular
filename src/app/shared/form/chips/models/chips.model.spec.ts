@@ -1,4 +1,4 @@
-import { FormFieldMetadataValueObject } from '../../../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '@dspace/core';
 import { Chips } from './chips.model';
 import { ChipsItem } from './chips-item.model';
 

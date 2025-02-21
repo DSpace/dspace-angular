@@ -5,11 +5,11 @@ import {
 import { hasValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 
-import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '../../../../../modules/core/src/lib/core/data/bitstream-data.service';
-import { DSpaceObject } from '../../../../../modules/core/src/lib/core/shared/dspace-object.model';
-import { Metadata } from '../../../../../modules/core/src/lib/core/shared/metadata.utils';
-import { SearchResult } from '../../../../../modules/core/src/lib/core/shared/search/models/search-result.model';
+import { DSONameService } from '@dspace/core';
+import { BitstreamDataService } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
+import { Metadata } from '@dspace/core';
+import { SearchResult } from '@dspace/core';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { TruncatableService } from '../../truncatable/truncatable.service';
 
@@ -50,7 +50,7 @@ export class SearchResultGridElementComponent<T extends SearchResult<K>, K exten
   /**
    * Gets all matching metadata string values from hitHighlights or dso metadata, preferring hitHighlights.
    *
-   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
+   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[PolicyMetadata]].
    * @returns {string[]} the matching string values or an empty array.
    */
   allMetadataValues(keyOrKeys: string | string[]): string[] {
@@ -60,7 +60,7 @@ export class SearchResultGridElementComponent<T extends SearchResult<K>, K exten
   /**
    * Gets the first matching metadata string value from hitHighlights or dso metadata, preferring hitHighlights.
    *
-   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
+   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[PolicyMetadata]].
    * @returns {string} the first matching string value, or `undefined`.
    */
   firstMetadataValue(keyOrKeys: string | string[]): string {

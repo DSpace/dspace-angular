@@ -4,10 +4,10 @@ import {
   inheritSerialization,
 } from 'cerialize';
 
-import { typedObject } from '../../cache/builders/build-decorators';
-import { HALLink } from '../../shared/hal-link.model';
-import { ResourceType } from '../../shared/resource-type';
-import { excludeFromEquals } from '../../utilities/equals.decorators';
+import { typedObject } from '../../cache';
+import { HALLink } from '../../shared';
+import { ResourceType } from '../../shared';
+import { excludeFromEquals } from '../../utilities';
 import { ConfigObject } from './config.model';
 import { AccessesConditionOption } from './config-accesses-conditions-options.model';
 import { BULK_ACCESS_CONDITION_OPTIONS } from './config-type';

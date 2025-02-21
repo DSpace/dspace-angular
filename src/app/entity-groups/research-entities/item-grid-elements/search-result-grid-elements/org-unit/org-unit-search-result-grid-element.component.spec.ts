@@ -1,8 +1,8 @@
-import { buildPaginatedList } from '../../../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { ItemSearchResult } from '../../../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
-import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
-import { PageInfo } from '../../../../../../../modules/core/src/lib/core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { buildPaginatedList } from '@dspace/core';
+import { ItemSearchResult } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { PageInfo } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { getEntityGridElementTestComponent } from '../../../../../shared/object-grid/search-result-grid-element/item-search-result/item/item-search-result-grid-element.component.spec';
 import { OrgUnitSearchResultGridElementComponent } from './org-unit-search-result-grid-element.component';
 

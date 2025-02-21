@@ -10,11 +10,11 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../../../environments/environment';
 import { getCommunityEditRoute } from '../../../../../community-page/community-page-routing-paths';
-import { DSONameService } from '../../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { APP_CONFIG } from '../../../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { CommunitySearchResult } from '../../../../../../../modules/core/src/lib/core/object-collection/community-search-result.model';
-import { Community } from '../../../../../../../modules/core/src/lib/core/shared/community.model';
-import { ViewMode } from '../../../../../../../modules/core/src/lib/core/shared/view-mode.model';
+import { DSONameService } from '@dspace/core';
+import { APP_CONFIG } from '@dspace/core';
+import { CommunitySearchResult } from '@dspace/core';
+import { Community } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';

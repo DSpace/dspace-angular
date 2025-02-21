@@ -16,10 +16,10 @@ import {
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { TranslateLoaderMock } from '../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
-import { Bitstream } from '../../../../modules/core/src/lib/core/shared/bitstream.model';
-import { DSpaceObject } from '../../../../modules/core/src/lib/core/shared/dspace-object.model';
-import { createSuccessfulRemoteDataObject } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { TranslateLoaderMock } from '@dspace/core';
+import { Bitstream } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
+import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { ResourcePoliciesComponent } from '../../shared/resource-policies/resource-policies.component';
 import { BitstreamAuthorizationsComponent } from './bitstream-authorizations.component';
 

@@ -8,9 +8,9 @@ import { Observable } from 'rxjs';
 import {
   link,
   typedObject,
-} from '../../cache/builders/build-decorators';
-import { RemoteData } from '../../data/remote-data';
-import { HALLink } from '../../shared/hal-link.model';
+} from '../../cache';
+import { RemoteData } from '../../data';
+import { HALLink } from '../../shared';
 import { ConfigObject } from './config.model';
 import { AccessConditionOption } from './config-access-condition-option.model';
 import { SubmissionFormsModel } from './config-submission-forms.model';

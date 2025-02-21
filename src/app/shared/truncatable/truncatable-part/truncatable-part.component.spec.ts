@@ -16,12 +16,12 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { getMockTranslateService } from '../../../../../modules/core/src/lib/core/mocks/translate.service.mock';
-import { TranslateLoaderMock } from '../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
+import { getMockTranslateService } from '@dspace/core';
+import { TranslateLoaderMock } from '@dspace/core';
 import {
   NativeWindowRef,
   NativeWindowService,
-} from '../../../../../modules/core/src/lib/core/services/window.service';
+} from '@dspace/core';
 import { mockTruncatableService } from '../../mocks/mock-trucatable.service';
 import { TruncatableService } from '../truncatable.service';
 import { TruncatablePartComponent } from './truncatable-part.component';

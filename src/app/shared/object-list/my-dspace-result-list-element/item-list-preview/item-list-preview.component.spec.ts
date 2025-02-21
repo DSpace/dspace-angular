@@ -15,9 +15,9 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { APP_CONFIG } from '../../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { TranslateLoaderMock } from '../../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
-import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
+import { APP_CONFIG } from '@dspace/core';
+import { TranslateLoaderMock } from '@dspace/core';
+import { Item } from '@dspace/core';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
 import { ItemCollectionComponent } from '../../../object-collection/shared/mydspace-item-collection/item-collection.component';

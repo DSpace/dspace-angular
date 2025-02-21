@@ -27,26 +27,26 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { addOperatorToFilterValue } from '../../../../../../../src/app/shared/search/search.utils';
-import { LinkService } from '../../cache/builders/link.service';
-import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
+import { addOperatorToFilterValue } from '../../utilities/search.utils';
+import { LinkService } from '../../cache';
+import { RemoteDataBuildService } from '../../cache';
 import {
   SortDirection,
   SortOptions,
-} from '../../cache/models/sort-options.model';
+} from '../../cache';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../config/app-config.interface';
-import { FacetConfigResponseParsingService } from '../../data/facet-config-response-parsing.service';
-import { ResponseParsingService } from '../../data/parsing.service';
-import { RemoteData } from '../../data/remote-data';
-import { GetRequest } from '../../data/request.models';
-import { RequestService } from '../../data/request.service';
-import { PaginationService } from '../../pagination/pagination.service';
-import { RouteService } from '../../services/route.service';
-import { URLCombiner } from '../../url-combiner/url-combiner';
-import { createSuccessfulRemoteDataObject$ } from '../../utilities/remote-data.utils';
+} from '../../config';
+import { FacetConfigResponseParsingService } from '../../data';
+import { ResponseParsingService } from '../../data';
+import { RemoteData } from '../../data';
+import { GetRequest } from '../../data';
+import { RequestService } from '../../data';
+import { PaginationService } from '../../pagination';
+import { RouteService } from '../../services';
+import { URLCombiner } from '../../url-combiner';
+import { createSuccessfulRemoteDataObject$ } from '../../utilities';
 import { DSpaceObjectType } from '../dspace-object-type.model';
 import { GenericConstructor } from '../generic-constructor';
 import { HALEndpointService } from '../hal-endpoint.service';
@@ -57,16 +57,16 @@ import {
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { PaginationComponentOptions } from '../pagination-component-options.model';
 import { ViewMode } from '../view-mode.model';
-import { FacetConfigResponse } from './models/facet-config-response.model';
-import { FilterType } from './models/filter-type.model';
-import { SearchFilter } from './models/search-filter.model';
-import { SearchFilterConfig } from './models/search-filter-config.model';
-import { SearchOptions } from './models/search-options.model';
+import { FacetConfigResponse } from './models';
+import { FilterType } from './models';
+import { SearchFilter } from './models';
+import { SearchFilterConfig } from './models';
+import { SearchOptions } from './models';
 import {
   FilterConfig,
   SearchConfig,
   SortConfig,
-} from './search-filters/search-config.model';
+} from './search-filters';
 
 /**
  * Service that performs all actions that have to do with the current search configuration
@@ -259,7 +259,7 @@ export class SearchConfigurationService implements OnDestroy {
   }
 
   /**
-   * Creates an observable of SearchConfig every time the configuration stream emits.
+   * Creates an observable of SearchPageConfig every time the configuration stream emits.
    * @param configuration The search configuration
    * @param scope The search scope if exists
    */
@@ -270,8 +270,8 @@ export class SearchConfigurationService implements OnDestroy {
   }
 
   /**
-   * Return the SortOptions list available for the given SearchConfig
-   * @param searchConfig The SearchConfig object
+   * Return the SortOptions list available for the given SearchPageConfig
+   * @param searchConfig The SearchPageConfig object
    */
   getConfigurationSortOptions(searchConfig: SearchConfig): SortOptions[] {
     return searchConfig.sortOptions.map((entry: SortConfig) => ({

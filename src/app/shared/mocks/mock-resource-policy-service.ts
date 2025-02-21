@@ -1,4 +1,4 @@
-import { ResourcePolicyDataService } from '../../../../modules/core/src/lib/core/resource-policy/resource-policy-data.service';
+import { ResourcePolicyDataService } from '@dspace/core';
 
 export function getMockResourcePolicyService(): ResourcePolicyDataService {
   return jasmine.createSpyObj('resourcePolicyService', {

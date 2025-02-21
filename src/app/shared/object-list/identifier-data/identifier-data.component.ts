@@ -8,10 +8,10 @@ import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { Item } from '@dspace/core';
 
-import { IdentifierData } from '../../../../../modules/core/src/lib/core/data/identifier-data.model';
-import { IdentifierDataService } from '../../../../../modules/core/src/lib/core/data/identifier-data.service';
+import { IdentifierData } from '@dspace/core';
+import { IdentifierDataService } from '@dspace/core';
 
 @Component({
   selector: 'ds-identifier-data',

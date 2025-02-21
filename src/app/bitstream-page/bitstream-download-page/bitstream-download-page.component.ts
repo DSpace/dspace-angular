@@ -31,19 +31,19 @@ import {
 } from 'rxjs/operators';
 
 import { getForbiddenRoute } from '../../app-routing-paths';
-import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
-import { DSONameService } from '../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { AuthorizationDataService } from '../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { SignpostingDataService } from '../../../../modules/core/src/lib/core/data/signposting-data.service';
-import { SignpostingLink } from '../../../../modules/core/src/lib/core/data/signposting-links.model';
-import { HardRedirectService } from '../../../../modules/core/src/lib/core/services/hard-redirect.service';
-import { ServerResponseService } from '../../../../modules/core/src/lib/core/services/server-response.service';
-import { redirectOn4xx } from '../../../../modules/core/src/lib/core/shared/authorized.operators';
-import { Bitstream } from '../../../../modules/core/src/lib/core/shared/bitstream.model';
-import { FileService } from '../../../../modules/core/src/lib/core/shared/file.service';
-import { getRemoteDataPayload } from '../../../../modules/core/src/lib/core/shared/operators';
+import { AuthService } from '@dspace/core';
+import { DSONameService } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { FeatureID } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { SignpostingDataService } from '@dspace/core';
+import { SignpostingLink } from '@dspace/core';
+import { HardRedirectService } from '@dspace/core';
+import { ServerResponseService } from '@dspace/core';
+import { redirectOn4xx } from '@dspace/core';
+import { Bitstream } from '@dspace/core';
+import { FileService } from '@dspace/core';
+import { getRemoteDataPayload } from '@dspace/core';
 
 @Component({
   selector: 'ds-bitstream-download-page',

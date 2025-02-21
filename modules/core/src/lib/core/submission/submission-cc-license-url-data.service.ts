@@ -5,30 +5,30 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { RequestParam } from '../cache/models/request-param.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { BaseDataService } from '../data/base/base-data.service';
+import { RemoteDataBuildService } from '../cache';
+import { RequestParam } from '../cache';
+import { ObjectCacheService } from '../cache';
+import { BaseDataService } from '../data';
 import {
   SearchData,
   SearchDataImpl,
-} from '../data/base/search-data';
-import { FindListOptions } from '../data/find-list-options.model';
-import { FollowLinkConfig } from '../data/follow-link-config.model';
-import { PaginatedList } from '../data/paginated-list.model';
-import { RemoteData } from '../data/remote-data';
-import { RequestService } from '../data/request.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
+} from '../data';
+import { FindListOptions } from '../data';
+import { FollowLinkConfig } from '../data';
+import { PaginatedList } from '../data';
+import { RemoteData } from '../data';
+import { RequestService } from '../data';
+import { HALEndpointService } from '../shared';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '../shared/operators';
+} from '../shared';
 import {
   Field,
   Option,
   SubmissionCcLicence,
-} from './models/submission-cc-license.model';
-import { SubmissionCcLicenceUrl } from './models/submission-cc-license-url.model';
+} from './models';
+import { SubmissionCcLicenceUrl } from './models';
 
 @Injectable({ providedIn: 'root' })
 export class SubmissionCcLicenseUrlDataService extends BaseDataService<SubmissionCcLicenceUrl> implements SearchData<SubmissionCcLicenceUrl> {

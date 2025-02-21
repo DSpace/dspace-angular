@@ -14,10 +14,10 @@ import {
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Community } from '../../../../../../modules/core/src/lib/core/shared/community.model';
-import { MetadataValue } from '../../../../../../modules/core/src/lib/core/shared/metadata.models';
-import { createSuccessfulRemoteDataObject } from '../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { RouterStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
+import { Community } from '@dspace/core';
+import { MetadataValue } from '@dspace/core';
+import { createSuccessfulRemoteDataObject } from '@dspace/core';
+import { RouterStub } from '@dspace/core';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import { EditCommunitySelectorComponent } from './edit-community-selector.component';
 

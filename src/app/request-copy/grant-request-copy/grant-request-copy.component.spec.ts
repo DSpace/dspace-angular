@@ -15,20 +15,20 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
-import { DSONameService } from '../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { ItemDataService } from '../../../../modules/core/src/lib/core/data/item-data.service';
-import { ItemRequestDataService } from '../../../../modules/core/src/lib/core/data/item-request-data.service';
-import { EPerson } from '../../../../modules/core/src/lib/core/eperson/models/eperson.model';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { RequestCopyEmail } from '../../../../modules/core/src/lib/core/request-copy/request-copy-email.model';
-import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
-import { ItemRequest } from '../../../../modules/core/src/lib/core/shared/item-request.model';
+import { AuthService } from '@dspace/core';
+import { DSONameService } from '@dspace/core';
+import { ItemDataService } from '@dspace/core';
+import { ItemRequestDataService } from '@dspace/core';
+import { EPerson } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { RequestCopyEmail } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { ItemRequest } from '@dspace/core';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+} from '@dspace/core';
 import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';

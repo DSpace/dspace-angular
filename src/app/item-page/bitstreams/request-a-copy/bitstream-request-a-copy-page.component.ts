@@ -44,21 +44,21 @@ import {
   getBitstreamDownloadRoute,
   getForbiddenRoute,
 } from '../../../app-routing-paths';
-import { AuthService } from '../../../../../modules/core/src/lib/core/auth/auth.service';
-import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '../../../../../modules/core/src/lib/core/data/bitstream-data.service';
-import { AuthorizationDataService } from '../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
-import { ItemRequestDataService } from '../../../../../modules/core/src/lib/core/data/item-request-data.service';
-import { EPerson } from '../../../../../modules/core/src/lib/core/eperson/models/eperson.model';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Bitstream } from '../../../../../modules/core/src/lib/core/shared/bitstream.model';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { ItemRequest } from '../../../../../modules/core/src/lib/core/shared/item-request.model';
+import { AuthService } from '@dspace/core';
+import { DSONameService } from '@dspace/core';
+import { BitstreamDataService } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { FeatureID } from '@dspace/core';
+import { ItemRequestDataService } from '@dspace/core';
+import { EPerson } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Bitstream } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { ItemRequest } from '@dspace/core';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '../../../../../modules/core/src/lib/core/shared/operators';
+} from '@dspace/core';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { getItemPageRoute } from '../../item-page-routing-paths';
 

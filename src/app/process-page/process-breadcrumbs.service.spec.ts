@@ -4,8 +4,8 @@ import {
 } from '@angular/core/testing';
 import { getTestScheduler } from 'jasmine-marbles';
 
-import { Breadcrumb } from '../../../modules/core/src/lib/core/breadcrumbs/breadcrumb.model';
-import { Process } from '../../../modules/core/src/lib/core/processes/process.model';
+import { Breadcrumb } from '@dspace/core';
+import { Process } from '@dspace/core';
 import { ProcessBreadcrumbsService } from './process-breadcrumbs.service';
 
 describe('ProcessBreadcrumbsService', () => {

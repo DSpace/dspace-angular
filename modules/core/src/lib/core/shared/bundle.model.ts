@@ -7,9 +7,9 @@ import { Observable } from 'rxjs';
 import {
   link,
   typedObject,
-} from '../cache/builders/build-decorators';
-import { PaginatedList } from '../data/paginated-list.model';
-import { RemoteData } from '../data/remote-data';
+} from '../cache';
+import { PaginatedList } from '../data';
+import { RemoteData } from '../data';
 import { Bitstream } from './bitstream.model';
 import { BITSTREAM } from './bitstream.resource-type';
 import { BUNDLE } from './bundle.resource-type';

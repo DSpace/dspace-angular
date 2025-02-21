@@ -1,4 +1,4 @@
-import { ObjectCacheService } from '../cache/object-cache.service';
+import { ObjectCacheService } from '../cache';
 
 export function getMockObjectCacheService(): ObjectCacheService {
   return jasmine.createSpyObj('objectCacheService', [

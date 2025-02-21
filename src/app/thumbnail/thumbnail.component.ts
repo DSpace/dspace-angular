@@ -13,12 +13,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { AuthService } from '../../../modules/core/src/lib/core/auth/auth.service';
-import { AuthorizationDataService } from '../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
-import { RemoteData } from '../../../modules/core/src/lib/core/data/remote-data';
-import { Bitstream } from '../../../modules/core/src/lib/core/shared/bitstream.model';
-import { FileService } from '../../../modules/core/src/lib/core/shared/file.service';
+import { AuthService } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { FeatureID } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { Bitstream } from '@dspace/core';
+import { FileService } from '@dspace/core';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { SafeUrlPipe } from '../shared/utils/safe-url-pipe';
 import { VarDirective } from '../shared/utils/var.directive';

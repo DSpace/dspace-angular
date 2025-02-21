@@ -12,11 +12,11 @@ import {
 } from '@ng-dynamic-forms/core';
 import uniqueId from 'lodash/uniqueId';
 
-import { FormFieldModel } from '../../../../../../modules/core/src/lib/core/shared/form/form-field.model';
-import { SubmissionFieldScopeType } from '../../../../../../modules/core/src/lib/core/submission/submission-field-scope-type';
-import { SubmissionScopeType } from '../../../../../../modules/core/src/lib/core/submission/submission-scope-type';
-import { SectionVisibility } from '../../../../submission/objects/section-visibility.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../../../../../../modules/core/src/lib/core/config/models/ds-dynamic-form-constants';
+import { FormFieldModel } from '@dspace/core';
+import { SubmissionFieldScopeType } from '@dspace/core';
+import { SubmissionScopeType } from '@dspace/core';
+import { SectionVisibility } from '../../../../../../modules/core/src/lib/core/submission/models/section-visibility.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '@dspace/core';
 import { DynamicRowGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import {
   CONFIG_DATA,

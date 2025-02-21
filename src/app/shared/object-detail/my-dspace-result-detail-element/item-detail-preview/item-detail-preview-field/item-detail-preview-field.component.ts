@@ -5,9 +5,9 @@ import {
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
-import { Metadata } from '../../../../../../../modules/core/src/lib/core/shared/metadata.utils';
-import { SearchResult } from '../../../../../../../modules/core/src/lib/core/shared/search/models/search-result.model';
+import { Item } from '@dspace/core';
+import { Metadata } from '@dspace/core';
+import { SearchResult } from '@dspace/core';
 import { MetadataFieldWrapperComponent } from '../../../../metadata-field-wrapper/metadata-field-wrapper.component';
 
 /**
@@ -57,7 +57,7 @@ export class ItemDetailPreviewFieldComponent {
   /**
    * Gets all matching metadata string values from hitHighlights or dso metadata, preferring hitHighlights.
    *
-   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
+   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[PolicyMetadata]].
    * @returns {string[]} the matching string values or an empty array.
    */
   allMetadataValues(keyOrKeys: string | string[]): string[] {

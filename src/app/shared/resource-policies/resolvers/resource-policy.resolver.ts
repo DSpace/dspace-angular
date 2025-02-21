@@ -8,11 +8,11 @@ import {
 import { isEmpty } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 
-import { followLink } from '../../../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { ResourcePolicy } from '../../../../../modules/core/src/lib/core/resource-policy/models/resource-policy.model';
-import { ResourcePolicyDataService } from '../../../../../modules/core/src/lib/core/resource-policy/resource-policy-data.service';
-import { getFirstCompletedRemoteData } from '../../../../../modules/core/src/lib/core/shared/operators';
+import { followLink } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { ResourcePolicy } from '@dspace/core';
+import { ResourcePolicyDataService } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
 
 /**
  * Method for resolving an item based on the parameters in the current route

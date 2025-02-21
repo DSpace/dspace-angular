@@ -30,13 +30,12 @@ import { environment } from '../../environments/environment';
 import { ThemedAdminSidebarComponent } from '../admin/admin-sidebar/themed-admin-sidebar.component';
 import { getPageInternalServerErrorRoute } from '../app-routing-paths';
 import { ThemedBreadcrumbsComponent } from '../breadcrumbs/themed-breadcrumbs.component';
-import { INotificationBoardOptions } from '../../../modules/core/src/lib/core/config/notifications-config.interfaces';
-import { ThemeConfig } from '../../../modules/core/src/lib/core/config/theme.config';
-import { NotificationsBoardComponent } from '../../../modules/core/src/lib/core/notifications/notifications-board/notifications-board.component';
+import { INotificationBoardOptions } from '@dspace/core';
+import { ThemeConfig } from '@dspace/core';
 import {
   NativeWindowRef,
   NativeWindowService,
-} from '../../../modules/core/src/lib/core/services/window.service';
+} from '@dspace/core';
 import { ThemedFooterComponent } from '../footer/themed-footer.component';
 import { ThemedHeaderNavbarWrapperComponent } from '../header-nav-wrapper/themed-header-navbar-wrapper.component';
 import { slideSidebarPadding } from '../shared/animations/slide';
@@ -44,9 +43,10 @@ import { HostWindowService } from '../shared/host-window.service';
 import { LiveRegionComponent } from '../shared/live-region/live-region.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { MenuService } from '../shared/menu/menu.service';
-import { MenuID } from '../shared/menu/menu-id.model';
+import { MenuID } from '../../../modules/core/src/lib/core/states/menu/menu-id.model';
 import { CSSVariableService } from '../shared/sass-helper/css-variable.service';
 import { SystemWideAlertBannerComponent } from '../system-wide-alert/alert-banner/system-wide-alert-banner.component';
+import { NotificationsBoardComponent } from "../notifications/notifications-board";
 
 @Component({
   selector: 'ds-base-root',

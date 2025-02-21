@@ -11,16 +11,16 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { NoOpAction } from '../../../modules/core/src/lib/core/shared/ngrx/no-op.action';
+import { NoOpAction } from '@dspace/core';
 import { HostWindowActionTypes } from '../shared/host-window.actions';
 import {
   CollapseMenuAction,
   ExpandMenuPreviewAction,
   MenuActionTypes,
-} from '../shared/menu/menu.actions';
+} from '../../../modules/core/src/lib/core/states/menu/menu.actions';
 import { MenuService } from '../shared/menu/menu.service';
-import { MenuID } from '../shared/menu/menu-id.model';
-import { MenuState } from '../shared/menu/menu-state.model';
+import { MenuID } from '../../../modules/core/src/lib/core/states/menu/menu-id.model';
+import { MenuState } from '../../../modules/core/src/lib/core/states/menu/menu-state.model';
 
 @Injectable()
 export class NavbarEffects {

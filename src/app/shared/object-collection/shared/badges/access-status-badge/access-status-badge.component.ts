@@ -16,13 +16,13 @@ import {
   catchError,
   map,
 } from 'rxjs/operators';
-import { AccessStatusDataService } from '../../../../../../../modules/core/src/lib/core/data/access-status-data.service';
+import { AccessStatusDataService } from '@dspace/core';
 import { environment } from 'src/environments/environment';
 
-import { DSpaceObject } from '../../../../../../../modules/core/src/lib/core/shared/dspace-object.model';
-import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
-import { ITEM } from '../../../../../../../modules/core/src/lib/core/shared/item.resource-type';
-import { AccessStatusObject } from './access-status.model';
+import { DSpaceObject } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { ITEM } from '@dspace/core';
+import { AccessStatusObject } from '../../../../../../../modules/core/src/lib/core/access-status/access-status.model';
 
 @Component({
   selector: 'ds-base-access-status-badge',

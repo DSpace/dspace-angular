@@ -10,7 +10,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
+import { Item } from '@dspace/core';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { StatusBadgeComponent } from './status-badge.component';
 

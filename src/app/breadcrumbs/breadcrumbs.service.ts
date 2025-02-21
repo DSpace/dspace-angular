@@ -22,7 +22,7 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { Breadcrumb } from '../../../modules/core/src/lib/core/breadcrumbs/breadcrumb.model';
+import { Breadcrumb } from '@dspace/core';
 
 @Injectable({
   providedIn: 'root',

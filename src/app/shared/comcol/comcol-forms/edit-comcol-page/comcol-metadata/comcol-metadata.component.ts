@@ -14,17 +14,17 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { ComColDataService } from '../../../../../../../modules/core/src/lib/core/data/comcol-data.service';
-import { RemoteData } from '../../../../../../../modules/core/src/lib/core/data/remote-data';
-import { NotificationsService } from '../../../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Collection } from '../../../../../../../modules/core/src/lib/core/shared/collection.model';
-import { Community } from '../../../../../../../modules/core/src/lib/core/shared/community.model';
-import { DSpaceObject } from '../../../../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { ComColDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { Community } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
-} from '../../../../../../../modules/core/src/lib/core/shared/operators';
-import { ResourceType } from '../../../../../../../modules/core/src/lib/core/shared/resource-type';
+} from '@dspace/core';
+import { ResourceType } from '@dspace/core';
 
 @Component({
   selector: 'ds-comcol-metadata',

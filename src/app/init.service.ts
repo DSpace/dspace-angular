@@ -29,17 +29,17 @@ import {
 import { environment } from '../environments/environment';
 import { AppState } from './app.reducer';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
-import { CheckAuthenticationTokenAction } from '../../modules/core/src/lib/core/auth/auth.actions';
-import { isAuthenticationBlocking } from '../../modules/core/src/lib/core/auth/selectors';
+import { CheckAuthenticationTokenAction } from '@dspace/core';
+import { isAuthenticationBlocking } from '@dspace/core';
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
   AppConfig,
-} from '../../modules/core/src/lib/core/config/app-config.interface';
-import { CorrelationIdService } from '../../modules/core/src/lib/core/correlation-id/correlation-id.service';
-import { LAZY_DATA_SERVICES } from '../../modules/core/src/lib/core/data-services-map';
-import { LocaleService } from '../../modules/core/src/lib/core/locale/locale.service';
-import { HeadTagService } from '../../modules/core/src/lib/core/metadata/head-tag.service';
+} from '@dspace/core';
+import { CorrelationIdService } from '@dspace/core';
+import { LAZY_DATA_SERVICES } from '@dspace/core';
+import { LocaleService } from '@dspace/core';
+import { HeadTagService } from '@dspace/core';
 import { dsDynamicFormControlMapFn } from './shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 import { MenuService } from './shared/menu/menu.service';
 import { ThemeService } from './shared/theme-support/theme.service';

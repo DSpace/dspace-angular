@@ -8,8 +8,8 @@ import { hasValue } from '@dspace/shared/utils';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { Observable } from 'rxjs';
 
-import { SearchService } from '../../../../../../modules/core/src/lib/core/shared/search/search.service';
-import { ViewMode } from '../../../../../../modules/core/src/lib/core/shared/view-mode.model';
+import { SearchService } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
 
 @Component({
   selector: 'ds-search-results-skeleton',

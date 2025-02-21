@@ -12,17 +12,17 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
+import { Item } from '@dspace/core';
 import {
   MetadataMap,
   MetadataValue,
-} from '../../../../../../../modules/core/src/lib/core/shared/metadata.models';
+} from '@dspace/core';
 
 import { environment } from '../../../../../../environments/environment';
-import { APP_CONFIG } from '../../../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { APP_CONFIG } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { TranslateLoaderMock } from '../../../../../../../modules/core/src/lib/core/utilities/testing/translate-loader.mock';
-import { createPaginatedList } from '../../../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+import { createPaginatedList } from '@dspace/core';
 import { ItemPageCcLicenseFieldComponent } from './item-page-cc-license-field.component';
 
 

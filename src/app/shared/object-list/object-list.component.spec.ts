@@ -13,7 +13,7 @@ import { By } from '@angular/platform-browser';
 
 import { PaginationComponent } from '../pagination/pagination.component';
 import { ObjectListComponent } from './object-list.component';
-import { SelectableListService } from './selectable-list/selectable-list.service';
+import { SelectableListService } from '../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
 
 describe('ObjectListComponent', () => {
   let comp: ObjectListComponent;

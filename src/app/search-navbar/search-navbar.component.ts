@@ -11,7 +11,7 @@ import {
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { SearchService } from '../../../modules/core/src/lib/core/shared/search/search.service';
+import { SearchService } from '@dspace/core';
 import { expandSearchInput } from '../shared/animations/slide';
 import { BrowserOnlyPipe } from '../shared/utils/browser-only.pipe';
 import { ClickOutsideDirective } from '../shared/utils/click-outside.directive';

@@ -19,23 +19,23 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '../../../../../modules/core/src/lib/core/auth/auth.service';
-import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '../../../../../modules/core/src/lib/core/data/bitstream-data.service';
-import { AuthorizationDataService } from '../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { ItemRequestDataService } from '../../../../../modules/core/src/lib/core/data/item-request-data.service';
-import { EPerson } from '../../../../../modules/core/src/lib/core/eperson/models/eperson.model';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Bitstream } from '../../../../../modules/core/src/lib/core/shared/bitstream.model';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { ItemRequest } from '../../../../../modules/core/src/lib/core/shared/item-request.model';
+import { AuthService } from '@dspace/core';
+import { DSONameService } from '@dspace/core';
+import { BitstreamDataService } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { ItemRequestDataService } from '@dspace/core';
+import { EPerson } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Bitstream } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { ItemRequest } from '@dspace/core';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { RouterStub } from '../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
+} from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { RouterStub } from '@dspace/core';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-page.component';
 

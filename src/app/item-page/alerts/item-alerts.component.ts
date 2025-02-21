@@ -12,15 +12,15 @@ import {
   map,
   Observable,
 } from 'rxjs';
-import { getFirstCompletedRemoteData } from '../../../../modules/core/src/lib/core/shared/operators';
+import { getFirstCompletedRemoteData } from '@dspace/core';
 
-import { AuthorizationDataService } from '../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
-import { PaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
-import { CorrectionTypeDataService } from '../../../../modules/core/src/lib/core/submission/correctiontype-data.service';
-import { CorrectionType } from '../../../../modules/core/src/lib/core/submission/models/correctiontype.model';
+import { AuthorizationDataService } from '@dspace/core';
+import { FeatureID } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { CorrectionTypeDataService } from '@dspace/core';
+import { CorrectionType } from '@dspace/core';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import {

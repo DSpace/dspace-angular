@@ -6,11 +6,8 @@ import {
 
 import { Breadcrumb } from './breadcrumb.model';
 import { BreadcrumbsProviderService } from './breadcrumbsProviderService';
+import { BREADCRUMB_MESSAGE_POSTFIX } from "./i18n-breadcrumbs.service";
 
-/**
- * The postfix for i18n breadcrumbs
- */
-export const BREADCRUMB_MESSAGE_POSTFIX = '.breadcrumbs';
 
 /**
  * Service to calculate i18n breadcrumbs for a single part of the route

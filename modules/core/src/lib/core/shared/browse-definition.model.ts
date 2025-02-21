@@ -4,7 +4,7 @@ import {
 } from 'cerialize';
 
 import { BrowseByDataType } from './browse-by-data-type';
-import { CacheableObject } from '../cache/cacheable-object.model';
+import { CacheableObject } from '../cache';
 
 /**
  * Base class for BrowseDefinition models

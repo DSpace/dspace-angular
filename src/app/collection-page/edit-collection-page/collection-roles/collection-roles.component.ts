@@ -11,13 +11,13 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
-import { HALLink } from '../../../../../modules/core/src/lib/core/shared/hal-link.model';
+import { RemoteData } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { HALLink } from '@dspace/core';
 import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
-} from '../../../../../modules/core/src/lib/core/shared/operators';
+} from '@dspace/core';
 import { ComcolRoleComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-role/comcol-role.component';
 
 /**

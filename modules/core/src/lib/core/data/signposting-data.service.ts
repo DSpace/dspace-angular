@@ -14,9 +14,9 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '../config/app-config.interface';
-import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
-import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+} from '../config';
+import { DspaceRestService } from '../dspace-rest';
+import { RawRestResponse } from '../dspace-rest';
 import { SignpostingLink } from './signposting-links.model';
 
 /**

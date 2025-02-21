@@ -16,28 +16,28 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../cache/object-cache.service';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { Process } from '../../processes/process.model';
-import { ProcessStatus } from '../../processes/process-status.model';
-import { Bitstream } from '../../shared/bitstream.model';
-import { HALEndpointService } from '../../shared/hal-endpoint.service';
-import { NoContent } from '../../shared/NoContent.model';
-import { getAllCompletedRemoteData } from '../../shared/operators';
+import { RemoteDataBuildService } from '../../cache';
+import { ObjectCacheService } from '../../cache';
+import { NotificationsService } from '../../notifications';
+import { Process } from '../../processes';
+import { ProcessStatus } from '../../processes';
+import { Bitstream } from '../../shared';
+import { HALEndpointService } from '../../shared';
+import { NoContent } from '../../shared';
+import { getAllCompletedRemoteData } from '../../shared';
 import {
   DeleteData,
   DeleteDataImpl,
-} from '../base/delete-data';
+} from '../base';
 import {
   FindAllData,
   FindAllDataImpl,
-} from '../base/find-all-data';
-import { IdentifiableDataService } from '../base/identifiable-data.service';
+} from '../base';
+import { IdentifiableDataService } from '../base';
 import {
   SearchData,
   SearchDataImpl,
-} from '../base/search-data';
+} from '../base';
 import { BitstreamDataService } from '../bitstream-data.service';
 import { FindListOptions } from '../find-list-options.model';
 import { FollowLinkConfig } from '../follow-link-config.model';

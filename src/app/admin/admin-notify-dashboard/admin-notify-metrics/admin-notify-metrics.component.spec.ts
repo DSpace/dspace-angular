@@ -5,8 +5,8 @@ import {
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ViewMode } from '../../../../../modules/core/src/lib/core/shared/view-mode.model';
-import { RouterStub } from '../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
+import { ViewMode } from '@dspace/core';
+import { RouterStub } from '@dspace/core';
 import { AdminNotifyMetricsComponent } from './admin-notify-metrics.component';
 
 describe('AdminNotifyMetricsComponent', () => {

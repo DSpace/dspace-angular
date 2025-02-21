@@ -32,19 +32,19 @@ import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { storeModuleConfig } from '../../app.reducer';
-import { APP_DATA_SERVICES_MAP } from '../../../../modules/core/src/lib/core/config/app-config.interface';
-import { StoreMock } from '../../../../modules/core/src/lib/core/utilities/testing/store.mock';
-import { createTestComponent } from '../../../../modules/core/src/lib/core/utilities/testing/utils.test';
-import { XSRFService } from '../../../../modules/core/src/lib/core/xsrf/xsrf.service';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core';
+import { StoreMock } from '@dspace/core';
+import { createTestComponent } from '@dspace/core';
+import { XSRFService } from '@dspace/core';
 import { DsDynamicFormComponent } from './builder/ds-dynamic-form-ui/ds-dynamic-form.component';
 import { FormBuilderService } from './builder/form-builder.service';
-import { FormFieldMetadataValueObject } from '../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '@dspace/core';
 import {
   FormChangeAction,
   FormStatusChangeAction,
-} from './form.actions';
+} from '../../../../modules/core/src/lib/core/states/form/form.actions';
 import { FormComponent } from './form.component';
-import { FormState } from './form.reducer';
+import { FormState } from '../../../../modules/core/src/lib/core/states/form/form.reducer';
 import { FormService } from './form.service';
 
 let TEST_FORM_MODEL;

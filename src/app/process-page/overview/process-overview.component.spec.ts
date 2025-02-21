@@ -13,7 +13,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { ProcessDataService } from '../../../../modules/core/src/lib/core/data/processes/process-data.service';
+import { ProcessDataService } from '@dspace/core';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ProcessBulkDeleteService } from './process-bulk-delete.service';

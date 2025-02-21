@@ -1,8 +1,8 @@
 /* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 
-import { type } from '../shared/ngrx/type';
-import { INotification } from './models/notification.model';
+import { type } from '../shared';
+import { INotification } from './models';
 
 export const NotificationsActionTypes = {
   NEW_NOTIFICATION: type('dspace/notifications/NEW_NOTIFICATION'),

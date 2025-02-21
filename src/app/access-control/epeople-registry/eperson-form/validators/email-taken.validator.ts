@@ -5,8 +5,8 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { EPersonDataService } from '../../../../../../modules/core/src/lib/core/eperson/eperson-data.service';
-import { getFirstSucceededRemoteData } from '../../../../../../modules/core/src/lib/core/shared/operators';
+import { EPersonDataService } from '@dspace/core';
+import { getFirstSucceededRemoteData } from '@dspace/core';
 
 export class ValidateEmailNotTaken {
 

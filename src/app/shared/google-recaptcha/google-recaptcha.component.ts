@@ -12,10 +12,10 @@ import { Observable } from 'rxjs';
 import {
   NativeWindowRef,
   NativeWindowService,
-} from '../../../../modules/core/src/lib/core/services/window.service';
+} from '@dspace/core';
 
-import { ConfigurationDataService } from '../../../../modules/core/src/lib/core/data/configuration-data.service';
-import { getFirstSucceededRemoteDataPayload } from '../../../../modules/core/src/lib/core/shared/operators';
+import { ConfigurationDataService } from '@dspace/core';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core';
 
 @Component({
   selector: 'ds-google-recaptcha',

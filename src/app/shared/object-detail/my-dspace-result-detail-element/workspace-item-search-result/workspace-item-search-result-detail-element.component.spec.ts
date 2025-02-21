@@ -9,15 +9,15 @@ import {
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of as observableOf } from 'rxjs';
-import { Context } from '../../../../../../modules/core/src/lib/core/shared/context.model';
+import { Context } from '@dspace/core';
 
-import { DSONameService } from '../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../../../modules/core/src/lib/core/cache/builders/link.service';
-import { getMockLinkService } from '../../../../../../modules/core/src/lib/core/mocks/link-service.mock';
-import { WorkflowItemSearchResult } from '../../../../../../modules/core/src/lib/core/object-collection/workflow-item-search-result.model';
-import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
-import { WorkspaceItem } from '../../../../../../modules/core/src/lib/core/submission/models/workspaceitem.model';
-import { createSuccessfulRemoteDataObject } from '../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { DSONameService } from '@dspace/core';
+import { LinkService } from '@dspace/core';
+import { getMockLinkService } from '@dspace/core';
+import { WorkflowItemSearchResult } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { WorkspaceItem } from '@dspace/core';
+import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { WorkspaceitemActionsComponent } from '../../../mydspace-actions/workspaceitem/workspaceitem-actions.component';
 import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';

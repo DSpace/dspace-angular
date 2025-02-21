@@ -9,16 +9,16 @@ import {
   OnInit,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { Context } from '../../../../../../modules/core/src/lib/core/shared/context.model';
-import { WorkflowItem } from '../../../../../../modules/core/src/lib/core/submission/models/workflowitem.model';
+import { Context } from '@dspace/core';
+import { WorkflowItem } from '@dspace/core';
 
-import { DSONameService } from '../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { DSONameService } from '@dspace/core';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
-import { SearchResult } from '../../../../../../modules/core/src/lib/core/shared/search/models/search-result.model';
+} from '@dspace/core';
+import { Item } from '@dspace/core';
+import { SearchResult } from '@dspace/core';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import { fadeInOut } from '../../../animations/fade';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';

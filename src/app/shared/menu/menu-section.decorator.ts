@@ -7,7 +7,7 @@ import { NavbarSectionComponent } from '../../navbar/navbar-section/navbar-secti
 import { DsoEditMenuExpandableSectionComponent } from '../dso-page/dso-edit-menu/dso-edit-expandable-menu-section/dso-edit-menu-expandable-section.component';
 import { DsoEditMenuSectionComponent } from '../dso-page/dso-edit-menu/dso-edit-menu-section/dso-edit-menu-section.component';
 import { DEFAULT_THEME } from '../object-collection/shared/listable-object/listable-object.decorator';
-import { MenuID } from './menu-id.model';
+import { MenuID } from '../../../../modules/core/src/lib/core/states/menu/menu-id.model';
 
 const menuComponentMap = new Map();
 

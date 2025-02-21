@@ -39,13 +39,13 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../environments/environment';
-import { AuthService } from '../../modules/core/src/lib/core/auth/auth.service';
-import { isAuthenticationBlocking } from '../../modules/core/src/lib/core/auth/selectors';
+import { AuthService } from '@dspace/core';
+import { isAuthenticationBlocking } from '@dspace/core';
 import {
   NativeWindowRef,
   NativeWindowService,
-} from '../../modules/core/src/lib/core/services/window.service';
-import { distinctNext } from '../../modules/core/src/lib/core/shared/distinct-next';
+} from '@dspace/core';
+import { distinctNext } from '@dspace/core';
 import { ThemedRootComponent } from './root/themed-root.component';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';

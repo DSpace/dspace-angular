@@ -19,24 +19,24 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { LinkService } from '../../../../../modules/core/src/lib/core/cache/builders/link.service';
-import { EntityTypeDataService } from '../../../../../modules/core/src/lib/core/data/entity-type-data.service';
-import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
-import { ObjectUpdatesService } from '../../../../../modules/core/src/lib/core/data/object-updates/object-updates.service';
-import { RelationshipDataService } from '../../../../../modules/core/src/lib/core/data/relationship-data.service';
-import { RelationshipTypeDataService } from '../../../../../modules/core/src/lib/core/data/relationship-type-data.service';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { ItemType } from '../../../../../modules/core/src/lib/core/shared/item-relationships/item-type.model';
-import { Relationship } from '../../../../../modules/core/src/lib/core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '../../../../../modules/core/src/lib/core/shared/item-relationships/relationship-type.model';
+import { LinkService } from '@dspace/core';
+import { EntityTypeDataService } from '@dspace/core';
+import { ItemDataService } from '@dspace/core';
+import { ObjectUpdatesService } from '@dspace/core';
+import { RelationshipDataService } from '@dspace/core';
+import { RelationshipTypeDataService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { ItemType } from '@dspace/core';
+import { Relationship } from '@dspace/core';
+import { RelationshipType } from '@dspace/core';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { RouterStub } from '../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
-import { createPaginatedList } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+} from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { RouterStub } from '@dspace/core';
+import { createPaginatedList } from '@dspace/core';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { ThemeService } from '../../../shared/theme-support/theme.service';

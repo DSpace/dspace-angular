@@ -27,27 +27,27 @@ import {
 } from 'rxjs/operators';
 
 import { AppState } from '../../../../../app.reducer';
-import { ItemSearchResult } from '../../../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
-import { RelationshipOptions } from '../../../../../../../modules/core/src/lib/core/shared/form/relationship-options.model';
-import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
+import { ItemSearchResult } from '@dspace/core';
+import { RelationshipOptions } from '@dspace/core';
+import { Item } from '@dspace/core';
 import {
   Reorderable,
   ReorderableRelationship,
-} from '../../../../../../../modules/core/src/lib/core/shared/item-relationships/reorderable-relationship.model';
-import { MetadataValue } from '../../../../../../../modules/core/src/lib/core/shared/metadata.models';
-import { ItemMetadataRepresentation } from '../../../../../../../modules/core/src/lib/core/shared/metadata-representation/item/item-metadata-representation.model';
-import { MetadataRepresentation } from '../../../../../../../modules/core/src/lib/core/shared/metadata-representation/metadata-representation.model';
+} from '@dspace/core';
+import { MetadataValue } from '@dspace/core';
+import { ItemMetadataRepresentation } from '@dspace/core';
+import { MetadataRepresentation } from '@dspace/core';
 import {
   getAllSucceededRemoteData,
   getRemoteDataPayload,
-} from '../../../../../../../modules/core/src/lib/core/shared/operators';
-import { RemoveRelationshipAction } from '../../../../../../../modules/core/src/lib/core/states/name-variant/relationship.actions';
-import { SubmissionObjectEntry } from '../../../../../submission/objects/submission-objects.reducer';
-import { SubmissionService } from '../../../../../submission/submission.service';
+} from '@dspace/core';
+import { RemoveRelationshipAction } from '@dspace/core';
+import { SubmissionObjectEntry } from '../../../../../../../modules/core/src/lib/core/states/submission/submission-objects.reducer';
+import { SubmissionService } from '../../../../../../../modules/core/src/lib/core/submission/submission.service';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
 import { MetadataRepresentationLoaderComponent } from '../../../../metadata-representation/metadata-representation-loader.component';
-import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
-import { FormFieldMetadataValueObject } from '../../../../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
+import { SelectableListService } from '../../../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
+import { FormFieldMetadataValueObject } from '@dspace/core';
 import { DynamicConcatModel } from '../models/ds-dynamic-concat.model';
 
 

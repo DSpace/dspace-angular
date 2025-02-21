@@ -5,9 +5,9 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { DspaceRestService } from '../../../modules/core/src/lib/core/dspace-rest/dspace-rest.service';
-import { RawRestResponse } from '../../../modules/core/src/lib/core/dspace-rest/raw-rest-response.model';
-import { HALEndpointService } from '../../../modules/core/src/lib/core/shared/hal-endpoint.service';
+import { DspaceRestService } from '@dspace/core';
+import { RawRestResponse } from '@dspace/core';
+import { HALEndpointService } from '@dspace/core';
 
 @Injectable({
   providedIn: 'root',

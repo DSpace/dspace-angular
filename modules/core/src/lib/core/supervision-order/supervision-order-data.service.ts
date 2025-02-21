@@ -7,31 +7,31 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { RequestParam } from '../cache/models/request-param.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { CreateDataImpl } from '../data/base/create-data';
-import { DeleteDataImpl } from '../data/base/delete-data';
-import { IdentifiableDataService } from '../data/base/identifiable-data.service';
-import { PatchDataImpl } from '../data/base/patch-data';
-import { SearchDataImpl } from '../data/base/search-data';
-import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
-import { FindListOptions } from '../data/find-list-options.model';
-import { FollowLinkConfig } from '../data/follow-link-config.model';
-import { PaginatedList } from '../data/paginated-list.model';
-import { ResponseParsingService } from '../data/parsing.service';
-import { RemoteData } from '../data/remote-data';
-import { PutRequest } from '../data/request.models';
-import { RequestService } from '../data/request.service';
-import { StatusCodeOnlyResponseParsingService } from '../data/status-code-only-response-parsing.service';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { GroupDataService } from '../eperson/group-data.service';
-import { NotificationsService } from '../notifications/notifications.service';
-import { GenericConstructor } from '../shared/generic-constructor';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { NoContent } from '../shared/NoContent.model';
-import { getFirstCompletedRemoteData } from '../shared/operators';
-import { SupervisionOrder } from './models/supervision-order.model';
+import { RemoteDataBuildService } from '../cache';
+import { RequestParam } from '../cache';
+import { ObjectCacheService } from '../cache';
+import { CreateDataImpl } from '../data';
+import { DeleteDataImpl } from '../data';
+import { IdentifiableDataService } from '../data';
+import { PatchDataImpl } from '../data';
+import { SearchDataImpl } from '../data';
+import { DefaultChangeAnalyzer } from '../data';
+import { FindListOptions } from '../data';
+import { FollowLinkConfig } from '../data';
+import { PaginatedList } from '../data';
+import { ResponseParsingService } from '../data';
+import { RemoteData } from '../data';
+import { PutRequest } from '../data';
+import { RequestService } from '../data';
+import { StatusCodeOnlyResponseParsingService } from '../data';
+import { HttpOptions } from '../dspace-rest';
+import { GroupDataService } from '../eperson';
+import { NotificationsService } from '../notifications';
+import { GenericConstructor } from '../shared';
+import { HALEndpointService } from '../shared';
+import { NoContent } from '../shared';
+import { getFirstCompletedRemoteData } from '../shared';
+import { SupervisionOrder } from './models';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the supervisionorders endpoint
@@ -131,7 +131,7 @@ export class SupervisionOrderDataService extends IdentifiableDataService<Supervi
    * Return the {@link SupervisionOrder} list for a given DSO
    *
    * @param UUID              UUID of a given DSO
-   * @param action            Limit the returned policies to the specified {@link ActionType}
+   * @param action            Limit the returned policies to the specified {@link SupervisionActionType}
    * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
    *                                    no valid cached version. Defaults to true
    * @param reRequestOnStale            Whether or not the request should automatically be re-

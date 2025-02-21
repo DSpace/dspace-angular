@@ -12,15 +12,15 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { RequestCopyEmail } from '../request-copy/request-copy-email.model';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { ItemRequest } from '../shared/item-request.model';
-import { getFirstCompletedRemoteData } from '../shared/operators';
-import { sendRequest } from '../shared/request.operators';
-import { IdentifiableDataService } from './base/identifiable-data.service';
+import { RemoteDataBuildService } from '../cache';
+import { ObjectCacheService } from '../cache';
+import { HttpOptions } from '../dspace-rest';
+import { RequestCopyEmail } from '../request-copy';
+import { HALEndpointService } from '../shared';
+import { ItemRequest } from '../shared';
+import { getFirstCompletedRemoteData } from '../shared';
+import { sendRequest } from '../shared';
+import { IdentifiableDataService } from './base';
 import { RemoteData } from './remote-data';
 import {
   PostRequest,

@@ -6,10 +6,10 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { RemoteData } from '../../../modules/core/src/lib/core/data/remote-data';
-import { Item } from '../../../modules/core/src/lib/core/shared/item.model';
-import { SubmissionObjectResolver } from '../../../modules/core/src/lib/core/submission/resolver/submission-object.resolver';
-import { WorkspaceitemDataService } from '../../../modules/core/src/lib/core/submission/workspaceitem-data.service';
+import { RemoteData } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { SubmissionObjectResolver } from '@dspace/core';
+import { WorkspaceitemDataService } from '@dspace/core';
 
 /**
  * This method represents a resolver that requests a specific item before the route is activated

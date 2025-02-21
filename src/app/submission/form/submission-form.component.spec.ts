@@ -17,13 +17,13 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
-import { HALEndpointService } from '../../../../modules/core/src/lib/core/shared/hal-endpoint.service';
-import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
-import { AuthServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/auth-service.stub';
-import { HALEndpointServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/hal-endpoint-service.stub';
-import { SubmissionServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/submission-service.stub';
-import { createTestComponent } from '../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+import { AuthService } from '@dspace/core';
+import { HALEndpointService } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { AuthServiceStub } from '@dspace/core';
+import { HALEndpointServiceStub } from '@dspace/core';
+import { SubmissionServiceStub } from '@dspace/core';
+import { createTestComponent } from '@dspace/core';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import {
   mockSectionsData,
@@ -39,8 +39,8 @@ import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { SubmissionSectionContainerComponent } from '../sections/container/section-container.component';
 import { SectionsService } from '../sections/sections.service';
-import { VisibilityType } from '../sections/visibility-type';
-import { SubmissionService } from '../submission.service';
+import { VisibilityType } from '../../../../modules/core/src/lib/core/submission/models/visibility-type';
+import { SubmissionService } from '../../../../modules/core/src/lib/core/submission/submission.service';
 import { SubmissionFormCollectionComponent } from './collection/submission-form-collection.component';
 import { SubmissionFormFooterComponent } from './footer/submission-form-footer.component';
 import { SubmissionFormSectionAddComponent } from './section-add/submission-form-section-add.component';

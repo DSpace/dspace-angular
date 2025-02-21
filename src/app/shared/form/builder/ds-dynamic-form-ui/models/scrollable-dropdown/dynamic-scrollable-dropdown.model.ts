@@ -4,8 +4,8 @@ import {
   serializable,
 } from '@ng-dynamic-forms/core';
 
-import { ResourceType } from '../../../../../../../../modules/core/src/lib/core/shared/resource-type';
-import { VocabularyOptions } from '../../../../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-options.model';
+import { ResourceType } from '@dspace/core';
+import { VocabularyOptions } from '@dspace/core';
 import {
   DsDynamicInputModel,
   DsDynamicInputModelConfig,

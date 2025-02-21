@@ -26,27 +26,27 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../../modules/core/src/lib/core/auth/auth.service';
-import { DSONameService } from '../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { ConfigurationDataService } from '../../../modules/core/src/lib/core/data/configuration-data.service';
-import { AuthorizationDataService } from '../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
-import { followLink } from '../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { PaginatedList } from '../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../modules/core/src/lib/core/data/remote-data';
-import { EPersonDataService } from '../../../modules/core/src/lib/core/eperson/eperson-data.service';
-import { EPerson } from '../../../modules/core/src/lib/core/eperson/models/eperson.model';
-import { Group } from '../../../modules/core/src/lib/core/eperson/models/group.model';
-import { NotificationsService } from '../../../modules/core/src/lib/core/notifications/notifications.service';
-import { PaginationService } from '../../../modules/core/src/lib/core/pagination/pagination.service';
-import { ConfigurationProperty } from '../../../modules/core/src/lib/core/shared/configuration-property.model';
+import { AuthService } from '@dspace/core';
+import { DSONameService } from '@dspace/core';
+import { ConfigurationDataService } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { FeatureID } from '@dspace/core';
+import { followLink } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { EPersonDataService } from '@dspace/core';
+import { EPerson } from '@dspace/core';
+import { Group } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { ConfigurationProperty } from '@dspace/core';
 import {
   getAllCompletedRemoteData,
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '../../../modules/core/src/lib/core/shared/operators';
-import { PaginationComponentOptions } from '../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+} from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
 import { SuggestionsNotificationComponent } from '../notifications/suggestions-notification/suggestions-notification.component';
 import { ErrorComponent } from '../shared/error/error.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';

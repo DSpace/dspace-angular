@@ -9,13 +9,13 @@ import { Observable } from 'rxjs';
 import {
   link,
   typedObject,
-} from '../../cache/builders/build-decorators';
-import { PaginatedList } from '../../data/paginated-list.model';
-import { RemoteData } from '../../data/remote-data';
-import { DSpaceObject } from '../../shared/dspace-object.model';
-import { DSPACE_OBJECT } from '../../shared/dspace-object.resource-type';
-import { HALLink } from '../../shared/hal-link.model';
-import { excludeFromEquals } from '../../utilities/equals.decorators';
+} from '../../cache';
+import { PaginatedList } from '../../data';
+import { RemoteData } from '../../data';
+import { DSpaceObject } from '../../shared';
+import { DSPACE_OBJECT } from '../../shared';
+import { HALLink } from '../../shared';
+import { excludeFromEquals } from '../../utilities';
 import { EPerson } from './eperson.model';
 import { EPERSON } from './eperson.resource-type';
 import { GROUP } from './group.resource-type';

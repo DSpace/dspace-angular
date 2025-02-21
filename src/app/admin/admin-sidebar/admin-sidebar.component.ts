@@ -26,12 +26,12 @@ import {
   withLatestFrom,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
-import { AuthorizationDataService } from '../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { AuthService } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
 import { slideSidebar } from '../../shared/animations/slide';
 import { MenuComponent } from '../../shared/menu/menu.component';
 import { MenuService } from '../../shared/menu/menu.service';
-import { MenuID } from '../../shared/menu/menu-id.model';
+import { MenuID } from '../../../../modules/core/src/lib/core/states/menu/menu-id.model';
 import { CSSVariableService } from '../../shared/sass-helper/css-variable.service';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';

@@ -15,14 +15,14 @@ import { TranslateModule } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
 import { getDSORoute } from 'src/app/app-routing-paths';
 
-import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { DSpaceObject } from '../../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { DSONameService } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { ConfirmationModalComponent } from '../../confirmation-modal/confirmation-modal.component';
 import { ThemedTypeBadgeComponent } from '../../object-collection/shared/badges/type-badge/themed-type-badge.component';
-import { Subscription } from '../models/subscription.model';
+import { Subscription } from '../../../../../modules/core/src/lib/core/subscription/subscription.model';
 import { SubscriptionModalComponent } from '../subscription-modal/subscription-modal.component';
-import { SubscriptionsDataService } from '../subscriptions-data.service';
+import { SubscriptionsDataService } from '../../../../../modules/core/src/lib/core/data/subscriptions-data.service';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector

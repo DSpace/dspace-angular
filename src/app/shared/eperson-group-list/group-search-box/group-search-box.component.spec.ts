@@ -15,7 +15,7 @@ import {
 } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { createTestComponent } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+import { createTestComponent } from '@dspace/core';
 import { SearchEvent } from '../eperson-group-list-event-type';
 import { GroupSearchBoxComponent } from './group-search-box.component';
 

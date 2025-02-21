@@ -18,16 +18,16 @@ import {
   toArray,
 } from 'rxjs/operators';
 
-import { BitstreamFormatDataService } from '../../../../../modules/core/src/lib/core/data/bitstream-format-data.service';
-import { FindListOptions } from '../../../../../modules/core/src/lib/core/data/find-list-options.model';
-import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { PaginationService } from '../../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { BitstreamFormat } from '../../../../../modules/core/src/lib/core/shared/bitstream-format.model';
-import { NoContent } from '../../../../../modules/core/src/lib/core/shared/NoContent.model';
-import { getFirstCompletedRemoteData } from '../../../../../modules/core/src/lib/core/shared/operators';
-import { PaginationComponentOptions } from '../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+import { BitstreamFormatDataService } from '@dspace/core';
+import { FindListOptions } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { BitstreamFormat } from '@dspace/core';
+import { NoContent } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 
 /**

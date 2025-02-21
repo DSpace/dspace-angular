@@ -8,16 +8,16 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '../../../../../modules/core/src/lib/core/auth/auth.service';
-import { VersionDataService } from '../../../../../modules/core/src/lib/core/data/version-data.service';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { Version } from '../../../../../modules/core/src/lib/core/shared/version.model';
+import { AuthService } from '@dspace/core';
+import { VersionDataService } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { Version } from '@dspace/core';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
-import { createPaginatedList } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+} from '@dspace/core';
+import { ActivatedRouteStub } from '@dspace/core';
+import { createPaginatedList } from '@dspace/core';
 import { createRelationshipsObservable } from '../../simple/item-types/shared/item.component.spec';
 import { VersionPageComponent } from './version-page.component';
 

@@ -6,12 +6,12 @@ import {
 } from '@angular/core';
 import { isEmpty } from '@dspace/shared/utils';
 
-import { DSONameService } from '../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { RemoteData } from '../../../../../../modules/core/src/lib/core/data/remote-data';
-import { GroupDataService } from '../../../../../../modules/core/src/lib/core/eperson/group-data.service';
-import { Group } from '../../../../../../modules/core/src/lib/core/eperson/models/group.model';
-import { ResourcePolicy } from '../../../../../../modules/core/src/lib/core/resource-policy/models/resource-policy.model';
-import { getFirstCompletedRemoteData } from '../../../../../../modules/core/src/lib/core/shared/operators';
+import { DSONameService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { GroupDataService } from '@dspace/core';
+import { Group } from '@dspace/core';
+import { ResourcePolicy } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
 
 /**
  * This component represents a badge that describe an access condition

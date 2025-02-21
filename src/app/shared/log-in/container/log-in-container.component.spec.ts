@@ -16,15 +16,15 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { authReducer } from '../../../../../modules/core/src/lib/core/auth/auth.reducer';
-import { AuthService } from '../../../../../modules/core/src/lib/core/auth/auth.service';
-import { AuthMethod } from '../../../../../modules/core/src/lib/core/auth/models/auth.method';
-import { AuthMethodType } from '../../../../../modules/core/src/lib/core/auth/models/auth.method-type';
-import { AuthorizationDataService } from '../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { HardRedirectService } from '../../../../../modules/core/src/lib/core/services/hard-redirect.service';
-import { AuthServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/auth-service.stub';
-import { AuthorizationDataServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/authorization-service.stub';
-import { createTestComponent } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+import { authReducer } from '@dspace/core';
+import { AuthService } from '@dspace/core';
+import { AuthMethod } from '@dspace/core';
+import { AuthMethodType } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { HardRedirectService } from '@dspace/core';
+import { AuthServiceStub } from '@dspace/core';
+import { AuthorizationDataServiceStub } from '@dspace/core';
+import { createTestComponent } from '@dspace/core';
 import { LogInContainerComponent } from './log-in-container.component';
 
 describe('LogInContainerComponent', () => {

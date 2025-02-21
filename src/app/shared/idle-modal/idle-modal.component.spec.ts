@@ -14,8 +14,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { LogOutAction } from '../../../../modules/core/src/lib/core/auth/auth.actions';
-import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
+import { LogOutAction } from '@dspace/core';
+import { AuthService } from '@dspace/core';
 import { IdleModalComponent } from './idle-modal.component';
 
 describe('IdleModalComponent', () => {

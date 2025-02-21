@@ -3,73 +3,73 @@ import { Type } from '@angular/core';
 import {
   LDN_SERVICE,
   LDN_SERVICE_CONSTRAINT_FILTERS,
-} from '../../../../../src/app/admin/admin-ldn-services/ldn-services-model/ldn-service.resource-type';
-import { ADMIN_NOTIFY_MESSAGE } from '../../../../../src/app/admin/admin-notify-dashboard/models/admin-notify-message.resource-type';
-import { NOTIFYREQUEST } from './notify-requests/notify-requests-status.resource-type';
-import { ACCESS_STATUS } from '../../../../../src/app/shared/object-collection/shared/badges/access-status-badge/access-status.resource-type';
-import { DUPLICATE } from '../../../../../src/app/shared/object-list/duplicate-data/duplicate.resource-type';
-import { SUBSCRIPTION } from '../../../../../src/app/shared/subscriptions/models/subscription.resource-type';
-import { SUBMISSION_COAR_NOTIFY_CONFIG } from '../../../../../src/app/submission/sections/section-coar-notify/section-coar-notify-service.resource-type';
+} from './data/ldn/ldn-service.resource-type';
+import { ADMIN_NOTIFY_MESSAGE } from './admin/admin-notify-message/models/admin-notify-message.resource-type';
+import { NOTIFYREQUEST } from './notify-requests';
+import { ACCESS_STATUS } from './access-status/access-status.resource-type';
+import { DUPLICATE } from './data/duplicate-data/duplicate.resource-type';
+import { SUBSCRIPTION } from './data/subscription.resource-type';
+import { SUBMISSION_COAR_NOTIFY_CONFIG } from './coar-notify/section-coar-notify-service.resource-type';
 import {
   BULK_ACCESS_CONDITION_OPTIONS,
   SUBMISSION_ACCESSES_TYPE,
   SUBMISSION_FORMS_TYPE,
   SUBMISSION_UPLOADS_TYPE,
-} from './config/models/config-type';
-import { HALDataService } from './data/base/hal-data-service.interface';
-import { IDENTIFIERS } from './data/identifier-data.resource-type';
-import { ROOT } from './data/root.resource-type';
-import { EPERSON } from './eperson/models/eperson.resource-type';
-import { GROUP } from './eperson/models/group.resource-type';
-import { WORKFLOWITEM } from './eperson/models/workflowitem.resource-type';
-import { WORKSPACEITEM } from './eperson/models/workspaceitem.resource-type';
-import { FEEDBACK } from './feedback/models/feedback.resource-type';
-import { METADATA_FIELD } from './metadata/metadata-field.resource-type';
-import { METADATA_SCHEMA } from './metadata/metadata-schema.resource-type';
-import { QUALITY_ASSURANCE_EVENT_OBJECT } from './notifications/qa/models/quality-assurance-event-object.resource-type';
-import { QUALITY_ASSURANCE_SOURCE_OBJECT } from './notifications/qa/models/quality-assurance-source-object.resource-type';
-import { QUALITY_ASSURANCE_TOPIC_OBJECT } from './notifications/qa/models/quality-assurance-topic-object.resource-type';
-import { SUGGESTION } from './notifications/suggestions/models/suggestion-objects.resource-type';
-import { SUGGESTION_SOURCE } from './notifications/suggestions/models/suggestion-source-object.resource-type';
-import { SUGGESTION_TARGET } from './notifications/suggestions/models/suggestion-target-object.resource-type';
-import { ORCID_HISTORY } from './orcid/model/orcid-history.resource-type';
-import { ORCID_QUEUE } from './orcid/model/orcid-queue.resource-type';
-import { PROCESS } from './processes/process.resource-type';
-import { RESEARCHER_PROFILE } from './profile/model/researcher-profile.resource-type';
-import { RESOURCE_POLICY } from './resource-policy/models/resource-policy.resource-type';
-import { SCRIPT } from './scripts/script.resource-type';
-import { AUTHORIZATION } from './shared/authorization.resource-type';
-import { BITSTREAM } from './shared/bitstream.resource-type';
-import { BITSTREAM_FORMAT } from './shared/bitstream-format.resource-type';
-import { BROWSE_DEFINITION } from './shared/browse-definition.resource-type';
-import { BUNDLE } from './shared/bundle.resource-type';
-import { COLLECTION } from './shared/collection.resource-type';
-import { COMMUNITY } from './shared/community.resource-type';
-import { CONFIG_PROPERTY } from './shared/config-property.resource-type';
-import { DSPACE_OBJECT } from './shared/dspace-object.resource-type';
-import { FEATURE } from './shared/feature.resource-type';
-import { ITEM } from './shared/item.resource-type';
-import { ITEM_TYPE } from './shared/item-relationships/item-type.resource-type';
-import { RELATIONSHIP } from './shared/item-relationships/relationship.resource-type';
-import { RELATIONSHIP_TYPE } from './shared/item-relationships/relationship-type.resource-type';
-import { LICENSE } from './shared/license.resource-type';
-import { SITE } from './shared/site.resource-type';
-import { VERSION } from './shared/version.resource-type';
-import { VERSION_HISTORY } from './shared/version-history.resource-type';
-import { USAGE_REPORT } from './statistics/models/usage-report.resource-type';
-import { CorrectionType } from './submission/models/correctiontype.model';
-import { SUBMISSION_CC_LICENSE } from './submission/models/submission-cc-licence.resource-type';
-import { SUBMISSION_CC_LICENSE_URL } from './submission/models/submission-cc-licence-link.resource-type';
+} from './config';
+import { HALDataService } from './data';
+import { IDENTIFIERS } from './data';
+import { ROOT } from './data';
+import { EPERSON } from './eperson';
+import { GROUP } from './eperson';
+import { WORKFLOWITEM } from './eperson';
+import { WORKSPACEITEM } from './eperson';
+import { FEEDBACK } from './feedback';
+import { METADATA_FIELD } from './metadata';
+import { METADATA_SCHEMA } from './metadata';
+import { QUALITY_ASSURANCE_EVENT_OBJECT } from './notifications';
+import { QUALITY_ASSURANCE_SOURCE_OBJECT } from './notifications';
+import { QUALITY_ASSURANCE_TOPIC_OBJECT } from './notifications';
+import { SUGGESTION } from './notifications';
+import { SUGGESTION_SOURCE } from './notifications';
+import { SUGGESTION_TARGET } from './notifications';
+import { ORCID_HISTORY } from './orcid';
+import { ORCID_QUEUE } from './orcid';
+import { PROCESS } from './processes';
+import { RESEARCHER_PROFILE } from './profile';
+import { RESOURCE_POLICY } from './resource-policy';
+import { SCRIPT } from './scripts';
+import { AUTHORIZATION } from './shared';
+import { BITSTREAM } from './shared';
+import { BITSTREAM_FORMAT } from './shared';
+import { BROWSE_DEFINITION } from './shared';
+import { BUNDLE } from './shared';
+import { COLLECTION } from './shared';
+import { COMMUNITY } from './shared';
+import { CONFIG_PROPERTY } from './shared';
+import { DSPACE_OBJECT } from './shared';
+import { FEATURE } from './shared';
+import { ITEM } from './shared';
+import { ITEM_TYPE } from './shared';
+import { RELATIONSHIP } from './shared';
+import { RELATIONSHIP_TYPE } from './shared';
+import { LICENSE } from './shared';
+import { SITE } from './shared';
+import { VERSION } from './shared';
+import { VERSION_HISTORY } from './shared';
+import { USAGE_REPORT } from './statistics';
+import { CorrectionType } from './submission';
+import { SUBMISSION_CC_LICENSE } from './submission';
+import { SUBMISSION_CC_LICENSE_URL } from './submission';
 import {
   VOCABULARY,
   VOCABULARY_ENTRY,
   VOCABULARY_ENTRY_DETAIL,
-} from './submission/vocabularies/models/vocabularies.resource-type';
-import { SUPERVISION_ORDER } from './supervision-order/models/supervision-order.resource-type';
-import { SYSTEMWIDEALERT } from './system-wide-alert/system-wide-alert.resource-type';
-import { CLAIMED_TASK } from './tasks/models/claimed-task-object.resource-type';
-import { POOL_TASK } from './tasks/models/pool-task-object.resource-type';
-import { WORKFLOW_ACTION } from './tasks/models/workflow-action-object.resource-type';
+} from './submission';
+import { SUPERVISION_ORDER } from './supervision-order';
+import { SYSTEMWIDEALERT } from './system-wide-alert';
+import { CLAIMED_TASK } from './tasks';
+import { POOL_TASK } from './tasks';
+import { WORKFLOW_ACTION } from './tasks';
 
 export type LazyDataServicesMap = Map<string, () => Promise<Type<HALDataService<any>> | { default: HALDataService<any> }>>;
 
@@ -90,7 +90,7 @@ export const LAZY_DATA_SERVICES: LazyDataServicesMap = new Map([
   [VOCABULARY_ENTRY.value, () => import('./data/href-only-data.service').then(m => m.HrefOnlyDataService)],
   [ITEM_TYPE.value, () => import('./data/href-only-data.service').then(m => m.HrefOnlyDataService)],
   [LICENSE.value, () => import('./data/href-only-data.service').then(m => m.HrefOnlyDataService)],
-  [SUBSCRIPTION.value, () => import('../../../../../src/app/shared/subscriptions/subscriptions-data.service').then(m => m.SubscriptionsDataService)],
+  [SUBSCRIPTION.value, () => import('./data/subscriptions-data.service').then(m => m.SubscriptionsDataService)],
   [COMMUNITY.value, () => import('./data/community-data.service').then(m => m.CommunityDataService)],
   [VOCABULARY.value, () => import('./submission/vocabularies/vocabulary.data.service').then(m => m.VocabularyDataService)],
   [BUNDLE.value, () => import('./data/bundle-data.service').then(m => m.BundleDataService)],
@@ -127,10 +127,10 @@ export const LAZY_DATA_SERVICES: LazyDataServicesMap = new Map([
   [FEATURE.value, () => import('./data/feature-authorization/authorization-data.service').then(m => m.AuthorizationDataService)],
   [DSPACE_OBJECT.value, () => import('./data/dspace-object-data.service').then(m => m.DSpaceObjectDataService)],
   [BITSTREAM_FORMAT.value, () => import('./data/bitstream-format-data.service').then(m => m.BitstreamFormatDataService)],
-  [SUBMISSION_COAR_NOTIFY_CONFIG.value, () => import('../../../../../src/app/submission/sections/section-coar-notify/coar-notify-config-data.service').then(m => m.CoarNotifyConfigDataService)],
-  [LDN_SERVICE_CONSTRAINT_FILTERS.value, () => import('../../../../../src/app/admin/admin-ldn-services/ldn-services-data/ldn-itemfilters-data.service').then(m => m.LdnItemfiltersService)],
-  [LDN_SERVICE.value, () => import('../../../../../src/app/admin/admin-ldn-services/ldn-services-data/ldn-services-data.service').then(m => m.LdnServicesService)],
-  [ADMIN_NOTIFY_MESSAGE.value, () => import('../../../../../src/app/admin/admin-notify-dashboard/services/admin-notify-messages.service').then(m => m.AdminNotifyMessagesService)],
+  [SUBMISSION_COAR_NOTIFY_CONFIG.value, () => import('./coar-notify/coar-notify-config-data.service').then(m => m.CoarNotifyConfigDataService)],
+  [LDN_SERVICE_CONSTRAINT_FILTERS.value, () => import('./admin/ldn-services-data/ldn-itemfilters-data.service').then(m => m.LdnItemfiltersService)],
+  [LDN_SERVICE.value, () => import('./admin/ldn-services-data/ldn-services-data.service').then(m => m.LdnServicesService)],
+  [ADMIN_NOTIFY_MESSAGE.value, () => import('./admin/admin-notify-message/admin-notify-messages.service').then(m => m.AdminNotifyMessagesService)],
   [SUBMISSION_FORMS_TYPE.value, () => import('./config/submission-forms-config-data.service').then(m => m.SubmissionFormsConfigDataService)],
   [NOTIFYREQUEST.value, () => import('./data/notify-services-status-data.service').then(m => m.NotifyRequestsStatusDataService)],
   [QUALITY_ASSURANCE_EVENT_OBJECT.value, () => import('./notifications/qa/events/quality-assurance-event-data.service').then(m => m.QualityAssuranceEventDataService)],

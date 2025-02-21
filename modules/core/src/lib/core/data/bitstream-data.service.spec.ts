@@ -5,26 +5,26 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { RequestParam } from '../cache/models/request-param.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { ItemMock } from '../mocks/item.mock';
-import { getMockRemoteDataBuildService } from '../mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../mocks/request.service.mock';
-import { NotificationsService } from '../notifications/notifications.service';
-import { Bitstream } from '../shared/bitstream.model';
-import { BitstreamFormat } from '../shared/bitstream-format.model';
-import { BitstreamFormatSupportLevel } from '../shared/bitstream-format-support-level';
-import { Bundle } from '../shared/bundle.model';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { RemoteDataBuildService } from '../cache';
+import { RequestParam } from '../cache';
+import { ObjectCacheService } from '../cache';
+import { ItemMock } from '../mocks';
+import { getMockRemoteDataBuildService } from '../mocks';
+import { getMockRequestService } from '../mocks';
+import { NotificationsService } from '../notifications';
+import { Bitstream } from '../shared';
+import { BitstreamFormat } from '../shared';
+import { BitstreamFormatSupportLevel } from '../shared';
+import { Bundle } from '../shared';
+import { HALEndpointService } from '../shared';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
-} from '../utilities/remote-data.utils';
-import { HALEndpointServiceStub } from '../utilities/testing/hal-endpoint-service.stub';
-import { testDeleteDataImplementation } from './base/delete-data.spec';
-import { testPatchDataImplementation } from './base/patch-data.spec';
-import { testSearchDataImplementation } from './base/search-data.spec';
+} from '../utilities';
+import { HALEndpointServiceStub } from '../utilities';
+import { testDeleteDataImplementation } from './base';
+import { testPatchDataImplementation } from './base';
+import { testSearchDataImplementation } from './base';
 import { BitstreamDataService } from './bitstream-data.service';
 import { BitstreamFormatDataService } from './bitstream-format-data.service';
 import { BundleDataService } from './bundle-data.service';

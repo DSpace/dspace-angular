@@ -1,5 +1,5 @@
-import { CommunitySearchResult } from '../../../../../../modules/core/src/lib/core/object-collection/community-search-result.model';
-import { Community } from '../../../../../../modules/core/src/lib/core/shared/community.model';
+import { CommunitySearchResult } from '@dspace/core';
+import { Community } from '@dspace/core';
 import { createSidebarSearchListElementTests } from '../sidebar-search-list-element.component.spec';
 import { CommunitySidebarSearchListElementComponent } from './community-sidebar-search-list-element.component';
 

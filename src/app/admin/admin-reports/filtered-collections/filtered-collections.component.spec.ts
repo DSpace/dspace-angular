@@ -15,10 +15,10 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { DspaceRestService } from '../../../../../modules/core/src/lib/core/dspace-rest/dspace-rest.service';
-import { RawRestResponse } from '../../../../../modules/core/src/lib/core/dspace-rest/raw-rest-response.model';
+import { DspaceRestService } from '@dspace/core';
+import { RawRestResponse } from '@dspace/core';
 
-import { TranslateLoaderMock } from '../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
+import { TranslateLoaderMock } from '@dspace/core';
 import { FilteredCollectionsComponent } from './filtered-collections.component';
 
 describe('FiltersComponent', () => {

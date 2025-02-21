@@ -25,12 +25,12 @@ import {
 import { of as observableOf } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
-import { buildPaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { TranslateLoaderMock } from '../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
-import { Collection } from '../../../../modules/core/src/lib/core/shared/collection.model';
-import { Community } from '../../../../modules/core/src/lib/core/shared/community.model';
-import { PageInfo } from '../../../../modules/core/src/lib/core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { buildPaginatedList } from '@dspace/core';
+import { TranslateLoaderMock } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { Community } from '@dspace/core';
+import { PageInfo } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { TruncatableComponent } from '../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../shared/truncatable/truncatable-part/truncatable-part.component';

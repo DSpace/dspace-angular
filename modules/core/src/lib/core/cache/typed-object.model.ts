@@ -1,4 +1,4 @@
-import { ResourceType } from '../shared/resource-type';
+import { ResourceType } from '../shared';
 
 export abstract class TypedObject {
   static type: ResourceType;

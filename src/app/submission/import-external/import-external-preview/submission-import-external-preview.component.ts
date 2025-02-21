@@ -13,13 +13,13 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { mergeMap } from 'rxjs/operators';
 
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { ExternalSourceEntry } from '../../../../../modules/core/src/lib/core/shared/external-source-entry.model';
-import { MetadataValue } from '../../../../../modules/core/src/lib/core/shared/metadata.models';
-import { Metadata } from '../../../../../modules/core/src/lib/core/shared/metadata.utils';
-import { SubmissionObject } from '../../../../../modules/core/src/lib/core/submission/models/submission-object.model';
+import { NotificationsService } from '@dspace/core';
+import { ExternalSourceEntry } from '@dspace/core';
+import { MetadataValue } from '@dspace/core';
+import { Metadata } from '@dspace/core';
+import { SubmissionObject } from '@dspace/core';
 import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
-import { SubmissionService } from '../../submission.service';
+import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
 import { SubmissionImportExternalCollectionComponent } from '../import-external-collection/submission-import-external-collection.component';
 
 /**
@@ -69,7 +69,7 @@ export class SubmissionImportExternalPreviewComponent implements OnInit {
   ) { }
 
   /**
-   * Metadata initialization for HTML display.
+   * PolicyMetadata initialization for HTML display.
    */
   ngOnInit(): void {
     this.metadataList = [];

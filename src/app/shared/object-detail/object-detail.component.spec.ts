@@ -16,11 +16,11 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { buildPaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { TranslateLoaderMock } from '../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
-import { DSpaceObject } from '../../../../modules/core/src/lib/core/shared/dspace-object.model';
-import { PageInfo } from '../../../../modules/core/src/lib/core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { buildPaginatedList } from '@dspace/core';
+import { TranslateLoaderMock } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
+import { PageInfo } from '@dspace/core';
+import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { PaginationComponent } from '../pagination/pagination.component';

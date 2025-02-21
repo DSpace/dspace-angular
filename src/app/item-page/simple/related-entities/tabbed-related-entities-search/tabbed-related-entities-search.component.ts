@@ -13,7 +13,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
+import { Item } from '@dspace/core';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 import { RelatedEntitiesSearchComponent } from '../related-entities-search/related-entities-search.component';
 

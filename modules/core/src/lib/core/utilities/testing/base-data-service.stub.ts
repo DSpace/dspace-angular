@@ -3,9 +3,9 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { CacheableObject } from '../../cache/cacheable-object.model';
-import { FollowLinkConfig } from '../../data/follow-link-config.model';
-import { RemoteData } from '../../data/remote-data';
+import { CacheableObject } from '../../cache';
+import { FollowLinkConfig } from '../../data';
+import { RemoteData } from '../../data';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 
 /**

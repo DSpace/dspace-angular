@@ -20,15 +20,15 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { ConfigurationDataService } from '../data/configuration-data.service';
-import { RemoteData } from '../data/remote-data';
-import { CookieService } from '../services/cookie.service';
+import { ConfigurationDataService } from '../data';
+import { RemoteData } from '../data';
+import { CookieService } from '../services';
 import {
   NativeWindowRef,
   NativeWindowService,
-} from '../services/window.service';
-import { ConfigurationProperty } from '../shared/configuration-property.model';
-import { getFirstCompletedRemoteData } from '../shared/operators';
+} from '../services';
+import { ConfigurationProperty } from '../shared';
+import { getFirstCompletedRemoteData } from '../shared';
 
 export const CAPTCHA_COOKIE = '_GRECAPTCHA';
 export const CAPTCHA_NAME = 'google-recaptcha';

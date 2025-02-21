@@ -6,10 +6,10 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { ItemRequestDataService } from '../../../modules/core/src/lib/core/data/item-request-data.service';
-import { RemoteData } from '../../../modules/core/src/lib/core/data/remote-data';
-import { ItemRequest } from '../../../modules/core/src/lib/core/shared/item-request.model';
-import { getFirstCompletedRemoteData } from '../../../modules/core/src/lib/core/shared/operators';
+import { ItemRequestDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { ItemRequest } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
 
 export const requestCopyResolver: ResolveFn<RemoteData<ItemRequest>> = (
   route: ActivatedRouteSnapshot,

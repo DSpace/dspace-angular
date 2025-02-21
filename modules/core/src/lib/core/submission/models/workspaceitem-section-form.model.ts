@@ -1,5 +1,5 @@
-import { FormFieldMetadataValueObject } from '../../config/models/form-field-metadata-value.model';
-import { MetadataMapInterface } from '../../shared/metadata.models';
+import { FormFieldMetadataValueObject } from '../../config';
+import { MetadataMapInterface } from '../../shared';
 
 /**
  * An interface to represent submission's form section data.

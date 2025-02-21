@@ -1,5 +1,5 @@
-import { FindListOptions } from '../../../../modules/core/src/lib/core/data/find-list-options.model';
-import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+import { FindListOptions } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
 
 /**
  * Transform a PaginationComponentOptions object into a FindListOptions object

@@ -3,8 +3,8 @@ import {
   Input,
 } from '@angular/core';
 
-import { MediaViewerConfig } from '../../../../modules/core/src/lib/core/config/media-viewer-config.interface';
-import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
+import { MediaViewerConfig } from '@dspace/core';
+import { Item } from '@dspace/core';
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { MediaViewerComponent } from './media-viewer.component';
 

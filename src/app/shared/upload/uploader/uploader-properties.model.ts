@@ -1,4 +1,4 @@
-import { MetadataMap } from '../../../../../modules/core/src/lib/core/shared/metadata.models';
+import { MetadataMap } from '@dspace/core';
 
 /**
  * Properties to send to the REST API for uploading a bitstream
@@ -10,7 +10,7 @@ export class UploaderProperties {
   name: string;
 
   /**
-   * Metadata for the bitstream (e.g. dc.description)
+   * PolicyMetadata for the bitstream (e.g. dc.description)
    */
   metadata: MetadataMap;
 

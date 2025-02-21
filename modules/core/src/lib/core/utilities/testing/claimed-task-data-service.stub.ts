@@ -3,9 +3,9 @@ import {
   Observable,
 } from 'rxjs';
 
-import { RemoteData } from '../../data/remote-data';
-import { ClaimedTask } from '../../tasks/models/claimed-task-object.model';
-import { ProcessTaskResponse } from '../../tasks/models/process-task-response';
+import { RemoteData } from '../../data';
+import { ClaimedTask } from '../../tasks';
+import { ProcessTaskResponse } from '../../tasks';
 
 export class ClaimedTaskDataServiceStub {
 

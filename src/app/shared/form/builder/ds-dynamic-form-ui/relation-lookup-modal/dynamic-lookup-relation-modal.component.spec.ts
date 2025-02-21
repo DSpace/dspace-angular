@@ -22,28 +22,28 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { RemoteDataBuildService } from '../../../../../../../modules/core/src/lib/core/cache/builders/remote-data-build.service';
-import { APP_DATA_SERVICES_MAP } from '../../../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { ExternalSourceDataService } from '../../../../../../../modules/core/src/lib/core/data/external-source-data.service';
-import { LookupRelationService } from '../../../../../../../modules/core/src/lib/core/data/lookup-relation.service';
-import { RelationshipDataService } from '../../../../../../../modules/core/src/lib/core/data/relationship-data.service';
-import { ItemSearchResult } from '../../../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
-import { Collection } from '../../../../../../../modules/core/src/lib/core/shared/collection.model';
-import { ExternalSource } from '../../../../../../../modules/core/src/lib/core/shared/external-source.model';
-import { RelationshipOptions } from '../../../../../../../modules/core/src/lib/core/shared/form/relationship-options.model';
-import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
-import { PaginatedSearchOptions } from '../../../../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
-import { SearchConfigurationService } from '../../../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
+import { RemoteDataBuildService } from '@dspace/core';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core';
+import { ExternalSourceDataService } from '@dspace/core';
+import { LookupRelationService } from '@dspace/core';
+import { RelationshipDataService } from '@dspace/core';
+import { ItemSearchResult } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { ExternalSource } from '@dspace/core';
+import { RelationshipOptions } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { PaginatedSearchOptions } from '@dspace/core';
+import { SearchConfigurationService } from '@dspace/core';
 import {
   AddRelationshipAction,
   RemoveRelationshipAction,
-} from '../../../../../../../modules/core/src/lib/core/states/name-variant/relationship.actions';
-import { WorkspaceItem } from '../../../../../../../modules/core/src/lib/core/submission/models/workspaceitem.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { createPaginatedList } from '../../../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
-import { XSRFService } from '../../../../../../../modules/core/src/lib/core/xsrf/xsrf.service';
+} from '@dspace/core';
+import { WorkspaceItem } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { createPaginatedList } from '@dspace/core';
+import { XSRFService } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
-import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
+import { SelectableListService } from '../../../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
 import { DsDynamicLookupRelationModalComponent } from './dynamic-lookup-relation-modal.component';
 
 describe('DsDynamicLookupRelationModalComponent', () => {

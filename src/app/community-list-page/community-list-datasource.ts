@@ -10,7 +10,7 @@ import {
 } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
-import { FindListOptions } from '../../../modules/core/src/lib/core/data/find-list-options.model';
+import { FindListOptions } from '@dspace/core';
 import { CommunityListService } from './community-list-service';
 import { FlatNode } from './flat-node.model';
 

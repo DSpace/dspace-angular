@@ -2,7 +2,7 @@ import {
   Component,
   Input,
 } from '@angular/core';
-import { Context } from '../../../../../../../modules/core/src/lib/core/shared/context.model';
+import { Context } from '@dspace/core';
 
 import { ThemedComponent } from '../../../../theme-support/themed.component';
 import { MyDSpaceStatusBadgeComponent } from './my-dspace-status-badge.component';

@@ -8,15 +8,15 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { AppState } from '../app.reducer';
-import { CollectionDataService } from '../../../modules/core/src/lib/core/data/collection-data.service';
+import { CollectionDataService } from '@dspace/core';
 import {
   followLink,
   FollowLinkConfig,
-} from '../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { RemoteData } from '../../../modules/core/src/lib/core/data/remote-data';
-import { ResolvedAction } from '../../../modules/core/src/lib/core/resolving/resolver.actions';
-import { Collection } from '../../../modules/core/src/lib/core/shared/collection.model';
-import { getFirstCompletedRemoteData } from '../../../modules/core/src/lib/core/shared/operators';
+} from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { ResolvedAction } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
 
 /**
  * The self links defined in this list are expected to be requested somewhere in the near future

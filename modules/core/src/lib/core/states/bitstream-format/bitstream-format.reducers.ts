@@ -1,4 +1,4 @@
-import { BitstreamFormat } from '../../shared/bitstream-format.model';
+import { BitstreamFormat } from '../../shared';
 import {
   BitstreamFormatsRegistryAction,
   BitstreamFormatsRegistryActionTypes,

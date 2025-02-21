@@ -31,54 +31,54 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { RequestParam } from '../cache/models/request-param.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
+import { RemoteDataBuildService } from '../cache';
+import { RequestParam } from '../cache';
+import { ObjectCacheService } from '../cache';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../config/app-config.interface';
+} from '../config';
 import { CoreState } from '../core-state.model';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { MetadataService } from '../metadata/metadata.service';
-import { DSpaceObject } from '../shared/dspace-object.model';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Item } from '../shared/item.model';
+import { HttpOptions } from '../dspace-rest';
+import { MetadataService } from '../metadata';
+import { DSpaceObject } from '../shared';
+import { HALEndpointService } from '../shared';
+import { Item } from '../shared';
 import {
   compareArraysUsingIds,
   PAGINATED_RELATIONS_TO_ITEMS_OPERATOR,
   relationsToItems,
-} from '../shared/item-relationships/item-relationships-utils';
-import { Relationship } from '../shared/item-relationships/relationship.model';
-import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
-import { ReorderableRelationship } from '../shared/item-relationships/reorderable-relationship.model';
-import { MetadataValue } from '../shared/metadata.models';
-import { ItemMetadataRepresentation } from '../shared/metadata-representation/item/item-metadata-representation.model';
-import { MetadataRepresentation } from '../shared/metadata-representation/metadata-representation.model';
-import { MetadatumRepresentation } from '../shared/metadata-representation/metadatum/metadatum-representation.model';
-import { NoContent } from '../shared/NoContent.model';
+} from '../shared';
+import { Relationship } from '../shared';
+import { RelationshipType } from '../shared';
+import { ReorderableRelationship } from '../shared';
+import { MetadataValue } from '../shared';
+import { ItemMetadataRepresentation } from '../shared';
+import { MetadataRepresentation } from '../shared';
+import { MetadatumRepresentation } from '../shared';
+import { NoContent } from '../shared';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
-} from '../shared/operators';
-import { sendRequest } from '../shared/request.operators';
+} from '../shared';
+import { sendRequest } from '../shared';
 import {
   RemoveNameVariantAction,
   SetNameVariantAction,
-} from '../states/name-variant/name-variant.actions';
-import { NameVariantListState } from '../states/name-variant/name-variant.reducer';
-import { itemLinksToFollow } from '../utilities/relation-query.utils';
-import { IdentifiableDataService } from './base/identifiable-data.service';
+} from '../states';
+import { NameVariantListState } from '../states';
+import { itemLinksToFollow } from '../utilities';
+import { IdentifiableDataService } from './base';
 import {
   PutData,
   PutDataImpl,
-} from './base/put-data';
+} from './base';
 import {
   SearchData,
   SearchDataImpl,
-} from './base/search-data';
+} from './base';
 import { FindListOptions } from './find-list-options.model';
 import {
   followLink,

@@ -10,9 +10,9 @@ import {
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 
-import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { Community } from '../../../../../modules/core/src/lib/core/shared/community.model';
-import { ActivatedRouteStub } from '../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
+import { DSONameService } from '@dspace/core';
+import { Community } from '@dspace/core';
+import { ActivatedRouteStub } from '@dspace/core';
 import { DSONameServiceMock } from '../../mocks/dso-name.service.mock';
 import { CommunityListElementComponent } from './community-list-element.component';
 

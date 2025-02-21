@@ -1,5 +1,5 @@
-import { GenericConstructor } from '../shared/generic-constructor';
-import { EquatableObject } from '../utilities/equals.decorators';
+import { GenericConstructor } from '../shared';
+import { EquatableObject } from '../utilities';
 
 export abstract class ListableObject extends EquatableObject<ListableObject> {
   /**

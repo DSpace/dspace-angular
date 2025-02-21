@@ -8,13 +8,13 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { PostRequest } from '../data/request.models';
-import { RequestService } from '../data/request.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { PostRequest } from '../data';
+import { RequestService } from '../data';
+import { HALEndpointService } from '../shared';
 import {
   XSRF_REQUEST_HEADER,
   XSRF_RESPONSE_HEADER,
-} from '../xsrf/xsrf.constants';
+} from '../xsrf';
 import { AuthRequestService } from './auth-request.service';
 import { ServerAuthRequestService } from './server-auth-request.service';
 

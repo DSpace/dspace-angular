@@ -13,16 +13,16 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { storeModuleConfig } from '../../../../app.reducer';
-import { authReducer } from '../../../../../../modules/core/src/lib/core/auth/auth.reducer';
-import { AuthService } from '../../../../../../modules/core/src/lib/core/auth/auth.service';
-import { AuthMethod } from '../../../../../../modules/core/src/lib/core/auth/models/auth.method';
-import { AuthMethodType } from '../../../../../../modules/core/src/lib/core/auth/models/auth.method-type';
-import { NativeWindowMockFactory } from '../../../../../../modules/core/src/lib/core/mocks/mock-native-window-ref';
-import { HardRedirectService } from '../../../../../../modules/core/src/lib/core/services/hard-redirect.service';
-import { NativeWindowService } from '../../../../../../modules/core/src/lib/core/services/window.service';
-import { ActivatedRouteStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
-import { AuthServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/auth-service.stub';
-import { RouterStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
+import { authReducer } from '@dspace/core';
+import { AuthService } from '@dspace/core';
+import { AuthMethod } from '@dspace/core';
+import { AuthMethodType } from '@dspace/core';
+import { NativeWindowMockFactory } from '@dspace/core';
+import { HardRedirectService } from '@dspace/core';
+import { NativeWindowService } from '@dspace/core';
+import { ActivatedRouteStub } from '@dspace/core';
+import { AuthServiceStub } from '@dspace/core';
+import { RouterStub } from '@dspace/core';
 import { LogInExternalProviderComponent } from './log-in-external-provider.component';
 
 describe('LogInExternalProviderComponent', () => {

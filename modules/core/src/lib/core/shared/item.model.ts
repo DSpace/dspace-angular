@@ -7,18 +7,18 @@ import {
   inheritSerialization,
 } from 'cerialize';
 import { Observable } from 'rxjs';
-import { AccessStatusObject } from '../../../../../../src/app/shared/object-collection/shared/badges/access-status-badge/access-status.model';
-import { ACCESS_STATUS } from '../../../../../../src/app/shared/object-collection/shared/badges/access-status-badge/access-status.resource-type';
+import { AccessStatusObject } from '../access-status/access-status.model';
+import { ACCESS_STATUS } from '../access-status/access-status.resource-type';
 
 import {
   link,
   typedObject,
-} from '../cache/builders/build-decorators';
-import { IdentifierData } from '../data/identifier-data.model';
-import { IDENTIFIERS } from '../data/identifier-data.resource-type';
-import { PaginatedList } from '../data/paginated-list.model';
-import { RemoteData } from '../data/remote-data';
-import { ListableObject } from '../object-collection/listable-object.model';
+} from '../cache';
+import { IdentifierData } from '../data';
+import { IDENTIFIERS } from '../data';
+import { PaginatedList } from '../data';
+import { RemoteData } from '../data';
+import { ListableObject } from '../object-collection';
 import { Bitstream } from './bitstream.model';
 import { BITSTREAM } from './bitstream.resource-type';
 import { Bundle } from './bundle.model';
@@ -31,8 +31,8 @@ import { GenericConstructor } from './generic-constructor';
 import { HALLink } from './hal-link.model';
 import { HandleObject } from './handle-object.model';
 import { ITEM } from './item.resource-type';
-import { Relationship } from './item-relationships/relationship.model';
-import { RELATIONSHIP } from './item-relationships/relationship.resource-type';
+import { Relationship } from './item-relationships';
+import { RELATIONSHIP } from './item-relationships';
 import { Version } from './version.model';
 import { VERSION } from './version.resource-type';
 

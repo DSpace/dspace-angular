@@ -31,17 +31,17 @@ import {
 
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
-import { RestRequestMethod } from '../data/rest-request-method';
-import { RemoveFromIndexBySubstringAction } from '../index/index.actions';
+import { RestRequestMethod } from '../data';
+import { RemoveFromIndexBySubstringAction } from '../index';
 import {
   selfLinkFromAlternativeLinkSelector,
   selfLinkFromUuidSelector,
-} from '../index/index.selectors';
-import { IndexName } from '../index/index-name.model';
-import { GenericConstructor } from '../shared/generic-constructor';
-import { HALLink } from '../shared/hal-link.model';
-import { getClassForType } from './builders/build-decorators';
-import { LinkService } from './builders/link.service';
+} from '../index';
+import { IndexName } from '../index';
+import { GenericConstructor } from '../shared';
+import { HALLink } from '../shared';
+import { getClassForType } from './builders';
+import { LinkService } from './builders';
 import { CacheableObject } from './cacheable-object.model';
 import {
   AddDependentsObjectCacheAction,

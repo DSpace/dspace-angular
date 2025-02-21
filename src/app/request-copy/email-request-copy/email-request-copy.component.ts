@@ -11,7 +11,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { RequestCopyEmail } from '../../../../modules/core/src/lib/core/request-copy/request-copy-email.model';
+import { RequestCopyEmail } from '@dspace/core';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 
 

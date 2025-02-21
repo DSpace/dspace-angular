@@ -12,13 +12,13 @@ import {
   of,
 } from 'rxjs';
 
-import { SearchConfigurationService } from '../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
+import { SearchConfigurationService } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { TruncatableComponent } from '../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { AdminNotifyDetailModalComponent } from '../admin-notify-detail-modal/admin-notify-detail-modal.component';
-import { AdminNotifyMessage } from '../models/admin-notify-message.model';
-import { AdminNotifyMessagesService } from '../services/admin-notify-messages.service';
+import { AdminNotifyMessage } from '../../../../../modules/core/src/lib/core/admin/admin-notify-message/models/admin-notify-message.model';
+import { AdminNotifyMessagesService } from '../../../../../modules/core/src/lib/core/admin/admin-notify-message/admin-notify-messages.service';
 import { AdminNotifySearchResultComponent } from './admin-notify-search-result.component';
 
 export const mockAdminNotifyMessages = [

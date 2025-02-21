@@ -24,18 +24,18 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../../../modules/core/src/lib/core/auth/auth.service';
-import { followLink } from '../../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { EPerson } from '../../../../modules/core/src/lib/core/eperson/models/eperson.model';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { ResearcherProfile } from '../../../../modules/core/src/lib/core/profile/model/researcher-profile.model';
-import { ResearcherProfileDataService } from '../../../../modules/core/src/lib/core/profile/researcher-profile-data.service';
-import { NoContent } from '../../../../modules/core/src/lib/core/shared/NoContent.model';
+import { AuthService } from '@dspace/core';
+import { followLink } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { EPerson } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { ResearcherProfile } from '@dspace/core';
+import { ResearcherProfileDataService } from '@dspace/core';
+import { NoContent } from '@dspace/core';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '../../../../modules/core/src/lib/core/shared/operators';
+} from '@dspace/core';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { VarDirective } from '../../shared/utils/var.directive';

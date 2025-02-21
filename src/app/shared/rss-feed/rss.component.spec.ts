@@ -13,27 +13,27 @@ import { of as observableOf } from 'rxjs';
 import {
   SortDirection,
   SortOptions,
-} from '../../../../modules/core/src/lib/core/cache/models/sort-options.model';
-import { ConfigurationDataService } from '../../../../modules/core/src/lib/core/data/configuration-data.service';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { GroupDataService } from '../../../../modules/core/src/lib/core/eperson/group-data.service';
-import { RouterMock } from '../../../../modules/core/src/lib/core/mocks/router.mock';
-import { getMockTranslateService } from '../../../../modules/core/src/lib/core/mocks/translate.service.mock';
-import { PaginationService } from '../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { LinkHeadService } from '../../../../modules/core/src/lib/core/services/link-head.service';
-import { Collection } from '../../../../modules/core/src/lib/core/shared/collection.model';
-import { ConfigurationProperty } from '../../../../modules/core/src/lib/core/shared/configuration-property.model';
-import { PaginatedSearchOptions } from '../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
-import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
-import { SearchFilter } from '../../../../modules/core/src/lib/core/shared/search/models/search-filter.model';
-import { SearchConfigurationService } from '../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
+} from '@dspace/core';
+import { ConfigurationDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { GroupDataService } from '@dspace/core';
+import { RouterMock } from '@dspace/core';
+import { getMockTranslateService } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { LinkHeadService } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { ConfigurationProperty } from '@dspace/core';
+import { PaginatedSearchOptions } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
+import { SearchFilter } from '@dspace/core';
+import { SearchConfigurationService } from '@dspace/core';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { PaginationServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
-import { SearchConfigurationServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/search-configuration-service.stub';
-import { createPaginatedList } from '../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+} from '@dspace/core';
+import { PaginationServiceStub } from '@dspace/core';
+import { SearchConfigurationServiceStub } from '@dspace/core';
+import { createPaginatedList } from '@dspace/core';
 import { MockActivatedRoute } from '../mocks/active-router.mock';
 import { RSSComponent } from './rss.component';
 

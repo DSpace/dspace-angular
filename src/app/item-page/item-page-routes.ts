@@ -1,12 +1,12 @@
 import { Route } from '@angular/router';
 
 import { REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
-import { authenticatedGuard } from '../../../modules/core/src/lib/core/auth/authenticated.guard';
-import { itemBreadcrumbResolver } from '../../../modules/core/src/lib/core/breadcrumbs/item-breadcrumb.resolver';
-import { itemPageResolver } from '../../../modules/core/src/lib/core/shared/resolvers/item-page.resolver';
+import { authenticatedGuard } from '@dspace/core';
+import { itemBreadcrumbResolver } from '@dspace/core';
+import { itemPageResolver } from '@dspace/core';
 import { dsoEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
-import { MenuItemType } from '../shared/menu/menu-item-type.model';
+import { MenuItemType } from '../../../modules/core/src/lib/core/states/menu/menu-item-type.model';
 import { BitstreamRequestACopyPageComponent } from './bitstreams/request-a-copy/bitstream-request-a-copy-page.component';
 import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.component';
 import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';

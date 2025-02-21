@@ -14,12 +14,12 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { GenericConstructor } from '../shared/generic-constructor';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { getFirstCompletedRemoteData } from '../shared/operators';
-import { Registration } from '../shared/registration.model';
+import { RemoteDataBuildService } from '../cache';
+import { HttpOptions } from '../dspace-rest';
+import { GenericConstructor } from '../shared';
+import { HALEndpointService } from '../shared';
+import { getFirstCompletedRemoteData } from '../shared';
+import { Registration } from '../shared';
 import { ResponseParsingService } from './parsing.service';
 import { RegistrationResponseParsingService } from './registration-response-parsing.service';
 import { RemoteData } from './remote-data';

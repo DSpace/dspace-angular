@@ -21,13 +21,13 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RemoteDataBuildService } from '../cache';
 import { CoreState } from '../core-state.model';
-import { RemoteData } from '../data/remote-data';
-import { PatchRequest } from '../data/request.models';
-import { RequestService } from '../data/request.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { getFirstCompletedRemoteData } from '../shared/operators';
+import { RemoteData } from '../data';
+import { PatchRequest } from '../data';
+import { RequestService } from '../data';
+import { HALEndpointService } from '../shared';
+import { getFirstCompletedRemoteData } from '../shared';
 import { JsonPatchOperationModel } from './json-patch.model';
 import {
   CommitPatchOperationsAction,

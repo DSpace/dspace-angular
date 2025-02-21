@@ -16,18 +16,18 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { RequestService } from '../../../../../../modules/core/src/lib/core/data/request.service';
-import { getMockRequestService } from '../../../../../../modules/core/src/lib/core/mocks/request.service.mock';
-import { TranslateLoaderMock } from '../../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
-import { NotificationsService } from '../../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { SearchService } from '../../../../../../modules/core/src/lib/core/shared/search/search.service';
-import { WorkflowItemDataService } from '../../../../../../modules/core/src/lib/core/submission/workflowitem-data.service';
-import { ClaimedTaskDataService } from '../../../../../../modules/core/src/lib/core/tasks/claimed-task-data.service';
-import { ClaimedTask } from '../../../../../../modules/core/src/lib/core/tasks/models/claimed-task-object.model';
-import { ProcessTaskResponse } from '../../../../../../modules/core/src/lib/core/tasks/models/process-task-response';
-import { PoolTaskDataService } from '../../../../../../modules/core/src/lib/core/tasks/pool-task-data.service';
-import { NotificationsServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { RouterStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
+import { RequestService } from '@dspace/core';
+import { getMockRequestService } from '@dspace/core';
+import { TranslateLoaderMock } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { SearchService } from '@dspace/core';
+import { WorkflowItemDataService } from '@dspace/core';
+import { ClaimedTaskDataService } from '@dspace/core';
+import { ClaimedTask } from '@dspace/core';
+import { ProcessTaskResponse } from '@dspace/core';
+import { PoolTaskDataService } from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { RouterStub } from '@dspace/core';
 import { getMockSearchService } from '../../../mocks/search-service.mock';
 import { ClaimedTaskActionsApproveComponent } from './claimed-task-actions-approve.component';
 

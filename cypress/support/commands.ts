@@ -6,11 +6,11 @@
 import {
   AuthTokenInfo,
   TOKENITEM,
-} from '../../modules/core/src/lib/core/auth/models/auth-token-info.model';
+} from '@dspace/core';
 import {
   DSPACE_XSRF_COOKIE,
   XSRF_REQUEST_HEADER,
-} from '../../modules/core/src/lib/core/xsrf/xsrf.constants';
+} from '@dspace/core';
 import { v4 as uuidv4 } from 'uuid';
 
 // Declare Cypress namespace to help with Intellisense & code completion in IDEs

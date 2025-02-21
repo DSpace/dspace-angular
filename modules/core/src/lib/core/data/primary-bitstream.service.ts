@@ -5,16 +5,16 @@ import {
   switchMap,
 } from 'rxjs';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { NotificationsService } from '../notifications/notifications.service';
-import { Bitstream } from '../shared/bitstream.model';
-import { Bundle } from '../shared/bundle.model';
-import { GenericConstructor } from '../shared/generic-constructor';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { NoContent } from '../shared/NoContent.model';
-import { getAllCompletedRemoteData } from '../shared/operators';
+import { RemoteDataBuildService } from '../cache';
+import { ObjectCacheService } from '../cache';
+import { HttpOptions } from '../dspace-rest';
+import { NotificationsService } from '../notifications';
+import { Bitstream } from '../shared';
+import { Bundle } from '../shared';
+import { GenericConstructor } from '../shared';
+import { HALEndpointService } from '../shared';
+import { NoContent } from '../shared';
+import { getAllCompletedRemoteData } from '../shared';
 import { BundleDataService } from './bundle-data.service';
 import { RemoteData } from './remote-data';
 import {

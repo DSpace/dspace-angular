@@ -12,8 +12,8 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { of as observableOf } from 'rxjs';
 
-import { ScriptParameter } from '../../../../../../modules/core/src/lib/core/scripts/script-parameter.model';
-import { ScriptParameterType } from '../../../../../../modules/core/src/lib/core/scripts/script-parameter-type.model';
+import { ScriptParameter } from '@dspace/core';
+import { ScriptParameterType } from '@dspace/core';
 import { ParameterValueInputComponent } from '../parameter-value-input/parameter-value-input.component';
 import { ParameterSelectComponent } from './parameter-select.component';
 

@@ -11,26 +11,26 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { RequestParam } from '../cache/models/request-param.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
+import { RemoteDataBuildService } from '../cache';
+import { RequestParam } from '../cache';
+import { ObjectCacheService } from '../cache';
 import {
   FindAllData,
   FindAllDataImpl,
-} from '../data/base/find-all-data';
-import { IdentifiableDataService } from '../data/base/identifiable-data.service';
+} from '../data';
+import { IdentifiableDataService } from '../data';
 import {
   SearchData,
   SearchDataImpl,
-} from '../data/base/search-data';
-import { FindListOptions } from '../data/find-list-options.model';
-import { FollowLinkConfig } from '../data/follow-link-config.model';
-import { PaginatedList } from '../data/paginated-list.model';
-import { RemoteData } from '../data/remote-data';
-import { BrowseDefinitionRestRequest } from '../data/request.models';
-import { RequestService } from '../data/request.service';
-import { BrowseDefinition } from '../shared/browse-definition.model';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
+} from '../data';
+import { FindListOptions } from '../data';
+import { FollowLinkConfig } from '../data';
+import { PaginatedList } from '../data';
+import { RemoteData } from '../data';
+import { BrowseDefinitionRestRequest } from '../data';
+import { RequestService } from '../data';
+import { BrowseDefinition } from '../shared';
+import { HALEndpointService } from '../shared';
 
 /**
  * Create a GET request for the given href, and send it.

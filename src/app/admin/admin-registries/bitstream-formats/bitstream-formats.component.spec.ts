@@ -11,20 +11,20 @@ import { TranslateModule } from '@ngx-translate/core';
 import { hot } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { BitstreamFormatDataService } from '../../../../../modules/core/src/lib/core/data/bitstream-format-data.service';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { PaginationService } from '../../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { BitstreamFormat } from '../../../../../modules/core/src/lib/core/shared/bitstream-format.model';
-import { BitstreamFormatSupportLevel } from '../../../../../modules/core/src/lib/core/shared/bitstream-format-support-level';
+import { BitstreamFormatDataService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { BitstreamFormat } from '@dspace/core';
+import { BitstreamFormatSupportLevel } from '@dspace/core';
 import {
   createFailedRemoteDataObject$,
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
-import { createPaginatedList } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+} from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { PaginationServiceStub } from '@dspace/core';
+import { createPaginatedList } from '@dspace/core';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
 import { BitstreamFormatsComponent } from './bitstream-formats.component';

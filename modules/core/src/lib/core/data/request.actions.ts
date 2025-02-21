@@ -1,9 +1,9 @@
 /* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 
-import { HALLink } from '../shared/hal-link.model';
-import { type } from '../shared/ngrx/type';
-import { UnCacheableObject } from '../shared/uncacheable-object.model';
+import { HALLink } from '../shared';
+import { type } from '../shared';
+import { UnCacheableObject } from '../shared';
 import { RestRequest } from './rest-request.model';
 
 /**

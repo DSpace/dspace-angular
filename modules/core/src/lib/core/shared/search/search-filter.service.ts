@@ -20,11 +20,11 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { InputSuggestion } from '../../../../../../../src/app/shared/input-suggestions/input-suggestions.model';
+import { InputSuggestion } from '../../config/models/input-suggestions.model';
 import {
   getFacetValueForType,
   stripOperatorFromFilterValue,
-} from '../../../../../../../src/app/shared/search/search.utils';
+} from '../../utilities/search.utils';
 import {
   SearchFilterCollapseAction,
   SearchFilterDecrementPageAction,
@@ -34,24 +34,24 @@ import {
   SearchFilterMinimizeAllPageAction,
   SearchFilterResetPageAction,
   SearchFilterToggleAction,
-} from '../../../../../../../src/app/shared/search/search-filters/search-filter/search-filter.actions';
+} from '../../states/search-filters/search-filter.actions';
 import {
   SearchFiltersState,
   SearchFilterState,
-} from '../../../../../../../src/app/shared/search/search-filters/search-filter/search-filter.reducer';
-import { EmphasizePipe } from '../../../../../../../src/app/shared/utils/emphasize.pipe';
+} from '../../states/search-filters/search-filter.reducer';
+import { EmphasizePipe } from '../emphasize.pipe';
 import {
   SortDirection,
   SortOptions,
-} from '../../cache/models/sort-options.model';
-import { PaginatedList } from '../../data/paginated-list.model';
-import { RemoteData } from '../../data/remote-data';
-import { RouteService } from '../../services/route.service';
+} from '../../cache';
+import { PaginatedList } from '../../data';
+import { RemoteData } from '../../data';
+import { RouteService } from '../../services';
 import { getFirstSucceededRemoteData } from '../operators';
 import { PaginationComponentOptions } from '../pagination-component-options.model';
-import { FacetValue } from './models/facet-value.model';
-import { SearchFilterConfig } from './models/search-filter-config.model';
-import { SearchOptions } from './models/search-options.model';
+import { FacetValue } from './models';
+import { SearchFilterConfig } from './models';
+import { SearchOptions } from './models';
 import { SearchService } from './search.service';
 
 const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;
@@ -289,10 +289,10 @@ export class SearchFilterService {
 }
 
 function filterByNameSelector(name: string): MemoizedSelector<SearchFiltersState, SearchFilterState> {
-  return keySelector<SearchFilterState>(name);
+  return filteredKeySelector<SearchFilterState>(name);
 }
 
-export function keySelector<T>(key: string): MemoizedSelector<SearchFiltersState, T> {
+export function filteredKeySelector<T>(key: string): MemoizedSelector<SearchFiltersState, T> {
   return createSelector(filterStateSelector, (state: SearchFilterState) => {
     if (hasValue(state)) {
       return state[key];

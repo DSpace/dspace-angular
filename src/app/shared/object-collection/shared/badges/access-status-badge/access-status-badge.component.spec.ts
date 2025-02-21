@@ -8,11 +8,11 @@ import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment';
 
-import { AccessStatusDataService } from '../../../../../../../modules/core/src/lib/core/data/access-status-data.service';
-import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { AccessStatusDataService } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
-import { AccessStatusObject } from './access-status.model';
+import { AccessStatusObject } from '../../../../../../../modules/core/src/lib/core/access-status/access-status.model';
 import { AccessStatusBadgeComponent } from './access-status-badge.component';
 
 describe('ItemAccessStatusBadgeComponent', () => {

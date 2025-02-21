@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { FollowLinkConfig } from '../data/follow-link-config.model';
-import { RemoteData } from '../data/remote-data';
-import { RequestService } from '../data/request.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { RemoteDataBuildService } from '../cache';
+import { ObjectCacheService } from '../cache';
+import { FollowLinkConfig } from '../data';
+import { RemoteData } from '../data';
+import { RequestService } from '../data';
+import { HALEndpointService } from '../shared';
 import { ConfigDataService } from './config-data.service';
-import { ConfigObject } from './models/config.model';
-import { SubmissionUploadsModel } from './models/config-submission-uploads.model';
+import { ConfigObject } from './models';
+import { SubmissionUploadsModel } from './models';
 
 /**
  * Provides methods to retrieve, from REST server, bitstream access conditions configurations applicable during the submission process.

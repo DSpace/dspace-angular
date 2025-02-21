@@ -14,17 +14,17 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { SortOptions } from '../../../../../modules/core/src/lib/core/cache/models/sort-options.model';
+import { SortOptions } from '@dspace/core';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { PaginatedSearchOptions } from '../../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
-import { SearchFilterConfig } from '../../../../../modules/core/src/lib/core/shared/search/models/search-filter-config.model';
-import { SearchConfigurationService } from '../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
-import { FilterConfig } from '../../../../../modules/core/src/lib/core/shared/search/search-filters/search-config.model';
-import { ViewMode } from '../../../../../modules/core/src/lib/core/shared/view-mode.model';
+} from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { PaginatedSearchOptions } from '@dspace/core';
+import { SearchFilterConfig } from '@dspace/core';
+import { SearchConfigurationService } from '@dspace/core';
+import { FilterConfig } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
 import { ViewModeSwitchComponent } from '../../view-mode-switch/view-mode-switch.component';
 import { AdvancedSearchComponent } from '../advanced-search/advanced-search.component';
 import { ThemedSearchFiltersComponent } from '../search-filters/themed-search-filters.component';

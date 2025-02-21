@@ -23,21 +23,21 @@ import {
 import { of as observableOf } from 'rxjs';
 
 // Import mocks
-import { TranslateLoaderMock } from '../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
+import { TranslateLoaderMock } from '@dspace/core';
 // Import utils
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { ITEM } from '../../../../../modules/core/src/lib/core/shared/item.resource-type';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { NotificationsService } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { ITEM } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
 import {
   findByEPersonAndDsoResEmpty,
   subscriptionMock,
-} from '../../../../../modules/core/src/lib/core/utilities/testing/subscriptions-data.mock';
+} from '@dspace/core';
 import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { ThemeService } from '../../theme-support/theme.service';
-import { Subscription } from '../models/subscription.model';
-import { SubscriptionsDataService } from '../subscriptions-data.service';
+import { Subscription } from '../../../../../modules/core/src/lib/core/subscription/subscription.model';
+import { SubscriptionsDataService } from '../../../../../modules/core/src/lib/core/data/subscriptions-data.service';
 import { SubscriptionViewComponent } from './subscription-view.component';
 
 describe('SubscriptionViewComponent', () => {

@@ -18,26 +18,26 @@ import {
 } from 'rxjs/operators';
 
 import { getBitstreamDownloadRoute } from '../../../app-routing-paths';
-import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '../../../../../modules/core/src/lib/core/data/bitstream-data.service';
-import { BundleDataService } from '../../../../../modules/core/src/lib/core/data/bundle-data.service';
-import { FieldChangeType } from '../../../../../modules/core/src/lib/core/data/object-updates/field-change-type.model';
-import { FieldUpdate } from '../../../../../modules/core/src/lib/core/data/object-updates/field-update.model';
-import { FieldUpdates } from '../../../../../modules/core/src/lib/core/data/object-updates/field-updates.model';
-import { ObjectUpdatesService } from '../../../../../modules/core/src/lib/core/data/object-updates/object-updates.service';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Bitstream } from '../../../../../modules/core/src/lib/core/shared/bitstream.model';
-import { BitstreamFormat } from '../../../../../modules/core/src/lib/core/shared/bitstream-format.model';
-import { Bundle } from '../../../../../modules/core/src/lib/core/shared/bundle.model';
-import { NoContent } from '../../../../../modules/core/src/lib/core/shared/NoContent.model';
+import { DSONameService } from '@dspace/core';
+import { BitstreamDataService } from '@dspace/core';
+import { BundleDataService } from '@dspace/core';
+import { FieldChangeType } from '@dspace/core';
+import { FieldUpdate } from '@dspace/core';
+import { FieldUpdates } from '@dspace/core';
+import { ObjectUpdatesService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Bitstream } from '@dspace/core';
+import { BitstreamFormat } from '@dspace/core';
+import { Bundle } from '@dspace/core';
+import { NoContent } from '@dspace/core';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '../../../../../modules/core/src/lib/core/shared/operators';
-import { PaginationComponentOptions } from '../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
-import { LiveRegionService } from '../../../shared/live-region/live-region.service';
+} from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
+import { LiveRegionService } from '../../../../../modules/core/src/lib/core/services/live-region.service';
 import { ResponsiveColumnSizes } from '../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
 

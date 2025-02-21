@@ -31,20 +31,20 @@ import {
   toArray,
 } from 'rxjs/operators';
 
-import { ConfigurationDataService } from '../../../../../modules/core/src/lib/core/data/configuration-data.service';
-import { AuthorizationDataService } from '../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
-import { Identifier } from '../../../../../modules/core/src/lib/core/data/identifier.model';
-import { IdentifierData } from '../../../../../modules/core/src/lib/core/data/identifier-data.model';
-import { IdentifierDataService } from '../../../../../modules/core/src/lib/core/data/identifier-data.service';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { OrcidAuthService } from '../../../../../modules/core/src/lib/core/orcid/orcid-auth.service';
-import { ConfigurationProperty } from '../../../../../modules/core/src/lib/core/shared/configuration-property.model';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { ConfigurationDataService } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { FeatureID } from '@dspace/core';
+import { Identifier } from '@dspace/core';
+import { IdentifierData } from '@dspace/core';
+import { IdentifierDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { OrcidAuthService } from '@dspace/core';
+import { ConfigurationProperty } from '@dspace/core';
+import { Item } from '@dspace/core';
 import {
   getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
-} from '../../../../../modules/core/src/lib/core/shared/operators';
+} from '@dspace/core';
 import {
   fadeIn,
   fadeInOut,

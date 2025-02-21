@@ -27,8 +27,8 @@ import {
 
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
-import { AddUrlToHistoryAction } from '../history/history.actions';
-import { historySelector } from '../history/selectors';
+import { AddUrlToHistoryAction } from '../history';
+import { historySelector } from '../history';
 import {
   AddParameterAction,
   SetParameterAction,

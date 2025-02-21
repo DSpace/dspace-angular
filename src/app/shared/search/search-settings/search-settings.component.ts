@@ -10,9 +10,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   SortDirection,
   SortOptions,
-} from '../../../../../modules/core/src/lib/core/cache/models/sort-options.model';
-import { PaginationService } from '../../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { SearchConfigurationService } from '../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
+} from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { SearchConfigurationService } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { PageSizeSelectorComponent } from '../../page-size-selector/page-size-selector.component';
 import { SidebarDropdownComponent } from '../../sidebar/sidebar-dropdown.component';

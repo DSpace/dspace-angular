@@ -26,19 +26,19 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { SubmissionDefinitionsModel } from '../../../../modules/core/src/lib/core/config/models/config-submission-definitions.model';
-import { ItemDataService } from '../../../../modules/core/src/lib/core/data/item-data.service';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Collection } from '../../../../modules/core/src/lib/core/shared/collection.model';
-import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
-import { getAllSucceededRemoteData } from '../../../../modules/core/src/lib/core/shared/operators';
-import { SubmissionObject } from '../../../../modules/core/src/lib/core/submission/models/submission-object.model';
-import { WorkspaceitemSectionsObject } from '../../../../modules/core/src/lib/core/submission/models/workspaceitem-sections.model';
-import { SubmissionJsonPatchOperationsService } from '../../../../modules/core/src/lib/core/submission/submission-json-patch-operations.service';
+import { SubmissionDefinitionsModel } from '@dspace/core';
+import { ItemDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { getAllSucceededRemoteData } from '@dspace/core';
+import { SubmissionObject } from '@dspace/core';
+import { WorkspaceitemSectionsObject } from '@dspace/core';
+import { SubmissionJsonPatchOperationsService } from '@dspace/core';
 import { SubmissionFormComponent } from '../form/submission-form.component';
-import { SubmissionError } from '../objects/submission-error.model';
-import { SubmissionService } from '../submission.service';
+import { SubmissionError } from '../../../../modules/core/src/lib/core/submission/models/submission-error.model';
+import { SubmissionService } from '../../../../modules/core/src/lib/core/submission/submission.service';
 import parseSectionErrors from '../utils/parseSectionErrors';
 
 /**

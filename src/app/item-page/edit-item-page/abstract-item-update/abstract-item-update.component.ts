@@ -25,16 +25,16 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
-import { APP_CONFIG } from '../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
-import { FieldUpdate } from '../../../../../modules/core/src/lib/core/data/object-updates/field-update.model';
-import { FieldUpdates } from '../../../../../modules/core/src/lib/core/data/object-updates/field-updates.model';
-import { ObjectUpdatesService } from '../../../../../modules/core/src/lib/core/data/object-updates/object-updates.service';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { getAllSucceededRemoteData } from '../../../../../modules/core/src/lib/core/shared/operators';
-import { getItemPageLinksToFollow } from '../../../../../modules/core/src/lib/core/shared/resolvers/item.resolver';
+import { APP_CONFIG } from '@dspace/core';
+import { ItemDataService } from '@dspace/core';
+import { FieldUpdate } from '@dspace/core';
+import { FieldUpdates } from '@dspace/core';
+import { ObjectUpdatesService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { getAllSucceededRemoteData } from '@dspace/core';
+import { getItemPageLinksToFollow } from '@dspace/core';
 import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
 import { getItemPageRoute } from '../../item-page-routing-paths';
 

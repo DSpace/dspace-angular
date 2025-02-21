@@ -12,42 +12,41 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { QualityAssuranceEventData } from '../../../../../../../../src/app/notifications/qa/project-entry-import-modal/project-entry-import-modal.component';
-import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
-import { RequestParam } from '../../../cache/models/request-param.model';
-import { ObjectCacheService } from '../../../cache/object-cache.service';
+import { RemoteDataBuildService } from '../../../cache';
+import { RequestParam } from '../../../cache';
+import { ObjectCacheService } from '../../../cache';
 import {
   CreateData,
   CreateDataImpl,
-} from '../../../data/base/create-data';
+} from '../../../data';
 import {
   DeleteData,
   DeleteDataImpl,
-} from '../../../data/base/delete-data';
-import { IdentifiableDataService } from '../../../data/base/identifiable-data.service';
+} from '../../../data';
+import { IdentifiableDataService } from '../../../data';
 import {
   PatchData,
   PatchDataImpl,
-} from '../../../data/base/patch-data';
+} from '../../../data';
 import {
   SearchData,
   SearchDataImpl,
-} from '../../../data/base/search-data';
-import { DefaultChangeAnalyzer } from '../../../data/default-change-analyzer.service';
-import { FindListOptions } from '../../../data/find-list-options.model';
-import { FollowLinkConfig } from '../../../data/follow-link-config.model';
-import { PaginatedList } from '../../../data/paginated-list.model';
-import { RemoteData } from '../../../data/remote-data';
+} from '../../../data';
+import { DefaultChangeAnalyzer } from '../../../data';
+import { FindListOptions } from '../../../data';
+import { FollowLinkConfig } from '../../../data';
+import { PaginatedList } from '../../../data';
+import { RemoteData } from '../../../data';
 import {
   DeleteByIDRequest,
   PostRequest,
-} from '../../../data/request.models';
-import { RequestService } from '../../../data/request.service';
-import { HttpOptions } from '../../../dspace-rest/dspace-rest.service';
-import { HALEndpointService } from '../../../shared/hal-endpoint.service';
-import { NoContent } from '../../../shared/NoContent.model';
+} from '../../../data';
+import { RequestService } from '../../../data';
+import { HttpOptions } from '../../../dspace-rest';
+import { HALEndpointService } from '../../../shared';
+import { NoContent } from '../../../shared';
 import { NotificationsService } from '../../notifications.service';
-import { QualityAssuranceEventObject } from '../models/quality-assurance-event.model';
+import { QualityAssuranceEventData, QualityAssuranceEventObject } from '../models';
 
 /**
  * The service handling all Quality Assurance topic REST requests.

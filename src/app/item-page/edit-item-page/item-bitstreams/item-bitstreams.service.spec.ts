@@ -5,25 +5,25 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '../../../../../modules/core/src/lib/core/data/bitstream-data.service';
-import { BundleDataService } from '../../../../../modules/core/src/lib/core/data/bundle-data.service';
-import { ObjectUpdatesService } from '../../../../../modules/core/src/lib/core/data/object-updates/object-updates.service';
-import { ObjectUpdatesServiceStub } from '../../../../../modules/core/src/lib/core/data/object-updates/object-updates.service.stub';
-import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
-import { getMockTranslateService } from '../../../../../modules/core/src/lib/core/mocks/translate.service.mock';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Bitstream } from '../../../../../modules/core/src/lib/core/shared/bitstream.model';
-import { BitstreamFormat } from '../../../../../modules/core/src/lib/core/shared/bitstream-format.model';
-import { Bundle } from '../../../../../modules/core/src/lib/core/shared/bundle.model';
+import { DSONameService } from '@dspace/core';
+import { BitstreamDataService } from '@dspace/core';
+import { BundleDataService } from '@dspace/core';
+import { ObjectUpdatesService } from '@dspace/core';
+import { ObjectUpdatesServiceStub } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { getMockTranslateService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Bitstream } from '@dspace/core';
+import { BitstreamFormat } from '@dspace/core';
+import { Bundle } from '@dspace/core';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { BitstreamDataServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/bitstream-data-service.stub';
-import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { LiveRegionService } from '../../../shared/live-region/live-region.service';
+} from '@dspace/core';
+import { BitstreamDataServiceStub } from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { LiveRegionService } from '../../../../../modules/core/src/lib/core/services/live-region.service';
 import { getLiveRegionServiceStub } from '../../../shared/live-region/live-region.service.stub';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 import {

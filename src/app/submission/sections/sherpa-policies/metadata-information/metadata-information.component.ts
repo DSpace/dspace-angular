@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Metadata } from '../../../../../../modules/core/src/lib/core/submission/models/sherpa-policies-details.model';
+import { PolicyMetadata } from '@dspace/core';
 
 /**
  * This component represents a section that contains the metadata information.
@@ -22,8 +22,8 @@ import { Metadata } from '../../../../../../modules/core/src/lib/core/submission
 })
 export class MetadataInformationComponent {
   /**
-   * Metadata to show information from
+   * PolicyMetadata to show information from
    */
-  @Input() metadata: Metadata;
+  @Input() metadata: PolicyMetadata;
 
 }

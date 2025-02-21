@@ -8,8 +8,6 @@ import { ExpandableAdminSidebarSectionComponent } from './admin/admin-sidebar/ex
 import { ThemedAdminSidebarComponent } from './admin/admin-sidebar/themed-admin-sidebar.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { ThemedBreadcrumbsComponent } from './breadcrumbs/themed-breadcrumbs.component';
-import { NotificationComponent } from '../../modules/core/src/lib/core/notifications/notification/notification.component';
-import { NotificationsBoardComponent } from '../../modules/core/src/lib/core/notifications/notifications-board/notifications-board.component';
 import { FooterComponent } from './footer/footer.component';
 import { ThemedFooterComponent } from './footer/themed-footer.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
@@ -28,6 +26,8 @@ import { ThemedPageNotFoundComponent } from './pagenotfound/themed-pagenotfound.
 import { RootComponent } from './root/root.component';
 import { ThemedRootComponent } from './root/themed-root.component';
 import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';
+import { NotificationComponent } from "./notifications/notification";
+import { NotificationsBoardComponent } from "./notifications/notifications-board";
 
 const IMPORTS = [
   CommonModule,

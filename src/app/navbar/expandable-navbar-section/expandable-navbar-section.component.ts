@@ -18,8 +18,8 @@ import { first } from 'rxjs/operators';
 import { slide } from '../../shared/animations/slide';
 import { HostWindowService } from '../../shared/host-window.service';
 import { MenuService } from '../../shared/menu/menu.service';
-import { MenuID } from '../../shared/menu/menu-id.model';
-import { MenuSection } from '../../shared/menu/menu-section.model';
+import { MenuID } from '../../../../modules/core/src/lib/core/states/menu/menu-id.model';
+import { MenuSection } from '../../../../modules/core/src/lib/core/states/menu/menu-section.model';
 import { HoverOutsideDirective } from '../../shared/utils/hover-outside.directive';
 import { NavbarSectionComponent } from '../navbar-section/navbar-section.component';
 

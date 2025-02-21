@@ -28,34 +28,34 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { DSONameService } from '../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../modules/core/src/lib/core/cache/builders/link.service';
-import { buildPaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RequestService } from '../../../../modules/core/src/lib/core/data/request.service';
-import { EPersonDataService } from '../../../../modules/core/src/lib/core/eperson/eperson-data.service';
-import { GroupDataService } from '../../../../modules/core/src/lib/core/eperson/group-data.service';
-import { getMockLinkService } from '../../../../modules/core/src/lib/core/mocks/link-service.mock';
-import { getMockRequestService } from '../../../../modules/core/src/lib/core/mocks/request.service.mock';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { ActionType } from '../../../../modules/core/src/lib/core/resource-policy/models/action-type.model';
-import { PolicyType } from '../../../../modules/core/src/lib/core/resource-policy/models/policy-type.model';
-import { ResourcePolicyDataService } from '../../../../modules/core/src/lib/core/resource-policy/resource-policy-data.service';
-import { Bitstream } from '../../../../modules/core/src/lib/core/shared/bitstream.model';
-import { Bundle } from '../../../../modules/core/src/lib/core/shared/bundle.model';
-import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
-import { PageInfo } from '../../../../modules/core/src/lib/core/shared/page-info.model';
+import { DSONameService } from '@dspace/core';
+import { LinkService } from '@dspace/core';
+import { buildPaginatedList } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { EPersonDataService } from '@dspace/core';
+import { GroupDataService } from '@dspace/core';
+import { getMockLinkService } from '@dspace/core';
+import { getMockRequestService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { ActionType } from '@dspace/core';
+import { PolicyType } from '@dspace/core';
+import { ResourcePolicyDataService } from '@dspace/core';
+import { Bitstream } from '@dspace/core';
+import { Bundle } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { PageInfo } from '@dspace/core';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { EPersonMock } from '../../../../modules/core/src/lib/core/utilities/testing/eperson.mock';
-import { GroupMock } from '../../../../modules/core/src/lib/core/utilities/testing/group-mock';
-import { NotificationsServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { RouterStub } from '../../../../modules/core/src/lib/core/utilities/testing/router.stub';
+} from '@dspace/core';
+import { EPersonMock } from '@dspace/core';
+import { GroupMock } from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { RouterStub } from '@dspace/core';
 import {
   createPaginatedList,
   createTestComponent,
-} from '../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+} from '@dspace/core';
 import { getMockResourcePolicyService } from '../mocks/mock-resource-policy-service';
 import { HasValuePipe } from '../utils/has-value.pipe';
 import { ResourcePolicyEntryComponent } from './entry/resource-policy-entry.component';

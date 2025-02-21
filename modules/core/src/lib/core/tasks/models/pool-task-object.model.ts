@@ -3,7 +3,7 @@ import { inheritSerialization } from 'cerialize';
 import {
   inheritLinkAnnotations,
   typedObject,
-} from '../../cache/builders/build-decorators';
+} from '../../cache';
 import { POOL_TASK } from './pool-task-object.resource-type';
 import { TaskObject } from './task-object.model';
 

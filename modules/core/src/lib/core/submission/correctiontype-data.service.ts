@@ -4,22 +4,22 @@ import {
   Observable,
 } from 'rxjs';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { RequestParam } from '../cache/models/request-param.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { IdentifiableDataService } from '../data/base/identifiable-data.service';
-import { SearchDataImpl } from '../data/base/search-data';
-import { FindListOptions } from '../data/find-list-options.model';
-import { PaginatedList } from '../data/paginated-list.model';
-import { RemoteData } from '../data/remote-data';
-import { RequestService } from '../data/request.service';
-import { NotificationsService } from '../notifications/notifications.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { RemoteDataBuildService } from '../cache';
+import { RequestParam } from '../cache';
+import { ObjectCacheService } from '../cache';
+import { IdentifiableDataService } from '../data';
+import { SearchDataImpl } from '../data';
+import { FindListOptions } from '../data';
+import { PaginatedList } from '../data';
+import { RemoteData } from '../data';
+import { RequestService } from '../data';
+import { NotificationsService } from '../notifications';
+import { HALEndpointService } from '../shared';
 import {
   getAllSucceededRemoteDataPayload,
   getPaginatedListPayload,
-} from '../shared/operators';
-import { CorrectionType } from './models/correctiontype.model';
+} from '../shared';
+import { CorrectionType } from './models';
 
 /**
  * A service that provides methods to make REST requests with correctiontypes endpoint.

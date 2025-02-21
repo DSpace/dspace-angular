@@ -11,8 +11,8 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { APP_CONFIG } from '../config/app-config.interface';
-import { returnEndUserAgreementUrlTreeOnFalse } from '../shared/authorized.operators';
+import { APP_CONFIG } from '../config';
+import { returnEndUserAgreementUrlTreeOnFalse } from '../shared';
 
 export declare type HasAcceptedGuardParamFn = () => Observable<boolean>;
 /**

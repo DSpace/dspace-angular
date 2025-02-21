@@ -15,16 +15,16 @@ import {
   Observable,
 } from 'rxjs';
 
-import { NotifyRequestsStatusDataService } from '../../../../../../modules/core/src/lib/core/data/notify-services-status-data.service';
+import { NotifyRequestsStatusDataService } from '@dspace/core';
 import {
   NotifyRequestsStatus,
   NotifyStatuses,
-} from '../../../../../../modules/core/src/lib/core/notify-requests/notify-requests-status.model';
+} from '@dspace/core';
 import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '../../../../../../modules/core/src/lib/core/shared/operators';
-import { RequestStatusEnum } from '../../../../../../modules/core/src/lib/core/notify-requests/notify-status.enum';
+} from '@dspace/core';
+import { RequestStatusEnum } from '@dspace/core';
 import { RequestStatusAlertBoxComponent } from '../request-status-alert-box/request-status-alert-box.component';
 
 @Component({

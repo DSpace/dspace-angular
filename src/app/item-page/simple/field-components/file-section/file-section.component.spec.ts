@@ -18,18 +18,18 @@ import { environment } from 'src/environments/environment';
 import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
-} from '../../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { BitstreamDataService } from '../../../../../../modules/core/src/lib/core/data/bitstream-data.service';
-import { MockBitstreamFormat1 } from '../../../../../../modules/core/src/lib/core/mocks/item.mock';
-import { TranslateLoaderMock } from '../../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
-import { NotificationsService } from '../../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Bitstream } from '../../../../../../modules/core/src/lib/core/shared/bitstream.model';
-import { PageInfo } from '../../../../../../modules/core/src/lib/core/shared/page-info.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { createPaginatedList } from '../../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
-import { XSRFService } from '../../../../../../modules/core/src/lib/core/xsrf/xsrf.service';
+} from '@dspace/core';
+import { BitstreamDataService } from '@dspace/core';
+import { MockBitstreamFormat1 } from '@dspace/core';
+import { TranslateLoaderMock } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Bitstream } from '@dspace/core';
+import { PageInfo } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { ActivatedRouteStub } from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { createPaginatedList } from '@dspace/core';
+import { XSRFService } from '@dspace/core';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../../../shared/theme-support/theme.service';

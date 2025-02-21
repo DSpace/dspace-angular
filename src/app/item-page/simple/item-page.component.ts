@@ -26,22 +26,22 @@ import {
   switchMap,
   take,
 } from 'rxjs/operators';
-import { NotifyInfoService } from '../../../../modules/core/src/lib/core/coar-notify/notify-info/notify-info.service';
+import { NotifyInfoService } from '@dspace/core';
 
-import { AuthorizationDataService } from '../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
-import { ItemDataService } from '../../../../modules/core/src/lib/core/data/item-data.service';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { SignpostingDataService } from '../../../../modules/core/src/lib/core/data/signposting-data.service';
-import { SignpostingLink } from '../../../../modules/core/src/lib/core/data/signposting-links.model';
+import { AuthorizationDataService } from '@dspace/core';
+import { FeatureID } from '@dspace/core';
+import { ItemDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { SignpostingDataService } from '@dspace/core';
+import { SignpostingLink } from '@dspace/core';
 import {
-  LinkDefinition,
+  HeadLinkDefinition,
   LinkHeadService,
-} from '../../../../modules/core/src/lib/core/services/link-head.service';
-import { ServerResponseService } from '../../../../modules/core/src/lib/core/services/server-response.service';
-import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
-import { getAllSucceededRemoteDataPayload } from '../../../../modules/core/src/lib/core/shared/operators';
-import { ViewMode } from '../../../../modules/core/src/lib/core/shared/view-mode.model';
+} from '@dspace/core';
+import { ServerResponseService } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { getAllSucceededRemoteDataPayload } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
 import { fadeInOut } from '../../shared/animations/fade';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
@@ -117,9 +117,9 @@ export class ItemPageComponent implements OnInit, OnDestroy {
   signpostingLinks: SignpostingLink[] = [];
 
   /**
-   * An array of LinkDefinition objects representing inbox links for the item page.
+   * An array of HeadLinkDefinition objects representing inbox links for the item page.
    */
-  inboxTags: LinkDefinition[] = [];
+  inboxTags: HeadLinkDefinition[] = [];
 
   coarRestApiUrls: string[] = [];
 
@@ -167,7 +167,7 @@ export class ItemPageComponent implements OnInit, OnDestroy {
 
           signpostingLinks.forEach((link: SignpostingLink) => {
             links = links + (isNotEmpty(links) ? ', ' : '') + `<${link.href}> ; rel="${link.rel}"` + (isNotEmpty(link.type) ? ` ; type="${link.type}" ` : ' ');
-            let tag: LinkDefinition = {
+            let tag: HeadLinkDefinition = {
               href: link.href,
               rel: link.rel,
             };
@@ -217,7 +217,7 @@ export class ItemPageComponent implements OnInit, OnDestroy {
 
     coarRestApiUrls.forEach((coarRestApiUrl: string) => {
       // Add link to head
-      const tag: LinkDefinition = {
+      const tag: HeadLinkDefinition = {
         href: coarRestApiUrl,
         rel: rel,
       };
@@ -234,7 +234,7 @@ export class ItemPageComponent implements OnInit, OnDestroy {
     this.signpostingLinks.forEach((link: SignpostingLink) => {
       this.linkHeadService.removeTag(`href='${link.href}'`);
     });
-    this.inboxTags.forEach((link: LinkDefinition) => {
+    this.inboxTags.forEach((link: HeadLinkDefinition) => {
       this.linkHeadService.removeTag(`href='${link.href}'`);
     });
   }

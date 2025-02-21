@@ -30,22 +30,22 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../../../../../../../modules/core/src/lib/core/cache/builders/remote-data-build.service';
+import { RemoteDataBuildService } from '@dspace/core';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { FilterVocabularyConfig } from '../../../../../../../modules/core/src/lib/core/config/filter-vocabulary-config';
-import { PageInfo } from '../../../../../../../modules/core/src/lib/core/shared/page-info.model';
-import { SearchService } from '../../../../../../../modules/core/src/lib/core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../../../../../modules/core/src/lib/core/shared/search/search-filter.service';
-import { VocabularyEntryDetail } from '../../../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { VocabularyService } from '../../../../../../../modules/core/src/lib/core/submission/vocabularies/vocabulary.service';
+} from '@dspace/core';
+import { FilterVocabularyConfig } from '@dspace/core';
+import { PageInfo } from '@dspace/core';
+import { SearchService } from '@dspace/core';
+import { SearchConfigurationService } from '@dspace/core';
+import { SearchFilterService } from '@dspace/core';
+import { VocabularyEntryDetail } from '@dspace/core';
+import { VocabularyService } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 import { FilterInputSuggestionsComponent } from '../../../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
-import { addOperatorToFilterValue } from '../../../search.utils';
+import { addOperatorToFilterValue } from '../../../../../../../modules/core/src/lib/core/utilities/search.utils';
 import {
   facetLoad,
   SearchFacetFilterComponent,

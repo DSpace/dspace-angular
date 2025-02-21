@@ -16,14 +16,14 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { ComColDataService } from '../../../../../../modules/core/src/lib/core/data/comcol-data.service';
-import { RemoteData } from '../../../../../../modules/core/src/lib/core/data/remote-data';
-import { NotificationsService } from '../../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Collection } from '../../../../../../modules/core/src/lib/core/shared/collection.model';
-import { Community } from '../../../../../../modules/core/src/lib/core/shared/community.model';
-import { NoContent } from '../../../../../../modules/core/src/lib/core/shared/NoContent.model';
-import { getFirstCompletedRemoteData } from '../../../../../../modules/core/src/lib/core/shared/operators';
+import { DSONameService } from '@dspace/core';
+import { ComColDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { Community } from '@dspace/core';
+import { NoContent } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
 
 /**
  * Component representing the delete page for communities and collections

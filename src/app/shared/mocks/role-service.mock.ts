@@ -3,7 +3,7 @@ import {
   Observable,
 } from 'rxjs';
 
-import { RoleType } from '../../../../modules/core/src/lib/core/roles/role-types';
+import { RoleType } from '@dspace/core';
 
 export class RoleServiceMock {
 

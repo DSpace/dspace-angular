@@ -13,18 +13,18 @@ import {
   SearchFilterInitializeAction,
   SearchFilterResetPageAction,
   SearchFilterToggleAction,
-} from '../../../../../../../src/app/shared/search/search-filters/search-filter/search-filter.actions';
-import { SearchFiltersState } from '../../../../../../../src/app/shared/search/search-filters/search-filter/search-filter.reducer';
+} from '../../states/search-filters/search-filter.actions';
+import { SearchFiltersState } from '../../states/search-filters/search-filter.reducer';
 import {
   SortDirection,
   SortOptions,
-} from '../../cache/models/sort-options.model';
-import { RouteService } from '../../services/route.service';
-import { routeServiceStub } from '../../utilities/testing/route-service.stub';
-import { SearchServiceStub } from '../../utilities/testing/search-service.stub';
-import { FilterType } from './models/filter-type.model';
-import { SearchFilterConfig } from './models/search-filter-config.model';
-import { SearchOptions } from './models/search-options.model';
+} from '../../cache';
+import { RouteService } from '../../services';
+import { routeServiceStub } from '../../utilities';
+import { SearchServiceStub } from '../../utilities';
+import { FilterType } from './models';
+import { SearchFilterConfig } from './models';
+import { SearchOptions } from './models';
 import { SearchService } from './search.service';
 import { SearchFilterService } from './search-filter.service';
 

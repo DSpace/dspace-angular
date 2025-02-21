@@ -13,10 +13,10 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../auth/auth.service';
-import { Authorization } from '../../shared/authorization.model';
-import { Feature } from '../../shared/feature.model';
-import { getFirstSucceededRemoteDataPayload } from '../../shared/operators';
+import { AuthService } from '../../auth';
+import { Authorization } from '../../shared';
+import { Feature } from '../../shared';
+import { getFirstSucceededRemoteDataPayload } from '../../shared';
 import { SiteDataService } from '../site-data.service';
 import { AuthorizationSearchParams } from './authorization-search-params';
 import { FeatureID } from './feature-id';

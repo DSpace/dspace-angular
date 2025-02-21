@@ -22,18 +22,18 @@ import {
 } from 'rxjs/operators';
 
 import { getHomePageRoute } from '../../../../app-routing-paths';
-import { DSONameService } from '../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { RequestParam } from '../../../../../../modules/core/src/lib/core/cache/models/request-param.model';
-import { ComColDataService } from '../../../../../../modules/core/src/lib/core/data/comcol-data.service';
-import { CommunityDataService } from '../../../../../../modules/core/src/lib/core/data/community-data.service';
-import { RemoteData } from '../../../../../../modules/core/src/lib/core/data/remote-data';
-import { RequestService } from '../../../../../../modules/core/src/lib/core/data/request.service';
-import { NotificationsService } from '../../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { RouteService } from '../../../../../../modules/core/src/lib/core/services/route.service';
-import { Collection } from '../../../../../../modules/core/src/lib/core/shared/collection.model';
-import { Community } from '../../../../../../modules/core/src/lib/core/shared/community.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../../modules/core/src/lib/core/shared/operators';
-import { ResourceType } from '../../../../../../modules/core/src/lib/core/shared/resource-type';
+import { DSONameService } from '@dspace/core';
+import { RequestParam } from '@dspace/core';
+import { ComColDataService } from '@dspace/core';
+import { CommunityDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { RouteService } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { Community } from '@dspace/core';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core';
+import { ResourceType } from '@dspace/core';
 
 /**
  * Component representing the create page for communities and collections

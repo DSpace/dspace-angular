@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { hasValue } from '@dspace/shared/utils';
 import { Operation } from 'fast-json-patch';
 
-import { MetadatumViewModel } from '../../../shared/metadata.models';
+import { MetadatumViewModel } from '../../../shared';
 import { FieldChangeType } from '../field-change-type.model';
 import { FieldUpdates } from '../field-updates.model';
-import { MetadataPatchAddOperation } from './operations/metadata/metadata-patch-add-operation.model';
-import { MetadataPatchOperation } from './operations/metadata/metadata-patch-operation.model';
-import { MetadataPatchRemoveOperation } from './operations/metadata/metadata-patch-remove-operation.model';
-import { MetadataPatchReplaceOperation } from './operations/metadata/metadata-patch-replace-operation.model';
+import { MetadataPatchAddOperation } from './operations';
+import { MetadataPatchOperation } from './operations';
+import { MetadataPatchRemoveOperation } from './operations';
+import { MetadataPatchReplaceOperation } from './operations';
 import { PatchOperationService } from './patch-operation.service';
 
 /**

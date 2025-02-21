@@ -11,8 +11,8 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 
-import { VocabularyEntryDetail } from '../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { VocabularyOptions } from '../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-options.model';
+import { VocabularyEntryDetail } from '@dspace/core';
+import { VocabularyOptions } from '@dspace/core';
 import { VocabularyTreeviewComponent } from '../vocabulary-treeview/vocabulary-treeview.component';
 
 @Component({

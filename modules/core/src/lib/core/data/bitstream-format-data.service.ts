@@ -11,31 +11,31 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
+import { RemoteDataBuildService } from '../cache';
+import { ObjectCacheService } from '../cache';
 import { coreSelector } from '../core.selectors';
 import { CoreState } from '../core-state.model';
-import { NotificationsService } from '../notifications/notifications.service';
-import { Bitstream } from '../shared/bitstream.model';
-import { BitstreamFormat } from '../shared/bitstream-format.model';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { NoContent } from '../shared/NoContent.model';
-import { sendRequest } from '../shared/request.operators';
+import { NotificationsService } from '../notifications';
+import { Bitstream } from '../shared';
+import { BitstreamFormat } from '../shared';
+import { HALEndpointService } from '../shared';
+import { NoContent } from '../shared';
+import { sendRequest } from '../shared';
 import {
   BitstreamFormatsRegistryDeselectAction,
   BitstreamFormatsRegistryDeselectAllAction,
   BitstreamFormatsRegistrySelectAction,
-} from '../states/bitstream-format/bitstream-format.actions';
-import { BitstreamFormatRegistryState } from '../states/bitstream-format/bitstream-format.reducers';
+} from '../states';
+import { BitstreamFormatRegistryState } from '../states';
 import {
   DeleteData,
   DeleteDataImpl,
-} from './base/delete-data';
+} from './base';
 import {
   FindAllData,
   FindAllDataImpl,
-} from './base/find-all-data';
-import { IdentifiableDataService } from './base/identifiable-data.service';
+} from './base';
+import { IdentifiableDataService } from './base';
 import { FindListOptions } from './find-list-options.model';
 import { FollowLinkConfig } from './follow-link-config.model';
 import { PaginatedList } from './paginated-list.model';

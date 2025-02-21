@@ -4,12 +4,12 @@ import {
   Input,
 } from '@angular/core';
 
-import { Context } from '../../../../modules/core/src/lib/core/shared/context.model';
-import { GenericConstructor } from '../../../../modules/core/src/lib/core/shared/generic-constructor';
+import { Context } from '@dspace/core';
+import { GenericConstructor } from '@dspace/core';
 import {
   MetadataRepresentation,
   MetadataRepresentationType,
-} from '../../../../modules/core/src/lib/core/shared/metadata-representation/metadata-representation.model';
+} from '@dspace/core';
 import { AbstractComponentLoaderComponent } from '../abstract-component-loader/abstract-component-loader.component';
 import { MetadataRepresentationListElementComponent } from '../object-list/metadata-representation-list-element/metadata-representation-list-element.component';
 import { ThemeService } from '../theme-support/theme.service';

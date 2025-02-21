@@ -4,7 +4,7 @@ import {
   isEmpty,
 } from '@dspace/shared/utils';
 
-import { GenericConstructor } from '../shared/generic-constructor';
+import { GenericConstructor } from '../shared';
 
 const excludedFromEquals = new Map();
 const fieldsForEqualsMap = new Map();

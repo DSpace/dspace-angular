@@ -22,8 +22,8 @@ import {
   of,
 } from 'rxjs';
 
-import { LangConfig } from '../../../../modules/core/src/lib/core/config/lang-config.interface';
-import { LocaleService } from '../../../../modules/core/src/lib/core/locale/locale.service';
+import { LangConfig } from '@dspace/core';
+import { LocaleService } from '@dspace/core';
 import { LangSwitchComponent } from './lang-switch.component';
 
 // This test is completely independent from any message catalogs or keys in the codebase

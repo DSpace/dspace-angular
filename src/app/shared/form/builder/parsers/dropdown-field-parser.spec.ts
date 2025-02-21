@@ -1,5 +1,5 @@
-import { getMockTranslateService } from '../../../../../../modules/core/src/lib/core/mocks/translate.service.mock';
-import { FormFieldModel } from '../../../../../../modules/core/src/lib/core/shared/form/form-field.model';
+import { getMockTranslateService } from '@dspace/core';
+import { FormFieldModel } from '@dspace/core';
 import { DynamicScrollableDropdownModel } from '../ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { DropdownFieldParser } from './dropdown-field-parser';
 import { ParserOptions } from './parser-options';

@@ -9,10 +9,10 @@ import {
 import {
   inject,
   TestBed,
-} from '@angular/core/testing';
+} from '@angular/core';
 
-import { RestRequestMethod } from '../data/rest-request-method';
-import { DSpaceObject } from '../shared/dspace-object.model';
+import { RestRequestMethod } from '../data';
+import { DSpaceObject } from '../shared';
 import {
   DEFAULT_CONTENT_TYPE,
   DspaceRestService,

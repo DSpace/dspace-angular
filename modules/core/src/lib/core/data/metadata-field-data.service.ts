@@ -3,31 +3,31 @@ import { hasValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { RequestParam } from '../cache/models/request-param.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { MetadataField } from '../metadata/metadata-field.model';
-import { MetadataSchema } from '../metadata/metadata-schema.model';
-import { NotificationsService } from '../notifications/notifications.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { NoContent } from '../shared/NoContent.model';
+import { RemoteDataBuildService } from '../cache';
+import { RequestParam } from '../cache';
+import { ObjectCacheService } from '../cache';
+import { MetadataField } from '../metadata';
+import { MetadataSchema } from '../metadata';
+import { NotificationsService } from '../notifications';
+import { HALEndpointService } from '../shared';
+import { NoContent } from '../shared';
 import {
   CreateData,
   CreateDataImpl,
-} from './base/create-data';
+} from './base';
 import {
   DeleteData,
   DeleteDataImpl,
-} from './base/delete-data';
-import { IdentifiableDataService } from './base/identifiable-data.service';
+} from './base';
+import { IdentifiableDataService } from './base';
 import {
   PutData,
   PutDataImpl,
-} from './base/put-data';
+} from './base';
 import {
   SearchData,
   SearchDataImpl,
-} from './base/search-data';
+} from './base';
 import { FindListOptions } from './find-list-options.model';
 import { FollowLinkConfig } from './follow-link-config.model';
 import { PaginatedList } from './paginated-list.model';

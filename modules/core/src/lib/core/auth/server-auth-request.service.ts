@@ -7,15 +7,15 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { PostRequest } from '../data/request.models';
-import { RequestService } from '../data/request.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { RemoteDataBuildService } from '../cache';
+import { PostRequest } from '../data';
+import { RequestService } from '../data';
+import { HALEndpointService } from '../shared';
 import {
   DSPACE_XSRF_COOKIE,
   XSRF_REQUEST_HEADER,
   XSRF_RESPONSE_HEADER,
-} from '../xsrf/xsrf.constants';
+} from '../xsrf';
 import { AuthRequestService } from './auth-request.service';
 
 /**

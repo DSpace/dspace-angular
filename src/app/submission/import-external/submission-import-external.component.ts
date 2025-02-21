@@ -31,21 +31,21 @@ import {
 } from 'rxjs/operators';
 import { AlertType } from 'src/app/shared/alert/alert-type';
 
-import { ExternalSourceDataService } from '../../../../modules/core/src/lib/core/data/external-source-data.service';
+import { ExternalSourceDataService } from '@dspace/core';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { RouteService } from '../../../../modules/core/src/lib/core/services/route.service';
-import { Context } from '../../../../modules/core/src/lib/core/shared/context.model';
-import { ExternalSourceEntry } from '../../../../modules/core/src/lib/core/shared/external-source-entry.model';
-import { NONE_ENTITY_TYPE } from '../../../../modules/core/src/lib/core/shared/item-relationships/item-type.resource-type';
-import { getFinishedRemoteData } from '../../../../modules/core/src/lib/core/shared/operators';
-import { PageInfo } from '../../../../modules/core/src/lib/core/shared/page-info.model';
-import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
-import { SearchConfigurationService } from '../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
-import { createSuccessfulRemoteDataObject } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+} from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { RouteService } from '@dspace/core';
+import { Context } from '@dspace/core';
+import { ExternalSourceEntry } from '@dspace/core';
+import { NONE_ENTITY_TYPE } from '@dspace/core';
+import { getFinishedRemoteData } from '@dspace/core';
+import { PageInfo } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
+import { SearchConfigurationService } from '@dspace/core';
+import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { fadeIn } from '../../shared/animations/fade';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';

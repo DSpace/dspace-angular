@@ -5,12 +5,12 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { APP_DATA_SERVICES_MAP } from '../../config/app-config.interface';
-import { followLink } from '../../data/follow-link-config.model';
-import { HALLink } from '../../shared/hal-link.model';
-import { HALResource } from '../../shared/hal-resource.model';
-import { ResourceType } from '../../shared/resource-type';
-import { TestDataService } from '../../utilities/testing/test-data-service.mock';
+import { APP_DATA_SERVICES_MAP } from '../../config';
+import { followLink } from '../../data';
+import { HALLink } from '../../shared';
+import { HALResource } from '../../shared';
+import { ResourceType } from '../../shared';
+import { TestDataService } from '../../utilities';
 import {
   LINK_DEFINITION_FACTORY,
   LINK_DEFINITION_MAP_FACTORY,

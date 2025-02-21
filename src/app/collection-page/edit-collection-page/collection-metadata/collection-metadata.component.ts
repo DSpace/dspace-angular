@@ -25,18 +25,18 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { CollectionDataService } from '../../../../../modules/core/src/lib/core/data/collection-data.service';
-import { ItemTemplateDataService } from '../../../../../modules/core/src/lib/core/data/item-template-data.service';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { NoContent } from '../../../../../modules/core/src/lib/core/shared/NoContent.model';
+import { CollectionDataService } from '@dspace/core';
+import { ItemTemplateDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { NoContent } from '@dspace/core';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '../../../../../modules/core/src/lib/core/shared/operators';
+} from '@dspace/core';
 import { ComcolMetadataComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-metadata/comcol-metadata.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { CollectionFormComponent } from '../../collection-form/collection-form.component';

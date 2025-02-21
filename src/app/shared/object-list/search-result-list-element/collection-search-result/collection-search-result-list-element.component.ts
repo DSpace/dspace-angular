@@ -5,9 +5,9 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { CollectionSearchResult } from '../../../../../../modules/core/src/lib/core/object-collection/collection-search-result.model';
-import { Collection } from '../../../../../../modules/core/src/lib/core/shared/collection.model';
-import { ViewMode } from '../../../../../../modules/core/src/lib/core/shared/view-mode.model';
+import { CollectionSearchResult } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { SearchResultListElementComponent } from '../search-result-list-element.component';

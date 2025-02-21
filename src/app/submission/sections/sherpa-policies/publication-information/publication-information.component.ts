@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Journal } from '../../../../../../modules/core/src/lib/core/submission/models/sherpa-policies-details.model';
+import { Journal } from '@dspace/core';
 
 /**
  * This component represents a section that contains the journal publication information.

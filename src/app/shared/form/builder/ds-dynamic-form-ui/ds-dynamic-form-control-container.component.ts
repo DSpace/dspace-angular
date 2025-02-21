@@ -80,42 +80,42 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { CoreState } from '../../../../../../modules/core/src/lib/core/core-state.model';
-import { followLink } from '../../../../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { PaginatedList } from '../../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RelationshipDataService } from '../../../../../../modules/core/src/lib/core/data/relationship-data.service';
-import { RemoteData } from '../../../../../../modules/core/src/lib/core/data/remote-data';
-import { MetadataService } from '../../../../../../modules/core/src/lib/core/metadata/metadata.service';
-import { ItemSearchResult } from '../../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
-import { Collection } from '../../../../../../modules/core/src/lib/core/shared/collection.model';
-import { DSpaceObject } from '../../../../../../modules/core/src/lib/core/shared/dspace-object.model';
-import { RelationshipOptions } from '../../../../../../modules/core/src/lib/core/shared/form/relationship-options.model';
-import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
-import { paginatedRelationsToItems } from '../../../../../../modules/core/src/lib/core/shared/item-relationships/item-relationships-utils';
-import { Relationship } from '../../../../../../modules/core/src/lib/core/shared/item-relationships/relationship.model';
-import { ReorderableRelationship } from '../../../../../../modules/core/src/lib/core/shared/item-relationships/reorderable-relationship.model';
+} from '@dspace/core';
+import { CoreState } from '@dspace/core';
+import { followLink } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RelationshipDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { MetadataService } from '@dspace/core';
+import { ItemSearchResult } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
+import { RelationshipOptions } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { paginatedRelationsToItems } from '@dspace/core';
+import { Relationship } from '@dspace/core';
+import { ReorderableRelationship } from '@dspace/core';
 import {
   MetadataValue,
   VIRTUAL_METADATA_PREFIX,
-} from '../../../../../../modules/core/src/lib/core/shared/metadata.models';
+} from '@dspace/core';
 import {
   getAllSucceededRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
   getPaginatedListPayload,
   getRemoteDataPayload,
-} from '../../../../../../modules/core/src/lib/core/shared/operators';
-import { SearchResult } from '../../../../../../modules/core/src/lib/core/shared/search/models/search-result.model';
-import { SubmissionObject } from '../../../../../../modules/core/src/lib/core/submission/models/submission-object.model';
-import { SubmissionObjectDataService } from '../../../../../../modules/core/src/lib/core/submission/submission-object-data.service';
-import { itemLinksToFollow } from '../../../../../../modules/core/src/lib/core/utilities/relation-query.utils';
-import { SubmissionService } from '../../../../submission/submission.service';
+} from '@dspace/core';
+import { SearchResult } from '@dspace/core';
+import { SubmissionObject } from '@dspace/core';
+import { SubmissionObjectDataService } from '@dspace/core';
+import { itemLinksToFollow } from '@dspace/core';
+import { SubmissionService } from '../../../../../../modules/core/src/lib/core/submission/submission.service';
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
-import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
-import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
+import { SelectableListState } from '../../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.reducer';
+import { SelectableListService } from '../../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
 import { FormBuilderService } from '../form-builder.service';
-import { FormFieldMetadataValueObject } from '../../../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '@dspace/core';
 import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
 import { ExistingMetadataListElementComponent } from './existing-metadata-list-element/existing-metadata-list-element.component';
 import { ExistingRelationListElementComponent } from './existing-relation-list-element/existing-relation-list-element.component';

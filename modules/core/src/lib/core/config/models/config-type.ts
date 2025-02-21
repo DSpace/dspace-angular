@@ -1,4 +1,4 @@
-import { ResourceType } from '../../shared/resource-type';
+import { ResourceType } from '../../shared';
 
 export const SUBMISSION_DEFINITIONS_TYPE = new ResourceType('submissiondefinitions');
 

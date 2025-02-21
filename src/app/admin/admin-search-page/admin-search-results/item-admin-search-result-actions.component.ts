@@ -6,8 +6,8 @@ import {
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { URLCombiner } from '../../../../../modules/core/src/lib/core/url-combiner/url-combiner';
+import { Item } from '@dspace/core';
+import { URLCombiner } from '@dspace/core';
 import {
   ITEM_EDIT_DELETE_PATH,
   ITEM_EDIT_MOVE_PATH,

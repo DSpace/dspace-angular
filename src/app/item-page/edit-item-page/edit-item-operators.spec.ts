@@ -1,12 +1,12 @@
 import { isNotEmpty } from '@dspace/shared/utils';
 import { hot } from 'jasmine-marbles';
 
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
+import { RemoteData } from '@dspace/core';
+import { Item } from '@dspace/core';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
-} from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+} from '@dspace/core';
 import { findSuccessfulAccordingTo } from './edit-item-operators';
 
 describe('findSuccessfulAccordingTo', () => {

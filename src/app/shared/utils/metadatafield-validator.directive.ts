@@ -19,11 +19,11 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { MetadataFieldDataService } from '../../../../modules/core/src/lib/core/data/metadata-field-data.service';
-import { PaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { MetadataField } from '../../../../modules/core/src/lib/core/metadata/metadata-field.model';
-import { getFirstSucceededRemoteData } from '../../../../modules/core/src/lib/core/shared/operators';
+import { MetadataFieldDataService } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { MetadataField } from '@dspace/core';
+import { getFirstSucceededRemoteData } from '@dspace/core';
 
 /**
  * Directive for validating if a ngModel value is a valid metadata field

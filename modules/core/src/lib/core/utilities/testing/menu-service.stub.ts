@@ -3,9 +3,9 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { MenuID } from '../../../../../../../src/app/shared/menu/menu-id.model';
-import { MenuSection } from '../../../../../../../src/app/shared/menu/menu-section.model';
-import { MenuState } from '../../../../../../../src/app/shared/menu/menu-state.model';
+import { MenuID } from '../../states/menu/menu-id.model';
+import { MenuSection } from '../../states/menu/menu-section.model';
+import { MenuState } from '../../states/menu/menu-state.model';
 
 export class MenuServiceStub {
   visibleSection1 = {

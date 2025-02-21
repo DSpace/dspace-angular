@@ -24,20 +24,20 @@ import {
   of,
 } from 'rxjs';
 
-import { AuthorizationDataService } from '../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
-import { VersionDataService } from '../../../../../modules/core/src/lib/core/data/version-data.service';
-import { VersionHistoryDataService } from '../../../../../modules/core/src/lib/core/data/version-history-data.service';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { Version } from '../../../../../modules/core/src/lib/core/shared/version.model';
-import { VersionHistory } from '../../../../../modules/core/src/lib/core/shared/version-history.model';
-import { WorkflowItemDataService } from '../../../../../modules/core/src/lib/core/submission/workflowitem-data.service';
-import { WorkspaceitemDataService } from '../../../../../modules/core/src/lib/core/submission/workspaceitem-data.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { createPaginatedList } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+import { AuthorizationDataService } from '@dspace/core';
+import { ItemDataService } from '@dspace/core';
+import { VersionDataService } from '@dspace/core';
+import { VersionHistoryDataService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { Version } from '@dspace/core';
+import { VersionHistory } from '@dspace/core';
+import { WorkflowItemDataService } from '@dspace/core';
+import { WorkspaceitemDataService } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { ActivatedRouteStub } from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { createPaginatedList } from '@dspace/core';
 import { ItemVersionsComponent } from '../item-versions.component';
 import { ItemVersionsRowElementVersionComponent } from './item-versions-row-element-version.component';
 

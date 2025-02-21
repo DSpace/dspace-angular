@@ -19,13 +19,13 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { Identifier } from '../../../../../modules/core/src/lib/core/data/identifier.model';
-import { IdentifierDataService } from '../../../../../modules/core/src/lib/core/data/identifier-data.service';
-import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { getFirstSucceededRemoteData } from '../../../../../modules/core/src/lib/core/shared/operators';
+import { Identifier } from '@dspace/core';
+import { IdentifierDataService } from '@dspace/core';
+import { ItemDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { getFirstSucceededRemoteData } from '@dspace/core';
 import { getItemPageRoute } from '../../item-page-routing-paths';
 import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
 import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';

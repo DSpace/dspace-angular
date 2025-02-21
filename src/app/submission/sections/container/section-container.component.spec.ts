@@ -14,18 +14,18 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { SectionsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/sections-service.stub';
-import { SubmissionServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/submission-service.stub';
-import { createTestComponent } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+import { SectionsServiceStub } from '@dspace/core';
+import { SubmissionServiceStub } from '@dspace/core';
+import { createTestComponent } from '@dspace/core';
 import {
   mockSubmissionCollectionId,
   mockSubmissionId,
 } from '../../../shared/mocks/submission.mock';
-import { SubmissionService } from '../../submission.service';
-import { SectionDataObject } from '../models/section-data.model';
+import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
+import { SectionDataObject } from '../../../../../modules/core/src/lib/core/submission/sections/section-data.model';
 import { SectionsDirective } from '../sections.directive';
 import { SectionsService } from '../sections.service';
-import { SectionsType } from '../sections-type';
+import { SectionsType } from '../../../../../modules/core/src/lib/core/submission/models/sections-type';
 import { SubmissionSectionContainerComponent } from './section-container.component';
 
 const sectionState = {

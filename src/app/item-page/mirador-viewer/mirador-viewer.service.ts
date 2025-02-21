@@ -11,19 +11,19 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { BitstreamDataService } from '../../../../modules/core/src/lib/core/data/bitstream-data.service';
-import { BundleDataService } from '../../../../modules/core/src/lib/core/data/bundle-data.service';
+import { BitstreamDataService } from '@dspace/core';
+import { BundleDataService } from '@dspace/core';
 import {
   followLink,
   FollowLinkConfig,
-} from '../../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { PaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { Bitstream } from '../../../../modules/core/src/lib/core/shared/bitstream.model';
-import { BitstreamFormat } from '../../../../modules/core/src/lib/core/shared/bitstream-format.model';
-import { Bundle } from '../../../../modules/core/src/lib/core/shared/bundle.model';
-import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
-import { getFirstCompletedRemoteData } from '../../../../modules/core/src/lib/core/shared/operators';
+} from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { Bitstream } from '@dspace/core';
+import { BitstreamFormat } from '@dspace/core';
+import { Bundle } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
 
 @Injectable({ providedIn: 'root' })
 export class MiradorViewerService {

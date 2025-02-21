@@ -1,4 +1,4 @@
-import { EPersonMock } from '../../utilities/testing/eperson.mock';
+import { EPersonMock } from '../../utilities';
 import {
   EPeopleRegistryCancelEPersonAction,
   EPeopleRegistryEditEPersonAction,

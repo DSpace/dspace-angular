@@ -5,8 +5,8 @@ import {
 } from '@dspace/shared/utils';
 import { TranslateService } from '@ngx-translate/core';
 
-import { DSpaceObject } from '../shared/dspace-object.model';
-import { Metadata } from '../shared/metadata.utils';
+import { DSpaceObject } from '../shared';
+import { Metadata } from '../shared';
 
 /**
  * Returns a name for a {@link DSpaceObject} based
@@ -120,7 +120,7 @@ export class DSONameService {
    *
    * @param object
    * @param dso
-   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
+   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[PolicyMetadata]].
    *
    * @returns {string} the first matching string value, or `undefined`.
    */

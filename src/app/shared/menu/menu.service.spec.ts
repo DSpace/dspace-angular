@@ -25,13 +25,13 @@ import {
   ShowMenuAction,
   ToggleActiveMenuSectionAction,
   ToggleMenuAction,
-} from './menu.actions';
-import { menusReducer } from './menu.reducer';
+} from '../../../../modules/core/src/lib/core/states/menu/menu.actions';
+import { menusReducer } from '../../../../modules/core/src/lib/core/states/menu/menu.reducer';
 import { MenuService } from './menu.service';
-import { MenuID } from './menu-id.model';
+import { MenuID } from '../../../../modules/core/src/lib/core/states/menu/menu-id.model';
 import { LinkMenuItemModel } from './menu-item/models/link.model';
-import { MenuItemType } from './menu-item-type.model';
-import { MenuSection } from './menu-section.model';
+import { MenuItemType } from '../../../../modules/core/src/lib/core/states/menu/menu-item-type.model';
+import { MenuSection } from '../../../../modules/core/src/lib/core/states/menu/menu-section.model';
 
 describe('MenuService', () => {
   let service: MenuService;

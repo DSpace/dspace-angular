@@ -4,10 +4,10 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { PostRequest } from '../data/request.models';
-import { RequestService } from '../data/request.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { RemoteDataBuildService } from '../cache';
+import { PostRequest } from '../data';
+import { RequestService } from '../data';
+import { HALEndpointService } from '../shared';
 import { AuthRequestService } from './auth-request.service';
 
 /**

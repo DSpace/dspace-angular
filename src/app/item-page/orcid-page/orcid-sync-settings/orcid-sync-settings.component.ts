@@ -30,16 +30,16 @@ import {
   takeUntil,
 } from 'rxjs/operators';
 
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { ResearcherProfile } from '../../../../../modules/core/src/lib/core/profile/model/researcher-profile.model';
-import { ResearcherProfileDataService } from '../../../../../modules/core/src/lib/core/profile/researcher-profile-data.service';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { RemoteData } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { ResearcherProfile } from '@dspace/core';
+import { ResearcherProfileDataService } from '@dspace/core';
+import { Item } from '@dspace/core';
 import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '../../../../../modules/core/src/lib/core/shared/operators';
-import { createFailedRemoteDataObjectFromError$ } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+} from '@dspace/core';
+import { createFailedRemoteDataObjectFromError$ } from '@dspace/core';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 

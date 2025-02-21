@@ -20,14 +20,14 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { AuthService } from '../auth/auth.service';
-import { CookieService } from '../services/cookie.service';
-import { RouteService } from '../services/route.service';
+import { AuthService } from '../auth';
+import { CookieService } from '../services';
+import { RouteService } from '../services';
 import {
   NativeWindowRef,
   NativeWindowService,
-} from '../services/window.service';
-import { REQUEST } from '../tokens/express.tokens';
+} from '../services';
+import { REQUEST } from '../tokens';
 import {
   LANG_ORIGIN,
   LocaleService,

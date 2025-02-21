@@ -8,10 +8,10 @@ import { Observable } from 'rxjs';
 import {
   link,
   typedObject,
-} from '../cache/builders/build-decorators';
-import { RemoteData } from '../data/remote-data';
-import { EPerson } from '../eperson/models/eperson.model';
-import { EPERSON } from '../eperson/models/eperson.resource-type';
+} from '../cache';
+import { RemoteData } from '../data';
+import { EPerson } from '../eperson';
+import { EPERSON } from '../eperson';
 import { AUTHORIZATION } from './authorization.resource-type';
 import { DSpaceObject } from './dspace-object.model';
 import { Feature } from './feature.model';

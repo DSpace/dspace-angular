@@ -26,31 +26,31 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { ConfigurationDataService } from '../../../../../modules/core/src/lib/core/data/configuration-data.service';
-import { FindListOptions } from '../../../../../modules/core/src/lib/core/data/find-list-options.model';
-import { JsonPatchOperationPathCombiner } from '../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operations-builder';
+import { ConfigurationDataService } from '@dspace/core';
+import { FindListOptions } from '@dspace/core';
+import { JsonPatchOperationPathCombiner } from '@dspace/core';
+import { JsonPatchOperationsBuilder } from '@dspace/core';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
-} from '../../../../../modules/core/src/lib/core/shared/operators';
+} from '@dspace/core';
 import {
   Field,
   Option,
   SubmissionCcLicence,
-} from '../../../../../modules/core/src/lib/core/submission/models/submission-cc-license.model';
-import { WorkspaceitemSectionCcLicenseObject } from '../../../../../modules/core/src/lib/core/submission/models/workspaceitem-section-cc-license.model';
-import { SubmissionCcLicenseDataService } from '../../../../../modules/core/src/lib/core/submission/submission-cc-license-data.service';
-import { SubmissionCcLicenseUrlDataService } from '../../../../../modules/core/src/lib/core/submission/submission-cc-license-url-data.service';
+} from '@dspace/core';
+import { WorkspaceitemSectionCcLicenseObject } from '@dspace/core';
+import { SubmissionCcLicenseDataService } from '@dspace/core';
+import { SubmissionCcLicenseUrlDataService } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { DsSelectComponent } from '../../../shared/ds-select/ds-select.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { SectionModelComponent } from '../models/section.model';
-import { SectionDataObject } from '../models/section-data.model';
+import { SectionDataObject } from '../../../../../modules/core/src/lib/core/submission/sections/section-data.model';
 import { SectionsService } from '../sections.service';
-import { SectionsType } from '../sections-type';
+import { SectionsType } from '../../../../../modules/core/src/lib/core/submission/models/sections-type';
 
 /**
  * This component represents the submission section to select the Creative Commons license.

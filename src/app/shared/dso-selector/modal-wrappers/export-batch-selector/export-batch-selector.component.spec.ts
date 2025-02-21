@@ -24,24 +24,24 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthorizationDataService } from '../../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
+import { AuthorizationDataService } from '@dspace/core';
 import {
   BATCH_EXPORT_SCRIPT_NAME,
   ScriptDataService,
-} from '../../../../../../modules/core/src/lib/core/data/processes/script-data.service';
-import { TranslateLoaderMock } from '../../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
-import { NotificationsService } from '../../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { ProcessParameter } from '../../../../../../modules/core/src/lib/core/processes/process-parameter.model';
-import { Collection } from '../../../../../../modules/core/src/lib/core/shared/collection.model';
-import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
-import { SearchService } from '../../../../../../modules/core/src/lib/core/shared/search/search.service';
+} from '@dspace/core';
+import { TranslateLoaderMock } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { ProcessParameter } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { SearchService } from '@dspace/core';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { SearchServiceStub } from '../../../../../../modules/core/src/lib/core/utilities/testing/search-service.stub';
+} from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { SearchServiceStub } from '@dspace/core';
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
 import { ExportBatchSelectorComponent } from './export-batch-selector.component';
 

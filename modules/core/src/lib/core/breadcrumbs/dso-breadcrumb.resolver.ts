@@ -6,14 +6,14 @@ import { hasValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { IdentifiableDataService } from '../data/base/identifiable-data.service';
-import { FollowLinkConfig } from '../data/follow-link-config.model';
-import { getDSpaceObjectRoute } from '../router/utils/routes-utils';
-import { DSpaceObject } from '../shared/dspace-object.model';
+import { IdentifiableDataService } from '../data';
+import { FollowLinkConfig } from '../data';
+import { getDSpaceObjectRoute } from '../router';
+import { DSpaceObject } from '../shared';
 import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '../shared/operators';
+} from '../shared';
 import { BreadcrumbConfig } from './breadcrumb-config.model';
 import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
 

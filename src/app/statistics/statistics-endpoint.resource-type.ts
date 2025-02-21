@@ -1,4 +1,4 @@
-import { ResourceType } from '../../../modules/core/src/lib/core/shared/resource-type';
+import { ResourceType } from '@dspace/core';
 
 /**
  * The resource type for the statistics endpoint

@@ -5,26 +5,26 @@ import {
 } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Duplicate } from '../../../../../../src/app/shared/object-list/duplicate-data/duplicate.model';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { RequestParam } from '../cache/models/request-param.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { BaseDataService } from '../data/base/base-data.service';
+import { Duplicate } from '../data/duplicate-data/duplicate.model';
+import { RemoteDataBuildService } from '../cache';
+import { RequestParam } from '../cache';
+import { ObjectCacheService } from '../cache';
+import { BaseDataService } from '../data';
 import {
   SearchData,
   SearchDataImpl,
-} from '../data/base/search-data';
-import { FindListOptions } from '../data/find-list-options.model';
-import { FollowLinkConfig } from '../data/follow-link-config.model';
-import { PaginatedList } from '../data/paginated-list.model';
-import { ResponseParsingService } from '../data/parsing.service';
-import { RemoteData } from '../data/remote-data';
-import { GetRequest } from '../data/request.models';
-import { RequestService } from '../data/request.service';
-import { RestRequest } from '../data/rest-request.model';
-import { SearchResponseParsingService } from '../data/search-response-parsing.service';
-import { GenericConstructor } from '../shared/generic-constructor';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
+} from '../data';
+import { FindListOptions } from '../data';
+import { FollowLinkConfig } from '../data';
+import { PaginatedList } from '../data';
+import { ResponseParsingService } from '../data';
+import { RemoteData } from '../data';
+import { GetRequest } from '../data';
+import { RequestService } from '../data';
+import { RestRequest } from '../data';
+import { SearchResponseParsingService } from '../data';
+import { GenericConstructor } from '../shared';
+import { HALEndpointService } from '../shared';
 
 /**
  * Service that handles search requests for potential duplicate items.

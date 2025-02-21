@@ -3,8 +3,8 @@ import {
   Input,
 } from '@angular/core';
 
-import { Context } from '../../../../../modules/core/src/lib/core/shared/context.model';
-import { MetadataRepresentation } from '../../../../../modules/core/src/lib/core/shared/metadata-representation/metadata-representation.model';
+import { Context } from '@dspace/core';
+import { MetadataRepresentation } from '@dspace/core';
 
 @Component({
   selector: 'ds-metadata-representation-list-element',

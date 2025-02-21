@@ -3,8 +3,8 @@ import {
   Input,
 } from '@angular/core';
 
-import { UpdateDataService } from '../../../../modules/core/src/lib/core/data/update-data.service';
-import { DSpaceObject } from '../../../../modules/core/src/lib/core/shared/dspace-object.model';
+import { UpdateDataService } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { DsoEditMetadataComponent } from './dso-edit-metadata.component';
 

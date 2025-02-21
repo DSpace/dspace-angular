@@ -13,11 +13,11 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '../config/app-config.interface';
+} from '../config';
 import {
   NativeWindowRef,
   NativeWindowService,
-} from '../services/window.service';
+} from '../services';
 import {
   MathJaxConfig,
   MathService,

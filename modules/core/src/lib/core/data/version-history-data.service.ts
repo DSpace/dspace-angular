@@ -17,22 +17,22 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Item } from '../shared/item.model';
+import { RemoteDataBuildService } from '../cache';
+import { ObjectCacheService } from '../cache';
+import { HttpOptions } from '../dspace-rest';
+import { HALEndpointService } from '../shared';
+import { Item } from '../shared';
 import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
-} from '../shared/operators';
-import { PaginatedSearchOptions } from '../shared/paginated-search-options.model';
-import { PaginationComponentOptions } from '../shared/pagination-component-options.model';
-import { Version } from '../shared/version.model';
-import { VersionHistory } from '../shared/version-history.model';
-import { IdentifiableDataService } from './base/identifiable-data.service';
+} from '../shared';
+import { PaginatedSearchOptions } from '../shared';
+import { PaginationComponentOptions } from '../shared';
+import { Version } from '../shared';
+import { VersionHistory } from '../shared';
+import { IdentifiableDataService } from './base';
 import { FindListOptions } from './find-list-options.model';
 import {
   followLink,

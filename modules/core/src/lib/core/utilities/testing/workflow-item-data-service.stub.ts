@@ -1,4 +1,4 @@
-import { WorkflowItem } from '../../submission/models/workflowitem.model';
+import { WorkflowItem } from '../../submission';
 import { IdentifiableDataServiceStub } from './identifiable-data-service.stub';
 
 /**

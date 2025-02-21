@@ -11,9 +11,9 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { TranslateLoaderMock } from '../../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
-import { ScriptParameter } from '../../../../../../modules/core/src/lib/core/scripts/script-parameter.model';
-import { ScriptParameterType } from '../../../../../../modules/core/src/lib/core/scripts/script-parameter-type.model';
+import { TranslateLoaderMock } from '@dspace/core';
+import { ScriptParameter } from '@dspace/core';
+import { ScriptParameterType } from '@dspace/core';
 import { FileValueAccessorDirective } from '../../../../shared/utils/file-value-accessor.directive';
 import { FileValidator } from '../../../../shared/utils/require-file.validator';
 import { BooleanValueInputComponent } from './boolean-value-input/boolean-value-input.component';

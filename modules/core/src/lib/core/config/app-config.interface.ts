@@ -23,10 +23,10 @@ import { LangConfig } from './lang-config.interface';
 import { LiveRegionConfig } from './live-region.config';
 import { MarkdownConfig } from './markdown-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
-import { AdminNotifyMetricsRow } from './models/admin-notify-metrics.model';
+import { AdminNotifyMetricsRow } from './models';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
 import { QualityAssuranceConfig } from './quality-assurance.config';
-import { SearchConfig } from './search-page-config.interface';
+import { SearchPageConfig } from './search-page-config.interface';
 import { ServerConfig } from './server-config.interface';
 import { SubmissionConfig } from './submission-config.interface';
 import { SuggestionConfig } from './suggestion-config.interfaces';
@@ -62,7 +62,7 @@ interface AppConfig extends Config {
   vocabularies: FilterVocabularyConfig[];
   comcolSelectionSort: DiscoverySortConfig;
   qualityAssuranceConfig: QualityAssuranceConfig;
-  search: SearchConfig;
+  search: SearchPageConfig;
   notifyMetrics: AdminNotifyMetricsRow[];
   liveRegion: LiveRegionConfig;
 }

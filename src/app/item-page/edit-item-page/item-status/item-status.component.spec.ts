@@ -12,17 +12,17 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ConfigurationDataService } from '../../../../../modules/core/src/lib/core/data/configuration-data.service';
-import { AuthorizationDataService } from '../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { IdentifierDataService } from '../../../../../modules/core/src/lib/core/data/identifier-data.service';
-import { OrcidAuthService } from '../../../../../modules/core/src/lib/core/orcid/orcid-auth.service';
-import { ConfigurationProperty } from '../../../../../modules/core/src/lib/core/shared/configuration-property.model';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { ConfigurationDataService } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { IdentifierDataService } from '@dspace/core';
+import { OrcidAuthService } from '@dspace/core';
+import { ConfigurationProperty } from '@dspace/core';
+import { Item } from '@dspace/core';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { HostWindowServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/host-window-service.stub';
+} from '@dspace/core';
+import { HostWindowServiceStub } from '@dspace/core';
 import { HostWindowService } from '../../../shared/host-window.service';
 import { ItemStatusComponent } from './item-status.component';
 

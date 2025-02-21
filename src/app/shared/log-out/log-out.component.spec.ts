@@ -17,10 +17,10 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 
 import { AppState } from '../../app.reducer';
-import { authReducer } from '../../../../modules/core/src/lib/core/auth/auth.reducer';
-import { EPerson } from '../../../../modules/core/src/lib/core/eperson/models/eperson.model';
-import { EPersonMock } from '../../../../modules/core/src/lib/core/utilities/testing/eperson.mock';
-import { RouterStub } from '../../../../modules/core/src/lib/core/utilities/testing/router.stub';
+import { authReducer } from '@dspace/core';
+import { EPerson } from '@dspace/core';
+import { EPersonMock } from '@dspace/core';
+import { RouterStub } from '@dspace/core';
 import { LogOutComponent } from './log-out.component';
 
 describe('LogOutComponent', () => {

@@ -12,7 +12,7 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { Breadcrumb } from '../../../modules/core/src/lib/core/breadcrumbs/breadcrumb.model';
+import { Breadcrumb } from '@dspace/core';
 import { TranslateLoaderMock } from '../../../modules/core/src/lib/core/utilities/testing/translate-loader.mock';
 import { VarDirective } from '../shared/utils/var.directive';
 import { BreadcrumbsComponent } from './breadcrumbs.component';

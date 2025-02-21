@@ -1,6 +1,6 @@
-import { ItemSearchResult } from '../../../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
-import { Collection } from '../../../../../../../modules/core/src/lib/core/shared/collection.model';
-import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
+import { ItemSearchResult } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { Item } from '@dspace/core';
 import { createSidebarSearchListElementTests } from '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component.spec';
 import { OrgUnitSidebarSearchListElementComponent } from './org-unit-sidebar-search-list-element.component';
 

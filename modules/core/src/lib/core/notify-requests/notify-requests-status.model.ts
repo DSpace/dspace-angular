@@ -7,11 +7,11 @@ import {
 
 import { NOTIFYREQUEST } from './notify-requests-status.resource-type';
 import { RequestStatusEnum } from './notify-status.enum';
-import { typedObject } from '../cache/builders/build-decorators';
-import { CacheableObject } from '../cache/cacheable-object.model';
-import { HALLink } from '../shared/hal-link.model';
-import { ResourceType } from '../shared/resource-type';
-import { excludeFromEquals } from '../utilities/equals.decorators';
+import { typedObject } from '../cache';
+import { CacheableObject } from '../cache';
+import { HALLink } from '../shared';
+import { ResourceType } from '../shared';
+import { excludeFromEquals } from '../utilities';
 
 /**
  * Represents the status of notify requests for an item.

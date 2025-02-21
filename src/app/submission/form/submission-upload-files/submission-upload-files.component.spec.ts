@@ -20,14 +20,14 @@ import {
 } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { getMockTranslateService } from '../../../../../modules/core/src/lib/core/mocks/translate.service.mock';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { SubmissionJsonPatchOperationsService } from '../../../../../modules/core/src/lib/core/submission/submission-json-patch-operations.service';
-import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { SectionsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/sections-service.stub';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/submission-json-patch-operations-service.stub';
-import { SubmissionServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/submission-service.stub';
-import { createTestComponent } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+import { getMockTranslateService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { SubmissionJsonPatchOperationsService } from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { SectionsServiceStub } from '@dspace/core';
+import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core';
+import { SubmissionServiceStub } from '@dspace/core';
+import { createTestComponent } from '@dspace/core';
 import {
   mockSectionsData,
   mockSubmissionCollectionId,
@@ -39,7 +39,7 @@ import {
 } from '../../../shared/mocks/submission.mock';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
 import { SectionsService } from '../../sections/sections.service';
-import { SubmissionService } from '../../submission.service';
+import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
 import { SubmissionUploadFilesComponent } from './submission-upload-files.component';
 
 describe('SubmissionUploadFilesComponent Component', () => {

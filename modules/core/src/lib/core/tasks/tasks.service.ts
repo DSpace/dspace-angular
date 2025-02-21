@@ -13,32 +13,32 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { CacheableObject } from '../cache/cacheable-object.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { IdentifiableDataService } from '../data/base/identifiable-data.service';
+import { RemoteDataBuildService } from '../cache';
+import { CacheableObject } from '../cache';
+import { ObjectCacheService } from '../cache';
+import { IdentifiableDataService } from '../data';
 import {
   SearchData,
   SearchDataImpl,
-} from '../data/base/search-data';
-import { FindListOptions } from '../data/find-list-options.model';
-import { FollowLinkConfig } from '../data/follow-link-config.model';
-import { PaginatedList } from '../data/paginated-list.model';
-import { RemoteData } from '../data/remote-data';
+} from '../data';
+import { FindListOptions } from '../data';
+import { FollowLinkConfig } from '../data';
+import { PaginatedList } from '../data';
+import { RemoteData } from '../data';
 import {
   DeleteRequest,
   PostRequest,
   TaskDeleteRequest,
   TaskPostRequest,
-} from '../data/request.models';
-import { RequestService } from '../data/request.service';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
+} from '../data';
+import { RequestService } from '../data';
+import { HttpOptions } from '../dspace-rest';
+import { HALEndpointService } from '../shared';
 import {
   getAllCompletedRemoteData,
   getFirstCompletedRemoteData,
-} from '../shared/operators';
-import { ProcessTaskResponse } from './models/process-task-response';
+} from '../shared';
+import { ProcessTaskResponse } from './models';
 
 /**
  * An abstract class that provides methods to handle task requests.  todo: data in name

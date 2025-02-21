@@ -34,17 +34,17 @@ import {
   mergeMap,
   tap,
 } from 'rxjs/operators';
-import { LazyDataServicesMap } from '../../../../modules/core/src/lib/core/data-services-map';
+import { LazyDataServicesMap } from '@dspace/core';
 
-import { APP_DATA_SERVICES_MAP } from '../../../../modules/core/src/lib/core/config/app-config.interface';
-import { ArrayMoveChangeAnalyzer } from '../../../../modules/core/src/lib/core/data/array-move-change-analyzer.service';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { UpdateDataService } from '../../../../modules/core/src/lib/core/data/update-data.service';
-import { lazyDataService } from '../../../../modules/core/src/lib/core/lazy-data-service';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { DSpaceObject } from '../../../../modules/core/src/lib/core/shared/dspace-object.model';
-import { getFirstCompletedRemoteData } from '../../../../modules/core/src/lib/core/shared/operators';
-import { ResourceType } from '../../../../modules/core/src/lib/core/shared/resource-type';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core';
+import { ArrayMoveChangeAnalyzer } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { UpdateDataService } from '@dspace/core';
+import { lazyDataService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
+import { ResourceType } from '@dspace/core';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';

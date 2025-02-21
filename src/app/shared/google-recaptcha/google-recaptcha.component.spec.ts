@@ -4,10 +4,10 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { ConfigurationDataService } from '../../../../modules/core/src/lib/core/data/configuration-data.service';
-import { NativeWindowMockFactory } from '../../../../modules/core/src/lib/core/mocks/mock-native-window-ref';
-import { NativeWindowService } from '../../../../modules/core/src/lib/core/services/window.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
+import { ConfigurationDataService } from '@dspace/core';
+import { NativeWindowMockFactory } from '@dspace/core';
+import { NativeWindowService } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { GoogleRecaptchaComponent } from './google-recaptcha.component';
 
 describe('GoogleRecaptchaComponent', () => {

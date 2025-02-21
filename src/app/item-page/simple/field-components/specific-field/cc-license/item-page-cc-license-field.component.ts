@@ -8,7 +8,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
+import { Item } from '@dspace/core';
 import { MetadataFieldWrapperComponent } from 'src/app/shared/metadata-field-wrapper/metadata-field-wrapper.component';
 
 @Component({

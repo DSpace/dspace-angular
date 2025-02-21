@@ -23,28 +23,28 @@ import {
 import {
   followLink,
   FollowLinkConfig,
-} from '../../data/follow-link-config.model';
-import { PaginatedList } from '../../data/paginated-list.model';
-import { PAGINATED_LIST } from '../../data/paginated-list.resource-type';
-import { RemoteData } from '../../data/remote-data';
-import { RequestService } from '../../data/request.service';
-import { RequestEntry } from '../../data/request-entry.model';
+} from '../../data';
+import { PaginatedList } from '../../data';
+import { PAGINATED_LIST } from '../../data';
+import { RemoteData } from '../../data';
+import { RequestService } from '../../data';
+import { RequestEntry } from '../../data';
 import {
   hasSucceeded,
   isStale,
   RequestEntryState,
-} from '../../data/request-entry-state.model';
-import { ResponseState } from '../../data/response-state.model';
-import { getUrlWithoutEmbedParams } from '../../index/index.selectors';
-import { GenericConstructor } from '../../shared/generic-constructor';
-import { HALLink } from '../../shared/hal-link.model';
-import { HALResource } from '../../shared/hal-resource.model';
-import { getFirstCompletedRemoteData } from '../../shared/operators';
+} from '../../data';
+import { ResponseState } from '../../data';
+import { getUrlWithoutEmbedParams } from '../../index';
+import { GenericConstructor } from '../../shared';
+import { HALLink } from '../../shared';
+import { HALResource } from '../../shared';
+import { getFirstCompletedRemoteData } from '../../shared';
 import {
   getRequestFromRequestHref,
   getRequestFromRequestUUID,
-} from '../../shared/request.operators';
-import { createSuccessfulRemoteDataObject$ } from '../../utilities/remote-data.utils';
+} from '../../shared';
+import { createSuccessfulRemoteDataObject$ } from '../../utilities';
 import { getResourceTypeValueFor } from '../object-cache.reducer';
 import { ObjectCacheService } from '../object-cache.service';
 import { getClassForType } from './build-decorators';

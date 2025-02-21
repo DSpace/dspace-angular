@@ -6,8 +6,8 @@ import {
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 
-import { RestRequestMethod } from '../data/rest-request-method';
-import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
+import { RestRequestMethod } from '../data';
+import { DspaceRestService } from '../dspace-rest';
 import { LocaleInterceptor } from './locale.interceptor';
 import { LocaleService } from './locale.service';
 

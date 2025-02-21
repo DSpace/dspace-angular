@@ -9,12 +9,12 @@ import { Observable } from 'rxjs';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../config/app-config.interface';
-import { FollowLinkConfig } from '../data/follow-link-config.model';
-import { ItemDataService } from '../data/item-data.service';
-import { DSpaceObject } from '../shared/dspace-object.model';
-import { Item } from '../shared/item.model';
-import { getItemPageLinksToFollow } from '../shared/resolvers/item.resolver';
+} from '../config';
+import { FollowLinkConfig } from '../data';
+import { ItemDataService } from '../data';
+import { DSpaceObject } from '../shared';
+import { Item } from '../shared';
+import { getItemPageLinksToFollow } from '../shared';
 import { BreadcrumbConfig } from './breadcrumb-config.model';
 import { DSOBreadcrumbResolver } from './dso-breadcrumb.resolver';
 import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';

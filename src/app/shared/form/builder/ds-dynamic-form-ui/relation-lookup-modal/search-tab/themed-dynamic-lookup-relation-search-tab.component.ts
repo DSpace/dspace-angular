@@ -6,14 +6,14 @@ import {
 } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { ListableObject } from '../../../../../../../../modules/core/src/lib/core/object-collection/listable-object.model';
-import { Context } from '../../../../../../../../modules/core/src/lib/core/shared/context.model';
-import { DSpaceObject } from '../../../../../../../../modules/core/src/lib/core/shared/dspace-object.model';
-import { RelationshipOptions } from '../../../../../../../../modules/core/src/lib/core/shared/form/relationship-options.model';
-import { Item } from '../../../../../../../../modules/core/src/lib/core/shared/item.model';
-import { RelationshipType } from '../../../../../../../../modules/core/src/lib/core/shared/item-relationships/relationship-type.model';
-import { SearchObjects } from '../../../../../../../../modules/core/src/lib/core/shared/search/models/search-objects.model';
-import { SearchResult } from '../../../../../../../../modules/core/src/lib/core/shared/search/models/search-result.model';
+import { ListableObject } from '@dspace/core';
+import { Context } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
+import { RelationshipOptions } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { RelationshipType } from '@dspace/core';
+import { SearchObjects } from '@dspace/core';
+import { SearchResult } from '@dspace/core';
 import { ThemedComponent } from '../../../../../theme-support/themed.component';
 import { DsDynamicLookupRelationSearchTabComponent } from './dynamic-lookup-relation-search-tab.component';
 

@@ -1,10 +1,10 @@
 import { isNotEmpty } from '@dspace/shared/utils';
 
-import { SortOptions } from '../cache/models/sort-options.model';
+import { SortOptions } from '../cache';
 import { DSpaceObjectType } from './dspace-object-type.model';
 import { PaginationComponentOptions } from './pagination-component-options.model';
-import { SearchFilter } from './search/models/search-filter.model';
-import { SearchOptions } from './search/models/search-options.model';
+import { SearchFilter } from './search';
+import { SearchOptions } from './search';
 import { ViewMode } from './view-mode.model';
 
 /**

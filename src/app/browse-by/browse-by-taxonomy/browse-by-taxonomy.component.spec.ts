@@ -7,8 +7,8 @@ import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { HierarchicalBrowseDefinition } from '../../../../modules/core/src/lib/core/shared/hierarchical-browse-definition.model';
-import { VocabularyEntryDetail } from '../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { HierarchicalBrowseDefinition } from '@dspace/core';
+import { VocabularyEntryDetail } from '@dspace/core';
 import { VocabularyTreeviewComponent } from '../../shared/form/vocabulary-treeview/vocabulary-treeview.component';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { createDataWithBrowseDefinition } from '../browse-by-switcher/browse-by-switcher.component.spec';

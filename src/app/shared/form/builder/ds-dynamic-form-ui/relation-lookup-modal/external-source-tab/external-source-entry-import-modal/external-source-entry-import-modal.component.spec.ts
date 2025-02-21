@@ -12,17 +12,17 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ItemDataService } from '../../../../../../../../../modules/core/src/lib/core/data/item-data.service';
-import { LookupRelationService } from '../../../../../../../../../modules/core/src/lib/core/data/lookup-relation.service';
-import { NotificationsService } from '../../../../../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { ItemSearchResult } from '../../../../../../../../../modules/core/src/lib/core/object-collection/item-search-result.model';
-import { Collection } from '../../../../../../../../../modules/core/src/lib/core/shared/collection.model';
-import { ExternalSourceEntry } from '../../../../../../../../../modules/core/src/lib/core/shared/external-source-entry.model';
-import { RelationshipOptions } from '../../../../../../../../../modules/core/src/lib/core/shared/form/relationship-options.model';
-import { Item } from '../../../../../../../../../modules/core/src/lib/core/shared/item.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { createPaginatedList } from '../../../../../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
-import { SelectableListService } from '../../../../../../object-list/selectable-list/selectable-list.service';
+import { ItemDataService } from '@dspace/core';
+import { LookupRelationService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { ItemSearchResult } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { ExternalSourceEntry } from '@dspace/core';
+import { RelationshipOptions } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { createPaginatedList } from '@dspace/core';
+import { SelectableListService } from '../../../../../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
 import { ThemedSearchResultsComponent } from '../../../../../../search/search-results/themed-search-results.component';
 import {
   ExternalSourceEntryImportModalComponent,

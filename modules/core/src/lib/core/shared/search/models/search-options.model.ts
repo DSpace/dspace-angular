@@ -3,7 +3,7 @@ import {
   isNotEmpty,
 } from '@dspace/shared/utils';
 
-import { URLCombiner } from '../../../url-combiner/url-combiner';
+import { URLCombiner } from '../../../url-combiner';
 import { DSpaceObjectType } from '../../dspace-object-type.model';
 import { ViewMode } from '../../view-mode.model';
 import { SearchFilter } from './search-filter.model';

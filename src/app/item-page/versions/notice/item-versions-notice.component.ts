@@ -20,16 +20,16 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { VersionHistoryDataService } from '../../../../../modules/core/src/lib/core/data/version-history-data.service';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
+import { RemoteData } from '@dspace/core';
+import { VersionHistoryDataService } from '@dspace/core';
+import { Item } from '@dspace/core';
 import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '../../../../../modules/core/src/lib/core/shared/operators';
-import { Version } from '../../../../../modules/core/src/lib/core/shared/version.model';
-import { VersionHistory } from '../../../../../modules/core/src/lib/core/shared/version-history.model';
+} from '@dspace/core';
+import { Version } from '@dspace/core';
+import { VersionHistory } from '@dspace/core';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { getItemPageRoute } from '../../item-page-routing-paths';

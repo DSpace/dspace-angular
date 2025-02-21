@@ -3,9 +3,9 @@ import {
   Observable,
 } from 'rxjs';
 
-import { CacheableObject } from '../../cache/cacheable-object.model';
-import { FollowLinkConfig } from '../../data/follow-link-config.model';
-import { RemoteData } from '../../data/remote-data';
+import { CacheableObject } from '../../cache';
+import { FollowLinkConfig } from '../../data';
+import { RemoteData } from '../../data';
 import { BaseDataServiceStub } from './base-data-service.stub';
 
 /**

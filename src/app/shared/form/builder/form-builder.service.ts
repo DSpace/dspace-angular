@@ -39,11 +39,11 @@ import isObject from 'lodash/isObject';
 import isString from 'lodash/isString';
 import mergeWith from 'lodash/mergeWith';
 
-import { SubmissionFormsModel } from '../../../../../modules/core/src/lib/core/config/models/config-submission-forms.model';
-import { ConfigurationDataService } from '../../../../../modules/core/src/lib/core/data/configuration-data.service';
-import { VIRTUAL_METADATA_PREFIX } from '../../../../../modules/core/src/lib/core/shared/metadata.models';
-import { getFirstCompletedRemoteData } from '../../../../../modules/core/src/lib/core/shared/operators';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../../../../../modules/core/src/lib/core/config/models/ds-dynamic-form-constants';
+import { SubmissionFormsModel } from '@dspace/core';
+import { ConfigurationDataService } from '@dspace/core';
+import { VIRTUAL_METADATA_PREFIX } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
+import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '@dspace/core';
 import {
   CONCAT_GROUP_SUFFIX,
   DynamicConcatModel,
@@ -53,7 +53,7 @@ import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qua
 import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
-import { FormFieldMetadataValueObject } from '../../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '@dspace/core';
 import { RowParser } from './parsers/row-parser';
 
 @Injectable({ providedIn: 'root' })

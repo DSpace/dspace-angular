@@ -6,17 +6,17 @@ import {
   isNotEmpty,
 } from '@dspace/shared/utils';
 
-import { getClassForType } from '../cache/builders/build-decorators';
-import { CacheableObject } from '../cache/cacheable-object.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
+import { getClassForType } from '../cache';
+import { CacheableObject } from '../cache';
+import { ObjectCacheService } from '../cache';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../config/app-config.interface';
-import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
+} from '../config';
+import { DSpaceSerializer } from '../dspace-rest';
 import { Serializer } from '../serializer';
-import { GenericConstructor } from '../shared/generic-constructor';
-import { PageInfo } from '../shared/page-info.model';
+import { GenericConstructor } from '../shared';
+import { PageInfo } from '../shared';
 import {
   buildPaginatedList,
   PaginatedList,

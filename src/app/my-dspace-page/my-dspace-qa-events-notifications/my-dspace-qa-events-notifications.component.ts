@@ -11,15 +11,15 @@ import {
   of,
   tap,
 } from 'rxjs';
-import { QualityAssuranceSourceObject } from '../../../../modules/core/src/lib/core/notifications/qa/models/quality-assurance-source.model';
+import { QualityAssuranceSourceObject } from '@dspace/core';
 
 import { getNotificatioQualityAssuranceRoute } from '../../admin/admin-routing-paths';
-import { QualityAssuranceSourceDataService } from '../../../../modules/core/src/lib/core/notifications/qa/source/quality-assurance-source-data.service';
+import { QualityAssuranceSourceDataService } from '@dspace/core';
 import {
   getFirstCompletedRemoteData,
   getPaginatedListPayload,
   getRemoteDataPayload,
-} from '../../../../modules/core/src/lib/core/shared/operators';
+} from '@dspace/core';
 
 @Component({
   selector: 'ds-my-dspace-qa-events-notifications',

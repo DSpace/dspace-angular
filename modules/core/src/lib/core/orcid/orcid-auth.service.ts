@@ -17,21 +17,21 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { ConfigurationDataService } from '../data/configuration-data.service';
-import { RemoteData } from '../data/remote-data';
-import { ResearcherProfile } from '../profile/model/researcher-profile.model';
-import { ResearcherProfileDataService } from '../profile/researcher-profile-data.service';
+import { ConfigurationDataService } from '../data';
+import { RemoteData } from '../data';
+import { ResearcherProfile } from '../profile';
+import { ResearcherProfileDataService } from '../profile';
 import {
   NativeWindowRef,
   NativeWindowService,
-} from '../services/window.service';
-import { ConfigurationProperty } from '../shared/configuration-property.model';
-import { Item } from '../shared/item.model';
+} from '../services';
+import { ConfigurationProperty } from '../shared';
+import { Item } from '../shared';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '../shared/operators';
-import { URLCombiner } from '../url-combiner/url-combiner';
+} from '../shared';
+import { URLCombiner } from '../url-combiner';
 
 @Injectable({ providedIn: 'root' })
 export class OrcidAuthService {

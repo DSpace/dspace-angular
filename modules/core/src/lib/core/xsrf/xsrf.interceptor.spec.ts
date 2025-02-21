@@ -9,12 +9,12 @@ import {
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 
-import { RequestError } from '../data/request-error.model';
-import { RestRequestMethod } from '../data/rest-request-method';
-import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
-import { CookieServiceMock } from '../mocks/cookie.service.mock';
-import { HttpXsrfTokenExtractorMock } from '../mocks/http-xsrf-token-extractor.mock';
-import { CookieService } from '../services/cookie.service';
+import { RequestError } from '../data';
+import { RestRequestMethod } from '../data';
+import { DspaceRestService } from '../dspace-rest';
+import { CookieServiceMock } from '../mocks';
+import { HttpXsrfTokenExtractorMock } from '../mocks';
+import { CookieService } from '../services';
 import { XsrfInterceptor } from './xsrf.interceptor';
 
 describe(`XsrfInterceptor`, () => {

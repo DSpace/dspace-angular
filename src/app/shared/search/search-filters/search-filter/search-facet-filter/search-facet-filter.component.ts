@@ -35,19 +35,19 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../../../../../../../modules/core/src/lib/core/cache/builders/remote-data-build.service';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../../../modules/core/src/lib/core/shared/operators';
-import { AppliedFilter } from '../../../../../../../modules/core/src/lib/core/shared/search/models/applied-filter.model';
-import { FacetValue } from '../../../../../../../modules/core/src/lib/core/shared/search/models/facet-value.model';
-import { FacetValues } from '../../../../../../../modules/core/src/lib/core/shared/search/models/facet-values.model';
-import { SearchFilterConfig } from '../../../../../../../modules/core/src/lib/core/shared/search/models/search-filter-config.model';
-import { SearchOptions } from '../../../../../../../modules/core/src/lib/core/shared/search/models/search-options.model';
-import { SearchService } from '../../../../../../../modules/core/src/lib/core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
-import { SearchFilterService } from '../../../../../../../modules/core/src/lib/core/shared/search/search-filter.service';
+import { RemoteDataBuildService } from '@dspace/core';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core';
+import { AppliedFilter } from '@dspace/core';
+import { FacetValue } from '@dspace/core';
+import { FacetValues } from '@dspace/core';
+import { SearchFilterConfig } from '@dspace/core';
+import { SearchOptions } from '@dspace/core';
+import { SearchService } from '@dspace/core';
+import { SearchConfigurationService } from '@dspace/core';
+import { SearchFilterService } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
-import { InputSuggestion } from '../../../../input-suggestions/input-suggestions.model';
-import { currentPath } from '../../../../utils/route.utils';
+import { InputSuggestion } from '../../../../../../../modules/core/src/lib/core/config/models/input-suggestions.model';
+import { currentPath } from '../../../../../../../modules/core/src/lib/core/utilities/route.utils';
 
 /**
  * The operators the {@link AppliedFilter} should have in order to be shown in the facets

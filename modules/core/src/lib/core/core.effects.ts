@@ -1,13 +1,13 @@
-import { MenuEffects } from '../../../../../src/app/shared/menu/menu.effects';
-import { AuthEffects } from './auth/auth.effects';
-import { ObjectCacheEffects } from './cache/object-cache.effects';
-import { ServerSyncBufferEffects } from './cache/server-sync-buffer.effects';
-import { ObjectUpdatesEffects } from './data/object-updates/object-updates.effects';
-import { RequestEffects } from './data/request.effects';
-import { UUIDIndexEffects } from './index/index.effects';
-import { JsonPatchOperationsEffects } from './json-patch/json-patch-operations.effects';
-import { RouterEffects } from './router/router.effects';
-import { RouteEffects } from './services/route.effects';
+import { MenuEffects } from './states/menu/menu.effects';
+import { AuthEffects } from './auth';
+import { ObjectCacheEffects } from './cache';
+import { ServerSyncBufferEffects } from './cache';
+import { ObjectUpdatesEffects } from './data';
+import { RequestEffects } from './data';
+import { UUIDIndexEffects } from './index';
+import { JsonPatchOperationsEffects } from './json-patch';
+import { RouterEffects } from './router';
+import { RouteEffects } from './services';
 
 export const coreEffects = [
   RequestEffects,

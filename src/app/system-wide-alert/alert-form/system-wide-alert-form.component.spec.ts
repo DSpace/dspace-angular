@@ -12,17 +12,17 @@ import {
 } from 'date-fns-tz';
 import { UiSwitchModule } from 'ngx-ui-switch';
 
-import { RequestService } from '../../../../modules/core/src/lib/core/data/request.service';
-import { SystemWideAlertDataService } from '../../../../modules/core/src/lib/core/data/system-wide-alert-data.service';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { SystemWideAlert } from '../../../../modules/core/src/lib/core/system-wide-alert/system-wide-alert.model';
+import { RequestService } from '@dspace/core';
+import { SystemWideAlertDataService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { SystemWideAlert } from '@dspace/core';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { NotificationsServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { RouterStub } from '../../../../modules/core/src/lib/core/utilities/testing/router.stub';
-import { createPaginatedList } from '../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+} from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { RouterStub } from '@dspace/core';
+import { createPaginatedList } from '@dspace/core';
 import { SystemWideAlertFormComponent } from './system-wide-alert-form.component';
 
 describe('SystemWideAlertFormComponent', () => {

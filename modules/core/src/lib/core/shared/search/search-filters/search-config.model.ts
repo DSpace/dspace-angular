@@ -3,11 +3,11 @@ import {
   deserialize,
 } from 'cerialize';
 
-import { typedObject } from '../../../cache/builders/build-decorators';
-import { CacheableObject } from '../../../cache/cacheable-object.model';
+import { typedObject } from '../../../cache';
+import { CacheableObject } from '../../../cache';
 import { HALLink } from '../../hal-link.model';
 import { ResourceType } from '../../resource-type';
-import { FilterType } from '../models/filter-type.model';
+import { FilterType } from '../models';
 import { SEARCH_CONFIG } from './search-config.resource-type';
 
 /**

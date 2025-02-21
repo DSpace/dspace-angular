@@ -22,26 +22,26 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { CollectionDataService } from '../../../../../modules/core/src/lib/core/data/collection-data.service';
-import { FieldUpdate } from '../../../../../modules/core/src/lib/core/data/object-updates/field-update.model';
-import { ObjectUpdatesService } from '../../../../../modules/core/src/lib/core/data/object-updates/object-updates.service';
-import { RequestService } from '../../../../../modules/core/src/lib/core/data/request.service';
+import { CollectionDataService } from '@dspace/core';
+import { FieldUpdate } from '@dspace/core';
+import { ObjectUpdatesService } from '@dspace/core';
+import { RequestService } from '@dspace/core';
 import {
   INotification,
   Notification,
-} from '../../../../../modules/core/src/lib/core/notifications/models/notification.model';
-import { NotificationType } from '../../../../../modules/core/src/lib/core/notifications/models/notification-type';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
+} from '@dspace/core';
+import { NotificationType } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Collection } from '@dspace/core';
 import {
   ContentSource,
   ContentSourceHarvestType,
-} from '../../../../../modules/core/src/lib/core/shared/content-source.model';
+} from '@dspace/core';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { RouterStub } from '../../../../../modules/core/src/lib/core/utilities/testing/router.stub';
+} from '@dspace/core';
+import { RouterStub } from '@dspace/core';
 import { FormComponent } from '../../../shared/form/form.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { CollectionSourceComponent } from './collection-source.component';
@@ -85,7 +85,7 @@ describe('CollectionSourceComponent', () => {
         },
         {
           id: 'dim',
-          label: 'DSpace Intermediate Metadata',
+          label: 'DSpace Intermediate PolicyMetadata',
           nameSpace: 'http://www.dspace.org/xmlns/dspace/dim',
         },
       ],

@@ -31,24 +31,23 @@ import {
 import { logStartupMessage } from '../../../startup-message';
 import { AppState } from '../../app/app.reducer';
 import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
-import { AuthService } from '../../../modules/core/src/lib/core/auth/auth.service';
+import { AuthService } from '@dspace/core';
 import {
   APP_CONFIG,
   APP_CONFIG_STATE,
   AppConfig,
-} from '../../../modules/core/src/lib/core/config/app-config.interface';
-import { DefaultAppConfig } from '../../../modules/core/src/lib/core/config/default-app-config';
-import { coreSelector } from '../../../modules/core/src/lib/core/core.selectors';
-import { CorrelationIdService } from '../../../modules/core/src/lib/core/correlation-id/correlation-id.service';
-import { RequestService } from '../../../modules/core/src/lib/core/data/request.service';
-import { RootDataService } from '../../../modules/core/src/lib/core/data/root-data.service';
-import { LocaleService } from '../../../modules/core/src/lib/core/locale/locale.service';
-import { HeadTagService } from '../../../modules/core/src/lib/core/metadata/head-tag.service';
-import { HALEndpointService } from '../../../modules/core/src/lib/core/shared/hal-endpoint.service';
+} from '@dspace/core';
+import { coreSelector } from '@dspace/core';
+import { CorrelationIdService } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { RootDataService } from '@dspace/core';
+import { LocaleService } from '@dspace/core';
+import { HeadTagService } from '@dspace/core';
+import { HALEndpointService } from '@dspace/core';
 import {
   StoreAction,
   StoreActionTypes,
-} from '../../../modules/core/src/lib/core/store.actions';
+} from '@dspace/core';
 import { InitService } from '../../app/init.service';
 import { OrejimeService } from '../../app/shared/cookies/orejime.service';
 import { MenuService } from '../../app/shared/menu/menu.service';
@@ -57,6 +56,7 @@ import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-prov
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
 import { extendEnvironmentWithAppConfig } from '../../config/config.util';
 import { environment } from '../../environments/environment';
+import { DefaultAppConfig } from "../../app/default-app-config";
 
 /**
  * Performs client-side initialization.

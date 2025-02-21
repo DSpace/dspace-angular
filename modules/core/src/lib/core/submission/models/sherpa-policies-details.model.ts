@@ -21,12 +21,12 @@ export class SherpaPoliciesDetailsObject {
   /**
    * The sherpa policies metadata
    */
-  metadata: Metadata;
+  metadata: PolicyMetadata;
 
 }
 
 
-export interface Metadata {
+export interface PolicyMetadata {
   id: number;
   uri: string;
   dateCreated: string;

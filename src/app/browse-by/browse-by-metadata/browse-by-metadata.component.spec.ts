@@ -23,34 +23,34 @@ import {
   Observable,
   of as observableOf,
 } from 'rxjs';
-import { RouteService } from '../../../../modules/core/src/lib/core/services/route.service';
+import { RouteService } from '@dspace/core';
 import { DsoEditMenuComponent } from 'src/app/shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { HostWindowService } from 'src/app/shared/host-window.service';
 import { ThemedLoadingComponent } from 'src/app/shared/loading/themed-loading.component';
-import { SelectableListService } from 'src/app/shared/object-list/selectable-list/selectable-list.service';
+import { SelectableListService } from '../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
-import { BrowseService } from '../../../../modules/core/src/lib/core/browse/browse.service';
-import { BrowseEntrySearchOptions } from '../../../../modules/core/src/lib/core/browse/browse-entry-search-options.model';
-import { SortDirection } from '../../../../modules/core/src/lib/core/cache/models/sort-options.model';
-import { APP_CONFIG } from '../../../../modules/core/src/lib/core/config/app-config.interface';
-import { DSpaceObjectDataService } from '../../../../modules/core/src/lib/core/data/dspace-object-data.service';
+import { BrowseService } from '@dspace/core';
+import { BrowseEntrySearchOptions } from '@dspace/core';
+import { SortDirection } from '@dspace/core';
+import { APP_CONFIG } from '@dspace/core';
+import { DSpaceObjectDataService } from '@dspace/core';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { RouterMock } from '../../../../modules/core/src/lib/core/mocks/router.mock';
-import { PaginationService } from '../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { BrowseEntry } from '../../../../modules/core/src/lib/core/shared/browse-entry.model';
-import { Community } from '../../../../modules/core/src/lib/core/shared/community.model';
-import { Item } from '../../../../modules/core/src/lib/core/shared/item.model';
-import { PageInfo } from '../../../../modules/core/src/lib/core/shared/page-info.model';
-import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
-import { PaginationServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
-import { routeServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/route-service.stub';
+} from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { RouterMock } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { BrowseEntry } from '@dspace/core';
+import { Community } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { PageInfo } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { ActivatedRouteStub } from '@dspace/core';
+import { PaginationServiceStub } from '@dspace/core';
+import { routeServiceStub } from '@dspace/core';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';

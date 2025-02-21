@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ConfigurationDataService } from '../../../modules/core/src/lib/core/data/configuration-data.service';
-import { ConfigurationProperty } from '../../../modules/core/src/lib/core/shared/configuration-property.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { ConfigurationDataServiceStub } from '../../../modules/core/src/lib/core/utilities/testing/configuration-data.service.stub';
+import { ConfigurationDataService } from '@dspace/core';
+import { ConfigurationProperty } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { ConfigurationDataServiceStub } from '@dspace/core';
 import {
   CANONICAL_PREFIX_KEY,
   HandleService,

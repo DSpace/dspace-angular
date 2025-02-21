@@ -9,23 +9,23 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
+import { RemoteDataBuildService } from '../cache';
+import { ObjectCacheService } from '../cache';
 import { CoreState } from '../core-state.model';
-import { testSearchDataImplementation } from '../data/base/search-data.spec';
-import { ChangeAnalyzer } from '../data/change-analyzer';
-import { FindListOptions } from '../data/find-list-options.model';
+import { testSearchDataImplementation } from '../data';
+import { ChangeAnalyzer } from '../data';
+import { FindListOptions } from '../data';
 import {
   TaskDeleteRequest,
   TaskPostRequest,
-} from '../data/request.models';
-import { RequestService } from '../data/request.service';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { getMockRemoteDataBuildService } from '../mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../mocks/request.service.mock';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { HALEndpointServiceStub } from '../utilities/testing/hal-endpoint-service.stub';
-import { TaskObject } from './models/task-object.model';
+} from '../data';
+import { RequestService } from '../data';
+import { HttpOptions } from '../dspace-rest';
+import { getMockRemoteDataBuildService } from '../mocks';
+import { getMockRequestService } from '../mocks';
+import { HALEndpointService } from '../shared';
+import { HALEndpointServiceStub } from '../utilities';
+import { TaskObject } from './models';
 import { TasksService } from './tasks.service';
 
 const LINK_NAME = 'test';

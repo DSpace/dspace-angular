@@ -1,4 +1,4 @@
-import { GroupMock } from '../../utilities/testing/group-mock';
+import { GroupMock } from '../../utilities';
 import {
   GroupRegistryCancelGroupAction,
   GroupRegistryEditGroupAction,

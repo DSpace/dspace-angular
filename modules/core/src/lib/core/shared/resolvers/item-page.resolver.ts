@@ -10,15 +10,15 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../../auth';
 import {
   APP_CONFIG,
   AppConfig,
-} from '../../config/app-config.interface';
-import { ItemDataService } from '../../data/item-data.service';
-import { RemoteData } from '../../data/remote-data';
-import { ResolvedAction } from '../../resolving/resolver.actions';
-import { getDSpaceObjectRoute } from '../../router/utils/routes-utils';
+} from '../../config';
+import { ItemDataService } from '../../data';
+import { RemoteData } from '../../data';
+import { ResolvedAction } from '../../resolving';
+import { getDSpaceObjectRoute } from '../../router';
 import { redirectOn4xx } from '../authorized.operators';
 import { Item } from '../item.model';
 import { getFirstCompletedRemoteData } from '../operators';

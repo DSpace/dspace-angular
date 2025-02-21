@@ -19,9 +19,9 @@ import {
 } from 'rxjs';
 
 import { getCollectionPageRoute } from '../../../collection-page/collection-page-routing-paths';
-import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
-import { getAllSucceededRemoteDataPayload } from '../../../../../modules/core/src/lib/core/shared/operators';
+import { PaginatedList } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { getAllSucceededRemoteDataPayload } from '@dspace/core';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { ErrorComponent } from '../../error/error.component';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';

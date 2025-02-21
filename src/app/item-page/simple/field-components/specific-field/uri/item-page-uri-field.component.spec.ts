@@ -13,11 +13,11 @@ import {
 } from '@ngx-translate/core';
 
 import { environment } from '../../../../../../environments/environment';
-import { BrowseService } from '../../../../../../../modules/core/src/lib/core/browse/browse.service';
-import { BrowseDefinitionDataService } from '../../../../../../../modules/core/src/lib/core/browse/browse-definition-data.service';
-import { APP_CONFIG } from '../../../../../../../modules/core/src/lib/core/config/app-config.interface';
-import { BrowseDefinitionDataServiceStub } from '../../../../../../../modules/core/src/lib/core/utilities/testing/browse-definition-data-service.stub';
-import { BrowseServiceStub } from '../../../../../../../modules/core/src/lib/core/utilities/testing/browse-service.stub';
+import { BrowseService } from '@dspace/core';
+import { BrowseDefinitionDataService } from '@dspace/core';
+import { APP_CONFIG } from '@dspace/core';
+import { BrowseDefinitionDataServiceStub } from '@dspace/core';
+import { BrowseServiceStub } from '@dspace/core';
 import { TranslateLoaderMock } from '../../../../../../../modules/core/src/lib/core/utilities/testing/translate-loader.mock';
 import { MetadataUriValuesComponent } from '../../../../field-components/metadata-uri-values/metadata-uri-values.component';
 import { mockItemWithMetadataFieldsAndValue } from '../item-page-field.component.spec';

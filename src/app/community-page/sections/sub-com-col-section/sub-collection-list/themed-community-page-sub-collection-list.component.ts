@@ -3,7 +3,7 @@ import {
   Input,
 } from '@angular/core';
 
-import { Community } from '../../../../../../modules/core/src/lib/core/shared/community.model';
+import { Community } from '@dspace/core';
 import { ThemedComponent } from '../../../../shared/theme-support/themed.component';
 import { CommunityPageSubCollectionListComponent } from './community-page-sub-collection-list.component';
 

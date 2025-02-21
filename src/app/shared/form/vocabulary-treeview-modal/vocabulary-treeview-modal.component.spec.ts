@@ -5,7 +5,7 @@ import {
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { VocabularyOptions } from '../../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-options.model';
+import { VocabularyOptions } from '@dspace/core';
 import { VocabularyTreeviewComponent } from '../vocabulary-treeview/vocabulary-treeview.component';
 import { VocabularyTreeviewModalComponent } from './vocabulary-treeview-modal.component';
 

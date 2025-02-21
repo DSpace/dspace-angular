@@ -16,12 +16,12 @@ import { isEmpty } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
+import { DSONameService } from '@dspace/core';
 import {
   SortDirection,
   SortOptions,
-} from '../../../../modules/core/src/lib/core/cache/models/sort-options.model';
-import { FindListOptions } from '../../../../modules/core/src/lib/core/data/find-list-options.model';
+} from '@dspace/core';
+import { FindListOptions } from '@dspace/core';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { TruncatableComponent } from '../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../shared/truncatable/truncatable-part/truncatable-part.component';

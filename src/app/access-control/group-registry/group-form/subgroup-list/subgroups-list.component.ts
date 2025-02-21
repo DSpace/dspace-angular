@@ -28,21 +28,21 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { followLink } from '../../../../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { PaginatedList } from '../../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../../modules/core/src/lib/core/data/remote-data';
-import { GroupDataService } from '../../../../../../modules/core/src/lib/core/eperson/group-data.service';
-import { Group } from '../../../../../../modules/core/src/lib/core/eperson/models/group.model';
-import { NotificationsService } from '../../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { PaginationService } from '../../../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { NoContent } from '../../../../../../modules/core/src/lib/core/shared/NoContent.model';
+import { DSONameService } from '@dspace/core';
+import { followLink } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { GroupDataService } from '@dspace/core';
+import { Group } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { NoContent } from '@dspace/core';
 import {
   getAllCompletedRemoteData,
   getFirstCompletedRemoteData,
-} from '../../../../../../modules/core/src/lib/core/shared/operators';
-import { PageInfo } from '../../../../../../modules/core/src/lib/core/shared/page-info.model';
-import { PaginationComponentOptions } from '../../../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+} from '@dspace/core';
+import { PageInfo } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 

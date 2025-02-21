@@ -2,7 +2,7 @@
 import * as deepFreeze from 'deep-freeze';
 import { Operation } from 'fast-json-patch';
 
-import { Item } from '../shared/item.model';
+import { Item } from '../shared';
 import {
   AddDependentsObjectCacheAction,
   AddPatchObjectCacheAction,

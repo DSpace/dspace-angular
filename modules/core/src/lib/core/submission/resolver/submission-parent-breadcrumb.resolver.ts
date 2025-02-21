@@ -6,13 +6,13 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb-config.model';
-import { IdentifiableDataService } from '../../data/base/identifiable-data.service';
+import { BreadcrumbConfig } from '../../breadcrumbs';
+import { IdentifiableDataService } from '../../data';
 import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
-} from '../../shared/operators';
-import { SubmissionObject } from '../models/submission-object.model';
+} from '../../shared';
+import { SubmissionObject } from '../models';
 import { SubmissionParentBreadcrumbsService } from '../submission-parent-breadcrumb.service';
 import { SUBMISSION_LINKS_TO_FOLLOW } from './submission-links-to-follow';
 

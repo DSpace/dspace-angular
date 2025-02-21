@@ -19,9 +19,9 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { RequestError } from '../data/request-error.model';
-import { RestRequestMethod } from '../data/rest-request-method';
-import { DSpaceObject } from '../shared/dspace-object.model';
+import { RequestError } from '../data';
+import { RestRequestMethod } from '../data';
+import { DSpaceObject } from '../shared';
 import { RawRestResponse } from './raw-rest-response.model';
 
 export const DEFAULT_CONTENT_TYPE = 'application/json; charset=utf-8';

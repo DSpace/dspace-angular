@@ -1,6 +1,6 @@
 import { isNotUndefined } from '@dspace/shared/utils';
 
-import { URLCombiner } from '../../url-combiner/url-combiner';
+import { URLCombiner } from '../../url-combiner';
 
 /**
  * Interface used to represent a JSON-PATCH path member

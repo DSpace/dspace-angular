@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ServerResponseService } from '../../../modules/core/src/lib/core/services/server-response.service';
+import { ServerResponseService } from '@dspace/core';
 
 /**
  * This component representing the `PageInternalServer` DSpace page.

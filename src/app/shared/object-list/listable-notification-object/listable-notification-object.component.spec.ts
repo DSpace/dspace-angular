@@ -5,7 +5,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { NotificationType } from '../../../../../modules/core/src/lib/core/notifications/models/notification-type';
+import { NotificationType } from '@dspace/core';
 import { ListableNotificationObjectComponent } from './listable-notification-object.component';
 import { ListableNotificationObject } from './listable-notification-object.model';
 

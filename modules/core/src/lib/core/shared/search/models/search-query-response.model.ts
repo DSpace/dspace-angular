@@ -3,7 +3,7 @@ import {
   autoserializeAs,
 } from 'cerialize';
 
-import { PaginatedList } from '../../../data/paginated-list.model';
+import { PaginatedList } from '../../../data';
 import { PageInfo } from '../../page-info.model';
 import { AppliedFilter } from './applied-filter.model';
 import { SearchResultSorting } from './search-result-sorting.model';

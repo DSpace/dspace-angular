@@ -33,27 +33,27 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { AuthorizationDataService } from '../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
+import { DSONameService } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { FeatureID } from '@dspace/core';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../modules/core/src/lib/core/data/remote-data';
-import { RequestService } from '../../../../modules/core/src/lib/core/data/request.service';
-import { EPersonDataService } from '../../../../modules/core/src/lib/core/eperson/eperson-data.service';
-import { EPerson } from '../../../../modules/core/src/lib/core/eperson/models/eperson.model';
-import { EpersonDtoModel } from '../../../../modules/core/src/lib/core/eperson/models/eperson-dto.model';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { PaginationService } from '../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { NoContent } from '../../../../modules/core/src/lib/core/shared/NoContent.model';
+} from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { EPersonDataService } from '@dspace/core';
+import { EPerson } from '@dspace/core';
+import { EpersonDtoModel } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { NoContent } from '@dspace/core';
 import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
-} from '../../../../modules/core/src/lib/core/shared/operators';
-import { PageInfo } from '../../../../modules/core/src/lib/core/shared/page-info.model';
-import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+} from '@dspace/core';
+import { PageInfo } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';

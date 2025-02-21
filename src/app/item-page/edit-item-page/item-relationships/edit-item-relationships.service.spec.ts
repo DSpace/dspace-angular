@@ -3,33 +3,33 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
-import { EntityTypeDataService } from '../../../../../modules/core/src/lib/core/data/entity-type-data.service';
-import { ItemDataService } from '../../../../../modules/core/src/lib/core/data/item-data.service';
-import { FieldChangeType } from '../../../../../modules/core/src/lib/core/data/object-updates/field-change-type.model';
-import { FieldUpdate } from '../../../../../modules/core/src/lib/core/data/object-updates/field-update.model';
-import { FieldUpdates } from '../../../../../modules/core/src/lib/core/data/object-updates/field-updates.model';
+import { EntityTypeDataService } from '@dspace/core';
+import { ItemDataService } from '@dspace/core';
+import { FieldChangeType } from '@dspace/core';
+import { FieldUpdate } from '@dspace/core';
+import { FieldUpdates } from '@dspace/core';
 import {
   DeleteRelationship,
   RelationshipIdentifiable,
-} from '../../../../../modules/core/src/lib/core/data/object-updates/object-updates.reducer';
-import { ObjectUpdatesService } from '../../../../../modules/core/src/lib/core/data/object-updates/object-updates.service';
-import { RelationshipDataService } from '../../../../../modules/core/src/lib/core/data/relationship-data.service';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { Item } from '../../../../../modules/core/src/lib/core/shared/item.model';
-import { ItemType } from '../../../../../modules/core/src/lib/core/shared/item-relationships/item-type.model';
-import { Relationship } from '../../../../../modules/core/src/lib/core/shared/item-relationships/relationship.model';
-import { RelationshipType } from '../../../../../modules/core/src/lib/core/shared/item-relationships/relationship-type.model';
+} from '@dspace/core';
+import { ObjectUpdatesService } from '@dspace/core';
+import { RelationshipDataService } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { Item } from '@dspace/core';
+import { ItemType } from '@dspace/core';
+import { Relationship } from '@dspace/core';
+import { RelationshipType } from '@dspace/core';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { EntityTypeDataServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/entity-type-data.service.stub';
-import { ItemDataServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/item-data.service.stub';
-import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { ObjectUpdatesServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/object-updates.service.stub';
-import { RelationshipDataServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/relationship-data.service.stub';
+} from '@dspace/core';
+import { EntityTypeDataServiceStub } from '@dspace/core';
+import { ItemDataServiceStub } from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { RelationshipDataServiceStub } from '@dspace/core';
 import { EditItemRelationshipsService } from './edit-item-relationships.service';
+import { ObjectUpdatesServiceStub } from "@dspace/core";
 
 describe('EditItemRelationshipsService', () => {
   let service: EditItemRelationshipsService;

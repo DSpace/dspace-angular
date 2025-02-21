@@ -9,8 +9,8 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { RouteService } from '../../../../../../modules/core/src/lib/core/services/route.service';
-import { Item } from '../../../../../../modules/core/src/lib/core/shared/item.model';
+import { RouteService } from '@dspace/core';
+import { Item } from '@dspace/core';
 
 export const isIiifEnabled = (item: Item) => {
   return !!item.firstMetadataValue('dspace.iiif.enabled');

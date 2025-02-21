@@ -15,13 +15,13 @@ import {
   mergeMap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../../../modules/core/src/lib/core/cache/builders/link.service';
-import { followLink } from '../../../../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { RemoteData } from '../../../../../../modules/core/src/lib/core/data/remote-data';
-import { EPerson } from '../../../../../../modules/core/src/lib/core/eperson/models/eperson.model';
-import { getFirstCompletedRemoteData } from '../../../../../../modules/core/src/lib/core/shared/operators';
-import { WorkflowItem } from '../../../../../../modules/core/src/lib/core/submission/models/workflowitem.model';
+import { DSONameService } from '@dspace/core';
+import { LinkService } from '@dspace/core';
+import { followLink } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { EPerson } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
+import { WorkflowItem } from '@dspace/core';
 
 /**
  * This component represents a badge with submitter information.

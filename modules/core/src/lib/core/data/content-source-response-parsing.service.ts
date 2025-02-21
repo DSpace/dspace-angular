@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { ParsedResponse } from '../cache/response.models';
-import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
-import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
-import { ContentSource } from '../shared/content-source.model';
-import { MetadataConfig } from '../shared/metadata-config.model';
+import { ParsedResponse } from '../cache';
+import { DSpaceSerializer } from '../dspace-rest';
+import { RawRestResponse } from '../dspace-rest';
+import { ContentSource } from '../shared';
+import { MetadataConfig } from '../shared';
 import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
 import { RestRequest } from './rest-request.model';
 

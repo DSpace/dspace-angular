@@ -5,11 +5,11 @@ import {
   isNotNull,
 } from '@dspace/shared/utils';
 
-import { ConfidenceType } from '../../shared/confidence-type';
+import { ConfidenceType } from '../../shared';
 import {
   MetadataValueInterface,
   VIRTUAL_METADATA_PREFIX,
-} from '../../shared/metadata.models';
+} from '../../shared';
 import { PLACEHOLDER_PARENT_METADATA } from './ds-dynamic-form-constants';
 
 export interface OtherInformation {

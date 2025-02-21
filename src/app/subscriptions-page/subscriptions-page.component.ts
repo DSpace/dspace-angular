@@ -20,24 +20,24 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { AuthService } from '../../../modules/core/src/lib/core/auth/auth.service';
+import { AuthService } from '@dspace/core';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../modules/core/src/lib/core/data/remote-data';
-import { EPerson } from '../../../modules/core/src/lib/core/eperson/models/eperson.model';
-import { PaginationService } from '../../../modules/core/src/lib/core/pagination/pagination.service';
-import { getAllCompletedRemoteData } from '../../../modules/core/src/lib/core/shared/operators';
-import { PageInfo } from '../../../modules/core/src/lib/core/shared/page-info.model';
-import { PaginationComponentOptions } from '../../../modules/core/src/lib/core/shared/pagination-component-options.model';
+} from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { EPerson } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { getAllCompletedRemoteData } from '@dspace/core';
+import { PageInfo } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
-import { Subscription } from '../shared/subscriptions/models/subscription.model';
+import { Subscription } from '../../../modules/core/src/lib/core/subscription/subscription.model';
 import { SubscriptionViewComponent } from '../shared/subscriptions/subscription-view/subscription-view.component';
-import { SubscriptionsDataService } from '../shared/subscriptions/subscriptions-data.service';
+import { SubscriptionsDataService } from '../../../modules/core/src/lib/core/data/subscriptions-data.service';
 import { VarDirective } from '../shared/utils/var.directive';
 
 @Component({

@@ -4,10 +4,10 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { AuthStatus } from '../../auth/models/auth-status.model';
-import { AuthTokenInfo } from '../../auth/models/auth-token-info.model';
-import { HttpOptions } from '../../dspace-rest/dspace-rest.service';
-import { EPerson } from '../../eperson/models/eperson.model';
+import { AuthStatus } from '../../auth';
+import { AuthTokenInfo } from '../../auth';
+import { HttpOptions } from '../../dspace-rest';
+import { EPerson } from '../../eperson';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { EPersonMock } from './eperson.mock';
 

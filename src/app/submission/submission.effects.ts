@@ -1,4 +1,4 @@
-import { SubmissionObjectEffects } from './objects/submission-objects.effects';
+import { SubmissionObjectEffects } from './submission-objects.effects';
 
 export const submissionEffects = [
   SubmissionObjectEffects,

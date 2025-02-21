@@ -1,10 +1,10 @@
 import { DynamicSelectModel } from '@ng-dynamic-forms/core';
 
-import { FormRowModel } from '../../../../modules/core/src/lib/core/config/models/config-submission-form.model';
-import { FormFieldModel } from '../../../../modules/core/src/lib/core/shared/form/form-field.model';
-import { SubmissionScopeType } from '../../../../modules/core/src/lib/core/submission/submission-scope-type';
-import { VocabularyEntry } from '../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyOptions } from '../../../../modules/core/src/lib/core/submission/vocabularies/models/vocabulary-options.model';
+import { FormRowModel } from '@dspace/core';
+import { FormFieldModel } from '@dspace/core';
+import { SubmissionScopeType } from '@dspace/core';
+import { VocabularyEntry } from '@dspace/core';
+import { VocabularyOptions } from '@dspace/core';
 import { DsDynamicInputModel } from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DynamicQualdropModel } from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import {
@@ -13,7 +13,7 @@ import {
 } from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { DynamicRowGroupModel } from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { DynamicRelationGroupModel } from '../form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
-import { FormFieldMetadataValueObject } from '../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '@dspace/core';
 
 export const qualdropSelectConfig = {
   name: 'dc.identifier_QUALDROP_METADATA',

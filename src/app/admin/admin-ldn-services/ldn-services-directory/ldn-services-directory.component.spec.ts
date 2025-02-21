@@ -17,20 +17,20 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { PaginatedList } from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { PaginationService } from '../../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { ActivatedRouteStub } from '../../../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
-import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
-import { PaginationServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
-import { createPaginatedList } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { ActivatedRouteStub } from '@dspace/core';
+import { NotificationsServiceStub } from '@dspace/core';
+import { PaginationServiceStub } from '@dspace/core';
+import { createPaginatedList } from '@dspace/core';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { TruncatableComponent } from '../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../shared/truncatable/truncatable-part/truncatable-part.component';
-import { LdnServicesService } from '../ldn-services-data/ldn-services-data.service';
-import { LdnService } from '../ldn-services-model/ldn-services.model';
+import { LdnServicesService } from '../../../../../modules/core/src/lib/core/admin/ldn-services-data/ldn-services-data.service';
+import { LdnService } from '../../../../../modules/core/src/lib/core/data/ldn/ldn-services.model';
 import { LdnServicesOverviewComponent } from './ldn-services-directory.component';
 
 describe('LdnServicesOverviewComponent', () => {

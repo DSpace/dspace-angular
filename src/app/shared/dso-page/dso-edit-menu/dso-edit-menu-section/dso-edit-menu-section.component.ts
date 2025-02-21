@@ -13,8 +13,8 @@ import { MenuSectionComponent } from 'src/app/shared/menu/menu-section/menu-sect
 
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { MenuService } from '../../../menu/menu.service';
-import { MenuID } from '../../../menu/menu-id.model';
-import { MenuSection } from '../../../menu/menu-section.model';
+import { MenuID } from '../../../../../../modules/core/src/lib/core/states/menu/menu-id.model';
+import { MenuSection } from '../../../../../../modules/core/src/lib/core/states/menu/menu-section.model';
 
 /**
  * Represents a non-expandable section in the dso edit menus

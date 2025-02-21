@@ -35,17 +35,17 @@ import {
 import {
   AuthenticateAction,
   ResetAuthenticationMessagesAction,
-} from '../../../../../../modules/core/src/lib/core/auth/auth.actions';
-import { AuthService } from '../../../../../../modules/core/src/lib/core/auth/auth.service';
-import { AuthMethod } from '../../../../../../modules/core/src/lib/core/auth/models/auth.method';
+} from '@dspace/core';
+import { AuthService } from '@dspace/core';
+import { AuthMethod } from '@dspace/core';
 import {
   getAuthenticationError,
   getAuthenticationInfo,
-} from '../../../../../../modules/core/src/lib/core/auth/selectors';
-import { CoreState } from '../../../../../../modules/core/src/lib/core/core-state.model';
-import { AuthorizationDataService } from '../../../../../../modules/core/src/lib/core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../../../../modules/core/src/lib/core/data/feature-authorization/feature-id';
-import { HardRedirectService } from '../../../../../../modules/core/src/lib/core/services/hard-redirect.service';
+} from '@dspace/core';
+import { CoreState } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { FeatureID } from '@dspace/core';
+import { HardRedirectService } from '@dspace/core';
 import { fadeOut } from '../../../animations/fade';
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';

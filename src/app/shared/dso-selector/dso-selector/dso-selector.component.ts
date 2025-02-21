@@ -44,27 +44,27 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { SortOptions } from '../../../../../modules/core/src/lib/core/cache/models/sort-options.model';
+import { DSONameService } from '@dspace/core';
+import { SortOptions } from '@dspace/core';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { NotificationType } from '../../../../../modules/core/src/lib/core/notifications/models/notification-type';
-import { NotificationsService } from '../../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { ListableObject } from '../../../../../modules/core/src/lib/core/object-collection/listable-object.model';
-import { Context } from '../../../../../modules/core/src/lib/core/shared/context.model';
-import { DSpaceObject } from '../../../../../modules/core/src/lib/core/shared/dspace-object.model';
-import { DSpaceObjectType } from '../../../../../modules/core/src/lib/core/shared/dspace-object-type.model';
+} from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { NotificationType } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { ListableObject } from '@dspace/core';
+import { Context } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
+import { DSpaceObjectType } from '@dspace/core';
 import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
-} from '../../../../../modules/core/src/lib/core/shared/operators';
-import { PaginatedSearchOptions } from '../../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
-import { SearchResult } from '../../../../../modules/core/src/lib/core/shared/search/models/search-result.model';
-import { SearchService } from '../../../../../modules/core/src/lib/core/shared/search/search.service';
-import { ViewMode } from '../../../../../modules/core/src/lib/core/shared/view-mode.model';
+} from '@dspace/core';
+import { PaginatedSearchOptions } from '@dspace/core';
+import { SearchResult } from '@dspace/core';
+import { SearchService } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
 import { HoverClassDirective } from '../../hover-class.directive';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';

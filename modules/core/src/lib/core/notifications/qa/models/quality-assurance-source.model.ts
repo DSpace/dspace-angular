@@ -3,12 +3,13 @@ import {
   deserialize,
 } from 'cerialize';
 
-import { typedObject } from '../../../cache/builders/build-decorators';
-import { CacheableObject } from '../../../cache/cacheable-object.model';
-import { HALLink } from '../../../shared/hal-link.model';
-import { ResourceType } from '../../../shared/resource-type';
-import { excludeFromEquals } from '../../../utilities/equals.decorators';
+import { typedObject } from '../../../cache';
+import { CacheableObject } from '../../../cache';
+import { HALLink, Item } from '../../../shared';
+import { ResourceType } from '../../../shared';
+import { excludeFromEquals } from '../../../utilities';
 import { QUALITY_ASSURANCE_SOURCE_OBJECT } from './quality-assurance-source-object.resource-type';
+import { QualityAssuranceEventObject } from "./quality-assurance-event.model";
 
 /**
  * The interface representing the Quality Assurance source model
@@ -52,4 +53,61 @@ export class QualityAssuranceSourceObject implements CacheableObject {
   _links: {
     self: HALLink,
   };
+}
+
+/**
+ * The possible types of import for the external entry
+ */
+export enum ImportType {
+  None = 'None',
+  LocalEntity = 'LocalEntity',
+  LocalAuthority = 'LocalAuthority',
+  NewEntity = 'NewEntity',
+  NewAuthority = 'NewAuthority'
+}
+
+/**
+ * The data type passed from the parent page
+ */
+export interface QualityAssuranceEventData {
+  /**
+   * The Quality Assurance event
+   */
+  event: QualityAssuranceEventObject;
+  /**
+   * The Quality Assurance event Id (uuid)
+   */
+  id: string;
+  /**
+   * The publication title
+   */
+  title: string;
+  /**
+   * Contains the boolean that indicates if a project is present
+   */
+  hasProject: boolean;
+  /**
+   * The project title, if present
+   */
+  projectTitle: string;
+  /**
+   * The project id (uuid), if present
+   */
+  projectId: string;
+  /**
+   * The project handle, if present
+   */
+  handle: string;
+  /**
+   * The reject/discard reason
+   */
+  reason: string;
+  /**
+   * Contains the boolean that indicates if there is a running operation (REST call)
+   */
+  isRunning: boolean;
+  /**
+   * The related publication DSpace item
+   */
+  target?: Item;
 }

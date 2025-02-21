@@ -1,6 +1,6 @@
-import { HALLink } from '../../shared/hal-link.model';
-import { HALResource } from '../../shared/hal-resource.model';
-import { ResourceType } from '../../shared/resource-type';
+import { HALLink } from '../../shared';
+import { HALResource } from '../../shared';
+import { ResourceType } from '../../shared';
 import {
   dataService,
   getDataServiceFor,

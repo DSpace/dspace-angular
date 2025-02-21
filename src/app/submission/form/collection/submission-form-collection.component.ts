@@ -29,21 +29,21 @@ import {
   mergeMap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { CollectionDataService } from '../../../../../modules/core/src/lib/core/data/collection-data.service';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { JsonPatchOperationPathCombiner } from '../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operation-path-combiner';
-import { JsonPatchOperationsBuilder } from '../../../../../modules/core/src/lib/core/json-patch/builder/json-patch-operations-builder';
-import { Collection } from '../../../../../modules/core/src/lib/core/shared/collection.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../../../modules/core/src/lib/core/shared/operators';
-import { SubmissionObject } from '../../../../../modules/core/src/lib/core/submission/models/submission-object.model';
-import { SubmissionJsonPatchOperationsService } from '../../../../../modules/core/src/lib/core/submission/submission-json-patch-operations.service';
+import { DSONameService } from '@dspace/core';
+import { CollectionDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { JsonPatchOperationPathCombiner } from '@dspace/core';
+import { JsonPatchOperationsBuilder } from '@dspace/core';
+import { Collection } from '@dspace/core';
+import { getFirstSucceededRemoteDataPayload } from '@dspace/core';
+import { SubmissionObject } from '@dspace/core';
+import { SubmissionJsonPatchOperationsService } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { CollectionDropdownComponent } from '../../../shared/collection-dropdown/collection-dropdown.component';
 import { ThemedCollectionDropdownComponent } from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
 import { SectionsService } from '../../sections/sections.service';
-import { SectionsType } from '../../sections/sections-type';
-import { SubmissionService } from '../../submission.service';
+import { SectionsType } from '../../../../../modules/core/src/lib/core/submission/models/sections-type';
+import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
 
 /**
  * This component allows to show the current collection the submission belonging to and to change it.

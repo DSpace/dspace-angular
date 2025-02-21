@@ -18,13 +18,13 @@ import {
 } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ObjectUpdatesService } from '../../../../../modules/core/src/lib/core/data/object-updates/object-updates.service';
-import { MetadatumViewModel } from '../../../../../modules/core/src/lib/core/shared/metadata.models';
+import { ObjectUpdatesService } from '@dspace/core';
+import { MetadatumViewModel } from '@dspace/core';
 import { ClickOutsideDirective } from '../../utils/click-outside.directive';
 import { DebounceDirective } from '../../utils/debounce.directive';
 import { MetadataFieldValidator } from '../../utils/metadatafield-validator.directive';
 import { InputSuggestionsComponent } from '../input-suggestions.component';
-import { InputSuggestion } from '../input-suggestions.model';
+import { InputSuggestion } from '../../../../../modules/core/src/lib/core/config/models/input-suggestions.model';
 
 @Component({
   selector: 'ds-validation-suggestions',

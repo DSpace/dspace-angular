@@ -1,4 +1,4 @@
-import { PaginatedList } from '../../data/paginated-list.model';
+import { PaginatedList } from '../../data';
 import { EPerson } from './eperson.model';
 import { Group } from './group.model';
 

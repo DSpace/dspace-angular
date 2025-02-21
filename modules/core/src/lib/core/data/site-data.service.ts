@@ -2,16 +2,16 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { getFirstSucceededRemoteData } from '../shared/operators';
-import { Site } from '../shared/site.model';
-import { BaseDataService } from './base/base-data.service';
+import { RemoteDataBuildService } from '../cache';
+import { ObjectCacheService } from '../cache';
+import { HALEndpointService } from '../shared';
+import { getFirstSucceededRemoteData } from '../shared';
+import { Site } from '../shared';
+import { BaseDataService } from './base';
 import {
   FindAllData,
   FindAllDataImpl,
-} from './base/find-all-data';
+} from './base';
 import { FindListOptions } from './find-list-options.model';
 import { FollowLinkConfig } from './follow-link-config.model';
 import { PaginatedList } from './paginated-list.model';

@@ -1,7 +1,7 @@
 import { AdminNotifySearchResultComponent } from '../../../../admin/admin-notify-dashboard/admin-notify-search-result/admin-notify-search-result.component';
-import { AdminNotifySearchResult } from '../../../../admin/admin-notify-dashboard/models/admin-notify-message-search-result.model';
-import { Context } from '../../../../../../modules/core/src/lib/core/shared/context.model';
-import { ViewMode } from '../../../../../../modules/core/src/lib/core/shared/view-mode.model';
+import { AdminNotifySearchResult } from '../../../../../../modules/core/src/lib/core/admin/admin-notify-message/models/admin-notify-message-search-result.model';
+import { Context } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
 import { getTabulatableObjectsComponent } from './tabulatable-objects.decorator';
 
 describe('TabulatableObject decorator function', () => {

@@ -9,13 +9,13 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { RouteService } from '../../../../../modules/core/src/lib/core/services/route.service';
+import { RouteService } from '@dspace/core';
 
 import { BBM_PAGINATION_ID } from '../../../browse-by/browse-by-metadata/browse-by-metadata.component';
-import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { PaginationService } from '../../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { BrowseEntry } from '../../../../../modules/core/src/lib/core/shared/browse-entry.model';
-import { ViewMode } from '../../../../../modules/core/src/lib/core/shared/view-mode.model';
+import { DSONameService } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { BrowseEntry } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
 import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 

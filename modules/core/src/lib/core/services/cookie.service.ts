@@ -8,7 +8,7 @@ import {
   Subject,
 } from 'rxjs';
 
-import { REQUEST } from '../tokens/express.tokens';
+import { REQUEST } from '../tokens';
 
 export interface ICookieService {
   readonly cookies$: Observable<{ readonly [key: string]: any }>;

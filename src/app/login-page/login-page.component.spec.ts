@@ -10,10 +10,10 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '../../../modules/core/src/lib/core/auth/auth.service';
-import { APP_DATA_SERVICES_MAP } from '../../../modules/core/src/lib/core/config/app-config.interface';
-import { ActivatedRouteStub } from '../../../modules/core/src/lib/core/utilities/testing/active-router.stub';
-import { XSRFService } from '../../../modules/core/src/lib/core/xsrf/xsrf.service';
+import { AuthService } from '@dspace/core';
+import { APP_DATA_SERVICES_MAP } from '@dspace/core';
+import { ActivatedRouteStub } from '@dspace/core';
+import { XSRFService } from '@dspace/core';
 import { AuthServiceMock } from '../shared/mocks/auth.service.mock';
 import { LoginPageComponent } from './login-page.component';
 

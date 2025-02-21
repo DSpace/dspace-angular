@@ -4,8 +4,8 @@ import {
   inheritSerialization,
 } from 'cerialize';
 
-import { typedObject } from '../../../cache/builders/build-decorators';
-import { HALLink } from '../../../shared/hal-link.model';
+import { typedObject } from '../../../cache';
+import { HALLink } from '../../../shared';
 import { VOCABULARY_ENTRY_DETAIL } from './vocabularies.resource-type';
 import { VocabularyEntry } from './vocabulary-entry.model';
 

@@ -1,21 +1,21 @@
 import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { getMockRemoteDataBuildService } from '../mocks/remote-data-build.service.mock';
-import { getMockRequestService } from '../mocks/request.service.mock';
-import { NotificationsService } from '../notifications/notifications.service';
-import { Bitstream } from '../shared/bitstream.model';
-import { Bundle } from '../shared/bundle.model';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { RemoteDataBuildService } from '../cache';
+import { ObjectCacheService } from '../cache';
+import { getMockRemoteDataBuildService } from '../mocks';
+import { getMockRequestService } from '../mocks';
+import { NotificationsService } from '../notifications';
+import { Bitstream } from '../shared';
+import { Bundle } from '../shared';
+import { HALEndpointService } from '../shared';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../utilities/remote-data.utils';
-import { HALEndpointServiceStub } from '../utilities/testing/hal-endpoint-service.stub';
-import { NotificationsServiceStub } from '../utilities/testing/notifications-service.stub';
+} from '../utilities';
+import { HALEndpointServiceStub } from '../utilities';
+import { NotificationsServiceStub } from '../utilities';
 import { BundleDataService } from './bundle-data.service';
 import { PrimaryBitstreamService } from './primary-bitstream.service';
 import {

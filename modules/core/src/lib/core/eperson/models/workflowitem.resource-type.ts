@@ -1,3 +1,3 @@
-import { ResourceType } from '../../shared/resource-type';
+import { ResourceType } from '../../shared';
 
 export const WORKFLOWITEM = new ResourceType('workflowitem');

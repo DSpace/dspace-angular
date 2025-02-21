@@ -8,8 +8,8 @@ import { Observable } from 'rxjs';
 import {
   link,
   typedObject,
-} from '../cache/builders/build-decorators';
-import { RemoteData } from '../data/remote-data';
+} from '../cache';
+import { RemoteData } from '../data';
 import { BITSTREAM } from './bitstream.resource-type';
 import { BitstreamFormat } from './bitstream-format.model';
 import { BITSTREAM_FORMAT } from './bitstream-format.resource-type';

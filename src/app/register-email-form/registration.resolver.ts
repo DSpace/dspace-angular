@@ -6,10 +6,10 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { EpersonRegistrationService } from '../../../modules/core/src/lib/core/data/eperson-registration.service';
-import { RemoteData } from '../../../modules/core/src/lib/core/data/remote-data';
-import { getFirstCompletedRemoteData } from '../../../modules/core/src/lib/core/shared/operators';
-import { Registration } from '../../../modules/core/src/lib/core/shared/registration.model';
+import { EpersonRegistrationService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { getFirstCompletedRemoteData } from '@dspace/core';
+import { Registration } from '@dspace/core';
 
 export const registrationResolver: ResolveFn<RemoteData<Registration>> = (
   route: ActivatedRouteSnapshot,

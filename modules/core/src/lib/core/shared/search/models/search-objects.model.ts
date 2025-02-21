@@ -3,11 +3,11 @@ import {
   inheritSerialization,
 } from 'cerialize';
 
-import { typedObject } from '../../../cache/builders/build-decorators';
-import { PaginatedList } from '../../../data/paginated-list.model';
-import { excludeFromEquals } from '../../../utilities/equals.decorators';
+import { typedObject } from '../../../cache';
+import { PaginatedList } from '../../../data';
+import { excludeFromEquals } from '../../../utilities';
 import { DSpaceObject } from '../../dspace-object.model';
-import { SEARCH_OBJECTS } from '../types/search-objects.resource-type';
+import { SEARCH_OBJECTS } from '../types';
 import { SearchQueryResponse } from './search-query-response.model';
 import { SearchResult } from './search-result.model';
 

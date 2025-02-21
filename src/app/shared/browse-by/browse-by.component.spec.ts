@@ -21,27 +21,27 @@ import { of as observableOf } from 'rxjs';
 import {
   SortDirection,
   SortOptions,
-} from '../../../../modules/core/src/lib/core/cache/models/sort-options.model';
-import { ConfigurationDataService } from '../../../../modules/core/src/lib/core/data/configuration-data.service';
-import { buildPaginatedList } from '../../../../modules/core/src/lib/core/data/paginated-list.model';
-import { GroupDataService } from '../../../../modules/core/src/lib/core/eperson/group-data.service';
-import { TranslateLoaderMock } from '../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
-import { PaginationService } from '../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { LinkHeadService } from '../../../../modules/core/src/lib/core/services/link-head.service';
-import { RouteService } from '../../../../modules/core/src/lib/core/services/route.service';
-import { BrowseEntry } from '../../../../modules/core/src/lib/core/shared/browse-entry.model';
-import { ConfigurationProperty } from '../../../../modules/core/src/lib/core/shared/configuration-property.model';
-import { ITEM } from '../../../../modules/core/src/lib/core/shared/item.resource-type';
-import { PageInfo } from '../../../../modules/core/src/lib/core/shared/page-info.model';
-import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
-import { SearchConfigurationService } from '../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
-import { ViewMode } from '../../../../modules/core/src/lib/core/shared/view-mode.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { HostWindowServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/host-window-service.stub';
-import { PaginationServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
-import { routeServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/route-service.stub';
-import { SearchConfigurationServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/search-configuration-service.stub';
-import { createPaginatedList } from '../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+} from '@dspace/core';
+import { ConfigurationDataService } from '@dspace/core';
+import { buildPaginatedList } from '@dspace/core';
+import { GroupDataService } from '@dspace/core';
+import { TranslateLoaderMock } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { LinkHeadService } from '@dspace/core';
+import { RouteService } from '@dspace/core';
+import { BrowseEntry } from '@dspace/core';
+import { ConfigurationProperty } from '@dspace/core';
+import { ITEM } from '@dspace/core';
+import { PageInfo } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
+import { SearchConfigurationService } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { HostWindowServiceStub } from '@dspace/core';
+import { PaginationServiceStub } from '@dspace/core';
+import { routeServiceStub } from '@dspace/core';
+import { SearchConfigurationServiceStub } from '@dspace/core';
+import { createPaginatedList } from '@dspace/core';
 import { HostWindowService } from '../host-window.service';
 import { getMockThemeService } from '../mocks/theme-service.mock';
 import {
@@ -50,7 +50,7 @@ import {
 } from '../object-collection/shared/listable-object/listable-object.decorator';
 import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { BrowseEntryListElementComponent } from '../object-list/browse-entry-list-element/browse-entry-list-element.component';
-import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
+import { SelectableListService } from '../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
 import { ThemeService } from '../theme-support/theme.service';
 import { BrowseByComponent } from './browse-by.component';
 

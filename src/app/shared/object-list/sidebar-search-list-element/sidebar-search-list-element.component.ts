@@ -20,14 +20,14 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { DSONameService } from '../../../../../modules/core/src/lib/core/breadcrumbs/dso-name.service';
-import { LinkService } from '../../../../../modules/core/src/lib/core/cache/builders/link.service';
-import { followLink } from '../../../../../modules/core/src/lib/core/data/follow-link-config.model';
-import { RemoteData } from '../../../../../modules/core/src/lib/core/data/remote-data';
-import { ChildHALResource } from '../../../../../modules/core/src/lib/core/shared/child-hal-resource.model';
-import { Context } from '../../../../../modules/core/src/lib/core/shared/context.model';
-import { DSpaceObject } from '../../../../../modules/core/src/lib/core/shared/dspace-object.model';
-import { SearchResult } from '../../../../../modules/core/src/lib/core/shared/search/models/search-result.model';
+import { DSONameService } from '@dspace/core';
+import { LinkService } from '@dspace/core';
+import { followLink } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { ChildHALResource } from '@dspace/core';
+import { Context } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
+import { SearchResult } from '@dspace/core';
 import { TruncatableService } from '../../truncatable/truncatable.service';
 import { TruncatablePartComponent } from '../../truncatable/truncatable-part/truncatable-part.component';
 import { SearchResultListElementComponent } from '../search-result-list-element/search-result-list-element.component';

@@ -19,46 +19,46 @@ import {
   mergeMap,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { RequestParam } from '../cache/models/request-param.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
+import { RemoteDataBuildService } from '../cache';
+import { RequestParam } from '../cache';
+import { ObjectCacheService } from '../cache';
 import {
   CreateData,
   CreateDataImpl,
-} from '../data/base/create-data';
+} from '../data';
 import {
   DeleteData,
   DeleteDataImpl,
-} from '../data/base/delete-data';
-import { IdentifiableDataService } from '../data/base/identifiable-data.service';
+} from '../data';
+import { IdentifiableDataService } from '../data';
 import {
   PatchData,
   PatchDataImpl,
-} from '../data/base/patch-data';
+} from '../data';
 import {
   SearchData,
   SearchDataImpl,
-} from '../data/base/search-data';
-import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
-import { FindListOptions } from '../data/find-list-options.model';
+} from '../data';
+import { DefaultChangeAnalyzer } from '../data';
+import { FindListOptions } from '../data';
 import {
   followLink,
   FollowLinkConfig,
-} from '../data/follow-link-config.model';
-import { ItemDataService } from '../data/item-data.service';
-import { PaginatedList } from '../data/paginated-list.model';
-import { RemoteData } from '../data/remote-data';
-import { PostRequest } from '../data/request.models';
-import { RequestService } from '../data/request.service';
-import { RestRequestMethod } from '../data/rest-request-method';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { NotificationsService } from '../notifications/notifications.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Item } from '../shared/item.model';
-import { NoContent } from '../shared/NoContent.model';
-import { getFirstCompletedRemoteData } from '../shared/operators';
-import { createFailedRemoteDataObject$ } from '../utilities/remote-data.utils';
-import { ResearcherProfile } from './model/researcher-profile.model';
+} from '../data';
+import { ItemDataService } from '../data';
+import { PaginatedList } from '../data';
+import { RemoteData } from '../data';
+import { PostRequest } from '../data';
+import { RequestService } from '../data';
+import { RestRequestMethod } from '../data';
+import { HttpOptions } from '../dspace-rest';
+import { NotificationsService } from '../notifications';
+import { HALEndpointService } from '../shared';
+import { Item } from '../shared';
+import { NoContent } from '../shared';
+import { getFirstCompletedRemoteData } from '../shared';
+import { createFailedRemoteDataObject$ } from '../utilities';
+import { ResearcherProfile } from './model';
 
 /**
  * A service that provides methods to make REST requests with researcher profile endpoint.

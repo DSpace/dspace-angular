@@ -9,17 +9,17 @@ import { environment } from '../../../environments/environment';
 import {
   SortDirection,
   SortOptions,
-} from '../../../../modules/core/src/lib/core/cache/models/sort-options.model';
-import { APP_CONFIG } from '../../../../modules/core/src/lib/core/config/app-config.interface';
-import { PaginationService } from '../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { PaginatedSearchOptions } from '../../../../modules/core/src/lib/core/shared/paginated-search-options.model';
-import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
-import { SearchService } from '../../../../modules/core/src/lib/core/shared/search/search.service';
-import { SearchConfigurationService } from '../../../../modules/core/src/lib/core/shared/search/search-configuration.service';
-import { createSuccessfulRemoteDataObject } from '../../../../modules/core/src/lib/core/utilities/remote-data.utils';
-import { PaginationServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/pagination-service.stub';
-import { SearchServiceStub } from '../../../../modules/core/src/lib/core/utilities/testing/search-service.stub';
-import { createPaginatedList } from '../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+} from '@dspace/core';
+import { APP_CONFIG } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { PaginatedSearchOptions } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
+import { SearchService } from '@dspace/core';
+import { SearchConfigurationService } from '@dspace/core';
+import { createSuccessfulRemoteDataObject } from '@dspace/core';
+import { PaginationServiceStub } from '@dspace/core';
+import { SearchServiceStub } from '@dspace/core';
+import { createPaginatedList } from '@dspace/core';
 import { RecentItemListComponent } from './recent-item-list.component';
 
 describe('RecentItemListComponent', () => {

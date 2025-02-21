@@ -7,7 +7,7 @@
  */
 import { Observable } from 'rxjs';
 
-import { HALResource } from '../../shared/hal-resource.model';
+import { HALResource } from '../../shared';
 import { FindListOptions } from '../find-list-options.model';
 import { FollowLinkConfig } from '../follow-link-config.model';
 import { PaginatedList } from '../paginated-list.model';

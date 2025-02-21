@@ -33,13 +33,13 @@ import { storeModuleConfig } from '../../app.reducer';
 import {
   SortDirection,
   SortOptions,
-} from '../../../../modules/core/src/lib/core/cache/models/sort-options.model';
-import { FindListOptions } from '../../../../modules/core/src/lib/core/data/find-list-options.model';
-import { RouterMock } from '../../../../modules/core/src/lib/core/mocks/router.mock';
-import { TranslateLoaderMock } from '../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
-import { PaginationService } from '../../../../modules/core/src/lib/core/pagination/pagination.service';
-import { PaginationComponentOptions } from '../../../../modules/core/src/lib/core/shared/pagination-component-options.model';
-import { createTestComponent } from '../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+} from '@dspace/core';
+import { FindListOptions } from '@dspace/core';
+import { RouterMock } from '@dspace/core';
+import { TranslateLoaderMock } from '@dspace/core';
+import { PaginationService } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
+import { createTestComponent } from '@dspace/core';
 import { HostWindowService } from '../host-window.service';
 import { MockActivatedRoute } from '../mocks/active-router.mock';
 import { HostWindowServiceMock } from '../mocks/host-window-service.mock';

@@ -8,11 +8,11 @@ import { Observable } from 'rxjs';
 import {
   link,
   typedObject,
-} from '../../cache/builders/build-decorators';
-import { CacheableObject } from '../../cache/cacheable-object.model';
-import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
-import { RemoteData } from '../../data/remote-data';
-import { excludeFromEquals } from '../../utilities/equals.decorators';
+} from '../../cache';
+import { CacheableObject } from '../../cache';
+import { IDToUUIDSerializer } from '../../cache';
+import { RemoteData } from '../../data';
+import { excludeFromEquals } from '../../utilities';
 import { HALLink } from '../hal-link.model';
 import { Item } from '../item.model';
 import { ITEM } from '../item.resource-type';

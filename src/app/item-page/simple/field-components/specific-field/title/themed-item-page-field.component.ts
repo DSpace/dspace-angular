@@ -3,7 +3,7 @@ import {
   Input,
 } from '@angular/core';
 
-import { Item } from '../../../../../../../modules/core/src/lib/core/shared/item.model';
+import { Item } from '@dspace/core';
 import { ThemedComponent } from '../../../../../shared/theme-support/themed.component';
 import { ItemPageTitleFieldComponent } from './item-page-title-field.component';
 

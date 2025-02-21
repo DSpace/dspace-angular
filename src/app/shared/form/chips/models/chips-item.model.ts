@@ -5,9 +5,9 @@ import {
 import isObject from 'lodash/isObject';
 import uniqueId from 'lodash/uniqueId';
 
-import { ConfidenceType } from '../../../../../../modules/core/src/lib/core/shared/confidence-type';
-import { PLACEHOLDER_PARENT_METADATA } from '../../../../../../modules/core/src/lib/core/config/models/ds-dynamic-form-constants';
-import { FormFieldMetadataValueObject } from '../../../../../../modules/core/src/lib/core/config/models/form-field-metadata-value.model';
+import { ConfidenceType } from '@dspace/core';
+import { PLACEHOLDER_PARENT_METADATA } from '@dspace/core';
+import { FormFieldMetadataValueObject } from '@dspace/core';
 
 export interface ChipsItemIcon {
   metadata: string;

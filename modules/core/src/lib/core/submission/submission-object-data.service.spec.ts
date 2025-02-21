@@ -1,7 +1,7 @@
-import { SubmissionService } from '../../../../../../src/app/submission/submission.service';
-import { RemoteData } from '../data/remote-data';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { SubmissionObject } from './models/submission-object.model';
+import { SubmissionService } from './submission.service';
+import { RemoteData } from '../data';
+import { HALEndpointService } from '../shared';
+import { SubmissionObject } from './models';
 import { SubmissionObjectDataService } from './submission-object-data.service';
 import { SubmissionScopeType } from './submission-scope-type';
 import { WorkflowItemDataService } from './workflowitem-data.service';

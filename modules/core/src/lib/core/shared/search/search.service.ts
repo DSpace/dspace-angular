@@ -19,22 +19,22 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { getSearchResultFor } from '../../../../../../../src/app/shared/search/search-result-element-decorator';
-import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { BaseDataService } from '../../data/base/base-data.service';
-import { DSpaceObjectDataService } from '../../data/dspace-object-data.service';
-import { FacetValueResponseParsingService } from '../../data/facet-value-response-parsing.service';
-import { FollowLinkConfig } from '../../data/follow-link-config.model';
-import { ResponseParsingService } from '../../data/parsing.service';
-import { RemoteData } from '../../data/remote-data';
-import { GetRequest } from '../../data/request.models';
-import { RequestService } from '../../data/request.service';
-import { RestRequest } from '../../data/rest-request.model';
-import { SearchResponseParsingService } from '../../data/search-response-parsing.service';
-import { ListableObject } from '../../object-collection/listable-object.model';
-import { PaginationService } from '../../pagination/pagination.service';
-import { RouteService } from '../../services/route.service';
-import { URLCombiner } from '../../url-combiner/url-combiner';
+import { getSearchResultFor } from '../../config/models/search-result-element-decorator';
+import { RemoteDataBuildService } from '../../cache';
+import { BaseDataService } from '../../data';
+import { DSpaceObjectDataService } from '../../data';
+import { FacetValueResponseParsingService } from '../../data';
+import { FollowLinkConfig } from '../../data';
+import { ResponseParsingService } from '../../data';
+import { RemoteData } from '../../data';
+import { GetRequest } from '../../data';
+import { RequestService } from '../../data';
+import { RestRequest } from '../../data';
+import { SearchResponseParsingService } from '../../data';
+import { ListableObject } from '../../object-collection';
+import { PaginationService } from '../../pagination';
+import { RouteService } from '../../services';
+import { URLCombiner } from '../../url-combiner';
 import { DSpaceObject } from '../dspace-object.model';
 import { GenericConstructor } from '../generic-constructor';
 import { HALEndpointService } from '../hal-endpoint.service';
@@ -45,11 +45,11 @@ import {
 import { PaginatedSearchOptions } from '../paginated-search-options.model';
 import { PaginationComponentOptions } from '../pagination-component-options.model';
 import { ViewMode } from '../view-mode.model';
-import { AppliedFilter } from './models/applied-filter.model';
-import { FacetValues } from './models/facet-values.model';
-import { SearchFilterConfig } from './models/search-filter-config.model';
-import { SearchObjects } from './models/search-objects.model';
-import { SearchResult } from './models/search-result.model';
+import { AppliedFilter } from './models';
+import { FacetValues } from './models';
+import { SearchFilterConfig } from './models';
+import { SearchObjects } from './models';
+import { SearchResult } from './models';
 import { SearchConfigurationService } from './search-configuration.service';
 
 /**

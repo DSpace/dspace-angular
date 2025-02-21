@@ -24,13 +24,13 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { SubmissionRestService } from '../../../../../modules/core/src/lib/core/submission/submission-rest.service';
-import { SubmissionRestServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/submission-rest-service.stub';
-import { SubmissionServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/submission-service.stub';
-import { createTestComponent } from '../../../../../modules/core/src/lib/core/utilities/testing/utils.test';
+import { SubmissionRestService } from '@dspace/core';
+import { SubmissionRestServiceStub } from '@dspace/core';
+import { SubmissionServiceStub } from '@dspace/core';
+import { createTestComponent } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { mockSubmissionId } from '../../../shared/mocks/submission.mock';
-import { SubmissionService } from '../../submission.service';
+import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
 import { SubmissionFormFooterComponent } from './submission-form-footer.component';
 
 const submissionServiceStub: SubmissionServiceStub = new SubmissionServiceStub();
