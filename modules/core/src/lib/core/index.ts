@@ -15,7 +15,7 @@ export * from './feedback';
 export * from './forward-client-ip';
 export * from './google-recaptcha';
 export * from './history';
-export * from './index';
+export * from './index/index';
 export * from './json-patch';
 export * from './locale';
 export * from './log';

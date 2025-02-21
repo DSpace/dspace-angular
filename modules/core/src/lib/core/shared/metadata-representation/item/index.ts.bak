@@ -1,4 +1,0 @@
-
-
-export * from './item-metadata-representation.model.spec';
-export * from './item-metadata-representation.model';

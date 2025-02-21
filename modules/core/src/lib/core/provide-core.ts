@@ -25,7 +25,6 @@ import { EPerson } from './eperson';
 import { Group } from './eperson';
 import { MetadataField } from './metadata';
 import { MetadataSchema } from './metadata';
-import { EndpointMockingRestService } from './mocks';
 
 import { QualityAssuranceEventObject } from './notifications';
 import { QualityAssuranceSourceObject } from './notifications';
@@ -84,7 +83,8 @@ import { RatingAdvancedWorkflowInfo } from './tasks';
 import { SelectReviewerAdvancedWorkflowInfo } from './tasks';
 import { TaskObject } from './tasks';
 import { WorkflowAction } from './tasks';
-import { MOCK_RESPONSE_MAP, ResponseMapMock } from "./mocks";
+import { MOCK_RESPONSE_MAP, ResponseMapMock } from "./mocks/response-map.mock";
+import { EndpointMockingRestService } from "./mocks/endpoint-mocking-rest.service";
 
 
 export const provideCore = () => {

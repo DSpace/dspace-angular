@@ -70,6 +70,7 @@ export * from './metadata.models';
 export * from './metadata.utils';
 export * from './non-hierarchical-browse-definition';
 export * from './operators';
+export * from './page-info.model';
 export * from './paginated-search-options.model';
 export * from './pagination-component-options.model';
 export * from './process-output.resource-type';

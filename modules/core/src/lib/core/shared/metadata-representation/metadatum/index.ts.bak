@@ -1,4 +1,0 @@
-
-
-export * from './metadatum-representation.model.spec';
-export * from './metadatum-representation.model';
