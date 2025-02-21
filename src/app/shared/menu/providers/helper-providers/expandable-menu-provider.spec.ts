@@ -62,8 +62,8 @@ describe('AbstractExpandableMenuProvider', () => {
         type: MenuItemType.TEXT,
         text: 'sub.section.test.1',
       },
-      id: `${MenuID.ADMIN}_1_0`,
-      parentID: `${MenuID.ADMIN}_1`,
+      id: `${MenuID.ADMIN}_1_0_0`,
+      parentID: `${MenuID.ADMIN}_1_0`,
       alwaysRenderExpandable: false,
     },
     {
@@ -72,8 +72,8 @@ describe('AbstractExpandableMenuProvider', () => {
         type: MenuItemType.TEXT,
         text: 'sub.section.test.2',
       },
-      id: `${MenuID.ADMIN}_1_1`,
-      parentID: `${MenuID.ADMIN}_1`,
+      id: `${MenuID.ADMIN}_1_0_1`,
+      parentID: `${MenuID.ADMIN}_1_0`,
       alwaysRenderExpandable: false,
     },
     {
@@ -83,7 +83,7 @@ describe('AbstractExpandableMenuProvider', () => {
         text: 'top.section.test',
       },
       icon: 'file-import',
-      id: `${MenuID.ADMIN}_1`,
+      id: `${MenuID.ADMIN}_1_0`,
       alwaysRenderExpandable: true,
     },
   ];

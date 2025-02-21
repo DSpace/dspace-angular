@@ -22,7 +22,7 @@ import { MenuItemType } from '../../menu-item-type.model';
 import { PartialMenuSection } from '../../menu-provider.model';
 import { AbstractRouteContextMenuProvider } from './route-context.menu';
 
-describe('AbstractExpandableMenuProvider', () => {
+describe('AbstractRouteContextMenuProvider', () => {
 
   class TestClass extends AbstractRouteContextMenuProvider<CacheableObject> {
     getRouteContext(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<CacheableObject> {
