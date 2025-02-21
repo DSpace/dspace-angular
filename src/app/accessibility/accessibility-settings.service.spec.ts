@@ -13,6 +13,8 @@ import { of } from 'rxjs';
 import { EPerson } from '../core/eperson/models/eperson.model';
 import { fakeAsync, flush } from '@angular/core/testing';
 import { createSuccessfulRemoteDataObject$, createFailedRemoteDataObject$ } from '../shared/remote-data.utils';
+import { KlaroServiceStub } from '../shared/cookies/klaro.service.stub';
+import { AppConfig } from '../../config/app-config.interface';
 
 
 describe('accessibilitySettingsService', () => {
@@ -20,10 +22,16 @@ describe('accessibilitySettingsService', () => {
   let cookieService: CookieServiceMock;
   let authService: AuthServiceStub;
   let ePersonService: EPersonDataService;
+  let klaroService: KlaroServiceStub;
+  let appConfig: AppConfig;
 
   beforeEach(() => {
     cookieService = new CookieServiceMock();
     authService = new AuthServiceStub();
+    klaroService = new KlaroServiceStub();
+    appConfig = { accessibility: { cookieExpirationDuration: 10 }} as AppConfig;
+
+    klaroService.getSavedPreferences.and.returnValue(of({ accessibility: true }));
 
     ePersonService = jasmine.createSpyObj('ePersonService', {
       createPatchFromCache: of([{
@@ -37,6 +45,8 @@ describe('accessibilitySettingsService', () => {
       cookieService as unknown as CookieService,
       authService as unknown as AuthService,
       ePersonService,
+      klaroService,
+      appConfig,
     );
   });
 
@@ -171,12 +181,12 @@ describe('accessibilitySettingsService', () => {
 
   describe('setSettings', () => {
     beforeEach(() => {
-      service.setSettingsInCookie = jasmine.createSpy('setSettingsInCookie');
+      service.setSettingsInCookie = jasmine.createSpy('setSettingsInCookie').and.returnValue(of('cookie'));
     });
 
     it('should attempt to set settings in metadata', () => {
       service.setSettingsInAuthenticatedUserMetadata =
-        jasmine.createSpy('setSettingsInAuthenticatedUserMetadata').and.returnValue(of(false));
+        jasmine.createSpy('setSettingsInAuthenticatedUserMetadata').and.returnValue(of('failed'));
 
       const settings: AccessibilitySettings = {
         notificationTimeOut: '1000',
@@ -200,7 +210,7 @@ describe('accessibilitySettingsService', () => {
 
     it('should not set settings in cookie if metadata succeeded', () => {
       service.setSettingsInAuthenticatedUserMetadata =
-        jasmine.createSpy('setSettingsInAuthenticatedUserMetadata').and.returnValue(of(true));
+        jasmine.createSpy('setSettingsInAuthenticatedUserMetadata').and.returnValue(of('metadata'));
 
       const settings: AccessibilitySettings = {
         notificationTimeOut: '1000',
@@ -212,7 +222,7 @@ describe('accessibilitySettingsService', () => {
 
     it('should return \'metadata\' if settings are stored in metadata', () => {
       service.setSettingsInAuthenticatedUserMetadata =
-        jasmine.createSpy('setSettingsInAuthenticatedUserMetadata').and.returnValue(of(true));
+        jasmine.createSpy('setSettingsInAuthenticatedUserMetadata').and.returnValue(of('metadata'));
 
       const settings: AccessibilitySettings = {
         notificationTimeOut: '1000',
@@ -275,11 +285,11 @@ describe('accessibilitySettingsService', () => {
       expect(service.setSettingsInMetadata).toHaveBeenCalled();
     }));
 
-    it('should emit false when the user is not authenticated', fakeAsync(() => {
+    it('should emit "failed" when the user is not authenticated', fakeAsync(() => {
       authService.getAuthenticatedUserFromStoreIfAuthenticated = jasmine.createSpy().and.returnValue(of(null));
 
       service.setSettingsInAuthenticatedUserMetadata({})
-        .subscribe(value => expect(value).toBeFalse());
+        .subscribe(value => expect(value).toEqual('failed'));
       flush();
 
       expect(service.setSettingsInMetadata).not.toHaveBeenCalled();
@@ -315,23 +325,23 @@ describe('accessibilitySettingsService', () => {
       expect(ePersonService.patch).toHaveBeenCalled();
     });
 
-    it('should emit true when the update succeeded', fakeAsync(() => {
+    it('should emit "metadata" when the update succeeded', fakeAsync(() => {
       ePersonService.patch = jasmine.createSpy().and.returnValue(createSuccessfulRemoteDataObject$({}));
 
       service.setSettingsInMetadata(ePerson, { ['liveRegionTimeOut']: '500' })
         .subscribe(value => {
-        expect(value).toBeTrue();
+        expect(value).toEqual('metadata');
       });
 
       flush();
     }));
 
-    it('should emit false when the update failed', fakeAsync(() => {
+    it('should emit "failed" when the update failed', fakeAsync(() => {
       ePersonService.patch = jasmine.createSpy().and.returnValue(createFailedRemoteDataObject$());
 
       service.setSettingsInMetadata(ePerson, { ['liveRegionTimeOut']: '500' })
         .subscribe(value => {
-        expect(value).toBeFalse();
+        expect(value).toEqual('failed');
       });
 
       flush();
@@ -344,16 +354,34 @@ describe('accessibilitySettingsService', () => {
       cookieService.remove = jasmine.createSpy('remove');
     });
 
-    it('should store the settings in a cookie', () => {
-      service.setSettingsInCookie({ ['liveRegionTimeOut']: '500' });
-      expect(cookieService.set).toHaveBeenCalled();
-    });
+    it('should fail to store settings in the cookie when the user has not accepted the cookie', fakeAsync(() => {
+      klaroService.getSavedPreferences.and.returnValue(of({ accessibility: false }));
 
-    it('should remove the cookie when the settings are empty', () => {
-      service.setSettingsInCookie({});
+      service.setSettingsInCookie({ ['liveRegionTimeOut']: '500' }).subscribe(value => {
+        expect(value).toEqual('failed');
+      });
+      flush();
+      expect(cookieService.set).not.toHaveBeenCalled();
+    }));
+
+    it('should store the settings in a cookie', fakeAsync(() => {
+      service.setSettingsInCookie({ ['liveRegionTimeOut']: '500' }).subscribe(value => {
+        expect(value).toEqual('cookie');
+      });
+      flush();
+      expect(cookieService.set).toHaveBeenCalled();
+    }));
+
+    it('should remove the cookie when the settings are empty', fakeAsync(() => {
+      service.setSettingsInCookie({}).subscribe(value => {
+        expect(value).toEqual('cookie');
+      });
+
+      flush();
+
       expect(cookieService.set).not.toHaveBeenCalled();
       expect(cookieService.remove).toHaveBeenCalled();
-    });
+    }));
   });
 
   describe('convertFormValuesToStoredValues', () => {

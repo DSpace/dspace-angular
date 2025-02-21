@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { Observable, of, switchMap } from 'rxjs';
+import { Inject, Injectable } from '@angular/core';
+import { Observable, of, switchMap, combineLatest } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { CookieService } from '../core/services/cookie.service';
-import { hasValue, isNotEmpty } from '../shared/empty.util';
+import { hasValue, isNotEmpty, hasNoValue } from '../shared/empty.util';
 import { AuthService } from '../core/auth/auth.service';
 import { EPerson } from '../core/eperson/models/eperson.model';
 import { EPersonDataService } from '../core/eperson/eperson-data.service';
@@ -10,6 +10,8 @@ import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import cloneDeep from 'lodash/cloneDeep';
 import { environment } from '../../environments/environment';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import { KlaroService } from '../shared/cookies/klaro.service';
+import { AppConfig, APP_CONFIG } from '../../config/app-config.interface';
 
 /**
  * Name of the cookie used to store the settings locally
@@ -22,11 +24,16 @@ export const ACCESSIBILITY_COOKIE = 'dsAccessibilityCookie';
 export const ACCESSIBILITY_SETTINGS_METADATA_KEY = 'dspace.accessibility.settings';
 
 /**
- * Type containing all possible accessibility settings.
+ * Array containing all possible accessibility settings.
  * When adding new settings, make sure to add the new setting to the accessibility-settings component form.
  * The converter methods to convert from stored format to form format (and vice-versa) need to be updated as well.
  */
-export type AccessibilitySetting = 'notificationTimeOut' | 'liveRegionTimeOut';
+export const accessibilitySettingKeys = ['notificationTimeOut', 'liveRegionTimeOut'] as const;
+
+/**
+ * Type representing the possible accessibility settings
+ */
+export type AccessibilitySetting = typeof accessibilitySettingKeys[number];
 
 /**
  * Type representing an object that contains accessibility settings values for all accessibility settings.
@@ -62,6 +69,8 @@ export class AccessibilitySettingsService {
     protected cookieService: CookieService,
     protected authService: AuthService,
     protected ePersonService: EPersonDataService,
+    protected klaroService: KlaroService,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
   }
 
@@ -125,8 +134,9 @@ export class AccessibilitySettingsService {
    *
    * Returns 'cookie' when the changes were stored in the cookie.
    * Returns 'metadata' when the changes were stored in metadata.
+   * Returns 'failed' when both options failed.
    */
-  set(setting: AccessibilitySetting, value: string): Observable<'cookie' | 'metadata'> {
+  set(setting: AccessibilitySetting, value: string): Observable<'metadata' | 'cookie' | 'failed'> {
     return this.updateSettings({ [setting]: value });
   }
 
@@ -137,18 +147,15 @@ export class AccessibilitySettingsService {
    *
    * Returns 'cookie' when the changes were stored in the cookie.
    * Returns 'metadata' when the changes were stored in metadata.
+   * Returns 'failed' when both options failed.
    */
-  setSettings(settings: AccessibilitySettings): Observable<'cookie' | 'metadata'> {
+  setSettings(settings: AccessibilitySettings): Observable<'metadata' | 'cookie' | 'failed'> {
     return this.setSettingsInAuthenticatedUserMetadata(settings).pipe(
       take(1),
-      map((succeeded) => {
-        if (!succeeded) {
-          this.setSettingsInCookie(settings);
-          return 'cookie';
-        } else {
-          return 'metadata';
-        }
-      })
+      map(saveLocation => saveLocation === 'metadata'),
+      switchMap((savedInMetadata) =>
+        savedInMetadata ? ofMetadata() : this.setSettingsInCookie(settings)
+      ),
     );
   }
 
@@ -158,8 +165,9 @@ export class AccessibilitySettingsService {
    *
    * Returns 'cookie' when the changes were stored in the cookie.
    * Returns 'metadata' when the changes were stored in metadata.
+   * Returns 'failed' when both options failed.
    */
-  updateSettings(settings: AccessibilitySettings): Observable<'cookie' | 'metadata'> {
+  updateSettings(settings: AccessibilitySettings): Observable<'metadata' | 'cookie' | 'failed'> {
     return this.getAll().pipe(
       take(1),
       map(currentSettings => Object.assign({}, currentSettings, settings)),
@@ -170,9 +178,9 @@ export class AccessibilitySettingsService {
   /**
    * Attempts to set the provided settings on the currently authorized user's metadata.
    * Emits false when no user is authenticated or when the metadata update failed.
-   * Emits true when the metadata update succeeded.
+   * Emits 'metadata' when the metadata update succeeded, and 'failed' otherwise.
    */
-  setSettingsInAuthenticatedUserMetadata(settings: AccessibilitySettings): Observable<boolean> {
+  setSettingsInAuthenticatedUserMetadata(settings: AccessibilitySettings): Observable<'metadata' | 'failed'> {
     return this.authService.getAuthenticatedUserFromStoreIfAuthenticated().pipe(
       take(1),
       switchMap(user => {
@@ -181,7 +189,7 @@ export class AccessibilitySettingsService {
           const clonedUser = cloneDeep(user);
           return this.setSettingsInMetadata(clonedUser, settings);
         } else {
-          return of(false);
+          return ofFailed();
         }
       })
     );
@@ -194,7 +202,7 @@ export class AccessibilitySettingsService {
   setSettingsInMetadata(
     user: EPerson,
     settings: AccessibilitySettings,
-  ): Observable<boolean> {
+  ): Observable<'metadata' | 'failed'> {
     if (isNotEmpty(settings)) {
       user.setMetadata(ACCESSIBILITY_SETTINGS_METADATA_KEY, null, JSON.stringify(settings));
     } else {
@@ -206,35 +214,49 @@ export class AccessibilitySettingsService {
       switchMap(operations =>
         isNotEmpty(operations) ? this.ePersonService.patch(user, operations) : createSuccessfulRemoteDataObject$({})),
       getFirstCompletedRemoteData(),
-      map(rd => rd.hasSucceeded),
+      switchMap(rd => rd.hasSucceeded ? ofMetadata() : ofFailed()),
     );
   }
 
   /**
-   * Sets the provided settings in a cookie
+   * Attempts to set the provided settings in a cookie.
+   * Emits 'failed' when setting in a cookie failed due to the cookie not being accepted, 'cookie' when it succeeded.
    */
-  setSettingsInCookie(settings: AccessibilitySettings) {
-    if (isNotEmpty(settings)) {
-      this.cookieService.set(ACCESSIBILITY_COOKIE, settings, { expires: environment.accessibility.cookieExpirationDuration });
-    } else {
-      this.cookieService.remove(ACCESSIBILITY_COOKIE);
-    }
+  setSettingsInCookie(settings: AccessibilitySettings): Observable<'cookie' | 'failed'> {
+    return this.klaroService.getSavedPreferences().pipe(
+      map(preferences => preferences.accessibility),
+      map((accessibilityCookieAccepted: boolean) => {
+        if (accessibilityCookieAccepted) {
+          if (isNotEmpty(settings)) {
+            this.cookieService.set(ACCESSIBILITY_COOKIE, settings, { expires: this.appConfig.accessibility.cookieExpirationDuration });
+          } else {
+            this.cookieService.remove(ACCESSIBILITY_COOKIE);
+          }
+
+          return 'cookie';
+        } else {
+          return 'failed';
+        }
+      }),
+    );
   }
 
   /**
    * Clears all settings in the cookie and attempts to clear settings in metadata.
-   * Emits true if settings in metadata were cleared and false otherwise.
+   * Emits an array mentioning which settings succeeded or failed.
    */
-  clearSettings(): Observable<boolean> {
-    this.setSettingsInCookie({});
-    return this.setSettingsInAuthenticatedUserMetadata({});
+  clearSettings(): Observable<['cookie' | 'failed', 'metadata' | 'failed']> {
+    return combineLatest([
+      this.setSettingsInCookie({}),
+      this.setSettingsInAuthenticatedUserMetadata({}),
+    ]);
   }
 
   /**
-   * Retrieve the placeholder to be used for the provided AccessibilitySetting.
-   * Returns an empty string when no placeholder is specified for the provided setting.
+   * Retrieve the default value to be used for the provided AccessibilitySetting.
+   * Returns an empty string when no default value is specified for the provided setting.
    */
-  getPlaceholder(setting: AccessibilitySetting): string {
+  getDefaultValue(setting: AccessibilitySetting): string {
     switch (setting) {
       case 'notificationTimeOut':
         return millisecondsToSeconds(environment.notifications.timeOut.toString());
@@ -276,6 +298,28 @@ export class AccessibilitySettingsService {
     };
   }
 
+  /**
+   * Returns true if the provided AccessibilitySetting is valid in regard to the provided formValues.
+   */
+  isValid(setting: AccessibilitySetting, formValues: AccessibilitySettingsFormValues): boolean {
+    switch (setting) {
+      case 'notificationTimeOut':
+        return formValues.notificationTimeOutEnabled ?
+          hasNoValue(formValues.notificationTimeOut) || parseFloat(formValues.notificationTimeOut) > 0 :
+          true;
+      case 'liveRegionTimeOut':
+        return hasNoValue(formValues.liveRegionTimeOut) || parseFloat(formValues.liveRegionTimeOut) > 0;
+      default:
+        throw new Error(`Unhandled accessibility setting during validity check: ${setting}`);
+    }
+  }
+
+  /**
+   * Returns true if all settings in the provided AccessibilitySettingsFormValues object are valid
+   */
+  formValuesValid(formValues: AccessibilitySettingsFormValues) {
+    return accessibilitySettingKeys.every(setting => this.isValid(setting, formValues));
+  }
 }
 
 /**
@@ -302,4 +346,12 @@ function millisecondsToSeconds(millisecondsStr: string): string {
   } else {
     return (milliseconds / 1000).toString();
   }
+}
+
+function ofMetadata(): Observable<'metadata'> {
+  return of('metadata');
+}
+
+function ofFailed(): Observable<'failed'> {
+  return of('failed');
 }
