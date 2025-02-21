@@ -37,5 +37,9 @@ export class AccessibilitySettingsServiceStub {
 
   convertStoredValuesToFormValues = jasmine.createSpy('convertStoredValuesToFormValues').and.returnValue({});
 
-  getPlaceholder = jasmine.createSpy('getPlaceholder').and.returnValue('placeholder');
+  getDefaultValue = jasmine.createSpy('getPlaceholder').and.returnValue('placeholder');
+
+  isValid = jasmine.createSpy('isValid').and.returnValue(true);
+
+  formValuesValid = jasmine.createSpy('allValid').and.returnValue(true);
 }
