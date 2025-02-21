@@ -8,7 +8,7 @@ import {
   DynamicScrollableDropdownModel,
   DynamicScrollableDropdownModelConfig,
 } from '../ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../../../core/config/models/form-field-metadata-value.model';
 import {
   CONFIG_DATA,
   FieldParser,

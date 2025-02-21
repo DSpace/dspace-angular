@@ -47,7 +47,7 @@ import { SubmissionService } from '../../../../../submission/submission.service'
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
 import { MetadataRepresentationLoaderComponent } from '../../../../metadata-representation/metadata-representation-loader.component';
 import { SelectableListService } from '../../../../object-list/selectable-list/selectable-list.service';
-import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../../../../core/config/models/form-field-metadata-value.model';
 import { DynamicConcatModel } from '../models/ds-dynamic-concat.model';
 
 

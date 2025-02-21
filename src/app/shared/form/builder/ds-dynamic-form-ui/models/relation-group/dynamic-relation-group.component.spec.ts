@@ -51,7 +51,7 @@ import { Chips } from '../../../../chips/models/chips.model';
 import { FormComponent } from '../../../../form.component';
 import { FormService } from '../../../../form.service';
 import { FormBuilderService } from '../../../form-builder.service';
-import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../../../../../core/config/models/form-field-metadata-value.model';
 import { dsDynamicFormControlMapFn } from '../../ds-dynamic-form-control-map-fn';
 import { DsDynamicTypeBindRelationService } from '../../ds-dynamic-type-bind-relation.service';
 import { DsDynamicInputModel } from '../ds-dynamic-input.model';

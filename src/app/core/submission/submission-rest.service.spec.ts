@@ -1,7 +1,7 @@
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
-import { FormFieldMetadataValueObject } from '../../shared/form/builder/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../config/models/form-field-metadata-value.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import {
   SubmissionDeleteRequest,

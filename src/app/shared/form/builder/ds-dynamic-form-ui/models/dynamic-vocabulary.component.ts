@@ -20,7 +20,7 @@ import { map } from 'rxjs/operators';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { VocabularyEntry } from '../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyService } from '../../../../../core/submission/vocabularies/vocabulary.service';
-import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../../../../core/config/models/form-field-metadata-value.model';
 import { DsDynamicInputModel } from './ds-dynamic-input.model';
 
 /**

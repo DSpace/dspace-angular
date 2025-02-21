@@ -36,7 +36,7 @@ import { AlertComponent } from '../../alert/alert.component';
 import { AlertType } from '../../alert/alert-type';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
-import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../../core/config/models/form-field-metadata-value.model';
 import { VocabularyTreeFlatDataSource } from './vocabulary-tree-flat-data-source';
 import { VocabularyTreeFlattener } from './vocabulary-tree-flattener';
 import { VocabularyTreeviewService } from './vocabulary-treeview.service';

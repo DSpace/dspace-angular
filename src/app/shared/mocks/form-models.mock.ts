@@ -13,7 +13,7 @@ import {
 } from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { DynamicRowGroupModel } from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { DynamicRelationGroupModel } from '../form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
-import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../core/config/models/form-field-metadata-value.model';
 
 export const qualdropSelectConfig = {
   name: 'dc.identifier_QUALDROP_METADATA',

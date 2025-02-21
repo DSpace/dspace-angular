@@ -5,8 +5,8 @@ import {
   inheritSerialization,
 } from 'cerialize';
 
-import { NOTIFYREQUEST } from '../../item-page/simple/notify-requests-status/notify-requests-status.resource-type';
-import { RequestStatusEnum } from '../../item-page/simple/notify-requests-status/notify-status.enum';
+import { NOTIFYREQUEST } from './notify-requests-status.resource-type';
+import { RequestStatusEnum } from './notify-status.enum';
 import { typedObject } from '../cache/builders/build-decorators';
 import { CacheableObject } from '../cache/cacheable-object.model';
 import { HALLink } from '../shared/hal-link.model';

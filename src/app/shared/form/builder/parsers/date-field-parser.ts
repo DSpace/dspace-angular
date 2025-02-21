@@ -5,7 +5,7 @@ import {
   DynamicDsDateControlModelConfig,
   DynamicDsDatePickerModel,
 } from '../ds-dynamic-form-ui/models/date-picker/date-picker.model';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../../../core/config/models/form-field-metadata-value.model';
 import { FieldParser } from './field-parser';
 
 export class DateFieldParser extends FieldParser {

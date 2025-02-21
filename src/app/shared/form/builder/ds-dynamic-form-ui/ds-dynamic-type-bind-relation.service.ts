@@ -24,8 +24,8 @@ import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 
 import { FormBuilderService } from '../form-builder.service';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-constants';
+import { FormFieldMetadataValueObject } from '../../../../core/config/models/form-field-metadata-value.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../../../../core/config/models/ds-dynamic-form-constants';
 
 /**
  * Service to manage type binding for submission input fields

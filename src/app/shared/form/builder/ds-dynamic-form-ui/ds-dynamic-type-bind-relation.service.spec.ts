@@ -24,7 +24,7 @@ import {
   MockRelationModel,
 } from '../../../mocks/form-models.mock';
 import { FormBuilderService } from '../form-builder.service';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../../../core/config/models/form-field-metadata-value.model';
 import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
 
 describe('DSDynamicTypeBindRelationService test suite', () => {

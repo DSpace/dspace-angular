@@ -11,7 +11,7 @@ import { Subject } from 'rxjs';
 import { RelationshipOptions } from '../../../../../core/shared/form/relationship-options.model';
 import { VocabularyOptions } from '../../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { LanguageCode } from '../../models/form-field-language-value.model';
-import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../../../../core/config/models/form-field-metadata-value.model';
 
 export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
   vocabularyOptions?: VocabularyOptions;

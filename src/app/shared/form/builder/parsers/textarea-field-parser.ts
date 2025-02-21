@@ -3,7 +3,7 @@ import {
   DsDynamicTextAreaModel,
   DsDynamicTextAreaModelConfig,
 } from '../ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../../../core/config/models/form-field-metadata-value.model';
 import { FieldParser } from './field-parser';
 
 export class TextareaFieldParser extends FieldParser {

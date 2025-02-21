@@ -8,7 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { TruncatableComponent } from '../../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../../shared/truncatable/truncatable-part/truncatable-part.component';
-import { RequestStatusEnum } from '../notify-status.enum';
+import { RequestStatusEnum } from '../../../../core/notify-requests/notify-status.enum';
 import { RequestStatusAlertBoxComponent } from './request-status-alert-box.component';
 
 describe('RequestStatusAlertBoxComponent', () => {

@@ -8,7 +8,7 @@ import {
 } from '@ng-dynamic-forms/core';
 
 import { FormRowModel } from '../../../../../../core/config/models/config-submission-form.model';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../../ds-dynamic-form-constants';
+import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../../../../../../core/config/models/ds-dynamic-form-constants';
 import {
   DsDynamicInputModel,
   DsDynamicInputModelConfig,

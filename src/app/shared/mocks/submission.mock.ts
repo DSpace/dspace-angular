@@ -4,7 +4,7 @@ import { Group } from '../../core/eperson/models/group.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { createSuccessfulRemoteDataObject$ } from '../../core/utilities/remote-data.utils';
 import { SubmissionObjectState } from '../../submission/objects/submission-objects.reducer';
-import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../core/config/models/form-field-metadata-value.model';
 
 export const mockSectionsData = {
   traditionalpageone: {

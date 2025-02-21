@@ -11,7 +11,7 @@ import {
 import { Store } from '@ngrx/store';
 
 import { FormFieldLanguageValueObject } from '../../../shared/form/builder/models/form-field-language-value.model';
-import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../config/models/form-field-metadata-value.model';
 import { CoreState } from '../../core-state.model';
 import { VocabularyEntry } from '../../submission/vocabularies/models/vocabulary-entry.model';
 import {

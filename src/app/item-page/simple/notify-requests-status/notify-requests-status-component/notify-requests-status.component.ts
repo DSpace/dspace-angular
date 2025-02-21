@@ -24,7 +24,7 @@ import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../../../../core/shared/operators';
-import { RequestStatusEnum } from '../notify-status.enum';
+import { RequestStatusEnum } from '../../../../core/notify-requests/notify-status.enum';
 import { RequestStatusAlertBoxComponent } from '../request-status-alert-box/request-status-alert-box.component';
 
 @Component({

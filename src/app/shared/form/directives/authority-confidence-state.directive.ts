@@ -31,7 +31,7 @@ import { ConfidenceType } from '../../../core/shared/confidence-type';
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
-import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../../core/config/models/form-field-metadata-value.model';
 
 /**
  * Directive to add to the element a bootstrap utility class based on metadata confidence value

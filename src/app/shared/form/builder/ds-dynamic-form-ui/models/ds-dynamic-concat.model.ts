@@ -13,7 +13,7 @@ import { Subject } from 'rxjs';
 
 import { RelationshipOptions } from '../../../../../core/shared/form/relationship-options.model';
 import { MetadataValue } from '../../../../../core/shared/metadata.models';
-import { FormFieldMetadataValueObject } from '../../models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../../../../core/config/models/form-field-metadata-value.model';
 import { DsDynamicInputModel } from './ds-dynamic-input.model';
 
 export const CONCAT_GROUP_SUFFIX = '_CONCAT_GROUP';

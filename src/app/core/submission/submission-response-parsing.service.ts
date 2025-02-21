@@ -6,7 +6,7 @@ import {
 } from '@dspace/shared/utils';
 import { deepClone } from 'fast-json-patch';
 
-import { FormFieldMetadataValueObject } from '../../shared/form/builder/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../config/models/form-field-metadata-value.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ParsedResponse } from '../cache/response.models';
 import { ConfigObject } from '../config/models/config.model';

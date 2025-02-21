@@ -52,7 +52,7 @@ import { VocabularyService } from '../../../../../../core/submission/vocabularie
 import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
-import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../../../../../core/config/models/form-field-metadata-value.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
 

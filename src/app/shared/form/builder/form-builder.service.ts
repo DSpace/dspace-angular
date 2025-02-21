@@ -43,7 +43,7 @@ import { SubmissionFormsModel } from '../../../core/config/models/config-submiss
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { VIRTUAL_METADATA_PREFIX } from '../../../core/shared/metadata.models';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-ui/ds-dynamic-form-constants';
+import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '../../../core/config/models/ds-dynamic-form-constants';
 import {
   CONCAT_GROUP_SUFFIX,
   DynamicConcatModel,
@@ -53,7 +53,7 @@ import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qua
 import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
-import { FormFieldMetadataValueObject } from './models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../../core/config/models/form-field-metadata-value.model';
 import { RowParser } from './parsers/row-parser';
 
 @Injectable({ providedIn: 'root' })

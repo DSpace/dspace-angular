@@ -4,8 +4,8 @@ import {
   deserialize,
 } from 'cerialize';
 
-import { PLACEHOLDER_PARENT_METADATA } from '../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
-import { OtherInformation } from '../../../../shared/form/builder/models/form-field-metadata-value.model';
+import { PLACEHOLDER_PARENT_METADATA } from '../../../config/models/ds-dynamic-form-constants';
+import { OtherInformation } from '../../../config/models/form-field-metadata-value.model';
 import { typedObject } from '../../../cache/builders/build-decorators';
 import { ListableObject } from '../../../object-collection/listable-object.model';
 import { GenericConstructor } from '../../../shared/generic-constructor';

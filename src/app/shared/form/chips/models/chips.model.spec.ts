@@ -1,4 +1,4 @@
-import { FormFieldMetadataValueObject } from '../../builder/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../../../core/config/models/form-field-metadata-value.model';
 import { Chips } from './chips.model';
 import { ChipsItem } from './chips-item.model';
 

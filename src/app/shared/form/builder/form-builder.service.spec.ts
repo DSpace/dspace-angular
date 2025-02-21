@@ -56,7 +56,7 @@ import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/relation-
 import { DynamicScrollableDropdownModel } from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { DynamicTagModel } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
 import { FormBuilderService } from './form-builder.service';
-import { FormFieldMetadataValueObject } from './models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../../core/config/models/form-field-metadata-value.model';
 
 describe('FormBuilderService test suite', () => {
 

@@ -48,7 +48,7 @@ import { VocabularyServiceStub } from '../../../../../../core/utilities/testing/
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
 import { VocabularyTreeviewComponent } from '../../../../vocabulary-treeview/vocabulary-treeview.component';
-import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../../../../../core/config/models/form-field-metadata-value.model';
 import { DsDynamicOneboxComponent } from './dynamic-onebox.component';
 import { DynamicOneboxModel } from './dynamic-onebox.model';
 

@@ -10,7 +10,7 @@ import { NotifyRequestsStatusDataService } from 'src/app/core/data/notify-servic
 
 import { NotifyRequestsStatus } from '../../../../core/notify-requests/notify-requests-status.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../core/utilities/remote-data.utils';
-import { RequestStatusEnum } from '../notify-status.enum';
+import { RequestStatusEnum } from '../../../../core/notify-requests/notify-status.enum';
 import { RequestStatusAlertBoxComponent } from '../request-status-alert-box/request-status-alert-box.component';
 import { NotifyRequestsStatusComponent } from './notify-requests-status.component';
 

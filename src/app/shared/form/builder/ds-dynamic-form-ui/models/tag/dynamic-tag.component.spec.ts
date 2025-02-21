@@ -41,7 +41,7 @@ import {
 import { createTestComponent } from '../../../../../../core/utilities/testing/utils.test';
 import { VocabularyServiceStub } from '../../../../../../core/utilities/testing/vocabulary-service.stub';
 import { Chips } from '../../../../chips/models/chips.model';
-import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../../../../../core/config/models/form-field-metadata-value.model';
 import { DsDynamicTagComponent } from './dynamic-tag.component';
 import { DynamicTagModel } from './dynamic-tag.model';
 

@@ -5,7 +5,7 @@ import {
   LDN_SERVICE_CONSTRAINT_FILTERS,
 } from '../admin/admin-ldn-services/ldn-services-model/ldn-service.resource-type';
 import { ADMIN_NOTIFY_MESSAGE } from '../admin/admin-notify-dashboard/models/admin-notify-message.resource-type';
-import { NOTIFYREQUEST } from '../item-page/simple/notify-requests-status/notify-requests-status.resource-type';
+import { NOTIFYREQUEST } from './notify-requests/notify-requests-status.resource-type';
 import { ACCESS_STATUS } from '../shared/object-collection/shared/badges/access-status-badge/access-status.resource-type';
 import { DUPLICATE } from '../shared/object-list/duplicate-data/duplicate.resource-type';
 import { SUBSCRIPTION } from '../shared/subscriptions/models/subscription.resource-type';

@@ -38,7 +38,7 @@ import { createTestComponent } from '../../core/utilities/testing/utils.test';
 import { XSRFService } from '../../core/xsrf/xsrf.service';
 import { DsDynamicFormComponent } from './builder/ds-dynamic-form-ui/ds-dynamic-form.component';
 import { FormBuilderService } from './builder/form-builder.service';
-import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../core/config/models/form-field-metadata-value.model';
 import {
   FormChangeAction,
   FormStatusChangeAction,

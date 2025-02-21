@@ -45,7 +45,7 @@ import {
 import { BtnDisabledDirective } from '../btn-disabled.directive';
 import { DsDynamicFormComponent } from './builder/ds-dynamic-form-ui/ds-dynamic-form.component';
 import { FormBuilderService } from './builder/form-builder.service';
-import { FormFieldMetadataValueObject } from './builder/models/form-field-metadata-value.model';
+import { FormFieldMetadataValueObject } from '../../core/config/models/form-field-metadata-value.model';
 import {
   FormEntry,
   FormError,
