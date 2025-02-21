@@ -3,11 +3,11 @@
 
   <form>
     <div class="form-group row">
-      <label [for]="'disableNotificationTimeOutInput'" class="col-sm-2 col-form-label">
+      <label [for]="'disableNotificationTimeOutInput'" class="col-sm-4 col-form-label">
         {{ 'info.accessibility-settings.disableNotificationTimeOut.label' | translate }}
       </label>
 
-      <div class="col-sm-5">
+      <div class="col-sm-4">
         <ui-switch [id]="'disableNotificationTimeOutInput'"
                    [(ngModel)]="formValues.notificationTimeOutEnabled"
                    [ngModelOptions]="{ standalone: true }"
@@ -24,21 +24,22 @@
     </div>
 
     <div class="form-group row">
-      <label [for]="'notificationTimeOutInput'" class="col-sm-2 col-form-label">
+      <label [for]="'notificationTimeOutInput'" class="col-sm-4 col-form-label">
         {{ 'info.accessibility-settings.notificationTimeOut.label' | translate }}
       </label>
 
       <div class="col-sm-4">
         <input [type]="'number'" [id]="'notificationTimeOutInput'" class="form-control"
-               [placeholder]="getPlaceholder('notificationTimeOut')"
+               [ngClass]="{'is-invalid': !settingsService.isValid('notificationTimeOut', formValues)}"
+               [min]="1"
                [readOnly]="!formValues.notificationTimeOutEnabled"
                [(ngModel)]="formValues.notificationTimeOut" [ngModelOptions]="{ standalone: true }"
                [attr.aria-describedby]="'notificationTimeOutHint'">
+        <div class="invalid-feedback" [ngClass]="{ 'd-block': !settingsService.isValid('notificationTimeOut', formValues) }">
+          {{ 'info.accessibility-settings.notificationTimeOut.invalid' | translate }}
+        </div>
       </div>
 
-      <div class="col-sm-1 col-form-label">
-        {{ 'info.accessibility-settings.notificationTimeOut.unit' | translate }}
-      </div>
 
       <div class="col-sm-1" *dsContextHelp="{
             content: 'info.accessibility-settings.notificationTimeOut.hint',
@@ -50,20 +51,21 @@
     </div>
 
     <div class="form-group row">
-      <label [for]="'liveRegionTimeOutInput'" class="col-sm-2 col-form-label">
+      <label [for]="'liveRegionTimeOutInput'" class="col-sm-4 col-form-label">
         {{ 'info.accessibility-settings.liveRegionTimeOut.label' | translate }}
       </label>
 
       <div class="col-sm-4">
         <input [type]="'number'" [id]="'liveRegionTimeOutInput'" class="form-control"
-               [placeholder]="getPlaceholder('liveRegionTimeOut')"
+               [ngClass]="{'is-invalid': !settingsService.isValid('liveRegionTimeOut', formValues)}"
+               [min]="1"
                [(ngModel)]="formValues.liveRegionTimeOut" [ngModelOptions]="{ standalone: true }"
                [attr.aria-describedby]="'liveRegionTimeOutHint'">
+        <div class="invalid-feedback" [ngClass]="{ 'd-block': !settingsService.isValid('liveRegionTimeOut', formValues) }">
+          {{ 'info.accessibility-settings.liveRegionTimeOut.invalid' | translate }}
+        </div>
       </div>
 
-      <div class="col-sm-1 col-form-label">
-        {{ 'info.accessibility-settings.liveRegionTimeOut.unit' | translate }}
-      </div>
 
       <div class="col-sm-1" *dsContextHelp="{
             content: 'info.accessibility-settings.liveRegionTimeOut.hint',
@@ -78,11 +80,15 @@
       <button type="submit" (click)="saveSettings()" class="btn btn-primary mr-2">
         {{ 'info.accessibility-settings.submit' | translate }}
       </button>
-      <button type="reset" (click)="resetSettings()" class="btn btn-warning">
+      <button (click)="resetSettings()" class="btn btn-warning">
         {{ 'info.accessibility-settings.reset' | translate }}
       </button>
     </div>
 
   </form>
+
+  <div *ngIf="(isAuthenticated | async) === false && (cookieIsAccepted | async) === false" class="mt-2">
+    <ds-alert [type]="AlertType.Warning">{{ 'info.accessibility-settings.cookie-warning' | translate }}</ds-alert>
+  </div>
 
 </div>

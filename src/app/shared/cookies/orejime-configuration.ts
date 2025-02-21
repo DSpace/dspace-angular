@@ -1,3 +1,4 @@
+import { ACCESSIBILITY_COOKIE } from '../../accessibility/accessibility-settings.service';
 import {
   IMPERSONATING_COOKIE,
   REDIRECT_COOKIE,
@@ -188,6 +189,13 @@ export function getOrejimeConfiguration(_window: NativeWindowRef): any {
           _window?.nativeWindow.refreshCaptchaScript?.call();
         },
         onlyOnce: true,
+      },
+      {
+        name: 'accessibility',
+        purposes: ['functional'],
+        required: false,
+        cookies: [ACCESSIBILITY_COOKIE],
+        onlyOnce: false,
       },
     ],
   };
