@@ -1474,6 +1474,8 @@
 
   "deny-request-copy.success": "Successfully denied item request",
 
+  "dynamic-list.load-more": "Load more",
+
   "dropdown.clear": "Clear selection",
 
   "dropdown.clear.tooltip": "Clear the selected option",
@@ -1812,6 +1814,12 @@
 
   "form.number-picker.increment": "Increment {{field}}",
 
+  "form.date-picker.placeholder.year": "Year",
+
+  "form.date-picker.placeholder.month": "Month",
+
+  "form.date-picker.placeholder.day": "Day",
+
   "grant-deny-request-copy.deny": "Don't send copy",
 
   "grant-deny-request-copy.email.back": "Back",
@@ -2101,6 +2109,8 @@
   "item.edit.bitstreams.save-button": "Save",
 
   "item.edit.bitstreams.upload-button": "Upload",
+
+  "item.edit.bitstreams.load-more.link": "Load more",
 
   "item.edit.delete.cancel": "Cancel",
 
@@ -5318,6 +5328,10 @@
 
   "person.orcid.registry.auth": "ORCID Authorizations",
 
+  "person.orcid-tooltip.authenticated": "{{orcid}}",
+
+  "person.orcid-tooltip.not-authenticated": "{{orcid}} (unconfirmed)",
+
   "home.recent-submissions.head": "Recent Submissions",
 
   "listable-notification-object.default-message": "This object couldn't be retrieved",
@@ -5443,4 +5457,16 @@
   "register-page.registration.aria.label": "Enter your e-mail address",
 
   "forgot-email.form.aria.label": "Enter your e-mail address",
+
+  "search-facet-option.update.announcement": "The page will be reloaded. Filter {{ filter }} is selected.",
+
+  "live-region.ordering.instructions": "Press spacebar to reorder {{ itemName }}.",
+
+  "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of  {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+
+  "live-region.ordering.moved": "{{ itemName }}, moved to position {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+
+  "live-region.ordering.dropped": "{{ itemName }}, dropped at position {{ index }} of {{ length }}.",
+
+  "dynamic-form-array.sortable-list.label": "Sortable list",
 }

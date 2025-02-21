@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, PLATFORM_ID } from '@angular/core';
 import {
   BrowseByMetadataPageComponent,
   browseParamsToOptions
@@ -10,7 +10,8 @@ import { BrowseService } from '../../core/browse/browse.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
 import { PaginationService } from '../../core/pagination/pagination.service';
-import { map, take } from 'rxjs/operators';
+import { map, distinctUntilChanged } from 'rxjs/operators';
+import { of as observableOf } from 'rxjs';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
 import { isValidDate } from '../../shared/date.util';
@@ -18,6 +19,8 @@ import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
 import { RemoteData } from '../../core/data/remote-data';
 import { Item } from '../../core/shared/item.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { isPlatformServer } from '@angular/common';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'ds-browse-by-date-page',
@@ -44,25 +47,33 @@ export class BrowseByDatePageComponent extends BrowseByMetadataPageComponent {
                      protected cdRef: ChangeDetectorRef,
                      @Inject(APP_CONFIG) public appConfig: AppConfig,
                      public dsoNameService: DSONameService,
+                     @Inject(PLATFORM_ID) public platformId: any,
   ) {
-    super(route, browseService, dsoService, paginationService, router, appConfig, dsoNameService);
+    super(route, browseService, dsoService, paginationService, router, appConfig, dsoNameService, platformId);
   }
 
   ngOnInit(): void {
+    if (!this.renderOnServerSide && !environment.universal.enableBrowseComponent && isPlatformServer(this.platformId)) {
+      this.loading$ = observableOf(false);
+      return;
+    }
     const sortConfig = new SortOptions('default', SortDirection.ASC);
     this.startsWithType = StartsWithType.date;
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
     this.currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, sortConfig);
+    const routeParams$: Observable<Params> = observableCombineLatest([
+      this.route.params,
+      this.route.queryParams,
+    ]).pipe(
+      map(([params, queryParams]: [Params, Params]) => Object.assign({}, params, queryParams)),
+      distinctUntilChanged((prev: Params, curr: Params) => prev.id === curr.id && prev.startsWith === curr.startsWith),
+    );
     this.subs.push(
-      observableCombineLatest(
-        [ this.route.params.pipe(take(1)),
-          this.route.queryParams,
-          this.currentPagination$,
-          this.currentSort$]).pipe(
-        map(([routeParams, queryParams, currentPage, currentSort]) => {
-          return [Object.assign({}, routeParams, queryParams), currentPage, currentSort];
-        })
-      ).subscribe(([params, currentPage, currentSort]: [Params, PaginationComponentOptions, SortOptions]) => {
+      observableCombineLatest([
+        routeParams$,
+        this.currentPagination$,
+        this.currentSort$,
+      ]).subscribe(([params, currentPage, currentSort]: [Params, PaginationComponentOptions, SortOptions]) => {
         const metadataKeys = params.browseDefinition ? params.browseDefinition.metadataKeys : this.defaultMetadataKeys;
         this.browseId = params.id || this.defaultBrowseId;
         this.startsWith = +params.startsWith || params.startsWith;

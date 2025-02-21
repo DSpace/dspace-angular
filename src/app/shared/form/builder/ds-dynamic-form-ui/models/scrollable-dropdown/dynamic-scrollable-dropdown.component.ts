@@ -15,10 +15,9 @@ import { catchError, distinctUntilChanged, map, tap } from 'rxjs/operators';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 
-import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
-import { isEmpty } from '../../../../../empty.util';
+import { hasValue, isEmpty } from '../../../../../empty.util';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 import {
@@ -27,6 +26,9 @@ import {
 } from '../../../../../../core/data/paginated-list.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
+import { FindAllData } from '../../../../../../core/data/base/find-all-data';
+import { CacheableObject } from '../../../../../../core/cache/cacheable-object.model';
+import { RemoteData } from '../../../../../../core/data/remote-data';
 
 /**
  * Component representing a dropdown input field
@@ -55,6 +57,21 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
   public selectedIndex = 0;
   public acceptableKeys = ['Space', 'NumpadMultiply', 'NumpadAdd', 'NumpadSubtract', 'NumpadDecimal', 'Semicolon', 'Equal', 'Comma', 'Minus', 'Period', 'Quote', 'Backquote'];
 
+  /**
+   * If true the component can rely on the findAll method for data loading.
+   * This is a behaviour activated by dependency injection through the dropdown config.
+   * If a service that implements findAll is not provided in the config the component falls back on the standard vocabulary service.
+   *
+   * @private
+   */
+  private useFindAllService: boolean;
+  /**
+   * A service that implements FindAllData.
+   * If is provided in the config will be used for data loading in stead of the VocabularyService
+   * @private
+   */
+  private findAllService: FindAllData<CacheableObject>;
+
   constructor(protected vocabularyService: VocabularyService,
               protected cdr: ChangeDetectorRef,
               protected layoutService: DynamicFormLayoutService,
@@ -67,6 +84,9 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
    * Initialize the component, setting up the init form value
    */
   ngOnInit() {
+    this.findAllService = this.model?.findAllFactory();
+    this.useFindAllService = hasValue(this.findAllService?.findAll) && typeof this.findAllService.findAll === 'function';
+
     this.updatePageInfo(this.model.maxOptions, 1);
     this.loadOptions(true);
     this.group.get(this.model.id).valueChanges.pipe(distinctUntilChanged())
@@ -75,13 +95,24 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
     });
   }
 
+  /**
+   * Get service and method to use to retrieve dropdown options
+   */
+  getDataFromService(): Observable<RemoteData<PaginatedList<CacheableObject>>> {
+    if (this.useFindAllService) {
+      return this.findAllService.findAll({ elementsPerPage: this.pageInfo.elementsPerPage, currentPage: this.pageInfo.currentPage });
+    } else {
+      return this.vocabularyService.getVocabularyEntriesByValue(this.inputText, false, this.model.vocabularyOptions, this.pageInfo);
+    }
+  }
+
   loadOptions(fromInit: boolean) {
     this.loading = true;
-    this.vocabularyService.getVocabularyEntriesByValue(this.inputText, false, this.model.vocabularyOptions, this.pageInfo).pipe(
+    this.getDataFromService().pipe(
       getFirstSucceededRemoteDataPayload(),
       catchError(() => observableOf(buildPaginatedList(new PageInfo(), []))),
-      tap(() => this.loading = false)
-    ).subscribe((list: PaginatedList<VocabularyEntry>) => {
+      tap(() => this.loading = false),
+    ).subscribe((list: PaginatedList<CacheableObject>) => {
       this.optionsList = list.page;
         if (fromInit && this.model.value) {
           this.setCurrentValue(this.model.value, true);
@@ -101,7 +132,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
   /**
    * Converts an item from the result list to a `string` to display in the `<input>` field.
    */
-  inputFormatter = (x: VocabularyEntry): string => x.display || x.value;
+  inputFormatter = (x: any): string => (this.model.formatFunction ? this.model.formatFunction(x) : (x.display || x.value));
 
   /**
    * Opens dropdown menu
@@ -204,7 +235,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
         this.pageInfo.totalElements,
         this.pageInfo.totalPages
       );
-      this.vocabularyService.getVocabularyEntriesByValue(this.inputText, false, this.model.vocabularyOptions, this.pageInfo).pipe(
+      this.getDataFromService().pipe(
         getFirstSucceededRemoteDataPayload(),
         catchError(() => observableOf(buildPaginatedList(
           new PageInfo(),
@@ -212,7 +243,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
           ))
         ),
         tap(() => this.loading = false))
-        .subscribe((list: PaginatedList<VocabularyEntry>) => {
+        .subscribe((list: PaginatedList<any>) => {
           this.optionsList = this.optionsList.concat(list.page);
           this.updatePageInfo(
             list.pageInfo.elementsPerPage,
@@ -243,7 +274,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
   setCurrentValue(value: any, init = false): void {
     let result: Observable<string>;
 
-    if (init) {
+    if (init && !this.useFindAllService) {
       result = this.getInitValueFromModel().pipe(
         map((formValue: FormFieldMetadataValueObject) => formValue.display)
       );
@@ -252,6 +283,8 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
         result = observableOf('');
       } else if (typeof value === 'string') {
         result = observableOf(value);
+      } else if (this.useFindAllService) {
+        result = observableOf(value[this.model.displayKey]);
       } else {
         result = observableOf(value.display);
       }
