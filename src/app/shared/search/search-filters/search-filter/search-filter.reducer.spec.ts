@@ -9,11 +9,11 @@ import {
   SearchFilterInitializeAction,
   SearchFilterResetPageAction,
   SearchFilterToggleAction,
-} from '../../../../../../modules/core/src/lib/core/states/search-filters/search-filter.actions';
+} from '@dspace/core';
 import {
   filterReducer,
   SearchFiltersState,
-} from '../../../../../../modules/core/src/lib/core/states/search-filters/search-filter.reducer';
+} from '@dspace/core';
 
 const filterName1 = 'author';
 const filterName2 = 'scope';

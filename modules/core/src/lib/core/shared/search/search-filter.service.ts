@@ -20,11 +20,11 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { InputSuggestion } from '../../config/models/input-suggestions.model';
+import { InputSuggestion } from '../../config';
 import {
   getFacetValueForType,
   stripOperatorFromFilterValue,
-} from '../../utilities/search.utils';
+} from '../../utilities';
 import {
   SearchFilterCollapseAction,
   SearchFilterDecrementPageAction,
@@ -34,11 +34,11 @@ import {
   SearchFilterMinimizeAllPageAction,
   SearchFilterResetPageAction,
   SearchFilterToggleAction,
-} from '../../states/search-filters/search-filter.actions';
+} from '../../states';
 import {
   SearchFiltersState,
   SearchFilterState,
-} from '../../states/search-filters/search-filter.reducer';
+} from '../../states';
 import { EmphasizePipe } from '../emphasize.pipe';
 import {
   SortDirection,

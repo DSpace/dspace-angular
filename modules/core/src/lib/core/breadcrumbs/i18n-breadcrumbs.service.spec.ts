@@ -4,11 +4,11 @@ import {
 } from '@angular/core/testing';
 import { getTestScheduler } from 'jasmine-marbles';
 
-import { Breadcrumb } from './breadcrumb.model';
+import { Breadcrumb } from '@dspace/core';
 import {
   BREADCRUMB_MESSAGE_POSTFIX,
   I18nBreadcrumbsService,
-} from './i18n-breadcrumbs.service';
+} from '@dspace/core';
 
 describe('I18nBreadcrumbsService', () => {
   let service: I18nBreadcrumbsService;

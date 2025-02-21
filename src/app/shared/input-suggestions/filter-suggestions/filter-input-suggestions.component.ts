@@ -17,7 +17,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ClickOutsideDirective } from '../../utils/click-outside.directive';
 import { DebounceDirective } from '../../utils/debounce.directive';
 import { InputSuggestionsComponent } from '../input-suggestions.component';
-import { InputSuggestion } from '../../../../../modules/core/src/lib/core/config/models/input-suggestions.model';
+import { InputSuggestion } from '@dspace/core';
 
 @Component({
   selector: 'ds-filter-input-suggestions',

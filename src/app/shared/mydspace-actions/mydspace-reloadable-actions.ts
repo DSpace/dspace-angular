@@ -26,7 +26,7 @@ import { getFirstCompletedRemoteData } from '@dspace/core';
 import { ResourceType } from '@dspace/core';
 import { SearchService } from '@dspace/core';
 import { ProcessTaskResponse } from '@dspace/core';
-import { getSearchResultFor } from '../../../../modules/core/src/lib/core/config/models/search-result-element-decorator';
+import { getSearchResultFor } from '@dspace/core';
 import { MyDSpaceActionsComponent } from './mydspace-actions';
 
 /**

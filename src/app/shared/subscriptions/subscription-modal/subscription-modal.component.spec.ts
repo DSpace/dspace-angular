@@ -37,7 +37,7 @@ import {
 } from '@dspace/core';
 import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { ThemeService } from '../../theme-support/theme.service';
-import { SubscriptionsDataService } from '../../../../../modules/core/src/lib/core/data/subscriptions-data.service';
+import { SubscriptionsDataService } from '@dspace/core';
 import { SubscriptionModalComponent } from './subscription-modal.component';
 
 describe('SubscriptionModalComponent', () => {

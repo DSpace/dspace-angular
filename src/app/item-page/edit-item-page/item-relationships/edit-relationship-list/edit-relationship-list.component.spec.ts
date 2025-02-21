@@ -52,7 +52,7 @@ import { SearchConfigurationServiceStub } from '@dspace/core';
 import { createPaginatedList } from '@dspace/core';
 import { XSRFService } from '@dspace/core';
 import { HostWindowService } from '../../../../shared/host-window.service';
-import { SelectableListService } from '../../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
+import { SelectableListService } from '@dspace/core';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { EditItemRelationshipsService } from '../edit-item-relationships.service';
 import { EditRelationshipListComponent } from './edit-relationship-list.component';

@@ -8,7 +8,7 @@
 
 import { testFindAllDataImplementation } from '../../data';
 import { testSearchDataImplementation } from '../../data';
-import { VocabularyEntryDetailsDataService } from './vocabulary-entry-details.data.service';
+import { VocabularyEntryDetailsDataService } from '@dspace/core';
 
 describe('VocabularyEntryDetailsDataService', () => {
   function initTestService() {

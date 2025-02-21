@@ -1,5 +1,5 @@
-import { MenuItemType } from '../../../../../../modules/core/src/lib/core/states/menu/menu-item-type.model';
-import { MenuItemModel } from '../../../../../../modules/core/src/lib/core/states/menu/menu-item.model';
+import { MenuItemType } from '@dspace/core';
+import { MenuItemModel } from '@dspace/core';
 
 /**
  * Model representing a Link Menu Section for an external link

@@ -20,9 +20,9 @@ import { SubmissionCcLicenseUrlDataService } from '@dspace/core';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { createPaginatedList } from '@dspace/core';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { SectionDataObject } from '../../../../../modules/core/src/lib/core/submission/sections/section-data.model';
+import { SectionDataObject } from '@dspace/core';
 import { SectionsService } from '../sections.service';
-import { SectionsType } from '../../../../../modules/core/src/lib/core/submission/models/sections-type';
+import { SectionsType } from '@dspace/core';
 import { SubmissionSectionCcLicensesComponent } from './submission-section-cc-licenses.component';
 
 describe('SubmissionSectionCcLicensesComponent', () => {

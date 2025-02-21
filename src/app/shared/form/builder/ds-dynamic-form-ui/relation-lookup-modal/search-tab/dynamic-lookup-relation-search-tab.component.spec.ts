@@ -23,7 +23,7 @@ import { SearchConfigurationService } from '@dspace/core';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { PaginationServiceStub } from '@dspace/core';
 import { relatedRelationships } from '@dspace/core';
-import { SelectableListService } from '../../../../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
+import { SelectableListService } from '@dspace/core';
 import { ThemedSearchComponent } from '../../../../../search/themed-search.component';
 import { VarDirective } from '../../../../../utils/var.directive';
 import { DsDynamicLookupRelationSearchTabComponent } from './dynamic-lookup-relation-search-tab.component';

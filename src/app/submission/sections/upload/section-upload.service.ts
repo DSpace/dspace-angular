@@ -17,13 +17,13 @@ import {
   EditFileDataAction,
   EditFilePrimaryBitstreamAction,
   NewUploadedFileAction,
-} from '../../../../../modules/core/src/lib/core/states/submission/submission-objects.actions';
+} from '@dspace/core';
 import {
   submissionSectionDataFromIdSelector,
   submissionUploadedFileFromUuidSelector,
   submissionUploadedFilesFromIdSelector,
-} from '../../../../../modules/core/src/lib/core/states/submission/selectors';
-import { SubmissionState } from '../../../../../modules/core/src/lib/core/states/submission/submission.reducers';
+} from '@dspace/core';
+import { SubmissionState } from '@dspace/core';
 
 /**
  * A service that provides methods to handle submission's bitstream state.

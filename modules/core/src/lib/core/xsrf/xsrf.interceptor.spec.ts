@@ -11,11 +11,11 @@ import { TestBed } from '@angular/core/testing';
 
 import { RequestError } from '../data';
 import { RestRequestMethod } from '../data';
-import { DspaceRestService } from '../dspace-rest';
+import { DspaceRestService } from '@dspace/core';
 import { CookieServiceMock } from '../mocks';
 import { HttpXsrfTokenExtractorMock } from '../mocks';
 import { CookieService } from '../services';
-import { XsrfInterceptor } from './xsrf.interceptor';
+import { XsrfInterceptor } from '@dspace/core';
 
 describe(`XsrfInterceptor`, () => {
   let service: DspaceRestService;

@@ -19,11 +19,11 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '../utilities';
 import { testPatchDataImplementation } from './base';
-import { followLink } from './follow-link-config.model';
-import { HrefOnlyDataService } from './href-only-data.service';
-import { RequestService } from './request.service';
-import { RequestEntry } from './request-entry.model';
-import { VersionDataService } from './version-data.service';
+import { followLink } from '@dspace/core';
+import { HrefOnlyDataService } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { RequestEntry } from '@dspace/core';
+import { VersionDataService } from '@dspace/core';
 
 describe('VersionDataService test', () => {
   let scheduler: TestScheduler;

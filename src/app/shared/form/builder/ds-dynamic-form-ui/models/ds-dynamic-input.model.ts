@@ -10,7 +10,7 @@ import { Subject } from 'rxjs';
 
 import { RelationshipOptions } from '@dspace/core';
 import { VocabularyOptions } from '@dspace/core';
-import { LanguageCode } from '../../../../../../../modules/core/src/lib/core/config/models/form-field-language-value.model';
+import { LanguageCode } from '@dspace/core';
 import { FormFieldMetadataValueObject } from '@dspace/core';
 
 export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {

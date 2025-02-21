@@ -49,7 +49,7 @@ import { ClaimedTaskActionsComponent } from '../../../mydspace-actions/claimed-t
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { VarDirective } from '../../../utils/var.directive';
-import { Duplicate } from '../../../../../../modules/core/src/lib/core/data/duplicate-data/duplicate.model';
+import { Duplicate } from '@dspace/core';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
 import { ThemedItemListPreviewComponent } from '../item-list-preview/themed-item-list-preview.component';
 

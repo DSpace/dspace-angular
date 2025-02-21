@@ -1,3 +1,4 @@
+// created from 'create-ts-index'
 
 export * from './locale.interceptor';
 export * from './locale.service';

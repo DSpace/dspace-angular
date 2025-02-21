@@ -21,11 +21,11 @@ import {
   mockSubmissionCollectionId,
   mockSubmissionId,
 } from '../../../shared/mocks/submission.mock';
-import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
-import { SectionDataObject } from '../../../../../modules/core/src/lib/core/submission/sections/section-data.model';
+import { SubmissionService } from '@dspace/core';
+import { SectionDataObject } from '@dspace/core';
 import { SectionsDirective } from '../sections.directive';
 import { SectionsService } from '../sections.service';
-import { SectionsType } from '../../../../../modules/core/src/lib/core/submission/models/sections-type';
+import { SectionsType } from '@dspace/core';
 import { SubmissionSectionContainerComponent } from './section-container.component';
 
 const sectionState = {

@@ -8,9 +8,9 @@ import { RemoteDataBuildService } from '../cache';
 import { ObjectCacheService } from '../cache';
 import { DSpaceObject } from '../shared';
 import { HALEndpointService } from '../shared';
-import { DSpaceObjectDataService } from './dspace-object-data.service';
-import { GetRequest } from './request.models';
-import { RequestService } from './request.service';
+import { DSpaceObjectDataService } from '@dspace/core';
+import { GetRequest } from '@dspace/core';
+import { RequestService } from '@dspace/core';
 
 describe('DSpaceObjectDataService', () => {
   let scheduler: TestScheduler;

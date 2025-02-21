@@ -7,16 +7,16 @@ import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 
-import { coreReducers } from '../core.reducers';
-import { CorrelationIdService } from '../correlation-id';
+import { coreReducers } from '@dspace/core';
+import { CorrelationIdService } from '@dspace/core';
 import { RestRequestMethod } from '../data';
-import { DspaceRestService } from '../dspace-rest';
+import { DspaceRestService } from '@dspace/core';
 import { CookieServiceMock } from '../mocks';
 import { CookieService } from '../services';
 import { UUIDService } from '../shared';
 import { mockStoreModuleConfig } from '../utilities';
 import { RouterStub } from '../utilities';
-import { LogInterceptor } from './log.interceptor';
+import { LogInterceptor } from '@dspace/core';
 
 
 describe('LogInterceptor', () => {

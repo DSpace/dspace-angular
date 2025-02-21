@@ -3,7 +3,7 @@ import { getMockObjectCacheService } from '../mocks';
 import { FLAT_BROWSE_DEFINITION } from '../shared';
 import { HIERARCHICAL_BROWSE_DEFINITION } from '../shared';
 import { VALUE_LIST_BROWSE_DEFINITION } from '../shared';
-import { BrowseResponseParsingService } from './browse-response-parsing.service';
+import { BrowseResponseParsingService } from '@dspace/core';
 
 class TestService extends BrowseResponseParsingService {
   constructor(protected objectCache: ObjectCacheService) {

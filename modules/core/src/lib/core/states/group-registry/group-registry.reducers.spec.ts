@@ -2,11 +2,11 @@ import { GroupMock } from '../../utilities';
 import {
   GroupRegistryCancelGroupAction,
   GroupRegistryEditGroupAction,
-} from './group-registry.actions';
+} from '@dspace/core';
 import {
   groupRegistryReducer,
   GroupRegistryState,
-} from './group-registry.reducers';
+} from '@dspace/core';
 
 const initialState: GroupRegistryState = {
   editGroup: null,

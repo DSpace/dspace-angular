@@ -25,14 +25,14 @@ import { HALEndpointServiceStub } from '../utilities';
 import { ObjectCacheServiceStub } from '../utilities';
 import { createPaginatedList } from '../utilities';
 import { testSearchDataImplementation } from './base';
-import { FindListOptions } from './find-list-options.model';
-import { followLink } from './follow-link-config.model';
-import { ItemDataService } from './item-data.service';
-import { buildPaginatedList } from './paginated-list.model';
-import { RelationshipDataService } from './relationship-data.service';
-import { DeleteRequest } from './request.models';
-import { RequestService } from './request.service';
-import { RequestEntry } from './request-entry.model';
+import { FindListOptions } from '@dspace/core';
+import { followLink } from '@dspace/core';
+import { ItemDataService } from '@dspace/core';
+import { buildPaginatedList } from '@dspace/core';
+import { RelationshipDataService } from '@dspace/core';
+import { DeleteRequest } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { RequestEntry } from '@dspace/core';
 
 describe('RelationshipDataService', () => {
   let service: RelationshipDataService;

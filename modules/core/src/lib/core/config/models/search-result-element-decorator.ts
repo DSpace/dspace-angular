@@ -1,5 +1,5 @@
-import { AdminNotifyMessage } from '../../admin/admin-notify-message/models/admin-notify-message.model';
-import { AdminNotifySearchResult } from '../../admin/admin-notify-message/models/admin-notify-message-search-result.model';
+import { AdminNotifyMessage } from '../../admin';
+import { AdminNotifySearchResult } from '../../admin';
 import { ClaimedTaskSearchResult } from '@dspace/core';
 import { CollectionSearchResult } from '@dspace/core';
 import { CommunitySearchResult } from '@dspace/core';

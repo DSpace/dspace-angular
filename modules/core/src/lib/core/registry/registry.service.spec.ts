@@ -29,7 +29,7 @@ import { MetadataSchemaDataService } from '../data';
 import { RemoteData } from '../data';
 import { MetadataField } from '../metadata';
 import { MetadataSchema } from '../metadata';
-import { NotificationsService } from '../notifications';
+import { NotificationsService } from '@dspace/core';
 import { NoContent } from '../shared';
 import {
   createNoContentRemoteDataObject$,
@@ -39,7 +39,7 @@ import { mockStoreModuleConfig } from '../utilities';
 import { NotificationsServiceStub } from '../utilities';
 import { StoreMock } from '../utilities';
 import { createPaginatedList } from '../utilities';
-import { RegistryService } from './registry.service';
+import { RegistryService } from '@dspace/core';
 
 @Component({
   template: '',

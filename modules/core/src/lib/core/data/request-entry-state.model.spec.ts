@@ -12,7 +12,7 @@ import {
   isSuccess,
   isSuccessStale,
   RequestEntryState,
-} from './request-entry-state.model';
+} from '@dspace/core';
 
 describe(`isRequestPending`, () => {
   it(`should only return true if the given state is RequestPending`, () => {

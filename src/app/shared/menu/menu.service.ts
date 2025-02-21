@@ -49,11 +49,11 @@ import {
   ShowMenuSectionAction,
   ToggleActiveMenuSectionAction,
   ToggleMenuAction,
-} from '../../../../modules/core/src/lib/core/states/menu/menu.actions';
-import { MenuID } from '../../../../modules/core/src/lib/core/states/menu/menu-id.model';
-import { MenuSection } from '../../../../modules/core/src/lib/core/states/menu/menu-section.model';
-import { MenuSections } from '../../../../modules/core/src/lib/core/states/menu/menu-sections.model';
-import { MenuState } from '../../../../modules/core/src/lib/core/states/menu/menu-state.model';
+} from '@dspace/core';
+import { MenuID } from '@dspace/core';
+import { MenuSection } from '@dspace/core';
+import { MenuSections } from '@dspace/core';
+import { MenuState } from '@dspace/core';
 
 export function menuKeySelector<T>(key: string, selector): MemoizedSelector<MenuState, T> {
   return createSelector(selector, (state) => {

@@ -69,9 +69,9 @@ import {
   scaleLeave,
   scaleOutState,
 } from '../../shared/animations/scale';
-import { INotification } from '../../../../modules/core/src/lib/core/notifications/models';
-import { NotificationAnimationsStatus } from '../../../../modules/core/src/lib/core/notifications/models';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { INotification } from '@dspace/core';
+import { NotificationAnimationsStatus } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
 
 @Component({
   selector: 'ds-notification',

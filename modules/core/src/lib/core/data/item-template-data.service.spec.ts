@@ -8,19 +8,19 @@ import {
 import { BrowseService } from '../browse';
 import { RemoteDataBuildService } from '../cache';
 import { RestResponse } from '../cache';
-import { CoreState } from '../core-state.model';
-import { NotificationsService } from '../notifications';
+import { CoreState } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
 import { HALEndpointService } from '../shared';
 import { Item } from '../shared';
 import { testCreateDataImplementation } from './base';
 import { testDeleteDataImplementation } from './base';
 import { testPatchDataImplementation } from './base';
-import { CollectionDataService } from './collection-data.service';
-import { ItemTemplateDataService } from './item-template-data.service';
-import { RequestService } from './request.service';
-import { RequestEntry } from './request-entry.model';
-import { RestRequest } from './rest-request.model';
-import { RestRequestMethod } from './rest-request-method';
+import { CollectionDataService } from '@dspace/core';
+import { ItemTemplateDataService } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { RequestEntry } from '@dspace/core';
+import { RestRequest } from '@dspace/core';
+import { RestRequestMethod } from '@dspace/core';
 import createSpyObj = jasmine.createSpyObj;
 
 describe('ItemTemplateDataService', () => {

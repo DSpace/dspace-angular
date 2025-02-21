@@ -30,7 +30,7 @@ import { SubmissionServiceStub } from '@dspace/core';
 import { createTestComponent } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { mockSubmissionId } from '../../../shared/mocks/submission.mock';
-import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
+import { SubmissionService } from '@dspace/core';
 import { SubmissionFormFooterComponent } from './submission-form-footer.component';
 
 const submissionServiceStub: SubmissionServiceStub = new SubmissionServiceStub();

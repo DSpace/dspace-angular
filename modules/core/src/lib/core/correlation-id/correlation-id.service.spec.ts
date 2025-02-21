@@ -5,13 +5,13 @@ import {
 } from '@ngrx/store';
 import { MockStore } from '@ngrx/store/testing';
 
-import { coreReducers } from '../core.reducers';
-import { CoreState } from '../core-state.model';
+import { coreReducers } from '@dspace/core';
+import { CoreState } from '@dspace/core';
 import { CookieServiceMock } from '../mocks';
 import { UUIDService } from '../shared';
 import { SetCorrelationIdAction } from '../states';
 import { mockStoreModuleConfig } from '../utilities';
-import { CorrelationIdService } from './correlation-id.service';
+import { CorrelationIdService } from '@dspace/core';
 
 describe('CorrelationIdService', () => {
   let service: CorrelationIdService;

@@ -11,9 +11,9 @@ import {
   NewNotificationAction,
   RemoveAllNotificationsAction,
   RemoveNotificationAction,
-} from './notifications.actions';
-import { notificationsReducer } from './notifications.reducers';
-import { NotificationsService } from './notifications.service';
+} from '@dspace/core';
+import { notificationsReducer } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
 import { mockStoreModuleConfig } from "../utilities";
 
 describe('Notifications reducer', () => {

@@ -33,10 +33,10 @@ import { NotificationsService } from '@dspace/core';
 import { WorkspaceitemSectionDataType } from '@dspace/core';
 import { normalizeSectionData } from '@dspace/core';
 import { SubmissionScopeType } from '@dspace/core';
-import { FormClearErrorsAction } from '../../../../modules/core/src/lib/core/states/form/form.actions';
-import { FormError } from '../../../../modules/core/src/lib/core/states/form/form.reducer';
+import { FormClearErrorsAction } from '@dspace/core';
+import { FormError } from '@dspace/core';
 import { FormService } from '../../shared/form/form.service';
-import { SectionScope } from '../../../../modules/core/src/lib/core/submission/models/section-visibility.model';
+import { SectionScope } from '@dspace/core';
 import {
   DisableSectionAction,
   EnableSectionAction,
@@ -45,21 +45,21 @@ import {
   SectionStatusChangeAction,
   SetSectionFormId,
   UpdateSectionDataAction,
-} from '../../../../modules/core/src/lib/core/states/submission/submission-objects.actions';
-import { SubmissionObjectEntry } from '../../../../modules/core/src/lib/core/states/submission/submission-objects.reducer';
-import { SubmissionSectionError } from '../../../../modules/core/src/lib/core/submission/models/submission-section-error.model';
-import { SubmissionSectionObject } from '../../../../modules/core/src/lib/core/states/submission/submission-section-object.model';
+} from '@dspace/core';
+import { SubmissionObjectEntry } from '@dspace/core';
+import { SubmissionSectionError } from '@dspace/core';
+import { SubmissionSectionObject } from '@dspace/core';
 import {
   submissionObjectFromIdSelector,
   submissionSectionDataFromIdSelector,
   submissionSectionErrorsFromIdSelector,
   submissionSectionFromIdSelector,
   submissionSectionServerErrorsFromIdSelector,
-} from '../../../../modules/core/src/lib/core/states/submission/selectors';
-import { SubmissionState } from '../../../../modules/core/src/lib/core/states/submission/submission.reducers';
-import { SubmissionService } from '../../../../modules/core/src/lib/core/submission/submission.service';
+} from '@dspace/core';
+import { SubmissionState } from '@dspace/core';
+import { SubmissionService } from '@dspace/core';
 import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
-import { SectionsType } from '../../../../modules/core/src/lib/core/submission/models/sections-type';
+import { SectionsType } from '@dspace/core';
 
 /**
  * A service that provides methods used in submission process.

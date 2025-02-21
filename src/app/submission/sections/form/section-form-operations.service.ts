@@ -30,7 +30,7 @@ import { DynamicQualdropModel } from '../../../shared/form/builder/ds-dynamic-fo
 import { DynamicRowArrayModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { DynamicRelationGroupModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
-import { FormFieldLanguageValueObject } from '../../../../../modules/core/src/lib/core/config/models/form-field-language-value.model';
+import { FormFieldLanguageValueObject } from '@dspace/core';
 import { FormFieldMetadataValueObject } from '@dspace/core';
 import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 

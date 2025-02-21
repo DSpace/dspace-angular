@@ -9,13 +9,13 @@ import {
   NewPatchRemoveOperationAction,
   RollbacktPatchOperationsAction,
   StartTransactionPatchOperationsAction,
-} from './json-patch-operations.actions';
+} from '@dspace/core';
 import {
   JsonPatchOperationsEntry,
   jsonPatchOperationsReducer,
   JsonPatchOperationsResourceEntry,
   JsonPatchOperationsState,
-} from './json-patch-operations.reducer';
+} from '@dspace/core';
 
 class NullAction extends NewPatchAddOperationAction {
   resourceType: string;

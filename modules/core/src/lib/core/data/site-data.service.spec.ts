@@ -11,9 +11,9 @@ import { Site } from '../shared';
 import { createSuccessfulRemoteDataObject } from '../utilities';
 import { createPaginatedList } from '../utilities';
 import { testFindAllDataImplementation } from './base';
-import { FindListOptions } from './find-list-options.model';
-import { RequestService } from './request.service';
-import { SiteDataService } from './site-data.service';
+import { FindListOptions } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { SiteDataService } from '@dspace/core';
 
 describe('SiteDataService', () => {
   let scheduler: TestScheduler;

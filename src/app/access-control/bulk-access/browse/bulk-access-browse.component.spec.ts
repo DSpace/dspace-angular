@@ -17,7 +17,7 @@ import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SelectableListItemControlComponent } from '../../../shared/object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
-import { SelectableListService } from '../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
+import { SelectableListService } from '@dspace/core';
 import { SelectableObject } from '../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service.spec';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { ThemedSearchComponent } from '../../../shared/search/themed-search.component';

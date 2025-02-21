@@ -37,7 +37,7 @@ import { SearchService } from '@dspace/core';
 import { SearchConfigurationService } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import { CollectionElementLinkType } from '../../../../../object-collection/collection-element-link.type';
-import { SelectableListService } from '../../../../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
+import { SelectableListService } from '@dspace/core';
 import { ThemedSearchComponent } from '../../../../../search/themed-search.component';
 import { VarDirective } from '../../../../../utils/var.directive';
 

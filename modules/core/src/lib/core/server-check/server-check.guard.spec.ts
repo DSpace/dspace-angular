@@ -12,7 +12,7 @@ import {
 import { TestScheduler } from 'rxjs/testing';
 
 import { RootDataService } from '../data';
-import { ServerCheckGuard } from './server-check.guard';
+import { ServerCheckGuard } from '@dspace/core';
 import SpyObj = jasmine.SpyObj;
 
 describe('ServerCheckGuard', () => {

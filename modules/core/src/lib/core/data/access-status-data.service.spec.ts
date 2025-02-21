@@ -12,10 +12,10 @@ import { Item } from '../shared';
 import { createSuccessfulRemoteDataObject$ } from '../utilities';
 import { HALEndpointServiceStub } from '../utilities';
 import { NotificationsServiceStub } from '../utilities';
-import { AccessStatusDataService } from './access-status-data.service';
-import { RemoteData } from './remote-data';
-import { GetRequest } from './request.models';
-import { RequestService } from './request.service';
+import { AccessStatusDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { GetRequest } from '@dspace/core';
+import { RequestService } from '@dspace/core';
 
 const url = 'fake-url';
 

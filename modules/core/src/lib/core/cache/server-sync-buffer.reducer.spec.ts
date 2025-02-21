@@ -2,12 +2,12 @@
 import * as deepFreeze from 'deep-freeze';
 
 import { RestRequestMethod } from '../data';
-import { RemoveFromObjectCacheAction } from './object-cache.actions';
+import { RemoveFromObjectCacheAction } from '@dspace/core';
 import {
   AddToSSBAction,
   EmptySSBAction,
-} from './server-sync-buffer.actions';
-import { serverSyncBufferReducer } from './server-sync-buffer.reducer';
+} from '@dspace/core';
+import { serverSyncBufferReducer } from '@dspace/core';
 
 class NullAction extends RemoveFromObjectCacheAction {
   type = null;

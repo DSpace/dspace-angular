@@ -56,7 +56,7 @@ import { AngularticsProviderMock } from '../../app/shared/mocks/angulartics-prov
 import { Angulartics2Mock } from '../../app/shared/mocks/angulartics2.service.mock';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
 import { ServerSubmissionService } from '../../app/submission/server-submission.service';
-import { SubmissionService } from '../../../modules/core/src/lib/core/submission/submission.service';
+import { SubmissionService } from '@dspace/core';
 import { TranslateServerLoader } from '../../ngx-translate-loaders/translate-server.loader';
 import { ServerInitService } from './server-init.service';
 

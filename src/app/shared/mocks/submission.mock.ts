@@ -3,7 +3,7 @@ import { buildPaginatedList } from '@dspace/core';
 import { Group } from '@dspace/core';
 import { PageInfo } from '@dspace/core';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { SubmissionObjectState } from '../../../../modules/core/src/lib/core/states/submission/submission-objects.reducer';
+import { SubmissionObjectState } from '@dspace/core';
 import { FormFieldMetadataValueObject } from '@dspace/core';
 
 export const mockSectionsData = {

@@ -1,14 +1,14 @@
 import { Store } from '@ngrx/store';
 
 import { RemoteDataBuildService } from '../cache';
-import { CoreState } from '../core-state.model';
+import { CoreState } from '@dspace/core';
 import { testCreateDataImplementation } from '../data';
 import { getMockRequestService } from '../mocks';
-import { NotificationsService } from '../notifications';
+import { NotificationsService } from '@dspace/core';
 import { HALLink } from '../shared';
 import { Item } from '../shared';
 import { HALEndpointServiceStub } from '../utilities';
-import { FeedbackDataService } from './feedback-data.service';
+import { FeedbackDataService } from '@dspace/core';
 import { Feedback } from './models';
 
 describe('FeedbackDataService', () => {

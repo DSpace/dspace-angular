@@ -3,11 +3,11 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
 import { RemoteDataBuildService } from '../cache';
-import { CoreState } from '../core-state.model';
+import { CoreState } from '@dspace/core';
 import { SubmissionPatchRequest } from '../data';
 import { RequestService } from '../data';
 import { HALEndpointService } from '../shared';
-import { SubmissionJsonPatchOperationsService } from './submission-json-patch-operations.service';
+import { SubmissionJsonPatchOperationsService } from '@dspace/core';
 
 describe('SubmissionJsonPatchOperationsService', () => {
   let scheduler: TestScheduler;

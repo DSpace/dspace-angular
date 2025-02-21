@@ -20,12 +20,12 @@ import {
 } from 'rxjs';
 
 import { RemoteDataBuildService } from '../cache';
-import { CoreState } from '../core-state.model';
+import { CoreState } from '@dspace/core';
 import { RemoteData } from '../data';
 import { EPersonDataService } from '../eperson';
 import { EPerson } from '../eperson';
 import { getMockTranslateService } from '../mocks';
-import { NotificationsService } from '../notifications';
+import { NotificationsService } from '@dspace/core';
 import { ClientCookieService } from '../services';
 import { CookieService } from '../services';
 import { HardRedirectService } from '../services';
@@ -50,16 +50,16 @@ import {
 import {
   SetUserAsIdleAction,
   UnsetUserAsIdleAction,
-} from './auth.actions';
+} from '@dspace/core';
 import {
   authReducer,
   AuthState,
-} from './auth.reducer';
+} from '@dspace/core';
 import {
   AuthService,
   IMPERSONATING_COOKIE,
-} from './auth.service';
-import { AuthRequestService } from './auth-request.service';
+} from '@dspace/core';
+import { AuthRequestService } from '@dspace/core';
 import { AuthMethod } from './models';
 import { AuthStatus } from './models';
 import { AuthTokenInfo } from './models';

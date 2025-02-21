@@ -32,14 +32,14 @@ import { testDeleteDataImplementation } from './base';
 import { testFindAllDataImplementation } from './base';
 import { testPatchDataImplementation } from './base';
 import { testSearchDataImplementation } from './base';
-import { CollectionDataService } from './collection-data.service';
-import { buildPaginatedList } from './paginated-list.model';
-import { RemoteData } from './remote-data';
+import { CollectionDataService } from '@dspace/core';
+import { buildPaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
 import {
   ContentSourceRequest,
   UpdateContentSourceRequest,
-} from './request.models';
-import { RequestService } from './request.service';
+} from '@dspace/core';
+import { RequestService } from '@dspace/core';
 
 const url = 'fake-url';
 const collectionId = 'fake-collection-id';

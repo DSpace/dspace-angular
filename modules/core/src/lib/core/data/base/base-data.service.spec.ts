@@ -34,17 +34,17 @@ import { ResourceType } from '../../shared';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../utilities';
+} from '@dspace/core';
 import { HALEndpointServiceStub } from '../../utilities';
 import { ObjectCacheServiceStub } from '../../utilities';
 import { createPaginatedList } from '../../utilities';
-import { FindListOptions } from '../find-list-options.model';
-import { followLink } from '../follow-link-config.model';
-import { PaginatedList } from '../paginated-list.model';
-import { RemoteData } from '../remote-data';
-import { RequestService } from '../request.service';
-import { RequestEntryState } from '../request-entry-state.model';
-import { BaseDataService } from './base-data.service';
+import { FindListOptions } from '@dspace/core';
+import { followLink } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { RequestEntryState } from '@dspace/core';
+import { BaseDataService } from '@dspace/core';
 
 const endpoint = 'https://rest.api/core';
 

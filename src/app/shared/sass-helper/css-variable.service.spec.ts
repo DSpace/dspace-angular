@@ -7,7 +7,7 @@ import { getTestScheduler } from 'jasmine-marbles';
 
 import { buildPaginatedList } from '@dspace/core';
 import { PageInfo } from '@dspace/core';
-import { KeyValuePair } from '../../../../modules/core/src/lib/core/config/models/key-value-pair.model';
+import { KeyValuePair } from '@dspace/core';
 import { CSSVariableService } from './css-variable.service';
 
 describe('CSSVariableService', () => {

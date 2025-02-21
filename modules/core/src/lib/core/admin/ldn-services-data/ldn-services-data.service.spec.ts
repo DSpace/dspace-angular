@@ -28,7 +28,7 @@ import { NotificationsService } from '@dspace/core';
 import { HALEndpointService } from '@dspace/core';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { createPaginatedList } from '@dspace/core';
-import { LdnServicesService } from './ldn-services-data.service';
+import { LdnServicesService } from '@dspace/core';
 
 describe('LdnServicesService test', () => {
   let scheduler: TestScheduler;

@@ -17,9 +17,9 @@ import { take } from 'rxjs/operators';
 import {
   INotification,
   Notification,
-} from '../../notifications';
-import { NotificationType } from '../../notifications';
-import { NotificationsService } from '../../notifications';
+} from '@dspace/core';
+import { NotificationType } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
 import { NoOpAction } from '../../shared';
 import { NotificationsServiceStub } from '../../utilities';
 import {
@@ -28,8 +28,8 @@ import {
   ReinstateObjectUpdatesAction,
   RemoveFieldUpdateAction,
   RemoveObjectUpdatesAction,
-} from './object-updates.actions';
-import { ObjectUpdatesEffects } from './object-updates.effects';
+} from '@dspace/core';
+import { ObjectUpdatesEffects } from '@dspace/core';
 
 describe('ObjectUpdatesEffects', () => {
   let updatesEffects: ObjectUpdatesEffects;

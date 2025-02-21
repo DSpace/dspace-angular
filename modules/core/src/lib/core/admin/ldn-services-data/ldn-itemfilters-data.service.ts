@@ -15,7 +15,7 @@ import { RemoteData } from '@dspace/core';
 import { RequestService } from '@dspace/core';
 import { NotificationsService } from '@dspace/core';
 import { HALEndpointService } from '@dspace/core';
-import { Itemfilter } from '../../data/ldn/ldn-service-itemfilters';
+import { Itemfilter } from '../../data';
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the itemfilters endpoint

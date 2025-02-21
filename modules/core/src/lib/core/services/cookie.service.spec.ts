@@ -7,7 +7,7 @@ import { REQUEST } from '../tokens';
 import {
   CookieService,
   ICookieService,
-} from './cookie.service';
+} from '@dspace/core';
 
 describe(CookieService.name, () => {
   let service: ICookieService;

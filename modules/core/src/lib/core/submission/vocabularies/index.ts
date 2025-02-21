@@ -1,3 +1,4 @@
+// created from 'create-ts-index'
 
 export * from './models';
 export * from './vocabulary-entry-details.data.service';

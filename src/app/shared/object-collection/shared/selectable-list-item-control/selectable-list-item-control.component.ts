@@ -16,7 +16,7 @@ import {
 } from 'rxjs/operators';
 
 import { ListableObject } from '@dspace/core';
-import { SelectableListService } from '../../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
+import { SelectableListService } from '@dspace/core';
 import { VarDirective } from '../../../utils/var.directive';
 
 @Component({

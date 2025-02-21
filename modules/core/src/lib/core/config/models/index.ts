@@ -1,3 +1,4 @@
+// created from 'create-ts-index'
 
 export * from './admin-notify-metrics.model';
 export * from './bulk-access-condition-options.model';
@@ -16,4 +17,8 @@ export * from './config-submission-uploads.model';
 export * from './config-type';
 export * from './config.model';
 export * from './ds-dynamic-form-constants';
+export * from './form-field-language-value.model';
 export * from './form-field-metadata-value.model';
+export * from './input-suggestions.model';
+export * from './key-value-pair.model';
+export * from './search-result-element-decorator';

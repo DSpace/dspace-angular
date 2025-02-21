@@ -7,8 +7,8 @@ import {
   FormRemoveAction,
   FormRemoveErrorAction,
   FormStatusChangeAction,
-} from '../../../../modules/core/src/lib/core/states/form/form.actions';
-import { formReducer } from '../../../../modules/core/src/lib/core/states/form/form.reducer';
+} from '@dspace/core';
+import { formReducer } from '@dspace/core';
 
 describe('formReducer', () => {
 

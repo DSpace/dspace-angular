@@ -27,7 +27,7 @@ import {
   APP_CONFIG,
   APP_DATA_SERVICES_MAP,
 } from '@dspace/core';
-import { SubmissionService } from '../../../../../../../../modules/core/src/lib/core/submission/submission.service';
+import { SubmissionService } from '@dspace/core';
 import { DsDynamicFormControlContainerComponent } from '../../ds-dynamic-form-control-container.component';
 import { dsDynamicFormControlMapFn } from '../../ds-dynamic-form-control-map-fn';
 import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';

@@ -3,7 +3,7 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { KeyValuePair } from '../../config/models/key-value-pair.model';
+import { KeyValuePair } from '@dspace/core';
 
 const variables = {
   '--bs-sm-min': '576px,',

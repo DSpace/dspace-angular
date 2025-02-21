@@ -1,7 +1,7 @@
 import { Route } from '@angular/router';
 
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
-import { MenuItemType } from '../../../modules/core/src/lib/core/states/menu/menu-item-type.model';
+import { MenuItemType } from '@dspace/core';
 import { homePageResolver } from './home-page.resolver';
 import { ThemedHomePageComponent } from './themed-home-page.component';
 

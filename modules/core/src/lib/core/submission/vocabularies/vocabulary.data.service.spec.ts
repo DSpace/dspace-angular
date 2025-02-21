@@ -8,8 +8,8 @@
 import { RequestParam } from '../../cache';
 import { testFindAllDataImplementation } from '../../data';
 import { FindListOptions } from '../../data';
-import { createSuccessfulRemoteDataObject$ } from '../../utilities';
-import { VocabularyDataService } from './vocabulary.data.service';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { VocabularyDataService } from '@dspace/core';
 
 describe('VocabularyDataService', () => {
   let service: VocabularyDataService;

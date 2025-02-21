@@ -1,4 +1,4 @@
-import { navigationBreadcrumbResolver } from './navigation-breadcrumb.resolver';
+import { navigationBreadcrumbResolver } from '@dspace/core';
 
 describe('navigationBreadcrumbResolver', () => {
   describe('resolve', () => {

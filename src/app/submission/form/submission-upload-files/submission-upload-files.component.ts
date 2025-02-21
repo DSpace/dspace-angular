@@ -28,8 +28,8 @@ import { normalizeSectionData } from '@dspace/core';
 import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
 import { SectionsService } from '../../sections/sections.service';
-import { SectionsType } from '../../../../../modules/core/src/lib/core/submission/models/sections-type';
-import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
+import { SectionsType } from '@dspace/core';
+import { SubmissionService } from '@dspace/core';
 import parseSectionErrors from '../../utils/parseSectionErrors';
 
 /**

@@ -37,8 +37,8 @@ import { SubmissionObject } from '@dspace/core';
 import { WorkspaceitemSectionsObject } from '@dspace/core';
 import { SubmissionJsonPatchOperationsService } from '@dspace/core';
 import { SubmissionFormComponent } from '../form/submission-form.component';
-import { SubmissionError } from '../../../../modules/core/src/lib/core/submission/models/submission-error.model';
-import { SubmissionService } from '../../../../modules/core/src/lib/core/submission/submission.service';
+import { SubmissionError } from '@dspace/core';
+import { SubmissionService } from '@dspace/core';
 import parseSectionErrors from '../utils/parseSectionErrors';
 
 /**

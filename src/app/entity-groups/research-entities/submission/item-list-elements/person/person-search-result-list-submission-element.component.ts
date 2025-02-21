@@ -25,7 +25,7 @@ import { MetadataValue } from '@dspace/core';
 import { ViewMode } from '@dspace/core';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
-import { SelectableListService } from '../../../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
+import { SelectableListService } from '@dspace/core';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
 import { NameVariantModalComponent } from '../../name-variant-modal/name-variant-modal.component';

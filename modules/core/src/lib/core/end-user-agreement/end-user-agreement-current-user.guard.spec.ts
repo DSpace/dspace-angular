@@ -9,8 +9,8 @@ import {
 } from 'rxjs';
 
 import { APP_CONFIG } from '../config';
-import { EndUserAgreementService } from './end-user-agreement.service';
-import { endUserAgreementCurrentUserGuard } from './end-user-agreement-current-user.guard';
+import { EndUserAgreementService } from '@dspace/core';
+import { endUserAgreementCurrentUserGuard } from '@dspace/core';
 
 describe('endUserAgreementGuard', () => {
   let endUserAgreementService: EndUserAgreementService;

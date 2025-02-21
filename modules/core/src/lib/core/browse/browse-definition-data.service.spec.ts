@@ -6,7 +6,7 @@ import { RequestService } from '../data';
 import { getMockObjectCacheService } from '../mocks';
 import { getMockRemoteDataBuildService } from '../mocks';
 import { HALEndpointServiceStub } from '../utilities';
-import { BrowseDefinitionDataService } from './browse-definition-data.service';
+import { BrowseDefinitionDataService } from '@dspace/core';
 
 describe(`BrowseDefinitionDataService`, () => {
   let requestService: RequestService;

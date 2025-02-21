@@ -15,7 +15,7 @@ import uniqueId from 'lodash/uniqueId';
 import { FormFieldModel } from '@dspace/core';
 import { SubmissionFieldScopeType } from '@dspace/core';
 import { SubmissionScopeType } from '@dspace/core';
-import { SectionVisibility } from '../../../../../../modules/core/src/lib/core/submission/models/section-visibility.model';
+import { SectionVisibility } from '@dspace/core';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '@dspace/core';
 import { DynamicRowGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import {

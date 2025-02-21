@@ -16,9 +16,9 @@ import { Collection } from '../shared';
 import { Community } from '../shared';
 import { DSpaceObject } from '../shared';
 import { Item } from '../shared';
-import { Breadcrumb } from './breadcrumb.model';
-import { DSOBreadcrumbsService } from './dso-breadcrumbs.service';
-import { DSONameService } from './dso-name.service';
+import { Breadcrumb } from '@dspace/core';
+import { DSOBreadcrumbsService } from '@dspace/core';
+import { DSONameService } from '@dspace/core';
 
 describe('DSOBreadcrumbsService', () => {
   let service: DSOBreadcrumbsService;

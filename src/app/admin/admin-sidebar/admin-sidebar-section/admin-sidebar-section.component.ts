@@ -13,9 +13,9 @@ import { isEmpty } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { MenuService } from '../../../shared/menu/menu.service';
-import { MenuID } from '../../../../../modules/core/src/lib/core/states/menu/menu-id.model';
+import { MenuID } from '@dspace/core';
 import { LinkMenuItemModel } from '../../../shared/menu/menu-item/models/link.model';
-import { MenuSection } from '../../../../../modules/core/src/lib/core/states/menu/menu-section.model';
+import { MenuSection } from '@dspace/core';
 import { MenuSectionComponent } from '../../../shared/menu/menu-section/menu-section.component';
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 

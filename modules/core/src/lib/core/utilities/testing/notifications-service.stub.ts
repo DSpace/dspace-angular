@@ -1,4 +1,4 @@
-import { NotificationOptions } from '../../notifications';
+import { NotificationOptions } from '@dspace/core';
 
 export class NotificationsServiceStub {
 

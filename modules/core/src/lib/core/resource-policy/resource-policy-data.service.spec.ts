@@ -17,14 +17,14 @@ import { RequestEntry } from '../data';
 import { RestRequestMethod } from '../data';
 import { EPersonDataService } from '../eperson';
 import { GroupDataService } from '../eperson';
-import { NotificationsService } from '../notifications';
+import { NotificationsService } from '@dspace/core';
 import { HALEndpointService } from '../shared';
 import { PageInfo } from '../shared';
 import { createSuccessfulRemoteDataObject } from '../utilities';
 import { ObjectCacheServiceStub } from '../utilities';
 import { ActionType } from './models';
 import { PolicyType } from './models';
-import { ResourcePolicyDataService } from './resource-policy-data.service';
+import { ResourcePolicyDataService } from '@dspace/core';
 
 describe('ResourcePolicyService', () => {
   let scheduler: TestScheduler;

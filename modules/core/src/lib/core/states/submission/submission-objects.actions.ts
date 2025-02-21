@@ -10,13 +10,13 @@ import {
   WorkspaceitemSectionDataType,
   WorkspaceitemSectionsObject,
 } from '@dspace/core';
-import { SectionsType } from '../../submission/models/sections-type';
+import { SectionsType } from '../../submission';
 import {
   SectionScope,
   SectionVisibility,
-} from '../../submission/models/section-visibility.model';
-import { SubmissionError } from '../../submission/models/submission-error.model';
-import { SubmissionSectionError } from '../../submission/models/submission-section-error.model';
+} from '../../submission';
+import { SubmissionError } from '../../submission';
+import { SubmissionSectionError } from '../../submission';
 
 /**
  * For each action type in an action group, make a simple

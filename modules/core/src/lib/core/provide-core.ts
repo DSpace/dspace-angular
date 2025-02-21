@@ -4,11 +4,11 @@ import {
   makeEnvironmentProviders,
 } from '@angular/core';
 
-import { Itemfilter } from './data/ldn/ldn-service-itemfilters';
-import { LdnService } from './data/ldn/ldn-services.model';
-import { AccessStatusObject } from './access-status/access-status.model';
-import { Subscription } from './subscription/subscription.model';
-import { SubmissionCoarNotifyConfig } from './coar-notify/submission-coar-notify.config';
+import { Itemfilter } from './data';
+import { LdnService } from './data';
+import { AccessStatusObject } from './access-status';
+import { Subscription } from './subscription';
+import { SubmissionCoarNotifyConfig } from './coar-notify';
 import { AuthStatus } from './auth';
 import { ShortLivedToken } from './auth';
 import { APP_CONFIG } from './config';
@@ -25,7 +25,7 @@ import { EPerson } from './eperson';
 import { Group } from './eperson';
 import { MetadataField } from './metadata';
 import { MetadataSchema } from './metadata';
-import { EndpointMockingRestService } from './mocks/endpoint-mocking-rest.service';
+import { EndpointMockingRestService } from './mocks';
 
 import { QualityAssuranceEventObject } from './notifications';
 import { QualityAssuranceSourceObject } from './notifications';
@@ -84,7 +84,7 @@ import { RatingAdvancedWorkflowInfo } from './tasks';
 import { SelectReviewerAdvancedWorkflowInfo } from './tasks';
 import { TaskObject } from './tasks';
 import { WorkflowAction } from './tasks';
-import { MOCK_RESPONSE_MAP, ResponseMapMock } from "./mocks/response-map.mock";
+import { MOCK_RESPONSE_MAP, ResponseMapMock } from "./mocks";
 
 
 export const provideCore = () => {

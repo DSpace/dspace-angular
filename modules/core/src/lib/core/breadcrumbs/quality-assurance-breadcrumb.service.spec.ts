@@ -4,8 +4,8 @@ import {
 } from '@angular/core/testing';
 import { getTestScheduler } from 'jasmine-marbles';
 
-import { Breadcrumb } from './breadcrumb.model';
-import { QualityAssuranceBreadcrumbService } from './quality-assurance-breadcrumb.service';
+import { Breadcrumb } from '@dspace/core';
+import { QualityAssuranceBreadcrumbService } from '@dspace/core';
 
 describe('QualityAssuranceBreadcrumbService', () => {
   let service: QualityAssuranceBreadcrumbService;

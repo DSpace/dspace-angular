@@ -23,7 +23,7 @@ import { RequestEntryState } from '@dspace/core';
 import { NotificationsService } from '@dspace/core';
 import { HALEndpointService } from '@dspace/core';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { CoarNotifyConfigDataService } from './coar-notify-config-data.service';
+import { CoarNotifyConfigDataService } from '@dspace/core';
 
 describe('CoarNotifyConfigDataService test', () => {
   let scheduler: TestScheduler;

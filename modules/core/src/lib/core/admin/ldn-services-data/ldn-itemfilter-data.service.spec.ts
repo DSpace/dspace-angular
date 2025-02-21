@@ -17,7 +17,7 @@ import { RequestEntryState } from '@dspace/core';
 import { NotificationsService } from '@dspace/core';
 import { HALEndpointService } from '@dspace/core';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { LdnItemfiltersService } from './ldn-itemfilters-data.service';
+import { LdnItemfiltersService } from '@dspace/core';
 
 describe('LdnItemfiltersService test', () => {
   let scheduler: TestScheduler;

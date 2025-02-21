@@ -4,14 +4,14 @@ import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { RestResponse } from '../cache';
-import { HttpOptions } from '../dspace-rest';
+import { HttpOptions } from '@dspace/core';
 import { Registration } from '../shared';
 import { createSuccessfulRemoteDataObject } from '../utilities';
 import { HALEndpointServiceStub } from '../utilities';
-import { EpersonRegistrationService } from './eperson-registration.service';
-import { PostRequest } from './request.models';
-import { RequestService } from './request.service';
-import { RequestEntry } from './request-entry.model';
+import { EpersonRegistrationService } from '@dspace/core';
+import { PostRequest } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { RequestEntry } from '@dspace/core';
 
 describe('EpersonRegistrationService', () => {
   let testScheduler;

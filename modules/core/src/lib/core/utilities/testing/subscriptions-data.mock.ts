@@ -1,7 +1,7 @@
-import { EPerson } from '../../eperson';
+import { EPerson } from '@dspace/core';
 import { Item } from '../../shared';
 import { ITEM_TYPE } from '../../shared';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 
 export const mockSubscriptionEperson = Object.assign(new EPerson(), {
   'id': 'fake-eperson-id',

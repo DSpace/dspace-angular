@@ -1,3 +1,4 @@
+// created from 'create-ts-index'
 
 export * from './quality-assurance-event-object.resource-type';
 export * from './quality-assurance-event.model';

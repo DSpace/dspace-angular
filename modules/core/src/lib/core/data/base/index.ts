@@ -1,3 +1,4 @@
+// created from 'create-ts-index'
 
 export * from './base-data.service';
 export * from './create-data';

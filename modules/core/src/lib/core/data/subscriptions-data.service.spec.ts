@@ -17,8 +17,8 @@ import {
 import { HALEndpointServiceStub } from '@dspace/core';
 import { NotificationsServiceStub } from '@dspace/core';
 import { createPaginatedList } from '@dspace/core';
-import { Subscription } from '../subscription/subscription.model';
-import { SubscriptionsDataService } from './subscriptions-data.service';
+import { Subscription } from '@dspace/core';
+import { SubscriptionsDataService } from '@dspace/core';
 
 describe('SubscriptionsDataService', () => {
 

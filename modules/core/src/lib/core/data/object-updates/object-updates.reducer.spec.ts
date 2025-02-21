@@ -2,7 +2,7 @@
 import * as deepFreeze from 'deep-freeze';
 
 import { Relationship } from '../../shared';
-import { FieldChangeType } from './field-change-type.model';
+import { FieldChangeType } from '@dspace/core';
 import {
   AddFieldUpdateAction,
   DiscardObjectUpdatesAction,
@@ -14,12 +14,12 @@ import {
   SelectVirtualMetadataAction,
   SetEditableFieldUpdateAction,
   SetValidFieldUpdateAction,
-} from './object-updates.actions';
+} from '@dspace/core';
 import {
   OBJECT_UPDATES_TRASH_PATH,
   objectUpdatesReducer,
   ObjectUpdatesState,
-} from './object-updates.reducer';
+} from '@dspace/core';
 
 class NullAction extends RemoveFieldUpdateAction {
   type = null;

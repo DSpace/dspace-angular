@@ -29,11 +29,11 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { LdnServicesService } from '../../../../../modules/core/src/lib/core/admin/ldn-services-data/ldn-services-data.service';
+import { LdnServicesService } from '@dspace/core';
 import {
   LdnService,
   LdnServiceByPattern,
-} from '../../../../../modules/core/src/lib/core/data/ldn/ldn-services.model';
+} from '@dspace/core';
 import { JsonPatchOperationPathCombiner } from '@dspace/core';
 import { JsonPatchOperationsBuilder } from '@dspace/core';
 import {
@@ -41,12 +41,12 @@ import {
   getPaginatedListPayload,
   getRemoteDataPayload,
 } from '@dspace/core';
-import { SubmissionSectionError } from '../../../../../modules/core/src/lib/core/submission/models/submission-section-error.model';
+import { SubmissionSectionError } from '@dspace/core';
 import { SectionModelComponent } from '../models/section.model';
-import { SectionDataObject } from '../../../../../modules/core/src/lib/core/submission/sections/section-data.model';
+import { SectionDataObject } from '@dspace/core';
 import { SectionsService } from '../sections.service';
-import { CoarNotifyConfigDataService } from '../../../../../modules/core/src/lib/core/coar-notify/coar-notify-config-data.service';
-import { LdnPattern } from '../../../../../modules/core/src/lib/core/coar-notify/submission-coar-notify.config';
+import { CoarNotifyConfigDataService } from '@dspace/core';
+import { LdnPattern } from '@dspace/core';
 
 /**
  * This component represents a section that contains the submission section-coar-notify form.

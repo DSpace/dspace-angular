@@ -18,7 +18,7 @@ import { SubmissionRestService } from '@dspace/core';
 import { SubmissionScopeType } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
-import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
+import { SubmissionService } from '@dspace/core';
 
 /**
  * This component represents submission form footer bar.

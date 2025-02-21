@@ -6,7 +6,7 @@
  * http://www.dspace.org/license/
  */
 import { testFindAllDataImplementation } from '../data';
-import { SubmissionCcLicenseDataService } from './submission-cc-license-data.service';
+import { SubmissionCcLicenseDataService } from '@dspace/core';
 
 describe('SubmissionCcLicenseDataService', () => {
 

@@ -19,7 +19,7 @@ import { MetadataValue } from '@dspace/core';
 import { Metadata } from '@dspace/core';
 import { SubmissionObject } from '@dspace/core';
 import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
-import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
+import { SubmissionService } from '@dspace/core';
 import { SubmissionImportExternalCollectionComponent } from '../import-external-collection/submission-import-external-collection.component';
 
 /**

@@ -41,11 +41,11 @@ import { getMockThemeService } from '../mocks/theme-service.mock';
 import { ThemeService } from '../theme-support/theme.service';
 import { MenuComponent } from './menu.component';
 import { MenuService } from './menu.service';
-import { MenuID } from '../../../../modules/core/src/lib/core/states/menu/menu-id.model';
+import { MenuID } from '@dspace/core';
 import { LinkMenuItemModel } from './menu-item/models/link.model';
-import { MenuItemType } from '../../../../modules/core/src/lib/core/states/menu/menu-item-type.model';
+import { MenuItemType } from '@dspace/core';
 import { rendersSectionForMenu } from './menu-section.decorator';
-import { MenuSection } from '../../../../modules/core/src/lib/core/states/menu/menu-section.model';
+import { MenuSection } from '@dspace/core';
 
 const mockMenuID = 'mock-menuID' as MenuID;
 

@@ -4,9 +4,9 @@ import { of } from 'rxjs';
 
 import { ConfigurationDataService } from '../../data';
 import { AuthorizationDataService } from '../../data';
-import { createSuccessfulRemoteDataObject$ } from '../../utilities';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { ActivatedRouteStub } from '../../utilities';
-import { NotifyInfoService } from './notify-info.service';
+import { NotifyInfoService } from '@dspace/core';
 
 describe('NotifyInfoService', () => {
   let service: NotifyInfoService;

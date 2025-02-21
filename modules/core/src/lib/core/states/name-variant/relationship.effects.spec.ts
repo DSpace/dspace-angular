@@ -16,28 +16,28 @@ import {
 } from 'rxjs';
 import { last } from 'rxjs/operators';
 
-import { SelectableListService } from '../selectable-list/selectable-list.service';
+import { SelectableListService } from '@dspace/core';
 import { ObjectCacheService } from '../../cache';
 import { RestResponse } from '../../cache';
 import { RelationshipDataService } from '../../data';
 import { RelationshipTypeDataService } from '../../data';
 import { RequestService } from '../../data';
-import { NotificationsService } from '../../notifications';
+import { NotificationsService } from '@dspace/core';
 import { Item } from '../../shared';
 import { ItemType } from '../../shared';
 import { Relationship } from '../../shared';
 import { RelationshipType } from '../../shared';
 import { MetadataValue } from '../../shared';
 import { DEBOUNCE_TIME_OPERATOR } from '../../shared';
-import { WorkspaceItem } from '../../submission';
-import { SubmissionObjectDataService } from '../../submission';
-import { createSuccessfulRemoteDataObject$ } from '../../utilities';
+import { WorkspaceItem } from '@dspace/core';
+import { SubmissionObjectDataService } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import {
   AddRelationshipAction,
   RelationshipActionTypes,
   RemoveRelationshipAction,
-} from './relationship.actions';
-import { RelationshipEffects } from './relationship.effects';
+} from '@dspace/core';
+import { RelationshipEffects } from '@dspace/core';
 
 describe('RelationshipEffects', () => {
   let relationEffects: RelationshipEffects;

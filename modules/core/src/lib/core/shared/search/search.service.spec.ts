@@ -21,20 +21,20 @@ import { RemoteData } from '../../data';
 import { RequestService } from '../../data';
 import { RequestEntry } from '../../data';
 import { getMockRequestService } from '../../mocks';
-import { PaginationService } from '../../pagination';
-import { RouteService } from '../../services';
-import { createSuccessfulRemoteDataObject$ } from '../../utilities';
+import { PaginationService } from '@dspace/core';
+import { RouteService } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { ActivatedRouteStub } from '../../utilities';
 import { PaginationServiceStub } from '../../utilities';
 import { routeServiceStub } from '../../utilities';
 import { RouterStub } from '../../utilities';
-import { HALEndpointService } from '../hal-endpoint.service';
-import { PaginatedSearchOptions } from '../paginated-search-options.model';
-import { ViewMode } from '../view-mode.model';
+import { HALEndpointService } from '@dspace/core';
+import { PaginatedSearchOptions } from '@dspace/core';
+import { ViewMode } from '@dspace/core';
 import { SearchFilterConfig } from './models';
 import { SearchObjects } from './models';
-import { SearchService } from './search.service';
-import { SearchConfigurationService } from './search-configuration.service';
+import { SearchService } from '@dspace/core';
+import { SearchConfigurationService } from '@dspace/core';
 import anything = jasmine.anything;
 
 @Component({

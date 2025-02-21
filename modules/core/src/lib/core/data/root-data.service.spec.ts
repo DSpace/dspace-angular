@@ -6,9 +6,9 @@ import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '../utilities';
-import { RemoteData } from './remote-data';
+import { RemoteData } from '@dspace/core';
 import { Root } from './root.model';
-import { RootDataService } from './root-data.service';
+import { RootDataService } from '@dspace/core';
 
 describe('RootDataService', () => {
   let service: RootDataService;

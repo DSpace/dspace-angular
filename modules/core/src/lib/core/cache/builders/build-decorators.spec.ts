@@ -6,7 +6,7 @@ import {
   getDataServiceFor,
   getLinkDefinition,
   link,
-} from './build-decorators';
+} from '@dspace/core';
 
 class TestHALResource implements HALResource {
   _links: {

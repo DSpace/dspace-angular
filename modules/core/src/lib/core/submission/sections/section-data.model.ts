@@ -1,6 +1,6 @@
 import { WorkspaceitemSectionDataType } from '@dspace/core';
-import { SubmissionSectionError } from '../models/submission-section-error.model';
-import { SectionsType } from '../models/sections-type';
+import { SubmissionSectionError } from '../models';
+import { SectionsType } from '../models';
 
 /**
  * An interface to represent section model

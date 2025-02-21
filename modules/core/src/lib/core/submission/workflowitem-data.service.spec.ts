@@ -11,18 +11,18 @@ import { TestScheduler } from 'rxjs/testing';
 import { RemoteDataBuildService } from '../cache';
 import { ObjectCacheService } from '../cache';
 import { RestResponse } from '../cache';
-import { CoreState } from '../core-state.model';
+import { CoreState } from '@dspace/core';
 import { HrefOnlyDataService } from '../data';
 import { RequestService } from '../data';
 import { RequestEntry } from '../data';
 import { getMockHrefOnlyDataService } from '../mocks';
-import { NotificationsService } from '../notifications';
+import { NotificationsService } from '@dspace/core';
 import { HALEndpointService } from '../shared';
 import { Item } from '../shared';
 import { PageInfo } from '../shared';
 import { createSuccessfulRemoteDataObject } from '../utilities';
 import { WorkflowItem } from './models';
-import { WorkflowItemDataService } from './workflowitem-data.service';
+import { WorkflowItemDataService } from '@dspace/core';
 
 describe('WorkflowItemDataService test', () => {
   let scheduler: TestScheduler;

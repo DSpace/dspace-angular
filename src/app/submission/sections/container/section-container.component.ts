@@ -15,7 +15,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
-import { SectionDataObject } from '../../../../../modules/core/src/lib/core/submission/sections/section-data.model';
+import { SectionDataObject } from '@dspace/core';
 import { SectionsDirective } from '../sections.directive';
 import { rendersSectionType } from '../sections-decorator';
 

@@ -20,8 +20,8 @@ import {
 import { first } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
 
-import { coreReducers } from '../core.reducers';
-import { CoreState } from '../core-state.model';
+import { coreReducers } from '@dspace/core';
+import { CoreState } from '@dspace/core';
 import { RestRequestMethod } from '../data';
 import { RemoveFromIndexBySubstringAction } from '../index';
 import { IndexName } from '../index';
@@ -35,10 +35,10 @@ import {
   ApplyPatchObjectCacheAction,
   RemoveDependentsObjectCacheAction,
   RemoveFromObjectCacheAction,
-} from './object-cache.actions';
-import { Patch } from './object-cache.reducer';
-import { ObjectCacheService } from './object-cache.service';
-import { AddToSSBAction } from './server-sync-buffer.actions';
+} from '@dspace/core';
+import { Patch } from '@dspace/core';
+import { ObjectCacheService } from '@dspace/core';
+import { AddToSSBAction } from '@dspace/core';
 
 describe('ObjectCacheService', () => {
   let service: ObjectCacheService;

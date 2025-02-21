@@ -7,7 +7,7 @@
  */
 
 import { testFindAllDataImplementation } from '../base';
-import { ScriptDataService } from './script-data.service';
+import { ScriptDataService } from '@dspace/core';
 
 describe('ScriptDataService', () => {
   describe('composition', () => {

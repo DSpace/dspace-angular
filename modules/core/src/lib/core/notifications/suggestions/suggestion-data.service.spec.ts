@@ -15,9 +15,9 @@ import { RequestService } from '../../data';
 import { RequestEntry } from '../../data';
 import { RequestEntryState } from '../../data';
 import { HALEndpointService } from '../../shared';
-import { createSuccessfulRemoteDataObject$ } from '../../utilities';
-import { NotificationsService } from '../notifications.service';
-import { SuggestionDataService } from './suggestion-data.service';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { SuggestionDataService } from '@dspace/core';
 
 describe('SuggestionDataService test', () => {
   let scheduler: TestScheduler;

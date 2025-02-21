@@ -38,7 +38,7 @@ import { ThemedLoadingComponent } from '../shared/loading/themed-loading.compone
 import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
 import { SubscriptionViewComponent } from '../shared/subscriptions/subscription-view/subscription-view.component';
-import { SubscriptionsDataService } from '../../../modules/core/src/lib/core/data/subscriptions-data.service';
+import { SubscriptionsDataService } from '@dspace/core';
 import { VarDirective } from '../shared/utils/var.directive';
 import { SubscriptionsPageComponent } from './subscriptions-page.component';
 

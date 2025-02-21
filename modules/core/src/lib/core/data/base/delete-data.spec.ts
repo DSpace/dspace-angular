@@ -15,25 +15,25 @@ import { RemoteDataBuildService } from '../../cache';
 import { ObjectCacheService } from '../../cache';
 import { getMockRemoteDataBuildService } from '../../mocks';
 import { getMockRequestService } from '../../mocks';
-import { NotificationsService } from '../../notifications';
+import { NotificationsService } from '@dspace/core';
 import { HALEndpointService } from '../../shared';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../utilities';
+} from '@dspace/core';
 import { HALEndpointServiceStub } from '../../utilities';
-import { FindListOptions } from '../find-list-options.model';
-import { followLink } from '../follow-link-config.model';
-import { RemoteData } from '../remote-data';
-import { RequestService } from '../request.service';
-import { RequestEntryState } from '../request-entry-state.model';
-import { RestRequestMethod } from '../rest-request-method';
+import { FindListOptions } from '@dspace/core';
+import { followLink } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { RequestEntryState } from '@dspace/core';
+import { RestRequestMethod } from '@dspace/core';
 import {
   DeleteData,
   DeleteDataImpl,
-} from './delete-data';
-import { constructIdEndpointDefault } from './identifiable-data.service';
+} from '@dspace/core';
+import { constructIdEndpointDefault } from '@dspace/core';
 
 /**
  * Tests whether calls to `DeleteData` methods are correctly patched through in a concrete data service that implements it

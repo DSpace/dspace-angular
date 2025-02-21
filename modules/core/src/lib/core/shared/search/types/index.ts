@@ -1,3 +1,4 @@
+// created from 'create-ts-index'
 
 export * from './facet-config-response.resouce-type';
 export * from './facet-values.resource-type';

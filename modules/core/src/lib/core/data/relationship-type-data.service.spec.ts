@@ -13,8 +13,8 @@ import {
 import { HALEndpointServiceStub } from '../utilities';
 import { ObjectCacheServiceStub } from '../utilities';
 import { createPaginatedList } from '../utilities';
-import { RelationshipTypeDataService } from './relationship-type-data.service';
-import { RequestService } from './request.service';
+import { RelationshipTypeDataService } from '@dspace/core';
+import { RequestService } from '@dspace/core';
 
 describe('RelationshipTypeDataService', () => {
   let service: RelationshipTypeDataService;

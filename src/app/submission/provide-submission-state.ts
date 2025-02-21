@@ -15,7 +15,7 @@ import { submissionEffects } from './submission.effects';
 import {
   submissionReducers,
   SubmissionState,
-} from '../../../modules/core/src/lib/core/states/submission/submission.reducers';
+} from '@dspace/core';
 
 export const provideSubmissionState = (): EnvironmentProviders => {
   return makeEnvironmentProviders([

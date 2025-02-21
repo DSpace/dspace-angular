@@ -9,10 +9,10 @@ import {
 } from '../../data';
 import { RemoteData } from '../../data';
 import { PageInfo } from '../../shared';
-import { Vocabulary } from '../../submission';
-import { VocabularyEntry } from '../../submission';
-import { VocabularyOptions } from '../../submission';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import { Vocabulary } from '@dspace/core';
+import { VocabularyEntry } from '@dspace/core';
+import { VocabularyOptions } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 
 export class VocabularyServiceStub {
 

@@ -1,5 +1,5 @@
-import { SetCorrelationIdAction } from './correlation-id.actions';
-import { correlationIdReducer } from './correlation-id.reducer';
+import { SetCorrelationIdAction } from '@dspace/core';
+import { correlationIdReducer } from '@dspace/core';
 
 describe('correlationIdReducer', () => {
   it('should set the correlatinId with SET action', () => {

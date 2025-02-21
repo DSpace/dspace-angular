@@ -25,7 +25,7 @@ import { SectionsServiceStub } from '@dspace/core';
 import { SubmissionServiceStub } from '@dspace/core';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { SherpaDataResponse } from '../../../shared/mocks/section-sherpa-policies.service.mock';
-import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
+import { SubmissionService } from '@dspace/core';
 import { SectionsService } from '../sections.service';
 import { MetadataInformationComponent } from './metadata-information/metadata-information.component';
 import { PublicationInformationComponent } from './publication-information/publication-information.component';

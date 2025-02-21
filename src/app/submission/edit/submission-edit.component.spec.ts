@@ -37,7 +37,7 @@ import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { SubmissionFormComponent } from '../form/submission-form.component';
 import { SectionsService } from '../sections/sections.service';
-import { SubmissionService } from '../../../../modules/core/src/lib/core/submission/submission.service';
+import { SubmissionService } from '@dspace/core';
 import { SubmissionEditComponent } from './submission-edit.component';
 
 describe('SubmissionEditComponent Component', () => {

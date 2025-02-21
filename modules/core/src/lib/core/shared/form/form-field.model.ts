@@ -1,7 +1,7 @@
 import { autoserialize } from 'cerialize';
 
-import { LanguageCode } from '../../config/models/form-field-language-value.model';
-import { SectionVisibility } from '../../submission/models/section-visibility.model';
+import { LanguageCode } from '../../config';
+import { SectionVisibility } from '../../submission';
 import { FormRowModel } from '../../config';
 import { RelationshipOptions } from './relationship-options.model';
 

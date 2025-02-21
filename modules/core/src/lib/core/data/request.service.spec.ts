@@ -24,8 +24,8 @@ import {
 import { TestScheduler } from 'rxjs/testing';
 
 import { ObjectCacheService } from '../cache';
-import { coreReducers } from '../core.reducers';
-import { CoreState } from '../core-state.model';
+import { coreReducers } from '@dspace/core';
+import { CoreState } from '@dspace/core';
 import { getMockObjectCacheService } from '../mocks';
 import {
   defaultUUID,
@@ -37,7 +37,7 @@ import {
   RequestConfigureAction,
   RequestExecuteAction,
   RequestStaleAction,
-} from './request.actions';
+} from '@dspace/core';
 import {
   DeleteRequest,
   GetRequest,
@@ -46,11 +46,11 @@ import {
   PatchRequest,
   PostRequest,
   PutRequest,
-} from './request.models';
-import { RequestService } from './request.service';
-import { RequestEntry } from './request-entry.model';
-import { RequestEntryState } from './request-entry-state.model';
-import { RestRequest } from './rest-request.model';
+} from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { RequestEntry } from '@dspace/core';
+import { RequestEntryState } from '@dspace/core';
+import { RestRequest } from '@dspace/core';
 
 describe('RequestService', () => {
   let scheduler: TestScheduler;

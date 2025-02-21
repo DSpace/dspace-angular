@@ -2,7 +2,7 @@
 import { Action } from '@ngrx/store';
 
 import { type } from '@dspace/core';
-import { KeyValuePair } from '../../../../modules/core/src/lib/core/config/models/key-value-pair.model';
+import { KeyValuePair } from '@dspace/core';
 
 /**
  * For each action type in an action group, make a simple

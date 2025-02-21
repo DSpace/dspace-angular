@@ -25,7 +25,7 @@ import { ListableObjectComponentLoaderComponent } from '../object-collection/sha
 import { SelectableListItemControlComponent } from '../object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
-import { SelectableListService } from '../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
+import { SelectableListService } from '@dspace/core';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,

@@ -39,7 +39,7 @@ import {
 } from '../../../shared/mocks/submission.mock';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
 import { SectionsService } from '../../sections/sections.service';
-import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
+import { SubmissionService } from '@dspace/core';
 import { SubmissionUploadFilesComponent } from './submission-upload-files.component';
 
 describe('SubmissionUploadFilesComponent Component', () => {

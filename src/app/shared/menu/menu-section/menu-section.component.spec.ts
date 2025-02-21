@@ -15,7 +15,7 @@ import { of as observableOf } from 'rxjs';
 import { MenuServiceStub } from '@dspace/core';
 import { MenuService } from '../menu.service';
 import { LinkMenuItemComponent } from '../menu-item/link-menu-item.component';
-import { MenuSection } from '../../../../../modules/core/src/lib/core/states/menu/menu-section.model';
+import { MenuSection } from '@dspace/core';
 import { MenuSectionComponent } from './menu-section.component';
 
 describe('MenuSectionComponent', () => {

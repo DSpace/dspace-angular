@@ -3,11 +3,11 @@ import { Store } from '@ngrx/store';
 import { createMockStore } from '@ngrx/store/testing';
 import { of as observableOf } from 'rxjs';
 
-import { CoreState } from '../../core-state.model';
-import { Notification } from '../../notifications';
-import { NotificationType } from '../../notifications';
+import { CoreState } from '@dspace/core';
+import { Notification } from '@dspace/core';
+import { NotificationType } from '@dspace/core';
 import { Relationship } from '../../shared';
-import { FieldChangeType } from './field-change-type.model';
+import { FieldChangeType } from '@dspace/core';
 import {
   DiscardObjectUpdatesAction,
   InitializeFieldsAction,
@@ -15,9 +15,9 @@ import {
   RemoveFieldUpdateAction,
   SelectVirtualMetadataAction,
   SetEditableFieldUpdateAction,
-} from './object-updates.actions';
-import { OBJECT_UPDATES_TRASH_PATH } from './object-updates.reducer';
-import { ObjectUpdatesService } from './object-updates.service';
+} from '@dspace/core';
+import { OBJECT_UPDATES_TRASH_PATH } from '@dspace/core';
+import { ObjectUpdatesService } from '@dspace/core';
 
 describe('ObjectUpdatesService', () => {
   let service: ObjectUpdatesService;

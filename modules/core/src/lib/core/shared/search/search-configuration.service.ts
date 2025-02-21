@@ -27,7 +27,7 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { addOperatorToFilterValue } from '../../utilities/search.utils';
+import { addOperatorToFilterValue } from '../../utilities';
 import { LinkService } from '../../cache';
 import { RemoteDataBuildService } from '../../cache';
 import {

@@ -42,9 +42,9 @@ import { FormFieldMetadataValueObject } from '@dspace/core';
 import {
   FormChangeAction,
   FormStatusChangeAction,
-} from '../../../../modules/core/src/lib/core/states/form/form.actions';
+} from '@dspace/core';
 import { FormComponent } from './form.component';
-import { FormState } from '../../../../modules/core/src/lib/core/states/form/form.reducer';
+import { FormState } from '@dspace/core';
 import { FormService } from './form.service';
 
 let TEST_FORM_MODEL;

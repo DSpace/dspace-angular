@@ -6,7 +6,7 @@ import {
 
 import { RemoteData } from '@dspace/core';
 import { SubmissionObject } from '@dspace/core';
-import { SubmissionService } from '../../../modules/core/src/lib/core/submission/submission.service';
+import { SubmissionService } from '@dspace/core';
 
 /**
  * Instance of SubmissionService used on SSR.

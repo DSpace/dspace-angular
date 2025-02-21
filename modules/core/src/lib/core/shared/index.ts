@@ -1,3 +1,4 @@
+// created from 'create-ts-index'
 
 export * from './form';
 export * from './item-relationships';
@@ -39,6 +40,7 @@ export * from './distinct-next';
 export * from './dspace-object-type.model';
 export * from './dspace-object.model';
 export * from './dspace-object.resource-type';
+export * from './emphasize.pipe';
 export * from './external-source-entry.model';
 export * from './external-source-entry.resource-type';
 export * from './external-source.model';
@@ -68,7 +70,6 @@ export * from './metadata.models';
 export * from './metadata.utils';
 export * from './non-hierarchical-browse-definition';
 export * from './operators';
-export * from './page-info.model';
 export * from './paginated-search-options.model';
 export * from './pagination-component-options.model';
 export * from './process-output.resource-type';

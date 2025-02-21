@@ -16,7 +16,7 @@ import { DSpaceObject } from '../shared';
 import {
   DEFAULT_CONTENT_TYPE,
   DspaceRestService,
-} from './dspace-rest.service';
+} from '@dspace/core';
 
 describe('DspaceRestService', () => {
   let dspaceRestService: DspaceRestService;

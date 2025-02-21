@@ -22,7 +22,7 @@ import { SearchService } from '@dspace/core';
 import { SearchConfigurationService } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { MyDSpaceConfigurationValueType } from '../../../my-dspace-page/my-dspace-configuration-value-type';
-import { currentPath } from '../../../../../modules/core/src/lib/core/utilities/route.utils';
+import { currentPath } from '@dspace/core';
 import { SearchConfigurationOption } from './search-configuration-option.model';
 
 @Component({

@@ -46,7 +46,7 @@ import { VocabularyService } from '@dspace/core';
 import { createTestComponent } from '@dspace/core';
 import { VocabularyServiceStub } from '@dspace/core';
 import { XSRFService } from '@dspace/core';
-import { SubmissionService } from '../../../../../../../../modules/core/src/lib/core/submission/submission.service';
+import { SubmissionService } from '@dspace/core';
 import { Chips } from '../../../../chips/models/chips.model';
 import { FormComponent } from '../../../../form.component';
 import { FormService } from '../../../../form.service';

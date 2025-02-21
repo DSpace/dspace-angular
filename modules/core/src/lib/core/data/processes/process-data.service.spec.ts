@@ -19,24 +19,24 @@ import { TestScheduler } from 'rxjs/testing';
 import { RemoteDataBuildService } from '../../cache';
 import { ObjectCacheService } from '../../cache';
 import { getMockRequestService } from '../../mocks';
-import { NotificationsService } from '../../notifications';
-import { Process } from '../../processes';
-import { ProcessStatus } from '../../processes';
+import { NotificationsService } from '@dspace/core';
+import { Process } from '@dspace/core';
+import { ProcessStatus } from '@dspace/core';
 import { HALEndpointService } from '../../shared';
 import { testDeleteDataImplementation } from '../base';
 import { testFindAllDataImplementation } from '../base';
 import { testSearchDataImplementation } from '../base';
-import { BitstreamFormatDataService } from '../bitstream-format-data.service';
-import { DSOChangeAnalyzer } from '../dso-change-analyzer.service';
-import { FindListOptions } from '../find-list-options.model';
-import { PaginatedList } from '../paginated-list.model';
-import { RemoteData } from '../remote-data';
-import { RequestService } from '../request.service';
-import { RequestEntryState } from '../request-entry-state.model';
+import { BitstreamFormatDataService } from '@dspace/core';
+import { DSOChangeAnalyzer } from '@dspace/core';
+import { FindListOptions } from '@dspace/core';
+import { PaginatedList } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { RequestEntryState } from '@dspace/core';
 import {
   ProcessDataService,
   TIMER_FACTORY,
-} from './process-data.service';
+} from '@dspace/core';
 
 describe('ProcessDataService', () => {
   let testScheduler;

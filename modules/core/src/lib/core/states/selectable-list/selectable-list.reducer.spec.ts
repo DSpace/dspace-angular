@@ -10,8 +10,8 @@ import {
   SelectableListSelectAction,
   SelectableListSelectSingleAction,
   SelectableListSetSelectionAction,
-} from './selectable-list.actions';
-import { selectableListReducer } from './selectable-list.reducer';
+} from '@dspace/core';
+import { selectableListReducer } from '@dspace/core';
 
 class SelectableObject extends ListableObject {
   constructor(private value: string) {

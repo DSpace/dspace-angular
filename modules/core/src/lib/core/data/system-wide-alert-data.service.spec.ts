@@ -1,7 +1,7 @@
 import { testCreateDataImplementation } from './base';
 import { testFindAllDataImplementation } from './base';
 import { testPutDataImplementation } from './base';
-import { SystemWideAlertDataService } from './system-wide-alert-data.service';
+import { SystemWideAlertDataService } from '@dspace/core';
 
 describe('SystemWideAlertDataService', () => {
   describe('composition', () => {

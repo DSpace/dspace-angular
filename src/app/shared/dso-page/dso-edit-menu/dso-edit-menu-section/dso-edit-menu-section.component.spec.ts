@@ -11,7 +11,7 @@ import {
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { MenuItemType } from '../../../../../../modules/core/src/lib/core/states/menu/menu-item-type.model';
+import { MenuItemType } from '@dspace/core';
 
 import { ActivatedRouteStub } from '@dspace/core';
 import { CSSVariableServiceStub } from '@dspace/core';

@@ -9,13 +9,13 @@ import { of as observableOf } from 'rxjs';
 
 import { getMockRemoteDataBuildService } from '../../mocks';
 import { getMockRequestService } from '../../mocks';
-import { FindListOptions } from '../find-list-options.model';
-import { followLink } from '../follow-link-config.model';
+import { FindListOptions } from '@dspace/core';
+import { followLink } from '@dspace/core';
 import {
   constructSearchEndpointDefault,
   SearchData,
   SearchDataImpl,
-} from './search-data';
+} from '@dspace/core';
 
 /**
  * Tests whether calls to `SearchData` methods are correctly patched through in a concrete data service that implements it

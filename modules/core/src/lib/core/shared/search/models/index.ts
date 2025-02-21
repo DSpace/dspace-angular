@@ -1,3 +1,4 @@
+// created from 'create-ts-index'
 
 export * from './applied-filter.model';
 export * from './facet-config-response.model';

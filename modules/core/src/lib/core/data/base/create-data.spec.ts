@@ -15,23 +15,23 @@ import { RequestParam } from '../../cache';
 import { ObjectCacheService } from '../../cache';
 import { getMockRemoteDataBuildService } from '../../mocks';
 import { getMockRequestService } from '../../mocks';
-import { NotificationsService } from '../../notifications';
+import { NotificationsService } from '@dspace/core';
 import { DSpaceObject } from '../../shared';
 import { HALEndpointService } from '../../shared';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
-} from '../../utilities';
+} from '@dspace/core';
 import { HALEndpointServiceStub } from '../../utilities';
-import { FindListOptions } from '../find-list-options.model';
-import { RemoteData } from '../remote-data';
-import { RequestService } from '../request.service';
-import { RequestEntryState } from '../request-entry-state.model';
-import { RestRequestMethod } from '../rest-request-method';
+import { FindListOptions } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { RequestEntryState } from '@dspace/core';
+import { RestRequestMethod } from '@dspace/core';
 import {
   CreateData,
   CreateDataImpl,
-} from './create-data';
+} from '@dspace/core';
 
 /**
  * Tests whether calls to `CreateData` methods are correctly patched through in a concrete data service that implements it

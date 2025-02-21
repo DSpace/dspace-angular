@@ -9,9 +9,9 @@ import { TestScheduler } from 'rxjs/testing';
 
 import { RemoteDataBuildService } from '../cache';
 import { ObjectCacheService } from '../cache';
-import { CoreState } from '../core-state.model';
+import { CoreState } from '@dspace/core';
 import { getMockRequestService } from '../mocks';
-import { NotificationsService } from '../notifications';
+import { NotificationsService } from '@dspace/core';
 import { Bitstream } from '../shared';
 import { Community } from '../shared';
 import { HALEndpointService } from '../shared';
@@ -26,12 +26,12 @@ import { testDeleteDataImplementation } from './base';
 import { testFindAllDataImplementation } from './base';
 import { testPatchDataImplementation } from './base';
 import { testSearchDataImplementation } from './base';
-import { BitstreamDataService } from './bitstream-data.service';
-import { ComColDataService } from './comcol-data.service';
-import { CommunityDataService } from './community-data.service';
-import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { FindListOptions } from './find-list-options.model';
-import { RequestService } from './request.service';
+import { BitstreamDataService } from '@dspace/core';
+import { ComColDataService } from '@dspace/core';
+import { CommunityDataService } from '@dspace/core';
+import { DSOChangeAnalyzer } from '@dspace/core';
+import { FindListOptions } from '@dspace/core';
+import { RequestService } from '@dspace/core';
 
 const LINK_NAME = 'test';
 

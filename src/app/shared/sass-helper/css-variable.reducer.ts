@@ -1,4 +1,4 @@
-import { KeyValuePair } from '../../../../modules/core/src/lib/core/config/models/key-value-pair.model';
+import { KeyValuePair } from '@dspace/core';
 import {
   CSSVariableAction,
   CSSVariableActionTypes,

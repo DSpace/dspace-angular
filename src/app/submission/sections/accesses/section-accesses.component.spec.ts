@@ -45,7 +45,7 @@ import {
   getSubmissionAccessesConfigService,
 } from '../../../shared/mocks/section-accesses-config.service.mock';
 import { mockAccessesFormData } from '../../../shared/mocks/submission.mock';
-import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
+import { SubmissionService } from '@dspace/core';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { SectionsService } from '../sections.service';
 import { SubmissionSectionAccessesComponent } from './section-accesses.component';

@@ -21,14 +21,14 @@ import { DSpaceObject } from '../shared';
 import { NoOpAction } from '../shared';
 import { mockStoreModuleConfig } from '../utilities';
 import { StoreMock } from '../utilities';
-import { ApplyPatchObjectCacheAction } from './object-cache.actions';
-import { ObjectCacheService } from './object-cache.service';
+import { ApplyPatchObjectCacheAction } from '@dspace/core';
+import { ObjectCacheService } from '@dspace/core';
 import {
   CommitSSBAction,
   EmptySSBAction,
   ServerSyncBufferActionTypes,
-} from './server-sync-buffer.actions';
-import { ServerSyncBufferEffects } from './server-sync-buffer.effects';
+} from '@dspace/core';
+import { ServerSyncBufferEffects } from '@dspace/core';
 
 describe('ServerSyncBufferEffects', () => {
   let ssbEffects: ServerSyncBufferEffects;

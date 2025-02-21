@@ -7,7 +7,7 @@ import {
 import { FindListOptions } from '../data';
 import { PaginationComponentOptions } from '../shared';
 import { RouterStub } from '../utilities';
-import { PaginationService } from './pagination.service';
+import { PaginationService } from '@dspace/core';
 
 
 describe('PaginationService', () => {

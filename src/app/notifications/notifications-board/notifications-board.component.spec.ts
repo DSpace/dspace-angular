@@ -19,18 +19,18 @@ import {
 import { cold } from 'jasmine-marbles';
 import uniqueId from 'lodash/uniqueId';
 
-import { LiveRegionService } from '../../../../modules/core/src/lib/core/services/live-region.service';
+import { LiveRegionService } from '@dspace/core';
 import { LiveRegionServiceStub } from '../../shared/live-region/live-region.service.stub';
-import { INotificationBoardOptions } from '../../../../modules/core/src/lib/core/config';
+import { INotificationBoardOptions } from '@dspace/core';
 import { NotificationsServiceStub } from '../../../../modules/core/src/lib/core/utilities';
-import { Notification } from '../../../../modules/core/src/lib/core/notifications/models';
-import { NotificationOptions } from '../../../../modules/core/src/lib/core/notifications/models';
-import { NotificationType } from '../../../../modules/core/src/lib/core/notifications/models';
+import { Notification } from '@dspace/core';
+import { NotificationOptions } from '@dspace/core';
+import { NotificationType } from '@dspace/core';
 import { NotificationComponent } from '../notification';
-import { notificationsReducer } from '../../../../modules/core/src/lib/core/notifications/notifications.reducers';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { notificationsReducer } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
 import { NotificationsBoardComponent } from './notifications-board.component';
-import { CoreState } from "../../../../modules/core/src/lib/core/core-state.model";
+import { CoreState } from "@dspace/core";
 
 export const bools = { f: false, t: true };
 

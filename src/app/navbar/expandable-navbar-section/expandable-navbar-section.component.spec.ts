@@ -18,7 +18,7 @@ import { MenuServiceStub } from '@dspace/core';
 import { HostWindowService } from '../../shared/host-window.service';
 import { MenuService } from '../../shared/menu/menu.service';
 import { LinkMenuItemModel } from '../../shared/menu/menu-item/models/link.model';
-import { MenuSection } from '../../../../modules/core/src/lib/core/states/menu/menu-section.model';
+import { MenuSection } from '@dspace/core';
 import { HoverOutsideDirective } from '../../shared/utils/hover-outside.directive';
 import { ExpandableNavbarSectionComponent } from './expandable-navbar-section.component';
 

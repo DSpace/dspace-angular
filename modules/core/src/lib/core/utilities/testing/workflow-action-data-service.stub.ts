@@ -6,8 +6,8 @@ import {
 import { FindListOptions } from '../../data';
 import { FollowLinkConfig } from '../../data';
 import { RemoteData } from '../../data';
-import { WorkflowItem } from '../../submission';
-import { WorkspaceItem } from '../../submission';
+import { WorkflowItem } from '@dspace/core';
+import { WorkspaceItem } from '@dspace/core';
 import { IdentifiableDataServiceStub } from './identifiable-data-service.stub';
 
 /**

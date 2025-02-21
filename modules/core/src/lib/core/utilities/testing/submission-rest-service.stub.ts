@@ -1,7 +1,7 @@
 import { Store } from '@ngrx/store';
 import { of as observableOf } from 'rxjs';
 
-import { CoreState } from '../../core-state.model';
+import { CoreState } from '@dspace/core';
 import { RequestService } from '../../data';
 import { HALEndpointService } from '../../shared';
 

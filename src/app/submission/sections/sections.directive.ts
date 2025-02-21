@@ -17,11 +17,11 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { SubmissionSectionError } from '../../../../modules/core/src/lib/core/submission/models/submission-section-error.model';
-import { SubmissionService } from '../../../../modules/core/src/lib/core/submission/submission.service';
+import { SubmissionSectionError } from '@dspace/core';
+import { SubmissionService } from '@dspace/core';
 import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
 import { SectionsService } from './sections.service';
-import { SectionsType } from '../../../../modules/core/src/lib/core/submission/models/sections-type';
+import { SectionsType } from '@dspace/core';
 
 /**
  * Directive for handling generic section functionality

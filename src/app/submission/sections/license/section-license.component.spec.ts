@@ -61,11 +61,11 @@ import {
   mockSubmissionId,
   mockSubmissionObject,
 } from '../../../shared/mocks/submission.mock';
-import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
+import { SubmissionService } from '@dspace/core';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
-import { SectionDataObject } from '../../../../../modules/core/src/lib/core/submission/sections/section-data.model';
+import { SectionDataObject } from '@dspace/core';
 import { SectionsService } from '../sections.service';
-import { SectionsType } from '../../../../../modules/core/src/lib/core/submission/models/sections-type';
+import { SectionsType } from '@dspace/core';
 import { SubmissionSectionLicenseComponent } from './section-license.component';
 
 function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {

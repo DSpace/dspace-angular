@@ -1,4 +1,4 @@
-import { Community } from './community.model';
+import { Community } from '@dspace/core';
 
 describe('Community', () => {
 

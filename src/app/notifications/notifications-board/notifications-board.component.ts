@@ -24,14 +24,14 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { LiveRegionService } from '../../../../modules/core/src/lib/core/services/live-region.service';
-import { INotificationBoardOptions } from '../../../../modules/core/src/lib/core/config';
-import { INotification } from '../../../../modules/core/src/lib/core/notifications/models';
+import { LiveRegionService } from '@dspace/core';
+import { INotificationBoardOptions } from '@dspace/core';
+import { INotification } from '@dspace/core';
 import { NotificationComponent } from '../notification';
-import { NotificationsState } from '../../../../modules/core/src/lib/core/notifications/notifications.reducers';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
-import { notificationsStateSelector } from '../../../../modules/core/src/lib/core/notifications/selectors';
-import { CoreState } from "../../../../modules/core/src/lib/core/core-state.model";
+import { NotificationsState } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
+import { notificationsStateSelector } from '@dspace/core';
+import { CoreState } from "@dspace/core";
 
 @Component({
   selector: 'ds-notifications-board',

@@ -58,7 +58,7 @@ import { BrowserOrejimeService } from '../../app/shared/cookies/browser-orejime.
 import { OrejimeService } from '../../app/shared/cookies/orejime.service';
 import { MissingTranslationHelper } from '../../app/shared/translate/missing-translation.helper';
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
-import { SubmissionService } from '../../../modules/core/src/lib/core/submission/submission.service';
+import { SubmissionService } from '@dspace/core';
 import { TranslateBrowserLoader } from '../../ngx-translate-loaders/translate-browser.loader';
 import { BrowserInitService } from './browser-init.service';
 

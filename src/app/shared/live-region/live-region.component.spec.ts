@@ -8,7 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { LiveRegionComponent } from './live-region.component';
-import { LiveRegionService } from '../../../../modules/core/src/lib/core/services/live-region.service';
+import { LiveRegionService } from '@dspace/core';
 
 describe('liveRegionComponent', () => {
   let fixture: ComponentFixture<LiveRegionComponent>;

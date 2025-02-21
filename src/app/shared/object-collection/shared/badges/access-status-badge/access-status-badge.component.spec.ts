@@ -12,7 +12,7 @@ import { AccessStatusDataService } from '@dspace/core';
 import { Item } from '@dspace/core';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
-import { AccessStatusObject } from '../../../../../../../modules/core/src/lib/core/access-status/access-status.model';
+import { AccessStatusObject } from '@dspace/core';
 import { AccessStatusBadgeComponent } from './access-status-badge.component';
 
 describe('ItemAccessStatusBadgeComponent', () => {

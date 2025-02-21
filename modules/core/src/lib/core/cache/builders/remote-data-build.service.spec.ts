@@ -34,10 +34,10 @@ import {
   createFailedRemoteDataObject,
   createPendingRemoteDataObject,
   createSuccessfulRemoteDataObject,
-} from '../../utilities';
-import { ObjectCacheService } from '../object-cache.service';
-import { LinkService } from './link.service';
-import { RemoteDataBuildService } from './remote-data-build.service';
+} from '@dspace/core';
+import { ObjectCacheService } from '@dspace/core';
+import { LinkService } from '@dspace/core';
+import { RemoteDataBuildService } from '@dspace/core';
 
 describe('RemoteDataBuildService', () => {
   let service: RemoteDataBuildService;

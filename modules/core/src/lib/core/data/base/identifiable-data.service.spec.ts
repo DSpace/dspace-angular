@@ -14,12 +14,12 @@ import { getMockRemoteDataBuildService } from '../../mocks';
 import { getMockRequestService } from '../../mocks';
 import { HALEndpointService } from '../../shared';
 import { HALEndpointServiceStub } from '../../utilities';
-import { followLink } from '../follow-link-config.model';
-import { RemoteData } from '../remote-data';
-import { RequestService } from '../request.service';
-import { RequestEntryState } from '../request-entry-state.model';
-import { EMBED_SEPARATOR } from './base-data.service';
-import { IdentifiableDataService } from './identifiable-data.service';
+import { followLink } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { RequestEntryState } from '@dspace/core';
+import { EMBED_SEPARATOR } from '@dspace/core';
+import { IdentifiableDataService } from '@dspace/core';
 
 const base = 'https://rest.api/core';
 const endpoint = 'test';

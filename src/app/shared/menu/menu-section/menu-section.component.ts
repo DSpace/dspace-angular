@@ -20,11 +20,11 @@ import {
 
 import { GenericConstructor } from '@dspace/core';
 import { MenuService } from '../menu.service';
-import { MenuID } from '../../../../../modules/core/src/lib/core/states/menu/menu-id.model';
+import { MenuID } from '@dspace/core';
 import { getComponentForMenuItemType } from '../menu-item.decorator';
-import { MenuItemModel } from '../../../../../modules/core/src/lib/core/states/menu/menu-item.model';
-import { MenuItemType } from '../../../../../modules/core/src/lib/core/states/menu/menu-item-type.model';
-import { MenuSection } from '../../../../../modules/core/src/lib/core/states/menu/menu-section.model';
+import { MenuItemModel } from '@dspace/core';
+import { MenuItemType } from '@dspace/core';
+import { MenuSection } from '@dspace/core';
 
 /**
  * A basic implementation of a menu section's component

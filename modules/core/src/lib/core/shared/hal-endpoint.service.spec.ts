@@ -11,7 +11,7 @@ import { RequestService } from '../data';
 import { RequestEntryState } from '../data';
 import { getMockRequestService } from '../mocks';
 import { createSuccessfulRemoteDataObject$ } from '../utilities';
-import { HALEndpointService } from './hal-endpoint.service';
+import { HALEndpointService } from '@dspace/core';
 
 
 describe('HALEndpointService', () => {

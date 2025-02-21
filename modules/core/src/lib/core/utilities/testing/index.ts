@@ -1,3 +1,4 @@
+// created from 'create-ts-index'
 
 export * from './action.mock';
 export * from './active-router.stub';
@@ -21,7 +22,6 @@ export * from './file-service.stub';
 export * from './form-event.stub';
 export * from './group-mock';
 export * from './hal-endpoint-service.stub';
-export * from './host-window-service.stub';
 export * from './identifiable-data-service.stub';
 export * from './item-data.service.stub';
 export * from './location.stub';
@@ -31,7 +31,6 @@ export * from './ng-component-outlet-directive.stub';
 export * from './notifications-service.stub';
 export * from './object-cache-service.stub';
 export * from './object-select-service.stub';
-export * from './object-updates.service.stub';
 export * from './pagination-service.stub';
 export * from './query-params-directive.stub';
 export * from './registry.service.stub';
@@ -57,8 +56,6 @@ export * from './submission-service.stub';
 export * from './subscriptions-data.mock';
 export * from './supervision-order.mock';
 export * from './test-data-service.mock';
-export * from './test-module';
-export * from './translate-loader.mock';
 export * from './truncatable-service.stub';
 export * from './utils.test';
 export * from './vocabulary-service.stub';

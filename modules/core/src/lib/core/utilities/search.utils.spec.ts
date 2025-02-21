@@ -5,7 +5,7 @@ import {
   escapeRegExp,
   getFacetValueForType,
   stripOperatorFromFilterValue,
-} from './search.utils';
+} from '@dspace/core';
 
 describe('Search Utils', () => {
   describe('getFacetValueForType', () => {

@@ -45,7 +45,7 @@ import { VocabularyService } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 import { FilterInputSuggestionsComponent } from '../../../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
-import { addOperatorToFilterValue } from '../../../../../../../modules/core/src/lib/core/utilities/search.utils';
+import { addOperatorToFilterValue } from '@dspace/core';
 import {
   facetLoad,
   SearchFacetFilterComponent,

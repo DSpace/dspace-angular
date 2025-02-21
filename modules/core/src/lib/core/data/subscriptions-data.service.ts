@@ -38,7 +38,7 @@ import { NotificationsService } from '@dspace/core';
 import { HALEndpointService } from '@dspace/core';
 import { NoContent } from '@dspace/core';
 import { getFirstCompletedRemoteData } from '@dspace/core';
-import { Subscription } from '../subscription/subscription.model';
+import { Subscription } from '../subscription';
 
 /**
  * Provides methods to retrieve subscription resources from the REST API related CRUD actions.

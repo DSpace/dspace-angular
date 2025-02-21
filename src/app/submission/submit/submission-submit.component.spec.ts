@@ -27,7 +27,7 @@ import { NotificationsServiceStub } from '@dspace/core';
 import { RouterStub } from '@dspace/core';
 import { SubmissionServiceStub } from '@dspace/core';
 import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
-import { SubmissionService } from '../../../../modules/core/src/lib/core/submission/submission.service';
+import { SubmissionService } from '@dspace/core';
 import { SubmissionSubmitComponent } from './submission-submit.component';
 
 describe('SubmissionSubmitComponent Component', () => {

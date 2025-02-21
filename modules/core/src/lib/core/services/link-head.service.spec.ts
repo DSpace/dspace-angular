@@ -9,7 +9,7 @@ import {
 } from '@angular/core/testing';
 import { MockProvider } from 'ng-mocks';
 
-import { LinkHeadService } from './link-head.service';
+import { LinkHeadService } from '@dspace/core';
 
 describe('LinkHeadService', () => {
 

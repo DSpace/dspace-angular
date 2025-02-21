@@ -8,7 +8,7 @@ import {
 import { typedObject } from '@dspace/core';
 import { CacheableObject } from '@dspace/core';
 import { excludeFromEquals } from '@dspace/core';
-import { COAR_NOTIFY_WORKSPACEITEM } from '../../../../../modules/core/src/lib/core/coar-notify/section-coar-notify-service.resource-type';
+import { COAR_NOTIFY_WORKSPACEITEM } from '@dspace/core';
 
 /** An CoarNotify  and its properties. */
 @typedObject

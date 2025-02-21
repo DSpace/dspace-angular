@@ -75,7 +75,7 @@ import { CollectionElementLinkType } from '../object-collection/collection-eleme
 import { ThemedSearchFormComponent } from '../search-form/themed-search-form.component';
 import { PageWithSidebarComponent } from '../sidebar/page-with-sidebar.component';
 import { SidebarService } from '../sidebar/sidebar.service';
-import { currentPath } from '../../../../modules/core/src/lib/core/utilities/route.utils';
+import { currentPath } from '@dspace/core';
 import { ViewModeSwitchComponent } from '../view-mode-switch/view-mode-switch.component';
 import { SearchLabelsComponent } from './search-labels/search-labels.component';
 import { SelectionConfig } from './search-results/search-results.component';

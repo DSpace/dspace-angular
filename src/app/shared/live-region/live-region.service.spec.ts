@@ -5,7 +5,7 @@ import {
 } from '@angular/core/testing';
 
 import { UUIDService } from '@dspace/core';
-import { LiveRegionService } from '../../../../modules/core/src/lib/core/services/live-region.service';
+import { LiveRegionService } from '@dspace/core';
 
 describe('liveRegionService', () => {
   let service: LiveRegionService;

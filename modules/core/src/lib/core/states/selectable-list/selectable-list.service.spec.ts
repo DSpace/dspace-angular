@@ -11,8 +11,8 @@ import {
   SelectableListDeselectSingleAction,
   SelectableListSelectAction,
   SelectableListSelectSingleAction,
-} from './selectable-list.actions';
-import { SelectableListService } from './selectable-list.service';
+} from '@dspace/core';
+import { SelectableListService } from '@dspace/core';
 
 export class SelectableObject extends ListableObject {
   constructor(private value: string) {

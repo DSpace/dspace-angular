@@ -11,7 +11,7 @@ import { TestScheduler } from 'rxjs/testing';
 
 import { RemoteDataBuildService } from '../cache';
 import { ObjectCacheService } from '../cache';
-import { CoreState } from '../core-state.model';
+import { CoreState } from '@dspace/core';
 import { testSearchDataImplementation } from '../data';
 import { ChangeAnalyzer } from '../data';
 import { FindListOptions } from '../data';
@@ -20,13 +20,13 @@ import {
   TaskPostRequest,
 } from '../data';
 import { RequestService } from '../data';
-import { HttpOptions } from '../dspace-rest';
+import { HttpOptions } from '@dspace/core';
 import { getMockRemoteDataBuildService } from '../mocks';
 import { getMockRequestService } from '../mocks';
 import { HALEndpointService } from '../shared';
 import { HALEndpointServiceStub } from '../utilities';
 import { TaskObject } from './models';
-import { TasksService } from './tasks.service';
+import { TasksService } from '@dspace/core';
 
 const LINK_NAME = 'test';
 

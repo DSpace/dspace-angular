@@ -1,3 +1,4 @@
+// created from 'create-ts-index'
 
 export * from './suggestion-objects.resource-type';
 export * from './suggestion-source-object.resource-type';

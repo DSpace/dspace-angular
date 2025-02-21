@@ -23,7 +23,7 @@ import { SearchFilterConfig } from '@dspace/core';
 import { SearchService } from '@dspace/core';
 import { SearchConfigurationService } from '@dspace/core';
 import { SearchFilterService } from '@dspace/core';
-import { currentPath } from '../../../../../../../../modules/core/src/lib/core/utilities/route.utils';
+import { currentPath } from '@dspace/core';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
 import {
   RANGE_FILTER_MAX_SUFFIX,

@@ -21,10 +21,10 @@ import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { ActivatedRouteStub } from '@dspace/core';
 import { SubmissionServiceStub } from '@dspace/core';
 import { TranslateLoaderMock } from '../../../../../../../modules/core/src/lib/core/utilities/testing/translate-loader.mock';
-import { SubmissionService } from '../../../../../../../modules/core/src/lib/core/submission/submission.service';
+import { SubmissionService } from '@dspace/core';
 import { getMockThemeService } from '../../../../mocks/theme-service.mock';
 import { ItemSearchResultListElementComponent } from '../../../../object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
-import { SelectableListService } from '../../../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
+import { SelectableListService } from '@dspace/core';
 import { ThemeService } from '../../../../theme-support/theme.service';
 import {
   ExistingMetadataListElementComponent,

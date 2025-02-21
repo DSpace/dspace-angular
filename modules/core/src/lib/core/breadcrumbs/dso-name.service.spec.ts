@@ -1,9 +1,9 @@
-import { ListableObject } from '../object-collection';
+import { ListableObject } from '@dspace/core';
 import { DSpaceObject } from '../shared';
 import { GenericConstructor } from '../shared';
 import { Item } from '../shared';
 import { MetadataValueFilter } from '../shared';
-import { DSONameService } from './dso-name.service';
+import { DSONameService } from '@dspace/core';
 
 describe(`DSONameService`, () => {
   let service: DSONameService;

@@ -7,7 +7,7 @@ import {
   END_USER_AGREEMENT_COOKIE,
   END_USER_AGREEMENT_METADATA_FIELD,
   EndUserAgreementService,
-} from './end-user-agreement.service';
+} from '@dspace/core';
 
 describe('EndUserAgreementService', () => {
   let service: EndUserAgreementService;

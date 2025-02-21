@@ -1,3 +1,4 @@
+// created from 'create-ts-index'
 
 export * from './item-relationships-utils';
 export * from './item-type.model';

@@ -22,8 +22,8 @@ import {
   createPaginatedList,
   getFirstUsedArgumentOfSpyMethod,
 } from '../utilities';
-import { BrowseService } from './browse.service';
-import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
+import { BrowseService } from '@dspace/core';
+import { BrowseEntrySearchOptions } from '@dspace/core';
 
 describe('BrowseService', () => {
   let scheduler: TestScheduler;

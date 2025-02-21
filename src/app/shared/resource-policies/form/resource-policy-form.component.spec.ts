@@ -56,7 +56,7 @@ import { EPersonMock } from '@dspace/core';
 import { GroupMock } from '@dspace/core';
 import { PaginationServiceStub } from '@dspace/core';
 import { createTestComponent } from '@dspace/core';
-import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
+import { SubmissionService } from '@dspace/core';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { EpersonGroupListComponent } from '../../eperson-group-list/eperson-group-list.component';
 import { dsDynamicFormControlMapFn } from '../../form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';

@@ -7,7 +7,7 @@ import {
 import {
   MathJaxConfig,
   MathService,
-} from './math.service';
+} from '@dspace/core';
 
 export class MockMathService extends MathService {
   protected mathJaxOptions: any = {};

@@ -29,7 +29,7 @@ import {
 } from '../shared/host-window.service';
 import { MenuComponent } from '../shared/menu/menu.component';
 import { MenuService } from '../shared/menu/menu.service';
-import { MenuID } from '../../../modules/core/src/lib/core/states/menu/menu-id.model';
+import { MenuID } from '@dspace/core';
 import { ThemeService } from '../shared/theme-support/theme.service';
 
 /**

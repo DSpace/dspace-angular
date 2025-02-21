@@ -22,16 +22,16 @@ import { getMockRemoteDataBuildService } from '../../mocks';
 import { getMockRequestService } from '../../mocks';
 import { HALEndpointService } from '../../shared';
 import { HALEndpointServiceStub } from '../../utilities';
-import { FindListOptions } from '../find-list-options.model';
-import { followLink } from '../follow-link-config.model';
-import { RemoteData } from '../remote-data';
-import { RequestService } from '../request.service';
-import { RequestEntryState } from '../request-entry-state.model';
-import { EMBED_SEPARATOR } from './base-data.service';
+import { FindListOptions } from '@dspace/core';
+import { followLink } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { RequestEntryState } from '@dspace/core';
+import { EMBED_SEPARATOR } from '@dspace/core';
 import {
   FindAllData,
   FindAllDataImpl,
-} from './find-all-data';
+} from '@dspace/core';
 
 /**
  * Tests whether calls to `FindAllData` methods are correctly patched through in a concrete data service that implements it

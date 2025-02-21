@@ -1,4 +1,4 @@
-import { StatusCodeOnlyResponseParsingService } from './status-code-only-response-parsing.service';
+import { StatusCodeOnlyResponseParsingService } from '@dspace/core';
 
 describe('StatusCodeOnlyResponseParsingService', () => {
   let service;

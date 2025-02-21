@@ -12,7 +12,7 @@ import { RemoteData } from '../../data';
 import { Item } from '../../shared';
 import { Relationship } from '../../shared';
 import { NoContent } from '../../shared';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 
 /**
  * Stub class of {@link EditItemRelationshipsService}

@@ -6,7 +6,7 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { MenuSection } from '../../../../modules/core/src/lib/core/states/menu/menu-section.model';
+import { MenuSection } from '@dspace/core';
 import { DSOEditMenuResolverService } from './dso-edit-menu-resolver.service';
 
 /**

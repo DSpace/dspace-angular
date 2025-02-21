@@ -19,7 +19,7 @@ import { of as observableOf } from 'rxjs';
 
 import { RequestParam } from '../cache';
 import { ObjectCacheEntry } from '../cache';
-import { CoreState } from '../core-state.model';
+import { CoreState } from '@dspace/core';
 import { ChangeAnalyzer } from '../data';
 import { FindListOptions } from '../data';
 import {
@@ -27,7 +27,7 @@ import {
   PostRequest,
 } from '../data';
 import { RequestService } from '../data';
-import { HttpOptions } from '../dspace-rest';
+import { HttpOptions } from '@dspace/core';
 import { getMockObjectCacheService } from '../mocks';
 import { getMockRemoteDataBuildServiceHrefMap } from '../mocks';
 import { getMockRequestService } from '../mocks';
@@ -51,7 +51,7 @@ import {
   createPaginatedList,
   createRequestEntry$,
 } from '../utilities';
-import { GroupDataService } from './group-data.service';
+import { GroupDataService } from '@dspace/core';
 
 describe('GroupDataService', () => {
   let service: GroupDataService;

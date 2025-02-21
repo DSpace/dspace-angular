@@ -1,11 +1,11 @@
-import { SubmissionService } from './submission.service';
+import { SubmissionService } from '@dspace/core';
 import { RemoteData } from '../data';
 import { HALEndpointService } from '../shared';
 import { SubmissionObject } from './models';
-import { SubmissionObjectDataService } from './submission-object-data.service';
-import { SubmissionScopeType } from './submission-scope-type';
-import { WorkflowItemDataService } from './workflowitem-data.service';
-import { WorkspaceitemDataService } from './workspaceitem-data.service';
+import { SubmissionObjectDataService } from '@dspace/core';
+import { SubmissionScopeType } from '@dspace/core';
+import { WorkflowItemDataService } from '@dspace/core';
+import { WorkspaceitemDataService } from '@dspace/core';
 
 describe('SubmissionObjectDataService', () => {
   let service: SubmissionObjectDataService;

@@ -1,0 +1,4 @@
+
+
+export * from './registry.service.spec';
+export * from './registry.service';

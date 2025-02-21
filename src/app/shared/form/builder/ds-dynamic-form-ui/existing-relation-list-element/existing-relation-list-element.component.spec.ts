@@ -16,9 +16,9 @@ import { ReorderableRelationship } from '@dspace/core';
 import { RemoveRelationshipAction } from '@dspace/core';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { SubmissionServiceStub } from '@dspace/core';
-import { SubmissionService } from '../../../../../../../modules/core/src/lib/core/submission/submission.service';
+import { SubmissionService } from '@dspace/core';
 import { ListableObjectComponentLoaderComponent } from '../../../../object-collection/shared/listable-object/listable-object-component-loader.component';
-import { SelectableListService } from '../../../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
+import { SelectableListService } from '@dspace/core';
 import { ExistingRelationListElementComponent } from './existing-relation-list-element.component';
 
 describe('ExistingRelationListElementComponent', () => {

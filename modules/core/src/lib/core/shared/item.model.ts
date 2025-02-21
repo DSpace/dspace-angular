@@ -7,8 +7,8 @@ import {
   inheritSerialization,
 } from 'cerialize';
 import { Observable } from 'rxjs';
-import { AccessStatusObject } from '../access-status/access-status.model';
-import { ACCESS_STATUS } from '../access-status/access-status.resource-type';
+import { AccessStatusObject } from '../access-status';
+import { ACCESS_STATUS } from '../access-status';
 
 import {
   link,

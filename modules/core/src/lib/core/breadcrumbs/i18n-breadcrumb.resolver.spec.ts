@@ -1,5 +1,5 @@
-import { URLCombiner } from '../url-combiner';
-import { i18nBreadcrumbResolver } from './i18n-breadcrumb.resolver';
+import { URLCombiner } from '@dspace/core';
+import { i18nBreadcrumbResolver } from '@dspace/core';
 
 describe('i18nBreadcrumbResolver', () => {
   describe('resolve', () => {

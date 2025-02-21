@@ -6,8 +6,8 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
 import { createSuccessfulRemoteDataObject$ } from '../utilities';
-import { Breadcrumb } from './breadcrumb.model';
-import { PublicationClaimBreadcrumbService } from './publication-claim-breadcrumb.service';
+import { Breadcrumb } from '@dspace/core';
+import { PublicationClaimBreadcrumbService } from '@dspace/core';
 
 describe('PublicationClaimBreadcrumbService', () => {
   let service: PublicationClaimBreadcrumbService;

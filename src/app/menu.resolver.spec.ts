@@ -24,7 +24,7 @@ import { ConfigurationDataServiceStub } from '@dspace/core';
 import { MenuServiceStub } from '@dspace/core';
 import { createPaginatedList } from '@dspace/core';
 import { MenuService } from './shared/menu/menu.service';
-import { MenuID } from '../../modules/core/src/lib/core/states/menu/menu-id.model';
+import { MenuID } from '@dspace/core';
 import createSpy = jasmine.createSpy;
 import { AuthService } from '@dspace/core';
 import { AuthServiceStub } from '@dspace/core';

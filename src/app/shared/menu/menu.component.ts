@@ -28,9 +28,9 @@ import { FeatureID } from '@dspace/core';
 import { GenericConstructor } from '@dspace/core';
 import { ThemeService } from '../theme-support/theme.service';
 import { MenuService } from './menu.service';
-import { MenuID } from '../../../../modules/core/src/lib/core/states/menu/menu-id.model';
+import { MenuID } from '@dspace/core';
 import { getComponentForMenu } from './menu-section.decorator';
-import { MenuSection } from '../../../../modules/core/src/lib/core/states/menu/menu-section.model';
+import { MenuSection } from '@dspace/core';
 import { MenuSectionComponent } from './menu-section/menu-section.component';
 
 /**

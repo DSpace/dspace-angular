@@ -36,7 +36,7 @@ import { SupervisionOrder } from '@dspace/core';
 import { SupervisionOrderDataService } from '@dspace/core';
 import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../../../item-page/edit-item-page/edit-item-page.routing-paths';
 import { ConfirmationModalComponent } from '../../../../../shared/confirmation-modal/confirmation-modal.component';
-import { getSearchResultFor } from '../../../../../../../modules/core/src/lib/core/config/models/search-result-element-decorator';
+import { getSearchResultFor } from '@dspace/core';
 import { getWorkspaceItemDeleteRoute } from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { SupervisionOrderGroupSelectorComponent } from './supervision-order-group-selector/supervision-order-group-selector.component';
 import {

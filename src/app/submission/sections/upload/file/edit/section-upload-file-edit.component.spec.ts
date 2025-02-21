@@ -60,7 +60,7 @@ import {
   mockUploadConfigResponseMetadata,
   mockUploadFiles,
 } from '../../../../../shared/mocks/submission.mock';
-import { SubmissionService } from '../../../../../../../modules/core/src/lib/core/submission/submission.service';
+import { SubmissionService } from '@dspace/core';
 import { SectionUploadService } from '../../section-upload.service';
 import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload-constants';
 import { SubmissionSectionUploadFileEditComponent } from './section-upload-file-edit.component';

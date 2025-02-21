@@ -6,7 +6,7 @@ import {
 } from 'rxjs';
 
 import { RequestParam } from '../../cache';
-import { EPerson } from '../../eperson';
+import { EPerson } from '@dspace/core';
 import { getMockObjectCacheService } from '../../mocks';
 import { Authorization } from '../../shared';
 import { Feature } from '../../shared';
@@ -14,12 +14,12 @@ import { Site } from '../../shared';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '../../utilities';
+} from '@dspace/core';
 import { createPaginatedList } from '../../utilities';
 import { testSearchDataImplementation } from '../base';
-import { FindListOptions } from '../find-list-options.model';
-import { SiteDataService } from '../site-data.service';
-import { AuthorizationDataService } from './authorization-data.service';
+import { FindListOptions } from '@dspace/core';
+import { SiteDataService } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
 import { FeatureID } from './feature-id';
 
 describe('AuthorizationDataService', () => {

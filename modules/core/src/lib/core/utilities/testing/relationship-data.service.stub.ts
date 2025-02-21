@@ -14,7 +14,7 @@ import { Relationship } from '../../shared';
 import { MetadataValue } from '../../shared';
 import { MetadataRepresentation } from '../../shared';
 import { NoContent } from '../../shared';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 
 /**
  * Stub class of {@link RelationshipDataService}

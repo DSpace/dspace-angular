@@ -8,9 +8,9 @@ import { RemoteDataBuildService } from '../cache';
 import { ObjectCacheService } from '../cache';
 import { ConfigurationProperty } from '../shared';
 import { HALEndpointService } from '../shared';
-import { ConfigurationDataService } from './configuration-data.service';
-import { GetRequest } from './request.models';
-import { RequestService } from './request.service';
+import { ConfigurationDataService } from '@dspace/core';
+import { GetRequest } from '@dspace/core';
+import { RequestService } from '@dspace/core';
 
 describe('ConfigurationDataService', () => {
   let scheduler: TestScheduler;

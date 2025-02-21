@@ -15,7 +15,7 @@ import {
   WidthCategory,
 } from '../shared/host-window.service';
 import { MenuService } from '../shared/menu/menu.service';
-import { MenuID } from '../../../modules/core/src/lib/core/states/menu/menu-id.model';
+import { MenuID } from '@dspace/core';
 
 /**
  * This component represents a wrapper for the horizontal navbar and the header

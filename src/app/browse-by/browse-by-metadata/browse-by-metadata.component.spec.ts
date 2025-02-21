@@ -27,7 +27,7 @@ import { RouteService } from '@dspace/core';
 import { DsoEditMenuComponent } from 'src/app/shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { HostWindowService } from 'src/app/shared/host-window.service';
 import { ThemedLoadingComponent } from 'src/app/shared/loading/themed-loading.component';
-import { SelectableListService } from '../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
+import { SelectableListService } from '@dspace/core';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
 import { BrowseService } from '@dspace/core';

@@ -1,4 +1,4 @@
-import { Collection } from './collection.model';
+import { Collection } from '@dspace/core';
 
 describe('Collection', () => {
 

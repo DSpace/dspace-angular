@@ -4,7 +4,7 @@ import { RemoteDataBuildService } from '../cache';
 import { RequestParam } from '../cache';
 import { RestResponse } from '../cache';
 import { MetadataSchema } from '../metadata';
-import { NotificationsService } from '../notifications';
+import { NotificationsService } from '@dspace/core';
 import { HALEndpointService } from '../shared';
 import { createSuccessfulRemoteDataObject$ } from '../utilities';
 import { HALEndpointServiceStub } from '../utilities';
@@ -13,9 +13,9 @@ import { testCreateDataImplementation } from './base';
 import { testDeleteDataImplementation } from './base';
 import { testPutDataImplementation } from './base';
 import { testSearchDataImplementation } from './base';
-import { FindListOptions } from './find-list-options.model';
-import { MetadataFieldDataService } from './metadata-field-data.service';
-import { RequestService } from './request.service';
+import { FindListOptions } from '@dspace/core';
+import { MetadataFieldDataService } from '@dspace/core';
+import { RequestService } from '@dspace/core';
 
 describe('MetadataFieldDataService', () => {
   let metadataFieldService: MetadataFieldDataService;

@@ -9,9 +9,9 @@ import { Observable } from 'rxjs';
 
 import { MenuServiceStub } from '@dspace/core';
 import { HostWindowResizeAction } from '../shared/host-window.actions';
-import { CollapseMenuAction } from '../../../modules/core/src/lib/core/states/menu/menu.actions';
+import { CollapseMenuAction } from '@dspace/core';
 import { MenuService } from '../shared/menu/menu.service';
-import { MenuID } from '../../../modules/core/src/lib/core/states/menu/menu-id.model';
+import { MenuID } from '@dspace/core';
 import { NavbarEffects } from './navbar.effects';
 
 describe('NavbarEffects', () => {

@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Duplicate } from '../data/duplicate-data/duplicate.model';
+import { Duplicate } from '../data';
 import { RemoteDataBuildService } from '../cache';
 import { RequestParam } from '../cache';
 import { ObjectCacheService } from '../cache';

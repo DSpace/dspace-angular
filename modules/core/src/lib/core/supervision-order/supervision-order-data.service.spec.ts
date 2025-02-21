@@ -15,13 +15,13 @@ import { buildPaginatedList } from '../data';
 import { RequestService } from '../data';
 import { RequestEntry } from '../data';
 import { GroupDataService } from '../eperson';
-import { NotificationsService } from '../notifications';
+import { NotificationsService } from '@dspace/core';
 import { HALEndpointService } from '../shared';
 import { PageInfo } from '../shared';
 import { createSuccessfulRemoteDataObject } from '../utilities';
 import { ObjectCacheServiceStub } from '../utilities';
 import { SupervisionActionType } from './models';
-import { SupervisionOrderDataService } from './supervision-order-data.service';
+import { SupervisionOrderDataService } from '@dspace/core';
 
 describe('SupervisionOrderService', () => {
   let scheduler: TestScheduler;

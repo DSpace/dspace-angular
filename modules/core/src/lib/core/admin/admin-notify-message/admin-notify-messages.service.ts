@@ -26,8 +26,8 @@ import {
   getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
 } from '@dspace/core';
-import { LdnServicesService } from '../ldn-services-data/ldn-services-data.service';
-import { AdminNotifyMessage } from './models/admin-notify-message.model';
+import { LdnServicesService } from '../ldn-services-data';
+import { AdminNotifyMessage } from './models';
 
 /**
  * Injectable service responsible for fetching/sending data from/to the REST API on the messages' endpoint.

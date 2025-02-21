@@ -15,13 +15,13 @@ import { ResearcherProfile } from '../profile';
 import { ResearcherProfileDataService } from '../profile';
 import { ConfigurationProperty } from '../shared';
 import { Item } from '../shared';
-import { URLCombiner } from '../url-combiner';
+import { URLCombiner } from '@dspace/core';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '../utilities';
 import { createPaginatedList } from '../utilities';
-import { OrcidAuthService } from './orcid-auth.service';
+import { OrcidAuthService } from '@dspace/core';
 
 describe('OrcidAuthService', () => {
   let scheduler: TestScheduler;

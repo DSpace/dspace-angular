@@ -17,9 +17,9 @@ import { RequestEntryState } from '@dspace/core';
 import { NotificationsService } from '@dspace/core';
 import { HALEndpointService } from '@dspace/core';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { LdnServicesService } from '../ldn-services-data/ldn-services-data.service';
-import { AdminNotifyMessage } from './models/admin-notify-message.model';
-import { AdminNotifyMessagesService } from './admin-notify-messages.service';
+import { LdnServicesService } from '@dspace/core';
+import { AdminNotifyMessage } from '@dspace/core';
+import { AdminNotifyMessagesService } from '@dspace/core';
 
 describe('AdminNotifyMessagesService test', () => {
   let service: AdminNotifyMessagesService;

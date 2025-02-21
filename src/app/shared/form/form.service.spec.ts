@@ -22,7 +22,7 @@ import {
 import { AppState } from '../../app.reducer';
 import { getMockFormBuilderService } from '../mocks/form-builder-service.mock';
 import { FormBuilderService } from './builder/form-builder.service';
-import { formReducer } from '../../../../modules/core/src/lib/core/states/form/form.reducer';
+import { formReducer } from '@dspace/core';
 import { FormService } from './form.service';
 
 describe('FormService test suite', () => {

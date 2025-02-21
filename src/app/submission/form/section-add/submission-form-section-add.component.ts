@@ -11,9 +11,9 @@ import { map } from 'rxjs/operators';
 
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { HostWindowService } from '../../../shared/host-window.service';
-import { SectionDataObject } from '../../../../../modules/core/src/lib/core/submission/sections/section-data.model';
+import { SectionDataObject } from '@dspace/core';
 import { SectionsService } from '../../sections/sections.service';
-import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
+import { SubmissionService } from '@dspace/core';
 
 /**
  * This component allow to add any new section to submission form

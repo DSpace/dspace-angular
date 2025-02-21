@@ -44,12 +44,12 @@ import { ThemedEditItemSelectorComponent } from './shared/dso-selector/modal-wra
 import { ExportBatchSelectorComponent } from './shared/dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
 import { ExportMetadataSelectorComponent } from './shared/dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
 import { MenuService } from './shared/menu/menu.service';
-import { MenuID } from '../../modules/core/src/lib/core/states/menu/menu-id.model';
+import { MenuID } from '@dspace/core';
 import { LinkMenuItemModel } from './shared/menu/menu-item/models/link.model';
 import { OnClickMenuItemModel } from './shared/menu/menu-item/models/onclick.model';
 import { TextMenuItemModel } from './shared/menu/menu-item/models/text.model';
-import { MenuItemType } from '../../modules/core/src/lib/core/states/menu/menu-item-type.model';
-import { MenuState } from '../../modules/core/src/lib/core/states/menu/menu-state.model';
+import { MenuItemType } from '@dspace/core';
+import { MenuState } from '@dspace/core';
 
 /**
  * Creates all of the app's menus

@@ -37,7 +37,7 @@ import {
   getFirstSucceededRemoteDataPayload,
 } from '@dspace/core';
 import { PaginationComponentOptions } from '@dspace/core';
-import { LiveRegionService } from '../../../../../modules/core/src/lib/core/services/live-region.service';
+import { LiveRegionService } from '@dspace/core';
 import { ResponsiveColumnSizes } from '../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
 

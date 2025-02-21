@@ -1,10 +1,10 @@
 import { WorkspaceitemSectionDataType } from '@dspace/core';
-import { SectionsType } from '../../submission/models/sections-type';
+import { SectionsType } from '../../submission';
 import {
   SectionScope,
   SectionVisibility,
-} from '../../submission/models/section-visibility.model';
-import { SubmissionSectionError } from '../../submission/models/submission-section-error.model';
+} from '../../submission';
+import { SubmissionSectionError } from '../../submission';
 
 /**
  * An interface to represent section object state

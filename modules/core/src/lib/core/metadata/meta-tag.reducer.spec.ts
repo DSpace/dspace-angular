@@ -9,8 +9,8 @@
 import {
   AddMetaTagAction,
   ClearMetaTagAction,
-} from './meta-tag.actions';
-import { metaTagReducer } from './meta-tag.reducer';
+} from '@dspace/core';
+import { metaTagReducer } from '@dspace/core';
 
 const nullAction = { type: null };
 

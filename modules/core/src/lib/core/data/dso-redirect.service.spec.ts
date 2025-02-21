@@ -12,13 +12,13 @@ import { HALEndpointService } from '../shared';
 import { Item } from '../shared';
 import { createSuccessfulRemoteDataObject } from '../utilities';
 import { EMBED_SEPARATOR } from './base';
-import { DsoRedirectService } from './dso-redirect.service';
-import { followLink } from './follow-link-config.model';
+import { DsoRedirectService } from '@dspace/core';
+import { followLink } from '@dspace/core';
 import {
   GetRequest,
   IdentifierType,
-} from './request.models';
-import { RequestService } from './request.service';
+} from '@dspace/core';
+import { RequestService } from '@dspace/core';
 
 describe('DsoRedirectService', () => {
   let scheduler: TestScheduler;

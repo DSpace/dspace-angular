@@ -1,3 +1,4 @@
+// created from 'create-ts-index'
 
 export * from './vocabularies.resource-type';
 export * from './vocabulary-entry-detail.model';

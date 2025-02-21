@@ -49,11 +49,11 @@ import {
 } from '../../../shared/mocks/submission.mock';
 import { ObjNgFor } from '../../../shared/utils/object-ngfor.pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
-import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
+import { SubmissionService } from '@dspace/core';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
-import { SectionDataObject } from '../../../../../modules/core/src/lib/core/submission/sections/section-data.model';
+import { SectionDataObject } from '@dspace/core';
 import { SectionsService } from '../sections.service';
-import { SectionsType } from '../../../../../modules/core/src/lib/core/submission/models/sections-type';
+import { SectionsType } from '@dspace/core';
 import { SubmissionSectionIdentifiersComponent } from './section-identifiers.component';
 
 function getMockSubmissionFormsConfigService(): SubmissionFormsConfigDataService {

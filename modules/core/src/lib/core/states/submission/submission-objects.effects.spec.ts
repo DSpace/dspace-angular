@@ -35,7 +35,7 @@ import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core';
 import { mockSubmissionObjectDataService } from '@dspace/core';
 import { SubmissionServiceStub } from '@dspace/core';
 
-import { SubmissionService } from '../../submission/submission.service';
+import { SubmissionService } from '@dspace/core';
 import {
   CompleteInitSubmissionFormAction,
   DepositSubmissionAction,
@@ -52,7 +52,7 @@ import {
   SaveSubmissionSectionFormSuccessAction,
   SubmissionObjectActionTypes,
   UpdateSectionDataAction,
-} from './submission-objects.actions';
+} from '@dspace/core';
 
 describe('SubmissionObjectEffects test suite', () => {
   let submissionObjectEffects: SubmissionObjectEffects;

@@ -1,7 +1,7 @@
 import { of as observableOf } from 'rxjs';
 
-import { BrowserReferrerService } from './browser.referrer.service';
-import { RouteService } from './route.service';
+import { BrowserReferrerService } from '@dspace/core';
+import { RouteService } from '@dspace/core';
 
 describe(`BrowserReferrerService`, () => {
   let service: BrowserReferrerService;

@@ -8,8 +8,8 @@ import { AuthMethod } from '../../auth';
 import { AuthMethodType } from '../../auth';
 import { AuthStatus } from '../../auth';
 import { AuthTokenInfo } from '../../auth';
-import { EPerson } from '../../eperson';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import { EPerson } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { EPersonMock } from './eperson.mock';
 
 export const authMethodsMock: AuthMethod[] = [

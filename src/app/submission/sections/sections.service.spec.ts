@@ -25,7 +25,7 @@ import { NotificationsService } from '@dspace/core';
 import { SubmissionScopeType } from '@dspace/core';
 import { NotificationsServiceStub } from '@dspace/core';
 import { SubmissionServiceStub } from '@dspace/core';
-import { FormClearErrorsAction } from '../../../../modules/core/src/lib/core/states/form/form.actions';
+import { FormClearErrorsAction } from '@dspace/core';
 import { FormService } from '../../shared/form/form.service';
 import { getMockFormService } from '../../shared/mocks/form-service.mock';
 import { getMockScrollToService } from '../../shared/mocks/scroll-to-service.mock';
@@ -35,7 +35,7 @@ import {
   mockSubmissionState,
   mockSubmissionStateWithoutUpload,
 } from '../../shared/mocks/submission.mock';
-import { SectionScope } from '../../../../modules/core/src/lib/core/submission/models/section-visibility.model';
+import { SectionScope } from '@dspace/core';
 import {
   DisableSectionAction,
   EnableSectionAction,
@@ -43,13 +43,13 @@ import {
   RemoveSectionErrorsAction,
   SectionStatusChangeAction,
   UpdateSectionDataAction,
-} from '../../../../modules/core/src/lib/core/states/submission/submission-objects.actions';
-import { SubmissionSectionError } from '../../../../modules/core/src/lib/core/submission/models/submission-section-error.model';
-import { submissionReducers } from '../../../../modules/core/src/lib/core/states/submission/submission.reducers';
-import { SubmissionService } from '../../../../modules/core/src/lib/core/submission/submission.service';
+} from '@dspace/core';
+import { SubmissionSectionError } from '@dspace/core';
+import { submissionReducers } from '@dspace/core';
+import { SubmissionService } from '@dspace/core';
 import parseSectionErrors from '../utils/parseSectionErrors';
 import { SectionsService } from './sections.service';
-import { SectionsType } from '../../../../modules/core/src/lib/core/submission/models/sections-type';
+import { SectionsType } from '@dspace/core';
 
 describe('SectionsService test suite', () => {
   let notificationsServiceStub: NotificationsServiceStub;

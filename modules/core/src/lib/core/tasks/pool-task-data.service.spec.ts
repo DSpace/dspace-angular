@@ -7,11 +7,11 @@ import { RemoteDataBuildService } from '../cache';
 import { RequestParam } from '../cache';
 import { testSearchDataImplementation } from '../data';
 import { FindListOptions } from '../data';
-import { HttpOptions } from '../dspace-rest';
+import { HttpOptions } from '@dspace/core';
 import { getMockRequestService } from '../mocks';
 import { createSuccessfulRemoteDataObject$ } from '../utilities';
 import { HALEndpointServiceStub } from '../utilities';
-import { PoolTaskDataService } from './pool-task-data.service';
+import { PoolTaskDataService } from '@dspace/core';
 
 describe('PoolTaskDataService', () => {
   let scheduler: TestScheduler;

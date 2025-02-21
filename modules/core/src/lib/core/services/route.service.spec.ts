@@ -21,7 +21,7 @@ import { TestScheduler } from 'rxjs/testing';
 import { AddUrlToHistoryAction } from '../history';
 import { RouterMock } from '../mocks';
 import { ActivatedRouteStub } from '../utilities';
-import { RouteService } from './route.service';
+import { RouteService } from '@dspace/core';
 
 describe('RouteService', () => {
   let scheduler: TestScheduler;

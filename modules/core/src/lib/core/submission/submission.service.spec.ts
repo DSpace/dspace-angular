@@ -45,7 +45,7 @@ import { SubmissionScopeType } from '@dspace/core';
 import { createFailedRemoteDataObject } from '@dspace/core';
 import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core';
 import { SubmissionRestServiceStub } from '@dspace/core';
-import { SectionScope } from './models/section-visibility.model';
+import { SectionScope } from '@dspace/core';
 import {
   CancelSubmissionFormAction,
   ChangeSubmissionCollectionAction,
@@ -57,9 +57,9 @@ import {
   SaveSubmissionFormAction,
   SaveSubmissionSectionFormAction,
   SetActiveSectionAction,
-} from '../states/submission/submission-objects.actions';
-import { submissionReducers } from '../states/submission/submission.reducers';
-import { SubmissionService } from './submission.service';
+} from '@dspace/core';
+import { submissionReducers } from '@dspace/core';
+import { SubmissionService } from '@dspace/core';
 
 describe('SubmissionService test suite', () => {
   const collectionId = '43fe1f8c-09a6-4fcf-9c78-5d4fed8f2c8f';

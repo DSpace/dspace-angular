@@ -16,15 +16,15 @@ import { APP_CONFIG } from '../../config';
 import { RemoteData } from '../../data';
 import { RequestEntry } from '../../data';
 import { getMockRequestService } from '../../mocks';
-import { createSuccessfulRemoteDataObject$ } from '../../utilities';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { ActivatedRouteStub } from '../../utilities';
 import { PaginationServiceStub } from '../../utilities';
-import { PaginatedSearchOptions } from '../paginated-search-options.model';
-import { PaginationComponentOptions } from '../pagination-component-options.model';
+import { PaginatedSearchOptions } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
 import { AppliedFilter } from './models';
 import { SearchFilter } from './models';
 import { SearchObjects } from './models';
-import { SearchConfigurationService } from './search-configuration.service';
+import { SearchConfigurationService } from '@dspace/core';
 
 describe('SearchConfigurationService', () => {
   let service: SearchConfigurationService;

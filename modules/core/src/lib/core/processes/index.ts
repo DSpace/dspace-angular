@@ -1,3 +1,4 @@
+// created from 'create-ts-index'
 
 export * from './filetypes.model';
 export * from './filetypes.resource-type';

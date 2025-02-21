@@ -1,3 +1,4 @@
+// created from 'create-ts-index'
 
 export * from './feature-authorization-guard';
 export * from './authorization-data.service';

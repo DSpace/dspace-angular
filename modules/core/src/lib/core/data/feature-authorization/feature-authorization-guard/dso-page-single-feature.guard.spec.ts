@@ -9,17 +9,17 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { AuthService } from '../../../auth';
-import { DSpaceObject } from '../../../shared';
-import { createSuccessfulRemoteDataObject$ } from '../../../utilities';
-import { RemoteData } from '../../remote-data';
-import { AuthorizationDataService } from '../authorization-data.service';
-import { FeatureID } from '../feature-id';
-import { dsoPageSingleFeatureGuard } from './dso-page-single-feature.guard';
+import { AuthService } from '@dspace/core';
+import { DSpaceObject } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { AuthorizationDataService } from '@dspace/core';
+import { FeatureID } from '@dspace/core';
+import { dsoPageSingleFeatureGuard } from '@dspace/core';
 import {
   defaultDSOGetObjectUrl,
   getRouteWithDSOId,
-} from './dso-page-some-feature.guard';
+} from '@dspace/core';
 
 
 describe('DsoPageSingleFeatureGuard', () => {

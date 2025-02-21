@@ -22,7 +22,7 @@ import {
   throwError as observableThrow,
 } from 'rxjs';
 
-import { CoreState } from '../core-state.model';
+import { CoreState } from '@dspace/core';
 import { AuthorizationDataService } from '../data';
 import { type } from '../shared';
 import {
@@ -50,10 +50,10 @@ import {
   RetrieveAuthMethodsErrorAction,
   RetrieveAuthMethodsSuccessAction,
   RetrieveTokenAction,
-} from './auth.actions';
-import { AuthEffects } from './auth.effects';
-import { authReducer } from './auth.reducer';
-import { AuthService } from './auth.service';
+} from '@dspace/core';
+import { AuthEffects } from '@dspace/core';
+import { authReducer } from '@dspace/core';
+import { AuthService } from '@dspace/core';
 import { AuthStatus } from './models';
 import {
   isAuthenticated,

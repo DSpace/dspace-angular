@@ -17,7 +17,7 @@ import { AppliedFilter } from '@dspace/core';
 import { SearchService } from '@dspace/core';
 import { SearchConfigurationService } from '@dspace/core';
 import { SearchFilterService } from '@dspace/core';
-import { currentPath } from '../../../../../../modules/core/src/lib/core/utilities/route.utils';
+import { currentPath } from '@dspace/core';
 
 /**
  * Component that represents the label containing the currently active filters

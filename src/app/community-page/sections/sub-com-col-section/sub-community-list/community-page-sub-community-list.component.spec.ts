@@ -31,7 +31,7 @@ import { SearchConfigurationServiceStub } from '@dspace/core';
 import { createPaginatedList } from '@dspace/core';
 import { HostWindowService } from '../../../../shared/host-window.service';
 import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
-import { SelectableListService } from '../../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
+import { SelectableListService } from '@dspace/core';
 import { ThemeService } from '../../../../shared/theme-support/theme.service';
 import { CommunityPageSubCommunityListComponent } from './community-page-sub-community-list.component';
 

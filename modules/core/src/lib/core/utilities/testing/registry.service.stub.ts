@@ -8,10 +8,10 @@ import { FindListOptions } from '../../data';
 import { FollowLinkConfig } from '../../data';
 import { PaginatedList } from '../../data';
 import { RemoteData } from '../../data';
-import { MetadataField } from '../../metadata';
-import { MetadataSchema } from '../../metadata';
+import { MetadataField } from '@dspace/core';
+import { MetadataSchema } from '@dspace/core';
 import { NoContent } from '../../shared';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { createPaginatedList } from './utils.test';
 
 /**

@@ -30,9 +30,9 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { SelectableListService } from '../selectable-list/selectable-list.service';
-import { SaveSubmissionSectionFormSuccessAction } from '../submission/submission-objects.actions';
-import { SubmissionState } from '../submission/submission.reducers';
+import { SelectableListService } from '../selectable-list';
+import { SaveSubmissionSectionFormSuccessAction } from '../submission';
+import { SubmissionState } from '../submission';
 import { ObjectCacheService } from '../../cache';
 import { ServerSyncBufferActionTypes } from '../../cache';
 import { followLink } from '../../data';

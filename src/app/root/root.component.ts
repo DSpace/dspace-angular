@@ -43,7 +43,7 @@ import { HostWindowService } from '../shared/host-window.service';
 import { LiveRegionComponent } from '../shared/live-region/live-region.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { MenuService } from '../shared/menu/menu.service';
-import { MenuID } from '../../../modules/core/src/lib/core/states/menu/menu-id.model';
+import { MenuID } from '@dspace/core';
 import { CSSVariableService } from '../shared/sass-helper/css-variable.service';
 import { SystemWideAlertBannerComponent } from '../system-wide-alert/alert-banner/system-wide-alert-banner.component';
 import { NotificationsBoardComponent } from "../notifications/notifications-board";

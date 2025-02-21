@@ -15,7 +15,7 @@ import { EPERSON } from '@dspace/core';
 import { DSpaceObject } from '@dspace/core';
 import { DSPACE_OBJECT } from '@dspace/core';
 import { HALLink } from '@dspace/core';
-import { SUBSCRIPTION } from '../data/subscription.resource-type';
+import { SUBSCRIPTION } from '../data';
 
 @typedObject
 @inheritSerialization(DSpaceObject)

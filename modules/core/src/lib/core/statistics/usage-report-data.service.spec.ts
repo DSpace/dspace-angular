@@ -7,7 +7,7 @@
  */
 
 import { testSearchDataImplementation } from '../data';
-import { UsageReportDataService } from './usage-report-data.service';
+import { UsageReportDataService } from '@dspace/core';
 
 describe('UsageReportDataService', () => {
   describe('composition', () => {

@@ -7,8 +7,8 @@ import {
 import {
   SectionScope,
   SectionVisibility,
-} from '../../submission/models/section-visibility.model';
-import { SectionsType } from '../../submission/models/sections-type';
+} from '../../submission';
+import { SectionsType } from '../../submission';
 import { typedObject } from '../../cache';
 import { HALLink } from '../../shared';
 import { ConfigObject } from './config.model';

@@ -22,14 +22,14 @@ import { PageInfo } from '../../shared';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../../utilities';
+} from '@dspace/core';
 import { ObjectCacheServiceStub } from '../../utilities';
 import { createPaginatedList } from '../../utilities';
 import { VocabularyFindOptions } from './models';
 import { VocabularyOptions } from './models';
-import { VocabularyDataService } from './vocabulary.data.service';
-import { VocabularyService } from './vocabulary.service';
-import { VocabularyEntryDetailsDataService } from './vocabulary-entry-details.data.service';
+import { VocabularyDataService } from '@dspace/core';
+import { VocabularyService } from '@dspace/core';
+import { VocabularyEntryDetailsDataService } from '@dspace/core';
 
 describe('VocabularyService', () => {
   let scheduler: TestScheduler;

@@ -10,7 +10,7 @@ import { RemoteDataBuildService } from '../cache';
 import { ObjectCacheService } from '../cache';
 import { RestResponse } from '../cache';
 import { getMockHrefOnlyDataService } from '../mocks';
-import { NotificationsService } from '../notifications';
+import { NotificationsService } from '@dspace/core';
 import { HALEndpointService } from '../shared';
 import { Item } from '../shared';
 import { Version } from '../shared';
@@ -25,10 +25,10 @@ import { testFindAllDataImplementation } from './base';
 import { testPatchDataImplementation } from './base';
 import { testPutDataImplementation } from './base';
 import { testSearchDataImplementation } from './base';
-import { HrefOnlyDataService } from './href-only-data.service';
-import { RequestService } from './request.service';
-import { RequestEntry } from './request-entry.model';
-import { UpdateDataServiceImpl } from './update-data.service';
+import { HrefOnlyDataService } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { RequestEntry } from '@dspace/core';
+import { UpdateDataServiceImpl } from '@dspace/core';
 
 describe('VersionDataService test', () => {
   let scheduler: TestScheduler;

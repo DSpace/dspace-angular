@@ -14,7 +14,7 @@ import { BrowseDefinition } from '../../shared';
 import { FlatBrowseDefinition } from '../../shared';
 import { PageInfo } from '../../shared';
 import { ValueListBrowseDefinition } from '../../shared';
-import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
+import { createSuccessfulRemoteDataObject } from '@dspace/core';
 
 // This data is in post-serialized form (metadata -> metadataKeys)
 export const mockData: BrowseDefinition[] = [

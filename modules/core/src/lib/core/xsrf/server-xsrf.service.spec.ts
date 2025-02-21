@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 
-import { ServerXSRFService } from './server-xsrf.service';
+import { ServerXSRFService } from '@dspace/core';
 
 describe(`ServerXSRFService`, () => {
   let service: ServerXSRFService;

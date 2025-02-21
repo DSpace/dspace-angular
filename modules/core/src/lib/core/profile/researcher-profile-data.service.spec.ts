@@ -23,9 +23,9 @@ import { buildPaginatedList } from '../data';
 import { PostRequest } from '../data';
 import { RequestService } from '../data';
 import { RequestEntry } from '../data';
-import { HttpOptions } from '../dspace-rest';
+import { HttpOptions } from '@dspace/core';
 import { RouterMock } from '../mocks';
-import { NotificationsService } from '../notifications';
+import { NotificationsService } from '@dspace/core';
 import { ConfigurationProperty } from '../shared';
 import { HALEndpointService } from '../shared';
 import { Item } from '../shared';
@@ -37,7 +37,7 @@ import {
 } from '../utilities';
 import { createPaginatedList } from '../utilities';
 import { ResearcherProfile } from './model';
-import { ResearcherProfileDataService } from './researcher-profile-data.service';
+import { ResearcherProfileDataService } from '@dspace/core';
 
 describe('ResearcherProfileService', () => {
   let scheduler: TestScheduler;

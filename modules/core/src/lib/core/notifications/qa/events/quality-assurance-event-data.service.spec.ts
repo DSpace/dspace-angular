@@ -7,25 +7,25 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RemoteDataBuildService } from '../../../cache';
-import { RequestParam } from '../../../cache';
-import { ObjectCacheService } from '../../../cache';
-import { RestResponse } from '../../../cache';
-import { FindListOptions } from '../../../data';
-import { buildPaginatedList } from '../../../data';
-import { RequestService } from '../../../data';
-import { RequestEntry } from '../../../data';
+import { RemoteDataBuildService } from '@dspace/core';
+import { RequestParam } from '@dspace/core';
+import { ObjectCacheService } from '@dspace/core';
+import { RestResponse } from '@dspace/core';
+import { FindListOptions } from '@dspace/core';
+import { buildPaginatedList } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { RequestEntry } from '@dspace/core';
 import {
   qualityAssuranceEventObjectMissingPid,
   qualityAssuranceEventObjectMissingPid2,
   qualityAssuranceEventObjectMissingProjectFound,
 } from '../../../mocks';
-import { HALEndpointService } from '../../../shared';
+import { HALEndpointService } from '@dspace/core';
 import { PageInfo } from '../../../shared';
-import { createSuccessfulRemoteDataObject } from '../../../utilities';
+import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { ObjectCacheServiceStub } from '../../../utilities';
-import { NotificationsService } from '../../notifications.service';
-import { QualityAssuranceEventDataService } from './quality-assurance-event-data.service';
+import { NotificationsService } from '@dspace/core';
+import { QualityAssuranceEventDataService } from '@dspace/core';
 
 describe('QualityAssuranceEventDataService', () => {
   let scheduler: TestScheduler;

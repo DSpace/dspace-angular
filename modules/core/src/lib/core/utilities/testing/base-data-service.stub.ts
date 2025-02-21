@@ -6,7 +6,7 @@ import {
 import { CacheableObject } from '../../cache';
 import { FollowLinkConfig } from '../../data';
 import { RemoteData } from '../../data';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 
 /**
  * Stub class for {@link BaseDataService}

@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { BrowserHardRedirectService } from './browser-hard-redirect.service';
+import { BrowserHardRedirectService } from '@dspace/core';
 
 describe('BrowserHardRedirectService', () => {
   let origin: string;

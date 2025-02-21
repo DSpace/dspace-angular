@@ -26,11 +26,11 @@ import {
 import { BehaviorSubject } from 'rxjs';
 
 import { TranslateLoaderMock } from '../../../../modules/core/src/lib/core/mocks';
-import { Notification } from '../../../../modules/core/src/lib/core/notifications/models';
-import { NotificationOptions } from '../../../../modules/core/src/lib/core/notifications/models';
-import { NotificationType } from '../../../../modules/core/src/lib/core/notifications/models';
-import { notificationsReducer } from '../../../../modules/core/src/lib/core/notifications/notifications.reducers';
-import { NotificationsService } from '../../../../modules/core/src/lib/core/notifications/notifications.service';
+import { Notification } from '@dspace/core';
+import { NotificationOptions } from '@dspace/core';
+import { NotificationType } from '@dspace/core';
+import { notificationsReducer } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
 import { NotificationComponent } from './notification.component';
 import { mockStoreModuleConfig } from "../../../../modules/core/src/lib/core/utilities";
 

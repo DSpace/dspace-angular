@@ -49,7 +49,7 @@ import { FormFieldMetadataValueObject } from '@dspace/core';
 import {
   FormEntry,
   FormError,
-} from '../../../../modules/core/src/lib/core/states/form/form.reducer';
+} from '@dspace/core';
 import { FormService } from './form.service';
 
 /**

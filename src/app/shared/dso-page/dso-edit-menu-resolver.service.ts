@@ -36,11 +36,11 @@ import {
 import { CorrectionTypeDataService } from '@dspace/core';
 import { URLCombiner } from '@dspace/core';
 import { MenuService } from '../menu/menu.service';
-import { MenuID } from '../../../../modules/core/src/lib/core/states/menu/menu-id.model';
+import { MenuID } from '@dspace/core';
 import { LinkMenuItemModel } from '../menu/menu-item/models/link.model';
 import { OnClickMenuItemModel } from '../menu/menu-item/models/onclick.model';
-import { MenuItemType } from '../../../../modules/core/src/lib/core/states/menu/menu-item-type.model';
-import { MenuSection } from '../../../../modules/core/src/lib/core/states/menu/menu-section.model';
+import { MenuItemType } from '@dspace/core';
+import { MenuSection } from '@dspace/core';
 import { SubscriptionModalComponent } from '../subscriptions/subscription-modal/subscription-modal.component';
 import { DsoVersioningModalService } from './dso-versioning-modal-service/dso-versioning-modal.service';
 import {

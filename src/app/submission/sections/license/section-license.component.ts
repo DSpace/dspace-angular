@@ -44,10 +44,10 @@ import { WorkspaceitemSectionLicenseObject } from '@dspace/core';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
-import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
+import { SubmissionService } from '@dspace/core';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { SectionModelComponent } from '../models/section.model';
-import { SectionDataObject } from '../../../../../modules/core/src/lib/core/submission/sections/section-data.model';
+import { SectionDataObject } from '@dspace/core';
 import { SectionsService } from '../sections.service';
 import {
   SECTION_LICENSE_FORM_LAYOUT,

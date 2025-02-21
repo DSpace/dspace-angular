@@ -18,9 +18,9 @@ import {
 import { WorkspaceitemSectionIdentifiersObject } from '@dspace/core';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { VarDirective } from '../../../shared/utils/var.directive';
-import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
+import { SubmissionService } from '@dspace/core';
 import { SectionModelComponent } from '../models/section.model';
-import { SectionDataObject } from '../../../../../modules/core/src/lib/core/submission/sections/section-data.model';
+import { SectionDataObject } from '@dspace/core';
 import { SectionsService } from '../sections.service';
 
 /**

@@ -1,6 +1,8 @@
+// created from 'create-ts-index'
 
 export * from './models';
 export * from './resolver';
+export * from './sections';
 export * from './vocabularies';
 export * from './correctiontype-data.service';
 export * from './submission-cc-license-data.service';
@@ -14,5 +16,6 @@ export * from './submission-response-parsing.service';
 export * from './submission-response.model';
 export * from './submission-rest.service';
 export * from './submission-scope-type';
+export * from './submission.service';
 export * from './workflowitem-data.service';
 export * from './workspaceitem-data.service';

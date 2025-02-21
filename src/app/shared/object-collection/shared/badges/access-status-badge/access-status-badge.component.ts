@@ -22,7 +22,7 @@ import { environment } from 'src/environments/environment';
 import { DSpaceObject } from '@dspace/core';
 import { Item } from '@dspace/core';
 import { ITEM } from '@dspace/core';
-import { AccessStatusObject } from '../../../../../../../modules/core/src/lib/core/access-status/access-status.model';
+import { AccessStatusObject } from '@dspace/core';
 
 @Component({
   selector: 'ds-base-access-status-badge',

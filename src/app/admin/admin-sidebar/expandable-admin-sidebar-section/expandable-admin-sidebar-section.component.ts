@@ -21,7 +21,7 @@ import { bgColor } from '../../../shared/animations/bgColor';
 import { rotate } from '../../../shared/animations/rotate';
 import { slide } from '../../../shared/animations/slide';
 import { MenuService } from '../../../shared/menu/menu.service';
-import { MenuID } from '../../../../../modules/core/src/lib/core/states/menu/menu-id.model';
+import { MenuID } from '@dspace/core';
 import { CSSVariableService } from '../../../shared/sass-helper/css-variable.service';
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 import { AdminSidebarSectionComponent } from '../admin-sidebar-section/admin-sidebar-section.component';

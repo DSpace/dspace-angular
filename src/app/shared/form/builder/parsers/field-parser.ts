@@ -22,8 +22,8 @@ import { FormFieldModel } from '@dspace/core';
 import { RelationshipOptions } from '@dspace/core';
 import { SubmissionScopeType } from '@dspace/core';
 import { VocabularyOptions } from '@dspace/core';
-import { SectionVisibility } from '../../../../../../modules/core/src/lib/core/submission/models/section-visibility.model';
-import { VisibilityType } from '../../../../../../modules/core/src/lib/core/submission/models/visibility-type';
+import { SectionVisibility } from '@dspace/core';
+import { VisibilityType } from '@dspace/core';
 import {
   DsDynamicInputModel,
   DsDynamicInputModelConfig,

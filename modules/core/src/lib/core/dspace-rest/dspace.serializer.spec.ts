@@ -5,7 +5,7 @@ import {
 
 import { HALLink } from '../shared';
 import { HALResource } from '../shared';
-import { DSpaceSerializer } from './dspace.serializer';
+import { DSpaceSerializer } from '@dspace/core';
 
 class TestModel implements HALResource {
   @autoserialize

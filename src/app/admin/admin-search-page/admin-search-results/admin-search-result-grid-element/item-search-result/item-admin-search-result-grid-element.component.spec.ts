@@ -27,7 +27,7 @@ import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucata
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { ListableModule } from '../../../../../shared/modules/listable.module';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
-import { AccessStatusObject } from '../../../../../../../modules/core/src/lib/core/access-status/access-status.model';
+import { AccessStatusObject } from '@dspace/core';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { ItemAdminSearchResultGridElementComponent } from './item-admin-search-result-grid-element.component';

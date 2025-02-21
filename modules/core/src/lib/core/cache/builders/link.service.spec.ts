@@ -14,8 +14,8 @@ import { TestDataService } from '../../utilities';
 import {
   LINK_DEFINITION_FACTORY,
   LINK_DEFINITION_MAP_FACTORY,
-} from './build-decorators';
-import { LinkService } from './link.service';
+} from '@dspace/core';
+import { LinkService } from '@dspace/core';
 
 const TEST_MODEL = new ResourceType('testmodel');
 let result: any;

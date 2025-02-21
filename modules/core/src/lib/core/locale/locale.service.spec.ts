@@ -19,7 +19,7 @@ import {
   LANG_COOKIE,
   LANG_ORIGIN,
   LocaleService,
-} from './locale.service';
+} from '@dspace/core';
 
 describe('LocaleService test suite', () => {
   let service: LocaleService;

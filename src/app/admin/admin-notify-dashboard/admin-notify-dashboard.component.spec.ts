@@ -15,8 +15,8 @@ import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { ActivatedRouteStub } from '@dspace/core';
 import { AdminNotifyDashboardComponent } from './admin-notify-dashboard.component';
 import { AdminNotifyMetricsComponent } from './admin-notify-metrics/admin-notify-metrics.component';
-import { AdminNotifyMessage } from '../../../../modules/core/src/lib/core/admin/admin-notify-message/models/admin-notify-message.model';
-import { AdminNotifySearchResult } from '../../../../modules/core/src/lib/core/admin/admin-notify-message/models/admin-notify-message-search-result.model';
+import { AdminNotifyMessage } from '@dspace/core';
+import { AdminNotifySearchResult } from '@dspace/core';
 
 describe('AdminNotifyDashboardComponent', () => {
   let component: AdminNotifyDashboardComponent;

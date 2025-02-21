@@ -20,7 +20,7 @@ import { of as observableOf } from 'rxjs';
 import { RemoteDataBuildService } from '../cache';
 import { RequestParam } from '../cache';
 import { ObjectCacheService } from '../cache';
-import { CoreState } from '../core-state.model';
+import { CoreState } from '@dspace/core';
 import { ChangeAnalyzer } from '../data';
 import { DSOChangeAnalyzer } from '../data';
 import { FindListOptions } from '../data';
@@ -31,7 +31,7 @@ import {
 import { RequestService } from '../data';
 import { getMockRemoteDataBuildServiceHrefMap } from '../mocks';
 import { getMockRequestService } from '../mocks';
-import { NotificationsService } from '../notifications';
+import { NotificationsService } from '@dspace/core';
 import { HALEndpointService } from '../shared';
 import { Item } from '../shared';
 import {
@@ -56,7 +56,7 @@ import {
 import {
   editEPersonSelector,
   EPersonDataService,
-} from './eperson-data.service';
+} from '@dspace/core';
 import { EPerson } from './models';
 
 describe('EPersonDataService', () => {

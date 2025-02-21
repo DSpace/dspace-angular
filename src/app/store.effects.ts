@@ -12,7 +12,7 @@ import { of as observableOf } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { HostWindowResizeAction } from './shared/host-window.actions';
-import { StoreActionTypes } from '../../modules/core/src/lib/core/store.actions';
+import { StoreActionTypes } from '@dspace/core';
 import { AppState } from "./app.reducer";
 
 @Injectable()

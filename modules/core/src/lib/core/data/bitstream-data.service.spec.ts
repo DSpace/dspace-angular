@@ -11,7 +11,7 @@ import { ObjectCacheService } from '../cache';
 import { ItemMock } from '../mocks';
 import { getMockRemoteDataBuildService } from '../mocks';
 import { getMockRequestService } from '../mocks';
-import { NotificationsService } from '../notifications';
+import { NotificationsService } from '@dspace/core';
 import { Bitstream } from '../shared';
 import { BitstreamFormat } from '../shared';
 import { BitstreamFormatSupportLevel } from '../shared';
@@ -25,17 +25,17 @@ import { HALEndpointServiceStub } from '../utilities';
 import { testDeleteDataImplementation } from './base';
 import { testPatchDataImplementation } from './base';
 import { testSearchDataImplementation } from './base';
-import { BitstreamDataService } from './bitstream-data.service';
-import { BitstreamFormatDataService } from './bitstream-format-data.service';
-import { BundleDataService } from './bundle-data.service';
-import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { FollowLinkConfig } from './follow-link-config.model';
-import { RemoteData } from './remote-data';
+import { BitstreamDataService } from '@dspace/core';
+import { BitstreamFormatDataService } from '@dspace/core';
+import { BundleDataService } from '@dspace/core';
+import { DSOChangeAnalyzer } from '@dspace/core';
+import { FollowLinkConfig } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
 import {
   PatchRequest,
   PutRequest,
-} from './request.models';
-import { RequestService } from './request.service';
+} from '@dspace/core';
+import { RequestService } from '@dspace/core';
 import objectContaining = jasmine.objectContaining;
 
 describe('BitstreamDataService', () => {

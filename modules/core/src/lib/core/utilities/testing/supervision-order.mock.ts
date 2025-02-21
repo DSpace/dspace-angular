@@ -1,11 +1,11 @@
 import { buildPaginatedList } from '../../data';
 import { Item } from '../../shared';
 import { PageInfo } from '../../shared';
-import { SupervisionOrder } from '../../supervision-order';
+import { SupervisionOrder } from '@dspace/core';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../remote-data.utils';
+} from '@dspace/core';
 import {
   GroupMock,
   GroupMock2,

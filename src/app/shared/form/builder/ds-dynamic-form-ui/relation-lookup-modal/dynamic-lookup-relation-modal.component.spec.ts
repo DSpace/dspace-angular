@@ -43,7 +43,7 @@ import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { createPaginatedList } from '@dspace/core';
 import { XSRFService } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
-import { SelectableListService } from '../../../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
+import { SelectableListService } from '@dspace/core';
 import { DsDynamicLookupRelationModalComponent } from './dynamic-lookup-relation-modal.component';
 
 describe('DsDynamicLookupRelationModalComponent', () => {

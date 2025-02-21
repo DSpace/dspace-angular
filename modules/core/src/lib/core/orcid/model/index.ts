@@ -1,3 +1,4 @@
+// created from 'create-ts-index'
 
 export * from './orcid-history.model';
 export * from './orcid-history.resource-type';

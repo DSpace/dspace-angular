@@ -9,7 +9,7 @@ import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse
 import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
 import { dsoEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
-import { MenuItemType } from '../../../modules/core/src/lib/core/states/menu/menu-item-type.model';
+import { MenuItemType } from '@dspace/core';
 import { communityPageResolver } from './community-page.resolver';
 import { communityPageAdministratorGuard } from './community-page-administrator.guard';
 import {

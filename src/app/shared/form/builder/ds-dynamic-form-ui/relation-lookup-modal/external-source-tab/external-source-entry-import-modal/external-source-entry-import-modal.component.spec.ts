@@ -22,7 +22,7 @@ import { RelationshipOptions } from '@dspace/core';
 import { Item } from '@dspace/core';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { createPaginatedList } from '@dspace/core';
-import { SelectableListService } from '../../../../../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
+import { SelectableListService } from '@dspace/core';
 import { ThemedSearchResultsComponent } from '../../../../../../search/search-results/themed-search-results.component';
 import {
   ExternalSourceEntryImportModalComponent,

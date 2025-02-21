@@ -11,7 +11,7 @@ import { AuthorizationDataService } from '@dspace/core';
 
 import { MenuComponent } from '../../menu/menu.component';
 import { MenuService } from '../../menu/menu.service';
-import { MenuID } from '../../../../../modules/core/src/lib/core/states/menu/menu-id.model';
+import { MenuID } from '@dspace/core';
 import { ThemeService } from '../../theme-support/theme.service';
 
 /**

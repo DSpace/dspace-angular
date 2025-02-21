@@ -6,8 +6,8 @@ import {
   MetadataValue,
   MetadataValueFilter,
   MetadatumViewModel,
-} from './metadata.models';
-import { Metadata } from './metadata.utils';
+} from '@dspace/core';
+import { Metadata } from '@dspace/core';
 
 const mdValue = (value: string, language?: string, authority?: string): MetadataValue => {
   return Object.assign(new MetadataValue(), {

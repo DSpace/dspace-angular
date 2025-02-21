@@ -29,7 +29,7 @@ import { getFirstCompletedRemoteData } from '@dspace/core';
 import { AlertComponent } from '../alert/alert.component';
 import { AlertType } from '../alert/alert-type';
 import { BtnDisabledDirective } from '../btn-disabled.directive';
-import { SelectableListService } from '../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
+import { SelectableListService } from '@dspace/core';
 import { AccessControlArrayFormComponent } from './access-control-array-form/access-control-array-form.component';
 import { createAccessControlInitialFormState } from './access-control-form-container-intial-state';
 import { BulkAccessControlService } from './bulk-access-control.service';

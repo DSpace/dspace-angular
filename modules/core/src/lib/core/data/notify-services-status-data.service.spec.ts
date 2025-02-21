@@ -8,17 +8,17 @@ import { TestScheduler } from 'rxjs/testing';
 import { RemoteDataBuildService } from '../cache';
 import { ObjectCacheService } from '../cache';
 import { RestResponse } from '../cache';
-import { NotifyRequestsStatus } from '../notify-requests';
+import { NotifyRequestsStatus } from '@dspace/core';
 import { HALEndpointService } from '../shared';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../utilities';
-import { NotifyRequestsStatusDataService } from './notify-services-status-data.service';
-import { RemoteData } from './remote-data';
-import { RequestService } from './request.service';
-import { RequestEntry } from './request-entry.model';
-import { RequestEntryState } from './request-entry-state.model';
+import { NotifyRequestsStatusDataService } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { RequestEntry } from '@dspace/core';
+import { RequestEntryState } from '@dspace/core';
 
 describe('NotifyRequestsStatusDataService test', () => {
   let scheduler: TestScheduler;

@@ -5,7 +5,7 @@ import {
   EquatableObject,
   excludeFromEquals,
   fieldsForEquals,
-} from './equals.decorators';
+} from '@dspace/core';
 
 class Dog extends EquatableObject<Dog> {
   public name: string;

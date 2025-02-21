@@ -14,9 +14,9 @@ import { createSuccessfulRemoteDataObject$ } from '../utilities';
 import { HALEndpointServiceStub } from '../utilities';
 import { NotificationsServiceStub } from '../utilities';
 import { createPaginatedList } from '../utilities';
-import { RequestService } from './request.service';
-import { VersionDataService } from './version-data.service';
-import { VersionHistoryDataService } from './version-history-data.service';
+import { RequestService } from '@dspace/core';
+import { VersionDataService } from '@dspace/core';
+import { VersionHistoryDataService } from '@dspace/core';
 import SpyObj = jasmine.SpyObj;
 
 const url = 'fake-url';

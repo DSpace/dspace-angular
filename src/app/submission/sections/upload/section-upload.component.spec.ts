@@ -44,11 +44,11 @@ import {
 } from '../../../shared/mocks/submission.mock';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
-import { SubmissionObjectState } from '../../../../../modules/core/src/lib/core/states/submission/submission-objects.reducer';
-import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
-import { SectionDataObject } from '../../../../../modules/core/src/lib/core/submission/sections/section-data.model';
+import { SubmissionObjectState } from '@dspace/core';
+import { SubmissionService } from '@dspace/core';
+import { SectionDataObject } from '@dspace/core';
 import { SectionsService } from '../sections.service';
-import { SectionsType } from '../../../../../modules/core/src/lib/core/submission/models/sections-type';
+import { SectionsType } from '@dspace/core';
 import { SubmissionSectionUploadComponent } from './section-upload.component';
 import { SectionUploadService } from './section-upload.service';
 

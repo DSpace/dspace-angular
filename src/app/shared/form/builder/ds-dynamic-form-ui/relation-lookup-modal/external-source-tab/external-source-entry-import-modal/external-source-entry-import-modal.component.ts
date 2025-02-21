@@ -44,7 +44,7 @@ import { SubmissionImportExternalCollectionComponent } from '../../../../../../.
 import { BtnDisabledDirective } from '../../../../../../btn-disabled.directive';
 import { CollectionListEntry } from '../../../../../../collection-dropdown/collection-dropdown.component';
 import { CollectionElementLinkType } from '../../../../../../object-collection/collection-element-link.type';
-import { SelectableListService } from '../../../../../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
+import { SelectableListService } from '@dspace/core';
 import { ThemedSearchResultsComponent } from '../../../../../../search/search-results/themed-search-results.component';
 
 /**

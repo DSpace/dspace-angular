@@ -35,9 +35,9 @@ import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
-import { Subscription } from '../../../modules/core/src/lib/core/subscription/subscription.model';
+import { Subscription } from '@dspace/core';
 import { SubscriptionViewComponent } from '../shared/subscriptions/subscription-view/subscription-view.component';
-import { SubscriptionsDataService } from '../../../modules/core/src/lib/core/data/subscriptions-data.service';
+import { SubscriptionsDataService } from '@dspace/core';
 import { VarDirective } from '../shared/utils/var.directive';
 
 @Component({

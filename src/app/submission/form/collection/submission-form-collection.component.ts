@@ -42,8 +42,8 @@ import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { CollectionDropdownComponent } from '../../../shared/collection-dropdown/collection-dropdown.component';
 import { ThemedCollectionDropdownComponent } from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
 import { SectionsService } from '../../sections/sections.service';
-import { SectionsType } from '../../../../../modules/core/src/lib/core/submission/models/sections-type';
-import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
+import { SectionsType } from '@dspace/core';
+import { SubmissionService } from '@dspace/core';
 
 /**
  * This component allows to show the current collection the submission belonging to and to change it.

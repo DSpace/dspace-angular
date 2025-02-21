@@ -27,11 +27,11 @@ import {
   SetRedirectUrlAction,
   SetUserAsIdleAction,
   UnsetUserAsIdleAction,
-} from './auth.actions';
+} from '@dspace/core';
 import {
   authReducer,
   AuthState,
-} from './auth.reducer';
+} from '@dspace/core';
 import { AuthMethod } from './models';
 import { AuthMethodType } from './models';
 import { AuthStatus } from './models';

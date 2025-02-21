@@ -28,7 +28,7 @@ import {
   mockSubmissionId,
 } from '../../../shared/mocks/submission.mock';
 import { SectionsService } from '../../sections/sections.service';
-import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
+import { SubmissionService } from '@dspace/core';
 import { SubmissionFormSectionAddComponent } from './submission-form-section-add.component';
 
 const mockAvailableSections: any = [

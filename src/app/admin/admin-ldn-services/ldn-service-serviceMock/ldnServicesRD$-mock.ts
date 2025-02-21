@@ -6,8 +6,8 @@ import {
 import { PaginatedList } from '@dspace/core';
 import { RemoteData } from '@dspace/core';
 import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { LDN_SERVICE } from '../../../../../modules/core/src/lib/core/data/ldn/ldn-service.resource-type';
-import { LdnService } from '../../../../../modules/core/src/lib/core/data/ldn/ldn-services.model';
+import { LDN_SERVICE } from '@dspace/core';
+import { LdnService } from '@dspace/core';
 
 export const mockLdnService: LdnService = {
   uuid: '1',

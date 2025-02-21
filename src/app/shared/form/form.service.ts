@@ -37,12 +37,12 @@ import {
   FormRemoveAction,
   FormRemoveErrorAction,
   FormStatusChangeAction,
-} from '../../../../modules/core/src/lib/core/states/form/form.actions';
+} from '@dspace/core';
 import {
   FormEntry,
   FormError,
   FormTouchedState,
-} from '../../../../modules/core/src/lib/core/states/form/form.reducer';
+} from '@dspace/core';
 import { formObjectFromIdSelector } from './selectors';
 
 @Injectable({ providedIn: 'root' })

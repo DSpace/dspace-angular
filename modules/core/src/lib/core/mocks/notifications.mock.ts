@@ -1,10 +1,10 @@
 import { of as observableOf } from 'rxjs';
 
-import { QualityAssuranceEventDataService } from '../notifications';
-import { QualityAssuranceEventObject } from '../notifications';
-import { QualityAssuranceSourceObject } from '../notifications';
-import { QualityAssuranceTopicObject } from '../notifications';
-import { QualityAssuranceTopicDataService } from '../notifications';
+import { QualityAssuranceEventDataService } from '@dspace/core';
+import { QualityAssuranceEventObject } from '@dspace/core';
+import { QualityAssuranceSourceObject } from '@dspace/core';
+import { QualityAssuranceTopicObject } from '@dspace/core';
+import { QualityAssuranceTopicDataService } from '@dspace/core';
 import { DSpaceObject } from '../shared';
 import { Item } from '../shared';
 import { ResourceType } from '../shared';

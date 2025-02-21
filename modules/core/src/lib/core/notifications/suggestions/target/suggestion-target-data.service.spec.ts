@@ -7,26 +7,26 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RemoteDataBuildService } from '../../../cache';
-import { RequestParam } from '../../../cache';
-import { ObjectCacheService } from '../../../cache';
-import { RestResponse } from '../../../cache';
-import { CoreState } from '../../../core-state.model';
-import { FindAllData } from '../../../data';
+import { RemoteDataBuildService } from '@dspace/core';
+import { RequestParam } from '@dspace/core';
+import { ObjectCacheService } from '@dspace/core';
+import { RestResponse } from '@dspace/core';
+import { CoreState } from '@dspace/core';
+import { FindAllData } from '@dspace/core';
 import { testFindAllDataImplementation } from '../../../data';
-import { SearchData } from '../../../data';
+import { SearchData } from '@dspace/core';
 import { testSearchDataImplementation } from '../../../data';
-import { DefaultChangeAnalyzer } from '../../../data';
-import { RemoteData } from '../../../data';
-import { GetRequest } from '../../../data';
-import { RequestService } from '../../../data';
-import { RequestEntry } from '../../../data';
-import { RequestEntryState } from '../../../data';
-import { HALEndpointService } from '../../../shared';
-import { createSuccessfulRemoteDataObject$ } from '../../../utilities';
-import { NotificationsService } from '../../notifications.service';
+import { DefaultChangeAnalyzer } from '@dspace/core';
+import { RemoteData } from '@dspace/core';
+import { GetRequest } from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { RequestEntry } from '@dspace/core';
+import { RequestEntryState } from '@dspace/core';
+import { HALEndpointService } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
 import { SuggestionTarget } from '../models';
-import { SuggestionTargetDataService } from './suggestion-target-data.service';
+import { SuggestionTargetDataService } from '@dspace/core';
 
 describe('SuggestionTargetDataService test', () => {
   let scheduler: TestScheduler;

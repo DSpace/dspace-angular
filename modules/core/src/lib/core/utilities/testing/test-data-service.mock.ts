@@ -9,7 +9,7 @@ import { FindListOptions } from '../../data';
 import { FollowLinkConfig } from '../../data';
 import { RemoteData } from '../../data';
 import { Item } from '../../shared';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 
 @Injectable()
 export class TestDataService {

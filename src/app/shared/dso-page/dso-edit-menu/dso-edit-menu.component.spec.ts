@@ -17,7 +17,7 @@ import { AuthorizationDataService } from '@dspace/core';
 import { AuthServiceStub } from '@dspace/core';
 import { MenuServiceStub } from '@dspace/core';
 import { MenuService } from '../../menu/menu.service';
-import { MenuItemModel } from '../../../../../modules/core/src/lib/core/states/menu/menu-item.model';
+import { MenuItemModel } from '@dspace/core';
 import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { ThemeService } from '../../theme-support/theme.service';
 import { DsoEditMenuComponent } from './dso-edit-menu.component';

@@ -5,8 +5,8 @@ import { ExternalSourceEntry } from '../shared';
 import { createSuccessfulRemoteDataObject$ } from '../utilities';
 import { createPaginatedList } from '../utilities';
 import { testSearchDataImplementation } from './base';
-import { ExternalSourceDataService } from './external-source-data.service';
-import { GetRequest } from './request.models';
+import { ExternalSourceDataService } from '@dspace/core';
+import { GetRequest } from '@dspace/core';
 
 describe('ExternalSourceService', () => {
   let service: ExternalSourceDataService;

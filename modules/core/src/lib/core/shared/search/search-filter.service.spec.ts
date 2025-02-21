@@ -13,20 +13,20 @@ import {
   SearchFilterInitializeAction,
   SearchFilterResetPageAction,
   SearchFilterToggleAction,
-} from '../../states/search-filters/search-filter.actions';
-import { SearchFiltersState } from '../../states/search-filters/search-filter.reducer';
+} from '@dspace/core';
+import { SearchFiltersState } from '@dspace/core';
 import {
   SortDirection,
   SortOptions,
 } from '../../cache';
-import { RouteService } from '../../services';
+import { RouteService } from '@dspace/core';
 import { routeServiceStub } from '../../utilities';
 import { SearchServiceStub } from '../../utilities';
 import { FilterType } from './models';
 import { SearchFilterConfig } from './models';
 import { SearchOptions } from './models';
-import { SearchService } from './search.service';
-import { SearchFilterService } from './search-filter.service';
+import { SearchService } from '@dspace/core';
+import { SearchFilterService } from '@dspace/core';
 
 describe('SearchFilterService', () => {
   let service: SearchFilterService;

@@ -9,7 +9,7 @@ import { catchError } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
 
 import { RemoteDataBuildService } from '../cache';
-import { CoreState } from '../core-state.model';
+import { CoreState } from '@dspace/core';
 import { SubmissionPatchRequest } from '../data';
 import { RequestService } from '../data';
 import { RequestEntry } from '../data';
@@ -27,12 +27,12 @@ import {
   DeletePendingJsonPatchOperationsAction,
   RollbacktPatchOperationsAction,
   StartTransactionPatchOperationsAction,
-} from './json-patch-operations.actions';
+} from '@dspace/core';
 import {
   JsonPatchOperationsEntry,
   JsonPatchOperationsResourceEntry,
-} from './json-patch-operations.reducer';
-import { JsonPatchOperationsService } from './json-patch-operations.service';
+} from '@dspace/core';
+import { JsonPatchOperationsService } from '@dspace/core';
 
 
 class TestService extends JsonPatchOperationsService<SubmitDataResponseDefinitionObject, SubmissionPatchRequest> {

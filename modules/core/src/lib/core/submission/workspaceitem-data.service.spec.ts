@@ -20,7 +20,7 @@ import { RemoteDataBuildService } from '../cache';
 import { RequestParam } from '../cache';
 import { ObjectCacheService } from '../cache';
 import { RestResponse } from '../cache';
-import { CoreState } from '../core-state.model';
+import { CoreState } from '@dspace/core';
 import { DeleteData } from '../data';
 import { testDeleteDataImplementation } from '../data';
 import { SearchData } from '../data';
@@ -29,9 +29,9 @@ import { HrefOnlyDataService } from '../data';
 import { PostRequest } from '../data';
 import { RequestService } from '../data';
 import { RequestEntry } from '../data';
-import { HttpOptions } from '../dspace-rest';
+import { HttpOptions } from '@dspace/core';
 import { getMockHrefOnlyDataService } from '../mocks';
-import { NotificationsService } from '../notifications';
+import { NotificationsService } from '@dspace/core';
 import { HALEndpointService } from '../shared';
 import { Item } from '../shared';
 import { PageInfo } from '../shared';
@@ -40,7 +40,7 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '../utilities';
 import { WorkspaceItem } from './models';
-import { WorkspaceitemDataService } from './workspaceitem-data.service';
+import { WorkspaceitemDataService } from '@dspace/core';
 
 describe('WorkspaceitemDataService test', () => {
   let scheduler: TestScheduler;

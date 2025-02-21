@@ -1,6 +1,9 @@
+// created from 'create-ts-index'
 
 export * from './base';
+export * from './duplicate-data';
 export * from './feature-authorization';
+export * from './ldn';
 export * from './object-updates';
 export * from './processes';
 export * from './access-status-data.service';
@@ -50,8 +53,8 @@ export * from './paginated-list.resource-type';
 export * from './parsing.service';
 export * from './primary-bitstream.service';
 export * from './registration-response-parsing.service';
-export * from './relationship-type-data.service';
 export * from './relationship-data.service';
+export * from './relationship-type-data.service';
 export * from './remote-data';
 export * from './request-entry-state.model';
 export * from './request-entry.model';
@@ -74,6 +77,8 @@ export * from './signposting-data.service';
 export * from './signposting-links.model';
 export * from './site-data.service';
 export * from './status-code-only-response-parsing.service';
+export * from './subscription.resource-type';
+export * from './subscriptions-data.service';
 export * from './system-wide-alert-data.service';
 export * from './update-data.service';
 export * from './version-data.service';

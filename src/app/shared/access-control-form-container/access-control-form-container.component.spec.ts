@@ -17,7 +17,7 @@ import { of } from 'rxjs';
 
 import { BulkAccessConfigDataService } from '@dspace/core';
 import { Item } from '@dspace/core';
-import { SelectableListService } from '../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
+import { SelectableListService } from '@dspace/core';
 import { AccessControlFormContainerComponent } from './access-control-form-container.component';
 import { createAccessControlInitialFormState } from './access-control-form-container-intial-state';
 import { BulkAccessControlService } from './bulk-access-control.service';

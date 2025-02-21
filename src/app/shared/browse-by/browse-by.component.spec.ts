@@ -50,7 +50,7 @@ import {
 } from '../object-collection/shared/listable-object/listable-object.decorator';
 import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { BrowseEntryListElementComponent } from '../object-list/browse-entry-list-element/browse-entry-list-element.component';
-import { SelectableListService } from '../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
+import { SelectableListService } from '@dspace/core';
 import { ThemeService } from '../theme-support/theme.service';
 import { BrowseByComponent } from './browse-by.component';
 

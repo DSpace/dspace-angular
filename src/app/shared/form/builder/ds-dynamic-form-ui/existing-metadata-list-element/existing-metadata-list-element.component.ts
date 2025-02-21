@@ -42,11 +42,11 @@ import {
   getRemoteDataPayload,
 } from '@dspace/core';
 import { RemoveRelationshipAction } from '@dspace/core';
-import { SubmissionObjectEntry } from '../../../../../../../modules/core/src/lib/core/states/submission/submission-objects.reducer';
-import { SubmissionService } from '../../../../../../../modules/core/src/lib/core/submission/submission.service';
+import { SubmissionObjectEntry } from '@dspace/core';
+import { SubmissionService } from '@dspace/core';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
 import { MetadataRepresentationLoaderComponent } from '../../../../metadata-representation/metadata-representation-loader.component';
-import { SelectableListService } from '../../../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
+import { SelectableListService } from '@dspace/core';
 import { FormFieldMetadataValueObject } from '@dspace/core';
 import { DynamicConcatModel } from '../models/ds-dynamic-concat.model';
 

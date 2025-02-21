@@ -15,8 +15,8 @@ import {
   XSRF_REQUEST_HEADER,
   XSRF_RESPONSE_HEADER,
 } from '../xsrf';
-import { AuthRequestService } from './auth-request.service';
-import { ServerAuthRequestService } from './server-auth-request.service';
+import { AuthRequestService } from '@dspace/core';
+import { ServerAuthRequestService } from '@dspace/core';
 
 describe(`ServerAuthRequestService`, () => {
   let href: string;

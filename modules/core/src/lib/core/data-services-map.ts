@@ -3,13 +3,13 @@ import { Type } from '@angular/core';
 import {
   LDN_SERVICE,
   LDN_SERVICE_CONSTRAINT_FILTERS,
-} from './data/ldn/ldn-service.resource-type';
-import { ADMIN_NOTIFY_MESSAGE } from './admin/admin-notify-message/models/admin-notify-message.resource-type';
+} from './data';
+import { ADMIN_NOTIFY_MESSAGE } from './admin';
 import { NOTIFYREQUEST } from './notify-requests';
-import { ACCESS_STATUS } from './access-status/access-status.resource-type';
-import { DUPLICATE } from './data/duplicate-data/duplicate.resource-type';
-import { SUBSCRIPTION } from './data/subscription.resource-type';
-import { SUBMISSION_COAR_NOTIFY_CONFIG } from './coar-notify/section-coar-notify-service.resource-type';
+import { ACCESS_STATUS } from './access-status';
+import { DUPLICATE } from './data';
+import { SUBSCRIPTION } from './data';
+import { SUBMISSION_COAR_NOTIFY_CONFIG } from './coar-notify';
 import {
   BULK_ACCESS_CONDITION_OPTIONS,
   SUBMISSION_ACCESSES_TYPE,

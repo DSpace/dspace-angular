@@ -27,7 +27,7 @@ import { SearchConfigurationServiceStub } from '@dspace/core';
 import { SearchFilterServiceStub } from '@dspace/core';
 import { SearchServiceStub } from '@dspace/core';
 import { ObjectKeysPipe } from '../../../utils/object-keys-pipe';
-import { addOperatorToFilterValue } from '../../../../../../modules/core/src/lib/core/utilities/search.utils';
+import { addOperatorToFilterValue } from '@dspace/core';
 import { SearchLabelComponent } from './search-label.component';
 
 describe('SearchLabelComponent', () => {

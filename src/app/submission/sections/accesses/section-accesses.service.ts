@@ -8,8 +8,8 @@ import {
 } from 'rxjs/operators';
 
 import { WorkspaceitemSectionAccessesObject } from '@dspace/core';
-import { submissionSectionDataFromIdSelector } from '../../../../../modules/core/src/lib/core/states/submission/selectors';
-import { SubmissionState } from '../../../../../modules/core/src/lib/core/states/submission/submission.reducers';
+import { submissionSectionDataFromIdSelector } from '@dspace/core';
+import { SubmissionState } from '@dspace/core';
 
 /**
  * A service that provides methods to handle submission item's accesses condition state.

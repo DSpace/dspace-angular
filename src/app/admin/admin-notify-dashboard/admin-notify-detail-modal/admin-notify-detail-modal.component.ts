@@ -13,7 +13,7 @@ import {
 
 import { fadeIn } from '../../../shared/animations/fade';
 import { MissingTranslationHelper } from '../../../shared/translate/missing-translation.helper';
-import { AdminNotifyMessage } from '../../../../../modules/core/src/lib/core/admin/admin-notify-message/models/admin-notify-message.model';
+import { AdminNotifyMessage } from '@dspace/core';
 
 @Component({
   selector: 'ds-admin-notify-detail-modal',

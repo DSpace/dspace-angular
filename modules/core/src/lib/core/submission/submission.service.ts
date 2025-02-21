@@ -49,8 +49,8 @@ import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
 } from '@dspace/core';
-import { SectionScope } from './models/section-visibility.model';
-import { SubmissionError } from './models/submission-error.model';
+import { SectionScope } from './models';
+import { SubmissionError } from './models';
 import {
   CancelSubmissionFormAction,
   ChangeSubmissionCollectionAction,
@@ -62,19 +62,19 @@ import {
   SaveSubmissionFormAction,
   SaveSubmissionSectionFormAction,
   SetActiveSectionAction,
-} from '../states/submission/submission-objects.actions';
+} from '../states';
 import {
   SubmissionObjectEntry,
   SubmissionSectionEntry,
-} from '../states/submission/submission-objects.reducer';
-import { SubmissionSectionObject } from '../states/submission/submission-section-object.model';
-import { SectionDataObject } from './sections/section-data.model';
-import { SectionsType } from './models/sections-type';
-import { submissionObjectFromIdSelector } from '../states/submission/selectors';
+} from '../states';
+import { SubmissionSectionObject } from '../states';
+import { SectionDataObject } from './sections';
+import { SectionsType } from './models';
+import { submissionObjectFromIdSelector } from '../states';
 import {
   submissionSelector,
   SubmissionState,
-} from '../states/submission/submission.reducers';
+} from '../states';
 
 function getSubmissionSelector(submissionId: string):  MemoizedSelector<SubmissionState, SubmissionObjectEntry> {
   return createSelector(

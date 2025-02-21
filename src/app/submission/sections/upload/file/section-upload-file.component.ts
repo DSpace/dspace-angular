@@ -33,7 +33,7 @@ import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive'
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { FormService } from '../../../../shared/form/form.service';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
-import { SubmissionService } from '../../../../../../modules/core/src/lib/core/submission/submission.service';
+import { SubmissionService } from '@dspace/core';
 import { SectionUploadService } from '../section-upload.service';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
 import { SubmissionSectionUploadFileViewComponent } from './view/section-upload-file-view.component';

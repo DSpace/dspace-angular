@@ -46,8 +46,8 @@ import { SearchService } from '@dspace/core';
 import { SearchConfigurationService } from '@dspace/core';
 import { SearchFilterService } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
-import { InputSuggestion } from '../../../../../../../modules/core/src/lib/core/config/models/input-suggestions.model';
-import { currentPath } from '../../../../../../../modules/core/src/lib/core/utilities/route.utils';
+import { InputSuggestion } from '@dspace/core';
+import { currentPath } from '@dspace/core';
 
 /**
  * The operators the {@link AppliedFilter} should have in order to be shown in the facets

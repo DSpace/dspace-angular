@@ -1,3 +1,4 @@
+// created from 'create-ts-index'
 
 export * from './metadata-patch-add-operation.model';
 export * from './metadata-patch-move-operation.model';

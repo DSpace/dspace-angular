@@ -17,10 +17,10 @@ import {
   CollapseMenuAction,
   ExpandMenuPreviewAction,
   MenuActionTypes,
-} from '../../../modules/core/src/lib/core/states/menu/menu.actions';
+} from '@dspace/core';
 import { MenuService } from '../shared/menu/menu.service';
-import { MenuID } from '../../../modules/core/src/lib/core/states/menu/menu-id.model';
-import { MenuState } from '../../../modules/core/src/lib/core/states/menu/menu-state.model';
+import { MenuID } from '@dspace/core';
+import { MenuState } from '@dspace/core';
 
 @Injectable()
 export class NavbarEffects {

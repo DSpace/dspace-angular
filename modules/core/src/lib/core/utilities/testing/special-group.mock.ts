@@ -5,12 +5,12 @@ import {
   PaginatedList,
 } from '../../data';
 import { RemoteData } from '../../data';
-import { Group } from '../../eperson';
+import { Group } from '@dspace/core';
 import { PageInfo } from '../../shared';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../remote-data.utils';
+} from '@dspace/core';
 import { EPersonMock } from './eperson.mock';
 
 export const SpecialGroupMock2: Group = Object.assign(new Group(), {

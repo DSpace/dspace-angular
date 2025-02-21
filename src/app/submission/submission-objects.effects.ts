@@ -45,10 +45,10 @@ import { WorkspaceitemSectionsObject } from '@dspace/core';
 import { SubmissionJsonPatchOperationsService } from '@dspace/core';
 import { SubmissionObjectDataService } from '@dspace/core';
 import { WorkspaceitemDataService } from '@dspace/core';
-import { FormState } from '../../../modules/core/src/lib/core/states/form/form.reducer';
+import { FormState } from '@dspace/core';
 import { SectionsService } from './sections/sections.service';
-import { SectionsType } from '../../../modules/core/src/lib/core/submission/models/sections-type';
-import { SubmissionService } from '../../../modules/core/src/lib/core/submission/submission.service';
+import { SectionsType } from '@dspace/core';
+import { SubmissionService } from '@dspace/core';
 import parseSectionErrorPaths, { SectionErrorPath } from './utils/parseSectionErrorPaths';
 import parseSectionErrors from './utils/parseSectionErrors';
 import {
@@ -75,10 +75,10 @@ import {
   SubmissionObjectActionTypes,
   UpdateSectionDataAction,
   UpdateSectionDataSuccessAction,
-} from '../../../modules/core/src/lib/core/states/submission/submission-objects.actions';
-import { SubmissionObjectEntry } from '../../../modules/core/src/lib/core/states/submission/submission-objects.reducer';
-import { SubmissionSectionError } from '../../../modules/core/src/lib/core/submission/models/submission-section-error.model';
-import { SubmissionSectionObject } from '../../../modules/core/src/lib/core/states/submission/submission-section-object.model';
+} from '@dspace/core';
+import { SubmissionObjectEntry } from '@dspace/core';
+import { SubmissionSectionError } from '@dspace/core';
+import { SubmissionSectionObject } from '@dspace/core';
 
 @Injectable()
 export class SubmissionObjectEffects {

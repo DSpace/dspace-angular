@@ -11,8 +11,8 @@ import {
   RemoveDependentsObjectCacheAction,
   RemoveFromObjectCacheAction,
   ResetObjectCacheTimestampsAction,
-} from './object-cache.actions';
-import { objectCacheReducer } from './object-cache.reducer';
+} from '@dspace/core';
+import { objectCacheReducer } from '@dspace/core';
 
 class NullAction extends RemoveFromObjectCacheAction {
   type = null;

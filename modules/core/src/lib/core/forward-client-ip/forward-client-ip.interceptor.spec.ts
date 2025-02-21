@@ -5,9 +5,9 @@ import {
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 
-import { DspaceRestService } from '../dspace-rest';
+import { DspaceRestService } from '@dspace/core';
 import { REQUEST } from '../tokens';
-import { ForwardClientIpInterceptor } from './forward-client-ip.interceptor';
+import { ForwardClientIpInterceptor } from '@dspace/core';
 
 describe('ForwardClientIpInterceptor', () => {
   let service: DspaceRestService;

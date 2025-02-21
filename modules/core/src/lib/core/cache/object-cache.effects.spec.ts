@@ -6,9 +6,9 @@ import {
 } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
 
-import { StoreActionTypes } from '../store.actions';
-import { ResetObjectCacheTimestampsAction } from './object-cache.actions';
-import { ObjectCacheEffects } from './object-cache.effects';
+import { StoreActionTypes } from '@dspace/core';
+import { ResetObjectCacheTimestampsAction } from '@dspace/core';
+import { ObjectCacheEffects } from '@dspace/core';
 
 describe('ObjectCacheEffects', () => {
   let cacheEffects: ObjectCacheEffects;

@@ -13,9 +13,9 @@ import {
 import {
   FlushPatchOperationsAction,
   JsonPatchOperationsActionTypes,
-} from './json-patch-operations.actions';
-import { JsonPatchOperationsEffects } from './json-patch-operations.effects';
-import { JsonPatchOperationsState } from './json-patch-operations.reducer';
+} from '@dspace/core';
+import { JsonPatchOperationsEffects } from '@dspace/core';
+import { JsonPatchOperationsState } from '@dspace/core';
 
 describe('JsonPatchOperationsEffects test suite', () => {
   let jsonPatchOperationsEffects: JsonPatchOperationsEffects;

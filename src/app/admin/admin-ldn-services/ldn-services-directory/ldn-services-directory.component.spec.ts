@@ -29,8 +29,8 @@ import { createPaginatedList } from '@dspace/core';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { TruncatableComponent } from '../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../shared/truncatable/truncatable-part/truncatable-part.component';
-import { LdnServicesService } from '../../../../../modules/core/src/lib/core/admin/ldn-services-data/ldn-services-data.service';
-import { LdnService } from '../../../../../modules/core/src/lib/core/data/ldn/ldn-services.model';
+import { LdnServicesService } from '@dspace/core';
+import { LdnService } from '@dspace/core';
 import { LdnServicesOverviewComponent } from './ldn-services-directory.component';
 
 describe('LdnServicesOverviewComponent', () => {

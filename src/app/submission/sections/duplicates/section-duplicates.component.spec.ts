@@ -47,14 +47,14 @@ import {
   mockSubmissionCollectionId,
   mockSubmissionId,
 } from '../../../shared/mocks/submission.mock';
-import { Duplicate } from '../../../../../modules/core/src/lib/core/data/duplicate-data/duplicate.model';
-import { DUPLICATE } from '../../../../../modules/core/src/lib/core/data/duplicate-data/duplicate.resource-type';
+import { Duplicate } from '@dspace/core';
+import { DUPLICATE } from '@dspace/core';
 import { ObjNgFor } from '../../../shared/utils/object-ngfor.pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
-import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
+import { SubmissionService } from '@dspace/core';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { SectionsService } from '../sections.service';
-import { SectionsType } from '../../../../../modules/core/src/lib/core/submission/models/sections-type';
+import { SectionsType } from '@dspace/core';
 import { SubmissionSectionDuplicatesComponent } from './section-duplicates.component';
 
 function getMockSubmissionFormsConfigService(): SubmissionFormsConfigDataService {

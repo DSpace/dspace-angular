@@ -21,8 +21,8 @@ import { RestRequestMethod } from '../data';
 import {
   DspaceRestService,
   HttpOptions,
-} from '../dspace-rest';
-import { RawRestResponse } from '../dspace-rest';
+} from '@dspace/core';
+import { RawRestResponse } from '@dspace/core';
 import {
   MOCK_RESPONSE_MAP,
   ResponseMapMock,

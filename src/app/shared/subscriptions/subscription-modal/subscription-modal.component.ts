@@ -52,8 +52,8 @@ import {
 import { AlertComponent } from '../../alert/alert.component';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { ThemedTypeBadgeComponent } from '../../object-collection/shared/badges/type-badge/themed-type-badge.component';
-import { Subscription } from '../../../../../modules/core/src/lib/core/subscription/subscription.model';
-import { SubscriptionsDataService } from '../../../../../modules/core/src/lib/core/data/subscriptions-data.service';
+import { Subscription } from '@dspace/core';
+import { SubscriptionsDataService } from '@dspace/core';
 
 @Component({
   selector: 'ds-subscription-modal',

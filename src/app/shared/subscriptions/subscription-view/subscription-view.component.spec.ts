@@ -36,8 +36,8 @@ import {
 } from '@dspace/core';
 import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { ThemeService } from '../../theme-support/theme.service';
-import { Subscription } from '../../../../../modules/core/src/lib/core/subscription/subscription.model';
-import { SubscriptionsDataService } from '../../../../../modules/core/src/lib/core/data/subscriptions-data.service';
+import { Subscription } from '@dspace/core';
+import { SubscriptionsDataService } from '@dspace/core';
 import { SubscriptionViewComponent } from './subscription-view.component';
 
 describe('SubscriptionViewComponent', () => {

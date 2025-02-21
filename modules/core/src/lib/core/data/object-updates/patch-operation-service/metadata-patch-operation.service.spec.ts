@@ -1,9 +1,9 @@
 import { Operation } from 'fast-json-patch';
 
-import { MetadatumViewModel } from '../../../shared/metadata.models';
-import { FieldChangeType } from '../field-change-type.model';
-import { FieldUpdates } from '../field-updates.model';
-import { MetadataPatchOperationService } from './metadata-patch-operation.service';
+import { MetadatumViewModel } from '@dspace/core';
+import { FieldChangeType } from '@dspace/core';
+import { FieldUpdates } from '@dspace/core';
+import { MetadataPatchOperationService } from '@dspace/core';
 
 describe('MetadataPatchOperationService', () => {
   let service: MetadataPatchOperationService;

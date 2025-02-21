@@ -14,7 +14,7 @@ import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
 } from '../utilities';
-import { redirectOn4xx } from './authorized.operators';
+import { redirectOn4xx } from '@dspace/core';
 import {
   getAllSucceededRemoteData,
   getFirstSucceededRemoteData,
@@ -25,7 +25,7 @@ import {
   getRequestFromRequestUUID,
   getResponseFromEntry,
   sendRequest,
-} from './request.operators';
+} from '@dspace/core';
 
 /* eslint-disable @typescript-eslint/no-shadow */
 

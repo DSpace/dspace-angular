@@ -6,9 +6,9 @@ import {
 
 import { AuthStatus } from '../../auth';
 import { AuthTokenInfo } from '../../auth';
-import { HttpOptions } from '../../dspace-rest';
-import { EPerson } from '../../eperson';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import { HttpOptions } from '@dspace/core';
+import { EPerson } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { EPersonMock } from './eperson.mock';
 
 export class AuthRequestServiceStub {

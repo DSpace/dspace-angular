@@ -7,9 +7,9 @@ import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 
 import { RestRequestMethod } from '../data';
-import { DspaceRestService } from '../dspace-rest';
-import { LocaleInterceptor } from './locale.interceptor';
-import { LocaleService } from './locale.service';
+import { DspaceRestService } from '@dspace/core';
+import { LocaleInterceptor } from '@dspace/core';
+import { LocaleService } from '@dspace/core';
 
 describe(`LocaleInterceptor`, () => {
   let service: DspaceRestService;

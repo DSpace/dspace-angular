@@ -1,0 +1,10 @@
+
+
+export * from './models';
+export * from './vocabulary-entries-response-parsing.service.spec';
+export * from './vocabulary-entry-details.data.service.spec';
+export * from './vocabulary-entry-details.data.service';
+export * from './vocabulary.data.service.spec';
+export * from './vocabulary.data.service';
+export * from './vocabulary.service.spec';
+export * from './vocabulary.service';

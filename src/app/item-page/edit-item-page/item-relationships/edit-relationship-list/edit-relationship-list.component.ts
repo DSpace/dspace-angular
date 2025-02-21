@@ -77,7 +77,7 @@ import { itemLinksToFollow } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { DsDynamicLookupRelationModalComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
-import { SelectableListService } from '../../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
+import { SelectableListService } from '@dspace/core';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { ObjectValuesPipe } from '../../../../shared/utils/object-values-pipe';
 import { VarDirective } from '../../../../shared/utils/var.directive';

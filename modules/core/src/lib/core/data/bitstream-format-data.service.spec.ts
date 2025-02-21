@@ -17,8 +17,8 @@ import { TestScheduler } from 'rxjs/testing';
 import { RemoteDataBuildService } from '../cache';
 import { ObjectCacheService } from '../cache';
 import { RestResponse } from '../cache';
-import { CoreState } from '../core-state.model';
-import { NotificationsService } from '../notifications';
+import { CoreState } from '@dspace/core';
+import { NotificationsService } from '@dspace/core';
 import { BitstreamFormat } from '../shared';
 import { HALEndpointService } from '../shared';
 import {
@@ -29,8 +29,8 @@ import {
 import { createSuccessfulRemoteDataObject } from '../utilities';
 import { testDeleteDataImplementation } from './base';
 import { testFindAllDataImplementation } from './base';
-import { BitstreamFormatDataService } from './bitstream-format-data.service';
-import { RequestEntry } from './request-entry.model';
+import { BitstreamFormatDataService } from '@dspace/core';
+import { RequestEntry } from '@dspace/core';
 
 describe('BitstreamFormatDataService', () => {
   let service: BitstreamFormatDataService;

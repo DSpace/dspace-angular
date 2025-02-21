@@ -10,23 +10,23 @@ import { TestScheduler } from 'rxjs/testing';
 import { BrowseService } from '../browse';
 import { ObjectCacheService } from '../cache';
 import { RestResponse } from '../cache';
-import { CoreState } from '../core-state.model';
+import { CoreState } from '@dspace/core';
 import { getMockRemoteDataBuildService } from '../mocks';
 import { getMockRequestService } from '../mocks';
-import { NotificationsService } from '../notifications';
+import { NotificationsService } from '@dspace/core';
 import { ExternalSourceEntry } from '../shared';
 import { HALEndpointServiceStub } from '../utilities';
 import { testCreateDataImplementation } from './base';
 import { testDeleteDataImplementation } from './base';
 import { testPatchDataImplementation } from './base';
-import { FindListOptions } from './find-list-options.model';
-import { ItemDataService } from './item-data.service';
+import { FindListOptions } from '@dspace/core';
+import { ItemDataService } from '@dspace/core';
 import {
   DeleteRequest,
   PostRequest,
-} from './request.models';
-import { RequestService } from './request.service';
-import { RequestEntry } from './request-entry.model';
+} from '@dspace/core';
+import { RequestService } from '@dspace/core';
+import { RequestEntry } from '@dspace/core';
 
 describe('ItemDataService', () => {
   let scheduler: TestScheduler;

@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-namespace
 import * as deepFreeze from 'deep-freeze';
 
-import { initialMenusState } from './initial-menus-state';
+import { initialMenusState } from '@dspace/core';
 import {
   ActivateMenuSectionAction,
   AddMenuSectionAction,
@@ -18,10 +18,10 @@ import {
   ShowMenuSectionAction,
   ToggleActiveMenuSectionAction,
   ToggleMenuAction,
-} from './menu.actions';
-import { menusReducer } from './menu.reducer';
-import { MenuID } from './menu-id.model';
-import { MenuSectionIndex } from './menu-section-Index.model';
+} from '@dspace/core';
+import { menusReducer } from '@dspace/core';
+import { MenuID } from '@dspace/core';
+import { MenuSectionIndex } from '@dspace/core';
 
 let visibleSection1;
 let dummyState;

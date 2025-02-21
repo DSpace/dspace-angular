@@ -2,9 +2,9 @@ import {
   SortDirection,
   SortOptions,
 } from '../cache';
-import { DSpaceObjectType } from './dspace-object-type.model';
-import { PaginatedSearchOptions } from './paginated-search-options.model';
-import { PaginationComponentOptions } from './pagination-component-options.model';
+import { DSpaceObjectType } from '@dspace/core';
+import { PaginatedSearchOptions } from '@dspace/core';
+import { PaginationComponentOptions } from '@dspace/core';
 import { SearchFilter } from './search';
 
 describe('PaginatedSearchOptions', () => {

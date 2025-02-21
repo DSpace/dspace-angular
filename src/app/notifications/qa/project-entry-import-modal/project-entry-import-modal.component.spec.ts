@@ -31,7 +31,7 @@ import { createTestComponent } from '@dspace/core';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { getMockSearchService } from '../../../shared/mocks/search-service.mock';
-import { SelectableListService } from '../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
+import { SelectableListService } from '@dspace/core';
 import { ThemedSearchResultsComponent } from '../../../shared/search/search-results/themed-search-results.component';
 import {
   ImportType,

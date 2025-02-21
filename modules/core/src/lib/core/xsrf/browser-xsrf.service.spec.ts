@@ -5,8 +5,8 @@ import {
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 
-import { RESTURLCombiner } from '../url-combiner';
-import { BrowserXSRFService } from './browser-xsrf.service';
+import { RESTURLCombiner } from '@dspace/core';
+import { BrowserXSRFService } from '@dspace/core';
 
 describe(`BrowserXSRFService`, () => {
   let service: BrowserXSRFService;

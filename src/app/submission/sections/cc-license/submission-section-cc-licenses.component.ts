@@ -48,9 +48,9 @@ import { DsSelectComponent } from '../../../shared/ds-select/ds-select.component
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { SectionModelComponent } from '../models/section.model';
-import { SectionDataObject } from '../../../../../modules/core/src/lib/core/submission/sections/section-data.model';
+import { SectionDataObject } from '@dspace/core';
 import { SectionsService } from '../sections.service';
-import { SectionsType } from '../../../../../modules/core/src/lib/core/submission/models/sections-type';
+import { SectionsType } from '@dspace/core';
 
 /**
  * This component represents the submission section to select the Creative Commons license.

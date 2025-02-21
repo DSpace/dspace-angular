@@ -9,11 +9,11 @@ import {
   RequestStaleAction,
   RequestSuccessAction,
   ResetResponseTimestampsAction,
-} from './request.actions';
-import { GetRequest } from './request.models';
-import { requestReducer } from './request.reducer';
-import { RequestEntryState } from './request-entry-state.model';
-import { RequestState } from './request-state.model';
+} from '@dspace/core';
+import { GetRequest } from '@dspace/core';
+import { requestReducer } from '@dspace/core';
+import { RequestEntryState } from '@dspace/core';
+import { RequestState } from '@dspace/core';
 
 class NullAction extends RequestSuccessAction {
   type = null;

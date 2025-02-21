@@ -1,6 +1,6 @@
 import { RequestParam } from '../cache';
 import { FindListOptions } from '../data';
-import { SubmissionDuplicateDataService } from './submission-duplicate-data.service';
+import { SubmissionDuplicateDataService } from '@dspace/core';
 
 /**
  * Basic tests for the submission-duplicate-data.service.ts service

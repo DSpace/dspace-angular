@@ -20,13 +20,13 @@ import {
 import {
   formReducer,
   FormState,
-} from '../../modules/core/src/lib/core/states/form/form.reducer';
-import { menusReducer } from '../../modules/core/src/lib/core/states/menu/menu.reducer';
-import { MenusState } from '../../modules/core/src/lib/core/states/menu/menus-state.model';
+} from '@dspace/core';
+import { menusReducer } from '@dspace/core';
+import { MenusState } from '@dspace/core';
 import {
   selectableListReducer,
   SelectableListsState,
-} from '../../modules/core/src/lib/core/states/selectable-list/selectable-list.reducer';
+} from '@dspace/core';
 import {
   ObjectSelectionListState,
   objectSelectionReducer,
@@ -42,7 +42,7 @@ import {
 import {
   filterReducer,
   SearchFiltersState,
-} from '../../modules/core/src/lib/core/states/search-filters/search-filter.reducer';
+} from '@dspace/core';
 import {
   sidebarReducer,
   SidebarState,

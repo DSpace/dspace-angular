@@ -26,7 +26,7 @@ import { RouterStub } from '@dspace/core';
 import { SubmissionServiceStub } from '@dspace/core';
 import { createTestComponent } from '@dspace/core';
 import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
-import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
+import { SubmissionService } from '@dspace/core';
 import { SubmissionImportExternalCollectionComponent } from '../import-external-collection/submission-import-external-collection.component';
 import { SubmissionImportExternalPreviewComponent } from './submission-import-external-preview.component';
 

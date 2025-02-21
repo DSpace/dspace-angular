@@ -21,7 +21,7 @@ import { PaginationServiceStub } from '@dspace/core';
 import { SearchConfigurationServiceStub } from '@dspace/core';
 import { SearchFilterServiceStub } from '@dspace/core';
 import { SearchServiceStub } from '@dspace/core';
-import { addOperatorToFilterValue } from '../../../../../../modules/core/src/lib/core/utilities/search.utils';
+import { addOperatorToFilterValue } from '@dspace/core';
 import { SearchLabelRangeComponent } from './search-label-range.component';
 
 describe('SearchLabelRangeComponent', () => {

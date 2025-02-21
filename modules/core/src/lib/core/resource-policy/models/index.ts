@@ -1,3 +1,4 @@
+// created from 'create-ts-index'
 
 export * from './action-type.model';
 export * from './policy-type.model';

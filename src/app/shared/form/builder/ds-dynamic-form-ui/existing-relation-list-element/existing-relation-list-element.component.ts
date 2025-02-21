@@ -31,10 +31,10 @@ import {
 } from '@dspace/core';
 import { ViewMode } from '@dspace/core';
 import { RemoveRelationshipAction } from '@dspace/core';
-import { SubmissionService } from '../../../../../../../modules/core/src/lib/core/submission/submission.service';
+import { SubmissionService } from '@dspace/core';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from '../../../../object-collection/shared/listable-object/listable-object-component-loader.component';
-import { SelectableListService } from '../../../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
+import { SelectableListService } from '@dspace/core';
 
 
 /**

@@ -17,8 +17,8 @@ import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configu
 import { TruncatableComponent } from '../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { AdminNotifyDetailModalComponent } from '../admin-notify-detail-modal/admin-notify-detail-modal.component';
-import { AdminNotifyMessage } from '../../../../../modules/core/src/lib/core/admin/admin-notify-message/models/admin-notify-message.model';
-import { AdminNotifyMessagesService } from '../../../../../modules/core/src/lib/core/admin/admin-notify-message/admin-notify-messages.service';
+import { AdminNotifyMessage } from '@dspace/core';
+import { AdminNotifyMessagesService } from '@dspace/core';
 import { AdminNotifySearchResultComponent } from './admin-notify-search-result.component';
 
 export const mockAdminNotifyMessages = [

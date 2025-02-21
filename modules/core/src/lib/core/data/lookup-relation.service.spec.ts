@@ -13,10 +13,10 @@ import { SearchResult } from '../shared';
 import { SearchService } from '../shared';
 import { createSuccessfulRemoteDataObject$ } from '../utilities';
 import { createPaginatedList } from '../utilities';
-import { ExternalSourceDataService } from './external-source-data.service';
-import { LookupRelationService } from './lookup-relation.service';
-import { buildPaginatedList } from './paginated-list.model';
-import { RequestService } from './request.service';
+import { ExternalSourceDataService } from '@dspace/core';
+import { LookupRelationService } from '@dspace/core';
+import { buildPaginatedList } from '@dspace/core';
+import { RequestService } from '@dspace/core';
 
 describe('LookupRelationService', () => {
   let service: LookupRelationService;

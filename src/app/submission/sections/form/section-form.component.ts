@@ -60,11 +60,11 @@ import { FormFieldPreviousValueObject } from '../../../shared/form/builder/model
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { SubmissionSectionError } from '../../../../../modules/core/src/lib/core/submission/models/submission-section-error.model';
-import { SubmissionSectionObject } from '../../../../../modules/core/src/lib/core/states/submission/submission-section-object.model';
-import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
+import { SubmissionSectionError } from '@dspace/core';
+import { SubmissionSectionObject } from '@dspace/core';
+import { SubmissionService } from '@dspace/core';
 import { SectionModelComponent } from '../models/section.model';
-import { SectionDataObject } from '../../../../../modules/core/src/lib/core/submission/sections/section-data.model';
+import { SectionDataObject } from '@dspace/core';
 import { SectionsService } from '../sections.service';
 import { SectionFormOperationsService } from './section-form-operations.service';
 

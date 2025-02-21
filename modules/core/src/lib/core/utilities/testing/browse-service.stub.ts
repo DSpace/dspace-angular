@@ -13,7 +13,7 @@ import { FlatBrowseDefinition } from '../../shared';
 import { HierarchicalBrowseDefinition } from '../../shared';
 import { PageInfo } from '../../shared';
 import { ValueListBrowseDefinition } from '../../shared';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 
 const mockData = [
   Object.assign(new FlatBrowseDefinition(), {

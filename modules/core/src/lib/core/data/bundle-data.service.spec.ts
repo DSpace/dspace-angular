@@ -6,9 +6,9 @@ import {
 } from 'fast-json-patch';
 
 import { RemoteDataBuildService } from '../cache';
-import { CoreState } from '../core-state.model';
+import { CoreState } from '@dspace/core';
 import { getMockRequestService } from '../mocks';
-import { NotificationsService } from '../notifications';
+import { NotificationsService } from '@dspace/core';
 import { Bundle } from '../shared';
 import { HALLink } from '../shared';
 import { Item } from '../shared';
@@ -16,8 +16,8 @@ import { createSuccessfulRemoteDataObject$ } from '../utilities';
 import { HALEndpointServiceStub } from '../utilities';
 import { createPaginatedList } from '../utilities';
 import { testPatchDataImplementation } from './base';
-import { BundleDataService } from './bundle-data.service';
-import { ChangeAnalyzer } from './change-analyzer';
+import { BundleDataService } from '@dspace/core';
+import { ChangeAnalyzer } from '@dspace/core';
 
 class DummyChangeAnalyzer implements ChangeAnalyzer<Item> {
   diff(object1: Item, object2: Item): Operation[] {

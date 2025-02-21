@@ -38,7 +38,7 @@ import { AlertComponent } from '../../../shared/alert/alert.component';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { CollectionElementLinkType } from '../../../shared/object-collection/collection-element-link.type';
-import { SelectableListService } from '../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service';
+import { SelectableListService } from '@dspace/core';
 import { ThemedSearchResultsComponent } from '../../../shared/search/search-results/themed-search-results.component';
 
 

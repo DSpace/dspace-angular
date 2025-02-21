@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AccessStatusObject } from '../access-status/access-status.model';
+import { AccessStatusObject } from '../access-status';
 
 import { RemoteDataBuildService } from '../cache';
 import { ObjectCacheService } from '../cache';

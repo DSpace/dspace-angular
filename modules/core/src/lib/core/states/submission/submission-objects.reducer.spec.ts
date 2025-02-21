@@ -1,6 +1,6 @@
 import { Item } from '@dspace/core';
 
-import { SectionsType } from '../../submission/models/sections-type';
+import { SectionsType } from '@dspace/core';
 import {
   CancelSubmissionFormAction,
   ChangeSubmissionCollectionAction,
@@ -34,11 +34,11 @@ import {
   SectionStatusChangeAction,
   SubmissionObjectAction,
   UpdateSectionDataAction,
-} from './submission-objects.actions';
+} from '@dspace/core';
 import {
   submissionObjectReducer,
   SubmissionObjectState,
-} from './submission-objects.reducer';
+} from '@dspace/core';
 
 describe('submissionReducer test suite', () => {
 

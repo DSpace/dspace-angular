@@ -10,8 +10,8 @@ import {
 import { Observable } from 'rxjs';
 
 
-import { ReinitMenuAction } from './menu.actions';
-import { MenuEffects } from './menu.effects';
+import { ReinitMenuAction } from '@dspace/core';
+import { MenuEffects } from '@dspace/core';
 import { Action } from "rxjs/internal/scheduler/Action";
 import { type } from "@dspace/core";
 

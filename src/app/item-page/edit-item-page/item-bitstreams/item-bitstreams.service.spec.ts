@@ -23,7 +23,7 @@ import {
 } from '@dspace/core';
 import { BitstreamDataServiceStub } from '@dspace/core';
 import { NotificationsServiceStub } from '@dspace/core';
-import { LiveRegionService } from '../../../../../modules/core/src/lib/core/services/live-region.service';
+import { LiveRegionService } from '@dspace/core';
 import { getLiveRegionServiceStub } from '../../../shared/live-region/live-region.service.stub';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 import {

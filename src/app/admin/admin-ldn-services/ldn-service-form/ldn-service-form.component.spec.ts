@@ -41,8 +41,8 @@ import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { NotificationsServiceStub } from '@dspace/core';
 import { RouterStub } from '@dspace/core';
 import { MockActivatedRoute } from '../../../shared/mocks/active-router.mock';
-import { LdnItemfiltersService } from '../../../../../modules/core/src/lib/core/admin/ldn-services-data/ldn-itemfilters-data.service';
-import { LdnServicesService } from '../../../../../modules/core/src/lib/core/admin/ldn-services-data/ldn-services-data.service';
+import { LdnItemfiltersService } from '@dspace/core';
+import { LdnServicesService } from '@dspace/core';
 import { LdnServiceFormComponent } from './ldn-service-form.component';
 
 describe('LdnServiceFormEditComponent', () => {

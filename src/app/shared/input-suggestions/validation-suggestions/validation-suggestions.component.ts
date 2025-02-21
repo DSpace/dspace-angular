@@ -24,7 +24,7 @@ import { ClickOutsideDirective } from '../../utils/click-outside.directive';
 import { DebounceDirective } from '../../utils/debounce.directive';
 import { MetadataFieldValidator } from '../../utils/metadatafield-validator.directive';
 import { InputSuggestionsComponent } from '../input-suggestions.component';
-import { InputSuggestion } from '../../../../../modules/core/src/lib/core/config/models/input-suggestions.model';
+import { InputSuggestion } from '@dspace/core';
 
 @Component({
   selector: 'ds-validation-suggestions',

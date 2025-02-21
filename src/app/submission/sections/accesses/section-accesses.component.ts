@@ -52,7 +52,7 @@ import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { SectionModelComponent } from '../models/section.model';
-import { SectionDataObject } from '../../../../../modules/core/src/lib/core/submission/sections/section-data.model';
+import { SectionDataObject } from '@dspace/core';
 import { SectionsService } from '../sections.service';
 import {
   ACCESS_CONDITION_GROUP_CONFIG,

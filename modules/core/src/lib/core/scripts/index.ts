@@ -1,3 +1,4 @@
+// created from 'create-ts-index'
 
 export * from './script-parameter-type.model';
 export * from './script-parameter.model';

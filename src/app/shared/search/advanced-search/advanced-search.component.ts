@@ -38,7 +38,7 @@ import { SearchFilterService } from '@dspace/core';
 import { FilterConfig } from '@dspace/core';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { FilterInputSuggestionsComponent } from '../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
-import { InputSuggestion } from '../../../../../modules/core/src/lib/core/config/models/input-suggestions.model';
+import { InputSuggestion } from '@dspace/core';
 
 /**
  * This component represents the advanced search in the search sidebar.

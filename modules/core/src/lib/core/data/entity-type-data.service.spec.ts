@@ -8,7 +8,7 @@
 
 import { testFindAllDataImplementation } from './base';
 import { testSearchDataImplementation } from './base';
-import { EntityTypeDataService } from './entity-type-data.service';
+import { EntityTypeDataService } from '@dspace/core';
 
 describe('EntityTypeDataService', () => {
   describe('composition', () => {

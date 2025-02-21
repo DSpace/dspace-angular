@@ -1,3 +1,4 @@
+// created from 'create-ts-index'
 
 export * from './index-name.model';
 export * from './index.actions';

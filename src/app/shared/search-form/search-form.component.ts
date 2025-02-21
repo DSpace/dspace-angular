@@ -29,7 +29,7 @@ import { SearchService } from '@dspace/core';
 import { SearchConfigurationService } from '@dspace/core';
 import { SearchFilterService } from '@dspace/core';
 import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
-import { currentPath } from '../../../../modules/core/src/lib/core/utilities/route.utils';
+import { currentPath } from '@dspace/core';
 import { ScopeSelectorModalComponent } from './scope-selector-modal/scope-selector-modal.component';
 
 @Component({

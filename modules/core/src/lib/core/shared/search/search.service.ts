@@ -19,7 +19,7 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { getSearchResultFor } from '../../config/models/search-result-element-decorator';
+import { getSearchResultFor } from '../../config';
 import { RemoteDataBuildService } from '../../cache';
 import { BaseDataService } from '../../data';
 import { DSpaceObjectDataService } from '../../data';

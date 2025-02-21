@@ -42,7 +42,7 @@ import {
   mockSubmissionRestResponse,
 } from '../../../shared/mocks/submission.mock';
 import { SectionsService } from '../../sections/sections.service';
-import { SubmissionService } from '../../../../../modules/core/src/lib/core/submission/submission.service';
+import { SubmissionService } from '@dspace/core';
 import { SubmissionFormCollectionComponent } from './submission-form-collection.component';
 
 describe('SubmissionFormCollectionComponent Component', () => {

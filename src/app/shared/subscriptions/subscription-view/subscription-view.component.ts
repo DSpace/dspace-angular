@@ -20,9 +20,9 @@ import { DSpaceObject } from '@dspace/core';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { ConfirmationModalComponent } from '../../confirmation-modal/confirmation-modal.component';
 import { ThemedTypeBadgeComponent } from '../../object-collection/shared/badges/type-badge/themed-type-badge.component';
-import { Subscription } from '../../../../../modules/core/src/lib/core/subscription/subscription.model';
+import { Subscription } from '@dspace/core';
 import { SubscriptionModalComponent } from '../subscription-modal/subscription-modal.component';
-import { SubscriptionsDataService } from '../../../../../modules/core/src/lib/core/data/subscriptions-data.service';
+import { SubscriptionsDataService } from '@dspace/core';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector

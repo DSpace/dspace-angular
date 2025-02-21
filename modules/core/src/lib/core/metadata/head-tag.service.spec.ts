@@ -18,7 +18,7 @@ import {
   of,
 } from 'rxjs';
 
-import { DSONameService } from '../breadcrumbs';
+import { DSONameService } from '@dspace/core';
 import { AppConfig } from '../config';
 import { AuthorizationDataService } from '../data';
 import { PaginatedList } from '../data';
@@ -41,11 +41,11 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '../utilities';
 import { createPaginatedList } from '../utilities';
-import { HeadTagService } from './head-tag.service';
+import { HeadTagService } from '@dspace/core';
 import {
   AddMetaTagAction,
   ClearMetaTagAction,
-} from './meta-tag.actions';
+} from '@dspace/core';
 
 describe('HeadTagService', () => {
   let headTagService: HeadTagService;

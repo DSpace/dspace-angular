@@ -1,4 +1,4 @@
-import { IDToUUIDSerializer } from './id-to-uuid-serializer';
+import { IDToUUIDSerializer } from '@dspace/core';
 
 describe('IDToUUIDSerializer', () => {
   let serializer: IDToUUIDSerializer;

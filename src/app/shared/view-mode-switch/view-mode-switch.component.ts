@@ -23,7 +23,7 @@ import { filter } from 'rxjs/operators';
 import { SearchService } from '@dspace/core';
 import { ViewMode } from '@dspace/core';
 import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
-import { currentPath } from '../../../../modules/core/src/lib/core/utilities/route.utils';
+import { currentPath } from '@dspace/core';
 
 /**
  * Component to switch between list and grid views.

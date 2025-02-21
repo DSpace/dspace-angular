@@ -5,7 +5,7 @@ import { RemoteDataBuildService } from '../cache';
 import { ObjectCacheService } from '../cache';
 import { getMockRemoteDataBuildService } from '../mocks';
 import { getMockRequestService } from '../mocks';
-import { NotificationsService } from '../notifications';
+import { NotificationsService } from '@dspace/core';
 import { Bitstream } from '../shared';
 import { Bundle } from '../shared';
 import { HALEndpointService } from '../shared';
@@ -16,15 +16,15 @@ import {
 } from '../utilities';
 import { HALEndpointServiceStub } from '../utilities';
 import { NotificationsServiceStub } from '../utilities';
-import { BundleDataService } from './bundle-data.service';
-import { PrimaryBitstreamService } from './primary-bitstream.service';
+import { BundleDataService } from '@dspace/core';
+import { PrimaryBitstreamService } from '@dspace/core';
 import {
   CreateRequest,
   DeleteRequest,
   PostRequest,
   PutRequest,
-} from './request.models';
-import { RequestService } from './request.service';
+} from '@dspace/core';
+import { RequestService } from '@dspace/core';
 
 describe('PrimaryBitstreamService', () => {
   let service: PrimaryBitstreamService;

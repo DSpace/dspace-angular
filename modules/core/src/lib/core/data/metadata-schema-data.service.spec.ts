@@ -4,17 +4,17 @@ import { RemoteDataBuildService } from '../cache';
 import { RestResponse } from '../cache';
 import { MetadataSchema } from '../metadata';
 import { getMockRemoteDataBuildService } from '../mocks';
-import { NotificationsService } from '../notifications';
+import { NotificationsService } from '@dspace/core';
 import { HALEndpointService } from '../shared';
 import { HALEndpointServiceStub } from '../utilities';
 import { testDeleteDataImplementation } from './base';
 import { testFindAllDataImplementation } from './base';
-import { MetadataSchemaDataService } from './metadata-schema-data.service';
+import { MetadataSchemaDataService } from '@dspace/core';
 import {
   CreateRequest,
   PutRequest,
-} from './request.models';
-import { RequestService } from './request.service';
+} from '@dspace/core';
+import { RequestService } from '@dspace/core';
 
 describe('MetadataSchemaDataService', () => {
   let metadataSchemaService: MetadataSchemaDataService;

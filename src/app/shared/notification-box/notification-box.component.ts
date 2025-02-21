@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { AdminNotifySearchResult } from '../../../../modules/core/src/lib/core/admin/admin-notify-message/models/admin-notify-message-search-result.model';
+import { AdminNotifySearchResult } from '@dspace/core';
 import { AdminNotifyMetricsBox } from '@dspace/core';
 import { ViewMode } from '@dspace/core';
 import { HoverClassDirective } from '../hover-class.directive';

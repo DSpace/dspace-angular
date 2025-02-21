@@ -13,7 +13,7 @@ import { RequestService } from '../data';
 import { getMockRemoteDataBuildService } from '../mocks';
 import { getMockRequestService } from '../mocks';
 import { HALEndpointServiceStub } from '../utilities';
-import { SubmissionRestService } from './submission-rest.service';
+import { SubmissionRestService } from '@dspace/core';
 
 describe('SubmissionRestService test suite', () => {
   let scheduler: TestScheduler;

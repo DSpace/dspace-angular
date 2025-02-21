@@ -3,8 +3,8 @@ import { Action } from '@ngrx/store';
 import {
   RemoveNameVariantAction,
   SetNameVariantAction,
-} from './name-variant.actions';
-import { nameVariantReducer } from './name-variant.reducer';
+} from '@dspace/core';
+import { nameVariantReducer } from '@dspace/core';
 
 class NullAction implements Action {
   type = null;

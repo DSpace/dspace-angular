@@ -33,7 +33,7 @@ import { Item } from '@dspace/core';
 import { getAllSucceededRemoteData } from '@dspace/core';
 import { SubmissionObject } from '@dspace/core';
 import { WorkspaceitemSectionsObject } from '@dspace/core';
-import { SubmissionService } from '../../../../modules/core/src/lib/core/submission/submission.service';
+import { SubmissionService } from '@dspace/core';
 
 /**
  * This component allows to submit a new workspaceitem.

@@ -5,11 +5,11 @@ import {
   BitstreamFormatsRegistryDeselectAction,
   BitstreamFormatsRegistryDeselectAllAction,
   BitstreamFormatsRegistrySelectAction,
-} from './bitstream-format.actions';
+} from '@dspace/core';
 import {
   bitstreamFormatReducer,
   BitstreamFormatRegistryState,
-} from './bitstream-format.reducers';
+} from '@dspace/core';
 
 const bitstreamFormat1: BitstreamFormat = new BitstreamFormat();
 bitstreamFormat1.id = 'test-uuid-1';

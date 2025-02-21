@@ -50,7 +50,7 @@ import { BtnDisabledDirective } from '../../../../../shared/btn-disabled.directi
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../../../shared/form/form.component';
 import { FormService } from '../../../../../shared/form/form.service';
-import { SubmissionService } from '../../../../../../../modules/core/src/lib/core/submission/submission.service';
+import { SubmissionService } from '@dspace/core';
 import { SectionUploadService } from '../../section-upload.service';
 import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload-constants';
 import {

@@ -1,4 +1,4 @@
-import { publicationClaimBreadcrumbResolver } from './publication-claim-breadcrumb.resolver';
+import { publicationClaimBreadcrumbResolver } from '@dspace/core';
 
 describe('publicationClaimBreadcrumbResolver', () => {
   describe('resolve', () => {

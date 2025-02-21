@@ -6,9 +6,9 @@ import {
 import { of } from 'rxjs';
 
 import { APP_CONFIG } from '../config';
-import { DspaceRestService } from '../dspace-rest';
-import { SignpostingDataService } from './signposting-data.service';
-import { SignpostingLink } from './signposting-links.model';
+import { DspaceRestService } from '@dspace/core';
+import { SignpostingDataService } from '@dspace/core';
+import { SignpostingLink } from '@dspace/core';
 
 describe('SignpostingDataService', () => {
   let service: SignpostingDataService;

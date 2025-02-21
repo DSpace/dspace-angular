@@ -40,8 +40,8 @@ import { NotificationsService } from '@dspace/core';
 import { HALEndpointService } from '@dspace/core';
 import { NoContent } from '@dspace/core';
 import { URLCombiner } from '@dspace/core';
-import { LdnServiceConstrain } from '../../data/ldn/ldn-service.constrain.model';
-import { LdnService } from '../../data/ldn/ldn-services.model';
+import { LdnServiceConstrain } from '../../data';
+import { LdnService } from '../../data';
 
 /**
  * Injectable service responsible for fetching/sending data from/to the REST API on the ldnservices endpoint.

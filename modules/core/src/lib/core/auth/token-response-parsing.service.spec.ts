@@ -1,6 +1,6 @@
 import { TokenResponse } from '../cache';
-import { RawRestResponse } from '../dspace-rest';
-import { TokenResponseParsingService } from './token-response-parsing.service';
+import { RawRestResponse } from '@dspace/core';
+import { TokenResponseParsingService } from '@dspace/core';
 
 describe('TokenResponseParsingService', () => {
   let service: TokenResponseParsingService;

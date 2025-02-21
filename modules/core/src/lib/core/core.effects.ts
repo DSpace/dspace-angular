@@ -1,4 +1,4 @@
-import { MenuEffects } from './states/menu/menu.effects';
+import { MenuEffects } from './states';
 import { AuthEffects } from './auth';
 import { ObjectCacheEffects } from './cache';
 import { ServerSyncBufferEffects } from './cache';
