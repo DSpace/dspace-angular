@@ -1,4 +1,9 @@
-import { CommonModule } from '@angular/common';
+import {
+  AsyncPipe,
+  CommonModule,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -15,16 +20,22 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import { Operation } from 'fast-json-patch';
 import {
+  BehaviorSubject,
   combineLatest,
   Observable,
   Subscription,
 } from 'rxjs';
 import {
+  filter,
   map,
   switchMap,
   take,
+  tap,
 } from 'rxjs/operators';
+import { AlertComponent } from 'src/app/shared/alert/alert.component';
+import { AlertType } from 'src/app/shared/alert/alert-type';
 
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
@@ -40,10 +51,14 @@ import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
-import { AlertComponent } from '../../../shared/alert/alert.component';
-import { AlertType } from '../../../shared/alert/alert-type';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
 import { ObjectValuesPipe } from '../../../shared/utils/object-values-pipe';
@@ -58,12 +73,16 @@ import { ItemEditBitstreamBundleComponent } from './item-edit-bitstream-bundle/i
   templateUrl: './item-bitstreams.component.html',
   imports: [
     CommonModule,
+    AsyncPipe,
     TranslateModule,
     ItemEditBitstreamBundleComponent,
     RouterLink,
+    NgIf,
     VarDirective,
+    NgForOf,
     ThemedLoadingComponent,
     AlertComponent,
+    BtnDisabledDirective,
   ],
   providers: [ObjectValuesPipe],
   standalone: true,
@@ -77,9 +96,18 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
   protected readonly AlertType = AlertType;
 
   /**
-   * The currently listed bundles
+   * All bundles for the current item
    */
-  bundles$: Observable<Bundle[]>;
+  private bundlesSubject = new BehaviorSubject<Bundle[]>([]);
+
+  /**
+   * The page options to use for fetching the bundles
+   */
+  bundlesOptions: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
+    id: 'bundles-pagination-options',
+    currentPage: 1,
+    pageSize: 10,
+  });
 
   /**
    * The bootstrap sizes used for the columns within this table
@@ -97,6 +125,18 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    * This is used to update the item in cache after bitstreams are deleted
    */
   itemUpdateSubscription: Subscription;
+
+  /**
+   * The flag indicating to show the load more link
+   */
+  showLoadMoreLink$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+
+  /**
+   * The list of bundles for the current item as an observable
+   */
+  get bundles$(): Observable<Bundle[]> {
+    return this.bundlesSubject.asObservable();
+  }
 
   /**
    * An observable which emits a boolean which represents whether the service is currently handling a 'move' request
@@ -127,14 +167,7 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    * Actions to perform after the item has been initialized
    */
   postItemInit(): void {
-    const bundlesOptions = this.itemBitstreamsService.getInitialBundlesPaginationOptions();
-    this.isProcessingMoveRequest = this.itemBitstreamsService.getPerformingMoveRequest$();
-
-    this.bundles$ = this.itemService.getBundles(this.item.id, new PaginatedSearchOptions({ pagination: bundlesOptions })).pipe(
-      getFirstSucceededRemoteData(),
-      getRemoteDataPayload(),
-      map((bundlePage: PaginatedList<Bundle>) => bundlePage.page),
-    );
+    this.loadBundles(1);
   }
 
   /**
@@ -199,6 +232,26 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
     this.notificationsPrefix = 'item.edit.bitstreams.notifications.';
   }
 
+  /**
+   * Load bundles for the current item
+   * @param currentPage The current page to load
+   */
+  loadBundles(currentPage?: number) {
+    this.bundlesOptions = Object.assign(new PaginationComponentOptions(), this.bundlesOptions, {
+      currentPage: currentPage || this.bundlesOptions.currentPage + 1,
+    });
+    this.itemService.getBundles(this.item.id, new PaginatedSearchOptions({ pagination: this.bundlesOptions })).pipe(
+      getFirstSucceededRemoteData(),
+      getRemoteDataPayload(),
+      tap((bundlesPL: PaginatedList<Bundle>) =>
+        this.showLoadMoreLink$.next(bundlesPL.pageInfo.currentPage < bundlesPL.pageInfo.totalPages),
+      ),
+      map((bundlePage: PaginatedList<Bundle>) => bundlePage.page),
+    ).subscribe((bundles: Bundle[]) => {
+      this.bundlesSubject.next([...this.bundlesSubject.getValue(), ...bundles]);
+    });
+  }
+
 
   /**
    * Submit the current changes
@@ -208,13 +261,63 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
   submit() {
     this.submitting = true;
 
-    const removedResponses$ = this.itemBitstreamsService.removeMarkedBitstreams(this.bundles$);
+    const removedResponses$ = this.itemBitstreamsService.removeMarkedBitstreams(this.bundles$.pipe(take(1)));
 
     // Perform the setup actions from above in order and display notifications
     removedResponses$.subscribe((responses: RemoteData<NoContent>) => {
       this.itemBitstreamsService.displayNotifications('item.edit.bitstreams.notifications.remove', [responses]);
       this.submitting = false;
     });
+  }
+
+  /**
+   * A bitstream was dropped in a new location. Send out a Move Patch request to the REST API, display notifications,
+   * refresh the bundle's cache (so the lists can properly reload) and call the event's callback function (which will
+   * navigate the user to the correct page)
+   * @param bundle  The bundle to send patch requests to
+   * @param event   The event containing the index the bitstream came from and was dropped to
+   */
+  dropBitstream(bundle: Bundle, event: any) {
+    this.zone.runOutsideAngular(() => {
+      if (hasValue(event) && hasValue(event.fromIndex) && hasValue(event.toIndex) && hasValue(event.finish)) {
+        const moveOperation = {
+          op: 'move',
+          from: `/_links/bitstreams/${event.fromIndex}/href`,
+          path: `/_links/bitstreams/${event.toIndex}/href`,
+        } as Operation;
+        this.bundleService.patch(bundle, [moveOperation]).pipe(take(1)).subscribe((response: RemoteData<Bundle>) => {
+          this.zone.run(() => {
+            this.displayNotifications('item.edit.bitstreams.notifications.move', [response]);
+            // Remove all cached requests from this bundle and call the event's callback when the requests are cleared
+            this.requestService.removeByHrefSubstring(bundle.self).pipe(
+              filter((isCached) => isCached),
+              take(1),
+            ).subscribe(() => event.finish());
+          });
+        });
+      }
+    });
+  }
+
+  /**
+   * Display notifications
+   * - Error notification for each failed response with their message
+   * - Success notification in case there's at least one successful response
+   * @param key       The i18n key for the notification messages
+   * @param responses The returned responses to display notifications for
+   */
+  displayNotifications(key: string, responses: RemoteData<any>[]) {
+    if (isNotEmpty(responses)) {
+      const failedResponses = responses.filter((response: RemoteData<Bundle>) => hasValue(response) && response.hasFailed);
+      const successfulResponses = responses.filter((response: RemoteData<Bundle>) => hasValue(response) && response.hasSucceeded);
+
+      failedResponses.forEach((response: RemoteData<Bundle>) => {
+        this.notificationsService.error(this.translateService.instant(`${key}.failed.title`), response.errorMessage);
+      });
+      if (successfulResponses.length > 0) {
+        this.notificationsService.success(this.translateService.instant(`${key}.saved.title`), this.translateService.instant(`${key}.saved.content`));
+      }
+    }
   }
 
   /**

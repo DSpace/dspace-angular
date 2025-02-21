@@ -1688,6 +1688,8 @@
 
   "deny-request-copy.success": "Successfully denied item request",
 
+  "dynamic-list.load-more": "Load more",
+
   "dropdown.clear": "Clear selection",
 
   "dropdown.clear.tooltip": "Clear the selected option",
@@ -2335,6 +2337,8 @@
   "item.edit.bitstreams.save-button": "Save",
 
   "item.edit.bitstreams.upload-button": "Upload",
+
+  "item.edit.bitstreams.load-more.link": "Load more",
 
   "item.edit.delete.cancel": "Cancel",
 
@@ -5702,8 +5706,6 @@
 
   "supervision.search.results.head": "Workflow and Workspace tasks",
 
-  "orgunit.search.results.head": "Organizational Unit Search Results",
-
   "workflow-item.edit.breadcrumbs": "Edit workflowitem",
 
   "workflow-item.edit.title": "Edit workflowitem",
@@ -6806,6 +6808,12 @@
 
   "search.filters.filter.notifyEndorsement.label": "Search Notify Endorsement",
 
+  "form.date-picker.placeholder.year": "Year",
+
+  "form.date-picker.placeholder.month": "Month",
+
+  "form.date-picker.placeholder.day": "Day",
+
   "item.page.cc.license.title": "Creative Commons license",
 
   "item.page.cc.license.disclaimer": "Except where otherwised noted, this item's license is described as",
@@ -6817,4 +6825,16 @@
   "register-page.registration.aria.label": "Enter your e-mail address",
 
   "forgot-email.form.aria.label": "Enter your e-mail address",
+
+  "search-facet-option.update.announcement": "The page will be reloaded. Filter {{ filter }} is selected.",
+
+  "live-region.ordering.instructions": "Press spacebar to reorder {{ itemName }}.",
+
+  "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of  {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+
+  "live-region.ordering.moved": "{{ itemName }}, moved to position {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+
+  "live-region.ordering.dropped": "{{ itemName }}, dropped at position {{ index }} of {{ length }}.",
+
+  "dynamic-form-array.sortable-list.label": "Sortable list",
 }

@@ -42,6 +42,7 @@ import {
 } from '../../../core/shared/operators';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
@@ -67,6 +68,7 @@ import { EditRelationshipListWrapperComponent } from './edit-relationship-list-w
     TranslateModule,
     VarDirective,
     EditRelationshipListWrapperComponent,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })
