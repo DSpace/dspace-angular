@@ -23,32 +23,7 @@
   --bs-font-size-base: #{$font-size-base};
   --bs-font-size-lg: #{$font-size-lg};
 
-  // Tables
-  //
-  // Customizes the `.table` component with basic values, each used across all table variations.
-  --bs-table-cell-padding: #{$table-cell-padding};
-  --bs-table-cell-padding-sm: #{$table-cell-padding-sm};
-  --bs-table-color: #{$table-color};
-  --bs-table-bg: #{$table-bg};
-  --bs-table-accent-bg: #{$table-accent-bg};
-  --bs-table-hover-color: #{$table-hover-color};
-  --bs-table-hover-bg: #{$table-hover-bg};
-  --bs-table-active-bg: #{$table-active-bg};
-  --bs-table-border-width: #{$table-border-width};
-  --bs-table-border-color: #{$table-border-color};
-  --bs-table-head-bg: #{$table-head-bg};
-  --bs-table-head-color: #{$table-head-color};
-  --bs-table-dark-color: #{$table-dark-color};
-  --bs-table-dark-bg: #{$table-dark-bg};
-  --bs-table-dark-accent-bg: #{$table-dark-accent-bg};
-  --bs-table-dark-hover-color: #{$table-dark-hover-color};
-  --bs-table-dark-hover-bg: #{$table-dark-hover-bg};
-  --bs-table-dark-border-color: #{$table-dark-border-color};
-  --bs-table-striped-order: #{$table-striped-order};
-  --bs-table-caption-color: #{$table-caption-color};
-  --bs-table-bg-level: #{$table-bg-level};
-  --bs-table-border-level: #{$table-border-level};
-  --bs-btn-link-disabled-color: #{$btn-link-disabled-color};
+
 
   --bs-input-btn-border-width: #{$input-btn-border-width};
   --bs-input-border-color: #{$input-border-color};

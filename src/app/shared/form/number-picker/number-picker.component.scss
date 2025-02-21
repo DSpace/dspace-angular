@@ -29,6 +29,7 @@ input {
   font-weight: $font-weight-normal;
   color: $link-color;
   text-decoration: $link-decoration;
+  box-shadow: none;
   &:hover {
     color: $link-hover-color;
     text-decoration: $link-hover-decoration;
