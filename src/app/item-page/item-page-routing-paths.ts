@@ -8,6 +8,8 @@ export function getItemModuleRoute() {
   return `/${ITEM_MODULE_PATH}`;
 }
 
+export const ENTITY_MODULE_PATH = 'entities';
+
 /**
  * Get the route to an item's page
  * Depending on the item's entity type, the route will either start with /items or /entities
