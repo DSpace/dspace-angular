@@ -79,5 +79,11 @@ describe('AccessibilitySettingsComponent', () => {
       component.saveSettings();
       expect(notificationsService.success).toHaveBeenCalled();
     });
+
+    it('should give the user a notification mentioning why saving failed, if it failed', () => {
+      settingsService.setSettings = jasmine.createSpy('setSettings').and.returnValue(of('failed'));
+      component.saveSettings();
+      expect(notificationsService.error).toHaveBeenCalled();
+    });
   });
 });
