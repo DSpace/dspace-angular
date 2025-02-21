@@ -25,7 +25,7 @@ export class ThemedCreateItemParentSelectorComponent
   extends ThemedComponent<CreateItemParentSelectorComponent> {
   @Input() entityType: string;
   @Output() select: EventEmitter<DSpaceObject> = new EventEmitter<DSpaceObject>();
-  @Input() emitOnly = true;
+  @Input() emitOnly = false;
 
   protected inAndOutputNames: (keyof CreateItemParentSelectorComponent & keyof this)[] = ['entityType', 'select', 'emitOnly'];
 
