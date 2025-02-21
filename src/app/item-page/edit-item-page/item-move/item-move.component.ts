@@ -37,6 +37,7 @@ import {
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { SearchService } from '../../../core/shared/search/search.service';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { AuthorizedCollectionSelectorComponent } from '../../../shared/dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
@@ -56,6 +57,7 @@ import {
     AsyncPipe,
     AuthorizedCollectionSelectorComponent,
     NgIf,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

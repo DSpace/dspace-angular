@@ -724,11 +724,6 @@
   // TODO New key - Add a translation
   "admin.reports.collections.match_all_selected_filters": "Matching all selected filters",
 
-
-  //"admin.reports.items.title": "Metadata Query Report",
-  // TODO New key - Add a translation
-  "admin.reports.items.title": "Metadata Query Report",
-
   //"admin.reports.items.breadcrumbs": "Metadata Query Report",
   // TODO New key - Add a translation
   "admin.reports.items.breadcrumbs": "Metadata Query Report",
@@ -880,7 +875,6 @@
   //"admin.reports.items.title": "Title",
   // TODO New key - Add a translation
   "admin.reports.items.title": "Title",
-
 
   //"admin.reports.commons.filters": "Filters",
   // TODO New key - Add a translation
@@ -5998,4 +5992,14 @@
 
   // "workspace-item.delete.notification.error.content": "The workspace item could not be deleted",
   "workspace-item.delete.notification.error.content": "Das Workspace-Item konnte nicht gelöscht werden.",
+
+
+  // "form.date-picker.placeholder.year": "Year",
+  "form.date-picker.placeholder.year": "Jahr",
+
+  // "form.date-picker.placeholder.month": "Month",
+  "form.date-picker.placeholder.month": "Monat",
+
+  // "form.date-picker.placeholder.day": "Day",
+  "form.date-picker.placeholder.day": "Tag",
 }

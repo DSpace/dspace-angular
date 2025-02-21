@@ -51,13 +51,13 @@
     </div>
 
     <ng-container *ngIf="(!registrationVerification  || ((googleRecaptchaService.captchaVersion() | async) !== 'v2' && (googleRecaptchaService.captchaMode() | async) === 'invisible')); else v2Invisible">
-      <button class="btn btn-primary" [disabled]="form.invalid || registrationVerification && !isRecaptchaCookieAccepted() || disableUntilChecked" (click)="register()">
+      <button class="btn btn-primary" [dsBtnDisabled]="form.invalid || registrationVerification && !isRecaptchaCookieAccepted() || disableUntilChecked" (click)="register()">
         {{ MESSAGE_PREFIX + '.submit' | translate }}
       </button>
     </ng-container>
 
     <ng-template #v2Invisible>
-      <button class="btn btn-primary" [disabled]="form.invalid" (click)="executeRecaptcha()">
+      <button class="btn btn-primary" [dsBtnDisabled]="form.invalid" (click)="executeRecaptcha()">
         {{ MESSAGE_PREFIX + '.submit' | translate }}
       </button>
     </ng-template>
