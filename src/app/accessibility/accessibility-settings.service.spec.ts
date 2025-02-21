@@ -350,14 +350,28 @@ describe('accessibilitySettingsService', () => {
       cookieService.remove = jasmine.createSpy('remove');
     });
 
+    it('should fail to store settings in the cookie when the user has not accepted the cookie', fakeAsync(() => {
+      klaroService.getSavedPreferences.and.returnValue(of({ accessibility: false }));
+
+      service.setSettingsInCookie({ ['liveRegionTimeOut']: '500' }).subscribe(value => {
+        expect(value).toEqual('failed');
+      });
+      flush();
+      expect(cookieService.set).not.toHaveBeenCalled();
+    }));
+
     it('should store the settings in a cookie', fakeAsync(() => {
-      service.setSettingsInCookie({ ['liveRegionTimeOut']: '500' }).subscribe();
+      service.setSettingsInCookie({ ['liveRegionTimeOut']: '500' }).subscribe(value => {
+        expect(value).toEqual('cookie');
+      });
       flush();
       expect(cookieService.set).toHaveBeenCalled();
     }));
 
     it('should remove the cookie when the settings are empty', fakeAsync(() => {
-      service.setSettingsInCookie({}).subscribe();
+      service.setSettingsInCookie({}).subscribe(value => {
+        expect(value).toEqual('cookie');
+      });
 
       flush();
 
