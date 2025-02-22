@@ -6,11 +6,12 @@ import { ObjectCacheService } from '../cache';
 import { FindListOptions } from '../data';
 import { GetRequest } from '../data';
 import { RequestService } from '../data';
-import { getMockRemoteDataBuildService } from '../mocks';
-import { getMockRequestService } from '../mocks';
-import { HALEndpointService } from '../shared';
-import { HALEndpointServiceStub } from '../utilities';
-import { ConfigDataService } from '@dspace/core';
+import { ConfigDataService } from './config-data.service';
+import { getMockRequestService } from '../mocks/request.service.mock';
+import { getMockRemoteDataBuildService } from '../mocks/remote-data-build.service.mock';
+import { HALEndpointServiceStub } from '../utilities/testing/hal-endpoint-service.stub';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+
 
 const LINK_NAME = 'test';
 const BROWSE = 'search/findByCollection';

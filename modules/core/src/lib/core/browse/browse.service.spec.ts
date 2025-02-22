@@ -8,8 +8,7 @@ import { TestScheduler } from 'rxjs/testing';
 
 import { RequestService } from '../data';
 import { RequestEntry } from '../data';
-import { getMockHrefOnlyDataService } from '../mocks';
-import { getMockRequestService } from '../mocks';
+
 import { FlatBrowseDefinition } from '../shared';
 import { HierarchicalBrowseDefinition } from '../shared';
 import { ValueListBrowseDefinition } from '../shared';
@@ -17,13 +16,12 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../utilities';
-import { HALEndpointServiceStub } from '../utilities';
-import {
-  createPaginatedList,
-  getFirstUsedArgumentOfSpyMethod,
-} from '../utilities';
-import { BrowseService } from '@dspace/core';
-import { BrowseEntrySearchOptions } from '@dspace/core';
+import { BrowseService } from './browse.service';
+import { HALEndpointServiceStub } from '../utilities/testing/hal-endpoint-service.stub';
+import { createPaginatedList, getFirstUsedArgumentOfSpyMethod } from '../utilities/testing/utils.test';
+import { getMockHrefOnlyDataService } from '../mocks/href-only-data.service.mock';
+import { getMockRequestService } from '../mocks/request.service.mock';
+import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
 
 describe('BrowseService', () => {
   let scheduler: TestScheduler;

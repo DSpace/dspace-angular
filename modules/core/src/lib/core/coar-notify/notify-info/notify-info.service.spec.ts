@@ -2,11 +2,11 @@ import { TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
-import { ConfigurationDataService } from '../../data';
-import { AuthorizationDataService } from '../../data';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { ActivatedRouteStub } from '../../utilities';
-import { NotifyInfoService } from '@dspace/core';
+import { NotifyInfoService } from './notify-info.service';
+import { ConfigurationDataService } from '../../data/configuration-data.service';
+import { AuthorizationDataService } from '../../data/feature-authorization/authorization-data.service';
+import { ActivatedRouteStub } from '../../utilities/testing/active-router.stub';
+import { createSuccessfulRemoteDataObject$ } from '../../utilities/remote-data.utils';
 
 describe('NotifyInfoService', () => {
   let service: NotifyInfoService;

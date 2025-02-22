@@ -1,4 +1,3 @@
-import { navigationBreadcrumbResolver } from '@dspace/core';
 
 describe('navigationBreadcrumbResolver', () => {
   describe('resolve', () => {

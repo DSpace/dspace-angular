@@ -3,12 +3,8 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { getTestScheduler } from 'jasmine-marbles';
-
-import { Breadcrumb } from '@dspace/core';
-import {
-  BREADCRUMB_MESSAGE_POSTFIX,
-  I18nBreadcrumbsService,
-} from '@dspace/core';
+import { BREADCRUMB_MESSAGE_POSTFIX, I18nBreadcrumbsService } from './i18n-breadcrumbs.service';
+import { Breadcrumb } from './breadcrumb.model';
 
 describe('I18nBreadcrumbsService', () => {
   let service: I18nBreadcrumbsService;

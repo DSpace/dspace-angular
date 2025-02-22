@@ -6,40 +6,28 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '@dspace/core';
-import { RequestParam } from '@dspace/core';
-import { ObjectCacheService } from '@dspace/core';
-import {
-  CreateData,
-  CreateDataImpl,
-} from '@dspace/core';
-import {
-  DeleteData,
-  DeleteDataImpl,
-} from '@dspace/core';
-import {
-  FindAllData,
-  FindAllDataImpl,
-} from '@dspace/core';
-import { IdentifiableDataService } from '@dspace/core';
-import {
-  PatchData,
-  PatchDataImpl,
-} from '@dspace/core';
-import { ChangeAnalyzer } from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import { FollowLinkConfig } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { MultipartPostRequest } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { RestRequest } from '@dspace/core';
-import { RestRequestMethod } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { HALEndpointService } from '@dspace/core';
-import { NoContent } from '@dspace/core';
-import { URLCombiner } from '@dspace/core';
 import { SubmissionCoarNotifyConfig } from './submission-coar-notify.config';
+import { IdentifiableDataService } from '../data/base/identifiable-data.service';
+import { CreateData, CreateDataImpl } from '../data/base/create-data';
+import { FindAllData, FindAllDataImpl } from '../data/base/find-all-data';
+import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
+import { PatchData, PatchDataImpl } from '../data/base/patch-data';
+import { ChangeAnalyzer } from '../data/change-analyzer';
+import { RequestService } from '../data/request.service';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { NotificationsService } from '../notifications/notifications.service';
+import { RequestParam } from '../cache/models/request-param.model';
+import { RemoteData } from '../data/remote-data';
+import { RestRequestMethod } from '../data/rest-request-method';
+import { FindListOptions } from '../data/find-list-options.model';
+import { FollowLinkConfig } from '../data/follow-link-config.model';
+import { NoContent } from '../shared/NoContent.model';
+import { URLCombiner } from '../url-combiner/url-combiner';
+import { MultipartPostRequest } from '../data/request.models';
+import { RestRequest } from '../data/rest-request.model';
+import { PaginatedList } from '../data/paginated-list.model';
 
 
 /**

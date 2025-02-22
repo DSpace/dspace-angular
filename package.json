@@ -186,6 +186,7 @@
     "@ngrx/store-devtools": "^17.1.1",
     "@ngtools/webpack": "^16.2.16",
     "@nx/angular": "20.4.4",
+    "@nx/eslint-plugin": "^20.4.4",
     "@nx/jest": "20.4.4",
     "@nx/js": "20.4.4",
     "@nx/workspace": "20.4.4",

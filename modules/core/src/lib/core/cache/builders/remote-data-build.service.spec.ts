@@ -22,22 +22,25 @@ import { RemoteData } from '../../data';
 import { RequestService } from '../../data';
 import { RequestEntry } from '../../data';
 import { RequestEntryState } from '../../data';
-import { getMockLinkService } from '../../mocks';
-import { getMockObjectCacheService } from '../../mocks';
-import { getMockRequestService } from '../../mocks';
+
 import { HALLink } from '../../shared';
 import { Item } from '../../shared';
 import { ITEM } from '../../shared';
 import { PageInfo } from '../../shared';
 import { UnCacheableObject } from '../../shared';
+import { LinkService } from './link.service';
+import { ObjectCacheService } from '../object-cache.service';
+import { RemoteDataBuildService } from './remote-data-build.service';
+import { getMockObjectCacheService } from '../../mocks/object-cache.service.mock';
+import { getMockLinkService } from '../../mocks/link-service.mock';
+import { getMockRequestService } from '../../mocks/request.service.mock';
 import {
   createFailedRemoteDataObject,
   createPendingRemoteDataObject,
-  createSuccessfulRemoteDataObject,
-} from '@dspace/core';
-import { ObjectCacheService } from '@dspace/core';
-import { LinkService } from '@dspace/core';
-import { RemoteDataBuildService } from '@dspace/core';
+  createSuccessfulRemoteDataObject
+} from '../../utilities/remote-data.utils';
+
+
 
 describe('RemoteDataBuildService', () => {
   let service: RemoteDataBuildService;

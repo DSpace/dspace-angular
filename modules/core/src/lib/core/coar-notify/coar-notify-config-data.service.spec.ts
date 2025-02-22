@@ -4,26 +4,27 @@ import {
 } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
+import { CoarNotifyConfigDataService } from './coar-notify-config-data.service';
+import { RequestService } from '../data/request.service';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { NotificationsService } from '../notifications/notifications.service';
+import { RequestEntry } from '../data/request-entry.model';
+import { RequestEntryState } from '../data/request-entry-state.model';
+import { RemoteData } from '../data/remote-data';
+import { RestResponse } from '../cache/response.models';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
+import { CreateData } from '../data/base/create-data';
+import { FindAllData } from '../data/base/find-all-data';
+import { DeleteData } from '../data/base/delete-data';
+import { PatchData } from '../data/base/patch-data';
+import { testCreateDataImplementation } from '../data/base/create-data.spec';
+import { testFindAllDataImplementation } from '../data/base/find-all-data.spec';
+import { testPatchDataImplementation } from '../data/base/patch-data.spec';
+import { testDeleteDataImplementation } from '../data/base/delete-data.spec';
 
-import { RemoteDataBuildService } from '@dspace/core';
-import { ObjectCacheService } from '@dspace/core';
-import { RestResponse } from '@dspace/core';
-import { CreateData } from '@dspace/core';
-import { testCreateDataImplementation } from '@dspace/core';
-import { DeleteData } from '@dspace/core';
-import { testDeleteDataImplementation } from '@dspace/core';
-import { FindAllData } from '@dspace/core';
-import { testFindAllDataImplementation } from '@dspace/core';
-import { PatchData } from '@dspace/core';
-import { testPatchDataImplementation } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { RequestEntry } from '@dspace/core';
-import { RequestEntryState } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { HALEndpointService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { CoarNotifyConfigDataService } from '@dspace/core';
+
 
 describe('CoarNotifyConfigDataService test', () => {
   let scheduler: TestScheduler;

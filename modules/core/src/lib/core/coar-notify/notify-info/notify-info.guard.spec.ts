@@ -1,6 +1,5 @@
 import { of } from 'rxjs';
-
-import { notifyInfoGuard } from '@dspace/core';
+import { notifyInfoGuard } from './notify-info.guard';
 
 describe('notifyInfoGuard', () => {
   let guard: any;

@@ -10,12 +10,9 @@ import { followLink } from '../../data';
 import { HALLink } from '../../shared';
 import { HALResource } from '../../shared';
 import { ResourceType } from '../../shared';
-import { TestDataService } from '../../utilities';
-import {
-  LINK_DEFINITION_FACTORY,
-  LINK_DEFINITION_MAP_FACTORY,
-} from '@dspace/core';
-import { LinkService } from '@dspace/core';
+import { TestDataService } from '../../utilities/testing/test-data-service.mock';
+import { LinkService } from './link.service';
+import { LINK_DEFINITION_FACTORY, LINK_DEFINITION_MAP_FACTORY } from './build-decorators';
 
 const TEST_MODEL = new ResourceType('testmodel');
 let result: any;

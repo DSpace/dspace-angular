@@ -2,8 +2,9 @@ import { Observable } from 'rxjs';
 
 import { PostRequest } from '../data';
 import { RequestService } from '../data';
-import { AuthRequestService } from '@dspace/core';
-import { BrowserAuthRequestService } from '@dspace/core';
+import { BrowserAuthRequestService } from './browser-auth-request.service';
+import { AuthRequestService } from './auth-request.service';
+
 
 describe(`BrowserAuthRequestService`, () => {
   let href: string;

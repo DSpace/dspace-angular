@@ -3,9 +3,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { getTestScheduler } from 'jasmine-marbles';
-
-import { Breadcrumb } from '@dspace/core';
-import { QualityAssuranceBreadcrumbService } from '@dspace/core';
+import { QualityAssuranceBreadcrumbService } from './quality-assurance-breadcrumb.service';
 
 describe('QualityAssuranceBreadcrumbService', () => {
   let service: QualityAssuranceBreadcrumbService;

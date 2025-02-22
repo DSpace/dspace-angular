@@ -14,21 +14,17 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RequestService } from '../data';
-import { RestRequestMethod } from '../data';
-import { getMockRequestService } from '../mocks';
-import { DSpaceObject } from '../shared';
-import { NoOpAction } from '../shared';
-import { mockStoreModuleConfig } from '../utilities';
-import { StoreMock } from '../utilities';
-import { ApplyPatchObjectCacheAction } from '@dspace/core';
-import { ObjectCacheService } from '@dspace/core';
-import {
-  CommitSSBAction,
-  EmptySSBAction,
-  ServerSyncBufferActionTypes,
-} from '@dspace/core';
-import { ServerSyncBufferEffects } from '@dspace/core';
+import { mockStoreModuleConfig } from '../utilities/testing/mock-state-utilities';
+import { getMockRequestService } from '../mocks/request.service.mock';
+import { ServerSyncBufferEffects } from './server-sync-buffer.effects';
+import { ObjectCacheService } from './object-cache.service';
+import { StoreMock } from '../utilities/testing/store.mock';
+import { RequestService } from '../data/request.service';
+import { DSpaceObject } from '../shared/dspace-object.model';
+import { CommitSSBAction, EmptySSBAction, ServerSyncBufferActionTypes } from './server-sync-buffer.actions';
+import { RestRequestMethod } from '../data/rest-request-method';
+import { ApplyPatchObjectCacheAction } from './object-cache.actions';
+import { NoOpAction } from '../shared/ngrx/no-op.action';
 
 describe('ServerSyncBufferEffects', () => {
   let ssbEffects: ServerSyncBufferEffects;

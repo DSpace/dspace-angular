@@ -6,13 +6,12 @@ import { Item } from '../shared';
 import {
   AddDependentsObjectCacheAction,
   AddPatchObjectCacheAction,
-  AddToObjectCacheAction,
-  ApplyPatchObjectCacheAction,
-  RemoveDependentsObjectCacheAction,
+  AddToObjectCacheAction, ApplyPatchObjectCacheAction, RemoveDependentsObjectCacheAction,
   RemoveFromObjectCacheAction,
-  ResetObjectCacheTimestampsAction,
-} from '@dspace/core';
-import { objectCacheReducer } from '@dspace/core';
+  ResetObjectCacheTimestampsAction
+} from './object-cache.actions';
+import { objectCacheReducer } from './object-cache.reducer';
+
 
 class NullAction extends RemoveFromObjectCacheAction {
   type = null;

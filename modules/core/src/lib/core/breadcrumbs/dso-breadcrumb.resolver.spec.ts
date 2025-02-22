@@ -2,7 +2,7 @@ import { getTestScheduler } from 'jasmine-marbles';
 
 import { Collection } from '../shared';
 import { createSuccessfulRemoteDataObject$ } from '../utilities';
-import { collectionBreadcrumbResolver } from '@dspace/core';
+import { collectionBreadcrumbResolver } from './collection-breadcrumb.resolver';
 
 describe('DSOBreadcrumbResolver', () => {
   describe('resolve', () => {

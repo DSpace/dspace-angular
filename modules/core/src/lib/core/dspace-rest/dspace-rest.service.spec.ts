@@ -13,10 +13,8 @@ import {
 
 import { RestRequestMethod } from '../data';
 import { DSpaceObject } from '../shared';
-import {
-  DEFAULT_CONTENT_TYPE,
-  DspaceRestService,
-} from '@dspace/core';
+import { DEFAULT_CONTENT_TYPE, DspaceRestService } from './dspace-rest.service';
+
 
 describe('DspaceRestService', () => {
   let dspaceRestService: DspaceRestService;

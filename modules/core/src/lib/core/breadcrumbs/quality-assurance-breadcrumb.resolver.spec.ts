@@ -1,4 +1,4 @@
-import { qualityAssuranceBreadcrumbResolver } from '@dspace/core';
+import { qualityAssuranceBreadcrumbResolver } from './quality-assurance-breadcrumb.resolver';
 
 describe('qualityAssuranceBreadcrumbResolver', () => {
   describe('resolve', () => {

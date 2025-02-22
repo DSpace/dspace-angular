@@ -4,8 +4,7 @@
   "peerDependencies": {
     "@angular/common": "^17.3.0",
     "@angular/core": "^17.3.0",
-    "@swc/core": "~1.5.7",
-    "@swc/helpers": "~0.5.11"
+    "@nx/eslint-plugin": "^20.4.4"
   },
   "sideEffects": false
 }

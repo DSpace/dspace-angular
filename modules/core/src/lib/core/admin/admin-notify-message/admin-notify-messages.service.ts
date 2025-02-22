@@ -14,12 +14,12 @@ import {
 } from 'rxjs/operators';
 
 
-import { LdnServicesService } from '../ldn-services-data';
-import { AdminNotifyMessage } from './models';
 import { IdentifiableDataService, ItemDataService, PostRequest, RequestService, RestRequest } from '../../data';
 import { ObjectCacheService, RemoteDataBuildService } from '../../cache';
 import { getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData, HALEndpointService } from '../../shared';
 import { NotificationsService } from '../../notifications';
+import { AdminNotifyMessage } from './models/admin-notify-message.model';
+import { LdnServicesService } from '../ldn-services-data';
 
 /**
  * Injectable service responsible for fetching/sending data from/to the REST API on the messages' endpoint.

@@ -19,26 +19,23 @@ import {
 } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
-
-import { coreReducers } from '@dspace/core';
-import { CoreState } from '@dspace/core';
-import { RestRequestMethod } from '../data';
-import { RemoveFromIndexBySubstringAction } from '../index';
-import { IndexName } from '../index';
-import { HALLink } from '../shared';
-import { Item } from '../shared';
-import { mockStoreModuleConfig } from '../utilities';
+import { ObjectCacheService } from './object-cache.service';
+import { CoreState } from '../core-state.model';
+import { mockStoreModuleConfig } from '../utilities/testing/mock-state-utilities';
+import { coreReducers } from '../core.reducers';
 import {
   AddDependentsObjectCacheAction,
   AddPatchObjectCacheAction,
   AddToObjectCacheAction,
-  ApplyPatchObjectCacheAction,
-  RemoveDependentsObjectCacheAction,
-  RemoveFromObjectCacheAction,
-} from '@dspace/core';
-import { Patch } from '@dspace/core';
-import { ObjectCacheService } from '@dspace/core';
-import { AddToSSBAction } from '@dspace/core';
+  ApplyPatchObjectCacheAction, RemoveDependentsObjectCacheAction,
+  RemoveFromObjectCacheAction
+} from './object-cache.actions';
+import { RemoveFromIndexBySubstringAction } from '../index/index.actions';
+import { IndexName } from '../index/index-name.model';
+import { HALLink } from '../shared/hal-link.model';
+import { Item } from '../shared/item.model';
+import { RestRequestMethod } from '../data/rest-request-method';
+import { AddToSSBAction } from './server-sync-buffer.actions';
 
 describe('ObjectCacheService', () => {
   let service: ObjectCacheService;

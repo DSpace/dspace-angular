@@ -6,14 +6,14 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Breadcrumb } from '@dspace/core';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { Breadcrumb } from '@dspace/core';
-import { TranslateLoaderMock } from '../../../modules/core/src/lib/core/utilities/testing/translate-loader.mock';
+import { TranslateLoaderMock } from '../../../modules/core/src/lib/core/mocks/translate-loader.mock';
 import { VarDirective } from '../shared/utils/var.directive';
 import { BreadcrumbsComponent } from './breadcrumbs.component';
 import { BreadcrumbsService } from './breadcrumbs.service';
