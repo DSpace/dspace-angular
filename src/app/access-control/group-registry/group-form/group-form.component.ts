@@ -504,7 +504,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
     this.groupDataService.cancelEditGroup();
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
 
-    if (hasValue(this.groupNameValueChangeSubscribe)) {
+    if ( hasValue(this.groupNameValueChangeSubscribe) ) {
       this.groupNameValueChangeSubscribe.unsubscribe();
     }
 

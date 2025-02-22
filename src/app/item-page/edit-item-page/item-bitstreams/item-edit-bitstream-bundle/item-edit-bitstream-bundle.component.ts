@@ -3,10 +3,7 @@ import {
   CdkDragDrop,
   CdkDropList,
 } from '@angular/cdk/drag-drop';
-import {
-  AsyncPipe,
-  CommonModule,
-} from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
   Component,
   Input,
@@ -81,7 +78,6 @@ import {
     CommonModule,
     TranslateModule,
     RouterLink,
-    AsyncPipe,
     PaginationComponent,
     NgbTooltipModule,
     CdkDropList,

@@ -9,8 +9,6 @@
   // "401.unauthorized": "unauthorized",
   "401.unauthorized": "unautorisiert",
 
-
-
   // "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
   "403.help": "Sie sind nicht berechtigt, auf diese Seite zuzugreifen. Über den Button unten auf der Seite gelangen Sie zurück zur Startseite.",
 
@@ -20,8 +18,6 @@
   // "403.forbidden": "forbidden",
   "403.forbidden": "verboten",
 
-
-
   // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
   "404.help": "Die Seite konnte nicht gefunden werden. Eventuell wurde sie verschoben oder gelöscht. Über den Button unten auf der Seite gelangen Sie zurück zur Startseite.",
 
@@ -30,6 +26,16 @@
 
   // "404.page-not-found": "page not found",
   "404.page-not-found": "Seite nicht gefunden",
+
+  // "500.page-internal-server-error": "Service unavailable",
+  "500.page-internal-server-error": "Dienst nicht verfügbar",
+
+  // "500.help": "The server is temporarily unable to service your request due to maintenance downtime or capacity problems. Please try again later.",
+  "500.help": "Der Dienst steht momentan nicht zur Verfügung. Bitte versuchen Sie es später noch einmal.",
+
+  // "500.link.home-page": "Take me to the home page",
+  "500.link.home-page": "Zur Startseite",
+
 
   // "admin.access-control.epeople.breadcrumbs": "EPeople",
   "admin.access-control.epeople.breadcrumbs": "Personen suchen",
@@ -5992,4 +5998,14 @@
 
   // "workspace-item.delete.notification.error.content": "The workspace item could not be deleted",
   "workspace-item.delete.notification.error.content": "Das Workspace-Item konnte nicht gelöscht werden.",
+
+
+  // "form.date-picker.placeholder.year": "Year",
+  "form.date-picker.placeholder.year": "Jahr",
+
+  // "form.date-picker.placeholder.month": "Month",
+  "form.date-picker.placeholder.month": "Monat",
+
+  // "form.date-picker.placeholder.day": "Day",
+  "form.date-picker.placeholder.day": "Tag",
 }

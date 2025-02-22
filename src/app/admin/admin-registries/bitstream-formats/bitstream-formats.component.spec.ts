@@ -187,12 +187,12 @@ describe('BitstreamFormatsComponent', () => {
   describe('isSelected', () => {
     beforeEach(waitForAsync(initAsync));
     beforeEach(initBeforeEach);
-    it('should return an observable of true if the provided bistream is in the list returned by the service', () => {
+    it('should return an observable of true if the provided bitstream is in the list returned by the service', () => {
       comp.selectedBitstreamFormatIDs().subscribe((selectedBitstreamFormatIDs: string[]) => {
         expect(selectedBitstreamFormatIDs).toContain(bitstreamFormat1.id);
       });
     });
-    it('should return an observable of false if the provided bistream is not in the list returned by the service', () => {
+    it('should return an observable of false if the provided bitstream is not in the list returned by the service', () => {
       const format = new BitstreamFormat();
       format.uuid = 'new';
 

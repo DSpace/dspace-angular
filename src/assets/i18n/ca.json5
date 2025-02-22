@@ -1550,14 +1550,14 @@
   // "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
   "browse.metadata.srsc.breadcrumbs": "Examinar per categoria de matèria",
 
-  // "browse.metadata.srsc.tree.description": "Select a subject to add as search filter",
-  "browse.metadata.srsc.tree.description": "Seleccioneu una matèria per afegir com a filtre de cerca",
+  // "browse.metadata.srsc.tree.descrption": "Select a subject to add as search filter",
+  "browse.metadata.srsc.tree.descrption": "Seleccioneu una matèria per afegir com a filtre de cerca",
 
   // "browse.metadata.nsi.breadcrumbs": "Browse by Norwegian Science Index",
   "browse.metadata.nsi.breadcrumbs": "Examinar per Norwegian Science Index",
 
-  // "browse.metadata.nsi.tree.description": "Select an index to add as search filter",
-  "browse.metadata.nsi.tree.description": "Seleccioneu un índex per afegir com a filtre de cerca",
+  // "browse.metadata.nsi.tree.descrption": "Select an index to add as search filter",
+  "browse.metadata.nsi.tree.descrption": "Seleccioneu un índex per afegir com a filtre de cerca",
 
   // "browse.metadata.title.breadcrumbs": "Browse by Title",
   "browse.metadata.title.breadcrumbs": "Examinar per títol",
@@ -2375,12 +2375,6 @@
   // "cookies.consent.app.required.title": "(always required)",
   "cookies.consent.app.required.title": "(sempre requerit)",
 
-  // "cookies.consent.app.disable-all.description": "Use this switch to enable or disable all services.",
-  "cookies.consent.app.disable-all.description": "Utilitzeu aquest camp per activar o desactivar tots els serveis.",
-
-  // "cookies.consent.app.disable-all.title": "Enable or disable all services",
-  "cookies.consent.app.disable-all.title": "Activar o desactivar tots els serveis",
-
   // "cookies.consent.update": "There were changes since your last visit, please update your consent.",
   "cookies.consent.update": "Hi ha hagut canvis des de la darrera visita, si us plau, actualitzeu el vostre consentiment.",
 
@@ -2390,20 +2384,17 @@
   // "cookies.consent.decline": "Decline",
   "cookies.consent.decline": "Declinar",
 
+  // "cookies.consent.decline-all": "Decline all",
+  "cookies.consent.decline-all": "Rebutjar tot",
+
   // "cookies.consent.ok": "That's ok",
   "cookies.consent.ok": "D'acord",
 
   // "cookies.consent.save": "Save",
   "cookies.consent.save": "Guardar",
 
-  // "cookies.consent.content-notice.title": "Cookie Consent",
-  "cookies.consent.content-notice.title": "Cookie Consent",
-
-  // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
-  "cookies.consent.content-notice.description": "Recopilem i processem la vostra informació personal amb les finalitats següents: <strong>Autenticació, Preferències, Reconeixement i Estadístiques</strong>. <br/> Per obtenir més informació, llegiu la nostra {privacyPolicy}.",
-
-  // "cookies.consent.content-notice.description.no-privacy": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>.",
-  "cookies.consent.content-notice.description.no-privacy": "Recopilem i processem la vostra informació personal per als següents propòsits: <strong>Autenticació, Preferències, Reconeixement i Estadístiques<strong>.",
+  // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: {purposes}",
+  "cookies.consent.content-notice.description": "Recopilem i processem la vostra informació personal amb les finalitats següents: {purposes}",
 
   // "cookies.consent.content-notice.learnMore": "Customize",
   "cookies.consent.content-notice.learnMore": "Personalitzar",
@@ -2417,14 +2408,11 @@
   // "cookies.consent.content-modal.privacy-policy.text": "To learn more, please read our {privacyPolicy}.",
   "cookies.consent.content-modal.privacy-policy.text": "Per a més informació, llegiu si us plau la nostra {privacyPolicy}.",
 
+  // "cookies.consent.content-modal.no-privacy-policy.text": "",
+  "cookies.consent.content-modal.no-privacy-policy.text": "",
+
   // "cookies.consent.content-modal.title": "Information that we collect",
   "cookies.consent.content-modal.title": "Informació que recopilem",
-
-  // "cookies.consent.content-modal.services": "services",
-  "cookies.consent.content-modal.services": "serveis",
-
-  // "cookies.consent.content-modal.service": "service",
-  "cookies.consent.content-modal.service": "servei",
 
   // "cookies.consent.app.title.authentication": "Authentication",
   "cookies.consent.app.title.authentication": "Autenticació",
@@ -2797,6 +2785,9 @@
 
   // "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
   "error.validation.license.notgranted": "Ha de concedir aquesta llicència de dipòsit per completar l'enviament. Si no podeu concedir aquesta llicència en aquest moment, podeu desar el vostre treball i tornar més tard o bé eliminar l'enviament.",
+
+  // "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
+  "error.validation.cclicense.required": "Heu de concedir aquesta llicència CC per completar l'enviament. Si no podeu concedir aquesta llicència CC en aquest moment, podeu desar el vostre treball i tornar més tard o bé eliminar l'enviament.",
 
   // "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
   "error.validation.pattern": "Aquest camp d'entrada està restringit per aquest patró: {{ pattern }}.",

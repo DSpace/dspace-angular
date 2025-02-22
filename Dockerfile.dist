@@ -2,7 +2,7 @@
 # See https://github.com/DSpace/dspace-angular/tree/main/docker for usage details
 
 # Test build:
-# docker build -f Dockerfile.dist -t dspace/dspace-angular:dspace-8_x-dist .
+# docker build -f Dockerfile.dist -t dspace/dspace-angular:latest-dist .
 
 FROM docker.io/node:18-alpine AS build
 
@@ -11,11 +11,11 @@ FROM docker.io/node:18-alpine AS build
 RUN apk add --update python3 make g++ && rm -rf /var/cache/apk/*
 
 WORKDIR /app
-COPY package.json yarn.lock ./
-RUN yarn install --network-timeout 300000
+COPY package.json package-lock.json ./
+RUN npm install
 
 ADD . /app/
-RUN yarn build:prod
+RUN npm run build:prod
 
 FROM node:18-alpine
 RUN npm install --global pm2

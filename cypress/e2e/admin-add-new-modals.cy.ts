@@ -9,12 +9,12 @@ describe('Admin Add New Modals', () => {
 
   it('Add new Community modal should pass accessibility tests', () => {
     // Pin the sidebar open
-    cy.get('#sidebar-collapse-toggle').trigger('mouseover');
-    cy.get('#sidebar-collapse-toggle').click();
+    cy.get('[data-test="sidebar-collapse-toggle"]').trigger('mouseover');
+    cy.get('[data-test="sidebar-collapse-toggle"]').click();
 
     // Click on entry of menu
-    cy.get('#admin-menu-section-new-title').should('be.visible');
-    cy.get('#admin-menu-section-new-title').click();
+    cy.get('[data-test="admin-menu-section-new-title"]').should('be.visible');
+    cy.get('[data-test="admin-menu-section-new-title"]').click();
 
     cy.get('a[data-test="menu.section.new_community"]').click();
 
@@ -24,12 +24,12 @@ describe('Admin Add New Modals', () => {
 
   it('Add new Collection modal should pass accessibility tests', () => {
     // Pin the sidebar open
-    cy.get('#sidebar-collapse-toggle').trigger('mouseover');
-    cy.get('#sidebar-collapse-toggle').click();
+    cy.get('[data-test="sidebar-collapse-toggle"]').trigger('mouseover');
+    cy.get('[data-test="sidebar-collapse-toggle"]').click();
 
     // Click on entry of menu
-    cy.get('#admin-menu-section-new-title').should('be.visible');
-    cy.get('#admin-menu-section-new-title').click();
+    cy.get('[data-test="admin-menu-section-new-title"]').should('be.visible');
+    cy.get('[data-test="admin-menu-section-new-title"]').click();
 
     cy.get('a[data-test="menu.section.new_collection"]').click();
 
@@ -39,12 +39,12 @@ describe('Admin Add New Modals', () => {
 
   it('Add new Item modal should pass accessibility tests', () => {
     // Pin the sidebar open
-    cy.get('#sidebar-collapse-toggle').trigger('mouseover');
-    cy.get('#sidebar-collapse-toggle').click();
+    cy.get('[data-test="sidebar-collapse-toggle"]').trigger('mouseover');
+    cy.get('[data-test="sidebar-collapse-toggle"]').click();
 
     // Click on entry of menu
-    cy.get('#admin-menu-section-new-title').should('be.visible');
-    cy.get('#admin-menu-section-new-title').click();
+    cy.get('[data-test="admin-menu-section-new-title"]').should('be.visible');
+    cy.get('[data-test="admin-menu-section-new-title"]').click();
 
     cy.get('a[data-test="menu.section.new_item"]').click();
 

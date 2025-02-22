@@ -12,7 +12,6 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
 import {
   TranslateModule,
   TranslateService,
@@ -40,7 +39,6 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { Item } from '../../core/shared/item.model';
 import {
   getAllSucceededRemoteData,
-  getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
@@ -60,8 +58,6 @@ import { PaginationComponent } from '../../shared/pagination/pagination.componen
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { followLink } from '../../shared/utils/follow-link-config.model';
-import { VarDirective } from '../../shared/utils/var.directive';
-import { getItemPageRoute } from '../item-page-routing-paths';
 import { ItemVersionsRowElementVersionComponent } from './item-versions-row-element-version/item-versions-row-element-version.component';
 
 interface VersionsDTO {
@@ -79,7 +75,19 @@ interface VersionDTO {
   templateUrl: './item-versions.component.html',
   styleUrls: ['./item-versions.component.scss'],
   standalone: true,
-  imports: [VarDirective, NgIf, AlertComponent, PaginationComponent, NgFor, RouterLink, NgClass, FormsModule, AsyncPipe, DatePipe, TranslateModule, ItemVersionsRowElementVersionComponent, BtnDisabledDirective],
+  imports: [
+    AlertComponent,
+    AsyncPipe,
+    DatePipe,
+    FormsModule,
+    ItemVersionsRowElementVersionComponent,
+    NgClass,
+    NgFor,
+    NgIf,
+    PaginationComponent,
+    TranslateModule,
+    BtnDisabledDirective,
+  ],
 })
 
 /**
@@ -136,15 +144,10 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
   versionHistory$: Observable<VersionHistory>;
 
   /**
-   * The version history information that is used to render the HTML
+   * The version history's list of versions
    */
   versionsDTO$: Observable<VersionsDTO>;
 
-  /**
-   * Verify if the list of versions has at least one e-person to display
-   * Used to hide the "Editor" column when no e-persons are present to display
-   */
-  hasEpersons$: Observable<boolean>;
   /**
    * Verify if there is an inprogress submission in the version history
    * Used to disable the "Create version" button
@@ -170,15 +173,6 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
     currentPage: 1,
     pageSize: this.pageSize,
   });
-
-  /**
-   * The routes to the versions their item pages
-   * Key: Item ID
-   * Value: Route to item page
-   */
-  itemPageRoutes$: Observable<{
-    [itemId: string]: string
-  }>;
 
   /**
    * The number of the version whose summary is currently being edited
@@ -263,8 +257,7 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
         this.notificationsService.warning(null, this.translateService.get(failureMessageKey, { 'version': this.versionBeingEditedNumber }));
       }
       this.disableVersionEditing();
-    },
-    );
+    });
   }
 
   /**
@@ -360,18 +353,6 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
       );
 
       this.getAllVersions(this.versionHistory$);
-      this.hasEpersons$ = this.versionsDTO$.pipe(
-        map((versionsDTO: VersionsDTO) => versionsDTO.versionDTOs.filter((versionDTO: VersionDTO) => versionDTO.version.eperson !== undefined).length > 0),
-        startWith(false),
-      );
-      this.itemPageRoutes$ = this.versionsDTO$.pipe(
-        switchMap((versionsDTO: VersionsDTO) => combineLatest(versionsDTO.versionDTOs.map((versionDTO: VersionDTO) => versionDTO.version.item.pipe(getAllSucceededRemoteDataPayload())))),
-        map((versions) => {
-          const itemPageRoutes = {};
-          versions.forEach((item) => itemPageRoutes[item.uuid] = getItemPageRoute(item));
-          return itemPageRoutes;
-        }),
-      );
     }
   }
 
@@ -388,3 +369,4 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
   }
 
 }
+
