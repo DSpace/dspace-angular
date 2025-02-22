@@ -53,7 +53,7 @@ export class ThemedSearchFormComponent extends ThemedComponent<SearchFormCompone
     'searchPlaceholder',
     'showScopeSelector',
     'submitSearch',
-    'showClearButton'
+    'showClearButton',
   ];
 
   protected getComponentName(): string {

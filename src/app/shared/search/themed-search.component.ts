@@ -56,7 +56,7 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
     'resultFound',
     'deselectObject',
     'selectObject',
-    'showClearButton'
+    'showClearButton',
   ];
 
   @Input() configurationList: SearchConfigurationOption[];

@@ -1,6 +1,6 @@
 import {
   Component,
-  Input, Output,
+  Input,
 } from '@angular/core';
 
 import { Context } from '../core/shared/context.model';
@@ -175,7 +175,7 @@ export class ThemedConfigurationSearchPageComponent extends ThemedComponent<Conf
     'query',
     'scope',
     'hideScopeInUrl',
-    'showClearButton'
+    'showClearButton',
   ];
 
   protected getComponentName(): string {
