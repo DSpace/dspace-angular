@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
-import { MetadataService } from '@dspace/core';
+import { MetadataService } from './metadata.service';
+
 
 describe('MetadataService', () => {
   let service: MetadataService;

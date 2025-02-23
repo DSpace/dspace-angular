@@ -17,41 +17,41 @@ import {
 } from 'fast-json-patch';
 import { of as observableOf } from 'rxjs';
 
-import { RequestParam } from '../cache';
-import { ObjectCacheEntry } from '../cache';
-import { CoreState } from '@dspace/core';
-import { ChangeAnalyzer } from '../data';
-import { FindListOptions } from '../data';
+import { RequestParam } from '../cache/models/request-param.model';
+import { ObjectCacheEntry } from '../cache/object-cache.reducer';
+import { CoreState } from '../core-state.model';
+import { ChangeAnalyzer } from '../data/change-analyzer';
+import { FindListOptions } from '../data/find-list-options.model';
 import {
   DeleteRequest,
   PostRequest,
-} from '../data';
-import { RequestService } from '../data';
-import { HttpOptions } from '@dspace/core';
-import { getMockObjectCacheService } from '../mocks';
-import { getMockRemoteDataBuildServiceHrefMap } from '../mocks';
-import { getMockRequestService } from '../mocks';
-import { Item } from '../shared';
+} from '../data/request.models';
+import { RequestService } from '../data/request.service';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { getMockObjectCacheService } from '../mocks/object-cache.service.mock';
+import { getMockRemoteDataBuildServiceHrefMap } from '../mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../mocks/request.service.mock';
+import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
+import { Item } from '../shared/item.model';
 import {
   GroupRegistryCancelGroupAction,
   GroupRegistryEditGroupAction,
-} from '../states';
-import { createSuccessfulRemoteDataObject$ } from '../utilities';
+} from '../states/group-registry/group-registry.actions';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import {
   EPersonMock,
   EPersonMock2,
-} from '../utilities';
+} from '../utilities/testing/eperson.mock';
 import {
   GroupMock,
   GroupMock2,
-} from '../utilities';
-import { HALEndpointServiceStub } from '../utilities';
-import { TranslateLoaderMock } from '../utilities/testing/translate-loader.mock';
+} from '../utilities/testing/group-mock';
+import { HALEndpointServiceStub } from '../utilities/testing/hal-endpoint-service.stub';
 import {
   createPaginatedList,
   createRequestEntry$,
-} from '../utilities';
-import { GroupDataService } from '@dspace/core';
+} from '../utilities/testing/utils.test';
+import { GroupDataService } from './group-data.service';
 
 describe('GroupDataService', () => {
   let service: GroupDataService;

@@ -5,8 +5,9 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { EndUserAgreementService } from '@dspace/core';
-import { endUserAgreementCookieGuard } from '@dspace/core';
+import { EndUserAgreementService } from './end-user-agreement.service';
+import { endUserAgreementCookieGuard } from './end-user-agreement-cookie.guard';
+
 
 describe('endUserAgreementCookieGuard', () => {
 

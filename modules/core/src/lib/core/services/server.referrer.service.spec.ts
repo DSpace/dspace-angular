@@ -1,4 +1,4 @@
-import { ServerReferrerService } from '@dspace/core';
+import { ServerReferrerService } from './server.referrer.service';
 
 describe(`ServerReferrerService`, () => {
   let service: ServerReferrerService;

@@ -3,11 +3,11 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 
-import { REQUEST } from '../tokens';
+import { REQUEST } from '../tokens/express.tokens';
 import {
   CookieService,
   ICookieService,
-} from '@dspace/core';
+} from './cookie.service';
 
 describe(CookieService.name, () => {
   let service: ICookieService;

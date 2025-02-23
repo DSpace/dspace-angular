@@ -1,4 +1,0 @@
-
-
-export * from './server-check.guard.spec';
-export * from './server-check.guard';

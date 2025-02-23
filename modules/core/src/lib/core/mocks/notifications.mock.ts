@@ -1,25 +1,19 @@
 import { of as observableOf } from 'rxjs';
 
-import { QualityAssuranceEventDataService } from '@dspace/core';
-import { QualityAssuranceEventObject } from '@dspace/core';
-import { QualityAssuranceSourceObject } from '@dspace/core';
-import { QualityAssuranceTopicObject } from '@dspace/core';
-import { QualityAssuranceTopicDataService } from '@dspace/core';
-import { DSpaceObject } from '../shared';
-import { Item } from '../shared';
-import { ResourceType } from '../shared';
-import { SearchResult } from '../shared';
+import { QualityAssuranceEventDataService } from '../notifications/qa/events/quality-assurance-event-data.service';
+import { QualityAssuranceEventObject } from '../notifications/qa/models/quality-assurance-event.model';
+import { QualityAssuranceSourceObject } from '../notifications/qa/models/quality-assurance-source.model';
+import { QualityAssuranceTopicObject } from '../notifications/qa/models/quality-assurance-topic.model';
+import { QualityAssuranceTopicDataService } from '../notifications/qa/topics/quality-assurance-topic-data.service';
+import { DSpaceObject } from '../shared/dspace-object.model';
+import { Item } from '../shared/item.model';
+import { ResourceType } from '../shared/resource-type';
+import { SearchResult } from '../shared/search/models/search-result.model';
 import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../utilities';
-
-// REST Mock ---------------------------------------------------------------------
-// -------------------------------------------------------------------------------
-
-// Items
-// -------------------------------------------------------------------------------
+} from '../utilities/remote-data.utils';
 
 const ItemMockPid1: Item = Object.assign(
   new Item(),

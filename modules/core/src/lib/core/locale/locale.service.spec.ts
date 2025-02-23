@@ -8,18 +8,20 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 
-import { AuthService } from '../auth';
-import { CookieServiceMock } from '../mocks';
-import { TranslateLoaderMock } from '../mocks';
-import { CookieService } from '../services';
-import { RouteService } from '../services';
-import { NativeWindowRef } from '../services';
-import { routeServiceStub } from '../utilities';
+import { AuthService } from '../auth/auth.service';
+import { CookieServiceMock } from '../mocks/cookie.service.mock';
+import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
+import { CookieService } from '../services/cookie.service';
+import { RouteService } from '../services/route.service';
+import { NativeWindowRef } from '../services/window.service';
+import { routeServiceStub } from '../utilities/testing/route-service.stub';
 import {
   LANG_COOKIE,
   LANG_ORIGIN,
   LocaleService,
-} from '@dspace/core';
+} from './locale.service';
+
+
 
 describe('LocaleService test suite', () => {
   let service: LocaleService;

@@ -13,17 +13,19 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { TranslateLoaderMock } from '../mocks';
-import { Notification } from './models';
-import { NotificationType } from './models';
+import { NotificationComponent } from '../../../../../../src/app/notifications/notification/index';
+import { NotificationsBoardComponent } from '../../../../../../src/app/notifications/notifications-board/index';
+import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
+import { mockStoreModuleConfig } from '../utilities/testing/mock-state-utilities';
+import { NotificationType } from './models/notification-type';
 import {
   NewNotificationAction,
   RemoveAllNotificationsAction,
   RemoveNotificationAction,
-} from '@dspace/core';
-import { notificationsReducer } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { mockStoreModuleConfig } from "../utilities";
+} from './notifications.actions';
+import { notificationsReducer } from './notifications.reducers';
+import { NotificationsService } from './notifications.service';
+
 
 describe('NotificationsService test', () => {
   const store: Store<Notification> = jasmine.createSpyObj('store', {

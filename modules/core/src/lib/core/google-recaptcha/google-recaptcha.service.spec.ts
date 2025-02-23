@@ -1,8 +1,10 @@
 import { of as observableOf } from 'rxjs';
 
-import { NativeWindowRef } from '../services';
-import { createSuccessfulRemoteDataObject$ } from '../utilities';
-import { GoogleRecaptchaService } from '@dspace/core';
+import { NativeWindowRef } from '../services/window.service';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
+import { GoogleRecaptchaService } from './google-recaptcha.service';
+
+
 
 describe('GoogleRecaptchaService', () => {
   let service: GoogleRecaptchaService;

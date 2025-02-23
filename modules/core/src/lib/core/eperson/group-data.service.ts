@@ -12,54 +12,56 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { DSONameService } from '../breadcrumbs';
-import { RemoteDataBuildService } from '../cache';
-import { RequestParam } from '../cache';
-import { ObjectCacheService } from '../cache';
+import { DSONameService } from '../breadcrumbs/dso-name.service';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
+import { ObjectCacheService } from '../cache/object-cache.service';
 import {
   CreateData,
   CreateDataImpl,
-} from '../data';
+} from '../data/base/create-data';
 import {
   DeleteData,
   DeleteDataImpl,
-} from '../data';
-import { IdentifiableDataService } from '../data';
+} from '../data/base/delete-data';
+import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import {
   PatchData,
   PatchDataImpl,
-} from '../data';
+} from '../data/base/patch-data';
 import {
   SearchData,
   SearchDataImpl,
-} from '../data';
-import { DSOChangeAnalyzer } from '../data';
-import { FindListOptions } from '../data';
-import { FollowLinkConfig } from '../data';
-import { PaginatedList } from '../data';
-import { RemoteData } from '../data';
+} from '../data/base/search-data';
+import { DSOChangeAnalyzer } from '../data/dso-change-analyzer.service';
+import { FindListOptions } from '../data/find-list-options.model';
+import { FollowLinkConfig } from '../data/follow-link-config.model';
+import { PaginatedList } from '../data/paginated-list.model';
+import { RemoteData } from '../data/remote-data';
 import {
   CreateRequest,
   DeleteRequest,
   PostRequest,
-} from '../data';
-import { RequestService } from '../data';
-import { RestRequestMethod } from '../data';
-import { HttpOptions } from '../dspace-rest';
-import { NotificationsService } from '../notifications';
-import { getGroupEditRoute } from '../router';
-import { Collection } from '../shared';
-import { Community } from '../shared';
-import { HALEndpointService } from '../shared';
-import { NoContent } from '../shared';
-import { getFirstCompletedRemoteData } from '../shared';
+} from '../data/request.models';
+import { RequestService } from '../data/request.service';
+import { RestRequestMethod } from '../data/rest-request-method';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { NotificationsService } from '../notifications/notifications.service';
+import { getGroupEditRoute } from '../router/utils/routes-utils';
+import { Collection } from '../shared/collection.model';
+import { Community } from '../shared/community.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { NoContent } from '../shared/NoContent.model';
+import { getFirstCompletedRemoteData } from '../shared/operators';
 import {
   GroupRegistryCancelGroupAction,
   GroupRegistryEditGroupAction,
-} from '../states';
-import { GroupRegistryState } from '../states';
-import { EPerson } from './models';
-import { Group } from './models';
+} from '../states/group-registry/group-registry.actions';
+import { GroupRegistryState } from '../states/group-registry/group-registry.reducers';
+import { EPerson } from './models/eperson.model';
+import { Group } from './models/group.model';
+
+
 
 const groupRegistryStateSelector = (state: any) => state.core.groupRegistry;
 const editGroupSelector = createSelector(groupRegistryStateSelector, (groupRegistryState: GroupRegistryState) => groupRegistryState.editGroup);

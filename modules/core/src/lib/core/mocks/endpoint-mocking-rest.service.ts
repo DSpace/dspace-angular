@@ -16,13 +16,13 @@ import {
 import {
   APP_CONFIG,
   AppConfig,
-} from '../config';
-import { RestRequestMethod } from '../data';
+} from '../config/app-config.interface';
+import { RestRequestMethod } from '../data/rest-request-method';
 import {
   DspaceRestService,
   HttpOptions,
-} from '@dspace/core';
-import { RawRestResponse } from '@dspace/core';
+} from '../dspace-rest/dspace-rest.service';
+import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import {
   MOCK_RESPONSE_MAP,
   ResponseMapMock,

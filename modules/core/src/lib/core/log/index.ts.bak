@@ -1,4 +1,0 @@
-
-
-export * from './log.interceptor.spec';
-export * from './log.interceptor';

@@ -1,4 +1,0 @@
-
-
-export * from './suggestion-target-data.service.spec';
-export * from './suggestion-target-data.service';

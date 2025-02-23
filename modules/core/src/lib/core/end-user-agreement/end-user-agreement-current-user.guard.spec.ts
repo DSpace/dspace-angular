@@ -8,9 +8,9 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { APP_CONFIG } from '../config';
-import { EndUserAgreementService } from '@dspace/core';
-import { endUserAgreementCurrentUserGuard } from '@dspace/core';
+import { APP_CONFIG } from '../config/app-config.interface';
+import { EndUserAgreementService } from './end-user-agreement.service';
+import { endUserAgreementCurrentUserGuard } from './end-user-agreement-current-user.guard';
 
 describe('endUserAgreementGuard', () => {
   let endUserAgreementService: EndUserAgreementService;

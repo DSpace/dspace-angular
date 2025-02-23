@@ -11,9 +11,9 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RootDataService } from '../data';
-import { ServerCheckGuard } from '@dspace/core';
 import SpyObj = jasmine.SpyObj;
+import { RootDataService } from '../data/root-data.service';
+import { ServerCheckGuard } from './server-check.guard';
 
 describe('ServerCheckGuard', () => {
   let guard: any;

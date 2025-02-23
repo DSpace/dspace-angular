@@ -1,5 +1,6 @@
-import { AddUrlToHistoryAction } from '@dspace/core';
-import { historyReducer } from '@dspace/core';
+import { AddUrlToHistoryAction } from './history.actions';
+import { historyReducer } from './history.reducer';
+
 
 class NullAction extends AddUrlToHistoryAction {
   type = null;

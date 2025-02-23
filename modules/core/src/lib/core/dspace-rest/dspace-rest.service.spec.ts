@@ -11,10 +11,12 @@ import {
   TestBed,
 } from '@angular/core';
 
-import { RestRequestMethod } from '../data';
-import { DSpaceObject } from '../shared';
-import { DEFAULT_CONTENT_TYPE, DspaceRestService } from './dspace-rest.service';
-
+import { RestRequestMethod } from '../data/rest-request-method';
+import { DSpaceObject } from '../shared/dspace-object.model';
+import {
+  DEFAULT_CONTENT_TYPE,
+  DspaceRestService,
+} from './dspace-rest.service';
 
 describe('DspaceRestService', () => {
   let dspaceRestService: DspaceRestService;

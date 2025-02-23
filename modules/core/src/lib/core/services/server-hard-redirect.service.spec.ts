@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ServerHardRedirectService } from '@dspace/core';
+import { ServerHardRedirectService } from './server-hard-redirect.service';
 
 describe('ServerHardRedirectService', () => {
 

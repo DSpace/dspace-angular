@@ -1,4 +1,0 @@
-
-
-export * from './quality-assurance-event-data.service.spec';
-export * from './quality-assurance-event-data.service';

@@ -1,7 +1,13 @@
-import { inject, Injectable } from '@angular/core';
+import {
+  inject,
+  Injectable,
+} from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { APP_CONFIG, UUIDService } from '@dspace/core';
+import { APP_CONFIG } from '../config/app-config.interface';
+import { UUIDService } from '../shared/uuid.service';
+
+
 
 /**
  * The LiveRegionService is responsible for handling the messages that are shown by the {@link LiveRegionComponent}.

@@ -1,4 +1,0 @@
-
-
-export * from './quality-assurance-source-data.service.spec';
-export * from './quality-assurance-source-data.service';

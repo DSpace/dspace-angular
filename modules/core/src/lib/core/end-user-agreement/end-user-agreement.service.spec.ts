@@ -1,13 +1,13 @@
 import { of as observableOf } from 'rxjs';
 
-import { EPerson } from '../eperson';
-import { CookieServiceMock } from '../mocks';
-import { createSuccessfulRemoteDataObject$ } from '../utilities';
+import { EPerson } from '../eperson/models/eperson.model';
+import { CookieServiceMock } from '../mocks/cookie.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
 import {
   END_USER_AGREEMENT_COOKIE,
   END_USER_AGREEMENT_METADATA_FIELD,
   EndUserAgreementService,
-} from '@dspace/core';
+} from './end-user-agreement.service';
 
 describe('EndUserAgreementService', () => {
   let service: EndUserAgreementService;

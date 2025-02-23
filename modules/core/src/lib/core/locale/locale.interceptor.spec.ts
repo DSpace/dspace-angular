@@ -6,10 +6,10 @@ import {
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 
-import { RestRequestMethod } from '../data';
-import { DspaceRestService } from '@dspace/core';
-import { LocaleInterceptor } from '@dspace/core';
-import { LocaleService } from '@dspace/core';
+import { RestRequestMethod } from '../data/rest-request-method';
+import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
+import { LocaleInterceptor } from './locale.interceptor';
+import { LocaleService } from './locale.service';
 
 describe(`LocaleInterceptor`, () => {
   let service: DspaceRestService;

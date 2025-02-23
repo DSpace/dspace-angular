@@ -3,9 +3,11 @@ import {
   deserialize,
 } from 'cerialize';
 
-import { HALLink } from '../shared';
-import { HALResource } from '../shared';
-import { DSpaceSerializer } from '@dspace/core';
+import {HALResource} from "../shared/hal-resource.model";
+import {HALLink} from "../shared/hal-link.model";
+import {DSpaceSerializer} from "./dspace.serializer";
+
+
 
 class TestModel implements HALResource {
   @autoserialize

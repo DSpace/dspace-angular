@@ -7,26 +7,28 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RemoteDataBuildService } from '@dspace/core';
-import { RequestParam } from '@dspace/core';
-import { ObjectCacheService } from '@dspace/core';
-import { RestResponse } from '@dspace/core';
-import { CoreState } from '@dspace/core';
-import { FindAllData } from '@dspace/core';
-import { testFindAllDataImplementation } from '../../../data';
-import { SearchData } from '@dspace/core';
-import { testSearchDataImplementation } from '../../../data';
-import { DefaultChangeAnalyzer } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { GetRequest } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { RequestEntry } from '@dspace/core';
-import { RequestEntryState } from '@dspace/core';
-import { HALEndpointService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { SuggestionTarget } from '../models';
-import { SuggestionTargetDataService } from '@dspace/core';
+import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
+import { RequestParam } from '../../../cache/models/request-param.model';
+import { ObjectCacheService } from '../../../cache/object-cache.service';
+import { RestResponse } from '../../../cache/response.models';
+import { CoreState } from '../../../core-state.model';
+import { FindAllData } from '../../../data/base/find-all-data';
+import { testFindAllDataImplementation } from '../../../data/base/find-all-data.spec';
+import { SearchData } from '../../../data/base/search-data';
+import { testSearchDataImplementation } from '../../../data/base/search-data.spec';
+import { DefaultChangeAnalyzer } from '../../../data/default-change-analyzer.service';
+import { RemoteData } from '../../../data/remote-data';
+import { GetRequest } from '../../../data/request.models';
+import { RequestService } from '../../../data/request.service';
+import { RequestEntry } from '../../../data/request-entry.model';
+import { RequestEntryState } from '../../../data/request-entry-state.model';
+import { HALEndpointService } from '../../../shared/hal-endpoint.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../utilities/remote-data.utils';
+import { NotificationsService } from '../../notifications.service';
+import { SuggestionTarget } from '../models/suggestion-target.model';
+import { SuggestionTargetDataService } from './suggestion-target-data.service';
+
+
 
 describe('SuggestionTargetDataService test', () => {
   let scheduler: TestScheduler;

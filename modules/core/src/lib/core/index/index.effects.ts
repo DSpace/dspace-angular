@@ -20,15 +20,15 @@ import {
   AddToObjectCacheAction,
   ObjectCacheActionTypes,
   RemoveFromObjectCacheAction,
-} from '@dspace/core';
-import { CoreState } from '@dspace/core';
+} from '../cache/object-cache.actions';
+import { CoreState } from '../core-state.model';
 import {
   RequestActionTypes,
   RequestConfigureAction,
   RequestStaleAction,
-} from '@dspace/core';
-import { RestRequestMethod } from '@dspace/core';
-import { NoOpAction } from '@dspace/core';
+} from '../data/request.actions';
+import { RestRequestMethod } from '../data/rest-request-method';
+import { NoOpAction } from '../shared/ngrx/no-op.action';
 import {
   AddToIndexAction,
   RemoveFromIndexByValueAction,
