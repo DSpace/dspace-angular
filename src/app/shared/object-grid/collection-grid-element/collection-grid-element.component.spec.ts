@@ -9,13 +9,15 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  AuthorizationDataService,
+  AuthService,
+  Collection,
+  LinkService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { AuthService } from '@dspace/core';
-import { LinkService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
 import { AuthServiceMock } from '../../mocks/auth.service.mock';
 import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { ThemeService } from '../../theme-support/theme.service';

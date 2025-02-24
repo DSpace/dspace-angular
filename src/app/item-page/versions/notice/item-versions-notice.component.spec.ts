@@ -7,16 +7,18 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  Item,
+  Version,
+  VersionHistory,
+  VersionHistoryDataService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { VersionHistoryDataService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { Version } from '@dspace/core';
-import { VersionHistory } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { ItemVersionsNoticeComponent } from './item-versions-notice.component';
 
 describe('ItemVersionsNoticeComponent', () => {

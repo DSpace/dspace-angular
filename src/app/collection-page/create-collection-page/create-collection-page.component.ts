@@ -2,17 +2,19 @@ import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {
+  Collection,
+  CollectionDataService,
+  CommunityDataService,
+  DSONameService,
+  NotificationsService,
+  RequestService,
+  RouteService,
+} from '@dspace/core';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 
-import { DSONameService } from '@dspace/core';
-import { CollectionDataService } from '@dspace/core';
-import { CommunityDataService } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { Collection } from '@dspace/core';
 import { CreateComColPageComponent } from '../../shared/comcol/comcol-forms/create-comcol-page/create-comcol-page.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { CollectionFormComponent } from '../collection-form/collection-form.component';

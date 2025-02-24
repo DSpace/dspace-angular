@@ -2,8 +2,8 @@ import {
   Component,
   Input,
 } from '@angular/core';
-
 import { Item } from '@dspace/core';
+
 import { ThemedComponent } from '../../../../shared/theme-support/themed.component';
 import { FileSectionComponent } from './file-section.component';
 

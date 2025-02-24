@@ -7,13 +7,15 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  APP_CONFIG,
+  Item,
+  ObjectUpdatesService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { environment } from '../../../../environments/environment';
-import { APP_CONFIG } from '@dspace/core';
-import { ObjectUpdatesService } from '@dspace/core';
-import { Item } from '@dspace/core';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { ThemeService } from '../../../shared/theme-support/theme.service';

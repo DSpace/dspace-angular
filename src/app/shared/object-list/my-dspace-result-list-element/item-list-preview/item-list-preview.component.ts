@@ -8,17 +8,17 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
-import { Context } from '@dspace/core';
-import { WorkflowItem } from '@dspace/core';
-
-import { DSONameService } from '@dspace/core';
 import {
   APP_CONFIG,
   AppConfig,
+  Context,
+  DSONameService,
+  Item,
+  SearchResult,
+  WorkflowItem,
 } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { SearchResult } from '@dspace/core';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import { fadeInOut } from '../../../animations/fade';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';

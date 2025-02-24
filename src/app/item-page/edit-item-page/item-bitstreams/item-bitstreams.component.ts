@@ -15,6 +15,23 @@ import {
   RouterLink,
 } from '@angular/router';
 import {
+  BitstreamDataService,
+  Bundle,
+  BundleDataService,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+  ItemDataService,
+  NoContent,
+  NotificationsService,
+  ObjectCacheService,
+  ObjectUpdatesService,
+  PaginatedList,
+  PaginatedSearchOptions,
+  PaginationComponentOptions,
+  RemoteData,
+  RequestService,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -39,23 +56,6 @@ import {
 import { AlertComponent } from 'src/app/shared/alert/alert.component';
 import { AlertType } from 'src/app/shared/alert/alert-type';
 
-import { ObjectCacheService } from '@dspace/core';
-import { BitstreamDataService } from '@dspace/core';
-import { BundleDataService } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { ObjectUpdatesService } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Bundle } from '@dspace/core';
-import { NoContent } from '@dspace/core';
-import {
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '@dspace/core';
-import { PaginatedSearchOptions } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';

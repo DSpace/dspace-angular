@@ -5,6 +5,16 @@ import {
   OnInit,
 } from '@angular/core';
 import {
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+  Item,
+  RemoteData,
+  Version,
+  VersionHistory,
+  VersionHistoryDataService,
+} from '@dspace/core';
+import {
   hasValue,
   hasValueOperator,
 } from '@dspace/shared/utils';
@@ -20,16 +30,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { RemoteData } from '@dspace/core';
-import { VersionHistoryDataService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import {
-  getAllSucceededRemoteData,
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '@dspace/core';
-import { Version } from '@dspace/core';
-import { VersionHistory } from '@dspace/core';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { getItemPageRoute } from '../../item-page-routing-paths';

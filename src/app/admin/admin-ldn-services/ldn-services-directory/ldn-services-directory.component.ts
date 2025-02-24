@@ -12,6 +12,17 @@ import {
   ViewChild,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import {
+  FindListOptions,
+  getFirstCompletedRemoteData,
+  LdnService,
+  LdnServicesService,
+  NotificationsService,
+  PaginatedList,
+  PaginationComponentOptions,
+  PaginationService,
+  RemoteData,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -27,19 +38,10 @@ import {
   map,
   switchMap,
 } from 'rxjs/operators';
-import { LdnServicesService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
 
-import { FindListOptions } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { TruncatableComponent } from '../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../shared/truncatable/truncatable-part/truncatable-part.component';
-import { LdnService } from '@dspace/core';
 
 /**
  * The `LdnServicesOverviewComponent` is a component that provides an overview of LDN (Linked Data Notifications) services.

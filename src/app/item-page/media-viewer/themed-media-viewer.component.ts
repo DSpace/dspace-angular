@@ -2,9 +2,11 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import {
+  Item,
+  MediaViewerConfig,
+} from '@dspace/core';
 
-import { MediaViewerConfig } from '@dspace/core';
-import { Item } from '@dspace/core';
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { MediaViewerComponent } from './media-viewer.component';
 

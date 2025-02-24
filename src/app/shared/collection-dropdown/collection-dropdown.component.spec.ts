@@ -10,20 +10,22 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
+  buildPaginatedList,
+  Collection,
+  CollectionDataService,
+  Community,
+  createSuccessfulRemoteDataObject$,
+  MockElementRef,
+  PageInfo,
+  TranslateLoaderMock,
+} from '@dspace/core';
+import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
-import { CollectionDataService } from '@dspace/core';
-import { buildPaginatedList } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { Community } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { MockElementRef } from '@dspace/core';
 import { getMockThemeService } from '../mocks/theme-service.mock';
 import { ThemeService } from '../theme-support/theme.service';
 import { CollectionDropdownComponent } from './collection-dropdown.component';

@@ -8,6 +8,14 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import {
+  ConfigurationDataService,
+  DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP,
+  FormFieldMetadataValueObject,
+  getFirstCompletedRemoteData,
+  SubmissionFormsModel,
+  VIRTUAL_METADATA_PREFIX,
+} from '@dspace/core';
+import {
   dateToString,
   hasNoValue,
   hasValue,
@@ -39,11 +47,6 @@ import isObject from 'lodash/isObject';
 import isString from 'lodash/isString';
 import mergeWith from 'lodash/mergeWith';
 
-import { SubmissionFormsModel } from '@dspace/core';
-import { ConfigurationDataService } from '@dspace/core';
-import { VIRTUAL_METADATA_PREFIX } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '@dspace/core';
 import {
   CONCAT_GROUP_SUFFIX,
   DynamicConcatModel,
@@ -53,7 +56,6 @@ import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qua
 import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 import { RowParser } from './parsers/row-parser';
 
 @Injectable({ providedIn: 'root' })

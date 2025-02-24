@@ -6,13 +6,15 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import {
+  CSSVariableServiceStub,
+  MenuItemType,
+  MenuServiceStub,
+  RouterStub,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { MenuItemType } from '@dspace/core';
 
-import { CSSVariableServiceStub } from '@dspace/core';
-import { MenuServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
 import { MenuService } from '../../../menu/menu.service';
 import { CSSVariableService } from '../../../sass-helper/css-variable.service';
 import { DsoEditMenuExpandableSectionComponent } from './dso-edit-menu-expandable-section.component';

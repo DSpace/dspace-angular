@@ -10,25 +10,25 @@ import {
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
+  APP_CONFIG,
+  BrowseDefinitionDataService,
+  BrowseDefinitionDataServiceStub,
+  BrowseService,
+  BrowseServiceStub,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  Item,
+  MathService,
+  MetadataMap,
+  MetadataValue,
+  TranslateLoaderMock,
+} from '@dspace/core';
+import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
 import { environment } from '../../../../../environments/environment';
-import { BrowseService } from '@dspace/core';
-import { BrowseDefinitionDataService } from '@dspace/core';
-import { APP_CONFIG } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { MathService } from '@dspace/core';
-import {
-  MetadataMap,
-  MetadataValue,
-} from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { BrowseDefinitionDataServiceStub } from '@dspace/core';
-import { BrowseServiceStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { MarkdownDirective } from '../../../../shared/utils/markdown.directive';
 import { MetadataValuesComponent } from '../../../field-components/metadata-values/metadata-values.component';
 import { ItemPageFieldComponent } from './item-page-field.component';

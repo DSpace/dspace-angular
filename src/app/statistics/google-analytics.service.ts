@@ -3,6 +3,10 @@ import {
   Inject,
   Injectable,
 } from '@angular/core';
+import {
+  ConfigurationDataService,
+  getFirstCompletedRemoteData,
+} from '@dspace/core';
 import { isEmpty } from '@dspace/shared/utils';
 import {
   Angulartics2GoogleAnalytics,
@@ -10,8 +14,6 @@ import {
 } from 'angulartics2';
 import { combineLatest } from 'rxjs';
 
-import { ConfigurationDataService } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
 import { OrejimeService } from '../shared/cookies/orejime.service';
 import { GOOGLE_ANALYTICS_OREJIME_KEY } from '../shared/cookies/orejime-configuration';
 

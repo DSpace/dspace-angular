@@ -2,8 +2,8 @@ import {
   Component,
   Input,
 } from '@angular/core';
-
 import { Community } from '@dspace/core';
+
 import { ThemedComponent } from '../../../../shared/theme-support/themed.component';
 import { CommunityPageSubCommunityListComponent } from './community-page-sub-community-list.component';
 

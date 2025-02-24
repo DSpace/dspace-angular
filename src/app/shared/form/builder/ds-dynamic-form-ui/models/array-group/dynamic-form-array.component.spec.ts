@@ -8,6 +8,11 @@ import {
 import { ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+  SubmissionService,
+} from '@dspace/core';
+import {
   DYNAMIC_FORM_CONTROL_MAP_FN,
   DynamicFormLayoutService,
   DynamicFormService,
@@ -23,11 +28,6 @@ import { NgxMaskModule } from 'ngx-mask';
 import { of } from 'rxjs';
 
 import { environment } from '../../../../../../../environments/environment.test';
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from '@dspace/core';
-import { SubmissionService } from '@dspace/core';
 import { DsDynamicFormControlContainerComponent } from '../../ds-dynamic-form-control-container.component';
 import { dsDynamicFormControlMapFn } from '../../ds-dynamic-form-control-map-fn';
 import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';

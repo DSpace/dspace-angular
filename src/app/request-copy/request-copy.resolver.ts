@@ -4,12 +4,13 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
+import {
+  getFirstCompletedRemoteData,
+  ItemRequest,
+  ItemRequestDataService,
+  RemoteData,
+} from '@dspace/core';
 import { Observable } from 'rxjs';
-
-import { ItemRequestDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { ItemRequest } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
 
 export const requestCopyResolver: ResolveFn<RemoteData<ItemRequest>> = (
   route: ActivatedRouteSnapshot,

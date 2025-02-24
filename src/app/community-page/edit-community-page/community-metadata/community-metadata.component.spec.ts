@@ -7,12 +7,14 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  CommunityDataService,
+  NotificationsService,
+  NotificationsServiceStub,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { CommunityDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
 import { CommunityFormComponent } from '../../community-form/community-form.component';
 import { CommunityMetadataComponent } from './community-metadata.component';
 

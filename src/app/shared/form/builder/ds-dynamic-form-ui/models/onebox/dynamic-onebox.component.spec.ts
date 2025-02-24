@@ -21,6 +21,17 @@ import {
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import {
+  createSuccessfulRemoteDataObject$,
+  createTestComponent,
+  FormFieldMetadataValueObject,
+  mockDynamicFormLayoutService,
+  mockDynamicFormValidationService,
+  VocabularyEntry,
+  VocabularyOptions,
+  VocabularyService,
+  VocabularyServiceStub,
+} from '@dspace/core';
+import {
   NgbModal,
   NgbModule,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -35,20 +46,9 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { VocabularyEntry } from '@dspace/core';
-import { VocabularyOptions } from '@dspace/core';
-import { VocabularyService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import {
-  mockDynamicFormLayoutService,
-  mockDynamicFormValidationService,
-} from '@dspace/core';
-import { createTestComponent } from '@dspace/core';
-import { VocabularyServiceStub } from '@dspace/core';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
 import { VocabularyTreeviewComponent } from '../../../../vocabulary-treeview/vocabulary-treeview.component';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 import { DsDynamicOneboxComponent } from './dynamic-onebox.component';
 import { DynamicOneboxModel } from './dynamic-onebox.model';
 

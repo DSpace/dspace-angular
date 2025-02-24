@@ -1,6 +1,9 @@
-import { CollectionSearchResult } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { Community } from '@dspace/core';
+import {
+  Collection,
+  CollectionSearchResult,
+  Community,
+} from '@dspace/core';
+
 import { createSidebarSearchListElementTests } from '../sidebar-search-list-element.component.spec';
 import { CollectionSidebarSearchListElementComponent } from './collection-sidebar-search-list-element.component';
 

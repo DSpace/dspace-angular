@@ -5,14 +5,14 @@ import {
   Input,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
-
 import {
+  PaginationService,
+  SearchConfigurationService,
   SortDirection,
   SortOptions,
 } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { PageSizeSelectorComponent } from '../../page-size-selector/page-size-selector.component';
 import { SidebarDropdownComponent } from '../../sidebar/sidebar-dropdown.component';

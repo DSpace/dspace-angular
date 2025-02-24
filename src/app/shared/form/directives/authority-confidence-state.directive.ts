@@ -19,6 +19,14 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import {
+  ConfidenceIconConfig,
+  ConfidenceType,
+  FormFieldMetadataValueObject,
+  MetadataValue,
+  VocabularyEntry,
+  VocabularyEntryDetail,
+} from '@dspace/core';
+import {
   isNotEmpty,
   isNull,
 } from '@dspace/shared/utils';
@@ -26,12 +34,6 @@ import { TranslateService } from '@ngx-translate/core';
 import findIndex from 'lodash/findIndex';
 
 import { environment } from '../../../../environments/environment';
-import { ConfidenceIconConfig } from '@dspace/core';
-import { ConfidenceType } from '@dspace/core';
-import { MetadataValue } from '@dspace/core';
-import { VocabularyEntry } from '@dspace/core';
-import { VocabularyEntryDetail } from '@dspace/core';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 
 /**
  * Directive to add to the element a bootstrap utility class based on metadata confidence value

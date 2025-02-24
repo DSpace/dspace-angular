@@ -1,7 +1,6 @@
 /* eslint-disable max-classes-per-file */
-import { Action } from '@ngrx/store';
-
 import { type } from '@dspace/core';
+import { Action } from '@ngrx/store';
 
 export const ObjectSelectionActionTypes = {
   INITIAL_DESELECT: type('dspace/object-select/INITIAL_DESELECT'),

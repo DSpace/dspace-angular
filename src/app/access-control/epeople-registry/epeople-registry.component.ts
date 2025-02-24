@@ -15,6 +15,25 @@ import {
   Router,
   RouterModule,
 } from '@angular/router';
+import {
+  AuthorizationDataService,
+  buildPaginatedList,
+  DSONameService,
+  EPerson,
+  EPersonDataService,
+  EpersonDtoModel,
+  FeatureID,
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  NoContent,
+  NotificationsService,
+  PageInfo,
+  PaginatedList,
+  PaginationComponentOptions,
+  PaginationService,
+  RemoteData,
+  RequestService,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -33,27 +52,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { DSONameService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { FeatureID } from '@dspace/core';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { EPersonDataService } from '@dspace/core';
-import { EPerson } from '@dspace/core';
-import { EpersonDtoModel } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { NoContent } from '@dspace/core';
-import {
-  getAllSucceededRemoteData,
-  getFirstCompletedRemoteData,
-} from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';

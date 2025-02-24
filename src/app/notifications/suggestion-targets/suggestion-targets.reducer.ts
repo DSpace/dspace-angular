@@ -1,4 +1,5 @@
 import { SuggestionTarget } from '@dspace/core';
+
 import {
   SuggestionTargetActionTypes,
   SuggestionTargetsActions,

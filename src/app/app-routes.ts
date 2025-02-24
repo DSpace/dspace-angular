@@ -3,6 +3,17 @@ import {
   Route,
   RouterConfigOptions,
 } from '@angular/router';
+import {
+  authBlockingGuard,
+  authenticatedGuard,
+  endUserAgreementCurrentUserGuard,
+  forgotPasswordCheckGuard,
+  groupAdministratorGuard,
+  reloadGuard,
+  ServerCheckGuard,
+  siteAdministratorGuard,
+  siteRegisterGuard,
+} from '@dspace/core';
 
 import { NOTIFICATIONS_MODULE_PATH } from './admin/admin-routing-paths';
 import {
@@ -23,15 +34,6 @@ import {
 } from './app-routing-paths';
 import { COLLECTION_MODULE_PATH } from './collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from './community-page/community-page-routing-paths';
-import { authBlockingGuard } from '@dspace/core';
-import { authenticatedGuard } from '@dspace/core';
-import { groupAdministratorGuard } from '@dspace/core';
-import { siteAdministratorGuard } from '@dspace/core';
-import { siteRegisterGuard } from '@dspace/core';
-import { endUserAgreementCurrentUserGuard } from '@dspace/core';
-import { reloadGuard } from '@dspace/core';
-import { forgotPasswordCheckGuard } from '@dspace/core';
-import { ServerCheckGuard } from '@dspace/core';
 import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
 import { ITEM_MODULE_PATH } from './item-page/item-page-routing-paths';
 import { menuResolver } from './menuResolver';

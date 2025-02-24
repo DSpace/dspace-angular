@@ -9,6 +9,33 @@ import {
   UntypedFormBuilder,
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import {
+  AuthorizationDataService,
+  buildPaginatedList,
+  DSONameService,
+  DSpaceObject,
+  DSpaceObjectDataService,
+  EPerson,
+  EPersonDataService,
+  FeatureID,
+  followLink,
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+  Group,
+  GroupDataService,
+  GroupDtoModel,
+  NoContent,
+  NotificationsService,
+  PageInfo,
+  PaginatedList,
+  PaginationComponentOptions,
+  PaginationService,
+  RemoteData,
+  RequestService,
+  RouteService,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -31,35 +58,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '@dspace/core';
-import { DSpaceObjectDataService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { FeatureID } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { EPersonDataService } from '@dspace/core';
-import { GroupDataService } from '@dspace/core';
-import { EPerson } from '@dspace/core';
-import { Group } from '@dspace/core';
-import { GroupDtoModel } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { NoContent } from '@dspace/core';
-import {
-  getAllSucceededRemoteData,
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';

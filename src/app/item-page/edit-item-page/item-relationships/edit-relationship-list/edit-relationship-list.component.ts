@@ -12,6 +12,37 @@ import {
   Output,
 } from '@angular/core';
 import {
+  APP_CONFIG,
+  AppConfig,
+  Collection,
+  FieldChangeType,
+  FieldUpdate,
+  FieldUpdates,
+  FollowLinkConfig,
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  getRemoteDataPayload,
+  Item,
+  itemLinksToFollow,
+  ItemSearchResult,
+  ItemType,
+  LinkService,
+  ObjectUpdatesService,
+  PaginatedList,
+  PaginationComponentOptions,
+  PaginationService,
+  Relationship,
+  RelationshipDataService,
+  RelationshipIdentifiable,
+  RelationshipOptions,
+  RelationshipType,
+  RemoteData,
+  RequestParam,
+  SelectableListService,
+} from '@dspace/core';
+import {
   hasNoValue,
   hasValue,
   hasValueOperator,
@@ -42,42 +73,9 @@ import {
   toArray,
 } from 'rxjs/operators';
 
-import { LinkService } from '@dspace/core';
-import { RequestParam } from '@dspace/core';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/core';
-import { FollowLinkConfig } from '@dspace/core';
-import { FieldChangeType } from '@dspace/core';
-import { FieldUpdate } from '@dspace/core';
-import { FieldUpdates } from '@dspace/core';
-import { RelationshipIdentifiable } from '@dspace/core';
-import { ObjectUpdatesService } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RelationshipDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { ItemSearchResult } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { RelationshipOptions } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { ItemType } from '@dspace/core';
-import { Relationship } from '@dspace/core';
-import { RelationshipType } from '@dspace/core';
-import {
-  getAllSucceededRemoteData,
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getFirstSucceededRemoteDataPayload,
-  getRemoteDataPayload,
-} from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { itemLinksToFollow } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { DsDynamicLookupRelationModalComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
-import { SelectableListService } from '@dspace/core';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { ObjectValuesPipe } from '../../../../shared/utils/object-values-pipe';
 import { VarDirective } from '../../../../shared/utils/var.directive';

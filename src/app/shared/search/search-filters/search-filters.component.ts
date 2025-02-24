@@ -9,6 +9,17 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import {
+  APP_CONFIG,
+  AppConfig,
+  AppliedFilter,
+  currentPath,
+  RemoteData,
+  SearchConfigurationService,
+  SearchFilterConfig,
+  SearchFilterService,
+  SearchService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import {
@@ -17,18 +28,7 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { AppliedFilter } from '@dspace/core';
-import { SearchFilterConfig } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import { SearchFilterService } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
-import { currentPath } from '@dspace/core';
 import { SearchFilterComponent } from './search-filter/search-filter.component';
 
 @Component({

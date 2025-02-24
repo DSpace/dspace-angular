@@ -17,6 +17,13 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
+  FormFieldMetadataValueObject,
+  PageInfo,
+  VocabularyEntry,
+  VocabularyEntryDetail,
+  VocabularyOptions,
+} from '@dspace/core';
+import {
   hasValue,
   isEmpty,
   isNotEmpty,
@@ -28,15 +35,10 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { PageInfo } from '@dspace/core';
-import { VocabularyEntry } from '@dspace/core';
-import { VocabularyEntryDetail } from '@dspace/core';
-import { VocabularyOptions } from '@dspace/core';
 import { AlertComponent } from '../../alert/alert.component';
 import { AlertType } from '../../alert/alert-type';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 import { VocabularyTreeFlatDataSource } from './vocabulary-tree-flat-data-source';
 import { VocabularyTreeFlattener } from './vocabulary-tree-flattener';
 import { VocabularyTreeviewService } from './vocabulary-treeview.service';

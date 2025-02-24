@@ -17,6 +17,27 @@ import {
   Router,
 } from '@angular/router';
 import {
+  AuthorizationDataService,
+  Collection,
+  Community,
+  DSONameService,
+  DSpaceObject,
+  DSpaceObjectDataService,
+  FeatureID,
+  followLink,
+  getAllCompletedRemoteData,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+  Group,
+  GroupDataService,
+  NoContent,
+  NotificationsService,
+  PaginatedList,
+  RemoteData,
+  RequestService,
+} from '@dspace/core';
+import {
   hasValue,
   hasValueOperator,
   isNotEmpty,
@@ -48,27 +69,6 @@ import {
 import { environment } from '../../../../environments/environment';
 import { getCollectionEditRolesRoute } from '../../../collection-page/collection-page-routing-paths';
 import { getCommunityEditRolesRoute } from '../../../community-page/community-page-routing-paths';
-import { DSONameService } from '@dspace/core';
-import { DSpaceObjectDataService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { FeatureID } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { GroupDataService } from '@dspace/core';
-import { Group } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { Community } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { NoContent } from '@dspace/core';
-import {
-  getAllCompletedRemoteData,
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '@dspace/core';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';

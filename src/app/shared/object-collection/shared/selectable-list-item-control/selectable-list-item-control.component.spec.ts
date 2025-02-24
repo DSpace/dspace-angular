@@ -8,12 +8,14 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import {
+  Item,
+  ListableObject,
+  SelectableListService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ListableObject } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { SelectableListService } from '@dspace/core';
 import { VarDirective } from '../../../utils/var.directive';
 import { SelectableListItemControlComponent } from './selectable-list-item-control.component';
 

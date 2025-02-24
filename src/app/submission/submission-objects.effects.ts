@@ -1,5 +1,51 @@
 import { Injectable } from '@angular/core';
 import {
+  CleanDuplicateDetectionAction,
+  CompleteInitSubmissionFormAction,
+  DepositSubmissionAction,
+  DepositSubmissionErrorAction,
+  DepositSubmissionSuccessAction,
+  DiscardSubmissionErrorAction,
+  DiscardSubmissionSuccessAction,
+  followLink,
+  FormState,
+  getFirstSucceededRemoteDataPayload,
+  InitSectionAction,
+  InitSubmissionFormAction,
+  Item,
+  NotificationsService,
+  RemoteData,
+  ResetSubmissionFormAction,
+  SaveAndDepositSubmissionAction,
+  SaveForLaterSubmissionFormAction,
+  SaveForLaterSubmissionFormSuccessAction,
+  SaveSubmissionFormAction,
+  SaveSubmissionFormErrorAction,
+  SaveSubmissionFormSuccessAction,
+  SaveSubmissionSectionFormAction,
+  SaveSubmissionSectionFormErrorAction,
+  SaveSubmissionSectionFormSuccessAction,
+  SectionsType,
+  SubmissionJsonPatchOperationsService,
+  SubmissionObject,
+  SubmissionObjectAction,
+  SubmissionObjectActionTypes,
+  SubmissionObjectDataService,
+  SubmissionObjectEntry,
+  SubmissionSectionError,
+  SubmissionSectionObject,
+  SubmissionService,
+  SubmissionState,
+  UpdateSectionDataAction,
+  UpdateSectionDataSuccessAction,
+  WorkflowItem,
+  WorkspaceItem,
+  WorkspaceitemDataService,
+  WorkspaceitemSectionDuplicatesObject,
+  WorkspaceitemSectionsObject,
+  WorkspaceitemSectionUploadObject,
+} from '@dspace/core';
+import {
   isEmpty,
   isNotEmpty,
   isNotUndefined,
@@ -31,54 +77,9 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
-import { followLink, SubmissionState } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core';
-import { SubmissionObject } from '@dspace/core';
-import { WorkflowItem } from '@dspace/core';
-import { WorkspaceItem } from '@dspace/core';
-import { WorkspaceitemSectionDuplicatesObject } from '@dspace/core';
-import { WorkspaceitemSectionUploadObject } from '@dspace/core';
-import { WorkspaceitemSectionsObject } from '@dspace/core';
-import { SubmissionJsonPatchOperationsService } from '@dspace/core';
-import { SubmissionObjectDataService } from '@dspace/core';
-import { WorkspaceitemDataService } from '@dspace/core';
-import { FormState } from '@dspace/core';
 import { SectionsService } from './sections/sections.service';
-import { SectionsType } from '@dspace/core';
-import { SubmissionService } from '@dspace/core';
 import parseSectionErrorPaths, { SectionErrorPath } from './utils/parseSectionErrorPaths';
 import parseSectionErrors from './utils/parseSectionErrors';
-import {
-  CleanDuplicateDetectionAction,
-  CompleteInitSubmissionFormAction,
-  DepositSubmissionAction,
-  DepositSubmissionErrorAction,
-  DepositSubmissionSuccessAction,
-  DiscardSubmissionErrorAction,
-  DiscardSubmissionSuccessAction,
-  InitSectionAction,
-  InitSubmissionFormAction,
-  ResetSubmissionFormAction,
-  SaveAndDepositSubmissionAction,
-  SaveForLaterSubmissionFormAction,
-  SaveForLaterSubmissionFormSuccessAction,
-  SaveSubmissionFormAction,
-  SaveSubmissionFormErrorAction,
-  SaveSubmissionFormSuccessAction,
-  SaveSubmissionSectionFormAction,
-  SaveSubmissionSectionFormErrorAction,
-  SaveSubmissionSectionFormSuccessAction,
-  SubmissionObjectAction,
-  SubmissionObjectActionTypes,
-  UpdateSectionDataAction,
-  UpdateSectionDataSuccessAction,
-} from '@dspace/core';
-import { SubmissionObjectEntry } from '@dspace/core';
-import { SubmissionSectionError } from '@dspace/core';
-import { SubmissionSectionObject } from '@dspace/core';
 
 @Injectable()
 export class SubmissionObjectEffects {

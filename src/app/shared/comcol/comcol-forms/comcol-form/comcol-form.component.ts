@@ -13,6 +13,23 @@ import {
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import {
+  AuthService,
+  Bitstream,
+  Collection,
+  ComColDataService,
+  Community,
+  followLink,
+  getFirstCompletedRemoteData,
+  MetadataMap,
+  MetadataValue,
+  NoContent,
+  NotificationsService,
+  ObjectCacheService,
+  RemoteData,
+  RequestService,
+  ResourceType,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -43,23 +60,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { AuthService } from '@dspace/core';
-import { ObjectCacheService } from '@dspace/core';
-import { ComColDataService } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { Community } from '@dspace/core';
-import {
-  MetadataMap,
-  MetadataValue,
-} from '@dspace/core';
-import { NoContent } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
-import { ResourceType } from '@dspace/core';
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
 import { FormComponent } from '../../../form/form.component';
 import { UploaderComponent } from '../../../upload/uploader/uploader.component';

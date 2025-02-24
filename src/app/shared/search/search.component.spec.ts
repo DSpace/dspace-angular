@@ -14,6 +14,31 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+  CommunityDataService,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  DSpaceObject,
+  FilterType,
+  Item,
+  PaginatedSearchOptions,
+  PaginationComponentOptions,
+  RemoteData,
+  RouteService,
+  SearchConfig,
+  SearchConfigurationService,
+  SearchFilterConfig,
+  SearchFilterService,
+  SearchObjects,
+  SearchService,
+  SidebarServiceStub,
+  SortConfig,
+  SortDirection,
+  SortOptions,
+  XSRFService,
+} from '@dspace/core';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
@@ -27,37 +52,6 @@ import {
 import { environment } from '../../../environments/environment.test';
 import { getCollectionPageRoute } from '../../collection-page/collection-page-routing-paths';
 import { getCommunityPageRoute } from '../../community-page/community-page-routing-paths';
-import {
-  SortDirection,
-  SortOptions,
-} from '@dspace/core';
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from '@dspace/core';
-import { CommunityDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { PaginatedSearchOptions } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { FilterType } from '@dspace/core';
-import { SearchFilterConfig } from '@dspace/core';
-import { SearchObjects } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import { SearchFilterService } from '@dspace/core';
-import {
-  SearchConfig,
-  SortConfig,
-} from '@dspace/core';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { SidebarServiceStub } from '@dspace/core';
-import { XSRFService } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { HostWindowService } from '../host-window.service';
 import { ThemedSearchFormComponent } from '../search-form/themed-search-form.component';

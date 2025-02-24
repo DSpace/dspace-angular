@@ -9,11 +9,11 @@ import {
   FormsModule,
   NgForm,
 } from '@angular/forms';
+import { AccessesConditionOption } from '@dspace/core';
 import { dateToISOFormat } from '@dspace/shared/utils';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { AccessesConditionOption } from '@dspace/core';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { ToDatePipe } from './to-date.pipe';
 

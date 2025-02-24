@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BASE_THEME_NAME } from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import {
   Actions,
@@ -9,7 +10,6 @@ import {
 import { map } from 'rxjs/operators';
 
 import { getDefaultThemeConfig } from '../../../config/config.util';
-import { BASE_THEME_NAME } from '@dspace/core';
 import { SetThemeAction } from './theme.actions';
 
 @Injectable()

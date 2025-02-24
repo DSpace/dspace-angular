@@ -9,15 +9,15 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-
 import {
   APP_CONFIG,
   AppConfig,
+  RouteService,
+  SearchConfigurationService,
+  SearchService,
 } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { SEARCH_CONFIG_SERVICE } from '../my-dspace-page/my-dspace-configuration.service';
 import { pushInOut } from '../shared/animations/push';
 import { HostWindowService } from '../shared/host-window.service';

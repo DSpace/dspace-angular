@@ -15,31 +15,29 @@ import {
   Router,
 } from '@angular/router';
 import {
+  ActivatedRouteStub,
+  AuthorizationDataService,
+  createFailedRemoteDataObject$,
+  createPaginatedList,
+  createPendingRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  HeadLinkDefinition,
+  Item,
+  ItemDataService,
+  LinkHeadService,
+  NotifyInfoService,
+  ServerResponseService,
+  SignpostingDataService,
+  SignpostingLink,
+  TranslateLoaderMock,
+} from '@dspace/core';
+import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { NotifyInfoService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { SignpostingDataService } from '@dspace/core';
-import { SignpostingLink } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import {
-  HeadLinkDefinition,
-  LinkHeadService,
-} from '@dspace/core';
-import { ServerResponseService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import {
-  createFailedRemoteDataObject$,
-  createPendingRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';

@@ -19,6 +19,13 @@ import {
   ValidatorFn,
 } from '@angular/forms';
 import {
+  getFirstSucceededRemoteDataPayload,
+  PageInfo,
+  PaginatedList,
+  VocabularyEntry,
+  VocabularyService,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -40,11 +47,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { PaginatedList } from '@dspace/core';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { VocabularyEntry } from '@dspace/core';
-import { VocabularyService } from '@dspace/core';
 import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
 import { FormBuilderService } from '../../../form-builder.service';
 import { DynamicListCheckboxGroupModel } from './dynamic-list-checkbox-group.model';

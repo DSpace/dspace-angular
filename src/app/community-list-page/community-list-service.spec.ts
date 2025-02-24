@@ -2,29 +2,27 @@ import {
   inject,
   TestBed,
 } from '@angular/core/testing';
+import {
+  APP_CONFIG,
+  buildPaginatedList,
+  Collection,
+  CollectionDataService,
+  Community,
+  CommunityDataService,
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+  FindListOptions,
+  PageInfo,
+  SortDirection,
+  SortOptions,
+  StoreMock,
+} from '@dspace/core';
 import { Store } from '@ngrx/store';
 import { of as observableOf } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment.test';
 
 import { AppState } from '../app.reducer';
-import {
-  SortDirection,
-  SortOptions,
-} from '@dspace/core';
-import { APP_CONFIG } from '@dspace/core';
-import { CollectionDataService } from '@dspace/core';
-import { CommunityDataService } from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import { buildPaginatedList } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { Community } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { StoreMock } from '@dspace/core';
 import {
   CommunityListService,
   toFlatNode,

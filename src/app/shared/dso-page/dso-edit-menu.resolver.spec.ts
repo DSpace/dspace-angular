@@ -6,6 +6,23 @@ import {
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
+  AuthorizationDataService,
+  Collection,
+  Community,
+  CorrectionTypeDataService,
+  createFailedRemoteDataObject$,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  DSpaceObject,
+  DSpaceObjectDataService,
+  Item,
+  MenuID,
+  MenuItemType,
+  MenuServiceStub,
+  NotificationsService,
+  ResearcherProfileDataService,
+} from '@dspace/core';
+import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -19,27 +36,10 @@ import {
   map,
   of as observableOf,
 } from 'rxjs';
-import { CorrectionTypeDataService } from '@dspace/core';
 
 import { AdminSidebarComponent } from '../../admin/admin-sidebar/admin-sidebar.component';
-import { DSpaceObjectDataService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { ResearcherProfileDataService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { Community } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { Item } from '@dspace/core';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { MenuServiceStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { MenuService } from '../menu/menu.service';
-import { MenuID } from '@dspace/core';
 import { LinkMenuItemModel } from '../menu/menu-item/models/link.model';
-import { MenuItemType } from '@dspace/core';
 import { DSOEditMenuResolverService } from './dso-edit-menu-resolver.service';
 import { DsoVersioningModalService } from './dso-versioning-modal-service/dso-versioning-modal.service';
 import { DsoWithdrawnReinstateModalService } from './dso-withdrawn-reinstate-service/dso-withdrawn-reinstate-modal.service';

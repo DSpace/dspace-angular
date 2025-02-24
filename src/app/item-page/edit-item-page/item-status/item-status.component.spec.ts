@@ -8,21 +8,21 @@ import {
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  AuthorizationDataService,
+  ConfigurationDataService,
+  ConfigurationProperty,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  HostWindowServiceStub,
+  IdentifierDataService,
+  Item,
+  OrcidAuthService,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ConfigurationDataService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { IdentifierDataService } from '@dspace/core';
-import { OrcidAuthService } from '@dspace/core';
-import { ConfigurationProperty } from '@dspace/core';
-import { Item } from '@dspace/core';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { HostWindowServiceStub } from '@dspace/core';
 import { HostWindowService } from '../../../shared/host-window.service';
 import { ItemStatusComponent } from './item-status.component';
 

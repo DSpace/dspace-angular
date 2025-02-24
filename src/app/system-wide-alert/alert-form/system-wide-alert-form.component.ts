@@ -13,6 +13,15 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
+  getFirstCompletedRemoteData,
+  NotificationsService,
+  PaginatedList,
+  RemoteData,
+  RequestService,
+  SystemWideAlert,
+  SystemWideAlertDataService,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -39,13 +48,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { SystemWideAlertDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
-import { SystemWideAlert } from '@dspace/core';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 
 

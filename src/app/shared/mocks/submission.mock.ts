@@ -1,10 +1,12 @@
-import { SubmissionDefinitionsModel } from '@dspace/core';
-import { buildPaginatedList } from '@dspace/core';
-import { Group } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { SubmissionObjectState } from '@dspace/core';
-import { FormFieldMetadataValueObject } from '@dspace/core';
+import {
+  buildPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  FormFieldMetadataValueObject,
+  Group,
+  PageInfo,
+  SubmissionDefinitionsModel,
+  SubmissionObjectState,
+} from '@dspace/core';
 
 export const mockSectionsData = {
   traditionalpageone: {

@@ -7,6 +7,14 @@ import {
   ActivatedRoute,
   RouterLink,
 } from '@angular/router';
+import {
+  Collection,
+  DSONameService,
+  getFirstSucceededRemoteDataPayload,
+  Item,
+  ItemTemplateDataService,
+  RemoteData,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
@@ -15,12 +23,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '@dspace/core';
-import { ItemTemplateDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core';
 import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';

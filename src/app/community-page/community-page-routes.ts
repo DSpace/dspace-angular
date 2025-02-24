@@ -1,15 +1,17 @@
 import { Route } from '@angular/router';
+import {
+  authenticatedGuard,
+  communityBreadcrumbResolver,
+  i18nBreadcrumbResolver,
+  MenuItemType,
+} from '@dspace/core';
 
 import { browseByGuard } from '../browse-by/browse-by-guard';
 import { browseByI18nBreadcrumbResolver } from '../browse-by/browse-by-i18n-breadcrumb.resolver';
-import { authenticatedGuard } from '@dspace/core';
-import { communityBreadcrumbResolver } from '@dspace/core';
-import { i18nBreadcrumbResolver } from '@dspace/core';
 import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
 import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
 import { dsoEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
-import { MenuItemType } from '@dspace/core';
 import { communityPageResolver } from './community-page.resolver';
 import { communityPageAdministratorGuard } from './community-page-administrator.guard';
 import {

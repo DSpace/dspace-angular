@@ -17,6 +17,11 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import {
+  createSuccessfulRemoteDataObject,
+  Item,
+  TranslateLoaderMock,
+} from '@dspace/core';
+import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
@@ -25,9 +30,6 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { TranslateLoaderMock } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { EditItemPageComponent } from './edit-item-page.component';
 
 describe('EditItemPageComponent', () => {

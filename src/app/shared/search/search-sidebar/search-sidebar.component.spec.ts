@@ -8,13 +8,15 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  APP_CONFIG,
+  SearchConfigurationService,
+  SearchConfigurationServiceStub,
+} from '@dspace/core';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../environments/environment.test';
-import { APP_CONFIG } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import { SearchConfigurationServiceStub } from '@dspace/core';
 import { AdvancedSearchComponent } from '../advanced-search/advanced-search.component';
 import { ThemedSearchFiltersComponent } from '../search-filters/themed-search-filters.component';
 import { ThemedSearchSettingsComponent } from '../search-settings/themed-search-settings.component';

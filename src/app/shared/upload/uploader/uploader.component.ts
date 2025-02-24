@@ -13,6 +13,13 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {
+  CookieService,
+  DragService,
+  XSRF_COOKIE,
+  XSRF_REQUEST_HEADER,
+  XSRF_RESPONSE_HEADER,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
   isUndefined,
@@ -25,13 +32,6 @@ import {
 } from 'ng2-file-upload';
 import { of as observableOf } from 'rxjs';
 
-import { DragService } from '@dspace/core';
-import { CookieService } from '@dspace/core';
-import {
-  XSRF_COOKIE,
-  XSRF_REQUEST_HEADER,
-  XSRF_RESPONSE_HEADER,
-} from '@dspace/core';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { UploaderOptions } from './uploader-options.model';
 import { UploaderProperties } from './uploader-properties.model';

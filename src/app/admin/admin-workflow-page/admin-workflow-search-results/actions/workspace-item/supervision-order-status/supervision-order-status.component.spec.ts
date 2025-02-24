@@ -7,14 +7,16 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  supervisionOrderListMock,
+  TranslateLoaderMock,
+} from '@dspace/core';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { TranslateLoaderMock } from '@dspace/core';
-import { supervisionOrderListMock } from '@dspace/core';
 import { VarDirective } from '../../../../../../shared/utils/var.directive';
 import { SupervisionOrderStatusComponent } from './supervision-order-status.component';
 

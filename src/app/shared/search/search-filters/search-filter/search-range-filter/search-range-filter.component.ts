@@ -11,6 +11,13 @@ import {
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
+  RemoteDataBuildService,
+  RouteService,
+  SearchConfigurationService,
+  SearchFilterService,
+  SearchService,
+} from '@dspace/core';
+import {
   hasValue,
   yearFromString,
 } from '@dspace/shared/utils';
@@ -25,11 +32,6 @@ import {
   startWith,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import { SearchFilterService } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { DebounceDirective } from '../../../../utils/debounce.directive';
 import {

@@ -14,6 +14,16 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
+  ConfigurationDataService,
+  ConfigurationProperty,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  NotificationsService,
+  Process,
+  RemoteData,
+  ScriptDataService,
+} from '@dspace/core';
+import {
   hasValue,
   isEmpty,
   isNotEmpty,
@@ -28,16 +38,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { ConfigurationDataService } from '@dspace/core';
-import { ScriptDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Process } from '@dspace/core';
-import { ConfigurationProperty } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '@dspace/core';
 import { getProcessDetailRoute } from '../process-page/process-page-routing.paths';
 import { HandleService } from '../shared/handle.service';
 

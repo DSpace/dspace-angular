@@ -12,6 +12,13 @@ import {
   Router,
   RouterOutlet,
 } from '@angular/router';
+import {
+  INotificationBoardOptions,
+  MenuID,
+  NativeWindowRef,
+  NativeWindowService,
+  ThemeConfig,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -30,23 +37,16 @@ import { environment } from '../../environments/environment';
 import { ThemedAdminSidebarComponent } from '../admin/admin-sidebar/themed-admin-sidebar.component';
 import { getPageInternalServerErrorRoute } from '../app-routing-paths';
 import { ThemedBreadcrumbsComponent } from '../breadcrumbs/themed-breadcrumbs.component';
-import { INotificationBoardOptions } from '@dspace/core';
-import { ThemeConfig } from '@dspace/core';
-import {
-  NativeWindowRef,
-  NativeWindowService,
-} from '@dspace/core';
 import { ThemedFooterComponent } from '../footer/themed-footer.component';
 import { ThemedHeaderNavbarWrapperComponent } from '../header-nav-wrapper/themed-header-navbar-wrapper.component';
+import { NotificationsBoardComponent } from '../notifications/notifications-board';
 import { slideSidebarPadding } from '../shared/animations/slide';
 import { HostWindowService } from '../shared/host-window.service';
 import { LiveRegionComponent } from '../shared/live-region/live-region.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { MenuService } from '../shared/menu/menu.service';
-import { MenuID } from '@dspace/core';
 import { CSSVariableService } from '../shared/sass-helper/css-variable.service';
 import { SystemWideAlertBannerComponent } from '../system-wide-alert/alert-banner/system-wide-alert-banner.component';
-import { NotificationsBoardComponent } from "../notifications/notifications-board";
 
 @Component({
   selector: 'ds-base-root',

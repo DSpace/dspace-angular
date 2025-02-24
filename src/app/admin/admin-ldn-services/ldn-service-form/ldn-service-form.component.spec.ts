@@ -21,6 +21,15 @@ import {
   Router,
 } from '@angular/router';
 import {
+  createSuccessfulRemoteDataObject$,
+  LdnItemfiltersService,
+  LdnServicesService,
+  NotificationsService,
+  NotificationsServiceStub,
+  RouterStub,
+  RouteService,
+} from '@dspace/core';
+import {
   NgbDropdownModule,
   NgbModal,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -35,14 +44,7 @@ import {
   of,
 } from 'rxjs';
 
-import { NotificationsService } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
 import { MockActivatedRoute } from '../../../shared/mocks/active-router.mock';
-import { LdnItemfiltersService } from '@dspace/core';
-import { LdnServicesService } from '@dspace/core';
 import { LdnServiceFormComponent } from './ldn-service-form.component';
 
 describe('LdnServiceFormEditComponent', () => {

@@ -7,6 +7,12 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  AuthService,
+  EndUserAgreementService,
+  LogOutAction,
+  NotificationsService,
+} from '@dspace/core';
 import { isNotEmpty } from '@dspace/shared/utils';
 import { Store } from '@ngrx/store';
 import {
@@ -21,10 +27,6 @@ import {
 } from 'rxjs/operators';
 
 import { AppState } from '../../app.reducer';
-import { LogOutAction } from '@dspace/core';
-import { AuthService } from '@dspace/core';
-import { EndUserAgreementService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { EndUserAgreementContentComponent } from './end-user-agreement-content/end-user-agreement-content.component';
 

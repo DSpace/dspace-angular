@@ -14,6 +14,22 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
+  ActivatedRouteStub,
+  AuthorizationDataService,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  HeadTagService,
+  Item,
+  ItemDataService,
+  LinkHeadService,
+  NotifyInfoService,
+  RemoteData,
+  ServerResponseService,
+  SignpostingDataService,
+  TranslateLoaderMock,
+} from '@dspace/core';
+import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
@@ -22,22 +38,6 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { NotifyInfoService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { SignpostingDataService } from '@dspace/core';
-import { HeadTagService } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { LinkHeadService } from '@dspace/core';
-import { ServerResponseService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { HeadTagServiceMock } from '../../shared/mocks/head-tag-service.mock';

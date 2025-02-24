@@ -12,6 +12,20 @@ import {
   ActivatedRoute,
   RouterLink,
 } from '@angular/router';
+import {
+  AuthorizationDataService,
+  ConfigurationDataService,
+  ConfigurationProperty,
+  FeatureID,
+  getAllSucceededRemoteDataPayload,
+  getFirstCompletedRemoteData,
+  Identifier,
+  IdentifierData,
+  IdentifierDataService,
+  Item,
+  OrcidAuthService,
+  RemoteData,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -31,20 +45,6 @@ import {
   toArray,
 } from 'rxjs/operators';
 
-import { ConfigurationDataService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { FeatureID } from '@dspace/core';
-import { Identifier } from '@dspace/core';
-import { IdentifierData } from '@dspace/core';
-import { IdentifierDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { OrcidAuthService } from '@dspace/core';
-import { ConfigurationProperty } from '@dspace/core';
-import { Item } from '@dspace/core';
-import {
-  getAllSucceededRemoteDataPayload,
-  getFirstCompletedRemoteData,
-} from '@dspace/core';
 import {
   fadeIn,
   fadeInOut,

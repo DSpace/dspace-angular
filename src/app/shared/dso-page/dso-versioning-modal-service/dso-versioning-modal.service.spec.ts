@@ -1,15 +1,17 @@
 import { waitForAsync } from '@angular/core/testing';
 import {
+  buildPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  Item,
+  MetadataMap,
+  PageInfo,
+  Version,
+} from '@dspace/core';
+import {
   EMPTY,
   of as observableOf,
 } from 'rxjs';
 
-import { buildPaginatedList } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { MetadataMap } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { Version } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { createRelationshipsObservable } from '../../../item-page/simple/item-types/shared/item.component.spec';
 import { DsoVersioningModalService } from './dso-versioning-modal.service';
 

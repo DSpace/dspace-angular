@@ -5,10 +5,12 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  HostWindowServiceStub,
+  MenuServiceStub,
+} from '@dspace/core';
 import { of as observableOf } from 'rxjs';
 
-import { HostWindowServiceStub } from '@dspace/core';
-import { MenuServiceStub } from '@dspace/core';
 import { HostWindowService } from '../../shared/host-window.service';
 import { MenuService } from '../../shared/menu/menu.service';
 import { NavbarSectionComponent } from './navbar-section.component';

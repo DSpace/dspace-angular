@@ -5,6 +5,7 @@ import {
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { NotificationsBoardComponent } from 'src/app/notifications/notifications-board';
 
 import { ThemedAdminSidebarComponent } from '../../../../app/admin/admin-sidebar/themed-admin-sidebar.component';
 import { ThemedBreadcrumbsComponent } from '../../../../app/breadcrumbs/themed-breadcrumbs.component';
@@ -15,7 +16,6 @@ import { slideSidebarPadding } from '../../../../app/shared/animations/slide';
 import { LiveRegionComponent } from '../../../../app/shared/live-region/live-region.component';
 import { ThemedLoadingComponent } from '../../../../app/shared/loading/themed-loading.component';
 import { SystemWideAlertBannerComponent } from '../../../../app/system-wide-alert/alert-banner/system-wide-alert-banner.component';
-import { NotificationsBoardComponent } from 'src/app/notifications/notifications-board';
 
 @Component({
   selector: 'ds-themed-root',

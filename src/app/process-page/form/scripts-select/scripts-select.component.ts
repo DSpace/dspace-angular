@@ -17,6 +17,14 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  FindListOptions,
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+  PaginatedList,
+  Script,
+  ScriptDataService,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
@@ -30,14 +38,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { FindListOptions } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { ScriptDataService } from '@dspace/core';
-import { Script } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '@dspace/core';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { controlContainerFactory } from '../process-form-factory';
 

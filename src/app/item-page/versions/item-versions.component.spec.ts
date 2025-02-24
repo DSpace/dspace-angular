@@ -21,6 +21,27 @@ import {
   ActivatedRoute,
   RouterModule,
 } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  AuthorizationDataService,
+  AuthService,
+  ConfigurationDataService,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  FeatureID,
+  Item,
+  ItemDataService,
+  NotificationsService,
+  NotificationsServiceStub,
+  PaginationService,
+  PaginationServiceStub,
+  Version,
+  VersionDataService,
+  VersionHistory,
+  VersionHistoryDataService,
+  WorkflowItemDataService,
+  WorkspaceitemDataService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   EMPTY,
@@ -28,25 +49,6 @@ import {
   of,
 } from 'rxjs';
 
-import { AuthService } from '@dspace/core';
-import { ConfigurationDataService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { FeatureID } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { VersionDataService } from '@dspace/core';
-import { VersionHistoryDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { Version } from '@dspace/core';
-import { VersionHistory } from '@dspace/core';
-import { WorkflowItemDataService } from '@dspace/core';
-import { WorkspaceitemDataService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';

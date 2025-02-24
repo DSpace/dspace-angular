@@ -8,6 +8,20 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import {
+  Bundle,
+  BundleDataService,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  FieldChangeType,
+  FieldUpdate,
+  getMockRequestService,
+  Item,
+  ObjectUpdatesService,
+  PaginationService,
+  PaginationServiceStub,
+  RequestService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   of as observableOf,
@@ -15,18 +29,6 @@ import {
   Subject,
 } from 'rxjs';
 
-import { BundleDataService } from '@dspace/core';
-import { FieldChangeType } from '@dspace/core';
-import { FieldUpdate } from '@dspace/core';
-import { ObjectUpdatesService } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { getMockRequestService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { Bundle } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
 import {

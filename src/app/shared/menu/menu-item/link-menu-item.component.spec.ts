@@ -13,12 +13,14 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  QueryParamsDirectiveStub,
+  RouterLinkDirectiveStub,
+  RouterStub,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ActivatedRouteStub } from '@dspace/core';
-import { QueryParamsDirectiveStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
-import { RouterLinkDirectiveStub } from '@dspace/core';
 import { LinkMenuItemComponent } from './link-menu-item.component';
 
 describe('LinkMenuItemComponent', () => {

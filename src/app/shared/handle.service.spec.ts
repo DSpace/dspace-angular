@@ -1,9 +1,11 @@
 import { TestBed } from '@angular/core/testing';
+import {
+  ConfigurationDataService,
+  ConfigurationDataServiceStub,
+  ConfigurationProperty,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core';
 
-import { ConfigurationDataService } from '@dspace/core';
-import { ConfigurationProperty } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { ConfigurationDataServiceStub } from '@dspace/core';
 import {
   CANONICAL_PREFIX_KEY,
   HandleService,

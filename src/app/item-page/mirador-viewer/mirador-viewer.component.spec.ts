@@ -5,18 +5,20 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import {
+  BitstreamDataService,
+  BundleDataService,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  Item,
+  MetadataMap,
+  TranslateLoaderMock,
+} from '@dspace/core';
+import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { BitstreamDataService } from '@dspace/core';
-import { BundleDataService } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { MetadataMap } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { HostWindowService } from '../../shared/host-window.service';
 import { createRelationshipsObservable } from '../simple/item-types/shared/item.component.spec';
 import { MiradorViewerComponent } from './mirador-viewer.component';

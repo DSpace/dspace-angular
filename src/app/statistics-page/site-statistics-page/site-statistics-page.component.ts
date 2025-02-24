@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import {
+  Site,
+  SiteDataService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { switchMap } from 'rxjs/operators';
 
-import { SiteDataService } from '@dspace/core';
-import { Site } from '@dspace/core';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { StatisticsPageDirective } from '../statistics-page/statistics-page.directive';

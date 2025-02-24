@@ -10,6 +10,17 @@ import {
   Params,
   Router,
 } from '@angular/router';
+import {
+  getAllSucceededRemoteData,
+  getRemoteDataPayload,
+  Item,
+  NotificationsService,
+  RemoteData,
+  RequestService,
+  RouteService,
+  WorkflowItem,
+  WorkflowItemDataService,
+} from '@dspace/core';
 import { isEmpty } from '@dspace/shared/utils';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -21,18 +32,6 @@ import {
   switchMap,
   take,
 } from 'rxjs/operators';
-
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import {
-  getAllSucceededRemoteData,
-  getRemoteDataPayload,
-} from '@dspace/core';
-import { WorkflowItem } from '@dspace/core';
-import { WorkflowItemDataService } from '@dspace/core';
 
 /**
  * Abstract component representing a page to perform an action on a workflow item

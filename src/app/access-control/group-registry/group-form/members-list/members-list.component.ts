@@ -17,6 +17,23 @@ import {
   RouterLink,
 } from '@angular/router';
 import {
+  buildPaginatedList,
+  DSONameService,
+  EPerson,
+  EPersonDataService,
+  EpersonDtoModel,
+  getAllCompletedRemoteData,
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+  Group,
+  GroupDataService,
+  NotificationsService,
+  PaginatedList,
+  PaginationComponentOptions,
+  PaginationService,
+  RemoteData,
+} from '@dspace/core';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
@@ -35,25 +52,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { DSONameService } from '@dspace/core';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { EPersonDataService } from '@dspace/core';
-import { GroupDataService } from '@dspace/core';
-import { EPerson } from '@dspace/core';
-import { EpersonDtoModel } from '@dspace/core';
-import { Group } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import {
-  getAllCompletedRemoteData,
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';

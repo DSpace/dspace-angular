@@ -15,6 +15,16 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import {
+  APP_DATA_SERVICES_MAP,
+  createTestComponent,
+  FormChangeAction,
+  FormFieldMetadataValueObject,
+  FormState,
+  FormStatusChangeAction,
+  StoreMock,
+  XSRFService,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormArrayModel,
@@ -32,19 +42,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { storeModuleConfig } from '../../app.reducer';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core';
-import { StoreMock } from '@dspace/core';
-import { createTestComponent } from '@dspace/core';
-import { XSRFService } from '@dspace/core';
 import { DsDynamicFormComponent } from './builder/ds-dynamic-form-ui/ds-dynamic-form.component';
 import { FormBuilderService } from './builder/form-builder.service';
-import { FormFieldMetadataValueObject } from '@dspace/core';
-import {
-  FormChangeAction,
-  FormStatusChangeAction,
-} from '@dspace/core';
 import { FormComponent } from './form.component';
-import { FormState } from '@dspace/core';
 import { FormService } from './form.service';
 
 let TEST_FORM_MODEL;

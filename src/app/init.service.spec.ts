@@ -13,6 +13,17 @@ import {
   Router,
 } from '@angular/router';
 import {
+  APP_CONFIG,
+  authReducer,
+  AuthService,
+  CorrelationIdService,
+  HeadTagService,
+  LocaleService,
+  RouterMock,
+  RouteService,
+  TranslateLoaderMock,
+} from '@dspace/core';
+import {
   Store,
   StoreModule,
 } from '@ngrx/store';
@@ -27,14 +38,6 @@ import { AppComponent } from './app.component';
 import { getMockLocaleService } from './app.component.spec';
 import { storeModuleConfig } from './app.reducer';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
-import { authReducer } from '@dspace/core';
-import { AuthService } from '@dspace/core';
-import { APP_CONFIG } from '@dspace/core';
-import { CorrelationIdService } from '@dspace/core';
-import { LocaleService } from '@dspace/core';
-import { RouterMock } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { RouteService } from '@dspace/core';
 import { InitService } from './init.service';
 import { MenuService } from './shared/menu/menu.service';
 import { MockActivatedRoute } from './shared/mocks/active-router.mock';
@@ -48,7 +51,6 @@ import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
 import { getTestScheduler } from 'jasmine-marbles';
 
-import { HeadTagService } from '@dspace/core';
 import { HeadTagServiceMock } from './shared/mocks/head-tag-service.mock';
 
 let spy: SpyObj<any>;

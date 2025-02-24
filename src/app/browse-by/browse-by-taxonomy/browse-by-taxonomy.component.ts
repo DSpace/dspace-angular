@@ -11,6 +11,14 @@ import {
   Params,
   RouterLink,
 } from '@angular/router';
+import {
+  BrowseByDataType,
+  BrowseDefinition,
+  Context,
+  HierarchicalBrowseDefinition,
+  VocabularyEntryDetail,
+  VocabularyOptions,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import {
   TranslateModule,
@@ -23,11 +31,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { BrowseDefinition } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { HierarchicalBrowseDefinition } from '@dspace/core';
-import { VocabularyEntryDetail } from '@dspace/core';
-import { VocabularyOptions } from '@dspace/core';
 import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by.component';
 import { ThemedComcolPageBrowseByComponent } from '../../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
 import { ThemedComcolPageContentComponent } from '../../shared/comcol/comcol-page-content/themed-comcol-page-content.component';
@@ -38,7 +41,6 @@ import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-ed
 import { VocabularyTreeviewComponent } from '../../shared/form/vocabulary-treeview/vocabulary-treeview.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../shared/utils/var.directive';
-import { BrowseByDataType } from '@dspace/core';
 
 @Component({
   selector: 'ds-browse-by-taxonomy',

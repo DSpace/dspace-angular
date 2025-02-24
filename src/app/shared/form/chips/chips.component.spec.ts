@@ -14,13 +14,15 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  ConfidenceType,
+  createTestComponent,
+  FormFieldMetadataValueObject,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../environments/environment';
-import { ConfidenceType } from '@dspace/core';
-import { createTestComponent } from '@dspace/core';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 import { AuthorityConfidenceStateDirective } from '../directives/authority-confidence-state.directive';
 import { ChipsComponent } from './chips.component';
 import { Chips } from './models/chips.model';

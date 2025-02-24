@@ -5,12 +5,12 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
+import { TranslateLoaderMock } from '@dspace/core';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { TranslateLoaderMock } from '@dspace/core';
 import { FiltersComponent } from './filters-section.component';
 
 describe('FiltersComponent', () => {

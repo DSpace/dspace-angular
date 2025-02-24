@@ -7,20 +7,20 @@ import {
 } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  BitstreamFormat,
+  BitstreamFormatDataService,
+  BitstreamFormatSupportLevel,
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+  NotificationsService,
+  NotificationsServiceStub,
+  RouterStub,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { BitstreamFormatDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { BitstreamFormat } from '@dspace/core';
-import { BitstreamFormatSupportLevel } from '@dspace/core';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormService } from '../../../../shared/form/form.service';
 import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';

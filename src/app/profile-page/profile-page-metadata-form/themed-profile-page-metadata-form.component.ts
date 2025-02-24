@@ -2,8 +2,8 @@ import {
   Component,
   Input,
 } from '@angular/core';
-
 import { EPerson } from '@dspace/core';
+
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { ProfilePageMetadataFormComponent } from './profile-page-metadata-form.component';
 

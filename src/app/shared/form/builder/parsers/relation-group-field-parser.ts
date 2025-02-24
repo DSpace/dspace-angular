@@ -1,13 +1,15 @@
+import {
+  FormFieldMetadataValueObject,
+  FormFieldModel,
+  FormRowModel,
+  PLACEHOLDER_PARENT_METADATA,
+} from '@dspace/core';
 import { isNotEmpty } from '@dspace/shared/utils';
 
-import { FormRowModel } from '@dspace/core';
-import { FormFieldModel } from '@dspace/core';
-import { PLACEHOLDER_PARENT_METADATA } from '@dspace/core';
 import {
   DynamicRelationGroupModel,
   DynamicRelationGroupModelConfig,
 } from '../ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 import { FieldParser } from './field-parser';
 
 export class RelationGroupFieldParser extends FieldParser {

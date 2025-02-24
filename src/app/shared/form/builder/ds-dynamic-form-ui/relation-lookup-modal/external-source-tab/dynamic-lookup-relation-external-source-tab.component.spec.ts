@@ -10,6 +10,24 @@ import {
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  Collection,
+  createFailedRemoteDataObject$,
+  createPaginatedList,
+  createPendingRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+  ExternalSource,
+  ExternalSourceDataService,
+  ExternalSourceEntry,
+  Item,
+  ItemType,
+  PaginatedSearchOptions,
+  PaginationService,
+  PaginationServiceStub,
+  RelationshipOptions,
+  SearchConfigurationService,
+  SelectableListService,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -17,27 +35,9 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { ExternalSourceDataService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { ExternalSource } from '@dspace/core';
-import { ExternalSourceEntry } from '@dspace/core';
-import { RelationshipOptions } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { ItemType } from '@dspace/core';
-import { PaginatedSearchOptions } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import {
-  createFailedRemoteDataObject$,
-  createPendingRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { ErrorComponent } from '../../../../../error/error.component';
 import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
 import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
-import { SelectableListService } from '@dspace/core';
 import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
 import { ThemedSearchFormComponent } from '../../../../../search-form/themed-search-form.component';
 import { VarDirective } from '../../../../../utils/var.directive';

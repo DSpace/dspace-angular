@@ -6,6 +6,30 @@ import {
   ViewChild,
 } from '@angular/core';
 import {
+  ConfigObject,
+  followLink,
+  FormRowModel,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+  JsonPatchOperationPathCombiner,
+  NotificationsService,
+  ObjectCacheService,
+  RemoteData,
+  RequestService,
+  SectionDataObject,
+  SubmissionFormsConfigDataService,
+  SubmissionFormsModel,
+  SubmissionObject,
+  SubmissionObjectDataService,
+  SubmissionScopeType,
+  SubmissionSectionError,
+  SubmissionSectionObject,
+  SubmissionService,
+  WorkflowItem,
+  WorkspaceItem,
+  WorkspaceitemSectionFormObject,
+} from '@dspace/core';
+import {
   difference,
   hasValue,
   isEmpty,
@@ -35,36 +59,12 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
-import { ObjectCacheService } from '@dspace/core';
-import { ConfigObject } from '@dspace/core';
-import { FormRowModel } from '@dspace/core';
-import { SubmissionFormsModel } from '@dspace/core';
-import { SubmissionFormsConfigDataService } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { JsonPatchOperationPathCombiner } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import {
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '@dspace/core';
-import { SubmissionObject } from '@dspace/core';
-import { WorkflowItem } from '@dspace/core';
-import { WorkspaceItem } from '@dspace/core';
-import { WorkspaceitemSectionFormObject } from '@dspace/core';
-import { SubmissionObjectDataService } from '@dspace/core';
-import { SubmissionScopeType } from '@dspace/core';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { SubmissionSectionError } from '@dspace/core';
-import { SubmissionSectionObject } from '@dspace/core';
-import { SubmissionService } from '@dspace/core';
 import { SectionModelComponent } from '../models/section.model';
-import { SectionDataObject } from '@dspace/core';
 import { SectionsService } from '../sections.service';
 import { SectionFormOperationsService } from './section-form-operations.service';
 

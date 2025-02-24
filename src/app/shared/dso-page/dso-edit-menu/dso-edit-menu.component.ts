@@ -7,11 +7,13 @@ import {
   Injector,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AuthorizationDataService } from '@dspace/core';
+import {
+  AuthorizationDataService,
+  MenuID,
+} from '@dspace/core';
 
 import { MenuComponent } from '../../menu/menu.component';
 import { MenuService } from '../../menu/menu.service';
-import { MenuID } from '@dspace/core';
 import { ThemeService } from '../../theme-support/theme.service';
 
 /**

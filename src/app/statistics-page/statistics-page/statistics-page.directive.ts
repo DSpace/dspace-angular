@@ -8,6 +8,17 @@ import {
   Router,
 } from '@angular/router';
 import {
+  AuthService,
+  DSONameService,
+  DSpaceObject,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+  redirectOn4xx,
+  RemoteData,
+  UsageReport,
+  UsageReportDataService,
+} from '@dspace/core';
+import {
   combineLatest,
   Observable,
 } from 'rxjs';
@@ -15,18 +26,6 @@ import {
   map,
   switchMap,
 } from 'rxjs/operators';
-
-import { AuthService } from '@dspace/core';
-import { DSONameService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { redirectOn4xx } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import {
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '@dspace/core';
-import { UsageReport } from '@dspace/core';
-import { UsageReportDataService } from '@dspace/core';
 
 @Directive()
 /**

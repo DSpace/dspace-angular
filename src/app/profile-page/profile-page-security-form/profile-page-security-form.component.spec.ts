@@ -8,12 +8,14 @@ import {
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  EPersonDataService,
+  NotificationsService,
+  RestResponse,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { RestResponse } from '@dspace/core';
-import { EPersonDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../shared/form/form.component';

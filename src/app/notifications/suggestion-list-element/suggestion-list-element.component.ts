@@ -6,13 +6,15 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import {
+  Item,
+  Suggestion,
+} from '@dspace/core';
 import { isNotEmpty } from '@dspace/shared/utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { Suggestion } from '@dspace/core';
 
 import { ItemSearchResultListElementComponent } from '../../../themes/custom/app/shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
-import { Item } from '@dspace/core';
 import { fadeIn } from '../../shared/animations/fade';
 import { SuggestionActionsComponent } from '../suggestion-actions/suggestion-actions.component';
 import { SuggestionApproveAndImport } from './suggestion-approve-and-import';

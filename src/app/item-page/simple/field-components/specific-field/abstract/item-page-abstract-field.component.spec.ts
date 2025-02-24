@@ -9,17 +9,19 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
+  APP_CONFIG,
+  BrowseDefinitionDataService,
+  BrowseDefinitionDataServiceStub,
+  BrowseService,
+  BrowseServiceStub,
+} from '@dspace/core';
+import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { environment } from '../../../../../../environments/environment';
-import { BrowseService } from '@dspace/core';
-import { BrowseDefinitionDataService } from '@dspace/core';
-import { APP_CONFIG } from '@dspace/core';
-import { BrowseDefinitionDataServiceStub } from '@dspace/core';
-import { BrowseServiceStub } from '@dspace/core';
 import { TranslateLoaderMock } from '../../../../../../../modules/core/src/lib/core/utilities/testing/translate-loader.mock';
+import { environment } from '../../../../../../environments/environment';
 import { ItemPageAbstractFieldComponent } from './item-page-abstract-field.component';
 
 let comp: ItemPageAbstractFieldComponent;

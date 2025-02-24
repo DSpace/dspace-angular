@@ -2,9 +2,11 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import {
+  Bitstream,
+  Item,
+} from '@dspace/core';
 
-import { Bitstream } from '@dspace/core';
-import { Item } from '@dspace/core';
 import { ThemedComponent } from '../theme-support/themed.component';
 import { FileDownloadLinkComponent } from './file-download-link.component';
 

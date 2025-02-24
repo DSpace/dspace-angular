@@ -11,6 +11,11 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  BitstreamFormat,
+  BitstreamFormatSupportLevel,
+  RouterStub,
+} from '@dspace/core';
 import { isEmpty } from '@dspace/shared/utils';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -20,9 +25,6 @@ import {
 } from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { BitstreamFormat } from '@dspace/core';
-import { BitstreamFormatSupportLevel } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
 import { FormComponent } from '../../../../shared/form/form.component';
 import { FormatFormComponent } from './format-form.component';
 

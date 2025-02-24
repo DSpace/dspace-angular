@@ -11,13 +11,15 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  Collection,
+  createSuccessfulRemoteDataObject,
+  MetadataValue,
+  RouterStub,
+} from '@dspace/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Collection } from '@dspace/core';
-import { MetadataValue } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import { EditCollectionSelectorComponent } from './edit-collection-selector.component';
 

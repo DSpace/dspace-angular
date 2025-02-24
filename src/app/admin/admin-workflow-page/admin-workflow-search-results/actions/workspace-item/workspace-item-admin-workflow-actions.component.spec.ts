@@ -6,20 +6,22 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  DSONameService,
+  Item,
+  NotificationsService,
+  NotificationsServiceStub,
+  RemoteData,
+  RequestEntryState,
+  SupervisionOrderDataService,
+  supervisionOrderEntryMock,
+  URLCombiner,
+  WorkspaceItem,
+} from '@dspace/core';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { DSONameService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RequestEntryState } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { WorkspaceItem } from '@dspace/core';
-import { SupervisionOrderDataService } from '@dspace/core';
-import { URLCombiner } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { supervisionOrderEntryMock } from '@dspace/core';
 import { ConfirmationModalComponent } from '../../../../../shared/confirmation-modal/confirmation-modal.component';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
 import { getWorkspaceItemDeleteRoute } from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';

@@ -15,6 +15,19 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+  createTestComponent,
+  FormFieldMetadataValueObject,
+  JsonPatchOperationPathCombiner,
+  JsonPatchOperationsBuilder,
+  SubmissionJsonPatchOperationsService,
+  SubmissionJsonPatchOperationsServiceStub,
+  SubmissionService,
+  SubmissionServiceStub,
+  XSRFService,
+} from '@dspace/core';
 import { dateToISOFormat } from '@dspace/shared/utils';
 import {
   NgbActiveModal,
@@ -32,21 +45,9 @@ import { NgxMaskModule } from 'ngx-mask';
 import { of } from 'rxjs';
 
 import { environment } from '../../../../../../environments/environment.test';
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from '@dspace/core';
-import { JsonPatchOperationPathCombiner } from '@dspace/core';
-import { JsonPatchOperationsBuilder } from '@dspace/core';
-import { SubmissionJsonPatchOperationsService } from '@dspace/core';
-import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core';
-import { SubmissionServiceStub } from '@dspace/core';
-import { createTestComponent } from '@dspace/core';
-import { XSRFService } from '@dspace/core';
 import { DsDynamicTypeBindRelationService } from '../../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { DynamicCustomSwitchModel } from '../../../../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 import { FormComponent } from '../../../../../shared/form/form.component';
 import { FormService } from '../../../../../shared/form/form.service';
 import { getMockFormService } from '../../../../../shared/mocks/form-service.mock';
@@ -60,7 +61,6 @@ import {
   mockUploadConfigResponseMetadata,
   mockUploadFiles,
 } from '../../../../../shared/mocks/submission.mock';
-import { SubmissionService } from '@dspace/core';
 import { SectionUploadService } from '../../section-upload.service';
 import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload-constants';
 import { SubmissionSectionUploadFileEditComponent } from './section-upload-file-edit.component';

@@ -1,10 +1,12 @@
 import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import {
+  BrowseEntry,
+  Context,
+  ViewMode,
+} from '@dspace/core';
 
-import { BrowseEntry } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { listableObjectComponent } from '../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
 import { BrowseEntryListElementComponent as BaseComponent } from '../../../../../../app/shared/object-list/browse-entry-list-element/browse-entry-list-element.component';
 

@@ -13,21 +13,23 @@ import {
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
+  ActivatedRouteStub,
+  createSuccessfulRemoteDataObject$,
+  getMockTranslateService,
+  ItemDataService,
+  NotificationsService,
+  NotificationsServiceStub,
+  RouterStub,
+  SubmissionService,
+  SubmissionServiceStub,
+} from '@dspace/core';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ItemDataService } from '@dspace/core';
-import { getMockTranslateService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
-import { SubmissionServiceStub } from '@dspace/core';
 import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
-import { SubmissionService } from '@dspace/core';
 import { SubmissionSubmitComponent } from './submission-submit.component';
 
 describe('SubmissionSubmitComponent Component', () => {

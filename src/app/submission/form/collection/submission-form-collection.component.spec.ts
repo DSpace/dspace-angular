@@ -17,23 +17,26 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import {
+  Collection,
+  CollectionDataService,
+  CommunityDataService,
+  createSuccessfulRemoteDataObject$,
+  createTestComponent,
+  DSONameService,
+  JsonPatchOperationPathCombiner,
+  JsonPatchOperationsBuilder,
+  SubmissionJsonPatchOperationsService,
+  SubmissionJsonPatchOperationsServiceStub,
+  SubmissionService,
+  SubmissionServiceStub,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
-import { DSONameService } from '@dspace/core';
-import { CollectionDataService } from '@dspace/core';
-import { CommunityDataService } from '@dspace/core';
-import { JsonPatchOperationPathCombiner } from '@dspace/core';
-import { JsonPatchOperationsBuilder } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { SubmissionJsonPatchOperationsService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core';
-import { SubmissionServiceStub } from '@dspace/core';
-import { createTestComponent } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedCollectionDropdownComponent } from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
@@ -42,7 +45,6 @@ import {
   mockSubmissionRestResponse,
 } from '../../../shared/mocks/submission.mock';
 import { SectionsService } from '../../sections/sections.service';
-import { SubmissionService } from '@dspace/core';
 import { SubmissionFormCollectionComponent } from './submission-form-collection.component';
 
 describe('SubmissionFormCollectionComponent Component', () => {

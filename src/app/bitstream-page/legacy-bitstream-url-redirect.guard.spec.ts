@@ -1,14 +1,16 @@
+import {
+  Bitstream,
+  BitstreamDataService,
+  BrowserHardRedirectService,
+  HardRedirectService,
+  RemoteData,
+  RequestEntryState,
+  RouterStub,
+} from '@dspace/core';
 import { cold } from 'jasmine-marbles';
 import { EMPTY } from 'rxjs';
 
 import { PAGE_NOT_FOUND_PATH } from '../app-routing-paths';
-import { BitstreamDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RequestEntryState } from '@dspace/core';
-import { BrowserHardRedirectService } from '@dspace/core';
-import { HardRedirectService } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
 import { legacyBitstreamURLRedirectGuard } from './legacy-bitstream-url-redirect.guard';
 
 describe('legacyBitstreamURLRedirectGuard', () => {

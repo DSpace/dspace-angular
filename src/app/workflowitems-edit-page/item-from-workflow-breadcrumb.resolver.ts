@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
-
-import { BreadcrumbConfig } from '@dspace/core';
-import { SubmissionObject } from '@dspace/core';
-import { SubmissionParentBreadcrumbResolver } from '@dspace/core';
-import { SubmissionParentBreadcrumbsService } from '@dspace/core';
-import { WorkflowItemDataService } from '@dspace/core';
+import {
+  BreadcrumbConfig,
+  SubmissionObject,
+  SubmissionParentBreadcrumbResolver,
+  SubmissionParentBreadcrumbsService,
+  WorkflowItemDataService,
+} from '@dspace/core';
 
 /**
  * This class represents a resolver that retrieves the breadcrumbs of the workflow item

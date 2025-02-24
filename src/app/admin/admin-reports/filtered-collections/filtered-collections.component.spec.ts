@@ -7,6 +7,11 @@ import {
 } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 import {
+  DspaceRestService,
+  RawRestResponse,
+  TranslateLoaderMock,
+} from '@dspace/core';
+import {
   NgbAccordion,
   NgbAccordionModule,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -15,10 +20,7 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { DspaceRestService } from '@dspace/core';
-import { RawRestResponse } from '@dspace/core';
 
-import { TranslateLoaderMock } from '@dspace/core';
 import { FilteredCollectionsComponent } from './filtered-collections.component';
 
 describe('FiltersComponent', () => {

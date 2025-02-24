@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
-import { hasValue } from '@dspace/shared/utils';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-
-import { RequestParam } from '@dspace/core';
 import {
+  FindListOptions,
+  getFirstCompletedRemoteData,
+  PaginatedList,
+  QualityAssuranceTopicDataService,
+  QualityAssuranceTopicObject,
+  RemoteData,
+  RequestParam,
   SortDirection,
   SortOptions,
 } from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { QualityAssuranceTopicObject } from '@dspace/core';
-import { QualityAssuranceTopicDataService } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
+import { hasValue } from '@dspace/shared/utils';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 /**
  * The service handling all Quality Assurance topic requests to the REST service.

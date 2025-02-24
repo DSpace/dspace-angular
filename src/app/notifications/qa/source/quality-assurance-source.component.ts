@@ -9,6 +9,12 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import {
+  PaginationComponentOptions,
+  PaginationService,
+  QualityAssuranceSourceObject,
+  SortOptions,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -20,10 +26,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { SortOptions } from '@dspace/core';
-import { QualityAssuranceSourceObject } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
 import { QualityAssuranceSourcePageParams } from '../../../quality-assurance-notifications-pages/quality-assurance-source-page-component/quality-assurance-source-page-resolver.service';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';

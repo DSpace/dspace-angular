@@ -19,6 +19,16 @@ import {
   Router,
 } from '@angular/router';
 import {
+  DSONameService,
+  DSpaceObject,
+  getAllSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  Group,
+  GroupDataService,
+  RemoteData,
+  ResourcePolicy,
+} from '@dspace/core';
+import {
   dateToString,
   hasValue,
   isNotEmpty,
@@ -29,16 +39,6 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { getGroupEditRoute } from '../../../access-control/access-control-routing-paths';
-import { DSONameService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { GroupDataService } from '@dspace/core';
-import { Group } from '@dspace/core';
-import { ResourcePolicy } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import {
-  getAllSucceededRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '@dspace/core';
 import { HasValuePipe } from '../../utils/has-value.pipe';
 
 export interface ResourcePolicyCheckboxEntry {

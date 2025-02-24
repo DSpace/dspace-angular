@@ -1,10 +1,11 @@
+import {
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  DSpaceObject,
+  Item,
+  SearchResult,
+} from '@dspace/core';
 import { of as observableOf } from 'rxjs';
-
-import { DSpaceObject } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { SearchResult } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 
 // REST Mock ---------------------------------------------------------------------
 // -------------------------------------------------------------------------------

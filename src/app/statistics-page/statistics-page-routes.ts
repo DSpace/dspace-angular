@@ -1,10 +1,12 @@
 import { Route } from '@angular/router';
+import {
+  i18nBreadcrumbResolver,
+  itemResolver,
+  statisticsAdministratorGuard,
+} from '@dspace/core';
 
 import { collectionPageResolver } from '../collection-page/collection-page.resolver';
 import { communityPageResolver } from '../community-page/community-page.resolver';
-import { i18nBreadcrumbResolver } from '@dspace/core';
-import { statisticsAdministratorGuard } from '@dspace/core';
-import { itemResolver } from '@dspace/core';
 import { ThemedCollectionStatisticsPageComponent } from './collection-statistics-page/themed-collection-statistics-page.component';
 import { ThemedCommunityStatisticsPageComponent } from './community-statistics-page/themed-community-statistics-page.component';
 import { ThemedItemStatisticsPageComponent } from './item-statistics-page/themed-item-statistics-page.component';

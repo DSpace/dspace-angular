@@ -1,4 +1,8 @@
 import {
+  DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP,
+  FormRowModel,
+} from '@dspace/core';
+import {
   isEmpty,
   isNull,
 } from '@dspace/shared/utils';
@@ -7,8 +11,6 @@ import {
   serializable,
 } from '@ng-dynamic-forms/core';
 
-import { FormRowModel } from '@dspace/core';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '@dspace/core';
 import {
   DsDynamicInputModel,
   DsDynamicInputModelConfig,

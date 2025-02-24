@@ -1,8 +1,9 @@
+import { FormFieldMetadataValueObject } from '@dspace/core';
+
 import {
   DynamicLookupModel,
   DynamicLookupModelConfig,
 } from '../ds-dynamic-form-ui/models/lookup/dynamic-lookup.model';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 import { FieldParser } from './field-parser';
 
 export class LookupFieldParser extends FieldParser {

@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-
 import {
+  FindListOptions,
+  getFirstCompletedRemoteData,
+  PaginatedList,
+  QualityAssuranceSourceDataService,
+  QualityAssuranceSourceObject,
+  RemoteData,
   SortDirection,
   SortOptions,
 } from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { QualityAssuranceSourceObject } from '@dspace/core';
-import { QualityAssuranceSourceDataService } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 /**
  * The service handling all Quality Assurance source requests to the REST service.

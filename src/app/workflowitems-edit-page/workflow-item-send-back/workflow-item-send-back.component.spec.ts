@@ -10,26 +10,26 @@ import {
   Router,
 } from '@angular/router';
 import {
+  ActivatedRouteStub,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  getMockRequestService,
+  LocationStub,
+  NotificationsService,
+  NotificationsServiceStub,
+  RequestService,
+  RouterStub,
+  RouteService,
+  TranslateLoaderMock,
+  WorkflowItem,
+  WorkflowItemDataService,
+} from '@dspace/core';
+import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { RequestService } from '@dspace/core';
-import { getMockRequestService } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { WorkflowItem } from '@dspace/core';
-import { WorkflowItemDataService } from '@dspace/core';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { LocationStub } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { WorkflowItemSendBackComponent } from './workflow-item-send-back.component';
 

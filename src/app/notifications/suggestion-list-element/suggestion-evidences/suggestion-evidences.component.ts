@@ -3,9 +3,9 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import { SuggestionEvidences } from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { SuggestionEvidences } from '@dspace/core';
 import { fadeIn } from '../../../shared/animations/fade';
 import { ObjectKeysPipe } from '../../../shared/utils/object-keys-pipe';
 

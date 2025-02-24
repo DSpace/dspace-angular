@@ -3,9 +3,9 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import { Policy } from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Policy } from '@dspace/core';
 import { AlertType } from '../../../../shared/alert/alert-type';
 import { ContentAccordionComponent } from '../content-accordion/content-accordion.component';
 

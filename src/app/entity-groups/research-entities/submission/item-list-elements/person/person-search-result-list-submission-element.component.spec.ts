@@ -11,6 +11,28 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  APP_CONFIG,
+  AuthService,
+  Bitstream,
+  buildPaginatedList,
+  CommunityDataService,
+  createSuccessfulRemoteDataObject$,
+  DefaultChangeAnalyzer,
+  DSOChangeAnalyzer,
+  HALEndpointService,
+  Item,
+  ItemDataService,
+  ItemSearchResult,
+  ObjectCacheService,
+  RelationshipDataService,
+  RemoteData,
+  RemoteDataBuildService,
+  REQUEST,
+  SelectableListService,
+  UUIDService,
+  XSRFService,
+} from '@dspace/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
@@ -19,28 +41,8 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { AuthService } from '@dspace/core';
-import { RemoteDataBuildService } from '@dspace/core';
-import { ObjectCacheService } from '@dspace/core';
-import { APP_CONFIG } from '@dspace/core';
-import { CommunityDataService } from '@dspace/core';
-import { DefaultChangeAnalyzer } from '@dspace/core';
-import { DSOChangeAnalyzer } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { buildPaginatedList } from '@dspace/core';
-import { RelationshipDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { ItemSearchResult } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { HALEndpointService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { UUIDService } from '@dspace/core';
-import { REQUEST } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { XSRFService } from '@dspace/core';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
-import { SelectableListService } from '@dspace/core';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';

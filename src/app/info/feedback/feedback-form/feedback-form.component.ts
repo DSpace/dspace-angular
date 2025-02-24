@@ -12,25 +12,25 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
+  AuthService,
+  EPerson,
+  FeedbackDataService,
+  getFirstCompletedRemoteData,
+  NativeWindowRef,
+  NativeWindowService,
+  NoContent,
+  NotificationsService,
+  RemoteData,
+  RouteService,
+  URLCombiner,
+} from '@dspace/core';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
 
 import { getHomePageRoute } from '../../../app-routing-paths';
-import { AuthService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { EPerson } from '@dspace/core';
-import { FeedbackDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import {
-  NativeWindowRef,
-  NativeWindowService,
-} from '@dspace/core';
-import { NoContent } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
-import { URLCombiner } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ErrorComponent } from '../../../shared/error/error.component';
 

@@ -1,6 +1,8 @@
-import { ExternalSourceDataService } from '@dspace/core';
-import { ExternalSource } from '@dspace/core';
-import { ResourceType } from '@dspace/core';
+import {
+  ExternalSource,
+  ExternalSourceDataService,
+  ResourceType,
+} from '@dspace/core';
 
 export const externalSourceOrcid: ExternalSource = {
   type: new ResourceType('externalsource'),

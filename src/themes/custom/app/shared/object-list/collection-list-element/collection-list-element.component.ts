@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import {
+  Collection,
+  Context,
+  ViewMode,
+} from '@dspace/core';
 
-import { Collection } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { listableObjectComponent } from '../../../../../../app/shared/object-collection/shared/listable-object/listable-object.decorator';
 import { CollectionListElementComponent as BaseComponent } from '../../../../../../app/shared/object-list/collection-list-element/collection-list-element.component';
 

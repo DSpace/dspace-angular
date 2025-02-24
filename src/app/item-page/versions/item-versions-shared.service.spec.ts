@@ -1,18 +1,18 @@
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-
-import { AuthService } from '@dspace/core';
-import { VersionDataService } from '@dspace/core';
-import { VersionHistoryDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Version } from '@dspace/core';
-import { WorkflowItemDataService } from '@dspace/core';
-import { WorkspaceitemDataService } from '@dspace/core';
 import {
+  AuthService,
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
+  NotificationsService,
+  Version,
+  VersionDataService,
+  VersionHistoryDataService,
+  WorkflowItemDataService,
+  WorkspaceitemDataService,
 } from '@dspace/core';
+import { TranslateService } from '@ngx-translate/core';
+
 import { ItemVersionsSharedService } from './item-versions-shared.service';
 
 describe('ItemVersionsSharedService', () => {

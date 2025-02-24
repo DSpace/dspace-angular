@@ -7,17 +7,18 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
-
 import {
+  Context,
+  ListableObject,
+  PaginatedList,
+  PaginationComponentOptions,
+  RemoteData,
+  SelectableListService,
   SortDirection,
   SortOptions,
+  ViewMode,
 } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { ListableObject } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
+
 import { fadeIn } from '../animations/fade';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 import { ImportableListItemControlComponent } from '../object-collection/shared/importable-list-item-control/importable-list-item-control.component';
@@ -25,7 +26,6 @@ import { ListableObjectComponentLoaderComponent } from '../object-collection/sha
 import { SelectableListItemControlComponent } from '../object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
-import { SelectableListService } from '@dspace/core';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,

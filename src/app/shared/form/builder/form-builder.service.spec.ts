@@ -11,6 +11,17 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import {
+  ConfigurationDataService,
+  ConfigurationProperty,
+  createSuccessfulRemoteDataObject$,
+  FormFieldMetadataValueObject,
+  FormFieldModel,
+  FormRowModel,
+  getMockTranslateService,
+  SubmissionFormsModel,
+  VocabularyOptions,
+} from '@dspace/core';
+import {
   DynamicCheckboxGroupModel,
   DynamicCheckboxModel,
   DynamicColorPickerModel,
@@ -33,14 +44,6 @@ import {
 } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 
-import { FormRowModel } from '@dspace/core';
-import { SubmissionFormsModel } from '@dspace/core';
-import { ConfigurationDataService } from '@dspace/core';
-import { getMockTranslateService } from '@dspace/core';
-import { ConfigurationProperty } from '@dspace/core';
-import { FormFieldModel } from '@dspace/core';
-import { VocabularyOptions } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { DynamicDsDatePickerModel } from './ds-dynamic-form-ui/models/date-picker/date-picker.model';
 import { DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
@@ -56,7 +59,6 @@ import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/relation-
 import { DynamicScrollableDropdownModel } from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { DynamicTagModel } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
 import { FormBuilderService } from './form-builder.service';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 
 describe('FormBuilderService test suite', () => {
 

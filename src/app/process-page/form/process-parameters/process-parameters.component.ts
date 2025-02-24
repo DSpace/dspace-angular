@@ -13,12 +13,14 @@ import {
   ControlContainer,
   NgForm,
 } from '@angular/forms';
+import {
+  ProcessParameter,
+  Script,
+  ScriptParameter,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ProcessParameter } from '@dspace/core';
-import { Script } from '@dspace/core';
-import { ScriptParameter } from '@dspace/core';
 import { controlContainerFactory } from '../process-form-factory';
 import { ParameterSelectComponent } from './parameter-select/parameter-select.component';
 

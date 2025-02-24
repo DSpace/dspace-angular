@@ -16,6 +16,18 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
+import {
+  AuthService,
+  DSONameService,
+  DSpaceObject,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  NotificationsService,
+  PaginatedList,
+  RemoteData,
+  Subscription,
+  SubscriptionsDataService,
+} from '@dspace/core';
 import { isNotEmpty } from '@dspace/shared/utils';
 import {
   NgbActiveModal,
@@ -39,21 +51,9 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { AuthService } from '@dspace/core';
-import { DSONameService } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '@dspace/core';
 import { AlertComponent } from '../../alert/alert.component';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { ThemedTypeBadgeComponent } from '../../object-collection/shared/badges/type-badge/themed-type-badge.component';
-import { Subscription } from '@dspace/core';
-import { SubscriptionsDataService } from '@dspace/core';
 
 @Component({
   selector: 'ds-subscription-modal',

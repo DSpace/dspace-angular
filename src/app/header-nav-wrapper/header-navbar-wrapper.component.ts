@@ -6,6 +6,7 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
+import { MenuID } from '@dspace/core';
 import { Observable } from 'rxjs';
 
 import { ThemedHeaderComponent } from '../header/themed-header.component';
@@ -15,7 +16,6 @@ import {
   WidthCategory,
 } from '../shared/host-window.service';
 import { MenuService } from '../shared/menu/menu.service';
-import { MenuID } from '@dspace/core';
 
 /**
  * This component represents a wrapper for the horizontal navbar and the header

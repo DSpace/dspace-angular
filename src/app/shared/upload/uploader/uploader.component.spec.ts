@@ -11,14 +11,16 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import {
+  CookieService,
+  CookieServiceMock,
+  createTestComponent,
+  DragService,
+  HttpXsrfTokenExtractorMock,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { FileUploadModule } from 'ng2-file-upload';
 
-import { DragService } from '@dspace/core';
-import { CookieServiceMock } from '@dspace/core';
-import { HttpXsrfTokenExtractorMock } from '@dspace/core';
-import { CookieService } from '@dspace/core';
-import { createTestComponent } from '@dspace/core';
 import { UploaderComponent } from './uploader.component';
 import { UploaderOptions } from './uploader-options.model';
 

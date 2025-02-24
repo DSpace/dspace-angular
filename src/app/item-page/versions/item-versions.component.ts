@@ -11,6 +11,28 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
+  AuthorizationDataService,
+  ConfigurationDataService,
+  FeatureID,
+  followLink,
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  getRemoteDataPayload,
+  Item,
+  NotificationsService,
+  PaginatedList,
+  PaginatedSearchOptions,
+  PaginationComponentOptions,
+  PaginationService,
+  RemoteData,
+  Version,
+  VersionDataService,
+  VersionHistory,
+  VersionHistoryDataService,
+} from '@dspace/core';
+import {
   hasValue,
   hasValueOperator,
 } from '@dspace/shared/utils';
@@ -30,28 +52,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { ConfigurationDataService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { FeatureID } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { VersionDataService } from '@dspace/core';
-import { VersionHistoryDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import {
-  getAllSucceededRemoteData,
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getFirstSucceededRemoteDataPayload,
-  getRemoteDataPayload,
-} from '@dspace/core';
-import { PaginatedSearchOptions } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { Version } from '@dspace/core';
-import { VersionHistory } from '@dspace/core';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';

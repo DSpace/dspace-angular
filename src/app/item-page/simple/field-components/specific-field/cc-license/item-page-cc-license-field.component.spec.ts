@@ -9,20 +9,20 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
-  TranslateLoader,
-  TranslateModule,
-} from '@ngx-translate/core';
-import { Item } from '@dspace/core';
-import {
+  APP_CONFIG,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  Item,
   MetadataMap,
   MetadataValue,
 } from '@dspace/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 
-import { environment } from '../../../../../../environments/environment';
-import { APP_CONFIG } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { TranslateLoaderMock } from '../../../../../../../modules/core/src/lib/core/utilities/testing/translate-loader.mock';
-import { createPaginatedList } from '@dspace/core';
+import { environment } from '../../../../../../environments/environment';
 import { ItemPageCcLicenseFieldComponent } from './item-page-cc-license-field.component';
 
 

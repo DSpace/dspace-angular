@@ -4,6 +4,19 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  DSpaceObject,
+  getFirstCompletedRemoteData,
+  getSearchResultFor,
+  IdentifiableDataService,
+  NotificationOptions,
+  NotificationsService,
+  ProcessTaskResponse,
+  RemoteData,
+  RequestService,
+  ResourceType,
+  SearchService,
+} from '@dspace/core';
 import { TranslateService } from '@ngx-translate/core';
 import {
   Observable,
@@ -16,17 +29,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { IdentifiableDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { NotificationOptions } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
-import { ResourceType } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { ProcessTaskResponse } from '@dspace/core';
-import { getSearchResultFor } from '@dspace/core';
 import { MyDSpaceActionsComponent } from './mydspace-actions';
 
 /**

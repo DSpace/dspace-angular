@@ -10,6 +10,21 @@ import {
 import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
+import {
+  AppliedFilter,
+  createSuccessfulRemoteDataObject$,
+  FacetValues,
+  FilterType,
+  PageInfo,
+  RemoteDataBuildService,
+  RouterStub,
+  SearchConfigurationServiceStub,
+  SearchFilterConfig,
+  SearchFilterService,
+  SearchFilterServiceStub,
+  SearchService,
+  SearchServiceStub,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import {
@@ -17,19 +32,6 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { RemoteDataBuildService } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { AppliedFilter } from '@dspace/core';
-import { FacetValues } from '@dspace/core';
-import { FilterType } from '@dspace/core';
-import { SearchFilterConfig } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { SearchFilterService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
-import { SearchConfigurationServiceStub } from '@dspace/core';
-import { SearchFilterServiceStub } from '@dspace/core';
-import { SearchServiceStub } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { SearchFacetFilterComponent } from './search-facet-filter.component';
 

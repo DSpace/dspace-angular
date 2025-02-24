@@ -3,6 +3,16 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import {
+  buildPaginatedList,
+  createSuccessfulRemoteDataObject,
+  PageInfo,
+  TranslateLoaderMock,
+  VocabularyEntry,
+  VocabularyEntryDetail,
+  VocabularyOptions,
+  VocabularyService,
+} from '@dspace/core';
+import {
   TranslateLoader,
   TranslateModule,
   TranslateService,
@@ -20,14 +30,6 @@ import {
 } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
 
-import { buildPaginatedList } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { VocabularyEntry } from '@dspace/core';
-import { VocabularyEntryDetail } from '@dspace/core';
-import { VocabularyOptions } from '@dspace/core';
-import { VocabularyService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { VocabularyTreeviewService } from './vocabulary-treeview.service';
 import {
   LOAD_MORE_NODE,

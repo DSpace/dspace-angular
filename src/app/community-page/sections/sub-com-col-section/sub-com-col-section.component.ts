@@ -7,11 +7,13 @@ import {
   ActivatedRoute,
   Data,
 } from '@angular/router';
+import {
+  Community,
+  RemoteData,
+} from '@dspace/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { RemoteData } from '@dspace/core';
-import { Community } from '@dspace/core';
 import { ThemedCollectionPageSubCollectionListComponent } from './sub-collection-list/themed-community-page-sub-collection-list.component';
 import { ThemedCommunityPageSubCommunityListComponent } from './sub-community-list/themed-community-page-sub-community-list.component';
 

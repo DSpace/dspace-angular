@@ -13,6 +13,22 @@ import {
   Router,
 } from '@angular/router';
 import {
+  Collection,
+  CollectionDataService,
+  ContentSource,
+  ContentSourceHarvestType,
+  FieldUpdate,
+  FieldUpdates,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  INotification,
+  MetadataConfig,
+  NotificationsService,
+  ObjectUpdatesService,
+  RemoteData,
+  RequestService,
+} from '@dspace/core';
+import {
   hasNoValue,
   hasValue,
   isNotEmpty,
@@ -44,24 +60,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
-import { CollectionDataService } from '@dspace/core';
-import { FieldUpdate } from '@dspace/core';
-import { FieldUpdates } from '@dspace/core';
-import { ObjectUpdatesService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { INotification } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import {
-  ContentSource,
-  ContentSourceHarvestType,
-} from '@dspace/core';
-import { MetadataConfig } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-} from '@dspace/core';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { FormComponent } from '../../../shared/form/form.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';

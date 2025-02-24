@@ -3,11 +3,13 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import {
+  Item,
+  Metadata,
+  SearchResult,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Item } from '@dspace/core';
-import { Metadata } from '@dspace/core';
-import { SearchResult } from '@dspace/core';
 import { MetadataFieldWrapperComponent } from '../../../../metadata-field-wrapper/metadata-field-wrapper.component';
 
 /**

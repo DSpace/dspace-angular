@@ -14,6 +14,21 @@ import {
   Router,
 } from '@angular/router';
 import {
+  AuthorizationDataService,
+  AuthService,
+  Bitstream,
+  DSONameService,
+  FeatureID,
+  FileService,
+  getRemoteDataPayload,
+  HardRedirectService,
+  redirectOn4xx,
+  RemoteData,
+  ServerResponseService,
+  SignpostingDataService,
+  SignpostingLink,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -31,19 +46,6 @@ import {
 } from 'rxjs/operators';
 
 import { getForbiddenRoute } from '../../app-routing-paths';
-import { AuthService } from '@dspace/core';
-import { DSONameService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { FeatureID } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { SignpostingDataService } from '@dspace/core';
-import { SignpostingLink } from '@dspace/core';
-import { HardRedirectService } from '@dspace/core';
-import { ServerResponseService } from '@dspace/core';
-import { redirectOn4xx } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { FileService } from '@dspace/core';
-import { getRemoteDataPayload } from '@dspace/core';
 
 @Component({
   selector: 'ds-bitstream-download-page',

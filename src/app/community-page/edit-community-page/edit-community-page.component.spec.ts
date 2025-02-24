@@ -7,10 +7,10 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { CommunityDataService } from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { CommunityDataService } from '@dspace/core';
 import { EditCommunityPageComponent } from './edit-community-page.component';
 
 describe('EditCommunityPageComponent', () => {

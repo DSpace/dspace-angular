@@ -6,23 +6,25 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  ClaimedTaskDataService,
+  ClaimedTaskDataServiceStub,
+  NotificationsService,
+  NotificationsServiceStub,
+  ProcessTaskResponse,
+  RequestService,
+  RequestServiceStub,
+  RouteService,
+  routeServiceStub,
+  WorkflowActionDataService,
+  WorkflowActionDataServiceStub,
+  WorkflowItemDataService,
+  WorkflowItemDataServiceStub,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { MockComponent } from 'ng-mocks';
 import { of as observableOf } from 'rxjs';
 
-import { RequestService } from '@dspace/core';
-import { WorkflowActionDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { WorkflowItemDataService } from '@dspace/core';
-import { ClaimedTaskDataService } from '@dspace/core';
-import { ProcessTaskResponse } from '@dspace/core';
-import { ClaimedTaskDataServiceStub } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { RequestServiceStub } from '@dspace/core';
-import { routeServiceStub } from '@dspace/core';
-import { WorkflowActionDataServiceStub } from '@dspace/core';
-import { WorkflowItemDataServiceStub } from '@dspace/core';
 import { DSOSelectorComponent } from '../../../shared/dso-selector/dso-selector/dso-selector.component';
 import { WorkflowItemActionPageDirective } from '../../workflow-item-action-page.component';
 import { AdvancedWorkflowActionComponent } from './advanced-workflow-action.component';

@@ -6,6 +6,23 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  AuthorizationDataService,
+  Collection,
+  Community,
+  createSuccessfulRemoteDataObject,
+  DSONameService,
+  DSpaceObject,
+  DSpaceObjectType,
+  FeatureID,
+  getFirstCompletedRemoteData,
+  METADATA_EXPORT_SCRIPT_NAME,
+  NotificationsService,
+  Process,
+  ProcessParameter,
+  RemoteData,
+  ScriptDataService,
+} from '@dspace/core';
 import { isNotEmpty } from '@dspace/shared/utils';
 import {
   NgbActiveModal,
@@ -24,23 +41,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { FeatureID } from '@dspace/core';
-import {
-  METADATA_EXPORT_SCRIPT_NAME,
-  ScriptDataService,
-} from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Process } from '@dspace/core';
-import { ProcessParameter } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { Community } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { DSpaceObjectType } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { getProcessDetailRoute } from '../../../../process-page/process-page-routing.paths';
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';

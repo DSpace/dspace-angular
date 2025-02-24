@@ -6,6 +6,18 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import {
+  FormAddError,
+  FormAddTouchedAction,
+  FormChangeAction,
+  FormEntry,
+  FormError,
+  FormInitAction,
+  FormRemoveAction,
+  FormRemoveErrorAction,
+  FormStatusChangeAction,
+  FormTouchedState,
+} from '@dspace/core';
+import {
   isEmpty,
   isNotUndefined,
 } from '@dspace/shared/utils';
@@ -29,20 +41,6 @@ import {
 import { environment } from '../../../environments/environment';
 import { AppState } from '../../app.reducer';
 import { FormBuilderService } from './builder/form-builder.service';
-import {
-  FormAddError,
-  FormAddTouchedAction,
-  FormChangeAction,
-  FormInitAction,
-  FormRemoveAction,
-  FormRemoveErrorAction,
-  FormStatusChangeAction,
-} from '@dspace/core';
-import {
-  FormEntry,
-  FormError,
-  FormTouchedState,
-} from '@dspace/core';
 import { formObjectFromIdSelector } from './selectors';
 
 @Injectable({ providedIn: 'root' })

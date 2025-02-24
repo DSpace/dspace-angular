@@ -13,6 +13,10 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
+  LangConfig,
+  LocaleService,
+} from '@dspace/core';
+import {
   TranslateLoader,
   TranslateModule,
   TranslateService,
@@ -22,8 +26,6 @@ import {
   of,
 } from 'rxjs';
 
-import { LangConfig } from '@dspace/core';
-import { LocaleService } from '@dspace/core';
 import { LangSwitchComponent } from './lang-switch.component';
 
 // This test is completely independent from any message catalogs or keys in the codebase

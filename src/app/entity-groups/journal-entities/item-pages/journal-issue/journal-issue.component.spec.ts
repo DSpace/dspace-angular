@@ -1,7 +1,10 @@
-import { buildPaginatedList } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import {
+  buildPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  Item,
+  PageInfo,
+} from '@dspace/core';
+
 import {
   createRelationshipsObservable,
   getItemPageFieldsTest,

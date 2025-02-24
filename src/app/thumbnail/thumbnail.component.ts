@@ -6,6 +6,14 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import {
+  AuthorizationDataService,
+  AuthService,
+  Bitstream,
+  FeatureID,
+  FileService,
+  RemoteData,
+} from '@dspace/core';
+import {
   hasNoValue,
   hasValue,
 } from '@dspace/shared/utils';
@@ -13,12 +21,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { AuthService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { FeatureID } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { FileService } from '@dspace/core';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { SafeUrlPipe } from '../shared/utils/safe-url-pipe';
 import { VarDirective } from '../shared/utils/var.directive';

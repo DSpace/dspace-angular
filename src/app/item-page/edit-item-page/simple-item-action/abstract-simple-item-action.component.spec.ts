@@ -15,21 +15,21 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-
-import { ItemDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Item } from '@dspace/core';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
+  Item,
+  ItemDataService,
+  NotificationsService,
+  NotificationsServiceStub,
+  RemoteData,
+  RouterStub,
 } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
 import { getItemEditRoute } from '../../item-page-routing-paths';
 import { AbstractSimpleItemActionComponent } from './abstract-simple-item-action.component';
 

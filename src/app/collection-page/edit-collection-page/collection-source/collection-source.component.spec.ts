@@ -14,6 +14,22 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  Collection,
+  CollectionDataService,
+  ContentSource,
+  ContentSourceHarvestType,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  FieldUpdate,
+  INotification,
+  Notification,
+  NotificationsService,
+  NotificationType,
+  ObjectUpdatesService,
+  RequestService,
+  RouterStub,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import {
   DynamicFormControlModel,
@@ -22,26 +38,6 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { CollectionDataService } from '@dspace/core';
-import { FieldUpdate } from '@dspace/core';
-import { ObjectUpdatesService } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import {
-  INotification,
-  Notification,
-} from '@dspace/core';
-import { NotificationType } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import {
-  ContentSource,
-  ContentSourceHarvestType,
-} from '@dspace/core';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { RouterStub } from '@dspace/core';
 import { FormComponent } from '../../../shared/form/form.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { CollectionSourceComponent } from './collection-source.component';

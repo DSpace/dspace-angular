@@ -12,15 +12,17 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  AuthorizationDataService,
+  Community,
+  createSuccessfulRemoteDataObject,
+  MetadataValue,
+  RouterStub,
+} from '@dspace/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthorizationDataService } from '@dspace/core';
-import { Community } from '@dspace/core';
-import { MetadataValue } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import { CreateCommunityParentSelectorComponent } from './create-community-parent-selector.component';
 

@@ -2,11 +2,13 @@ import {
   Component,
   Input,
 } from '@angular/core';
-import { Context } from '@dspace/core';
-import { WorkflowItem } from '@dspace/core';
+import {
+  Context,
+  Item,
+  SearchResult,
+  WorkflowItem,
+} from '@dspace/core';
 
-import { Item } from '@dspace/core';
-import { SearchResult } from '@dspace/core';
 import { ThemedComponent } from '../../../theme-support/themed.component';
 import { ItemListPreviewComponent } from './item-list-preview.component';
 

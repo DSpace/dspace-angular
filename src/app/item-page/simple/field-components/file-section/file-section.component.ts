@@ -5,6 +5,18 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+  Bitstream,
+  BitstreamDataService,
+  DSONameService,
+  getFirstCompletedRemoteData,
+  Item,
+  NotificationsService,
+  PaginatedList,
+  RemoteData,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import {
   TranslateModule,
@@ -12,18 +24,6 @@ import {
 } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { DSONameService } from '@dspace/core';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/core';
-import { BitstreamDataService } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';

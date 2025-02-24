@@ -16,6 +16,16 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import {
+  buildPaginatedList,
+  ConfidenceType,
+  FormFieldMetadataValueObject,
+  getFirstSucceededRemoteDataPayload,
+  PageInfo,
+  PaginatedList,
+  VocabularyEntry,
+  VocabularyService,
+} from '@dspace/core';
+import {
   hasValue,
   isEmpty,
   isNotEmpty,
@@ -40,19 +50,9 @@ import {
   distinctUntilChanged,
 } from 'rxjs/operators';
 
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '@dspace/core';
-import { ConfidenceType } from '@dspace/core';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { VocabularyEntry } from '@dspace/core';
-import { VocabularyService } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
 

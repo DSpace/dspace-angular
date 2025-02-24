@@ -5,6 +5,11 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
+import {
+  SubmissionRestService,
+  SubmissionScopeType,
+  SubmissionService,
+} from '@dspace/core';
 import { isNotEmpty } from '@dspace/shared/utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
@@ -14,11 +19,8 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { SubmissionRestService } from '@dspace/core';
-import { SubmissionScopeType } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
-import { SubmissionService } from '@dspace/core';
 
 /**
  * This component represents submission form footer bar.

@@ -9,18 +9,18 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  AuthorizationDataService,
+  AuthService,
+  Bitstream,
+  createFailedRemoteDataObject,
+  createSuccessfulRemoteDataObject,
+  FileService,
+  RemoteData,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { FileService } from '@dspace/core';
-import {
-  createFailedRemoteDataObject,
-  createSuccessfulRemoteDataObject,
-} from '@dspace/core';
 import { getMockThemeService } from '../shared/mocks/theme-service.mock';
 import { ThemeService } from '../shared/theme-support/theme.service';
 import { SafeUrlPipe } from '../shared/utils/safe-url-pipe';

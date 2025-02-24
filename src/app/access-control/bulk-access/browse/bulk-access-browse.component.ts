@@ -5,6 +5,18 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import {
+  buildPaginatedList,
+  createSuccessfulRemoteDataObject,
+  ListableObject,
+  PageInfo,
+  PaginatedList,
+  PaginationComponentOptions,
+  RemoteData,
+  SearchConfigurationService,
+  SelectableListService,
+  SelectableListState,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import {
   NgbAccordionModule,
@@ -21,21 +33,9 @@ import {
   map,
 } from 'rxjs/operators';
 
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { ListableObject } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SelectableListItemControlComponent } from '../../../shared/object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
-import { SelectableListState } from '@dspace/core';
-import { SelectableListService } from '@dspace/core';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { ThemedSearchComponent } from '../../../shared/search/themed-search.component';
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';

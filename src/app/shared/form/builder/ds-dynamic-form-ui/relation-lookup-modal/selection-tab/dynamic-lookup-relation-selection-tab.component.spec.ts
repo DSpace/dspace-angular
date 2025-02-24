@@ -6,26 +6,26 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import {
+  buildPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  Item,
+  ItemSearchResult,
+  ListableObject,
+  PaginatedList,
+  PaginatedSearchOptions,
+  PaginationComponentOptions,
+  PaginationService,
+  PaginationServiceStub,
+  RemoteData,
+  SearchConfigurationService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   of as observableOf,
 } from 'rxjs';
 
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { ItemSearchResult } from '@dspace/core';
-import { ListableObject } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { PaginatedSearchOptions } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
 import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
 import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
 import { VarDirective } from '../../../../../utils/var.directive';

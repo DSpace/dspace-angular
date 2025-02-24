@@ -14,6 +14,13 @@ import {
   RouterLinkActive,
   Scroll,
 } from '@angular/router';
+import {
+  BrowseDefinition,
+  BrowseService,
+  getFirstCompletedRemoteData,
+  PaginatedList,
+  RemoteData,
+} from '@dspace/core';
 import { isNotEmpty } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -32,11 +39,6 @@ import {
 
 import { getCollectionPageRoute } from '../../../collection-page/collection-page-routing-paths';
 import { getCommunityPageRoute } from '../../../community-page/community-page-routing-paths';
-import { BrowseService } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { BrowseDefinition } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
 
 export interface ComColPageNavOption {
   id: string;

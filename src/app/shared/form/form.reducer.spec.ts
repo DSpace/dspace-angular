@@ -4,11 +4,11 @@ import {
   FormChangeAction,
   FormClearErrorsAction,
   FormInitAction,
+  formReducer,
   FormRemoveAction,
   FormRemoveErrorAction,
   FormStatusChangeAction,
 } from '@dspace/core';
-import { formReducer } from '@dspace/core';
 
 describe('formReducer', () => {
 

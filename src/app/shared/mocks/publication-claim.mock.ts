@@ -2,8 +2,10 @@
 // REST Mock ---------------------------------------------------------------------
 // -------------------------------------------------------------------------------
 
-import { Suggestion } from '@dspace/core';
-import { SUGGESTION } from '@dspace/core';
+import {
+  SUGGESTION,
+  Suggestion,
+} from '@dspace/core';
 
 export const mockSuggestionPublicationOne: Suggestion =  {
   id: '24694773',

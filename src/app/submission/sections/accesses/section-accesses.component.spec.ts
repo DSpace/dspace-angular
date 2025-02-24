@@ -4,6 +4,20 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import {
+  accessConditionChangeEvent,
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+  checkboxChangeEvent,
+  JsonPatchOperationsBuilder,
+  SectionsServiceStub,
+  SubmissionAccessesConfigDataService,
+  SubmissionJsonPatchOperationsService,
+  SubmissionJsonPatchOperationsServiceStub,
+  SubmissionObjectDataService,
+  SubmissionService,
+  XSRFService,
+} from '@dspace/core';
+import {
   DYNAMIC_FORM_CONTROL_MAP_FN,
   DynamicCheckboxModel,
   DynamicDatePickerModel,
@@ -16,21 +30,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { environment } from 'src/environments/environment.test';
 
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from '@dspace/core';
-import { SubmissionAccessesConfigDataService } from '@dspace/core';
-import { JsonPatchOperationsBuilder } from '@dspace/core';
-import { SubmissionJsonPatchOperationsService } from '@dspace/core';
-import { SubmissionObjectDataService } from '@dspace/core';
-import {
-  accessConditionChangeEvent,
-  checkboxChangeEvent,
-} from '@dspace/core';
-import { SectionsServiceStub } from '@dspace/core';
-import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core';
-import { XSRFService } from '@dspace/core';
 import { dsDynamicFormControlMapFn } from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 import { DsDynamicTypeBindRelationService } from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
@@ -45,7 +44,6 @@ import {
   getSubmissionAccessesConfigService,
 } from '../../../shared/mocks/section-accesses-config.service.mock';
 import { mockAccessesFormData } from '../../../shared/mocks/submission.mock';
-import { SubmissionService } from '@dspace/core';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { SectionsService } from '../sections.service';
 import { SubmissionSectionAccessesComponent } from './section-accesses.component';

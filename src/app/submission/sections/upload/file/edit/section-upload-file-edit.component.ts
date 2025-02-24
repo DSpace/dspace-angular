@@ -8,6 +8,18 @@ import {
 } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 import {
+  AccessConditionOption,
+  FormFieldModel,
+  JsonPatchOperationPathCombiner,
+  JsonPatchOperationsBuilder,
+  SubmissionFormsModel,
+  SubmissionJsonPatchOperationsService,
+  SubmissionObject,
+  SubmissionService,
+  WorkspaceitemSectionUploadFileObject,
+  WorkspaceitemSectionUploadObject,
+} from '@dspace/core';
+import {
   dateToISOFormat,
   hasNoValue,
   hasValue,
@@ -35,22 +47,12 @@ import {
   mergeMap,
   take,
 } from 'rxjs/operators';
-import { SubmissionObject } from '@dspace/core';
-import { WorkspaceitemSectionUploadObject } from '@dspace/core';
 import { DynamicCustomSwitchModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
 
-import { AccessConditionOption } from '@dspace/core';
-import { SubmissionFormsModel } from '@dspace/core';
-import { JsonPatchOperationPathCombiner } from '@dspace/core';
-import { JsonPatchOperationsBuilder } from '@dspace/core';
-import { FormFieldModel } from '@dspace/core';
-import { WorkspaceitemSectionUploadFileObject } from '@dspace/core';
-import { SubmissionJsonPatchOperationsService } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../../../shared/btn-disabled.directive';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../../../shared/form/form.component';
 import { FormService } from '../../../../../shared/form/form.service';
-import { SubmissionService } from '@dspace/core';
 import { SectionUploadService } from '../../section-upload.service';
 import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload-constants';
 import {

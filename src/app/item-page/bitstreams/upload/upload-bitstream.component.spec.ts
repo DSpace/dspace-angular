@@ -10,29 +10,29 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  AuthService,
+  AuthServiceStub,
+  Bitstream,
+  buildPaginatedList,
+  Bundle,
+  BundleDataService,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  Item,
+  ItemDataService,
+  NotificationsService,
+  NotificationsServiceStub,
+  PageInfo,
+  RequestService,
+  RouterStub,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { environment } from '../../../../environments/environment';
-import { AuthService } from '@dspace/core';
-import { BundleDataService } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { buildPaginatedList } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { Bundle } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { AuthServiceStub } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { DsoInputSuggestionsComponent } from '../../../shared/input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
 import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
 import { VarDirective } from '../../../shared/utils/var.directive';

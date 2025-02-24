@@ -6,6 +6,20 @@ import {
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
+  AuthorizationDataService,
+  AuthService,
+  AuthServiceStub,
+  BrowseService,
+  ConfigurationDataService,
+  ConfigurationDataServiceStub,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  FeatureID,
+  MenuID,
+  MenuServiceStub,
+  ScriptDataService,
+} from '@dspace/core';
+import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -14,20 +28,9 @@ import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
 import { AdminSidebarComponent } from './admin/admin-sidebar/admin-sidebar.component';
-import { BrowseService } from '@dspace/core';
-import { ConfigurationDataService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { FeatureID } from '@dspace/core';
-import { ScriptDataService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { ConfigurationDataServiceStub } from '@dspace/core';
-import { MenuServiceStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { MenuService } from './shared/menu/menu.service';
-import { MenuID } from '@dspace/core';
 import createSpy = jasmine.createSpy;
-import { AuthService } from '@dspace/core';
-import { AuthServiceStub } from '@dspace/core';
+
 import { MenuResolverService } from './menu-resolver.service';
 
 const BOOLEAN = { t: true, f: false };

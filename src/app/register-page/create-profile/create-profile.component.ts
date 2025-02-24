@@ -14,6 +14,20 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  AuthenticateAction,
+  CoreState,
+  END_USER_AGREEMENT_METADATA_FIELD,
+  EndUserAgreementService,
+  EPerson,
+  EPersonDataService,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  LangConfig,
+  NotificationsService,
+  Registration,
+  RemoteData,
+} from '@dspace/core';
 import { isEmpty } from '@dspace/shared/utils';
 import { Store } from '@ngrx/store';
 import {
@@ -24,22 +38,6 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import { AuthenticateAction } from '@dspace/core';
-import { LangConfig } from '@dspace/core';
-import { CoreState } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import {
-  END_USER_AGREEMENT_METADATA_FIELD,
-  EndUserAgreementService,
-} from '@dspace/core';
-import { EPersonDataService } from '@dspace/core';
-import { EPerson } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '@dspace/core';
-import { Registration } from '@dspace/core';
 import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 

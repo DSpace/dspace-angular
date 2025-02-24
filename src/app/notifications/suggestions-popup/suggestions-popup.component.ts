@@ -6,6 +6,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { SuggestionTarget } from '@dspace/core';
 import { isNotEmpty } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -20,7 +21,6 @@ import {
   takeUntil,
 } from 'rxjs/operators';
 
-import { SuggestionTarget } from '@dspace/core';
 import { fromTopEnter } from '../../shared/animations/fromTop';
 import { SuggestionTargetsStateService } from '../suggestion-targets/suggestion-targets.state.service';
 import { SuggestionsService } from '../suggestions.service';

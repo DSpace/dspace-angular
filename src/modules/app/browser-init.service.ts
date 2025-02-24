@@ -14,6 +14,21 @@ import {
   NavigationStart,
   Router,
 } from '@angular/router';
+import {
+  APP_CONFIG,
+  APP_CONFIG_STATE,
+  AppConfig,
+  AuthService,
+  coreSelector,
+  CorrelationIdService,
+  HALEndpointService,
+  HeadTagService,
+  LocaleService,
+  RequestService,
+  RootDataService,
+  StoreAction,
+  StoreActionTypes,
+} from '@dspace/core';
 import { isNotEmpty } from '@dspace/shared/utils';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
@@ -31,23 +46,7 @@ import {
 import { logStartupMessage } from '../../../startup-message';
 import { AppState } from '../../app/app.reducer';
 import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
-import { AuthService } from '@dspace/core';
-import {
-  APP_CONFIG,
-  APP_CONFIG_STATE,
-  AppConfig,
-} from '@dspace/core';
-import { coreSelector } from '@dspace/core';
-import { CorrelationIdService } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { RootDataService } from '@dspace/core';
-import { LocaleService } from '@dspace/core';
-import { HeadTagService } from '@dspace/core';
-import { HALEndpointService } from '@dspace/core';
-import {
-  StoreAction,
-  StoreActionTypes,
-} from '@dspace/core';
+import { DefaultAppConfig } from '../../app/default-app-config';
 import { InitService } from '../../app/init.service';
 import { OrejimeService } from '../../app/shared/cookies/orejime.service';
 import { MenuService } from '../../app/shared/menu/menu.service';
@@ -56,7 +55,6 @@ import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-prov
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
 import { extendEnvironmentWithAppConfig } from '../../config/config.util';
 import { environment } from '../../environments/environment';
-import { DefaultAppConfig } from "../../app/default-app-config";
 
 /**
  * Performs client-side initialization.

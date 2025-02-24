@@ -9,12 +9,14 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
+import {
+  DSONameService,
+  Item,
+  ItemMetadataRepresentation,
+  MetadataValue,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { DSONameService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { MetadataValue } from '@dspace/core';
-import { ItemMetadataRepresentation } from '@dspace/core';
 import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
 import { TruncatableComponent } from '../../../../shared/truncatable/truncatable.component';
 import { ProjectItemMetadataListElementComponent } from './project-item-metadata-list-element.component';

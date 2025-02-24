@@ -1,7 +1,9 @@
 import { Route } from '@angular/router';
+import {
+  authenticatedGuard,
+  i18nBreadcrumbResolver,
+} from '@dspace/core';
 
-import { authenticatedGuard } from '@dspace/core';
-import { i18nBreadcrumbResolver } from '@dspace/core';
 import { ThemedFullItemPageComponent } from '../item-page/full/themed-full-item-page.component';
 import { ThemedSubmissionEditComponent } from '../submission/edit/themed-submission-edit.component';
 import { itemFromWorkspaceResolver } from './item-from-workspace.resolver';

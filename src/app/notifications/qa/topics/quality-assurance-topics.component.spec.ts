@@ -11,19 +11,19 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
-import { ItemDataService } from '@dspace/core';
-
 import {
+  createTestComponent,
   getMockNotificationsStateService,
+  ItemDataService,
+  PaginationService,
+  PaginationServiceStub,
   qualityAssuranceTopicObjectMoreAbstract,
   qualityAssuranceTopicObjectMorePid,
 } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
-import { createTestComponent } from '@dspace/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { cold } from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
+
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';

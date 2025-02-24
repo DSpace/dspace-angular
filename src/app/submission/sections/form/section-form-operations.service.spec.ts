@@ -3,6 +3,14 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import {
+  APP_DATA_SERVICES_MAP,
+  FormFieldMetadataValueObject,
+  JsonPatchOperationPathCombiner,
+  JsonPatchOperationsBuilder,
+  TranslateLoaderMock,
+  VocabularyEntry,
+} from '@dspace/core';
+import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_GROUP,
   DynamicFormControlEvent,
@@ -13,14 +21,8 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { APP_DATA_SERVICES_MAP } from '@dspace/core';
-import { JsonPatchOperationPathCombiner } from '@dspace/core';
-import { JsonPatchOperationsBuilder } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { VocabularyEntry } from '@dspace/core';
 import { DynamicRowArrayModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 import {

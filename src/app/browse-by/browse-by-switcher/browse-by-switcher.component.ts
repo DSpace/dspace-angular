@@ -6,12 +6,14 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import {
+  BrowseByDataType,
+  Context,
+  GenericConstructor,
+} from '@dspace/core';
 
-import { Context } from '@dspace/core';
-import { GenericConstructor } from '@dspace/core';
 import { AbstractComponentLoaderComponent } from '../../shared/abstract-component-loader/abstract-component-loader.component';
 import { DynamicComponentLoaderDirective } from '../../shared/abstract-component-loader/dynamic-component-loader.directive';
-import { BrowseByDataType } from '@dspace/core';
 import { getComponentByBrowseByType } from './browse-by-decorator';
 
 @Component({

@@ -9,6 +9,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  MenuID,
+  MenuSection,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import {
   NgbDropdownModule,
@@ -17,8 +21,6 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { MenuID } from '@dspace/core';
-import { MenuSection } from '@dspace/core';
 import { MenuSectionComponent } from 'src/app/shared/menu/menu-section/menu-section.component';
 
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';

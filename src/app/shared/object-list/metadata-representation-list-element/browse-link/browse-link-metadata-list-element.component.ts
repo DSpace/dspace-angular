@@ -1,8 +1,8 @@
 
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-
 import { VALUE_LIST_BROWSE_DEFINITION } from '@dspace/core';
+
 import { MetadataRepresentationListElementComponent } from '../metadata-representation-list-element.component';
 
 @Component({

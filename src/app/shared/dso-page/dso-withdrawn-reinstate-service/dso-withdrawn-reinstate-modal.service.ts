@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  AuthorizationDataService,
+  getFirstCompletedRemoteData,
+  Item,
+  ItemDataService,
+  NotificationsService,
+  QualityAssuranceEventDataService,
+  QualityAssuranceEventObject,
+  RemoteData,
+} from '@dspace/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
 
-import { AuthorizationDataService } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { QualityAssuranceEventDataService } from '@dspace/core';
-import { QualityAssuranceEventObject } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
 import { ItemWithdrawnReinstateModalComponent } from '../../correction-suggestion/item-withdrawn-reinstate-modal.component';
 
 export const REQUEST_WITHDRAWN = 'REQUEST/WITHDRAWN';

@@ -1,5 +1,16 @@
 import { Injectable } from '@angular/core';
 import {
+  AuthActionTypes,
+  ConfigurationDataService,
+  ConfigurationProperty,
+  getFirstCompletedRemoteData,
+  NotificationsService,
+  PaginatedList,
+  RemoteData,
+  RetrieveAuthenticatedEpersonSuccessAction,
+  SuggestionTarget,
+} from '@dspace/core';
+import {
   Actions,
   createEffect,
   ofType,
@@ -13,18 +24,7 @@ import {
   switchMap,
   tap,
 } from 'rxjs/operators';
-import { ConfigurationDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { ConfigurationProperty } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
 
-import {
-  AuthActionTypes,
-  RetrieveAuthenticatedEpersonSuccessAction,
-} from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { SuggestionTarget } from '@dspace/core';
 import { SuggestionsService } from '../suggestions.service';
 import {
   AddTargetAction,

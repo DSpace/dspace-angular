@@ -7,6 +7,21 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
+  AppliedFilter,
+  Context,
+  DSpaceObject,
+  ListableObject,
+  PaginatedList,
+  PaginatedSearchOptions,
+  RemoteData,
+  SearchConfigurationService,
+  SearchFilter,
+  SearchResult,
+  SearchService,
+  SortOptions,
+  ViewMode,
+} from '@dspace/core';
+import {
   hasNoValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -17,19 +32,6 @@ import {
   Observable,
 } from 'rxjs';
 
-import { SortOptions } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { ListableObject } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { PaginatedSearchOptions } from '@dspace/core';
-import { AppliedFilter } from '@dspace/core';
-import { SearchFilter } from '@dspace/core';
-import { SearchResult } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import {
   fadeIn,
   fadeInOut,

@@ -10,6 +10,24 @@ import {
   Output,
 } from '@angular/core';
 import {
+  APP_DATA_SERVICES_MAP,
+  DSONameService,
+  DSpaceObject,
+  EPERSON,
+  EPersonDataService,
+  FindListOptions,
+  getFirstCompletedRemoteData,
+  GROUP,
+  GroupDataService,
+  lazyDataService,
+  LazyDataServicesMap,
+  PaginatedList,
+  PaginationComponentOptions,
+  PaginationService,
+  RemoteData,
+  ResourceType,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -21,23 +39,7 @@ import {
   Subscription,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { LazyDataServicesMap } from '@dspace/core';
 
-import { DSONameService } from '@dspace/core';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { EPersonDataService } from '@dspace/core';
-import { GroupDataService } from '@dspace/core';
-import { EPERSON } from '@dspace/core';
-import { GROUP } from '@dspace/core';
-import { lazyDataService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { ResourceType } from '@dspace/core';
 import { fadeInOut } from '../animations/fade';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { SearchEvent } from './eperson-group-list-event-type';

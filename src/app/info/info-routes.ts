@@ -2,12 +2,14 @@ import {
   Route,
   Routes,
 } from '@angular/router';
+import {
+  feedbackGuard,
+  i18nBreadcrumbResolver,
+  notifyInfoGuard,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 
 import { environment } from '../../environments/environment';
-import { i18nBreadcrumbResolver } from '@dspace/core';
-import { notifyInfoGuard } from '@dspace/core';
-import { feedbackGuard } from '@dspace/core';
 import { ThemedEndUserAgreementComponent } from './end-user-agreement/themed-end-user-agreement.component';
 import { ThemedFeedbackComponent } from './feedback/themed-feedback.component';
 import {

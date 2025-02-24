@@ -7,12 +7,14 @@ import {
   ActivatedRoute,
   Data,
 } from '@angular/router';
+import {
+  BrowseByDataType,
+  BrowseDefinition,
+} from '@dspace/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { BrowseByDataType } from '@dspace/core';
 import { BrowseBySwitcherComponent } from '../../../../browse-by/browse-by-switcher/browse-by-switcher.component';
-import { BrowseDefinition } from '@dspace/core';
 
 @Component({
   selector: 'ds-comcol-browse-by',

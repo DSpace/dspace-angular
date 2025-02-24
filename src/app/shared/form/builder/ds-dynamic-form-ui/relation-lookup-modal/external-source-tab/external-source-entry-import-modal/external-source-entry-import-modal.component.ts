@@ -5,6 +5,28 @@ import {
   OnInit,
 } from '@angular/core';
 import {
+  Context,
+  ExternalSourceEntry,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+  Item,
+  ItemDataService,
+  ItemSearchResult,
+  ItemType,
+  ListableObject,
+  LookupRelationService,
+  Metadata,
+  MetadataValue,
+  NotificationsService,
+  PaginatedList,
+  PaginatedSearchOptions,
+  PaginationComponentOptions,
+  RelationshipOptions,
+  RemoteData,
+  SearchResult,
+  SelectableListService,
+} from '@dspace/core';
+import {
   NgbActiveModal,
   NgbModal,
   NgbModalRef,
@@ -19,32 +41,10 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { ItemDataService } from '@dspace/core';
-import { LookupRelationService } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { ItemSearchResult } from '@dspace/core';
-import { ListableObject } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { ExternalSourceEntry } from '@dspace/core';
-import { RelationshipOptions } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { ItemType } from '@dspace/core';
-import { MetadataValue } from '@dspace/core';
-import { Metadata } from '@dspace/core';
-import {
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '@dspace/core';
-import { PaginatedSearchOptions } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { SearchResult } from '@dspace/core';
 import { SubmissionImportExternalCollectionComponent } from '../../../../../../../submission/import-external/import-external-collection/submission-import-external-collection.component';
 import { BtnDisabledDirective } from '../../../../../../btn-disabled.directive';
 import { CollectionListEntry } from '../../../../../../collection-dropdown/collection-dropdown.component';
 import { CollectionElementLinkType } from '../../../../../../object-collection/collection-element-link.type';
-import { SelectableListService } from '@dspace/core';
 import { ThemedSearchResultsComponent } from '../../../../../../search/search-results/themed-search-results.component';
 
 /**

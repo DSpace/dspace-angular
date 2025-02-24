@@ -9,6 +9,15 @@ import {
   ViewChild,
 } from '@angular/core';
 import {
+  Bitstream,
+  JsonPatchOperationPathCombiner,
+  JsonPatchOperationsBuilder,
+  SubmissionFormsModel,
+  SubmissionJsonPatchOperationsService,
+  SubmissionService,
+  WorkspaceitemSectionUploadFileObject,
+} from '@dspace/core';
+import {
   hasValue,
   isNotUndefined,
 } from '@dspace/shared/utils';
@@ -23,17 +32,10 @@ import {
 } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-import { SubmissionFormsModel } from '@dspace/core';
-import { JsonPatchOperationPathCombiner } from '@dspace/core';
-import { JsonPatchOperationsBuilder } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { WorkspaceitemSectionUploadFileObject } from '@dspace/core';
-import { SubmissionJsonPatchOperationsService } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { FormService } from '../../../../shared/form/form.service';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
-import { SubmissionService } from '@dspace/core';
 import { SectionUploadService } from '../section-upload.service';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
 import { SubmissionSectionUploadFileViewComponent } from './view/section-upload-file-view.component';

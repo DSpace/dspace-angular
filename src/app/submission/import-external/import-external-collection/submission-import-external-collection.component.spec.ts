@@ -9,10 +9,10 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { createTestComponent } from '@dspace/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { createTestComponent } from '@dspace/core';
 import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
 import { ThemedCollectionDropdownComponent } from '../../../shared/collection-dropdown/themed-collection-dropdown.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';

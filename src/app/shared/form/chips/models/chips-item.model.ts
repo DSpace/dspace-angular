@@ -1,13 +1,14 @@
 import {
+  ConfidenceType,
+  FormFieldMetadataValueObject,
+  PLACEHOLDER_PARENT_METADATA,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
 import isObject from 'lodash/isObject';
 import uniqueId from 'lodash/uniqueId';
-
-import { ConfidenceType } from '@dspace/core';
-import { PLACEHOLDER_PARENT_METADATA } from '@dspace/core';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 
 export interface ChipsItemIcon {
   metadata: string;

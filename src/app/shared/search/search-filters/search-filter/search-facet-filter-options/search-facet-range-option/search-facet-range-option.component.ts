@@ -10,6 +10,15 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import {
+  currentPath,
+  FacetValue,
+  PaginationService,
+  SearchConfigurationService,
+  SearchFilterConfig,
+  SearchFilterService,
+  SearchService,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import {
   Observable,
@@ -17,13 +26,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { PaginationService } from '@dspace/core';
-import { FacetValue } from '@dspace/core';
-import { SearchFilterConfig } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import { SearchFilterService } from '@dspace/core';
-import { currentPath } from '@dspace/core';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
 import {
   RANGE_FILTER_MAX_SUFFIX,

@@ -8,9 +8,9 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { Item } from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Item } from '@dspace/core';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { StatusBadgeComponent } from './status-badge.component';
 

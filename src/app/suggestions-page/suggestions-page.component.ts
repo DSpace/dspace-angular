@@ -10,6 +10,24 @@ import {
   RouterLink,
 } from '@angular/router';
 import {
+  AuthService,
+  FindListOptions,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  NotificationsService,
+  PaginatedList,
+  PaginationComponentOptions,
+  PaginationService,
+  redirectOn4xx,
+  RemoteData,
+  SortDirection,
+  SortOptions,
+  Suggestion,
+  SuggestionTarget,
+  WorkspaceItem,
+  WorkspaceitemDataService,
+} from '@dspace/core';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
@@ -25,26 +43,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { AuthService } from '@dspace/core';
-import {
-  SortDirection,
-  SortOptions,
-} from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Suggestion } from '@dspace/core';
-import { SuggestionTarget } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { redirectOn4xx } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { WorkspaceItem } from '@dspace/core';
-import { WorkspaceitemDataService } from '@dspace/core';
 import { SuggestionActionsComponent } from '../notifications/suggestion-actions/suggestion-actions.component';
 import { SuggestionApproveAndImport } from '../notifications/suggestion-list-element/suggestion-approve-and-import';
 import { SuggestionListElementComponent } from '../notifications/suggestion-list-element/suggestion-list-element.component';

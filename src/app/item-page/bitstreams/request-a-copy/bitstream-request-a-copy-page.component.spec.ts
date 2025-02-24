@@ -16,26 +16,26 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-
-import { AuthService } from '@dspace/core';
-import { DSONameService } from '@dspace/core';
-import { BitstreamDataService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { ItemRequestDataService } from '@dspace/core';
-import { EPerson } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { ItemRequest } from '@dspace/core';
 import {
+  AuthorizationDataService,
+  AuthService,
+  Bitstream,
+  BitstreamDataService,
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
+  DSONameService,
+  EPerson,
+  Item,
+  ItemRequest,
+  ItemRequestDataService,
+  NotificationsService,
+  NotificationsServiceStub,
+  RouterStub,
 } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 import { BitstreamRequestACopyPageComponent } from './bitstream-request-a-copy-page.component';
 

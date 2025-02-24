@@ -4,6 +4,15 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import {
+  DSONameService,
+  EPerson,
+  followLink,
+  getFirstCompletedRemoteData,
+  LinkService,
+  RemoteData,
+  WorkflowItem,
+} from '@dspace/core';
 import { isNotEmpty } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -14,14 +23,6 @@ import {
   map,
   mergeMap,
 } from 'rxjs/operators';
-
-import { DSONameService } from '@dspace/core';
-import { LinkService } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { EPerson } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
-import { WorkflowItem } from '@dspace/core';
 
 /**
  * This component represents a badge with submitter information.

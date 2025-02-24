@@ -4,15 +4,15 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import {
+  Metadata,
+  MetadataMap,
+  MetadataValue,
+  WorkspaceitemSectionUploadFileObject,
+} from '@dspace/core';
 import { isNotEmpty } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 
-import {
-  MetadataMap,
-  MetadataValue,
-} from '@dspace/core';
-import { Metadata } from '@dspace/core';
-import { WorkspaceitemSectionUploadFileObject } from '@dspace/core';
 import { FileSizePipe } from '../../../../../shared/utils/file-size-pipe';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
 import { SubmissionSectionUploadAccessConditionsComponent } from '../../accessConditions/submission-section-upload-access-conditions.component';

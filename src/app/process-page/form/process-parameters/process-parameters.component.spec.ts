@@ -7,14 +7,16 @@ import {
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import {
+  ProcessParameter,
+  Script,
+  ScriptParameter,
+  TranslateLoaderMock,
+} from '@dspace/core';
+import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { TranslateLoaderMock } from '@dspace/core';
-import { ProcessParameter } from '@dspace/core';
-import { Script } from '@dspace/core';
-import { ScriptParameter } from '@dspace/core';
 import { ParameterSelectComponent } from './parameter-select/parameter-select.component';
 import { ProcessParametersComponent } from './process-parameters.component';
 

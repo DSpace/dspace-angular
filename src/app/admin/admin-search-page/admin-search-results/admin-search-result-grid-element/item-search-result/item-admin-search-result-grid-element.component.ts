@@ -6,15 +6,17 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import {
+  BitstreamDataService,
+  Context,
+  DSONameService,
+  GenericConstructor,
+  Item,
+  ItemSearchResult,
+  ViewMode,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 
-import { DSONameService } from '@dspace/core';
-import { BitstreamDataService } from '@dspace/core';
-import { ItemSearchResult } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { GenericConstructor } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import {
   getListableObjectComponent,

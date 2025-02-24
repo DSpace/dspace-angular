@@ -8,14 +8,16 @@ import {
   UrlTree,
 } from '@angular/router';
 import {
+  AuthorizationDataService,
+  AuthService,
+  FeatureID,
+  HALEndpointService,
+} from '@dspace/core';
+import {
   Observable,
   of as observableOf,
 } from 'rxjs';
 
-import { AuthService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { FeatureID } from '@dspace/core';
-import { HALEndpointService } from '@dspace/core';
 import { groupPageGuard } from './group-page.guard';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000; // Increase timeout to 10 seconds

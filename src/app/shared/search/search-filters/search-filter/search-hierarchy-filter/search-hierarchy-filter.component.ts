@@ -13,6 +13,19 @@ import {
   Params,
   Router,
 } from '@angular/router';
+import {
+  addOperatorToFilterValue,
+  APP_CONFIG,
+  AppConfig,
+  FilterVocabularyConfig,
+  PageInfo,
+  RemoteDataBuildService,
+  SearchConfigurationService,
+  SearchFilterService,
+  SearchService,
+  VocabularyEntryDetail,
+  VocabularyService,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import {
   NgbModal,
@@ -30,22 +43,9 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '@dspace/core';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/core';
-import { FilterVocabularyConfig } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import { SearchFilterService } from '@dspace/core';
-import { VocabularyEntryDetail } from '@dspace/core';
-import { VocabularyService } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { VocabularyTreeviewModalComponent } from '../../../../form/vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 import { FilterInputSuggestionsComponent } from '../../../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
-import { addOperatorToFilterValue } from '@dspace/core';
 import {
   facetLoad,
   SearchFacetFilterComponent,

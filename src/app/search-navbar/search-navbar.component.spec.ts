@@ -17,12 +17,14 @@ import {
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
+  SearchService,
+  TranslateLoaderMock,
+} from '@dspace/core';
+import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { TranslateLoaderMock } from '@dspace/core';
-import { SearchService } from '@dspace/core';
 import { SearchNavbarComponent } from './search-navbar.component';
 
 describe('SearchNavbarComponent', () => {

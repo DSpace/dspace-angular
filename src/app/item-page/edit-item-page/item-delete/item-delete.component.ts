@@ -12,6 +12,25 @@ import {
   RouterLink,
 } from '@angular/router';
 import {
+  EntityTypeDataService,
+  followLink,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+  Item,
+  ItemDataService,
+  LinkService,
+  MetadataValue,
+  NoContent,
+  NotificationsService,
+  ObjectUpdatesService,
+  Relationship,
+  RelationshipDataService,
+  RelationshipType,
+  RemoteData,
+  ViewMode,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -39,25 +58,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { LinkService } from '@dspace/core';
-import { EntityTypeDataService } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { ObjectUpdatesService } from '@dspace/core';
-import { RelationshipDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { Relationship } from '@dspace/core';
-import { RelationshipType } from '@dspace/core';
-import { MetadataValue } from '@dspace/core';
-import { NoContent } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { VarDirective } from '../../../shared/utils/var.directive';

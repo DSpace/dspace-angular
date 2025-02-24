@@ -10,6 +10,11 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import {
+  PaginationComponentOptions,
+  PaginationService,
+  SuggestionTarget,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -21,9 +26,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { SuggestionTarget } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { getSuggestionPageRoute } from '../../../suggestions-page/suggestions-page-routing-paths';

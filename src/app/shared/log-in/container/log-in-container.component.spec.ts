@@ -13,18 +13,20 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  AuthMethod,
+  AuthMethodType,
+  AuthorizationDataService,
+  AuthorizationDataServiceStub,
+  authReducer,
+  AuthService,
+  AuthServiceStub,
+  createTestComponent,
+  HardRedirectService,
+} from '@dspace/core';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { authReducer } from '@dspace/core';
-import { AuthService } from '@dspace/core';
-import { AuthMethod } from '@dspace/core';
-import { AuthMethodType } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { HardRedirectService } from '@dspace/core';
-import { AuthServiceStub } from '@dspace/core';
-import { AuthorizationDataServiceStub } from '@dspace/core';
-import { createTestComponent } from '@dspace/core';
 import { LogInContainerComponent } from './log-in-container.component';
 
 describe('LogInContainerComponent', () => {

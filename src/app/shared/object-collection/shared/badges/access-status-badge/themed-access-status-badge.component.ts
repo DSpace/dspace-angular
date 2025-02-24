@@ -2,8 +2,8 @@ import {
   Component,
   Input,
 } from '@angular/core';
-
 import { DSpaceObject } from '@dspace/core';
+
 import { ThemedComponent } from '../../../../theme-support/themed.component';
 import { AccessStatusBadgeComponent } from './access-status-badge.component';
 

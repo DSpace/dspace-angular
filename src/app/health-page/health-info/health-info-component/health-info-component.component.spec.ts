@@ -5,13 +5,13 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { TranslateLoaderMock } from '@dspace/core';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { TranslateLoaderMock } from '@dspace/core';
 import {
   HealthInfoComponentOne,
   HealthInfoComponentTwo,

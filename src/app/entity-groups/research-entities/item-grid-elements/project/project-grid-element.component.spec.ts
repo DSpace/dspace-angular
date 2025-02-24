@@ -9,17 +9,19 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  AuthorizationDataService,
+  AuthService,
+  BitstreamDataService,
+  buildPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  DSONameService,
+  Item,
+  PageInfo,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { AuthService } from '@dspace/core';
-import { DSONameService } from '@dspace/core';
-import { BitstreamDataService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { buildPaginatedList } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
 import { AuthServiceMock } from '../../../../shared/mocks/auth.service.mock';
 import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
 import { mockTruncatableService } from '../../../../shared/mocks/mock-trucatable.service';

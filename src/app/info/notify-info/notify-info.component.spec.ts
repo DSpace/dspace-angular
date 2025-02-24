@@ -3,11 +3,13 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  NotifyInfoService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { NotifyInfoService } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
 import { NotifyInfoComponent } from './notify-info.component';
 
 describe('NotifyInfoComponent', () => {

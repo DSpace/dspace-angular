@@ -1,22 +1,22 @@
 import {
+  ActivatedRouteStub,
+  Context,
+  getMockRemoteDataBuildService,
+  HALEndpointServiceStub,
+  PaginatedSearchOptions,
+  PaginationComponentOptions,
+  PaginationServiceStub,
+  SearchFilter,
+  SortDirection,
+  SortOptions,
+} from '@dspace/core';
+import {
   cold,
   hot,
 } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
 import { environment } from '../../environments/environment.test';
-import {
-  SortDirection,
-  SortOptions,
-} from '@dspace/core';
-import { getMockRemoteDataBuildService } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { PaginatedSearchOptions } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { SearchFilter } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { HALEndpointServiceStub } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
 import { RoleServiceMock } from '../shared/mocks/role-service.mock';
 import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
 import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';

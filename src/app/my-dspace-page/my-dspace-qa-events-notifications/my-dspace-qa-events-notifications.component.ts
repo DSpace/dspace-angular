@@ -5,21 +5,21 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import {
+  getFirstCompletedRemoteData,
+  getPaginatedListPayload,
+  getRemoteDataPayload,
+  QualityAssuranceSourceDataService,
+  QualityAssuranceSourceObject,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   of,
   tap,
 } from 'rxjs';
-import { QualityAssuranceSourceObject } from '@dspace/core';
 
 import { getNotificatioQualityAssuranceRoute } from '../../admin/admin-routing-paths';
-import { QualityAssuranceSourceDataService } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getPaginatedListPayload,
-  getRemoteDataPayload,
-} from '@dspace/core';
 
 @Component({
   selector: 'ds-my-dspace-qa-events-notifications',

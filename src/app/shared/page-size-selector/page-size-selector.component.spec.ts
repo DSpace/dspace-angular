@@ -7,6 +7,13 @@ import {
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  PaginationComponentOptions,
+  PaginationService,
+  PaginationServiceStub,
+  SortDirection,
+  SortOptions,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import {
@@ -14,13 +21,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  SortDirection,
-  SortOptions,
-} from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { EnumKeysPipe } from '../utils/enum-keys-pipe';
 import { VarDirective } from '../utils/var.directive';

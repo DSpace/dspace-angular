@@ -7,14 +7,16 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import {
+  BrowseByDataType,
+  FlatBrowseDefinition,
+  NonHierarchicalBrowseDefinition,
+  ValueListBrowseDefinition,
+} from '@dspace/core';
 
-import { FlatBrowseDefinition } from '@dspace/core';
-import { NonHierarchicalBrowseDefinition } from '@dspace/core';
-import { ValueListBrowseDefinition } from '@dspace/core';
 import { DynamicComponentLoaderDirective } from '../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
-import { BrowseByDataType } from '@dspace/core';
 import { BrowseBySwitcherComponent } from './browse-by-switcher.component';
 
 @Component({

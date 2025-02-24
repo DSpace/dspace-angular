@@ -5,20 +5,22 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
+import {
+  Bitstream,
+  BitstreamDataService,
+  Context,
+  DSONameService,
+  FileService,
+  getFirstSucceededRemoteListPayload,
+  HALEndpointService,
+  Item,
+  SearchResult,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 
-import { DSONameService } from '@dspace/core';
-import { BitstreamDataService } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { FileService } from '@dspace/core';
-import { HALEndpointService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { getFirstSucceededRemoteListPayload } from '@dspace/core';
-import { SearchResult } from '@dspace/core';
 import { ThemedItemPageTitleFieldComponent } from '../../../../item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import { fadeInOut } from '../../../animations/fade';

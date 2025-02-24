@@ -17,6 +17,11 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import {
+  INotification,
+  NotificationAnimationsStatus,
+  NotificationsService,
+} from '@dspace/core';
 import { isNotEmpty } from '@dspace/shared/utils';
 import {
   Observable,
@@ -69,9 +74,6 @@ import {
   scaleLeave,
   scaleOutState,
 } from '../../shared/animations/scale';
-import { INotification } from '@dspace/core';
-import { NotificationAnimationsStatus } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
 
 @Component({
   selector: 'ds-notification',

@@ -4,16 +4,18 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import {
+  Context,
+  DSpaceObject,
+  Item,
+  ListableObject,
+  RelationshipOptions,
+  RelationshipType,
+  SearchObjects,
+  SearchResult,
+} from '@dspace/core';
 import { Observable } from 'rxjs';
 
-import { ListableObject } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { RelationshipOptions } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { RelationshipType } from '@dspace/core';
-import { SearchObjects } from '@dspace/core';
-import { SearchResult } from '@dspace/core';
 import { ThemedComponent } from '../../../../../theme-support/themed.component';
 import { DsDynamicLookupRelationSearchTabComponent } from './dynamic-lookup-relation-search-tab.component';
 

@@ -10,6 +10,22 @@ import {
   Router,
 } from '@angular/router';
 import {
+  BASE_THEME_NAME,
+  distinctNext,
+  DSpaceObject,
+  DSpaceObjectDataService,
+  followLink,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+  HeadTagConfig,
+  LinkService,
+  NO_OP_ACTION_TYPE,
+  NoOpAction,
+  RemoteData,
+  ThemeConfig,
+} from '@dspace/core';
+import {
   hasNoValue,
   hasValue,
   isNotEmpty,
@@ -40,26 +56,6 @@ import {
 
 import { getDefaultThemeConfig } from '../../../config/config.util';
 import { environment } from '../../../environments/environment';
-import { LinkService } from '@dspace/core';
-import {
-  HeadTagConfig,
-  ThemeConfig,
-} from '@dspace/core';
-import { BASE_THEME_NAME } from '@dspace/core';
-import { DSpaceObjectDataService } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { distinctNext } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import {
-  NO_OP_ACTION_TYPE,
-  NoOpAction,
-} from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '@dspace/core';
 import { GET_THEME_CONFIG_FOR_FACTORY } from '../object-collection/shared/listable-object/listable-object.decorator';
 import {
   SetThemeAction,

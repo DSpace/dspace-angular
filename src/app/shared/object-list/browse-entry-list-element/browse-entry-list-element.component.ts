@@ -7,15 +7,17 @@ import {
   Params,
   RouterLink,
 } from '@angular/router';
+import {
+  BrowseEntry,
+  DSONameService,
+  PaginationService,
+  RouteService,
+  ViewMode,
+} from '@dspace/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { RouteService } from '@dspace/core';
 
 import { BBM_PAGINATION_ID } from '../../../browse-by/browse-by-metadata/browse-by-metadata.component';
-import { DSONameService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { BrowseEntry } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 

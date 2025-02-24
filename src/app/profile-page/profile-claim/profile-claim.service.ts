@@ -1,5 +1,15 @@
 import { Injectable } from '@angular/core';
 import {
+  createNoContentRemoteDataObject,
+  DSpaceObject,
+  EPerson,
+  getFirstCompletedRemoteData,
+  PaginatedSearchOptions,
+  RemoteData,
+  SearchObjects,
+  SearchService,
+} from '@dspace/core';
+import {
   isEmpty,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -8,15 +18,6 @@ import {
   of,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-import { RemoteData } from '@dspace/core';
-import { EPerson } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
-import { PaginatedSearchOptions } from '@dspace/core';
-import { SearchObjects } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { createNoContentRemoteDataObject } from '@dspace/core';
 
 /**
  * Service that handle profiles claim.

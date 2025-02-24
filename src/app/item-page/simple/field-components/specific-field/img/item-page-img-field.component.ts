@@ -3,8 +3,8 @@ import {
   Component,
   Input,
 } from '@angular/core';
-
 import { Item } from '@dspace/core';
+
 import { MetadataValuesComponent } from '../../../../field-components/metadata-values/metadata-values.component';
 import { ImageField } from '../image-field';
 import { ItemPageFieldComponent } from '../item-page-field.component';

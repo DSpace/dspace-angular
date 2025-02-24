@@ -1,4 +1,18 @@
 import { Injectable } from '@angular/core';
+import {
+  DeleteUploadedFileAction,
+  EditFileDataAction,
+  EditFilePrimaryBitstreamAction,
+  JsonPatchOperationPathObject,
+  JsonPatchOperationsBuilder,
+  NewUploadedFileAction,
+  submissionSectionDataFromIdSelector,
+  SubmissionState,
+  submissionUploadedFileFromUuidSelector,
+  submissionUploadedFilesFromIdSelector,
+  WorkspaceitemSectionUploadFileObject,
+  WorkspaceitemSectionUploadObject,
+} from '@dspace/core';
 import { isUndefined } from '@dspace/shared/utils';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -7,23 +21,6 @@ import {
   filter,
   map,
 } from 'rxjs/operators';
-import { JsonPatchOperationPathObject } from '@dspace/core';
-import { JsonPatchOperationsBuilder } from '@dspace/core';
-import { WorkspaceitemSectionUploadObject } from '@dspace/core';
-
-import { WorkspaceitemSectionUploadFileObject } from '@dspace/core';
-import {
-  DeleteUploadedFileAction,
-  EditFileDataAction,
-  EditFilePrimaryBitstreamAction,
-  NewUploadedFileAction,
-} from '@dspace/core';
-import {
-  submissionSectionDataFromIdSelector,
-  submissionUploadedFileFromUuidSelector,
-  submissionUploadedFilesFromIdSelector,
-} from '@dspace/core';
-import { SubmissionState } from '@dspace/core';
 
 /**
  * A service that provides methods to handle submission's bitstream state.

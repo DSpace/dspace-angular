@@ -1,8 +1,8 @@
+import { FormFieldMetadataValueObject } from '@dspace/core';
 import { isNotEmpty } from '@dspace/shared/utils';
 
 import { DynamicListCheckboxGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-radio-group.model';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 import { FieldParser } from './field-parser';
 
 export class ListFieldParser extends FieldParser {

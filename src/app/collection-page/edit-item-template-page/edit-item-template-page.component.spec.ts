@@ -7,17 +7,17 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  Collection,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  ItemTemplateDataService,
+  NotificationsService,
+  NotificationsServiceStub,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ItemTemplateDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
 import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';

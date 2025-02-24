@@ -9,13 +9,15 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  APP_CONFIG,
+  DSONameService,
+  Item,
+  ItemSearchResult,
+} from '@dspace/core';
 import { of as observableOf } from 'rxjs';
 
-import { DSONameService } from '@dspace/core';
-import { APP_CONFIG } from '@dspace/core';
-import { ItemSearchResult } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';

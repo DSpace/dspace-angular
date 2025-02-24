@@ -15,6 +15,17 @@ import {
   Router,
 } from '@angular/router';
 import {
+  APP_CONFIG,
+  AppConfig,
+  FilterConfig,
+  FilterType,
+  InputSuggestion,
+  SearchConfigurationService,
+  SearchFilterConfig,
+  SearchFilterService,
+  SearchService,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -26,19 +37,8 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/core';
-import { FilterType } from '@dspace/core';
-import { SearchFilterConfig } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import { SearchFilterService } from '@dspace/core';
-import { FilterConfig } from '@dspace/core';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { FilterInputSuggestionsComponent } from '../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
-import { InputSuggestion } from '@dspace/core';
 
 /**
  * This component represents the advanced search in the search sidebar.

@@ -19,6 +19,25 @@ import {
   UntypedFormControl,
 } from '@angular/forms';
 import {
+  buildPaginatedList,
+  Context,
+  DSONameService,
+  DSpaceObject,
+  DSpaceObjectType,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  ListableObject,
+  NotificationsService,
+  NotificationType,
+  PaginatedList,
+  PaginatedSearchOptions,
+  RemoteData,
+  SearchResult,
+  SearchService,
+  SortOptions,
+  ViewMode,
+} from '@dspace/core';
+import {
   hasNoValue,
   hasValue,
   isEmpty,
@@ -44,27 +63,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '@dspace/core';
-import { SortOptions } from '@dspace/core';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationType } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { ListableObject } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { DSpaceObjectType } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '@dspace/core';
-import { PaginatedSearchOptions } from '@dspace/core';
-import { SearchResult } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { HoverClassDirective } from '../../hover-class.directive';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';

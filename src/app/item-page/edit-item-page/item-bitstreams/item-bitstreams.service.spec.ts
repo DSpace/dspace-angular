@@ -2,28 +2,28 @@ import {
   fakeAsync,
   tick,
 } from '@angular/core/testing';
-import { TranslateService } from '@ngx-translate/core';
-import { of } from 'rxjs';
-
-import { DSONameService } from '@dspace/core';
-import { BitstreamDataService } from '@dspace/core';
-import { BundleDataService } from '@dspace/core';
-import { ObjectUpdatesService } from '@dspace/core';
-import { ObjectUpdatesServiceStub } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { getMockTranslateService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { BitstreamFormat } from '@dspace/core';
-import { Bundle } from '@dspace/core';
 import {
+  Bitstream,
+  BitstreamDataService,
+  BitstreamDataServiceStub,
+  BitstreamFormat,
+  Bundle,
+  BundleDataService,
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
+  DSONameService,
+  getMockTranslateService,
+  LiveRegionService,
+  NotificationsService,
+  NotificationsServiceStub,
+  ObjectUpdatesService,
+  ObjectUpdatesServiceStub,
+  RequestService,
 } from '@dspace/core';
-import { BitstreamDataServiceStub } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { LiveRegionService } from '@dspace/core';
+import { TranslateService } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
 import { getLiveRegionServiceStub } from '../../../shared/live-region/live-region.service.stub';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 import {

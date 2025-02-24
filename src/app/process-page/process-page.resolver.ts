@@ -4,13 +4,14 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
+import {
+  followLink,
+  getFirstCompletedRemoteData,
+  Process,
+  ProcessDataService,
+  RemoteData,
+} from '@dspace/core';
 import { Observable } from 'rxjs';
-
-import { followLink } from '@dspace/core';
-import { ProcessDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { Process } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
 
 export const PROCESS_PAGE_FOLLOW_LINKS = [
   followLink('files'),

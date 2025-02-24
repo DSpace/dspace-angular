@@ -3,23 +3,23 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
+import {
+  CoarNotifyConfigDataService,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  JsonPatchOperationsBuilder,
+  LdnService,
+  LdnServiceByPattern,
+  LdnServicesService,
+  NotifyServicePattern,
+  SubmissionCoarNotifyConfig,
+} from '@dspace/core';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { LdnServicesService } from '@dspace/core';
-import { NotifyServicePattern } from '@dspace/core';
-import {
-  LdnService,
-  LdnServiceByPattern,
-} from '@dspace/core';
-import { JsonPatchOperationsBuilder } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { SectionsService } from '../sections.service';
-import { CoarNotifyConfigDataService } from '@dspace/core';
 import { SubmissionSectionCoarNotifyComponent } from './section-coar-notify.component';
-import { SubmissionCoarNotifyConfig } from '@dspace/core';
 
 describe('SubmissionSectionCoarNotifyComponent', () => {
   let component: SubmissionSectionCoarNotifyComponent;

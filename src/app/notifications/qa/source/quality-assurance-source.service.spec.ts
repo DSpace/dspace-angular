@@ -1,21 +1,19 @@
 import { TestBed } from '@angular/core/testing';
-import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
-
 import {
+  buildPaginatedList,
+  createSuccessfulRemoteDataObject,
+  FindListOptions,
+  getMockQualityAssuranceSourceRestService,
+  PageInfo,
+  QualityAssuranceSourceDataService,
+  qualityAssuranceSourceObjectMoreAbstract,
+  qualityAssuranceSourceObjectMorePid,
   SortDirection,
   SortOptions,
 } from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import { buildPaginatedList } from '@dspace/core';
-import {
-  getMockQualityAssuranceSourceRestService,
-  qualityAssuranceSourceObjectMoreAbstract,
-  qualityAssuranceSourceObjectMorePid,
-} from '@dspace/core';
-import { QualityAssuranceSourceDataService } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
+import { cold } from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
+
 import { QualityAssuranceSourceService } from './quality-assurance-source.service';
 
 describe('QualityAssuranceSourceService', () => {

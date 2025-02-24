@@ -14,16 +14,18 @@ import {
   ActivatedRoute,
   ActivatedRouteSnapshot,
 } from '@angular/router';
+import {
+  createSuccessfulRemoteDataObject,
+  DSpaceObject,
+  DSpaceObjectType,
+  Item,
+  MetadataValue,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { MockComponent } from 'ng-mocks';
 
-import { DSpaceObject } from '@dspace/core';
-import { DSpaceObjectType } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { MetadataValue } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { DSOSelectorComponent } from '../dso-selector/dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,

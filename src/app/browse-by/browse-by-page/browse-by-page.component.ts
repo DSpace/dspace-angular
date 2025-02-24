@@ -4,11 +4,13 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import {
+  BrowseByDataType,
+  BrowseDefinition,
+} from '@dspace/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { BrowseDefinition } from '@dspace/core';
-import { BrowseByDataType } from '@dspace/core';
 import { BrowseBySwitcherComponent } from '../browse-by-switcher/browse-by-switcher.component';
 
 @Component({

@@ -10,22 +10,24 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  createTestComponent,
+  SectionDataObject,
+  SectionsServiceStub,
+  SectionsType,
+  SubmissionService,
+  SubmissionServiceStub,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { SectionsServiceStub } from '@dspace/core';
-import { SubmissionServiceStub } from '@dspace/core';
-import { createTestComponent } from '@dspace/core';
 import {
   mockSubmissionCollectionId,
   mockSubmissionId,
 } from '../../../shared/mocks/submission.mock';
-import { SubmissionService } from '@dspace/core';
-import { SectionDataObject } from '@dspace/core';
 import { SectionsDirective } from '../sections.directive';
 import { SectionsService } from '../sections.service';
-import { SectionsType } from '@dspace/core';
 import { SubmissionSectionContainerComponent } from './section-container.component';
 
 const sectionState = {

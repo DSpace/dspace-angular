@@ -1,7 +1,9 @@
 import { Route } from '@angular/router';
+import {
+  i18nBreadcrumbResolver,
+  siteAdministratorGuard,
+} from '@dspace/core';
 
-import { i18nBreadcrumbResolver } from '@dspace/core';
-import { siteAdministratorGuard } from '@dspace/core';
 import { HealthPageComponent } from './health-page.component';
 
 export const ROUTES: Route[] = [

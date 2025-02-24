@@ -5,6 +5,10 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import {
+  getLogOutError,
+  LogOutAction,
+} from '@dspace/core';
+import {
   select,
   Store,
 } from '@ngrx/store';
@@ -12,8 +16,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import { AppState } from '../../app.reducer';
-import { LogOutAction } from '@dspace/core';
-import { getLogOutError } from '@dspace/core';
 import { fadeOut } from '../animations/fade';
 import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
 

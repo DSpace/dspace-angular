@@ -9,12 +9,14 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import {
+  Collection,
+  createSuccessfulRemoteDataObject,
+  DSpaceObject,
+} from '@dspace/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { Collection } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { ResourcePoliciesComponent } from '../../../shared/resource-policies/resource-policies.component';
 import { CollectionAuthorizationsComponent } from './collection-authorizations.component';
 

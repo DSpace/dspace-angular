@@ -10,6 +10,14 @@ import {
   Injectable,
   TransferState,
 } from '@angular/core';
+import {
+  APP_CONFIG,
+  APP_CONFIG_STATE,
+  AppConfig,
+  CorrelationIdService,
+  HeadTagService,
+  LocaleService,
+} from '@dspace/core';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
@@ -17,14 +25,6 @@ import { take } from 'rxjs/operators';
 
 import { AppState } from '../../app/app.reducer';
 import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
-import {
-  APP_CONFIG,
-  APP_CONFIG_STATE,
-  AppConfig,
-} from '@dspace/core';
-import { CorrelationIdService } from '@dspace/core';
-import { LocaleService } from '@dspace/core';
-import { HeadTagService } from '@dspace/core';
 import { InitService } from '../../app/init.service';
 import { MenuService } from '../../app/shared/menu/menu.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';

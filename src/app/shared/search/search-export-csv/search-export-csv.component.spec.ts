@@ -5,21 +5,21 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import {
+  AuthorizationDataService,
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+  NotificationsService,
+  NotificationsServiceStub,
+  PaginatedSearchOptions,
+  Process,
+  ScriptDataService,
+  SearchFilter,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthorizationDataService } from '@dspace/core';
-import { ScriptDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Process } from '@dspace/core';
-import { PaginatedSearchOptions } from '@dspace/core';
-import { SearchFilter } from '@dspace/core';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
 import { getProcessDetailRoute } from '../../../process-page/process-page-routing.paths';
 import { SearchExportCsvComponent } from './search-export-csv.component';
 

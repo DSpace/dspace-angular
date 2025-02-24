@@ -5,6 +5,12 @@ import {
   Output,
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
+import {
+  FormFieldMetadataValueObject,
+  PageInfo,
+  VocabularyEntry,
+  VocabularyService,
+} from '@dspace/core';
 import { isNotEmpty } from '@dspace/shared/utils';
 import {
   DynamicFormControlComponent,
@@ -17,10 +23,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { PageInfo } from '@dspace/core';
-import { VocabularyEntry } from '@dspace/core';
-import { VocabularyService } from '@dspace/core';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 import { DsDynamicInputModel } from './ds-dynamic-input.model';
 
 /**

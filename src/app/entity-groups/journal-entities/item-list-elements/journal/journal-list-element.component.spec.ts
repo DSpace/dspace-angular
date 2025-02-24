@@ -8,16 +8,18 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  APP_CONFIG,
+  AuthorizationDataService,
+  AuthService,
+  DSONameService,
+  Item,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { environment } from 'src/environments/environment.test';
 
-import { AuthService } from '@dspace/core';
-import { DSONameService } from '@dspace/core';
-import { APP_CONFIG } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
 import { AuthServiceMock } from '../../../../shared/mocks/auth.service.mock';
 import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
 import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';

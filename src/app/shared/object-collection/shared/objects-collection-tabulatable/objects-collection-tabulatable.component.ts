@@ -4,12 +4,14 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import {
+  Context,
+  ListableObject,
+  PaginatedList,
+  RemoteData,
+  ViewMode,
+} from '@dspace/core';
 
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { ListableObject } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { CollectionElementLinkType } from '../../collection-element-link.type';
 
 @Component({

@@ -22,6 +22,20 @@ import {
 } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+  createTestComponent,
+  FormFieldMetadataValueObject,
+  FormFieldModel,
+  FormRowModel,
+  SubmissionFormsModel,
+  SubmissionObjectDataService,
+  SubmissionService,
+  VocabularyService,
+  VocabularyServiceStub,
+  XSRFService,
+} from '@dspace/core';
+import {
   NgbModule,
   NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -34,24 +48,10 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment.test';
 
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from '@dspace/core';
-import { FormRowModel } from '@dspace/core';
-import { SubmissionFormsModel } from '@dspace/core';
-import { FormFieldModel } from '@dspace/core';
-import { SubmissionObjectDataService } from '@dspace/core';
-import { VocabularyService } from '@dspace/core';
-import { createTestComponent } from '@dspace/core';
-import { VocabularyServiceStub } from '@dspace/core';
-import { XSRFService } from '@dspace/core';
-import { SubmissionService } from '@dspace/core';
 import { Chips } from '../../../../chips/models/chips.model';
 import { FormComponent } from '../../../../form.component';
 import { FormService } from '../../../../form.service';
 import { FormBuilderService } from '../../../form-builder.service';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 import { dsDynamicFormControlMapFn } from '../../ds-dynamic-form-control-map-fn';
 import { DsDynamicTypeBindRelationService } from '../../ds-dynamic-type-bind-relation.service';
 import { DsDynamicInputModel } from '../ds-dynamic-input.model';

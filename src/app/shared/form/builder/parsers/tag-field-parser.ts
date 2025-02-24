@@ -1,8 +1,9 @@
+import { FormFieldMetadataValueObject } from '@dspace/core';
+
 import {
   DynamicTagModel,
   DynamicTagModelConfig,
 } from '../ds-dynamic-form-ui/models/tag/dynamic-tag.model';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 import { FieldParser } from './field-parser';
 
 export class TagFieldParser extends FieldParser {

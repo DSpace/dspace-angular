@@ -15,20 +15,22 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
+  AuthorizationDataService,
+  AuthService,
+  AuthServiceStub,
+  createSuccessfulRemoteDataObject,
+  CSSVariableServiceStub,
+  Item,
+  MenuServiceStub,
+  ScriptDataService,
+} from '@dspace/core';
+import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { ScriptDataService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
-import { AuthServiceStub } from '@dspace/core';
-import { CSSVariableServiceStub } from '@dspace/core';
-import { MenuServiceStub } from '@dspace/core';
 import { MenuService } from '../../shared/menu/menu.service';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { CSSVariableService } from '../../shared/sass-helper/css-variable.service';

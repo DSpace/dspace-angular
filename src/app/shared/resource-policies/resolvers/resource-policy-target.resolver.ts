@@ -8,18 +8,19 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
+import {
+  APP_DATA_SERVICES_MAP,
+  DSpaceObject,
+  getFirstCompletedRemoteData,
+  IdentifiableDataService,
+  lazyDataService,
+  LazyDataServicesMap,
+  RemoteData,
+  ResourceType,
+} from '@dspace/core';
 import { isEmpty } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-
-import { APP_DATA_SERVICES_MAP } from '@dspace/core';
-import { IdentifiableDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { LazyDataServicesMap } from '@dspace/core';
-import { lazyDataService } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
-import { ResourceType } from '@dspace/core';
 
 /**
  * Method for resolving an item based on the parameters in the current route

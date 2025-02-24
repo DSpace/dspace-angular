@@ -2,9 +2,11 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import {
+  Bitstream,
+  MediaViewerItem,
+} from '@dspace/core';
 
-import { Bitstream } from '@dspace/core';
-import { MediaViewerItem } from '@dspace/core';
 import { ThemedComponent } from '../../../shared/theme-support/themed.component';
 import { MediaViewerVideoComponent } from './media-viewer-video.component';
 

@@ -9,16 +9,18 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  PaginatedSearchOptions,
+  PaginationComponentOptions,
+  PaginationService,
+  SearchConfigurationService,
+} from '@dspace/core';
 import { Observable } from 'rxjs';
 import {
   map,
   take,
 } from 'rxjs/operators';
 
-import { PaginationService } from '@dspace/core';
-import { PaginatedSearchOptions } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { SidebarDropdownComponent } from '../sidebar/sidebar-dropdown.component';
 

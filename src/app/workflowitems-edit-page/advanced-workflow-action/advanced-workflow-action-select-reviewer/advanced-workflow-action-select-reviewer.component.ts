@@ -12,6 +12,17 @@ import {
   Params,
   Router,
 } from '@angular/router';
+import {
+  ClaimedTaskDataService,
+  EPerson,
+  NotificationsService,
+  RequestService,
+  RouteService,
+  SelectReviewerAdvancedWorkflowInfo,
+  WorkflowAction,
+  WorkflowActionDataService,
+  WorkflowItemDataService,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import {
   TranslateModule,
@@ -20,15 +31,6 @@ import {
 import { Subscription } from 'rxjs';
 
 import { EPersonListActionConfig } from '../../../access-control/group-registry/group-form/members-list/members-list.component';
-import { RequestService } from '@dspace/core';
-import { WorkflowActionDataService } from '@dspace/core';
-import { EPerson } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { WorkflowItemDataService } from '@dspace/core';
-import { ClaimedTaskDataService } from '@dspace/core';
-import { SelectReviewerAdvancedWorkflowInfo } from '@dspace/core';
-import { WorkflowAction } from '@dspace/core';
 import { ModifyItemOverviewComponent } from '../../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 import { AdvancedWorkflowActionComponent } from '../advanced-workflow-action/advanced-workflow-action.component';
 import { ReviewersListComponent } from './reviewers-list/reviewers-list.component';

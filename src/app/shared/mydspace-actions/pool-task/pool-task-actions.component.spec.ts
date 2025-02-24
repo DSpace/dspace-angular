@@ -14,27 +14,29 @@ import {
   Router,
 } from '@angular/router';
 import {
+  ActivatedRouteStub,
+  ClaimedTaskDataService,
+  createSuccessfulRemoteDataObject,
+  getMockRequestService,
+  Item,
+  NotificationsService,
+  NotificationsServiceStub,
+  PoolTask,
+  PoolTaskDataService,
+  PoolTaskSearchResult,
+  ProcessTaskResponse,
+  RequestService,
+  RouterStub,
+  SearchService,
+  TranslateLoaderMock,
+  WorkflowItem,
+} from '@dspace/core';
+import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { RequestService } from '@dspace/core';
-import { getMockRequestService } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { PoolTaskSearchResult } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { WorkflowItem } from '@dspace/core';
-import { ClaimedTaskDataService } from '@dspace/core';
-import { PoolTask } from '@dspace/core';
-import { ProcessTaskResponse } from '@dspace/core';
-import { PoolTaskDataService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
 import { getMockSearchService } from '../../mocks/search-service.mock';
 import { PoolTaskActionsComponent } from './pool-task-actions.component';
 

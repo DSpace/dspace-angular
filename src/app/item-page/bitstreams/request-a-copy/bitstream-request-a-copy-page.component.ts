@@ -20,6 +20,21 @@ import {
   RouterLink,
 } from '@angular/router';
 import {
+  AuthorizationDataService,
+  AuthService,
+  Bitstream,
+  BitstreamDataService,
+  DSONameService,
+  EPerson,
+  FeatureID,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  Item,
+  ItemRequest,
+  ItemRequestDataService,
+  NotificationsService,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -44,21 +59,6 @@ import {
   getBitstreamDownloadRoute,
   getForbiddenRoute,
 } from '../../../app-routing-paths';
-import { AuthService } from '@dspace/core';
-import { DSONameService } from '@dspace/core';
-import { BitstreamDataService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { FeatureID } from '@dspace/core';
-import { ItemRequestDataService } from '@dspace/core';
-import { EPerson } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { ItemRequest } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '@dspace/core';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { getItemPageRoute } from '../../item-page-routing-paths';
 

@@ -1,13 +1,14 @@
 import {
+  createSuccessfulRemoteDataObject$,
+  LDN_SERVICE,
+  LdnService,
+  PaginatedList,
+  RemoteData,
+} from '@dspace/core';
+import {
   Observable,
   of,
 } from 'rxjs';
-
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { LDN_SERVICE } from '@dspace/core';
-import { LdnService } from '@dspace/core';
 
 export const mockLdnService: LdnService = {
   uuid: '1',

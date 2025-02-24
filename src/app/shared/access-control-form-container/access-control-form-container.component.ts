@@ -7,6 +7,15 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import {
+  BulkAccessConditionOptions,
+  BulkAccessConfigDataService,
+  DSpaceObject,
+  getFirstCompletedRemoteData,
+  Item,
+  RemoteData,
+  SelectableListService,
+} from '@dspace/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { UiSwitchModule } from 'ngx-ui-switch';
@@ -20,16 +29,9 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { BulkAccessConfigDataService } from '@dspace/core';
-import { BulkAccessConditionOptions } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
 import { AlertComponent } from '../alert/alert.component';
 import { AlertType } from '../alert/alert-type';
 import { BtnDisabledDirective } from '../btn-disabled.directive';
-import { SelectableListService } from '@dspace/core';
 import { AccessControlArrayFormComponent } from './access-control-array-form/access-control-array-form.component';
 import { createAccessControlInitialFormState } from './access-control-form-container-intial-state';
 import { BulkAccessControlService } from './bulk-access-control.service';

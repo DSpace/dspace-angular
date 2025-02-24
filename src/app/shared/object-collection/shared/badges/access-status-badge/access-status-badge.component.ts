@@ -5,6 +5,13 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import {
+  AccessStatusDataService,
+  AccessStatusObject,
+  DSpaceObject,
+  ITEM,
+  Item,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -16,13 +23,7 @@ import {
   catchError,
   map,
 } from 'rxjs/operators';
-import { AccessStatusDataService } from '@dspace/core';
 import { environment } from 'src/environments/environment';
-
-import { DSpaceObject } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { ITEM } from '@dspace/core';
-import { AccessStatusObject } from '@dspace/core';
 
 @Component({
   selector: 'ds-base-access-status-badge',

@@ -10,6 +10,14 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import {
+  EntityTypeDataService,
+  FindListOptions,
+  getFirstSucceededRemoteWithNotEmptyData,
+  ItemType,
+  PaginatedList,
+  RemoteData,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -24,12 +32,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { EntityTypeDataService } from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { ItemType } from '@dspace/core';
-import { getFirstSucceededRemoteWithNotEmptyData } from '@dspace/core';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 
 @Component({

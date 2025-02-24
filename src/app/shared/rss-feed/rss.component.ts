@@ -11,6 +11,18 @@ import {
   Router,
 } from '@angular/router';
 import {
+  ConfigurationDataService,
+  getFirstCompletedRemoteData,
+  GroupDataService,
+  LinkHeadService,
+  PaginatedSearchOptions,
+  PaginationService,
+  RemoteData,
+  SearchConfigurationService,
+  SearchFilter,
+  SortOptions,
+} from '@dspace/core';
+import {
   hasValue,
   isUndefined,
 } from '@dspace/shared/utils';
@@ -28,16 +40,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import { SortOptions } from '@dspace/core';
-import { ConfigurationDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { GroupDataService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { LinkHeadService } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
-import { PaginatedSearchOptions } from '@dspace/core';
-import { SearchFilter } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
 /**
  * The Rss feed button component.
  */

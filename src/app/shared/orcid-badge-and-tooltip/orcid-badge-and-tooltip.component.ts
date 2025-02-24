@@ -4,10 +4,9 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { MetadataValue } from '@dspace/core';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
-
-import { MetadataValue } from '@dspace/core';
 
 /**
  * Component to display an ORCID badge with a tooltip.

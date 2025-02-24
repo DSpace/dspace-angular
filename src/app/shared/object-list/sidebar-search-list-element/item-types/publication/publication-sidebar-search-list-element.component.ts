@@ -3,12 +3,14 @@ import {
   NgClass,
 } from '@angular/common';
 import { Component } from '@angular/core';
+import {
+  Context,
+  Item,
+  ItemSearchResult,
+  ViewMode,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ItemSearchResult } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
 import { TruncatablePartComponent } from '../../../../truncatable/truncatable-part/truncatable-part.component';
 import { SidebarSearchListElementComponent } from '../../sidebar-search-list-element.component';

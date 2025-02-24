@@ -1,5 +1,7 @@
-import { SuggestionTarget } from '@dspace/core';
-import { ResourceType } from '@dspace/core';
+import {
+  ResourceType,
+  SuggestionTarget,
+} from '@dspace/core';
 
 // REST Mock ---------------------------------------------------------------------
 // -------------------------------------------------------------------------------

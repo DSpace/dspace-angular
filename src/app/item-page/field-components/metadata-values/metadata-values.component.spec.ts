@@ -9,14 +9,16 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
+  APP_CONFIG,
+  MetadataValue,
+  TranslateLoaderMock,
+} from '@dspace/core';
+import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
 import { environment } from '../../../../environments/environment';
-import { APP_CONFIG } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { MetadataValue } from '@dspace/core';
 import { MetadataValuesComponent } from './metadata-values.component';
 
 let comp: MetadataValuesComponent;

@@ -12,33 +12,29 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+  DSpaceObjectType,
+  followLink,
+  FollowLinkConfig,
+  Item,
+  PaginatedList,
+  PaginatedSearchOptions,
+  PaginationComponentOptions,
+  PaginationService,
+  RemoteData,
+  SearchConfigurationService,
+  SearchService,
+  SortDirection,
+  SortOptions,
+  toDSpaceObjectListRD,
+  ViewMode,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
-import {
-  SortDirection,
-  SortOptions,
-} from '@dspace/core';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/core';
-import {
-  followLink,
-  FollowLinkConfig,
-} from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { DSpaceObjectType } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { toDSpaceObjectListRD } from '@dspace/core';
-import { PaginatedSearchOptions } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import {
   fadeIn,
   fadeInOut,

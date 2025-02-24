@@ -4,9 +4,9 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import { RequestCopyEmail } from '@dspace/core';
 import { ThemedComponent } from 'src/app/shared/theme-support/themed.component';
 
-import { RequestCopyEmail } from '@dspace/core';
 import { EmailRequestCopyComponent } from './email-request-copy.component';
 
 /**

@@ -11,19 +11,21 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  APP_CONFIG,
+  Context,
+  createSuccessfulRemoteDataObject,
+  DSONameService,
+  getMockLinkService,
+  Item,
+  ItemDataService,
+  LinkService,
+  WorkflowItem,
+  WorkflowItemSearchResult,
+} from '@dspace/core';
 import { of as observableOf } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { DSONameService } from '@dspace/core';
-import { LinkService } from '@dspace/core';
-import { APP_CONFIG } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { getMockLinkService } from '@dspace/core';
-import { WorkflowItemSearchResult } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { WorkflowItem } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';

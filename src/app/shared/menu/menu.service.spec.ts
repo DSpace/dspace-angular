@@ -4,15 +4,6 @@ import {
 } from '@angular/core/testing';
 import { NavigationEnd } from '@angular/router';
 import {
-  Store,
-  StoreModule,
-} from '@ngrx/store';
-import { provideMockStore } from '@ngrx/store/testing';
-import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
-
-import { storeModuleConfig } from '../../app.reducer';
-import {
   ActivateMenuSectionAction,
   AddMenuSectionAction,
   CollapseMenuAction,
@@ -21,17 +12,26 @@ import {
   ExpandMenuAction,
   ExpandMenuPreviewAction,
   HideMenuAction,
+  MenuID,
+  MenuItemType,
+  MenuSection,
+  menusReducer,
   RemoveMenuSectionAction,
   ShowMenuAction,
   ToggleActiveMenuSectionAction,
   ToggleMenuAction,
 } from '@dspace/core';
-import { menusReducer } from '@dspace/core';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
+import { cold } from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
+
+import { storeModuleConfig } from '../../app.reducer';
 import { MenuService } from './menu.service';
-import { MenuID } from '@dspace/core';
 import { LinkMenuItemModel } from './menu-item/models/link.model';
-import { MenuItemType } from '@dspace/core';
-import { MenuSection } from '@dspace/core';
 
 describe('MenuService', () => {
   let service: MenuService;

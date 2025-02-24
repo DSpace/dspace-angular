@@ -11,6 +11,17 @@ import {
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import {
+  ActivatedRouteStub,
+  APP_DATA_SERVICES_MAP,
+  authReducer,
+  AuthService,
+  AuthState,
+  AuthTokenInfo,
+  EPersonMock,
+  TranslateLoaderMock,
+  XSRFService,
+} from '@dspace/core';
+import {
   Store,
   StoreModule,
 } from '@ngrx/store';
@@ -22,17 +33,6 @@ import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
 import { AppState } from '../../../app.reducer';
-import {
-  authReducer,
-  AuthState,
-} from '@dspace/core';
-import { AuthService } from '@dspace/core';
-import { AuthTokenInfo } from '@dspace/core';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { EPersonMock } from '@dspace/core';
-import { XSRFService } from '@dspace/core';
 import { UserMenuComponent } from './user-menu.component';
 
 describe('UserMenuComponent', () => {

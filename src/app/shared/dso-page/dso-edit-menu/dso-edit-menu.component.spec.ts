@@ -9,15 +9,17 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  AuthorizationDataService,
+  AuthService,
+  AuthServiceStub,
+  MenuItemModel,
+  MenuServiceStub,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { AuthServiceStub } from '@dspace/core';
-import { MenuServiceStub } from '@dspace/core';
 import { MenuService } from '../../menu/menu.service';
-import { MenuItemModel } from '@dspace/core';
 import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { ThemeService } from '../../theme-support/theme.service';
 import { DsoEditMenuComponent } from './dso-edit-menu.component';

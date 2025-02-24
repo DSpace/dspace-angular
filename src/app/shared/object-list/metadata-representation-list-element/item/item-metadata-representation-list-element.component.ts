@@ -3,8 +3,8 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-
 import { ItemMetadataRepresentation } from '@dspace/core';
+
 import { getItemPageRoute } from '../../../../item-page/item-page-routing-paths';
 import { MetadataRepresentationListElementComponent } from '../metadata-representation-list-element.component';
 

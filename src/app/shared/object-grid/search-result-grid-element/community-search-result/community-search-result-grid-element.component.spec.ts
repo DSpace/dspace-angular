@@ -10,27 +10,29 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  AuthService,
+  BitstreamDataService,
+  BitstreamFormatDataService,
+  Community,
+  CommunityDataService,
+  CommunitySearchResult,
+  DefaultChangeAnalyzer,
+  DSOChangeAnalyzer,
+  HALEndpointService,
+  LinkService,
+  NotificationsService,
+  ObjectCacheService,
+  RemoteDataBuildService,
+  StoreMock,
+  UUIDService,
+  XSRFService,
+} from '@dspace/core';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '@dspace/core';
-import { LinkService } from '@dspace/core';
-import { RemoteDataBuildService } from '@dspace/core';
-import { ObjectCacheService } from '@dspace/core';
-import { BitstreamDataService } from '@dspace/core';
-import { BitstreamFormatDataService } from '@dspace/core';
-import { CommunityDataService } from '@dspace/core';
-import { DefaultChangeAnalyzer } from '@dspace/core';
-import { DSOChangeAnalyzer } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { CommunitySearchResult } from '@dspace/core';
-import { Community } from '@dspace/core';
-import { HALEndpointService } from '@dspace/core';
-import { UUIDService } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { StoreMock } from '@dspace/core';
-import { XSRFService } from '@dspace/core';
 import { AuthServiceMock } from '../../../mocks/auth.service.mock';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { ThemeService } from '../../../theme-support/theme.service';

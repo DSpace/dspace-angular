@@ -1,6 +1,5 @@
-import { of as observableOf } from 'rxjs';
-
 import { SearchService } from '@dspace/core';
+import { of as observableOf } from 'rxjs';
 
 export function getMockSearchService(): SearchService {
   return jasmine.createSpyObj('searchService', {

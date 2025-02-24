@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+import {
+  Bundle,
+  ViewMode,
+} from '@dspace/core';
 
-import { Bundle } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 

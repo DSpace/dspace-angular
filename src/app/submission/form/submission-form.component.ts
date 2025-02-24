@@ -8,6 +8,23 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import {
+  AuthService,
+  Collection,
+  HALEndpointService,
+  Item,
+  SectionDataObject,
+  SectionsType,
+  SectionVisibility,
+  SubmissionDefinitionsModel,
+  SubmissionError,
+  SubmissionObject,
+  SubmissionObjectEntry,
+  SubmissionSectionModel,
+  SubmissionService,
+  VisibilityType,
+  WorkspaceitemSectionsObject,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
   isNotUndefined,
@@ -25,25 +42,10 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { AuthService } from '@dspace/core';
-import { SubmissionDefinitionsModel } from '@dspace/core';
-import { SubmissionSectionModel } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { HALEndpointService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { SubmissionObject } from '@dspace/core';
-import { WorkspaceitemSectionsObject } from '@dspace/core';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { UploaderOptions } from '../../shared/upload/uploader/uploader-options.model';
-import { SectionVisibility } from '@dspace/core';
-import { SubmissionError } from '@dspace/core';
-import { SubmissionObjectEntry } from '@dspace/core';
 import { SubmissionSectionContainerComponent } from '../sections/container/section-container.component';
-import { SectionDataObject } from '@dspace/core';
 import { SectionsService } from '../sections/sections.service';
-import { SectionsType } from '@dspace/core';
-import { VisibilityType } from '@dspace/core';
-import { SubmissionService } from '@dspace/core';
 import { SubmissionFormCollectionComponent } from './collection/submission-form-collection.component';
 import { SubmissionFormFooterComponent } from './footer/submission-form-footer.component';
 import { SubmissionFormSectionAddComponent } from './section-add/submission-form-section-add.component';

@@ -2,10 +2,12 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import {
+  Breadcrumb,
+  Process,
+} from '@dspace/core';
 import { getTestScheduler } from 'jasmine-marbles';
 
-import { Breadcrumb } from '@dspace/core';
-import { Process } from '@dspace/core';
 import { ProcessBreadcrumbsService } from './process-breadcrumbs.service';
 
 describe('ProcessBreadcrumbsService', () => {

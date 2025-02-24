@@ -5,6 +5,13 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  EntityTypeDataService,
+  FindListOptions,
+  ItemType,
+  PaginatedList,
+  RemoteData,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
@@ -20,11 +27,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { EntityTypeDataService } from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { ItemType } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { EntityDropdownComponent } from '../../../shared/entity-dropdown/entity-dropdown.component';
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';

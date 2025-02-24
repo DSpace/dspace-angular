@@ -12,6 +12,23 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
+  AuthorizationDataService,
+  authReducer,
+  AuthTokenInfo,
+  BrowseByDataType,
+  BrowseService,
+  buildPaginatedList,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  EPersonMock,
+  FlatBrowseDefinition,
+  HierarchicalBrowseDefinition,
+  HostWindowServiceStub,
+  Item,
+  MenuServiceStub,
+  ValueListBrowseDefinition,
+} from '@dspace/core';
+import {
   Store,
   StoreModule,
 } from '@ngrx/store';
@@ -23,23 +40,6 @@ import {
   AppState,
   storeModuleConfig,
 } from '../app.reducer';
-import { BrowseByDataType } from '@dspace/core';
-import { authReducer } from '@dspace/core';
-import { AuthTokenInfo } from '@dspace/core';
-import { BrowseService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { buildPaginatedList } from '@dspace/core';
-import { FlatBrowseDefinition } from '@dspace/core';
-import { HierarchicalBrowseDefinition } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { ValueListBrowseDefinition } from '@dspace/core';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { EPersonMock } from '@dspace/core';
-import { HostWindowServiceStub } from '@dspace/core';
-import { MenuServiceStub } from '@dspace/core';
 import { HostWindowService } from '../shared/host-window.service';
 import { MenuService } from '../shared/menu/menu.service';
 import { getMockThemeService } from '../shared/mocks/theme-service.mock';

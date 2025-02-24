@@ -2,6 +2,7 @@ import {
   CollectionViewer,
   DataSource,
 } from '@angular/cdk/collections';
+import { FindListOptions } from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import {
   BehaviorSubject,
@@ -10,7 +11,6 @@ import {
 } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
-import { FindListOptions } from '@dspace/core';
 import { CommunityListService } from './community-list-service';
 import { FlatNode } from './flat-node.model';
 

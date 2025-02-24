@@ -12,12 +12,12 @@ import {
 import { load } from 'js-yaml';
 import { join } from 'path';
 
-// TODO: find a way to use the relative module path without braking the build
-import { isNotEmpty } from '../../modules/shared/utils/src/lib/utils/empty.util';
 import { AppConfig } from '../../modules/core/src/lib/core/config/app-config.interface';
 import { Config } from '../../modules/core/src/lib/core/config/config.interface';
-import { DefaultAppConfig } from '../app/default-app-config';
 import { ServerConfig } from '../../modules/core/src/lib/core/config/server-config.interface';
+// TODO: find a way to use the relative module path without braking the build
+import { isNotEmpty } from '../../modules/shared/utils/src/lib/utils/empty.util';
+import { DefaultAppConfig } from '../app/default-app-config';
 import { mergeConfig } from './config.util';
 
 const CONFIG_PATH = join(process.cwd(), 'config');

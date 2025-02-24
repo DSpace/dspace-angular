@@ -3,11 +3,12 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  NotificationsService,
+  ObjectUpdatesService,
+} from '@dspace/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-
-import { ObjectUpdatesService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
 
 /**
  * Abstract Component that is able to track changes made in the inheriting component using the ObjectUpdateService

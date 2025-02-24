@@ -15,30 +15,35 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  Collection,
+  CollectionDataService,
+  ConfigurationDataService,
+  ConfigurationProperty,
+  createSuccessfulRemoteDataObject$,
+  createTestComponent,
+  Item,
+  JsonPatchOperationPathCombiner,
+  JsonPatchOperationsBuilder,
+  License,
+  NotificationsService,
+  NotificationsServiceStub,
+  PaginationService,
+  PaginationServiceStub,
+  SectionDataObject,
+  SectionsServiceStub,
+  SectionsType,
+  SubmissionFormsConfigDataService,
+  SubmissionScopeType,
+  SubmissionService,
+  SubmissionServiceStub,
+  WorkspaceitemSectionIdentifiersObject,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { of as observableOf } from 'rxjs';
 
-import { SubmissionFormsConfigDataService } from '@dspace/core';
-import { CollectionDataService } from '@dspace/core';
-import { ConfigurationDataService } from '@dspace/core';
-import { JsonPatchOperationPathCombiner } from '@dspace/core';
-import { JsonPatchOperationsBuilder } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { ConfigurationProperty } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { License } from '@dspace/core';
-import { WorkspaceitemSectionIdentifiersObject } from '@dspace/core';
-import { SubmissionScopeType } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
-import { SectionsServiceStub } from '@dspace/core';
-import { SubmissionServiceStub } from '@dspace/core';
-import { createTestComponent } from '@dspace/core';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormService } from '../../../shared/form/form.service';
 import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
@@ -49,11 +54,8 @@ import {
 } from '../../../shared/mocks/submission.mock';
 import { ObjNgFor } from '../../../shared/utils/object-ngfor.pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
-import { SubmissionService } from '@dspace/core';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
-import { SectionDataObject } from '@dspace/core';
 import { SectionsService } from '../sections.service';
-import { SectionsType } from '@dspace/core';
 import { SubmissionSectionIdentifiersComponent } from './section-identifiers.component';
 
 function getMockSubmissionFormsConfigService(): SubmissionFormsConfigDataService {

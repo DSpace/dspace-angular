@@ -1,6 +1,5 @@
-import { Observable } from 'rxjs';
-
 import { DSpaceObject } from '@dspace/core';
+import { Observable } from 'rxjs';
 
 /**
  * Class used to collect all the data that that is used by the {@link ObjectSelectComponent} in the HTML.

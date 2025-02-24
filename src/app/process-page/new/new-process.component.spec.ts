@@ -7,22 +7,24 @@ import {
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import {
+  createSuccessfulRemoteDataObject$,
+  LinkService,
+  NotificationsService,
+  NotificationsServiceStub,
+  ProcessDataService,
+  ProcessParameter,
+  RequestService,
+  Script,
+  ScriptDataService,
+  ScriptParameter,
+  TranslateLoaderMock,
+} from '@dspace/core';
+import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { LinkService } from '@dspace/core';
-import { ProcessDataService } from '@dspace/core';
-import { ScriptDataService } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { ProcessParameter } from '@dspace/core';
-import { Script } from '@dspace/core';
-import { ScriptParameter } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
 import { HasValuePipe } from '../../shared/utils/has-value.pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ProcessFormComponent } from '../form/process-form.component';

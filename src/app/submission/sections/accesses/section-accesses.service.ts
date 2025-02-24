@@ -1,4 +1,9 @@
 import { Injectable } from '@angular/core';
+import {
+  submissionSectionDataFromIdSelector,
+  SubmissionState,
+  WorkspaceitemSectionAccessesObject,
+} from '@dspace/core';
 import { isNotUndefined } from '@dspace/shared/utils';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -6,10 +11,6 @@ import {
   distinctUntilChanged,
   filter,
 } from 'rxjs/operators';
-
-import { WorkspaceitemSectionAccessesObject } from '@dspace/core';
-import { submissionSectionDataFromIdSelector } from '@dspace/core';
-import { SubmissionState } from '@dspace/core';
 
 /**
  * A service that provides methods to handle submission item's accesses condition state.

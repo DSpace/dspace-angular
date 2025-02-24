@@ -7,30 +7,32 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  APP_CONFIG,
+  buildPaginatedList,
+  Community,
+  CommunityDataService,
+  ConfigurationDataService,
+  ConfigurationProperty,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  FindListOptions,
+  GroupDataService,
+  HostWindowServiceStub,
+  LinkHeadService,
+  PageInfo,
+  PaginationService,
+  PaginationServiceStub,
+  SearchConfigurationService,
+  SearchConfigurationServiceStub,
+  SelectableListService,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment.test';
 
-import { APP_CONFIG } from '@dspace/core';
-import { CommunityDataService } from '@dspace/core';
-import { ConfigurationDataService } from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import { buildPaginatedList } from '@dspace/core';
-import { GroupDataService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { LinkHeadService } from '@dspace/core';
-import { Community } from '@dspace/core';
-import { ConfigurationProperty } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { HostWindowServiceStub } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
-import { SearchConfigurationServiceStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { HostWindowService } from '../../shared/host-window.service';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
-import { SelectableListService } from '@dspace/core';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { TopLevelCommunityListComponent } from './top-level-community-list.component';
 

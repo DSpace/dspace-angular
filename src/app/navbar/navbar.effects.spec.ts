@@ -1,4 +1,9 @@
 import { TestBed } from '@angular/core/testing';
+import {
+  CollapseMenuAction,
+  MenuID,
+  MenuServiceStub,
+} from '@dspace/core';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { ROUTER_NAVIGATION } from '@ngrx/router-store';
 import {
@@ -7,11 +12,8 @@ import {
 } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
 
-import { MenuServiceStub } from '@dspace/core';
 import { HostWindowResizeAction } from '../shared/host-window.actions';
-import { CollapseMenuAction } from '@dspace/core';
 import { MenuService } from '../shared/menu/menu.service';
-import { MenuID } from '@dspace/core';
 import { NavbarEffects } from './navbar.effects';
 
 describe('NavbarEffects', () => {

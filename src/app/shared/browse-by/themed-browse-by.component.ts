@@ -4,16 +4,16 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { Observable } from 'rxjs';
-
 import {
+  ListableObject,
+  PaginatedList,
+  PaginationComponentOptions,
+  RemoteData,
   SortDirection,
   SortOptions,
 } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { ListableObject } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
+import { Observable } from 'rxjs';
+
 import { StartsWithType } from '../starts-with/starts-with-type';
 import { ThemedComponent } from '../theme-support/themed.component';
 import { BrowseByComponent } from './browse-by.component';

@@ -9,6 +9,21 @@ import {
   RouterLink,
 } from '@angular/router';
 import {
+  buildPaginatedList,
+  Context,
+  createSuccessfulRemoteDataObject,
+  ExternalSourceDataService,
+  ExternalSourceEntry,
+  getFinishedRemoteData,
+  NONE_ENTITY_TYPE,
+  PageInfo,
+  PaginatedList,
+  PaginationComponentOptions,
+  RemoteData,
+  RouteService,
+  SearchConfigurationService,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -31,21 +46,6 @@ import {
 } from 'rxjs/operators';
 import { AlertType } from 'src/app/shared/alert/alert-type';
 
-import { ExternalSourceDataService } from '@dspace/core';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { ExternalSourceEntry } from '@dspace/core';
-import { NONE_ENTITY_TYPE } from '@dspace/core';
-import { getFinishedRemoteData } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { fadeIn } from '../../shared/animations/fade';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';

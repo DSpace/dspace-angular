@@ -5,6 +5,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import { AdminNotifyMessage } from '@dspace/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -13,7 +14,6 @@ import {
 
 import { fadeIn } from '../../../shared/animations/fade';
 import { MissingTranslationHelper } from '../../../shared/translate/missing-translation.helper';
-import { AdminNotifyMessage } from '@dspace/core';
 
 @Component({
   selector: 'ds-admin-notify-detail-modal',

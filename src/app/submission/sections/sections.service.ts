@@ -1,5 +1,34 @@
 import { Injectable } from '@angular/core';
 import {
+  DisableSectionAction,
+  EnableSectionAction,
+  FormClearErrorsAction,
+  FormError,
+  InertSectionErrorsAction,
+  JsonPatchOperationPathCombiner,
+  normalizeSectionData,
+  NotificationsService,
+  RemoveSectionErrorsAction,
+  SectionScope,
+  SectionStatusChangeAction,
+  SectionsType,
+  SetSectionFormId,
+  SubmissionFormsModel,
+  SubmissionObjectEntry,
+  submissionObjectFromIdSelector,
+  SubmissionScopeType,
+  submissionSectionDataFromIdSelector,
+  SubmissionSectionError,
+  submissionSectionErrorsFromIdSelector,
+  submissionSectionFromIdSelector,
+  SubmissionSectionObject,
+  submissionSectionServerErrorsFromIdSelector,
+  SubmissionService,
+  SubmissionState,
+  UpdateSectionDataAction,
+  WorkspaceitemSectionDataType,
+} from '@dspace/core';
+import {
   hasValue,
   isEmpty,
   isNotEmpty,
@@ -27,39 +56,8 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { SubmissionFormsModel } from '@dspace/core';
-import { JsonPatchOperationPathCombiner } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { WorkspaceitemSectionDataType } from '@dspace/core';
-import { normalizeSectionData } from '@dspace/core';
-import { SubmissionScopeType } from '@dspace/core';
-import { FormClearErrorsAction } from '@dspace/core';
-import { FormError } from '@dspace/core';
 import { FormService } from '../../shared/form/form.service';
-import { SectionScope } from '@dspace/core';
-import {
-  DisableSectionAction,
-  EnableSectionAction,
-  InertSectionErrorsAction,
-  RemoveSectionErrorsAction,
-  SectionStatusChangeAction,
-  SetSectionFormId,
-  UpdateSectionDataAction,
-} from '@dspace/core';
-import { SubmissionObjectEntry } from '@dspace/core';
-import { SubmissionSectionError } from '@dspace/core';
-import { SubmissionSectionObject } from '@dspace/core';
-import {
-  submissionObjectFromIdSelector,
-  submissionSectionDataFromIdSelector,
-  submissionSectionErrorsFromIdSelector,
-  submissionSectionFromIdSelector,
-  submissionSectionServerErrorsFromIdSelector,
-} from '@dspace/core';
-import { SubmissionState } from '@dspace/core';
-import { SubmissionService } from '@dspace/core';
 import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
-import { SectionsType } from '@dspace/core';
 
 /**
  * A service that provides methods used in submission process.

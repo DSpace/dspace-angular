@@ -5,6 +5,20 @@ import {
   OnInit,
 } from '@angular/core';
 import {
+  Context,
+  DSONameService,
+  followLink,
+  getFirstCompletedRemoteData,
+  Item,
+  LinkService,
+  ObjectCacheService,
+  PoolTask,
+  PoolTaskSearchResult,
+  RemoteData,
+  ViewMode,
+  WorkflowItem,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -17,19 +31,7 @@ import {
   mergeMap,
   tap,
 } from 'rxjs/operators';
-import { Context } from '@dspace/core';
 
-import { DSONameService } from '@dspace/core';
-import { LinkService } from '@dspace/core';
-import { ObjectCacheService } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { PoolTaskSearchResult } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
-import { WorkflowItem } from '@dspace/core';
-import { PoolTask } from '@dspace/core';
 import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';

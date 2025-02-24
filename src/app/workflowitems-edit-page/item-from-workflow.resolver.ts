@@ -4,12 +4,13 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
+import {
+  Item,
+  RemoteData,
+  SubmissionObjectResolver,
+  WorkflowItemDataService,
+} from '@dspace/core';
 import { Observable } from 'rxjs';
-
-import { RemoteData } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { SubmissionObjectResolver } from '@dspace/core';
-import { WorkflowItemDataService } from '@dspace/core';
 
 export const itemFromWorkflowResolver: ResolveFn<RemoteData<Item>> = (
   route: ActivatedRouteSnapshot,

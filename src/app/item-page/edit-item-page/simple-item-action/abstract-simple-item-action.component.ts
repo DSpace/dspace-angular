@@ -9,6 +9,13 @@ import {
   RouterLink,
 } from '@angular/router';
 import {
+  getFirstSucceededRemoteData,
+  Item,
+  ItemDataService,
+  NotificationsService,
+  RemoteData,
+} from '@dspace/core';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
@@ -18,11 +25,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { ItemDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { getFirstSucceededRemoteData } from '@dspace/core';
 import {
   getItemEditRoute,
   getItemPageRoute,

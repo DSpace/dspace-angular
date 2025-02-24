@@ -1,4 +1,5 @@
 import { QualityAssuranceTopicObject } from '@dspace/core';
+
 import {
   QualityAssuranceTopicActionTypes,
   QualityAssuranceTopicsActions,

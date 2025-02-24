@@ -10,6 +10,13 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import {
+  getAllSucceededRemoteDataPayload,
+  NotificationsService,
+  PaginatedList,
+  SystemWideAlert,
+  SystemWideAlertDataService,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -26,12 +33,6 @@ import {
   map,
   switchMap,
 } from 'rxjs/operators';
-
-import { PaginatedList } from '@dspace/core';
-import { SystemWideAlertDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { getAllSucceededRemoteDataPayload } from '@dspace/core';
-import { SystemWideAlert } from '@dspace/core';
 
 /**
  * Component responsible for rendering a banner and the countdown for an active system-wide alert

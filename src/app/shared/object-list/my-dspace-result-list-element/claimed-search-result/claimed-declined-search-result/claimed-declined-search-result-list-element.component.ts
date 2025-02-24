@@ -4,23 +4,23 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
-
-import { DSONameService } from '@dspace/core';
-import { LinkService } from '@dspace/core';
 import {
   APP_CONFIG,
   AppConfig,
+  ClaimedDeclinedTaskSearchResult,
+  ClaimedTask,
+  ClaimedTaskSearchResult,
+  Context,
+  DSONameService,
+  followLink,
+  LinkService,
+  RemoteData,
+  ViewMode,
+  WorkflowItem,
 } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { ClaimedDeclinedTaskSearchResult } from '@dspace/core';
-import { ClaimedTaskSearchResult } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
-import { WorkflowItem } from '@dspace/core';
-import { ClaimedTask } from '@dspace/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
 import { listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { VarDirective } from '../../../../utils/var.directive';

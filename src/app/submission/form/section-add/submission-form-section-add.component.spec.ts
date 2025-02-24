@@ -13,22 +13,24 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  createTestComponent,
+  HostWindowServiceStub,
+  SectionsServiceStub,
+  SubmissionService,
+  SubmissionServiceStub,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { HostWindowServiceStub } from '@dspace/core';
-import { SectionsServiceStub } from '@dspace/core';
-import { SubmissionServiceStub } from '@dspace/core';
-import { createTestComponent } from '@dspace/core';
 import { HostWindowService } from '../../../shared/host-window.service';
 import {
   mockSubmissionCollectionId,
   mockSubmissionId,
 } from '../../../shared/mocks/submission.mock';
 import { SectionsService } from '../../sections/sections.service';
-import { SubmissionService } from '@dspace/core';
 import { SubmissionFormSectionAddComponent } from './submission-form-section-add.component';
 
 const mockAvailableSections: any = [

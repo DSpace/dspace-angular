@@ -7,6 +7,11 @@ import {
   OnInit,
 } from '@angular/core';
 import { Params } from '@angular/router';
+import {
+  PaginationComponentOptions,
+  SortDirection,
+  SortOptions,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
@@ -19,11 +24,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import {
-  SortDirection,
-  SortOptions,
-} from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
 import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import {

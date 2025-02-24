@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { SuggestionTarget } from '@dspace/core';
 import {
   select,
   Store,
@@ -6,7 +7,6 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { SuggestionTarget } from '@dspace/core';
 import { SuggestionNotificationsState } from '../notifications.reducer';
 import {
   getCurrentUserSuggestionTargetsSelector,

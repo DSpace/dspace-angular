@@ -5,20 +5,22 @@ import {
   Output,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import {
+  DSONameService,
+  getFirstCompletedRemoteData,
+  Group,
+  NotificationsService,
+  RemoteData,
+  RequestEntryState,
+  SupervisionOrder,
+  SupervisionOrderDataService,
+} from '@dspace/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
 
-import { DSONameService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RequestEntryState } from '@dspace/core';
-import { Group } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { SupervisionOrder } from '@dspace/core';
-import { SupervisionOrderDataService } from '@dspace/core';
 import { EpersonGroupListComponent } from '../../../../../../shared/eperson-group-list/eperson-group-list.component';
 import { ErrorComponent } from '../../../../../../shared/error/error.component';
 

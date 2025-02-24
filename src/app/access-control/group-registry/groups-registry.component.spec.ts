@@ -20,6 +20,38 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  APP_DATA_SERVICES_MAP,
+  AuthorizationDataService,
+  buildPaginatedList,
+  ConfigurationDataService,
+  createSuccessfulRemoteDataObject$,
+  DSONameService,
+  DSpaceObject,
+  DSpaceObjectDataService,
+  EPerson,
+  EPersonDataService,
+  EPersonMock,
+  EPersonMock2,
+  FeatureID,
+  Group,
+  GroupDataService,
+  GroupMock,
+  GroupMock2,
+  NoContent,
+  NotificationsService,
+  NotificationsServiceStub,
+  PageInfo,
+  PaginatedList,
+  PaginationService,
+  PaginationServiceStub,
+  RemoteData,
+  RequestService,
+  RouterMock,
+  RouteService,
+  routeServiceStub,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
@@ -29,42 +61,6 @@ import {
   of,
 } from 'rxjs';
 
-import { DSONameService } from '@dspace/core';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core';
-import { ConfigurationDataService } from '@dspace/core';
-import { DSpaceObjectDataService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { FeatureID } from '@dspace/core';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { EPersonDataService } from '@dspace/core';
-import { GroupDataService } from '@dspace/core';
-import { EPerson } from '@dspace/core';
-import { Group } from '@dspace/core';
-import { RouterMock } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { NoContent } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import {
-  EPersonMock,
-  EPersonMock2,
-} from '@dspace/core';
-import {
-  GroupMock,
-  GroupMock2,
-} from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
-import { routeServiceStub } from '@dspace/core';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import {
   DSONameServiceMock,

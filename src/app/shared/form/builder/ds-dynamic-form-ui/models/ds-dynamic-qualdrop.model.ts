@@ -1,3 +1,4 @@
+import { LanguageCode } from '@dspace/core';
 import {
   DynamicFormControlLayout,
   DynamicFormGroupModel,
@@ -6,7 +7,6 @@ import {
 } from '@ng-dynamic-forms/core';
 import { Subject } from 'rxjs';
 
-import { LanguageCode } from '@dspace/core';
 import { DsDynamicInputModel } from './ds-dynamic-input.model';
 
 export const QUALDROP_GROUP_SUFFIX = '_QUALDROP_GROUP';

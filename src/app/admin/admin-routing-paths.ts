@@ -1,5 +1,6 @@
-import { getAdminModuleRoute } from '../app-routing-paths';
 import { URLCombiner } from '@dspace/core';
+
+import { getAdminModuleRoute } from '../app-routing-paths';
 import { getQualityAssuranceEditRoute } from './admin-notifications/admin-notifications-routing-paths';
 
 export const REGISTRIES_MODULE_PATH = 'registries';

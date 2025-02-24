@@ -14,6 +14,26 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
+  Bitstream,
+  Bundle,
+  BundleDataService,
+  DSONameService,
+  FieldChangeType,
+  FieldUpdate,
+  FieldUpdates,
+  followLink,
+  getAllSucceededRemoteData,
+  Item,
+  ObjectUpdatesService,
+  PaginatedList,
+  paginatedListToArray,
+  PaginatedSearchOptions,
+  PaginationComponentOptions,
+  PaginationService,
+  RemoteData,
+  RequestService,
+} from '@dspace/core';
+import {
   hasNoValue,
   hasValue,
 } from '@dspace/shared/utils';
@@ -35,27 +55,7 @@ import {
   take,
   tap,
 } from 'rxjs/operators';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
 
-import { DSONameService } from '@dspace/core';
-import { BundleDataService } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { FieldChangeType } from '@dspace/core';
-import { FieldUpdate } from '@dspace/core';
-import { FieldUpdates } from '@dspace/core';
-import { ObjectUpdatesService } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { Bundle } from '@dspace/core';
-import { Item } from '@dspace/core';
-import {
-  getAllSucceededRemoteData,
-  paginatedListToArray,
-} from '@dspace/core';
-import { PaginatedSearchOptions } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';

@@ -7,33 +7,31 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-
 import {
+  Collection,
+  ConfigurationDataService,
+  ConfigurationProperty,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  getMockTranslateService,
+  GroupDataService,
+  LinkHeadService,
+  PaginatedSearchOptions,
+  PaginationComponentOptions,
+  PaginationService,
+  PaginationServiceStub,
+  RemoteData,
+  RouterMock,
+  SearchConfigurationService,
+  SearchConfigurationServiceStub,
+  SearchFilter,
   SortDirection,
   SortOptions,
 } from '@dspace/core';
-import { ConfigurationDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { GroupDataService } from '@dspace/core';
-import { RouterMock } from '@dspace/core';
-import { getMockTranslateService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { LinkHeadService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { ConfigurationProperty } from '@dspace/core';
-import { PaginatedSearchOptions } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { SearchFilter } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
-import { SearchConfigurationServiceStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
+import { TranslateService } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
 import { MockActivatedRoute } from '../mocks/active-router.mock';
 import { RSSComponent } from './rss.component';
 

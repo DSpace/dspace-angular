@@ -1,9 +1,11 @@
+import {
+  buildPaginatedList,
+  Community,
+  createSuccessfulRemoteDataObject$,
+  PageInfo,
+} from '@dspace/core';
 import { of as observableOf } from 'rxjs';
 
-import { buildPaginatedList } from '@dspace/core';
-import { Community } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { CommunityListSaveAction } from './community-list.actions';
 import { CommunityListReducer } from './community-list.reducer';
 import { toFlatNode } from './community-list-service';

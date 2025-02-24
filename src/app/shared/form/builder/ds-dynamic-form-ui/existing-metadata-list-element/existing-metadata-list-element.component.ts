@@ -11,6 +11,23 @@ import {
 } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 import {
+  FormFieldMetadataValueObject,
+  getAllSucceededRemoteData,
+  getRemoteDataPayload,
+  Item,
+  ItemMetadataRepresentation,
+  ItemSearchResult,
+  MetadataRepresentation,
+  MetadataValue,
+  RelationshipOptions,
+  RemoveRelationshipAction,
+  Reorderable,
+  ReorderableRelationship,
+  SelectableListService,
+  SubmissionObjectEntry,
+  SubmissionService,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -27,27 +44,8 @@ import {
 } from 'rxjs/operators';
 
 import { AppState } from '../../../../../app.reducer';
-import { ItemSearchResult } from '@dspace/core';
-import { RelationshipOptions } from '@dspace/core';
-import { Item } from '@dspace/core';
-import {
-  Reorderable,
-  ReorderableRelationship,
-} from '@dspace/core';
-import { MetadataValue } from '@dspace/core';
-import { ItemMetadataRepresentation } from '@dspace/core';
-import { MetadataRepresentation } from '@dspace/core';
-import {
-  getAllSucceededRemoteData,
-  getRemoteDataPayload,
-} from '@dspace/core';
-import { RemoveRelationshipAction } from '@dspace/core';
-import { SubmissionObjectEntry } from '@dspace/core';
-import { SubmissionService } from '@dspace/core';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
 import { MetadataRepresentationLoaderComponent } from '../../../../metadata-representation/metadata-representation-loader.component';
-import { SelectableListService } from '@dspace/core';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 import { DynamicConcatModel } from '../models/ds-dynamic-concat.model';
 
 

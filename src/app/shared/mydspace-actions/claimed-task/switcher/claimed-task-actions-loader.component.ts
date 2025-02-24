@@ -4,11 +4,13 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import {
+  ClaimedTask,
+  GenericConstructor,
+  Item,
+  WorkflowItem,
+} from '@dspace/core';
 
-import { GenericConstructor } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { WorkflowItem } from '@dspace/core';
-import { ClaimedTask } from '@dspace/core';
 import { AbstractComponentLoaderComponent } from '../../../abstract-component-loader/abstract-component-loader.component';
 import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
 import { MyDSpaceActionsResult } from '../../mydspace-actions';

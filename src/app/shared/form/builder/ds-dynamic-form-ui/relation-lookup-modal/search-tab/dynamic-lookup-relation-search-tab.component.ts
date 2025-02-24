@@ -7,6 +7,26 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import {
+  Context,
+  DSpaceObject,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+  Item,
+  ListableObject,
+  LookupRelationService,
+  PaginatedList,
+  PaginationService,
+  Relationship,
+  RelationshipDataService,
+  RelationshipOptions,
+  RelationshipType,
+  SearchConfigurationService,
+  SearchObjects,
+  SearchResult,
+  SearchService,
+  SelectableListService,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
@@ -16,28 +36,8 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { LookupRelationService } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RelationshipDataService } from '@dspace/core';
-import { ListableObject } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { RelationshipOptions } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { Relationship } from '@dspace/core';
-import { RelationshipType } from '@dspace/core';
-import {
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '@dspace/core';
-import { SearchObjects } from '@dspace/core';
-import { SearchResult } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import { CollectionElementLinkType } from '../../../../../object-collection/collection-element-link.type';
-import { SelectableListService } from '@dspace/core';
 import { ThemedSearchComponent } from '../../../../../search/themed-search.component';
 import { VarDirective } from '../../../../../utils/var.directive';
 

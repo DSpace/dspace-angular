@@ -16,19 +16,21 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  ActionType,
+  createSuccessfulRemoteDataObject,
+  DSONameService,
+  EPersonMock,
+  GroupDataService,
+  GroupMock,
+  Item,
+  PolicyType,
+  RouterStub,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { DSONameService } from '@dspace/core';
-import { GroupDataService } from '@dspace/core';
-import { ActionType } from '@dspace/core';
-import { PolicyType } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
-import { EPersonMock } from '@dspace/core';
-import { GroupMock } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
 import { ResourcePolicyEntryComponent } from './resource-policy-entry.component';
 import createSpyObj = jasmine.createSpyObj;
 

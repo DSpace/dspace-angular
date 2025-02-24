@@ -4,6 +4,14 @@ import {
   Injector,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  ClaimedDeclinedTaskTaskSearchResult,
+  DSpaceObject,
+  NotificationsService,
+  RemoteData,
+  RequestService,
+  SearchService,
+} from '@dspace/core';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -13,13 +21,7 @@ import {
   Observable,
   of as observableOf,
 } from 'rxjs';
-import { RemoteData } from '@dspace/core';
 
-import { RequestService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { ClaimedDeclinedTaskTaskSearchResult } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { SearchService } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 

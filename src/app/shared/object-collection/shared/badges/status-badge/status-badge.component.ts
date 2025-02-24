@@ -4,10 +4,9 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { DSpaceObject } from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
-
-import { DSpaceObject } from '@dspace/core';
 
 @Component({
   selector: 'ds-base-status-badge',

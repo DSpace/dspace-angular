@@ -1,5 +1,15 @@
 import { Injectable } from '@angular/core';
 import {
+  getFirstSucceededRemoteDataPayload,
+  getFirstSucceededRemoteListPayload,
+  PageInfo,
+  PaginatedList,
+  VocabularyEntry,
+  VocabularyEntryDetail,
+  VocabularyOptions,
+  VocabularyService,
+} from '@dspace/core';
+import {
   isEmpty,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -16,16 +26,6 @@ import {
   scan,
 } from 'rxjs/operators';
 
-import { PaginatedList } from '@dspace/core';
-import {
-  getFirstSucceededRemoteDataPayload,
-  getFirstSucceededRemoteListPayload,
-} from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { VocabularyEntry } from '@dspace/core';
-import { VocabularyEntryDetail } from '@dspace/core';
-import { VocabularyOptions } from '@dspace/core';
-import { VocabularyService } from '@dspace/core';
 import {
   LOAD_MORE_NODE,
   LOAD_MORE_ROOT_NODE,

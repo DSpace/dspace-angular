@@ -10,18 +10,18 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-
-import { ComColDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Community } from '@dspace/core';
 import {
+  ComColDataService,
+  Community,
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
+  NotificationsService,
+  NotificationsServiceStub,
 } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
 import { ComcolMetadataComponent } from './comcol-metadata.component';
 
 describe('ComColMetadataComponent', () => {

@@ -1,3 +1,13 @@
+import {
+  filterReducer,
+  formReducer,
+  FormState,
+  menusReducer,
+  MenusState,
+  SearchFiltersState,
+  selectableListReducer,
+  SelectableListsState,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import {
   routerReducer,
@@ -18,16 +28,6 @@ import {
   ContextHelpState,
 } from './shared/context-help.reducer';
 import {
-  formReducer,
-  FormState,
-} from '@dspace/core';
-import { menusReducer } from '@dspace/core';
-import { MenusState } from '@dspace/core';
-import {
-  selectableListReducer,
-  SelectableListsState,
-} from '@dspace/core';
-import {
   ObjectSelectionListState,
   objectSelectionReducer,
 } from './shared/object-select/object-select.reducer';
@@ -39,10 +39,6 @@ import {
   hostWindowReducer,
   HostWindowState,
 } from './shared/search/host-window.reducer';
-import {
-  filterReducer,
-  SearchFiltersState,
-} from '@dspace/core';
 import {
   sidebarReducer,
   SidebarState,

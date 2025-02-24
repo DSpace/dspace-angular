@@ -3,17 +3,19 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { Router } from '@angular/router';
+import {
+  APP_CONFIG,
+  RouterStub,
+  SearchConfigurationService,
+  SearchConfigurationServiceStub,
+  SearchFilterService,
+  SearchFilterServiceStub,
+  SearchService,
+  SearchServiceStub,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../environments/environment.test';
-import { APP_CONFIG } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import { SearchFilterService } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
-import { SearchConfigurationServiceStub } from '@dspace/core';
-import { SearchFilterServiceStub } from '@dspace/core';
-import { SearchServiceStub } from '@dspace/core';
 import { AdvancedSearchComponent } from './advanced-search.component';
 
 describe('AdvancedSearchComponent', () => {

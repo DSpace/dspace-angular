@@ -9,14 +9,16 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  CSSVariableServiceStub,
+  MenuItemType,
+  MenuServiceStub,
+  RouterStub,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { MenuItemType } from '@dspace/core';
 
-import { ActivatedRouteStub } from '@dspace/core';
-import { CSSVariableServiceStub } from '@dspace/core';
-import { MenuServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
 import { MenuService } from '../../../menu/menu.service';
 import { OnClickMenuItemModel } from '../../../menu/menu-item/models/onclick.model';
 import { CSSVariableService } from '../../../sass-helper/css-variable.service';

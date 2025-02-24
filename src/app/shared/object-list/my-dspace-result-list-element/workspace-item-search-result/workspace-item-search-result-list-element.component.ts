@@ -7,22 +7,22 @@ import {
   Inject,
   OnInit,
 } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-
-import { DSONameService } from '@dspace/core';
-import { LinkService } from '@dspace/core';
 import {
   APP_CONFIG,
   AppConfig,
+  Context,
+  DSONameService,
+  followLink,
+  getFirstSucceededRemoteDataPayload,
+  Item,
+  ItemSearchResult,
+  LinkService,
+  ViewMode,
+  WorkspaceItem,
+  WorkspaceItemSearchResult,
 } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { ItemSearchResult } from '@dspace/core';
-import { WorkspaceItemSearchResult } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
-import { WorkspaceItem } from '@dspace/core';
+import { BehaviorSubject } from 'rxjs';
+
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { WorkspaceitemActionsComponent } from '../../../mydspace-actions/workspaceitem/workspaceitem-actions.component';
 import { CollectionElementLinkType } from '../../../object-collection/collection-element-link.type';

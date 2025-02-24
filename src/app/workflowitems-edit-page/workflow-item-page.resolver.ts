@@ -4,13 +4,14 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
+import {
+  followLink,
+  getFirstCompletedRemoteData,
+  RemoteData,
+  WorkflowItem,
+  WorkflowItemDataService,
+} from '@dspace/core';
 import { Observable } from 'rxjs';
-
-import { followLink } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
-import { WorkflowItem } from '@dspace/core';
-import { WorkflowItemDataService } from '@dspace/core';
 
 export const workflowItemPageResolver: ResolveFn<RemoteData<WorkflowItem>> = (
   route: ActivatedRouteSnapshot,

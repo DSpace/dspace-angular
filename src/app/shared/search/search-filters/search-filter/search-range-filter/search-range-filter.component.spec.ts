@@ -10,28 +10,30 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  buildPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  FacetValue,
+  FilterType,
+  PageInfo,
+  RemoteDataBuildService,
+  RouterStub,
+  RouteService,
+  routeServiceStub,
+  SearchConfigurationServiceStub,
+  SearchFilterConfig,
+  SearchFilterService,
+  SearchFilterServiceStub,
+  SearchService,
+  SearchServiceStub,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   of as observableOf,
 } from 'rxjs';
 
-import { RemoteDataBuildService } from '@dspace/core';
-import { buildPaginatedList } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { FacetValue } from '@dspace/core';
-import { FilterType } from '@dspace/core';
-import { SearchFilterConfig } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { SearchFilterService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { routeServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
-import { SearchConfigurationServiceStub } from '@dspace/core';
-import { SearchFilterServiceStub } from '@dspace/core';
-import { SearchServiceStub } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { SearchFacetRangeOptionComponent } from '../search-facet-filter-options/search-facet-range-option/search-facet-range-option.component';
 import { SearchRangeFilterComponent } from './search-range-filter.component';

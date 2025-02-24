@@ -9,32 +9,32 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  Collection,
+  ConfidenceType,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  DSONameService,
+  DSpaceObject,
+  Item,
+  ItemDataService,
+  ItemMetadataRepresentation,
+  MetadataField,
+  MetadataSchema,
+  MetadataValue,
+  NotificationsService,
+  RegistryService,
+  RelationshipDataService,
+  VIRTUAL_METADATA_PREFIX,
+  Vocabulary,
+  VocabularyService,
+  VocabularyServiceStub,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
-import { MetadataField } from '@dspace/core';
-import { MetadataSchema } from '@dspace/core';
-import { RegistryService } from '@dspace/core';
-import { ConfidenceType } from '@dspace/core';
-import { Vocabulary } from '@dspace/core';
-import { VocabularyService } from '@dspace/core';
 import { DynamicOneboxModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
 import { DynamicScrollableDropdownModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 
-import { DSONameService } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { RelationshipDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { Item } from '@dspace/core';
-import {
-  MetadataValue,
-  VIRTUAL_METADATA_PREFIX,
-} from '@dspace/core';
-import { ItemMetadataRepresentation } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
-import { VocabularyServiceStub } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { DsDynamicOneboxComponent } from '../../../shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.component';
 import { DsDynamicScrollableDropdownComponent } from '../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component';

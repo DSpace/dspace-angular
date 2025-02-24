@@ -4,13 +4,14 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
+import {
+  followLink,
+  getFirstCompletedRemoteData,
+  RemoteData,
+  WorkspaceItem,
+  WorkspaceitemDataService,
+} from '@dspace/core';
 import { Observable } from 'rxjs';
-
-import { followLink } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
-import { WorkspaceItem } from '@dspace/core';
-import { WorkspaceitemDataService } from '@dspace/core';
 
 /**
  * Method for resolving a workflow item based on the parameters in the current route

@@ -12,31 +12,31 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  APP_DATA_SERVICES_MAP,
+  buildPaginatedList,
+  createSuccessfulRemoteDataObject,
+  createTestComponent,
+  DSONameService,
+  EPERSON,
+  EPersonDataService,
+  EPersonMock,
+  getMockRequestService,
+  GROUP,
+  GroupDataService,
+  GroupMock,
+  LazyDataServicesMap,
+  PageInfo,
+  PaginationComponentOptions,
+  PaginationService,
+  PaginationServiceStub,
+  RequestService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import uniqueId from 'lodash/uniqueId';
 import { of as observableOf } from 'rxjs';
 
-import { DSONameService } from '@dspace/core';
-import {
-  APP_DATA_SERVICES_MAP,
-  LazyDataServicesMap,
-} from '@dspace/core';
-import { buildPaginatedList } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { EPersonDataService } from '@dspace/core';
-import { GroupDataService } from '@dspace/core';
-import { EPERSON } from '@dspace/core';
-import { GROUP } from '@dspace/core';
-import { getMockRequestService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
-import { EPersonMock } from '@dspace/core';
-import { GroupMock } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
-import { createTestComponent } from '@dspace/core';
 import { DSONameServiceMock } from '../mocks/dso-name.service.mock';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { EpersonGroupListComponent } from './eperson-group-list.component';

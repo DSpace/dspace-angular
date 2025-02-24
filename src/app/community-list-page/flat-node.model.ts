@@ -1,7 +1,9 @@
+import {
+  Collection,
+  Community,
+} from '@dspace/core';
 import { Observable } from 'rxjs';
 
-import { Collection } from '@dspace/core';
-import { Community } from '@dspace/core';
 import { ShowMoreFlatNode } from './show-more-flat-node.model';
 
 /**

@@ -6,25 +6,25 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import {
+  BitstreamFormat,
+  BitstreamFormatDataService,
+  BitstreamFormatSupportLevel,
+  createFailedRemoteDataObject$,
+  createNoContentRemoteDataObject$,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  NotificationsService,
+  NotificationsServiceStub,
+  PaginationService,
+  PaginationServiceStub,
+} from '@dspace/core';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { hot } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { BitstreamFormatDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { BitstreamFormat } from '@dspace/core';
-import { BitstreamFormatSupportLevel } from '@dspace/core';
-import {
-  createFailedRemoteDataObject$,
-  createNoContentRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';
 import { BitstreamFormatsComponent } from './bitstream-formats.component';

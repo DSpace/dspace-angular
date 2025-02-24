@@ -4,6 +4,14 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import {
+  DSONameService,
+  DSpaceObjectDataService,
+  getFinishedRemoteData,
+  getRemoteDataPayload,
+  Point,
+  UsageReport,
+} from '@dspace/core';
 import { isEmpty } from '@dspace/shared/utils';
 import {
   TranslateModule,
@@ -14,17 +22,6 @@ import {
   of,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-import { DSONameService } from '@dspace/core';
-import { DSpaceObjectDataService } from '@dspace/core';
-import {
-  getFinishedRemoteData,
-  getRemoteDataPayload,
-} from '@dspace/core';
-import {
-  Point,
-  UsageReport,
-} from '@dspace/core';
 
 /**
  * Component representing a statistics table for a given usage report.

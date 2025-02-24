@@ -14,6 +14,11 @@ import {
   DomSanitizer,
   SafeResourceUrl,
 } from '@angular/platform-browser';
+import {
+  BitstreamDataService,
+  BundleDataService,
+  Item,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
@@ -25,9 +30,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import { BitstreamDataService } from '@dspace/core';
-import { BundleDataService } from '@dspace/core';
-import { Item } from '@dspace/core';
 import {
   HostWindowService,
   WidthCategory,

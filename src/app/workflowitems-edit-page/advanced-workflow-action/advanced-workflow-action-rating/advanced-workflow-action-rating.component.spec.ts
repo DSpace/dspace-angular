@@ -12,32 +12,32 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  ClaimedTaskDataService,
+  ClaimedTaskDataServiceStub,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  Item,
+  LocationStub,
+  NotificationsService,
+  NotificationsServiceStub,
+  ProcessTaskResponse,
+  RatingAdvancedWorkflowInfo,
+  RequestService,
+  RequestServiceStub,
+  RouterStub,
+  RouteService,
+  routeServiceStub,
+  WorkflowActionDataService,
+  WorkflowActionDataServiceStub,
+  WorkflowItem,
+  WorkflowItemDataService,
+  WorkflowItemDataServiceStub,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { RequestService } from '@dspace/core';
-import { WorkflowActionDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { WorkflowItem } from '@dspace/core';
-import { WorkflowItemDataService } from '@dspace/core';
-import { ClaimedTaskDataService } from '@dspace/core';
-import { ProcessTaskResponse } from '@dspace/core';
-import { RatingAdvancedWorkflowInfo } from '@dspace/core';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { ClaimedTaskDataServiceStub } from '@dspace/core';
-import { LocationStub } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { RequestServiceStub } from '@dspace/core';
-import { routeServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
-import { WorkflowActionDataServiceStub } from '@dspace/core';
-import { WorkflowItemDataServiceStub } from '@dspace/core';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import {
   ADVANCED_WORKFLOW_TASK_OPTION_RATING,

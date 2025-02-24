@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-
 import { ViewMode } from '@dspace/core';
+
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { MetadataRepresentationListElementComponent } from '../metadata-representation-list-element.component';
 

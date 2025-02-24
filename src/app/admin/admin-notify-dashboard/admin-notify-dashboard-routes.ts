@@ -1,8 +1,10 @@
 import { Route } from '@angular/router';
+import {
+  i18nBreadcrumbResolver,
+  notifyInfoGuard,
+  siteAdministratorGuard,
+} from '@dspace/core';
 
-import { i18nBreadcrumbResolver } from '@dspace/core';
-import { notifyInfoGuard } from '@dspace/core';
-import { siteAdministratorGuard } from '@dspace/core';
 import { AdminNotifyDashboardComponent } from './admin-notify-dashboard.component';
 import { AdminNotifyIncomingComponent } from './admin-notify-logs/admin-notify-incoming/admin-notify-incoming.component';
 import { AdminNotifyOutgoingComponent } from './admin-notify-logs/admin-notify-outgoing/admin-notify-outgoing.component';

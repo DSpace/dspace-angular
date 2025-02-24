@@ -14,6 +14,29 @@ import {
 } from '@angular/core';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import {
+  AuthRequestService,
+  AuthService,
+  BrowserAuthRequestService,
+  BrowserHardRedirectService,
+  BrowserReferrerService,
+  BrowserXSRFService,
+  ClientCookieService,
+  ClientMathService,
+  CookieService,
+  coreEffects,
+  coreReducers,
+  CoreState,
+  HardRedirectService,
+  LocaleService,
+  locationProvider,
+  LocationToken,
+  MathService,
+  ReferrerService,
+  REQUEST,
+  SubmissionService,
+  XSRFService,
+} from '@dspace/core';
 import { EffectsModule } from '@ngrx/effects';
 import {
   Action,
@@ -32,33 +55,10 @@ import {
 
 import { commonAppConfig } from '../../app/app.config';
 import { storeModuleConfig } from '../../app/app.reducer';
-import { AuthService } from '@dspace/core';
-import { AuthRequestService } from '@dspace/core';
-import { BrowserAuthRequestService } from '@dspace/core';
-import { coreEffects } from '@dspace/core';
-import { coreReducers } from '@dspace/core';
-import { CoreState } from '@dspace/core';
-import { LocaleService } from '@dspace/core';
-import { BrowserReferrerService } from '@dspace/core';
-import {
-  BrowserHardRedirectService,
-  locationProvider,
-  LocationToken,
-} from '@dspace/core';
-import { ClientCookieService } from '@dspace/core';
-import { CookieService } from '@dspace/core';
-import { HardRedirectService } from '@dspace/core';
-import { ReferrerService } from '@dspace/core';
-import { ClientMathService } from '@dspace/core';
-import { MathService } from '@dspace/core';
-import { REQUEST } from '@dspace/core';
-import { BrowserXSRFService } from '@dspace/core';
-import { XSRFService } from '@dspace/core';
 import { BrowserOrejimeService } from '../../app/shared/cookies/browser-orejime.service';
 import { OrejimeService } from '../../app/shared/cookies/orejime.service';
 import { MissingTranslationHelper } from '../../app/shared/translate/missing-translation.helper';
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
-import { SubmissionService } from '@dspace/core';
 import { TranslateBrowserLoader } from '../../ngx-translate-loaders/translate-browser.loader';
 import { BrowserInitService } from './browser-init.service';
 

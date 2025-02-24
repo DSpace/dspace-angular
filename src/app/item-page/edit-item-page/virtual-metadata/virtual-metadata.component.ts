@@ -12,6 +12,13 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+  Item,
+  MetadataValue,
+  ObjectUpdatesService,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -20,13 +27,6 @@ import {
   Subscription,
 } from 'rxjs';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/core';
-import { ObjectUpdatesService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { MetadataValue } from '@dspace/core';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
 

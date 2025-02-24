@@ -19,6 +19,11 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import {
+  createTestComponent,
+  mockDynamicFormLayoutService,
+  mockDynamicFormValidationService,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormLayoutService,
@@ -27,11 +32,6 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import {
-  mockDynamicFormLayoutService,
-  mockDynamicFormValidationService,
-} from '@dspace/core';
-import { createTestComponent } from '@dspace/core';
 import { DsDatePickerComponent } from './date-picker.component';
 import { DynamicDsDatePickerModel } from './date-picker.model';
 

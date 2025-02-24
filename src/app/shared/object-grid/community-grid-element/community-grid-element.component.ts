@@ -5,16 +5,18 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
+  Community,
+  DSONameService,
+  followLink,
+  LinkService,
+  ViewMode,
+} from '@dspace/core';
+import {
   hasNoValue,
   hasValue,
 } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DSONameService } from '@dspace/core';
-import { LinkService } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { Community } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { ThemedThumbnailComponent } from '../../../thumbnail/themed-thumbnail.component';
 import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';

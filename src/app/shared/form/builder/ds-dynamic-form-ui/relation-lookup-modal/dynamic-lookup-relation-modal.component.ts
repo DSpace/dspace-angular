@@ -9,6 +9,33 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import {
+  AddRelationshipAction,
+  Context,
+  DSpaceObject,
+  ExternalSource,
+  ExternalSourceDataService,
+  FindListOptions,
+  followLink,
+  getAllSucceededRemoteDataPayload,
+  getFirstSucceededRemoteDataPayload,
+  Item,
+  ItemSearchResult,
+  ListableObject,
+  LookupRelationService,
+  PaginatedList,
+  RelationshipDataService,
+  RelationshipOptions,
+  RelationshipType,
+  RemoteDataBuildService,
+  RemoveRelationshipAction,
+  RequestParam,
+  SearchConfigurationService,
+  SearchResult,
+  SelectableListService,
+  SelectableListState,
+  UpdateRelationshipNameVariantAction,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -32,38 +59,9 @@ import {
 } from 'rxjs/operators';
 
 import { AppState } from '../../../../../app.reducer';
-import { RemoteDataBuildService } from '@dspace/core';
-import { RequestParam } from '@dspace/core';
-import { ExternalSourceDataService } from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { LookupRelationService } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RelationshipDataService } from '@dspace/core';
-import { ItemSearchResult } from '@dspace/core';
-import { ListableObject } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { ExternalSource } from '@dspace/core';
-import { RelationshipOptions } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { RelationshipType } from '@dspace/core';
-import {
-  getAllSucceededRemoteDataPayload,
-  getFirstSucceededRemoteDataPayload,
-} from '@dspace/core';
-import { SearchResult } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import {
-  AddRelationshipAction,
-  RemoveRelationshipAction,
-  UpdateRelationshipNameVariantAction,
-} from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
-import { SelectableListState } from '@dspace/core';
-import { SelectableListService } from '@dspace/core';
 import { ThemedDynamicLookupRelationExternalSourceTabComponent } from './external-source-tab/themed-dynamic-lookup-relation-external-source-tab.component';
 import { ThemedDynamicLookupRelationSearchTabComponent } from './search-tab/themed-dynamic-lookup-relation-search-tab.component';
 import { DsDynamicLookupRelationSelectionTabComponent } from './selection-tab/dynamic-lookup-relation-selection-tab.component';

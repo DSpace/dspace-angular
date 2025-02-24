@@ -7,19 +7,21 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  ClaimedTaskDataService,
+  getFirstSucceededRemoteDataPayload,
+  NotificationsService,
+  ProcessTaskResponse,
+  RequestService,
+  RouteService,
+  WorkflowAction,
+  WorkflowActionDataService,
+  WorkflowItemDataService,
+} from '@dspace/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { RequestService } from '@dspace/core';
-import { WorkflowActionDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core';
-import { WorkflowItemDataService } from '@dspace/core';
-import { ClaimedTaskDataService } from '@dspace/core';
-import { ProcessTaskResponse } from '@dspace/core';
-import { WorkflowAction } from '@dspace/core';
 import { WorkflowItemActionPageDirective } from '../../workflow-item-action-page.component';
 
 /**

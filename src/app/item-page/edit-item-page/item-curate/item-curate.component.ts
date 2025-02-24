@@ -4,6 +4,11 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import {
+  DSONameService,
+  Item,
+  RemoteData,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -13,9 +18,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { DSONameService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { Item } from '@dspace/core';
 import { CurationFormComponent } from '../../../curation-form/curation-form.component';
 
 /**

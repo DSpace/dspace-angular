@@ -4,18 +4,20 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import {
+  followLink,
+  getFirstSucceededRemoteDataPayload,
+  LinkService,
+  Process,
+  ProcessDataService,
+  Script,
+} from '@dspace/core';
 import { Observable } from 'rxjs';
 import {
   map,
   switchMap,
 } from 'rxjs/operators';
 
-import { LinkService } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { ProcessDataService } from '@dspace/core';
-import { Process } from '@dspace/core';
-import { Script } from '@dspace/core';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core';
 import { HasValuePipe } from '../../shared/utils/has-value.pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ProcessFormComponent } from '../form/process-form.component';

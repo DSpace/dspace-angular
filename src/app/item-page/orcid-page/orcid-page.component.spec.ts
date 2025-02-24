@@ -13,6 +13,26 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
+  ActivatedRouteStub,
+  AuthService,
+  createFailedRemoteDataObject$,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  Item,
+  ItemDataService,
+  NotificationsService,
+  NotificationsServiceStub,
+  OrcidAuthService,
+  OrcidHistoryDataService,
+  OrcidQueueDataService,
+  PaginationService,
+  PaginationServiceStub,
+  ResearcherProfile,
+  ResearcherProfileDataService,
+  TranslateLoaderMock,
+} from '@dspace/core';
+import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
@@ -23,26 +43,6 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { AuthService } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { OrcidAuthService } from '@dspace/core';
-import { OrcidHistoryDataService } from '@dspace/core';
-import { OrcidQueueDataService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { ResearcherProfile } from '@dspace/core';
-import { ResearcherProfileDataService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { OrcidPageComponent } from './orcid-page.component';
 
 describe('OrcidPageComponent test suite', () => {

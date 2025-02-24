@@ -12,12 +12,12 @@ import {
   FormsModule,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
+import { InputSuggestion } from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ClickOutsideDirective } from '../../utils/click-outside.directive';
 import { DebounceDirective } from '../../utils/debounce.directive';
 import { InputSuggestionsComponent } from '../input-suggestions.component';
-import { InputSuggestion } from '@dspace/core';
 
 @Component({
   selector: 'ds-filter-input-suggestions',

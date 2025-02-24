@@ -10,6 +10,16 @@ import {
 } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import {
+  createTestComponent,
+  ExternalSourceEntry,
+  Metadata,
+  NotificationsService,
+  NotificationsServiceStub,
+  RouterStub,
+  SubmissionService,
+  SubmissionServiceStub,
+} from '@dspace/core';
+import {
   NgbActiveModal,
   NgbModal,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -18,15 +28,7 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { NotificationsService } from '@dspace/core';
-import { ExternalSourceEntry } from '@dspace/core';
-import { Metadata } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
-import { SubmissionServiceStub } from '@dspace/core';
-import { createTestComponent } from '@dspace/core';
 import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
-import { SubmissionService } from '@dspace/core';
 import { SubmissionImportExternalCollectionComponent } from '../import-external-collection/submission-import-external-collection.component';
 import { SubmissionImportExternalPreviewComponent } from './submission-import-external-preview.component';
 

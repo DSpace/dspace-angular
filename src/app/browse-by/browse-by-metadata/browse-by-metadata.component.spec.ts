@@ -16,6 +16,29 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  ActivatedRouteStub,
+  APP_CONFIG,
+  BrowseEntry,
+  BrowseEntrySearchOptions,
+  BrowseService,
+  buildPaginatedList,
+  Community,
+  createSuccessfulRemoteDataObject$,
+  DSpaceObjectDataService,
+  Item,
+  PageInfo,
+  PaginatedList,
+  PaginationComponentOptions,
+  PaginationService,
+  PaginationServiceStub,
+  RemoteData,
+  RouterMock,
+  RouteService,
+  routeServiceStub,
+  SelectableListService,
+  SortDirection,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
@@ -23,34 +46,11 @@ import {
   Observable,
   of as observableOf,
 } from 'rxjs';
-import { RouteService } from '@dspace/core';
 import { DsoEditMenuComponent } from 'src/app/shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { HostWindowService } from 'src/app/shared/host-window.service';
 import { ThemedLoadingComponent } from 'src/app/shared/loading/themed-loading.component';
-import { SelectableListService } from '@dspace/core';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
-import { BrowseService } from '@dspace/core';
-import { BrowseEntrySearchOptions } from '@dspace/core';
-import { SortDirection } from '@dspace/core';
-import { APP_CONFIG } from '@dspace/core';
-import { DSpaceObjectDataService } from '@dspace/core';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RouterMock } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { BrowseEntry } from '@dspace/core';
-import { Community } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
-import { routeServiceStub } from '@dspace/core';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';

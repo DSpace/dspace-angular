@@ -8,12 +8,14 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import {
+  Collection,
+  createSuccessfulRemoteDataObject,
+  DSONameService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { DSONameService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { CurationFormComponent } from '../../../curation-form/curation-form.component';
 import { CollectionCurateComponent } from './collection-curate.component';
 

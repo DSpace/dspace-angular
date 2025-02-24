@@ -11,21 +11,21 @@ import {
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
+  ComColDataService,
+  Community,
+  CommunityDataService,
+  createFailedRemoteDataObject$,
+  createNoContentRemoteDataObject$,
+  NotificationsService,
+  NotificationsServiceStub,
+} from '@dspace/core';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { ComColDataService } from '@dspace/core';
-import { CommunityDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Community } from '@dspace/core';
-import {
-  createFailedRemoteDataObject$,
-  createNoContentRemoteDataObject$,
-} from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
 import { DeleteComColPageComponent } from './delete-comcol-page.component';
 
 describe('DeleteComColPageComponent', () => {

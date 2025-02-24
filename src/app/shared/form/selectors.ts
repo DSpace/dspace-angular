@@ -1,13 +1,13 @@
 import {
+  FormEntry,
+  FormState,
+} from '@dspace/core';
+import {
   createSelector,
   MemoizedSelector,
 } from '@ngrx/store';
 
 import { AppState } from '../../app.reducer';
-import {
-  FormEntry,
-  FormState,
-} from '@dspace/core';
 
 export const formStateSelector = (state: AppState) => state.forms;
 

@@ -5,9 +5,9 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ActivatedRouteStub } from '@dspace/core';
 import { PrivacyContentComponent } from './privacy-content.component';
 
 describe('PrivacyContentComponent', () => {

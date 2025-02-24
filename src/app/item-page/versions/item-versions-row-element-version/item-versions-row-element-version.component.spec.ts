@@ -17,6 +17,22 @@ import {
   ActivatedRoute,
   RouterModule,
 } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  AuthorizationDataService,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  Item,
+  ItemDataService,
+  NotificationsService,
+  NotificationsServiceStub,
+  Version,
+  VersionDataService,
+  VersionHistory,
+  VersionHistoryDataService,
+  WorkflowItemDataService,
+  WorkspaceitemDataService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   EMPTY,
@@ -24,20 +40,6 @@ import {
   of,
 } from 'rxjs';
 
-import { AuthorizationDataService } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { VersionDataService } from '@dspace/core';
-import { VersionHistoryDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { Version } from '@dspace/core';
-import { VersionHistory } from '@dspace/core';
-import { WorkflowItemDataService } from '@dspace/core';
-import { WorkspaceitemDataService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { ItemVersionsComponent } from '../item-versions.component';
 import { ItemVersionsRowElementVersionComponent } from './item-versions-row-element-version.component';
 

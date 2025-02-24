@@ -6,6 +6,17 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import {
+  AuthorizationDataService,
+  FeatureID,
+  getFirstCompletedRemoteData,
+  NotificationsService,
+  PaginatedSearchOptions,
+  Process,
+  RemoteData,
+  ScriptDataService,
+  SearchFilter,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -22,15 +33,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { AuthorizationDataService } from '@dspace/core';
-import { FeatureID } from '@dspace/core';
-import { ScriptDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Process } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
-import { PaginatedSearchOptions } from '@dspace/core';
-import { SearchFilter } from '@dspace/core';
 import { getProcessDetailRoute } from '../../../process-page/process-page-routing.paths';
 
 @Component({

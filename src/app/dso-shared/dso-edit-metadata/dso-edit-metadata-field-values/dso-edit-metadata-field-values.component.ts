@@ -10,12 +10,12 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import { DSpaceObject } from '@dspace/core';
 import {
   BehaviorSubject,
   Observable,
 } from 'rxjs';
 
-import { DSpaceObject } from '@dspace/core';
 import {
   DsoEditMetadataChangeType,
   DsoEditMetadataForm,

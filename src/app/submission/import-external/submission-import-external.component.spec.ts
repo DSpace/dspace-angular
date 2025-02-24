@@ -14,31 +14,29 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  createFailedRemoteDataObject$,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  createTestComponent,
+  ExternalSourceDataService,
+  ExternalSourceEntry,
+  HostWindowServiceStub,
+  PaginatedSearchOptions,
+  PaginationComponentOptions,
+  RouterStub,
+  RouteService,
+  routeServiceStub,
+  SearchConfigurationService,
+} from '@dspace/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { ExternalSourceDataService } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { ExternalSourceEntry } from '@dspace/core';
-import { PaginatedSearchOptions } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { HostWindowServiceStub } from '@dspace/core';
-import { routeServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
-import {
-  createPaginatedList,
-  createTestComponent,
-} from '@dspace/core';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { HostWindowService } from '../../shared/host-window.service';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';

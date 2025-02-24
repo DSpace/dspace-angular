@@ -7,6 +7,11 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import {
+  Item,
+  ItemType,
+  RelationshipType,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import {
   BehaviorSubject,
@@ -14,9 +19,6 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { Item } from '@dspace/core';
-import { ItemType } from '@dspace/core';
-import { RelationshipType } from '@dspace/core';
 import { EditItemRelationshipsService } from '../edit-item-relationships.service';
 import { EditRelationshipListComponent } from '../edit-relationship-list/edit-relationship-list.component';
 

@@ -7,6 +7,10 @@ import {
   Output,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import {
+  ListableObject,
+  SelectableListService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
@@ -15,8 +19,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { ListableObject } from '@dspace/core';
-import { SelectableListService } from '@dspace/core';
 import { VarDirective } from '../../../utils/var.directive';
 
 @Component({

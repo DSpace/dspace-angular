@@ -5,15 +5,17 @@ import {
   Output,
 } from '@angular/core';
 import {
+  PaginatedSearchOptions,
+  RemoteData,
+  SearchFilterConfig,
+  SortOptions,
+  ViewMode,
+} from '@dspace/core';
+import {
   BehaviorSubject,
   Observable,
 } from 'rxjs';
 
-import { SortOptions } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { PaginatedSearchOptions } from '@dspace/core';
-import { SearchFilterConfig } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { ThemedComponent } from '../../theme-support/themed.component';
 import { SearchConfigurationOption } from '../search-switch-configuration/search-configuration-option.model';
 import { SearchSidebarComponent } from './search-sidebar.component';

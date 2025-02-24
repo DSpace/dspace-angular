@@ -9,6 +9,27 @@ import {
   OnInit,
 } from '@angular/core';
 import {
+  APP_CONFIG,
+  AppConfig,
+  ConfigurationDataService,
+  ConfigurationProperty,
+  Context,
+  DSONameService,
+  Duplicate,
+  followLink,
+  getFirstCompletedRemoteData,
+  Item,
+  LinkService,
+  ObjectCacheService,
+  PaginatedList,
+  PoolTask,
+  PoolTaskSearchResult,
+  RemoteData,
+  SubmissionDuplicateDataService,
+  ViewMode,
+  WorkflowItem,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -25,31 +46,10 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '@dspace/core';
-import { LinkService } from '@dspace/core';
-import { ObjectCacheService } from '@dspace/core';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/core';
-import { ConfigurationDataService } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { PoolTaskSearchResult } from '@dspace/core';
-import { ConfigurationProperty } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
-import { WorkflowItem } from '@dspace/core';
-import { SubmissionDuplicateDataService } from '@dspace/core';
-import { PoolTask } from '@dspace/core';
 import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { VarDirective } from '../../../utils/var.directive';
-import { Duplicate } from '@dspace/core';
 import { SearchResultListElementComponent } from '../../search-result-list-element/search-result-list-element.component';
 import { ThemedItemListPreviewComponent } from '../item-list-preview/themed-item-list-preview.component';
 

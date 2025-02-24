@@ -18,26 +18,26 @@ import {
   RouterModule,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  ActivatedRouteStub,
+  AuthService,
+  Bitstream,
+  BitstreamDataService,
+  createFailedRemoteDataObject$,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  DSONameService,
+  NotificationsService,
+  NotificationsServiceStub,
+  PaginatedList,
+  Process,
+  ProcessDataService,
+  RouterStub,
+} from '@dspace/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '@dspace/core';
-import { DSONameService } from '@dspace/core';
-import { BitstreamDataService } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { ProcessDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Process } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { ThemedFileDownloadLinkComponent } from '../../shared/file-download-link/themed-file-download-link.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';

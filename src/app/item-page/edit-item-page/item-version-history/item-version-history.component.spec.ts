@@ -9,11 +9,13 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  createSuccessfulRemoteDataObject,
+  Item,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { Item } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { ItemVersionsComponent } from '../../versions/item-versions.component';
 import { ItemVersionHistoryComponent } from './item-version-history.component';

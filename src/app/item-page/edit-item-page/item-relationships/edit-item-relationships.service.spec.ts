@@ -1,35 +1,33 @@
 import { TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-import { v4 as uuidv4 } from 'uuid';
-
-import { EntityTypeDataService } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { FieldChangeType } from '@dspace/core';
-import { FieldUpdate } from '@dspace/core';
-import { FieldUpdates } from '@dspace/core';
-import {
-  DeleteRelationship,
-  RelationshipIdentifiable,
-} from '@dspace/core';
-import { ObjectUpdatesService } from '@dspace/core';
-import { RelationshipDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { ItemType } from '@dspace/core';
-import { Relationship } from '@dspace/core';
-import { RelationshipType } from '@dspace/core';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
+  DeleteRelationship,
+  EntityTypeDataService,
+  EntityTypeDataServiceStub,
+  FieldChangeType,
+  FieldUpdate,
+  FieldUpdates,
+  Item,
+  ItemDataService,
+  ItemDataServiceStub,
+  ItemType,
+  NotificationsService,
+  NotificationsServiceStub,
+  ObjectUpdatesService,
+  ObjectUpdatesServiceStub,
+  Relationship,
+  RelationshipDataService,
+  RelationshipDataServiceStub,
+  RelationshipIdentifiable,
+  RelationshipType,
 } from '@dspace/core';
-import { EntityTypeDataServiceStub } from '@dspace/core';
-import { ItemDataServiceStub } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { RelationshipDataServiceStub } from '@dspace/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+import { v4 as uuidv4 } from 'uuid';
+
 import { EditItemRelationshipsService } from './edit-item-relationships.service';
-import { ObjectUpdatesServiceStub } from "@dspace/core";
 
 describe('EditItemRelationshipsService', () => {
   let service: EditItemRelationshipsService;

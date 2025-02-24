@@ -4,9 +4,11 @@ import {
   OnChanges,
   OnInit,
 } from '@angular/core';
-import { GenericConstructor } from '@dspace/core';
+import {
+  AppliedFilter,
+  GenericConstructor,
+} from '@dspace/core';
 
-import { AppliedFilter } from '@dspace/core';
 import { AbstractComponentLoaderComponent } from '../../../abstract-component-loader/abstract-component-loader.component';
 import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
 import { getSearchLabelByOperator } from './search-label-loader.decorator';

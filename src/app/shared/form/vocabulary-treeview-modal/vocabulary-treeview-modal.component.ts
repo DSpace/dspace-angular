@@ -5,14 +5,16 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import {
+  VocabularyEntryDetail,
+  VocabularyOptions,
+} from '@dspace/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 
-import { VocabularyEntryDetail } from '@dspace/core';
-import { VocabularyOptions } from '@dspace/core';
 import { VocabularyTreeviewComponent } from '../vocabulary-treeview/vocabulary-treeview.component';
 
 @Component({

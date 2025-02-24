@@ -6,6 +6,14 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import {
+  ExternalSourceEntry,
+  Metadata,
+  MetadataValue,
+  NotificationsService,
+  SubmissionObject,
+  SubmissionService,
+} from '@dspace/core';
+import {
   NgbActiveModal,
   NgbModal,
   NgbModalRef,
@@ -13,13 +21,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { mergeMap } from 'rxjs/operators';
 
-import { NotificationsService } from '@dspace/core';
-import { ExternalSourceEntry } from '@dspace/core';
-import { MetadataValue } from '@dspace/core';
-import { Metadata } from '@dspace/core';
-import { SubmissionObject } from '@dspace/core';
 import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
-import { SubmissionService } from '@dspace/core';
 import { SubmissionImportExternalCollectionComponent } from '../import-external-collection/submission-import-external-collection.component';
 
 /**

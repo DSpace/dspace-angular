@@ -5,18 +5,20 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
+  BitstreamDataService,
+  Collection,
+  CollectionSearchResult,
+  DSONameService,
+  followLink,
+  LinkService,
+  ViewMode,
+} from '@dspace/core';
+import {
   hasNoValue,
   hasValue,
 } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DSONameService } from '@dspace/core';
-import { LinkService } from '@dspace/core';
-import { BitstreamDataService } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { CollectionSearchResult } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';

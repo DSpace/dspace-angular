@@ -10,25 +10,25 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  Collection,
+  createFailedRemoteDataObject$,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  getMockRequestService,
+  Item,
+  ItemDataService,
+  NotificationsService,
+  NotificationsServiceStub,
+  RequestService,
+  RouterStub,
+  SearchService,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ItemDataService } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { getMockRequestService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { AuthorizedCollectionSelectorComponent } from '../../../shared/dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 import { ItemMoveComponent } from './item-move.component';
 

@@ -12,6 +12,19 @@ import {
   RouterLink,
 } from '@angular/router';
 import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  MetadataField,
+  MetadataSchema,
+  NoContent,
+  NotificationsService,
+  PaginatedList,
+  PaginationComponentOptions,
+  PaginationService,
+  RegistryService,
+  RemoteData,
+} from '@dspace/core';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
@@ -29,19 +42,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { MetadataField } from '@dspace/core';
-import { MetadataSchema } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { RegistryService } from '@dspace/core';
-import { NoContent } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
 import { VarDirective } from '../../../shared/utils/var.directive';

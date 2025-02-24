@@ -19,6 +19,16 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import {
+  createTestComponent,
+  FormFieldMetadataValueObject,
+  mockDynamicFormLayoutService,
+  mockDynamicFormValidationService,
+  VocabularyEntry,
+  VocabularyOptions,
+  VocabularyService,
+  VocabularyServiceStub,
+} from '@dspace/core';
+import {
   NgbModule,
   NgbTypeaheadSelectItemEvent,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -31,17 +41,7 @@ import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstr
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { VocabularyEntry } from '@dspace/core';
-import { VocabularyOptions } from '@dspace/core';
-import { VocabularyService } from '@dspace/core';
-import {
-  mockDynamicFormLayoutService,
-  mockDynamicFormValidationService,
-} from '@dspace/core';
-import { createTestComponent } from '@dspace/core';
-import { VocabularyServiceStub } from '@dspace/core';
 import { Chips } from '../../../../chips/models/chips.model';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 import { DsDynamicTagComponent } from './dynamic-tag.component';
 import { DynamicTagModel } from './dynamic-tag.model';
 

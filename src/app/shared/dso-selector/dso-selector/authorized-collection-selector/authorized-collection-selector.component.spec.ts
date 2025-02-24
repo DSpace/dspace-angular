@@ -5,15 +5,17 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  Collection,
+  CollectionDataService,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  DSpaceObjectType,
+  NotificationsService,
+  SearchService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { CollectionDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { DSpaceObjectType } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { VarDirective } from '../../../utils/var.directive';

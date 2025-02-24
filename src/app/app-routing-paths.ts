@@ -1,12 +1,14 @@
+import {
+  Collection,
+  Community,
+  DSpaceObject,
+  Item,
+  URLCombiner,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 
 import { getCollectionPageRoute } from './collection-page/collection-page-routing-paths';
 import { getCommunityPageRoute } from './community-page/community-page-routing-paths';
-import { Collection } from '@dspace/core';
-import { Community } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { URLCombiner } from '@dspace/core';
 import {
   getItemModuleRoute,
   getItemPageRoute,

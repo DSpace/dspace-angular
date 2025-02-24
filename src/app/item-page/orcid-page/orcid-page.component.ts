@@ -14,6 +14,17 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import {
+  AuthService,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  Item,
+  ItemDataService,
+  OrcidAuthService,
+  redirectOn4xx,
+  RemoteData,
+  ResearcherProfile,
+} from '@dspace/core';
 import { isNotEmpty } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -26,17 +37,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { AuthService } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { OrcidAuthService } from '@dspace/core';
-import { ResearcherProfile } from '@dspace/core';
-import { redirectOn4xx } from '@dspace/core';
-import { Item } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '@dspace/core';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';

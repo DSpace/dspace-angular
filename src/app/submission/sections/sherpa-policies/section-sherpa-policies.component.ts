@@ -4,6 +4,13 @@ import {
   Inject,
 } from '@angular/core';
 import {
+  JsonPatchOperationPathCombiner,
+  JsonPatchOperationsBuilder,
+  SectionDataObject,
+  SubmissionService,
+  WorkspaceitemSectionSherpaPoliciesObject,
+} from '@dspace/core';
+import {
   hasValue,
   isEmpty,
 } from '@dspace/shared/utils';
@@ -16,15 +23,10 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { JsonPatchOperationPathCombiner } from '@dspace/core';
-import { JsonPatchOperationsBuilder } from '@dspace/core';
-import { WorkspaceitemSectionSherpaPoliciesObject } from '@dspace/core';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { VarDirective } from '../../../shared/utils/var.directive';
-import { SubmissionService } from '@dspace/core';
 import { SectionModelComponent } from '../models/section.model';
-import { SectionDataObject } from '@dspace/core';
 import { SectionsService } from '../sections.service';
 import { MetadataInformationComponent } from './metadata-information/metadata-information.component';
 import { PublicationInformationComponent } from './publication-information/publication-information.component';

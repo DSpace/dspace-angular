@@ -9,18 +9,20 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  AuthorizationDataService,
+  AuthService,
+  Bitstream,
+  createSuccessfulRemoteDataObject,
+  FileService,
+  HardRedirectService,
+  ServerResponseService,
+  SignpostingDataService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { getForbiddenRoute } from '../../app-routing-paths';
-import { AuthService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { SignpostingDataService } from '@dspace/core';
-import { HardRedirectService } from '@dspace/core';
-import { ServerResponseService } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { FileService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { BitstreamDownloadPageComponent } from './bitstream-download-page.component';
 
 describe('BitstreamDownloadPageComponent', () => {

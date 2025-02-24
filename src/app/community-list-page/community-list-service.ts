@@ -4,6 +4,22 @@ import {
   Injectable,
 } from '@angular/core';
 import {
+  APP_CONFIG,
+  AppConfig,
+  buildPaginatedList,
+  Collection,
+  CollectionDataService,
+  Community,
+  CommunityDataService,
+  FindListOptions,
+  followLink,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  PageInfo,
+  PaginatedList,
+  RemoteData,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -26,26 +42,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { AppState } from '../app.reducer';
 import { getCollectionPageRoute } from '../collection-page/collection-page-routing-paths';
 import { getCommunityPageRoute } from '../community-page/community-page-routing-paths';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/core';
-import { CollectionDataService } from '@dspace/core';
-import { CommunityDataService } from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { Community } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-} from '@dspace/core';
-import { PageInfo } from '@dspace/core';
 import { CommunityListSaveAction } from './community-list.actions';
 import { CommunityListState } from './community-list.reducer';
 import { FlatNode } from './flat-node.model';

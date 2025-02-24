@@ -11,15 +11,17 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  EntityTypeDataService,
+  ItemType,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { TestScheduler } from 'rxjs/testing';
 
-import { EntityTypeDataService } from '@dspace/core';
-import { ItemType } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { EntityDropdownComponent } from './entity-dropdown.component';
 

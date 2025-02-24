@@ -9,6 +9,10 @@ import {
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import {
+  EPersonDataService,
+  NotificationsService,
+} from '@dspace/core';
+import {
   hasValue,
   isEmpty,
 } from '@dspace/shared/utils';
@@ -24,8 +28,6 @@ import {
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { EPersonDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
 import { debounceTimeWorkaround as debounceTime } from '../../../../modules/core/src/lib/core/shared/operators';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { FormComponent } from '../../shared/form/form.component';

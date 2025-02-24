@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
-
 import { i18nBreadcrumbResolver } from '@dspace/core';
+
 import { AddBitstreamFormatComponent } from './add-bitstream-format/add-bitstream-format.component';
 import { BitstreamFormatsComponent } from './bitstream-formats.component';
 import { bitstreamFormatsResolver } from './bitstream-formats.resolver';

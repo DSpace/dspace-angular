@@ -7,6 +7,17 @@ import {
   Output,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import {
+  DSONameService,
+  DSpaceObject,
+  getFirstSucceededRemoteDataPayload,
+  getSearchResultFor,
+  Item,
+  NotificationsService,
+  SupervisionOrder,
+  SupervisionOrderDataService,
+  WorkspaceItem,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import {
   NgbModal,
@@ -26,17 +37,8 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core';
-import { WorkspaceItem } from '@dspace/core';
-import { SupervisionOrder } from '@dspace/core';
-import { SupervisionOrderDataService } from '@dspace/core';
 import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../../../item-page/edit-item-page/edit-item-page.routing-paths';
 import { ConfirmationModalComponent } from '../../../../../shared/confirmation-modal/confirmation-modal.component';
-import { getSearchResultFor } from '@dspace/core';
 import { getWorkspaceItemDeleteRoute } from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { SupervisionOrderGroupSelectorComponent } from './supervision-order-group-selector/supervision-order-group-selector.component';
 import {

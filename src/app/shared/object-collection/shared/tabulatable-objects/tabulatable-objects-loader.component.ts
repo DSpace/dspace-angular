@@ -12,6 +12,13 @@ import {
   ViewChild,
 } from '@angular/core';
 import {
+  Context,
+  GenericConstructor,
+  ListableObject,
+  PaginatedList,
+  ViewMode,
+} from '@dspace/core';
+import {
   hasNoValue,
   hasValue,
   isNotEmpty,
@@ -24,11 +31,6 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { PaginatedList } from '@dspace/core';
-import { ListableObject } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { GenericConstructor } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { CollectionElementLinkType } from '../../collection-element-link.type';
 import { getTabulatableObjectsComponent } from './tabulatable-objects.decorator';

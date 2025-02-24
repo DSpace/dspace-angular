@@ -17,6 +17,25 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import {
+  AuthService,
+  Bitstream,
+  BitstreamDataService,
+  DSONameService,
+  DSpaceObject,
+  getAllSucceededRemoteDataPayload,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  NotificationsService,
+  PaginatedList,
+  Process,
+  ProcessDataService,
+  ProcessStatus,
+  redirectOn4xx,
+  RemoteData,
+  URLCombiner,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import {
   NgbModal,
@@ -41,25 +60,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { AuthService } from '@dspace/core';
-import { DSONameService } from '@dspace/core';
-import { BitstreamDataService } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { ProcessDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Process } from '@dspace/core';
-import { ProcessStatus } from '@dspace/core';
-import { redirectOn4xx } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import {
-  getAllSucceededRemoteDataPayload,
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '@dspace/core';
-import { URLCombiner } from '@dspace/core';
 import { AlertType } from '../../shared/alert/alert-type';
 import { ThemedFileDownloadLinkComponent } from '../../shared/file-download-link/themed-file-download-link.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';

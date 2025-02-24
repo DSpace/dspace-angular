@@ -7,19 +7,21 @@ import {
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
+  AuthService,
+  Bitstream,
+  BitstreamDataService,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  MediaViewerItem,
+  MockBitstreamFormat1,
+  TranslateLoaderMock,
+} from '@dspace/core';
+import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '@dspace/core';
-import { BitstreamDataService } from '@dspace/core';
-import { MockBitstreamFormat1 } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { MediaViewerItem } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { MetadataFieldWrapperComponent } from '../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';

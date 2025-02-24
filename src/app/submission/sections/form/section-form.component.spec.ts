@@ -15,6 +15,29 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import {
+  createSuccessfulRemoteDataObject$,
+  createTestComponent,
+  FormFieldMetadataValueObject,
+  FormFieldModel,
+  FormRowModel,
+  getMockTranslateService,
+  JsonPatchOperationPathCombiner,
+  NotificationsService,
+  NotificationsServiceStub,
+  ObjectCacheService,
+  RequestService,
+  SectionDataObject,
+  SectionsServiceStub,
+  SectionsType,
+  SubmissionFormsConfigDataService,
+  SubmissionObjectDataService,
+  SubmissionSectionError,
+  SubmissionService,
+  SubmissionServiceStub,
+  WorkflowItem,
+  WorkspaceItem,
+} from '@dspace/core';
+import {
   DynamicFormControlEvent,
   DynamicFormControlEventType,
 } from '@ng-dynamic-forms/core';
@@ -25,26 +48,9 @@ import {
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { ObjectCacheService } from '@dspace/core';
-import { FormRowModel } from '@dspace/core';
-import { SubmissionFormsConfigDataService } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { JsonPatchOperationPathCombiner } from '@dspace/core';
-import { getMockTranslateService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { FormFieldModel } from '@dspace/core';
-import { WorkflowItem } from '@dspace/core';
-import { WorkspaceItem } from '@dspace/core';
-import { SubmissionObjectDataService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { SectionsServiceStub } from '@dspace/core';
-import { SubmissionServiceStub } from '@dspace/core';
-import { createTestComponent } from '@dspace/core';
 import { DsDynamicInputModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DynamicRowGroupModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
@@ -57,11 +63,7 @@ import {
 } from '../../../shared/mocks/submission.mock';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
-import { SubmissionSectionError } from '@dspace/core';
-import { SubmissionService } from '@dspace/core';
-import { SectionDataObject } from '@dspace/core';
 import { SectionsService } from '../sections.service';
-import { SectionsType } from '@dspace/core';
 import { SubmissionSectionFormComponent } from './section-form.component';
 import { SectionFormOperationsService } from './section-form-operations.service';
 

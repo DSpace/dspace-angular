@@ -3,21 +3,23 @@ import {
   Router,
   UrlTree,
 } from '@angular/router';
+import {
+  APP_DATA_SERVICES_MAP,
+  AuthorizationDataService,
+  AuthService,
+  createSuccessfulRemoteDataObject$,
+  FeatureID,
+  getMockTranslateService,
+  Item,
+  ItemDataService,
+} from '@dspace/core';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import {
   Observable,
   of as observableOf,
 } from 'rxjs';
-import { AuthService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { FeatureID } from '@dspace/core';
 
-import { APP_DATA_SERVICES_MAP } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { getMockTranslateService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { itemPageEditAuthorizationsGuard } from './item-page-edit-authorizations.guard';
 
 describe('itemPageEditAuthorizationsGuard', () => {

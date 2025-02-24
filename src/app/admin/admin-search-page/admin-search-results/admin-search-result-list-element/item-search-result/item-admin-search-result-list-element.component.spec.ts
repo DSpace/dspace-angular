@@ -5,14 +5,16 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  APP_CONFIG,
+  DSONameService,
+  Item,
+  ItemSearchResult,
+  ViewMode,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../../../environments/environment';
-import { DSONameService } from '@dspace/core';
-import { APP_CONFIG } from '@dspace/core';
-import { ItemSearchResult } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';

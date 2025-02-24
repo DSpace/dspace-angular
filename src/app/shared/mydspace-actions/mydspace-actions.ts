@@ -6,6 +6,17 @@ import {
   Output,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  DSpaceObject,
+  getFirstSucceededRemoteData,
+  IdentifiableDataService,
+  NotificationOptions,
+  NotificationsService,
+  RemoteData,
+  RequestService,
+  ResourceType,
+  SearchService,
+} from '@dspace/core';
 import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -16,15 +27,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { IdentifiableDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { NotificationOptions } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { getFirstSucceededRemoteData } from '@dspace/core';
-import { ResourceType } from '@dspace/core';
-import { SearchService } from '@dspace/core';
 import { MyDSpaceActionsServiceFactory } from './mydspace-actions-service.factory';
 
 export interface MyDSpaceActionsResult {

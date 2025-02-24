@@ -6,6 +6,16 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  AuthService,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  Item,
+  redirectOn4xx,
+  RemoteData,
+  Version,
+  VersionDataService,
+} from '@dspace/core';
 import { Observable } from 'rxjs';
 import {
   map,
@@ -13,16 +23,6 @@ import {
 } from 'rxjs/operators';
 
 import { getPageNotFoundRoute } from '../../../app-routing-paths';
-import { AuthService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { VersionDataService } from '@dspace/core';
-import { redirectOn4xx } from '@dspace/core';
-import { Item } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '@dspace/core';
-import { Version } from '@dspace/core';
 import { getItemPageRoute } from '../../item-page-routing-paths';
 
 @Component({

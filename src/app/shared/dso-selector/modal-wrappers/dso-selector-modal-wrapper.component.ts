@@ -10,15 +10,16 @@ import {
   ActivatedRouteSnapshot,
 } from '@angular/router';
 import {
+  DSpaceObject,
+  DSpaceObjectType,
+  RemoteData,
+  SortOptions,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-
-import { SortOptions } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { DSpaceObjectType } from '@dspace/core';
 
 export enum SelectorActionType {
   CREATE = 'create',

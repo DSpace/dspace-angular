@@ -1,3 +1,9 @@
+import {
+  FormFieldMetadataValueObject,
+  LanguageCode,
+  RelationshipOptions,
+  VocabularyOptions,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import {
   DynamicFormControlLayout,
@@ -7,11 +13,6 @@ import {
   serializable,
 } from '@ng-dynamic-forms/core';
 import { Subject } from 'rxjs';
-
-import { RelationshipOptions } from '@dspace/core';
-import { VocabularyOptions } from '@dspace/core';
-import { LanguageCode } from '@dspace/core';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 
 export interface DsDynamicInputModelConfig extends DynamicInputModelConfig {
   vocabularyOptions?: VocabularyOptions;

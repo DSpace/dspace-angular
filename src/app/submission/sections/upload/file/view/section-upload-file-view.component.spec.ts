@@ -9,10 +9,12 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import {
+  createTestComponent,
+  Metadata,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Metadata } from '@dspace/core';
-import { createTestComponent } from '@dspace/core';
 import { FormComponent } from '../../../../../shared/form/form.component';
 import { mockUploadFiles } from '../../../../../shared/mocks/submission.mock';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';

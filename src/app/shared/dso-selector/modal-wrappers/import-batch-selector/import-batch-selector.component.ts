@@ -5,6 +5,11 @@ import {
   Output,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import {
+  Collection,
+  DSpaceObject,
+  DSpaceObjectType,
+} from '@dspace/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -12,9 +17,6 @@ import {
   of,
 } from 'rxjs';
 
-import { Collection } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { DSpaceObjectType } from '@dspace/core';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,

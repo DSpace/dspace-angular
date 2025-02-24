@@ -5,6 +5,22 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
+  APP_CONFIG,
+  AppConfig,
+  Context,
+  HALEndpointService,
+  LinkService,
+  PaginationComponentOptions,
+  PaginationService,
+  RemoteDataBuildService,
+  RequestService,
+  RoleService,
+  RouteService,
+  SearchConfigurationService,
+  SortDirection,
+  SortOptions,
+} from '@dspace/core';
+import {
   combineLatest,
   Observable,
 } from 'rxjs';
@@ -13,24 +29,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { LinkService } from '@dspace/core';
-import { RemoteDataBuildService } from '@dspace/core';
-import {
-  SortDirection,
-  SortOptions,
-} from '@dspace/core';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { RoleService } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { HALEndpointService } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
 import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
 import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
 

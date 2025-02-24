@@ -6,9 +6,8 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
-import { Observable } from 'rxjs';
-
 import { LiveRegionService } from '@dspace/core';
+import { Observable } from 'rxjs';
 
 /**
  * The Live Region Component is an accessibility tool for screenreaders. When a change occurs on a page when the changed

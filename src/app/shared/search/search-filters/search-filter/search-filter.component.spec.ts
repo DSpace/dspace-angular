@@ -9,24 +9,26 @@ import {
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import {
+  AppliedFilter,
+  createSuccessfulRemoteDataObject$,
+  FacetValues,
+  FilterType,
+  SearchConfigurationServiceStub,
+  SearchFilterConfig,
+  SearchFilterService,
+  SearchFilterServiceStub,
+  SearchService,
+  SearchServiceStub,
+  SequenceService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import {
   Observable,
   of as observableOf,
 } from 'rxjs';
-import { SearchFilterService } from '@dspace/core';
 
-import { AppliedFilter } from '@dspace/core';
-import { FacetValues } from '@dspace/core';
-import { FilterType } from '@dspace/core';
-import { SearchFilterConfig } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { SequenceService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { SearchConfigurationServiceStub } from '@dspace/core';
-import { SearchFilterServiceStub } from '@dspace/core';
-import { SearchServiceStub } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
 import { SearchFacetFilterWrapperComponent } from './search-facet-filter-wrapper/search-facet-filter-wrapper.component';
 import { SearchFilterComponent } from './search-filter.component';

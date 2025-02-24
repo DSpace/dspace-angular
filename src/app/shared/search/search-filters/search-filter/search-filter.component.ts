@@ -14,6 +14,17 @@ import {
   Output,
 } from '@angular/core';
 import {
+  AppliedFilter,
+  FacetValues,
+  RemoteData,
+  SearchConfigurationService,
+  SearchFilterConfig,
+  SearchFilterService,
+  SearchOptions,
+  SearchService,
+  SequenceService,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -31,15 +42,6 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { RemoteData } from '@dspace/core';
-import { AppliedFilter } from '@dspace/core';
-import { FacetValues } from '@dspace/core';
-import { SearchFilterConfig } from '@dspace/core';
-import { SearchOptions } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import { SearchFilterService } from '@dspace/core';
-import { SequenceService } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
 import { slide } from '../../../animations/slide';
 import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';

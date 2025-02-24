@@ -11,6 +11,20 @@ import {
   FormGroup,
   ReactiveFormsModule,
 } from '@angular/forms';
+import {
+  Collection,
+  CollectionDataService,
+  Community,
+  CommunityDataService,
+  DspaceRestService,
+  getFirstSucceededRemoteListPayload,
+  MetadataField,
+  MetadataFieldDataService,
+  MetadataSchema,
+  MetadataSchemaDataService,
+  RawRestResponse,
+  RestRequestMethod,
+} from '@dspace/core';
 import { isEmpty } from '@dspace/shared/utils';
 import {
   NgbAccordion,
@@ -24,18 +38,6 @@ import {
   map,
   Observable,
 } from 'rxjs';
-import { CollectionDataService } from '@dspace/core';
-import { CommunityDataService } from '@dspace/core';
-import { MetadataFieldDataService } from '@dspace/core';
-import { MetadataSchemaDataService } from '@dspace/core';
-import { RestRequestMethod } from '@dspace/core';
-import { DspaceRestService } from '@dspace/core';
-import { RawRestResponse } from '@dspace/core';
-import { MetadataField } from '@dspace/core';
-import { MetadataSchema } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { Community } from '@dspace/core';
-import { getFirstSucceededRemoteListPayload } from '@dspace/core';
 import { environment } from 'src/environments/environment';
 
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';

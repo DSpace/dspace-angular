@@ -4,12 +4,14 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import {
+  Community,
+  createSuccessfulRemoteDataObject,
+} from '@dspace/core';
+import {
   of as observableOf,
   of,
 } from 'rxjs';
 
-import { Community } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { AccessControlFormContainerComponent } from '../../../shared/access-control-form-container/access-control-form-container.component';
 import { CollectionAccessControlComponent } from './collection-access-control.component';
 

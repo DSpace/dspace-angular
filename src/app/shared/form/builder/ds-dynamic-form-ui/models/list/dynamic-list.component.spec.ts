@@ -16,6 +16,18 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import {
+  ConfigurationDataService,
+  ConfigurationProperty,
+  createSuccessfulRemoteDataObject$,
+  createTestComponent,
+  mockDynamicFormLayoutService,
+  mockDynamicFormValidationService,
+  VocabularyEntry,
+  VocabularyOptions,
+  VocabularyService,
+  VocabularyServiceStub,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlLayout,
@@ -25,18 +37,6 @@ import {
 } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
 
-import { ConfigurationDataService } from '@dspace/core';
-import { ConfigurationProperty } from '@dspace/core';
-import { VocabularyEntry } from '@dspace/core';
-import { VocabularyOptions } from '@dspace/core';
-import { VocabularyService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import {
-  mockDynamicFormLayoutService,
-  mockDynamicFormValidationService,
-} from '@dspace/core';
-import { createTestComponent } from '@dspace/core';
-import { VocabularyServiceStub } from '@dspace/core';
 import { FormBuilderService } from '../../../form-builder.service';
 import { DsDynamicListComponent } from './dynamic-list.component';
 import { DynamicListCheckboxGroupModel } from './dynamic-list-checkbox-group.model';

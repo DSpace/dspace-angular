@@ -10,27 +10,29 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  AuthService,
+  AuthServiceStub,
+  BitstreamDataService,
+  BitstreamFormatDataService,
+  Collection,
+  CollectionSearchResult,
+  CommunityDataService,
+  DefaultChangeAnalyzer,
+  DSOChangeAnalyzer,
+  HALEndpointService,
+  LinkService,
+  NotificationsService,
+  ObjectCacheService,
+  RemoteDataBuildService,
+  UUIDService,
+  XSRFService,
+} from '@dspace/core';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '@dspace/core';
-import { LinkService } from '@dspace/core';
-import { RemoteDataBuildService } from '@dspace/core';
-import { ObjectCacheService } from '@dspace/core';
-import { BitstreamDataService } from '@dspace/core';
-import { BitstreamFormatDataService } from '@dspace/core';
-import { CommunityDataService } from '@dspace/core';
-import { DefaultChangeAnalyzer } from '@dspace/core';
-import { DSOChangeAnalyzer } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { CollectionSearchResult } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { HALEndpointService } from '@dspace/core';
-import { UUIDService } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { AuthServiceStub } from '@dspace/core';
-import { XSRFService } from '@dspace/core';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { CollectionSearchResultGridElementComponent } from './collection-search-result-grid-element.component';

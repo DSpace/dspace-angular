@@ -10,16 +10,18 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  Community,
+  createFailedRemoteDataObject,
+  QueryParamsDirectiveStub,
+  SearchConfigurationService,
+  SearchConfigurationServiceStub,
+  SearchService,
+  SearchServiceStub,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Community } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import { createFailedRemoteDataObject } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { QueryParamsDirectiveStub } from '@dspace/core';
-import { SearchConfigurationServiceStub } from '@dspace/core';
-import { SearchServiceStub } from '@dspace/core';
 import { ErrorComponent } from '../../error/error.component';
 import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';

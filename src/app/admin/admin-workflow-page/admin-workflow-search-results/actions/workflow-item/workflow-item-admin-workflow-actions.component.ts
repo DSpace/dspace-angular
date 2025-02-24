@@ -4,9 +4,9 @@ import {
   Input,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { WorkflowItem } from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { WorkflowItem } from '@dspace/core';
 import {
   getWorkflowItemDeleteRoute,
   getWorkflowItemSendBackRoute,

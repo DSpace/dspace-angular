@@ -10,12 +10,12 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { SectionDataObject } from '@dspace/core';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
-import { SectionDataObject } from '@dspace/core';
 import { SectionsDirective } from '../sections.directive';
 import { rendersSectionType } from '../sections-decorator';
 

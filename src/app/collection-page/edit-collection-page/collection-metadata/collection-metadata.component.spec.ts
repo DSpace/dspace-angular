@@ -11,24 +11,24 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
-
-import { AuthService } from '@dspace/core';
-import { ObjectCacheService } from '@dspace/core';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core';
-import { CollectionDataService } from '@dspace/core';
-import { CommunityDataService } from '@dspace/core';
-import { ItemTemplateDataService } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { Item } from '@dspace/core';
 import {
+  APP_DATA_SERVICES_MAP,
+  AuthService,
+  Collection,
+  CollectionDataService,
+  CommunityDataService,
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
+  Item,
+  ItemTemplateDataService,
+  NotificationsService,
+  ObjectCacheService,
+  RequestService,
 } from '@dspace/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
 import { AuthServiceMock } from '../../../shared/mocks/auth.service.mock';
 import { getCollectionItemTemplateRoute } from '../../collection-page-routing-paths';
 import { CollectionMetadataComponent } from './collection-metadata.component';

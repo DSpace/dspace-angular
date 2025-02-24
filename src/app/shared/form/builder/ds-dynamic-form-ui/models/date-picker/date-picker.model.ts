@@ -1,3 +1,4 @@
+import { MetadataValue } from '@dspace/core';
 import {
   isEmpty,
   isNotUndefined,
@@ -14,8 +15,6 @@ import {
   BehaviorSubject,
   Subject,
 } from 'rxjs';
-
-import { MetadataValue } from '@dspace/core';
 
 export const DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER = 'DATE';
 

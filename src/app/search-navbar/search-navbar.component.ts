@@ -9,9 +9,9 @@ import {
   UntypedFormBuilder,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SearchService } from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { SearchService } from '@dspace/core';
 import { expandSearchInput } from '../shared/animations/slide';
 import { BrowserOnlyPipe } from '../shared/utils/browser-only.pipe';
 import { ClickOutsideDirective } from '../shared/utils/click-outside.directive';

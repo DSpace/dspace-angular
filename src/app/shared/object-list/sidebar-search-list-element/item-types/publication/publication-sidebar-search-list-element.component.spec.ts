@@ -1,6 +1,9 @@
-import { ItemSearchResult } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { Item } from '@dspace/core';
+import {
+  Collection,
+  Item,
+  ItemSearchResult,
+} from '@dspace/core';
+
 import { createSidebarSearchListElementTests } from '../../sidebar-search-list-element.component.spec';
 import { PublicationSidebarSearchListElementComponent } from './publication-sidebar-search-list-element.component';
 

@@ -7,6 +7,18 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
+import {
+  Bitstream,
+  BitstreamDataService,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  FindListOptions,
+  FollowLinkConfig,
+  Item,
+  PaginatedList,
+  PaginationService,
+  RemoteData,
+} from '@dspace/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -14,16 +26,6 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { BitstreamDataService } from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import { FollowLinkConfig } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
 import { ItemAccessControlSelectBitstreamsModalComponent } from './item-access-control-select-bitstreams-modal.component';
 

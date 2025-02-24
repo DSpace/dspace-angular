@@ -7,6 +7,20 @@ import {
   OnInit,
 } from '@angular/core';
 import {
+  APP_CONFIG,
+  AppConfig,
+  Bitstream,
+  BitstreamDataService,
+  DSONameService,
+  followLink,
+  Item,
+  NotificationsService,
+  PaginatedList,
+  PaginationComponentOptions,
+  PaginationService,
+  RemoteData,
+} from '@dspace/core';
+import {
   hasValue,
   isEmpty,
 } from '@dspace/shared/utils';
@@ -20,20 +34,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '@dspace/core';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/core';
-import { BitstreamDataService } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';

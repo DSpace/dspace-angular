@@ -1,4 +1,17 @@
 import { TestBed } from '@angular/core/testing';
+import {
+  AuthService,
+  ConfigurationDataService,
+  ConfigurationProperty,
+  CookieService,
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+  EPerson,
+  EPersonDataService,
+  getMockTranslateService,
+  MetadataValue,
+  RestResponse,
+} from '@dspace/core';
 import { TranslateService } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import clone from 'lodash/clone';
@@ -6,19 +19,6 @@ import cloneDeep from 'lodash/cloneDeep';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { AuthService } from '@dspace/core';
-import { RestResponse } from '@dspace/core';
-import { ConfigurationDataService } from '@dspace/core';
-import { EPersonDataService } from '@dspace/core';
-import { EPerson } from '@dspace/core';
-import { getMockTranslateService } from '@dspace/core';
-import { CookieService } from '@dspace/core';
-import { ConfigurationProperty } from '@dspace/core';
-import { MetadataValue } from '@dspace/core';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
 import {
   BrowserOrejimeService,
   COOKIE_MDFIELD,

@@ -4,14 +4,15 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import {
+  DSONameService,
+  getFirstCompletedRemoteData,
+  Group,
+  GroupDataService,
+  RemoteData,
+  ResourcePolicy,
+} from '@dspace/core';
 import { isEmpty } from '@dspace/shared/utils';
-
-import { DSONameService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { GroupDataService } from '@dspace/core';
-import { Group } from '@dspace/core';
-import { ResourcePolicy } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
 
 /**
  * This component represents a badge that describe an access condition

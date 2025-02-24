@@ -10,18 +10,18 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  AuthService,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  DSONameService,
+  Item,
+  ItemDataService,
+  ItemRequest,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '@dspace/core';
-import { DSONameService } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { ItemRequest } from '@dspace/core';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import { VarDirective } from '../../shared/utils/var.directive';
 import {

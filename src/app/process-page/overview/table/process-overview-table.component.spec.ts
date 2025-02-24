@@ -7,6 +7,20 @@ import {
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
+  AuthService,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  EPerson,
+  EPersonDataService,
+  PaginationService,
+  PaginationServiceStub,
+  Process,
+  ProcessDataService,
+  ProcessStatus,
+  RouteService,
+  routeServiceStub,
+} from '@dspace/core';
+import {
   NgbCollapse,
   NgbModal,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -17,18 +31,6 @@ import {
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { AuthService } from '@dspace/core';
-import { ProcessDataService } from '@dspace/core';
-import { EPersonDataService } from '@dspace/core';
-import { EPerson } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { Process } from '@dspace/core';
-import { ProcessStatus } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
-import { routeServiceStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { AuthServiceMock } from '../../../shared/mocks/auth.service.mock';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';

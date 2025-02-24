@@ -1,14 +1,16 @@
 import {
+  AdminNotifySearchResult,
+  Context,
+  GenericConstructor,
+  ListableObject,
+  ViewMode,
+} from '@dspace/core';
+import {
   hasNoValue,
   hasValue,
 } from '@dspace/shared/utils';
 
 import { AdminNotifySearchResultComponent } from '../../../../admin/admin-notify-dashboard/admin-notify-search-result/admin-notify-search-result.component';
-import { AdminNotifySearchResult } from '@dspace/core';
-import { ListableObject } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { GenericConstructor } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { TabulatableResultListElementsComponent } from '../../../object-list/search-result-list-element/tabulatable-search-result/tabulatable-result-list-elements.component';
 import {
   DEFAULT_CONTEXT,

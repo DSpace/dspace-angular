@@ -10,6 +10,29 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  Collection,
+  DSONameService,
+  DSpaceObject,
+  DSpaceObjectType,
+  FeatureID,
+  followLink,
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+  ItemDataService,
+  NoContent,
+  NotificationsService,
+  PaginatedList,
+  PaginatedSearchOptions,
+  RemoteData,
+  SearchConfigurationService,
+  SearchService,
+  SortDirection,
+  SortOptions,
+  toDSpaceObjectListRD,
+} from '@dspace/core';
 import { isNotEmpty } from '@dspace/shared/utils';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -28,31 +51,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { DSONameService } from '@dspace/core';
-import {
-  SortDirection,
-  SortOptions,
-} from '@dspace/core';
-import { FeatureID } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { DSpaceObjectType } from '@dspace/core';
-import { NoContent } from '@dspace/core';
-import {
-  getAllSucceededRemoteData,
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-  toDSpaceObjectListRD,
-} from '@dspace/core';
-import { PaginatedSearchOptions } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import {
   fadeIn,

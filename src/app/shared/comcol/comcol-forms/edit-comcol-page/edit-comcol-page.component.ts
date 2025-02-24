@@ -6,12 +6,13 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  DSpaceObject,
+  RemoteData,
+} from '@dspace/core';
 import { isNotEmpty } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-import { RemoteData } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
 
 /**
  * Component representing the edit page for communities and collections

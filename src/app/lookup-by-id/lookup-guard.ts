@@ -4,13 +4,14 @@ import {
   CanActivateFn,
   RouterStateSnapshot,
 } from '@angular/router';
+import {
+  DsoRedirectService,
+  DSpaceObject,
+  IdentifierType,
+  RemoteData,
+} from '@dspace/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-import { DsoRedirectService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { IdentifierType } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
 
 interface LookupParams {
   type: IdentifierType;

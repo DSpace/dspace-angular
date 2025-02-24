@@ -4,10 +4,11 @@ import {
   Input,
   OnChanges,
 } from '@angular/core';
+import {
+  Item,
+  MetadataMap,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
-
-import { Item } from '@dspace/core';
-import { MetadataMap } from '@dspace/core';
 
 @Component({
   selector: 'ds-modify-item-overview',

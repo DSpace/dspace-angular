@@ -10,10 +10,12 @@ import {
 } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import {
+  ScriptParameter,
+  ScriptParameterType,
+} from '@dspace/core';
 import { of as observableOf } from 'rxjs';
 
-import { ScriptParameter } from '@dspace/core';
-import { ScriptParameterType } from '@dspace/core';
 import { ParameterValueInputComponent } from '../parameter-value-input/parameter-value-input.component';
 import { ParameterSelectComponent } from './parameter-select.component';
 

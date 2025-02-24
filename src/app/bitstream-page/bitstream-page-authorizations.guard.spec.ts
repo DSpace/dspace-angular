@@ -4,16 +4,18 @@ import {
   UrlTree,
 } from '@angular/router';
 import {
+  AuthorizationDataService,
+  AuthService,
+  Bitstream,
+  BitstreamDataService,
+  createSuccessfulRemoteDataObject$,
+  FeatureID,
+} from '@dspace/core';
+import {
   Observable,
   of as observableOf,
 } from 'rxjs';
-import { AuthService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { FeatureID } from '@dspace/core';
 
-import { BitstreamDataService } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { bitstreamPageAuthorizationsGuard } from './bitstream-page-authorizations.guard';
 
 describe('bitstreamPageAuthorizationsGuard', () => {

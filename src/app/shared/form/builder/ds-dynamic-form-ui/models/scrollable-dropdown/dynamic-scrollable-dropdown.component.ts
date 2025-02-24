@@ -13,6 +13,20 @@ import {
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import {
+  APP_DATA_SERVICES_MAP,
+  buildPaginatedList,
+  CacheableObject,
+  FindAllDataImpl,
+  FormFieldMetadataValueObject,
+  getFirstSucceededRemoteDataPayload,
+  lazyDataService,
+  LazyDataServicesMap,
+  PageInfo,
+  PaginatedList,
+  RemoteData,
+  VocabularyService,
+} from '@dspace/core';
+import {
   hasValue,
   isEmpty,
 } from '@dspace/shared/utils';
@@ -38,22 +52,8 @@ import {
   take,
   tap,
 } from 'rxjs/operators';
-import { LazyDataServicesMap } from '@dspace/core';
 
-import { CacheableObject } from '@dspace/core';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core';
-import { FindAllDataImpl } from '@dspace/core';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { lazyDataService } from '@dspace/core';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { VocabularyService } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
 

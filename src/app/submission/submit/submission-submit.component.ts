@@ -10,6 +10,17 @@ import {
   Router,
 } from '@angular/router';
 import {
+  getAllSucceededRemoteData,
+  Item,
+  ItemDataService,
+  NotificationsService,
+  RemoteData,
+  SubmissionDefinitionsModel,
+  SubmissionObject,
+  SubmissionService,
+  WorkspaceitemSectionsObject,
+} from '@dspace/core';
+import {
   hasValue,
   isEmpty,
   isNotEmptyOperator,
@@ -24,16 +35,6 @@ import {
   debounceTime,
   switchMap,
 } from 'rxjs/operators';
-
-import { SubmissionDefinitionsModel } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { getAllSucceededRemoteData } from '@dspace/core';
-import { SubmissionObject } from '@dspace/core';
-import { WorkspaceitemSectionsObject } from '@dspace/core';
-import { SubmissionService } from '@dspace/core';
 
 /**
  * This component allows to submit a new workspaceitem.

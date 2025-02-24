@@ -9,13 +9,15 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import {
+  MenuID,
+  MenuSection,
+} from '@dspace/core';
 import { isEmpty } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { MenuService } from '../../../shared/menu/menu.service';
-import { MenuID } from '@dspace/core';
 import { LinkMenuItemModel } from '../../../shared/menu/menu-item/models/link.model';
-import { MenuSection } from '@dspace/core';
 import { MenuSectionComponent } from '../../../shared/menu/menu-section/menu-section.component';
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 

@@ -12,15 +12,17 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
+  buildPaginatedList,
+  createSuccessfulRemoteDataObject,
+  DSpaceObject,
+  PageInfo,
+  TranslateLoaderMock,
+} from '@dspace/core';
+import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { buildPaginatedList } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { PaginationComponent } from '../pagination/pagination.component';

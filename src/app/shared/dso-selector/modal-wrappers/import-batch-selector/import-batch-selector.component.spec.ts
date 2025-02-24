@@ -5,15 +5,17 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  Collection,
+  Item,
+  NotificationsService,
+  NotificationsServiceStub,
+  SearchService,
+  SearchServiceStub,
+} from '@dspace/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { NotificationsService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { SearchServiceStub } from '@dspace/core';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { ImportBatchSelectorComponent } from './import-batch-selector.component';

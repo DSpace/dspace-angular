@@ -7,13 +7,15 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  CollectionDataService,
+  DSONameService,
+  NotificationsService,
+  RequestService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { DSONameService } from '@dspace/core';
-import { CollectionDataService } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
 import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
 import { DeleteCollectionPageComponent } from './delete-collection-page.component';
 

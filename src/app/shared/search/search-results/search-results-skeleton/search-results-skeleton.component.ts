@@ -4,12 +4,13 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import {
+  SearchService,
+  ViewMode,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { Observable } from 'rxjs';
-
-import { SearchService } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 
 @Component({
   selector: 'ds-search-results-skeleton',

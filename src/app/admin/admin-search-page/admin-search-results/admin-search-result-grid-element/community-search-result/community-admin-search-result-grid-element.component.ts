@@ -3,12 +3,14 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import {
+  Community,
+  CommunitySearchResult,
+  Context,
+  ViewMode,
+} from '@dspace/core';
 
 import { getCommunityEditRoute } from '../../../../../community-page/community-page-routing-paths';
-import { CommunitySearchResult } from '@dspace/core';
-import { Community } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { CommunitySearchResultGridElementComponent } from '../../../../../shared/object-grid/search-result-grid-element/community-search-result/community-search-result-grid-element.component';
 import { SearchResultGridElementComponent } from '../../../../../shared/object-grid/search-result-grid-element/search-result-grid-element.component';

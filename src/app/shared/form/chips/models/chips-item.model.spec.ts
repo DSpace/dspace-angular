@@ -1,4 +1,5 @@
 import { FormFieldMetadataValueObject } from '@dspace/core';
+
 import {
   ChipsItem,
   ChipsItemIcon,

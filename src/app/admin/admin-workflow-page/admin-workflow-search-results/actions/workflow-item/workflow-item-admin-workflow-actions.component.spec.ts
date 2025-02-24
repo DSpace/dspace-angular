@@ -6,14 +6,16 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  Item,
+  RemoteData,
+  RequestEntryState,
+  URLCombiner,
+  WorkflowItem,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { RemoteData } from '@dspace/core';
-import { RequestEntryState } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { WorkflowItem } from '@dspace/core';
-import { URLCombiner } from '@dspace/core';
 import {
   getWorkflowItemDeleteRoute,
   getWorkflowItemSendBackRoute,

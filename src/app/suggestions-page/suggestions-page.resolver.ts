@@ -4,12 +4,13 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
+import {
+  getFirstCompletedRemoteData,
+  RemoteData,
+  SuggestionTarget,
+  SuggestionTargetDataService,
+} from '@dspace/core';
 import { Observable } from 'rxjs';
-
-import { RemoteData } from '@dspace/core';
-import { SuggestionTarget } from '@dspace/core';
-import { SuggestionTargetDataService } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
 
 /**
  * Method for resolving a suggestion target based on the parameters in the current route

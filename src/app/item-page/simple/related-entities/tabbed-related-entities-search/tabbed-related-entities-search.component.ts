@@ -8,12 +8,12 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { Item } from '@dspace/core';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Item } from '@dspace/core';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 import { RelatedEntitiesSearchComponent } from '../related-entities-search/related-entities-search.component';
 

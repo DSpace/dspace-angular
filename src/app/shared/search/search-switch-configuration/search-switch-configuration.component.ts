@@ -13,16 +13,18 @@ import {
   NavigationExtras,
   Router,
 } from '@angular/router';
+import {
+  currentPath,
+  SearchConfigurationService,
+  SearchService,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import findIndex from 'lodash/findIndex';
 import { Subscription } from 'rxjs';
 
-import { SearchService } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { MyDSpaceConfigurationValueType } from '../../../my-dspace-page/my-dspace-configuration-value-type';
-import { currentPath } from '@dspace/core';
 import { SearchConfigurationOption } from './search-configuration-option.model';
 
 @Component({

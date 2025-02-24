@@ -5,6 +5,19 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import {
+  AdminNotifyMetricsBox,
+  AdminNotifyMetricsRow,
+  APP_CONFIG,
+  AppConfig,
+  DSpaceObject,
+  getFirstCompletedRemoteData,
+  PaginatedSearchOptions,
+  PaginationComponentOptions,
+  SearchConfigurationService,
+  SearchObjects,
+  SearchService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -12,21 +25,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/core';
-import {
-  AdminNotifyMetricsBox,
-  AdminNotifyMetricsRow,
-} from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
-import { PaginatedSearchOptions } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { SearchObjects } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { AdminNotifyMetricsComponent } from './admin-notify-metrics/admin-notify-metrics.component';
 

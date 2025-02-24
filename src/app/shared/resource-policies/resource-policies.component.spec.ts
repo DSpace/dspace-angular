@@ -19,6 +19,32 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  ActionType,
+  Bitstream,
+  buildPaginatedList,
+  Bundle,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  createTestComponent,
+  DSONameService,
+  EPersonDataService,
+  EPersonMock,
+  getMockLinkService,
+  getMockRequestService,
+  GroupDataService,
+  GroupMock,
+  Item,
+  LinkService,
+  NotificationsService,
+  NotificationsServiceStub,
+  PageInfo,
+  PolicyType,
+  RequestService,
+  ResourcePolicyDataService,
+  RouterStub,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   cold,
@@ -28,34 +54,6 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { DSONameService } from '@dspace/core';
-import { LinkService } from '@dspace/core';
-import { buildPaginatedList } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { EPersonDataService } from '@dspace/core';
-import { GroupDataService } from '@dspace/core';
-import { getMockLinkService } from '@dspace/core';
-import { getMockRequestService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { ActionType } from '@dspace/core';
-import { PolicyType } from '@dspace/core';
-import { ResourcePolicyDataService } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { Bundle } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { EPersonMock } from '@dspace/core';
-import { GroupMock } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
-import {
-  createPaginatedList,
-  createTestComponent,
-} from '@dspace/core';
 import { getMockResourcePolicyService } from '../mocks/mock-resource-policy-service';
 import { HasValuePipe } from '../utils/has-value.pipe';
 import { ResourcePolicyEntryComponent } from './entry/resource-policy-entry.component';

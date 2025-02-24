@@ -1,8 +1,9 @@
 /* eslint-disable max-classes-per-file */
+import {
+  QualityAssuranceSourceObject,
+  type,
+} from '@dspace/core';
 import { Action } from '@ngrx/store';
-
-import { QualityAssuranceSourceObject } from '@dspace/core';
-import { type } from '@dspace/core';
 
 /**
  * For each action type in an action group, make a simple

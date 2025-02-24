@@ -6,15 +6,16 @@ import {
   OnInit,
 } from '@angular/core';
 import {
+  AuthService,
+  MediaViewerItem,
+} from '@dspace/core';
+import {
   NgxGalleryAnimation,
   NgxGalleryImage,
   NgxGalleryModule,
   NgxGalleryOptions,
 } from '@kolkov/ngx-gallery';
 import { Observable } from 'rxjs';
-
-import { AuthService } from '@dspace/core';
-import { MediaViewerItem } from '@dspace/core';
 
 /**
  * This component render an image gallery for the image viewer

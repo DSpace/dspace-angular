@@ -1,4 +1,5 @@
 import { BrowseByDataType } from '@dspace/core';
+
 import { BROWSE_BY_DECORATOR_MAP } from './browse-by-decorator';
 
 describe('BrowseByDecorator', () => {

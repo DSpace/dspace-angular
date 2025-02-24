@@ -9,28 +9,30 @@ import {
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  ActivatedRouteStub,
+  buildPaginatedList,
+  ConfigurationDataService,
+  ConfigurationProperty,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  GroupDataService,
+  HostWindowServiceStub,
+  MetadataField,
+  MetadataSchema,
+  NotificationsService,
+  NotificationsServiceStub,
+  PaginationService,
+  PaginationServiceStub,
+  RegistryService,
+  RegistryServiceStub,
+  SearchConfigurationService,
+  SearchConfigurationServiceStub,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ConfigurationDataService } from '@dspace/core';
-import { buildPaginatedList } from '@dspace/core';
-import { GroupDataService } from '@dspace/core';
-import { MetadataField } from '@dspace/core';
-import { MetadataSchema } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { RegistryService } from '@dspace/core';
-import { ConfigurationProperty } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { HostWindowServiceStub } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
-import { RegistryServiceStub } from '@dspace/core';
-import { SearchConfigurationServiceStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { HostWindowService } from '../../../shared/host-window.service';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { EnumKeysPipe } from '../../../shared/utils/enum-keys-pipe';

@@ -2,9 +2,10 @@ import {
   Component,
   Input,
 } from '@angular/core';
-
-import { Context } from '@dspace/core';
-import { MetadataRepresentation } from '@dspace/core';
+import {
+  Context,
+  MetadataRepresentation,
+} from '@dspace/core';
 
 @Component({
   selector: 'ds-metadata-representation-list-element',

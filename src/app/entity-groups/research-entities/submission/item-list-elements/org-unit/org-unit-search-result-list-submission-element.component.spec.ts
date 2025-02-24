@@ -9,6 +9,28 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  APP_CONFIG,
+  Bitstream,
+  BitstreamDataService,
+  buildPaginatedList,
+  CommunityDataService,
+  createSuccessfulRemoteDataObject$,
+  DefaultChangeAnalyzer,
+  DSOChangeAnalyzer,
+  DSONameService,
+  HALEndpointService,
+  Item,
+  ItemDataService,
+  ItemSearchResult,
+  NotificationsService,
+  ObjectCacheService,
+  RelationshipDataService,
+  RemoteData,
+  RemoteDataBuildService,
+  SelectableListService,
+  UUIDService,
+} from '@dspace/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
@@ -18,28 +40,8 @@ import {
 } from 'rxjs';
 
 import { environment } from '../../../../../../environments/environment';
-import { DSONameService } from '@dspace/core';
-import { RemoteDataBuildService } from '@dspace/core';
-import { ObjectCacheService } from '@dspace/core';
-import { APP_CONFIG } from '@dspace/core';
-import { BitstreamDataService } from '@dspace/core';
-import { CommunityDataService } from '@dspace/core';
-import { DefaultChangeAnalyzer } from '@dspace/core';
-import { DSOChangeAnalyzer } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { buildPaginatedList } from '@dspace/core';
-import { RelationshipDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { ItemSearchResult } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { HALEndpointService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { UUIDService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
-import { SelectableListService } from '@dspace/core';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
 import { OrgUnitSearchResultListSubmissionElementComponent } from './org-unit-search-result-list-submission-element.component';

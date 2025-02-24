@@ -11,6 +11,20 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import {
+  Collection,
+  CollectionDataService,
+  Community,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  FindListOptions,
+  FollowLinkConfig,
+  MockElementRef,
+  PaginatedList,
+  RemoteData,
+  TranslateLoaderMock,
+} from '@dspace/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
@@ -23,20 +37,6 @@ import {
 import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { CollectionDataService } from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import { FollowLinkConfig } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { Community } from '@dspace/core';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { MockElementRef } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { CollectionDropdownComponent } from '../../shared/collection-dropdown/collection-dropdown.component';
 import { CollectionSelectorComponent } from './collection-selector.component';
 

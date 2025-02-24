@@ -1,3 +1,7 @@
+import {
+  VocabularyEntry,
+  VocabularyOptions,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import {
   DynamicFormControlLayout,
@@ -6,9 +10,6 @@ import {
   DynamicRadioGroupModelConfig,
   serializable,
 } from '@ng-dynamic-forms/core';
-
-import { VocabularyEntry } from '@dspace/core';
-import { VocabularyOptions } from '@dspace/core';
 
 export interface DynamicListModelConfig extends DynamicRadioGroupModelConfig<any> {
   vocabularyOptions: VocabularyOptions;

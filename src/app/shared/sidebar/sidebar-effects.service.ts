@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { URLBaser } from '@dspace/core';
 import {
   Actions,
   createEffect,
@@ -11,7 +12,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { URLBaser } from '@dspace/core';
 import { SidebarCollapseAction } from './sidebar.actions';
 
 /**

@@ -1,4 +1,5 @@
 import { KeyValuePair } from '@dspace/core';
+
 import {
   CSSVariableAction,
   CSSVariableActionTypes,

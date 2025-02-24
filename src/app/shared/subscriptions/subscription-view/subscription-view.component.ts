@@ -6,6 +6,12 @@ import {
   Output,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import {
+  DSONameService,
+  DSpaceObject,
+  Subscription,
+  SubscriptionsDataService,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import {
   NgbModal,
@@ -15,14 +21,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
 import { getDSORoute } from 'src/app/app-routing-paths';
 
-import { DSONameService } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { ConfirmationModalComponent } from '../../confirmation-modal/confirmation-modal.component';
 import { ThemedTypeBadgeComponent } from '../../object-collection/shared/badges/type-badge/themed-type-badge.component';
-import { Subscription } from '@dspace/core';
 import { SubscriptionModalComponent } from '../subscription-modal/subscription-modal.component';
-import { SubscriptionsDataService } from '@dspace/core';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector

@@ -8,13 +8,15 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  buildPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  DSONameService,
+  Item,
+  PageInfo,
+} from '@dspace/core';
 import { of as observableOf } from 'rxjs';
 
-import { DSONameService } from '@dspace/core';
-import { buildPaginatedList } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { DSONameServiceMock } from '../../../../mocks/dso-name.service.mock';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';

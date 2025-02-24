@@ -12,6 +12,22 @@ import {
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
+  AuthService,
+  AuthServiceStub,
+  CookieService,
+  CookieServiceMock,
+  createTestComponent,
+  DragService,
+  EntityTypeDataService,
+  HALEndpointService,
+  HALEndpointServiceStub,
+  HostWindowServiceStub,
+  HttpXsrfTokenExtractorMock,
+  NotificationsService,
+  NotificationsServiceStub,
+  TranslateLoaderMock,
+} from '@dspace/core';
+import {
   NgbModal,
   NgbModule,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -21,20 +37,6 @@ import {
 } from '@ngx-translate/core';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
-import { AuthService } from '@dspace/core';
-import { EntityTypeDataService } from '@dspace/core';
-import { DragService } from '@dspace/core';
-import { CookieServiceMock } from '@dspace/core';
-import { HttpXsrfTokenExtractorMock } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { CookieService } from '@dspace/core';
-import { HALEndpointService } from '@dspace/core';
-import { AuthServiceStub } from '@dspace/core';
-import { HALEndpointServiceStub } from '@dspace/core';
-import { HostWindowServiceStub } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { createTestComponent } from '@dspace/core';
 import { HostWindowService } from '../../shared/host-window.service';
 import { getMockScrollToService } from '../../shared/mocks/scroll-to-service.mock';
 import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';

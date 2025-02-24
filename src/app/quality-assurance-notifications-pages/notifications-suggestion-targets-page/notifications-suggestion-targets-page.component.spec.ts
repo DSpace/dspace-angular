@@ -6,10 +6,10 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { AdminNotificationsPublicationClaimPageComponent } from '../../admin/admin-notifications/admin-notifications-publication-claim-page/admin-notifications-publication-claim-page.component';
-import { ActivatedRouteStub } from '@dspace/core';
 import { PublicationClaimComponent } from '../../notifications/suggestion-targets/publication-claim/publication-claim.component';
 import { NotificationsSuggestionTargetsPageComponent } from './notifications-suggestion-targets-page.component';
 

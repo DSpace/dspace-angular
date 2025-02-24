@@ -12,6 +12,17 @@ import {
   Router,
 } from '@angular/router';
 import {
+  AuthService,
+  createSuccessfulRemoteDataObject,
+  getMockTranslateService,
+  NotificationsService,
+  NotificationsServiceStub,
+  PaginationService,
+  PaginationServiceStub,
+  RouterStub,
+  WorkspaceitemDataService,
+} from '@dspace/core';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
@@ -19,15 +30,6 @@ import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { AuthService } from '@dspace/core';
-import { getMockTranslateService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { WorkspaceitemDataService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
 import { SuggestionApproveAndImport } from '../notifications/suggestion-list-element/suggestion-approve-and-import';
 import { SuggestionEvidencesComponent } from '../notifications/suggestion-list-element/suggestion-evidences/suggestion-evidences.component';
 import { SuggestionListElementComponent } from '../notifications/suggestion-list-element/suggestion-list-element.component';

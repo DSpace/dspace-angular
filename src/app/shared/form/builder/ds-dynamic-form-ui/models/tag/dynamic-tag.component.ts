@@ -13,6 +13,14 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import {
+  buildPaginatedList,
+  getFirstSucceededRemoteDataPayload,
+  PageInfo,
+  PaginatedList,
+  VocabularyEntry,
+  VocabularyService,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -41,14 +49,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../../../../../environments/environment';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '@dspace/core';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { VocabularyEntry } from '@dspace/core';
-import { VocabularyService } from '@dspace/core';
 import { ChipsComponent } from '../../../../chips/chips.component';
 import { Chips } from '../../../../chips/models/chips.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';

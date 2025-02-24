@@ -7,30 +7,30 @@ import {
   ActivatedRouteSnapshot,
   Router,
 } from '@angular/router';
+import {
+  COLLECTION,
+  Collection,
+  COMMUNITY,
+  Community,
+  ConfigurationDataService,
+  ConfigurationDataServiceStub,
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  DSpaceObject,
+  DSpaceObjectDataService,
+  ITEM,
+  Item,
+  LinkService,
+  NoOpAction,
+  RouterMock,
+} from '@dspace/core';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { ROUTER_NAVIGATED } from '@ngrx/router-store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { hot } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { LinkService } from '@dspace/core';
-import { ConfigurationDataService } from '@dspace/core';
-import { DSpaceObjectDataService } from '@dspace/core';
-import { RouterMock } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { COLLECTION } from '@dspace/core';
-import { Community } from '@dspace/core';
-import { COMMUNITY } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { ITEM } from '@dspace/core';
-import { NoOpAction } from '@dspace/core';
-import {
-  createNoContentRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { ConfigurationDataServiceStub } from '@dspace/core';
 import { SetThemeAction } from './theme.actions';
 import { Theme } from './theme.model';
 import { ThemeService } from './theme.service';

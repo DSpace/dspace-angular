@@ -5,14 +5,16 @@ import {
   Router,
 } from '@angular/router';
 import {
+  Community,
+  CommunityDataService,
+  DSONameService,
+  NotificationsService,
+} from '@dspace/core';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 
-import { DSONameService } from '@dspace/core';
-import { CommunityDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Community } from '@dspace/core';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { DeleteComColPageComponent } from '../../shared/comcol/comcol-forms/delete-comcol-page/delete-comcol-page.component';
 import { VarDirective } from '../../shared/utils/var.directive';

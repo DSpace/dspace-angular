@@ -5,6 +5,11 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
+import {
+  AdminNotifyMessage,
+  AdminNotifyMessagesService,
+  SearchConfigurationService,
+} from '@dspace/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -12,13 +17,10 @@ import {
   of,
 } from 'rxjs';
 
-import { SearchConfigurationService } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { TruncatableComponent } from '../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { AdminNotifyDetailModalComponent } from '../admin-notify-detail-modal/admin-notify-detail-modal.component';
-import { AdminNotifyMessage } from '@dspace/core';
-import { AdminNotifyMessagesService } from '@dspace/core';
 import { AdminNotifySearchResultComponent } from './admin-notify-search-result.component';
 
 export const mockAdminNotifyMessages = [

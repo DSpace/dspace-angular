@@ -9,14 +9,16 @@ import {
   FormGroup,
 } from '@angular/forms';
 import {
+  DspaceRestService,
+  RawRestResponse,
+  RestRequestMethod,
+} from '@dspace/core';
+import {
   NgbAccordion,
   NgbAccordionModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { RestRequestMethod } from '@dspace/core';
-import { DspaceRestService } from '@dspace/core';
-import { RawRestResponse } from '@dspace/core';
 import { environment } from 'src/environments/environment';
 
 import { FiltersComponent } from '../filters-section/filters-section.component';

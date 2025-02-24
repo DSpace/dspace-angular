@@ -10,16 +10,18 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  AuthService,
+  Community,
+  createSuccessfulRemoteDataObject,
+  DSONameService,
+  DSpaceObjectDataService,
+  UsageReport,
+  UsageReportDataService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '@dspace/core';
-import { DSONameService } from '@dspace/core';
-import { DSpaceObjectDataService } from '@dspace/core';
-import { Community } from '@dspace/core';
-import { UsageReport } from '@dspace/core';
-import { UsageReportDataService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
 import { CommunityStatisticsPageComponent } from './community-statistics-page.component';
 

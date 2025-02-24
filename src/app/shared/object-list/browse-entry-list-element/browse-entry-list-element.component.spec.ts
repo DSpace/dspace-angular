@@ -9,13 +9,15 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  BrowseEntry,
+  DSONameService,
+  PaginationService,
+  RouteService,
+} from '@dspace/core';
 import { of as observableOf } from 'rxjs';
 
-import { DSONameService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { BrowseEntry } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
 import { DSONameServiceMock } from '../../mocks/dso-name.service.mock';
 import { TruncatePipe } from '../../utils/truncate.pipe';
 import { BrowseEntryListElementComponent } from './browse-entry-list-element.component';

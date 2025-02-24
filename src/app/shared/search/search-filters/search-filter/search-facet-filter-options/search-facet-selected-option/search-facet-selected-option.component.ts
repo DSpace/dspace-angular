@@ -9,16 +9,17 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import {
+  AppliedFilter,
+  currentPath,
+  PaginationService,
+  SearchConfigurationService,
+  SearchFilterConfig,
+  SearchFilterService,
+  SearchService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-
-import { PaginationService } from '@dspace/core';
-import { AppliedFilter } from '@dspace/core';
-import { SearchFilterConfig } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import { SearchFilterService } from '@dspace/core';
-import { currentPath } from '@dspace/core';
 
 @Component({
   selector: 'ds-search-facet-selected-option',

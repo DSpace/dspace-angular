@@ -3,7 +3,6 @@ import {
   Directive,
   Host,
 } from '@angular/core';
-
 import { DSpaceObject } from '@dspace/core';
 
 @Directive({

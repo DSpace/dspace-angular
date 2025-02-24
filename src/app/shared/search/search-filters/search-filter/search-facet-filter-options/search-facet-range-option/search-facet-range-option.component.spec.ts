@@ -14,20 +14,22 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import {
+  FacetValue,
+  FilterType,
+  PaginationComponentOptions,
+  PaginationService,
+  PaginationServiceStub,
+  RouterStub,
+  SearchConfigurationService,
+  SearchFilterConfig,
+  SearchFilterService,
+  SearchService,
+  SearchServiceStub,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { PaginationService } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { FacetValue } from '@dspace/core';
-import { FilterType } from '@dspace/core';
-import { SearchFilterConfig } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import { SearchFilterService } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
-import { SearchServiceStub } from '@dspace/core';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
 import {
   RANGE_FILTER_MAX_SUFFIX,

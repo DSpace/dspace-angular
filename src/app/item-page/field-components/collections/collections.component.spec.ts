@@ -9,25 +9,23 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-
-import { DSONameService } from '@dspace/core';
-import { RemoteDataBuildService } from '@dspace/core';
-import { CollectionDataService } from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
 import {
+  ActivatedRouteStub,
   buildPaginatedList,
-  PaginatedList,
-} from '@dspace/core';
-import { getMockRemoteDataBuildService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import {
+  Collection,
+  CollectionDataService,
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
+  DSONameService,
+  FindListOptions,
+  getMockRemoteDataBuildService,
+  Item,
+  PageInfo,
+  PaginatedList,
+  RemoteDataBuildService,
 } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 import { CollectionsComponent } from './collections.component';
 

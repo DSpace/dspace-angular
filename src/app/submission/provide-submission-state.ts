@@ -3,6 +3,10 @@ import {
   importProvidersFrom,
   makeEnvironmentProviders,
 } from '@angular/core';
+import {
+  submissionReducers,
+  SubmissionState,
+} from '@dspace/core';
 import { EffectsModule } from '@ngrx/effects';
 import {
   Action,
@@ -12,10 +16,6 @@ import {
 
 import { storeModuleConfig } from '../app.reducer';
 import { submissionEffects } from './submission.effects';
-import {
-  submissionReducers,
-  SubmissionState,
-} from '@dspace/core';
 
 export const provideSubmissionState = (): EnvironmentProviders => {
   return makeEnvironmentProviders([

@@ -24,7 +24,7 @@
     "test:lint": "npm run build:lint && npm run test:lint:nobuild",
     "test:lint:nobuild": "jasmine --config=lint/jasmine.json",
     "lint": "npm run build:lint && npm run lint:nobuild",
-    "lint:nobuild": "nx lint",
+    "lint:nobuild": "nx lint --quiet",
     "lint-fix": "npm run build:lint && nx lint --fix=true",
     "docs:lint": "ts-node --project ./lint/tsconfig.json ./lint/generate-docs.ts",
     "e2e": "cross-env NODE_ENV=production nx e2e",

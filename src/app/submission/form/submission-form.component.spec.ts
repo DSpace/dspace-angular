@@ -11,19 +11,23 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import {
+  AuthService,
+  AuthServiceStub,
+  createTestComponent,
+  HALEndpointService,
+  HALEndpointServiceStub,
+  Item,
+  SubmissionService,
+  SubmissionServiceStub,
+  VisibilityType,
+} from '@dspace/core';
+import {
   cold,
   getTestScheduler,
 } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { AuthService } from '@dspace/core';
-import { HALEndpointService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { AuthServiceStub } from '@dspace/core';
-import { HALEndpointServiceStub } from '@dspace/core';
-import { SubmissionServiceStub } from '@dspace/core';
-import { createTestComponent } from '@dspace/core';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import {
   mockSectionsData,
@@ -39,8 +43,6 @@ import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { SubmissionSectionContainerComponent } from '../sections/container/section-container.component';
 import { SectionsService } from '../sections/sections.service';
-import { VisibilityType } from '@dspace/core';
-import { SubmissionService } from '@dspace/core';
 import { SubmissionFormCollectionComponent } from './collection/submission-form-collection.component';
 import { SubmissionFormFooterComponent } from './footer/submission-form-footer.component';
 import { SubmissionFormSectionAddComponent } from './section-add/submission-form-section-add.component';

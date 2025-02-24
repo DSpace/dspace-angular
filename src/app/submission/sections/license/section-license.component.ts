@@ -7,6 +7,18 @@ import {
   ViewChild,
 } from '@angular/core';
 import {
+  Collection,
+  CollectionDataService,
+  followLink,
+  JsonPatchOperationPathCombiner,
+  JsonPatchOperationsBuilder,
+  License,
+  RemoteData,
+  SectionDataObject,
+  SubmissionService,
+  WorkspaceitemSectionLicenseObject,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
   isNotNull,
@@ -33,21 +45,11 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { CollectionDataService } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { JsonPatchOperationPathCombiner } from '@dspace/core';
-import { JsonPatchOperationsBuilder } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { License } from '@dspace/core';
-import { WorkspaceitemSectionLicenseObject } from '@dspace/core';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
-import { SubmissionService } from '@dspace/core';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { SectionModelComponent } from '../models/section.model';
-import { SectionDataObject } from '@dspace/core';
 import { SectionsService } from '../sections.service';
 import {
   SECTION_LICENSE_FORM_LAYOUT,

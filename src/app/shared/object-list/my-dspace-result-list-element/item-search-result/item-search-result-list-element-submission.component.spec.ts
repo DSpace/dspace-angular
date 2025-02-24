@@ -11,14 +11,16 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  APP_CONFIG,
+  Context,
+  DSONameService,
+  Item,
+  ItemSearchResult,
+} from '@dspace/core';
 import { of as observableOf } from 'rxjs';
 
 import { environment } from '../../../../../environments/environment';
-import { DSONameService } from '@dspace/core';
-import { APP_CONFIG } from '@dspace/core';
-import { ItemSearchResult } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { Item } from '@dspace/core';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';

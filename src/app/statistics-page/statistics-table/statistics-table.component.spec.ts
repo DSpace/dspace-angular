@@ -5,11 +5,13 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  DSONameService,
+  DSpaceObjectDataService,
+  UsageReport,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DSONameService } from '@dspace/core';
-import { DSpaceObjectDataService } from '@dspace/core';
-import { UsageReport } from '@dspace/core';
 import { StatisticsTableComponent } from './statistics-table.component';
 
 describe('StatisticsTableComponent', () => {

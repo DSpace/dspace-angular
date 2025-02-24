@@ -11,16 +11,18 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
+  authReducer,
+  EPerson,
+  EPersonMock,
+  RouterStub,
+} from '@dspace/core';
+import {
   Store,
   StoreModule,
 } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { AppState } from '../../app.reducer';
-import { authReducer } from '@dspace/core';
-import { EPerson } from '@dspace/core';
-import { EPersonMock } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
 import { LogOutComponent } from './log-out.component';
 
 describe('LogOutComponent', () => {

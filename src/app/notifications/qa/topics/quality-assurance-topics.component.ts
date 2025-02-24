@@ -13,6 +13,16 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+  Item,
+  ItemDataService,
+  PaginationComponentOptions,
+  PaginationService,
+  QualityAssuranceTopicObject,
+  SortOptions,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -27,16 +37,6 @@ import {
 } from 'rxjs/operators';
 
 import { getNotificatioQualityAssuranceRoute } from '../../../admin/admin-routing-paths';
-import { SortOptions } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { QualityAssuranceTopicObject } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { QualityAssuranceTopicsPageParams } from '../../../quality-assurance-notifications-pages/quality-assurance-topics-page/quality-assurance-topics-page-resolver.service';
 import { AlertComponent } from '../../../shared/alert/alert.component';

@@ -4,6 +4,17 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import {
+  Bitstream,
+  BitstreamDataService,
+  Context,
+  getFirstCompletedRemoteData,
+  Item,
+  PaginatedList,
+  PaginationComponentOptions,
+  PaginationService,
+  RemoteData,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -11,16 +22,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { Context } from '@dspace/core';
 
-import { BitstreamDataService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
 import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
 
 export const ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID = 'item-access-control-select-bitstreams';

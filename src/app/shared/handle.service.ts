@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
 import {
+  ConfigurationDataService,
+  ConfigurationProperty,
+  getFirstCompletedRemoteData,
+  RemoteData,
+} from '@dspace/core';
+import {
   hasNoValue,
   isEmpty,
 } from '@dspace/shared/utils';
@@ -11,11 +17,6 @@ import {
   map,
   take,
 } from 'rxjs/operators';
-
-import { ConfigurationDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { ConfigurationProperty } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
 
 export const CANONICAL_PREFIX_KEY = 'handle.canonical.prefix';
 

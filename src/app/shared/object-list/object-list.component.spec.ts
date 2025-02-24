@@ -10,10 +10,10 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { SelectableListService } from '@dspace/core';
 
 import { PaginationComponent } from '../pagination/pagination.component';
 import { ObjectListComponent } from './object-list.component';
-import { SelectableListService } from '@dspace/core';
 
 describe('ObjectListComponent', () => {
   let comp: ObjectListComponent;

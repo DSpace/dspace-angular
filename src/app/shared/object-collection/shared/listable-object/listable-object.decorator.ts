@@ -1,16 +1,18 @@
 import { InjectionToken } from '@angular/core';
 import {
+  Context,
+  GenericConstructor,
+  ListableObject,
+  ThemeConfig,
+  ViewMode,
+} from '@dspace/core';
+import {
   hasNoValue,
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
 
 import { environment } from '../../../../../environments/environment';
-import { ThemeConfig } from '@dspace/core';
-import { ListableObject } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { GenericConstructor } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 
 export const DEFAULT_VIEW_MODE = ViewMode.ListElement;
 export const DEFAULT_CONTEXT = Context.Any;

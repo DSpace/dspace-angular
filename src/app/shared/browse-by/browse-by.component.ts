@@ -13,6 +13,17 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import {
+  ListableObject,
+  PaginatedList,
+  PaginationComponentOptions,
+  PaginationService,
+  RemoteData,
+  RouteService,
+  SortDirection,
+  SortOptions,
+  ViewMode,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import {
   TranslateModule,
@@ -26,17 +37,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import {
-  SortDirection,
-  SortOptions,
-} from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { ListableObject } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import {
   fadeIn,
   fadeInOut,

@@ -14,6 +14,18 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
+  APP_DATA_SERVICES_MAP,
+  createTestComponent,
+  HALEndpointService,
+  HALEndpointServiceStub,
+  JsonPatchOperationPathCombiner,
+  JsonPatchOperationsBuilder,
+  SubmissionJsonPatchOperationsService,
+  SubmissionJsonPatchOperationsServiceStub,
+  SubmissionService,
+  SubmissionServiceStub,
+} from '@dspace/core';
+import {
   NgbModal,
   NgbModule,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -23,15 +35,6 @@ import {
   of,
 } from 'rxjs';
 
-import { APP_DATA_SERVICES_MAP } from '@dspace/core';
-import { JsonPatchOperationPathCombiner } from '@dspace/core';
-import { JsonPatchOperationsBuilder } from '@dspace/core';
-import { HALEndpointService } from '@dspace/core';
-import { SubmissionJsonPatchOperationsService } from '@dspace/core';
-import { HALEndpointServiceStub } from '@dspace/core';
-import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core';
-import { SubmissionServiceStub } from '@dspace/core';
-import { createTestComponent } from '@dspace/core';
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormService } from '../../../../shared/form/form.service';
@@ -46,7 +49,6 @@ import {
 import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../../../shared/theme-support/theme.service';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
-import { SubmissionService } from '@dspace/core';
 import { SectionUploadService } from '../section-upload.service';
 import { POLICY_DEFAULT_WITH_LIST } from '../section-upload-constants';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';

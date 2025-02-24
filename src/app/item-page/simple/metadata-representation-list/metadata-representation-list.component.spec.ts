@@ -8,17 +8,19 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  BrowseDefinitionDataService,
+  BrowseDefinitionDataServiceStub,
+  DSpaceObject,
+  Item,
+  ItemMetadataRepresentation,
+  MetadataValue,
+  MetadatumRepresentation,
+  RelationshipDataService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { BrowseDefinitionDataService } from '@dspace/core';
-import { RelationshipDataService } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { MetadataValue } from '@dspace/core';
-import { ItemMetadataRepresentation } from '@dspace/core';
-import { MetadatumRepresentation } from '@dspace/core';
-import { BrowseDefinitionDataServiceStub } from '@dspace/core';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { MetadataRepresentationLoaderComponent } from '../../../shared/metadata-representation/metadata-representation-loader.component';

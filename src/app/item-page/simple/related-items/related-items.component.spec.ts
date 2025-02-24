@@ -8,14 +8,16 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  APP_CONFIG,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  Item,
+  RelationshipDataService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { APP_CONFIG } from '@dspace/core';
-import { RelationshipDataService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';

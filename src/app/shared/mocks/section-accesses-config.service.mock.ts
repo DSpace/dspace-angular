@@ -1,6 +1,8 @@
-import { SubmissionFormsModel } from '@dspace/core';
-import { SubmissionFormsConfigDataService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import {
+  createSuccessfulRemoteDataObject$,
+  SubmissionFormsConfigDataService,
+  SubmissionFormsModel,
+} from '@dspace/core';
 
 const configRes = Object.assign(new SubmissionFormsModel(), {
   'id': 'AccessConditionDefaultConfiguration',

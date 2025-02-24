@@ -8,12 +8,14 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  Context,
+  DSONameService,
+  Item,
+  ItemSearchResult,
+} from '@dspace/core';
 import { of as observableOf } from 'rxjs';
 
-import { DSONameService } from '@dspace/core';
-import { ItemSearchResult } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { Item } from '@dspace/core';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { ItemActionsComponent } from '../../../mydspace-actions/item/item-actions.component';
 import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';

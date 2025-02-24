@@ -9,11 +9,13 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  RouterStub,
+  ViewMode,
+} from '@dspace/core';
 import { provideMockStore } from '@ngrx/store/testing';
 import { of as observableOf } from 'rxjs';
 
-import { ViewMode } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
 import { getMockThemeService } from '../mocks/theme-service.mock';
 import { ObjectDetailComponent } from '../object-detail/object-detail.component';
 import { ObjectGridComponent } from '../object-grid/object-grid.component';

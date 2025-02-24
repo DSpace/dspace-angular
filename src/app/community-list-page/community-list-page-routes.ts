@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
-
 import { i18nBreadcrumbResolver } from '@dspace/core';
+
 import { ThemedCommunityListPageComponent } from './themed-community-list-page.component';
 
 /**

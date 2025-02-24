@@ -5,35 +5,31 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { testFindAllDataImplementation } from '../../data/base/find-all-data.spec';
-import { testDeleteDataImplementation } from '../../data/base/delete-data.spec';
-import { testSearchDataImplementation } from '../../data/base/search-data.spec';
-import { testPatchDataImplementation } from '../../data/base/patch-data.spec';
-import { testCreateDataImplementation } from '../../data/base/create-data.spec';
-import { createPaginatedList } from '../../utilities/testing/utils.test';
-import {
-  mockLdnService
-} from '../../../../../../../src/app/admin/admin-ldn-services/ldn-service-serviceMock/ldnServicesRD$-mock';
-import { LdnServicesService } from './ldn-services-data.service';
-import { RequestService } from '../../data/request.service';
+import { mockLdnService } from '../../../../../../../src/app/admin/admin-ldn-services/ldn-service-serviceMock/ldnServicesRD$-mock';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../cache/object-cache.service';
-import { HALEndpointService } from '../../shared/hal-endpoint.service';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { RequestEntry } from '../../data/request-entry.model';
-import { RemoteData } from '../../data/remote-data';
-import { RequestEntryState } from '../../data/request-entry-state.model';
-import { createSuccessfulRemoteDataObject$ } from '../../utilities/remote-data.utils';
 import { RequestParam } from '../../cache/models/request-param.model';
-import { FindListOptions } from '../../data/find-list-options.model';
-import { FindAllData } from '../../data/base/find-all-data';
-import { DeleteData } from '../../data/base/delete-data';
-import { SearchData } from '../../data/base/search-data';
-import { PatchData } from '../../data/base/patch-data';
-import { CreateData } from '../../data/base/create-data';
+import { ObjectCacheService } from '../../cache/object-cache.service';
 import { RestResponse } from '../../cache/response.models';
-
-
+import { CreateData } from '../../data/base/create-data';
+import { testCreateDataImplementation } from '../../data/base/create-data.spec';
+import { DeleteData } from '../../data/base/delete-data';
+import { testDeleteDataImplementation } from '../../data/base/delete-data.spec';
+import { FindAllData } from '../../data/base/find-all-data';
+import { testFindAllDataImplementation } from '../../data/base/find-all-data.spec';
+import { PatchData } from '../../data/base/patch-data';
+import { testPatchDataImplementation } from '../../data/base/patch-data.spec';
+import { SearchData } from '../../data/base/search-data';
+import { testSearchDataImplementation } from '../../data/base/search-data.spec';
+import { FindListOptions } from '../../data/find-list-options.model';
+import { RemoteData } from '../../data/remote-data';
+import { RequestService } from '../../data/request.service';
+import { RequestEntry } from '../../data/request-entry.model';
+import { RequestEntryState } from '../../data/request-entry-state.model';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { createSuccessfulRemoteDataObject$ } from '../../utilities/remote-data.utils';
+import { createPaginatedList } from '../../utilities/testing/utils.test';
+import { LdnServicesService } from './ldn-services-data.service';
 
 describe('LdnServicesService test', () => {
   let scheduler: TestScheduler;

@@ -1,4 +1,10 @@
 import {
+  FormFieldMetadataValueObject,
+  MetadataIconConfig,
+  PLACEHOLDER_PARENT_METADATA,
+  VocabularyEntry,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -7,10 +13,6 @@ import isEqual from 'lodash/isEqual';
 import isObject from 'lodash/isObject';
 import { BehaviorSubject } from 'rxjs';
 
-import { MetadataIconConfig } from '@dspace/core';
-import { VocabularyEntry } from '@dspace/core';
-import { PLACEHOLDER_PARENT_METADATA } from '@dspace/core';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 import { ChipsItem } from './chips-item.model';
 
 export class Chips {

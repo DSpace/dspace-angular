@@ -1,14 +1,12 @@
 import {
-  IMPERSONATING_COOKIE,
-  REDIRECT_COOKIE,
-} from '@dspace/core';
-import { TOKENITEM } from '@dspace/core';
-import {
   CAPTCHA_COOKIE,
   CAPTCHA_NAME,
+  IMPERSONATING_COOKIE,
+  LANG_COOKIE,
+  NativeWindowRef,
+  REDIRECT_COOKIE,
+  TOKENITEM,
 } from '@dspace/core';
-import { LANG_COOKIE } from '@dspace/core';
-import { NativeWindowRef } from '@dspace/core';
 
 /**
  * Cookie for has_agreed_end_user

@@ -10,25 +10,25 @@ import {
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
+  AuthService,
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  DSONameService,
+  EPerson,
+  Item,
+  ItemDataService,
+  ItemRequest,
+  ItemRequestDataService,
+  NotificationsService,
+  RequestCopyEmail,
+} from '@dspace/core';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '@dspace/core';
-import { DSONameService } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { ItemRequestDataService } from '@dspace/core';
-import { EPerson } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { RequestCopyEmail } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { ItemRequest } from '@dspace/core';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
 import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';

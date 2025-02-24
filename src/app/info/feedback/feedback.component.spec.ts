@@ -5,9 +5,9 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { ActivatedRouteStub } from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ActivatedRouteStub } from '@dspace/core';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { FeedbackComponent } from './feedback.component';

@@ -7,6 +7,13 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
+  AuthorizationDataService,
+  FeatureID,
+  GenericConstructor,
+  MenuID,
+  MenuSection,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmptyOperator,
 } from '@dspace/shared/utils';
@@ -23,14 +30,9 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { AuthorizationDataService } from '@dspace/core';
-import { FeatureID } from '@dspace/core';
-import { GenericConstructor } from '@dspace/core';
 import { ThemeService } from '../theme-support/theme.service';
 import { MenuService } from './menu.service';
-import { MenuID } from '@dspace/core';
 import { getComponentForMenu } from './menu-section.decorator';
-import { MenuSection } from '@dspace/core';
 import { MenuSectionComponent } from './menu-section/menu-section.component';
 
 /**

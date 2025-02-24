@@ -8,6 +8,14 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+  NotifyRequestsStatus,
+  NotifyRequestsStatusDataService,
+  NotifyStatuses,
+  RequestStatusEnum,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import {
   filter,
@@ -15,16 +23,6 @@ import {
   Observable,
 } from 'rxjs';
 
-import { NotifyRequestsStatusDataService } from '@dspace/core';
-import {
-  NotifyRequestsStatus,
-  NotifyStatuses,
-} from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '@dspace/core';
-import { RequestStatusEnum } from '@dspace/core';
 import { RequestStatusAlertBoxComponent } from '../request-status-alert-box/request-status-alert-box.component';
 
 @Component({

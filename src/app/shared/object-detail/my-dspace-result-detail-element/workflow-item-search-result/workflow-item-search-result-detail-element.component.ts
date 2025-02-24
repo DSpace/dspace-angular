@@ -2,19 +2,21 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
+import {
+  Context,
+  DSONameService,
+  followLink,
+  Item,
+  LinkService,
+  RemoteData,
+  ViewMode,
+  WorkflowItem,
+  WorkflowItemSearchResult,
+} from '@dspace/core';
 import { isNotUndefined } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import { find } from 'rxjs/operators';
-import { Context } from '@dspace/core';
 
-import { DSONameService } from '@dspace/core';
-import { LinkService } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { WorkflowItemSearchResult } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
-import { WorkflowItem } from '@dspace/core';
 import { WorkflowitemActionsComponent } from '../../../mydspace-actions/workflowitem/workflowitem-actions.component';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';

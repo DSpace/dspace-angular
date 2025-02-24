@@ -11,6 +11,18 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  APP_DATA_SERVICES_MAP,
+  authReducer,
+  AuthService,
+  AuthState,
+  AuthTokenInfo,
+  BrowserOnlyMockPipe,
+  EPersonMock,
+  HostWindowServiceStub,
+  XSRFService,
+} from '@dspace/core';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   Store,
@@ -20,18 +32,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { AppState } from '../../app.reducer';
-import {
-  authReducer,
-  AuthState,
-} from '@dspace/core';
-import { AuthService } from '@dspace/core';
-import { AuthTokenInfo } from '@dspace/core';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { BrowserOnlyMockPipe } from '@dspace/core';
-import { EPersonMock } from '@dspace/core';
-import { HostWindowServiceStub } from '@dspace/core';
-import { XSRFService } from '@dspace/core';
 import { HostWindowService } from '../host-window.service';
 import { AuthNavMenuComponent } from './auth-nav-menu.component';
 

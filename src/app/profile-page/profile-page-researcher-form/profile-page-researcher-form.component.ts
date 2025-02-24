@@ -5,6 +5,18 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  AuthService,
+  EPerson,
+  followLink,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  NoContent,
+  NotificationsService,
+  RemoteData,
+  ResearcherProfile,
+  ResearcherProfileDataService,
+} from '@dspace/core';
 import { isNotEmpty } from '@dspace/shared/utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -24,18 +36,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { AuthService } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { EPerson } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { ResearcherProfile } from '@dspace/core';
-import { ResearcherProfileDataService } from '@dspace/core';
-import { NoContent } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '@dspace/core';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { VarDirective } from '../../shared/utils/var.directive';

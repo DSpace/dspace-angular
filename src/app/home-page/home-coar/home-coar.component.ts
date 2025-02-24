@@ -6,19 +6,18 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
+import {
+  HeadLinkDefinition,
+  LinkHeadService,
+  NotifyInfoService,
+  ServerResponseService,
+} from '@dspace/core';
 import { isNotEmpty } from '@dspace/shared/utils';
 import {
   of as observableOf,
   Subscription,
 } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-
-import { NotifyInfoService } from '@dspace/core';
-import {
-  HeadLinkDefinition,
-  LinkHeadService,
-} from '@dspace/core';
-import { ServerResponseService } from '@dspace/core';
 
 @Component({
   selector: 'ds-home-coar',

@@ -15,6 +15,18 @@ import {
   withPreloading,
   withRouterConfig,
 } from '@angular/router';
+import {
+  APP_CONFIG,
+  AppConfig,
+  AuthInterceptor,
+  ClientCookieService,
+  DSpaceRouterStateSerializer,
+  LocaleInterceptor,
+  LogInterceptor,
+  models,
+  provideCore,
+  XsrfInterceptor,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DYNAMIC_MATCHER_PROVIDERS } from '@ng-dynamic-forms/core';
 import { EffectsModule } from '@ngrx/effects';
@@ -49,20 +61,6 @@ import {
   APP_ROUTING_SCROLL_CONF,
 } from './app-routes';
 import { BROWSE_BY_DECORATOR_MAP } from './browse-by/browse-by-switcher/browse-by-decorator';
-import { AuthInterceptor } from '@dspace/core';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/core';
-import { LocaleInterceptor } from '@dspace/core';
-import { LogInterceptor } from '@dspace/core';
-import {
-  models,
-  provideCore,
-} from '@dspace/core';
-import { ClientCookieService } from '@dspace/core';
-import { DSpaceRouterStateSerializer } from '@dspace/core';
-import { XsrfInterceptor } from '@dspace/core';
 import { RootModule } from './root.module';
 import { AUTH_METHOD_FOR_DECORATOR_MAP } from './shared/log-in/methods/log-in.methods-decorator';
 import { METADATA_REPRESENTATION_COMPONENT_DECORATOR_MAP } from './shared/metadata-representation/metadata-representation.decorator';

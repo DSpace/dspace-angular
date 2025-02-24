@@ -15,6 +15,29 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+  Collection,
+  CollectionDataService,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  createTestComponent,
+  FormFieldMetadataValueObject,
+  JsonPatchOperationPathCombiner,
+  JsonPatchOperationsBuilder,
+  License,
+  NotificationsService,
+  NotificationsServiceStub,
+  SectionDataObject,
+  SectionsServiceStub,
+  SectionsType,
+  SubmissionFormsConfigDataService,
+  SubmissionObjectDataService,
+  SubmissionService,
+  SubmissionServiceStub,
+  XSRFService,
+} from '@dspace/core';
+import {
   DYNAMIC_FORM_CONTROL_MAP_FN,
   DynamicCheckboxModel,
   DynamicFormControlEvent,
@@ -27,30 +50,8 @@ import { of as observableOf } from 'rxjs';
 import { DsDynamicTypeBindRelationService } from 'src/app/shared/form/builder/ds-dynamic-form-ui/ds-dynamic-type-bind-relation.service';
 import { environment } from 'src/environments/environment.test';
 
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from '@dspace/core';
-import { SubmissionFormsConfigDataService } from '@dspace/core';
-import { CollectionDataService } from '@dspace/core';
-import { JsonPatchOperationPathCombiner } from '@dspace/core';
-import { JsonPatchOperationsBuilder } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { License } from '@dspace/core';
-import { SubmissionObjectDataService } from '@dspace/core';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { SectionsServiceStub } from '@dspace/core';
-import { SubmissionServiceStub } from '@dspace/core';
-import { createTestComponent } from '@dspace/core';
-import { XSRFService } from '@dspace/core';
 import { dsDynamicFormControlMapFn } from '../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
@@ -61,11 +62,8 @@ import {
   mockSubmissionId,
   mockSubmissionObject,
 } from '../../../shared/mocks/submission.mock';
-import { SubmissionService } from '@dspace/core';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
-import { SectionDataObject } from '@dspace/core';
 import { SectionsService } from '../sections.service';
-import { SectionsType } from '@dspace/core';
 import { SubmissionSectionLicenseComponent } from './section-license.component';
 
 function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {

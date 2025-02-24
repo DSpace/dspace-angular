@@ -11,13 +11,15 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  ActivatedRouteStub,
+  PaginationService,
+  PaginationServiceStub,
+  RouterStub,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { PaginationService } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
 import { EnumKeysPipe } from '../../utils/enum-keys-pipe';
 import { StartsWithTextComponent } from './starts-with-text.component';
 

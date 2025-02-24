@@ -13,20 +13,22 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import {
+  getFirstCompletedRemoteData,
+  NotificationsService,
+  Process,
+  ProcessParameter,
+  RemoteData,
+  Script,
+  ScriptDataService,
+  ScriptParameter,
+} from '@dspace/core';
 import { isEmpty } from '@dspace/shared/utils';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 
-import { ScriptDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Process } from '@dspace/core';
-import { ProcessParameter } from '@dspace/core';
-import { Script } from '@dspace/core';
-import { ScriptParameter } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
 import { getProcessListRoute } from '../process-page-routing.paths';
 import { ProcessParametersComponent } from './process-parameters/process-parameters.component';
 import { ScriptHelpComponent } from './script-help/script-help.component';

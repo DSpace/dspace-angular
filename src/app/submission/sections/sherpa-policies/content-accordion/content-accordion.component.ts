@@ -3,10 +3,9 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import { PermittedVersions } from '@dspace/core';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-
-import { PermittedVersions } from '@dspace/core';
 
 /**
  * This component represents a section that contains the inner accordions for the publisher policy versions.

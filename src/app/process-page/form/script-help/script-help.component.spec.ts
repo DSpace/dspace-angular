@@ -7,14 +7,16 @@ import {
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import {
+  Script,
+  ScriptParameter,
+  ScriptParameterType,
+  TranslateLoaderMock,
+} from '@dspace/core';
+import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { TranslateLoaderMock } from '@dspace/core';
-import { Script } from '@dspace/core';
-import { ScriptParameter } from '@dspace/core';
-import { ScriptParameterType } from '@dspace/core';
 import { ScriptHelpComponent } from './script-help.component';
 
 describe('ScriptHelpComponent', () => {

@@ -1,7 +1,9 @@
+import {
+  createSuccessfulRemoteDataObject$,
+  PaginationComponentOptions,
+} from '@dspace/core';
 import { of } from 'rxjs';
 
-import { PaginationComponentOptions } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { ResponsiveColumnSizes } from '../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
 

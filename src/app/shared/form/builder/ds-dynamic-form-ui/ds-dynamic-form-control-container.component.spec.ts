@@ -17,6 +17,18 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+  createSuccessfulRemoteDataObject,
+  Item,
+  RelationshipDataService,
+  SelectableListService,
+  SubmissionObjectDataService,
+  SubmissionService,
+  VocabularyOptions,
+  WorkspaceItem,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DYNAMIC_FORM_CONTROL_MAP_FN,
@@ -58,18 +70,6 @@ import { NgxMaskModule } from 'ngx-mask';
 import { of as observableOf } from 'rxjs';
 
 import { environment } from '../../../../../environments/environment';
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from '@dspace/core';
-import { RelationshipDataService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { WorkspaceItem } from '@dspace/core';
-import { SubmissionObjectDataService } from '@dspace/core';
-import { VocabularyOptions } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
-import { SubmissionService } from '@dspace/core';
-import { SelectableListService } from '@dspace/core';
 import { FormBuilderService } from '../form-builder.service';
 import { DsDynamicFormControlContainerComponent } from './ds-dynamic-form-control-container.component';
 import { dsDynamicFormControlMapFn } from './ds-dynamic-form-control-map-fn';

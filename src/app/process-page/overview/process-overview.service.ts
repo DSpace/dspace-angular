@@ -1,20 +1,19 @@
 import { DatePipe } from '@angular/common';
 import { Injectable } from '@angular/core';
-import { hasValue } from '@dspace/shared/utils';
-import { Observable } from 'rxjs';
-
-import { RequestParam } from '@dspace/core';
 import {
+  FindListOptions,
+  PaginatedList,
+  PaginationComponentOptions,
+  Process,
+  ProcessDataService,
+  ProcessStatus,
+  RemoteData,
+  RequestParam,
   SortDirection,
   SortOptions,
 } from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { ProcessDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { Process } from '@dspace/core';
-import { ProcessStatus } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
+import { hasValue } from '@dspace/shared/utils';
+import { Observable } from 'rxjs';
 
 /**
  * The sortable fields for processes

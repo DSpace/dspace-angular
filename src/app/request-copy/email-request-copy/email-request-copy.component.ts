@@ -9,9 +9,9 @@ import {
   Output,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RequestCopyEmail } from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { RequestCopyEmail } from '@dspace/core';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 
 

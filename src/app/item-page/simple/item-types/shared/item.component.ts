@@ -4,6 +4,11 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  Item,
+  RouteService,
+  ViewMode,
+} from '@dspace/core';
 import { Observable } from 'rxjs';
 import {
   map,
@@ -11,9 +16,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../../../environments/environment';
-import { RouteService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { getItemPageRoute } from '../../../item-page-routing-paths';
 import {
   getDSpaceQuery,

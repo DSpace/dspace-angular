@@ -15,27 +15,25 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  AuthenticateAction,
+  CoreState,
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  END_USER_AGREEMENT_METADATA_FIELD,
+  EndUserAgreementService,
+  EPerson,
+  EPersonDataService,
+  NotificationsService,
+  NotificationsServiceStub,
+  Registration,
+  RouterStub,
+} from '@dspace/core';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthenticateAction } from '@dspace/core';
-import { CoreState } from '@dspace/core';
-import {
-  END_USER_AGREEMENT_METADATA_FIELD,
-  EndUserAgreementService,
-} from '@dspace/core';
-import { EPersonDataService } from '@dspace/core';
-import { EPerson } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Registration } from '@dspace/core';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
 import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
 import { CreateProfileComponent } from './create-profile.component';
 

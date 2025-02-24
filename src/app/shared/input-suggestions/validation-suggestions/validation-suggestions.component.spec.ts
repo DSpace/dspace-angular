@@ -15,10 +15,12 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  MetadataFieldDataService,
+  ObjectUpdatesService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { MetadataFieldDataService } from '@dspace/core';
-import { ObjectUpdatesService } from '@dspace/core';
 import { ValidationSuggestionsComponent } from './validation-suggestions.component';
 
 describe('ValidationSuggestionsComponent', () => {

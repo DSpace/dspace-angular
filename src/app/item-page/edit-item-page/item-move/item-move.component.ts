@@ -9,6 +9,22 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import {
+  Collection,
+  DSONameService,
+  DSpaceObjectType,
+  followLink,
+  getAllSucceededRemoteDataPayload,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+  Item,
+  ItemDataService,
+  NotificationsService,
+  RemoteData,
+  RequestService,
+  SearchService,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -20,22 +36,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { DSpaceObjectType } from '@dspace/core';
-import { Item } from '@dspace/core';
-import {
-  getAllSucceededRemoteDataPayload,
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '@dspace/core';
-import { SearchService } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { AuthorizedCollectionSelectorComponent } from '../../../shared/dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 import {

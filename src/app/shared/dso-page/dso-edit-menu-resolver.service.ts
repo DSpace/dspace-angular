@@ -4,6 +4,23 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import {
+  AuthorizationDataService,
+  Collection,
+  Community,
+  CorrectionTypeDataService,
+  DSpaceObjectDataService,
+  FeatureID,
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+  Item,
+  MenuID,
+  MenuItemType,
+  MenuSection,
+  NotificationsService,
+  ResearcherProfileDataService,
+  URLCombiner,
+} from '@dspace/core';
+import {
   hasNoValue,
   hasValue,
   isNotEmpty,
@@ -21,26 +38,9 @@ import {
 } from 'rxjs/operators';
 
 import { getDSORoute } from '../../app-routing-paths';
-import { DSpaceObjectDataService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { FeatureID } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { ResearcherProfileDataService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { Community } from '@dspace/core';
-import { Item } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '@dspace/core';
-import { CorrectionTypeDataService } from '@dspace/core';
-import { URLCombiner } from '@dspace/core';
 import { MenuService } from '../menu/menu.service';
-import { MenuID } from '@dspace/core';
 import { LinkMenuItemModel } from '../menu/menu-item/models/link.model';
 import { OnClickMenuItemModel } from '../menu/menu-item/models/onclick.model';
-import { MenuItemType } from '@dspace/core';
-import { MenuSection } from '@dspace/core';
 import { SubscriptionModalComponent } from '../subscriptions/subscription-modal/subscription-modal.component';
 import { DsoVersioningModalService } from './dso-versioning-modal-service/dso-versioning-modal.service';
 import {

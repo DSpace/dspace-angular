@@ -15,6 +15,13 @@ import {
 } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
+  Notification,
+  NotificationOptions,
+  notificationsReducer,
+  NotificationsService,
+  NotificationType,
+} from '@dspace/core';
+import {
   Store,
   StoreModule,
 } from '@ngrx/store';
@@ -26,13 +33,8 @@ import {
 import { BehaviorSubject } from 'rxjs';
 
 import { TranslateLoaderMock } from '../../../../modules/core/src/lib/core/mocks';
-import { Notification } from '@dspace/core';
-import { NotificationOptions } from '@dspace/core';
-import { NotificationType } from '@dspace/core';
-import { notificationsReducer } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
+import { mockStoreModuleConfig } from '../../../../modules/core/src/lib/core/utilities';
 import { NotificationComponent } from './notification.component';
-import { mockStoreModuleConfig } from "../../../../modules/core/src/lib/core/utilities";
 
 describe('NotificationComponent', () => {
 

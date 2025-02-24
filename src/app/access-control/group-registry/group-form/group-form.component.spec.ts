@@ -21,6 +21,33 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  AuthorizationDataService,
+  buildPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  DSOChangeAnalyzer,
+  DSONameService,
+  DSpaceObject,
+  DSpaceObjectDataService,
+  EPersonDataService,
+  Group,
+  GroupDataService,
+  GroupMock,
+  GroupMock2,
+  HALEndpointService,
+  NoContent,
+  NotificationsService,
+  NotificationsServiceStub,
+  ObjectCacheService,
+  PageInfo,
+  PaginatedList,
+  RemoteData,
+  RemoteDataBuildService,
+  RouterMock,
+  UUIDService,
+  XSRFService,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
@@ -30,35 +57,6 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { DSONameService } from '@dspace/core';
-import { RemoteDataBuildService } from '@dspace/core';
-import { ObjectCacheService } from '@dspace/core';
-import { DSOChangeAnalyzer } from '@dspace/core';
-import { DSpaceObjectDataService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { EPersonDataService } from '@dspace/core';
-import { GroupDataService } from '@dspace/core';
-import { Group } from '@dspace/core';
-import { RouterMock } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { HALEndpointService } from '@dspace/core';
-import { NoContent } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { UUIDService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import {
-  GroupMock,
-  GroupMock2,
-} from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { XSRFService } from '@dspace/core';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ContextHelpDirective } from '../../../shared/context-help.directive';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';

@@ -12,6 +12,24 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  createPaginatedList,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  EntityTypeDataService,
+  Item,
+  ItemDataService,
+  ItemType,
+  LinkService,
+  NotificationsService,
+  NotificationsServiceStub,
+  ObjectUpdatesService,
+  Relationship,
+  RelationshipDataService,
+  RelationshipType,
+  RelationshipTypeDataService,
+  RouterStub,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -19,24 +37,6 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { LinkService } from '@dspace/core';
-import { EntityTypeDataService } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { ObjectUpdatesService } from '@dspace/core';
-import { RelationshipDataService } from '@dspace/core';
-import { RelationshipTypeDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { ItemType } from '@dspace/core';
-import { Relationship } from '@dspace/core';
-import { RelationshipType } from '@dspace/core';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { ThemeService } from '../../../shared/theme-support/theme.service';

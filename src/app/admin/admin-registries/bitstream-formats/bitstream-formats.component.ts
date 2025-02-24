@@ -6,6 +6,18 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
+  BitstreamFormat,
+  BitstreamFormatDataService,
+  FindListOptions,
+  getFirstCompletedRemoteData,
+  NoContent,
+  NotificationsService,
+  PaginatedList,
+  PaginationComponentOptions,
+  PaginationService,
+  RemoteData,
+} from '@dspace/core';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
@@ -18,16 +30,6 @@ import {
   toArray,
 } from 'rxjs/operators';
 
-import { BitstreamFormatDataService } from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { BitstreamFormat } from '@dspace/core';
-import { NoContent } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 
 /**

@@ -3,10 +3,12 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { Router } from '@angular/router';
+import {
+  RouterStub,
+  ViewMode,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ViewMode } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
 import { AdminNotifyMetricsComponent } from './admin-notify-metrics.component';
 
 describe('AdminNotifyMetricsComponent', () => {

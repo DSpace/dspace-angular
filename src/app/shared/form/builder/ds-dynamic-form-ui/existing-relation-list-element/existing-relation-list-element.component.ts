@@ -10,6 +10,18 @@ import {
   Output,
 } from '@angular/core';
 import {
+  getAllSucceededRemoteData,
+  getRemoteDataPayload,
+  Item,
+  ItemSearchResult,
+  RelationshipOptions,
+  RemoveRelationshipAction,
+  ReorderableRelationship,
+  SelectableListService,
+  SubmissionService,
+  ViewMode,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -21,20 +33,8 @@ import {
 import { filter } from 'rxjs/operators';
 
 import { AppState } from '../../../../../app.reducer';
-import { ItemSearchResult } from '@dspace/core';
-import { RelationshipOptions } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { ReorderableRelationship } from '@dspace/core';
-import {
-  getAllSucceededRemoteData,
-  getRemoteDataPayload,
-} from '@dspace/core';
-import { ViewMode } from '@dspace/core';
-import { RemoveRelationshipAction } from '@dspace/core';
-import { SubmissionService } from '@dspace/core';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from '../../../../object-collection/shared/listable-object/listable-object-component-loader.component';
-import { SelectableListService } from '@dspace/core';
 
 
 /**

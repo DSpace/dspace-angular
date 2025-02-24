@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core';
 import {
+  buildPaginatedList,
+  KeyValuePair,
+  PageInfo,
+  PaginatedList,
+  PaginationComponentOptions,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -15,13 +22,6 @@ import {
   AppState,
   keySelector,
 } from '../../app.reducer';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { KeyValuePair } from '@dspace/core';
 import {
   AddAllCSSVariablesAction,
   AddCSSVariableAction,

@@ -1,8 +1,10 @@
 import { CanActivateFn } from '@angular/router';
+import {
+  dsoPageSingleFeatureGuard,
+  FeatureID,
+} from '@dspace/core';
 import { of as observableOf } from 'rxjs';
 
-import { dsoPageSingleFeatureGuard } from '@dspace/core';
-import { FeatureID } from '@dspace/core';
 import { collectionPageResolver } from './collection-page.resolver';
 
 /**

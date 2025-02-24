@@ -1,5 +1,7 @@
-import { ConfigurationProperty } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import {
+  ConfigurationProperty,
+  createSuccessfulRemoteDataObject$,
+} from '@dspace/core';
 
 export function getMockFindByIdDataService(propertyKey: string, ...values: string[]) {
   return jasmine.createSpyObj('findByIdDataService', {

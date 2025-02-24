@@ -16,6 +16,17 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  createFailedRemoteDataObject$,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  Item,
+  NotificationsService,
+  NotificationsServiceStub,
+  ResearcherProfile,
+  ResearcherProfileDataService,
+  TranslateLoaderMock,
+} from '@dspace/core';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
@@ -25,17 +36,6 @@ import { Operation } from 'fast-json-patch';
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
-import { TranslateLoaderMock } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { ResearcherProfile } from '@dspace/core';
-import { ResearcherProfileDataService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { OrcidSyncSettingsComponent } from './orcid-sync-settings.component';
 
 describe('OrcidSyncSettingsComponent test suite', () => {

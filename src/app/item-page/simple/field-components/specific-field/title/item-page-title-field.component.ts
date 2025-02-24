@@ -3,10 +3,11 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import {
+  DSONameService,
+  Item,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
-
-import { DSONameService } from '@dspace/core';
-import { Item } from '@dspace/core';
 
 @Component({
   selector: 'ds-base-item-page-title-field',

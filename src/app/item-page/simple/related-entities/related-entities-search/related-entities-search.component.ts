@@ -3,10 +3,12 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import {
+  getFilterByRelation,
+  Item,
+} from '@dspace/core';
 import { isNotEmpty } from '@dspace/shared/utils';
 
-import { Item } from '@dspace/core';
-import { getFilterByRelation } from '@dspace/core';
 import { ThemedConfigurationSearchPageComponent } from '../../../../search-page/themed-configuration-search-page.component';
 
 @Component({

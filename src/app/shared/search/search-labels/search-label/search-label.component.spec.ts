@@ -13,21 +13,23 @@ import {
   RouterLink,
   RouterModule,
 } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  addOperatorToFilterValue,
+  AppliedFilter,
+  PaginationComponentOptions,
+  PaginationService,
+  PaginationServiceStub,
+  SearchConfigurationService,
+  SearchConfigurationServiceStub,
+  SearchFilterService,
+  SearchFilterServiceStub,
+  SearchService,
+  SearchServiceStub,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { PaginationService } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { AppliedFilter } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import { SearchFilterService } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
-import { SearchConfigurationServiceStub } from '@dspace/core';
-import { SearchFilterServiceStub } from '@dspace/core';
-import { SearchServiceStub } from '@dspace/core';
 import { ObjectKeysPipe } from '../../../utils/object-keys-pipe';
-import { addOperatorToFilterValue } from '@dspace/core';
 import { SearchLabelComponent } from './search-label.component';
 
 describe('SearchLabelComponent', () => {

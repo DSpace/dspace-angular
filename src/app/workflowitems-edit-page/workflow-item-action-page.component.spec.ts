@@ -17,6 +17,21 @@ import {
   Router,
 } from '@angular/router';
 import {
+  ActivatedRouteStub,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  LocationStub,
+  NotificationsService,
+  NotificationsServiceStub,
+  RequestService,
+  RequestServiceStub,
+  RouterStub,
+  RouteService,
+  TranslateLoaderMock,
+  WorkflowItem,
+  WorkflowItemDataService,
+} from '@dspace/core';
+import {
   TranslateLoader,
   TranslateModule,
   TranslateService,
@@ -26,21 +41,6 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { RequestService } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { WorkflowItem } from '@dspace/core';
-import { WorkflowItemDataService } from '@dspace/core';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { LocationStub } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { RequestServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
 import { ModifyItemOverviewComponent } from '../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 import { VarDirective } from '../shared/utils/var.directive';
 import { WorkflowItemActionPageDirective } from './workflow-item-action-page.component';

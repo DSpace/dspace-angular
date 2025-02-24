@@ -11,12 +11,14 @@ import {
   FormsModule,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
+import {
+  DSONameService,
+  DSpaceObject,
+  ViewMode,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DSONameService } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { CollectionElementLinkType } from '../../object-collection/collection-element-link.type';
 import { ListableObjectComponentLoaderComponent } from '../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { ClickOutsideDirective } from '../../utils/click-outside.directive';

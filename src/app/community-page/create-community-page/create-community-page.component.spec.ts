@@ -7,15 +7,17 @@ import {
 } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  AuthService,
+  CommunityDataService,
+  NotificationsService,
+  NotificationsServiceStub,
+  RequestService,
+  RouteService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '@dspace/core';
-import { CommunityDataService } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
 import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
 import { CommunityFormComponent } from '../community-form/community-form.component';
 import { CreateCommunityPageComponent } from './create-community-page.component';

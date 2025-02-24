@@ -1,10 +1,10 @@
+import { SuggestionTarget } from '@dspace/core';
 import {
   createFeatureSelector,
   createSelector,
   MemoizedSelector,
 } from '@ngrx/store';
 
-import { SuggestionTarget } from '@dspace/core';
 import { subStateSelector } from '../../shared/selector.util';
 import {
   suggestionNotificationsSelector,

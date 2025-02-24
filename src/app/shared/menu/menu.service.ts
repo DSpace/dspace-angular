@@ -5,6 +5,27 @@ import {
   Router,
 } from '@angular/router';
 import {
+  ActivateMenuSectionAction,
+  AddMenuSectionAction,
+  CollapseMenuAction,
+  CollapseMenuPreviewAction,
+  compareArraysUsingIds,
+  DeactivateMenuSectionAction,
+  ExpandMenuAction,
+  ExpandMenuPreviewAction,
+  HideMenuAction,
+  HideMenuSectionAction,
+  MenuID,
+  MenuSection,
+  MenuSections,
+  MenuState,
+  RemoveMenuSectionAction,
+  ShowMenuAction,
+  ShowMenuSectionAction,
+  ToggleActiveMenuSectionAction,
+  ToggleMenuAction,
+} from '@dspace/core';
+import {
   hasNoValue,
   hasValue,
   hasValueOperator,
@@ -33,27 +54,6 @@ import {
   AppState,
   keySelector,
 } from '../../app.reducer';
-import { compareArraysUsingIds } from '@dspace/core';
-import {
-  ActivateMenuSectionAction,
-  AddMenuSectionAction,
-  CollapseMenuAction,
-  CollapseMenuPreviewAction,
-  DeactivateMenuSectionAction,
-  ExpandMenuAction,
-  ExpandMenuPreviewAction,
-  HideMenuAction,
-  HideMenuSectionAction,
-  RemoveMenuSectionAction,
-  ShowMenuAction,
-  ShowMenuSectionAction,
-  ToggleActiveMenuSectionAction,
-  ToggleMenuAction,
-} from '@dspace/core';
-import { MenuID } from '@dspace/core';
-import { MenuSection } from '@dspace/core';
-import { MenuSections } from '@dspace/core';
-import { MenuState } from '@dspace/core';
 
 export function menuKeySelector<T>(key: string, selector): MemoizedSelector<MenuState, T> {
   return createSelector(selector, (state) => {

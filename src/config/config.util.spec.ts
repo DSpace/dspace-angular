@@ -1,5 +1,8 @@
-import { DefaultAppConfig } from '@dspace/core';
-import { HandleThemeConfig } from '@dspace/core';
+import {
+  DefaultAppConfig,
+  HandleThemeConfig,
+} from '@dspace/core';
+
 import { environment } from '../environments/environment.production';
 import { extendEnvironmentWithAppConfig } from './config.util';
 

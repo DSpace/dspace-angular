@@ -5,15 +5,17 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  APP_DATA_SERVICES_MAP,
+  AuthService,
+  XSRFService,
+} from '@dspace/core';
 import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '@dspace/core';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { XSRFService } from '@dspace/core';
 import { AuthServiceMock } from '../shared/mocks/auth.service.mock';
 import { LoginPageComponent } from './login-page.component';
 

@@ -5,15 +5,17 @@ import {
   RouterLink,
 } from '@angular/router';
 import {
+  getFirstCompletedRemoteData,
+  Item,
+  ItemDataService,
+  NotificationsService,
+  RemoteData,
+} from '@dspace/core';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 
-import { ItemDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
 import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
 import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';
 

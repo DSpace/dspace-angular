@@ -4,9 +4,9 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
+import { MenuSection } from '@dspace/core';
 import { Observable } from 'rxjs';
 
-import { MenuSection } from '@dspace/core';
 import { DSOEditMenuResolverService } from './dso-edit-menu-resolver.service';
 
 /**

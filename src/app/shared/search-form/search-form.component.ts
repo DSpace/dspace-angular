@@ -9,6 +9,17 @@ import {
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
+  currentPath,
+  DSONameService,
+  DSpaceObject,
+  DSpaceObjectDataService,
+  getFirstSucceededRemoteDataPayload,
+  PaginationService,
+  SearchConfigurationService,
+  SearchFilterService,
+  SearchService,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -20,16 +31,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { DSONameService } from '@dspace/core';
-import { DSpaceObjectDataService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import { SearchFilterService } from '@dspace/core';
 import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
-import { currentPath } from '@dspace/core';
 import { ScopeSelectorModalComponent } from './scope-selector-modal/scope-selector-modal.component';
 
 @Component({

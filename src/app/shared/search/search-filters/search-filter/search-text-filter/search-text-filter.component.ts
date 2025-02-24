@@ -4,10 +4,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { addOperatorToFilterValue } from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { FilterInputSuggestionsComponent } from '../../../../input-suggestions/filter-suggestions/filter-input-suggestions.component';
-import { addOperatorToFilterValue } from '@dspace/core';
 import {
   facetLoad,
   SearchFacetFilterComponent,

@@ -7,17 +7,19 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import {
+  NotificationsService,
+  RequestService,
+  SearchService,
+  WorkflowItem,
+  WorkflowItemDataService,
+} from '@dspace/core';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 
-import { RequestService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { WorkflowItem } from '@dspace/core';
-import { WorkflowItemDataService } from '@dspace/core';
 import { getWorkflowItemViewRoute } from '../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
 

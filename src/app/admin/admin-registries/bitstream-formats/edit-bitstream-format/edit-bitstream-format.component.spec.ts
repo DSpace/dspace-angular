@@ -10,22 +10,22 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  BitstreamFormat,
+  BitstreamFormatDataService,
+  BitstreamFormatSupportLevel,
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  NotificationsService,
+  NotificationsServiceStub,
+  RemoteData,
+  RouterStub,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { BitstreamFormatDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { BitstreamFormat } from '@dspace/core';
-import { BitstreamFormatSupportLevel } from '@dspace/core';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
 import { FormatFormComponent } from '../format-form/format-form.component';
 import { EditBitstreamFormatComponent } from './edit-bitstream-format.component';
 

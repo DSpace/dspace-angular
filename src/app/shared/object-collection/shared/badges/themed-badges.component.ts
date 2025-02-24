@@ -2,9 +2,11 @@ import {
   Component,
   Input,
 } from '@angular/core';
-import { Context } from '@dspace/core';
+import {
+  Context,
+  DSpaceObject,
+} from '@dspace/core';
 
-import { DSpaceObject } from '@dspace/core';
 import { ThemedComponent } from '../../../theme-support/themed.component';
 import { BadgesComponent } from './badges.component';
 

@@ -9,22 +9,24 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  AppliedFilter,
+  FilterType,
+  PaginationComponentOptions,
+  PaginationService,
+  PaginationServiceStub,
+  RouterStub,
+  SearchConfigurationService,
+  SearchConfigurationServiceStub,
+  SearchFilterConfig,
+  SearchFilterService,
+  SearchFilterServiceStub,
+  SearchService,
+  SearchServiceStub,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { PaginationService } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { AppliedFilter } from '@dspace/core';
-import { FilterType } from '@dspace/core';
-import { SearchFilterConfig } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import { SearchFilterService } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
-import { SearchConfigurationServiceStub } from '@dspace/core';
-import { SearchFilterServiceStub } from '@dspace/core';
-import { SearchServiceStub } from '@dspace/core';
 import { SearchFacetSelectedOptionComponent } from './search-facet-selected-option.component';
 
 describe('SearchFacetSelectedOptionComponent', () => {

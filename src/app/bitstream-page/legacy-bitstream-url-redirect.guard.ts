@@ -6,16 +6,18 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
+import {
+  Bitstream,
+  BitstreamDataService,
+  getFirstCompletedRemoteData,
+  HardRedirectService,
+  RemoteData,
+} from '@dspace/core';
 import { hasNoValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { PAGE_NOT_FOUND_PATH } from '../app-routing-paths';
-import { BitstreamDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { HardRedirectService } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
 
 /**
  * Redirects to a bitstream based on the handle of the item, and the sequence id or the filename of the

@@ -3,6 +3,15 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import {
+  BrowseDefinition,
+  BrowseDefinitionDataService,
+  BrowseService,
+  getFirstCompletedRemoteData,
+  getPaginatedListPayload,
+  getRemoteDataPayload,
+  Item,
+} from '@dspace/core';
 import intersectionWith from 'lodash/intersectionWith';
 import { Observable } from 'rxjs';
 import {
@@ -11,15 +20,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { BrowseService } from '@dspace/core';
-import { BrowseDefinitionDataService } from '@dspace/core';
-import { BrowseDefinition } from '@dspace/core';
-import { Item } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getPaginatedListPayload,
-  getRemoteDataPayload,
-} from '@dspace/core';
 import { MetadataValuesComponent } from '../../../field-components/metadata-values/metadata-values.component';
 import { ImageField } from './image-field';
 

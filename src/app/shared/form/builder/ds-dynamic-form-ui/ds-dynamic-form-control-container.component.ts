@@ -31,6 +31,39 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import {
+  APP_CONFIG,
+  AppConfig,
+  Collection,
+  CoreState,
+  DSpaceObject,
+  followLink,
+  FormFieldMetadataValueObject,
+  getAllSucceededRemoteData,
+  getFirstSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  getPaginatedListPayload,
+  getRemoteDataPayload,
+  Item,
+  itemLinksToFollow,
+  ItemSearchResult,
+  MetadataService,
+  MetadataValue,
+  PaginatedList,
+  paginatedRelationsToItems,
+  Relationship,
+  RelationshipDataService,
+  RelationshipOptions,
+  RemoteData,
+  ReorderableRelationship,
+  SearchResult,
+  SelectableListService,
+  SelectableListState,
+  SubmissionObject,
+  SubmissionObjectDataService,
+  SubmissionService,
+  VIRTUAL_METADATA_PREFIX,
+} from '@dspace/core';
+import {
   hasNoValue,
   hasValue,
   isNotEmpty,
@@ -77,45 +110,8 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/core';
-import { CoreState } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RelationshipDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { MetadataService } from '@dspace/core';
-import { ItemSearchResult } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { RelationshipOptions } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { paginatedRelationsToItems } from '@dspace/core';
-import { Relationship } from '@dspace/core';
-import { ReorderableRelationship } from '@dspace/core';
-import {
-  MetadataValue,
-  VIRTUAL_METADATA_PREFIX,
-} from '@dspace/core';
-import {
-  getAllSucceededRemoteData,
-  getFirstSucceededRemoteData,
-  getFirstSucceededRemoteDataPayload,
-  getPaginatedListPayload,
-  getRemoteDataPayload,
-} from '@dspace/core';
-import { SearchResult } from '@dspace/core';
-import { SubmissionObject } from '@dspace/core';
-import { SubmissionObjectDataService } from '@dspace/core';
-import { itemLinksToFollow } from '@dspace/core';
-import { SubmissionService } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
-import { SelectableListState } from '@dspace/core';
-import { SelectableListService } from '@dspace/core';
 import { FormBuilderService } from '../form-builder.service';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
 import { ExistingMetadataListElementComponent } from './existing-metadata-list-element/existing-metadata-list-element.component';
 import { ExistingRelationListElementComponent } from './existing-relation-list-element/existing-relation-list-element.component';

@@ -13,6 +13,11 @@ import {
   RouterLinkActive,
 } from '@angular/router';
 import {
+  currentPath,
+  SearchService,
+  ViewMode,
+} from '@dspace/core';
+import {
   isEmpty,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -20,10 +25,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-import { SearchService } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
-import { currentPath } from '@dspace/core';
 
 /**
  * Component to switch between list and grid views.

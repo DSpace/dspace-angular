@@ -1,8 +1,8 @@
 /* eslint-disable max-classes-per-file */
 
+import { type } from '@dspace/core';
 import { Action } from '@ngrx/store';
 
-import { type } from '@dspace/core';
 import { ContextHelp } from './context-help.model';
 
 export const ContextHelpActionTypes = {

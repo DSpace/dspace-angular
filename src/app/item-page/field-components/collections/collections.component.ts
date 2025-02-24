@@ -6,6 +6,18 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import {
+  Collection,
+  CollectionDataService,
+  DSONameService,
+  FindListOptions,
+  getAllCompletedRemoteData,
+  getAllSucceededRemoteDataPayload,
+  getFirstSucceededRemoteDataPayload,
+  getPaginatedListPayload,
+  Item,
+  PaginatedList,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -22,18 +34,6 @@ import {
   withLatestFrom,
 } from 'rxjs/operators';
 
-import { DSONameService } from '@dspace/core';
-import { CollectionDataService } from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { Item } from '@dspace/core';
-import {
-  getAllCompletedRemoteData,
-  getAllSucceededRemoteDataPayload,
-  getFirstSucceededRemoteDataPayload,
-  getPaginatedListPayload,
-} from '@dspace/core';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 
 /**

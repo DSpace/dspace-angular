@@ -11,6 +11,18 @@ import {
   RouterLink,
   Scroll,
 } from '@angular/router';
+import {
+  Collection,
+  CollectionDataService,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  Item,
+  ItemTemplateDataService,
+  NoContent,
+  NotificationsService,
+  RemoteData,
+  RequestService,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import {
   TranslateModule,
@@ -25,18 +37,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { CollectionDataService } from '@dspace/core';
-import { ItemTemplateDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { NoContent } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '@dspace/core';
 import { ComcolMetadataComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-metadata/comcol-metadata.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { CollectionFormComponent } from '../../collection-form/collection-form.component';

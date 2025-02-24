@@ -7,6 +7,10 @@ import {
   ActivatedRoute,
   RouterLink,
 } from '@angular/router';
+import {
+  DSpaceObject,
+  RemoteData,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
@@ -14,8 +18,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { RemoteData } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
 import { ResourcePoliciesComponent } from '../../shared/resource-policies/resource-policies.component';
 
 @Component({

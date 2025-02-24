@@ -19,6 +19,31 @@ import {
   Router,
 } from '@angular/router';
 import {
+  APP_CONFIG,
+  AppConfig,
+  Context,
+  currentPath,
+  DSpaceObject,
+  followLink,
+  getFirstCompletedRemoteData,
+  Item,
+  ListableObject,
+  PaginatedList,
+  PaginatedSearchOptions,
+  RemoteData,
+  RouteService,
+  SearchConfig,
+  SearchConfigurationService,
+  SearchFilterConfig,
+  SearchObjects,
+  SearchResult,
+  SearchService,
+  SortOptions,
+  SubmissionObject,
+  ViewMode,
+  WorkspaceItem,
+} from '@dspace/core';
+import {
   hasValue,
   hasValueOperator,
   isEmpty,
@@ -43,30 +68,6 @@ import {
 import { environment } from '../../../environments/environment';
 import { COLLECTION_MODULE_PATH } from '../../collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
-import { SortOptions } from '@dspace/core';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { ListableObject } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
-import { PaginatedSearchOptions } from '@dspace/core';
-import { SearchFilterConfig } from '@dspace/core';
-import { SearchObjects } from '@dspace/core';
-import { SearchResult } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import { SearchConfig } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
-import { SubmissionObject } from '@dspace/core';
-import { WorkspaceItem } from '@dspace/core';
 import { ITEM_MODULE_PATH } from '../../item-page/item-page-routing-paths';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { pushInOut } from '../animations/push';
@@ -75,7 +76,6 @@ import { CollectionElementLinkType } from '../object-collection/collection-eleme
 import { ThemedSearchFormComponent } from '../search-form/themed-search-form.component';
 import { PageWithSidebarComponent } from '../sidebar/page-with-sidebar.component';
 import { SidebarService } from '../sidebar/sidebar.service';
-import { currentPath } from '@dspace/core';
 import { ViewModeSwitchComponent } from '../view-mode-switch/view-mode-switch.component';
 import { SearchLabelsComponent } from './search-labels/search-labels.component';
 import { SelectionConfig } from './search-results/search-results.component';

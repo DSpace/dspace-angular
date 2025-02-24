@@ -2,11 +2,12 @@ import {
   AbstractControl,
   ValidationErrors,
 } from '@angular/forms';
+import {
+  EPersonDataService,
+  getFirstSucceededRemoteData,
+} from '@dspace/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-import { EPersonDataService } from '@dspace/core';
-import { getFirstSucceededRemoteData } from '@dspace/core';
 
 export class ValidateEmailNotTaken {
 

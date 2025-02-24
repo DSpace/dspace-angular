@@ -16,6 +16,30 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import {
+  AuthorizationDataService,
+  AuthService,
+  DSONameService,
+  EPerson,
+  EPersonDataService,
+  EpersonRegistrationService,
+  FeatureID,
+  followLink,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+  Group,
+  GroupDataService,
+  NoContent,
+  NotificationsService,
+  PageInfo,
+  PaginatedList,
+  PaginationComponentOptions,
+  PaginationService,
+  Registration,
+  RemoteData,
+  RequestService,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -42,30 +66,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { AuthService } from '@dspace/core';
-import { DSONameService } from '@dspace/core';
-import { EpersonRegistrationService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { FeatureID } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { EPersonDataService } from '@dspace/core';
-import { GroupDataService } from '@dspace/core';
-import { EPerson } from '@dspace/core';
-import { Group } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { NoContent } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { Registration } from '@dspace/core';
 import { TYPE_REQUEST_FORGOT } from '../../../register-email-form/register-email-form.component';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ConfirmationModalComponent } from '../../../shared/confirmation-modal/confirmation-modal.component';

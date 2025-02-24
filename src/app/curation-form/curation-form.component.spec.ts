@@ -12,21 +12,21 @@ import {
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import {
+  ConfigurationDataService,
+  ConfigurationProperty,
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+  NotificationsService,
+  NotificationsServiceStub,
+  Process,
+  ProcessDataService,
+  RouterStub,
+  ScriptDataService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ConfigurationDataService } from '@dspace/core';
-import { ProcessDataService } from '@dspace/core';
-import { ScriptDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Process } from '@dspace/core';
-import { ConfigurationProperty } from '@dspace/core';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
 import { getProcessDetailRoute } from '../process-page/process-page-routing.paths';
 import { HandleService } from '../shared/handle.service';
 import { CurationFormComponent } from './curation-form.component';

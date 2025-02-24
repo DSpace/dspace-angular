@@ -7,10 +7,10 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { CollectionDataService } from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { CollectionDataService } from '@dspace/core';
 import { EditCollectionPageComponent } from './edit-collection-page.component';
 
 describe('EditCollectionPageComponent', () => {

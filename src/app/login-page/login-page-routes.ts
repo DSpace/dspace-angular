@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
-
 import { i18nBreadcrumbResolver } from '@dspace/core';
+
 import { ThemedLoginPageComponent } from './themed-login-page.component';
 
 export const ROUTES: Route[] = [

@@ -12,14 +12,16 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLinkActive } from '@angular/router';
+import {
+  MenuID,
+  MenuSection,
+} from '@dspace/core';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 
 import { slide } from '../../shared/animations/slide';
 import { HostWindowService } from '../../shared/host-window.service';
 import { MenuService } from '../../shared/menu/menu.service';
-import { MenuID } from '@dspace/core';
-import { MenuSection } from '@dspace/core';
 import { HoverOutsideDirective } from '../../shared/utils/hover-outside.directive';
 import { NavbarSectionComponent } from '../navbar-section/navbar-section.component';
 

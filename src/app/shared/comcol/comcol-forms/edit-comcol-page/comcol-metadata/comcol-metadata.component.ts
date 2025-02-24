@@ -6,6 +6,17 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  Collection,
+  ComColDataService,
+  Community,
+  DSpaceObject,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  NotificationsService,
+  RemoteData,
+  ResourceType,
+} from '@dspace/core';
 import { isEmpty } from '@dspace/shared/utils';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -13,18 +24,6 @@ import {
   map,
   take,
 } from 'rxjs/operators';
-
-import { ComColDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { Community } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-} from '@dspace/core';
-import { ResourceType } from '@dspace/core';
 
 @Component({
   selector: 'ds-comcol-metadata',

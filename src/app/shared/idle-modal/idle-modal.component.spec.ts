@@ -10,12 +10,14 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  AuthService,
+  LogOutAction,
+} from '@dspace/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { LogOutAction } from '@dspace/core';
-import { AuthService } from '@dspace/core';
 import { IdleModalComponent } from './idle-modal.component';
 
 describe('IdleModalComponent', () => {

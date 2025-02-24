@@ -14,6 +14,18 @@ import {
   Data,
 } from '@angular/router';
 import {
+  APP_DATA_SERVICES_MAP,
+  ArrayMoveChangeAnalyzer,
+  DSpaceObject,
+  getFirstCompletedRemoteData,
+  lazyDataService,
+  LazyDataServicesMap,
+  NotificationsService,
+  RemoteData,
+  ResourceType,
+  UpdateDataService,
+} from '@dspace/core';
+import {
   hasNoValue,
   hasValue,
   isNotEmpty,
@@ -34,17 +46,7 @@ import {
   mergeMap,
   tap,
 } from 'rxjs/operators';
-import { LazyDataServicesMap } from '@dspace/core';
 
-import { APP_DATA_SERVICES_MAP } from '@dspace/core';
-import { ArrayMoveChangeAnalyzer } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { UpdateDataService } from '@dspace/core';
-import { lazyDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
-import { ResourceType } from '@dspace/core';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';

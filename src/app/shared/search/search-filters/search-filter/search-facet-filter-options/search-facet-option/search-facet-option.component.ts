@@ -10,22 +10,24 @@ import {
   RouterLink,
 } from '@angular/router';
 import {
+  currentPath,
+  FacetValue,
+  getFacetValueForType,
+  LiveRegionService,
+  PaginationService,
+  SearchConfigurationService,
+  SearchFilterConfig,
+  SearchFilterService,
+  SearchService,
+} from '@dspace/core';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { PaginationService } from '@dspace/core';
-import { FacetValue } from '@dspace/core';
-import { SearchFilterConfig } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import { SearchFilterService } from '@dspace/core';
-import { LiveRegionService } from '@dspace/core';
-import { currentPath } from '@dspace/core';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
-import { getFacetValueForType } from '@dspace/core';
 
 @Component({
   selector: 'ds-search-facet-option',

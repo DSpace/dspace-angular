@@ -2,10 +2,10 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
+import { VocabularyOptions } from '@dspace/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { VocabularyOptions } from '@dspace/core';
 import { VocabularyTreeviewComponent } from '../vocabulary-treeview/vocabulary-treeview.component';
 import { VocabularyTreeviewModalComponent } from './vocabulary-treeview-modal.component';
 

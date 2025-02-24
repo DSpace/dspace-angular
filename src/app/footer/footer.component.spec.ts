@@ -7,15 +7,17 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  APP_CONFIG,
+  AuthorizationDataService,
+  AuthorizationDataServiceStub,
+  NotifyInfoService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { environment } from '../../environments/environment.test';
-import { NotifyInfoService } from '@dspace/core';
-import { APP_CONFIG } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { AuthorizationDataServiceStub } from '@dspace/core';
 import { FooterComponent } from './footer.component';
 
 let comp: FooterComponent;

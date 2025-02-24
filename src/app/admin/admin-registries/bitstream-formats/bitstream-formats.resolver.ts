@@ -4,12 +4,13 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
+import {
+  BitstreamFormat,
+  BitstreamFormatDataService,
+  getFirstCompletedRemoteData,
+  RemoteData,
+} from '@dspace/core';
 import { Observable } from 'rxjs';
-
-import { BitstreamFormatDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { BitstreamFormat } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
 
 /**
  * Method for resolving an bitstreamFormat based on the parameters in the current route

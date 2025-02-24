@@ -2,9 +2,8 @@ import {
   ChangeDetectionStrategy,
   Component,
 } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
-
 import { ServerResponseService } from '@dspace/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * This component representing the `PageInternalServer` DSpace page.

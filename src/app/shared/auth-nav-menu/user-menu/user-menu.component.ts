@@ -14,6 +14,12 @@ import {
   RouterLinkActive,
 } from '@angular/router';
 import {
+  AuthService,
+  DSONameService,
+  EPerson,
+  isAuthenticationLoading,
+} from '@dspace/core';
+import {
   select,
   Store,
 } from '@ngrx/store';
@@ -25,10 +31,6 @@ import {
   getProfileModuleRoute,
   getSubscriptionsModuleRoute,
 } from '../../../app-routing-paths';
-import { AuthService } from '@dspace/core';
-import { isAuthenticationLoading } from '@dspace/core';
-import { DSONameService } from '@dspace/core';
-import { EPerson } from '@dspace/core';
 import { MYDSPACE_ROUTE } from '../../../my-dspace-page/my-dspace-page.component';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { LogOutComponent } from '../../log-out/log-out.component';

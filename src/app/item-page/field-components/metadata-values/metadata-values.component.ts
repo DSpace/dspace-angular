@@ -10,17 +10,17 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import {
+  APP_CONFIG,
+  AppConfig,
+  BrowseDefinition,
+  MetadataValue,
+  VALUE_LIST_BROWSE_DEFINITION,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../environments/environment';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/core';
-import { BrowseDefinition } from '@dspace/core';
-import { MetadataValue } from '@dspace/core';
-import { VALUE_LIST_BROWSE_DEFINITION } from '@dspace/core';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { MarkdownDirective } from '../../../shared/utils/markdown.directive';
 import { ImageField } from '../../simple/field-components/specific-field/image-field';

@@ -4,13 +4,14 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import {
+  DSpaceObject,
+  ReferrerService,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { Angulartics2 } from 'angulartics2';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
-
-import { ReferrerService } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
 
 /**
  * This component triggers a page view statistic

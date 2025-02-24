@@ -4,6 +4,10 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import {
+  AuthService,
+  LogOutAction,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
@@ -11,8 +15,6 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../environments/environment';
 import { AppState } from '../../app.reducer';
-import { LogOutAction } from '@dspace/core';
-import { AuthService } from '@dspace/core';
 
 @Component({
   selector: 'ds-idle-modal',

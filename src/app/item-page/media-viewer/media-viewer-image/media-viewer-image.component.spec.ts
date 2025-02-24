@@ -1,16 +1,18 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
+  NO_ERRORS_SCHEMA,
   TestBed,
   waitForAsync,
 } from '@angular/core';
+import {
+  AuthService,
+  Bitstream,
+  MediaViewerItem,
+  MockBitstreamFormat1,
+} from '@dspace/core';
 import { NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '@dspace/core';
-import { MockBitstreamFormat1 } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { MediaViewerItem } from '@dspace/core';
 import { MediaViewerImageComponent } from './media-viewer-image.component';
 
 describe('MediaViewerImageComponent', () => {

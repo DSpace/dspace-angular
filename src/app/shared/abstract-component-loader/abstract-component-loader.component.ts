@@ -8,13 +8,13 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
+import { GenericConstructor } from '@dspace/core';
 import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
 import { Subscription } from 'rxjs';
 
-import { GenericConstructor } from '@dspace/core';
 import { ThemeService } from '../theme-support/theme.service';
 import { DynamicComponentLoaderDirective } from './dynamic-component-loader.directive';
 

@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  getFirstCompletedRemoteData,
+  NotificationsService,
+  Process,
+  ProcessParameter,
+  RemoteData,
+  ScriptDataService,
+} from '@dspace/core';
 import { isNotEmpty } from '@dspace/shared/utils';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { ScriptDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Process } from '@dspace/core';
-import { ProcessParameter } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
 import { getProcessDetailRoute } from '../../process-page/process-page-routing.paths';
 import { AccessControlFormState } from './access-control-form-container-intial-state';
 

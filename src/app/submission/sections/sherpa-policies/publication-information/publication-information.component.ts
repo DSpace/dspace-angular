@@ -3,9 +3,8 @@ import {
   Component,
   Input,
 } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
-
 import { Journal } from '@dspace/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * This component represents a section that contains the journal publication information.

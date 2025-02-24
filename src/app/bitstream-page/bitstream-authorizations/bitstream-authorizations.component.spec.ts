@@ -10,16 +10,18 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import {
+  Bitstream,
+  createSuccessfulRemoteDataObject,
+  DSpaceObject,
+  TranslateLoaderMock,
+} from '@dspace/core';
+import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { TranslateLoaderMock } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { ResourcePoliciesComponent } from '../../shared/resource-policies/resource-policies.component';
 import { BitstreamAuthorizationsComponent } from './bitstream-authorizations.component';
 

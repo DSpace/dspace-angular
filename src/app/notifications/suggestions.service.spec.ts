@@ -1,21 +1,21 @@
+import {
+  createSuccessfulRemoteDataObject$,
+  FindListOptions,
+  followLink,
+  ResearcherProfile,
+  ResearcherProfileDataService,
+  ResourceType,
+  SortDirection,
+  SortOptions,
+  SuggestionDataService,
+  SuggestionTarget,
+  SuggestionTargetDataService,
+  WorkspaceitemDataService,
+} from '@dspace/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import {
-  SortDirection,
-  SortOptions,
-} from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { SuggestionTarget } from '@dspace/core';
-import { SuggestionDataService } from '@dspace/core';
-import { SuggestionTargetDataService } from '@dspace/core';
-import { ResearcherProfile } from '@dspace/core';
-import { ResearcherProfileDataService } from '@dspace/core';
-import { ResourceType } from '@dspace/core';
-import { WorkspaceitemDataService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { mockSuggestionPublicationOne } from '../shared/mocks/publication-claim.mock';
 import { SuggestionsService } from './suggestions.service';
 

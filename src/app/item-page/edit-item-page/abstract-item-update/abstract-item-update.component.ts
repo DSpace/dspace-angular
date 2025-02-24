@@ -10,6 +10,18 @@ import {
   Data,
   Router,
 } from '@angular/router';
+import {
+  APP_CONFIG,
+  FieldUpdate,
+  FieldUpdates,
+  getAllSucceededRemoteData,
+  getItemPageLinksToFollow,
+  Item,
+  ItemDataService,
+  NotificationsService,
+  ObjectUpdatesService,
+  RemoteData,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -25,16 +37,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
-import { APP_CONFIG } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { FieldUpdate } from '@dspace/core';
-import { FieldUpdates } from '@dspace/core';
-import { ObjectUpdatesService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { getAllSucceededRemoteData } from '@dspace/core';
-import { getItemPageLinksToFollow } from '@dspace/core';
 import { AbstractTrackableComponent } from '../../../shared/trackable/abstract-trackable.component';
 import { getItemPageRoute } from '../../item-page-routing-paths';
 

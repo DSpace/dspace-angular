@@ -6,25 +6,27 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  AuthorizationDataService,
+  ConfigurationDataService,
+  ConfigurationProperty,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  FeatureID,
+  GroupDataService,
+  HostWindowServiceStub,
+  Item,
+  LinkHeadService,
+  ObjectSelectServiceStub,
+  PaginationComponentOptions,
+  PaginationService,
+  PaginationServiceStub,
+  SearchConfigurationService,
+  SearchConfigurationServiceStub,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { ConfigurationDataService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { FeatureID } from '@dspace/core';
-import { GroupDataService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { LinkHeadService } from '@dspace/core';
-import { ConfigurationProperty } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { HostWindowServiceStub } from '@dspace/core';
-import { ObjectSelectServiceStub } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
-import { SearchConfigurationServiceStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { HostWindowService } from '../../host-window.service';
 import { ObjectSelectService } from '../object-select.service';

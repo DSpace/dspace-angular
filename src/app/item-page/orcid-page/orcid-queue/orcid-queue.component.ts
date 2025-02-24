@@ -7,6 +7,20 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
+import {
+  getFirstCompletedRemoteData,
+  Item,
+  NotificationsService,
+  OrcidAuthService,
+  OrcidHistory,
+  OrcidHistoryDataService,
+  OrcidQueue,
+  OrcidQueueDataService,
+  PaginatedList,
+  PaginationComponentOptions,
+  PaginationService,
+  RemoteData,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -26,18 +40,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { OrcidHistory } from '@dspace/core';
-import { OrcidQueue } from '@dspace/core';
-import { OrcidAuthService } from '@dspace/core';
-import { OrcidHistoryDataService } from '@dspace/core';
-import { OrcidQueueDataService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';

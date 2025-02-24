@@ -18,6 +18,25 @@ import {
   Router,
 } from '@angular/router';
 import {
+  APP_CONFIG,
+  AppConfig,
+  BrowseByDataType,
+  BrowseEntry,
+  BrowseEntrySearchOptions,
+  BrowseService,
+  Context,
+  DSONameService,
+  DSpaceObjectDataService,
+  getFirstSucceededRemoteData,
+  Item,
+  PaginatedList,
+  PaginationComponentOptions,
+  PaginationService,
+  RemoteData,
+  SortDirection,
+  SortOptions,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -36,29 +55,8 @@ import {
 import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-by.component';
 
 import { environment } from '../../../environments/environment';
-import { DSONameService } from '@dspace/core';
-import { BrowseService } from '@dspace/core';
-import { BrowseEntrySearchOptions } from '@dspace/core';
-import {
-  SortDirection,
-  SortOptions,
-} from '@dspace/core';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/core';
-import { DSpaceObjectDataService } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { BrowseEntry } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { getFirstSucceededRemoteData } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { StartsWithType } from '../../shared/starts-with/starts-with-type';
-import { BrowseByDataType } from '@dspace/core';
 
 export const BBM_PAGINATION_ID = 'bbm';
 

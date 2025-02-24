@@ -15,6 +15,16 @@ import {
   By,
 } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  createSuccessfulRemoteDataObject$,
+  ITEM,
+  Item,
+  NotificationsService,
+  Subscription,
+  subscriptionMock,
+  SubscriptionsDataService,
+} from '@dspace/core';
+// Import mocks
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
@@ -22,22 +32,11 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-// Import mocks
-import { TranslateLoaderMock } from '@dspace/core';
-// Import utils
-import { NotificationsService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { ITEM } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import {
-  findByEPersonAndDsoResEmpty,
-  subscriptionMock,
-} from '@dspace/core';
+import { TranslateLoaderMock } from '../../../../../modules/core/src/lib/core/mocks/translate-loader.mock';
+import { NotificationsServiceStub } from '../../../../../modules/core/src/lib/core/utilities/testing/notifications-service.stub';
+import { findByEPersonAndDsoResEmpty } from '../../../../../modules/core/src/lib/core/utilities/testing/subscriptions-data.mock';
 import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { ThemeService } from '../../theme-support/theme.service';
-import { Subscription } from '@dspace/core';
-import { SubscriptionsDataService } from '@dspace/core';
 import { SubscriptionViewComponent } from './subscription-view.component';
 
 describe('SubscriptionViewComponent', () => {

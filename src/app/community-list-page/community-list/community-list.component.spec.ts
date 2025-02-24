@@ -15,6 +15,14 @@ import { By } from '@angular/platform-browser';
 import { RouterLinkWithHref } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
+  buildPaginatedList,
+  Collection,
+  Community,
+  createSuccessfulRemoteDataObject$,
+  PageInfo,
+  TranslateLoaderMock,
+} from '@dspace/core';
+import {
   isEmpty,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -25,12 +33,6 @@ import {
 import { of as observableOf } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
-import { buildPaginatedList } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { Community } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { TruncatableComponent } from '../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../shared/truncatable/truncatable-part/truncatable-part.component';

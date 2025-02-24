@@ -14,6 +14,21 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  AuthorizationDataService,
+  FeatureID,
+  getAllSucceededRemoteDataPayload,
+  HeadLinkDefinition,
+  Item,
+  ItemDataService,
+  LinkHeadService,
+  NotifyInfoService,
+  RemoteData,
+  ServerResponseService,
+  SignpostingDataService,
+  SignpostingLink,
+  ViewMode,
+} from '@dspace/core';
 import { isNotEmpty } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -26,22 +41,7 @@ import {
   switchMap,
   take,
 } from 'rxjs/operators';
-import { NotifyInfoService } from '@dspace/core';
 
-import { AuthorizationDataService } from '@dspace/core';
-import { FeatureID } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { SignpostingDataService } from '@dspace/core';
-import { SignpostingLink } from '@dspace/core';
-import {
-  HeadLinkDefinition,
-  LinkHeadService,
-} from '@dspace/core';
-import { ServerResponseService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { getAllSucceededRemoteDataPayload } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { fadeInOut } from '../../shared/animations/fade';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';

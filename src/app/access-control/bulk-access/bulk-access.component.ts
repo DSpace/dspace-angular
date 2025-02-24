@@ -3,6 +3,10 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import {
+  SelectableListService,
+  SelectableListState,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -15,8 +19,6 @@ import {
 
 import { BulkAccessControlService } from '../../shared/access-control-form-container/bulk-access-control.service';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import { SelectableListState } from '@dspace/core';
-import { SelectableListService } from '@dspace/core';
 import { BulkAccessBrowseComponent } from './browse/bulk-access-browse.component';
 import { BulkAccessSettingsComponent } from './settings/bulk-access-settings.component';
 

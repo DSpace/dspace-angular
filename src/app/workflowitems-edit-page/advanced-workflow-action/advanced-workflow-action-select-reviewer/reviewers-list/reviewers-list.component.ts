@@ -20,6 +20,18 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import {
+  DSONameService,
+  EPerson,
+  EPersonDataService,
+  EpersonDtoModel,
+  getFirstSucceededRemoteDataPayload,
+  Group,
+  GroupDataService,
+  NotificationsService,
+  PaginatedList,
+  PaginationService,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import {
   TranslateModule,
@@ -34,16 +46,6 @@ import {
   EPersonListActionConfig,
   MembersListComponent,
 } from '../../../../access-control/group-registry/group-form/members-list/members-list.component';
-import { DSONameService } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { EPersonDataService } from '@dspace/core';
-import { GroupDataService } from '@dspace/core';
-import { EPerson } from '@dspace/core';
-import { EpersonDtoModel } from '@dspace/core';
-import { Group } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';

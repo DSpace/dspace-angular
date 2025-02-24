@@ -4,13 +4,15 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import {
+  Collection,
+  Context,
+  ExternalSource,
+  Item,
+  ListableObject,
+  RelationshipOptions,
+} from '@dspace/core';
 
-import { ListableObject } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { ExternalSource } from '@dspace/core';
-import { RelationshipOptions } from '@dspace/core';
-import { Item } from '@dspace/core';
 import { ThemedComponent } from '../../../../../theme-support/themed.component';
 import { DsDynamicLookupRelationExternalSourceTabComponent } from './dynamic-lookup-relation-external-source-tab.component';
 

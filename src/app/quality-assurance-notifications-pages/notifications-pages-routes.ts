@@ -1,8 +1,10 @@
 import { Route } from '@angular/router';
+import {
+  authenticatedGuard,
+  i18nBreadcrumbResolver,
+  qualityAssuranceBreadcrumbResolver,
+} from '@dspace/core';
 
-import { authenticatedGuard } from '@dspace/core';
-import { i18nBreadcrumbResolver } from '@dspace/core';
-import { qualityAssuranceBreadcrumbResolver } from '@dspace/core';
 import {
   NOTIFICATIONS_RECITER_SUGGESTION_PATH,
   QUALITY_ASSURANCE_EDIT_PATH,

@@ -4,6 +4,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { MenuID } from '@dspace/core';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -17,7 +18,6 @@ import {
 import { ImpersonateNavbarComponent } from '../shared/impersonate-navbar/impersonate-navbar.component';
 import { ThemedLangSwitchComponent } from '../shared/lang-switch/themed-lang-switch.component';
 import { MenuService } from '../shared/menu/menu.service';
-import { MenuID } from '@dspace/core';
 import { ContextHelpToggleComponent } from './context-help-toggle/context-help-toggle.component';
 
 /**

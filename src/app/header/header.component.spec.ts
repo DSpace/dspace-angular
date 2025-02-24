@@ -8,16 +8,18 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  HostWindowServiceStub,
+  LocaleService,
+  MenuServiceStub,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   of as observableOf,
   of,
 } from 'rxjs';
 
-import { LocaleService } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { HostWindowServiceStub } from '@dspace/core';
-import { MenuServiceStub } from '@dspace/core';
 import { ThemedSearchNavbarComponent } from '../search-navbar/themed-search-navbar.component';
 import { ThemedAuthNavMenuComponent } from '../shared/auth-nav-menu/themed-auth-nav-menu.component';
 import { HostWindowService } from '../shared/host-window.service';

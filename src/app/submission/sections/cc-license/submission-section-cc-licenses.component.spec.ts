@@ -5,24 +5,26 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  ConfigurationDataService,
+  ConfigurationProperty,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  JsonPatchOperationsBuilder,
+  SectionDataObject,
+  SectionsType,
+  SUBMISSION_CC_LICENSE,
+  SubmissionCcLicence,
+  SubmissionCcLicenseDataService,
+  SubmissionCcLicenseUrlDataService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { FormBuilderService } from 'src/app/shared/form/builder/form-builder.service';
 
-import { ConfigurationDataService } from '@dspace/core';
-import { JsonPatchOperationsBuilder } from '@dspace/core';
-import { ConfigurationProperty } from '@dspace/core';
-import { SUBMISSION_CC_LICENSE } from '@dspace/core';
-import { SubmissionCcLicence } from '@dspace/core';
-import { SubmissionCcLicenseDataService } from '@dspace/core';
-import { SubmissionCcLicenseUrlDataService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { SectionDataObject } from '@dspace/core';
 import { SectionsService } from '../sections.service';
-import { SectionsType } from '@dspace/core';
 import { SubmissionSectionCcLicensesComponent } from './submission-section-cc-licenses.component';
 
 describe('SubmissionSectionCcLicensesComponent', () => {

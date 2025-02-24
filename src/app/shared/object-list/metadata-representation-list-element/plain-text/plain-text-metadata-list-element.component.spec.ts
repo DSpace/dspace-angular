@@ -9,10 +9,12 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  MetadatumRepresentation,
+  mockData,
+} from '@dspace/core';
 
-import { MetadatumRepresentation } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { mockData } from '@dspace/core';
 import { PlainTextMetadataListElementComponent } from './plain-text-metadata-list-element.component';
 
 // Render the mock representation with the default mock author browse definition so it is also rendered as a link

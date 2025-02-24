@@ -1,4 +1,5 @@
 import { SubmissionObjectError } from '@dspace/core';
+
 import {
   default as parseSectionErrorPaths,
   SectionErrorPath,

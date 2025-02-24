@@ -15,23 +15,23 @@ import {
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  ActivatedRouteStub,
+  authMethodsMock,
+  AuthorizationDataService,
+  authReducer,
+  AuthService,
+  AuthServiceStub,
+  createTestComponent,
+  HardRedirectService,
+  NativeWindowMockFactory,
+  NativeWindowService,
+} from '@dspace/core';
 import { StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { authReducer } from '@dspace/core';
-import { AuthService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { NativeWindowMockFactory } from '@dspace/core';
-import { HardRedirectService } from '@dspace/core';
-import { NativeWindowService } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import {
-  authMethodsMock,
-  AuthServiceStub,
-} from '@dspace/core';
-import { createTestComponent } from '@dspace/core';
 import { getMockThemeService } from '../mocks/theme-service.mock';
 import { ThemeService } from '../theme-support/theme.service';
 import { LogInComponent } from './log-in.component';

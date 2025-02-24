@@ -5,13 +5,14 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
+import {
+  AuthService,
+  EpersonRegistrationService,
+  getFirstCompletedRemoteData,
+  redirectOn4xx,
+} from '@dspace/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-import { AuthService } from '@dspace/core';
-import { EpersonRegistrationService } from '@dspace/core';
-import { redirectOn4xx } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
 
 /**
  * A guard responsible for redirecting to 4xx pages upon retrieving a Registration object

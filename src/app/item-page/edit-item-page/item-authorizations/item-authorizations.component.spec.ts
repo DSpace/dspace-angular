@@ -10,23 +10,21 @@ import {
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
+import {
+  Bitstream,
+  Bundle,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  createTestComponent,
+  getMockLinkService,
+  Item,
+  LinkService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { LinkService } from '@dspace/core';
-import { getMockLinkService } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { Bundle } from '@dspace/core';
-import { Item } from '@dspace/core';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import {
-  createPaginatedList,
-  createTestComponent,
-} from '@dspace/core';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ResourcePoliciesComponent } from '../../../shared/resource-policies/resource-policies.component';
 import { ItemAuthorizationsComponent } from './item-authorizations.component';

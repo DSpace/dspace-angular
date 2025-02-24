@@ -6,6 +6,16 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  Collection,
+  ComColDataService,
+  Community,
+  DSONameService,
+  getFirstCompletedRemoteData,
+  NoContent,
+  NotificationsService,
+  RemoteData,
+} from '@dspace/core';
 import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -15,15 +25,6 @@ import {
   first,
   map,
 } from 'rxjs/operators';
-
-import { DSONameService } from '@dspace/core';
-import { ComColDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { Community } from '@dspace/core';
-import { NoContent } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
 
 /**
  * Component representing the delete page for communities and collections

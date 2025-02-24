@@ -10,16 +10,18 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  AuthService,
+  DSONameService,
+  DSpaceObjectDataService,
+  Site,
+  SiteDataService,
+  UsageReport,
+  UsageReportDataService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '@dspace/core';
-import { DSONameService } from '@dspace/core';
-import { DSpaceObjectDataService } from '@dspace/core';
-import { SiteDataService } from '@dspace/core';
-import { Site } from '@dspace/core';
-import { UsageReport } from '@dspace/core';
-import { UsageReportDataService } from '@dspace/core';
 import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
 import { SiteStatisticsPageComponent } from './site-statistics-page.component';
 

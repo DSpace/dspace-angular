@@ -14,6 +14,24 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  ActionType,
+  createFailedRemoteDataObject,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  createTestComponent,
+  EPersonMock,
+  getMockLinkService,
+  GroupMock,
+  Item,
+  LinkService,
+  NotificationsService,
+  NotificationsServiceStub,
+  PolicyType,
+  ResourcePolicyDataService,
+  RouterStub,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   cold,
@@ -22,26 +40,6 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { LinkService } from '@dspace/core';
-import { getMockLinkService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { ActionType } from '@dspace/core';
-import { PolicyType } from '@dspace/core';
-import { ResourcePolicyDataService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import {
-  createFailedRemoteDataObject,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { EPersonMock } from '@dspace/core';
-import { GroupMock } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
-import {
-  createPaginatedList,
-  createTestComponent,
-} from '@dspace/core';
 import { getMockResourcePolicyService } from '../../mocks/mock-resource-policy-service';
 import {
   ResourcePolicyEvent,

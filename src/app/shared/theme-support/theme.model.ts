@@ -1,6 +1,15 @@
 /* eslint-disable max-classes-per-file */
 import { Injector } from '@angular/core';
 import {
+  DSpaceObject,
+  HandleObject,
+  HandleThemeConfig,
+  NamedThemeConfig,
+  RegExThemeConfig,
+  ThemeConfig,
+  UUIDThemeConfig,
+} from '@dspace/core';
+import {
   hasNoValue,
   hasValue,
   isNotEmpty,
@@ -16,15 +25,6 @@ import {
 } from 'rxjs/operators';
 
 import { getDSORoute } from '../../app-routing-paths';
-import {
-  HandleThemeConfig,
-  NamedThemeConfig,
-  RegExThemeConfig,
-  ThemeConfig,
-  UUIDThemeConfig,
-} from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { HandleObject } from '@dspace/core';
 import { HandleService } from '../handle.service';
 
 export class Theme {

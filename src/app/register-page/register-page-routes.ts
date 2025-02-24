@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
-
 import { endUserAgreementCookieGuard } from '@dspace/core';
+
 import { ThemedCreateProfileComponent } from './create-profile/themed-create-profile.component';
 import { ThemedRegisterEmailComponent } from './register-email/themed-register-email.component';
 import { registrationGuard } from './registration.guard';

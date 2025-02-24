@@ -1,3 +1,4 @@
+import { CSSVariableServiceStub } from '@dspace/core';
 import { Store } from '@ngrx/store';
 import { createMockStore } from '@ngrx/store/testing';
 import { MockStore } from '@ngrx/store/testing/mock_store';
@@ -7,7 +8,6 @@ import {
 } from 'jasmine-marbles';
 
 import { AppState } from '../app.reducer';
-import { CSSVariableServiceStub } from '@dspace/core';
 import {
   HostWindowService,
   WidthCategory,

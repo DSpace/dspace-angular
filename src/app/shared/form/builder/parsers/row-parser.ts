@@ -3,6 +3,13 @@ import {
   Injector,
 } from '@angular/core';
 import {
+  DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP,
+  FormFieldModel,
+  SectionVisibility,
+  SubmissionFieldScopeType,
+  SubmissionScopeType,
+} from '@dspace/core';
+import {
   isEmpty,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -12,11 +19,6 @@ import {
 } from '@ng-dynamic-forms/core';
 import uniqueId from 'lodash/uniqueId';
 
-import { FormFieldModel } from '@dspace/core';
-import { SubmissionFieldScopeType } from '@dspace/core';
-import { SubmissionScopeType } from '@dspace/core';
-import { SectionVisibility } from '@dspace/core';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '@dspace/core';
 import { DynamicRowGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import {
   CONFIG_DATA,

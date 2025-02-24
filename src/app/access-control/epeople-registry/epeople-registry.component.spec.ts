@@ -21,6 +21,25 @@ import {
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
+  AuthorizationDataService,
+  buildPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  EPerson,
+  EPersonDataService,
+  EPersonMock,
+  EPersonMock2,
+  FindListOptions,
+  NotificationsService,
+  NotificationsServiceStub,
+  PageInfo,
+  PaginatedList,
+  PaginationService,
+  PaginationServiceStub,
+  RemoteData,
+  RequestService,
+  RouterMock,
+} from '@dspace/core';
+import {
   NgbModal,
   NgbModule,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -30,27 +49,6 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { AuthorizationDataService } from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { EPersonDataService } from '@dspace/core';
-import { EPerson } from '@dspace/core';
-import { RouterMock } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import {
-  EPersonMock,
-  EPersonMock2,
-} from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';

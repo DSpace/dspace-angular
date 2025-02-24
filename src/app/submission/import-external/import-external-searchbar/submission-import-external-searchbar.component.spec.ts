@@ -9,23 +9,23 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import {
+  buildPaginatedList,
+  createSuccessfulRemoteDataObject,
+  createTestComponent,
+  ExternalSource,
+  ExternalSourceDataService,
+  FindListOptions,
+  HostWindowServiceStub,
+  PageInfo,
+  PaginatedList,
+  RequestParam,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RequestParam } from '@dspace/core';
-import { ExternalSourceDataService } from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '@dspace/core';
-import { ExternalSource } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
-import { HostWindowServiceStub } from '@dspace/core';
-import { createTestComponent } from '@dspace/core';
 import { HostWindowService } from '../../../shared/host-window.service';
 import {
   externalSourceCiencia,

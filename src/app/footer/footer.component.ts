@@ -9,6 +9,13 @@ import {
   Optional,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import {
+  APP_CONFIG,
+  AppConfig,
+  AuthorizationDataService,
+  FeatureID,
+  NotifyInfoService,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -16,13 +23,6 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { NotifyInfoService } from '@dspace/core';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { FeatureID } from '@dspace/core';
 import { OrejimeService } from '../shared/cookies/orejime.service';
 
 @Component({

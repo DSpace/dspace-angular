@@ -5,6 +5,14 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
+  AddAuthenticationMessageAction,
+  AuthenticatedAction,
+  AuthenticationSuccessAction,
+  AuthTokenInfo,
+  isAuthenticated,
+  ResetAuthenticationMessagesAction,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -20,14 +28,6 @@ import {
 } from 'rxjs/operators';
 
 import { AppState } from '../app.reducer';
-import {
-  AddAuthenticationMessageAction,
-  AuthenticatedAction,
-  AuthenticationSuccessAction,
-  ResetAuthenticationMessagesAction,
-} from '@dspace/core';
-import { AuthTokenInfo } from '@dspace/core';
-import { isAuthenticated } from '@dspace/core';
 import { ThemedLogInComponent } from '../shared/log-in/themed-log-in.component';
 
 /**

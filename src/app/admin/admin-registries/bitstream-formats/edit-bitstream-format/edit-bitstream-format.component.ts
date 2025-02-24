@@ -8,17 +8,19 @@ import {
   Router,
 } from '@angular/router';
 import {
+  BitstreamFormat,
+  BitstreamFormatDataService,
+  getFirstCompletedRemoteData,
+  NotificationsService,
+  RemoteData,
+} from '@dspace/core';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { BitstreamFormatDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { BitstreamFormat } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
 import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-paths';
 import { FormatFormComponent } from '../format-form/format-form.component';
 

@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import {
+  Bitstream,
+  Context,
+  ViewMode,
+} from '@dspace/core';
 
-import { Bitstream } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { listableObjectComponent } from '../../object-collection/shared/listable-object/listable-object.decorator';
 import { AbstractListableElementComponent } from '../../object-collection/shared/object-collection-element/abstract-listable-element.component';
 

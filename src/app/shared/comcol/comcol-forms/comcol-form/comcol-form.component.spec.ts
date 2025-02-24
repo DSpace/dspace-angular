@@ -11,6 +11,16 @@ import {
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  AuthService,
+  Community,
+  createSuccessfulRemoteDataObject$,
+  NotificationsService,
+  NotificationsServiceStub,
+  ObjectCacheService,
+  RequestService,
+  RestRequestMethod,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import {
   DynamicFormControlModel,
@@ -21,14 +31,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '@dspace/core';
-import { ObjectCacheService } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { RestRequestMethod } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Community } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
 import { FormComponent } from '../../../form/form.component';
 import { AuthServiceMock } from '../../../mocks/auth.service.mock';
 import { UploaderComponent } from '../../../upload/uploader/uploader.component';

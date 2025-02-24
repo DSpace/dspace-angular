@@ -19,6 +19,16 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import {
+  createTestComponent,
+  FormFieldMetadataValueObject,
+  mockDynamicFormLayoutService,
+  mockDynamicFormValidationService,
+  VocabularyEntry,
+  VocabularyOptions,
+  VocabularyService,
+  VocabularyServiceStub,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormLayoutService,
@@ -30,19 +40,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { of as observableOf } from 'rxjs';
 
-import { VocabularyEntry } from '@dspace/core';
-import { VocabularyOptions } from '@dspace/core';
-import { VocabularyService } from '@dspace/core';
-import {
-  mockDynamicFormLayoutService,
-  mockDynamicFormValidationService,
-} from '@dspace/core';
-import { createTestComponent } from '@dspace/core';
-import { VocabularyServiceStub } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
 import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 import { DsDynamicLookupComponent } from './dynamic-lookup.component';
 import {
   DynamicLookupModel,

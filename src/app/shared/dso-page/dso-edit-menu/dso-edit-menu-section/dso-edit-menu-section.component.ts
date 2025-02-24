@@ -6,6 +6,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import {
+  MenuID,
+  MenuSection,
+} from '@dspace/core';
 import { isNotEmpty } from '@dspace/shared/utils';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
@@ -13,8 +17,6 @@ import { MenuSectionComponent } from 'src/app/shared/menu/menu-section/menu-sect
 
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { MenuService } from '../../../menu/menu.service';
-import { MenuID } from '@dspace/core';
-import { MenuSection } from '@dspace/core';
 
 /**
  * Represents a non-expandable section in the dso edit menus

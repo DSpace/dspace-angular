@@ -5,13 +5,13 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { TranslateLoaderMock } from '@dspace/core';
 import {
   TranslateLoader,
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 
-import { TranslateLoaderMock } from '@dspace/core';
 import { LoadingComponent } from './loading.component';
 
 describe('LoadingComponent (inline template)', () => {

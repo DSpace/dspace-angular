@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
 import {
+  NotificationsService,
+  PaginatedList,
+  QualityAssuranceSourceDataService,
+  QualityAssuranceSourceObject,
+} from '@dspace/core';
+import {
   Actions,
   createEffect,
   ofType,
@@ -15,10 +21,6 @@ import {
   withLatestFrom,
 } from 'rxjs/operators';
 
-import { PaginatedList } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { QualityAssuranceSourceObject } from '@dspace/core';
-import { QualityAssuranceSourceDataService } from '@dspace/core';
 import {
   AddSourceAction,
   QualityAssuranceSourceActionTypes,

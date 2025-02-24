@@ -13,6 +13,23 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import {
+  AuthorizationDataService,
+  FeatureID,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  Item,
+  ItemDataService,
+  NotificationsService,
+  RemoteData,
+  Version,
+  VersionDataService,
+  VersionHistory,
+  VersionHistoryDataService,
+  WorkflowItemDataService,
+  WorkspaceItem,
+  WorkspaceitemDataService,
+} from '@dspace/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -32,23 +49,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { AuthorizationDataService } from '@dspace/core';
-import { FeatureID } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { VersionDataService } from '@dspace/core';
-import { VersionHistoryDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '@dspace/core';
-import { Version } from '@dspace/core';
-import { VersionHistory } from '@dspace/core';
-import { WorkspaceItem } from '@dspace/core';
-import { WorkflowItemDataService } from '@dspace/core';
-import { WorkspaceitemDataService } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import {
   getItemEditVersionhistoryRoute,

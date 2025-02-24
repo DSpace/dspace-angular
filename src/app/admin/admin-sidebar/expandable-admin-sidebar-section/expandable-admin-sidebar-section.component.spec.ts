@@ -7,12 +7,14 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
+import {
+  CSSVariableServiceStub,
+  MenuServiceStub,
+  RouterStub,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { CSSVariableServiceStub } from '@dspace/core';
-import { MenuServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
 import { MenuService } from '../../../shared/menu/menu.service';
 import { CSSVariableService } from '../../../shared/sass-helper/css-variable.service';
 import { ExpandableAdminSidebarSectionComponent } from './expandable-admin-sidebar-section.component';

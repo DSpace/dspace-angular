@@ -1,9 +1,12 @@
-import { typedObject } from '@dspace/core';
-import { TypedObject } from '@dspace/core';
-import { NotificationType } from '@dspace/core';
-import { ListableObject } from '@dspace/core';
-import { GenericConstructor } from '@dspace/core';
-import { ResourceType } from '@dspace/core';
+import {
+  GenericConstructor,
+  ListableObject,
+  NotificationType,
+  ResourceType,
+  TypedObject,
+  typedObject,
+} from '@dspace/core';
+
 import { LISTABLE_NOTIFICATION_OBJECT } from './listable-notification-object.resource-type';
 
 /**

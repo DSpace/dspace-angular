@@ -9,6 +9,13 @@ import {
   ValidationErrors,
 } from '@angular/forms';
 import {
+  getFirstSucceededRemoteData,
+  MetadataField,
+  MetadataFieldDataService,
+  PaginatedList,
+  RemoteData,
+} from '@dspace/core';
+import {
   Observable,
   of as observableOf,
   timer as observableTimer,
@@ -18,12 +25,6 @@ import {
   switchMap,
   take,
 } from 'rxjs/operators';
-
-import { MetadataFieldDataService } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { MetadataField } from '@dspace/core';
-import { getFirstSucceededRemoteData } from '@dspace/core';
 
 /**
  * Directive for validating if a ngModel value is a valid metadata field

@@ -8,6 +8,15 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import {
+  getFirstSucceededRemoteData,
+  Identifier,
+  IdentifierDataService,
+  Item,
+  ItemDataService,
+  NotificationsService,
+  RemoteData,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import {
   TranslateModule,
@@ -19,13 +28,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { Identifier } from '@dspace/core';
-import { IdentifierDataService } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { getFirstSucceededRemoteData } from '@dspace/core';
 import { getItemPageRoute } from '../../item-page-routing-paths';
 import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
 import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstract-simple-item-action.component';

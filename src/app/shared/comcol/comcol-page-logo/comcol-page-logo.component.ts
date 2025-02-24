@@ -3,7 +3,6 @@ import {
   Component,
   Input,
 } from '@angular/core';
-
 import { Bitstream } from '@dspace/core';
 
 @Component({

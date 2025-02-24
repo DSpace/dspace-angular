@@ -10,6 +10,20 @@ import {
   Router,
 } from '@angular/router';
 import {
+  Collection,
+  getAllSucceededRemoteData,
+  Item,
+  ItemDataService,
+  NotificationsService,
+  RemoteData,
+  SubmissionDefinitionsModel,
+  SubmissionError,
+  SubmissionJsonPatchOperationsService,
+  SubmissionObject,
+  SubmissionService,
+  WorkspaceitemSectionsObject,
+} from '@dspace/core';
+import {
   hasValue,
   isEmpty,
   isNotEmptyOperator,
@@ -26,19 +40,7 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { SubmissionDefinitionsModel } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { getAllSucceededRemoteData } from '@dspace/core';
-import { SubmissionObject } from '@dspace/core';
-import { WorkspaceitemSectionsObject } from '@dspace/core';
-import { SubmissionJsonPatchOperationsService } from '@dspace/core';
 import { SubmissionFormComponent } from '../form/submission-form.component';
-import { SubmissionError } from '@dspace/core';
-import { SubmissionService } from '@dspace/core';
 import parseSectionErrors from '../utils/parseSectionErrors';
 
 /**

@@ -7,10 +7,12 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  MathService,
+  MockMathService,
+} from '@dspace/core';
 
 import { environment } from '../../../environments/environment.test';
-import { MathService } from '@dspace/core';
-import { MockMathService } from '@dspace/core';
 import { MarkdownDirective } from './markdown.directive';
 
 @Component({

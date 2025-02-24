@@ -6,15 +6,17 @@ import {
   Output,
 } from '@angular/core';
 import {
+  Collection,
+  ItemType,
+  Suggestion,
+} from '@dspace/core';
+import {
   NgbDropdownModule,
   NgbModal,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
 
-import { Suggestion } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { ItemType } from '@dspace/core';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { ThemedCreateItemParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';
 import { EntityDropdownComponent } from '../../shared/entity-dropdown/entity-dropdown.component';

@@ -9,6 +9,17 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import {
+  createTestComponent,
+  getMockTranslateService,
+  NotificationsService,
+  NotificationsServiceStub,
+  SectionsServiceStub,
+  SubmissionJsonPatchOperationsService,
+  SubmissionJsonPatchOperationsServiceStub,
+  SubmissionService,
+  SubmissionServiceStub,
+} from '@dspace/core';
 import { Store } from '@ngrx/store';
 import {
   TranslateModule,
@@ -20,14 +31,6 @@ import {
 } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { getMockTranslateService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { SubmissionJsonPatchOperationsService } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { SectionsServiceStub } from '@dspace/core';
-import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core';
-import { SubmissionServiceStub } from '@dspace/core';
-import { createTestComponent } from '@dspace/core';
 import {
   mockSectionsData,
   mockSubmissionCollectionId,
@@ -39,7 +42,6 @@ import {
 } from '../../../shared/mocks/submission.mock';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
 import { SectionsService } from '../../sections/sections.service';
-import { SubmissionService } from '@dspace/core';
 import { SubmissionUploadFilesComponent } from './submission-upload-files.component';
 
 describe('SubmissionUploadFilesComponent Component', () => {

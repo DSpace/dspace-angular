@@ -2,6 +2,7 @@ import {
   qualityAssuranceTopicObjectMoreAbstract,
   qualityAssuranceTopicObjectMorePid,
 } from '@dspace/core';
+
 import {
   AddTopicsAction,
   RetrieveAllTopicsAction,

@@ -12,14 +12,16 @@ import {
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
+  SearchService,
+  SearchServiceStub,
+  TranslateLoaderMock,
+  ViewMode,
+} from '@dspace/core';
+import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { TranslateLoaderMock } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
-import { SearchServiceStub } from '@dspace/core';
 import { ViewModeSwitchComponent } from './view-mode-switch.component';
 
 @Component({

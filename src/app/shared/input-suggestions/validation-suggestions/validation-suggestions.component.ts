@@ -16,15 +16,17 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
+import {
+  InputSuggestion,
+  MetadatumViewModel,
+  ObjectUpdatesService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ObjectUpdatesService } from '@dspace/core';
-import { MetadatumViewModel } from '@dspace/core';
 import { ClickOutsideDirective } from '../../utils/click-outside.directive';
 import { DebounceDirective } from '../../utils/debounce.directive';
 import { MetadataFieldValidator } from '../../utils/metadatafield-validator.directive';
 import { InputSuggestionsComponent } from '../input-suggestions.component';
-import { InputSuggestion } from '@dspace/core';
 
 @Component({
   selector: 'ds-validation-suggestions',

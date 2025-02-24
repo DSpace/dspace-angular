@@ -8,9 +8,9 @@ import {
   Injector,
   OnInit,
 } from '@angular/core';
+import { MenuID } from '@dspace/core';
 
 import { MenuService } from '../../shared/menu/menu.service';
-import { MenuID } from '@dspace/core';
 import { MenuSectionComponent } from '../../shared/menu/menu-section/menu-section.component';
 
 /**

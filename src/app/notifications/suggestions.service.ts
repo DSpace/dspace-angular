@@ -1,5 +1,27 @@
 import { Injectable } from '@angular/core';
 import {
+  FindListOptions,
+  followLink,
+  getFinishedRemoteData,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  getFirstSucceededRemoteListPayload,
+  NoContent,
+  PaginatedList,
+  RemoteData,
+  ResearcherProfile,
+  ResearcherProfileDataService,
+  SortDirection,
+  SortOptions,
+  Suggestion,
+  SuggestionConfig,
+  SuggestionDataService,
+  SuggestionTarget,
+  SuggestionTargetDataService,
+  WorkspaceItem,
+  WorkspaceitemDataService,
+} from '@dspace/core';
+import {
   hasNoValue,
   hasValue,
   isNotEmpty,
@@ -18,30 +40,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
-import {
-  SortDirection,
-  SortOptions,
-} from '@dspace/core';
-import { SuggestionConfig } from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { Suggestion } from '@dspace/core';
-import { SuggestionTarget } from '@dspace/core';
-import { SuggestionDataService } from '@dspace/core';
-import { SuggestionTargetDataService } from '@dspace/core';
-import { ResearcherProfile } from '@dspace/core';
-import { ResearcherProfileDataService } from '@dspace/core';
-import { NoContent } from '@dspace/core';
-import {
-  getFinishedRemoteData,
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-  getFirstSucceededRemoteListPayload,
-} from '@dspace/core';
-import { WorkspaceItem } from '@dspace/core';
-import { WorkspaceitemDataService } from '@dspace/core';
 import { getSuggestionPageRoute } from '../suggestions-page/suggestions-page-routing-paths';
 
 /**

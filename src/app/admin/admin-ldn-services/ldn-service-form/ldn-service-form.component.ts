@@ -26,6 +26,20 @@ import {
   Router,
 } from '@angular/router';
 import {
+  FindListOptions,
+  getFirstCompletedRemoteData,
+  Itemfilter,
+  LDN_SERVICE,
+  LdnItemfiltersService,
+  LdnService,
+  LdnServicesService,
+  NotificationsService,
+  NotifyServicePattern,
+  PaginatedList,
+  PaginationService,
+  RemoteData,
+} from '@dspace/core';
+import {
   NgbDropdownModule,
   NgbModal,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -39,20 +53,8 @@ import {
   Observable,
   Subscription,
 } from 'rxjs';
-import { RemoteData } from '@dspace/core';
 
-import { FindListOptions } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
 import { IpV4Validator } from '../../../shared/utils/ipV4.validator';
-import { LdnItemfiltersService } from '@dspace/core';
-import { LdnServicesService } from '@dspace/core';
-import { LDN_SERVICE } from '@dspace/core';
-import { Itemfilter } from '@dspace/core';
-import { NotifyServicePattern } from '@dspace/core';
-import { LdnService } from '@dspace/core';
 import { notifyPatterns } from '../ldn-services-patterns/ldn-service-coar-patterns';
 
 /**

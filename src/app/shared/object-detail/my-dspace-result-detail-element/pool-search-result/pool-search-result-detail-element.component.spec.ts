@@ -12,18 +12,20 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  Context,
+  createSuccessfulRemoteDataObject,
+  DSONameService,
+  getMockLinkService,
+  Item,
+  LinkService,
+  ObjectCacheService,
+  PoolTask,
+  PoolTaskSearchResult,
+  WorkflowItem,
+} from '@dspace/core';
 import { of as observableOf } from 'rxjs';
-import { Context } from '@dspace/core';
 
-import { DSONameService } from '@dspace/core';
-import { LinkService } from '@dspace/core';
-import { ObjectCacheService } from '@dspace/core';
-import { getMockLinkService } from '@dspace/core';
-import { PoolTaskSearchResult } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { WorkflowItem } from '@dspace/core';
-import { PoolTask } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';
 import { VarDirective } from '../../../utils/var.directive';

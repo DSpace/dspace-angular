@@ -6,22 +6,20 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
-
 import {
+  createFailedRemoteDataObject$,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  followLink,
+  MetadataField,
+  MetadataSchema,
+  NotificationsService,
+  RegistryService,
   SortDirection,
   SortOptions,
 } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { MetadataField } from '@dspace/core';
-import { MetadataSchema } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { RegistryService } from '@dspace/core';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { MetadataFieldSelectorComponent } from './metadata-field-selector.component';
 

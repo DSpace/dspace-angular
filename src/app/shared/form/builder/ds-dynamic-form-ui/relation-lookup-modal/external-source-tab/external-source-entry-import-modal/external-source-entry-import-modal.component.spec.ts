@@ -7,22 +7,24 @@ import {
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
+  Collection,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  ExternalSourceEntry,
+  Item,
+  ItemDataService,
+  ItemSearchResult,
+  LookupRelationService,
+  NotificationsService,
+  RelationshipOptions,
+  SelectableListService,
+} from '@dspace/core';
+import {
   NgbActiveModal,
   NgbModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ItemDataService } from '@dspace/core';
-import { LookupRelationService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { ItemSearchResult } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { ExternalSourceEntry } from '@dspace/core';
-import { RelationshipOptions } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
-import { SelectableListService } from '@dspace/core';
 import { ThemedSearchResultsComponent } from '../../../../../../search/search-results/themed-search-results.component';
 import {
   ExternalSourceEntryImportModalComponent,

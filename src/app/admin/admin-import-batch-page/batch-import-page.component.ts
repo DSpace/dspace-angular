@@ -3,6 +3,17 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
+  BATCH_IMPORT_SCRIPT_NAME,
+  DSONameService,
+  DSpaceObject,
+  getFirstCompletedRemoteData,
+  NotificationsService,
+  Process,
+  ProcessParameter,
+  RemoteData,
+  ScriptDataService,
+} from '@dspace/core';
+import {
   isEmpty,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -14,17 +25,6 @@ import {
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { take } from 'rxjs/operators';
 
-import { DSONameService } from '@dspace/core';
-import {
-  BATCH_IMPORT_SCRIPT_NAME,
-  ScriptDataService,
-} from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Process } from '@dspace/core';
-import { ProcessParameter } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
 import { getProcessDetailRoute } from '../../process-page/process-page-routing.paths';
 import { ImportBatchSelectorComponent } from '../../shared/dso-selector/modal-wrappers/import-batch-selector/import-batch-selector.component';
 import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';

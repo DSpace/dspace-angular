@@ -6,21 +6,21 @@ import {
 } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  AuthService,
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+  EPerson,
+  followLink,
+  NotificationsService,
+  NotificationsServiceStub,
+  ResearcherProfile,
+  ResearcherProfileDataService,
+} from '@dspace/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { EPerson } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { ResearcherProfile } from '@dspace/core';
-import { ResearcherProfileDataService } from '@dspace/core';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ProfileClaimService } from '../profile-claim/profile-claim.service';
 import { ProfilePageResearcherFormComponent } from './profile-page-researcher-form.component';

@@ -7,6 +7,7 @@ import {
   ReactiveFormsModule,
   UntypedFormControl,
 } from '@angular/forms';
+import { FormFieldMetadataValueObject } from '@dspace/core';
 import {
   DISABLED_MATCHER_PROVIDER,
   DynamicFormControlRelation,
@@ -24,7 +25,6 @@ import {
   MockRelationModel,
 } from '../../../mocks/form-models.mock';
 import { FormBuilderService } from '../form-builder.service';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
 
 describe('DSDynamicTypeBindRelationService test suite', () => {

@@ -6,18 +6,18 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of as observableOf } from 'rxjs';
-
-import { AuthService } from '@dspace/core';
-import { VersionDataService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { Version } from '@dspace/core';
 import {
+  ActivatedRouteStub,
+  AuthService,
+  createPaginatedList,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
+  Item,
+  Version,
+  VersionDataService,
 } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
+import { of as observableOf } from 'rxjs';
+
 import { createRelationshipsObservable } from '../../simple/item-types/shared/item.component.spec';
 import { VersionPageComponent } from './version-page.component';
 

@@ -11,6 +11,20 @@ import {
   Router,
 } from '@angular/router';
 import {
+  AuthService,
+  Bundle,
+  BundleDataService,
+  DSONameService,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  Item,
+  ItemDataService,
+  NotificationsService,
+  PaginatedList,
+  RemoteData,
+  RequestService,
+} from '@dspace/core';
+import {
   hasValue,
   isEmpty,
   isNotEmpty,
@@ -32,20 +46,6 @@ import {
 
 import { environment } from '../../../../environments/environment';
 import { getBitstreamModuleRoute } from '../../../app-routing-paths';
-import { AuthService } from '@dspace/core';
-import { DSONameService } from '@dspace/core';
-import { BundleDataService } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Bundle } from '@dspace/core';
-import { Item } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '@dspace/core';
 import { DsoInputSuggestionsComponent } from '../../../shared/input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
 import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';

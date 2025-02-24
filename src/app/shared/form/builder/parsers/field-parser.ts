@@ -3,6 +3,15 @@ import {
   InjectionToken,
 } from '@angular/core';
 import {
+  FormFieldMetadataValueObject,
+  FormFieldModel,
+  RelationshipOptions,
+  SectionVisibility,
+  SubmissionScopeType,
+  VisibilityType,
+  VocabularyOptions,
+} from '@dspace/core';
+import {
   hasValue,
   isNgbDateStruct,
   isNotEmpty,
@@ -18,12 +27,6 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
 
-import { FormFieldModel } from '@dspace/core';
-import { RelationshipOptions } from '@dspace/core';
-import { SubmissionScopeType } from '@dspace/core';
-import { VocabularyOptions } from '@dspace/core';
-import { SectionVisibility } from '@dspace/core';
-import { VisibilityType } from '@dspace/core';
 import {
   DsDynamicInputModel,
   DsDynamicInputModelConfig,
@@ -32,7 +35,6 @@ import {
   DynamicRowArrayModel,
   DynamicRowArrayModelConfig,
 } from '../ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 import { setLayout } from './parser.utils';
 import { ParserOptions } from './parser-options';
 import { ParserType } from './parser-type';

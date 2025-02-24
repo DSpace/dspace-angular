@@ -21,6 +21,32 @@ import {
   Router,
   RouterModule,
 } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  AuthorizationDataService,
+  AuthService,
+  AuthServiceStub,
+  buildPaginatedList,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  EPerson,
+  EPersonDataService,
+  EPersonMock,
+  EPersonMock2,
+  EpersonRegistrationService,
+  FindListOptions,
+  FollowLinkConfig,
+  GroupDataService,
+  NotificationsService,
+  NotificationsServiceStub,
+  PageInfo,
+  PaginatedList,
+  PaginationService,
+  PaginationServiceStub,
+  RemoteData,
+  RequestService,
+  RouterStub,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -28,34 +54,6 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { AuthService } from '@dspace/core';
-import { EpersonRegistrationService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import { FollowLinkConfig } from '@dspace/core';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { EPersonDataService } from '@dspace/core';
-import { GroupDataService } from '@dspace/core';
-import { EPerson } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { AuthServiceStub } from '@dspace/core';
-import {
-  EPersonMock,
-  EPersonMock2,
-} from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';

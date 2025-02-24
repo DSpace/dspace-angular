@@ -10,6 +10,25 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import {
+  Collection,
+  Context,
+  ExternalSource,
+  ExternalSourceDataService,
+  ExternalSourceEntry,
+  getFirstCompletedRemoteData,
+  Item,
+  ItemType,
+  ListableObject,
+  PaginatedList,
+  PaginatedSearchOptions,
+  PaginationComponentOptions,
+  PaginationService,
+  RelationshipOptions,
+  RemoteData,
+  SearchConfigurationService,
+  SelectableListService,
+} from '@dspace/core';
+import {
   hasValue,
   hasValueOperator,
 } from '@dspace/shared/utils';
@@ -28,22 +47,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { ExternalSourceDataService } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { ListableObject } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { ExternalSource } from '@dspace/core';
-import { ExternalSourceEntry } from '@dspace/core';
-import { RelationshipOptions } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { ItemType } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
-import { PaginatedSearchOptions } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import {
   fadeIn,
@@ -52,7 +55,6 @@ import {
 import { ErrorComponent } from '../../../../../error/error.component';
 import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
 import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
-import { SelectableListService } from '@dspace/core';
 import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';
 import { ThemedSearchFormComponent } from '../../../../../search-form/themed-search-form.component';
 import { VarDirective } from '../../../../../utils/var.directive';

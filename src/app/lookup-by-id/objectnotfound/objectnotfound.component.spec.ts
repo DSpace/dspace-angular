@@ -5,11 +5,13 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  ServerResponseService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { ServerResponseService } from '@dspace/core';
 
-import { ActivatedRouteStub } from '@dspace/core';
 import { ObjectNotFoundComponent } from './objectnotfound.component';
 
 describe('ObjectNotFoundComponent', () => {

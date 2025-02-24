@@ -4,20 +4,20 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
+import {
+  BreadcrumbConfig,
+  Collection,
+  Community,
+  DSOBreadcrumbsService,
+  DSpaceObjectDataService,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { getDSORoute } from '../app-routing-paths';
-import { BreadcrumbConfig } from '@dspace/core';
-import { DSOBreadcrumbsService } from '@dspace/core';
-import { DSpaceObjectDataService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { Community } from '@dspace/core';
-import {
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '@dspace/core';
 
 /**
  * Method for resolving a breadcrumb config object

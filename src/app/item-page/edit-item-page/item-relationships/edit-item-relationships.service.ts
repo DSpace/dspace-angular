@@ -1,4 +1,24 @@
 import { Injectable } from '@angular/core';
+import {
+  DeleteRelationship,
+  EntityTypeDataService,
+  FieldChangeType,
+  FieldUpdate,
+  FieldUpdates,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+  Item,
+  ItemDataService,
+  ItemType,
+  NoContent,
+  NotificationsService,
+  ObjectUpdatesService,
+  Relationship,
+  RelationshipDataService,
+  RelationshipIdentifiable,
+  RelationshipType,
+  RemoteData,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
@@ -16,29 +36,6 @@ import {
   take,
   toArray,
 } from 'rxjs/operators';
-
-import { EntityTypeDataService } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { FieldChangeType } from '@dspace/core';
-import { FieldUpdate } from '@dspace/core';
-import { FieldUpdates } from '@dspace/core';
-import {
-  DeleteRelationship,
-  RelationshipIdentifiable,
-} from '@dspace/core';
-import { ObjectUpdatesService } from '@dspace/core';
-import { RelationshipDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { ItemType } from '@dspace/core';
-import { Relationship } from '@dspace/core';
-import { RelationshipType } from '@dspace/core';
-import { NoContent } from '@dspace/core';
-import {
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '@dspace/core';
 
 @Injectable({
   providedIn: 'root',

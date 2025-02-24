@@ -11,6 +11,17 @@ import {
   Router,
 } from '@angular/router';
 import {
+  DSONameService,
+  EPersonDataService,
+  followLink,
+  getAllSucceededRemoteData,
+  GroupDataService,
+  NotificationsService,
+  RequestService,
+  ResourcePolicy,
+  ResourcePolicyDataService,
+} from '@dspace/core';
+import {
   hasValue,
   isEmpty,
   isNotEmpty,
@@ -35,15 +46,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { DSONameService } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { EPersonDataService } from '@dspace/core';
-import { GroupDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { ResourcePolicy } from '@dspace/core';
-import { ResourcePolicyDataService } from '@dspace/core';
-import { getAllSucceededRemoteData } from '@dspace/core';
 import { BtnDisabledDirective } from '../btn-disabled.directive';
 import {
   ResourcePolicyCheckboxEntry,

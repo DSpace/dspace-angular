@@ -17,6 +17,17 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import {
+  AuthorizationDataService,
+  Item,
+  ItemDataService,
+  LinkHeadService,
+  MetadataMap,
+  NotifyInfoService,
+  RemoteData,
+  ServerResponseService,
+  SignpostingDataService,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -28,15 +39,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { NotifyInfoService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { SignpostingDataService } from '@dspace/core';
-import { LinkHeadService } from '@dspace/core';
-import { ServerResponseService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { MetadataMap } from '@dspace/core';
 import { fadeInOut } from '../../shared/animations/fade';
 import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { ErrorComponent } from '../../shared/error/error.component';

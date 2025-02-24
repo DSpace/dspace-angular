@@ -10,6 +10,23 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  compareArraysUsingIds,
+  EntityTypeDataService,
+  followLink,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+  ItemDataService,
+  ItemType,
+  NotificationsService,
+  ObjectCacheService,
+  ObjectUpdatesService,
+  PaginatedList,
+  RelationshipDataService,
+  RelationshipType,
+  RelationshipTypeDataService,
+  RequestService,
+} from '@dspace/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -24,23 +41,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { ObjectCacheService } from '@dspace/core';
-import { EntityTypeDataService } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { ObjectUpdatesService } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RelationshipDataService } from '@dspace/core';
-import { RelationshipTypeDataService } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { compareArraysUsingIds } from '@dspace/core';
-import { ItemType } from '@dspace/core';
-import { RelationshipType } from '@dspace/core';
-import {
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '@dspace/core';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';

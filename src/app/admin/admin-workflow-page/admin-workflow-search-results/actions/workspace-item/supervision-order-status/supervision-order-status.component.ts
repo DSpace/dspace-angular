@@ -7,6 +7,13 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
+import {
+  DSONameService,
+  getFirstCompletedRemoteData,
+  Group,
+  RemoteData,
+  SupervisionOrder,
+} from '@dspace/core';
 import { isNotEmpty } from '@dspace/shared/utils';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
@@ -21,11 +28,6 @@ import {
   reduce,
 } from 'rxjs/operators';
 
-import { DSONameService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { Group } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
-import { SupervisionOrder } from '@dspace/core';
 import { VarDirective } from '../../../../../../shared/utils/var.directive';
 
 export interface SupervisionOrderListEntry {

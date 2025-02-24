@@ -12,34 +12,32 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  Bitstream,
+  BitstreamDataService,
+  BitstreamDataServiceStub,
+  Bundle,
+  BundleDataService,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  FieldChangeType,
+  getMockRequestService,
+  INotification,
+  Item,
+  ItemDataService,
+  Notification,
+  NotificationsService,
+  NotificationType,
+  ObjectCacheService,
+  ObjectUpdatesService,
+  RequestService,
+  RouterStub,
+  SearchConfigurationService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ObjectCacheService } from '@dspace/core';
-import { BitstreamDataService } from '@dspace/core';
-import { BundleDataService } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { FieldChangeType } from '@dspace/core';
-import { ObjectUpdatesService } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { getMockRequestService } from '@dspace/core';
-import {
-  INotification,
-  Notification,
-} from '@dspace/core';
-import { NotificationType } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { Bundle } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { BitstreamDataServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { ObjectValuesPipe } from '../../../shared/utils/object-values-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';

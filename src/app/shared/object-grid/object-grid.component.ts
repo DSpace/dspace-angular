@@ -9,6 +9,16 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {
+  Context,
+  ListableObject,
+  PaginatedList,
+  PaginationComponentOptions,
+  RemoteData,
+  SortDirection,
+  SortOptions,
+  ViewMode,
+} from '@dspace/core';
+import {
   hasNoValue,
   hasValue,
 } from '@dspace/shared/utils';
@@ -24,16 +34,6 @@ import {
   startWith,
 } from 'rxjs/operators';
 
-import {
-  SortDirection,
-  SortOptions,
-} from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { ListableObject } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { fadeIn } from '../animations/fade';
 import { ErrorComponent } from '../error/error.component';
 import {

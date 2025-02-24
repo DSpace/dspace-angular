@@ -13,6 +13,26 @@ import {
   RouterLink,
 } from '@angular/router';
 import {
+  Bitstream,
+  BITSTREAM_FORMAT,
+  BitstreamDataService,
+  BitstreamFormat,
+  BitstreamFormatDataService,
+  BitstreamFormatSupportLevel,
+  Bundle,
+  DSONameService,
+  FindAllDataImpl,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  getRemoteDataPayload,
+  Item,
+  Metadata,
+  NotificationsService,
+  PrimaryBitstreamService,
+  RemoteData,
+} from '@dspace/core';
+import {
   hasValue,
   hasValueOperator,
   isEmpty,
@@ -45,26 +65,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '@dspace/core';
-import { FindAllDataImpl } from '@dspace/core';
-import { BitstreamDataService } from '@dspace/core';
-import { BitstreamFormatDataService } from '@dspace/core';
-import { PrimaryBitstreamService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { BitstreamFormat } from '@dspace/core';
-import { BITSTREAM_FORMAT } from '@dspace/core';
-import { BitstreamFormatSupportLevel } from '@dspace/core';
-import { Bundle } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { Metadata } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getFirstSucceededRemoteDataPayload,
-  getRemoteDataPayload,
-} from '@dspace/core';
 import { getEntityEditRoute } from '../../item-page/item-page-routing-paths';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { DynamicCustomSwitchModel } from '../../shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';

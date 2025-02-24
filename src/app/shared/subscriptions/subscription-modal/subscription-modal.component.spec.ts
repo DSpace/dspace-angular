@@ -15,6 +15,19 @@ import {
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import {
+  AuthService,
+  buildPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  EPerson,
+  Item,
+  NotificationsService,
+  PageInfo,
+  subscriptionMock,
+  subscriptionMock2,
+  SubscriptionsDataService,
+  TranslateLoaderMock,
+} from '@dspace/core';
+import {
   NgbActiveModal,
   NgbModalModule,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -23,21 +36,8 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { AuthService } from '@dspace/core';
-import { buildPaginatedList } from '@dspace/core';
-import { EPerson } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import {
-  subscriptionMock,
-  subscriptionMock2,
-} from '@dspace/core';
 import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { ThemeService } from '../../theme-support/theme.service';
-import { SubscriptionsDataService } from '@dspace/core';
 import { SubscriptionModalComponent } from './subscription-modal.component';
 
 describe('SubscriptionModalComponent', () => {

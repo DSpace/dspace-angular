@@ -8,18 +8,18 @@ import {
   ActivatedRoute,
   Data,
 } from '@angular/router';
+import {
+  APP_CONFIG,
+  AppConfig,
+  Collection,
+  Community,
+  RemoteData,
+  SearchConfigurationService,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { Community } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
 import { ThemedSearchComponent } from '../../../search/themed-search.component';
 

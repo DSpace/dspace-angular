@@ -1,11 +1,13 @@
+import {
+  DSpaceObjectType,
+  getMockRequestService,
+  HALEndpointServiceStub,
+  RequestService,
+  RestRequest,
+  SearchOptions,
+} from '@dspace/core';
 import isEqual from 'lodash/isEqual';
 
-import { RequestService } from '@dspace/core';
-import { RestRequest } from '@dspace/core';
-import { getMockRequestService } from '@dspace/core';
-import { DSpaceObjectType } from '@dspace/core';
-import { SearchOptions } from '@dspace/core';
-import { HALEndpointServiceStub } from '@dspace/core';
 import { StatisticsService } from './statistics.service';
 
 describe('StatisticsService', () => {

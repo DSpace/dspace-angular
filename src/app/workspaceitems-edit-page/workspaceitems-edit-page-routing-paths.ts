@@ -1,5 +1,6 @@
-import { getWorkspaceItemModuleRoute } from '../app-routing-paths';
 import { URLCombiner } from '@dspace/core';
+
+import { getWorkspaceItemModuleRoute } from '../app-routing-paths';
 
 export function getWorkspaceItemViewRoute(wfiId: string) {
   return new URLCombiner(getWorkspaceItemModuleRoute(), wfiId, WORKSPACE_ITEM_VIEW_PATH).toString();

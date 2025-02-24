@@ -10,18 +10,18 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import {
+  createTestComponent,
+  getMockNotificationsStateService,
+  PaginationService,
+  PaginationServiceStub,
+  qualityAssuranceSourceObjectMoreAbstract,
+  qualityAssuranceSourceObjectMorePid,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import {
-  getMockNotificationsStateService,
-  qualityAssuranceSourceObjectMoreAbstract,
-  qualityAssuranceSourceObjectMorePid,
-} from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
-import { createTestComponent } from '@dspace/core';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';

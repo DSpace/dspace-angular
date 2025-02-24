@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { TransferState } from '@angular/core';
+import { hasValue } from '@dspace/shared/utils';
 import { TranslateLoader } from '@ngx-translate/core';
 import {
   Observable,
@@ -7,7 +8,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { hasValue } from '@dspace/shared/utils';
 import { environment } from '../environments/environment';
 import {
   NGX_TRANSLATE_STATE,

@@ -16,6 +16,21 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  ActivatedRouteStub,
+  APP_CONFIG,
+  BrowseEntry,
+  BrowseEntrySearchOptions,
+  BrowseService,
+  Community,
+  createSuccessfulRemoteDataObject$,
+  DSpaceObjectDataService,
+  Item,
+  PaginationService,
+  PaginationServiceStub,
+  RouterMock,
+  SortDirection,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
@@ -23,19 +38,6 @@ import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
-import { BrowseService } from '@dspace/core';
-import { BrowseEntrySearchOptions } from '@dspace/core';
-import { SortDirection } from '@dspace/core';
-import { APP_CONFIG } from '@dspace/core';
-import { DSpaceObjectDataService } from '@dspace/core';
-import { RouterMock } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { BrowseEntry } from '@dspace/core';
-import { Community } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
 import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by.component';
 import { ThemedComcolPageBrowseByComponent } from '../../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
 import { ComcolPageContentComponent } from '../../shared/comcol/comcol-page-content/comcol-page-content.component';

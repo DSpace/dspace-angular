@@ -1,12 +1,15 @@
 import { Inject } from '@angular/core';
 import {
+  FormFieldMetadataValueObject,
+  FormFieldModel,
+} from '@dspace/core';
+import {
   hasNoValue,
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
 import { TranslateService } from '@ngx-translate/core';
 
-import { FormFieldModel } from '@dspace/core';
 import {
   CONCAT_FIRST_INPUT_SUFFIX,
   CONCAT_GROUP_SUFFIX,
@@ -18,7 +21,6 @@ import {
   DsDynamicInputModel,
   DsDynamicInputModelConfig,
 } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 import {
   CONFIG_DATA,
   FieldParser,

@@ -8,6 +8,27 @@ import {
   ViewChild,
 } from '@angular/core';
 import {
+  AuthorizationDataService,
+  AuthService,
+  ConfigurationDataService,
+  ConfigurationProperty,
+  DSONameService,
+  EPerson,
+  EPersonDataService,
+  FeatureID,
+  followLink,
+  getAllCompletedRemoteData,
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+  Group,
+  NotificationsService,
+  PaginatedList,
+  PaginationComponentOptions,
+  PaginationService,
+  RemoteData,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -26,27 +47,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { AuthService } from '@dspace/core';
-import { DSONameService } from '@dspace/core';
-import { ConfigurationDataService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { FeatureID } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { EPersonDataService } from '@dspace/core';
-import { EPerson } from '@dspace/core';
-import { Group } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { ConfigurationProperty } from '@dspace/core';
-import {
-  getAllCompletedRemoteData,
-  getAllSucceededRemoteData,
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
 import { SuggestionsNotificationComponent } from '../notifications/suggestions-notification/suggestions-notification.component';
 import { ErrorComponent } from '../shared/error/error.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';

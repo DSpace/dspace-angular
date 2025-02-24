@@ -6,6 +6,16 @@ import {
 } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 import {
+  AccessesConditionOption,
+  getFirstSucceededRemoteData,
+  JsonPatchOperationPathCombiner,
+  JsonPatchOperationsBuilder,
+  SectionDataObject,
+  SubmissionAccessesConfigDataService,
+  SubmissionJsonPatchOperationsService,
+  WorkspaceitemSectionAccessesObject,
+} from '@dspace/core';
+import {
   dateToISOFormat,
   hasValue,
   isNotEmpty,
@@ -40,19 +50,11 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { AccessesConditionOption } from '@dspace/core';
-import { SubmissionAccessesConfigDataService } from '@dspace/core';
-import { JsonPatchOperationPathCombiner } from '@dspace/core';
-import { JsonPatchOperationsBuilder } from '@dspace/core';
-import { getFirstSucceededRemoteData } from '@dspace/core';
-import { WorkspaceitemSectionAccessesObject } from '@dspace/core';
-import { SubmissionJsonPatchOperationsService } from '@dspace/core';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
 import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { SectionModelComponent } from '../models/section.model';
-import { SectionDataObject } from '@dspace/core';
 import { SectionsService } from '../sections.service';
 import {
   ACCESS_CONDITION_GROUP_CONFIG,

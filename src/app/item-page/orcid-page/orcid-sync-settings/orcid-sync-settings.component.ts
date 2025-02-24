@@ -11,6 +11,16 @@ import {
   FormsModule,
   UntypedFormGroup,
 } from '@angular/forms';
+import {
+  createFailedRemoteDataObjectFromError$,
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+  Item,
+  NotificationsService,
+  RemoteData,
+  ResearcherProfile,
+  ResearcherProfileDataService,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import {
   TranslateModule,
@@ -30,16 +40,6 @@ import {
   takeUntil,
 } from 'rxjs/operators';
 
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { ResearcherProfile } from '@dspace/core';
-import { ResearcherProfileDataService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '@dspace/core';
-import { createFailedRemoteDataObjectFromError$ } from '@dspace/core';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 

@@ -1,9 +1,11 @@
 import { Injector } from '@angular/core';
+import {
+  FormFieldModel,
+  FormRowModel,
+  getMockTranslateService,
+} from '@dspace/core';
 import { TranslateService } from '@ngx-translate/core';
 
-import { FormRowModel } from '@dspace/core';
-import { getMockTranslateService } from '@dspace/core';
-import { FormFieldModel } from '@dspace/core';
 import { DynamicRowArrayModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { DynamicRowGroupModel } from '../ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
 import { RowParser } from './row-parser';

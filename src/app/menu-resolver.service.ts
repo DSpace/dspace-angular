@@ -3,6 +3,24 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
 } from '@angular/router';
+import {
+  AuthorizationDataService,
+  AuthService,
+  BrowseDefinition,
+  BrowseService,
+  ConfigurationDataService,
+  ConfigurationProperty,
+  FeatureID,
+  getFirstCompletedRemoteData,
+  MenuID,
+  MenuItemType,
+  MenuState,
+  METADATA_EXPORT_SCRIPT_NAME,
+  METADATA_IMPORT_SCRIPT_NAME,
+  PaginatedList,
+  RemoteData,
+  ScriptDataService,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -20,21 +38,6 @@ import {
 } from 'rxjs/operators';
 
 import { PUBLICATION_CLAIMS_PATH } from './admin/admin-notifications/admin-notifications-routing-paths';
-import { AuthService } from '@dspace/core';
-import { BrowseService } from '@dspace/core';
-import { ConfigurationDataService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { FeatureID } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import {
-  METADATA_EXPORT_SCRIPT_NAME,
-  METADATA_IMPORT_SCRIPT_NAME,
-  ScriptDataService,
-} from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { BrowseDefinition } from '@dspace/core';
-import { ConfigurationProperty } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
 import { ThemedCreateCollectionParentSelectorComponent } from './shared/dso-selector/modal-wrappers/create-collection-parent-selector/themed-create-collection-parent-selector.component';
 import { ThemedCreateCommunityParentSelectorComponent } from './shared/dso-selector/modal-wrappers/create-community-parent-selector/themed-create-community-parent-selector.component';
 import { ThemedCreateItemParentSelectorComponent } from './shared/dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';
@@ -44,12 +47,9 @@ import { ThemedEditItemSelectorComponent } from './shared/dso-selector/modal-wra
 import { ExportBatchSelectorComponent } from './shared/dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
 import { ExportMetadataSelectorComponent } from './shared/dso-selector/modal-wrappers/export-metadata-selector/export-metadata-selector.component';
 import { MenuService } from './shared/menu/menu.service';
-import { MenuID } from '@dspace/core';
 import { LinkMenuItemModel } from './shared/menu/menu-item/models/link.model';
 import { OnClickMenuItemModel } from './shared/menu/menu-item/models/onclick.model';
 import { TextMenuItemModel } from './shared/menu/menu-item/models/text.model';
-import { MenuItemType } from '@dspace/core';
-import { MenuState } from '@dspace/core';
 
 /**
  * Creates all of the app's menus

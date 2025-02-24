@@ -11,19 +11,19 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
-
 import {
   APP_CONFIG,
   AppConfig,
+  FindListOptions,
+  Item,
+  PaginatedList,
+  RelationshipDataService,
+  RemoteData,
+  ViewMode,
 } from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RelationshipDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';

@@ -6,6 +6,20 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  APP_CONFIG,
+  Bitstream,
+  BitstreamDataService,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  MockBitstreamFormat1,
+  NotificationsService,
+  NotificationsServiceStub,
+  PaginationService,
+  PaginationServiceStub,
+  SearchConfigurationService,
+  TranslateLoaderMock,
+} from '@dspace/core';
 import { provideMockStore } from '@ngrx/store/testing';
 import {
   TranslateLoader,
@@ -14,18 +28,6 @@ import {
 import { of as observableOf } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-import { APP_CONFIG } from '@dspace/core';
-import { BitstreamDataService } from '@dspace/core';
-import { MockBitstreamFormat1 } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';

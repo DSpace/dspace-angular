@@ -10,18 +10,18 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
+  getMockTranslateService,
+  NativeWindowRef,
+  NativeWindowService,
+  TranslateLoaderMock,
+} from '@dspace/core';
+import {
   TranslateLoader,
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { getMockTranslateService } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import {
-  NativeWindowRef,
-  NativeWindowService,
-} from '@dspace/core';
 import { mockTruncatableService } from '../../mocks/mock-trucatable.service';
 import { TruncatableService } from '../truncatable.service';
 import { TruncatablePartComponent } from './truncatable-part.component';

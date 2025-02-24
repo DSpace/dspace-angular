@@ -6,6 +6,18 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
+  Bitstream,
+  buildPaginatedList,
+  Bundle,
+  DSONameService,
+  followLink,
+  getFirstSucceededRemoteDataPayload,
+  getFirstSucceededRemoteDataWithNotEmptyPayload,
+  Item,
+  LinkService,
+  PaginatedList,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -27,20 +39,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { DSONameService } from '@dspace/core';
-import { LinkService } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { Bundle } from '@dspace/core';
-import { Item } from '@dspace/core';
-import {
-  getFirstSucceededRemoteDataPayload,
-  getFirstSucceededRemoteDataWithNotEmptyPayload,
-} from '@dspace/core';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { NgForTrackByIdDirective } from '../../../shared/ng-for-track-by-id.directive';
 import { ResourcePoliciesComponent } from '../../../shared/resource-policies/resource-policies.component';

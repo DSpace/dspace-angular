@@ -5,27 +5,27 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import {
+  APP_CONFIG,
+  AppConfig,
+  BitstreamDataService,
+  Context,
+  DSONameService,
+  Item,
+  ItemDataService,
+  ItemSearchResult,
+  MetadataValue,
+  NotificationsService,
+  RelationshipDataService,
+  SelectableListService,
+  ViewMode,
+} from '@dspace/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
 
-import { DSONameService } from '@dspace/core';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/core';
-import { BitstreamDataService } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { RelationshipDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { ItemSearchResult } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { MetadataValue } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { SearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/search-result-list-element.component';
-import { SelectableListService } from '@dspace/core';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { NameVariantModalComponent } from '../../name-variant-modal/name-variant-modal.component';
 import { OrgUnitInputSuggestionsComponent } from './org-unit-suggestions/org-unit-input-suggestions.component';

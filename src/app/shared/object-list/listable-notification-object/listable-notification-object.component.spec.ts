@@ -3,9 +3,9 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NotificationType } from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { NotificationType } from '@dspace/core';
 import { ListableNotificationObjectComponent } from './listable-notification-object.component';
 import { ListableNotificationObject } from './listable-notification-object.model';
 

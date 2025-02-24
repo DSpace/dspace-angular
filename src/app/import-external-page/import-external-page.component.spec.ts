@@ -5,9 +5,11 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  SearchConfigurationService,
+} from '@dspace/core';
 
-import { SearchConfigurationService } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
 import { getMockThemeService } from '../shared/mocks/theme-service.mock';
 import { ThemeService } from '../shared/theme-support/theme.service';
 import { ThemedSubmissionImportExternalComponent } from '../submission/import-external/themed-submission-import-external.component';

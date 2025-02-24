@@ -7,15 +7,14 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { isNotEmpty } from '@dspace/shared/utils';
-import { Observable } from 'rxjs';
 import {
+  ConfigurationDataService,
+  getFirstSucceededRemoteDataPayload,
   NativeWindowRef,
   NativeWindowService,
 } from '@dspace/core';
-
-import { ConfigurationDataService } from '@dspace/core';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core';
+import { isNotEmpty } from '@dspace/shared/utils';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'ds-google-recaptcha',

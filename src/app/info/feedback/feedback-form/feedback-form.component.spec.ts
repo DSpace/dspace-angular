@@ -10,21 +10,23 @@ import {
 import { UntypedFormBuilder } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import {
+  AuthService,
+  AuthServiceStub,
+  EPersonMock,
+  Feedback,
+  FeedbackDataService,
+  NativeWindowMockFactory,
+  NativeWindowService,
+  NotificationsService,
+  NotificationsServiceStub,
+  RouterMock,
+  RouteService,
+  routeServiceStub,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { AuthService } from '@dspace/core';
-import { FeedbackDataService } from '@dspace/core';
-import { Feedback } from '@dspace/core';
-import { NativeWindowMockFactory } from '@dspace/core';
-import { RouterMock } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { NativeWindowService } from '@dspace/core';
-import { AuthServiceStub } from '@dspace/core';
-import { EPersonMock } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { routeServiceStub } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { FeedbackFormComponent } from './feedback-form.component';
 

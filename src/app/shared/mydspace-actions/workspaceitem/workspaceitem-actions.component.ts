@@ -10,6 +10,21 @@ import {
   RouterLink,
 } from '@angular/router';
 import {
+  AuthorizationDataService,
+  AuthService,
+  FeatureID,
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+  Item,
+  NoContent,
+  NotificationsService,
+  RemoteData,
+  RequestService,
+  SearchService,
+  WorkspaceItem,
+  WorkspaceitemDataService,
+} from '@dspace/core';
+import {
   NgbModal,
   NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -22,22 +37,7 @@ import {
   Observable,
   switchMap,
 } from 'rxjs';
-import { AuthorizationDataService } from '@dspace/core';
 
-import { AuthService } from '@dspace/core';
-import { FeatureID } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { NoContent } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { WorkspaceItem } from '@dspace/core';
-import { WorkspaceitemDataService } from '@dspace/core';
 import { getWorkspaceItemViewRoute } from '../../../workspaceitems-edit-page/workspaceitems-edit-page-routing-paths';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';
 

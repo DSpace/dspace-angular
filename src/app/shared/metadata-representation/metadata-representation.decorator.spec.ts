@@ -1,9 +1,11 @@
 /* eslint-disable max-classes-per-file */
+import {
+  Context,
+  MetadataRepresentationType,
+} from '@dspace/core';
 import { v4 as uuidv4 } from 'uuid';
 
 import { environment } from '../../../environments/environment';
-import { Context } from '@dspace/core';
-import { MetadataRepresentationType } from '@dspace/core';
 import {
   DEFAULT_ENTITY_TYPE,
   DEFAULT_REPRESENTATION_TYPE,

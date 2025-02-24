@@ -8,12 +8,14 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import {
+  Community,
+  createSuccessfulRemoteDataObject,
+  DSONameService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { DSONameService } from '@dspace/core';
-import { Community } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { CurationFormComponent } from '../../../curation-form/curation-form.component';
 import { CommunityCurateComponent } from './community-curate.component';
 

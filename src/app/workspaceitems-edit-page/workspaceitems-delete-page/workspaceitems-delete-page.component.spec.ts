@@ -12,6 +12,19 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  createSuccessfulRemoteDataObject,
+  DSpaceObject,
+  LocationStub,
+  NotificationsService,
+  NotificationsServiceStub,
+  RouterMock,
+  RouteService,
+  routeServiceStub,
+  WorkspaceItem,
+  WorkspaceitemDataService,
+} from '@dspace/core';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -19,17 +32,6 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { RouterMock } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { WorkspaceItem } from '@dspace/core';
-import { WorkspaceitemDataService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { LocationStub } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { routeServiceStub } from '@dspace/core';
 import { WorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page.component';
 
 describe('WorkspaceitemsDeletePageComponent', () => {

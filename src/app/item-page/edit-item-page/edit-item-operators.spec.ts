@@ -1,12 +1,12 @@
-import { isNotEmpty } from '@dspace/shared/utils';
-import { hot } from 'jasmine-marbles';
-
-import { RemoteData } from '@dspace/core';
-import { Item } from '@dspace/core';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
+  Item,
+  RemoteData,
 } from '@dspace/core';
+import { isNotEmpty } from '@dspace/shared/utils';
+import { hot } from 'jasmine-marbles';
+
 import { findSuccessfulAccordingTo } from './edit-item-operators';
 
 describe('findSuccessfulAccordingTo', () => {

@@ -6,6 +6,18 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import {
+  Bitstream,
+  BitstreamDataService,
+  BitstreamFormat,
+  followLink,
+  getFirstSucceededRemoteDataPayload,
+  Item,
+  MediaViewerConfig,
+  MediaViewerItem,
+  PaginatedList,
+  RemoteData,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -19,16 +31,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import { MediaViewerConfig } from '@dspace/core';
-import { BitstreamDataService } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { BitstreamFormat } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { MediaViewerItem } from '@dspace/core';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ThemedThumbnailComponent } from '../../thumbnail/themed-thumbnail.component';

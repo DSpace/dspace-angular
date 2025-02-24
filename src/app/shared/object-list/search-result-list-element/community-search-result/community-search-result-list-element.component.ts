@@ -4,10 +4,12 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import {
+  Community,
+  CommunitySearchResult,
+  ViewMode,
+} from '@dspace/core';
 
-import { CommunitySearchResult } from '@dspace/core';
-import { Community } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { SearchResultListElementComponent } from '../search-result-list-element.component';

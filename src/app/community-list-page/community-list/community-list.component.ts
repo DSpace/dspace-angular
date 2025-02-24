@@ -12,16 +12,16 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import {
+  DSONameService,
+  FindListOptions,
+  SortDirection,
+  SortOptions,
+} from '@dspace/core';
 import { isEmpty } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
 
-import { DSONameService } from '@dspace/core';
-import {
-  SortDirection,
-  SortOptions,
-} from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { TruncatableComponent } from '../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../shared/truncatable/truncatable-part/truncatable-part.component';

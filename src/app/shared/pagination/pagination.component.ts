@@ -16,6 +16,17 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {
+  ListableObject,
+  PaginatedList,
+  PaginationComponentOptions,
+  PaginationRouteParams,
+  PaginationService,
+  RemoteData,
+  SortDirection,
+  SortOptions,
+  ViewMode,
+} from '@dspace/core';
+import {
   hasValue,
   hasValueOperator,
 } from '@dspace/shared/utils';
@@ -37,17 +48,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  SortDirection,
-  SortOptions,
-} from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { ListableObject } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { PaginationRouteParams } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { BtnDisabledDirective } from '../btn-disabled.directive';
 import { HostWindowService } from '../host-window.service';
 import { RSSComponent } from '../rss-feed/rss.component';

@@ -12,6 +12,34 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  APP_CONFIG,
+  Bitstream,
+  BitstreamDataService,
+  BrowseDefinitionDataService,
+  BrowseDefinitionDataServiceStub,
+  CommunityDataService,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  DefaultChangeAnalyzer,
+  DSOChangeAnalyzer,
+  HALEndpointService,
+  Item,
+  ItemDataService,
+  MetadataMap,
+  NotificationsService,
+  ObjectCacheService,
+  RelationshipDataService,
+  RemoteData,
+  RemoteDataBuildService,
+  RouteService,
+  SearchService,
+  TranslateLoaderMock,
+  UUIDService,
+  VersionDataService,
+  VersionHistoryDataService,
+  WorkspaceitemDataService,
+} from '@dspace/core';
 import { Store } from '@ngrx/store';
 import {
   TranslateLoader,
@@ -23,32 +51,6 @@ import {
 } from 'rxjs';
 
 import { environment } from '../../../../../environments/environment.test';
-import { BrowseDefinitionDataService } from '@dspace/core';
-import { RemoteDataBuildService } from '@dspace/core';
-import { ObjectCacheService } from '@dspace/core';
-import { APP_CONFIG } from '@dspace/core';
-import { BitstreamDataService } from '@dspace/core';
-import { CommunityDataService } from '@dspace/core';
-import { DefaultChangeAnalyzer } from '@dspace/core';
-import { DSOChangeAnalyzer } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { RelationshipDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { VersionDataService } from '@dspace/core';
-import { VersionHistoryDataService } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { HALEndpointService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { MetadataMap } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { UUIDService } from '@dspace/core';
-import { WorkspaceitemDataService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { BrowseDefinitionDataServiceStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { DsoEditMenuComponent } from '../../../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { mockTruncatableService } from '../../../../shared/mocks/mock-trucatable.service';

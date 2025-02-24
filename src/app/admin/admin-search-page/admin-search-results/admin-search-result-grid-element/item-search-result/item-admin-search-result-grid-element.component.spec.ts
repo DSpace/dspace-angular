@@ -6,28 +6,30 @@ import {
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  AccessStatusDataService,
+  AccessStatusObject,
+  AuthorizationDataService,
+  AuthorizationDataServiceStub,
+  AuthService,
+  AuthServiceStub,
+  Bitstream,
+  BitstreamDataService,
+  createSuccessfulRemoteDataObject$,
+  FileService,
+  FileServiceStub,
+  Item,
+  ItemSearchResult,
+  RemoteData,
+  ViewMode,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { AuthService } from '@dspace/core';
-import { AccessStatusDataService } from '@dspace/core';
-import { BitstreamDataService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { ItemSearchResult } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { FileService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { AuthServiceStub } from '@dspace/core';
-import { AuthorizationDataServiceStub } from '@dspace/core';
-import { FileServiceStub } from '@dspace/core';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { ListableModule } from '../../../../../shared/modules/listable.module';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
-import { AccessStatusObject } from '@dspace/core';
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { ItemAdminSearchResultGridElementComponent } from './item-admin-search-result-grid-element.component';

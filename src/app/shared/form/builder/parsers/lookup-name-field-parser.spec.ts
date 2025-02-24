@@ -1,7 +1,10 @@
-import { getMockTranslateService } from '@dspace/core';
-import { FormFieldModel } from '@dspace/core';
+import {
+  FormFieldMetadataValueObject,
+  FormFieldModel,
+  getMockTranslateService,
+} from '@dspace/core';
+
 import { DynamicLookupNameModel } from '../ds-dynamic-form-ui/models/lookup/dynamic-lookup-name.model';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 import { LookupNameFieldParser } from './lookup-name-field-parser';
 import { ParserOptions } from './parser-options';
 

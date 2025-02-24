@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+import {
+  Item,
+  ViewMode,
+} from '@dspace/core';
 
-import { Item } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { focusShadow } from '../../../../animations/focus';
 import { listableObjectComponent } from '../../../../object-collection/shared/listable-object/listable-object.decorator';
 import { AbstractListableElementComponent } from '../../../../object-collection/shared/object-collection-element/abstract-listable-element.component';

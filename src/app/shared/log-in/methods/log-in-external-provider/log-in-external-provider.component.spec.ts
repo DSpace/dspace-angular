@@ -8,21 +8,23 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  AuthMethod,
+  AuthMethodType,
+  authReducer,
+  AuthService,
+  AuthServiceStub,
+  HardRedirectService,
+  NativeWindowMockFactory,
+  NativeWindowService,
+  RouterStub,
+} from '@dspace/core';
 import { StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { storeModuleConfig } from '../../../../app.reducer';
-import { authReducer } from '@dspace/core';
-import { AuthService } from '@dspace/core';
-import { AuthMethod } from '@dspace/core';
-import { AuthMethodType } from '@dspace/core';
-import { NativeWindowMockFactory } from '@dspace/core';
-import { HardRedirectService } from '@dspace/core';
-import { NativeWindowService } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { AuthServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
 import { LogInExternalProviderComponent } from './log-in-external-provider.component';
 
 describe('LogInExternalProviderComponent', () => {

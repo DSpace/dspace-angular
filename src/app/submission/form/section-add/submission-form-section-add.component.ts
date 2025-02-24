@@ -4,6 +4,10 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import {
+  SectionDataObject,
+  SubmissionService,
+} from '@dspace/core';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -11,9 +15,7 @@ import { map } from 'rxjs/operators';
 
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { HostWindowService } from '../../../shared/host-window.service';
-import { SectionDataObject } from '@dspace/core';
 import { SectionsService } from '../../sections/sections.service';
-import { SubmissionService } from '@dspace/core';
 
 /**
  * This component allow to add any new section to submission form

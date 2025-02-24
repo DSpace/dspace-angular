@@ -11,6 +11,35 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+  Bitstream,
+  BitstreamDataService,
+  BrowseDefinitionDataService,
+  BrowseDefinitionDataServiceStub,
+  buildPaginatedList,
+  CommunityDataService,
+  createSuccessfulRemoteDataObject$,
+  DefaultChangeAnalyzer,
+  DSOChangeAnalyzer,
+  HALEndpointService,
+  Item,
+  ItemDataService,
+  NotificationsService,
+  ObjectCacheService,
+  PageInfo,
+  RelationshipDataService,
+  RemoteData,
+  RemoteDataBuildService,
+  RouteService,
+  SearchService,
+  TranslateLoaderMock,
+  UUIDService,
+  VersionDataService,
+  VersionHistoryDataService,
+  WorkspaceitemDataService,
+} from '@dspace/core';
 import { isNotEmpty } from '@dspace/shared/utils';
 import { Store } from '@ngrx/store';
 import {
@@ -19,35 +48,6 @@ import {
 } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { BrowseDefinitionDataService } from '@dspace/core';
-import { RemoteDataBuildService } from '@dspace/core';
-import { ObjectCacheService } from '@dspace/core';
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from '@dspace/core';
-import { BitstreamDataService } from '@dspace/core';
-import { CommunityDataService } from '@dspace/core';
-import { DefaultChangeAnalyzer } from '@dspace/core';
-import { DSOChangeAnalyzer } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { buildPaginatedList } from '@dspace/core';
-import { RelationshipDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { VersionDataService } from '@dspace/core';
-import { VersionHistoryDataService } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { HALEndpointService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { UUIDService } from '@dspace/core';
-import { WorkspaceitemDataService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { BrowseDefinitionDataServiceStub } from '@dspace/core';
 import { MetadataValuesComponent } from '../../../../item-page/field-components/metadata-values/metadata-values.component';
 import { GenericItemPageFieldComponent } from '../../../../item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
 import { ThemedItemPageTitleFieldComponent } from '../../../../item-page/simple/field-components/specific-field/title/themed-item-page-field.component';

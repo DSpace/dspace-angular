@@ -12,6 +12,18 @@ import {
   Validators,
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import {
+  AuthenticateAction,
+  AuthMethod,
+  AuthorizationDataService,
+  AuthService,
+  CoreState,
+  FeatureID,
+  getAuthenticationError,
+  getAuthenticationInfo,
+  HardRedirectService,
+  ResetAuthenticationMessagesAction,
+} from '@dspace/core';
 import { isNotEmpty } from '@dspace/shared/utils';
 import {
   select,
@@ -32,20 +44,6 @@ import {
   getForgotPasswordRoute,
   getRegisterRoute,
 } from '../../../../app-routing-paths';
-import {
-  AuthenticateAction,
-  ResetAuthenticationMessagesAction,
-} from '@dspace/core';
-import { AuthService } from '@dspace/core';
-import { AuthMethod } from '@dspace/core';
-import {
-  getAuthenticationError,
-  getAuthenticationInfo,
-} from '@dspace/core';
-import { CoreState } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { FeatureID } from '@dspace/core';
-import { HardRedirectService } from '@dspace/core';
 import { fadeOut } from '../../../animations/fade';
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { BrowserOnlyPipe } from '../../../utils/browser-only.pipe';

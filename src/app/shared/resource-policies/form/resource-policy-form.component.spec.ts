@@ -20,6 +20,28 @@ import {
   Router,
 } from '@angular/router';
 import {
+  ActionType,
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+  createSuccessfulRemoteDataObject,
+  createTestComponent,
+  EPersonDataService,
+  EPersonMock,
+  getMockRequestService,
+  GroupDataService,
+  GroupMock,
+  PaginationService,
+  PaginationServiceStub,
+  PolicyType,
+  RemoteData,
+  RequestService,
+  RESOURCE_POLICY,
+  ResourcePolicy,
+  RouterMock,
+  SubmissionObjectDataService,
+  SubmissionService,
+} from '@dspace/core';
+import {
   dateToISOFormat,
   isNotEmptyOperator,
   stringToNgbDateStruct,
@@ -35,28 +57,6 @@ import { delay } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
 import { environment } from 'src/environments/environment.test';
 
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { EPersonDataService } from '@dspace/core';
-import { GroupDataService } from '@dspace/core';
-import { getMockRequestService } from '@dspace/core';
-import { RouterMock } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { ActionType } from '@dspace/core';
-import { PolicyType } from '@dspace/core';
-import { ResourcePolicy } from '@dspace/core';
-import { RESOURCE_POLICY } from '@dspace/core';
-import { SubmissionObjectDataService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
-import { EPersonMock } from '@dspace/core';
-import { GroupMock } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
-import { createTestComponent } from '@dspace/core';
-import { SubmissionService } from '@dspace/core';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { EpersonGroupListComponent } from '../../eperson-group-list/eperson-group-list.component';
 import { dsDynamicFormControlMapFn } from '../../form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';

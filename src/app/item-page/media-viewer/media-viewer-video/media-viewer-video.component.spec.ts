@@ -7,15 +7,17 @@ import {
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
+  Bitstream,
+  MediaViewerItem,
+  MockBitstreamFormat1,
+  TranslateLoaderMock,
+} from '@dspace/core';
+import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { MockBitstreamFormat1 } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { MediaViewerItem } from '@dspace/core';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { FileSizePipe } from '../../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';

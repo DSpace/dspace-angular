@@ -5,6 +5,18 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  createSuccessfulRemoteDataObject$,
+  Item,
+  ItemSearchResult,
+  Relationship,
+  RelationshipOptions,
+  RemoveRelationshipAction,
+  SelectableListService,
+  SubmissionService,
+  SubmissionServiceStub,
+} from '@dspace/core';
 import { Store } from '@ngrx/store';
 import {
   TranslateLoader,
@@ -12,19 +24,9 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ItemSearchResult } from '@dspace/core';
-import { RelationshipOptions } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { Relationship } from '@dspace/core';
-import { RemoveRelationshipAction } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { SubmissionServiceStub } from '@dspace/core';
 import { TranslateLoaderMock } from '../../../../../../../modules/core/src/lib/core/utilities/testing/translate-loader.mock';
-import { SubmissionService } from '@dspace/core';
 import { getMockThemeService } from '../../../../mocks/theme-service.mock';
 import { ItemSearchResultListElementComponent } from '../../../../object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
-import { SelectableListService } from '@dspace/core';
 import { ThemeService } from '../../../../theme-support/theme.service';
 import {
   ExistingMetadataListElementComponent,

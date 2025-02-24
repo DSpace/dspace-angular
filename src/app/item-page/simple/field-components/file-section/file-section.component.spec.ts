@@ -7,6 +7,21 @@ import {
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+  Bitstream,
+  BitstreamDataService,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  MockBitstreamFormat1,
+  NotificationsService,
+  NotificationsServiceStub,
+  PageInfo,
+  TranslateLoaderMock,
+  XSRFService,
+} from '@dspace/core';
 import { provideMockStore } from '@ngrx/store/testing';
 import {
   TranslateLoader,
@@ -15,21 +30,6 @@ import {
 import { of as observableOf } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-} from '@dspace/core';
-import { BitstreamDataService } from '@dspace/core';
-import { MockBitstreamFormat1 } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
-import { XSRFService } from '@dspace/core';
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../../../shared/theme-support/theme.service';

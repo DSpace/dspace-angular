@@ -10,6 +10,17 @@ import {
   ViewChild,
 } from '@angular/core';
 import {
+  DSONameService,
+  DSpaceObject,
+  EPersonDataService,
+  getFirstSucceededRemoteData,
+  GroupDataService,
+  RemoteData,
+  RequestService,
+  RESOURCE_POLICY,
+  ResourcePolicy,
+} from '@dspace/core';
+import {
   dateToISOFormat,
   hasValue,
   hasValueOperator,
@@ -42,15 +53,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { DSONameService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { EPersonDataService } from '@dspace/core';
-import { GroupDataService } from '@dspace/core';
-import { ResourcePolicy } from '@dspace/core';
-import { RESOURCE_POLICY } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { getFirstSucceededRemoteData } from '@dspace/core';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { EpersonGroupListComponent } from '../../eperson-group-list/eperson-group-list.component';
 import { DsDynamicInputModel } from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';

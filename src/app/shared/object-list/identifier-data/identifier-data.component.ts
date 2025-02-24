@@ -4,14 +4,15 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import {
+  IdentifierData,
+  IdentifierDataService,
+  Item,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Item } from '@dspace/core';
-
-import { IdentifierData } from '@dspace/core';
-import { IdentifierDataService } from '@dspace/core';
 
 @Component({
   selector: 'ds-identifier-data',

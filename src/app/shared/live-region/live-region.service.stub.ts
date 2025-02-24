@@ -1,6 +1,5 @@
-import { of } from 'rxjs';
-
 import { LiveRegionService } from '@dspace/core';
+import { of } from 'rxjs';
 
 export function getLiveRegionServiceStub(): LiveRegionService {
   return new LiveRegionServiceStub() as unknown as LiveRegionService;

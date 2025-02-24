@@ -1,8 +1,11 @@
-import { buildPaginatedList } from '@dspace/core';
-import { ItemSearchResult } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import {
+  buildPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  Item,
+  ItemSearchResult,
+  PageInfo,
+} from '@dspace/core';
+
 import { getEntityGridElementTestComponent } from '../../../../../shared/object-grid/search-result-grid-element/item-search-result/item/item-search-result-grid-element.component.spec';
 import { JournalSearchResultGridElementComponent } from './journal-search-result-grid-element.component';
 

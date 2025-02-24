@@ -9,19 +9,21 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import {
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  FieldChangeType,
+  Item,
+  ObjectUpdatesService,
+  Relationship,
+  RelationshipType,
+} from '@dspace/core';
+import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { FieldChangeType } from '@dspace/core';
-import { ObjectUpdatesService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { Relationship } from '@dspace/core';
-import { RelationshipType } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { getMockThemeService } from '../../../../shared/mocks/theme-service.mock';
 import { ListableObjectComponentLoaderComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { ThemeService } from '../../../../shared/theme-support/theme.service';

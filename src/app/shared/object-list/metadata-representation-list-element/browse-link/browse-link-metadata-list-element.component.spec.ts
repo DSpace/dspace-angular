@@ -8,11 +8,13 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  MetadataRepresentationType,
+  MetadatumRepresentation,
+  ValueListBrowseDefinition,
+} from '@dspace/core';
 
-import { MetadataRepresentationType } from '@dspace/core';
-import { MetadatumRepresentation } from '@dspace/core';
-import { ValueListBrowseDefinition } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
 import { BrowseLinkMetadataListElementComponent } from './browse-link-metadata-list-element.component';
 
 const mockMetadataRepresentation = Object.assign(new MetadatumRepresentation('type'), {

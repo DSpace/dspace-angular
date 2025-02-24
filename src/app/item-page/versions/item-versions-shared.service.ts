@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
+import {
+  NotificationsService,
+  RemoteData,
+  Version,
+} from '@dspace/core';
 import { TranslateService } from '@ngx-translate/core';
-
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Version } from '@dspace/core';
 
 @Injectable({
   providedIn: 'root',

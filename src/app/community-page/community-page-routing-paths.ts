@@ -1,5 +1,6 @@
-import { getCollectionPageRoute } from '../collection-page/collection-page-routing-paths';
 import { URLCombiner } from '@dspace/core';
+
+import { getCollectionPageRoute } from '../collection-page/collection-page-routing-paths';
 
 export const COMMUNITY_PARENT_PARAMETER = 'parent';
 

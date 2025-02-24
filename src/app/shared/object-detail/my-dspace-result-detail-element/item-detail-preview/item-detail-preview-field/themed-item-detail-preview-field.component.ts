@@ -2,9 +2,11 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import {
+  Item,
+  SearchResult,
+} from '@dspace/core';
 
-import { Item } from '@dspace/core';
-import { SearchResult } from '@dspace/core';
 import { ThemedComponent } from '../../../../theme-support/themed.component';
 import { ItemDetailPreviewFieldComponent } from './item-detail-preview-field.component';
 

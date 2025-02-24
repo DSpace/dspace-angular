@@ -2,8 +2,8 @@ import {
   Component,
   Input,
 } from '@angular/core';
-
 import { SortOptions } from '@dspace/core';
+
 import { ThemedComponent } from '../../theme-support/themed.component';
 import { SearchSettingsComponent } from './search-settings.component';
 

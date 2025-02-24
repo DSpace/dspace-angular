@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import {
+  Context,
+  Item,
+  ItemSearchResult,
+  ViewMode,
+} from '@dspace/core';
 
-import { ItemSearchResult } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { ItemActionsComponent } from '../../../mydspace-actions/item/item-actions.component';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';

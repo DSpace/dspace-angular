@@ -8,6 +8,17 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import {
+  AuthService,
+  DSONameService,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  Item,
+  ItemDataService,
+  ItemRequest,
+  redirectOn4xx,
+  RemoteData,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
@@ -15,17 +26,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { AuthService } from '@dspace/core';
-import { DSONameService } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { redirectOn4xx } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { ItemRequest } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '@dspace/core';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../shared/utils/var.directive';

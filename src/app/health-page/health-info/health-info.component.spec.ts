@@ -4,13 +4,13 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { TranslateLoaderMock } from '@dspace/core';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { TranslateLoaderMock } from '@dspace/core';
 import { HealthInfoResponseObj } from '../../shared/mocks/health-endpoint.mocks';
 import { ObjNgFor } from '../../shared/utils/object-ngfor.pipe';
 import { HealthInfoComponent } from './health-info.component';

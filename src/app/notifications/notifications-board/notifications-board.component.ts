@@ -9,6 +9,15 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {
+  CoreState,
+  INotification,
+  INotificationBoardOptions,
+  LiveRegionService,
+  NotificationsService,
+  NotificationsState,
+  notificationsStateSelector,
+} from '@dspace/core';
+import {
   hasNoValue,
   isNotEmptyOperator,
 } from '@dspace/shared/utils';
@@ -24,14 +33,7 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { LiveRegionService } from '@dspace/core';
-import { INotificationBoardOptions } from '@dspace/core';
-import { INotification } from '@dspace/core';
 import { NotificationComponent } from '../notification';
-import { NotificationsState } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { notificationsStateSelector } from '@dspace/core';
-import { CoreState } from "@dspace/core";
 
 @Component({
   selector: 'ds-notifications-board',

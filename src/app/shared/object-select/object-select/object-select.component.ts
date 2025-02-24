@@ -7,6 +7,16 @@ import {
   Output,
 } from '@angular/core';
 import {
+  AuthorizationDataService,
+  DSONameService,
+  DSpaceObject,
+  FeatureID,
+  PaginatedList,
+  PaginationComponentOptions,
+  RemoteData,
+  SortOptions,
+} from '@dspace/core';
+import {
   Observable,
   of,
 } from 'rxjs';
@@ -15,14 +25,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { DSONameService } from '@dspace/core';
-import { SortOptions } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { FeatureID } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
 import { ObjectSelectService } from '../object-select.service';
 
 /**

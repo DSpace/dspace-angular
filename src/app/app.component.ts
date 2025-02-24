@@ -19,6 +19,13 @@ import {
   Router,
 } from '@angular/router';
 import {
+  AuthService,
+  distinctNext,
+  isAuthenticationBlocking,
+  NativeWindowRef,
+  NativeWindowService,
+} from '@dspace/core';
+import {
   NgbModal,
   NgbModalConfig,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -39,13 +46,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../environments/environment';
-import { AuthService } from '@dspace/core';
-import { isAuthenticationBlocking } from '@dspace/core';
-import {
-  NativeWindowRef,
-  NativeWindowService,
-} from '@dspace/core';
-import { distinctNext } from '@dspace/core';
 import { ThemedRootComponent } from './root/themed-root.component';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 import { IdleModalComponent } from './shared/idle-modal/idle-modal.component';

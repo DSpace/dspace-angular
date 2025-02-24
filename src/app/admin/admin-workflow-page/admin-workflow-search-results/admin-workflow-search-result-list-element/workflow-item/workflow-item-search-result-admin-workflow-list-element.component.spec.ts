@@ -6,22 +6,24 @@ import {
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  APP_CONFIG,
+  AuthorizationDataService,
+  AuthService,
+  createSuccessfulRemoteDataObject$,
+  DSONameService,
+  followLink,
+  getMockLinkService,
+  Item,
+  LinkService,
+  ViewMode,
+  WorkflowItem,
+  WorkflowItemSearchResult,
+  XSRFService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../../../environments/environment';
-import { AuthService } from '@dspace/core';
-import { DSONameService } from '@dspace/core';
-import { LinkService } from '@dspace/core';
-import { APP_CONFIG } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { getMockLinkService } from '@dspace/core';
-import { WorkflowItemSearchResult } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
-import { WorkflowItem } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { XSRFService } from '@dspace/core';
 import { AuthServiceMock } from '../../../../../shared/mocks/auth.service.mock';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';

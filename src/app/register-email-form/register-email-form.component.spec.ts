@@ -15,23 +15,25 @@ import {
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  ConfigurationDataService,
+  ConfigurationProperty,
+  CookieService,
+  CookieServiceMock,
+  createSuccessfulRemoteDataObject$,
+  EpersonRegistrationService,
+  GoogleRecaptchaService,
+  NotificationsService,
+  NotificationsServiceStub,
+  RestResponse,
+  RouterStub,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   of as observableOf,
   of,
 } from 'rxjs';
 
-import { RestResponse } from '@dspace/core';
-import { ConfigurationDataService } from '@dspace/core';
-import { EpersonRegistrationService } from '@dspace/core';
-import { GoogleRecaptchaService } from '@dspace/core';
-import { CookieServiceMock } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { CookieService } from '@dspace/core';
-import { ConfigurationProperty } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { GoogleRecaptchaComponent } from '../shared/google-recaptcha/google-recaptcha.component';
 import {

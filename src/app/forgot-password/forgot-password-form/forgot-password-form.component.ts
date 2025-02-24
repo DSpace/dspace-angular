@@ -7,6 +7,17 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  AuthenticateAction,
+  CoreState,
+  EPerson,
+  EPersonDataService,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  NotificationsService,
+  Registration,
+  RemoteData,
+} from '@dspace/core';
 import { Store } from '@ngrx/store';
 import {
   TranslateModule,
@@ -15,17 +26,6 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { AuthenticateAction } from '@dspace/core';
-import { CoreState } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { EPersonDataService } from '@dspace/core';
-import { EPerson } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '@dspace/core';
-import { Registration } from '@dspace/core';
 import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';

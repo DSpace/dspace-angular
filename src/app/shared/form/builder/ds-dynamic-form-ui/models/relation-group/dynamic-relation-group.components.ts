@@ -15,6 +15,14 @@ import {
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import {
+  FormFieldMetadataValueObject,
+  getFirstSucceededRemoteDataPayload,
+  PLACEHOLDER_PARENT_METADATA,
+  SubmissionFormsModel,
+  VocabularyEntryDetail,
+  VocabularyService,
+} from '@dspace/core';
+import {
   hasOnlyEmptyProperties,
   hasValue,
   isEmpty,
@@ -47,10 +55,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../../../../../environments/environment';
-import { SubmissionFormsModel } from '@dspace/core';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core';
-import { VocabularyEntryDetail } from '@dspace/core';
-import { VocabularyService } from '@dspace/core';
 import { shrinkInOut } from '../../../../../animations/shrink';
 import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../../../loading/themed-loading.component';
@@ -60,8 +64,6 @@ import { ChipsItem } from '../../../../chips/models/chips-item.model';
 import { FormComponent } from '../../../../form.component';
 import { FormService } from '../../../../form.service';
 import { FormBuilderService } from '../../../form-builder.service';
-import { FormFieldMetadataValueObject } from '@dspace/core';
-import { PLACEHOLDER_PARENT_METADATA } from '@dspace/core';
 import { DynamicRelationGroupModel } from './dynamic-relation-group.model';
 
 /**

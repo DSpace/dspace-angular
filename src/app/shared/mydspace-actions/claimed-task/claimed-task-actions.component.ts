@@ -9,6 +9,18 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import {
+  ClaimedTask,
+  ClaimedTaskDataService,
+  Item,
+  NotificationsService,
+  RemoteData,
+  RequestService,
+  SearchService,
+  WorkflowAction,
+  WorkflowActionDataService,
+  WorkflowItem,
+} from '@dspace/core';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -16,16 +28,6 @@ import {
 } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { WorkflowActionDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { WorkflowItem } from '@dspace/core';
-import { ClaimedTaskDataService } from '@dspace/core';
-import { ClaimedTask } from '@dspace/core';
-import { WorkflowAction } from '@dspace/core';
 import { getWorkflowItemViewRoute } from '../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { VarDirective } from '../../utils/var.directive';
 import { MyDSpaceActionsComponent } from '../mydspace-actions';

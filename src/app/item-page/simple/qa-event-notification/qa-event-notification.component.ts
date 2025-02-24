@@ -7,6 +7,16 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import {
+  FindListOptions,
+  getFirstCompletedRemoteData,
+  Item,
+  PaginatedList,
+  QualityAssuranceSourceDataService,
+  QualityAssuranceSourceObject,
+  RemoteData,
+  RequestParam,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
@@ -15,14 +25,6 @@ import {
 } from 'rxjs/operators';
 
 import { getNotificatioQualityAssuranceRoute } from '../../../admin/admin-routing-paths';
-import { RequestParam } from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { QualityAssuranceSourceObject } from '@dspace/core';
-import { QualityAssuranceSourceDataService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
 import { SplitPipe } from '../../../shared/utils/split.pipe';
 
 @Component({

@@ -17,6 +17,19 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import {
+  CAPTCHA_NAME,
+  ConfigurationDataService,
+  ConfigurationProperty,
+  CookieService,
+  EpersonRegistrationService,
+  getAllSucceededRemoteDataPayload,
+  getFirstSucceededRemoteDataPayload,
+  GoogleRecaptchaService,
+  NotificationsService,
+  Registration,
+  RemoteData,
+} from '@dspace/core';
 import { isNotEmpty } from '@dspace/shared/utils';
 import {
   TranslateModule,
@@ -36,21 +49,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { ConfigurationDataService } from '@dspace/core';
-import { EpersonRegistrationService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import {
-  CAPTCHA_NAME,
-  GoogleRecaptchaService,
-} from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { CookieService } from '@dspace/core';
-import { ConfigurationProperty } from '@dspace/core';
-import {
-  getAllSucceededRemoteDataPayload,
-  getFirstSucceededRemoteDataPayload,
-} from '@dspace/core';
-import { Registration } from '@dspace/core';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';
 import { BtnDisabledDirective } from '../shared/btn-disabled.directive';

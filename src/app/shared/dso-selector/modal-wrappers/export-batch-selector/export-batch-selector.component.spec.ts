@@ -14,6 +14,22 @@ import {
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
+  AuthorizationDataService,
+  BATCH_EXPORT_SCRIPT_NAME,
+  Collection,
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  Item,
+  NotificationsService,
+  NotificationsServiceStub,
+  ProcessParameter,
+  ScriptDataService,
+  SearchService,
+  SearchServiceStub,
+  TranslateLoaderMock,
+} from '@dspace/core';
+import {
   NgbActiveModal,
   NgbModal,
   NgbModalModule,
@@ -24,24 +40,6 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthorizationDataService } from '@dspace/core';
-import {
-  BATCH_EXPORT_SCRIPT_NAME,
-  ScriptDataService,
-} from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { ProcessParameter } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { SearchServiceStub } from '@dspace/core';
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
 import { ExportBatchSelectorComponent } from './export-batch-selector.component';
 

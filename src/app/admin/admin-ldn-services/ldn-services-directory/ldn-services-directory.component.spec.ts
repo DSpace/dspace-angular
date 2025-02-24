@@ -10,6 +10,19 @@ import {
   tick,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  LdnService,
+  LdnServicesService,
+  NotificationsService,
+  NotificationsServiceStub,
+  PaginatedList,
+  PaginationService,
+  PaginationServiceStub,
+  RemoteData,
+} from '@dspace/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -17,20 +30,9 @@ import {
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { TruncatableComponent } from '../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../shared/truncatable/truncatable-part/truncatable-part.component';
-import { LdnServicesService } from '@dspace/core';
-import { LdnService } from '@dspace/core';
 import { LdnServicesOverviewComponent } from './ldn-services-directory.component';
 
 describe('LdnServicesOverviewComponent', () => {

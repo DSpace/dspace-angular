@@ -12,6 +12,39 @@ import {
   ActivatedRoute,
   RouterModule,
 } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  APP_CONFIG,
+  AuthRequestService,
+  AuthRequestServiceStub,
+  ConfigurationDataService,
+  ConfigurationProperty,
+  CookieService,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  EditItemRelationshipsServiceStub,
+  FieldChangeType,
+  GroupDataService,
+  HardRedirectService,
+  HostWindowServiceStub,
+  Item,
+  ItemType,
+  LinkHeadService,
+  LinkService,
+  ObjectUpdatesService,
+  PaginationComponentOptions,
+  PaginationService,
+  PaginationServiceStub,
+  Relationship,
+  RelationshipDataService,
+  RelationshipType,
+  RelationshipTypeDataService,
+  REQUEST,
+  SearchConfigurationService,
+  SearchConfigurationServiceStub,
+  SelectableListService,
+  XSRFService,
+} from '@dspace/core';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
@@ -21,38 +54,7 @@ import {
 } from 'rxjs';
 
 import { environment } from '../../../../../environments/environment.test';
-import { AuthRequestService } from '@dspace/core';
-import { LinkService } from '@dspace/core';
-import { APP_CONFIG } from '@dspace/core';
-import { ConfigurationDataService } from '@dspace/core';
-import { FieldChangeType } from '@dspace/core';
-import { ObjectUpdatesService } from '@dspace/core';
-import { RelationshipDataService } from '@dspace/core';
-import { RelationshipTypeDataService } from '@dspace/core';
-import { GroupDataService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { CookieService } from '@dspace/core';
-import { HardRedirectService } from '@dspace/core';
-import { LinkHeadService } from '@dspace/core';
-import { ConfigurationProperty } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { ItemType } from '@dspace/core';
-import { Relationship } from '@dspace/core';
-import { RelationshipType } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import { REQUEST } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { AuthRequestServiceStub } from '@dspace/core';
-import { EditItemRelationshipsServiceStub } from '@dspace/core';
-import { HostWindowServiceStub } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
-import { SearchConfigurationServiceStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
-import { XSRFService } from '@dspace/core';
 import { HostWindowService } from '../../../../shared/host-window.service';
-import { SelectableListService } from '@dspace/core';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 import { EditItemRelationshipsService } from '../edit-item-relationships.service';
 import { EditRelationshipListComponent } from './edit-relationship-list.component';

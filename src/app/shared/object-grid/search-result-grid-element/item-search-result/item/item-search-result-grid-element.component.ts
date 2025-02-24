@@ -4,13 +4,15 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import {
+  BitstreamDataService,
+  DSONameService,
+  Item,
+  ItemSearchResult,
+  ViewMode,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DSONameService } from '@dspace/core';
-import { BitstreamDataService } from '@dspace/core';
-import { ItemSearchResult } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { getItemPageRoute } from '../../../../../item-page/item-page-routing-paths';
 import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
 import { focusShadow } from '../../../../animations/focus';

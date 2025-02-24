@@ -16,6 +16,23 @@ import {
   RouterLink,
 } from '@angular/router';
 import {
+  AuthService,
+  DSONameService,
+  EPerson,
+  EPersonDataService,
+  FindListOptions,
+  getAllCompletedRemoteData,
+  getFirstCompletedRemoteData,
+  PaginatedList,
+  PaginationComponentOptions,
+  PaginationService,
+  Process,
+  ProcessStatus,
+  redirectOn4xx,
+  RemoteData,
+  RouteService,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -38,24 +55,7 @@ import {
   take,
   toArray,
 } from 'rxjs/operators';
-import { PaginationService } from '@dspace/core';
 
-import { AuthService } from '@dspace/core';
-import { DSONameService } from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { EPersonDataService } from '@dspace/core';
-import { EPerson } from '@dspace/core';
-import { Process } from '@dspace/core';
-import { ProcessStatus } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { redirectOn4xx } from '@dspace/core';
-import {
-  getAllCompletedRemoteData,
-  getFirstCompletedRemoteData,
-} from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { VarDirective } from '../../../shared/utils/var.directive';

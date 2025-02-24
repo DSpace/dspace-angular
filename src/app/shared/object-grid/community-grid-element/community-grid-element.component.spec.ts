@@ -9,11 +9,13 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  Community,
+  LinkService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { LinkService } from '@dspace/core';
-import { Community } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
 import { ThemedThumbnailComponent } from '../../../thumbnail/themed-thumbnail.component';
 import { CommunityGridElementComponent } from './community-grid-element.component';
 

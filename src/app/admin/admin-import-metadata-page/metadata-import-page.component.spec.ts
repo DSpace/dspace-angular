@@ -10,19 +10,17 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
-
-import {
-  METADATA_IMPORT_SCRIPT_NAME,
-  ScriptDataService,
-} from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { ProcessParameter } from '@dspace/core';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
+  METADATA_IMPORT_SCRIPT_NAME,
+  NotificationsService,
+  NotificationsServiceStub,
+  ProcessParameter,
+  ScriptDataService,
 } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';
 import { FileValueAccessorDirective } from '../../shared/utils/file-value-accessor.directive';
 import { FileValidator } from '../../shared/utils/require-file.validator';

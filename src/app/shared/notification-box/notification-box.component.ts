@@ -5,11 +5,13 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import {
+  AdminNotifyMetricsBox,
+  AdminNotifySearchResult,
+  ViewMode,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { AdminNotifySearchResult } from '@dspace/core';
-import { AdminNotifyMetricsBox } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { HoverClassDirective } from '../hover-class.directive';
 import { listableObjectComponent } from '../object-collection/shared/listable-object/listable-object.decorator';
 

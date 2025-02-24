@@ -10,16 +10,18 @@ import {
   Router,
 } from '@angular/router';
 import {
+  Context,
+  RouterStub,
+  SearchConfigurationServiceStub,
+  SearchService,
+  TranslateLoaderMock,
+} from '@dspace/core';
+import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { TranslateLoaderMock } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
-import { SearchConfigurationServiceStub } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { MyDSpaceConfigurationValueType } from '../../../my-dspace-page/my-dspace-configuration-value-type';
 import { MYDSPACE_ROUTE } from '../../../my-dspace-page/my-dspace-page.component';

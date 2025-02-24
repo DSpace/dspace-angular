@@ -12,6 +12,34 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  AuthorizationDataService,
+  Collection,
+  ConfigurationDataService,
+  ConfigurationProperty,
+  createFailedRemoteDataObject$,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  GroupDataService,
+  HostWindowServiceStub,
+  ItemDataService,
+  LinkHeadService,
+  NotificationsService,
+  NotificationsServiceStub,
+  ObjectSelectServiceStub,
+  PaginatedSearchOptions,
+  PaginationComponentOptions,
+  RemoteData,
+  RouterStub,
+  RouteService,
+  SearchConfigurationService,
+  SearchConfigurationServiceStub,
+  SearchService,
+  SearchServiceStub,
+  SortDirection,
+  SortOptions,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -19,36 +47,6 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import {
-  SortDirection,
-  SortOptions,
-} from '@dspace/core';
-import { ConfigurationDataService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { GroupDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { LinkHeadService } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { ConfigurationProperty } from '@dspace/core';
-import { PaginatedSearchOptions } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { HostWindowServiceStub } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { ObjectSelectServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
-import { SearchConfigurationServiceStub } from '@dspace/core';
-import { SearchServiceStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { HostWindowService } from '../../shared/host-window.service';

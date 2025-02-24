@@ -16,6 +16,24 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  Bitstream,
+  BitstreamDataService,
+  BitstreamFormat,
+  BitstreamFormatDataService,
+  BitstreamFormatSupportLevel,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  DSONameService,
+  INotification,
+  Item,
+  MetadataValueFilter,
+  Notification,
+  NotificationsService,
+  NotificationType,
+  PrimaryBitstreamService,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import {
   DynamicFormControlModel,
@@ -24,26 +42,6 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { DSONameService } from '@dspace/core';
-import { BitstreamDataService } from '@dspace/core';
-import { BitstreamFormatDataService } from '@dspace/core';
-import { PrimaryBitstreamService } from '@dspace/core';
-import {
-  INotification,
-  Notification,
-} from '@dspace/core';
-import { NotificationType } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { BitstreamFormat } from '@dspace/core';
-import { BitstreamFormatSupportLevel } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { MetadataValueFilter } from '@dspace/core';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { getEntityEditRoute } from '../../item-page/item-page-routing-paths';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';

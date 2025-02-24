@@ -8,24 +8,26 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  APP_CONFIG,
+  AuthorizationDataService,
+  AuthorizationDataServiceStub,
+  AuthService,
+  AuthServiceStub,
+  Context,
+  DSONameService,
+  FileService,
+  FileServiceStub,
+  GenericConstructor,
+  ListableObject,
+  TruncatableServiceStub,
+  ViewMode,
+  XSRFService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../../environments/environment.test';
-import { AuthService } from '@dspace/core';
-import { DSONameService } from '@dspace/core';
-import { APP_CONFIG } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { ListableObject } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { FileService } from '@dspace/core';
-import { GenericConstructor } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { AuthServiceStub } from '@dspace/core';
-import { AuthorizationDataServiceStub } from '@dspace/core';
-import { FileServiceStub } from '@dspace/core';
-import { TruncatableServiceStub } from '@dspace/core';
-import { XSRFService } from '@dspace/core';
 import { DynamicComponentLoaderDirective } from '../../../abstract-component-loader/dynamic-component-loader.directive';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';

@@ -2,10 +2,12 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
+import {
+  SearchService,
+  SearchServiceStub,
+} from '@dspace/core';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
-import { SearchService } from '@dspace/core';
-import { SearchServiceStub } from '@dspace/core';
 import { SearchResultsSkeletonComponent } from './search-results-skeleton.component';
 
 describe('SearchResultsSkeletonComponent', () => {

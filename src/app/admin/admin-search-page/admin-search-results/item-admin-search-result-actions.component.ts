@@ -4,10 +4,12 @@ import {
   Input,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import {
+  Item,
+  URLCombiner,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Item } from '@dspace/core';
-import { URLCombiner } from '@dspace/core';
 import {
   ITEM_EDIT_DELETE_PATH,
   ITEM_EDIT_MOVE_PATH,

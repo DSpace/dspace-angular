@@ -1,5 +1,14 @@
 /* eslint-disable max-classes-per-file */
 import {
+  ArrayMoveChangeAnalyzer,
+  MetadataMap,
+  MetadataPatchAddOperation,
+  MetadataPatchMoveOperation,
+  MetadataPatchRemoveOperation,
+  MetadataPatchReplaceOperation,
+  MetadataValue,
+} from '@dspace/core';
+import {
   hasNoValue,
   hasValue,
   isEmpty,
@@ -9,16 +18,6 @@ import {
   MoveOperation,
   Operation,
 } from 'fast-json-patch';
-
-import { ArrayMoveChangeAnalyzer } from '@dspace/core';
-import { MetadataPatchAddOperation } from '@dspace/core';
-import { MetadataPatchMoveOperation } from '@dspace/core';
-import { MetadataPatchRemoveOperation } from '@dspace/core';
-import { MetadataPatchReplaceOperation } from '@dspace/core';
-import {
-  MetadataMap,
-  MetadataValue,
-} from '@dspace/core';
 
 /**
  * Enumeration for the type of change occurring on a metadata value

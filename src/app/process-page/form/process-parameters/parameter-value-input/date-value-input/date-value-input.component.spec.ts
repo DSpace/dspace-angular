@@ -7,12 +7,12 @@ import {
 } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { TranslateLoaderMock } from '@dspace/core';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { TranslateLoaderMock } from '@dspace/core';
 import { DateValueInputComponent } from './date-value-input.component';
 
 describe('DateValueInputComponent', () => {

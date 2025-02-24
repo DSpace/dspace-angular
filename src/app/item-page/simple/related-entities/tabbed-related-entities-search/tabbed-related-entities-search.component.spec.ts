@@ -9,12 +9,14 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  Item,
+  RouterMock,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { RouterMock } from '@dspace/core';
-import { Item } from '@dspace/core';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 import { RelatedEntitiesSearchComponent } from '../related-entities-search/related-entities-search.component';
 import { TabbedRelatedEntitiesSearchComponent } from './tabbed-related-entities-search.component';

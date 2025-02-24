@@ -6,6 +6,11 @@ import {
   OnInit,
 } from '@angular/core';
 import {
+  SectionsType,
+  SubmissionSectionError,
+  SubmissionService,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
   isNotNull,
@@ -17,11 +22,8 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { SubmissionSectionError } from '@dspace/core';
-import { SubmissionService } from '@dspace/core';
 import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
 import { SectionsService } from './sections.service';
-import { SectionsType } from '@dspace/core';
 
 /**
  * Directive for handling generic section functionality

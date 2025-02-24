@@ -1,5 +1,7 @@
-import { SortOptions } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
+import {
+  PaginationComponentOptions,
+  SortOptions,
+} from '@dspace/core';
 
 
 /**

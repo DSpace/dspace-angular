@@ -3,23 +3,23 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
-import { of as observableOf } from 'rxjs';
-
-import { environment } from '../../../environments/environment';
 import {
+  APP_CONFIG,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject,
+  PaginatedSearchOptions,
+  PaginationComponentOptions,
+  PaginationService,
+  PaginationServiceStub,
+  SearchConfigurationService,
+  SearchService,
+  SearchServiceStub,
   SortDirection,
   SortOptions,
 } from '@dspace/core';
-import { APP_CONFIG } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { PaginatedSearchOptions } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
-import { SearchServiceStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
+import { of as observableOf } from 'rxjs';
+
+import { environment } from '../../../environments/environment';
 import { RecentItemListComponent } from './recent-item-list.component';
 
 describe('RecentItemListComponent', () => {

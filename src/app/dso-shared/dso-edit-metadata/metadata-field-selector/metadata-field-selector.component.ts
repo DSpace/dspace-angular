@@ -18,6 +18,16 @@ import {
   ReactiveFormsModule,
   UntypedFormControl,
 } from '@angular/forms';
+import {
+  followLink,
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  metadataFieldsToString,
+  NotificationsService,
+  RegistryService,
+  SortDirection,
+  SortOptions,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import {
   TranslateModule,
@@ -40,18 +50,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import {
-  SortDirection,
-  SortOptions,
-} from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { RegistryService } from '@dspace/core';
-import {
-  getAllSucceededRemoteData,
-  getFirstCompletedRemoteData,
-  metadataFieldsToString,
-} from '@dspace/core';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { ClickOutsideDirective } from '../../../shared/utils/click-outside.directive';
 

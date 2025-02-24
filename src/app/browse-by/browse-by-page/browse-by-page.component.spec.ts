@@ -6,14 +6,16 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  BrowseByDataType,
+  BrowseDefinition,
+  GenericConstructor,
+} from '@dspace/core';
 
-import { BrowseDefinition } from '@dspace/core';
-import { GenericConstructor } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
 import { DynamicComponentLoaderDirective } from '../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
-import { BrowseByDataType } from '@dspace/core';
 import { BrowseBySwitcherComponent } from '../browse-by-switcher/browse-by-switcher.component';
 import { BrowseByPageComponent } from './browse-by-page.component';
 

@@ -9,6 +9,13 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import {
+  AdminNotifyMessage,
+  AdminNotifyMessagesService,
+  AdminNotifySearchResult,
+  PaginatedList,
+  SearchConfigurationService,
+} from '@dspace/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -16,16 +23,11 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { PaginatedList } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { TabulatableResultListElementsComponent } from '../../../shared/object-list/search-result-list-element/tabulatable-search-result/tabulatable-result-list-elements.component';
 import { TruncatableComponent } from '../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { AdminNotifyDetailModalComponent } from '../admin-notify-detail-modal/admin-notify-detail-modal.component';
-import { AdminNotifyMessage } from '@dspace/core';
-import { AdminNotifySearchResult } from '@dspace/core';
-import { AdminNotifyMessagesService } from '@dspace/core';
 
 @Component({
   selector: 'ds-admin-notify-search-result',

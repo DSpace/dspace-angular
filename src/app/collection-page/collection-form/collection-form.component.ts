@@ -9,6 +9,19 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import {
+  AuthService,
+  Collection,
+  CollectionDataService,
+  EntityTypeDataService,
+  getFirstSucceededRemoteListPayload,
+  ItemType,
+  MetadataValue,
+  NONE_ENTITY_TYPE,
+  NotificationsService,
+  ObjectCacheService,
+  RequestService,
+} from '@dspace/core';
+import {
   hasNoValue,
   isNotNull,
 } from '@dspace/shared/utils';
@@ -25,17 +38,6 @@ import {
 } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { AuthService } from '@dspace/core';
-import { ObjectCacheService } from '@dspace/core';
-import { CollectionDataService } from '@dspace/core';
-import { EntityTypeDataService } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { ItemType } from '@dspace/core';
-import { NONE_ENTITY_TYPE } from '@dspace/core';
-import { MetadataValue } from '@dspace/core';
-import { getFirstSucceededRemoteListPayload } from '@dspace/core';
 import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
 import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
 import { FormComponent } from '../../shared/form/form.component';

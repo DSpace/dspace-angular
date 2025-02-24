@@ -8,20 +8,22 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  APP_CONFIG,
+  ClaimedApprovedTaskSearchResult,
+  ClaimedTask,
+  Context,
+  createSuccessfulRemoteDataObject,
+  DSONameService,
+  getMockLinkService,
+  Item,
+  LinkService,
+  WorkflowItem,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { environment } from '../../../../../../environments/environment';
-import { DSONameService } from '@dspace/core';
-import { LinkService } from '@dspace/core';
-import { APP_CONFIG } from '@dspace/core';
-import { getMockLinkService } from '@dspace/core';
-import { ClaimedApprovedTaskSearchResult } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { WorkflowItem } from '@dspace/core';
-import { ClaimedTask } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { DSONameServiceMock } from '../../../../mocks/dso-name.service.mock';
 import { mockTruncatableService } from '../../../../mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../../mocks/theme-service.mock';

@@ -5,6 +5,23 @@ import {
   Inject,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import {
+  ConfigurationDataService,
+  Field,
+  FindListOptions,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  getRemoteDataPayload,
+  JsonPatchOperationPathCombiner,
+  JsonPatchOperationsBuilder,
+  Option,
+  SectionDataObject,
+  SectionsType,
+  SubmissionCcLicence,
+  SubmissionCcLicenseDataService,
+  SubmissionCcLicenseUrlDataService,
+  WorkspaceitemSectionCcLicenseObject,
+} from '@dspace/core';
 import { isNotEmpty } from '@dspace/shared/utils';
 import {
   NgbDropdownModule,
@@ -26,31 +43,12 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { ConfigurationDataService } from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import { JsonPatchOperationPathCombiner } from '@dspace/core';
-import { JsonPatchOperationsBuilder } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-  getRemoteDataPayload,
-} from '@dspace/core';
-import {
-  Field,
-  Option,
-  SubmissionCcLicence,
-} from '@dspace/core';
-import { WorkspaceitemSectionCcLicenseObject } from '@dspace/core';
-import { SubmissionCcLicenseDataService } from '@dspace/core';
-import { SubmissionCcLicenseUrlDataService } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { DsSelectComponent } from '../../../shared/ds-select/ds-select.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { SectionModelComponent } from '../models/section.model';
-import { SectionDataObject } from '@dspace/core';
 import { SectionsService } from '../sections.service';
-import { SectionsType } from '@dspace/core';
 
 /**
  * This component represents the submission section to select the Creative Commons license.

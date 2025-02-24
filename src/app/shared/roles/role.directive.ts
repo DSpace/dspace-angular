@@ -8,6 +8,10 @@ import {
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
+import {
+  RoleService,
+  RoleType,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import {
   combineLatest,
@@ -19,9 +23,6 @@ import {
   first,
   map,
 } from 'rxjs/operators';
-
-import { RoleService } from '@dspace/core';
-import { RoleType } from '@dspace/core';
 
 @Directive({
   selector: '[dsShowOnlyForRole],[dsShowExceptForRole]',

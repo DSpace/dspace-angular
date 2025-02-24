@@ -5,12 +5,12 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { TranslateLoaderMock } from '@dspace/core';
 import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { TranslateLoaderMock } from '@dspace/core';
 import { getMockThemeService } from '../shared/mocks/theme-service.mock';
 import { ThemeService } from '../shared/theme-support/theme.service';
 import { CommunityListPageComponent } from './community-list-page.component';

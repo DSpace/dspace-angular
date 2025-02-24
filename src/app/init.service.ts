@@ -13,6 +13,17 @@ import {
   TransferState,
   Type,
 } from '@angular/core';
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+  AppConfig,
+  CheckAuthenticationTokenAction,
+  CorrelationIdService,
+  HeadTagService,
+  isAuthenticationBlocking,
+  LAZY_DATA_SERVICES,
+  LocaleService,
+} from '@dspace/core';
 import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core';
 import {
   select,
@@ -29,17 +40,6 @@ import {
 import { environment } from '../environments/environment';
 import { AppState } from './app.reducer';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
-import { CheckAuthenticationTokenAction } from '@dspace/core';
-import { isAuthenticationBlocking } from '@dspace/core';
-import {
-  APP_CONFIG,
-  APP_DATA_SERVICES_MAP,
-  AppConfig,
-} from '@dspace/core';
-import { CorrelationIdService } from '@dspace/core';
-import { LAZY_DATA_SERVICES } from '@dspace/core';
-import { LocaleService } from '@dspace/core';
-import { HeadTagService } from '@dspace/core';
 import { dsDynamicFormControlMapFn } from './shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 import { MenuService } from './shared/menu/menu.service';
 import { ThemeService } from './shared/theme-support/theme.service';

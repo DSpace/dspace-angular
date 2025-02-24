@@ -6,17 +6,17 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  DSpaceObject,
+  DSpaceObjectType,
+  SortDirection,
+  SortOptions,
+} from '@dspace/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../../environments/environment';
 import { getCommunityEditRoute } from '../../../../community-page/community-page-routing-paths';
-import {
-  SortDirection,
-  SortOptions,
-} from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { DSpaceObjectType } from '@dspace/core';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,

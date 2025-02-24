@@ -9,6 +9,17 @@ import {
   Router,
 } from '@angular/router';
 import {
+  AuthService,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  ItemRequest,
+  ItemRequestDataService,
+  NotificationsService,
+  redirectOn4xx,
+  RemoteData,
+  RequestCopyEmail,
+} from '@dspace/core';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
@@ -18,17 +29,6 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { AuthService } from '@dspace/core';
-import { ItemRequestDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { RequestCopyEmail } from '@dspace/core';
-import { redirectOn4xx } from '@dspace/core';
-import { ItemRequest } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '@dspace/core';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { ThemedEmailRequestCopyComponent } from '../email-request-copy/themed-email-request-copy.component';

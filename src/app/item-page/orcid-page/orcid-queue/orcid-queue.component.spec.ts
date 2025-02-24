@@ -10,23 +10,25 @@ import {
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  Item,
+  NotificationsService,
+  NotificationsServiceStub,
+  OrcidAuthService,
+  OrcidHistoryDataService,
+  OrcidQueue,
+  OrcidQueueDataService,
+  PaginatedList,
+  PaginationService,
+  PaginationServiceStub,
+  TranslateLoaderMock,
+} from '@dspace/core';
+import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { PaginatedList } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { OrcidQueue } from '@dspace/core';
-import { OrcidAuthService } from '@dspace/core';
-import { OrcidHistoryDataService } from '@dspace/core';
-import { OrcidQueueDataService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { OrcidQueueComponent } from './orcid-queue.component';
 

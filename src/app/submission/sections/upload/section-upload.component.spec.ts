@@ -10,26 +10,32 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import {
+  APP_DATA_SERVICES_MAP,
+  buildPaginatedList,
+  Collection,
+  CollectionDataService,
+  createSuccessfulRemoteDataObject$,
+  createTestComponent,
+  Group,
+  GroupDataService,
+  PageInfo,
+  ResourcePolicy,
+  ResourcePolicyDataService,
+  SectionDataObject,
+  SectionsServiceStub,
+  SectionsType,
+  SubmissionFormsConfigDataService,
+  SubmissionObjectState,
+  SubmissionService,
+  SubmissionServiceStub,
+  SubmissionUploadsConfigDataService,
+  SubmissionUploadsModel,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { APP_DATA_SERVICES_MAP } from '@dspace/core';
-import { SubmissionUploadsModel } from '@dspace/core';
-import { SubmissionFormsConfigDataService } from '@dspace/core';
-import { SubmissionUploadsConfigDataService } from '@dspace/core';
-import { CollectionDataService } from '@dspace/core';
-import { buildPaginatedList } from '@dspace/core';
-import { GroupDataService } from '@dspace/core';
-import { Group } from '@dspace/core';
-import { ResourcePolicy } from '@dspace/core';
-import { ResourcePolicyDataService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { SectionsServiceStub } from '@dspace/core';
-import { SubmissionServiceStub } from '@dspace/core';
-import { createTestComponent } from '@dspace/core';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { getMockSectionUploadService } from '../../../shared/mocks/section-upload.service.mock';
 import {
@@ -44,11 +50,7 @@ import {
 } from '../../../shared/mocks/submission.mock';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../../shared/theme-support/theme.service';
-import { SubmissionObjectState } from '@dspace/core';
-import { SubmissionService } from '@dspace/core';
-import { SectionDataObject } from '@dspace/core';
 import { SectionsService } from '../sections.service';
-import { SectionsType } from '@dspace/core';
 import { SubmissionSectionUploadComponent } from './section-upload.component';
 import { SectionUploadService } from './section-upload.service';
 

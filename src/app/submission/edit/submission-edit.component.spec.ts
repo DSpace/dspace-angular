@@ -10,6 +10,24 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  ActivatedRouteStub,
+  APP_DATA_SERVICES_MAP,
+  AuthService,
+  AuthServiceStub,
+  createSuccessfulRemoteDataObject$,
+  HALEndpointService,
+  ItemDataService,
+  NotificationsService,
+  NotificationsServiceStub,
+  RouterStub,
+  SectionsServiceStub,
+  SubmissionJsonPatchOperationsService,
+  SubmissionJsonPatchOperationsServiceStub,
+  SubmissionService,
+  SubmissionServiceStub,
+  XSRFService,
+} from '@dspace/core';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -17,27 +35,11 @@ import {
   of,
 } from 'rxjs';
 
-import { AuthService } from '@dspace/core';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { HALEndpointService } from '@dspace/core';
-import { SubmissionJsonPatchOperationsService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { AuthServiceStub } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
-import { SectionsServiceStub } from '@dspace/core';
-import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core';
-import { SubmissionServiceStub } from '@dspace/core';
-import { XSRFService } from '@dspace/core';
 import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { SubmissionFormComponent } from '../form/submission-form.component';
 import { SectionsService } from '../sections/sections.service';
-import { SubmissionService } from '@dspace/core';
 import { SubmissionEditComponent } from './submission-edit.component';
 
 describe('SubmissionEditComponent Component', () => {

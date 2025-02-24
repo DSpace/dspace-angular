@@ -1,11 +1,13 @@
 import {
+  ResourceType,
+  VocabularyOptions,
+} from '@dspace/core';
+import {
   AUTOCOMPLETE_OFF,
   DynamicFormControlLayout,
   serializable,
 } from '@ng-dynamic-forms/core';
 
-import { ResourceType } from '@dspace/core';
-import { VocabularyOptions } from '@dspace/core';
 import {
   DsDynamicInputModel,
   DsDynamicInputModelConfig,

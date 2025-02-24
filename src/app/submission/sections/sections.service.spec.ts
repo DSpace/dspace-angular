@@ -3,6 +3,26 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import {
+  DisableSectionAction,
+  EnableSectionAction,
+  FormClearErrorsAction,
+  getMockTranslateService,
+  InertSectionErrorsAction,
+  NotificationsService,
+  NotificationsServiceStub,
+  RemoveSectionErrorsAction,
+  SectionScope,
+  SectionStatusChangeAction,
+  SectionsType,
+  submissionReducers,
+  SubmissionScopeType,
+  SubmissionSectionError,
+  SubmissionService,
+  SubmissionServiceStub,
+  TranslateLoaderMock,
+  UpdateSectionDataAction,
+} from '@dspace/core';
+import {
   Store,
   StoreModule,
 } from '@ngrx/store';
@@ -19,13 +39,6 @@ import {
 import { of as observableOf } from 'rxjs';
 
 import { storeModuleConfig } from '../../app.reducer';
-import { getMockTranslateService } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { SubmissionScopeType } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { SubmissionServiceStub } from '@dspace/core';
-import { FormClearErrorsAction } from '@dspace/core';
 import { FormService } from '../../shared/form/form.service';
 import { getMockFormService } from '../../shared/mocks/form-service.mock';
 import { getMockScrollToService } from '../../shared/mocks/scroll-to-service.mock';
@@ -35,21 +48,8 @@ import {
   mockSubmissionState,
   mockSubmissionStateWithoutUpload,
 } from '../../shared/mocks/submission.mock';
-import { SectionScope } from '@dspace/core';
-import {
-  DisableSectionAction,
-  EnableSectionAction,
-  InertSectionErrorsAction,
-  RemoveSectionErrorsAction,
-  SectionStatusChangeAction,
-  UpdateSectionDataAction,
-} from '@dspace/core';
-import { SubmissionSectionError } from '@dspace/core';
-import { submissionReducers } from '@dspace/core';
-import { SubmissionService } from '@dspace/core';
 import parseSectionErrors from '../utils/parseSectionErrors';
 import { SectionsService } from './sections.service';
-import { SectionsType } from '@dspace/core';
 
 describe('SectionsService test suite', () => {
   let notificationsServiceStub: NotificationsServiceStub;

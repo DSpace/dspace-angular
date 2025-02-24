@@ -7,6 +7,23 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import {
+  AuthorizationDataService,
+  authReducer,
+  AuthService,
+  AuthTokenInfo,
+  ConfigurationDataService,
+  ConfigurationProperty,
+  createFailedRemoteDataObject$,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  EmptySpecialGroupDataMock$,
+  EPerson,
+  EPersonDataService,
+  NotificationsService,
+  RestResponse,
+  SpecialGroupDataMock$,
+} from '@dspace/core';
 import { StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
@@ -20,25 +37,6 @@ import {
 } from 'rxjs';
 
 import { storeModuleConfig } from '../app.reducer';
-import { authReducer } from '@dspace/core';
-import { AuthService } from '@dspace/core';
-import { AuthTokenInfo } from '@dspace/core';
-import { RestResponse } from '@dspace/core';
-import { ConfigurationDataService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { EPersonDataService } from '@dspace/core';
-import { EPerson } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { ConfigurationProperty } from '@dspace/core';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import {
-  EmptySpecialGroupDataMock$,
-  SpecialGroupDataMock$,
-} from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { SuggestionsNotificationComponent } from '../notifications/suggestions-notification/suggestions-notification.component';
 import { ErrorComponent } from '../shared/error/error.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';

@@ -9,6 +9,32 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  AuthService,
+  Bitstream,
+  BitstreamDataService,
+  CommunityDataService,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  DefaultChangeAnalyzer,
+  DSOChangeAnalyzer,
+  FileService,
+  FindListOptions,
+  FollowLinkConfig,
+  HALEndpointService,
+  HALEndpointServiceStub,
+  Item,
+  NotificationsService,
+  ObjectCacheService,
+  PaginatedList,
+  RemoteData,
+  RemoteDataBuildService,
+  SearchService,
+  SearchServiceStub,
+  TranslateLoaderMock,
+  UUIDService,
+  XSRFService,
+} from '@dspace/core';
 import { Store } from '@ngrx/store';
 import {
   TranslateLoader,
@@ -16,30 +42,6 @@ import {
 } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { AuthService } from '@dspace/core';
-import { RemoteDataBuildService } from '@dspace/core';
-import { ObjectCacheService } from '@dspace/core';
-import { BitstreamDataService } from '@dspace/core';
-import { CommunityDataService } from '@dspace/core';
-import { DefaultChangeAnalyzer } from '@dspace/core';
-import { DSOChangeAnalyzer } from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import { FollowLinkConfig } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { FileService } from '@dspace/core';
-import { HALEndpointService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { UUIDService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { HALEndpointServiceStub } from '@dspace/core';
-import { SearchServiceStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
-import { XSRFService } from '@dspace/core';
 import { AuthServiceMock } from '../../../mocks/auth.service.mock';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { ThemeService } from '../../../theme-support/theme.service';

@@ -14,23 +14,25 @@ import {
   Router,
 } from '@angular/router';
 import {
+  ActivatedRouteStub,
+  createSuccessfulRemoteDataObject,
+  getMockRequestService,
+  Item,
+  NotificationsService,
+  NotificationsServiceStub,
+  RequestService,
+  RouterStub,
+  SearchService,
+  TranslateLoaderMock,
+  WorkflowItem,
+  WorkflowItemDataService,
+} from '@dspace/core';
+import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { RequestService } from '@dspace/core';
-import { getMockRequestService } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { WorkflowItem } from '@dspace/core';
-import { WorkflowItemDataService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
 import { getMockSearchService } from '../../mocks/search-service.mock';
 import { WorkflowitemActionsComponent } from './workflowitem-actions.component';
 

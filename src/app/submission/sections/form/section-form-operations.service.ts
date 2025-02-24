@@ -1,5 +1,13 @@
 import { Injectable } from '@angular/core';
 import {
+  FormFieldLanguageValueObject,
+  FormFieldMetadataValueObject,
+  JsonPatchOperationPathCombiner,
+  JsonPatchOperationsBuilder,
+  VocabularyEntry,
+  VocabularyEntryDetail,
+} from '@dspace/core';
+import {
   dateToString,
   hasValue,
   isNgbDateStruct,
@@ -21,17 +29,11 @@ import { deepClone } from 'fast-json-patch';
 import isEqual from 'lodash/isEqual';
 import isObject from 'lodash/isObject';
 
-import { JsonPatchOperationPathCombiner } from '@dspace/core';
-import { JsonPatchOperationsBuilder } from '@dspace/core';
-import { VocabularyEntry } from '@dspace/core';
-import { VocabularyEntryDetail } from '@dspace/core';
 import { DsDynamicInputModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DynamicQualdropModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { DynamicRowArrayModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
 import { DynamicRelationGroupModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
-import { FormFieldLanguageValueObject } from '@dspace/core';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 
 /**

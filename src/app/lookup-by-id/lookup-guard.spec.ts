@@ -1,6 +1,6 @@
+import { IdentifierType } from '@dspace/core';
 import { of as observableOf } from 'rxjs';
 
-import { IdentifierType } from '@dspace/core';
 import { lookupGuard } from './lookup-guard';
 
 describe('lookupGuard', () => {

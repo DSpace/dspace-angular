@@ -13,6 +13,22 @@ import {
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import {
+  APP_CONFIG,
+  buildPaginatedList,
+  PageInfo,
+  RemoteData,
+  RemoteDataBuildService,
+  RequestEntryState,
+  RouterStub,
+  SearchConfigurationServiceStub,
+  SearchFilterConfig,
+  SearchFilterService,
+  SearchService,
+  SearchServiceStub,
+  VocabularyEntryDetail,
+  VocabularyService,
+} from '@dspace/core';
+import {
   NgbModal,
   NgbModule,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -23,20 +39,6 @@ import {
 } from 'rxjs';
 
 import { environment } from '../../../../../../environments/environment.test';
-import { RemoteDataBuildService } from '@dspace/core';
-import { APP_CONFIG } from '@dspace/core';
-import { buildPaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RequestEntryState } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { SearchFilterConfig } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { SearchFilterService } from '@dspace/core';
-import { VocabularyEntryDetail } from '@dspace/core';
-import { VocabularyService } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
-import { SearchConfigurationServiceStub } from '@dspace/core';
-import { SearchServiceStub } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { SearchHierarchyFilterComponent } from './search-hierarchy-filter.component';
 

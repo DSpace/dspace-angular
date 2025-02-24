@@ -4,6 +4,17 @@ import {
   InjectionToken,
 } from '@angular/core';
 import {
+  AuthService,
+  CAPTCHA_NAME,
+  ConfigurationDataService,
+  CookieService,
+  EPerson,
+  EPersonDataService,
+  getFirstCompletedRemoteData,
+  NativeWindowRef,
+  NativeWindowService,
+} from '@dspace/core';
+import {
   hasValue,
   isEmpty,
   isNotEmpty,
@@ -24,17 +35,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import { AuthService } from '@dspace/core';
-import { ConfigurationDataService } from '@dspace/core';
-import { EPersonDataService } from '@dspace/core';
-import { EPerson } from '@dspace/core';
-import { CAPTCHA_NAME } from '@dspace/core';
-import { CookieService } from '@dspace/core';
-import {
-  NativeWindowRef,
-  NativeWindowService,
-} from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
 import { OrejimeService } from './orejime.service';
 import {
   ANONYMOUS_STORAGE_NAME_OREJIME,

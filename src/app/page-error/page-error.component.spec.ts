@@ -6,13 +6,15 @@ import {
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import {
+  ActivatedRouteStub,
+  TranslateLoaderMock,
+} from '@dspace/core';
+import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ActivatedRouteStub } from '@dspace/core';
-import { TranslateLoaderMock } from '../../../modules/core/src/lib/core/utilities/testing/translate-loader.mock';
 import { PageErrorComponent } from './page-error.component';
 
 describe('PageErrorComponent', () => {

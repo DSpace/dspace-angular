@@ -4,12 +4,14 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import {
+  Context,
+  DSpaceObject,
+  ListableObject,
+  SearchObjects,
+  ViewMode,
+} from '@dspace/core';
 
-import { ListableObject } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { SearchObjects } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 import { ThemedComponent } from '../theme-support/themed.component';
 import { SearchComponent } from './search.component';

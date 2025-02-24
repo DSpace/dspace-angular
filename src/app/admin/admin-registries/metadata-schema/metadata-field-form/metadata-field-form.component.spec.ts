@@ -7,14 +7,16 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  MetadataField,
+  MetadataSchema,
+  RegistryService,
+  RegistryServiceStub,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { MetadataField } from '@dspace/core';
-import { MetadataSchema } from '@dspace/core';
-import { RegistryService } from '@dspace/core';
-import { RegistryServiceStub } from '@dspace/core';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../../shared/form/form.component';
 import { getMockFormBuilderService } from '../../../../shared/mocks/form-builder-service.mock';

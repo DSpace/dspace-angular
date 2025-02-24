@@ -1,9 +1,11 @@
 import { Route } from '@angular/router';
+import {
+  authenticatedGuard,
+  bitstreamBreadcrumbResolver,
+  bitstreamPageResolver,
+  i18nBreadcrumbResolver,
+} from '@dspace/core';
 
-import { authenticatedGuard } from '@dspace/core';
-import { bitstreamBreadcrumbResolver } from '@dspace/core';
-import { i18nBreadcrumbResolver } from '@dspace/core';
-import { bitstreamPageResolver } from '@dspace/core';
 import { ResourcePolicyCreateComponent } from '../shared/resource-policies/create/resource-policy-create.component';
 import { ResourcePolicyEditComponent } from '../shared/resource-policies/edit/resource-policy-edit.component';
 import { resourcePolicyResolver } from '../shared/resource-policies/resolvers/resource-policy.resolver';

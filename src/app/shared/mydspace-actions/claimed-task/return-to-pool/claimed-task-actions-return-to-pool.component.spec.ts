@@ -12,22 +12,24 @@ import {
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import {
+  ClaimedTask,
+  ClaimedTaskDataService,
+  getMockRequestService,
+  NotificationsService,
+  NotificationsServiceStub,
+  PoolTaskDataService,
+  ProcessTaskResponse,
+  RequestService,
+  RouterStub,
+  SearchService,
+  TranslateLoaderMock,
+} from '@dspace/core';
+import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { RequestService } from '@dspace/core';
-import { getMockRequestService } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { ClaimedTaskDataService } from '@dspace/core';
-import { ClaimedTask } from '@dspace/core';
-import { ProcessTaskResponse } from '@dspace/core';
-import { PoolTaskDataService } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
 import { getMockSearchService } from '../../../mocks/search-service.mock';
 import { ClaimedTaskActionsReturnToPoolComponent } from './claimed-task-actions-return-to-pool.component';
 

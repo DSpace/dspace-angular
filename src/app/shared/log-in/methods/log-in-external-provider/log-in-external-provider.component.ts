@@ -4,6 +4,17 @@ import {
   OnInit,
 } from '@angular/core';
 import {
+  AuthMethod,
+  AuthService,
+  CoreState,
+  HardRedirectService,
+  isAuthenticated,
+  isAuthenticationLoading,
+  NativeWindowRef,
+  NativeWindowService,
+  URLCombiner,
+} from '@dspace/core';
+import {
   isEmpty,
   isNotNull,
 } from '@dspace/shared/utils';
@@ -14,20 +25,6 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
-
-import { AuthService } from '@dspace/core';
-import { AuthMethod } from '@dspace/core';
-import {
-  isAuthenticated,
-  isAuthenticationLoading,
-} from '@dspace/core';
-import { CoreState } from '@dspace/core';
-import { HardRedirectService } from '@dspace/core';
-import {
-  NativeWindowRef,
-  NativeWindowService,
-} from '@dspace/core';
-import { URLCombiner } from '@dspace/core';
 
 @Component({
   selector: 'ds-log-in-external-provider',

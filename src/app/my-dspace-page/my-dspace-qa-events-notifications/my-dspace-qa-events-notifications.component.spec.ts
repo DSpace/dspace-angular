@@ -2,11 +2,13 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
-import { QualityAssuranceSourceObject } from '@dspace/core';
+import {
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  QualityAssuranceSourceDataService,
+  QualityAssuranceSourceObject,
+} from '@dspace/core';
 
-import { QualityAssuranceSourceDataService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { MyDspaceQaEventsNotificationsComponent } from './my-dspace-qa-events-notifications.component';
 
 describe('MyDspaceQaEventsNotificationsComponent', () => {

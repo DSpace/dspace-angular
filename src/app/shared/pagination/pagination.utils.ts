@@ -1,5 +1,7 @@
-import { FindListOptions } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
+import {
+  FindListOptions,
+  PaginationComponentOptions,
+} from '@dspace/core';
 
 /**
  * Transform a PaginationComponentOptions object into a FindListOptions object

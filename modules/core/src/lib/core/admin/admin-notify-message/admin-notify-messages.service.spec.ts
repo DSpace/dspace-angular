@@ -6,15 +6,29 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
+import { mockAdminNotifyMessages } from '../../../../../../../src/app/admin/admin-notify-dashboard/admin-notify-search-result/admin-notify-search-result.component.spec';
 import {
-  mockAdminNotifyMessages
-} from '../../../../../../../src/app/admin/admin-notify-dashboard/admin-notify-search-result/admin-notify-search-result.component.spec';
-import { AdminNotifyMessage, AdminNotifyMessagesService } from './';
-import { ItemDataService, RemoteData, RequestEntry, RequestEntryState, RequestService } from '../../data';
-import { ObjectCacheService, RemoteDataBuildService, RestResponse } from '../../cache';
+  createSuccessfulRemoteDataObject$,
+  NotificationsService,
+} from '../../';
+import {
+  ObjectCacheService,
+  RemoteDataBuildService,
+  RestResponse,
+} from '../../cache';
+import {
+  ItemDataService,
+  RemoteData,
+  RequestEntry,
+  RequestEntryState,
+  RequestService,
+} from '../../data';
 import { HALEndpointService } from '../../shared';
 import { LdnServicesService } from '../';
-import { createSuccessfulRemoteDataObject$, NotificationsService } from '../../';
+import {
+  AdminNotifyMessage,
+  AdminNotifyMessagesService,
+} from './';
 
 describe('AdminNotifyMessagesService test', () => {
   let service: AdminNotifyMessagesService;

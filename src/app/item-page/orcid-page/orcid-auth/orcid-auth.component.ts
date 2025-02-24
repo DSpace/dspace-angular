@@ -10,6 +10,17 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import {
+  createFailedRemoteDataObjectFromError$,
+  getFirstCompletedRemoteData,
+  Item,
+  NativeWindowRef,
+  NativeWindowService,
+  NotificationsService,
+  OrcidAuthService,
+  RemoteData,
+  ResearcherProfile,
+} from '@dspace/core';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
@@ -20,17 +31,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { OrcidAuthService } from '@dspace/core';
-import { ResearcherProfile } from '@dspace/core';
-import {
-  NativeWindowRef,
-  NativeWindowService,
-} from '@dspace/core';
-import { Item } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
-import { createFailedRemoteDataObjectFromError$ } from '@dspace/core';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 

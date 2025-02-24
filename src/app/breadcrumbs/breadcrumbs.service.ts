@@ -4,6 +4,7 @@ import {
   NavigationEnd,
   Router,
 } from '@angular/router';
+import { Breadcrumb } from '@dspace/core';
 import {
   hasNoValue,
   hasValue,
@@ -21,8 +22,6 @@ import {
   switchMap,
   tap,
 } from 'rxjs/operators';
-
-import { Breadcrumb } from '@dspace/core';
 
 @Injectable({
   providedIn: 'root',

@@ -1,4 +1,11 @@
 import { Injectable } from '@angular/core';
+import {
+  getFirstCompletedRemoteData,
+  NotificationsService,
+  Process,
+  ProcessDataService,
+  RemoteData,
+} from '@dspace/core';
 import { isNotEmpty } from '@dspace/shared/utils';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -11,12 +18,6 @@ import {
   filter,
   tap,
 } from 'rxjs/operators';
-
-import { ProcessDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Process } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
 
 @Injectable({
   providedIn: 'root',

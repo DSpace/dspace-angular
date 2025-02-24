@@ -4,17 +4,19 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  createSuccessfulRemoteDataObject$,
+  NotificationsService,
+  NotificationsServiceStub,
+  Process,
+  SelectableListService,
+  SelectableListState,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { NotificationsService } from '@dspace/core';
-import { Process } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
 import { BulkAccessControlService } from '../../shared/access-control-form-container/bulk-access-control.service';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
-import { SelectableListState } from '@dspace/core';
-import { SelectableListService } from '@dspace/core';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { BulkAccessComponent } from './bulk-access.component';
 import { BulkAccessSettingsComponent } from './settings/bulk-access-settings.component';

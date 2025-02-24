@@ -4,12 +4,14 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import {
+  Community,
+  getFirstSucceededRemoteData,
+  RemoteData,
+} from '@dspace/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { RemoteData } from '@dspace/core';
-import { Community } from '@dspace/core';
-import { getFirstSucceededRemoteData } from '@dspace/core';
 import { AccessControlFormContainerComponent } from '../../../shared/access-control-form-container/access-control-form-container.component';
 
 @Component({

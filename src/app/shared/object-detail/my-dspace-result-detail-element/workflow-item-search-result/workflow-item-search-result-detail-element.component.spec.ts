@@ -8,16 +8,18 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  Context,
+  createSuccessfulRemoteDataObject,
+  DSONameService,
+  getMockLinkService,
+  Item,
+  LinkService,
+  WorkflowItem,
+  WorkflowItemSearchResult,
+} from '@dspace/core';
 import { of as observableOf } from 'rxjs';
 
-import { DSONameService } from '@dspace/core';
-import { LinkService } from '@dspace/core';
-import { getMockLinkService } from '@dspace/core';
-import { WorkflowItemSearchResult } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { WorkflowItem } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { WorkflowitemActionsComponent } from '../../../mydspace-actions/workflowitem/workflowitem-actions.component';
 import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';

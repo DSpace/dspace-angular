@@ -6,6 +6,12 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import {
+  Community,
+  CommunityDataService,
+  getFirstCompletedRemoteData,
+  RemoteData,
+} from '@dspace/core';
+import {
   hasNoValue,
   hasValue,
 } from '@dspace/shared/utils';
@@ -17,11 +23,6 @@ import {
   map,
   tap,
 } from 'rxjs/operators';
-
-import { CommunityDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { Community } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
 
 /**
  * True when either a parent ID query parameter has been provided and the parent ID resolves to a valid parent community

@@ -8,16 +8,18 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import {
+  Group,
+  NotificationsService,
+  SupervisionOrder,
+  SupervisionOrderDataService,
+} from '@dspace/core';
+import {
   NgbActiveModal,
   NgbPaginationModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { Group } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { SupervisionOrder } from '@dspace/core';
-import { SupervisionOrderDataService } from '@dspace/core';
 import { EpersonGroupListComponent } from '../../../../../../shared/eperson-group-list/eperson-group-list.component';
 import { SupervisionOrderGroupSelectorComponent } from './supervision-order-group-selector.component';
 

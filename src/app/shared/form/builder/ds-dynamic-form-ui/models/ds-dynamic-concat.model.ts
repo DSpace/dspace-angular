@@ -1,4 +1,9 @@
 import {
+  FormFieldMetadataValueObject,
+  MetadataValue,
+  RelationshipOptions,
+} from '@dspace/core';
+import {
   hasNoValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -11,9 +16,6 @@ import {
 } from '@ng-dynamic-forms/core';
 import { Subject } from 'rxjs';
 
-import { RelationshipOptions } from '@dspace/core';
-import { MetadataValue } from '@dspace/core';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 import { DsDynamicInputModel } from './ds-dynamic-input.model';
 
 export const CONCAT_GROUP_SUFFIX = '_CONCAT_GROUP';

@@ -1,14 +1,16 @@
 import { Inject } from '@angular/core';
+import {
+  FormFieldMetadataValueObject,
+  FormFieldModel,
+} from '@dspace/core';
 import { isNotEmpty } from '@dspace/shared/utils';
 import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
 import { TranslateService } from '@ngx-translate/core';
 
-import { FormFieldModel } from '@dspace/core';
 import {
   DynamicScrollableDropdownModel,
   DynamicScrollableDropdownModelConfig,
 } from '../ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 import {
   CONFIG_DATA,
   FieldParser,

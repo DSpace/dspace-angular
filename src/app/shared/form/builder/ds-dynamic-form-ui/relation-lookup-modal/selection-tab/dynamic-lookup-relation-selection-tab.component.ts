@@ -7,6 +7,21 @@ import {
   Output,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  buildPaginatedList,
+  Context,
+  createSuccessfulRemoteDataObject,
+  DSpaceObject,
+  ListableObject,
+  PageInfo,
+  PaginatedList,
+  PaginatedSearchOptions,
+  PaginationComponentOptions,
+  PaginationService,
+  RemoteData,
+  SearchConfigurationService,
+  SearchResult,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
@@ -15,21 +30,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { ListableObject } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { PaginatedSearchOptions } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { SearchResult } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
 import { ObjectCollectionComponent } from '../../../../../object-collection/object-collection.component';
 import { PageSizeSelectorComponent } from '../../../../../page-size-selector/page-size-selector.component';

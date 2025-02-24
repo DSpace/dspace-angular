@@ -7,6 +7,26 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import {
+  BitstreamDataService,
+  Context,
+  DSONameService,
+  DSpaceObject,
+  followLink,
+  GenericConstructor,
+  getAllSucceededRemoteData,
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+  Item,
+  LinkService,
+  PaginatedList,
+  RemoteData,
+  SupervisionOrder,
+  SupervisionOrderDataService,
+  ViewMode,
+  WorkspaceItem,
+  WorkspaceItemSearchResult,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -20,26 +40,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { DSONameService } from '@dspace/core';
-import { LinkService } from '@dspace/core';
-import { BitstreamDataService } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { WorkspaceItemSearchResult } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { GenericConstructor } from '@dspace/core';
-import { Item } from '@dspace/core';
-import {
-  getAllSucceededRemoteData,
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '@dspace/core';
-import { ViewMode } from '@dspace/core';
-import { WorkspaceItem } from '@dspace/core';
-import { SupervisionOrder } from '@dspace/core';
-import { SupervisionOrderDataService } from '@dspace/core';
 import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import {
   getListableObjectComponent,

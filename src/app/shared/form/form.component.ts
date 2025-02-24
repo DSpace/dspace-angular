@@ -16,6 +16,11 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import {
+  FormEntry,
+  FormError,
+  FormFieldMetadataValueObject,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
   isNotNull,
@@ -45,11 +50,6 @@ import {
 import { BtnDisabledDirective } from '../btn-disabled.directive';
 import { DsDynamicFormComponent } from './builder/ds-dynamic-form-ui/ds-dynamic-form.component';
 import { FormBuilderService } from './builder/form-builder.service';
-import { FormFieldMetadataValueObject } from '@dspace/core';
-import {
-  FormEntry,
-  FormError,
-} from '@dspace/core';
 import { FormService } from './form.service';
 
 /**

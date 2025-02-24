@@ -1,5 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  Item,
+  ItemDataService,
+  RemoteData,
+  Version,
+  VersionDataService,
+  VersionHistoryDataService,
+  WorkspaceItem,
+  WorkspaceitemDataService,
+} from '@dspace/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   Observable,
@@ -11,18 +23,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { ItemDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { VersionDataService } from '@dspace/core';
-import { VersionHistoryDataService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '@dspace/core';
-import { Version } from '@dspace/core';
-import { WorkspaceItem } from '@dspace/core';
-import { WorkspaceitemDataService } from '@dspace/core';
 import { ItemVersionsSharedService } from '../../../item-page/versions/item-versions-shared.service';
 import { ItemVersionsSummaryModalComponent } from '../../../item-page/versions/item-versions-summary-modal/item-versions-summary-modal.component';
 

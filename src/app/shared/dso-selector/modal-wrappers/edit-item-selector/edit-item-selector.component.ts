@@ -7,12 +7,14 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  DSpaceObject,
+  DSpaceObjectType,
+  Item,
+} from '@dspace/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DSpaceObject } from '@dspace/core';
-import { DSpaceObjectType } from '@dspace/core';
-import { Item } from '@dspace/core';
 import { getItemEditRoute } from '../../../../item-page/item-page-routing-paths';
 import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import {

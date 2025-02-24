@@ -1,9 +1,8 @@
+import { RoleType } from '@dspace/core';
 import {
   BehaviorSubject,
   Observable,
 } from 'rxjs';
-
-import { RoleType } from '@dspace/core';
 
 export class RoleServiceMock {
 

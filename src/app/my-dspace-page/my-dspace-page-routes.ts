@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
-
 import { i18nBreadcrumbResolver } from '@dspace/core';
+
 import { myDSpaceGuard } from './my-dspace.guard';
 import { ThemedMyDSpacePageComponent } from './themed-my-dspace-page.component';
 

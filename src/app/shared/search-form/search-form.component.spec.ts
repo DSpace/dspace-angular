@@ -10,20 +10,22 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  Community,
+  createSuccessfulRemoteDataObject$,
+  DSpaceObject,
+  DSpaceObjectDataService,
+  PaginationService,
+  PaginationServiceStub,
+  RouterStub,
+  SearchConfigurationService,
+  SearchFilterService,
+  SearchFilterServiceStub,
+  SearchService,
+  SearchServiceStub,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DSpaceObjectDataService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { Community } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import { SearchFilterService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
-import { SearchFilterServiceStub } from '@dspace/core';
-import { SearchServiceStub } from '@dspace/core';
 import { SearchFormComponent } from './search-form.component';
 
 describe('SearchFormComponent', () => {

@@ -9,6 +9,11 @@ import {
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import {
+  MetadataField,
+  MetadataSchema,
+  RegistryService,
+} from '@dspace/core';
+import {
   DynamicFormControlModel,
   DynamicFormGroupModel,
   DynamicFormLayout,
@@ -22,9 +27,6 @@ import {
 import { combineLatest } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { MetadataField } from '@dspace/core';
-import { MetadataSchema } from '@dspace/core';
-import { RegistryService } from '@dspace/core';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../../shared/form/form.component';
 

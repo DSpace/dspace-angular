@@ -6,6 +6,14 @@ import {
   OnDestroy,
 } from '@angular/core';
 import {
+  normalizeSectionData,
+  NotificationsService,
+  SectionsType,
+  SubmissionJsonPatchOperationsService,
+  SubmissionService,
+  WorkspaceItem,
+} from '@dspace/core';
+import {
   hasValue,
   isEmpty,
   isNotEmpty,
@@ -21,15 +29,9 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { NotificationsService } from '@dspace/core';
-import { WorkspaceItem } from '@dspace/core';
-import { SubmissionJsonPatchOperationsService } from '@dspace/core';
-import { normalizeSectionData } from '@dspace/core';
 import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
 import { SectionsService } from '../../sections/sections.service';
-import { SectionsType } from '@dspace/core';
-import { SubmissionService } from '@dspace/core';
 import parseSectionErrors from '../../utils/parseSectionErrors';
 
 /**

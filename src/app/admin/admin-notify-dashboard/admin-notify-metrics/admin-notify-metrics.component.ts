@@ -4,10 +4,12 @@ import {
   Input,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  AdminNotifyMetricsRow,
+  ViewMode,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { AdminNotifyMetricsRow } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { NotificationBoxComponent } from '../../../shared/notification-box/notification-box.component';
 
 @Component({

@@ -1,7 +1,7 @@
+import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { itemTemplatePageResolver } from './item-template-page.resolver';
 
 describe('itemTemplatePageResolver', () => {

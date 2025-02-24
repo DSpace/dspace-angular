@@ -13,17 +13,19 @@ import {
   Router,
 } from '@angular/router';
 import {
+  ActivatedRouteStub,
+  buildPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  RouterStub,
+  Script,
+  ScriptDataService,
+  TranslateLoaderMock,
+} from '@dspace/core';
+import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { buildPaginatedList } from '@dspace/core';
-import { ScriptDataService } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { Script } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
 import { ScriptsSelectComponent } from './scripts-select.component';
 
 describe('ScriptsSelectComponent', () => {

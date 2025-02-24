@@ -10,6 +10,36 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  AuthorizationDataService,
+  buildPaginatedList,
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  createTestComponent,
+  FindListOptions,
+  followLink,
+  getMockQualityAssuranceEventRestService,
+  getMockTranslateService,
+  ItemDataService,
+  ItemMockPid8,
+  ItemMockPid9,
+  ItemMockPid10,
+  NotificationsMockDspaceObject,
+  NotificationsService,
+  NotificationsServiceStub,
+  PageInfo,
+  PaginationComponentOptions,
+  PaginationService,
+  PaginationServiceStub,
+  QualityAssuranceEventDataService,
+  QualityAssuranceEventObject,
+  qualityAssuranceEventObjectMissingProjectFound,
+  qualityAssuranceEventObjectMissingProjectNotFound,
+  SortDirection,
+  SortOptions,
+} from '@dspace/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -21,41 +51,7 @@ import {
 } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
-import { AuthorizationDataService } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
 
-import {
-  SortDirection,
-  SortOptions,
-} from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { buildPaginatedList } from '@dspace/core';
-import {
-  getMockQualityAssuranceEventRestService,
-  ItemMockPid8,
-  ItemMockPid9,
-  ItemMockPid10,
-  NotificationsMockDspaceObject,
-  qualityAssuranceEventObjectMissingProjectFound,
-  qualityAssuranceEventObjectMissingProjectNotFound,
-} from '@dspace/core';
-import { getMockTranslateService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { QualityAssuranceEventDataService } from '@dspace/core';
-import { QualityAssuranceEventObject } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import {
-  createNoContentRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
-import { createTestComponent } from '@dspace/core';
 import { QualityAssuranceEventData } from '../project-entry-import-modal/project-entry-import-modal.component';
 import { QualityAssuranceEventsComponent } from './quality-assurance-events.component';
 

@@ -10,18 +10,20 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  DSONameService,
+  DSpaceObject,
+  EPerson,
+  getFirstCompletedRemoteData,
+  Item,
+  RemoteData,
+  SearchObjects,
+  ViewMode,
+} from '@dspace/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { DSONameService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { EPerson } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
-import { SearchObjects } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { DSOSelectorModalWrapperComponent } from '../../shared/dso-selector/modal-wrappers/dso-selector-modal-wrapper.component';

@@ -4,13 +4,14 @@ import {
   Input,
 } from '@angular/core';
 import {
+  DSpaceObject,
+  getResourceTypeValueFor,
+} from '@dspace/core';
+import {
   hasValue,
   isEmpty,
 } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
-
-import { getResourceTypeValueFor } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
 
 @Component({
   selector: 'ds-base-type-badge',

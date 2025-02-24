@@ -1,8 +1,11 @@
-import { getMockTranslateService } from '@dspace/core';
-import { FormFieldModel } from '@dspace/core';
+import {
+  FormFieldMetadataValueObject,
+  FormFieldModel,
+  getMockTranslateService,
+} from '@dspace/core';
+
 import { DynamicListCheckboxGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
 import { DynamicListRadioGroupModel } from '../ds-dynamic-form-ui/models/list/dynamic-list-radio-group.model';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 import { ListFieldParser } from './list-field-parser';
 import { ParserOptions } from './parser-options';
 

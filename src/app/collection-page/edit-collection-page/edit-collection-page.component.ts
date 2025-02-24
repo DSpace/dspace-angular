@@ -9,9 +9,9 @@ import {
   RouterLink,
   RouterOutlet,
 } from '@angular/router';
+import { Collection } from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { Collection } from '@dspace/core';
 import { EditComColPageComponent } from '../../shared/comcol/comcol-forms/edit-comcol-page/edit-comcol-page.component';
 import { getCollectionPageRoute } from '../collection-page-routing-paths';
 

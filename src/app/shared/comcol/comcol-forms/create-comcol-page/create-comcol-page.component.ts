@@ -4,6 +4,20 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import {
+  Collection,
+  ComColDataService,
+  Community,
+  CommunityDataService,
+  DSONameService,
+  getFirstSucceededRemoteDataPayload,
+  NotificationsService,
+  RemoteData,
+  RequestParam,
+  RequestService,
+  ResourceType,
+  RouteService,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
   isNotUndefined,
@@ -22,18 +36,6 @@ import {
 } from 'rxjs/operators';
 
 import { getHomePageRoute } from '../../../../app-routing-paths';
-import { DSONameService } from '@dspace/core';
-import { RequestParam } from '@dspace/core';
-import { ComColDataService } from '@dspace/core';
-import { CommunityDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { Community } from '@dspace/core';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core';
-import { ResourceType } from '@dspace/core';
 
 /**
  * Component representing the create page for communities and collections

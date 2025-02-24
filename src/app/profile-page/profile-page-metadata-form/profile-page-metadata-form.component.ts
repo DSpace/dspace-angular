@@ -6,6 +6,14 @@ import {
 } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import {
+  EPerson,
+  EPersonDataService,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+  LangConfig,
+  NotificationsService,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -19,14 +27,6 @@ import { TranslateService } from '@ngx-translate/core';
 import cloneDeep from 'lodash/cloneDeep';
 
 import { environment } from '../../../environments/environment';
-import { LangConfig } from '@dspace/core';
-import { EPersonDataService } from '@dspace/core';
-import { EPerson } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import {
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '@dspace/core';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../shared/form/form.component';
 

@@ -5,6 +5,13 @@ import {
   OnInit,
 } from '@angular/core';
 import {
+  GenericConstructor,
+  MenuID,
+  MenuItemModel,
+  MenuItemType,
+  MenuSection,
+} from '@dspace/core';
+import {
   hasNoValue,
   hasValue,
 } from '@dspace/shared/utils';
@@ -18,13 +25,8 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { GenericConstructor } from '@dspace/core';
 import { MenuService } from '../menu.service';
-import { MenuID } from '@dspace/core';
 import { getComponentForMenuItemType } from '../menu-item.decorator';
-import { MenuItemModel } from '@dspace/core';
-import { MenuItemType } from '@dspace/core';
-import { MenuSection } from '@dspace/core';
 
 /**
  * A basic implementation of a menu section's component

@@ -20,6 +20,16 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  createTestComponent,
+  FindListOptions,
+  PaginationComponentOptions,
+  PaginationService,
+  RouterMock,
+  SortDirection,
+  SortOptions,
+  TranslateLoaderMock,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
 import {
@@ -30,16 +40,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { BehaviorSubject } from 'rxjs';
 
 import { storeModuleConfig } from '../../app.reducer';
-import {
-  SortDirection,
-  SortOptions,
-} from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import { RouterMock } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { createTestComponent } from '@dspace/core';
 import { HostWindowService } from '../host-window.service';
 import { MockActivatedRoute } from '../mocks/active-router.mock';
 import { HostWindowServiceMock } from '../mocks/host-window-service.mock';

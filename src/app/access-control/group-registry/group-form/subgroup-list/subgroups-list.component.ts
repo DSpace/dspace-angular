@@ -14,6 +14,21 @@ import {
   RouterLink,
 } from '@angular/router';
 import {
+  DSONameService,
+  followLink,
+  getAllCompletedRemoteData,
+  getFirstCompletedRemoteData,
+  Group,
+  GroupDataService,
+  NoContent,
+  NotificationsService,
+  PageInfo,
+  PaginatedList,
+  PaginationComponentOptions,
+  PaginationService,
+  RemoteData,
+} from '@dspace/core';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
@@ -28,21 +43,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { DSONameService } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { GroupDataService } from '@dspace/core';
-import { Group } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { NoContent } from '@dspace/core';
-import {
-  getAllCompletedRemoteData,
-  getFirstCompletedRemoteData,
-} from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
 

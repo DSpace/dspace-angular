@@ -1,9 +1,10 @@
+import { FormFieldMetadataValueObject } from '@dspace/core';
+
 import { environment } from '../../../../../environments/environment';
 import {
   DsDynamicTextAreaModel,
   DsDynamicTextAreaModelConfig,
 } from '../ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 import { FieldParser } from './field-parser';
 
 export class TextareaFieldParser extends FieldParser {

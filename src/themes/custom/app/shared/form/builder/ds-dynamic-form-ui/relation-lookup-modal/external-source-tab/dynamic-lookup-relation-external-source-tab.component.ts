@@ -1,8 +1,8 @@
 import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
+import { SearchConfigurationService } from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { SearchConfigurationService } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../../../../app/my-dspace-page/my-dspace-configuration.service';
 import {
   fadeIn,

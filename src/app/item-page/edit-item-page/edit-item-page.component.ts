@@ -17,6 +17,10 @@ import {
   RouterLink,
   RouterOutlet,
 } from '@angular/router';
+import {
+  Item,
+  RemoteData,
+} from '@dspace/core';
 import { isNotEmpty } from '@dspace/shared/utils';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
@@ -27,8 +31,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { RemoteData } from '@dspace/core';
-import { Item } from '@dspace/core';
 import {
   fadeIn,
   fadeInOut,

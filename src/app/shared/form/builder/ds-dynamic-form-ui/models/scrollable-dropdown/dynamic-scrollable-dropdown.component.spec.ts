@@ -20,6 +20,17 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import {
+  APP_DATA_SERVICES_MAP,
+  createTestComponent,
+  hasClass,
+  mockDynamicFormLayoutService,
+  mockDynamicFormValidationService,
+  VocabularyEntry,
+  VocabularyOptions,
+  VocabularyService,
+  VocabularyServiceStub,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormLayoutService,
@@ -30,19 +41,6 @@ import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstr
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
-import { APP_DATA_SERVICES_MAP } from '@dspace/core';
-import { VocabularyEntry } from '@dspace/core';
-import { VocabularyOptions } from '@dspace/core';
-import { VocabularyService } from '@dspace/core';
-import {
-  mockDynamicFormLayoutService,
-  mockDynamicFormValidationService,
-} from '@dspace/core';
-import {
-  createTestComponent,
-  hasClass,
-} from '@dspace/core';
-import { VocabularyServiceStub } from '@dspace/core';
 import { DsDynamicScrollableDropdownComponent } from './dynamic-scrollable-dropdown.component';
 import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.model';
 

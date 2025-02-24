@@ -7,6 +7,14 @@ import {
   Router,
 } from '@angular/router';
 import {
+  getFirstCompletedRemoteData,
+  NotificationsService,
+  RemoteData,
+  RESOURCE_POLICY,
+  ResourcePolicy,
+  ResourcePolicyDataService,
+} from '@dspace/core';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
@@ -21,12 +29,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { ResourcePolicy } from '@dspace/core';
-import { RESOURCE_POLICY } from '@dspace/core';
-import { ResourcePolicyDataService } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
 import { ITEM_EDIT_AUTHORIZATIONS_PATH } from '../../../item-page/edit-item-page/edit-item-page.routing-paths';
 import {
   ResourcePolicyEvent,

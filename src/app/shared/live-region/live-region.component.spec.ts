@@ -4,11 +4,11 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { LiveRegionService } from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { LiveRegionComponent } from './live-region.component';
-import { LiveRegionService } from '@dspace/core';
 
 describe('liveRegionComponent', () => {
   let fixture: ComponentFixture<LiveRegionComponent>;

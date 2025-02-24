@@ -3,10 +3,11 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import {
+  Script,
+  ScriptParameterType,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
-
-import { Script } from '@dspace/core';
-import { ScriptParameterType } from '@dspace/core';
 
 /**
  * Components that represents a help section for the script use and parameters

@@ -1,13 +1,15 @@
 import {
+  CacheableObject,
+  excludeFromEquals,
+  HALLink,
+  ResourceType,
+  typedObject,
+} from '@dspace/core';
+import {
   autoserialize,
   deserialize,
 } from 'cerialize';
 
-import { typedObject } from '@dspace/core';
-import { CacheableObject } from '@dspace/core';
-import { HALLink } from '@dspace/core';
-import { ResourceType } from '@dspace/core';
-import { excludeFromEquals } from '@dspace/core';
 import { STATISTICS_ENDPOINT } from './statistics-endpoint.resource-type';
 
 /**

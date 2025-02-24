@@ -1,11 +1,13 @@
 import {
+  QualityAssuranceSourceObject,
+  QualityAssuranceTopicObject,
+} from '@dspace/core';
+import {
   createFeatureSelector,
   createSelector,
   MemoizedSelector,
 } from '@ngrx/store';
 
-import { QualityAssuranceSourceObject } from '@dspace/core';
-import { QualityAssuranceTopicObject } from '@dspace/core';
 import { subStateSelector } from '../shared/selector.util';
 import {
   suggestionNotificationsSelector,

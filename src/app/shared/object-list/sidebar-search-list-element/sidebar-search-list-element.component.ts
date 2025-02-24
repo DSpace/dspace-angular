@@ -7,6 +7,16 @@ import {
   OnInit,
 } from '@angular/core';
 import {
+  ChildHALResource,
+  Context,
+  DSONameService,
+  DSpaceObject,
+  followLink,
+  LinkService,
+  RemoteData,
+  SearchResult,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -20,14 +30,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { DSONameService } from '@dspace/core';
-import { LinkService } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { ChildHALResource } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { SearchResult } from '@dspace/core';
 import { TruncatableService } from '../../truncatable/truncatable.service';
 import { TruncatablePartComponent } from '../../truncatable/truncatable-part/truncatable-part.component';
 import { SearchResultListElementComponent } from '../search-result-list-element/search-result-list-element.component';

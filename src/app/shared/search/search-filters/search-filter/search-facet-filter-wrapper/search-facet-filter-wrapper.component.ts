@@ -2,10 +2,12 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import {
+  GenericConstructor,
+  SearchFilterConfig,
+} from '@dspace/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { GenericConstructor } from '@dspace/core';
-import { SearchFilterConfig } from '@dspace/core';
 import { AbstractComponentLoaderComponent } from '../../../../abstract-component-loader/abstract-component-loader.component';
 import { DynamicComponentLoaderDirective } from '../../../../abstract-component-loader/dynamic-component-loader.directive';
 import { renderFilterType } from '../search-filter-type-decorator';

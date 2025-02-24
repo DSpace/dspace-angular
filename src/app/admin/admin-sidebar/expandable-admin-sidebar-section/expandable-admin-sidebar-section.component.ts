@@ -10,6 +10,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { MenuID } from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as combineLatestObservable,
@@ -21,7 +22,6 @@ import { bgColor } from '../../../shared/animations/bgColor';
 import { rotate } from '../../../shared/animations/rotate';
 import { slide } from '../../../shared/animations/slide';
 import { MenuService } from '../../../shared/menu/menu.service';
-import { MenuID } from '@dspace/core';
 import { CSSVariableService } from '../../../shared/sass-helper/css-variable.service';
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 import { AdminSidebarSectionComponent } from '../admin-sidebar-section/admin-sidebar-section.component';

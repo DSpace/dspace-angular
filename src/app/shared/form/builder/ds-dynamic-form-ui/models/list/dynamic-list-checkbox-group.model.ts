@@ -1,3 +1,7 @@
+import {
+  VocabularyEntry,
+  VocabularyOptions,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import {
   DynamicCheckboxGroupModel,
@@ -7,9 +11,6 @@ import {
   serializable,
 } from '@ng-dynamic-forms/core';
 import { Subject } from 'rxjs';
-
-import { VocabularyEntry } from '@dspace/core';
-import { VocabularyOptions } from '@dspace/core';
 
 export interface DynamicListCheckboxGroupModelConfig extends DynamicFormGroupModelConfig {
   vocabularyOptions: VocabularyOptions;

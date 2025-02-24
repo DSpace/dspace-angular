@@ -3,9 +3,10 @@ import {
   flush,
   tick,
 } from '@angular/core/testing';
-
-import { UUIDService } from '@dspace/core';
-import { LiveRegionService } from '@dspace/core';
+import {
+  LiveRegionService,
+  UUIDService,
+} from '@dspace/core';
 
 describe('liveRegionService', () => {
   let service: LiveRegionService;

@@ -12,26 +12,28 @@ import {
 import { By } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  ConfigurationDataService,
+  ConfigurationProperty,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  GroupDataService,
+  HostWindowServiceStub,
+  MetadataSchema,
+  NotificationsService,
+  NotificationsServiceStub,
+  PaginationService,
+  PaginationServiceStub,
+  RegistryService,
+  RegistryServiceStub,
+  SearchConfigurationService,
+  SearchConfigurationServiceStub,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 import { FormBuilderService } from 'src/app/shared/form/builder/form-builder.service';
 
-import { ConfigurationDataService } from '@dspace/core';
-import { GroupDataService } from '@dspace/core';
-import { MetadataSchema } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { RegistryService } from '@dspace/core';
-import { ConfigurationProperty } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { HostWindowServiceStub } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
-import { RegistryServiceStub } from '@dspace/core';
-import { SearchConfigurationServiceStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { FormService } from '../../../shared/form/form.service';
 import { HostWindowService } from '../../../shared/host-window.service';
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';

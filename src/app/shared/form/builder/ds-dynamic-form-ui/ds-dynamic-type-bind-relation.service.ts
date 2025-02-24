@@ -6,6 +6,10 @@ import {
 } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 import {
+  DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP,
+  FormFieldMetadataValueObject,
+} from '@dspace/core';
+import {
   hasNoValue,
   hasValue,
 } from '@dspace/shared/utils';
@@ -24,8 +28,6 @@ import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 
 import { FormBuilderService } from '../form-builder.service';
-import { FormFieldMetadataValueObject } from '@dspace/core';
-import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from '@dspace/core';
 
 /**
  * Service to manage type binding for submission input fields

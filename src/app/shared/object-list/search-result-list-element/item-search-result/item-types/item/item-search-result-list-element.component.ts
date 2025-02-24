@@ -7,10 +7,12 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import {
+  Item,
+  ItemSearchResult,
+  ViewMode,
+} from '@dspace/core';
 
-import { ItemSearchResult } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { getItemPageRoute } from '../../../../../../item-page/item-page-routing-paths';
 import { ThemedThumbnailComponent } from '../../../../../../thumbnail/themed-thumbnail.component';
 import { ThemedBadgesComponent } from '../../../../../object-collection/shared/badges/themed-badges.component';

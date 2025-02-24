@@ -9,6 +9,11 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  APP_CONFIG,
+  MetadataValue,
+  TranslateLoaderMock,
+} from '@dspace/core';
 import { isNotEmpty } from '@dspace/shared/utils';
 import {
   TranslateLoader,
@@ -16,9 +21,6 @@ import {
 } from '@ngx-translate/core';
 
 import { environment } from '../../../../environments/environment';
-import { APP_CONFIG } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { MetadataValue } from '@dspace/core';
 import { MetadataUriValuesComponent } from './metadata-uri-values.component';
 
 let comp: MetadataUriValuesComponent;

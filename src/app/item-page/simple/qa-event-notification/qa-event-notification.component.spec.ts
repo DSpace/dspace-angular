@@ -5,23 +5,25 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  APP_DATA_SERVICES_MAP,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  HALEndpointService,
+  HALEndpointServiceStub,
+  NotificationsService,
+  ObjectCacheService,
+  QualityAssuranceSourceDataService,
+  QualityAssuranceSourceObject,
+  RemoteDataBuildService,
+  RequestService,
+} from '@dspace/core';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { SplitPipe } from 'src/app/shared/utils/split.pipe';
 
-import { RemoteDataBuildService } from '@dspace/core';
-import { ObjectCacheService } from '@dspace/core';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { QualityAssuranceSourceObject } from '@dspace/core';
-import { QualityAssuranceSourceDataService } from '@dspace/core';
-import { HALEndpointService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { HALEndpointServiceStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { QaEventNotificationComponent } from './qa-event-notification.component';
 
 describe('QaEventNotificationComponent', () => {

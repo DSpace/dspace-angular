@@ -6,21 +6,23 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import {
+  AuthorizationDataService,
+  CorrectionType,
+  CorrectionTypeDataService,
+  FeatureID,
+  getFirstCompletedRemoteData,
+  Item,
+  PaginatedList,
+  RemoteData,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest,
   map,
   Observable,
 } from 'rxjs';
-import { getFirstCompletedRemoteData } from '@dspace/core';
 
-import { AuthorizationDataService } from '@dspace/core';
-import { FeatureID } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { CorrectionTypeDataService } from '@dspace/core';
-import { CorrectionType } from '@dspace/core';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
 import {

@@ -15,6 +15,18 @@ import {
   ReactiveFormsModule,
   UntypedFormControl,
 } from '@angular/forms';
+import {
+  Collection,
+  CollectionDataService,
+  Community,
+  DSONameService,
+  FindListOptions,
+  followLink,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  PaginatedList,
+  RemoteData,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -36,18 +48,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { DSONameService } from '@dspace/core';
-import { CollectionDataService } from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { Community } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '@dspace/core';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 
 /**

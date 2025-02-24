@@ -3,14 +3,13 @@ import {
   Component,
   Input,
 } from '@angular/core';
-import { Observable } from 'rxjs';
-
-import { EPersonDataService } from '@dspace/core';
-import { EPerson } from '@dspace/core';
 import {
+  EPerson,
+  EPersonDataService,
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '@dspace/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'ds-eperson-data',

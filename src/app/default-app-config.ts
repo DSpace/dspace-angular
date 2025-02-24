@@ -1,5 +1,3 @@
-import { RestRequestMethod } from '../../modules/core/src/lib/core/data/rest-request-method';
-import { NotificationAnimationsType } from '../../modules/core/src/lib/core/notifications/models/notification-animations-type';
 import { ActuatorsConfig } from '../../modules/core/src/lib/core/config/actuators.config';
 import { AppConfig } from '../../modules/core/src/lib/core/config/app-config.interface';
 import { AuthConfig } from '../../modules/core/src/lib/core/config/auth-config.interfaces';
@@ -28,6 +26,8 @@ import { SubmissionConfig } from '../../modules/core/src/lib/core/config/submiss
 import { SuggestionConfig } from '../../modules/core/src/lib/core/config/suggestion-config.interfaces';
 import { ThemeConfig } from '../../modules/core/src/lib/core/config/theme.config';
 import { UIServerConfig } from '../../modules/core/src/lib/core/config/ui-server-config.interface';
+import { RestRequestMethod } from '../../modules/core/src/lib/core/data/rest-request-method';
+import { NotificationAnimationsType } from '../../modules/core/src/lib/core/notifications/models/notification-animations-type';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;

@@ -5,6 +5,17 @@ import {
 } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import {
+  createFailedRemoteDataObject$,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  NotificationsService,
+  NotificationsServiceStub,
+  RequestService,
+  RouterStub,
+  SystemWideAlert,
+  SystemWideAlertDataService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   utcToZonedTime,
@@ -12,17 +23,6 @@ import {
 } from 'date-fns-tz';
 import { UiSwitchModule } from 'ngx-ui-switch';
 
-import { RequestService } from '@dspace/core';
-import { SystemWideAlertDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { SystemWideAlert } from '@dspace/core';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { SystemWideAlertFormComponent } from './system-wide-alert-form.component';
 
 describe('SystemWideAlertFormComponent', () => {

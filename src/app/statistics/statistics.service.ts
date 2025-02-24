@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core';
 import {
+  DSpaceObject,
+  HALEndpointService,
+  RequestService,
+  RestRequest,
+  SearchOptions,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -8,11 +15,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { RequestService } from '@dspace/core';
-import { RestRequest } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { HALEndpointService } from '@dspace/core';
-import { SearchOptions } from '@dspace/core';
 import { TrackRequest } from './track-request.model';
 
 /**

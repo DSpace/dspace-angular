@@ -13,20 +13,22 @@ import {
   RouterLink,
 } from '@angular/router';
 import {
+  getMockRequestService,
+  Item,
+  ItemDataService,
+  NotificationsService,
+  NotificationsServiceStub,
+  RequestService,
+  RouterStub,
+  SearchService,
+  TranslateLoaderMock,
+} from '@dspace/core';
+import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ItemDataService } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { getMockRequestService } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
 import { getMockSearchService } from '../../mocks/search-service.mock';
 import { ItemActionsComponent } from './item-actions.component';
 

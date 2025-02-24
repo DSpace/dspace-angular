@@ -3,12 +3,14 @@ import {
   NgClass,
 } from '@angular/common';
 import { Component } from '@angular/core';
+import {
+  Community,
+  CommunitySearchResult,
+  Context,
+  ViewMode,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { CommunitySearchResult } from '@dspace/core';
-import { Community } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
 import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/truncatable-part.component';
 import { SidebarSearchListElementComponent } from '../sidebar-search-list-element.component';

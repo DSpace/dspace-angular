@@ -10,28 +10,28 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  buildPaginatedList,
+  createSuccessfulRemoteDataObject,
+  createTestComponent,
+  Item,
+  ItemMockPid10,
+  NotificationsMockDspaceObject,
+  PageInfo,
+  PaginatedSearchOptions,
+  PaginationComponentOptions,
+  qualityAssuranceEventObjectMissingProjectFound,
+  SearchService,
+  SelectableListService,
+} from '@dspace/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { buildPaginatedList } from '@dspace/core';
-import {
-  ItemMockPid10,
-  NotificationsMockDspaceObject,
-  qualityAssuranceEventObjectMissingProjectFound,
-} from '@dspace/core';
-import { Item } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { PaginatedSearchOptions } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { createTestComponent } from '@dspace/core';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { getMockSearchService } from '../../../shared/mocks/search-service.mock';
-import { SelectableListService } from '@dspace/core';
 import { ThemedSearchResultsComponent } from '../../../shared/search/search-results/themed-search-results.component';
 import {
   ImportType,

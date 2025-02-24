@@ -10,19 +10,21 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
+  createSuccessfulRemoteDataObject,
+  EPersonMock,
+  getMockLinkService,
+  LinkService,
+  PoolTask,
+  TranslateLoaderMock,
+  WorkflowItem,
+} from '@dspace/core';
+import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { LinkService } from '@dspace/core';
-import { getMockLinkService } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { WorkflowItem } from '@dspace/core';
-import { PoolTask } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
-import { EPersonMock } from '@dspace/core';
 import { ItemSubmitterComponent } from './item-submitter.component';
 
 let component: ItemSubmitterComponent;

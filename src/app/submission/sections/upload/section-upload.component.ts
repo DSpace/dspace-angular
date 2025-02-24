@@ -5,6 +5,25 @@ import {
   Inject,
 } from '@angular/core';
 import {
+  AccessConditionOption,
+  Collection,
+  CollectionDataService,
+  DSONameService,
+  followLink,
+  getFirstSucceededRemoteData,
+  Group,
+  GroupDataService,
+  RemoteData,
+  ResourcePolicyDataService,
+  SectionDataObject,
+  SubmissionFormsModel,
+  SubmissionObjectEntry,
+  SubmissionService,
+  SubmissionUploadsConfigDataService,
+  SubmissionUploadsModel,
+  WorkspaceitemSectionUploadObject,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
   isNotUndefined,
@@ -26,27 +45,10 @@ import {
   switchMap,
   tap,
 } from 'rxjs/operators';
-import { WorkspaceitemSectionUploadObject } from '@dspace/core';
 
-import { DSONameService } from '@dspace/core';
-import { AccessConditionOption } from '@dspace/core';
-import { SubmissionFormsModel } from '@dspace/core';
-import { SubmissionUploadsModel } from '@dspace/core';
-import { SubmissionUploadsConfigDataService } from '@dspace/core';
-import { CollectionDataService } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { GroupDataService } from '@dspace/core';
-import { Group } from '@dspace/core';
-import { ResourcePolicyDataService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { getFirstSucceededRemoteData } from '@dspace/core';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
-import { SubmissionObjectEntry } from '@dspace/core';
-import { SubmissionService } from '@dspace/core';
 import { SectionModelComponent } from '../models/section.model';
-import { SectionDataObject } from '@dspace/core';
 import { SectionsService } from '../sections.service';
 import { SubmissionSectionUploadAccessConditionsComponent } from './accessConditions/submission-section-upload-access-conditions.component';
 import { ThemedSubmissionSectionUploadFileComponent } from './file/themed-section-upload-file.component';

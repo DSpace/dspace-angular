@@ -2,21 +2,21 @@ import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import {
+  getFirstCompletedRemoteData,
+  METADATA_IMPORT_SCRIPT_NAME,
+  NotificationsService,
+  Process,
+  ProcessParameter,
+  RemoteData,
+  ScriptDataService,
+} from '@dspace/core';
 import { isNotEmpty } from '@dspace/shared/utils';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 
-import {
-  METADATA_IMPORT_SCRIPT_NAME,
-  ScriptDataService,
-} from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Process } from '@dspace/core';
-import { ProcessParameter } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
 import { getProcessDetailRoute } from '../../process-page/process-page-routing.paths';
 import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';
 

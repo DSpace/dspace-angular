@@ -11,6 +11,21 @@ import {
   Router,
 } from '@angular/router';
 import {
+  APP_CONFIG,
+  authReducer,
+  AuthService,
+  CSSVariableServiceStub,
+  HeadTagService,
+  HostWindowServiceStub,
+  LocaleService,
+  MenuServiceStub,
+  NativeWindowRef,
+  NativeWindowService,
+  RouterMock,
+  RouteService,
+  TranslateLoaderMock,
+} from '@dspace/core';
+import {
   Store,
   StoreModule,
 } from '@ngrx/store';
@@ -25,21 +40,6 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { storeModuleConfig } from './app.reducer';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
-import { authReducer } from '@dspace/core';
-import { AuthService } from '@dspace/core';
-import { APP_CONFIG } from '@dspace/core';
-import { LocaleService } from '@dspace/core';
-import { HeadTagService } from '@dspace/core';
-import { RouterMock } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import {
-  NativeWindowRef,
-  NativeWindowService,
-} from '@dspace/core';
-import { CSSVariableServiceStub } from '@dspace/core';
-import { HostWindowServiceStub } from '@dspace/core';
-import { MenuServiceStub } from '@dspace/core';
 import { ThemedRootComponent } from './root/themed-root.component';
 import { HostWindowResizeAction } from './shared/host-window.actions';
 import { HostWindowService } from './shared/host-window.service';

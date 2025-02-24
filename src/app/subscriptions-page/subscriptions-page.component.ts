@@ -4,6 +4,19 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import {
+  AuthService,
+  buildPaginatedList,
+  EPerson,
+  getAllCompletedRemoteData,
+  PageInfo,
+  PaginatedList,
+  PaginationComponentOptions,
+  PaginationService,
+  RemoteData,
+  Subscription,
+  SubscriptionsDataService,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -20,24 +33,11 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { AuthService } from '@dspace/core';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { EPerson } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { getAllCompletedRemoteData } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
-import { Subscription } from '@dspace/core';
 import { SubscriptionViewComponent } from '../shared/subscriptions/subscription-view/subscription-view.component';
-import { SubscriptionsDataService } from '@dspace/core';
 import { VarDirective } from '../shared/utils/var.directive';
 
 @Component({

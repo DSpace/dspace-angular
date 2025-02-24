@@ -22,6 +22,31 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import {
+  Collection,
+  ConfidenceType,
+  DSONameService,
+  DSpaceObject,
+  followLink,
+  FormFieldMetadataValueObject,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  getRemoteDataPayload,
+  Item,
+  ItemDataService,
+  ItemMetadataRepresentation,
+  metadataFieldsToString,
+  MetadataRepresentation,
+  MetadataRepresentationType,
+  MetadataService,
+  NotificationsService,
+  RegistryService,
+  RelationshipDataService,
+  Vocabulary,
+  VocabularyOptions,
+  VocabularyService,
+} from '@dspace/core';
 import { isNotEmpty } from '@dspace/shared/utils';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -40,33 +65,7 @@ import {
   take,
   tap,
 } from 'rxjs/operators';
-import { RegistryService } from '@dspace/core';
-import { VocabularyService } from '@dspace/core';
 
-import { DSONameService } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { RelationshipDataService } from '@dspace/core';
-import { MetadataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { ConfidenceType } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { ItemMetadataRepresentation } from '@dspace/core';
-import {
-  MetadataRepresentation,
-  MetadataRepresentationType,
-} from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteData,
-  getFirstSucceededRemoteDataPayload,
-  getRemoteDataPayload,
-  metadataFieldsToString,
-} from '@dspace/core';
-import { Vocabulary } from '@dspace/core';
-import { VocabularyOptions } from '@dspace/core';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { DsDynamicOneboxComponent } from '../../../shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.component';
@@ -79,7 +78,6 @@ import {
   DynamicScrollableDropdownModel,
   DynamicScrollableDropdownModelConfig,
 } from '../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 import { AuthorityConfidenceStateDirective } from '../../../shared/form/directives/authority-confidence-state.directive';
 import { ThemedTypeBadgeComponent } from '../../../shared/object-collection/shared/badges/type-badge/themed-type-badge.component';
 import { DebounceDirective } from '../../../shared/utils/debounce.directive';

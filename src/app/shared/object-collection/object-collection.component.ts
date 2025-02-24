@@ -18,6 +18,17 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  Context,
+  ListableObject,
+  PageInfo,
+  PaginatedList,
+  PaginationComponentOptions,
+  RemoteData,
+  SortDirection,
+  SortOptions,
+  ViewMode,
+} from '@dspace/core';
 import { isEmpty } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 import {
@@ -25,17 +36,6 @@ import {
   map,
 } from 'rxjs/operators';
 
-import {
-  SortDirection,
-  SortOptions,
-} from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { ListableObject } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { ObjectDetailComponent } from '../object-detail/object-detail.component';
 import { ObjectGridComponent } from '../object-grid/object-grid.component';
 import { ThemedObjectListComponent } from '../object-list/themed-object-list.component';

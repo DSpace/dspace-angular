@@ -10,6 +10,13 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
+  AuthorizationDataService,
+  Bitstream,
+  DSONameService,
+  FeatureID,
+  Item,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -25,11 +32,6 @@ import {
   getBitstreamDownloadRoute,
   getBitstreamRequestACopyRoute,
 } from '../../app-routing-paths';
-import { DSONameService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { FeatureID } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { Item } from '@dspace/core';
 
 @Component({
   selector: 'ds-base-file-download-link',

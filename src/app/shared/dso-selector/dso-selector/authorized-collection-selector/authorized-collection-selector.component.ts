@@ -10,6 +10,22 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import {
+  buildPaginatedList,
+  Collection,
+  CollectionDataService,
+  CollectionSearchResult,
+  DSONameService,
+  DSpaceObject,
+  FindListOptions,
+  followLink,
+  getFirstCompletedRemoteData,
+  NotificationsService,
+  PaginatedList,
+  RemoteData,
+  SearchResult,
+  SearchService,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import {
   TranslateModule,
@@ -19,22 +35,6 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { DSONameService } from '@dspace/core';
-import { CollectionDataService } from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { CollectionSearchResult } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
-import { SearchResult } from '@dspace/core';
-import { SearchService } from '@dspace/core';
 import { HoverClassDirective } from '../../../hover-class.directive';
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';

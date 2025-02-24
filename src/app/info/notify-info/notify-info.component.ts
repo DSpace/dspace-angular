@@ -4,13 +4,12 @@ import {
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { NotifyInfoService } from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   map,
   Observable,
 } from 'rxjs';
-
-import { NotifyInfoService } from '@dspace/core';
 
 @Component({
   selector: 'ds-notify-info',

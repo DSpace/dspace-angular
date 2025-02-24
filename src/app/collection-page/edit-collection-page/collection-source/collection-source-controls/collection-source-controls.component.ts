@@ -6,6 +6,22 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import {
+  BitstreamDataService,
+  Collection,
+  CollectionDataService,
+  ContentSource,
+  ContentSourceSetSerializer,
+  getAllSucceededRemoteDataPayload,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  NotificationsService,
+  Process,
+  ProcessDataService,
+  ProcessStatus,
+  RequestService,
+  ScriptDataService,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import {
   TranslateModule,
@@ -23,22 +39,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { BitstreamDataService } from '@dspace/core';
-import { CollectionDataService } from '@dspace/core';
-import { ProcessDataService } from '@dspace/core';
-import { ScriptDataService } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Process } from '@dspace/core';
-import { ProcessStatus } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { ContentSource } from '@dspace/core';
-import { ContentSourceSetSerializer } from '@dspace/core';
-import {
-  getAllSucceededRemoteDataPayload,
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '@dspace/core';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 

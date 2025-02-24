@@ -11,6 +11,31 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  BrowseEntry,
+  buildPaginatedList,
+  ConfigurationDataService,
+  ConfigurationProperty,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  GroupDataService,
+  HostWindowServiceStub,
+  ITEM,
+  LinkHeadService,
+  PageInfo,
+  PaginationComponentOptions,
+  PaginationService,
+  PaginationServiceStub,
+  RouteService,
+  routeServiceStub,
+  SearchConfigurationService,
+  SearchConfigurationServiceStub,
+  SelectableListService,
+  SortDirection,
+  SortOptions,
+  TranslateLoaderMock,
+  ViewMode,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
@@ -18,30 +43,6 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import {
-  SortDirection,
-  SortOptions,
-} from '@dspace/core';
-import { ConfigurationDataService } from '@dspace/core';
-import { buildPaginatedList } from '@dspace/core';
-import { GroupDataService } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { LinkHeadService } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { BrowseEntry } from '@dspace/core';
-import { ConfigurationProperty } from '@dspace/core';
-import { ITEM } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { HostWindowServiceStub } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
-import { routeServiceStub } from '@dspace/core';
-import { SearchConfigurationServiceStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { HostWindowService } from '../host-window.service';
 import { getMockThemeService } from '../mocks/theme-service.mock';
 import {
@@ -50,7 +51,6 @@ import {
 } from '../object-collection/shared/listable-object/listable-object.decorator';
 import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { BrowseEntryListElementComponent } from '../object-list/browse-entry-list-element/browse-entry-list-element.component';
-import { SelectableListService } from '@dspace/core';
 import { ThemeService } from '../theme-support/theme.service';
 import { BrowseByComponent } from './browse-by.component';
 

@@ -13,6 +13,30 @@ import {
 } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideServerRendering } from '@angular/platform-server';
+import {
+  AuthRequestService,
+  AuthService,
+  CookieService,
+  coreEffects,
+  coreReducers,
+  CoreState,
+  ForwardClientIpInterceptor,
+  HardRedirectService,
+  LocaleService,
+  MathService,
+  ReferrerService,
+  ServerAuthRequestService,
+  ServerAuthService,
+  ServerCookieService,
+  ServerHardRedirectService,
+  ServerLocaleService,
+  ServerMathService,
+  ServerReferrerService,
+  ServerXhrService,
+  ServerXSRFService,
+  SubmissionService,
+  XSRFService,
+} from '@dspace/core';
 import { EffectsModule } from '@ngrx/effects';
 import {
   Action,
@@ -31,32 +55,10 @@ import {
 
 import { commonAppConfig } from '../../app/app.config';
 import { storeModuleConfig } from '../../app/app.reducer';
-import { AuthService } from '@dspace/core';
-import { AuthRequestService } from '@dspace/core';
-import { ServerAuthService } from '@dspace/core';
-import { ServerAuthRequestService } from '@dspace/core';
-import { coreEffects } from '@dspace/core';
-import { coreReducers } from '@dspace/core';
-import { CoreState } from '@dspace/core';
-import { ForwardClientIpInterceptor } from '@dspace/core';
-import { LocaleService } from '@dspace/core';
-import { ServerLocaleService } from '@dspace/core';
-import { CookieService } from '@dspace/core';
-import { HardRedirectService } from '@dspace/core';
-import { ReferrerService } from '@dspace/core';
-import { ServerReferrerService } from '@dspace/core';
-import { ServerCookieService } from '@dspace/core';
-import { ServerHardRedirectService } from '@dspace/core';
-import { ServerXhrService } from '@dspace/core';
-import { MathService } from '@dspace/core';
-import { ServerMathService } from '@dspace/core';
-import { ServerXSRFService } from '@dspace/core';
-import { XSRFService } from '@dspace/core';
 import { AngularticsProviderMock } from '../../app/shared/mocks/angulartics-provider.service.mock';
 import { Angulartics2Mock } from '../../app/shared/mocks/angulartics2.service.mock';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
 import { ServerSubmissionService } from '../../app/submission/server-submission.service';
-import { SubmissionService } from '@dspace/core';
 import { TranslateServerLoader } from '../../ngx-translate-loaders/translate-server.loader';
 import { ServerInitService } from './server-init.service';
 

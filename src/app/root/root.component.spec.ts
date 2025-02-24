@@ -6,15 +6,17 @@ import {
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
+import {
+  CSSVariableServiceStub,
+  HostWindowServiceStub,
+  MenuServiceStub,
+  NotificationsBoardComponent,
+  RouterMock,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ThemedAdminSidebarComponent } from '../admin/admin-sidebar/themed-admin-sidebar.component';
 import { ThemedBreadcrumbsComponent } from '../breadcrumbs/themed-breadcrumbs.component';
-import { RouterMock } from '@dspace/core';
-import { NotificationsBoardComponent } from '@dspace/core';
-import { CSSVariableServiceStub } from '@dspace/core';
-import { HostWindowServiceStub } from '@dspace/core';
-import { MenuServiceStub } from '@dspace/core';
 import { ThemedFooterComponent } from '../footer/themed-footer.component';
 import { ThemedHeaderNavbarWrapperComponent } from '../header-nav-wrapper/themed-header-navbar-wrapper.component';
 import { HostWindowService } from '../shared/host-window.service';

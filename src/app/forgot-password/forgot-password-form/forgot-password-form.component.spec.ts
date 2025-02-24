@@ -16,22 +16,22 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  AuthenticateAction,
+  CoreState,
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  EPersonDataService,
+  NotificationsService,
+  NotificationsServiceStub,
+  Registration,
+  RouterStub,
+} from '@dspace/core';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthenticateAction } from '@dspace/core';
-import { CoreState } from '@dspace/core';
-import { EPersonDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Registration } from '@dspace/core';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
 import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
 import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
 import { ForgotPasswordFormComponent } from './forgot-password-form.component';

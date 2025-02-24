@@ -6,6 +6,17 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import {
+  Collection,
+  CollectionDataService,
+  Community,
+  PaginatedList,
+  PaginationComponentOptions,
+  PaginationService,
+  RemoteData,
+  SortDirection,
+  SortOptions,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -15,17 +26,6 @@ import {
 } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import {
-  SortDirection,
-  SortOptions,
-} from '@dspace/core';
-import { CollectionDataService } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { Community } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
 import { fadeIn } from '../../../../shared/animations/fade';
 import { ErrorComponent } from '../../../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';

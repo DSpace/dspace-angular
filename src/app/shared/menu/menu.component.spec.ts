@@ -16,6 +16,15 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
+  AuthorizationDataService,
+  authReducer,
+  createSuccessfulRemoteDataObject,
+  Item,
+  MenuID,
+  MenuItemType,
+  MenuSection,
+} from '@dspace/core';
+import {
   Store,
   StoreModule,
 } from '@ngrx/store';
@@ -33,19 +42,12 @@ import {
   AppState,
   storeModuleConfig,
 } from '../../app.reducer';
-import { authReducer } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { getMockThemeService } from '../mocks/theme-service.mock';
 import { ThemeService } from '../theme-support/theme.service';
 import { MenuComponent } from './menu.component';
 import { MenuService } from './menu.service';
-import { MenuID } from '@dspace/core';
 import { LinkMenuItemModel } from './menu-item/models/link.model';
-import { MenuItemType } from '@dspace/core';
 import { rendersSectionForMenu } from './menu-section.decorator';
-import { MenuSection } from '@dspace/core';
 
 const mockMenuID = 'mock-menuID' as MenuID;
 

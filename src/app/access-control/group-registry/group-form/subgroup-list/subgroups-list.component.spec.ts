@@ -23,6 +23,27 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  buildPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  DSONameService,
+  EPersonMock2,
+  getMockTranslateService,
+  Group,
+  GroupDataService,
+  GroupMock,
+  GroupMock2,
+  NotificationsService,
+  NotificationsServiceStub,
+  PageInfo,
+  PaginatedList,
+  PaginationService,
+  PaginationServiceStub,
+  RemoteData,
+  RestResponse,
+  RouterMock,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateLoader,
@@ -34,29 +55,6 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { DSONameService } from '@dspace/core';
-import { RestResponse } from '@dspace/core';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { GroupDataService } from '@dspace/core';
-import { Group } from '@dspace/core';
-import { RouterMock } from '@dspace/core';
-import { getMockTranslateService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { EPersonMock2 } from '@dspace/core';
-import {
-  GroupMock,
-  GroupMock2,
-} from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
 import { TranslateLoaderMock } from '../../../../../../modules/core/src/lib/core/utilities/testing/translate-loader.mock';
 import { ContextHelpDirective } from '../../../../shared/context-help.directive';
 import { FormBuilderService } from '../../../../shared/form/builder/form-builder.service';

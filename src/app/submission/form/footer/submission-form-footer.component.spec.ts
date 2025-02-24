@@ -12,6 +12,13 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
+  createTestComponent,
+  SubmissionRestService,
+  SubmissionRestServiceStub,
+  SubmissionService,
+  SubmissionServiceStub,
+} from '@dspace/core';
+import {
   NgbModal,
   NgbModule,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -24,13 +31,8 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { SubmissionRestService } from '@dspace/core';
-import { SubmissionRestServiceStub } from '@dspace/core';
-import { SubmissionServiceStub } from '@dspace/core';
-import { createTestComponent } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { mockSubmissionId } from '../../../shared/mocks/submission.mock';
-import { SubmissionService } from '@dspace/core';
 import { SubmissionFormFooterComponent } from './submission-form-footer.component';
 
 const submissionServiceStub: SubmissionServiceStub = new SubmissionServiceStub();

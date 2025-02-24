@@ -6,15 +6,17 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  NotificationsService,
+  RequestService,
+  SearchService,
+} from '@dspace/core';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 
-import { RequestService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { SearchService } from '@dspace/core';
 import { ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-select-reviewer/advanced-workflow-action-select-reviewer.component';
 import { AdvancedClaimedTaskActionsAbstractComponent } from '../abstract/advanced-claimed-task-actions-abstract.component';
 

@@ -5,11 +5,11 @@ import {
   Output,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AuthorizationDataService } from '@dspace/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { AuthorizationDataService } from '@dspace/core';
 import { ModalBeforeDismiss } from '../interfaces/modal-before-dismiss.interface';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 

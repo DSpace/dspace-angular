@@ -5,6 +5,17 @@ import {
   OnChanges,
 } from '@angular/core';
 import {
+  DeleteRelationship,
+  FieldChangeType,
+  FieldUpdate,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+  Item,
+  ObjectUpdatesService,
+  RelationshipIdentifiable,
+  ViewMode,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -25,19 +36,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { FieldChangeType } from '@dspace/core';
-import { FieldUpdate } from '@dspace/core';
-import {
-  DeleteRelationship,
-  RelationshipIdentifiable,
-} from '@dspace/core';
-import { ObjectUpdatesService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import {
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { ListableObjectComponentLoaderComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { VirtualMetadataComponent } from '../../virtual-metadata/virtual-metadata.component';

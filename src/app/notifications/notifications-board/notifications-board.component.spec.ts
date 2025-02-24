@@ -13,24 +13,26 @@ import {
 } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
+  CoreState,
+  INotificationBoardOptions,
+  LiveRegionService,
+  Notification,
+  NotificationOptions,
+  notificationsReducer,
+  NotificationsService,
+  NotificationType,
+} from '@dspace/core';
+import {
   Store,
   StoreModule,
 } from '@ngrx/store';
 import { cold } from 'jasmine-marbles';
 import uniqueId from 'lodash/uniqueId';
 
-import { LiveRegionService } from '@dspace/core';
-import { LiveRegionServiceStub } from '../../shared/live-region/live-region.service.stub';
-import { INotificationBoardOptions } from '@dspace/core';
 import { NotificationsServiceStub } from '../../../../modules/core/src/lib/core/utilities';
-import { Notification } from '@dspace/core';
-import { NotificationOptions } from '@dspace/core';
-import { NotificationType } from '@dspace/core';
+import { LiveRegionServiceStub } from '../../shared/live-region/live-region.service.stub';
 import { NotificationComponent } from '../notification';
-import { notificationsReducer } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
 import { NotificationsBoardComponent } from './notifications-board.component';
-import { CoreState } from "@dspace/core";
 
 export const bools = { f: false, t: true };
 

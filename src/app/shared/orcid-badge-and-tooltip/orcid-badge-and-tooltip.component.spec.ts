@@ -4,10 +4,10 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { MetadataValue } from '@dspace/core';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 
-import { MetadataValue } from '@dspace/core';
 import { OrcidBadgeAndTooltipComponent } from './orcid-badge-and-tooltip.component';
 
 describe('OrcidBadgeAndTooltipComponent', () => {

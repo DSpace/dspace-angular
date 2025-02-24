@@ -5,15 +5,15 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-
 import {
   APP_CONFIG,
   AppConfig,
+  PaginatedList,
+  QualityAssuranceSourceObject,
 } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { QualityAssuranceSourceObject } from '@dspace/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { QualityAssuranceSourceService } from '../../notifications/qa/source/quality-assurance-source.service';
 
 /**

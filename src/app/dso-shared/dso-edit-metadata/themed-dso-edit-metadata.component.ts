@@ -2,9 +2,11 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import {
+  DSpaceObject,
+  UpdateDataService,
+} from '@dspace/core';
 
-import { UpdateDataService } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
 import { ThemedComponent } from '../../shared/theme-support/themed.component';
 import { DsoEditMetadataComponent } from './dso-edit-metadata.component';
 

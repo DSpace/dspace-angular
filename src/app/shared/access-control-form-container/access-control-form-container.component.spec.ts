@@ -7,6 +7,11 @@ import {
 } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import {
+  BulkAccessConfigDataService,
+  Item,
+  SelectableListService,
+} from '@dspace/core';
+import {
   NgbDatepickerModule,
   NgbModal,
   NgbModalRef,
@@ -15,9 +20,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { of } from 'rxjs';
 
-import { BulkAccessConfigDataService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { SelectableListService } from '@dspace/core';
 import { AccessControlFormContainerComponent } from './access-control-form-container.component';
 import { createAccessControlInitialFormState } from './access-control-form-container-intial-state';
 import { BulkAccessControlService } from './bulk-access-control.service';

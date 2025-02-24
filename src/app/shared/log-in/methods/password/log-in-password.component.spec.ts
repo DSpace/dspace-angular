@@ -12,6 +12,17 @@ import {
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import {
+  ActivatedRouteStub,
+  AuthMethod,
+  AuthMethodType,
+  AuthorizationDataService,
+  AuthorizationDataServiceStub,
+  authReducer,
+  AuthService,
+  AuthServiceStub,
+  HardRedirectService,
+} from '@dspace/core';
+import {
   Store,
   StoreModule,
 } from '@ngrx/store';
@@ -19,15 +30,6 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { storeModuleConfig } from '../../../../app.reducer';
-import { authReducer } from '@dspace/core';
-import { AuthService } from '@dspace/core';
-import { AuthMethod } from '@dspace/core';
-import { AuthMethodType } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { HardRedirectService } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { AuthServiceStub } from '@dspace/core';
-import { AuthorizationDataServiceStub } from '@dspace/core';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { LogInPasswordComponent } from './log-in-password.component';

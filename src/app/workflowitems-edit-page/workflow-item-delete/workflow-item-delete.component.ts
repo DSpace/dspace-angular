@@ -8,19 +8,21 @@ import {
   Router,
 } from '@angular/router';
 import {
+  getFirstCompletedRemoteData,
+  NoContent,
+  NotificationsService,
+  RemoteData,
+  RequestService,
+  RouteService,
+  WorkflowItemDataService,
+} from '@dspace/core';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { NoContent } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
-import { WorkflowItemDataService } from '@dspace/core';
 import { ModifyItemOverviewComponent } from '../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { WorkflowItemActionPageDirective } from '../workflow-item-action-page.component';

@@ -1,16 +1,18 @@
-import { CacheableObject } from '@dspace/core';
-import { IdentifiableDataService } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { ResourceType } from '@dspace/core';
-import { WorkflowItem } from '@dspace/core';
-import { WorkspaceItem } from '@dspace/core';
-import { WorkflowItemDataService } from '@dspace/core';
-import { WorkspaceitemDataService } from '@dspace/core';
-import { ClaimedTaskDataService } from '@dspace/core';
-import { ClaimedTask } from '@dspace/core';
-import { PoolTask } from '@dspace/core';
-import { PoolTaskDataService } from '@dspace/core';
+import {
+  CacheableObject,
+  ClaimedTask,
+  ClaimedTaskDataService,
+  IdentifiableDataService,
+  Item,
+  ItemDataService,
+  PoolTask,
+  PoolTaskDataService,
+  ResourceType,
+  WorkflowItem,
+  WorkflowItemDataService,
+  WorkspaceItem,
+  WorkspaceitemDataService,
+} from '@dspace/core';
 
 /**
  * Class to return UpdateDataServiceImpl for given ResourceType

@@ -1,7 +1,10 @@
-import { getMockTranslateService } from '@dspace/core';
-import { FormFieldModel } from '@dspace/core';
+import {
+  FormFieldMetadataValueObject,
+  FormFieldModel,
+  getMockTranslateService,
+} from '@dspace/core';
+
 import { DynamicRelationGroupModel } from '../ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 import { ParserOptions } from './parser-options';
 import { RelationGroupFieldParser } from './relation-group-field-parser';
 

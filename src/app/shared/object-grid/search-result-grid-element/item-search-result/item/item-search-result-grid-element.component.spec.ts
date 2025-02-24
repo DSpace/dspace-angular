@@ -10,6 +10,25 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  Bitstream,
+  BitstreamDataService,
+  buildPaginatedList,
+  CommunityDataService,
+  createSuccessfulRemoteDataObject$,
+  DefaultChangeAnalyzer,
+  DSOChangeAnalyzer,
+  HALEndpointService,
+  Item,
+  ItemSearchResult,
+  NotificationsService,
+  ObjectCacheService,
+  PageInfo,
+  RemoteData,
+  RemoteDataBuildService,
+  UUIDService,
+} from '@dspace/core';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -17,23 +36,6 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { RemoteDataBuildService } from '@dspace/core';
-import { ObjectCacheService } from '@dspace/core';
-import { BitstreamDataService } from '@dspace/core';
-import { CommunityDataService } from '@dspace/core';
-import { DefaultChangeAnalyzer } from '@dspace/core';
-import { DSOChangeAnalyzer } from '@dspace/core';
-import { buildPaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { ItemSearchResult } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { HALEndpointService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { UUIDService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
 import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
 import { ThemedBadgesComponent } from '../../../../object-collection/shared/badges/themed-badges.component';
 import { TruncatableComponent } from '../../../../truncatable/truncatable.component';

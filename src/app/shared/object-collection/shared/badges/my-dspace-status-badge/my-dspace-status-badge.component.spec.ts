@@ -9,17 +9,19 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
+  Context,
+  createSuccessfulRemoteDataObject,
+  EPersonMock,
+  PoolTask,
+  TranslateLoaderMock,
+  WorkflowItem,
+} from '@dspace/core';
+import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { TranslateLoaderMock } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { WorkflowItem } from '@dspace/core';
-import { PoolTask } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
-import { EPersonMock } from '@dspace/core';
 import { MyDSpaceStatusBadgeComponent } from './my-dspace-status-badge.component';
 
 let component: MyDSpaceStatusBadgeComponent;

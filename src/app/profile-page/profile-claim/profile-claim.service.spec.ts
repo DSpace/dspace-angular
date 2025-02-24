@@ -1,19 +1,19 @@
 import {
+  createNoContentRemoteDataObject,
+  createSuccessfulRemoteDataObject,
+  EPerson,
+  Item,
+  ItemSearchResult,
+  SearchObjects,
+  SearchService,
+} from '@dspace/core';
+import {
   cold,
   getTestScheduler,
 } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { EPerson } from '@dspace/core';
-import { ItemSearchResult } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { SearchObjects } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import {
-  createNoContentRemoteDataObject,
-  createSuccessfulRemoteDataObject,
-} from '@dspace/core';
 import { ProfileClaimService } from './profile-claim.service';
 
 describe('ProfileClaimService', () => {

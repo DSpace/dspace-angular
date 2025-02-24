@@ -12,39 +12,37 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  createPaginatedList,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  EntityTypeDataService,
+  FieldChangeType,
+  INotification,
+  Item,
+  ItemDataService,
+  ItemDataServiceStub,
+  ItemType,
+  Notification,
+  NotificationsService,
+  NotificationType,
+  ObjectCacheService,
+  ObjectUpdatesService,
+  Relationship,
+  RelationshipDataService,
+  RelationshipType,
+  RelationshipTypeDataService,
+  relationshipTypes,
+  RequestService,
+  RestResponse,
+  RouterStub,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
   of as observableOf,
 } from 'rxjs';
 
-import { ObjectCacheService } from '@dspace/core';
-import { RestResponse } from '@dspace/core';
-import { EntityTypeDataService } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { FieldChangeType } from '@dspace/core';
-import { ObjectUpdatesService } from '@dspace/core';
-import { RelationshipDataService } from '@dspace/core';
-import { RelationshipTypeDataService } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import {
-  INotification,
-  Notification,
-} from '@dspace/core';
-import { NotificationType } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { ItemType } from '@dspace/core';
-import { Relationship } from '@dspace/core';
-import { RelationshipType } from '@dspace/core';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { ItemDataServiceStub } from '@dspace/core';
-import { relationshipTypes } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { ThemeService } from '../../../shared/theme-support/theme.service';

@@ -4,11 +4,13 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  Community,
+  CommunityDataService,
+  NotificationsService,
+} from '@dspace/core';
 import { TranslateService } from '@ngx-translate/core';
 
-import { CommunityDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Community } from '@dspace/core';
 import { ComcolMetadataComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-metadata/comcol-metadata.component';
 import { CommunityFormComponent } from '../../community-form/community-form.component';
 

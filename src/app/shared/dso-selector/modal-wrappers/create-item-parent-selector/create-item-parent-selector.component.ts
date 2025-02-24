@@ -9,16 +9,16 @@ import {
   NavigationExtras,
   Router,
 } from '@angular/router';
+import {
+  DSpaceObject,
+  DSpaceObjectType,
+  SortDirection,
+  SortOptions,
+} from '@dspace/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../../environments/environment';
-import {
-  SortDirection,
-  SortOptions,
-} from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { DSpaceObjectType } from '@dspace/core';
 import { AuthorizedCollectionSelectorComponent } from '../../dso-selector/authorized-collection-selector/authorized-collection-selector.component';
 import {
   DSOSelectorModalWrapperComponent,

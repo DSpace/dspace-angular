@@ -4,21 +4,23 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import {
+  createSuccessfulRemoteDataObject$,
+  Item,
+  ItemSearchResult,
+  Relationship,
+  RelationshipOptions,
+  RemoveRelationshipAction,
+  ReorderableRelationship,
+  SelectableListService,
+  SubmissionService,
+  SubmissionServiceStub,
+} from '@dspace/core';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { ItemSearchResult } from '@dspace/core';
-import { RelationshipOptions } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { Relationship } from '@dspace/core';
-import { ReorderableRelationship } from '@dspace/core';
-import { RemoveRelationshipAction } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { SubmissionServiceStub } from '@dspace/core';
-import { SubmissionService } from '@dspace/core';
 import { ListableObjectComponentLoaderComponent } from '../../../../object-collection/shared/listable-object/listable-object-component-loader.component';
-import { SelectableListService } from '@dspace/core';
 import { ExistingRelationListElementComponent } from './existing-relation-list-element.component';
 
 describe('ExistingRelationListElementComponent', () => {

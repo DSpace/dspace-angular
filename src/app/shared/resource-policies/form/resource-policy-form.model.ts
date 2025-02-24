@@ -1,4 +1,8 @@
 import {
+  ActionType,
+  PolicyType,
+} from '@dspace/core';
+import {
   DynamicDatePickerModelConfig,
   DynamicFormControlLayout,
   DynamicFormGroupModelConfig,
@@ -6,8 +10,6 @@ import {
   DynamicSelectModelConfig,
 } from '@ng-dynamic-forms/core';
 
-import { ActionType } from '@dspace/core';
-import { PolicyType } from '@dspace/core';
 import { DsDynamicInputModelConfig } from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DsDynamicTextAreaModelConfig } from '../../form/builder/ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
 

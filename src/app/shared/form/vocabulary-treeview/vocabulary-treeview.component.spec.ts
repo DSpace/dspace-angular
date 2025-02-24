@@ -12,17 +12,19 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  createTestComponent,
+  FormFieldMetadataValueObject,
+  PageInfo,
+  VocabularyEntry,
+  VocabularyEntryDetail,
+  VocabularyOptions,
+  VocabularyService,
+} from '@dspace/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { PageInfo } from '@dspace/core';
-import { VocabularyEntry } from '@dspace/core';
-import { VocabularyEntryDetail } from '@dspace/core';
-import { VocabularyOptions } from '@dspace/core';
-import { VocabularyService } from '@dspace/core';
-import { createTestComponent } from '@dspace/core';
-import { FormFieldMetadataValueObject } from '@dspace/core';
 import { VocabularyTreeviewComponent } from './vocabulary-treeview.component';
 import { VocabularyTreeviewService } from './vocabulary-treeview.service';
 import {

@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+import {
+  Item,
+  ViewMode,
+} from '@dspace/core';
 
-import { Item } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { listableObjectComponent } from '../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { AbstractListableElementComponent } from '../../../../shared/object-collection/shared/object-collection-element/abstract-listable-element.component';
 import { JournalVolumeSearchResultGridElementComponent } from '../search-result-grid-elements/journal-volume/journal-volume-search-result-grid-element.component';

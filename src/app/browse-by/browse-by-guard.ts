@@ -7,6 +7,12 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import {
+  BrowseDefinition,
+  BrowseDefinitionDataService,
+  getFirstCompletedRemoteData,
+  RemoteData,
+} from '@dspace/core';
+import {
   hasNoValue,
   hasValue,
 } from '@dspace/shared/utils';
@@ -21,10 +27,6 @@ import {
 } from 'rxjs/operators';
 
 import { PAGE_NOT_FOUND_PATH } from '../app-routing-paths';
-import { BrowseDefinitionDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { BrowseDefinition } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
 
 export const browseByGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,

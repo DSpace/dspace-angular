@@ -2,6 +2,19 @@ import {
   Injectable,
   isDevMode,
 } from '@angular/core';
+import {
+  Bitstream,
+  BitstreamDataService,
+  BitstreamFormat,
+  Bundle,
+  BundleDataService,
+  followLink,
+  FollowLinkConfig,
+  getFirstCompletedRemoteData,
+  Item,
+  PaginatedList,
+  RemoteData,
+} from '@dspace/core';
 import { Observable } from 'rxjs';
 import {
   filter,
@@ -10,20 +23,6 @@ import {
   mergeMap,
   switchMap,
 } from 'rxjs/operators';
-
-import { BitstreamDataService } from '@dspace/core';
-import { BundleDataService } from '@dspace/core';
-import {
-  followLink,
-  FollowLinkConfig,
-} from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { BitstreamFormat } from '@dspace/core';
-import { Bundle } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
 
 @Injectable({ providedIn: 'root' })
 export class MiradorViewerService {

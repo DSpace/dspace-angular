@@ -8,6 +8,30 @@ import {
   ActivatedRoute,
   RouterLink,
 } from '@angular/router';
+import {
+  AuthorizationDataService,
+  FeatureID,
+  FindListOptions,
+  followLink,
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+  Item,
+  ItemDataService,
+  ItemSearchResult,
+  Metadata,
+  NoContent,
+  NotificationsService,
+  PaginatedList,
+  PaginationComponentOptions,
+  PaginationService,
+  QualityAssuranceEventData,
+  QualityAssuranceEventDataService,
+  QualityAssuranceEventObject,
+  RemoteData,
+  SortDirection,
+  SortOptions,
+  SourceQualityAssuranceEventMessageObject,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import {
   NgbModal,
@@ -37,42 +61,12 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
-import {
-  QualityAssuranceEventData,
-  SortDirection,
-  SortOptions,
-} from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { FeatureID } from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { QualityAssuranceEventDataService } from '@dspace/core';
-import {
-  QualityAssuranceEventObject,
-  SourceQualityAssuranceEventMessageObject,
-} from '@dspace/core';
-import { ItemSearchResult } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { Metadata } from '@dspace/core';
-import { NoContent } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import {
-  ProjectEntryImportModalComponent,
-} from '../project-entry-import-modal/project-entry-import-modal.component';
+import { ProjectEntryImportModalComponent } from '../project-entry-import-modal/project-entry-import-modal.component';
 import { EPersonDataComponent } from './ePerson-data/ePerson-data.component';
 
 /**

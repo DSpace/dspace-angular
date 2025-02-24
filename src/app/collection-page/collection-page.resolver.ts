@@ -4,19 +4,19 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
+import {
+  Collection,
+  CollectionDataService,
+  followLink,
+  FollowLinkConfig,
+  getFirstCompletedRemoteData,
+  RemoteData,
+  ResolvedAction,
+} from '@dspace/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { AppState } from '../app.reducer';
-import { CollectionDataService } from '@dspace/core';
-import {
-  followLink,
-  FollowLinkConfig,
-} from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { ResolvedAction } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
 
 /**
  * The self links defined in this list are expected to be requested somewhere in the near future

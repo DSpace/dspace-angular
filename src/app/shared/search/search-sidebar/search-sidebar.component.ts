@@ -7,6 +7,17 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import {
+  APP_CONFIG,
+  AppConfig,
+  FilterConfig,
+  PaginatedSearchOptions,
+  RemoteData,
+  SearchConfigurationService,
+  SearchFilterConfig,
+  SortOptions,
+  ViewMode,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -14,17 +25,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { SortOptions } from '@dspace/core';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { PaginatedSearchOptions } from '@dspace/core';
-import { SearchFilterConfig } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import { FilterConfig } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { ViewModeSwitchComponent } from '../../view-mode-switch/view-mode-switch.component';
 import { AdvancedSearchComponent } from '../advanced-search/advanced-search.component';
 import { ThemedSearchFiltersComponent } from '../search-filters/themed-search-filters.component';

@@ -5,21 +5,23 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  CLAIMED_TASK,
+  ClaimedTask,
+  ClaimedTaskDataService,
+  DSpaceObject,
+  Item,
+  NotificationsService,
+  RemoteData,
+  RequestService,
+  SearchService,
+  WorkflowItem,
+} from '@dspace/core';
 import { isEmpty } from '@dspace/shared/utils';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { WorkflowItem } from '@dspace/core';
-import { ClaimedTaskDataService } from '@dspace/core';
-import { ClaimedTask } from '@dspace/core';
-import { CLAIMED_TASK } from '@dspace/core';
 import { MyDSpaceReloadableActionsComponent } from '../../mydspace-reloadable-actions';
 
 /**

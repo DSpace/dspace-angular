@@ -9,18 +9,20 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import {
+  ActivatedRouteStub,
+  APP_CONFIG,
+  BrowseDefinitionDataService,
+  BrowseDefinitionDataServiceStub,
+  BrowseService,
+  BrowseServiceStub,
+} from '@dspace/core';
+import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { environment } from '../../../../../../environments/environment';
-import { BrowseService } from '@dspace/core';
-import { BrowseDefinitionDataService } from '@dspace/core';
-import { APP_CONFIG } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { BrowseDefinitionDataServiceStub } from '@dspace/core';
-import { BrowseServiceStub } from '@dspace/core';
 import { TranslateLoaderMock } from '../../../../../../../modules/core/src/lib/core/utilities/testing/translate-loader.mock';
+import { environment } from '../../../../../../environments/environment';
 import { MetadataValuesComponent } from '../../../../field-components/metadata-values/metadata-values.component';
 import { mockItemWithMetadataFieldsAndValue } from '../item-page-field.component.spec';
 import { ItemPageDateFieldComponent } from './item-page-date-field.component';

@@ -5,15 +5,17 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  ChildHALResource,
+  createSuccessfulRemoteDataObject$,
+  DSONameService,
+  DSpaceObject,
+  HALResource,
+  LinkService,
+  SearchResult,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DSONameService } from '@dspace/core';
-import { LinkService } from '@dspace/core';
-import { ChildHALResource } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { HALResource } from '@dspace/core';
-import { SearchResult } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { mockTruncatableService } from '../../mocks/mock-trucatable.service';
 import { TruncatableService } from '../../truncatable/truncatable.service';
 import { VarDirective } from '../../utils/var.directive';

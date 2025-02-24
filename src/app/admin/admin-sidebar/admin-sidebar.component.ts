@@ -11,6 +11,11 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import {
+  AuthorizationDataService,
+  AuthService,
+  MenuID,
+} from '@dspace/core';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -26,12 +31,9 @@ import {
   withLatestFrom,
 } from 'rxjs/operators';
 
-import { AuthService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
 import { slideSidebar } from '../../shared/animations/slide';
 import { MenuComponent } from '../../shared/menu/menu.component';
 import { MenuService } from '../../shared/menu/menu.service';
-import { MenuID } from '@dspace/core';
 import { CSSVariableService } from '../../shared/sass-helper/css-variable.service';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';

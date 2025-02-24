@@ -5,20 +5,22 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import {
+  buildPaginatedList,
+  createSuccessfulRemoteDataObject,
+  PageInfo,
+  SelectableListService,
+} from '@dspace/core';
+import {
   NgbAccordionModule,
   NgbNavModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
-import { buildPaginatedList } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
+import { SelectableObject } from '../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service.spec';
 import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SelectableListItemControlComponent } from '../../../shared/object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
-import { SelectableListService } from '@dspace/core';
-import { SelectableObject } from '../../../../../modules/core/src/lib/core/states/selectable-list/selectable-list.service.spec';
 import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { ThemedSearchComponent } from '../../../shared/search/themed-search.component';
 import { ThemeService } from '../../../shared/theme-support/theme.service';

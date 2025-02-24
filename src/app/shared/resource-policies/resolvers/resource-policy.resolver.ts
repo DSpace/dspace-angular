@@ -5,14 +5,15 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
+import {
+  followLink,
+  getFirstCompletedRemoteData,
+  RemoteData,
+  ResourcePolicy,
+  ResourcePolicyDataService,
+} from '@dspace/core';
 import { isEmpty } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
-
-import { followLink } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { ResourcePolicy } from '@dspace/core';
-import { ResourcePolicyDataService } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
 
 /**
  * Method for resolving an item based on the parameters in the current route

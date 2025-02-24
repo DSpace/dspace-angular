@@ -9,6 +9,19 @@ import {
   Output,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import {
+  buildPaginatedList,
+  createSuccessfulRemoteDataObject,
+  ExternalSource,
+  ExternalSourceDataService,
+  FindListOptions,
+  getFirstSucceededRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  PageInfo,
+  PaginatedList,
+  RemoteData,
+  RequestParam,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
@@ -23,21 +36,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { RequestParam } from '@dspace/core';
-import { ExternalSourceDataService } from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import {
-  buildPaginatedList,
-  PaginatedList,
-} from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { ExternalSource } from '@dspace/core';
-import {
-  getFirstSucceededRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { createSuccessfulRemoteDataObject } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { HostWindowService } from '../../../shared/host-window.service';
 

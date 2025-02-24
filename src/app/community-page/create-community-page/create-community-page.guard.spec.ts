@@ -1,11 +1,11 @@
-import { first } from 'rxjs/operators';
-
-import { RouterMock } from '@dspace/core';
-import { Community } from '@dspace/core';
 import {
+  Community,
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
+  RouterMock,
 } from '@dspace/core';
+import { first } from 'rxjs/operators';
+
 import { createCommunityPageGuard } from './create-community-page.guard';
 
 describe('createCommunityPageGuard', () => {

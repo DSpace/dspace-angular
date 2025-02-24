@@ -7,17 +7,19 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  NotificationsService,
+  NotificationsServiceStub,
+  SystemWideAlert,
+  SystemWideAlertDataService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { utcToZonedTime } from 'date-fns-tz';
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
-import { SystemWideAlertDataService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { SystemWideAlert } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { SystemWideAlertBannerComponent } from './system-wide-alert-banner.component';
 
 

@@ -1,3 +1,4 @@
+import { MenuID } from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 
 import { AdminSidebarSectionComponent } from '../../admin/admin-sidebar/admin-sidebar-section/admin-sidebar-section.component';
@@ -7,7 +8,6 @@ import { NavbarSectionComponent } from '../../navbar/navbar-section/navbar-secti
 import { DsoEditMenuExpandableSectionComponent } from '../dso-page/dso-edit-menu/dso-edit-expandable-menu-section/dso-edit-menu-expandable-section.component';
 import { DsoEditMenuSectionComponent } from '../dso-page/dso-edit-menu/dso-edit-menu-section/dso-edit-menu-section.component';
 import { DEFAULT_THEME } from '../object-collection/shared/listable-object/listable-object.decorator';
-import { MenuID } from '@dspace/core';
 
 const menuComponentMap = new Map();
 

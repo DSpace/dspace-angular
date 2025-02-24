@@ -9,20 +9,22 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  ClaimedTask,
+  ClaimedTaskDataService,
+  ClaimedTaskDataServiceStub,
+  NotificationsService,
+  NotificationsServiceStub,
+  RequestService,
+  RouterStub,
+  SearchService,
+  SearchServiceStub,
+  WorkflowItem,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { RequestService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { WorkflowItem } from '@dspace/core';
-import { ClaimedTaskDataService } from '@dspace/core';
-import { ClaimedTask } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { ClaimedTaskDataServiceStub } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
-import { SearchServiceStub } from '@dspace/core';
 import { ADVANCED_WORKFLOW_ACTION_RATING } from '../../../../workflowitems-edit-page/advanced-workflow-action/advanced-workflow-action-rating/advanced-workflow-action-rating.component';
 import { AdvancedClaimedTaskActionRatingComponent } from './advanced-claimed-task-action-rating.component';
 

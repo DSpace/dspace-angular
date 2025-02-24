@@ -1,5 +1,8 @@
-import { DSpaceObject } from '@dspace/core';
-import { MetadataValue } from '@dspace/core';
+import {
+  DSpaceObject,
+  MetadataValue,
+} from '@dspace/core';
+
 import {
   DsoEditMetadataChangeType,
   DsoEditMetadataForm,

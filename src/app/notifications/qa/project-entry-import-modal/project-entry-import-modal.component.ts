@@ -9,6 +9,21 @@ import {
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import {
+  Context,
+  DSpaceObject,
+  ImportType,
+  ListableObject,
+  PaginatedList,
+  PaginatedSearchOptions,
+  PaginationComponentOptions,
+  QualityAssuranceEventData,
+  RemoteData,
+  SearchResult,
+  SearchService,
+  SelectableListService,
+  SourceQualityAssuranceEventMessageObject,
+} from '@dspace/core';
+import {
   hasValue,
   isNotEmpty,
 } from '@dspace/shared/utils';
@@ -20,25 +35,10 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { ImportType, PaginatedList, QualityAssuranceEventData } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import {
-  QualityAssuranceEventObject,
-  SourceQualityAssuranceEventMessageObject,
-} from '@dspace/core';
-import { ListableObject } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { PaginatedSearchOptions } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { SearchResult } from '@dspace/core';
-import { SearchService } from '@dspace/core';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { CollectionElementLinkType } from '../../../shared/object-collection/collection-element-link.type';
-import { SelectableListService } from '@dspace/core';
 import { ThemedSearchResultsComponent } from '../../../shared/search/search-results/themed-search-results.component';
 
 

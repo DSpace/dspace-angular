@@ -11,6 +11,27 @@ import {
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
+  AddRelationshipAction,
+  APP_DATA_SERVICES_MAP,
+  Collection,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  ExternalSource,
+  ExternalSourceDataService,
+  Item,
+  ItemSearchResult,
+  LookupRelationService,
+  PaginatedSearchOptions,
+  RelationshipDataService,
+  RelationshipOptions,
+  RemoteDataBuildService,
+  RemoveRelationshipAction,
+  SearchConfigurationService,
+  SelectableListService,
+  WorkspaceItem,
+  XSRFService,
+} from '@dspace/core';
+import {
   NgbActiveModal,
   NgbModule,
 } from '@ng-bootstrap/ng-bootstrap';
@@ -22,28 +43,7 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { RemoteDataBuildService } from '@dspace/core';
-import { APP_DATA_SERVICES_MAP } from '@dspace/core';
-import { ExternalSourceDataService } from '@dspace/core';
-import { LookupRelationService } from '@dspace/core';
-import { RelationshipDataService } from '@dspace/core';
-import { ItemSearchResult } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { ExternalSource } from '@dspace/core';
-import { RelationshipOptions } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { PaginatedSearchOptions } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import {
-  AddRelationshipAction,
-  RemoveRelationshipAction,
-} from '@dspace/core';
-import { WorkspaceItem } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
-import { XSRFService } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
-import { SelectableListService } from '@dspace/core';
 import { DsDynamicLookupRelationModalComponent } from './dynamic-lookup-relation-modal.component';
 
 describe('DsDynamicLookupRelationModalComponent', () => {

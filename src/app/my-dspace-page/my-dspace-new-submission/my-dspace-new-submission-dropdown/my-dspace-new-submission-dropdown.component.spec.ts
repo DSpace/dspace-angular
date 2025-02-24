@@ -11,19 +11,19 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  createTestComponent,
+  EntityTypeDataService,
+  ItemType,
+  PageInfo,
+  ResourceType,
+} from '@dspace/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { EntityTypeDataService } from '@dspace/core';
-import { ItemType } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { ResourceType } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import {
-  createPaginatedList,
-  createTestComponent,
-} from '@dspace/core';
 import { MyDSpaceNewSubmissionDropdownComponent } from './my-dspace-new-submission-dropdown.component';
 
 export function getMockEntityTypeService(): EntityTypeDataService {

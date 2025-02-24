@@ -9,17 +9,19 @@ import {
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
+  ConfigurationDataService,
+  createSuccessfulRemoteDataObject$,
+  EPerson,
+  EPersonDataService,
+  NotificationsService,
+} from '@dspace/core';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 import cloneDeep from 'lodash/cloneDeep';
 import { of } from 'rxjs';
 
-import { ConfigurationDataService } from '@dspace/core';
-import { EPersonDataService } from '@dspace/core';
-import { EPerson } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
 import { FormBuilderService } from '../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../shared/form/form.component';
 import { VarDirective } from '../../shared/utils/var.directive';

@@ -12,26 +12,26 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { of as observableOf } from 'rxjs';
-
-import { DSONameService } from '@dspace/core';
-import { LinkService } from '@dspace/core';
-import { ObjectCacheService } from '@dspace/core';
-import { APP_CONFIG } from '@dspace/core';
-import { ConfigurationDataService } from '@dspace/core';
-import { getMockLinkService } from '@dspace/core';
-import { PoolTaskSearchResult } from '@dspace/core';
-import { ConfigurationProperty } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { WorkflowItem } from '@dspace/core';
-import { SubmissionDuplicateDataService } from '@dspace/core';
-import { PoolTask } from '@dspace/core';
 import {
+  APP_CONFIG,
+  ConfigurationDataService,
+  ConfigurationProperty,
+  Context,
+  createPaginatedList,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
+  DSONameService,
+  getMockLinkService,
+  Item,
+  LinkService,
+  ObjectCacheService,
+  PoolTask,
+  PoolTaskSearchResult,
+  SubmissionDuplicateDataService,
+  WorkflowItem,
 } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
+import { of as observableOf } from 'rxjs';
+
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
 import { PoolTaskActionsComponent } from '../../../mydspace-actions/pool-task/pool-task-actions.component';

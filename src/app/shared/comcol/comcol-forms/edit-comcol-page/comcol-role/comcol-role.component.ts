@@ -6,6 +6,20 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
+  Collection,
+  Community,
+  DSONameService,
+  getAllCompletedRemoteData,
+  getFirstCompletedRemoteData,
+  Group,
+  GroupDataService,
+  HALLink,
+  NoContent,
+  NotificationsService,
+  RemoteData,
+  RequestService,
+} from '@dspace/core';
+import {
   hasNoValue,
   hasValue,
 } from '@dspace/shared/utils';
@@ -24,20 +38,6 @@ import {
 } from 'rxjs/operators';
 
 import { getGroupEditRoute } from '../../../../../access-control/access-control-routing-paths';
-import { DSONameService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { GroupDataService } from '@dspace/core';
-import { Group } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { Community } from '@dspace/core';
-import { HALLink } from '@dspace/core';
-import { NoContent } from '@dspace/core';
-import {
-  getAllCompletedRemoteData,
-  getFirstCompletedRemoteData,
-} from '@dspace/core';
 import { AlertComponent } from '../../../../alert/alert.component';
 import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
 import { HasNoValuePipe } from '../../../../utils/has-no-value.pipe';

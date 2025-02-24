@@ -5,6 +5,15 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import {
+  AuthMethod,
+  AuthService,
+  CoreState,
+  getAuthenticationError,
+  getAuthenticationMethods,
+  isAuthenticated,
+  isAuthenticationLoading,
+} from '@dspace/core';
 import { hasValue } from '@dspace/shared/utils';
 import {
   select,
@@ -15,15 +24,6 @@ import {
   Observable,
 } from 'rxjs';
 
-import { AuthService } from '@dspace/core';
-import { AuthMethod } from '@dspace/core';
-import {
-  getAuthenticationError,
-  getAuthenticationMethods,
-  isAuthenticated,
-  isAuthenticationLoading,
-} from '@dspace/core';
-import { CoreState } from '@dspace/core';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { LogInContainerComponent } from './container/log-in-container.component';
 import { rendersAuthMethodType } from './methods/log-in.methods-decorator';

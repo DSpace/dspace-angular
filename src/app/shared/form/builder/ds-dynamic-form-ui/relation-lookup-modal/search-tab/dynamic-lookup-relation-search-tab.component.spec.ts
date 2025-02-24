@@ -5,25 +5,27 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  buildPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  Item,
+  ItemSearchResult,
+  LookupRelationService,
+  PaginatedSearchOptions,
+  PaginationService,
+  PaginationServiceStub,
+  relatedRelationships,
+  RelationshipDataService,
+  RelationshipOptions,
+  RelationshipType,
+  SearchConfigurationService,
+  SearchObjects,
+  SearchService,
+  SelectableListService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { LookupRelationService } from '@dspace/core';
-import { buildPaginatedList } from '@dspace/core';
-import { RelationshipDataService } from '@dspace/core';
-import { ItemSearchResult } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { RelationshipOptions } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { RelationshipType } from '@dspace/core';
-import { PaginatedSearchOptions } from '@dspace/core';
-import { SearchObjects } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
-import { relatedRelationships } from '@dspace/core';
-import { SelectableListService } from '@dspace/core';
 import { ThemedSearchComponent } from '../../../../../search/themed-search.component';
 import { VarDirective } from '../../../../../utils/var.directive';
 import { DsDynamicLookupRelationSearchTabComponent } from './dynamic-lookup-relation-search-tab.component';

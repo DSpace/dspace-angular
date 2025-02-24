@@ -8,6 +8,15 @@ import {
   ActivatedRoute,
   RouterLink,
 } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  AuthorizationDataService,
+  Bitstream,
+  FeatureID,
+  Item,
+  RouterLinkDirectiveStub,
+  URLCombiner,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   cold,
@@ -15,13 +24,6 @@ import {
 } from 'jasmine-marbles';
 
 import { getBitstreamModuleRoute } from '../../app-routing-paths';
-import { AuthorizationDataService } from '@dspace/core';
-import { FeatureID } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { URLCombiner } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { RouterLinkDirectiveStub } from '@dspace/core';
 import { getItemModuleRoute } from '../../item-page/item-page-routing-paths';
 import { FileDownloadLinkComponent } from './file-download-link.component';
 

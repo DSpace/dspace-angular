@@ -1,5 +1,25 @@
 import { Injectable } from '@angular/core';
 import {
+  Bitstream,
+  BitstreamDataService,
+  BitstreamFormat,
+  Bundle,
+  BundleDataService,
+  DSONameService,
+  FieldChangeType,
+  FieldUpdate,
+  FieldUpdates,
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  LiveRegionService,
+  NoContent,
+  NotificationsService,
+  ObjectUpdatesService,
+  PaginationComponentOptions,
+  RemoteData,
+  RequestService,
+} from '@dspace/core';
+import {
   hasNoValue,
   hasValue,
 } from '@dspace/shared/utils';
@@ -18,26 +38,6 @@ import {
 } from 'rxjs/operators';
 
 import { getBitstreamDownloadRoute } from '../../../app-routing-paths';
-import { DSONameService } from '@dspace/core';
-import { BitstreamDataService } from '@dspace/core';
-import { BundleDataService } from '@dspace/core';
-import { FieldChangeType } from '@dspace/core';
-import { FieldUpdate } from '@dspace/core';
-import { FieldUpdates } from '@dspace/core';
-import { ObjectUpdatesService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { BitstreamFormat } from '@dspace/core';
-import { Bundle } from '@dspace/core';
-import { NoContent } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getFirstSucceededRemoteDataPayload,
-} from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { LiveRegionService } from '@dspace/core';
 import { ResponsiveColumnSizes } from '../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
 

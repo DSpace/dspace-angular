@@ -6,6 +6,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TranslateLoaderMock } from '@dspace/core';
 import {
   NgbAccordionModule,
   NgbNavModule,
@@ -15,7 +16,6 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
-import { TranslateLoaderMock } from '@dspace/core';
 import { HealthResponseObj } from '../../shared/mocks/health-endpoint.mocks';
 import { ObjNgFor } from '../../shared/utils/object-ngfor.pipe';
 import { HealthComponentComponent } from './health-component/health-component.component';

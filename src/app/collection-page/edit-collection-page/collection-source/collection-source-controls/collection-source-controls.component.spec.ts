@@ -7,24 +7,26 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  Bitstream,
+  BitstreamDataService,
+  Collection,
+  CollectionDataService,
+  ContentSource,
+  ContentSourceSetSerializer,
+  createSuccessfulRemoteDataObject$,
+  NotificationsService,
+  NotificationsServiceStub,
+  Process,
+  ProcessDataService,
+  RequestService,
+  ScriptDataService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { BitstreamDataService } from '@dspace/core';
-import { CollectionDataService } from '@dspace/core';
-import { ProcessDataService } from '@dspace/core';
-import { ScriptDataService } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Process } from '@dspace/core';
-import { Bitstream } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { ContentSource } from '@dspace/core';
-import { ContentSourceSetSerializer } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
 import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 import { CollectionSourceControlsComponent } from './collection-source-controls.component';

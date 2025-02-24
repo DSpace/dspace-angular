@@ -6,20 +6,22 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  AuthorizationDataService,
+  AuthorizationDataServiceStub,
+  AuthService,
+  AuthServiceStub,
+  BitstreamDataService,
+  Collection,
+  CollectionSearchResult,
+  FileService,
+  FileServiceStub,
+  LinkService,
+  ViewMode,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { getCollectionEditRoute } from '../../../../../collection-page/collection-page-routing-paths';
-import { AuthService } from '@dspace/core';
-import { LinkService } from '@dspace/core';
-import { BitstreamDataService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { CollectionSearchResult } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { FileService } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
-import { AuthServiceStub } from '@dspace/core';
-import { AuthorizationDataServiceStub } from '@dspace/core';
-import { FileServiceStub } from '@dspace/core';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';

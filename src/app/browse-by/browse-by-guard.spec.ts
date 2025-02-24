@@ -1,13 +1,13 @@
-import { first } from 'rxjs/operators';
-
-import { ValueListBrowseDefinition } from '@dspace/core';
 import {
+  BrowseByDataType,
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
+  RouterStub,
+  ValueListBrowseDefinition,
 } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
+import { first } from 'rxjs/operators';
+
 import { browseByGuard } from './browse-by-guard';
-import { BrowseByDataType } from '@dspace/core';
 
 describe('browseByGuard', () => {
   describe('canActivate', () => {

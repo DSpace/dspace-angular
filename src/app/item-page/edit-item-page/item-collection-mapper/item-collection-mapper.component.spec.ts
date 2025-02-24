@@ -12,6 +12,30 @@ import {
   Router,
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  AuthorizationDataService,
+  Collection,
+  CollectionDataService,
+  createFailedRemoteDataObject$,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  HostWindowServiceStub,
+  Item,
+  ItemDataService,
+  NotificationsService,
+  NotificationsServiceStub,
+  ObjectSelectServiceStub,
+  PaginatedSearchOptions,
+  PaginationComponentOptions,
+  RemoteData,
+  RouterStub,
+  SearchConfigurationService,
+  SearchService,
+  SearchServiceStub,
+  SortDirection,
+  SortOptions,
+} from '@dspace/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -19,32 +43,6 @@ import {
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import {
-  SortDirection,
-  SortOptions,
-} from '@dspace/core';
-import { CollectionDataService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { Collection } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { PaginatedSearchOptions } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { HostWindowServiceStub } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { ObjectSelectServiceStub } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
-import { SearchServiceStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import { ErrorComponent } from '../../../shared/error/error.component';
 import { HostWindowService } from '../../../shared/host-window.service';
 import { LoadingComponent } from '../../../shared/loading/loading.component';

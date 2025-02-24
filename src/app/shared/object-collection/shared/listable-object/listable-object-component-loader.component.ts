@@ -5,13 +5,15 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import {
+  Context,
+  DSpaceObject,
+  GenericConstructor,
+  ListableObject,
+  ViewMode,
+} from '@dspace/core';
 import { take } from 'rxjs/operators';
 
-import { ListableObject } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { GenericConstructor } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
 import { AbstractComponentLoaderComponent } from '../../../abstract-component-loader/abstract-component-loader.component';
 import { ThemeService } from '../../../theme-support/theme.service';
 import { CollectionElementLinkType } from '../../collection-element-link.type';

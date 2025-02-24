@@ -4,11 +4,13 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import {
+  JsonPatchOperationPathCombiner,
+  JsonPatchOperationsBuilder,
+} from '@dspace/core';
+import {
   Store,
   StoreModule,
 } from '@ngrx/store';
-import { JsonPatchOperationPathCombiner } from '@dspace/core';
-import { JsonPatchOperationsBuilder } from '@dspace/core';
 
 import { SectionUploadService } from './section-upload.service';
 

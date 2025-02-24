@@ -3,6 +3,17 @@ import {
   Component,
   Input,
 } from '@angular/core';
+import {
+  BrowseDefinitionDataService,
+  BrowseService,
+  getFirstCompletedRemoteData,
+  Item,
+  MetadataRepresentation,
+  MetadataService,
+  MetadataValue,
+  MetadatumRepresentation,
+  RelationshipDataService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
@@ -10,15 +21,6 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { BrowseService } from '@dspace/core';
-import { BrowseDefinitionDataService } from '@dspace/core';
-import { RelationshipDataService } from '@dspace/core';
-import { MetadataService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { MetadataValue } from '@dspace/core';
-import { MetadataRepresentation } from '@dspace/core';
-import { MetadatumRepresentation } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
 import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { MetadataRepresentationLoaderComponent } from '../../../shared/metadata-representation/metadata-representation-loader.component';

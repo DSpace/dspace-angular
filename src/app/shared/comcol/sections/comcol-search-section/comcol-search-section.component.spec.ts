@@ -3,10 +3,12 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  APP_CONFIG,
+} from '@dspace/core';
 
 import { environment } from '../../../../../environments/environment.test';
-import { APP_CONFIG } from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
 import { ThemedSearchComponent } from '../../../search/themed-search.component';
 import { ComcolSearchSectionComponent } from './comcol-search-section.component';
 

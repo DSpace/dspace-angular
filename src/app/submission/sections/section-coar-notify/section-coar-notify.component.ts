@@ -8,6 +8,20 @@ import {
   Inject,
 } from '@angular/core';
 import {
+  CoarNotifyConfigDataService,
+  getFirstCompletedRemoteData,
+  getPaginatedListPayload,
+  getRemoteDataPayload,
+  JsonPatchOperationPathCombiner,
+  JsonPatchOperationsBuilder,
+  LdnPattern,
+  LdnService,
+  LdnServiceByPattern,
+  LdnServicesService,
+  SectionDataObject,
+  SubmissionSectionError,
+} from '@dspace/core';
+import {
   hasValue,
   isEmpty,
   isNotEmpty,
@@ -29,24 +43,8 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { LdnServicesService } from '@dspace/core';
-import {
-  LdnService,
-  LdnServiceByPattern,
-} from '@dspace/core';
-import { JsonPatchOperationPathCombiner } from '@dspace/core';
-import { JsonPatchOperationsBuilder } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getPaginatedListPayload,
-  getRemoteDataPayload,
-} from '@dspace/core';
-import { SubmissionSectionError } from '@dspace/core';
 import { SectionModelComponent } from '../models/section.model';
-import { SectionDataObject } from '@dspace/core';
 import { SectionsService } from '../sections.service';
-import { CoarNotifyConfigDataService } from '@dspace/core';
-import { LdnPattern } from '@dspace/core';
 
 /**
  * This component represents a section that contains the submission section-coar-notify form.

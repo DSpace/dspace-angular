@@ -4,19 +4,19 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import {
+  Community,
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+  HALLink,
+  RemoteData,
+} from '@dspace/core';
 import { Observable } from 'rxjs';
 import {
   first,
   map,
 } from 'rxjs/operators';
 
-import { RemoteData } from '@dspace/core';
-import { Community } from '@dspace/core';
-import { HALLink } from '@dspace/core';
-import {
-  getFirstSucceededRemoteData,
-  getRemoteDataPayload,
-} from '@dspace/core';
 import { ComcolRoleComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-role/comcol-role.component';
 
 /**

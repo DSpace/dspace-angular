@@ -9,6 +9,19 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
+import {
+  ClaimedTaskDataService,
+  DSpaceObject,
+  Item,
+  NotificationsService,
+  PoolTask,
+  PoolTaskDataService,
+  ProcessTaskResponse,
+  RemoteData,
+  RequestService,
+  SearchService,
+  WorkflowItem,
+} from '@dspace/core';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -20,17 +33,6 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { WorkflowItem } from '@dspace/core';
-import { ClaimedTaskDataService } from '@dspace/core';
-import { PoolTask } from '@dspace/core';
-import { ProcessTaskResponse } from '@dspace/core';
-import { PoolTaskDataService } from '@dspace/core';
 import { getWorkflowItemViewRoute } from '../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { MyDSpaceReloadableActionsComponent } from '../mydspace-reloadable-actions';

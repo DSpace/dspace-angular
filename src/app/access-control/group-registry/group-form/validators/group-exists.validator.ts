@@ -2,12 +2,13 @@ import {
   AbstractControl,
   ValidationErrors,
 } from '@angular/forms';
+import {
+  getFirstSucceededRemoteListPayload,
+  Group,
+  GroupDataService,
+} from '@dspace/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-import { GroupDataService } from '@dspace/core';
-import { Group } from '@dspace/core';
-import { getFirstSucceededRemoteListPayload } from '@dspace/core';
 
 export class ValidateGroupExists {
 

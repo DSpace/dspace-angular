@@ -6,6 +6,11 @@ import {
   OnInit,
 } from '@angular/core';
 import {
+  SectionDataObject,
+  SubmissionService,
+  WorkspaceitemSectionIdentifiersObject,
+} from '@dspace/core';
+import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
@@ -15,12 +20,9 @@ import {
   Subscription,
 } from 'rxjs';
 
-import { WorkspaceitemSectionIdentifiersObject } from '@dspace/core';
 import { AlertType } from '../../../shared/alert/alert-type';
 import { VarDirective } from '../../../shared/utils/var.directive';
-import { SubmissionService } from '@dspace/core';
 import { SectionModelComponent } from '../models/section.model';
-import { SectionDataObject } from '@dspace/core';
 import { SectionsService } from '../sections.service';
 
 /**

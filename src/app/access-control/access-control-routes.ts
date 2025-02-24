@@ -1,14 +1,16 @@
 import { AbstractControl } from '@angular/forms';
 import { Route } from '@angular/router';
 import {
+  EPersonResolver,
+  groupAdministratorGuard,
+  i18nBreadcrumbResolver,
+  siteAdministratorGuard,
+} from '@dspace/core';
+import {
   DYNAMIC_ERROR_MESSAGES_MATCHER,
   DynamicErrorMessagesMatcher,
 } from '@ng-dynamic-forms/core';
 
-import { i18nBreadcrumbResolver } from '@dspace/core';
-import { groupAdministratorGuard } from '@dspace/core';
-import { siteAdministratorGuard } from '@dspace/core';
-import { EPersonResolver } from '@dspace/core';
 import {
   EPERSON_PATH,
   GROUP_PATH,

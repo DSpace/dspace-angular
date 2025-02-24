@@ -5,8 +5,8 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-
 import { AuthMethod } from '@dspace/core';
+
 import {
   AuthMethodTypeComponent,
   rendersAuthMethodType,

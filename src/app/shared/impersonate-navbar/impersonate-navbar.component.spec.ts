@@ -7,6 +7,12 @@ import {
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
+  authReducer,
+  AuthService,
+  AuthTokenInfo,
+  EPersonMock,
+} from '@dspace/core';
+import {
   Store,
   StoreModule,
 } from '@ngrx/store';
@@ -18,10 +24,6 @@ import {
   AppState,
   storeModuleConfig,
 } from '../../app.reducer';
-import { authReducer } from '@dspace/core';
-import { AuthService } from '@dspace/core';
-import { AuthTokenInfo } from '@dspace/core';
-import { EPersonMock } from '@dspace/core';
 import { VarDirective } from '../utils/var.directive';
 import { ImpersonateNavbarComponent } from './impersonate-navbar.component';
 

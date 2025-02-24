@@ -13,16 +13,18 @@ import {
   By,
 } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  APP_DATA_SERVICES_MAP,
+  ArrayMoveChangeAnalyzer,
+  DSpaceObject,
+  ITEM,
+  Item,
+  MetadataValue,
+  NotificationsService,
+  TestDataService,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { APP_DATA_SERVICES_MAP } from '@dspace/core';
-import { ArrayMoveChangeAnalyzer } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { ITEM } from '@dspace/core';
-import { MetadataValue } from '@dspace/core';
-import { TestDataService } from '@dspace/core';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';

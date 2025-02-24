@@ -4,11 +4,13 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import {
+  HierarchicalBrowseDefinition,
+  VocabularyEntryDetail,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { HierarchicalBrowseDefinition } from '@dspace/core';
-import { VocabularyEntryDetail } from '@dspace/core';
 import { VocabularyTreeviewComponent } from '../../shared/form/vocabulary-treeview/vocabulary-treeview.component';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { createDataWithBrowseDefinition } from '../browse-by-switcher/browse-by-switcher.component.spec';

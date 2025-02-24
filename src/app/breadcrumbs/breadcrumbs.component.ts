@@ -4,11 +4,11 @@ import {
 } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Breadcrumb } from '@dspace/core';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { Breadcrumb } from '@dspace/core';
 import { VarDirective } from '../shared/utils/var.directive';
 import { BreadcrumbsService } from './breadcrumbs.service';
 

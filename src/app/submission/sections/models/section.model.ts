@@ -4,6 +4,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { SectionDataObject } from '@dspace/core';
 import {
   hasValue,
   isNotUndefined,
@@ -18,7 +19,6 @@ import {
 } from 'rxjs/operators';
 
 import { SectionsService } from '../sections.service';
-import { SectionDataObject } from '@dspace/core';
 
 export interface SectionDataModel {
   sectionData: SectionDataObject;

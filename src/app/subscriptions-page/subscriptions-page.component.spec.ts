@@ -16,29 +16,29 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
+  AuthService,
+  buildPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  mockSubscriptionEperson,
+  PageInfo,
+  PaginationService,
+  PaginationServiceStub,
+  subscriptionMock,
+  subscriptionMock2,
+  SubscriptionsDataService,
+  TranslateLoaderMock,
+} from '@dspace/core';
+import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { AuthService } from '@dspace/core';
-import { buildPaginatedList } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { PaginationService } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { PaginationServiceStub } from '@dspace/core';
-import {
-  mockSubscriptionEperson,
-  subscriptionMock,
-  subscriptionMock2,
-} from '@dspace/core';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { MockActivatedRoute } from '../shared/mocks/active-router.mock';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
 import { SubscriptionViewComponent } from '../shared/subscriptions/subscription-view/subscription-view.component';
-import { SubscriptionsDataService } from '@dspace/core';
 import { VarDirective } from '../shared/utils/var.directive';
 import { SubscriptionsPageComponent } from './subscriptions-page.component';
 

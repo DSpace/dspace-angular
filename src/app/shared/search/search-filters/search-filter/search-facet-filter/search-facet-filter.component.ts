@@ -17,6 +17,20 @@ import {
   Router,
 } from '@angular/router';
 import {
+  AppliedFilter,
+  currentPath,
+  FacetValue,
+  FacetValues,
+  getFirstSucceededRemoteDataPayload,
+  InputSuggestion,
+  RemoteDataBuildService,
+  SearchConfigurationService,
+  SearchFilterConfig,
+  SearchFilterService,
+  SearchOptions,
+  SearchService,
+} from '@dspace/core';
+import {
   hasNoValue,
   hasValue,
 } from '@dspace/shared/utils';
@@ -35,19 +49,7 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '@dspace/core';
-import { getFirstSucceededRemoteDataPayload } from '@dspace/core';
-import { AppliedFilter } from '@dspace/core';
-import { FacetValue } from '@dspace/core';
-import { FacetValues } from '@dspace/core';
-import { SearchFilterConfig } from '@dspace/core';
-import { SearchOptions } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
-import { SearchFilterService } from '@dspace/core';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
-import { InputSuggestion } from '@dspace/core';
-import { currentPath } from '@dspace/core';
 
 /**
  * The operators the {@link AppliedFilter} should have in order to be shown in the facets

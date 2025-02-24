@@ -8,6 +8,10 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import {
+  BitstreamFormat,
+  BitstreamFormatSupportLevel,
+} from '@dspace/core';
+import {
   hasValue,
   isEmpty,
 } from '@dspace/shared/utils';
@@ -22,8 +26,6 @@ import {
 } from '@ng-dynamic-forms/core';
 
 import { environment } from '../../../../../environments/environment';
-import { BitstreamFormat } from '@dspace/core';
-import { BitstreamFormatSupportLevel } from '@dspace/core';
 import { FormComponent } from '../../../../shared/form/form.component';
 import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-paths';
 

@@ -12,6 +12,17 @@ import {
   Params,
   Router,
 } from '@angular/router';
+import {
+  DSpaceObject,
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+  NoContent,
+  NotificationsService,
+  RemoteData,
+  RouteService,
+  WorkspaceItem,
+  WorkspaceitemDataService,
+} from '@dspace/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   TranslateModule,
@@ -24,17 +35,6 @@ import {
   take,
 } from 'rxjs';
 
-import { RemoteData } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { NoContent } from '@dspace/core';
-import {
-  getFirstCompletedRemoteData,
-  getRemoteDataPayload,
-} from '@dspace/core';
-import { WorkspaceItem } from '@dspace/core';
-import { WorkspaceitemDataService } from '@dspace/core';
 import { ModifyItemOverviewComponent } from '../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 
 @Component({

@@ -1,19 +1,16 @@
-// eslint-disable-next-line import/no-namespace
-import * as deepFreeze from 'deep-freeze';
-
 import {
+  filterReducer,
   SearchFilterCollapseAction,
   SearchFilterDecrementPageAction,
   SearchFilterExpandAction,
   SearchFilterIncrementPageAction,
   SearchFilterInitializeAction,
   SearchFilterResetPageAction,
+  SearchFiltersState,
   SearchFilterToggleAction,
 } from '@dspace/core';
-import {
-  filterReducer,
-  SearchFiltersState,
-} from '@dspace/core';
+// eslint-disable-next-line import/no-namespace
+import * as deepFreeze from 'deep-freeze';
 
 const filterName1 = 'author';
 const filterName2 = 'scope';

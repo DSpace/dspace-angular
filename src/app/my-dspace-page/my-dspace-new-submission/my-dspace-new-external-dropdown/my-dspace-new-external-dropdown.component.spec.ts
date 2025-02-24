@@ -12,19 +12,19 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import {
+  createPaginatedList,
+  createSuccessfulRemoteDataObject$,
+  createTestComponent,
+  EntityTypeDataService,
+  ItemType,
+  PageInfo,
+  ResourceType,
+  RouterStub,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { EntityTypeDataService } from '@dspace/core';
-import { ItemType } from '@dspace/core';
-import { PageInfo } from '@dspace/core';
-import { ResourceType } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { RouterStub } from '@dspace/core';
-import {
-  createPaginatedList,
-  createTestComponent,
-} from '@dspace/core';
 import { MyDSpaceNewExternalDropdownComponent } from './my-dspace-new-external-dropdown.component';
 
 export function getMockEntityTypeService(): EntityTypeDataService {

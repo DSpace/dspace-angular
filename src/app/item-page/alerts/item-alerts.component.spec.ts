@@ -7,20 +7,20 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRouteStub,
+  AuthorizationDataService,
+  CorrectionType,
+  CorrectionTypeDataService,
+  createPaginatedList,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+  Item,
+} from '@dspace/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { AuthorizationDataService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { CorrectionTypeDataService } from '@dspace/core';
-import { CorrectionType } from '@dspace/core';
-import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { ActivatedRouteStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
 import {
   DsoWithdrawnReinstateModalService,
   REQUEST_REINSTATE,

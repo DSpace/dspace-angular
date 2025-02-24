@@ -4,12 +4,13 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from '@angular/router';
+import {
+  Item,
+  RemoteData,
+  SubmissionObjectResolver,
+  WorkspaceitemDataService,
+} from '@dspace/core';
 import { Observable } from 'rxjs';
-
-import { RemoteData } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { SubmissionObjectResolver } from '@dspace/core';
-import { WorkspaceitemDataService } from '@dspace/core';
 
 /**
  * This method represents a resolver that requests a specific item before the route is activated

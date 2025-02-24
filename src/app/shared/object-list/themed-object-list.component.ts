@@ -4,16 +4,16 @@ import {
   Input,
   Output,
 } from '@angular/core';
-
 import {
+  Context,
+  ListableObject,
+  PaginatedList,
+  PaginationComponentOptions,
+  RemoteData,
   SortDirection,
   SortOptions,
 } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { ListableObject } from '@dspace/core';
-import { Context } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
+
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 import { ThemedComponent } from '../theme-support/themed.component';
 import { ObjectListComponent } from './object-list.component';

@@ -3,16 +3,16 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
-import { of as observableOf } from 'rxjs';
-
-import { AuthService } from '@dspace/core';
-import { EpersonRegistrationService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { Registration } from '@dspace/core';
 import {
+  AuthService,
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
+  EpersonRegistrationService,
+  Registration,
+  RemoteData,
 } from '@dspace/core';
+import { of as observableOf } from 'rxjs';
+
 import { registrationGuard } from './registration.guard';
 
 describe('registrationGuard', () => {
