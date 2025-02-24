@@ -1,8 +1,8 @@
 import { Observable } from 'rxjs';
 
-import { RemoteData } from '../../data';
-import { ConfigurationProperty } from '../../shared';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { RemoteData } from '../../data/remote-data';
+import { ConfigurationProperty } from '../../shared/configuration-property.model';
+import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 
 export class ConfigurationDataServiceStub {
 

@@ -10,28 +10,30 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { RemoteDataBuildService } from '../../cache';
-import { RequestParam } from '../../cache';
-import { ObjectCacheService } from '../../cache';
-import { getMockRemoteDataBuildService } from '../../mocks';
-import { getMockRequestService } from '../../mocks';
-import { NotificationsService } from '@dspace/core';
-import { DSpaceObject } from '../../shared';
-import { HALEndpointService } from '../../shared';
+import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
+import { RequestParam } from '../../cache/models/request-param.model';
+import { ObjectCacheService } from '../../cache/object-cache.service';
+import { getMockRemoteDataBuildService } from '../../mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../mocks/request.service.mock';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { DSpaceObject } from '../../shared/dspace-object.model';
+import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
-} from '@dspace/core';
-import { HALEndpointServiceStub } from '../../utilities';
-import { FindListOptions } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { RequestEntryState } from '@dspace/core';
-import { RestRequestMethod } from '@dspace/core';
+} from '../../utilities/remote-data.utils';
+import { HALEndpointServiceStub } from '../../utilities/testing/hal-endpoint-service.stub';
+import { FindListOptions } from '../find-list-options.model';
+import { RemoteData } from '../remote-data';
+import { RequestService } from '../request.service';
+import { RequestEntryState } from '../request-entry-state.model';
+import { RestRequestMethod } from '../rest-request-method';
 import {
   CreateData,
   CreateDataImpl,
-} from '@dspace/core';
+} from './create-data';
+
+
 
 /**
  * Tests whether calls to `CreateData` methods are correctly patched through in a concrete data service that implements it

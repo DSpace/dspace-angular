@@ -19,23 +19,42 @@ import {
   throwError as observableThrowError,
 } from 'rxjs';
 
-import { SubmissionSectionModel } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { HALEndpointService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { SubmissionJsonPatchOperationsService } from '@dspace/core';
-import { SubmissionObjectDataService } from '@dspace/core';
-import { WorkflowItemDataService } from '@dspace/core';
-import { WorkspaceitemDataService } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { SectionsServiceStub } from '@dspace/core';
-import { StoreMock } from '@dspace/core';
-import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core';
-import { mockSubmissionObjectDataService } from '@dspace/core';
-import { SubmissionServiceStub } from '@dspace/core';
-
-import { SubmissionService } from '@dspace/core';
+import {
+  AppState,
+  storeModuleConfig,
+} from '../../../../../../../src/app/app.reducer';
+import {
+  mockSectionsData,
+  mockSectionsDataTwo,
+  mockSectionsErrors,
+  mockSectionsErrorsTouchedField,
+  mockSubmissionCollectionId,
+  mockSubmissionDefinition,
+  mockSubmissionDefinitionResponse,
+  mockSubmissionId,
+  mockSubmissionRestResponse,
+  mockSubmissionSelfUrl,
+  mockSubmissionState,
+} from '../../../../../../../src/app/shared/mocks/submission.mock';
+import { SectionsService } from '../../../../../../../src/app/submission/sections/sections.service';
+import { SubmissionObjectEffects } from '../../../../../../../src/app/submission/submission-objects.effects';
+import parseSectionErrors from '../../../../../../../src/app/submission/utils/parseSectionErrors';
+import { SubmissionSectionModel } from '../../config/models/config-submission-section.model';
+import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { Item } from '../../shared/item.model';
+import { SubmissionService } from '../../submission/submission.service';
+import { SubmissionJsonPatchOperationsService } from '../../submission/submission-json-patch-operations.service';
+import { SubmissionObjectDataService } from '../../submission/submission-object-data.service';
+import { WorkflowItemDataService } from '../../submission/workflowitem-data.service';
+import { WorkspaceitemDataService } from '../../submission/workspaceitem-data.service';
+import { NotificationsServiceStub } from '../../utilities/testing/notifications-service.stub';
+import { SectionsServiceStub } from '../../utilities/testing/sections-service.stub';
+import { StoreMock } from '../../utilities/testing/store.mock';
+import { SubmissionJsonPatchOperationsServiceStub } from '../../utilities/testing/submission-json-patch-operations-service.stub';
+import { mockSubmissionObjectDataService } from '../../utilities/testing/submission-oject-data-service.mock';
+import { SubmissionServiceStub } from '../../utilities/testing/submission-service.stub';
 import {
   CompleteInitSubmissionFormAction,
   DepositSubmissionAction,
@@ -52,7 +71,7 @@ import {
   SaveSubmissionSectionFormSuccessAction,
   SubmissionObjectActionTypes,
   UpdateSectionDataAction,
-} from '@dspace/core';
+} from './submission-objects.actions';
 
 describe('SubmissionObjectEffects test suite', () => {
   let submissionObjectEffects: SubmissionObjectEffects;

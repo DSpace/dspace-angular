@@ -6,30 +6,30 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RemoteDataBuildService } from '../../cache';
-import { RequestParam } from '../../cache';
-import { ObjectCacheService } from '../../cache';
-import { RestResponse } from '../../cache';
-import { HrefOnlyDataService } from '../../data';
-import { buildPaginatedList } from '../../data';
-import { RequestService } from '../../data';
-import { RequestEntry } from '../../data';
-import { getMockHrefOnlyDataService } from '../../mocks';
-import { getMockRemoteDataBuildService } from '../../mocks';
-import { getMockRequestService } from '../../mocks';
-import { HALEndpointService } from '../../shared';
-import { PageInfo } from '../../shared';
+import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
+import { RequestParam } from '../../cache/models/request-param.model';
+import { ObjectCacheService } from '../../cache/object-cache.service';
+import { RestResponse } from '../../cache/response.models';
+import { HrefOnlyDataService } from '../../data/href-only-data.service';
+import { buildPaginatedList } from '../../data/paginated-list.model';
+import { RequestService } from '../../data/request.service';
+import { RequestEntry } from '../../data/request-entry.model';
+import { getMockHrefOnlyDataService } from '../../mocks/href-only-data.service.mock';
+import { getMockRemoteDataBuildService } from '../../mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../mocks/request.service.mock';
+import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { PageInfo } from '../../shared/page-info.model';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { ObjectCacheServiceStub } from '../../utilities';
-import { createPaginatedList } from '../../utilities';
-import { VocabularyFindOptions } from './models';
-import { VocabularyOptions } from './models';
-import { VocabularyDataService } from '@dspace/core';
-import { VocabularyService } from '@dspace/core';
-import { VocabularyEntryDetailsDataService } from '@dspace/core';
+} from '../../utilities/remote-data.utils';
+import { ObjectCacheServiceStub } from '../../utilities/testing/object-cache-service.stub';
+import { createPaginatedList } from '../../utilities/testing/utils.test';
+import { VocabularyFindOptions } from './models/vocabulary-find-options.model';
+import { VocabularyOptions } from './models/vocabulary-options.model';
+import { VocabularyDataService } from './vocabulary.data.service';
+import { VocabularyService } from './vocabulary.service';
+import { VocabularyEntryDetailsDataService } from './vocabulary-entry-details.data.service';
 
 describe('VocabularyService', () => {
   let scheduler: TestScheduler;

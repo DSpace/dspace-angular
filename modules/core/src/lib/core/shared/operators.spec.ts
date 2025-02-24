@@ -6,15 +6,15 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { GetRequest } from '../data';
-import { RequestService } from '../data';
-import { RequestEntry } from '../data';
-import { getMockRequestService } from '../mocks';
+import { GetRequest } from '../data/request.models';
+import { RequestService } from '../data/request.service';
+import { RequestEntry } from '../data/request-entry.model';
+import { getMockRequestService } from '../mocks/request.service.mock';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
-} from '../utilities';
-import { redirectOn4xx } from '@dspace/core';
+} from '../utilities/remote-data.utils';
+import { redirectOn4xx } from './authorized.operators';
 import {
   getAllSucceededRemoteData,
   getFirstSucceededRemoteData,
@@ -25,7 +25,7 @@ import {
   getRequestFromRequestUUID,
   getResponseFromEntry,
   sendRequest,
-} from '@dspace/core';
+} from './request.operators';
 
 /* eslint-disable @typescript-eslint/no-shadow */
 

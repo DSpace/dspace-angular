@@ -1,4 +1,4 @@
-import { EPerson } from '@dspace/core';
+import { EPerson } from '../../eperson/models/eperson.model';
 
 export const EPersonMock: EPerson = Object.assign(new EPerson(), {
   handle: null,

@@ -1,6 +1,12 @@
-import { Item } from '@dspace/core';
-
-import { SectionsType } from '@dspace/core';
+import {
+  mockSubmissionCollectionId,
+  mockSubmissionDefinitionResponse,
+  mockSubmissionId,
+  mockSubmissionSelfUrl,
+  mockSubmissionState,
+} from '../../../../../../../src/app/shared/mocks/submission.mock';
+import { Item } from '../../shared/item.model';
+import { SectionsType } from '../../submission/models/sections-type';
 import {
   CancelSubmissionFormAction,
   ChangeSubmissionCollectionAction,
@@ -34,11 +40,11 @@ import {
   SectionStatusChangeAction,
   SubmissionObjectAction,
   UpdateSectionDataAction,
-} from '@dspace/core';
+} from './submission-objects.actions';
 import {
   submissionObjectReducer,
   SubmissionObjectState,
-} from '@dspace/core';
+} from './submission-objects.reducer';
 
 describe('submissionReducer test suite', () => {
 

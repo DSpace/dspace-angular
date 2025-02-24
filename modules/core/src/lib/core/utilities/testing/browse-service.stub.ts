@@ -6,14 +6,14 @@ import {
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../data';
-import { RemoteData } from '../../data';
-import { BrowseDefinition } from '../../shared';
-import { FlatBrowseDefinition } from '../../shared';
-import { HierarchicalBrowseDefinition } from '../../shared';
-import { PageInfo } from '../../shared';
-import { ValueListBrowseDefinition } from '../../shared';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+} from '../../data/paginated-list.model';
+import { RemoteData } from '../../data/remote-data';
+import { BrowseDefinition } from '../../shared/browse-definition.model';
+import { FlatBrowseDefinition } from '../../shared/flat-browse-definition.model';
+import { HierarchicalBrowseDefinition } from '../../shared/hierarchical-browse-definition.model';
+import { PageInfo } from '../../shared/page-info.model';
+import { ValueListBrowseDefinition } from '../../shared/value-list-browse-definition.model';
+import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 
 const mockData = [
   Object.assign(new FlatBrowseDefinition(), {

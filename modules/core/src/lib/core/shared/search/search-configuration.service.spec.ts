@@ -11,20 +11,22 @@ import { map } from 'rxjs/operators';
 import {
   SortDirection,
   SortOptions,
-} from '../../cache';
-import { APP_CONFIG } from '../../config';
-import { RemoteData } from '../../data';
-import { RequestEntry } from '../../data';
-import { getMockRequestService } from '../../mocks';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { ActivatedRouteStub } from '../../utilities';
-import { PaginationServiceStub } from '../../utilities';
-import { PaginatedSearchOptions } from '@dspace/core';
-import { PaginationComponentOptions } from '@dspace/core';
-import { AppliedFilter } from './models';
-import { SearchFilter } from './models';
-import { SearchObjects } from './models';
-import { SearchConfigurationService } from '@dspace/core';
+} from '../../cache/models/sort-options.model';
+import { APP_CONFIG } from '../../config/app-config.interface';
+import { RemoteData } from '../../data/remote-data';
+import { RequestEntry } from '../../data/request-entry.model';
+import { getMockRequestService } from '../../mocks/request.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../utilities/testing/active-router.stub';
+import { PaginationServiceStub } from '../../utilities/testing/pagination-service.stub';
+import { PaginatedSearchOptions } from '../paginated-search-options.model';
+import { PaginationComponentOptions } from '../pagination-component-options.model';
+import { AppliedFilter } from './models/applied-filter.model';
+import { SearchFilter } from './models/search-filter.model';
+import { SearchObjects } from './models/search-objects.model';
+import { SearchConfigurationService } from './search-configuration.service';
+
+
 
 describe('SearchConfigurationService', () => {
   let service: SearchConfigurationService;

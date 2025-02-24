@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 
-import { type } from '@dspace/core';
+import { type } from '../../shared/ngrx/type';
 
 /**
  * For each action type in an action group, make a simple

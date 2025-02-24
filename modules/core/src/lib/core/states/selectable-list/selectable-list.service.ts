@@ -15,7 +15,7 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { ListableObject } from '@dspace/core';
+import { ListableObject } from '../../object-collection/listable-object.model';
 import {
   SelectableListDeselectAction,
   SelectableListDeselectAllAction,

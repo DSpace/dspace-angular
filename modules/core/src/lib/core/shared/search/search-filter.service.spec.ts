@@ -6,6 +6,11 @@ import { Store } from '@ngrx/store';
 import { of as observableOf } from 'rxjs';
 
 import {
+  SortDirection,
+  SortOptions,
+} from '../../cache/models/sort-options.model';
+import { RouteService } from '../../services/route.service';
+import {
   SearchFilterCollapseAction,
   SearchFilterDecrementPageAction,
   SearchFilterExpandAction,
@@ -13,20 +18,17 @@ import {
   SearchFilterInitializeAction,
   SearchFilterResetPageAction,
   SearchFilterToggleAction,
-} from '@dspace/core';
-import { SearchFiltersState } from '@dspace/core';
-import {
-  SortDirection,
-  SortOptions,
-} from '../../cache';
-import { RouteService } from '@dspace/core';
-import { routeServiceStub } from '../../utilities';
-import { SearchServiceStub } from '../../utilities';
-import { FilterType } from './models';
-import { SearchFilterConfig } from './models';
-import { SearchOptions } from './models';
-import { SearchService } from '@dspace/core';
-import { SearchFilterService } from '@dspace/core';
+} from '../../states/search-filters/search-filter.actions';
+import { SearchFiltersState } from '../../states/search-filters/search-filter.reducer';
+import { routeServiceStub } from '../../utilities/testing/route-service.stub';
+import { SearchServiceStub } from '../../utilities/testing/search-service.stub';
+import { FilterType } from './models/filter-type.model';
+import { SearchFilterConfig } from './models/search-filter-config.model';
+import { SearchOptions } from './models/search-options.model';
+import { SearchService } from './search.service';
+import { SearchFilterService } from './search-filter.service';
+
+
 
 describe('SearchFilterService', () => {
   let service: SearchFilterService;

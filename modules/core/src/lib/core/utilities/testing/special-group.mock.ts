@@ -3,14 +3,14 @@ import { Observable } from 'rxjs';
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../data';
-import { RemoteData } from '../../data';
-import { Group } from '@dspace/core';
-import { PageInfo } from '../../shared';
+} from '../../data/paginated-list.model';
+import { RemoteData } from '../../data/remote-data';
+import { Group } from '../../eperson/models/group.model';
+import { PageInfo } from '../../shared/page-info.model';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
+} from '../remote-data.utils';
 import { EPersonMock } from './eperson.mock';
 
 export const SpecialGroupMock2: Group = Object.assign(new Group(), {

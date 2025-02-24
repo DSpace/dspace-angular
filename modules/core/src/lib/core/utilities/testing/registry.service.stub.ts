@@ -4,14 +4,14 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { FindListOptions } from '../../data';
-import { FollowLinkConfig } from '../../data';
-import { PaginatedList } from '../../data';
-import { RemoteData } from '../../data';
-import { MetadataField } from '@dspace/core';
-import { MetadataSchema } from '@dspace/core';
-import { NoContent } from '../../shared';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { FindListOptions } from '../../data/find-list-options.model';
+import { FollowLinkConfig } from '../../data/follow-link-config.model';
+import { PaginatedList } from '../../data/paginated-list.model';
+import { RemoteData } from '../../data/remote-data';
+import { MetadataField } from '../../metadata/metadata-field.model';
+import { MetadataSchema } from '../../metadata/metadata-schema.model';
+import { NoContent } from '../../shared/NoContent.model';
+import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { createPaginatedList } from './utils.test';
 
 /**

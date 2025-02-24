@@ -1,11 +1,12 @@
-import { buildPaginatedList } from '../../data';
-import { Item } from '../../shared';
-import { PageInfo } from '../../shared';
-import { SupervisionOrder } from '@dspace/core';
+
+import { buildPaginatedList } from '../../data/paginated-list.model';
+import { Item } from '../../shared/item.model';
+import { PageInfo } from '../../shared/page-info.model';
+import { SupervisionOrder } from '../../supervision-order/models/supervision-order.model';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
+} from '../remote-data.utils';
 import {
   GroupMock,
   GroupMock2,

@@ -1,5 +1,8 @@
 import { HttpHeaders } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import {
+  inject,
+  Injectable,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import {
   hasValue,
@@ -31,26 +34,21 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { APP_CONFIG, ErrorResponse } from '@dspace/core';
-import { SubmissionDefinitionsModel } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { HttpOptions } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { SubmissionObject } from '@dspace/core';
-import { WorkspaceitemSectionsObject } from '@dspace/core';
-import { SubmissionJsonPatchOperationsService } from '@dspace/core';
-import { SubmissionRestService } from '@dspace/core';
-import { SubmissionScopeType } from '@dspace/core';
+import { ErrorResponse } from '../cache/response.models';
+import { APP_CONFIG } from '../config/app-config.interface';
+import { SubmissionDefinitionsModel } from '../config/models/config-submission-definitions.model';
+import { RemoteData } from '../data/remote-data';
+import { RequestService } from '../data/request.service';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { NotificationsService } from '../notifications/notifications.service';
+import { RouteService } from '../services/route.service';
+import { Item } from '../shared/item.model';
+import { SearchService } from '../shared/search/search.service';
+import { submissionObjectFromIdSelector } from '../states/submission/selectors';
 import {
-  createFailedRemoteDataObject$,
-  createSuccessfulRemoteDataObject,
-} from '@dspace/core';
-import { SectionScope } from './models';
-import { SubmissionError } from './models';
+  submissionSelector,
+  SubmissionState,
+} from '../states/submission/submission.reducers';
 import {
   CancelSubmissionFormAction,
   ChangeSubmissionCollectionAction,
@@ -62,19 +60,25 @@ import {
   SaveSubmissionFormAction,
   SaveSubmissionSectionFormAction,
   SetActiveSectionAction,
-} from '../states';
+} from '../states/submission/submission-objects.actions';
 import {
   SubmissionObjectEntry,
   SubmissionSectionEntry,
-} from '../states';
-import { SubmissionSectionObject } from '../states';
-import { SectionDataObject } from './sections';
-import { SectionsType } from './models';
-import { submissionObjectFromIdSelector } from '../states';
+} from '../states/submission/submission-objects.reducer';
+import { SubmissionSectionObject } from '../states/submission/submission-section-object.model';
 import {
-  submissionSelector,
-  SubmissionState,
-} from '../states';
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject,
+} from '../utilities/remote-data.utils';
+import { SectionScope } from './models/section-visibility.model';
+import { SectionsType } from './models/sections-type';
+import { SubmissionError } from './models/submission-error.model';
+import { SubmissionObject } from './models/submission-object.model';
+import { WorkspaceitemSectionsObject } from './models/workspaceitem-sections.model';
+import { SectionDataObject } from './sections/section-data.model';
+import { SubmissionJsonPatchOperationsService } from './submission-json-patch-operations.service';
+import { SubmissionRestService } from './submission-rest.service';
+import { SubmissionScopeType } from './submission-scope-type';
 
 function getSubmissionSelector(submissionId: string):  MemoizedSelector<SubmissionState, SubmissionObjectEntry> {
   return createSelector(

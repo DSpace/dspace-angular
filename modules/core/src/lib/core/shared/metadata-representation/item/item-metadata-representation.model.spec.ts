@@ -1,7 +1,7 @@
-import { Item } from '@dspace/core';
-import { MetadataValue } from '@dspace/core';
-import { MetadataRepresentationType } from '@dspace/core';
-import { ItemMetadataRepresentation } from '@dspace/core';
+import { Item } from '../../item.model';
+import { MetadataValue } from '../../metadata.models';
+import { MetadataRepresentationType } from '../metadata-representation.model';
+import { ItemMetadataRepresentation } from './item-metadata-representation.model';
 
 describe('ItemMetadataRepresentation', () => {
   const valuePrefix = 'Test value for ';

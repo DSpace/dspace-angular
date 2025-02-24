@@ -8,21 +8,21 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RemoteDataBuildService } from '../cache';
-import { ObjectCacheService } from '../cache';
-import { RestResponse } from '../cache';
-import { CoreState } from '@dspace/core';
-import { HrefOnlyDataService } from '../data';
-import { RequestService } from '../data';
-import { RequestEntry } from '../data';
-import { getMockHrefOnlyDataService } from '../mocks';
-import { NotificationsService } from '@dspace/core';
-import { HALEndpointService } from '../shared';
-import { Item } from '../shared';
-import { PageInfo } from '../shared';
-import { createSuccessfulRemoteDataObject } from '../utilities';
-import { WorkflowItem } from './models';
-import { WorkflowItemDataService } from '@dspace/core';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { RestResponse } from '../cache/response.models';
+import { CoreState } from '../core-state.model';
+import { HrefOnlyDataService } from '../data/href-only-data.service';
+import { RequestService } from '../data/request.service';
+import { RequestEntry } from '../data/request-entry.model';
+import { getMockHrefOnlyDataService } from '../mocks/href-only-data.service.mock';
+import { NotificationsService } from '../notifications/notifications.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { Item } from '../shared/item.model';
+import { PageInfo } from '../shared/page-info.model';
+import { createSuccessfulRemoteDataObject } from '../utilities/remote-data.utils';
+import { WorkflowItem } from './models/workflowitem.model';
+import { WorkflowItemDataService } from './workflowitem-data.service';
 
 describe('WorkflowItemDataService test', () => {
   let scheduler: TestScheduler;

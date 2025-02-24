@@ -4,17 +4,19 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { FindListOptions } from '../../data';
-import { FollowLinkConfig } from '../../data';
-import { PaginatedList } from '../../data';
-import { RemoteData } from '../../data';
-import { DSpaceObject } from '../../shared';
-import { Item } from '../../shared';
-import { Relationship } from '../../shared';
-import { MetadataValue } from '../../shared';
-import { MetadataRepresentation } from '../../shared';
-import { NoContent } from '../../shared';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { FindListOptions } from '../../data/find-list-options.model';
+import { FollowLinkConfig } from '../../data/follow-link-config.model';
+import { PaginatedList } from '../../data/paginated-list.model';
+import { RemoteData } from '../../data/remote-data';
+import { DSpaceObject } from '../../shared/dspace-object.model';
+import { Item } from '../../shared/item.model';
+import { Relationship } from '../../shared/item-relationships/relationship.model';
+import { MetadataValue } from '../../shared/metadata.models';
+import { MetadataRepresentation } from '../../shared/metadata-representation/metadata-representation.model';
+import { NoContent } from '../../shared/NoContent.model';
+import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+
+
 
 /**
  * Stub class of {@link RelationshipDataService}

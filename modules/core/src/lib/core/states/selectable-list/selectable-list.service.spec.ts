@@ -5,14 +5,17 @@ import {
 import { hasValue } from '@dspace/shared/utils';
 import { Store } from '@ngrx/store';
 
-import { ListableObject } from '@dspace/core';
+import { AppState } from '../../../../../../../src/app/app.reducer';
+import { ListableObject } from '../../object-collection/listable-object.model';
 import {
   SelectableListDeselectAction,
   SelectableListDeselectSingleAction,
   SelectableListSelectAction,
   SelectableListSelectSingleAction,
-} from '@dspace/core';
-import { SelectableListService } from '@dspace/core';
+} from './selectable-list.actions';
+import { SelectableListService } from './selectable-list.service';
+
+
 
 export class SelectableObject extends ListableObject {
   constructor(private value: string) {

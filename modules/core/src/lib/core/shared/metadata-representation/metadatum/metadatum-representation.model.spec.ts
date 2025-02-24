@@ -1,6 +1,6 @@
-import { MetadataValue } from '@dspace/core';
-import { MetadataRepresentationType } from '@dspace/core';
-import { MetadatumRepresentation } from '@dspace/core';
+import { MetadataValue } from '../../metadata.models';
+import { MetadataRepresentationType } from '../metadata-representation.model';
+import { MetadatumRepresentation } from './metadatum-representation.model';
 
 describe('MetadatumRepresentation', () => {
   const itemType = 'Person';

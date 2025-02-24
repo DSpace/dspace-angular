@@ -1,4 +1,4 @@
-import { URLCombiner } from '@dspace/core';
+import { URLCombiner } from './url-combiner';
 
 describe('URLCombiner', () => {
 

@@ -1,15 +1,15 @@
 import { Action } from '@ngrx/store';
 
-import { BitstreamFormat } from '../../shared';
+import { BitstreamFormat } from '../../shared/bitstream-format.model';
 import {
   BitstreamFormatsRegistryDeselectAction,
   BitstreamFormatsRegistryDeselectAllAction,
   BitstreamFormatsRegistrySelectAction,
-} from '@dspace/core';
+} from './bitstream-format.actions';
 import {
   bitstreamFormatReducer,
   BitstreamFormatRegistryState,
-} from '@dspace/core';
+} from './bitstream-format.reducers';
 
 const bitstreamFormat1: BitstreamFormat = new BitstreamFormat();
 bitstreamFormat1.id = 'test-uuid-1';

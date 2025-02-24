@@ -3,11 +3,11 @@ import {
   Observable,
 } from 'rxjs';
 
-import { FindListOptions } from '../../data';
-import { FollowLinkConfig } from '../../data';
-import { RemoteData } from '../../data';
-import { WorkflowItem } from '@dspace/core';
-import { WorkspaceItem } from '@dspace/core';
+import { FindListOptions } from '../../data/find-list-options.model';
+import { FollowLinkConfig } from '../../data/follow-link-config.model';
+import { RemoteData } from '../../data/remote-data';
+import { WorkflowItem } from '../../submission/models/workflowitem.model';
+import { WorkspaceItem } from '../../submission/models/workspaceitem.model';
 import { IdentifiableDataServiceStub } from './identifiable-data-service.stub';
 
 /**

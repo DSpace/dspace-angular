@@ -5,7 +5,8 @@
  *
  * http://www.dspace.org/license/
  */
-import { SequenceService } from '@dspace/core';
+import { SequenceService } from './sequence.service';
+
 
 let service: SequenceService;
 

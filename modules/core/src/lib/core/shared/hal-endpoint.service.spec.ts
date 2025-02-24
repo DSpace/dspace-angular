@@ -4,14 +4,16 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RemoteDataBuildService } from '../cache';
-import { RemoteData } from '../data';
-import { EndpointMapRequest } from '../data';
-import { RequestService } from '../data';
-import { RequestEntryState } from '../data';
-import { getMockRequestService } from '../mocks';
-import { createSuccessfulRemoteDataObject$ } from '../utilities';
-import { HALEndpointService } from '@dspace/core';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RemoteData } from '../data/remote-data';
+import { EndpointMapRequest } from '../data/request.models';
+import { RequestService } from '../data/request.service';
+import { RequestEntryState } from '../data/request-entry-state.model';
+import { getMockRequestService } from '../mocks/request.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
+import { HALEndpointService } from './hal-endpoint.service';
+
+
 
 
 describe('HALEndpointService', () => {

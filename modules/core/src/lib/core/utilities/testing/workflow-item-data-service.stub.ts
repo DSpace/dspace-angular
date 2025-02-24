@@ -1,4 +1,5 @@
-import { WorkflowItem } from '@dspace/core';
+
+import { WorkflowItem } from '../../submission/models/workflowitem.model';
 import { IdentifiableDataServiceStub } from './identifiable-data-service.stub';
 
 /**

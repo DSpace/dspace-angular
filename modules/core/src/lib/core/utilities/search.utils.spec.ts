@@ -1,11 +1,11 @@
-import { FacetValue } from '@dspace/core';
-import { SearchFilterConfig } from '@dspace/core';
+import { FacetValue } from '../shared/search/models/facet-value.model';
+import { SearchFilterConfig } from '../shared/search/models/search-filter-config.model';
 import {
   addOperatorToFilterValue,
   escapeRegExp,
   getFacetValueForType,
   stripOperatorFromFilterValue,
-} from '@dspace/core';
+} from './search.utils';
 
 describe('Search Utils', () => {
   describe('getFacetValueForType', () => {

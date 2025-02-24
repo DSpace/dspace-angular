@@ -5,8 +5,8 @@ import {
   deserialize,
 } from 'cerialize';
 
-import { HALLink } from '@dspace/core';
-import { HALResource } from '@dspace/core';
+import { HALLink } from './hal-link.model';
+import { HALResource } from './hal-resource.model';
 
 /**
  * Represents the state of a paginated response

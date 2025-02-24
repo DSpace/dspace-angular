@@ -6,22 +6,22 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RemoteDataBuildService } from '../cache';
-import { RequestParam } from '../cache';
-import { ObjectCacheService } from '../cache';
-import { RestResponse } from '../cache';
-import { FindListOptions } from '../data';
-import { buildPaginatedList } from '../data';
-import { RequestService } from '../data';
-import { RequestEntry } from '../data';
-import { GroupDataService } from '../eperson';
-import { NotificationsService } from '@dspace/core';
-import { HALEndpointService } from '../shared';
-import { PageInfo } from '../shared';
-import { createSuccessfulRemoteDataObject } from '../utilities';
-import { ObjectCacheServiceStub } from '../utilities';
-import { SupervisionActionType } from './models';
-import { SupervisionOrderDataService } from '@dspace/core';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { RestResponse } from '../cache/response.models';
+import { FindListOptions } from '../data/find-list-options.model';
+import { buildPaginatedList } from '../data/paginated-list.model';
+import { RequestService } from '../data/request.service';
+import { RequestEntry } from '../data/request-entry.model';
+import { GroupDataService } from '../eperson/group-data.service';
+import { NotificationsService } from '../notifications/notifications.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { PageInfo } from '../shared/page-info.model';
+import { createSuccessfulRemoteDataObject } from '../utilities/remote-data.utils';
+import { ObjectCacheServiceStub } from '../utilities/testing/object-cache-service.stub';
+import { SupervisionActionType } from './models/action-type.model';
+import { SupervisionOrderDataService } from './supervision-order-data.service';
 
 describe('SupervisionOrderService', () => {
   let scheduler: TestScheduler;

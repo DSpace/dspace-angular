@@ -20,31 +20,31 @@ import { TestScheduler } from 'rxjs/testing';
 import {
   link,
   typedObject,
-} from '../../cache';
-import { RemoteDataBuildService } from '../../cache';
-import { ObjectCacheEntry } from '../../cache';
-import { ObjectCacheService } from '../../cache';
-import { getMockRemoteDataBuildService } from '../../mocks';
-import { getMockRequestService } from '../../mocks';
-import { BITSTREAM } from '../../shared';
-import { COLLECTION } from '../../shared';
-import { HALEndpointService } from '../../shared';
-import { HALLink } from '../../shared';
-import { ResourceType } from '../../shared';
+} from '../../cache/builders/build-decorators';
+import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
+import { ObjectCacheEntry } from '../../cache/object-cache.reducer';
+import { ObjectCacheService } from '../../cache/object-cache.service';
+import { getMockRemoteDataBuildService } from '../../mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../mocks/request.service.mock';
+import { BITSTREAM } from '../../shared/bitstream.resource-type';
+import { COLLECTION } from '../../shared/collection.resource-type';
+import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { HALLink } from '../../shared/hal-link.model';
+import { ResourceType } from '../../shared/resource-type';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { HALEndpointServiceStub } from '../../utilities';
-import { ObjectCacheServiceStub } from '../../utilities';
-import { createPaginatedList } from '../../utilities';
-import { FindListOptions } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { RequestEntryState } from '@dspace/core';
-import { BaseDataService } from '@dspace/core';
+} from '../../utilities/remote-data.utils';
+import { HALEndpointServiceStub } from '../../utilities/testing/hal-endpoint-service.stub';
+import { ObjectCacheServiceStub } from '../../utilities/testing/object-cache-service.stub';
+import { createPaginatedList } from '../../utilities/testing/utils.test';
+import { FindListOptions } from '../find-list-options.model';
+import { followLink } from '../follow-link-config.model';
+import { PaginatedList } from '../paginated-list.model';
+import { RemoteData } from '../remote-data';
+import { RequestService } from '../request.service';
+import { RequestEntryState } from '../request-entry-state.model';
+import { BaseDataService } from './base-data.service';
 
 const endpoint = 'https://rest.api/core';
 

@@ -1,5 +1,5 @@
-import { Group } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { Group } from '../../eperson/models/group.model';
+import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { EPersonMock } from './eperson.mock';
 
 export const GroupMock2: Group = Object.assign(new Group(), {

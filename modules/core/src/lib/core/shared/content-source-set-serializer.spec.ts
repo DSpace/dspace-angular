@@ -1,4 +1,4 @@
-import { ContentSourceSetSerializer } from '@dspace/core';
+import { ContentSourceSetSerializer } from './content-source-set-serializer';
 
 describe('ContentSourceSetSerializer', () => {
   let serializer: ContentSourceSetSerializer;

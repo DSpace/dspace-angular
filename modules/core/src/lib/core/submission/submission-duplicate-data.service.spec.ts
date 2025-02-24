@@ -1,10 +1,11 @@
-import { RequestParam } from '../cache';
-import { FindListOptions } from '../data';
-import { SubmissionDuplicateDataService } from '@dspace/core';
-
 /**
  * Basic tests for the submission-duplicate-data.service.ts service
  */
+import { RequestParam } from '../cache/models/request-param.model';
+import { FindListOptions } from '../data/find-list-options.model';
+import { SubmissionDuplicateDataService } from './submission-duplicate-data.service';
+
+
 describe('SubmissionDuplicateDataService', () => {
   const duplicateDataService = new SubmissionDuplicateDataService(null, null, null, null);
 

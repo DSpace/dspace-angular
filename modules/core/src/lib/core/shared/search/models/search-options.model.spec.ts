@@ -1,6 +1,7 @@
-import { DSpaceObjectType } from '@dspace/core';
-import { SearchFilter } from '@dspace/core';
-import { SearchOptions } from '@dspace/core';
+import { DSpaceObjectType } from '../../dspace-object-type.model';
+import { SearchFilter } from './search-filter.model';
+import { SearchOptions } from './search-options.model';
+
 
 describe('SearchOptions', () => {
   let options: SearchOptions;

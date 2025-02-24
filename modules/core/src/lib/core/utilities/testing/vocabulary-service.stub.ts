@@ -6,13 +6,13 @@ import {
 import {
   buildPaginatedList,
   PaginatedList,
-} from '../../data';
-import { RemoteData } from '../../data';
-import { PageInfo } from '../../shared';
-import { Vocabulary } from '@dspace/core';
-import { VocabularyEntry } from '@dspace/core';
-import { VocabularyOptions } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+} from '../../data/paginated-list.model';
+import { RemoteData } from '../../data/remote-data';
+import { PageInfo } from '../../shared/page-info.model';
+import { Vocabulary } from '../../submission/vocabularies/models/vocabulary.model';
+import { VocabularyEntry } from '../../submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyOptions } from '../../submission/vocabularies/models/vocabulary-options.model';
+import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 
 export class VocabularyServiceStub {
 

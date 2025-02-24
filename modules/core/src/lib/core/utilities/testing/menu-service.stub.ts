@@ -3,9 +3,10 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { MenuID } from '@dspace/core';
-import { MenuSection } from '@dspace/core';
-import { MenuState } from '@dspace/core';
+import { MenuID } from '../../states/menu/menu-id.model';
+import { MenuSection } from '../../states/menu/menu-section.model';
+import { MenuState } from '../../states/menu/menu-state.model';
+
 
 export class MenuServiceStub {
   visibleSection1 = {

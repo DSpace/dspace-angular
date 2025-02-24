@@ -7,13 +7,17 @@ import {
   cold,
   hot,
 } from 'jasmine-marbles';
-import { Observable } from 'rxjs';
+import {
+  Action,
+  Observable,
+} from 'rxjs';
+
+import { type } from '../../shared/ngrx/type';
+import { ReinitMenuAction } from './menu.actions';
+import { MenuEffects } from './menu.effects';
 
 
-import { ReinitMenuAction } from '@dspace/core';
-import { MenuEffects } from '@dspace/core';
-import { Action } from "rxjs/internal/scheduler/Action";
-import { type } from "@dspace/core";
+
 
 describe('MenuEffects', () => {
   let menuEffects: MenuEffects;

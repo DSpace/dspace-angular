@@ -1,7 +1,7 @@
 import {
   getFilterByRelation,
   getQueryByRelations,
-} from '@dspace/core';
+} from './relation-query.utils';
 
 describe('Relation Query Utils', () => {
   const relationtype = 'isAuthorOfPublication';

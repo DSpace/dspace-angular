@@ -4,7 +4,9 @@ import {
 } from '@angular/router';
 import { hasValue } from '@dspace/shared/utils';
 
-import { URLCombiner } from '@dspace/core';
+import { URLCombiner } from '../url-combiner/url-combiner';
+
+
 
 /**
  * Util function to retrieve the current path (without query parameters) the user is on

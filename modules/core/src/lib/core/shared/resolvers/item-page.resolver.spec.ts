@@ -5,11 +5,13 @@ import {
 } from '@angular/router';
 import { first } from 'rxjs/operators';
 
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { AuthServiceStub } from '../../utilities';
-import { DSpaceObject } from '@dspace/core';
-import { MetadataValueFilter } from '@dspace/core';
-import { itemPageResolver } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '../../utilities/remote-data.utils';
+import { AuthServiceStub } from '../../utilities/testing/auth-service.stub';
+import { DSpaceObject } from '../dspace-object.model';
+import { MetadataValueFilter } from '../metadata.models';
+import { itemPageResolver } from './item-page.resolver';
+
+
 
 describe('itemPageResolver', () => {
   beforeEach(() => {

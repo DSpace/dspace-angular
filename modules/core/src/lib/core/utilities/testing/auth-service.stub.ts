@@ -4,12 +4,12 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { AuthMethod } from '../../auth';
-import { AuthMethodType } from '../../auth';
-import { AuthStatus } from '../../auth';
-import { AuthTokenInfo } from '../../auth';
-import { EPerson } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { AuthMethod } from '../../auth/models/auth.method';
+import { AuthMethodType } from '../../auth/models/auth.method-type';
+import { AuthStatus } from '../../auth/models/auth-status.model';
+import { AuthTokenInfo } from '../../auth/models/auth-token-info.model';
+import { EPerson } from '../../eperson/models/eperson.model';
+import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { EPersonMock } from './eperson.mock';
 
 export const authMethodsMock: AuthMethod[] = [

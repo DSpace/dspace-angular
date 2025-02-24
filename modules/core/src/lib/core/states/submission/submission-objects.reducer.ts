@@ -11,7 +11,7 @@ import findKey from 'lodash/findKey';
 import isEqual from 'lodash/isEqual';
 import uniqWith from 'lodash/uniqWith';
 
-import { WorkspaceitemSectionUploadObject } from '@dspace/core';
+import { WorkspaceitemSectionUploadObject } from '../../submission/models/workspaceitem-section-upload.model';
 import {
   ChangeSubmissionCollectionAction,
   CleanDuplicateDetectionAction,

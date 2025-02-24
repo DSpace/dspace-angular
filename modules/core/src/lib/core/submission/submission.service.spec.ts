@@ -27,25 +27,25 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { environment } from '../../../../../../src/environments/environment';
-import { ErrorResponse } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { RequestError } from '@dspace/core';
-import { HttpOptions } from '@dspace/core';
-import { getMockRequestService } from '@dspace/core';
-import { RouterMock } from '@dspace/core';
-import { TranslateLoaderMock } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { SearchService } from '@dspace/core';
-import { SubmissionJsonPatchOperationsService } from '@dspace/core';
-import { SubmissionRestService } from '@dspace/core';
-import { SubmissionScopeType } from '@dspace/core';
-import { createFailedRemoteDataObject } from '@dspace/core';
-import { SubmissionJsonPatchOperationsServiceStub } from '@dspace/core';
-import { SubmissionRestServiceStub } from '@dspace/core';
-import { SectionScope } from '@dspace/core';
+import { storeModuleConfig } from '../../../../../../src/app/app.reducer';
+import { MockActivatedRoute } from '../../../../../../src/app/shared/mocks/active-router.mock';
+import { getMockSearchService } from '../../../../../../src/app/shared/mocks/search-service.mock';
+import {
+  mockSubmissionDefinition,
+  mockSubmissionRestResponse,
+} from '../../../../../../src/app/shared/mocks/submission.mock';
+import { ErrorResponse } from '../cache/response.models';
+import { RequestService } from '../data/request.service';
+import { RequestError } from '../data/request-error.model';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
+import { getMockRequestService } from '../mocks/request.service.mock';
+import { RouterMock } from '../mocks/router.mock';
+import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
+import { NotificationsService } from '../notifications/notifications.service';
+import { RouteService } from '../services/route.service';
+import { Item } from '../shared/item.model';
+import { SearchService } from '../shared/search/search.service';
+import { submissionReducers } from '../states/submission/submission.reducers';
 import {
   CancelSubmissionFormAction,
   ChangeSubmissionCollectionAction,
@@ -57,9 +57,15 @@ import {
   SaveSubmissionFormAction,
   SaveSubmissionSectionFormAction,
   SetActiveSectionAction,
-} from '@dspace/core';
-import { submissionReducers } from '@dspace/core';
-import { SubmissionService } from '@dspace/core';
+} from '../states/submission/submission-objects.actions';
+import { createFailedRemoteDataObject } from '../utilities/remote-data.utils';
+import { SubmissionJsonPatchOperationsServiceStub } from '../utilities/testing/submission-json-patch-operations-service.stub';
+import { SubmissionRestServiceStub } from '../utilities/testing/submission-rest-service.stub';
+import { SectionScope } from './models/section-visibility.model';
+import { SubmissionService } from './submission.service';
+import { SubmissionJsonPatchOperationsService } from './submission-json-patch-operations.service';
+import { SubmissionRestService } from './submission-rest.service';
+import { SubmissionScopeType } from './submission-scope-type';
 
 describe('SubmissionService test suite', () => {
   const collectionId = '43fe1f8c-09a6-4fcf-9c78-5d4fed8f2c8f';
@@ -384,6 +390,13 @@ describe('SubmissionService test suite', () => {
   const selfUrl = 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826';
   const submissionDefinition: any = mockSubmissionDefinition;
   const submissionJsonPatchOperationsService = new SubmissionJsonPatchOperationsServiceStub();
+  const mockEnvironment = {
+    submission: {
+      autosave: {
+        timer: 1000,
+      },
+    },
+  };
 
   let scheduler: TestScheduler;
   let service: SubmissionService;
@@ -1159,11 +1172,11 @@ describe('SubmissionService test suite', () => {
     let environmentAutoSaveTimerOriginalValue;
 
     beforeEach(() => {
-      environmentAutoSaveTimerOriginalValue = environment.submission.autosave.timer;
+      environmentAutoSaveTimerOriginalValue = mockEnvironment.submission.autosave.timer;
     });
 
     it('should start Auto Save', fakeAsync(() => {
-      const duration = environment.submission.autosave.timer;
+      const duration = mockEnvironment.submission.autosave.timer;
 
       service.startAutoSave('826');
       const sub = (service as any).timer$.subscribe();
@@ -1179,7 +1192,7 @@ describe('SubmissionService test suite', () => {
     }));
 
     it('should not start Auto Save if timer is 0', fakeAsync(() => {
-      environment.submission.autosave.timer = 0;
+      mockEnvironment.submission.autosave.timer = 0;
 
       service.startAutoSave('826');
 
@@ -1187,7 +1200,7 @@ describe('SubmissionService test suite', () => {
     }));
 
     afterEach(() => {
-      environment.submission.autosave.timer = environmentAutoSaveTimerOriginalValue;
+      mockEnvironment.submission.autosave.timer = environmentAutoSaveTimerOriginalValue;
     });
 
   });

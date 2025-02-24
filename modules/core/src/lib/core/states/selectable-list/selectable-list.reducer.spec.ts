@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import { hasValue } from '@dspace/shared/utils';
 
-import { ListableObject } from '@dspace/core';
+import { ListableObject } from '../../object-collection/listable-object.model';
 import {
   SelectableListAction,
   SelectableListDeselectAction,
@@ -10,8 +10,10 @@ import {
   SelectableListSelectAction,
   SelectableListSelectSingleAction,
   SelectableListSetSelectionAction,
-} from '@dspace/core';
-import { selectableListReducer } from '@dspace/core';
+} from './selectable-list.actions';
+import { selectableListReducer } from './selectable-list.reducer';
+
+
 
 class SelectableObject extends ListableObject {
   constructor(private value: string) {

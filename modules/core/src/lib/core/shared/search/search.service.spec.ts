@@ -14,28 +14,29 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { RemoteDataBuildService } from '../../cache';
-import { CommunityDataService } from '../../data';
-import { DSpaceObjectDataService } from '../../data';
-import { RemoteData } from '../../data';
-import { RequestService } from '../../data';
-import { RequestEntry } from '../../data';
-import { getMockRequestService } from '../../mocks';
-import { PaginationService } from '@dspace/core';
-import { RouteService } from '@dspace/core';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
-import { ActivatedRouteStub } from '../../utilities';
-import { PaginationServiceStub } from '../../utilities';
-import { routeServiceStub } from '../../utilities';
-import { RouterStub } from '../../utilities';
-import { HALEndpointService } from '@dspace/core';
-import { PaginatedSearchOptions } from '@dspace/core';
-import { ViewMode } from '@dspace/core';
-import { SearchFilterConfig } from './models';
-import { SearchObjects } from './models';
-import { SearchService } from '@dspace/core';
-import { SearchConfigurationService } from '@dspace/core';
+
 import anything = jasmine.anything;
+import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
+import { CommunityDataService } from '../../data/community-data.service';
+import { DSpaceObjectDataService } from '../../data/dspace-object-data.service';
+import { RemoteData } from '../../data/remote-data';
+import { RequestService } from '../../data/request.service';
+import { RequestEntry } from '../../data/request-entry.model';
+import { getMockRequestService } from '../../mocks/request.service.mock';
+import { PaginationService } from '../../pagination/pagination.service';
+import { RouteService } from '../../services/route.service';
+import { createSuccessfulRemoteDataObject$ } from '../../utilities/remote-data.utils';
+import { ActivatedRouteStub } from '../../utilities/testing/active-router.stub';
+import { PaginationServiceStub } from '../../utilities/testing/pagination-service.stub';
+import { routeServiceStub } from '../../utilities/testing/route-service.stub';
+import { RouterStub } from '../../utilities/testing/router.stub';
+import { HALEndpointService } from '../hal-endpoint.service';
+import { PaginatedSearchOptions } from '../paginated-search-options.model';
+import { ViewMode } from '../view-mode.model';
+import { SearchFilterConfig } from './models/search-filter-config.model';
+import { SearchObjects } from './models/search-objects.model';
+import { SearchService } from './search.service';
+import { SearchConfigurationService } from './search-configuration.service';
 
 @Component({
   template: '',

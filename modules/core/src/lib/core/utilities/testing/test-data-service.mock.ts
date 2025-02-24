@@ -5,11 +5,11 @@ import {
   of,
 } from 'rxjs';
 
-import { FindListOptions } from '../../data';
-import { FollowLinkConfig } from '../../data';
-import { RemoteData } from '../../data';
-import { Item } from '../../shared';
-import { createSuccessfulRemoteDataObject$ } from '@dspace/core';
+import { FindListOptions } from '../../data/find-list-options.model';
+import { FollowLinkConfig } from '../../data/follow-link-config.model';
+import { RemoteData } from '../../data/remote-data';
+import { Item } from '../../shared/item.model';
+import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 
 @Injectable()
 export class TestDataService {

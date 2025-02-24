@@ -1,22 +1,24 @@
 /* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
 
-import { SubmissionDefinitionsModel } from '@dspace/core';
-import { Item } from '@dspace/core';
-import { type } from '@dspace/core';
-import { SubmissionObject } from '@dspace/core';
-import { WorkspaceitemSectionUploadFileObject } from '@dspace/core';
-import {
-  WorkspaceitemSectionDataType,
-  WorkspaceitemSectionsObject,
-} from '@dspace/core';
-import { SectionsType } from '../../submission';
+import { SubmissionDefinitionsModel } from '../../config/models/config-submission-definitions.model';
+import { Item } from '../../shared/item.model';
+import { type } from '../../shared/ngrx/type';
 import {
   SectionScope,
   SectionVisibility,
-} from '../../submission';
-import { SubmissionError } from '../../submission';
-import { SubmissionSectionError } from '../../submission';
+} from '../../submission/models/section-visibility.model';
+import { SectionsType } from '../../submission/models/sections-type';
+import { SubmissionError } from '../../submission/models/submission-error.model';
+import { SubmissionObject } from '../../submission/models/submission-object.model';
+import { SubmissionSectionError } from '../../submission/models/submission-section-error.model';
+import { WorkspaceitemSectionUploadFileObject } from '../../submission/models/workspaceitem-section-upload-file.model';
+import {
+  WorkspaceitemSectionDataType,
+  WorkspaceitemSectionsObject,
+} from '../../submission/models/workspaceitem-sections.model';
+
+
 
 /**
  * For each action type in an action group, make a simple

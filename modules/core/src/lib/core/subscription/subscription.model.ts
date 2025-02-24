@@ -8,14 +8,14 @@ import { Observable } from 'rxjs';
 import {
   link,
   typedObject,
-} from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { EPerson } from '@dspace/core';
-import { EPERSON } from '@dspace/core';
-import { DSpaceObject } from '@dspace/core';
-import { DSPACE_OBJECT } from '@dspace/core';
-import { HALLink } from '@dspace/core';
-import { SUBSCRIPTION } from '../data';
+} from '../cache/builders/build-decorators';
+import { RemoteData } from '../data/remote-data';
+import { SUBSCRIPTION } from '../data/subscription.resource-type';
+import { EPerson } from '../eperson/models/eperson.model';
+import { EPERSON } from '../eperson/models/eperson.resource-type';
+import { DSpaceObject } from '../shared/dspace-object.model';
+import { DSPACE_OBJECT } from '../shared/dspace-object.resource-type';
+import { HALLink } from '../shared/hal-link.model';
 
 @typedObject
 @inheritSerialization(DSpaceObject)
