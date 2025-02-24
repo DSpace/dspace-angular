@@ -44,7 +44,6 @@ describe('MenuService', () => {
   let topSections;
   let initialState;
   let routeDataMenuSection: MenuSection;
-  let routeDataMenuSectionResolved: MenuSection;
   let routeDataMenuChildSection: MenuSection;
   let routeDataMenuOverwrittenChildSection: MenuSection;
   let toBeRemovedMenuSection: MenuSection;
@@ -112,16 +111,6 @@ describe('MenuService', () => {
         link: 'path/:linkparam',
       } as LinkMenuItemModel,
     };
-    routeDataMenuSectionResolved = {
-      id: 'mockSection_id_param_resolved',
-      active: false,
-      visible: true,
-      model: {
-        type: MenuItemType.LINK,
-        text: 'menu.section.mockSection',
-        link: 'path/link_param_resolved',
-      } as LinkMenuItemModel,
-    };
     routeDataMenuChildSection = {
       id: 'mockChildSection',
       parentID: 'mockSection',
@@ -141,16 +130,6 @@ describe('MenuService', () => {
       model: {
         type: MenuItemType.LINK,
         text: 'menu.section.mockChildOverwrittenSection',
-        link: '',
-      } as LinkMenuItemModel,
-    };
-    toBeRemovedMenuSection = {
-      id: 'toBeRemovedSection',
-      active: false,
-      visible: true,
-      model: {
-        type: MenuItemType.LINK,
-        text: 'menu.section.toBeRemovedSection',
         link: '',
       } as LinkMenuItemModel,
     };
@@ -566,70 +545,4 @@ describe('MenuService', () => {
       expect(store.dispatch).toHaveBeenCalledWith(new DeactivateMenuSectionAction(MenuID.ADMIN, 'fakeID'));
     });
   });
-
-  describe('buildRouteMenuSections', () => {
-    it('should add and remove menu sections depending on the current route and overwrite menu sections when they have the same ID with the child route version', () => {
-      spyOn(service, 'addSection');
-      spyOn(service, 'removeSection');
-
-      spyOn(service, 'getNonPersistentMenuSections').and.returnValue(observableOf([toBeRemovedMenuSection, alreadyPresentMenuSection]));
-
-      service.buildRouteMenuSections(MenuID.PUBLIC);
-
-      expect(service.addSection).toHaveBeenCalledWith(MenuID.PUBLIC, routeDataMenuSectionResolved);
-      expect(service.addSection).not.toHaveBeenCalledWith(MenuID.PUBLIC, routeDataMenuChildSection);
-      expect(service.addSection).toHaveBeenCalledWith(MenuID.PUBLIC, routeDataMenuOverwrittenChildSection);
-      expect(service.addSection).not.toHaveBeenCalledWith(MenuID.PUBLIC, alreadyPresentMenuSection);
-      expect(service.removeSection).toHaveBeenCalledWith(MenuID.PUBLIC, toBeRemovedMenuSection.id);
-    });
-  });
-
-  describe('listenForRouteChanges', () => {
-    it('should build the menu sections on NavigationEnd event', () => {
-      spyOn(service, 'buildRouteMenuSections');
-
-      service.listenForRouteChanges();
-
-      expect(service.buildRouteMenuSections).toHaveBeenCalledWith(MenuID.ADMIN);
-      expect(service.buildRouteMenuSections).toHaveBeenCalledWith(MenuID.PUBLIC);
-    });
-  });
-
-  describe(`resolveSubstitutions`, () => {
-    let linkPrefix;
-    let link;
-    let uuid;
-
-    beforeEach(() => {
-      linkPrefix = 'statistics_collection_';
-      link = `${linkPrefix}:id`;
-      uuid = 'f7cc3ca4-3c2c-464d-8af8-add9f84f711c';
-    });
-
-    it(`shouldn't do anything when there are no params`, () => {
-      let result = (service as any).resolveSubstitutions(link, undefined);
-      expect(result).toEqual(link);
-      result = (service as any).resolveSubstitutions(link, null);
-      expect(result).toEqual(link);
-      result = (service as any).resolveSubstitutions(link, {});
-      expect(result).toEqual(link);
-    });
-
-    it(`should replace link params that are also route params`, () => {
-      const result = (service as any).resolveSubstitutions(link,{ 'id': uuid });
-      expect(result).toEqual(linkPrefix + uuid);
-    });
-
-    it(`should not replace link params that aren't route params`, () => {
-      const result = (service as any).resolveSubstitutions(link,{ 'something': 'else' });
-      expect(result).toEqual(link);
-    });
-
-    it(`should gracefully deal with routes that contain the name of the route param`, () => {
-      const selfReferentialParam = `:id:something`;
-      const result = (service as any).resolveSubstitutions(link,{ 'id': selfReferentialParam });
-      expect(result).toEqual(linkPrefix + selfReferentialParam);
-    });
-  });
-
 });
