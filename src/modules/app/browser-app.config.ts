@@ -162,6 +162,6 @@ export const browserAppConfig: ApplicationConfig = mergeApplicationConfig({
     {
       provide: HashedFileMapping,
       useClass: BrowserHashedFileMapping,
-    }
+    },
   ],
 }, commonAppConfig);

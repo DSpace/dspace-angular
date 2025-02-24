@@ -118,7 +118,7 @@ describe('ThemeService', () => {
           provide: HashedFileMapping,
           useValue: mockHashedFileMapping,
         },
-      ]
+      ],
     });
 
     themeService = TestBed.inject(ThemeService);
@@ -435,7 +435,7 @@ describe('ThemeService', () => {
             provide: HashedFileMapping,
             useValue: mockHashedFileMapping,
           },
-        ]
+        ],
       });
 
       document = TestBed.inject(DOCUMENT);

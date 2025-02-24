@@ -13,6 +13,7 @@ import {
 } from '@angular/core';
 import isObject from 'lodash/isObject';
 import isString from 'lodash/isString';
+
 import { hasValue } from '../../app/shared/empty.util';
 import {
   HashedFileMapping,
@@ -37,8 +38,8 @@ export class BrowserHashedFileMapping extends HashedFileMapping {
 
       if (isObject(mapping)) {
         Object.entries(mapping)
-              .filter(([key, value]) => isString(key) && isString(value))
-              .forEach(([plainPath, hashPath]) => this.map.set(plainPath, hashPath));
+          .filter(([key, value]) => isString(key) && isString(value))
+          .forEach(([plainPath, hashPath]) => this.map.set(plainPath, hashPath));
       }
     }
   }

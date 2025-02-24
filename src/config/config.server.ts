@@ -11,9 +11,9 @@ import {
 } from 'fs';
 import { load } from 'js-yaml';
 import { join } from 'path';
-import { ServerHashedFileMapping } from '../modules/dynamic-hash/hashed-file-mapping.server';
 
 import { isNotEmpty } from '../app/shared/empty.util';
+import { ServerHashedFileMapping } from '../modules/dynamic-hash/hashed-file-mapping.server';
 import { AppConfig } from './app-config.interface';
 import { Config } from './config.interface';
 import { mergeConfig } from './config.util';

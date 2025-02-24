@@ -7,11 +7,11 @@
  */
 import crypto from 'crypto';
 import {
+  copyFileSync,
+  existsSync,
   readFileSync,
   rmSync,
   writeFileSync,
-  copyFileSync,
-  existsSync,
 } from 'fs';
 import glob from 'glob';
 import { parse } from 'node-html-parser';
@@ -21,6 +21,7 @@ import {
   relative,
 } from 'path';
 import zlib from 'zlib';
+
 import {
   HashedFileMapping,
   ID,
@@ -58,13 +59,13 @@ export class ServerHashedFileMapping extends HashedFileMapping {
     // remove previous files
     const ext = extname(path);
     glob.GlobSync(path.replace(`${ext}`, `.*${ext}*`))
-        .found
-        .forEach(p => rmSync(p));
+      .found
+      .forEach(p => rmSync(p));
 
     // hash the content
     const hash = crypto.createHash('md5')
-                       .update(content)
-                       .digest('hex');
+      .update(content)
+      .digest('hex');
 
     // add the hash to the path
     const hashPath = path.replace(`${ext}`, `.${hash}${ext}`);
@@ -100,12 +101,12 @@ export class ServerHashedFileMapping extends HashedFileMapping {
 
   addThemeStyles() {
     glob.GlobSync(`${this.root}/*-theme.css`)
-        .found
-        .forEach(p => {
-          const hp = this.add(p);
-          this.ensureCompressedFilesAssumingUnchangedContent(p, hp, '.br');
-          this.ensureCompressedFilesAssumingUnchangedContent(p, hp, '.gz');
-        });
+      .found
+      .forEach(p => {
+        const hp = this.add(p);
+        this.ensureCompressedFilesAssumingUnchangedContent(p, hp, '.br');
+        this.ensureCompressedFilesAssumingUnchangedContent(p, hp, '.gz');
+      });
   }
 
   private ensureCompressedFilesAssumingUnchangedContent(path: string, hashedPath: string, compression: string) {
@@ -123,15 +124,15 @@ export class ServerHashedFileMapping extends HashedFileMapping {
    */
   save(): void {
     const out = Array.from(this.map.entries())
-                     .reduce((object, [plain, hashed]) => {
-                       object[relative(this.root, plain)] = relative(this.root, hashed);
-                       return object;
-                     }, {});
+      .reduce((object, [plain, hashed]) => {
+        object[relative(this.root, plain)] = relative(this.root, hashed);
+        return object;
+      }, {});
 
-    let root = parse(this.indexContent);
+    const root = parse(this.indexContent);
     root.querySelector(`script#${ID}`)?.remove();
     root.querySelector('head')
-        .appendChild(`<script id="${ID}" type="application/json">${JSON.stringify(out)}</script>` as any);
+      .appendChild(`<script id="${ID}" type="application/json">${JSON.stringify(out)}</script>` as any);
 
     this.add(this.indexPath, root.toString());
   }
