@@ -1,7 +1,7 @@
 <div *ngIf="configurationList?.length > 1" class="search-switch-configuration">
   <h3 id="configuration-switch">{{ 'search.switch-configuration.title' | translate}}</h3>
 
-  <select class="form-control"
+  <select class="form-select"
           aria-labelledby="configuration-switch"
           [compareWith]="compare"
           [(ngModel)]="selectedOption"
