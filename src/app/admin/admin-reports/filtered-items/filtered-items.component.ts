@@ -45,6 +45,7 @@ import { environment } from 'src/environments/environment';
 
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { FiltersComponent } from '../filters-section/filters-section.component';
+import { FilteredItemsExportCsvComponent } from './filtered-items-export-csv/filtered-items-export-csv.component';
 import { FilteredItems } from './filtered-items-model';
 import { OptionVO } from './option-vo.model';
 import { PresetQuery } from './preset-query.model';
@@ -66,6 +67,7 @@ import { QueryPredicate } from './query-predicate.model';
     NgForOf,
     FiltersComponent,
     BtnDisabledDirective,
+    FilteredItemsExportCsvComponent,
   ],
   standalone: true,
 })
@@ -348,13 +350,8 @@ export class FilteredItemsComponent implements OnInit {
 
     const preds = this.queryForm.value.queryPredicates;
     for (let i = 0; i < preds.length; i++) {
-      const field = preds[i].field;
-      const op = preds[i].operator;
-      const value = preds[i].value;
-      params += `&queryPredicates=${field}:${op}`;
-      if (value) {
-        params += `:${value}`;
-      }
+      const pred = encodeURIComponent(QueryPredicate.toString(preds[i]));
+      params += `&queryPredicates=${pred}`;
     }
 
     const filters = FiltersComponent.toQueryString(this.queryForm.value.filters);
