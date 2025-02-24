@@ -6,24 +6,24 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RemoteDataBuildService } from '../cache';
-import { ObjectCacheService } from '../cache';
-import { RestResponse } from '../cache';
-import { getMockHrefOnlyDataService } from '../mocks';
-import { HALEndpointService } from '../shared';
-import { Item } from '../shared';
-import { Version } from '../shared';
-import { VersionHistory } from '../shared';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { RestResponse } from '../cache/response.models';
+import { getMockHrefOnlyDataService } from '../mocks/href-only-data.service.mock';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { Item } from '../shared/item.model';
+import { Version } from '../shared/version.model';
+import { VersionHistory } from '../shared/version-history.model';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../utilities';
-import { testPatchDataImplementation } from './base';
-import { followLink } from '@dspace/core';
-import { HrefOnlyDataService } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { RequestEntry } from '@dspace/core';
-import { VersionDataService } from '@dspace/core';
+} from '../utilities/remote-data.utils';
+import { testPatchDataImplementation } from './base/patch-data.spec';
+import { followLink } from './follow-link-config.model';
+import { HrefOnlyDataService } from './href-only-data.service';
+import { RequestService } from './request.service';
+import { RequestEntry } from './request-entry.model';
+import { VersionDataService } from './version-data.service';
 
 describe('VersionDataService test', () => {
   let scheduler: TestScheduler;

@@ -11,10 +11,10 @@ import {
   of as observableOf,
 } from 'rxjs';
 
-import { AuthService } from '@dspace/core';
-import { AuthorizationDataService } from '@dspace/core';
-import { FeatureID } from '@dspace/core';
-import { someFeatureAuthorizationGuard } from '@dspace/core';
+import { AuthService } from '../../../auth/auth.service';
+import { AuthorizationDataService } from '../authorization-data.service';
+import { FeatureID } from '../feature-id';
+import { someFeatureAuthorizationGuard } from './some-feature-authorization.guard';
 
 describe('SomeFeatureAuthorizationGuard', () => {
   let authorizationService: AuthorizationDataService;

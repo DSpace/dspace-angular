@@ -23,21 +23,21 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { ObjectCacheService } from '../cache';
-import { coreReducers } from '@dspace/core';
-import { CoreState } from '@dspace/core';
-import { getMockObjectCacheService } from '../mocks';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { coreReducers } from '../core.reducers';
+import { CoreState } from '../core-state.model';
+import { getMockObjectCacheService } from '../mocks/object-cache.service.mock';
 import {
   defaultUUID,
   getMockUUIDService,
-} from '../mocks';
-import { UUIDService } from '../shared';
-import { mockStoreModuleConfig } from '../utilities';
+} from '../mocks/uuid.service.mock';
+import { UUIDService } from '../shared/uuid.service';
+import { mockStoreModuleConfig } from '../utilities/testing/mock-state-utilities';
 import {
   RequestConfigureAction,
   RequestExecuteAction,
   RequestStaleAction,
-} from '@dspace/core';
+} from './request.actions';
 import {
   DeleteRequest,
   GetRequest,
@@ -46,11 +46,11 @@ import {
   PatchRequest,
   PostRequest,
   PutRequest,
-} from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { RequestEntry } from '@dspace/core';
-import { RequestEntryState } from '@dspace/core';
-import { RestRequest } from '@dspace/core';
+} from './request.models';
+import { RequestService } from './request.service';
+import { RequestEntry } from './request-entry.model';
+import { RequestEntryState } from './request-entry-state.model';
+import { RestRequest } from './rest-request.model';
 
 describe('RequestService', () => {
   let scheduler: TestScheduler;

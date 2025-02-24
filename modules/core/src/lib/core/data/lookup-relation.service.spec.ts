@@ -4,19 +4,19 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { ExternalSource } from '../shared';
-import { RelationshipOptions } from '../shared';
-import { Item } from '../shared';
-import { PageInfo } from '../shared';
-import { PaginatedSearchOptions } from '../shared';
-import { SearchResult } from '../shared';
-import { SearchService } from '../shared';
-import { createSuccessfulRemoteDataObject$ } from '../utilities';
-import { createPaginatedList } from '../utilities';
-import { ExternalSourceDataService } from '@dspace/core';
-import { LookupRelationService } from '@dspace/core';
-import { buildPaginatedList } from '@dspace/core';
-import { RequestService } from '@dspace/core';
+import { ExternalSource } from '../shared/external-source.model';
+import { RelationshipOptions } from '../shared/form/relationship-options.model';
+import { Item } from '../shared/item.model';
+import { PageInfo } from '../shared/page-info.model';
+import { PaginatedSearchOptions } from '../shared/paginated-search-options.model';
+import { SearchResult } from '../shared/search/models/search-result.model';
+import { SearchService } from '../shared/search/search.service';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
+import { createPaginatedList } from '../utilities/testing/utils.test';
+import { ExternalSourceDataService } from './external-source-data.service';
+import { LookupRelationService } from './lookup-relation.service';
+import { buildPaginatedList } from './paginated-list.model';
+import { RequestService } from './request.service';
 
 describe('LookupRelationService', () => {
   let service: LookupRelationService;

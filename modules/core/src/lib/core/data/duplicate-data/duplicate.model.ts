@@ -3,10 +3,10 @@ import {
   deserialize,
 } from 'cerialize';
 
-import { CacheableObject } from '@dspace/core';
-import { HALLink } from '@dspace/core';
-import { MetadataMap } from '@dspace/core';
-import { ResourceType } from '@dspace/core';
+import { CacheableObject } from '../../cache/cacheable-object.model';
+import { HALLink } from '../../shared/hal-link.model';
+import { MetadataMap } from '../../shared/metadata.models';
+import { ResourceType } from '../../shared/resource-type';
 import { DUPLICATE } from './duplicate.resource-type';
 
 /**

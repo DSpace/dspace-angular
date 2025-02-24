@@ -1,11 +1,11 @@
-import { createSuccessfulRemoteDataObject$ } from '../utilities';
-import { BaseDataService } from './base';
-import { FindListOptions } from '@dspace/core';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
+import { BaseDataService } from './base/base-data.service';
+import { FindListOptions } from './find-list-options.model';
 import {
   followLink,
   FollowLinkConfig,
-} from '@dspace/core';
-import { HrefOnlyDataService } from '@dspace/core';
+} from './follow-link-config.model';
+import { HrefOnlyDataService } from './href-only-data.service';
 
 describe(`HrefOnlyDataService`, () => {
   let service: HrefOnlyDataService;

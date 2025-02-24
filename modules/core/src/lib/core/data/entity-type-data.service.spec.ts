@@ -5,10 +5,9 @@
  *
  * http://www.dspace.org/license/
  */
-
-import { testFindAllDataImplementation } from './base';
-import { testSearchDataImplementation } from './base';
-import { EntityTypeDataService } from '@dspace/core';
+import { testFindAllDataImplementation } from './base/find-all-data.spec';
+import { testSearchDataImplementation } from './base/search-data.spec';
+import { EntityTypeDataService } from './entity-type-data.service';
 
 describe('EntityTypeDataService', () => {
   describe('composition', () => {

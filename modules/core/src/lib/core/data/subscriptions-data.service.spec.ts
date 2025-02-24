@@ -1,24 +1,24 @@
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 
-import { DSONameService } from '@dspace/core';
-import { RemoteDataBuildService } from '@dspace/core';
-import { ObjectCacheService } from '@dspace/core';
-import { DSOChangeAnalyzer } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { getMockRemoteDataBuildService } from '@dspace/core';
-import { getMockRequestService } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { HALEndpointService } from '@dspace/core';
+import { DSONameService } from '../breadcrumbs/dso-name.service';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { getMockRemoteDataBuildService } from '../mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../mocks/request.service.mock';
+import { NotificationsService } from '../notifications/notifications.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { Subscription } from '../subscription/subscription.model';
 import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
-} from '@dspace/core';
-import { HALEndpointServiceStub } from '@dspace/core';
-import { NotificationsServiceStub } from '@dspace/core';
-import { createPaginatedList } from '@dspace/core';
-import { Subscription } from '@dspace/core';
-import { SubscriptionsDataService } from '@dspace/core';
+} from '../utilities/remote-data.utils';
+import { HALEndpointServiceStub } from '../utilities/testing/hal-endpoint-service.stub';
+import { NotificationsServiceStub } from '../utilities/testing/notifications-service.stub';
+import { createPaginatedList } from '../utilities/testing/utils.test';
+import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
+import { RequestService } from './request.service';
+import { SubscriptionsDataService } from './subscriptions-data.service';
 
 describe('SubscriptionsDataService', () => {
 

@@ -1,10 +1,10 @@
-import { FilteredDiscoveryQueryResponse } from '../cache';
-import { RawRestResponse } from '@dspace/core';
-import { getMockObjectCacheService } from '../mocks';
-import { GenericConstructor } from '../shared';
-import { FilteredDiscoveryPageResponseParsingService } from '@dspace/core';
-import { ResponseParsingService } from '@dspace/core';
-import { GetRequest } from '@dspace/core';
+import { FilteredDiscoveryQueryResponse } from '../cache/response.models';
+import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+import { getMockObjectCacheService } from '../mocks/object-cache.service.mock';
+import { GenericConstructor } from '../shared/generic-constructor';
+import { FilteredDiscoveryPageResponseParsingService } from './filtered-discovery-page-response-parsing.service';
+import { ResponseParsingService } from './parsing.service';
+import { GetRequest } from './request.models';
 
 describe('FilteredDiscoveryPageResponseParsingService', () => {
   let service: FilteredDiscoveryPageResponseParsingService;

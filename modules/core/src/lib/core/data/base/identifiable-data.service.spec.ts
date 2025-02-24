@@ -8,18 +8,18 @@
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RemoteDataBuildService } from '../../cache';
-import { ObjectCacheService } from '../../cache';
-import { getMockRemoteDataBuildService } from '../../mocks';
-import { getMockRequestService } from '../../mocks';
-import { HALEndpointService } from '../../shared';
-import { HALEndpointServiceStub } from '../../utilities';
-import { followLink } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { RequestEntryState } from '@dspace/core';
-import { EMBED_SEPARATOR } from '@dspace/core';
-import { IdentifiableDataService } from '@dspace/core';
+import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../../cache/object-cache.service';
+import { getMockRemoteDataBuildService } from '../../mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../mocks/request.service.mock';
+import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { HALEndpointServiceStub } from '../../utilities/testing/hal-endpoint-service.stub';
+import { followLink } from '../follow-link-config.model';
+import { RemoteData } from '../remote-data';
+import { RequestService } from '../request.service';
+import { RequestEntryState } from '../request-entry-state.model';
+import { EMBED_SEPARATOR } from './base-data.service';
+import { IdentifiableDataService } from './identifiable-data.service';
 
 const base = 'https://rest.api/core';
 const endpoint = 'test';

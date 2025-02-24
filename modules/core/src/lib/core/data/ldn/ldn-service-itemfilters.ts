@@ -4,10 +4,10 @@ import {
   inheritSerialization,
 } from 'cerialize';
 
-import { typedObject } from '@dspace/core';
-import { CacheableObject } from '@dspace/core';
-import { ResourceType } from '@dspace/core';
-import { excludeFromEquals } from '@dspace/core';
+import { typedObject } from '../../cache/builders/build-decorators';
+import { CacheableObject } from '../../cache/cacheable-object.model';
+import { ResourceType } from '../../shared/resource-type';
+import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { LDN_SERVICE_CONSTRAINT_FILTER } from './ldn-service.resource-type';
 
 /** A single filter value and its properties. */

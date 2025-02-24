@@ -1,14 +1,14 @@
 import { of as observableOf } from 'rxjs';
 
-import { RemoteDataBuildService } from '../cache';
-import { RequestCopyEmail } from '@dspace/core';
-import { HALEndpointService } from '../shared';
-import { ItemRequest } from '../shared';
-import { createSuccessfulRemoteDataObject$ } from '../utilities';
-import { ItemRequestDataService } from '@dspace/core';
-import { PostRequest } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { RestRequestMethod } from '@dspace/core';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestCopyEmail } from '../request-copy/request-copy-email.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { ItemRequest } from '../shared/item-request.model';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
+import { ItemRequestDataService } from './item-request-data.service';
+import { PostRequest } from './request.models';
+import { RequestService } from './request.service';
+import { RestRequestMethod } from './rest-request-method';
 
 describe('ItemRequestDataService', () => {
   let service: ItemRequestDataService;

@@ -1,9 +1,9 @@
-import { ObjectCacheService } from '../cache';
-import { getMockObjectCacheService } from '../mocks';
-import { FLAT_BROWSE_DEFINITION } from '../shared';
-import { HIERARCHICAL_BROWSE_DEFINITION } from '../shared';
-import { VALUE_LIST_BROWSE_DEFINITION } from '../shared';
-import { BrowseResponseParsingService } from '@dspace/core';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { getMockObjectCacheService } from '../mocks/object-cache.service.mock';
+import { FLAT_BROWSE_DEFINITION } from '../shared/flat-browse-definition.resource-type';
+import { HIERARCHICAL_BROWSE_DEFINITION } from '../shared/hierarchical-browse-definition.resource-type';
+import { VALUE_LIST_BROWSE_DEFINITION } from '../shared/value-list-browse-definition.resource-type';
+import { BrowseResponseParsingService } from './browse-response-parsing.service';
 
 class TestService extends BrowseResponseParsingService {
   constructor(protected objectCache: ObjectCacheService) {

@@ -14,22 +14,19 @@ import {
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import {
-  INotification,
-  Notification,
-} from '@dspace/core';
-import { NotificationType } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { NoOpAction } from '../../shared';
-import { NotificationsServiceStub } from '../../utilities';
+import { INotification } from '../../notifications/models/notification.model';
+import { NotificationType } from '../../notifications/models/notification-type';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { NoOpAction } from '../../shared/ngrx/no-op.action';
+import { NotificationsServiceStub } from '../../utilities/testing/notifications-service.stub';
 import {
   DiscardObjectUpdatesAction,
   ObjectUpdatesAction,
   ReinstateObjectUpdatesAction,
   RemoveFieldUpdateAction,
   RemoveObjectUpdatesAction,
-} from '@dspace/core';
-import { ObjectUpdatesEffects } from '@dspace/core';
+} from './object-updates.actions';
+import { ObjectUpdatesEffects } from './object-updates.effects';
 
 describe('ObjectUpdatesEffects', () => {
   let updatesEffects: ObjectUpdatesEffects;

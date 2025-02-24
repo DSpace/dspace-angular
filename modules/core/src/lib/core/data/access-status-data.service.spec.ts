@@ -5,17 +5,17 @@ import {
 import { hasNoValue } from '@dspace/shared/utils';
 import { Observable } from 'rxjs';
 
-import { RemoteDataBuildService } from '../cache';
-import { ObjectCacheService } from '../cache';
-import { getMockRequestService } from '../mocks';
-import { Item } from '../shared';
-import { createSuccessfulRemoteDataObject$ } from '../utilities';
-import { HALEndpointServiceStub } from '../utilities';
-import { NotificationsServiceStub } from '../utilities';
-import { AccessStatusDataService } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
-import { GetRequest } from '@dspace/core';
-import { RequestService } from '@dspace/core';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { getMockRequestService } from '../mocks/request.service.mock';
+import { Item } from '../shared/item.model';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
+import { HALEndpointServiceStub } from '../utilities/testing/hal-endpoint-service.stub';
+import { NotificationsServiceStub } from '../utilities/testing/notifications-service.stub';
+import { AccessStatusDataService } from './access-status-data.service';
+import { RemoteData } from './remote-data';
+import { GetRequest } from './request.models';
+import { RequestService } from './request.service';
 
 const url = 'fake-url';
 

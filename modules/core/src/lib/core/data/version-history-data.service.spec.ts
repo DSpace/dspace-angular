@@ -4,20 +4,20 @@ import {
 } from '@angular/core/testing';
 import { of } from 'rxjs';
 
-import { RemoteDataBuildService } from '../cache';
-import { ObjectCacheService } from '../cache';
-import { getMockRequestService } from '../mocks';
-import { Item } from '../shared';
-import { Version } from '../shared';
-import { VersionHistory } from '../shared';
-import { createSuccessfulRemoteDataObject$ } from '../utilities';
-import { HALEndpointServiceStub } from '../utilities';
-import { NotificationsServiceStub } from '../utilities';
-import { createPaginatedList } from '../utilities';
-import { RequestService } from '@dspace/core';
-import { VersionDataService } from '@dspace/core';
-import { VersionHistoryDataService } from '@dspace/core';
 import SpyObj = jasmine.SpyObj;
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { getMockRequestService } from '../mocks/request.service.mock';
+import { Item } from '../shared/item.model';
+import { Version } from '../shared/version.model';
+import { VersionHistory } from '../shared/version-history.model';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
+import { HALEndpointServiceStub } from '../utilities/testing/hal-endpoint-service.stub';
+import { NotificationsServiceStub } from '../utilities/testing/notifications-service.stub';
+import { createPaginatedList } from '../utilities/testing/utils.test';
+import { RequestService } from './request.service';
+import { VersionDataService } from './version-data.service';
+import { VersionHistoryDataService } from './version-history-data.service';
 
 const url = 'fake-url';
 

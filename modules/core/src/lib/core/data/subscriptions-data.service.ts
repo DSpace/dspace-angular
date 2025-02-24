@@ -13,32 +13,33 @@ import {
   switchMap,
   take,
 } from 'rxjs/operators';
-import { sendRequest } from '@dspace/core';
 
-import { DSONameService } from '@dspace/core';
-import { RemoteDataBuildService } from '@dspace/core';
-import { RequestParam } from '@dspace/core';
-import { ObjectCacheService } from '@dspace/core';
-import { DeleteDataImpl } from '@dspace/core';
-import { FindAllData } from '@dspace/core';
-import { IdentifiableDataService } from '@dspace/core';
-import { SearchDataImpl } from '@dspace/core';
-import { DSOChangeAnalyzer } from '@dspace/core';
-import { FindListOptions } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { PaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
+import { DSONameService } from '../breadcrumbs/dso-name.service';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { NotificationsService } from '../notifications/notifications.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { NoContent } from '../shared/NoContent.model';
+import { getFirstCompletedRemoteData } from '../shared/operators';
+import { sendRequest } from '../shared/request.operators';
+import { Subscription } from '../subscription/subscription.model';
+import { DeleteDataImpl } from './base/delete-data';
+import { FindAllData } from './base/find-all-data';
+import { IdentifiableDataService } from './base/identifiable-data.service';
+import { SearchDataImpl } from './base/search-data';
+import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
+import { FindListOptions } from './find-list-options.model';
+import { followLink } from './follow-link-config.model';
+import { PaginatedList } from './paginated-list.model';
+import { RemoteData } from './remote-data';
 import {
   CreateRequest,
   PutRequest,
-} from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { RestRequest } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { HALEndpointService } from '@dspace/core';
-import { NoContent } from '@dspace/core';
-import { getFirstCompletedRemoteData } from '@dspace/core';
-import { Subscription } from '../subscription';
+} from './request.models';
+import { RequestService } from './request.service';
+import { RestRequest } from './rest-request.model';
+
 
 /**
  * Provides methods to retrieve subscription resources from the REST API related CRUD actions.

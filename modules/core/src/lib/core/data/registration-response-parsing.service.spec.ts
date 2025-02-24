@@ -1,6 +1,6 @@
-import { ParsedResponse } from '../cache';
-import { Registration } from '../shared';
-import { RegistrationResponseParsingService } from '@dspace/core';
+import { ParsedResponse } from '../cache/response.models';
+import { Registration } from '../shared/registration.model';
+import { RegistrationResponseParsingService } from './registration-response-parsing.service';
 
 describe('RegistrationResponseParsingService', () => {
   describe('parse', () => {

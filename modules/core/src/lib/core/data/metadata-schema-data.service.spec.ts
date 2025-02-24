@@ -1,20 +1,20 @@
 import { of as observableOf } from 'rxjs';
 
-import { RemoteDataBuildService } from '../cache';
-import { RestResponse } from '../cache';
-import { MetadataSchema } from '../metadata';
-import { getMockRemoteDataBuildService } from '../mocks';
-import { NotificationsService } from '@dspace/core';
-import { HALEndpointService } from '../shared';
-import { HALEndpointServiceStub } from '../utilities';
-import { testDeleteDataImplementation } from './base';
-import { testFindAllDataImplementation } from './base';
-import { MetadataSchemaDataService } from '@dspace/core';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RestResponse } from '../cache/response.models';
+import { MetadataSchema } from '../metadata/metadata-schema.model';
+import { getMockRemoteDataBuildService } from '../mocks/remote-data-build.service.mock';
+import { NotificationsService } from '../notifications/notifications.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { HALEndpointServiceStub } from '../utilities/testing/hal-endpoint-service.stub';
+import { testDeleteDataImplementation } from './base/delete-data.spec';
+import { testFindAllDataImplementation } from './base/find-all-data.spec';
+import { MetadataSchemaDataService } from './metadata-schema-data.service';
 import {
   CreateRequest,
   PutRequest,
-} from '@dspace/core';
-import { RequestService } from '@dspace/core';
+} from './request.models';
+import { RequestService } from './request.service';
 
 describe('MetadataSchemaDataService', () => {
   let metadataSchemaService: MetadataSchemaDataService;

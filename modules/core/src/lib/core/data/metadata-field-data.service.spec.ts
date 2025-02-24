@@ -1,21 +1,21 @@
 import { of as observableOf } from 'rxjs';
 
-import { RemoteDataBuildService } from '../cache';
-import { RequestParam } from '../cache';
-import { RestResponse } from '../cache';
-import { MetadataSchema } from '../metadata';
-import { NotificationsService } from '@dspace/core';
-import { HALEndpointService } from '../shared';
-import { createSuccessfulRemoteDataObject$ } from '../utilities';
-import { HALEndpointServiceStub } from '../utilities';
-import { createPaginatedList } from '../utilities';
-import { testCreateDataImplementation } from './base';
-import { testDeleteDataImplementation } from './base';
-import { testPutDataImplementation } from './base';
-import { testSearchDataImplementation } from './base';
-import { FindListOptions } from '@dspace/core';
-import { MetadataFieldDataService } from '@dspace/core';
-import { RequestService } from '@dspace/core';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
+import { RestResponse } from '../cache/response.models';
+import { MetadataSchema } from '../metadata/metadata-schema.model';
+import { NotificationsService } from '../notifications/notifications.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { createSuccessfulRemoteDataObject$ } from '../utilities/remote-data.utils';
+import { HALEndpointServiceStub } from '../utilities/testing/hal-endpoint-service.stub';
+import { createPaginatedList } from '../utilities/testing/utils.test';
+import { testCreateDataImplementation } from './base/create-data.spec';
+import { testDeleteDataImplementation } from './base/delete-data.spec';
+import { testPutDataImplementation } from './base/put-data.spec';
+import { testSearchDataImplementation } from './base/search-data.spec';
+import { FindListOptions } from './find-list-options.model';
+import { MetadataFieldDataService } from './metadata-field-data.service';
+import { RequestService } from './request.service';
 
 describe('MetadataFieldDataService', () => {
   let metadataFieldService: MetadataFieldDataService;

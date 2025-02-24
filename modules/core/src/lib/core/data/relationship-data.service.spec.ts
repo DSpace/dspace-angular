@@ -3,36 +3,36 @@ import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { of as observableOf } from 'rxjs';
 
-import { RemoteDataBuildService } from '../cache';
-import { ObjectCacheService } from '../cache';
-import { APP_CONFIG } from '../config';
-import { getMockRemoteDataBuildServiceHrefMap } from '../mocks';
-import { getMockRequestService } from '../mocks';
-import { HALEndpointService } from '../shared';
-import { Item } from '../shared';
-import { PAGINATED_RELATIONS_TO_ITEMS_OPERATOR } from '../shared';
-import { Relationship } from '../shared';
-import { RelationshipType } from '../shared';
-import { MetadataValue } from '../shared';
-import { MetadataRepresentationType } from '../shared';
-import { PageInfo } from '../shared';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { APP_CONFIG } from '../config/app-config.interface';
+import { getMockRemoteDataBuildServiceHrefMap } from '../mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../mocks/request.service.mock';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { Item } from '../shared/item.model';
+import { PAGINATED_RELATIONS_TO_ITEMS_OPERATOR } from '../shared/item-relationships/item-relationships-utils';
+import { Relationship } from '../shared/item-relationships/relationship.model';
+import { RelationshipType } from '../shared/item-relationships/relationship-type.model';
+import { MetadataValue } from '../shared/metadata.models';
+import { MetadataRepresentationType } from '../shared/metadata-representation/metadata-representation.model';
+import { PageInfo } from '../shared/page-info.model';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../utilities';
-import { HALEndpointServiceStub } from '../utilities';
-import { ObjectCacheServiceStub } from '../utilities';
-import { createPaginatedList } from '../utilities';
-import { testSearchDataImplementation } from './base';
-import { FindListOptions } from '@dspace/core';
-import { followLink } from '@dspace/core';
-import { ItemDataService } from '@dspace/core';
-import { buildPaginatedList } from '@dspace/core';
-import { RelationshipDataService } from '@dspace/core';
-import { DeleteRequest } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { RequestEntry } from '@dspace/core';
+} from '../utilities/remote-data.utils';
+import { HALEndpointServiceStub } from '../utilities/testing/hal-endpoint-service.stub';
+import { ObjectCacheServiceStub } from '../utilities/testing/object-cache-service.stub';
+import { createPaginatedList } from '../utilities/testing/utils.test';
+import { testSearchDataImplementation } from './base/search-data.spec';
+import { FindListOptions } from './find-list-options.model';
+import { followLink } from './follow-link-config.model';
+import { ItemDataService } from './item-data.service';
+import { buildPaginatedList } from './paginated-list.model';
+import { RelationshipDataService } from './relationship-data.service';
+import { DeleteRequest } from './request.models';
+import { RequestService } from './request.service';
+import { RequestEntry } from './request-entry.model';
 
 describe('RelationshipDataService', () => {
   let service: RelationshipDataService;

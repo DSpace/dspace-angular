@@ -4,13 +4,13 @@ import {
 } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RemoteDataBuildService } from '../cache';
-import { ObjectCacheService } from '../cache';
-import { ConfigurationProperty } from '../shared';
-import { HALEndpointService } from '../shared';
-import { ConfigurationDataService } from '@dspace/core';
-import { GetRequest } from '@dspace/core';
-import { RequestService } from '@dspace/core';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { ConfigurationProperty } from '../shared/configuration-property.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { ConfigurationDataService } from './configuration-data.service';
+import { GetRequest } from './request.models';
+import { RequestService } from './request.service';
 
 describe('ConfigurationDataService', () => {
   let scheduler: TestScheduler;

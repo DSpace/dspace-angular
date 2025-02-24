@@ -1,4 +1,4 @@
-import { ResourceType } from '@dspace/core';
+import { ResourceType } from '../../shared/resource-type';
 
 /**
  * The resource type for Duplicate preview stubs

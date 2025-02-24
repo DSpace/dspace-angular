@@ -6,29 +6,29 @@ import {
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RemoteDataBuildService } from '../cache';
-import { ObjectCacheService } from '../cache';
-import { RestResponse } from '../cache';
-import { getMockHrefOnlyDataService } from '../mocks';
-import { NotificationsService } from '@dspace/core';
-import { HALEndpointService } from '../shared';
-import { Item } from '../shared';
-import { Version } from '../shared';
-import { VersionHistory } from '../shared';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { RestResponse } from '../cache/response.models';
+import { getMockHrefOnlyDataService } from '../mocks/href-only-data.service.mock';
+import { NotificationsService } from '../notifications/notifications.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { Item } from '../shared/item.model';
+import { Version } from '../shared/version.model';
+import { VersionHistory } from '../shared/version-history.model';
 import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../utilities';
-import { testCreateDataImplementation } from './base';
-import { testDeleteDataImplementation } from './base';
-import { testFindAllDataImplementation } from './base';
-import { testPatchDataImplementation } from './base';
-import { testPutDataImplementation } from './base';
-import { testSearchDataImplementation } from './base';
-import { HrefOnlyDataService } from '@dspace/core';
-import { RequestService } from '@dspace/core';
-import { RequestEntry } from '@dspace/core';
-import { UpdateDataServiceImpl } from '@dspace/core';
+} from '../utilities/remote-data.utils';
+import { testCreateDataImplementation } from './base/create-data.spec';
+import { testDeleteDataImplementation } from './base/delete-data.spec';
+import { testFindAllDataImplementation } from './base/find-all-data.spec';
+import { testPatchDataImplementation } from './base/patch-data.spec';
+import { testPutDataImplementation } from './base/put-data.spec';
+import { testSearchDataImplementation } from './base/search-data.spec';
+import { HrefOnlyDataService } from './href-only-data.service';
+import { RequestService } from './request.service';
+import { RequestEntry } from './request-entry.model';
+import { UpdateDataServiceImpl } from './update-data.service';
 
 describe('VersionDataService test', () => {
   let scheduler: TestScheduler;

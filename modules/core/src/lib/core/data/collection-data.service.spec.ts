@@ -12,34 +12,34 @@ import {
 import { Observable } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RemoteDataBuildService } from '../cache';
-import { ObjectCacheService } from '../cache';
-import { getMockRequestService } from '../mocks';
-import { getMockTranslateService } from '../mocks';
-import { Collection } from '../shared';
-import { ContentSource } from '../shared';
-import { PageInfo } from '../shared';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { getMockRequestService } from '../mocks/request.service.mock';
+import { getMockTranslateService } from '../mocks/translate.service.mock';
+import { Collection } from '../shared/collection.model';
+import { ContentSource } from '../shared/content-source.model';
+import { PageInfo } from '../shared/page-info.model';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../utilities';
-import { HALEndpointServiceStub } from '../utilities';
-import { NotificationsServiceStub } from '../utilities';
-import { ObjectCacheServiceStub } from '../utilities';
-import { testCreateDataImplementation } from './base';
-import { testDeleteDataImplementation } from './base';
-import { testFindAllDataImplementation } from './base';
-import { testPatchDataImplementation } from './base';
-import { testSearchDataImplementation } from './base';
-import { CollectionDataService } from '@dspace/core';
-import { buildPaginatedList } from '@dspace/core';
-import { RemoteData } from '@dspace/core';
+} from '../utilities/remote-data.utils';
+import { HALEndpointServiceStub } from '../utilities/testing/hal-endpoint-service.stub';
+import { NotificationsServiceStub } from '../utilities/testing/notifications-service.stub';
+import { ObjectCacheServiceStub } from '../utilities/testing/object-cache-service.stub';
+import { testCreateDataImplementation } from './base/create-data.spec';
+import { testDeleteDataImplementation } from './base/delete-data.spec';
+import { testFindAllDataImplementation } from './base/find-all-data.spec';
+import { testPatchDataImplementation } from './base/patch-data.spec';
+import { testSearchDataImplementation } from './base/search-data.spec';
+import { CollectionDataService } from './collection-data.service';
+import { buildPaginatedList } from './paginated-list.model';
+import { RemoteData } from './remote-data';
 import {
   ContentSourceRequest,
   UpdateContentSourceRequest,
-} from '@dspace/core';
-import { RequestService } from '@dspace/core';
+} from './request.models';
+import { RequestService } from './request.service';
 
 const url = 'fake-url';
 const collectionId = 'fake-collection-id';

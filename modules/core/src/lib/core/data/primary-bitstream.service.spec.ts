@@ -1,30 +1,30 @@
 import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { RemoteDataBuildService } from '../cache';
-import { ObjectCacheService } from '../cache';
-import { getMockRemoteDataBuildService } from '../mocks';
-import { getMockRequestService } from '../mocks';
-import { NotificationsService } from '@dspace/core';
-import { Bitstream } from '../shared';
-import { Bundle } from '../shared';
-import { HALEndpointService } from '../shared';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { getMockRemoteDataBuildService } from '../mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../mocks/request.service.mock';
+import { NotificationsService } from '../notifications/notifications.service';
+import { Bitstream } from '../shared/bitstream.model';
+import { Bundle } from '../shared/bundle.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import {
   createFailedRemoteDataObject,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
-} from '../utilities';
-import { HALEndpointServiceStub } from '../utilities';
-import { NotificationsServiceStub } from '../utilities';
-import { BundleDataService } from '@dspace/core';
-import { PrimaryBitstreamService } from '@dspace/core';
+} from '../utilities/remote-data.utils';
+import { HALEndpointServiceStub } from '../utilities/testing/hal-endpoint-service.stub';
+import { NotificationsServiceStub } from '../utilities/testing/notifications-service.stub';
+import { BundleDataService } from './bundle-data.service';
+import { PrimaryBitstreamService } from './primary-bitstream.service';
 import {
   CreateRequest,
   DeleteRequest,
   PostRequest,
   PutRequest,
-} from '@dspace/core';
-import { RequestService } from '@dspace/core';
+} from './request.models';
+import { RequestService } from './request.service';
 
 describe('PrimaryBitstreamService', () => {
   let service: PrimaryBitstreamService;

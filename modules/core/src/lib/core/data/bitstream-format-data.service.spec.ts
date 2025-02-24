@@ -14,23 +14,23 @@ import {
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { RemoteDataBuildService } from '../cache';
-import { ObjectCacheService } from '../cache';
-import { RestResponse } from '../cache';
-import { CoreState } from '@dspace/core';
-import { NotificationsService } from '@dspace/core';
-import { BitstreamFormat } from '../shared';
-import { HALEndpointService } from '../shared';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { RestResponse } from '../cache/response.models';
+import { CoreState } from '../core-state.model';
+import { NotificationsService } from '../notifications/notifications.service';
+import { BitstreamFormat } from '../shared/bitstream-format.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import {
   BitstreamFormatsRegistryDeselectAction,
   BitstreamFormatsRegistryDeselectAllAction,
   BitstreamFormatsRegistrySelectAction,
-} from '../states';
-import { createSuccessfulRemoteDataObject } from '../utilities';
-import { testDeleteDataImplementation } from './base';
-import { testFindAllDataImplementation } from './base';
-import { BitstreamFormatDataService } from '@dspace/core';
-import { RequestEntry } from '@dspace/core';
+} from '../states/bitstream-format/bitstream-format.actions';
+import { createSuccessfulRemoteDataObject } from '../utilities/remote-data.utils';
+import { testDeleteDataImplementation } from './base/delete-data.spec';
+import { testFindAllDataImplementation } from './base/find-all-data.spec';
+import { BitstreamFormatDataService } from './bitstream-format-data.service';
+import { RequestEntry } from './request-entry.model';
 
 describe('BitstreamFormatDataService', () => {
   let service: BitstreamFormatDataService;

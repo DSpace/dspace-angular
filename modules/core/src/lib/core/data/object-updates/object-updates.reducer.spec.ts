@@ -1,8 +1,8 @@
 // eslint-disable-next-line import/no-namespace
 import * as deepFreeze from 'deep-freeze';
 
-import { Relationship } from '../../shared';
-import { FieldChangeType } from '@dspace/core';
+import { Relationship } from '../../shared/item-relationships/relationship.model';
+import { FieldChangeType } from './field-change-type.model';
 import {
   AddFieldUpdateAction,
   DiscardObjectUpdatesAction,
@@ -14,12 +14,12 @@ import {
   SelectVirtualMetadataAction,
   SetEditableFieldUpdateAction,
   SetValidFieldUpdateAction,
-} from '@dspace/core';
+} from './object-updates.actions';
 import {
   OBJECT_UPDATES_TRASH_PATH,
   objectUpdatesReducer,
   ObjectUpdatesState,
-} from '@dspace/core';
+} from './object-updates.reducer';
 
 class NullAction extends RemoveFieldUpdateAction {
   type = null;
