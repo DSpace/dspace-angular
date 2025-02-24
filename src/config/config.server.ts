@@ -252,13 +252,13 @@ export const buildAppConfig = (destConfigPath?: string, mapping?: ServerHashedFi
   return appConfig;
 };
 
-export const setupEndpointPrefetching = async (appConfig: AppConfig, destConfigPath: string, env: any): Promise<void> => {
-  await prefetchResponses(appConfig, destConfigPath, env);
+export const setupEndpointPrefetching = async (appConfig: AppConfig, destConfigPath: string, env: any, hfm: ServerHashedFileMapping): Promise<void> => {
+  await prefetchResponses(appConfig, destConfigPath, env, hfm);
 
-  setInterval(() => void prefetchResponses(appConfig, destConfigPath, env), appConfig.prefetch.refreshInterval);
+  setInterval(() => void prefetchResponses(appConfig, destConfigPath, env, hfm), appConfig.prefetch.refreshInterval);
 };
 
-export const prefetchResponses = async (appConfig: AppConfig, destConfigPath: string, env: any): Promise<void> => {
+export const prefetchResponses = async (appConfig: AppConfig, destConfigPath: string, env: any, hfm: ServerHashedFileMapping): Promise<void> => {
   console.info('Prefetching endpoint maps');
   const restConfig = appConfig.rest;
   const prefetchConfig = appConfig.prefetch;
@@ -288,6 +288,8 @@ export const prefetchResponses = async (appConfig: AppConfig, destConfigPath: st
 
   prefetchConfig.bootstrap = mapping;
 
+  const content = JSON.stringify(appConfig, null, 2);
   extendEnvironmentWithAppConfig(env, appConfig, false);
-  writeFileSync(destConfigPath, JSON.stringify(appConfig, null, 2));
+  hfm.add(destConfigPath, content, true);
+  hfm.save();
 };

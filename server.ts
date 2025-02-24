@@ -617,7 +617,7 @@ function healthCheck(req, res) {
 declare const __non_webpack_require__: NodeRequire;
 const mainModule = __non_webpack_require__.main;
 const moduleFilename = (mainModule && mainModule.filename) || '';
-setupEndpointPrefetching(appConfig, destConfigPath, environment).then(() => {
+setupEndpointPrefetching(appConfig, destConfigPath, environment, hashedFileMapping).then(() => {
   if (moduleFilename === __filename || moduleFilename.includes('iisnode')) {
     start();
   }
