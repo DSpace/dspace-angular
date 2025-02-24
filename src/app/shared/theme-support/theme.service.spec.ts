@@ -47,10 +47,6 @@ class MockLinkService {
   }
 }
 
-const mockHashedFileMapping = {
-  resolve: (path: string) => path,
-};
-
 describe('ThemeService', () => {
   let themeService: ThemeService;
   let linkService: LinkService;
@@ -101,10 +97,6 @@ describe('ThemeService', () => {
         provideMockActions(() => mockActions),
         { provide: DSpaceObjectDataService, useValue: mockDsoService },
         { provide: Router, useValue: new RouterMock() },
-        {
-          provide: HashedFileMapping,
-          useValue: mockHashedFileMapping,
-        },
       ]
     });
 
@@ -402,10 +394,6 @@ describe('ThemeService', () => {
           provideMockStore({ initialState }),
           { provide: DSpaceObjectDataService, useValue: mockDsoService },
           { provide: Router, useValue: new RouterMock() },
-          {
-            provide: HashedFileMapping,
-            useValue: mockHashedFileMapping,
-          },
         ]
       });
 
