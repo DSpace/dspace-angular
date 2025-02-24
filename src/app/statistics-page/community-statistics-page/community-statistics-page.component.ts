@@ -26,6 +26,8 @@ export class CommunityStatisticsPageComponent extends StatisticsPageDirective<Co
   types: string[] = [
     'TotalVisits',
     'TotalVisitsPerMonth',
+    'TopItems',
+    'TotalDownloads',
     'TopCountries',
     'TopCities',
   ];
