@@ -15,7 +15,8 @@
            (deselectObject)="deselectObject.emit($event)"
            (selectObject)="selectObject.emit($event)">
   <div additionalSearchOptions *ngIf="repeatable" class="position-absolute">
-    <div ngbDropdown class="input-group mb-3">
+    <div class="input-group mb-3">
+      <div ngbDropdown class="input-group dropdown-button">
         <button *ngIf="selectAllLoading" type="button"
                 class="btn btn-outline-secondary rounded-end">
                             <span class="spinner-border spinner-border-sm" role="status"
@@ -38,4 +39,6 @@
         </div>
       </div>
     </div>
+  </div>
+
 </ds-search>
