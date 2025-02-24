@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../../environments/environment';
+import { hasValue } from '../../shared/empty.util';
+import { getClassForObject } from '../cache/builders/build-decorators';
+import { CacheableObject } from '../cache/cacheable-object.model';
+import { ParsedResponse } from '../cache/response.models';
+import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+import { DSpaceObject } from '../shared/dspace-object.model';
+import { GenericConstructor } from '../shared/generic-constructor';
 
 import {
   DspaceRestResponseParsingService,
-  isCacheableObject
+  isCacheableObject,
 } from './dspace-rest-response-parsing.service';
-import { hasValue } from '../../shared/empty.util';
-import { getClassForType } from '../cache/builders/build-decorators';
-import { GenericConstructor } from '../shared/generic-constructor';
-import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
-import { ParsedResponse } from '../cache/response.models';
-import { DSpaceObject } from '../shared/dspace-object.model';
-import { environment } from '../../../environments/environment';
-import { CacheableObject } from '../cache/cacheable-object.model';
 import { RestRequest } from './rest-request.model';
 
 /**
@@ -42,7 +42,7 @@ export class EndpointMapResponseParsingService extends DspaceRestResponseParsing
         const type: string = processRequestDTO.type;
         let objConstructor;
         if (hasValue(type)) {
-          objConstructor = getClassForType(type);
+          objConstructor = getClassForObject(processRequestDTO);
         }
 
         if (isCacheableObject(processRequestDTO) && hasValue(objConstructor)) {
@@ -73,7 +73,7 @@ export class EndpointMapResponseParsingService extends DspaceRestResponseParsing
   protected deserialize<ObjectDomain>(obj): any {
     const type: string = obj.type;
     if (hasValue(type)) {
-      const objConstructor = getClassForType(type) as GenericConstructor<ObjectDomain>;
+      const objConstructor = getClassForObject(obj) as GenericConstructor<ObjectDomain>;
 
       if (hasValue(objConstructor)) {
         const serializer = new this.serializerConstructor(objConstructor);

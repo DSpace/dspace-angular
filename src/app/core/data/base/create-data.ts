@@ -5,22 +5,30 @@
  *
  * http://www.dspace.org/license/
  */
-import { CacheableObject } from '../../cache/cacheable-object.model';
-import { BaseDataService } from './base-data.service';
-import { RequestParam } from '../../cache/models/request-param.model';
 import { Observable } from 'rxjs';
-import { RemoteData } from '../remote-data';
-import { hasValue, isNotEmptyOperator } from '../../../shared/empty.util';
-import { distinctUntilChanged, map, take, takeWhile } from 'rxjs/operators';
-import { DSpaceSerializer } from '../../dspace-rest/dspace.serializer';
-import { getClassForType } from '../../cache/builders/build-decorators';
-import { CreateRequest } from '../request.models';
+import {
+  distinctUntilChanged,
+  map,
+  take,
+  takeWhile,
+} from 'rxjs/operators';
+import {
+  hasValue,
+  isNotEmptyOperator,
+} from '../../../shared/empty.util';
 import { NotificationOptions } from '../../../shared/notifications/models/notification-options.model';
-import { RequestService } from '../request.service';
-import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { getClassForObject } from '../../cache/builders/build-decorators';
+import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
+import { CacheableObject } from '../../cache/cacheable-object.model';
+import { RequestParam } from '../../cache/models/request-param.model';
 import { ObjectCacheService } from '../../cache/object-cache.service';
+import { DSpaceSerializer } from '../../dspace-rest/dspace.serializer';
+import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { RemoteData } from '../remote-data';
+import { CreateRequest } from '../request.models';
+import { RequestService } from '../request.service';
+import { BaseDataService } from './base-data.service';
 
 /**
  * Interface for a data service that can create objects.
@@ -78,7 +86,7 @@ export class CreateDataImpl<T extends CacheableObject> extends BaseDataService<T
    */
   createOnEndpoint(object: T, endpoint$: Observable<string>): Observable<RemoteData<T>> {
     const requestId = this.requestService.generateRequestId();
-    const serializedObject = new DSpaceSerializer(getClassForType(object.type)).serialize(object);
+    const serializedObject = new DSpaceSerializer(getClassForObject(object)).serialize(object);
 
     endpoint$.pipe(
       take(1),

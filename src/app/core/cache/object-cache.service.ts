@@ -10,7 +10,7 @@ import { coreSelector } from '../core.selectors';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { selfLinkFromAlternativeLinkSelector, selfLinkFromUuidSelector } from '../index/index.selectors';
 import { GenericConstructor } from '../shared/generic-constructor';
-import { getClassForType } from './builders/build-decorators';
+import { getClassForObject } from './builders/build-decorators';
 import { LinkService } from './builders/link.service';
 import { AddDependentsObjectCacheAction, AddPatchObjectCacheAction, AddToObjectCacheAction, ApplyPatchObjectCacheAction, RemoveDependentsObjectCacheAction, RemoveFromObjectCacheAction } from './object-cache.actions';
 
@@ -139,7 +139,7 @@ export class ObjectCacheService {
         }
       ),
       map((entry: ObjectCacheEntry) => {
-        const type: GenericConstructor<T> = getClassForType((entry.data as any).type);
+        const type: GenericConstructor<T> = getClassForObject(entry.data as any);
         if (typeof type !== 'function') {
           throw new Error(`${type} is not a valid constructor for ${JSON.stringify(entry.data)}`);
         }
