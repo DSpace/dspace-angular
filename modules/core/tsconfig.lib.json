@@ -5,7 +5,11 @@
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
-    "types": []
+    "resolveJsonModule": true,
+    "types": [
+      "node",
+      "grecaptcha"
+    ]
   },
   "exclude": [
     "src/**/*.spec.ts",
