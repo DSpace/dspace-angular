@@ -15,7 +15,7 @@ import { BrowserHashedFileMapping } from './modules/dynamic-hash/hashed-file-map
 
 /*const bootstrap = () => platformBrowserDynamic()
   .bootstrapModule(BrowserAppModule, {});*/
-const hashedFileMapping = new BrowserHashedFileMapping();
+const hashedFileMapping = new BrowserHashedFileMapping(document);
 const bootstrap = () => bootstrapApplication(AppComponent, browserAppConfig);
 
 /**

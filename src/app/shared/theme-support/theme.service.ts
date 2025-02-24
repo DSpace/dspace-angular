@@ -39,6 +39,7 @@ import {
   ThemeConfig,
 } from '../../../config/theme.config';
 import { environment } from '../../../environments/environment';
+import { HashedFileMapping } from '../../../modules/dynamic-hash/hashed-file-mapping';
 import { LinkService } from '../../core/cache/builders/link.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { RemoteData } from '../../core/data/remote-data';
@@ -103,6 +104,7 @@ export class ThemeService {
     @Inject(GET_THEME_CONFIG_FOR_FACTORY) private gtcf: (str) => ThemeConfig,
     private router: Router,
     @Inject(DOCUMENT) private document: any,
+    private hashedFileMapping: HashedFileMapping,
   ) {
     // Create objects from the theme configs in the environment file
     this.themes = environment.themes.map((themeConfig: ThemeConfig) => themeFactory(themeConfig, injector));
@@ -228,7 +230,10 @@ export class ThemeService {
     link.setAttribute('rel', 'stylesheet');
     link.setAttribute('type', 'text/css');
     link.setAttribute('class', 'theme-css');
-    link.setAttribute('href', `${encodeURIComponent(themeName)}-theme.css`);
+    link.setAttribute(
+      'href',
+      this.hashedFileMapping.resolve(`${encodeURIComponent(themeName)}-theme.css`),
+    );
     // wait for the new css to download before removing the old one to prevent a
     // flash of unstyled content
     link.onload = () => {
