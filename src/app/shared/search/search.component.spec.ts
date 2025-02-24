@@ -198,7 +198,7 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
     getConfigurationSearchConfig: observableOf(searchConfig),
     getCurrentConfiguration: observableOf('default'),
     getCurrentScope: observableOf('test-id'),
-    getCurrentSort: observableOf(sortOptionsList[0]),
+    getCurrentSort: observableOf(sortOptionsList[1]),
     updateFixedFilter: jasmine.createSpy('updateFixedFilter'),
     setPaginationId: jasmine.createSpy('setPaginationId'),
   });
@@ -299,13 +299,13 @@ describe('SearchComponent', () => {
     const expectedSearchOptions = Object.assign(paginatedSearchOptions$.value, {
       configuration: 'default',
       scope: '',
-      sort: sortOptionsList[0],
+      sort: sortOptionsList[1],
     });
     expect(comp.currentConfiguration$).toBeObservable(cold('b', {
       b: 'default',
     }));
     expect(comp.currentSortOptions$).toBeObservable(cold('b', {
-      b: sortOptionsList[0],
+      b: sortOptionsList[1],
     }));
     expect(comp.sortOptionsList$).toBeObservable(cold('b', {
       b: sortOptionsList,

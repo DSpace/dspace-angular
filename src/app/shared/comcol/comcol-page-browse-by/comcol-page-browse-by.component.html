@@ -5,12 +5,12 @@
     <div class="list-group list-group-horizontal" role="tablist">
       <a *ngFor="let option of allOptions"
          [attr.aria-current]="(currentOption$ | async)?.id === option.id"
-         class="list-group-item"
+         class="d-flex list-group-item"
          role="tab"
          [routerLink]="option.routerLink"
          [queryParams]="option.params"
          [class.active]="(currentOption$ | async)?.id === option.id">
-        {{ option.label | translate }}
+        <span class="my-auto">{{ option.label | translate }}</span>
       </a>
     </div>
   </div>
