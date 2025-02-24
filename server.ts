@@ -52,6 +52,7 @@ import { ServerAppModule } from './src/main.server';
 import { buildAppConfig, setupEndpointPrefetching } from './src/config/config.server';
 import { APP_CONFIG, AppConfig } from './src/config/app-config.interface';
 import { extendEnvironmentWithAppConfig } from './src/config/config.util';
+import { ServerHashedFileMapping } from './src/modules/dynamic-hash/hashed-file-mapping.server';
 import { logStartupMessage } from './startup-message';
 import { TOKENITEM } from './src/app/core/auth/models/auth-token-info.model';
 
@@ -68,7 +69,10 @@ const indexHtml = join(DIST_FOLDER, 'index.html');
 const cookieParser = require('cookie-parser');
 
 const destConfigPath = join(DIST_FOLDER, 'assets/config.json');
-const appConfig: AppConfig = buildAppConfig(destConfigPath);
+const hashedFileMapping = new ServerHashedFileMapping(DIST_FOLDER, 'index.html');
+const appConfig: AppConfig = buildAppConfig(destConfigPath, hashedFileMapping);
+hashedFileMapping.addThemeStyles();
+hashedFileMapping.save();
 
 // cache of SSR pages for known bots, only enabled in production mode
 let botCache: LRU<string, any>;
@@ -257,7 +261,7 @@ function ngApp(req, res) {
  */
 function serverSideRender(req, res, sendToUser: boolean = true) {
   // Render the page via SSR (server side rendering)
-  res.render(indexHtml, {
+  res.render(hashedFileMapping.resolve(indexHtml), {
     req,
     res,
     preboot: environment.universal.preboot,
@@ -299,7 +303,7 @@ function serverSideRender(req, res, sendToUser: boolean = true) {
  * @param res current response
  */
 function clientSideRender(req, res) {
-  res.sendFile(indexHtml);
+  res.sendFile(hashedFileMapping.resolve(indexHtml));
 }
 
 
