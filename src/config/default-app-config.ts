@@ -18,6 +18,7 @@ import { HomeConfig } from './homepage-config.interface';
 import { InfoConfig } from './info-config.interface';
 import { ItemConfig } from './item-config.interface';
 import { LangConfig } from './lang-config.interface';
+import { LoggingConfig } from './logging-config.interface';
 import { MarkdownConfig } from './markdown-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
@@ -599,4 +600,5 @@ export class DefaultAppConfig implements AppConfig {
     messageTimeOutDurationMs: 30000,
     isVisible: false,
   };
+  logging: LoggingConfig;
 }
