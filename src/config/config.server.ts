@@ -243,7 +243,7 @@ export const buildAppConfig = (destConfigPath?: string, mapping?: ServerHashedFi
 
     writeFileSync(destConfigPath, content);
     if (mapping !== undefined) {
-      mapping.add(destConfigPath, content);
+      mapping.add(destConfigPath, content, true);
     }
 
     console.log(`Angular ${bold('config.json')} file generated correctly at ${bold(destConfigPath)} \n`);
