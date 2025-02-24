@@ -28,6 +28,12 @@ export class AccessStatusObject implements CacheableObject {
   status: string;
 
   /**
+   * The embargo date value
+   */
+  @autoserialize
+  embargoDate: string;
+
+  /**
    * The {@link HALLink}s for this AccessStatusObject
    */
    @deserialize
