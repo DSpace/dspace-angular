@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
@@ -6,10 +7,15 @@ import {
 } from '@angular/core/testing';
 import { UntypedFormBuilder } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import {
+  provideRouter,
+  Router,
+} from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { RequestService } from '../../../core/data/request.service';
@@ -17,6 +23,7 @@ import { SearchService } from '../../../core/shared/search/search.service';
 import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
 import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
 import { PoolTaskDataService } from '../../../core/tasks/pool-task-data.service';
+import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { SelectableListService } from '../../../shared/object-list/selectable-list/selectable-list.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
@@ -53,9 +60,18 @@ describe('MyDSpaceBulkActionComponent test suite', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
-      declarations: [MyDSpaceBulkActionComponent],
+      imports: [
+        CommonModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
+        }),
+        MyDSpaceBulkActionComponent,
+      ],
       providers: [
+        provideRouter([]),
         { provide: SelectableListService, useValue: selectableListService },
         { provide: RequestService, useValue: requestService },
         { provide: PoolTaskDataService, useValue: poolTaskService },
