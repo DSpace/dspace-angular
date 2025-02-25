@@ -6382,6 +6382,8 @@
 
   "request-status-alert-box.rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been rejected.",
 
+  "request-status-alert-box.tentative_rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been tentatively rejected. Revisions are required.",
+
   "request-status-alert-box.requested": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> is pending.",
 
   "ldn-service-button-mark-inbound-deletion": "Mark supported pattern for deletion",
