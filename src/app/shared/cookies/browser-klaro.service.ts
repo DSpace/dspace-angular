@@ -16,6 +16,7 @@ import { deepClone, Operation } from 'fast-json-patch';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { CAPTCHA_NAME } from '../../core/google-recaptcha/google-recaptcha.service';
+import { NativeWindowRef, NativeWindowService, } from '../../core/services/window.service';
 import isEqual from 'lodash/isEqual';
 
 /**
@@ -96,6 +97,7 @@ export class BrowserKlaroService extends KlaroService {
     private configService: ConfigurationDataService,
     private cookieService: CookieService,
     @Inject(LAZY_KLARO) private lazyKlaro: Promise<any>,
+    @Inject(NativeWindowService) private _window: NativeWindowRef,
   ) {
     super();
   }
@@ -189,7 +191,11 @@ export class BrowserKlaroService extends KlaroService {
          */
         this.translateConfiguration();
 
-        this.klaroConfig.services = this.filterConfigServices(servicesToHide);
+        if (this._window?.nativeWindow?.Cypress) {
+          this.klaroConfig.services = [];
+        } else {
+          this.klaroConfig.services = this.filterConfigServices(servicesToHide);
+        }
         this.lazyKlaro.then(({ setup }) => {
           setup(this.klaroConfig);
           this.initialized = true;
