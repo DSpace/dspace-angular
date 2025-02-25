@@ -44,4 +44,5 @@ export default defineConfig({
     // (By default we set this to a value which should work in most development environments)
     baseUrl: 'http://localhost:4000',
   },
+  defaultCommandTimeout: 10000,
 });
