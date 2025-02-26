@@ -1,7 +1,10 @@
+import { isPlatformBrowser } from '@angular/common';
 import {
   Component,
+  Inject,
   OnDestroy,
   OnInit,
+  PLATFORM_ID,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -44,6 +47,11 @@ import { ThemedLogInComponent } from '../shared/log-in/themed-log-in.component';
 export class LoginPageComponent implements OnDestroy, OnInit {
 
   /**
+   * Whether a platform id represents a browser platform.
+   */
+  isPlatformBrowser: boolean;
+
+  /**
    * Subscription to unsubscribe onDestroy
    * @type {Subscription}
    */
@@ -52,38 +60,46 @@ export class LoginPageComponent implements OnDestroy, OnInit {
   /**
    * Initialize instance variables
    *
+   * @param {PLATFORM_ID} platformId
    * @param {ActivatedRoute} route
    * @param {Store<AppState>} store
    */
-  constructor(private route: ActivatedRoute,
-              private store: Store<AppState>) {}
+  constructor(
+    @Inject(PLATFORM_ID) protected platformId: string,
+    private route: ActivatedRoute,
+    private store: Store<AppState>,
+  ) {
+    this.isPlatformBrowser = isPlatformBrowser(this.platformId);
+  }
 
   /**
    * Initialize instance variables
    */
   ngOnInit() {
-    const queryParamsObs = this.route.queryParams;
-    const authenticated = this.store.select(isAuthenticated);
-    this.sub = observableCombineLatest(queryParamsObs, authenticated).pipe(
-      filter(([params, auth]) => isNotEmpty(params.token) || isNotEmpty(params.expired)),
-      take(1),
-    ).subscribe(([params, auth]) => {
-      const token = params.token;
-      let authToken: AuthTokenInfo;
-      if (!auth) {
-        if (isNotEmpty(token)) {
-          authToken = new AuthTokenInfo(token);
-          this.store.dispatch(new AuthenticatedAction(authToken));
-        } else if (isNotEmpty(params.expired)) {
-          this.store.dispatch(new AddAuthenticationMessageAction('auth.messages.expired'));
+    if (this.isPlatformBrowser) {
+      const queryParamsObs = this.route.queryParams;
+      const authenticated = this.store.select(isAuthenticated);
+      this.sub = observableCombineLatest([queryParamsObs, authenticated]).pipe(
+        filter(([params, auth]) => isNotEmpty(params.token) || isNotEmpty(params.expired)),
+        take(1),
+      ).subscribe(([params, auth]) => {
+        const token = params.token;
+        let authToken: AuthTokenInfo;
+        if (!auth) {
+          if (isNotEmpty(token)) {
+            authToken = new AuthTokenInfo(token);
+            this.store.dispatch(new AuthenticatedAction(authToken));
+          } else if (isNotEmpty(params.expired)) {
+            this.store.dispatch(new AddAuthenticationMessageAction('auth.messages.expired'));
+          }
+        } else {
+          if (isNotEmpty(token)) {
+            authToken = new AuthTokenInfo(token);
+            this.store.dispatch(new AuthenticationSuccessAction(authToken));
+          }
         }
-      } else {
-        if (isNotEmpty(token)) {
-          authToken = new AuthTokenInfo(token);
-          this.store.dispatch(new AuthenticationSuccessAction(authToken));
-        }
-      }
-    });
+      });
+    }
   }
 
   /**
