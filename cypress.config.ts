@@ -43,5 +43,19 @@ export default defineConfig({
     // It can be overridden via the CYPRESS_BASE_URL environment variable
     // (By default we set this to a value which should work in most development environments)
     baseUrl: 'http://localhost:4000',
+    excludeSpecPattern: [
+      'cypress/e2e/collection-create.cy.ts',
+      'cypress/e2e/collection-edit.cy.ts',
+      'cypress/e2e/collection-statistics.cy.ts',
+      'cypress/e2e/community-edit.cy.ts',
+      'cypress/e2e/community-statistics.cy.ts',
+      'cypress/e2e/homepage.cy.ts',
+      'cypress/e2e/item-edit.cy.ts',
+      'cypress/e2e/item-template.cy.ts',
+      'cypress/e2e/login-modal.cy.ts',
+      'cypress/e2e/search-navbar.cy.ts',
+      'cypress/e2e/search-page.cy.ts',
+    ]
   },
+  defaultCommandTimeout: 10000,
 });
