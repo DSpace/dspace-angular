@@ -2852,6 +2852,8 @@
 
   "item.preview.person.identifier.orcid": "ORCID:",
 
+  "item.preview.person.affiliation.name": "Affiliations:",
+
   "item.preview.project.funder.name": "Funder:",
 
   "item.preview.project.funder.identifier": "Funder Identifier:",
@@ -2879,6 +2881,14 @@
   "item.preview.organization.legalName": "Legal Name",
 
   "item.preview.dspace.entity.type": "Entity Type:",
+
+  "item.preview.creativework.publisher": "Publisher",
+
+  "item.preview.creativeworkseries.issn": "ISSN",
+
+  "item.preview.dc.identifier.openalex": "OpenAlex Identifier",
+
+  "item.preview.dc.description": "Description",
 
   "item.select.confirm": "Confirm selected",
 
@@ -4845,6 +4855,14 @@
   "submission.import-external.source.openalexPublicationByAuthorId": "OpenAlex Search by Author ID",
 
   "submission.import-external.source.openalexPerson": "OpenAlex Search by name",
+
+  "submission.import-external.source.openalexJournal": "OpenAlex Journals",
+
+  "submission.import-external.source.openalexInstitution": "OpenAlex Institutions",
+
+  "submission.import-external.source.openalexPublisher": "OpenAlex Publishers",
+
+  "submission.import-external.source.openalexFunder": "OpenAlex Funders",
 
   "submission.import-external.preview.title": "Item Preview",
 
