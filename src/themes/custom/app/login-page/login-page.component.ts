@@ -3,6 +3,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ThemedLogInComponent } from 'src/app/shared/log-in/themed-log-in.component';
 
 import { LoginPageComponent as BaseComponent } from '../../../../app/login-page/login-page.component';
+import { ThemedLoadingComponent } from '../../../../app/shared/loading/themed-loading.component';
 
 /**
  * This component represents the login page
@@ -14,7 +15,7 @@ import { LoginPageComponent as BaseComponent } from '../../../../app/login-page/
   // templateUrl: './login-page.component.html'
   templateUrl: '../../../../app/login-page/login-page.component.html',
   standalone: true,
-  imports: [ThemedLogInComponent, TranslateModule],
+  imports: [ThemedLoadingComponent, ThemedLogInComponent, TranslateModule],
 })
 export class LoginPageComponent extends BaseComponent {
 }
