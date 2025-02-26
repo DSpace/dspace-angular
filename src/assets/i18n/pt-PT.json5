@@ -10378,13 +10378,13 @@
 
   // "search.filters.access_status.restricted": "Restricted access",
   "search.filters.access_status.restricted": "Acesso restrito",
-  
+
   // "search.filters.access_status.embargo": "Embargoed access",
   "search.filters.access_status.embargo": "Acesso embargado",
-  
+
   // "search.filters.access_status.metadata.only": "Metadata only",
   "search.filters.access_status.metadata.only": "Apenas metadados",
-  
+
   // "search.filters.access_status.unknown": "Unknown",
   "search.filters.access_status.unknown": "Desconhecido",
 
