@@ -199,7 +199,6 @@ export class HeadTagService {
     // this.setCitationIssueTag();
     // this.setCitationFirstPageTag();
     // this.setCitationLastPageTag();
-    // this.setCitationDOITag();
     // this.setCitationPMIDTag();
 
     // this.setCitationFullTextTag();
