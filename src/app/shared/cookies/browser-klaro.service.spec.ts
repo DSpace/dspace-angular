@@ -5,6 +5,8 @@ import clone from 'lodash/clone';
 import cloneDeep from 'lodash/cloneDeep';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
+import { NativeWindowService } from '../../core/services/window.service';
+import { NativeWindowMockFactory } from '../mocks/mock-native-window-ref';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { RestResponse } from '../../core/cache/response.models';
@@ -79,6 +81,10 @@ describe('BrowserKlaroService', () => {
     TestBed.configureTestingModule({
       providers: [
         BrowserKlaroService,
+        {
+          provide: NativeWindowService,
+          useFactory: NativeWindowMockFactory
+        },
         {
           provide: TranslateService,
           useValue: translateService,
