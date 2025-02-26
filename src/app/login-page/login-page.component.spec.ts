@@ -17,6 +17,7 @@ import { of as observableOf } from 'rxjs';
 import { APP_DATA_SERVICES_MAP } from '../../config/app-config.interface';
 import { AuthService } from '../core/auth/auth.service';
 import { XSRFService } from '../core/xsrf/xsrf.service';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { ThemedLogInComponent } from '../shared/log-in/themed-log-in.component';
 import { AuthServiceMock } from '../shared/mocks/auth.service.mock';
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
@@ -52,7 +53,7 @@ describe('LoginPageComponent', () => {
           provideMockStore({}),
         ],
         schemas: [NO_ERRORS_SCHEMA],
-      }).compileComponents();
+      }).overrideComponent(LoginPageComponent, { remove: { imports: [ThemedLoadingComponent, ThemedLogInComponent] } }).compileComponents();
     }));
 
     beforeEach(() => {
@@ -69,20 +70,22 @@ describe('LoginPageComponent', () => {
     });
   });
 
-  describe('when platform is browser', () => {
+  describe('when platform is server', () => {
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
         imports: [
           TranslateModule.forRoot(),
+          LoginPageComponent,
         ],
-        declarations: [LoginPageComponent],
         providers: [
           { provide: ActivatedRoute, useValue: activatedRouteStub },
           { provide: Store, useValue: store },
           { provide: PLATFORM_ID, useValue: 'server' },
+          { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+          provideMockStore({}),
         ],
         schemas: [NO_ERRORS_SCHEMA],
-      }).overrideComponent(LoginPageComponent, { remove: { imports: [ThemedLogInComponent] } }).compileComponents();
+      }).overrideComponent(LoginPageComponent, { remove: { imports: [ThemedLoadingComponent, ThemedLogInComponent] } }).compileComponents();
     }));
 
     beforeEach(() => {
