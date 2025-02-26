@@ -203,7 +203,7 @@ describe('LuckySearchComponent', () => {
       spyOn((component as any), 'loadBitstreamsAndRedirectIfNeeded').and.returnValue(observableOf([bitstream]));
       spyOn((component as any), 'hasBitstreamFilters').and.returnValue(true);
       spyOn(component, 'redirect');
-      routerStub.parseUrl.and.returnValue(bitstreamSearchTree);
+      routerStub.parseUrl.and.returnValue(bitstreamSearchTree).and.callThrough();
 
       component.resultsRD$.next(data);
 
