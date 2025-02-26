@@ -10128,21 +10128,6 @@
   // "notify-detail-modal.coar-notify:RelationshipAction": "Relationship action",
   "notify-detail-modal.coar-notify:RelationshipAction": "Ação de relacionamento",
 
-  // "search.filters.access_status.open.access": "Open access",
-  "search.filters.access_status.open.access": "Acesso aberto",                                                           
-  
-  // "search.filters.access_status.restricted": "Restricted access",
-  "search.filters.access_status.restricted": "Acesso restrito",
-  
-  // "search.filters.access_status.embargo": "Embargoed access",
-  "search.filters.access_status.embargo": "Acesso embargado",
-  
-  // "search.filters.access_status.metadata.only": "Metadata only",
-  "search.filters.access_status.metadata.only": "Apenas metadados",
-  
-  // "search.filters.access_status.unknown": "Unknown",
-  "search.filters.access_status.unknown": "Desconhecido",
-
   // "search.filters.queue_status.QUEUE_STATUS_QUEUED": "Queued",
   "search.filters.queue_status.QUEUE_STATUS_QUEUED": "Em fila de espera",
 
@@ -10388,4 +10373,18 @@
   // "item.preview.dc.identifier.eisbn": "EISBN",
   "item.preview.dc.identifier.eisbn": "EISBN",
 
+  // "search.filters.access_status.open.access": "Open access",
+  "search.filters.access_status.open.access": "Acesso aberto",                                                           
+  
+  // "search.filters.access_status.restricted": "Restricted access",
+  "search.filters.access_status.restricted": "Acesso restrito",
+  
+  // "search.filters.access_status.embargo": "Embargoed access",
+  "search.filters.access_status.embargo": "Acesso embargado",
+  
+  // "search.filters.access_status.metadata.only": "Metadata only",
+  "search.filters.access_status.metadata.only": "Apenas metadados",
+  
+  // "search.filters.access_status.unknown": "Unknown",
+  "search.filters.access_status.unknown": "Desconhecido",
 }
