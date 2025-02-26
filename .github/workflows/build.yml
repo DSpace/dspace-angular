@@ -30,7 +30,7 @@ jobs:
       CYPRESS_BASE_URL: http://127.0.0.1:4000
       # When Chrome version is specified, we pin to a specific version of Chrome
       # Comment this out to use the latest release
-      CHROME_VERSION: "116.0.5845.187-1"
+      #CHROME_VERSION: "116.0.5845.187-1"
       # Bump Node heap size (OOM in CI after upgrading to Angular 15)
       NODE_OPTIONS: '--max-old-space-size=4096'
       # Project name to use when running "docker compose" prior to e2e tests
@@ -178,11 +178,12 @@ jobs:
       # Get homepage and verify that the <meta name="title"> tag includes "DSpace".
       # If it does, then SSR is working, as this tag is created by our MetadataService.
       # This step also prints entire HTML of homepage for easier debugging if grep fails.
-      - name: Verify SSR (server-side rendering)
-        run: |
-          result=$(wget -O- -q http://127.0.0.1:4000/home)
-          echo "$result"
-          echo "$result" | grep -oE "<meta name=\"title\" [^>]*>" | grep DSpace
+      # TODO: enable this step once we have a CRIS back end to test against
+      # - name: Verify SSR (server-side rendering)
+      #   run: |
+      #     result=$(wget -O- -q http://127.0.0.1:4000/home)
+      #     echo "$result"
+      #     echo "$result" | grep -oE "<meta name=\"title\" [^>]*>" | grep DSpace
 
       - name: Stop running app
         run: kill -9 $(lsof -t -i:4000)

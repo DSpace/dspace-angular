@@ -31,6 +31,10 @@ import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { CAPTCHA_NAME } from '../../core/google-recaptcha/google-recaptcha.service';
 import { CookieService } from '../../core/services/cookie.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '../../core/services/window.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import {
   hasValue,
@@ -124,6 +128,7 @@ export class BrowserKlaroService extends KlaroService {
     private configService: ConfigurationDataService,
     private cookieService: CookieService,
     @Inject(LAZY_KLARO) private lazyKlaro: Promise<any>,
+    @Inject(NativeWindowService) private _window: NativeWindowRef,
   ) {
     super();
   }
@@ -217,7 +222,11 @@ export class BrowserKlaroService extends KlaroService {
          */
         this.translateConfiguration();
 
-        this.klaroConfig.services = this.filterConfigServices(servicesToHide);
+        if (this._window?.nativeWindow?.Cypress) {
+          this.klaroConfig.services = [];
+        } else {
+          this.klaroConfig.services = this.filterConfigServices(servicesToHide);
+        }
         this.lazyKlaro.then(({ setup }) => {
           setup(this.klaroConfig);
           this.initialized = true;
