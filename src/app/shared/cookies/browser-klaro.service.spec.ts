@@ -5,8 +5,6 @@ import clone from 'lodash/clone';
 import cloneDeep from 'lodash/cloneDeep';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
-import { NativeWindowService } from '../../core/services/window.service';
-import { NativeWindowMockFactory } from '../mocks/mock-native-window-ref';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { RestResponse } from '../../core/cache/response.models';
@@ -14,8 +12,10 @@ import { ConfigurationDataService } from '../../core/data/configuration-data.ser
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { CookieService } from '../../core/services/cookie.service';
+import { NativeWindowService } from '../../core/services/window.service';
 import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 import { MetadataValue } from '../../core/shared/metadata.models';
+import { NativeWindowMockFactory } from '../mocks/mock-native-window-ref';
 import { getMockTranslateService } from '../mocks/translate.service.mock';
 import {
   createFailedRemoteDataObject$,
@@ -83,7 +83,7 @@ describe('BrowserKlaroService', () => {
         BrowserKlaroService,
         {
           provide: NativeWindowService,
-          useFactory: NativeWindowMockFactory
+          useFactory: NativeWindowMockFactory,
         },
         {
           provide: TranslateService,
