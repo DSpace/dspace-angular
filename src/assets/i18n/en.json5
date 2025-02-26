@@ -6632,16 +6632,6 @@
 
   "search.filters.coar_notify_type.coar-notify:ReviewAction,authority": "Review action",
 
-  "search.filters.access_status.open.access": "Open access",
-
-  "search.filters.access_status.restricted": "Restricted access",
-
-  "search.filters.access_status.embargo": "Embargoed access",
-
-  "search.filters.access_status.metadata.only": "Metadata only",
-
-  "search.filters.access_status.unknown": "Unknown",
-
   "notify-detail-modal.coar-notify:ReviewAction": "Review action",
 
   "search.filters.coar_notify_type.coar-notify:EndorsementAction": "Endorsement action",
@@ -6805,4 +6795,14 @@
   "live-region.ordering.dropped": "{{ itemName }}, dropped at position {{ index }} of {{ length }}.",
 
   "dynamic-form-array.sortable-list.label": "Sortable list",
+
+  "search.filters.access_status.open.access": "Open access",
+
+  "search.filters.access_status.restricted": "Restricted access",
+
+  "search.filters.access_status.embargo": "Embargoed access",
+
+  "search.filters.access_status.metadata.only": "Metadata only",
+
+  "search.filters.access_status.unknown": "Unknown",
 }
