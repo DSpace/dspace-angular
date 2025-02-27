@@ -21,3 +21,11 @@
   clip: rect(0,0,0,0);
   pointer-events: none;
 }
+
+:host ::ng-deep dynamic-ng-bootstrap-radio-group {
+  display: block;
+  width: 100%;
+  > .btn-group.btn-group-toggle {
+    width: 100%;
+  }
+}
