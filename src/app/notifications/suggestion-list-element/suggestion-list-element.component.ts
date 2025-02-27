@@ -6,7 +6,6 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Suggestion } from 'src/app/core/notifications/suggestions/models/suggestion.model';
 
@@ -61,13 +60,6 @@ export class SuggestionListElementComponent implements OnInit {
    * New value whether the element is selected
    */
   @Output() selected = new EventEmitter<boolean>();
-
-  /**
-   * Initialize instance variables
-   *
-   * @param {NgbModal} modalService
-   */
-  constructor(private modalService: NgbModal) { }
 
   ngOnInit() {
     this.listableObject = {
