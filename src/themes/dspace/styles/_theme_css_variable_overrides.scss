@@ -2,7 +2,7 @@
 
 :root {
 
-  @include media-breakpoint-up(sm) {
+  @include media-breakpoint-up(md) {
     --ds-header-logo-height: 40px;
     --ds-header-height: 80px;
   }
