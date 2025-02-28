@@ -7,7 +7,7 @@
     overflow: hidden;
     min-width: 100%;
     top: 100%;
-    @include media-breakpoint-down(sm) {
+    @include media-breakpoint-down(xs) {
       border: 0;
       background-color: var(--ds-expandable-navbar-bg);
     }
