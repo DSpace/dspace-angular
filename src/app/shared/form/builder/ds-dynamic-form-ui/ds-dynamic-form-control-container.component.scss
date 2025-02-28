@@ -29,3 +29,7 @@
     width: 100%;
   }
 }
+
+:host ::ng-deep .custom-control-input.is-invalid ~ .custom-control-label {
+  color: var(--bs-form-invalid-color);
+}
