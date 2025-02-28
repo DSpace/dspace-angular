@@ -18,6 +18,7 @@ import { ThemedCollectionPageComponent } from './themed-collection-page.componen
 import { ComcolModule } from '../shared/comcol/comcol.module';
 import { DsoSharedModule } from '../dso-shared/dso-shared.module';
 import { DsoPageModule } from '../shared/dso-page/dso-page.module';
+import { ThemedCollectionItemMapperComponent } from './collection-item-mapper/themed-collection-item-mapper.component';
 
 @NgModule({
   imports: [
@@ -38,7 +39,8 @@ import { DsoPageModule } from '../shared/dso-page/dso-page.module';
     DeleteCollectionPageComponent,
     EditItemTemplatePageComponent,
     ThemedEditItemTemplatePageComponent,
-    CollectionItemMapperComponent
+    CollectionItemMapperComponent,
+    ThemedCollectionItemMapperComponent,
   ],
   providers: [
     SearchService,

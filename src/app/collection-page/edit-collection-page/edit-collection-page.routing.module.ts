@@ -1,6 +1,5 @@
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { CollectionItemMapperComponent } from '../collection-item-mapper/collection-item-mapper.component';
 import { EditCollectionPageComponent } from './edit-collection-page.component';
 import { CollectionMetadataComponent } from './collection-metadata/collection-metadata.component';
 import { CollectionRolesComponent } from './collection-roles/collection-roles.component';
@@ -14,6 +13,7 @@ import { ResourcePolicyResolver } from '../../shared/resource-policies/resolvers
 import { ResourcePolicyEditComponent } from '../../shared/resource-policies/edit/resource-policy-edit.component';
 import { CollectionAdministratorGuard } from '../../core/data/feature-authorization/feature-authorization-guard/collection-administrator.guard';
 import { CollectionAccessControlComponent } from './collection-access-control/collection-access-control.component';
+import { ThemedCollectionItemMapperComponent } from '../collection-item-mapper/themed-collection-item-mapper.component';
 
 /**
  * Routing module that handles the routing for the Edit Collection page administrator functionality
@@ -98,7 +98,7 @@ import { CollectionAccessControlComponent } from './collection-access-control/co
           },
           {
             path: 'mapper',
-            component: CollectionItemMapperComponent,
+            component: ThemedCollectionItemMapperComponent,
             data: { title: 'collection.edit.tabs.item-mapper.title', hideReturnButton: true, showBreadcrumbs: true }
           },
         ]

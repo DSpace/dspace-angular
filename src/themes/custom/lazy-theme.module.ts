@@ -159,6 +159,9 @@ import { RequestCopyModule } from 'src/app/request-copy/request-copy.module';
 import {
   ItemCollectionMapperComponent
 } from './app/item-page/edit-item-page/item-collection-mapper/item-collection-mapper.component';
+import {
+  CollectionItemMapperComponent
+} from './app/collection-page/collection-item-mapper/collection-item-mapper.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -242,7 +245,8 @@ const DECLARATIONS = [
   SubmissionSectionUploadFileComponent,
   ItemStatusComponent,
   EditBitstreamPageComponent,
-  ItemCollectionMapperComponent
+  ItemCollectionMapperComponent,
+  CollectionItemMapperComponent,
 ];
 
 @NgModule({
