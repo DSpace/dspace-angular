@@ -36,7 +36,7 @@
   <cdk-tree [dataSource]="dataSource" [treeControl]="treeControl">
     <!-- Leaf node -->
     <cdk-tree-node *cdkTreeNodeDef="let node" cdkTreeNodePadding class="d-flex">
-            <span aria-hidden="true" type="button" class="btn btn-default px-2 me-1" cdkTreeNodeToggle>
+            <span aria-hidden="true" type="button" class="btn btn-default px-2 me-1 btn-transparent" cdkTreeNodeToggle>
                 <i class="fas fa-fw fa-angle-right invisible"></i>
             </span>
             <label *ngIf="multiSelect" class="form-label d-flex align-items-center m-0 p-0 form-check"
@@ -66,7 +66,7 @@
 
     <!-- expandable node -->
     <cdk-tree-node *cdkTreeNodeDef="let node; when: hasChildren" cdkTreeNodePadding class="d-flex">
-        <button type="button" class="btn btn-default px-2 me-1" cdkTreeNodeToggle
+        <button type="button" class="btn btn-default px-2 me-1 btn-transparent" cdkTreeNodeToggle
                 [attr.aria-label]="'toggle ' + node.name"
                 (click)="loadChildren(node)">
           <i class="fas fa-fw {{treeControl.isExpanded(node) ? 'fa-angle-down' : 'fa-angle-right'}}"></i>
