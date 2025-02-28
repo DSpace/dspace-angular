@@ -83,7 +83,8 @@ describe('MetadataService', () => {
     meta = jasmine.createSpyObj('meta', {
       updateTag: {},
       addTag: {},
-      removeTag: {}
+      removeTag: {},
+      getTags: [],
     });
     title = jasmine.createSpyObj({
       setTitle: {}
@@ -156,7 +157,7 @@ describe('MetadataService', () => {
       name: 'citation_title',
       content: 'Test PowerPoint Document',
     });
-    expect(meta.updateTag).toHaveBeenCalledWith({ name: 'citation_author', content: 'Doe, Jane' });
+    expect(meta.addTag).toHaveBeenCalledWith({ name: 'citation_author', content: 'Doe, Jane' });
     expect(meta.updateTag).toHaveBeenCalledWith({
       name: 'citation_publication_date',
       content: '1650-06-26',
