@@ -46,6 +46,7 @@ import { ResultsBackButtonModule } from '../../shared/results-back-button/result
 import {
   AccessControlFormModule
 } from '../../shared/access-control-form-container/access-control-form.module';
+import { ThemedItemCollectionMapperComponent } from './item-collection-mapper/themed-item-collection-mapper.component';
 
 /**
  * Module that contains all components related to the Edit Item page administrator functionality
@@ -86,6 +87,7 @@ import {
     EditRelationshipComponent,
     EditRelationshipListComponent,
     ItemCollectionMapperComponent,
+    ThemedItemCollectionMapperComponent,
     ItemMoveComponent,
     ItemEditBitstreamDragHandleComponent,
     VirtualMetadataComponent,

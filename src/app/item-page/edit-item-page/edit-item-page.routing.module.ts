@@ -7,7 +7,6 @@ import { ItemPrivateComponent } from './item-private/item-private.component';
 import { ItemPublicComponent } from './item-public/item-public.component';
 import { ItemDeleteComponent } from './item-delete/item-delete.component';
 import { ItemBitstreamsComponent } from './item-bitstreams/item-bitstreams.component';
-import { ItemCollectionMapperComponent } from './item-collection-mapper/item-collection-mapper.component';
 import { ItemMoveComponent } from './item-move/item-move.component';
 import { ItemRegisterDoiComponent } from './item-register-doi/item-register-doi.component';
 import { ItemRelationshipsComponent } from './item-relationships/item-relationships.component';
@@ -43,6 +42,7 @@ import { ItemPageRegisterDoiGuard } from './item-page-register-doi.guard';
 import { ItemCurateComponent } from './item-curate/item-curate.component';
 import { ThemedItemStatusComponent } from './item-status/themed-item-status.component';
 import { ItemAccessControlComponent } from './item-access-control/item-access-control.component';
+import { ThemedItemCollectionMapperComponent } from './item-collection-mapper/themed-item-collection-mapper.component';
 
 /**
  * Routing module that handles the routing for the Edit Item page administrator functionality
@@ -120,7 +120,7 @@ import { ItemAccessControlComponent } from './item-access-control/item-access-co
               },
               {
                 path: 'mapper',
-                component: ItemCollectionMapperComponent,
+                component: ThemedItemCollectionMapperComponent,
                 data: { title: 'item.edit.tabs.item-mapper.title', showBreadcrumbs: true },
                 canActivate: [ItemPageCollectionMapperGuard]
               }
@@ -128,7 +128,7 @@ import { ItemAccessControlComponent } from './item-access-control/item-access-co
           },
           {
             path: 'mapper',
-            component: ItemCollectionMapperComponent,
+            component: ThemedItemCollectionMapperComponent,
           },
           {
             path: ITEM_EDIT_WITHDRAW_PATH,
