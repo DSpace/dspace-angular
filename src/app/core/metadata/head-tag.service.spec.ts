@@ -102,6 +102,7 @@ describe('HeadTagService', () => {
       addMetaTag: {},
       removeTag: {},
       updateTag : {},
+      getTags: [],
     });
     title = jasmine.createSpyObj({
       setTitle: {},
@@ -173,7 +174,7 @@ describe('HeadTagService', () => {
       name: 'citation_title',
       content: 'Test PowerPoint Document',
     });
-    expect(meta.updateTag).toHaveBeenCalledWith({ name: 'citation_author', content: 'Doe, Jane' });
+    expect(meta.addTag).toHaveBeenCalledWith({ name: 'citation_author', content: 'Doe, Jane' });
     expect(meta.updateTag).toHaveBeenCalledWith({
       name: 'citation_publication_date',
       content: '1650-06-26',
@@ -506,8 +507,8 @@ describe('HeadTagService', () => {
     }));
 
     it('should remove previous tags on route change', fakeAsync(() => {
-      expect(meta.updateTag).toHaveBeenCalledWith({ name: 'title', content: '' });
-      expect(meta.updateTag).toHaveBeenCalledWith({ name: 'description', content: '' });
+      expect(meta.getTags).toHaveBeenCalledWith(`name="title"`);
+      expect(meta.getTags).toHaveBeenCalledWith(`name="description"`);
     }));
 
     it('should clear all tags and add new ones on route change', () => {
