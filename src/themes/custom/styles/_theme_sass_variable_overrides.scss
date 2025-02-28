@@ -27,5 +27,7 @@
 // $link-color: $info !default;
 
 // Add new semantic colors here (you don't need to add existing semantic colors)
+@import '../../../styles/_variables.scss';
 $theme-custom-semantic-colors: (
 );
+$theme-colors: map-merge($theme-colors, $theme-custom-semantic-colors);
