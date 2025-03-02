@@ -45,6 +45,7 @@ import { ResourcePolicy } from '../../../core/resource-policy/models/resource-po
 import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-policy.resource-type';
 import { SubmissionObjectDataService } from '../../../core/submission/submission-object-data.service';
 import { SubmissionService } from '../../../submission/submission.service';
+import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import {
   dateToISOFormat,
   stringToNgbDateStruct,
@@ -216,6 +217,7 @@ describe('ResourcePolicyFormComponent test suite', () => {
         ResourcePolicyFormComponent,
         TestComponent,
         NgxMaskModule.forRoot(),
+        BtnDisabledDirective,
       ],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
@@ -426,7 +428,8 @@ describe('ResourcePolicyFormComponent test suite', () => {
 
       const depositBtn: any = fixture.debugElement.query(By.css('.btn-primary'));
 
-      expect(depositBtn.nativeElement.disabled).toBeFalsy();
+      expect(depositBtn.nativeElement.getAttribute('aria-disabled')).toBe('false');
+      expect(depositBtn.nativeElement.classList.contains('disabled')).toBeFalse();
     });
 
     it('should emit submit event', () => {
@@ -480,7 +483,8 @@ describe('ResourcePolicyFormComponent test suite', () => {
 
       const depositBtn: any = fixture.debugElement.query(By.css('.btn-primary'));
 
-      expect(depositBtn.nativeElement.disabled).toBeTruthy();
+      expect(depositBtn.nativeElement.getAttribute('aria-disabled')).toBe('true');
+      expect(depositBtn.nativeElement.classList.contains('disabled')).toBeTrue();
     });
 
   });

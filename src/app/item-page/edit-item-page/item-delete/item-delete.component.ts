@@ -56,6 +56,7 @@ import {
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { ViewMode } from '../../../core/shared/view-mode.model';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import {
   hasValue,
   isNotEmpty,
@@ -109,6 +110,7 @@ class RelationshipDTO {
     VarDirective,
     NgForOf,
     RouterLink,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

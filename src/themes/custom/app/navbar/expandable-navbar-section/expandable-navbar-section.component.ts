@@ -9,11 +9,8 @@ import { RouterLinkActive } from '@angular/router';
 
 import { ExpandableNavbarSectionComponent as BaseComponent } from '../../../../../app/navbar/expandable-navbar-section/expandable-navbar-section.component';
 import { slide } from '../../../../../app/shared/animations/slide';
-import { VarDirective } from '../../../../../app/shared/utils/var.directive';
+import { HoverOutsideDirective } from '../../../../../app/shared/utils/hover-outside.directive';
 
-/**
- * Represents an expandable section in the navbar
- */
 @Component({
   selector: 'ds-themed-expandable-navbar-section',
   // templateUrl: './expandable-navbar-section.component.html',
@@ -22,7 +19,14 @@ import { VarDirective } from '../../../../../app/shared/utils/var.directive';
   styleUrls: ['../../../../../app/navbar/expandable-navbar-section/expandable-navbar-section.component.scss'],
   animations: [slide],
   standalone: true,
-  imports: [VarDirective, RouterLinkActive, NgComponentOutlet, NgIf, NgFor, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    HoverOutsideDirective,
+    NgComponentOutlet,
+    NgFor,
+    NgIf,
+    RouterLinkActive,
+  ],
 })
 export class ExpandableNavbarSectionComponent extends BaseComponent {
 }
