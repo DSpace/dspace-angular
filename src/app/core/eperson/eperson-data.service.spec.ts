@@ -20,7 +20,7 @@ import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
 import { EPersonDataService } from './eperson-data.service';
 import { EPerson } from './models/eperson.model';
-import { EPersonMock, EPersonMock2 } from '../../shared/testing/eperson.mock';
+import { EPersonMock, EPersonMock2, EPersonMockWithNoName } from '../../shared/testing/eperson.mock';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { createNoContentRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
@@ -258,6 +258,38 @@ describe('EPersonDataService', () => {
         const operations = [
           { op: 'replace', path: '/eperson.lastname/0/value', value: newLastName },
           { op: 'replace', path: '/eperson.firstname/0/value', value: newFirstName }];
+        const expected = new PatchRequest(requestService.generateRequestId(), epersonsEndpoint + '/' + EPersonMock.uuid, operations);
+        expect(requestService.send).toHaveBeenCalledWith(expected);
+      });
+    });
+  });
+
+  describe('updateEPerson with non existing metadata', () => {
+    beforeEach(() => {
+      spyOn(service, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(EPersonMockWithNoName));
+    });
+
+    describe('add name that was not previously set', () => {
+      beforeEach(() => {
+        const changedEPerson = Object.assign(new EPerson(), {
+          id: EPersonMock.id,
+          metadata: Object.assign(EPersonMock.metadata, {
+            'eperson.firstname': [
+              {
+                language: null,
+                value: 'User',
+              }
+            ],
+          }),
+          email: EPersonMock.email,
+          canLogIn: EPersonMock.canLogIn,
+          requireCertificate: EPersonMock.requireCertificate,
+          _links: EPersonMock._links,
+        });
+        service.updateEPerson(changedEPerson).subscribe();
+      });
+      it('should send PatchRequest with add email operation', () => {
+        const operations = [{ op: 'add', path: '/eperson.firstname', value: [{ language: null, value: 'User' }] }];
         const expected = new PatchRequest(requestService.generateRequestId(), epersonsEndpoint + '/' + EPersonMock.uuid, operations);
         expect(requestService.send).toHaveBeenCalledWith(expected);
       });
