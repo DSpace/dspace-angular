@@ -32,6 +32,9 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { BrowseEntry } from '../../core/shared/browse-entry.model';
 import { Community } from '../../core/shared/community.model';
 import { Item } from '../../core/shared/item.model';
+import { SearchService } from '../../core/shared/search/search.service';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { SearchConfig } from '../../core/shared/search/search-filters/search-config.model';
 import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by.component';
 import { ThemedComcolPageBrowseByComponent } from '../../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
 import { ComcolPageContentComponent } from '../../shared/comcol/comcol-page-content/comcol-page-content.component';
@@ -40,7 +43,14 @@ import { ComcolPageHeaderComponent } from '../../shared/comcol/comcol-page-heade
 import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { RouterMock } from '../../shared/mocks/router.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import { FacetValues } from '../../shared/search/models/facet-values.model';
+import { FilterType } from '../../shared/search/models/filter-type.model';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
+import { SearchFilterConfig } from '../../shared/search/models/search-filter-config.model';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
 import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
@@ -85,10 +95,39 @@ describe('BrowseByDateComponent', () => {
     },
   });
 
+  const mockFilterConfig: SearchFilterConfig = Object.assign(new SearchFilterConfig(), {
+    name: 'dateIssued',
+    filterType: FilterType.range,
+    hasFacets: false,
+    isOpenByDefault: false,
+    pageSize: 1,
+  });
+
+  const mockFacetValue: FacetValues  =
+    Object.assign(new FacetValues(), {
+      authorityKey: null,
+      count: 1,
+      label: '2009 - 2009',
+      value: '2009 - 2009',
+      type: 'discover',
+    });
+
+
+  const filtersConfigRD = createSuccessfulRemoteDataObject([mockFilterConfig]);
+  const filtersConfigRD$ = observableOf(filtersConfigRD);
+
   const mockBrowseService = {
     getBrowseEntriesFor: (options: BrowseEntrySearchOptions) => toRemoteData([]),
     getBrowseItemsFor: (value: string, options: BrowseEntrySearchOptions) => toRemoteData([firstItem]),
     getFirstItemFor: (definition: string, scope?: string, sortDirection?: SortDirection) => null,
+  };
+
+  const mockSearchConfigService = {
+    getConfig: () => filtersConfigRD$,
+  };
+
+  const mockSearchService = {
+    getFacetValuesFor: (filterConfig: SearchFilterConfig, valuePage: number, searchOptions?: PaginatedSearchOptions, filterQuery?: string, useCachedVersionIfAvailable = true) => toRemoteData([mockFacetValue]),
   };
 
   const mockDsoService = {
@@ -128,6 +167,8 @@ describe('BrowseByDateComponent', () => {
         { provide: Store, useValue: {} },
         { provide: APP_CONFIG, useValue: environment },
         { provide: PLATFORM_ID, useValue: 'browser' },
+        { provide: SearchConfigurationService, useValue: mockSearchConfigService },
+        { provide: SearchService, useValue: mockSearchService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
@@ -149,12 +190,8 @@ describe('BrowseByDateComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(BrowseByDateComponent);
-    const browseService = fixture.debugElement.injector.get(BrowseService);
-    spyOn(browseService, 'getFirstItemFor')
-      // ok to expect the default browse as first param since we just need the mock items obtained via sort direction.
-      .withArgs('author', undefined, SortDirection.ASC).and.returnValue(createSuccessfulRemoteDataObject$(firstItem))
-      .withArgs('author', undefined, SortDirection.DESC).and.returnValue(createSuccessfulRemoteDataObject$(lastItem));
     comp = fixture.componentInstance;
+    comp.browseId = 'dateissued';
     route = (comp as any).route;
     fixture.detectChanges();
   });
@@ -170,12 +207,12 @@ describe('BrowseByDateComponent', () => {
   });
 
   it('should create a list of startsWith options with the earliest year at the end (rounded down by 10)', () => {
-    expect(comp.startsWithOptions[comp.startsWithOptions.length - 1]).toEqual(1950);
+    expect(comp.startsWithOptions[comp.startsWithOptions.length - 1]).toEqual(2009);
   });
 
   it('should create a list of startsWith options with the current year first', () => {
     //expect(comp.startsWithOptions[0]).toEqual(new Date().getUTCFullYear());
-    expect(comp.startsWithOptions[0]).toEqual(1960);
+    expect(comp.startsWithOptions[0]).toEqual(2009);
   });
 
   describe('when rendered in SSR', () => {
@@ -198,12 +235,16 @@ describe('BrowseByDateComponent', () => {
     beforeEach(() => {
       comp.platformId = 'browser';
       spyOn((comp as any).browseService, 'getBrowseItemsFor').and.returnValue(createSuccessfulRemoteDataObject$(new BrowseEntry()));
+      spyOn((comp as any).searchConfigService, 'getConfig').and.returnValue(createSuccessfulRemoteDataObject$([new SearchConfig()]));
+      spyOn((comp as any).searchService, 'getFacetValuesFor').and.returnValue(createSuccessfulRemoteDataObject$([new FacetValues()]));
     });
 
     it('should call getBrowseItemsFor on init', fakeAsync(() => {
       comp.ngOnInit();
       tick(100);
       expect((comp as any).browseService.getBrowseItemsFor).toHaveBeenCalled();
+      expect((comp as any).searchConfigService.getConfig).toHaveBeenCalled();
+      expect((comp as any).searchService.getFacetValuesFor).toHaveBeenCalled();
     }));
   });
 });

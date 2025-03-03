@@ -26,7 +26,6 @@ import {
   filter,
   map,
   switchMap,
-  take,
 } from 'rxjs/operators';
 import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-by.component';
 
@@ -45,13 +44,14 @@ import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.serv
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { Item } from '../../core/shared/item.model';
+import {
+  getAllSucceededRemoteDataPayload,
+  getFirstSucceededRemoteDataPayload,
+} from '../../core/shared/operators';
+import { SearchService } from '../../core/shared/search/search.service';
+import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { isValidDate } from '../../shared/date.util';
 import {
-  getFirstSucceededRemoteDataPayload,
-  getAllSucceededRemoteDataPayload
-} from '../../core/shared/operators';
-import {
-  hasNoValue,
   hasValue,
   isNotEmpty,
 } from '../../shared/empty.util';
@@ -62,10 +62,6 @@ import {
   BrowseByMetadataComponent,
   browseParamsToOptions,
 } from '../browse-by-metadata/browse-by-metadata.component';
-import { SearchOptions } from '../../shared/search/models/search-options.model';
-import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { SearchService } from "../../core/shared/search/search.service";
-import { FacetValues } from '../../shared/search/models/facet-values.model';
 
 
 @Component({
@@ -104,7 +100,7 @@ export class BrowseByDateComponent extends BrowseByMetadataComponent implements 
     protected cdRef: ChangeDetectorRef,
     @Inject(PLATFORM_ID) public platformId: any,
     public searchConfigService: SearchConfigurationService,
-    public searchService: SearchService
+    public searchService: SearchService,
   ) {
     super(route, browseService, dsoService, paginationService, router, appConfig, dsoNameService, platformId);
   }
@@ -154,12 +150,12 @@ export class BrowseByDateComponent extends BrowseByMetadataComponent implements 
   updateStartsWithOptions(definition: string, metadataKeys: string[], scope?: string) {
     this.searchConfigService.getConfig(null,definition).pipe(
       getFirstSucceededRemoteDataPayload(),
-      map( configs => configs.filter( filter => filter.name.toUpperCase() === definition.toUpperCase()  ) ),
       filter( configs => configs.length > 0 ),
+      map( configs => configs.filter( filterConfig => filterConfig.name?.toUpperCase() === definition.toUpperCase()  ) ),
       map( findConfig =>  findConfig[0]),
       switchMap( config => {
         return this.searchService.getFacetValuesFor(config, 10).pipe(
-          getAllSucceededRemoteDataPayload()
+          getAllSucceededRemoteDataPayload(),
         );
       }),
       map( facetValue =>  facetValue.page ),
@@ -179,9 +175,9 @@ export class BrowseByDateComponent extends BrowseByMetadataComponent implements 
    */
   generateYearFromFacetValue = (data: any[]) => {
     const years: number[] = [];
-
+    if (!hasValue(data)) {return  [];}
     data.forEach(item => {
-      const [start, end] = item.value.split(" - ").map(Number);
+      const [start, end] = item.value.split(' - ').map(Number);
       for (let year = start; year <= end; year++) {
         years.push(year);
       }
