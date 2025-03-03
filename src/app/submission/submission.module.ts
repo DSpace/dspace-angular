@@ -69,6 +69,7 @@ import { SectionFormOperationsService } from './sections/form/section-form-opera
 import {SubmissionSectionIdentifiersComponent} from './sections/identifiers/section-identifiers.component';
 import { ThemedSubmissionSectionContainerComponent } from './sections/container/themed-section-container.component';
 import { ThemedSubmissionFormFooterComponent } from './form/footer/themed-submission-form-footer.component';
+import { ThemedSubmissionFormComponent } from './form/themed-submission-form.component';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -110,6 +111,7 @@ const DECLARATIONS = [
   ThemedSubmissionSectionUploadFileComponent,
   ThemedSubmissionSectionContainerComponent,
   ThemedSubmissionFormFooterComponent,
+  ThemedSubmissionFormComponent,
 ];
 
 @NgModule({

@@ -158,6 +158,7 @@ import { FormModule } from '../../app/shared/form/form.module';
 import { RequestCopyModule } from 'src/app/request-copy/request-copy.module';
 import { SubmissionSectionContainerComponent } from './app/submission/sections/container/section-container.component';
 import { SubmissionFormFooterComponent } from './app/submission/form/footer/submission-form-footer.component';
+import { SubmissionFormComponent } from './app/submission/form/submission-form.component';
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -243,6 +244,7 @@ const DECLARATIONS = [
   EditBitstreamPageComponent,
   SubmissionSectionContainerComponent,
   SubmissionFormFooterComponent,
+  SubmissionFormComponent,
 ];
 
 @NgModule({
