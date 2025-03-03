@@ -12,6 +12,7 @@ import {
   mergeMap,
   Observable,
 } from 'rxjs';
+import { SearchManager } from 'src/app/core/browse/search-manager';
 
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { PaginatedList } from '../../core/data/paginated-list.model';
@@ -26,7 +27,6 @@ import {
   getRemoteDataPayload,
   toDSpaceObjectListRD,
 } from '../../core/shared/operators';
-import { SearchService } from '../../core/shared/search/search.service';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
@@ -40,7 +40,7 @@ export abstract class AbstractBrowseElementsComponent implements OnInit, OnChang
 
   protected readonly appConfig = inject(APP_CONFIG);
   protected readonly platformId = inject(PLATFORM_ID);
-  protected readonly searchService = inject(SearchService);
+  protected readonly searchManager = inject(SearchManager);
 
   protected abstract followMetricsLink: boolean; // to be overridden
   protected abstract followThumbnailLink: boolean; // to be overridden
@@ -58,7 +58,7 @@ export abstract class AbstractBrowseElementsComponent implements OnInit, OnChang
   /**
    * Optional projection to use during the search
    */
-  @Input() projection = 'preventMetadataSecurity';
+  @Input() projection;
 
   /**
    * Whether to show the badge label or not
@@ -110,7 +110,7 @@ export abstract class AbstractBrowseElementsComponent implements OnInit, OnChang
     this.paginatedSearchOptions$ = new BehaviorSubject<PaginatedSearchOptions>(this.paginatedSearchOptions);
     this.searchResults$ = this.paginatedSearchOptions$.asObservable().pipe(
       mergeMap((paginatedSearchOptions) =>
-        this.searchService.search(paginatedSearchOptions, null, true, true, ...followLinks),
+        this.searchManager.search(paginatedSearchOptions, null, true, true, ...followLinks),
       ),
       getAllCompletedRemoteData(),
     );

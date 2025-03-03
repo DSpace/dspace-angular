@@ -49,7 +49,7 @@ export class BrowseMostElementsComponent implements OnInit, OnChanges {
   /**
    * Optional projection to use during the search
    */
-  @Input() projection = 'preventMetadataSecurity';
+  @Input() projection;
 
   /**
    * Whether to show the badge label or not
