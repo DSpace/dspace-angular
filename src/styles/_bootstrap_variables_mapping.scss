@@ -54,11 +54,7 @@
   --bs-enable-shadows: #{$enable-shadows};
   --bs-enable-gradients: #{$enable-gradients};
   --bs-enable-transitions: #{$enable-transitions};
-  --bs-enable-prefers-reduced-motion-media-query: #{$enable-prefers-reduced-motion-media-query};
   --bs-enable-grid-classes: #{$enable-grid-classes};
-  --bs-enable-pointer-cursor-for-buttons: #{$enable-pointer-cursor-for-buttons};
-  --bs-enable-print-styles: #{$enable-print-styles};
-  --bs-enable-responsive-font-sizes: #{$enable-responsive-font-sizes};
   --bs-enable-validation-icons: #{$enable-validation-icons};
   --bs-enable-deprecation-messages: #{$enable-deprecation-messages};
   --bs-spacer: #{$spacer};
@@ -74,9 +70,6 @@
   --bs-link-hover-color: #{$link-hover-color};
   --bs-link-hover-decoration: #{$link-hover-decoration};
   // Darken percentage for links with `.text-*` class (e.g. `.text-success`)
-  --bs-emphasized-link-hover-darken-percentage: #{$emphasized-link-hover-darken-percentage};
-
-  --bs-line-height-base: #{$line-height-base};
 
   // Paragraphs
   //
@@ -118,7 +111,6 @@
   --bs-border-radius: #{$border-radius};
   --bs-border-radius-lg: #{$border-radius-lg};
   --bs-border-radius-sm: #{$border-radius-sm};
-  --bs-rounded-pill: #{$rounded-pill};
   --bs-box-shadow-sm: #{$box-shadow-sm};
   --bs-box-shadow: #{$box-shadow};
   --bs-box-shadow-lg: #{$box-shadow-lg};
@@ -156,27 +148,16 @@
   --bs-headings-font-weight: #{$headings-font-weight};
   --bs-headings-line-height: #{$headings-line-height};
   --bs-headings-color: #{$headings-color};
-  --bs-display1-size: #{$display1-size};
-  --bs-display2-size: #{$display2-size};
-  --bs-display3-size: #{$display3-size};
-  --bs-display4-size: #{$display4-size};
-  --bs-display1-weight: #{$display1-weight};
-  --bs-display2-weight: #{$display2-weight};
-  --bs-display3-weight: #{$display3-weight};
-  --bs-display4-weight: #{$display4-weight};
   --bs-display-line-height: #{$display-line-height};
   --bs-lead-font-size: #{$lead-font-size};
   --bs-lead-font-weight: #{$lead-font-weight};
   --bs-small-font-size: #{$small-font-size};
   --bs-text-muted: #{$text-muted};
-  --bs-blockquote-small-color: #{$blockquote-small-color};
-  --bs-blockquote-small-font-size: #{$blockquote-small-font-size};
   --bs-blockquote-font-size: #{$blockquote-font-size};
   --bs-hr-border-color: #{$hr-border-color};
   --bs-hr-border-width: #{$hr-border-width};
   --bs-mark-padding: #{$mark-padding};
   --bs-dt-font-weight: #{$dt-font-weight};
-  --bs-kbd-box-shadow: #{$kbd-box-shadow};
   --bs-nested-kbd-font-weight: #{$nested-kbd-font-weight};
   --bs-list-inline-padding: #{$list-inline-padding};
   --bs-mark-bg: #{$mark-bg};
@@ -186,8 +167,10 @@
   // Tables
   //
   // Customizes the `.table` component with basic values, each used across all table variations.
-  --bs-table-cell-padding: #{$table-cell-padding};
-  --bs-table-cell-padding-sm: #{$table-cell-padding-sm};
+  --bs-table-cell-padding-y: #{$table-cell-padding-y};
+  --bs-table-cell-padding-x: #{$table-cell-padding-x};
+  --bs-table-cell-padding-y-sm: #{$table-cell-padding-y-sm};
+  --bs-table-cell-padding-x-sm: #{$table-cell-padding-x-sm};
   --bs-table-color: #{$table-color};
   --bs-table-bg: #{$table-bg};
   --bs-table-accent-bg: #{$table-accent-bg};
@@ -196,18 +179,8 @@
   --bs-table-active-bg: #{$table-active-bg};
   --bs-table-border-width: #{$table-border-width};
   --bs-table-border-color: #{$table-border-color};
-  --bs-table-head-bg: #{$table-head-bg};
-  --bs-table-head-color: #{$table-head-color};
-  --bs-table-dark-color: #{$table-dark-color};
-  --bs-table-dark-bg: #{$table-dark-bg};
-  --bs-table-dark-accent-bg: #{$table-dark-accent-bg};
-  --bs-table-dark-hover-color: #{$table-dark-hover-color};
-  --bs-table-dark-hover-bg: #{$table-dark-hover-bg};
-  --bs-table-dark-border-color: #{$table-dark-border-color};
   --bs-table-striped-order: #{$table-striped-order};
   --bs-table-caption-color: #{$table-caption-color};
-  --bs-table-bg-level: #{$table-bg-level};
-  --bs-table-border-level: #{$table-border-level};
 
 
   // Buttons + Forms
@@ -224,11 +197,9 @@
   --bs-input-btn-padding-y-sm: #{$input-btn-padding-y-sm};
   --bs-input-btn-padding-x-sm: #{$input-btn-padding-x-sm};
   --bs-input-btn-font-size-sm: #{$input-btn-font-size-sm};
-  --bs-input-btn-line-height-sm: #{$input-btn-line-height-sm};
   --bs-input-btn-padding-y-lg: #{$input-btn-padding-y-lg};
   --bs-input-btn-padding-x-lg: #{$input-btn-padding-x-lg};
   --bs-input-btn-font-size-lg: #{$input-btn-font-size-lg};
-  --bs-input-btn-line-height-lg: #{$input-btn-line-height-lg};
   --bs-input-btn-border-width: #{$input-btn-border-width};
 
 
@@ -243,11 +214,9 @@
   --bs-btn-padding-y-sm: #{$btn-padding-y-sm};
   --bs-btn-padding-x-sm: #{$btn-padding-x-sm};
   --bs-btn-font-size-sm: #{$btn-font-size-sm};
-  --bs-btn-line-height-sm: #{$btn-line-height-sm};
   --bs-btn-padding-y-lg: #{$btn-padding-y-lg};
   --bs-btn-padding-x-lg: #{$btn-padding-x-lg};
   --bs-btn-font-size-lg: #{$btn-font-size-lg};
-  --bs-btn-line-height-lg: #{$btn-line-height-lg};
   --bs-btn-border-width: #{$btn-border-width};
   --bs-btn-font-weight: #{$btn-font-weight};
   --bs-btn-box-shadow: #{$btn-box-shadow};
@@ -256,7 +225,6 @@
   --bs-btn-disabled-opacity: #{$btn-disabled-opacity};
   --bs-btn-active-box-shadow: #{$btn-active-box-shadow};
   --bs-btn-link-disabled-color: #{$btn-link-disabled-color};
-  --bs-btn-block-spacing-y: #{$btn-block-spacing-y};
 
   // Allows for customizing button radius independently from global border radius
   --bs-btn-border-radius: #{$btn-border-radius};
@@ -266,7 +234,6 @@
 
 
   // Forms
-  --bs-label-margin-bottom: #{$label-margin-bottom};
   --bs-input-padding-y: #{$input-padding-y};
   --bs-input-padding-x: #{$input-padding-x};
   --bs-input-font-family: #{$input-font-family};
@@ -276,11 +243,9 @@
   --bs-input-padding-y-sm: #{$input-padding-y-sm};
   --bs-input-padding-x-sm: #{$input-padding-x-sm};
   --bs-input-font-size-sm: #{$input-font-size-sm};
-  --bs-input-line-height-sm: #{$input-line-height-sm};
   --bs-input-padding-y-lg: #{$input-padding-y-lg};
   --bs-input-padding-x-lg: #{$input-padding-x-lg};
   --bs-input-font-size-lg: #{$input-font-size-lg};
-  --bs-input-line-height-lg: #{$input-line-height-lg};
   --bs-input-bg: #{$input-bg};
   --bs-input-disabled-bg: #{$input-disabled-bg};
   --bs-input-color: #{$input-color};
@@ -306,119 +271,9 @@
   --bs-input-height-lg: #{$input-height-lg};
   --bs-input-transition: #{$input-transition};
   --bs-form-text-margin-top: #{$form-text-margin-top};
-  --bs-form-check-input-gutter: #{$form-check-input-gutter};
-  --bs-form-check-input-margin-y: #{$form-check-input-margin-y};
-  --bs-form-check-input-margin-x: #{$form-check-input-margin-x};
-  --bs-form-check-inline-margin-x: #{$form-check-inline-margin-x};
-  --bs-form-check-inline-input-margin-x: #{$form-check-inline-input-margin-x};
-  --bs-form-grid-gutter-width: #{$form-grid-gutter-width};
-  --bs-form-group-margin-bottom: #{$form-group-margin-bottom};
   --bs-input-group-addon-color: #{$input-group-addon-color};
   --bs-input-group-addon-bg: #{$input-group-addon-bg};
   --bs-input-group-addon-border-color: #{$input-group-addon-border-color};
-  --bs-custom-forms-transition: #{$custom-forms-transition};
-  --bs-custom-control-gutter: #{$custom-control-gutter};
-  --bs-custom-control-spacer-x: #{$custom-control-spacer-x};
-  --bs-custom-control-indicator-size: #{$custom-control-indicator-size};
-  --bs-custom-control-indicator-bg: #{$custom-control-indicator-bg};
-  --bs-custom-control-indicator-bg-size: #{$custom-control-indicator-bg-size};
-  --bs-custom-control-indicator-box-shadow: #{$custom-control-indicator-box-shadow};
-  --bs-custom-control-indicator-border-color: #{$custom-control-indicator-border-color};
-  --bs-custom-control-indicator-border-width: #{$custom-control-indicator-border-width};
-  --bs-custom-control-indicator-disabled-bg: #{$custom-control-indicator-disabled-bg};
-  --bs-custom-control-label-disabled-color: #{$custom-control-label-disabled-color};
-  --bs-custom-control-indicator-checked-color: #{$custom-control-indicator-checked-color};
-  --bs-custom-control-indicator-checked-bg: #{$custom-control-indicator-checked-bg};
-  --bs-custom-control-indicator-checked-disabled-bg: #{$custom-control-indicator-checked-disabled-bg};
-  --bs-custom-control-indicator-checked-box-shadow: #{$custom-control-indicator-checked-box-shadow};
-  --bs-custom-control-indicator-checked-border-color: #{$custom-control-indicator-checked-border-color};
-  --bs-custom-control-indicator-focus-box-shadow: #{$custom-control-indicator-focus-box-shadow};
-  --bs-custom-control-indicator-focus-border-color: #{$custom-control-indicator-focus-border-color};
-  --bs-custom-control-indicator-active-color: #{$custom-control-indicator-active-color};
-  --bs-custom-control-indicator-active-bg: #{$custom-control-indicator-active-bg};
-  --bs-custom-control-indicator-active-box-shadow: #{$custom-control-indicator-active-box-shadow};
-  --bs-custom-control-indicator-active-border-color: #{$custom-control-indicator-active-border-color};
-  --bs-custom-checkbox-indicator-border-radius: #{$custom-checkbox-indicator-border-radius};
-  --bs-custom-checkbox-indicator-icon-checked: #{$custom-checkbox-indicator-icon-checked};
-  --bs-custom-checkbox-indicator-indeterminate-bg: #{$custom-checkbox-indicator-indeterminate-bg};
-  --bs-custom-checkbox-indicator-indeterminate-color: #{$custom-checkbox-indicator-indeterminate-color};
-  --bs-custom-checkbox-indicator-icon-indeterminate: #{$custom-checkbox-indicator-icon-indeterminate};
-  --bs-custom-checkbox-indicator-indeterminate-box-shadow: #{$custom-checkbox-indicator-indeterminate-box-shadow};
-  --bs-custom-checkbox-indicator-indeterminate-border-color: #{$custom-checkbox-indicator-indeterminate-border-color};
-  --bs-custom-radio-indicator-border-radius: #{$custom-radio-indicator-border-radius};
-  --bs-custom-radio-indicator-icon-checked: #{$custom-radio-indicator-icon-checked};
-  --bs-custom-switch-width: #{$custom-switch-width};
-  --bs-custom-switch-indicator-border-radius: #{$custom-switch-indicator-border-radius};
-  --bs-custom-switch-indicator-size: #{$custom-switch-indicator-size};
-  --bs-custom-select-padding-y: #{$custom-select-padding-y};
-  --bs-custom-select-padding-x: #{$custom-select-padding-x};
-  --bs-custom-select-font-family: #{$custom-select-font-family};
-  --bs-custom-select-font-size: #{$custom-select-font-size};
-  --bs-custom-select-height: #{$custom-select-height};
-  --bs-custom-select-indicator-padding: #{$custom-select-indicator-padding};
-  --bs-custom-select-font-weight: #{$custom-select-font-weight};
-  --bs-custom-select-line-height: #{$custom-select-line-height};
-  --bs-custom-select-color: #{$custom-select-color};
-  --bs-custom-select-disabled-color: #{$custom-select-disabled-color};
-  --bs-custom-select-bg: #{$custom-select-bg};
-  --bs-custom-select-disabled-bg: #{$custom-select-disabled-bg};
-  --bs-custom-select-bg-size: #{$custom-select-bg-size};
-  --bs-custom-select-indicator-color: #{$custom-select-indicator-color};
-  --bs-custom-select-indicator: #{$custom-select-indicator};
-  --bs-custom-select-background: #{$custom-select-background};
-  --bs-custom-select-feedback-icon-padding-right: #{$custom-select-feedback-icon-padding-right};
-  --bs-custom-select-feedback-icon-position: #{$custom-select-feedback-icon-position};
-  --bs-custom-select-feedback-icon-size: #{$custom-select-feedback-icon-size};
-  --bs-custom-select-border-width: #{$custom-select-border-width};
-  --bs-custom-select-border-color: #{$custom-select-border-color};
-  --bs-custom-select-border-radius: #{$custom-select-border-radius};
-  --bs-custom-select-box-shadow: #{$custom-select-box-shadow};
-  --bs-custom-select-focus-border-color: #{$custom-select-focus-border-color};
-  --bs-custom-select-focus-width: #{$custom-select-focus-width};
-  --bs-custom-select-focus-box-shadow: #{$custom-select-focus-box-shadow};
-  --bs-custom-select-padding-y-sm: #{$custom-select-padding-y-sm};
-  --bs-custom-select-padding-x-sm: #{$custom-select-padding-x-sm};
-  --bs-custom-select-font-size-sm: #{$custom-select-font-size-sm};
-  --bs-custom-select-height-sm: #{$custom-select-height-sm};
-  --bs-custom-select-padding-y-lg: #{$custom-select-padding-y-lg};
-  --bs-custom-select-padding-x-lg: #{$custom-select-padding-x-lg};
-  --bs-custom-select-font-size-lg: #{$custom-select-font-size-lg};
-  --bs-custom-select-height-lg: #{$custom-select-height-lg};
-  --bs-custom-range-track-width: #{$custom-range-track-width};
-  --bs-custom-range-track-height: #{$custom-range-track-height};
-  --bs-custom-range-track-cursor: #{$custom-range-track-cursor};
-  --bs-custom-range-track-bg: #{$custom-range-track-bg};
-  --bs-custom-range-track-border-radius: #{$custom-range-track-border-radius};
-  --bs-custom-range-track-box-shadow: #{$custom-range-track-box-shadow};
-  --bs-custom-range-thumb-width: #{$custom-range-thumb-width};
-  --bs-custom-range-thumb-height: #{$custom-range-thumb-height};
-  --bs-custom-range-thumb-bg: #{$custom-range-thumb-bg};
-  --bs-custom-range-thumb-border: #{$custom-range-thumb-border};
-  --bs-custom-range-thumb-border-radius: #{$custom-range-thumb-border-radius};
-  --bs-custom-range-thumb-box-shadow: #{$custom-range-thumb-box-shadow};
-  --bs-custom-range-thumb-focus-box-shadow: #{$custom-range-thumb-focus-box-shadow};
-  --bs-custom-range-thumb-focus-box-shadow-width: #{$custom-range-thumb-focus-box-shadow-width};
-  --bs-custom-range-thumb-active-bg: #{$custom-range-thumb-active-bg};
-  --bs-custom-range-thumb-disabled-bg: #{$custom-range-thumb-disabled-bg};
-  --bs-custom-file-height: #{$custom-file-height};
-  --bs-custom-file-height-inner: #{$custom-file-height-inner};
-  --bs-custom-file-focus-border-color: #{$custom-file-focus-border-color};
-  --bs-custom-file-focus-box-shadow: #{$custom-file-focus-box-shadow};
-  --bs-custom-file-disabled-bg: #{$custom-file-disabled-bg};
-  --bs-custom-file-padding-y: #{$custom-file-padding-y};
-  --bs-custom-file-padding-x: #{$custom-file-padding-x};
-  --bs-custom-file-line-height: #{$custom-file-line-height};
-  --bs-custom-file-font-family: #{$custom-file-font-family};
-  --bs-custom-file-font-weight: #{$custom-file-font-weight};
-  --bs-custom-file-color: #{$custom-file-color};
-  --bs-custom-file-bg: #{$custom-file-bg};
-  --bs-custom-file-border-width: #{$custom-file-border-width};
-  --bs-custom-file-border-color: #{$custom-file-border-color};
-  --bs-custom-file-border-radius: #{$custom-file-border-radius};
-  --bs-custom-file-box-shadow: #{$custom-file-box-shadow};
-  --bs-custom-file-button-color: #{$custom-file-button-color};
-  --bs-custom-file-button-bg: #{$custom-file-button-bg};
-  //--bs-custom-file-text: #{$custom-file-text}; //mapping doesn't work
 
 
   // Form validation
@@ -457,8 +312,6 @@
   --bs-nav-pills-border-radius: #{$nav-pills-border-radius};
   --bs-nav-pills-link-active-color: #{$nav-pills-link-active-color};
   --bs-nav-pills-link-active-bg: #{$nav-pills-link-active-bg};
-  --bs-nav-divider-color: #{$nav-divider-color};
-  --bs-nav-divider-margin-y: #{$nav-divider-margin-y};
 
 
   // Navbar
@@ -474,9 +327,7 @@
   --bs-navbar-toggler-padding-x: #{$navbar-toggler-padding-x};
   --bs-navbar-toggler-font-size: #{$navbar-toggler-font-size};
   --bs-navbar-toggler-border-radius: #{$navbar-toggler-border-radius};
-  --bs-navbar-dark-color: #{$navbar-dark-color};
   --bs-navbar-dark-hover-color: #{$navbar-dark-hover-color};
-  --bs-navbar-dark-active-color: #{$navbar-dark-active-color};
   --bs-navbar-dark-disabled-color: #{$navbar-dark-disabled-color};
   --bs-navbar-dark-toggler-icon-bg: #{$navbar-dark-toggler-icon-bg};
   --bs-navbar-dark-toggler-border-color: #{$navbar-dark-toggler-border-color};
@@ -526,7 +377,6 @@
   --bs-pagination-padding-x-sm: #{$pagination-padding-x-sm};
   --bs-pagination-padding-y-lg: #{$pagination-padding-y-lg};
   --bs-pagination-padding-x-lg: #{$pagination-padding-x-lg};
-  --bs-pagination-line-height: #{$pagination-line-height};
   --bs-pagination-color: #{$pagination-color};
   --bs-pagination-bg: #{$pagination-bg};
   --bs-pagination-border-width: #{$pagination-border-width};
@@ -544,10 +394,6 @@
   --bs-pagination-disabled-border-color: #{$pagination-disabled-border-color};
 
 
-  // Jumbotron
-  --bs-jumbotron-padding: #{$jumbotron-padding};
-  --bs-jumbotron-color: #{$jumbotron-color};
-  --bs-jumbotron-bg: #{$jumbotron-bg};
 
 
   // Cards
@@ -563,10 +409,6 @@
   --bs-card-bg: #{$card-bg};
   --bs-card-img-overlay-padding: #{$card-img-overlay-padding};
   --bs-card-group-margin: #{$card-group-margin};
-  --bs-card-deck-margin: #{$card-deck-margin};
-  --bs-card-columns-count: #{$card-columns-count};
-  --bs-card-columns-gap: #{$card-columns-gap};
-  --bs-card-columns-margin: #{$card-columns-margin};
 
 
   // Tooltips
@@ -635,12 +477,6 @@
   --bs-badge-padding-y: #{$badge-padding-y};
   --bs-badge-padding-x: #{$badge-padding-x};
   --bs-badge-border-radius: #{$badge-border-radius};
-  --bs-badge-transition: #{$badge-transition};
-  --bs-badge-focus-width: #{$badge-focus-width};
-  --bs-badge-pill-padding-x: #{$badge-pill-padding-x};
-  // Use a higher than normal value to ensure completely rounded edges when
-  // customizing padding or font-size on labels.
-  --bs-badge-pill-border-radius: #{$badge-pill-border-radius};
 
 
   // Modals
@@ -684,10 +520,6 @@
   --bs-alert-border-radius: #{$alert-border-radius};
   --bs-alert-link-font-weight: #{$alert-link-font-weight};
   --bs-alert-border-width: #{$alert-border-width};
-  --bs-alert-bg-level: #{$alert-bg-level};
-  --bs-alert-border-level: #{$alert-border-level};
-  --bs-alert-color-level: #{$alert-color-level};
-
 
   // Progress bars
   --bs-progress-height: #{$progress-height};
@@ -738,7 +570,6 @@
   // Breadcrumbs
   --bs-breadcrumb-padding-y: #{$breadcrumb-padding-y};
   --bs-breadcrumb-padding-x: #{$breadcrumb-padding-x};
-  --bs-breadcrumb-item-padding: #{$breadcrumb-item-padding};
   --bs-breadcrumb-margin-bottom: #{$breadcrumb-margin-bottom};
   --bs-breadcrumb-bg: #{$breadcrumb-bg};
   --bs-breadcrumb-divider-color: #{$breadcrumb-divider-color};
@@ -777,12 +608,6 @@
   --bs-spinner-border-width-sm: #{$spinner-border-width-sm};
 
 
-  // Close
-  --bs-close-font-size: #{$close-font-size};
-  --bs-close-font-weight: #{$close-font-weight};
-  --bs-close-color: #{$close-color};
-  --bs-close-text-shadow: #{$close-text-shadow};
-
 
   // Code
   --bs-code-font-size: #{$code-font-size};
@@ -793,18 +618,6 @@
   --bs-kbd-color: #{$kbd-color};
   --bs-kbd-bg: #{$kbd-bg};
   --bs-pre-color: #{$pre-color};
-  --bs-pre-scrollable-max-height: #{$pre-scrollable-max-height};
-
-
-  // Utilities
-  --bs-displays: #{$displays};
-  --bs-overflows: #{$overflows};
-  --bs-positions: #{$positions};
-
-
-  // Printing
-  --bs-print-page-size: #{$print-page-size};
-  --bs-print-body-min-width: #{$print-body-min-width};
 
   .accordion {
     --bs-accordion-btn-bg: #{$light};
