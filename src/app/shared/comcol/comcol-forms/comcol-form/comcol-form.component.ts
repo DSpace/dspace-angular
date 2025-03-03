@@ -63,7 +63,6 @@ import {
 import { FormComponent } from '../../../form/form.component';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { ThemedUploaderComponent } from '../../../upload/uploader/themed-uploader.component';
-import { UploaderComponent } from '../../../upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../upload/uploader/uploader-options.model';
 import { followLink } from '../../../utils/follow-link-config.model';
 import { VarDirective } from '../../../utils/var.directive';
@@ -93,7 +92,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
   /**
    * The logo uploader component
    */
-  @ViewChild(UploaderComponent) uploaderComponent: UploaderComponent;
+  @ViewChild(ThemedUploaderComponent) uploaderComponent: ThemedUploaderComponent;
 
   /**
    * DSpaceObject that the form represents
@@ -275,7 +274,7 @@ export class ComColFormComponent<T extends Collection | Community> implements On
     if (this.isCreation) {
       this.submitForm.emit({
         dso: updatedDSO,
-        uploader: hasValue(this.uploaderComponent) ? this.uploaderComponent.uploader : undefined,
+        uploader: hasValue(this.uploaderComponent) ? this.uploaderComponent.compRef$.value.instance.uploader : undefined,
         operations: operations,
       });
     } else {
