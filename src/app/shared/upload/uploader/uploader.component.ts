@@ -27,6 +27,7 @@ import {
   XSRF_REQUEST_HEADER,
   XSRF_RESPONSE_HEADER,
 } from '../../../core/xsrf/xsrf.constants';
+import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import {
   hasValue,
   isNotEmpty,
@@ -42,7 +43,7 @@ import { UploaderProperties } from './uploader-properties.model';
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
   standalone: true,
-  imports: [TranslateModule, FileUploadModule, CommonModule],
+  imports: [TranslateModule, FileUploadModule, CommonModule, BtnDisabledDirective],
 })
 export class UploaderComponent implements OnInit, AfterViewInit {
 

@@ -11,6 +11,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { APP_CONFIG } from '../../../../config/app-config.interface';
+import { environment } from '../../../../environments/environment';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
@@ -41,6 +43,7 @@ describe('SearchFiltersComponent', () => {
         { provide: SearchService, useValue: searchService },
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
         { provide: SearchFilterService, useValue: searchFilters },
+        { provide: APP_CONFIG, useValue: environment },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).overrideComponent(SearchFiltersComponent, {

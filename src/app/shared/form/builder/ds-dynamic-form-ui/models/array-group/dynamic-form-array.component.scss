@@ -30,6 +30,7 @@
 
     .drag-icon {
         visibility: hidden;
+        width: calc(2 * var(--bs-spacer));
         color: var(--bs-gray-600);
         margin: var(--bs-btn-padding-y) 0;
         line-height: var(--bs-btn-line-height);
@@ -52,9 +53,6 @@
     }
 
     &:focus {
-        .drag-icon {
-            visibility: visible;
-        }
     }
 }
 
@@ -75,4 +73,10 @@
 
 .cdk-drag-placeholder {
     opacity: 0;
+}
+
+::ng-deep {
+  .sorting-with-keyboard input {
+    background-color: var(--bs-gray-400);
+  }
 }

@@ -4521,6 +4521,27 @@
   // "process.detail.back": "Back",
   "process.detail.back": "Retour",
 
+  //"process.detail.delete.body": "Are you sure you want to delete the current process?",
+  "process.detail.delete.body": "Êtes-vous sûr de vouloir supprimer ce processus?",
+
+  //"process.detail.delete.button": "Delete process",
+  "process.detail.delete.button": "Supprimer le processus",
+
+  //"process.detail.delete.cancel": "Cancel",
+  "process.detail.delete.cancel": "Annuler",
+
+  //"process.detail.delete.confirm": "Delete process",
+  "process.detail.delete.confirm": "Supprimer le processus",
+
+  //"process.detail.delete.error": "Something went wrong when deleting the process",
+  "process.detail.delete.error": "Une erreur s'est produite lors de la suppression du processus",
+
+  //"process.detail.delete.header": "Delete process",
+  "process.detail.delete.header": "Supprimer un processus",
+
+  //"process.detail.delete.success": "The process was successfully deleted.",
+  "process.detail.delete.success": "Le processus a bien été supprimé.",
+
   // "process.detail.output": "Process Output",
   "process.detail.output": "Sortie du processus",
 
@@ -4538,6 +4559,9 @@
 
   // "process.detail.output-files.empty": "This process doesn't contain any output files",
   "process.detail.output-files.empty": "Ce processus ne contient pas de fichiers de sortie",
+
+  //"process.detail.refreshing": "Auto-refreshing…",
+  "process.detail.refreshing": "Actualisation automatique...",
 
   // "process.detail.script": "Script",
   "process.detail.script": "Script",
@@ -6113,6 +6137,24 @@
   // "submission.sections.general.sections_not_valid": "There are incomplete sections.",
   "submission.sections.general.sections_not_valid": "Sections incomplètes.",
 
+  //"submission.sections.identifiers.info": "The following identifiers will be created for your item:",
+  "submission.sections.identifiers.info": "Les identifiants uniques suivants seront attribués à votre document :",
+
+  //"submission.sections.identifiers.no_handle": "No handles have been minted for this item.",
+  "submission.sections.identifiers.no_handle": "Aucun handle n'a été crée pour ce document.",
+
+  //"submission.sections.identifiers.no_doi": "No DOIs have been minted for this item.",
+  "submission.sections.identifiers.no_doi": "Aucun DOI n'a été créé pour ce document.",
+
+  //"submission.sections.identifiers.handle_label": "Handle: ",
+  "submission.sections.identifiers.handle_label": "Handle : ",
+
+  //"submission.sections.identifiers.doi_label": "DOI: ",
+  "submission.sections.identifiers.doi_label": "DOI : ",
+
+  //"submission.sections.identifiers.otherIdentifiers_label": "Other identifiers: ",
+  "submission.sections.identifiers.otherIdentifiers_label": "Autres identifiants : ",
+
   // "submission.sections.submit.progressbar.accessCondition": "Item access conditions",
   "submission.sections.submit.progressbar.accessCondition": "Autorisations d'accès à l'Item",
 
@@ -6133,6 +6175,9 @@
 
   // "submission.sections.submit.progressbar.detect-duplicate": "Potential duplicates",
   "submission.sections.submit.progressbar.detect-duplicate": "Doublon(s) potentiel(s)",
+
+  //"submission.sections.submit.progressbar.identifiers": "Identifiers",
+  "submission.sections.submit.progressbar.identifiers": "Identifiants",
 
   // "submission.sections.submit.progressbar.license": "Deposit license",
   "submission.sections.submit.progressbar.license": "Licence du dépôt",

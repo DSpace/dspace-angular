@@ -9,11 +9,16 @@ import {
   OnInit,
   ViewEncapsulation,
 } from '@angular/core';
-import { Router } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
-  Observable,
   Subscription,
 } from 'rxjs';
 import {
@@ -21,7 +26,8 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import { environment } from '../../../../src/environments/environment';
+import { environment } from '../../../environments/environment';
+import { SortOptions } from '../../core/cache/models/sort-options.model';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { GroupDataService } from '../../core/eperson/group-data.service';
@@ -29,9 +35,12 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import {
+  hasValue,
+  isUndefined,
+} from '../empty.util';
 import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
-
-
+import { SearchFilter } from '../search/models/search-filter.model';
 /**
  * The Rss feed button component.
  */
@@ -51,8 +60,9 @@ export class RSSComponent implements OnInit, OnDestroy  {
 
   isEnabled$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
 
+  isActivated$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   uuid: string;
-  configuration$: Observable<string>;
 
   subs: Subscription[] = [];
 
@@ -61,7 +71,9 @@ export class RSSComponent implements OnInit, OnDestroy  {
               private configurationService: ConfigurationDataService,
               private searchConfigurationService: SearchConfigurationService,
               private router: Router,
-              protected paginationService: PaginationService) {
+              private route: ActivatedRoute,
+              protected paginationService: PaginationService,
+              protected translateService: TranslateService) {
   }
   /**
    * Removes the linktag created when the component gets removed from the page.
@@ -78,8 +90,11 @@ export class RSSComponent implements OnInit, OnDestroy  {
    * Generates the link tags and the url to opensearch when the component is loaded.
    */
   ngOnInit(): void {
-    this.configuration$ = this.searchConfigurationService.getCurrentConfiguration('default');
-
+    if (hasValue(this.route.snapshot.data?.enableRSS)) {
+      this.isActivated$.next(this.route.snapshot.data.enableRSS);
+    } else if (isUndefined(this.route.snapshot.data?.enableRSS)) {
+      this.isActivated$.next(false);
+    }
     this.subs.push(this.configurationService.findByPropertyName('websvc.opensearch.enable').pipe(
       getFirstCompletedRemoteData(),
     ).subscribe((result) => {
@@ -106,7 +121,7 @@ export class RSSComponent implements OnInit, OnDestroy  {
         return null;
       }
       this.uuid = this.groupDataService.getUUIDFromString(this.router.url);
-      const route = environment.rest.baseUrl + this.formulateRoute(this.uuid, openSearchUri, searchOptions.query);
+      const route = environment.rest.baseUrl + this.formulateRoute(this.uuid, openSearchUri, searchOptions.sort, searchOptions.query, searchOptions.filters, searchOptions.configuration, searchOptions.pagination?.pageSize, searchOptions.fixedFilter);
       this.addLinks(route);
       this.linkHeadService.addTag({
         href: environment.rest.baseUrl + '/' + openSearchUri + '/service',
@@ -122,20 +137,40 @@ export class RSSComponent implements OnInit, OnDestroy  {
    * Function created a route given the different params available to opensearch
    * @param uuid The uuid if a scope is present
    * @param opensearch openSearch uri
+   * @param sort The sort options for the opensearch request
    * @param query The query string that was provided in the search
    * @returns The combine URL to opensearch
    */
-  formulateRoute(uuid: string, opensearch: string, query: string): string {
-    let route = '?format=atom';
+  formulateRoute(uuid: string, opensearch: string, sort?: SortOptions, query?: string, searchFilters?: SearchFilter[], configuration?: string, pageSize?: number, fixedFilter?: string): string {
+    let route = 'format=atom';
     if (uuid) {
       route += `&scope=${uuid}`;
+    }
+    if (sort && sort.direction && sort.field && sort.field !== 'id') {
+      route += `&sort=${sort.field}&sort_direction=${sort.direction}`;
     }
     if (query) {
       route += `&query=${query}`;
     } else {
       route += `&query=*`;
     }
-    route = '/' + opensearch + route;
+    if (configuration) {
+      route += `&configuration=${configuration}`;
+    }
+    if (pageSize) {
+      route += `&rpp=${pageSize}`;
+    }
+    if (searchFilters) {
+      for (const filter of searchFilters) {
+        for (const val of filter.values) {
+          route += '&' + filter.key + '=' + encodeURIComponent(val) + (filter.operator ? ',' + filter.operator : '');
+        }
+      }
+    }
+    if (fixedFilter) {
+      route += '&' + fixedFilter;
+    }
+    route = '/' + opensearch + '?' + route;
     return route;
   }
 
@@ -169,4 +204,5 @@ export class RSSComponent implements OnInit, OnDestroy  {
       title: 'Sitewide RSS feed',
     });
   }
+
 }

@@ -87,7 +87,7 @@
         <button (click)="back()" class="btn btn-outline-secondary">
             <i class="fas fa-arrow-left"></i> {{ 'system-wide-alert.form.cancel' | translate }}
         </button>
-        <button class="btn btn-primary" [disabled]="alertForm.invalid" (click)="save()">
+        <button class="btn btn-primary" [dsBtnDisabled]="alertForm.invalid" (click)="save()">
             <i class="fa fa-save"></i> {{ 'system-wide-alert.form.save' | translate }}
         </button>
     </div>

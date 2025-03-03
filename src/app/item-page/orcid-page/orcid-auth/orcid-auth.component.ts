@@ -34,6 +34,7 @@ import {
 import { Item } from '../../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { AlertComponent } from '../../../shared/alert/alert.component';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { createFailedRemoteDataObjectFromError$ } from '../../../shared/remote-data.utils';
 
@@ -47,6 +48,7 @@ import { createFailedRemoteDataObjectFromError$ } from '../../../shared/remote-d
     NgIf,
     NgForOf,
     AlertComponent,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

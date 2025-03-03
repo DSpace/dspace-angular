@@ -21,9 +21,6 @@ export abstract class NonHierarchicalBrowseDefinition extends BrowseDefinition {
   @autoserializeAs('order')
   defaultSortOrder: string;
 
-  @autoserializeAs('metadata')
-  metadataKeys: string[];
-
   @autoserialize
   dataType: BrowseByDataType;
 }

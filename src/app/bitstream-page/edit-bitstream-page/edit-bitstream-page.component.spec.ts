@@ -261,7 +261,7 @@ describe('EditBitstreamPageComponent', () => {
       });
 
       it('should select the correct format', () => {
-        expect(rawForm.formatContainer.selectedFormat).toEqual(selectedFormat.id);
+        expect(rawForm.formatContainer.selectedFormat).toEqual(selectedFormat.shortDescription);
       });
 
       it('should put the \"New Format\" input on invisible', () => {
@@ -292,7 +292,13 @@ describe('EditBitstreamPageComponent', () => {
 
     describe('when an unknown format is selected', () => {
       beforeEach(() => {
-        comp.updateNewFormatLayout(allFormats[0].id);
+        comp.onChange({
+          model: {
+            id: 'selectedFormat',
+            value: allFormats[0],
+          },
+        });
+        comp.updateNewFormatLayout();
       });
 
       it('should remove the invisible class from the \"New Format\" input', () => {
@@ -394,9 +400,10 @@ describe('EditBitstreamPageComponent', () => {
 
       describe('when selected format has changed', () => {
         beforeEach(() => {
-          comp.formGroup.patchValue({
-            formatContainer: {
-              selectedFormat: allFormats[2].id,
+          comp.onChange({
+            model: {
+              id: 'selectedFormat',
+              value: allFormats[2],
             },
           });
           fixture.detectChanges();

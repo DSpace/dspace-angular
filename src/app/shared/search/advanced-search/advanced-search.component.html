@@ -30,7 +30,7 @@
                                (findSuggestions)="findSuggestions($event)"
                                ngDefaultControl>
   </ds-filter-input-suggestions>
-  <button (click)="applyFilter()" [disabled]="currentValue === ''" class="btn btn-primary mt-2">
+  <button (click)="applyFilter()" [dsBtnDisabled]="currentValue === ''" class="btn btn-primary mt-2">
     {{ 'search.sidebar.advanced-search.add' | translate }}
   </button>
 </div>

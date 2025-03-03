@@ -40,7 +40,7 @@ services:
       # from the host machine. This IP range MUST correspond to the 'dspacenet' subnet defined above.
       proxies__P__trusted__P__ipranges: '172.23.0'
       LOGGING_CONFIG: /dspace/config/log4j2-container.xml
-    image: "${DOCKER_OWNER:-dspace}/dspace:${DSPACE_VER:-latest-test}"
+    image: "${DOCKER_REGISTRY:-docker.io}/${DOCKER_OWNER:-dspace}/dspace:${DSPACE_VER:-latest-test}"
     depends_on:
     - dspacedb
     networks:
@@ -68,7 +68,7 @@ services:
   dspacedb:
     container_name: dspacedb
     # Uses a custom Postgres image with pgcrypto installed
-    image: "${DOCKER_OWNER:-dspace}/dspace-postgres-pgcrypto:${DSPACE_VER:-latest}"
+    image: "${DOCKER_REGISTRY:-docker.io}/${DOCKER_OWNER:-dspace}/dspace-postgres-pgcrypto:${DSPACE_VER:-latest}"
     environment:
       PGDATA: /pgdata
       POSTGRES_PASSWORD: dspace
@@ -85,7 +85,7 @@ services:
   # DSpace Solr container  
   dspacesolr:
     container_name: dspacesolr
-    image: "${DOCKER_OWNER:-dspace}/dspace-solr:${DSPACE_VER:-latest}"
+    image: "${DOCKER_REGISTRY:-docker.io}/${DOCKER_OWNER:-dspace}/dspace-solr:${DSPACE_VER:-latest}"
     networks:
       - dspacenet
     ports:

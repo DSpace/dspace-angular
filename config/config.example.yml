@@ -23,6 +23,31 @@ ssr:
   # Determining which styles are critical is a relatively expensive operation; this option is
   # disabled (false) by default to boost server performance at the expense of loading smoothness.
   inlineCriticalCss: false
+  # Path prefixes to enable SSR for. By default these are limited to paths of primary DSpace objects.
+  # NOTE: The "/handle/" path ensures Handle redirects work via SSR.  The "/reload/" path ensures
+  # hard refreshes (e.g. after login) trigger SSR while fully reloading the page.
+  paths: [ '/home', '/items/', '/entities/', '/collections/', '/communities/', '/bitstream/', '/bitstreams/', '/handle/', '/reload/' ]
+  # Whether to enable rendering of Search component on SSR.
+  # If set to true the component will be included in the HTML returned from the server side rendering.
+  # If set to false the component will not be included in the HTML returned from the server side rendering.
+  enableSearchComponent: false
+  # Whether to enable rendering of Browse component on SSR.
+  # If set to true the component will be included in the HTML returned from the server side rendering.
+  # If set to false the component will not be included in the HTML returned from the server side rendering.
+  enableBrowseComponent: false
+  # Enable state transfer from the server-side application to the client-side application.
+  # Defaults to true.
+  # Note: When using an external application cache layer, it's recommended not to transfer the state to avoid caching it.
+  # Disabling it ensures that dynamic state information is not inadvertently cached, which can improve security and
+  # ensure that users always use the most up-to-date state.
+  transferState: true
+  # When a different REST base URL is used for the server-side application, the generated state contains references to
+  # REST resources with the internal URL configured. By default, these internal URLs are replaced with public URLs.
+  # Disable this setting to avoid URL replacement during SSR. In this the state is not transferred to avoid security issues.
+  replaceRestUrl: true
+  # Enable request performance profiling data collection and printing the results in the server console.
+  # Defaults to false. Enabling in production is NOT recommended
+  #enablePerformanceProfiler: false
 
 # The REST API server settings
 # NOTE: these settings define which (publicly available) REST API to use. They are usually
@@ -33,6 +58,9 @@ rest:
   port: 443
   # NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
   nameSpace: /server
+  # Provide a different REST url to be used during SSR execution. It must contain the whole url including protocol, server port and
+  # server namespace (uncomment to use it).
+  #ssrBaseUrl: http://localhost:8080/server
 
 # Caching settings
 cache:
@@ -448,6 +476,12 @@ search:
     enabled: false
     # List of filters to enable in "Advanced Search" dropdown
     filter: [ 'title', 'author', 'subject', 'entityType' ]
+  #
+  # Number used to render n UI elements called loading skeletons that act as placeholders.
+  # These elements indicate that some content will be loaded in their stead.
+  # Since we don't know how many filters will be loaded before we receive a response from the server we use this parameter for the skeletons count.
+  # e.g. If we set 5 then 5 loading skeletons will be visualized before the actual filters are retrieved.
+  defaultFiltersCount: 5
 
 
 # Notify metrics

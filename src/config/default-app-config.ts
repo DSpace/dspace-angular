@@ -516,6 +516,7 @@ export class DefaultAppConfig implements AppConfig {
       enabled: false,
       filter: ['title', 'author', 'subject', 'entityType'],
     },
+    filterPlaceholdersCount: 5,
   };
 
   notifyMetrics: AdminNotifyMetricsRow[] = [

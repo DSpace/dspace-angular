@@ -43,10 +43,10 @@ export class HostWindowService {
     /* See _exposed_variables.scss */
     variableService.getAllVariables()
       .subscribe((variables) => {
-        this.breakPoints.XL_MIN = parseInt(variables['--bs-xl-min'], 10);
-        this.breakPoints.LG_MIN = parseInt(variables['--bs-lg-min'], 10);
-        this.breakPoints.MD_MIN = parseInt(variables['--bs-md-min'], 10);
-        this.breakPoints.SM_MIN = parseInt(variables['--bs-sm-min'], 10);
+        this.breakPoints.XL_MIN = parseInt(variables['--bs-xl'], 10);
+        this.breakPoints.LG_MIN = parseInt(variables['--bs-lg'], 10);
+        this.breakPoints.MD_MIN = parseInt(variables['--bs-md'], 10);
+        this.breakPoints.SM_MIN = parseInt(variables['--bs-sm'], 10);
       });
   }
 

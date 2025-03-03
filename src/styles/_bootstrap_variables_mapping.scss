@@ -23,7 +23,7 @@
   --bs-font-size-base: #{$font-size-base};
   --bs-font-size-lg: #{$font-size-lg};
 
-  --bs-btn-link-disabled-color: #{$btn-link-disabled-color};
+
 
   --bs-input-btn-border-width: #{$input-btn-border-width};
   --bs-input-border-color: #{$input-border-color};
@@ -55,7 +55,8 @@
   --bs-table-striped-bg: #{$light};
 }
 
-cdk-tree-node .btn {
+.btn-transparent
+{
   --bs-btn-box-shadow: none;
   --bs-btn-focus-box-shadow: none;
   --bs-btn-active-border-color: transparent;

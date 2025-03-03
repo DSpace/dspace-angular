@@ -14,7 +14,7 @@
 # # Therefore, it should be kept in sync with that file
 services:
   dspacedb:
-    image: "${DOCKER_OWNER:-dspace}/dspace-postgres-pgcrypto:${DSPACE_VER:-latest}-loadsql"
+    image: "${DOCKER_REGISTRY:-docker.io}/${DOCKER_OWNER:-dspace}/dspace-postgres-pgcrypto:${DSPACE_VER:-latest}-loadsql"
     environment:
       # This LOADSQL should be kept in sync with the URL in DSpace/DSpace
       # This SQL is available from https://github.com/DSpace-Labs/AIP-Files/releases/tag/demo-entities-data

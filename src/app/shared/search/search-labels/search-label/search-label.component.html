@@ -1,4 +1,4 @@
-<a class="badge bg me-1 mb-1 text-capitalize"
+<a class="badge bg-primary me-1 mb-1 text-capitalize"
    [attr.aria-label]="'search.filters.remove' | translate:{ type: ('search.filters.applied.f.' + appliedFilter.filter) | translate, value: appliedFilter.label }"
    [routerLink]="searchLink"
    [queryParams]="(removeParameters$ | async)"
