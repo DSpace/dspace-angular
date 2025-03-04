@@ -3210,6 +3210,8 @@
 
   "login.form.password": "Password",
 
+  "login.form.saml": "Log in with SAML",
+
   "login.form.shibboleth": "Log in with Shibboleth",
 
   "login.form.submit": "Log in",
