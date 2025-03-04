@@ -1,13 +1,16 @@
 .header-row {
-  color: var(--bs-table-dark-color);
-  background-color: var(--bs-table-dark-bg);
-  border-color: var(--bs-table-dark-bg);
+  & > th {
+    padding: .75rem;
+  }
+  --bs-table-bg: #343a40;
+  --bs-table-bg-state: #343a40;
+  --bs-table-color-state: #fff;
 }
 
 .bundle-row {
-  color: var(--bs-table-head-color);
-  background-color: var(--bs-table-head-bg);
-  border-color: var(--bs-table-border-color);
+  --bs-table-color-state: #495057;
+  --bs-table-bg: #e9ecef;
+  --bs-table-bg-state: #dee2e6;
 }
 
 .row-element {

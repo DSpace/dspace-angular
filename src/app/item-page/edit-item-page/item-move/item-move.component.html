@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="col-12">
                     <p>
-                      <label for="inheritPoliciesCheckbox">
+                      <label class="form-label" for="inheritPoliciesCheckbox">
                         <ng-template #tooltipContent>
                           {{ 'item.edit.move.inheritpolicies.tooltip' | translate }}
                         </ng-template>
@@ -36,7 +36,7 @@
             </div>
 
           <div class="button-row bottom">
-            <div class="float-right space-children-mr">
+            <div class="float-end space-children-mr">
               <button [routerLink]="[(itemPageRoute$ | async), 'edit']" class="btn btn-outline-secondary">
                 <i class="fas fa-arrow-left"></i> {{'item.edit.move.cancel' | translate}}
               </button>
