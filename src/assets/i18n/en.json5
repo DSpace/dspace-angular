@@ -6795,4 +6795,8 @@
   "live-region.ordering.dropped": "{{ itemName }}, dropped at position {{ index }} of {{ length }}.",
 
   "dynamic-form-array.sortable-list.label": "Sortable list",
+
+  "home.tooltip.top-level-communities": "Here you can view a list of the Repository communities, organized by default in alphabetical order. In the bottom corner, there is a pagination feature to display the communities and, by selecting a community, you will have access to its content and can browse through its sub-communities or collections. If you want to access the distribution feed from the home page, click on the feed button on the right.",
+
+  "home.tooltip.recent-item-list": "Here you can view the most recently published submissions. If you want to see more published items, click on the load more button.",
 }
