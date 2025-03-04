@@ -232,7 +232,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
 
       comp.formModel = compAsAny.buildFileEditForm();
 
-      const models = [DynamicCustomSwitchModel, DynamicFormGroupModel, DynamicFormArrayModel];
+      const models = [DynamicCustomSwitchModel, DynamicCustomSwitchModel, DynamicFormGroupModel, DynamicFormArrayModel];
 
       expect(comp.formModel).toBeDefined();
       expect(comp.formModel.length).toBe(models.length);
@@ -240,7 +240,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
         expect(comp.formModel[i] instanceof model).toBeTruthy();
       });
 
-      expect((comp.formModel[2] as DynamicFormArrayModel).groups.length).toBe(2);
+      expect((comp.formModel[3] as DynamicFormArrayModel).groups.length).toBe(2);
       const startDateModel = formbuilderService.findById('startDate', comp.formModel);
       expect(startDateModel.max).toEqual(maxStartDate);
       const endDateModel = formbuilderService.findById('endDate', comp.formModel);
@@ -305,6 +305,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       compAsAny.fileData = fileData;
       compAsAny.pathCombiner = pathCombiner;
       compAsAny.isPrimary = null;
+      compAsAny.isAlternativeContent = null;
       formService.validateAllFormFields.and.callFake(() => null);
       formService.isValid.and.returnValue(of(true));
       formService.getFormData.and.returnValue(of(mockFileFormData));
@@ -333,6 +334,14 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       expect(uploadService.updatePrimaryBitstreamOperation).toHaveBeenCalledWith(pathCombiner.getPath(path),  compAsAny.isPrimary,  mockFileFormData.primary[0], compAsAny.fileId);
 
       const pathFragment = ['files', fileIndex];
+
+      path = 'alternativecontent';
+      expect(operationsBuilder.add).toHaveBeenCalledWith(
+        pathCombiner.getPath([...pathFragment, path]),
+        true,
+        false,
+        true,
+      );
 
       path = 'metadata/dc.title';
       expect(operationsBuilder.add).toHaveBeenCalledWith(
