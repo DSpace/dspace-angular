@@ -15,6 +15,10 @@
     <i class="fa fa-edit"></i><span *ngIf="!small" class="d-none d-sm-inline"> {{"admin.search.item.edit" | translate}}</span>
   </a>
 
+  <a [ngClass]="{'btn-sm': small}" class="btn btn-secondary edit-link" [routerLink]="[getCloneRoute()]" [title]="'admin.search.item.clone' | translate">
+    <i class="fa fa-copy"></i><span *ngIf="!small" class="d-none d-sm-inline"> {{"admin.search.item.clone" | translate}}</span>
+  </a>
+
   <a [ngClass]="{'btn-sm': small}" *ngIf="item && !item.isWithdrawn" class="btn btn-warning t withdraw-link" [routerLink]="[getWithdrawRoute()]" [title]="'admin.search.item.withdraw' | translate">
     <i class="fa fa-ban"></i><span *ngIf="!small" class="d-none d-sm-inline"> {{"admin.search.item.withdraw" | translate}}</span>
   </a>
