@@ -60,6 +60,8 @@ import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.se
 import { SubmissionService } from '../../app/submission/submission.service';
 import { REQUEST } from '../../express.tokens';
 import { TranslateBrowserLoader } from '../../ngx-translate-loaders/translate-browser.loader';
+import { HashedFileMapping } from '../dynamic-hash/hashed-file-mapping';
+import { BrowserHashedFileMapping } from '../dynamic-hash/hashed-file-mapping.browser';
 import { BrowserInitService } from './browser-init.service';
 
 export const REQ_KEY = makeStateKey<string>('req');
@@ -156,6 +158,10 @@ export const browserAppConfig: ApplicationConfig = mergeApplicationConfig({
     {
       provide: MathService,
       useClass: ClientMathService,
+    },
+    {
+      provide: HashedFileMapping,
+      useClass: BrowserHashedFileMapping,
     },
   ],
 }, commonAppConfig);
