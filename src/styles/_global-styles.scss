@@ -518,6 +518,9 @@ ngb-accordion {
 
 ngb-tooltip-window {
   margin-bottom: 0.25rem !important;
+  &> .tooltip-inner > .text-muted {
+    color: #{$gray-600} !important;
+  }
 }
 
 .table thead th {
