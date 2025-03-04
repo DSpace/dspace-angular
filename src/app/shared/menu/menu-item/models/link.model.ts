@@ -8,7 +8,7 @@ import { MenuItemModel } from './menu-item.model';
  */
 export class LinkMenuItemModel implements MenuItemModel {
   type = MenuItemType.LINK;
-  disabled: boolean;
+  disabled?: boolean;
   text: string;
   link: string;
   queryParams?: Params | null;
