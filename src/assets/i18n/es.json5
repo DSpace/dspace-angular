@@ -1391,6 +1391,9 @@
   // "bitstream.edit.form.primaryBitstream.label": "Primary File",
   "bitstream.edit.form.primaryBitstream.label": "Archivo principal",
 
+  //"bitstream.edit.form.alternativeContent.label": "Alternative Content File",
+  "bitstream.edit.form.alternativeContent.label": "Archivo con contenido alternativo",
+
   // "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
   "bitstream.edit.form.selectedFormat.hint": "Si el formato no está en la lista anterior, <b>seleccione \"el formato no está en la lista\" arriba</b> y descríbalo en \"Describir el nuevo formato\".",
 
@@ -4171,6 +4174,9 @@
 
   // "item.page.bitstreams.primary": "Primary",
   "item.page.bitstreams.primary": "Principal",
+
+  //"item.page.bitstreams.alternativeContent": "Alternative Content",
+  "item.page.bitstreams.alternativeContent": "Contenido alternativo",
 
   // "item.page.filesection.original.bundle": "Original bundle",
   "item.page.filesection.original.bundle": "Bloque original",
