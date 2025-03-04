@@ -56,11 +56,9 @@ describe('ContextHelpToggleComponent', () => {
     });
 
     it('clicking the button should toggle context help icon visibility', fakeAsync(() => {
-      fixture.whenStable().then(() => {
-        fixture.debugElement.query(By.css('a')).nativeElement.click();
-        tick();
-        expect(contextHelpService.toggleIcons).toHaveBeenCalled();
-      });
+      fixture.debugElement.query(By.css('a')).nativeElement.click();
+      tick();
+      expect(contextHelpService.toggleIcons).toHaveBeenCalled();
     }));
   });
 

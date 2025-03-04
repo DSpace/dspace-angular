@@ -1,5 +1,6 @@
 <ng-container *ngVar="selectionService?.isObjectSelected(selectionConfig?.listId, object) | async as checked">
-    <input #selectListItemCheckbox *ngIf="selectionConfig.repeatable" class="form-check-input" type="checkbox"
+    <span class="form-check">
+        <input #selectListItemCheckbox *ngIf="selectionConfig.repeatable" class="form-check-input" type="checkbox"
            [attr.aria-label]="(selectListItemCheckbox.checked ? 'selectable-list-item-control.deselect' : 'selectable-list-item-control.select') | translate"
            [name]="'checkbox' + index"
            [id]="'object' + index"
@@ -11,4 +12,5 @@
            [id]="'object' + index"
            [checked]="selected$ | async"
            (click)="selectRadio(!checked)">
+    </span>
 </ng-container>

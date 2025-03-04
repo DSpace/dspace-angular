@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-namespace
-import * as deepFreeze from 'deep-freeze';
+import deepFreeze from 'deep-freeze';
 
 import { RestRequestMethod } from '../data/rest-request-method';
 import { RemoveFromObjectCacheAction } from './object-cache.actions';

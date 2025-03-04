@@ -29,13 +29,15 @@ input {
   font-weight: $font-weight-normal;
   color: $link-color;
   text-decoration: $link-decoration;
-  @include hover {
+  box-shadow: none;
+  &:hover {
     color: $link-hover-color;
     text-decoration: $link-hover-decoration;
   }
   &:disabled,
   &.disabled {
     color: $btn-link-disabled-color;
+    border: transparent;
     pointer-events: none;
   }
 

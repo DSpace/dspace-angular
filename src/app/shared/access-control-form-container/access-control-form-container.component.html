@@ -8,12 +8,12 @@
         class="d-block pb-3">
       </ds-alert>
 
-      <div class="row">
-        <div class="col-12 col-md-6 border-right d-flex flex-column justify-content-between">
+      <div class="row mt-5">
+        <div class="col-12 col-md-6 border-end d-flex flex-column justify-content-between">
 
           <div>
             <div class="d-flex align-items-center">
-              <h2 class="h3 mb-0 mr-4">
+              <h2 class="h3 mb-0 me-4">
                 {{ 'access-control-item-header-toggle' | translate }}
               </h2>
               <ui-switch
@@ -60,14 +60,12 @@
               [dropdownOptions]="(dropdownData$ | async)?.itemAccessConditionOptions || []">
             </ds-access-control-array-form>
           </div>
-
         </div>
 
         <div class="col-12 col-md-6 d-flex flex-column justify-content-between">
-
           <div>
             <div class="d-flex align-items-center">
-              <h2 class="h3 mb-0 mr-4">
+              <h2 class="h3 mb-0 me-4">
                 {{'access-control-bitstream-header-toggle' | translate}}
               </h2>
               <ui-switch
@@ -157,7 +155,7 @@
       <hr *ngIf="showSubmit">
 
       <div *ngIf="showSubmit" class="d-flex justify-content-end">
-        <button class="btn btn-outline-primary mr-3" (click)="reset()" type="button">
+        <button class="btn btn-outline-primary me-3" (click)="reset()" type="button">
           {{ 'access-control-cancel' | translate }}
         </button>
         <button class="btn btn-primary"
