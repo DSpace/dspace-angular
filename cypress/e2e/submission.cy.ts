@@ -59,6 +59,9 @@ describe('New Submission page', () => {
     // This page is restricted, so we will be shown the login form. Fill it out & submit.
     cy.loginViaForm(Cypress.env('DSPACE_TEST_SUBMIT_USER'), Cypress.env('DSPACE_TEST_SUBMIT_USER_PASSWORD'));
 
+    // Accept all cookies to make sure cookie window does not block other elements
+    cy.get('.orejime-Button--save').click();
+
     // Attempt an immediate deposit without filling out any fields
     cy.get('button#deposit').click();
 
@@ -118,6 +121,9 @@ describe('New Submission page', () => {
 
     // This page is restricted, so we will be shown the login form. Fill it out & submit.
     cy.loginViaForm(Cypress.env('DSPACE_TEST_SUBMIT_USER'), Cypress.env('DSPACE_TEST_SUBMIT_USER_PASSWORD'));
+
+    // Accept all cookies to make sure cookie window does not block other elements
+    cy.get('.orejime-Button--save').click();
 
     // Fill out all required fields (Title, Date)
     cy.get('input#dc_title').type('DSpace logo uploaded via e2e tests');
