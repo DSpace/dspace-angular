@@ -5,7 +5,9 @@
                               [showViewModes]="false"
                               [searchEnabled]="false"
                               [inPlaceSearch]="false"
-                              [showScopeSelector]="false">
+                              [showScopeSelector]="false"
+                              [showClearButton]="true"
+>
   <ng-container searchContentTop *ngTemplateOutlet="homeContent"></ng-container>
 </ds-configuration-search-page>
 <div *ngIf="!showDiscoverFilters" class="container">
@@ -17,7 +19,7 @@
   <ng-container *ngIf="(site$ | async) as site">
     <ds-view-tracker [object]="site"></ds-view-tracker>
   </ng-container>
-  <ds-search-form [inPlaceSearch]="false"
+  <ds-search-form [inPlaceSearch]="false" [showClearButton]="true"
                          [searchPlaceholder]="'home.search-form.placeholder' | translate">
   </ds-search-form>
   <ds-top-level-community-list></ds-top-level-community-list>
