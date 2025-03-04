@@ -10,6 +10,31 @@
     <label for="message">{{ 'grant-deny-request-copy.email.message' | translate }}</label>
     <textarea class="form-control" id="message" rows="8" [(ngModel)]="message" name="message"></textarea>
   </div>
+  <!-- Display access periods if more than one was bound to input. The parent component (grant-request-copy)
+       sends an empty list if the feature is not enabled or applicable to this request. -->
+  <div class="form-group" *ngIf="hasValue(validAccessPeriods) && validAccessPeriods.length > 0">
+    <label for="accessPeriod">{{ 'grant-request-copy.access-period.header' | translate }}</label>
+    <div ngbDropdown class="d-block">
+      <!-- Show current selected access period (defaults to first in array) -->
+      <button
+        class="btn btn-outline-primary playlist"
+        id="accessPeriod"
+        ngbDropdownToggle
+      > {{ 'grant-request-copy.access-period.' + this.accessPeriod | translate }}
+      </button>
+      <!-- Access period dropdown -->
+      <div ngbDropdownMenu aria-labelledby="accessPeriod">
+        <button
+          ngbDropdownItem
+          *ngFor="let accessPeriod of validAccessPeriods"
+          class="list-element"
+          (click)="selectAccessPeriod(accessPeriod)"
+        >
+          {{ ('grant-request-copy.access-period.' + accessPeriod | translate) }}
+        </button>
+      </div>
+    </div>
+  </div>
   <ng-content></ng-content>
   <div class="d-flex flex-row-reverse">
     <button (click)="submit()"
