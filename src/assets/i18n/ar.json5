@@ -8147,7 +8147,7 @@
   // "submission.sections.sherpa.publisher.policy": "Publisher Policy",
   "submission.sections.sherpa.publisher.policy": "سياسة الناشر",
 
-  // "submission.sections.sherpa.publisher.policy.description": "The below information was found via Sherpa Romeo. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
+  // "submission.sections.sherpa.publisher.policy.description": "The below information was found via Open Policy Finder. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
   "submission.sections.sherpa.publisher.policy.description": "تم العثور على المعلومات أدناه عبر شيربا روميو. وبناءً على سياسات الناشر الخاص بك، فإنه يقدم النصائح بشأن ما إذا كان الحظر ضروريًا أو الملفات المسموح لك بتحميلها. إذا كانت لديك أسئلة، يرجى الاتصال بمسؤول موقعك عبر نموذج التعليقات الموجود في التذييل.",
 
   // "submission.sections.sherpa.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
