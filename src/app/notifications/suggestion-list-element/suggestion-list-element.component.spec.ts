@@ -9,7 +9,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
-import { ItemSearchResultListElementComponent } from '../../../themes/custom/app/shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
+import { ItemSearchResultListElementComponent } from '../../shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { Item } from '../../core/shared/item.model';
 import { mockSuggestionPublicationOne } from '../../shared/mocks/publication-claim.mock';
 import { SuggestionActionsComponent } from '../suggestion-actions/suggestion-actions.component';
