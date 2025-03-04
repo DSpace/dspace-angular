@@ -101,8 +101,9 @@ describe('HeadTagService', () => {
       addTag: {},
       addMetaTag: {},
       removeTag: {},
+      removeTagElement: {},
+      getTags: ['1', '2'],
       updateTag : {},
-      getTags: [],
     });
     title = jasmine.createSpyObj({
       setTitle: {},
@@ -175,6 +176,7 @@ describe('HeadTagService', () => {
       content: 'Test PowerPoint Document',
     });
     expect(meta.addTag).toHaveBeenCalledWith({ name: 'citation_author', content: 'Doe, Jane' });
+    expect(meta.addTag).toHaveBeenCalledWith({ name: 'citation_author', content: 'Doe, John' });
     expect(meta.updateTag).toHaveBeenCalledWith({
       name: 'citation_publication_date',
       content: '1650-06-26',
@@ -185,6 +187,13 @@ describe('HeadTagService', () => {
       name: 'citation_keywords',
       content: 'keyword1; keyword2; keyword3',
     });
+  }));
+
+  it('items page should remove multiple tags', fakeAsync(() => {
+    (headTagService as any).clearMetaTags();
+    expect(meta.getTags).toHaveBeenCalledWith('name="title"');
+    expect(meta.getTags).toHaveBeenCalledWith('name="description"');
+    expect(meta.removeTagElement).toHaveBeenCalledTimes(4);
   }));
 
   it('items page should set meta tags as published Thesis', fakeAsync(() => {
