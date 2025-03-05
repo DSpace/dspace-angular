@@ -105,6 +105,12 @@ import { ThumbnailComponent } from './app/thumbnail/thumbnail.component';
 import { WorkflowItemDeleteComponent } from './app/workflowitems-edit-page/workflow-item-delete/workflow-item-delete.component';
 import { WorkflowItemSendBackComponent } from './app/workflowitems-edit-page/workflow-item-send-back/workflow-item-send-back.component';
 import { WorkspaceItemsDeletePageComponent } from './app/workspaceitems-edit-page/workspaceitems-delete-page/workspaceitems-delete-page.component';
+import {
+  ItemCollectionMapperComponent
+} from './app/item-page/edit-item-page/item-collection-mapper/item-collection-mapper.component';
+import {
+  CollectionItemMapperComponent
+} from './app/collection-page/collection-item-mapper/collection-item-mapper.component';
 
 
 const DECLARATIONS = [
@@ -201,6 +207,8 @@ const DECLARATIONS = [
   AdminSearchPageComponent,
   AdminWorkflowPageComponent,
   SearchResultsSkeletonComponent,
+  ItemCollectionMapperComponent,
+  CollectionItemMapperComponent,
 ];
 
 @NgModule({
