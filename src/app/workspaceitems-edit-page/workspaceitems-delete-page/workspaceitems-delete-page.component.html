@@ -8,8 +8,7 @@
 <ng-template #content let-c="close" let-d="dismiss" id="delete-modal">
   <div class="modal-header">
     <div class="modal-title text-danger h4">{{ 'workspace-item.delete.header' | translate }}</div>
-    <button type="button" id="delete_close" class="close" aria-label="Close" (click)="d('cancel')">
-      <span aria-hidden="true">&times;</span>
+    <button type="button" id="delete_close" class="btn-close" aria-label="Close" (click)="d('cancel')">
     </button>
   </div>
   <div class="modal-body">

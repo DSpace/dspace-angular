@@ -5,7 +5,7 @@
       <p>{{descriptionMessage | translate}}</p>
       <div *ngFor="let identifier of (identifiers$ | async)" class="w-100 p">
         <div *ngIf="(identifier.identifierType === 'doi')">
-          <p class="float-left">{{doiToUpdateMessage | translate}}: {{identifier.value}}
+          <p class="float-start">{{doiToUpdateMessage | translate}}: {{identifier.value}}
             ({{"item.edit.identifiers.doi.status."+identifier.identifierStatus|translate}})
           </p>
         </div>

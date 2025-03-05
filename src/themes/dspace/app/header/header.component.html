@@ -13,7 +13,7 @@
       </nav>
     </div>
     <!-- Search bar and other menus -->
-    <div id="header-right" class="h-100 d-flex flex-row flex-nowrap justify-content-end align-items-center gapx-1 ml-auto">
+    <div id="header-right" class="h-100 d-flex flex-row flex-nowrap justify-content-end align-items-center gapx-1 ms-auto">
       <ds-search-navbar></ds-search-navbar>
       <div role="menubar" class="h-100 d-flex flex-row flex-nowrap align-items-center gapx-1">
         <ds-lang-switch></ds-lang-switch>
@@ -22,13 +22,12 @@
         <ds-auth-nav-menu></ds-auth-nav-menu>
       </div>
 
-      <div id="mobile-navbar-toggler" class="d-block d-lg-none ml-3" *ngIf="(isMobile$ | async)">
-        <button id="navbar-toggler" class="btn" type="button" (click)="toggleNavbar()"
+      <div id="mobile-navbar-toggler" class="d-block d-lg-none ms-3" *ngIf="(isMobile$ | async)">
+        <button id="navbar-toggler" class="btn btn-transparent" type="button" (click)="toggleNavbar()"
                 [attr.aria-label]="'nav.toggle' | translate" aria-controls="collapsible-mobile-navbar" [attr.aria-expanded]="(isNavBarCollapsed$ | async) !== true">
           <span class="fas fa-bars fa-fw fa-xl toggler-icon" aria-hidden="true"></span>
         </button>
       </div>
-
     </div>
   </div>
 </header>

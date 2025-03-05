@@ -28,7 +28,7 @@
             <tbody>
             <tr *ngFor="let bitstreamFormat of (bitstreamFormats$ | async)?.payload?.page">
               <td>
-                <label class="mb-0">
+                <label class="form-label mb-0">
                   <input type="checkbox"
                          [attr.aria-label]="'admin.registries.bitstream-formats.select' | translate"
                          [checked]="(selectedBitstreamFormatIDs$ | async)?.includes(bitstreamFormat.id)"
@@ -52,7 +52,7 @@
 
       <div>
         <button *ngIf="(bitstreamFormats$ | async)?.payload?.page?.length > 0" class="btn btn-primary deselect" (click)="deselectAll()">{{'admin.registries.bitstream-formats.table.deselect-all' | translate}}</button>
-        <button *ngIf="(bitstreamFormats$ | async)?.payload?.page?.length > 0" type="submit" class="btn btn-danger float-right" (click)="deleteFormats()">{{'admin.registries.bitstream-formats.table.delete' | translate}}</button>
+        <button *ngIf="(bitstreamFormats$ | async)?.payload?.page?.length > 0" type="submit" class="btn btn-danger float-end" (click)="deleteFormats()">{{'admin.registries.bitstream-formats.table.delete' | translate}}</button>
       </div>
     </div>
   </div>
