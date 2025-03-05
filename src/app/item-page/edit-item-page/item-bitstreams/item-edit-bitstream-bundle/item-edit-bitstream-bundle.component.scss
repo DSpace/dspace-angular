@@ -2,15 +2,15 @@
   & > th {
     padding: .75rem;
   }
-  --bs-table-bg: #343a40;
-  --bs-table-bg-state: #343a40;
-  --bs-table-color-state: #fff;
+  --bs-table-bg: var(--bs-dark);
+  --bs-table-bg-state: var(--bs-dark);
+  --bs-table-color-state: var(--bs-light);
 }
 
 .bundle-row {
-  --bs-table-color-state: #495057;
-  --bs-table-bg: #e9ecef;
-  --bs-table-bg-state: #dee2e6;
+  --bs-table-color-state: var(--bs-dark);
+  --bs-table-bg: var(--bs-light-bg-subtle);
+  --bs-table-bg-state: var(--bs-light-bg-subtle);
 }
 
 .row-element {
