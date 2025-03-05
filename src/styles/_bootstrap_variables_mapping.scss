@@ -8,6 +8,54 @@
 
   // Bootstrap already maps many SCSS variables to CSS variables (for example the color system)
 
+
+
+  // Alerts
+  //
+  // Define alert colors, border radius, and padding.
+  --bs-alert-padding-y: #{$alert-padding-y};
+  --bs-alert-padding-x: #{$alert-padding-x};
+
+
+  // Cards
+  --bs-card-border-color: #{$card-border-color};
+  --bs-card-border-radius: #{$card-border-radius};
+  --bs-card-border-width: #{$card-border-width};
+
+
+
+  // Buttons
+  //
+  // For each of Bootstrap's buttons, define text, background, and border color.
+  --bs-btn-padding-y: #{$btn-padding-y};
+  --bs-btn-focus-box-shadow: #{$btn-focus-box-shadow};
+  --bs-btn-line-height: #{$btn-line-height};
+  --bs-btn-link-disabled-color: #{$btn-link-disabled-color};
+
+
+  // Dropdowns
+  //
+  // Dropdown menu container and contents.
+  --bs-dropdown-border-color: #{$dropdown-border-color};
+  --bs-dropdown-border-width: #{$dropdown-border-width};
+  --bs-dropdown-link-hover-bg: #{$dropdown-link-hover-bg};
+  --bs-dropdown-link-hover-color: #{$dropdown-link-hover-color};
+
+
+  // Components
+  //
+  // Define common padding and border radius sizes and more.
+  --bs-small-font-size: #{$small-font-size};
+
+  // Tables
+  //
+  // Customizes the `.table` component with basic values, each used across all table variations.
+  --bs-table-accent-bg: #{$table-accent-bg};
+  --bs-table-bg: #{$table-bg};
+  --bs-table-border-color: #{$table-border-color};
+  --bs-table-color: #{$table-color};
+
+
   --bs-xl: #{map-get($grid-breakpoints, xl)};
   --bs-md: #{map-get($grid-breakpoints, md)};
   --bs-lg: #{map-get($grid-breakpoints, lg)};
@@ -42,7 +90,6 @@
 
   --bs-border-radius-lg: #{$bs-border-radius-lg};
 
-  --bs-table-border-color: #{$gray-300};
 }
 
 // Some Bootstrap CSS variables are tied to classes
@@ -55,8 +102,7 @@
   --bs-table-striped-bg: #{$light};
 }
 
-.btn-transparent
-{
+.btn-transparent  {
   --bs-btn-box-shadow: none;
   --bs-btn-focus-box-shadow: none;
   --bs-btn-active-border-color: transparent;
