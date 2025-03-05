@@ -6,9 +6,10 @@
   // Variables should follow the `$component-state-property-size` formula for
   // consistent naming. Ex: $nav-link-disabled-color and $modal-content-box-shadow-xs.
 
-  // Bootstrap already maps many SCSS variables to CSS variables (for example the color system)
-
-
+  // Bootstrap 5.x maps many SCSS variables to CSS variables (for example the color system)
+  // Default mappings: https://getbootstrap.com/docs/5.3/customize/css-variables/#default
+  // Any Bootstrap SCSS variables that are used  within DSpace should be exposed as CSS variable in this file.
+  // These are no longer "all" variables, but only the ones that are actually used in DSpace.
 
   // Alerts
   //
