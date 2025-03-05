@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row word-break">
   <div *ngIf="showThumbnails" class="col-3 col-xl-2 pr-sm-0">
     <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType == linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
        [routerLink]="[itemPageRoute]" class="dont-break-out">
