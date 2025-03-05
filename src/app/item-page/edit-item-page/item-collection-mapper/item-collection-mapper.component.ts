@@ -65,7 +65,7 @@ import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 import { getItemPageRoute } from '../../item-page-routing-paths';
 
 @Component({
-  selector: 'ds-item-collection-mapper',
+  selector: 'ds-base-item-collection-mapper',
   styleUrls: ['./item-collection-mapper.component.scss'],
   templateUrl: './item-collection-mapper.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
