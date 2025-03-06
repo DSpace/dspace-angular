@@ -66,7 +66,7 @@ import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 
 @Component({
-  selector: 'ds-collection-item-mapper',
+  selector: 'ds-base-collection-item-mapper',
   styleUrls: ['./collection-item-mapper.component.scss'],
   templateUrl: './collection-item-mapper.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
