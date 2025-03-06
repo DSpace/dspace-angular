@@ -93,7 +93,6 @@ export class BitstreamDownloadPageComponent implements OnInit {
       map((data) => data.bitstream));
 
     this.bitstream$ = this.bitstreamRD$.pipe(
-      // TODO: this redirect was commented out earlier...
       redirectOn4xx(this.router, this.auth),
       getRemoteDataPayload(),
     );
@@ -101,7 +100,6 @@ export class BitstreamDownloadPageComponent implements OnInit {
     this.bitstream$.pipe(
       switchMap((bitstream: Bitstream) => {
         const isAuthorized$ = this.authorizationService.isAuthorized(FeatureID.CanDownload, isNotEmpty(bitstream) ? bitstream.self : undefined);
-        // TODO isAuthorizedByToken check here so we already know if this token is going to be valid?
         const isLoggedIn$ = this.auth.isAuthenticated();
         return observableCombineLatest([isAuthorized$, isLoggedIn$, accessToken$, observableOf(bitstream)]);
       }),
@@ -116,32 +114,12 @@ export class BitstreamDownloadPageComponent implements OnInit {
               return [isAuthorized, isLoggedIn, bitstream, fileLink];
             }));
         } else if (hasValue(accessToken)) {
-          // We aren't authorized or logged in, but we might have temp access via the access token
-          console.log('RETRIEVE WITH ACCESS TOKEN');
-          console.log('BUT - we dont want to retrieve the link with access token eh bro');
-          // return this.fileService.retrieveFileDownloadLinkWithAccessToken(bitstream._links.content.href, accessToken).pipe(
-          //   filter((fileLink) => hasValue(fileLink)),
-          //   take(1),
-          //   map((fileLink) => {
-          //     return [isAuthorized, isLoggedIn, bitstream, fileLink];
-          //   }));
           return [[isAuthorized, !isLoggedIn, bitstream, '', accessToken]];
         } else {
           return [[isAuthorized, isLoggedIn, bitstream, '']];
         }
       }),
     ).subscribe(([isAuthorized, isLoggedIn, bitstream, fileLink, accessToken]: [boolean, boolean, Bitstream, string, string]) => {
-      // if (isAuthorized && isLoggedIn && isNotEmpty(fileLink)) {
-      //   this.hardRedirectService.redirect(fileLink);
-      // } else if (isAuthorized && !isLoggedIn) {
-      //   this.hardRedirectService.redirect(bitstream._links.content.href);
-      // } else if (!isAuthorized && isLoggedIn) {
-      //   this.router.navigateByUrl(getForbiddenRoute(), {skipLocationChange: true});
-      // } else if (!isAuthorized && !isLoggedIn) {
-      //   this.auth.setRedirectUrl(this.router.url);
-      //   this.router.navigateByUrl('login');
-      // }
-
       if (isAuthorized && isLoggedIn && isNotEmpty(fileLink)) {
         this.hardRedirectService.redirect(fileLink);
       } else if (isAuthorized && !isLoggedIn && !hasValue(accessToken)) {
