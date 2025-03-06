@@ -90,6 +90,7 @@ export class OneboxFieldParser extends FieldParser {
       return new DynamicOneboxModel(oneboxModelConfig);
     } else {
       const inputModelConfig: DsDynamicInputModelConfig = this.initModel(null, label);
+      inputModelConfig.spellCheck = environment.form.spellCheck;
       this.setValues(inputModelConfig, fieldValue);
 
       return new DsDynamicInputModel(inputModelConfig);
