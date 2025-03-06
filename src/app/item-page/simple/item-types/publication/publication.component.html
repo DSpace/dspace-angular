@@ -100,6 +100,15 @@
       [fields]="['datacite.relation.isReferencedBy']"
       [label]="'item.page.referenced'">
     </ds-item-page-uri-field>
+    <!-- Below is an example of how to render one or more lat/lng points and/or bounding box rectangles
+         in a tiled map viewer. Set 'cluster' to true for marker clustering -->
+<!--    <ds-geospatial-item-page-field [item]="object"-->
+<!--                                   [label]="'item.page.places'"-->
+<!--                                   [pointFields]="['dcterms.spatial']"-->
+<!--                                   [bboxFields]="['external.spatial.bbox']"-->
+<!--                                   [cluster]="true"-->
+<!--    >-->
+<!--    </ds-geospatial-item-page-field>-->
     <div>
       <a class="btn btn-outline-primary" role="button" [routerLink]="[itemPageRoute + '/full']">
         <i class="fas fa-info-circle"></i> {{"item.page.link.full" | translate}}
