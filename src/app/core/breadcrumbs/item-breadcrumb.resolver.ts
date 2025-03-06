@@ -7,7 +7,7 @@ import {
 import { Observable } from 'rxjs';
 
 import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
-import { ITEM_PAGE_LINKS_TO_FOLLOW } from '../../item-page/item.resolver';
+import { getItemPageLinksToFollow } from '../../item-page/item.resolver';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { ItemDataService } from '../data/item-data.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
@@ -24,7 +24,7 @@ export const itemBreadcrumbResolver: ResolveFn<BreadcrumbConfig<Item>> = (
   breadcrumbService: DSOBreadcrumbsService = inject(DSOBreadcrumbsService),
   dataService: ItemDataService = inject(ItemDataService),
 ): Observable<BreadcrumbConfig<Item>> => {
-  const linksToFollow: FollowLinkConfig<DSpaceObject>[] = ITEM_PAGE_LINKS_TO_FOLLOW as FollowLinkConfig<DSpaceObject>[];
+  const linksToFollow: FollowLinkConfig<DSpaceObject>[] = getItemPageLinksToFollow() as FollowLinkConfig<DSpaceObject>[];
   return DSOBreadcrumbResolver(
     route,
     state,

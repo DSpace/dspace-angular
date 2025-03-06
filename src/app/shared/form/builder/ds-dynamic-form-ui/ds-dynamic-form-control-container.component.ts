@@ -101,6 +101,7 @@ import { SubmissionObject } from '../../../../core/submission/models/submission-
 import { SubmissionObjectDataService } from '../../../../core/submission/submission-object-data.service';
 import { paginatedRelationsToItems } from '../../../../item-page/simple/item-types/shared/item-relationships-utils';
 import { SubmissionService } from '../../../../submission/submission.service';
+import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import {
   hasNoValue,
   hasValue,
@@ -142,6 +143,7 @@ import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/d
     NgbTooltipModule,
     NgTemplateOutlet,
     ExistingRelationListElementComponent,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })
@@ -280,7 +282,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         const relationship$ = this.relationshipService.findById(this.metadataService.virtualValue(this.value),
           true,
           true,
-          ... itemLinksToFollow(this.fetchThumbnail)).pipe(
+          ... itemLinksToFollow(this.fetchThumbnail, this.appConfig.item.showAccessStatuses)).pipe(
           getAllSucceededRemoteData(),
           getRemoteDataPayload());
         this.relationshipValue$ = observableCombineLatest([this.item$.pipe(take(1)), relationship$]).pipe(

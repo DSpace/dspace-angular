@@ -66,10 +66,6 @@ const SCSS_LOADERS = [
     loader: 'sass-loader',
     options: {
       sourceMap: true,
-      // sass >1.33 complains about deprecation warnings in Bootstrap 4
-      // After upgrading to Angular 12 we need to explicitly use an older version here
-      // todo: remove after upgrading to Bootstrap 5
-      implementation: sass,
       sassOptions: {
         includePaths: [projectRoot('./')]
       }
@@ -79,7 +75,6 @@ const SCSS_LOADERS = [
 
 export const commonExports = {
   plugins: [
-    // @ts-expect-error: EnvironmentPlugin constructor types are currently to strict see issue https://github.com/webpack/webpack/issues/18719
     new EnvironmentPlugin({
       languageHashes: getFileHashes(path.join(__dirname, '..', 'src', 'assets', 'i18n'), /.*\.json5/g),
     }),

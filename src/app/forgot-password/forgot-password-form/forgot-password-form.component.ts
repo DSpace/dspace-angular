@@ -29,6 +29,7 @@ import {
 } from '../../core/shared/operators';
 import { Registration } from '../../core/shared/registration.model';
 import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
 
@@ -42,6 +43,7 @@ import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
     ProfilePageSecurityFormComponent,
     AsyncPipe,
     NgIf,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

@@ -18,6 +18,7 @@ import { LinkHeadService } from '../../../core/services/link-head.service';
 import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
 import { Item } from '../../../core/shared/item.model';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { HostWindowService } from '../../host-window.service';
 import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
@@ -101,7 +102,7 @@ describe('ItemSelectComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), BtnDisabledDirective],
       providers: [
         { provide: ObjectSelectService, useValue: new ObjectSelectServiceStub([mockItemList[1].id]) },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },

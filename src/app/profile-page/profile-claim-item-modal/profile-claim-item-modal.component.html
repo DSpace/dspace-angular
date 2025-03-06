@@ -1,7 +1,6 @@
 <div>
   <div class="modal-header"><h4>{{'dso-selector.claim.item.head' | translate}}</h4>
-    <button type="button" class="close" (click)="close()" aria-label="Close">
-      <span aria-hidden="true">×</span>
+    <button type="button" class="btn-close" (click)="close()" aria-label="Close">
     </button>
   </div>
   <div class="modal-body">
@@ -25,11 +24,11 @@
     </div>
   </div>
   <div class="modal-footer">
-    <div class="mr-5">
+    <div class="me-5">
       <input type="checkbox" [checked]="checked" (change)="toggleCheckbox()"/>
       {{ 'dso-selector.claim.item.not-mine-label' | translate }}
     </div>
-    <button type="submit" class="btn btn-primary ml-5 mr-2" (click)="createFromScratch()" [disabled]="!checked">
+    <button type="submit" class="btn btn-primary ms-5 me-2" (click)="createFromScratch()" [dsBtnDisabled]="!checked">
       <i class="fas fa-plus"></i>
       {{ 'dso-selector.claim.item.create-from-scratch' | translate }}
     </button>
