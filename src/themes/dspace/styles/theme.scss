@@ -2,6 +2,9 @@
 
 @import './_theme_sass_variable_overrides.scss';
 @import '../../../styles/_variables.scss';
+
+$theme-colors: map-merge($theme-colors, $theme-custom-semantic-colors);
+
 @import '../../../styles/_mixins.scss';
 @import '../../../styles/helpers/font_awesome_imports.scss';
 @import '../../../styles/_vendor.scss';
