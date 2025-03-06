@@ -4,15 +4,12 @@ import { ROOT } from './root.resource-type';
 import { RequestService } from './request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Observable, of as observableOf } from 'rxjs';
+import { Observable } from 'rxjs';
 import { RemoteData } from './remote-data';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
-import { catchError, map, tap } from 'rxjs/operators';
 import { BaseDataService } from './base/base-data.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { dataService } from './base/data-service.decorator';
-import { getFirstCompletedRemoteData } from '../shared/operators';
 
 /**
  * A service to retrieve the {@link Root} object from the REST API.
@@ -25,7 +22,6 @@ export class RootDataService extends BaseDataService<Root> {
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
-    protected restService: DspaceRestService,
   ) {
     super('', requestService, rdbService, objectCache, halService, 6 * 60 * 60 * 1000);
   }

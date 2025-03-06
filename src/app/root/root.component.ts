@@ -1,26 +1,18 @@
-import { map, startWith, take, tap } from 'rxjs/operators';
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { map, startWith, switchMap } from 'rxjs/operators';
+import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { combineLatest as combineLatestObservable, Observable, of } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
-
-import { MetadataService } from '../core/metadata/metadata.service';
-import { HostWindowState } from '../shared/search/host-window.reducer';
+import { BehaviorSubject, combineLatest as combineLatestObservable, Observable, of, Subscription } from 'rxjs';
 import { NativeWindowRef, NativeWindowService } from '../core/services/window.service';
-import { AuthService } from '../core/auth/auth.service';
 import { CSSVariableService } from '../shared/sass-helper/css-variable.service';
 import { MenuService } from '../shared/menu/menu.service';
 import { HostWindowService } from '../shared/host-window.service';
 import { ThemeConfig } from '../../config/theme.model';
-import { Angulartics2DSpace } from '../statistics/angulartics/dspace-provider';
 import { environment } from '../../environments/environment';
 import { slideSidebarPadding } from '../shared/animations/slide';
 import { MenuID } from '../shared/menu/menu-id.model';
 import { getPageInternalServerErrorRoute } from '../app-routing-paths';
 import { hasValueOperator } from '../shared/empty.util';
-import { RootDataService } from '../core/data/root-data.service';
 
 @Component({
   selector: 'ds-root',
@@ -28,7 +20,7 @@ import { RootDataService } from '../core/data/root-data.service';
   styleUrls: ['./root.component.scss'],
   animations: [slideSidebarPadding],
 })
-export class RootComponent implements OnInit {
+export class RootComponent implements OnInit, OnDestroy {
   sidebarVisible: Observable<boolean>;
   slideSidebarOver: Observable<boolean>;
   collapsedSidebarWidth: Observable<string>;
@@ -47,21 +39,16 @@ export class RootComponent implements OnInit {
    */
   @Input() shouldShowRouteLoader: boolean;
 
-  shouldShowRouteLoader$: Observable<boolean>;
+  shouldShowRouteLoader$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+  subs: Subscription[] = [];
 
   constructor(
     @Inject(NativeWindowService) private _window: NativeWindowRef,
-    private translate: TranslateService,
-    private store: Store<HostWindowState>,
-    private metadata: MetadataService,
-    private angulartics2DSpace: Angulartics2DSpace,
-    private authService: AuthService,
     private router: Router,
     private cssService: CSSVariableService,
     private menuService: MenuService,
     private windowService: HostWindowService,
-    private rootDataService: RootDataService,
-    private activateRoute: ActivatedRoute,
   ) {
     this.notificationOptions = environment.notifications;
   }
@@ -80,9 +67,30 @@ export class RootComponent implements OnInit {
         startWith(true),
       );
 
-    this.shouldShowRouteLoader$ = this.activateRoute.url.pipe(
-      map((url) => url.join('/')),
-      map((url) => url === getPageInternalServerErrorRoute()),
-    )
+    if (this.shouldShowRouteLoader && !this.shouldShowFullscreenLoader) {
+      this.subs.push(
+        this.router.events.pipe(
+          map(() => this.router.routerState.root),
+          switchMap((route: ActivatedRoute) => {
+            route = this.getCurrentRoute(route);
+            return route.url;
+          }),
+          map((urlSegment) => '/' + urlSegment.join('/')),
+          map((url) => url === getPageInternalServerErrorRoute()),
+        ).subscribe((isInternalServerError) => {
+          this.shouldShowRouteLoader$.next(!isInternalServerError);
+        }));
+    }
+  }
+
+  private getCurrentRoute(route: ActivatedRoute): ActivatedRoute {
+    while (route.firstChild) {
+      route = route.firstChild;
+    }
+    return route;
+  }
+
+  ngOnDestroy(): void {
+    this.subs.forEach((sub) => sub.unsubscribe());
   }
 }

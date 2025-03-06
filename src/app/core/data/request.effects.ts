@@ -21,7 +21,7 @@ import { ParsedResponse } from '../cache/response.models';
 import { RequestError } from './request-error.model';
 import { RestRequestWithResponseParser } from './rest-request-with-response-parser.model';
 import { RequestEntry } from './request-entry.model';
-import { ServerCheckService } from '../server-check/server-check.service';
+import { ServerStatusService } from '../server-check/server-status.service';
 
 @Injectable()
 export class RequestEffects {
@@ -46,8 +46,14 @@ export class RequestEffects {
         map((response: ParsedResponse) => new RequestSuccessAction(request.uuid, response.statusCode, response.link, response.unCacheableObject)),
         catchError((error: RequestError) => {
           if (hasValue(error.statusCode)) {
-            // if it's an error returned by the server, complete the request
-            this.serverCheckService.checkAndUpdateServerAvailability(request, error);
+            // if it's an error returned by the server, check if the server is still running and update its status
+            // then navigate to the internal error page while still completing the request
+            this.serverStatusService.checkAndUpdateServerStatus(request, error)
+              .subscribe((isAvailable: boolean) => {
+                if (!isAvailable) {
+                  this.serverStatusService.navigateToInternalServerErrorPage();
+              }
+              });
             return [new RequestErrorAction(request.uuid, error.statusCode, error.message)];
           } else {
             // if it's a client side error, throw it
@@ -76,7 +82,7 @@ export class RequestEffects {
     private restApi: DspaceRestService,
     private injector: Injector,
     protected requestService: RequestService,
-    protected serverCheckService: ServerCheckService,
+    protected serverStatusService: ServerStatusService,
   ) {
   }
 
