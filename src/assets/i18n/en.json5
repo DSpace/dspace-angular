@@ -2830,9 +2830,17 @@
 
   "item.preview.dc.type": "Type:",
 
+  "item.preview.oaire.version": "Version",
+
   "item.preview.oaire.citation.issue": "Issue",
 
   "item.preview.oaire.citation.volume": "Volume",
+
+  "item.preview.oaire.citation.title": "Citation container",
+
+  "item.preview.oaire.citation.startPage": "Citation start page",
+
+  "item.preview.oaire.citation.endPage": "Citation end page",
 
   "item.preview.dc.relation.issn": "ISSN",
 
@@ -2885,6 +2893,8 @@
   "item.preview.creativework.publisher": "Publisher",
 
   "item.preview.creativeworkseries.issn": "ISSN",
+
+  "item.preview.dc.identifier.issn": "ISSN",
 
   "item.preview.dc.identifier.openalex": "OpenAlex Identifier",
 
