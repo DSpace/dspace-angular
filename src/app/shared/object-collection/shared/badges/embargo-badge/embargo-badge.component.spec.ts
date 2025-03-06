@@ -6,18 +6,18 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
+import { AccessStatusDataService } from 'src/app/core/data/access-status-data.service';
+import { Bitstream } from 'src/app/core/shared/bitstream.model';
+import { createSuccessfulRemoteDataObject$ } from 'src/app/shared/remote-data.utils';
 import { environment } from 'src/environments/environment';
 
-import { AccessStatusDataService } from '../../../../../core/data/access-status-data.service';
-import { Item } from '../../../../../core/shared/item.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
-import { AccessStatusObject } from './access-status.model';
-import { AccessStatusBadgeComponent } from './access-status-badge.component';
+import { AccessStatusObject } from '../access-status-badge/access-status.model';
+import { EmbargoBadgeComponent } from './embargo-badge.component';
 
-describe('ItemAccessStatusBadgeComponent', () => {
-  let component: AccessStatusBadgeComponent;
-  let fixture: ComponentFixture<AccessStatusBadgeComponent>;
+describe('ItemEmbargoBadgeComponent', () => {
+  let component: EmbargoBadgeComponent;
+  let fixture: ComponentFixture<EmbargoBadgeComponent>;
 
   let unknownStatus: AccessStatusObject;
   let metadataOnlyStatus: AccessStatusObject;
@@ -27,42 +27,46 @@ describe('ItemAccessStatusBadgeComponent', () => {
 
   let accessStatusDataService: AccessStatusDataService;
 
-  let item: Item;
+  let bitstream: Bitstream;
 
   function init() {
     unknownStatus = Object.assign(new AccessStatusObject(), {
       status: 'unknown',
+      embargoDate: null,
     });
 
     metadataOnlyStatus = Object.assign(new AccessStatusObject(), {
       status: 'metadata.only',
+      embargoDate: null,
     });
 
     openAccessStatus = Object.assign(new AccessStatusObject(), {
       status: 'open.access',
+      embargoDate: null,
     });
 
     embargoStatus = Object.assign(new AccessStatusObject(), {
       status: 'embargo',
+      embargoDate: '2050-01-01',
     });
 
     restrictedStatus = Object.assign(new AccessStatusObject(), {
       status: 'restricted',
+      embargoDate: null,
     });
 
     accessStatusDataService = jasmine.createSpyObj('accessStatusDataService', {
-      findItemAccessStatusFor: createSuccessfulRemoteDataObject$(unknownStatus),
+      findBitstreamAccessStatusFor: createSuccessfulRemoteDataObject$(unknownStatus),
     });
 
-    item = Object.assign(new Item(), {
-      uuid: 'item-uuid',
-      type: 'item',
+    bitstream = Object.assign(new Bitstream(), {
+      uuid: 'bitstream-uuid',
     });
   }
 
   function initTestBed() {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), AccessStatusBadgeComponent, TruncatePipe],
+      imports: [TranslateModule.forRoot(), EmbargoBadgeComponent, TruncatePipe],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
         { provide: AccessStatusDataService, useValue: accessStatusDataService },
@@ -71,17 +75,22 @@ describe('ItemAccessStatusBadgeComponent', () => {
   }
 
   function initFixtureAndComponent() {
-    environment.item.showAccessStatuses = true;
-    fixture = TestBed.createComponent(AccessStatusBadgeComponent);
+    environment.item.bitstream.showAccessStatuses = true;
+    fixture = TestBed.createComponent(EmbargoBadgeComponent);
     component = fixture.componentInstance;
-    component.object = item;
+    component.bitstream = bitstream;
     fixture.detectChanges();
-    environment.item.showAccessStatuses = false;
+    environment.item.bitstream.showAccessStatuses = false;
   }
 
-  function lookForAccessStatusBadge(status: string) {
+  function lookForNoEmbargoBadge() {
     const badge = fixture.debugElement.query(By.css('span.badge'));
-    expect(badge.nativeElement.textContent).toEqual(`access-status.${status.toLowerCase()}.listelement.badge`);
+    expect(badge).toBeNull();
+  }
+
+  function lookForEmbargoBadge() {
+    const badge = fixture.debugElement.query(By.css('span.badge'));
+    expect(badge).toBeDefined();
   }
 
   describe('init', () => {
@@ -97,7 +106,7 @@ describe('ItemAccessStatusBadgeComponent', () => {
     });
   });
 
-  describe('When the findItemAccessStatusFor method returns unknown', () => {
+  describe('When the findBitstreamAccessStatusFor method returns unknown', () => {
     beforeEach(waitForAsync(() => {
       init();
       initTestBed();
@@ -105,64 +114,64 @@ describe('ItemAccessStatusBadgeComponent', () => {
     beforeEach(() => {
       initFixtureAndComponent();
     });
-    it('should show the unknown badge', () => {
-      lookForAccessStatusBadge('unknown');
+    it('should not show the embargo badge', () => {
+      lookForNoEmbargoBadge();
     });
   });
 
-  describe('When the findItemAccessStatusFor method returns metadata.only', () => {
+  describe('When the findBitstreamAccessStatusFor method returns metadata.only', () => {
     beforeEach(waitForAsync(() => {
       init();
-      (accessStatusDataService.findItemAccessStatusFor as jasmine.Spy).and.returnValue(createSuccessfulRemoteDataObject$(metadataOnlyStatus));
+      (accessStatusDataService.findBitstreamAccessStatusFor as jasmine.Spy).and.returnValue(createSuccessfulRemoteDataObject$(metadataOnlyStatus));
       initTestBed();
     }));
     beforeEach(() => {
       initFixtureAndComponent();
     });
-    it('should show the metadata only badge', () => {
-      lookForAccessStatusBadge('metadata.only');
+    it('should not show the embargo badge', () => {
+      lookForNoEmbargoBadge();
     });
   });
 
-  describe('When the findItemAccessStatusFor method returns open.access', () => {
+  describe('When the findBitstreamAccessStatusFor method returns open.access', () => {
     beforeEach(waitForAsync(() => {
       init();
-      (accessStatusDataService.findItemAccessStatusFor as jasmine.Spy).and.returnValue(createSuccessfulRemoteDataObject$(openAccessStatus));
+      (accessStatusDataService.findBitstreamAccessStatusFor as jasmine.Spy).and.returnValue(createSuccessfulRemoteDataObject$(openAccessStatus));
       initTestBed();
     }));
     beforeEach(() => {
       initFixtureAndComponent();
     });
-    it('should show the open access badge', () => {
-      lookForAccessStatusBadge('open.access');
+    it('should not show the embargo badge', () => {
+      lookForNoEmbargoBadge();
     });
   });
 
-  describe('When the findItemAccessStatusFor method returns embargo', () => {
+  describe('When the findBitstreamAccessStatusFor method returns embargo', () => {
     beforeEach(waitForAsync(() => {
       init();
-      (accessStatusDataService.findItemAccessStatusFor as jasmine.Spy).and.returnValue(createSuccessfulRemoteDataObject$(embargoStatus));
+      (accessStatusDataService.findBitstreamAccessStatusFor as jasmine.Spy).and.returnValue(createSuccessfulRemoteDataObject$(embargoStatus));
       initTestBed();
     }));
     beforeEach(() => {
       initFixtureAndComponent();
     });
     it('should show the embargo badge', () => {
-      lookForAccessStatusBadge('embargo');
+      lookForEmbargoBadge();
     });
   });
 
-  describe('When the findItemAccessStatusFor method returns restricted', () => {
+  describe('When the findBitstreamAccessStatusFor method returns restricted', () => {
     beforeEach(waitForAsync(() => {
       init();
-      (accessStatusDataService.findItemAccessStatusFor as jasmine.Spy).and.returnValue(createSuccessfulRemoteDataObject$(restrictedStatus));
+      (accessStatusDataService.findBitstreamAccessStatusFor as jasmine.Spy).and.returnValue(createSuccessfulRemoteDataObject$(restrictedStatus));
       initTestBed();
     }));
     beforeEach(() => {
       initFixtureAndComponent();
     });
-    it('should show the restricted badge', () => {
-      lookForAccessStatusBadge('restricted');
+    it('should not show the embargo badge', () => {
+      lookForNoEmbargoBadge();
     });
   });
 });

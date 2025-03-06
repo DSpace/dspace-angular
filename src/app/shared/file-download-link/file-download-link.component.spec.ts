@@ -8,11 +8,14 @@ import {
   ActivatedRoute,
   RouterLink,
 } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   cold,
   getTestScheduler,
 } from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
+import { APP_DATA_SERVICES_MAP } from 'src/config/app-config.interface';
 
 import { getBitstreamModuleRoute } from '../../app-routing-paths';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
@@ -34,6 +37,7 @@ describe('FileDownloadLinkComponent', () => {
 
   let bitstream: Bitstream;
   let item: Item;
+  let storeMock: any;
 
   function init() {
     authorizationService = jasmine.createSpyObj('authorizationService', {
@@ -51,6 +55,11 @@ describe('FileDownloadLinkComponent', () => {
         self: { href: 'obj-selflink' },
       },
     });
+    storeMock = jasmine.createSpyObj('store', {
+      dispatch: jasmine.createSpy('dispatch'),
+      select: jasmine.createSpy('select'),
+      pipe: observableOf(true),
+    });
   }
 
   function initTestbed() {
@@ -63,6 +72,8 @@ describe('FileDownloadLinkComponent', () => {
         RouterLinkDirectiveStub,
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: Store, useValue: storeMock },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
       ],
     })
       .overrideComponent(FileDownloadLinkComponent, {
