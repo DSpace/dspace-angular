@@ -87,7 +87,8 @@
     "ngx-infinite-scroll": {
       "@angular/common": "^18.2.12",
       "@angular/core": "^18.2.12"
-    }
+    },
+    "notistack": "3.0.1"
   },
   "dependencies": {
     "@angular/animations": "^18.2.12",
