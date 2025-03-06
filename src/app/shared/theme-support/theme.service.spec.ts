@@ -13,6 +13,7 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { hot } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
+import { HashedFileMapping } from '../../../modules/dynamic-hash/hashed-file-mapping';
 import { LinkService } from '../../core/cache/builders/link.service';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
