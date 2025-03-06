@@ -433,6 +433,7 @@ export class SaveSubmissionFormAction implements Action {
   payload: {
     submissionId: string;
     isManual?: boolean;
+    timestamp: number;
   };
 
   /**
@@ -442,7 +443,8 @@ export class SaveSubmissionFormAction implements Action {
    *    the submission's ID
    */
   constructor(submissionId: string, isManual: boolean = false) {
-    this.payload = { submissionId, isManual };
+    this.payload = { submissionId, isManual, timestamp: Date.now() };
+    console.log(`Creating SaveSubmissionFormAction for submission ${submissionId} at ${new Date().toISOString()}`);
   }
 }
 
