@@ -98,6 +98,7 @@ export class BrowseByGeospatialDataComponent implements OnInit {
         const searchOptions: PaginatedSearchOptions = Object.assign({
           'configuration': environment.geospatialMapViewer.spatialFacetDiscoveryConfiguration,
           'scope': scope,
+          'facetLimit': 99999,
         });
         return this.searchService.getFacetValuesFor(searchFilterConfig, 1, searchOptions,
           null, true);
