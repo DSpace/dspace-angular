@@ -194,13 +194,15 @@ describe('DsDynamicLookupRelationModalComponent', () => {
       spyOn((component as any).store, 'dispatch');
     });
 
-    it('should dispatch an AddRelationshipAction for each selected object', () => {
-      component.select(searchResult1, searchResult2);
+    it('should dispatch an AddRelationshipAction for each (valid) selected object', () => {
+      component.select(searchResult1, undefined, searchResult2);
       const action = new AddRelationshipAction(component.item, searchResult1.indexableObject, relationship.relationshipType, submissionId, nameVariant);
       const action2 = new AddRelationshipAction(component.item, searchResult2.indexableObject, relationship.relationshipType, submissionId, nameVariant);
 
       expect((component as any).store.dispatch).toHaveBeenCalledWith(action);
       expect((component as any).store.dispatch).toHaveBeenCalledWith(action2);
+      expect((component as any).store.dispatch).not.toHaveBeenCalledWith(undefined);
+      expect((component as any).store.dispatch).toHaveBeenCalledTimes(2);
     });
   });
 
@@ -211,13 +213,15 @@ describe('DsDynamicLookupRelationModalComponent', () => {
       spyOn((component as any).store, 'dispatch');
     });
 
-    it('should dispatch an RemoveRelationshipAction for each deselected object', () => {
-      component.deselect(searchResult1, searchResult2);
+    it('should dispatch an RemoveRelationshipAction for each (valid) deselected object', () => {
+      component.deselect(searchResult1, undefined, searchResult2);
       const action = new RemoveRelationshipAction(component.item, searchResult1.indexableObject, relationship.relationshipType, submissionId);
       const action2 = new RemoveRelationshipAction(component.item, searchResult2.indexableObject, relationship.relationshipType, submissionId);
 
       expect((component as any).store.dispatch).toHaveBeenCalledWith(action);
       expect((component as any).store.dispatch).toHaveBeenCalledWith(action2);
+      expect((component as any).store.dispatch).not.toHaveBeenCalledWith(undefined);
+      expect((component as any).store.dispatch).toHaveBeenCalledTimes(2);
     });
   });
 
