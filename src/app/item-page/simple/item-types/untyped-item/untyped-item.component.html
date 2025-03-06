@@ -18,7 +18,7 @@
   <div class="col-xs-12 col-md-4">
     <ng-container *ngIf="!(mediaViewer.image || mediaViewer.video)">
       <ds-metadata-field-wrapper [hideIfNoTextContent]="false">
-        <ds-thumbnail [thumbnail]="object?.thumbnail | async"></ds-thumbnail>
+        <ds-thumbnail [thumbnail]="object?.thumbnail | async" [link]="thumbnailLink$ | async"></ds-thumbnail>
       </ds-metadata-field-wrapper>
     </ng-container>
     <div *ngIf="mediaViewer.image || mediaViewer.video" class="mb-2">
