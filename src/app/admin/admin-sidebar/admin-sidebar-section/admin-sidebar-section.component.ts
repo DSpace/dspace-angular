@@ -17,6 +17,7 @@ import { MenuID } from '../../../shared/menu/menu-id.model';
 import { LinkMenuItemModel } from '../../../shared/menu/menu-item/models/link.model';
 import { MenuSection } from '../../../shared/menu/menu-section.model';
 import { MenuSectionComponent } from '../../../shared/menu/menu-section/menu-section.component';
+import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 
 /**
  * Represents a non-expandable section in the admin sidebar
@@ -26,7 +27,7 @@ import { MenuSectionComponent } from '../../../shared/menu/menu-section/menu-sec
   templateUrl: './admin-sidebar-section.component.html',
   styleUrls: ['./admin-sidebar-section.component.scss'],
   standalone: true,
-  imports: [NgClass, RouterLink, TranslateModule],
+  imports: [NgClass, RouterLink, TranslateModule, BrowserOnlyPipe],
 
 })
 export class AdminSidebarSectionComponent extends MenuSectionComponent implements OnInit {

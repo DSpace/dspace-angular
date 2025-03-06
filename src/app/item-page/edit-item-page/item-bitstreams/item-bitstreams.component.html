@@ -1,4 +1,8 @@
 <div class="item-bitstreams" *ngVar="(bundles$ | async) as bundles">
+  <div class="mt-2" id="reorder-description">
+    <ds-alert [content]="'item.edit.bitstreams.info-alert'" [type]="AlertType.Info"></ds-alert>
+  </div>
+
   <div class="button-row top d-flex mt-2 space-children-mr">
     <button class="mr-auto btn btn-success"
             [attr.aria-label]="'item.edit.bitstreams.upload-button' | translate"
@@ -12,7 +16,7 @@
             class="fas fa-undo-alt"></i>
       <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.reinstate-button" | translate}}</span>
     </button>
-    <button class="btn btn-primary" [disabled]="(hasChanges$ | async) !== true || submitting"
+    <button class="btn btn-primary" [dsBtnDisabled]="(hasChanges$ | async) !== true || submitting"
             [attr.aria-label]="'item.edit.bitstreams.save-button' | translate"
             (click)="submit()"><i
             class="fas fa-save"></i>
@@ -20,29 +24,24 @@
     </button>
     <button class="btn btn-danger" *ngIf="(isReinstatable$ | async) !== true"
             [attr.aria-label]="'item.edit.bitstreams.discard-button' | translate"
-            [disabled]="(hasChanges$ | async) !== true || submitting"
+            [dsBtnDisabled]="(hasChanges$ | async) !== true || submitting"
             (click)="discard()"><i
             class="fas fa-times"></i>
       <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.discard-button" | translate}}</span>
     </button>
   </div>
 
-  <div *ngIf="item && bundles?.length > 0" class="container table-bordered mt-4">
-    <div class="row header-row font-weight-bold">
-      <div class="{{columnSizes.columns[0].buildClasses()}} row-element">
-        <ds-item-edit-bitstream-drag-handle></ds-item-edit-bitstream-drag-handle>
-        {{'item.edit.bitstreams.headers.name' | translate}}
-      </div>
-      <div class="{{columnSizes.columns[1].buildClasses()}} row-element">{{'item.edit.bitstreams.headers.description' | translate}}</div>
-      <div class="{{columnSizes.columns[2].buildClasses()}} text-center row-element">{{'item.edit.bitstreams.headers.format' | translate}}</div>
-      <div class="{{columnSizes.columns[3].buildClasses()}} text-center row-element">{{'item.edit.bitstreams.headers.actions' | translate}}</div>
-    </div>
-    <ds-item-edit-bitstream-bundle *ngFor="let bundle of bundles"
+  <div *ngIf="item && bundles?.length > 0" class="mt-4 table-border scrollable-table" [ngClass]="{'disabled-overlay': (isProcessingMoveRequest | async)}">
+    <ds-item-edit-bitstream-bundle *ngFor="let bundle of bundles; first as isFirst"
                                    [bundle]="bundle"
                                    [item]="item"
                                    [columnSizes]="columnSizes"
-                                   (dropObject)="dropBitstream(bundle, $event)">
+                                   [isFirstTable]="isFirst"
+                                   aria-describedby="reorder-description">
     </ds-item-edit-bitstream-bundle>
+    <div class="d-flex justify-content-center" *ngIf="showLoadMoreLink$ | async">
+      <button class="btn btn-link my-3" (click)="loadBundles()"> {{'item.edit.bitstreams.load-more.link' | translate}}</button>
+    </div>
   </div>
   <div *ngIf="bundles?.length === 0"
        class="alert alert-info w-100 d-inline-block mt-4" role="alert">
@@ -58,7 +57,7 @@
         class="fas fa-undo-alt"></i>
         <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.reinstate-button" | translate}}</span>
       </button>
-      <button class="btn btn-primary" [disabled]="(hasChanges$ | async) !== true || submitting"
+      <button class="btn btn-primary" [dsBtnDisabled]="(hasChanges$ | async) !== true || submitting"
               [attr.aria-label]="'item.edit.bitstreams.save-button' | translate"
               (click)="submit()"><i
         class="fas fa-save"></i>
@@ -66,7 +65,7 @@
       </button>
       <button class="btn btn-danger" *ngIf="(isReinstatable$ | async) !== true"
               [attr.aria-label]="'item.edit.bitstreams.discard-button' | translate"
-              [disabled]="(hasChanges$ | async) !== true || submitting"
+              [dsBtnDisabled]="(hasChanges$ | async) !== true || submitting"
               (click)="discard()"><i
         class="fas fa-times"></i>
         <span class="d-none d-sm-inline">&nbsp;{{"item.edit.bitstreams.discard-button" | translate}}</span>
@@ -74,3 +73,5 @@
     </div>
   </div>
 </div>
+
+<ds-loading *ngIf="isProcessingMoveRequest | async" class="loading-overlay"></ds-loading>

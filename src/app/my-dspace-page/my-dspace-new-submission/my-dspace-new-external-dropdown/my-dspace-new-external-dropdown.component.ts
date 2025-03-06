@@ -27,6 +27,7 @@ import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { hasValue } from '../../../shared/empty.util';
 import { EntityDropdownComponent } from '../../../shared/entity-dropdown/entity-dropdown.component';
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
@@ -45,6 +46,7 @@ import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
     TranslateModule,
     BrowserOnlyPipe,
     NgIf,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

@@ -19,7 +19,7 @@
     </div>
     <div class="sidebar-collapsible-element-outer-wrapper">
       <div class="sidebar-collapsible-element-inner-wrapper sidebar-item toggler-wrapper">
-        <span [id]="adminMenuSectionTitleId(section.id)">
+        <span [id]="adminMenuSectionTitleId(section.id)" [attr.data-test]="adminMenuSectionTitleId(section.id) | dsBrowserOnly">
           <ng-container
             *ngComponentOutlet="(sectionMap$ | async).get(section.id).component; injector: (sectionMap$ | async).get(section.id).injector;"></ng-container>
         </span>

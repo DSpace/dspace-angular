@@ -54,7 +54,6 @@ export const ROUTES: Route[] = [
     resolve: {
       dso: collectionPageResolver,
       breadcrumb: collectionBreadcrumbResolver,
-      menu: dsoEditMenuResolver,
     },
     runGuardsAndResolvers: 'always',
     children: [
@@ -83,6 +82,9 @@ export const ROUTES: Route[] = [
       {
         path: '',
         component: ThemedCollectionPageComponent,
+        resolve: {
+          menu: dsoEditMenuResolver,
+        },
         children: [
           {
             path: '',
