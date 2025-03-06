@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, filter, map, mergeMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, mergeMap, tap, take, skipWhile } from 'rxjs/operators';
 
 import { RequestService } from '../data/request.service';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { hasValue, isNotEmpty, isNotEmptyOperator } from '../../shared/empty.util';
 import {
   DeleteRequest,
   PostRequest,
@@ -17,11 +17,10 @@ import { SubmitDataResponseDefinitionObject } from '../shared/submit-data-respon
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { getFirstCompletedRemoteData } from '../shared/operators';
+import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../shared/operators';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { RemoteData } from '../data/remote-data';
 import { SubmissionResponse } from './submission-response.model';
-import { RestRequest } from '../data/rest-request.model';
 
 /**
  * The service handling all submission REST requests
@@ -68,7 +67,7 @@ export class SubmissionRestService {
    * @param collectionId
    *    The owning collection for the object
    */
-  protected getEndpointByIDHref(endpoint, resourceID, collectionId?: string): string {
+  protected getEndpointByIDHref(endpoint: string, resourceID: string, collectionId?: string): string {
     let url = isNotEmpty(resourceID) ? `${endpoint}/${resourceID}` : `${endpoint}`;
     url = new URLCombiner(url, '?projection=full').toString();
     if (collectionId) {
@@ -106,21 +105,35 @@ export class SubmissionRestService {
    *    The endpoint link name
    * @param id
    *    The submission Object to retrieve
+   * @param useCachedVersionIfAvailable
+   *     If this is true, the request will only be sent if there's no valid & cached version. Defaults to false
    * @return Observable<SubmitDataResponseDefinitionObject>
    *     server response
    */
-  public getDataById(linkName: string, id: string): Observable<SubmitDataResponseDefinitionObject> {
-    const requestId = this.requestService.generateRequestId();
-    return this.halService.getEndpoint(linkName).pipe(
+  public getDataById(linkName: string, id: string, useCachedVersionIfAvailable = false): Observable<SubmitDataResponseDefinitionObject> {
+    const requestHref$: Observable<string> = this.halService.getEndpoint(linkName).pipe(
       map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, id)),
-      filter((href: string) => isNotEmpty(href)),
-      distinctUntilChanged(),
-      map((endpointURL: string) => new SubmissionRequest(requestId, endpointURL)),
-      tap((request: RestRequest) => {
-        this.requestService.send(request);
-      }),
-      mergeMap(() => this.fetchRequest(requestId)),
-      distinctUntilChanged());
+      isNotEmptyOperator(),
+      take(1),
+    );
+
+    const startTime: number = new Date().getTime();
+    requestHref$.subscribe((href: string) => {
+      const requestId: string = this.requestService.generateRequestId();
+      const request: SubmissionRequest = new SubmissionRequest(requestId, href);
+      this.requestService.send(request, useCachedVersionIfAvailable);
+    });
+
+    return this.rdbService.buildSingle<SubmissionResponse>(requestHref$).pipe(
+      // This skip ensures that if a stale object is present in the cache when you do a
+      // call it isn't immediately returned, but we wait until the remote data for the new request
+      // is created. If useCachedVersionIfAvailable is false it also ensures you don't get a
+      // cached completed object
+      skipWhile((rd: RemoteData<SubmissionResponse>) => rd.isStale || (!useCachedVersionIfAvailable && rd.lastUpdated < startTime)),
+      getFirstCompletedRemoteData(),
+      getRemoteDataPayload(),
+      map((response: SubmissionResponse) => response.dataDefinition),
+    );
   }
 
   /**
