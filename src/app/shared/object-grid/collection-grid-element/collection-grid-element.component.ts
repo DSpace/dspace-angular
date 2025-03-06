@@ -7,8 +7,12 @@ import {
   Input,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 
+import { environment } from '../../../../environments/environment';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { Collection } from '../../../core/shared/collection.model';
@@ -36,13 +40,22 @@ import { followLink } from '../../utils/follow-link-config.model';
 export class CollectionGridElementComponent extends AbstractListableElementComponent<
   Collection
 > {
+
+  /**
+   * The current language of the page
+   */
+  currentLanguage: string = environment.defaultLanguage;
+
   private _object: Collection;
 
   constructor(
     public dsoNameService: DSONameService,
     private linkService: LinkService,
+    public translateService: TranslateService,
   ) {
     super(dsoNameService);
+
+    this.currentLanguage = translateService.currentLang;
   }
 
   // @ts-ignore

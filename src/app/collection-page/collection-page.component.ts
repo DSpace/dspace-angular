@@ -12,7 +12,10 @@ import {
   Router,
   RouterOutlet,
 } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
   filter,
@@ -21,6 +24,7 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { environment } from '../../environments/environment';
 import { AuthService } from '../core/auth/auth.service';
 import { DSONameService } from '../core/breadcrumbs/dso-name.service';
 import { SortOptions } from '../core/cache/models/sort-options.model';
@@ -97,16 +101,24 @@ export class CollectionPageComponent implements OnInit {
    */
   collectionPageRoute$: Observable<string>;
 
+  /**
+   * The current language of the page
+   */
+  currentLanguage: string = environment.defaultLanguage;
+
   constructor(
     protected route: ActivatedRoute,
     protected router: Router,
     protected authService: AuthService,
     protected authorizationDataService: AuthorizationDataService,
     public dsoNameService: DSONameService,
+    public translateService: TranslateService,
   ) {
   }
 
   ngOnInit(): void {
+    this.currentLanguage = this.translateService.currentLang;
+
     this.collectionRD$ = this.route.data.pipe(
       map((data) => data.dso as RemoteData<Collection>),
       redirectOn4xx(this.router, this.authService),
