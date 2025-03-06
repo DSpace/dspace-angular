@@ -5476,7 +5476,7 @@
 
   // "search.filters.filter.access_status.head": "Access type",
   "search.filters.filter.access_status.head": "Type d'accès",
- 
+
   // "search.filters.filter.access_status.placeholder": "Access type",
   "search.filters.filter.access_status.placeholder": "Accès",
 
@@ -8577,7 +8577,7 @@
 
   //"search.filters.access_status.embargo": "Embargoed access",
   "search.filters.access_status.embargo": "Restriction temporaire",
- 
+
   //"search.filters.access_status.metadata.only": "Metadata only",
   "search.filters.access_status.metadata.only": "Métadonnées seulement",
 
@@ -8585,4 +8585,3 @@
   "search.filters.access_status.unknown": "Inconnu",
 
 }
-
