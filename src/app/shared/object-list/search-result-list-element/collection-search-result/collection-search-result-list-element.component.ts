@@ -14,6 +14,7 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../../../config/app-config.interface';
+import { environment } from '../../../../../environments/environment';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { Collection } from '../../../../core/shared/collection.model';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
@@ -41,11 +42,18 @@ export class CollectionSearchResultListElementComponent extends SearchResultList
    */
   showThumbnails: boolean;
 
+  /**
+   * The current language of the page
+   */
+  currentLanguage: string = environment.defaultLanguage;
+
   constructor(protected truncatableService: TruncatableService,
               public dsoNameService: DSONameService,
               public translateService: TranslateService,
               @Inject(APP_CONFIG) protected appConfig?: AppConfig) {
     super(truncatableService, dsoNameService, appConfig);
+
+    this.currentLanguage = translateService.currentLang;
   }
 
   ngOnInit(): void {

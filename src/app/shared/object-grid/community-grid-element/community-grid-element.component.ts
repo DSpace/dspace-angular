@@ -12,6 +12,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 
+import { environment } from '../../../../environments/environment';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../core/cache/builders/link.service';
 import { Community } from '../../../core/shared/community.model';
@@ -38,6 +39,12 @@ import { followLink } from '../../utils/follow-link-config.model';
 
 @listableObjectComponent(Community, ViewMode.GridElement)
 export class CommunityGridElementComponent extends AbstractListableElementComponent<Community> {
+
+  /**
+   * The current language of the page
+   */
+  currentLanguage: string = environment.defaultLanguage;
+
   private _object: Community;
 
   constructor(
@@ -46,6 +53,8 @@ export class CommunityGridElementComponent extends AbstractListableElementCompon
     public translateService: TranslateService,
   ) {
     super(dsoNameService);
+
+    this.currentLanguage = translateService.currentLang;
   }
 
   // @ts-ignore

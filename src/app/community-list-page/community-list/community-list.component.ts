@@ -4,7 +4,6 @@ import {
 } from '@angular/cdk/tree';
 import {
   AsyncPipe,
-  NgClass,
   NgIf,
 } from '@angular/common';
 import {
@@ -19,6 +18,7 @@ import {
 } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
 
+import { environment } from '../../../environments/environment';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import {
   SortDirection,
@@ -45,9 +45,14 @@ import { FlatNode } from '../flat-node.model';
   templateUrl: './community-list.component.html',
   styleUrls: ['./community-list.component.scss'],
   standalone: true,
-  imports: [NgIf, ThemedLoadingComponent, CdkTreeModule, NgClass, RouterLink, TruncatableComponent, TruncatablePartComponent, AsyncPipe, TranslateModule],
+  imports: [NgIf, ThemedLoadingComponent, CdkTreeModule, RouterLink, TruncatableComponent, TruncatablePartComponent, AsyncPipe, TranslateModule],
 })
 export class CommunityListComponent implements OnInit, OnDestroy {
+
+  /**
+   * The current language of the page
+   */
+  currentLanguage: string = environment.defaultLanguage;
 
   private expandedNodes: FlatNode[] = [];
   public loadingNode: FlatNode;
@@ -68,6 +73,8 @@ export class CommunityListComponent implements OnInit, OnDestroy {
     this.paginationConfig.elementsPerPage = 2;
     this.paginationConfig.currentPage = 1;
     this.paginationConfig.sort = new SortOptions('dc.title', SortDirection.ASC);
+
+    this.currentLanguage = translateService.currentLang;
   }
 
   ngOnInit() {

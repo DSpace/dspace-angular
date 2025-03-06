@@ -12,6 +12,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 
+import { environment } from '../../../../../environments/environment';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
@@ -44,6 +45,12 @@ import { SearchResultGridElementComponent } from '../search-result-grid-element.
  */
 @listableObjectComponent(CommunitySearchResult, ViewMode.GridElement)
 export class CommunitySearchResultGridElementComponent extends SearchResultGridElementComponent<CommunitySearchResult,Community> {
+
+  /**
+   * The current language of the page
+   */
+  currentLanguage: string = environment.defaultLanguage;
+
   private _dso: Community;
 
   constructor(
@@ -54,6 +61,8 @@ export class CommunitySearchResultGridElementComponent extends SearchResultGridE
     protected bitstreamDataService: BitstreamDataService,
   ) {
     super(dsoNameService, truncatableService, bitstreamDataService);
+
+    this.currentLanguage = translateService.currentLang;
   }
 
   // @ts-ignore
