@@ -63,42 +63,42 @@ export interface UpdateResult {
 /**
  * Key prefix used to generate form messages
  */
-const KEY_PREFIX = 'bitstream.edit.form.';
+export const KEY_PREFIX = 'bitstream.edit.form.';
 
 /**
  * Key suffix used to generate form labels
  */
-const LABEL_KEY_SUFFIX = '.label';
+export const LABEL_KEY_SUFFIX = '.label';
 
 /**
  * Key suffix used to generate form labels
  */
-const HINT_KEY_SUFFIX = '.hint';
+export const HINT_KEY_SUFFIX = '.hint';
 
 /**
  * Key prefix used to generate notification messages
  */
-const NOTIFICATIONS_PREFIX = 'bitstream.edit.notifications.';
+export const NOTIFICATIONS_PREFIX = 'bitstream.edit.notifications.';
 
 /**
  * IIIF image width metadata key
  */
-const IMAGE_WIDTH_METADATA = 'iiif.image.width';
+export const IMAGE_WIDTH_METADATA = 'iiif.image.width';
 
 /**
  * IIIF image height metadata key
  */
-const IMAGE_HEIGHT_METADATA = 'iiif.image.height';
+export const IMAGE_HEIGHT_METADATA = 'iiif.image.height';
 
 /**
  * IIIF table of contents metadata key
  */
-const IIIF_TOC_METADATA = 'iiif.toc';
+export const IIIF_TOC_METADATA = 'iiif.toc';
 
 /**
  * IIIF label metadata key
  */
-const IIIF_LABEL_METADATA = 'iiif.label';
+export const IIIF_LABEL_METADATA = 'iiif.label';
 
 @Component({
   selector: 'ds-edit-bitstream-page',
