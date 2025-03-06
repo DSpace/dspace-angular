@@ -10194,4 +10194,19 @@
 
   // "search-facet-option.update.announcement": "The page will be reloaded. Filter {{ filter }} is selected.",
   "search-facet-option.update.announcement": "La página será recargada. Filtro {{ filter }} seleccionado.",
+
+  // "statistics.table.header.TotalVisits": "Object",
+  "statistics.table.header.TotalVisits": "Objeto",
+
+  // "statistics.table.header.TotalVisitsMonth": "Month",
+  "statistics.table.header.TotalVisitsMonth": "Mes",
+
+  // "statistics.table.header.TotalDownloads": "Downloads",
+  "statistics.table.header.TotalDownloads": "Descargas",
+
+  // "statistics.table.header.TopCities": "Cities",
+  "statistics.table.header.TopCities": "Ciudades",
+
+  // "statistics.table.header.topCountries": "Countries",
+  "statistics.table.header.topCountries": "Países",
 }
