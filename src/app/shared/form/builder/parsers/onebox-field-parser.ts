@@ -3,6 +3,7 @@ import {
   DynamicSelectModelConfig,
 } from '@ng-dynamic-forms/core';
 
+import { environment } from '../../../../../environments/environment';
 import { isNotEmpty } from '../../../empty.util';
 import {
   DsDynamicInputModel,
@@ -21,7 +22,6 @@ import {
 } from '../ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { FieldParser } from './field-parser';
-import { environment } from '../../../../../environments/environment';
 
 export class OneboxFieldParser extends FieldParser {
 
