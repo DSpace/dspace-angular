@@ -1,6 +1,9 @@
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -204,12 +207,10 @@ const DECLARATIONS = [
 ];
 
 @NgModule({
-  imports: [
-    RootModule,
+  imports: [RootModule,
     CommonModule,
     DragDropModule,
     FormsModule,
-    HttpClientModule,
     NgbModule,
     RouterModule,
     ScrollToModule,
@@ -218,7 +219,9 @@ const DECLARATIONS = [
     TranslateModule,
     FormsModule,
     NgxGalleryModule,
-    ...DECLARATIONS,
+    ...DECLARATIONS],
+  providers: [
+    provideHttpClient(withInterceptorsFromDi()),
   ],
 })
 
