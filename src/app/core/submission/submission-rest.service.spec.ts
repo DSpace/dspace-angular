@@ -58,11 +58,11 @@ describe('SubmissionRestService test suite', () => {
 
   describe('getDataById', () => {
     it('should send a new SubmissionRequest', () => {
-      const expected = new SubmissionRequest(requestService.generateRequestId(), resourceHref);
+      const request = new SubmissionRequest(requestService.generateRequestId(), resourceHref);
       scheduler.schedule(() => service.getDataById(resourceEndpoint, resourceScope).subscribe());
       scheduler.flush();
 
-      expect(requestService.send).toHaveBeenCalledWith(expected);
+      expect(requestService.send).toHaveBeenCalledWith(request, false);
     });
   });
 
