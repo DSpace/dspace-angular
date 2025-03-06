@@ -21,6 +21,7 @@ import {
 } from '../ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { FieldParser } from './field-parser';
+import { environment } from '../../../../../environments/environment';
 
 export class OneboxFieldParser extends FieldParser {
 
