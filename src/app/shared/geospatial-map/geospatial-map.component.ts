@@ -135,6 +135,7 @@ export class GeospatialMapComponent implements AfterViewInit, OnInit, OnDestroy 
     // Set better default icons
     L.Icon.Default.mergeOptions({
       iconRetinaUrl: 'assets/images/marker-icon-2x.png',
+      iconUrl: 'assets/images/marker-icon-2x.png',
       shadowUrl: 'assets/images/marker-shadow.png',
     });
     // Define map object
