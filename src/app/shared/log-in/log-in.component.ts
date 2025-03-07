@@ -13,13 +13,14 @@ import {
   select,
   Store,
 } from '@ngrx/store';
-import {
-  map,
-  Observable,
-} from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
+import uniqBy from 'lodash/uniqBy';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { AuthMethod } from '../../core/auth/models/auth.method';
+import { AuthMethodType } from '../../core/auth/models/auth.method-type';
 import {
   getAuthenticationError,
   getAuthenticationMethods,
@@ -38,7 +39,7 @@ import { rendersAuthMethodType } from './methods/log-in.methods-decorator';
   styleUrls: ['./log-in.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NgIf, ThemedLoadingComponent, NgFor, LogInContainerComponent, AsyncPipe],
+  imports: [NgIf, ThemedLoadingComponent, NgFor, LogInContainerComponent, AsyncPipe, TranslateModule],
 })
 export class LogInComponent implements OnInit {
 
@@ -47,6 +48,15 @@ export class LogInComponent implements OnInit {
    * @type {boolean}
    */
   @Input() isStandalonePage: boolean;
+
+  /**
+   * Method to exclude from the list of authentication methods
+   */
+  @Input() excludedAuthMethod: AuthMethodType;
+  /**
+   *  Weather or not to show the register link
+   */
+  @Input() showRegisterLink = true;
 
   /**
    * The list of authentication methods available
@@ -75,9 +85,13 @@ export class LogInComponent implements OnInit {
     this.authMethods = this.store.pipe(
       select(getAuthenticationMethods),
       map((methods: AuthMethod[]) => methods
+        // ignore the given auth method if it should be excluded
+        .filter((authMethod: AuthMethod) => authMethod.authMethodType !== this.excludedAuthMethod)
         .filter((authMethod: AuthMethod) => rendersAuthMethodType(authMethod.authMethodType) !== undefined)
         .sort((method1: AuthMethod, method2: AuthMethod) => method1.position - method2.position),
       ),
+      // ignore the ip authentication method when it's returned by the backend
+      map((authMethods: AuthMethod[]) => uniqBy(authMethods.filter(a => a.authMethodType !== AuthMethodType.Ip), 'authMethodType')),
     );
 
     // set loading
