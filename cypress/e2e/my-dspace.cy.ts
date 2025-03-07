@@ -44,9 +44,6 @@ describe('My DSpace page', () => {
     // This page is restricted, so we will be shown the login form. Fill it out & submit.
     cy.loginViaForm(Cypress.env('DSPACE_TEST_SUBMIT_USER'), Cypress.env('DSPACE_TEST_SUBMIT_USER_PASSWORD'));
 
-    // Accept all cookies to make sure cookie window does not block other elements
-    cy.get('.orejime-Button--save').click();
-
     // Open the New Submission dropdown
     cy.get('button[data-test="submission-dropdown"]').click();
     // Click on the "Item" type in that dropdown
