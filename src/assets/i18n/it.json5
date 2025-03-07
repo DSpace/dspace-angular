@@ -7864,9 +7864,17 @@
   // TODO New key - Add a translation
   "external-login.haveEmail.informationText": "It seems that you have not yet an account in this system. If this is the case, please confirm the data received from {{authMethod}} and a new account will be created for you. Otherwise, if you already have an account in the system, please update the email address to match the one already in use in the system or login via a different method to associate your {{authMethod}} to your existing account.",
 
+  // "external-login.component.or": "or"
+  // TODO New key - Add a translation
+  "external-login.component.or": "or",
+
   // "external-login.confirm-email.header": "Confirm or update email",
   // TODO New key - Add a translation
   "external-login.confirm-email.header": "Confirm or update email",
+
+  //  "external-login.confirmation.email-label": "User Email",
+  // TODO New key - Add a translation
+  "external-login.confirmation.email-label": "User Email",
 
   // "external-login.confirmation.email-required": "Email is required.",
   // TODO New key - Add a translation
@@ -7920,6 +7928,10 @@
   // TODO New key - Add a translation
   "external-login-validation.review-account-info.table.header.action": "Override",
 
+  // "external-login-validation.review-account-info.table.row.not-applicable": "N/A",
+  // TODO New key - Add a translation
+  "external-login-validation.review-account-info.table.row.not-applicable": "N/A",
+
   // "on-label": "ON",
   // TODO New key - Add a translation
   "on-label": "ON",
@@ -7967,4 +7979,36 @@
   //   "external-login-page.confirm-email.create-account.notifications.error.no-netId": "Something went wrong with this email account. Try again or use a different method to login.",
   // TODO New key - Add a translation
   "external-login-page.confirm-email.create-account.notifications.error.no-netId": "Something went wrong with this email account. Try again or use a different method to login.",
+
+  //"external-login-page.orcid-confirmation.firstname": "First name",
+  // TODO New key - Add a translation
+  "external-login-page.orcid-confirmation.firstname": "First name",
+
+  //"external-login-page.orcid-confirmation.firstname.label": "First name",
+  // TODO New key - Add a translation
+  "external-login-page.orcid-confirmation.firstname.label": "First name",
+
+  // "external-login-page.orcid-confirmation.lastname": "Last name",
+  // TODO New key - Add a translation
+  "external-login-page.orcid-confirmation.lastname": "Last name",
+
+  // "external-login-page.orcid-confirmation.lastname.label": "Last name",
+  // TODO New key - Add a translation
+  "external-login-page.orcid-confirmation.lastname.label": "Last name",
+
+  // "external-login-page.orcid-confirmation.netid": "Account Identifier",
+  // TODO New key - Add a translation
+  "external-login-page.orcid-confirmation.netid": "Account Identifier",
+
+  // "external-login-page.orcid-confirmation.netid.placeholder": "xxxx-xxxx-xxxx-xxxx",
+  // TODO New key - Add a translation
+  "external-login-page.orcid-confirmation.netid.placeholder": "xxxx-xxxx-xxxx-xxxx",
+
+  // "external-login-page.orcid-confirmation.email": "Email",
+  // TODO New key - Add a translation
+  "external-login-page.orcid-confirmation.email": "Email",
+
+  // "external-login-page.orcid-confirmation.email.label": "Email"
+  // TODO New key - Add a translation
+  "external-login-page.orcid-confirmation.email.label": "Email"
 }

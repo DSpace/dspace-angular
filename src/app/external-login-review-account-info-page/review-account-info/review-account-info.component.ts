@@ -1,10 +1,34 @@
-import { NgFor, NgIf, TitleCasePipe, } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Inject, Input, OnDestroy, OnInit, } from '@angular/core';
+import {
+  NgFor,
+  NgIf,
+  TitleCasePipe,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule, TranslateService, } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { UiSwitchModule } from 'ngx-ui-switch';
-import { combineLatest, filter, from, map, Observable, Subscription, switchMap, take, tap, } from 'rxjs';
+import {
+  combineLatest,
+  filter,
+  from,
+  map,
+  Observable,
+  Subscription,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { AuthRegistrationType } from '../../core/auth/models/auth.registration-type';
@@ -12,7 +36,10 @@ import { RemoteData } from '../../core/data/remote-data';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { HardRedirectService } from '../../core/services/hard-redirect.service';
-import { NativeWindowRef, NativeWindowService, } from '../../core/services/window.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '../../core/services/window.service';
 import { Registration } from '../../core/shared/registration.model';
 import { ExternalLoginService } from '../../external-log-in/services/external-login.service';
 import { AlertComponent } from '../../shared/alert/alert.component';
@@ -65,10 +92,6 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
    */
   @Input() registrationData: Registration;
 
-  /**
-   * Text to display when the value is not applicable
-   */
-  notApplicableText = 'N/A';
   /**
    * List of data to compare
    */

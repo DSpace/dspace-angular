@@ -18,7 +18,11 @@ import { EpersonRegistrationService } from '../../core/data/eperson-registration
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { Registration } from '../../core/shared/registration.model';
 import { RouterMock } from '../../shared/mocks/router.mock';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import {
+  createFailedRemoteDataObject$,
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
 import { registrationTokenGuard } from './registration-token-guard';
 
 describe('RegistrationTokenGuard',
@@ -98,4 +102,32 @@ describe('RegistrationTokenGuard',
         expect(output).toBeFalse();
       }));
     });
+
+    describe('when invalid token provided', () => {
+      it('can activate must navigate through 404 when no content received', fakeAsync(() => {
+        epersonRegistrationService.searchByTokenAndHandleError.and.returnValue(createNoContentRemoteDataObject$());
+        let activatedRoute = TestBed.inject(ActivatedRoute);
+        activatedRoute.snapshot.params.token = 'invalid-token';
+
+        const result$ = TestBed.runInInjectionContext(() => {
+          return registrationTokenGuard(activatedRoute.snapshot, {} as RouterStateSnapshot) as Observable<boolean>;
+        });
+
+        result$.subscribe((_) => { });
+        expect(route.navigate).toHaveBeenCalledWith(['/404']);
+      }));
+      it('can activate must navigate through 404 when no failed response received', fakeAsync(() => {
+        epersonRegistrationService.searchByTokenAndHandleError.and.returnValue(createFailedRemoteDataObject$('invalid token', 404));
+        let activatedRoute = TestBed.inject(ActivatedRoute);
+        activatedRoute.snapshot.params.token = 'error-invalid-token';
+
+        const result$ = TestBed.runInInjectionContext(() => {
+          return registrationTokenGuard(activatedRoute.snapshot, {} as RouterStateSnapshot) as Observable<boolean>;
+        });
+
+        result$.subscribe((_) => { });
+        expect(route.navigate).toHaveBeenCalledWith(['/404']);
+      }));
+    });
+
   });

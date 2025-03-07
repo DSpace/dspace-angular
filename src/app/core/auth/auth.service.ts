@@ -57,7 +57,6 @@ import {
   NativeWindowRef,
   NativeWindowService,
 } from '../services/window.service';
-import { NoContent } from '../shared/NoContent.model';
 import {
   getAllSucceededRemoteDataPayload,
   getFirstCompletedRemoteData,
@@ -80,7 +79,6 @@ import {
   AuthTokenInfo,
   TOKENITEM,
 } from './models/auth-token-info.model';
-import { MachineToken } from './models/machine-token.model';
 import {
   getAuthenticatedUserId,
   getAuthenticationToken,
@@ -690,20 +688,6 @@ export class AuthService {
     } else {
       this.store.dispatch(new UnsetUserAsIdleAction());
     }
-  }
-
-  /**
-   * Create a new machine token for the current user
-   */
-  public createMachineToken(): Observable<RemoteData<MachineToken>> {
-    return this.authRequestService.postToMachineTokenEndpoint();
-  }
-
-  /**
-   * Delete the machine token for the current user
-   */
-  public deleteMachineToken(): Observable<RemoteData<NoContent>> {
-    return this.authRequestService.deleteToMachineTokenEndpoint();
   }
 
 }
