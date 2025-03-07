@@ -1,15 +1,6 @@
 import { NgIf } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Inject,
-  OnInit,
-} from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { ChangeDetectionStrategy, Component, Inject, OnInit, } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { Registration } from '../../../core/shared/registration.model';
@@ -29,6 +20,9 @@ import { ExternalLoginMethodEntryComponent } from '../../decorators/external-log
   ],
   standalone: true,
 })
+/**
+ * This component is responsible to show the registered data inside the registration token to the user
+ */
 export class OrcidConfirmationComponent extends ExternalLoginMethodEntryComponent implements OnInit  {
 
   /**

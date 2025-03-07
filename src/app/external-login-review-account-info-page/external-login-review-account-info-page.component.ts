@@ -1,18 +1,7 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { AsyncPipe, NgIf, } from '@angular/common';
+import { Component, OnInit, } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {
-  first,
-  map,
-  Observable,
-  tap,
-} from 'rxjs';
+import { first, map, Observable, tap, } from 'rxjs';
 
 import { RemoteData } from '../core/data/remote-data';
 import { Registration } from '../core/shared/registration.model';
@@ -32,6 +21,9 @@ import { ReviewAccountInfoComponent } from './review-account-info/review-account
   ],
   standalone: true,
 })
+/**
+ * This component is a wrapper for review-account-info component responsible to provide RegistrationData.
+ */
 export class ExternalLoginReviewAccountInfoPageComponent implements OnInit {
   /**
    * The token used to get the registration data

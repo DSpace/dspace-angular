@@ -1,7 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -13,4 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
   standalone: true,
 
 })
+/**
+ * Simple component that shows up a confirmation to the user.
+ */
 export class ConfirmationSentComponent { }

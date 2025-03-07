@@ -1,16 +1,6 @@
 import { NgIf } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnDestroy,
-} from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy, } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
@@ -29,6 +19,9 @@ import { ExternalLoginService } from '../../services/external-login.service';
   ],
   standalone: true,
 })
+/**
+ * This component provides a proper field to submit the email that will be updated for its registration token
+ */
 export class ProvideEmailComponent implements OnDestroy {
   /**
    * The form group for the email input

@@ -1,15 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  select,
-  Store,
-} from '@ngrx/store';
+import { select, Store, } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  filter,
-  map,
-  Observable,
-} from 'rxjs';
+import { filter, map, Observable, } from 'rxjs';
 import { AuthMethod } from 'src/app/core/auth/models/auth.method';
 import { getAuthenticationMethods } from 'src/app/core/auth/selectors';
 import { CoreState } from 'src/app/core/core-state.model';
@@ -23,6 +16,10 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 @Injectable({
   providedIn: 'root',
 })
+/**
+ * This service is responsible to communicate with the epersonRegistrationService to update the RegistrationData
+ * provided by the user.
+ */
 export class ExternalLoginService {
 
   constructor(

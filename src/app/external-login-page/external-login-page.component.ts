@@ -1,19 +1,8 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { AsyncPipe, NgIf, } from '@angular/common';
+import { Component, OnInit, } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  first,
-  map,
-  Observable,
-  tap,
-} from 'rxjs';
+import { first, map, Observable, tap, } from 'rxjs';
 
 import { RemoteData } from '../core/data/remote-data';
 import { Registration } from '../core/shared/registration.model';
@@ -34,6 +23,9 @@ import { hasNoValue } from '../shared/empty.util';
   ],
   standalone: true,
 })
+/**
+ * This component is a wrapper of the external-login component that loads up the RegistrationData.
+ */
 export class ExternalLoginPageComponent implements OnInit {
   /**
    * The token used to get the registration data,
