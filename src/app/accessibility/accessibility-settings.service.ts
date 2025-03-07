@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, Optional } from '@angular/core';
 import { Observable, of, switchMap, combineLatest } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { CookieService } from '../core/services/cookie.service';
@@ -69,7 +69,7 @@ export class AccessibilitySettingsService {
     protected cookieService: CookieService,
     protected authService: AuthService,
     protected ePersonService: EPersonDataService,
-    protected klaroService: KlaroService,
+    @Optional() protected klaroService: KlaroService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
   }
@@ -223,6 +223,10 @@ export class AccessibilitySettingsService {
    * Emits 'failed' when setting in a cookie failed due to the cookie not being accepted, 'cookie' when it succeeded.
    */
   setSettingsInCookie(settings: AccessibilitySettings): Observable<'cookie' | 'failed'> {
+    if (hasNoValue(this.klaroService)) {
+      return of('failed');
+    }
+
     return this.klaroService.getSavedPreferences().pipe(
       map(preferences => preferences.accessibility),
       map((accessibilityCookieAccepted: boolean) => {
