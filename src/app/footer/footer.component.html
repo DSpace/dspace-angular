@@ -67,6 +67,10 @@
             <a class="text-white" href="javascript:void(0);"
              (click)="showCookieSettings()">{{ 'footer.link.cookies' | translate}}</a>
         </li>
+        <li>
+          <a class="text-white"
+             routerLink="info/accessibility">{{ 'footer.link.accessibility' | translate }}</a>
+        </li>
         <li *ngIf="showPrivacyPolicy">
           <a class="text-white"
              routerLink="info/privacy">{{ 'footer.link.privacy-policy' | translate}}</a>
@@ -78,10 +82,6 @@
         <li *ngIf="showSendFeedback$ | async">
           <a class="text-white"
              routerLink="info/feedback">{{ 'footer.link.feedback' | translate}}</a>
-        </li>
-        <li>
-          <a class="text-white"
-             routerLink="info/accessibility">{{ 'footer.link.accessibility' | translate }}</a>
         </li>
       </ul>
     </div>
