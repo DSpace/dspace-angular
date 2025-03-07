@@ -10,7 +10,7 @@
       <i class="fas fa-trash"></i> {{'submission.general.discard.submit' | translate}}
     </button>
   </div>
-  <div class="col text-right d-flex justify-content-end align-items-center">
+  <div class="col text-end d-flex justify-content-end align-items-center">
     <span *ngIf="(hasUnsavedModification | async) !== true && (processingSaveStatus | async) !== true && (processingDepositStatus | async) !== true">
       <i class="fas fa-check-circle"></i> {{'submission.general.info.saved' | translate}}
     </span>
@@ -23,7 +23,7 @@
         <div *ngIf="(processingDepositStatus | async)" class="progress-bar progress-bar-striped progress-bar-animated bg-info" [style.width]="'100%'" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Depositing...</div>
       </div>
     </div>
-    <div class="ml-2 space-children-mr">
+    <div class="ms-2 space-children-mr">
       <button type="button"
               class="btn btn-secondary"
               id="save"
@@ -58,8 +58,7 @@
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title text-danger">{{'submission.general.discard.confirm.title' | translate}}</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('cancel')">
-      <span aria-hidden="true">&times;</span>
+    <button type="button" class="btn-close" aria-label="Close" (click)="d('cancel')">
     </button>
   </div>
   <div class="modal-body">

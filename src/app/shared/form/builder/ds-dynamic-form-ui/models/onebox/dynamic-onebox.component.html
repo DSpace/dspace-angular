@@ -7,7 +7,7 @@
 
 <ng-template #hasInfo let-entry="entry">
   <ul class="list-unstyled mb-0">
-    <li class="list-item text-truncate text-primary font-weight-bold">{{entry.value}}</li>
+    <li class="list-item text-truncate text-primary fw-bold">{{entry.value}}</li>
     <li class="list-item text-truncate text-secondary" *ngFor="let item of entry.otherInformation | dsObjNgFor" >
       {{ 'form.other-information.' + item.key | translate }} : {{item.value}}
     </li>
@@ -16,7 +16,7 @@
 
 <ng-template #noInfo let-entry="entry">
   <ul class="list-unstyled mb-0">
-    <li class="list-item text-truncate text-primary font-weight-bold">{{entry.value}}</li>
+    <li class="list-item text-truncate text-primary fw-bold">{{entry.value}}</li>
   </ul>
 </ng-template>
 

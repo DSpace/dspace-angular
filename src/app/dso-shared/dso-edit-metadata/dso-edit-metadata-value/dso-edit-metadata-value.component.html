@@ -24,7 +24,7 @@
     {{ (enabledFreeTextEditing ? dsoType + '.edit.metadata.edit.buttons.disable-free-text-editing' : dsoType + '.edit.metadata.edit.buttons.enable-free-text-editing') | translate }}
     </button>
     <div *ngIf="!isVirtual && !mdValue.editing && mdValue.newValue.authority && mdValue.newValue.confidence !== ConfidenceTypeEnum.CF_UNSET && mdValue.newValue.confidence !== ConfidenceTypeEnum.CF_NOVALUE">
-      <span class="badge badge-light border" >
+      <span class="badge bg-light border" >
         <i dsAuthorityConfidenceState
            class="fas fa-fw p-0"
            aria-hidden="true"
@@ -37,7 +37,7 @@
     <div class="mt-2" *ngIf=" mdValue.editing && (isAuthorityControlled() | async) && (isSuggesterVocabulary() | async)">
       <div class="btn-group w-75">
         <i dsAuthorityConfidenceState
-          class="fas fa-fw p-0 mr-1 mt-auto mb-auto"
+          class="fas fa-fw p-0 me-1 mt-auto mb-auto"
           aria-hidden="true"
           [authorityValue]="mdValue.newValue.confidence"
           [iconMode]="true"
@@ -60,7 +60,7 @@
       </div>
     </div>
     <div class="d-flex" *ngIf="mdRepresentation">
-      <a class="mr-2" target="_blank" [routerLink]="mdRepresentationItemRoute$ | async">{{ mdRepresentationName$ | async }}</a>
+      <a class="me-2" target="_blank" [routerLink]="mdRepresentationItemRoute$ | async">{{ mdRepresentationName$ | async }}</a>
       <ds-type-badge [object]="mdRepresentation"></ds-type-badge>
     </div>
   </div>

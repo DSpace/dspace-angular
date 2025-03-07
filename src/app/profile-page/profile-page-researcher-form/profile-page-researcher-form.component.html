@@ -2,7 +2,7 @@
   <div *ngIf="researcherProfile">
     <p>{{'researcher.profile.associated' | translate}}</p>
     <p class="align-items-center researcher-profile-switch" >
-      <span class="mr-3">{{'researcher.profile.status' | translate}}</span>
+      <span class="me-3">{{'researcher.profile.status' | translate}}</span>
       <ui-switch [checkedLabel]="'researcher.profile.public.visibility' | translate"
                  [uncheckedLabel]="'researcher.profile.private.visibility' | translate"
                  [checked]="researcherProfile.visible"
@@ -12,7 +12,7 @@
   <div *ngIf="!researcherProfile">
     <p>{{'researcher.profile.not.associated' | translate}}</p>
   </div>
-  <button *ngIf="!researcherProfile" class="btn btn-primary mr-2"
+  <button *ngIf="!researcherProfile" class="btn btn-primary me-2"
           [dsBtnDisabled]="(isProcessingCreate() | async)"
           (click)="createProfile()">
     <span *ngIf="(isProcessingCreate() | async)">
@@ -23,7 +23,7 @@
     </span>
   </button>
   <ng-container *ngIf="researcherProfile">
-    <button class="btn btn-primary mr-2" [dsBtnDisabled]="!researcherProfile" (click)="viewProfile(researcherProfile)">
+    <button class="btn btn-primary me-2" [dsBtnDisabled]="!researcherProfile" (click)="viewProfile(researcherProfile)">
       <i class="fas fa-info-circle"></i> {{'researcher.profile.view' | translate}}
     </button>
     <button class="btn btn-danger" [dsBtnDisabled]="!researcherProfile" (click)="deleteProfile(researcherProfile)">
