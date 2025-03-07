@@ -101,6 +101,8 @@ describe('HeadTagService', () => {
       addTag: {},
       addMetaTag: {},
       removeTag: {},
+      removeTagElement: {},
+      getTags: ['1', '2'],
       updateTag : {},
     });
     title = jasmine.createSpyObj({
@@ -173,7 +175,8 @@ describe('HeadTagService', () => {
       name: 'citation_title',
       content: 'Test PowerPoint Document',
     });
-    expect(meta.updateTag).toHaveBeenCalledWith({ name: 'citation_author', content: 'Doe, Jane' });
+    expect(meta.addTag).toHaveBeenCalledWith({ name: 'citation_author', content: 'Doe, Jane' });
+    expect(meta.addTag).toHaveBeenCalledWith({ name: 'citation_author', content: 'Doe, John' });
     expect(meta.updateTag).toHaveBeenCalledWith({
       name: 'citation_publication_date',
       content: '1650-06-26',
@@ -184,6 +187,13 @@ describe('HeadTagService', () => {
       name: 'citation_keywords',
       content: 'keyword1; keyword2; keyword3',
     });
+  }));
+
+  it('items page should remove multiple tags', fakeAsync(() => {
+    (headTagService as any).clearMetaTags();
+    expect(meta.getTags).toHaveBeenCalledWith('name="title"');
+    expect(meta.getTags).toHaveBeenCalledWith('name="description"');
+    expect(meta.removeTagElement).toHaveBeenCalledTimes(4);
   }));
 
   it('items page should set meta tags as published Thesis', fakeAsync(() => {
@@ -506,8 +516,8 @@ describe('HeadTagService', () => {
     }));
 
     it('should remove previous tags on route change', fakeAsync(() => {
-      expect(meta.updateTag).toHaveBeenCalledWith({ name: 'title', content: '' });
-      expect(meta.updateTag).toHaveBeenCalledWith({ name: 'description', content: '' });
+      expect(meta.getTags).toHaveBeenCalledWith(`name="title"`);
+      expect(meta.getTags).toHaveBeenCalledWith(`name="description"`);
     }));
 
     it('should clear all tags and add new ones on route change', () => {
