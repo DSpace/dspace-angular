@@ -6,7 +6,7 @@
         </button>
         <ul ngbDropdownMenu class="dso-edit-menu-dropdown">
             <li class="nav-item nav-link d-flex flex-row" *ngFor="let subSection of (subSections$ | async)">
-                <div *ngIf="renderIcons$ | async" class="mr-2">
+                <div *ngIf="renderIcons$ | async" class="me-2">
                     <i *ngIf="subSection.icon; else spacer" class="fas fa-{{subSection.icon}} fa-fw"></i>
                     <ng-template #spacer><i class="fas fa-fw"></i></ng-template>
                 </div>

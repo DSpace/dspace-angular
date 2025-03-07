@@ -1,7 +1,7 @@
 <div class="mb-3 border-bottom" data-test="collapse">
     <div class="w-100 d-flex justify-content-between collapse-toggle" (click)="collapse.toggle()">
         <div class="d-flex">
-            <button type="button" class="btn btn-link p-0 mr-4" (click)="$event.preventDefault()"
+            <button type="button" class="btn btn-link p-0 me-4" (click)="$event.preventDefault()"
                 [attr.aria-expanded]="!collapse.collapsed" aria-controls="collapseExample">
                 {{version.articleVersion | titlecase}} {{ 'submission.sections.sherpa.publisher.policy.version' |
                 translate
@@ -16,7 +16,7 @@
                         'submission.sections.sherpa.publisher.policy.noembargo' | translate }}</span>
                 </ng-template>
 
-                <span class="m-1 ml-4">
+                <span class="m-1 ms-4">
                     <i class="far fa-folder-open"></i>
                     <span *ngIf="!!version?.locations && version.locations.length > 0; else noLocations">
                         {{version.locations[0]}} <span
@@ -35,7 +35,7 @@
         </div>
     </div>
     <div #collapse="ngbCollapse" [ngbCollapse]="isCollapsed">
-        <div *ngIf="!!version" class="ml-4">
+        <div *ngIf="!!version" class="ms-4">
             <div class="row" *ngIf="!!version?.embargo && !!version?.embargo.amount">
                 <div class="col-4">
                     <p class="m-1"><i class="fas fa-hourglass-half"></i> {{

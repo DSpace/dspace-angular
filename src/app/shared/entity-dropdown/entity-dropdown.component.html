@@ -18,7 +18,9 @@
             role="menuitem"
             title="{{ listItem.label }}"
             (click)="onSelect(listItem)">
-      <span class="text-truncate font-weight-bold">{{ listItem.label.toLowerCase() + '.listelement.badge' | translate }}</span>
+      <ul class="list-unstyled mb-0">
+        <li class="list-item text-truncate text-primary fw-bold">{{ listItem.label.toLowerCase() + '.listelement.badge' | translate }}</li>
+      </ul>
     </button>
   </li>
   <li *ngIf="(isLoadingList | async)">
