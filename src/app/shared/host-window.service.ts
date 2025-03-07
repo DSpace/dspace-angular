@@ -1,13 +1,14 @@
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
 
 import { filter, distinctUntilChanged, map } from 'rxjs/operators';
 import { HostWindowState } from './search/host-window.reducer';
-import { Injectable } from '@angular/core';
+import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
 import { createSelector, select, Store } from '@ngrx/store';
 
 import { hasValue } from './empty.util';
 import { AppState } from '../app.reducer';
 import { CSSVariableService } from './sass-helper/css-variable.service';
+import { isPlatformServer } from '@angular/common';
 
 export enum WidthCategory {
   XS,
@@ -26,7 +27,8 @@ export class HostWindowService {
 
   constructor(
     private store: Store<AppState>,
-    private variableService: CSSVariableService
+    private variableService: CSSVariableService,
+    @Inject(PLATFORM_ID) private platformId: any,
   ) {
     /* See _exposed_variables.scss */
     variableService.getAllVariables()
@@ -46,6 +48,11 @@ export class HostWindowService {
   }
 
   get widthCategory(): Observable<WidthCategory> {
+    if (isPlatformServer(this.platformId)) {
+      // During SSR we won't know the viewport width -- assume we're rendering for desktop
+      return observableOf(WidthCategory.XL);
+    }
+
     return this.getWidthObs().pipe(
       map((width: number) => {
         if (width < this.breakPoints.SM_MIN) {

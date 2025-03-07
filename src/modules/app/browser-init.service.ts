@@ -103,6 +103,8 @@ export class BrowserInitService extends InitService {
 
       await this.authenticationReady$().toPromise();
 
+      this.configureAdminSidebarStatus();
+
       return true;
     };
   }
@@ -170,6 +172,10 @@ export class BrowserInitService extends InitService {
     firstValueFrom(this.authenticationReady$()).then(() => {
         this.sub.unsubscribe();
       });
+  }
+
+  protected configureAdminSidebarStatus(): void {
+    this.menuService.syncMenuCollapsedState();
   }
 
 }

@@ -5,7 +5,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { cold } from 'jasmine-marbles';
 
-import { MenuService } from './menu.service';
+import { MenuService, PINNED_SIDEBAR_COOKIE } from './menu.service';
 import {
   ActivateMenuSectionAction,
   AddMenuSectionAction,
@@ -27,6 +27,8 @@ import { MenuID } from './menu-id.model';
 import { MenuItemType } from './menu-item-type.model';
 import { LinkMenuItemModel } from './menu-item/models/link.model';
 import { NavigationEnd } from '@angular/router';
+import { CookieService } from '../../core/services/cookie.service';
+import { CookieServiceMock } from '../mocks/cookie.service.mock';
 
 describe('MenuService', () => {
   let service: MenuService;
@@ -45,6 +47,7 @@ describe('MenuService', () => {
   let alreadyPresentMenuSection: MenuSection;
   let route;
   let router;
+  let cookieService;
 
 
   function init() {
@@ -175,6 +178,8 @@ describe('MenuService', () => {
     router = {
       events: observableOf(new NavigationEnd(1, 'test-url', 'test-url'))
     };
+
+    cookieService = new CookieServiceMock();
   }
 
   beforeEach(waitForAsync(() => {
@@ -185,14 +190,15 @@ describe('MenuService', () => {
       ],
       providers: [
         provideMockStore({initialState}),
-        {provide: MenuService, useValue: service}
+        {provide: MenuService, useValue: service},
+        {provide: CookieService, useClass: CookieServiceMock}
       ]
     }).compileComponents();
   }));
 
   beforeEach(() => {
     store = TestBed.inject(Store);
-    service = new MenuService(store, route, router);
+    service = new MenuService(store, route, router, cookieService);
     spyOn(store, 'dispatch');
   });
 
@@ -516,6 +522,39 @@ describe('MenuService', () => {
     it('should dispatch an HideMenuAction with the correct arguments', () => {
       service.hideMenu(MenuID.ADMIN);
       expect(store.dispatch).toHaveBeenCalledWith(new HideMenuAction(MenuID.ADMIN));
+    });
+  });
+
+  describe('toggleMenuCollapsedState', () => {
+    it('should update the collapsed state of the given menu in the cookie', () => {
+      service.toggleMenuCollapsedState(MenuID.ADMIN);
+      expect(cookieService.get(PINNED_SIDEBAR_COOKIE)[MenuID.ADMIN]).toEqual(false);
+    });
+  });
+
+  describe('syncMenuCollapsedState', () => {
+    it('should call expandMenu when a menu is collapsed in the store but expanded in the cookie', () => {
+      spyOn(service, 'expandMenu');
+      let cookieWithExpandedAdmin: object = {
+        [MenuID.ADMIN]: false,
+        [MenuID.PUBLIC]: false,
+        [MenuID.DSO_EDIT]: false,
+      };
+       cookieService.set(PINNED_SIDEBAR_COOKIE, cookieWithExpandedAdmin);
+      service.syncMenuCollapsedState();
+      expect(service.expandMenu).toHaveBeenCalledWith(MenuID.ADMIN);
+    });
+
+    it('should call collapseMenu when a menu is expanded in the store but collapsed in the cookie', () => {
+      spyOn(service, 'collapseMenu');
+      let cookieWithCollapsedAdmin: object = {
+        [MenuID.ADMIN]: true,
+        [MenuID.PUBLIC]: false,
+        [MenuID.DSO_EDIT]: false,
+      };
+      cookieService.set(PINNED_SIDEBAR_COOKIE, cookieWithCollapsedAdmin);
+      service.syncMenuCollapsedState();
+      expect(service.collapseMenu).toHaveBeenCalledWith(MenuID.ADMIN);
     });
   });
 

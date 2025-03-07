@@ -4,6 +4,7 @@ import { NavbarEffects } from './navbar/navbar.effects';
 import { SidebarEffects } from './shared/sidebar/sidebar-effects.service';
 import { RelationshipEffects } from './shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/relationship.effects';
 import { ThemeEffects } from './shared/theme-support/theme.effects';
+import { MenuEffects } from './shared/menu/menu.effects';
 
 export const appEffects = [
   StoreEffects,
@@ -11,5 +12,6 @@ export const appEffects = [
   NotificationsEffects,
   SidebarEffects,
   ThemeEffects,
-  RelationshipEffects
+  RelationshipEffects,
+  MenuEffects,
 ];

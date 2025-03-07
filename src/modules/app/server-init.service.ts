@@ -69,6 +69,8 @@ export class ServerInitService extends InitService {
 
       await this.authenticationReady$().toPromise();
 
+      this.configureAdminSidebarStatus();
+
       return true;
     };
   }
@@ -93,4 +95,9 @@ export class ServerInitService extends InitService {
   private saveAppConfigForCSR(): void {
     this.transferState.set<AppConfig>(APP_CONFIG_STATE, environment as AppConfig);
   }
+
+  protected configureAdminSidebarStatus(): void {
+    this.menuService.syncMenuCollapsedState();
+  }
+
 }

@@ -23,6 +23,7 @@ import { MenuSections } from './menu-sections.model';
 import { MenuSection } from './menu-section.model';
 import { MenuID } from './menu-id.model';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { CookieService } from '../../core/services/cookie.service';
 
 export function menuKeySelector<T>(key: string, selector): MemoizedSelector<MenuState, T> {
   return createSelector(selector, (state) => {
@@ -52,6 +53,8 @@ const getSubSectionsFromSectionSelector = (id: string): MemoizedSelector<MenuSta
   return menuKeySelector<string[]>(id, menuSectionIndexStateSelector);
 };
 
+export const PINNED_SIDEBAR_COOKIE = 'dsMenuCollapsedState';
+
 @Injectable()
 export class MenuService {
 
@@ -59,6 +62,7 @@ export class MenuService {
     protected store: Store<AppState>,
     protected route: ActivatedRoute,
     protected router: Router,
+    protected cookieService: CookieService,
   ) {
   }
 
@@ -286,6 +290,48 @@ export class MenuService {
    */
   hideMenu(menuID: MenuID): void {
     this.store.dispatch(new HideMenuAction(menuID));
+  }
+
+  /**
+   * Returns whether te admin menu is currently collapsed.
+   */
+  isCollapsed(menuID: MenuID): boolean {
+    const cookie: object | undefined = this.cookieService.get(PINNED_SIDEBAR_COOKIE);
+    return cookie?.[menuID] ?? true;
+  }
+
+  /**
+   * Collapses the expanded menu or expands the collapsed menu.
+   */
+  toggleMenuCollapsedState(menuID: MenuID): void {
+    let cookie: object | undefined = this.cookieService.get(PINNED_SIDEBAR_COOKIE);
+    if (!hasValue(cookie)) {
+      // Default value
+      cookie = {
+        [MenuID.ADMIN]: true,
+        [MenuID.PUBLIC]: false,
+        [MenuID.DSO_EDIT]: false,
+      };
+    }
+    cookie[menuID] = !this.isCollapsed(menuID);
+    this.cookieService.set(PINNED_SIDEBAR_COOKIE, cookie, { expires: 10000 });
+  }
+
+  /**
+   * Expands/collapses the navbar based on the {@link PINNED_SIDEBAR_COOKIE} cookie value.
+   */
+  syncMenuCollapsedState(): void {
+    const cookie: object | undefined = this.cookieService.get(PINNED_SIDEBAR_COOKIE);
+    if (!hasValue(cookie)) {
+      return;
+    }
+    for (let menuID in cookie) {
+      if (this.isCollapsed(menuID as MenuID)) {
+        this.collapseMenu(menuID as MenuID);
+      } else {
+        this.expandMenu(menuID as MenuID);
+      }
+    }
   }
 
   /**
