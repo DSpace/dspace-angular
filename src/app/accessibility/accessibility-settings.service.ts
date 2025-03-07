@@ -1,6 +1,7 @@
 import {
   Inject,
   Injectable,
+  Optional,
 } from '@angular/core';
 import cloneDeep from 'lodash/cloneDeep';
 import {
@@ -88,7 +89,7 @@ export class AccessibilitySettingsService {
     protected cookieService: CookieService,
     protected authService: AuthService,
     protected ePersonService: EPersonDataService,
-    protected klaroService: KlaroService,
+    @Optional() protected klaroService: KlaroService,
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
   }
@@ -242,6 +243,10 @@ export class AccessibilitySettingsService {
    * Emits 'failed' when setting in a cookie failed due to the cookie not being accepted, 'cookie' when it succeeded.
    */
   setSettingsInCookie(settings: AccessibilitySettings): Observable<'cookie' | 'failed'> {
+    if (hasNoValue(this.klaroService)) {
+      return of('failed');
+    }
+
     return this.klaroService.getSavedPreferences().pipe(
       map(preferences => preferences.accessibility),
       map((accessibilityCookieAccepted: boolean) => {

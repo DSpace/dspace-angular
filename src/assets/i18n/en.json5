@@ -2152,7 +2152,7 @@
 
   "info.accessibility-settings.liveRegionTimeOut.label": "ARIA Live region time out (in seconds)",
 
-  "info.accessibility-settings.liveRegionTimeOut.hint": "The duration after which a message in the ARIA live region disappears. ARIA live regions are not visible on the page, but proivde announcements of notifications (or other actions) to screen readers.",
+  "info.accessibility-settings.liveRegionTimeOut.hint": "The duration after which a message in the ARIA live region disappears. ARIA live regions are not visible on the page, but provide announcements of notifications (or other actions) to screen readers.",
 
   "info.accessibility-settings.liveRegionTimeOut.invalid": "Live region time out must be greater than 0",
 
