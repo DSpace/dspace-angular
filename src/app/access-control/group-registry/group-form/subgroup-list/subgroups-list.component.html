@@ -62,8 +62,8 @@
 
   </h4>
   <form [formGroup]="searchForm" (ngSubmit)="search(searchForm.value)" class="d-flex justify-content-between">
-    <div class="flex-grow-1 mr-3">
-      <div class="form-group input-group mr-3">
+    <div class="flex-grow-1 me-3">
+      <div class="mb-3 input-group me-3">
         <input type="text" name="query" id="query" formControlName="query"
                class="form-control" aria-label="Search input">
         <span class="input-group-append">
@@ -75,7 +75,7 @@
       </div>
     </div>
     <div>
-      <button (click)="clearFormAndResetResult();" class="btn btn-secondary float-right">
+      <button (click)="clearFormAndResetResult();" class="btn btn-secondary float-end">
         {{messagePrefix + '.button.see-all' | translate}}
       </button>
     </div>

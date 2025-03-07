@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-12 d-inline-block mb-1">
-      <span>{{type.value + '.edit.logo.label' | translate}}</span>
+    <div class="col-12 d-inline-block">
+      <label class="form-label">{{type.value + '.edit.logo.label' | translate}}</label>
     </div>
     <ng-container *ngVar="(dso?.logo | async)?.payload as logo">
       <div class="col-12 d-inline-block alert" id="logo-section" *ngIf="logo">
@@ -10,7 +10,7 @@
             <ds-comcol-page-logo [alternateText]="type.value + '.logo.alt'" [logo]="logo"></ds-comcol-page-logo>
           </div>
           <div class="col-4 d-inline-block">
-            <div *ngIf="logo" class="float-right">
+            <div *ngIf="logo" class="float-end">
               <button
                 (click)="confirmLogoDeleteWithModal()"
                 class="btn btn-danger"

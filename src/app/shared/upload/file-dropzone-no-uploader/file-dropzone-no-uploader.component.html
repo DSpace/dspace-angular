@@ -18,7 +18,7 @@
   <p class="text-center m-0 p-0 d-flex justify-content-center align-items-center">
       <span><i class="fas fa-cloud-upload"
                aria-hidden="true"></i> {{ ((fileObject === null || fileObject === undefined) ? dropMessageLabel : dropMessageLabelReplacement) | translate}} {{'uploader.or' | translate}}</span>
-    <label class="btn btn-link m-0 p-0 ml-1">
+    <label class="btn btn-link m-0 p-0 ms-1">
       <input class="form-control-file d-none" type="file" name="file-upload"
              id="file-upload"
              (change)="handleFileInput($event)">

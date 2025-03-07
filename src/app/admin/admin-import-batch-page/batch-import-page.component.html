@@ -8,7 +8,7 @@
   <p>
     <button class="btn btn-primary" (click)="this.selectCollection();">{{'admin.metadata-import.page.button.select-collection' | translate}}</button>
   </p>
-  <div class="form-group">
+  <div class="mb-3">
     <div class="form-check">
       <input class="form-check-input" type="checkbox" id="validateOnly" [(ngModel)]="validateOnly">
       <label class="form-check-label" for="validateOnly">
@@ -25,7 +25,7 @@
              [uncheckedLabel]="'admin.metadata-import.page.toggle.url' | translate"
              [checked]="isUpload"
              (change)="toggleUpload()" ></ui-switch>
-  <small class="form-text text-muted">
+  <small class="form-text text-muted d-block">
     {{'admin.batch-import.page.toggle.help' | translate}}
   </small>
 
@@ -38,7 +38,7 @@
     [dropMessageLabelReplacement]="'admin.batch-import.page.dropMsgReplace'">
   </ds-file-dropzone-no-uploader>
 
-  <div class="form-group mt-2" *ngIf="!isUpload">
+  <div class="mb-3 mt-2" *ngIf="!isUpload">
     <input class="form-control" type="text" placeholder="{{'admin.metadata-import.page.urlMsg' | translate}}"
            data-test="file-url-input" [(ngModel)]="fileURL">
   </div>
