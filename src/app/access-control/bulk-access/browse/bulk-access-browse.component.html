@@ -1,19 +1,13 @@
 <ngb-accordion #acc="ngbAccordion" [activeIds]="'browse'">
   <ngb-panel [id]="'browse'">
-    <ng-template ngbPanelHeader>
-      <div class="w-100 d-flex gap-3 justify-content-between collapse-toggle" ngbPanelToggle (click)="acc.toggle('browse')"
+    <ng-template ngbPanelTitle>
+      <div class="w-100 d-flex gap-3 justify-content-between collapse-toggle" (click)="acc.toggle('browse')"
            data-test="browse">
         <button type="button" class="btn btn-link p-0" (click)="$event.preventDefault()"
                 [attr.aria-expanded]="acc.isExpanded('browse')"
                 aria-controls="bulk-access-browse-panel-content">
           {{ 'admin.access-control.bulk-access-browse.header' | translate }}
         </button>
-        <div class="text-right d-flex gap-2">
-          <div class="d-flex my-auto">
-            <span *ngIf="acc.isExpanded('browse')" class="fas fa-chevron-up fa-fw"></span>
-            <span *ngIf="!acc.isExpanded('browse')" class="fas fa-chevron-down fa-fw"></span>
-          </div>
-        </div>
       </div>
     </ng-template>
     <ng-template ngbPanelContent>
@@ -22,7 +16,7 @@
           <li [ngbNavItem]="'search'" role="presentation">
             <a ngbNavLink>{{'admin.access-control.bulk-access-browse.search.header' | translate}}</a>
             <ng-template ngbNavContent>
-              <div class="mx-n3">
+              <div class="bulk-access-search">
                 <ds-search [configuration]="'administrativeBulkAccess'"
                                   [selectable]="true"
                                   [selectionConfig]="{ repeatable: true, listId: listId }"
@@ -42,7 +36,7 @@
                 [showPaginator]="false"
                 (prev)="pagePrev()"
                 (next)="pageNext()">
-                <ul *ngIf="(objectsSelected$|async)?.hasSucceeded" class="list-unstyled ml-4">
+              <ul *ngIf="(objectsSelected$|async)?.hasSucceeded" class="list-unstyled ms-4">
                   <li *ngFor='let object of (objectsSelected$|async)?.payload?.page | paginate: { itemsPerPage: (paginationOptions$ | async).pageSize,
                               currentPage: (paginationOptions$ | async).currentPage, totalItems: (objectsSelected$|async)?.payload?.page.length }; let i = index; let last = last '
                       class="mt-4 mb-4 d-flex"

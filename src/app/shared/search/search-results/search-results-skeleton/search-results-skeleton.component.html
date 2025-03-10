@@ -1,0 +1,38 @@
+<div class="row flex-nowrap">
+  <div [class.mb-2]="(viewMode$ | async) === ViewMode.ListElement" class="info-skeleton col-12">
+    <ngx-skeleton-loader/>
+  </div>
+</div>
+
+@if((viewMode$ | async) === ViewMode.ListElement) {
+  @for (result of loadingResults; track result; let first = $first) {
+      <div [class.my-4]="!first" class="row">
+      @if(showThumbnails) {
+        <div class="col-3 col-md-2">
+          <div class="thumbnail-skeleton position-relative">
+            <ngx-skeleton-loader/>
+          </div>
+        </div>
+      }
+      <div [class.col-9]="showThumbnails" [class.col-md-10]="showThumbnails" [class.col-md-12]="!showThumbnails">
+        <div class="badge-skeleton">
+          <ngx-skeleton-loader/>
+        </div>
+        <div class="text-skeleton">
+          <ngx-skeleton-loader [count]="textLineCount"/>
+        </div>
+      </div>
+    </div>
+  }
+} @else if ((viewMode$ | async) === ViewMode.GridElement) {
+  <div class="card-columns row">
+    @for (result of loadingResults; track result) {
+      <div class="card-column col col-sm-6 col-lg-4">
+        <div class="card-skeleton">
+          <ngx-skeleton-loader/>
+        </div>
+      </div>
+    }
+
+  </div>
+}

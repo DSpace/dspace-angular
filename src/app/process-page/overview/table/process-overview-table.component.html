@@ -2,11 +2,11 @@
   <div class="d-flex" (click)="collapse.toggle()" [attr.aria-expanded]="!collapse.collapsed" role="button">
     <h2 class="flex-grow-1">
       {{'process.overview.table.' + processStatus.toLowerCase() + '.title' | translate}}
-      <span class="badge badge-pill badge-primary badge-nb-processes"
+      <span class="badge rounded-pill bg-primary badge-nb-processes ps-2 pe-2"
             *ngIf="(processesRD$ | async) as processesRD">
         {{processesRD?.payload?.totalElements}}
       </span>
-      <span class="ml-2 toggle-icon">
+      <span class="ms-2 toggle-icon">
         <i class="fas" [ngClass]="collapse.collapsed ? 'fa-angle-right' : 'fa-angle-down'"></i>
       </span>
     </h2>
@@ -44,7 +44,6 @@
               <td>{{tableEntry.info}}</td>
               <td>
                 <button [attr.aria-label]="'process.overview.delete-process' | translate"
-                        aria-hidden="true"
                         (click)="processBulkDeleteService.toggleDelete(tableEntry.process.processId)"
                         class="btn btn-outline-danger">
                   <i class="fas fa-trash"></i>

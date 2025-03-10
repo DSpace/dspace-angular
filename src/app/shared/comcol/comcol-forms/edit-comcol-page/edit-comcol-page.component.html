@@ -26,7 +26,7 @@
           <div class="mb-4">
             <router-outlet></router-outlet>
           </div>
-          <div class="col-12 text-right">
+          <div class="col-12 text-end custom-alignment">
             <a *ngIf="!hideReturnButton" [routerLink]="getPageUrl((dsoRD$ | async)?.payload)" class="btn btn-outline-secondary">
               <i class="fas fa-arrow-left" aria-hidden="true"></i> {{ type + '.edit.return' | translate }}
             </a>

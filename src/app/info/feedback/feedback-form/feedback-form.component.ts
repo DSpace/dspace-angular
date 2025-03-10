@@ -58,9 +58,9 @@ import {
   getFirstSucceededRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { URLCombiner } from '../../../core/url-combiner/url-combiner';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
-import { KlaroService } from '../../../shared/cookies/klaro.service';
 import { isNotEmpty } from '../../../shared/empty.util';
 import { ErrorComponent } from '../../../shared/error/error.component';
 import { GoogleRecaptchaComponent } from '../../../shared/google-recaptcha/google-recaptcha.component';
@@ -71,12 +71,13 @@ import { NotificationsService } from '../../../shared/notifications/notification
   templateUrl: './feedback-form.component.html',
   styleUrls: ['./feedback-form.component.scss'],
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgIf, ErrorComponent, TranslateModule, AlertComponent, AsyncPipe, GoogleRecaptchaComponent],
+  imports: [FormsModule, ReactiveFormsModule, NgIf, ErrorComponent, TranslateModule,AlertComponent, AsyncPipe, GoogleRecaptchaComponent,BtnDisabledDirective],
 })
 /**
  * Component displaying the contents of the Feedback Statement
  */
 export class FeedbackFormComponent implements OnInit,OnDestroy {
+
   protected readonly AlertTypeEnum = AlertType;
 
   /**
@@ -162,7 +163,7 @@ export class FeedbackFormComponent implements OnInit,OnDestroy {
    */
   createFeedback(token: string = null): void {
     const url = this.feedbackForm.value.page.replace(this._window.nativeWindow.origin, '');
-    this.feedbackDataService.registerFeedback(this.feedbackForm.value,token).pipe(getFirstCompletedRemoteData()).subscribe((response: RemoteData<NoContent>) => {
+    this.feedbackDataService.create(this.feedbackForm.value).pipe(getFirstCompletedRemoteData()).subscribe((response: RemoteData<NoContent>) => {
       if (response.isSuccess) {
         this.notificationsService.success(this.translate.instant('info.feedback.create.success'));
         this.feedbackForm.reset();

@@ -22,7 +22,7 @@
               <span><i class="fas fa-trash" aria-hidden="true"></i></span>
             </button>
         </div>
-        <div *ngIf="(!context.notRepeatable) && index === (group.context.groups.length - 1) && !isItemReadOnly(context, index)" class="clearfix pl-4 w-100">
+        <div *ngIf="(!context.notRepeatable) && index === (group.context.groups.length - 1) && !isItemReadOnly(context, index)" class="clearfix ps-4 w-100">
           <div class="btn-group" role="group">
             <button type="button" role="button" class="ds-form-add-more btn btn-link"
                     title="{{'form.add' | translate}}"
@@ -41,7 +41,7 @@
                     title="{{'form.discard' | translate}}"
                     attr.aria-label="{{'form.discard' | translate}}"
                     (click)="removeItem($event, context, index)"
-                    [disabled]="group.context.groups.length === 1 || isItemReadOnly(context, index)">
+                    [dsBtnDisabled]="group.context.groups.length === 1 || isItemReadOnly(context, index)">
               <span>{{'form.discard' | translate}}</span>
             </button>
           </div>
@@ -54,15 +54,15 @@
 
     <div *ngIf="displaySubmit || displayCancel">
       <hr>
-      <div class="form-group row">
-        <div class="col text-right space-children-mr">
+      <div class="mb-3 row">
+        <div class="col text-end space-children-mr">
           <ng-content select="[before]"></ng-content>
             <button *ngIf="displayCancel" type="reset" class="btn btn-outline-secondary" (click)="reset()">
               <i class="fa fa-times" aria-hidden="true"></i> {{cancelLabel | translate}}
             </button>
             <ng-content select="[between]"></ng-content>
             <button *ngIf="displaySubmit" type="submit" class="btn btn-primary" (click)="onSubmit()"
-                    [disabled]="(isValid() | async) !== true">
+                    [dsBtnDisabled]="(isValid() | async) !== true">
               <i class="fas fa-save" aria-hidden="true"></i> {{submitLabel | translate}}
             </button>
             <ng-content select="[after]"></ng-content>

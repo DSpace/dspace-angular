@@ -36,6 +36,7 @@ import { FormClearErrorsAction } from '../../shared/form/form.actions';
 import { FormError } from '../../shared/form/form.reducer';
 import { FormService } from '../../shared/form/form.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { SectionScope } from '../objects/section-visibility.model';
 import {
   DisableSectionAction,
   EnableSectionAction,
@@ -347,10 +348,14 @@ export class SectionsService {
     return this.store.select(submissionSectionFromIdSelector(submissionId, sectionId)).pipe(
       filter((sectionObj) => hasValue(sectionObj)),
       map((sectionObj: SubmissionSectionObject) => {
-        return isNotEmpty(sectionObj.visibility)
-          && ((sectionObj.visibility.other === 'READONLY' && submissionScope !== SubmissionScopeType.WorkspaceItem)
-              || (sectionObj.visibility.main === 'READONLY' && submissionScope === SubmissionScopeType.WorkspaceItem)
-          );
+        if (isEmpty(submissionScope) || isEmpty(sectionObj.visibility) || isEmpty(sectionObj.scope)) {
+          return false;
+        }
+        const convertedSubmissionScope: SectionScope = submissionScope.valueOf() === SubmissionScopeType.WorkspaceItem.valueOf() ?
+          SectionScope.Submission : SectionScope.Workflow;
+        const visibility = convertedSubmissionScope.valueOf() === sectionObj.scope.valueOf() ?
+          sectionObj.visibility.main : sectionObj.visibility.other;
+        return visibility ===  'READONLY';
       }),
       distinctUntilChanged());
   }

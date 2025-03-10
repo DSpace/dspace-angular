@@ -1,7 +1,7 @@
 <div class="container">
     <h1 id="header">{{'system-wide-alert.form.header' | translate}}</h1>
     <div [formGroup]="alertForm" [class]="'ng-invalid'">
-        <div class="form-group">
+        <div class="mb-3">
             <div class="row mb-2">
                 <div class="col">
                     <ui-switch [checkedLabel]="'system-wide-alert.form.label.active' | translate"
@@ -11,7 +11,7 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <label for="formMessage">{{ 'system-wide-alert.form.label.message' | translate }}</label>
+                    <label class="form-label" for="formMessage">{{ 'system-wide-alert.form.label.message' | translate }}</label>
                     <textarea id="formMessage" rows="5"
                         [className]="(formMessage.invalid) && (formMessage.dirty || formMessage.touched) ? 'form-control is-invalid' :'form-control'"
                         formControlName="formMessage">
@@ -30,7 +30,7 @@
         <div class="col mb-2 d-flex align-items-end">
             <ui-switch size="small" [ariaLabel]="'system-wide-alert.form.label.countdownTo.enable' | translate"
                 [checked]="counterEnabled$ |async" (change)="setCounterEnabled($event)"></ui-switch>
-            <span class="ml-2">{{ 'system-wide-alert.form.label.countdownTo.enable' | translate }}</span>
+            <span class="ms-2">{{ 'system-wide-alert.form.label.countdownTo.enable' | translate }}</span>
         </div>
     </div>
     <div *ngIf="counterEnabled$ |async">
@@ -62,11 +62,11 @@
     <div *ngIf="formMessage.value">
         <div class="row">
             <div class="col">
-                <label>{{ 'system-wide-alert.form.label.preview' | translate}}</label>
+                <label class="form-label">{{ 'system-wide-alert.form.label.preview' | translate }}</label>
             </div>
         </div>
         <div class="rounded-0 alert alert-warning">
-            <span class="font-weight-bold">
+            <span class="fw-bold">
                 <span *ngIf="previewDays > 0 || previewHours > 0 || previewMinutes > 0 ">
                     {{ 'system-wide-alert-banner.countdown.prefix' | translate }}
                 </span>
@@ -83,11 +83,11 @@
             <span [innerHTML]="formMessage.value"></span>
         </div>
     </div>
-    <div class="btn-row float-right space-children-mr mt-2">
+    <div class="btn-row float-end space-children-mr mt-2">
         <button (click)="back()" class="btn btn-outline-secondary">
             <i class="fas fa-arrow-left"></i> {{ 'system-wide-alert.form.cancel' | translate }}
         </button>
-        <button class="btn btn-primary" [disabled]="alertForm.invalid" (click)="save()">
+        <button class="btn btn-primary" [dsBtnDisabled]="alertForm.invalid" (click)="save()">
             <i class="fa fa-save"></i> {{ 'system-wide-alert.form.save' | translate }}
         </button>
     </div>

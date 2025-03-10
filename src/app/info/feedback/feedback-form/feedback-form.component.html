@@ -5,7 +5,7 @@
     <form [formGroup]="feedbackForm" (ngSubmit)="send()" class="col p-0">
       <div class="row mt-3">
         <div class="control-group col-sm-12">
-          <label class="control-label" for="email">{{ 'info.feedback.email-label' | translate }}&nbsp;</label>
+            <label class="control-label form-label" for="email">{{ 'info.feedback.email-label' | translate }}&nbsp;</label>
           <input id="email" class="form-control" name="email" type="text" value="" formControlName="email" autofocus="autofocus" title="{{ 'info.feedback.email_help' | translate }}">
           <small class="text-muted">{{ 'info.feedback.email_help' | translate }}</small>
         </div>
@@ -20,7 +20,7 @@
 
       <div class="row mt-3">
         <div class="control-group col-sm-12">
-          <label class="control-label" for="comments">{{ 'info.feedback.comments' | translate }}:&nbsp;</label>
+            <label class="control-label form-label" for="comments">{{ 'info.feedback.comments' | translate }}:&nbsp;</label>
           <textarea id="comments" formControlName="message" class="form-control" name="message" cols="20" rows="5"> </textarea>
         </div>
       </div>
@@ -33,7 +33,7 @@
 
       <div class="row mt-3">
         <div class="control-group col-sm-12">
-          <label class="control-label" for="page">{{ 'info.feedback.page-label' | translate }}&nbsp;</label>
+            <label class="control-label form-label" for="page">{{ 'info.feedback.page-label' | translate }}&nbsp;</label>
           <input id="page" readonly class="form-control" name="page" type="text" value="" formControlName="page" autofocus="autofocus" title="{{ 'info.feedback.page_help' | translate }}">
           <small class="text-muted">{{ 'info.feedback.page_help' | translate }}</small>
         </div>
@@ -55,13 +55,11 @@
         </button>
       </ng-container>
 
-     <ng-template  #v2Invisible>
-       <div class="row mt-3">
-         <div class="control-group col-sm-12 text-right">
-           <button [disabled]="feedbackForm.invalid" (click)="executeRecaptcha()" class="btn btn-primary" name="submit" type="submit">{{ 'info.feedback.send' | translate }}</button>
-         </div>
-       </div>
-     </ng-template>
+      <div class="row mt-3">
+        <div class="control-group col-sm-12 text-end">
+          <button [dsBtnDisabled]="!feedbackForm.valid" class="btn btn-primary" name="submit" type="submit" (click)="executeRecaptcha()">{{ 'info.feedback.send' | translate }}</button>
+        </div>
+      </div>
     </form>
   </div>
 </div>

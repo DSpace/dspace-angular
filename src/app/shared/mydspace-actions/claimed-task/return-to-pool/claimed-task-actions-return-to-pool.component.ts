@@ -20,6 +20,7 @@ import { RequestService } from '../../../../core/data/request.service';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
+import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { NotificationsService } from '../../../notifications/notifications.service';
 import { ClaimedTaskActionsAbstractComponent } from '../abstract/claimed-task-actions-abstract.component';
 
@@ -30,7 +31,7 @@ export const WORKFLOW_TASK_OPTION_RETURN_TO_POOL = 'return_to_pool';
   styleUrls: ['./claimed-task-actions-return-to-pool.component.scss'],
   templateUrl: './claimed-task-actions-return-to-pool.component.html',
   standalone: true,
-  imports: [NgbTooltipModule, NgIf, AsyncPipe, TranslateModule],
+  imports: [NgbTooltipModule, NgIf, AsyncPipe, TranslateModule, BtnDisabledDirective],
 })
 /**
  * Component for displaying and processing the return to pool action on a workflow task item

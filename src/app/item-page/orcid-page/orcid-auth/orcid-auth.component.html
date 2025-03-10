@@ -47,15 +47,15 @@
     </ds-alert>
     <div class="row" *ngIf="(ownerCanDisconnectProfileFromOrcid() | async)" data-test="unlinkOwner">
       <div class="col">
-        <button type="submit" class="btn btn-danger float-right" (click)="unlinkOrcid()"
-                [disabled]="(unlinkProcessing | async)">
+        <button type="submit" class="btn btn-danger float-end" (click)="unlinkOrcid()"
+                [dsBtnDisabled]="(unlinkProcessing | async)">
           <span *ngIf="(unlinkProcessing | async) !== true"><i
             class="fas fa-unlink"></i> {{ 'person.page.orcid.unlink' | translate }}</span>
           <span *ngIf="(unlinkProcessing | async)"><i
             class='fas fa-circle-notch fa-spin'></i> {{'person.page.orcid.unlink.processing' | translate}}</span>
         </button>
         <button *ngIf="(hasMissingOrcidAuthorizations() | async)" type="submit"
-                class="btn btn-primary float-right" (click)="linkOrcid()">
+                class="btn btn-primary float-end" (click)="linkOrcid()">
           <span><i class="fas fa-check"></i> {{ 'person.page.orcid.grant-authorizations' | translate }}</span>
         </button>
       </div>
@@ -73,7 +73,7 @@
     </div>
     <div class="row">
       <div class="col">
-        <button class="btn btn-primary float-right" (click)="linkOrcid()">
+        <button class="btn btn-primary float-end" (click)="linkOrcid()">
           <i class="fas fa-link"></i>
           {{'person.page.orcid.link' | translate}}
         </button>

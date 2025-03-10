@@ -17,6 +17,8 @@ import { TruncatablePartComponent } from '../../../../../shared/truncatable/trun
 
 @listableObjectComponent('JournalVolumeSearchResult', ViewMode.ListElement, Context.SideBarSearchModal)
 @listableObjectComponent('JournalVolumeSearchResult', ViewMode.ListElement, Context.SideBarSearchModalCurrent)
+@listableObjectComponent('JournalVolumeSearchResult', ViewMode.ListElement, Context.ScopeSelectorModal)
+@listableObjectComponent('JournalVolumeSearchResult', ViewMode.ListElement, Context.ScopeSelectorModalCurrent)
 @Component({
   selector: 'ds-journal-volume-sidebar-search-list-element',
   templateUrl: '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component.html',

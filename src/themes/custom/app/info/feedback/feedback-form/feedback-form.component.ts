@@ -11,6 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { FeedbackFormComponent as BaseComponent } from '../../../../../../app/info/feedback/feedback-form/feedback-form.component';
 import { AlertComponent } from '../../../../../../app/shared/alert/alert.component';
+import { BtnDisabledDirective } from '../../../../../../app/shared/btn-disabled.directive';
 import { ErrorComponent } from '../../../../../../app/shared/error/error.component';
 import { GoogleRecaptchaComponent } from '../../../../../../app/shared/google-recaptcha/google-recaptcha.component';
 
@@ -22,7 +23,7 @@ import { GoogleRecaptchaComponent } from '../../../../../../app/shared/google-re
   // styleUrls: ['./feedback-form.component.scss'],
   styleUrls: ['../../../../../../app/info/feedback/feedback-form/feedback-form.component.scss'],
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgIf, ErrorComponent, TranslateModule,AlertComponent,GoogleRecaptchaComponent,AsyncPipe],
+  imports: [FormsModule, ReactiveFormsModule, NgIf, ErrorComponent, TranslateModule,AlertComponent,GoogleRecaptchaComponent,AsyncPipe,BtnDisabledDirective],
 })
 export class FeedbackFormComponent extends BaseComponent {
 }

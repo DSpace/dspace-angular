@@ -1,4 +1,4 @@
-<div class="navbar-nav mr-auto" *ngIf="(isMobile$ | async) !== true; else mobileButtons" data-test="auth-nav">
+<div class="navbar-nav me-auto" *ngIf="(isMobile$ | async) !== true; else mobileButtons" data-test="auth-nav">
   <div *ngIf="(isAuthenticated | async) !== true && (showAuth | async)"
       class="nav-item"
       (click)="$event.stopPropagation();">
@@ -10,7 +10,7 @@
          aria-controls="loginDropdownMenu"
          [attr.aria-expanded]="loginDrop.isOpen()"
          ngbDropdownToggle>{{ 'nav.login' | translate }}</a>
-      <div id="loginDropdownMenu" [ngClass]="{'pl-3 pr-3': (loading | async)}" ngbDropdownMenu
+      <div id="loginDropdownMenu" [ngClass]="{'ps-3 pe-3': (loading | async)}" ngbDropdownMenu
            role="menu"
            [attr.aria-label]="'nav.login' | translate">
         <ds-log-in
@@ -19,7 +19,7 @@
     </div>
   </div>
   <div *ngIf="(isAuthenticated | async) && (showAuth | async)" class="nav-item">
-    <div ngbDropdown display="dynamic" placement="bottom-right" class="d-inline-block" @fadeInOut>
+    <div ngbDropdown #loggedInDrop="ngbDropdown" display="dynamic" placement="bottom-right" class="d-inline-block" @fadeInOut>
       <a href="javascript:void(0);"
          role="menuitem"
          [attr.aria-label]="'nav.user-profile-menu-and-logout' | translate"
@@ -30,7 +30,7 @@
          ngbDropdownToggle>
         <i class="fas fa-user-circle fa-lg fa-fw"></i></a>
       <div id="logoutDropdownMenu" ngbDropdownMenu>
-        <ds-user-menu [inExpandableNavbar]="false"></ds-user-menu>
+        <ds-user-menu [inExpandableNavbar]="false" (changedRoute)="loggedInDrop.close()"></ds-user-menu>
       </div>
     </div>
   </div>
