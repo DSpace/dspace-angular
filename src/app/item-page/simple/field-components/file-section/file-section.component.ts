@@ -29,6 +29,7 @@ import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../../../shared/utils/var.directive';
+import { followLink } from '../../../../shared/utils/follow-link-config.model';
 
 /**
  * This component renders the file section of the item
@@ -109,7 +110,7 @@ export class FileSectionComponent implements OnInit {
     this.bitstreamDataService.findAllByItemAndBundleName(this.item, 'ORIGINAL', {
       currentPage: this.currentPage,
       elementsPerPage: this.pageSize,
-    }).pipe(
+    }, true, true, followLink('accessStatus')).pipe(
       getFirstCompletedRemoteData(),
     ).subscribe((bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) => {
       if (bitstreamsRD.errorMessage) {
