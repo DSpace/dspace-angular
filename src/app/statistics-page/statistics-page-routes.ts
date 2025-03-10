@@ -42,6 +42,19 @@ export const ROUTES: Route[] = [
     canActivate: [statisticsAdministratorGuard],
   },
   {
+    path: `entities/:entityType/:id`,
+    resolve: {
+      scope: itemResolver,
+      breadcrumb: i18nBreadcrumbResolver,
+    },
+    data: {
+      title: 'statistics.title',
+      breadcrumbKey: 'statistics',
+    },
+    component: ThemedItemStatisticsPageComponent,
+    canActivate: [statisticsAdministratorGuard],
+  },
+  {
     path: `collections/:id`,
     resolve: {
       scope: collectionPageResolver,
