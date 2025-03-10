@@ -14,6 +14,7 @@ import { UiSwitchModule } from 'ngx-ui-switch';
 
 import { RequestService } from '../../core/data/request.service';
 import { SystemWideAlertDataService } from '../../core/data/system-wide-alert-data.service';
+import { ContextHelpDirective } from '../../shared/context-help.directive';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,
@@ -69,7 +70,13 @@ describe('SystemWideAlertFormComponent', () => {
         { provide: Router, useValue: router },
         { provide: RequestService, useValue: requestService },
       ],
-    }).compileComponents();
+    })
+      .overrideComponent(SystemWideAlertFormComponent, {
+        remove: {
+          imports: [ContextHelpDirective],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
