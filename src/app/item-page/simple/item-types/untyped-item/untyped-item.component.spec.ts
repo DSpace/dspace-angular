@@ -94,6 +94,9 @@ describe('UntypedItemComponent', () => {
       getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
         return createSuccessfulRemoteDataObject$(new Bitstream());
       },
+      findPrimaryBitstreamByItemAndName(): Observable<RemoteData<Bitstream>> {
+        return createSuccessfulRemoteDataObject$(new Bitstream());
+      },
     };
     TestBed.configureTestingModule({
       imports: [
