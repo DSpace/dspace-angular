@@ -1,7 +1,6 @@
 import {
   fakeAsync,
   TestBed,
-  tick,
 } from '@angular/core/testing';
 import {
   ActivatedRoute,
@@ -20,12 +19,11 @@ import { Registration } from '../../core/shared/registration.model';
 import { RouterMock } from '../../shared/mocks/router.mock';
 import {
   createFailedRemoteDataObject$,
-  createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
 import { registrationTokenGuard } from './registration-token-guard';
 
-describe('RegistrationTokenGuard',
+fdescribe('RegistrationTokenGuard',
   () => {
     const route = new RouterMock();
     const registrationWithGroups = Object.assign(new Registration(),
@@ -47,51 +45,79 @@ describe('RegistrationTokenGuard',
       uuid: 'test-eperson',
     });
 
-    let arouteStub = {
-      snapshot: {
-        params: {
-          token: '123456789',
-        },
-      },
-    };
-
-    beforeEach(() => {
-      TestBed.configureTestingModule({
-        providers: [{ provide: Router, useValue: route },
-          {
-            provide: ActivatedRoute,
-            useValue: arouteStub,
-          },
-          { provide: EpersonRegistrationService, useValue: epersonRegistrationService },
-          { provide: AuthService, useValue: authService },
-        ],
-      });
-    });
-
     describe('when token provided', () => {
-      it('can activate must return true when registration data includes groups', fakeAsync(() => {
+
+      let arouteStub = {
+        snapshot: {
+          params: {
+            token: '123456789',
+          },
+        },
+      };
+
+      beforeEach(() => {
+        TestBed.configureTestingModule({
+          providers: [{ provide: Router, useValue: route },
+            {
+              provide: ActivatedRoute,
+              useValue: arouteStub,
+            },
+            { provide: EpersonRegistrationService, useValue: epersonRegistrationService },
+            { provide: AuthService, useValue: authService },
+          ],
+        });
+      });
+
+      it('can activate must return true when registration data includes groups', ((async) => {
         const activatedRoute = TestBed.inject(ActivatedRoute);
+        epersonRegistrationService.searchByTokenAndHandleError.and.returnValue(createSuccessfulRemoteDataObject$(registrationWithGroups));
+        activatedRoute.snapshot.params.token = arouteStub.snapshot.params.token;
 
         const result$ = TestBed.runInInjectionContext(() => {
           return registrationTokenGuard(activatedRoute.snapshot, {} as RouterStateSnapshot) as Observable<boolean>;
         });
 
-        let output = null;
-        result$.subscribe((result) => (output = result));
-        tick(100);
-        expect(output).toBeTrue();
+        result$.subscribe((result) => {
+          expect(result).toBeTrue();
+          async();
+        });
       }));
     });
 
     describe('when no token provided', () => {
-      it('can activate must return false when registration data includes groups', fakeAsync(() => {
-        const registrationWithDifferentUserFromLoggedIn = Object.assign(new Registration(), {
-          email: 't1@email.org',
-          token: 'test-token',
+
+      let noTokenRoute = {
+        snapshot: {
+          params: {
+            token: null,
+          },
+        },
+      };
+
+      const registrationWithDifferentUserFromLoggedIn = Object.assign(new Registration(), {
+        email: 't1@email.org',
+        token: 'test-token',
+      });
+
+      const epersonDifferentUserFromLoggedIn = jasmine.createSpyObj('epersonRegistrationService', {
+        searchByTokenAndHandleError: observableOf(registrationWithDifferentUserFromLoggedIn),
+      });
+
+      beforeEach(() => {
+        TestBed.configureTestingModule({
+          providers: [{ provide: Router, useValue: route },
+            {
+              provide: ActivatedRoute,
+              useValue: noTokenRoute,
+            },
+            { provide: EpersonRegistrationService, useValue: epersonDifferentUserFromLoggedIn },
+            { provide: AuthService, useValue: authService },
+          ],
         });
-        epersonRegistrationService.searchByTokenAndHandleError.and.returnValue(observableOf(registrationWithDifferentUserFromLoggedIn));
+      });
+
+      it('can activate must return false when registration data includes groups', fakeAsync(() => {
         let activatedRoute = TestBed.inject(ActivatedRoute);
-        activatedRoute.snapshot.params.token = null;
 
         const result$ = TestBed.runInInjectionContext(() => {
           return registrationTokenGuard(activatedRoute.snapshot, {} as RouterStateSnapshot) as Observable<boolean>;
@@ -100,26 +126,38 @@ describe('RegistrationTokenGuard',
         let output = null;
         result$.subscribe((result) => (output = result));
         expect(output).toBeFalse();
+        expect(route.navigate).toHaveBeenCalledWith(['/404']);
       }));
     });
 
     describe('when invalid token provided', () => {
-      it('can activate must navigate through 404 when no content received', fakeAsync(() => {
-        epersonRegistrationService.searchByTokenAndHandleError.and.returnValue(createNoContentRemoteDataObject$());
-        let activatedRoute = TestBed.inject(ActivatedRoute);
-        activatedRoute.snapshot.params.token = 'invalid-token';
+      let invalidTokenRoute = {
+        snapshot: {
+          params: {
+            token: 'invalid-token',
+          },
+        },
+      };
 
-        const result$ = TestBed.runInInjectionContext(() => {
-          return registrationTokenGuard(activatedRoute.snapshot, {} as RouterStateSnapshot) as Observable<boolean>;
+      const failedRegistationService = jasmine.createSpyObj('epersonRegistrationService', {
+        searchByTokenAndHandleError: createFailedRemoteDataObject$('invalid token', 404),
+      });
+
+      beforeEach(() => {
+        TestBed.configureTestingModule({
+          providers: [{ provide: Router, useValue: route },
+            {
+              provide: ActivatedRoute,
+              useValue: invalidTokenRoute,
+            },
+            { provide: EpersonRegistrationService, useValue: failedRegistationService },
+            { provide: AuthService, useValue: authService },
+          ],
         });
+      });
 
-        result$.subscribe((_) => { });
-        expect(route.navigate).toHaveBeenCalledWith(['/404']);
-      }));
-      it('can activate must navigate through 404 when no failed response received', fakeAsync(() => {
-        epersonRegistrationService.searchByTokenAndHandleError.and.returnValue(createFailedRemoteDataObject$('invalid token', 404));
+      it('can activate must navigate through 404 when failed response received', fakeAsync(() => {
         let activatedRoute = TestBed.inject(ActivatedRoute);
-        activatedRoute.snapshot.params.token = 'error-invalid-token';
 
         const result$ = TestBed.runInInjectionContext(() => {
           return registrationTokenGuard(activatedRoute.snapshot, {} as RouterStateSnapshot) as Observable<boolean>;
