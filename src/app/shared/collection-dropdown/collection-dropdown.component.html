@@ -1,4 +1,4 @@
-<div *ngIf="searchField" class="form-group w-100 pr-2 pl-2 my-2">
+<div *ngIf="searchField" class="mb-3 w-100 pe-2 ps-2 my-2">
   <input type="search"
          class="form-control w-100"
          (click)="$event.stopPropagation();"
@@ -31,7 +31,7 @@
         <div class="list-item text-truncate text-secondary" *ngFor="let item of listItem.communities">
           {{ item.name}} <i class="fa fa-level-down" aria-hidden="true"></i>
         </div>
-        <div class="list-item text-truncate text-primary font-weight-bold">{{ listItem.collection.name}}</div>
+        <div class="list-item text-truncate text-primary fw-bold">{{ listItem.collection.name}}</div>
       </div>
     </li>
   </ng-container>

@@ -9,6 +9,7 @@
         <!-- Draggable Items -->
         <div #sortableElement
              *ngFor="let groupModel of model.groups; let idx = index; let length = count"
+             class="drag-item-container"
              role="group"
              [formGroupName]="groupModel.index"
              [ngClass]="[getClass('element', 'group'), getClass('grid', 'group')]"

@@ -1,7 +1,6 @@
 <div *ngIf="(this.submitted$ | async) !== true; else waiting">
   <div class="modal-header">{{'item.version.create.modal.header' | translate}}
-    <button type="button" class="close" (click)="onModalClose()" aria-label="Close">
-      <span aria-hidden="true">×</span>
+    <button type="button" class="btn-close" (click)="onModalClose()" aria-label="Close">
     </button>
   </div>
   <div class="modal-body">
@@ -11,8 +10,8 @@
         {{ "item.version.create.modal.text.startingFrom" | translate : {version: versionNumber} }}
       </span>
     </p>
-    <div class="form-group">
-      <label for="summary">{{'item.version.create.modal.form.summary.label' | translate }}:</label>
+    <div class="mb-3">
+      <label for="summary" class="form-label">{{'item.version.create.modal.form.summary.label' | translate }}:</label>
       <input type="text" id="summary" class="form-control" [(ngModel)]="newVersionSummary"
              (keyup.enter)="onModalSubmit()"
              placeholder="{{'item.version.create.modal.form.summary.placeholder' | translate }}"/>
@@ -20,13 +19,13 @@
     </div>
   </div>
   <div class="modal-footer space-children-mr">
-      <button class="btn btn-outline-secondary btn-sm ml-0"
+      <button class="btn btn-outline-secondary btn-sm ms-0"
               type="button"
               (click)="onModalClose()"
               title="{{'item.version.create.modal.button.cancel.tooltip' | translate}}">
         <i class="fas fa-times fa-fw"></i> {{'item.version.create.modal.button.cancel' | translate}}
       </button>
-      <button class="btn btn-success btn-sm ml-0"
+      <button class="btn btn-success btn-sm ms-0"
               type="submit"
               (click)="onModalSubmit()"
               title="{{'item.version.create.modal.button.confirm.tooltip' | translate}}">

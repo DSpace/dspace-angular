@@ -1,5 +1,5 @@
   <div class="add" *ngIf="(moreThanOne$ | async) !== true">
-    <button class="btn btn-lg btn-primary mt-1 ml-2" [attr.aria-label]="'mydspace.new-submission' | translate"
+    <button class="btn btn-lg btn-primary mt-1 ms-2" [attr.aria-label]="'mydspace.new-submission' | translate"
             [dsBtnDisabled]="(initialized$ | async) !== true" (click)="openDialog(singleEntity)" role="button">
       <i class="fa fa-plus-circle" aria-hidden="true"></i>
     </button>
@@ -7,7 +7,7 @@
   <div class="add w-100" display="dynamic" placement="bottom-right"
        ngbDropdown
        *ngIf="(moreThanOne$ | async)">
-    <button class="btn btn-lg btn-primary mt-1 ml-2" id="dropdownSubmission" ngbDropdownToggle
+    <button class="btn btn-lg btn-primary mt-1 ms-2" id="dropdownSubmission" ngbDropdownToggle
             type="button"  [dsBtnDisabled]="(initialized$ | async) !== true"
             [attr.aria-label]="'mydspace.new-submission' | translate"
             [attr.data-test]="'submission-dropdown' | dsBrowserOnly"

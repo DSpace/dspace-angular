@@ -1,7 +1,8 @@
 input[type="text"] {
-  margin-top: calc(-0.5 * var(--bs-font-size-base));
+  margin-top: calc(-0.3 * var(--bs-font-size-base));
   background-color: #fff !important;
   border-color: var(--ds-header-icon-color);
+  right: 0;
 
   &.collapsed {
     opacity: 0;
