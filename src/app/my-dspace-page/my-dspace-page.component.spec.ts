@@ -28,7 +28,10 @@ import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-
 import { MyDSpaceNewSubmissionComponent } from './my-dspace-new-submission/my-dspace-new-submission.component';
 import { MyDSpacePageComponent } from './my-dspace-page.component';
 import SpyObj = jasmine.SpyObj;
+import { RequestService } from '../core/data/request.service';
+import { RequestEntry } from '../core/data/request-entry.model';
 import { SuggestionsNotificationComponent } from '../notifications/suggestions-notification/suggestions-notification.component';
+import { getMockRequestService } from '../shared/mocks/request.service.mock';
 import { SelectableListService } from '../shared/object-list/selectable-list/selectable-list.service';
 import { MyDSpaceNewBulkImportComponent } from './my-dspace-new-submission/my-dspace-new-bulk-import/my-dspace-new-bulk-import.component';
 import { MyDspaceQaEventsNotificationsComponent } from './my-dspace-qa-events-notifications/my-dspace-qa-events-notifications.component';
@@ -63,6 +66,12 @@ describe('MyDSpacePageComponent', () => {
     },
   ];
 
+  const getRequestEntry$ = (successful: boolean) => {
+    return observableOf({
+      response: { isSuccessful: successful, payload: {} } as any,
+    } as RequestEntry);
+  };
+
   const selectableListService = jasmine.createSpyObj('selectableListService', {
     selectSingle: jasmine.createSpy('selectSingle'),
     deselectSingle: jasmine.createSpy('deselectSingle'),
@@ -90,6 +99,10 @@ describe('MyDSpacePageComponent', () => {
         { provide: RoleService, useValue: roleService },
         { provide: SelectableListService, useValue: selectableListService },
         { provide: ThemeService, useValue: getMockThemeService() },
+        {
+          provide: RequestService,
+          useValue: getMockRequestService(getRequestEntry$(true)),
+        },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })

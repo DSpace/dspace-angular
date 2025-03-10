@@ -303,9 +303,7 @@ export class HeadTagService {
    * Add <meta name="citation_author" ... >  to the <head>
    */
   protected setCitationAuthorTags(): void {
-    // limit author to first 20 entries to avoid issue with item page rendering
-    const values: string[] = this.getMetaTagValues(['dc.author', 'dc.contributor.author', 'dc.creator'])
-      .slice(0, this.appConfig.item.metatagLimit);
+    const values: string[] = this.getMetaTagValues(['dc.author', 'dc.contributor.author', 'dc.creator']);
     this.addMetaTags('citation_author', values);
   }
 
@@ -755,18 +753,19 @@ export class HeadTagService {
     return this.currentObject.value.allMetadataValues(keys);
   }
 
-  protected addMetaTag(name: string, content: string, isProperty = false): void {
+  protected addMetaTag(name: string, content: string, isProperty = false, isMultiple = false): void {
     if (content) {
       const tag = isProperty ? { name, property: name, content } as MetaDefinition
         : { name, content } as MetaDefinition;
-      this.meta.updateTag(tag);
+      isMultiple ? this.meta.addTag(tag) : this.meta.updateTag(tag);
       this.storeTag(name);
     }
   }
 
   protected addMetaTags(name: string, content: string[]): void {
-    for (const value of content) {
-      this.addMetaTag(name, value);
+    // limit meta tags with the same name to avoid issues with page rendering
+    for (const value of content.slice(0, this.appConfig.item.metatagLimit)) {
+      this.addMetaTag(name, value, false, true);
     }
   }
 
@@ -781,8 +780,9 @@ export class HeadTagService {
       take(1),
     ).subscribe((tagsInUse: string[]) => {
       for (const name of tagsInUse) {
-        // updating to empty tag avoid to remove the tag so we don't update the dom
-        this.meta.updateTag({ name, content: '' });
+        this.meta.getTags(`name="${name}"`).forEach((tag) => {
+          this.meta.removeTagElement(tag);
+        });
       }
       this.store.dispatch(new ClearMetaTagAction());
     });

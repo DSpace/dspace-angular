@@ -1,7 +1,7 @@
 <div class="container">
   <ds-suggestions-notification></ds-suggestions-notification>
   <ds-my-dspace-qa-events-notifications></ds-my-dspace-qa-events-notifications>
-  <ds-my-dspace-new-submission *dsShowOnlyForRole="[roleTypeEnum.Submitter]"></ds-my-dspace-new-submission>
+  <ds-my-dspace-new-submission *dsShowOnlyForRole="[roleTypeEnum.Submitter]" (uploadEnd)="refreshData($event)"></ds-my-dspace-new-submission>
 </div>
 
 <ds-search *ngIf="configuration() && context()"

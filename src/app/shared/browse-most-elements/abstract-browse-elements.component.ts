@@ -12,6 +12,7 @@ import {
   mergeMap,
   Observable,
 } from 'rxjs';
+import { SearchManager } from 'src/app/core/browse/search-manager';
 
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { SearchManager } from '../../core/browse/search-manager';
