@@ -184,7 +184,7 @@ describe('SystemWideAlertFormComponent', () => {
       expectedAlert.message = 'New message';
       expectedAlert.active = true;
       const countDownTo = new Date(2023, 0, 25, 4, 26);
-      expectedAlert.countdownTo = utcToZonedTime(countDownTo, 'UTC').toUTCString();
+      expectedAlert.countdownTo = utcToZonedTime(countDownTo, 'UTC').toISOString();
 
       comp.save();
 
@@ -207,7 +207,7 @@ describe('SystemWideAlertFormComponent', () => {
       expectedAlert.message = 'New message';
       expectedAlert.active = true;
       const countDownTo = new Date(2023, 0, 25, 4, 26);
-      expectedAlert.countdownTo = utcToZonedTime(countDownTo, 'UTC').toUTCString();
+      expectedAlert.countdownTo = utcToZonedTime(countDownTo, 'UTC').toISOString();
 
       comp.save(false);
 
@@ -254,7 +254,7 @@ describe('SystemWideAlertFormComponent', () => {
       expectedAlert.message = 'New message';
       expectedAlert.active = true;
       const countDownTo = new Date(2023, 0, 25, 4, 26);
-      expectedAlert.countdownTo = utcToZonedTime(countDownTo, 'UTC').toUTCString();
+      expectedAlert.countdownTo = utcToZonedTime(countDownTo, 'UTC').toISOString();
 
       comp.save();
 
@@ -276,7 +276,7 @@ describe('SystemWideAlertFormComponent', () => {
       expectedAlert.message = 'New message';
       expectedAlert.active = true;
       const countDownTo = new Date(2023, 0, 25, 4, 26);
-      expectedAlert.countdownTo = utcToZonedTime(countDownTo, 'UTC').toUTCString();
+      expectedAlert.countdownTo = utcToZonedTime(countDownTo, 'UTC').toISOString();
 
       comp.save();
 
@@ -301,7 +301,7 @@ describe('SystemWideAlertFormComponent', () => {
       expectedAlert.message = 'New message';
       expectedAlert.active = true;
       const countDownTo = new Date(2023, 0, 25, 4, 26);
-      expectedAlert.countdownTo = utcToZonedTime(countDownTo, 'UTC').toUTCString();
+      expectedAlert.countdownTo = utcToZonedTime(countDownTo, 'UTC').toISOString();
 
       comp.save();
 
