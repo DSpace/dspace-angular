@@ -6,7 +6,8 @@ import { testA11y } from 'cypress/support/utils';
 describe('Site Statistics Page', () => {
   it('should load if you click on "Statistics" from homepage', () => {
     cy.visit('/');
-    cy.get('ds-navbar ds-link-menu-item a[data-test="link-menu-item.menu.section.statistics"]').click();
+    cy.get('ds-expandable-navbar-section').contains('Statistics').parents('[data-test="navbar-section-wrapper"]').trigger('mouseenter', { force: true });
+    cy.get('ds-navbar ds-link-menu-item a[data-test="link-menu-item.menu.section.statistics.site"]').click();
     cy.location('pathname').should('eq', '/statistics');
   });
 

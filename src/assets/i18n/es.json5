@@ -5039,6 +5039,18 @@
   // "menu.section.statistics": "Statistics",
   "menu.section.statistics": "Estadísticas",
 
+  //"menu.section.statistics.site": "Site Statistics",
+  "menu.section.statistics.site": "Estadísticas del sitio",
+
+  //"menu.section.statistics.community": "Community Statistics",
+  "menu.section.statistics.community": "Estadísticas de la comunidad",
+
+  //"menu.section.statistics.collection": "Collection Statistics",
+  "menu.section.statistics.collection": "Estadísticas de la colección",
+
+  //"menu.section.statistics.item": "Item Statistics",
+  "menu.section.statistics.item": "Estadísticas del item",
+
   // "menu.section.statistics_task": "Statistics Task",
   "menu.section.statistics_task": "Tarea de estadísticas",
 
