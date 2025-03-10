@@ -1,6 +1,15 @@
 import { NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Inject, OnInit, } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { Registration } from '../../../core/shared/registration.model';

@@ -1,4 +1,7 @@
-import { ChangeDetectionStrategy, Component, } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+} from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({

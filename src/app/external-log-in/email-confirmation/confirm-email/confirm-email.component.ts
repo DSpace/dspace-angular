@@ -1,18 +1,46 @@
 import { NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Inject, Input, OnDestroy, OnInit, } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, } from '@angular/forms';
-import { TranslateModule, TranslateService, } from '@ngx-translate/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import isEqual from 'lodash/isEqual';
-import { combineLatest, Subscription, take, } from 'rxjs';
+import {
+  combineLatest,
+  Subscription,
+  take,
+} from 'rxjs';
 
 import { AuthService } from '../../../core/auth/auth.service';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { HardRedirectService } from '../../../core/services/hard-redirect.service';
-import { NativeWindowRef, NativeWindowService, } from '../../../core/services/window.service';
-import { getFirstCompletedRemoteData, getRemoteDataPayload, } from '../../../core/shared/operators';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '../../../core/services/window.service';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '../../../core/shared/operators';
 import { Registration } from '../../../core/shared/registration.model';
-import { hasNoValue, hasValue, } from '../../../shared/empty.util';
+import {
+  hasNoValue,
+  hasValue,
+} from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ExternalLoginService } from '../../services/external-login.service';
 

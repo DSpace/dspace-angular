@@ -1,6 +1,16 @@
 import { NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, OnDestroy, } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnDestroy,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 

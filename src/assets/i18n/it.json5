@@ -8010,5 +8010,5 @@
 
   // "external-login-page.orcid-confirmation.email.label": "Email"
   // TODO New key - Add a translation
-  "external-login-page.orcid-confirmation.email.label": "Email"
+  "external-login-page.orcid-confirmation.email.label": "Email",
 }

@@ -1,7 +1,23 @@
-import { NgComponentOutlet, NgIf, } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Injector, Input, OnDestroy, OnInit, } from '@angular/core';
-import { NgbModal, NgbModalRef, } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule, TranslateService, } from '@ngx-translate/core';
+import {
+  NgComponentOutlet,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Injector,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { AuthMethodType } from '../../core/auth/models/auth.method-type';
@@ -9,7 +25,10 @@ import { AuthRegistrationType } from '../../core/auth/models/auth.registration-t
 import { Registration } from '../../core/shared/registration.model';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
-import { hasValue, isEmpty, } from '../../shared/empty.util';
+import {
+  hasValue,
+  isEmpty,
+} from '../../shared/empty.util';
 import { ThemedLogInComponent } from '../../shared/log-in/themed-log-in.component';
 import {
   ExternalLoginTypeComponent,
