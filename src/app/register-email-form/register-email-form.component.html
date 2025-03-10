@@ -56,6 +56,14 @@
       </button>
     </ng-container>
 
+      <!-- Captcha - to be rendered only if enabled in backend requestitem.cfg -->
+      <ng-container *ngIf="true">
+        <div *ngVar="challengeHref$ | async as href">
+          <ds-altcha-captcha autoload="onload" challengeUrl="{{ href }}" (payload)="handlePayload($event)">
+          </ds-altcha-captcha>
+        </div>
+      </ng-container>
+
     <ng-template #v2Invisible>
       <button class="btn btn-primary" [dsBtnDisabled]="form.invalid" (click)="executeRecaptcha()">
         {{ MESSAGE_PREFIX + '.submit' | translate }}

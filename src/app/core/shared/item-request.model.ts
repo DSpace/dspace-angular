@@ -80,6 +80,16 @@ export class ItemRequest implements CacheableObject {
    */
   @autoserialize
   bitstreamId: string;
+  /**
+   * Access token of the request (read-only)
+   */
+  @autoserialize
+  accessToken: string;
+  /**
+   * Access period of the request
+   */
+  @autoserialize
+  accessPeriod: number;
 
   /**
    * The {@link HALLink}s for this ItemRequest

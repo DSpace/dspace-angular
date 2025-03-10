@@ -6,11 +6,13 @@ import { itemBreadcrumbResolver } from '../core/breadcrumbs/item-breadcrumb.reso
 import { dsoEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
 import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
+import { ItemAccessByTokenPageComponent } from './access-by-token/item-access-by-token-page.component';
 import { BitstreamRequestACopyPageComponent } from './bitstreams/request-a-copy/bitstream-request-a-copy-page.component';
 import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.component';
 import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';
 import { itemPageResolver } from './item-page.resolver';
 import {
+  ITEM_ACCESS_BY_TOKEN_PATH,
   ITEM_EDIT_PATH,
   ORCID_PATH,
   UPLOAD_BITSTREAM_PATH,
@@ -63,6 +65,10 @@ export const ROUTES: Route[] = [
         path: ORCID_PATH,
         component: OrcidPageComponent,
         canActivate: [authenticatedGuard, orcidPageGuard],
+      },
+      {
+        path: ITEM_ACCESS_BY_TOKEN_PATH,
+        component: ItemAccessByTokenPageComponent,
       },
     ],
     data: {

@@ -59,6 +59,9 @@ import { OrejimeService } from '../shared/cookies/orejime.service';
 import { isNotEmpty } from '../shared/empty.util';
 import { GoogleRecaptchaComponent } from '../shared/google-recaptcha/google-recaptcha.component';
 import { NotificationsService } from '../shared/notifications/notifications.service';
+import { AltchaCaptchaComponent } from '../item-page/bitstreams/request-a-copy/altcha-captcha.component';
+import { VarDirective } from '../shared/utils/var.directive';
+import { ProofOfWorkCaptchaDataService } from '../core/data/proof-of-work-captcha-data.service';
 
 export const TYPE_REQUEST_FORGOT = 'forgot';
 export const TYPE_REQUEST_REGISTER = 'register';
@@ -67,7 +70,7 @@ export const TYPE_REQUEST_REGISTER = 'register';
   selector: 'ds-base-register-email-form',
   templateUrl: './register-email-form.component.html',
   standalone: true,
-  imports: [NgIf, FormsModule, ReactiveFormsModule, AlertComponent, GoogleRecaptchaComponent, AsyncPipe, TranslateModule, BtnDisabledDirective],
+  imports: [NgIf, FormsModule, ReactiveFormsModule, AlertComponent, GoogleRecaptchaComponent, AsyncPipe, TranslateModule, BtnDisabledDirective, AltchaCaptchaComponent, VarDirective, AltchaCaptchaComponent],
 })
 /**
  * Component responsible to render an email registration form.
@@ -109,6 +112,7 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
   TYPE_REQUEST_REGISTER = TYPE_REQUEST_REGISTER;
 
   subscriptions: Subscription[] = [];
+  challengeHref$: Observable<string>;
 
   captchaVersion(): Observable<string> {
     return this.googleRecaptchaService.captchaVersion();
@@ -130,6 +134,7 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
     @Optional() public orejimeService: OrejimeService,
     private changeDetectorRef: ChangeDetectorRef,
     private notificationsService: NotificationsService,
+    private captchaService: ProofOfWorkCaptchaDataService,
   ) {
   }
 
@@ -138,6 +143,7 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
+    this.challengeHref$ = this.captchaService.getChallengeHref();
     const validators: ValidatorFn[] = [
       Validators.required,
       Validators.email,
@@ -148,6 +154,10 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
     this.form = this.formBuilder.group({
       email: new UntypedFormControl('', {
         validators: validators,
+      }),
+      captchaPayload: new UntypedFormControl('', {
+        validators: [Validators.required],
+        updateOn: 'change',
       }),
     });
     this.validMailDomains = [];
@@ -179,6 +189,7 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
       this.disableUntilChecked = res;
       this.changeDetectorRef.detectChanges();
     }));
+
   }
 
   /**
@@ -188,35 +199,48 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
     this.googleRecaptchaService.executeRecaptcha();
   }
 
+
+  handlePayload(event) {
+    this.form.patchValue({
+      captchaPayload: event,
+    });
+  }
+
   /**
    * Register an email address
    */
   register(tokenV2?) {
     if (!this.form.invalid) {
       if (this.registrationVerification) {
-        this.subscriptions.push(combineLatest([this.captchaVersion(), this.captchaMode()]).pipe(
-          switchMap(([captchaVersion, captchaMode])  => {
-            if (captchaVersion === 'v3') {
-              return this.googleRecaptchaService.getRecaptchaToken('register_email');
-            } else if (captchaVersion === 'v2' && captchaMode === 'checkbox') {
-              return of(this.googleRecaptchaService.getRecaptchaTokenResponse());
-            } else if (captchaVersion === 'v2' && captchaMode === 'invisible') {
-              return of(tokenV2);
-            } else {
-              console.error(`Invalid reCaptcha configuration: version = ${captchaVersion}, mode = ${captchaMode}`);
-              this.showNotification('error');
-            }
-          }),
-          take(1),
-        ).subscribe((token) => {
-          if (isNotEmpty(token)) {
-            this.registration(token);
-          } else {
-            console.error('reCaptcha error');
-            this.showNotification('error');
-          }
-        },
-        ));
+        if (false) {
+          this.subscriptions.push(combineLatest([this.captchaVersion(), this.captchaMode()]).pipe(
+            switchMap(([captchaVersion, captchaMode])  => {
+              if (captchaVersion === 'v3') {
+                return this.googleRecaptchaService.getRecaptchaToken('register_email');
+              } else if (captchaVersion === 'v2' && captchaMode === 'checkbox') {
+                return of(this.googleRecaptchaService.getRecaptchaTokenResponse());
+              } else if (captchaVersion === 'v2' && captchaMode === 'invisible') {
+                return of(tokenV2);
+              } else {
+                console.error(`Invalid reCaptcha configuration: version = ${captchaVersion}, mode = ${captchaMode}`);
+                this.showNotification('error');
+              }
+            }),
+            take(1),
+          ).subscribe((token) => {
+              if (isNotEmpty(token)) {
+                this.registration(token);
+              } else {
+                console.error('reCaptcha error');
+                this.showNotification('error');
+              }
+            },
+          ));
+        } else {
+          const payload = this.form.get('captchaPayload').value;
+          this.registration(payload);
+        }
+
       } else {
         this.registration();
       }
