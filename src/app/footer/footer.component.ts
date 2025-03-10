@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   DatePipe,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -31,7 +30,7 @@ import { hasValue } from '../shared/empty.util';
   styleUrls: ['footer.component.scss'],
   templateUrl: 'footer.component.html',
   standalone: true,
-  imports: [NgIf, RouterLink, AsyncPipe, DatePipe, TranslateModule],
+  imports: [RouterLink, AsyncPipe, DatePipe, TranslateModule],
 })
 export class FooterComponent implements OnInit {
   dateObj: number = Date.now();

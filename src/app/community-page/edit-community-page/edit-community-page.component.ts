@@ -1,8 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgForOf,
-  NgIf,
 } from '@angular/common';
 import { Component } from '@angular/core';
 import {
@@ -28,9 +26,7 @@ import { getCommunityPageRoute } from '../community-page-routing-paths';
     RouterLink,
     TranslateModule,
     NgClass,
-    NgForOf,
     RouterOutlet,
-    NgIf,
     AsyncPipe,
   ],
 })

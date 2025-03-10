@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -42,7 +39,6 @@ import { ProfileClaimService } from '../profile-claim/profile-claim.service';
     ListableObjectComponentLoaderComponent,
     AsyncPipe,
     TranslateModule,
-    NgForOf,
     BtnDisabledDirective,
   ],
   standalone: true,

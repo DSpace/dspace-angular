@@ -15,19 +15,29 @@
   (prev)="goPrev()"
   (next)="goNext()"
   >
-    <div class="card-columns row" *ngIf="objects?.hasSucceeded">
-      <div class="card-column col col-sm-6 col-lg-4" *ngFor="let column of (columns$ | async)" @fadeIn>
-        <div class="card-element" *ngFor="let object of column" [attr.data-test]="'grid-object' | dsBrowserOnly">
-          <ds-listable-object-component-loader [object]="object"
-                                               [viewMode]="viewMode"
-                                               [context]="context"
-                                               [showThumbnails]="showThumbnails"
-                                               [linkType]="linkType"></ds-listable-object-component-loader>
+  @if (objects?.hasSucceeded) {
+    <div class="card-columns row">
+      @for (column of (columns$ | async); track column) {
+        <div class="card-column col col-sm-6 col-lg-4" @fadeIn>
+          @for (object of column; track object) {
+            <div class="card-element" [attr.data-test]="'grid-object' | dsBrowserOnly">
+              <ds-listable-object-component-loader [object]="object"
+                [viewMode]="viewMode"
+                [context]="context"
+                [showThumbnails]="showThumbnails"
+              [linkType]="linkType"></ds-listable-object-component-loader>
+            </div>
+          }
         </div>
-      </div>
+      }
     </div>
-  <ds-error *ngIf="objects.hasFailed" message="{{'error.objects' | translate}}"></ds-error>
-  <ds-loading *ngIf="objects.isLoading" message="{{'loading.objects' | translate}}"></ds-loading>
+  }
+  @if (objects.hasFailed) {
+    <ds-error message="{{'error.objects' | translate}}"></ds-error>
+  }
+  @if (objects.isLoading) {
+    <ds-loading message="{{'loading.objects' | translate}}"></ds-loading>
+  }
 </ds-pagination>
 
 

@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
@@ -12,7 +12,7 @@ import { AbstractListableElementComponent } from '../../object-collection/shared
   styleUrls: ['./collection-list-element.component.scss'],
   templateUrl: './collection-list-element.component.html',
   standalone: true,
-  imports: [NgIf, RouterLink],
+  imports: [RouterLink],
 })
 /**
  * Component representing list element for a collection

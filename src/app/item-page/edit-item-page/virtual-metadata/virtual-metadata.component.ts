@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgForOf,
 } from '@angular/common';
 import {
   Component,
@@ -45,7 +44,6 @@ interface ItemDTO {
   imports: [
     NgClass,
     TranslateModule,
-    NgForOf,
     VarDirective,
     AsyncPipe,
     ListableObjectComponentLoaderComponent,

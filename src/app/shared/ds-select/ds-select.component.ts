@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   EventEmitter,
@@ -18,7 +18,7 @@ import { BtnDisabledDirective } from '../btn-disabled.directive';
   templateUrl: './ds-select.component.html',
   styleUrls: ['./ds-select.component.scss'],
   standalone: true,
-  imports: [NgbDropdownModule, NgIf, TranslateModule, BtnDisabledDirective],
+  imports: [NgbDropdownModule, TranslateModule, BtnDisabledDirective],
 })
 export class DsSelectComponent {
 

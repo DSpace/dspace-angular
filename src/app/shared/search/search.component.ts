@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   isPlatformServer,
-  NgIf,
   NgTemplateOutlet,
 } from '@angular/common';
 import {
@@ -93,7 +92,6 @@ import { SearchConfigurationOption } from './search-switch-configuration/search-
   standalone: true,
   imports: [
     AsyncPipe,
-    NgIf,
     NgTemplateOutlet,
     PageWithSidebarComponent,
     ThemedSearchFormComponent,

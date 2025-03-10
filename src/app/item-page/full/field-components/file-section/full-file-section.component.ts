@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Inject,
@@ -57,12 +53,10 @@ import { FileSectionComponent } from '../../../simple/field-components/file-sect
   templateUrl: './full-file-section.component.html',
   imports: [
     PaginationComponent,
-    NgIf,
     TranslateModule,
     AsyncPipe,
     VarDirective,
     ThemedThumbnailComponent,
-    NgForOf,
     ThemedFileDownloadLinkComponent,
     FileSizePipe,
     MetadataFieldWrapperComponent,

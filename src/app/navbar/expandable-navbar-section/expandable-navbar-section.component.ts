@@ -1,8 +1,6 @@
 import {
   AsyncPipe,
   NgComponentOutlet,
-  NgFor,
-  NgIf,
 } from '@angular/common';
 import {
   AfterViewChecked,
@@ -38,8 +36,6 @@ import { NavbarSectionComponent } from '../navbar-section/navbar-section.compone
     AsyncPipe,
     HoverOutsideDirective,
     NgComponentOutlet,
-    NgFor,
-    NgIf,
     RouterLinkActive,
   ],
 })

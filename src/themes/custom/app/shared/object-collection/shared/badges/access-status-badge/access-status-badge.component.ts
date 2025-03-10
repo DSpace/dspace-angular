@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { AccessStatusBadgeComponent as BaseComponent } from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status-badge.component';
@@ -12,7 +9,7 @@ import { AccessStatusBadgeComponent as BaseComponent } from 'src/app/shared/obje
   // templateUrl: './access-status-badge.component.html',
   templateUrl: '../../../../../../../../app/shared/object-collection/shared/badges/access-status-badge/access-status-badge.component.html',
   standalone: true,
-  imports: [NgIf, AsyncPipe, TranslateModule],
+  imports: [AsyncPipe, TranslateModule],
 })
 export class AccessStatusBadgeComponent extends BaseComponent {
 }

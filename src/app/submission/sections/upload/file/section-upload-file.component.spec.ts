@@ -286,9 +286,9 @@ describe('SubmissionSectionUploadFileComponent test suite', () => {
   standalone: true,
   imports: [
     ThemedSubmissionSectionUploadFileComponent,
-    CommonModule,
     AsyncPipe,
-    NgbModule],
+    NgbModule,
+  ],
 })
 class TestComponent {
 

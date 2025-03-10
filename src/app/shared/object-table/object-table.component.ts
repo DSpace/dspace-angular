@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -36,7 +36,6 @@ import { PaginationComponentOptions } from '../pagination/pagination-component-o
   animations: [fadeIn],
   imports: [
     PaginationComponent,
-    NgIf,
     ThemedLoadingComponent,
     ErrorComponent,
     TranslateModule,

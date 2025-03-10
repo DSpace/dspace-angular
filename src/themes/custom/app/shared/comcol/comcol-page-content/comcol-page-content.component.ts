@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -12,7 +11,6 @@ import { ComcolPageContentComponent as BaseComponent } from '../../../../../../a
   templateUrl: '../../../../../../app/shared/comcol/comcol-page-content/comcol-page-content.component.html',
   imports: [
     TranslateModule,
-    NgIf,
   ],
   standalone: true,
 })

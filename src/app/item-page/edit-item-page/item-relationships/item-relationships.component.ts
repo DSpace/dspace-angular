@@ -1,7 +1,5 @@
 import {
   AsyncPipe,
-  NgForOf,
-  NgIf,
   NgTemplateOutlet,
 } from '@angular/common';
 import {
@@ -61,8 +59,6 @@ import { EditRelationshipListWrapperComponent } from './edit-relationship-list-w
     AlertComponent,
     AsyncPipe,
     EditRelationshipListComponent,
-    NgForOf,
-    NgIf,
     NgTemplateOutlet,
     ThemedLoadingComponent,
     TranslateModule,

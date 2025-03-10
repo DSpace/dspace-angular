@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -42,8 +38,6 @@ import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstrac
     RouterLink,
     TranslateModule,
     AsyncPipe,
-    NgIf,
-    NgForOf,
   ],
   standalone: true,
 })

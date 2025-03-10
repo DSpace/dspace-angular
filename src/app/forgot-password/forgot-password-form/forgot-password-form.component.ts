@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -42,7 +39,6 @@ import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
     BrowserOnlyPipe,
     ProfilePageSecurityFormComponent,
     AsyncPipe,
-    NgIf,
     BtnDisabledDirective,
   ],
   standalone: true,

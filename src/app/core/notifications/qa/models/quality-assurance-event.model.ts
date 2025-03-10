@@ -88,6 +88,15 @@ export interface SourceQualityAssuranceEventMessageObject {
    */
   pidHref: string;
 
+  /**
+   * Possible link to a page
+   */
+  href?: string;
+
+  /**
+   * The service Id
+   */
+  serviceId?: string;
 }
 
 /**

@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -18,7 +15,6 @@ import { AlertComponent } from '../../../../../app/shared/alert/alert.component'
   standalone: true,
   imports: [
     AlertComponent,
-    NgIf,
     TranslateModule,
     RouterLink,
     AsyncPipe,

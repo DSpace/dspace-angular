@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Injector,
@@ -34,7 +31,7 @@ export const WORKFLOW_TASK_OPTION_APPROVE = 'submit_approve';
   styleUrls: ['./claimed-task-actions-approve.component.scss'],
   templateUrl: './claimed-task-actions-approve.component.html',
   standalone: true,
-  imports: [NgbTooltipModule, NgIf, AsyncPipe, TranslateModule, BtnDisabledDirective],
+  imports: [NgbTooltipModule, AsyncPipe, TranslateModule, BtnDisabledDirective],
 })
 /**
  * Component for displaying and processing the approve action on a workflow task item

@@ -1,17 +1,25 @@
 <div>
   <!-- Because this template is used by default, we will additionally test for representation type and display accordingly -->
-  <span *ngIf="(mdRepresentation.representationType==='plain_text') && !isLink()" class="dont-break-out">
-    {{mdRepresentation.getValue()}}
-  </span>
-  <a *ngIf="(mdRepresentation.representationType==='plain_text') && isLink()" class="dont-break-out"
-  target="_blank" [href]="mdRepresentation.getValue()">
-    {{mdRepresentation.getValue()}}
-  </a>
-  <span *ngIf="(mdRepresentation.representationType==='authority_controlled')" class="dont-break-out">{{mdRepresentation.getValue()}}</span>
-  <a *ngIf="(mdRepresentation.representationType==='browse_link')"
-     class="dont-break-out ds-browse-link"
-     [routerLink]="['/browse/', mdRepresentation.browseDefinition.id]"
-     [queryParams]="getQueryParams()">
-    {{mdRepresentation.getValue()}}
-  </a>
+  @if ((mdRepresentation.representationType==='plain_text') && !isLink()) {
+    <span class="dont-break-out">
+      {{mdRepresentation.getValue()}}
+    </span>
+  }
+  @if ((mdRepresentation.representationType==='plain_text') && isLink()) {
+    <a class="dont-break-out"
+      target="_blank" [href]="mdRepresentation.getValue()">
+      {{mdRepresentation.getValue()}}
+    </a>
+  }
+  @if ((mdRepresentation.representationType==='authority_controlled')) {
+    <span class="dont-break-out">{{mdRepresentation.getValue()}}</span>
+  }
+  @if ((mdRepresentation.representationType==='browse_link')) {
+    <a
+      class="dont-break-out ds-browse-link"
+      [routerLink]="['/browse/', mdRepresentation.browseDefinition.id]"
+      [queryParams]="getQueryParams()">
+      {{mdRepresentation.getValue()}}
+    </a>
+  }
 </div>

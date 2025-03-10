@@ -2,8 +2,6 @@ import {
   AsyncPipe,
   NgClass,
   NgComponentOutlet,
-  NgFor,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -47,7 +45,7 @@ import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
   styleUrls: ['./admin-sidebar.component.scss'],
   animations: [slideSidebar],
   standalone: true,
-  imports: [NgIf, NgbDropdownModule, NgClass, NgFor, NgComponentOutlet, AsyncPipe, TranslateModule, BrowserOnlyPipe],
+  imports: [NgbDropdownModule, NgClass, NgComponentOutlet, AsyncPipe, TranslateModule, BrowserOnlyPipe],
 })
 export class AdminSidebarComponent extends MenuComponent implements OnInit {
   /**

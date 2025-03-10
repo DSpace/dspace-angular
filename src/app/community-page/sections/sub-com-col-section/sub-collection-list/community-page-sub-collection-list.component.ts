@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -44,7 +41,6 @@ import { VarDirective } from '../../../../shared/utils/var.directive';
     ObjectCollectionComponent,
     ErrorComponent,
     ThemedLoadingComponent,
-    NgIf,
     TranslateModule,
     AsyncPipe,
     VarDirective,

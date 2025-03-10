@@ -1,8 +1,10 @@
 import { Item } from 'src/app/core/shared/item.model';
 
+import { Collection } from '../../../core/shared/collection.model';
+
 export class FilteredItems {
 
-  public items: Item[] = [];
+  public items: FilteredItem[] = [];
   public itemCount: number;
 
   public clear() {
@@ -20,4 +22,9 @@ export class FilteredItems {
     }
   }
 
+}
+
+export interface FilteredItem extends Omit<Item, 'owningCollection'> {
+  index: number;
+  owningCollection?: Collection;
 }

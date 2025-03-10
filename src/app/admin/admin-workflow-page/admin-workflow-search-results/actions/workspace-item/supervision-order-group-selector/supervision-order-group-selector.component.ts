@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   EventEmitter,
@@ -34,7 +34,7 @@ import { ErrorComponent } from '../../../../../../shared/error/error.component';
   styleUrls: ['./supervision-order-group-selector.component.scss'],
   templateUrl: './supervision-order-group-selector.component.html',
   standalone: true,
-  imports: [FormsModule, NgIf, ErrorComponent, EpersonGroupListComponent, TranslateModule],
+  imports: [FormsModule, ErrorComponent, EpersonGroupListComponent, TranslateModule],
 })
 export class SupervisionOrderGroupSelectorComponent {
 

@@ -1,8 +1,6 @@
 import {
   AsyncPipe,
   KeyValuePipe,
-  NgFor,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -62,7 +60,7 @@ import { SubscriptionsDataService } from '../subscriptions-data.service';
   templateUrl: './subscription-modal.component.html',
   styleUrls: ['./subscription-modal.component.scss'],
   standalone: true,
-  imports: [NgIf, FormsModule, ReactiveFormsModule, ThemedTypeBadgeComponent, NgFor, AlertComponent, AsyncPipe, KeyValuePipe, TranslateModule, BtnDisabledDirective],
+  imports: [FormsModule, ReactiveFormsModule, ThemedTypeBadgeComponent, AlertComponent, AsyncPipe, KeyValuePipe, TranslateModule, BtnDisabledDirective],
 })
 /**
  * Modal that allows to manage the subscriptions for the selected item

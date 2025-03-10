@@ -1,8 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgForOf,
-  NgIf,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -48,8 +46,6 @@ import { getItemPageRoute } from '../item-page-routing-paths';
   imports: [
     TranslateModule,
     NgClass,
-    NgIf,
-    NgForOf,
     AsyncPipe,
     NgbTooltipModule,
     RouterLink,

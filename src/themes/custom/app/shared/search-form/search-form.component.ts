@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
@@ -17,7 +14,7 @@ import { BrowserOnlyPipe } from '../../../../../app/shared/utils/browser-only.pi
   // templateUrl: './search-form.component.html',
   templateUrl: '../../../../../app/shared/search-form/search-form.component.html',
   standalone: true,
-  imports: [FormsModule, NgIf, NgbTooltipModule, AsyncPipe, TranslateModule, BrowserOnlyPipe],
+  imports: [FormsModule, NgbTooltipModule, AsyncPipe, TranslateModule, BrowserOnlyPipe],
 })
 export class SearchFormComponent extends BaseComponent {
 }

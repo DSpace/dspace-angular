@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -41,7 +38,7 @@ import { getItemPageRoute } from '../../item-page-routing-paths';
   selector: 'ds-item-versions-notice',
   templateUrl: './item-versions-notice.component.html',
   standalone: true,
-  imports: [NgIf, AlertComponent, AsyncPipe, TranslateModule],
+  imports: [AlertComponent, AsyncPipe, TranslateModule],
 })
 /**
  * Component for displaying a warning notice when the item is not the latest version within its version history

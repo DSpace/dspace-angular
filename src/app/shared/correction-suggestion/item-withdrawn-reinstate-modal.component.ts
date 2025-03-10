@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -21,7 +18,6 @@ import { ThemedLoadingComponent } from '../loading/themed-loading.component';
   templateUrl: './item-withdrawn-reinstate-modal.component.html',
   styleUrls: ['./item-withdrawn-reinstate-modal.component.scss'],
   imports: [
-    NgIf,
     TranslateModule,
     ThemedLoadingComponent,
     FormsModule,

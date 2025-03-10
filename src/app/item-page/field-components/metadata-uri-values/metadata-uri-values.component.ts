@@ -1,7 +1,4 @@
-import {
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+
 import {
   Component,
   Input,
@@ -26,8 +23,6 @@ import { MetadataValuesComponent } from '../metadata-values/metadata-values.comp
   imports: [
     MetadataFieldWrapperComponent,
     TranslateModule,
-    NgForOf,
-    NgIf,
   ],
   standalone: true,
 })

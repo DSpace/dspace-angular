@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   isPlatformServer,
-  NgIf,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -79,7 +78,6 @@ import { QaEventNotificationComponent } from './qa-event-notification/qa-event-n
     ThemedLoadingComponent,
     TranslateModule,
     AsyncPipe,
-    NgIf,
     NotifyRequestsStatusComponent,
     QaEventNotificationComponent,
   ],

@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   Input,
@@ -13,7 +13,7 @@ import { hasValue } from '../../../../empty.util';
   selector: 'ds-base-status-badge',
   templateUrl: './status-badge.component.html',
   standalone: true,
-  imports: [NgIf, TranslateModule],
+  imports: [TranslateModule],
 })
 /**
  * Component rendering the status of an item as a badge

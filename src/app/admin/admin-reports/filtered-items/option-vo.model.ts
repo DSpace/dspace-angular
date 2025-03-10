@@ -9,6 +9,7 @@ export class OptionVO {
   id: string;
   name$: Observable<string>;
   disabled = false;
+  isDefault?: boolean;
 
   static collection(id: string, name: string, disabled: boolean = false): OptionVO {
     const opt = new OptionVO();

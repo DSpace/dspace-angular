@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Injector,
@@ -52,7 +49,7 @@ import { MyDSpaceActionsComponent } from '../mydspace-actions';
   styleUrls: ['./workspaceitem-actions.component.scss'],
   templateUrl: './workspaceitem-actions.component.html',
   standalone: true,
-  imports: [NgbTooltipModule, RouterLink, NgIf, AsyncPipe, TranslateModule],
+  imports: [NgbTooltipModule, RouterLink, AsyncPipe, TranslateModule],
 })
 export class WorkspaceitemActionsComponent extends MyDSpaceActionsComponent<WorkspaceItem, WorkspaceitemDataService> implements OnInit {
 

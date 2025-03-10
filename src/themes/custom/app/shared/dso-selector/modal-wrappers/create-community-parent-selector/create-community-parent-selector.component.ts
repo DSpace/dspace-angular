@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -18,7 +15,6 @@ import { CreateCommunityParentSelectorComponent as BaseComponent } from '../../.
   imports: [
     AsyncPipe,
     DSOSelectorComponent,
-    NgIf,
     TranslateModule,
   ],
 })

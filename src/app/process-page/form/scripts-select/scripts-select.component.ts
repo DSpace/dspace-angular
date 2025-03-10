@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgFor,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -58,7 +54,7 @@ const SCRIPT_QUERY_PARAMETER = 'script';
     useFactory: controlContainerFactory,
     deps: [[new Optional(), NgForm]] }],
   standalone: true,
-  imports: [NgIf, FormsModule, NgFor, AsyncPipe, TranslateModule, InfiniteScrollModule, ThemedLoadingComponent, NgbDropdownModule],
+  imports: [FormsModule, AsyncPipe, TranslateModule, InfiniteScrollModule, ThemedLoadingComponent, NgbDropdownModule],
 })
 export class ScriptsSelectComponent implements OnInit, OnDestroy {
   /**

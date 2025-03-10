@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   Input,
@@ -13,7 +13,7 @@ import {
   styleUrls: ['./metadata-field-wrapper.component.scss'],
   templateUrl: './metadata-field-wrapper.component.html',
   standalone: true,
-  imports: [NgIf],
+  imports: [],
 })
 export class MetadataFieldWrapperComponent {
 

@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Injector,
@@ -45,7 +42,7 @@ export const WORKFLOW_TASK_OPTION_REJECT = 'submit_reject';
   styleUrls: ['./claimed-task-actions-reject.component.scss'],
   templateUrl: './claimed-task-actions-reject.component.html',
   standalone: true,
-  imports: [NgbTooltipModule, NgIf, FormsModule, ReactiveFormsModule, AsyncPipe, TranslateModule, BtnDisabledDirective],
+  imports: [NgbTooltipModule, FormsModule, ReactiveFormsModule, AsyncPipe, TranslateModule, BtnDisabledDirective],
 })
 /**
  * Component for displaying and processing the reject action on a workflow task item

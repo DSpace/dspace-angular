@@ -1,8 +1,4 @@
-import {
-  NgClass,
-  NgFor,
-  NgIf,
-} from '@angular/common';
+import { NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -39,7 +35,7 @@ import { SelectableListService } from './selectable-list/selectable-list.service
   templateUrl: './object-list.component.html',
   animations: [fadeIn],
   standalone: true,
-  imports: [PaginationComponent, NgIf, NgClass, NgFor, SelectableListItemControlComponent, ImportableListItemControlComponent, ListableObjectComponentLoaderComponent, BrowserOnlyPipe],
+  imports: [PaginationComponent, NgClass, SelectableListItemControlComponent, ImportableListItemControlComponent, ListableObjectComponentLoaderComponent, BrowserOnlyPipe],
 })
 export class ObjectListComponent {
   /**

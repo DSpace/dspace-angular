@@ -1,8 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgFor,
-  NgIf,
 } from '@angular/common';
 import {
   AfterViewInit,
@@ -62,7 +60,7 @@ import { followLink } from '../../../shared/utils/follow-link-config.model';
   styleUrls: ['./metadata-field-selector.component.scss'],
   templateUrl: './metadata-field-selector.component.html',
   standalone: true,
-  imports: [FormsModule, NgClass, ReactiveFormsModule, ClickOutsideDirective, NgIf, NgFor, AsyncPipe, TranslateModule, ThemedLoadingComponent, InfiniteScrollModule],
+  imports: [FormsModule, NgClass, ReactiveFormsModule, ClickOutsideDirective, AsyncPipe, TranslateModule, ThemedLoadingComponent, InfiniteScrollModule],
 })
 /**
  * Component displaying a searchable input for metadata-fields

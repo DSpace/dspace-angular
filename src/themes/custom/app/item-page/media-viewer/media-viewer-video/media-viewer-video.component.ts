@@ -1,7 +1,3 @@
-import {
-  NgForOf,
-  NgIf,
-} from '@angular/common';
 import { Component } from '@angular/core';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
@@ -17,10 +13,8 @@ import { BtnDisabledDirective } from '../../../../../../app/shared/btn-disabled.
   styleUrls: ['../../../../../../app/item-page/media-viewer/media-viewer-video/media-viewer-video.component.scss'],
   standalone: true,
   imports: [
-    NgForOf,
     NgbDropdownModule,
     TranslateModule,
-    NgIf,
     BtnDisabledDirective,
   ],
 })

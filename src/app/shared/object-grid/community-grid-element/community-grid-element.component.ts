@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -30,7 +27,7 @@ import { followLink } from '../../utils/follow-link-config.model';
   styleUrls: ['./community-grid-element.component.scss'],
   templateUrl: './community-grid-element.component.html',
   standalone: true,
-  imports: [NgIf, RouterLink, ThemedThumbnailComponent, AsyncPipe, TranslateModule],
+  imports: [RouterLink, ThemedThumbnailComponent, AsyncPipe, TranslateModule],
 })
 
 @listableObjectComponent(Community, ViewMode.GridElement)

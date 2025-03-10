@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   OnInit,
@@ -29,7 +29,7 @@ import {
   selector: 'ds-base-edit-item-selector',
   templateUrl: 'edit-item-selector.component.html',
   standalone: true,
-  imports: [NgIf, DSOSelectorComponent, TranslateModule],
+  imports: [DSOSelectorComponent, TranslateModule],
 })
 export class EditItemSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.ITEM;

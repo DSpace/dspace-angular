@@ -2,8 +2,6 @@ import {
   AsyncPipe,
   isPlatformBrowser,
   NgClass,
-  NgFor,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -38,7 +36,7 @@ import { AbstractIncrementalListComponent } from '../abstract-incremental-list/a
   styleUrls: ['./related-items.component.scss'],
   templateUrl: './related-items.component.html',
   standalone: true,
-  imports: [MetadataFieldWrapperComponent, NgClass, NgFor, VarDirective, ListableObjectComponentLoaderComponent, NgIf, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [MetadataFieldWrapperComponent, NgClass, VarDirective, ListableObjectComponentLoaderComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
 })
 /**
  * This component is used for displaying relations between items

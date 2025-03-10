@@ -1,21 +1,28 @@
 <ds-metadata-field-wrapper [label]="label | translate">
-    <div class="collections">
-        <a *ngFor="let collection of (this.collections$ | async); let last=last;" [routerLink]="['/collections', collection.id]">
-            <span>{{ dsoNameService.getName(collection) }}</span><span *ngIf="!last" [innerHTML]="separator"></span>
-        </a>
-    </div>
-
-    <div *ngIf="isLoading$ | async">
-        {{'item.page.collections.loading' | translate}}
-    </div>
-
-    <a
-        *ngIf="(isLoading$ | async) !== true && (hasMore$ | async)"
-        (click)="$event.preventDefault(); handleLoadMore()"
-        class="load-more-btn btn btn-sm btn-outline-secondary"
-        role="button"
-        href="javascript:void(0);"
-    >
-        {{'item.page.collections.load-more' | translate}}
+  <div class="collections">
+    @for (collection of (this.collections$ | async); track collection; let last = $last) {
+      <a [routerLink]="['/collections', collection.id]">
+        <span>{{ dsoNameService.getName(collection) }}</span>@if (!last) {
+        <span [innerHTML]="separator"></span>
+      }
     </a>
+  }
+</div>
+
+@if (isLoading$ | async) {
+  <div>
+    {{'item.page.collections.loading' | translate}}
+  </div>
+}
+
+@if ((isLoading$ | async) !== true && (hasMore$ | async)) {
+  <a
+    (click)="$event.preventDefault(); handleLoadMore()"
+    class="load-more-btn btn btn-sm btn-outline-secondary"
+    role="button"
+    href="javascript:void(0);"
+    >
+    {{'item.page.collections.load-more' | translate}}
+  </a>
+}
 </ds-metadata-field-wrapper>

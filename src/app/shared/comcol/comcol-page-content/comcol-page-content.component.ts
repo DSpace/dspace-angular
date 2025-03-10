@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   Input,
@@ -17,7 +17,6 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './comcol-page-content.component.html',
   imports: [
     TranslateModule,
-    NgIf,
   ],
   standalone: true,
 })

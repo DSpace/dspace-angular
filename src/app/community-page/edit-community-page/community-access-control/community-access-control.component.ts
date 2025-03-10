@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -21,7 +18,6 @@ import { AccessControlFormContainerComponent } from '../../../shared/access-cont
   styleUrls: ['./community-access-control.component.scss'],
   imports: [
     AccessControlFormContainerComponent,
-    NgIf,
     AsyncPipe,
   ],
   standalone: true,

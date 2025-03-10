@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Inject,
@@ -38,7 +35,7 @@ import { ThemedItemListPreviewComponent } from '../../item-list-preview/themed-i
   styleUrls: ['../../../search-result-list-element/search-result-list-element.component.scss'],
   templateUrl: './claimed-declined-task-search-result-list-element.component.html',
   standalone: true,
-  imports: [NgIf, ThemedItemListPreviewComponent, AsyncPipe, TranslateModule, VarDirective],
+  imports: [ThemedItemListPreviewComponent, AsyncPipe, TranslateModule, VarDirective],
 })
 @listableObjectComponent(ClaimedDeclinedTaskTaskSearchResult, ViewMode.ListElement)
 export class ClaimedDeclinedTaskSearchResultListElementComponent extends SearchResultListElementComponent<ClaimedTaskSearchResult, ClaimedTask> implements OnInit {

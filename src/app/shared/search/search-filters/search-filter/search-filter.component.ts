@@ -2,7 +2,6 @@ import {
   AsyncPipe,
   LowerCasePipe,
   NgClass,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -53,7 +52,7 @@ import { SearchFacetFilterWrapperComponent } from './search-facet-filter-wrapper
   templateUrl: './search-filter.component.html',
   animations: [slide],
   standalone: true,
-  imports: [NgIf, NgClass, SearchFacetFilterWrapperComponent, AsyncPipe, LowerCasePipe, TranslateModule, BrowserOnlyPipe],
+  imports: [NgClass, SearchFacetFilterWrapperComponent, AsyncPipe, LowerCasePipe, TranslateModule, BrowserOnlyPipe],
 })
 
 /**

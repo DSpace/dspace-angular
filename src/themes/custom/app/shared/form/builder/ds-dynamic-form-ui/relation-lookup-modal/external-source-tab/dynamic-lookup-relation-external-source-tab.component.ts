@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -44,7 +41,6 @@ import { VarDirective } from '../../../../../../../../../app/shared/utils/var.di
     AsyncPipe,
     TranslateModule,
     ErrorComponent,
-    NgIf,
     ThemedLoadingComponent,
   ],
 })

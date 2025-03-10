@@ -1,6 +1,8 @@
 <div class="labels">
-  <ds-search-label-loader *ngFor="let appliedFilter of appliedFilters$ | async"
-                          [appliedFilter]="appliedFilter"
-                          [inPlaceSearch]="inPlaceSearch">
-  </ds-search-label-loader>
+  @for (appliedFilter of appliedFilters$ | async; track appliedFilter) {
+    <ds-search-label-loader
+      [appliedFilter]="appliedFilter"
+      [inPlaceSearch]="inPlaceSearch">
+    </ds-search-label-loader>
+  }
 </div>

@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   isPlatformBrowser,
-  NgIf,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -43,7 +42,6 @@ import { MiradorViewerService } from './mirador-viewer.service';
   imports: [
     TranslateModule,
     AsyncPipe,
-    NgIf,
   ],
   standalone: true,
 })

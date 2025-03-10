@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { DenyRequestCopyComponent as BaseComponent } from 'src/app/request-copy/deny-request-copy/deny-request-copy.component';
@@ -17,7 +14,7 @@ import { VarDirective } from '../../../../../app/shared/utils/var.directive';
   // templateUrl: './deny-request-copy.component.html',
   templateUrl: './../../../../../app/request-copy/deny-request-copy/deny-request-copy.component.html',
   standalone: true,
-  imports: [VarDirective, NgIf, ThemedEmailRequestCopyComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [VarDirective, ThemedEmailRequestCopyComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
 })
 export class DenyRequestCopyComponent
   extends BaseComponent {

@@ -1,7 +1,4 @@
-import {
-  NgFor,
-  NgIf,
-} from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -40,7 +37,7 @@ import { PaginationComponentOptions } from '../pagination/pagination-component-o
   templateUrl: './object-detail.component.html',
   animations: [fadeIn],
   standalone: true,
-  imports: [PaginationComponent, NgIf, NgFor, ListableObjectComponentLoaderComponent, ErrorComponent, ThemedLoadingComponent, TranslateModule],
+  imports: [PaginationComponent, ListableObjectComponentLoaderComponent, ErrorComponent, ThemedLoadingComponent, TranslateModule],
 })
 export class ObjectDetailComponent {
   /**

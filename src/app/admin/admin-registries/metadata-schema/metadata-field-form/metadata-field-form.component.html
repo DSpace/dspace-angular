@@ -1,18 +1,16 @@
-<div *ngIf="registryService.getActiveMetadataField() | async; then editheader; else createHeader"></div>
+@if (registryService.getActiveMetadataField() | async) {
+  <h2>{{messagePrefix + '.edit' | translate}}</h2>
+} @else {
+  <h2>{{messagePrefix + '.create' | translate}}</h2>
+}
 
-<ng-template #createHeader>
-    <h2>{{messagePrefix + '.create' | translate}}</h2>
-</ng-template>
 
-<ng-template #editheader>
-    <h2>{{messagePrefix + '.edit' | translate}}</h2>
-</ng-template>
 
 <ds-form [formId]="formId"
-         [formModel]="formModel"
-         [formLayout]="formLayout"
-         [formGroup]="formGroup"
-         (cancel)="onCancel()"
-         (submit)="onSubmit()">
+  [formModel]="formModel"
+  [formLayout]="formLayout"
+  [formGroup]="formGroup"
+  (cancel)="onCancel()"
+  (submit)="onSubmit()">
 
 </ds-form>

@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -68,7 +65,6 @@ export enum ImportType {
   imports: [
     TranslateModule,
     ThemedSearchResultsComponent,
-    NgIf,
     AsyncPipe,
     BtnDisabledDirective,
   ],

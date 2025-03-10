@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnDestroy,
@@ -72,7 +69,6 @@ import {
     ObjectCollectionComponent,
     ThemedLoadingComponent,
     AlertComponent,
-    NgIf,
     AsyncPipe,
     SubmissionImportExternalSearchbarComponent,
     TranslateModule,

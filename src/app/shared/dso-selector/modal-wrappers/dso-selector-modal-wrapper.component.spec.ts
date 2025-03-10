@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import {
   Component,
   DebugElement,
@@ -164,7 +163,6 @@ describe('DSOSelectorModalWrapperComponent', () => {
   templateUrl: './dso-selector-modal-wrapper.component.html',
   imports: [
     DSOSelectorComponent,
-    NgIf,
     TranslateModule,
   ],
   standalone: true,

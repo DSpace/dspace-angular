@@ -1,7 +1,4 @@
-import {
-  NgFor,
-  NgIf,
-} from '@angular/common';
+
 import {
   ChangeDetectorRef,
   Component,
@@ -53,7 +50,7 @@ export const CURATION_CFG = 'plugin.named.org.dspace.curate.CurationTask';
   selector: 'ds-curation-form',
   templateUrl: './curation-form.component.html',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgFor, NgIf, TranslateModule],
+  imports: [FormsModule, ReactiveFormsModule, TranslateModule],
 })
 export class CurationFormComponent implements OnDestroy, OnInit {
 

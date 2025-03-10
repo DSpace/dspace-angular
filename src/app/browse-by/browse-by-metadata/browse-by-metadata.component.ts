@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   isPlatformServer,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -69,7 +68,6 @@ export const BBM_PAGINATION_ID = 'bbm';
   templateUrl: './browse-by-metadata.component.html',
   imports: [
     AsyncPipe,
-    NgIf,
     TranslateModule,
     ThemedLoadingComponent,
     ThemedBrowseByComponent,

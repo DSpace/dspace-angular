@@ -13,11 +13,13 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" [routerLink]="'outbound'" [queryParams]="{view: 'table'}">{{'admin.notify.dashboard.outbound-logs' | translate}}</a>
-        </ul>
-        <div class="mt-2">
-          <ds-admin-notify-metrics *ngIf="(notifyMetricsRows$ | async)?.length" [boxesConfig]="notifyMetricsRows$ | async"></ds-admin-notify-metrics>
+          </ul>
+          <div class="mt-2">
+            @if ((notifyMetricsRows$ | async)?.length) {
+              <ds-admin-notify-metrics [boxesConfig]="notifyMetricsRows$ | async"></ds-admin-notify-metrics>
+            }
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
