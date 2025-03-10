@@ -1,4 +1,5 @@
-<a [routerLink]="(bitstreamPath$| async)?.routerLink" class="dont-break-out"
+<ds-embargo-badge [bitstream]="bitstream"></ds-embargo-badge>
+<a [routerLink]="(bitstreamPath$| async)?.routerLink" class="d-block dont-break-out mb-1"
   [queryParams]="(bitstreamPath$| async)?.queryParams"
   [target]="isBlank ? '_blank': '_self'"
   [ngClass]="cssClasses"
@@ -8,7 +9,6 @@
   }
   <ng-container *ngTemplateOutlet="content"></ng-container>
 </a>
-<ds-embargo-badge [bitstream]="bitstream"></ds-embargo-badge>
 
 <ng-template #content>
   <ng-content></ng-content>
