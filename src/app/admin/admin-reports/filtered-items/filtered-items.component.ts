@@ -173,10 +173,10 @@ export class FilteredItemsComponent implements OnInit {
         QueryPredicate.of('dc.description.provenance', QueryPredicate.DOES_NOT_MATCH, '^.*No\. of bitstreams(.|\r|\n|\r\n)*\.(PDF|pdf|DOC|doc|PPT|ppt|DOCX|docx|PPTX|pptx).*$'),
       ]),
       PresetQuery.of('q9', 'admin.reports.items.preset.hasEmptyMetadata', [
-        QueryPredicate.of('*', QueryPredicate.MATCHES, '^\s*$'),
+        QueryPredicate.of('*', QueryPredicate.MATCHES, '^\\s*$'),
       ]),
       PresetQuery.of('q10', 'admin.reports.items.preset.hasUnbreakingDataInDescription', [
-        QueryPredicate.of('dc.description.*', QueryPredicate.MATCHES, '^.*[^\s]{50,}.*$'),
+        QueryPredicate.of('dc.description.*', QueryPredicate.MATCHES, '^.*(\\S){50,}.*$'),
       ]),
       PresetQuery.of('q12', 'admin.reports.items.preset.hasXmlEntityInMetadata', [
         QueryPredicate.of('*', QueryPredicate.MATCHES, '^.*&#.*$'),
