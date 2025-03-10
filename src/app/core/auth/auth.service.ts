@@ -62,6 +62,7 @@ import {
   getFirstCompletedRemoteData,
 } from '../shared/operators';
 import { PageInfo } from '../shared/page-info.model';
+import { URLCombiner } from '../url-combiner/url-combiner';
 import {
   CheckAuthenticationTokenAction,
   RefreshTokenAction,
@@ -577,6 +578,31 @@ export class AuthService {
           this.setRedirectUrl(newRedirectUrl);
         }
       });
+  }
+
+  /**
+   * Returns the external server redirect URL.
+   * @param origin - The origin route.
+   * @param redirectRoute - The redirect route.
+   * @param location - The location.
+   * @returns The external server redirect URL.
+   */
+  getExternalServerRedirectUrl(origin: string, redirectRoute: string, location: string): string  {
+    const correctRedirectUrl = new URLCombiner(origin, redirectRoute).toString();
+
+    let externalServerUrl = location;
+    const myRegexp = /\?redirectUrl=(.*)/g;
+    const match = myRegexp.exec(location);
+    const redirectUrlFromServer = (match && match[1]) ? match[1] : null;
+
+    // Check whether the current page is different from the redirect url received from rest
+    if (isNotNull(redirectUrlFromServer) && redirectUrlFromServer !== correctRedirectUrl) {
+      // change the redirect url with the current page url
+      const newRedirectUrl = `?redirectUrl=${correctRedirectUrl}`;
+      externalServerUrl = location.replace(/\?redirectUrl=(.*)/g, newRedirectUrl);
+    }
+
+    return externalServerUrl;
   }
 
   /**
