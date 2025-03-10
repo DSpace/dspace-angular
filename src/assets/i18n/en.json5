@@ -6820,5 +6820,5 @@
 
   "search.filters.access_status.unknown": "Unknown",
 
-  "embargo.listelement.badge": "embargo until {{ date }}",
+  "embargo.listelement.badge": "Embargo until {{ date }}",
 }
