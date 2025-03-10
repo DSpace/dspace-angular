@@ -23,7 +23,10 @@ import { AuthService } from '../../core/auth/auth.service';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { CAPTCHA_NAME } from '../../core/google-recaptcha/google-recaptcha.service';
+import {
+  CAPTCHA_FEEDBACK_NAME,
+  CAPTCHA_NAME,
+} from '../../core/google-recaptcha/google-recaptcha.service';
 import { CookieService } from '../../core/services/cookie.service';
 import {
   NativeWindowRef,
@@ -87,6 +90,8 @@ export class BrowserOrejimeService extends OrejimeService {
 
   private readonly REGISTRATION_VERIFICATION_ENABLED_KEY = 'registration.verification.enabled';
 
+  private readonly FEEDBACK_VERIFICATION_ENABLED_KEY = 'feedback.verification.enabled';
+
   private readonly GOOGLE_ANALYTICS_SERVICE_NAME = 'google-analytics';
 
 
@@ -114,7 +119,7 @@ export class BrowserOrejimeService extends OrejimeService {
    *  - Retrieves the current authenticated user
    *  - Checks if the translation service is ready
    *  - Initialize configuration for users
-   *  - Add and translate orejime configuration messages
+   *  - Add and translate klaro configuration messages
    */
   initialize() {
     if (!environment.info.enablePrivacyStatement) {
@@ -133,8 +138,15 @@ export class BrowserOrejimeService extends OrejimeService {
       ),
     );
 
-    const appsToHide$: Observable<string[]> = observableCombineLatest([hideGoogleAnalytics$, hideRegistrationVerification$]).pipe(
-      map(([hideGoogleAnalytics, hideRegistrationVerification]) => {
+    const hideFeedBackVerification$ = this.configService.findByPropertyName(this.FEEDBACK_VERIFICATION_ENABLED_KEY).pipe(
+      getFirstCompletedRemoteData(),
+      map((remoteData) =>
+        !remoteData.hasSucceeded || !remoteData.payload || isEmpty(remoteData.payload.values) || remoteData.payload.values[0].toLowerCase() !== 'true',
+      ),
+    );
+
+    const appsToHide$: Observable<string[]> = observableCombineLatest([hideGoogleAnalytics$, hideRegistrationVerification$,hideFeedBackVerification$]).pipe(
+      map(([hideGoogleAnalytics, hideRegistrationVerification,hideFeedBackVerification]) => {
         const appsToHideArray: string[] = [];
         if (hideGoogleAnalytics) {
           appsToHideArray.push(this.GOOGLE_ANALYTICS_SERVICE_NAME);
@@ -142,6 +154,10 @@ export class BrowserOrejimeService extends OrejimeService {
         if (hideRegistrationVerification) {
           appsToHideArray.push(CAPTCHA_NAME);
         }
+        if (hideFeedBackVerification) {
+          appsToHideArray.push(CAPTCHA_FEEDBACK_NAME);
+        }
+
         return appsToHideArray;
       }),
     );

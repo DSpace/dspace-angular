@@ -1,6 +1,12 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import {
+  find,
+  map,
+  Observable,
+} from 'rxjs';
+import { hasValue } from 'src/app/shared/empty.util';
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -12,9 +18,12 @@ import {
 } from '../data/base/create-data';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { RemoteData } from '../data/remote-data';
+import { PostRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import {
+  getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../shared/operators';
@@ -60,5 +69,34 @@ export class FeedbackDataService extends IdentifiableDataService<Feedback> imple
    */
   public create(object: Feedback, ...params: RequestParam[]): Observable<RemoteData<Feedback>> {
     return this.createData.create(object, ...params);
+  }
+
+  /**
+   * Create a new object on the server, and store the response in the object cache
+   *
+   * @param object    The object to create
+   * @param captchaToken ReCaptchaToken if the verification is enabled
+   */
+  public registerFeedback(object: Feedback, captchaToken: string = null): Observable<RemoteData<Feedback>> {
+    let headers = new HttpHeaders();
+    const options: HttpOptions = Object.create({});
+    if (captchaToken) {
+      headers = headers.append('X-Recaptcha-Token', captchaToken);
+    }
+    options.headers = headers;
+    const requestId = this.requestService.generateRequestId();
+
+
+    this.getEndpoint().pipe(
+      find((href: string) => hasValue(href)),
+      map((href: string) => {
+        const request = new PostRequest(requestId, href, object, options);
+        this.requestService.send(request);
+      }),
+    ).subscribe();
+
+    return this.rdbService.buildFromRequestUUID<Feedback>(requestId).pipe(
+      getFirstCompletedRemoteData(),
+    );
   }
 }

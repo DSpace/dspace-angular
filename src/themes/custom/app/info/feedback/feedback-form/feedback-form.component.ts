@@ -1,4 +1,7 @@
-import { NgIf } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
 import {
   FormsModule,
@@ -7,8 +10,11 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 
 import { FeedbackFormComponent as BaseComponent } from '../../../../../../app/info/feedback/feedback-form/feedback-form.component';
+import { AlertComponent } from '../../../../../../app/shared/alert/alert.component';
 import { BtnDisabledDirective } from '../../../../../../app/shared/btn-disabled.directive';
 import { ErrorComponent } from '../../../../../../app/shared/error/error.component';
+import { GoogleRecaptchaComponent } from '../../../../../../app/shared/google-recaptcha/google-recaptcha.component';
+
 
 @Component({
   selector: 'ds-themed-feedback-form',
@@ -17,7 +23,7 @@ import { ErrorComponent } from '../../../../../../app/shared/error/error.compone
   // styleUrls: ['./feedback-form.component.scss'],
   styleUrls: ['../../../../../../app/info/feedback/feedback-form/feedback-form.component.scss'],
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgIf, ErrorComponent, TranslateModule, BtnDisabledDirective],
+  imports: [FormsModule, ReactiveFormsModule, NgIf, ErrorComponent, TranslateModule,AlertComponent,GoogleRecaptchaComponent,AsyncPipe,BtnDisabledDirective],
 })
 export class FeedbackFormComponent extends BaseComponent {
 }
