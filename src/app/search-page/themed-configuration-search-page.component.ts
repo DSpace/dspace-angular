@@ -145,6 +145,11 @@ export class ThemedConfigurationSearchPageComponent extends ThemedComponent<Conf
    */
   @Input() hideScopeInUrl: boolean;
 
+  /**
+   * Defines whether or not to show the clear button
+   */
+  @Input() showClearButton = false;
+
   protected inAndOutputNames: (keyof ConfigurationSearchPageComponent & keyof this)[] = [
     'configurationList',
     'context',
@@ -170,6 +175,7 @@ export class ThemedConfigurationSearchPageComponent extends ThemedComponent<Conf
     'query',
     'scope',
     'hideScopeInUrl',
+    'showClearButton',
   ];
 
   protected getComponentName(): string {

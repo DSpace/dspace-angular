@@ -1,4 +1,7 @@
-import { DebugElement } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  DebugElement,
+} from '@angular/core';
 import {
   ComponentFixture,
   fakeAsync,
@@ -14,12 +17,14 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { AutocompleteService } from '../../core/services/autocomplete.service';
 import { Community } from '../../core/shared/community.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../core/shared/search/search-filter.service';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import { AutocompleteServiceStub } from '../testing/autocomplete-service.stub';
 import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { RouterStub } from '../testing/router.stub';
 import { SearchFilterServiceStub } from '../testing/search-filter-service.stub';
@@ -30,11 +35,13 @@ describe('SearchFormComponent', () => {
   let comp: SearchFormComponent;
   let fixture: ComponentFixture<SearchFormComponent>;
   let de: DebugElement;
+  let cdRefStub: any;
 
   const router = new RouterStub();
   const searchService = new SearchServiceStub();
   let searchFilterService: SearchFilterServiceStub;
   const paginationService = new PaginationServiceStub();
+  const autocompleteService = new AutocompleteServiceStub();
   const searchConfigService = { paginationID: 'test-id' };
   const firstPage = { 'spc.page': 1 };
   const dspaceObjectService = {
@@ -53,6 +60,8 @@ describe('SearchFormComponent', () => {
         { provide: PaginationService, useValue: paginationService },
         { provide: SearchConfigurationService, useValue: searchConfigService },
         { provide: DSpaceObjectDataService, useValue: dspaceObjectService },
+        { provide: AutocompleteService, useValue: autocompleteService },
+        { provide: ChangeDetectorRef, useValue: cdRefStub },
       ],
     }).compileComponents();
   }));
@@ -70,6 +79,15 @@ describe('SearchFormComponent', () => {
     tick();
 
     expect(de.query(By.css('.scope-button'))).toBeFalsy();
+  }));
+
+  it('should not display scopes when clear button is false', fakeAsync(() => {
+    comp.showClearButton = false;
+
+    fixture.detectChanges();
+    tick();
+
+    expect(de.query(By.css('.clear-button'))).toBeFalsy();
   }));
 
   it('should display scopes when showScopeSelector is true', fakeAsync(() => {
@@ -104,6 +122,19 @@ describe('SearchFormComponent', () => {
     const scopeSelect = de.query(By.css('.scope-button')).nativeElement;
 
     expect(scopeSelect.textContent).toContain('Sample Community');
+  }));
+
+  it('should clear text on click clear button', fakeAsync(() => {
+    comp.query = 'TEST';
+    comp.showClearButton = true;
+    fixture.detectChanges();
+
+    tick();
+    const clearText = de.query(By.css('.clear-button')).nativeElement;
+    clearText.click();
+    fixture.detectChanges();
+
+    expect(comp.query).toBe('');
   }));
 
   describe('updateSearch', () => {

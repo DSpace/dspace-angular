@@ -40,6 +40,8 @@ export class ThemedSearchFormComponent extends ThemedComponent<SearchFormCompone
 
   @Output() submitSearch: EventEmitter<any> = new EventEmitter();
 
+  @Input() showClearButton: boolean;
+
   protected inAndOutputNames: (keyof SearchFormComponent & keyof this)[] = [
     'query',
     'inPlaceSearch',
@@ -51,6 +53,7 @@ export class ThemedSearchFormComponent extends ThemedComponent<SearchFormCompone
     'searchPlaceholder',
     'showScopeSelector',
     'submitSearch',
+    'showClearButton',
   ];
 
   protected getComponentName(): string {

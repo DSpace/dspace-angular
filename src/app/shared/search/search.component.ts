@@ -347,6 +347,11 @@ export class SearchComponent implements OnDestroy, OnInit {
    */
   @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
 
+  /**
+   * Defines whether or not to show the clear button
+   */
+  @Output() showClearButton = false;
+
   constructor(protected service: SearchService,
               protected sidebarService: SidebarService,
               protected windowService: HostWindowService,
