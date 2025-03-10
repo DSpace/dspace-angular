@@ -36,7 +36,6 @@ import { ViewMode } from '../view-mode.model';
 import { SearchService } from './search.service';
 import { SearchConfigurationService } from './search-configuration.service';
 import anything = jasmine.anything;
-import { MatomoTestingModule } from 'ngx-matomo-client/testing';
 
 
 @Component({
@@ -57,7 +56,6 @@ describe('SearchService', () => {
       TestBed.configureTestingModule({
         imports: [
           CommonModule,
-          MatomoTestingModule.forRoot(),
           RouterTestingModule.withRoutes([
             { path: 'search', component: DummyComponent, pathMatch: 'full' },
           ]),
@@ -125,7 +123,6 @@ describe('SearchService', () => {
       TestBed.configureTestingModule({
         imports: [
           CommonModule,
-          MatomoTestingModule.forRoot(),
           RouterTestingModule.withRoutes([
             { path: 'search', component: DummyComponent, pathMatch: 'full' },
           ]),

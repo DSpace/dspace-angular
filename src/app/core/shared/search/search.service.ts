@@ -1,7 +1,6 @@
 /* eslint-disable max-classes-per-file */
 import { Injectable } from '@angular/core';
 import { Angulartics2 } from 'angulartics2';
-import { MatomoTracker } from 'ngx-matomo-client';
 import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
@@ -113,7 +112,6 @@ export class SearchService {
     private paginationService: PaginationService,
     private searchConfigurationService: SearchConfigurationService,
     private angulartics2: Angulartics2,
-    private matomoTracker: MatomoTracker,
   ) {
     this.searchDataService = new SearchDataService();
   }
@@ -388,7 +386,6 @@ export class SearchService {
       },
     };
 
-    this.matomoTracker.trackSiteSearch(config.query, config.scope, searchQueryResponse.pageInfo.totalElements, searchTrackObject);
     this.angulartics2.eventTrack.next(searchTrackObject);
   }
 
