@@ -10243,4 +10243,10 @@
 
   // "search-facet-option.update.announcement": "The page will be reloaded. Filter {{ filter }} is selected.",
   "search-facet-option.update.announcement": "A página será recarregada. O filtro {{ filter }} foi selecionado.",
+
+  // "home.tooltip.top-level-communities": "Here you can view a list of the Repository communities, organized by default in alphabetical order. In the bottom corner, there is a pagination feature to display the communities and, by selecting a community, you will have access to its content and can browse through its sub-communities or collections. If you want to access the distribution feed from the home page, click on the feed button on the right.",
+  "home.tooltip.top-level-communities": "Aqui você pode visualizar a lista de comunidades do Repositório, organizadas por padrão em ordem alfabética. No canto inferior, há um recurso de paginação para exibir as comunidades e, ao selecionar uma comunidade, você terá acesso ao seu conteúdo e poderá navegar por suas sub-comunidades ou coleções. Caso você deseje ter acesso ao feed de distribuição da página inicial, você pode clicar no botão de feed à direita.",
+
+  // "home.tooltip.recent-item-list": "Here you can view the most recently published submissions. If you want to see more published items, click on the load more button.",
+  "home.tooltip.recent-item-list": "Aqui você pode visualizar as submissões publicadas mais recentemente. Se você deseja ver mais itens publicados, clique no botão carregar mais.",
 }

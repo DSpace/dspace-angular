@@ -14,6 +14,7 @@ import {
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { ContextHelpDirective } from '../../shared/context-help.directive';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
@@ -56,6 +57,11 @@ describe('RecentItemListComponent', () => {
         { provide: PLATFORM_ID, useValue: 'browser' },
       ],
     })
+      .overrideComponent(RecentItemListComponent, {
+        remove: {
+          imports: [ContextHelpDirective],
+        },
+      })
       .compileComponents();
   });
 
