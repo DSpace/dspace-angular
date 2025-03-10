@@ -28,7 +28,12 @@ export function getCollectionItemTemplateRoute(id) {
   return new URLCombiner(getCollectionPageRoute(id), ITEMTEMPLATE_PATH).toString();
 }
 
+export function getCollectionHomeRoute(id) {
+  return new URLCombiner(getCollectionPageRoute(id), COLLECTION_HOME_PATH).toString();
+}
+
 export const COLLECTION_CREATE_PATH = 'create';
 export const COLLECTION_EDIT_PATH = 'edit';
 export const COLLECTION_EDIT_ROLES_PATH = 'roles';
 export const ITEMTEMPLATE_PATH = 'itemtemplate';
+export const COLLECTION_HOME_PATH = 'home';
