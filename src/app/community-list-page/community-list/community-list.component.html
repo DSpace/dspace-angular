@@ -46,12 +46,12 @@
     </div>
     <ds-truncatable [id]="node.id">
       <div class="text-muted" cdkTreeNodePadding>
-        <div class="d-flex" *ngIf="node.payload.shortDescription">
+        <div class="d-flex" *ngIf="node.payload.shortDescription(currentLanguage) as shorDescription">
           <span aria-hidden="true" class="btn btn-default invisible">
             <span class="fa fa-chevron-right"></span>
           </span>
           <ds-truncatable-part [id]="node.id" [minLines]="3">
-            <span>{{node.payload.shortDescription}}</span>
+            <span>{{shorDescription}}</span>
           </ds-truncatable-part>
         </div>
       </div>
@@ -77,12 +77,12 @@
     </div>
     <ds-truncatable [id]="node.id">
       <div class="text-muted" cdkTreeNodePadding>
-        <div class="d-flex" *ngIf="node.payload.shortDescription">
+        <div class="d-flex" *ngIf="node.payload.shortDescription(currentLanguage) as shortDescription">
           <span aria-hidden="true" class="btn btn-default invisible">
             <span class="fa fa-chevron-right"></span>
           </span>
           <ds-truncatable-part [id]="node.id" [minLines]="3">
-            <span>{{node.payload.shortDescription}}</span>
+            <span>{{shortDescription}}</span>
           </ds-truncatable-part>
         </div>
       </div>

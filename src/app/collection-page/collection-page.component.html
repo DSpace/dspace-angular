@@ -23,12 +23,12 @@
             </ds-comcol-page-handle>
             <!-- Introductory text -->
             <ds-comcol-page-content
-                [content]="collection.introductoryText"
+                [content]="collection.introductoryText(currentLanguage)"
                 [hasInnerHtml]="true">
             </ds-comcol-page-content>
             <!-- News -->
             <ds-comcol-page-content
-                [content]="collection.sidebarText"
+                [content]="collection.sidebarText(currentLanguage)"
                 [hasInnerHtml]="true"
                 [title]="'collection.page.news'">
             </ds-comcol-page-content>
@@ -44,10 +44,10 @@
 
           <router-outlet></router-outlet>
         </section>
-        <footer *ngIf="collection.copyrightText" class="border-top my-5 pt-4">
+        <footer *ngIf="collection.copyrightText(currentLanguage) as copyrightText" class="border-top my-5 pt-4">
           <!-- Copyright -->
           <ds-comcol-page-content
-              [content]="collection.copyrightText"
+              [content]="copyrightText"
               [hasInnerHtml]="true">
           </ds-comcol-page-content>
         </footer>
