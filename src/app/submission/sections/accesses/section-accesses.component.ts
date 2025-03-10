@@ -313,12 +313,13 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
    * @return Observable<boolean>
    *     the section status
    */
-  protected getSectionStatus(): Observable<boolean> {
+  getSectionStatus(): Observable<boolean> {
     return combineLatest([
       this.required$,
-      this.sectionService.getSectionErrors(this.submissionId,  this.sectionData.id)
+      this.sectionService.getSectionErrors(this.submissionId,  this.sectionData.id),
+      this.accessesService.getAccessesData(this.submissionId, this.sectionData.id)
     ]).pipe(
-      map(([required, errors]) => (!required || (required  && isObjectEmpty(errors) && !isObjectEmpty(this.accessesData))))
+      map(([required, errors, accessesData]) => (!required || (required  && isObjectEmpty(errors) && !!accessesData?.accessConditions?.length)))
     );
   }
 
