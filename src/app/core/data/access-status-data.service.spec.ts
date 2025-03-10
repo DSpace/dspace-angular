@@ -11,7 +11,6 @@ import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-servic
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { Bitstream } from '../shared/bitstream.model';
 import { Item } from '../shared/item.model';
 import { AccessStatusDataService } from './access-status-data.service';
 import { RemoteData } from './remote-data';
@@ -42,20 +41,6 @@ describe('AccessStatusDataService', () => {
     },
   });
 
-  const bitstreamId = '3d4c730u-5a4b-438b-9686-be1d5b4a1c5a';
-  const mockBitstream: Bitstream = Object.assign(new Bitstream(), {
-    id: bitstreamId,
-    name: 'test-bitstream',
-    _links: {
-      accessStatus: {
-        href: `https://rest.api/core/bitstreams/${bitstreamId}/accessStatus`,
-      },
-      self: {
-        href: `https://rest.api/core/bitstreams/${bitstreamId}`,
-      },
-    },
-  });
-
   describe('when the requests are successful', () => {
     beforeEach(() => {
       createService();
@@ -66,20 +51,6 @@ describe('AccessStatusDataService', () => {
 
       beforeEach(() => {
         contentSource$ = service.findItemAccessStatusFor(mockItem);
-      });
-
-      it('should send a new GetRequest', fakeAsync(() => {
-        contentSource$.subscribe();
-        tick();
-        expect(requestService.send).toHaveBeenCalledWith(jasmine.any(GetRequest), true);
-      }));
-    });
-
-    describe('when calling findBitstreamAccessStatusFor', () => {
-      let contentSource$;
-
-      beforeEach(() => {
-        contentSource$ = service.findBitstreamAccessStatusFor(mockBitstream);
       });
 
       it('should send a new GetRequest', fakeAsync(() => {

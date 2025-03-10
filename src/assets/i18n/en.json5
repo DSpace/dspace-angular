@@ -6796,5 +6796,5 @@
 
   "dynamic-form-array.sortable-list.label": "Sortable list",
 
-  "embargo.listelement.badge": "embargo until {{ date }}",
+  "embargo.listelement.badge": "Embargo until {{ date }}",
 }
