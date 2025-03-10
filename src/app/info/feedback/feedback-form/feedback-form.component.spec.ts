@@ -16,6 +16,7 @@ import { of } from 'rxjs';
 import { AuthService } from '../../../core/auth/auth.service';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { FeedbackDataService } from '../../../core/feedback/feedback-data.service';
+import { Feedback } from '../../../core/feedback/models/feedback.model';
 import { GoogleRecaptchaService } from '../../../core/google-recaptcha/google-recaptcha.service';
 import { CookieService } from '../../../core/services/cookie.service';
 import { RouteService } from '../../../core/services/route.service';
@@ -42,6 +43,7 @@ describe('FeedbackFormComponent', () => {
 
   const feedbackDataService = jasmine.createSpyObj('feedbackDataService', {
     registerFeedback: createSuccessfulRemoteDataObject$({}),
+    create: createSuccessfulRemoteDataObject$(new Feedback()),
   });
   const captchaVersion$ = of('v3');
   const captchaMode$ = of('invisible');
@@ -72,7 +74,7 @@ describe('FeedbackFormComponent', () => {
         { provide: RouteService, useValue: routeServiceStub },
         { provide: UntypedFormBuilder, useValue: new UntypedFormBuilder() },
         { provide: NotificationsService, useValue: notificationService },
-        { provide: FeedbackDataService, useValue: feedbackDataServiceStub },
+        { provide: FeedbackDataService, useValue: feedbackDataService },
         { provide: AuthService, useValue: authService },
         { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
         { provide: Router, useValue: routerStub },
@@ -123,10 +125,10 @@ describe('FeedbackFormComponent', () => {
       expect(de.query(By.css('button')).nativeElement.classList.contains('disabled')).toBeFalse();
     });
 
-    it('on submit should call createFeedback of feedbackDataServiceStub service', () => {
+    it('on submit should call create of feedbackDataServiceStub service', () => {
       component.createFeedback();
       fixture.detectChanges();
-      expect(feedbackDataService.registerFeedback).toHaveBeenCalled();
+      expect(feedbackDataService.create).toHaveBeenCalled();
     });
   });
 

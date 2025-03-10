@@ -58,9 +58,10 @@ import {
   getFirstSucceededRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { URLCombiner } from '../../../core/url-combiner/url-combiner';
-import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
+import { OrejimeService } from '../../../shared/cookies/orejime.service';
 import { isNotEmpty } from '../../../shared/empty.util';
 import { ErrorComponent } from '../../../shared/error/error.component';
 import { GoogleRecaptchaComponent } from '../../../shared/google-recaptcha/google-recaptcha.component';
@@ -71,7 +72,7 @@ import { NotificationsService } from '../../../shared/notifications/notification
   templateUrl: './feedback-form.component.html',
   styleUrls: ['./feedback-form.component.scss'],
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgIf, ErrorComponent, TranslateModule,AlertComponent, AsyncPipe, GoogleRecaptchaComponent,BtnDisabledDirective],
+  imports: [FormsModule, ReactiveFormsModule, NgIf, ErrorComponent, TranslateModule,AlertComponent, AsyncPipe, GoogleRecaptchaComponent, BtnDisabledDirective],
 })
 /**
  * Component displaying the contents of the Feedback Statement
@@ -120,7 +121,7 @@ export class FeedbackFormComponent implements OnInit,OnDestroy {
     private authService: AuthService,
     public googleRecaptchaService: GoogleRecaptchaService,
     public cookieService: CookieService,
-    @Optional() public klaroService: KlaroService,
+    @Optional() public orejimeService: OrejimeService,
     private configService: ConfigurationDataService,
     private translateService: TranslateService,
     private changeDetectorRef: ChangeDetectorRef,

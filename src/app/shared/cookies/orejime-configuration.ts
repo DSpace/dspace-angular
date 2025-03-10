@@ -5,6 +5,7 @@ import {
 import { TOKENITEM } from '../../core/auth/models/auth-token-info.model';
 import {
   CAPTCHA_COOKIE,
+  CAPTCHA_FEEDBACK_NAME,
   CAPTCHA_NAME,
 } from '../../core/google-recaptcha/google-recaptcha.service';
 import { LANG_COOKIE } from '../../core/locale/locale.service';
@@ -188,6 +189,17 @@ export function getOrejimeConfiguration(_window: NativeWindowRef): any {
           _window?.nativeWindow.refreshCaptchaScript?.call();
         },
         onlyOnce: true,
+      },
+      {
+        name: CAPTCHA_FEEDBACK_NAME,
+        purposes: ['feedback'],
+        required: false,
+        cookies: [
+          CAPTCHA_COOKIE,
+        ],
+        onlyOnce: true,
+        onAccept: `window.refreshCaptchaScript?.call()`,
+        onDecline: `window.refreshCaptchaScript?.call()`,
       },
     ],
   };
