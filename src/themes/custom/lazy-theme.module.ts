@@ -26,6 +26,7 @@ import { BrowseByDateComponent } from './app/browse-by/browse-by-date/browse-by-
 import { BrowseByMetadataComponent } from './app/browse-by/browse-by-metadata/browse-by-metadata.component';
 import { BrowseByTaxonomyComponent } from './app/browse-by/browse-by-taxonomy/browse-by-taxonomy.component';
 import { BrowseByTitleComponent } from './app/browse-by/browse-by-title/browse-by-title.component';
+import { CollectionItemMapperComponent } from './app/collection-page/collection-item-mapper/collection-item-mapper.component';
 import { CollectionPageComponent } from './app/collection-page/collection-page.component';
 import { EditItemTemplatePageComponent } from './app/collection-page/edit-item-template-page/edit-item-template-page.component';
 import { CommunityListComponent } from './app/community-list-page/community-list/community-list.component';
@@ -43,6 +44,7 @@ import { FeedbackComponent } from './app/info/feedback/feedback.component';
 import { FeedbackFormComponent } from './app/info/feedback/feedback-form/feedback-form.component';
 import { PrivacyComponent } from './app/info/privacy/privacy.component';
 import { ItemAlertsComponent } from './app/item-page/alerts/item-alerts.component';
+import { ItemCollectionMapperComponent } from './app/item-page/edit-item-page/item-collection-mapper/item-collection-mapper.component';
 import { ItemStatusComponent } from './app/item-page/edit-item-page/item-status/item-status.component';
 import { FullFileSectionComponent } from './app/item-page/full/field-components/file-section/full-file-section.component';
 import { FullItemPageComponent } from './app/item-page/full/full-item-page.component';
@@ -204,6 +206,8 @@ const DECLARATIONS = [
   AdminSearchPageComponent,
   AdminWorkflowPageComponent,
   SearchResultsSkeletonComponent,
+  ItemCollectionMapperComponent,
+  CollectionItemMapperComponent,
 ];
 
 @NgModule({
