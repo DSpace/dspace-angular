@@ -18,6 +18,7 @@ import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { Vocabulary } from '../../../../core/submission/vocabularies/models/vocabulary.model';
 import { VocabularyService } from '../../../../core/submission/vocabularies/vocabulary.service';
 import { DynamicOneboxModel } from '../../../../shared/form/builder/ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
+import { DsDynamicScrollableDropdownComponent } from '../../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
 import { DynamicScrollableDropdownModel } from '../../../../shared/form/builder/ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
@@ -153,6 +154,12 @@ describe('DsoEditMetadataAuthorityFieldComponent', () => {
         { provide: RegistryService, useValue: registryService },
         { provide: NotificationsService, useValue: notificationsService },
       ],
+    }).overrideComponent(DsoEditMetadataAuthorityFieldComponent, {
+      remove: {
+        imports: [
+          DsDynamicScrollableDropdownComponent,
+        ],
+      },
     }).compileComponents();
 
     fixture = TestBed.createComponent(DsoEditMetadataAuthorityFieldComponent);

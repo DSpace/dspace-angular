@@ -1,6 +1,6 @@
 <div class="card" [@focusShadow]="(isCollapsed$ | async)?'blur':'focus'">
   <ds-truncatable [id]="dso.id">
-    <div class="position-absolute ml-1">
+    <div class="position-absolute ms-1">
       <ng-content></ng-content>
     </div>
     <a *ngIf="linkType !== linkTypes.None"

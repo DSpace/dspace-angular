@@ -1,6 +1,6 @@
 import {
   AsyncPipe,
-  NgIf,
+  NgClass,
 } from '@angular/common';
 import {
   ChangeDetectorRef,
@@ -54,6 +54,7 @@ import {
 import { FormFieldMetadataValueObject } from '../../../../shared/form/builder/models/form-field-metadata-value.model';
 import { AuthorityConfidenceStateDirective } from '../../../../shared/form/directives/authority-confidence-state.directive';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { DebounceDirective } from '../../../../shared/utils/debounce.directive';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
 import { AbstractDsoEditMetadataValueFieldComponent } from '../abstract-dso-edit-metadata-value-field.component';
 import { DsoEditMetadataFieldService } from '../dso-edit-metadata-field.service';
@@ -68,13 +69,14 @@ import { DsoEditMetadataFieldService } from '../dso-edit-metadata-field.service'
   standalone: true,
   imports: [
     DsDynamicScrollableDropdownComponent,
-    NgIf,
     DsDynamicOneboxComponent,
     AuthorityConfidenceStateDirective,
     NgbTooltipModule,
     AsyncPipe,
     TranslateModule,
     FormsModule,
+    NgClass,
+    DebounceDirective,
   ],
 })
 export class DsoEditMetadataAuthorityFieldComponent extends AbstractDsoEditMetadataValueFieldComponent implements OnInit, OnChanges {
@@ -83,6 +85,11 @@ export class DsoEditMetadataAuthorityFieldComponent extends AbstractDsoEditMetad
    * Whether the authority field is currently being edited
    */
   public editingAuthority = false;
+
+  /**
+   * Whether the free-text editing is enabled when scrollable dropdown or hierarchical vocabulary is used
+   */
+  public enabledFreeTextEditing = false;
 
   /**
    * Field group used by authority field
@@ -258,15 +265,23 @@ export class DsoEditMetadataAuthorityFieldComponent extends AbstractDsoEditMetad
    * Process the change of authority field value updating the authority key and confidence as necessary
    */
   onChangeAuthorityField(event): void {
-    this.mdValue.newValue.value = event.value;
-    if (event.authority) {
-      this.mdValue.newValue.authority = event.authority;
-      this.mdValue.newValue.confidence = ConfidenceType.CF_ACCEPTED;
+    if (event) {
+      this.mdValue.newValue.value = event.value;
+      if (event.authority) {
+        this.mdValue.newValue.authority = event.authority;
+        this.mdValue.newValue.confidence = ConfidenceType.CF_ACCEPTED;
+      } else {
+        this.mdValue.newValue.authority = null;
+        this.mdValue.newValue.confidence = ConfidenceType.CF_UNSET;
+      }
+      this.confirm.emit(false);
     } else {
+      // The event is undefined when the user clears the selection in scrollable dropdown
+      this.mdValue.newValue.value = '';
       this.mdValue.newValue.authority = null;
       this.mdValue.newValue.confidence = ConfidenceType.CF_UNSET;
+      this.confirm.emit(false);
     }
-    this.confirm.emit(false);
   }
 
   /**
@@ -298,6 +313,19 @@ export class DsoEditMetadataAuthorityFieldComponent extends AbstractDsoEditMetad
       this.mdValue.newValue.confidence = ConfidenceType.CF_ACCEPTED;
       this.confirm.emit(false);
     }
+  }
+
+  /**
+   * Toggles the free-text editing mode
+   */
+  toggleFreeTextEdition() {
+    if (this.enabledFreeTextEditing) {
+      if (this.getModel().value !== this.mdValue.newValue.value) {
+        // Reload the model to adapt it to the new possible value modified during free text editing
+        this.initAuthorityProperties();
+      }
+    }
+    this.enabledFreeTextEditing = !this.enabledFreeTextEditing;
   }
 
 }

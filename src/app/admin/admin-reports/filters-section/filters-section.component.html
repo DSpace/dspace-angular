@@ -13,7 +13,7 @@
     <legend>{{group.key | translate}}</legend>
     <ng-container [formGroup]="filtersForm">
         <div *ngFor="let filter of group.filters" class="col-6">
-            <input type="checkbox" id="flt-{{filter.id}}" value="{{filter.id}}" class="form-check-input col-1 align-baseline" formControlName="{{filter.id}}"><label for="flt-{{filter.id}}" class="col-11 align-middle" title="{{filter.tooltipKey | translate}}">{{filter.key | translate}}</label>
+            <input type="checkbox" id="flt-{{filter.id}}" value="{{filter.id}}" class="form-check-input col-1" formControlName="{{filter.id}}"><label for="flt-{{filter.id}}" class="col-11 align-middle" title="{{filter.tooltipKey | translate}}">{{filter.key | translate}}</label>
         </div>
     </ng-container>
 </fieldset>

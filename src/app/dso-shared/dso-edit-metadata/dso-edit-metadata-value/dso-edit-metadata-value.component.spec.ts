@@ -19,6 +19,7 @@ import {
   VIRTUAL_METADATA_PREFIX,
 } from '../../../core/shared/metadata.models';
 import { ItemMetadataRepresentation } from '../../../core/shared/metadata-representation/item/item-metadata-representation.model';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ThemedTypeBadgeComponent } from '../../../shared/object-collection/shared/badges/type-badge/themed-type-badge.component';
 import { DsoEditMetadataFieldServiceStub } from '../../../shared/testing/dso-edit-metadata-field.service.stub';
 import { VarDirective } from '../../../shared/utils/var.directive';
@@ -76,6 +77,7 @@ describe('DsoEditMetadataValueComponent', () => {
         RouterModule.forRoot([]),
         DsoEditMetadataValueComponent,
         VarDirective,
+        BtnDisabledDirective,
       ],
       providers: [
         { provide: RelationshipDataService, useValue: relationshipService },
@@ -198,7 +200,14 @@ describe('DsoEditMetadataValueComponent', () => {
         });
 
         it(`should${disabled ? ' ' : ' not '}be disabled`, () => {
-          expect(btn.nativeElement.disabled).toBe(disabled);
+          if (disabled) {
+            expect(btn.nativeElement.getAttribute('aria-disabled')).toBe('true');
+            expect(btn.nativeElement.classList.contains('disabled')).toBeTrue();
+          } else {
+            // Can be null or false, depending on if button was ever disabled so just check not true
+            expect(btn.nativeElement.getAttribute('aria-disabled')).not.toBe('true');
+            expect(btn.nativeElement.classList.contains('disabled')).toBeFalse();
+          }
         });
       } else {
         it('should not exist', () => {

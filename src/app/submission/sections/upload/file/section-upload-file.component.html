@@ -17,10 +17,10 @@
       </div>
     </div>
     <div class="col-md-10">
-      <div class="float-left w-75">
+      <div class="float-start w-75">
         <ds-submission-section-upload-file-view [fileData]="fileData"></ds-submission-section-upload-file-view>
       </div>
-      <div class="float-right w-15">
+      <div class="float-end w-15">
         <ng-container>
           <ds-file-download-link [cssClasses]="'btn btn-link-focus'" [isBlank]="true"
                                         [bitstream]="getBitstream()" [enableRequestACopy]="false">
@@ -35,10 +35,10 @@
           <button class="btn btn-link-focus"
                   [attr.aria-label]="'submission.sections.upload.delete.confirm.title' | translate"
                   title="{{ 'submission.sections.upload.delete.confirm.title' | translate }}"
-                  [disabled]="(processingDelete$ | async)"
+                  [dsBtnDisabled]="(processingDelete$ | async)"
                   (click)="$event.preventDefault();confirmDelete(content);">
-            <i *ngIf="(processingDelete$ | async)" class="fas fa-circle-notch fa-spin fa-2x text-danger"></i>
-            <i *ngIf="(processingDelete$ | async) !== true" class="fa fa-trash fa-2x text-danger"></i>
+            <i *ngIf="(processingDelete$ | async)" class="fas fa-circle-notch fa-spin fa-2x link-danger"></i>
+            <i *ngIf="(processingDelete$ | async) !== true" class="fa fa-trash fa-2x link-danger"></i>
           </button>
         </ng-container>
       </div>
@@ -50,8 +50,7 @@
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title text-danger">{{ 'submission.sections.upload.delete.confirm.title' | translate }}</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('cancel')">
-      <span aria-hidden="true">&times;</span>
+    <button type="button" class="btn-close" aria-label="Close" (click)="d('cancel')">
     </button>
   </div>
   <div class="modal-body">

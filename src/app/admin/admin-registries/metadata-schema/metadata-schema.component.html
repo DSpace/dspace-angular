@@ -31,8 +31,8 @@
               </thead>
               <tbody>
               <tr *ngFor="let field of fields?.page"
-                  [ngClass]="{'table-primary' : isActive(field) | async}">
-                <td *ngVar="(isSelected(field) | async) as selected">
+                  [ngClass]="{'table-primary' : (activeField$ | async)?.id === field.id}">
+                <td *ngVar="(selectedMetadataFieldIDs$ | async)?.includes(field.id) as selected">
                   <input type="checkbox"
                          [attr.aria-label]="(selected ? 'admin.registries.schema.fields.deselect' : 'admin.registries.schema.fields.select') | translate"
                          [checked]="selected"
@@ -53,7 +53,7 @@
 
         <div>
           <button [routerLink]="['/admin/registries/metadata']" class="btn btn-primary">{{'admin.registries.schema.return' | translate}}</button>
-          <button *ngIf="fields?.page?.length > 0" type="submit" class="btn btn-danger float-right" (click)="deleteFields()">{{'admin.registries.schema.fields.table.delete' | translate}}</button>
+          <button *ngIf="fields?.page?.length > 0" type="submit" class="btn btn-danger float-end" (click)="deleteFields()">{{'admin.registries.schema.fields.table.delete' | translate}}</button>
         </div>
       </ng-container>
 

@@ -1,16 +1,15 @@
 <form *ngIf="subscriptionForm" [formGroup]="subscriptionForm" (ngSubmit)="submit()" data-test="subscription-form">
   <div class="modal-header">
     <h4 class="modal-title">{{'subscriptions.modal.title' | translate}}</h4>
-    <button type="button" class="close" aria-label="Close" (click)="activeModal.close()">
-      <span aria-hidden="true">&times;</span>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.close()">
     </button>
   </div>
   <div class="modal-body">
     <p class="mb-3"><strong>{{ dsoNameService.getName(dso) }}</strong>
-      <span *ngIf="!!dso" class="float-right"><ds-type-badge *ngIf="!!dso" [object]="dso"></ds-type-badge></span>
+      <span *ngIf="!!dso" class="float-end"><ds-type-badge *ngIf="!!dso" [object]="dso"></ds-type-badge></span>
     </p>
     <div>
-      <fieldset *ngFor="let subscriptionType of subscriptionForm?.controls | keyvalue" formGroupName="{{subscriptionType.key}}" class="form-group form-row">
+      <fieldset *ngFor="let subscriptionType of subscriptionForm?.controls | keyvalue" formGroupName="{{subscriptionType.key}}" class="mb-3 row">
         <legend class="col-md-4 col-form-label float-md-left pt-0">
           {{ 'subscriptions.modal.new-subscription-form.type.' + subscriptionType.key | translate }}:
         </legend>
@@ -34,7 +33,7 @@
             (click)="activeModal.close()">
       {{'subscriptions.modal.close' | translate}}
     </button>
-    <button type="submit" class="btn btn-success" [disabled]="(processing$ | async) || !isValid">
+    <button type="submit" class="btn btn-success" [dsBtnDisabled]="(processing$ | async) || !isValid">
         <span *ngIf="(processing$ | async)">
           <i class='fas fa-circle-notch fa-spin'></i> {{'subscriptions.modal.new-subscription-form.processing' | translate}}
         </span>

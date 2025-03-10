@@ -1,12 +1,12 @@
 <div [formGroup]="group">
   <div *ngIf="model.repeatable"
-       class="form-row"
+       class="row"
        [attr.tabindex]="model.tabIndex"
        [id]="id"
        [formGroupName]="model.id"
        [ngClass]="model.layout.element?.control">
 
-    <div *ngFor="let columnItems of items" class="col-sm ml-3">
+    <div *ngFor="let columnItems of items" class="col-sm ms-3">
 
       <div  *ngFor="let item of columnItems" class="custom-control custom-checkbox">
 
@@ -28,20 +28,18 @@
           <span [ngClass]="model.layout.element?.label" [innerHTML]="item.label"></span>
         </label>
       </div>
-      <br>
     </div>
-
   </div>
 
   <div *ngIf="!model.repeatable"
-       class="form-row"
+       class="row"
        ngbRadioGroup
        [attr.tabindex]="model.tabIndex"
        [id]="id"
        [ngClass]="model.layout.element?.control"
        (change)="onChange($event)">
 
-    <div *ngFor="let columnItems of items" class="col-sm ml-3">
+    <div *ngFor="let columnItems of items" class="col-sm ms-3">
 
       <div  *ngFor="let item of columnItems" class="custom-control custom-radio">
         <input type="radio" class="custom-control-input"
@@ -60,8 +58,10 @@
           <span [ngClass]="model.layout.element?.label" [innerHTML]="item.label"></span>
         </label>
       </div>
-      <br>
     </div>
-
   </div>
+  <div class="d-flex justify-content-center" *ngIf="(isLoading$ | async)">
+    <ds-loading></ds-loading>
+  </div>
+
 </div>

@@ -33,7 +33,7 @@ services:
       # This allows us to generate statistics in e2e tests so that statistics pages can be tested thoroughly.
       solr__D__statistics__P__autoCommit: 'false'
       LOGGING_CONFIG: /dspace/config/log4j2-container.xml
-    image: "${DOCKER_OWNER:-dspace}/dspace:${DSPACE_VER:-latest-test}"
+    image: "${DOCKER_REGISTRY:-docker.io}/${DOCKER_OWNER:-dspace}/dspace:${DSPACE_VER:-latest-test}"
     depends_on:
     - dspacedb
     networks:
@@ -60,7 +60,7 @@ services:
   # NOTE: This is customized to use our loadsql image, so that we are using a database with existing test data
   dspacedb:
     container_name: dspacedb
-    image: "${DOCKER_OWNER:-dspace}/dspace-postgres-pgcrypto:${DSPACE_VER:-latest}-loadsql"
+    image: "${DOCKER_REGISTRY:-docker.io}/${DOCKER_OWNER:-dspace}/dspace-postgres-pgcrypto:${DSPACE_VER:-latest}-loadsql"
     environment:
       # This LOADSQL should be kept in sync with the LOADSQL in
       # https://github.com/DSpace/DSpace/blob/main/dspace/src/main/docker-compose/db.entities.yml
@@ -81,7 +81,7 @@ services:
   # DSpace Solr container
   dspacesolr:
     container_name: dspacesolr
-    image: "${DOCKER_OWNER:-dspace}/dspace-solr:${DSPACE_VER:-latest}"
+    image: "${DOCKER_REGISTRY:-docker.io}/${DOCKER_OWNER:-dspace}/dspace-solr:${DSPACE_VER:-latest}"
     networks:
       - dspacenet
     ports:

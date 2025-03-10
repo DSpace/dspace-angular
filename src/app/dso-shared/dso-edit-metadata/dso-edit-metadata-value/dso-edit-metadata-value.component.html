@@ -14,7 +14,7 @@
                                              class="w-100">
     </ds-dso-edit-metadata-value-field-loader>
     <div *ngIf="!isVirtual && !mdValue.editing && mdValue.newValue.authority && mdValue.newValue.confidence !== ConfidenceTypeEnum.CF_UNSET && mdValue.newValue.confidence !== ConfidenceTypeEnum.CF_NOVALUE">
-      <span class="badge badge-light border" >
+      <span class="badge bg-light border" >
         <i dsAuthorityConfidenceState
            class="fas fa-fw p-0"
            aria-hidden="true"
@@ -25,7 +25,7 @@
       </span>
     </div>
     <div class="d-flex" *ngIf="mdRepresentation">
-      <a class="mr-2" target="_blank" [routerLink]="mdRepresentationItemRoute$ | async">{{ mdRepresentationName$ | async }}</a>
+      <a class="me-2" target="_blank" [routerLink]="mdRepresentationItemRoute$ | async">{{ mdRepresentationName$ | async }}</a>
       <ds-type-badge [object]="mdRepresentation"></ds-type-badge>
     </div>
   </div>
@@ -42,29 +42,29 @@
           <button class="btn btn-outline-primary btn-sm ng-star-inserted" data-test="metadata-edit-btn" *ngIf="!mdValue.editing"
                   [title]="dsoType + '.edit.metadata.edit.buttons.edit' | translate"
                   ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.edit' | translate }}"
-                  [disabled]="isVirtual || mdValue.change === DsoEditMetadataChangeTypeEnum.REMOVE || (saving$ | async)" (click)="edit.emit()">
+                  [dsBtnDisabled]="isVirtual || mdValue.change === DsoEditMetadataChangeTypeEnum.REMOVE || (saving$ | async)" (click)="edit.emit()">
             <i class="fas fa-edit fa-fw"></i>
           </button>
           <button class="btn btn-outline-success btn-sm ng-star-inserted" data-test="metadata-confirm-btn" *ngIf="mdValue.editing"
                   [title]="dsoType + '.edit.metadata.edit.buttons.confirm' | translate"
                   ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.confirm' | translate }}"
-                  [disabled]="isVirtual || (saving$ | async)" (click)="confirm.emit(true)">
+                  [dsBtnDisabled]="isVirtual || (saving$ | async)" (click)="confirm.emit(true)">
             <i class="fas fa-check fa-fw"></i>
           </button>
           <button class="btn btn-outline-danger btn-sm" data-test="metadata-remove-btn"
                   [title]="dsoType + '.edit.metadata.edit.buttons.remove' | translate"
                   ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.remove' | translate }}"
-                  [disabled]="isVirtual || (mdValue.change && mdValue.change !== DsoEditMetadataChangeTypeEnum.ADD) || mdValue.editing || (saving$ | async)" (click)="remove.emit()">
+                  [dsBtnDisabled]="isVirtual || (mdValue.change && mdValue.change !== DsoEditMetadataChangeTypeEnum.ADD) || mdValue.editing || (saving$ | async)" (click)="remove.emit()">
             <i class="fas fa-trash-alt fa-fw"></i>
           </button>
           <button class="btn btn-outline-warning btn-sm" data-test="metadata-undo-btn"
                   [title]="dsoType + '.edit.metadata.edit.buttons.undo' | translate"
                   ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.undo' | translate }}"
-                  [disabled]="isVirtual || (!mdValue.change && mdValue.reordered) || (!mdValue.change && !mdValue.editing) || (saving$ | async)" (click)="undo.emit()">
+                  [dsBtnDisabled]="isVirtual || (!mdValue.change && mdValue.reordered) || (!mdValue.change && !mdValue.editing) || (saving$ | async)" (click)="undo.emit()">
             <i class="fas fa-undo-alt fa-fw"></i>
           </button>
           <button class="btn btn-outline-secondary ds-drag-handle btn-sm" data-test="metadata-drag-btn" *ngVar="(isOnlyValue || (saving$ | async)) as disabled"
-                  cdkDragHandle [cdkDragHandleDisabled]="disabled" [ngClass]="{'disabled': disabled}" [disabled]="disabled"
+                  cdkDragHandle [cdkDragHandleDisabled]="disabled" [ngClass]="{'disabled': disabled}" [dsBtnDisabled]="disabled"
                   [title]="dsoType + '.edit.metadata.edit.buttons.drag' | translate"
                   ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.drag' | translate }}">
             <i class="fas fa-grip-vertical fa-fw"></i>
