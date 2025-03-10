@@ -1,8 +1,8 @@
 rest:
-  ssl: false
-  host: localhost
-  port: 8080
-  nameSpace: /dspace-server
+  ssl: true
+  host: sandbox.dspace.org
+  port: 443
+  nameSpace: /server
 
 form:
   recaptcha:

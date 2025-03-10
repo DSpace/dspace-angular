@@ -40,7 +40,7 @@ import { QueryPredicate } from '../query-predicate.model';
   imports: [NgIf, NgbTooltipModule, AsyncPipe, TranslateModule],
 })
 /**
- * Display a button to export the current search results as csv
+ * Display a button to export the MetadataQuery (aka Filtered Items) Report results as csv
  */
 export class FilteredItemsExportCsvComponent implements OnInit {
 
