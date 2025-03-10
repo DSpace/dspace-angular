@@ -8597,5 +8597,5 @@
   "metadata-export-filtered-items.columns.warning": "L'exportation CSV inclut automatiquement tous les champs pertinents, sans égard au contenu sélectionné de cette liste.",
 
   // "embargo.listelement.badge": "embargo until {{ date }}",
-  "embargo.listelement.badge": "embargo jusqu'à {{ date }}",
+  "embargo.listelement.badge": "Embargo jusqu'à {{ date }}",
 }
