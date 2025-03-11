@@ -1,17 +1,17 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
-  async,
   ComponentFixture,
   TestBed,
+  waitForAsync,
 } from '@angular/core/testing';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 
-import { ItemSearchResultListElementComponent } from '../../../themes/custom/app/shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { Item } from '../../core/shared/item.model';
 import { mockSuggestionPublicationOne } from '../../shared/mocks/publication-claim.mock';
+import { ItemSearchResultListElementComponent } from '../../shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { SuggestionActionsComponent } from '../suggestion-actions/suggestion-actions.component';
 import { SuggestionEvidencesComponent } from './suggestion-evidences/suggestion-evidences.component';
 import { SuggestionListElementComponent } from './suggestion-list-element.component';
@@ -22,7 +22,7 @@ describe('SuggestionListElementComponent', () => {
   let scheduler: TestScheduler;
 
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),

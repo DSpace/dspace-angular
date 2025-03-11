@@ -6,14 +6,13 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Suggestion } from 'src/app/core/notifications/suggestions/models/suggestion.model';
 
-import { ItemSearchResultListElementComponent } from '../../../themes/custom/app/shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { Item } from '../../core/shared/item.model';
 import { fadeIn } from '../../shared/animations/fade';
 import { isNotEmpty } from '../../shared/empty.util';
+import { ItemSearchResultListElementComponent } from '../../shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
 import { SuggestionActionsComponent } from '../suggestion-actions/suggestion-actions.component';
 import { SuggestionApproveAndImport } from './suggestion-approve-and-import';
 import { SuggestionEvidencesComponent } from './suggestion-evidences/suggestion-evidences.component';
@@ -61,13 +60,6 @@ export class SuggestionListElementComponent implements OnInit {
    * New value whether the element is selected
    */
   @Output() selected = new EventEmitter<boolean>();
-
-  /**
-   * Initialize instance variables
-   *
-   * @param {NgbModal} modalService
-   */
-  constructor(private modalService: NgbModal) { }
 
   ngOnInit() {
     this.listableObject = {

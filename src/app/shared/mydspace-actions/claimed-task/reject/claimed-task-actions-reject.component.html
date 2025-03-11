@@ -11,10 +11,9 @@
   <div class="modal-header">
     <h4 class="modal-title">{{'submission.workflow.tasks.claimed.reject.reason.title' | translate}}</h4>
     <button type="button"
-            class="close"
+            class="btn-close"
             aria-label="Close"
             (click)="d('Cross click')">
-      <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
@@ -27,7 +26,7 @@
                 rows="4"
                 placeholder="{{'submission.workflow.tasks.claimed.reject.reason.placeholder' | translate}}"></textarea>
       <button id="btn-chat"
-              class="btn btn-danger btn-lg btn-block mt-3"
+              class="btn btn-danger btn-lg btn-block w-100 mt-3"
               [dsBtnDisabled]="!rejectForm.valid || (processing$ | async)"
               type="submit">
         <span *ngIf="processing$ | async"><i class='fas fa-circle-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}</span>

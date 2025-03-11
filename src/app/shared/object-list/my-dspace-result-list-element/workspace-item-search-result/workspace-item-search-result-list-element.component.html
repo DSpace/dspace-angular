@@ -4,7 +4,7 @@
             [object]="derivedSearchResult$ | async" [linkType]="LinkTypes.None"
             [context]="badgeContext"></ds-listable-object-component-loader>
     <div class="row">
-        <div [ngClass]="showThumbnails ? 'offset-3 offset-md-2  pl-3' : ''">
+        <div [ngClass]="showThumbnails ? 'offset-3 offset-md-2 col-9 col-md-10 ps-3' : ''">
             <ds-workspaceitem-actions [object]="dso" (processCompleted)="reloadedObject.emit($event.reloadedObject)"></ds-workspaceitem-actions>
         </div>
     </div>

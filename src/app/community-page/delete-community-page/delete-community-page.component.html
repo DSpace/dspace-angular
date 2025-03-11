@@ -4,8 +4,8 @@
             <div class="col-12 pb-4">
                 <h1 id="header" class="border-bottom pb-2">{{ 'community.delete.head' | translate}}</h1>
                 <p class="pb-2">{{ 'community.delete.text' | translate:{ dso: dsoNameService.getName(dso) } }}</p>
-                <div class="form-group row">
-                    <div class="col text-right space-children-mr">
+                <div class="mb-3 row">
+                    <div class="col text-end space-children-mr">
                         <button class="btn btn-outline-secondary" (click)="onCancel(dso)" [dsBtnDisabled]="(processing$ | async)">
                             <i class="fas fa-times" aria-hidden="true"></i> {{'community.delete.cancel' | translate}}
                         </button>

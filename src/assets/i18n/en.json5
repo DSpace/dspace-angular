@@ -2818,6 +2818,8 @@
 
   "item.preview.dc.date.issued": "Published date:",
 
+  "item.preview.dc.description": "Description:",
+
   "item.preview.dc.description.abstract": "Abstract:",
 
   "item.preview.dc.identifier.other": "Other identifier:",
@@ -2855,6 +2857,8 @@
   "item.preview.project.funder.name": "Funder:",
 
   "item.preview.project.funder.identifier": "Funder Identifier:",
+
+  "item.preview.project.investigator": "Project Investigator",
 
   "item.preview.oaire.awardNumber": "Funding ID:",
 
@@ -3205,6 +3209,8 @@
   "login.form.orcid": "Log in with ORCID",
 
   "login.form.password": "Password",
+
+  "login.form.saml": "Log in with SAML",
 
   "login.form.shibboleth": "Log in with Shibboleth",
 
@@ -4801,6 +4807,8 @@
   "submission.import-external.source.crossref": "Crossref",
 
   "submission.import-external.source.datacite": "DataCite",
+
+  "submission.import-external.source.dataciteProject": "DataCite",
 
   "submission.import-external.source.doi": "DOI",
 
