@@ -5,7 +5,6 @@ import {
 import {
   AsyncPipe,
   NgClass,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -44,7 +43,6 @@ import { hasValue } from '../../../shared/empty.util';
 import { AuthorityConfidenceStateDirective } from '../../../shared/form/directives/authority-confidence-state.directive';
 import { ThemedTypeBadgeComponent } from '../../../shared/object-collection/shared/badges/type-badge/themed-type-badge.component';
 import { DebounceDirective } from '../../../shared/utils/debounce.directive';
-import { VarDirective } from '../../../shared/utils/var.directive';
 import {
   DsoEditMetadataChangeType,
   DsoEditMetadataValue,
@@ -58,7 +56,7 @@ import { DsoEditMetadataValueFieldLoaderComponent } from '../dso-edit-metadata-v
   styleUrls: ['./dso-edit-metadata-value.component.scss', '../dso-edit-metadata-shared/dso-edit-metadata-cells.scss'],
   templateUrl: './dso-edit-metadata-value.component.html',
   standalone: true,
-  imports: [VarDirective, CdkDrag, NgClass, NgIf, FormsModule, DebounceDirective, RouterLink, ThemedTypeBadgeComponent, NgbTooltipModule, CdkDragHandle, AsyncPipe, TranslateModule, AuthorityConfidenceStateDirective, BtnDisabledDirective, DsoEditMetadataValueFieldLoaderComponent],
+  imports: [CdkDrag, NgClass, FormsModule, DebounceDirective, RouterLink, ThemedTypeBadgeComponent, NgbTooltipModule, CdkDragHandle, AsyncPipe, TranslateModule, AuthorityConfidenceStateDirective, BtnDisabledDirective, DsoEditMetadataValueFieldLoaderComponent],
 })
 /**
  * Component displaying a single editable row for a metadata value

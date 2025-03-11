@@ -5,7 +5,9 @@
   </div>
   <div class="modal-body">
     <div [innerHTML]="'dso-selector.create.item.intro' | translate"></div>
-    <h5 *ngIf="header" class="px-2">{{header | translate}}</h5>
+    @if (header) {
+      <h5 class="px-2">{{header | translate}}</h5>
+    }
     <ds-authorized-collection-selector [currentDSOId]="dsoRD?.payload.uuid"
                                        [entityType]="entityType"
                                        [types]="selectorTypes"

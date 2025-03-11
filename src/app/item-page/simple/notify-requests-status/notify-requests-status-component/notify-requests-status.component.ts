@@ -1,8 +1,6 @@
 import {
   AsyncPipe,
   KeyValuePipe,
-  NgForOf,
-  NgIf,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -39,8 +37,6 @@ import { RequestStatusAlertBoxComponent } from '../request-status-alert-box/requ
     RequestStatusAlertBoxComponent,
     AsyncPipe,
     KeyValuePipe,
-    NgForOf,
-    NgIf,
   ],
 })
 

@@ -15,9 +15,11 @@
               <div class="mb-3 row">
                 <label class="form-label" for="syncMode">{{ 'person.page.orcid.synchronization-mode.label'| translate }}</label>
                 <select class="form-select" [(ngModel)]="currentSyncMode" name="syncMode" id="syncMode"
-                        required>
-                  <option *ngFor="let syncMode of syncModes"
-                          [value]="syncMode.value">{{ syncMode.label | translate }}</option>
+                  required>
+                  @for (syncMode of syncModes; track syncMode) {
+                    <option
+                    [value]="syncMode.value">{{ syncMode.label | translate }}</option>
+                  }
                 </select>
               </div>
             </div>
@@ -37,13 +39,15 @@
                 </ds-alert>
               </div>
               <div class="mb-3">
-                <div *ngFor="let option of syncPublicationOptions" class="row form-check">
-                  <input type="radio" [(ngModel)]="currentSyncPublications"
-                         name="syncPublications" id="publicationOption_{{option.value}}" [value]="option.value"
-                         required>
-                  <label for="publicationOption_{{option.value}}"
-                         class="ms-2 form-label">{{option.label | translate}}</label>
-                </div>
+                @for (option of syncPublicationOptions; track option) {
+                  <div class="row form-check">
+                    <input type="radio" [(ngModel)]="currentSyncPublications"
+                      name="syncPublications" id="publicationOption_{{option.value}}" [value]="option.value"
+                      required>
+                    <label for="publicationOption_{{option.value}}"
+                    class="ms-2 form-label">{{option.label | translate}}</label>
+                  </div>
+                }
               </div>
             </div>
           </div>
@@ -60,12 +64,14 @@
                 </ds-alert>
               </div>
               <div class="mb-3">
-                <div *ngFor="let option of syncFundingOptions" class="row form-check">
-                  <input type="radio" [(ngModel)]="currentSyncFunding"
-                         name="syncFundings" id="fundingOption_{{option.value}}" [value]="option.value"
-                         required>
-                  <label for="fundingOption_{{option.value}}" class="ms-2 form-label">{{option.label | translate}}</label>
-                </div>
+                @for (option of syncFundingOptions; track option) {
+                  <div class="row form-check">
+                    <input type="radio" [(ngModel)]="currentSyncFunding"
+                      name="syncFundings" id="fundingOption_{{option.value}}" [value]="option.value"
+                      required>
+                    <label for="fundingOption_{{option.value}}" class="ms-2 form-label">{{option.label | translate}}</label>
+                  </div>
+                }
               </div>
             </div>
           </div>
@@ -82,12 +88,14 @@
                 </ds-alert>
               </div>
               <div class="mb-3">
-                <div *ngFor="let option of syncProfileOptions" class="row form-check">
-                  <input type="checkbox" [(ngModel)]="option.checked"
-                         name="syncProfile_{{option.value}}" id="profileOption_{{option.value}}"
-                         [value]="option.value">
-                  <label for="profileOption_{{option.value}}" class="ms-2 form-label">{{option.label | translate}}</label>
-                </div>
+                @for (option of syncProfileOptions; track option) {
+                  <div class="row form-check">
+                    <input type="checkbox" [(ngModel)]="option.checked"
+                      name="syncProfile_{{option.value}}" id="profileOption_{{option.value}}"
+                      [value]="option.value">
+                    <label for="profileOption_{{option.value}}" class="ms-2 form-label">{{option.label | translate}}</label>
+                  </div>
+                }
               </div>
             </div>
           </div>

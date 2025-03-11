@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -26,7 +23,7 @@ import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/the
   // templateUrl: './journal-issue.component.html',
   templateUrl: '../../../../../../../app/entity-groups/journal-entities/item-pages/journal-issue/journal-issue.component.html',
   standalone: true,
-  imports: [NgIf, ThemedResultsBackButtonComponent, ThemedItemPageTitleFieldComponent, DsoEditMenuComponent, MetadataFieldWrapperComponent, ThemedThumbnailComponent, GenericItemPageFieldComponent, RelatedItemsComponent, RouterLink, AsyncPipe, TranslateModule],
+  imports: [ ThemedResultsBackButtonComponent, ThemedItemPageTitleFieldComponent, DsoEditMenuComponent, MetadataFieldWrapperComponent, ThemedThumbnailComponent, GenericItemPageFieldComponent, RelatedItemsComponent, RouterLink, AsyncPipe, TranslateModule],
 })
 /**
  * The component for displaying metadata and relations of an item of the type Journal Issue

@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -86,11 +82,9 @@ import { DsDynamicLookupRelationSelectionTabComponent } from './selection-tab/dy
     ThemedDynamicLookupRelationExternalSourceTabComponent,
     TranslateModule,
     ThemedLoadingComponent,
-    NgIf,
     NgbNavModule,
     ThemedDynamicLookupRelationSearchTabComponent,
     AsyncPipe,
-    NgForOf,
     DsDynamicLookupRelationSelectionTabComponent,
     BtnDisabledDirective,
   ],

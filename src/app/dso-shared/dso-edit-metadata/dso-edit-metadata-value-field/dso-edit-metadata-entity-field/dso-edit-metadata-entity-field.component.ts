@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -26,7 +23,6 @@ import { AbstractDsoEditMetadataValueFieldComponent } from '../abstract-dso-edit
   imports: [
     AsyncPipe,
     FormsModule,
-    NgForOf,
     TranslateModule,
   ],
 })
