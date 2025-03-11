@@ -1,6 +1,7 @@
 import { Route } from '@angular/router';
 
 import { REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
+import { accessTokenResolver } from '../core/auth/access-token.resolver';
 import { authenticatedGuard } from '../core/auth/authenticated.guard';
 import { itemBreadcrumbResolver } from '../core/breadcrumbs/item-breadcrumb.resolver';
 import { dsoEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
@@ -21,13 +22,13 @@ import { orcidPageGuard } from './orcid-page/orcid-page.guard';
 import { ThemedItemPageComponent } from './simple/themed-item-page.component';
 import { versionResolver } from './version-page/version.resolver';
 import { VersionPageComponent } from './version-page/version-page/version-page.component';
-import { accessTokenResolver } from '../core/auth/access-token.resolver';
 
 export const ROUTES: Route[] = [
   {
     path: ':id',
     resolve: {
       dso: itemPageResolver,
+      itemRequest: accessTokenResolver,
       breadcrumb: itemBreadcrumbResolver,
     },
     runGuardsAndResolvers: 'always',

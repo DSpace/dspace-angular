@@ -8,6 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AlertComponent } from 'src/app/shared/alert/alert.component';
 import { GoogleRecaptchaComponent } from 'src/app/shared/google-recaptcha/google-recaptcha.component';
 
+import { AltchaCaptchaComponent } from '../../../../app/item-page/bitstreams/request-a-copy/altcha-captcha.component';
 import { RegisterEmailFormComponent as BaseComponent } from '../../../../app/register-email-form/register-email-form.component';
 import { BtnDisabledDirective } from '../../../../app/shared/btn-disabled.directive';
 

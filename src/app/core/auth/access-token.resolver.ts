@@ -17,6 +17,15 @@ import {
 } from '../shared/operators';
 import { AuthService } from './auth.service';
 
+/**
+ * Resolve an ItemRequest based on the accessToken in the query params
+ * Used in item-page-routes.ts to resolve the item request for all Item page components
+ * @param route
+ * @param state
+ * @param router
+ * @param authService
+ * @param itemRequestDataService
+ */
 export const accessTokenResolver: ResolveFn<ItemRequest> = (
   route,
   state,
@@ -25,21 +34,23 @@ export const accessTokenResolver: ResolveFn<ItemRequest> = (
   itemRequestDataService: ItemRequestDataService = inject(ItemRequestDataService),
 ): Observable<ItemRequest> => {
   const accessToken = route.queryParams.accessToken;
+  // Set null object if accesstoken is empty
   if ( !hasValue(accessToken) ) {
     return null;
   }
-  // Get
+  // Get the item request from the server
   return itemRequestDataService.getSanitizedRequestByAccessToken(accessToken).pipe(
     getFirstCompletedRemoteData(),
+    // Handle authorization errors, not found errors and forbidden errors as normal
     redirectOn4xx(router, authService),
+    // Get payload of the item request
     getFirstSucceededRemoteDataPayload(),
     tap(request => {
       if (!hasValue(request)) {
-        console.dir('no request found for access token', accessToken);
+        // If the request is not found, redirect to 403 Forbidden
         router.navigateByUrl(getForbiddenRoute());
       }
-      console.dir('found request: ', request);
-      console.dir(request);
+      // Return the resolved item request object
       return request;
     }),
   );
