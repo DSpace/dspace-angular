@@ -21,6 +21,7 @@ import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { Item } from '../../../../core/shared/item.model';
+import { ItemWithSupplementaryData } from '../../../../core/shared/item-with-supplementary-data.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { hasValue } from '../../../../shared/empty.util';
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
@@ -30,6 +31,7 @@ import { NotificationsService } from '../../../../shared/notifications/notificat
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
 import { VarDirective } from '../../../../shared/utils/var.directive';
+import { ItemSecureFileDownloadLinkComponent } from '../../../access-by-token/field-components/file-download-link/item-secure-file-download-link.component';
 
 /**
  * This component renders the file section of the item
@@ -46,6 +48,7 @@ import { VarDirective } from '../../../../shared/utils/var.directive';
     TranslateModule,
     FileSizePipe,
     VarDirective,
+    ItemSecureFileDownloadLinkComponent,
   ],
   standalone: true,
 })
@@ -122,5 +125,9 @@ export class FileSectionComponent implements OnInit {
         this.isLastPage = this.currentPage === bitstreamsRD.payload.totalPages;
       }
     });
+  }
+
+  hasAccessToken(): boolean {
+    return (this.item instanceof ItemWithSupplementaryData && hasValue(this.item.itemRequest));
   }
 }

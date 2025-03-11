@@ -39,10 +39,15 @@ import {
 } from '../../core/services/link-head.service';
 import { ServerResponseService } from '../../core/services/server-response.service';
 import { Item } from '../../core/shared/item.model';
+import { ItemRequest } from '../../core/shared/item-request.model';
+import { ItemWithSupplementaryData } from '../../core/shared/item-with-supplementary-data.model';
 import { getAllSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { fadeInOut } from '../../shared/animations/fade';
-import { isNotEmpty } from '../../shared/empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
@@ -94,6 +99,8 @@ export class ItemPageComponent implements OnInit, OnDestroy {
    */
   itemRD$: Observable<RemoteData<Item>>;
 
+  item$: Observable<Item>;
+
   /**
    * The view-mode we're currently on
    */
@@ -123,6 +130,8 @@ export class ItemPageComponent implements OnInit, OnDestroy {
 
   coarRestApiUrls: string[] = [];
 
+  protected readonly hasValue = hasValue;
+
   constructor(
     protected route: ActivatedRoute,
     protected router: Router,
@@ -141,8 +150,20 @@ export class ItemPageComponent implements OnInit, OnDestroy {
    * Initialize instance variables
    */
   ngOnInit(): void {
+    // Get item request
     this.itemRD$ = this.route.data.pipe(
-      map((data) => data.dso as RemoteData<Item>),
+      map((data) => {
+        const itemRD = data.dso;
+        // If the item has a valid itemRequest, add it to the item and set the itemRD payload to the
+        // modified ItemWithSupplementaryData object
+        if (hasValue(data.itemRequest)) {
+          const itemRequest = data.itemRequest;
+          itemRD.payload = Object.assign(new ItemWithSupplementaryData(itemRequest), itemRD.payload);
+        }
+        // Return itemRD
+        return itemRD;
+      },
+      ),
     );
     this.itemPageRoute$ = this.itemRD$.pipe(
       getAllSucceededRemoteDataPayload(),
@@ -236,6 +257,30 @@ export class ItemPageComponent implements OnInit, OnDestroy {
     return links;
   }
 
+  /**
+   * Helper function to return the item request from an item for use in templates
+   * @param item
+   */
+  getAccessByToken(item): ItemRequest {
+    if (item instanceof ItemWithSupplementaryData) {
+      return item.itemRequest;
+    }
+    return null;
+  }
+
+  /**
+   * Helper function to return the expiry date from an item request for use in templates, alerts, etc.
+   * @param itemRequest
+   */
+  getAccessPeriodEndDate(itemRequest): Date {
+    // Set expiry, if not 0
+    if (hasValue(itemRequest) && itemRequest.accessPeriod > 0) {
+      const date = new Date(itemRequest.decisionDate);
+      date.setUTCSeconds(date.getUTCSeconds() + itemRequest.accessPeriod);
+      return date;
+    }
+  }
+
   ngOnDestroy(): void {
     this.signpostingLinks.forEach((link: SignpostingLink) => {
       this.linkHeadService.removeTag(`href='${link.href}'`);
@@ -244,4 +289,5 @@ export class ItemPageComponent implements OnInit, OnDestroy {
       this.linkHeadService.removeTag(`href='${link.href}'`);
     });
   }
+
 }

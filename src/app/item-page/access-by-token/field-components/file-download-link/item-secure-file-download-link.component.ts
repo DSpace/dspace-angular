@@ -23,11 +23,13 @@ import {
   getBitstreamDownloadWithAccessTokenRoute,
   getBitstreamRequestACopyRoute,
 } from '../../../../app-routing-paths';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { Item } from '../../../../core/shared/item.model';
 import { ItemRequest } from '../../../../core/shared/item-request.model';
+import { ItemWithSupplementaryData } from '../../../../core/shared/item-with-supplementary-data.model';
 import {
   hasValue,
   isNotEmpty,
@@ -54,6 +56,9 @@ export class ItemSecureFileDownloadLinkComponent implements OnInit {
    */
   @Input() bitstream: Bitstream;
 
+  /**
+   * Item that owns the linked bitstream
+   */
   @Input() item: Item;
 
   /**
@@ -66,15 +71,14 @@ export class ItemSecureFileDownloadLinkComponent implements OnInit {
    */
   @Input() isBlank = false;
 
-  @Input() itemRequest: ItemRequest;
-
   @Input() enableRequestACopy = true;
 
   bitstreamPath$: Observable<{
     routerLink: string,
     queryParams: any,
   }>;
-
+  // ItemRequest object with access token, expiry, etc.
+  itemRequest: ItemRequest;
   // authorized to download normally
   canDownload$: Observable<boolean>;
   // authorized to download with token
@@ -84,6 +88,7 @@ export class ItemSecureFileDownloadLinkComponent implements OnInit {
 
   constructor(
     private authorizationService: AuthorizationDataService,
+    protected dsoNameService: DSONameService,
   ) {
   }
 
@@ -92,6 +97,9 @@ export class ItemSecureFileDownloadLinkComponent implements OnInit {
    * (for a given bitstream), and ability to request a copy of a bitstream.
    */
   ngOnInit() {
+    if (this.item instanceof ItemWithSupplementaryData) {
+      this.itemRequest = this.item.itemRequest;
+    }
     this.canDownload$ = this.authorizationService.isAuthorized(FeatureID.CanDownload, isNotEmpty(this.bitstream) ? this.bitstream.self : undefined);
     this.canDownloadWithToken$ = observableOf(this.itemRequest ? (this.itemRequest.allfiles !== false || this.itemRequest.bitstreamId === this.bitstream.uuid) : false);
     this.canRequestACopy$ = this.authorizationService.isAuthorized(FeatureID.CanRequestACopy, isNotEmpty(this.bitstream) ? this.bitstream.self : undefined);
