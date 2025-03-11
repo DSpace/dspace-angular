@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgIf,
   NgTemplateOutlet,
 } from '@angular/common';
 import {
@@ -37,7 +36,7 @@ import {
   templateUrl: './file-download-link.component.html',
   styleUrls: ['./file-download-link.component.scss'],
   standalone: true,
-  imports: [RouterLink, NgClass, NgIf, NgTemplateOutlet, AsyncPipe, TranslateModule],
+  imports: [RouterLink, NgClass, NgTemplateOutlet, AsyncPipe, TranslateModule],
 })
 /**
  * Component displaying a download link

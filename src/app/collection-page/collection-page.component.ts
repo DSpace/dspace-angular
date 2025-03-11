@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -65,7 +62,6 @@ import { getCollectionPageRoute } from './collection-page-routing-paths';
   imports: [
     ThemedComcolPageContentComponent,
     ErrorComponent,
-    NgIf,
     ThemedLoadingComponent,
     TranslateModule,
     ViewTrackerComponent,

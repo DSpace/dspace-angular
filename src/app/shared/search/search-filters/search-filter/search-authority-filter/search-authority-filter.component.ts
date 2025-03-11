@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgFor,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -24,7 +20,7 @@ import { SearchFacetSelectedOptionComponent } from '../search-facet-filter-optio
   templateUrl: './search-authority-filter.component.html',
   animations: [facetLoad],
   standalone: true,
-  imports: [NgFor, SearchFacetSelectedOptionComponent, SearchFacetOptionComponent, NgIf, FilterInputSuggestionsComponent, FormsModule, AsyncPipe, TranslateModule],
+  imports: [SearchFacetSelectedOptionComponent, SearchFacetOptionComponent, FilterInputSuggestionsComponent, FormsModule, AsyncPipe, TranslateModule],
 })
 
 /**

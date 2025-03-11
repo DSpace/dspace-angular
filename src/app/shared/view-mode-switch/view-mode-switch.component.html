@@ -1,38 +1,44 @@
 <div class="btn-group" data-toggle="buttons">
-    <button *ngIf="isToShow(viewModeEnum.ListElement)"
-            [attr.aria-current]="currentMode === viewModeEnum.ListElement"
-            [attr.aria-label]="'search.view-switch.show-list' | translate"
-       routerLink="."
-       [queryParams]="{view: 'list'}"
-       queryParamsHandling="merge"
-       (click)="switchViewTo(viewModeEnum.ListElement)"
-       [class.active]="currentMode === viewModeEnum.ListElement"
-       class="btn btn-secondary"
-       [attr.data-test]="'list-view' | dsBrowserOnly">
-       <i class="fas fa-list"></i>
+  @if (isToShow(viewModeEnum.ListElement)) {
+    <button
+      [attr.aria-current]="currentMode === viewModeEnum.ListElement"
+      [attr.aria-label]="'search.view-switch.show-list' | translate"
+      routerLink="."
+      [queryParams]="{view: 'list'}"
+      queryParamsHandling="merge"
+      (click)="switchViewTo(viewModeEnum.ListElement)"
+      [class.active]="currentMode === viewModeEnum.ListElement"
+      class="btn btn-secondary"
+      [attr.data-test]="'list-view' | dsBrowserOnly">
+      <i class="fas fa-list"></i>
     </button>
-    <button *ngIf="isToShow(viewModeEnum.GridElement)"
-            [attr.aria-current]="currentMode === viewModeEnum.GridElement"
-            [attr.aria-label]="'search.view-switch.show-grid' | translate"
-       routerLink="."
-       [queryParams]="{view: 'grid'}"
-       queryParamsHandling="merge"
-       (click)="switchViewTo(viewModeEnum.GridElement)"
-       [class.active]="currentMode === viewModeEnum.GridElement"
-       class="btn btn-secondary"
-       [attr.data-test]="'grid-view' | dsBrowserOnly">
-       <i class="fas fa-th-large"></i>
+  }
+  @if (isToShow(viewModeEnum.GridElement)) {
+    <button
+      [attr.aria-current]="currentMode === viewModeEnum.GridElement"
+      [attr.aria-label]="'search.view-switch.show-grid' | translate"
+      routerLink="."
+      [queryParams]="{view: 'grid'}"
+      queryParamsHandling="merge"
+      (click)="switchViewTo(viewModeEnum.GridElement)"
+      [class.active]="currentMode === viewModeEnum.GridElement"
+      class="btn btn-secondary"
+      [attr.data-test]="'grid-view' | dsBrowserOnly">
+      <i class="fas fa-th-large"></i>
     </button>
-    <button *ngIf="isToShow(viewModeEnum.DetailedListElement)"
-          [attr.aria-current]="currentMode === viewModeEnum.DetailedListElement"
-          [attr.aria-label]="'search.view-switch.show-detail' | translate"
-       routerLink="."
-       [queryParams]="{view: 'detailed'}"
-       queryParamsHandling="merge"
-       (click)="switchViewTo(viewModeEnum.DetailedListElement)"
-       [class.active]="currentMode === viewModeEnum.DetailedListElement"
-       class="btn btn-secondary"
-       [attr.data-test]="'detail-view' | dsBrowserOnly">
+  }
+  @if (isToShow(viewModeEnum.DetailedListElement)) {
+    <button
+      [attr.aria-current]="currentMode === viewModeEnum.DetailedListElement"
+      [attr.aria-label]="'search.view-switch.show-detail' | translate"
+      routerLink="."
+      [queryParams]="{view: 'detailed'}"
+      queryParamsHandling="merge"
+      (click)="switchViewTo(viewModeEnum.DetailedListElement)"
+      [class.active]="currentMode === viewModeEnum.DetailedListElement"
+      class="btn btn-secondary"
+      [attr.data-test]="'detail-view' | dsBrowserOnly">
       <i class="far fa-square"></i>
     </button>
+  }
 </div>
