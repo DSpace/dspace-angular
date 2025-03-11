@@ -13,6 +13,10 @@ import {
   switchMap,
   tap,
 } from 'rxjs/operators';
+import { ConfigurationDataService } from 'src/app/core/data/configuration-data.service';
+import { RemoteData } from 'src/app/core/data/remote-data';
+import { ConfigurationProperty } from 'src/app/core/shared/configuration-property.model';
+import { getFirstCompletedRemoteData } from 'src/app/core/shared/operators';
 
 import {
   AuthActionTypes,
@@ -72,14 +76,23 @@ export class SuggestionTargetsEffects {
   ), { dispatch: false });
 
   /**
-   * Show a notification on error.
+   * Retrieve the current user suggestions after retrieving the authenticated user
    */
   retrieveUserTargets$ = createEffect(() => this.actions$.pipe(
     ofType(AuthActionTypes.RETRIEVE_AUTHENTICATED_EPERSON_SUCCESS),
     switchMap((action: RetrieveAuthenticatedEpersonSuccessAction) => {
-      return this.suggestionsService.retrieveCurrentUserSuggestions(action.payload).pipe(
-        map((suggestionTargets: SuggestionTarget[]) => new AddUserSuggestionsAction(suggestionTargets)),
-      );
+      return this.configurationService.findByPropertyName('researcher-profile.entity-type').pipe(
+        getFirstCompletedRemoteData(),
+        switchMap((configRD: RemoteData<ConfigurationProperty> ) => {
+          if (configRD.hasSucceeded && configRD.payload.values.length > 0) {
+            return this.suggestionsService.retrieveCurrentUserSuggestions(action.payload).pipe(
+              map((suggestionTargets: SuggestionTarget[]) => new AddUserSuggestionsAction(suggestionTargets)),
+            );
+          } else {
+            return of(new AddUserSuggestionsAction([]));
+          }
+        },
+        ));
     })));
 
   /**
@@ -91,16 +104,35 @@ export class SuggestionTargetsEffects {
       return this.store$.select((state: any) => state.core.auth.userId)
         .pipe(
           switchMap((userId: string) => {
-            return this.suggestionsService.retrieveCurrentUserSuggestions(userId)
-              .pipe(
-                map((suggestionTargets: SuggestionTarget[]) => new AddUserSuggestionsAction(suggestionTargets)),
-                catchError((error: unknown) => {
-                  if (error instanceof Error) {
-                    console.error(error.message);
-                  }
-                  return of(new RefreshUserSuggestionsErrorAction());
-                }),
-              );
+            if (!userId) {
+              return of(new AddUserSuggestionsAction([]));
+            }
+            return this.configurationService.findByPropertyName('researcher-profile.entity-type').pipe(
+              getFirstCompletedRemoteData(),
+              switchMap((configRD: RemoteData<ConfigurationProperty> ) => {
+                if (configRD.hasSucceeded && configRD.payload.values.length > 0) {
+                  return this.suggestionsService.retrieveCurrentUserSuggestions(userId)
+                    .pipe(
+                      map((suggestionTargets: SuggestionTarget[]) => new AddUserSuggestionsAction(suggestionTargets)),
+                      catchError((error: unknown) => {
+                        if (error instanceof Error) {
+                          console.error(error.message);
+                        }
+                        return of(new RefreshUserSuggestionsErrorAction());
+                      }),
+                    );
+                } else {
+                  return of(new AddUserSuggestionsAction([]));
+                }
+              },
+              ),
+              catchError((error: unknown) => {
+                if (error instanceof Error) {
+                  console.error(error.message);
+                }
+                return of(new RefreshUserSuggestionsErrorAction());
+              }),
+            );
           }),
           catchError((error: unknown) => {
             if (error instanceof Error) {
@@ -119,6 +151,7 @@ export class SuggestionTargetsEffects {
    * @param {TranslateService} translate
    * @param {NotificationsService} notificationsService
    * @param {SuggestionsService} suggestionsService
+   * @param {ConfigurationDataService} configurationService
    */
   constructor(
     private actions$: Actions,
@@ -126,6 +159,7 @@ export class SuggestionTargetsEffects {
     private translate: TranslateService,
     private notificationsService: NotificationsService,
     private suggestionsService: SuggestionsService,
+    private configurationService: ConfigurationDataService,
   ) {
   }
 }

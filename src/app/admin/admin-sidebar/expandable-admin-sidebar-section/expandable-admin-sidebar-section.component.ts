@@ -2,8 +2,6 @@ import {
   AsyncPipe,
   NgClass,
   NgComponentOutlet,
-  NgFor,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -25,6 +23,7 @@ import { slide } from '../../../shared/animations/slide';
 import { MenuService } from '../../../shared/menu/menu.service';
 import { MenuID } from '../../../shared/menu/menu-id.model';
 import { CSSVariableService } from '../../../shared/sass-helper/css-variable.service';
+import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 import { AdminSidebarSectionComponent } from '../admin-sidebar-section/admin-sidebar-section.component';
 
 /**
@@ -36,7 +35,7 @@ import { AdminSidebarSectionComponent } from '../admin-sidebar-section/admin-sid
   styleUrls: ['./expandable-admin-sidebar-section.component.scss'],
   animations: [rotate, slide, bgColor],
   standalone: true,
-  imports: [NgClass, NgComponentOutlet, NgIf, NgFor, AsyncPipe, TranslateModule],
+  imports: [NgClass, NgComponentOutlet, AsyncPipe, TranslateModule, BrowserOnlyPipe],
 })
 
 export class ExpandableAdminSidebarSectionComponent extends AdminSidebarSectionComponent implements OnInit {
@@ -84,7 +83,7 @@ export class ExpandableAdminSidebarSectionComponent extends AdminSidebarSectionC
     this.sidebarActiveBg$ = this.variableService.getVariable('--ds-admin-sidebar-active-bg');
     this.isSidebarCollapsed$ = this.menuService.isMenuCollapsed(this.menuID);
     this.isSidebarPreviewCollapsed$ = this.menuService.isMenuPreviewCollapsed(this.menuID);
-    this.isExpanded$ = combineLatestObservable([this.active, this.isSidebarCollapsed$, this.isSidebarPreviewCollapsed$]).pipe(
+    this.isExpanded$ = combineLatestObservable([this.active$, this.isSidebarCollapsed$, this.isSidebarPreviewCollapsed$]).pipe(
       map(([active, sidebarCollapsed, sidebarPreviewCollapsed]) => (active && (!sidebarCollapsed || !sidebarPreviewCollapsed))),
     );
   }

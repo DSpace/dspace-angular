@@ -1,7 +1,4 @@
-import {
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+
 import {
   Component,
   Input,
@@ -12,6 +9,7 @@ import { Bitstream } from 'src/app/core/shared/bitstream.model';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { CaptionInfo } from './caption-info';
 import { languageHelper } from './language-helper';
 
@@ -23,10 +21,9 @@ import { languageHelper } from './language-helper';
   templateUrl: './media-viewer-video.component.html',
   styleUrls: ['./media-viewer-video.component.scss'],
   imports: [
-    NgForOf,
     NgbDropdownModule,
     TranslateModule,
-    NgIf,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgIf,
   NgStyle,
 } from '@angular/common';
 import {
@@ -34,7 +33,7 @@ import {
   selector: 'ds-item-page-cc-license-field',
   templateUrl: './item-page-cc-license-field.component.html',
   standalone: true,
-  imports: [AsyncPipe, NgIf, NgClass, NgStyle, TranslateModule, MetadataFieldWrapperComponent],
+  imports: [AsyncPipe, NgClass, NgStyle, TranslateModule, MetadataFieldWrapperComponent],
 })
 /**
  * Displays the item's Creative Commons license image in it's simple item page

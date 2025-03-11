@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -43,6 +40,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { RequestService } from '../../core/data/request.service';
 import { SystemWideAlertDataService } from '../../core/data/system-wide-alert-data.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import {
   hasValue,
   isNotEmpty,
@@ -59,7 +57,7 @@ import { SystemWideAlert } from '../system-wide-alert.model';
   styleUrls: ['./system-wide-alert-form.component.scss'],
   templateUrl: './system-wide-alert-form.component.html',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, UiSwitchModule, NgIf, NgbDatepickerModule, NgbTimepickerModule, AsyncPipe, TranslateModule],
+  imports: [FormsModule, ReactiveFormsModule, UiSwitchModule, NgbDatepickerModule, NgbTimepickerModule, AsyncPipe, TranslateModule, BtnDisabledDirective],
 })
 export class SystemWideAlertFormComponent implements OnInit {
 
@@ -277,7 +275,7 @@ export class SystemWideAlertFormComponent implements OnInit {
           this.back();
         }
       } else {
-        this.notificationsService.error(this.translateService.get(`${messagePrefix}.error`, response.errorMessage));
+        this.notificationsService.error(this.translateService.get(`${messagePrefix}.error`));
       }
     });
   }

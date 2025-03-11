@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgFor,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -76,7 +72,7 @@ export interface CollectionListEntry {
   templateUrl: './collection-dropdown.component.html',
   styleUrls: ['./collection-dropdown.component.scss'],
   standalone: true,
-  imports: [NgIf, FormsModule, ReactiveFormsModule, InfiniteScrollModule, NgFor, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [FormsModule, ReactiveFormsModule, InfiniteScrollModule, ThemedLoadingComponent, AsyncPipe, TranslateModule],
 })
 export class CollectionDropdownComponent implements OnInit, OnDestroy {
 

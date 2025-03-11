@@ -1,19 +1,29 @@
-<ds-loading *ngIf="(processingConnection | async)" [message]="'person.page.orcid.link.processing' | translate"></ds-loading>
-<div class="container" *ngIf="(processingConnection | async) !== true && (connectionStatus | async) !== true" data-test="error-box">
-  <ds-alert [type]="AlertType.Error">{{'person.page.orcid.link.error.message' | translate}}</ds-alert>
-</div>
-<ng-container *ngIf="(processingConnection | async) !== true && (item | async) && (connectionStatus | async)" >
+@if ((processingConnection | async)) {
+  <ds-loading [message]="'person.page.orcid.link.processing' | translate"></ds-loading>
+}
+@if ((processingConnection | async) !== true && (connectionStatus | async) !== true) {
+  <div class="container" data-test="error-box">
+    <ds-alert [type]="AlertType.Error">{{'person.page.orcid.link.error.message' | translate}}</ds-alert>
+  </div>
+}
+@if ((processingConnection | async) !== true && (item | async) && (connectionStatus | async)) {
   <ds-orcid-auth [item]="(item | async)" (unlink)="updateItem()" data-test="orcid-auth"></ds-orcid-auth>
-  <ds-orcid-sync-setting *ngIf="isLinkedToOrcid()" [item]="(item | async)" (settingsUpdated)="updateItem()" data-test="orcid-sync-setting"></ds-orcid-sync-setting>
-  <ds-orcid-queue *ngIf="isLinkedToOrcid()" [item]="(item | async)"></ds-orcid-queue>
-</ng-container>
+  @if (isLinkedToOrcid()) {
+    <ds-orcid-sync-setting [item]="(item | async)" (settingsUpdated)="updateItem()" data-test="orcid-sync-setting"></ds-orcid-sync-setting>
+  }
+  @if (isLinkedToOrcid()) {
+    <ds-orcid-queue [item]="(item | async)"></ds-orcid-queue>
+  }
+}
 
-<div *ngIf="(processingConnection | async) !== true && (item | async)" class="container">
-  <div class="button-row bottom mb-3">
-    <div class="text-right">
-      <a [routerLink]="getItemPage()" role="button" class="btn btn-outline-secondary" data-test="back-button">
-        <i class="fas fa-arrow-left"></i> {{'item.orcid.return' | translate}}
-      </a>
+@if ((processingConnection | async) !== true && (item | async)) {
+  <div class="container">
+    <div class="button-row bottom mb-3">
+      <div class="text-end">
+        <a [routerLink]="getItemPage()" role="button" class="btn btn-outline-secondary" data-test="back-button">
+          <i class="fas fa-arrow-left"></i> {{'item.orcid.return' | translate}}
+        </a>
+      </div>
     </div>
   </div>
-</div>
+}

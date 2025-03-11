@@ -1,0 +1,23 @@
+.dropdown-item {
+  padding: 0.35rem 1rem;
+
+  &:active {
+    color: white !important;
+  }
+}
+
+.scrollable-menu {
+  height: auto;
+  max-height: var(--ds-dropdown-menu-max-height);
+  overflow-x: hidden;
+}
+
+li:not(:last-of-type) .dropdown-item {
+  border-bottom: var(--bs-dropdown-border-width) solid var(--bs-dropdown-border-color);
+}
+
+#entityControlsDropdownMenu {
+  outline: 0;
+  left: 0 !important;
+  box-shadow: var(--bs-btn-focus-box-shadow);
+}

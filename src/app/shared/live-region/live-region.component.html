@@ -1,3 +1,5 @@
 <div class="live-region" [ngClass]="{'visually-hidden': !isVisible }" aria-live="assertive" role="log" aria-relevant="additions" aria-atomic="true">
-  <div class="live-region-message" *ngFor="let message of (messages$ | async)">{{ message }}</div>
+  @for (message of (messages$ | async); track message) {
+    <div class="live-region-message">{{ message }}</div>
+  }
 </div>

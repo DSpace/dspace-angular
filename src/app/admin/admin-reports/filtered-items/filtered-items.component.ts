@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -38,13 +34,16 @@ import { MetadataField } from 'src/app/core/metadata/metadata-field.model';
 import { MetadataSchema } from 'src/app/core/metadata/metadata-schema.model';
 import { Collection } from 'src/app/core/shared/collection.model';
 import { Community } from 'src/app/core/shared/community.model';
-import { Item } from 'src/app/core/shared/item.model';
 import { getFirstSucceededRemoteListPayload } from 'src/app/core/shared/operators';
 import { isEmpty } from 'src/app/shared/empty.util';
 import { environment } from 'src/environments/environment';
 
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { FiltersComponent } from '../filters-section/filters-section.component';
-import { FilteredItems } from './filtered-items-model';
+import {
+  FilteredItem,
+  FilteredItems,
+} from './filtered-items-model';
 import { OptionVO } from './option-vo.model';
 import { PresetQuery } from './preset-query.model';
 import { QueryPredicate } from './query-predicate.model';
@@ -61,9 +60,8 @@ import { QueryPredicate } from './query-predicate.model';
     NgbAccordionModule,
     TranslateModule,
     AsyncPipe,
-    NgIf,
-    NgForOf,
     FiltersComponent,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })
@@ -79,7 +77,7 @@ export class FilteredItemsComponent implements OnInit {
   queryForm: FormGroup;
   currentPage = 0;
   results: FilteredItems = new FilteredItems();
-  results$: Observable<Item[]>;
+  results$: Observable<FilteredItem[]>;
   @ViewChild('acc') accordionComponent: NgbAccordion;
 
   constructor(

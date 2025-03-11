@@ -1,15 +1,15 @@
 <div class="d-flex">
-    <span class="mr-auto text-contents">
-        <ng-container *ngIf="(metadataRepresentation$ | async) === undefined">
-            <ds-loading [showMessage]="false"></ds-loading>
-        </ng-container>
-        <ng-container *ngIf="(metadataRepresentation$ | async)">
-            <ds-metadata-representation-loader [mdRepresentation]="metadataRepresentation$ | async"></ds-metadata-representation-loader>
-        </ng-container>
-    </span>
-    <button type="button" class="btn btn-secondary"
-            title="{{'form.remove' | translate}}"
-            (click)="removeSelection()">
-        <i class="fas fa-trash" aria-hidden="true"></i>
-    </button>
+  <span class="me-auto text-contents">
+    @if ((metadataRepresentation$ | async) === undefined) {
+      <ds-loading [showMessage]="false"></ds-loading>
+    }
+    @if ((metadataRepresentation$ | async)) {
+      <ds-metadata-representation-loader [mdRepresentation]="metadataRepresentation$ | async"></ds-metadata-representation-loader>
+    }
+  </span>
+  <button type="button" class="btn btn-secondary"
+    title="{{'form.remove' | translate}}"
+    (click)="removeSelection()">
+    <i class="fas fa-trash" aria-hidden="true"></i>
+  </button>
 </div>

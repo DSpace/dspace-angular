@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -39,6 +36,7 @@ import {
   map,
 } from 'rxjs/operators';
 
+import { BtnDisabledDirective } from '../btn-disabled.directive';
 import {
   hasValue,
   isNotEmpty,
@@ -67,8 +65,8 @@ import { FormService } from './form.service';
     ReactiveFormsModule,
     TranslateModule,
     DynamicFormsCoreModule,
-    NgIf,
     AsyncPipe,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

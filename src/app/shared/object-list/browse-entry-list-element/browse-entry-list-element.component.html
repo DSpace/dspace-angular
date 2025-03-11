@@ -1,10 +1,14 @@
 <div class="d-flex flex-row">
-    <a *ngIf="linkType !== linkTypes.None" [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="[]" [queryParams]="queryParams$ | async" [queryParamsHandling]="'merge'" class="lead">
-        {{object.value}}
+  @if (linkType !== linkTypes.None) {
+    <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="[]" [queryParams]="queryParams$ | async" [queryParamsHandling]="'merge'" class="lead">
+      {{object.value}}
     </a>
-    <span *ngIf="linkType === linkTypes.None" class="lead">
-        {{object.value}}
+  }
+  @if (linkType === linkTypes.None) {
+    <span class="lead">
+      {{object.value}}
     </span>
-    <span class="pr-2">&nbsp;</span>
-    <span class="badge badge-pill badge-secondary align-self-center">{{object.count}}</span>
+  }
+  <span class="pe-2">&nbsp;</span>
+  <span class="badge rounded-pill bg-secondary align-self-center ps-2 pe-2">{{object.count}}</span>
 </div>

@@ -1,6 +1,8 @@
-<ds-results-back-button *ngIf="showBackButton$ | async" [back]="back"></ds-results-back-button>
+@if (showBackButton$ | async) {
+  <ds-results-back-button [back]="back"></ds-results-back-button>
+}
 <div class="d-flex flex-row">
-  <ds-item-page-title-field [item]="object" class="mr-auto">
+  <ds-item-page-title-field [item]="object" class="me-auto">
   </ds-item-page-title-field>
   <ds-dso-edit-menu></ds-dso-edit-menu>
 </div>
@@ -38,7 +40,7 @@
       </a>
     </div>
   </div>
-  <div class="mt-5 w-100">
+  <div class="mt-5 w-100 px-0">
     <ds-tabbed-related-entities-search  [item]="object"
                                         [relationTypes]="[{
                                           label: 'isJournalOfPublication',

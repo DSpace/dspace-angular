@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -27,7 +24,7 @@ import { AbstractListableElementComponent } from '../../object-collection/shared
   styleUrls: ['./browse-entry-list-element.component.scss'],
   templateUrl: './browse-entry-list-element.component.html',
   standalone: true,
-  imports: [NgIf, RouterLink, AsyncPipe],
+  imports: [RouterLink, AsyncPipe],
 })
 
 /**
