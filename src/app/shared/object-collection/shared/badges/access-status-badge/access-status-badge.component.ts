@@ -135,14 +135,19 @@ export class AccessStatusBadgeComponent implements OnDestroy, OnInit {
       getFirstSucceededRemoteDataPayload(),
       map((accessStatus: AccessStatusObject) => {
         if (hasValue(accessStatus.embargoDate)) {
-          this.accessStatus$ = observableOf('embargo.listelement.badge');
           return accessStatus.embargoDate;
         } else {
-          this.accessStatus$ = observableOf(null);
           return null;
         }
       }),
       catchError(() => observableOf(null)),
+    );
+    this.subs.push(
+      this.embargoDate$.pipe().subscribe((embargoDate: string) => {
+        if (hasValue(embargoDate)) {
+          this.accessStatus$ = observableOf('embargo.listelement.badge');
+        }
+      }),
     );
   }
 }
