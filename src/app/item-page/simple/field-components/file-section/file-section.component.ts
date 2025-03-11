@@ -28,8 +28,8 @@ import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loadin
 import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
-import { VarDirective } from '../../../../shared/utils/var.directive';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
+import { VarDirective } from '../../../../shared/utils/var.directive';
 
 /**
  * This component renders the file section of the item
