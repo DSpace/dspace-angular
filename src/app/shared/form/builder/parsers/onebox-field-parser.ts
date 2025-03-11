@@ -29,7 +29,7 @@ export class OneboxFieldParser extends FieldParser {
       // Case Qualdrop Model
       const clsGroup = {
         element: {
-          control: 'form-row',
+          control: 'row',
           hint: 'ds-form-qualdrop-hint',
         },
       };
@@ -39,7 +39,7 @@ export class OneboxFieldParser extends FieldParser {
           control: 'ds-form-input-addon custom-select',
         },
         grid: {
-          host: 'col-sm-4 pr-0',
+          host: 'col-sm-4 pe-0',
         },
       };
 
@@ -48,7 +48,7 @@ export class OneboxFieldParser extends FieldParser {
           control: 'ds-form-input-value',
         },
         grid: {
-          host: 'col-sm-8 pl-0',
+          host: 'col-sm-8 ps-0',
         },
       };
 

@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   EventEmitter,
@@ -35,7 +35,6 @@ import { getBitstreamFormatsModuleRoute } from '../../admin-registries-routing-p
   templateUrl: './format-form.component.html',
   imports: [
     FormComponent,
-    NgIf,
   ],
   standalone: true,
 })
@@ -64,7 +63,7 @@ export class FormatFormComponent implements OnInit {
    */
   arrayElementLayout: DynamicFormControlLayout = {
     grid: {
-      group: 'form-row',
+      group: 'row',
     },
   };
 

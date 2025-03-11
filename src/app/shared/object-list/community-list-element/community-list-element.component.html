@@ -1,13 +1,21 @@
 <div class="d-flex flex-row">
-  <a *ngIf="linkType !== linkTypes.None" [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="['/communities/' + object.id]" class="lead">
-    {{ dsoNameService.getName(object) }}
-  </a>
-  <span *ngIf="linkType === linkTypes.None" class="lead">
-    {{ dsoNameService.getName(object) }}
-  </span>
-  <span class="pr-2">&nbsp;</span>
-  <span *ngIf="object.archivedItemsCount >= 0" class="badge badge-pill badge-secondary align-self-center archived-items-lead">{{object.archivedItemsCount}}</span>
+  @if (linkType !== linkTypes.None) {
+    <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="['/communities/' + object.id]" class="lead">
+      {{ dsoNameService.getName(object) }}
+    </a>
+  }
+  @if (linkType === linkTypes.None) {
+    <span class="lead">
+      {{ dsoNameService.getName(object) }}
+    </span>
+  }
+  <span class="pe-2">&nbsp;</span>
+  @if (object.archivedItemsCount >= 0) {
+    <span class="badge rounded-pill bg-secondary align-self-center archived-items-lead ps-2 pe-2">{{object.archivedItemsCount}}</span>
+  }
 </div>
-<div *ngIf="object.shortDescription" class="text-muted abstract-text">
+@if (object.shortDescription) {
+  <div class="text-muted abstract-text">
     {{object.shortDescription}}
-</div>
+  </div>
+}

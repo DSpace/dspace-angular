@@ -11,6 +11,7 @@ export const AUTH_METHOD_FOR_DECORATOR_MAP = new Map<AuthMethodType, AuthMethodT
   [AuthMethodType.Shibboleth, LogInExternalProviderComponent],
   [AuthMethodType.Oidc, LogInExternalProviderComponent],
   [AuthMethodType.Orcid, LogInExternalProviderComponent],
+  [AuthMethodType.Saml, LogInExternalProviderComponent],
 ]);
 
 /**

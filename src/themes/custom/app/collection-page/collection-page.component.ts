@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -41,7 +38,6 @@ import { ViewTrackerComponent } from '../../../../app/statistics/angulartics/dsp
   imports: [
     ThemedComcolPageContentComponent,
     ErrorComponent,
-    NgIf,
     ThemedLoadingComponent,
     TranslateModule,
     ViewTrackerComponent,

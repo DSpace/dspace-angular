@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -52,7 +49,7 @@ import { SearchFilter } from '../search/models/search-filter.model';
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
   standalone: true,
-  imports: [NgIf, AsyncPipe, TranslateModule],
+  imports: [AsyncPipe, TranslateModule],
 })
 export class RSSComponent implements OnInit, OnDestroy  {
 

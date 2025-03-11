@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -87,7 +84,6 @@ import { ThemedThumbnailComponent } from '../../thumbnail/themed-thumbnail.compo
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     FormComponent,
-    NgIf,
     VarDirective,
     ThemedThumbnailComponent,
     AsyncPipe,
@@ -255,7 +251,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     group: [this.iiifLabelModel],
   }, {
     grid: {
-      host: 'form-row',
+      host: 'row',
     },
   });
 
@@ -273,7 +269,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     group: [this.iiifTocModel],
   }, {
     grid: {
-      host: 'form-row',
+      host: 'row',
     },
   });
 
@@ -291,7 +287,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     group: [this.iiifWidthModel],
   }, {
     grid: {
-      host: 'form-row',
+      host: 'row',
     },
   });
 
@@ -309,7 +305,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     group: [this.iiifHeightModel],
   }, {
     grid: {
-      host: 'form-row',
+      host: 'row',
     },
   });
 
@@ -332,7 +328,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       ],
     }, {
       grid: {
-        host: 'form-row',
+        host: 'row',
       },
     }),
     new DynamicFormGroupModel({
