@@ -3,7 +3,7 @@ import {
   PipeTransform,
 } from '@angular/core';
 // eslint-disable-next-line import/no-namespace
-import * as fileSize from 'filesize';
+import fileSize from 'filesize';
 
 /*
  * Convert bytes into largest possible unit.

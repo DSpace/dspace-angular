@@ -14,3 +14,22 @@
   -moz-appearance: none;
   appearance: none;
 }
+
+
+:host ::ng-deep .btn-group-toggle > .btn input[type="radio"] {
+  position: absolute;
+  clip: rect(0,0,0,0);
+  pointer-events: none;
+}
+
+:host ::ng-deep dynamic-ng-bootstrap-radio-group {
+  display: block;
+  width: 100%;
+  > .btn-group.btn-group-toggle {
+    width: 100%;
+  }
+}
+
+:host ::ng-deep .custom-control-input.is-invalid ~ .custom-control-label {
+  color: var(--bs-form-invalid-color);
+}

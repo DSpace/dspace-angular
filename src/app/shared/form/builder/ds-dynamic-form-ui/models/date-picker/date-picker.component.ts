@@ -22,6 +22,7 @@ import {
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
+import { TranslateModule } from '@ngx-translate/core';
 import isEqual from 'lodash/isEqual';
 
 import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
@@ -42,6 +43,7 @@ export const DS_DATE_PICKER_SEPARATOR = '-';
     NgIf,
     NumberPickerComponent,
     FormsModule,
+    TranslateModule,
     BtnDisabledDirective,
   ],
   standalone: true,
@@ -73,10 +75,6 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
   maxMonth = 12;
   minDay = 1;
   maxDay = 31;
-
-  yearPlaceholder = 'year';
-  monthPlaceholder = 'month';
-  dayPlaceholder = 'day';
 
   disabledMonth = true;
   disabledDay = true;

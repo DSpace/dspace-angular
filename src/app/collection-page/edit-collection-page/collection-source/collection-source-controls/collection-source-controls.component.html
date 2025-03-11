@@ -2,19 +2,19 @@
     <div class="container-fluid space-children-mr" *ngIf="shouldShow">
         <h3>{{ 'collection.source.controls.head' | translate }}</h3>
         <div>
-            <span class="font-weight-bold">{{'collection.source.controls.harvest.status' | translate}}</span>
+            <span class="fw-bold">{{'collection.source.controls.harvest.status' | translate}}</span>
             <span>{{contentSource?.harvestStatus}}</span>
         </div>
         <div>
-            <span class="font-weight-bold">{{'collection.source.controls.harvest.start' | translate}}</span>
+            <span class="fw-bold">{{'collection.source.controls.harvest.start' | translate}}</span>
             <span>{{contentSource?.harvestStartTime ? contentSource?.harvestStartTime : 'collection.source.controls.harvest.no-information'|translate }}</span>
         </div>
         <div>
-            <span class="font-weight-bold">{{'collection.source.controls.harvest.last' | translate}}</span>
+            <span class="fw-bold">{{'collection.source.controls.harvest.last' | translate}}</span>
             <span>{{contentSource?.lastHarvested ? contentSource?.lastHarvested : 'collection.source.controls.harvest.no-information'|translate }}</span>
         </div>
         <div>
-            <span class="font-weight-bold">{{'collection.source.controls.harvest.message' | translate}}</span>
+            <span class="fw-bold">{{'collection.source.controls.harvest.message' | translate}}</span>
             <span>{{contentSource?.message ? contentSource?.message: 'collection.source.controls.harvest.no-information'|translate }}</span>
         </div>
 

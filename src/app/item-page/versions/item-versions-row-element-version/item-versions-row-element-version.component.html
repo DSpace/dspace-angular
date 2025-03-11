@@ -8,11 +8,11 @@
       </ng-template>
       <span *ngIf="version?.id === itemVersion?.id">*</span>
 
-      <span *ngIf="workspaceId$ | async" class="text-light badge badge-primary ml-3">
+      <span *ngIf="workspaceId$ | async" class="text-light badge bg-primary ms-3">
                       {{ "item.version.history.table.workspaceItem" | translate }}
                     </span>
 
-      <span *ngIf="workflowId$ | async" class="text-light badge badge-info ml-3">
+      <span *ngIf="workflowId$ | async" class="text-light badge bg-info ms-3">
                       {{ "item.version.history.table.workflowItem" | translate }}
                     </span>
 
