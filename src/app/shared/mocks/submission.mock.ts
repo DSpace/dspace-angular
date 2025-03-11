@@ -3891,8 +3891,8 @@ export const mockAccessesServiceData = {
             display: 'openaccess',
             confidence: -1,
             place: 0,
-            otherInformation: null
-          }
+            otherInformation: null,
+          },
         ],
       },
     },
@@ -3906,29 +3906,29 @@ export const mockAccessesServiceData = {
             display: 'lease',
             confidence: -1,
             place: 0,
-            otherInformation: null
-          }
+            otherInformation: null,
+          },
         ],
         endDate: [
           {
             value: {
               year: 2019,
               month: 1,
-              day: 16
+              day: 16,
             },
             language: null,
             authority: null,
             display: {
               year: 2019,
               month: 1,
-              day: 16
+              day: 16,
             },
             confidence: -1,
             place: 0,
-            otherInformation: null
-          }
+            otherInformation: null,
+          },
         ],
-      }
+      },
     },
     {
       accessConditionGroup: {
@@ -3940,31 +3940,31 @@ export const mockAccessesServiceData = {
             display: 'lease',
             confidence: -1,
             place: 0,
-            otherInformation: null
-          }
+            otherInformation: null,
+          },
         ],
         startDate: [
           {
             value: {
               year: 2019,
               month: 1,
-              day: 16
+              day: 16,
             },
             language: null,
             authority: null,
             display: {
               year: 2019,
               month: 1,
-              day: 16
+              day: 16,
             },
             confidence: -1,
             place: 0,
-            otherInformation: null
-          }
+            otherInformation: null,
+          },
         ],
-      }
-    }
-  ]
+      },
+    },
+  ],
 };
 
 // mockDeduplicationMatches id for Workflow decision

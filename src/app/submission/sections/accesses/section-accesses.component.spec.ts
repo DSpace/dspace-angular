@@ -41,7 +41,10 @@ import {
   getSubmissionAccessesConfigNotChangeDiscoverableService,
   getSubmissionAccessesConfigService,
 } from '../../../shared/mocks/section-accesses-config.service.mock';
-import { mockAccessesFormData, mockAccessesServiceData } from '../../../shared/mocks/submission.mock';
+import {
+  mockAccessesFormData,
+  mockAccessesServiceData,
+} from '../../../shared/mocks/submission.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import {
   accessConditionChangeEvent,
@@ -83,7 +86,7 @@ describe('SubmissionSectionAccessesComponent', () => {
   let store: any;
   let formbuilderService: any;
 
-  const storeStub = jasmine.createSpyObj('store', ['dispatch']);
+  const storeStub = jasmine.createSpyObj('store', ['dispatch', 'select']);
 
   const sectionData = {
     header: 'submit.progressbar.accessCondition',
@@ -146,7 +149,6 @@ describe('SubmissionSectionAccessesComponent', () => {
         formService.validateAllFormFields.and.callFake(() => null);
         formService.isValid.and.returnValue(observableOf(true));
         formService.getFormData.and.returnValue(observableOf(mockAccessesFormData));
-        sectionsServiceStub.getSectionErrors.and.returnValue(observableOf(null));
         submissionAccessesConfigService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(accessConditionSectionConfigRes) as any);
         fixture.detectChanges();
       });
@@ -210,7 +212,6 @@ describe('SubmissionSectionAccessesComponent', () => {
         formService.validateAllFormFields.and.callFake(() => null);
         formService.isValid.and.returnValue(observableOf(true));
         formService.getFormData.and.returnValue(observableOf(mockAccessesFormData));
-        sectionsServiceStub.getSectionErrors.and.returnValue(observableOf(null));
         submissionAccessesConfigService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(accessConditionSectionSingleAccessConfigRes) as any);
         fixture.detectChanges();
       });
@@ -298,7 +299,6 @@ describe('SubmissionSectionAccessesComponent', () => {
       formService.validateAllFormFields.and.callFake(() => null);
       formService.isValid.and.returnValue(observableOf(true));
       formService.getFormData.and.returnValue(observableOf(mockAccessesFormData));
-      sectionsServiceStub.getSectionErrors.and.returnValue(observableOf(null));
       fixture.detectChanges();
     });
 
@@ -314,8 +314,19 @@ describe('SubmissionSectionAccessesComponent', () => {
   });
 
   describe('when section is required', () => {
-
     const service = getSectionAccessesService();
+    const initialState: any = {
+      core: {
+        'cache/object': {},
+        'cache/syncbuffer': {},
+        'cache/object-updates': {},
+        'data/request': {},
+        'index': {},
+      },
+      submissions: {
+        objects: {},
+      },
+    };
 
     beforeEach(async () => {
       formService = getMockFormService();
@@ -328,8 +339,8 @@ describe('SubmissionSectionAccessesComponent', () => {
         ],
         providers: [
           { provide: SectionsService, useValue: sectionsServiceStub },
-          { provide: SubmissionAccessesConfigDataService, useValue: getSubmissionAccessesConfigNotChangeDiscoverableService() },
-          { provide: SectionAccessesService, useValue: sectionAccessesService },
+          { provide: SubmissionAccessesConfigDataService, useValue: submissionAccessesConfigService },
+          { provide: SectionAccessesService, useValue: service },
           { provide: SectionFormOperationsService, useValue: sectionFormOperationsService },
           { provide: JsonPatchOperationsBuilder, useValue: operationsBuilder },
           { provide: FormService, useValue: formService },
@@ -345,7 +356,9 @@ describe('SubmissionSectionAccessesComponent', () => {
           { provide: APP_DATA_SERVICES_MAP, useValue: {} },
           { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },
           FormBuilderService,
-          provideMockStore({}),
+          provideMockStore({
+            initialState,
+          }),
 
         ],
       })
@@ -354,19 +367,23 @@ describe('SubmissionSectionAccessesComponent', () => {
 
     beforeEach(() => {
       fixture = TestBed.createComponent(SubmissionSectionAccessesComponent);
-      component = fixture.componentInstance;
+      store = TestBed.inject(Store);
       formService = TestBed.inject(FormService);
+      formbuilderService = TestBed.inject(FormBuilderService);
+      component = fixture.componentInstance;
       formService.validateAllFormFields.and.callFake(() => null);
       formService.isValid.and.returnValue(observableOf(true));
       formService.getFormData.and.returnValue(observableOf(mockAccessesFormData));
-      sectionsServiceStub.getSectionErrors.and.returnValue(observableOf(null));
+      service.getAccessesData.and.returnValue(observableOf({ accessConditions: [] }));
       submissionAccessesConfigService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(accessConditionSectionConfigRes) as any);
+      sectionsServiceStub.getSectionErrors.and.returnValue(observableOf(null));
+      (component as any).buildFileEditForm = () => null;
       fixture.detectChanges();
     });
 
     it('should have section status invalid on init', (done) => {
-      component.required$.next(true);
       service.getAccessesData.and.returnValue(observableOf({}));
+      component.required$.next(true);
       fixture.detectChanges();
 
       component.getSectionStatus().subscribe(status => {
@@ -389,7 +406,7 @@ describe('SubmissionSectionAccessesComponent', () => {
     it('should have section status invalid if there are data and errors', (done) => {
       service.getAccessesData.and.returnValue(observableOf(mockAccessesServiceData));
       component.required$.next(true);
-      sectionsServiceStub.getSectionErrors.and.returnValue(observableOf({error: 'testError'}));
+      sectionsServiceStub.getSectionErrors.and.returnValue(observableOf({ error: 'testError' }));
 
       fixture.detectChanges();
 

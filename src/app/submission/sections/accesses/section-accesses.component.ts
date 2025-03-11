@@ -27,7 +27,6 @@ import {
   BehaviorSubject,
   combineLatest,
   Observable,
-  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -48,7 +47,8 @@ import { dateToISOFormat } from '../../../shared/date.util';
 import {
   hasValue,
   isNotEmpty,
-  isNotNull, isObjectEmpty,
+  isNotNull,
+  isObjectEmpty,
 } from '../../../shared/empty.util';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
@@ -333,9 +333,9 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
     return combineLatest([
       this.required$,
       this.sectionService.getSectionErrors(this.submissionId,  this.sectionData.id),
-      this.accessesService.getAccessesData(this.submissionId, this.sectionData.id)
+      this.accessesService.getAccessesData(this.submissionId, this.sectionData.id),
     ]).pipe(
-      map(([required, errors, accessesData]) => (!required || (required  && isObjectEmpty(errors) && !!accessesData?.accessConditions?.length)))
+      map(([required, errors, accessesData]) => (!required || (required  && isObjectEmpty(errors) && !!accessesData?.accessConditions?.length))),
     );
   }
 
