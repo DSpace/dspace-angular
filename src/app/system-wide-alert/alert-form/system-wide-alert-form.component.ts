@@ -250,7 +250,7 @@ export class SystemWideAlertFormComponent implements OnInit {
     alert.active = this.formActive.value;
     if (this.counterEnabled$.getValue()) {
       const countDownTo = new Date(this.date.year, this.date.month - 1, this.date.day, this.time.hour, this.time.minute);
-      alert.countdownTo = utcToZonedTime(countDownTo, 'UTC').toUTCString();
+      alert.countdownTo = utcToZonedTime(countDownTo, 'UTC').toISOString();
     } else {
       alert.countdownTo = null;
     }
