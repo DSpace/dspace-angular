@@ -331,6 +331,12 @@ export class DefaultAppConfig implements AppConfig {
       // settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
       pageSize: 5,
     },
+    // Metadatafields to determine the CC license variant
+    ccLicense: {
+      variant: 'small',
+      showName: true,
+      showDisclaimer: true,
+    },
   };
 
   // Community Page Config
@@ -598,12 +604,5 @@ export class DefaultAppConfig implements AppConfig {
   liveRegion: LiveRegionConfig = {
     messageTimeOutDurationMs: 30000,
     isVisible: false,
-  };
-
-  // Metadatafields to determine the CC license variant
-  ccLicense: CreativeCommonsLicenseConfig = {
-    variant: 'small',
-    showName: true,
-    showDisclaimer: true,
   };
 }

@@ -322,6 +322,16 @@ item:
     # Rounded to the nearest size in the list of selectable sizes on the
     # settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
     pageSize: 5
+  # Creative Commons metadata fields
+  ccLicense:
+    # Icon variant:
+    # 'full' variant shows image, a disclaimer (optional) and name (always), better for the item page content.
+    # 'small' (default) variant shows image and name (optional), better for the item page sidebar
+    variant: small
+    # Shows the CC license name with the image. Always show if image fails to load
+    showName: true
+    # Shows the disclaimer in the 'full' variant of the component
+    showDisclaimer: true
 
 # Community Page Config
 community:
@@ -517,13 +527,3 @@ liveRegion:
   # The visibility of the live region. Setting this to true is only useful for debugging purposes.
   isVisible: false
 
-# Creative Commons metadata fields
-ccLicense:
-  # Icon variant:
-  # 'full' variant shows image, a disclaimer (optional) and name (always), better for the item page content.
-  # 'small' (default) variant shows image and name (optional), better for the item page sidebar
-  variant: small
-  # Shows the CC license name with the image. Always show if image fails to load
-  showName: true
-  # Shows the disclaimer in the 'full' variant of the component
-  showDisclaimer: true

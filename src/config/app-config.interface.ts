@@ -16,7 +16,6 @@ import { CollectionPageConfig } from './collection-page-config.interface';
 import { CommunityListConfig } from './community-list-config.interface';
 import { CommunityPageConfig } from './community-page-config.interface';
 import { Config } from './config.interface';
-import { CreativeCommonsLicenseConfig } from './creative-commons-license-config.interface';
 import { DiscoverySortConfig } from './discovery-sort.config';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { FormConfig } from './form-config.interfaces';
@@ -67,7 +66,6 @@ interface AppConfig extends Config {
   search: SearchConfig;
   notifyMetrics: AdminNotifyMetricsRow[];
   liveRegion: LiveRegionConfig;
-  ccLicense: CreativeCommonsLicenseConfig;
 }
 
 /**

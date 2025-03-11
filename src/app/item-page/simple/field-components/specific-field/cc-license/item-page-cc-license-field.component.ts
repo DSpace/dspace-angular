@@ -50,7 +50,7 @@ export class ItemPageCcLicenseFieldComponent implements OnInit, OnDestroy {
    * 'full' variant shows image, a disclaimer (optional) and name (always), better for the item page content.
    * 'small' variant shows image and name (optional), better for the item page sidebar
    */
-  @Input() variant?: 'small' | 'full' = this.appConfig.ccLicense.variant;
+  @Input() variant?: 'small' | 'full' = this.appConfig.item.ccLicense.variant;
 
   /**
    * Field name containing the CC license URI
@@ -65,12 +65,12 @@ export class ItemPageCcLicenseFieldComponent implements OnInit, OnDestroy {
   /**
    * Shows the CC license name with the image. Always show if image fails to load
    */
-  @Input() showName? = this.appConfig.ccLicense.showName;
+  @Input() showName? = this.appConfig.item.ccLicense.showName;
 
   /**
    * Shows the disclaimer in the 'full' variant of the component
    */
-  @Input() showDisclaimer? = this.appConfig.ccLicense.showDisclaimer;
+  @Input() showDisclaimer? = this.appConfig.item.ccLicense.showDisclaimer;
 
 
   subscriptions: Subscription[] = [];
