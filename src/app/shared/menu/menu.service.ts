@@ -11,9 +11,11 @@ import {
   DeactivateMenuSectionAction,
   ExpandMenuAction,
   ExpandMenuPreviewAction,
-  HideMenuAction, HideMenuSectionAction,
+  HideMenuAction,
+  HideMenuSectionAction,
   RemoveMenuSectionAction,
-  ShowMenuAction, ShowMenuSectionAction,
+  ShowMenuAction,
+  ShowMenuSectionAction,
   ToggleActiveMenuSectionAction,
   ToggleMenuAction,
 } from './menu.actions';
@@ -54,6 +56,12 @@ const getSubSectionsFromSectionSelector = (id: string): MemoizedSelector<MenuSta
 };
 
 export const PINNED_SIDEBAR_COOKIE = 'dsMenuCollapsedState';
+export const PINNED_SIDEBAR_COOKIE_DEFAULT: PinnedSidebarCookie = {
+  [MenuID.ADMIN]: true,
+  [MenuID.PUBLIC]: false,
+  [MenuID.DSO_EDIT]: false,
+};
+export const PINNED_SIDEBAR_COOKIE_EXPIRES = 10000;
 
 @Injectable()
 export class MenuService {
@@ -293,40 +301,35 @@ export class MenuService {
   }
 
   /**
-   * Returns whether te admin menu is currently collapsed.
+   * Returns whether the menu with {@linkcode menuID} is currently collapsed.
    */
   isCollapsed(menuID: MenuID): boolean {
-    const cookie: object | undefined = this.cookieService.get(PINNED_SIDEBAR_COOKIE);
-    return cookie?.[menuID] ?? true;
+    const cookie: PinnedSidebarCookie | undefined = this.cookieService.get(PINNED_SIDEBAR_COOKIE);
+    return cookie?.[menuID];
   }
 
   /**
    * Collapses the expanded menu or expands the collapsed menu.
    */
   toggleMenuCollapsedState(menuID: MenuID): void {
-    let cookie: object | undefined = this.cookieService.get(PINNED_SIDEBAR_COOKIE);
+    let cookie: PinnedSidebarCookie | undefined = this.cookieService.get(PINNED_SIDEBAR_COOKIE);
     if (!hasValue(cookie)) {
-      // Default value
-      cookie = {
-        [MenuID.ADMIN]: true,
-        [MenuID.PUBLIC]: false,
-        [MenuID.DSO_EDIT]: false,
-      };
+      cookie = PINNED_SIDEBAR_COOKIE_DEFAULT;
     }
-    cookie[menuID] = !this.isCollapsed(menuID);
-    this.cookieService.set(PINNED_SIDEBAR_COOKIE, cookie, { expires: 10000 });
+    cookie[menuID] = !cookie[menuID];
+    this.cookieService.set(PINNED_SIDEBAR_COOKIE, cookie, { expires: PINNED_SIDEBAR_COOKIE_EXPIRES });
   }
 
   /**
    * Expands/collapses the navbar based on the {@link PINNED_SIDEBAR_COOKIE} cookie value.
    */
   syncMenuCollapsedState(): void {
-    const cookie: object | undefined = this.cookieService.get(PINNED_SIDEBAR_COOKIE);
+    const cookie: PinnedSidebarCookie | undefined = this.cookieService.get(PINNED_SIDEBAR_COOKIE);
     if (!hasValue(cookie)) {
       return;
     }
     for (let menuID in cookie) {
-      if (this.isCollapsed(menuID as MenuID)) {
+      if (cookie?.[menuID]) {
         this.collapseMenu(menuID as MenuID);
       } else {
         this.expandMenu(menuID as MenuID);
@@ -479,5 +482,10 @@ export class MenuService {
     return resolved;
   }
 
+}
 
+interface PinnedSidebarCookie {
+  [MenuID.ADMIN]: boolean,
+  [MenuID.PUBLIC]: boolean,
+  [MenuID.DSO_EDIT]: boolean,
 }

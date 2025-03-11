@@ -2,16 +2,16 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType, } from '@ngrx/effects';
 import { tap } from 'rxjs/operators';
 
-import { MenuActionTypes } from './menu.actions';
+import { MenuActionTypes, ToggleMenuAction } from './menu.actions';
 import { MenuService } from './menu.service';
-import { MenuID } from './menu-id.model';
+import { Action } from '@ngrx/store';
 
 @Injectable()
 export class MenuEffects {
 
-  adminSidebarToggle$ = createEffect(() => this.actions$.pipe(
+  menuCollapsedStateToggle$ = createEffect(() => this.actions$.pipe(
     ofType(MenuActionTypes.TOGGLE_MENU),
-    tap(() => this.menuService.toggleMenuCollapsedState(MenuID.ADMIN)),
+    tap((action: Action) => this.menuService.toggleMenuCollapsedState((action as ToggleMenuAction).menuID)),
   ), { dispatch: false });
 
   constructor(
