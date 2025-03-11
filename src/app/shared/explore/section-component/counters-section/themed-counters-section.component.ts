@@ -1,20 +1,28 @@
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
 import { ThemedComponent } from '../../../theme-support/themed.component';
-import { CountersSectionComponent } from './counters-section.component';
-import { Component, Input } from '@angular/core';
-import { CountersSection } from './counters-section.component';
+import {
+  CountersSection,
+  CountersSectionComponent,
+} from './counters-section.component';
 
 @Component({
-  selector: 'ds-themed-counters-section',
+  selector: 'ds-counters-section',
   styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
+  standalone: true,
+  imports: [CountersSectionComponent],
 })
 export class ThemedCountersSectionComponent extends ThemedComponent<CountersSectionComponent> {
 
   @Input()
-  sectionId: string;
+    sectionId: string;
 
   @Input()
-  countersSection: CountersSection;
+    countersSection: CountersSection;
 
   protected inAndOutputNames: (keyof CountersSectionComponent & keyof this)[] = ['sectionId', 'countersSection'];
 

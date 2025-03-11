@@ -1,8 +1,12 @@
-import { INotificationOptions, NotificationOptions } from './notification-options.model';
-import { INotification } from './notification.model';
-import { NotificationType } from './notification-type';
-import { isEmpty } from '../../empty.util';
 import { Observable } from 'rxjs';
+
+import { isEmpty } from '../../empty.util';
+import { INotification } from './notification.model';
+import {
+  INotificationOptions,
+  NotificationOptions,
+} from './notification-options.model';
+import { NotificationType } from './notification-type';
 
 export interface IProcessNotification extends INotification {
   processId: string;
@@ -52,12 +56,12 @@ export class ProcessNotification implements IProcessNotification {
   public checkTime: number;
 
   constructor(id: string,
-              type: NotificationType,
-              processId: string,
-              checkTime: number,
-              title?: Observable<string> | string,
-              options?: NotificationOptions,
-              html?: boolean) {
+    type: NotificationType,
+    processId: string,
+    checkTime: number,
+    title?: Observable<string> | string,
+    options?: NotificationOptions,
+    html?: boolean) {
     this.id = id;
     this.type = type;
     this.title = title;

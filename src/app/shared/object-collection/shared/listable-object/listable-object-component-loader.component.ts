@@ -2,40 +2,34 @@ import {
   ChangeDetectorRef,
   Component,
   ComponentRef,
-  ElementRef,
   EventEmitter,
   Input,
-  OnChanges,
-  OnDestroy,
-  OnInit,
   Output,
-  SimpleChanges,
-  ViewChild
 } from '@angular/core';
-
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { ListableObject } from '../listable-object.model';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { Context } from '../../../../core/shared/context.model';
-import { getListableObjectComponent } from './listable-object.decorator';
-import { GenericConstructor } from '../../../../core/shared/generic-constructor';
-import { ListableObjectDirective } from './listable-object.directive';
-import { CollectionElementLinkType } from '../../collection-element-link.type';
-import { hasValue, isNotEmpty } from '../../../empty.util';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { GenericConstructor } from '../../../../core/shared/generic-constructor';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { AbstractComponentLoaderComponent } from '../../../abstract-component-loader/abstract-component-loader.component';
 import { ThemeService } from '../../../theme-support/theme.service';
+import { CollectionElementLinkType } from '../../collection-element-link.type';
+import { ListableObject } from '../listable-object.model';
+import { getListableObjectComponent } from './listable-object.decorator';
 
 @Component({
   selector: 'ds-listable-object-component-loader',
   styleUrls: ['./listable-object-component-loader.component.scss'],
-  templateUrl: './listable-object-component-loader.component.html'
+  templateUrl: '../../../abstract-component-loader/abstract-component-loader.component.html',
+  standalone: true,
 })
 /**
  * Component for determining what component to use depending on the item's entity type (dspace.entity.type)
  */
-export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges, OnDestroy {
+export class ListableObjectComponentLoaderComponent extends AbstractComponentLoaderComponent<Component> {
+
   /**
    * The item or metadata to determine the component for
    */
@@ -69,7 +63,7 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
   /**
    * Whether to show the badge label or not
    */
-  @Input() showLabel = true;
+  @Input() showLabel: boolean;
 
   /**
    * Whether to show the metrics badges
@@ -79,7 +73,12 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
   /**
    * Whether to show the thumbnail preview
    */
-  @Input() showThumbnails;
+  @Input() showThumbnails: boolean;
+
+  /**
+   * Whether to show if the item is a correction
+   */
+  @Input() showCorrection = false;
 
   /**
    * The value to display for this element
@@ -97,17 +96,6 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
   @Input() customData: any;
 
   /**
-   * Directive hook used to place the dynamic child component
-   */
-  @ViewChild(ListableObjectDirective, { static: true }) listableObjectDirective: ListableObjectDirective;
-
-  /**
-   * View on the badges template, to be passed on to the loaded component (which will place the badges in the desired
-   * location, or on top if not specified)
-   */
-  @ViewChild('badges', { static: true }) badges: ElementRef;
-
-  /**
    * Emit when the listable object has been reloaded.
    */
   @Output() contentChange = new EventEmitter<ListableObject>();
@@ -116,17 +104,6 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
    * Emit custom event for listable object custom actions.
    */
   @Output() customEvent = new EventEmitter<any>();
-
-
-  /**
-   * Whether or not the "Private" badge should be displayed for this listable object
-   */
-  privateBadge = false;
-
-  /**
-   * Whether or not the "Withdrawn" badge should be displayed for this listable object
-   */
-  withdrawnBadge = false;
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
@@ -142,76 +119,43 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
   /**
    * The list of input and output names for the dynamic component
    */
-  protected inAndOutputNames: string[] = [
+  protected inputNames: (keyof this & string)[] = [
     'object',
     'customData',
     'index',
+    'context',
     'linkType',
     'listID',
     'showLabel',
     'showMetrics',
     'showThumbnails',
+    'showCorrection',
     'context',
     'viewMode',
     'value',
-    'hideBadges',
+  ];
+
+  protected outputNames: (keyof this & string)[] = [
     'contentChange',
   ];
 
-  constructor(private cdr: ChangeDetectorRef, private themeService: ThemeService) {
+  constructor(
+    protected themeService: ThemeService,
+    protected cdr: ChangeDetectorRef,
+  ) {
+    super(themeService);
   }
 
-  /**
-   * Setup the dynamic child component
-   */
-  ngOnInit(): void {
-    this.instantiateComponent(this.object);
-  }
-
-  /**
-   * Whenever the inputs change, update the inputs of the dynamic component
-   */
-  ngOnChanges(changes: SimpleChanges): void {
-    if (this.inAndOutputNames.some((name: any) => hasValue(changes[name]))) {
-      this.connectInputsAndOutputs();
-    }
-  }
-
-  ngOnDestroy() {
-    this.subs
-      .filter((subscription) => hasValue(subscription))
-      .forEach((subscription) => subscription.unsubscribe());
-  }
-
-  private instantiateComponent(object) {
-
-    this.initBadges();
-
-    const component = this.getComponent(object.getRenderTypes(), this.viewMode, this.context);
-
-    const viewContainerRef = this.listableObjectDirective.viewContainerRef;
-    viewContainerRef.clear();
-
-    this.compRef = viewContainerRef.createComponent(
-      component, {
-        index: 0,
-        injector: undefined,
-        projectableNodes: [
-          [this.badges.nativeElement],
-        ]
-      }
-    );
-
-    this.connectInputsAndOutputs();
-
+  public instantiateComponent(): void {
+    super.instantiateComponent();
     if ((this.compRef.instance as any).reloadedObject) {
       (this.compRef.instance as any).reloadedObject.pipe(
-        take(1)
+        take(1),
       ).subscribe((reloadedObject: DSpaceObject) => {
         if (reloadedObject) {
-          this.compRef.destroy();
+          this.destroyComponentInstance();
           this.object = reloadedObject;
-          this.instantiateComponent(reloadedObject);
+          this.instantiateComponent();
           this.cdr.detectChanges();
           this.contentChange.emit(reloadedObject);
         }
@@ -229,39 +173,8 @@ export class ListableObjectComponentLoaderComponent implements OnInit, OnChanges
 
   }
 
-  /**
-   * Initialize which badges should be visible in the listable component
-   */
-  initBadges() {
-    let objectAsAny = this.object as any;
-    if (hasValue(objectAsAny.indexableObject)) {
-      objectAsAny = objectAsAny.indexableObject;
-    }
-    const objectExistsAndValidViewMode = hasValue(objectAsAny) && this.viewMode !== ViewMode.StandalonePage;
-    this.privateBadge = objectExistsAndValidViewMode && hasValue(objectAsAny.isDiscoverable) && !objectAsAny.isDiscoverable;
-    this.withdrawnBadge = objectExistsAndValidViewMode && hasValue(objectAsAny.isWithdrawn) && objectAsAny.isWithdrawn;
-  }
-
-  /**
-   * Fetch the component depending on the item's entity type, view mode and context
-   * @returns {GenericConstructor<Component>}
-   */
-  getComponent(renderTypes: (string | GenericConstructor<ListableObject>)[],
-               viewMode: ViewMode,
-               context: Context): GenericConstructor<Component> {
-    return getListableObjectComponent(renderTypes, viewMode, context, this.themeService.getThemeName());
-  }
-
-  /**
-   * Connect the in and outputs of this component to the dynamic component,
-   * to ensure they're in sync
-   */
-  protected connectInputsAndOutputs(): void {
-    if (isNotEmpty(this.inAndOutputNames) && hasValue(this.compRef) && hasValue(this.compRef.instance)) {
-      this.inAndOutputNames.forEach((name: any) => {
-        this.compRef.instance[name] = this[name];
-      });
-    }
+  public getComponent(): GenericConstructor<Component> {
+    return getListableObjectComponent(this.object.getRenderTypes(), this.viewMode, this.context, this.themeService.getThemeName());
   }
 
 }

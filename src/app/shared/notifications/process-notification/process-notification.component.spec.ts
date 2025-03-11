@@ -1,25 +1,42 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { BrowserModule, By } from '@angular/platform-browser';
-import { ChangeDetectorRef, DebugElement } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  DebugElement,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  BrowserModule,
+  By,
+} from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 
-import { Store, StoreModule } from '@ngrx/store';
-
-import { ProcessNotificationComponent } from './process-notification.component';
-import { NotificationsService } from '../notifications.service';
-import { NotificationType } from '../models/notification-type';
-import { notificationsReducer } from '../notifications.reducers';
-import { NotificationOptions } from '../models/notification-options.model';
+import { AppConfig } from '../../../../config/app-config.interface';
 import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
-import { Notification } from '../models/notification.model';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { storeModuleConfig } from '../../../app.reducer';
-import { IProcessNotification } from '../models/process-notification.model';
+import { ProcessDataService } from '../../../core/data/processes/process-data.service';
+import { ThemedFileDownloadLinkComponent } from '../../file-download-link/themed-file-download-link.component';
+import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { createPaginatedList } from '../../testing/utils.test';
-import { ProcessDataService } from '../../../core/data/processes/process-data.service';
-import { AppConfig } from '../../../../config/app-config.interface';
+import { Notification } from '../models/notification.model';
+import { NotificationOptions } from '../models/notification-options.model';
+import { NotificationType } from '../models/notification-type';
+import { IProcessNotification } from '../models/process-notification.model';
+import { notificationsReducer } from '../notifications.reducers';
+import { NotificationsService } from '../notifications.service';
+import { ProcessNotificationComponent } from './process-notification.component';
 
 xdescribe('ProcessNotificationComponent', () => {
 
@@ -32,13 +49,13 @@ xdescribe('ProcessNotificationComponent', () => {
   let elType: HTMLElement;
 
   const processService = jasmine.createSpyObj('processService', {
-    getFiles: createSuccessfulRemoteDataObject$(createPaginatedList([]))
+    getFiles: createSuccessfulRemoteDataObject$(createPaginatedList([])),
   });
 
   beforeEach(waitForAsync(() => {
     const store: Store<Notification> = jasmine.createSpyObj('store', {
       /* eslint-disable no-empty, @typescript-eslint/no-empty-function */
-      notifications: []
+      notifications: [],
     });
     const envConfig: Partial<AppConfig> = {
       notifications: {
@@ -47,7 +64,7 @@ xdescribe('ProcessNotificationComponent', () => {
         maxStack: 8,
         timeOut: 5000,
         clickToClose: true,
-        animate: 'scale'
+        animate: 'scale',
       } as INotificationBoardOptions,
     } as any;
 
@@ -59,18 +76,19 @@ xdescribe('ProcessNotificationComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })],
-      declarations: [ProcessNotificationComponent], // declare the test component
+            useClass: TranslateLoaderMock,
+          },
+        }),
+        ProcessNotificationComponent,
+      ], // declare the test component
       providers: [
         { provide: Store, useValue: store },
         { provide: ProcessDataService, useValue: processService },
         ChangeDetectorRef,
         NotificationsService,
         TranslateService,
-      ]
-    }).compileComponents();  // compile template and css
+      ],
+    }).overrideComponent(ProcessNotificationComponent, { remove: { imports: [ThemedFileDownloadLinkComponent] } }).compileComponents();  // compile template and css
 
   }));
 
@@ -82,7 +100,7 @@ xdescribe('ProcessNotificationComponent', () => {
       type: NotificationType.Info,
       title: 'Notif. title',
       content: 'Notif. content',
-      options: new NotificationOptions()
+      options: new NotificationOptions(),
     } as IProcessNotification;
 
     fixture.detectChanges();
@@ -123,7 +141,7 @@ xdescribe('ProcessNotificationComponent', () => {
       title: 'Notif. title',
       content: htmlContent,
       options: new NotificationOptions(),
-      html: true
+      html: true,
     } as IProcessNotification;
 
     fixture.detectChanges();

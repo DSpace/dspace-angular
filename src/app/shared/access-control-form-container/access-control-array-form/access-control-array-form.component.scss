@@ -1,0 +1,7 @@
+.access-control-item {
+  display: grid;
+  grid-template-columns: 1fr 50px;
+  grid-gap: 10px;
+  padding-bottom: 15px;
+  border-bottom: 2px dotted grey;
+}

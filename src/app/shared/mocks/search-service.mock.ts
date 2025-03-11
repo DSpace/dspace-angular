@@ -1,4 +1,5 @@
 import { of as observableOf } from 'rxjs';
+
 import { SearchService } from '../../core/shared/search/search.service';
 
 export function getMockSearchService(): SearchService {
@@ -7,6 +8,6 @@ export function getMockSearchService(): SearchService {
     getEndpoint: observableOf('discover/search/objects'),
     getSearchLink: '/mydspace',
     getScopes: observableOf(['test-scope']),
-    setServiceOptions: {}
+    setServiceOptions: {},
   });
 }

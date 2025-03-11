@@ -1,38 +1,56 @@
+import { AdminNotifyMetricsRow } from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
 import { RestRequestMethod } from '../app/core/data/rest-request-method';
 import { NotificationAnimationsType } from '../app/shared/notifications/models/notification-animations-type';
-import { AppConfig } from './app-config.interface';
-import { AuthConfig } from './auth-config.interfaces';
-import { BrowseByConfig } from './browse-by-config.interface';
-import { CacheConfig } from './cache-config.interface';
-import { CollectionPageConfig } from './collection-page-config.interface';
-import { FormConfig } from './form-config.interfaces';
-import { ItemConfig } from './item-config.interface';
-import { LangConfig } from './lang-config.interface';
-import { MediaViewerConfig } from './media-viewer-config.interface';
-import { INotificationBoardOptions } from './notifications-config.interfaces';
-import { ServerConfig } from './server-config.interface';
-import { SubmissionConfig } from './submission-config.interface';
-import { ThemeConfig } from './theme.model';
-import { UIServerConfig } from './ui-server-config.interface';
-import { BundleConfig } from './bundle-config.interface';
 import { ActuatorsConfig } from './actuators.config';
-import { InfoConfig } from './info-config.interface';
-import { CommunityListConfig } from './community-list-config.interface';
-import { HomeConfig } from './homepage-config.interface';
-import { MarkdownConfig } from './markdown-config.interface';
-import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { AddToAnyPluginConfig } from './add-to-any-plugin-config';
-import { CmsMetadata } from './cms-metadata';
-import { CrisLayoutConfig, LayoutConfig, SuggestionConfig } from './layout-config.interfaces';
-import { MetadataSecurityConfig } from './metadata-security-config';
-import { FollowAuthorityMetadata } from './search-follow-metadata.interface';
-import { MetricVisualizationConfig } from './metric-visualization-config.interfaces';
 import {
   AdvancedAttachmentElementType,
-  AdvancedAttachmentRenderingConfig
+  AdvancedAttachmentRenderingConfig,
 } from './advanced-attachment-rendering.config';
+import { AppConfig } from './app-config.interface';
 import { AttachmentRenderingConfig } from './attachment-rendering.config';
+import { AuthConfig } from './auth-config.interfaces';
+import { BrowseByConfig } from './browse-by-config.interface';
+import { BundleConfig } from './bundle-config.interface';
+import { CacheConfig } from './cache-config.interface';
+import { CmsMetadata } from './cms-metadata';
+import { CollectionPageConfig } from './collection-page-config.interface';
+import { CommunityListConfig } from './community-list-config.interface';
+import { CommunityPageConfig } from './community-page-config.interface';
+import { DatadogRumConfig } from './datadog-rum-config.interfaces';
+import { DiscoverySortConfig } from './discovery-sort.config';
+import { FilterVocabularyConfig } from './filter-vocabulary-config';
+import { FormConfig } from './form-config.interfaces';
+import { HomeConfig } from './homepage-config.interface';
+import {
+  IdentifierSubtypesConfig,
+  IdentifierSubtypesIconPositionEnum,
+} from './identifier-subtypes-config.interface';
+import { InfoConfig } from './info-config.interface';
+import { ItemConfig } from './item-config.interface';
+import { LangConfig } from './lang-config.interface';
+import {
+  CrisLayoutConfig,
+  LayoutConfig,
+  SuggestionConfig,
+} from './layout-config.interfaces';
+import { LoaderConfig } from './loader-config.interfaces';
+import { MarkdownConfig } from './markdown-config.interface';
+import { MediaViewerConfig } from './media-viewer-config.interface';
+import { MetaTagsConfig } from './meta-tags.config';
+import { MetadataLinkViewPopoverDataConfig } from './metadata-link-view-popoverdata-config.interface';
+import { MetadataSecurityConfig } from './metadata-security-config';
+import { MetricVisualizationConfig } from './metric-visualization-config.interfaces';
+import { MiradorConfig } from './mirador-config.interfaces';
+import { INotificationBoardOptions } from './notifications-config.interfaces';
+import { QualityAssuranceConfig } from './quality-assurance.config';
+import { FollowAuthorityMetadata } from './search-follow-metadata.interface';
+import { SearchConfig } from './search-page-config.interface';
 import { SearchResultConfig } from './search-result-config.interface';
+import { ServerConfig } from './server-config.interface';
+import { SubmissionConfig } from './submission-config.interface';
+import { ThemeConfig } from './theme.config';
+import { UIServerConfig } from './ui-server-config.interface';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -40,7 +58,7 @@ export class DefaultAppConfig implements AppConfig {
   // NOTE: will log all redux actions and transfers in console
   debug = false;
 
-  // Angular Universal server settings
+  // Angular express server settings
   // NOTE: these must be 'synced' with the 'dspace.ui.url' setting in your backend's local.cfg.
   ui: UIServerConfig = {
     ssl: false,
@@ -52,7 +70,7 @@ export class DefaultAppConfig implements AppConfig {
     // The rateLimiter settings limit each IP to a 'max' of 500 requests per 'windowMs' (1 minute).
     rateLimiter: {
       windowMs: 1 * 60 * 1000, // 1 minute
-      max: 500 // limit each IP to 500 requests per windowMs
+      max: 500, // limit each IP to 500 requests per windowMs
     },
 
     // Trust X-FORWARDED-* headers from proxies
@@ -70,30 +88,32 @@ export class DefaultAppConfig implements AppConfig {
   };
 
   actuators: ActuatorsConfig = {
-    endpointPath: '/actuator/health'
+    endpointPath: '/actuator/health',
   };
 
   // Caching settings
   cache: CacheConfig = {
     // NOTE: how long should objects be cached for by default
     msToLive: {
-      default: 15 * 60 * 1000 // 15 minutes
+      default: 15 * 60 * 1000, // 15 minutes
     },
     // Cache-Control HTTP Header
     control: 'max-age=604800', // revalidate browser
     autoSync: {
       defaultTime: 0,
       maxBufferSize: 100,
-      timePerMethod: { [RestRequestMethod.PATCH]: 3 } as any // time in seconds
+      timePerMethod: { [RestRequestMethod.PATCH]: 3 } as any, // time in seconds
     },
     // In-memory cache of server-side rendered content
     serverSide: {
       debug: false,
+      // Link header is used for signposting functionality
+      headers: ['Link'],
       // Cache specific to known bots.  Allows you to serve cached contents to bots only.
       // Defaults to caching 1,000 pages. Each page expires after 1 day
       botCache: {
         // Maximum number of pages (rendered via SSR) to cache. Setting max=0 disables the cache.
-        max: 1000,
+        max: 0, // disabled by default
         // Amount of time after which cached pages are considered stale (in ms)
         timeToLive: 24 * 60 * 60 * 1000, // 1 day
         allowStale: true,
@@ -106,8 +126,8 @@ export class DefaultAppConfig implements AppConfig {
         // Amount of time after which cached pages are considered stale (in ms)
         timeToLive: 10 * 1000, // 10 seconds
         allowStale: true,
-      }
-    }
+      },
+    },
   };
 
   // Authentication settings
@@ -117,14 +137,14 @@ export class DefaultAppConfig implements AppConfig {
       // the amount of time before the idle warning is shown
       timeUntilIdle: 15 * 60 * 1000, // 15 minutes
       // the amount of time the user has to react after the idle warning is shown before they are logged out.
-      idleGracePeriod: 5 * 60 * 1000 // 5 minutes
+      idleGracePeriod: 5 * 60 * 1000, // 5 minutes
     },
     // Authentication REST settings
     rest: {
       // If the rest token expires in less than this amount of time, it will be refreshed automatically.
       // This is independent from the idle warning.
-      timeLeftBeforeTokenRefresh: 2 * 60 * 1000 // 2 minutes
-    }
+      timeLeftBeforeTokenRefresh: 2 * 60 * 1000, // 2 minutes
+    },
   };
 
   // Form settings
@@ -133,8 +153,8 @@ export class DefaultAppConfig implements AppConfig {
     // NOTE: Map server-side validators to comparative Angular form validators
     validatorMap: {
       required: 'required',
-      regex: 'pattern'
-    }
+      regex: 'pattern',
+    },
   };
 
   // Notifications
@@ -146,22 +166,25 @@ export class DefaultAppConfig implements AppConfig {
     timeOut: 5000, // 5 second
     clickToClose: true,
     // NOTE: 'fade' | 'fromTop' | 'fromRight' | 'fromBottom' | 'fromLeft' | 'rotate' | 'scale'
-    animate: NotificationAnimationsType.Scale
+    animate: NotificationAnimationsType.Scale,
   };
 
   // Submission settings
   submission: SubmissionConfig = {
     autosave: {
       // NOTE: which metadata trigger an autosave
-      metadata: ['dc.title', 'dc.identifier.doi', 'dc.identifier.pmid', 'dc.identifier.arxiv', 'dc.identifier.patentno', 'dc.identifier.scopus', 'dc.identifier.isi', 'dcterms.dateSubmitted', 'dc.identifier.applicationnumber'],
+      metadata: ['dc.title', 'dc.identifier.doi', 'dc.identifier.pmid', 'dc.identifier.arxiv', 'dc.identifier.patentno', 'dc.identifier.scopus', 'dc.identifier.isi', 'dcterms.dateSubmitted', 'dc.identifier.applicationnumber', 'dc.type'],
       /**
        * NOTE: after how many time (milliseconds) submission is saved automatically
        * eg. timer: 5 * (1000 * 60); // 5 minutes
        */
-      timer: 5 * (1000 * 60)
+      timer: 5 * (1000 * 60),
+    },
+    duplicateDetection: {
+      alwaysShowSection: false,
     },
     typeBind: {
-      field: 'dc.type'
+      field: 'dc.type',
     },
     icons: {
       metadata: [
@@ -170,39 +193,39 @@ export class DefaultAppConfig implements AppConfig {
          * {
          *    // NOTE: metadata name
          *    name: 'dc.author',
-         *    // NOTE: fontawesome (v5.x) icon classes and bootstrap utility classes can be used
+         *    // NOTE: fontawesome (v6.x) icon classes and bootstrap utility classes can be used
          *    style: 'fa-user'
          * }
          */
         {
           name: 'dc.author',
-          style: 'fas fa-user'
+          style: 'fas fa-user',
         },
         {
           name: 'dc.contributor.author',
-          style: 'fas fa-user'
+          style: 'fas fa-user',
         },
         {
           name: 'dc.contributor.editor',
-          style: 'fas fa-user'
+          style: 'fas fa-user',
         },
         {
           name: 'oairecerif.author.affiliation',
-          style: 'fas fa-university'
+          style: 'fas fa-university',
         },
         {
           name: 'oairecerif.editor.affiliation',
-          style: 'fas fa-university'
+          style: 'fas fa-university',
         },
         {
           name: 'dc.relation.grantno',
-          style: 'fas fa-info-circle'
+          style: 'fas fa-info-circle',
         },
         // default configuration
         {
           name: 'default',
-          style: ''
-        }
+          style: '',
+        },
       ],
       authority: {
         confidence: [
@@ -210,50 +233,93 @@ export class DefaultAppConfig implements AppConfig {
            * NOTE: example of configuration
            * {
            *    // NOTE: confidence value
-           *    value: 'dc.author',
-           *    // NOTE: fontawesome (v4.x) icon classes and bootstrap utility classes can be used
-           *    style: 'fa-user'
+           *    value: 100,
+           *    // NOTE: fontawesome (v6.x) icon classes and bootstrap utility classes can be used
+           *    style: 'text-success',
+           *    icon: 'fa-circle-check'
+           *    // NOTE: the class configured in property style is used by default, the icon property could be used in component
+           *    //      configured to use a 'icon mode' display (mainly in edit-item page)
            * }
            */
           {
             value: 600,
-            style: 'text-success'
+            style: 'text-success',
+            icon: 'fa-circle',
           },
           {
             value: 500,
-            style: 'text-warning'
+            style: 'text-warning',
+            icon: 'fa-circle',
           },
           {
             value: 400,
-            style: 'text-danger'
+            style: 'text-danger',
+            icon: 'fa-circle',
           },
           {
             value: 300,
-            style: 'text-dark'
+            style: 'text-dark',
+            icon: 'fa-circle',
           },
           {
             value: 200,
-            style: 'text-dark'
+            style: 'text-dark',
+            icon: 'fa-circle',
           },
           {
             value: 100,
-            style: 'text-dark'
+            style: 'text-dark',
+            icon: 'fa-circle',
           },
           // default configuration
           {
             value: 'default',
-            style: 'text-muted'
-          }
+            style: 'text-gray-500',
+            icon: 'fa-circle-xmark',
+          },
 
-        ]
-      }
+        ],
+        sourceIcons: [
+          {
+            source: 'orcid',
+            path: 'assets/images/orcid.logo.icon.svg',
+          },
+          {
+            source: 'openaire',
+            path: 'assets/images/openaire.logo.icon.svg',
+          },
+          {
+            source: 'ror',
+            path: 'assets/images/ror.logo.icon.svg',
+          },
+          {
+            source: 'sherpa',
+            path: 'assets/images/sherpa.logo.icon.svg',
+          },
+          {
+            source: 'zdb',
+            path: 'assets/images/zdb.logo.icon.svg',
+          },
+          {
+            source: 'local',
+            path: 'assets/images/local.logo.icon.svg',
+          },
+        ],
+      },
+      iconsVisibleWithNoAuthority: ['fas fa-user'],
     },
     detectDuplicate: {
       // NOTE: list of additional item metadata to show for duplicate match presentation list
       metadataDetailsList: [
-        { label: 'Document type', name: 'dc.type' }
-      ]
-    }
+        { label: 'Document type', name: 'dc.type' },
+      ],
+    },
+    dropdownHintEnabled: {
+      // NOTE: list of metadata fields for which the dropdown hint is enabled
+      // eg. 'dc.access.rights': true,
+    },
+    // Minimum number of characters required before performing a lookup.
+    minChars: 3,
   };
 
   // Default Language in which the UI will be rendered if the user's browser language is not an active language
@@ -263,27 +329,31 @@ export class DefaultAppConfig implements AppConfig {
   // When set to active, users will be able to switch to the use of this language in the user interface.
   languages: LangConfig[] = [
     { code: 'en', label: 'English', active: true },
-    { code: 'ca', label: 'Català', active: true },
-    { code: 'cs', label: 'Čeština', active: true },
+    { code: 'ar', label: 'العربية', active: false },
+    { code: 'bn', label: 'বাংলা', active: false },
+    { code: 'ca', label: 'Català', active: false },
+    { code: 'cs', label: 'Čeština', active: false },
     { code: 'de', label: 'Deutsch', active: true },
+    { code: 'el', label: 'Ελληνικά', active: false },
     { code: 'es', label: 'Español', active: true },
+    { code: 'fi', label: 'Suomi', active: false },
     { code: 'fr', label: 'Français', active: true },
-    { code: 'gd', label: 'Gàidhlig', active: true },
-    { code: 'it', label: 'Italiano', active: true },
-    { code: 'lv', label: 'Latviešu', active: true },
-    { code: 'hu', label: 'Magyar', active: true },
-    { code: 'nl', label: 'Nederlands', active: true },
-    { code: 'pl', label: 'Polski', active: true },
-    { code: 'pt-PT', label: 'Português', active: true },
-    { code: 'pt-BR', label: 'Português do Brasil', active: true },
-    { code: 'fi', label: 'Suomi', active: true },
-    { code: 'sv', label: 'Svenska', active: true },
-    { code: 'tr', label: 'Türkçe', active: true },
-    { code: 'kk', label: 'Қазақ', active: true },
-    { code: 'bn', label: 'বাংলা', active: true },
-    { code: 'hi', label: 'हिंदी', active: true},
-    { code: 'el', label: 'Ελληνικά', active: true },
-    { code: 'uk', label: 'Yкраї́нська', active: true}
+    { code: 'gd', label: 'Gàidhlig', active: false },
+    { code: 'hi', label: 'हिंदी', active: false },
+    { code: 'hu', label: 'Magyar', active: false },
+    { code: 'it', label: 'Italiano', active: false },
+    { code: 'kk', label: 'Қазақ', active: false },
+    { code: 'lv', label: 'Latviešu', active: false },
+    { code: 'nl', label: 'Nederlands', active: false },
+    { code: 'pl', label: 'Polski', active: false },
+    { code: 'pt-PT', label: 'Português', active: false },
+    { code: 'pt-BR', label: 'Português do Brasil', active: false },
+    { code: 'sr-lat', label: 'Srpski (lat)', active: false },
+    { code: 'sr-cyr', label: 'Српски', active: false },
+    { code: 'sv', label: 'Svenska', active: false },
+    { code: 'tr', label: 'Türkçe', active: false },
+    { code: 'uk', label: 'Yкраї́нська', active: false },
+    { code: 'vi', label: 'Tiếng Việt', active: false },
   ];
 
   // Browse-By Pages
@@ -294,16 +364,20 @@ export class DefaultAppConfig implements AppConfig {
     fiveYearLimit: 30,
     // The absolute lowest year to display in the dropdown (only used when no lowest date can be found for all items)
     defaultLowerLimit: 1900,
+    // Whether to add item badges to BOTH browse and search result lists.
+    showLabels: true,
     // Whether to add item thumbnail images to BOTH browse and search result lists.
     showThumbnails: true,
+    // Whether to add item thumbnail images to BOTH browse and search result lists.
+    showMetrics: false,
     // The number of entries in a paginated browse results list.
     // Rounded to the nearest size in the list of selectable sizes on the
     // settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
-    pageSize: 20
+    pageSize: 20,
   };
 
   communityList: CommunityListConfig = {
-    pageSize: 20
+    pageSize: 20,
   };
 
   homePage: HomeConfig = {
@@ -314,14 +388,15 @@ export class DefaultAppConfig implements AppConfig {
       sortField: 'dc.date.accessioned',
     },
     topLevelCommunityList: {
-      pageSize: 5
-    }
+      pageSize: 5,
+    },
+    showDiscoverFilters: false,
   };
 
   // Item Config
   item: ItemConfig = {
     edit: {
-      undoTimeout: 10000 // 10 seconds
+      undoTimeout: 10000, // 10 seconds
     },
     // Show the item access status label in items lists
     showAccessStatuses: false,
@@ -329,8 +404,20 @@ export class DefaultAppConfig implements AppConfig {
       // Number of entries in the bitstream list in the item view page.
       // Rounded to the nearest size in the list of selectable sizes on the
       // settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
-      pageSize: 5
-    }
+      pageSize: 5,
+    },
+    // The maximum number of metadata values to add to the metatag list of the item page
+    metatagLimit: 20,
+
+    // The maximum number of values for repeatable metadata to show in the full item
+    metadataLimit: 20,
+  };
+
+  // Community Page Config
+  community: CommunityPageConfig = {
+    searchSection: {
+      showSidebar: true,
+    },
   };
 
   // When the search results are retrieved, for each item type the metadata with a valid authority value are inspected.
@@ -339,20 +426,38 @@ export class DefaultAppConfig implements AppConfig {
   followAuthorityMetadata: FollowAuthorityMetadata[] = [
     {
       type: 'Publication',
-      metadata: ['dc.contributor.author']
+      metadata: ['dc.contributor.author'],
     },
     {
       type: 'Product',
-      metadata: ['dc.contributor.author']
-    }
+      metadata: ['dc.contributor.author'],
+    },
+    {
+      type: 'Patent',
+      metadata: ['dc.contributor.author'],
+    },
   ];
 
   // Collection Page Config
   collection: CollectionPageConfig = {
+    searchSection: {
+      showSidebar: true,
+    },
     edit: {
-      undoTimeout: 10000 // 10 seconds
-    }
+      undoTimeout: 10000, // 10 seconds
+    },
   };
+
+  suggestion: SuggestionConfig[] = [
+    // {
+    //   // Use this configuration to map a suggestion import to a specific collection based on the suggestion type.
+    //   source: 'suggestionSource',
+    //   collectionId: 'collectionUUID'
+    // }
+    // This is used as a default fallback in case there aren't collections where to import the suggestion
+    // If not mapped the user will be allowed to import the suggestions only in the provided options, shown clicking the button "Approve and import"
+    // If not mapped and no options available for import the user won't be able to import the suggestions.
+  ];
 
   // Theme Config
   themes: ThemeConfig[] = [
@@ -414,7 +519,7 @@ export class DefaultAppConfig implements AppConfig {
             'rel': 'icon',
             'href': 'assets/dspace/images/favicons/favicon.ico',
             'sizes': 'any',
-          }
+          },
         },
         {
           // Insert <link rel="icon" href="assets/dspace/images/favicons/favicon.svg" type="image/svg+xml"/> into the <head> of the page.
@@ -423,7 +528,7 @@ export class DefaultAppConfig implements AppConfig {
             'rel': 'icon',
             'href': 'assets/dspace/images/favicons/favicon.svg',
             'type': 'image/svg+xml',
-          }
+          },
         },
         {
           // Insert <link rel="apple-touch-icon" href="assets/dspace/images/favicons/apple-touch-icon.png"/> into the <head> of the page.
@@ -431,7 +536,7 @@ export class DefaultAppConfig implements AppConfig {
           attributes: {
             'rel': 'apple-touch-icon',
             'href': 'assets/dspace/images/favicons/apple-touch-icon.png',
-          }
+          },
         },
         {
           // Insert <link rel="manifest" href="assets/dspace/images/favicons/manifest.webmanifest"/> into the <head> of the page.
@@ -439,7 +544,7 @@ export class DefaultAppConfig implements AppConfig {
           attributes: {
             'rel': 'manifest',
             'href': 'assets/dspace/images/favicons/manifest.webmanifest',
-          }
+          },
         },
         {
           // Insert   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> into the <head> of the page.
@@ -447,22 +552,22 @@ export class DefaultAppConfig implements AppConfig {
           attributes: {
             'rel': 'stylesheet',
             'href': 'https://fonts.googleapis.com/icon?family=Material+Icons',
-          }
+          },
         },
-      ]
+      ],
     },
   ];
   // The default bundles that should always be displayed when you edit or add a bundle even when no bundle has been
   // added to the item yet.
   bundle: BundleConfig = {
-    standardBundles: ['ORIGINAL', 'THUMBNAIL', 'LICENSE']
+    standardBundles: ['ORIGINAL', 'THUMBNAIL', 'LICENSE'],
   };
   // Whether to enable media viewer for image and/or video Bitstreams (i.e. Bitstreams whose MIME type starts with "image" or "video").
   // For images, this enables a gallery viewer where you can zoom or page through images.
   // For videos, this enables embedded video streaming
   mediaViewer: MediaViewerConfig = {
     image: false,
-    video: false
+    video: false,
   };
   // Whether the end-user-agreement and privacy policy feature should be enabled or not.
   // Disabling the end user agreement feature will result in:
@@ -472,16 +577,35 @@ export class DefaultAppConfig implements AppConfig {
   // Disabling the privacy policy feature will result in:
   // - A 404 page if you manually try to navigate to the privacy policy page at info/privacy
   // - All mentions of the privacy policy being removed from the UI (e.g. in the footer)
+  // Disabling the COAR notify support page feature will result in:
+  // - A 404 page if you manually try to navigate to the COAR notify support page
+  // - All mentions of the COAR notify support page being removed from the UI (e.g. in the footer)
   info: InfoConfig = {
     enableEndUserAgreement: true,
-    enablePrivacyStatement: true
+    enablePrivacyStatement: true,
+    enableCOARNotifySupport: true,
+    //Configuration for third-party metrics in Klaro
+    metricsConsents: [
+      {
+        key: 'plumX',
+        enabled: true,
+      },
+      {
+        key: 'altmetric',
+        enabled: true,
+      },
+      {
+        key: 'dimensions',
+        enabled: true,
+      },
+    ],
   };
 
   // Whether to enable Markdown (https://commonmark.org/) and MathJax (https://www.mathjax.org/)
   // display in supported metadata fields. By default, only dc.description.abstract is supported.
   markdown: MarkdownConfig = {
-    enabled: false,
-    mathjax: false,
+    enabled: true,
+    mathjax: true,
   };
 
   // Which vocabularies should be used for which search filters
@@ -491,32 +615,127 @@ export class DefaultAppConfig implements AppConfig {
     {
       filter: 'subject',
       vocabulary: 'srsc',
-      enabled: false
-    }
-    ];
+      enabled: false,
+    },
+  ];
+
+  // Configuration that determines the metadata sorting of community and collection edition and creation when there are not a search query.
+  comcolSelectionSort: DiscoverySortConfig = {
+    sortField:'dc.title',
+    sortDirection:'ASC',
+  };
+
+  qualityAssuranceConfig: QualityAssuranceConfig = {
+    sourceUrlMapForProjectSearch: {
+      openaire: 'https://explore.openaire.eu/search/project?projectId=',
+    },
+    pageSize: 5,
+  };
+
+  search: SearchConfig = {
+    advancedFilters: {
+      enabled: false,
+      filter: ['title', 'author', 'subject', 'entityType'],
+    },
+  };
+
+  notifyMetrics: AdminNotifyMetricsRow[] = [
+    {
+      title: 'admin-notify-dashboard.received-ldn',
+      boxes: [
+        {
+          color: '#B8DAFF',
+          title: 'admin-notify-dashboard.NOTIFY.incoming.accepted',
+          config: 'NOTIFY.incoming.accepted',
+          description: 'admin-notify-dashboard.NOTIFY.incoming.accepted.description',
+        },
+        {
+          color: '#D4EDDA',
+          title: 'admin-notify-dashboard.NOTIFY.incoming.processed',
+          config: 'NOTIFY.incoming.processed',
+          description: 'admin-notify-dashboard.NOTIFY.incoming.processed.description',
+        },
+        {
+          color: '#FDBBC7',
+          title: 'admin-notify-dashboard.NOTIFY.incoming.failure',
+          config: 'NOTIFY.incoming.failure',
+          description: 'admin-notify-dashboard.NOTIFY.incoming.failure.description',
+        },
+        {
+          color: '#FDBBC7',
+          title: 'admin-notify-dashboard.NOTIFY.incoming.untrusted',
+          config: 'NOTIFY.incoming.untrusted',
+          description: 'admin-notify-dashboard.NOTIFY.incoming.untrusted.description',
+        },
+        {
+          color: '#43515F',
+          title: 'admin-notify-dashboard.NOTIFY.incoming.involvedItems',
+          textColor: '#fff',
+          config: 'NOTIFY.incoming.involvedItems',
+          description: 'admin-notify-dashboard.NOTIFY.incoming.involvedItems.description',
+        },
+      ],
+    },
+    {
+      title: 'admin-notify-dashboard.generated-ldn',
+      boxes: [
+        {
+          color: '#D4EDDA',
+          title: 'admin-notify-dashboard.NOTIFY.outgoing.delivered',
+          config: 'NOTIFY.outgoing.delivered',
+          description: 'admin-notify-dashboard.NOTIFY.outgoing.delivered.description',
+        },
+        {
+          color: '#B8DAFF',
+          title: 'admin-notify-dashboard.NOTIFY.outgoing.queued',
+          config: 'NOTIFY.outgoing.queued',
+          description: 'admin-notify-dashboard.NOTIFY.outgoing.queued.description',
+        },
+        {
+          color: '#FDEEBB',
+          title: 'admin-notify-dashboard.NOTIFY.outgoing.queued_for_retry',
+          config: 'NOTIFY.outgoing.queued_for_retry',
+          description: 'admin-notify-dashboard.NOTIFY.outgoing.queued_for_retry.description',
+        },
+        {
+          color: '#FDBBC7',
+          title: 'admin-notify-dashboard.NOTIFY.outgoing.failure',
+          config: 'NOTIFY.outgoing.failure',
+          description: 'admin-notify-dashboard.NOTIFY.outgoing.failure.description',
+        },
+        {
+          color: '#43515F',
+          title: 'admin-notify-dashboard.NOTIFY.outgoing.involvedItems',
+          textColor: '#fff',
+          config: 'NOTIFY.outgoing.involvedItems',
+          description: 'admin-notify-dashboard.NOTIFY.outgoing.involvedItems.description',
+        },
+      ],
+    },
+  ];
 
   crisLayout: CrisLayoutConfig = {
     urn: [
       {
         name: 'doi',
-        baseUrl: 'https://doi.org/'
+        baseUrl: 'https://doi.org/',
       },
       {
         name: 'hdl',
-        baseUrl: 'https://hdl.handle.net/'
+        baseUrl: 'https://hdl.handle.net/',
       },
       {
         name: 'scopus',
-        baseUrl: 'https://www.scopus.com/authid/detail.uri?authorId='
+        baseUrl: 'https://www.scopus.com/authid/detail.uri?authorId=',
       },
       {
         name: 'researcherid',
-        baseUrl: 'http://www.researcherid.com/rid/'
+        baseUrl: 'http://www.researcherid.com/rid/',
       },
       {
         name: 'mailto',
-        baseUrl: 'mailto:'
-      }
+        baseUrl: 'mailto:',
+      },
     ],
     crisRef: [
       {
@@ -524,63 +743,71 @@ export class DefaultAppConfig implements AppConfig {
         entityStyle: {
           default: {
             icon: 'fa fa-info',
-            style: 'text-info'
-          }
-        }
+            style: 'text-info',
+          },
+        },
       },
       {
         entityType: 'PERSON',
         entityStyle: {
           default: {
             icon: 'fa fa-user',
-            style: 'text-info'
-          }
-        }
+            style: 'text-info',
+          },
+        },
       },
       {
         entityType: 'ORGUNIT',
         entityStyle: {
           default: {
             icon: 'fa fa-university',
-            style: 'text-info'
-          }
-        }
+            style: 'text-info',
+          },
+        },
       },
       {
         entityType: 'PROJECT',
         entityStyle: {
           default: {
             icon: 'fas fa-project-diagram',
-            style: 'text-info'
-          }
-        }
-      }
+            style: 'text-info',
+          },
+        },
+      },
     ],
     crisRefStyleMetadata: {
       default: 'cris.entity.style',
     },
     itemPage: {
       OrgUnit: {
-        orientation: 'vertical'
+        orientation: 'vertical',
       },
       Project: {
-        orientation: 'vertical'
+        orientation: 'vertical',
       },
       default: {
-        orientation: 'horizontal'
+        orientation: 'horizontal',
       },
     },
     metadataBox: {
       defaultMetadataLabelColStyle: 'col-3',
-      defaultMetadataValueColStyle: 'col-9'
-    }
+      defaultMetadataValueColStyle: 'col-9',
+    },
+    collectionsBox: {
+      defaultCollectionsLabelColStyle: 'col-3 font-weight-bold',
+      defaultCollectionsValueColStyle: 'col-9',
+      isInline: true,
+    },
   };
 
   layout: LayoutConfig = {
     navbar: {
       // If true, show the "Community and Collections" link in the navbar; otherwise, show it in the admin sidebar
       showCommunityCollection: true,
-    }
+    },
+    breadcrumbs: {
+      charLimit: 10,
+    },
   };
 
   security: MetadataSecurityConfig = {
@@ -588,53 +815,43 @@ export class DefaultAppConfig implements AppConfig {
       {
         value: 0,
         icon: 'fa fa-globe',
-        color: 'green'
+        color: 'green',
       },
       {
         value: 1,
         icon: 'fa fa-key',
-        color: 'orange'
+        color: 'orange',
       },
       {
         value: 2,
         icon: 'fa fa-lock',
-        color: 'red'
-      }
-    ]
+        color: 'red',
+      },
+    ],
   };
-
-  suggestion: SuggestionConfig[] = [
-    // {
-    //   // Use this configuration to map a suggestion import to a specific collection based on the suggestion type.
-    //   source: 'suggestionSource',
-    //   collectionId: 'collectionUUID'
-    // }
-  ];
 
   cms: CmsMetadata = {
     metadataList: [
       'cris.cms.home-header',
       'cris.cms.home-news',
       'cris.cms.footer',
-    ]
+    ],
   };
 
   addToAnyPlugin: AddToAnyPluginConfig = {
     scriptUrl: 'https://static.addtoany.com/menu/page.js',
-    socialNetworksEnabled: false,
-    buttons: ['facebook', 'twitter', 'linkedin', 'email', 'copy_link'],
+    socialNetworksEnabled: true,
+    buttons: ['facebook', 'x', 'linkedin', 'email', 'copy_link'],
     showPlusButton: true,
     showCounters: true,
     title: 'DSpace CRIS 7 demo',
-    // link: 'https://dspacecris7.4science.cloud/',
-    // The link to be shown in the shared post, if different from document.location.origin
   };
 
   metricVisualizationConfig: MetricVisualizationConfig[] = [
     {
       type: 'altmetric',
       icon: null,
-      class: 'alert-light',
+      class: '',
     },
     {
       type: 'plumX',
@@ -644,32 +861,32 @@ export class DefaultAppConfig implements AppConfig {
     {
       type: 'dimensions',
       icon: 'fa fa-cubes',
-      class: 'alert-light',
+      class: '',
     },
     {
       type: 'google-scholar',
       icon: '/assets/images/google-scholar.svg',
-      class: 'alert-info',
+      class: 'alert alert-info',
     },
     {
       type: 'embedded-view',
       icon: 'fa fa-eye',
-      class: 'alert-success'
+      class: 'alert alert-success',
     },
     {
       type: 'embedded-download',
       icon: 'fa fa-cloud-download-alt',
-      class: 'alert-danger',
+      class: 'alert alert-danger',
     },
     {
       type: 'view',
       icon: 'fa fa-eye',
-      class: 'alert-success',
+      class: 'alert alert-success',
     },
     {
       type: 'download',
       icon: 'fa fa-cloud-download-alt',
-      class: 'alert-danger',
+      class: 'alert alert-danger',
     },
   ];
 
@@ -689,17 +906,17 @@ export class DefaultAppConfig implements AppConfig {
       {
         name: 'dc.title',
         type: AdvancedAttachmentElementType.Metadata,
-        truncatable: false
+        truncatable: false,
       },
       {
         name: 'dc.type',
         type: AdvancedAttachmentElementType.Metadata,
-        truncatable: false
+        truncatable: false,
       },
       {
         name: 'dc.description',
         type: AdvancedAttachmentElementType.Metadata,
-        truncatable: true
+        truncatable: true,
       },
       {
         name: 'size',
@@ -712,12 +929,82 @@ export class DefaultAppConfig implements AppConfig {
       {
         name: 'checksum',
         type: AdvancedAttachmentElementType.Attribute,
-      }
-    ]
+      },
+    ],
   };
 
   searchResult: SearchResultConfig = {
-    additionalMetadataFields: []
+    additionalMetadataFields: [],
+    authorMetadata: ['dc.contributor.author', 'dc.creator', 'dc.contributor.*'],
   };
 
+  mirador: MiradorConfig = {
+    enableDownloadPlugin: true,
+  };
+
+  loader: LoaderConfig = {
+    showFallbackMessagesByDefault: false,
+    warningMessageDelay: 5000, // 5 seconds
+    errorMessageDelay: 15000, // 15 seconds
+    numberOfAutomaticPageReloads: 2,
+  };
+
+  metaTags: MetaTagsConfig = {
+    defaultLogo: '/assets/images/dspace-cris-logo-hd.png',
+    defaultDescription: 'DSpace-CRIS is a comprehensive, free and open-source Research Information Management System (CRIS/RIMS).\n' +
+      'It is based on DSpace, providing broader functionality and an expanded data model, relying on its large community.\n' +
+      'It is compliant with and supports key international standards, facilitating interoperability and data transfer.\n' +
+      'DSpace-CRIS enables secure, integrated and interoperable research information and data management – in a single solution.',
+  };
+
+  // Configuration for the metadata link view popover
+  metadataLinkViewPopoverData: MetadataLinkViewPopoverDataConfig =
+    {
+      fallbackMetdataList: ['dc.description.abstract'],
+
+      entityDataConfig: [
+        {
+          entityType: 'Person',
+          metadataList: ['person.affiliation.name', 'person.email', 'person.identifier.orcid', 'dc.description.abstract'],
+        },
+        {
+          entityType: 'OrgUnit',
+          metadataList: ['organization.parentOrganization', 'organization.identifier.ror', 'crisou.director', 'dc.description.abstract'],
+        },
+        {
+          entityType: 'Project',
+          metadataList: ['oairecerif.project.status', 'dc.description.abstract'],
+        },
+        {
+          entityType: 'Funding',
+          metadataList: ['oairecerif.funder', 'oairecerif.fundingProgram', 'dc.description.abstract'],
+        },
+        {
+          entityType: 'Publication',
+          metadataList: ['dc.identifier.doi', 'dc.identifier.uri', 'dc.description.abstract'],
+        },
+      ],
+    };
+
+  identifierSubtypes: IdentifierSubtypesConfig[] = [
+    {
+      name: 'ror',
+      icon: 'assets/images/ror.logo.icon.svg',
+      iconPosition: IdentifierSubtypesIconPositionEnum.LEFT,
+      link: 'https://ror.org',
+    },
+  ];
+  datadogRum: DatadogRumConfig = {
+    clientToken: undefined,
+    applicationId: undefined,
+    site: 'datadoghq.eu',
+    service: undefined,
+    env: undefined,
+    sessionSampleRate: 50,
+    sessionReplaySampleRate: 20,
+    trackUserInteractions: true,
+    trackResources: true,
+    trackLongTasks: true,
+    defaultPrivacyLevel: 'mask-user-input',
+  };
 }

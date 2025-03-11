@@ -1,6 +1,9 @@
 import { BehaviorSubject } from 'rxjs';
 
-import { ExportImageType, ExportService } from './export.service';
+import {
+  ExportImageType,
+  ExportService,
+} from './export.service';
 
 export class ServerExportService implements ExportService {
   /**
@@ -24,6 +27,17 @@ export class ServerExportService implements ExportService {
    * @param isLoading A boolean representing the exporting process status.
    */
   exportAsImage(domNode: HTMLElement, type: ExportImageType, fileName: string, isLoading: BehaviorSubject<boolean>) {
+    return;
+  }
+
+  /**
+   * Creates an image from the given base64 string.
+   * @param base64 the base64 string
+   * @param type image type (png or jpeg)
+   * @param fileName
+   * @param isLoading
+   */
+  exportImageWithBase64(base64: string, type: ExportImageType, fileName: string, isLoading: BehaviorSubject<boolean>) {
     return;
   }
 }

@@ -1,47 +1,50 @@
+import { METADATA_SECURITY_TYPE } from 'src/app/core/submission/models/metadata-security-config.resource-type';
+
 import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
+import { SubmissionVisibilityValue } from '../../core/config/models/config-submission-section.model';
 import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { Group } from '../../core/eperson/models/group.model';
 import { PageInfo } from '../../core/shared/page-info.model';
+import { MetadataSecurityConfiguration } from '../../core/submission/models/metadata-security-configuration';
 import { SubmissionObjectState } from '../../submission/objects/submission-objects.reducer';
 import { FormFieldMetadataValueObject } from '../form/builder/models/form-field-metadata-value.model';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { SubmissionVisibilityValue } from '../../core/config/models/config-submission-section.model';
 
 export const mockSectionsData = {
   traditionalpageone: {
     'dc.title': [
-      new FormFieldMetadataValueObject('test', null, null, 'test')
-    ]
+      new FormFieldMetadataValueObject('test', null, null, 'test'),
+    ],
   },
   license: {
     url: null,
     acceptanceDate: null,
-    granted: false
+    granted: false,
   },
   upload: {
-    files: []
-  }
+    files: [],
+  },
 };
 
 export const mockSectionsDataTwo = {
   traditionalpageone: {
     'dc.title': [
-      new FormFieldMetadataValueObject('test', null, null, 'test')
-    ]
+      new FormFieldMetadataValueObject('test', null, null, 'test'),
+    ],
   },
   traditionalpagetwo: {
     'dc.relation': [
-      new FormFieldMetadataValueObject('test', null, null, 'test')
-    ]
+      new FormFieldMetadataValueObject('test', null, null, 'test'),
+    ],
   },
   license: {
     url: null,
     acceptanceDate: null,
-    granted: false
+    granted: false,
   },
   upload: {
-    files: []
-  }
+    files: [],
+  },
 };
 
 export const mockSectionsErrors = [
@@ -50,15 +53,15 @@ export const mockSectionsErrors = [
     paths: [
       '/sections/traditionalpageone/dc.contributor.author',
       '/sections/traditionalpageone/dc.title',
-      '/sections/traditionalpageone/dc.date.issued'
-    ]
+      '/sections/traditionalpageone/dc.date.issued',
+    ],
   },
   {
     message: 'error.validation.license.notgranted',
     paths: [
-      '/sections/license'
-    ]
-  }
+      '/sections/license',
+    ],
+  },
 ];
 
 export const mockSectionsErrorsTouchedField = [
@@ -66,14 +69,14 @@ export const mockSectionsErrorsTouchedField = [
     message: 'error.validation.required',
     paths: [
       '/sections/traditionalpageone/dc.title',
-    ]
+    ],
   },
   {
     message: 'error.validation.license.notgranted',
     paths: [
-      '/sections/license'
-    ]
-  }
+      '/sections/license',
+    ],
+  },
 ];
 
 export const mockUploadResponse1Errors = {
@@ -82,23 +85,23 @@ export const mockUploadResponse1Errors = {
       message: 'error.validation.required',
       paths: [
         '/sections/traditionalpageone/dc.title',
-        '/sections/traditionalpageone/dc.date.issued'
-      ]
-    }
-  ]
+        '/sections/traditionalpageone/dc.date.issued',
+      ],
+    },
+  ],
 };
 
 export const mockUploadResponse1ParsedErrors: any = {
   traditionalpageone: [
     { path: '/sections/traditionalpageone/dc.title', message: 'error.validation.required' },
-    { path: '/sections/traditionalpageone/dc.date.issued', message: 'error.validation.required' }
-  ]
+    { path: '/sections/traditionalpageone/dc.date.issued', message: 'error.validation.required' },
+  ],
 };
 
 export const mockLicenseParsedErrors: any = {
   license: [
-    { path: '/sections/license', message: 'error.validation.license.notgranted' }
-  ]
+    { path: '/sections/license', message: 'error.validation.license.notgranted' },
+  ],
 };
 
 export const mockUploadResponse2Errors = {
@@ -107,26 +110,26 @@ export const mockUploadResponse2Errors = {
       message: 'error.validation.required',
       paths: [
         '/sections/traditionalpageone/dc.title',
-        '/sections/traditionalpageone/dc.date.issued'
-      ]
+        '/sections/traditionalpageone/dc.date.issued',
+      ],
     },
     {
       message: 'error.upload',
       paths: [
-        '/sections/upload'
-      ]
-    }
-  ]
+        '/sections/upload',
+      ],
+    },
+  ],
 };
 
 export const mockUploadResponse2ParsedErrors = {
   traditionalpageone: [
     { path: '/sections/traditionalpageone/dc.title', message: 'error.validation.required' },
-    { path: '/sections/traditionalpageone/dc.date.issued', message: 'error.validation.required' }
+    { path: '/sections/traditionalpageone/dc.date.issued', message: 'error.validation.required' },
   ],
   upload: [
-    { path: '/sections/upload', message: 'error.upload' }
-  ]
+    { path: '/sections/upload', message: 'error.upload' },
+  ],
 };
 
 export const mockSubmissionRestResponse = [
@@ -152,9 +155,9 @@ export const mockSubmissionRestResponse = [
             _links: {
               content: { href: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425/content' },
               format: { href: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425/format' },
-              self: { href: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425' }
-            }
-          }
+              self: { href: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425' },
+            },
+          },
         ],
         id: '1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb',
         uuid: '1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb',
@@ -164,46 +167,46 @@ export const mockSubmissionRestResponse = [
           {
             key: 'dc.provenance',
             language: null,
-            value: 'This field is for private provenance information. It is only visible to Administrative users and is not displayed in the user interface by default.'
+            value: 'This field is for private provenance information. It is only visible to Administrative users and is not displayed in the user interface by default.',
           },
           {
             key: 'dc.rights.license',
             language: null,
-            value: ''
+            value: '',
           },
           {
             key: 'dc.description',
             language: null,
-            value: '<p>This is a <em>DSpace Collection</em> which contains sample DSpace Items.</p>\r\n<p><strong>Collections in DSpace may only contain Items.</strong></p>\r\n<p>This particular Collection has its own logo (the <a href=\'http://www.opensource.org/\'>Open Source Initiative</a> logo).</p>\r\n<p>This introductory text is editable by System Administrators, Community Administrators (of a parent Community) or Collection Administrators (of this Collection).</p>'
+            value: '<p>This is a <em>DSpace Collection</em> which contains sample DSpace Items.</p>\r\n<p><strong>Collections in DSpace may only contain Items.</strong></p>\r\n<p>This particular Collection has its own logo (the <a href=\'http://www.opensource.org/\'>Open Source Initiative</a> logo).</p>\r\n<p>This introductory text is editable by System Administrators, Community Administrators (of a parent Community) or Collection Administrators (of this Collection).</p>',
           },
           {
             key: 'dc.description.abstract',
             language: null,
-            value: 'This collection contains sample items.'
+            value: 'This collection contains sample items.',
           },
           {
             key: 'dc.description.tableofcontents',
             language: null,
-            value: '<p>This is the <strong>news</strong> section for this Collection. System Administrators, Community Administrators (of a parent Community) or Collection Administrators (of this Collection) can edit this News field.</p>'
+            value: '<p>This is the <strong>news</strong> section for this Collection. System Administrators, Community Administrators (of a parent Community) or Collection Administrators (of this Collection) can edit this News field.</p>',
           },
           {
             key: 'dc.rights',
             language: null,
-            value: '<p><em>If this collection had a specific copyright statement, it would be placed here.</em></p>'
+            value: '<p><em>If this collection had a specific copyright statement, it would be placed here.</em></p>',
           },
           {
             key: 'dc.title',
             language: null,
-            value: 'Collection of Sample Items'
-          }
+            value: 'Collection of Sample Items',
+          },
         ],
         _links: {
           license: { href: 'https://rest.api/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb/license' },
           defaultAccessConditions: { href: 'https://rest.api/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb/defaultAccessConditions' },
           logo: { href: 'https://rest.api/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb/logo' },
-          self: { href: 'https://rest.api/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb' }
-        }
-      }
+          self: { href: 'https://rest.api/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb' },
+        },
+      },
     ],
     item: [
       {
@@ -222,9 +225,9 @@ export const mockSubmissionRestResponse = [
           bitstreams: { href: 'https://rest.api/dspace-spring-rest/api/core/items/6f344222-6980-4738-8192-b808d79af8a5/bitstreams' },
           owningCollection: { href: 'https://rest.api/dspace-spring-rest/api/core/items/6f344222-6980-4738-8192-b808d79af8a5/owningCollection' },
           templateItemOf: { href: 'https://rest.api/dspace-spring-rest/api/core/items/6f344222-6980-4738-8192-b808d79af8a5/templateItemOf' },
-          self: { href: 'https://rest.api/dspace-spring-rest/api/core/items/6f344222-6980-4738-8192-b808d79af8a5' }
-        }
-      }
+          self: { href: 'https://rest.api/dspace-spring-rest/api/core/items/6f344222-6980-4738-8192-b808d79af8a5' },
+        },
+      },
     ],
     sections: {},
     submissionDefinition: [
@@ -236,12 +239,12 @@ export const mockSubmissionRestResponse = [
             sectionType: 'utils',
             visibility: {
               main: 'HIDDEN',
-              other: 'HIDDEN'
+              other: 'HIDDEN',
             },
             type: 'submissionsection',
             _links: {
               self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/extraction' },
-              config: ''
+              config: '',
             },
           },
           {
@@ -249,12 +252,12 @@ export const mockSubmissionRestResponse = [
             sectionType: 'collection',
             visibility: {
               main: 'HIDDEN',
-              other: 'HIDDEN'
+              other: 'HIDDEN',
             },
             type: 'submissionsection',
             _links: {
               self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection' },
-              config: ''
+              config: '',
             },
           },
           {
@@ -264,7 +267,7 @@ export const mockSubmissionRestResponse = [
             type: 'submissionsection',
             _links: {
               self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone' },
-              config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone' }
+              config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone' },
             },
           },
           {
@@ -274,7 +277,7 @@ export const mockSubmissionRestResponse = [
             type: 'submissionsection',
             _links: {
               self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo' },
-              config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo' }
+              config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo' },
             },
           },
           {
@@ -284,7 +287,7 @@ export const mockSubmissionRestResponse = [
             type: 'submissionsection',
             _links: {
               self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload' },
-              config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload' }
+              config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload' },
             },
           },
           {
@@ -293,12 +296,12 @@ export const mockSubmissionRestResponse = [
             sectionType: 'license',
             visibility: {
               main: null,
-              other: 'READONLY'
+              other: 'READONLY',
             },
             type: 'submissionsection',
             _links: {
               self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license' },
-              config: ''
+              config: '',
             },
           },
           {
@@ -308,18 +311,18 @@ export const mockSubmissionRestResponse = [
             type : 'submissionsection',
             _links : {
               self : { href: 'https://dspacecris7.4science.cloud/server/api/config/submissionsections/detect-duplicate' },
-              config: ''
-            }
-          }
+              config: '',
+            },
+          },
         ],
         name: 'traditional',
         type: 'submissiondefinition',
         _links: {
           collections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/collections' },
           sections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/sections' },
-          self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional' }
+          self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional' },
         },
-      }
+      },
     ],
     submitter: [],
     errors: [],
@@ -329,10 +332,22 @@ export const mockSubmissionRestResponse = [
       item: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/item' },
       submissionDefinition: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/submissionDefinition' },
       submitter: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/submitter' },
-      self: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826' }
-    }
-  }
+      self: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826' },
+    },
+  },
 ];
+
+export const mockSecurityConfig: MetadataSecurityConfiguration = {
+  'uuid' : 'Person',
+  'metadataSecurityDefault' : [ 0, 1, 2 ],
+  'metadataCustomSecurity' : { 'person.birthDate': [ 0, 1 ] },
+  'type' : METADATA_SECURITY_TYPE,
+  '_links' : {
+    'self' : {
+      'href' : 'http://localhost:8080/server/api/core/securitysettings/Person',
+    },
+  },
+};
 
 export const mockSubmissionObject = {
   collection: {
@@ -343,7 +358,7 @@ export const mockSubmissionObject = {
         elementsPerPage: 1,
         totalElements: 1,
         totalPages: 1,
-        currentPage: 1
+        currentPage: 1,
       },
       page: [
         {
@@ -353,10 +368,10 @@ export const mockSubmissionObject = {
           uuid: 'resource-policy-20',
           type: 'resourcePolicy',
           _links: {
-            self: { href: 'https://rest.api/dspace-spring-rest/api/authz/resourcePolicies/20' }
-          }
-        }
-      ]
+            self: { href: 'https://rest.api/dspace-spring-rest/api/authz/resourcePolicies/20' },
+          },
+        },
+      ],
     },
     logo: {
       sizeBytes: 7451,
@@ -371,8 +386,8 @@ export const mockSubmissionObject = {
       _links: {
         content: { href: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425/content' },
         format: { href: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425/format' },
-        self: { href: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425' }
-      }
+        self: { href: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425' },
+      },
     },
     id: '1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb',
     uuid: '1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb',
@@ -382,45 +397,45 @@ export const mockSubmissionObject = {
       {
         key: 'dc.provenance',
         language: null,
-        value: 'This field is for private provenance information. It is only visible to Administrative users and is not displayed in the user interface by default.'
+        value: 'This field is for private provenance information. It is only visible to Administrative users and is not displayed in the user interface by default.',
       },
       {
         key: 'dc.rights.license',
         language: null,
-        value: ''
+        value: '',
       },
       {
         key: 'dc.description',
         language: null,
-        value: '<p>This is a <em>DSpace Collection</em> which contains sample DSpace Items.</p>\r\n<p><strong>Collections in DSpace may only contain Items.</strong></p>\r\n<p>This particular Collection has its own logo (the <a href=\'http://www.opensource.org/\'>Open Source Initiative</a> logo).</p>\r\n<p>This introductory text is editable by System Administrators, Community Administrators (of a parent Community) or Collection Administrators (of this Collection).</p>'
+        value: '<p>This is a <em>DSpace Collection</em> which contains sample DSpace Items.</p>\r\n<p><strong>Collections in DSpace may only contain Items.</strong></p>\r\n<p>This particular Collection has its own logo (the <a href=\'http://www.opensource.org/\'>Open Source Initiative</a> logo).</p>\r\n<p>This introductory text is editable by System Administrators, Community Administrators (of a parent Community) or Collection Administrators (of this Collection).</p>',
       },
       {
         key: 'dc.description.abstract',
         language: null,
-        value: 'This collection contains sample items.'
+        value: 'This collection contains sample items.',
       },
       {
         key: 'dc.description.tableofcontents',
         language: null,
-        value: '<p>This is the <strong>news</strong> section for this Collection. System Administrators, Community Administrators (of a parent Community) or Collection Administrators (of this Collection) can edit this News field.</p>'
+        value: '<p>This is the <strong>news</strong> section for this Collection. System Administrators, Community Administrators (of a parent Community) or Collection Administrators (of this Collection) can edit this News field.</p>',
       },
       {
         key: 'dc.rights',
         language: null,
-        value: '<p><em>If this collection had a specific copyright statement, it would be placed here.</em></p>'
+        value: '<p><em>If this collection had a specific copyright statement, it would be placed here.</em></p>',
       },
       {
         key: 'dc.title',
         language: null,
-        value: 'Collection of Sample Items'
-      }
+        value: 'Collection of Sample Items',
+      },
     ],
     _links: {
       license: { href: 'https://rest.api/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb/license' },
       defaultAccessConditions: { href: 'https://rest.api/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb/defaultAccessConditions' },
       logo: { href: 'https://rest.api/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb/logo' },
-      self: { href: 'https://rest.api/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb' }
-    }
+      self: { href: 'https://rest.api/dspace-spring-rest/api/core/collections/1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb' },
+    },
   },
   item: {
     handle: null,
@@ -434,9 +449,9 @@ export const mockSubmissionObject = {
         elementsPerPage: 0,
         totalElements: 0,
         totalPages: 1,
-        currentPage: 1
+        currentPage: 1,
       },
-      page: []
+      page: [],
     },
     id: 'cae8af78-c874-4468-af79-e6c996aa8270',
     uuid: 'cae8af78-c874-4468-af79-e6c996aa8270',
@@ -447,8 +462,8 @@ export const mockSubmissionObject = {
       bitstreams: { href: 'https://rest.api/dspace-spring-rest/api/core/items/cae8af78-c874-4468-af79-e6c996aa8270/bitstreams' },
       owningCollection: { href: 'https://rest.api/dspace-spring-rest/api/core/items/cae8af78-c874-4468-af79-e6c996aa8270/owningCollection' },
       templateItemOf: { href: 'https://rest.api/dspace-spring-rest/api/core/items/cae8af78-c874-4468-af79-e6c996aa8270/templateItemOf' },
-      self: { href: 'https://rest.api/dspace-spring-rest/api/core/items/cae8af78-c874-4468-af79-e6c996aa8270' }
-    }
+      self: { href: 'https://rest.api/dspace-spring-rest/api/core/items/cae8af78-c874-4468-af79-e6c996aa8270' },
+    },
   },
   submissionDefinition: {
     isDefault: true,
@@ -457,7 +472,7 @@ export const mockSubmissionObject = {
         elementsPerPage: 5,
         totalElements: 5,
         totalPages: 1,
-        currentPage: 1
+        currentPage: 1,
       },
       page: [
         {
@@ -465,12 +480,12 @@ export const mockSubmissionObject = {
           sectionType: 'collection',
           visibility: {
             main: 'HIDDEN',
-            other: 'HIDDEN'
+            other: 'HIDDEN',
           },
           type: 'submissionsection',
           _links: {
             self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection' },
-            config: ''
+            config: '',
           },
         },
         {
@@ -480,7 +495,7 @@ export const mockSubmissionObject = {
           type: 'submissionsection',
           _links: {
             self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone' },
-            config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone' }
+            config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone' },
           },
         },
         {
@@ -490,7 +505,7 @@ export const mockSubmissionObject = {
           type: 'submissionsection',
           _links: {
             self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo' },
-            config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo' }
+            config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo' },
           },
         },
         {
@@ -500,7 +515,7 @@ export const mockSubmissionObject = {
           type: 'submissionsection',
           _links: {
             self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload' },
-            config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload' }
+            config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload' },
           },
         },
         {
@@ -509,32 +524,32 @@ export const mockSubmissionObject = {
           sectionType: 'license',
           visibility: {
             main: null,
-            other: 'READONLY'
+            other: 'READONLY',
           },
           type: 'submissionsection',
           _links: {
             self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license' },
-            config: ''
+            config: '',
           },
-        }
-      ]
+        },
+      ],
     },
     name: 'traditional',
     type: 'submissiondefinition',
     _links: {
       collections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/collections' },
       sections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/sections' },
-      self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional' }
+      self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional' },
     },
     collections: {
       pageInfo: {
         elementsPerPage: 0,
         totalElements: 0,
         totalPages: 1,
-        currentPage: 1
+        currentPage: 1,
       },
-      page: []
-    }
+      page: [],
+    },
   },
   submitter: {
     handle: null,
@@ -553,17 +568,17 @@ export const mockSubmissionObject = {
       {
         key: 'eperson.firstname',
         language: null,
-        value: 'Demo'
+        value: 'Demo',
       },
       {
         key: 'eperson.lastname',
         language: null,
-        value: 'Submitter'
-      }
+        value: 'Submitter',
+      },
     ],
     _links: {
-      self: { href: 'https://rest.api/dspace-spring-rest/api/eperson/epersons/99423c27-b642-5tg6-a9cd-6d910e68dca5' }
-    }
+      self: { href: 'https://rest.api/dspace-spring-rest/api/eperson/epersons/99423c27-b642-5tg6-a9cd-6d910e68dca5' },
+    },
   },
   id: 826,
   lastModified: '2019-01-09T10:17:33.738+0000',
@@ -571,46 +586,33 @@ export const mockSubmissionObject = {
     'license': {
       url: null,
       acceptanceDate: null,
-      granted: false
+      granted: false,
     },
     'upload': {
-      files: []
+      files: [],
     },
     'detect-duplicate': {
-      matches: {}
-    }
+      matches: {},
+    },
   },
   errors: [
     {
       message: 'error.validation.required',
       paths: [
         '/sections/traditionalpageone/dc.title',
-        '/sections/traditionalpageone/dc.date.issued'
-      ]
-    }
+        '/sections/traditionalpageone/dc.date.issued',
+      ],
+    },
   ],
-  metadataSecurityConfiguration: {
-    'uuid': null,
-    'metadataSecurityDefault': [
-      0,
-      1
-    ],
-    'metadataCustomSecurity': {},
-    'type': 'securitysetting',
-    '_links': {
-      'self': {
-        'href': 'http://localhost:8080/server/api/core/securitysettings'
-      }
-    }
-  },
+  metadataSecurityConfiguration: mockSecurityConfig,
   type: 'workspaceitem',
   _links: {
     collection: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/collection' },
     item: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/item' },
     submissionDefinition: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/submissionDefinition' },
     submitter: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/submitter' },
-    self: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826' }
-  }
+    self: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826' },
+  },
 };
 
 export const mockSubmissionObjectNew = {
@@ -622,7 +624,7 @@ export const mockSubmissionObjectNew = {
         elementsPerPage: 1,
         totalElements: 1,
         totalPages: 1,
-        currentPage: 1
+        currentPage: 1,
       },
       page: [
         {
@@ -632,10 +634,10 @@ export const mockSubmissionObjectNew = {
           uuid: 'resource-policy-20',
           type: 'resourcePolicy',
           _links: {
-            self: { href: 'https://rest.api/dspace-spring-rest/api/authz/resourcePolicies/20' }
-          }
-        }
-      ]
+            self: { href: 'https://rest.api/dspace-spring-rest/api/authz/resourcePolicies/20' },
+          },
+        },
+      ],
     },
     logo: {
       sizeBytes: 7451,
@@ -650,8 +652,8 @@ export const mockSubmissionObjectNew = {
       _links: {
         content: { href: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425/content' },
         format: { href: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425/format' },
-        self: { href: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425' }
-      }
+        self: { href: 'https://rest.api/dspace-spring-rest/api/core/bitstreams/3f859425-ffbd-4b0e-bf91-bfeb458a7425' },
+      },
     },
     id: '45f2f3f1-ba1f-4f36-908a-3f1ea9a557eb',
     uuid: '45f2f3f1-ba1f-4f36-908a-3f1ea9a557eb',
@@ -661,45 +663,45 @@ export const mockSubmissionObjectNew = {
       {
         key: 'dc.provenance',
         language: null,
-        value: 'This field is for private provenance information. It is only visible to Administrative users and is not displayed in the user interface by default.'
+        value: 'This field is for private provenance information. It is only visible to Administrative users and is not displayed in the user interface by default.',
       },
       {
         key: 'dc.rights.license',
         language: null,
-        value: ''
+        value: '',
       },
       {
         key: 'dc.description',
         language: null,
-        value: '<p>This is a <em>DSpace Collection</em> which contains sample DSpace Items.</p>\r\n<p><strong>Collections in DSpace may only contain Items.</strong></p>\r\n<p>This particular Collection has its own logo (the <a href=\'http://www.opensource.org/\'>Open Source Initiative</a> logo).</p>\r\n<p>This introductory text is editable by System Administrators, Community Administrators (of a parent Community) or Collection Administrators (of this Collection).</p>'
+        value: '<p>This is a <em>DSpace Collection</em> which contains sample DSpace Items.</p>\r\n<p><strong>Collections in DSpace may only contain Items.</strong></p>\r\n<p>This particular Collection has its own logo (the <a href=\'http://www.opensource.org/\'>Open Source Initiative</a> logo).</p>\r\n<p>This introductory text is editable by System Administrators, Community Administrators (of a parent Community) or Collection Administrators (of this Collection).</p>',
       },
       {
         key: 'dc.description.abstract',
         language: null,
-        value: 'This collection contains sample items.'
+        value: 'This collection contains sample items.',
       },
       {
         key: 'dc.description.tableofcontents',
         language: null,
-        value: '<p>This is the <strong>news</strong> section for this Collection. System Administrators, Community Administrators (of a parent Community) or Collection Administrators (of this Collection) can edit this News field.</p>'
+        value: '<p>This is the <strong>news</strong> section for this Collection. System Administrators, Community Administrators (of a parent Community) or Collection Administrators (of this Collection) can edit this News field.</p>',
       },
       {
         key: 'dc.rights',
         language: null,
-        value: '<p><em>If this collection had a specific copyright statement, it would be placed here.</em></p>'
+        value: '<p><em>If this collection had a specific copyright statement, it would be placed here.</em></p>',
       },
       {
         key: 'dc.title',
         language: null,
-        value: 'Collection of Sample Items'
-      }
+        value: 'Collection of Sample Items',
+      },
     ],
     _links: {
       license: { href: 'https://rest.api/dspace-spring-rest/api/core/collections/45f2f3f1-ba1f-4f36-908a-3f1ea9a557eb/license' },
       defaultAccessConditions: { href: 'https://rest.api/dspace-spring-rest/api/core/collections/45f2f3f1-ba1f-4f36-908a-3f1ea9a557eb/defaultAccessConditions' },
       logo: { href: 'https://rest.api/dspace-spring-rest/api/core/collections/45f2f3f1-ba1f-4f36-908a-3f1ea9a557eb/logo' },
-      self: { href: 'https://rest.api/dspace-spring-rest/api/core/collections/45f2f3f1-ba1f-4f36-908a-3f1ea9a557eb' }
-    }
+      self: { href: 'https://rest.api/dspace-spring-rest/api/core/collections/45f2f3f1-ba1f-4f36-908a-3f1ea9a557eb' },
+    },
   },
   item: {
     handle: null,
@@ -713,9 +715,9 @@ export const mockSubmissionObjectNew = {
         elementsPerPage: 0,
         totalElements: 0,
         totalPages: 1,
-        currentPage: 1
+        currentPage: 1,
       },
-      page: []
+      page: [],
     },
     id: 'cae8af78-c874-4468-af79-e6c996aa8270',
     uuid: 'cae8af78-c874-4468-af79-e6c996aa8270',
@@ -726,8 +728,8 @@ export const mockSubmissionObjectNew = {
       bitstreams: { href: 'https://rest.api/dspace-spring-rest/api/core/items/cae8af78-c874-4468-af79-e6c996aa8270/bitstreams' },
       owningCollection: { href: 'https://rest.api/dspace-spring-rest/api/core/items/cae8af78-c874-4468-af79-e6c996aa8270/owningCollection' },
       templateItemOf: { href: 'https://rest.api/dspace-spring-rest/api/core/items/cae8af78-c874-4468-af79-e6c996aa8270/templateItemOf' },
-      self: { href: 'https://rest.api/dspace-spring-rest/api/core/items/cae8af78-c874-4468-af79-e6c996aa8270' }
-    }
+      self: { href: 'https://rest.api/dspace-spring-rest/api/core/items/cae8af78-c874-4468-af79-e6c996aa8270' },
+    },
   },
   submissionDefinition: {
     isDefault: true,
@@ -736,7 +738,7 @@ export const mockSubmissionObjectNew = {
         elementsPerPage: 5,
         totalElements: 5,
         totalPages: 1,
-        currentPage: 1
+        currentPage: 1,
       },
       page: [
         {
@@ -744,12 +746,12 @@ export const mockSubmissionObjectNew = {
           sectionType: 'collection',
           visibility: {
             main: 'HIDDEN',
-            other: 'HIDDEN'
+            other: 'HIDDEN',
           },
           type: 'submissionsection',
           _links: {
             self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection' },
-            config: ''
+            config: '',
           },
         },
         {
@@ -759,7 +761,7 @@ export const mockSubmissionObjectNew = {
           type: 'submissionsection',
           _links: {
             self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone' },
-            config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone' }
+            config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone' },
           },
         },
         {
@@ -769,7 +771,7 @@ export const mockSubmissionObjectNew = {
           type: 'submissionsection',
           _links: {
             self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo' },
-            config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo' }
+            config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo' },
           },
         },
         {
@@ -779,7 +781,7 @@ export const mockSubmissionObjectNew = {
           type: 'submissionsection',
           _links: {
             self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload' },
-            config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload' }
+            config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload' },
           },
         },
         {
@@ -788,32 +790,32 @@ export const mockSubmissionObjectNew = {
           sectionType: 'license',
           visibility: {
             main: null,
-            other: 'READONLY'
+            other: 'READONLY',
           },
           type: 'submissionsection',
           _links: {
             self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license' },
-            config: ''
+            config: '',
           },
-        }
-      ]
+        },
+      ],
     },
     name: 'traditionaltwo',
     type: 'submissiondefinition',
     _links: {
       collections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/collections' },
       sections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/sections' },
-      self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional' }
+      self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional' },
     },
     collections: {
       pageInfo: {
         elementsPerPage: 0,
         totalElements: 0,
         totalPages: 1,
-        currentPage: 1
+        currentPage: 1,
       },
-      page: []
-    }
+      page: [],
+    },
   },
   submitter: {
     handle: null,
@@ -832,17 +834,17 @@ export const mockSubmissionObjectNew = {
       {
         key: 'eperson.firstname',
         language: null,
-        value: 'Demo'
+        value: 'Demo',
       },
       {
         key: 'eperson.lastname',
         language: null,
-        value: 'Submitter'
-      }
+        value: 'Submitter',
+      },
     ],
     _links: {
-      self: { href: 'https://rest.api/dspace-spring-rest/api/eperson/epersons/99423c27-b642-4bb9-a9cd-45gh23e68dca5' }
-    }
+      self: { href: 'https://rest.api/dspace-spring-rest/api/eperson/epersons/99423c27-b642-4bb9-a9cd-45gh23e68dca5' },
+    },
   },
   id: 826,
   lastModified: '2019-01-09T10:17:33.738+0000',
@@ -854,8 +856,8 @@ export const mockSubmissionObjectNew = {
     item: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/item' },
     submissionDefinition: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/submissionDefinition' },
     submitter: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826/submitter' },
-    self: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826' }
-  }
+    self: { href: 'https://rest.api/dspace-spring-rest/api/submission/workspaceitems/826' },
+  },
 };
 
 export const mockSubmissionCollectionId = '1c11f3f1-ba1f-4f36-908a-3f1ea9a557eb';
@@ -872,24 +874,24 @@ export const mockSubmissionDefinitionResponse = {
       sectionType: 'utils',
       visibility: {
         submission: SubmissionVisibilityValue.Hidden,
-        workflow: SubmissionVisibilityValue.Hidden
+        workflow: SubmissionVisibilityValue.Hidden,
       },
       type: 'submissionsection',
       _links: {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/extraction' },
-        config: ''
+        config: '',
       },
     },
     {
       mandatory: true,
       sectionType: 'collection',
       visibility: {
-        workflow: SubmissionVisibilityValue.Hidden
+        workflow: SubmissionVisibilityValue.Hidden,
       },
       type: 'submissionsection',
       _links: {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection' },
-        config: ''
+        config: '',
       },
     },
     {
@@ -899,7 +901,7 @@ export const mockSubmissionDefinitionResponse = {
       type: 'submissionsection',
       _links: {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone' },
-        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone' }
+        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone' },
       },
     },
     {
@@ -909,7 +911,7 @@ export const mockSubmissionDefinitionResponse = {
       type: 'submissionsection',
       _links: {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo' },
-        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo' }
+        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo' },
       },
     },
     {
@@ -919,7 +921,7 @@ export const mockSubmissionDefinitionResponse = {
       type: 'submissionsection',
       _links: {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload' },
-        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload' }
+        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload' },
       },
     },
     {
@@ -928,21 +930,21 @@ export const mockSubmissionDefinitionResponse = {
       sectionType: 'license',
       visibility: {
         main: null,
-        other: 'READONLY'
+        other: 'READONLY',
       },
       type: 'submissionsection',
       _links: {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license' },
-        config: ''
+        config: '',
       },
-    }
+    },
   ],
   name: 'traditional',
   type: 'submissiondefinition',
   _links: {
     collections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/collections' },
     sections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/sections' },
-    self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional' }
+    self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional' },
   },
 } as any;
 
@@ -954,24 +956,24 @@ export const mockSubmissionDefinition: SubmissionDefinitionsModel = {
       sectionType: 'utils',
       visibility: {
         submission: SubmissionVisibilityValue.Hidden,
-        workflow: SubmissionVisibilityValue.Hidden
+        workflow: SubmissionVisibilityValue.Hidden,
       },
       type: 'submissionsection',
       _links: {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/extraction' },
-        config: ''
+        config: '',
       },
     },
     {
       mandatory: true,
       sectionType: 'collection',
       visibility: {
-        workflow: SubmissionVisibilityValue.Hidden
+        workflow: SubmissionVisibilityValue.Hidden,
       },
       type: 'submissionsection',
       _links: {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection' },
-        config: ''
+        config: '',
       },
     },
     {
@@ -981,7 +983,7 @@ export const mockSubmissionDefinition: SubmissionDefinitionsModel = {
       type: 'submissionsection',
       _links: {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone' },
-        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone' }
+        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone' },
       },
     },
     {
@@ -991,7 +993,7 @@ export const mockSubmissionDefinition: SubmissionDefinitionsModel = {
       type: 'submissionsection',
       _links: {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo' },
-        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo' }
+        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo' },
       },
     },
     {
@@ -1001,7 +1003,7 @@ export const mockSubmissionDefinition: SubmissionDefinitionsModel = {
       type: 'submissionsection',
       _links: {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload' },
-        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload' }
+        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload' },
       },
     },
     {
@@ -1010,21 +1012,21 @@ export const mockSubmissionDefinition: SubmissionDefinitionsModel = {
       sectionType: 'license',
       visibility: {
         main: null,
-        other: 'READONLY'
+        other: 'READONLY',
       },
       type: 'submissionsection',
       _links: {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license' },
-        config: ''
+        config: '',
       },
-    }
+    },
   ]),
   name: 'traditional',
   type: 'submissiondefinition',
   _links: {
     collections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/collections' },
     sections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/sections' },
-    self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional' }
+    self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional' },
   },
 } as any;
 
@@ -1036,24 +1038,24 @@ export const mockSubmissionDefinitionWithReadOnlyCollection: SubmissionDefinitio
       sectionType: 'utils',
       visibility: {
         submission: SubmissionVisibilityValue.Hidden,
-        workflow: SubmissionVisibilityValue.Hidden
+        workflow: SubmissionVisibilityValue.Hidden,
       },
       type: 'submissionsection',
       _links: {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/extraction' },
-        config: ''
+        config: '',
       },
     },
     {
       mandatory: true,
       sectionType: 'collection',
       visibility: {
-        submission: SubmissionVisibilityValue.ReadOnly
+        submission: SubmissionVisibilityValue.ReadOnly,
       },
       type: 'submissionsection',
       _links: {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection' },
-        config: ''
+        config: '',
       },
     },
     {
@@ -1063,7 +1065,7 @@ export const mockSubmissionDefinitionWithReadOnlyCollection: SubmissionDefinitio
       type: 'submissionsection',
       _links: {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone' },
-        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone' }
+        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone' },
       },
     },
     {
@@ -1073,7 +1075,7 @@ export const mockSubmissionDefinitionWithReadOnlyCollection: SubmissionDefinitio
       type: 'submissionsection',
       _links: {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo' },
-        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo' }
+        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo' },
       },
     },
     {
@@ -1083,7 +1085,7 @@ export const mockSubmissionDefinitionWithReadOnlyCollection: SubmissionDefinitio
       type: 'submissionsection',
       _links: {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload' },
-        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload' }
+        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload' },
       },
     },
     {
@@ -1092,21 +1094,21 @@ export const mockSubmissionDefinitionWithReadOnlyCollection: SubmissionDefinitio
       sectionType: 'license',
       visibility: {
         main: null,
-        other: 'READONLY'
+        other: 'READONLY',
       },
       type: 'submissionsection',
       _links: {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license' },
-        config: ''
+        config: '',
       },
-    }
+    },
   ]),
   name: 'traditional',
   type: 'submissiondefinition',
   _links: {
     collections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/collections' },
     sections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/sections' },
-    self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional' }
+    self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional' },
   },
 } as any;
 export const mockSubmissionDefinitionWithHiddenCollection: SubmissionDefinitionsModel = {
@@ -1117,24 +1119,24 @@ export const mockSubmissionDefinitionWithHiddenCollection: SubmissionDefinitions
       sectionType: 'utils',
       visibility: {
         submission: SubmissionVisibilityValue.Hidden,
-        workflow: SubmissionVisibilityValue.Hidden
+        workflow: SubmissionVisibilityValue.Hidden,
       },
       type: 'submissionsection',
       _links: {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/extraction' },
-        config: ''
+        config: '',
       },
     },
     {
       mandatory: true,
       sectionType: 'collection',
       visibility: {
-        workflow: SubmissionVisibilityValue.Hidden
+        workflow: SubmissionVisibilityValue.Hidden,
       },
       type: 'submissionsection',
       _links: {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/collection' },
-        config: ''
+        config: '',
       },
     },
     {
@@ -1144,7 +1146,7 @@ export const mockSubmissionDefinitionWithHiddenCollection: SubmissionDefinitions
       type: 'submissionsection',
       _links: {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpageone' },
-        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone' }
+        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpageone' },
       },
     },
     {
@@ -1154,7 +1156,7 @@ export const mockSubmissionDefinitionWithHiddenCollection: SubmissionDefinitions
       type: 'submissionsection',
       _links: {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/traditionalpagetwo' },
-        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo' }
+        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo' },
       },
     },
     {
@@ -1164,7 +1166,7 @@ export const mockSubmissionDefinitionWithHiddenCollection: SubmissionDefinitions
       type: 'submissionsection',
       _links: {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/upload' },
-        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload' }
+        config: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload' },
       },
     },
     {
@@ -1173,21 +1175,21 @@ export const mockSubmissionDefinitionWithHiddenCollection: SubmissionDefinitions
       sectionType: 'license',
       visibility: {
         main: null,
-        other: 'READONLY'
+        other: 'READONLY',
       },
       type: 'submissionsection',
       _links: {
         self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionsections/license' },
-        config: ''
+        config: '',
       },
-    }
+    },
   ]),
   name: 'traditional',
   type: 'submissiondefinition',
   _links: {
     collections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/collections' },
     sections: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional/sections' },
-    self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional' }
+    self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissiondefinitions/traditional' },
   },
 } as any;
 
@@ -1208,224 +1210,224 @@ export const mockDeduplicationMatches = {
         value: 'DAENEN, Michael',
         language: null,
         authority: 'rp02165',
-        confidence: 400
+        confidence: 400,
       }, {
         key: 'dc.contributor.author',
         value: 'ZHANG, Xiaowang',
         language: null,
         authority: 'rp01733',
-        confidence: 400
+        confidence: 400,
       }, {
         key: 'dc.contributor.author',
         value: 'Erni, Rolf',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.contributor.author',
         value: 'WILLIAMS, Oliver',
         language: null,
         authority: 'rp01028',
-        confidence: 500
+        confidence: 500,
       }, {
         key: 'dc.contributor.author',
         value: 'HARDY, An',
         language: null,
         authority: 'rp02004',
-        confidence: 500
+        confidence: 500,
       }, {
         key: 'dc.contributor.author',
         value: 'VAN BAEL, Marlies',
         language: null,
         authority: 'rp01865',
-        confidence: 500
+        confidence: 500,
       }, {
         key: 'dc.contributor.author',
         value: 'WAGNER, Patrick',
         language: null,
         authority: 'rp00839',
-        confidence: 400
+        confidence: 400,
       }, {
         key: 'dc.contributor.author',
         value: 'HAENEN, Ken',
         language: null,
         authority: 'rp00770',
-        confidence: 500
+        confidence: 500,
       }, {
         key: 'dc.contributor.author',
         value: 'NESLADEK, Milos',
         language: null,
         authority: 'rp00350',
-        confidence: 500
+        confidence: 500,
       }, {
         key: 'dc.contributor.author',
         value: 'Van Tendeloo, Gustaaf',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.date.issued',
         value: '182400',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.issn',
         value: '09359648',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.issn',
         value: '15214095',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.description.abstract',
         value: 'The diamond nucleation step is critical for the chemical vapor deposition (CVD) of diamond on non-diamond substrates, i.e., for heteroepitaxial as well as polycrystalline growth on non-diamond (foreign) substrates. This process has been studied intensively over the past 20 years. [1-8] In general, diamond CVD growth on foreign substrates requires artificial formation of diamond nucleation sites on the substrate\'s surface. The high surface energy of diamond, [9] usually prevents direct, heterogeneous diamond nucleation from the gas phase, hence diamond growth cannot be initiated without this critical nucleation step. [5,8] As for the subsequently occurring diamond growth, it is assumed that atomic hydrogen is the only essential mediator required for stabilizing the diamond phase. Nonetheless, it was recently suggested that diamond can also grow in bulk, i.e., in a solid state environment, such as the sub-surface of silicon, if carbon atoms are sub-implanted by low energetic beams and transformed into diamond grains. [10,11] In this communication, we show that diffusion based transport of carbon atoms from diamond seeds through an interlayer is yet another mechanism by which diamond nuclei can be formed. This process opens further possibilities for the LPLTgrowth of synthetic diamond on a variety of substrates and gives access to new applications for nanocrystal-line diamonds (NCD), where diamond-like carbon and amorphous carbon are already applicable. [12] Carbon transport and subsequently occurring sp 3 bonded carbon cluster formation originates from dissolving so-called ultra-dispersed nanodia-mond particles (UDDs) of 5-10 nm size, which are readily prepared in form of a monolayer beneath a TiO 2 sol-gel thin film on silicon substrate surfaces. [13] Being able to also initiate diamond nucleation, UDDs have become a commonly used tool for CDV diamond seeding and initiation of CVD growth. [14] UDD seeding does not require additional diamond nucleation since the diamond film can grow epitaxially on the UDD grains during the CVD process, which leads to ultra-thin films (30-50 nm) with full surface coverage. In this work NCD film nucleation and growth were studied using UDD particles that are buried under a sol-gel TiO 2 layer spin-coated on UDD seeded silicon substrates. It was observed that when immersed in a conventional H 2 /CH 4 microwave plasma that is commonly used for CVD diamond growth, a partial dissolution of the UDD grain into the TiO 2 occurs. Subsequent carbon diffusion through the 5-10 nm thick TiO 2 layer leads to growth and transformation of the carbon atoms into sp 3 bonded clusters, i.e., diamond nuclei. This was studied by high-resolution transmission electron microscopy (HRTEM), energy-filtered TEM (EFTEM), and electron energy loss spectroscopy (EELS). In order to elucidate the diamond nucleation process in more detail, different sample preparation methods were used, three of which are depicted schematically in the insets of Figure 1 and Figure 2. The first method (method I), inset in Figure 1a, shows a TiO 2 layer deposited by sol-gel technique on a bare Si substrate. The TiO 2 precursor solution contained UDD particles in the mixture. Due to the very low thickness of the TiO 2 interlayer, the time that is required for carbon-saturation of the layer should be very short when exposed to the H 2 /CH 4 plasma during the microwave plasma enhanced CVD (MW PE CVD) process. [15,16] However, due to a too low UDD concentration used in the TiO 2 precursor solution and problems experienced with the homogenous dispersion of the powder, no homogeneous film was obtained after 60 min of CVD growth. Specifically, it appears that the UDD particles float on top of the precursor material and cluster together. This leads, after the formation of the sol-gel layer, to the creation of areas with no seeds and areas with seeds floating on top, as shown in Figure 1a. Furthermore, Figure 1b indicates that no diamond film growth takes place where no diamond seeds were present prior to the growth process, hence proving the necessity of UDD pre-treatment of the TiO 2 coated Si substrates. If no UDD seeding is used at all (method II), i.e., bare TiO 2 is deposited directly onto the Si substrate as shown schematically in COMMUNICATION www.advmat.de',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.description.abstract',
         value: 'Diamond nucleation and growth can occur by diffusion of carbon from buried ultradispersed diamond seeds on a silicon substrate through a titanium oxide interlayer. This knowledge can improve nucleation and adhesion of thin diamond films on various substrates.',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.language.iso',
         value: 'English',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.publisher',
         value: 'WILEY-BLACKWELL',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.subject.other',
         value: 'B-NCD-layer',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.subject.other',
         value: 'PID-control',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.subject.other',
         value: 'temperature regulator',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.title',
         value: 'Diamond Mono-Nucleation by Carbon Transport from Buried Nanodiamond TiO2Sol-Gel Composites',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.type',
         value: 'journal_article',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.epage',
         value: '673',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.issue',
         value: '6',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.spage',
         value: '670',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.volume',
         value: '21',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.publisher.place',
         value: 'COMMERCE PLACE, 350 MAIN ST, MALDEN 02148, MA USA',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.doi',
         value: '10.1002/pssa.201000291',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.isi',
         value: 'WOS:000263492000007',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.provider.type',
         value: 'Pdf',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.eissn',
         value: '1521-4095',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.source.type',
         value: 'Article',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.bibliographicCitation.jtitle',
         value: 'Advanced Materials',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'item.accessRights',
         value: 'Open Access',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'item.fulltext',
         value: 'With Fulltext',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'item.fullcitation',
         value: 'DAENEN, Michael; ZHANG, Xiaowang; Erni, Rolf; WILLIAMS, Oliver; HARDY, An; VAN BAEL, Marlies; WAGNER, Patrick; HAENEN, Ken; NESLADEK, Milos & Van Tendeloo, Gustaaf (182400) Diamond Nucleation by Carbon Transport from Buried Nanodiamond TiO2Sol-Gel Composites.',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       } ],
       inArchive: false,
       discoverable: true,
       withdrawn: false,
       lastModified: '2019-11-21T16:16:02.300+0000',
-      type: 'item'
-    }
+      type: 'item',
+    },
   },
   'ebae3c99-f438-4b65-879b-1eea7a9e0324': {
     submitterDecision: 'reject',
@@ -1443,206 +1445,206 @@ export const mockDeduplicationMatches = {
         value: 'DAENEN, Michael',
         language: null,
         authority: 'rp02165',
-        confidence: 400
+        confidence: 400,
       }, {
         key: 'dc.contributor.author',
         value: 'ZHANG, Xiaowang',
         language: null,
         authority: 'rp01733',
-        confidence: 400
+        confidence: 400,
       }, {
         key: 'dc.contributor.author',
         value: 'Erni, Rolf',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.contributor.author',
         value: 'WILLIAMS, Oliver',
         language: null,
         authority: 'rp01028',
-        confidence: 500
+        confidence: 500,
       }, {
         key: 'dc.contributor.author',
         value: 'HARDY, An',
         language: null,
         authority: 'rp02004',
-        confidence: 500
+        confidence: 500,
       }, {
         key: 'dc.contributor.author',
         value: 'VAN BAEL, Marlies',
         language: null,
         authority: 'rp01865',
-        confidence: 500
+        confidence: 500,
       }, {
         key: 'dc.contributor.author',
         value: 'WAGNER, Patrick',
         language: null,
         authority: 'rp00839',
-        confidence: 400
+        confidence: 400,
       }, {
         key: 'dc.contributor.author',
         value: 'HAENEN, Ken',
         language: null,
         authority: 'rp00770',
-        confidence: 500
+        confidence: 500,
       }, {
         key: 'dc.contributor.author',
         value: 'NESLADEK, Milos',
         language: null,
         authority: 'rp00350',
-        confidence: 500
+        confidence: 500,
       }, {
         key: 'dc.contributor.author',
         value: 'Van Tendeloo, Gustaaf',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.date.issued',
         value: '182400',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.issn',
         value: '09359648',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.issn',
         value: '15214095',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.description.abstract',
         value: 'The diamond nucleation step is critical for the chemical vapor deposition (CVD) of diamond on non-diamond substrates, i.e., for heteroepitaxial as well as polycrystalline growth on non-diamond (foreign) substrates. This process has been studied intensively over the past 20 years. [1-8] In general, diamond CVD growth on foreign substrates requires artificial formation of diamond nucleation sites on the substrate\'s surface. The high surface energy of diamond, [9] usually prevents direct, heterogeneous diamond nucleation from the gas phase, hence diamond growth cannot be initiated without this critical nucleation step. [5,8] As for the subsequently occurring diamond growth, it is assumed that atomic hydrogen is the only essential mediator required for stabilizing the diamond phase. Nonetheless, it was recently suggested that diamond can also grow in bulk, i.e., in a solid state environment, such as the sub-surface of silicon, if carbon atoms are sub-implanted by low energetic beams and transformed into diamond grains. [10,11] In this communication, we show that diffusion based transport of carbon atoms from diamond seeds through an interlayer is yet another mechanism by which diamond nuclei can be formed. This process opens further possibilities for the LPLTgrowth of synthetic diamond on a variety of substrates and gives access to new applications for nanocrystal-line diamonds (NCD), where diamond-like carbon and amorphous carbon are already applicable. [12] Carbon transport and subsequently occurring sp 3 bonded carbon cluster formation originates from dissolving so-called ultra-dispersed nanodia-mond particles (UDDs) of 5-10 nm size, which are readily prepared in form of a monolayer beneath a TiO 2 sol-gel thin film on silicon substrate surfaces. [13] Being able to also initiate diamond nucleation, UDDs have become a commonly used tool for CDV diamond seeding and initiation of CVD growth. [14] UDD seeding does not require additional diamond nucleation since the diamond film can grow epitaxially on the UDD grains during the CVD process, which leads to ultra-thin films (30-50 nm) with full surface coverage. In this work NCD film nucleation and growth were studied using UDD particles that are buried under a sol-gel TiO 2 layer spin-coated on UDD seeded silicon substrates. It was observed that when immersed in a conventional H 2 /CH 4 microwave plasma that is commonly used for CVD diamond growth, a partial dissolution of the UDD grain into the TiO 2 occurs. Subsequent carbon diffusion through the 5-10 nm thick TiO 2 layer leads to growth and transformation of the carbon atoms into sp 3 bonded clusters, i.e., diamond nuclei. This was studied by high-resolution transmission electron microscopy (HRTEM), energy-filtered TEM (EFTEM), and electron energy loss spectroscopy (EELS). In order to elucidate the diamond nucleation process in more detail, different sample preparation methods were used, three of which are depicted schematically in the insets of Figure 1 and Figure 2. The first method (method I), inset in Figure 1a, shows a TiO 2 layer deposited by sol-gel technique on a bare Si substrate. The TiO 2 precursor solution contained UDD particles in the mixture. Due to the very low thickness of the TiO 2 interlayer, the time that is required for carbon-saturation of the layer should be very short when exposed to the H 2 /CH 4 plasma during the microwave plasma enhanced CVD (MW PE CVD) process. [15,16] However, due to a too low UDD concentration used in the TiO 2 precursor solution and problems experienced with the homogenous dispersion of the powder, no homogeneous film was obtained after 60 min of CVD growth. Specifically, it appears that the UDD particles float on top of the precursor material and cluster together. This leads, after the formation of the sol-gel layer, to the creation of areas with no seeds and areas with seeds floating on top, as shown in Figure 1a. Furthermore, Figure 1b indicates that no diamond film growth takes place where no diamond seeds were present prior to the growth process, hence proving the necessity of UDD pre-treatment of the TiO 2 coated Si substrates. If no UDD seeding is used at all (method II), i.e., bare TiO 2 is deposited directly onto the Si substrate as shown schematically in COMMUNICATION www.advmat.de',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.description.abstract',
         value: 'Diamond nucleation and growth can occur by diffusion of carbon from buried ultradispersed diamond seeds on a silicon substrate through a titanium oxide interlayer. This knowledge can improve nucleation and adhesion of thin diamond films on various substrates.',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.language.iso',
         value: 'English',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.publisher',
         value: 'WILEY-BLACKWELL',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.title',
         value: 'Diamond Di-Nucleation by Carbon Transport from Buried Nanodiamond TiO2Sol-Gel Composites',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.type',
         value: 'journal_article',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.epage',
         value: '673',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.issue',
         value: '6',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.spage',
         value: '670',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.volume',
         value: '21',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.publisher.place',
         value: 'COMMERCE PLACE, 350 MAIN ST, MALDEN 02148, MA USA',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.doi',
         value: '10.1002/adma.200802305',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.isi',
         value: 'WOS:000263492000007',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.provider.type',
         value: 'Pdf',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.eissn',
         value: '1521-4095',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.source.type',
         value: 'Article',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.bibliographicCitation.jtitle',
         value: 'Advanced Materials',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'item.accessRights',
         value: 'Open Access',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'item.fulltext',
         value: 'With Fulltext',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'item.fullcitation',
         value: 'DAENEN, Michael; ZHANG, Xiaowang; Erni, Rolf; WILLIAMS, Oliver; HARDY, An; VAN BAEL, Marlies; WAGNER, Patrick; HAENEN, Ken; NESLADEK, Milos & Van Tendeloo, Gustaaf (182400) Diamond Nucleation by Carbon Transport from Buried Nanodiamond TiO2Sol-Gel Composites.',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       } ],
       inArchive: false,
       discoverable: true,
       withdrawn: false,
       lastModified: '2019-11-21T16:19:26.201+0000',
-      type: 'item'
-    }
+      type: 'item',
+    },
   },
   'af7ed53f-a967-4033-8c0b-22ece50712b7': {
     submitterDecision: null,
@@ -1660,182 +1662,182 @@ export const mockDeduplicationMatches = {
         value: 'DAENEN, Marc',
         language: null,
         authority: 'rp02327',
-        confidence: 400
+        confidence: 400,
       }, {
         key: 'dc.contributor.author',
         value: 'Zhang, L',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.contributor.author',
         value: 'Erni, R',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.contributor.author',
         value: 'WILLIAMS, Oliver',
         language: null,
         authority: 'rp01028',
-        confidence: 500
+        confidence: 500,
       }, {
         key: 'dc.contributor.author',
         value: 'HARDY, An',
         language: null,
         authority: 'rp02004',
-        confidence: 500
+        confidence: 500,
       }, {
         key: 'dc.contributor.author',
         value: 'Van Bael, MK',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.contributor.author',
         value: 'WAGNER, Pawel',
         language: null,
         authority: 'rp00802',
-        confidence: 400
+        confidence: 400,
       }, {
         key: 'dc.contributor.author',
         value: 'HAENEN, Ken',
         language: null,
         authority: 'rp00770',
-        confidence: 500
+        confidence: 500,
       }, {
         key: 'dc.contributor.author',
         value: 'NESLADEK, Milos',
         language: null,
         authority: 'rp00350',
-        confidence: 500
+        confidence: 500,
       }, {
         key: 'dc.contributor.author',
         value: 'Van Tendeloo, G',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.date.issued',
         value: '2009',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.issn',
         value: '0935-9648',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.language.iso',
         value: 'English',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.publisher',
         value: 'WILEY-BLACKWELL',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.title',
         value: 'Diamond Tri-Nucleation by Carbon Transport from Buried Nanodiamond TiO2 Sol-Gel Composites',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.type',
         value: 'Journal/Magazine Article',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.epage',
         value: '+',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.issue',
         value: '6',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.spage',
         value: '670',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.volume',
         value: '21',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.publisher.place',
         value: 'COMMERCE PLACE, 350 MAIN ST, MALDEN 02148, MA USA',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.doi',
         value: '10.1002/adma.200802305',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.isi',
         value: 'WOS:000263492000007',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.provider.type',
         value: 'Web of Science',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.source.type',
         value: 'Article',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.bibliographicCitation.jtitle',
         value: 'ADVANCED MATERIALS',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'item.accessRights',
         value: 'Closed Access',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'item.fulltext',
         value: 'No Fulltext',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'item.fullcitation',
         value: 'DAENEN, Marc; Zhang, L; Erni, R; WILLIAMS, Oliver; HARDY, An; Van Bael, MK; WAGNER, Pawel; HAENEN, Ken; NESLADEK, Milos & Van Tendeloo, G (2009) Diamond Nucleation by Carbon Transport from Buried Nanodiamond TiO2 Sol-Gel Composites.',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       } ],
       inArchive: false,
       discoverable: true,
       withdrawn: false,
       lastModified: '2019-11-21T08:39:38.140+0000',
-      type: 'item'
-    }
+      type: 'item',
+    },
   },
   '27bd0e52-d8c1-4239-98aa-52e1fbe68ab9': {
     submitterDecision: null,
@@ -1853,80 +1855,80 @@ export const mockDeduplicationMatches = {
         value: '2019-11-20T10:54:55Z',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.date.available',
         value: '2019-11-20T10:54:55Z',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.date.issued',
         value: '2019',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.date.submitted',
         value: '2019-11-20T10:53:16Z',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.uri',
         value: 'http://localhost:8080/handle/123456789/28372',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.title',
         value: 'Diamond Tetra-Nucleation by Carbon Transport from Buried Nanodiamond TiO2 Sol-Gel Composites',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'item.faculty',
         value: '[ERROR] Error fetching faculty info.',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'item.accessRights',
         value: 'Closed Access',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'item.validation',
         value: '[ERROR] Error fetching validation info.',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'item.fulltext',
         value: 'No Fulltext',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'item.fullcitation',
         value: ' (2019) Diamond Nucleation by Carbon Transport from Buried Nanodiamond TiO2 Sol-Gel Composites.',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'item.organization',
         value: '[ERROR] Error fetching organization info.',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       } ],
       inArchive: true,
       discoverable: true,
       withdrawn: false,
       lastModified: '2019-11-20T10:54:55.689+0000',
-      type: 'item'
-    }
+      type: 'item',
+    },
   },
   'd9ac8553-aded-41f4-b7d7-97c48efc523d': {
     submitterDecision: null,
@@ -1944,362 +1946,362 @@ export const mockDeduplicationMatches = {
         value: 'DAENEN, Michael',
         language: null,
         authority: 'rp02165',
-        confidence: 600
+        confidence: 600,
       }, {
         key: 'dc.contributor.author',
         value: 'Zhang, Liang',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.contributor.author',
         value: 'Erni, R.',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.contributor.author',
         value: 'WILLIAMS, Oliver',
         language: null,
         authority: 'rp01028',
-        confidence: 600
+        confidence: 600,
       }, {
         key: 'dc.contributor.author',
         value: 'HARDY, An',
         language: null,
         authority: 'rp02004',
-        confidence: 600
+        confidence: 600,
       }, {
         key: 'dc.contributor.author',
         value: 'VAN BAEL, Marlies',
         language: null,
         authority: 'rp01865',
-        confidence: 600
+        confidence: 600,
       }, {
         key: 'dc.contributor.author',
         value: 'WAGNER, Patrick',
         language: null,
         authority: 'rp00839',
-        confidence: 600
+        confidence: 600,
       }, {
         key: 'dc.contributor.author',
         value: 'HAENEN, Ken',
         language: null,
         authority: 'rp00770',
-        confidence: 600
+        confidence: 600,
       }, {
         key: 'dc.contributor.author',
         value: 'NESLADEK, Milos',
         language: null,
         authority: 'rp00350',
-        confidence: 600
+        confidence: 600,
       }, {
         key: 'dc.contributor.author',
         value: 'Van Tendeloo, G.',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.date.accessioned',
         value: '2009-05-06T13:23:06Z',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.date.issued',
         value: '2009',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.citation',
         value: 'ADVANCED MATERIALS, 21(6). p. 670-+',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.issn',
         value: '0935-9648',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.uri',
         value: 'http://hdl.handle.net/1942/9650',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.description.abstract',
         value: 'Diamond nucleation and growth can occur by diffusion of carbon from buried ultradispersed diamond seeds on a silicon substrate through a titanium oxide interlayer. This knowledge can improve nucleation and adhesion of thin diamond films on various substrates.',
         language: 'en',
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.language.iso',
         value: 'en',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.publisher',
         value: 'WILEY-V C H VERLAG GMBH',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.title',
         value: 'Diamond Penta-Nucleation by Carbon Transport from Buried Nanodiamond TiO2 Sol-Gel Composites',
         language: 'en',
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.type',
         value: 'Journal Contribution',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.epage',
         value: '+',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.issue',
         value: '6',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.spage',
         value: '670',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.bibliographicCitation.title',
         value: 'ADVANCED MATERIALS',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.volume',
         value: '21',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.format.pages',
         value: '5',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.bibliographicCitation.jcat',
         value: 'A1',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.description.notes',
         value: '[Daenen, Michael; Williams, Oliver Aneurin; Hardy, An; Van Bael, Marlies Karolien; Wagner, Patrick; Haenen, Ken; Nesladek, Milos] Hasselt Univ, Inst Mat Res, B-3950 Diepenbeek, Belgium. [Nesladek, Milos] Acad Sci Czech Republ VVI, Inst Phys, Prague 182400, Czech Republic. [Williams, Oliver Aneurin; Hardy, An; Van Bael, Marlies Karolien; Haenen, Ken; Nesladek, Milos] IMEC Vzw, Div IMOMEC, B-3950 Diepenbeek, Belgium. [Hardy, An] XIOS Hogesch Limburg, Dept Ind Sci & Technol, B-3590 Diepenbeek, Belgium. [Zhang, Liang; Erni, Rot; Van Tendeloo, Gustaaf] Univ Antwerp, EMAT, B-2020 Antwerp, Belgium.',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.type.refereed',
         value: 'Refereed',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.type.specified',
         value: 'Article',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.bibliographicCitation.oldjcat',
         value: 'A1',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.doi',
         value: '10.1002/adma.200802305',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.isi',
         value: '000263492000007',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.contributor.uhasselt',
         value: 'yes',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.contributor.uhasselt',
         value: 'no',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.contributor.uhasselt',
         value: 'no',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.contributor.uhasselt',
         value: 'yes',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.contributor.uhasselt',
         value: 'yes',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.contributor.uhasselt',
         value: 'yes',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.contributor.uhasselt',
         value: 'yes',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.contributor.uhasselt',
         value: 'yes',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.contributor.uhasselt',
         value: 'yes',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.contributor.uhasselt',
         value: 'no',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.contributor.uhmissing',
         value: 'no',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.contributor.uhmissing',
         value: null,
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.contributor.uhmissing',
         value: null,
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.contributor.uhmissing',
         value: 'no',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.contributor.uhmissing',
         value: 'no',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.contributor.uhmissing',
         value: 'no',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.contributor.uhmissing',
         value: 'no',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.contributor.uhmissing',
         value: 'no',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.contributor.uhmissing',
         value: 'no',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.contributor.uhmissing',
         value: null,
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'item.faculty',
         value: '[ERROR] Error fetching faculty info.',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'item.accessRights',
         value: 'Closed Access',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'item.validation',
         value: '[ERROR] Error fetching validation info.',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'item.fulltext',
         value: 'No Fulltext',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'item.fullcitation',
         value: 'DAENEN, Michael; Zhang, Liang; Erni, R.; WILLIAMS, Oliver; HARDY, An; VAN BAEL, Marlies; WAGNER, Patrick; HAENEN, Ken; NESLADEK, Milos & Van Tendeloo, G. (2009) Diamond Nucleation by Carbon Transport from Buried Nanodiamond TiO2 Sol-Gel Composites. In: ADVANCED MATERIALS, 21(6). p. 670-+.',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'item.organization',
         value: '[ERROR] Error fetching organization info.',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       } ],
       inArchive: true,
       discoverable: true,
       withdrawn: false,
       lastModified: '2011-11-25T08:24:48.952+0000',
-      type: 'item'
-    }
+      type: 'item',
+    },
   },
   '5a4d6c2c-588a-4501-b71f-df56ceaebf79': {
     submitterDecision: null,
@@ -2317,32 +2319,32 @@ export const mockDeduplicationMatches = {
         value: 'Diamond Esa-Nucleation by Carbon Transport from Buried Nanodiamond TiO2 Sol-Gel Composites',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'item.accessRights',
         value: 'Closed Access',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'item.fulltext',
         value: 'No Fulltext',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'item.fullcitation',
         value: 'Diamond Nucleation by Carbon Transport from Buried Nanodiamond TiO2 Sol-Gel Composites.',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       } ],
       inArchive: false,
       discoverable: true,
       withdrawn: false,
       lastModified: '2020-01-28T17:10:12.006+0000',
-      type: 'item'
-    }
+      type: 'item',
+    },
   },
   '8aebdea0-97c6-4576-bda5-4a3f974dd7c5': {
     submitterDecision: null,
@@ -2360,206 +2362,206 @@ export const mockDeduplicationMatches = {
         value: 'DAENEN, Michael',
         language: null,
         authority: 'rp02165',
-        confidence: 400
+        confidence: 400,
       }, {
         key: 'dc.contributor.author',
         value: 'ZHANG, Xiaowang',
         language: null,
         authority: 'rp01733',
-        confidence: 400
+        confidence: 400,
       }, {
         key: 'dc.contributor.author',
         value: 'Erni, Rolf',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.contributor.author',
         value: 'WILLIAMS, Oliver',
         language: null,
         authority: 'rp01028',
-        confidence: 500
+        confidence: 500,
       }, {
         key: 'dc.contributor.author',
         value: 'HARDY, An',
         language: null,
         authority: 'rp02004',
-        confidence: 500
+        confidence: 500,
       }, {
         key: 'dc.contributor.author',
         value: 'VAN BAEL, Marlies',
         language: null,
         authority: 'rp01865',
-        confidence: 500
+        confidence: 500,
       }, {
         key: 'dc.contributor.author',
         value: 'WAGNER, Patrick',
         language: null,
         authority: 'rp00839',
-        confidence: 400
+        confidence: 400,
       }, {
         key: 'dc.contributor.author',
         value: 'HAENEN, Ken',
         language: null,
         authority: 'rp00770',
-        confidence: 500
+        confidence: 500,
       }, {
         key: 'dc.contributor.author',
         value: 'NESLADEK, Milos',
         language: null,
         authority: 'rp00350',
-        confidence: 500
+        confidence: 500,
       }, {
         key: 'dc.contributor.author',
         value: 'Van Tendeloo, Gustaaf',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.date.issued',
         value: '182400',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.issn',
         value: '09359648',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.issn',
         value: '15214095',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.description.abstract',
         value: 'The diamond nucleation step is critical for the chemical vapor deposition (CVD) of diamond on non-diamond substrates, i.e., for heteroepitaxial as well as polycrystalline growth on non-diamond (foreign) substrates. This process has been studied intensively over the past 20 years. [1-8] In general, diamond CVD growth on foreign substrates requires artificial formation of diamond nucleation sites on the substrate\'s surface. The high surface energy of diamond, [9] usually prevents direct, heterogeneous diamond nucleation from the gas phase, hence diamond growth cannot be initiated without this critical nucleation step. [5,8] As for the subsequently occurring diamond growth, it is assumed that atomic hydrogen is the only essential mediator required for stabilizing the diamond phase. Nonetheless, it was recently suggested that diamond can also grow in bulk, i.e., in a solid state environment, such as the sub-surface of silicon, if carbon atoms are sub-implanted by low energetic beams and transformed into diamond grains. [10,11] In this communication, we show that diffusion based transport of carbon atoms from diamond seeds through an interlayer is yet another mechanism by which diamond nuclei can be formed. This process opens further possibilities for the LPLTgrowth of synthetic diamond on a variety of substrates and gives access to new applications for nanocrystal-line diamonds (NCD), where diamond-like carbon and amorphous carbon are already applicable. [12] Carbon transport and subsequently occurring sp 3 bonded carbon cluster formation originates from dissolving so-called ultra-dispersed nanodia-mond particles (UDDs) of 5-10 nm size, which are readily prepared in form of a monolayer beneath a TiO 2 sol-gel thin film on silicon substrate surfaces. [13] Being able to also initiate diamond nucleation, UDDs have become a commonly used tool for CDV diamond seeding and initiation of CVD growth. [14] UDD seeding does not require additional diamond nucleation since the diamond film can grow epitaxially on the UDD grains during the CVD process, which leads to ultra-thin films (30-50 nm) with full surface coverage. In this work NCD film nucleation and growth were studied using UDD particles that are buried under a sol-gel TiO 2 layer spin-coated on UDD seeded silicon substrates. It was observed that when immersed in a conventional H 2 /CH 4 microwave plasma that is commonly used for CVD diamond growth, a partial dissolution of the UDD grain into the TiO 2 occurs. Subsequent carbon diffusion through the 5-10 nm thick TiO 2 layer leads to growth and transformation of the carbon atoms into sp 3 bonded clusters, i.e., diamond nuclei. This was studied by high-resolution transmission electron microscopy (HRTEM), energy-filtered TEM (EFTEM), and electron energy loss spectroscopy (EELS). In order to elucidate the diamond nucleation process in more detail, different sample preparation methods were used, three of which are depicted schematically in the insets of Figure 1 and Figure 2. The first method (method I), inset in Figure 1a, shows a TiO 2 layer deposited by sol-gel technique on a bare Si substrate. The TiO 2 precursor solution contained UDD particles in the mixture. Due to the very low thickness of the TiO 2 interlayer, the time that is required for carbon-saturation of the layer should be very short when exposed to the H 2 /CH 4 plasma during the microwave plasma enhanced CVD (MW PE CVD) process. [15,16] However, due to a too low UDD concentration used in the TiO 2 precursor solution and problems experienced with the homogenous dispersion of the powder, no homogeneous film was obtained after 60 min of CVD growth. Specifically, it appears that the UDD particles float on top of the precursor material and cluster together. This leads, after the formation of the sol-gel layer, to the creation of areas with no seeds and areas with seeds floating on top, as shown in Figure 1a. Furthermore, Figure 1b indicates that no diamond film growth takes place where no diamond seeds were present prior to the growth process, hence proving the necessity of UDD pre-treatment of the TiO 2 coated Si substrates. If no UDD seeding is used at all (method II), i.e., bare TiO 2 is deposited directly onto the Si substrate as shown schematically in COMMUNICATION www.advmat.de',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.description.abstract',
         value: 'Diamond nucleation and growth can occur by diffusion of carbon from buried ultradispersed diamond seeds on a silicon substrate through a titanium oxide interlayer. This knowledge can improve nucleation and adhesion of thin diamond films on various substrates.',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.language.iso',
         value: 'English',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.publisher',
         value: 'WILEY-BLACKWELL',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.title',
         value: 'Diamond Epta-Nucleation by Carbon Transport from Buried Nanodiamond TiO2Sol-Gel Composites',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.type',
         value: 'journal_article',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.epage',
         value: '673',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.issue',
         value: '6',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.spage',
         value: '670',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.volume',
         value: '21',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.publisher.place',
         value: 'COMMERCE PLACE, 350 MAIN ST, MALDEN 02148, MA USA',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.doi',
         value: '10.1002/adma.200802305',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.isi',
         value: 'WOS:000263492000007',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.provider.type',
         value: 'Pdf',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.eissn',
         value: '1521-4095',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.source.type',
         value: 'Article',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.bibliographicCitation.jtitle',
         value: 'Advanced Materials',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'item.accessRights',
         value: 'Open Access',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'item.fulltext',
         value: 'With Fulltext',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'item.fullcitation',
         value: 'DAENEN, Michael; ZHANG, Xiaowang; Erni, Rolf; WILLIAMS, Oliver; HARDY, An; VAN BAEL, Marlies; WAGNER, Patrick; HAENEN, Ken; NESLADEK, Milos & Van Tendeloo, Gustaaf (182400) Diamond Nucleation by Carbon Transport from Buried Nanodiamond TiO2Sol-Gel Composites.',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       } ],
       inArchive: false,
       discoverable: true,
       withdrawn: false,
       lastModified: '2019-11-21T16:19:59.566+0000',
-      type: 'item'
-    }
+      type: 'item',
+    },
   },
   '7d69f4c6-82a9-4c48-8c5a-aded913882fd': {
     submitterDecision: null,
@@ -2577,224 +2579,224 @@ export const mockDeduplicationMatches = {
         value: 'DAENEN, Michael',
         language: null,
         authority: 'rp02165',
-        confidence: 400
+        confidence: 400,
       }, {
         key: 'dc.contributor.author',
         value: 'ZHANG, Xiaowang',
         language: null,
         authority: 'rp01733',
-        confidence: 400
+        confidence: 400,
       }, {
         key: 'dc.contributor.author',
         value: 'Erni, Rolf',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.contributor.author',
         value: 'WILLIAMS, Oliver',
         language: null,
         authority: 'rp01028',
-        confidence: 500
+        confidence: 500,
       }, {
         key: 'dc.contributor.author',
         value: 'HARDY, An',
         language: null,
         authority: 'rp02004',
-        confidence: 500
+        confidence: 500,
       }, {
         key: 'dc.contributor.author',
         value: 'VAN BAEL, Marlies',
         language: null,
         authority: 'rp01865',
-        confidence: 500
+        confidence: 500,
       }, {
         key: 'dc.contributor.author',
         value: 'WAGNER, Patrick',
         language: null,
         authority: 'rp00839',
-        confidence: 400
+        confidence: 400,
       }, {
         key: 'dc.contributor.author',
         value: 'HAENEN, Ken',
         language: null,
         authority: 'rp00770',
-        confidence: 500
+        confidence: 500,
       }, {
         key: 'dc.contributor.author',
         value: 'NESLADEK, Milos',
         language: null,
         authority: 'rp00350',
-        confidence: 500
+        confidence: 500,
       }, {
         key: 'dc.contributor.author',
         value: 'Van Tendeloo, Gustaaf',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.date.issued',
         value: '182400',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.issn',
         value: '09359648',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.issn',
         value: '15214095',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.description.abstract',
         value: 'The diamond nucleation step is critical for the chemical vapor deposition (CVD) of diamond on non-diamond substrates, i.e., for heteroepitaxial as well as polycrystalline growth on non-diamond (foreign) substrates. This process has been studied intensively over the past 20 years. [1-8] In general, diamond CVD growth on foreign substrates requires artificial formation of diamond nucleation sites on the substrate\'s surface. The high surface energy of diamond, [9] usually prevents direct, heterogeneous diamond nucleation from the gas phase, hence diamond growth cannot be initiated without this critical nucleation step. [5,8] As for the subsequently occurring diamond growth, it is assumed that atomic hydrogen is the only essential mediator required for stabilizing the diamond phase. Nonetheless, it was recently suggested that diamond can also grow in bulk, i.e., in a solid state environment, such as the sub-surface of silicon, if carbon atoms are sub-implanted by low energetic beams and transformed into diamond grains. [10,11] In this communication, we show that diffusion based transport of carbon atoms from diamond seeds through an interlayer is yet another mechanism by which diamond nuclei can be formed. This process opens further possibilities for the LPLTgrowth of synthetic diamond on a variety of substrates and gives access to new applications for nanocrystal-line diamonds (NCD), where diamond-like carbon and amorphous carbon are already applicable. [12] Carbon transport and subsequently occurring sp 3 bonded carbon cluster formation originates from dissolving so-called ultra-dispersed nanodia-mond particles (UDDs) of 5-10 nm size, which are readily prepared in form of a monolayer beneath a TiO 2 sol-gel thin film on silicon substrate surfaces. [13] Being able to also initiate diamond nucleation, UDDs have become a commonly used tool for CDV diamond seeding and initiation of CVD growth. [14] UDD seeding does not require additional diamond nucleation since the diamond film can grow epitaxially on the UDD grains during the CVD process, which leads to ultra-thin films (30-50 nm) with full surface coverage. In this work NCD film nucleation and growth were studied using UDD particles that are buried under a sol-gel TiO 2 layer spin-coated on UDD seeded silicon substrates. It was observed that when immersed in a conventional H 2 /CH 4 microwave plasma that is commonly used for CVD diamond growth, a partial dissolution of the UDD grain into the TiO 2 occurs. Subsequent carbon diffusion through the 5-10 nm thick TiO 2 layer leads to growth and transformation of the carbon atoms into sp 3 bonded clusters, i.e., diamond nuclei. This was studied by high-resolution transmission electron microscopy (HRTEM), energy-filtered TEM (EFTEM), and electron energy loss spectroscopy (EELS). In order to elucidate the diamond nucleation process in more detail, different sample preparation methods were used, three of which are depicted schematically in the insets of Figure 1 and Figure 2. The first method (method I), inset in Figure 1a, shows a TiO 2 layer deposited by sol-gel technique on a bare Si substrate. The TiO 2 precursor solution contained UDD particles in the mixture. Due to the very low thickness of the TiO 2 interlayer, the time that is required for carbon-saturation of the layer should be very short when exposed to the H 2 /CH 4 plasma during the microwave plasma enhanced CVD (MW PE CVD) process. [15,16] However, due to a too low UDD concentration used in the TiO 2 precursor solution and problems experienced with the homogenous dispersion of the powder, no homogeneous film was obtained after 60 min of CVD growth. Specifically, it appears that the UDD particles float on top of the precursor material and cluster together. This leads, after the formation of the sol-gel layer, to the creation of areas with no seeds and areas with seeds floating on top, as shown in Figure 1a. Furthermore, Figure 1b indicates that no diamond film growth takes place where no diamond seeds were present prior to the growth process, hence proving the necessity of UDD pre-treatment of the TiO 2 coated Si substrates. If no UDD seeding is used at all (method II), i.e., bare TiO 2 is deposited directly onto the Si substrate as shown schematically in COMMUNICATION www.advmat.de',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.description.abstract',
         value: 'Diamond nucleation and growth can occur by diffusion of carbon from buried ultradispersed diamond seeds on a silicon substrate through a titanium oxide interlayer. This knowledge can improve nucleation and adhesion of thin diamond films on various substrates.',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.language.iso',
         value: 'English',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.publisher',
         value: 'WILEY-BLACKWELL',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.subject.other',
         value: 'B-NCD-layer',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.subject.other',
         value: 'PID-control',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.subject.other',
         value: 'temperature regulator',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.title',
         value: 'Diamond Otta-Nucleation by Carbon Transport from Buried Nanodiamond TiO2Sol-Gel Composites',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.type',
         value: 'journal_article',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.epage',
         value: '673',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.issue',
         value: '6',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.spage',
         value: '670',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.volume',
         value: '21',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.publisher.place',
         value: 'COMMERCE PLACE, 350 MAIN ST, MALDEN 02148, MA USA',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.doi',
         value: '10.1002/pssa.201000291',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.isi',
         value: 'WOS:000263492000007',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.provider.type',
         value: 'Pdf',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.eissn',
         value: '1521-4095',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.source.type',
         value: 'Article',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.bibliographicCitation.jtitle',
         value: 'Advanced Materials',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'item.accessRights',
         value: 'Open Access',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'item.fulltext',
         value: 'With Fulltext',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'item.fullcitation',
         value: 'DAENEN, Michael; ZHANG, Xiaowang; Erni, Rolf; WILLIAMS, Oliver; HARDY, An; VAN BAEL, Marlies; WAGNER, Patrick; HAENEN, Ken; NESLADEK, Milos & Van Tendeloo, Gustaaf (182400) Diamond Nucleation by Carbon Transport from Buried Nanodiamond TiO2Sol-Gel Composites.',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       } ],
       inArchive: false,
       discoverable: true,
       withdrawn: false,
       lastModified: '2019-11-21T16:11:05.541+0000',
-      type: 'item'
-    }
+      type: 'item',
+    },
   },
   '9beaeeab-101c-4ad7-9045-ec72ca58a03b': {
     submitterDecision: null,
@@ -2812,189 +2814,189 @@ export const mockDeduplicationMatches = {
         value: 'DAENEN, Marc',
         language: null,
         authority: 'rp02327',
-        confidence: 400
+        confidence: 400,
       }, {
         key: 'dc.contributor.author',
         value: 'Zhang, L',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.contributor.author',
         value: 'Erni, R',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.contributor.author',
         value: 'WILLIAMS, Oliver',
         language: null,
         authority: 'rp01028',
-        confidence: 500
+        confidence: 500,
       }, {
         key: 'dc.contributor.author',
         value: 'HARDY, An',
         language: null,
         authority: 'rp02004',
-        confidence: 500
+        confidence: 500,
       }, {
         key: 'dc.contributor.author',
         value: 'Van Bael, MK',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.contributor.author',
         value: 'WAGNER, Pawel',
         language: null,
         authority: 'rp00802',
-        confidence: 400
+        confidence: 400,
       }, {
         key: 'dc.contributor.author',
         value: 'HAENEN, Ken',
         language: null,
         authority: 'rp00770',
-        confidence: 500
+        confidence: 500,
       }, {
         key: 'dc.contributor.author',
         value: 'NESLADEK, Milos',
         language: null,
         authority: 'rp00350',
-        confidence: 500
+        confidence: 500,
       }, {
         key: 'dc.contributor.author',
         value: 'Van Tendeloo, G',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.date.issued',
         value: '2009',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.issn',
         value: '0935-9648',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.description.abstract',
         value: 'Diamond nucleation and growth can occur by diffusion of carbon from buried ultradispersed diamond seeds on a silicon substrate through a titanium oxide interlayer. This knowledge can improve nucleation and adhesion of thin diamond films on various substrates.',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.language.iso',
         value: 'English',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.publisher',
         value: 'WILEY-BLACKWELL',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.title',
         value: 'Diamond Ennea-Nucleation by Carbon Transport from Buried Nanodiamond TiO2 Sol-Gel Composites',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.type',
         value: 'Journal/Magazine Article',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.epage',
         value: '+',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.issue',
         value: '6',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.spage',
         value: '670',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.volume',
         value: '21',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.publisher.place',
         value: 'COMMERCE PLACE, 350 MAIN ST, MALDEN 02148, MA USA',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.doi',
         value: '10.1002/adma.200802305',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.identifier.isi',
         value: 'WOS:000263492000007',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.provider.type',
         value: 'Web of Science',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'dc.source.type',
         value: 'Article',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'local.bibliographicCitation.jtitle',
         value: 'ADVANCED MATERIALS',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'item.accessRights',
         value: 'Closed Access',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'item.fulltext',
         value: 'No Fulltext',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       }, {
         key: 'item.fullcitation',
         value: 'DAENEN, Marc; Zhang, L; Erni, R; WILLIAMS, Oliver; HARDY, An; Van Bael, MK; WAGNER, Pawel; HAENEN, Ken; NESLADEK, Milos & Van Tendeloo, G (2009) Diamond Nucleation by Carbon Transport from Buried Nanodiamond TiO2 Sol-Gel Composites.',
         language: null,
         authority: null,
-        confidence: -1
+        confidence: -1,
       } ],
       inArchive: false,
       discoverable: true,
       withdrawn: false,
       lastModified: '2019-11-21T08:50:25.318+0000',
-      type: 'item'
-    }
-  }
+      type: 'item',
+    },
+  },
 };
 
 export const mockSubmissionState: SubmissionObjectState = Object.assign({}, {
@@ -3010,7 +3012,7 @@ export const mockSubmissionState: SubmissionObjectState = Object.assign({}, {
         sectionType: 'utils',
         visibility: {
           main: 'HIDDEN',
-          other: 'HIDDEN'
+          other: 'HIDDEN',
         },
         collapsed: false,
         enabled: true,
@@ -3018,7 +3020,7 @@ export const mockSubmissionState: SubmissionObjectState = Object.assign({}, {
         errorsToShow: [],
         isLoading: false,
         isValid: false,
-        removePending: false
+        removePending: false,
       } as any,
       'collection': {
         config: '',
@@ -3026,7 +3028,7 @@ export const mockSubmissionState: SubmissionObjectState = Object.assign({}, {
         sectionType: 'collection',
         visibility: {
           main: 'HIDDEN',
-          other: 'HIDDEN'
+          other: 'HIDDEN',
         },
         collapsed: false,
         enabled: true,
@@ -3034,7 +3036,7 @@ export const mockSubmissionState: SubmissionObjectState = Object.assign({}, {
         errorsToShow: [],
         isLoading: false,
         isValid: false,
-        removePending: false
+        removePending: false,
       } as any,
       'traditionalpageone': {
         header: 'submit.progressbar.describe.stepone',
@@ -3048,7 +3050,7 @@ export const mockSubmissionState: SubmissionObjectState = Object.assign({}, {
         formId: '2_traditionalpageone',
         isLoading: false,
         isValid: false,
-        removePending: false
+        removePending: false,
       } as any,
       'traditionalpagetwo': {
         header: 'submit.progressbar.describe.steptwo',
@@ -3061,7 +3063,7 @@ export const mockSubmissionState: SubmissionObjectState = Object.assign({}, {
         errorsToShow: [],
         isLoading: false,
         isValid: false,
-        removePending: false
+        removePending: false,
       } as any,
       'detect-duplicate': {
         header: 'submit.progressbar.detect-duplicate',
@@ -3071,12 +3073,12 @@ export const mockSubmissionState: SubmissionObjectState = Object.assign({}, {
         collapsed: false,
         enabled: true,
         data: {
-          matches: {}
+          matches: {},
         },
         errorsToShow: [],
         isLoading: false,
         isValid: false,
-        removePending: false
+        removePending: false,
       } as any,
       'upload': {
         header: 'submit.progressbar.upload',
@@ -3086,12 +3088,12 @@ export const mockSubmissionState: SubmissionObjectState = Object.assign({}, {
         collapsed: false,
         enabled: true,
         data: {
-          files: []
+          files: [],
         },
         errorsToShow: [],
         isLoading: false,
         isValid: false,
-        removePending: false
+        removePending: false,
       } as any,
       'license': {
         header: 'submit.progressbar.license',
@@ -3100,7 +3102,7 @@ export const mockSubmissionState: SubmissionObjectState = Object.assign({}, {
         sectionType: 'license',
         visibility: {
           main: null,
-          other: 'READONLY'
+          other: 'READONLY',
         },
         collapsed: false,
         enabled: true,
@@ -3108,14 +3110,17 @@ export const mockSubmissionState: SubmissionObjectState = Object.assign({}, {
         errorsToShow: [],
         isLoading: false,
         isValid: false,
-        removePending: false
-      } as any
+        removePending: false,
+      } as any,
+      'duplicates': {
+        potentialDuplicates: [],
+      } as any,
     },
     isLoading: false,
     isDiscarding: false,
     savePending: false,
-    depositPending: false
-  }
+    depositPending: false,
+  },
 });
 
 export const mockSubmissionStateWithDuplicate: SubmissionObjectState = Object.assign({}, {
@@ -3131,7 +3136,7 @@ export const mockSubmissionStateWithDuplicate: SubmissionObjectState = Object.as
         sectionType: 'utils',
         visibility: {
           main: 'HIDDEN',
-          other: 'HIDDEN'
+          other: 'HIDDEN',
         },
         collapsed: false,
         enabled: true,
@@ -3139,7 +3144,7 @@ export const mockSubmissionStateWithDuplicate: SubmissionObjectState = Object.as
         errorsToShow: [],
         isLoading: false,
         isValid: false,
-        removePending: false
+        removePending: false,
       } as any,
       'collection': {
         config: '',
@@ -3147,7 +3152,7 @@ export const mockSubmissionStateWithDuplicate: SubmissionObjectState = Object.as
         sectionType: 'collection',
         visibility: {
           main: 'HIDDEN',
-          other: 'HIDDEN'
+          other: 'HIDDEN',
         },
         collapsed: false,
         enabled: true,
@@ -3155,7 +3160,7 @@ export const mockSubmissionStateWithDuplicate: SubmissionObjectState = Object.as
         errorsToShow: [],
         isLoading: false,
         isValid: false,
-        removePending: false
+        removePending: false,
       } as any,
       'traditionalpageone': {
         header: 'submit.progressbar.describe.stepone',
@@ -3169,7 +3174,7 @@ export const mockSubmissionStateWithDuplicate: SubmissionObjectState = Object.as
         formId: '2_traditionalpageone',
         isLoading: false,
         isValid: false,
-        removePending: false
+        removePending: false,
       } as any,
       'traditionalpagetwo': {
         header: 'submit.progressbar.describe.steptwo',
@@ -3182,7 +3187,7 @@ export const mockSubmissionStateWithDuplicate: SubmissionObjectState = Object.as
         errorsToShow: [],
         isLoading: false,
         isValid: false,
-        removePending: false
+        removePending: false,
       } as any,
       'detect-duplicate': {
         header: 'submit.progressbar.detect-duplicate',
@@ -3192,12 +3197,12 @@ export const mockSubmissionStateWithDuplicate: SubmissionObjectState = Object.as
         collapsed: false,
         enabled: true,
         data: {
-          matches: mockDeduplicationMatches
+          matches: mockDeduplicationMatches,
         },
         errorsToShow: [],
         isLoading: false,
         isValid: false,
-        removePending: false
+        removePending: false,
       } as any,
       'upload': {
         header: 'submit.progressbar.upload',
@@ -3207,12 +3212,12 @@ export const mockSubmissionStateWithDuplicate: SubmissionObjectState = Object.as
         collapsed: false,
         enabled: true,
         data: {
-          files: []
+          files: [],
         },
         errorsToShow: [],
         isLoading: false,
         isValid: false,
-        removePending: false
+        removePending: false,
       } as any,
       'license': {
         header: 'submit.progressbar.license',
@@ -3221,7 +3226,7 @@ export const mockSubmissionStateWithDuplicate: SubmissionObjectState = Object.as
         sectionType: 'license',
         visibility: {
           main: null,
-          other: 'READONLY'
+          other: 'READONLY',
         },
         collapsed: false,
         enabled: true,
@@ -3229,14 +3234,14 @@ export const mockSubmissionStateWithDuplicate: SubmissionObjectState = Object.as
         errorsToShow: [],
         isLoading: false,
         isValid: false,
-        removePending: false
-      } as any
+        removePending: false,
+      } as any,
     },
     isLoading: false,
     isDiscarding: false,
     savePending: false,
-    depositPending: false
-  }
+    depositPending: false,
+  },
 });
 
 export const mockSubmissionStateWithoutUpload: SubmissionObjectState = Object.assign({}, {
@@ -3252,14 +3257,14 @@ export const mockSubmissionStateWithoutUpload: SubmissionObjectState = Object.as
         sectionType: 'utils',
         visibility: {
           main: 'HIDDEN',
-          other: 'HIDDEN'
+          other: 'HIDDEN',
         },
         collapsed: false,
         enabled: true,
         data: {},
         errorsToShow: [],
         isLoading: false,
-        isValid: false
+        isValid: false,
       } as any,
       collection: {
         config: '',
@@ -3267,14 +3272,14 @@ export const mockSubmissionStateWithoutUpload: SubmissionObjectState = Object.as
         sectionType: 'collection',
         visibility: {
           main: 'HIDDEN',
-          other: 'HIDDEN'
+          other: 'HIDDEN',
         },
         collapsed: false,
         enabled: true,
         data: {},
         errorsToShow: [],
         isLoading: false,
-        isValid: false
+        isValid: false,
       } as any,
       traditionalpageone: {
         header: 'submit.progressbar.describe.stepone',
@@ -3287,7 +3292,7 @@ export const mockSubmissionStateWithoutUpload: SubmissionObjectState = Object.as
         errorsToShow: [],
         formId: '2_traditionalpageone',
         isLoading: false,
-        isValid: false
+        isValid: false,
       } as any,
       traditionalpagetwo: {
         header: 'submit.progressbar.describe.steptwo',
@@ -3299,7 +3304,7 @@ export const mockSubmissionStateWithoutUpload: SubmissionObjectState = Object.as
         data: {},
         errorsToShow: [],
         isLoading: false,
-        isValid: false
+        isValid: false,
       } as any,
       license: {
         header: 'submit.progressbar.license',
@@ -3308,21 +3313,21 @@ export const mockSubmissionStateWithoutUpload: SubmissionObjectState = Object.as
         sectionType: 'license',
         visibility: {
           main: null,
-          other: 'READONLY'
+          other: 'READONLY',
         },
         collapsed: false,
         enabled: true,
         data: {},
         errorsToShow: [],
         isLoading: false,
-        isValid: false
-      } as any
+        isValid: false,
+      } as any,
     },
     isLoading: false,
     isDiscarding: false,
     savePending: false,
-    depositPending: false
-  }
+    depositPending: false,
+  },
 });
 
 export const mockSectionsState = Object.assign({}, {
@@ -3332,22 +3337,7 @@ export const mockSectionsState = Object.assign({}, {
     sectionType: 'utils',
     visibility: {
       main: 'HIDDEN',
-      other: 'HIDDEN'
-    },
-    collapsed: false,
-    enabled: true,
-    data: {},
-    errorsToShow: [],
-    isLoading: false,
-    isValid: false
-  } as any,
-  collection: {
-    config: '',
-    mandatory: true,
-    sectionType: 'collection',
-    visibility: {
-      main: 'HIDDEN',
-      other: 'HIDDEN'
+      other: 'HIDDEN',
     },
     collapsed: false,
     enabled: true,
@@ -3355,7 +3345,22 @@ export const mockSectionsState = Object.assign({}, {
     errorsToShow: [],
     isLoading: false,
     isValid: false,
-    removePending: false
+  } as any,
+  collection: {
+    config: '',
+    mandatory: true,
+    sectionType: 'collection',
+    visibility: {
+      main: 'HIDDEN',
+      other: 'HIDDEN',
+    },
+    collapsed: false,
+    enabled: true,
+    data: {},
+    errorsToShow: [],
+    isLoading: false,
+    isValid: false,
+    removePending: false,
   } as any,
   traditionalpageone: {
     header: 'submit.progressbar.describe.stepone',
@@ -3368,7 +3373,7 @@ export const mockSectionsState = Object.assign({}, {
     errorsToShow: [],
     isLoading: false,
     isValid: false,
-    removePending: false
+    removePending: false,
   } as any,
   traditionalpagetwo: {
     header: 'submit.progressbar.describe.steptwo',
@@ -3381,7 +3386,7 @@ export const mockSectionsState = Object.assign({}, {
     errorsToShow: [],
     isLoading: false,
     isValid: false,
-    removePending: false
+    removePending: false,
   } as any,
   upload: {
     header: 'submit.progressbar.upload',
@@ -3394,7 +3399,7 @@ export const mockSectionsState = Object.assign({}, {
     errorsToShow: [],
     isLoading: false,
     isValid: false,
-    removePending: false
+    removePending: false,
   } as any,
   license: {
     header: 'submit.progressbar.license',
@@ -3403,7 +3408,7 @@ export const mockSectionsState = Object.assign({}, {
     sectionType: 'license',
     visibility: {
       main: null,
-      other: 'READONLY'
+      other: 'READONLY',
     },
     collapsed: false,
     enabled: true,
@@ -3411,8 +3416,8 @@ export const mockSectionsState = Object.assign({}, {
     errorsToShow: [],
     isLoading: false,
     isValid: false,
-    removePending: false
-  } as any
+    removePending: false,
+  } as any,
 });
 
 export const mockSectionsList = [
@@ -3423,7 +3428,7 @@ export const mockSectionsList = [
     errors: [],
     header: 'submit.progressbar.describe.stepone',
     id: 'traditionalpageone',
-    sectionType: 'submission-form'
+    sectionType: 'submission-form',
   },
   {
     config: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/traditionalpagetwo',
@@ -3432,7 +3437,7 @@ export const mockSectionsList = [
     errors: [],
     header: 'submit.progressbar.describe.steptwo',
     id: 'traditionalpagetwo',
-    sectionType: 'submission-form'
+    sectionType: 'submission-form',
   },
   {
     config: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload',
@@ -3441,7 +3446,7 @@ export const mockSectionsList = [
     errors: [],
     header: 'submit.progressbar.upload',
     id: 'upload',
-    sectionType: 'upload'
+    sectionType: 'upload',
   },
   {
     config: '',
@@ -3450,8 +3455,8 @@ export const mockSectionsList = [
     errors: [],
     header: 'submit.progressbar.license',
     id: 'license',
-    sectionType: 'license'
-  }
+    sectionType: 'license',
+  },
 ];
 
 export const mockUploadConfigResponseMetadata = {
@@ -3460,7 +3465,7 @@ export const mockUploadConfigResponseMetadata = {
       fields: [
         {
           input: {
-            type: 'onebox'
+            type: 'onebox',
           },
           label: 'Title',
           mandatory: true,
@@ -3472,18 +3477,18 @@ export const mockUploadConfigResponseMetadata = {
               metadata: 'dc.title',
               label: null,
               controlledVocabulary: null,
-              closed: null
-            }
+              closed: null,
+            },
           ],
-          languageCodes: []
-        }
-      ]
+          languageCodes: [],
+        },
+      ],
     },
     {
       fields: [
         {
           input: {
-            type: 'textarea'
+            type: 'textarea',
           },
           label: 'Description',
           mandatory: false,
@@ -3494,18 +3499,18 @@ export const mockUploadConfigResponseMetadata = {
               metadata: 'dc.description',
               label: null,
               controlledVocabulary: null,
-              closed: null
-            }
+              closed: null,
+            },
           ],
-          languageCodes: []
-        }
-      ]
-    }
+          languageCodes: [],
+        },
+      ],
+    },
   ],
   name: 'bitstream-metadata',
   type: 'submissionform',
   _links: {
-    self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/bitstream-metadata' }
+    self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionforms/bitstream-metadata' },
   },
 };
 
@@ -3514,25 +3519,25 @@ export const mockUploadConfigResponse = {
     {
       name: 'openaccess',
       hasStartDate: false,
-      hasEndDate: false
+      hasEndDate: false,
     },
     {
       name: 'lease',
       hasStartDate: false,
       hasEndDate: true,
-      maxEndDate: '2019-07-12T14:40:06.308+0000'
+      maxEndDate: '2019-07-12T14:40:06.308+0000',
     },
     {
       name: 'embargo',
       hasStartDate: true,
       hasEndDate: false,
-      maxStartDate: '2022-01-12T14:40:06.308+0000'
+      maxStartDate: '2022-01-12T14:40:06.308+0000',
     },
     {
       name: 'administrator',
       hasStartDate: false,
-      hasEndDate: false
-    }
+      hasEndDate: false,
+    },
   ],
   metadata: createSuccessfulRemoteDataObject$(mockUploadConfigResponseMetadata),
   required: true,
@@ -3541,7 +3546,7 @@ export const mockUploadConfigResponse = {
   type: 'submissionupload',
   _links: {
     metadata: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload/metadata' },
-    self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload' }
+    self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload' },
   },
 };
 
@@ -3550,25 +3555,25 @@ export const mockUploadSingleAccessConfigResponse = {
     {
       name: 'openaccess',
       hasStartDate: false,
-      hasEndDate: false
+      hasEndDate: false,
     },
     {
       name: 'lease',
       hasStartDate: false,
       hasEndDate: true,
-      maxEndDate: '2019-07-12T14:40:06.308+0000'
+      maxEndDate: '2019-07-12T14:40:06.308+0000',
     },
     {
       name: 'embargo',
       hasStartDate: true,
       hasEndDate: false,
-      maxStartDate: '2022-01-12T14:40:06.308+0000'
+      maxStartDate: '2022-01-12T14:40:06.308+0000',
     },
     {
       name: 'administrator',
       hasStartDate: false,
-      hasEndDate: false
-    }
+      hasEndDate: false,
+    },
   ],
   metadata: createSuccessfulRemoteDataObject$(mockUploadConfigResponseMetadata),
   required: true,
@@ -3578,7 +3583,7 @@ export const mockUploadSingleAccessConfigResponse = {
   type: 'submissionupload',
   _links: {
     metadata: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload/metadata' },
-    self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload' }
+    self: { href: 'https://rest.api/dspace-spring-rest/api/config/submissionuploads/upload' },
   },
 };
 
@@ -3595,17 +3600,17 @@ export const mockGroup = Object.assign(new Group(), {
   metadata: [],
   _links: {
     groups: { href: 'https://rest.api/dspace-spring-rest/api/eperson/groups/123456-g1/groups' },
-    self: { href: 'https://rest.api/dspace-spring-rest/api/eperson/groups/123456-g1' }
+    self: { href: 'https://rest.api/dspace-spring-rest/api/eperson/groups/123456-g1' },
   },
   groups: {
     pageInfo: {
       elementsPerPage: 0,
       totalElements: 0,
       totalPages: 1,
-      currentPage: 1
+      currentPage: 1,
     },
-    page: []
-  }
+    page: [],
+  },
 });
 
 export const mockUploadFiles = [
@@ -3620,8 +3625,8 @@ export const mockUploadFiles = [
           display: '123456-test-upload.jpg',
           confidence: -1,
           place: 0,
-          otherInformation: null
-        }
+          otherInformation: null,
+        },
       ],
       'dc.title': [
         {
@@ -3631,9 +3636,9 @@ export const mockUploadFiles = [
           display: '123456-test-upload.jpg',
           confidence: -1,
           place: 0,
-          otherInformation: null
-        }
-      ]
+          otherInformation: null,
+        },
+      ],
     },
     accessConditions: [
       {
@@ -3643,7 +3648,7 @@ export const mockUploadFiles = [
         groupUUID: '123456-g',
         action: 'READ',
         endDate: '2019-01-16',
-        type: 'resourcePolicy'
+        type: 'resourcePolicy',
       },
       {
         id: 3676,
@@ -3651,8 +3656,8 @@ export const mockUploadFiles = [
         rpType: 'TYPE_CUSTOM',
         groupUUID: '123456-g',
         action: 'READ',
-        type: 'resourcePolicy'
-      }
+        type: 'resourcePolicy',
+      },
     ],
     format: {
       id: 16,
@@ -3662,18 +3667,24 @@ export const mockUploadFiles = [
       supportLevel: 0,
       internal: false,
       extensions: null,
-      type: 'bitstreamformat'
+      type: 'bitstreamformat',
     },
     sizeBytes: 202999,
     checkSum: {
       checkSumAlgorithm: 'MD5',
-      value: '5e0996996863d2623439cbb53052bc72'
+      value: '5e0996996863d2623439cbb53052bc72',
     },
-    url: 'https://test-ui.com/api/core/bitstreams/123456-test-upload/content'
-  }
+    url: 'https://test-ui.com/api/core/bitstreams/123456-test-upload/content',
+  },
 ];
 
+export const mockUploadFilesData = {
+  primary: null,
+  files: JSON.parse(JSON.stringify(mockUploadFiles)),
+};
+
 export const mockFileFormData = {
+  primary: [true],
   metadata: {
     'dc.title': [
       {
@@ -3683,8 +3694,8 @@ export const mockFileFormData = {
         display: 'title',
         confidence: -1,
         place: 0,
-        otherInformation: null
-      }
+        otherInformation: null,
+      },
     ],
     'dc.description': [
       {
@@ -3694,9 +3705,9 @@ export const mockFileFormData = {
         display: 'description',
         confidence: -1,
         place: 0,
-        otherInformation: null
-      }
-    ]
+        otherInformation: null,
+      },
+    ],
   },
   accessConditions: [
     {
@@ -3709,8 +3720,8 @@ export const mockFileFormData = {
             display: 'openaccess',
             confidence: -1,
             place: 0,
-            otherInformation: null
-          }
+            otherInformation: null,
+          },
         ],
       },
     },
@@ -3724,29 +3735,25 @@ export const mockFileFormData = {
             display: 'lease',
             confidence: -1,
             place: 0,
-            otherInformation: null
-          }
+            otherInformation: null,
+          },
         ],
         endDate: [
           {
-            value: {
-              year: 2019,
-              month: 1,
-              day: 16
-            },
+            value: new Date('2019-01-16'),
             language: null,
             authority: null,
             display: {
               year: 2019,
               month: 1,
-              day: 16
+              day: 16,
             },
             confidence: -1,
             place: 0,
-            otherInformation: null
-          }
+            otherInformation: null,
+          },
         ],
-      }
+      },
     },
     {
       accessConditionGroup: {
@@ -3755,34 +3762,30 @@ export const mockFileFormData = {
             value: 'embargo',
             language: null,
             authority: null,
-            display: 'lease',
+            display: 'embargo',
             confidence: -1,
             place: 0,
-            otherInformation: null
-          }
+            otherInformation: null,
+          },
         ],
         startDate: [
           {
-            value: {
-              year: 2019,
-              month: 1,
-              day: 16
-            },
+            value: new Date('2019-01-16'),
             language: null,
             authority: null,
             display: {
               year: 2019,
               month: 1,
-              day: 16
+              day: 16,
             },
             confidence: -1,
             place: 0,
-            otherInformation: null
-          }
+            otherInformation: null,
+          },
         ],
-      }
-    }
-  ]
+      },
+    },
+  ],
 };
 
 
@@ -3799,8 +3802,8 @@ export const mockAccessesFormData = {
             display: 'openaccess',
             confidence: -1,
             place: 0,
-            otherInformation: null
-          }
+            otherInformation: null,
+          },
         ],
       },
     },
@@ -3814,29 +3817,29 @@ export const mockAccessesFormData = {
             display: 'lease',
             confidence: -1,
             place: 0,
-            otherInformation: null
-          }
+            otherInformation: null,
+          },
         ],
         endDate: [
           {
             value: {
               year: 2019,
               month: 1,
-              day: 16
+              day: 16,
             },
             language: null,
             authority: null,
             display: {
               year: 2019,
               month: 1,
-              day: 16
+              day: 16,
             },
             confidence: -1,
             place: 0,
-            otherInformation: null
-          }
+            otherInformation: null,
+          },
         ],
-      }
+      },
     },
     {
       accessConditionGroup: {
@@ -3848,31 +3851,31 @@ export const mockAccessesFormData = {
             display: 'lease',
             confidence: -1,
             place: 0,
-            otherInformation: null
-          }
+            otherInformation: null,
+          },
         ],
         startDate: [
           {
             value: {
               year: 2019,
               month: 1,
-              day: 16
+              day: 16,
             },
             language: null,
             authority: null,
             display: {
               year: 2019,
               month: 1,
-              day: 16
+              day: 16,
             },
             confidence: -1,
             place: 0,
-            otherInformation: null
-          }
+            otherInformation: null,
+          },
         ],
-      }
-    }
-  ]
+      },
+    },
+  ],
 };
 
 // mockDeduplicationMatches id for Workflow decision

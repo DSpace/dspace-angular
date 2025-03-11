@@ -1,6 +1,6 @@
 import {
   SubmissionVisibilityType,
-  SubmissionVisibilityValue
+  SubmissionVisibilityValue,
 } from '../../core/config/models/config-submission-section.model';
 import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
 import { isNotEmpty } from '../../shared/empty.util';

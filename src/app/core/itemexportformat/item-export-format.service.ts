@@ -1,35 +1,42 @@
 import { Injectable } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import findIndex from 'lodash/findIndex';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { dataService } from '../data/base/data-service.decorator';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { ItemDataService } from '../data/item-data.service';
-import { RequestService } from '../data/request.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { ItemExportFormat, ItemExportFormatMap } from './model/item-export-format.model';
-import { ITEM_EXPORT_FORMAT } from './model/item-export-format.resource-type';
-import { PaginatedList } from '../data/paginated-list.model';
-import { RemoteData } from '../data/remote-data';
-import { RequestParam } from '../cache/models/request-param.model';
+import { Process } from '../../process-page/processes/process.model';
 import { ProcessParameter } from '../../process-page/processes/process-parameter.model';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
+import { SearchOptions } from '../../shared/search/models/search-options.model';
+import { DSONameService } from '../breadcrumbs/dso-name.service';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { IdentifiableDataService } from '../data/base/identifiable-data.service';
+import { SearchDataImpl } from '../data/base/search-data';
+import { ItemDataService } from '../data/item-data.service';
+import { PaginatedList } from '../data/paginated-list.model';
 import {
   BULK_ITEM_EXPORT_SCRIPT_NAME,
   ITEM_EXPORT_SCRIPT_NAME,
-  ScriptDataService
+  ScriptDataService,
 } from '../data/processes/script-data.service';
-import { TranslateService } from '@ngx-translate/core';
-import { SearchOptions } from '../../shared/search/models/search-options.model';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { Process } from '../../process-page/processes/process.model';
-import { getAllCompletedRemoteData, getFirstCompletedRemoteData } from '../shared/operators';
-import { IdentifiableDataService } from '../data/base/identifiable-data.service';
-import { SearchDataImpl } from '../data/base/search-data';
-import { DSONameService } from '../breadcrumbs/dso-name.service';
-import { isEmpty, isNotEmpty } from '../../shared/empty.util';
-import findIndex from 'lodash/findIndex';
+import { RemoteData } from '../data/remote-data';
+import { RequestService } from '../data/request.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import {
+  getAllCompletedRemoteData,
+  getFirstCompletedRemoteData,
+} from '../shared/operators';
+import {
+  ItemExportFormat,
+  ItemExportFormatMap,
+} from './model/item-export-format.model';
 
 export enum ItemExportFormatMolteplicity {
   SINGLE = 'SINGLE',
@@ -39,8 +46,7 @@ export enum ItemExportFormatMolteplicity {
 /**
  * A service that provides methods to make REST requests with item export format endpoint.
  */
-@Injectable()
-@dataService(ITEM_EXPORT_FORMAT)
+@Injectable({ providedIn: 'root' })
 export class ItemExportFormatService extends IdentifiableDataService<ItemExportFormat> {
 
   private searchData: SearchDataImpl<ItemExportFormat>;
@@ -100,7 +106,7 @@ export class ItemExportFormatService extends IdentifiableDataService<ItemExportF
           formatMap[itemType] = [...formatMap[itemType], ...sharedFormat];
         });
         return formatMap;
-      })
+      }),
     );
   }
 
@@ -216,7 +222,7 @@ export class ItemExportFormatService extends IdentifiableDataService<ItemExportF
     if (searchOptions.configuration) {
       return [...parameterValues, Object.assign(new ProcessParameter(), {
         name: '-c',
-        value: searchOptions.configuration
+        value: searchOptions.configuration,
       })];
     }
     return parameterValues;
@@ -226,7 +232,7 @@ export class ItemExportFormatService extends IdentifiableDataService<ItemExportF
     if (searchOptions instanceof PaginatedSearchOptions) {
       return [...parameterValues, Object.assign(new ProcessParameter(), {
         name: '-so',
-        value: searchOptions.sort.field + ',' + searchOptions.sort.direction
+        value: searchOptions.sort.field + ',' + searchOptions.sort.direction,
       })];
     }
     return parameterValues;

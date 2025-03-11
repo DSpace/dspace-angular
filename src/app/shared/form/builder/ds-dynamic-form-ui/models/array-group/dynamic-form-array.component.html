@@ -12,12 +12,11 @@
              [formGroupName]="idx"
              [ngClass]="[getClass('element', 'group'), getClass('grid', 'group')]"
              cdkDrag
-             cdkDragHandle
              [cdkDragDisabled]="dragDisabled"
              [cdkDragPreviewClass]="'ds-submission-reorder-dragging'"
              [class.grey-background]="model.isInlineGroupArray">
           <!-- Item content -->
-          <div class="drag-handle" [class.drag-disable]="dragDisabled" tabindex="0">
+          <div class="drag-handle" [class.drag-disable]="dragDisabled" tabindex="0" cdkDragHandle>
             <i class="drag-icon fas fa-grip-vertical fa-fw" [class.drag-disable]="dragDisabled" ></i>
           </div>
           <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: groupModel"></ng-container>

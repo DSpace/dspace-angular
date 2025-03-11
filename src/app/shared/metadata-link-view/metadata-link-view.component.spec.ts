@@ -1,19 +1,26 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { of } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
-import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { MetadataLinkViewComponent } from './metadata-link-view.component';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { Item } from '../../core/shared/item.model';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { MetadataValue } from '../../core/shared/metadata.models';
 import { EntityIconDirective } from '../entity-icon/entity-icon.directive';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../remote-data.utils';
 import { VarDirective } from '../utils/var.directive';
+import { MetadataLinkViewComponent } from './metadata-link-view.component';
 import SpyObj = jasmine.SpyObj;
+import { MetadataLinkViewPopoverComponent } from './metadata-link-view-popover/metadata-link-view-popover.component';
 
 describe('MetadataLinkViewComponent', () => {
   let component: MetadataLinkViewComponent;
@@ -27,29 +34,29 @@ describe('MetadataLinkViewComponent', () => {
     metadata: {
       'dspace.entity.type': [
         Object.assign(new MetadataValue(), {
-          value: 'Person'
-        })
+          value: 'Person',
+        }),
       ],
       'person.orgunit.id': [
         Object.assign(new MetadataValue(), {
           value: 'OrgUnit',
-          authority: '2'
-        })
+          authority: '2',
+        }),
       ],
       'person.identifier.orcid': [
         Object.assign(new MetadataValue(), {
           language: 'en_US',
-          value: '0000-0001-8918-3592'
-        })
+          value: '0000-0001-8918-3592',
+        }),
       ],
       'dspace.orcid.authenticated': [
         Object.assign(new MetadataValue(), {
           language: null,
-          value: 'authenticated'
-        })
-      ]
+          value: 'authenticated',
+        }),
+      ],
     },
-    entityType: 'Person'
+    entityType: 'Person',
   });
 
   const testOrgunit = Object.assign(new Item(), {
@@ -58,17 +65,17 @@ describe('MetadataLinkViewComponent', () => {
     metadata: {
       'dspace.entity.type': [
         Object.assign(new MetadataValue(), {
-          value: 'OrgUnit'
-        })
+          value: 'OrgUnit',
+        }),
       ],
       'orgunit.person.id': [
         Object.assign(new MetadataValue(), {
           value: 'Person',
-          authority: '1'
-        })
+          authority: '1',
+        }),
       ],
     },
-    entityType: 'OrgUnit'
+    entityType: 'OrgUnit',
   });
 
   const testMetadataValueWithoutAuthority = Object.assign(new MetadataValue(), {
@@ -90,27 +97,27 @@ describe('MetadataLinkViewComponent', () => {
   });
 
   itemService = jasmine.createSpyObj('ItemDataService', {
-    findById: jasmine.createSpy('findById')
+    findByIdWithProjections: jasmine.createSpy('findByIdWithProjections'),
   });
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         NgbTooltipModule,
-        RouterTestingModule
+        RouterTestingModule,
+        MetadataLinkViewComponent, EntityIconDirective, VarDirective,
       ],
-      declarations: [MetadataLinkViewComponent, EntityIconDirective, VarDirective],
       providers: [
         { provide: ItemDataService, useValue: itemService },
-      ]
+      ],
     })
-      .compileComponents();
+      .overrideComponent(MetadataLinkViewComponent, { remove: { imports: [MetadataLinkViewPopoverComponent] } }).compileComponents();
   }));
 
   describe('Check metadata without authority', () => {
     beforeEach(() => {
       fixture = TestBed.createComponent(MetadataLinkViewComponent);
-      itemService.findById.and.returnValue(createSuccessfulRemoteDataObject$(testOrgunit));
+      itemService.findByIdWithProjections.and.returnValue(createSuccessfulRemoteDataObject$(testOrgunit));
       component = fixture.componentInstance;
       component.item = testPerson;
       component.metadata = testMetadataValueWithoutAuthority;
@@ -135,7 +142,7 @@ describe('MetadataLinkViewComponent', () => {
     describe('when item is found with orcid', () => {
       beforeEach(() => {
         fixture = TestBed.createComponent(MetadataLinkViewComponent);
-        itemService.findById.and.returnValue(createSuccessfulRemoteDataObject$(testPerson));
+        itemService.findByIdWithProjections.and.returnValue(createSuccessfulRemoteDataObject$(testPerson));
         component = fixture.componentInstance;
         component.item = testPerson;
         component.metadata = testMetadataValueWithAuthority;
@@ -162,7 +169,7 @@ describe('MetadataLinkViewComponent', () => {
     describe('when item is found without orcid', () => {
       beforeEach(() => {
         fixture = TestBed.createComponent(MetadataLinkViewComponent);
-        itemService.findById.and.returnValue(createSuccessfulRemoteDataObject$(testOrgunit));
+        itemService.findByIdWithProjections.and.returnValue(createSuccessfulRemoteDataObject$(testOrgunit));
         component = fixture.componentInstance;
         component.item = testPerson;
         component.metadata = testMetadataValueWithAuthority;
@@ -189,7 +196,7 @@ describe('MetadataLinkViewComponent', () => {
     describe('when item is not found', () => {
       beforeEach(() => {
         fixture = TestBed.createComponent(MetadataLinkViewComponent);
-        itemService.findById.and.returnValue(createFailedRemoteDataObject$());
+        itemService.findByIdWithProjections.and.returnValue(createFailedRemoteDataObject$());
         component = fixture.componentInstance;
         component.item = testPerson;
         component.metadata = testMetadataValueWithAuthority;

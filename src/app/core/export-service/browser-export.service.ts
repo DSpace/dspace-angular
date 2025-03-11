@@ -1,10 +1,24 @@
-import { ExportAsConfig, ExportAsService } from 'ngx-export-as';
-import { toJpeg, toPng } from 'html-to-image';
-import { Options } from 'html-to-image/es/types';
+import {
+  Inject,
+  PLATFORM_ID,
+} from '@angular/core';
 import { saveAs } from 'file-saver';
+import {
+  toJpeg,
+  toPng,
+} from 'html-to-image';
+import { Options } from 'html-to-image/es/types';
+import {
+  ExportAsConfig,
+  ExportAsService,
+} from 'ngx-export-as';
 import { BehaviorSubject } from 'rxjs';
 
-import { ExportImageType, ExportService } from './export.service';
+import { hasValue } from '../../shared/empty.util';
+import {
+  ExportImageType,
+  ExportService,
+} from './export.service';
 
 /**
  *  IMPORTANT
@@ -18,6 +32,9 @@ export class BrowserExportService implements ExportService {
    * Configuration for CSV export process
    */
   exportAsConfig: ExportAsConfig;
+
+  constructor(@Inject(PLATFORM_ID) private platformId: any) {
+  }
 
   /**
    * Creates excel from the table element reference.
@@ -33,10 +50,10 @@ export class BrowserExportService implements ExportService {
       type:type,
       elementIdOrContent: elementIdOrContent,
       fileName:fileName,
-      download:download
+      download:download,
     };
 
-    const exportAsService: ExportAsService = new ExportAsService();
+    const exportAsService: ExportAsService = new ExportAsService(this.platformId);
     return exportAsService.save(this.exportAsConfig, fileName);
   }
 
@@ -54,18 +71,33 @@ export class BrowserExportService implements ExportService {
 
     if (type === ExportImageType.png) {
       toPng(domNode, options)
-      .then((dataUrl) => {
-        saveAs(dataUrl, fileName + '.' + type);
-        isLoading.next(false);
-      });
+        .then((dataUrl) => {
+          saveAs(dataUrl, fileName + '.' + type);
+          isLoading.next(false);
+        });
     } else {
       toJpeg(domNode, options)
-      .then((dataUrl) => {
-        saveAs(dataUrl, fileName + '.' + type);
-        isLoading.next(false);
-      });
+        .then((dataUrl) => {
+          saveAs(dataUrl, fileName + '.' + type);
+          isLoading.next(false);
+        });
     }
 
   }
 
+  /**
+   * Creates an image from the given base64 string.
+   * @param base64 the base64 string
+   * @param type image type (png or jpeg)
+   * @param fileName
+   * @param isLoading
+   */
+  exportImageWithBase64(base64: string, type: ExportImageType, fileName: string, isLoading: BehaviorSubject<boolean>): void {
+    if (hasValue(base64)) {
+      saveAs(base64, fileName + '.' + type);
+    } else {
+      console.error('Base64 string is empty');
+    }
+    isLoading.next(false);
+  }
 }

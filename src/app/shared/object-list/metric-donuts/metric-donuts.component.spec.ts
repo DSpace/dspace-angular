@@ -1,9 +1,15 @@
-import { Item } from '../../../core/shared/item.model';
-import { of as observableOf } from 'rxjs';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
 import { LinkService } from '../../../core/cache/builders/link.service';
+import { Item } from '../../../core/shared/item.model';
+import { MetricLoaderComponent } from '../../metric/metric-loader/metric-loader.component';
 import { getMockLinkService } from '../../mocks/link-service.mock';
 import { followLink } from '../../utils/follow-link-config.model';
 import { MetricDonutsComponent } from './metric-donuts.component';
@@ -19,10 +25,10 @@ const mockItem = Object.assign(new Item(), {
     'dspace.entity.type': [
       {
         language: 'en_US',
-        value: type
-      }
-    ]
-  }
+        value: type,
+      },
+    ],
+  },
 });
 
 // const mockItemWithoutEntityType = Object.assign(new Item(), {
@@ -43,13 +49,12 @@ describe('MetricDonutsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [MetricDonutsComponent],
+      imports: [TranslateModule.forRoot(), MetricDonutsComponent],
       providers: [
-        { provide: LinkService, useValue: linkService }
+        { provide: LinkService, useValue: linkService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(MetricDonutsComponent, { remove: { imports: [MetricLoaderComponent] } }).compileComponents();
   }));
 
   beforeEach(waitForAsync(() => {

@@ -1,20 +1,38 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule, By } from '@angular/platform-browser';
+import {
+  ComponentFixture,
+  fakeAsync,
+  inject,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  BrowserModule,
+  By,
+} from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+
 import { RemoteData } from '../../../../core/data/remote-data';
 import { SearchService } from '../../../../core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
-import { SearchSectionComponent } from './search-section.component';
-import { Router } from '@angular/router';
 import { SearchConfig } from '../../../search/search-filters/search-config.model';
-import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
+import { ThemedSearchFormComponent } from '../../../search-form/themed-search-form.component';
+import { SearchSectionComponent } from './search-section.component';
 
 describe('SearchSectionComponent', () => {
   let component: SearchSectionComponent;
@@ -30,7 +48,7 @@ describe('SearchSectionComponent', () => {
     operators: [],
     openByDefault: true,
     pageSize: 5,
-    type: 'text'
+    type: 'text',
   };
 
   const secondFilterConfig: any = {
@@ -39,7 +57,7 @@ describe('SearchSectionComponent', () => {
     operators: [],
     openByDefault: true,
     pageSize: 5,
-    type: 'text'
+    type: 'text',
   };
 
   beforeEach(waitForAsync(() => {
@@ -47,18 +65,18 @@ describe('SearchSectionComponent', () => {
     searchServiceStub = {
       getSearchLink(): string {
         return '/search';
-      }
+      },
     };
     searchConfigurationStub = {
       getSearchConfigurationFor( scope?: string, configurationName?: string ): Observable<RemoteData<SearchConfig>> {
         const config = new SearchConfig();
         config.filters = [firstFilterConfig, secondFilterConfig];
         return createSuccessfulRemoteDataObject$(config);
-      }
+      },
     };
 
     router = {
-      navigate: jasmine.createSpy('navigate')
+      navigate: jasmine.createSpy('navigate'),
     };
 
     TestBed.configureTestingModule({
@@ -66,17 +84,15 @@ describe('SearchSectionComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        }),
-      ],
-      declarations: [SearchSectionComponent],
+            useClass: TranslateLoaderMock,
+          },
+        }), SearchSectionComponent],
       providers: [SearchSectionComponent,
         { provide: SearchService, useValue: searchServiceStub },
         { provide: SearchConfigurationService, useValue: searchConfigurationStub },
         { provide: Router, useValue: router }],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(SearchSectionComponent, { remove: { imports: [ThemedSearchFormComponent] } }).compileComponents();
 
   }));
 
@@ -91,7 +107,7 @@ describe('SearchSectionComponent', () => {
       style: 'col-md-8',
       searchType: 'advanced',
       initialStatements: 3,
-      displayTitle: false
+      displayTitle: false,
     };
 
     fixture.detectChanges();
@@ -204,7 +220,7 @@ describe('SearchSectionComponent', () => {
 
     it('should redirect to the search page with the composed query', () => {
       expect(router.navigate).toHaveBeenCalledWith(['/search'], {
-        queryParams: { page: 1, configuration: 'publication', query: 'author:(Adam) OR (test)' }
+        queryParams: { page: 1, configuration: 'publication', query: 'author:(Adam) OR (test)' },
       });
     });
   });
@@ -221,7 +237,7 @@ describe('SearchSectionComponent', () => {
         style: 'col-md-8',
         searchType: 'basic',
         initialStatements: 3,
-        displayTitle: false
+        displayTitle: false,
       };
 
       fixture.detectChanges();
@@ -229,7 +245,7 @@ describe('SearchSectionComponent', () => {
 
     it('should display basic search form', () => {
       expect(fixture.debugElement.query(By.css('ds-search-form')))
-      .toBeTruthy();
+        .toBeTruthy();
     });
 
   });

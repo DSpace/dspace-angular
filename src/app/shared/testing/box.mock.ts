@@ -2,7 +2,7 @@ import { CrisLayoutBox } from '../../core/layout/models/box.model';
 import {
   metadataBoxConfigurationMock,
   metricsBoxConfigurationMock,
-  relationBoxConfigurationMock
+  relationBoxConfigurationMock,
 } from './box-configurations.mock';
 
 export const boxMetadata: CrisLayoutBox = {

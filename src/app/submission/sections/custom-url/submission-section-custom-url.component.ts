@@ -1,23 +1,49 @@
-import { Component, Inject } from '@angular/core';
-import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, map, take } from 'rxjs/operators';
-import { renderSectionFor } from '../sections-decorator';
-import { SectionsType } from '../sections-type';
+import {
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Inject,
+} from '@angular/core';
+import {
+  DynamicFormControlEvent,
+  DynamicFormControlModel,
+  DynamicInputModel,
+} from '@ng-dynamic-forms/core';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  take,
+} from 'rxjs/operators';
+
+import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import { WorkspaceitemSectionCustomUrlObject } from '../../../core/submission/models/workspaceitem-section-custom-url.model';
+import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
+import { URLCombiner } from '../../../core/url-combiner/url-combiner';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../../../shared/empty.util';
+import { FormComponent } from '../../../shared/form/form.component';
+import { FormService } from '../../../shared/form/form.service';
+import { SubmissionSectionError } from '../../objects/submission-section-error.model';
+import { SubmissionSectionObject } from '../../objects/submission-section-object.model';
+import { SubmissionService } from '../../submission.service';
+import { SectionFormOperationsService } from '../form/section-form-operations.service';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { DynamicFormControlEvent, DynamicFormControlModel, DynamicInputModel } from '@ng-dynamic-forms/core';
-import { WorkspaceitemSectionCustomUrlObject } from '../../../core/submission/models/workspaceitem-section-custom-url.model';
-import { SectionFormOperationsService } from '../form/section-form-operations.service';
-import { URLCombiner } from '../../../core/url-combiner/url-combiner';
-import { SubmissionService } from '../../submission.service';
-import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
-import { SubmissionSectionError } from '../../objects/submission-section-error.model';
-import { SubmissionSectionObject } from '../../objects/submission-section-object.model';
-import { FormService } from '../../../shared/form/form.service';
+import { SectionsType } from '../sections-type';
 
 /**
  * This component represents the submission section to select the Creative Commons license.
@@ -25,9 +51,15 @@ import { FormService } from '../../../shared/form/form.service';
 @Component({
   selector: 'ds-submission-section-custom-url',
   templateUrl: './submission-section-custom-url.component.html',
-  styleUrls: ['./submission-section-custom-url.component.scss']
+  styleUrls: ['./submission-section-custom-url.component.scss'],
+  imports: [
+    FormComponent,
+    NgIf,
+    TranslateModule,
+    NgForOf,
+  ],
+  standalone: true,
 })
-@renderSectionFor(SectionsType.CustomUrl)
 export class SubmissionSectionCustomUrlComponent extends SectionModelComponent {
 
   /**
@@ -87,7 +119,7 @@ export class SubmissionSectionCustomUrlComponent extends SectionModelComponent {
     @Inject('entityType') public entityType: string,
     @Inject('collectionIdProvider') public injectedCollectionId: string,
     @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
-    @Inject('submissionIdProvider') public injectedSubmissionId: string
+    @Inject('submissionIdProvider') public injectedSubmissionId: string,
   ) {
     super(
       injectedCollectionId,
@@ -117,7 +149,7 @@ export class SubmissionSectionCustomUrlComponent extends SectionModelComponent {
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionData.id);
 
     this.sectionService.getSectionState(this.submissionId, this.sectionData.id, SectionsType.CustomUrl).pipe(
-      take(1)
+      take(1),
     ).subscribe((state: SubmissionSectionObject) => {
       this.initForm(state.data as WorkspaceitemSectionCustomUrlObject);
       this.subscriptionOnSectionChange();
@@ -140,13 +172,13 @@ export class SubmissionSectionCustomUrlComponent extends SectionModelComponent {
   protected getSectionStatus(): Observable<boolean> {
     const formStatus$ = this.formService.isValid(this.formId);
     const serverValidationStatus$ = this.sectionService.getSectionServerErrors(this.submissionId, this.sectionData.id).pipe(
-      map((validationErrors) => isEmpty(validationErrors))
+      map((validationErrors) => isEmpty(validationErrors)),
     );
 
     return observableCombineLatest([formStatus$, serverValidationStatus$]).pipe(
       map(([formValidation, serverSideValidation]: [boolean, boolean]) => {
         return isEmpty(this.customSectionData.url) || formValidation && serverSideValidation;
-      })
+      }),
     );
   }
 
@@ -161,8 +193,8 @@ export class SubmissionSectionCustomUrlComponent extends SectionModelComponent {
       new DynamicInputModel({
         id: 'url',
         name: 'url',
-        value: sectionData.url
-      })
+        value: sectionData.url,
+      }),
     ];
     this.updateSectionData(sectionData);
   }
@@ -220,7 +252,7 @@ export class SubmissionSectionCustomUrlComponent extends SectionModelComponent {
           this.sectionService.checkSectionErrors(this.submissionId, this.sectionData.id, this.formId, errors, this.sectionData.errorsToShow);
           this.sectionData.errorsToShow = errors;
         }
-      })
+      }),
     );
   }
 }

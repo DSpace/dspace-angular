@@ -1,28 +1,63 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
+import {
+  NgbDropdownModule,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  startWith,
+} from 'rxjs/operators';
 
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
-import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { hasValue, isNotEmpty } from '../../empty.util';
-import { EditItemMode } from '../../../core/submission/models/edititem-mode.model';
-import { getAllSucceededRemoteDataPayload, getPaginatedListPayload } from '../../../core/shared/operators';
-import { EditItemDataService } from '../../../core/submission/edititem-data.service';
-import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
-import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { ContextMenuEntryComponent } from '../context-menu-entry.component';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { ContextMenuEntryType } from '../context-menu-entry-type';
 import { getEditItemPageRoute } from '../../../app-routing-paths';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
+import {
+  getAllSucceededRemoteDataPayload,
+  getPaginatedListPayload,
+} from '../../../core/shared/operators';
+import { EditItemDataService } from '../../../core/submission/edititem-data.service';
+import { EditItemMode } from '../../../core/submission/models/edititem-mode.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../empty.util';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { ContextMenuEntryComponent } from '../context-menu-entry.component';
+import { ContextMenuEntryType } from '../context-menu-entry-type';
 
 /**
  * This component renders a context menu option that provides the links to edit item page.
  */
 @Component({
   selector: 'ds-context-menu-edit-item',
-  templateUrl: './edit-item-menu.component.html'
+  templateUrl: './edit-item-menu.component.html',
+  standalone: true,
+  imports: [
+    NgIf,
+    NgFor,
+    NgbDropdownModule,
+    RouterLink,
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
-@rendersContextMenuEntriesForType(DSpaceObjectType.ITEM)
 export class EditItemMenuComponent extends ContextMenuEntryComponent implements OnInit, OnDestroy {
 
   /**
@@ -36,6 +71,8 @@ export class EditItemMenuComponent extends ContextMenuEntryComponent implements 
    */
   public processing$ = new BehaviorSubject<boolean>(false);
 
+  isEditAvailable$: Observable<boolean>;
+
   /**
    * Reference to NgbModal
    */
@@ -45,7 +82,7 @@ export class EditItemMenuComponent extends ContextMenuEntryComponent implements 
    * List of Edit Modes available on this item
    * for the current user
    */
-  private editModes$: BehaviorSubject<EditItemMode[]> = new BehaviorSubject<EditItemMode[]>([]);
+  editModes$: BehaviorSubject<EditItemMode[]> = new BehaviorSubject<EditItemMode[]>([]);
 
   /**
    * Variable to track subscription and unsubscribe it onDestroy
@@ -65,7 +102,7 @@ export class EditItemMenuComponent extends ContextMenuEntryComponent implements 
     @Inject('contextMenuObjectProvider') protected injectedContextMenuObject: DSpaceObject,
     @Inject('contextMenuObjectTypeProvider') protected injectedContextMenuObjectType: DSpaceObjectType,
     private editItemService: EditItemDataService,
-    public notificationService: NotificationsService
+    public notificationService: NotificationsService,
   ) {
     super(injectedContextMenuObject, injectedContextMenuObjectType, ContextMenuEntryType.EditSubmission);
   }
@@ -74,6 +111,10 @@ export class EditItemMenuComponent extends ContextMenuEntryComponent implements 
     this.notificationService.claimedProfile.subscribe(() => {
       this.getData();
     });
+
+    this.isEditAvailable$ = this.editModes$.pipe(
+      map((editModes) => isNotEmpty(editModes) && editModes.length > 0),
+    );
   }
 
   /**
@@ -88,7 +129,7 @@ export class EditItemMenuComponent extends ContextMenuEntryComponent implements 
    */
   isEditAvailable(): Observable<boolean> {
     return this.editModes$.asObservable().pipe(
-      map((editModes) => isNotEmpty(editModes) && editModes.length > 0)
+      map((editModes) => isNotEmpty(editModes) && editModes.length > 0),
     );
   }
 
@@ -104,7 +145,7 @@ export class EditItemMenuComponent extends ContextMenuEntryComponent implements 
     this.sub = this.editItemService.searchEditModesById(this.contextMenuObject.id).pipe(
       getAllSucceededRemoteDataPayload(),
       getPaginatedListPayload(),
-      startWith([])
+      startWith([]),
     ).subscribe((editModes: EditItemMode[]) => {
       this.editModes$.next(editModes);
     });

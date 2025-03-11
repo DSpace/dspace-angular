@@ -1,12 +1,45 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Location,
+  NgClass,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
-import { UsageReport } from '../../../core/statistics/models/usage-report.model';
 import { StatisticsCategory } from '../../../core/statistics/models/statistics-category.model';
+import { UsageReport } from '../../../core/statistics/models/usage-report.model';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { FilterMapPipe } from '../statistics-pipes/filter-map.pipe';
+import { StatisticsChartWrapperComponent } from './statistics-chart-wrapper/statistics-chart-wrapper.component';
 
 @Component({
   selector: 'ds-statistics-chart',
   styleUrls: ['./statistics-chart.component.scss'],
-  templateUrl: './statistics-chart.component.html'
+  templateUrl: './statistics-chart.component.html',
+  standalone: true,
+  imports: [
+    NgIf,
+    NgFor,
+    NgClass,
+    StatisticsChartWrapperComponent,
+    FilterMapPipe,
+    TranslateModule,
+    ThemedLoadingComponent,
+    RouterLink,
+  ],
 })
 
 /**
@@ -44,6 +77,10 @@ export class StatisticsChartComponent implements OnInit {
    */
   @Output() changeReportEvent = new EventEmitter<string>();
 
+  router = inject(Router);
+  activatedRoute = inject(ActivatedRoute);
+  location = inject(Location);
+
   /**
    * Requests the current set values for this chart
    * If the chart config is open by default OR the chart has at least one value, the chart should be initially expanded
@@ -58,6 +95,7 @@ export class StatisticsChartComponent implements OnInit {
         this.selectedReport = this.reports[0];
         this.changeReportEvent.emit(this.reports[0].id);
       }
+      this.addQueryParams(this.selectedReport.reportType);
     }
   }
 
@@ -68,6 +106,15 @@ export class StatisticsChartComponent implements OnInit {
   changeReport(report) {
     this.selectedReport = report;
     this.changeReportEvent.emit(report.id);
+    this.addQueryParams(report.reportType);
+  }
+
+  addQueryParams(reportType: string) {
+    this.location.go(this.router.createUrlTree([], {
+      queryParams: { reportType },
+      queryParamsHandling: 'merge',
+      relativeTo: this.activatedRoute,
+    }).toString());
   }
 
 }

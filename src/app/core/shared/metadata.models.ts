@@ -1,6 +1,11 @@
 /* eslint-disable max-classes-per-file */
+import {
+  autoserialize,
+  Deserialize,
+  Serialize,
+} from 'cerialize';
 import { v4 as uuidv4 } from 'uuid';
-import { autoserialize, Deserialize, Serialize } from 'cerialize';
+
 import { hasValue } from '../../shared/empty.util';
 
 export const VIRTUAL_METADATA_PREFIX = 'virtual::';
@@ -57,7 +62,7 @@ export class MetadataValue implements MetadataValueInterface {
 
   /** The security level value */
   @autoserialize
-  securityLevel: number;
+    securityLevel: number;
 
 
   /**
@@ -146,5 +151,5 @@ export const MetadataMapSerializer = {
       metadataMap[key] = Deserialize(json[key], MetadataValue);
     });
     return metadataMap;
-  }
+  },
 };

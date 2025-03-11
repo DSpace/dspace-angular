@@ -1,9 +1,9 @@
-<ds-themed-results-back-button *ngIf="showBackButton | async" [back]="back"></ds-themed-results-back-button>
+<ds-results-back-button *ngIf="showBackButton$ | async" [back]="back"></ds-results-back-button>
 <div class="d-flex flex-row">
   <ds-item-page-title-field [item]="object" class="mr-auto">
   </ds-item-page-title-field>
   <div class="pl-2">
-    <ds-context-menu [contextMenuObject]="object" [contextMenuObjectType]="'ITEM'"></ds-context-menu>
+    <ds-context-menu [contextMenuObject]="object" [contextMenuObjectType]="$any('ITEM')"></ds-context-menu>
   </div>
 </div>
 <div class="row">
@@ -34,6 +34,18 @@
     </ds-generic-item-page-field>
   </div>
   <div class="col-xs-12 col-md-7">
+    <ds-item-page-img-field
+      [fields]="['organization.identifier.ror']"
+      [img]="{
+        URI: './assets/images/ror-icon.svg',
+        alt: 'item.page.image.alt.ROR',
+        heightVar: '--ds-item-page-img-field-ror-inline-height'
+      }"
+      [item]="object"
+      [label]="'orgunit.page.ror'"
+      [urlRegex]="'(.*)ror.org'"
+    >
+    </ds-item-page-img-field>
     <ds-related-items
       [parentItem]="object"
       [relationType]="'isPublicationOfOrgUnit'"

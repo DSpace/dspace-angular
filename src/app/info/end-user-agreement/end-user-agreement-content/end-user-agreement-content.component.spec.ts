@@ -1,12 +1,22 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { Observable, of } from 'rxjs';
+import { cold } from 'jasmine-marbles';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+
 import { SiteDataService } from '../../../core/data/site-data.service';
 import { LocaleService } from '../../../core/locale/locale.service';
+import { MathService } from '../../../core/shared/math.service';
 import { Site } from '../../../core/shared/site.model';
 import { EndUserAgreementContentComponent } from './end-user-agreement-content.component';
-import { cold } from 'jasmine-marbles';
 
 describe('EndUserAgreementContentComponent', () => {
   let component: EndUserAgreementContentComponent;
@@ -19,13 +29,13 @@ describe('EndUserAgreementContentComponent', () => {
     metadata: {
       'dc.rights' : [{
         value: 'English text',
-        language: 'en'
+        language: 'en',
       },
       {
         value: 'German text',
-        language: 'de'
-      }]
-    }
+        language: 'de',
+      }],
+    },
   });
 
   beforeEach(waitForAsync(() => {
@@ -33,20 +43,27 @@ describe('EndUserAgreementContentComponent', () => {
     localeServiceStub = {
       getCurrentLanguageCode(): string {
         return 'es';
-      }
+      },
     };
     siteServiceStub = {
       find(): Observable<Site> {
         return of(site);
-      }
+      },
     };
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [EndUserAgreementContentComponent],
+      imports: [TranslateModule.forRoot(), EndUserAgreementContentComponent],
       providers: [{ provide: SiteDataService, useValue: siteServiceStub },
-                  { provide: LocaleService, useValue: localeServiceStub }],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+        { provide: LocaleService, useValue: localeServiceStub },
+        { provide: MathService, useValue: {} },
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(EndUserAgreementContentComponent, {
+        remove: {
+          imports: [RouterLink],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -61,7 +78,7 @@ describe('EndUserAgreementContentComponent', () => {
 
   it('should render the English text as fallback', () => {
     expect(component.userAgreementText$).toBeObservable(cold('b', {
-      b: 'English text'
+      b: 'English text',
     }));
   });
 

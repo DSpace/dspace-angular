@@ -1,31 +1,65 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  AsyncPipe,
+  NgIf,
+  NgTemplateOutlet,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
+import {
+  NgbPopoverModule,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
-import { Observable, of as observableOf } from 'rxjs';
-import { map, switchMap, take } from 'rxjs/operators';
-
-import { isEmpty, isNotEmpty } from '../empty.util';
+import { environment } from '../../../environments/environment';
+import { ItemDataService } from '../../core/data/item-data.service';
+import { RemoteData } from '../../core/data/remote-data';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
 import { MetadataValue } from '../../core/shared/metadata.models';
-import { PLACEHOLDER_PARENT_METADATA } from '../form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
-import { RemoteData } from '../../core/data/remote-data';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { Metadata } from '../../core/shared/metadata.utils';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { environment } from '../../../environments/environment';
-
-interface MetadataView {
-  authority: string;
-  value: string;
-  orcidAuthenticated: string;
-  entityType: string;
-  entityStyle: string|string[];
-}
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '../empty.util';
+import { EntityIconDirective } from '../entity-icon/entity-icon.directive';
+import { PLACEHOLDER_PARENT_METADATA } from '../form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
+import { followLink } from '../utils/follow-link-config.model';
+import { VarDirective } from '../utils/var.directive';
+import { MetadataLinkViewPopoverComponent } from './metadata-link-view-popover/metadata-link-view-popover.component';
+import { MetadataView } from './metadata-view.model';
+import { StickyPopoverDirective } from './sticky-popover.directive';
 
 @Component({
   selector: 'ds-metadata-link-view',
   templateUrl: './metadata-link-view.component.html',
-  styleUrls: ['./metadata-link-view.component.scss']
+  styleUrls: ['./metadata-link-view.component.scss'],
+  imports: [
+    NgbPopoverModule,
+    RouterLink,
+    EntityIconDirective,
+    NgIf,
+    NgbTooltipModule,
+    MetadataLinkViewPopoverComponent,
+    VarDirective,
+    NgTemplateOutlet,
+    AsyncPipe,
+    StickyPopoverDirective,
+  ],
+  standalone: true,
 })
 export class MetadataLinkViewComponent implements OnInit {
 
@@ -59,6 +93,11 @@ export class MetadataLinkViewComponent implements OnInit {
   iconPosition = 'after';
 
   /**
+   * Related item of the metadata value
+   */
+  relatedItem: Item;
+
+  /**
    * Map all entities with the icons specified in the environment configuration file
    */
   constructor(private itemService: ItemDataService) { }
@@ -68,43 +107,65 @@ export class MetadataLinkViewComponent implements OnInit {
    */
   ngOnInit(): void {
     this.metadataView$ = observableOf(this.metadata).pipe(
-      switchMap((metadataValue: MetadataValue) => {
-        if (Metadata.hasValidAuthority(metadataValue.authority)) {
-          return this.itemService.findById(metadataValue.authority).pipe(
-            getFirstCompletedRemoteData(),
-            map((itemRD: RemoteData<Item>) => {
-              if (itemRD.hasSucceeded) {
-                const entityStyleValue = this.getCrisRefMetadata(itemRD.payload?.entityType);
-                return {
-                  authority: metadataValue.authority,
-                  value: metadataValue.value,
-                  orcidAuthenticated: this.getOrcid(itemRD.payload),
-                  entityType: itemRD.payload?.entityType,
-                  entityStyle: itemRD.payload?.firstMetadataValue(entityStyleValue)
-                };
-              } else {
-                return {
-                  authority: null,
-                  value: metadataValue.value,
-                  orcidAuthenticated: null,
-                  entityType: 'PRIVATE',
-                  entityStyle: this.metadataName
-                };
-              }
-            })
-          );
-        } else {
-          return observableOf({
-            authority: null,
-            value: metadataValue.value,
-            orcidAuthenticated: null,
-            entityType: null,
-            entityStyle: null
-          });
-        }
-      }),
-      take(1)
+      switchMap((metadataValue: MetadataValue) => this.getMetadataView(metadataValue)),
+      take(1),
     );
+  }
+
+
+  /**
+   * Retrieves the metadata view for a given metadata value.
+   * If the metadata value has a valid authority, it retrieves the item using the authority and creates a metadata view.
+   * If the metadata value does not have a valid authority, it creates a metadata view with null values.
+   *
+   * @param metadataValue The metadata value for which to retrieve the metadata view.
+   * @returns An Observable that emits the metadata view.
+   */
+  private getMetadataView(metadataValue: MetadataValue): Observable<MetadataView> {
+    const linksToFollow = [followLink('thumbnail')];
+
+    if (Metadata.hasValidAuthority(metadataValue.authority)) {
+      return this.itemService.findByIdWithProjections(metadataValue.authority, ['preventMetadataSecurity'], true, false, ...linksToFollow).pipe(
+        getFirstCompletedRemoteData(),
+        map((itemRD: RemoteData<Item>) => this.createMetadataView(itemRD, metadataValue)),
+      );
+    } else {
+      return observableOf({
+        authority: null,
+        value: metadataValue.value,
+        orcidAuthenticated: null,
+        entityType: null,
+        entityStyle: null,
+      });
+    }
+  }
+
+  /**
+   * Creates a MetadataView object based on the provided itemRD and metadataValue.
+   * @param itemRD - The RemoteData object containing the item information.
+   * @param metadataValue - The MetadataValue object containing the metadata information.
+   * @returns The created MetadataView object.
+   */
+  private createMetadataView(itemRD: RemoteData<Item>, metadataValue: MetadataValue): MetadataView {
+    if (itemRD.hasSucceeded) {
+      this.relatedItem = itemRD.payload;
+      const entityStyleValue = this.getCrisRefMetadata(itemRD.payload?.entityType);
+      return {
+        authority: metadataValue.authority,
+        value: metadataValue.value,
+        orcidAuthenticated: this.getOrcid(itemRD.payload),
+        entityType: itemRD.payload?.entityType,
+        entityStyle: itemRD.payload?.firstMetadataValue(entityStyleValue),
+      };
+    } else {
+      return {
+        authority: null,
+        value: metadataValue.value,
+        orcidAuthenticated: null,
+        entityType: 'PRIVATE',
+        entityStyle: this.metadataName,
+      };
+    }
   }
 
   /**
@@ -141,7 +202,7 @@ export class MetadataLinkViewComponent implements OnInit {
       const asLowercase = entity.toLowerCase();
       metadata = this.crisRefMetadata[Object.keys(this.crisRefMetadata)
         .find(k => k.toLowerCase() === asLowercase)
-        ];
+      ];
     }
     return metadata ?? this.crisRefMetadata?.default;
   }

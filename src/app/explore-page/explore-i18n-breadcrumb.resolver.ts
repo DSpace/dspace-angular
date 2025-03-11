@@ -1,28 +1,31 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { I18nBreadcrumbsService } from '../core/breadcrumbs/i18n-breadcrumbs.service';
+import { inject } from '@angular/core';
+import {
+  ActivatedRouteSnapshot,
+  ResolveFn,
+  RouterStateSnapshot,
+} from '@angular/router';
+
 import { BreadcrumbConfig } from '../breadcrumbs/breadcrumb/breadcrumb-config.model';
-import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
+import { I18nBreadcrumbsService } from '../core/breadcrumbs/i18n-breadcrumbs.service';
+import { hasNoValue } from '../shared/empty.util';
+import { currentPathFromSnapshot } from '../shared/utils/route.utils';
 
 /**
  * This class resolves a BreadcrumbConfig object with an i18n key string for a route
  * It adds the metadata field of the current explore page
  */
-@Injectable()
-export class ExploreI18nBreadcrumbResolver extends I18nBreadcrumbResolver {
-  constructor(protected breadcrumbService: I18nBreadcrumbsService) {
-    super(breadcrumbService);
-  }
+export const exploreI18nBreadcrumbResolver: ResolveFn<BreadcrumbConfig<string>> = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+  breadcrumbService: I18nBreadcrumbsService = inject(I18nBreadcrumbsService),
+): BreadcrumbConfig<string> => {
+  const extendedBreadcrumbKey = route.data.breadcrumbKey + '.' + route.params.id;
+  route.data = Object.assign({}, route.data, { breadcrumbKey: extendedBreadcrumbKey });
 
-  /**
-   * Method for resolving a explore i18n breadcrumb configuration object
-   * @param {ActivatedRouteSnapshot} route The current ActivatedRouteSnapshot
-   * @param {RouterStateSnapshot} state The current RouterStateSnapshot
-   * @returns BreadcrumbConfig object for a explore page
-   */
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): BreadcrumbConfig<string> {
-    const extendedBreadcrumbKey = route.data.breadcrumbKey + '.' + route.params.id;
-    route.data = Object.assign({}, route.data, { breadcrumbKey: extendedBreadcrumbKey });
-    return super.resolve(route, state);
+  const key = route.data.breadcrumbKey;
+  if (hasNoValue(key)) {
+    throw new Error('You provided an i18nBreadcrumbResolver for url \"' + route.url + '\" but no breadcrumbKey in the route\'s data');
   }
-}
+  const fullPath = currentPathFromSnapshot(route);
+  return { provider: breadcrumbService, key: key, url: fullPath };
+};

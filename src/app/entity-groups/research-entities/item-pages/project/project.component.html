@@ -1,8 +1,8 @@
-<ds-themed-results-back-button *ngIf="showBackButton | async" [back]="back"></ds-themed-results-back-button>
+<ds-results-back-button *ngIf="showBackButton$ | async" [back]="back"></ds-results-back-button>
 <div class="d-flex flex-row">
   <ds-item-page-title-field [item]="object" class="mr-auto">
   </ds-item-page-title-field>
-  <ds-context-menu [contextMenuObject]="object" [contextMenuObjectType]="'ITEM'"></ds-context-menu>
+  <ds-context-menu [contextMenuObject]="object" [contextMenuObjectType]="$any('ITEM')"></ds-context-menu>
 </div>
 <div class="row">
   <div class="col-xs-12 col-md-4">

@@ -1,26 +1,52 @@
-import { Component } from '@angular/core';
-import { Location } from '@angular/common';
-import { TranslateService } from '@ngx-translate/core';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { BATCH_IMPORT_SCRIPT_NAME, ScriptDataService } from '../../core/data/processes/script-data.service';
-import { Router } from '@angular/router';
-import { ProcessParameter } from '../../process-page/processes/process-parameter.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { RemoteData } from '../../core/data/remote-data';
-import { Process } from '../../process-page/processes/process.model';
-import { isNotEmpty } from '../../shared/empty.util';
-import { getProcessDetailRoute } from '../../process-page/process-page-routing.paths';
 import {
-  ImportBatchSelectorComponent
-} from '../../shared/dso-selector/modal-wrappers/import-batch-selector/import-batch-selector.component';
+  Location,
+  NgIf,
+} from '@angular/common';
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
+
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import {
+  BATCH_IMPORT_SCRIPT_NAME,
+  ScriptDataService,
+} from '../../core/data/processes/script-data.service';
+import { RemoteData } from '../../core/data/remote-data';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { getProcessDetailRoute } from '../../process-page/process-page-routing.paths';
+import { Process } from '../../process-page/processes/process.model';
+import { ProcessParameter } from '../../process-page/processes/process-parameter.model';
+import { ImportBatchSelectorComponent } from '../../shared/dso-selector/modal-wrappers/import-batch-selector/import-batch-selector.component';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import {
+  SwitchColor,
+  SwitchComponent,
+  SwitchOption,
+} from '../../shared/switch/switch.component';
+import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';
 
 @Component({
   selector: 'ds-batch-import-page',
-  templateUrl: './batch-import-page.component.html'
+  templateUrl: './batch-import-page.component.html',
+  imports: [
+    NgIf,
+    TranslateModule,
+    FormsModule,
+    FileDropzoneNoUploaderComponent,
+    SwitchComponent,
+  ],
+  standalone: true,
 })
 export class BatchImportPageComponent {
   /**
@@ -32,10 +58,29 @@ export class BatchImportPageComponent {
    * The validate only flag
    */
   validateOnly = true;
+
   /**
    * dso object for community or collection
    */
   dso: DSpaceObject = null;
+
+  /**
+   * The flag between upload and url
+   */
+  isUpload = true;
+
+  /**
+   * File URL when flag is for url
+   */
+  fileURL: string;
+
+  /**
+   * The custom options for the 'ds-switch' component
+   */
+  switchOptions: SwitchOption[] = [
+    { value: 'upload', icon: 'fa fa-upload', label: 'admin.metadata-import.page.toggle.upload', iconColor: SwitchColor.Primary },
+    { value: 'url', icon: 'fa fa-link', label: 'admin.metadata-import.page.toggle.url', iconColor: SwitchColor.Primary },
+  ];
 
   public constructor(private location: Location,
                      protected translate: TranslateService,
@@ -72,13 +117,22 @@ export class BatchImportPageComponent {
    * Starts import-metadata script with --zip fileName (and the selected file)
    */
   public importMetadata() {
-    if (this.fileObject == null) {
-      this.notificationsService.error(this.translate.get('admin.metadata-import.page.error.addFile'));
+    if (this.fileObject == null && isEmpty(this.fileURL)) {
+      if (this.isUpload) {
+        this.notificationsService.error(this.translate.get('admin.metadata-import.page.error.addFile'));
+      } else {
+        this.notificationsService.error(this.translate.get('admin.metadata-import.page.error.addFileUrl'));
+      }
     } else {
       const parameterValues: ProcessParameter[] = [
-        Object.assign(new ProcessParameter(), { name: '--zip', value: this.fileObject.name }),
-        Object.assign(new ProcessParameter(), { name: '--add' })
+        Object.assign(new ProcessParameter(), { name: '--add' }),
       ];
+      if (this.isUpload) {
+        parameterValues.push(Object.assign(new ProcessParameter(), { name: '--zip', value: this.fileObject.name }));
+      } else {
+        this.fileObject = null;
+        parameterValues.push(Object.assign(new ProcessParameter(), { name: '--url', value: this.fileURL }));
+      }
       if (this.dso) {
         parameterValues.push(Object.assign(new ProcessParameter(), { name: '--collection', value: this.dso.uuid }));
       }
@@ -97,9 +151,15 @@ export class BatchImportPageComponent {
             this.router.navigateByUrl(getProcessDetailRoute(rd.payload.processId));
           }
         } else {
-          const title = this.translate.get('process.new.notification.error.title');
-          const content = this.translate.get('process.new.notification.error.content');
-          this.notificationsService.error(title, content);
+          if (rd.statusCode === 413) {
+            const title = this.translate.get('process.new.notification.error.title');
+            const content = this.translate.get('process.new.notification.error.max-upload.content');
+            this.notificationsService.error(title, content);
+          } else {
+            const title = this.translate.get('process.new.notification.error.title');
+            const content = this.translate.get('process.new.notification.error.content');
+            this.notificationsService.error(title, content);
+          }
         }
       });
     }
@@ -120,5 +180,12 @@ export class BatchImportPageComponent {
    */
   removeDspaceObject(): void {
     this.dso = null;
+  }
+
+  /**
+   * toggle the flag between upload and url
+   */
+  toggleUpload() {
+    this.isUpload = !this.isUpload;
   }
 }

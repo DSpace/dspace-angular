@@ -8,7 +8,7 @@
         <div class="container">
           <div class="row">
             <div class="col-12">
-              <h3>{{bitstreamRD?.payload?.name}} <span class="text-muted">({{bitstreamRD?.payload?.sizeBytes | dsFileSize}})</span></h3>
+              <h1 class="h2">{{dsoNameService.getName(bitstreamRD?.payload)}} <span class="text-muted">({{bitstreamRD?.payload?.sizeBytes | dsFileSize}})</span></h1>
             </div>
           </div>
         </div>
@@ -27,7 +27,7 @@
       </div>
     </div>
     <ds-error *ngIf="bitstreamRD?.hasFailed" message="{{'error.bitstream' | translate}}"></ds-error>
-    <ds-themed-loading *ngIf="!bitstreamRD || !formatsRD || bitstreamRD?.isLoading || formatsRD?.isLoading"
-                message="{{'loading.bitstream' | translate}}"></ds-themed-loading>
+    <ds-loading *ngIf="!bitstreamRD || !formatsRD || bitstreamRD?.isLoading || formatsRD?.isLoading"
+                message="{{'loading.bitstream' | translate}}"></ds-loading>
   </div>
 </ng-container>

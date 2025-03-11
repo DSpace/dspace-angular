@@ -1,10 +1,19 @@
-import { Component, Input } from '@angular/core';
-import { Item } from '../../../../core/shared/item.model';
-import { map } from 'rxjs/operators';
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { Observable } from 'rxjs';
-import { BrowseDefinition } from '../../../../core/shared/browse-definition.model';
+import { map } from 'rxjs/operators';
+
 import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
-import { getRemoteDataPayload } from '../../../../core/shared/operators';
+import { BrowseDefinition } from '../../../../core/shared/browse-definition.model';
+import { Item } from '../../../../core/shared/item.model';
+import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
+import { MetadataValuesComponent } from '../../../field-components/metadata-values/metadata-values.component';
+import { ImageField } from './image-field';
+
 
 /**
  * This component can be used to represent metadata on a simple item page.
@@ -13,27 +22,28 @@ import { getRemoteDataPayload } from '../../../../core/shared/operators';
  */
 
 @Component({
-    templateUrl: './item-page-field.component.html'
+  templateUrl: './item-page-field.component.html',
+  imports: [
+    MetadataValuesComponent,
+    AsyncPipe,
+  ],
+  standalone: true,
 })
-export class ItemPageFieldComponent {
-
-    constructor(protected browseDefinitionDataService: BrowseDefinitionDataService) {
-    }
-
+export class ItemPageFieldComponent implements OnInit {
     /**
      * The item to display metadata for
      */
     @Input() item: Item;
 
     /**
-     * Whether the {@link MarkdownPipe} should be used to render this metadata.
+     * Whether the {@link MarkdownDirective} should be used to render this metadata.
      */
     enableMarkdown = false;
 
     /**
      * Fields (schema.element.qualifier) used to render their values.
      */
-    fields: string[];
+    fields: string[] = [];
 
     /**
      * Label i18n key for the rendered metadata
@@ -52,13 +62,22 @@ export class ItemPageFieldComponent {
     urlRegex?: string;
 
     /**
-     * Return browse definition that matches any field used in this component if it is configured as a browse
-     * link in dspace.cfg (webui.browse.link.<n>)
+     * Image Configuration
      */
-    get browseDefinition(): Observable<BrowseDefinition> {
-      return this.browseDefinitionDataService.findByFields(this.fields).pipe(
-        getRemoteDataPayload(),
-        map((def) => def)
+    img: ImageField;
+
+    browseDefinition$: Observable<BrowseDefinition>;
+
+    /**
+   * Return browse definition that matches any field used in this component if it is configured as a browse
+   * link in dspace.cfg (webui.browse.link.<n>)
+   */
+    constructor(protected browseDefinitionDataService: BrowseDefinitionDataService) {}
+
+    ngOnInit() {
+      this.browseDefinition$ =  this.browseDefinitionDataService.findByFields(this.fields).pipe(
+        getFirstCompletedRemoteData(),
+        map((def) => def.payload),
       );
     }
 }

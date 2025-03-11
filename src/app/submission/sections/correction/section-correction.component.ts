@@ -1,27 +1,49 @@
-import { Component, Inject } from '@angular/core';
-
-import { BehaviorSubject, Observable, of as observableOf, Subscription } from 'rxjs';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Inject,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-import { renderSectionFor } from '../sections-decorator';
-import { SectionsType } from '../sections-type';
-import { SectionModelComponent } from '../models/section.model';
-import { SectionDataObject } from '../models/section-data.model';
-import { SectionsService } from '../sections.service';
 import { RoleType } from '../../../core/roles/role-types';
 import {
   OperationType,
   WorkspaceitemSectionCorrectionBitstreamObject,
   WorkspaceitemSectionCorrectionMetadataObject,
-  WorkspaceitemSectionCorrectionObject
+  WorkspaceitemSectionCorrectionObject,
 } from '../../../core/submission/models/workspaceitem-section-correction.model';
-import { hasValue, isNotEmpty } from '../../../shared/empty.util';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../shared/empty.util';
+import { SectionModelComponent } from '../models/section.model';
+import { SectionDataObject } from '../models/section-data.model';
+import { SectionsService } from '../sections.service';
 
 @Component({
   selector: 'ds-submission-correction',
-  templateUrl: './section-correction.component.html'
+  templateUrl: './section-correction.component.html',
+  imports: [
+    NgIf,
+    AlertComponent,
+    AsyncPipe,
+    TranslateModule,
+    NgForOf,
+  ],
+  standalone: true,
 })
-@renderSectionFor(SectionsType.Correction)
 export class SubmissionSectionCorrectionComponent extends SectionModelComponent {
 
   /**
@@ -67,8 +89,8 @@ export class SubmissionSectionCorrectionComponent extends SectionModelComponent 
   getFileData(sectionData: WorkspaceitemSectionCorrectionObject): WorkspaceitemSectionCorrectionBitstreamObject[] {
     const correctionObjectBitstreams: WorkspaceitemSectionCorrectionBitstreamObject[] = sectionData?.bitstream || [];
     return [...correctionObjectBitstreams].sort((obj1: WorkspaceitemSectionCorrectionBitstreamObject, obj2: WorkspaceitemSectionCorrectionBitstreamObject) => {
-        return obj1.filename > obj2.filename ? 1 : -1;
-      }
+      return obj1.filename > obj2.filename ? 1 : -1;
+    },
     );
   }
 
@@ -108,11 +130,11 @@ export class SubmissionSectionCorrectionComponent extends SectionModelComponent 
   protected onSectionInit(): void {
     this.subs.push(
       this.sectionService.getSectionData(this.submissionId, this.sectionData.id, this.sectionData.sectionType).pipe(
-        filter((data: WorkspaceitemSectionCorrectionObject) => isNotEmpty(data))
+        filter((data: WorkspaceitemSectionCorrectionObject) => isNotEmpty(data)),
       ).subscribe((data: WorkspaceitemSectionCorrectionObject) => {
         this.correctionMetadataData$.next(this.getItemData(data));
         this.correctionBitstreamData$.next(this.getFileData(data));
-      })
+      }),
     );
   }
 

@@ -1,28 +1,47 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { map, switchMap } from 'rxjs/operators';
-import { ItemRequest } from '../../core/shared/item-request.model';
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import {
-  getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload
-} from '../../core/shared/operators';
-import { RemoteData } from '../../core/data/remote-data';
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
+
 import { AuthService } from '../../core/auth/auth.service';
-import { TranslateService } from '@ngx-translate/core';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { Item } from '../../core/shared/item.model';
-import { isNotEmpty } from '../../shared/empty.util';
 import { ItemRequestDataService } from '../../core/data/item-request-data.service';
-import { RequestCopyEmail } from '../email-request-copy/request-copy-email.model';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { RemoteData } from '../../core/data/remote-data';
 import { redirectOn4xx } from '../../core/shared/authorized.operators';
+import { ItemRequest } from '../../core/shared/item-request.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../core/shared/operators';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { RequestCopyEmail } from '../email-request-copy/request-copy-email.model';
+import { ThemedEmailRequestCopyComponent } from '../email-request-copy/themed-email-request-copy.component';
 
 @Component({
-  selector: 'ds-grant-request-copy',
+  selector: 'ds-base-grant-request-copy',
   styleUrls: ['./grant-request-copy.component.scss'],
-  templateUrl: './grant-request-copy.component.html'
+  templateUrl: './grant-request-copy.component.html',
+  standalone: true,
+  imports: [VarDirective, NgIf, ThemedEmailRequestCopyComponent, FormsModule, ThemedLoadingComponent, AsyncPipe, TranslateModule],
 })
 /**
  * Component for granting an item request
@@ -53,8 +72,6 @@ export class GrantRequestCopyComponent implements OnInit {
     private route: ActivatedRoute,
     private authService: AuthService,
     private translateService: TranslateService,
-    private itemDataService: ItemDataService,
-    private nameService: DSONameService,
     private itemRequestService: ItemRequestDataService,
     private notificationsService: NotificationsService,
   ) {
@@ -68,31 +85,7 @@ export class GrantRequestCopyComponent implements OnInit {
       redirectOn4xx(this.router, this.authService),
     );
 
-    const msgParams$ = observableCombineLatest(
-      this.itemRequestRD$.pipe(getFirstSucceededRemoteDataPayload()),
-      this.authService.getAuthenticatedUserFromStore(),
-    ).pipe(
-      switchMap(([itemRequest, user]: [ItemRequest, EPerson]) => {
-        return this.itemDataService.findById(itemRequest.itemId).pipe(
-          getFirstSucceededRemoteDataPayload(),
-          map((item: Item) => {
-            const uri = item.firstMetadataValue('dc.identifier.uri');
-            return Object.assign({
-              recipientName: itemRequest.requestName,
-              itemUrl: isNotEmpty(uri) ? uri : item.handle,
-              itemName: this.nameService.getName(item),
-              authorName: user.name,
-              authorEmail: user.email,
-            });
-          }),
-        );
-      }),
-    );
-
     this.subject$ = this.translateService.get('grant-request-copy.email.subject');
-    this.message$ = msgParams$.pipe(
-      switchMap((params) => this.translateService.get('grant-request-copy.email.message', params)),
-    );
   }
 
   /**
@@ -103,7 +96,7 @@ export class GrantRequestCopyComponent implements OnInit {
     this.itemRequestRD$.pipe(
       getFirstSucceededRemoteDataPayload(),
       switchMap((itemRequest: ItemRequest) => this.itemRequestService.grant(itemRequest.token, email, this.suggestOpenAccess)),
-      getFirstCompletedRemoteData()
+      getFirstCompletedRemoteData(),
     ).subscribe((rd) => {
       if (rd.hasSucceeded) {
         this.notificationsService.success(this.translateService.get('grant-request-copy.success'));

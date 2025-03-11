@@ -1,11 +1,17 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 import { Metric } from '../../../core/shared/metric.model';
 import { hasNoValue } from '../../empty.util';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Component({
-  template: ''
+  template: '',
+  standalone: true,
 })
 export abstract class BaseMetricComponent {
 
@@ -13,14 +19,32 @@ export abstract class BaseMetricComponent {
 
   @Input() hideLabel = false;
 
+  /**
+   * Whether the badge is shown in the search result list
+   */
   @Input() isListElement = false;
 
   @Output() hide: EventEmitter<boolean> = new EventEmitter();
 
   /**
+   * Emitter to trigger a new prompt of the cookies modal
+   */
+  @Output() requestSettingsConsent: EventEmitter<boolean> = new EventEmitter();
+
+  /**
    * A boolean representing if the metric content is hidden or not
    */
   isHidden$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  /**
+   * A boolean to check if the component can load the associated script
+   */
+  canLoadScript = true;
+
+  /**
+   * A boolean to force rendering without data
+   */
+  visibleWithoutData = false;
 
   /**
    * Get the detail url form metric remark if present.

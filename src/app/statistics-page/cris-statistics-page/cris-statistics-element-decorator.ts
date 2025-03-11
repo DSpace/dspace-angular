@@ -1,9 +1,18 @@
+import { StatisticsChartBarComponent } from './statistics-chart/statistics-chart-bar/statistics-chart-bar.component';
+import { StatisticsChartLineComponent } from './statistics-chart/statistics-chart-line/statistics-chart-line.component';
+import { StatisticsChartPieComponent } from './statistics-chart/statistics-chart-pie/statistics-chart-pie.component';
+import { StatisticsTableComponent } from './statistics-chart/statistics-table/statistics-table.component';
 import { StatisticsType } from './statistics-type.model';
 
 /**
  * Contains the mapping between a chart component and a StatisticsType
  */
 const statisticsTypeMap = new Map();
+
+statisticsTypeMap.set(StatisticsType['chart.bar'], StatisticsChartBarComponent);
+statisticsTypeMap.set(StatisticsType['chart.pie'], StatisticsChartPieComponent);
+statisticsTypeMap.set(StatisticsType['chart.line'], StatisticsChartLineComponent);
+statisticsTypeMap.set(StatisticsType.table, StatisticsTableComponent);
 
 /**
  * Sets the mapping for a chart component in relation to a Statistics type

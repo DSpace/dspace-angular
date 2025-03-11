@@ -1,43 +1,51 @@
-import { ComponentFixture, fakeAsync, flush, TestBed, waitForAsync } from '@angular/core/testing';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  ComponentFixture,
+  fakeAsync,
+  flush,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-
-import { CrisrefComponent } from './crisref.component';
-import { Item } from '../../../../../../../core/shared/item.model';
-import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
-import { LayoutField } from '../../../../../../../core/layout/models/box.model';
-import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
-import { FieldRenderingType } from '../metadata-box.decorator';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of } from 'rxjs';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../../shared/remote-data.utils';
-import { MetadataLinkViewComponent } from '../../../../../../../shared/metadata-link-view/metadata-link-view.component';
+
 import { ItemDataService } from '../../../../../../../core/data/item-data.service';
+import { LayoutField } from '../../../../../../../core/layout/models/box.model';
+import { Item } from '../../../../../../../core/shared/item.model';
+import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
+import { MetadataLinkViewComponent } from '../../../../../../../shared/metadata-link-view/metadata-link-view.component';
+import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../../shared/remote-data.utils';
+import { FieldRenderingType } from '../field-rendering-type';
+import { CrisrefComponent } from './crisref.component';
 
 describe('CrisrefComponent', () => {
   let component: CrisrefComponent;
   let fixture: ComponentFixture<CrisrefComponent>;
 
   const itemService = jasmine.createSpyObj('ItemDataService', {
-    findById: jasmine.createSpy('findById')
+    findByIdWithProjections: jasmine.createSpy('findByIdWithProjections'),
   });
   const metadataValue = Object.assign(new MetadataValue(), {
     'value': 'test item title',
     'language': null,
     'authority': '1',
     'confidence': -1,
-    'place': 0
+    'place': 0,
   });
 
   const testItem = Object.assign(new Item(),
     {
       type: 'item',
       metadata: {
-        'dc.author': [metadataValue]
+        'dc.author': [metadataValue],
       },
       uuid: 'test-item-uuid',
-    }
+    },
   );
 
   const testPerson = Object.assign(new Item(), {
@@ -46,28 +54,28 @@ describe('CrisrefComponent', () => {
     metadata: {
       'dspace.entity.type': [
         {
-          value: 'Person'
-        }
+          value: 'Person',
+        },
       ],
       'person.orgunit.id': [
         {
           value: 'OrgUnit',
-          authority: '2'
-        }
+          authority: '2',
+        },
       ],
       'person.identifier.orcid': [
         {
           language: 'en_US',
-          value: '0000-0001-8918-3592'
-        }
+          value: '0000-0001-8918-3592',
+        },
       ],
       'dspace.orcid.authenticated': [
         {
           language: null,
-          value: 'authenticated'
-        }
-      ]
-    }
+          value: 'authenticated',
+        },
+      ],
+    },
   });
 
   const mockField: LayoutField = {
@@ -79,7 +87,7 @@ describe('CrisrefComponent', () => {
     'styleLabel': 'test-style-label',
     'styleValue': 'test-style-value',
     'labelAsHeading': false,
-    'valuesInline': true
+    'valuesInline': true,
   };
 
   beforeEach(waitForAsync(() => {
@@ -87,25 +95,25 @@ describe('CrisrefComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      }), BrowserAnimationsModule],
+          useClass: TranslateLoaderMock,
+        },
+      }), BrowserAnimationsModule, CrisrefComponent, MetadataLinkViewComponent],
       providers: [
         { provide: 'fieldProvider', useValue: mockField },
         { provide: 'itemProvider', useValue: testItem },
         { provide: 'metadataValueProvider', useValue: metadataValue },
         { provide: 'renderingSubTypeProvider', useValue: '' },
+        { provide: 'tabNameProvider', useValue: '' },
         { provide: ItemDataService, useValue: itemService },
       ],
-      declarations: [CrisrefComponent, MetadataLinkViewComponent]
     })
-      .compileComponents();
+      .overrideComponent(CrisrefComponent, { remove: { imports: [MetadataLinkViewComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CrisrefComponent);
     component = fixture.componentInstance;
-    itemService.findById.and.returnValue(createSuccessfulRemoteDataObject$(testPerson));
+    itemService.findByIdWithProjections.and.returnValue(createSuccessfulRemoteDataObject$(testPerson));
     fixture.detectChanges();
   });
 

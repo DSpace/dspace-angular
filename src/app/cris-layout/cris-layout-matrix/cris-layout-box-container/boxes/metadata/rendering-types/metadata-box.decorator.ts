@@ -1,43 +1,35 @@
-import { GenericConstructor } from '../../../../../../core/shared/generic-constructor';
-import { Component } from '@angular/core';
+import {
+  hasValue,
+  isEmpty,
+} from '../../../../../../shared/empty.util';
+import { FieldRenderingType } from './field-rendering-type';
+import { MetadataBoxFieldRenderOptions } from './rendering-type.model';
 
-export enum FieldRenderingType {
-  TEXT = 'TEXT',
-  HEADING = 'HEADING',
-  LONGTEXT = 'LONGTEXT',
-  DATE = 'DATE',
-  LINK = 'LINK',
-  IDENTIFIER = 'IDENTIFIER',
-  CRISREF = 'CRISREF',
-  THUMBNAIL = 'THUMBNAIL',
-  ATTACHMENT = 'ATTACHMENT',
-  TABLE = 'TABLE',
-  INLINE = 'INLINE',
-  ORCID = 'ORCID',
-  TAG = 'TAG',
-  VALUEPAIR = 'VALUEPAIR',
-  ADVANCEDATTACHMENT = 'ADVANCEDATTACHMENT',
-  SIMPLEATTACHMENT = 'SIMPLEATTACHMENT',
-}
+/**
+ * Return the rendering type of the field to render
+ *
+ * @return the rendering type
+ */
+export const computeRenderingFn = (rendering: string, isSubtype = false): string | FieldRenderingType => {
+  let renderingType = hasValue(rendering) ? rendering : FieldRenderingType.TEXT;
 
-const fieldType = new Map();
+  if (renderingType.indexOf('.') > -1) {
+    const values = renderingType.split('.');
+    renderingType = isSubtype ? values[1] : values[0];
+  }
+  return renderingType;
+};
 
-export interface MetadataBoxFieldRenderOptions {
-  componentRef: GenericConstructor<Component>;
-  structured: boolean;
-}
-
-export function MetadataBoxFieldRendering(objectType: FieldRenderingType, structured = false) {
-  return function decorator(component: any) {
-    if (objectType) {
-      fieldType.set(objectType, {
-        componentRef: component,
-        structured: structured
-      } as MetadataBoxFieldRenderOptions);
-    }
-  };
-}
-
-export function getMetadataBoxFieldRendering(objectType: string): MetadataBoxFieldRenderOptions {
-  return fieldType.get(objectType.toUpperCase());
-}
+/**
+ * Return the rendering option related to the given rendering type
+ * @param layoutBoxesMap
+ * @param fieldRenderingType
+ */
+export const getMetadataBoxFieldRenderOptionsFn = (layoutBoxesMap: Map<FieldRenderingType, MetadataBoxFieldRenderOptions>, fieldRenderingType: string): MetadataBoxFieldRenderOptions => {
+  let renderOptions = layoutBoxesMap.get(fieldRenderingType?.toUpperCase() as FieldRenderingType);
+  // If the rendering type not exists will use TEXT type rendering
+  if (isEmpty(renderOptions)) {
+    renderOptions = layoutBoxesMap.get(FieldRenderingType.TEXT);
+  }
+  return renderOptions;
+};

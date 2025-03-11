@@ -1,25 +1,51 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
-import { select, Store } from '@ngrx/store';
 
+import { AppState } from '../../../../app.reducer';
 import { Item } from '../../../../core/shared/item.model';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
-import { getFirstSucceededRemoteDataPayload, } from '../../../../core/shared/operators';
-import { AppState } from '../../../../app.reducer';
+import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
 import {
   ManageRelationshipCustomData,
   ManageRelationshipEvent,
-  ManageRelationshipEventType
-} from '../../../../edit-item-relationships/edit-item-relationships.component';
+  ManageRelationshipEventType,
+} from '../../../../edit-item-relationships/edit-item-relationship-types';
 import { getPendingStatus } from '../../../../edit-item-relationships/edit-item-relationships.selectors';
 import { hasValue } from '../../../empty.util';
 
 @Component({
   selector: 'ds-relationships-items-actions',
   templateUrl: './relationships-items-actions.component.html',
-  styleUrls: ['./relationships-items-actions.component.scss']
+  styleUrls: ['./relationships-items-actions.component.scss'],
+  imports: [
+    NgIf,
+    AsyncPipe,
+    NgbTooltipModule,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 export class RelationshipsItemsActionsComponent implements OnInit, OnDestroy {
 
@@ -94,20 +120,20 @@ export class RelationshipsItemsActionsComponent implements OnInit, OnDestroy {
         this.isProcessingHide.value ||
         this.isProcessingSelect.value ||
         this.isProcessingUnhide.value ||
-        this.isProcessingUnselect.value
-      )
+        this.isProcessingUnselect.value,
+      ),
     );
 
-    if (!!this.customData) {
-      if (!!this.customData.relationships$) {
+    if (this.customData) {
+      if (this.customData.relationships$) {
         this.subs.push(
           this.customData.relationships$.subscribe((relationships) => {
             this.getSelected(relationships);
             this.getHidden(relationships);
-          })
+          }),
         );
       }
-      if (!!this.customData.updateStatusByItemId$) {
+      if (this.customData.updateStatusByItemId$) {
         this.subs.push(
           this.customData.updateStatusByItemId$.subscribe((itemId?: string) => {
             if (!itemId || this.object.id === itemId) {
@@ -116,7 +142,7 @@ export class RelationshipsItemsActionsComponent implements OnInit, OnDestroy {
               this.isProcessingUnhide.next(false);
               this.isProcessingUnselect.next(false);
             }
-          })
+          }),
         );
       }
     }
@@ -128,9 +154,9 @@ export class RelationshipsItemsActionsComponent implements OnInit, OnDestroy {
   emitAction(action): void {
     this.setProcessing(action);
     let relationship = null;
-    if (!!this.isSelected.value) {
+    if (this.isSelected.value) {
       relationship = this.isSelected.value;
-    } else if (!!this.isHidden.value) {
+    } else if (this.isHidden.value) {
       relationship = this.isHidden.value;
     }
     this.processCompleted.emit({ action, item: this.object, relationship });

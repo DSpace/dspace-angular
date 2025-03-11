@@ -5,19 +5,26 @@
  *
  * http://www.dspace.org/license/
  */
-import { CacheableObject } from '../../cache/cacheable-object.model';
 import { Observable } from 'rxjs';
-import { RemoteData } from '../remote-data';
-import { NoContent } from '../../shared/NoContent.model';
 import { switchMap } from 'rxjs/operators';
-import { DeleteRequest } from '../request.models';
-import { hasNoValue, hasValue } from '../../../shared/empty.util';
-import { RequestService } from '../request.service';
-import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { HALEndpointService } from '../../shared/hal-endpoint.service';
+
+import {
+  hasNoValue,
+  hasValue,
+} from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
+import { CacheableObject } from '../../cache/cacheable-object.model';
 import { ObjectCacheService } from '../../cache/object-cache.service';
-import { ConstructIdEndpoint, IdentifiableDataService } from './identifiable-data.service';
+import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { NoContent } from '../../shared/NoContent.model';
+import { RemoteData } from '../remote-data';
+import { DeleteRequest } from '../request.models';
+import { RequestService } from '../request.service';
+import {
+  ConstructIdEndpoint,
+  IdentifiableDataService,
+} from './identifiable-data.service';
 
 export interface DeleteData<T extends CacheableObject> {
   /**
@@ -40,6 +47,27 @@ export interface DeleteData<T extends CacheableObject> {
    *          Only emits once all request related to the DSO has been invalidated.
    */
   deleteByHref(href: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>>;
+
+  /**
+   * Delete an existing object on the server in async way
+   * @param   objectId The id of the object to be removed
+   * @param   copyVirtualMetadata (optional parameter) the identifiers of the relationship types for which the virtual
+   *                            metadata should be saved as real metadata
+   * @return  A RemoteData observable with an empty payload, but still representing the state of the request: statusCode,
+   *          errorMessage, timeCompleted, etc
+   */
+  deleteAsync?(objectId: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>>;
+
+  /**
+   * Delete an existing object on the server in async way
+   * @param   href The self link of the object to be removed
+   * @param   copyVirtualMetadata (optional parameter) the identifiers of the relationship types for which the virtual
+   *                            metadata should be saved as real metadata
+   * @return  A RemoteData observable with an empty payload, but still representing the state of the request: statusCode,
+   *          errorMessage, timeCompleted, etc
+   *          Only emits once all request related to the DSO has been invalidated.
+   */
+  deleteByHrefAsync?(href: string, copyVirtualMetadata?: string[]): Promise<RemoteData<NoContent>>;
 }
 
 export class DeleteDataImpl<T extends CacheableObject> extends IdentifiableDataService<T> implements DeleteData<T> {
@@ -68,11 +96,38 @@ export class DeleteDataImpl<T extends CacheableObject> extends IdentifiableDataS
   deleteByHref(href: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
     const requestId = this.requestService.generateRequestId();
 
+    let deleteHref: string = href;
+    if (copyVirtualMetadata) {
+      copyVirtualMetadata.forEach((id) =>
+        deleteHref += (deleteHref.includes('?') ? '&' : '?')
+          + 'copyVirtualMetadata='
+          + id,
+      );
+    }
+
+    const request = new DeleteRequest(requestId, deleteHref);
+    if (hasValue(this.responseMsToLive)) {
+      request.responseMsToLive = this.responseMsToLive;
+    }
+    this.requestService.send(request);
+
+    return this.rdbService.buildFromRequestUUIDAndAwait(requestId, () => this.invalidateByHref(href));
+  }
+
+  deleteAsync(objectId: string, copyVirtualMetadata?: string[]): Observable<RemoteData<NoContent>> {
+    return this.getIDHrefObs(objectId).pipe(
+      switchMap((href: string) => this.deleteByHrefAsync(href, copyVirtualMetadata)),
+    );
+  }
+
+  deleteByHrefAsync(href: string, copyVirtualMetadata?: string[]): Promise<RemoteData<NoContent>> {
+    const requestId = this.requestService.generateRequestId();
+
     if (copyVirtualMetadata) {
       copyVirtualMetadata.forEach((id) =>
         href += (href.includes('?') ? '&' : '?')
-          + 'copyVirtualMetadata='
-          + id,
+              + 'copyVirtualMetadata='
+              + id,
       );
     }
 
@@ -82,6 +137,6 @@ export class DeleteDataImpl<T extends CacheableObject> extends IdentifiableDataS
     }
     this.requestService.send(request);
 
-    return this.rdbService.buildFromRequestUUIDAndAwait(requestId, () => this.invalidateByHref(href));
+    return this.rdbService.buildFromRequestUUIDAsync<NoContent>(requestId, () => this.invalidateByHref(href));
   }
 }

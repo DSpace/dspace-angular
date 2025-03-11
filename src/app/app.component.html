@@ -1,3 +1,5 @@
-<ds-themed-root
+<ds-root
   [shouldShowFullscreenLoader]="(isAuthBlocking$ | async) || (isThemeLoading$ | async)"
-  [shouldShowRouteLoader]="isRouteLoading$ | async"></ds-themed-root>
+  [shouldShowRouteLoader]="isRouteLoading$ | async"></ds-root>
+
+<ds-social *ngIf="browserPlatform"></ds-social>

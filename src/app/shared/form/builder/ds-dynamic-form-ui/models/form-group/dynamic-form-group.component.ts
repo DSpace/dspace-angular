@@ -1,6 +1,20 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, QueryList } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-
+import {
+  NgClass,
+  NgForOf,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  forwardRef,
+  Input,
+  Output,
+  QueryList,
+} from '@angular/core';
+import {
+  ReactiveFormsModule,
+  UntypedFormGroup,
+} from '@angular/forms';
 import {
   DynamicFormControlComponent,
   DynamicFormControlCustomEvent,
@@ -11,19 +25,28 @@ import {
   DynamicFormLayout,
   DynamicFormLayoutService,
   DynamicFormValidationService,
-  DynamicTemplateDirective
+  DynamicTemplateDirective,
 } from '@ng-dynamic-forms/core';
+
+import { DsDynamicFormControlContainerComponent } from '../../ds-dynamic-form-control-container.component';
 
 @Component({
   selector: 'ds-dynamic-form-group',
   templateUrl: './dynamic-form-group.component.html',
-  changeDetection: ChangeDetectionStrategy.Default
+  changeDetection: ChangeDetectionStrategy.Default,
+  imports: [
+    ReactiveFormsModule,
+    NgClass,
+    NgForOf,
+    forwardRef(() => DsDynamicFormControlContainerComponent),
+  ],
+  standalone: true,
 })
 export class DsDynamicFormGroupComponent extends DynamicFormControlComponent {
 
   @Input() formModel: DynamicFormControlModel[];
   @Input() formLayout: DynamicFormLayout;
-  @Input() group: FormGroup;
+  @Input() group: UntypedFormGroup;
   @Input() layout: DynamicFormControlLayout;
   @Input() model: DynamicFormGroupModel;
   @Input() templates: QueryList<DynamicTemplateDirective> | DynamicTemplateDirective[] | undefined;

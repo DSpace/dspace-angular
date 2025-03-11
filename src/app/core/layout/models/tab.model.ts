@@ -1,13 +1,18 @@
-import { autoserialize, deserialize, deserializeAs } from 'cerialize';
+import {
+  autoserialize,
+  deserialize,
+  deserializeAs,
+} from 'cerialize';
+
 import { typedObject } from '../../cache/builders/build-decorators';
-import { TAB } from './tab.resource-type';
 import { CacheableObject } from '../../cache/cacheable-object.model';
-import { HALLink } from '../../shared/hal-link.model';
-import { excludeFromEquals } from '../../utilities/equals.decorators';
-import { ResourceType } from '../../shared/resource-type';
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
-import { CrisLayoutBox } from './box.model';
+import { HALLink } from '../../shared/hal-link.model';
 import { Metric } from '../../shared/metric.model';
+import { ResourceType } from '../../shared/resource-type';
+import { excludeFromEquals } from '../../utilities/equals.decorators';
+import { CrisLayoutBox } from './box.model';
+import { TAB } from './tab.resource-type';
 
 /**
  * Describes a type of CrisLayoutTab
@@ -21,28 +26,28 @@ export class CrisLayoutTab extends CacheableObject {
    */
   @excludeFromEquals
   @autoserialize
-  type: ResourceType;
+    type: ResourceType;
 
   /**
    * The identifier of this CrisLayoutTab
    */
   @autoserialize
-  id: number;
+    id: number;
 
   @autoserialize
-  shortname: string;
+    shortname: string;
 
   @autoserialize
-  header: string;
+    header: string;
 
   @autoserialize
-  entityType: string;
+    entityType: string;
 
   @autoserialize
-  priority: number;
+    priority: number;
 
   @autoserialize
-  security: number;
+    security: number;
 
   /**
    * This property is used from navbar for highlight
@@ -54,23 +59,23 @@ export class CrisLayoutTab extends CacheableObject {
    * This property is used from leading component
    */
   @autoserialize
-  leading?: boolean;
+    leading?: boolean;
 
   @autoserialize
-  rows?: CrisLayoutRow[];
+    rows?: CrisLayoutRow[];
   /**
    * The universally unique identifier of this CrisLayoutTab
    * This UUID is generated client-side and isn't used by the backend.
    * It is based on the ID, so it will be the same for each refresh.
    */
   @deserializeAs(new IDToUUIDSerializer(CrisLayoutTab.type.value), 'id')
-  uuid: string;
+    uuid: string;
 
   /**
    * The {@link HALLink}s for this CrisLayoutTab
    */
   @deserialize
-  _links: {
+    _links: {
     self: HALLink,
   };
 

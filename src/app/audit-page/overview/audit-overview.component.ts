@@ -1,18 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-
-import { combineLatest, Observable } from 'rxjs';
+import {
+  AsyncPipe,
+  DatePipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  combineLatest,
+  Observable,
+} from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { FindListOptions } from '../../core/data/find-list-options.model';
+import { AuditDataService } from '../../core/audit/audit-data.service';
+import { Audit } from '../../core/audit/model/audit.model';
+import { SortDirection } from '../../core/cache/models/sort-options.model';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { Audit } from '../../core/audit/model/audit.model';
-import { AuditDataService } from '../../core/audit/audit-data.service';
-import { SortDirection } from '../../core/cache/models/sort-options.model';
+import { FindListOptions } from '../../core/data/find-list-options.model';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
+import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
+import { VarDirective } from '../../shared/utils/var.directive';
 
 /**
  * Component displaying a list of all audit in a paginated table
@@ -20,6 +35,17 @@ import { PaginationService } from '../../core/pagination/pagination.service';
 @Component({
   selector: 'ds-audit-overview',
   templateUrl: './audit-overview.component.html',
+  imports: [
+    PaginationComponent,
+    NgIf,
+    AsyncPipe,
+    TranslateModule,
+    RouterLink,
+    NgForOf,
+    VarDirective,
+    DatePipe,
+  ],
+  standalone: true,
 })
 export class AuditOverviewComponent implements OnInit {
 
@@ -29,14 +55,19 @@ export class AuditOverviewComponent implements OnInit {
   auditsRD$: Observable<RemoteData<PaginatedList<Audit>>>;
 
   /**
+   * Whether user is admin
+   */
+  isAdmin$: Observable<boolean>;
+
+  /**
    * The current pagination configuration for the page used by the FindAll method
    */
   config: FindListOptions = Object.assign(new FindListOptions(), {
     elementsPerPage: 10,
     sort: {
       field: 'timeStamp',
-      direction: SortDirection.DESC
-    }
+      direction: SortDirection.DESC,
+    },
   });
 
   /**
@@ -49,7 +80,7 @@ export class AuditOverviewComponent implements OnInit {
    */
   pageConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: this.pageId,
-    pageSize: 10
+    pageSize: 10,
   });
 
   /**
@@ -71,13 +102,13 @@ export class AuditOverviewComponent implements OnInit {
    */
   setAudits() {
     const config$ = this.paginationService.getFindListOptions(this.pageId, this.config);
-    const isAdmin$ = this.isCurrentUserAdmin();
-    this.auditsRD$ = combineLatest([isAdmin$, config$]).pipe(
+    this.isAdmin$ = this.isCurrentUserAdmin();
+    this.auditsRD$ = combineLatest([this.isAdmin$, config$]).pipe(
       mergeMap(([isAdmin, config]) => {
         if (isAdmin) {
           return this.auditService.findAll(config);
         }
-      })
+      }),
     );
   }
 

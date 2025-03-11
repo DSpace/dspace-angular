@@ -14,9 +14,9 @@ export const medataBoxConfigurationMock: MetadataBoxConfiguration = {
           rendering: 'tag',
           fieldType: 'metadata',
           labelAsHeading: true,
-          valuesInline: true
-        }
-      ]
-    }]
-  }]
+          valuesInline: true,
+        },
+      ],
+    }],
+  }],
 };

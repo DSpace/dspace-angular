@@ -1,35 +1,39 @@
-import { DsoContextBreadcrumbResolver } from './dso-context-breadcrumb.resolver';
-import { Collection } from '../shared/collection.model';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { TestBed } from '@angular/core/testing';
 
-describe('DsoContextBreadcrumbResolver', () => {
-  describe('resolve', () => {
-    let resolver: any;
-    let collectionService: any;
-    let dsoBreadcrumbService: any;
-    let testCollection: Collection;
-    let uuid;
-    let breadcrumbUrl;
-    let currentUrl;
-    let breadcrumbKey = 'statistics';
+import { dsoContextBreadcrumbResolver } from './dso-context-breadcrumb.resolver';
+import { DsoContextBreadcrumbService } from './dso-context-breadcrumb.service';
 
-    beforeEach(() => {
-      uuid = '1234-65487-12354-1235';
-      breadcrumbUrl = '/collections/' + uuid;
-      currentUrl = breadcrumbUrl + '/edit';
-      testCollection = Object.assign(new Collection(), { uuid });
-      dsoBreadcrumbService = {};
-      breadcrumbKey = 'statistics';
-      collectionService = {
-        findById: (id: string) => createSuccessfulRemoteDataObject$(testCollection)
-      };
-      resolver = new DsoContextBreadcrumbResolver(dsoBreadcrumbService);
+describe('dsoContextBreadcrumbResolver', () => {
+  let breadcrumbService: jasmine.SpyObj<DsoContextBreadcrumbService>;
+  let uuid: string;
+  let breadcrumbUrl: string;
+  let currentUrl: string;
+  let breadcrumbKey: string;
+
+  beforeEach(() => {
+    uuid = '1234-65487-12354-1235';
+    breadcrumbUrl = '/collections/' + uuid;
+    currentUrl = breadcrumbUrl + '/edit';
+    breadcrumbKey = 'statistics';
+
+    breadcrumbService = jasmine.createSpyObj('DsoContextBreadcrumbService', ['someMethod']);
+
+    TestBed.configureTestingModule({
+      providers: [
+        { provide: DsoContextBreadcrumbService, useValue: breadcrumbService },
+      ],
+    });
+  });
+
+  it('should resolve a breadcrumb config for the correct DSO', () => {
+    const resolvedConfig = TestBed.runInInjectionContext(() => {
+      return dsoContextBreadcrumbResolver(
+        { params: { id: uuid }, data: { breadcrumbKey: breadcrumbKey } } as any,
+        { url: currentUrl } as any,
+      );
     });
 
-    it('should resolve a breadcrumb config for the correct DSO', () => {
-      const resolvedConfig = resolver.resolve({ params: { id: uuid }, data : { breadcrumbKey: breadcrumbKey } } as any, { url: currentUrl } as any);
-      const expectedConfig = { provider: dsoBreadcrumbService, key: uuid + '::' + breadcrumbKey, url: breadcrumbUrl };
-      expect(resolvedConfig).toEqual(expectedConfig);
-    });
+    const expectedConfig = { provider: breadcrumbService, key: uuid + '::' + breadcrumbKey, url: breadcrumbUrl };
+    expect(resolvedConfig).toEqual(expectedConfig);
   });
 });

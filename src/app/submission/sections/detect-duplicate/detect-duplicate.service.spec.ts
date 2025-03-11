@@ -1,18 +1,25 @@
-import { Store, StoreModule } from '@ngrx/store';
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { cold } from 'jasmine-marbles';
 
-import { DetectDuplicateService } from './detect-duplicate.service';
-import { submissionReducers } from '../../submission.reducers';
 import {
   mockDeduplicationMatches,
   mockDeduplicationSubmitterId,
   mockDeduplicationWorkflowId,
   mockSubmissionId,
-  mockSubmissionState, mockSubmissionStateWithDuplicate
+  mockSubmissionState,
+  mockSubmissionStateWithDuplicate,
 } from '../../../shared/mocks/submission.mock';
 import { SetDuplicateDecisionAction } from '../../objects/submission-objects.actions';
+import { submissionReducers } from '../../submission.reducers';
+import { DetectDuplicateService } from './detect-duplicate.service';
 
 describe('DetectDuplicateService', () => {
   let service: DetectDuplicateService;
@@ -33,8 +40,8 @@ describe('DetectDuplicateService', () => {
       ],
       providers: [
         provideMockStore({ initialState }),
-        { provide: DetectDuplicateService, useValue: service }
-      ]
+        { provide: DetectDuplicateService, useValue: service },
+      ],
     }).compileComponents();
   }));
 
@@ -143,7 +150,7 @@ describe('DetectDuplicateService', () => {
         const result = service.getDuplicateTotalMatches(mockSubmissionId, sectionId);
         const expected = cold('(ab)', {
           a: 0,
-          b: Object.keys(mockDeduplicationMatches).length
+          b: Object.keys(mockDeduplicationMatches).length,
         });
         expect(result).toBeObservable(expected);
       });

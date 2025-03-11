@@ -2,18 +2,18 @@ import 'zone.js';
 import 'reflect-metadata';
 import 'core-js/es/reflect';
 
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { load as loadWebFont } from 'webfontloader';
+import { enableProdMode } from '@angular/core';
+import { bootstrapApplication } from '@angular/platform-browser';
 
-import { BrowserAppModule } from './modules/app/browser-app.module';
-
-import { environment } from './environments/environment';
+import { AppComponent } from './app/app.component';
 import { AppConfig } from './config/app-config.interface';
 import { extendEnvironmentWithAppConfig } from './config/config.util';
-import { enableProdMode } from '@angular/core';
+import { environment } from './environments/environment';
+import { browserAppConfig } from './modules/app/browser-app.config';
 
-const bootstrap = () => platformBrowserDynamic()
-  .bootstrapModule(BrowserAppModule, {});
+/*const bootstrap = () => platformBrowserDynamic()
+  .bootstrapModule(BrowserAppModule, {});*/
+const bootstrap = () => bootstrapApplication(AppComponent, browserAppConfig);
 
 /**
  * We use this to determine have been serven SSR HTML or not.
@@ -24,14 +24,6 @@ const bootstrap = () => platformBrowserDynamic()
 const hasTransferState = document.querySelector('script#dspace-angular-state') !== null;
 
 const main = () => {
-  // Load fonts async
-  // https://github.com/typekit/webfontloader#configuration
-  loadWebFont({
-    google: {
-      families: ['Droid Sans']
-    }
-  });
-
   if (environment.production) {
     enableProdMode();
   }
@@ -43,9 +35,9 @@ const main = () => {
     // Configuration must be fetched explicitly
     return fetch('assets/config.json')
       .then((response) => response.json())
-      .then((appConfig: AppConfig) => {
+      .then((config: AppConfig) => {
         // extend environment with app config for browser when not prerendered
-        extendEnvironmentWithAppConfig(environment, appConfig);
+        extendEnvironmentWithAppConfig(environment, config);
         return bootstrap();
       });
   }

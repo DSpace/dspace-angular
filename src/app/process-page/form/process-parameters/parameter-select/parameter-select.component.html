@@ -1,16 +1,20 @@
-<div class="form-row mb-2 mx-0">
+<div class="form-row gap-2 mb-2 mx-0">
     <select id="process-parameters"
             class="form-control col"
             name="parameter-{{index}}"
+            [attr.aria-label]="'process.new.select-parameter' | translate"
             [(ngModel)]="selectedParameter"
             #param="ngModel">
-        <option [ngValue]="undefined">Add a parameter...</option>
+        <option [ngValue]="undefined">{{ 'process.new.add-parameter' | translate }}</option>
         <option *ngFor="let param of parameters" [ngValue]="param.name">
             {{param.nameLong || param.name}}
         </option>
     </select>
-    <ds-parameter-value-input [initialValue]="parameterValue.value" [parameter]="selectedScriptParameter" (updateValue)="selectedParameterValue = $event" class="d-block col" [index]="index"></ds-parameter-value-input>
-    <button *ngIf="removable" class="btn btn-light col-1 remove-button" (click)="removeParameter.emit(parameterValue);"><span class="fas fa-trash"></span></button>
+    <ds-parameter-value-input [initialValue]="parameterValue.value" [parameter]="selectedScriptParameter" (updateValue)="selectedParameterValue = $event" class="d-block col px-0" [index]="index"></ds-parameter-value-input>
+    <button *ngIf="removable" [attr.aria-label]="'process.new.delete-parameter' | translate"
+            (click)="removeParameter.emit(parameterValue);" class="btn btn-danger col-1 remove-button">
+      <i class="fas fa-trash"></i>
+    </button>
     <span *ngIf="!removable" class="col-1"></span>
 </div>
 

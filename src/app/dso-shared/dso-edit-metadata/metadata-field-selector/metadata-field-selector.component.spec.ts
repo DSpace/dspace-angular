@@ -1,17 +1,29 @@
-import { MetadataFieldSelectorComponent } from './metadata-field-selector.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { VarDirective } from '../../../shared/utils/var.directive';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { RegistryService } from '../../../core/registry/registry.service';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+
+import {
+  SortDirection,
+  SortOptions,
+} from '../../../core/cache/models/sort-options.model';
 import { MetadataField } from '../../../core/metadata/metadata-field.model';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { RegistryService } from '../../../core/registry/registry.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../shared/remote-data.utils';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { By } from '@angular/platform-browser';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { MetadataFieldSelectorComponent } from './metadata-field-selector.component';
 
 describe('MetadataFieldSelectorComponent', () => {
   let component: MetadataFieldSelectorComponent;
@@ -50,13 +62,12 @@ describe('MetadataFieldSelectorComponent', () => {
     notificationsService = jasmine.createSpyObj('notificationsService', ['error', 'success']);
 
     TestBed.configureTestingModule({
-      declarations: [MetadataFieldSelectorComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), MetadataFieldSelectorComponent, VarDirective],
       providers: [
         { provide: RegistryService, useValue: registryService },
         { provide: NotificationsService, useValue: notificationsService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -79,7 +90,7 @@ describe('MetadataFieldSelectorComponent', () => {
     });
 
     it('should query the registry service for metadata fields and include the schema', () => {
-      expect(registryService.queryMetadataFields).toHaveBeenCalledWith(query, null, true, false, followLink('schema'));
+      expect(registryService.queryMetadataFields).toHaveBeenCalledWith(query, { elementsPerPage: 10, sort: new SortOptions('fieldName', SortDirection.ASC) }, true, false, followLink('schema'));
     });
   });
 

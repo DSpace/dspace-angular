@@ -1,22 +1,35 @@
-import { ChangeDetectorRef, Directive, Input, OnDestroy, OnInit } from '@angular/core';
-
-import { Observable, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {
+  ChangeDetectorRef,
+  Directive,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import uniq from 'lodash/uniq';
+import {
+  Observable,
+  Subscription,
+} from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import { SectionsService } from './sections.service';
-import { hasValue, isNotEmpty, isNotNull } from '../../shared/empty.util';
-import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
-import { SubmissionService } from '../submission.service';
-import { SectionsType } from './sections-type';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+} from '../../shared/empty.util';
 import { SubmissionSectionError } from '../objects/submission-section-error.model';
+import { SubmissionService } from '../submission.service';
+import parseSectionErrorPaths, { SectionErrorPath } from '../utils/parseSectionErrorPaths';
+import { SectionsService } from './sections.service';
+import { SectionsType } from './sections-type';
 
 /**
  * Directive for handling generic section functionality
  */
 @Directive({
   selector: '[dsSection]',
-  exportAs: 'sectionRef'
+  exportAs: 'sectionRef',
+  standalone: true,
 })
 export class SectionsDirective implements OnDestroy, OnInit {
 
@@ -93,6 +106,12 @@ export class SectionsDirective implements OnDestroy, OnInit {
   private subs: Subscription[] = [];
 
   /**
+   * Dedicated properties for error checking
+   * @private
+   */
+  private errorsSub: Subscription;
+
+  /**
    * A boolean representing if section is valid
    * @type {boolean}
    */
@@ -119,29 +138,16 @@ export class SectionsDirective implements OnDestroy, OnInit {
       map((valid: boolean) => {
         if (valid) {
           this.resetErrors();
+        } else if (hasValue(this.errorsSub)) {
+          //create new subscription to set any possible remaining error, so to avoid timing issue in status update
+          this.errorsSub.unsubscribe();
+          this.checkForNewErrors();
         }
         return valid;
       }));
 
+    this.errorsSub = this.checkForNewErrors();
     this.subs.push(
-      this.sectionService.getShownSectionErrors(this.submissionId, this.sectionId, this.sectionType)
-        .subscribe((errors: SubmissionSectionError[]) => {
-          if (isNotEmpty(errors)) {
-            errors.forEach((errorItem: SubmissionSectionError) => {
-              const parsedErrors: SectionErrorPath[] = parseSectionErrorPaths(errorItem.path);
-
-              parsedErrors.forEach((error: SectionErrorPath) => {
-                if (!error.fieldId) {
-                  this.genericSectionErrors = uniq(this.genericSectionErrors.concat(errorItem.message));
-                } else {
-                  this.allSectionErrors.push(errorItem.message);
-                }
-              });
-            });
-          } else {
-            this.resetErrors();
-          }
-        }),
       this.submissionService.getActiveSectionId(this.submissionId)
         .subscribe((activeSectionId) => {
           const previousActive = this.active;
@@ -153,14 +159,14 @@ export class SectionsDirective implements OnDestroy, OnInit {
               this.submissionService.dispatchSave(this.submissionId);
             }
           }
-        })
+        }),
     );
 
     this.enabled = this.sectionService.isSectionEnabled(this.submissionId, this.sectionId);
     this.readOnly = this.sectionService.isSectionReadOnly(
       this.submissionId,
       this.sectionId,
-      this.submissionService.getSubmissionScope()
+      this.submissionService.getSubmissionScope(),
     );
   }
 
@@ -343,5 +349,26 @@ export class SectionsDirective implements OnDestroy, OnInit {
     this.genericSectionErrors = [];
     this.allSectionErrors = [];
 
+  }
+
+  private checkForNewErrors() {
+    return this.sectionService.getShownSectionErrors(this.submissionId, this.sectionId, this.sectionType)
+      .subscribe((errors: SubmissionSectionError[]) => {
+        if (isNotEmpty(errors)) {
+          errors.forEach((errorItem: SubmissionSectionError) => {
+            const parsedErrors: SectionErrorPath[] = parseSectionErrorPaths(errorItem.path);
+
+            parsedErrors.forEach((error: SectionErrorPath) => {
+              if (!error.fieldId) {
+                this.genericSectionErrors = uniq(this.genericSectionErrors.concat(errorItem.message));
+              } else {
+                this.allSectionErrors.push(errorItem.message);
+              }
+            });
+          });
+        } else {
+          this.resetErrors();
+        }
+      });
   }
 }

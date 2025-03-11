@@ -1,5 +1,5 @@
-import { SchemaType } from './schema-type';
 import { GenericConstructor } from '../../../shared/generic-constructor';
+import { SchemaType } from './schema-type';
 
 const schemaJsonProvidersMapByEntity: Map<string, GenericConstructor<SchemaType>> = new Map<string, GenericConstructor<SchemaType>>();
 const schemaJsonProvidersMapByType: Map<string, Map<string, GenericConstructor<SchemaType>>> = new Map<string, Map<string, GenericConstructor<SchemaType>>>();

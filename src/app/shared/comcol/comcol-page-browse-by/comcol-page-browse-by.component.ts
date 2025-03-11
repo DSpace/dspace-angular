@@ -1,11 +1,33 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import {
+  ActivatedRoute,
+  Params,
+  Router,
+  RouterLink,
+  RouterLinkActive,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
-import { Observable, of as obeservableOf } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
-
-import { getCommunityPageRoute } from '../../../community-page/community-page-routing-paths';
 import { getCollectionPageRoute } from '../../../collection-page/collection-page-routing-paths';
+import { getCommunityPageRoute } from '../../../community-page/community-page-routing-paths';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -13,7 +35,7 @@ import { ConfigurationProperty } from '../../../core/shared/configuration-proper
 import {
   getFinishedRemoteData,
   getFirstSucceededRemoteDataPayload,
-  getRemoteDataPayload
+  getRemoteDataPayload,
 } from '../../../core/shared/operators';
 
 export interface ComColPageNavOption {
@@ -28,16 +50,25 @@ export interface ComColPageNavOption {
  * It expects the ID of the Community or Collection as input to be passed on as a scope
  */
 @Component({
-  selector: 'ds-comcol-page-browse-by',
+  selector: 'ds-base-comcol-page-browse-by',
   styleUrls: ['./comcol-page-browse-by.component.scss'],
-  templateUrl: './comcol-page-browse-by.component.html'
+  templateUrl: './comcol-page-browse-by.component.html',
+  imports: [
+    FormsModule,
+    NgForOf,
+    RouterLink,
+    RouterLinkActive,
+    TranslateModule,
+    AsyncPipe,
+    NgIf,
+  ],
+  standalone: true,
 })
 export class ComcolPageBrowseByComponent implements OnInit {
   /**
    * The ID of the Community or Collection
    */
   @Input() id: string;
-
   @Input() contentType: string;
 
   allOptions: ComColPageNavOption[];
@@ -67,16 +98,16 @@ export class ComcolPageBrowseByComponent implements OnInit {
             id: configValue,
             label: `browse.comcol.by.${configValue}`,
             routerLink: `/browse/${configValue}`,
-            params: { scope: this.id }
+            params: { scope: this.id },
           }))];
         }
         this.allOptions = options;
         return options;
-      })
+      }),
     );
 
     this.currentOptionId$ = this.route.params.pipe(
-      map((params: Params) => params.id)
+      map((params: Params) => params.id),
     );
   }
 
@@ -88,14 +119,14 @@ export class ComcolPageBrowseByComponent implements OnInit {
   }
 
   calculateBrowseProperty(): Observable<string> {
-    if ( this.contentType === 'collection' ) {
+    if (this.contentType === 'collection') {
       return this.collectionService.findById(this.id).pipe(
         getFirstSucceededRemoteDataPayload(),
         map( (collection) => collection.firstMetadataValue('dspace.entity.type') ),
-        map ( (entityType) => entityType ? 'browse.collection.' + entityType : 'browse.collection' )
+        map ( (entityType) => entityType ? 'browse.collection.' + entityType : 'browse.collection' ),
       );
     }
-    return obeservableOf('browse.' + this.contentType);
+    return of('browse.' + this.contentType);
   }
 
   /**
@@ -108,7 +139,7 @@ export class ComcolPageBrowseByComponent implements OnInit {
       return this.configurationService.findByPropertyName('browse.collection')
         .pipe(getFinishedRemoteData());
     } else {
-      return obeservableOf(remoteData);
+      return of(remoteData);
     }
   }
 
@@ -117,15 +148,16 @@ export class ComcolPageBrowseByComponent implements OnInit {
       return {
         id: this.id,
         label: 'collection.page.browse.recent.head',
-        routerLink: getCollectionPageRoute(this.id)
+        routerLink: getCollectionPageRoute(this.id),
       };
     } else if (this.contentType === 'community') {
       return {
-          id: this.id,
-          label: 'community.all-lists.head',
-          routerLink: getCommunityPageRoute(this.id)
-        };
+        id: this.id,
+        label: 'community.all-lists.head',
+        routerLink: getCommunityPageRoute(this.id),
+      };
     }
     return null;
   }
+
 }

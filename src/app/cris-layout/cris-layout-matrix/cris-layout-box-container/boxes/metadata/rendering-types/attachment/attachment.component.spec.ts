@@ -1,25 +1,40 @@
-import { attachmentsMock } from '../../../../../../../shared/mocks/attachments.mock';
-import { ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
-
-import { AttachmentComponent } from './attachment.component';
-import { Item } from '../../../../../../../core/shared/item.model';
-import { Observable, of } from 'rxjs';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { BitstreamDataService } from '../../../../../../../core/data/bitstream-data.service';
-import { RemoteData } from '../../../../../../../core/data/remote-data';
-import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../../shared/remote-data.utils';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
-import { createPaginatedList } from '../../../../../../../shared/testing/utils.test';
-import { By } from '@angular/platform-browser';
 import {
-  AuthorizationDataService
-} from '../../../../../../../core/data/feature-authorization/authorization-data.service';
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  flush,
+  TestBed,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+
+import { BitstreamDataService } from '../../../../../../../core/data/bitstream-data.service';
+import { AuthorizationDataService } from '../../../../../../../core/data/feature-authorization/authorization-data.service';
+import { RemoteData } from '../../../../../../../core/data/remote-data';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
-import { FieldRenderingType } from '../metadata-box.decorator';
+import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
+import { Item } from '../../../../../../../core/shared/item.model';
+import { ThemedFileDownloadLinkComponent } from '../../../../../../../shared/file-download-link/themed-file-download-link.component';
+import { attachmentsMock } from '../../../../../../../shared/mocks/attachments.mock';
+import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../../shared/remote-data.utils';
+import { createPaginatedList } from '../../../../../../../shared/testing/utils.test';
+import { TruncatableComponent } from '../../../../../../../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { FileSizePipe } from '../../../../../../../shared/utils/file-size-pipe';
+import { FieldRenderingType } from '../field-rendering-type';
+import { AttachmentComponent } from './attachment.component';
 
 describe('AttachmentComponent', () => {
   let component: AttachmentComponent;
@@ -31,12 +46,12 @@ describe('AttachmentComponent', () => {
     metadata: {
       'dc.identifier.doi': [
         {
-          value: 'doi:10.1392/dironix'
-        }
-      ]
+          value: 'doi:10.1392/dironix',
+        },
+      ],
     },
     _links: {
-      self: { href: 'obj-selflink' }
+      self: { href: 'obj-selflink' },
     },
     uuid: 'item-uuid',
   });
@@ -54,8 +69,8 @@ describe('AttachmentComponent', () => {
     bitstream: {
       bundle: 'ORIGINAL',
       metadataField: null,
-      metadataValue: null
-    }
+      metadataValue: null,
+    },
   };
 
   const mockFieldWithMetadata: LayoutField = {
@@ -71,8 +86,8 @@ describe('AttachmentComponent', () => {
     bitstream: {
       bundle: 'ORIGINAL',
       metadataField: 'dc.type',
-      metadataValue: 'main article'
-    }
+      metadataValue: 'main article',
+    },
   };
 
   const mockFieldWithRegexMetadata: LayoutField = {
@@ -88,8 +103,8 @@ describe('AttachmentComponent', () => {
     bitstream: {
       bundle: 'ORIGINAL',
       metadataField: 'dc.type',
-      metadataValue: '(/^Test Article/i)'
-    }
+      metadataValue: '(/^Test Article/i)',
+    },
   };
 
   const bitstream1 = Object.assign(new Bitstream(), {
@@ -98,23 +113,23 @@ describe('AttachmentComponent', () => {
     metadata: {
       'dc.title': [
         {
-          value: 'test'
-        }
+          value: 'test',
+        },
       ],
       'dc.type': [
         {
-          value: 'test'
-        }
+          value: 'test',
+        },
       ],
       'dc.description': [
         {
-          value: 'test'
-        }
-      ]
+          value: 'test',
+        },
+      ],
     },
     _links: {
-      self: { href: 'obj-selflink' }
-    }
+      self: { href: 'obj-selflink' },
+    },
   });
   const bitstream2 = Object.assign(new Bitstream(), {
     id: 'bitstream4',
@@ -122,8 +137,8 @@ describe('AttachmentComponent', () => {
     metadata: {
     },
     _links: {
-      self: { href: 'obj-selflink' }
-    }
+      self: { href: 'obj-selflink' },
+    },
   });
 
   const mockBitstreamDataService: any = jasmine.createSpyObj('BitstreamDataService', {
@@ -135,33 +150,44 @@ describe('AttachmentComponent', () => {
   });
 
   const mockAuthorizedService = jasmine.createSpyObj('AuthorizationDataService', {
-    isAuthorized: jasmine.createSpy('isAuthorized')
+    isAuthorized: jasmine.createSpy('isAuthorized'),
   });
   const getDefaultTestBedConf = () => {
     return {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
+          useClass: TranslateLoaderMock,
+        },
       }),
-        RouterTestingModule
+      RouterTestingModule,
+      AttachmentComponent,
+      FileSizePipe,
       ],
-      declarations: [AttachmentComponent, FileSizePipe],
       providers: [
         { provide: 'fieldProvider', useValue: mockField },
         { provide: 'itemProvider', useValue: testItem },
         { provide: 'renderingSubTypeProvider', useValue: '' },
+        { provide: 'tabNameProvider', useValue: '' },
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
         { provide: AuthorizationDataService, useValue: mockAuthorizedService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     };
   };
 
   describe('when pagination is disabled', () => {
     beforeEach(() => {
-      TestBed.configureTestingModule(getDefaultTestBedConf());
+      TestBed.configureTestingModule(getDefaultTestBedConf())
+        .overrideComponent(AttachmentComponent, {
+          remove: {
+            imports: [
+              TruncatableComponent,
+              ThemedFileDownloadLinkComponent,
+              TruncatablePartComponent,
+            ],
+          },
+        });
       fixture = TestBed.createComponent(AttachmentComponent);
       component = fixture.componentInstance;
       de = fixture.debugElement;
@@ -214,7 +240,16 @@ describe('AttachmentComponent', () => {
       beforeEach(() => {
         // NOTE: Cannot override providers once components have been compiled, so TestBed needs to be reset
         TestBed.resetTestingModule();
-        TestBed.configureTestingModule(getDefaultTestBedConf());
+        TestBed.configureTestingModule(getDefaultTestBedConf())
+          .overrideComponent(AttachmentComponent, {
+            remove: {
+              imports: [
+                TruncatableComponent,
+                ThemedFileDownloadLinkComponent,
+                TruncatablePartComponent,
+              ],
+            },
+          });
         TestBed.overrideProvider('fieldProvider', { useValue: mockFieldWithMetadata });
         fixture = TestBed.createComponent(AttachmentComponent);
         component = fixture.componentInstance;
@@ -235,7 +270,16 @@ describe('AttachmentComponent', () => {
       beforeEach(() => {
         // NOTE: Cannot override providers once components have been compiled, so TestBed needs to be reset
         TestBed.resetTestingModule();
-        TestBed.configureTestingModule(getDefaultTestBedConf());
+        TestBed.configureTestingModule(getDefaultTestBedConf())
+          .overrideComponent(AttachmentComponent, {
+            remove: {
+              imports: [
+                TruncatableComponent,
+                ThemedFileDownloadLinkComponent,
+                TruncatablePartComponent,
+              ],
+            },
+          });
         TestBed.overrideProvider('fieldProvider', { useValue: mockFieldWithRegexMetadata });
         fixture = TestBed.createComponent(AttachmentComponent);
         component = fixture.componentInstance;
@@ -257,7 +301,16 @@ describe('AttachmentComponent', () => {
       beforeEach(() => {
         // NOTE: Cannot override providers once components have been compiled, so TestBed needs to be reset
         TestBed.resetTestingModule();
-        TestBed.configureTestingModule(getDefaultTestBedConf());
+        TestBed.configureTestingModule(getDefaultTestBedConf())
+          .overrideComponent(AttachmentComponent, {
+            remove: {
+              imports: [
+                TruncatableComponent,
+                ThemedFileDownloadLinkComponent,
+                TruncatablePartComponent,
+              ],
+            },
+          });
         fixture = TestBed.createComponent(AttachmentComponent);
         component = fixture.componentInstance;
         de = fixture.debugElement;
@@ -284,7 +337,16 @@ describe('AttachmentComponent', () => {
       beforeEach(() => {
         // NOTE: Cannot override providers once components have been compiled, so TestBed needs to be reset
         TestBed.resetTestingModule();
-        TestBed.configureTestingModule(getDefaultTestBedConf());
+        TestBed.configureTestingModule(getDefaultTestBedConf())
+          .overrideComponent(AttachmentComponent, {
+            remove: {
+              imports: [
+                TruncatableComponent,
+                ThemedFileDownloadLinkComponent,
+                TruncatablePartComponent,
+              ],
+            },
+          });
         fixture = TestBed.createComponent(AttachmentComponent);
         component = fixture.componentInstance;
         de = fixture.debugElement;
@@ -308,7 +370,16 @@ describe('AttachmentComponent', () => {
 
   describe('when pagination is enabled', () => {
     beforeEach(() => {
-      TestBed.configureTestingModule(getDefaultTestBedConf());
+      TestBed.configureTestingModule(getDefaultTestBedConf())
+        .overrideComponent(AttachmentComponent, {
+          remove: {
+            imports: [
+              TruncatableComponent,
+              ThemedFileDownloadLinkComponent,
+              TruncatablePartComponent,
+            ],
+          },
+        });
       fixture = TestBed.createComponent(AttachmentComponent);
       component = fixture.componentInstance;
       de = fixture.debugElement;

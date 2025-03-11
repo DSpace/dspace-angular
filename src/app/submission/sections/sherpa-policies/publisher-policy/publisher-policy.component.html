@@ -8,7 +8,7 @@
             </p>
             <ul>
                 <li *ngFor="let url of policy.urls | keyvalue">
-                    <a href="{{url.key}}" target="_blank">{{url.value}}</a>
+                    <a href="{{url.key}}" target="_blank" rel="noopener noreferrer">{{url.value}}</a>
                 </li>
             </ul>
         </div>

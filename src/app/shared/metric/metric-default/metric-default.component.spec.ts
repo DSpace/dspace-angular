@@ -1,12 +1,17 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { MetricDefaultComponent } from './metric-default.component';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import {
-  metric1Mock
-} from '../../../cris-layout/cris-layout-matrix/cris-layout-box-container/boxes/metrics/cris-layout-metrics-box.component.spec';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  async,
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+
+import { metric1Mock } from '../../../cris-layout/cris-layout-matrix/cris-layout-box-container/boxes/metrics/cris-layout-metrics-box.component.spec';
+import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
+import { MetricDefaultComponent } from './metric-default.component';
 
 describe('MetricDspacecrisComponent', () => {
   let component: MetricDefaultComponent;
@@ -21,9 +26,9 @@ describe('MetricDspacecrisComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        MetricDefaultComponent,
       ],
-      declarations: [MetricDefaultComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

@@ -1,4 +1,4 @@
-<div>
+<div class="pl-3">
   <ng-container *ngIf="metadata">
     <ng-container *ngFor="let entry of getAllMetadataValue(fileTitleKey)">
       <ng-container *ngIf="entry.value !== ''">
@@ -15,25 +15,30 @@
     </ng-container>
     <ng-container *ngFor="let entry of getAllMetadataValue(fileDescrKey)">
       <ng-container *ngIf="entry.value !== ''">
-          {{entry.value | dsTruncate:['150']}}
+        {{entry.value | dsTruncate:['150']}}
       </ng-container>
       <ng-container *ngIf="entry.value === ''">
-        <span *ngIf="metadata[fileDescrKey].indexOf(entry) === 0" class="text-muted">{{'submission.sections.upload.no-entry' | translate}} {{fileDescrKey}}</span>
+        <span *ngIf="metadata[fileDescrKey].indexOf(entry) === 0"
+              class="text-muted">{{'submission.sections.upload.no-entry' | translate}} {{fileDescrKey}}</span>
       </ng-container>
       <span class="clearfix"></span>
     </ng-container>
   </ng-container>
 
+  <div class="mt-1" *ngIf="fileFormat">
+     <span class="font-weight-bold">{{'submission.sections.upload.format' | translate}} :</span><span> {{fileFormat}} </span>
+  </div>
+  <div class="mt-1" *ngIf="fileCheckSum">
+      <span class="font-weight-bold">{{'submission.sections.upload.checksum' | translate}} ({{fileData.checkSum.checkSumAlgorithm}}) <i class="far fa-question-circle text-info hint" #hint="ngbTooltip"
+                                                                                                                                        container="body"
+                                                                                                                                        placement="top"
+                                                                                                                                        [ngbTooltip]="tipContent"
+                                                                                                                                        triggers="manual"
+                                                                                                                                        [autoClose]="false"
+                                                                                                                                        (click)="hint.toggle();$event.preventDefault();"></i> :</span><span> {{fileData.checkSum.value}} </span>
+  </div>
   <span class="clearfix"></span>
-  <span class="font-weight-bold">{{'submission.sections.upload.checksum' | translate}} ({{fileData.checkSum.checkSumAlgorithm}}) <i class="far fa-question-circle text-info hint" #hint="ngbTooltip"
-                                                                                                                                     container="body"
-                                                                                                                                     placement="top"
-                                                                                                                                     [ngbTooltip]="tipContent"
-                                                                                                                                     triggers="manual"
-                                                                                                                                     [autoClose]="false"
-                                                                                                                                     (click)="hint.toggle();$event.preventDefault();"></i> :</span><span> {{fileData.checkSum.value}} </span>
-  <span class="clearfix"></span>
-  <ds-submission-section-upload-access-conditions [accessConditions]="fileData.accessConditions"></ds-submission-section-upload-access-conditions>
+  <ds-submission-section-upload-access-conditions [accessConditions]="$any(fileData.accessConditions)"></ds-submission-section-upload-access-conditions>
 </div>
 
 <ng-template #tipContent>

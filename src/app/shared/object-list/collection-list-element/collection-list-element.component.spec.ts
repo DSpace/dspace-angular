@@ -1,21 +1,56 @@
-import { CollectionListElementComponent } from './collection-list-element.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { Collection } from '../../../core/shared/collection.model';
+import { DSONameServiceMock } from '../../mocks/dso-name.service.mock';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
+import { CollectionListElementComponent } from './collection-list-element.component';
 
 let collectionListElementComponent: CollectionListElementComponent;
 let fixture: ComponentFixture<CollectionListElementComponent>;
+
+const mockCollectionWithArchivedItems: Collection = Object.assign(new Collection(), {
+  metadata: {
+    'dc.title': [
+      {
+        language: 'en_US',
+        value: 'Test title',
+      },
+    ],
+  }, archivedItemsCount: 1,
+});
+
+const mockCollectionWithArchivedItemsDisabledAtBackend: Collection = Object.assign(new Collection(), {
+  metadata: {
+    'dc.title': [
+      {
+        language: 'en_US',
+        value: 'Test title',
+      },
+    ],
+  }, archivedItemsCount: -1,
+});
+
 
 const mockCollectionWithAbstract: Collection = Object.assign(new Collection(), {
   metadata: {
     'dc.description.abstract': [
       {
         language: 'en_US',
-        value: 'Short description'
-      }
-    ]
-  }
+        value: 'Short description',
+      },
+    ],
+  }, archivedItemsCount: 1,
 });
 
 const mockCollectionWithoutAbstract: Collection = Object.assign(new Collection(), {
@@ -23,23 +58,24 @@ const mockCollectionWithoutAbstract: Collection = Object.assign(new Collection()
     'dc.title': [
       {
         language: 'en_US',
-        value: 'Test title'
-      }
-    ]
-  }
+        value: 'Test title',
+      },
+    ],
+  }, archivedItemsCount: 1,
 });
 
 describe('CollectionListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [CollectionListElementComponent],
+      imports: [CollectionListElementComponent],
       providers: [
-        { provide: 'objectElementProvider', useValue: (mockCollectionWithAbstract) }
+        { provide: DSONameService, useValue: new DSONameServiceMock() },
+        { provide: 'objectElementProvider', useValue: (mockCollectionWithAbstract) },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
-
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(CollectionListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -69,6 +105,31 @@ describe('CollectionListElementComponent', () => {
     it('should not show the description paragraph', () => {
       const collectionAbstractField = fixture.debugElement.query(By.css('div.abstract-text'));
       expect(collectionAbstractField).toBeNull();
+    });
+  });
+
+
+  describe('When the collection has archived items', () => {
+    beforeEach(() => {
+      collectionListElementComponent.object = mockCollectionWithArchivedItems;
+      fixture.detectChanges();
+    });
+
+    it('should show the archived items paragraph', () => {
+      const field = fixture.debugElement.query(By.css('span.archived-items-lead'));
+      expect(field).not.toBeNull();
+    });
+  });
+
+  describe('When the collection archived items are disabled at backend', () => {
+    beforeEach(() => {
+      collectionListElementComponent.object = mockCollectionWithArchivedItemsDisabledAtBackend;
+      fixture.detectChanges();
+    });
+
+    it('should not show the archived items paragraph', () => {
+      const field = fixture.debugElement.query(By.css('span.archived-items-lead'));
+      expect(field).toBeNull();
     });
   });
 });

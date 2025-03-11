@@ -1,9 +1,10 @@
-import { Inject, Injectable, Injector, Optional } from '@angular/core';
-import { FormControl } from '@angular/forms';
-
-import { Subscription } from 'rxjs';
-import { startWith } from 'rxjs/operators';
-
+import {
+  Inject,
+  Injectable,
+  Injector,
+  Optional,
+} from '@angular/core';
+import { UntypedFormControl } from '@angular/forms';
 import {
   AND_OPERATOR,
   DYNAMIC_MATCHERS,
@@ -11,11 +12,18 @@ import {
   DynamicFormControlMatcher,
   DynamicFormControlModel,
   DynamicFormControlRelation,
-  DynamicFormRelationService, MATCH_VISIBLE,
-  OR_OPERATOR
+  DynamicFormRelationService,
+  MATCH_VISIBLE,
+  OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
+import { Subscription } from 'rxjs';
+import { startWith } from 'rxjs/operators';
 
-import {hasNoValue, hasValue} from '../../../empty.util';
+import { VocabularyEntry } from '../../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import {
+  hasNoValue,
+  hasValue,
+} from '../../../empty.util';
 import { FormBuilderService } from '../form-builder.service';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-constants';
@@ -24,7 +32,7 @@ import { DYNAMIC_FORM_CONTROL_TYPE_RELATION_GROUP } from './ds-dynamic-form-cons
  * Service to manage type binding for submission input fields
  * Any form component with the typeBindRelations DynamicFormControlRelation property can be controlled this way
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DsDynamicTypeBindRelationService {
 
   constructor(@Optional() @Inject(DYNAMIC_MATCHERS) private dynamicMatchers: DynamicFormControlMatcher[],
@@ -38,11 +46,11 @@ export class DsDynamicTypeBindRelationService {
    * @param bindModelValue
    * @private
    */
-  public getTypeBindValue(bindModelValue: string | FormFieldMetadataValueObject): string {
+  public getTypeBindValue(bindModelValue: string | FormFieldMetadataValueObject | VocabularyEntry): string {
     let value;
     if (hasNoValue(bindModelValue) || typeof bindModelValue === 'string') {
       value = bindModelValue;
-    } else if (bindModelValue instanceof FormFieldMetadataValueObject
+    } else if ((bindModelValue instanceof FormFieldMetadataValueObject || bindModelValue instanceof VocabularyEntry)
       && bindModelValue.hasAuthority()) {
       value = bindModelValue.authority;
     } else {
@@ -88,7 +96,6 @@ export class DsDynamicTypeBindRelationService {
 
     // Default to OR for operator (OR is explicitly set in field-parser.ts anyway)
     const operator = relation.operator || OR_OPERATOR;
-
 
     return relation.when.reduce((hasAlreadyMatched: boolean, condition: DynamicFormControlCondition, index: number) => {
       // Get the DynamicFormControlModel (typeBindModel) from the form builder service, set in the form builder
@@ -172,7 +179,7 @@ export class DsDynamicTypeBindRelationService {
    * @param model
    * @param control
    */
-  subscribeRelations(model: DynamicFormControlModel, control: FormControl): Subscription[] {
+  subscribeRelations(model: DynamicFormControlModel, control: UntypedFormControl): Subscription[] {
 
     const relatedModels = this.getRelatedFormModel(model);
     const subscriptions: Subscription[] = [];
@@ -183,8 +190,8 @@ export class DsDynamicTypeBindRelationService {
         const initValue = (hasNoValue(relatedModel.value) || typeof relatedModel.value === 'string') ? relatedModel.value :
           (Array.isArray(relatedModel.value) ? relatedModel.value : relatedModel.value.value);
 
-        const valueChanges = relatedModel.valueChanges.pipe(
-          startWith(initValue)
+        const valueChanges = this.formBuilderService.getTypeBindModelUpdates().pipe(
+          startWith(initValue),
         );
 
         // Build up the subscriptions to watch for changes;
@@ -217,13 +224,13 @@ export class DsDynamicTypeBindRelationService {
     configuredTypeBindValues.forEach((value) => {
       bindValues.push({
         id: 'dc.type',
-        value: value
+        value: value,
       });
     });
     return [{
       match: MATCH_VISIBLE,
       operator: OR_OPERATOR,
-      when: bindValues
+      when: bindValues,
     }];
   }
 

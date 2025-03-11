@@ -1,15 +1,30 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { RemoteData } from '../../../core/data/remote-data';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  ActivatedRouteSnapshot,
+} from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+
+import { SortOptions } from '../../../core/cache/models/sort-options.model';
+import { RemoteData } from '../../../core/data/remote-data';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { hasValue, isNotEmpty } from '../../empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../empty.util';
 
 export enum SelectorActionType {
   CREATE = 'create',
   EDIT = 'edit',
-  EXPORT_METADATA = 'export-metadata',
+  EXPORT_METADATA_CSV = 'export-metadata-csv',
+  EXPORT_METADATA_XLS = 'export-metadata-xls',
   IMPORT_BATCH = 'import-batch',
   SET_SCOPE = 'set-scope',
   EXPORT_BATCH = 'export-batch',
@@ -22,7 +37,8 @@ export enum SelectorActionType {
  */
 @Component({
   selector: 'ds-dso-selector-modal',
-  template: ''
+  template: '',
+  standalone: true,
 })
 export abstract class DSOSelectorModalWrapperComponent implements OnInit {
 
@@ -63,6 +79,11 @@ export abstract class DSOSelectorModalWrapperComponent implements OnInit {
   action: SelectorActionType;
 
   /**
+   * Default DSO ordering
+   */
+  defaultSort: SortOptions;
+
+  /**
    * Event emitted when a DSO entry is selected if emitOnly is set to true
    */
   @Output() select: EventEmitter<DSpaceObject> = new EventEmitter<DSpaceObject>();
@@ -76,7 +97,7 @@ export abstract class DSOSelectorModalWrapperComponent implements OnInit {
   ngOnInit(): void {
     const matchingRoute = this.findRouteData(
       (route: ActivatedRouteSnapshot) => hasValue(route.data.dso),
-      this.route.root.snapshot
+      this.route.root.snapshot,
     );
     if (hasValue(matchingRoute)) {
       this.dsoRD = matchingRoute.data.dso;

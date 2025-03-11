@@ -1,32 +1,41 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { cold } from 'jasmine-marbles';
 
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-
-import { ItemCorrectionComponent } from './item-correction.component';
-import { TranslateLoaderMock } from '../../../testing/translate-loader.mock';
+import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
 import { RelationshipDataService } from '../../../../core/data/relationship-data.service';
 import { Relationship } from '../../../../core/shared/item-relationships/relationship.model';
-import { buildPaginatedList } from '../../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../../core/shared/page-info.model';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
-import { cold } from 'jasmine-marbles';
+import { TranslateLoaderMock } from '../../../testing/translate-loader.mock';
+import { ItemCorrectionComponent } from './item-correction.component';
 
 let component: ItemCorrectionComponent;
 let fixture: ComponentFixture<ItemCorrectionComponent>;
 let relationshipService: any;
 const mockRelationshipService = jasmine.createSpyObj('relationshipService',
   {
-    getItemRelationshipsByLabel: jasmine.createSpy('getItemRelationshipsByLabel')
-  }
+    getItemRelationshipsByLabel: jasmine.createSpy('getItemRelationshipsByLabel'),
+  },
 );
 
 const relationship = Object.assign(new Relationship(), {
   _links: {
     self: {
-      href: 'dspacerest/2'
-    }
+      href: 'dspacerest/2',
+    },
   },
   id: '1',
   uuid: '1',
@@ -46,17 +55,17 @@ describe('ItemCorrectionComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
+        ItemCorrectionComponent,
       ],
-      declarations: [ItemCorrectionComponent],
       providers: [
         { provide: RelationshipDataService, useValue: mockRelationshipService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemCorrectionComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -72,7 +81,7 @@ describe('ItemCorrectionComponent', () => {
 
   it('should show a badge when item is a correction', () => {
     relationshipService.getItemRelationshipsByLabel.and.returnValue(cold('a', {
-      a: relationshipPaginatedListRD
+      a: relationshipPaginatedListRD,
     }));
     fixture.detectChanges();
     const badge = fixture.debugElement.query(By.css('.text-muted'));
@@ -82,7 +91,7 @@ describe('ItemCorrectionComponent', () => {
 
   it('should not show a badge when item is not a correction', () => {
     relationshipService.getItemRelationshipsByLabel.and.returnValue(cold('a', {
-      a: relationshipPaginatedListEmptyRD
+      a: relationshipPaginatedListEmptyRD,
     }));
     fixture.detectChanges();
     const badge = fixture.debugElement.query(By.css('.text-muted'));

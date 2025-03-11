@@ -1,8 +1,18 @@
-import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
+import {
+  autoserialize,
+  deserialize,
+  inheritSerialization,
+} from 'cerialize';
+import { Observable } from 'rxjs';
 
+import {
+  link,
+  typedObject,
+} from '../../../cache/builders/build-decorators';
+import { PaginatedList } from '../../../data/paginated-list.model';
+import { RemoteData } from '../../../data/remote-data';
 import { HALLink } from '../../../shared/hal-link.model';
 import { VOCABULARY_ENTRY_DETAIL } from './vocabularies.resource-type';
-import { typedObject } from '../../../cache/builders/build-decorators';
 import { VocabularyEntry } from './vocabulary-entry.model';
 
 /**
@@ -33,7 +43,21 @@ export class VocabularyEntryDetail extends VocabularyEntry {
     self: HALLink;
     vocabulary: HALLink;
     parent: HALLink;
-    children
+    children: HALLink;
   };
+
+  /**
+   * The submitter for this SubmissionObject
+   * Will be undefined unless the submitter {@link HALLink} has been resolved.
+   */
+  @link(VOCABULARY_ENTRY_DETAIL)
+    parent?: Observable<RemoteData<VocabularyEntryDetail>>;
+
+  /**
+   * The submitter for this SubmissionObject
+   * Will be undefined unless the submitter {@link HALLink} has been resolved.
+   */
+  @link(VOCABULARY_ENTRY_DETAIL, true)
+    children?: Observable<RemoteData<PaginatedList<VocabularyEntryDetail>>>;
 
 }

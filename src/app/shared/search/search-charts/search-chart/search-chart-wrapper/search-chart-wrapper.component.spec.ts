@@ -1,6 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FILTER_CONFIG, IN_PLACE_SEARCH } from '../../../../../core/shared/search/search-filter.service';
+
+import {
+  FILTER_CONFIG,
+  IN_PLACE_SEARCH,
+  SCOPE,
+} from '../../../../../core/shared/search/search-filter.service';
 import { FilterType } from '../../../models/filter-type.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchChartFilterWrapperComponent } from './search-chart-wrapper.component';
@@ -15,25 +24,24 @@ xdescribe('SearchChartFilterWrapperComponent', () => {
     type: FilterType.text,
     hasFacets: false,
     isOpenByDefault: false,
-    pageSize: 2
+    pageSize: 2,
   });
 
   const inPlaceSearch: any = '';
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        BrowserAnimationsModule
-      ],
-      declarations: [
-        SearchChartFilterWrapperComponent
+        BrowserAnimationsModule,
+        SearchChartFilterWrapperComponent,
       ],
       providers: [
-        { provide: FILTER_CONFIG, userValue: mockFilterConfig},
-        { provide: IN_PLACE_SEARCH, userValue: inPlaceSearch}
-      ]
+        { provide: FILTER_CONFIG, userValue: mockFilterConfig },
+        { provide: IN_PLACE_SEARCH, userValue: inPlaceSearch },
+        { provide: SCOPE, userValue: '' },
+      ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

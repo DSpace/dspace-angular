@@ -1,19 +1,28 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { SiteStatisticsPageComponent } from './site-statistics-page.component';
-import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
-import { TranslateModule } from '@ngx-translate/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
-import { of as observableOf } from 'rxjs';
-import { Site } from '../../core/shared/site.model';
-import { DebugElement } from '@angular/core';
-import { UsageReport } from '../../core/statistics/models/usage-report.model';
-import { SharedModule } from '../../shared/shared.module';
 import { CommonModule } from '@angular/common';
+import { DebugElement } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { SiteDataService } from '../../core/data/site-data.service';
-import { AuthService } from '../../core/auth/auth.service';
+import { Site } from '../../core/shared/site.model';
+import { UsageReport } from '../../core/statistics/models/usage-report.model';
+import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { CrisStatisticsPageComponent } from '../cris-statistics-page/cris-statistics-page.component';
+import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
+import { SiteStatisticsPageComponent } from './site-statistics-page.component';
 
 describe('SiteStatisticsPageComponent', () => {
 
@@ -35,7 +44,7 @@ describe('SiteStatisticsPageComponent', () => {
           new UsageReport(), {
             id: `site_id-TotalVisits-report`,
             points: [],
-          }
+          },
         ),
       ]),
     };
@@ -52,21 +61,18 @@ describe('SiteStatisticsPageComponent', () => {
             href: 'test_site_link',
           },
         },
-      }))
+      })),
     };
 
     const authService = jasmine.createSpyObj('authService', {
       isAuthenticated: observableOf(true),
-      setRedirectUrl: {}
+      setRedirectUrl: {},
     });
 
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
         CommonModule,
-        SharedModule,
-      ],
-      declarations: [
         SiteStatisticsPageComponent,
         StatisticsTableComponent,
       ],
@@ -80,7 +86,7 @@ describe('SiteStatisticsPageComponent', () => {
         { provide: AuthService, useValue: authService },
       ],
     })
-      .compileComponents();
+      .overrideComponent(SiteStatisticsPageComponent, { remove: { imports: [ThemedLoadingComponent, StatisticsTableComponent, CrisStatisticsPageComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

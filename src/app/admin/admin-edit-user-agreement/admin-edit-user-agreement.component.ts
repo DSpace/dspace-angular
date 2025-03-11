@@ -1,14 +1,28 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  KeyValuePipe,
+  NgForOf,
+} from '@angular/common';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import { Subscription } from 'rxjs';
+
+import { environment } from '../../../environments/environment';
 import { ScriptDataService } from '../../core/data/processes/script-data.service';
 import { SiteDataService } from '../../core/data/site-data.service';
-import { Site } from '../../core/shared/site.model';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { environment } from '../../../environments/environment';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { Site } from '../../core/shared/site.model';
+import { AlertComponent } from '../../shared/alert/alert.component';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 /**
  * Component that represents the user agreement edit page for administrators.
@@ -16,6 +30,14 @@ import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 @Component({
   selector: 'ds-admin-edit-user-agreement',
   templateUrl: './admin-edit-user-agreement.component.html',
+  imports: [
+    AlertComponent,
+    TranslateModule,
+    KeyValuePipe,
+    FormsModule,
+    NgForOf,
+  ],
+  standalone: true,
 })
 export class AdminEditUserAgreementComponent implements OnInit, OnDestroy {
 
@@ -42,7 +64,7 @@ export class AdminEditUserAgreementComponent implements OnInit, OnDestroy {
       .forEach((language) => {
         this.userAgreementTexts.set( language.code, {
           languageLabel: language.label,
-          text: ''
+          text: '',
         });
       });
 
@@ -72,7 +94,7 @@ export class AdminEditUserAgreementComponent implements OnInit, OnDestroy {
       this.subs.push(this.siteService.patch(this.site, operations).pipe(
         getFirstCompletedRemoteData(),
       ).subscribe((restResponse) => {
-        if (restResponse.isSuccess) {
+        if (restResponse.hasSucceeded) {
           this.notificationsService.success(this.translateService.get('admin.edit-user-agreement.success'));
           if ( result === 'edit-with-reset' ) {
             this.deleteAllUserAgreementMetadataValues();
@@ -95,8 +117,8 @@ export class AdminEditUserAgreementComponent implements OnInit, OnDestroy {
       path: '/metadata/' + this.USER_AGREEMENT_TEXT_METADATA,
       value: {
         value: this.userAgreementTexts.get(firstLanguage).text,
-        language: firstLanguage
-      }
+        language: firstLanguage,
+      },
     });
     this.userAgreementTexts.forEach((value, key) => {
       if (key !== firstLanguage) {
@@ -105,8 +127,8 @@ export class AdminEditUserAgreementComponent implements OnInit, OnDestroy {
           path: '/metadata/' + this.USER_AGREEMENT_TEXT_METADATA,
           value: {
             value: value.text,
-            language: key
-          }
+            language: key,
+          },
         });
       }
     });
@@ -117,7 +139,7 @@ export class AdminEditUserAgreementComponent implements OnInit, OnDestroy {
    * Invoke the script to delete all the the user agreement text metadata values.
    */
   private deleteAllUserAgreementMetadataValues() {
-    this.subs.push(this.scriptDataService.invoke('metadata-deletion', [{name: '-metadata', value: this.USER_AGREEMENT_METADATA}], []).subscribe());
+    this.subs.push(this.scriptDataService.invoke('metadata-deletion', [{ name: '-metadata', value: this.USER_AGREEMENT_METADATA }], []).subscribe());
   }
 
   ngOnDestroy(): void {

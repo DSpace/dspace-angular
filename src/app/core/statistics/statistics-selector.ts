@@ -1,4 +1,8 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
+import {
+  createFeatureSelector,
+  createSelector,
+} from '@ngrx/store';
+
 import { StatisticsState } from './statistics.reducer';
 
 /**

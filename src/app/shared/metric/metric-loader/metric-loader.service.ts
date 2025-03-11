@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
-
 import { of } from 'rxjs';
 
 import { MetricAltmetricComponent } from '../metric-altmetric/metric-altmetric.component';
-import { MetricDimensionsComponent } from '../metric-dimensions/metric-dimensions.component';
-import { MetricGooglescholarComponent } from '../metric-googlescholar/metric-googlescholar.component';
 import { MetricDefaultComponent } from '../metric-default/metric-default.component';
+import { MetricDimensionsComponent } from '../metric-dimensions/metric-dimensions.component';
+import { MetricEmbeddedDownloadComponent } from '../metric-embedded/metric-embedded-download/metric-embedded-download.component';
 import { MetricEmbeddedViewComponent } from '../metric-embedded/metric-embedded-view/metric-embedded-view.component';
-import {
-  MetricEmbeddedDownloadComponent
-} from '../metric-embedded/metric-embedded-download/metric-embedded-download.component';
+import { MetricGooglescholarComponent } from '../metric-googlescholar/metric-googlescholar.component';
 import { MetricPlumxComponent } from '../metric-plumx/metric-plumx.component';
 import { MetricLoadScriptService } from './metric-load-script.service';
-import { MetricTypeConf, Script } from './metric-types-config';
+import {
+  MetricTypeConf,
+  Script,
+} from './metric-types-config';
 
 export const MetricTypesConfig: MetricTypeConf[] = [
   {
@@ -58,12 +58,13 @@ export class MetricLoaderService {
   /**
    * Load required data for the metricType and then return the Component type.
    * @param metricType
+   * @param canLoadScript
    * @return the ComponentClass for the metricType
    */
-  public loadMetricTypeComponent(metricType: string): Promise<any> {
+  public loadMetricTypeComponent(metricType: string, canLoadScript = true): Promise<any> {
     const component = this.getComponent(metricType);
     const scriptSrc = this.getScript(metricType);
-    if (scriptSrc) {
+    if (scriptSrc && canLoadScript) {
       return this.metricLoadScriptService.loadScript(metricType, scriptSrc).then(() => component);
     }
     return of(component).toPromise();
@@ -87,7 +88,7 @@ export class MetricLoaderService {
    */
   protected getScript(metricType: string): string {
     const config = this.metricTypesConfig.find(
-      (conf) => conf.id === metricType
+      (conf) => conf.id === metricType,
     );
     if (config) {
       return config.script;

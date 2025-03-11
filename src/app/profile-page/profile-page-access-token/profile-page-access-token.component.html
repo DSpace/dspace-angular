@@ -1,5 +1,5 @@
-<div *ngIf="!(generatedToken | async)" data-test="notGenerated">
-  <ds-alert *ngIf="!(tokenAlreadyExists | async)" data-test="infoAlert"
+<div *ngIf="(generatedToken | async) === null || (generatedToken | async) === undefined" data-test="notGenerated">
+  <ds-alert *ngIf="(tokenAlreadyExists | async) !== true" data-test="infoAlert"
             [type]="'alert-info'"
             [content]="'profile.card.access-token.no-token-generated'"></ds-alert>
   <ds-alert *ngIf="(tokenAlreadyExists | async)" data-test="warningAlert"

@@ -1,16 +1,22 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-
-import { IdentifierComponent } from './identifier.component';
-import { Item } from '../../../../../../../core/shared/item.model';
-import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
+import { Item } from '../../../../../../../core/shared/item.model';
 import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
-import { FieldRenderingType } from '../metadata-box.decorator';
+import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
 import { ResolverStrategyService } from '../../../../../../services/resolver-strategy.service';
+import { FieldRenderingType } from '../field-rendering-type';
+import { IdentifierComponent } from './identifier.component';
 
 describe('IdentifierComponent', () => {
   let component: IdentifierComponent;
@@ -22,28 +28,28 @@ describe('IdentifierComponent', () => {
     'language': null,
     'authority': null,
     'confidence': -1,
-    'place': 0
+    'place': 0,
   });
   const doiMetadataValueWithSubType = Object.assign(new MetadataValue(), {
     'value': '10.1392/dironix',
     'language': null,
     'authority': null,
     'confidence': -1,
-    'place': 0
+    'place': 0,
   });
   const hdlMetadataValue = Object.assign(new MetadataValue(), {
     'value': 'hdl:2434/690937',
     'language': null,
     'authority': null,
     'confidence': -1,
-    'place': 0
+    'place': 0,
   });
   const emailMetadataValue = Object.assign(new MetadataValue(), {
     'value': 'mailto:danilo.dinuzzo@4science.it',
     'language': null,
     'authority': null,
     'confidence': -1,
-    'place': 0
+    'place': 0,
   });
 
   const testItem = Object.assign(new Item(),
@@ -52,10 +58,10 @@ describe('IdentifierComponent', () => {
       metadata: {
         'dc.identifier.doi': [doiMetadataValueWithoutSubType],
         'dc.identifier.hdl': [hdlMetadataValue],
-        'person.email': [emailMetadataValue]
+        'person.email': [emailMetadataValue],
       },
       uuid: 'test-item-uuid',
-    }
+    },
   );
 
   const mockField: LayoutField = {
@@ -67,7 +73,7 @@ describe('IdentifierComponent', () => {
     'styleLabel': 'test-style-label',
     'styleValue': 'test-style-value',
     'labelAsHeading': false,
-    'valuesInline': true
+    'valuesInline': true,
   };
 
   beforeEach(waitForAsync(() => {
@@ -75,17 +81,17 @@ describe('IdentifierComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      }), BrowserAnimationsModule],
+          useClass: TranslateLoaderMock,
+        },
+      }), BrowserAnimationsModule, IdentifierComponent],
       providers: [
         { provide: 'fieldProvider', useValue: mockField },
         { provide: 'itemProvider', useValue: testItem },
         { provide: 'metadataValueProvider', useValue: doiMetadataValueWithoutSubType },
         { provide: 'renderingSubTypeProvider', useValue: '' },
-        { provide: ResolverStrategyService, useClass: ResolverStrategyService }
+        { provide: 'tabNameProvider', useValue: '' },
+        { provide: ResolverStrategyService, useClass: ResolverStrategyService },
       ],
-      declarations: [IdentifierComponent]
     })
       .compileComponents();
   }));

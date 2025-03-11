@@ -1,21 +1,28 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
-import { DsoContextBreadcrumbService } from './dso-context-breadcrumb.service';
-import { getMockLinkService } from '../../shared/mocks/link-service.mock';
-import { LinkService } from '../cache/builders/link.service';
-import { Item } from '../shared/item.model';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { DSpaceObject } from '../shared/dspace-object.model';
-import { of as observableOf } from 'rxjs';
-import { Community } from '../shared/community.model';
-import { Collection } from '../shared/collection.model';
-import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
-import { getTestScheduler } from 'jasmine-marbles';
-import { DSONameService } from './dso-name.service';
-import { getDSORoute } from '../../app-routing-paths';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { TranslateService } from '@ngx-translate/core';
-import { ItemDataService } from '../data/item-data.service';
+import { getTestScheduler } from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
+
+import { getDSORoute } from '../../app-routing-paths';
+import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
+import { getMockLinkService } from '../../shared/mocks/link-service.mock';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import { LinkService } from '../cache/builders/link.service';
 import { CollectionDataService } from '../data/collection-data.service';
 import { CommunityDataService } from '../data/community-data.service';
+import { ItemDataService } from '../data/item-data.service';
+import { Collection } from '../shared/collection.model';
+import { Community } from '../shared/community.model';
+import { DSpaceObject } from '../shared/dspace-object.model';
+import { Item } from '../shared/item.model';
+import { DsoContextBreadcrumbService } from './dso-context-breadcrumb.service';
+import { DSONameService } from './dso-name.service';
 
 describe('DsoContextBreadcrumbService', () => {
   let service: DsoContextBreadcrumbService;
@@ -23,7 +30,7 @@ describe('DsoContextBreadcrumbService', () => {
   const translate: any = {
     instant(name) {
       return 'Statistics';
-    }
+    },
   };
   let itemDataService: any;
   let collectionService: any;
@@ -57,58 +64,58 @@ describe('DsoContextBreadcrumbService', () => {
       {
         type: 'community',
         metadata: {
-          'dc.title': [{ value: 'community' }]
+          'dc.title': [{ value: 'community' }],
         },
         uuid: communityUUID,
         parentCommunity: observableOf(Object.assign(createSuccessfulRemoteDataObject(undefined), { statusCode: 204 })),
 
         _links: {
           parentCommunity: 'site',
-          self: communityPath + communityUUID
-        }
-      }
+          self: communityPath + communityUUID,
+        },
+      },
     );
 
     testCollection = Object.assign(new Collection(),
       {
         type: 'collection',
         metadata: {
-          'dc.title': [{ value: 'collection' }]
+          'dc.title': [{ value: 'collection' }],
         },
         uuid: collectionUUID,
         parentCommunity: createSuccessfulRemoteDataObject$(testCommunity),
         _links: {
           parentCommunity: communityPath + communityUUID,
-          self: communityPath + collectionUUID
-        }
-      }
+          self: communityPath + collectionUUID,
+        },
+      },
     );
 
     testItem = Object.assign(new Item(),
       {
         type: 'item',
         metadata: {
-          'dc.title': [{ value: 'item' }]
+          'dc.title': [{ value: 'item' }],
         },
         uuid: itemUUID,
         owningCollection: createSuccessfulRemoteDataObject$(testCollection),
         _links: {
           owningCollection: collectionPath + collectionUUID,
-          self: itemPath + itemUUID
-        }
-      }
+          self: itemPath + itemUUID,
+        },
+      },
     );
 
     dsoNameService = { getName: (dso) => getName(dso) };
 
     itemDataService = {
-      findById: (id: string) => createSuccessfulRemoteDataObject$(testItem)
+      findById: (id: string) => createSuccessfulRemoteDataObject$(testItem),
     };
     collectionService = {
-      findById: (id: string) => createSuccessfulRemoteDataObject$(testCollection)
+      findById: (id: string) => createSuccessfulRemoteDataObject$(testCollection),
     };
     communityService = {
-      findById: (id: string) => createSuccessfulRemoteDataObject$(testCommunity)
+      findById: (id: string) => createSuccessfulRemoteDataObject$(testCommunity),
     };
 
 
@@ -124,7 +131,7 @@ describe('DsoContextBreadcrumbService', () => {
         { provide: CollectionDataService, useValue: collectionService },
         { provide: CommunityDataService, useValue: communityService },
         { provide: DSONameService, useValue: translate },
-      ]
+      ],
     }).compileComponents();
   }));
 

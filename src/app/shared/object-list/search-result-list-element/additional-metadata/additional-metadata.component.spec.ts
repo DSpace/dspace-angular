@@ -1,9 +1,13 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 
-import { AdditionalMetadataComponent } from './additional-metadata.component';
 import { Item } from '../../../../core/shared/item.model';
 import { VocabularyService } from '../../../../core/submission/vocabularies/vocabulary.service';
+import { MetadataLinkViewComponent } from '../../../metadata-link-view/metadata-link-view.component';
 import { VocabularyServiceStub } from '../../../testing/vocabulary-service.stub';
+import { AdditionalMetadataComponent } from './additional-metadata.component';
 
 describe('AdditionalMetadataComponent', () => {
   let component: AdditionalMetadataComponent;
@@ -16,18 +20,18 @@ describe('AdditionalMetadataComponent', () => {
         'dc.title': 'test-title',
       },
       uuid: 'test-item-uuid',
-      entityType: 'publication'
-    }
+      entityType: 'publication',
+    },
   );
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AdditionalMetadataComponent ],
+      imports: [AdditionalMetadataComponent],
       providers: [
-        { provide: VocabularyService, useValue: new VocabularyServiceStub() }
+        { provide: VocabularyService, useValue: new VocabularyServiceStub() },
       ],
     })
-    .compileComponents();
+      .overrideComponent(AdditionalMetadataComponent, { remove: { imports: [MetadataLinkViewComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

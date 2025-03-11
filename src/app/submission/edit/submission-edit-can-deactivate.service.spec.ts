@@ -1,10 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-
-import { SubmissionEditCanDeactivateService } from './submission-edit-can-deactivate.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { SubmissionService } from '../submission.service';
-import { of } from 'rxjs';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { cold } from 'jasmine-marbles';
+import { of } from 'rxjs';
+
+import { SubmissionService } from '../submission.service';
+import { SubmissionEditCanDeactivateService } from './submission-edit-can-deactivate.service';
 
 describe('SubmissionEditCanDeactivateService', () => {
   let service: SubmissionEditCanDeactivateService;
@@ -14,13 +17,12 @@ describe('SubmissionEditCanDeactivateService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [],
       imports: [],
       providers: [
         { provide: ActivatedRoute, useValue: {} },
         { provide: Router, useValue: {} },
         { provide: SubmissionService, useValue: submissionServiceSpy },
-      ]
+      ],
     });
     service = TestBed.inject(SubmissionEditCanDeactivateService);
     submissionService = TestBed.inject(SubmissionService);

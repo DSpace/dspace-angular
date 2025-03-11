@@ -2,18 +2,19 @@ import { AuthMethodType } from './auth.method-type';
 
 export class AuthMethod {
   authMethodType: AuthMethodType;
+  position: number;
   location?: string;
 
-  // isStandalonePage? = true;
+  constructor(authMethodName: string, position: number, location?: string) {
+    this.position = position;
 
-  constructor(authMethodName: string, location?: string) {
     switch (authMethodName) {
       case 'ip': {
         this.authMethodType = AuthMethodType.Ip;
         break;
       }
       case 'ldap': {
-        this.authMethodType = AuthMethodType.Ldap;
+        this.authMethodType = AuthMethodType.Password;
         break;
       }
       case 'shibboleth': {

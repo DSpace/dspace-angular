@@ -1,12 +1,24 @@
 /* eslint-disable max-classes-per-file */
-import { MetadataMap, MetadataValue } from '../../core/shared/metadata.models';
-import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
-import { MoveOperation, Operation } from 'fast-json-patch';
-import { MetadataPatchReplaceOperation } from '../../core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-replace-operation.model';
-import { MetadataPatchRemoveOperation } from '../../core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-remove-operation.model';
-import { MetadataPatchAddOperation } from '../../core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-add-operation.model';
+import {
+  MoveOperation,
+  Operation,
+} from 'fast-json-patch';
+
 import { ArrayMoveChangeAnalyzer } from '../../core/data/array-move-change-analyzer.service';
+import { MetadataPatchAddOperation } from '../../core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-add-operation.model';
 import { MetadataPatchMoveOperation } from '../../core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-move-operation.model';
+import { MetadataPatchRemoveOperation } from '../../core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-remove-operation.model';
+import { MetadataPatchReplaceOperation } from '../../core/data/object-updates/patch-operation-service/operations/metadata/metadata-patch-replace-operation.model';
+import {
+  MetadataMap,
+  MetadataValue,
+} from '../../core/shared/metadata.models';
+import {
+  hasNoValue,
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../../shared/empty.util';
 
 /**
  * Enumeration for the type of change occurring on a metadata value
@@ -75,10 +87,11 @@ export class DsoEditMetadataValue {
   confirmChanges(finishEditing = false) {
     this.reordered = this.originalValue.place !== this.newValue.place;
     if (hasNoValue(this.change) || this.change === DsoEditMetadataChangeType.UPDATE) {
-      if ((this.originalValue.value !== this.newValue.value || this.originalValue.language !== this.newValue.language)) {
+      if (this.originalValue.value !== this.newValue.value || this.originalValue.language !== this.newValue.language
+        || this.originalValue.authority !== this.newValue.authority || this.originalValue.confidence !== this.newValue.confidence) {
         this.change = DsoEditMetadataChangeType.UPDATE;
-      } else {
-        this.change = undefined;
+      } else if (!hasValue(this.originalValue.authority) && hasValue(this.newValue.authority)) {
+        this.change = DsoEditMetadataChangeType.ADD;
       }
     }
     if (finishEditing) {
@@ -419,10 +432,13 @@ export class DsoEditMetadataForm {
           if (hasValue(value.change)) {
             if (value.change === DsoEditMetadataChangeType.UPDATE) {
               // Only changes to value or language are considered "replace" operations. Changes to place are considered "move", which is processed below.
-              if (value.originalValue.value !== value.newValue.value || value.originalValue.language !== value.newValue.language) {
+              if (value.originalValue.value !== value.newValue.value || value.originalValue.language !== value.newValue.language
+                || value.originalValue.authority !== value.newValue.authority  || value.originalValue.confidence !== value.newValue.confidence) {
                 replaceOperations.push(new MetadataPatchReplaceOperation(field, value.originalValue.place, {
                   value: value.newValue.value,
                   language: value.newValue.language,
+                  authority: value.newValue.authority,
+                  confidence: value.newValue.confidence,
                 }));
               }
               // "replace" the security level value
@@ -431,6 +447,7 @@ export class DsoEditMetadataForm {
                   securityLevel: value.newValue.securityLevel,
                   value: value.newValue.value,
                   language: value.newValue.language,
+                  authority: value.newValue.authority,
                 }));
               }
             } else if (value.change === DsoEditMetadataChangeType.REMOVE) {
@@ -440,7 +457,9 @@ export class DsoEditMetadataForm {
               addOperations.push(new MetadataPatchAddOperation(field, {
                 value: value.newValue.value,
                 language: value.newValue.language,
-                securityLevel: value.newValue.securityLevel
+                authority: value.newValue.authority,
+                confidence: value.newValue.confidence,
+                securityLevel: value.newValue.securityLevel,
               }));
             } else {
               console.warn('Illegal metadata change state detected for', value);

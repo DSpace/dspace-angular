@@ -1,15 +1,23 @@
-import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
+import {
+  autoserialize,
+  deserialize,
+  inheritSerialization,
+} from 'cerialize';
 import { Observable } from 'rxjs';
-import { link, typedObject } from '../cache/builders/build-decorators';
+
+import {
+  link,
+  typedObject,
+} from '../cache/builders/build-decorators';
 import { RemoteData } from '../data/remote-data';
+import { BITSTREAM } from './bitstream.resource-type';
 import { BitstreamFormat } from './bitstream-format.model';
 import { BITSTREAM_FORMAT } from './bitstream-format.resource-type';
-import { BITSTREAM } from './bitstream.resource-type';
+import { Bundle } from './bundle.model';
+import { BUNDLE } from './bundle.resource-type';
+import { ChildHALResource } from './child-hal-resource.model';
 import { DSpaceObject } from './dspace-object.model';
 import { HALLink } from './hal-link.model';
-import { BUNDLE } from './bundle.resource-type';
-import { Bundle } from './bundle.model';
-import { ChildHALResource } from './child-hal-resource.model';
 
 export interface ChecksumInfo {
   checkSumAlgorithm: string;
@@ -37,7 +45,7 @@ export class Bitstream extends DSpaceObject implements ChildHALResource {
    * The checksum information of this Bitstream
    */
   @autoserialize
-  checkSum: ChecksumInfo;
+    checkSum: ChecksumInfo;
 
   /**
    * The name of the Bundle this Bitstream is part of

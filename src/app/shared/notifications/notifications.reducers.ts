@@ -1,6 +1,10 @@
-import { NotificationsActions, NotificationsActionTypes, RemoveNotificationAction } from './notifications.actions';
 import { INotification } from './models/notification.model';
 import { IProcessNotification } from './models/process-notification.model';
+import {
+  NotificationsActions,
+  NotificationsActionTypes,
+  RemoveNotificationAction,
+} from './notifications.actions';
 
 /**
  * The notification state.

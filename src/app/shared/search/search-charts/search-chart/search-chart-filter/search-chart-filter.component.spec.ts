@@ -1,27 +1,35 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
+import { SearchService } from '../../../../../core/shared/search/search.service';
 import {
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
-  SearchFilterService
+  SearchFilterService,
 } from '../../../../../core/shared/search/search-filter.service';
-import { SearchFilterConfig } from '../../../models/search-filter-config.model';
-import { FilterType } from '../../../models/filter-type.model';
-import { FacetValue } from '../../../models/facet-value.model';
-import { FormsModule } from '@angular/forms';
-import { of as observableOf } from 'rxjs';
-import { SearchService } from '../../../../../core/shared/search/search.service';
-import { SearchServiceStub } from '../../../../testing/search-service.stub';
-import { RouterStub } from '../../../../testing/router.stub';
-import { Router } from '@angular/router';
-import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
-import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
-import { SearchChartFilterComponent } from './search-chart-filter.component';
+import { RouterStub } from '../../../../testing/router.stub';
+import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
+import { SearchServiceStub } from '../../../../testing/search-service.stub';
 import { createPaginatedList } from '../../../../testing/utils.test';
+import { FacetValue } from '../../../models/facet-value.model';
+import { FilterType } from '../../../models/filter-type.model';
+import { SearchFilterConfig } from '../../../models/search-filter-config.model';
+import { SearchChartFilterComponent } from './search-chart-filter.component';
 
 xdescribe('SearchChartFilterComponent', () => {
   let comp: SearchChartFilterComponent;
@@ -35,7 +43,7 @@ xdescribe('SearchChartFilterComponent', () => {
     type: FilterType['chart.bar'],
     hasFacets: false,
     isOpenByDefault: false,
-    pageSize: 2
+    pageSize: 2,
   });
   const values: FacetValue[] = [
     {
@@ -44,37 +52,37 @@ xdescribe('SearchChartFilterComponent', () => {
       count: 52,
       _links: {
         self: {
-          href: ''
+          href: '',
         },
         search: {
-          href: ''
-        }
-      }
+          href: '',
+        },
+      },
     }, {
       label: value2,
       value: value2,
       count: 20,
       _links: {
         self: {
-          href: ''
+          href: '',
         },
         search: {
-          href: ''
-        }
-      }
+          href: '',
+        },
+      },
     }, {
       label: value3,
       value: value3,
       count: 5,
       _links: {
         self: {
-          href: ''
+          href: '',
         },
         search: {
-          href: ''
-        }
-      }
-    }
+          href: '',
+        },
+      },
+    },
   ];
 
   const searchLink = '/search';
@@ -87,8 +95,7 @@ xdescribe('SearchChartFilterComponent', () => {
   const mockValues = createSuccessfulRemoteDataObject$(createPaginatedList(values));
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
-      declarations: [SearchChartFilterComponent],
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, SearchChartFilterComponent],
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: Router, useValue: new RouterStub() },
@@ -106,13 +113,13 @@ xdescribe('SearchChartFilterComponent', () => {
             },
             // eslint-disable-next-line @typescript-eslint/no-empty-function
             resetPage: (filterName: string) => {
-            }
-          }
-        }
+            },
+          },
+        },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(SearchChartFilterComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

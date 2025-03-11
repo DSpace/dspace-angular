@@ -1,9 +1,14 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { AdminNotificationsSuggestionTargetsPageComponent } from './admin-notifications-suggestion-targets-page.component';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  async,
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
+
+import { PublicationClaimComponent } from '../../../notifications/suggestion-targets/publication-claim/publication-claim.component';
+import { AdminNotificationsSuggestionTargetsPageComponent } from './admin-notifications-suggestion-targets-page.component';
 
 describe('AdminNotificationsSuggestionTargetsPageComponent', () => {
   let component: AdminNotificationsSuggestionTargetsPageComponent;
@@ -13,17 +18,15 @@ describe('AdminNotificationsSuggestionTargetsPageComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [
-        AdminNotificationsSuggestionTargetsPageComponent
+        TranslateModule.forRoot(),
+        AdminNotificationsSuggestionTargetsPageComponent,
       ],
       providers: [
-        AdminNotificationsSuggestionTargetsPageComponent
+        AdminNotificationsSuggestionTargetsPageComponent,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
-    .compileComponents();
+      .overrideComponent(AdminNotificationsSuggestionTargetsPageComponent, { remove: { imports: [PublicationClaimComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

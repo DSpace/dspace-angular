@@ -1,13 +1,13 @@
 <div class="container">
   <ds-suggestions-notification></ds-suggestions-notification>
-  <ds-my-dspace-new-submission *dsShowOnlyForRole="[roleTypeEnum.Submitter]"></ds-my-dspace-new-submission>
+  <ds-my-dspace-new-submission (uploadEnd)="refreshData($event)" *dsShowOnlyForRole="[roleTypeEnum.Submitter]"></ds-my-dspace-new-submission>
 </div>
 
-<ds-search *ngIf="configuration && context"
-           [configuration]="configuration"
+<ds-search *ngIf="configuration() && context()"
+           [configuration]="configuration()"
            [configurationList]="(configurationList$ | async)"
-           [context]="context"
+           [context]="context()"
            [viewModeList]="viewModeList"
-           [projection]="projection">
+           [showThumbnails]="false">
   <ds-my-dspace-new-bulk-import additionalSearchFormOptions></ds-my-dspace-new-bulk-import>
 </ds-search>

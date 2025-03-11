@@ -1,12 +1,46 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { UsageReport } from '../../../core/statistics/models/usage-report.model';
-import { GoogleChartInterface } from 'ng2-google-charts';
+import {
+  AsyncPipe,
+  isPlatformBrowser,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Inject,
+  Input,
+  OnInit,
+  PLATFORM_ID,
+  ViewChild,
+} from '@angular/core';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  GoogleChartComponent,
+  GoogleChartInterface,
+  GoogleChartType,
+  Ng2GoogleChartsModule,
+} from 'ng2-google-charts';
+import { BehaviorSubject } from 'rxjs';
 
+import {
+  ExportImageType,
+  ExportService,
+} from '../../../core/export-service/export.service';
+import { UsageReport } from '../../../core/statistics/models/usage-report.model';
 
 @Component({
   selector: 'ds-statistics-map',
   templateUrl: './statistics-map.component.html',
-  styleUrls: ['./statistics-map.component.scss']
+  styleUrls: ['./statistics-map.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    NgbDropdownModule,
+    NgFor,
+    Ng2GoogleChartsModule,
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
 // @renderChartFor(StatisticsType['map'])
 export class StatisticsMapComponent implements OnInit {
@@ -30,6 +64,40 @@ export class StatisticsMapComponent implements OnInit {
    * Chart Columns needed to be shown in the tooltip
    */
   chartColumns = [];
+  /**
+   * Loading utilized for export functions to disable buttons
+   */
+  isLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  /**
+   * Chart ElementRef
+   */
+  @ViewChild('googleChartRef') googleChartRef: GoogleChartComponent;
+
+  exportImageType = ExportImageType;
+
+  exportImageTypes = [
+    { type: ExportImageType.png, label: 'PNG' },
+    { type: ExportImageType.jpeg, label: 'JPEG/JPG' },
+  ];
+
+  protected exportService: ExportService;
+
+  constructor(
+    @Inject(PLATFORM_ID) protected platformId: any,
+  ) {
+    if (isPlatformBrowser(this.platformId)) {
+      import('../../../core/export-service/browser-export.service').then((s) => {
+        this.exportService = new s.BrowserExportService(this.platformId);
+      });
+    } else {
+      import('../../../core/export-service/server-export.service').then((s) => {
+        this.exportService = new s.ServerExportService();
+      });
+    }
+  }
 
   ngOnInit(): void {
     if ( !!this.report && !!this.report.points && this.report.points.length > 0 ) {
@@ -47,23 +115,30 @@ export class StatisticsMapComponent implements OnInit {
     this.chartColumns = [keyColumn, valueColumn];
 
     this.report.points.forEach( (point) => {
-      const idAndLabel = {v: point.id, f: point.label};
+      const idAndLabel = { v: point.id, f: point.label };
       this.data.push([
-        idAndLabel, point.values[valueColumn]
+        idAndLabel, point.values[valueColumn],
       ]);
     });
 
     this.geoChart = {
-      chartType: 'GeoChart',
+      chartType: GoogleChartType.GeoChart,
       dataTable: [
         this.chartColumns,
-        ...this.data
+        ...this.data,
       ],
-      options: { 'title': this.report.reportType }
+      options: { 'title': this.report.reportType },
     };
-
   }
 
-
-
+  /**
+   * Export the map as an image
+   * @param type of export
+   */
+  exportMapAsImage(type: ExportImageType){
+    this.isLoading$.next(true);
+    const chart = this.googleChartRef.wrapper.getChart();
+    const imageURI: string = chart?.getImageURI();
+    this.exportService.exportImageWithBase64(imageURI, type, this.report.reportType, this.isLoading$);
+  }
 }

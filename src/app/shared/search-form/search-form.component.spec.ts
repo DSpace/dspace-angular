@@ -1,51 +1,59 @@
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-import { SearchFormComponent } from './search-form.component';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Community } from '../../core/shared/community.model';
 import { TranslateModule } from '@ngx-translate/core';
+
+import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { Community } from '../../core/shared/community.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { SearchService } from '../../core/shared/search/search.service';
-import { PaginationService } from '../../core/pagination/pagination.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { PaginationServiceStub } from '../testing/pagination-service.stub';
-import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
+import { SearchFilterService } from '../../core/shared/search/search-filter.service';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { BrowserOnlyMockPipe } from '../testing/browser-only-mock.pipe';
-import { SearchServiceStub } from '../testing/search-service.stub';
-import { Router } from '@angular/router';
+import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { RouterStub } from '../testing/router.stub';
+import { SearchFilterServiceStub } from '../testing/search-filter-service.stub';
+import { SearchServiceStub } from '../testing/search-service.stub';
+import { SearchFormComponent } from './search-form.component';
 
 describe('SearchFormComponent', () => {
   let comp: SearchFormComponent;
   let fixture: ComponentFixture<SearchFormComponent>;
   let de: DebugElement;
-  let el: HTMLElement;
 
   const router = new RouterStub();
   const searchService = new SearchServiceStub();
+  let searchFilterService: SearchFilterServiceStub;
   const paginationService = new PaginationServiceStub();
   const searchConfigService = { paginationID: 'test-id' };
+  const firstPage = { 'spc.page': 1 };
   const dspaceObjectService = {
     findById: () => createSuccessfulRemoteDataObject$(undefined),
   };
 
   beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [FormsModule, RouterTestingModule, TranslateModule.forRoot()],
+    searchFilterService = new SearchFilterServiceStub();
+
+    return TestBed.configureTestingModule({
+      imports: [FormsModule, RouterTestingModule, TranslateModule.forRoot(), SearchFormComponent],
       providers: [
         { provide: Router, useValue: router },
         { provide: SearchService, useValue: searchService },
+        { provide: SearchFilterService, useValue: searchFilterService },
         { provide: PaginationService, useValue: paginationService },
         { provide: SearchConfigurationService, useValue: searchConfigService },
         { provide: DSpaceObjectDataService, useValue: dspaceObjectService },
       ],
-      declarations: [
-        SearchFormComponent,
-        BrowserOnlyMockPipe,
-      ]
     }).compileComponents();
   }));
 
@@ -53,7 +61,6 @@ describe('SearchFormComponent', () => {
     fixture = TestBed.createComponent(SearchFormComponent);
     comp = fixture.componentInstance; // SearchFormComponent test instance
     de = fixture.debugElement.query(By.css('form'));
-    el = de.nativeElement;
   });
 
   it('should not display scopes when showScopeSelector is false', fakeAsync(() => {
@@ -96,7 +103,7 @@ describe('SearchFormComponent', () => {
     tick();
     const scopeSelect = de.query(By.css('.scope-button')).nativeElement;
 
-    expect(scopeSelect.textContent).toBe(testCommunity.name);
+    expect(scopeSelect.textContent).toContain('Sample Community');
   }));
 
   describe('updateSearch', () => {
@@ -104,38 +111,38 @@ describe('SearchFormComponent', () => {
     const scope = 'MCU';
     let searchQuery = {};
 
-    it('should navigate to the search page even when no parameters are provided', () => {
+    it('should navigate to the search first page even when no parameters are provided', () => {
       comp.updateSearch(searchQuery);
 
       expect(router.navigate).toHaveBeenCalledWith(comp.getSearchLinkParts(), {
-        queryParams: searchQuery,
-        queryParamsHandling: 'merge'
+        queryParams: { ...searchQuery, ...firstPage },
+        queryParamsHandling: 'merge',
       });
     });
 
-    it('should navigate to the search page with parameters only query if only query is provided', () => {
+    it('should navigate to the search first page with parameters only query if only query is provided', () => {
       searchQuery = {
-        query: query
+        query: query,
       };
 
       comp.updateSearch(searchQuery);
 
       expect(router.navigate).toHaveBeenCalledWith(comp.getSearchLinkParts(), {
-        queryParams: searchQuery,
-        queryParamsHandling: 'merge'
+        queryParams: { ...searchQuery, ...firstPage },
+        queryParamsHandling: 'merge',
       });
     });
 
-    it('should navigate to the search page with parameters only query if only scope is provided', () => {
+    it('should navigate to the search first page with parameters only query if only scope is provided', () => {
       searchQuery = {
-        scope: scope
+        scope: scope,
       };
 
       comp.updateSearch(searchQuery);
 
       expect(router.navigate).toHaveBeenCalledWith(comp.getSearchLinkParts(), {
-        queryParams: searchQuery,
-        queryParamsHandling: 'merge'
+        queryParams: { ...searchQuery, ...firstPage },
+        queryParamsHandling: 'merge',
       });
     });
   });
@@ -152,7 +159,7 @@ describe('SearchFormComponent', () => {
     it('should only search in the provided scope', () => {
       searchQuery = {
         query: query,
-        scope: scope
+        scope: scope,
       };
 
       comp.scope = scope;
@@ -163,7 +170,7 @@ describe('SearchFormComponent', () => {
 
     it('should not create searchQuery with the scope if an empty scope is provided', () => {
       searchQuery = {
-        query: query
+        query: query,
       };
 
       comp.scope = '';
@@ -172,46 +179,23 @@ describe('SearchFormComponent', () => {
       expect(comp.updateSearch).toHaveBeenCalledWith(searchQuery);
     });
   });
-
-  // it('should call updateSearch when clicking the submit button with correct parameters', fakeAsync(() => {
-  //   comp.query = 'Test String'
-  //   fixture.detectChanges();
-  //   spyOn(comp, 'updateSearch').and.callThrough();
-  //   fixture.detectChanges();
-  //
-  //   const submit = de.query(By.css('button.search-button')).nativeElement;
-  //   const scope = '123456';
-  //   const query = 'test';
-  //   const select = de.query(By.css('select')).nativeElement;
-  //   const input = de.query(By.css('input')).nativeElement;
-  //
-  //   tick();
-  //   select.value = scope;
-  //   input.value = query;
-  //
-  //   fixture.detectChanges();
-  //
-  //   submit.click();
-  //
-  //   expect(comp.updateSearch).toHaveBeenCalledWith({ scope: scope, query: query });
-  // }));
 });
 
-export const objects: DSpaceObject[] = [
+const objects: DSpaceObject[] = [
   Object.assign(new Community(), {
     logo: {
       self: {
         _isScalar: true,
         value: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/10b636d0-7890-4968-bcd6-0d83bf4e2b42',
-        scheduler: null
-      }
+        scheduler: null,
+      },
     },
     collections: {
       self: {
         _isScalar: true,
         value: '1506937433727',
-        scheduler: null
-      }
+        scheduler: null,
+      },
     },
     _links: {
       self: {
@@ -225,40 +209,40 @@ export const objects: DSpaceObject[] = [
       'dc.description': [
         {
           language: null,
-          value: ''
-        }
+          value: '',
+        },
       ],
       'dc.description.abstract': [
         {
           language: null,
-          value: 'This is a test community to hold content for the OR2017 demostration'
-        }
+          value: 'This is a test community to hold content for the OR2017 demostration',
+        },
       ],
       'dc.description.tableofcontents': [
         {
           language: null,
-          value: ''
-        }
+          value: '',
+        },
       ],
       'dc.rights': [
         {
           language: null,
-          value: ''
-        }
+          value: '',
+        },
       ],
       'dc.title': [
         {
           language: null,
-          value: 'OR2017 - Demonstration'
-        }
+          value: 'OR2017 - Demonstration',
+        },
       ],
       'dc.identifier.uri': [
         {
           language: null,
-          value: 'http://localhost:4000/handle/10673/11'
-        }
+          value: 'http://localhost:4000/handle/10673/11',
+        },
       ],
-    }
+    },
   }),
   Object.assign(new Community(),
     {
@@ -266,15 +250,15 @@ export const objects: DSpaceObject[] = [
         self: {
           _isScalar: true,
           value: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/f446c17d-6d51-45ea-a610-d58a73642d40',
-          scheduler: null
-        }
+          scheduler: null,
+        },
       },
       collections: {
         self: {
           _isScalar: true,
           value: '1506937433727',
-          scheduler: null
-        }
+          scheduler: null,
+        },
       },
       _links: {
         self: {
@@ -288,40 +272,40 @@ export const objects: DSpaceObject[] = [
         'dc.description': [
           {
             language: null,
-            value: '<p>This is the introductory text for the <em>Sample Community</em> on the DSpace Demonstration Site. It is editable by System or Community Administrators (of this Community).</p>\r\n<p><strong>DSpace Communities may contain one or more Sub-Communities or Collections (of Items).</strong></p>\r\n<p>This particular Community has its own logo (the <a href=\'http://www.duraspace.org/\'>DuraSpace</a> logo).</p>'
-          }
+            value: '<p>This is the introductory text for the <em>Sample Community</em> on the DSpace Demonstration Site. It is editable by System or Community Administrators (of this Community).</p>\r\n<p><strong>DSpace Communities may contain one or more Sub-Communities or Collections (of Items).</strong></p>\r\n<p>This particular Community has its own logo (the <a href=\'http://www.duraspace.org/\'>DuraSpace</a> logo).</p>',
+          },
         ],
         'dc.description.abstract': [
           {
             language: null,
-            value: 'This is a sample top-level community'
-          }
+            value: 'This is a sample top-level community',
+          },
         ],
         'dc.description.tableofcontents': [
           {
             language: null,
-            value: '<p>This is the <em>news section</em> for this <em>Sample Community</em>. System or Community Administrators (of this Community) can edit this News field.</p>'
-          }
+            value: '<p>This is the <em>news section</em> for this <em>Sample Community</em>. System or Community Administrators (of this Community) can edit this News field.</p>',
+          },
         ],
         'dc.rights': [
           {
             language: null,
-            value: '<p><em>If this Community had special copyright text to display, it would be displayed here.</em></p>'
-          }
+            value: '<p><em>If this Community had special copyright text to display, it would be displayed here.</em></p>',
+          },
         ],
         'dc.title': [
           {
             language: null,
-            value: 'Sample Community'
-          }
+            value: 'Sample Community',
+          },
         ],
         'dc.identifier.uri': [
           {
             language: null,
-            value: 'http://localhost:4000/handle/10673/1'
-          }
+            value: 'http://localhost:4000/handle/10673/1',
+          },
         ],
-      }
-    }
-  )
+      },
+    },
+  ),
 ];

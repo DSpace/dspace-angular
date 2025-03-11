@@ -1,23 +1,31 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { Bundle } from '../../../../../core/shared/bundle.model';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { PaginatedDragAndDropBitstreamListComponent } from './paginated-drag-and-drop-bitstream-list.component';
-import { VarDirective } from '../../../../../shared/utils/var.directive';
-import { ObjectValuesPipe } from '../../../../../shared/utils/object-values-pipe';
-import { ObjectUpdatesService } from '../../../../../core/data/object-updates/object-updates.service';
-import { BundleDataService } from '../../../../../core/data/bundle-data.service';
-import { Bitstream } from '../../../../../core/shared/bitstream.model';
-import { BitstreamFormat } from '../../../../../core/shared/bitstream-format.model';
 import { of as observableOf } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { ResponsiveTableSizes } from '../../../../../shared/responsive-table-sizes/responsive-table-sizes';
-import { ResponsiveColumnSizes } from '../../../../../shared/responsive-table-sizes/responsive-column-sizes';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
-import { createPaginatedList } from '../../../../../shared/testing/utils.test';
+
+import { BundleDataService } from '../../../../../core/data/bundle-data.service';
+import { ObjectUpdatesService } from '../../../../../core/data/object-updates/object-updates.service';
 import { RequestService } from '../../../../../core/data/request.service';
 import { PaginationService } from '../../../../../core/pagination/pagination.service';
+import { Bitstream } from '../../../../../core/shared/bitstream.model';
+import { BitstreamFormat } from '../../../../../core/shared/bitstream-format.model';
+import { Bundle } from '../../../../../core/shared/bundle.model';
+import { PaginationComponent } from '../../../../../shared/pagination/pagination.component';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
+import { ResponsiveColumnSizes } from '../../../../../shared/responsive-table-sizes/responsive-column-sizes';
+import { ResponsiveTableSizes } from '../../../../../shared/responsive-table-sizes/responsive-table-sizes';
+import { ActivatedRouteStub } from '../../../../../shared/testing/active-router.stub';
 import { PaginationServiceStub } from '../../../../../shared/testing/pagination-service.stub';
+import { createPaginatedList } from '../../../../../shared/testing/utils.test';
+import { ObjectValuesPipe } from '../../../../../shared/utils/object-values-pipe';
+import { VarDirective } from '../../../../../shared/utils/var.directive';
+import { PaginatedDragAndDropBitstreamListComponent } from './paginated-drag-and-drop-bitstream-list.component';
 
 describe('PaginatedDragAndDropBitstreamListComponent', () => {
   let comp: PaginatedDragAndDropBitstreamListComponent;
@@ -32,41 +40,41 @@ describe('PaginatedDragAndDropBitstreamListComponent', () => {
     new ResponsiveColumnSizes(2, 2, 3, 4, 4),
     new ResponsiveColumnSizes(2, 3, 3, 3, 3),
     new ResponsiveColumnSizes(2, 2, 2, 2, 2),
-    new ResponsiveColumnSizes(6, 5, 4, 3, 3)
+    new ResponsiveColumnSizes(6, 5, 4, 3, 3),
   ]);
 
   const bundle = Object.assign(new Bundle(), {
     id: 'bundle-1',
     uuid: 'bundle-1',
     _links: {
-      self: { href: 'bundle-1-selflink' }
-    }
+      self: { href: 'bundle-1-selflink' },
+    },
   });
   const date = new Date();
   const format = Object.assign(new BitstreamFormat(), {
-    shortDescription: 'PDF'
+    shortDescription: 'PDF',
   });
   const bitstream1 = Object.assign(new Bitstream(), {
     uuid: 'bitstreamUUID1',
     name: 'Fake Bitstream 1',
     bundleName: 'ORIGINAL',
     description: 'Description',
-    format: createSuccessfulRemoteDataObject$(format)
+    format: createSuccessfulRemoteDataObject$(format),
   });
   const fieldUpdate1 = {
     field: bitstream1,
-    changeType: undefined
+    changeType: undefined,
   };
   const bitstream2 = Object.assign(new Bitstream(), {
     uuid: 'bitstreamUUID2',
     name: 'Fake Bitstream 2',
     bundleName: 'ORIGINAL',
     description: 'Description',
-    format: createSuccessfulRemoteDataObject$(format)
+    format: createSuccessfulRemoteDataObject$(format),
   });
   const fieldUpdate2 = {
     field: bitstream2,
-    changeType: undefined
+    changeType: undefined,
   };
 
   beforeEach(waitForAsync(() => {
@@ -97,36 +105,42 @@ describe('PaginatedDragAndDropBitstreamListComponent', () => {
         isReinstatable: observableOf(false),
         isValidPage: observableOf(true),
         initializeWithCustomOrder: {},
-        addPageToCustomOrder: {}
-      }
+        addPageToCustomOrder: {},
+      },
     );
 
     bundleService = jasmine.createSpyObj('bundleService', {
       getBitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1, bitstream2])),
-      getBitstreamsEndpoint: observableOf('')
+      getBitstreamsEndpoint: observableOf(''),
     });
 
     objectValuesPipe = new ObjectValuesPipe();
 
     requestService = jasmine.createSpyObj('requestService', {
-      hasByHref$: observableOf(true)
+      hasByHref$: observableOf(true),
     });
 
     paginationService = new PaginationServiceStub();
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [PaginatedDragAndDropBitstreamListComponent, VarDirective],
+      imports: [TranslateModule.forRoot(), PaginatedDragAndDropBitstreamListComponent, VarDirective],
       providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
         { provide: BundleDataService, useValue: bundleService },
         { provide: ObjectValuesPipe, useValue: objectValuesPipe },
         { provide: RequestService, useValue: requestService },
-        { provide: PaginationService, useValue: paginationService }
+        { provide: PaginationService, useValue: paginationService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ], schemas: [
-        NO_ERRORS_SCHEMA
-      ]
-    }).compileComponents();
+        NO_ERRORS_SCHEMA,
+      ],
+    })
+      .overrideComponent(PaginatedDragAndDropBitstreamListComponent, {
+        remove: {
+          imports: [PaginationComponent],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

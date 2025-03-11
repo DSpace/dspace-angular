@@ -1,6 +1,13 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
-
+import { NgIf } from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { UntypedFormControl } from '@angular/forms';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_DATEPICKER,
   DynamicDatePickerModel,
@@ -11,13 +18,48 @@ import {
   DynamicFormGroupModel,
   DynamicSelectModel,
   MATCH_ENABLED,
-  OR_OPERATOR
+  OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
-
+import { DynamicDateControlValue } from '@ng-dynamic-forms/core/lib/model/dynamic-date-control.model';
+import { DynamicFormControlCondition } from '@ng-dynamic-forms/core/lib/model/misc/dynamic-form-control-relation.model';
+import { DynamicSelectModelConfig } from '@ng-dynamic-forms/core/lib/model/select/dynamic-select.model';
 import {
-  WorkspaceitemSectionUploadFileObject
-} from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
+import {
+  filter,
+  mergeMap,
+  take,
+} from 'rxjs/operators';
+import { SubmissionObject } from 'src/app/core/submission/models/submission-object.model';
+import { WorkspaceitemSectionUploadObject } from 'src/app/core/submission/models/workspaceitem-section-upload.model';
+import { DynamicCustomSwitchModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
+
+import { AccessConditionOption } from '../../../../../core/config/models/config-access-condition-option.model';
+import { SubmissionFormsModel } from '../../../../../core/config/models/config-submission-forms.model';
+import { JsonPatchOperationPathCombiner } from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '../../../../../core/json-patch/builder/json-patch-operations-builder';
+import { WorkspaceitemSectionUploadFileObject } from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
+import { SubmissionJsonPatchOperationsService } from '../../../../../core/submission/submission-json-patch-operations.service';
+import { normalizeSectionData } from '../../../../../core/submission/submission-response-parsing.service';
+import { dateToISOFormat } from '../../../../../shared/date.util';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+} from '../../../../../shared/empty.util';
 import { FormBuilderService } from '../../../../../shared/form/builder/form-builder.service';
+import { FormFieldModel } from '../../../../../shared/form/builder/models/form-field.model';
+import { FormComponent } from '../../../../../shared/form/form.component';
+import { FormService } from '../../../../../shared/form/form.service';
+import { SubmissionService } from '../../../../submission.service';
+import parseSectionErrors from '../../../../utils/parseSectionErrors';
+import { SectionsService } from '../../../sections.service';
+import { SectionUploadService } from '../../section-upload.service';
+import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload-constants';
 import {
   BITSTREAM_ACCESS_CONDITION_GROUP_CONFIG,
   BITSTREAM_ACCESS_CONDITION_GROUP_LAYOUT,
@@ -29,36 +71,12 @@ import {
   BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_LAYOUT,
   BITSTREAM_FORM_ACCESS_CONDITION_TYPE_CONFIG,
   BITSTREAM_FORM_ACCESS_CONDITION_TYPE_LAYOUT,
+  BITSTREAM_FORM_ACCESS_CONDITIONS_TRANSLATION_CONFIG,
+  BITSTREAM_FORM_PRIMARY,
+  BITSTREAM_FORM_PRIMARY_LAYOUT,
   BITSTREAM_METADATA_FORM_GROUP_CONFIG,
-  BITSTREAM_METADATA_FORM_GROUP_LAYOUT
+  BITSTREAM_METADATA_FORM_GROUP_LAYOUT,
 } from './section-upload-file-edit.model';
-import { POLICY_DEFAULT_WITH_LIST } from '../../section-upload.component';
-import { hasNoValue, hasValue, isNotEmpty, isNotNull } from '../../../../../shared/empty.util';
-import { SubmissionFormsModel } from '../../../../../core/config/models/config-submission-forms.model';
-import { FormFieldModel } from '../../../../../shared/form/builder/models/form-field.model';
-import { AccessConditionOption } from '../../../../../core/config/models/config-access-condition-option.model';
-import { SubmissionService } from '../../../../submission.service';
-import { FormService } from '../../../../../shared/form/form.service';
-import { FormComponent } from '../../../../../shared/form/form.component';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { filter, mergeMap, take } from 'rxjs/operators';
-import { dateToISOFormat } from '../../../../../shared/date.util';
-import { SubmissionObject } from '../../../../../core/submission/models/submission-object.model';
-import {
-  WorkspaceitemSectionUploadObject
-} from '../../../../../core/submission/models/workspaceitem-section-upload.model';
-import { JsonPatchOperationsBuilder } from '../../../../../core/json-patch/builder/json-patch-operations-builder';
-import {
-  SubmissionJsonPatchOperationsService
-} from '../../../../../core/submission/submission-json-patch-operations.service';
-import {
-  JsonPatchOperationPathCombiner
-} from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { SectionUploadService } from '../../section-upload.service';
-import { Subscription } from 'rxjs';
-import { DynamicFormControlCondition } from '@ng-dynamic-forms/core/lib/model/misc/dynamic-form-control-relation.model';
-import { DynamicDateControlValue } from '@ng-dynamic-forms/core/lib/model/dynamic-date-control.model';
-import { DynamicSelectModelConfig } from '@ng-dynamic-forms/core/lib/model/select/dynamic-select.model';
 
 /**
  * This component represents the edit form for bitstream
@@ -67,13 +85,26 @@ import { DynamicSelectModelConfig } from '@ng-dynamic-forms/core/lib/model/selec
   selector: 'ds-submission-section-upload-file-edit',
   styleUrls: ['./section-upload-file-edit.component.scss'],
   templateUrl: './section-upload-file-edit.component.html',
+  imports: [
+    FormComponent,
+    NgIf,
+    TranslateModule,
+  ],
+  standalone: true,
 })
-export class SubmissionSectionUploadFileEditComponent implements OnInit {
+export class SubmissionSectionUploadFileEditComponent implements OnInit, OnDestroy {
 
   /**
    * The FormComponent reference
    */
   @ViewChild('formRef') public formRef: FormComponent;
+
+  /**
+   * The indicator is the primary bitstream
+   * it will be null if no primary bitstream is set for the ORIGINAL bundle
+   * @type {boolean, null}
+   */
+  isPrimary: boolean;
 
   /**
    * add more access conditions link show or not
@@ -178,6 +209,8 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
    * @param {JsonPatchOperationsBuilder} operationsBuilder
    * @param {SubmissionJsonPatchOperationsService} operationsService
    * @param {SectionUploadService} uploadService
+   * @param translate
+   * @param sectionService
    */
   constructor(
     protected activeModal: NgbActiveModal,
@@ -188,6 +221,8 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
     private operationsBuilder: JsonPatchOperationsBuilder,
     private operationsService: SubmissionJsonPatchOperationsService,
     private uploadService: SectionUploadService,
+    private translate: TranslateService,
+    private sectionService: SectionsService,
   ) {
   }
 
@@ -198,6 +233,10 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
    *    The form model
    */
   public initModelData(formModel: DynamicFormControlModel[]) {
+
+    const primaryBitstreamModel: any = this.formBuilderService.findById('primary', formModel, this.fileIndex);
+    primaryBitstreamModel.value = this.isPrimary || false;
+
     this.fileData.accessConditions.forEach((accessCondition, index) => {
       Array.of('name', 'startDate', 'endDate')
         .filter((key) => accessCondition.hasOwnProperty(key) && isNotEmpty(accessCondition[key]))
@@ -209,7 +248,7 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
               metadataModel.value = {
                 year: date.getUTCFullYear(),
                 month: date.getUTCMonth() + 1,
-                day: date.getUTCDate()
+                day: date.getUTCDate(),
               };
             } else {
               metadataModel.value = accessCondition[key];
@@ -248,13 +287,13 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
    * @param control
    *    The [[FormControl]] object
    */
-  public setOptions(model: DynamicFormControlModel, control: FormControl) {
+  public setOptions(model: DynamicFormControlModel, control: UntypedFormControl) {
     let accessCondition: AccessConditionOption = null;
     this.availableAccessConditionOptions.filter((element) => element.name === control.value)
       .forEach((element) => accessCondition = element );
     if (isNotEmpty(accessCondition)) {
-      const startDateControl: FormControl = control.parent.get('startDate') as FormControl;
-      const endDateControl: FormControl = control.parent.get('endDate') as FormControl;
+      const startDateControl: UntypedFormControl = control.parent.get('startDate') as UntypedFormControl;
+      const endDateControl: UntypedFormControl = control.parent.get('endDate') as UntypedFormControl;
 
       // Clear previous state
       startDateControl?.markAsUntouched();
@@ -294,17 +333,25 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
     const configForm = Object.assign({}, this.configMetadataForm, {
       fields: Object.assign([], this.configMetadataForm.rows[0].fields[0], [
         this.configMetadataForm.rows[0].fields[0],
-        configDescr
-      ])
+        configDescr,
+      ]),
     });
     const formModel: DynamicFormControlModel[] = [];
+
+    formModel.push(new DynamicCustomSwitchModel(BITSTREAM_FORM_PRIMARY, BITSTREAM_FORM_PRIMARY_LAYOUT));
+
     const metadataGroupModelConfig = Object.assign({}, BITSTREAM_METADATA_FORM_GROUP_CONFIG);
     metadataGroupModelConfig.group = this.formBuilderService.modelFromConfiguration(
       this.submissionId,
       configForm,
       this.collectionId,
       this.fileData.metadata,
-      this.submissionService.getSubmissionScope()
+      this.submissionService.getSubmissionScope(),
+      false,
+      null,
+      false,
+      null,
+      false,
     );
     formModel.push(new DynamicFormGroupModel(metadataGroupModelConfig, BITSTREAM_METADATA_FORM_GROUP_LAYOUT));
     const accessConditionTypeModelConfig = Object.assign({}, BITSTREAM_FORM_ACCESS_CONDITION_TYPE_CONFIG);
@@ -315,9 +362,9 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
       for (const accessCondition of this.availableAccessConditionOptions) {
         accessConditionTypeOptions.push(
           {
-            label: accessCondition.name,
-            value: accessCondition.name
-          }
+            label: this.translate.instant(`${BITSTREAM_FORM_ACCESS_CONDITIONS_TRANSLATION_CONFIG}${accessCondition.name}`),
+            value: accessCondition.name,
+          },
         );
       }
       accessConditionTypeModelConfig.options = accessConditionTypeOptions;
@@ -336,7 +383,7 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
             maxStartDate = {
               year: min.getUTCFullYear(),
               month: min.getUTCMonth() + 1,
-              day: min.getUTCDate()
+              day: min.getUTCDate(),
             };
           }
         }
@@ -347,7 +394,7 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
             maxEndDate = {
               year: max.getUTCFullYear(),
               month: max.getUTCMonth() + 1,
-              day: max.getUTCDate()
+              day: max.getUTCDate(),
             };
           }
         }
@@ -367,7 +414,7 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
         // Number of access conditions blocks in form
         accessConditionsArrayConfig.initialCount = isNotEmpty(this.fileData.accessConditions) ? this.fileData.accessConditions.length : 1;
         formModel.push(
-          new DynamicFormArrayModel(accessConditionsArrayConfig, BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_LAYOUT)
+          new DynamicFormArrayModel(accessConditionsArrayConfig, BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_LAYOUT),
         );
       }
     }
@@ -375,10 +422,14 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
     return formModel;
   }
 
+
   /**
    * Save bitstream metadata
    */
   saveBitstreamData() {
+
+    const pathFragment = ['files', this.fileIndex];
+
     // validate form
     this.formService.validateAllFormFields(this.formRef.formGroup);
     const saveBitstreamDataSubscription = this.formService.isValid(this.formId).pipe(
@@ -387,13 +438,15 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
       mergeMap(() => this.formService.getFormData(this.formId)),
       take(1),
       mergeMap((formData: any) => {
+        this.uploadService.updatePrimaryBitstreamOperation(this.pathCombiner.getPath('primary'), this.isPrimary, formData.primary[0], this.fileId);
+
         // collect bitstream metadata
         Object.keys((formData.metadata))
           .filter((key) => isNotEmpty(formData.metadata[key]))
           .forEach((key) => {
             const metadataKey = key.replace(/_/g, '.');
             const path = `metadata/${metadataKey}`;
-            this.operationsBuilder.add(this.pathCombiner.getPath(path), formData.metadata[key], true);
+            this.operationsBuilder.add(this.pathCombiner.getPath([...pathFragment, path]), formData.metadata[key], true);
           });
         Object.keys((this.fileData.metadata))
           .filter((key) => isNotEmpty(this.fileData.metadata[key]))
@@ -402,15 +455,14 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
           .forEach((key) => {
             const metadataKey = key.replace(/_/g, '.');
             const path = `metadata/${metadataKey}`;
-            this.operationsBuilder.remove(this.pathCombiner.getPath(path));
+            this.operationsBuilder.remove(this.pathCombiner.getPath([...pathFragment, path]));
           });
         const accessConditionsToSave = [];
         let accessConditionsToIterate;
         if (this.singleAccessCondition) {
           accessConditionsToIterate = [formData[BITSTREAM_ACCESS_CONDITION_GROUP_CONFIG.id]];
         } else {
-          accessConditionsToIterate = formData.accessConditions
-            .map((accessConditions) => accessConditions.accessConditionGroup);
+          accessConditionsToIterate = formData?.accessConditions?.map((accessConditions) => accessConditions.accessConditionGroup) || [];
         }
         accessConditionsToIterate
           .filter((accessCondition) => isNotEmpty(accessCondition))
@@ -426,42 +478,69 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
               currentAccessCondition.name = this.retrieveValueFromField(accessCondition.name);
 
               /* When start and end date fields are deactivated, their values may be still present in formData,
-              therefore it is necessary to delete them if they're not allowed by the current access condition option. */
+            therefore it is necessary to delete them if they're not allowed by the current access condition option. */
               if (!accessConditionOpt.hasStartDate) {
                 delete currentAccessCondition.startDate;
               } else if (accessCondition.startDate) {
                 const startDate = this.retrieveValueFromField(accessCondition.startDate);
-                currentAccessCondition.startDate = dateToISOFormat(startDate);
+                // Clamp the start date to the maximum, if any, since the
+                // datepicker sometimes exceeds it.
+                let startDateDate = new Date(startDate);
+                if (accessConditionOpt.maxStartDate) {
+                  const maxStartDateDate = new Date(accessConditionOpt.maxStartDate);
+                  if (startDateDate > maxStartDateDate) {
+                    startDateDate = maxStartDateDate;
+                  }
+                }
+                currentAccessCondition.startDate = dateToISOFormat(startDateDate);
               }
               if (!accessConditionOpt.hasEndDate) {
                 delete currentAccessCondition.endDate;
               } else if (accessCondition.endDate) {
                 const endDate = this.retrieveValueFromField(accessCondition.endDate);
-                currentAccessCondition.endDate = dateToISOFormat(endDate);
+                // Clamp the end date to the maximum, if any, since the
+                // datepicker sometimes exceeds it.
+                let endDateDate = new Date(endDate);
+                if (accessConditionOpt.maxEndDate) {
+                  const maxEndDateDate = new Date(accessConditionOpt.maxEndDate);
+                  if (endDateDate > maxEndDateDate) {
+                    endDateDate = maxEndDateDate;
+                  }
+                }
+                currentAccessCondition.endDate = dateToISOFormat(endDateDate);
               }
               accessConditionsToSave.push(currentAccessCondition);
             }
           });
 
         if (isNotEmpty(accessConditionsToSave)) {
-          this.operationsBuilder.add(this.pathCombiner.getPath('accessConditions'), accessConditionsToSave, true);
+          this.operationsBuilder.add(this.pathCombiner.getPath([...pathFragment, 'accessConditions']), accessConditionsToSave, true);
         }
-
         // dispatch a PATCH request to save metadata
         return this.operationsService.jsonPatchByResourceID(
           this.submissionService.getSubmissionObjectLinkName(),
           this.submissionId,
           this.pathCombiner.rootElement,
           this.pathCombiner.subRootElement);
-      })
+      }),
     ).subscribe((result: SubmissionObject[]) => {
       if (result[0].sections[this.sectionId]) {
-        const uploadSection = (result[0].sections[this.sectionId] as WorkspaceitemSectionUploadObject);
+        const resultSection = result[0].sections[this.sectionId];
+        const uploadSection = (resultSection as WorkspaceitemSectionUploadObject);
+        const { errors } = result[0];
+        const errorsList = parseSectionErrors(errors);
+        const sectionData = normalizeSectionData(resultSection);
+        const sectionErrors = errorsList[this.sectionId];
+
+        this.uploadService.updateFilePrimaryBitstream(this.submissionId, this.sectionId, uploadSection.primary);
+
         Object.keys(uploadSection.files)
           .filter((key) => uploadSection.files[key].uuid === this.fileId)
           .forEach((key) => this.uploadService.updateFileData(
-            this.submissionId, this.sectionId, this.fileId, uploadSection.files[key])
+            this.submissionId, this.sectionId, this.fileId, uploadSection.files[key]),
           );
+
+        this.sectionService.updateSectionData(this.submissionId, this.sectionId, sectionData, sectionErrors, sectionErrors);
       }
       this.isSaving = false;
       this.activeModal.close();
@@ -470,12 +549,12 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit {
   }
 
   private createAccessConditionGroupModel(accessConditionTypeModelConfig: DynamicSelectModelConfig<any>,
-                                          confStart: Partial<DynamicDatePickerModelConfig>,
-                                          confEnd: Partial<DynamicDatePickerModelConfig>,
-                                          hasStartDate: boolean,
-                                          maxStartDate: DynamicDateControlValue,
-                                          hasEndDate: boolean,
-                                          maxEndDate: DynamicDateControlValue ): DynamicFormGroupModel {
+    confStart: Partial<DynamicDatePickerModelConfig>,
+    confEnd: Partial<DynamicDatePickerModelConfig>,
+    hasStartDate: boolean,
+    maxStartDate: DynamicDateControlValue,
+    hasEndDate: boolean,
+    maxEndDate: DynamicDateControlValue ): DynamicFormGroupModel {
     const type = new DynamicSelectModel(accessConditionTypeModelConfig, BITSTREAM_FORM_ACCESS_CONDITION_TYPE_LAYOUT);
     const startDateConfig = Object.assign({}, BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_CONFIG, confStart);
     if (maxStartDate) {

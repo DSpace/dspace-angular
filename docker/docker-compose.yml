@@ -9,7 +9,6 @@
 # Docker Compose for running the DSpace Angular UI for testing/development
 # Requires also running a REST API backend (either locally or remotely),
 # for example via 'docker-compose-rest.yml'
-version: '3.7'
 networks:
   dspacenet:
 services:
@@ -24,7 +23,7 @@ services:
       DSPACE_REST_HOST: localhost
       DSPACE_REST_PORT: 8080
       DSPACE_REST_NAMESPACE: /server
-    image: dspace/dspace-angular:dspace-7_x
+    image: dspace/dspace-angular:${DSPACE_VER:-latest}
     build:
       context: ..
       dockerfile: Dockerfile

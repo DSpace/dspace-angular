@@ -1,14 +1,28 @@
-import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Inject,
+  PLATFORM_ID,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  Observable,
+  of,
+} from 'rxjs';
 
-import { Observable, of } from 'rxjs';
-
-import { StatisticsType } from '../../statistics-type.model';
-import { renderChartFor } from '../../cris-statistics-element-decorator';
-import { StatisticsChartDataComponent } from '../statistics-chart-data/statistics-chart-data.component';
+import { ChartComponent } from '../../../../charts/components/chart/chart.component';
 import { ChartData } from '../../../../charts/models/chart-data';
 import { ChartSeries } from '../../../../charts/models/chart-series';
-import { Point, UsageReport } from '../../../../core/statistics/models/usage-report.model';
 import { REPORT_DATA } from '../../../../core/statistics/data-report.service';
+import {
+  Point,
+  UsageReport,
+} from '../../../../core/statistics/models/usage-report.model';
+import { AlertComponent } from '../../../../shared/alert/alert.component';
+import { StatisticsChartDataComponent } from '../statistics-chart-data/statistics-chart-data.component';
 
 /**
  * This component renders a simple item page.
@@ -19,17 +33,24 @@ import { REPORT_DATA } from '../../../../core/statistics/data-report.service';
   selector: 'ds-statistics-chart-line',
   styleUrls: ['./statistics-chart-line.component.scss'],
   templateUrl: './statistics-chart-line.component.html',
+  standalone: true,
+  imports: [
+    NgIf,
+    ChartComponent,
+    AlertComponent,
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
 /**
  * Component that represents a line chart
  */
-@renderChartFor(StatisticsType['chart.line'])
 export class StatisticsChartLineComponent extends StatisticsChartDataComponent {
 
   constructor(
     @Inject(REPORT_DATA) public report: UsageReport,
     @Inject('categoryType') public categoryType: string,
-    @Inject(PLATFORM_ID) protected platformId: Object
+    @Inject(PLATFORM_ID) protected platformId: any,
   ) {
     super(report, categoryType, platformId);
   }
@@ -41,7 +62,7 @@ export class StatisticsChartLineComponent extends StatisticsChartDataComponent {
 
     let key = 'views';
 
-    if (!!this.report.points[0]) {
+    if (this.report.points[0]) {
       key = Object.keys(this.report.points[0].values)[0];
     }
 
@@ -58,9 +79,9 @@ export class StatisticsChartLineComponent extends StatisticsChartDataComponent {
       [
         {
           name: this.report.reportType,
-          series: series
-        }
-      ]
+          series: series,
+        },
+      ],
     );
   }
 

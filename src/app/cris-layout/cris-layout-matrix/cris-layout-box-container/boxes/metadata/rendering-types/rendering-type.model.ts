@@ -1,17 +1,28 @@
-import { Component, Input } from '@angular/core';
-
-import { hasValue } from '../../../../../../shared/empty.util';
-import { Item } from '../../../../../../core/shared/item.model';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+
 import { LayoutField } from '../../../../../../core/layout/models/box.model';
+import { GenericConstructor } from '../../../../../../core/shared/generic-constructor';
+import { Item } from '../../../../../../core/shared/item.model';
 import { MetadataValue } from '../../../../../../core/shared/metadata.models';
+import { hasValue } from '../../../../../../shared/empty.util';
+
+
+export interface MetadataBoxFieldRenderOptions {
+  componentRef: GenericConstructor<Component>;
+  structured: boolean;
+}
 
 /**
  * This class defines the basic model to extends for create a new
  * field render component
  */
 @Component({
-  template: ''
+  template: '',
+  standalone: true,
 })
 export abstract class RenderingTypeModelComponent {
 
@@ -36,6 +47,11 @@ export abstract class RenderingTypeModelComponent {
   @Input() nested: boolean;
 
   @Input() indexToBeRendered;
+
+  /**
+   * The tab name
+   */
+  @Input() tabName: string;
 
   /**
    * The prefix used for box field label's i18n key
@@ -98,3 +114,4 @@ export abstract class RenderingTypeModelComponent {
     return this.field.styleValue || '';
   }
 }
+

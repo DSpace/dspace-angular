@@ -1,17 +1,23 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-
-import { DateComponent } from './date.component';
+import { LayoutField } from '../../../../../../../core/layout/models/box.model';
+import { LocaleService } from '../../../../../../../core/locale/locale.service';
 import { Item } from '../../../../../../../core/shared/item.model';
+import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
 import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
 import { DsDatePipe } from '../../../../../../pipes/ds-date.pipe';
-import { LayoutField } from '../../../../../../../core/layout/models/box.model';
-import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
-import { FieldRenderingType } from '../metadata-box.decorator';
-import { LocaleService } from '../../../../../../../core/locale/locale.service';
+import { FieldRenderingType } from '../field-rendering-type';
+import { DateComponent } from './date.component';
 
 describe('DateComponent', () => {
   let component: DateComponent;
@@ -23,17 +29,17 @@ describe('DateComponent', () => {
     'language': null,
     'authority': null,
     'confidence': -1,
-    'place': 0
+    'place': 0,
   });
 
   const testItem = Object.assign(new Item(),
     {
       type: 'item',
       metadata: {
-        'dc.title': [metadataValue]
+        'dc.title': [metadataValue],
       },
       uuid: 'test-item-uuid',
-    }
+    },
   );
 
   const localeServiceMock = Object.assign({
@@ -49,7 +55,7 @@ describe('DateComponent', () => {
     'styleLabel': 'test-style-label',
     'styleValue': 'test-style-value',
     'labelAsHeading': false,
-    'valuesInline': true
+    'valuesInline': true,
   };
 
   beforeEach(waitForAsync(() => {
@@ -57,17 +63,17 @@ describe('DateComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      }), BrowserAnimationsModule],
+          useClass: TranslateLoaderMock,
+        },
+      }), BrowserAnimationsModule, DateComponent, DsDatePipe],
       providers: [
         { provide: 'fieldProvider', useValue: mockField },
         { provide: 'itemProvider', useValue: testItem },
         { provide: 'metadataValueProvider', useValue: metadataValue },
         { provide: 'renderingSubTypeProvider', useValue: '' },
+        { provide: 'tabNameProvider', useValue: '' },
         { provide: LocaleService, useValue: localeServiceMock },
       ],
-      declarations: [DateComponent, DsDatePipe]
     })
       .compileComponents();
   }));

@@ -1,9 +1,17 @@
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import isEqual from 'lodash/isEqual';
-import { Component, OnInit } from '@angular/core';
 
+import { ChartComponent } from '../../../../../charts/components/chart/chart.component';
 import { FilterType } from '../../../models/filter-type.model';
 import { facetLoad } from '../../../search-filters/search-filter/search-facet-filter/search-facet-filter.component';
-import { renderChartFor } from '../../chart-search-result-element-decorator';
 import { SearchChartFilterComponent } from '../search-chart-filter/search-chart-filter.component';
 
 @Component({
@@ -11,12 +19,17 @@ import { SearchChartFilterComponent } from '../search-chart-filter/search-chart-
   styleUrls: ['./search-chart-bar.component.scss'],
   templateUrl: './search-chart-bar.component.html',
   animations: [facetLoad],
+  imports: [
+    NgIf,
+    AsyncPipe,
+    ChartComponent,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 /**
  * Component that represents a search bar/reverse-bar chart filter
  */
-@renderChartFor(FilterType['chart.bar'])
-@renderChartFor(FilterType['chart.reverse-bar'])
 export class SearchChartBarComponent extends SearchChartFilterComponent implements OnInit {
 
   ngOnInit() {

@@ -1,25 +1,21 @@
 import { Injectable } from '@angular/core';
-
 import { Observable } from 'rxjs';
 
-import { dataService } from '../data/base/data-service.decorator';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { IdentifiableDataService } from '../data/base/identifiable-data.service';
+import { SearchDataImpl } from '../data/base/search-data';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { WorkflowOwnerStatistics } from './models/workflow-owner-statistics.model';
-import { WORKFLOW_OWNER_STATISTICS } from './models/workflow-owner-statistics.resource-type';
-import { SearchDataImpl } from '../data/base/search-data';
-import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 
 /**
  * A service that provides methods to make REST requests with workflow owner statistics endpoint.
  */
-@Injectable()
-@dataService(WORKFLOW_OWNER_STATISTICS)
+@Injectable({ providedIn: 'root' })
 export class WorkflowOwnerStatisticsDataService extends IdentifiableDataService<WorkflowOwnerStatistics> {
 
   protected linkPath = 'workflowOwners';
@@ -30,7 +26,7 @@ export class WorkflowOwnerStatisticsDataService extends IdentifiableDataService<
     protected requestService: RequestService,
     protected rdbService: RemoteDataBuildService,
     protected objectCache: ObjectCacheService,
-    protected halService: HALEndpointService
+    protected halService: HALEndpointService,
   ) {
     super('workflowOwners', requestService, rdbService, objectCache, halService);
 
@@ -66,7 +62,7 @@ export class WorkflowOwnerStatisticsDataService extends IdentifiableDataService<
 
     return this.searchData.searchBy('byDateRange', {
       elementsPerPage: limit,
-      searchParams: searchParams
+      searchParams: searchParams,
     }, false);
 
   }

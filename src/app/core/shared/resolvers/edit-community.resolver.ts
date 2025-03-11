@@ -1,21 +1,30 @@
+import { inject } from '@angular/core';
+import {
+  ActivatedRouteSnapshot,
+  ResolveFn,
+  RouterStateSnapshot,
+} from '@angular/router';
+import { Observable } from 'rxjs';
+
+import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { CommunityDataService } from '../../data/community-data.service';
-import { Injectable } from '@angular/core';
+import { RemoteData } from '../../data/remote-data';
 import { Community } from '../community.model';
-import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
-import { EditDsoResolver } from './edit-dso.resolver';
+import { getFirstCompletedRemoteData } from '../operators';
 
-/**
- * This class represents a resolver that requests a specific Community before the route is activated
- */
-@Injectable()
-export class EditCommunityResolver extends EditDsoResolver<Community> {
-  constructor(
-    protected communityDataService: CommunityDataService,
-  ) {
-    super(communityDataService);
-  }
+export const editCommunityResolver: ResolveFn<RemoteData<Community>> = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+): Observable<RemoteData<Community>> => {
+  const communityDataService = inject(CommunityDataService);
 
-  getFollowLinks(): FollowLinkConfig<Community>[] {
-    return [followLink('logo')];
-  }
-}
+  return communityDataService.findByIdWithProjections(
+    route.params.id,
+    ['allLanguages'],
+    true,
+    false,
+    followLink('logo'),
+  ).pipe(
+    getFirstCompletedRemoteData(),
+  );
+};

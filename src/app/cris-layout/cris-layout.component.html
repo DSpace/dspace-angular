@@ -13,7 +13,7 @@
 			<ds-cris-layout-loader *ngIf="!!loaderTabs && loaderTabs.length > 0"
                              [leadingTabs]="(leadingTabs$ | async)"
                              [item]="item"
-                             [showContextMenu]="!(hasLeadingTab$ | async) && showContextMenu"
+                             [showContextMenu]="(hasLeadingTab$ | async) !== true && showContextMenu"
                              [tabs]="loaderTabs"></ds-cris-layout-loader>
 		</ng-container>
 	</ng-container>

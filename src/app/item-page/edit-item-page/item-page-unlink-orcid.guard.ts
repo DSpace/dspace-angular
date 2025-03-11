@@ -1,27 +1,22 @@
-import { Injectable } from '@angular/core';
-import { CanActivate, Router, UrlTree } from '@angular/router';
+import { inject } from '@angular/core';
+import {
+  CanActivateFn,
+  Router,
+  UrlTree,
+} from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import { getForbiddenRoute } from '../../app-routing-paths';
 import { OrcidAuthService } from '../../core/orcid/orcid-auth.service';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class ItemPageUnlinkOrcidGuard implements CanActivate {
+export const itemPageUnlinkOrcidGuard: CanActivateFn = (): Observable<boolean | UrlTree> => {
+  const orcidAuthService = inject(OrcidAuthService);
+  const router = inject(Router);
 
-  constructor(
-    protected orcidAuthService: OrcidAuthService,
-    protected router: Router) {
-
-  }
-
-  canActivate(): Observable<boolean | UrlTree>  {
-    return this.orcidAuthService.onlyAdminCanDisconnectProfileFromOrcid().pipe(
-      map((canDisconnect) => {
-        return canDisconnect ? true : this.router.parseUrl(getForbiddenRoute());
-      })
-    );
-  }
-
-}
+  return orcidAuthService.onlyAdminCanDisconnectProfileFromOrcid().pipe(
+    map((canDisconnect) => {
+      return canDisconnect ? true : router.parseUrl(getForbiddenRoute());
+    }),
+  );
+};

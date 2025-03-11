@@ -1,10 +1,20 @@
-import { ChangeDetectorRef, OnDestroy, Pipe, PipeTransform } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
-import { isValidDate, localeDate } from '../../shared/date.util';
+import {
+  ChangeDetectorRef,
+  OnDestroy,
+  Pipe,
+  PipeTransform,
+} from '@angular/core';
+
 import { LocaleService } from '../../core/locale/locale.service';
+import {
+  isValidDate,
+  localeDate,
+} from '../../shared/date.util';
 
 @Pipe({
-  name: 'dsDate'
+  name: 'dsDate',
+  standalone: true,
 })
 export class DsDatePipe implements PipeTransform, OnDestroy {
 

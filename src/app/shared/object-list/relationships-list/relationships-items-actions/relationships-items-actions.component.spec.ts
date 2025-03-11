@@ -1,12 +1,20 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { RelationshipsItemsActionsComponent } from './relationships-items-actions.component';
-
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { Store } from '@ngrx/store';
+import {
+  MockStore,
+  provideMockStore,
+} from '@ngrx/store/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+
 import { AppState } from '../../../../app.reducer';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
+import { RelationshipsItemsActionsComponent } from './relationships-items-actions.component';
 
 describe('RelationshipsItemsActionsComponent', () => {
   let component: RelationshipsItemsActionsComponent;
@@ -16,26 +24,26 @@ describe('RelationshipsItemsActionsComponent', () => {
 
   const initialState = {
     editItemRelationships: {
-      pendingChanges: true
-    }
+      pendingChanges: true,
+    },
   };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RelationshipsItemsActionsComponent ],
       imports: [
+        RelationshipsItemsActionsComponent,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
       providers: [
         provideMockStore({ initialState }),
-      ]
+      ],
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

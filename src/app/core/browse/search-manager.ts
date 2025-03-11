@@ -1,31 +1,42 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
-import { PaginatedList } from '../data/paginated-list.model';
-import { RemoteData } from '../data/remote-data';
-import { Item } from '../shared/item.model';
-import { getFirstSucceededRemoteData } from '../shared/operators';
-import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { ItemDataService } from '../data/item-data.service';
-import { BrowseService } from './browse.service';
+import isArray from 'lodash/isArray';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
+
+import { FollowAuthorityMetadata } from '../../../config/search-follow-metadata.interface';
 import { environment } from '../../../environments/environment';
-import { DSpaceObject } from '../shared/dspace-object.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { SearchObjects } from '../../shared/search/models/search-objects.model';
-import { SearchService } from '../shared/search/search.service';
-import { WorkspaceItem } from '../submission/models/workspaceitem.model';
-import { WorkflowItem } from '../submission/models/workflowitem.model';
-import { hasValue } from '../../shared/empty.util';
-import { FollowAuthorityMetadata } from '../../../config/search-follow-metadata.interface';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { ItemDataService } from '../data/item-data.service';
+import { PaginatedList } from '../data/paginated-list.model';
+import { RemoteData } from '../data/remote-data';
+import { WORKFLOWITEM } from '../eperson/models/workflowitem.resource-type';
+import { WORKSPACEITEM } from '../eperson/models/workspaceitem.resource-type';
+import { DSpaceObject } from '../shared/dspace-object.model';
+import { Item } from '../shared/item.model';
+import { ITEM } from '../shared/item.resource-type';
 import { MetadataValue } from '../shared/metadata.models';
 import { Metadata } from '../shared/metadata.utils';
-import isArray from 'lodash/isArray';
+import { getFirstCompletedRemoteData } from '../shared/operators';
+import { SearchService } from '../shared/search/search.service';
+import { BrowseService } from './browse.service';
+import { BrowseEntrySearchOptions } from './browse-entry-search-options.model';
 
 /**
  * The service aims to manage browse requests and subsequent extra fetch requests.
  */
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class SearchManager {
 
   constructor(
@@ -44,7 +55,8 @@ export class SearchManager {
    * @returns {Observable<RemoteData<PaginatedList<Item>>>}
    */
   getBrowseItemsFor(filterValue: string, filterAuthority: string, options: BrowseEntrySearchOptions, ...linksToFollow: FollowLinkConfig<any>[]): Observable<RemoteData<PaginatedList<Item>>> {
-    return this.browseService.getBrowseItemsFor(filterValue, filterAuthority, options, ...linksToFollow)
+    const browseOptions = Object.assign({}, options, { projection: options.projection ?? 'preventMetadataSecurity' });
+    return this.browseService.getBrowseItemsFor(filterValue, filterAuthority, browseOptions, ...linksToFollow)
       .pipe(this.completeWithExtraData());
   }
 
@@ -65,7 +77,8 @@ export class SearchManager {
     useCachedVersionIfAvailable = true,
     reRequestOnStale = true,
     ...linksToFollow: FollowLinkConfig<T>[]): Observable<RemoteData<SearchObjects<T>>> {
-    return this.searchService.search(searchOptions, responseMsToLive, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow)
+    const optionsWithDefaultProjection = Object.assign(new PaginatedSearchOptions({}), searchOptions, { projection: searchOptions.projection ?? 'preventMetadataSecurity' });
+    return this.searchService.search(optionsWithDefaultProjection, responseMsToLive, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow)
       .pipe(this.completeSearchObjectsWithExtraData());
   }
 
@@ -84,7 +97,8 @@ export class SearchManager {
   protected completeSearchObjectsWithExtraData<T extends DSpaceObject>() {
     return switchMap((searchObjectsRD: RemoteData<SearchObjects<T>>) => {
       if (searchObjectsRD.isSuccess) {
-        const items: Item[] = searchObjectsRD.payload.page.map((searchResult) => searchResult.indexableObject) as any;
+        const items: Item[] = searchObjectsRD.payload.page
+          .map((searchResult) => isNotEmpty(searchResult?._embedded?.indexableObject) ? searchResult._embedded.indexableObject : searchResult.indexableObject) as any;
         return this.fetchExtraData(items).pipe(map(() => {
           return searchObjectsRD;
         }));
@@ -96,19 +110,30 @@ export class SearchManager {
   protected fetchExtraData<T extends DSpaceObject>(objects: T[]): Observable<any> {
 
     const items: Item[] = objects
-      .map((object) => {
-        if (object instanceof WorkspaceItem || object instanceof WorkflowItem) {
-          return object.item as Item;
-        }
-        if (object instanceof Item) {
+      .map((object: any) => {
+        if (object.type === ITEM.value) {
           return object as Item;
+        } else if (object.type === WORKSPACEITEM.value || object.type === WORKFLOWITEM.value) {
+          return object?._embedded?.item as Item;
+        } else {
+          // Handle workflow task here, where the item is embedded in a workflowitem
+          return object?._embedded?.workflowitem?._embedded?.item as Item;
         }
+
       })
       .filter((item) => hasValue(item));
 
     const uuidList = this.extractUUID(items, environment.followAuthorityMetadata);
-
-    return uuidList.length > 0 ? this.itemService.findAllById(uuidList).pipe(getFirstSucceededRemoteData()) : of(null);
+    return uuidList.length > 0 ? this.itemService.findAllById(uuidList).pipe(
+      getFirstCompletedRemoteData(),
+      map(data => {
+        if (data.hasSucceeded) {
+          return of(data);
+        } else {
+          of(null);
+        }
+      }),
+    ) : of(null);
   }
 
   protected extractUUID(items: Item[], metadataToFollow: FollowAuthorityMetadata[]): string[] {
@@ -119,12 +144,12 @@ export class SearchManager {
         if (item.entityType === followMetadata.type) {
           if (isArray(followMetadata.metadata)) {
             followMetadata.metadata.forEach((metadata) => {
-              item.allMetadata(metadata)
+              Metadata.all(item.metadata, metadata)
                 .filter((metadataValue: MetadataValue) => Metadata.hasValidItemAuthority(metadataValue.authority))
                 .forEach((metadataValue: MetadataValue) => uuidMap[metadataValue.authority] = metadataValue);
             });
           } else {
-            item.allMetadata(followMetadata.metadata)
+            Metadata.all(item.metadata, followMetadata.metadata)
               .filter((metadataValue: MetadataValue) => Metadata.hasValidItemAuthority(metadataValue.authority))
               .forEach((metadataValue: MetadataValue) => uuidMap[metadataValue.authority] = metadataValue);
           }

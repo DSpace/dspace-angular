@@ -1,17 +1,30 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { FormControl, FormGroup, FormsModule } from '@angular/forms';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
-
+import {
+  DynamicFormLayoutService,
+  DynamicFormValidationService,
+} from '@ng-dynamic-forms/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { DynamicFormLayoutService, DynamicFormValidationService } from '@ng-dynamic-forms/core';
 
-import { DsDynamicDisabledComponent } from './dynamic-disabled.component';
-import { DynamicDisabledModel } from './dynamic-disabled.model';
 import {
   mockDynamicFormLayoutService,
-  mockDynamicFormValidationService
+  mockDynamicFormValidationService,
 } from '../../../../../testing/dynamic-form-mock-services';
+import { DsDynamicDisabledComponent } from './dynamic-disabled.component';
+import { DynamicDisabledModel } from './dynamic-disabled.model';
 
 describe('DsDynamicDisabledComponent', () => {
   let comp: DsDynamicDisabledComponent;
@@ -29,23 +42,22 @@ describe('DsDynamicDisabledComponent', () => {
       submissionId: '1234',
       id: 'disabledInput',
       name: 'disabledInput',
-      hasSelectableMetadata: false
+      hasSelectableMetadata: false,
     });
-    group = new FormGroup({
-      disabledInput: new FormControl(),
+    group = new UntypedFormGroup({
+      disabledInput: new UntypedFormControl(),
     });
   }
 
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [DsDynamicDisabledComponent],
-      imports: [FormsModule, TranslateModule.forRoot()],
+      imports: [FormsModule, TranslateModule.forRoot(), DsDynamicDisabledComponent],
       providers: [
         { provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService },
         { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

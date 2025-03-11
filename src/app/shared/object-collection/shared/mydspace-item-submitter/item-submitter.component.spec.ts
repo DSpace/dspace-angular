@@ -1,18 +1,29 @@
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
-import { of as observableOf } from 'rxjs';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import {
+  ChangeDetectionStrategy,
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { ItemSubmitterComponent } from './item-submitter.component';
+import { of as observableOf } from 'rxjs';
+
+import { LinkService } from '../../../../core/cache/builders/link.service';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import { PoolTask } from '../../../../core/tasks/models/pool-task-object.model';
-import { EPersonMock } from '../../../testing/eperson.mock';
-import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
-import { By } from '@angular/platform-browser';
-import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
-import { LinkService } from '../../../../core/cache/builders/link.service';
 import { getMockLinkService } from '../../../mocks/link-service.mock';
+import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
+import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
+import { EPersonMock } from '../../../testing/eperson.mock';
+import { ItemSubmitterComponent } from './item-submitter.component';
 
 let component: ItemSubmitterComponent;
 let fixture: ComponentFixture<ItemSubmitterComponent>;
@@ -30,17 +41,17 @@ describe('ItemSubmitterComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
+        ItemSubmitterComponent,
       ],
-      declarations: [ItemSubmitterComponent],
       providers: [
         { provide: LinkService, useValue: getMockLinkService() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemSubmitterComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -56,14 +67,22 @@ describe('ItemSubmitterComponent', () => {
 
   it('should init submitter properly', () => {
     expect(component.submitter$).toBeObservable(cold('(b|)', {
-      b: EPersonMock
+      b: EPersonMock,
     }));
   });
 
-  it('should show a badge with submitter name', () => {
-    const badge = fixture.debugElement.query(By.css('.badge'));
+  it('should show N/A when submitter is null', () => {
+    component.submitter$ = observableOf(null);
+    fixture.detectChanges();
 
-    expect(badge).toBeDefined();
-    expect(badge.nativeElement.innerHTML).toBe(EPersonMock.name);
+    const badge: DebugElement = fixture.debugElement.query(By.css('.badge'));
+
+    expect(badge.nativeElement.innerText).toBe('submitter.empty');
+  });
+
+  it('should show a badge with submitter name', () => {
+    const badge: DebugElement = fixture.debugElement.query(By.css('.badge'));
+
+    expect(badge.nativeElement.innerText).toBe(EPersonMock.name);
   });
 });

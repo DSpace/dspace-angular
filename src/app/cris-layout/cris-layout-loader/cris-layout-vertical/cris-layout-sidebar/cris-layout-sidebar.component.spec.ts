@@ -1,17 +1,24 @@
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
+import { BehaviorSubject } from 'rxjs';
 
-import { CrisLayoutSidebarComponent } from './cris-layout-sidebar.component';
+import { CrisLayoutTab } from '../../../../core/layout/models/tab.model';
+import { Item } from '../../../../core/shared/item.model';
 import {
   tabPersonBibliometrics,
   tabPersonBiography,
-  tabPersonProfile
+  tabPersonProfile,
 } from '../../../../shared/testing/layout-tab.mocks';
-import { CrisLayoutTab } from '../../../../core/layout/models/tab.model';
-import { BehaviorSubject } from 'rxjs';
-import { Item } from '../../../../core/shared/item.model';
+import { CrisLayoutSidebarItemComponent } from '../../shared/sidebar-item/cris-layout-sidebar-item.component';
+import { CrisLayoutSidebarComponent } from './cris-layout-sidebar.component';
 
 describe('CrisLayoutSidebarComponent', () => {
   let component: CrisLayoutSidebarComponent;
@@ -27,27 +34,27 @@ describe('CrisLayoutSidebarComponent', () => {
       'dc.title': [
         {
           language: null,
-          value: 'test'
-        }
+          value: 'test',
+        },
       ],
       'dspace.entity.type': [
         {
           language: null,
-          value: 'Person'
-        }
-      ]
-    }
+          value: 'Person',
+        },
+      ],
+    },
   });
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        CrisLayoutSidebarComponent,
       ],
-      declarations: [CrisLayoutSidebarComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
-      .compileComponents();
+      .overrideComponent(CrisLayoutSidebarComponent, { remove: { imports: [CrisLayoutSidebarItemComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

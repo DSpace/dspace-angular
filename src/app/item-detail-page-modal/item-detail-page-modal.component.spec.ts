@@ -1,22 +1,29 @@
-import { ComponentFixture, ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
-
-import { of as observableOf } from 'rxjs';
-
 // Import modules
 import { CommonModule } from '@angular/common';
-import { By } from '@angular/platform-browser';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { DebugElement } from '@angular/core';
-import { ItemDetailPageModalComponent } from './item-detail-page-modal.component';
-import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { Item } from '../core/shared/item.model';
+import {
+  ComponentFixture,
+  ComponentFixtureAutoDetect,
+  TestBed,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
 import { ItemDataService } from '../core/data/item-data.service';
 import { TabDataService } from '../core/layout/tab-data.service';
+import { Item } from '../core/shared/item.model';
+import { CrisLayoutComponent } from '../cris-layout/cris-layout.component';
+import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { leadingTabs } from '../shared/testing/layout-tab.mocks';
-import { Router } from '@angular/router';
 import { RouterStub } from '../shared/testing/router.stub';
+import { ItemDetailPageModalComponent } from './item-detail-page-modal.component';
 
 
 
@@ -33,14 +40,14 @@ describe('ItemDetailPageModalComponent', () => {
     {
       type: 'item',
       metadata: {
-        'dc.title': [{ value: 'item' }]
+        'dc.title': [{ value: 'item' }],
       },
       uuid: 'testid123',
-    }
+    },
   );
 
   const tabDataServiceMock: any = jasmine.createSpyObj('TabDataService', {
-    findByItem: observableOf(leadingTabs)
+    findByItem: observableOf(leadingTabs),
   });
 
   describe('when empty subscriptions', () => {
@@ -48,29 +55,29 @@ describe('ItemDetailPageModalComponent', () => {
     beforeEach(async () => {
 
       itemDataService = {
-        findById: (id: string) => createSuccessfulRemoteDataObject$(testItem)
+        findById: (id: string) => createSuccessfulRemoteDataObject$(testItem),
       };
 
       await TestBed.configureTestingModule({
         imports: [
           CommonModule,
           NgbModule,
+          ItemDetailPageModalComponent,
           TranslateModule.forRoot({
             loader: {
               provide: TranslateLoader,
-              useClass: TranslateLoaderMock
-            }
+              useClass: TranslateLoaderMock,
+            },
           }),
         ],
-        declarations: [ItemDetailPageModalComponent],
         providers: [
           { provide: ComponentFixtureAutoDetect, useValue: true },
           { provide: ItemDataService, useValue: itemDataService },
           { provide: TabDataService, useValue: tabDataServiceMock },
           { provide: Router, useValue: new RouterStub() },
-        ]
+        ],
       })
-        .compileComponents();
+        .overrideComponent(ItemDetailPageModalComponent, { remove: { imports: [CrisLayoutComponent] } }).compileComponents();
 
       fixture = TestBed.createComponent(ItemDetailPageModalComponent);
       component = fixture.componentInstance;

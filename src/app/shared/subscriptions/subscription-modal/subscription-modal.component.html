@@ -6,7 +6,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <p class="mb-3"><strong>{{dso.name}}</strong>
+    <p class="mb-3"><strong>{{ dsoNameService.getName(dso) }}</strong>
       <span *ngIf="!!dso" class="float-right"><ds-type-badge *ngIf="!!dso" [object]="dso"></ds-type-badge></span>
     </p>
     <div>
@@ -17,9 +17,9 @@
         <div class="col-md-8">
           <input type="hidden" formControlName="subscriptionId" [value]="subscriptionType?.value?.controls['subscriptionId'].value" >
           <div class="form-check" formGroupName="frequencies" *ngFor="let frequency of frequencyDefaultValues">
-            <input type="checkbox" [id]="'checkbox-' + frequency" class="form-check-input" [formControlName]="frequency"/>
+            <input type="checkbox" [id]="'checkbox-' + subscriptionType.key + frequency" class="form-check-input" [formControlName]="frequency"/>
             <label class="form-check-label"
-                   [for]="'checkbox-' + frequency">{{ 'subscriptions.modal.new-subscription-form.frequency.' + frequency | translate }}</label>
+                   [for]="'checkbox-' + subscriptionType.key  + frequency">{{ 'subscriptions.modal.new-subscription-form.frequency.' + frequency | translate }}</label>
           </div>
         </div>
         <ds-alert *ngIf="!!submitted && subscriptionType?.value?.controls['frequencies'].errors?.required" [type]="'alert-danger'">
@@ -38,7 +38,7 @@
         <span *ngIf="(processing$ | async)">
           <i class='fas fa-circle-notch fa-spin'></i> {{'subscriptions.modal.new-subscription-form.processing' | translate}}
         </span>
-      <span *ngIf="!(processing$ | async)">
+      <span *ngIf="(processing$ | async) !== true">
         {{'subscriptions.modal.new-subscription-form.submit' | translate}}
       </span>
     </button>

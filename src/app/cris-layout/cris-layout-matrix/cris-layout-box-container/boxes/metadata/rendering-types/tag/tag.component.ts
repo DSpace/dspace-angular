@@ -1,12 +1,16 @@
-import { Component, Inject, OnInit } from '@angular/core';
-
-import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
-
-import { Chips } from '../../../../../../../shared/form/chips/models/chips.model';
+import { NgIf } from '@angular/common';
+import {
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { RenderingTypeStructuredModelComponent } from '../rendering-type-structured.model';
+
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../../../core/shared/item.model';
+import { ChipsComponent } from '../../../../../../../shared/form/chips/chips.component';
+import { Chips } from '../../../../../../../shared/form/chips/models/chips.model';
+import { RenderingTypeStructuredModelComponent } from '../rendering-type-structured.model';
 
 /**
  * This component renders the tag metadata fields
@@ -15,12 +19,13 @@ import { Item } from '../../../../../../../core/shared/item.model';
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'span[ds-tag]',
   templateUrl: './tag.component.html',
-  styleUrls: ['./tag.component.scss']
+  styleUrls: ['./tag.component.scss'],
+  standalone: true,
+  imports: [NgIf, ChipsComponent],
 })
-@MetadataBoxFieldRendering(FieldRenderingType.TAG, true)
 export class TagComponent extends RenderingTypeStructuredModelComponent implements OnInit {
 
- /**
+  /**
   * This is the chips component which will be rendered in the template
   */
   public chips: Chips;
@@ -29,12 +34,13 @@ export class TagComponent extends RenderingTypeStructuredModelComponent implemen
     @Inject('fieldProvider') public fieldProvider: LayoutField,
     @Inject('itemProvider') public itemProvider: Item,
     @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
-    protected translateService: TranslateService
+    @Inject('tabNameProvider') public tabNameProvider: string,
+    protected translateService: TranslateService,
   ) {
-    super(fieldProvider, itemProvider, renderingSubTypeProvider, translateService);
+    super(fieldProvider, itemProvider, renderingSubTypeProvider, tabNameProvider, translateService);
   }
 
- /**
+  /**
   * Initializes chips only for the rendered index value if indexToBeRendered is set or
   * it initializes chips for all values.
   */
@@ -46,7 +52,7 @@ export class TagComponent extends RenderingTypeStructuredModelComponent implemen
     }
   }
 
- /**
+  /**
   * Creates the chips component with the required values
   * @params initChipsValues values to be rendered in chip items
   */

@@ -1,15 +1,30 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { of as observableOf } from 'rxjs';
-import { TruncatablePartComponent } from './truncatable-part.component';
-import { TruncatableService } from '../truncatable.service';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '../../../core/services/window.service';
+import { mockTruncatableService } from '../../mocks/mock-trucatable.service';
 import { getMockTranslateService } from '../../mocks/translate.service.mock';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import { mockTruncatableService } from '../../mocks/mock-trucatable.service';
-import { By } from '@angular/platform-browser';
-import { NativeWindowRef, NativeWindowService } from '../../../core/services/window.service';
+import { TruncatableService } from '../truncatable.service';
+import { TruncatablePartComponent } from './truncatable-part.component';
 
 describe('TruncatablePartComponent', () => {
   let comp: TruncatablePartComponent;
@@ -18,35 +33,34 @@ describe('TruncatablePartComponent', () => {
   const id1 = '123';
   const id2 = '456';
 
-  let truncatableService;
-  const truncatableServiceStub: any = {
-    isCollapsed: (id: string) => {
-      if (id === id1) {
-        return observableOf(true);
-      } else {
-        return observableOf(false);
-      }
-    }
-  };
+  let truncatableService: any;
+
   beforeEach(waitForAsync(() => {
     translateService = getMockTranslateService();
+    truncatableService = {
+      isCollapsed: (id: string) => {
+        if (id === id1) {
+          return observableOf(true);
+        } else {
+          return observableOf(false);
+        }
+      },
+    };
     void TestBed.configureTestingModule({
       imports: [NoopAnimationsModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        }),
-      ],
-      declarations: [TruncatablePartComponent],
+            useClass: TranslateLoaderMock,
+          },
+        }), TruncatablePartComponent],
       providers: [
         { provide: NativeWindowService, useValue: new NativeWindowRef() },
-        { provide: TruncatableService, useValue: truncatableServiceStub },
+        { provide: TruncatableService, useValue: truncatableService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(TruncatablePartComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
   beforeEach(() => {
@@ -118,18 +132,18 @@ describe('TruncatablePartComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
+        TruncatablePartComponent,
       ],
-      declarations: [TruncatablePartComponent],
       providers: [
         { provide: NativeWindowService, useValue: new NativeWindowRef() },
         { provide: TruncatableService, useValue: mockTruncatableService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(TruncatablePartComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

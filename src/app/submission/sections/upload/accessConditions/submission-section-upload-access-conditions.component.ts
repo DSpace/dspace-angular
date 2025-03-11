@@ -1,12 +1,23 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 
-import { find } from 'rxjs/operators';
-
-import { GroupDataService } from '../../../../core/eperson/group-data.service';
-import { ResourcePolicy } from '../../../../core/resource-policy/models/resource-policy.model';
-import { isEmpty } from '../../../../shared/empty.util';
-import { Group } from '../../../../core/eperson/models/group.model';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { RemoteData } from '../../../../core/data/remote-data';
+import { GroupDataService } from '../../../../core/eperson/group-data.service';
+import { Group } from '../../../../core/eperson/models/group.model';
+import { ResourcePolicy } from '../../../../core/resource-policy/models/resource-policy.model';
+import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
+import {
+  hasValue,
+  isEmpty,
+} from '../../../../shared/empty.util';
 
 /**
  * This component represents a badge that describe an access condition
@@ -14,6 +25,11 @@ import { RemoteData } from '../../../../core/data/remote-data';
 @Component({
   selector: 'ds-submission-section-upload-access-conditions',
   templateUrl: './submission-section-upload-access-conditions.component.html',
+  imports: [
+    NgForOf,
+    NgIf,
+  ],
+  standalone: true,
 })
 export class SubmissionSectionUploadAccessConditionsComponent implements OnInit {
 
@@ -27,29 +43,30 @@ export class SubmissionSectionUploadAccessConditionsComponent implements OnInit 
    * The list of access conditions
    * @type {Array}
    */
-  public accessConditionsList = [];
+  public accessConditionsList: ResourcePolicy[] = [];
 
-  /**
-   * Initialize instance variables
-   *
-   * @param {GroupDataService} groupService
-   */
-  constructor(private groupService: GroupDataService) {}
+  constructor(
+    public dsoNameService: DSONameService,
+    protected groupService: GroupDataService,
+  ) {
+  }
 
   /**
    * Retrieve access conditions list
    */
   ngOnInit() {
     this.accessConditions.forEach((accessCondition: ResourcePolicy) => {
-      if (isEmpty(accessCondition.name)) {
+      if (isEmpty(accessCondition.name) && hasValue(accessCondition._links?.group.href)) {
         this.groupService.findByHref(accessCondition._links.group.href).pipe(
-          find((rd: RemoteData<Group>) => !rd.isResponsePending && rd.hasSucceeded))
-          .subscribe((rd: RemoteData<Group>) => {
+          getFirstCompletedRemoteData(),
+        ).subscribe((rd: RemoteData<Group>) => {
+          if (rd.hasSucceeded) {
             const group: Group = rd.payload;
             const accessConditionEntry = Object.assign({}, accessCondition);
-            accessConditionEntry.name = group.name;
+            accessConditionEntry.name = this.dsoNameService.getName(group);
             this.accessConditionsList.push(accessConditionEntry);
-          });
+          }
+        });
       } else {
         this.accessConditionsList.push(accessCondition);
       }

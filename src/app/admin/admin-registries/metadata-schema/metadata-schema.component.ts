@@ -1,38 +1,77 @@
-import { Component, OnInit } from '@angular/core';
-import { RegistryService } from '../../../core/registry/registry.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  AsyncPipe,
+  NgClass,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  RouterLink,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
-  combineLatest as observableCombineLatest,
   combineLatest,
+  combineLatest as observableCombineLatest,
   Observable,
   of as observableOf,
-  zip
+  zip,
 } from 'rxjs';
-import { RemoteData } from '../../../core/data/remote-data';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
 import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { map, switchMap, take } from 'rxjs/operators';
-import { hasValue } from '../../../shared/empty.util';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
+import { RemoteData } from '../../../core/data/remote-data';
 import { MetadataField } from '../../../core/metadata/metadata-field.model';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
-import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
-import { NoContent } from '../../../core/shared/NoContent.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { RegistryService } from '../../../core/registry/registry.service';
+import { NoContent } from '../../../core/shared/NoContent.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../../core/shared/operators';
+import { hasValue } from '../../../shared/empty.util';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
+import { toFindListOptions } from '../../../shared/pagination/pagination.utils';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { MetadataFieldFormComponent } from './metadata-field-form/metadata-field-form.component';
 
 @Component({
   selector: 'ds-metadata-schema',
   templateUrl: './metadata-schema.component.html',
-  styleUrls: ['./metadata-schema.component.scss']
+  styleUrls: ['./metadata-schema.component.scss'],
+  imports: [
+    AsyncPipe,
+    VarDirective,
+    MetadataFieldFormComponent,
+    TranslateModule,
+    PaginationComponent,
+    NgIf,
+    NgForOf,
+    NgClass,
+    RouterLink,
+  ],
+  standalone: true,
 })
 /**
  * A component used for managing all existing metadata fields within the current metadata schema.
  * The admin can create, edit or delete metadata fields here.
  */
-export class MetadataSchemaComponent implements OnInit {
+export class MetadataSchemaComponent implements OnInit, OnDestroy {
   /**
    * The metadata schema
    */
@@ -49,7 +88,7 @@ export class MetadataSchemaComponent implements OnInit {
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'rm',
     pageSize: 25,
-    pageSizeOptions: [25, 50, 100, 200]
+    pageSizeOptions: [25, 50, 100, 200],
   });
 
   /**
@@ -60,7 +99,6 @@ export class MetadataSchemaComponent implements OnInit {
   constructor(private registryService: RegistryService,
               private route: ActivatedRoute,
               private notificationsService: NotificationsService,
-              private router: Router,
               private paginationService: PaginationService,
               private translateService: TranslateService) {
 
@@ -86,13 +124,13 @@ export class MetadataSchemaComponent implements OnInit {
    */
   private updateFields() {
     this.metadataFields$ = this.paginationService.getCurrentPagination(this.config.id, this.config).pipe(
-      switchMap((currentPagination) => combineLatest(this.metadataSchema$, this.needsUpdate$, observableOf(currentPagination))),
+      switchMap((currentPagination) => combineLatest([this.metadataSchema$, this.needsUpdate$, observableOf(currentPagination)])),
       switchMap(([schema, update, currentPagination]: [MetadataSchema, boolean, PaginationComponentOptions]) => {
         if (update) {
           this.needsUpdate$.next(false);
         }
         return this.registryService.getMetadataFieldsBySchema(schema, toFindListOptions(currentPagination), !update, true);
-      })
+      }),
     );
   }
 
@@ -125,7 +163,7 @@ export class MetadataSchemaComponent implements OnInit {
    */
   isActive(field: MetadataField): Observable<boolean> {
     return this.getActiveField().pipe(
-      map((activeField) => field === activeField)
+      map((activeField) => field === activeField),
     );
   }
 
@@ -153,7 +191,7 @@ export class MetadataSchemaComponent implements OnInit {
    */
   isSelected(field: MetadataField): Observable<boolean> {
     return this.registryService.getSelectedMetadataFields().pipe(
-      map((fields) => fields.find((selectedField) => selectedField === field) != null)
+      map((fields) => fields.find((selectedField) => selectedField === field) != null),
     );
   }
 
@@ -181,7 +219,7 @@ export class MetadataSchemaComponent implements OnInit {
           this.registryService.deselectAllMetadataField();
           this.registryService.cancelEditMetadataField();
         });
-      }
+      },
     );
   }
 
@@ -193,10 +231,10 @@ export class MetadataSchemaComponent implements OnInit {
   showNotification(success: boolean, amount: number) {
     const prefix = 'admin.registries.schema.notification';
     const suffix = success ? 'success' : 'failure';
-    const messages = observableCombineLatest(
+    const messages = observableCombineLatest([
       this.translateService.get(success ? `${prefix}.${suffix}` : `${prefix}.${suffix}`),
-      this.translateService.get(`${prefix}.field.deleted.${suffix}`, { amount: amount })
-    );
+      this.translateService.get(`${prefix}.field.deleted.${suffix}`, { amount: amount }),
+    ]);
     messages.subscribe(([head, content]) => {
       if (success) {
         this.notificationsService.success(head, content);
@@ -207,6 +245,7 @@ export class MetadataSchemaComponent implements OnInit {
   }
   ngOnDestroy(): void {
     this.paginationService.clearPagination(this.config.id);
+    this.registryService.deselectAllMetadataField();
   }
 
 }

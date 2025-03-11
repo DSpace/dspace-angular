@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
+
+import { MetadataLinkViewComponent } from '../../../../../../../shared/metadata-link-view/metadata-link-view.component';
 import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
 
 /**
@@ -9,9 +10,10 @@ import { RenderingTypeValueModelComponent } from '../rendering-type-value.model'
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'span[ds-crisref]',
   templateUrl: './crisref.component.html',
-  styleUrls: ['./crisref.component.scss']
+  styleUrls: ['./crisref.component.scss'],
+  standalone: true,
+  imports: [MetadataLinkViewComponent],
 })
-@MetadataBoxFieldRendering(FieldRenderingType.CRISREF)
 export class CrisrefComponent extends RenderingTypeValueModelComponent {
 
 }

@@ -1,23 +1,35 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { BrowserModule, By } from '@angular/platform-browser';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  BrowserModule,
+  By,
+} from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { StoreModule } from '@ngrx/store';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+
+import { storeModuleConfig } from '../../../../app.reducer';
+import { authReducer } from '../../../../core/auth/auth.reducer';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { SearchService } from '../../../../core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
+import { isNotNull } from '../../../empty.util';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 import { FacetValue } from '../../../search/models/facet-value.model';
 import { FilterType } from '../../../search/models/filter-type.model';
 import { SearchFilterConfig } from '../../../search/models/search-filter-config.model';
+import { SearchChartComponent } from '../../../search/search-charts/search-chart/search-chart.component';
 import { FacetSectionComponent } from './facet-section.component';
-import { StoreModule } from '@ngrx/store';
-import { authReducer } from '../../../../core/auth/auth.reducer';
-import { storeModuleConfig } from '../../../../app.reducer';
-import { isNotNull } from '../../../empty.util';
-import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 
 describe('FacetSectionComponent', () => {
   let component: FacetSectionComponent;
@@ -32,8 +44,8 @@ describe('FacetSectionComponent', () => {
     count: 35,
     _links: {
       self: { href: 'di-selectedValue-self-link' },
-      search: { href: '' }
-    }
+      search: { href: '' },
+    },
   };
 
   const authorFirstValue: FacetValue = {
@@ -42,8 +54,8 @@ describe('FacetSectionComponent', () => {
     count: 20,
     _links: {
       self: { href: 'fa-selectedValue-self-link' },
-      search: { href: '' }
-    }
+      search: { href: '' },
+    },
   };
 
   const authorSecondValue: FacetValue = {
@@ -52,32 +64,32 @@ describe('FacetSectionComponent', () => {
     count: 15,
     _links: {
       self: { href: 'sa-selectedValue-self-link1' },
-      search: { href: '' }
-    }
+      search: { href: '' },
+    },
   };
 
   const mockAuthorFilterConfig = Object.assign(new SearchFilterConfig(), {
     name: 'author',
     filterType: FilterType.text,
     _embedded: {
-      values: [authorFirstValue, authorSecondValue]
-    }
+      values: [authorFirstValue, authorSecondValue],
+    },
   });
 
   const mockSubjectFilterConfig = Object.assign(new SearchFilterConfig(), {
     name: 'subject',
     filterType: FilterType.hierarchy,
     _embedded: {
-      values: []
-    }
+      values: [],
+    },
   });
 
   const mockDateIssuedFilterConfig = Object.assign(new SearchFilterConfig(), {
     name: 'dateIssued',
     filterType: FilterType.range,
     _embedded: {
-      values: [dateIssuedValue]
-    }
+      values: [dateIssuedValue],
+    },
   });
   const barChartFacetValue: FacetValue = {
     label: '2007',
@@ -85,15 +97,15 @@ describe('FacetSectionComponent', () => {
     count: 13,
     _links: {
       self: { href: 'fa-selectedValue-self-link' },
-      search: { href: '' }
-    }
+      search: { href: '' },
+    },
   };
   const mockGraphBarChartFilterConfig = Object.assign(new SearchFilterConfig(), {
     name: 'dateIssued',
     filterType: FilterType['chart.bar'],
     _embedded: {
-      values: [barChartFacetValue]
-    }
+      values: [barChartFacetValue],
+    },
   });
   const pieChartFacetValue: FacetValue = {
     label: 'Other',
@@ -101,22 +113,22 @@ describe('FacetSectionComponent', () => {
     count: 13,
     _links: {
       self: { href: 'fa-selectedValue-self-link' },
-      search: { href: '' }
-    }
+      search: { href: '' },
+    },
   };
   const mockGraphPieChartFilterConfig = Object.assign(new SearchFilterConfig(), {
     name: 'dateIssued',
     filterType: FilterType['chart.pie'],
     _embedded: {
-      values: [pieChartFacetValue]
-    }
+      values: [pieChartFacetValue],
+    },
   });
   beforeEach(waitForAsync(() => {
 
     searchServiceStub = {
       getSearchLink(): string {
         return '/search';
-      }
+      },
     };
     searchConfigurationStub = {
       searchFacets(scope?: string, configurationName?: string): Observable<RemoteData<SearchFilterConfig[]>> {
@@ -127,7 +139,7 @@ describe('FacetSectionComponent', () => {
     searchServiceStub = {
       getSearchLink(): string {
         return '/search';
-      }
+      },
     };
 
     TestBed.configureTestingModule({
@@ -138,17 +150,15 @@ describe('FacetSectionComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        }),
-      ],
-      declarations: [FacetSectionComponent],
+            useClass: TranslateLoaderMock,
+          },
+        }), FacetSectionComponent],
       providers: [
         { provide: SearchService, useValue: searchServiceStub },
-        { provide: SearchConfigurationService, useValue: searchConfigurationStub }
+        { provide: SearchConfigurationService, useValue: searchConfigurationStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(FacetSectionComponent, { remove: { imports: [SearchChartComponent] } }).compileComponents();
 
   }));
 
@@ -161,7 +171,7 @@ describe('FacetSectionComponent', () => {
       discoveryConfigurationName: 'publication',
       componentType: 'facet',
       style: 'col-md-12',
-      facetsPerRow: 4
+      facetsPerRow: 4,
     };
 
     fixture.detectChanges();

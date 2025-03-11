@@ -1,24 +1,40 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { VarDirective } from '../../shared/utils/var.directive';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../../core/auth/auth.service';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { ItemRequestDataService } from '../../core/data/item-request-data.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
+
+import { AuthService } from '../../core/auth/auth.service';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { ItemDataService } from '../../core/data/item-data.service';
+import { ItemRequestDataService } from '../../core/data/item-request-data.service';
+import { EPerson } from '../../core/eperson/models/eperson.model';
+import { Item } from '../../core/shared/item.model';
+import { ItemRequest } from '../../core/shared/item-request.model';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
+import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
-import { ItemRequest } from '../../core/shared/item-request.model';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { Item } from '../../core/shared/item.model';
+import { ThemeService } from '../../shared/theme-support/theme.service';
+import { VarDirective } from '../../shared/utils/var.directive';
 import { RequestCopyEmail } from '../email-request-copy/request-copy-email.model';
+import { ThemedEmailRequestCopyComponent } from '../email-request-copy/themed-email-request-copy.component';
 import { GrantRequestCopyComponent } from './grant-request-copy.component';
 
 describe('GrantRequestCopyComponent', () => {
@@ -30,7 +46,6 @@ describe('GrantRequestCopyComponent', () => {
   let authService: AuthService;
   let translateService: TranslateService;
   let itemDataService: ItemDataService;
-  let nameService: DSONameService;
   let itemRequestService: ItemRequestDataService;
   let notificationsService: NotificationsService;
 
@@ -43,20 +58,20 @@ describe('GrantRequestCopyComponent', () => {
   beforeEach(waitForAsync(() => {
     itemRequest = Object.assign(new ItemRequest(), {
       token: 'item-request-token',
-      requestName: 'requester name'
+      requestName: 'requester name',
     });
     user = Object.assign(new EPerson(), {
       metadata: {
         'eperson.firstname': [
           {
-            value: 'first'
-          }
+            value: 'first',
+          },
         ],
         'eperson.lastname': [
           {
-            value: 'last'
-          }
-        ]
+            value: 'last',
+          },
+        ],
       },
       email: 'user-email',
     });
@@ -67,15 +82,15 @@ describe('GrantRequestCopyComponent', () => {
       metadata: {
         'dc.identifier.uri': [
           {
-            value: itemUrl
-          }
+            value: itemUrl,
+          },
         ],
         'dc.title': [
           {
-            value: itemName
-          }
-        ]
-      }
+            value: itemName,
+          },
+        ],
+      },
     });
 
     router = jasmine.createSpyObj('router', {
@@ -93,28 +108,25 @@ describe('GrantRequestCopyComponent', () => {
     itemDataService = jasmine.createSpyObj('itemDataService', {
       findById: createSuccessfulRemoteDataObject$(item),
     });
-    nameService = jasmine.createSpyObj('nameService', {
-      getName: itemName,
-    });
     itemRequestService = jasmine.createSpyObj('itemRequestService', {
       grant: createSuccessfulRemoteDataObject$(itemRequest),
     });
     notificationsService = jasmine.createSpyObj('notificationsService', ['success', 'error']);
 
-    TestBed.configureTestingModule({
-      declarations: [GrantRequestCopyComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+    return TestBed.configureTestingModule({
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), GrantRequestCopyComponent, VarDirective],
       providers: [
         { provide: Router, useValue: router },
         { provide: ActivatedRoute, useValue: route },
         { provide: AuthService, useValue: authService },
         { provide: ItemDataService, useValue: itemDataService },
-        { provide: DSONameService, useValue: nameService },
+        { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: ItemRequestDataService, useValue: itemRequestService },
         { provide: NotificationsService, useValue: notificationsService },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(GrantRequestCopyComponent, { remove: { imports: [ThemedEmailRequestCopyComponent, ThemedLoadingComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -124,19 +136,6 @@ describe('GrantRequestCopyComponent', () => {
 
     translateService = (component as any).translateService;
     spyOn(translateService, 'get').and.returnValue(observableOf('translated-message'));
-  });
-
-  it('message$ should be parameterized correctly', (done) => {
-    component.message$.subscribe(() => {
-      expect(translateService.get).toHaveBeenCalledWith(jasmine.anything(), Object.assign({
-        recipientName: itemRequest.requestName,
-        itemUrl: itemUrl,
-        itemName: itemName,
-        authorName: user.name,
-        authorEmail: user.email,
-      }));
-      done();
-    });
   });
 
   describe('grant', () => {

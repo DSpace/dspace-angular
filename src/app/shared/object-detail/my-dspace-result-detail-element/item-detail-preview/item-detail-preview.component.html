@@ -1,7 +1,5 @@
 <div *ngIf="item" class="item-page" @fadeInOut>
-  <ng-container *ngIf="status">
-    <ds-mydspace-item-status [status]="status"></ds-mydspace-item-status>
-  </ng-container>
+  <ds-badges *ngIf="showLabel" [object]="item" [context]="badgeContext"></ds-badges>
   <div *ngIf="item">
     <ds-item-page-title-field [item]="item">
     </ds-item-page-title-field>
@@ -14,8 +12,8 @@
           <ds-metadata-field-wrapper [label]="('item.page.files' | translate)">
             <div *ngIf="bitstreams?.length > 0" class="file-section">
               <button class="btn btn-link" *ngFor="let file of bitstreams; let last=last;" (click)="downloadBitstreamFile(file?.uuid)">
-                <span>{{file?.name}}</span>
-                <span>({{(file?.sizeBytes) | dsFileSize }})</span>
+                <span>{{ dsoNameService.getName(file) }}</span>
+                <span>({{(file?.sizeBytes) | dsFileSize }})</span>
                 <span *ngIf="!last" innerHTML="{{separator}}"></span>
               </button>
             </div>

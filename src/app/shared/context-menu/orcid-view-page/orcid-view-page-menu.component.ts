@@ -1,22 +1,36 @@
-import { Component, Inject, OnInit } from '@angular/core';
-
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
+import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
-import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 
 @Component({
   selector: 'ds-orcid-view-page',
   templateUrl: './orcid-view-page-menu.component.html',
-  styleUrls: ['./orcid-view-page-menu.component.scss']
+  styleUrls: ['./orcid-view-page-menu.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    RouterLink,
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
-@rendersContextMenuEntriesForType(DSpaceObjectType.ITEM)
 export class OrcidViewPageMenuComponent extends ContextMenuEntryComponent implements OnInit {
 
   /**
@@ -39,7 +53,7 @@ export class OrcidViewPageMenuComponent extends ContextMenuEntryComponent implem
   constructor(
     @Inject('contextMenuObjectProvider') protected injectedContextMenuObject: DSpaceObject,
     @Inject('contextMenuObjectTypeProvider') protected injectedContextMenuObjectType: DSpaceObjectType,
-    protected authorizationService: AuthorizationDataService
+    protected authorizationService: AuthorizationDataService,
   ) {
     super(injectedContextMenuObject, injectedContextMenuObjectType, ContextMenuEntryType.OrcidView);
   }

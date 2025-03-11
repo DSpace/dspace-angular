@@ -1,31 +1,44 @@
 import { Injectable } from '@angular/core';
-
-import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
-import { map, merge, mergeMap, scan } from 'rxjs/operators';
 import findIndex from 'lodash/findIndex';
+import {
+  BehaviorSubject,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  map,
+  merge,
+  mergeMap,
+  scan,
+} from 'rxjs/operators';
 
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import {
+  getFirstSucceededRemoteDataPayload,
+  getFirstSucceededRemoteListPayload,
+} from '../../../core/shared/operators';
+import { PageInfo } from '../../../core/shared/page-info.model';
+import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
+import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '../../empty.util';
 import {
   LOAD_MORE_NODE,
   LOAD_MORE_ROOT_NODE,
   TreeviewFlatNode,
-  TreeviewNode
+  TreeviewNode,
 } from './vocabulary-treeview-node.model';
-import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { isEmpty, isNotEmpty } from '../../empty.util';
-import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
-import {
-  getFirstSucceededRemoteDataPayload,
-  getFirstSucceededRemoteListPayload
-} from '../../../core/shared/operators';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
-import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 
 /**
  * A service that provides methods to deal with vocabulary tree
  */
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class VocabularyTreeviewService {
 
   /**
@@ -101,21 +114,22 @@ export class VocabularyTreeviewService {
    *
    * @param options The {@link VocabularyOptions} object
    * @param pageInfo The {@link PageInfo} object
+   * @param selectedItems The currently selected items
    * @param initValueId The entry id of the node to mark as selected, if any
    */
-  initialize(options: VocabularyOptions, pageInfo: PageInfo, initValueId?: string): void {
+  initialize(options: VocabularyOptions, pageInfo: PageInfo, selectedItems: string[], initValueId?: string): void {
     this.loading.next(true);
     this.vocabularyOptions = options;
     this.vocabularyName = options.name;
     this.pageInfo = pageInfo;
     if (isNotEmpty(initValueId)) {
-      this.getNodeHierarchyById(initValueId)
+      this.getNodeHierarchyById(initValueId, selectedItems)
         .subscribe((hierarchy: string[]) => {
           this.initValueHierarchy = hierarchy;
-          this.retrieveTopNodes(pageInfo, []);
-      });
+          this.retrieveTopNodes(pageInfo, [], selectedItems);
+        });
     } else {
-      this.retrieveTopNodes(pageInfo, []);
+      this.retrieveTopNodes(pageInfo, [], selectedItems);
     }
   }
 
@@ -129,19 +143,21 @@ export class VocabularyTreeviewService {
   /**
    * Expand the root node whose children are not loaded
    * @param node The root node
+   * @param selectedItems The currently selected items
    */
-  loadMoreRoot(node: TreeviewFlatNode) {
+  loadMoreRoot(node: TreeviewFlatNode, selectedItems: string[]) {
     const nodes = this.dataChange.value;
     nodes.pop();
-    this.retrieveTopNodes(node.pageInfo, nodes);
+    this.retrieveTopNodes(node.pageInfo, nodes, selectedItems);
   }
 
   /**
    * Expand a node whose children are not loaded
    * @param item
+   * @param selectedItems
    * @param onlyFirstTime
    */
-  loadMore(item: VocabularyEntryDetail, onlyFirstTime = false) {
+  loadMore(item: VocabularyEntryDetail, selectedItems: string[], onlyFirstTime = false) {
     if (!this.nodeMap.has(item.otherInformation.id)) {
       return;
     }
@@ -153,7 +169,7 @@ export class VocabularyTreeviewService {
         return;
       }
 
-      const newNodes: TreeviewNode[] = list.page.map((entry) => this._generateNode(entry));
+      const newNodes: TreeviewNode[] = list.page.map((entry) => this._generateNode(entry, selectedItems));
       if (newNodes.length > 0) {
         children.pop();
         children.push(...newNodes);
@@ -162,7 +178,7 @@ export class VocabularyTreeviewService {
       if ((list.pageInfo.currentPage + 1) <= list.pageInfo.totalPages) {
         // Update page info
         const newPageInfo: PageInfo = Object.assign(new PageInfo(), list.pageInfo, {
-          currentPage: list.pageInfo.currentPage + 1
+          currentPage: list.pageInfo.currentPage + 1,
         });
         parent.updatePageInfo(newPageInfo);
 
@@ -185,7 +201,7 @@ export class VocabularyTreeviewService {
   /**
    * Perform a search operation by query
    */
-  searchByQuery(query: string) {
+  searchByQuery(query: string, selectedItems: string[]) {
     this.loading.next(true);
     if (isEmpty(this.storedNodes)) {
       this.storedNodes = this.dataChange.value;
@@ -199,10 +215,10 @@ export class VocabularyTreeviewService {
       mergeMap((result: VocabularyEntry[]) => (result.length > 0) ? result : observableOf(null)),
       mergeMap((entry: VocabularyEntry) =>
         this.vocabularyService.findEntryDetailById(entry.otherInformation.id, this.vocabularyName).pipe(
-          getFirstSucceededRemoteDataPayload()
-        )
+          getFirstSucceededRemoteDataPayload(),
+        ),
       ),
-      mergeMap((entry: VocabularyEntryDetail) => this.getNodeHierarchy(entry)),
+      mergeMap((entry: VocabularyEntryDetail) => this.getNodeHierarchy(entry, selectedItems)),
       scan((acc: TreeviewNode[], value: TreeviewNode) => {
         if (isEmpty(value) || findIndex(acc, (node) => node.item.otherInformation.id === value.item.otherInformation.id) !== -1) {
           return acc;
@@ -210,7 +226,7 @@ export class VocabularyTreeviewService {
           return [...acc, value];
         }
       }, []),
-      merge(this.hideSearchingWhenUnsubscribed$)
+      merge(this.hideSearchingWhenUnsubscribed$),
     ).subscribe((nodes: TreeviewNode[]) => {
       this.dataChange.next(nodes);
       this.loading.next(false);
@@ -233,11 +249,12 @@ export class VocabularyTreeviewService {
    * Generate a {@link TreeviewNode} object from vocabulary entry
    *
    * @param entry The vocabulary entry detail
+   * @param selectedItems An array containing the currently selected items
    * @param isSearchNode A Boolean representing if given entry is the result of a search
    * @param toStore A Boolean representing if the node created is to store or not
    * @return TreeviewNode
    */
-  private _generateNode(entry: VocabularyEntryDetail, isSearchNode = false, toStore = true): TreeviewNode {
+  private _generateNode(entry: VocabularyEntryDetail, selectedItems: string[], isSearchNode = false, toStore = true): TreeviewNode {
     const entryId = entry.otherInformation.id;
     if (this.nodeMap.has(entryId)) {
       return this.nodeMap.get(entryId)!;
@@ -245,13 +262,15 @@ export class VocabularyTreeviewService {
     const hasChildren = entry.hasOtherInformation() && (entry.otherInformation as any)!.hasChildren === 'true';
     const pageInfo: PageInfo = this.pageInfo;
     const isInInitValueHierarchy = this.initValueHierarchy.includes(entryId);
+    const isSelected: boolean = selectedItems.some(() => selectedItems.includes(entryId));
     const result = new TreeviewNode(
       entry,
       hasChildren,
       pageInfo,
       null,
       isSearchNode,
-      isInInitValueHierarchy);
+      isInInitValueHierarchy,
+      isSelected);
 
     if (toStore) {
       this.nodeMap.set(entryId, result);
@@ -262,12 +281,13 @@ export class VocabularyTreeviewService {
   /**
    * Return the node Hierarchy by a given node's id
    * @param id The node id
+   * @param selectedItems The currently selected items
    * @return Observable<string[]>
    */
-  private getNodeHierarchyById(id: string): Observable<string[]> {
+  private getNodeHierarchyById(id: string, selectedItems: string[]): Observable<string[]> {
     return this.getById(id).pipe(
-      mergeMap((entry: VocabularyEntryDetail) => this.getNodeHierarchy(entry, [], false)),
-      map((node: TreeviewNode) => this.getNodeHierarchyIds(node))
+      mergeMap((entry: VocabularyEntryDetail) => this.getNodeHierarchy(entry, selectedItems,[], false)),
+      map((node: TreeviewNode) => this.getNodeHierarchyIds(node, selectedItems)),
     );
   }
 
@@ -279,7 +299,7 @@ export class VocabularyTreeviewService {
    */
   private getChildrenNodesByParent(parentId: string, pageInfo: PageInfo): Observable<PaginatedList<VocabularyEntryDetail>> {
     return this.vocabularyService.getEntryDetailChildren(parentId, this.vocabularyName, pageInfo).pipe(
-      getFirstSucceededRemoteDataPayload()
+      getFirstSucceededRemoteDataPayload(),
     );
   }
 
@@ -289,7 +309,7 @@ export class VocabularyTreeviewService {
    */
   private getParentNode(entryId: string): Observable<VocabularyEntryDetail> {
     return this.vocabularyService.getEntryDetailParent(entryId, this.vocabularyName).pipe(
-      getFirstSucceededRemoteDataPayload()
+      getFirstSucceededRemoteDataPayload(),
     );
   }
 
@@ -300,7 +320,7 @@ export class VocabularyTreeviewService {
    */
   private getById(entryId: string): Observable<VocabularyEntryDetail> {
     return this.vocabularyService.findEntryDetailById(entryId, this.vocabularyName).pipe(
-      getFirstSucceededRemoteDataPayload()
+      getFirstSucceededRemoteDataPayload(),
     );
   }
 
@@ -308,19 +328,20 @@ export class VocabularyTreeviewService {
    * Retrieve the top level vocabulary entries
    * @param pageInfo The {@link PageInfo} object
    * @param nodes The top level nodes already loaded, if any
+   * @param selectedItems The currently selected items
    */
-  private retrieveTopNodes(pageInfo: PageInfo, nodes: TreeviewNode[]): void {
+  private retrieveTopNodes(pageInfo: PageInfo, nodes: TreeviewNode[], selectedItems: string[]): void {
     this.vocabularyService.searchTopEntries(this.vocabularyName, pageInfo).pipe(
-      getFirstSucceededRemoteDataPayload()
+      getFirstSucceededRemoteDataPayload(),
     ).subscribe((list: PaginatedList<VocabularyEntryDetail>) => {
       this.vocabularyService.clearSearchTopRequests();
-      const newNodes: TreeviewNode[] = list.page.map((entry: VocabularyEntryDetail) => this._generateNode(entry));
+      const newNodes: TreeviewNode[] = list.page.map((entry: VocabularyEntryDetail) => this._generateNode(entry, selectedItems));
       nodes.push(...newNodes);
 
       if ((list.pageInfo.currentPage + 1) <= list.pageInfo.totalPages) {
         // Need a new load more node
         const newPageInfo: PageInfo = Object.assign(new PageInfo(), list.pageInfo, {
-          currentPage: list.pageInfo.currentPage + 1
+          currentPage: list.pageInfo.currentPage + 1,
         });
         const loadMoreNode = new TreeviewNode(LOAD_MORE_ROOT_NODE, false, newPageInfo);
         loadMoreNode.updatePageInfo(newPageInfo);
@@ -336,15 +357,16 @@ export class VocabularyTreeviewService {
    * Build and return the tree node hierarchy by a given vocabulary entry
    *
    * @param item The vocabulary entry
+   * @param selectedItems The currently selected items
    * @param children The vocabulary entry
    * @param toStore A Boolean representing if the node created is to store or not
    * @return Observable<string[]>
    */
-  private getNodeHierarchy(item: VocabularyEntryDetail, children?: TreeviewNode[], toStore = true): Observable<TreeviewNode> {
+  private getNodeHierarchy(item: VocabularyEntryDetail, selectedItems: string[], children?: TreeviewNode[], toStore = true): Observable<TreeviewNode> {
     if (isEmpty(item)) {
       return observableOf(null);
     }
-    const node = this._generateNode(item, toStore, toStore);
+    const node = this._generateNode(item, selectedItems, toStore, toStore);
 
     if (isNotEmpty(children)) {
       const newChildren = children
@@ -359,7 +381,7 @@ export class VocabularyTreeviewService {
 
     if (node.item.hasOtherInformation() && isNotEmpty(node.item.otherInformation.parent)) {
       return this.getParentNode(node.item.otherInformation.id).pipe(
-        mergeMap((parentItem: VocabularyEntryDetail) => this.getNodeHierarchy(parentItem, [node], toStore))
+        mergeMap((parentItem: VocabularyEntryDetail) => this.getNodeHierarchy(parentItem, selectedItems, [node], toStore)),
       );
     } else {
       return observableOf(node);
@@ -370,15 +392,16 @@ export class VocabularyTreeviewService {
    * Build and return the node Hierarchy ids by a given node
    *
    * @param node The given node
+   * @param selectedItems The currently selected items
    * @param hierarchyIds The ids already present in the Hierarchy's array
    * @return string[]
    */
-  private getNodeHierarchyIds(node: TreeviewNode, hierarchyIds: string[] = []): string[] {
+  private getNodeHierarchyIds(node: TreeviewNode, selectedItems: string[], hierarchyIds: string[] = []): string[] {
     if (!hierarchyIds.includes(node.item.otherInformation.id)) {
       hierarchyIds.push(node.item.otherInformation.id);
     }
     if (isNotEmpty(node.children)) {
-      return this.getNodeHierarchyIds(node.children[0], hierarchyIds);
+      return this.getNodeHierarchyIds(node.children[0], selectedItems, hierarchyIds);
     } else {
       return hierarchyIds;
     }

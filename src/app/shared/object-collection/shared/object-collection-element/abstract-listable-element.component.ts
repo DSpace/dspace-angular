@@ -1,13 +1,21 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ListableObject } from '../listable-object.model';
-import { CollectionElementLinkType } from '../../collection-element-link.type';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { Context } from '../../../../core/shared/context.model';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { CollectionElementLinkType } from '../../collection-element-link.type';
+import { ListableObject } from '../listable-object.model';
 
 @Component({
   selector: 'ds-abstract-object-element',
   template: ``,
+  standalone: true,
 })
 export class AbstractListableElementComponent<T extends ListableObject> {
 
@@ -39,7 +47,7 @@ export class AbstractListableElementComponent<T extends ListableObject> {
   /**
    * Whether to show the badge label or not
    */
-  @Input() showLabel = true;
+  @Input() showLabel: boolean;
 
   /**
    * Whether to show the metrics badges
@@ -47,9 +55,14 @@ export class AbstractListableElementComponent<T extends ListableObject> {
   @Input() showMetrics = true;
 
   /**
+   * Whether to show if the item is a correction
+   */
+  @Input() showCorrection = false;
+
+  /**
    * Whether to show the thumbnail preview
    */
-  @Input() showThumbnails;
+  @Input() showThumbnails: boolean;
 
   /**
    * The context we matched on to get this component
@@ -80,4 +93,10 @@ export class AbstractListableElementComponent<T extends ListableObject> {
    * The available contexts
    */
   contexts = Context;
+
+  constructor(
+    public dsoNameService: DSONameService,
+  ) {
+  }
+
 }

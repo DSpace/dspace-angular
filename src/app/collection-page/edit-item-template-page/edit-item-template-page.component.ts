@@ -1,18 +1,50 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  RouterLink,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+import {
+  first,
+  map,
+  switchMap,
+} from 'rxjs/operators';
+
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { ItemTemplateDataService } from '../../core/data/item-template-data.service';
 import { RemoteData } from '../../core/data/remote-data';
 import { Collection } from '../../core/shared/collection.model';
-import { ActivatedRoute } from '@angular/router';
-import { first, map, switchMap } from 'rxjs/operators';
-import { ItemTemplateDataService } from '../../core/data/item-template-data.service';
-import { getCollectionEditRoute } from '../collection-page-routing-paths';
 import { Item } from '../../core/shared/item.model';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
-import { AlertType } from '../../shared/alert/aletr-type';
+import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
+import { AlertComponent } from '../../shared/alert/alert.component';
+import { AlertType } from '../../shared/alert/alert-type';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { getCollectionEditRoute } from '../collection-page-routing-paths';
 
 @Component({
-  selector: 'ds-edit-item-template-page',
+  selector: 'ds-base-edit-item-template-page',
   templateUrl: './edit-item-template-page.component.html',
+  imports: [
+    ThemedDsoEditMetadataComponent,
+    RouterLink,
+    AsyncPipe,
+    VarDirective,
+    NgIf,
+    TranslateModule,
+    ThemedLoadingComponent,
+    AlertComponent,
+  ],
+  standalone: true,
 })
 /**
  * Component for editing the item template of a collection
@@ -35,8 +67,11 @@ export class EditItemTemplatePageComponent implements OnInit {
    */
   AlertTypeEnum = AlertType;
 
-  constructor(protected route: ActivatedRoute,
-              public itemTemplateService: ItemTemplateDataService) {
+  constructor(
+    protected route: ActivatedRoute,
+    public itemTemplateService: ItemTemplateDataService,
+    public dsoNameService: DSONameService,
+  ) {
   }
 
   ngOnInit(): void {

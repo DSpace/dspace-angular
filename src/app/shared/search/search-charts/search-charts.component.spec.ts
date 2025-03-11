@@ -1,20 +1,29 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 
-import { SearchChartsComponent } from './search-charts.component';
 import { SearchService } from '../../../core/shared/search/search.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
-import { SearchFilterConfig } from '../models/search-filter-config.model';
-import { FilterType } from '../models/filter-type.model';
-import { Observable, of as observableOf } from 'rxjs';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
 import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
 import { FacetValue } from '../models/facet-value.model';
+import { FilterType } from '../models/filter-type.model';
+import { SearchFilterConfig } from '../models/search-filter-config.model';
 import { RemoteData } from './../../../core/data/remote-data';
+import { SearchChartComponent } from './search-chart/search-chart.component';
+import { SearchChartsComponent } from './search-charts.component';
 
 describe('SearchChartsComponent', () => {
   let comp: SearchChartsComponent;
@@ -23,12 +32,12 @@ describe('SearchChartsComponent', () => {
 
   const mockGraphPieChartFilterConfig = Object.assign(new SearchFilterConfig(), {
     name: 'dateIssued',
-    filterType: FilterType['chart.pie']
+    filterType: FilterType['chart.pie'],
   });
 
   const mockGraphBarChartFilterConfig = Object.assign(new SearchFilterConfig(), {
     name: 'type',
-    filterType: FilterType['chart.bar']
+    filterType: FilterType['chart.bar'],
   });
 
   const mockChartFilters$ = createSuccessfulRemoteDataObject$([mockGraphPieChartFilterConfig, mockGraphBarChartFilterConfig]);
@@ -38,30 +47,29 @@ describe('SearchChartsComponent', () => {
     count: 52,
     _links: {
       self: {
-        href: ''
+        href: '',
       },
       search: {
-        href: ''
-      }
-    }
+        href: '',
+      },
+    },
   })];
 
   const mockValues: Observable<RemoteData<FacetValue[]>> = createSuccessfulRemoteDataObject$(values);
   const searchServiceStub = jasmine.createSpyObj('SearchService', {
     getConfig: jasmine.createSpy('getConfig'),
-    getFacetValuesFor: (filter) => mockValues
+    getFacetValuesFor: (filter) => mockValues,
   });
 
   beforeEach(waitForAsync(async () => {
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule],
-      declarations: [SearchChartsComponent],
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, SearchChartsComponent],
       providers: [
         { provide: SearchService, useValue: searchServiceStub },
-        { provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigService }
+        { provide: SEARCH_CONFIG_SERVICE, useValue: searchConfigService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(SearchChartsComponent, { remove: { imports: [SearchChartComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

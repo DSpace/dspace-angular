@@ -21,7 +21,7 @@
     "skipDefaultLibCheck": true,
     "pretty": true,
     "allowSyntheticDefaultImports": true,
-    "target": "es2015",
+    "target": "ES2022",
     "typeRoots": [
       "node_modules/@types",
       "src/typings.d.ts"
@@ -39,11 +39,22 @@
     "types": [
       "node",
       "jasmine"
-    ]
+    ],
+    "useDefineForClassFields": false,
+    "useUnknownInCatchVariables": true
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true
-  }
+    "strictInputAccessModifiers": true,
+    "extendedDiagnostics": {
+      // The categories to use for specific diagnostics.
+      "checks": {
+        "missingControlFlowDirective": "error"
+      },
+    }
+  },
+  "exclude": [
+    "cypress.config.ts"
+  ]
 }

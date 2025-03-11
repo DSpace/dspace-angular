@@ -1,20 +1,37 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { BarChartModule } from '@swimlane/ngx-charts';
 
 import { fadeIn } from '../../../shared/animations/fade';
-import { renderChartFor } from '../../charts.decorator';
-import { ChartType } from '../../models/chart-type';
-import { AbstractChartComponent } from '../abstract-chart/abstract-chart.component';
 import { ChartData } from '../../models/chart-data';
 import { ChartSeries } from '../../models/chart-series';
+import { ChartType } from '../../models/chart-type';
+import { AbstractChartComponent } from '../abstract-chart/abstract-chart.component';
 
 @Component({
   selector: 'ds-bar-chart',
   styleUrls: ['./bar-chart.component.scss'],
   templateUrl: './bar-chart.component.html',
   animations: [fadeIn],
+  standalone: true,
+  imports: [
+    NgIf,
+    BarChartModule,
+    NgClass,
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
-@renderChartFor(ChartType.BAR)
-@renderChartFor(ChartType.BAR_HORIZONTAL)
 export class BarChartComponent extends AbstractChartComponent implements OnInit {
 
   /**
@@ -56,7 +73,7 @@ export class BarChartComponent extends AbstractChartComponent implements OnInit 
     this.subs.push(
       this.chartData.subscribe((data: ChartData[] | ChartSeries[]) => {
         this.setViewSize(data.length);
-      })
+      }),
     );
   }
 

@@ -1,22 +1,37 @@
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, SimpleChange } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectorRef,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  SimpleChange,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-import { TestScheduler } from 'rxjs/testing';
-import { of as observableOf } from 'rxjs';
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
+import {
+  NgbModal,
+  NgbModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  cold,
+  getTestScheduler,
+  hot,
+} from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
 
-import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
-import { mockSubmissionId } from '../../../shared/mocks/submission.mock';
-import { SubmissionService } from '../../submission.service';
-import { SubmissionRestServiceStub } from '../../../shared/testing/submission-rest-service.stub';
-import { SubmissionFormFooterComponent } from './submission-form-footer.component';
 import { SubmissionRestService } from '../../../core/submission/submission-rest.service';
-import { createTestComponent } from '../../../shared/testing/utils.test';
-import { BrowserOnlyMockPipe } from '../../../shared/testing/browser-only-mock.pipe';
 import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
+import { mockSubmissionId } from '../../../shared/mocks/submission.mock';
+import { SubmissionRestServiceStub } from '../../../shared/testing/submission-rest-service.stub';
+import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
+import { createTestComponent } from '../../../shared/testing/utils.test';
+import { SubmissionService } from '../../submission.service';
+import { SubmissionFormFooterComponent } from './submission-form-footer.component';
 
 const submissionServiceStub: SubmissionServiceStub = new SubmissionServiceStub();
 
@@ -34,21 +49,18 @@ describe('SubmissionFormFooterComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         NgbModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        TranslateModule.forRoot(),
         SubmissionFormFooterComponent,
         TestComponent,
-        BrowserOnlyMockPipe,
       ],
       providers: [
         { provide: SubmissionService, useValue: submissionServiceStub },
         { provide: SubmissionRestService, useClass: SubmissionRestServiceStub },
         ChangeDetectorRef,
         NgbModal,
-        SubmissionFormFooterComponent
+        SubmissionFormFooterComponent,
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -99,17 +111,17 @@ describe('SubmissionFormFooterComponent', () => {
       beforeEach(() => {
         submissionServiceStub.getSubmissionStatus.and.returnValue(hot('-a-b', {
           a: false,
-          b: true
+          b: true,
         }));
 
         submissionServiceStub.getSubmissionSaveProcessingStatus.and.returnValue(hot('-a-b', {
           a: false,
-          b: true
+          b: true,
         }));
 
         submissionServiceStub.getSubmissionDepositProcessingStatus.and.returnValue(hot('-a-b', {
           a: false,
-          b: true
+          b: true,
         }));
       });
 
@@ -117,11 +129,11 @@ describe('SubmissionFormFooterComponent', () => {
 
         const expected = cold('-c-d', {
           c: true,
-          d: false
+          d: false,
         });
 
         comp.ngOnChanges({
-          submissionId: new SimpleChange(null, submissionId, true)
+          submissionId: new SimpleChange(null, submissionId, true),
         });
 
         fixture.detectChanges();
@@ -133,11 +145,11 @@ describe('SubmissionFormFooterComponent', () => {
 
         const expected = cold('-c-d', {
           c: false,
-          d: true
+          d: true,
         });
 
         comp.ngOnChanges({
-          submissionId: new SimpleChange(null, submissionId, true)
+          submissionId: new SimpleChange(null, submissionId, true),
         });
 
         fixture.detectChanges();
@@ -149,11 +161,11 @@ describe('SubmissionFormFooterComponent', () => {
 
         const expected = cold('-c-d', {
           c: false,
-          d: true
+          d: true,
         });
 
         comp.ngOnChanges({
-          submissionId: new SimpleChange(null, submissionId, true)
+          submissionId: new SimpleChange(null, submissionId, true),
         });
 
         fixture.detectChanges();
@@ -276,7 +288,9 @@ describe('SubmissionFormFooterComponent', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
+  standalone: true,
+  imports: [NgbModule],
 })
 class TestComponent {
 

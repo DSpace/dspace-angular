@@ -1,25 +1,29 @@
 import { Injectable } from '@angular/core';
-import { of as observableOf, Observable } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { environment } from '../../../environments/environment';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { SubmissionService } from '../../submission/submission.service';
+import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { RemoteData } from '../data/remote-data';
+import { RequestEntryState } from '../data/request-entry-state.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { EditItemDataService } from './edititem-data.service';
 import { SubmissionObject } from './models/submission-object.model';
 import { SubmissionScopeType } from './submission-scope-type';
 import { WorkflowItemDataService } from './workflowitem-data.service';
 import { WorkspaceitemDataService } from './workspaceitem-data.service';
-import { map } from 'rxjs/operators';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { environment } from '../../../environments/environment';
-import { RequestEntryState } from '../data/request-entry-state.model';
-import { IdentifiableDataService } from '../data/base/identifiable-data.service';
-import { EditItemDataService } from './edititem-data.service';
 
 /**
  * A service to retrieve submission objects (WorkspaceItem/WorkflowItem)
  * without knowing their type
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SubmissionObjectDataService {
   constructor(
@@ -27,7 +31,7 @@ export class SubmissionObjectDataService {
     private workflowItemDataService: WorkflowItemDataService,
     private editItemDataService: EditItemDataService,
     private submissionService: SubmissionService,
-    private halService: HALEndpointService
+    private halService: HALEndpointService,
   ) {
   }
 
@@ -72,7 +76,7 @@ export class SubmissionObjectDataService {
         return this.workflowItemDataService.findById(id, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
       case SubmissionScopeType.EditItem:
         return this.editItemDataService.findById(id, useCachedVersionIfAvailable, reRequestOnStale,...linksToFollow);
-      default:
+      default: {
         const now = new Date().getTime();
         return observableOf(new RemoteData(
           now,
@@ -81,8 +85,9 @@ export class SubmissionObjectDataService {
           RequestEntryState.Error,
           'The request couldn\'t be sent. Unable to determine the type of submission object',
           undefined,
-          400
+          400,
         ));
+      }
     }
   }
 }

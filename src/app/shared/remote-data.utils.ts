@@ -1,6 +1,10 @@
-import { RemoteData } from '../core/data/remote-data';
-import { Observable, of as observableOf } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
 import { environment } from '../../environments/environment';
+import { RemoteData } from '../core/data/remote-data';
 import { RequestEntryState } from '../core/data/request-entry-state.model';
 import { PathableObjectError } from '../core/data/response-state.model';
 
@@ -22,7 +26,7 @@ export function createSuccessfulRemoteDataObject<T>(object: T, timeCompleted = F
     RequestEntryState.Success,
     undefined,
     object,
-    200
+    200,
   );
 }
 
@@ -52,7 +56,7 @@ export function createFailedRemoteDataObject<T>(errorMessage?: string, statusCod
     errorMessage,
     undefined,
     statusCode,
-    errors
+    errors,
   );
 }
 
@@ -80,7 +84,7 @@ export function createPendingRemoteDataObject<T>(lastVerified = FIXED_TIMESTAMP)
     RequestEntryState.ResponsePending,
     undefined,
     undefined,
-    undefined
+    undefined,
   );
 }
 

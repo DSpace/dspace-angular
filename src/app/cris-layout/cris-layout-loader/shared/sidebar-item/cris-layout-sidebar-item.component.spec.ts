@@ -1,14 +1,20 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
-import { CrisLayoutSidebarItemComponent } from './cris-layout-sidebar-item.component';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
-import { CrisLayoutLoaderDirective } from '../../../directives/cris-layout-loader.directive';
-
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { tabPersonTest } from '../../../../shared/testing/layout-tab.mocks';
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+
+import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
+import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
+import { tabPersonTest } from '../../../../shared/testing/layout-tab.mocks';
+import { CrisLayoutLoaderDirective } from '../../../directives/cris-layout-loader.directive';
+import { CrisLayoutSidebarItemComponent } from './cris-layout-sidebar-item.component';
 
 describe('CrisLayoutSidebarItemComponent', () => {
   let component: CrisLayoutSidebarItemComponent;
@@ -19,21 +25,15 @@ describe('CrisLayoutSidebarItemComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
+          useClass: TranslateLoaderMock,
+        },
       }),
-        NoopAnimationsModule,
-        // BrowserAnimationsModule
-      ],
-      declarations: [
-        CrisLayoutSidebarItemComponent,
-        CrisLayoutLoaderDirective,
-        // CrisLayoutMetadataBoxComponent
-      ],
+      NoopAnimationsModule, CrisLayoutSidebarItemComponent,
+      CrisLayoutLoaderDirective],
       providers: [
-        { provide: BitstreamDataService, useValue: {} }
+        { provide: BitstreamDataService, useValue: {} },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

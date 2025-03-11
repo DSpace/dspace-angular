@@ -1,12 +1,26 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule, By } from '@angular/platform-browser';
+import {
+  async,
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  BrowserModule,
+  By,
+} from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+
 import { CollectionDataService } from '../../../core/data/collection-data.service';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -14,7 +28,10 @@ import { Collection } from '../../../core/shared/collection.model';
 import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
 import { MetadataValue } from '../../../core/shared/metadata.models';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../remote-data.utils';
 import { FollowLinkConfig } from '../../utils/follow-link-config.model';
 import { ComcolPageBrowseByComponent } from './comcol-page-browse-by.component';
 
@@ -37,11 +54,11 @@ describe('ComcolPageBrowseByComponent', () => {
         relationshipTypeValue.value = id === orgUnitId ? 'OrgUnit' : 'Publication';
         const collection = Object.assign(new Collection(), {
           metadata: {
-            'dspace.entity.type' : [relationshipTypeValue]
-          }
+            'dspace.entity.type' : [relationshipTypeValue],
+          },
         });
         return createSuccessfulRemoteDataObject$(collection);
-      }
+      },
     };
 
     configurationServiceStub = {
@@ -56,7 +73,7 @@ describe('ComcolPageBrowseByComponent', () => {
             return createSuccessfulRemoteDataObject$(collectionProperty);
           }
           case 'browse.collection.Publication':
-            return createFailedRemoteDataObject$('NOT FOUND', 404,);
+            return createFailedRemoteDataObject$('NOT FOUND', 404);
           case 'browse.collection.OrgUnit': {
             const collectionProperty = new ConfigurationProperty();
             collectionProperty.name = 'browse.collection.OrgUnit';
@@ -64,7 +81,7 @@ describe('ComcolPageBrowseByComponent', () => {
             return createSuccessfulRemoteDataObject$(collectionProperty);
           }
         }
-      }
+      },
     };
 
     TestBed.configureTestingModule({
@@ -72,15 +89,13 @@ describe('ComcolPageBrowseByComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        }),
-      ],
-      declarations: [ComcolPageBrowseByComponent],
+            useClass: TranslateLoaderMock,
+          },
+        }), ComcolPageBrowseByComponent],
       providers: [ComcolPageBrowseByComponent,
         { provide: ConfigurationDataService, useValue: configurationServiceStub },
         { provide: CollectionDataService, useValue: collectionServiceStub }],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
   }));
@@ -117,12 +132,12 @@ describe('ComcolPageBrowseByComponent', () => {
     expect(secondOption.id).toEqual('author');
     expect(secondOption.label).toEqual('browse.comcol.by.author');
     expect(secondOption.routerLink).toEqual('/browse/author');
-    expect(secondOption.params).toEqual({ scope: publicationId});
+    expect(secondOption.params).toEqual({ scope: publicationId });
     const thirdOption = component.allOptions[2];
     expect(thirdOption.id).toEqual('title');
     expect(thirdOption.label).toEqual('browse.comcol.by.title');
     expect(thirdOption.routerLink).toEqual('/browse/title');
-    expect(thirdOption.params).toEqual({ scope: publicationId});
+    expect(thirdOption.params).toEqual({ scope: publicationId });
   });
 
   it('should create ComcolPageBrowseByComponent for the orgUnit\'s collection with two option',  () => {
@@ -142,7 +157,7 @@ describe('ComcolPageBrowseByComponent', () => {
     expect(secondOption.id).toEqual('ouname');
     expect(secondOption.label).toEqual('browse.comcol.by.ouname');
     expect(secondOption.routerLink).toEqual('/browse/ouname');
-    expect(secondOption.params).toEqual({ scope: orgUnitId});
+    expect(secondOption.params).toEqual({ scope: orgUnitId });
   });
 
   it('should display browse options when options are more then one',  () => {

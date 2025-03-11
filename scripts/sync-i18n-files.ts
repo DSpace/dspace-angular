@@ -274,8 +274,10 @@ function readFileIfExists(pathToFile) {
   if (checkIfFileExists(pathToFile)) {
     try {
       return fs.readFileSync(pathToFile, 'utf8');
-    } catch (e) {
-      console.error('Error:', e.stack);
+    } catch (e: any) {
+      if (e instanceof Error) {
+        console.error('Error:', e.stack);
+      }
     }
   }
   return null;

@@ -1,39 +1,46 @@
 import { Injectable } from '@angular/core';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  map,
+  startWith,
+} from 'rxjs/operators';
 
-
-import { Observable, of } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
-
-import { Audit } from './model/audit.model';
-import { AUDIT } from './model/audit.resource-type';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { dataService } from '../data/base/data-service.decorator';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../shared/utils/follow-link-config.model';
+import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { EPerson } from '../eperson/models/eperson.model';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { DeleteDataImpl } from '../data/base/delete-data';
+import {
+  FindAllData,
+  FindAllDataImpl,
+} from '../data/base/find-all-data';
+import { IdentifiableDataService } from '../data/base/identifiable-data.service';
+import { SearchDataImpl } from '../data/base/search-data';
+import { FindListOptions } from '../data/find-list-options.model';
 import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
-import { FindListOptions } from '../data/find-list-options.model';
 import { RequestService } from '../data/request.service';
+import { EPerson } from '../eperson/models/eperson.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import {
   getFirstSucceededRemoteDataPayload,
   getFirstSucceededRemoteDataWithNotEmptyPayload,
 } from '../shared/operators';
-import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { IdentifiableDataService } from '../data/base/identifiable-data.service';
-import { SearchDataImpl } from '../data/base/search-data';
-import { DeleteDataImpl } from '../data/base/delete-data';
-import { FindAllData, FindAllDataImpl } from '../data/base/find-all-data';
-import { DSONameService } from '../breadcrumbs/dso-name.service';
+import { Audit } from './model/audit.model';
 
 export const AUDIT_PERSON_NOT_AVAILABLE = 'n/a';
 
 export const AUDIT_FIND_BY_OBJECT_SEARCH_METHOD = 'findByObject';
 
-@Injectable()
-@dataService(AUDIT)
+@Injectable({ providedIn: 'root' })
 export class AuditDataService extends IdentifiableDataService<Audit>{
 
   private searchData: SearchDataImpl<Audit>;
@@ -46,7 +53,7 @@ export class AuditDataService extends IdentifiableDataService<Audit>{
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
     protected notificationsService: NotificationsService,
-    protected dsoNameService: DSONameService
+    protected dsoNameService: DSONameService,
   ) {
     super('auditevents', requestService, rdbService, objectCache, halService);
 
@@ -65,7 +72,7 @@ export class AuditDataService extends IdentifiableDataService<Audit>{
   findByObject(objectId: string, options: FindListOptions = {}): Observable<RemoteData<PaginatedList<Audit>>> {
     const searchMethod = AUDIT_FIND_BY_OBJECT_SEARCH_METHOD;
     const optionsWithObject = Object.assign(new FindListOptions(), options, {
-      searchParams: [new RequestParam('object', objectId)]
+      searchParams: [new RequestParam('object', objectId)],
     });
     return this.searchData.searchBy(searchMethod, optionsWithObject, true, true, followLink('eperson'));
   }
@@ -116,7 +123,7 @@ export class AuditDataService extends IdentifiableDataService<Audit>{
 
     if (otherObjectHref) {
       return this.findByHref(otherObjectHref).pipe(
-        getFirstSucceededRemoteDataPayload()
+        getFirstSucceededRemoteDataPayload(),
       );
     }
     return of(null);

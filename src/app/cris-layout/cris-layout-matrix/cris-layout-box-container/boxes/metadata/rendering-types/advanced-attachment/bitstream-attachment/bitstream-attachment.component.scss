@@ -1,9 +1,3 @@
-.img-file {
-  max-height: var(--ds-advanced-attachment-image-max-height);
-  object-fit: var(--ds-advanced-attachment-image-object-fit);
-  object-position: var(--ds-advanced-attachment-image-object-position);
-}
-
 .thumbnail-placeholder {
   border: var(--ds-thumbnail-placeholder-border);
   color: var(--ds-thumbnail-placeholder-color);
@@ -28,4 +22,8 @@ i.custom-icon {
   background-size: contain;
   text-align: center;
   vertical-align: middle;
+}
+
+.thumbnail-wrapper {
+  min-width: 120px;
 }

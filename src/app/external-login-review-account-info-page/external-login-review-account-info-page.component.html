@@ -1,0 +1,13 @@
+<div class="container">
+  <ng-container *ngIf="(registrationData$ | async)">
+    <ds-review-account-info
+      [registrationToken]="token"
+      [registrationData]="registrationData$ | async"
+    ></ds-review-account-info>
+  </ng-container>
+  <ds-alert
+    *ngIf="hasErrors"
+    [type]="AlertTypeEnum.Error"
+    [content]="'review-account-info.alert.error.content'"
+  ></ds-alert>
+</div>

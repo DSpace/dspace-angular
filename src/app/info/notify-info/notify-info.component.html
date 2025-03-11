@@ -1,0 +1,13 @@
+<div class="container">
+  <h1>{{ 'coar-notify-support.title' | translate }}</h1>
+  <p [innerHTML]="'coar-notify-support-title.content' | translate"></p>
+
+  <h2>{{ 'coar-notify-support.ldn-inbox.title' | translate }}</h2>
+  <p [innerHTML]="'coar-notify-support.ldn-inbox.content' | translate:{ ldnInboxUrl: coarRestApiUrls$ | async }"></p>
+
+  <h2>{{ 'coar-notify-support.message-moderation.title' | translate }}</h2>
+  <p>
+    {{ 'coar-notify-support.message-moderation.content' | translate }}
+    <a routerLink="/info/feedback">{{ 'coar-notify-support.message-moderation.feedback-form' | translate }}</a>
+  </p>
+</div>

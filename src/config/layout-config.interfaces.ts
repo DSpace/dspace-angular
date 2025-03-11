@@ -23,12 +23,23 @@ export interface CrisLayoutMetadataBoxConfig extends Config {
   defaultMetadataValueColStyle: string;
 }
 
+export interface CrisLayoutCollectionsBoxConfig extends Config {
+  defaultCollectionsLabelColStyle: string;
+  defaultCollectionsValueColStyle: string;
+  isInline: boolean;
+  defaultCollectionsRowStyle?: string;
+}
+
 export interface CrisLayoutTypeConfig {
   orientation: string;
 }
 
 export interface NavbarConfig extends Config {
   showCommunityCollection: boolean;
+}
+
+export interface BreadcrumbsConfig extends Config {
+  charLimit: number;
 }
 
 export interface CrisItemPageConfig extends Config {
@@ -47,10 +58,12 @@ export interface CrisLayoutConfig extends Config {
   crisRefStyleMetadata: CrisRefStyleMetadata;
   itemPage: CrisItemPageConfig;
   metadataBox: CrisLayoutMetadataBoxConfig;
+  collectionsBox: CrisLayoutCollectionsBoxConfig;
 }
 
 export interface LayoutConfig extends Config {
   navbar: NavbarConfig;
+  breadcrumbs: BreadcrumbsConfig;
 }
 
 export interface SuggestionConfig extends Config {

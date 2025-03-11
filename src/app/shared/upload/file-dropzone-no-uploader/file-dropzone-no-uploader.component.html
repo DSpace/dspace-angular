@@ -14,10 +14,10 @@
 </div>
 <div class="well ds-base-drop-zone mt-1 mb-3 text-muted p-2">
   <p class="text-center m-0 p-0 d-flex justify-content-center align-items-center"
-     *ngIf="fileObject!=null">  {{ fileObject.name }} </p>
+     *ngIf="fileObject">  {{ fileObject?.name }} </p>
   <p class="text-center m-0 p-0 d-flex justify-content-center align-items-center">
       <span><i class="fas fa-cloud-upload"
-               aria-hidden="true"></i> {{ (fileObject == null ? dropMessageLabel : dropMessageLabelReplacement) | translate}} {{'uploader.or' | translate}}</span>
+               aria-hidden="true"></i> {{ ((fileObject === null || fileObject === undefined) ? dropMessageLabel : dropMessageLabelReplacement) | translate}} {{'uploader.or' | translate}}</span>
     <label class="btn btn-link m-0 p-0 ml-1">
       <input class="form-control-file d-none" requireFile #file="ngModel" type="file" name="file-upload"
              id="file-upload"

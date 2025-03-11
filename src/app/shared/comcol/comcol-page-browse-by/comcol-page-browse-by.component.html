@@ -1,15 +1,20 @@
-<ng-container *ngIf="(allOptions$ | async) as options">
-  <ng-container *ngIf="options.length > 1">
-    <h2 class="comcol-browse-label h5">{{'browse.comcol.head' | translate}}</h2>
-    <nav class="comcol-browse mb-4" aria-label="Browse Community or Collection">
+<ng-container *ngIf="(allOptions$ | async) as allOptions">
+  <ng-container *ngIf="allOptions.length > 1">
+    <h2 class="comcol-browse-label">{{ 'browse.comcol.head' | translate }}</h2>
+    <nav class="comcol-browse mb-4"
+         aria-label="Browse Community or Collection">
       <div class="d-none d-sm-block">
 
-        <div class="list-group list-group-horizontal">
-          <a *ngFor="let option of options"
+        <div class="list-group list-group-horizontal" role="tablist">
+          <a *ngFor="let option of allOptions"
+             [attr.aria-current]="(currentOptionId$ | async) === option.id"
              class="list-group-item"
+             role="tab"
              [routerLink]="option.routerLink"
              [queryParams]="option.params"
-             routerLinkActive="active">{{ option.label | translate }}</a>
+             [class.active]="(currentOptionId$ | async) === option.id">
+            {{ option.label | translate }}
+          </a>
         </div>
       </div>
 
@@ -17,10 +22,13 @@
         <select name="browse-type"
                 class="form-control"
                 aria-label="Browse Community or Collection"
-                (ngModelChange)="onSelectChange($event)" [ngModel]="currentOptionId$ | async">
-          <option *ngFor="let option of options"
-                  [ngValue]="option.id"
-                  [attr.selected]="(currentOptionId$ | async) === option.id ? 'selected' : null">{{ option.label | translate }}</option>
+                [ngModel]="currentOptionId$ | async"
+                (ngModelChange)="onSelectChange($event)">
+          <option *ngFor="let option of allOptions"
+                  [value]="option.id"
+                  [attr.selected]="(currentOptionId$ | async) === option.id ? 'selected' : null">
+            {{ option.label | translate }}
+          </option>
         </select>
       </div>
     </nav>

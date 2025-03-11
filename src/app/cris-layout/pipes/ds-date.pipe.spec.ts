@@ -4,7 +4,7 @@ describe('DsDatePipe', () => {
 
   const cdrInstance = Object.assign({
     detectChanges: () => { /***/ },
-    markForCheck: () => { /***/ }
+    markForCheck: () => { /***/ },
   });
 
   const localeServiceInstance = Object.assign({

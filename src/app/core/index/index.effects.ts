@@ -1,30 +1,48 @@
-import { filter, map, switchMap, take } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import {
+  Actions,
+  createEffect,
+  ofType,
+} from '@ngrx/effects';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
+import {
+  filter,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
+import { hasValue } from '../../shared/empty.util';
+import { NoOpAction } from '../../shared/ngrx/no-op.action';
 import {
   AddToObjectCacheAction,
   ObjectCacheActionTypes,
-  RemoveFromObjectCacheAction
+  RemoveFromObjectCacheAction,
 } from '../cache/object-cache.actions';
+import { CoreState } from '../core-state.model';
 import {
   RequestActionTypes,
   RequestConfigureAction,
-  RequestStaleAction
+  RequestStaleAction,
 } from '../data/request.actions';
-import { AddToIndexAction, RemoveFromIndexByValueAction } from './index.actions';
-import { hasValue } from '../../shared/empty.util';
 import { RestRequestMethod } from '../data/rest-request-method';
-import { getUrlWithoutEmbedParams, uuidFromHrefSelector } from './index.selectors';
-import { Store, select } from '@ngrx/store';
-import { NoOpAction } from '../../shared/ngrx/no-op.action';
+import {
+  AddToIndexAction,
+  RemoveFromIndexByValueAction,
+} from './index.actions';
+import {
+  getUrlWithoutEmbedParams,
+  uuidFromHrefSelector,
+} from './index.selectors';
 import { IndexName } from './index-name.model';
-import { CoreState } from '../core-state.model';
 
 @Injectable()
 export class UUIDIndexEffects {
 
-   addObject$ = createEffect(() => this.actions$
+  addObject$ = createEffect(() => this.actions$
     .pipe(
       ofType(ObjectCacheActionTypes.ADD),
       filter((action: AddToObjectCacheAction) => hasValue(action.payload.objectToCache.uuid)),
@@ -32,16 +50,16 @@ export class UUIDIndexEffects {
         return new AddToIndexAction(
           IndexName.OBJECT,
           action.payload.objectToCache.uuid,
-          action.payload.objectToCache._links.self.href
+          action.payload.objectToCache._links.self.href,
         );
-      })
+      }),
     ));
 
   /**
    * Adds an alternative link to an object to the ALTERNATIVE_OBJECT_LINK index
    * When the self link of the objectToCache is not the same as the alternativeLink
    */
-   addAlternativeObjectLink$ = createEffect(() => this.actions$
+  addAlternativeObjectLink$ = createEffect(() => this.actions$
     .pipe(
       ofType(ObjectCacheActionTypes.ADD),
       map((action: AddToObjectCacheAction) => {
@@ -51,37 +69,37 @@ export class UUIDIndexEffects {
           return new AddToIndexAction(
             IndexName.ALTERNATIVE_OBJECT_LINK,
             alternativeLink,
-            selfLink
+            selfLink,
           );
         } else {
           return new NoOpAction();
         }
-      })
+      }),
     ));
 
-   removeObject$ = createEffect(() => this.actions$
+  removeObject$ = createEffect(() => this.actions$
     .pipe(
       ofType(ObjectCacheActionTypes.REMOVE),
       map((action: RemoveFromObjectCacheAction) => {
         return new RemoveFromIndexByValueAction(
           IndexName.OBJECT,
-          action.payload
+          action.payload,
         );
-      })
+      }),
     ));
 
-   addRequest$ = createEffect(() => this.actions$
+  addRequest$ = createEffect(() => this.actions$
     .pipe(
       ofType(RequestActionTypes.CONFIGURE),
       filter((action: RequestConfigureAction) => action.payload.method === RestRequestMethod.GET),
       switchMap((action: RequestConfigureAction) => {
         const href = getUrlWithoutEmbedParams(action.payload.href);
         return this.store.pipe(
-            select(uuidFromHrefSelector(href)),
-            take(1),
-            map((uuid: string) => [action, uuid])
-          );
-        }
+          select(uuidFromHrefSelector(href)),
+          take(1),
+          map((uuid: string) => [action, uuid]),
+        );
+      },
       ),
       switchMap(([action, uuid]: [RequestConfigureAction, string]) => {
         let actions = [];
@@ -91,10 +109,10 @@ export class UUIDIndexEffects {
         actions = [...actions, new AddToIndexAction(
           IndexName.REQUEST,
           getUrlWithoutEmbedParams(action.payload.href),
-          action.payload.uuid
+          action.payload.uuid,
         )];
         return actions;
-      })
+      }),
     ));
 
   constructor(private actions$: Actions, private store: Store<CoreState>) {

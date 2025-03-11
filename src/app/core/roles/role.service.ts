@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
-
-import { Observable, of as observableOf } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { RoleType } from './role-types';
 import { CollectionDataService } from '../data/collection-data.service';
-import { FeatureID } from '../data/feature-authorization/feature-id';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
-
+import { FeatureID } from '../data/feature-authorization/feature-id';
+import { RoleType } from './role-types';
 
 /**
  * A service that provides methods to identify user role.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class RoleService {
 
   /**
@@ -22,8 +23,8 @@ export class RoleService {
    */
   constructor(
     private collectionService: CollectionDataService,
-    private authorizationService: AuthorizationDataService
-    ) {
+    private authorizationService: AuthorizationDataService,
+  ) {
   }
 
   /**
@@ -33,7 +34,7 @@ export class RoleService {
     // By applying switchMap, we address the cache problem typically associated with observables
     // the switchMap operator cancels the previous inner observable and subscribes to the new one, effectively initiating a fresh request
     return observableOf(true).pipe(
-      switchMap(() => this.collectionService.hasAuthorizedCollection())
+      switchMap(() => this.collectionService.hasAuthorizedCollection()),
     );
   }
 

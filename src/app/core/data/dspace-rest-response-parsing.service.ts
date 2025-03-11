@@ -1,23 +1,34 @@
 /* eslint-disable max-classes-per-file */
-import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
-import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
-import { Serializer } from '../serializer';
-import { PageInfo } from '../shared/page-info.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { GenericConstructor } from '../shared/generic-constructor';
-import { PaginatedList, buildPaginatedList } from './paginated-list.model';
-import { getClassForType } from '../cache/builders/build-decorators';
-import { environment } from '../../../environments/environment';
-import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
-import { DSpaceObject } from '../shared/dspace-object.model';
 import { Injectable } from '@angular/core';
-import { ResponseParsingService } from './parsing.service';
-import { ParsedResponse } from '../cache/response.models';
-import { RestRequestMethod } from './rest-request-method';
-import { getUrlWithoutEmbedParams, getEmbedSizeParams } from '../index/index.selectors';
-import { URLCombiner } from '../url-combiner/url-combiner';
+
+import { environment } from '../../../environments/environment';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
+import { getClassForType } from '../cache/builders/build-decorators';
 import { CacheableObject } from '../cache/cacheable-object.model';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { ParsedResponse } from '../cache/response.models';
+import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
+import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+import {
+  getEmbedSizeParams,
+  getUrlWithoutEmbedParams,
+} from '../index/index.selectors';
+import { Serializer } from '../serializer';
+import { DSpaceObject } from '../shared/dspace-object.model';
+import { GenericConstructor } from '../shared/generic-constructor';
+import { PageInfo } from '../shared/page-info.model';
+import { URLCombiner } from '../url-combiner/url-combiner';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from './paginated-list.model';
+import { ResponseParsingService } from './parsing.service';
 import { RestRequest } from './rest-request.model';
+import { RestRequestMethod } from './rest-request-method';
 
 
 /**
@@ -144,8 +155,8 @@ export class DspaceRestResponseParsingService implements ResponseParsingService 
         console.warn(`The response for '${request.href}' doesn't have a self link. This could mean there's an issue with the REST endpoint`);
         response.payload._links = Object.assign({}, response.payload._links, {
           self: {
-            href: urlWithoutEmbedParams
-          }
+            href: urlWithoutEmbedParams,
+          },
         });
 
       } else {
@@ -155,8 +166,8 @@ export class DspaceRestResponseParsingService implements ResponseParsingService 
           console.warn(`The response for '${urlWithoutEmbedParams}' has the self link '${response.payload._links.self.href}'. These don't match. This could mean there's an issue with the REST endpoint`);
           response.payload._links = Object.assign({}, response.payload._links, {
             self: {
-              href: urlWithoutEmbedParams
-            }
+              href: urlWithoutEmbedParams,
+            },
           });
         }
       }
@@ -184,8 +195,8 @@ export class DspaceRestResponseParsingService implements ResponseParsingService 
   protected processArray<ObjectDomain>(data: any, request: RestRequest): ObjectDomain[] {
     let array: ObjectDomain[] = [];
     data.forEach((datum) => {
-        array = [...array, this.process(datum, request)];
-      }
+      array = [...array, this.process(datum, request)];
+    },
     );
     return array;
   }
@@ -231,7 +242,7 @@ export class DspaceRestResponseParsingService implements ResponseParsingService 
       let dataJSON: string;
       if (hasValue(data._embedded)) {
         dataJSON = JSON.stringify(Object.assign({}, data, {
-          _embedded: '...'
+          _embedded: '...',
         }));
       } else {
         dataJSON = JSON.stringify(data);

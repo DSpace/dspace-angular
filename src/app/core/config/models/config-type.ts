@@ -17,3 +17,5 @@ export const SUBMISSION_UPLOADS_TYPE = new ResourceType('submissionuploads');
 export const SUBMISSION_UPLOAD_TYPE = new ResourceType('submissionupload');
 
 export const SUBMISSION_ACCESSES_TYPE = new ResourceType('submissionaccessoption');
+
+export const BULK_ACCESS_CONDITION_OPTIONS = new ResourceType('bulkaccessconditionoption');

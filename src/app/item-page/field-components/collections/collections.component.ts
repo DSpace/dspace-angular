@@ -1,19 +1,44 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
-import { map, scan, startWith, switchMap, tap, withLatestFrom } from 'rxjs/operators';
-import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  map,
+  scan,
+  startWith,
+  switchMap,
+  tap,
+  withLatestFrom,
+} from 'rxjs/operators';
 
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { CollectionDataService } from '../../../core/data/collection-data.service';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Collection } from '../../../core/shared/collection.model';
 import { Item } from '../../../core/shared/item.model';
-import { hasValue } from '../../../shared/empty.util';
 import {
   getAllCompletedRemoteData,
   getAllSucceededRemoteDataPayload,
   getFirstSucceededRemoteDataPayload,
   getPaginatedListPayload,
 } from '../../../core/shared/operators';
-import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { hasValue } from '../../../shared/empty.util';
+import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 
 /**
  * This component renders the parent collections section of the item
@@ -22,7 +47,16 @@ import { FindListOptions } from '../../../core/data/find-list-options.model';
 
 @Component({
   selector: 'ds-item-page-collections',
-  templateUrl: './collections.component.html'
+  templateUrl: './collections.component.html',
+  imports: [
+    MetadataFieldWrapperComponent,
+    TranslateModule,
+    NgForOf,
+    AsyncPipe,
+    RouterLink,
+    NgIf,
+  ],
+  standalone: true,
 })
 export class CollectionsComponent implements OnInit {
 
@@ -65,8 +99,11 @@ export class CollectionsComponent implements OnInit {
    */
   collections$: Observable<Collection[]>;
 
-  constructor(private cds: CollectionDataService) {
-
+  constructor(
+    private cds: CollectionDataService,
+    public dsoNameService: DSONameService,
+    protected cdr: ChangeDetectorRef,
+  ) {
   }
 
   ngOnInit(): void {
@@ -114,6 +151,7 @@ export class CollectionsComponent implements OnInit {
         return [owningCollection, ...mappedCollections].filter(collection => hasValue(collection));
       }),
     );
+    this.cdr.detectChanges();
   }
 
   handleLoadMore() {

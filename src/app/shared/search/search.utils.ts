@@ -1,6 +1,6 @@
+import { isNotEmpty } from '../empty.util';
 import { FacetValue } from './models/facet-value.model';
 import { SearchFilterConfig } from './models/search-filter-config.model';
-import { isNotEmpty } from '../empty.util';
 
 /**
  * Get a facet's value by matching its parameter in the search href, this will include the operator of the facet value
@@ -43,7 +43,7 @@ function _createValue(paramName: string, facetValueLinks, value, authorityKey) {
  * @param input the string to escape
  */
 export function escapeRegExp(input: string): string {
-  return input.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+  return input?.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
 }
 
 /**
@@ -51,7 +51,7 @@ export function escapeRegExp(input: string): string {
  * @param value The value from which the operator should be stripped.
  */
 export function stripOperatorFromFilterValue(value: string) {
-  if (value.match(new RegExp(`.+,(equals|query|authority)$`))) {
+  if (value?.match(new RegExp(`.+,(equals|query|authority)$`))) {
     return value.substring(0, value.lastIndexOf(','));
   }
   return value;
@@ -63,7 +63,7 @@ export function stripOperatorFromFilterValue(value: string) {
  * @param operator
  */
 export function addOperatorToFilterValue(value: string, operator: string) {
-  if (!value.match(new RegExp(`^.+,(equals|query|authority)$`))) {
+  if (!value?.match(new RegExp(`^.+,(equals|query|authority|contains|notcontains|notequals)$`))) {
     return `${value},${operator}`;
   }
   return value;

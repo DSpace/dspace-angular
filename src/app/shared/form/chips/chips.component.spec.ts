@@ -1,18 +1,32 @@
 // Load the implementations that should be tested
-import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync, } from '@angular/core/testing';
-
-import { Chips } from './models/chips.model';
-import { ChipsComponent } from './chips.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  CommonModule,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  inject,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
-import { createTestComponent } from '../../testing/utils.test';
-import { AuthorityConfidenceStateDirective } from '../directives/authority-confidence-state.directive';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { ConfidenceType } from '../../../core/shared/confidence-type';
-import { SortablejsModule } from 'ngx-sortablejs';
+
 import { environment } from '../../../../environments/environment';
+import { ConfidenceType } from '../../../core/shared/confidence-type';
+import { createTestComponent } from '../../testing/utils.test';
+import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
+import { AuthorityConfidenceStateDirective } from '../directives/authority-confidence-state.directive';
+import { ChipsComponent } from './chips.component';
+import { Chips } from './models/chips.model';
 
 describe('ChipsComponent test suite', () => {
 
@@ -29,19 +43,17 @@ describe('ChipsComponent test suite', () => {
     TestBed.configureTestingModule({
       imports: [
         NgbModule,
-        SortablejsModule.forRoot({ animation: 150 }),
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        CommonModule,
+        TranslateModule.forRoot(),
         ChipsComponent,
         TestComponent,
-        AuthorityConfidenceStateDirective
-      ], // declare the test component
+        AuthorityConfidenceStateDirective,
+      ],
       providers: [
         ChangeDetectorRef,
         ChipsComponent,
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
 
   }));
@@ -94,18 +106,18 @@ describe('ChipsComponent test suite', () => {
     }));
 
     it('should save chips item index when drag and drop start', fakeAsync(() => {
-      const de = chipsFixture.debugElement.query(By.css('li.nav-item'));
+      const de = chipsFixture.debugElement.query(By.css('a'));
 
-      de.triggerEventHandler('dragstart', null);
+      de.triggerEventHandler('cdkDragStarted', null);
 
       expect(chipsComp.dragged).toBe(0);
     }));
 
     it('should update chips item order when drag and drop end', fakeAsync(() => {
       spyOn(chipsComp.chips, 'updateOrder');
-      const de = chipsFixture.debugElement.query(By.css('li.nav-item'));
+      const de = chipsFixture.debugElement.query(By.css('div[role="list"]'));
 
-      de.triggerEventHandler('dragend', null);
+      de.triggerEventHandler('cdkDropListDropped', { previousIndex: 0, currentIndex: 1 });
 
       expect(chipsComp.dragged).toBe(-1);
       expect(chipsComp.chips.updateOrder).toHaveBeenCalled();
@@ -117,7 +129,7 @@ describe('ChipsComponent test suite', () => {
       const item = {
         mainField: new FormFieldMetadataValueObject('main test', null, null,'test001', 'main test with long text and tooltip', 0, ConfidenceType.CF_ACCEPTED),
         relatedField: new FormFieldMetadataValueObject('related test', null, null,'test002', 'related test', 0, ConfidenceType.CF_ACCEPTED),
-        otherRelatedField: new FormFieldMetadataValueObject('other related test')
+        otherRelatedField: new FormFieldMetadataValueObject('other related test'),
       };
 
       chips = new Chips([item], 'display', 'mainField', environment.submission.icons.metadata);
@@ -130,7 +142,7 @@ describe('ChipsComponent test suite', () => {
     });
 
     it('should show icon for every field that has a configured icon', () => {
-      const de = chipsFixture.debugElement.query(By.css('li.nav-item'));
+      const de = chipsFixture.debugElement.query(By.css('div.nav-item'));
       const icons = de.queryAll(By.css('i.fas'));
 
       expect(icons.length).toBe(4);
@@ -138,7 +150,7 @@ describe('ChipsComponent test suite', () => {
     });
 
     it('should show tooltip on mouse over an icon', () => {
-      const de = chipsFixture.debugElement.query(By.css('li.nav-item'));
+      const de = chipsFixture.debugElement.query(By.css('div.nav-item'));
       const icons = de.queryAll(By.css('i.fas'));
 
       icons[0].triggerEventHandler('mouseover', null);
@@ -154,7 +166,7 @@ describe('ChipsComponent test suite', () => {
   describe('when has a chip with short text to display', () => {
     beforeEach(() => {
       const item = {
-        mainField: new FormFieldMetadataValueObject('main test', null, null, 'test001', 'main test', 0, ConfidenceType.CF_ACCEPTED)
+        mainField: new FormFieldMetadataValueObject('main test', null, null, 'test001', 'main test', 0, ConfidenceType.CF_ACCEPTED),
       };
 
       chips = new Chips([item], 'display', 'mainField', environment.submission.icons.metadata);
@@ -166,7 +178,7 @@ describe('ChipsComponent test suite', () => {
     });
 
     it('should not show tooltip on mouse over list item when display text is short', () => {
-      const de = chipsFixture.debugElement.query(By.css('li.nav-item'));
+      const de = chipsFixture.debugElement.query(By.css('div.nav-item'));
       de.triggerEventHandler('mouseover', null);
       expect(chipsComp.tipText$.value).toEqual([]);
       de.triggerEventHandler('mouseout', null);
@@ -176,7 +188,7 @@ describe('ChipsComponent test suite', () => {
   describe('when has a chip with long text to display', () => {
     beforeEach(() => {
       const item = {
-        mainField: new FormFieldMetadataValueObject('main test', null, null, 'test001', 'long text to display is truncated but not in tooltip', 0, ConfidenceType.CF_ACCEPTED)
+        mainField: new FormFieldMetadataValueObject('main test', null, null, 'test001', 'long text to display is truncated but not in tooltip', 0, ConfidenceType.CF_ACCEPTED),
       };
 
       chips = new Chips([item], 'display', 'mainField');
@@ -188,14 +200,14 @@ describe('ChipsComponent test suite', () => {
     });
 
     it('should show tooltip on mouse over list item when display text is long', () => {
-      const de = chipsFixture.debugElement.query(By.css('li.nav-item'));
+      const de = chipsFixture.debugElement.query(By.css('div.nav-item'));
       de.triggerEventHandler('mouseover', null);
       expect(chipsComp.tipText$.value).toEqual(['long text to display is truncated but not in tooltip']);
       de.triggerEventHandler('mouseout', null);
     });
 
     it('should show truncated text on list item when display text is long', () => {
-      const de = chipsFixture.debugElement.query(By.css('li.nav-item p.d-table-cell'));
+      const de = chipsFixture.debugElement.query(By.css('div.nav-item p.d-table-cell'));
       expect(de.nativeElement.innerText).toEqual(chipsComp.textTruncate('long text to display is truncated but not in tooltip'));
     });
   });
@@ -212,10 +224,10 @@ describe('ChipsComponent test suite', () => {
     it('should return true if authority starts with will be generated and false otherwise', () => {
       const metadata = 'dc.title';
       let chip;
-      chip = { item: { 'dc.title': { authority: 'will be generated::'}}} as any;
+      chip = { item: { 'dc.title': { authority: 'will be generated::' } } } as any;
       expect(chipsComp.hasWillBeGenerated(chip, metadata)).toEqual(true);
 
-      chip = { item: { 'dc.title': { authority: ''}}} as any;
+      chip = { item: { 'dc.title': { authority: '' } } } as any;
       expect(chipsComp.hasWillBeGenerated(chip, metadata)).toEqual(false);
     });
 
@@ -233,10 +245,10 @@ describe('ChipsComponent test suite', () => {
     it('should return true if authority starts with will be referenced and false otherwise', () => {
       const metadata = 'dc.title';
       let chip;
-      chip = { item: { 'dc.title': { authority: 'will be referenced::'}}} as any;
+      chip = { item: { 'dc.title': { authority: 'will be referenced::' } } } as any;
       expect(chipsComp.hasWillBeReferenced(chip, metadata)).toEqual(true);
 
-      chip = { item: { 'dc.title': { authority: ''}}} as any;
+      chip = { item: { 'dc.title': { authority: '' } } } as any;
       expect(chipsComp.hasWillBeReferenced(chip, metadata)).toEqual(false);
     });
 
@@ -254,10 +266,10 @@ describe('ChipsComponent test suite', () => {
     it('should return the value of the reference if present, null otherwise', () => {
       const metadata = 'dc.title';
       let chip;
-      chip = { item: { 'dc.title': { authority: 'will be referenced::ORCID::0000'}}} as any;
+      chip = { item: { 'dc.title': { authority: 'will be referenced::ORCID::0000' } } } as any;
       expect(chipsComp.getWillBeReferencedContent(chip, metadata)).toEqual('ORCID::0000');
 
-      chip = { item: { 'dc.title': { authority: ''}}} as any;
+      chip = { item: { 'dc.title': { authority: '' } } } as any;
       expect(chipsComp.getWillBeReferencedContent(chip, metadata)).toEqual(null);
     });
 
@@ -268,7 +280,9 @@ describe('ChipsComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
+  standalone: true,
+  imports: [NgbModule, NgIf],
 })
 class TestComponent {
 

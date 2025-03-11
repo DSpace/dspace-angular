@@ -1,0 +1,112 @@
+<form #ngForm="ngForm">
+  <div *ngIf="showWarning" class="alert alert-warning">
+    {{'access-control-no-access-conditions-warning-message' | translate}}
+  </div>
+
+  <ng-container *ngFor="let control of form.accessControls; trackBy: trackById">
+    <div ngModelGroup="access-control-item-{{control.id}}" class="access-control-item mt-3">
+
+      <div class="d-flex flex-column">
+        <div>
+          <label for="accesscontroloption-{{control.id}}">
+            {{'access-control-option-label' | translate}}
+          </label>
+          <select
+            id="accesscontroloption-{{control.id}}"
+            [disabled]="ngForm.disabled"
+            [(ngModel)]="control.itemName"
+            (ngModelChange)="accessControlChanged(control, $event)"
+            name="itemName-{{control.id}}"
+            class="form-control">
+            <option value=""></option>
+            <option *ngFor="let option of dropdownOptions" [value]="option.name">
+              {{ option.name }}
+            </option>
+          </select>
+          <small class="form-text text-muted">
+            {{'access-control-option-note' | translate}}
+          </small>
+        </div>
+
+        <div *ngIf="control.hasStartDate" class="mt-3">
+          <label for="accesscontrolstartdate-{{control.id}}">
+            {{'access-control-option-start-date' | translate}}
+          </label>
+          <div class="input-group">
+            <input
+              id="accesscontrolstartdate-{{control.id}}"
+              class="form-control"
+              placeholder="yyyy-mm-dd"
+              [(ngModel)]="control.startDate"
+              name="startDate-{{control.id}}"
+              [maxDate]="control.maxStartDate | toDate"
+              ngbDatepicker
+              placement="top-start top-end bottom-start bottom-end"
+              #d="ngbDatepicker"
+            />
+            <div class="input-group-append">
+              <button
+                class="btn btn-outline-secondary fas fa-calendar"
+                [disabled]="ngForm.disabled"
+                (click)="d.toggle()" type="button">
+              </button>
+            </div>
+          </div>
+          <small class="form-text text-muted">
+            {{'access-control-option-start-date-note' | translate}}
+          </small>
+        </div>
+
+        <div *ngIf="control.hasEndDate" class="mt-3">
+          <label for="accesscontrolenddate-{{control.id}}">
+            {{'access-control-option-end-date' | translate}}
+          </label>
+          <div class="input-group">
+            <input
+              id="accesscontrolenddate-{{control.id}}"
+              class="form-control"
+              placeholder="yyyy-mm-dd"
+              [(ngModel)]="control.endDate"
+              name="endDate-{{control.id}}"
+              [maxDate]="control.maxEndDate | toDate"
+              ngbDatepicker
+              placement="top-start top-end bottom-start bottom-end"
+              #d1="ngbDatepicker"
+            />
+            <div class="input-group-append">
+              <button
+                type="button" class="btn btn-outline-secondary fas fa-calendar"
+                [disabled]="ngForm.disabled"
+                (click)="d1.toggle()">
+              </button>
+            </div>
+          </div>
+          <small class="form-text text-muted">
+            {{'access-control-option-end-date-note' | translate}}
+          </small>
+        </div>
+      </div>
+
+      <div>
+        <span aria-hidden="true" class="mb-2 d-inline-block">&nbsp;</span>
+        <div class="input-group">
+
+          <button type="button" class="btn btn-outline-danger"
+                  [attr.aria-label]="'access-control-remove' | translate"
+                  [disabled]="ngForm.disabled || form.accessControls.length === 1"
+                  (click)="removeAccessControlItem(control.id)">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <button type="button" id="add-btn-{{type}}" class="btn btn-outline-primary mt-3"
+          [disabled]="ngForm.disabled"
+          (click)="addAccessControlItem()">
+    <i class="fas fa-plus"></i>
+    {{'access-control-add-more' | translate}}
+  </button>
+
+</form>

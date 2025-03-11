@@ -1,19 +1,43 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { EntityDropdownComponent } from './entity-dropdown.component';
-import { getTestScheduler } from 'jasmine-marbles';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { ItemType } from '../../core/shared/item-relationships/item-type.model';
-import { ChangeDetectorRef, NO_ERRORS_SCHEMA, Pipe, PipeTransform } from '@angular/core';
-import { EntityTypeDataService } from '../../core/data/entity-type-data.service';
-import { TestScheduler } from 'rxjs/testing';
+import { AsyncPipe } from '@angular/common';
+import {
+  ChangeDetectorRef,
+  NO_ERRORS_SCHEMA,
+  Pipe,
+  PipeTransform,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { createPaginatedList } from '../testing/utils.test';
-import { ItemExportFormatService } from '../../core/itemexportformat/item-export-format.service';
-import { of } from 'rxjs/internal/observable/of';
-import { ItemExportFormat, ItemExportFormatMap } from '../../core/itemexportformat/model/item-export-format.model';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { getTestScheduler } from 'jasmine-marbles';
+import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
+import { of } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
 
-// eslint-disable-next-line @angular-eslint/pipe-prefix
-@Pipe({ name: 'translate' })
+import { EntityTypeDataService } from '../../core/data/entity-type-data.service';
+import { ItemExportFormatService } from '../../core/itemexportformat/item-export-format.service';
+import {
+  ItemExportFormat,
+  ItemExportFormatMap,
+} from '../../core/itemexportformat/model/item-export-format.model';
+import { ItemType } from '../../core/shared/item-relationships/item-type.model';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
+import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import { createPaginatedList } from '../testing/utils.test';
+import { SortPipe } from '../utils/sort.pipe';
+import { EntityDropdownComponent } from './entity-dropdown.component';
+
+@Pipe({
+  // eslint-disable-next-line @angular-eslint/pipe-prefix
+  name: 'translate',
+  standalone: true,
+})
 class MockTranslatePipe implements PipeTransform {
   transform(value: string): string {
     return value;
@@ -24,55 +48,55 @@ const entities: ItemType[] = [
   Object.assign(new ItemType(), {
     id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
     label: 'Entity_1',
-    uuid: 'UUID-ce64f48e-2c9b-411a-ac36-ee429c0e6a88'
+    uuid: 'UUID-ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
   }),
   Object.assign(new ItemType(), {
     id: '59ee713b-ee53-4220-8c3f-9860dc84fe33',
     label: 'Entity_2',
-    uuid: 'UUID-59ee713b-ee53-4220-8c3f-9860dc84fe33'
+    uuid: 'UUID-59ee713b-ee53-4220-8c3f-9860dc84fe33',
   }),
   Object.assign(new ItemType(), {
     id: 'e9dbf393-7127-415f-8919-55be34a6e9ed',
     label: 'Entity_3',
-    uuid: 'UUID-7127-415f-8919-55be34a6e9ed'
+    uuid: 'UUID-7127-415f-8919-55be34a6e9ed',
   }),
   Object.assign(new ItemType(), {
     id: '59da2ff0-9bf4-45bf-88be-e35abd33f304',
     label: 'Entity_4',
-    uuid: 'UUID-59da2ff0-9bf4-45bf-88be-e35abd33f304'
+    uuid: 'UUID-59da2ff0-9bf4-45bf-88be-e35abd33f304',
   }),
   Object.assign(new ItemType(), {
     id: 'a5159760-f362-4659-9e81-e3253ad91ede',
     label: 'Entity_5',
-    uuid: 'UUID-a5159760-f362-4659-9e81-e3253ad91ede'
+    uuid: 'UUID-a5159760-f362-4659-9e81-e3253ad91ede',
   }),
 ];
 
 const listElementMock: ItemType = Object.assign(
   new ItemType(), {
-  id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
-  label: 'Entity_1',
-  uuid: 'UUID-ce64f48e-2c9b-411a-ac36-ee429c0e6a88'
-});
+    id: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
+    label: 'Entity_1',
+    uuid: 'UUID-ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
+  });
 
-const format = Object.assign(new ItemExportFormat(), { id: 'publication-xml'});
+const format = Object.assign(new ItemExportFormat(), { id: 'publication-xml' });
 
 const entityFormatList: ItemExportFormatMap = {
   'Entity_1': [
-    Object.assign(new ItemExportFormat(), { id: 'publication-xml', entityType: 'Publication'}),
-    Object.assign(new ItemExportFormat(), { id: 'publication-json', entityType: 'Publication'}),
+    Object.assign(new ItemExportFormat(), { id: 'publication-xml', entityType: 'Publication' }),
+    Object.assign(new ItemExportFormat(), { id: 'publication-json', entityType: 'Publication' }),
   ],
   'Entity_2': [
-    Object.assign(new ItemExportFormat(), { id: 'project-xml', entityType: 'Project'})
+    Object.assign(new ItemExportFormat(), { id: 'project-xml', entityType: 'Project' }),
   ],
   'Entity_3': [
-    Object.assign(new ItemExportFormat(), { id: 'project-xml', entityType: 'Project'})
+    Object.assign(new ItemExportFormat(), { id: 'project-xml', entityType: 'Project' }),
   ],
   'Entity_4': [
-    Object.assign(new ItemExportFormat(), { id: 'project-xml', entityType: 'Project'})
+    Object.assign(new ItemExportFormat(), { id: 'project-xml', entityType: 'Project' }),
   ],
   'Entity_5': [
-    Object.assign(new ItemExportFormat(), { id: 'project-xml', entityType: 'Project'})
+    Object.assign(new ItemExportFormat(), { id: 'project-xml', entityType: 'Project' }),
   ],
 };
 
@@ -84,28 +108,40 @@ describe('EntityDropdownComponent', () => {
 
   const entityTypeServiceMock: any = jasmine.createSpyObj('EntityTypeService', {
     getAllAuthorizedRelationshipType: jasmine.createSpy('getAllAuthorizedRelationshipType'),
-    getAllAuthorizedRelationshipTypeImport: jasmine.createSpy('getAllAuthorizedRelationshipTypeImport')
+    getAllAuthorizedRelationshipTypeImport: jasmine.createSpy('getAllAuthorizedRelationshipTypeImport'),
   });
 
   const itemExportFormatServiceMock: any = jasmine.createSpyObj('ItemExportFormatService', {
-    byEntityTypeAndMolteplicity: jasmine.createSpy('byEntityTypeAndMolteplicity')
+    byEntityTypeAndMolteplicity: jasmine.createSpy('byEntityTypeAndMolteplicity'),
   });
 
-  let translatePipeSpy: jasmine.Spy;
+  const translateServiceMock: any = {
+    instant(name) {
+      return 'Statistics';
+    },
+  };
 
   const paginatedEntities = createPaginatedList(entities);
   const paginatedEntitiesRD$ = createSuccessfulRemoteDataObject$(paginatedEntities);
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [],
-      declarations: [EntityDropdownComponent, MockTranslatePipe],
+      imports: [
+        EntityDropdownComponent,
+        MockTranslatePipe,
+        InfiniteScrollDirective,
+        ThemedLoadingComponent,
+        AsyncPipe,
+        TranslateModule.forRoot(),
+        SortPipe,
+      ],
       providers: [
         { provide: EntityTypeDataService, useValue: entityTypeServiceMock },
         { provide: ItemExportFormatService, useValue: itemExportFormatServiceMock },
-        ChangeDetectorRef
+        { provide: TranslateService, useValue: translateServiceMock },
+        ChangeDetectorRef,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));
@@ -119,15 +155,6 @@ describe('EntityDropdownComponent', () => {
     componentAsAny.entityTypeService.getAllAuthorizedRelationshipTypeImport.and.returnValue(paginatedEntitiesRD$);
     componentAsAny.itemExportFormatService.byEntityTypeAndMolteplicity.and.returnValue(of(entityFormatList));
     component.isSubmission = true;
-
-    translatePipeSpy = spyOn(MockTranslatePipe.prototype, 'transform');
-  });
-
-  it('should translate entries', () => {
-    scheduler.schedule(() => fixture.detectChanges());
-    scheduler.flush();
-
-    expect(translatePipeSpy).toHaveBeenCalledWith('entity_1.listelement.badge');
   });
 
   it('should init component with entities list', () => {
@@ -151,7 +178,7 @@ describe('EntityDropdownComponent', () => {
     scheduler.flush();
 
     spyOn(component, 'onSelect');
-    const entityItem = fixture.debugElement.query(By.css('.entity-item:nth-child(2)'));
+    const entityItem = fixture.debugElement.query(By.css('.entity-item:nth-child(2) button'));
     entityItem.triggerEventHandler('click', null);
 
     scheduler.schedule(() => fixture.detectChanges());

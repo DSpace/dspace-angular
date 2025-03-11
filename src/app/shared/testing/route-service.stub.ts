@@ -1,4 +1,7 @@
-import { EMPTY, of as observableOf } from 'rxjs';
+import {
+  EMPTY,
+  of as observableOf,
+} from 'rxjs';
 
 export const routeServiceStub: any = {
   /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
@@ -23,7 +26,7 @@ export const routeServiceStub: any = {
   getQueryParamMap: () => {
     return observableOf(new Map());
   },
-  getQueryParameterValue: () => {
+  getQueryParameterValue: (lang?: string) => {
     return observableOf({});
   },
   getRouteParameterValue: (param) => {
@@ -37,6 +40,12 @@ export const routeServiceStub: any = {
   },
   getPreviousUrl: () => {
     return observableOf('/home');
-  }
+  },
+  setParameter: (key: any, value: any) => {
+    return;
+  },
+  removeQueryParam: () => {
+    return;
+  },
   /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
 };

@@ -1,25 +1,48 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-
-import { Subscription } from 'rxjs';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewContainerRef,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Subscription,
+} from 'rxjs';
+import {
+  debounceTime,
+  switchMap,
+} from 'rxjs/operators';
 
-import { hasValue, isEmpty, isNotNull } from '../../shared/empty.util';
 import { SubmissionDefinitionsModel } from '../../core/config/models/config-submission-definitions.model';
+import { ItemDataService } from '../../core/data/item-data.service';
+import { RemoteData } from '../../core/data/remote-data';
+import { Item } from '../../core/shared/item.model';
+import { getAllSucceededRemoteData } from '../../core/shared/operators';
+import { SubmissionObject } from '../../core/submission/models/submission-object.model';
+import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmptyOperator,
+  isNotNull,
+} from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SubmissionService } from '../submission.service';
-import { SubmissionObject } from '../../core/submission/models/submission-object.model';
-import { Item } from '../../core/shared/item.model';
-import { WorkspaceitemSectionsObject } from '../../core/submission/models/workspaceitem-sections.model';
-import { SubmissionError } from '../objects/submission-error.model';
 
 /**
  * This component allows to submit a new workspaceitem.
  */
 @Component({
-  selector: 'ds-submission-submit',
+  selector: 'ds-base-submission-submit',
   styleUrls: ['./submission-submit.component.scss'],
-  templateUrl: './submission-submit.component.html'
+  templateUrl: './submission-submit.component.html',
+  standalone: true,
 })
 export class SubmissionSubmitComponent implements OnDestroy, OnInit {
 
@@ -30,8 +53,13 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
   public collectionId: string;
 
   /**
-   * The item related to the submission object
-   * @type {Item}
+   * BehaviorSubject containing the self link to the item for this submission
+   * @private
+   */
+  private itemLink$: BehaviorSubject<string> = new BehaviorSubject(undefined);
+
+  /**
+   * The item for this submission.
    */
   public item: Item;
 
@@ -66,12 +94,6 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
   public submissionDefinition: SubmissionDefinitionsModel;
 
   /**
-   * The submission errors present in the submission object
-   * @type {SubmissionError}
-   */
-  public submissionErrors: SubmissionError;
-
-  /**
    * The submission id
    * @type {string}
    */
@@ -89,6 +111,7 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
    *
    * @param {ChangeDetectorRef} changeDetectorRef
    * @param {NotificationsService} notificationsService
+   * @param {ItemDataService} itemDataService
    * @param {SubmissionService} submissionService
    * @param {Router} router
    * @param {TranslateService} translate
@@ -98,6 +121,7 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
   constructor(private changeDetectorRef: ChangeDetectorRef,
               private notificationsService: NotificationsService,
               private router: Router,
+              private itemDataService: ItemDataService,
               private submissionService: SubmissionService,
               private translate: TranslateService,
               private viewContainerRef: ViewContainerRef,
@@ -124,10 +148,23 @@ export class SubmissionSubmitComponent implements OnDestroy, OnInit {
               this.notificationsService.info(null, this.translate.get('submission.general.cannot_submit'));
               this.router.navigate(['/mydspace']);
             } else {
-              this.router.navigate(['/workspaceitems', submissionObject.id, 'edit'], { replaceUrl: true});
+              this.router.navigate(['/workspaceitems', submissionObject.id, 'edit'], { replaceUrl: true });
             }
           }
-        })
+        }),
+      this.itemLink$.pipe(
+        isNotEmptyOperator(),
+        switchMap((itemLink: string) =>
+          this.itemDataService.findByHref(itemLink),
+        ),
+        getAllSucceededRemoteData(),
+        // Multiple sources can update the item in quick succession.
+        // We only want to rerender the form if the item is unchanged for some time
+        debounceTime(300),
+      ).subscribe((itemRd: RemoteData<Item>) => {
+        this.item = itemRd.payload;
+        this.changeDetectorRef.detectChanges();
+      }),
     );
   }
 

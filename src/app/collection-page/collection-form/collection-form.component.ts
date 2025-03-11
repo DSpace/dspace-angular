@@ -1,38 +1,66 @@
-import { Component, Input, OnInit } from '@angular/core';
-
-import { combineLatest, Observable, of as observableOf } from 'rxjs';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChange,
+  SimpleChanges,
+} from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicCheckboxModel,
   DynamicFormControlModel,
   DynamicFormOptionConfig,
   DynamicFormService,
-  DynamicSelectModel
+  DynamicSelectModel,
 } from '@ng-dynamic-forms/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  combineLatest,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import {
+  hasNoValue,
+  isNotNull,
+} from 'src/app/shared/empty.util';
 
-import { Collection } from '../../core/shared/collection.model';
-import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { CommunityDataService } from '../../core/data/community-data.service';
 import { AuthService } from '../../core/auth/auth.service';
-import { RequestService } from '../../core/data/request.service';
 import { ObjectCacheService } from '../../core/cache/object-cache.service';
+import { ConfigObject } from '../../core/config/models/config.model';
+import { SubmissionDefinitionModel } from '../../core/config/models/config-submission-definition.model';
+import { SubmissionDefinitionsConfigDataService } from '../../core/config/submission-definitions-config-data.service';
+import { CollectionDataService } from '../../core/data/collection-data.service';
 import { EntityTypeDataService } from '../../core/data/entity-type-data.service';
+import { RequestService } from '../../core/data/request.service';
+import { Collection } from '../../core/shared/collection.model';
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
+import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type.resource-type';
 import { MetadataValue } from '../../core/shared/metadata.models';
 import { getFirstSucceededRemoteListPayload } from '../../core/shared/operators';
-import { SubmissionDefinitionModel } from '../../core/config/models/config-submission-definition.model';
-import { catchError } from 'rxjs/operators';
+import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
+import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
+import { FormComponent } from '../../shared/form/form.component';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
+import { VarDirective } from '../../shared/utils/var.directive';
 import {
   collectionFormCorrectionSubmissionDefinitionSelectionConfig,
   collectionFormEntityTypeSelectionConfig,
   collectionFormModels,
   collectionFormSharedWorkspaceCheckboxConfig,
-  collectionFormSubmissionDefinitionSelectionConfig
+  collectionFormSubmissionDefinitionSelectionConfig,
 } from './collection-form.models';
-import { SubmissionDefinitionsConfigDataService } from '../../core/config/submission-definitions-config-data.service';
-import { ConfigObject } from '../../core/config/models/config.model';
-import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type.resource-type';
 
 /**
  * Form used for creating and editing collections
@@ -40,9 +68,20 @@ import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type
 @Component({
   selector: 'ds-collection-form',
   styleUrls: ['../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.scss'],
-  templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html'
+  templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html',
+  standalone: true,
+  imports: [
+    FormComponent,
+    TranslateModule,
+    UploaderComponent,
+    AsyncPipe,
+    ComcolPageLogoComponent,
+    NgIf,
+    NgClass,
+    VarDirective,
+  ],
 })
-export class CollectionFormComponent extends ComColFormComponent<Collection> implements OnInit {
+export class CollectionFormComponent extends ComColFormComponent<Collection> implements OnInit, OnChanges {
   /**
    * @type {Collection} A new collection when a collection is being created, an existing Input collection when a collection is being edited
    */
@@ -83,16 +122,34 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
                      protected translate: TranslateService,
                      protected notificationsService: NotificationsService,
                      protected authService: AuthService,
-                     protected dsoService: CommunityDataService,
+                     protected dsoService: CollectionDataService,
                      protected requestService: RequestService,
                      protected objectCache: ObjectCacheService,
                      protected entityTypeService: EntityTypeDataService,
-                     protected submissionDefinitionService: SubmissionDefinitionsConfigDataService) {
-    super(formService, translate, notificationsService, authService, requestService, objectCache);
+                     protected chd: ChangeDetectorRef,
+                     protected submissionDefinitionService: SubmissionDefinitionsConfigDataService,
+                     protected modalService: NgbModal) {
+    super(formService, translate, notificationsService, authService, requestService, objectCache, modalService);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    if (hasNoValue(this.formModel) && isNotNull(this.dso)) {
+      this.initializeForm();
+    }
+  }
 
+  /**
+   * Detect changes to the dso and initialize the form,
+   * if the dso changes, exists and it is not the first change
+   */
+  ngOnChanges(changes: SimpleChanges) {
+    const dsoChange: SimpleChange = changes.dso;
+    if (this.dso && dsoChange && !dsoChange.isFirstChange()) {
+      this.initializeForm();
+    }
+  }
+
+  initializeForm() {
     let currentRelationshipValue: MetadataValue[];
     let currentDefinitionValue: MetadataValue[];
     let currentCorrectionDefinitionValue: MetadataValue[];
@@ -105,26 +162,28 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
     }
 
     const entities$: Observable<ItemType[]> = this.entityTypeService.findAll({ elementsPerPage: 100, currentPage: 1 }).pipe(
-      getFirstSucceededRemoteListPayload()
+      getFirstSucceededRemoteListPayload(),
     );
 
     const definitions$: Observable<ConfigObject[]> = this.submissionDefinitionService
       .findAll({ elementsPerPage: 100, currentPage: 1 }).pipe(
         getFirstSucceededRemoteListPayload(),
-        catchError(() => observableOf([]))
+        catchError(() => observableOf([])),
       );
 
     // retrieve all entity types and submission definitions to populate the dropdowns selection
     combineLatest([entities$, definitions$])
       .subscribe(([entityTypes, definitions]: [ItemType[], SubmissionDefinitionModel[]]) => {
 
-        entityTypes
+        const sortedEntityTypes = entityTypes
           .filter((type: ItemType) => type.label !== NONE_ENTITY_TYPE)
-          .forEach((type: ItemType, index: number) => {
+          .sort((a, b) => a.label.localeCompare(b.label));
+
+        sortedEntityTypes.forEach((type: ItemType, index: number) => {
           this.entityTypeSelection.add({
             disabled: false,
             label: type.label,
-            value: type.label
+            value: type.label,
           } as DynamicFormOptionConfig<string>);
           if (currentRelationshipValue && currentRelationshipValue.length > 0 && currentRelationshipValue[0].value === type.label) {
             this.entityTypeSelection.select(index);
@@ -136,12 +195,12 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
           this.submissionDefinitionSelection.add({
             disabled: false,
             label: definition.name,
-            value: definition.name
+            value: definition.name,
           } as DynamicFormOptionConfig<string>);
           this.correctionSubmissionDefinitionSelection.add({
             disabled: false,
             label: definition.name,
-            value: definition.name
+            value: definition.name,
           } as DynamicFormOptionConfig<string>);
           if (currentDefinitionValue && currentDefinitionValue.length > 0 && currentDefinitionValue[0].value === definition.name) {
             this.submissionDefinitionSelection.select(index);
@@ -151,14 +210,17 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
           }
         });
 
-        this.formModel = [...collectionFormModels, this.entityTypeSelection, this.submissionDefinitionSelection, this.correctionSubmissionDefinitionSelection, this.sharedWorkspaceChekbox];
+        this.formModel = entityTypes.length === 0 ?
+          [...collectionFormModels, this.submissionDefinitionSelection, this.correctionSubmissionDefinitionSelection, this.sharedWorkspaceChekbox] :
+          [...collectionFormModels, this.entityTypeSelection, this.submissionDefinitionSelection, this.correctionSubmissionDefinitionSelection, this.sharedWorkspaceChekbox];
 
         super.ngOnInit();
 
         if (currentSharedWorkspaceValue && currentSharedWorkspaceValue.length > 0) {
           this.sharedWorkspaceChekbox.value = currentSharedWorkspaceValue[0].value === 'true';
         }
-    });
+        this.chd.detectChanges();
+      });
 
   }
 }

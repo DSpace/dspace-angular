@@ -1,32 +1,48 @@
-import { Observable, of as observableOf } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { AUTHORIZATION } from '../../shared/authorization.resource-type';
-import { Authorization } from '../../shared/authorization.model';
-import { RequestService } from '../request.service';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  catchError,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../../../shared/empty.util';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../../cache/object-cache.service';
-import { HALEndpointService } from '../../shared/hal-endpoint.service';
-import { SiteDataService } from '../site-data.service';
-import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
-import { RemoteData } from '../remote-data';
-import { PaginatedList } from '../paginated-list.model';
-import { catchError, map, switchMap } from 'rxjs/operators';
-import { hasNoValue, hasValue, isNotEmpty } from '../../../shared/empty.util';
 import { RequestParam } from '../../cache/models/request-param.model';
+import { ObjectCacheService } from '../../cache/object-cache.service';
+import { Authorization } from '../../shared/authorization.model';
+import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { getFirstCompletedRemoteData } from '../../shared/operators';
+import { BaseDataService } from '../base/base-data.service';
+import {
+  SearchData,
+  SearchDataImpl,
+} from '../base/search-data';
+import { FindListOptions } from '../find-list-options.model';
+import { PaginatedList } from '../paginated-list.model';
+import { RemoteData } from '../remote-data';
+import { RequestService } from '../request.service';
+import { SiteDataService } from '../site-data.service';
 import { AuthorizationSearchParams } from './authorization-search-params';
 import { oneAuthorizationMatchesFeature } from './authorization-utils';
 import { FeatureID } from './feature-id';
-import { getFirstCompletedRemoteData } from '../../shared/operators';
-import { FindListOptions } from '../find-list-options.model';
-import { BaseDataService } from '../base/base-data.service';
-import { SearchData, SearchDataImpl } from '../base/search-data';
-import { dataService } from '../base/data-service.decorator';
 
 /**
  * A service to retrieve {@link Authorization}s from the REST API
  */
-@Injectable()
-@dataService(AUTHORIZATION)
+@Injectable({ providedIn: 'root' })
 export class AuthorizationDataService extends BaseDataService<Authorization> implements SearchData<Authorization> {
   protected linkPath = 'authorizations';
   protected searchByObjectPath = 'object';
@@ -53,6 +69,19 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
   }
 
   /**
+   * This method invalidates the cache for a given authorization feature and a given item url.
+   *
+   * @param featureID
+   * @param objectUrl
+   */
+  invalidateAuthorization(featureID?: FeatureID, objectUrl?: string) {
+    this.searchData.getSearchByHref(this.searchByObjectPath, this.createSearchOptions(objectUrl, {}, null, featureID))
+      .pipe(
+        take(1),
+      ).subscribe(url => this.requestService.setStaleByHrefSubstring(url));
+  }
+
+  /**
    * Checks if an {@link EPerson} (or anonymous) has access to a specific object within a {@link Feature}
    * @param objectUrl                   URL to the object to search {@link Authorization}s for.
    *                                    If not provided, the repository's {@link Site} will be used.
@@ -74,8 +103,8 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
           return [];
         }
       }),
-      catchError(() => observableOf(false)),
-      oneAuthorizationMatchesFeature(featureId)
+      catchError(() => observableOf([])),
+      oneAuthorizationMatchesFeature(featureId),
     );
   }
 
@@ -100,7 +129,7 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
       switchMap((url) => {
         if (hasNoValue(url)) {
           return this.siteService.find().pipe(
-            map((site) => site?.self)
+            map((site) => site?.self),
           );
         } else {
           return observableOf(url);
@@ -112,7 +141,7 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
       map((url: string) => new AuthorizationSearchParams(url, ePersonUuid, featureId)),
       switchMap((params: AuthorizationSearchParams) => {
         return this.searchBy(this.searchByObjectPath, this.createSearchOptions(params.objectUrl, options, params.ePersonUuid, params.featureId), useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
-      })
+      }),
     );
 
     this.addDependency(out$, objectUrl$);
@@ -132,7 +161,8 @@ export class AuthorizationDataService extends BaseDataService<Authorization> imp
     if (isNotEmpty(options.searchParams)) {
       params = [...options.searchParams];
     }
-    params.push(new RequestParam('uri', objectUrl));
+    // TODO fix encode the uri parameter in the self link in the backend and set encodeValue to true afterwards
+    params.push(new RequestParam('uri', objectUrl, false));
     if (hasValue(featureId)) {
       params.push(new RequestParam('feature', featureId));
     }

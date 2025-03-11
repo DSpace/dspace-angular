@@ -1,7 +1,9 @@
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { LineChartModule } from '@swimlane/ngx-charts';
+
 import { fadeIn } from '../../../shared/animations/fade';
-import { ChartType } from '../../models/chart-type';
-import { renderChartFor } from '../../charts.decorator';
 import { AbstractChartComponent } from '../abstract-chart/abstract-chart.component';
 
 @Component({
@@ -9,8 +11,13 @@ import { AbstractChartComponent } from '../abstract-chart/abstract-chart.compone
   styleUrls: ['./line-chart.component.scss'],
   templateUrl: './line-chart.component.html',
   animations: [fadeIn],
+  standalone: true,
+  imports: [
+    LineChartModule,
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
-@renderChartFor(ChartType.LINE)
 export class LineChartComponent extends AbstractChartComponent {
 
   /**

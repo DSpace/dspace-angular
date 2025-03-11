@@ -1,21 +1,54 @@
-import { Inject, Injectable, InjectionToken } from '@angular/core';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
-import { AuthService } from '../../core/auth/auth.service';
+import {
+  Inject,
+  Injectable,
+  InjectionToken,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { environment } from '../../../environments/environment';
-import { map, switchMap, take } from 'rxjs/operators';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { KlaroService } from './klaro.service';
-import { hasValue, isEmpty, isNotEmpty } from '../empty.util';
-import { CookieService } from '../../core/services/cookie.service';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
+import {
+  deepClone,
+  Operation,
+} from 'fast-json-patch';
 import cloneDeep from 'lodash/cloneDeep';
 import debounce from 'lodash/debounce';
-import { ANONYMOUS_STORAGE_NAME_KLARO, klaroConfiguration } from './klaro-configuration';
-import { Operation } from 'fast-json-patch';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import isEqual from 'lodash/isEqual';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import { environment } from '../../../environments/environment';
+import { AuthService } from '../../core/auth/auth.service';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
+import { EPersonDataService } from '../../core/eperson/eperson-data.service';
+import { EPerson } from '../../core/eperson/models/eperson.model';
 import { CAPTCHA_NAME } from '../../core/google-recaptcha/google-recaptcha.service';
+import { CookieService } from '../../core/services/cookie.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '../../core/services/window.service';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../empty.util';
+import {
+  CookieConsents,
+  KlaroService,
+} from './klaro.service';
+import {
+  ANONYMOUS_STORAGE_NAME_KLARO,
+  klaroConfiguration,
+} from './klaro-configuration';
 
 /**
  * Metadata field to store a user's cookie consent preferences in
@@ -50,13 +83,13 @@ const LAZY_KLARO = new InjectionToken<Promise<any>>(
   {
     providedIn: 'root',
     factory: async () => (await import('klaro/dist/klaro-no-translations')),
-  }
+  },
 );
 
 /**
  * Browser implementation for the KlaroService, representing a service for handling Klaro consent preferences and UI
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class BrowserKlaroService extends KlaroService {
 
   private readonly GOOGLE_ANALYTICS_KEY = 'google.analytics.key';
@@ -64,12 +97,30 @@ export class BrowserKlaroService extends KlaroService {
   private readonly REGISTRATION_VERIFICATION_ENABLED_KEY = 'registration.verification.enabled';
 
   private readonly GOOGLE_ANALYTICS_SERVICE_NAME = 'google-analytics';
-
   /**
    * Initial Klaro configuration
    */
   klaroConfig = cloneDeep(klaroConfiguration);
 
+  /**
+   * Subject to emit updates in the consents
+   */
+  consentsUpdates$:  BehaviorSubject<CookieConsents> = new BehaviorSubject<CookieConsents>(null);
+  /**
+   * Subject to emit initialization
+   */
+  initialized$:  BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  /**
+   * Boolean to check if a new watch method from the manager needs to be fired
+   * @private
+   */
+  private isKlaroManagerWatching = false;
+  /**
+   * Boolean to check if service has been initialized
+   * @private
+   */
+  private initialized = false;
   constructor(
     private translateService: TranslateService,
     private authService: AuthService,
@@ -77,6 +128,7 @@ export class BrowserKlaroService extends KlaroService {
     private configService: ConfigurationDataService,
     private cookieService: CookieService,
     @Inject(LAZY_KLARO) private lazyKlaro: Promise<any>,
+    @Inject(NativeWindowService) private _window: NativeWindowRef,
   ) {
     super();
   }
@@ -94,6 +146,31 @@ export class BrowserKlaroService extends KlaroService {
       this.klaroConfig.translations.zz.consentNotice.description = 'cookies.consent.content-notice.description.no-privacy';
     }
 
+    if (hasValue(environment.info.metricsConsents)) {
+      environment.info.metricsConsents.forEach((metric) => {
+        if (metric.enabled) {
+          this.klaroConfig.services.push(
+            {
+              name: metric.key,
+              purposes: ['thirdPartyJs'],
+              required: false,
+            },
+          );
+        }
+      });
+    }
+
+    if (environment.datadogRum?.clientToken && environment.datadogRum?.applicationId &&
+      environment.datadogRum?.service && environment.datadogRum?.env) {
+      this.klaroConfig.services.push(
+        {
+          name: 'datadog',
+          purposes: ['thirdPartyJs'],
+          required: false,
+        },
+      );
+    }
+
     const hideGoogleAnalytics$ = this.configService.findByPropertyName(this.GOOGLE_ANALYTICS_KEY).pipe(
       getFirstCompletedRemoteData(),
       map(remoteData => !remoteData.hasSucceeded || !remoteData.payload || isEmpty(remoteData.payload.values)),
@@ -102,13 +179,13 @@ export class BrowserKlaroService extends KlaroService {
     const hideRegistrationVerification$ = this.configService.findByPropertyName(this.REGISTRATION_VERIFICATION_ENABLED_KEY).pipe(
       getFirstCompletedRemoteData(),
       map((remoteData) =>
-        !remoteData.hasSucceeded || !remoteData.payload || isEmpty(remoteData.payload.values) || remoteData.payload.values[0].toLowerCase() !== 'true'
+        !remoteData.hasSucceeded || !remoteData.payload || isEmpty(remoteData.payload.values) || remoteData.payload.values[0].toLowerCase() !== 'true',
       ),
     );
 
     const servicesToHide$: Observable<string[]> = observableCombineLatest([hideGoogleAnalytics$, hideRegistrationVerification$]).pipe(
       map(([hideGoogleAnalytics, hideRegistrationVerification]) => {
-        let servicesToHideArray: string[] = [];
+        const servicesToHideArray: string[] = [];
         if (hideGoogleAnalytics) {
           servicesToHideArray.push(this.GOOGLE_ANALYTICS_SERVICE_NAME);
         }
@@ -116,7 +193,7 @@ export class BrowserKlaroService extends KlaroService {
           servicesToHideArray.push(CAPTCHA_NAME);
         }
         return servicesToHideArray;
-      })
+      }),
     );
 
     this.translateService.setDefaultLang(environment.defaultLanguage);
@@ -145,9 +222,21 @@ export class BrowserKlaroService extends KlaroService {
          */
         this.translateConfiguration();
 
-        this.klaroConfig.services = this.filterConfigServices(servicesToHide);
-        this.lazyKlaro.then(({ setup }) => setup(this.klaroConfig));
+        if (this._window?.nativeWindow?.Cypress) {
+          this.klaroConfig.services = [];
+        } else {
+          this.klaroConfig.services = this.filterConfigServices(servicesToHide);
+        }
+        this.lazyKlaro.then(({ setup }) => {
+          setup(this.klaroConfig);
+          this.initialized = true;
+          this.initialized$.next(this.initialized);
+        });
       });
+
+    this.consentsUpdates$.pipe(
+      filter(() => this.initialized),
+    ).subscribe((consents) => this.isKlaroManagerWatching = hasValue(consents));
   }
 
   /**
@@ -163,7 +252,7 @@ export class BrowserKlaroService extends KlaroService {
           storageName = this.getStorageName(user.uuid);
         }
         return this.cookieService.get(storageName);
-      })
+      }),
     );
   }
 
@@ -198,7 +287,7 @@ export class BrowserKlaroService extends KlaroService {
           }
           return observableOf(undefined);
         }),
-        take(1)
+        take(1),
       );
   }
 
@@ -230,7 +319,7 @@ export class BrowserKlaroService extends KlaroService {
    * Show the cookie consent form
    */
   showSettings() {
-    this.lazyKlaro.then(({show}) => show(this.klaroConfig));
+    void this.lazyKlaro.then(({ show }) => show(this.klaroConfig, true));
   }
 
   /**
@@ -240,7 +329,7 @@ export class BrowserKlaroService extends KlaroService {
     this.klaroConfig.services.forEach((app) => {
       this.klaroConfig.translations.zz[app.name] = {
         title: this.getTitleTranslation(app.name),
-        description: this.getDescriptionTranslation(app.name)
+        description: this.getDescriptionTranslation(app.name),
       };
       app.purposes.forEach((purpose) => {
         this.klaroConfig.translations.zz.purposes[purpose] = this.getPurposeTranslation(purpose);
@@ -298,12 +387,12 @@ export class BrowserKlaroService extends KlaroService {
       .pipe(
         take(1),
         switchMap((operations: Operation[]) => {
-            if (isNotEmpty(operations)) {
-              return this.ePersonService.patch(user, operations);
-            }
-            return observableOf(undefined);
+          if (isNotEmpty(operations)) {
+            return this.ePersonService.patch(user, operations);
           }
-        )
+          return observableOf(undefined);
+        },
+        ),
       ).subscribe();
   }
 
@@ -329,6 +418,28 @@ export class BrowserKlaroService extends KlaroService {
    */
   getStorageName(identifier: string) {
     return 'klaro-' + identifier;
+  }
+
+  watchConsentUpdates(): void {
+    if (this.isKlaroManagerWatching || !this.initialized) {
+      return;
+    }
+
+    this.lazyKlaro.then(({ getManager }) => {
+      const manager = getManager(this.klaroConfig);
+      const consentsSubject$ = this.consentsUpdates$;
+      let lastCookiesConsents;
+
+      consentsSubject$.next(manager.consents);
+      manager.watch({
+        update(_, eventName, consents) {
+          if (eventName === 'consents' && !isEqual(consents, lastCookiesConsents)) {
+            lastCookiesConsents = deepClone(consents);
+            consentsSubject$.next(consents);
+          }
+        },
+      });
+    });
   }
 
   /**

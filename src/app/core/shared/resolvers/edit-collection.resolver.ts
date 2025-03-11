@@ -1,26 +1,31 @@
+import { inject } from '@angular/core';
+import {
+  ActivatedRouteSnapshot,
+  ResolveFn,
+  RouterStateSnapshot,
+} from '@angular/router';
+import { Observable } from 'rxjs';
+
+import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { CollectionDataService } from '../../data/collection-data.service';
-import { Injectable } from '@angular/core';
+import { RemoteData } from '../../data/remote-data';
 import { Collection } from '../collection.model';
-import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
-import { EditDsoResolver } from './edit-dso.resolver';
+import { getFirstCompletedRemoteData } from '../operators';
 
-/**
- * This class represents a resolver that requests a specific Collection before the route is activated
- */
-@Injectable()
-export class EditCollectionResolver extends EditDsoResolver<Collection> {
-  constructor(
-    protected collectionDataService: CollectionDataService,
-  ) {
-    super(collectionDataService);
-  }
+export const editCollectionResolver: ResolveFn<RemoteData<Collection>> = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+): Observable<RemoteData<Collection>> => {
+  const collectionDataService = inject(CollectionDataService);
 
-  getFollowLinks(): FollowLinkConfig<Collection>[] {
-    return [
-      followLink('parentCommunity', {},
-        followLink('parentCommunity')
-      ),
-      followLink('logo')
-    ];
-  }
-}
+  return collectionDataService.findByIdWithProjections(
+    route.params.id,
+    ['allLanguages'],
+    true,
+    false,
+    followLink('parentCommunity', {}, followLink('parentCommunity')),
+    followLink('logo'),
+  ).pipe(
+    getFirstCompletedRemoteData(),
+  );
+};

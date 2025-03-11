@@ -1,5 +1,12 @@
-import { EditItemRelationshipsActionTypes, EditItemRelationshipsState } from './edit-item-relationships.actions';
-import { createReducer, on } from '@ngrx/store';
+import {
+  createReducer,
+  on,
+} from '@ngrx/store';
+
+import {
+  EditItemRelationshipsActionTypes,
+  EditItemRelationshipsState,
+} from './edit-item-relationships.actions';
 
 
 export const editItemRelationshipsReducer = createReducer<EditItemRelationshipsState>(

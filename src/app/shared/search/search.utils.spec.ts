@@ -5,7 +5,7 @@ import {
   escapeRegExp,
   getFacetValueForType,
   getFacetValueForTypeAndLabel,
-  stripOperatorFromFilterValue
+  stripOperatorFromFilterValue,
 } from './search.utils';
 
 describe('Search Utils', () => {
@@ -20,20 +20,20 @@ describe('Search Utils', () => {
         value: 'Value with search href',
         _links: {
           search: {
-            href: 'rest/api/search?f.otherFacet=Other facet value,operator&f.facetName=Value with search href,operator'
-          }
-        }
+            href: 'rest/api/search?f.otherFacet=Other facet value,operator&f.facetName=Value with search href,operator',
+          },
+        },
       });
       facetValueWithSearchHrefAuthority = Object.assign(new FacetValue(), {
         value: 'Value with search href',
         authorityKey: 'uuid',
-        }
+      },
       );
       facetValueWithoutSearchHref = Object.assign(new FacetValue(), {
-        value: 'Value without search href'
+        value: 'Value without search href',
       });
       searchFilterConfig = Object.assign(new SearchFilterConfig(), {
-        name: 'facetName'
+        name: 'facetName',
       });
     });
 
@@ -60,15 +60,15 @@ describe('Search Utils', () => {
         label: 'Facet Label with search href',
         _links: {
           search: {
-            href: 'rest/api/search?f.otherFacet=Other facet value,operator&f.facetName=Facet Label with search href,operator'
-          }
-        }
+            href: 'rest/api/search?f.otherFacet=Other facet value,operator&f.facetName=Facet Label with search href,operator',
+          },
+        },
       });
       facetValueWithoutSearchHref = Object.assign(new FacetValue(), {
         label: 'Facet Label',
       });
       searchFilterConfig = Object.assign(new SearchFilterConfig(), {
-        name: 'facetName'
+        name: 'facetName',
       });
     });
 

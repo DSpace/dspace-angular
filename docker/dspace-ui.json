@@ -1,0 +1,11 @@
+{
+  "apps": [
+      {
+         "name": "dspace-ui",
+         "cwd": "/app",
+         "script": "dist/server/main.js",
+         "instances": "max",
+         "exec_mode": "cluster"
+      }
+  ]
+}

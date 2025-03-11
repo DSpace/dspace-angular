@@ -1,21 +1,32 @@
-import { CollectionDropdownComponent, CollectionListEntry } from './collection-dropdown.component';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+
 import { ThemedComponent } from '../theme-support/themed.component';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import {
+  CollectionDropdownComponent,
+  CollectionListEntry,
+} from './collection-dropdown.component';
 
 @Component({
-  selector: 'ds-themed-collection-dropdown',
+  selector: 'ds-collection-dropdown',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
+  standalone: true,
+  imports: [CollectionDropdownComponent],
 })
 export class ThemedCollectionDropdownComponent extends ThemedComponent<CollectionDropdownComponent> {
 
   @Input() entityType: string;
 
-  @Output() searchComplete = new EventEmitter<any>();
+  @Output() searchComplete: EventEmitter<any> = new EventEmitter();
 
-  @Output() theOnlySelectable = new EventEmitter<CollectionListEntry>();
+  @Output() theOnlySelectable: EventEmitter<CollectionListEntry> = new EventEmitter();
 
-  @Output() selectionChange = new EventEmitter<CollectionListEntry>();
+  @Output() selectionChange = new EventEmitter();
 
   protected inAndOutputNames: (keyof CollectionDropdownComponent & keyof this)[] = ['entityType', 'searchComplete', 'theOnlySelectable', 'selectionChange'];
 

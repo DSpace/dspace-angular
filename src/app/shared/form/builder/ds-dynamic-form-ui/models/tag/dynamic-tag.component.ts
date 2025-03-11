@@ -1,28 +1,63 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-
+import { NgIf } from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
+import {
+  FormsModule,
+  UntypedFormGroup,
+} from '@angular/forms';
+import {
+  NgbModal,
+  NgbTypeahead,
+  NgbTypeaheadModule,
+  NgbTypeaheadSelectItemEvent,
+} from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlCustomEvent,
   DynamicFormLayoutService,
-  DynamicFormValidationService
+  DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
-import { Observable, of as observableOf } from 'rxjs';
-import { catchError, debounceTime, distinctUntilChanged, map, merge, switchMap, tap } from 'rxjs/operators';
-import { NgbModal, NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 import isEqual from 'lodash/isEqual';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  catchError,
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  merge,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
 
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import { DynamicTagModel } from './dynamic-tag.model';
-import { Chips } from '../../../../chips/models/chips.model';
-import { hasValue, isNotEmpty, isUndefined } from '../../../../../empty.util';
 import { environment } from '../../../../../../../environments/environment';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../../../../../core/data/paginated-list.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
-import { buildPaginatedList, PaginatedList } from '../../../../../../core/data/paginated-list.model';
-import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
-import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
-import { FormBuilderService } from '../../../form-builder.service';
+import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { SubmissionService } from '../../../../../../submission/submission.service';
+import {
+  hasValue,
+  isNotEmpty,
+  isUndefined,
+} from '../../../../../empty.util';
+import { ChipsComponent } from '../../../../chips/chips.component';
+import { Chips } from '../../../../chips/models/chips.model';
+import { FormBuilderService } from '../../../form-builder.service';
+import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
+import { DynamicTagModel } from './dynamic-tag.model';
 
 /**
  * Component representing a tag input field
@@ -30,12 +65,19 @@ import { SubmissionService } from '../../../../../../submission/submission.servi
 @Component({
   selector: 'ds-dynamic-tag',
   styleUrls: ['./dynamic-tag.component.scss'],
-  templateUrl: './dynamic-tag.component.html'
+  templateUrl: './dynamic-tag.component.html',
+  imports: [
+    NgbTypeaheadModule,
+    FormsModule,
+    NgIf,
+    ChipsComponent,
+  ],
+  standalone: true,
 })
 export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implements OnInit {
 
   @Input() bindId = true;
-  @Input() group: FormGroup;
+  @Input() group: UntypedFormGroup;
   @Input() model: DynamicTagModel;
 
   @Output() blur: EventEmitter<any> = new EventEmitter<any>();
@@ -60,7 +102,7 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
               protected validationService: DynamicFormValidationService,
               protected formBuilderService: FormBuilderService,
               protected modalService: NgbModal,
-              protected submissionService: SubmissionService
+              protected submissionService: SubmissionService,
   ) {
     super(vocabularyService, layoutService, validationService, formBuilderService, modalService, submissionService);
   }
@@ -90,12 +132,24 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
               this.searchFailed = true;
               return observableOf(buildPaginatedList(
                 new PageInfo(),
-                []
+                [],
               ));
             }));
         }
       }),
       map((list: PaginatedList<VocabularyEntry>) => list.page),
+      // Add user input as last item of the list
+      map((list: VocabularyEntry[]) => {
+        if (list && list.length > 0) {
+          if (isNotEmpty(this.currentValue)) {
+            const vocEntry = new VocabularyEntry();
+            vocEntry.display = this.currentValue;
+            vocEntry.value = this.currentValue;
+            list.push(vocEntry);
+          }
+        }
+        return list;
+      }),
       tap(() => this.changeSearchingStatus(false)),
       merge(this.hideSearchingWhenUnsubscribed));
 
@@ -103,7 +157,7 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
    * Initialize the component, setting up the init form value
    */
   ngOnInit() {
-    this.hasAuthority = this.model.vocabularyOptions && hasValue(this.model.vocabularyOptions.name);
+    this.hasAuthority = hasValue(this.model.vocabularyOptions) && hasValue(this.model.vocabularyOptions.name);
 
     this.chips = new Chips(
       this.model.value as any[],
@@ -113,11 +167,11 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
 
     this.chips.chipsItems
       .subscribe((subItems: any[]) => {
-         const items = this.chips.getChipsItems();
-          // Does not emit change if model value is equal to the current value
-          if (!isEqual(items, this.model.value)) {
-            this.dispatchUpdate(items);
-          }
+        const items = this.chips.getChipsItems();
+        // Does not emit change if model value is equal to the current value
+        if (!isEqual(items, this.model.value)) {
+          this.dispatchUpdate(items);
+        }
 
       });
   }
@@ -147,7 +201,7 @@ export class DsDynamicTagComponent extends DsDynamicVocabularyComponent implemen
    * @param event The value to emit.
    */
   onBlur(event: Event) {
-    if (isNotEmpty(this.currentValue) && (isUndefined(this.instance) || !this.instance.isPopupOpen())) {
+    if (isNotEmpty(this.currentValue) && (isUndefined(this.instance) || !this.model.hasAuthority || !this.instance.isPopupOpen())) {
       this.addTagsToChips();
     }
     this.blur.emit(event);

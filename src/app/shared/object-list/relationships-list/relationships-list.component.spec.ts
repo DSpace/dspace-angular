@@ -1,23 +1,38 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { RelationshipsListComponent } from './relationships-list.component';
-import { TruncatableService } from '../../truncatable/truncatable.service';
-import { mockTruncatableService } from '../../mocks/mock-trucatable.service';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
-import { DSONameServiceMock } from '../../mocks/dso-name.service.mock';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { SharedModule } from '../../shared.module';
-import { ItemInfo } from '../../testing/relationships-mocks';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Item } from '../../../core/shared/item.model';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../app.reducer';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { APP_CONFIG } from '../../../../config/app-config.interface';
+import {
+  MockStore,
+  provideMockStore,
+} from '@ngrx/store/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from '../../../../config/app-config.interface';
 import { environment } from '../../../../environments/environment';
+import { AppState } from '../../../app.reducer';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { Item } from '../../../core/shared/item.model';
+import { DSONameServiceMock } from '../../mocks/dso-name.service.mock';
+import { mockTruncatableService } from '../../mocks/mock-trucatable.service';
+import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
+import { ItemInfo } from '../../testing/relationships-mocks';
+import { TruncatableService } from '../../truncatable/truncatable.service';
+import { RelationshipsItemsActionsComponent } from './relationships-items-actions/relationships-items-actions.component';
+import { RelationshipsListComponent } from './relationships-list.component';
 
 describe('RelationshipsListComponent', () => {
   let component: RelationshipsListComponent;
@@ -27,8 +42,8 @@ describe('RelationshipsListComponent', () => {
 
   const initialState = {
     editItemRelationships: {
-      pendingChanges: true
-    }
+      pendingChanges: true,
+    },
   };
 
   let de: DebugElement;
@@ -37,26 +52,26 @@ describe('RelationshipsListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RelationshipsListComponent ],
-      imports : [
+      imports: [
+        RelationshipsListComponent,
         NoopAnimationsModule,
-        SharedModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
       providers: [
         provideMockStore({ initialState }),
         { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: environment }
+        { provide: APP_CONFIG, useValue: environment },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
-    .compileComponents();
+      .overrideComponent(RelationshipsListComponent, { remove: { imports: [RelationshipsItemsActionsComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

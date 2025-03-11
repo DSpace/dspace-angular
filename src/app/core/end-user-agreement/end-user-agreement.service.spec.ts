@@ -1,16 +1,17 @@
+import { of as observableOf } from 'rxjs';
+
+import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
+import {
+  createNoContentRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import { EPerson } from '../eperson/models/eperson.model';
+import { ConfigurationProperty } from '../shared/configuration-property.model';
 import {
   END_USER_AGREEMENT_COOKIE,
   END_USER_AGREEMENT_METADATA_FIELD,
-  EndUserAgreementService
+  EndUserAgreementService,
 } from './end-user-agreement.service';
-import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
-import { of as observableOf } from 'rxjs';
-import { EPerson } from '../eperson/models/eperson.model';
-import {
-  createNoContentRemoteDataObject,
-  createSuccessfulRemoteDataObject$
-} from '../../shared/remote-data.utils';
-import { ConfigurationProperty } from '../shared/configuration-property.model';
 
 describe('EndUserAgreementService', () => {
   let service: EndUserAgreementService;
@@ -28,10 +29,10 @@ describe('EndUserAgreementService', () => {
       metadata: {
         [END_USER_AGREEMENT_METADATA_FIELD]: [
           {
-            value: 'true'
-          }
-        ]
-      }
+            value: 'true',
+          },
+        ],
+      },
     });
     userWithoutMetadata = Object.assign(new EPerson());
     const configurationPropertyMock = Object.assign(new ConfigurationProperty(), {
@@ -42,11 +43,11 @@ describe('EndUserAgreementService', () => {
     cookie = new CookieServiceMock();
     authService = jasmine.createSpyObj('authService', {
       isAuthenticated: observableOf(true),
-      getAuthenticatedUserFromStore: observableOf(userWithMetadata)
+      getAuthenticatedUserFromStore: observableOf(userWithMetadata),
     });
     ePersonService = jasmine.createSpyObj('ePersonService', {
       update: createSuccessfulRemoteDataObject$(userWithMetadata),
-      patch: createSuccessfulRemoteDataObject$({})
+      patch: createSuccessfulRemoteDataObject$({}),
     });
     configurationDataService = jasmine.createSpyObj('configurationDataService', {
       findByPropertyName: configurationPropertyMockRD$,

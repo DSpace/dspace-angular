@@ -1,30 +1,91 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  NgbDate,
+  NgbDateParserFormatter,
+  NgbDatepickerModule,
+  NgbDateStruct,
+  NgbNavModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  combineLatest,
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 
-import { combineLatest, Observable, of } from 'rxjs';
-import { map, switchMap, take, tap } from 'rxjs/operators';
-import { select, Store } from '@ngrx/store';
-import { NgbDate, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-
-import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { getFirstSucceededRemoteData, getRemoteDataPayload } from '../../core/shared/operators';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { AuthService } from '../../core/auth/auth.service';
-import { StatisticsCategory } from '../../core/statistics/models/statistics-category.model';
-import { StatisticsCategoriesDataService } from '../../core/statistics/statistics-categories-data.service';
-import { SiteDataService } from '../../core/data/site-data.service';
-import { getCategoryId, getReportId } from '../../core/statistics/statistics-selector';
-import { CleanCategoryReportAction, SetCategoryReportAction } from '../../core/statistics/statistics.action';
 import { AppState } from '../../app.reducer';
-import { redirectOn4xx } from '../../core/shared/authorized.operators';
+import { AuthService } from '../../core/auth/auth.service';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { SiteDataService } from '../../core/data/site-data.service';
+import { redirectOn4xx } from '../../core/shared/authorized.operators';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../core/shared/operators';
+import { StatisticsCategory } from '../../core/statistics/models/statistics-category.model';
+import {
+  CleanCategoryReportAction,
+  SetCategoryReportAction,
+} from '../../core/statistics/statistics.action';
+import { StatisticsCategoriesDataService } from '../../core/statistics/statistics-categories-data.service';
+import {
+  getCategoryId,
+  getReportId,
+} from '../../core/statistics/statistics-selector';
+import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { StatisticsChartComponent } from './statistics-chart/statistics-chart.component';
+import { StatisticsMapComponent } from './statistics-map/statistics-map.component';
+import { FilterMapPipe } from './statistics-pipes/filter-map.pipe';
 
 @Component({
   selector: 'ds-cris-statistics-page',
   templateUrl: './cris-statistics-page.component.html',
-  styleUrls: ['./cris-statistics-page.component.scss']
+  styleUrls: ['./cris-statistics-page.component.scss'],
+  standalone: true,
+  imports: [
+    VarDirective,
+    NgIf,
+    ThemedLoadingComponent,
+    NgbDatepickerModule,
+    FormsModule,
+    NgbNavModule,
+    NgFor,
+    StatisticsMapComponent,
+    StatisticsChartComponent,
+    AsyncPipe,
+    FilterMapPipe,
+    TranslateModule,
+  ],
 })
 export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
 
@@ -76,7 +137,7 @@ export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
   /**
    * This property holds a selected report id
    */
-   selectedReportId: string;
+  selectedReportId: string;
 
   constructor(
     protected route: ActivatedRoute,
@@ -87,7 +148,7 @@ export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
     protected authService: AuthService,
     protected siteService: SiteDataService,
     private ngbDateParserFormatter: NgbDateParserFormatter,
-    private store: Store<AppState>
+    private store: Store<AppState>,
   ) {
   }
 
@@ -120,7 +181,7 @@ export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
       map((data: any) => data.scope as RemoteData<any>),
       redirectOn4xx(this.router, this.authService),
       getFirstSucceededRemoteData(),
-      getRemoteDataPayload()
+      getRemoteDataPayload(),
     );
   }
 
@@ -149,7 +210,7 @@ export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
           }
           this.getUserReports(this.selectedCategory);
         });
-      })
+      }),
     );
   }
 
@@ -178,19 +239,27 @@ export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
   /**
    * Get the user reports for the specific category.
    * @param category the that is being selected
+   * @param reportType
    */
-  getUserReports(category) {
+  getUserReports(category, reportType = this.route?.snapshot?.queryParams?.reportType) {
     this.reports$ =
       of(category)
         .pipe(
-          switchMap(c => c == null ? [] : this.getReports$(c.id))
+          switchMap(c => c == null ? [] : this.getReports$(c.id)),
         );
     combineLatest([
-      this.reports$, this.getReportId(), this.getCategoryId()
+      this.reports$, this.getReportId(), this.getCategoryId(),
     ]).subscribe(([report, reportId, categoryId]) => {
       if (!reportId && !categoryId) {
-        this.setStatisticsState(report[0].id, category.id);
-        this.selectedReportId = report[0].id;
+        let reportToShowId = report[0].id;
+        if (reportType) {
+          const newReport = report.find((r) => r.reportType === reportType)?.id;
+          if (newReport) {
+            reportToShowId = newReport;
+          }
+        }
+        this.setStatisticsState(reportToShowId, category.id);
+        this.selectedReportId = reportToShowId;
       } else {
         this.setStatisticsState(reportId, categoryId);
       }
@@ -266,7 +335,7 @@ export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
   getReportId(): Observable<string> {
     return this.store.pipe(
       select(getReportId),
-      take(1)
+      take(1),
     );
   }
 
@@ -277,7 +346,7 @@ export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
   getCategoryId(): Observable<string> {
     return this.store.pipe(
       select(getCategoryId),
-      take(1)
+      take(1),
     );
   }
 

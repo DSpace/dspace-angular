@@ -1,18 +1,24 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TestScheduler } from 'rxjs/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
 
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { Item } from '../../../core/shared/item.model';
+import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { AuditItemMenuComponent } from './audit-item-menu.component';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 
 describe('AuditItemMenuComponent', () => {
   let component: AuditItemMenuComponent;
@@ -22,33 +28,33 @@ describe('AuditItemMenuComponent', () => {
   let dso: DSpaceObject;
 
   const authorizationDataServiceStub = jasmine.createSpyObj('authorizationDataService', {
-    isAuthorized: jasmine.createSpy('isAuthorized')
+    isAuthorized: jasmine.createSpy('isAuthorized'),
   });
 
   beforeEach(waitForAsync(() => {
     dso = Object.assign(new Item(), {
       id: 'test-item',
       _links: {
-        self: { href: 'test-item-selflink' }
-      }
+        self: { href: 'test-item-selflink' },
+      },
     });
 
     TestBed.configureTestingModule({
-      declarations: [ AuditItemMenuComponent ],
       imports: [
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
+        AuditItemMenuComponent,
       ],
       providers: [
         { provide: 'contextMenuObjectProvider', useValue: dso },
         { provide: 'contextMenuObjectTypeProvider', useValue: DSpaceObjectType.ITEM },
         { provide: AuthorizationDataService, useValue: authorizationDataServiceStub },
-      ]
+      ],
     }).compileComponents();
   }));
 

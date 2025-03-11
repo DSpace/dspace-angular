@@ -1,0 +1,29 @@
+options:
+  runs-on: self.hosted
+
+definitions:
+  steps:
+    - step: &unittest-code-checks
+        name: test-code-checks
+        image:
+          name: cypress/browsers:node-18.20.3-chrome-125.0.6422.141-1-ff-126.0.1-edge-125.0.2535.85-1
+          run-as-user: 1000
+        size: 4x
+        caches:
+          - node
+        script:
+          - yarn install --frozen-lockfile
+          - yarn run lint --quiet
+          - yarn run check-circ-deps
+          - yarn run build:prod:ci
+          - yarn run test:headless
+
+pipelines:
+  branches:
+    'main-cris':
+      - step: *unittest-code-checks
+    'prod/**':
+      - step: *unittest-code-checks
+  pull-requests:
+    '**':
+      - step: *unittest-code-checks

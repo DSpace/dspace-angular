@@ -1,16 +1,24 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TestScheduler } from 'rxjs/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
+import { TestScheduler } from 'rxjs/testing';
+
+import { AuthService } from '../../../core/auth/auth.service';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { Item } from '../../../core/shared/item.model';
+import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { FullItemMenuComponent } from './full-item-menu.component';
-import { AuthService } from '../../../core/auth/auth.service';
-import { Router } from '@angular/router';
-import { By } from '@angular/platform-browser';
 
 describe('FullItemMenuComponent', () => {
   let component: FullItemMenuComponent;
@@ -22,7 +30,7 @@ describe('FullItemMenuComponent', () => {
 
   const authServiceStub = jasmine.createSpyObj('authorizationService', {
     getAuthenticatedUserFromStore: jasmine.createSpy('getAuthenticatedUserFromStore'),
-    isAuthenticated: jasmine.createSpy('isAuthenticated')
+    isAuthenticated: jasmine.createSpy('isAuthenticated'),
   });
 
   beforeEach(waitForAsync(() => {
@@ -39,28 +47,28 @@ describe('FullItemMenuComponent', () => {
             'value': 'Publication',
             'place': 0,
             'authority': null,
-            'confidence': -1
-          }
-        ]
-      }
+            'confidence': -1,
+          },
+        ],
+      },
     });
 
     TestBed.configureTestingModule({
-      declarations: [ FullItemMenuComponent ],
       imports: [
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
+        FullItemMenuComponent,
       ],
       providers: [
         { provide: 'contextMenuObjectProvider', useValue: dso },
         { provide: 'contextMenuObjectTypeProvider', useValue: DSpaceObjectType.ITEM },
         { provide: AuthService, useValue: authServiceStub },
-      ]
+      ],
     }).compileComponents();
     router = TestBed.inject(Router);
   }));

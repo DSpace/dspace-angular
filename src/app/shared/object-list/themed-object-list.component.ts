@@ -1,28 +1,34 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ObjectListComponent } from './object-list.component';
-import { ThemedComponent } from '../theme-support/themed.component';
-import { ViewMode } from '../../core/shared/view-mode.model';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
-import { Context } from '../../core/shared/context.model';
-import { RemoteData } from '../../core/data/remote-data';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { Context } from '../../core/shared/context.model';
+import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import { ThemedComponent } from '../theme-support/themed.component';
+import { ObjectListComponent } from './object-list.component';
 
 /**
  * Themed wrapper for ObjectListComponent
  */
 @Component({
-  selector: 'ds-themed-object-list',
+  selector: 'ds-object-list',
   styleUrls: [],
   templateUrl: '../theme-support/themed.component.html',
+  standalone: true,
+  imports: [ObjectListComponent],
 })
 export class ThemedObjectListComponent extends ThemedComponent<ObjectListComponent> {
-  /**
-   * The view mode of the this component
-   */
-  viewMode = ViewMode.ListElement;
 
   /**
    * The current pagination configuration
@@ -37,18 +43,20 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
   /**
    * Whether or not the list elements have a border
    */
-  @Input() hasBorder = false;
+  @Input() hasBorder: boolean;
 
   /**
    * The whether or not the gear is hidden
    */
-  @Input() hideGear = false;
+  @Input() hideGear: boolean;
 
   /**
    * Whether or not the pager is visible when there is only a single page of results
    */
-  @Input() hidePagerWhenSinglePage = true;
-  @Input() selectable = false;
+  @Input() hidePagerWhenSinglePage: boolean;
+
+  @Input() selectable: boolean;
+
   @Input() selectionConfig: { repeatable: boolean, listId: string };
 
   /**
@@ -64,12 +72,12 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
   /**
    * Option for hiding the pagination detail
    */
-  @Input() hidePaginationDetail = false;
+  @Input() hidePaginationDetail: boolean;
 
   /**
    * Whether or not to add an import button to the object
    */
-  @Input() importable = false;
+  @Input() importable: boolean;
 
   /**
    * Pass custom data to the component for custom utilization
@@ -82,6 +90,11 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
   @Input() importConfig: { buttonLabel: string };
 
   /**
+   * Whether to show the badge label or not
+   */
+  @Input() showLabel: boolean;
+
+  /**
    * Whether to show the metrics badges
    */
   @Input() showMetrics = true;
@@ -89,17 +102,22 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
   /**
    * Whether or not the pagination should be rendered as simple previous and next buttons instead of the normal pagination
    */
-  @Input() showPaginator = true;
+  @Input() showPaginator: boolean;
 
   /**
    * Whether to show the thumbnail preview
    */
-  @Input() showThumbnails;
+  @Input() showThumbnails: boolean;
+
+  /**
+   * Whether to show if the item is a correction
+   */
+  @Input() showCorrection = false;
 
   /**
    * Emit when one of the listed object has changed.
    */
-  @Output() contentChange = new EventEmitter<any>();
+  @Output() contentChange: EventEmitter<any> = new EventEmitter();
 
   /**
    * Emit custom event for listable object custom actions.
@@ -109,32 +127,14 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
   /**
    * If showPaginator is set to true, emit when the previous button is clicked
    */
-  @Output() prev = new EventEmitter<boolean>();
+  @Output() prev: EventEmitter<boolean> = new EventEmitter();
 
   /**
    * If showPaginator is set to true, emit when the next button is clicked
    */
-  @Output() next = new EventEmitter<boolean>();
+  @Output() next: EventEmitter<boolean> = new EventEmitter();
 
-  /**
-   * The current listable objects
-   */
-  private _objects: RemoteData<PaginatedList<ListableObject>>;
-
-  /**
-   * Setter for the objects
-   * @param objects The new objects
-   */
-  @Input() set objects(objects: RemoteData<PaginatedList<ListableObject>>) {
-    this._objects = objects;
-  }
-
-  /**
-   * Getter to return the current objects
-   */
-  get objects() {
-    return this._objects;
-  }
+  @Input() objects: RemoteData<PaginatedList<ListableObject>>;
 
   /**
    * An event fired when the page is changed.
@@ -143,48 +143,45 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
   @Output() change: EventEmitter<{
     pagination: PaginationComponentOptions,
     sort: SortOptions
-  }> = new EventEmitter<{
-    pagination: PaginationComponentOptions,
-    sort: SortOptions
-  }>();
+  }> = new EventEmitter();
 
   /**
    * An event fired when the page is changed.
    * Event's payload equals to the newly selected page.
    */
-  @Output() pageChange: EventEmitter<number> = new EventEmitter<number>();
+  @Output() pageChange: EventEmitter<number> = new EventEmitter();
 
   /**
    * An event fired when the page wsize is changed.
    * Event's payload equals to the newly selected page size.
    */
-  @Output() pageSizeChange: EventEmitter<number> = new EventEmitter<number>();
+  @Output() pageSizeChange: EventEmitter<number> = new EventEmitter();
 
   /**
    * An event fired when the sort direction is changed.
    * Event's payload equals to the newly selected sort direction.
    */
-  @Output() sortDirectionChange: EventEmitter<SortDirection> = new EventEmitter<SortDirection>();
+  @Output() sortDirectionChange: EventEmitter<SortDirection> = new EventEmitter();
 
   /**
    * An event fired when on of the pagination parameters changes
    */
-  @Output() paginationChange: EventEmitter<any> = new EventEmitter<any>();
+  @Output() paginationChange: EventEmitter<any> = new EventEmitter();
 
-  @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+  @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter();
 
-  @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+  @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter();
 
   /**
    * Send an import event to the parent component
    */
-  @Output() importObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+  @Output() importObject: EventEmitter<ListableObject> = new EventEmitter();
 
   /**
    * An event fired when the sort field is changed.
    * Event's payload equals to the newly selected sort field.
    */
-  @Output() sortFieldChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() sortFieldChange: EventEmitter<string> = new EventEmitter();
 
   inAndOutputNames: (keyof ObjectListComponent & keyof this)[] = [
     'config',
@@ -199,9 +196,11 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
     'hidePaginationDetail',
     'importable',
     'importConfig',
+    'showLabel',
     'showMetrics',
     'showPaginator',
     'showThumbnails',
+    'showCorrection',
     'contentChange',
     'prev',
     'next',
@@ -216,7 +215,7 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
     'importObject',
     'sortFieldChange',
     'customData',
-    'customEvent'
+    'customEvent',
   ];
 
   protected getComponentName(): string {

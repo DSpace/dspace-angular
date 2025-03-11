@@ -1,18 +1,35 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  ComponentFixture,
+  fakeAsync,
+  inject,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of } from 'rxjs';
+
+import { AuthService } from '../core/auth/auth.service';
 import { DSONameService } from '../core/breadcrumbs/dso-name.service';
 import { RestResponse } from '../core/cache/response.models';
 import { ScriptDataService } from '../core/data/processes/script-data.service';
-import { RequestEntry } from '../core/data/request-entry.model';
 import { RequestService } from '../core/data/request.service';
+import { RequestEntry } from '../core/data/request-entry.model';
 import { Collection } from '../core/shared/collection.model';
 import { getMockRequestService } from '../shared/mocks/request.service.mock';
 import { RouterMock } from '../shared/mocks/router.mock';
@@ -22,7 +39,6 @@ import { createSuccessfulRemoteDataObject } from '../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
 import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
 import { BulkImportPageComponent } from './bulk-import-page.component';
-import { AuthService } from '../core/auth/auth.service';
 
 describe('BulkImportPageComponent', () => {
 
@@ -37,32 +53,32 @@ describe('BulkImportPageComponent', () => {
 
   const collection: Collection = Object.assign(new Collection(), {
     id: '626b80c5-ef15-4b29-8e69-bda89b0a7acf',
-    name: 'Test collection'
+    name: 'Test collection',
   });
 
   const file: File = new File(['test'], 'test.xls');
 
   const fileList: any = {
     item: (index: number) => file,
-    length: 10
+    length: 10,
   };
 
   const authService = jasmine.createSpyObj('authService', {
     isAuthenticated: of(true),
-    setRedirectUrl: {}
+    setRedirectUrl: {},
   });
 
   beforeEach(() => {
     requestService = getMockRequestService();
     scriptDataService = jasmine.createSpyObj('scriptDataService', {
       invoke: of(Object.assign(new RequestEntry(), {
-        response: new RestResponse(true, 200, 'OK')
-      }))
+        response: new RestResponse(true, 200, 'OK'),
+      })),
     });
     notificationsService = new NotificationsServiceStub();
 
     route = new ActivatedRouteStub({}, {
-      collection: createSuccessfulRemoteDataObject( collection )
+      collection: createSuccessfulRemoteDataObject( collection ),
     });
     router = new RouterMock();
 
@@ -71,11 +87,9 @@ describe('BulkImportPageComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        }),
-      ],
-      declarations: [BulkImportPageComponent],
+            useClass: TranslateLoaderMock,
+          },
+        }), BulkImportPageComponent],
       providers: [
         BulkImportPageComponent,
         DSONameService,
@@ -87,7 +101,7 @@ describe('BulkImportPageComponent', () => {
         { provide: Router, useValue: router },
         { provide: AuthService, useValue: authService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
   });
@@ -115,7 +129,7 @@ describe('BulkImportPageComponent', () => {
       expect(scriptDataService.invoke).toHaveBeenCalledWith('bulk-import', [
         { name: '-c', value: '626b80c5-ef15-4b29-8e69-bda89b0a7acf' },
         { name: '-f', value: 'test.xls' },
-        { name: '-e', value: true }
+        { name: '-er', value: true },
       ], [file]);
     });
 

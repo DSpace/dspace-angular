@@ -1,18 +1,29 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of } from 'rxjs';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { InlineComponent } from './inline.component';
+import { CRIS_FIELD_RENDERING_MAP } from '../../../../../../../../../config/app-config.interface';
+import { LayoutField } from '../../../../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../../../../core/shared/item.model';
 import { TranslateLoaderMock } from '../../../../../../../../shared/mocks/translate-loader.mock';
-import { LayoutField } from '../../../../../../../../core/layout/models/box.model';
-import { TextComponent } from '../../text/text.component';
 import { DsDatePipe } from '../../../../../../../pipes/ds-date.pipe';
 import { MetadataRenderComponent } from '../../../row/metadata-container/metadata-render/metadata-render.component';
+import { layoutBoxesMap } from '../../metadata-box-rendering-map';
+import { TextComponent } from '../../text/text.component';
+import { InlineComponent } from './inline.component';
 
 describe('InlineComponent', () => {
   let component: InlineComponent;
@@ -22,21 +33,21 @@ describe('InlineComponent', () => {
     metadata: {
       'dc.contributor.author': [
         {
-          value: 'Donohue, Tim'
+          value: 'Donohue, Tim',
         },
         {
-          value: 'Surname, Name'
-        }
+          value: 'Surname, Name',
+        },
       ],
       'oairecerif.author.affiliation': [
         {
-          value: 'Duraspace'
+          value: 'Duraspace',
         },
         {
-          value: '4Science'
-        }
-      ]
-    }
+          value: '4Science',
+        },
+      ],
+    },
   });
   const mockField = Object.assign({
     id: 1,
@@ -57,7 +68,7 @@ describe('InlineComponent', () => {
           fieldType: 'METADATA',
           style: null,
           styleLabel: 'font-weight-bold col-0',
-          styleValue: 'col'
+          styleValue: 'col',
         },
         {
           metadata: 'oairecerif.author.affiliation',
@@ -66,10 +77,10 @@ describe('InlineComponent', () => {
           fieldType: 'METADATA',
           style: null,
           styleLabel: 'font-weight-bold col-0',
-          styleValue: 'col'
-        }
-      ]
-    }
+          styleValue: 'col',
+        },
+      ],
+    },
   }) as LayoutField;
 
   beforeEach(waitForAsync(() => {
@@ -77,23 +88,22 @@ describe('InlineComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      }), BrowserAnimationsModule],
+          useClass: TranslateLoaderMock,
+        },
+      }), BrowserAnimationsModule, DsDatePipe,
+      MetadataRenderComponent,
+      InlineComponent,
+      TextComponent],
       providers: [
         { provide: 'fieldProvider', useValue: mockField },
         { provide: 'itemProvider', useValue: testItem },
         { provide: 'renderingSubTypeProvider', useValue: '' },
+        { provide: 'tabNameProvider', useValue: '' },
+        { provide: CRIS_FIELD_RENDERING_MAP, useValue: layoutBoxesMap },
       ],
-      declarations: [
-        DsDatePipe,
-        MetadataRenderComponent,
-        InlineComponent,
-        TextComponent
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(InlineComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.OnPush }
+      set: { changeDetection: ChangeDetectionStrategy.OnPush },
     }).compileComponents();
   }));
 

@@ -1,20 +1,34 @@
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { Store, StoreModule } from '@ngrx/store';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { CoreState } from '../core-state.model';
-import { RequestService } from '../data/request.service';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { createPaginatedList, createRequestEntry$ } from '../../shared/testing/utils.test';
-import { AUDIT_FIND_BY_OBJECT_SEARCH_METHOD, AuditDataService } from './audit-data.service';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { AuditMock } from '../../shared/testing/audit.mock';
-import { FindListOptions } from '../data/find-list-options.model';
-import { RequestParam } from '../cache/models/request-param.model';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+import {
+  createPaginatedList,
+  createRequestEntry$,
+} from '../../shared/testing/utils.test';
 import { followLink } from '../../shared/utils/follow-link-config.model';
+import { RequestParam } from '../cache/models/request-param.model';
+import { CoreState } from '../core-state.model';
+import { FindListOptions } from '../data/find-list-options.model';
+import { RequestService } from '../data/request.service';
+import {
+  AUDIT_FIND_BY_OBJECT_SEARCH_METHOD,
+  AuditDataService,
+} from './audit-data.service';
 
 describe('AuditDataService', () => {
   let service: AuditDataService;
@@ -37,7 +51,7 @@ describe('AuditDataService', () => {
       null,
       halService,
       null,
-      null
+      null,
     );
   }
 
@@ -57,20 +71,21 @@ describe('AuditDataService', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
-      declarations: [],
-      providers: [],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      providers: [
+        provideMockStore(),
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
   }
 
   beforeEach(() => {
     init();
     requestService = getMockRequestService(createRequestEntry$(audits));
-    store = new Store<CoreState>(undefined, undefined, undefined);
+    store = TestBed.inject(Store); // Use TestBed.inject to get the mock store
     service = initTestService();
     spyOn(store, 'dispatch');
   });
@@ -91,11 +106,13 @@ describe('AuditDataService', () => {
           options,
           true,
           true,
-          followLink('eperson'));
+          followLink('eperson'),
+        );
         done();
       });
     });
   });
+
 
   describe('findById', () => {
     beforeEach(() => {
@@ -163,7 +180,7 @@ describe('AuditDataService', () => {
 
       // if audit.objectUUID has no value return null
       testAudit = {
-        objectUUID: null
+        objectUUID: null,
       };
       otherObjectHref = service.getOtherObjectHref(testAudit, contextObject);
       expect(otherObjectHref).toBe(null);
@@ -172,7 +189,7 @@ describe('AuditDataService', () => {
       testAudit = {
         objectUUID: 'contextObject',
         subjectUUID: 'subjectUUID',
-        _links: { subject: { href: 'subjectHref'}}
+        _links: { subject: { href: 'subjectHref' } },
       };
       otherObjectHref = service.getOtherObjectHref(testAudit, contextObject);
       expect(otherObjectHref).toBe('subjectHref');
@@ -181,7 +198,7 @@ describe('AuditDataService', () => {
       testAudit = {
         objectUUID: 'objectUUID',
         subjectUUID: 'contextObject',
-        _links: { object: { href: 'objectHref'}}
+        _links: { object: { href: 'objectHref' } },
       };
       otherObjectHref = service.getOtherObjectHref(testAudit, contextObject);
       expect(otherObjectHref).toBe('objectHref');
@@ -190,7 +207,7 @@ describe('AuditDataService', () => {
       testAudit = {
         objectUUID: 'objectUUID',
         subjectUUID: 'subjectUUID',
-        _links: { subject: { href: 'subjectHref'}}
+        _links: { subject: { href: 'subjectHref' } },
       };
       otherObjectHref = service.getOtherObjectHref(testAudit, contextObject);
       expect(otherObjectHref).toBe(null);

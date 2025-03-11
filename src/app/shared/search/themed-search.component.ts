@@ -1,94 +1,162 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ThemedComponent } from '../theme-support/themed.component';
-import { SearchComponent } from './search.component';
-import { SearchConfigurationOption } from './search-switch-configuration/search-configuration-option.model';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+
 import { Context } from '../../core/shared/context.model';
-import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
-import { SelectionConfig } from './search-results/search-results.component';
-import { ViewMode } from '../../core/shared/view-mode.model';
-import { SearchObjects } from './models/search-objects.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { ViewMode } from '../../core/shared/view-mode.model';
+import { AlertType } from '../alert/alert-type';
+import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
-import { AlertType } from '../alert/aletr-type';
+import { ThemedComponent } from '../theme-support/themed.component';
+import { SearchObjects } from './models/search-objects.model';
+import { SearchComponent } from './search.component';
+import { SelectionConfig } from './search-results/search-results.component';
+import { SearchConfigurationOption } from './search-switch-configuration/search-configuration-option.model';
 
 /**
- * Themed wrapper for SearchComponent
+ * Themed wrapper for {@link SearchComponent}
  */
 @Component({
-  selector: 'ds-themed-search',
-  styleUrls: [],
+  selector: 'ds-search',
   templateUrl: '../theme-support/themed.component.html',
+  standalone: true,
+  imports: [SearchComponent],
 })
 export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
-  protected inAndOutputNames: (keyof SearchComponent & keyof this)[] = ['configurationList', 'context', 'configuration', 'fixedFilterQuery', 'forcedEmbeddedKeys', 'useCachedVersionIfAvailable', 'collapseCharts', 'collapseFilters', 'inPlaceSearch', 'linkType', 'paginationId', 'projection', 'searchEnabled', 'sideBarWidth', 'searchFormPlaceholder', 'selectable', 'selectionConfig', 'showCharts', 'showExport', 'showSidebar', 'showViewModes', 'useUniquePageId', 'viewModeList', 'showScopeSelector', 'showFilterToggle', 'showChartsToggle', 'showCsvExport', 'resultFound', 'deselectObject', 'selectObject', 'customEvent', 'trackStatistics', 'searchResultNotice', 'searchResultNoticeType', 'showSearchResultNotice'];
 
-  @Input() configurationList: SearchConfigurationOption[] = [];
+  protected inAndOutputNames: (keyof SearchComponent & keyof this)[] = [
+    'collapseCharts',
+    'collapseFilters',
+    'configurationList',
+    'context',
+    'configuration',
+    'customEvent',
+    'deselectObject',
+    'fixedFilterQuery',
+    'forcedEmbeddedKeys',
+    'hiddenQuery',
+    'hideScopeInUrl',
+    'useCachedVersionIfAvailable',
+    'inPlaceSearch',
+    'linkType',
+    'paginationId',
+    'projection',
+    'query',
+    'renderOnServerSide',
+    'resultFound',
+    'scope',
+    'searchEnabled',
+    'searchFormPlaceholder',
+    'searchResultNotice',
+    'searchResultNoticeType',
+    'selectable',
+    'selectionConfig',
+    'selectObject',
+    'showCharts',
+    'showChartsToggle',
+    'showCsvExport',
+    'showExport',
+    'showFilterToggle',
+    'showLabel',
+    'showMetrics',
+    'showScopeSelector',
+    'showSearchResultNotice',
+    'showSidebar',
+    'showThumbnails',
+    'showViewModes',
+    'sideBarWidth',
+    'trackStatistics',
+    'useUniquePageId',
+    'viewModeList',
+  ];
 
-  @Input() context: Context = Context.Search;
+  @Input() configurationList: SearchConfigurationOption[];
 
-  @Input() configuration = 'default';
+  @Input() context: Context;
+
+  @Input() configuration: string;
 
   @Input() fixedFilterQuery: string;
 
-  @Input() forcedEmbeddedKeys: Map<string, string[]> = new Map([['default', ['metrics']]]) ;
+  @Input() forcedEmbeddedKeys: Map<string, string[]>;
 
-  @Input() useCachedVersionIfAvailable = true;
+  @Input() hiddenQuery: string;
 
-  @Input() collapseCharts = false;
+  @Input() useCachedVersionIfAvailable: boolean;
 
-  @Input() collapseFilters = false;
+  @Input() collapseCharts: boolean;
 
-  @Input() inPlaceSearch = true;
+  @Input() collapseFilters: boolean;
+
+  @Input() inPlaceSearch: boolean;
 
   @Input() linkType: CollectionElementLinkType;
 
-  @Input() paginationId = 'spc';
+  @Input() paginationId: string;
 
   @Input() projection;
 
-  @Input() searchEnabled = true;
+  @Input() searchEnabled: boolean;
 
-  @Input() sideBarWidth = 3;
+  @Input() sideBarWidth: number;
 
-  @Input() searchFormPlaceholder = 'search.search-form.placeholder';
+  @Input() searchFormPlaceholder: string;
 
-  @Input() searchResultNotice: string = null;
+  @Input() searchResultNotice: string;
 
-  @Input() searchResultNoticeType: AlertType = AlertType.Info;
+  @Input() searchResultNoticeType: AlertType;
 
-  @Input() selectable = false;
+  @Input() selectable: boolean;
 
   @Input() selectionConfig: SelectionConfig;
 
   @Input() showCharts = false;
 
-  @Input() showCsvExport = false;
+  @Input() showCsvExport: boolean;
 
-  @Input() showExport = true;
+  @Input() showExport: boolean;
 
-  @Input() showSidebar = true;
+  @Input() showLabel: boolean;
 
-  @Input() showViewModes = true;
+  @Input() showMetrics: boolean;
 
-  @Input() useUniquePageId: false;
+  @Input() showSidebar: boolean;
+
+  @Input() showThumbnails: boolean;
+
+  @Input() showViewModes: boolean;
+
+  @Input() useUniquePageId: boolean;
 
   @Input() viewModeList: ViewMode[];
 
-  @Input() showScopeSelector = true;
+  @Input() showScopeSelector: boolean;
 
-  @Input() showFilterToggle = false;
+  @Input() showFilterToggle: boolean;
 
-  @Input() showChartsToggle = false;
+  @Input() showChartsToggle: boolean;
 
-  @Input() showSearchResultNotice = false;
+  @Input() showSearchResultNotice: boolean;
 
-  @Input() trackStatistics = false;
+  @Input() trackStatistics: boolean;
 
-  @Output() resultFound: EventEmitter<SearchObjects<DSpaceObject>> = new EventEmitter<SearchObjects<DSpaceObject>>();
+  @Input() query: string;
 
-  @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+  @Input() hideScopeInUrl: boolean;
 
-  @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter<ListableObject>();
+  @Input() renderOnServerSide = false;
+
+  @Input() scope: string;
+
+  @Output() resultFound: EventEmitter<SearchObjects<DSpaceObject>> = new EventEmitter();
+
+  @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter();
+
+  @Output() selectObject: EventEmitter<ListableObject> = new EventEmitter();
 
   @Output() customEvent = new EventEmitter<any>();
 

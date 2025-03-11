@@ -1,5 +1,12 @@
-import { Component, EventEmitter, Injector, Input, OnInit, Output } from '@angular/core';
-
+import { NgComponentOutlet } from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Injector,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { fadeIn } from '../../../shared/animations/fade';
@@ -13,6 +20,8 @@ import { ChartType } from '../../models/chart-type';
   styleUrls: ['./chart.component.scss'],
   templateUrl: './chart.component.html',
   animations: [fadeIn],
+  standalone: true,
+  imports: [NgComponentOutlet],
 })
 export class ChartComponent implements OnInit {
 
@@ -20,37 +29,37 @@ export class ChartComponent implements OnInit {
    * A view to represent chart width & height.
    */
   @Input()
-  view: any[];
+    view: any[];
 
   /**
    * A results to show data on chart.
    */
   @Input()
-  results: Observable<ChartData[] | ChartSeries[]>;
+    results: Observable<ChartData[] | ChartSeries[]>;
 
   /**
    * flag to show/hide animations.
    */
   @Input()
-  animations: boolean;
+    animations: boolean;
 
   /**
    * flag to show/hide legend.
    */
   @Input()
-  legend: boolean;
+    legend: boolean;
 
   /**
    * Set legend title.
    */
   @Input()
-  legendTitle: string;
+    legendTitle: string;
 
   /**
    * Set legend position.
    */
   @Input()
-  legendPosition: string;
+    legendPosition: string;
 
   /**
    * The chart type selection
@@ -72,13 +81,13 @@ export class ChartComponent implements OnInit {
    * flag to add more record from left.
    */
   @Input()
-  enableScrollToLeft: boolean;
+    enableScrollToLeft: boolean;
 
   /**
    * flag to add more record from right.
    */
   @Input()
-  enableScrollToRight: boolean;
+    enableScrollToRight: boolean;
 
   /**
    * Emits an event when the user load more data
@@ -89,25 +98,25 @@ export class ChartComponent implements OnInit {
    * flag to display more button
    */
   @Input()
-  isLastPage: Observable<boolean>;
+    isLastPage: Observable<boolean>;
 
   /**
    * Set current Page
    */
   @Input()
-  currentPage: Observable<number>;
+    currentPage: Observable<number>;
 
   /**
    * Set horizontal chart label.
    */
   @Input()
-  xAxisLabel: string;
+    xAxisLabel: string;
 
   /**
    * Set vertical chart label.
    */
   @Input()
-  yAxisLabel: string;
+    yAxisLabel: string;
 
   constructor(private injector: Injector) {}
 
@@ -136,7 +145,7 @@ export class ChartComponent implements OnInit {
         { provide: 'currentPage', useFactory: () => this.currentPage, deps: [] },
         { provide: 'type', useFactory: () => this.type, deps: [] },
         { provide: 'xAxisLabel', useFactory: () => this.xAxisLabel, deps: [] },
-        { provide: 'yAxisLabel', useFactory: () => this.yAxisLabel, deps: [] }
+        { provide: 'yAxisLabel', useFactory: () => this.yAxisLabel, deps: [] },
       ],
       parent: this.injector,
     });

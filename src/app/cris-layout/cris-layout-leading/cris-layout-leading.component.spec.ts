@@ -1,5 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 
+import { ContextMenuComponent } from '../../shared/context-menu/context-menu.component';
+import { CrisLayoutMatrixComponent } from '../cris-layout-matrix/cris-layout-matrix.component';
 import { CrisLayoutLeadingComponent } from './cris-layout-leading.component';
 
 describe('CrisLayoutLeadingComponent', () => {
@@ -8,9 +13,9 @@ describe('CrisLayoutLeadingComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CrisLayoutLeadingComponent ]
+      imports: [CrisLayoutLeadingComponent],
     })
-    .compileComponents();
+      .overrideComponent(CrisLayoutLeadingComponent, { remove: { imports: [ContextMenuComponent, CrisLayoutMatrixComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

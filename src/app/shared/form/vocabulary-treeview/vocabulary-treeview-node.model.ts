@@ -1,7 +1,8 @@
 /* eslint-disable max-classes-per-file */
 import { BehaviorSubject } from 'rxjs';
-import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+
 import { PageInfo } from '../../../core/shared/page-info.model';
+import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 
 export const LOAD_MORE = 'LOAD_MORE';
 export const LOAD_MORE_ROOT = 'LOAD_MORE_ROOT';
@@ -21,7 +22,8 @@ export class TreeviewNode {
               public pageInfo: PageInfo = new PageInfo(),
               public loadMoreParentItem: VocabularyEntryDetail | null = null,
               public isSearchNode = false,
-              public isInInitValueHierarchy = false) {
+              public isInInitValueHierarchy = false,
+              public isSelected = false) {
   }
 
   updatePageInfo(pageInfo: PageInfo) {
@@ -38,7 +40,8 @@ export class TreeviewFlatNode {
               public pageInfo: PageInfo = new PageInfo(),
               public loadMoreParentItem: VocabularyEntryDetail | null = null,
               public isSearchNode = false,
-              public isInInitValueHierarchy = false) {
+              public isInInitValueHierarchy = false,
+              public isSelected = false) {
   }
 }
 
