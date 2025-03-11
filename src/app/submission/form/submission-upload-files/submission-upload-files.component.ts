@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   Input,
@@ -40,7 +40,6 @@ import parseSectionErrors from '../../utils/parseSectionErrors';
   templateUrl: './submission-upload-files.component.html',
   imports: [
     UploaderComponent,
-    NgIf,
   ],
   standalone: true,
 })

@@ -2,8 +2,6 @@ import {
   AsyncPipe,
   NgClass,
   NgComponentOutlet,
-  NgForOf,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -30,12 +28,10 @@ import { rendersSectionType } from '../sections-decorator';
   styleUrls: ['./section-container.component.scss'],
   imports: [
     AlertComponent,
-    NgForOf,
     NgbAccordionModule,
     NgComponentOutlet,
     TranslateModule,
     NgClass,
-    NgIf,
     AsyncPipe,
     SectionsDirective,
   ],
