@@ -1,7 +1,5 @@
 @if (showAccessStatus) {
-  @if (accessStatus$ | async; as accessStatus) {
-    <span>
-      <span [class]="'badge bg-secondary access-status-list-element-badge ' + accessStatusClass">{{ accessStatus | translate }}</span>
-    </span>
+  @if ({ status: accessStatus$ | async, date: embargoDate$ | async }; as accessStatus) {
+    <span [class]="'badge bg-secondary access-status-list-element-badge ' + accessStatusClass">{{ accessStatus.status | translate: {date: accessStatus.date} }}</span>
   }
 }
