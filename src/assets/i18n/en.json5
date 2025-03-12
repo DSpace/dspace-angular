@@ -7046,6 +7046,8 @@
 
   "submission.sections.submit.progressbar.itemAccessConditions": "Item access conditions",
 
+  "error.validation.accessconditions.required": "You must provide a value for the access condition",
+
   "submission.sections.submit.progressbar.CClicense": "Creative commons license",
 
   "submission.sections.submit.progressbar.custom-url": "Custom url",
