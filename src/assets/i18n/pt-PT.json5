@@ -1580,7 +1580,7 @@
 
   // "pagination.next.button.disabled.tooltip": "No more pages of results",
   "pagination.next.button.disabled.tooltip": "Sem mais páginas de resultados",
-  
+
   // "pagination.page-number-bar": "Control bar for page navigation, relative to element with ID: ",
   "pagination.page-number-bar": "Barra de controlo para navegação na página, relativa ao elemento com ID: ",
 
@@ -2402,7 +2402,7 @@
 
   // "cookies.consent.decline": "Decline",
   "cookies.consent.decline": "Rejeitar",
-  
+
   // "cookies.consent.decline-all": "Decline all",
   "cookies.consent.decline-all": "Rejeitar tudo",
 
@@ -2429,7 +2429,7 @@
 
   // "cookies.consent.content-modal.no-privacy-policy.text": "",
   "cookies.consent.content-modal.no-privacy-policy.text": "",
-  
+
   // "cookies.consent.content-modal.title": "Information that we collect",
   "cookies.consent.content-modal.title": "Informação que recolhemos",
 
@@ -2786,7 +2786,7 @@
 
   // "error.recent-submissions": "Error fetching recent submissions",
   "error.recent-submissions": "Erro ao carregar depósitos recentes!",
-  
+
   // "error.profile-groups": "Error retrieving profile groups",
   "error.profile-groups": "Erro ao recuperar grupos de perfis",
 
@@ -2810,9 +2810,9 @@
 
   // "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
   "error.validation.license.notgranted": "Deve concordar com esta licença para completar o depósito. Se não estiver de acordo com a licença ou pretende ponderar, pode guardar este trabalho e retomar posteriormente ou remover definitivamente este depósito.",
-  
-   // "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
-   "error.validation.cclicense.required": "Deve concordar com esta licença CC para completar o depósito. Se não estiver de acordo com a licença ou pretende ponderar, pode guardar o seu trabalho e retomar posteriormente ou remover definitivamente este depósito.",
+
+  // "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
+  "error.validation.cclicense.required": "Deve concordar com esta licença CC para completar o depósito. Se não estiver de acordo com a licença ou pretende ponderar, pode guardar o seu trabalho e retomar posteriormente ou remover definitivamente este depósito.",
 
   // "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
   "error.validation.pattern": "Este campo está restrito ao seguinte padrão: {{ pattern }}.",
@@ -3359,10 +3359,10 @@
 
   // "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
   "item.edit.bitstreams.bundle.name": "PACOTE: {{ name }}",
-  
+
   // "item.edit.bitstreams.bundle.table.aria-label": "Bitstreams in the  {{ bundle }} Bundle",
   "item.edit.bitstreams.bundle.table.aria-label": "Ficheiros no {{ bundle }} pacote",
-  
+
   // "item.edit.bitstreams.bundle.tooltip": "You can move a bitstream to a different page by dropping it on the page number.",
   "item.edit.bitstreams.bundle.tooltip": "Pode mover um ficheiro para uma página diferente libertando-o no número da página.",
 
@@ -3383,7 +3383,7 @@
 
   // "item.edit.bitstreams.edit.buttons.undo": "Undo changes",
   "item.edit.bitstreams.edit.buttons.undo": "Cancelar alterações",
-  
+
   // "item.edit.bitstreams.edit.live.cancel": "{{ bitstream }} was returned to position {{ toIndex }} and is no longer selected.",
   "item.edit.bitstreams.edit.live.cancel": "{{ bitstream }} foi devolvido à posição {{ toIndex }} e já não está selecionado.",
 
@@ -3397,11 +3397,11 @@
   "item.edit.bitstreams.edit.live.select": "{{ bitstream }} está selecionado.",
 
   // "item.edit.bitstreams.edit.live.move": "{{ bitstream }} is now in position {{ toIndex }}.",
-  "item.edit.bitstreams.edit.live.move": "{{ bitstream }} encontra-se agora em posição {{ toIndex }}.",  
+  "item.edit.bitstreams.edit.live.move": "{{ bitstream }} encontra-se agora em posição {{ toIndex }}.",
 
   // "item.edit.bitstreams.empty": "This item doesn't contain any bitstreams. Click the upload button to create one.",
   "item.edit.bitstreams.empty": "Este item não possui ficheiros. Carregue um novo ficheiro.",
-  
+
   // "item.edit.bitstreams.info-alert": "Bitstreams can be reordered within their bundles by holding the drag handle and moving the mouse. Alternatively, bitstreams can be moved using the keyboard in the following way: Select the bitstream by pressing enter when the bitstream's drag handle is in focus. Move the bitstream up or down using the arrow keys. Press enter again to confirm the current position of the bitstream.",
   "item.edit.bitstreams.info-alert": "Os ficheiros podem ser reordenados dentro dos seus conjuntos pressionando o 'ícone' e arrastado com o rato. Em alternativa, os ficheiros podem ser movidos utilizando o teclado da seguinte forma: Selecionando o ficheiro premindo 'Enter' quando o 'ícone'  de arrastamento estiver realçado. Mova o ficheiro para cima ou para baixo usando as teclas de 'seta'. Prima novamente 'Enter' para confirmar a posição atual do ficheiro.",
 
@@ -3458,7 +3458,7 @@
 
   // "item.edit.bitstreams.upload-button": "Upload",
   "item.edit.bitstreams.upload-button": "Carregar",
-  
+
   // "item.edit.bitstreams.load-more.link": "Load more",
   "item.edit.bitstreams.load-more.link": "Carregar mais",
 
@@ -3632,7 +3632,7 @@
 
   // "item.edit.metadata.edit.buttons.disable-free-text-editing": "Disable free-text editing",
   "item.edit.metadata.edit.buttons.disable-free-text-editing": "Desativar a edição de texto livre",
-  
+
   // "item.edit.metadata.edit.buttons.confirm": "Confirm",
   "item.edit.metadata.edit.buttons.confirm": "Confirmar",
 
@@ -4244,7 +4244,7 @@
 
   // "item.preview.dc.date.issued": "Published date:",
   "item.preview.dc.date.issued": "Data de publicação:",
-  
+
   // "item.preview.dc.description": "Description:",
   "item.preview.dc.description": "Descrição:",
 
@@ -4304,10 +4304,10 @@
 
   // "item.preview.project.funder.identifier": "Funder Identifier:",
   "item.preview.project.funder.identifier": "Identificação do financiador:",
-  
+
   // "item.preview.project.investigator": "Project Investigator",
   "item.preview.project.investigator": "Investigador do projeto",
-  
+
   // "item.preview.oaire.awardNumber": "Funding ID:",
   "item.preview.oaire.awardNumber": "ID do financiamento:",
 
@@ -4835,7 +4835,7 @@
 
   // "login.form.password": "Password",
   "login.form.password": "Palavra-chave",
-  
+
   // "login.form.saml": "Log in with SAML",
   "login.form.saml": "Entrar com SAML",
 
@@ -7235,7 +7235,7 @@
 
   // "submission.import - external.source.datacite": "DataCite",
   "submission.import - external.source.datacite": "DataCite",
-  
+
   // "submission.import-external.source.dataciteProject": "DataCite",
   "submission.import-external.source.dataciteProject": "Projeto DataCite",
 
@@ -10342,7 +10342,7 @@
 
   // "search.filters.filter.notifyEndorsement.label": "Search Notify Endorsement",
   "search.filters.filter.notifyEndorsement.label": "Pesquisar notificação de avaliação",
-  
+
   // "form.date-picker.placeholder.year": "Year",
   "form.date-picker.placeholder.year": "Ano",
 
@@ -10350,7 +10350,7 @@
   "form.date-picker.placeholder.month": "Mês",
 
   // "form.date-picker.placeholder.day": "Day",
-  "form.date-picker.placeholder.day": "Dia",  
+  "form.date-picker.placeholder.day": "Dia",
 
   // "item.page.cc.license.title": "Creative Commons license",
   "item.page.cc.license.title": "Licença Creative Commons",
@@ -10360,7 +10360,7 @@
 
   // "browse.search-form.placeholder": "Search the repository",
   "browse.search-form.placeholder": "Pesquisar o repositório",
-  
+
   // "file-download-link.download": "Download ",
   "file-download-link.download": "Descarregar ",
 
@@ -10372,22 +10372,22 @@
 
   // "search-facet-option.update.announcement": "The page will be reloaded. Filter {{ filter }} is selected.",
   "search-facet-option.update.announcement": "A página vai ser recarregada. O filtro {{ filter }} está selecionado.",
-                                                     
+
   // "live-region.ordering.instructions": "Press spacebar to reorder {{ itemName }}.",
   "live-region.ordering.instructions": "Prima a barra de espaços para reordenar {{ itemName }}.",
-                                   
+
   // "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of  {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
-  "live-region.ordering.status": "{{ itemName }}, selecionado. Posição atual na lista: {{index }} de {{length }}. Prima as teclas 'seta para cima' ou 'seta para baixo' para mudar de posição, a 'barra de espaços' para largar, 'Escape' para cancelar.",                                     
+  "live-region.ordering.status": "{{ itemName }}, selecionado. Posição atual na lista: {{index }} de {{length }}. Prima as teclas 'seta para cima' ou 'seta para baixo' para mudar de posição, a 'barra de espaços' para largar, 'Escape' para cancelar.",
 
   // "live-region.ordering.moved": "{{ itemName }}, moved to position {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
   "live-region.ordering.moved": "{{ itemName }}, moveu para a posição {{ index }} de {{ length }}. Prima as teclas 'seta para cima' ou 'seta para baixo' para mudar de posição, a 'barra de espaços' para largar, 'Escape' para cancelar.",
-                                       
+
   // "live-region.ordering.dropped": "{{ itemName }}, dropped at position {{ index }} of {{ length }}.",
   "live-region.ordering.dropped": "{{ itemName }}, caiu na posição {{ index }} de {{ length }}.",
-                                                                                                                 
+
   // "dynamic-form-array.sortable-list.label": "Sortable list",
   "dynamic-form-array.sortable-list.label": "Lista ordenável",
-  
+
 
   // Other strings...
   // Missing, deprecated, duplicate or redundant ???
@@ -10410,7 +10410,7 @@
 
   // "mydspace.upload.upload-successful": "New workspace item created. Click {{here}} for edit it.",
   "mydspace.upload.upload-successful": "Novo item de espaço de trabalho criado. Clique {{here}} para o editar.",
-  
+
   // "search.form.search_mydspace": "Search MyDSpace",
   "search.form.search_mydspace": "Pesquisar na área pessoal",
   
@@ -10458,10 +10458,10 @@
 
   // "forgot-email.form.google-recaptcha.notification.message.error": "Error when trying to reset password (Google reCAPTCHA)",
   "forgot-email.form.google-recaptcha.notification.message.error": "Ocorreu um erro ao tentar redefinir a senha de acesso (Google reCAPTCHA)",
-  
+
   // "cclicense.notavailable": "Without CC licence",
   "cclicense.notavailable": "Sem licença CC",
-  
+
   // "search.filters.filter.access_status.head": "Access type",
   "search.filters.filter.access_status.head": "Tipo de acesso",
 
@@ -10473,22 +10473,22 @@
 
   // "search.filters.applied.f.access_status": "Access type",
   "search.filters.applied.f.access_status": "Tipo de acesso",
-  
+
   // "search.filters.access_status.open.access": "Open access",
-  "search.filters.access_status.open.access": "Acesso aberto",                                                           
-  
+  "search.filters.access_status.open.access": "Acesso aberto",
+
   // "search.filters.access_status.restricted": "Restricted access",
   "search.filters.access_status.restricted": "Acesso restrito",
-  
+
   // "search.filters.access_status.embargo": "Embargoed access",
   "search.filters.access_status.embargo": "Acesso embargado",
-  
+
   // "search.filters.access_status.metadata.only": "Metadata only",
   "search.filters.access_status.metadata.only": "Apenas metadados",
-  
+
   // "search.filters.access_status.unknown": "Unknown",
   "search.filters.access_status.unknown": "Desconhecido",
-  
+
   // "submission.import-external.source.sherpaJournal": "'Open Policy Finder' Journals",
   "submission.import-external.source.sherpaJournal": "Revistas 'Open Policy Finder' por nome",
 
@@ -10497,7 +10497,7 @@
 
   // "submission.import-external.source.sherpaPublisher": "'Open Policy Finder' Publishers",
   "submission.import-external.source.sherpaPublisher": "Editoras 'Open Policy Finder'",
-  
+
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importing from 'Open Policy Finder' Journal",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "A importar revista do 'Open Policy Finder'",
 
