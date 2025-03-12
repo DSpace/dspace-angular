@@ -23,7 +23,7 @@
         <td>{{ registrationData.netId }}</td>
         <td>
           <span>
-            {{ 'external-login-validation.review-account-info.table.row.not-applicable' }}
+            {{ 'external-login-validation.review-account-info.table.row.not-applicable' | translate }}
           </span>
         </td>
         <td></td>
@@ -55,7 +55,7 @@
     </tbody>
   </table>  <div class="d-flex justify-content-end">
     <button class="btn btn-primary" (click)="onSave()">
-      {{'confirmation-modal.review-account-info.confirm' | translate}}
+      {{'confirmation-modal.review-account-info.save' | translate}}
     </button>
   </div>
 </div>

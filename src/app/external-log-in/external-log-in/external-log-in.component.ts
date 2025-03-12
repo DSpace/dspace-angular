@@ -1,4 +1,7 @@
-import { NgComponentOutlet } from '@angular/common';
+import {
+  AsyncPipe,
+  NgComponentOutlet,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -15,6 +18,8 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { AuthMethodType } from '../../core/auth/models/auth.method-type';
@@ -46,13 +51,14 @@ import { ProvideEmailComponent } from '../email-confirmation/provide-email/provi
     ConfirmEmailComponent,
     ThemedLogInComponent,
     NgComponentOutlet,
+    AsyncPipe,
   ],
   standalone: true,
 })
 /**
  * This component is responsible to handle the external-login depending on the RegistrationData details provided
  */
-export class ExternalLogInComponent implements OnInit, OnDestroy  {
+export class ExternalLogInComponent implements OnInit, OnDestroy {
   /**
    * The AlertType enumeration for access in the component's template
    * @type {AlertType}
@@ -93,13 +99,18 @@ export class ExternalLogInComponent implements OnInit, OnDestroy  {
    * Authentication method related to registration type
    */
   relatedAuthMethod: AuthMethodType;
+  /**
+   * The observable to check if any auth method type is configured
+   */
+  hasAuthMethodTypes: Observable<boolean>;
 
   constructor(
     private injector: Injector,
     private translate: TranslateService,
     private modalService: NgbModal,
     private authService: AuthService,
-  ) { }
+  ) {
+  }
 
   /**
    * Provide the registration data object to the objectInjector.
@@ -121,6 +132,38 @@ export class ExternalLogInComponent implements OnInit, OnDestroy  {
     this.informationText = hasValue(this.registrationData?.email)
       ? this.generateInformationTextWhenEmail(this.registrationType)
       : this.generateInformationTextWhenNOEmail(this.registrationType);
+    this.hasAuthMethodTypes = this.authService.getAuthMethods(this.relatedAuthMethod).pipe(map(methods => methods.length > 0));
+  }
+
+  /**
+   * Get the registration type to be rendered
+   */
+  getExternalLoginConfirmationType(): ExternalLoginTypeComponent {
+    return getExternalLoginConfirmationType(this.registrationType);
+  }
+
+  /**
+   * Opens the login modal and sets the redirect URL to '/review-account'.
+   * On modal dismissed/closed, the redirect URL is cleared.
+   * @param content - The content to be displayed in the modal.
+   */
+  openLoginModal(content: any) {
+    this.modalRef = this.modalService.open(content);
+    this.authService.setRedirectUrl(`/review-account/${this.token}`);
+    this.modalRef.dismissed.subscribe(() => {
+      this.clearRedirectUrl();
+    });
+  }
+
+  /**
+   * Clears the redirect URL stored in the authentication service.
+   */
+  clearRedirectUrl() {
+    this.authService.clearRedirectUrl();
+  }
+
+  ngOnDestroy(): void {
+    this.modalRef?.close();
   }
 
   /**
@@ -148,39 +191,5 @@ export class ExternalLogInComponent implements OnInit, OnDestroy  {
         { authMethod: authMethodUppercase },
       );
     }
-  }
-
-  /**
-   * Get the registration type to be rendered
-   */
-  getExternalLoginConfirmationType(): ExternalLoginTypeComponent {
-    return getExternalLoginConfirmationType(this.registrationType);
-  }
-
-  /**
-   * Opens the login modal and sets the redirect URL to '/review-account'.
-   * On modal dismissed/closed, the redirect URL is cleared.
-   * @param content - The content to be displayed in the modal.
-   */
-  openLoginModal(content: any) {
-    setTimeout(() => {
-      this.authService.setRedirectUrl(`/review-account/${this.token}`);
-    }, 100);
-    this.modalRef = this.modalService.open(content);
-
-    this.modalRef.dismissed.subscribe(() => {
-      this.clearRedirectUrl();
-    });
-  }
-
-  /**
-   * Clears the redirect URL stored in the authentication service.
-   */
-  clearRedirectUrl() {
-    this.authService.clearRedirectUrl();
-  }
-
-  ngOnDestroy(): void {
-    this.modalRef?.close();
   }
 }

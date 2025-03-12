@@ -2309,17 +2309,21 @@
   // TODO New key - Add a translation
   "confirmation-modal.review-account-info.header": "Save the changes",
 
-  // "confirmation-modal.review-account-info.info": "Continue to update your profile",
+  // "confirmation-modal.review-account-info.info": "Are you sure you want to save the changes to your profile",
   // TODO New key - Add a translation
-  "confirmation-modal.review-account-info.info": "Continue to update your profile",
+  "confirmation-modal.review-account-info.info": "Are you sure you want to save the changes to your profile?",
 
   // "confirmation-modal.review-account-info.cancel": "Cancel",
   // TODO New key - Add a translation
   "confirmation-modal.review-account-info.cancel": "Cancel",
 
-  // "confirmation-modal.review-account-info.confirm": "Save",
+  // "confirmation-modal.review-account-info.confirm": "Confirm",
   // TODO New key - Add a translation
-  "confirmation-modal.review-account-info.confirm": "Save",
+  "confirmation-modal.review-account-info.confirm": "Confirm",
+
+  // "confirmation-modal.review-account-info.save": "Save",
+  // TODO New key - Add a translation
+  "confirmation-modal.review-account-info.save": "Save",
 
   // "error.bitstream": "Error fetching bitstream",
   "error.bitstream": "Errore durante il recupero del bitstream",
