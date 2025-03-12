@@ -3,10 +3,10 @@ import { Config } from './config.interface';
 export interface CreativeCommonsLicenseConfig extends Config {
 
     /**
-     * CC icon variant ('small' or 'full')
+     * CC icon position ('sidebard' or 'content')
      * Used by {@link ItemPageCcLicenseFieldComponent}.
      */
-    variant: 'small' | 'full';
+    position: 'sidebard' | 'content';
 
     /**
      * Shows the CC license name with the image. Always show if image fails to load

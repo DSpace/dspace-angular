@@ -1,6 +1,6 @@
 @if ((uri$ | async) && (name$ | async)) {
   <div class="item-page-field">
-    <ds-metadata-field-wrapper [label]="'item.page.cc.license.title' | translate">
+    <ds-metadata-field-wrapper [label]="'item.page.cc.license.title' | translate" [hideIfNoTextContent]="false">
       <div [ngClass]="{'row': variant === 'full', 'col': variant === 'small'}">
         <!-- 'img' tag is not rendered if any errors occurs when loading it -->
         @if (showImage) {
@@ -18,14 +18,14 @@
           </div>
         }
         <!-- CC name is always displayed if the image fails to load -->
-        <div [ngClass]="{ 'row': variant === 'small', 'col': variant === 'full' }">
-          <span>
-            {{ variant === 'full' && showDisclaimer ? ('item.page.cc.license.disclaimer' | translate) : '' }}
-            @if (showName || !showImage) {
+        @if (showName || !showImage) {
+          <div [ngClass]="{ 'row': variant === 'small', 'col': variant === 'full' }">
+            <span>
+              {{ showDisclaimer ? ('item.page.cc.license.disclaimer' | translate) : '' }}
               <a [href]="uri$ | async" target="_blank" id="cc-name">{{ (name$ | async) }}</a>
-            }
-          </span>
-        </div>
+            </span>
+          </div>
+        }
       </div>
     </ds-metadata-field-wrapper>
   </div>

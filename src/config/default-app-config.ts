@@ -333,7 +333,7 @@ export class DefaultAppConfig implements AppConfig {
     },
     // Metadatafields to determine the CC license variant
     ccLicense: {
-      variant: 'small',
+      position: 'content',
       showName: true,
       showDisclaimer: true,
     },

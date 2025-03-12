@@ -353,12 +353,13 @@ item:
   # Creative Commons metadata fields
   ccLicense:
     # Icon variant:
-    # 'full' variant shows image, a disclaimer (optional) and name (always), better for the item page content.
-    # 'small' (default) variant shows image and name (optional), better for the item page sidebar
-    variant: small
-    # Shows the CC license name with the image. Always show if image fails to load
+    # 'content' (default) variant shows license in the item page content.
+    # 'sidebar' variant shows license in the item page sidebar
+    position: content
+    # Shows the CC license name with the image. The name is always shown if the image fails to load
     showName: true
-    # Shows the disclaimer in the 'full' variant of the component
+    # If the CC license name is shown, also show a disclaimer text. Only recommendend in the 'content' position
+    # If showName is set to false, this configuration key does not have any effect
     showDisclaimer: true
 
 # Community Page Config
