@@ -23,7 +23,7 @@
         formControlName="firstname"
         type="text"
         [attr.data-test]="'firstname' | dsBrowserOnly">
-  <ng-container *ngIf="registrationData?.email">
+  @if (registrationData?.email) {
     <label class="font-weight-bold mb-0">{{"external-login-page.orcid-confirmation.email" | translate}}</label>
     <input [attr.aria-label]="'external-login-page.orcid-confirmation.email.label' | translate"
           autocomplete="off"
@@ -31,5 +31,5 @@
           formControlName="email"
           type="email"
           [attr.data-test]="'email' | dsBrowserOnly">
-  </ng-container>
+  }
 </form>

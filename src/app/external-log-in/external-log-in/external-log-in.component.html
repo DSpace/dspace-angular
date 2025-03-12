@@ -10,12 +10,11 @@
 </ds-alert>
 <div class="row justify-content-center">
   <div class="col-4 d-flex justify-content-end align-items-center">
-    <ng-container *ngIf="registrationData.email; else provideEmail">
+    @if (registrationData.email) {
       <ds-confirm-email [registrationData]="registrationData" [token]="token"></ds-confirm-email>
-    </ng-container>
-    <ng-template #provideEmail>
+    } @else {
       <ds-provide-email [registrationId]="registrationData.id" [token]="token"></ds-provide-email>
-    </ng-template>
+    }
   </div>
   <div class="col-1 align-items-center d-flex justify-content-center">
     <h4 class="mt-2">{{ 'external-login.component.or' | translate }}</h4>

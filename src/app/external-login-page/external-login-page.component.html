@@ -1,11 +1,12 @@
 <div class="container">
-  <ng-container *ngIf="(registrationData$ | async)">
-    <ds-external-log-in [registrationData]="registrationData$ | async" [token]="token"></ds-external-log-in>
-  </ng-container>
+  @if (registrationData$ | async; as registrationData) {
+    <ds-external-log-in [registrationData]="registrationData" [token]="token"></ds-external-log-in>
+  }
 
-  <ds-alert
-  *ngIf="hasErrors"
-  [type]="AlertTypeEnum.Error"
-  [content]="'external-login.error.notification' | translate"
-></ds-alert>
+  @if (hasErrors) {
+    <ds-alert
+      [type]="AlertTypeEnum.Error"
+      [content]="'external-login.error.notification' | translate"
+    ></ds-alert>
+  }
 </div>

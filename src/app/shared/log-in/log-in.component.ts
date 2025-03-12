@@ -27,7 +27,6 @@ import { hasValue } from '../empty.util';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { LogInContainerComponent } from './container/log-in-container.component';
 import { rendersAuthMethodType } from './methods/log-in.methods-decorator';
-import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-base-log-in',
@@ -35,7 +34,7 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrls: ['./log-in.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [ThemedLoadingComponent, LogInContainerComponent, AsyncPipe, TranslateModule],
+  imports: [ThemedLoadingComponent, LogInContainerComponent, AsyncPipe],
 })
 export class LogInComponent implements OnInit {
 

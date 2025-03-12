@@ -12,24 +12,16 @@
       [attr.aria-label]="'external-login.confirmation.email' | translate"
     />
 
-    <div
-      *ngIf="
-        emailForm.get('email').hasError('required') &&
-        emailForm.get('email').touched
-      "
-      class="text-danger"
-    >
-      {{ "external-login.confirmation.email-required" | translate }}
-    </div>
-    <div
-      *ngIf="
-        emailForm.get('email').hasError('email') &&
-        emailForm.get('email').touched
-      "
-      class="text-danger"
-    >
-      {{ "external-login.confirmation.email-invalid" | translate }}
-    </div>
+    @if (emailForm.get('email').hasError('required') && emailForm.get('email').touched) {
+      <div class="text-danger">
+        {{ "external-login.confirmation.email-required" | translate }}
+      </div>
+    }
+    @if (emailForm.get('email').hasError('email') && emailForm.get('email').touched) {
+      <div class="text-danger">
+        {{ "external-login.confirmation.email-invalid" | translate }}
+      </div>
+    }
   </div>
 
   <button type="submit" class="btn btn-lg btn-primary btn-block">
