@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -27,7 +24,6 @@ import { ReviewAccountInfoComponent } from './review-account-info/review-account
   imports: [
     ReviewAccountInfoComponent,
     AsyncPipe,
-    NgIf,
     AlertComponent,
   ],
   standalone: true,

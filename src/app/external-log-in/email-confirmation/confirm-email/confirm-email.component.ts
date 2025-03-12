@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -52,7 +51,6 @@ import { ExternalLoginService } from '../../services/external-login.service';
   standalone: true,
   imports: [
     TranslateModule,
-    NgIf,
     ReactiveFormsModule,
   ],
 })

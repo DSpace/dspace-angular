@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -28,7 +25,6 @@ import { hasNoValue } from '../shared/empty.util';
   imports: [
     TranslateModule,
     AsyncPipe,
-    NgIf,
     ExternalLogInComponent,
     AlertComponent,
   ],

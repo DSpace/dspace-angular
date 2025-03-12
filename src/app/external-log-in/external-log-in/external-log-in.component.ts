@@ -1,7 +1,4 @@
-import {
-  NgComponentOutlet,
-  NgIf,
-} from '@angular/common';
+import { NgComponentOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -48,7 +45,6 @@ import { ProvideEmailComponent } from '../email-confirmation/provide-email/provi
     TranslateModule,
     ConfirmEmailComponent,
     ThemedLogInComponent,
-    NgIf,
     NgComponentOutlet,
   ],
   standalone: true,

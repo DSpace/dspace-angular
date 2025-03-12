@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -25,7 +24,6 @@ import { ExternalLoginMethodEntryComponent } from '../../decorators/external-log
     ReactiveFormsModule,
     TranslateModule,
     BrowserOnlyPipe,
-    NgIf,
   ],
   standalone: true,
 })

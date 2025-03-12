@@ -1,8 +1,4 @@
-import {
-  NgFor,
-  NgIf,
-  TitleCasePipe,
-} from '@angular/common';
+import { TitleCasePipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -63,8 +59,6 @@ export interface ReviewAccountInfoData {
   styleUrls: ['./review-account-info.component.scss'],
   imports: [
     CompareValuesPipe,
-    NgFor,
-    NgIf,
     TitleCasePipe,
     TranslateModule,
     AlertComponent,
