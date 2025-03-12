@@ -5,9 +5,9 @@
       <button [attr.aria-label]="itemModel.text | translate" [title]="itemModel.text | translate" class="btn btn-dark btn-sm" ngbDropdownToggle [dsBtnDisabled]="section.model?.disabled">
         <i class="fas fa-{{section.icon}} fa-fw"></i>
       </button>
-      <ul ngbDropdownMenu class="dso-edit-menu-dropdown">
+      <ul ngbDropdownMenu class="dso-edit-menu-dropdown p-1">
         @for (subSection of (subSections$ | async); track subSection) {
-          <li class="nav-item nav-link d-flex flex-row">
+          <li class="nav-item nav-link d-flex flex-row p-2">
             @if (renderIcons$ | async) {
               <div class="me-2">
                 @if (subSection.icon) {
