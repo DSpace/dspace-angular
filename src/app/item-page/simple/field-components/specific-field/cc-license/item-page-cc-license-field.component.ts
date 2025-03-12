@@ -44,7 +44,7 @@ export class ItemPageCcLicenseFieldComponent implements OnInit, OnDestroy {
    * The item to display the CC license image for
    */
   @Input() item: Item;
-  
+
   /**
    * 'full' variant is designed for the item page content
    * 'small' variant is designed for the item page sidebar

@@ -14,6 +14,6 @@ export interface ItemConfig extends Config {
     // settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
     pageSize: number;
   }
-  
+
   ccLicense: CreativeCommonsLicenseConfig;
 }
