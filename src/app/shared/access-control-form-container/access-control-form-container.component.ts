@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -31,6 +28,7 @@ import { Item } from '../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { AlertComponent } from '../alert/alert.component';
 import { AlertType } from '../alert/alert-type';
+import { BtnDisabledDirective } from '../btn-disabled.directive';
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
 import { AccessControlArrayFormComponent } from './access-control-array-form/access-control-array-form.component';
 import { createAccessControlInitialFormState } from './access-control-form-container-intial-state';
@@ -46,7 +44,7 @@ import {
   styleUrls: ['./access-control-form-container.component.scss'],
   exportAs: 'dsAccessControlForm',
   standalone: true,
-  imports: [NgIf, AlertComponent, UiSwitchModule, FormsModule, AccessControlArrayFormComponent, AsyncPipe, TranslateModule],
+  imports: [AlertComponent, UiSwitchModule, FormsModule, AccessControlArrayFormComponent, AsyncPipe, TranslateModule, BtnDisabledDirective],
 })
 export class AccessControlFormContainerComponent<T extends DSpaceObject> implements OnDestroy {
 

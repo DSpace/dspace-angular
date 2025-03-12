@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgFor,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -47,6 +43,7 @@ import { ResourcePolicy } from '../../../core/resource-policy/models/resource-po
 import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-policy.resource-type';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
+import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import {
   dateToISOFormat,
   stringToNgbDateStruct,
@@ -93,8 +90,7 @@ export interface ResourcePolicyEvent {
     EpersonGroupListComponent,
     TranslateModule,
     AsyncPipe,
-    NgIf,
-    NgFor,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

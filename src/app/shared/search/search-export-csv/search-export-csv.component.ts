@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -13,11 +10,13 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 import {
-  combineLatest as observableCombineLatest,
-  Observable,
-} from 'rxjs';
-import { map } from 'rxjs/operators';
+  filter,
+  map,
+  startWith,
+  switchMap,
+} from 'rxjs/operators';
 
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
@@ -32,13 +31,14 @@ import {
 } from '../../empty.util';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { PaginatedSearchOptions } from '../models/paginated-search-options.model';
+import { SearchFilter } from '../models/search-filter.model';
 
 @Component({
   selector: 'ds-search-export-csv',
   styleUrls: ['./search-export-csv.component.scss'],
   templateUrl: './search-export-csv.component.html',
   standalone: true,
-  imports: [NgIf, NgbTooltipModule, AsyncPipe, TranslateModule],
+  imports: [NgbTooltipModule, AsyncPipe, TranslateModule],
 })
 /**
  * Display a button to export the current search results as csv
@@ -69,15 +69,11 @@ export class SearchExportCsvComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const scriptExists$ = this.scriptDataService.findById('metadata-export-search').pipe(
-      getFirstCompletedRemoteData(),
-      map((rd) => rd.isSuccess && hasValue(rd.payload)),
-    );
-
-    const isAuthorized$ = this.authorizationDataService.isAuthorized(FeatureID.AdministratorOf);
-
-    this.shouldShowButton$ = observableCombineLatest([scriptExists$, isAuthorized$]).pipe(
-      map(([scriptExists, isAuthorized]: [boolean, boolean]) => scriptExists && isAuthorized),
+    this.shouldShowButton$ = this.authorizationDataService.isAuthorized(FeatureID.AdministratorOf).pipe(
+      filter((isAuthorized: boolean) => isAuthorized),
+      switchMap(() => this.scriptDataService.scriptWithNameExistsAndCanExecute('metadata-export-search')),
+      map((canExecute: boolean) => canExecute),
+      startWith(false),
     );
   }
 
@@ -97,19 +93,19 @@ export class SearchExportCsvComponent implements OnInit {
         parameters.push({ name: '-c', value: this.searchConfig.configuration });
       }
       if (isNotEmpty(this.searchConfig.filters)) {
-        this.searchConfig.filters.forEach((filter) => {
-          if (hasValue(filter.values)) {
-            filter.values.forEach((value) => {
+        this.searchConfig.filters.forEach((searchFilter: SearchFilter) => {
+          if (hasValue(searchFilter.values)) {
+            searchFilter.values.forEach((value: string) => {
               let operator;
               let filterValue;
-              if (hasValue(filter.operator)) {
-                operator = filter.operator;
+              if (hasValue(searchFilter.operator)) {
+                operator = searchFilter.operator;
                 filterValue = value;
               } else {
                 operator = value.substring(value.lastIndexOf(',') + 1);
                 filterValue = value.substring(0, value.lastIndexOf(','));
               }
-              const valueToAdd = `${filter.key.substring(2)},${operator}=${filterValue}`;
+              const valueToAdd = `${searchFilter.key.substring(2)},${operator}=${filterValue}`;
               parameters.push({ name: '-f', value: valueToAdd });
             });
           }

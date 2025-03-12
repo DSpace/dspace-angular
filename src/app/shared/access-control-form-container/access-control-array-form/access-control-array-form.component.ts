@@ -1,7 +1,4 @@
-import {
-  NgFor,
-  NgIf,
-} from '@angular/common';
+
 import {
   Component,
   Input,
@@ -16,6 +13,7 @@ import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { AccessesConditionOption } from '../../../core/config/models/config-accesses-conditions-options.model';
+import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { dateToISOFormat } from '../../date.util';
 import { ToDatePipe } from './to-date.pipe';
 
@@ -25,7 +23,7 @@ import { ToDatePipe } from './to-date.pipe';
   styleUrls: ['./access-control-array-form.component.scss'],
   exportAs: 'accessControlArrayForm',
   standalone: true,
-  imports: [FormsModule, NgIf, NgFor, NgbDatepickerModule, TranslateModule, ToDatePipe],
+  imports: [FormsModule, NgbDatepickerModule, TranslateModule, ToDatePipe, BtnDisabledDirective],
 })
 export class AccessControlArrayFormComponent implements OnInit {
   @Input() dropdownOptions: AccessesConditionOption[] = [];

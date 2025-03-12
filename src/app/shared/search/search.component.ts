@@ -1,6 +1,6 @@
 import {
   AsyncPipe,
-  NgIf,
+  isPlatformServer,
   NgTemplateOutlet,
 } from '@angular/common';
 import {
@@ -12,6 +12,7 @@ import {
   OnDestroy,
   OnInit,
   Output,
+  PLATFORM_ID,
 } from '@angular/core';
 import {
   NavigationStart,
@@ -37,6 +38,7 @@ import {
   APP_CONFIG,
   AppConfig,
 } from '../../../config/app-config.interface';
+import { environment } from '../../../environments/environment';
 import { COLLECTION_MODULE_PATH } from '../../collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
 import { SortOptions } from '../../core/cache/models/sort-options.model';
@@ -90,7 +92,6 @@ import { SearchConfigurationOption } from './search-switch-configuration/search-
   standalone: true,
   imports: [
     AsyncPipe,
-    NgIf,
     NgTemplateOutlet,
     PageWithSidebarComponent,
     ThemedSearchFormComponent,
@@ -237,6 +238,11 @@ export class SearchComponent implements OnDestroy, OnInit {
   @Input() hideScopeInUrl: boolean;
 
   /**
+   * Defines whether to fetch search results during SSR execution
+   */
+  @Input() renderOnServerSide: boolean;
+
+  /**
    * The current configuration used during the search
    */
   currentConfiguration$: BehaviorSubject<string> = new BehaviorSubject<string>('');
@@ -250,6 +256,7 @@ export class SearchComponent implements OnDestroy, OnInit {
    * The current sort options used
    */
   currentScope$: Observable<string>;
+
 
   /**
    * The current sort options used
@@ -345,6 +352,7 @@ export class SearchComponent implements OnDestroy, OnInit {
               protected routeService: RouteService,
               protected router: Router,
               @Inject(APP_CONFIG) protected appConfig: AppConfig,
+              @Inject(PLATFORM_ID) public platformId: any,
   ) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
@@ -357,6 +365,14 @@ export class SearchComponent implements OnDestroy, OnInit {
    * If something changes, update the list of scopes for the dropdown
    */
   ngOnInit(): void {
+    if (!this.renderOnServerSide && !environment.ssr.enableSearchComponent && isPlatformServer(this.platformId)) {
+      this.subs.push(this.getSearchOptions().pipe(distinctUntilChanged()).subscribe((options) => {
+        this.searchOptions$.next(options);
+      }));
+      this.initialized$.next(true);
+      return;
+    }
+
     if (this.useUniquePageId) {
       // Create an unique pagination id related to the instance of the SearchComponent
       this.paginationId = uniqueId(this.paginationId);

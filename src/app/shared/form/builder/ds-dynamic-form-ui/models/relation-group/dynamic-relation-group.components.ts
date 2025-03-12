@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgIf,
 } from '@angular/common';
 import {
   ChangeDetectorRef,
@@ -46,6 +45,7 @@ import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/share
 import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { shrinkInOut } from '../../../../../animations/shrink';
+import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import {
   hasValue,
   isEmpty,
@@ -73,7 +73,6 @@ import { DynamicRelationGroupModel } from './dynamic-relation-group.model';
   templateUrl: './dynamic-relation-group.component.html',
   animations: [shrinkInOut],
   imports: [
-    NgIf,
     AsyncPipe,
     NgbTooltipModule,
     TranslateModule,
@@ -81,6 +80,7 @@ import { DynamicRelationGroupModel } from './dynamic-relation-group.model';
     ThemedLoadingComponent,
     ChipsComponent,
     forwardRef(() => FormComponent),
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

@@ -1,8 +1,8 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
-  async,
   ComponentFixture,
   TestBed,
+  waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -31,7 +31,7 @@ describe('SuggestionsPopupComponent', () => {
       jasmine.createSpy('getNotificationSuggestionInterpolation').and.returnValue(mockNotificationInterpolation),
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), SuggestionsPopupComponent],
       providers: [

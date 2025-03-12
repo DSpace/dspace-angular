@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   Input,
@@ -16,7 +16,7 @@ import {
   selector: 'ds-base-type-badge',
   templateUrl: './type-badge.component.html',
   standalone: true,
-  imports: [NgIf, TranslateModule],
+  imports: [TranslateModule],
 })
 /**
  * Component rendering the type of an item as a badge

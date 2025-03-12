@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -54,6 +51,7 @@ import {
 import { Registration } from '../core/shared/registration.model';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';
+import { BtnDisabledDirective } from '../shared/btn-disabled.directive';
 import { OrejimeService } from '../shared/cookies/orejime.service';
 import { isNotEmpty } from '../shared/empty.util';
 import { GoogleRecaptchaComponent } from '../shared/google-recaptcha/google-recaptcha.component';
@@ -66,7 +64,7 @@ export const TYPE_REQUEST_REGISTER = 'register';
   selector: 'ds-base-register-email-form',
   templateUrl: './register-email-form.component.html',
   standalone: true,
-  imports: [NgIf, FormsModule, ReactiveFormsModule, AlertComponent, GoogleRecaptchaComponent, AsyncPipe, TranslateModule],
+  imports: [FormsModule, ReactiveFormsModule, AlertComponent, GoogleRecaptchaComponent, AsyncPipe, TranslateModule, BtnDisabledDirective],
 })
 /**
  * Component responsible to render an email registration form.

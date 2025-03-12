@@ -1,28 +1,34 @@
-<ds-results-back-button *ngIf="showBackButton$ | async" [back]="back"></ds-results-back-button>
-<div class="row" *ngIf="iiifEnabled">
-  <div class="col-12">
-    <ds-mirador-viewer  id="iiif-viewer"
-                        [object]="object"
-                        [searchable]="iiifSearchEnabled"
-                        [query]="iiifQuery$ | async">
-    </ds-mirador-viewer>
+@if (showBackButton$ | async) {
+  <ds-results-back-button [back]="back"></ds-results-back-button>
+}
+@if (iiifEnabled) {
+  <div class="row">
+    <div class="col-12">
+      <ds-mirador-viewer  id="iiif-viewer"
+        [object]="object"
+        [searchable]="iiifSearchEnabled"
+        [query]="iiifQuery$ | async">
+      </ds-mirador-viewer>
+    </div>
   </div>
-</div>
+}
 <div class="d-flex flex-row">
-  <ds-item-page-title-field [item]="object" class="mr-auto">
+  <ds-item-page-title-field [item]="object" class="me-auto">
   </ds-item-page-title-field>
   <ds-dso-edit-menu></ds-dso-edit-menu>
 </div>
 <div class="row">
   <div class="col-xs-12 col-md-4">
-    <ng-container *ngIf="!(mediaViewer.image || mediaViewer.video)">
+    @if (!(mediaViewer.image || mediaViewer.video)) {
       <ds-metadata-field-wrapper [hideIfNoTextContent]="false">
         <ds-thumbnail [thumbnail]="object?.thumbnail | async"></ds-thumbnail>
       </ds-metadata-field-wrapper>
-    </ng-container>
-    <div *ngIf="mediaViewer.image || mediaViewer.video" class="mb-2">
-      <ds-media-viewer [item]="object"></ds-media-viewer>
-    </div>
+    }
+    @if (mediaViewer.image || mediaViewer.video) {
+      <div class="mb-2">
+        <ds-media-viewer [item]="object"></ds-media-viewer>
+      </div>
+    }
     <ds-item-page-file-section [item]="object"></ds-item-page-file-section>
     <ds-item-page-date-field [item]="object"></ds-item-page-date-field>
     <ds-metadata-representation-list class="ds-item-page-mixed-author-field"

@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -37,6 +34,7 @@ import {
   getRemoteDataPayload,
 } from '../../../../core/shared/operators';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import {
   hasValue,
   isNotEmpty,
@@ -51,9 +49,9 @@ import { VirtualMetadataComponent } from '../../virtual-metadata/virtual-metadat
   imports: [
     ListableObjectComponentLoaderComponent,
     AsyncPipe,
-    NgIf,
     TranslateModule,
     VirtualMetadataComponent,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })
