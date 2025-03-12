@@ -54,7 +54,7 @@
       [fields]="['dc.publisher']"
       [label]="'item.page.publisher'">
     </ds-generic-item-page-field>
-    @if (ccLicense.position == 'sidebar') {
+    @if (ccLicense.position === 'sidebar') {
       <ds-item-page-cc-license-field [item]="object" [variant]="'small'">
       </ds-item-page-cc-license-field>
     }
@@ -96,7 +96,7 @@
       [fields]="['datacite.relation.isReferencedBy']"
       [label]="'item.page.referenced'">
     </ds-item-page-uri-field>
-    @if (ccLicense.position == 'content') {
+    @if (ccLicense.position === 'content') {
       <ds-item-page-cc-license-field [item]="object" [variant]="'full'">
       </ds-item-page-cc-license-field>
     }
