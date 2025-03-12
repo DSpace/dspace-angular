@@ -55,7 +55,7 @@ export class OptionVO {
       }
       return obj as string;
     }
-    return "";
+    return '';
   }
 
 }
