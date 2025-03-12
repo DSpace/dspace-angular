@@ -24,9 +24,9 @@ import { DynamicDateControlValue } from '@ng-dynamic-forms/core/lib/model/dynami
 import { DynamicFormControlCondition } from '@ng-dynamic-forms/core/lib/model/misc/dynamic-form-control-relation.model';
 import { TranslateService } from '@ngx-translate/core';
 import {
+  BehaviorSubject,
   combineLatest,
   Observable,
-  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -48,6 +48,7 @@ import {
   hasValue,
   isNotEmpty,
   isNotNull,
+  isObjectEmpty,
 } from '../../../shared/empty.util';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormComponent } from '../../../shared/form/form.component';
@@ -138,6 +139,11 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
    * Defines if the access discoverable property can be managed
    */
   public canChangeDiscoverable: boolean;
+
+  /**
+   * Whether the section is required
+   */
+  public required$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   /**
    * Initialize instance variables
@@ -313,9 +319,8 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
       this.canChangeDiscoverable = !!config.canChangeDiscoverable;
       this.accessesData = accessData;
       this.formModel = this.buildFileEditForm();
+      this.required$.next(config.required);
     });
-
-
   }
 
   /**
@@ -324,8 +329,14 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
    * @return Observable<boolean>
    *     the section status
    */
-  protected getSectionStatus(): Observable<boolean> {
-    return of(true);
+  getSectionStatus(): Observable<boolean> {
+    return combineLatest([
+      this.required$,
+      this.sectionService.getSectionErrors(this.submissionId,  this.sectionData.id),
+      this.accessesService.getAccessesData(this.submissionId, this.sectionData.id),
+    ]).pipe(
+      map(([required, errors, accessesData]) => (!required || (required  && isObjectEmpty(errors) && !!accessesData?.accessConditions?.length))),
+    );
   }
 
   /**
