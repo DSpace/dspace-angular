@@ -60,6 +60,7 @@ const testCases: TestCase[] = [
   {
     testInstance: {
       metadata: { 'dc.rights.uri': undefined, 'dc.rights': undefined },
+      componentInputs: { variant: 'small' },
     },
     expected: {
       render: false,
@@ -71,6 +72,7 @@ const testCases: TestCase[] = [
   {
     testInstance: {
       metadata: { 'dc.rights.uri': null, 'dc.rights': null },
+      componentInputs: { variant: 'small' },
     },
     expected: {
       render: false,
@@ -82,6 +84,7 @@ const testCases: TestCase[] = [
   {
     testInstance: {
       metadata: { 'dc.rights.uri': 'https://creativecommons.org/licenses/by/4.0', 'dc.rights': null },
+      componentInputs: { variant: 'small' },
     },
     expected: {
       render: false,
@@ -93,6 +96,7 @@ const testCases: TestCase[] = [
   {
     testInstance: {
       metadata: { 'dc.rights.uri': null, 'dc.rights': licenseNameMock },
+      componentInputs: { variant: 'small' },
     },
     expected: {
       render: false,
@@ -104,23 +108,25 @@ const testCases: TestCase[] = [
   {
     testInstance: {
       metadata: { 'dc.rights.uri': 'https://creativecommons.org/licenses/by/4.0', 'dc.rights': licenseNameMock },
+      componentInputs: { variant: 'small' },
     },
     expected: {
       render: true,
       showName: true,
       showImage: true,
-      showDisclaimer: false,
+      showDisclaimer: true,
     },
   },
   {
     testInstance: {
       metadata: { 'dc.rights.uri': 'https://creativecommons.org/', 'dc.rights': licenseNameMock },
+      componentInputs: { variant: 'small' },
     },
     expected: {
       render: true,
       showName: true,
       showImage: false,
-      showDisclaimer: false,
+      showDisclaimer: true,
     },
   },
   {
@@ -138,19 +144,31 @@ const testCases: TestCase[] = [
   {
     testInstance: {
       metadata: { 'dc.rights.uri': 'https://creativecommons.org/', 'dc.rights': licenseNameMock },
-      componentInputs: { showName: false },
+      componentInputs: { variant: 'small', showName: false },
     },
     expected: {
       render: true,
       showName: true,
       showImage: false,
-      showDisclaimer: false,
+      showDisclaimer: true,
+    },
+  },
+  {
+    testInstance: {
+      metadata: { 'dc.rights.uri': 'https://creativecommons.org/', 'dc.rights': licenseNameMock },
+      componentInputs: { variant: 'full', showName: false },
+    },
+    expected: {
+      render: true,
+      showName: true,
+      showImage: false,
+      showDisclaimer: true,
     },
   },
   {
     testInstance: {
       metadata: { 'dc.rights.uri': 'https://creativecommons.org/licenses/by/4.0', 'dc.rights': licenseNameMock },
-      componentInputs: { showName: false },
+      componentInputs: { variant: 'small', showName: false },
     },
     expected: {
       render: true,
@@ -302,14 +320,13 @@ describe('ItemPageCcLicenseFieldComponent', () => {
       it('should show or not CC license disclaimer',
         () => {
           const disclaimerEl = fixture.debugElement.query(By.css('span'));
-          if (testCase.expected.showDisclaimer) {
-            expect(disclaimerEl).toBeTruthy();
-            expect(disclaimerEl.nativeElement.innerHTML).toContain('item.page.cc.license.disclaimer');
-          } else if (testCase.expected.render) {
-            expect(disclaimerEl).toBeTruthy();
-            expect(disclaimerEl.nativeElement.innerHTML).not.toContain('item.page.cc.license.disclaimer');
-          } else {
-            expect(disclaimerEl).toBeFalsy();
+          expect(Boolean(disclaimerEl)).toBe(testCase.expected.showName)
+          if (testCase.expected.showName) {
+            if (testCase.expected.showDisclaimer) {
+              expect(disclaimerEl.nativeElement.innerHTML).toContain('item.page.cc.license.disclaimer');
+            } else {
+              expect(disclaimerEl.nativeElement.innerHTML).not.toContain('item.page.cc.license.disclaimer');
+            }
           }
         },
       );
