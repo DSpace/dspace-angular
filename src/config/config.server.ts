@@ -259,7 +259,7 @@ export const setupEndpointPrefetching = async (appConfig: AppConfig, destConfigP
 };
 
 export const prefetchResponses = async (appConfig: AppConfig, destConfigPath: string, env: any, hfm: ServerHashedFileMapping): Promise<void> => {
-  console.info('Prefetching endpoint maps');
+  console.info('Prefetching REST responses');
   const restConfig = appConfig.rest;
   const prefetchConfig = appConfig.prefetch;
 
