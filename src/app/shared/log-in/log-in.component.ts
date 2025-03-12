@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgFor,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -13,7 +9,6 @@ import {
   select,
   Store,
 } from '@ngrx/store';
-import { TranslateModule } from '@ngx-translate/core';
 import uniqBy from 'lodash/uniqBy';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -32,6 +27,7 @@ import { hasValue } from '../empty.util';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { LogInContainerComponent } from './container/log-in-container.component';
 import { rendersAuthMethodType } from './methods/log-in.methods-decorator';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-base-log-in',
@@ -39,7 +35,7 @@ import { rendersAuthMethodType } from './methods/log-in.methods-decorator';
   styleUrls: ['./log-in.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NgIf, ThemedLoadingComponent, NgFor, LogInContainerComponent, AsyncPipe, TranslateModule],
+  imports: [ThemedLoadingComponent, LogInContainerComponent, AsyncPipe, TranslateModule],
 })
 export class LogInComponent implements OnInit {
 

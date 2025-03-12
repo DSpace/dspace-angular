@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -18,7 +15,6 @@ import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed
   standalone: true,
   imports: [
     AsyncPipe,
-    NgIf,
     TranslateModule,
     ThemedLoadingComponent,
     ThemedBrowseByComponent,

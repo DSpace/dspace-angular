@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgIf,
 } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
@@ -22,7 +21,7 @@ import { SidebarSearchListElementComponent } from '../sidebar-search-list-elemen
   selector: 'ds-community-sidebar-search-list-element',
   templateUrl: '../sidebar-search-list-element.component.html',
   standalone: true,
-  imports: [TruncatablePartComponent, NgClass, NgIf, AsyncPipe, TranslateModule],
+  imports: [TruncatablePartComponent, NgClass, AsyncPipe, TranslateModule],
 })
 /**
  * Component displaying a list element for a {@link CommunitySearchResult} within the context of a sidebar search modal
