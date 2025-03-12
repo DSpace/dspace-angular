@@ -2543,7 +2543,7 @@
 
   // "deny-request-copy.success": "Successfully denied item request",
   "deny-request-copy.success": "Pedido de cópia recusado com sucesso!",
-  
+
   // "dynamic-list.load-more": "Load more",
   "dynamic-list.load-more": "Carregar mais",
 
@@ -3742,7 +3742,7 @@
   "item.edit.move.discard-button": "Cancelar",
 
   // "item.edit.move.description": "Select the collection you wish to move this item to. To narrow down the list of displayed collections, you can enter a search query in the box.",
-  "item.edit.move.description": "Selecione a coleção para a qual pretende mover este item. Para restringir a lista de coleções exibidas pode fazer uma pesquisa para as delimitar.", 
+  "item.edit.move.description": "Selecione a coleção para a qual pretende mover este item. Para restringir a lista de coleções exibidas pode fazer uma pesquisa para as delimitar.",
 
   // "item.edit.move.error": "An error occurred when attempting to move the item",
   "item.edit.move.error": "Ocorreu um erro ao tentar mover o item",
@@ -10413,7 +10413,7 @@
 
   // "search.form.search_mydspace": "Search MyDSpace",
   "search.form.search_mydspace": "Pesquisar na área pessoal",
-  
+
   // "profile.security.form.notifications.error.not-long-enough": "The password has to be at least 6 characters long.",
   "profile.security.form.notifications.error.not-long-enough": "A senha deve ter pelo menos 6 caracteres.",
 
@@ -10452,7 +10452,7 @@
 
   // "item.preview.dc.identifier.eisbn": "EISBN",
   "item.preview.dc.identifier.eisbn": "EISBN",
-  
+
   // "forgot-email.form.google-recaptcha.notification.title": "Forgot password (Google reCAPTCHA)",
   "forgot-email.form.google-recaptcha.notification.title": "Esqueceu palavra passe (Google reCAPTCHA)",
 
