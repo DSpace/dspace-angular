@@ -12,7 +12,7 @@ export interface PrefetchConfig extends Config {
    */
   bootstrap: Record<string, RawBootstrapResponse>;
   /**
-   * How often the HAL endpoints should be refreshed
+   * How often the responses should be refreshed in milliseconds
    */
   refreshInterval: number;
 }

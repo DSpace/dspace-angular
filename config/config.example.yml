@@ -381,8 +381,11 @@ comcolSelectionSort:
   sortField: 'dc.title'
   sortDirection: 'ASC'
 
+# REST response prefetching configuration
 prefetch:
+  # The URLs for which the response will be prefetched
   urls:
     - /api
     - /api/discover
+  # How often the responses are refreshed in milliseconds
   refreshInterval: 60000
