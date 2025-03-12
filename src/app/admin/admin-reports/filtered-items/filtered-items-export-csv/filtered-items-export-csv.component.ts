@@ -30,6 +30,7 @@ import { Process } from '../../../../process-page/processes/process.model';
 import { hasValue } from '../../../../shared/empty.util';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { FiltersComponent } from '../../filters-section/filters-section.component';
+import { OptionVO } from '../option-vo.model';
 import { QueryPredicate } from '../query-predicate.model';
 
 @Component({
@@ -88,7 +89,7 @@ export class FilteredItemsExportCsvComponent implements OnInit {
     const colls = this.reportParams.value.collections || [];
     for (let i = 0; i < colls.length; i++) {
       if (colls[i]) {
-        parameters.push({ name: '-c', value: colls[i] });
+        parameters.push({ name: '-c', value: OptionVO.toString(colls[i]) });
       }
     }
 
