@@ -1,6 +1,6 @@
 {
 
-  // Dspace v8.x > i18n pt-PT > last updated 4th of july 2024
+  // DSpace v8.x > i18n pt-PT > last updated 2025-03-12
 
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Não está autorizado a aceder a esta página. Pode utilizar o botão em baixo para voltar à página de início.",
@@ -402,16 +402,16 @@
   "admin.access-control.epeople.title": "Utilizadores",
 
   // "admin.access-control.epeople.edit.breadcrumbs": "New EPerson",
-  "admin.access-control.epeople.edit.breadcrumbs": "Nova 'EPessoa'",
+  "admin.access-control.epeople.edit.breadcrumbs": "Novo utilizador",
 
   // "admin.access-control.epeople.edit.title": "New EPerson",
-  "admin.access-control.epeople.edit.title": "Nova 'EPessoa'",
+  "admin.access-control.epeople.edit.title": "Novo utilizador",
 
   // "admin.access-control.epeople.add.breadcrumbs": "Add EPerson",
-  "admin.access-control.epeople.add.breadcrumbs": "Adicionar 'EPessoa'",
+  "admin.access-control.epeople.add.breadcrumbs": "Adicionar utilizador",
 
   // "admin.access-control.epeople.add.title": "Add EPerson",
-  "admin.access-control.epeople.add.title": "Adicionar 'EPessoa'",
+  "admin.access-control.epeople.add.title": "Adicionar utilizador",
 
   // "admin.access-control.epeople.head": "EPeople",
   "admin.access-control.epeople.head": "Utilizadores",
@@ -845,9 +845,6 @@
   // "admin.reports.collections.match_all_selected_filters": "Matching all selected filters",
   "admin.reports.collections.match_all_selected_filters": "Correspondência com todos os filtros seleccionados",
 
-  // "admin.reports.items.title": "Metadata Query Report",
-  "admin.reports.items.title": "Relatório de consulta de metadados",
-
   // "admin.reports.items.breadcrumbs": "Metadata Query Report",
   "admin.reports.items.breadcrumbs": "Relatório de consulta de metadados",
 
@@ -963,7 +960,7 @@
   "admin.reports.items.handle": "URI",
 
   // "admin.reports.items.title": "Title",
-  "admin.reports.items.title": "Título",
+  "admin.reports.items.title": "Relatório de consulta de metadados",
 
   // "admin.reports.commons.filters": "Filters",
   "admin.reports.commons.filters": "Filtros",
@@ -995,6 +992,7 @@
   // "admin.reports.commons.filters.matches_all": "Matches all specified filters",
   "admin.reports.commons.filters.matches_all": "Corresponde a todos os filtros especificados",
 
+
   // "admin.reports.commons.filters.property": "Item Property Filters",
   "admin.reports.commons.filters.property": "Filtros de propriedades do item",
 
@@ -1008,10 +1006,10 @@
   "admin.reports.commons.filters.property.is_not_withdrawn": "Itens disponíveis - Não retirados",
 
   // "admin.reports.commons.filters.property.is_discoverable": "Discoverable Items - Not Private",
-  "admin.reports.commons.filters.property.is_discoverable": "Itens detectáveis - Não privados",
+  "admin.reports.commons.filters.property.is_discoverable": "Itens detectáveis - Listados",
 
   // "admin.reports.commons.filters.property.is_not_discoverable": "Not Discoverable - Private Item",
-  "admin.reports.commons.filters.property.is_not_discoverable": "Não detetável - Item privado",
+  "admin.reports.commons.filters.property.is_not_discoverable": "Não detetáveis - Não listados",
 
   // "admin.reports.commons.filters.property.all_filters.tooltip": "This filter includes all items that matched ALL specified filters",
   "admin.reports.commons.filters.property.all_filters.tooltip": "Este filtro inclui todos os itens que correspondem a TODOS os filtros especificados",
@@ -1134,10 +1132,10 @@
   "admin.search.item.edit": "Editar",
 
   // "admin.search.item.make-private": "Make non-discoverable",
-  "admin.search.item.make-private": "Tornar privado",
+  "admin.search.item.make-private": "Tornar não detetável",
 
   // "admin.search.item.make-public": "Make discoverable",
-  "admin.search.item.make-public": "Tornar público",
+  "admin.search.item.make-public": "Tornar detetável",
 
   // "admin.search.item.move": "Move",
   "admin.search.item.move": "Mover",
@@ -1582,6 +1580,9 @@
 
   // "pagination.next.button.disabled.tooltip": "No more pages of results",
   "pagination.next.button.disabled.tooltip": "Sem mais páginas de resultados",
+  
+  // "pagination.page-number-bar": "Control bar for page navigation, relative to element with ID: ",
+  "pagination.page-number-bar": "Barra de controlo para navegação na página, relativa ao elemento com ID: ",
 
   // "browse.startsWith": ", starting with {{ startsWith }}",
   "browse.startsWith": ", começado por {{ startsWith }}",
@@ -1800,19 +1801,19 @@
   "collection.edit.logo.label": "Logótipo da coleção",
 
   // "collection.edit.logo.notifications.add.error": "Uploading Collection logo failed. Please verify the content before retrying.",
-  "collection.edit.logo.notifications.add.error": "Falha ao carregar o logotipo da coleção. Verifique o ficheiro antes de tentar de novo.",
+  "collection.edit.logo.notifications.add.error": "Falha ao carregar o logótipo da coleção. Verifique o ficheiro antes de tentar de novo.",
 
   // "collection.edit.logo.notifications.add.success": "Upload Collection logo successful.",
-  "collection.edit.logo.notifications.add.success": "O logotipo da coleção foi carregado com sucesso.",
+  "collection.edit.logo.notifications.add.success": "O logótipo da coleção foi carregado com sucesso.",
 
   // "collection.edit.logo.notifications.delete.success.title": "Logo deleted",
   "collection.edit.logo.notifications.delete.success.title": "Logótipo apagado",
 
   // "collection.edit.logo.notifications.delete.success.content": "Successfully deleted the collection's logo",
-  "collection.edit.logo.notifications.delete.success.content": "O logotipo da coleção foi apagado com sucesso",
+  "collection.edit.logo.notifications.delete.success.content": "O logótipo da coleção foi apagado com sucesso",
 
   // "collection.edit.logo.notifications.delete.error.title": "Error deleting logo",
-  "collection.edit.logo.notifications.delete.error.title": "Erro ao apagar o logotipo",
+  "collection.edit.logo.notifications.delete.error.title": "Erro ao apagar o logótipo",
 
   // "collection.edit.logo.upload": "Drop a Collection Logo to upload",
   "collection.edit.logo.upload": "Arraste um logótipo da coleção para carregar",
@@ -2067,19 +2068,19 @@
   "collection.source.controls.reset.submit.success": "A reposição e re-importação iniciou-se com sucesso",
 
   // "collection.source.controls.reset.submit.error": "Something went wrong with initiating the reset and reimport",
-  "collection.source.controls.reset.submit.error": "Algo correu mal com a reposição e re-importação",
+  "collection.source.controls.reset.submit.error": "Algo correu mal com a reposição e reimportação",
 
   // "collection.source.controls.reset.failed": "An error occurred during the reset and reimport",
-  "collection.source.controls.reset.failed": "Ocorreu um erro durante a reposição e a re-importação",
+  "collection.source.controls.reset.failed": "Ocorreu um erro durante a reposição e a reimportação",
 
   // "collection.source.controls.reset.completed": "The reset and reimport completed",
-  "collection.source.controls.reset.completed": "A reposição e a re-importação encontram-se completas",
+  "collection.source.controls.reset.completed": "A reposição e a reimportação encontram-se completas",
 
   // "collection.source.controls.reset.submit": "Reset and reimport",
-  "collection.source.controls.reset.submit": "Repor e re-importar",
+  "collection.source.controls.reset.submit": "Repor e reimportar",
 
   // "collection.source.controls.reset.running": "Resetting and reimporting...",
-  "collection.source.controls.reset.running": "Repor e re-importar...",
+  "collection.source.controls.reset.running": "Repor e reimportar...",
 
   // "collection.source.controls.harvest.status": "Harvest status:",
   "collection.source.controls.harvest.status": "Estado da importação:",
@@ -2210,7 +2211,7 @@
   // "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
   "community.edit.notifications.unauthorized": "Não tem os privilégios necessários para efetuar esta alteração",
 
-  // "community.edit.notifications.error": "An error occured while editing the community",
+  // "community.edit.notifications.error": "An error occurred while editing the community",
   "community.edit.notifications.error": "Ocorreu um erro ao editar a comunidade",
 
   // "community.edit.return": "Back",
@@ -2301,10 +2302,7 @@
   "comcol-role.edit.bitstream_read.name": "Leitura predefinida de ficheiros (DEFAULT_BITSTREAM_READ)",
 
   // "comcol-role.edit.bitstream_read.description": "E-People and Groups that can read new bitstreams submitted to this collection. Changes to this role are not retroactive. Existing bitstreams in the system will still be viewable by those who had read access at the time of their addition.",
-  "comcol-role.edit.bitstream_read.description": "E-Pessoas e grupos que podem ler novos ficheiros submetidos a esta coleção. As alterações feitas esta função não são retroactivas. Os ficheiros existentes no sistema continuarão a poder ser visualizados por quem tinha acesso de leitura no momento da sua adição.",
-
-  // "comcol-role.edit.bitstream_read.description": "Community administrators can create sub-communities or collections, and manage or assign management for those sub-communities or collections. In addition, they decide who can submit items to any sub-collections, edit item metadata (after submission), and add (map) existing items from other collections (subject to authorization).",
-  "comcol-role.edit.bitstream_read.description": "Os 'Administradores de comunidades' podem criar sub-comunidades e coleções, bem como gerir ou delegar a gestão dessas sub-comunidade ou coleções. Adicionalmente, decidem quem pode depositar itens em qualquer coleção, editar metadados (após depósito) e mapear itens de outras coleções (sujeito a autorização).",
+  "comcol-role.edit.bitstream_read.description": "'Utilizadores' e 'grupos' que podem ler novos ficheiros submetidos a esta coleção. As alterações feitas nesta função não são retroactivas. Os ficheiros existentes no sistema continuarão a poder ser visualizados por quem tinha acesso de leitura no momento da sua adição.",
 
   // "comcol-role.edit.bitstream_read.anonymous-group": "Default read for incoming bitstreams is currently set to Anonymous.",
   "comcol-role.edit.bitstream_read.anonymous-group": "A leitura de novos ficheiros (Bitstream Read) está predefinida para utilizadores anónimos.",
@@ -2404,6 +2402,9 @@
 
   // "cookies.consent.decline": "Decline",
   "cookies.consent.decline": "Rejeitar",
+  
+  // "cookies.consent.decline-all": "Decline all",
+  "cookies.consent.decline-all": "Rejeitar tudo",
 
   // "cookies.consent.ok": "That's ok",
   "cookies.consent.ok": "Concordo",
@@ -2411,7 +2412,7 @@
   // "cookies.consent.save": "Save",
   "cookies.consent.save": "Guardar",
 
-  // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
+  // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: {purposes}",
   "cookies.consent.content-notice.description": "Recolhemos e processamos informação pessoal para os seguintes propósitos: <strong>Autenticação, Guardar Preferências, Termos de Uso e Estatísticas</strong>. <br/> Para saber mais, por favor leia a nossa {privacyPolicy}.",
 
   // "cookies.consent.content-notice.learnMore": "Customize",
@@ -2426,6 +2427,9 @@
   // "cookies.consent.content-modal.privacy-policy.text": "To learn more, please read our {privacyPolicy}.",
   "cookies.consent.content-modal.privacy-policy.text": "Para saber mais, leia a {privacyPolicy}.",
 
+  // "cookies.consent.content-modal.no-privacy-policy.text": "",
+  "cookies.consent.content-modal.no-privacy-policy.text": "",
+  
   // "cookies.consent.content-modal.title": "Information that we collect",
   "cookies.consent.content-modal.title": "Informação que recolhemos",
 
@@ -2510,7 +2514,7 @@
   // "curation.form.submit.error.head": "Running the curation task failed",
   "curation.form.submit.error.head": "Falha ao executar a tarefa de curadoria",
 
-  // "curation.form.submit.error.content": "An error occured when trying to start the curation task.",
+  // "curation.form.submit.error.content": "An error occurred when trying to start the curation task.",
   "curation.form.submit.error.content": "Ocorreu um erro ao tentar iniciar a tarefa de curadoria.",
 
   // "curation.form.submit.error.invalid-handle": "Couldn't determine the handle for this object",
@@ -2539,6 +2543,9 @@
 
   // "deny-request-copy.success": "Successfully denied item request",
   "deny-request-copy.success": "Pedido de cópia recusado com sucesso!",
+  
+  // "dynamic-list.load-more": "Load more",
+  "dynamic-list.load-more": "Carregar mais",
 
   // "dropdown.clear": "Clear selection",
   "dropdown.clear": "Limpar seleção",
@@ -2709,7 +2716,7 @@
   "confirmation-modal.export-batch.confirm": "Exportar",
 
   // "confirmation-modal.delete-eperson.header": "Delete EPerson \"{{ dsoName }}\"",
-  "confirmation-modal.delete-eperson.header": "Apagar Utilizador \"{{ dsoName }}\"",
+  "confirmation-modal.delete-eperson.header": "Apagar utilizador \"{{ dsoName }}\"",
 
   // "confirmation-modal.delete-eperson.info": "Are you sure you want to delete EPerson \"{{ dsoName }}\"",
   "confirmation-modal.delete-eperson.info": "Pretende apagar o utilizador \"{{ dsoName }}\"",
@@ -2779,6 +2786,9 @@
 
   // "error.recent-submissions": "Error fetching recent submissions",
   "error.recent-submissions": "Erro ao carregar depósitos recentes!",
+  
+  // "error.profile-groups": "Error retrieving profile groups",
+  "error.profile-groups": "Erro ao recuperar grupos de perfis",
 
   // "error.search-results": "Error fetching search results",
   "error.search-results": "Erro ao carregar os resultados da pesquisa!",
@@ -2799,7 +2809,10 @@
   "error.top-level-communities": "Erro ao carregar as comunidade de nível superior!",
 
   // "error.validation.license.notgranted": "You must grant this license to complete your submission. If you are unable to grant this license at this time you may save your work and return later or remove the submission.",
-  "error.validation.license.notgranted": "Deve concordar com esta licença para completar o depósito. Se não estiver de acordo com a licença ou pretende ponderar, pode guardar este trabalho e retomar posteriormente, ou remover definitivamente este depósito.",
+  "error.validation.license.notgranted": "Deve concordar com esta licença para completar o depósito. Se não estiver de acordo com a licença ou pretende ponderar, pode guardar este trabalho e retomar posteriormente ou remover definitivamente este depósito.",
+  
+   // "error.validation.cclicense.required": "You must grant this cclicense to complete your submission. If you are unable to grant the cclicense at this time, you may save your work and return later or remove the submission.",
+   "error.validation.cclicense.required": "Deve concordar com esta licença CC para completar o depósito. Se não estiver de acordo com a licença ou pretende ponderar, pode guardar o seu trabalho e retomar posteriormente ou remover definitivamente este depósito.",
 
   // "error.validation.pattern": "This input is restricted by the current pattern: {{ pattern }}.",
   "error.validation.pattern": "Este campo está restrito ao seguinte padrão: {{ pattern }}.",
@@ -2820,6 +2833,7 @@
   "error.validation.groupExists": "Este grupo já existe!",
 
   // "error.validation.metadata.name.invalid-pattern": "This field cannot contain dots, commas or spaces. Please use the Element & Qualifier fields instead",
+  "error.validation.metadata.name.invalid-pattern": "Este campo não pode conter pontos, vírgulas ou espaços. Em alternativa, utilize os campos 'Elemento' e 'Qualificador'",
 
   // "error.validation.metadata.name.max-length": "This field may not contain more than 32 characters",
   "error.validation.metadata.name.max-length": "Este campo não pode conter mais de 32 caracteres",
@@ -2902,7 +2916,7 @@
   // "forgot-email.form.error.head": "Error when trying to reset password",
   "forgot-email.form.error.head": "Ocorreu um erro ao tentar redefinir a senha de acesso",
 
-  // "forgot-email.form.error.content": "An error occured when attempting to reset the password for the account associated with the following email address: {{ email }}",
+  // "forgot-email.form.error.content": "An error occurred when attempting to reset the password for the account associated with the following email address: {{ email }}",
   "forgot-email.form.error.content": "Ocorreu um erro ao tentar redefinir a senha de acesso da conta associada com o seguinte endereço de email: {{ email }}",
 
   // "forgot-password.title": "Forgot Password",
@@ -3275,7 +3289,7 @@
   "info.coar-notify-support.breadcrumbs": "Suporte COAR Notify",
 
   // "item.alerts.private": "This item is non-discoverable",
-  "item.alerts.private": "Este item é privado",
+  "item.alerts.private": "Este item não é detetável (não listado)",
 
   // "item.alerts.withdrawn": "This item has been withdrawn",
   "item.alerts.withdrawn": "Este item foi retirado",
@@ -3293,7 +3307,7 @@
   "item.edit.authorizations.title": "Editar políticas dos itens",
 
   // "item.badge.private": "Non-discoverable",
-  "item.badge.private": "Privado",
+  "item.badge.private": "Não detetável",
 
   // "item.badge.withdrawn": "Withdrawn",
   "item.badge.withdrawn": "Retirado",
@@ -3345,6 +3359,12 @@
 
   // "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
   "item.edit.bitstreams.bundle.name": "PACOTE: {{ name }}",
+  
+  // "item.edit.bitstreams.bundle.table.aria-label": "Bitstreams in the  {{ bundle }} Bundle",
+  "item.edit.bitstreams.bundle.table.aria-label": "Ficheiros no {{ bundle }} pacote",
+  
+  // "item.edit.bitstreams.bundle.tooltip": "You can move a bitstream to a different page by dropping it on the page number.",
+  "item.edit.bitstreams.bundle.tooltip": "Pode mover um ficheiro para uma página diferente libertando-o no número da página.",
 
   // "item.edit.bitstreams.discard-button": "Discard",
   "item.edit.bitstreams.discard-button": "Cancelar",
@@ -3363,9 +3383,27 @@
 
   // "item.edit.bitstreams.edit.buttons.undo": "Undo changes",
   "item.edit.bitstreams.edit.buttons.undo": "Cancelar alterações",
+  
+  // "item.edit.bitstreams.edit.live.cancel": "{{ bitstream }} was returned to position {{ toIndex }} and is no longer selected.",
+  "item.edit.bitstreams.edit.live.cancel": "{{ bitstream }} foi devolvido à posição {{ toIndex }} e já não está selecionado.",
+
+  // "item.edit.bitstreams.edit.live.clear": "{{ bitstream }} is no longer selected.",
+  "item.edit.bitstreams.edit.live.clear": "{{ bitstream }} já não está selecionado.",
+
+  // "item.edit.bitstreams.edit.live.loading": "Waiting for move to complete.",
+  "item.edit.bitstreams.edit.live.loading": "A aguardar a conclusão da mudança.",
+
+  // "item.edit.bitstreams.edit.live.select": "{{ bitstream }} is selected.",
+  "item.edit.bitstreams.edit.live.select": "{{ bitstream }} está selecionado.",
+
+  // "item.edit.bitstreams.edit.live.move": "{{ bitstream }} is now in position {{ toIndex }}.",
+  "item.edit.bitstreams.edit.live.move": "{{ bitstream }} encontra-se agora em posição {{ toIndex }}.",  
 
   // "item.edit.bitstreams.empty": "This item doesn't contain any bitstreams. Click the upload button to create one.",
   "item.edit.bitstreams.empty": "Este item não possui ficheiros. Carregue um novo ficheiro.",
+  
+  // "item.edit.bitstreams.info-alert": "Bitstreams can be reordered within their bundles by holding the drag handle and moving the mouse. Alternatively, bitstreams can be moved using the keyboard in the following way: Select the bitstream by pressing enter when the bitstream's drag handle is in focus. Move the bitstream up or down using the arrow keys. Press enter again to confirm the current position of the bitstream.",
+  "item.edit.bitstreams.info-alert": "Os ficheiros podem ser reordenados dentro dos seus conjuntos pressionando o 'ícone' e arrastado com o rato. Em alternativa, os ficheiros podem ser movidos utilizando o teclado da seguinte forma: Selecionando o ficheiro premindo 'Enter' quando o 'ícone'  de arrastamento estiver realçado. Mova o ficheiro para cima ou para baixo usando as teclas de 'seta'. Prima novamente 'Enter' para confirmar a posição atual do ficheiro.",
 
   // "item.edit.bitstreams.headers.actions": "Actions",
   "item.edit.bitstreams.headers.actions": "Ações",
@@ -3420,6 +3458,9 @@
 
   // "item.edit.bitstreams.upload-button": "Upload",
   "item.edit.bitstreams.upload-button": "Carregar",
+  
+  // "item.edit.bitstreams.load-more.link": "Load more",
+  "item.edit.bitstreams.load-more.link": "Carregar mais",
 
   // "item.edit.delete.cancel": "Cancel",
   "item.edit.delete.cancel": "Cancelar",
@@ -3586,6 +3627,12 @@
   // "item.edit.metadata.edit.authority.key": "Edit authority key",
   "item.edit.metadata.edit.authority.key": "Editar valor de autoridade",
 
+  // "item.edit.metadata.edit.buttons.enable-free-text-editing": "Enable free-text editing",
+  "item.edit.metadata.edit.buttons.enable-free-text-editing": "Ativar a edição de texto livre",
+
+  // "item.edit.metadata.edit.buttons.disable-free-text-editing": "Disable free-text editing",
+  "item.edit.metadata.edit.buttons.disable-free-text-editing": "Desativar a edição de texto livre",
+  
   // "item.edit.metadata.edit.buttons.confirm": "Confirm",
   "item.edit.metadata.edit.buttons.confirm": "Confirmar",
 
@@ -3695,7 +3742,7 @@
   "item.edit.move.discard-button": "Cancelar",
 
   // "item.edit.move.description": "Select the collection you wish to move this item to. To narrow down the list of displayed collections, you can enter a search query in the box.",
-  "item.edit.move.description": "Selecione a coleção para a qual você deseja mover este item. Para restringir a lista de coleções exibidas, você pode inserir uma consulta de pesquisa na caixa.",
+  "item.edit.move.description": "Selecione a coleção para a qual pretende mover este item. Para restringir a lista de coleções exibidas pode fazer uma pesquisa para as delimitar.", 
 
   // "item.edit.move.error": "An error occurred when attempting to move the item",
   "item.edit.move.error": "Ocorreu um erro ao tentar mover o item",
@@ -3731,37 +3778,37 @@
   "item.edit.private.cancel": "Cancelar",
 
   // "item.edit.private.confirm": "Make it non-discoverable",
-  "item.edit.private.confirm": "Tornar Privado",
+  "item.edit.private.confirm": "Tornar não detetável",
 
   // "item.edit.private.description": "Are you sure this item should be made non-discoverable in the archive?",
-  "item.edit.private.description": "Tem certeza de que este item deve ser tornado privado?",
+  "item.edit.private.description": "Tem certeza de que este item deve ser tornado não detetável?",
 
   // "item.edit.private.error": "An error occurred while making the item non-discoverable",
-  "item.edit.private.error": "Ocorreu um erro ao tornar o item privado",
+  "item.edit.private.error": "Ocorreu um erro ao tornar o item não detetável",
 
   // "item.edit.private.header": "Make item non-discoverable: {{ id }}",
-  "item.edit.private.header": "Tornar o item privado: {{ id }}",
+  "item.edit.private.header": "Tornar o item não detetável: {{ id }}",
 
   // "item.edit.private.success": "The item is now non-discoverable",
-  "item.edit.private.success": "O item agora é privado",
+  "item.edit.private.success": "O item agora não é detetável",
 
   // "item.edit.public.cancel": "Cancel",
   "item.edit.public.cancel": "Cancelar",
 
   // "item.edit.public.confirm": "Make it discoverable",
-  "item.edit.public.confirm": "Tornar público",
+  "item.edit.public.confirm": "Tornar detetável",
 
   // "item.edit.public.description": "Are you sure this item should be made discoverable in the archive?",
-  "item.edit.public.description": "Você tem certeza que deseja tornar este item público?",
+  "item.edit.public.description": "Você tem certeza que deseja tornar este item detetável?",
 
   // "item.edit.public.error": "An error occurred while making the item discoverable",
-  "item.edit.public.error": "Ocorreu um erro ao tornar o item público",
+  "item.edit.public.error": "Ocorreu um erro ao tornar o item detetável",
 
   // "item.edit.public.header": "Make item discoverable: {{ id }}",
-  "item.edit.public.header": "Tornar público o item: {{ id }}",
+  "item.edit.public.header": "Tornar o item: {{ id }} detetável",
 
   // "item.edit.public.success": "The item is now discoverable",
-  "item.edit.public.success": "O item agora é público!",
+  "item.edit.public.success": "O item agora é detetável!",
 
   // "item.edit.reinstate.cancel": "Cancel",
   "item.edit.reinstate.cancel": "Cancelar",
@@ -3887,16 +3934,16 @@
   "item.edit.tabs.status.buttons.move.label": "Mover item para outra coleção",
 
   // "item.edit.tabs.status.buttons.private.button": "Make it non-discoverable...",
-  "item.edit.tabs.status.buttons.private.button": "Tornar o item privado...",
+  "item.edit.tabs.status.buttons.private.button": "Tornar o item não detetável...",
 
   // "item.edit.tabs.status.buttons.private.label": "Make item non-discoverable",
-  "item.edit.tabs.status.buttons.private.label": "Tornar o item privado",
+  "item.edit.tabs.status.buttons.private.label": "Tornar o item não detetável",
 
   // "item.edit.tabs.status.buttons.public.button": "Make it discoverable...",
-  "item.edit.tabs.status.buttons.public.button": "Tornar o item público...",
+  "item.edit.tabs.status.buttons.public.button": "Tornar o item detetável...",
 
   // "item.edit.tabs.status.buttons.public.label": "Make item discoverable",
-  "item.edit.tabs.status.buttons.public.label": "Tornar o item público",
+  "item.edit.tabs.status.buttons.public.label": "Tornar o item detetável",
 
   // "item.edit.tabs.status.buttons.reinstate.button": "Reinstate...",
   "item.edit.tabs.status.buttons.reinstate.button": "Restabelecer...",
@@ -4197,6 +4244,9 @@
 
   // "item.preview.dc.date.issued": "Published date:",
   "item.preview.dc.date.issued": "Data de publicação:",
+  
+  // "item.preview.dc.description": "Description:",
+  "item.preview.dc.description": "Descrição:",
 
   // "item.preview.dc.description.abstract": "Abstract:",
   "item.preview.dc.description.abstract": "Resumo:",
@@ -4254,7 +4304,10 @@
 
   // "item.preview.project.funder.identifier": "Funder Identifier:",
   "item.preview.project.funder.identifier": "Identificação do financiador:",
-
+  
+  // "item.preview.project.investigator": "Project Investigator",
+  "item.preview.project.investigator": "Investigador do projeto",
+  
   // "item.preview.oaire.awardNumber": "Funding ID:",
   "item.preview.oaire.awardNumber": "ID do financiamento:",
 
@@ -4782,9 +4835,12 @@
 
   // "login.form.password": "Password",
   "login.form.password": "Palavra-chave",
+  
+  // "login.form.saml": "Log in with SAML",
+  "login.form.saml": "Entrar com SAML",
 
   // "login.form.shibboleth": "Log in with Shibboleth",
-  "login.form.shibboleth": "Entrar com autenticação federada",
+  "login.form.shibboleth": "Entrar com Shibboleth",
 
   // "login.form.submit": "Log in",
   "login.form.submit": "Entrar",
@@ -4868,10 +4924,10 @@
   "menu.section.browse_global_by_subject": "Por assunto",
 
   // "menu.section.browse_global_by_srsc": "By Subject Category",
-  "menu.section.browse_global_by_srsc": "Por vocabulário controlado",
+  "menu.section.browse_global_by_srsc": "Por 'Swedish Research Subject Categories' (SRSC)",
 
   // "menu.section.browse_global_by_nsi": "By Norwegian Science Index",
-  "menu.section.browse_global_by_nsi": "Por 'Norwegian Science Index'",
+  "menu.section.browse_global_by_nsi": "Por 'Norwegian Science Index' (NSI)",
 
   // "menu.section.browse_global_by_title": "By Title",
   "menu.section.browse_global_by_title": "Por título",
@@ -5510,7 +5566,7 @@
   "orgunit.page.ror": "Identificador ROR",
 
   // "orgunit.search.results.head": "Organizational Unit Search Results",
-  "orgunit.search.results.head": "Resultados da pesquisa de organizações",
+  "orgunit.search.results.head": "Resultados da pesquisa de unidades organizacionais",
 
   // "pagination.options.description": "Pagination options",
   "pagination.options.description": "Opções de paginação",
@@ -6172,7 +6228,7 @@
   // "register-page.registration.error.head": "Error when trying to register email",
   "register-page.registration.error.head": "Erro ao registar o endereço de correio eletrónico",
 
-  // "register-page.registration.error.content": "An error occured when registering the following email address: {{ email }}",
+  // "register-page.registration.error.content": "An error occurred when registering the following email address: {{ email }}",
   "register-page.registration.error.content": "Ocorreu um erro ao registar o seguinte endereço de correio eletrónico: {{ email }}",
 
   // "register-page.registration.error.recaptcha": "Error when trying to authenticate with recaptcha",
@@ -6853,8 +6909,8 @@
   // "search.filters.namedresourcetype.Validation": "Validation",
   "search.filters.namedresourcetype.Validation": "Em validação",
 
-  // "search.filters.namedresourcetype.waitingforcontroller": "Waiting for reviewer",
-  "search.filters.namedresourcetype.waitingforcontroller": "Aguarda validador",
+  // "search.filters.namedresourcetype.Waiting for Controller": "Waiting for reviewer",
+  "search.filters.namedresourcetype.Waiting for Controller": "Aguarda validador",
 
   // "search.filters.namedresourcetype.Workflow": "Workflow",
   "search.filters.namedresourcetype.Workflow": "Em fluxo de trabalho",
@@ -7179,6 +7235,9 @@
 
   // "submission.import - external.source.datacite": "DataCite",
   "submission.import - external.source.datacite": "DataCite",
+  
+  // "submission.import-external.source.dataciteProject": "DataCite",
+  "submission.import-external.source.dataciteProject": "Projeto DataCite",
 
   // "submission.import - external.source.doi": "DOI",
   "submission.import - external.source.doi": "DOI",
@@ -7326,9 +7385,6 @@
 
   // "submission.sections.describe.relationship - lookup.external - source.import - modal.isProjectOfPublication.title": "Project",
   "submission.sections.describe.relationship - lookup.external - source.import - modal.isProjectOfPublication.title": "Projeto",
-
-  // "submission.sections.describe.relationship - lookup.external - source.import - modal.head.openAIREFunding": "Funding OpenAIRE API",
-  "submission.sections.describe.relationship - lookup.external - source.import - modal.head.openAIREFunding": "Financiamento API OpenAIRE",
 
   // "submission.sections.describe.relationship - lookup.external - source.import - modal.isAuthorOfPublication.title": "Import Remote Author",
   "submission.sections.describe.relationship - lookup.external - source.import - modal.isAuthorOfPublication.title": "Importar autor remoto",
@@ -7532,7 +7588,7 @@
   "submission.sections.describe.relationship - lookup.search - tab.tab - title.openaireTitle": "OpenAIRE pesquisa por títulos ({{ count }})",
 
   // "submission.sections.describe.relationship - lookup.search - tab.tab - title.openaireFunding": "OpenAIRE Search by Funder ({{ count }})",
-  "submission.sections.describe.relationship - lookup.search - tab.tab - title.openaireFunding": "OpenAIRE pesquisa por financiador ({{ count }})",
+  "submission.sections.describe.relationship - lookup.search - tab.tab - title.openaireFunding": "Pesquisa via API OpenAIRE por financiador ({{ count }})",
 
   // "submission.sections.describe.relationship - lookup.search - tab.tab - title.sherpaJournalIssn": "Sherpa Journals by ISSN ({{ count }})",
   "submission.sections.describe.relationship - lookup.search - tab.tab - title.sherpaJournalIssn": "Revistas Sherpa por ISSN ({{ count }  })",
@@ -7545,9 +7601,6 @@
 
   // "submission.sections.describe.relationship - lookup.search - tab.tab - title.isChildOrgUnitOf": "Search for Organizational Units",
   "submission.sections.describe.relationship - lookup.search - tab.tab - title.isChildOrgUnitOf": "Pesquisar por unidades organizacionais",
-
-  // "submission.sections.describe.relationship - lookup.search - tab.tab - title.openAIREFunding": "Funding OpenAIRE API",
-  "submission.sections.describe.relationship - lookup.search - tab.tab - title.openAIREFunding": "Via API OpenAIRE",
 
   // "submission.sections.describe.relationship - lookup.search - tab.tab - title.isProjectOfPublication": "Projects",
   "submission.sections.describe.relationship - lookup.search - tab.tab - title.isProjectOfPublication": "Projetos",
@@ -7867,8 +7920,8 @@
   // "submission.sections.submit.progressbar.license": "Deposit license",
   "submission.sections.submit.progressbar.license": "Licença de distribuição não-exclusiva do repositório",
 
-  // "submission.sections.submit.progressbar.sherpapolicy": "Sherpa policies",
-  "submission.sections.submit.progressbar.sherpapolicy": "[Ajuda em contexto] Informação SHERPA sobre políticas de editoras e revistas face ao auto-arquivo em repositórios.",
+  // "submission.sections.submit.progressbar.sherpapolicy": "[Contextual help] ‘Open Policy Finder’ information on publisher and journal policies regarding self-archiving in repositories.",
+  "submission.sections.submit.progressbar.sherpapolicy": "[Ajuda em contexto] Informação 'Open Policy Finder' sobre políticas de editoras e revistas face ao auto-arquivo em repositórios.",
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
   "submission.sections.submit.progressbar.upload": "Carregar ficheiro(s)",
@@ -7991,7 +8044,7 @@
   "submission.sections.upload.header.policy.default.withlist": "Por favor note que os ficheiros enviados à coleção {{collectionName}} serão acessíveis, de acordo com o que está explicitamente definido no ficheiro, no(s) seguinte(s) grupo(s):",
 
   // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files by dragging & dropping them anywhere on the page.</strong>",
-  "submission.sections.upload.info": "Aqui encontra o(s) ficheiro(s) carregado(s) neste registo. Pode atualizar os metadados do(s) ficheiro(s), <strong>definir as suas condições de acesso ou carregar ficheiros adicionais arrastando-os em qualquer local da página.</strong>",
+  "submission.sections.upload.info": "Nesta secção encontra o(s) ficheiro(s) carregado(s) neste registo. Pode atualizar os metadados do(s) ficheiro(s), <strong>definir as suas condições de acesso ou carregar ficheiros adicionais arrastando-os em qualquer local da página.</strong>",
 
   // "submission.sections.upload.no-entry": "No",
   "submission.sections.upload.no-entry": "Não",
@@ -8101,8 +8154,8 @@
   // "submission.sections.sherpa.publisher.policy": "Publisher Policy",
   "submission.sections.sherpa.publisher.policy": "Política da editora",
 
-  // "submission.sections.sherpa.publisher.policy.description": "The below information was found via Sherpa Romeo. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
-  "submission.sections.sherpa.publisher.policy.description": "A seguinte informação foi obtida através do diretório SHERPA, com base nas políticas disponíveis das editoras/revistas. Fornece informações úteis, sobre as versões dos ficheiros que deverá carregar em repositórios, bem como tipo de embargo ou restrições de acesso poderá ser aconselhável. As informações do SHERPA são fidedignas tanto quanto é do nosso conhecimento, mas não devem ser assumidas como aconselhamento jurídico. Se tiver dúvidas, por favor contacte o(s) administrador(es) do seu repositório através do formulário de feedback no rodapé.",
+  // "submission.sections.sherpa.publisher.policy.description": "The below information was found via 'Open Policy Finder'. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
+  "submission.sections.sherpa.publisher.policy.description": "A seguinte informação foi obtida através do diretório 'Open Policy Finder', com base nas políticas disponíveis das editoras/revistas. Fornece informações úteis, sobre as versões dos ficheiros que deverá carregar em repositórios, bem como tipo de embargo ou restrições de acesso poderá ser aconselhável. As informações do SHERPA são fidedignas tanto quanto é do nosso conhecimento, mas não devem ser assumidas como aconselhamento jurídico. Se tiver dúvidas, por favor contacte o(s) administrador(es) do seu repositório através do formulário de feedback no rodapé.",
 
   // "submission.sections.sherpa.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
   "submission.sections.sherpa.publisher.policy.openaccess": "As 'vias' de acesso aberto permitidas pela política desta revista estão listadas em baixo, tendo em consideração as versões do artigo (ex. 'Versão final publicada', 'Versão aceite do autor', 'Versão submetida'). Clique numa via para obter mais detalhes.",
@@ -8152,8 +8205,8 @@
   // "submission.sections.sherpa.record.information.uri": "URI",
   "submission.sections.sherpa.record.information.uri": "URI",
 
-  // "submission.sections.sherpa.error.message": "There was an error retrieving sherpa informations",
-  "submission.sections.sherpa.error.message": "Ocorreu um erro na recuperação de informações do SHERPA",
+  // "submission.sections.sherpa.error.message": "There was an error retrieving 'Open Policy Finder' informations",
+  "submission.sections.sherpa.error.message": "Ocorreu um erro na recuperação de informações do 'Open Policy Finder'",
 
   // "submission.submit.breadcrumbs": "New submission",
   "submission.submit.breadcrumbs": "Novos depósitos",
@@ -8420,10 +8473,10 @@
   "vocabulary-treeview.search.no-result": "Não existem itens para mostrar",
 
   // "vocabulary-treeview.tree.description.nsi": "The Norwegian Science Index",
-  "vocabulary-treeview.tree.description.nsi": "O 'Norwegian Science Index'",
+  "vocabulary-treeview.tree.description.nsi": "'Norwegian Science Index' (NSI)",
 
   // "vocabulary-treeview.tree.description.srsc": "Research Subject Categories",
-  "vocabulary-treeview.tree.description.srsc": "Categorias de Assuntos de Investigação",
+  "vocabulary-treeview.tree.description.srsc": "'Swedish Research Subject Categories' (SRSC)",
 
   // "vocabulary-treeview.info": "Select a subject to add as search filter",
   "vocabulary-treeview.info": "Selecione um assunto para adicionar como filtro de pesquisa",
@@ -8469,9 +8522,6 @@
 
   // "supervision.search.results.head": "Workflow and Workspace tasks",
   "supervision.search.results.head": "Depósitos e tarefas em áreas de trabalho",
-
-  // "orgunit.search.results.head": "Organizational Unit Search Results",
-  "orgunit.search.results.head": "Resultados da pesquisa de unidades organizacionais",
 
   // "workflow-item.edit.breadcrumbs": "Edit workflowitem",
   "workflow-item.edit.breadcrumbs": "Editar item em fluxo de trabalho",
@@ -8989,6 +9039,12 @@
   // "person.orcid.registry.auth": "ORCID Authorizations",
   "person.orcid.registry.auth": "Autorizações ORCID",
 
+  // "person.orcid-tooltip.authenticated": "{{orcid}}",
+  "person.orcid-tooltip.authenticated": "{{orcid}}",
+
+  // "person.orcid-tooltip.not-authenticated": "{{orcid}} (unconfirmed)",
+  "person.orcid-tooltip.not-authenticated": "{{orcid}} (não confirmado)",
+
   // "home.recent-submissions.head": "Recent Submissions",
   "home.recent-submissions.head": "Entradas recentes",
 
@@ -9086,7 +9142,7 @@
   "access-control-item-toggle.enable": "Ativar a opção para efetuar alterações nos metadados do item",
 
   // "access-control-item-toggle.disable": "Disable option to perform changes on the item's metadata",
-  "access-control-item-toggle.disable": "Desativar a opção para efetuar alterações nos metadados do itema",
+  "access-control-item-toggle.disable": "Desativar a opção para efetuar alterações nos metadados do item",
 
   // "access-control-bitstream-header-toggle": "Bitstreams",
   "access-control-bitstream-header-toggle": "Ficheiros",
@@ -10286,6 +10342,15 @@
 
   // "search.filters.filter.notifyEndorsement.label": "Search Notify Endorsement",
   "search.filters.filter.notifyEndorsement.label": "Pesquisar notificação de avaliação",
+  
+  // "form.date-picker.placeholder.year": "Year",
+  "form.date-picker.placeholder.year": "Ano",
+
+  // "form.date-picker.placeholder.month": "Month",
+  "form.date-picker.placeholder.month": "Mês",
+
+  // "form.date-picker.placeholder.day": "Day",
+  "form.date-picker.placeholder.day": "Dia",  
 
   // "item.page.cc.license.title": "Creative Commons license",
   "item.page.cc.license.title": "Licença Creative Commons",
@@ -10295,11 +10360,38 @@
 
   // "browse.search-form.placeholder": "Search the repository",
   "browse.search-form.placeholder": "Pesquisar o repositório",
+  
+  // "file-download-link.download": "Download ",
+  "file-download-link.download": "Descarregar ",
+
+  // "register-page.registration.aria.label": "Enter your e-mail address",
+  "register-page.registration.aria.label": "Introduza o seu endereço de correio eletrónico",
+
+  // "forgot-email.form.aria.label": "Enter your e-mail address",
+  "forgot-email.form.aria.label": "Introduza o seu endereço de correio eletrónico",
+
+  // "search-facet-option.update.announcement": "The page will be reloaded. Filter {{ filter }} is selected.",
+  "search-facet-option.update.announcement": "A página vai ser recarregada. O filtro {{ filter }} está selecionado.",
+                                                     
+  // "live-region.ordering.instructions": "Press spacebar to reorder {{ itemName }}.",
+  "live-region.ordering.instructions": "Prima a barra de espaços para reordenar {{ itemName }}.",
+                                   
+  // "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of  {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+  "live-region.ordering.status": "{{ itemName }}, selecionado. Posição atual na lista: {{index }} de {{length }}. Prima as teclas 'seta para cima' ou 'seta para baixo' para mudar de posição, a 'barra de espaços' para largar, 'Escape' para cancelar.",                                     
+
+  // "live-region.ordering.moved": "{{ itemName }}, moved to position {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+  "live-region.ordering.moved": "{{ itemName }}, moveu para a posição {{ index }} de {{ length }}. Prima as teclas 'seta para cima' ou 'seta para baixo' para mudar de posição, a 'barra de espaços' para largar, 'Escape' para cancelar.",
+                                       
+  // "live-region.ordering.dropped": "{{ itemName }}, dropped at position {{ index }} of {{ length }}.",
+  "live-region.ordering.dropped": "{{ itemName }}, caiu na posição {{ index }} de {{ length }}.",
+                                                                                                                 
+  // "dynamic-form-array.sortable-list.label": "Sortable list",
+  "dynamic-form-array.sortable-list.label": "Lista ordenável",
+  
 
   // Other strings...
-  // Missing, Duplicate or Redundant ???
-
-  // NOT FOUND ORIGINAL 'en.json5' 02-07-2024
+  // Missing, deprecated, duplicate or redundant ???
+  // Not found when compared to 'en.json5' 2025-03-12
 
   // "datafile.listelement.badge": "Data file",
   "datafile.listelement.badge": "Ficheiro de dados",
@@ -10318,15 +10410,15 @@
 
   // "mydspace.upload.upload-successful": "New workspace item created. Click {{here}} for edit it.",
   "mydspace.upload.upload-successful": "Novo item de espaço de trabalho criado. Clique {{here}} para o editar.",
-
+  
+  // "search.form.search_mydspace": "Search MyDSpace",
+  "search.form.search_mydspace": "Pesquisar na área pessoal",
+  
   // "profile.security.form.notifications.error.not-long-enough": "The password has to be at least 6 characters long.",
   "profile.security.form.notifications.error.not-long-enough": "A senha deve ter pelo menos 6 caracteres.",
 
   // "register-page.create-profile.security.error.password-length": "The password should be at least 6 characters long.",
   "register-page.create-profile.security.error.password-length": "A senha deve possuir pelo menos 6 caracteres.",
-
-  // "search.form.search_mydspace": "Search MyDSpace",
-  "search.form.search_mydspace": "Pesquisar na área pessoal",
 
   // "forgot-password.form.error.password-length": "The password should be at least 6 characters long.",
   "forgot-password.form.error.password-length": "A senha deve ter pelo menos 6 caracteres.",
@@ -10360,5 +10452,62 @@
 
   // "item.preview.dc.identifier.eisbn": "EISBN",
   "item.preview.dc.identifier.eisbn": "EISBN",
+  
+  // "forgot-email.form.google-recaptcha.notification.title": "Forgot password (Google reCAPTCHA)",
+  "forgot-email.form.google-recaptcha.notification.title": "Esqueceu palavra passe (Google reCAPTCHA)",
+
+  // "forgot-email.form.google-recaptcha.notification.message.error": "Error when trying to reset password (Google reCAPTCHA)",
+  "forgot-email.form.google-recaptcha.notification.message.error": "Ocorreu um erro ao tentar redefinir a senha de acesso (Google reCAPTCHA)",
+  
+  // "cclicense.notavailable": "Without CC licence",
+  "cclicense.notavailable": "Sem licença CC",
+  
+  // "search.filters.filter.access_status.head": "Access type",
+  "search.filters.filter.access_status.head": "Tipo de acesso",
+
+  // "search.filters.filter.access_status.placeholder": "Access type",
+  "search.filters.filter.access_status.placeholder": "Acesso",
+
+  // "search.filters.filter.access_status.label": "Search by access type",
+  "search.filters.filter.access_status.label": "Pesquisar por tipo de acesso",
+
+  // "search.filters.applied.f.access_status": "Access type",
+  "search.filters.applied.f.access_status": "Tipo de acesso",
+  
+  // "search.filters.access_status.open.access": "Open access",
+  "search.filters.access_status.open.access": "Acesso aberto",                                                           
+  
+  // "search.filters.access_status.restricted": "Restricted access",
+  "search.filters.access_status.restricted": "Acesso restrito",
+  
+  // "search.filters.access_status.embargo": "Embargoed access",
+  "search.filters.access_status.embargo": "Acesso embargado",
+  
+  // "search.filters.access_status.metadata.only": "Metadata only",
+  "search.filters.access_status.metadata.only": "Apenas metadados",
+  
+  // "search.filters.access_status.unknown": "Unknown",
+  "search.filters.access_status.unknown": "Desconhecido",
+  
+  // "submission.import-external.source.sherpaJournal": "'Open Policy Finder' Journals",
+  "submission.import-external.source.sherpaJournal": "Revistas 'Open Policy Finder' por nome",
+
+  // "submission.import-external.source.sherpaJournalIssn": "'Open Policy Finder' Journals by ISSN",
+  "submission.import-external.source.sherpaJournalIssn": "Revistas 'Open Policy Finder' por ISSN",
+
+  // "submission.import-external.source.sherpaPublisher": "'Open Policy Finder' Publishers",
+  "submission.import-external.source.sherpaPublisher": "Editoras 'Open Policy Finder'",
+  
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importing from 'Open Policy Finder' Journal",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "A importar revista do 'Open Policy Finder'",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Importing from 'Open Policy Finder' Publisher",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "A importar editora do 'Open Policy Finder'",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "'Open Policy Finder' Journals ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "'Open Policy Finder' do Sherpa ({{ count }})",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "'Open Policy Finder'a Publishers ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Editoras do 'Open Policy Finder' ({{ count }})",
 
 }
