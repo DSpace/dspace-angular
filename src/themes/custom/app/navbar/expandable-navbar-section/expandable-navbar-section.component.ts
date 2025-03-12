@@ -1,8 +1,6 @@
 import {
   AsyncPipe,
   NgComponentOutlet,
-  NgFor,
-  NgIf,
 } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLinkActive } from '@angular/router';
@@ -23,8 +21,6 @@ import { HoverOutsideDirective } from '../../../../../app/shared/utils/hover-out
     AsyncPipe,
     HoverOutsideDirective,
     NgComponentOutlet,
-    NgFor,
-    NgIf,
     RouterLinkActive,
   ],
 })

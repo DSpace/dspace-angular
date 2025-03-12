@@ -1,7 +1,4 @@
-import {
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+
 import {
   Component,
   Input,
@@ -30,8 +27,6 @@ import { SubmissionSectionUploadAccessConditionsComponent } from '../../accessCo
     SubmissionSectionUploadAccessConditionsComponent,
     TranslateModule,
     TruncatePipe,
-    NgIf,
-    NgForOf,
     FileSizePipe,
   ],
   standalone: true,

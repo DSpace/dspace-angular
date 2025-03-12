@@ -99,7 +99,7 @@ describe('VirtualMetadataComponent', () => {
 
       spyOn(comp.close, 'emit');
       fixture.debugElement
-        .query(By.css('button.close'))
+        .query(By.css('button.btn-close'))
         .triggerEventHandler('click', null);
       expect(comp.close.emit).toHaveBeenCalled();
     });

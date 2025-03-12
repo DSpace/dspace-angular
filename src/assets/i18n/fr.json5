@@ -1471,11 +1471,11 @@
   // "browse.startsWith.type_text": "Type the first few letters and click on the Browse button",
   "browse.startsWith.type_text": "Ou saisir les premières lettres puis cliquer sur le bouton « Parcourir »",
 
-  // "browse.title": "Browsing {{ collection }} by {{ field }} {{ value }}",
-  "browse.title": "Parcourir la collection {{ collection }} par {{ field }} {{ value }}",
+  // "browse.title": "Browsing by {{ field }}{{ startsWith }} {{ value }}",
+  "browse.title": "Parcourir par {{ field }}{{ startsWith }} {{ value }}",
 
-  //"browse.title.page": "Browsing {{ collection }} by {{ field }} {{ value }}",
-  "browse.title.page": "Parcourir la collection {{ collection }} par {{ field }} {{ value }}",
+  //"browse.title.page": "Browsing by {{ field }} {{ value }}",
+  "browse.title.page": "Parcourir par {{ field }} {{ value }}",
 
   //"search.browse.item-back": "Back to Results",
   "search.browse.item-back": "Retour aux résultats",
@@ -2681,6 +2681,66 @@
 
   // "grant-request-copy.success": "Successfully granted item request",
   "grant-request-copy.success": "Demande de copie de document acceptée avec succès",
+
+  //"health.breadcrumbs": "Health",
+  "health.breadcrumbs": "Santé du système",
+
+  // "health-page.heading": "Health",
+  "health-page.heading": "Santé",
+
+  // "health-page.info-tab": "Info",
+  "health-page.info-tab": "Info",
+
+  //"health-page.status-tab": "Status",
+  "health-page.status-tab": "Statut",
+
+  //"health-page.error.msg": "The health check service is temporarily unavailable",
+  "health-page.error.msg": "Le service de vérification de la santé du système n'est pas disponible",
+
+  //"health-page.property.status": "Status code",
+  "health-page.property.status": "Code de statut",
+
+  //"health-page.section.db.title": "Database",
+  "health-page.section.db.title": "Base de données",
+
+  // "health-page.section.geoIp.title": "GeoIp",
+  "health-page.section.geoIp.title": "GeoIp",
+
+  // "health-page.section.solrAuthorityCore.title": "Solr: authority core",
+  "health-page.section.solrAuthorityCore.title": "Solr: authority core",
+
+  //"health-page.section.solrOaiCore.title": "Solr: oai core",
+  "health-page.section.solrOaiCore.title": "Solr: oai core",
+
+  // "health-page.section.solrSearchCore.title": "Solr: search core",
+  "health-page.section.solrSearchCore.title": "Solr: search core",
+
+  // "health-page.section.solrStatisticsCore.title": "Solr: statistics core",
+  "health-page.section.solrStatisticsCore.title": "Solr: statistics core",
+
+  //"health-page.section-info.app.title": "Application Backend",
+  "health-page.section-info.app.title": "Application Backend",
+
+  //"health-page.section-info.java.title": "Java",
+  "health-page.section-info.java.title": "Java",
+
+  //"health-page.status": "Status",
+  "health-page.status": "Statut",
+
+  //"health-page.status.ok.info": "Operational",
+  "health-page.status.ok.info": "Opérationnel",
+
+  //"health-page.status.error.info": "Problems detected",
+  "health-page.status.error.info": "Problèmes détectés",
+
+  //"health-page.status.warning.info": "Possible issues detected",
+  "health-page.status.warning.info": "Problèmes éventuels détectés",
+
+  // "health-page.title": "Health",
+  "health-page.title": "Santé du système",
+
+  // "health-page.section.no-issues": "No issues detected",
+  "health-page.section.no-issues": "Aucun problème détecté",
 
   // "home.description": "",
   "home.description": "",
@@ -3972,6 +4032,9 @@
   // "menu.section.access_control_authorizations": "Authorizations",
   "menu.section.access_control_authorizations": "Autorisations",
 
+  // "menu.section.access_control_bulk": "Bulk Access Management",
+  "menu.section.access_control_bulk": "Gestion des accès en lot",
+
   // "menu.section.access_control_groups": "Groups",
   "menu.section.access_control_groups": "Groupes",
 
@@ -4521,6 +4584,27 @@
   // "process.detail.back": "Back",
   "process.detail.back": "Retour",
 
+  //"process.detail.delete.body": "Are you sure you want to delete the current process?",
+  "process.detail.delete.body": "Êtes-vous sûr de vouloir supprimer ce processus?",
+
+  //"process.detail.delete.button": "Delete process",
+  "process.detail.delete.button": "Supprimer le processus",
+
+  //"process.detail.delete.cancel": "Cancel",
+  "process.detail.delete.cancel": "Annuler",
+
+  //"process.detail.delete.confirm": "Delete process",
+  "process.detail.delete.confirm": "Supprimer le processus",
+
+  //"process.detail.delete.error": "Something went wrong when deleting the process",
+  "process.detail.delete.error": "Une erreur s'est produite lors de la suppression du processus",
+
+  //"process.detail.delete.header": "Delete process",
+  "process.detail.delete.header": "Supprimer un processus",
+
+  //"process.detail.delete.success": "The process was successfully deleted.",
+  "process.detail.delete.success": "Le processus a bien été supprimé.",
+
   // "process.detail.output": "Process Output",
   "process.detail.output": "Sortie du processus",
 
@@ -4538,6 +4622,9 @@
 
   // "process.detail.output-files.empty": "This process doesn't contain any output files",
   "process.detail.output-files.empty": "Ce processus ne contient pas de fichiers de sortie",
+
+  //"process.detail.refreshing": "Auto-refreshing…",
+  "process.detail.refreshing": "Actualisation automatique...",
 
   // "process.detail.script": "Script",
   "process.detail.script": "Script",
@@ -4566,8 +4653,38 @@
   // "process.overview.table.name": "Name",
   "process.overview.table.name": "Nom",
 
+  //"process.overview.table.running.info": "Start time (UTC)",
+  "process.overview.table.running.info": "Heure de fin (UTC)",
+
+  // "process.overview.table.running.title": "Running processes",
+  "process.overview.table.running.title": "Processus en cours",
+
+  //"process.overview.table.scheduled.info": "Creation time (UTC)",
+  "process.overview.table.scheduled.info": "Heure de création (UTC)",
+
+  // "process.overview.table.scheduled.title": "Scheduled processes",
+  "process.overview.table.scheduled.title": "Processus planifiés",
+
   // "process.overview.table.start": "Start time (UTC)",
   "process.overview.table.start": "Heure de début (TUC)",
+
+  // "process.overview.table.completed.info": "Finish time (UTC)",
+  "process.overview.table.completed.info": "Heure de fin (UTC)",
+
+  //"process.overview.table.completed.title": "Succeeded processes",
+  "process.overview.table.completed.title": "Processus terminés",
+
+  // "process.overview.table.empty": "No matching processes found.",
+  "process.overview.table.empty": "Aucun processus trouvé.",
+
+  // "process.overview.table.failed.info": "Finish time (UTC)",
+  "process.overview.table.failed.info": "Heure de fin (UTC)",
+
+  // "process.overview.table.failed.title": "Failed processes",
+  "process.overview.table.failed.title": "Processus en échec",
+
+  // "process.overview.table.finish": "Finish time (UTC)",
+  "process.overview.table.finish": "Heure de fin (UTC)",
 
   // "process.overview.table.status": "Status",
   "process.overview.table.status": "Statut",
@@ -5624,6 +5741,9 @@
   // "submission.import-external.source.crossref": "Crossref",
   "submission.import-external.source.crossref": "Crossref (DOI)",
 
+  //"submission.import-external.source.doi": "DOI",
+  "submission.import-external.source.doi": "DOI",
+
   //"submission.import-external.source.datacite": "DataCite",
   "submission.import-external.source.datacite": "DataCite (DOI)",
 
@@ -6113,6 +6233,24 @@
   // "submission.sections.general.sections_not_valid": "There are incomplete sections.",
   "submission.sections.general.sections_not_valid": "Sections incomplètes.",
 
+  //"submission.sections.identifiers.info": "The following identifiers will be created for your item:",
+  "submission.sections.identifiers.info": "Les identifiants uniques suivants seront attribués à votre document :",
+
+  //"submission.sections.identifiers.no_handle": "No handles have been minted for this item.",
+  "submission.sections.identifiers.no_handle": "Aucun handle n'a été crée pour ce document.",
+
+  //"submission.sections.identifiers.no_doi": "No DOIs have been minted for this item.",
+  "submission.sections.identifiers.no_doi": "Aucun DOI n'a été créé pour ce document.",
+
+  //"submission.sections.identifiers.handle_label": "Handle: ",
+  "submission.sections.identifiers.handle_label": "Handle : ",
+
+  //"submission.sections.identifiers.doi_label": "DOI: ",
+  "submission.sections.identifiers.doi_label": "DOI : ",
+
+  //"submission.sections.identifiers.otherIdentifiers_label": "Other identifiers: ",
+  "submission.sections.identifiers.otherIdentifiers_label": "Autres identifiants : ",
+
   // "submission.sections.submit.progressbar.accessCondition": "Item access conditions",
   "submission.sections.submit.progressbar.accessCondition": "Autorisations d'accès à l'Item",
 
@@ -6133,6 +6271,9 @@
 
   // "submission.sections.submit.progressbar.detect-duplicate": "Potential duplicates",
   "submission.sections.submit.progressbar.detect-duplicate": "Doublon(s) potentiel(s)",
+
+  //"submission.sections.submit.progressbar.identifiers": "Identifiers",
+  "submission.sections.submit.progressbar.identifiers": "Identifiants",
 
   // "submission.sections.submit.progressbar.license": "Deposit license",
   "submission.sections.submit.progressbar.license": "Licence du dépôt",
@@ -6486,6 +6627,9 @@
 
   //"submitter.empty": "N/A",
   "submitter.empty": "S/O",
+
+  //"subscriptions.title": "Subscriptions",
+  "subscriptions.title": "Abonnements",
 
   //"subscriptions.modal.title": "Subscriptions",
   "subscriptions.modal.title": "Abonnements",
@@ -8394,6 +8538,15 @@
 
   //"search.filters.filter.notifyEndorsement.label": "Search Notify Endorsement",
   "search.filters.filter.notifyEndorsement.label": "Chercher l'approbation Notify",
+
+  // "form.date-picker.placeholder.year": "Year",
+  "form.date-picker.placeholder.year": "Année",
+
+  // "form.date-picker.placeholder.month": "Month",
+  "form.date-picker.placeholder.month": "Mois",
+
+  // "form.date-picker.placeholder.day": "Day",
+  "form.date-picker.placeholder.day": "Jour",
 
   //"item.page.cc.license.title": "Creative Commons license",
   "item.page.cc.license.title": "Licence Creative Commons",

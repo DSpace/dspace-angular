@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   Inject,
@@ -24,7 +24,7 @@ import { MenuSection } from '../../../menu/menu-section.model';
   templateUrl: './dso-edit-menu-section.component.html',
   styleUrls: ['./dso-edit-menu-section.component.scss'],
   standalone: true,
-  imports: [NgIf, NgbTooltipModule, RouterLink, TranslateModule, BtnDisabledDirective],
+  imports: [NgbTooltipModule, RouterLink, TranslateModule, BtnDisabledDirective],
 })
 export class DsoEditMenuSectionComponent extends AbstractMenuSectionComponent implements OnInit {
 

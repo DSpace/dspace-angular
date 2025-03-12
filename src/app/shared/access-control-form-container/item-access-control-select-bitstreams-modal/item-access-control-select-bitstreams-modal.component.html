@@ -2,34 +2,34 @@
   <h4 class="modal-title">
     {{'access-control-select-bitstreams-modal.title' | translate}}
   </h4>
-  <button type="button" class="close" aria-label="Close"
-          (click)="activeModal.dismiss('Cross click')">
-    <span aria-hidden="true">&times;</span>
+  <button type="button" class="btn-close" aria-label="Close"
+    (click)="activeModal.dismiss('Cross click')">
   </button>
 </div>
 <div class="modal-body">
-  <ng-container *ngIf="data$ | async as data">
-    <ds-viewable-collection
-      *ngIf="data.payload.page.length > 0"
-      [config]="paginationConfig"
-      [context]="context"
-      [objects]="data"
-      [selectable]="true"
-      [selectionConfig]="{ repeatable: true, listId: LIST_ID }"
-      [showPaginator]="true"
-      (pageChange)="loadForPage($event)">
-    </ds-viewable-collection>
-
-    <div *ngIf="data && data.payload.page.length === 0"
-      class="alert alert-info w-100" role="alert">
-      {{'access-control-select-bitstreams-modal.no-items' | translate}}
-    </div>
-
-  </ng-container>
+  @if (data$ | async; as data) {
+    @if (data.payload.page.length > 0) {
+      <ds-viewable-collection
+        [config]="paginationConfig"
+        [context]="context"
+        [objects]="data"
+        [selectable]="true"
+        [selectionConfig]="{ repeatable: true, listId: LIST_ID }"
+        [showPaginator]="true"
+        (pageChange)="loadForPage($event)">
+      </ds-viewable-collection>
+    }
+    @if (data && data.payload.page.length === 0) {
+      <div
+        class="alert alert-info w-100" role="alert">
+        {{'access-control-select-bitstreams-modal.no-items' | translate}}
+      </div>
+    }
+  }
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-outline-dark"
-          (click)="activeModal.close('Close click')">
+    (click)="activeModal.close('Close click')">
     {{'access-control-select-bitstreams-modal.close' | translate}}
   </button>
 </div>

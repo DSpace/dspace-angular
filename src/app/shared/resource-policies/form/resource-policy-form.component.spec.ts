@@ -496,10 +496,10 @@ describe('ResourcePolicyFormComponent test suite', () => {
   template: ``,
   standalone: true,
   imports: [
-    CommonModule,
     FormsModule,
     NgbModule,
-    ReactiveFormsModule],
+    ReactiveFormsModule,
+  ],
 })
 class TestComponent {
 

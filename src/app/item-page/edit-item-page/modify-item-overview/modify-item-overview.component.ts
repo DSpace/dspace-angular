@@ -1,7 +1,4 @@
-import {
-  KeyValuePipe,
-  NgFor,
-} from '@angular/common';
+import { KeyValuePipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -16,7 +13,7 @@ import { MetadataMap } from '../../../core/shared/metadata.models';
   selector: 'ds-modify-item-overview',
   templateUrl: './modify-item-overview.component.html',
   standalone: true,
-  imports: [NgFor, KeyValuePipe, TranslateModule],
+  imports: [KeyValuePipe, TranslateModule],
 })
 /**
  * Component responsible for rendering a table containing the metadatavalues from the to be edited item

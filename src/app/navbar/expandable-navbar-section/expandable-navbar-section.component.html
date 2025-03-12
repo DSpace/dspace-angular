@@ -22,18 +22,22 @@
         </span>
       <i class="fas fa-caret-down fa-xs toggle-menu-icon" aria-hidden="true"></i>
     </a>
-    <div *ngIf="(active$ | async).valueOf() === true" (click)="deactivateSection($event)"
+  @if ((active$ | async).valueOf() === true) {
+    <div (click)="deactivateSection($event)"
          [id]="expandableNavbarSectionId()"
          [dsHoverOutsideOfParentSelector]="'#expandable-navbar-section-' + section.id"
          (dsHoverOutside)="deactivateSection($event, false)"
          role="menu"
          class="dropdown-menu show nav-dropdown-menu m-0 shadow-none border-top-0 px-3 px-md-0 pt-0 pt-md-1">
       <div @slide role="presentation">
-        <div *ngFor="let subSection of (subSections$ | async)" class="text-nowrap" role="presentation">
+        @for (subSection of (subSections$ | async); track subSection) {
+          <div class="text-nowrap" role="presentation">
           <ng-container
             *ngComponentOutlet="(sectionMap$ | async).get(subSection.id).component; injector: (sectionMap$ | async).get(subSection.id).injector;"></ng-container>
         </div>
+        }
       </div>
     </div>
+  }
   </div>
 </ng-container>

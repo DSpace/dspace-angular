@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgIf,
 } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
@@ -16,13 +15,13 @@ import { SidebarSearchListElementComponent } from '../../sidebar-search-list-ele
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.ListElement, Context.SideBarSearchModal)
 @listableObjectComponent('PublicationSearchResult', ViewMode.ListElement, Context.SideBarSearchModalCurrent)
-@listableObjectComponent(ItemSearchResult, ViewMode.ListElement, Context.SideBarSearchModal)
-@listableObjectComponent(ItemSearchResult, ViewMode.ListElement, Context.SideBarSearchModalCurrent)
+@listableObjectComponent(ItemSearchResult, ViewMode.ListElement, Context.ScopeSelectorModal)
+@listableObjectComponent(ItemSearchResult, ViewMode.ListElement, Context.ScopeSelectorModalCurrent)
 @Component({
   selector: 'ds-publication-sidebar-search-list-element',
   templateUrl: '../../sidebar-search-list-element.component.html',
   standalone: true,
-  imports: [TruncatablePartComponent, NgClass, NgIf, AsyncPipe, TranslateModule],
+  imports: [TruncatablePartComponent, NgClass, AsyncPipe, TranslateModule],
 })
 /**
  * Component displaying a list element for a {@link ItemSearchResult} of type "Publication" within the context of

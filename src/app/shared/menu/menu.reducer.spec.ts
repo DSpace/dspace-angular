@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-namespace
-import * as deepFreeze from 'deep-freeze';
+import deepFreeze from 'deep-freeze';
 
 import { initialMenusState } from './initial-menus-state';
 import {
