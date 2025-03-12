@@ -320,7 +320,7 @@ describe('ItemPageCcLicenseFieldComponent', () => {
       it('should show or not CC license disclaimer',
         () => {
           const disclaimerEl = fixture.debugElement.query(By.css('span'));
-          expect(Boolean(disclaimerEl)).toBe(testCase.expected.showName)
+          expect(Boolean(disclaimerEl)).toBe(testCase.expected.showName);
           if (testCase.expected.showName) {
             if (testCase.expected.showDisclaimer) {
               expect(disclaimerEl.nativeElement.innerHTML).toContain('item.page.cc.license.disclaimer');
