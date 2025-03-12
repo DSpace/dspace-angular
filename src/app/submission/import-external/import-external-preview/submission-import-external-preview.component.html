@@ -1,8 +1,7 @@
 <div class="modal-header">
   <h2>{{'submission.import-external.preview.title.' + labelPrefix | translate}}</h2>
-  <button type="button" class="close"
-          (click)="closeMetadataModal()" aria-label="Close">
-      <span aria-hidden="true">×</span>
+  <button type="button" class="btn-close"
+    (click)="closeMetadataModal()" aria-label="Close">
   </button>
 </div>
 <div class="modal-body">
@@ -15,27 +14,29 @@
     <div class="row">
       <div class="col-md-12">
         <hr>
+        </div>
+      </div>
+      @for (metadata of metadataList; track metadata) {
+        <div class="row">
+          <p class="col-md-12">
+            <strong class="">{{'item.preview.' + metadata.key | translate}}</strong><br>
+            @for (metadatum of metadata.values; track metadatum) {
+              <span>{{metadatum.value}}</span><br>
+            }
+          </p>
+        </div>
+      }
+      <div class="row">
+        <div class="col-md-12">
+          <hr>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 text-end">
+            <button class="btn btn-success" (click)="import()" role="button">
+              <i class="fa fa-file-import" aria-hidden="true"></i> {{'submission.import-external.preview.button.import' | translate}}
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-    <div *ngFor="let metadata of metadataList" class="row">
-      <p class="col-md-12">
-        <strong class="">{{'item.preview.' + metadata.key | translate}}</strong><br>
-        <ng-container *ngFor="let metadatum of metadata.values">
-          <span>{{metadatum.value}}</span><br>
-        </ng-container>
-      </p>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <hr>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12 text-right">
-        <button class="btn btn-success" (click)="import()" role="button">
-          <i class="fa fa-file-import" aria-hidden="true"></i> {{'submission.import-external.preview.button.import' | translate}}
-        </button>
-      </div>
-    </div>
-  </div>
-</div>

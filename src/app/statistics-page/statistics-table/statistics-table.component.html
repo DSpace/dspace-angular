@@ -1,36 +1,35 @@
-<div *ngIf="hasData"
-     class="m-1">
-
-  <h2 class="m-1">
-    {{ 'statistics.table.title.' + report.reportType | translate }}
-  </h2>
-
-  <table class="table table-striped" [attr.data-test]="report.reportType">
-
-    <tbody>
-
-    <tr>
-      <td></td>
-      <th scope="col"
-          *ngFor="let header of headers"
-          class="{{header}}-header">
-        {{ header }}
-      </th>
-    </tr>
-
-    <tr *ngFor="let point of report.points"
-        class="{{point.id}}-data">
-      <th scope="row" data-test="statistics-label">
-        {{ getLabel(point) | async }}
-      </th>
-      <td *ngFor="let header of headers"
-          class="{{point.id}}-{{header}}-data">
-        {{ point.values[header] }}
-      </td>
-    </tr>
-
-    </tbody>
-
-  </table>
-
-</div>
+@if (hasData) {
+  <div
+    class="m-1">
+    <h2 class="m-1">
+      {{ 'statistics.table.title.' + report.reportType | translate }}
+    </h2>
+    <table class="table table-striped" [attr.data-test]="report.reportType">
+      <tbody>
+        <tr>
+          <td></td>
+          @for (header of headers; track header) {
+            <th scope="col"
+              class="{{header}}-header">
+              {{ header }}
+            </th>
+          }
+        </tr>
+        @for (point of report.points; track point) {
+          <tr
+            class="{{point.id}}-data">
+            <th scope="row" data-test="statistics-label">
+              {{ getLabel(point) | async }}
+            </th>
+            @for (header of headers; track header) {
+              <td
+                class="{{point.id}}-{{header}}-data">
+                {{ point.values[header] }}
+              </td>
+            }
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}

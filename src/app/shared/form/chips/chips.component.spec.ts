@@ -1,8 +1,5 @@
 // Load the implementations that should be tested
-import {
-  CommonModule,
-  NgIf,
-} from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -62,11 +59,12 @@ describe('ChipsComponent test suite', () => {
     // synchronous beforeEach
     beforeEach(() => {
       html = `
-      <ds-chips
-        *ngIf="chips.hasItems()"
-        [chips]="chips"
-        [editable]="editable"
-        (selected)="onChipSelected($event)"></ds-chips>`;
+        @if(chips.hasItems()) {
+          <ds-chips
+            [chips]="chips"
+            [editable]="editable"
+            (selected)="onChipSelected($event)"></ds-chips>
+        }`;
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
@@ -193,7 +191,7 @@ describe('ChipsComponent test suite', () => {
   selector: 'ds-test-cmp',
   template: ``,
   standalone: true,
-  imports: [NgbModule, NgIf],
+  imports: [NgbModule],
 })
 class TestComponent {
 

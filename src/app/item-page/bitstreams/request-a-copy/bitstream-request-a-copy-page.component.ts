@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   Location,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -71,7 +70,6 @@ import { getItemPageRoute } from '../../item-page-routing-paths';
     RouterLink,
     AsyncPipe,
     ReactiveFormsModule,
-    NgIf,
     BtnDisabledDirective,
   ],
   standalone: true,

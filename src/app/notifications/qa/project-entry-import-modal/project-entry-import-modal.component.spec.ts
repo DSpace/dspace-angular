@@ -4,10 +4,10 @@ import {
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import {
-  async,
   ComponentFixture,
   inject,
   TestBed,
+  waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -86,7 +86,7 @@ describe('ProjectEntryImportModalComponent test suite', () => {
   const searchServiceStub: any = getMockSearchService();
 
 
-  beforeEach(async (() => {
+  beforeEach(waitForAsync (() => {
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
@@ -231,7 +231,7 @@ describe('ProjectEntryImportModalComponent test suite', () => {
   selector: 'ds-test-cmp',
   template: ``,
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
 })
 class TestComponent {
   eventData = eventData;
