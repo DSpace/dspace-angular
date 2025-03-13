@@ -45,6 +45,7 @@ describe('EmailRequestCopyComponent', () => {
     spyOn(component.send, 'emit').and.stub();
     component.subject = 'test-subject';
     component.message = 'test-message';
+    component.validAccessPeriods = [0];
     component.submit();
     expect(component.send.emit).toHaveBeenCalledWith(new RequestCopyEmail('test-subject', 'test-message'));
   });
