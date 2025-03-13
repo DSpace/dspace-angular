@@ -36,6 +36,10 @@ import { parseGeoJsonFromMetadataValue } from '../utils/geospatial.functions';
   imports: [ GeospatialMapComponent, NgIf ],
 })
 
+/**
+ * This component is used with the GeospatialMap ViewMode in search or browse results, and
+ * prepares geospatial data collection for display on the GeospatialMapComponent
+ */
 export class ObjectGeospatialMapComponent {
 
   /**
