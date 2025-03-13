@@ -1,7 +1,7 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
-  ComponentFixture,
-  TestBed,
+  ComponentFixture, fakeAsync,
+  TestBed, tick,
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -138,14 +138,15 @@ describe('GrantDenyRequestCopyComponent', () => {
       expect(message).toBeNull();
     });
 
-    it('should be displayed when decisionDate is defined', () => {
+    it('should be displayed when decisionDate is defined', fakeAsync(() => {
       component.itemRequestRD$ = createSuccessfulRemoteDataObject$(Object.assign(new ItemRequest(), itemRequest, {
         decisionDate: 'defined-date',
       }));
       fixture.detectChanges();
+      tick(); // Simulate passage of time
+      fixture.detectChanges();
 
       const message = fixture.debugElement.query(By.css('.processed-message'));
       expect(message).not.toBeNull();
-    });
-  });
+    }));  });
 });

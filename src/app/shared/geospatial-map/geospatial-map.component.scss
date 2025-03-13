@@ -1,0 +1,57 @@
+.map-container {
+  //position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  height: 400px;
+  width: 400px;
+
+  @media screen and (min-width: map-get($grid-breakpoints, sm)){
+    width: 450px;
+  }
+
+
+  @media screen and (min-width: map-get($grid-breakpoints, md)){
+    width: 500px;
+  }
+
+
+  @media screen and (min-width: map-get($grid-breakpoints, lg)) {
+    width: 600px;
+  }
+
+  @media screen and (min-width: map-get($grid-breakpoints, xl)) {
+    width: 700px;
+  }
+
+
+}
+
+.map-container img {
+  max-height: none;
+}
+
+.map-frame {
+  border: 2px solid black;
+  height: 100%;
+}
+
+/* browse */
+.browse-map-container {
+  height: 800px;
+  width: 100%;
+  max-height: none;
+}
+
+.browse-map-frame {
+  border: 2px solid black;
+  height: 100%;
+  width: 100%;
+}
+
+.map {
+  height: 100%;
+  width: auto;
+}
