@@ -1,15 +1,19 @@
-<div class="container" *ngIf="(isLoading$ | async) === false">
-  <div class="row">
-    <div class="col-12 pb-4">
-      <h2 id="sub-header"
-          class="border-bottom pb-2">{{ 'collection.create.sub-head' | translate:{ parent: dsoNameService.getName((parentRD$| async)?.payload) } }}</h2>
+@if ((isLoading$ | async) === false) {
+  <div class="container">
+    <div class="row">
+      <div class="col-12 pb-4">
+        <h1 id="sub-header"
+        class="border-bottom pb-2">{{ 'collection.create.sub-head' | translate:{ parent: dsoNameService.getName((parentRD$| async)?.payload) } }}</h1>
+      </div>
     </div>
+    <ds-collection-form (submitForm)="onSubmit($event)"
+      [isCreation]="true"
+    (back)="navigateToHome()"></ds-collection-form>
   </div>
-  <ds-collection-form (submitForm)="onSubmit($event)"
-                      [isCreation]="true"
-                      (back)="navigateToHome()"></ds-collection-form>
-</div>
+}
 
 <div class="container">
-  <ds-loading *ngIf="isLoading$ | async"></ds-loading>
+  @if (isLoading$ | async) {
+    <ds-loading></ds-loading>
+  }
 </div>

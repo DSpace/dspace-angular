@@ -1,8 +1,9 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   Input,
   OnChanges,
+  OnDestroy,
 } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -39,11 +40,10 @@ import parseSectionErrors from '../../utils/parseSectionErrors';
   templateUrl: './submission-upload-files.component.html',
   imports: [
     UploaderComponent,
-    NgIf,
   ],
   standalone: true,
 })
-export class SubmissionUploadFilesComponent implements OnChanges {
+export class SubmissionUploadFilesComponent implements OnChanges, OnDestroy {
 
   /**
    * The collection id this submission belonging to

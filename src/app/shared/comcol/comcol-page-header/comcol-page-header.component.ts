@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   Input,
@@ -8,9 +8,7 @@ import {
   selector: 'ds-comcol-page-header',
   styleUrls: ['./comcol-page-header.component.scss'],
   templateUrl: './comcol-page-header.component.html',
-  imports: [
-    NgIf,
-  ],
+  imports: [],
   standalone: true,
 })
 export class ComcolPageHeaderComponent {

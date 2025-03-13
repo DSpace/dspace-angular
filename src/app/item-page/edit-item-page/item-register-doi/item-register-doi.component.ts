@@ -1,9 +1,8 @@
+import { AsyncPipe } from '@angular/common';
 import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
-import { Component } from '@angular/core';
+  Component,
+  OnInit,
+} from '@angular/core';
 import {
   ActivatedRoute,
   Router,
@@ -39,15 +38,13 @@ import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstrac
     RouterLink,
     TranslateModule,
     AsyncPipe,
-    NgIf,
-    NgForOf,
   ],
   standalone: true,
 })
 /**
  * Component responsible for rendering the Item Register DOI page
  */
-export class ItemRegisterDoiComponent extends AbstractSimpleItemActionComponent {
+export class ItemRegisterDoiComponent extends AbstractSimpleItemActionComponent implements OnInit {
 
   protected messageKey = 'register-doi';
   doiToUpdateMessage = 'item.edit.' + this.messageKey + '.to-update';

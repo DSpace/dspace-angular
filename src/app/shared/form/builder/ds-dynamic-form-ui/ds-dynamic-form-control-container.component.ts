@@ -1,16 +1,16 @@
 import {
   AsyncPipe,
   NgClass,
-  NgForOf,
-  NgIf,
   NgTemplateOutlet,
 } from '@angular/common';
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ComponentFactoryResolver,
   ContentChildren,
+  DoCheck,
   EventEmitter,
   Inject,
   Input,
@@ -99,6 +99,7 @@ import { SubmissionObject } from '../../../../core/submission/models/submission-
 import { SubmissionObjectDataService } from '../../../../core/submission/submission-object-data.service';
 import { paginatedRelationsToItems } from '../../../../item-page/simple/item-types/shared/item-relationships-utils';
 import { SubmissionService } from '../../../../submission/submission.service';
+import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import {
   hasNoValue,
   hasValue,
@@ -130,20 +131,20 @@ import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/d
   changeDetection: ChangeDetectionStrategy.Default,
   imports: [
     ExistingMetadataListElementComponent,
-    NgIf,
     NgClass,
     AsyncPipe,
     TranslateModule,
     ReactiveFormsModule,
-    NgForOf,
     FormsModule,
     NgbTooltipModule,
     NgTemplateOutlet,
     ExistingRelationListElementComponent,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })
-export class DsDynamicFormControlContainerComponent extends DynamicFormControlContainerComponent implements OnInit, OnChanges, OnDestroy {
+export class DsDynamicFormControlContainerComponent extends DynamicFormControlContainerComponent
+  implements OnInit, OnChanges, OnDestroy, AfterViewInit, DoCheck {
   @ContentChildren(DynamicTemplateDirective) contentTemplateList: QueryList<DynamicTemplateDirective>;
   // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('templates') inputTemplateList: QueryList<DynamicTemplateDirective>;
@@ -277,7 +278,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         const relationship$ = this.relationshipService.findById(this.metadataService.virtualValue(this.value),
           true,
           true,
-          ... itemLinksToFollow(this.fetchThumbnail)).pipe(
+          ... itemLinksToFollow(this.fetchThumbnail, this.appConfig.item.showAccessStatuses)).pipe(
           getAllSucceededRemoteData(),
           getRemoteDataPayload());
         this.relationshipValue$ = observableCombineLatest([this.item$.pipe(take(1)), relationship$]).pipe(

@@ -1,11 +1,9 @@
+import { AsyncPipe } from '@angular/common';
 import {
-  AsyncPipe,
-  NgFor,
-  NgIf,
-} from '@angular/common';
-import {
+  AfterViewInit,
   Component,
   Input,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import {
@@ -44,13 +42,11 @@ import { SuggestionTargetsStateService } from '../suggestion-targets.state.servi
     AsyncPipe,
     TranslateModule,
     PaginationComponent,
-    NgIf,
-    NgFor,
     RouterLink,
   ],
   standalone: true,
 })
-export class PublicationClaimComponent implements OnInit {
+export class PublicationClaimComponent implements AfterViewInit, OnDestroy, OnInit {
 
   /**
    * The source for which to list targets
@@ -157,7 +153,7 @@ export class PublicationClaimComponent implements OnInit {
   }
 
   /**
-   * Dispatch the Suggestion Targets retrival.
+   * Dispatch the Suggestion Targets retrieval.
    */
   public getSuggestionTargets(): void {
     this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig).pipe(

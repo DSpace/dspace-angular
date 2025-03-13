@@ -1,6 +1,9 @@
 import { WorkspaceitemSectionDataType } from '../../core/submission/models/workspaceitem-sections.model';
 import { SectionsType } from '../sections/sections-type';
-import { SectionVisibility } from './section-visibility.model';
+import {
+  SectionScope,
+  SectionVisibility,
+} from './section-visibility.model';
 import { SubmissionSectionError } from './submission-section-error.model';
 
 /**
@@ -21,6 +24,11 @@ export interface SubmissionSectionObject {
    * A boolean representing if this section is mandatory
    */
   mandatory: boolean;
+
+  /**
+   * The submission scope for this section
+   */
+  scope: SectionScope;
 
   /**
    * The section type

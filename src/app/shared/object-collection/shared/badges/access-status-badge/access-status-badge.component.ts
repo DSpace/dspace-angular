@@ -1,10 +1,9 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
+  OnDestroy,
+  OnInit,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -30,12 +29,12 @@ import { AccessStatusObject } from './access-status.model';
   templateUrl: './access-status-badge.component.html',
   styleUrls: ['./access-status-badge.component.scss'],
   standalone: true,
-  imports: [NgIf, AsyncPipe, TranslateModule],
+  imports: [AsyncPipe, TranslateModule],
 })
 /**
  * Component rendering the access status of an item as a badge
  */
-export class AccessStatusBadgeComponent {
+export class AccessStatusBadgeComponent implements OnDestroy, OnInit {
 
   @Input() object: DSpaceObject;
   accessStatus$: Observable<string>;

@@ -7,27 +7,31 @@
             <span>
               {{ 'resource-policies.table.headers.title.for.' + resourceType | translate }}
               <span class="text-info"> {{resourceName}} </span>
-              <ng-container *ngIf="resourceType !== 'item'">
+              @if (resourceType !== 'item') {
                 ({{resourceUUID}})
-              </ng-container>
+              }
             </span>
             <div class="space-children-mr flex-shrink-0">
               <button class="btn btn-danger p-1"
-                      [disabled]="((canDelete() | async) !== true) || (isProcessingDelete() | async)"
-                      [title]="'resource-policies.delete.btn.title' | translate"
-                      (click)="deleteSelectedResourcePolicies()">
-                <span *ngIf="(isProcessingDelete() | async)">
-                  <i class='fas fa-circle-notch fa-spin' aria-hidden="true"></i> {{'submission.workflow.tasks.generic.processing' | translate}}
-                </span>
-                <span *ngIf="(isProcessingDelete() | async) !== true">
-                  <i class='fas fa-trash-alt fa-fw' aria-hidden="true"></i>
-                  {{'resource-policies.delete.btn' | translate}}
-                </span>
+                [dsBtnDisabled]="((canDelete() | async) !== true) || (isProcessingDelete() | async)"
+                [title]="'resource-policies.delete.btn.title' | translate"
+                (click)="deleteSelectedResourcePolicies()">
+                @if ((isProcessingDelete() | async)) {
+                  <span>
+                    <i class='fas fa-circle-notch fa-spin' aria-hidden="true"></i> {{'submission.workflow.tasks.generic.processing' | translate}}
+                  </span>
+                }
+                @if ((isProcessingDelete() | async) !== true) {
+                  <span>
+                    <i class='fas fa-trash-alt fa-fw' aria-hidden="true"></i>
+                    {{'resource-policies.delete.btn' | translate}}
+                  </span>
+                }
               </button>
               <button class="btn btn-success p-1"
-                      [disabled]="(isProcessingDelete() | async)"
-                      [title]="'resource-policies.add.for.' + resourceType | translate"
-                      (click)="redirectToResourcePolicyCreatePage()">
+                [dsBtnDisabled]="(isProcessingDelete() | async)"
+                [title]="'resource-policies.add.for.' + resourceType | translate"
+                (click)="redirectToResourcePolicyCreatePage()">
                 <i class='fas fa-plus' aria-hidden="true"></i>
                 {{'resource-policies.add.button' | translate}}
               </button>
@@ -35,34 +39,40 @@
           </div>
         </th>
       </tr>
-      <tr *ngIf="(getResourcePolicies() | async)?.length > 0" class="text-center">
-        <th>
-          <div class="custom-control custom-checkbox">
-            <input #selectAllBtn type="checkbox"
-                   class="custom-control-input"
-                   [id]="'selectAll_' + resourceUUID"
-                   (change)="selectAllCheckbox($event)">
-            <label class="custom-control-label" [for]="'selectAll_' + resourceUUID">
-              <span class="sr-only">{{(selectAllBtn.checked ? 'resource-policies.table.headers.deselect-all' : 'resource-policies.table.headers.select-all') | translate}}</span>
-            </label>
-          </div>
-        </th>
-        <th>{{'resource-policies.table.headers.id' | translate}}</th>
-        <th>{{'resource-policies.table.headers.name' | translate}}</th>
-        <th>{{'resource-policies.table.headers.policyType' | translate}}</th>
-        <th>{{'resource-policies.table.headers.action' | translate}}</th>
-        <th>{{'resource-policies.table.headers.eperson' | translate}}</th>
-        <th>{{'resource-policies.table.headers.group' | translate}}</th>
-        <th>{{'resource-policies.table.headers.date.start' | translate}}</th>
-        <th>{{'resource-policies.table.headers.date.end' | translate}}</th>
-        <th>{{'resource-policies.table.headers.edit' | translate}}</th>
-      </tr>
+      @if ((getResourcePolicies() | async)?.length > 0) {
+        <tr class="text-center">
+          <th>
+            <div class="custom-control custom-checkbox">
+              <input #selectAllBtn type="checkbox"
+                class="custom-control-input"
+                [id]="'selectAll_' + resourceUUID"
+                (change)="selectAllCheckbox($event)">
+              <label class="custom-control-label" [for]="'selectAll_' + resourceUUID">
+                <span class="sr-only">{{(selectAllBtn.checked ? 'resource-policies.table.headers.deselect-all' : 'resource-policies.table.headers.select-all') | translate}}</span>
+              </label>
+            </div>
+          </th>
+          <th>{{'resource-policies.table.headers.id' | translate}}</th>
+          <th>{{'resource-policies.table.headers.name' | translate}}</th>
+          <th>{{'resource-policies.table.headers.policyType' | translate}}</th>
+          <th>{{'resource-policies.table.headers.action' | translate}}</th>
+          <th>{{'resource-policies.table.headers.eperson' | translate}}</th>
+          <th>{{'resource-policies.table.headers.group' | translate}}</th>
+          <th>{{'resource-policies.table.headers.date.start' | translate}}</th>
+          <th>{{'resource-policies.table.headers.date.end' | translate}}</th>
+          <th>{{'resource-policies.table.headers.edit' | translate}}</th>
+        </tr>
+      }
     </thead>
-    <tbody *ngIf="(getResourcePolicies() | async)?.length > 0">
-      <tr ds-resource-policy-entry *ngFor="let entry of (getResourcePolicies() | async)"
-          [entry]="entry"
-          (toggleCheckbox)="selectCheckbox(entry, $event)"
-      ></tr>
-    </tbody>
+    @if ((getResourcePolicies() | async)?.length > 0) {
+      <tbody>
+        @for (entry of (getResourcePolicies() | async); track entry) {
+          <tr ds-resource-policy-entry
+            [entry]="entry"
+            (toggleCheckbox)="selectCheckbox(entry, $event)"
+          ></tr>
+        }
+      </tbody>
+    }
   </table>
 </div>

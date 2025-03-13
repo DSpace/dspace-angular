@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -35,7 +34,6 @@ export const ADVANCED_WORKFLOW_ACTION_RATING = 'scorereviewaction';
   preserveWhitespaces: false,
   imports: [
     ModifyItemOverviewComponent,
-    NgIf,
     AsyncPipe,
     TranslateModule,
     NgbRatingModule,

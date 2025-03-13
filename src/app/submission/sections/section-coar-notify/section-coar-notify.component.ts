@@ -1,8 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgForOf,
-  NgIf,
 } from '@angular/common';
 import {
   ChangeDetectorRef,
@@ -59,8 +57,6 @@ import { LdnPattern } from './submission-coar-notify.config';
   styleUrls: ['./section-coar-notify.component.scss'],
   standalone: true,
   imports: [
-    NgIf,
-    NgForOf,
     AsyncPipe,
     TranslateModule,
     NgbDropdownModule,
@@ -135,7 +131,7 @@ export class SubmissionSectionCoarNotifyComponent extends SectionModelComponent 
 
   /**
    * Method called when section is initialized
-   * Retriev available NotifyConfigs
+   * Retrieve available NotifyConfigs
    */
   setCoarNotifyConfig() {
     this.subs.push(

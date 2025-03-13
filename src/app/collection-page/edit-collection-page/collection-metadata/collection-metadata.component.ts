@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -56,7 +53,6 @@ import { getCollectionItemTemplateRoute } from '../../collection-page-routing-pa
     RouterLink,
     AsyncPipe,
     TranslateModule,
-    NgIf,
     VarDirective,
   ],
   standalone: true,
@@ -84,7 +80,7 @@ export class CollectionMetadataComponent extends ComcolMetadataComponent<Collect
   }
 
   /**
-   * Cheking if the navigation is done and if so, initialize the collection's item template,
+   * Checking if the navigation is done and if so, initialize the collection's item template,
    * to ensure that the item template is always up to date.
    * Check when a NavigationEnd event (URL change) or a Scroll event followed by a NavigationEnd event (refresh event), occurs
    */

@@ -1,9 +1,7 @@
-import {
-  KeyValuePipe,
-  NgForOf,
-} from '@angular/common';
+import { KeyValuePipe } from '@angular/common';
 import {
   Component,
+  OnInit,
   ViewChild,
 } from '@angular/core';
 import {
@@ -36,11 +34,10 @@ import { FilteredCollections } from './filtered-collections.model';
     NgbAccordionModule,
     FiltersComponent,
     KeyValuePipe,
-    NgForOf,
   ],
   standalone: true,
 })
-export class FilteredCollectionsComponent {
+export class FilteredCollectionsComponent implements OnInit {
 
   queryForm: FormGroup;
   results: FilteredCollections = new FilteredCollections();

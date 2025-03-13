@@ -13,9 +13,11 @@
     <ds-breadcrumbs></ds-breadcrumbs>
     <main class="my-cs" id="main-content">
 
-      <div class="container d-flex justify-content-center align-items-center h-100" *ngIf="shouldShowRouteLoader">
-        <ds-loading [showMessage]="false"></ds-loading>
-      </div>
+      @if (shouldShowRouteLoader) {
+        <div class="container d-flex justify-content-center align-items-center h-100">
+          <ds-loading [showMessage]="false"></ds-loading>
+        </div>
+      }
       <div [class.d-none]="shouldShowRouteLoader">
         <router-outlet></router-outlet>
       </div>
@@ -28,6 +30,10 @@
 <ds-notifications-board [options]="notificationOptions">
 </ds-notifications-board>
 
-<div class="ds-full-screen-loader" *ngIf="shouldShowFullscreenLoader">
-  <ds-loading [showMessage]="false"></ds-loading>
-</div>
+@if (shouldShowFullscreenLoader) {
+  <div class="ds-full-screen-loader">
+    <ds-loading [showMessage]="false"></ds-loading>
+  </div>
+}
+
+<ds-live-region></ds-live-region>

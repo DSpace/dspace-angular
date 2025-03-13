@@ -1,6 +1,5 @@
 import {
   NgClass,
-  NgIf,
   NgStyle,
 } from '@angular/common';
 import {
@@ -16,7 +15,7 @@ import { MetadataFieldWrapperComponent } from 'src/app/shared/metadata-field-wra
   selector: 'ds-item-page-cc-license-field',
   templateUrl: './item-page-cc-license-field.component.html',
   standalone: true,
-  imports: [NgIf, NgClass, NgStyle, TranslateModule, MetadataFieldWrapperComponent],
+  imports: [NgClass, NgStyle, TranslateModule, MetadataFieldWrapperComponent],
 })
 /**
  * Displays the item's Creative Commons license image in it's simple item page
@@ -34,13 +33,13 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
   @Input() variant?: 'small' | 'full' = 'small';
 
   /**
-   * Filed name containing the CC license URI, as configured in the back-end, in the 'dspace.cfg' file, propertie
+   * Filed name containing the CC license URI, as configured in the back-end, in the 'dspace.cfg' file, property
    * 'cc.license.uri'
    */
   @Input() ccLicenseUriField? = 'dc.rights.uri';
 
   /**
-   * Filed name containing the CC license name, as configured in the back-end, in the 'dspace.cfg' file, propertie
+   * Filed name containing the CC license name, as configured in the back-end, in the 'dspace.cfg' file, property
    * 'cc.license.name'
    */
   @Input() ccLicenseNameField? = 'dc.rights';

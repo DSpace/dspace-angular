@@ -1,8 +1,8 @@
+import { AsyncPipe } from '@angular/common';
 import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
-import { Component } from '@angular/core';
+  Component,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -20,7 +20,6 @@ import { ItemVersionsComponent } from '../../versions/item-versions.component';
   imports: [
     ItemVersionsComponent,
     VarDirective,
-    NgIf,
     AsyncPipe,
   ],
   standalone: true,
@@ -28,7 +27,7 @@ import { ItemVersionsComponent } from '../../versions/item-versions.component';
 /**
  * Component for listing and managing an item's version history
  */
-export class ItemVersionHistoryComponent {
+export class ItemVersionHistoryComponent implements OnInit {
   /**
    * The item to display the version history for
    */

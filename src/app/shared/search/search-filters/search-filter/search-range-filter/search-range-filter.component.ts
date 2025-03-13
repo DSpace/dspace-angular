@@ -1,8 +1,6 @@
 import {
   AsyncPipe,
   isPlatformBrowser,
-  NgFor,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -53,7 +51,7 @@ import {
   templateUrl: './search-range-filter.component.html',
   animations: [facetLoad],
   standalone: true,
-  imports: [FormsModule, NgIf, NouisliderComponent, DebounceDirective, NgFor, SearchFacetRangeOptionComponent, AsyncPipe, TranslateModule],
+  imports: [FormsModule, NouisliderComponent, DebounceDirective, SearchFacetRangeOptionComponent, AsyncPipe, TranslateModule],
 })
 
 /**
@@ -92,8 +90,13 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
   range: [number | undefined, number | undefined];
 
   /**
+   * The range currently selected by the slider
+   */
+  sliderRange: [number | undefined, number | undefined];
+
+  /**
    * Whether the sider is being controlled by the keyboard.
-   * Supresses any changes until the key is released.
+   * Suppresses any changes until the key is released.
    */
   keyboardControl: boolean;
 
@@ -146,6 +149,15 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
   }
 
   /**
+   * Updates the sliderRange property with the current slider range.
+   * This method is called whenever the slider value changes, but it does not immediately apply the changes.
+   * @param range - The current range selected by the slider
+   */
+  onSliderChange(range: [number | undefined, number | undefined]): void {
+    this.sliderRange = range;
+  }
+
+  /**
    * Submits new custom range values to the range filter from the widget
    */
   onSubmit() {
@@ -182,5 +194,4 @@ export class SearchRangeFilterComponent extends SearchFacetFilterComponent imple
   shouldShowSlider(): boolean {
     return isPlatformBrowser(this.platformId);
   }
-
 }

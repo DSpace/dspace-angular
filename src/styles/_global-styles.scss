@@ -37,23 +37,27 @@ body {
     z-index: 0;
 }
 
-.klaro
-.cookie-notice {
-  .cn-buttons {
-    .cm-btn.cm-btn-success {
-      color: var(--button-text-color-cookie);
-      background-color: var(--green1);
-    }
-    .cm-btn.cm-btn-success.cm-btn-accept-all {
-      color: var(--button-text-color-cookie);
-      background-color: var(--green1);
-    }
+.orejime-AppContainer .orejime-Notice-actionItem {
+  &.orejime-Notice-actionItem--save > button {
+    color: var(--button-text-color-cookie);
+    background-color: var(--green1);
   }
 }
 
-.klaro .cookie-modal a, .klaro .context-notice a, .klaro .cookie-notice a
-{
-  color: var(--green1);
+.orejime-ModalPortal {
+  .orejime-Button.orejime-AppToggles-enableAll,
+  .orejime-Modal-saveButton {
+    color: var(--button-text-color-cookie);
+    background-color: var(--green1);
+  }
+
+  .orejime-Modal-closeButton svg {
+    cursor: pointer;
+  }
+
+  a {
+    color: var(--bs-white);
+  }
 }
 
 .media-viewer
@@ -121,11 +125,11 @@ ngb-modal-backdrop {
 }
 
 /* Complement .space-children-mr when spaced elements are not on the same level */
-.mr-gap {
+.me-gap {
     margin-right: var(--ds-gap);
 }
 
-.ml-gap {
+.ms-gap {
     margin-left: var(--ds-gap);
 }
 
@@ -234,27 +238,27 @@ ds-dynamic-form-control-container.d-none {
 }
 
 .badge-validation {
-    background-color: #{map-get($theme-colors, warning)};
+  background-color: #{$warning};
 }
 
 .badge-waiting-controller {
-    background-color: #{map-get($theme-colors, info)};
+  background-color: #{$info};
 }
 
 .badge-workspace {
-    background-color: #{map-get($theme-colors, primary)};
+  background-color: #{$primary};
 }
 
 .badge-archived {
-    background-color: darken($green, 25);
+  background-color: #{$success};
 }
 
 .badge-workflow {
-    background-color: #{map-get($theme-colors, info)};
+  background-color: #{$info};
 }
 
 .badge-item-type {
-    background-color: #{map-get($theme-colors, info)};
+  background-color: #{$info};
 }
 
 .visually-hidden {
@@ -459,6 +463,17 @@ ngb-accordion {
     color: darken($danger, 22%);
 }
 
+// An element that is disabled should not have focus styles to avoid confusion
+// It however is still focusable for screen readers and keyboard navigation
+.disabled {
+    pointer-events: none;
+}
+
+.disabled:focus {
+    outline: none;
+    box-shadow: none;
+}
+
 // Margin utility classes based on DSpace content spacing
 .mt-cs { margin-top: var(--ds-content-spacing); }
 .mb-cs { margin-bottom: var(--ds-content-spacing); }
@@ -466,3 +481,65 @@ ngb-accordion {
 .mt-ncs { margin-top: calc(var(--ds-content-spacing) * -1); }
 .mb-ncs { margin-bottom: calc(var(--ds-content-spacing) * -1); }
 .my-ncs { margin-top: calc(var(--ds-content-spacing) * -1); margin-bottom: calc(var(--ds-content-spacing) * -1); }
+
+/* form-check-input Changed from Bootstrap 5's form-check-input to ensure that we keep the default checkboxes */
+.form-check-input {
+  border-color: unset;
+  appearance: auto; /* Reset to browser's default appearance */
+}
+
+/* Custom fas font-family; Makes it so that BootStrap classes don't override it (Typically used for icons) */
+.btn.fas {
+  font-family: $icon-font-family;
+}
+
+/* btn-close Changed from Bootstrap 5's .btn-close to ensure the button close button has the original size */
+.btn-close {
+  transform: scale(0.6);
+}
+
+/* Make sure every element of a single drag-item is on the same line */
+.drag-item-container > * {
+  width: auto;
+}
+
+
+.btn.btn-success {
+  color: #fff;
+}
+
+.btn.btn-success:hover {
+  color: #fff;
+}
+
+.table {
+  --bs-table-accent-bg: #fff;
+}
+
+ngb-tooltip-window {
+  margin-bottom: 0.25rem !important;
+  &> .tooltip-inner > .text-muted {
+    color: #{$gray-600} !important;
+  }
+}
+
+.table thead th {
+  border-bottom: 2px solid #{$gray-300};
+  border-top: 1px solid #{$gray-300};
+}
+
+.custom-alignment {
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+  width: 100%;
+  padding-right: calc(var(--bs-gutter-x) * 0.5);
+  padding-left: calc(var(--bs-gutter-x) * 0.5);
+}
+
+
+.link-contrast {
+  // Rules for accessibility to meet minimum contrast and have an identifiable link between other texts
+  color: darken($link-color, 5%);
+  // We use underline to discern link from text as we can't make color lighter on a white bg
+  text-decoration: underline;
+}

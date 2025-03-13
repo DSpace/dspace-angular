@@ -1,11 +1,9 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
   Input,
+  OnInit,
   Output,
 } from '@angular/core';
 import { Router } from '@angular/router';
@@ -50,7 +48,6 @@ import { SearchResult } from '../../../../../search/models/search-result.model';
     PageSizeSelectorComponent,
     ObjectCollectionComponent,
     AsyncPipe,
-    NgIf,
     TranslateModule,
   ],
   standalone: true,
@@ -59,7 +56,7 @@ import { SearchResult } from '../../../../../search/models/search-result.model';
 /**
  * Tab for inside the lookup model that represents the currently selected relationships
  */
-export class DsDynamicLookupRelationSelectionTabComponent {
+export class DsDynamicLookupRelationSelectionTabComponent implements OnInit {
   /**
    * A string that describes the type of relationship
    */
@@ -122,7 +119,7 @@ export class DsDynamicLookupRelationSelectionTabComponent {
   /**
    * Set up the selection and pagination on load
    */
-  ngOnInit() {
+  ngOnInit(): void {
     this.resetRoute();
     this.selectionRD$ = this.searchConfigService.paginatedSearchOptions
       .pipe(

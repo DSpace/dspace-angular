@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgFor,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -41,7 +37,7 @@ import { ThemedLoadingComponent } from '../loading/themed-loading.component';
   templateUrl: './entity-dropdown.component.html',
   styleUrls: ['./entity-dropdown.component.scss'],
   standalone: true,
-  imports: [InfiniteScrollModule, NgIf, NgFor, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [InfiniteScrollModule, ThemedLoadingComponent, AsyncPipe, TranslateModule],
 })
 export class EntityDropdownComponent implements OnInit, OnDestroy {
   /**
@@ -146,7 +142,7 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Method used from infitity scroll for retrive more data on scroll down
+   * Method used from infitity scroll for retrieve more data on scroll down
    */
   public onScrollDown() {
     if ( this.hasNextPage ) {

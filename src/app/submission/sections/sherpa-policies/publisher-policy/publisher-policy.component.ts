@@ -1,8 +1,4 @@
-import {
-  KeyValuePipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { KeyValuePipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -14,7 +10,7 @@ import { AlertType } from '../../../../shared/alert/alert-type';
 import { ContentAccordionComponent } from '../content-accordion/content-accordion.component';
 
 /**
- * This component represents a section that contains the publisher policy informations.
+ * This component represents a section that contains the publisher policy information.
  */
 @Component({
   selector: 'ds-publisher-policy',
@@ -24,8 +20,6 @@ import { ContentAccordionComponent } from '../content-accordion/content-accordio
     ContentAccordionComponent,
     TranslateModule,
     KeyValuePipe,
-    NgForOf,
-    NgIf,
   ],
   standalone: true,
 })

@@ -1,8 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgFor,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -20,6 +18,7 @@ import { getCollectionPageRoute } from '../../../collection-page/collection-page
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Collection } from '../../../core/shared/collection.model';
 import { getAllSucceededRemoteDataPayload } from '../../../core/shared/operators';
+import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import {
   hasValueOperator,
   isNotEmpty,
@@ -36,7 +35,7 @@ import { ObjectSelectComponent } from '../object-select/object-select.component'
   templateUrl: './collection-select.component.html',
   styleUrls: ['./collection-select.component.scss'],
   standalone: true,
-  imports: [VarDirective, NgIf, PaginationComponent, NgFor, FormsModule, RouterLink, ErrorComponent, ThemedLoadingComponent, NgClass, AsyncPipe, TranslateModule],
+  imports: [VarDirective, PaginationComponent, FormsModule, RouterLink, ErrorComponent, ThemedLoadingComponent, NgClass, AsyncPipe, TranslateModule, BtnDisabledDirective],
 })
 
 /**
@@ -46,7 +45,7 @@ export class CollectionSelectComponent extends ObjectSelectComponent<Collection>
 
   /**
    * Collection of all the data that is used to display the {@link Collection} in the HTML.
-   * By collecting this data here it doesn't need to be recalculated on evey change detection.
+   * By collecting this data here it doesn't need to be recalculated on every change detection.
    */
   selectCollections$: Observable<DSpaceObjectSelect<Collection>[]>;
 

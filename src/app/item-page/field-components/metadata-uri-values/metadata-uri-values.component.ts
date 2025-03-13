@@ -1,7 +1,4 @@
-import {
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+
 import {
   Component,
   Input,
@@ -26,8 +23,6 @@ import { MetadataValuesComponent } from '../metadata-values/metadata-values.comp
   imports: [
     MetadataFieldWrapperComponent,
     TranslateModule,
-    NgForOf,
-    NgIf,
   ],
   standalone: true,
 })
@@ -45,7 +40,7 @@ export class MetadataUriValuesComponent extends MetadataValuesComponent {
   @Input() mdValues: MetadataValue[];
 
   /**
-   * The seperator used to split the metadata values (can contain HTML)
+   * The separator used to split the metadata values (can contain HTML)
    */
   @Input() separator: string;
 

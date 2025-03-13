@@ -9,8 +9,6 @@
   // "401.unauthorized": "unauthorized",
   "401.unauthorized": "unautorisiert",
 
-
-
   // "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
   "403.help": "Sie sind nicht berechtigt, auf diese Seite zuzugreifen. Über den Button unten auf der Seite gelangen Sie zurück zur Startseite.",
 
@@ -20,8 +18,6 @@
   // "403.forbidden": "forbidden",
   "403.forbidden": "verboten",
 
-
-
   // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
   "404.help": "Die Seite konnte nicht gefunden werden. Eventuell wurde sie verschoben oder gelöscht. Über den Button unten auf der Seite gelangen Sie zurück zur Startseite.",
 
@@ -30,6 +26,16 @@
 
   // "404.page-not-found": "page not found",
   "404.page-not-found": "Seite nicht gefunden",
+
+  // "500.page-internal-server-error": "Service unavailable",
+  "500.page-internal-server-error": "Dienst nicht verfügbar",
+
+  // "500.help": "The server is temporarily unable to service your request due to maintenance downtime or capacity problems. Please try again later.",
+  "500.help": "Der Dienst steht momentan nicht zur Verfügung. Bitte versuchen Sie es später noch einmal.",
+
+  // "500.link.home-page": "Take me to the home page",
+  "500.link.home-page": "Zur Startseite",
+
 
   // "admin.access-control.epeople.breadcrumbs": "EPeople",
   "admin.access-control.epeople.breadcrumbs": "Personen suchen",
@@ -724,11 +730,6 @@
   // TODO New key - Add a translation
   "admin.reports.collections.match_all_selected_filters": "Matching all selected filters",
 
-
-  //"admin.reports.items.title": "Metadata Query Report",
-  // TODO New key - Add a translation
-  "admin.reports.items.title": "Metadata Query Report",
-
   //"admin.reports.items.breadcrumbs": "Metadata Query Report",
   // TODO New key - Add a translation
   "admin.reports.items.breadcrumbs": "Metadata Query Report",
@@ -880,7 +881,6 @@
   //"admin.reports.items.title": "Title",
   // TODO New key - Add a translation
   "admin.reports.items.title": "Title",
-
 
   //"admin.reports.commons.filters": "Filters",
   // TODO New key - Add a translation
@@ -3450,7 +3450,7 @@
   "journalissue.listelement.badge": "Zeitschriftenheft",
 
   // "journalissue.page.description": "Description",
-  "journalissue.page.description": "Beschreibeung",
+  "journalissue.page.description": "Beschreibung",
 
   // "journalissue.page.edit": "Edit this item",
   "journalissue.page.edit": "Dieses Item bearbeiten",
@@ -4197,32 +4197,66 @@
 
 
 
-  // "process.overview.table.finish" : "Finish time",
+  // "process.overview.table.finish": "Finish time",
   "process.overview.table.finish": "Schlusszeit",
 
-  // "process.overview.table.id" : "Process ID",
+  // "process.overview.table.id": "Process ID",
   "process.overview.table.id": "Prozess ID",
 
-  // "process.overview.table.name" : "Name",
+  // "process.overview.table.name": "Name",
   "process.overview.table.name": "Name",
 
-  // "process.overview.table.start" : "Start time",
+  // "process.overview.table.start": "Start time",
   "process.overview.table.start": "Startzeit",
 
-  // "process.overview.table.status" : "Status",
+  // "process.overview.table.status": "Status",
   "process.overview.table.status": "Status",
 
-  // "process.overview.table.user" : "User",
+  // "process.overview.table.user": "User",
   "process.overview.table.user": "Benutzer:in",
 
   // "process.overview.title": "Processes Overview",
-  "process.overview.title": "Überblick der Prozesse",
+  "process.overview.title": "Übersicht der Prozesse",
 
   // "process.overview.breadcrumbs": "Processes Overview",
-  "process.overview.breadcrumbs": "Überblick der Prozesse",
+  "process.overview.breadcrumbs": "Übersicht der Prozesse",
 
   // "process.overview.new": "New",
   "process.overview.new": "Neu",
+
+  // "process.overview.table.actions": "Actions",
+  "process.overview.table.actions": "Aktionen",
+
+  // "process.overview.delete": "Delete {{count}} processes",
+  "process.overview.delete": "Lösche {{count}} Prozesse",
+
+  // "process.overview.delete-process": "Delete process",
+  "process.overview.delete-process": "Lösche Prozess",
+
+  // "process.overview.delete.clear": "Clear delete selection",
+  "process.overview.delete.clear": "Auswahl aufheben",
+
+  // "process.overview.delete.processing": "{{count}} process(es) are being deleted. Please wait for the deletion to fully complete. Note that this can take a while.",
+  "process.overview.delete.processing": "Es werden {{count}} Prozesse gelöscht. Diese Aktion kann einige Zeit dauern. Bitte warten Sie bis zum Abschluss der Aktion.",
+
+  // "process.overview.delete.body": "Are you sure you want to delete {{count}} process(es)?",
+  "process.overview.delete.body": "Wollen Sie tatsächlich {{count}} Prozesse löschen?",
+
+  // "process.overview.delete.header": "Delete processes",
+  "process.overview.delete.header": "Prozess löschen",
+
+  // "process.overview.unknown.user": "Unknown",
+  "process.overview.unknown.user": "Unbekannt",
+
+  // "process.bulk.delete.error.head": "Error on deleteing process",
+  "process.bulk.delete.error.head": "Fehler beim Löschen des Prozesses",
+
+  // "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted.",
+  "process.bulk.delete.error.body": "Der Prozess mit ID {{processId}} konnte nicht gelöscht werden. Es wird versucht, die verbleibenden Prozesse zu löschen.",
+
+  // "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
+  "process.bulk.delete.success": "Es wurden {{count}} Prozesse erfolgreich gelöscht.",
+
 
 
   // "profile.breadcrumbs": "Update Profile",
@@ -5226,6 +5260,12 @@
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Import remote journal volume",
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Zeitschriftenband importieren",
 
+  // "submission.sections.describe.relationship-lookup.external-source.import-button-title.none": "Import remote item",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.none": "Item importieren",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Publication": "Import remote publication",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Publication": "Metadaten der Publikation importieren",
+
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Import Remote Author",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Importiere Autor:innen-Metadaten",
 
@@ -5560,10 +5600,10 @@
   "submission.sections.general.deposit_error_notice": "Beim Einreichen des Items ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal.",
 
   // "submission.sections.general.deposit_success_notice": "Submission deposited successfully.",
-  "submission.sections.general.deposit_success_notice": "Veröffentlichung erfolgreich eingereicht",
+  "submission.sections.general.deposit_success_notice": "Veröffentlichung erfolgreich eingereicht.",
 
   // "submission.sections.general.discard_error_notice": "There was an issue when discarding the item, please try again later.",
-  "submission.sections.general.discard_error_notice": "Beim Verwerfen der Einreichung ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal",
+  "submission.sections.general.discard_error_notice": "Beim Verwerfen der Einreichung ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal.",
 
   // "submission.sections.general.discard_success_notice": "Submission discarded successfully.",
   "submission.sections.general.discard_success_notice": "Einreichung erfolgreich verworfen.",
@@ -5881,7 +5921,7 @@
   "workflow-item.delete.notification.success.title": "Gelöscht",
 
   // "workflow-item.delete.notification.success.content": "This workflow item was successfully deleted",
-  "workflow-item.delete.notification.success.content": "Dieses Workflow-Item wurde gelöscht.",
+  "workflow-item.delete.notification.success.content": "Dieses Workflow-Item wurde erfolgreich gelöscht.",
 
   // "workflow-item.delete.notification.error.title": "Something went wrong",
   "workflow-item.delete.notification.error.title": "Das hat leider nicht funktioniert.",
@@ -5926,4 +5966,46 @@
   // "workflow-item.send-back.button.confirm": "Send back"
   "workflow-item.send-back.button.confirm": "Zurücksenden",
 
+  // "workflow-item.view.breadcrumbs": "Workflow View",
+  "workflow-item.view.breadcrumbs": "Workflow-Ansicht",
+
+  // "workspace-item.view.breadcrumbs": "Workspace View",
+  "workspace-item.view.breadcrumbs": "Workspace-Ansicht",
+
+  // "workspace-item.view.title": "Workspace View",
+  "workspace-item.view.title": "Workspace-Ansicht",
+
+  // "workspace-item.delete.breadcrumbs": "Workspace Delete",
+  "workspace-item.delete.breadcrumbs": "Workspace-Item löschen",
+
+  // "workspace-item.delete.header": "Delete workspace item",
+  "workspace-item.delete.header": "Workspace-Item löschen",
+
+  // "workspace-item.delete.button.confirm": "Delete",
+  "workspace-item.delete.button.confirm": "Löschen",
+
+  // "workspace-item.delete.button.cancel": "Cancel",
+  "workspace-item.delete.button.cancel": "Abbrechen",
+
+  // "workspace-item.delete.notification.success.title": "Deleted",
+  "workspace-item.delete.notification.success.title": "Gelöscht",
+
+  // "workspace-item.delete.title": "This workspace item was successfully deleted",
+  "workspace-item.delete.title": "Dieses Workspace-Item wurde erfolgreich gelöscht.",
+
+  // "workspace-item.delete.notification.error.title": "Something went wrong",
+  "workspace-item.delete.notification.error.title": "Das hat leider nicht funktioniert.",
+
+  // "workspace-item.delete.notification.error.content": "The workspace item could not be deleted",
+  "workspace-item.delete.notification.error.content": "Das Workspace-Item konnte nicht gelöscht werden.",
+
+
+  // "form.date-picker.placeholder.year": "Year",
+  "form.date-picker.placeholder.year": "Jahr",
+
+  // "form.date-picker.placeholder.month": "Month",
+  "form.date-picker.placeholder.month": "Monat",
+
+  // "form.date-picker.placeholder.day": "Day",
+  "form.date-picker.placeholder.day": "Tag",
 }

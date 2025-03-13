@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   Inject,
@@ -10,6 +10,7 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { MenuSectionComponent } from 'src/app/shared/menu/menu-section/menu-section.component';
 
+import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import { isNotEmpty } from '../../../empty.util';
 import { MenuService } from '../../../menu/menu.service';
 import { MenuID } from '../../../menu/menu-id.model';
@@ -23,7 +24,7 @@ import { MenuSection } from '../../../menu/menu-section.model';
   templateUrl: './dso-edit-menu-section.component.html',
   styleUrls: ['./dso-edit-menu-section.component.scss'],
   standalone: true,
-  imports: [NgIf, NgbTooltipModule, RouterLink, TranslateModule],
+  imports: [NgbTooltipModule, RouterLink, TranslateModule, BtnDisabledDirective],
 })
 export class DsoEditMenuSectionComponent extends MenuSectionComponent implements OnInit {
 
@@ -48,7 +49,7 @@ export class DsoEditMenuSectionComponent extends MenuSectionComponent implements
   }
 
   /**
-   * Activate the section's model funtion
+   * Activate the section's model function
    */
   public activate(event: any) {
     event.preventDefault();

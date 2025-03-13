@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -52,7 +49,6 @@ import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
     AsyncPipe,
     ComcolPageHeaderComponent,
     ComcolPageLogoComponent,
-    NgIf,
     ThemedComcolPageHandleComponent,
     ThemedComcolPageContentComponent,
     DsoEditMenuComponent,
@@ -154,7 +150,7 @@ export class BrowseByTaxonomyComponent implements OnInit, OnChanges, OnDestroy {
       this.facetType = browseDefinition.facetType;
       this.vocabularyName = browseDefinition.vocabulary;
       this.vocabularyOptions = { name: this.vocabularyName, closed: true };
-      this.description = this.translate.instant(`browse.metadata.${this.vocabularyName}.tree.descrption`);
+      this.description = this.translate.instant(`browse.metadata.${this.vocabularyName}.tree.description`);
     }));
     this.subs.push(this.scope$.subscribe(() => {
       this.updateQueryParams();

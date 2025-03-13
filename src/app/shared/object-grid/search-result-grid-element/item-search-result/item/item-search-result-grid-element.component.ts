@@ -1,9 +1,8 @@
+import { AsyncPipe } from '@angular/common';
 import {
-  AsyncPipe,
-  NgFor,
-  NgIf,
-} from '@angular/common';
-import { Component } from '@angular/core';
+  Component,
+  OnInit,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -30,12 +29,12 @@ import { SearchResultGridElementComponent } from '../../search-result-grid-eleme
   templateUrl: './item-search-result-grid-element.component.html',
   animations: [focusShadow],
   standalone: true,
-  imports: [NgIf, RouterLink, ThemedThumbnailComponent, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent, NgFor, AsyncPipe, TranslateModule],
+  imports: [RouterLink, ThemedThumbnailComponent, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent, AsyncPipe, TranslateModule],
 })
 /**
  * The component for displaying a grid element for an item search result of the type Publication
  */
-export class ItemSearchResultGridElementComponent extends SearchResultGridElementComponent<ItemSearchResult, Item> {
+export class ItemSearchResultGridElementComponent extends SearchResultGridElementComponent<ItemSearchResult, Item> implements OnInit {
   /**
    * Route to the item's page
    */

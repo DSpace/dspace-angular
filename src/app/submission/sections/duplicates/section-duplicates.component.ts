@@ -1,12 +1,9 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   Inject,
+  OnInit,
 } from '@angular/core';
 import {
   TranslateModule,
@@ -40,15 +37,13 @@ import { SectionsService } from '../sections.service';
   changeDetection: ChangeDetectionStrategy.Default,
   imports: [
     VarDirective,
-    NgIf,
     AsyncPipe,
     TranslateModule,
-    NgForOf,
   ],
   standalone: true,
 })
 
-export class SubmissionSectionDuplicatesComponent extends SectionModelComponent {
+export class SubmissionSectionDuplicatesComponent extends SectionModelComponent implements OnInit {
   protected readonly Metadata = Metadata;
   /**
    * The Alert categories.

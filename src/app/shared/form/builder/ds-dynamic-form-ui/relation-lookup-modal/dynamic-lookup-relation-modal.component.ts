@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -50,6 +46,7 @@ import {
 } from '../../../../../core/shared/operators';
 import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
+import { BtnDisabledDirective } from '../../../../btn-disabled.directive';
 import {
   hasValue,
   isNotEmpty,
@@ -85,12 +82,11 @@ import { DsDynamicLookupRelationSelectionTabComponent } from './selection-tab/dy
     ThemedDynamicLookupRelationExternalSourceTabComponent,
     TranslateModule,
     ThemedLoadingComponent,
-    NgIf,
     NgbNavModule,
     ThemedDynamicLookupRelationSearchTabComponent,
     AsyncPipe,
-    NgForOf,
     DsDynamicLookupRelationSelectionTabComponent,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

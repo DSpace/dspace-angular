@@ -1,11 +1,11 @@
 import {
   AsyncPipe,
   DatePipe,
-  NgFor,
-  NgIf,
 } from '@angular/common';
 import {
+  AfterViewInit,
   Component,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
@@ -38,9 +38,9 @@ import { NotificationsStateService } from '../../notifications-state.service';
   templateUrl: './quality-assurance-source.component.html',
   styleUrls: ['./quality-assurance-source.component.scss'],
   standalone: true,
-  imports: [AlertComponent, NgIf, ThemedLoadingComponent, PaginationComponent, NgFor, RouterLink, AsyncPipe, TranslateModule, DatePipe],
+  imports: [AlertComponent, ThemedLoadingComponent, PaginationComponent, RouterLink, AsyncPipe, TranslateModule, DatePipe],
 })
-export class QualityAssuranceSourceComponent implements OnInit {
+export class QualityAssuranceSourceComponent implements OnDestroy, OnInit, AfterViewInit {
 
   /**
    * The pagination system configuration for HTML listing.
@@ -123,7 +123,7 @@ export class QualityAssuranceSourceComponent implements OnInit {
   }
 
   /**
-   * Dispatch the Quality Assurance source retrival.
+   * Dispatch the Quality Assurance source retrieval.
    */
   public getQualityAssuranceSource(): void {
     this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig).pipe(

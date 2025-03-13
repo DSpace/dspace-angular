@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   Location,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -55,6 +54,7 @@ import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
 } from '../../../core/shared/operators';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import {
   hasValue,
   isNotEmpty,
@@ -70,7 +70,7 @@ import { getItemPageRoute } from '../../item-page-routing-paths';
     RouterLink,
     AsyncPipe,
     ReactiveFormsModule,
-    NgIf,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })
@@ -253,7 +253,7 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Retrieves the link to the bistream download page
+   * Retrieves the link to the bitstream download page
    */
   getBitstreamLink() {
     return [getBitstreamDownloadRoute(this.bitstream)];

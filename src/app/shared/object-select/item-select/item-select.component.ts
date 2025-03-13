@@ -1,8 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgFor,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -19,6 +17,7 @@ import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Item } from '../../../core/shared/item.model';
 import { getAllSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
+import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import {
   hasValueOperator,
   isNotEmpty,
@@ -34,7 +33,7 @@ import { ObjectSelectComponent } from '../object-select/object-select.component'
   selector: 'ds-item-select',
   templateUrl: './item-select.component.html',
   standalone: true,
-  imports: [VarDirective, NgIf, PaginationComponent, NgFor, FormsModule, RouterLink, ErrorComponent, ThemedLoadingComponent, NgClass, AsyncPipe, TranslateModule],
+  imports: [VarDirective, PaginationComponent, FormsModule, RouterLink, ErrorComponent, ThemedLoadingComponent, NgClass, AsyncPipe, TranslateModule, BtnDisabledDirective],
 })
 
 /**
@@ -50,7 +49,7 @@ export class ItemSelectComponent extends ObjectSelectComponent<Item> implements 
 
   /**
    * Collection of all the data that is used to display the {@link Item} in the HTML.
-   * By collecting this data here it doesn't need to be recalculated on evey change detection.
+   * By collecting this data here it doesn't need to be recalculated on every change detection.
    */
   selectItems$: Observable<DSpaceObjectSelect<Item>[]>;
 

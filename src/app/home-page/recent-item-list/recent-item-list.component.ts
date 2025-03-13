@@ -2,14 +2,13 @@ import {
   AsyncPipe,
   isPlatformBrowser,
   NgClass,
-  NgFor,
-  NgIf,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
   Inject,
+  OnDestroy,
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
@@ -60,9 +59,9 @@ import { VarDirective } from '../../shared/utils/var.directive';
     fadeInOut,
   ],
   standalone: true,
-  imports: [VarDirective, NgIf, NgClass, NgFor, ListableObjectComponentLoaderComponent, ErrorComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [VarDirective, NgClass, ListableObjectComponentLoaderComponent, ErrorComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
 })
-export class RecentItemListComponent implements OnInit {
+export class RecentItemListComponent implements OnInit, OnDestroy {
   itemRD$: Observable<RemoteData<PaginatedList<Item>>>;
   paginationConfig: PaginationComponentOptions;
   sortConfig: SortOptions;
@@ -96,6 +95,9 @@ export class RecentItemListComponent implements OnInit {
     const linksToFollow: FollowLinkConfig<Item>[] = [];
     if (this.appConfig.browseBy.showThumbnails) {
       linksToFollow.push(followLink('thumbnail'));
+    }
+    if (this.appConfig.item.showAccessStatuses) {
+      linksToFollow.push(followLink('accessStatus'));
     }
 
     this.itemRD$ = this.searchService.search(

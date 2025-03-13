@@ -1,7 +1,5 @@
 import {
   AsyncPipe,
-  NgForOf,
-  NgIf,
   NgTemplateOutlet,
 } from '@angular/common';
 import {
@@ -9,6 +7,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnDestroy,
   OnInit,
   Output,
   ViewChild,
@@ -58,6 +57,7 @@ import { Vocabulary } from '../../../../../../core/submission/vocabularies/model
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import {
   hasValue,
   isEmpty,
@@ -81,18 +81,17 @@ import { DynamicOneboxModel } from './dynamic-onebox.model';
   templateUrl: './dynamic-onebox.component.html',
   imports: [
     NgbTypeaheadModule,
-    NgIf,
     AsyncPipe,
     AuthorityConfidenceStateDirective,
     NgTemplateOutlet,
     TranslateModule,
     ObjNgFor,
-    NgForOf,
     FormsModule,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })
-export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent implements OnInit {
+export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent implements OnDestroy, OnInit {
 
   @Input() group: UntypedFormGroup;
   @Input() model: DynamicOneboxModel;

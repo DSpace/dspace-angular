@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import {
   Component,
@@ -40,6 +37,7 @@ import {
 } from '../../../../core/shared/operators';
 import { Process } from '../../../../process-page/processes/process.model';
 import { ProcessStatus } from '../../../../process-page/processes/process-status.model';
+import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { hasValue } from '../../../../shared/empty.util';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { VarDirective } from '../../../../shared/utils/var.directive';
@@ -54,8 +52,8 @@ import { VarDirective } from '../../../../shared/utils/var.directive';
   imports: [
     TranslateModule,
     AsyncPipe,
-    NgIf,
     VarDirective,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })
@@ -95,7 +93,7 @@ export class CollectionSourceControlsComponent implements OnInit, OnDestroy {
   ) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     // ensure the contentSource gets updated after being set to stale
     this.contentSource$ = this.collectionService.findByHref(this.collection._links.self.href, false).pipe(
       getAllSucceededRemoteDataPayload(),
