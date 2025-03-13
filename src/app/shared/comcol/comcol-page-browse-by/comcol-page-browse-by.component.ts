@@ -121,6 +121,8 @@ export class ComcolPageBrowseByComponent implements OnDestroy, OnInit {
             routerLink: `${comColRoute}/browse/${config.id}`,
           })));
 
+          // When the default tab is not the "search" tab, the "search" tab is moved
+          // at the end of the tabs ribbon for aesthetics purposes.
           if (this.appConfig[this.contentType].defaultBrowseTab !== 'search') {
             allOptions.push(allOptions.shift());
           }
@@ -138,17 +140,16 @@ export class ComcolPageBrowseByComponent implements OnDestroy, OnInit {
         distinctUntilChanged(),
       ),
     ]).subscribe(([navOptions, url]: [ComColPageNavOption[], string]) => {
-      if (url?.split('?')[0].endsWith(`/${this.id}`)) {
-        const option = navOptions.find(o => o.id === this.appConfig[this.contentType].defaultBrowseTab);
-        void this.router.navigate([option.routerLink], { queryParams: option.params });
-      } else {
-        for (const option of navOptions) {
-          if (option.routerLink === url?.split('?')[0]) {
-            this.currentOption$.next(option);
-          }
+      for (const option of navOptions) {
+        if (option.routerLink === url?.split('?')[0]) {
+          this.currentOption$.next(option);
         }
       }
     }));
+
+    if (this.router.url?.split('?')[0].endsWith(`/${this.id}`)) {
+      void this.router.navigate([this.router.url, this.appConfig[this.contentType].defaultBrowseTab]);
+    }
   }
 
   ngOnDestroy(): void {
