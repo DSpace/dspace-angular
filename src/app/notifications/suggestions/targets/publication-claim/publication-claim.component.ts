@@ -2,7 +2,7 @@ import { AsyncPipe } from '@angular/common';
 import {
   AfterViewInit,
   Component,
-  Input,
+  input,
   OnDestroy,
   OnInit,
 } from '@angular/core';
@@ -51,14 +51,14 @@ export class PublicationClaimComponent implements AfterViewInit, OnDestroy, OnIn
   /**
    * The source for which to list targets
    */
-  @Input() source = '';
+  sourceId = input<string>();
 
   /**
    * The pagination system configuration for HTML listing.
    * @type {PaginationComponentOptions}
    */
   public paginationConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: 'stp_' + this.source,
+    id: 'stp_' + this.sourceId,
     pageSizeOptions: [5, 10, 20, 40, 60],
   });
 
@@ -95,8 +95,8 @@ export class PublicationClaimComponent implements AfterViewInit, OnDestroy, OnIn
    * Component initialization.
    */
   ngOnInit(): void {
-    this.targets$ = this.suggestionTargetsStateService.getSuggestionTargets(this.source);
-    this.totalElements$ = this.suggestionTargetsStateService.getSuggestionTargetsTotals(this.source);
+    this.targets$ = this.suggestionTargetsStateService.getSuggestionTargets(this.sourceId());
+    this.totalElements$ = this.suggestionTargetsStateService.getSuggestionTargetsTotals(this.sourceId());
   }
 
   /**
@@ -104,7 +104,7 @@ export class PublicationClaimComponent implements AfterViewInit, OnDestroy, OnIn
    */
   ngAfterViewInit(): void {
     this.subs.push(
-      this.suggestionTargetsStateService.isSuggestionTargetsLoaded(this.source).pipe(
+      this.suggestionTargetsStateService.isSuggestionTargetsLoaded(this.sourceId()).pipe(
         take(1),
       ).subscribe(() => {
         this.getSuggestionTargets();
@@ -119,7 +119,7 @@ export class PublicationClaimComponent implements AfterViewInit, OnDestroy, OnIn
    *    'true' if the targets are loading, 'false' otherwise.
    */
   public isTargetsLoading(): Observable<boolean> {
-    return this.suggestionTargetsStateService.isSuggestionTargetsLoading(this.source);
+    return this.suggestionTargetsStateService.isSuggestionTargetsLoading(this.sourceId());
   }
 
   /**
@@ -129,7 +129,7 @@ export class PublicationClaimComponent implements AfterViewInit, OnDestroy, OnIn
    *    'true' if there are operations running on the targets (ex.: a REST call), 'false' otherwise.
    */
   public isTargetsProcessing(): Observable<boolean> {
-    return this.suggestionTargetsStateService.isSuggestionTargetsProcessing(this.source);
+    return this.suggestionTargetsStateService.isSuggestionTargetsProcessing(this.sourceId());
   }
 
   /**
@@ -146,7 +146,7 @@ export class PublicationClaimComponent implements AfterViewInit, OnDestroy, OnIn
    * Unsubscribe from all subscriptions.
    */
   ngOnDestroy(): void {
-    this.suggestionTargetsStateService.dispatchClearSuggestionTargetsAction(this.source);
+    this.suggestionTargetsStateService.dispatchClearSuggestionTargetsAction(this.sourceId());
     this.subs
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
@@ -161,7 +161,7 @@ export class PublicationClaimComponent implements AfterViewInit, OnDestroy, OnIn
       take(1),
     ).subscribe((options: PaginationComponentOptions) => {
       this.suggestionTargetsStateService.dispatchRetrieveSuggestionTargets(
-        this.source,
+        this.sourceId(),
         options.pageSize,
         options.currentPage,
       );

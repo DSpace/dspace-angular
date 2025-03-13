@@ -6,16 +6,17 @@ import {
 } from '@angular/router';
 
 import { BreadcrumbConfig } from '../../breadcrumbs/breadcrumb/breadcrumb-config.model';
-import { QualityAssuranceBreadcrumbService } from './quality-assurance-breadcrumb.service';
+import { SourcesBreadcrumbService } from './sources-breadcrumb.service';
 
-export const qualityAssuranceBreadcrumbResolver: ResolveFn<BreadcrumbConfig<string>> = (
+export const sourcesBreadcrumbResolver: ResolveFn<BreadcrumbConfig<string>> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
-  breadcrumbService: QualityAssuranceBreadcrumbService = inject(QualityAssuranceBreadcrumbService),
+  breadcrumbService: SourcesBreadcrumbService = inject(SourcesBreadcrumbService),
 ): BreadcrumbConfig<string> => {
+  const breadcrumbKey = route.data.breadcrumbKey;
   const sourceId = route.paramMap.get('sourceId');
   const topicId = route.paramMap.get('topicId');
-  let key = sourceId;
+  let key = `${breadcrumbKey}:${sourceId}`;
 
   if (topicId) {
     key += `:${topicId}`;

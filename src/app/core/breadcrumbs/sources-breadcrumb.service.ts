@@ -14,9 +14,9 @@ import { BreadcrumbsProviderService } from './breadcrumbsProviderService';
 @Injectable({
   providedIn: 'root',
 })
-export class QualityAssuranceBreadcrumbService implements BreadcrumbsProviderService<string> {
+export class SourcesBreadcrumbService implements BreadcrumbsProviderService<string> {
 
-  private QUALITY_ASSURANCE_BREADCRUMB_KEY = 'admin.quality-assurance.breadcrumbs';
+  private BREADCRUMB_SUFFIX = '.breadcrumbs';
   constructor(
     private translationService: TranslateService,
   ) {
@@ -31,15 +31,16 @@ export class QualityAssuranceBreadcrumbService implements BreadcrumbsProviderSer
    */
   getBreadcrumbs(key: string, url: string): Observable<Breadcrumb[]> {
     const args = key.split(':');
-    const sourceId = args[0];
-    const topicId = args.length > 2 ? args[args.length - 1] : args[1];
+    const breadcrumbKey = args[0] + this.BREADCRUMB_SUFFIX;
+    const sourceId = args[1];
+    const topicId = args.length > 3 ? args[args.length - 1] : args[2];
 
     if (topicId) {
-      return observableOf( [new Breadcrumb(this.translationService.instant(this.QUALITY_ASSURANCE_BREADCRUMB_KEY), url),
+      return observableOf( [new Breadcrumb(this.translationService.instant(breadcrumbKey), url),
         new Breadcrumb(sourceId, `${url}${sourceId}`),
         new Breadcrumb(topicId, undefined)]);
     } else {
-      return observableOf([new Breadcrumb(this.translationService.instant(this.QUALITY_ASSURANCE_BREADCRUMB_KEY), url),
+      return observableOf([new Breadcrumb(this.translationService.instant(breadcrumbKey), url),
         new Breadcrumb(sourceId, `${url}${sourceId}`)]);
     }
 
