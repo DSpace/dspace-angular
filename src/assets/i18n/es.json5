@@ -1988,6 +1988,9 @@
   // "collection.page.news": "News",
   "collection.page.news": "Noticias",
 
+  // "collection.search.results.head": "Search Results",
+  "collection.search.results.head": "Resultados de la búsqueda",
+
   // "collection.select.confirm": "Confirm selected",
   "collection.select.confirm": "Confirmar seleccionado",
 
@@ -2341,6 +2344,9 @@
 
   // "community.all-lists.head": "Subcommunities and Collections",
   "community.all-lists.head": "Subcomunidades y colecciones",
+
+  // "community.search.results.head": "Search Results",
+  "community.search.results.head": "Resultados de la búsqueda",
 
   // "community.sub-collection-list.head": "Collections in this Community",
   "community.sub-collection-list.head": "Colecciones de esta comunidad",
