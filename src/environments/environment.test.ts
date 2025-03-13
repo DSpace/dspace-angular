@@ -328,5 +328,11 @@ export const environment: BuildConfig = {
 
   search: {
     filterPlaceholdersCount: 5
-  }
+  },
+
+  prefetch: {
+    urls: [],
+    bootstrap: {},
+    refreshInterval: 60000,
+  },
 };

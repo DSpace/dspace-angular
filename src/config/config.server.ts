@@ -2,13 +2,15 @@ import { red, blue, green, bold } from 'colors';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { load } from 'js-yaml';
 import { join } from 'path';
+import { ServerHashedFileMapping } from '../modules/dynamic-hash/hashed-file-mapping.server';
 
 import { AppConfig } from './app-config.interface';
 import { Config } from './config.interface';
 import { DefaultAppConfig } from './default-app-config';
 import { ServerConfig } from './server-config.interface';
-import { mergeConfig } from './config.util';
+import { mergeConfig, extendEnvironmentWithAppConfig } from './config.util';
 import { isNotEmpty } from '../app/shared/empty.util';
+import { RawBootstrapResponse } from '../app/core/dspace-rest/raw-rest-response.model';
 
 const CONFIG_PATH = join(process.cwd(), 'config');
 
@@ -159,6 +161,7 @@ const buildBaseUrl = (config: ServerConfig): void => {
   ].join('');
 };
 
+
 /**
  * Build app config with the following chain of override.
  *
@@ -169,7 +172,7 @@ const buildBaseUrl = (config: ServerConfig): void => {
  * @param destConfigPath optional path to save config file
  * @returns app config
  */
-export const buildAppConfig = (destConfigPath?: string): AppConfig => {
+export const buildAppConfig = (destConfigPath?: string, mapping?: ServerHashedFileMapping): AppConfig => {
   // start with default app config
   const appConfig: AppConfig = new DefaultAppConfig();
 
@@ -237,10 +240,57 @@ export const buildAppConfig = (destConfigPath?: string): AppConfig => {
   buildBaseUrl(appConfig.rest);
 
   if (isNotEmpty(destConfigPath)) {
-    writeFileSync(destConfigPath, JSON.stringify(appConfig, null, 2));
+    const content = JSON.stringify(appConfig, null, 2);
+
+    writeFileSync(destConfigPath, content);
+    if (mapping !== undefined) {
+      mapping.add(destConfigPath, content, true);
+    }
 
     console.log(`Angular ${bold('config.json')} file generated correctly at ${bold(destConfigPath)} \n`);
   }
 
   return appConfig;
+};
+
+export const setupEndpointPrefetching = async (appConfig: AppConfig, destConfigPath: string, env: any, hfm: ServerHashedFileMapping): Promise<void> => {
+  await prefetchResponses(appConfig, destConfigPath, env, hfm);
+
+  setInterval(() => void prefetchResponses(appConfig, destConfigPath, env, hfm), appConfig.prefetch.refreshInterval);
+};
+
+export const prefetchResponses = async (appConfig: AppConfig, destConfigPath: string, env: any, hfm: ServerHashedFileMapping): Promise<void> => {
+  console.info('Prefetching REST responses');
+  const restConfig = appConfig.rest;
+  const prefetchConfig = appConfig.prefetch;
+
+  const baseUrl = restConfig.baseUrl;
+  const mapping: Record<string, RawBootstrapResponse> = {};
+
+  for (const relativeUrl of prefetchConfig.urls) {
+    const url = baseUrl + relativeUrl;
+
+    const response = await fetch(url);
+
+    const headers: Record<string, string> = {};
+    response.headers.forEach((value, header) => {
+      headers[header] = value;
+    });
+
+    const rawBootstrapResponse: RawBootstrapResponse = {
+      payload: await response.json(),
+      headers: headers,
+      statusCode: response.status,
+      statusText: response.statusText,
+    };
+
+    mapping[url] = rawBootstrapResponse;
+  }
+
+  prefetchConfig.bootstrap = mapping;
+
+  const content = JSON.stringify(appConfig, null, 2);
+  extendEnvironmentWithAppConfig(env, appConfig, false);
+  hfm.add(destConfigPath, content, true);
+  hfm.save();
 };

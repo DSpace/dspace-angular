@@ -7,6 +7,8 @@ import { RestRequestMethod } from '../data/rest-request-method';
 import { LocaleService } from './locale.service';
 import { LocaleInterceptor } from './locale.interceptor';
 import { of } from 'rxjs';
+import { APP_CONFIG } from '../../../config/app-config.interface';
+import { environment } from '../../../environments/environment.test';
 
 describe(`LocaleInterceptor`, () => {
   let service: DspaceRestService;
@@ -31,6 +33,7 @@ describe(`LocaleInterceptor`, () => {
           multi: true,
         },
         { provide: LocaleService, useValue: mockLocaleService },
+        { provide: APP_CONFIG, useValue: environment },
       ],
     });
 

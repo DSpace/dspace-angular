@@ -13,6 +13,8 @@ import { CorrelationIdService } from '../../correlation-id/correlation-id.servic
 import { UUIDService } from '../shared/uuid.service';
 import { StoreModule } from '@ngrx/store';
 import { appReducers, storeModuleConfig } from '../../app.reducer';
+import { APP_CONFIG } from '../../../config/app-config.interface';
+import { environment } from '../../../environments/environment.test';
 
 
 describe('LogInterceptor', () => {
@@ -49,6 +51,7 @@ describe('LogInterceptor', () => {
         { provide: Router, useValue: router },
         { provide: CorrelationIdService, useClass: CorrelationIdService },
         { provide: UUIDService, useClass: UUIDService },
+        { provide: APP_CONFIG, useValue: environment },
       ],
     });
 

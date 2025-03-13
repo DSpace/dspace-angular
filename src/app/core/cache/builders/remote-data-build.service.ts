@@ -16,7 +16,7 @@ import { ObjectCacheService } from '../object-cache.service';
 import { LinkService } from './link.service';
 import { HALLink } from '../../shared/hal-link.model';
 import { GenericConstructor } from '../../shared/generic-constructor';
-import { getClassForType } from './build-decorators';
+import { getClassForObject } from './build-decorators';
 import { HALResource } from '../../shared/hal-resource.model';
 import { PAGINATED_LIST } from '../../data/paginated-list.resource-type';
 import { getUrlWithoutEmbedParams } from '../../index/index.selectors';
@@ -90,7 +90,7 @@ export class RemoteDataBuildService {
    * @param obj  The object to turn in to a class instance based on its type property
    */
   private plainObjectToInstance<T>(obj: any): T {
-    const type: GenericConstructor<T> = getClassForType(obj.type);
+    const type: GenericConstructor<T> = getClassForObject(obj);
     if (typeof type === 'function') {
       return Object.assign(new type(), obj) as T;
     } else {

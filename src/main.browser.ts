@@ -3,14 +3,15 @@ import 'reflect-metadata';
 import 'core-js/es/reflect';
 
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-
 import { BrowserAppModule } from './modules/app/browser-app.module';
 
 import { environment } from './environments/environment';
 import { AppConfig } from './config/app-config.interface';
 import { extendEnvironmentWithAppConfig } from './config/config.util';
 import { enableProdMode } from '@angular/core';
+import { BrowserHashedFileMapping } from './modules/dynamic-hash/hashed-file-mapping.browser';
 
+const hashedFileMapping = new BrowserHashedFileMapping(document);
 const bootstrap = () => platformBrowserDynamic()
   .bootstrapModule(BrowserAppModule, {});
 
@@ -32,7 +33,7 @@ const main = () => {
     return bootstrap();
   } else {
     // Configuration must be fetched explicitly
-    return fetch('assets/config.json')
+    return fetch(hashedFileMapping.resolve('assets/config.json'))
       .then((response) => response.json())
       .then((appConfig: AppConfig) => {
         // extend environment with app config for browser when not prerendered

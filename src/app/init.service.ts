@@ -21,9 +21,11 @@ import { MetadataService } from './core/metadata/metadata.service';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
 import { ThemeService } from './shared/theme-support/theme.service';
 import { isAuthenticationBlocking } from './core/auth/selectors';
-import { distinctUntilChanged, find } from 'rxjs/operators';
+import { distinctUntilChanged, find, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { MenuService } from './shared/menu/menu.service';
+import { hasValue } from './shared/empty.util';
+import { HrefOnlyDataService } from './core/data/href-only-data.service';
 
 /**
  * Performs the initialization of the app.
@@ -53,7 +55,7 @@ export abstract class InitService {
     protected breadcrumbsService: BreadcrumbsService,
     protected themeService: ThemeService,
     protected menuService: MenuService,
-
+    protected hrefOnlyDataService: HrefOnlyDataService,
   ) {
   }
 
@@ -200,5 +202,16 @@ export abstract class InitService {
       distinctUntilChanged(),
       find((b: boolean) => b === false)
     );
+  }
+
+  /**
+   * Use the bootstrapped requests to prefill the cache
+   */
+  protected initBootstrapEndpoints() {
+    if (hasValue(this.appConfig?.prefetch?.bootstrap)) {
+      for (let url of Object.getOwnPropertyNames(this.appConfig.prefetch.bootstrap)) {
+        this.hrefOnlyDataService.findByHref(url, false).pipe(take(1)).subscribe();
+      }
+    }
   }
 }

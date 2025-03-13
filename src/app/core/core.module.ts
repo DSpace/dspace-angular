@@ -183,16 +183,18 @@ import { ValueListBrowseDefinition } from './shared/value-list-browse-definition
 import { NonHierarchicalBrowseDefinition } from './shared/non-hierarchical-browse-definition';
 import { BulkAccessConditionOptions } from './config/models/bulk-access-condition-options.model';
 import { SubmissionParentBreadcrumbsService } from './submission/submission-parent-breadcrumb.service';
+import { APP_CONFIG, AppConfig } from '../../config/app-config.interface';
+import { StatisticsEndpoint } from '../statistics/statistics-endpoint.model';
 
 /**
  * When not in production, endpoint responses can be mocked for testing purposes
  * If there is no mock version available for the endpoint, the actual REST response will be used just like in production mode
  */
-export const restServiceFactory = (mocks: ResponseMapMock, http: HttpClient) => {
+export const restServiceFactory = (mocks: ResponseMapMock, http: HttpClient, appConfig: AppConfig) => {
   if (environment.production) {
-    return new DspaceRestService(http);
+    return new DspaceRestService(http, appConfig);
   } else {
-    return new EndpointMockingRestService(mocks, http);
+    return new EndpointMockingRestService(mocks, http, appConfig);
   }
 };
 
@@ -213,7 +215,7 @@ const PROVIDERS = [
   SiteDataService,
   DSOResponseParsingService,
   { provide: MOCK_RESPONSE_MAP, useValue: mockResponseMap },
-  { provide: DspaceRestService, useFactory: restServiceFactory, deps: [MOCK_RESPONSE_MAP, HttpClient] },
+  { provide: DspaceRestService, useFactory: restServiceFactory, deps: [MOCK_RESPONSE_MAP, HttpClient, APP_CONFIG] },
   EPersonDataService,
   LinkHeadService,
   HALEndpointService,
@@ -382,7 +384,8 @@ export const models =
     IdentifierData,
     Subscription,
     ItemRequest,
-    BulkAccessConditionOptions
+    BulkAccessConditionOptions,
+    StatisticsEndpoint,
   ];
 
 @NgModule({
