@@ -19,6 +19,7 @@ import {
 import { AccessStatusObject } from '../shared/object-collection/shared/badges/access-status-badge/access-status.model';
 import { IdentifierData } from '../shared/object-list/identifier-data/identifier-data.model';
 import { Subscription } from '../shared/subscriptions/models/subscription.model';
+import { StatisticsEndpoint } from '../statistics/statistics-endpoint.model';
 import { SubmissionCoarNotifyConfig } from '../submission/sections/section-coar-notify/submission-coar-notify.config';
 import { SystemWideAlert } from '../system-wide-alert/system-wide-alert.model';
 import { AuthStatus } from './auth/models/auth-status.model';
@@ -192,4 +193,5 @@ export const models =
     SubmissionCoarNotifyConfig,
     NotifyRequestsStatus,
     SystemWideAlert,
+    StatisticsEndpoint,
   ];
