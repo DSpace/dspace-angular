@@ -1,6 +1,5 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
-  async,
   ComponentFixture,
   TestBed,
   waitForAsync,
@@ -81,7 +80,7 @@ describe('BrowseByGeospatialDataComponent', () => {
   let component: BrowseByGeospatialDataComponent;
   let fixture: ComponentFixture<BrowseByGeospatialDataComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [ TranslateModule.forRoot(), StoreModule.forRoot(), BrowseByGeospatialDataComponent],
       providers: [
