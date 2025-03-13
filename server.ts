@@ -540,7 +540,7 @@ function serverStarted() {
  * Create an HTTPS server with the configured port and host
  * @param keys SSL credentials
  */
-function createHttpsServer(keys) {
+function createHttpsServer(prefetchRefreshTimeout: NodeJS.Timeout, keys) {
   const listener = createServer({
     key: keys.serviceKey,
     cert: keys.certificate
@@ -551,18 +551,21 @@ function createHttpsServer(keys) {
   // Graceful shutdown when signalled
   const terminator = createHttpTerminator({server: listener});
   process.on('SIGINT', () => {
-      void (async ()=> {
-        console.debug('Closing HTTPS server on signal');
-        await terminator.terminate().catch(e => { console.error(e); });
-        console.debug('HTTPS server closed');
-      })();
+    void (async () => {
+      console.debug('Closing HTTPS server on signal');
+      clearTimeout(prefetchRefreshTimeout);
+      await terminator.terminate().catch(e => {
+        console.error(e);
       });
+      console.debug('HTTPS server closed');
+    })();
+  });
 }
 
 /**
  * Create an HTTP server with the configured port and host.
  */
-function run() {
+function run(prefetchRefreshTimeout: NodeJS.Timeout) {
   const port = environment.ui.port || 4000;
   const host = environment.ui.host || '/';
 
@@ -575,15 +578,18 @@ function run() {
   // Graceful shutdown when signalled
   const terminator = createHttpTerminator({server: listener});
   process.on('SIGINT', () => {
-      void (async () => {
-        console.debug('Closing HTTP server on signal');
-        await terminator.terminate().catch(e => { console.error(e); });
-        console.debug('HTTP server closed.');return undefined;
-        })();
+    void (async () => {
+      console.debug('Closing HTTP server on signal');
+      clearTimeout(prefetchRefreshTimeout);
+      await terminator.terminate().catch(e => {
+        console.error(e);
       });
+      console.debug('HTTP server closed.');
+    })();
+  });
 }
 
-function start() {
+function start(prefetchRefreshTimeout: NodeJS.Timeout) {
   logStartupMessage(environment);
 
   /*
@@ -609,10 +615,11 @@ function start() {
     }
 
     if (serviceKey && certificate) {
-      createHttpsServer({
-        serviceKey: serviceKey,
-        certificate: certificate
-      });
+      createHttpsServer(prefetchRefreshTimeout,
+        {
+          serviceKey: serviceKey,
+          certificate: certificate
+        });
     } else {
       console.warn('Disabling certificate validation and proceeding with a self-signed certificate. If this is a production server, it is recommended that you configure a valid certificate instead.');
 
@@ -622,11 +629,11 @@ function start() {
         days: 1,
         selfSigned: true
       }, (error, keys) => {
-        createHttpsServer(keys);
+        createHttpsServer(prefetchRefreshTimeout, keys);
       });
     }
   } else {
-    run();
+    run(prefetchRefreshTimeout);
   }
 }
 
@@ -651,9 +658,9 @@ function healthCheck(req, res) {
 declare const __non_webpack_require__: NodeRequire;
 const mainModule = __non_webpack_require__.main;
 const moduleFilename = (mainModule && mainModule.filename) || '';
-setupEndpointPrefetching(appConfig, destConfigPath, environment, hashedFileMapping).then(() => {
+setupEndpointPrefetching(appConfig, destConfigPath, environment, hashedFileMapping).then(prefetchRefreshTimeout => {
   if (moduleFilename === __filename || moduleFilename.includes('iisnode')) {
-    start();
+    start(prefetchRefreshTimeout);
   }
 }).catch((error) => {
   console.error('Errored while prefetching Endpoint Maps', error);
