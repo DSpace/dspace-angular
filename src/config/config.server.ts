@@ -265,10 +265,10 @@ export const buildAppConfig = (destConfigPath?: string, mapping?: ServerHashedFi
   return appConfig;
 };
 
-export const setupEndpointPrefetching = async (appConfig: AppConfig, destConfigPath: string, env: any, hfm: ServerHashedFileMapping): Promise<void> => {
+export const setupEndpointPrefetching = async (appConfig: AppConfig, destConfigPath: string, env: any, hfm: ServerHashedFileMapping): Promise<NodeJS.Timeout> => {
   await prefetchResponses(appConfig, destConfigPath, env, hfm);
 
-  setInterval(() => void prefetchResponses(appConfig, destConfigPath, env, hfm), appConfig.prefetch.refreshInterval);
+  return setInterval(() => void prefetchResponses(appConfig, destConfigPath, env, hfm), appConfig.prefetch.refreshInterval);
 };
 
 export const prefetchResponses = async (appConfig: AppConfig, destConfigPath: string, env: any, hfm: ServerHashedFileMapping): Promise<void> => {
