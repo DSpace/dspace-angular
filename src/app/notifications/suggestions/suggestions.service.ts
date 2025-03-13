@@ -12,37 +12,37 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { SuggestionConfig } from '../../config/suggestion-config.interfaces';
-import { environment } from '../../environments/environment';
+import { SuggestionConfig } from '../../../config/suggestion-config.interfaces';
+import { environment } from '../../../environments/environment';
 import {
   SortDirection,
   SortOptions,
-} from '../core/cache/models/sort-options.model';
-import { FindListOptions } from '../core/data/find-list-options.model';
-import { PaginatedList } from '../core/data/paginated-list.model';
-import { RemoteData } from '../core/data/remote-data';
-import { Suggestion } from '../core/notifications/suggestions/models/suggestion.model';
-import { SuggestionTarget } from '../core/notifications/suggestions/models/suggestion-target.model';
-import { SuggestionDataService } from '../core/notifications/suggestions/suggestion-data.service';
-import { SuggestionTargetDataService } from '../core/notifications/suggestions/target/suggestion-target-data.service';
-import { ResearcherProfile } from '../core/profile/model/researcher-profile.model';
-import { ResearcherProfileDataService } from '../core/profile/researcher-profile-data.service';
-import { NoContent } from '../core/shared/NoContent.model';
+} from '../../core/cache/models/sort-options.model';
+import { FindListOptions } from '../../core/data/find-list-options.model';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { Suggestion } from '../../core/notifications/suggestions/models/suggestion.model';
+import { SuggestionTarget } from '../../core/notifications/suggestions/models/suggestion-target.model';
+import { SuggestionDataService } from '../../core/notifications/suggestions/suggestion-data.service';
+import { SuggestionTargetDataService } from '../../core/notifications/suggestions/target/suggestion-target-data.service';
+import { ResearcherProfile } from '../../core/profile/model/researcher-profile.model';
+import { ResearcherProfileDataService } from '../../core/profile/researcher-profile-data.service';
+import { NoContent } from '../../core/shared/NoContent.model';
 import {
   getFinishedRemoteData,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
   getFirstSucceededRemoteListPayload,
-} from '../core/shared/operators';
-import { WorkspaceItem } from '../core/submission/models/workspaceitem.model';
-import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
+} from '../../core/shared/operators';
+import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
+import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import {
   hasNoValue,
   hasValue,
   isNotEmpty,
-} from '../shared/empty.util';
-import { followLink } from '../shared/utils/follow-link-config.model';
-import { getSuggestionPageRoute } from '../suggestions-page/suggestions-page-routing-paths';
+} from '../../shared/empty.util';
+import { followLink } from '../../shared/utils/follow-link-config.model';
+import { getSuggestionPageRoute } from '../../suggestions-page/suggestions-page-routing-paths';
 
 /**
  * useful for multiple approvals and ignores operation

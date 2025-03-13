@@ -4,12 +4,12 @@ import {
   MemoizedSelector,
 } from '@ngrx/store';
 
-import { SuggestionTarget } from '../../core/notifications/suggestions/models/suggestion-target.model';
-import { subStateSelector } from '../../submission/selectors';
+import { SuggestionTarget } from '../../../core/notifications/suggestions/models/suggestion-target.model';
+import { subStateSelector } from '../../../submission/selectors';
 import {
   suggestionNotificationsSelector,
   SuggestionNotificationsState,
-} from '../notifications.reducer';
+} from '../../notifications.reducer';
 import {
   SuggestionTargetEntry,
   SuggestionTargetState,

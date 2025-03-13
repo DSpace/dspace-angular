@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { AdminNotificationsPublicationClaimPageComponent } from '../../admin/admin-notifications/admin-notifications-publication-claim-page/admin-notifications-publication-claim-page.component';
-import { PublicationClaimComponent } from '../../notifications/suggestion-targets/publication-claim/publication-claim.component';
+import { PublicationClaimComponent } from '../../notifications/suggestions/targets/publication-claim/publication-claim.component';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { NotificationsSuggestionTargetsPageComponent } from './notifications-suggestion-targets-page.component';
 

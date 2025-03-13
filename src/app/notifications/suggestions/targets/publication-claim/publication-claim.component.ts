@@ -20,13 +20,13 @@ import {
   take,
 } from 'rxjs/operators';
 
-import { SuggestionTarget } from '../../../core/notifications/suggestions/models/suggestion-target.model';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { hasValue } from '../../../shared/empty.util';
-import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
-import { PaginationComponent } from '../../../shared/pagination/pagination.component';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { getSuggestionPageRoute } from '../../../suggestions-page/suggestions-page-routing-paths';
+import { SuggestionTarget } from '../../../../core/notifications/suggestions/models/suggestion-target.model';
+import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { hasValue } from '../../../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
+import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
+import { PaginationComponentOptions } from '../../../../shared/pagination/pagination-component-options.model';
+import { getSuggestionPageRoute } from '../../../../suggestions-page/suggestions-page-routing-paths';
 import { SuggestionsService } from '../../suggestions.service';
 import { SuggestionTargetsStateService } from '../suggestion-targets.state.service';
 

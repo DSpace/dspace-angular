@@ -7,9 +7,9 @@ import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { SuggestionTarget } from '../../core/notifications/suggestions/models/suggestion-target.model';
-import { SuggestionTargetsStateService } from '../suggestion-targets/suggestion-targets.state.service';
+import { SuggestionTarget } from '../../../core/notifications/suggestions/models/suggestion-target.model';
 import { SuggestionsService } from '../suggestions.service';
+import { SuggestionTargetsStateService } from '../targets/suggestion-targets.state.service';
 
 /**
  * Show suggestions notification, used on myDSpace and Profile pages

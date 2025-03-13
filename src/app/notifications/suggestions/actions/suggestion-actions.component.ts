@@ -12,13 +12,13 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
 
-import { Suggestion } from '../../core/notifications/suggestions/models/suggestion.model';
-import { Collection } from '../../core/shared/collection.model';
-import { ItemType } from '../../core/shared/item-relationships/item-type.model';
-import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
-import { ThemedCreateItemParentSelectorComponent } from '../../shared/dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';
-import { EntityDropdownComponent } from '../../shared/entity-dropdown/entity-dropdown.component';
-import { SuggestionApproveAndImport } from '../suggestion-list-element/suggestion-approve-and-import';
+import { Suggestion } from '../../../core/notifications/suggestions/models/suggestion.model';
+import { Collection } from '../../../core/shared/collection.model';
+import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
+import { ThemedCreateItemParentSelectorComponent } from '../../../shared/dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';
+import { EntityDropdownComponent } from '../../../shared/entity-dropdown/entity-dropdown.component';
+import { SuggestionApproveAndImport } from '../list-element/suggestion-approve-and-import';
 
 /**
  * Show and trigger the actions to submit for a suggestion

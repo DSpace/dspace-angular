@@ -5,9 +5,9 @@ import {
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { SuggestionEvidences } from '../../../core/notifications/suggestions/models/suggestion.model';
-import { fadeIn } from '../../../shared/animations/fade';
-import { ObjectKeysPipe } from '../../../shared/utils/object-keys-pipe';
+import { SuggestionEvidences } from '../../../../core/notifications/suggestions/models/suggestion.model';
+import { fadeIn } from '../../../../shared/animations/fade';
+import { ObjectKeysPipe } from '../../../../shared/utils/object-keys-pipe';
 
 /**
  * Show suggestion evidences such as score (authorScore, dateScore)
