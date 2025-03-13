@@ -8,7 +8,9 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { environment } from 'src/environments/environment.test';
 
+import { APP_CONFIG } from '../../../config/app-config.interface';
 import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
 import { HttpXsrfTokenExtractorMock } from '../../shared/mocks/http-xsrf-token-extractor.mock';
 import { RequestError } from '../data/request-error.model';
@@ -45,6 +47,7 @@ describe(`XsrfInterceptor`, () => {
         },
         { provide: HttpXsrfTokenExtractor, useValue: new HttpXsrfTokenExtractorMock(testToken) },
         { provide: CookieService, useValue: new CookieServiceMock() },
+        { provide: APP_CONFIG, useValue: environment },
       ],
     });
 

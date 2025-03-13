@@ -1,5 +1,6 @@
 import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { BROWSE_DEFINITION } from '../shared/browse-definition.resource-type';
 import { FLAT_BROWSE_DEFINITION } from '../shared/flat-browse-definition.resource-type';
 import { HIERARCHICAL_BROWSE_DEFINITION } from '../shared/hierarchical-browse-definition.resource-type';
 import { VALUE_LIST_BROWSE_DEFINITION } from '../shared/value-list-browse-definition.resource-type';
@@ -45,19 +46,22 @@ describe('BrowseResponseParsingService', () => {
 
     it('should deserialize flatBrowses correctly', () => {
       let deserialized = service.deserialize(mockFlatBrowse);
-      expect(deserialized.type).toBe(FLAT_BROWSE_DEFINITION);
+      expect(deserialized.type).toBe(BROWSE_DEFINITION);
+      expect(deserialized.browseType).toBe(FLAT_BROWSE_DEFINITION);
       expect(deserialized.id).toBe(mockFlatBrowse.id);
     });
 
     it('should deserialize valueList browses correctly', () => {
       let deserialized = service.deserialize(mockValueList);
-      expect(deserialized.type).toBe(VALUE_LIST_BROWSE_DEFINITION);
+      expect(deserialized.type).toBe(BROWSE_DEFINITION);
+      expect(deserialized.browseType).toBe(VALUE_LIST_BROWSE_DEFINITION);
       expect(deserialized.id).toBe(mockValueList.id);
     });
 
     it('should deserialize hierarchicalBrowses correctly', () => {
       let deserialized = service.deserialize(mockHierarchicalBrowse);
-      expect(deserialized.type).toBe(HIERARCHICAL_BROWSE_DEFINITION);
+      expect(deserialized.type).toBe(BROWSE_DEFINITION);
+      expect(deserialized.browseType).toBe(HIERARCHICAL_BROWSE_DEFINITION);
       expect(deserialized.id).toBe(mockHierarchicalBrowse.id);
     });
   });

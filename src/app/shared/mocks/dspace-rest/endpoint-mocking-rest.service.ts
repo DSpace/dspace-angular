@@ -11,6 +11,10 @@ import {
   of as observableOf,
 } from 'rxjs';
 
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../config/app-config.interface';
 import { environment } from '../../../../environments/environment';
 import { RestRequestMethod } from '../../../core/data/rest-request-method';
 import {
@@ -37,8 +41,9 @@ export class EndpointMockingRestService extends DspaceRestService {
   constructor(
     @Inject(MOCK_RESPONSE_MAP) protected mockResponseMap: ResponseMapMock,
     protected http: HttpClient,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
-    super(http);
+    super(http, appConfig);
   }
 
   /**
