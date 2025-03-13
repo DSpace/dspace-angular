@@ -28,6 +28,7 @@ import {
   mergeMap,
   take,
 } from 'rxjs/operators';
+import { MetadataValue } from 'src/app/core/shared/metadata.models';
 import { SubmissionObject } from 'src/app/core/submission/models/submission-object.model';
 import { WorkspaceitemSectionUploadObject } from 'src/app/core/submission/models/workspaceitem-section-upload.model';
 import { DynamicCustomSwitchModel } from 'src/app/shared/form/builder/ds-dynamic-form-ui/models/custom-switch/custom-switch.model';
@@ -331,6 +332,7 @@ implements OnInit, OnDestroy {
         configDescr,
       ]),
     });
+    configForm.rows = configForm.rows.filter((row: any) => row.fields[0].selectableMetadata[0].metadata !== 'dc.type');
     const formModel: DynamicFormControlModel[] = [];
 
     formModel.push(new DynamicCustomSwitchModel(BITSTREAM_FORM_PRIMARY, BITSTREAM_FORM_PRIMARY_LAYOUT));
@@ -451,9 +453,15 @@ implements OnInit, OnDestroy {
         this.uploadService.updatePrimaryBitstreamOperation(this.pathCombiner.getPath('primary'), this.isPrimary, formData.primary[0], this.fileId);
 
         //Set operations to bitstream alternative content flag
-        const alternativeContentPath = 'alternativecontent';
+        const alternativeContentPath = 'metadata/dc.type';
         if (formData.alternativeContent[0]) {
-          this.operationsBuilder.add(this.pathCombiner.getPath([...pathFragment, alternativeContentPath]), true, false, true);
+          const metadata = Object.assign(new MetadataValue(), {
+            language: null,
+            value: 'alternative content',
+            authority: null,
+            place: 0,
+          });
+          this.operationsBuilder.add(this.pathCombiner.getPath([...pathFragment, alternativeContentPath]), metadata, true);
         } else {
           this.operationsBuilder.remove(this.pathCombiner.getPath([...pathFragment, alternativeContentPath]));
         }
@@ -463,8 +471,10 @@ implements OnInit, OnDestroy {
           .filter((key) => isNotEmpty(formData.metadata[key]))
           .forEach((key) => {
             const metadataKey = key.replace(/_/g, '.');
-            const path = `metadata/${metadataKey}`;
-            this.operationsBuilder.add(this.pathCombiner.getPath([...pathFragment, path]), formData.metadata[key], true);
+            if (metadataKey !== 'dc.type') {
+              const path = `metadata/${metadataKey}`;
+              this.operationsBuilder.add(this.pathCombiner.getPath([...pathFragment, path]), formData.metadata[key], true);
+            }
           });
         Object.keys((this.fileData.metadata))
           .filter((key) => isNotEmpty(this.fileData.metadata[key]))
@@ -472,8 +482,10 @@ implements OnInit, OnDestroy {
           .filter((key) => this.formMetadata.includes(key))
           .forEach((key) => {
             const metadataKey = key.replace(/_/g, '.');
-            const path = `metadata/${metadataKey}`;
-            this.operationsBuilder.remove(this.pathCombiner.getPath([...pathFragment, path]));
+            if (metadataKey !== 'dc.type') {
+              const path = `metadata/${metadataKey}`;
+              this.operationsBuilder.remove(this.pathCombiner.getPath([...pathFragment, path]));
+            }
           });
         const accessConditionsToSave = [];
         if (formData.hasOwnProperty('accessConditions')) {

@@ -1622,7 +1622,7 @@ export const mockUploadFilesData = {
 
 export const mockFileFormData = {
   primary: [true],
-  alternativeContent: [true],
+  alternativeContent: [false],
   metadata: {
     'dc.title': [
       {

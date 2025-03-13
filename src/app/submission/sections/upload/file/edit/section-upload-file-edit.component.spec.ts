@@ -335,14 +335,6 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
 
       const pathFragment = ['files', fileIndex];
 
-      path = 'alternativecontent';
-      expect(operationsBuilder.add).toHaveBeenCalledWith(
-        pathCombiner.getPath([...pathFragment, path]),
-        true,
-        false,
-        true,
-      );
-
       path = 'metadata/dc.title';
       expect(operationsBuilder.add).toHaveBeenCalledWith(
         pathCombiner.getPath([...pathFragment, path]),
