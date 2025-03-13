@@ -74,6 +74,11 @@ export const ROUTES: Route[] = [
         },
         children: [
           {
+            path: '',
+            pathMatch: 'full',
+            component: ComcolSearchSectionComponent,
+          },
+          {
             path: 'search',
             pathMatch: 'full',
             component: ComcolSearchSectionComponent,

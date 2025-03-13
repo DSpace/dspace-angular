@@ -87,11 +87,16 @@ export const ROUTES: Route[] = [
         },
         children: [
           {
+            path: '',
+            pathMatch: 'full',
+            component: ComcolSearchSectionComponent,
+          },
+          {
             path: 'search',
             pathMatch: 'full',
             component: ComcolSearchSectionComponent,
             resolve: {
-              breadcrumb: browseByI18nBreadcrumbResolver,
+              breadcrumb: i18nBreadcrumbResolver,
             },
             data: { breadcrumbKey: 'collection.search' },
           },
