@@ -1,5 +1,3 @@
-<ng-container *ngIf="isPlatformBrowser(platformId)">
-  <ds-geospatial-map [mapInfo]="mapInfo"></ds-geospatial-map>
-</ng-container>
-
-
+@if (isPlatformBrowser(platformId)) {
+    <ds-geospatial-map [mapInfo]="mapInfo"></ds-geospatial-map>
+}
