@@ -36,8 +36,9 @@
             }
           </div>
         </div>
+      }
         <!-- Display the "already handled" message if there is a decision date, and either no access token (attachment was sent in email) or the request was denied -->
-        @if (itemRequestRD.payload.decisionDate && (itemRequestRD.payload.acceptRequest === false || !itemRequestRD.payload.accessToken)) {
+        @if (itemRequestRD.payload.decisionDate && (!itemRequestRD.payload.acceptRequest || !itemRequestRD.payload.accessToken)) {
           <div class="processed-message">
             <p>{{ 'grant-deny-request-copy.processed' | translate }}</p>
             <p class="text-center">
@@ -45,7 +46,6 @@
             </p>
           </div>
         }
-      }
     </div>
   }
   @if (!itemRequestRD || itemRequestRD?.isLoading) {

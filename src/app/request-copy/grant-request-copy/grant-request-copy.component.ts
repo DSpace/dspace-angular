@@ -47,7 +47,7 @@ import { ThemedEmailRequestCopyComponent } from '../email-request-copy/themed-em
   styleUrls: ['./grant-request-copy.component.scss'],
   templateUrl: './grant-request-copy.component.html',
   standalone: true,
-  imports: [CommonModule, VarDirective, NgIf, ThemedEmailRequestCopyComponent, FormsModule, ThemedLoadingComponent, AsyncPipe, TranslateModule, RouterLink, NgClass],
+  imports: [CommonModule, VarDirective, ThemedEmailRequestCopyComponent, FormsModule, ThemedLoadingComponent, AsyncPipe, TranslateModule, RouterLink, NgClass],
 })
 /**
  * Component for granting an item request

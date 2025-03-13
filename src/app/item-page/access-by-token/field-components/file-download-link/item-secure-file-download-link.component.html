@@ -3,10 +3,13 @@
    [target]="isBlank ? '_blank': '_self'"
    [ngClass]="cssClasses"
    [attr.aria-label]="('file-download-link.download' | translate) + dsoNameService.getName(bitstream)">
-  <!-- If the user cannot download the file by auth or token, show a lock icon -->
-  <span role="img" *ngIf="(canDownload$ | async) === false && (canDownloadWithToken$ | async) === false" [attr.aria-label]="'file-download-link.restricted' | translate" class="pr-1"><i class="fas fa-lock"></i></span>
-  <!-- If the user can download the file by token, and NOT normally show a lock open icon -->
-  <span role="img" *ngIf="(canDownloadWithToken$ | async) && (canDownload$ | async) === false" [attr.aria-label]="'file-download-link.secure-access' | translate" class="pr-1"><i class="fa-solid fa-lock-open" style="color: #26a269;"></i></span>
+  @if ((canDownload$ | async) === false && (canDownloadWithToken$ | async) === false) {
+    <!-- If the user cannot download the file by auth or token, show a lock icon -->
+    <span role="img" [attr.aria-label]="'file-download-link.restricted' | translate" class="pr-1"><i class="fas fa-lock"></i></span>
+  } @else if ((canDownloadWithToken$ | async) && (canDownload$ | async) === false) {
+    <!-- If the user can download the file by token, and NOT normally show a lock open icon -->
+    <span role="img" [attr.aria-label]="'file-download-link.secure-access' | translate" class="pr-1"><i class="fa-solid fa-lock-open" style="color: #26a269;"></i></span>
+  }
   <!-- Otherwise, show no icon (normal download by authorized user), public access etc. -->
   <ng-container *ngTemplateOutlet="content"></ng-container>
 </a>

@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgIf,
   NgTemplateOutlet,
 } from '@angular/common';
 import {
@@ -41,7 +40,7 @@ import {
   styleUrls: ['./item-secure-file-download-link.component.scss'],
   standalone: true,
   imports: [
-    RouterLink, NgClass, NgIf, NgTemplateOutlet, AsyncPipe, TranslateModule,
+    RouterLink, NgClass, NgTemplateOutlet, AsyncPipe, TranslateModule,
   ],
 })
 /**
