@@ -8555,7 +8555,7 @@
   "item.page.cc.license.disclaimer": "Sauf indication contraire, la licence de cet Item est décrite comme",
 
   //"browse.search-form.placeholder": "Search the repository",
-  "browse.search-form.placeholder": "Chercher dans le dépôt",  //"metadata-export-filtered-items.tooltip": "Export report output as CSV",
+  "browse.search-form.placeholder": "Chercher dans le dépôt",
 
   //"metadata-export-filtered-items.tooltip": "Export report output as CSV",
   "metadata-export-filtered-items.tooltip": "Exporter le rapport en CSV",
