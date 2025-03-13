@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -38,7 +35,7 @@ import { QueryPredicate } from '../query-predicate.model';
   styleUrls: ['./filtered-items-export-csv.component.scss'],
   templateUrl: './filtered-items-export-csv.component.html',
   standalone: true,
-  imports: [NgIf, NgbTooltipModule, AsyncPipe, TranslateModule],
+  imports: [NgbTooltipModule, AsyncPipe, TranslateModule],
 })
 /**
  * Display a button to export the MetadataQuery (aka Filtered Items) Report results as csv
