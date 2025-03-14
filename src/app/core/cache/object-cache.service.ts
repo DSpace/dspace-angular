@@ -40,7 +40,7 @@ import {
 import { IndexName } from '../index/index-name.model';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { HALLink } from '../shared/hal-link.model';
-import { getClassForType } from './builders/build-decorators';
+import { getClassForObject } from './builders/build-decorators';
 import { LinkService } from './builders/link.service';
 import { CacheableObject } from './cacheable-object.model';
 import {
@@ -178,7 +178,7 @@ export class ObjectCacheService {
       ),
       map((entry: ObjectCacheEntry) => {
         if (hasValue(entry.data)) {
-          const type: GenericConstructor<T> = getClassForType((entry.data as any).type);
+          const type: GenericConstructor<T> = getClassForObject(entry.data as any);
           if (typeof type !== 'function') {
             throw new Error(`${type} is not a valid constructor for ${JSON.stringify(entry.data)}`);
           }

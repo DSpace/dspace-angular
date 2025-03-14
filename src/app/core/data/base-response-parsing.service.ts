@@ -5,7 +5,7 @@ import {
   hasValue,
   isNotEmpty,
 } from '../../shared/empty.util';
-import { getClassForType } from '../cache/builders/build-decorators';
+import { getClassForObject } from '../cache/builders/build-decorators';
 import { CacheableObject } from '../cache/cacheable-object.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
@@ -118,7 +118,7 @@ export abstract class BaseResponseParsingService {
   protected deserialize<ObjectDomain>(obj): any {
     const type: string = obj.type;
     if (hasValue(type)) {
-      const objConstructor = getClassForType(type) as GenericConstructor<ObjectDomain>;
+      const objConstructor = getClassForObject(obj) as GenericConstructor<ObjectDomain>;
 
       if (hasValue(objConstructor)) {
         const serializer = new this.serializerConstructor(objConstructor);

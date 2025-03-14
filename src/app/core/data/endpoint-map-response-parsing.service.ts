@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { environment } from '../../../environments/environment';
 import { hasValue } from '../../shared/empty.util';
-import { getClassForType } from '../cache/builders/build-decorators';
+import { getClassForObject } from '../cache/builders/build-decorators';
 import { CacheableObject } from '../cache/cacheable-object.model';
 import { ParsedResponse } from '../cache/response.models';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
@@ -42,7 +42,7 @@ export class EndpointMapResponseParsingService extends DspaceRestResponseParsing
         const type: string = processRequestDTO.type;
         let objConstructor;
         if (hasValue(type)) {
-          objConstructor = getClassForType(type);
+          objConstructor = getClassForObject(processRequestDTO);
         }
 
         if (isCacheableObject(processRequestDTO) && hasValue(objConstructor)) {
@@ -73,7 +73,7 @@ export class EndpointMapResponseParsingService extends DspaceRestResponseParsing
   protected deserialize<ObjectDomain>(obj): any {
     const type: string = obj.type;
     if (hasValue(type)) {
-      const objConstructor = getClassForType(type) as GenericConstructor<ObjectDomain>;
+      const objConstructor = getClassForObject(obj) as GenericConstructor<ObjectDomain>;
 
       if (hasValue(objConstructor)) {
         const serializer = new this.serializerConstructor(objConstructor);
@@ -110,7 +110,7 @@ export class EndpointMapResponseParsingService extends DspaceRestResponseParsing
       return;
     }
 
-    if (hasValue(this.getConstructorFor<any>((co as any).type))) {
+    if (hasValue(this.getConstructorFor<any>(co as any))) {
       this.objectCache.add(co, hasValue(request.responseMsToLive) ? request.responseMsToLive : environment.cache.msToLive.default, request.uuid, alternativeURL);
     }
   }

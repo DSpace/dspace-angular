@@ -11,7 +11,9 @@ import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { of as observableOf } from 'rxjs';
+import { environment } from 'src/environments/environment.test';
 
+import { APP_CONFIG } from '../../../config/app-config.interface';
 import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { RouterStub } from '../../shared/testing/router.stub';
 import { TruncatablesState } from '../../shared/truncatable/truncatable.reducer';
@@ -45,6 +47,7 @@ describe(`AuthInterceptor`, () => {
         { provide: Store, useValue: store },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),
+        { provide: APP_CONFIG, useValue: environment },
       ],
     });
 
