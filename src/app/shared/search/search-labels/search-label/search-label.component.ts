@@ -48,7 +48,6 @@ export class SearchLabelComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.appliedFilter);
     this.searchLink = this.getSearchLink();
     this.removeParameters$ = this.updateRemoveParams();
   }
