@@ -32,6 +32,7 @@ import { AppState } from '../../app/app.reducer';
 import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
 import { AuthService } from '../../app/core/auth/auth.service';
 import { coreSelector } from '../../app/core/core.selectors';
+import { HrefOnlyDataService } from '../../app/core/data/href-only-data.service';
 import { RequestService } from '../../app/core/data/request.service';
 import { RootDataService } from '../../app/core/data/root-data.service';
 import { LocaleService } from '../../app/core/locale/locale.service';
@@ -40,7 +41,10 @@ import { HALEndpointService } from '../../app/core/shared/hal-endpoint.service';
 import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
 import { InitService } from '../../app/init.service';
 import { KlaroService } from '../../app/shared/cookies/klaro.service';
-import { isNotEmpty } from '../../app/shared/empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../app/shared/empty.util';
 import { MenuService } from '../../app/shared/menu/menu.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
@@ -86,7 +90,7 @@ export class BrowserInitService extends InitService {
     protected router: Router,
     private requestService: RequestService,
     private halService: HALEndpointService,
-
+    protected hrefOnlyDataService: HrefOnlyDataService,
   ) {
     super(
       store,
@@ -99,6 +103,7 @@ export class BrowserInitService extends InitService {
       breadcrumbsService,
       themeService,
       menuService,
+      hrefOnlyDataService,
     );
   }
 
@@ -130,6 +135,8 @@ export class BrowserInitService extends InitService {
       this.trackAuthTokenExpiration();
 
       this.initKlaro();
+
+      this.initBootstrapEndpoints();
 
       await lastValueFrom(this.authenticationReady$());
 
@@ -232,6 +239,18 @@ export class BrowserInitService extends InitService {
     ).subscribe(() => {
       this.rootDataService.invalidateRootCache();
     });
+  }
+
+  /**
+   * Use the bootstrapped requests from the server to prefill the cache on the client
+   */
+  override initBootstrapEndpoints() {
+    super.initBootstrapEndpoints();
+
+    if (hasValue(this.appConfig?.prefetch?.bootstrap)) {
+      // Clear bootstrap once finished so the dspace-rest.service does not keep using the bootstrap
+      this.appConfig.prefetch.bootstrap = undefined;
+    }
   }
 
 }

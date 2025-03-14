@@ -23,6 +23,7 @@ import {
 } from 'rxjs';
 
 import { APP_DATA_SERVICES_MAP } from '../../../../../../config/app-config.interface';
+import { HashedFileMapping } from '../../../../../../modules/dynamic-hash/hashed-file-mapping';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { ExternalSourceDataService } from '../../../../../core/data/external-source-data.service';
 import { LookupRelationService } from '../../../../../core/data/lookup-relation.service';
@@ -123,6 +124,11 @@ describe('DsDynamicLookupRelationModalComponent', () => {
 
   beforeEach(waitForAsync(() => {
     init();
+
+    const mockHashedFileMapping = {
+      resolve: (path: string) => path,
+    };
+
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule, DsDynamicLookupRelationModalComponent, BtnDisabledDirective],
       providers: [
@@ -150,6 +156,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
         { provide: XSRFService, useValue: {} },
         { provide: NgZone, useValue: new NgZone({}) },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        { provide: HashedFileMapping, useValue: mockHashedFileMapping },
         NgbActiveModal,
         provideMockStore(),
       ],

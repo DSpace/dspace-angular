@@ -23,6 +23,7 @@ import {
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment.test';
 import { REQUEST } from '../../../../../express.tokens';
+import { HashedFileMapping } from '../../../../../modules/dynamic-hash/hashed-file-mapping';
 import { AuthRequestService } from '../../../../core/auth/auth-request.service';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
@@ -246,6 +247,10 @@ describe('EditRelationshipListComponent', () => {
 
     editItemRelationshipsService = new EditItemRelationshipsServiceStub();
 
+    const mockHashedFileMapping = {
+      resolve: (path: string) => path,
+    };
+
     TestBed.configureTestingModule({
       imports: [
         EditRelationshipListComponent,
@@ -272,6 +277,7 @@ describe('EditRelationshipListComponent', () => {
         { provide: XSRFService, useValue: {} },
         { provide: APP_CONFIG, useValue: environment },
         { provide: REQUEST, useValue: {} },
+        { provide: HashedFileMapping, useValue: mockHashedFileMapping },
         CookieService,
       ], schemas: [
         NO_ERRORS_SCHEMA,

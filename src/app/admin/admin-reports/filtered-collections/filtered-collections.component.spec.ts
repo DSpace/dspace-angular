@@ -19,6 +19,8 @@ import { DspaceRestService } from 'src/app/core/dspace-rest/dspace-rest.service'
 import { RawRestResponse } from 'src/app/core/dspace-rest/raw-rest-response.model';
 import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
 
+import { APP_CONFIG } from '../../../../config/app-config.interface';
+import { environment } from '../../../../environments/environment.test';
 import { FilteredCollectionsComponent } from './filtered-collections.component';
 
 describe('FiltersComponent', () => {
@@ -53,6 +55,7 @@ describe('FiltersComponent', () => {
       providers: [
         FormBuilder,
         DspaceRestService,
+        { provide: APP_CONFIG, useValue: environment },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     });

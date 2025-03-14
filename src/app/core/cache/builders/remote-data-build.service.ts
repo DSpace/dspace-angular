@@ -47,7 +47,7 @@ import {
 } from '../../shared/request.operators';
 import { getResourceTypeValueFor } from '../object-cache.reducer';
 import { ObjectCacheService } from '../object-cache.service';
-import { getClassForType } from './build-decorators';
+import { getClassForObject } from './build-decorators';
 import { LinkService } from './link.service';
 
 @Injectable({ providedIn: 'root' })
@@ -113,7 +113,7 @@ export class RemoteDataBuildService {
    * @param obj  The object to turn in to a class instance based on its type property
    */
   private plainObjectToInstance<T>(obj: any): T {
-    const type: GenericConstructor<T> = getClassForType(obj.type);
+    const type: GenericConstructor<T> = getClassForObject(obj);
     if (typeof type === 'function') {
       return Object.assign(new type(), obj) as T;
     } else {

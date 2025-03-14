@@ -5,24 +5,37 @@ import {
   HttpParams,
   HttpResponse,
 } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
 import {
   Observable,
+  of as observableOf,
   throwError as observableThrowError,
 } from 'rxjs';
 import {
   catchError,
   map,
+  switchMap,
 } from 'rxjs/operators';
 
 import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
+import {
   hasNoValue,
+  hasValue,
   isNotEmpty,
 } from '../../shared/empty.util';
 import { RequestError } from '../data/request-error.model';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { DSpaceObject } from '../shared/dspace-object.model';
-import { RawRestResponse } from './raw-rest-response.model';
+import {
+  rawBootstrapToRawRestResponse,
+  RawRestResponse,
+} from './raw-rest-response.model';
 
 export const DEFAULT_CONTENT_TYPE = 'application/json; charset=utf-8';
 export interface HttpOptions {
@@ -41,8 +54,10 @@ export interface HttpOptions {
 @Injectable()
 export class DspaceRestService {
 
-  constructor(protected http: HttpClient) {
-
+  constructor(
+    protected http: HttpClient,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
+  ) {
   }
 
   /**
@@ -117,6 +132,18 @@ export class DspaceRestService {
       // Because HttpHeaders is immutable, the set method returns a new object instead of updating the existing headers
       requestOptions.headers = requestOptions.headers.set('Content-Type', DEFAULT_CONTENT_TYPE);
     }
+
+    return this.retrieveResponseFromConfig(method, url).pipe(switchMap(response => {
+      if (hasValue(response)) {
+        return observableOf(response);
+      } else {
+        return this.performRequest(method, url, requestOptions);
+      }
+    }),
+    );
+  }
+
+  performRequest(method: RestRequestMethod, url: string, requestOptions: HttpOptions): Observable<RawRestResponse> {
     return this.http.request(method, url, requestOptions).pipe(
       map((res) => ({
         payload: res.body,
@@ -167,4 +194,20 @@ export class DspaceRestService {
     }
   }
 
+  /**
+   * Returns an observable which emits a RawRestResponse if the request has been prefetched and stored in the config.
+   * Emits null otherwise.
+   */
+  retrieveResponseFromConfig(method: RestRequestMethod, url: string): Observable<RawRestResponse> {
+    if (method !== RestRequestMethod.OPTIONS && method !== RestRequestMethod.GET) {
+      return observableOf(null);
+    }
+
+    const prefetchedResponses = this.appConfig?.prefetch?.bootstrap;
+    if (hasValue(prefetchedResponses?.[url])) {
+      return observableOf(rawBootstrapToRawRestResponse(prefetchedResponses[url]));
+    } else {
+      return observableOf(null);
+    }
+  }
 }
