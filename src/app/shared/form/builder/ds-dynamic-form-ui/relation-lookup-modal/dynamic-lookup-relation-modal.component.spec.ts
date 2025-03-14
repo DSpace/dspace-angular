@@ -23,6 +23,7 @@ import {
 } from 'rxjs';
 
 import { APP_DATA_SERVICES_MAP } from '../../../../../../config/app-config.interface';
+import { HashedFileMapping } from '../../../../../../modules/dynamic-hash/hashed-file-mapping';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { ExternalSourceDataService } from '../../../../../core/data/external-source-data.service';
 import { LookupRelationService } from '../../../../../core/data/lookup-relation.service';
@@ -84,6 +85,9 @@ describe('DsDynamicLookupRelationModalComponent', () => {
   const totalExternal = 8;
   const collection: Collection = new Collection();
 
+  const mockHashedFileMapping = {
+    resolve: (path: string) => path,
+  };
 
   function init() {
     item = Object.assign(new Item(), { uuid: '7680ca97-e2bd-4398-bfa7-139a8673dc42', metadata: {} });
@@ -152,6 +156,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         NgbActiveModal,
         provideMockStore(),
+        { provide: HashedFileMapping, useValue: mockHashedFileMapping },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })

@@ -22,6 +22,7 @@ import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 
 import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
+import { HashedFileMapping } from '../../../../modules/dynamic-hash/hashed-file-mapping';
 import { AppState } from '../../../app.reducer';
 import {
   authReducer,
@@ -43,6 +44,10 @@ describe('UserMenuComponent', () => {
   let authState: AuthState;
   let authStateLoading: AuthState;
   let authService: AuthService;
+
+  const mockHashedFileMapping = {
+    resolve: (path: string) => path,
+  };
 
   function serviceInit() {
     authService = jasmine.createSpyObj('authService', {
@@ -94,6 +99,7 @@ describe('UserMenuComponent', () => {
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: XSRFService, useValue: {} },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        { provide: HashedFileMapping, useValue: mockHashedFileMapping },
       ],
       schemas: [
         NO_ERRORS_SCHEMA,

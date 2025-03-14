@@ -13,6 +13,8 @@ import {
   TestBed,
 } from '@angular/core/testing';
 
+import { APP_CONFIG } from '../../../config/app-config.interface';
+import { environment } from '../../../environments/environment.test';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import {
@@ -40,6 +42,7 @@ describe('DspaceRestService', () => {
         DspaceRestService,
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),
+        { provide: APP_CONFIG, useValue: environment },
       ],
     });
 

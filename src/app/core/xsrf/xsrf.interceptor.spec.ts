@@ -10,7 +10,9 @@ import {
   provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { environment } from 'src/environments/environment.test';
 
+import { APP_CONFIG } from '../../../config/app-config.interface';
 import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
 import { HttpXsrfTokenExtractorMock } from '../../shared/mocks/http-xsrf-token-extractor.mock';
 import { RequestError } from '../data/request-error.model';
@@ -55,6 +57,7 @@ describe(`XsrfInterceptor`, () => {
         { provide: CookieService, useValue: cookieService },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),
+        { provide: APP_CONFIG, useValue: environment },
       ],
     });
 

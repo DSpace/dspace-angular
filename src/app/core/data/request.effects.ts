@@ -21,7 +21,7 @@ import {
   isNotEmpty,
 } from '../../shared/empty.util';
 import { StoreActionTypes } from '../../store.actions';
-import { getClassForType } from '../cache/builders/build-decorators';
+import { getClassForObject } from '../cache/builders/build-decorators';
 import { ParsedResponse } from '../cache/response.models';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
@@ -59,7 +59,7 @@ export class RequestEffects {
     mergeMap((request: RestRequestWithResponseParser) => {
       let body = request.body;
       if (isNotEmpty(request.body) && !request.isMultipart) {
-        const serializer = new DSpaceSerializer(getClassForType(request.body.type));
+        const serializer = new DSpaceSerializer(getClassForObject(request.body));
         body = serializer.serialize(request.body);
       }
       return this.restApi.request(request.method, request.href, body, request.options, request.isMultipart).pipe(

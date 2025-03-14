@@ -17,6 +17,7 @@ import { take } from 'rxjs/operators';
 
 import { AppState } from '../../app/app.reducer';
 import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
+import { HrefOnlyDataService } from '../../app/core/data/href-only-data.service';
 import { LocaleService } from '../../app/core/locale/locale.service';
 import { HeadTagService } from '../../app/core/metadata/head-tag.service';
 import { CorrelationIdService } from '../../app/correlation-id/correlation-id.service';
@@ -53,6 +54,7 @@ export class ServerInitService extends InitService {
     protected breadcrumbsService: BreadcrumbsService,
     protected themeService: ThemeService,
     protected menuService: MenuService,
+    protected hrefOnlyDataService: HrefOnlyDataService,
   ) {
     super(
       store,
@@ -65,6 +67,7 @@ export class ServerInitService extends InitService {
       breadcrumbsService,
       themeService,
       menuService,
+      hrefOnlyDataService,
     );
   }
 
@@ -80,6 +83,8 @@ export class ServerInitService extends InitService {
       this.initAngulartics();
       this.initRouteListeners();
       this.themeService.listenForThemeChanges(false);
+
+      this.initBootstrapEndpoints();
 
       await lastValueFrom(this.authenticationReady$());
 
