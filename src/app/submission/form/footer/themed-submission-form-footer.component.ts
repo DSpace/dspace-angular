@@ -1,11 +1,17 @@
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
 import { ThemedComponent } from '../../../shared/theme-support/themed.component';
 import { SubmissionFormFooterComponent } from './submission-form-footer.component';
-import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'ds-themed-submission-form-footer',
+  selector: 'ds-submission-form-footer',
   styleUrls: [],
   templateUrl: '../../../shared/theme-support/themed.component.html',
+  standalone: true,
+  imports: [SubmissionFormFooterComponent],
 })
 export class ThemedSubmissionFormFooterComponent extends ThemedComponent<SubmissionFormFooterComponent> {
   @Input() submissionId: string;

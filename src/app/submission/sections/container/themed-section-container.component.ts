@@ -1,12 +1,18 @@
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
 import { ThemedComponent } from '../../../shared/theme-support/themed.component';
-import { SubmissionSectionContainerComponent } from './section-container.component';
-import { Component, Input } from '@angular/core';
 import { SectionDataObject } from '../models/section-data.model';
+import { SubmissionSectionContainerComponent } from './section-container.component';
 
 @Component({
-  selector: 'ds-themed-submission-section-container',
+  selector: 'ds-submission-section-container',
   styleUrls: [],
   templateUrl: '../../../shared/theme-support/themed.component.html',
+  standalone: true,
+  imports: [SubmissionSectionContainerComponent],
 })
 export class ThemedSubmissionSectionContainerComponent extends ThemedComponent<SubmissionSectionContainerComponent> {
   @Input() collectionId: string;
