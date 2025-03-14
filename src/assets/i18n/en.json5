@@ -6271,6 +6271,10 @@
   "statistics.table.mainReports.header.city": "City",
 
   "statistics.table.mainReports.header.item": "Item",
+  
+  "statistics.table.mainReports.header.community": "Community",
+  
+  "statistics.table.mainReports.header.collection": "Collection",
 
   "statistics.table.downloadReports.header.views": "Downloads",
 
