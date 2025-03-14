@@ -367,7 +367,7 @@ export class SearchService {
       const appliedFilter = appliedFilters[i];
       filters.push(appliedFilter);
     }
-    this.angulartics2.eventTrack.next({
+    const searchTrackObject = {
       action: 'search',
       properties: {
         searchOptions: config,
@@ -384,7 +384,9 @@ export class SearchService {
         filters: filters,
         clickedObject,
       },
-    });
+    };
+
+    this.angulartics2.eventTrack.next(searchTrackObject);
   }
 
   /**
