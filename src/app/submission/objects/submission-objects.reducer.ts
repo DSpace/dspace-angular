@@ -567,6 +567,7 @@ function initSection(state: SubmissionObjectState, action: InitSectionAction): S
             mandatory: action.payload.mandatory,
             scope: action.payload.scope,
             sectionType: action.payload.sectionType,
+            extendsSectionType: action.payload.extendsSectionType,
             visibility: action.payload.visibility,
             collapsed: false,
             enabled: action.payload.enabled,
