@@ -92,6 +92,15 @@ export const ROUTES: Route[] = [
             component: ComcolSearchSectionComponent,
           },
           {
+            path: 'search',
+            pathMatch: 'full',
+            component: ComcolSearchSectionComponent,
+            resolve: {
+              breadcrumb: i18nBreadcrumbResolver,
+            },
+            data: { breadcrumbKey: 'collection.search' },
+          },
+          {
             path: 'browse/:id',
             pathMatch: 'full',
             component: ComcolBrowseByComponent,
