@@ -294,6 +294,32 @@ describe('ItemSearchResultListElementComponent', () => {
     });
   });
 
+  describe('When the item has authors and isCollapsed is true', () => {
+    beforeEach(() => {
+      spyOn(publicationListElementComponent, 'isCollapsed').and.returnValue(observableOf(true));
+      publicationListElementComponent.object = mockItemWithMetadata;
+      fixture.detectChanges();
+    });
+
+    it('should show limitedMetadata', () => {
+      const authorElements = fixture.debugElement.queryAll(By.css('span.item-list-authors ds-metadata-link-view'));
+      expect(authorElements.length).toBe(mockItemWithMetadata.indexableObject.limitedMetadata(publicationListElementComponent.authorMetadata, publicationListElementComponent.additionalMetadataLimit).length);
+    });
+  });
+
+  describe('When the item has authors and isCollapsed is false', () => {
+    beforeEach(() => {
+      spyOn(publicationListElementComponent, 'isCollapsed').and.returnValue(observableOf(false));
+      publicationListElementComponent.object = mockItemWithMetadata;
+      fixture.detectChanges();
+    });
+
+    it('should show allMetadata', () => {
+      const authorElements = fixture.debugElement.queryAll(By.css('span.item-list-authors ds-metadata-link-view'));
+      expect(authorElements.length).toBe(mockItemWithMetadata.indexableObject.allMetadata(publicationListElementComponent.authorMetadata).length);
+    });
+  });
+
   describe('When the item has a publisher', () => {
     beforeEach(() => {
       publicationListElementComponent.object = mockItemWithMetadata;

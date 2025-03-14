@@ -331,9 +331,12 @@ export class CollectionDataService extends ComColDataService<Collection> {
   /**
    * Returns {@link RemoteData} of {@link Collection} that is the owning collection of the given item
    * @param item  Item we want the owning collection of
+   * @param useCachedVersionIfAvailable
+   * @param reRequestOnStale
+   * @param linksToFollow
    */
-  findOwningCollectionFor(item: Item): Observable<RemoteData<Collection>> {
-    return this.findByHref(item._links.owningCollection.href);
+  findOwningCollectionFor(item: Item, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Collection>[]): Observable<RemoteData<Collection>> {
+    return this.findByHref(item._links.owningCollection.href, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**

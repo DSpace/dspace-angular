@@ -1,9 +1,13 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  NO_ERRORS_SCHEMA,
+  PLATFORM_ID,
+} from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -13,6 +17,7 @@ import { of as observableOf } from 'rxjs';
 import { APP_DATA_SERVICES_MAP } from '../../config/app-config.interface';
 import { AuthService } from '../core/auth/auth.service';
 import { XSRFService } from '../core/xsrf/xsrf.service';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { ThemedLogInComponent } from '../shared/log-in/themed-log-in.component';
 import { AuthServiceMock } from '../shared/mocks/auth.service.mock';
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
@@ -32,31 +37,69 @@ describe('LoginPageComponent', () => {
     select: observableOf(true),
   });
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        TranslateModule.forRoot(),
-        LoginPageComponent,
-      ],
-      providers: [
-        { provide: ActivatedRoute, useValue: activatedRouteStub },
-        { provide: AuthService, useValue: new AuthServiceMock() },
-        { provide: XSRFService, useValue: {} },
-        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
-        provideMockStore({}),
-      ],
-      schemas: [NO_ERRORS_SCHEMA],
-    }).overrideComponent(LoginPageComponent, { remove: { imports: [ThemedLogInComponent] } }).compileComponents();
-  }));
+  describe('when platform is browser', () => {
+    beforeEach(waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          TranslateModule.forRoot(),
+          LoginPageComponent,
+        ],
+        providers: [
+          { provide: ActivatedRoute, useValue: activatedRouteStub },
+          { provide: AuthService, useValue: new AuthServiceMock() },
+          { provide: XSRFService, useValue: {} },
+          { provide: PLATFORM_ID, useValue: 'browser' },
+          { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+          provideMockStore({}),
+        ],
+        schemas: [NO_ERRORS_SCHEMA],
+      }).overrideComponent(LoginPageComponent, { remove: { imports: [ThemedLoadingComponent, ThemedLogInComponent] } }).compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(LoginPageComponent);
-    comp = fixture.componentInstance; // SearchPageComponent test instance
-    fixture.detectChanges();
+    beforeEach(() => {
+      fixture = TestBed.createComponent(LoginPageComponent);
+      comp = fixture.componentInstance; // SearchPageComponent test instance
+      fixture.detectChanges();
+    });
+
+    it('should create instance', () => {
+      const login = fixture.debugElement.query(By.css('[data-test="login"]'));
+      const loading = fixture.debugElement.query(By.css('[data-test="loading"]'));
+      expect(login).toBeTruthy();
+      expect(loading).toBeFalsy();
+    });
   });
 
-  it('should create instance', () => {
-    expect(comp).toBeDefined();
+  describe('when platform is server', () => {
+    beforeEach(waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          TranslateModule.forRoot(),
+          LoginPageComponent,
+        ],
+        providers: [
+          { provide: ActivatedRoute, useValue: activatedRouteStub },
+          { provide: Store, useValue: store },
+          { provide: PLATFORM_ID, useValue: 'server' },
+          { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+          provideMockStore({}),
+        ],
+        schemas: [NO_ERRORS_SCHEMA],
+      }).overrideComponent(LoginPageComponent, { remove: { imports: [ThemedLoadingComponent, ThemedLogInComponent] } }).compileComponents();
+    }));
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(LoginPageComponent);
+      comp = fixture.componentInstance; // SearchPageComponent test instance
+      fixture.detectChanges();
+    });
+
+    it('should create instance', () => {
+      const login = fixture.debugElement.query(By.css('[data-test="login"]'));
+      const loading = fixture.debugElement.query(By.css('[data-test="loading"]'));
+      expect(login).toBeFalsy();
+      expect(loading).toBeTruthy();
+    });
   });
 
 });

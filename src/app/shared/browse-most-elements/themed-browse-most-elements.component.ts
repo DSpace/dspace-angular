@@ -25,7 +25,7 @@ export class ThemedBrowseMostElementsComponent extends ThemedComponent<BrowseMos
 
   @Input() paginatedSearchOptions: PaginatedSearchOptions;
 
-  @Input() projection;
+  @Input() projection: string;
 
   @Input() showLabel: boolean;
 

@@ -1,6 +1,6 @@
 <div class="container w-100 h-100">
   <div class="text-center mt-5 row justify-content-center">
-    <div>
+    <div *ngIf="isPlatformBrowser else loading" data-test="login">
       <img class="mb-4 login-logo" src="assets/images/dspace-logo.svg" [alt]="'repository.image.logo' | translate">
       <h1 class="h3 mb-0 font-weight-normal">{{"login.form.header" | translate}}</h1>
       <ds-log-in
@@ -8,3 +8,7 @@
     </div>
   </div>
 </div>
+
+<ng-template #loading>
+  <ds-loading [showMessage]="false" data-test="loading"></ds-loading>
+</ng-template>

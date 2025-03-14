@@ -89,6 +89,8 @@ interface AppConfig extends Config {
   cms: CmsMetadata;
   addToAnyPlugin: AddToAnyPluginConfig;
   followAuthorityMetadata: FollowAuthorityMetadata[];
+  followAuthorityMaxItemLimit: number;
+  followAuthorityMetadataValuesLimit: number;
   metricVisualizationConfig: MetricVisualizationConfig[];
   attachmentRendering: AttachmentRenderingConfig;
   advancedAttachmentRendering: AdvancedAttachmentRenderingConfig;

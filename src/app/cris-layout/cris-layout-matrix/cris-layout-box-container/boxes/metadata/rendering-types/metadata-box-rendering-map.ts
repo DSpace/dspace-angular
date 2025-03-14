@@ -4,9 +4,11 @@ import { CrisrefComponent } from './crisref/crisref.component';
 import { DateComponent } from './date/date.component';
 import { FieldRenderingType } from './field-rendering-type';
 import { HeadingComponent } from './heading/heading.component';
+import { HtmlComponent } from './html/html.component';
 import { IdentifierComponent } from './identifier/identifier.component';
 import { LinkComponent } from './link/link.component';
 import { LinkAuthorityComponent } from './link-authority/link-authority.component';
+import { LonghtmlComponent } from './longhtml/longhtml.component';
 import { LongtextComponent } from './longtext/longtext.component';
 import { InlineComponent } from './metadataGroup/inline/inline.component';
 import { TableComponent } from './metadataGroup/table/table.component';
@@ -53,6 +55,14 @@ export const layoutBoxesMap = new Map<FieldRenderingType, MetadataBoxFieldRender
   } as MetadataBoxFieldRenderOptions],
   [FieldRenderingType.AUTHORITYLINK, {
     componentRef: LinkAuthorityComponent,
+    structured: false,
+  } as MetadataBoxFieldRenderOptions],
+  [FieldRenderingType.HTML, {
+    componentRef: HtmlComponent,
+    structured: false,
+  } as MetadataBoxFieldRenderOptions],
+  [FieldRenderingType.LONGHTML, {
+    componentRef: LonghtmlComponent,
     structured: false,
   } as MetadataBoxFieldRenderOptions],
 ]);

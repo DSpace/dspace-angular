@@ -1,0 +1,7 @@
+<div [class]="field.styleValue">
+  <ds-truncatable [id]="truncatableId">
+    <ds-truncatable-part [id]="truncatableId" [minLines]="8">
+      <span [innerHTML]="processHtml(metadataValue.value)" class="text-value"></span>
+    </ds-truncatable-part>
+  </ds-truncatable>
+</div>
