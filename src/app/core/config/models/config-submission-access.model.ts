@@ -49,12 +49,6 @@ export class SubmissionAccessModel extends ConfigObject {
   required: boolean;
 
   /**
-   * Whether the field is mandatory
-   */
-  @autoserialize
-  required: boolean;
-
-  /**
    * The links to all related resources returned by the rest api.
    */
   @deserialize
