@@ -1,0 +1,14 @@
+<div class="container">
+  @if (registrationData$ | async; as registrationData) {
+    <ds-review-account-info
+      [registrationToken]="token"
+      [registrationData]="registrationData"
+    ></ds-review-account-info>
+  }
+  @if (hasErrors) {
+    <ds-alert
+      [type]="AlertTypeEnum.Error"
+      [content]="'review-account-info.alert.error.content'"
+    ></ds-alert>
+  }
+</div>

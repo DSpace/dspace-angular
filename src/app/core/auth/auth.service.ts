@@ -11,6 +11,7 @@ import {
 } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { CookieAttributes } from 'js-cookie';
+import uniqBy from 'lodash/uniqBy';
 import {
   Observable,
   of as observableOf,
@@ -38,6 +39,7 @@ import {
   isNotNull,
   isNotUndefined,
 } from '../../shared/empty.util';
+import { rendersAuthMethodType } from '../../shared/log-in/methods/log-in.methods-decorator';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { followLink } from '../../shared/utils/follow-link-config.model';
@@ -62,6 +64,7 @@ import {
   getFirstCompletedRemoteData,
 } from '../shared/operators';
 import { PageInfo } from '../shared/page-info.model';
+import { URLCombiner } from '../url-combiner/url-combiner';
 import {
   CheckAuthenticationTokenAction,
   RefreshTokenAction,
@@ -73,6 +76,7 @@ import {
 } from './auth.actions';
 import { AuthRequestService } from './auth-request.service';
 import { AuthMethod } from './models/auth.method';
+import { AuthMethodType } from './models/auth.method-type';
 import { AuthStatus } from './models/auth-status.model';
 import {
   AuthTokenInfo,
@@ -80,6 +84,7 @@ import {
 } from './models/auth-token-info.model';
 import {
   getAuthenticatedUserId,
+  getAuthenticationMethods,
   getAuthenticationToken,
   getExternalAuthCookieStatus,
   getRedirectUrl,
@@ -580,6 +585,31 @@ export class AuthService {
   }
 
   /**
+   * Returns the external server redirect URL.
+   * @param origin - The origin route.
+   * @param redirectRoute - The redirect route.
+   * @param location - The location.
+   * @returns The external server redirect URL.
+   */
+  getExternalServerRedirectUrl(origin: string, redirectRoute: string, location: string): string  {
+    const correctRedirectUrl = new URLCombiner(origin, redirectRoute).toString();
+
+    let externalServerUrl = location;
+    const myRegexp = /\?redirectUrl=(.*)/g;
+    const match = myRegexp.exec(location);
+    const redirectUrlFromServer = (match && match[1]) ? match[1] : null;
+
+    // Check whether the current page is different from the redirect url received from rest
+    if (isNotNull(redirectUrlFromServer) && redirectUrlFromServer !== correctRedirectUrl) {
+      // change the redirect url with the current page url
+      const newRedirectUrl = `?redirectUrl=${correctRedirectUrl}`;
+      externalServerUrl = location.replace(/\?redirectUrl=(.*)/g, newRedirectUrl);
+    }
+
+    return externalServerUrl;
+  }
+
+  /**
    * Clear redirect url
    */
   clearRedirectUrl() {
@@ -662,6 +692,20 @@ export class AuthService {
     } else {
       this.store.dispatch(new UnsetUserAsIdleAction());
     }
+  }
+
+  public getAuthMethods(excludedAuthMethod?: AuthMethodType): Observable<AuthMethod[]> {
+    return this.store.pipe(
+      select(getAuthenticationMethods),
+      map((methods: AuthMethod[]) => methods
+        // ignore the given auth method if it should be excluded
+        .filter((authMethod: AuthMethod) => excludedAuthMethod == null || authMethod.authMethodType !== excludedAuthMethod)
+        .filter((authMethod: AuthMethod) => rendersAuthMethodType(authMethod.authMethodType) !== undefined)
+        .sort((method1: AuthMethod, method2: AuthMethod) => method1.position - method2.position),
+      ),
+      // ignore the ip authentication method when it's returned by the backend
+      map((authMethods: AuthMethod[]) => uniqBy(authMethods.filter(a => a.authMethodType !== AuthMethodType.Ip), 'authMethodType')),
+    );
   }
 
 }

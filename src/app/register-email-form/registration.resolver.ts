@@ -17,7 +17,7 @@ export const registrationResolver: ResolveFn<RemoteData<Registration>> = (
   epersonRegistrationService: EpersonRegistrationService = inject(EpersonRegistrationService),
 ): Observable<RemoteData<Registration>> => {
   const token = route.params.token;
-  return epersonRegistrationService.searchByToken(token).pipe(
+  return epersonRegistrationService.searchByTokenAndUpdateData(token).pipe(
     getFirstCompletedRemoteData(),
   );
 };

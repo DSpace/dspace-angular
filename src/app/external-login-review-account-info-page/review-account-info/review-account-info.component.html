@@ -1,0 +1,61 @@
+<h2> {{'external-login-validation.review-account-info.header' | translate}}</h2>
+
+<ds-alert [type]="AlertTypeEnum.Info" [content]="'external-login-validation.review-account-info.info' | translate"></ds-alert>
+<div class="justify-content-center table-responsive">
+  <table class="table table-lg">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">
+          <span class="h5 font-weight-bold">{{ 'external-login-validation.review-account-info.table.header.information' | translate }}</span>
+        </th>
+        <th scope="col">
+          <span class="h5 font-weight-bold">{{'external-login-validation.review-account-info.table.header.received-value' | translate }}</span>
+        </th>
+        <th scope="col">
+          <span class="h5 font-weight-bold">{{'external-login-validation.review-account-info.table.header.current-value' | translate }}</span>
+        </th>
+        <th scope="col"><span class="h5 font-weight-bold">{{'external-login-validation.review-account-info.table.header.action' | translate }}</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row" class="text-uppercase">{{ registrationData.registrationType }}</th>
+        <td>{{ registrationData.netId }}</td>
+        <td>
+          <span>
+            {{ 'external-login-validation.review-account-info.table.row.not-applicable' | translate }}
+          </span>
+        </td>
+        <td></td>
+      </tr>
+      @for (data of dataToCompare; track data) {
+        <tr>
+          <th scope="row">{{ data.label | titlecase }}</th>
+          <td>{{ data.receivedValue }}</td>
+          <td>
+            <span
+              [innerHTML]="
+                data.receivedValue | dsCompareValues : data.currentValue
+              "
+            >
+            </span>
+          </td>
+          <td>
+            @if ((data.receivedValue !== data.currentValue) && data.currentValue) {
+              <ui-switch
+                [checkedLabel]="'on-label' | translate"
+                [uncheckedLabel]="'off-label' | translate"
+                [checked]="data.overrideValue"
+                (change)="onOverrideChange($event, data.identifier)"
+              ></ui-switch>
+            }
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>  <div class="d-flex justify-content-end">
+    <button class="btn btn-primary" (click)="onSave()">
+      {{'confirmation-modal.review-account-info.save' | translate}}
+    </button>
+  </div>
+</div>
