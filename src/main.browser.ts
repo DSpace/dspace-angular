@@ -10,9 +10,12 @@ import { AppConfig } from './config/app-config.interface';
 import { extendEnvironmentWithAppConfig } from './config/config.util';
 import { environment } from './environments/environment';
 import { browserAppConfig } from './modules/app/browser-app.config';
+import { BrowserHashedFileMapping } from './modules/dynamic-hash/hashed-file-mapping.browser';
+
 
 /*const bootstrap = () => platformBrowserDynamic()
   .bootstrapModule(BrowserAppModule, {});*/
+const hashedFileMapping = new BrowserHashedFileMapping(document);
 const bootstrap = () => bootstrapApplication(AppComponent, browserAppConfig);
 
 /**
@@ -33,7 +36,7 @@ const main = () => {
     return bootstrap();
   } else {
     // Configuration must be fetched explicitly
-    return fetch('assets/config.json')
+    return fetch(hashedFileMapping.resolve('assets/config.json'))
       .then((response) => response.json())
       .then((config: AppConfig) => {
         // extend environment with app config for browser when not prerendered

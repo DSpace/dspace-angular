@@ -13,6 +13,7 @@ import { load } from 'js-yaml';
 import { join } from 'path';
 
 import { isNotEmpty } from '../app/shared/empty.util';
+import { ServerHashedFileMapping } from '../modules/dynamic-hash/hashed-file-mapping.server';
 import { AppConfig } from './app-config.interface';
 import { Config } from './config.interface';
 import { mergeConfig } from './config.util';
@@ -168,6 +169,7 @@ const buildBaseUrl = (config: ServerConfig): void => {
   ].join('');
 };
 
+
 /**
  * Build app config with the following chain of override.
  *
@@ -178,7 +180,7 @@ const buildBaseUrl = (config: ServerConfig): void => {
  * @param destConfigPath optional path to save config file
  * @returns app config
  */
-export const buildAppConfig = (destConfigPath?: string): AppConfig => {
+export const buildAppConfig = (destConfigPath?: string, mapping?: ServerHashedFileMapping): AppConfig => {
   // start with default app config
   const appConfig: AppConfig = new DefaultAppConfig();
 
@@ -246,7 +248,12 @@ export const buildAppConfig = (destConfigPath?: string): AppConfig => {
   buildBaseUrl(appConfig.rest);
 
   if (isNotEmpty(destConfigPath)) {
-    writeFileSync(destConfigPath, JSON.stringify(appConfig, null, 2));
+    const content = JSON.stringify(appConfig, null, 2);
+
+    writeFileSync(destConfigPath, content);
+    if (mapping !== undefined) {
+      mapping.add(destConfigPath, content);
+    }
 
     console.log(`Angular ${bold('config.json')} file generated correctly at ${bold(destConfigPath)} \n`);
   }
