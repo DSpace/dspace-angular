@@ -4088,6 +4088,8 @@
 
   "suggestion.source.openaire": "OpenAIRE Graph",
 
+  "suggestion.source.openalex": "OpenAlex",
+
   "suggestion.from.source": "from the ",
 
   "suggestion.count.missing": "You have no publication claims left",
