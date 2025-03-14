@@ -1,4 +1,4 @@
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
@@ -11,7 +11,7 @@ export function getItemBitstreamsServiceStub(): ItemBitstreamsServiceStub {
 
 export class ItemBitstreamsServiceStub {
   getSelectionAction$ = jasmine.createSpy('getSelectedBitstream$').and
-    .returnValue(of(null));
+    .returnValue(observableOf(null));
 
   getSelectedBitstream = jasmine.createSpy('getSelectedBitstream').and
     .returnValue(null);
@@ -33,7 +33,7 @@ export class ItemBitstreamsServiceStub {
 
   getPerformingMoveRequest = jasmine.createSpy('getPerformingMoveRequest').and.returnValue(false);
 
-  getPerformingMoveRequest$ = jasmine.createSpy('getPerformingMoveRequest$').and.returnValue(of(false));
+  getPerformingMoveRequest$ = jasmine.createSpy('getPerformingMoveRequest$').and.returnValue(observableOf(false));
 
   getInitialBundlesPaginationOptions = jasmine.createSpy('getInitialBundlesPaginationOptions').and
     .returnValue(new PaginationComponentOptions());

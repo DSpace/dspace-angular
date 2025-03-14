@@ -7,7 +7,7 @@ import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { SplitPipe } from 'src/app/shared/utils/split.pipe';
 
 import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
@@ -61,7 +61,7 @@ describe('QaEventNotificationComponent', () => {
     fixture = TestBed.createComponent(QaEventNotificationComponent);
     component = fixture.componentInstance;
     component.item = item;
-    component.sources$ = of([obj]);
+    component.sources$ = observableOf([obj]);
     fixture.detectChanges();
   });
 

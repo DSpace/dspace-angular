@@ -25,7 +25,7 @@ import {
   BehaviorSubject,
   combineLatest,
   Observable,
-  of,
+  of as observableOf,
   Subscription,
   switchMap,
 } from 'rxjs';
@@ -196,9 +196,9 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
             if (captchaVersion === 'v3') {
               return this.googleRecaptchaService.getRecaptchaToken('register_email');
             } else if (captchaVersion === 'v2' && captchaMode === 'checkbox') {
-              return of(this.googleRecaptchaService.getRecaptchaTokenResponse());
+              return observableOf(this.googleRecaptchaService.getRecaptchaTokenResponse());
             } else if (captchaVersion === 'v2' && captchaMode === 'invisible') {
-              return of(tokenV2);
+              return observableOf(tokenV2);
             } else {
               console.error(`Invalid reCaptcha configuration: version = ${captchaVersion}, mode = ${captchaMode}`);
               this.showNotification('error');
@@ -256,7 +256,7 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
     const checked$ = this.checkboxCheckedSubject$.asObservable();
     return combineLatest([this.captchaVersion(), this.captchaMode(), checked$]).pipe(
       // disable if checkbox is not checked or if reCaptcha is not in v2 checkbox mode
-      switchMap(([captchaVersion, captchaMode, checked])  => captchaVersion === 'v2' && captchaMode === 'checkbox' ? of(!checked) : of(false)),
+      switchMap(([captchaVersion, captchaMode, checked])  => captchaVersion === 'v2' && captchaMode === 'checkbox' ? observableOf(!checked) : observableOf(false)),
       startWith(true),
     );
   }

@@ -2,7 +2,7 @@ import { deepClone } from 'fast-json-patch';
 import { cold } from 'jasmine-marbles';
 import {
   BehaviorSubject,
-  of,
+  of as observableOf,
 } from 'rxjs';
 import { take } from 'rxjs/operators';
 
@@ -67,12 +67,12 @@ describe('AdminNotifyMessagesService test', () => {
       generateRequestId: requestUUID,
       send: true,
       removeByHrefSubstring: {},
-      getByHref: of(responseCacheEntry),
-      getByUUID: of(responseCacheEntry),
+      getByHref: observableOf(responseCacheEntry),
+      getByUUID: observableOf(responseCacheEntry),
     });
 
     halService = jasmine.createSpyObj('halService', {
-      getEndpoint: of(endpointURL),
+      getEndpoint: observableOf(endpointURL),
     });
 
     rdbService = jasmine.createSpyObj('rdbService', {

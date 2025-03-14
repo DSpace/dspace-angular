@@ -3,7 +3,7 @@ import {
   tick,
 } from '@angular/core/testing';
 import { TranslateService } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
@@ -54,7 +54,7 @@ describe('ItemBitstreamsService', () => {
     });
     dsoNameService = new DSONameServiceMock() as any;
     requestService = jasmine.createSpyObj('requestService', {
-      setStaleByHrefSubstring: of(true),
+      setStaleByHrefSubstring: observableOf(true),
     });
     liveRegionService = getLiveRegionServiceStub();
 

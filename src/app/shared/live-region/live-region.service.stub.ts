@@ -1,4 +1,4 @@
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { LiveRegionService } from './live-region.service';
 
@@ -12,7 +12,7 @@ export class LiveRegionServiceStub {
   );
 
   getMessages$ = jasmine.createSpy('getMessages$').and.returnValue(
-    of(['Message One', 'Message Two']),
+    observableOf(['Message One', 'Message Two']),
   );
 
   addMessage = jasmine.createSpy('addMessage').and.returnValue('messageId');

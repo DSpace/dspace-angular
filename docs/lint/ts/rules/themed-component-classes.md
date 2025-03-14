@@ -11,6 +11,8 @@ _______
 
 [Source code](../../../../lint/src/rules/ts/themed-component-classes.ts)
 
+
+
 ### Examples
 
 
@@ -34,7 +36,7 @@ class Something {
   selector: 'ds-base-test-themable',
   standalone: true,
 })
-class TestThemeableTomponent {
+class TestThemeableComponent {
 }
 ```
     
@@ -50,7 +52,7 @@ Filename: `lint/test/fixture/src/app/test/themed-test-themeable.component.ts`
     TestThemeableComponent,
   ],
 })
-class ThemedTestThemeableTomponent extends ThemedComponent<TestThemeableComponent> {
+class ThemedTestThemeableComponent extends ThemedComponent<TestThemeableComponent> {
 }
 ```
     
