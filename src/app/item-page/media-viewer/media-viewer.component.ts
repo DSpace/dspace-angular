@@ -25,6 +25,7 @@ import { RemoteData } from '../../core/data/remote-data';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { BitstreamFormat } from '../../core/shared/bitstream-format.model';
 import { Item } from '../../core/shared/item.model';
+import { ItemWithSupplementaryData } from '../../core/shared/item-with-supplementary-data.model';
 import { MediaViewerItem } from '../../core/shared/media-viewer-item.model';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { hasValue } from '../../shared/empty.util';
@@ -120,6 +121,7 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
         }));
       }
     }));
+
   }
 
   /**
@@ -160,6 +162,17 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
     mediaItem.format = format.mimetype.split('/')[0];
     mediaItem.mimetype = format.mimetype;
     mediaItem.thumbnail = thumbnail ? thumbnail._links.content.href : null;
+    mediaItem.accessToken = this.accessToken;
     return mediaItem;
+  }
+
+  /**
+   * Get access token, if this is accessed via a Request-a-Copy link
+   */
+  get accessToken() {
+    if (this.item instanceof ItemWithSupplementaryData && hasValue(this.item.itemRequest)) {
+      return this.item.itemRequest.accessToken;
+    }
+    return null;
   }
 }

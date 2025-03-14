@@ -10,6 +10,7 @@ import { Bitstream } from 'src/app/core/shared/bitstream.model';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
+import { hasValue } from '../../../shared/empty.util';
 import { CaptionInfo } from './caption-info';
 import { languageHelper } from './language-helper';
 
@@ -64,7 +65,7 @@ export class MediaViewerVideoComponent {
     for (const media of filteredCapMedias) {
       const srclang: string = media.name.slice(-6, -4).toLowerCase();
       capInfos.push(new CaptionInfo(
-        media._links.content.href,
+        this.constructHref(media._links.content.href),
         srclang,
         languageHelper[srclang],
       ));
@@ -92,5 +93,16 @@ export class MediaViewerVideoComponent {
    */
   prevMedia() {
     this.currentIndex--;
+  }
+
+  /**
+   * Construct a URL with Request-a-Copy access token appended, if present
+   * @param baseHref
+   */
+  constructHref(baseHref) {
+    if (hasValue(this.medias) && this.medias.length >= 1 && hasValue(this.medias[0].accessToken)) {
+      return baseHref + '?accessToken=' + this.medias[0].accessToken;
+    }
+    return baseHref;
   }
 }
