@@ -10,9 +10,18 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { DsoEditMetadataValue } from '../dso-edit-metadata-form';
 import { EditMetadataValueFieldType } from './dso-edit-metadata-field-type.enum';
 
+/**
+ * Abstract base component for editing metadata fields.
+ *
+ * This abstract component is only designed to contain the common `@Input()` & `@Output()` fields, that the
+ * {@link DsoEditMetadataValueFieldLoaderComponent} passes to its dynamically generated components. This class should
+ * not contain any methods or any other type of logic. Such logic should instead be created in
+ * {@link DsoEditMetadataFieldService}.
+ */
 @Component({
-  selector: 'ds-dso-edit-metadata-entity-field',
+  selector: 'ds-abstract-dso-edit-metadata-value-field',
   template: '',
+  standalone: true,
 })
 export abstract class AbstractDsoEditMetadataValueFieldComponent {
 

@@ -14,6 +14,11 @@ import { DsoEditMetadataValue } from '../../dso-edit-metadata-form';
 import { EditMetadataValueFieldType } from '../dso-edit-metadata-field-type.enum';
 import { getDsoEditMetadataValueFieldComponent } from './dso-edit-metadata-value-field.decorator';
 
+/**
+ * A component responsible for dynamically loading and rendering the appropriate edit metadata value field components
+ * based on the type of the metadata field ({@link EditMetadataValueFieldType}) and the place where it's used
+ * ({@link Context}).
+ */
 @Component({
   selector: 'ds-dso-edit-metadata-value-field-loader',
   templateUrl: '../../../../shared/abstract-component-loader/abstract-component-loader.component.html',
