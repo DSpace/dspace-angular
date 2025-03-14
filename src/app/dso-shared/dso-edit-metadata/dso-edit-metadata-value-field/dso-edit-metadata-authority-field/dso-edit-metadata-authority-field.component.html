@@ -1,0 +1,61 @@
+@if (mdValue.editing) {
+  @if ((isAuthorityControlled$ | async) !== true || (enabledFreeTextEditing && (isSuggesterVocabulary$ | async) !== true)) {
+    <textarea class="form-control" rows="5" [(ngModel)]="mdValue.newValue.value"
+              [attr.aria-label]="(dsoType + '.edit.metadata.edit.value') | translate"
+              [dsDebounce]="300" (onDebounce)="confirm.emit(false)">
+    </textarea>
+  }
+  @if ((isScrollableVocabulary$ | async) && !enabledFreeTextEditing) {
+    <ds-dynamic-scrollable-dropdown [bindId]="mdField"
+                                    [group]="group"
+                                    [model]="getModel()"
+                                    (change)="onChangeAuthorityField($event)">
+    </ds-dynamic-scrollable-dropdown>
+  }
+  @if (((isHierarchicalVocabulary$ | async) && !enabledFreeTextEditing) || (isSuggesterVocabulary$ | async)) {
+    <ds-dynamic-onebox
+      [group]="group"
+      [model]="getModel()"
+      (change)="onChangeAuthorityField($event)">
+    </ds-dynamic-onebox>
+  }
+  @if ((isHierarchicalVocabulary$ | async) || (isScrollableVocabulary$ | async)) {
+    <button class="btn btn-secondary w-100 mt-2"
+            [title]="enabledFreeTextEditing ? dsoType + '.edit.metadata.edit.buttons.disable-free-text-editing' : dsoType + '.edit.metadata.edit.buttons.enable-free-text-editing' | translate"
+            (click)="toggleFreeTextEdition()">
+      <i class="fas fa-fw" [ngClass]="enabledFreeTextEditing ? 'fa-lock' : 'fa-unlock'"></i>
+      {{ (enabledFreeTextEditing ? dsoType + '.edit.metadata.edit.buttons.disable-free-text-editing' : dsoType + '.edit.metadata.edit.buttons.enable-free-text-editing') | translate }}
+    </button>
+  }
+  @if ((isAuthorityControlled$ | async) && (isSuggesterVocabulary$ | async)) {
+    <div class="mt-2">
+      <div class="btn-group w-75">
+        <i dsAuthorityConfidenceState
+           class="fas fa-fw p-0 me-1 mt-auto mb-auto"
+           aria-hidden="true"
+           [authorityValue]="mdValue.newValue.confidence"
+           [iconMode]="true"
+        ></i>
+        <input class="form-control form-outline" data-test="authority-input" [(ngModel)]="mdValue.newValue.authority"
+               [disabled]="!editingAuthority"
+               [attr.aria-label]="(dsoType + '.edit.metadata.edit.authority.key') | translate"
+               (change)="onChangeAuthorityKey()"/>
+        @if (editingAuthority) {
+          <button class="btn btn-outline-success btn-sm ng-star-inserted" id="metadata-confirm-btn"
+                  [title]="dsoType + '.edit.metadata.edit.buttons.close-authority-edition' | translate"
+                  ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.close-authority-edition' | translate }}"
+                  (click)="onChangeEditingAuthorityStatus(false)">
+            <i class="fas fa-lock-open fa-fw"></i>
+          </button>
+        } @else {
+          <button class="btn btn-outline-secondary btn-sm ng-star-inserted" id="metadata-confirm-btn"
+                  [title]="dsoType + '.edit.metadata.edit.buttons.open-authority-edition' | translate"
+                  ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.open-authority-edition' | translate }}"
+                  (click)="onChangeEditingAuthorityStatus(true)">
+            <i class="fas fa-lock fa-fw"></i>
+          </button>
+        }
+      </div>
+    </div>
+  }
+}
