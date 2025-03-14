@@ -74,10 +74,12 @@ export class ItemComponent implements OnInit {
   iiifQuery$: Observable<string>;
 
   mediaViewer;
+  ccLicense;
 
   constructor(protected routeService: RouteService,
               protected router: Router) {
     this.mediaViewer = environment.mediaViewer;
+    this.ccLicense = environment.item.ccLicense;
   }
 
   /**
