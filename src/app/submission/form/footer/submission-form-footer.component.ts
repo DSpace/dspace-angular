@@ -24,7 +24,7 @@ import { SubmissionService } from '../../submission.service';
  * This component represents submission form footer bar.
  */
 @Component({
-  selector: 'ds-submission-form-footer',
+  selector: 'ds-base-submission-form-footer',
   styleUrls: ['./submission-form-footer.component.scss'],
   templateUrl: './submission-form-footer.component.html',
   standalone: true,
