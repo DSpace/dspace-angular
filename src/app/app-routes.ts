@@ -34,7 +34,6 @@ import { forgotPasswordCheckGuard } from './core/rest-property/forgot-password-c
 import { ServerCheckGuard } from './core/server-check/server-check.guard';
 import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
 import { ITEM_MODULE_PATH } from './item-page/item-page-routing-paths';
-import { menuResolver } from './menuResolver';
 import { provideSuggestionNotificationsState } from './notifications/provide-suggestion-notifications-state';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
 import { ThemedPageInternalServerErrorComponent } from './page-internal-server-error/themed-page-internal-server-error.component';
@@ -50,7 +49,6 @@ export const APP_ROUTES: Route[] = [
     path: '',
     canActivate: [authBlockingGuard],
     canActivateChild: [ServerCheckGuard],
-    resolve: [menuResolver],
     children: [
       { path: '', redirectTo: '/home', pathMatch: 'full' },
       {

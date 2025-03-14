@@ -34,7 +34,8 @@ import { MenuSection } from '../menu-section.model';
   template: '',
   standalone: true,
 })
-export class MenuSectionComponent implements OnInit, OnDestroy {
+export abstract class AbstractMenuSectionComponent implements OnInit, OnDestroy {
+  protected abstract section: MenuSection;
 
   /**
    * {@link BehaviorSubject} containing the current state to whether this section is currently active
@@ -56,7 +57,7 @@ export class MenuSectionComponent implements OnInit, OnDestroy {
    */
   sectionMap$: BehaviorSubject<Map<string, {
     injector: Injector,
-    component: GenericConstructor<MenuSectionComponent>
+    component: GenericConstructor<AbstractMenuSectionComponent>
   }>> = new BehaviorSubject(new Map());
 
   /**
@@ -65,7 +66,10 @@ export class MenuSectionComponent implements OnInit, OnDestroy {
    */
   subs: Subscription[] = [];
 
-  constructor(public section: MenuSection, protected menuService: MenuService, protected injector: Injector) {
+  protected constructor(
+    protected menuService: MenuService,
+    protected injector: Injector,
+  ) {
   }
 
   /**

@@ -18,10 +18,13 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MenuID } from 'src/app/shared/menu/menu-id.model';
 import { MenuSection } from 'src/app/shared/menu/menu-section.model';
-import { MenuSectionComponent } from 'src/app/shared/menu/menu-section/menu-section.component';
+import { AbstractMenuSectionComponent } from 'src/app/shared/menu/menu-section/abstract-menu-section.component';
 
 import { BtnDisabledDirective } from '../../../btn-disabled.directive';
-import { hasValue } from '../../../empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../empty.util';
 import { MenuService } from '../../../menu/menu.service';
 
 /**
@@ -34,21 +37,37 @@ import { MenuService } from '../../../menu/menu.service';
   standalone: true,
   imports: [NgbDropdownModule, NgbTooltipModule, NgComponentOutlet, TranslateModule, AsyncPipe, BtnDisabledDirective],
 })
-export class DsoEditMenuExpandableSectionComponent extends MenuSectionComponent implements OnInit {
+export class DsoEditMenuExpandableSectionComponent extends AbstractMenuSectionComponent implements OnInit {
 
+  /**
+   * This section resides in the DSO edit menu
+   */
   menuID: MenuID = MenuID.DSO_EDIT;
+
+
+  /**
+   * The MenuItemModel of the top section
+   */
   itemModel;
 
+  /**
+   * Emits whether one of the subsections contains an icon
+   */
   renderIcons$: Observable<boolean>;
 
+  /**
+   * Emits true when the top section has subsections, else emits false
+   */
+  hasSubSections$: Observable<boolean>;
+
   constructor(
-    @Inject('sectionDataProvider') menuSection: MenuSection,
+    @Inject('sectionDataProvider') protected section: MenuSection,
     protected menuService: MenuService,
     protected injector: Injector,
     protected router: Router,
   ) {
-    super(menuSection, menuService, injector);
-    this.itemModel = menuSection.model;
+    super(menuService, injector);
+    this.itemModel = section.model;
   }
 
   ngOnInit(): void {
@@ -60,5 +79,10 @@ export class DsoEditMenuExpandableSectionComponent extends MenuSectionComponent 
         return sections.some(section => hasValue(section.icon));
       }),
     );
+
+    this.hasSubSections$ = this.subSections$.pipe(
+      map((subSections) => isNotEmpty(subSections)),
+    );
+
   }
 }
