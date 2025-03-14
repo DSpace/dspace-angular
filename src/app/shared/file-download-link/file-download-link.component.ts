@@ -30,13 +30,14 @@ import {
   hasValue,
   isNotEmpty,
 } from '../empty.util';
+import { ThemedAccessStatusBadgeComponent } from '../object-collection/shared/badges/access-status-badge/themed-access-status-badge.component';
 
 @Component({
   selector: 'ds-base-file-download-link',
   templateUrl: './file-download-link.component.html',
   styleUrls: ['./file-download-link.component.scss'],
   standalone: true,
-  imports: [RouterLink, NgClass, NgTemplateOutlet, AsyncPipe, TranslateModule],
+  imports: [RouterLink, NgClass, NgTemplateOutlet, AsyncPipe, TranslateModule, ThemedAccessStatusBadgeComponent],
 })
 /**
  * Component displaying a download link

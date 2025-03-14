@@ -8556,5 +8556,8 @@
 
   //"browse.search-form.placeholder": "Search the repository",
   "browse.search-form.placeholder": "Chercher dans le dépôt",
+
+  // "embargo.listelement.badge": "Embargo until {{ date }}",
+  "embargo.listelement.badge": "Embargo jusqu'à {{ date }}",
 }
 
