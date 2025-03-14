@@ -9,6 +9,7 @@ import {
   ChangeDetectorRef,
   Component,
   ComponentFactoryResolver,
+  ComponentRef,
   ContentChildren,
   DoCheck,
   EventEmitter,
@@ -103,6 +104,7 @@ import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import {
   hasNoValue,
   hasValue,
+  hasValueOperator,
   isNotEmpty,
   isNotUndefined,
 } from '../../../empty.util';
@@ -123,6 +125,7 @@ import {
 import { ExistingRelationListElementComponent } from './existing-relation-list-element/existing-relation-list-element.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/custom-switch.model';
 import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
+import { ThemedDsDynamicLookupRelationModalComponent } from './relation-lookup-modal/themed-dynamic-lookup-relation-modal.component';
 
 @Component({
   selector: 'ds-dynamic-form-control-container',
@@ -374,7 +377,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
    * Open a modal where the user can select relationships to be added to item being submitted
    */
   openLookup() {
-    this.modalRef = this.modalService.open(DsDynamicLookupRelationModalComponent, {
+    this.modalRef = this.modalService.open(ThemedDsDynamicLookupRelationModalComponent, {
       size: 'lg',
     });
 
@@ -398,24 +401,30 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
 
     this.submissionService.dispatchSave(this.model.submissionId);
 
-    const modalComp = this.modalRef.componentInstance;
+    const modalComp$ = this.modalRef.componentInstance.compRef$.pipe(
+      hasValueOperator(),
+      map((compRef: ComponentRef<DsDynamicLookupRelationModalComponent>) => compRef.instance),
+      take(1),
+    );
 
-    if (hasValue(this.model.value) && !this.model.readOnly) {
-      if (typeof this.model.value === 'string') {
-        modalComp.query = this.model.value;
-      } else if (typeof this.model.value.value === 'string') {
-        modalComp.query = this.model.value.value;
+    modalComp$.subscribe((modalComp: DsDynamicLookupRelationModalComponent) => {
+      if (hasValue(this.model.value) && !this.model.readOnly) {
+        if (typeof this.model.value === 'string') {
+          modalComp.query = this.model.value;
+        } else if (typeof this.model.value.value === 'string') {
+          modalComp.query = this.model.value.value;
+        }
       }
-    }
 
-    modalComp.repeatable = this.model.repeatable;
-    modalComp.listId = this.listId;
-    modalComp.relationshipOptions = this.model.relationship;
-    modalComp.label = this.model.relationship.relationshipType;
-    modalComp.metadataFields = this.model.metadataFields;
-    modalComp.item = this.item;
-    modalComp.collection = this.collection;
-    modalComp.submissionId = this.model.submissionId;
+      modalComp.repeatable = this.model.repeatable;
+      modalComp.listId = this.listId;
+      modalComp.relationshipOptions = this.model.relationship;
+      modalComp.label = this.model.relationship.relationshipType;
+      modalComp.metadataFields = this.model.metadataFields;
+      modalComp.item = this.item;
+      modalComp.collection = this.collection;
+      modalComp.submissionId = this.model.submissionId;
+    });
   }
 
   /**
