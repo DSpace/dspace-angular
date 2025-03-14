@@ -5,7 +5,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { cold } from 'jasmine-marbles';
 
-import { MenuService, PINNED_SIDEBAR_COOKIE } from './menu.service';
+import { MenuService, PINNED_MENU_COOKIE } from './menu.service';
 import {
   ActivateMenuSectionAction,
   AddMenuSectionAction,
@@ -528,7 +528,7 @@ describe('MenuService', () => {
   describe('toggleMenuCollapsedState', () => {
     it('should update the collapsed state of the given menu in the cookie', () => {
       service.toggleMenuCollapsedState(MenuID.ADMIN);
-      expect(cookieService.get(PINNED_SIDEBAR_COOKIE)[MenuID.ADMIN]).toEqual(false);
+      expect(cookieService.get(PINNED_MENU_COOKIE)[MenuID.ADMIN]).toEqual(false);
     });
   });
 
@@ -540,7 +540,7 @@ describe('MenuService', () => {
         [MenuID.PUBLIC]: false,
         [MenuID.DSO_EDIT]: false,
       };
-       cookieService.set(PINNED_SIDEBAR_COOKIE, cookieWithExpandedAdmin);
+       cookieService.set(PINNED_MENU_COOKIE, cookieWithExpandedAdmin);
       service.syncMenuCollapsedState();
       expect(service.expandMenu).toHaveBeenCalledWith(MenuID.ADMIN);
     });
@@ -552,7 +552,7 @@ describe('MenuService', () => {
         [MenuID.PUBLIC]: false,
         [MenuID.DSO_EDIT]: false,
       };
-      cookieService.set(PINNED_SIDEBAR_COOKIE, cookieWithCollapsedAdmin);
+      cookieService.set(PINNED_MENU_COOKIE, cookieWithCollapsedAdmin);
       service.syncMenuCollapsedState();
       expect(service.collapseMenu).toHaveBeenCalledWith(MenuID.ADMIN);
     });

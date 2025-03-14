@@ -55,13 +55,13 @@ const getSubSectionsFromSectionSelector = (id: string): MemoizedSelector<MenuSta
   return menuKeySelector<string[]>(id, menuSectionIndexStateSelector);
 };
 
-export const PINNED_SIDEBAR_COOKIE = 'dsMenuCollapsedState';
-export const PINNED_SIDEBAR_COOKIE_DEFAULT: PinnedSidebarCookie = {
+export const PINNED_MENU_COOKIE = 'dsMenuCollapsedState';
+export const PINNED_MENU_COOKIE_DEFAULT: PinnedMenuCookie = {
   [MenuID.ADMIN]: true,
   [MenuID.PUBLIC]: false,
   [MenuID.DSO_EDIT]: false,
 };
-export const PINNED_SIDEBAR_COOKIE_EXPIRES = 10000;
+export const PINNED_MENU_COOKIE_EXPIRES = 10000;
 
 @Injectable()
 export class MenuService {
@@ -304,7 +304,7 @@ export class MenuService {
    * Returns whether the menu with {@linkcode menuID} is currently collapsed.
    */
   isCollapsed(menuID: MenuID): boolean {
-    const cookie: PinnedSidebarCookie | undefined = this.cookieService.get(PINNED_SIDEBAR_COOKIE);
+    const cookie: PinnedMenuCookie | undefined = this.cookieService.get(PINNED_MENU_COOKIE);
     return cookie?.[menuID];
   }
 
@@ -312,19 +312,19 @@ export class MenuService {
    * Collapses the expanded menu or expands the collapsed menu.
    */
   toggleMenuCollapsedState(menuID: MenuID): void {
-    let cookie: PinnedSidebarCookie | undefined = this.cookieService.get(PINNED_SIDEBAR_COOKIE);
+    let cookie: PinnedMenuCookie | undefined = this.cookieService.get(PINNED_MENU_COOKIE);
     if (!hasValue(cookie)) {
-      cookie = PINNED_SIDEBAR_COOKIE_DEFAULT;
+      cookie = PINNED_MENU_COOKIE_DEFAULT;
     }
     cookie[menuID] = !cookie[menuID];
-    this.cookieService.set(PINNED_SIDEBAR_COOKIE, cookie, { expires: PINNED_SIDEBAR_COOKIE_EXPIRES });
+    this.cookieService.set(PINNED_MENU_COOKIE, cookie, { expires: PINNED_MENU_COOKIE_EXPIRES });
   }
 
   /**
-   * Expands/collapses the navbar based on the {@link PINNED_SIDEBAR_COOKIE} cookie value.
+   * Expands/collapses the navbar based on the {@link PINNED_MENU_COOKIE} cookie value.
    */
   syncMenuCollapsedState(): void {
-    const cookie: PinnedSidebarCookie | undefined = this.cookieService.get(PINNED_SIDEBAR_COOKIE);
+    const cookie: PinnedMenuCookie | undefined = this.cookieService.get(PINNED_MENU_COOKIE);
     if (!hasValue(cookie)) {
       return;
     }
@@ -484,8 +484,6 @@ export class MenuService {
 
 }
 
-interface PinnedSidebarCookie {
-  [MenuID.ADMIN]: boolean,
-  [MenuID.PUBLIC]: boolean,
-  [MenuID.DSO_EDIT]: boolean,
-}
+type PinnedMenuCookie = {
+  [key in MenuID]: boolean;
+};
