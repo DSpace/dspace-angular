@@ -40,6 +40,7 @@ import { environment } from 'src/environments/environment';
 
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { FiltersComponent } from '../filters-section/filters-section.component';
+import { FilteredItemsExportCsvComponent } from './filtered-items-export-csv/filtered-items-export-csv.component';
 import {
   FilteredItem,
   FilteredItems,
@@ -62,6 +63,7 @@ import { QueryPredicate } from './query-predicate.model';
     AsyncPipe,
     FiltersComponent,
     BtnDisabledDirective,
+    FilteredItemsExportCsvComponent,
   ],
   standalone: true,
 })
@@ -167,10 +169,10 @@ export class FilteredItemsComponent implements OnInit {
         QueryPredicate.of('dc.description.provenance', QueryPredicate.DOES_NOT_MATCH, '^.*No\. of bitstreams(.|\r|\n|\r\n)*\.(PDF|pdf|DOC|doc|PPT|ppt|DOCX|docx|PPTX|pptx).*$'),
       ]),
       PresetQuery.of('q9', 'admin.reports.items.preset.hasEmptyMetadata', [
-        QueryPredicate.of('*', QueryPredicate.MATCHES, '^\s*$'),
+        QueryPredicate.of('*', QueryPredicate.MATCHES, '^\\s*$'),
       ]),
       PresetQuery.of('q10', 'admin.reports.items.preset.hasUnbreakingDataInDescription', [
-        QueryPredicate.of('dc.description.*', QueryPredicate.MATCHES, '^.*[^\s]{50,}.*$'),
+        QueryPredicate.of('dc.description.*', QueryPredicate.MATCHES, '^.*(\\S){50,}.*$'),
       ]),
       PresetQuery.of('q12', 'admin.reports.items.preset.hasXmlEntityInMetadata', [
         QueryPredicate.of('*', QueryPredicate.MATCHES, '^.*&#.*$'),
@@ -344,13 +346,8 @@ export class FilteredItemsComponent implements OnInit {
 
     const preds = this.queryForm.value.queryPredicates;
     for (let i = 0; i < preds.length; i++) {
-      const field = preds[i].field;
-      const op = preds[i].operator;
-      const value = preds[i].value;
-      params += `&queryPredicates=${field}:${op}`;
-      if (value) {
-        params += `:${value}`;
-      }
+      const pred = encodeURIComponent(QueryPredicate.toString(preds[i]));
+      params += `&queryPredicates=${pred}`;
     }
 
     const filters = FiltersComponent.toQueryString(this.queryForm.value.filters);
