@@ -282,7 +282,13 @@ export const prefetchResponses = async (appConfig: AppConfig, destConfigPath: st
   for (const relativeUrl of prefetchConfig.urls) {
     const url = baseUrl + relativeUrl;
 
-    const response = await fetch(url);
+    let response: Response;
+    try {
+      response = await fetch(url);
+    } catch (e) {
+      console.warn(`Failed to prefetch REST response for url "${url}". Aborting prefetching. Is the REST server offline?`);
+      return;
+    }
 
     const headers: Record<string, string> = {};
     response.headers.forEach((value, header) => {
