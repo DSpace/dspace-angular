@@ -3556,6 +3556,10 @@
 
   "none.listelement.badge": "Item",
 
+  "publication-claim.title": "Publication claim",
+
+  "publication-claim.source.description": "Below you can see all the sources.",
+
   "quality-assurance.title": "Quality Assurance",
 
   "quality-assurance.topics.description": "Below you can see all the topics received from the subscriptions to {{source}}.",
