@@ -1,5 +1,8 @@
 import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
-import { QualityAssuranceSourceActionTypes, QualityAssuranceSourceActions } from './quality-assurance-source.actions';
+import {
+  QualityAssuranceSourceActions,
+  QualityAssuranceSourceActionTypes,
+} from './quality-assurance-source.actions';
 
 /**
  * The interface representing the Quality Assurance source state.
@@ -22,7 +25,7 @@ const qualityAssuranceSourceInitialState: QualityAssuranceSourceState = {
   loaded: false,
   totalPages: 0,
   currentPage: 0,
-  totalElements: 0
+  totalElements: 0,
 };
 
 /**
@@ -40,7 +43,7 @@ export function qualityAssuranceSourceReducer(state = qualityAssuranceSourceInit
     case QualityAssuranceSourceActionTypes.RETRIEVE_ALL_SOURCE: {
       return Object.assign({}, state, {
         source: [],
-        processing: true
+        processing: true,
       });
     }
 
@@ -51,7 +54,7 @@ export function qualityAssuranceSourceReducer(state = qualityAssuranceSourceInit
         loaded: true,
         totalPages: action.payload.totalPages,
         currentPage: state.currentPage,
-        totalElements: action.payload.totalElements
+        totalElements: action.payload.totalElements,
       });
     }
 
@@ -61,7 +64,7 @@ export function qualityAssuranceSourceReducer(state = qualityAssuranceSourceInit
         loaded: true,
         totalPages: 0,
         currentPage: 0,
-        totalElements: 0
+        totalElements: 0,
       });
     }
 

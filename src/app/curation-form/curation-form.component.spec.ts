@@ -1,22 +1,35 @@
-import { ComponentFixture, TestBed, waitForAsync, fakeAsync, flush } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { CurationFormComponent } from './curation-form.component';
-import { ScriptDataService } from '../core/data/processes/script-data.service';
-import { ProcessDataService } from '../core/data/processes/process-data.service';
-import { Process } from '../process-page/processes/process.model';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
-import { RouterStub } from '../shared/testing/router.stub';
-import { NotificationsService } from '../shared/notifications/notifications.service';
-import { Router } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  ComponentFixture,
+  fakeAsync,
+  flush,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
+import { ProcessDataService } from '../core/data/processes/process-data.service';
+import { ScriptDataService } from '../core/data/processes/script-data.service';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import { getProcessDetailRoute } from '../process-page/process-page-routing.paths';
+import { Process } from '../process-page/processes/process.model';
 import { HandleService } from '../shared/handle.service';
-import { of as observableOf } from 'rxjs';
+import { NotificationsService } from '../shared/notifications/notifications.service';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../shared/remote-data.utils';
+import { NotificationsServiceStub } from '../shared/testing/notifications-service.stub';
+import { RouterStub } from '../shared/testing/router.stub';
+import { CurationFormComponent } from './curation-form.component';
 
 describe('CurationFormComponent', () => {
   let comp: CurationFormComponent;
@@ -29,16 +42,16 @@ describe('CurationFormComponent', () => {
   let notificationsService;
   let router;
 
-  const process = Object.assign(new Process(), {processId: 'process-id'});
+  const process = Object.assign(new Process(), { processId: 'process-id' });
 
   beforeEach(waitForAsync(() => {
 
     scriptDataService = jasmine.createSpyObj('scriptDataService', {
-      invoke: createSuccessfulRemoteDataObject$(process)
+      invoke: createSuccessfulRemoteDataObject$(process),
     });
 
     processDataService = jasmine.createSpyObj('processDataService', {
-      findByHref: createSuccessfulRemoteDataObject$(process)
+      findByHref: createSuccessfulRemoteDataObject$(process),
     });
 
     configurationDataService = jasmine.createSpyObj('configurationDataService', {
@@ -49,9 +62,9 @@ describe('CurationFormComponent', () => {
           '',
           'org.dspace.ctask.general.RequiredMetadata = requiredmetadata',
           'org.dspace.ctask.general.MetadataValueLinkChecker = checklinks',
-          'value-to-be-skipped'
-        ]
-      }))
+          'value-to-be-skipped',
+        ],
+      })),
     });
 
     handleService = {
@@ -62,17 +75,16 @@ describe('CurationFormComponent', () => {
     router = new RouterStub();
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), FormsModule, ReactiveFormsModule],
-      declarations: [CurationFormComponent],
+      imports: [TranslateModule.forRoot(), FormsModule, ReactiveFormsModule, CurationFormComponent],
       providers: [
         { provide: ScriptDataService, useValue: scriptDataService },
         { provide: ProcessDataService, useValue: processDataService },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: HandleService, useValue: handleService },
-        { provide: Router, useValue: router},
+        { provide: Router, useValue: router },
         { provide: ConfigurationDataService, useValue: configurationDataService },
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -111,8 +123,8 @@ describe('CurationFormComponent', () => {
       comp.submit();
 
       expect(scriptDataService.invoke).toHaveBeenCalledWith('curate', [
-        {name: '-t', value: 'profileformats'},
-        {name: '-i', value: 'test-handle'},
+        { name: '-t', value: 'profileformats' },
+        { name: '-i', value: 'test-handle' },
       ], []);
       expect(notificationsService.success).toHaveBeenCalled();
       expect(router.navigateByUrl).toHaveBeenCalledWith(getProcessDetailRoute('process-id'));
@@ -124,8 +136,8 @@ describe('CurationFormComponent', () => {
       comp.submit();
 
       expect(scriptDataService.invoke).toHaveBeenCalledWith('curate', [
-        {name: '-t', value: 'profileformats'},
-        {name: '-i', value: 'test-handle'},
+        { name: '-t', value: 'profileformats' },
+        { name: '-i', value: 'test-handle' },
       ], []);
       expect(notificationsService.error).toHaveBeenCalled();
       expect(processDataService.findByHref).not.toHaveBeenCalled();
@@ -138,8 +150,8 @@ describe('CurationFormComponent', () => {
     comp.submit();
 
     expect(scriptDataService.invoke).toHaveBeenCalledWith('curate', [
-      {name: '-t', value: 'profileformats'},
-      {name: '-i', value: 'form-handle'},
+      { name: '-t', value: 'profileformats' },
+      { name: '-i', value: 'form-handle' },
     ], []);
   });
   it('should use "all" when the handle provided by the form is empty and when no dsoHandle is provided', () => {
@@ -147,8 +159,8 @@ describe('CurationFormComponent', () => {
     comp.submit();
 
     expect(scriptDataService.invoke).toHaveBeenCalledWith('curate', [
-      {name: '-t', value: 'profileformats'},
-      {name: '-i', value: 'all'},
+      { name: '-t', value: 'profileformats' },
+      { name: '-i', value: 'all' },
     ], []);
   });
 

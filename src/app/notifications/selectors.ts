@@ -1,12 +1,18 @@
-import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store';
-import { subStateSelector } from '../shared/selector.util';
-import { suggestionNotificationsSelector, SuggestionNotificationsState } from './notifications.reducer';
-import { QualityAssuranceTopicObject } from '../core/notifications/qa/models/quality-assurance-topic.model';
-import { QualityAssuranceTopicState } from './qa/topics/quality-assurance-topics.reducer';
-import { QualityAssuranceSourceState } from './qa/source/quality-assurance-source.reducer';
 import {
-  QualityAssuranceSourceObject
-} from '../core/notifications/qa/models/quality-assurance-source.model';
+  createFeatureSelector,
+  createSelector,
+  MemoizedSelector,
+} from '@ngrx/store';
+
+import { QualityAssuranceSourceObject } from '../core/notifications/qa/models/quality-assurance-source.model';
+import { QualityAssuranceTopicObject } from '../core/notifications/qa/models/quality-assurance-topic.model';
+import { subStateSelector } from '../shared/selector.util';
+import {
+  suggestionNotificationsSelector,
+  SuggestionNotificationsState,
+} from './notifications.reducer';
+import { QualityAssuranceSourceState } from './qa/source/quality-assurance-source.reducer';
+import { QualityAssuranceTopicState } from './qa/topics/quality-assurance-topics.reducer';
 
 /**
  * Returns the Notifications state.
@@ -43,7 +49,7 @@ export function qualityAssuranceTopicsObjectSelector(): MemoizedSelector<Suggest
  * @return {boolean}
  */
 export const isQualityAssuranceTopicsLoadedSelector = createSelector(_getNotificationsState,
-  (state: SuggestionNotificationsState) => state.qaTopic.loaded
+  (state: SuggestionNotificationsState) => state.qaTopic.loaded,
 );
 
 /**
@@ -52,7 +58,7 @@ export const isQualityAssuranceTopicsLoadedSelector = createSelector(_getNotific
  * @return {boolean}
  */
 export const isQualityAssuranceTopicsProcessingSelector = createSelector(_getNotificationsState,
-  (state: SuggestionNotificationsState) => state.qaTopic.processing
+  (state: SuggestionNotificationsState) => state.qaTopic.processing,
 );
 
 /**
@@ -61,7 +67,7 @@ export const isQualityAssuranceTopicsProcessingSelector = createSelector(_getNot
  * @return {number}
  */
 export const getQualityAssuranceTopicsTotalPagesSelector = createSelector(_getNotificationsState,
-  (state: SuggestionNotificationsState) => state.qaTopic.totalPages
+  (state: SuggestionNotificationsState) => state.qaTopic.totalPages,
 );
 
 /**
@@ -70,7 +76,7 @@ export const getQualityAssuranceTopicsTotalPagesSelector = createSelector(_getNo
  * @return {number}
  */
 export const getQualityAssuranceTopicsCurrentPageSelector = createSelector(_getNotificationsState,
-  (state: SuggestionNotificationsState) => state.qaTopic.currentPage
+  (state: SuggestionNotificationsState) => state.qaTopic.currentPage,
 );
 
 /**
@@ -79,7 +85,7 @@ export const getQualityAssuranceTopicsCurrentPageSelector = createSelector(_getN
  * @return {number}
  */
 export const getQualityAssuranceTopicsTotalsSelector = createSelector(_getNotificationsState,
-  (state: SuggestionNotificationsState) => state.qaTopic.totalElements
+  (state: SuggestionNotificationsState) => state.qaTopic.totalElements,
 );
 
 // Quality Assurance source
@@ -90,7 +96,7 @@ export const getQualityAssuranceTopicsTotalsSelector = createSelector(_getNotifi
  * @function qualityAssuranceSourceStateSelector
  * @return {QualityAssuranceSourceState}
  */
- export function qualityAssuranceSourceStateSelector(): MemoizedSelector<SuggestionNotificationsState, QualityAssuranceSourceState> {
+export function qualityAssuranceSourceStateSelector(): MemoizedSelector<SuggestionNotificationsState, QualityAssuranceSourceState> {
   return subStateSelector<SuggestionNotificationsState,QualityAssuranceSourceState>(suggestionNotificationsSelector, 'qaSource');
 }
 
@@ -109,7 +115,7 @@ export function qualityAssuranceSourceObjectSelector(): MemoizedSelector<Suggest
  * @return {boolean}
  */
 export const isQualityAssuranceSourceLoadedSelector = createSelector(_getNotificationsState,
-  (state: SuggestionNotificationsState) => state.qaSource.loaded
+  (state: SuggestionNotificationsState) => state.qaSource.loaded,
 );
 
 /**
@@ -118,7 +124,7 @@ export const isQualityAssuranceSourceLoadedSelector = createSelector(_getNotific
  * @return {boolean}
  */
 export const isQualityAssuranceSourceProcessingSelector = createSelector(_getNotificationsState,
-  (state: SuggestionNotificationsState) => state.qaSource.processing
+  (state: SuggestionNotificationsState) => state.qaSource.processing,
 );
 
 /**
@@ -127,7 +133,7 @@ export const isQualityAssuranceSourceProcessingSelector = createSelector(_getNot
  * @return {number}
  */
 export const getQualityAssuranceSourceTotalPagesSelector = createSelector(_getNotificationsState,
-  (state: SuggestionNotificationsState) => state.qaSource.totalPages
+  (state: SuggestionNotificationsState) => state.qaSource.totalPages,
 );
 
 /**
@@ -136,7 +142,7 @@ export const getQualityAssuranceSourceTotalPagesSelector = createSelector(_getNo
  * @return {number}
  */
 export const getQualityAssuranceSourceCurrentPageSelector = createSelector(_getNotificationsState,
-  (state: SuggestionNotificationsState) => state.qaSource.currentPage
+  (state: SuggestionNotificationsState) => state.qaSource.currentPage,
 );
 
 /**
@@ -145,5 +151,5 @@ export const getQualityAssuranceSourceCurrentPageSelector = createSelector(_getN
  * @return {number}
  */
 export const getQualityAssuranceSourceTotalsSelector = createSelector(_getNotificationsState,
-  (state: SuggestionNotificationsState) => state.qaSource.totalElements
+  (state: SuggestionNotificationsState) => state.qaSource.totalElements,
 );

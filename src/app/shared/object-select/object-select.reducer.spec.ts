@@ -4,7 +4,7 @@ import {
   ObjectSelectionInitialSelectAction,
   ObjectSelectionResetAction,
   ObjectSelectionSelectAction,
-  ObjectSelectionSwitchAction
+  ObjectSelectionSwitchAction,
 } from './object-select.actions';
 import { objectSelectionReducer } from './object-select.reducer';
 

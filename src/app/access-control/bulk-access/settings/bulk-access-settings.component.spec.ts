@@ -1,8 +1,13 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+
+import { AccessControlFormContainerComponent } from '../../../shared/access-control-form-container/access-control-form-container.component';
 import { BulkAccessSettingsComponent } from './bulk-access-settings.component';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('BulkAccessSettingsComponent', () => {
   let component: BulkAccessSettingsComponent;
@@ -15,36 +20,39 @@ describe('BulkAccessSettingsComponent', () => {
         'startDate': {
           'year': 2026,
           'month': 5,
-          'day': 31
+          'day': 31,
         },
-        'endDate': null
-      }
+        'endDate': null,
+      },
     ],
     'state': {
       'item': {
         'toggleStatus': true,
-        'accessMode': 'replace'
+        'accessMode': 'replace',
       },
       'bitstream': {
         'toggleStatus': false,
         'accessMode': '',
         'changesLimit': '',
-        'selectedBitstreams': []
-      }
-    }
+        'selectedBitstreams': [],
+      },
+    },
   };
 
   const mockControl: any = jasmine.createSpyObj('AccessControlFormContainerComponent',  {
     getFormValue: jasmine.createSpy('getFormValue'),
-    reset: jasmine.createSpy('reset')
+    reset: jasmine.createSpy('reset'),
   });
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NgbAccordionModule, TranslateModule.forRoot()],
-      declarations: [BulkAccessSettingsComponent],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+      imports: [NgbAccordionModule, TranslateModule.forRoot(), BulkAccessSettingsComponent],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(BulkAccessSettingsComponent, {
+        remove: { imports: [AccessControlFormContainerComponent] },
+      })
+      .compileComponents();
   });
 
   beforeEach(() => {

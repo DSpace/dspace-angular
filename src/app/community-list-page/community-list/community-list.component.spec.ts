@@ -1,23 +1,46 @@
-import { ComponentFixture, fakeAsync, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
-
-import { CommunityListComponent } from './community-list.component';
-import { CommunityListService, showMoreFlatNode, toFlatNode } from '../community-list-service';
 import { CdkTreeModule } from '@angular/cdk/tree';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterTestingModule } from '@angular/router/testing';
-import { Community } from '../../core/shared/community.model';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { buildPaginatedList } from '../../core/data/paginated-list.model';
-import { PageInfo } from '../../core/shared/page-info.model';
-import { Collection } from '../../core/shared/collection.model';
-import { of as observableOf } from 'rxjs';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  DebugElement,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  inject,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { isEmpty, isNotEmpty } from '../../shared/empty.util';
-import { FlatNode } from '../flat-node.model';
 import { RouterLinkWithHref } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
+
+import { buildPaginatedList } from '../../core/data/paginated-list.model';
+import { Collection } from '../../core/shared/collection.model';
+import { Community } from '../../core/shared/community.model';
+import { PageInfo } from '../../core/shared/page-info.model';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { TruncatableComponent } from '../../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../shared/truncatable/truncatable-part/truncatable-part.component';
+import {
+  CommunityListService,
+  showMoreFlatNode,
+  toFlatNode,
+} from '../community-list-service';
+import { FlatNode } from '../flat-node.model';
+import { CommunityListComponent } from './community-list.component';
 
 describe('CommunityListComponent', () => {
   let component: CommunityListComponent;
@@ -28,11 +51,11 @@ describe('CommunityListComponent', () => {
     uuid: 'ce64f48e-2c9b-411a-ac36-ee429c0e6a88',
     name: 'subcommunity1',
   }),
-    Object.assign(new Community(), {
-      id: '59ee713b-ee53-4220-8c3f-9860dc84fe33',
-      uuid: '59ee713b-ee53-4220-8c3f-9860dc84fe33',
-      name: 'subcommunity2',
-    })
+  Object.assign(new Community(), {
+    id: '59ee713b-ee53-4220-8c3f-9860dc84fe33',
+    uuid: '59ee713b-ee53-4220-8c3f-9860dc84fe33',
+    name: 'subcommunity2',
+  }),
   ];
   const mockCollectionsPage1 = [
     Object.assign(new Collection(), {
@@ -44,7 +67,7 @@ describe('CommunityListComponent', () => {
       id: '59da2ff0-9bf4-45bf-88be-e35abd33f304',
       uuid: '59da2ff0-9bf4-45bf-88be-e35abd33f304',
       name: 'collection2',
-    })
+    }),
   ];
   const mockCollectionsPage2 = [
     Object.assign(new Collection(), {
@@ -56,7 +79,7 @@ describe('CommunityListComponent', () => {
       id: 'a392e16b-fcf2-400a-9a88-53ef7ecbdcd3',
       uuid: 'a392e16b-fcf2-400a-9a88-53ef7ecbdcd3',
       name: 'collection4',
-    })
+    }),
   ];
 
   const mockTopCommunitiesWithChildrenArrays = [
@@ -87,7 +110,7 @@ describe('CommunityListComponent', () => {
         subcommunities: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), mockSubcommunities1Page1)),
         collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
         name: 'community1',
-      }), observableOf(true), 0, false, null
+      }), observableOf(true), 0, false, null,
     ),
     toFlatNode(
       Object.assign(new Community(), {
@@ -96,7 +119,7 @@ describe('CommunityListComponent', () => {
         subcommunities: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
         collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [...mockCollectionsPage1, ...mockCollectionsPage2])),
         name: 'community2',
-      }), observableOf(true), 0, false, null
+      }), observableOf(true), 0, false, null,
     ),
     toFlatNode(
       Object.assign(new Community(), {
@@ -105,7 +128,7 @@ describe('CommunityListComponent', () => {
         subcommunities: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
         collections: createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])),
         name: 'community3',
-      }), observableOf(false), 0, false, null
+      }), observableOf(false), 0, false, null,
     ),
   ];
   let communityListServiceStub;
@@ -184,24 +207,33 @@ describe('CommunityListComponent', () => {
           }
           return observableOf(flatnodes);
         }
-      }
+      },
     };
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
+            useClass: TranslateLoaderMock,
           },
         }),
         CdkTreeModule,
         RouterTestingModule,
-        RouterLinkWithHref],
-      declarations: [CommunityListComponent],
+        RouterLinkWithHref,
+        CommunityListComponent,
+      ],
       providers: [CommunityListComponent,
-        { provide: CommunityListService, useValue: communityListServiceStub },],
+        { provide: CommunityListService, useValue: communityListServiceStub }],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
+      .overrideComponent(CommunityListComponent, {
+        remove: {
+          imports: [
+            ThemedLoadingComponent,
+            TruncatableComponent,
+            TruncatablePartComponent,
+          ] },
+      })
       .compileComponents();
   }));
 
@@ -243,7 +275,7 @@ describe('CommunityListComponent', () => {
       const showMoreLink = fixture.debugElement.query(By.css('.show-more-node .btn-outline-primary'));
       showMoreLink.triggerEventHandler('click', {
         preventDefault: () => {/**/
-        }
+        },
       });
       tick();
       fixture.detectChanges();
@@ -300,12 +332,14 @@ describe('CommunityListComponent', () => {
 
   describe('second top community node is expanded and has more children (collections) than page size of collection', () => {
     describe('children of second top com are added (page-limited pageSize 2)', () => {
-      let allNodes;
+      let allNodes: DebugElement[];
       beforeEach(fakeAsync(() => {
-        const chevronExpand = fixture.debugElement.queryAll(By.css('.expandable-node button'));
-        const chevronExpandSpan = fixture.debugElement.queryAll(By.css('.expandable-node button span'));
-        if (chevronExpandSpan[1].nativeElement.classList.contains('fa-chevron-right')) {
-          chevronExpand[1].nativeElement.click();
+        const toggleButtons: DebugElement[] = fixture.debugElement.queryAll(By.css('.expandable-node button'));
+        const toggleButtonText: DebugElement = toggleButtons[1].query(By.css('span'));
+        expect(toggleButtonText).not.toBeNull();
+
+        if (toggleButtonText.nativeElement.classList.contains('fa-chevron-right')) {
+          toggleButtons[1].nativeElement.click();
           tick();
           fixture.detectChanges();
         }
@@ -315,17 +349,18 @@ describe('CommunityListComponent', () => {
         allNodes = [...expandableNodesFound, ...childlessNodesFound];
       }));
       it('tree contains 2 (page-limited) top com, 2 (page-limited) coll of 2nd top com, a show more for those page-limited coll and show more for page-limited top com', () => {
-        mockTopFlatnodesUnexpanded.slice(0, 2).map((topFlatnode: FlatNode) => {
-          expect(allNodes.find((foundEl) => {
-            return (foundEl.nativeElement.textContent.trim() === topFlatnode.name);
-          })).toBeTruthy();
-        });
-        mockCollectionsPage1.map((coll) => {
-          expect(allNodes.find((foundEl) => {
-            return (foundEl.nativeElement.textContent.trim() === coll.name);
-          })).toBeTruthy();
-        });
+        const allNodeNames: string[] = allNodes.map((node: DebugElement) => node.nativeElement.innerText.trim());
         expect(allNodes.length).toEqual(4);
+        const flatNodes: string[] = mockTopFlatnodesUnexpanded.slice(0, 2).map((flatNode: FlatNode) => flatNode.name);
+        for (const flatNode of flatNodes) {
+          expect(allNodeNames).toContain(flatNode);
+        }
+        expect(flatNodes.length).toBe(2);
+        const page1CollectionNames: string[] = mockCollectionsPage1.map((collection: Collection) => collection.name);
+        for (const collectionName of page1CollectionNames) {
+          expect(allNodeNames).toContain(collectionName);
+        }
+        expect(page1CollectionNames.length).toBe(2);
         const showMoreEl = fixture.debugElement.queryAll(By.css('.show-more-node'));
         expect(showMoreEl.length).toEqual(2);
       });

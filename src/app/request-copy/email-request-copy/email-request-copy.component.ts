@@ -1,11 +1,26 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Location,
+  NgClass,
+} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { RequestCopyEmail } from './request-copy-email.model';
-import { Location } from '@angular/common';
+
 
 @Component({
-  selector: 'ds-email-request-copy',
+  selector: 'ds-base-email-request-copy',
   styleUrls: ['./email-request-copy.component.scss'],
-  templateUrl: './email-request-copy.component.html'
+  templateUrl: './email-request-copy.component.html',
+  standalone: true,
+  imports: [FormsModule, NgClass, TranslateModule, BtnDisabledDirective],
 })
 /**
  * A form component for an email to send back to the user requesting an item

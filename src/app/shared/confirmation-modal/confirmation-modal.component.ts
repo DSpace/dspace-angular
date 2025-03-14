@@ -1,9 +1,18 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-confirmation-modal',
   templateUrl: 'confirmation-modal.component.html',
+  standalone: true,
+  imports: [TranslateModule],
 })
 export class ConfirmationModalComponent {
   @Input() headerLabel: string;

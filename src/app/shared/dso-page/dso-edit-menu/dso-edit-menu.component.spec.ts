@@ -1,21 +1,26 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { of as observableOf } from 'rxjs';
-import { RouterTestingModule } from '@angular/router/testing';
+import {
+  Injector,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { DsoEditMenuComponent } from './dso-edit-menu.component';
-import { MenuServiceStub } from '../../testing/menu-service.stub';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
 import { AuthService } from '../../../core/auth/auth.service';
-import { AuthServiceStub } from '../../testing/auth-service.stub';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { MenuService } from '../../menu/menu.service';
 import { MenuItemModel } from '../../menu/menu-item/models/menu-item.model';
-import { ThemeService } from '../../theme-support/theme.service';
 import { getMockThemeService } from '../../mocks/theme-service.mock';
-
-
-import { DsoPageModule } from '../dso-page.module';
+import { AuthServiceStub } from '../../testing/auth-service.stub';
+import { MenuServiceStub } from '../../testing/menu-service.stub';
+import { ThemeService } from '../../theme-support/theme.service';
+import { DsoEditMenuComponent } from './dso-edit-menu.component';
 
 describe('DsoEditMenuComponent', () => {
   let comp: DsoEditMenuComponent;
@@ -24,7 +29,7 @@ describe('DsoEditMenuComponent', () => {
   let authorizationService: AuthorizationDataService;
 
   const routeStub = {
-    children: []
+    children: [],
   };
 
   const section = {
@@ -36,27 +41,26 @@ describe('DsoEditMenuComponent', () => {
       disabled: false,
     } as MenuItemModel,
     icon: 'pencil-alt',
-    index: 1
+    index: 1,
   };
 
 
   beforeEach(waitForAsync(() => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true)
+      isAuthorized: observableOf(true),
     });
     spyOn(menuService, 'getMenuTopSections').and.returnValue(observableOf([section]));
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule, DsoPageModule],
-      declarations: [DsoEditMenuComponent],
+      imports: [TranslateModule.forRoot(), RouterTestingModule, DsoEditMenuComponent],
       providers: [
         Injector,
-        {provide: MenuService, useValue: menuService},
-        {provide: AuthService, useClass: AuthServiceStub},
-        {provide: ActivatedRoute, useValue: routeStub},
-        {provide: AuthorizationDataService, useValue: authorizationService},
-        {provide: ThemeService, useValue: getMockThemeService()},
+        { provide: MenuService, useValue: menuService },
+        { provide: AuthService, useClass: AuthServiceStub },
+        { provide: ActivatedRoute, useValue: routeStub },
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

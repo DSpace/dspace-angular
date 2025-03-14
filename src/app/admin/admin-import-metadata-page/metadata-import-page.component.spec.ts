@@ -1,19 +1,32 @@
 import { Location } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { METADATA_IMPORT_SCRIPT_NAME, ScriptDataService } from '../../core/data/processes/script-data.service';
+
+import {
+  METADATA_IMPORT_SCRIPT_NAME,
+  ScriptDataService,
+} from '../../core/data/processes/script-data.service';
 import { ProcessParameter } from '../../process-page/processes/process-parameter.model';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';
 import { FileValueAccessorDirective } from '../../shared/utils/file-value-accessor.directive';
 import { FileValidator } from '../../shared/utils/require-file.validator';
 import { MetadataImportPageComponent } from './metadata-import-page.component';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 
 describe('MetadataImportPageComponent', () => {
   let comp: MetadataImportPageComponent;
@@ -28,14 +41,14 @@ describe('MetadataImportPageComponent', () => {
     notificationService = new NotificationsServiceStub();
     scriptService = jasmine.createSpyObj('scriptService',
       {
-        invoke: createSuccessfulRemoteDataObject$({ processId: '45' })
-      }
+        invoke: createSuccessfulRemoteDataObject$({ processId: '45' }),
+      },
     );
     router = jasmine.createSpyObj('router', {
-      navigateByUrl: jasmine.createSpy('navigateByUrl')
+      navigateByUrl: jasmine.createSpy('navigateByUrl'),
     });
     locationStub = jasmine.createSpyObj('location', {
-      back: jasmine.createSpy('back')
+      back: jasmine.createSpy('back'),
     });
   }
 
@@ -45,17 +58,23 @@ describe('MetadataImportPageComponent', () => {
       imports: [
         FormsModule,
         TranslateModule.forRoot(),
-        RouterTestingModule.withRoutes([])
+        RouterTestingModule.withRoutes([]),
+        MetadataImportPageComponent, FileValueAccessorDirective, FileValidator,
       ],
-      declarations: [MetadataImportPageComponent, FileValueAccessorDirective, FileValidator],
       providers: [
         { provide: NotificationsService, useValue: notificationService },
         { provide: ScriptDataService, useValue: scriptService },
         { provide: Router, useValue: router },
         { provide: Location, useValue: locationStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(MetadataImportPageComponent, {
+        remove: {
+          imports: [FileDropzoneNoUploaderComponent],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

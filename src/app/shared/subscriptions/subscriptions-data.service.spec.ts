@@ -1,28 +1,29 @@
-import { SubscriptionsDataService } from './subscriptions-data.service';
-import { createNoContentRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { Subscription } from './models/subscription.model';
-import { DSOChangeAnalyzer } from '../../core/data/dso-change-analyzer.service';
 import { HttpClient } from '@angular/common/http';
-import { NotificationsService } from '../notifications/notifications.service';
-import { RequestService } from '../../core/data/request.service';
-import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
 import { Store } from '@ngrx/store';
-import { ObjectCacheService } from '../../core/cache/object-cache.service';
-import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { getMockRequestService } from '../mocks/request.service.mock';
-import { getMockRemoteDataBuildService } from '../mocks/remote-data-build.service.mock';
-import { SearchDataImpl } from '../../core/data/base/search-data';
-import { NotificationsServiceStub } from '../testing/notifications-service.stub';
-import { HALEndpointServiceStub } from '../testing/hal-endpoint-service.stub';
-import { createPaginatedList } from '../testing/utils.test';
 
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { RemoteDataBuildService } from '../../core/cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../../core/cache/object-cache.service';
+import { DSOChangeAnalyzer } from '../../core/data/dso-change-analyzer.service';
+import { RequestService } from '../../core/data/request.service';
+import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
+import { getMockRemoteDataBuildService } from '../mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../mocks/request.service.mock';
+import { NotificationsService } from '../notifications/notifications.service';
+import {
+  createNoContentRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../remote-data.utils';
+import { HALEndpointServiceStub } from '../testing/hal-endpoint-service.stub';
+import { NotificationsServiceStub } from '../testing/notifications-service.stub';
+import { createPaginatedList } from '../testing/utils.test';
+import { Subscription } from './models/subscription.model';
+import { SubscriptionsDataService } from './subscriptions-data.service';
 
 describe('SubscriptionsDataService', () => {
 
 
   let service: SubscriptionsDataService;
-  let searchData: SearchDataImpl<Subscription>;
 
   let comparator: DSOChangeAnalyzer<Subscription>;
   let http: HttpClient;
@@ -121,11 +122,11 @@ describe('SubscriptionsDataService', () => {
     });
 
     it('should get the subscriptions', () => {
+      spyOn((service as any).searchData, 'searchBy');
       const id = 'test-id';
       const ePersonId = 'test-ePersonId';
-      service.getSubscriptionsByPersonDSO(ePersonId, id).subscribe(() => {
-        expect(searchData.searchBy).toHaveBeenCalled();
-      });
+      service.getSubscriptionsByPersonDSO(ePersonId, id);
+      expect((service as any).searchData.searchBy).toHaveBeenCalled();
     });
 
   });

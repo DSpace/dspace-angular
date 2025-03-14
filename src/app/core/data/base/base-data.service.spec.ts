@@ -5,22 +5,46 @@
  *
  * http://www.dspace.org/license/
  */
-import { RequestService } from '../request.service';
-import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
-import { HALEndpointService } from '../../shared/hal-endpoint.service';
-import { ObjectCacheService } from '../../cache/object-cache.service';
-import { FindListOptions } from '../find-list-options.model';
-import { Observable, of as observableOf, combineLatest as observableCombineLatest } from 'rxjs';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
-import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
+// eslint-disable-next-line max-classes-per-file
+import {
+  fakeAsync,
+  tick,
+} from '@angular/core/testing';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
+
+import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../shared/remote-data.utils';
+import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
+import { ObjectCacheServiceStub } from '../../../shared/testing/object-cache-service.stub';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
+import {
+  link,
+  typedObject,
+} from '../../cache/builders/build-decorators';
+import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
+import { ObjectCacheEntry } from '../../cache/object-cache.reducer';
+import { ObjectCacheService } from '../../cache/object-cache.service';
+import { BITSTREAM } from '../../shared/bitstream.resource-type';
+import { COLLECTION } from '../../shared/collection.resource-type';
+import { HALEndpointService } from '../../shared/hal-endpoint.service';
+import { HALLink } from '../../shared/hal-link.model';
+import { ResourceType } from '../../shared/resource-type';
+import { FindListOptions } from '../find-list-options.model';
+import { PaginatedList } from '../paginated-list.model';
 import { RemoteData } from '../remote-data';
+import { RequestService } from '../request.service';
 import { RequestEntryState } from '../request-entry-state.model';
-import { fakeAsync, tick } from '@angular/core/testing';
 import { BaseDataService } from './base-data.service';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 
 const endpoint = 'https://rest.api/core';
 
@@ -41,43 +65,47 @@ class TestService extends BaseDataService<any> {
   }
 }
 
+@typedObject
+class BaseData {
+  static type = new ResourceType('test');
+
+  foo: string;
+
+  _links: {
+    followLink1: HALLink;
+    followLink2: HALLink[];
+    self: HALLink;
+  };
+
+  @link(COLLECTION)
+  followLink1: Observable<any>;
+
+  @link(BITSTREAM, true, 'followLink2')
+  followLink2CustomVariableName: Observable<PaginatedList<any>>;
+}
+
 describe('BaseDataService', () => {
   let service: TestService;
   let requestService;
   let halService;
   let rdbService;
-  let objectCache;
+  let objectCache: ObjectCacheServiceStub;
   let selfLink;
   let linksToFollow;
   let testScheduler;
-  let remoteDataMocks;
+  let remoteDataTimestamp: number;
+  let remoteDataMocks: { [responseType: string]: RemoteData<BaseData> };
+  let remoteDataPageMocks: { [responseType: string]: RemoteData<PaginatedList<BaseData>> };
 
   function initTestService(): TestService {
     requestService = getMockRequestService();
     halService = new HALEndpointServiceStub('url') as any;
     rdbService = getMockRemoteDataBuildService();
-    objectCache = {
-
-      addPatch: () => {
-        /* empty */
-      },
-      getObjectBySelfLink: () => {
-        /* empty */
-      },
-      getByHref: () => {
-        /* empty */
-      },
-      addDependency: () => {
-        /* empty */
-      },
-      removeDependents: () => {
-        /* empty */
-      },
-    } as any;
+    objectCache = new ObjectCacheServiceStub();
     selfLink = 'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
     linksToFollow = [
       followLink('a'),
-      followLink('b')
+      followLink('b'),
     ];
 
     testScheduler = new TestScheduler((actual, expected) => {
@@ -86,26 +114,57 @@ describe('BaseDataService', () => {
       expect(actual).toEqual(expected);
     });
 
-    const timeStamp = new Date().getTime();
+    // The response's lastUpdated equals the time of 60 seconds after the test started, ensuring they are not perceived
+    // as cached values.
+    remoteDataTimestamp = new Date().getTime() + 60 * 1000;
     const msToLive = 15 * 60 * 1000;
-    const payload = { foo: 'bar' };
+    const payload: BaseData = Object.assign(new BaseData(), {
+      foo: 'bar',
+      followLink1: observableOf({}),
+      followLink2CustomVariableName: observableOf(createPaginatedList()),
+      _links: {
+        self: Object.assign(new HALLink(), {
+          href: 'self-test-link',
+        }),
+        followLink1: Object.assign(new HALLink(), {
+          href: 'follow-link-1',
+        }),
+        followLink2: [
+          Object.assign(new HALLink(), {
+            href: 'follow-link-2-1',
+          }),
+          Object.assign(new HALLink(), {
+            href: 'follow-link-2-2',
+          }),
+        ],
+      },
+    });
     const statusCodeSuccess = 200;
     const statusCodeError = 404;
     const errorMessage = 'not found';
     remoteDataMocks = {
-      RequestPending: new RemoteData(undefined, msToLive, timeStamp, RequestEntryState.RequestPending, undefined, undefined, undefined),
-      ResponsePending: new RemoteData(undefined, msToLive, timeStamp, RequestEntryState.ResponsePending, undefined, undefined, undefined),
-      ResponsePendingStale: new RemoteData(undefined, msToLive, timeStamp, RequestEntryState.ResponsePendingStale, undefined, undefined, undefined),
-      Success: new RemoteData(timeStamp, msToLive, timeStamp, RequestEntryState.Success, undefined, payload, statusCodeSuccess),
-      SuccessStale: new RemoteData(timeStamp, msToLive, timeStamp, RequestEntryState.SuccessStale, undefined, payload, statusCodeSuccess),
-      Error: new RemoteData(timeStamp, msToLive, timeStamp, RequestEntryState.Error, errorMessage, undefined, statusCodeError),
-      ErrorStale: new RemoteData(timeStamp, msToLive, timeStamp, RequestEntryState.ErrorStale, errorMessage, undefined, statusCodeError),
+      RequestPending: new RemoteData(undefined, msToLive, remoteDataTimestamp, RequestEntryState.RequestPending, undefined, undefined, undefined),
+      ResponsePending: new RemoteData(undefined, msToLive, remoteDataTimestamp, RequestEntryState.ResponsePending, undefined, undefined, undefined),
+      ResponsePendingStale: new RemoteData(undefined, msToLive, remoteDataTimestamp, RequestEntryState.ResponsePendingStale, undefined, undefined, undefined),
+      Success: new RemoteData(remoteDataTimestamp, msToLive, remoteDataTimestamp, RequestEntryState.Success, undefined, payload, statusCodeSuccess),
+      SuccessStale: new RemoteData(remoteDataTimestamp, msToLive, remoteDataTimestamp, RequestEntryState.SuccessStale, undefined, payload, statusCodeSuccess),
+      Error: new RemoteData(remoteDataTimestamp, msToLive, remoteDataTimestamp, RequestEntryState.Error, errorMessage, undefined, statusCodeError),
+      ErrorStale: new RemoteData(remoteDataTimestamp, msToLive, remoteDataTimestamp, RequestEntryState.ErrorStale, errorMessage, undefined, statusCodeError),
+    };
+    remoteDataPageMocks = {
+      RequestPending: new RemoteData(undefined, msToLive, remoteDataTimestamp, RequestEntryState.RequestPending, undefined, undefined, undefined),
+      ResponsePending: new RemoteData(undefined, msToLive, remoteDataTimestamp, RequestEntryState.ResponsePending, undefined, undefined, undefined),
+      ResponsePendingStale: new RemoteData(undefined, msToLive, remoteDataTimestamp, RequestEntryState.ResponsePendingStale, undefined, undefined, undefined),
+      Success: new RemoteData(remoteDataTimestamp, msToLive, remoteDataTimestamp, RequestEntryState.Success, undefined, createPaginatedList([payload]), statusCodeSuccess),
+      SuccessStale: new RemoteData(remoteDataTimestamp, msToLive, remoteDataTimestamp, RequestEntryState.SuccessStale, undefined, createPaginatedList([payload]), statusCodeSuccess),
+      Error: new RemoteData(remoteDataTimestamp, msToLive, remoteDataTimestamp, RequestEntryState.Error, errorMessage, undefined, statusCodeError),
+      ErrorStale: new RemoteData(remoteDataTimestamp, msToLive, remoteDataTimestamp, RequestEntryState.ErrorStale, errorMessage, undefined, statusCodeError),
     };
 
     return new TestService(
       requestService,
       rdbService,
-      objectCache,
+      objectCache as ObjectCacheService,
       halService,
     );
   }
@@ -333,11 +392,15 @@ describe('BaseDataService', () => {
         spyOn(service as any, 'reRequestStaleRemoteData').and.callFake(() => (source) => source);
       });
 
-
-      it(`should not emit a cached completed RemoteData, but only start emitting after the state first changes to RequestPending`, () => {
+      it('should not emit a cached completed RemoteData', () => {
+        // Old cached value from 1 minute before the test started
+        const oldCachedSucceededData: RemoteData<any> = Object.assign({}, remoteDataPageMocks.Success, {
+          timeCompleted: remoteDataTimestamp - 2 * 60 * 1000,
+          lastUpdated: remoteDataTimestamp - 2 * 60 * 1000,
+        } as RemoteData<any>);
         testScheduler.run(({ cold, expectObservable }) => {
           spyOn(rdbService, 'buildSingle').and.returnValue(cold('a-b-c-d-e', {
-            a: remoteDataMocks.Success,
+            a: oldCachedSucceededData,
             b: remoteDataMocks.RequestPending,
             c: remoteDataMocks.ResponsePending,
             d: remoteDataMocks.Success,
@@ -349,6 +412,22 @@ describe('BaseDataService', () => {
             c: remoteDataMocks.ResponsePending,
             d: remoteDataMocks.Success,
             e: remoteDataMocks.SuccessStale,
+          };
+
+          expectObservable(service.findByHref(selfLink, false, true, ...linksToFollow)).toBe(expected, values);
+        });
+      });
+
+      it('should emit the first completed RemoteData since the request was made', () => {
+        testScheduler.run(({ cold, expectObservable }) => {
+          spyOn(rdbService, 'buildSingle').and.returnValue(cold('a-b', {
+            a: remoteDataMocks.Success,
+            b: remoteDataMocks.SuccessStale,
+          }));
+          const expected = 'a-b';
+          const values = {
+            a: remoteDataMocks.Success,
+            b: remoteDataMocks.SuccessStale,
           };
 
           expectObservable(service.findByHref(selfLink, false, true, ...linksToFollow)).toBe(expected, values);
@@ -380,6 +459,22 @@ describe('BaseDataService', () => {
 
     });
 
+    it('should link all the followLinks of a cached object by calling addDependency', () => {
+      spyOn(objectCache, 'addDependency').and.callThrough();
+      testScheduler.run(({ cold, expectObservable, flush }) => {
+        spyOn(rdbService, 'buildSingle').and.returnValue(cold('a', {
+          a: remoteDataMocks.Success,
+        }));
+        const expected = 'a';
+        const values = {
+          a: remoteDataMocks.Success,
+        };
+
+        expectObservable(service.findByHref(selfLink, false, false, ...linksToFollow)).toBe(expected, values);
+        flush();
+        expect(objectCache.addDependency).toHaveBeenCalledTimes(3);
+      });
+    });
   });
 
   describe(`findListByHref`, () => {
@@ -392,8 +487,8 @@ describe('BaseDataService', () => {
     it(`should call buildHrefFromFindOptions with href and linksToFollow`, () => {
       testScheduler.run(({ cold }) => {
         spyOn(service, 'buildHrefFromFindOptions').and.returnValue(selfLink);
-        spyOn(rdbService, 'buildList').and.returnValue(cold('a', { a: remoteDataMocks.Success }));
-        spyOn(service as any, 'reRequestStaleRemoteData').and.returnValue(() => cold('a', { a: remoteDataMocks.Success }));
+        spyOn(rdbService, 'buildList').and.returnValue(cold('a', { a: remoteDataPageMocks.Success }));
+        spyOn(service as any, 'reRequestStaleRemoteData').and.returnValue(() => cold('a', { a: remoteDataPageMocks.Success }));
 
         service.findListByHref(selfLink, findListOptions, true, true, ...linksToFollow);
         expect(service.buildHrefFromFindOptions).toHaveBeenCalledWith(selfLink, findListOptions, [], ...linksToFollow);
@@ -403,8 +498,8 @@ describe('BaseDataService', () => {
     it(`should call createAndSendGetRequest with the result from buildHrefFromFindOptions and useCachedVersionIfAvailable`, () => {
       testScheduler.run(({ cold, expectObservable }) => {
         spyOn(service, 'buildHrefFromFindOptions').and.returnValue('bingo!');
-        spyOn(rdbService, 'buildList').and.returnValue(cold('a', { a: remoteDataMocks.Success }));
-        spyOn(service as any, 'reRequestStaleRemoteData').and.returnValue(() => cold('a', { a: remoteDataMocks.Success }));
+        spyOn(rdbService, 'buildList').and.returnValue(cold('a', { a: remoteDataPageMocks.Success }));
+        spyOn(service as any, 'reRequestStaleRemoteData').and.returnValue(() => cold('a', { a: remoteDataPageMocks.Success }));
 
         service.findListByHref(selfLink, findListOptions, true, true, ...linksToFollow);
         expect((service as any).createAndSendGetRequest).toHaveBeenCalledWith(jasmine.anything(), true);
@@ -419,8 +514,8 @@ describe('BaseDataService', () => {
     it(`should call rdbService.buildList with the result from buildHrefFromFindOptions and linksToFollow`, () => {
       testScheduler.run(({ cold, expectObservable }) => {
         spyOn(service, 'buildHrefFromFindOptions').and.returnValue('bingo!');
-        spyOn(rdbService, 'buildList').and.returnValue(cold('a', { a: remoteDataMocks.Success }));
-        spyOn(service as any, 'reRequestStaleRemoteData').and.returnValue(() => cold('a', { a: remoteDataMocks.Success }));
+        spyOn(rdbService, 'buildList').and.returnValue(cold('a', { a: remoteDataPageMocks.Success }));
+        spyOn(service as any, 'reRequestStaleRemoteData').and.returnValue(() => cold('a', { a: remoteDataPageMocks.Success }));
 
         service.findListByHref(selfLink, findListOptions, true, true, ...linksToFollow);
         expect(rdbService.buildList).toHaveBeenCalledWith(jasmine.anything() as any, ...linksToFollow);
@@ -431,12 +526,12 @@ describe('BaseDataService', () => {
     it(`should call reRequestStaleRemoteData with reRequestOnStale and the exact same findListByHref call as a callback`, () => {
       testScheduler.run(({ cold, expectObservable }) => {
         spyOn(service, 'buildHrefFromFindOptions').and.returnValue('bingo!');
-        spyOn(rdbService, 'buildList').and.returnValue(cold('a', { a: remoteDataMocks.SuccessStale }));
-        spyOn(service as any, 'reRequestStaleRemoteData').and.returnValue(() => cold('a', { a: remoteDataMocks.SuccessStale }));
+        spyOn(rdbService, 'buildList').and.returnValue(cold('a', { a: remoteDataPageMocks.SuccessStale }));
+        spyOn(service as any, 'reRequestStaleRemoteData').and.returnValue(() => cold('a', { a: remoteDataPageMocks.SuccessStale }));
 
         service.findListByHref(selfLink, findListOptions, true, true, ...linksToFollow);
         expect((service as any).reRequestStaleRemoteData.calls.argsFor(0)[0]).toBeTrue();
-        spyOn(service, 'findListByHref').and.returnValue(cold('a', { a: remoteDataMocks.SuccessStale }));
+        spyOn(service, 'findListByHref').and.returnValue(cold('a', { a: remoteDataPageMocks.SuccessStale }));
         // prove that the spy we just added hasn't been called yet
         expect(service.findListByHref).not.toHaveBeenCalled();
         // call the callback passed to reRequestStaleRemoteData
@@ -451,7 +546,7 @@ describe('BaseDataService', () => {
     it(`should return a the output from reRequestStaleRemoteData`, () => {
       testScheduler.run(({ cold, expectObservable }) => {
         spyOn(service, 'buildHrefFromFindOptions').and.returnValue(selfLink);
-        spyOn(rdbService, 'buildList').and.returnValue(cold('a', { a: remoteDataMocks.Success }));
+        spyOn(rdbService, 'buildList').and.returnValue(cold('a', { a: remoteDataPageMocks.Success }));
         spyOn(service as any, 'reRequestStaleRemoteData').and.returnValue(() => cold('a', { a: 'bingo!' }));
         const expected = 'a';
         const values = {
@@ -471,19 +566,19 @@ describe('BaseDataService', () => {
       it(`should emit a cached completed RemoteData immediately, and keep emitting if it gets rerequested`, () => {
         testScheduler.run(({ cold, expectObservable }) => {
           spyOn(rdbService, 'buildList').and.returnValue(cold('a-b-c-d-e', {
-            a: remoteDataMocks.Success,
-            b: remoteDataMocks.RequestPending,
-            c: remoteDataMocks.ResponsePending,
-            d: remoteDataMocks.Success,
-            e: remoteDataMocks.SuccessStale,
+            a: remoteDataPageMocks.Success,
+            b: remoteDataPageMocks.RequestPending,
+            c: remoteDataPageMocks.ResponsePending,
+            d: remoteDataPageMocks.Success,
+            e: remoteDataPageMocks.SuccessStale,
           }));
           const expected = 'a-b-c-d-e';
           const values = {
-            a: remoteDataMocks.Success,
-            b: remoteDataMocks.RequestPending,
-            c: remoteDataMocks.ResponsePending,
-            d: remoteDataMocks.Success,
-            e: remoteDataMocks.SuccessStale,
+            a: remoteDataPageMocks.Success,
+            b: remoteDataPageMocks.RequestPending,
+            c: remoteDataPageMocks.ResponsePending,
+            d: remoteDataPageMocks.Success,
+            e: remoteDataPageMocks.SuccessStale,
           };
 
           expectObservable(service.findListByHref(selfLink, findListOptions, true, true, ...linksToFollow)).toBe(expected, values);
@@ -493,20 +588,20 @@ describe('BaseDataService', () => {
       it(`should not emit a cached stale RemoteData, but only start emitting after the state first changes to RequestPending`, () => {
         testScheduler.run(({ cold, expectObservable }) => {
           spyOn(rdbService, 'buildList').and.returnValue(cold('a-b-c-d-e-f-g', {
-            a: remoteDataMocks.ResponsePendingStale,
-            b: remoteDataMocks.SuccessStale,
-            c: remoteDataMocks.ErrorStale,
-            d: remoteDataMocks.RequestPending,
-            e: remoteDataMocks.ResponsePending,
-            f: remoteDataMocks.Success,
-            g: remoteDataMocks.SuccessStale,
+            a: remoteDataPageMocks.ResponsePendingStale,
+            b: remoteDataPageMocks.SuccessStale,
+            c: remoteDataPageMocks.ErrorStale,
+            d: remoteDataPageMocks.RequestPending,
+            e: remoteDataPageMocks.ResponsePending,
+            f: remoteDataPageMocks.Success,
+            g: remoteDataPageMocks.SuccessStale,
           }));
           const expected = '------d-e-f-g';
           const values = {
-            d: remoteDataMocks.RequestPending,
-            e: remoteDataMocks.ResponsePending,
-            f: remoteDataMocks.Success,
-            g: remoteDataMocks.SuccessStale,
+            d: remoteDataPageMocks.RequestPending,
+            e: remoteDataPageMocks.ResponsePending,
+            f: remoteDataPageMocks.Success,
+            g: remoteDataPageMocks.SuccessStale,
           };
 
           expectObservable(service.findListByHref(selfLink, findListOptions, true, true, ...linksToFollow)).toBe(expected, values);
@@ -521,22 +616,42 @@ describe('BaseDataService', () => {
         spyOn(service as any, 'reRequestStaleRemoteData').and.callFake(() => (source) => source);
       });
 
-
-      it(`should not emit a cached completed RemoteData, but only start emitting after the state first changes to RequestPending`, () => {
+      it('should not emit a cached completed RemoteData', () => {
         testScheduler.run(({ cold, expectObservable }) => {
+          // Old cached value from 1 minute before the test started
+          const oldCachedSucceededData: RemoteData<any> = Object.assign({}, remoteDataPageMocks.Success, {
+            timeCompleted: remoteDataTimestamp - 2 * 60 * 1000,
+            lastUpdated: remoteDataTimestamp - 2 * 60 * 1000,
+          } as RemoteData<any>);
           spyOn(rdbService, 'buildList').and.returnValue(cold('a-b-c-d-e', {
-            a: remoteDataMocks.Success,
-            b: remoteDataMocks.RequestPending,
-            c: remoteDataMocks.ResponsePending,
-            d: remoteDataMocks.Success,
-            e: remoteDataMocks.SuccessStale,
+            a: oldCachedSucceededData,
+            b: remoteDataPageMocks.RequestPending,
+            c: remoteDataPageMocks.ResponsePending,
+            d: remoteDataPageMocks.Success,
+            e: remoteDataPageMocks.SuccessStale,
           }));
           const expected = '--b-c-d-e';
           const values = {
-            b: remoteDataMocks.RequestPending,
-            c: remoteDataMocks.ResponsePending,
-            d: remoteDataMocks.Success,
-            e: remoteDataMocks.SuccessStale,
+            b: remoteDataPageMocks.RequestPending,
+            c: remoteDataPageMocks.ResponsePending,
+            d: remoteDataPageMocks.Success,
+            e: remoteDataPageMocks.SuccessStale,
+          };
+
+          expectObservable(service.findListByHref(selfLink, findListOptions, false, true, ...linksToFollow)).toBe(expected, values);
+        });
+      });
+
+      it('should emit the first completed RemoteData since the request was made', () => {
+        testScheduler.run(({ cold, expectObservable }) => {
+          spyOn(rdbService, 'buildList').and.returnValue(cold('a-b', {
+            a: remoteDataPageMocks.Success,
+            b: remoteDataPageMocks.SuccessStale,
+          }));
+          const expected = 'a-b';
+          const values = {
+            a: remoteDataPageMocks.Success,
+            b: remoteDataPageMocks.SuccessStale,
           };
 
           expectObservable(service.findListByHref(selfLink, findListOptions, false, true, ...linksToFollow)).toBe(expected, values);
@@ -546,20 +661,20 @@ describe('BaseDataService', () => {
       it(`should not emit a cached stale RemoteData, but only start emitting after the state first changes to RequestPending`, () => {
         testScheduler.run(({ cold, expectObservable }) => {
           spyOn(rdbService, 'buildList').and.returnValue(cold('a-b-c-d-e-f-g', {
-            a: remoteDataMocks.ResponsePendingStale,
-            b: remoteDataMocks.SuccessStale,
-            c: remoteDataMocks.ErrorStale,
-            d: remoteDataMocks.RequestPending,
-            e: remoteDataMocks.ResponsePending,
-            f: remoteDataMocks.Success,
-            g: remoteDataMocks.SuccessStale,
+            a: remoteDataPageMocks.ResponsePendingStale,
+            b: remoteDataPageMocks.SuccessStale,
+            c: remoteDataPageMocks.ErrorStale,
+            d: remoteDataPageMocks.RequestPending,
+            e: remoteDataPageMocks.ResponsePending,
+            f: remoteDataPageMocks.Success,
+            g: remoteDataPageMocks.SuccessStale,
           }));
           const expected = '------d-e-f-g';
           const values = {
-            d: remoteDataMocks.RequestPending,
-            e: remoteDataMocks.ResponsePending,
-            f: remoteDataMocks.Success,
-            g: remoteDataMocks.SuccessStale,
+            d: remoteDataPageMocks.RequestPending,
+            e: remoteDataPageMocks.ResponsePending,
+            f: remoteDataPageMocks.Success,
+            g: remoteDataPageMocks.SuccessStale,
           };
 
 
@@ -567,6 +682,27 @@ describe('BaseDataService', () => {
         });
       });
 
+      it('should link all the followLinks of the cached objects by calling addDependency', () => {
+        spyOn(objectCache, 'addDependency').and.callThrough();
+        testScheduler.run(({ cold, expectObservable, flush }) => {
+          spyOn(rdbService, 'buildList').and.returnValue(cold('a-b-c-d', {
+            a: remoteDataPageMocks.SuccessStale,
+            b: remoteDataPageMocks.RequestPending,
+            c: remoteDataPageMocks.ResponsePending,
+            d: remoteDataPageMocks.Success,
+          }));
+          const expected = '--b-c-d';
+          const values = {
+            b: remoteDataPageMocks.RequestPending,
+            c: remoteDataPageMocks.ResponsePending,
+            d: remoteDataPageMocks.Success,
+          };
+
+          expectObservable(service.findListByHref(selfLink, findListOptions, false, false, ...linksToFollow)).toBe(expected, values);
+          flush();
+          expect(objectCache.addDependency).toHaveBeenCalledTimes(3);
+        });
+      });
     });
   });
 
@@ -576,8 +712,8 @@ describe('BaseDataService', () => {
     beforeEach(() => {
       getByHrefSpy = spyOn(objectCache, 'getByHref').and.returnValue(observableOf({
         requestUUIDs: ['request1', 'request2', 'request3'],
-        dependentRequestUUIDs: ['request4', 'request5']
-      }));
+        dependentRequestUUIDs: ['request4', 'request5'],
+      } as ObjectCacheEntry));
 
     });
 
@@ -724,7 +860,7 @@ describe('BaseDataService', () => {
 
       (service as any).addDependency(
         createSuccessfulRemoteDataObject$({ _links: { self: { href: 'object-href' } } }),
-        observableOf('dependsOnHref')
+        observableOf('dependsOnHref'),
       );
       expect(addDependencySpy).toHaveBeenCalled();
     });
@@ -739,7 +875,7 @@ describe('BaseDataService', () => {
 
       (service as any).addDependency(
         createFailedRemoteDataObject$('something went wrong'),
-        observableOf('dependsOnHref')
+        observableOf('dependsOnHref'),
       );
       expect(addDependencySpy).toHaveBeenCalled();
     });

@@ -1,21 +1,32 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { Item } from '../../../core/shared/item.model';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { of as observableOf } from 'rxjs';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ItemRegisterDoiComponent } from './item-register-doi.component';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
 import { IdentifierDataService } from '../../../core/data/identifier-data.service';
+import { ItemDataService } from '../../../core/data/item-data.service';
+import { Item } from '../../../core/shared/item.model';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../shared/remote-data.utils';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import { RouterStub } from '../../../shared/testing/router.stub';
+import { ItemRegisterDoiComponent } from './item-register-doi.component';
 
 let comp: ItemRegisterDoiComponent;
 let fixture: ComponentFixture<ItemRegisterDoiComponent>;
@@ -35,46 +46,45 @@ describe('ItemRegisterDoiComponent', () => {
       id: 'fake-id',
       handle: 'fake/handle',
       lastModified: '2018',
-      isWithdrawn: true
+      isWithdrawn: true,
     });
 
     itemPageUrl = `fake-url/${mockItem.id}`;
     routerStub = Object.assign(new RouterStub(), {
-      url: `${itemPageUrl}/edit`
+      url: `${itemPageUrl}/edit`,
     });
 
     mockIdentifierDataService = jasmine.createSpyObj('mockIdentifierDataService', {
-      getIdentifierDataFor: createSuccessfulRemoteDataObject$({'identifiers': []}),
+      getIdentifierDataFor: createSuccessfulRemoteDataObject$({ 'identifiers': [] }),
       getIdentifierRegistrationConfiguration: createSuccessfulRemoteDataObject$('true'),
-      registerIdentifier: createSuccessfulRemoteDataObject$({'identifiers': []}),
+      registerIdentifier: createSuccessfulRemoteDataObject$({ 'identifiers': [] }),
     });
 
     mockItemDataService = jasmine.createSpyObj('mockItemDataService', {
-      registerDOI: createSuccessfulRemoteDataObject$(mockItem)
+      registerDOI: createSuccessfulRemoteDataObject$(mockItem),
     });
 
     routeStub = {
       data: observableOf({
         dso: createSuccessfulRemoteDataObject(Object.assign(new Item(), {
-          id: 'fake-id'
-        }))
-      })
+          id: 'fake-id',
+        })),
+      }),
     };
 
     notificationsServiceStub = new NotificationsServiceStub();
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [ItemRegisterDoiComponent],
+      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, ItemRegisterDoiComponent],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: Router, useValue: routerStub },
         { provide: ItemDataService, useValue: mockItemDataService },
-        { provide: IdentifierDataService, useValue: mockIdentifierDataService},
-        { provide: NotificationsService, useValue: notificationsServiceStub }
+        { provide: IdentifierDataService, useValue: mockIdentifierDataService },
+        { provide: NotificationsService, useValue: notificationsServiceStub },
       ], schemas: [
-        CUSTOM_ELEMENTS_SCHEMA
-      ]
+        CUSTOM_ELEMENTS_SCHEMA,
+      ],
     }).compileComponents();
   }));
 

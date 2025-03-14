@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
-import { hasValue, isEmpty } from '../../shared/empty.util';
-import { DSpaceObject } from '../shared/dspace-object.model';
 import { TranslateService } from '@ngx-translate/core';
+
+import {
+  hasValue,
+  isEmpty,
+} from '../../shared/empty.util';
+import { DSpaceObject } from '../shared/dspace-object.model';
 import { Metadata } from '../shared/metadata.utils';
 
 /**
@@ -9,7 +13,7 @@ import { Metadata } from '../shared/metadata.utils';
  * on its render types.
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DSONameService {
 
@@ -55,7 +59,7 @@ export class DSONameService {
     Default: (dso: DSpaceObject): string => {
       // If object doesn't have dc.title metadata use name property
       return dso.firstMetadataValue('dc.title') || dso.name || this.translateService.instant('dso.name.untitled');
-    }
+    },
   };
 
   /**

@@ -1,6 +1,11 @@
-import { RemoteData } from '../core/data/remote-data';
-import { Observable, of as observableOf } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
 import { environment } from '../../environments/environment';
+import { RemoteData } from '../core/data/remote-data';
 import { RequestEntryState } from '../core/data/request-entry-state.model';
 
 /**
@@ -21,7 +26,7 @@ export function createSuccessfulRemoteDataObject<T>(object: T, timeCompleted = F
     RequestEntryState.Success,
     undefined,
     object,
-    200
+    200,
   );
 }
 
@@ -49,7 +54,7 @@ export function createFailedRemoteDataObject<T>(errorMessage?: string, statusCod
     RequestEntryState.Error,
     errorMessage,
     undefined,
-    statusCode
+    statusCode,
   );
 }
 
@@ -76,7 +81,7 @@ export function createPendingRemoteDataObject<T>(lastVerified = FIXED_TIMESTAMP)
     RequestEntryState.ResponsePending,
     undefined,
     undefined,
-    undefined
+    undefined,
   );
 }
 
@@ -102,4 +107,28 @@ export function createNoContentRemoteDataObject<T>(timeCompleted?: number): Remo
  */
 export function createNoContentRemoteDataObject$<T>(timeCompleted?: number): Observable<RemoteData<T>> {
   return createSuccessfulRemoteDataObject$(undefined, timeCompleted);
+}
+
+/**
+ * Method to create a remote data object that has failed starting from a given error
+ *
+ * @param error
+ */
+export function createFailedRemoteDataObjectFromError<T>(error: unknown): RemoteData<T> {
+  const remoteData = createFailedRemoteDataObject<T>();
+  if (error instanceof Error) {
+    remoteData.errorMessage = error.message;
+  }
+  if (error instanceof HttpErrorResponse) {
+    remoteData.statusCode = error.status;
+  }
+  return remoteData;
+}
+
+/**
+ * Method to create a remote data object that has failed starting from a given error
+ * @param error
+ */
+export function createFailedRemoteDataObjectFromError$<T>(error: unknown): Observable<RemoteData<T>> {
+  return observableOf(createFailedRemoteDataObjectFromError<T>(error));
 }

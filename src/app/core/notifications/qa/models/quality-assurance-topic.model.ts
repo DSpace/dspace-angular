@@ -1,11 +1,14 @@
-import { autoserialize, deserialize } from 'cerialize';
+import {
+  autoserialize,
+  deserialize,
+} from 'cerialize';
 
-import { QUALITY_ASSURANCE_TOPIC_OBJECT } from './quality-assurance-topic-object.resource-type';
-import { excludeFromEquals } from '../../../utilities/equals.decorators';
-import { ResourceType } from '../../../shared/resource-type';
-import { HALLink } from '../../../shared/hal-link.model';
 import { typedObject } from '../../../cache/builders/build-decorators';
-import {CacheableObject} from '../../../cache/cacheable-object.model';
+import { CacheableObject } from '../../../cache/cacheable-object.model';
+import { HALLink } from '../../../shared/hal-link.model';
+import { ResourceType } from '../../../shared/resource-type';
+import { excludeFromEquals } from '../../../utilities/equals.decorators';
+import { QUALITY_ASSURANCE_TOPIC_OBJECT } from './quality-assurance-topic-object.resource-type';
 
 /**
  * The interface representing the Quality Assurance topic model

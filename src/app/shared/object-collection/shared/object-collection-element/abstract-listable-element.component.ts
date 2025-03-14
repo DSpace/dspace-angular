@@ -1,14 +1,21 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ListableObject } from '../listable-object.model';
-import { CollectionElementLinkType } from '../../collection-element-link.type';
-import { Context } from '../../../../core/shared/context.model';
-import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { Context } from '../../../../core/shared/context.model';
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { CollectionElementLinkType } from '../../collection-element-link.type';
+import { ListableObject } from '../listable-object.model';
 
 @Component({
   selector: 'ds-abstract-object-element',
   template: ``,
+  standalone: true,
 })
 export class AbstractListableElementComponent<T extends ListableObject> {
 

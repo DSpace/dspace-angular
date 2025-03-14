@@ -1,6 +1,16 @@
-import { Component, Injector, Input, OnInit, Type } from '@angular/core';
-import { rendersAuthMethodType } from '../methods/log-in.methods-decorator';
+import { NgComponentOutlet } from '@angular/common';
+import {
+  Component,
+  Injector,
+  Input,
+  OnInit,
+} from '@angular/core';
+
 import { AuthMethod } from '../../../core/auth/models/auth.method';
+import {
+  AuthMethodTypeComponent,
+  rendersAuthMethodType,
+} from '../methods/log-in.methods-decorator';
 
 /**
  * This component represents a component container for log-in methods available.
@@ -8,7 +18,9 @@ import { AuthMethod } from '../../../core/auth/models/auth.method';
 @Component({
   selector: 'ds-log-in-container',
   templateUrl: './log-in-container.component.html',
-  styleUrls: ['./log-in-container.component.scss']
+  styleUrls: ['./log-in-container.component.scss'],
+  standalone: true,
+  imports: [NgComponentOutlet],
 })
 export class LogInContainerComponent implements OnInit {
 
@@ -40,14 +52,14 @@ export class LogInContainerComponent implements OnInit {
         { provide: 'authMethodProvider', useFactory: () => (this.authMethod), deps: [] },
         { provide: 'isStandalonePage', useFactory: () => (this.isStandalonePage), deps: [] },
       ],
-      parent: this.injector
+      parent: this.injector,
     });
   }
 
   /**
    * Find the correct component based on the AuthMethod's type
    */
-  getAuthMethodContent(): Type<Component> {
+  getAuthMethodContent(): AuthMethodTypeComponent {
     return rendersAuthMethodType(this.authMethod.authMethodType);
   }
 

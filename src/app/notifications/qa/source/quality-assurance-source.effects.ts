@@ -1,26 +1,31 @@
 import { Injectable } from '@angular/core';
-
+import {
+  Actions,
+  createEffect,
+  ofType,
+} from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { TranslateService } from '@ngx-translate/core';
-import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { of as observableOf } from 'rxjs';
+import {
+  catchError,
+  map,
+  switchMap,
+  tap,
+  withLatestFrom,
+} from 'rxjs/operators';
 
+import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { QualityAssuranceSourceObject } from '../../../core/notifications/qa/models/quality-assurance-source.model';
+import { QualityAssuranceSourceDataService } from '../../../core/notifications/qa/source/quality-assurance-source-data.service';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   AddSourceAction,
   QualityAssuranceSourceActionTypes,
   RetrieveAllSourceAction,
   RetrieveAllSourceErrorAction,
 } from './quality-assurance-source.actions';
-import {
-  QualityAssuranceSourceObject
-} from '../../../core/notifications/qa/models/quality-assurance-source.model';
-import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { QualityAssuranceSourceService } from './quality-assurance-source.service';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import {
-  QualityAssuranceSourceDataService
-} from '../../../core/notifications/qa/source/quality-assurance-source-data.service';
 
 /**
  * Provides effect methods for the Quality Assurance source actions.
@@ -37,19 +42,21 @@ export class QualityAssuranceSourceEffects {
     switchMap(([action, currentState]: [RetrieveAllSourceAction, any]) => {
       return this.qualityAssuranceSourceService.getSources(
         action.payload.elementsPerPage,
-        action.payload.currentPage
+        action.payload.currentPage,
       ).pipe(
         map((sources: PaginatedList<QualityAssuranceSourceObject>) =>
-          new AddSourceAction(sources.page, sources.totalPages, sources.currentPage, sources.totalElements)
+          new AddSourceAction(sources.page, sources.totalPages, sources.currentPage, sources.totalElements),
         ),
-        catchError((error: Error) => {
-          if (error) {
+        catchError((error: unknown) => {
+          if (error instanceof Error) {
             console.error(error.message);
+          } else {
+            console.error('Unexpected object thrown', error);
           }
           return observableOf(new RetrieveAllSourceErrorAction());
-        })
+        }),
       );
-    })
+    }),
   ));
 
   /**
@@ -59,7 +66,7 @@ export class QualityAssuranceSourceEffects {
     ofType(QualityAssuranceSourceActionTypes.RETRIEVE_ALL_SOURCE_ERROR),
     tap(() => {
       this.notificationsService.error(null, this.translate.get('quality-assurance.source.error.service.retrieve'));
-    })
+    }),
   ), { dispatch: false });
 
   /**
@@ -69,7 +76,7 @@ export class QualityAssuranceSourceEffects {
     ofType(QualityAssuranceSourceActionTypes.ADD_SOURCE),
     tap(() => {
       this.qualityAssuranceSourceDataService.clearFindAllSourceRequests();
-    })
+    }),
   ), { dispatch: false });
 
   /**
@@ -87,7 +94,7 @@ export class QualityAssuranceSourceEffects {
     private translate: TranslateService,
     private notificationsService: NotificationsService,
     private qualityAssuranceSourceService: QualityAssuranceSourceService,
-    private qualityAssuranceSourceDataService: QualityAssuranceSourceDataService
+    private qualityAssuranceSourceDataService: QualityAssuranceSourceDataService,
   ) {
   }
 }

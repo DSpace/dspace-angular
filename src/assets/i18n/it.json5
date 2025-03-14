@@ -1958,12 +1958,6 @@
   // "cookies.consent.app.required.title": "(always required)",
   "cookies.consent.app.required.title": "(sempre obbligatorio)",
 
-  // "cookies.consent.app.disable-all.description": "Use this switch to enable or disable all services.",
-  "cookies.consent.app.disable-all.description": "Utilizzare questo interruttore per abilitare o disabilitare tutti i servizi.",
-
-  // "cookies.consent.app.disable-all.title": "Enable or disable all services",
-  "cookies.consent.app.disable-all.title": "Abilitare o disabilitare tutti i servizi",
-
   // "cookies.consent.update": "There were changes since your last visit, please update your consent.",
   "cookies.consent.update": "Ci sono stati dei cambiamenti dal tuo ultimo accesso, aggiorna il tuo consenso.",
 
@@ -1979,14 +1973,8 @@
   // "cookies.consent.save": "Save",
   "cookies.consent.save": "Salvare",
 
-  // "cookies.consent.content-notice.title": "Cookie Consent",
-  "cookies.consent.content-notice.title": "Consenso ai cookie",
-
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>. <br/> To learn more, please read our {privacyPolicy}.",
-  "cookies.consent.content-notice.description": "Raccogliamo ed elaboriamo le tue informazioni personali per i seguenti scopi: <strong>Autenticazione, Preferenze, Accettazione e Statistiche</strong>. <br/> Per saperne di più, leggi la nostra {privacyPolicy}.",
-
-  // "cookies.consent.content-notice.description.no-privacy": "We collect and process your personal information for the following purposes: <strong>Authentication, Preferences, Acknowledgement and Statistics</strong>.",
-  "cookies.consent.content-notice.description.no-privacy": "Raccogliamo ed elaboriamo le tue informazioni personali per i seguenti scopi: <strong>Autenticazione, Preferenze, Accettazione e Statistiche</strong>.",
+  "cookies.consent.content-notice.description": "Raccogliamo ed elaboriamo le tue informazioni personali per i seguenti scopi: {purposes}",
 
   // "cookies.consent.content-notice.learnMore": "Customize",
   "cookies.consent.content-notice.learnMore": "Personalizza",
@@ -2002,12 +1990,6 @@
 
   // "cookies.consent.content-modal.title": "Information that we collect",
   "cookies.consent.content-modal.title": "Informazioni che raccogliamo",
-
-  // "cookies.consent.content-modal.services": "services",
-  "cookies.consent.content-modal.services": "servizi",
-
-  // "cookies.consent.content-modal.service": "service",
-  "cookies.consent.content-modal.service": "servizio",
 
   // "cookies.consent.app.title.authentication": "Authentication",
   "cookies.consent.app.title.authentication": "Autenticazione",
@@ -3535,6 +3517,22 @@
   // "item.truncatable-part.show-less": "Collapse",
   "item.truncatable-part.show-less": "Riduci",
 
+  // "item.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
+  // TODO New key - Add a translation
+  "item.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
+
+  // "item.qa-event-notification-info.check.button": "View",
+  // TODO New key - Add a translation
+  "item.qa-event-notification-info.check.button": "View",
+
+  // "mydspace.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
+  // TODO New key - Add a translation
+  "mydspace.qa-event-notification.check.notification-info": "There are {{num}} pending suggestions related to your account",
+
+  // "mydspace.qa-event-notification-info.check.button": "View",
+  // TODO New key - Add a translation
+  "mydspace.qa-event-notification-info.check.button": "View",
+
   // "workflow-item.search.result.delete-supervision.modal.header": "Delete Supervision Order",
   "workflow-item.search.result.delete-supervision.modal.header": "Elimina l'ordine di supervisione",
 
@@ -3663,7 +3661,7 @@
   // "item.page.version.create": "Create new version",
   "item.page.version.create": "Crea una nuova versione",
 
-  // "item.page.version.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.page.version.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.page.version.hasDraft": "Impossibile creare una nuova versione perché è presente un'submission in corso nella cronologia delle versioni",
 
   // "item.page.claim.button": "Claim",
@@ -3822,7 +3820,7 @@
   // "item.version.history.table.action.deleteVersion": "Delete version",
   "item.version.history.table.action.deleteVersion": "Elimina versione",
 
-  // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.version.history.table.action.hasDraft": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.version.history.table.action.hasDraft": "Non è possibile creare una nuova versione perchè c'è già una submission in progress nella cronologia delle versioni",
 
 
@@ -3869,7 +3867,7 @@
   // "item.version.create.notification.failure": "New version has not been created",
   "item.version.create.notification.failure": "Non è stata creata una nuova versione",
 
-  // "item.version.create.notification.inProgress": "A new version cannot be created because there is an inprogress submission in the version history",
+  // "item.version.create.notification.inProgress": "A new version cannot be created because there is an in-progress submission in the version history",
   "item.version.create.notification.inProgress": "Non è possibile creare una nuova versione perchè c'è già una submission in progress nella cronologia delle versioni",
 
 
@@ -4570,7 +4568,7 @@
   // "mydspace.status.mydspaceValidation": "Validation",
   "mydspace.status.mydspaceValidation": "Convalida",
 
-  // "mydspace.status.mydspaceWaitingController": "Waiting for controller",
+  // "mydspace.status.mydspaceWaitingController": "Waiting for reviewer",
   "mydspace.status.mydspaceWaitingController": "In attesa del controllo",
 
   // "mydspace.status.mydspaceWorkflow": "Workflow",
@@ -5429,6 +5427,10 @@
   // "resource-policies.form.name.label": "Name",
   "resource-policies.form.name.label": "Nome",
 
+  //"resource-policies.form.name.hint": "Max 30 characters",
+  // TODO New key - Add a translation
+  "resource-policies.form.name.hint": "Max 30 characters",
+
   // "resource-policies.form.policy-type.label": "Select the policy type",
   "resource-policies.form.policy-type.label": "Selezionare il tipo di criterio",
 
@@ -6059,8 +6061,8 @@
   // "submission.import-external.source.cinii": "CiNii",
   "submission.import-external.source.cinii": "CiNii",
 
-  // "submission.import-external.source.crossref": "CrossRef",
-  "submission.import-external.source.crossref": "CrossRef",
+  // "submission.import-external.source.crossref": "Crossref",
+  "submission.import-external.source.crossref": "Crossref",
 
   // "submission.import-external.source.datacite": "DataCite",
   "submission.import-external.source.datacite": "DataCite",

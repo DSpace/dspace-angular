@@ -1,30 +1,55 @@
 /* eslint-disable max-classes-per-file */
-import { Inject, Injectable } from '@angular/core';
-import { createSelector, Store } from '@ngrx/store';
-
-import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
-import { filter, map, switchMap } from 'rxjs/operators';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
+import {
+  createSelector,
+  Store,
+} from '@ngrx/store';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  switchMap,
+} from 'rxjs/operators';
+import {
+  APP_CONFIG,
+  AppConfig,
+} from 'src/config/app-config.interface';
+import { v4 as uuidv4 } from 'uuid';
 
 import { AppState } from '../app.reducer';
-import { CommunityDataService } from '../core/data/community-data.service';
-import { Community } from '../core/shared/community.model';
-import { Collection } from '../core/shared/collection.model';
-import { PageInfo } from '../core/shared/page-info.model';
-import { hasValue, isNotEmpty } from '../shared/empty.util';
-import { RemoteData } from '../core/data/remote-data';
-import { buildPaginatedList, PaginatedList } from '../core/data/paginated-list.model';
+import { getCollectionPageRoute } from '../collection-page/collection-page-routing-paths';
+import { getCommunityPageRoute } from '../community-page/community-page-routing-paths';
 import { CollectionDataService } from '../core/data/collection-data.service';
+import { CommunityDataService } from '../core/data/community-data.service';
+import { FindListOptions } from '../core/data/find-list-options.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../core/data/paginated-list.model';
+import { RemoteData } from '../core/data/remote-data';
+import { Collection } from '../core/shared/collection.model';
+import { Community } from '../core/shared/community.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteData,
+} from '../core/shared/operators';
+import { PageInfo } from '../core/shared/page-info.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../shared/empty.util';
+import { followLink } from '../shared/utils/follow-link-config.model';
 import { CommunityListSaveAction } from './community-list.actions';
 import { CommunityListState } from './community-list.reducer';
-import { getCommunityPageRoute } from '../community-page/community-page-routing-paths';
-import { getCollectionPageRoute } from '../collection-page/collection-page-routing-paths';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteData } from '../core/shared/operators';
-import { followLink } from '../shared/utils/follow-link-config.model';
 import { FlatNode } from './flat-node.model';
 import { ShowMoreFlatNode } from './show-more-flat-node.model';
-import { FindListOptions } from '../core/data/find-list-options.model';
-import { AppConfig, APP_CONFIG } from 'src/config/app-config.interface';
-import { v4 as uuidv4 } from 'uuid';
 
 // Helper method to combine and flatten an array of observables of flatNode arrays
 export const combineAndFlatten = (obsList: Observable<FlatNode[]>[]): Observable<FlatNode[]> =>
@@ -46,7 +71,7 @@ export const toFlatNode = (
   isExpandable: Observable<boolean>,
   level: number,
   isExpanded: boolean,
-  parent?: FlatNode
+  parent?: FlatNode,
 ): FlatNode => ({
   isExpandable$: isExpandable,
   name: c.name,
@@ -65,7 +90,7 @@ export const toFlatNode = (
 export const showMoreFlatNode = (
   id: string,
   level: number,
-  parent: FlatNode
+  parent: FlatNode,
 ): FlatNode => ({
   isExpandable$: observableOf(false),
   name: 'Show More Flatnode',
@@ -86,7 +111,7 @@ const loadingNodeSelector = createSelector(communityListStateSelector, (communit
  * Service class for the community list, responsible for the creating of the flat list used by communityList dataSource
  *  and connection to the store to retrieve and save the state of the community list
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class CommunityListService {
 
   private pageSize: number;
@@ -95,13 +120,13 @@ export class CommunityListService {
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
     private communityDataService: CommunityDataService,
     private collectionDataService: CollectionDataService,
-    private store: Store<any>
+    private store: Store<any>,
   ) {
     this.pageSize = appConfig.communityList.pageSize;
   }
 
   private configOnePage: FindListOptions = Object.assign(new FindListOptions(), {
-    elementsPerPage: 1
+    elementsPerPage: 1,
   });
 
   saveCommunityListStateToStore(expandedNodes: FlatNode[], loadingNode: FlatNode): void {
@@ -138,7 +163,7 @@ export class CommunityListService {
           newPageInfo = Object.assign({}, coms[0].pageInfo, { currentPage });
         }
         return buildPaginatedList(newPageInfo, newPage);
-      })
+      }),
     );
     return topComs$.pipe(
       switchMap((topComs: PaginatedList<Community>) => this.transformListOfCommunities(topComs, 0, null, expandedNodes)),
@@ -151,15 +176,15 @@ export class CommunityListService {
    */
   private getTopCommunities(options: FindListOptions): Observable<PaginatedList<Community>> {
     return this.communityDataService.findTop({
-        currentPage: options.currentPage,
-        elementsPerPage: this.pageSize,
-        sort: {
-          field: options.sort.field,
-          direction: options.sort.direction
-        }
+      currentPage: options.currentPage,
+      elementsPerPage: this.pageSize,
+      sort: {
+        field: options.sort.field,
+        direction: options.sort.direction,
       },
-      followLink('subcommunities', { findListOptions: this.configOnePage }),
-      followLink('collections', { findListOptions: this.configOnePage }))
+    },
+    followLink('subcommunities', { findListOptions: this.configOnePage }),
+    followLink('collections', { findListOptions: this.configOnePage }))
       .pipe(
         getFirstSucceededRemoteData(),
         map((results) => results.payload),
@@ -174,9 +199,9 @@ export class CommunityListService {
    * @param expandedNodes                 List of expanded nodes; if a node is not expanded its subcommunities and collections need not be added to the list
    */
   public transformListOfCommunities(listOfPaginatedCommunities: PaginatedList<Community>,
-                                    level: number,
-                                    parent: FlatNode,
-                                    expandedNodes: FlatNode[]): Observable<FlatNode[]> {
+    level: number,
+    parent: FlatNode,
+    expandedNodes: FlatNode[]): Observable<FlatNode[]> {
     if (isNotEmpty(listOfPaginatedCommunities.page)) {
       let currentPage = listOfPaginatedCommunities.currentPage;
       if (isNotEmpty(parent)) {
@@ -223,11 +248,11 @@ export class CommunityListService {
       let subcoms = [];
       for (let i = 1; i <= currentCommunityPage; i++) {
         const nextSetOfSubcommunitiesPage = this.communityDataService.findByParent(community.uuid, {
-            elementsPerPage: this.pageSize,
-            currentPage: i
-          },
-          followLink('subcommunities', { findListOptions: this.configOnePage }),
-          followLink('collections', { findListOptions: this.configOnePage }))
+          elementsPerPage: this.pageSize,
+          currentPage: i,
+        },
+        followLink('subcommunities', { findListOptions: this.configOnePage }),
+        followLink('collections', { findListOptions: this.configOnePage }))
           .pipe(
             getFirstCompletedRemoteData(),
             switchMap((rd: RemoteData<PaginatedList<Community>>) => {
@@ -236,7 +261,7 @@ export class CommunityListService {
               } else {
                 return observableOf([]);
               }
-            })
+            }),
           );
 
         subcoms = [...subcoms, nextSetOfSubcommunitiesPage];
@@ -249,7 +274,7 @@ export class CommunityListService {
       for (let i = 1; i <= currentCollectionPage; i++) {
         const nextSetOfCollectionsPage = this.collectionDataService.findByParent(community.uuid, {
           elementsPerPage: this.pageSize,
-          currentPage: i
+          currentPage: i,
         })
           .pipe(
             getFirstCompletedRemoteData(),
@@ -281,9 +306,7 @@ export class CommunityListService {
    * @param community     Community being checked whether it is expandable (if it has subcommunities or collections)
    */
   public getIsExpandable(community: Community): Observable<boolean> {
-    let hasSubcoms$: Observable<boolean>;
-    let hasColls$: Observable<boolean>;
-    hasSubcoms$ = this.communityDataService.findByParent(community.uuid, this.configOnePage)
+    const hasSubcoms$ = this.communityDataService.findByParent(community.uuid, this.configOnePage)
       .pipe(
         map((rd: RemoteData<PaginatedList<Community>>) => {
           if (hasValue(rd) && hasValue(rd.payload)) {
@@ -294,7 +317,7 @@ export class CommunityListService {
         }),
       );
 
-    hasColls$ = this.collectionDataService.findByParent(community.uuid, this.configOnePage)
+    const hasColls$ = this.collectionDataService.findByParent(community.uuid, this.configOnePage)
       .pipe(
         map((rd: RemoteData<PaginatedList<Collection>>) => {
           if (hasValue(rd) && hasValue(rd.payload)) {
@@ -305,12 +328,9 @@ export class CommunityListService {
         }),
       );
 
-    let hasChildren$: Observable<boolean>;
-    hasChildren$ = observableCombineLatest(hasSubcoms$, hasColls$).pipe(
-      map(([hasSubcoms, hasColls]: [boolean, boolean]) => hasSubcoms || hasColls)
+    return observableCombineLatest(hasSubcoms$, hasColls$).pipe(
+      map(([hasSubcoms, hasColls]: [boolean, boolean]) => hasSubcoms || hasColls),
     );
-
-    return hasChildren$;
   }
 
 }
