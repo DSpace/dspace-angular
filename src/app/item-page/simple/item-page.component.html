@@ -3,6 +3,16 @@
     <div class="item-page" @fadeInOut>
       @if (itemRD?.payload; as item) {
         <div>
+          <ng-container *ngVar="(itemRequest$ | async) as itemRequest">
+            @if (hasValue(itemRequest)) {
+              <div class="alert alert-warning wb-100 mb-2">
+                <p><span role="img" class="request-a-copy-access-icon"><i class="fa-solid fa-lock-open"></i></span>{{'bitstream-request-a-copy.access-by-token.warning' | translate}}</p>
+                @if (hasValue(itemRequest.accessPeriod) && itemRequest.accessPeriod > 0 && hasValue(itemRequest.decisionDate)) {
+                  <p>{{ 'bitstream-request-a-copy.access-by-token.expiry-label' | translate }} {{ getAccessPeriodEndDate(itemRequest.accessPeriod, itemRequest.decisionDate) }}</p>
+                }
+              </div>
+            }
+          </ng-container>
           <ds-item-alerts [item]="item"></ds-item-alerts>
           <ds-qa-event-notification [item]="item"></ds-qa-event-notification>
           <ds-notify-requests-status [itemUuid]="item.uuid"></ds-notify-requests-status>

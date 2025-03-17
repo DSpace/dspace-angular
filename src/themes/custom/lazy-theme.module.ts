@@ -14,7 +14,6 @@ import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
-import { ItemSecureFileDownloadLinkComponent } from '../../app/item-page/access-by-token/field-components/file-download-link/item-secure-file-download-link.component';
 import { RootModule } from '../../app/root.module';
 import { SearchResultsSkeletonComponent } from '../../app/shared/search/search-results/search-results-skeleton/search-results-skeleton.component';
 import { MetadataImportPageComponent } from './app/admin/admin-import-metadata-page/metadata-import-page.component';
@@ -134,7 +133,6 @@ const DECLARATIONS = [
   CollectionPageComponent,
   ItemPageComponent,
   FullItemPageComponent,
-  ItemSecureFileDownloadLinkComponent,
   LoginPageComponent,
   LogoutPageComponent,
   CreateProfileComponent,
