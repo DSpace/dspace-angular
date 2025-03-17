@@ -313,7 +313,7 @@
   "admin.registries.schema.form.element": "Element",
 
   // "admin.registries.schema.form.qualifier": "Qualifier",
-  "admin.registries.schema.form.qualifier": "Qualifizierer",
+  "admin.registries.schema.form.qualifier": "Qualifier",
 
   // "admin.registries.schema.form.scopenote": "Scope Note",
   "admin.registries.schema.form.scopenote": "Geltungs- bzw. Gültigkeitsbereich",
@@ -808,7 +808,7 @@
   "admin.access-control.groups.form.tooltip.editGroupPage": "Auf dieser Seite können Sie die Eigenschaften und Mitglieder einer Gruppe ändern. Im obersten Abschnitt können Sie den Gruppennamen und die Beschreibung bearbeiten, es sei denn, es handelt sich um eine Administratorengruppe für eine Sammlung oder einen Bereich; in diesem Fall werden der Gruppenname und die Beschreibung automatisch generiert und können nicht bearbeitet werden. In den folgenden Abschnitten können Sie die Gruppenmitgliedschaft bearbeiten. Weitere Informationen finden Sie [im Wiki](https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group).",
 
   // "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.",
-  "admin.access-control.groups.form.tooltip.editGroup.addEpeople": 'Um eine EPerson zu dieser Gruppe hinzuzufügen oder aus ihr zu entfernen, klicken Sie entweder auf die Schaltfläche \"Alles durchsuchen\" oder verwenden Sie die Suchleiste unten, um nach Benutzer:innen zu suchen (verwenden Sie das Dropdown-Menü links von der Suchleiste, um auszuwählen, ob Sie nach Metadaten oder nach E-Mail suchen möchten). Klicken Sie dann auf das Plus-Symbol für jeden Nutzer, den Sie in der Liste unten hinzufügen möchten, oder auf das Mülleimer-Symbol für jeden Benutzer, den Sie entfernen möchten. Die Liste unten kann mehrere Seiten umfassen: Verwenden Sie die Seitensteuerungen unter der Liste, um zu den nächsten Seiten zu navigieren.',
+  "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "Um eine EPerson zu dieser Gruppe hinzuzufügen oder aus ihr zu entfernen, klicken Sie entweder auf die Schaltfläche \"Alles durchsuchen\" oder verwenden Sie die Suchleiste unten, um nach Benutzer:innen zu suchen (verwenden Sie das Dropdown-Menü links von der Suchleiste, um auszuwählen, ob Sie nach Metadaten oder nach E-Mail suchen möchten). Klicken Sie dann auf das Plus-Symbol für jeden Nutzer, den Sie in der Liste unten hinzufügen möchten, oder auf das Mülleimer-Symbol für jeden Benutzer, den Sie entfernen möchten. Die Liste unten kann mehrere Seiten umfassen: Verwenden Sie die Seitensteuerungen unter der Liste, um zu den nächsten Seiten zu navigieren.",
 
   // "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for groups. Then click the plus icon for each group you wish to add in the list below, or the trash can icon for each group you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.",
   "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "Um eine Untergruppe zu dieser Gruppe hinzuzufügen oder aus ihr zu entfernen, klicken Sie entweder auf die Schaltfläche \"Alles durchsuchen\", oder verwenden Sie die Suchleiste unten, um nach Gruppen zu suchen. Klicken Sie dann auf das Plus-Symbol für jede Gruppe, die Sie der Liste unten hinzufügen möchten, oder auf das Mülleimersymbol für jede Gruppe, die Sie entfernen möchten. Die Liste unten kann mehrere Seiten umfassen: Verwenden Sie die Seitensteuerungen unter der Liste, um zu den nächsten Seiten zu navigieren.",
@@ -2916,7 +2916,7 @@
   "forgot-password.form.identification.header": "Identifizieren",
 
   // "forgot-password.form.identification.email": "Email address: ",
-  "forgot-password.form.identification.email": "E-Mail-Addresse: ",
+  "forgot-password.form.identification.email": "E-Mail-Adresse: ",
 
   // "forgot-password.form.label.password": "Password",
   "forgot-password.form.label.password": "Passwort",
@@ -4128,7 +4128,7 @@
   "item.page.related-items.view-less": "{{ amount }} weniger anzeigen",
 
   // "item.page.relationships.isAuthorOfPublication": "Publications",
-  "item.page.relationships.isAuthorOfPublication": "Veröffentichungen",
+  "item.page.relationships.isAuthorOfPublication": "Veröffentlichungen",
 
   // "item.page.relationships.isJournalOfPublication": "Publications",
   "item.page.relationships.isJournalOfPublication": "Veröffentlichungen",
@@ -7449,7 +7449,7 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.Project": "Lokale Projekte ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.Publication": "Local Publications ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Publication": "Lokale Publicationen ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Publication": "Lokale Publikationen ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.Person": "Local Authors ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.Person": "Lokale Autor:innen ({{ count }})",
@@ -7605,7 +7605,7 @@
   "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Förderung",
 
   // "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Parent Organizational Unit",
-  "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Übergeordnete Organisationeinheit",
+  "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Übergeordnete Organisationseinheit",
 
   // "submission.sections.describe.relationship-lookup.title.isPublicationOfAuthor": "Publication",
   "submission.sections.describe.relationship-lookup.title.isPublicationOfAuthor": "Publikation",
@@ -7836,7 +7836,7 @@
   "submission.sections.submit.progressbar.describe.steptwo": "Beschreiben",
 
   // "submission.sections.submit.progressbar.duplicates": "Potential duplicates",
-  "submission.sections.submit.progressbar.duplicates": "Potenzielle Doubletten",
+  "submission.sections.submit.progressbar.duplicates": "Potenzielle Dubletten",
 
   // "submission.sections.submit.progressbar.identifiers": "Identifiers",
   "submission.sections.submit.progressbar.identifiers": "Identifier",
@@ -7965,7 +7965,7 @@
   "submission.sections.upload.header.policy.default.nolist": "In diese Sammlung {{collectionName}} hochgeladene Dateien werden für folgende(n) Gruppe(n) zugänglich sein:",
 
   // "submission.sections.upload.header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
-  "submission.sections.upload.header.policy.default.withlist": "Bitte beachten Sie, dass in diese Sammlung {{collectionName}} hochgeladene Dateien zugüglich zu dem, was für einzelne Dateien entschieden wurde, für folgende Gruppe(n) zugänglich sein:",
+  "submission.sections.upload.header.policy.default.withlist": "Bitte beachten Sie, dass in diese Sammlung {{collectionName}} hochgeladene Dateien zuzüglich zu dem, was für einzelne Dateien entschieden wurde, für folgende Gruppe(n) zugänglich sein:",
 
   // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files by dragging & dropping them anywhere on the page.</strong>",
   "submission.sections.upload.info": "Hier finden Sie alle Dateien, die aktuell zum Item gehören. Sie können ihre Metadaten und Zugriffsrechte bearbeiten oder <strong>weitere Dateien per Drag & Drop hinzufügen.</strong>",
@@ -8034,10 +8034,10 @@
   "submission.sections.accesses.form.until-placeholder": "Bis",
 
   // "submission.sections.duplicates.none": "No duplicates were detected.",
-  "submission.sections.duplicates.none": "Es wurden keine Doubletten entdeckt.",
+  "submission.sections.duplicates.none": "Es wurden keine Dubletten entdeckt.",
 
   // "submission.sections.duplicates.detected": "Potential duplicates were detected. Please review the list below.",
-  "submission.sections.duplicates.detected": "Es wurden mögliche Doubletten entdeckt. Bitte prüfen Sie die Liste unten.",
+  "submission.sections.duplicates.detected": "Es wurden mögliche Dubletten entdeckt. Bitte prüfen Sie die Liste unten.",
 
   // "submission.sections.duplicates.in-workspace": "This item is in workspace",
   "submission.sections.duplicates.in-workspace": "Dieses Item befindet sich im Arbeitsbereich",
@@ -9342,7 +9342,7 @@
   "ldn-service.form.pattern.announce-review.category": "Ankündigungen",
 
   // "ldn-service.form.pattern.announce-service-result.label": "Announce Service Result",
-  "ldn-service.form.pattern.announce-service-result.label": "Ergebnis des Dienstes ankünden",
+  "ldn-service.form.pattern.announce-service-result.label": "Ergebnis des Dienstes ankündigen",
 
   // "ldn-service.form.pattern.announce-service-result.description": "This pattern is used to announce the existence of a 'service result', referencing the relevant resource.",
   "ldn-service.form.pattern.announce-service-result.description": "Diese Vorlage wird verwendet, um das Vorhandensein eines \"Dienstergebnisses\" anzukündigen, wobei auf die entsprechende Ressource verwiesen wird.",
@@ -9573,7 +9573,7 @@
   "item.page.supplemented": "Ergänzt durch",
 
   // "menu.section.icon.ldn_services": "LDN Services overview",
-  "menu.section.icon.ldn_services": "Überblick der LDN-Dienste",
+  "menu.section.icon.ldn_services": "Übersicht der LDN-Dienste",
 
   // "menu.section.services": "LDN Services",
   "menu.section.services": "LDN-Dienste",
@@ -9633,10 +9633,10 @@
   "service.overview.table.user": "Benutzer:in",
 
   // "service.overview.title": "Services Overview",
-  "service.overview.title": "Überblick über die Dienste",
+  "service.overview.title": "Übersicht über die Dienste",
 
   // "service.overview.breadcrumbs": "Services Overview",
-  "service.overview.breadcrumbs": "Überblick über die Dienste",
+  "service.overview.breadcrumbs": "Übersicht über die Dienste",
 
   // "service.overview.table.actions": "Actions",
   "service.overview.table.actions": "Aktionen",
@@ -10275,6 +10275,6 @@
   "form.date-picker.placeholder.month": "Monat",
 
   // "form.date-picker.placeholder.day": "Day",
-  "form.date-picker.placeholder.day": "Tag"
+  "form.date-picker.placeholder.day": "Tag",
 
 }
