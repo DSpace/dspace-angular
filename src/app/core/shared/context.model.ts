@@ -44,4 +44,10 @@ export enum Context {
   Bitstream = 'bitstream',
 
   CoarNotify = 'coarNotify',
+
+  /**
+   * The Edit Metadata field Context values that are used in the Edit Item Metadata tab.
+   */
+  AddMetadata = 'addMetadata',
+  EditMetadata = 'editMetadata',
 }

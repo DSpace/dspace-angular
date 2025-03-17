@@ -1,16 +1,15 @@
 <div #sdRef="ngbDropdown" ngbDropdown display="dynamic" placement="bottom-right" class="w-100">
   <div class="position-relative right-addon"
     role="combobox"
-    [attr.aria-label]="model.label"
+    [attr.aria-label]="model.label | translate"
     [attr.aria-owns]="'combobox_' + id + '_listbox'"
     [attr.aria-expanded]="sdRef.isOpen()"
     [attr.aria-activedescendant]="(currentValue | async) ? 'combobox_' + id + '_selected' : null">
-    @if (!model.readOnly) {
-      <i ngbDropdownToggle class="position-absolute scrollable-dropdown-toggle"
-      aria-hidden="true"></i>
-    }
     @if (model.readOnly) {
       <i class="dropdown-toggle position-absolute toggle-icon"
+         aria-hidden="true"></i>
+    } @else {
+      <i ngbDropdownToggle class="position-absolute scrollable-dropdown-toggle"
       aria-hidden="true"></i>
     }
     <input class="form-control"
@@ -33,11 +32,11 @@
 
   <div #dropdownMenu ngbDropdownMenu
     class="dropdown-menu scrollable-dropdown-menu w-100"
-    [attr.aria-label]="model.placeholder">
+    [attr.aria-label]="model.placeholder | translate">
     <div class="scrollable-menu"
       role="listbox"
       [id]="'combobox_' + id + '_listbox'"
-      [attr.aria-label]="model.placeholder"
+      [attr.aria-label]="model.placeholder | translate"
       infiniteScroll
       [infiniteScrollDistance]="2"
       [infiniteScrollThrottle]="50"
