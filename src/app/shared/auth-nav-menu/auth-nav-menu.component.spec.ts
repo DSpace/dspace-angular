@@ -17,7 +17,7 @@ import {
   StoreModule,
 } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 import { AppState } from '../../app.reducer';
@@ -53,7 +53,7 @@ describe('AuthNavMenuComponent', () => {
 
   function serviceInit() {
     authService = jasmine.createSpyObj('authService', {
-      getAuthenticatedUserFromStore: of(EPersonMock),
+      getAuthenticatedUserFromStore: observableOf(EPersonMock),
       setRedirectUrl: {},
     });
   }

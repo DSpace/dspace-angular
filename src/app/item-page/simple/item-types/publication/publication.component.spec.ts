@@ -19,7 +19,7 @@ import {
 } from '@ngx-translate/core';
 import {
   Observable,
-  of,
+  of as observableOf,
 } from 'rxjs';
 
 import {
@@ -213,7 +213,7 @@ describe('PublicationComponent', () => {
 
     const localMockRouteService = {
       getPreviousUrl(): Observable<string> {
-        return of('/search?query=test%20query&fakeParam=true');
+        return observableOf('/search?query=test%20query&fakeParam=true');
       },
     };
     beforeEach(waitForAsync(() => {
@@ -243,7 +243,7 @@ describe('PublicationComponent', () => {
   describe('with IIIF viewer and search but no previous search query', () => {
     const localMockRouteService = {
       getPreviousUrl(): Observable<string> {
-        return of('/item');
+        return observableOf('/item');
       },
     };
     beforeEach(waitForAsync(() => {

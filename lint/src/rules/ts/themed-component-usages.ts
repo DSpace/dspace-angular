@@ -63,6 +63,7 @@ There are a few exceptions where the base class can still be used:
       [Message.BASE_IN_MODULE]: 'Base themeable components shouldn\'t be declared in modules',
     },
   },
+  optionDocs: [],
   defaultOptions: [],
 } as DSpaceESLintRuleInfo;
 

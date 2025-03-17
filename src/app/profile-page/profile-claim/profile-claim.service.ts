@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   Observable,
-  of,
+  of as observableOf,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -49,7 +49,7 @@ export class ProfileClaimService {
   searchForSuggestions(eperson: EPerson): Observable<RemoteData<SearchObjects<DSpaceObject>>> {
     const query = this.personQueryData(eperson);
     if (isEmpty(query)) {
-      return of(createNoContentRemoteDataObject() as RemoteData<SearchObjects<DSpaceObject>>);
+      return observableOf(createNoContentRemoteDataObject() as RemoteData<SearchObjects<DSpaceObject>>);
     }
     return this.lookup(query);
   }
@@ -61,7 +61,7 @@ export class ProfileClaimService {
    */
   private lookup(query: string): Observable<RemoteData<SearchObjects<DSpaceObject>>> {
     if (isEmpty(query)) {
-      return of(createNoContentRemoteDataObject() as RemoteData<SearchObjects<DSpaceObject>>);
+      return observableOf(createNoContentRemoteDataObject() as RemoteData<SearchObjects<DSpaceObject>>);
     }
     return this.searchService.search(new PaginatedSearchOptions({
       configuration: 'eperson_claims',

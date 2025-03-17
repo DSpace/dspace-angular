@@ -8,7 +8,7 @@ import {
   provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { RestRequestMethod } from '../data/rest-request-method';
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
@@ -24,7 +24,7 @@ describe(`LocaleInterceptor`, () => {
 
   const mockLocaleService = jasmine.createSpyObj('LocaleService', {
     getCurrentLanguageCode: jasmine.createSpy('getCurrentLanguageCode'),
-    getLanguageCodeList: of(languageList),
+    getLanguageCodeList: observableOf(languageList),
   });
 
   beforeEach(() => {

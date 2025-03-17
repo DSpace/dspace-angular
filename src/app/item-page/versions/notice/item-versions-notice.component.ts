@@ -8,7 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   EMPTY,
   Observable,
-  of,
+  of as observableOf,
 } from 'rxjs';
 import {
   map,
@@ -116,7 +116,7 @@ export class ItemVersionsNoticeComponent implements OnInit {
               map((isLatest) => isLatest != null && !isLatest),
             );
           } else {
-            return of(false);
+            return observableOf(false);
           }
         }),
         startWith(false),

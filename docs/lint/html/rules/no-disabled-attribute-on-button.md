@@ -9,6 +9,8 @@ _______
 
 [Source code](../../../../lint/src/rules/html/no-disabled-attribute-on-button.ts)
 
+
+
 ### Examples
 
 

@@ -9,10 +9,7 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  of as observableOf,
-  of,
-} from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { LocaleService } from '../core/locale/locale.service';
 import { ThemedSearchNavbarComponent } from '../search-navbar/themed-search-navbar.component';
@@ -36,7 +33,7 @@ describe('HeaderComponent', () => {
   const languageList = ['en;q=1', 'it;q=0.9', 'de;q=0.8', 'fr;q=0.7'];
   const mockLocaleService = jasmine.createSpyObj('LocaleService', {
     getCurrentLanguageCode: jasmine.createSpy('getCurrentLanguageCode'),
-    getLanguageCodeList: of(languageList),
+    getLanguageCodeList: observableOf(languageList),
   });
 
 

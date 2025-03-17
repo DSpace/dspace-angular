@@ -12,7 +12,7 @@ import {
   NgbPaginationModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { Group } from '../../../../../../core/eperson/models/group.model';
 import { SupervisionOrder } from '../../../../../../core/supervision-order/models/supervision-order.model';
@@ -29,7 +29,7 @@ describe('SupervisionOrderGroupSelectorComponent', () => {
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
 
   const supervisionOrderDataService: any = jasmine.createSpyObj('supervisionOrderDataService', {
-    create: of(new SupervisionOrder()),
+    create: observableOf(new SupervisionOrder()),
   });
 
   const selectedOrderType = 'NONE';
