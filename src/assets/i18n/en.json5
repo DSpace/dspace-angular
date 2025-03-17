@@ -1630,6 +1630,10 @@
 
   "cookies.consent.app.description.google-recaptcha": "We use google reCAPTCHA service during registration and password recovery",
 
+  "cookies.consent.app.title.matomo": "Matomo",
+
+  "cookies.consent.app.description.matomo": "Allows us to track statistical data",
+
   "cookies.consent.purpose.functional": "Functional",
 
   "cookies.consent.purpose.statistical": "Statistical",
