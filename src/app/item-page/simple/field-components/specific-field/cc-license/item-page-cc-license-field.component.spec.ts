@@ -12,12 +12,15 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
+import { ConfigurationDataService } from 'src/app/core/data/configuration-data.service';
+import { ConfigurationProperty } from 'src/app/core/shared/configuration-property.model';
 import { Item } from 'src/app/core/shared/item.model';
 import {
   MetadataMap,
   MetadataValue,
 } from 'src/app/core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject$ } from 'src/app/shared/remote-data.utils';
+import { ConfigurationDataServiceStub } from 'src/app/shared/testing/configuration-data.service.stub';
 import { createPaginatedList } from 'src/app/shared/testing/utils.test';
 
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
@@ -57,6 +60,7 @@ const testCases: TestCase[] = [
   {
     testInstance: {
       metadata: { 'dc.rights.uri': undefined, 'dc.rights': undefined },
+      componentInputs: { variant: 'small' },
     },
     expected: {
       render: false,
@@ -68,6 +72,7 @@ const testCases: TestCase[] = [
   {
     testInstance: {
       metadata: { 'dc.rights.uri': null, 'dc.rights': null },
+      componentInputs: { variant: 'small' },
     },
     expected: {
       render: false,
@@ -79,6 +84,7 @@ const testCases: TestCase[] = [
   {
     testInstance: {
       metadata: { 'dc.rights.uri': 'https://creativecommons.org/licenses/by/4.0', 'dc.rights': null },
+      componentInputs: { variant: 'small' },
     },
     expected: {
       render: false,
@@ -90,6 +96,7 @@ const testCases: TestCase[] = [
   {
     testInstance: {
       metadata: { 'dc.rights.uri': null, 'dc.rights': licenseNameMock },
+      componentInputs: { variant: 'small' },
     },
     expected: {
       render: false,
@@ -101,23 +108,25 @@ const testCases: TestCase[] = [
   {
     testInstance: {
       metadata: { 'dc.rights.uri': 'https://creativecommons.org/licenses/by/4.0', 'dc.rights': licenseNameMock },
+      componentInputs: { variant: 'small' },
     },
     expected: {
       render: true,
       showName: true,
       showImage: true,
-      showDisclaimer: false,
+      showDisclaimer: true,
     },
   },
   {
     testInstance: {
       metadata: { 'dc.rights.uri': 'https://creativecommons.org/', 'dc.rights': licenseNameMock },
+      componentInputs: { variant: 'small' },
     },
     expected: {
       render: true,
       showName: true,
       showImage: false,
-      showDisclaimer: false,
+      showDisclaimer: true,
     },
   },
   {
@@ -135,19 +144,31 @@ const testCases: TestCase[] = [
   {
     testInstance: {
       metadata: { 'dc.rights.uri': 'https://creativecommons.org/', 'dc.rights': licenseNameMock },
-      componentInputs: { showName: false },
+      componentInputs: { variant: 'small', showName: false },
     },
     expected: {
       render: true,
       showName: true,
       showImage: false,
-      showDisclaimer: false,
+      showDisclaimer: true,
+    },
+  },
+  {
+    testInstance: {
+      metadata: { 'dc.rights.uri': 'https://creativecommons.org/', 'dc.rights': licenseNameMock },
+      componentInputs: { variant: 'full', showName: false },
+    },
+    expected: {
+      render: true,
+      showName: true,
+      showImage: false,
+      showDisclaimer: true,
     },
   },
   {
     testInstance: {
       metadata: { 'dc.rights.uri': 'https://creativecommons.org/licenses/by/4.0', 'dc.rights': licenseNameMock },
-      componentInputs: { showName: false },
+      componentInputs: { variant: 'small', showName: false },
     },
     expected: {
       render: true,
@@ -202,8 +223,22 @@ function configureFixture(
 
 describe('ItemPageCcLicenseFieldComponent', () => {
   let fixture: ComponentFixture<ItemPageCcLicenseFieldComponent>;
+  let configurationDataService = new ConfigurationDataServiceStub();
 
   beforeEach(waitForAsync(() => {
+    configurationDataService.findByPropertyName = jasmine.createSpy()
+      .withArgs('cc.license.name').and.returnValue(createSuccessfulRemoteDataObject$({
+        ... new ConfigurationProperty(),
+        name: 'cc.license.name',
+        values: [ 'dc.rights' ],
+      },
+      ))
+      .withArgs('cc.license.uri').and.returnValue(createSuccessfulRemoteDataObject$({
+        ... new ConfigurationProperty(),
+        name: 'cc.license.uri',
+        values: [ 'dc.rights.uri' ],
+      },
+      ));
     void TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
@@ -214,7 +249,10 @@ describe('ItemPageCcLicenseFieldComponent', () => {
         }),
         ItemPageCcLicenseFieldComponent,
       ],
-      providers: [{ provide: APP_CONFIG, useValue: environment }],
+      providers: [
+        { provide: APP_CONFIG, useValue: environment },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
+      ],
       schemas: [NO_ERRORS_SCHEMA],
     })
       .overrideComponent(ItemPageCcLicenseFieldComponent, {
@@ -282,14 +320,13 @@ describe('ItemPageCcLicenseFieldComponent', () => {
       it('should show or not CC license disclaimer',
         () => {
           const disclaimerEl = fixture.debugElement.query(By.css('span'));
-          if (testCase.expected.showDisclaimer) {
-            expect(disclaimerEl).toBeTruthy();
-            expect(disclaimerEl.nativeElement.innerHTML).toContain('item.page.cc.license.disclaimer');
-          } else if (testCase.expected.render) {
-            expect(disclaimerEl).toBeTruthy();
-            expect(disclaimerEl.nativeElement.innerHTML).not.toContain('item.page.cc.license.disclaimer');
-          } else {
-            expect(disclaimerEl).toBeFalsy();
+          expect(Boolean(disclaimerEl)).toBe(testCase.expected.showName);
+          if (testCase.expected.showName) {
+            if (testCase.expected.showDisclaimer) {
+              expect(disclaimerEl.nativeElement.innerHTML).toContain('item.page.cc.license.disclaimer');
+            } else {
+              expect(disclaimerEl.nativeElement.innerHTML).not.toContain('item.page.cc.license.disclaimer');
+            }
           }
         },
       );
