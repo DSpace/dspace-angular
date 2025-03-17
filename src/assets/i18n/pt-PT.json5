@@ -6817,6 +6817,15 @@
   // "search.filters.filter.supervisedBy.label": "Search Supervised By",
   "search.filters.filter.supervisedBy.label": "Pesquisar supervisionado por",
 
+  // "search.filters.filter.access_status.head": "Access type",
+  "search.filters.filter.access_status.head": "Tipo de acesso",
+
+  // "search.filters.filter.access_status.placeholder": "Access type",
+  "search.filters.filter.access_status.placeholder": "Acesso",
+
+  // "search.filters.filter.access_status.label": "Search by access type",
+  "search.filters.filter.access_status.label": "Pesquisar por tipo de acesso",
+
   // "search.filters.entityType.JournalIssue": "Journal Issue",
   "search.filters.entityType.JournalIssue": "Número de revista",
 
@@ -9930,6 +9939,9 @@
   // "search.filters.applied.f.notifyRelation": "Notify Relation",
   "search.filters.applied.f.notifyRelation": "Notificar relação",
 
+  // "search.filters.applied.f.access_status": "Access type",
+  "search.filters.applied.f.access_status": "Tipo de acesso",
+
   // "search.filters.filter.queue_last_start_time.head": "Last processing time",
   "search.filters.filter.queue_last_start_time.head": "Última hora de processamento",
 
@@ -10360,6 +10372,21 @@
 
   // "item.preview.dc.identifier.eisbn": "EISBN",
   "item.preview.dc.identifier.eisbn": "EISBN",
+  
+  // "search.filters.access_status.open.access": "Open access",
+  "search.filters.access_status.open.access": "Acesso aberto",
+
+  // "search.filters.access_status.restricted": "Restricted access",
+  "search.filters.access_status.restricted": "Acesso restrito",
+
+  // "search.filters.access_status.embargo": "Embargoed access",
+  "search.filters.access_status.embargo": "Acesso embargado",
+
+  // "search.filters.access_status.metadata.only": "Metadata only",
+  "search.filters.access_status.metadata.only": "Apenas metadados",
+
+  // "search.filters.access_status.unknown": "Unknown",
+  "search.filters.access_status.unknown": "Desconhecido",
 
   // "community.form.thumbnail": "Thumbnail Description",
   "community.form.thumbnail": "Descrição do logotipo da comunidade",
