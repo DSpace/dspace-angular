@@ -1,8 +1,8 @@
-import { first, map, skipWhile, startWith } from 'rxjs/operators';
-import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { first, map, skipWhile, startWith, switchMap } from 'rxjs/operators';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { combineLatest as combineLatestObservable, Observable, of } from 'rxjs';
+import { BehaviorSubject, combineLatest as combineLatestObservable, Observable, of, Subscription } from 'rxjs';
 import { CSSVariableService } from '../shared/sass-helper/css-variable.service';
 import { MenuService } from '../shared/menu/menu.service';
 import { HostWindowService } from '../shared/host-window.service';
@@ -19,7 +19,7 @@ import { INotificationBoardOptions } from 'src/config/notifications-config.inter
   styleUrls: ['./root.component.scss'],
   animations: [slideSidebarPadding],
 })
-export class RootComponent implements OnInit {
+export class RootComponent implements OnInit, OnDestroy {
   theme: Observable<ThemeConfig> = of({} as any);
   isSidebarVisible$: Observable<boolean>;
   slideSidebarOver$: Observable<boolean>;
@@ -38,16 +38,21 @@ export class RootComponent implements OnInit {
    */
   @Input() shouldShowRouteLoader: boolean;
 
+  shouldShowRouteLoader$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+  subs: Subscription[] = [];
+
   constructor(
     private router: Router,
     private cssService: CSSVariableService,
     private menuService: MenuService,
-    private windowService: HostWindowService
+    private windowService: HostWindowService,
   ) {
     this.notificationOptions = environment.notifications;
   }
 
   ngOnInit() {
+
     this.isSidebarVisible$ = this.menuService.isMenuVisibleWithVisibleSections(MenuID.ADMIN);
 
     this.expandedSidebarWidth$ = this.cssService.getVariable('--ds-admin-sidebar-total-width').pipe(
@@ -66,9 +71,31 @@ export class RootComponent implements OnInit {
         startWith(true),
       );
 
-    if (this.router.url === getPageInternalServerErrorRoute()) {
-      this.shouldShowRouteLoader = false;
+    if (this.shouldShowRouteLoader && !this.shouldShowFullscreenLoader) {
+      this.subs.push(
+        this.router.events.pipe(
+          map(() => this.router.routerState.root),
+          switchMap((route: ActivatedRoute) => {
+            route = this.getCurrentRoute(route);
+            return route.url;
+          }),
+          map((urlSegment) => '/' + urlSegment.join('/')),
+          map((url) => url === getPageInternalServerErrorRoute()),
+        ).subscribe((isInternalServerError) => {
+          this.shouldShowRouteLoader$.next(!isInternalServerError);
+        }));
     }
+  }
+
+  private getCurrentRoute(route: ActivatedRoute): ActivatedRoute {
+    while (route.firstChild) {
+      route = route.firstChild;
+    }
+    return route;
+  }
+
+  ngOnDestroy(): void {
+    this.subs.forEach((sub) => sub.unsubscribe());
   }
 
   skipToMainContent() {
