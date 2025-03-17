@@ -4566,6 +4566,12 @@
 
   "search.filters.filter.supervisedBy.label": "Search Supervised By",
 
+  "search.filters.filter.access_status.head": "Access type",
+
+  "search.filters.filter.access_status.placeholder": "Access type",
+
+  "search.filters.filter.access_status.label": "Search by access type",
+
   "search.filters.entityType.JournalIssue": "Journal Issue",
 
   "search.filters.entityType.JournalVolume": "Journal Volume",
@@ -6528,6 +6534,8 @@
 
   "search.filters.applied.f.notifyRelation": "Notify Relation",
 
+  "search.filters.applied.f.access_status": "Access type",
+
   "search.filters.filter.queue_last_start_time.head": "Last processing time ",
 
   "search.filters.filter.queue_last_start_time.min.label": "Min range",
@@ -6795,6 +6803,16 @@
   "live-region.ordering.dropped": "{{ itemName }}, dropped at position {{ index }} of {{ length }}.",
 
   "dynamic-form-array.sortable-list.label": "Sortable list",
+
+  "search.filters.access_status.open.access": "Open access",
+
+  "search.filters.access_status.restricted": "Restricted access",
+
+  "search.filters.access_status.embargo": "Embargoed access",
+
+  "search.filters.access_status.metadata.only": "Metadata only",
+
+  "search.filters.access_status.unknown": "Unknown",
 
   "metadata-export-filtered-items.tooltip": "Export report output as CSV",
 

@@ -5474,6 +5474,15 @@
   // "search.filters.filter.submitter.label": "Search submitter",
   "search.filters.filter.submitter.label": "Recherche d'un déposant",
 
+  // "search.filters.filter.access_status.head": "Access type",
+  "search.filters.filter.access_status.head": "Type d'accès",
+
+  // "search.filters.filter.access_status.placeholder": "Access type",
+  "search.filters.filter.access_status.placeholder": "Accès",
+
+  // "search.filters.filter.access_status.label": "Search by access type",
+  "search.filters.filter.access_status.label": "Rechercher par type d'accès",
+
   // "search.filters.entityType.JournalIssue": "Journal Issue",
   "search.filters.entityType.JournalIssue": "Numéro de revue",
 
@@ -8182,6 +8191,9 @@
   //"search.filters.applied.f.notifyRelation": "Notify Relation",
   "search.filters.applied.f.notifyRelation": "Relation Notify",
 
+  //"search.filters.applied.f.access_status": "Access type",
+  "search.filters.applied.f.access_status": "Type d'accès",
+
   //"search.filters.filter.queue_last_start_time.head": "Last processing time ",
   "search.filters.filter.queue_last_start_time.head": "Dernière heure de traitement ",
 
@@ -8557,6 +8569,21 @@
   //"browse.search-form.placeholder": "Search the repository",
   "browse.search-form.placeholder": "Chercher dans le dépôt",
 
+  //"search.filters.access_status.open.access": "Open access",
+  "search.filters.access_status.open.access": "Accès libre",
+
+  //"search.filters.access_status.restricted": "Restricted access",
+  "search.filters.access_status.restricted": "Restreint",
+
+  //"search.filters.access_status.embargo": "Embargoed access",
+  "search.filters.access_status.embargo": "Restriction temporaire",
+
+  //"search.filters.access_status.metadata.only": "Metadata only",
+  "search.filters.access_status.metadata.only": "Métadonnées seulement",
+
+  //"search.filters.access_status.unknown": "Unknown",
+  "search.filters.access_status.unknown": "Inconnu",
+
   //"metadata-export-filtered-items.tooltip": "Export report output as CSV",
   "metadata-export-filtered-items.tooltip": "Exporter le rapport en CSV",
 
@@ -8567,4 +8594,3 @@
   "metadata-export-filtered-items.submit.error": "L'exportation CSV n'a pas fonctionné.",
 
 }
-
