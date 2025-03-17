@@ -21,7 +21,6 @@ import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { Item } from '../../../../core/shared/item.model';
-import { ItemWithSupplementaryData } from '../../../../core/shared/item-with-supplementary-data.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { hasValue } from '../../../../shared/empty.util';
 import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
@@ -30,7 +29,6 @@ import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../../../shared/utils/var.directive';
-import { ItemSecureFileDownloadLinkComponent } from '../../../access-by-token/field-components/file-download-link/item-secure-file-download-link.component';
 
 /**
  * This component renders the file section of the item
@@ -47,7 +45,6 @@ import { ItemSecureFileDownloadLinkComponent } from '../../../access-by-token/fi
     TranslateModule,
     FileSizePipe,
     VarDirective,
-    ItemSecureFileDownloadLinkComponent,
   ],
   standalone: true,
 })
@@ -69,7 +66,7 @@ export class FileSectionComponent implements OnInit {
 
   pageSize: number;
 
-  primaryBitsreamId: string;
+  primaryBitstreamId: string;
 
   constructor(
     protected bitstreamDataService: BitstreamDataService,
@@ -91,7 +88,7 @@ export class FileSectionComponent implements OnInit {
       if (!primaryBitstream) {
         return;
       }
-      this.primaryBitsreamId = primaryBitstream?.id;
+      this.primaryBitstreamId = primaryBitstream?.id;
     });
   }
 
@@ -124,9 +121,5 @@ export class FileSectionComponent implements OnInit {
         this.isLastPage = this.currentPage === bitstreamsRD.payload.totalPages;
       }
     });
-  }
-
-  hasAccessToken(): boolean {
-    return (this.item instanceof ItemWithSupplementaryData && hasValue(this.item.itemRequest));
   }
 }

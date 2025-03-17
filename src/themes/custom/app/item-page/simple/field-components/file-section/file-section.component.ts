@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ItemSecureFileDownloadLinkComponent } from '../../../../../../../app/item-page/access-by-token/field-components/file-download-link/item-secure-file-download-link.component';
 import { FileSectionComponent as BaseComponent } from '../../../../../../../app/item-page/simple/field-components/file-section/file-section.component';
 import { slideSidebarPadding } from '../../../../../../../app/shared/animations/slide';
 import { ThemedFileDownloadLinkComponent } from '../../../../../../../app/shared/file-download-link/themed-file-download-link.component';
@@ -25,7 +24,6 @@ import { VarDirective } from '../../../../../../../app/shared/utils/var.directiv
     TranslateModule,
     FileSizePipe,
     VarDirective,
-    ItemSecureFileDownloadLinkComponent,
   ],
 })
 export class FileSectionComponent extends BaseComponent {

@@ -3,33 +3,18 @@
     <ds-metadata-field-wrapper [label]="label | translate">
       <div class="file-section">
         @for (file of bitstreams; track file; let last = $last) {
-          @if (hasAccessToken() === true) {
-          <ds-item-secure-file-download-link [bitstream]="file" [item]="item">
-            <span>
-              @if (primaryBitsreamId === file.id) {
-                <span class="badge bg-primary">{{ 'item.page.bitstreams.primary' | translate }}</span>
-              }
-              {{ dsoNameService.getName(file) }}
-            </span>
+          <ds-file-download-link [bitstream]="file" [item]="item">
+          <span>
+            @if (primaryBitstreamId === file.id) {
+              <span class="badge bg-primary">{{ 'item.page.bitstreams.primary' | translate }}</span>
+            }
+            {{ dsoNameService.getName(file) }}
+          </span>
             <span> ({{(file?.sizeBytes) | dsFileSize }})</span>
             @if (!last) {
               <span innerHTML="{{separator}}"></span>
             }
-          </ds-item-secure-file-download-link>
-          } @else {
-            <ds-file-download-link [bitstream]="file" [item]="item">
-            <span>
-              @if (primaryBitsreamId === file.id) {
-                <span class="badge bg-primary">{{ 'item.page.bitstreams.primary' | translate }}</span>
-              }
-              {{ dsoNameService.getName(file) }}
-            </span>
-              <span> ({{(file?.sizeBytes) | dsFileSize }})</span>
-              @if (!last) {
-                <span innerHTML="{{separator}}"></span>
-              }
-            </ds-file-download-link>
-          }
+          </ds-file-download-link>
         }
         @if (isLoading) {
           <ds-loading message="{{'loading.default' | translate}}" [showMessage]="false"></ds-loading>
