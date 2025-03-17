@@ -6,7 +6,7 @@ import { ResourcePolicyCreateComponent } from '../../shared/resource-policies/cr
 import { ResourcePolicyEditComponent } from '../../shared/resource-policies/edit/resource-policy-edit.component';
 import { resourcePolicyResolver } from '../../shared/resource-policies/resolvers/resource-policy.resolver';
 import { resourcePolicyTargetResolver } from '../../shared/resource-policies/resolvers/resource-policy-target.resolver';
-import { CollectionItemMapperComponent } from '../collection-item-mapper/collection-item-mapper.component';
+import { ThemedCollectionItemMapperComponent } from '../collection-item-mapper/themed-collection-item-mapper.component';
 import { CollectionAccessControlComponent } from './collection-access-control/collection-access-control.component';
 import { CollectionAuthorizationsComponent } from './collection-authorizations/collection-authorizations.component';
 import { CollectionCurateComponent } from './collection-curate/collection-curate.component';
@@ -92,7 +92,7 @@ export const ROUTES: Route[] = [
       },
       {
         path: 'mapper',
-        component: CollectionItemMapperComponent,
+        component: ThemedCollectionItemMapperComponent,
         data: { title: 'collection.edit.tabs.item-mapper.title', hideReturnButton: true, showBreadcrumbs: true },
       },
     ],
