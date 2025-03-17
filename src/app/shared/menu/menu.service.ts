@@ -309,7 +309,7 @@ export class MenuService {
   }
 
   /**
-   * Collapses the expanded menu or expands the collapsed menu.
+   * Collapses the menu with {@linkcode menuID} if expanded. Expands it if collapsed.
    */
   toggleMenuCollapsedState(menuID: MenuID): void {
     let cookie: PinnedMenuCookie | undefined = this.cookieService.get(PINNED_MENU_COOKIE);
@@ -321,7 +321,24 @@ export class MenuService {
   }
 
   /**
-   * Expands/collapses the navbar based on the {@link PINNED_MENU_COOKIE} cookie value.
+   * Collapses or expands the menu with {@linkcode menuID} based on {@linkcode collapsed}.
+   */
+  setMenuCollapsedState(menuID: MenuID, collapsed: boolean): void {
+    let cookie: PinnedMenuCookie | undefined = this.cookieService.get(PINNED_MENU_COOKIE);
+    if (hasValue(cookie)) {
+      if (cookie[menuID] === collapsed) {
+        // Do not save the cookie if it's unchanged
+        return;
+      }
+    } else {
+      cookie = PINNED_MENU_COOKIE_DEFAULT;
+    }
+    cookie[menuID] = collapsed;
+    this.cookieService.set(PINNED_MENU_COOKIE, cookie, { expires: PINNED_MENU_COOKIE_EXPIRES });
+  }
+
+  /**
+   * Expands or collapses the navbar based on the {@link PINNED_MENU_COOKIE} cookie value.
    */
   syncMenuCollapsedState(): void {
     const cookie: PinnedMenuCookie | undefined = this.cookieService.get(PINNED_MENU_COOKIE);
