@@ -2,9 +2,11 @@ import { red, blue, green, bold } from 'colors';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { load } from 'js-yaml';
 import { join } from 'path';
+import { environment } from '../environments/environment';
 import { ServerHashedFileMapping } from '../modules/dynamic-hash/hashed-file-mapping.server';
 
 import { AppConfig } from './app-config.interface';
+import { BuildConfig } from './build-config.interface';
 import { Config } from './config.interface';
 import { DefaultAppConfig } from './default-app-config';
 import { ServerConfig } from './server-config.interface';
@@ -173,7 +175,7 @@ const buildBaseUrl = (config: ServerConfig): void => {
  */
 export const buildAppConfig = (destConfigPath?: string, mapping?: ServerHashedFileMapping): AppConfig => {
   // start with default app config
-  const appConfig: AppConfig = new DefaultAppConfig();
+  const appConfig: BuildConfig = new DefaultAppConfig() as BuildConfig;
 
   // determine which dist app config by environment
   const env = getEnvironment();
@@ -243,6 +245,10 @@ export const buildAppConfig = (destConfigPath?: string, mapping?: ServerHashedFi
     writeFileSync(destConfigPath, content);
     if (mapping !== undefined) {
       mapping.add(destConfigPath, content);
+      if (!appConfig.universal.preboot) {
+        // If we're serving for CSR we can retrieve the configuration before JS is loaded/executed
+        mapping.addHeadLink(destConfigPath, 'preload', 'fetch', 'anonymous');
+      }
     }
 
     console.log(`Angular ${bold('config.json')} file generated correctly at ${bold(destConfigPath)} \n`);

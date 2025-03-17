@@ -7,11 +7,11 @@
  */
 import crypto from 'crypto';
 import {
+  copyFileSync,
+  existsSync,
   readFileSync,
   rmSync,
   writeFileSync,
-  copyFileSync,
-  existsSync,
 } from 'fs';
 import glob from 'glob';
 import { parse } from 'node-html-parser';
@@ -21,6 +21,8 @@ import {
   relative,
 } from 'path';
 import zlib from 'zlib';
+import { hasValue } from '../../app/shared/empty.util';
+import { ThemeConfig } from '../../config/theme.model';
 import {
   HashedFileMapping,
   ID,
@@ -33,6 +35,8 @@ import {
 export class ServerHashedFileMapping extends HashedFileMapping {
   public readonly indexPath: string;
   private readonly indexContent: string;
+
+  protected readonly headLinks: Set<string> = new Set();
 
   constructor(
     private readonly root: string,
@@ -98,14 +102,36 @@ export class ServerHashedFileMapping extends HashedFileMapping {
     return hashPath;
   }
 
-  addThemeStyles() {
-    glob.GlobSync(`${this.root}/*-theme.css`)
-        .found
-        .forEach(p => {
-          const hp = this.add(p);
-          this.ensureCompressedFilesAssumingUnchangedContent(p, hp, '.br');
-          this.ensureCompressedFilesAssumingUnchangedContent(p, hp, '.gz');
-        });
+  /**
+   * Add CSS for all configured themes to the mapping
+   * @param themeConfigurations
+   */
+  addThemeStyles(themeConfigurations: ThemeConfig[]) {
+    for (const themeConfiguration of themeConfigurations) {
+      const p = `${this.root}/${themeConfiguration.name}-theme.css`;
+      const hp = this.add(p);
+
+      // We know this CSS is likely needed, so wecan avoid a FOUC by retrieving it in advance
+      // Angular does the same for global styles, but doesn't "know" about out themes
+      this.addHeadLink(p, 'prefetch', 'style');
+
+      this.ensureCompressedFilesAssumingUnchangedContent(p, hp, '.br');
+      this.ensureCompressedFilesAssumingUnchangedContent(p, hp, '.gz');
+    }
+  }
+
+  /**
+   * Include a head link for a given resource to the index HTML.
+   */
+  addHeadLink(path: string, rel: string, as: string, crossorigin?: string) {
+    const href = relative(this.root, this.resolve(path));
+
+    if (hasValue(crossorigin)) {
+      this.headLinks.add(`<link rel="${rel}" as="${as}" crossorigin="${crossorigin}" href="${href}">`);
+
+    } else {
+      this.headLinks.add(`<link rel="${rel}" as="${as}" href="${href}">`);
+    }
   }
 
   private ensureCompressedFilesAssumingUnchangedContent(path: string, hashedPath: string, compression: string) {
@@ -132,6 +158,11 @@ export class ServerHashedFileMapping extends HashedFileMapping {
     root.querySelector(`script#${ID}`)?.remove();
     root.querySelector('head')
         .appendChild(`<script id="${ID}" type="application/json">${JSON.stringify(out)}</script>` as any);
+
+    for (const headLink of this.headLinks) {
+      root.querySelector('head')
+          .appendChild(headLink as any);
+    }
 
     this.add(this.indexPath, root.toString());
   }
