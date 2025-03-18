@@ -8,7 +8,7 @@
               @if (primaryBitsreamId === file.id) {
                 <span class="badge bg-primary">{{ 'item.page.bitstreams.primary' | translate }}</span>
               }
-              @if (file.metadata['dc.type']?.[0]?.value === 'alternative content')
+              @if (file.metadata['dc.type']?.[0]?.value === 'alternative content') {
                 <span class="badge badge-info">{{ 'item.page.bitstreams.alternativeContent' | translate }}</span>
               }
               {{ dsoNameService.getName(file) }}
