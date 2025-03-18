@@ -39,10 +39,14 @@ import {
 } from '../../core/services/link-head.service';
 import { ServerResponseService } from '../../core/services/server-response.service';
 import { Item } from '../../core/shared/item.model';
+import { ItemRequest } from '../../core/shared/item-request.model';
 import { getAllSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { fadeInOut } from '../../shared/animations/fade';
-import { isNotEmpty } from '../../shared/empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
@@ -95,6 +99,11 @@ export class ItemPageComponent implements OnInit, OnDestroy {
   itemRD$: Observable<RemoteData<Item>>;
 
   /**
+   * The request item wrapped in a remote-data object, obtained from the route data
+   */
+  itemRequest$: Observable<ItemRequest>;
+
+  /**
    * The view-mode we're currently on
    */
   viewMode = ViewMode.StandalonePage;
@@ -123,6 +132,8 @@ export class ItemPageComponent implements OnInit, OnDestroy {
 
   coarRestApiUrls: string[] = [];
 
+  protected readonly hasValue = hasValue;
+
   constructor(
     protected route: ActivatedRoute,
     protected router: Router,
@@ -143,6 +154,9 @@ export class ItemPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.itemRD$ = this.route.data.pipe(
       map((data) => data.dso as RemoteData<Item>),
+    );
+    this.itemRequest$ = this.route.data.pipe(
+      map((data) => data.itemRequest as ItemRequest),
     );
     this.itemPageRoute$ = this.itemRD$.pipe(
       getAllSucceededRemoteDataPayload(),
@@ -244,4 +258,17 @@ export class ItemPageComponent implements OnInit, OnDestroy {
       this.linkHeadService.removeTag(`href='${link.href}'`);
     });
   }
+
+  /**
+   * Calculate and return end period access date for a request-a-copy link for alert display
+   */
+  getAccessPeriodEndDate(accessPeriod: number, decisionDate: string | number | Date): Date {
+    // Set expiry, if not 0
+    if (hasValue(accessPeriod) && accessPeriod > 0 && hasValue(decisionDate)) {
+      const date = new Date(decisionDate);
+      date.setUTCSeconds(date.getUTCSeconds() + accessPeriod);
+      return date;
+    }
+  }
+
 }

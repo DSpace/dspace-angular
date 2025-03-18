@@ -1,6 +1,7 @@
 import { Route } from '@angular/router';
 
 import { REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
+import { accessTokenResolver } from '../core/auth/access-token.resolver';
 import { authenticatedGuard } from '../core/auth/authenticated.guard';
 import { itemBreadcrumbResolver } from '../core/breadcrumbs/item-breadcrumb.resolver';
 import { dsoEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
@@ -11,6 +12,7 @@ import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.c
 import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';
 import { itemPageResolver } from './item-page.resolver';
 import {
+  ITEM_ACCESS_BY_TOKEN_PATH,
   ITEM_EDIT_PATH,
   ORCID_PATH,
   UPLOAD_BITSTREAM_PATH,
@@ -26,6 +28,7 @@ export const ROUTES: Route[] = [
     path: ':id',
     resolve: {
       dso: itemPageResolver,
+      itemRequest: accessTokenResolver,
       breadcrumb: itemBreadcrumbResolver,
     },
     runGuardsAndResolvers: 'always',
@@ -63,6 +66,13 @@ export const ROUTES: Route[] = [
         path: ORCID_PATH,
         component: OrcidPageComponent,
         canActivate: [authenticatedGuard, orcidPageGuard],
+      },
+      {
+        path: ITEM_ACCESS_BY_TOKEN_PATH,
+        component: ThemedFullItemPageComponent,
+        resolve: {
+          menu: accessTokenResolver,
+        },
       },
     ],
     data: {

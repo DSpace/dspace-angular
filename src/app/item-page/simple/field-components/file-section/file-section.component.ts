@@ -66,7 +66,7 @@ export class FileSectionComponent implements OnInit {
 
   pageSize: number;
 
-  primaryBitsreamId: string;
+  primaryBitstreamId: string;
 
   constructor(
     protected bitstreamDataService: BitstreamDataService,
@@ -88,7 +88,7 @@ export class FileSectionComponent implements OnInit {
       if (!primaryBitstream) {
         return;
       }
-      this.primaryBitsreamId = primaryBitstream?.id;
+      this.primaryBitstreamId = primaryBitstream?.id;
     });
   }
 
