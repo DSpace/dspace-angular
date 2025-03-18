@@ -1,11 +1,7 @@
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import {
-  HTTP_INTERCEPTORS,
-  provideHttpClient,
-  withInterceptorsFromDi,
-} from '@angular/common/http';
-import {
+  HttpClientTestingModule,
   HttpTestingController,
-  provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 
@@ -25,7 +21,7 @@ describe('ForwardClientIpInterceptor', () => {
     clientIp = '1.2.3.4';
 
     TestBed.configureTestingModule({
-      imports: [],
+      imports: [HttpClientTestingModule],
       providers: [
         DspaceRestService,
         {
@@ -34,8 +30,6 @@ describe('ForwardClientIpInterceptor', () => {
           multi: true,
         },
         { provide: REQUEST, useValue: { get: () => undefined, connection: { remoteAddress: clientIp } } },
-        provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting(),
       ],
     });
 

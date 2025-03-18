@@ -40,7 +40,7 @@ import anything = jasmine.anything;
 @Component({
   template: '',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
 })
 class DummyComponent {
 }

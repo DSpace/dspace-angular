@@ -377,6 +377,7 @@ describe('SubmissionSectionLicenseComponent test suite', () => {
   standalone: true,
   imports: [
     SubmissionSectionLicenseComponent,
+    CommonModule,
     FormsModule,
     FormComponent,
     ReactiveFormsModule,

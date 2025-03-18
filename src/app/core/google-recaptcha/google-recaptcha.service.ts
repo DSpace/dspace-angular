@@ -8,6 +8,7 @@ import {
 import {
   BehaviorSubject,
   combineLatest,
+  combineLatest as observableCombineLatest,
   EMPTY,
   Observable,
   of,
@@ -86,8 +87,15 @@ export class GoogleRecaptchaService {
         return res.hasSucceeded && res.payload && isNotEmpty(res.payload.values) && res.payload.values[0].toLowerCase() === 'true';
       }),
     );
-    registrationVerification$.pipe(
-      switchMap((registrationVerification: boolean) => registrationVerification ? this.loadRecaptchaProperties() : EMPTY),
+    const feedBackVerification$ =  this.configService.findByPropertyName('feedback.verification.enabled').pipe(
+      take(1),
+      getFirstCompletedRemoteData(),
+      map((res: RemoteData<ConfigurationProperty>) => {
+        return res.hasSucceeded && res.payload && isNotEmpty(res.payload.values) && res.payload.values[0].toLowerCase() === 'true';
+      }),
+    );
+    observableCombineLatest([registrationVerification$,feedBackVerification$]).pipe(
+      switchMap(([registrationVerification ,feedBackVerification]) => (registrationVerification || feedBackVerification) ? this.loadRecaptchaProperties() : EMPTY),
     ).subscribe();
   }
 

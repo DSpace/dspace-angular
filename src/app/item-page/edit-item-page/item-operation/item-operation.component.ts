@@ -1,4 +1,4 @@
-
+import { NgIf } from '@angular/common';
 import {
   Component,
   Input,
@@ -17,6 +17,7 @@ import { ItemOperation } from './itemOperation.model';
     TranslateModule,
     RouterLink,
     NgbTooltipModule,
+    NgIf,
     BtnDisabledDirective,
   ],
   standalone: true,

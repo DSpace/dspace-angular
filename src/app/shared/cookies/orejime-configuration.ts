@@ -179,7 +179,7 @@ export function getOrejimeConfiguration(_window: NativeWindowRef): any {
       },
       {
         name: CAPTCHA_NAME,
-        purposes: ['registration-password-recovery'],
+        purposes: [],
         required: false,
         cookies: [
           CAPTCHA_COOKIE,

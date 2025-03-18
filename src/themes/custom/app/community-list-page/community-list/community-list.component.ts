@@ -2,6 +2,7 @@ import { CdkTreeModule } from '@angular/cdk/tree';
 import {
   AsyncPipe,
   NgClass,
+  NgIf,
 } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
@@ -25,7 +26,7 @@ import { TruncatablePartComponent } from '../../../../../app/shared/truncatable/
   // templateUrl: './community-list.component.html'
   templateUrl: '../../../../../app/community-list-page/community-list/community-list.component.html',
   standalone: true,
-  imports: [ ThemedLoadingComponent, CdkTreeModule, NgClass, RouterLink, TruncatableComponent, TruncatablePartComponent, AsyncPipe, TranslateModule],
+  imports: [NgIf, ThemedLoadingComponent, CdkTreeModule, NgClass, RouterLink, TruncatableComponent, TruncatablePartComponent, AsyncPipe, TranslateModule],
 })
 export class CommunityListComponent extends BaseComponent {}
 

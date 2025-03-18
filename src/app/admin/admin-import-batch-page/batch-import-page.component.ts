@@ -1,4 +1,7 @@
-import { Location } from '@angular/common';
+import {
+  Location,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -33,6 +36,7 @@ import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzo
   selector: 'ds-batch-import-page',
   templateUrl: './batch-import-page.component.html',
   imports: [
+    NgIf,
     TranslateModule,
     FormsModule,
     UiSwitchModule,

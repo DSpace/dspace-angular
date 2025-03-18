@@ -1,8 +1,8 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
+  async,
   ComponentFixture,
   TestBed,
-  waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 
@@ -14,7 +14,7 @@ describe('QualityAssuranceTopicsPageComponent', () => {
   let component: QualityAssuranceTopicsPageComponent;
   let fixture: ComponentFixture<QualityAssuranceTopicsPageComponent>;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [QualityAssuranceTopicsPageComponent],
       providers: [

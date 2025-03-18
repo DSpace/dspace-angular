@@ -1,4 +1,7 @@
-
+import {
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   Input,
@@ -15,7 +18,9 @@ import { Journal } from '../../../../core/submission/models/sherpa-policies-deta
   templateUrl: './publication-information.component.html',
   styleUrls: ['./publication-information.component.scss'],
   imports: [
+    NgIf,
     TranslateModule,
+    NgForOf,
   ],
   standalone: true,
 })

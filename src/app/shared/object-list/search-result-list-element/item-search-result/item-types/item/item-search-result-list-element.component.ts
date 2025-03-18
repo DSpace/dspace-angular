@@ -1,6 +1,8 @@
 import {
   AsyncPipe,
   NgClass,
+  NgFor,
+  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -26,7 +28,7 @@ import { SearchResultListElementComponent } from '../../../search-result-list-el
   styleUrls: ['./item-search-result-list-element.component.scss'],
   templateUrl: './item-search-result-list-element.component.html',
   standalone: true,
-  imports: [RouterLink, ThemedThumbnailComponent, NgClass, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent, AsyncPipe],
+  imports: [NgIf, RouterLink, ThemedThumbnailComponent, NgClass, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent, NgFor, AsyncPipe],
 })
 /**
  * The component for displaying a list element for an item search result of the type Publication

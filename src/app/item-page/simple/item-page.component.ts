@@ -1,6 +1,7 @@
 import {
   AsyncPipe,
   isPlatformServer,
+  NgIf,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -78,6 +79,7 @@ import { QaEventNotificationComponent } from './qa-event-notification/qa-event-n
     ThemedLoadingComponent,
     TranslateModule,
     AsyncPipe,
+    NgIf,
     NotifyRequestsStatusComponent,
     QaEventNotificationComponent,
   ],
@@ -166,8 +168,7 @@ export class ItemPageComponent implements OnInit, OnDestroy {
           this.signpostingLinks = signpostingLinks;
 
           signpostingLinks.forEach((link: SignpostingLink) => {
-            links = links + (isNotEmpty(links) ? ', ' : '') + `<${link.href}> ; rel="${link.rel}"` + (isNotEmpty(link.type) ? ` ; type="${link.type}" ` : ' ')
-              + (isNotEmpty(link.profile) ? ` ; profile="${link.profile}" ` : '');
+            links = links + (isNotEmpty(links) ? ', ' : '') + `<${link.href}> ; rel="${link.rel}"` + (isNotEmpty(link.type) ? ` ; type="${link.type}" ` : ' ');
             let tag: LinkDefinition = {
               href: link.href,
               rel: link.rel,
@@ -175,11 +176,6 @@ export class ItemPageComponent implements OnInit, OnDestroy {
             if (isNotEmpty(link.type)) {
               tag = Object.assign(tag, {
                 type: link.type,
-              });
-            }
-            if (isNotEmpty(link.profile)) {
-              tag = Object.assign(tag, {
-                profile: link.profile,
               });
             }
             this.linkHeadService.addTag(tag);

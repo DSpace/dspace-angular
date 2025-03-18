@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -57,7 +58,7 @@ import {
   selector: 'ds-export-metadata-selector',
   templateUrl: '../dso-selector-modal-wrapper.component.html',
   standalone: true,
-  imports: [DSOSelectorComponent, TranslateModule],
+  imports: [NgIf, DSOSelectorComponent, TranslateModule],
 })
 export class ExportMetadataSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.DSPACEOBJECT;

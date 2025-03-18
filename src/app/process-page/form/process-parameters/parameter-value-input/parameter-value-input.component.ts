@@ -1,4 +1,7 @@
-
+import {
+  NgSwitch,
+  NgSwitchCase,
+} from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -30,7 +33,7 @@ import { StringValueInputComponent } from './string-value-input/string-value-inp
     useFactory: controlContainerFactory,
     deps: [[new Optional(), NgForm]] }],
   standalone: true,
-  imports: [StringValueInputComponent, DateValueInputComponent, FileValueInputComponent, BooleanValueInputComponent],
+  imports: [NgSwitch, NgSwitchCase, StringValueInputComponent, DateValueInputComponent, FileValueInputComponent, BooleanValueInputComponent],
 })
 export class ParameterValueInputComponent {
   @Input() index: number;

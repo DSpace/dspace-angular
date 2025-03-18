@@ -2,6 +2,8 @@ import {
   AsyncPipe,
   DatePipe,
   NgClass,
+  NgFor,
+  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -80,6 +82,8 @@ interface VersionDTO {
     FormsModule,
     ItemVersionsRowElementVersionComponent,
     NgClass,
+    NgFor,
+    NgIf,
     PaginationComponent,
     TranslateModule,
     BtnDisabledDirective,

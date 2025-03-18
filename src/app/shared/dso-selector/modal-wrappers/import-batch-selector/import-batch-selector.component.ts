@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -29,7 +30,7 @@ import {
   selector: 'ds-import-batch-selector',
   templateUrl: '../dso-selector-modal-wrapper.component.html',
   standalone: true,
-  imports: [ DSOSelectorComponent, TranslateModule],
+  imports: [NgIf, DSOSelectorComponent, TranslateModule],
 })
 export class ImportBatchSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.DSPACEOBJECT;

@@ -1,4 +1,8 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   OnDestroy,
@@ -45,7 +49,7 @@ import { VarDirective } from '../shared/utils/var.directive';
   templateUrl: './subscriptions-page.component.html',
   styleUrls: ['./subscriptions-page.component.scss'],
   standalone: true,
-  imports: [ThemedLoadingComponent, VarDirective, PaginationComponent, SubscriptionViewComponent, AlertComponent, AsyncPipe, TranslateModule],
+  imports: [NgIf, ThemedLoadingComponent, VarDirective, PaginationComponent, NgFor, SubscriptionViewComponent, AlertComponent, AsyncPipe, TranslateModule],
 })
 /**
  * List and allow to manage all the active subscription for the current user

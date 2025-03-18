@@ -1,6 +1,7 @@
 import {
   AsyncPipe,
   KeyValuePipe,
+  NgForOf,
 } from '@angular/common';
 import {
   Component,
@@ -53,6 +54,7 @@ import { SearchFilterConfig } from '../models/search-filter-config.model';
     FilterInputSuggestionsComponent,
     FormsModule,
     KeyValuePipe,
+    NgForOf,
     TranslateModule,
     BtnDisabledDirective,
   ],

@@ -1,6 +1,8 @@
 import {
   AsyncPipe,
   NgClass,
+  NgForOf,
+  NgIf,
 } from '@angular/common';
 import {
   ChangeDetectorRef,
@@ -66,7 +68,9 @@ export interface ListItem {
   templateUrl: './dynamic-list.component.html',
   imports: [
     NgClass,
+    NgIf,
     NgbButtonsModule,
+    NgForOf,
     ReactiveFormsModule,
     AsyncPipe,
     TranslateModule,

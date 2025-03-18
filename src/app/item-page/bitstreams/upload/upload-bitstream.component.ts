@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   OnDestroy,
@@ -59,6 +62,7 @@ import { getEntityEditRoute } from '../../item-page-routing-paths';
     TranslateModule,
     AsyncPipe,
     VarDirective,
+    NgIf,
     DsoInputSuggestionsComponent,
     FormsModule,
     UploaderComponent,

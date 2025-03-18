@@ -3,7 +3,10 @@ import {
   CdkDropList,
   moveItemInArray,
 } from '@angular/cdk/drag-drop';
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgFor,
+} from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -29,7 +32,7 @@ import { DsoEditMetadataValueHeadersComponent } from '../dso-edit-metadata-value
   styleUrls: ['./dso-edit-metadata-field-values.component.scss'],
   templateUrl: './dso-edit-metadata-field-values.component.html',
   standalone: true,
-  imports: [CdkDropList, DsoEditMetadataValueHeadersComponent, DsoEditMetadataValueComponent, AsyncPipe],
+  imports: [CdkDropList, DsoEditMetadataValueHeadersComponent, NgFor, DsoEditMetadataValueComponent, AsyncPipe],
 })
 /**
  * Component displaying table rows for each value for a certain metadata field within a form

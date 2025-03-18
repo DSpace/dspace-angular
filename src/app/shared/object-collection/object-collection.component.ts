@@ -2,6 +2,7 @@ import {
   AsyncPipe,
   isPlatformBrowser,
   NgClass,
+  NgIf,
 } from '@angular/common';
 import {
   ChangeDetectorRef,
@@ -51,7 +52,7 @@ import { ListableObject } from './shared/listable-object.model';
   styleUrls: ['./object-collection.component.scss'],
   templateUrl: './object-collection.component.html',
   standalone: true,
-  imports: [ThemedObjectListComponent, NgClass, ObjectGridComponent, ObjectDetailComponent, AsyncPipe, ObjectTableComponent],
+  imports: [NgIf, ThemedObjectListComponent, NgClass, ObjectGridComponent, ObjectDetailComponent, AsyncPipe, ObjectTableComponent],
 })
 export class ObjectCollectionComponent implements OnInit {
   /**

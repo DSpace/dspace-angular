@@ -1,5 +1,9 @@
 import { trigger } from '@angular/animations';
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   OnDestroy,
@@ -41,6 +45,8 @@ import { SuggestionsService } from '../suggestions.service';
     AsyncPipe,
     TranslateModule,
     RouterLink,
+    NgIf,
+    NgForOf,
   ],
   standalone: true,
 })

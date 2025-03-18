@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -89,6 +92,7 @@ import { ValidateGroupExists } from './validators/group-exists.validator';
   imports: [
     FormComponent,
     AlertComponent,
+    NgIf,
     AsyncPipe,
     TranslateModule,
     ContextHelpDirective,

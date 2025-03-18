@@ -1,6 +1,7 @@
 import {
   AsyncPipe,
   NgClass,
+  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -57,7 +58,7 @@ import { ThemedUserMenuComponent } from './user-menu/themed-user-menu.component'
   styleUrls: ['./auth-nav-menu.component.scss'],
   animations: [fadeInOut, fadeOut],
   standalone: true,
-  imports: [NgClass, NgbDropdownModule, ThemedLogInComponent, RouterLink, RouterLinkActive, ThemedUserMenuComponent, AsyncPipe, TranslateModule, BrowserOnlyPipe],
+  imports: [NgClass, NgIf, NgbDropdownModule, ThemedLogInComponent, RouterLink, RouterLinkActive, ThemedUserMenuComponent, AsyncPipe, TranslateModule, BrowserOnlyPipe],
 })
 export class AuthNavMenuComponent implements OnInit {
   /**

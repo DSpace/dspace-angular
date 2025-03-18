@@ -1,4 +1,8 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -90,6 +94,8 @@ export interface ResourcePolicyEvent {
     EpersonGroupListComponent,
     TranslateModule,
     AsyncPipe,
+    NgIf,
+    NgFor,
     BtnDisabledDirective,
   ],
   standalone: true,

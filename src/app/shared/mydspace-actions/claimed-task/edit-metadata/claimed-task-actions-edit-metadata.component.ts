@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   Injector,
@@ -25,7 +28,7 @@ export const WORKFLOW_TASK_OPTION_EDIT_METADATA = 'submit_edit_metadata';
   styleUrls: ['./claimed-task-actions-edit-metadata.component.scss'],
   templateUrl: './claimed-task-actions-edit-metadata.component.html',
   standalone: true,
-  imports: [NgbTooltipModule, RouterLink, AsyncPipe, TranslateModule],
+  imports: [NgIf, NgbTooltipModule, RouterLink, AsyncPipe, TranslateModule],
 })
 /**
  * Component for displaying the edit metadata action on a workflow task item

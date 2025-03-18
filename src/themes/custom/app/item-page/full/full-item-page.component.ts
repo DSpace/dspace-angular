@@ -1,6 +1,8 @@
 import {
   AsyncPipe,
   KeyValuePipe,
+  NgForOf,
+  NgIf,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -44,6 +46,8 @@ import { ViewTrackerComponent } from '../../../../../app/statistics/angulartics/
     ThemedFullFileSectionComponent,
     CollectionsComponent,
     ItemVersionsComponent,
+    NgIf,
+    NgForOf,
     AsyncPipe,
     KeyValuePipe,
     RouterLink,

@@ -1,6 +1,8 @@
 import {
   AsyncPipe,
   NgClass,
+  NgFor,
+  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -41,6 +43,8 @@ import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/
     ItemCollectionComponent,
     ItemSubmitterComponent,
     NgClass,
+    NgFor,
+    NgIf,
     ThemedBadgesComponent,
     ThemedThumbnailComponent,
     TranslateModule,

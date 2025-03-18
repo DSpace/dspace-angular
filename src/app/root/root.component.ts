@@ -1,6 +1,7 @@
 import {
   AsyncPipe,
   NgClass,
+  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -60,6 +61,7 @@ import { SystemWideAlertBannerComponent } from '../system-wide-alert/alert-banne
     SystemWideAlertBannerComponent,
     ThemedHeaderNavbarWrapperComponent,
     ThemedBreadcrumbsComponent,
+    NgIf,
     NgClass,
     ThemedLoadingComponent,
     RouterOutlet,

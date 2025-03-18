@@ -1,6 +1,7 @@
 import {
   AsyncPipe,
   isPlatformBrowser,
+  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -41,7 +42,7 @@ import { SystemWideAlert } from '../system-wide-alert.model';
   styleUrls: ['./system-wide-alert-banner.component.scss'],
   templateUrl: './system-wide-alert-banner.component.html',
   standalone: true,
-  imports: [AsyncPipe, TranslateModule],
+  imports: [NgIf, AsyncPipe, TranslateModule],
 })
 export class SystemWideAlertBannerComponent implements OnInit, OnDestroy {
 

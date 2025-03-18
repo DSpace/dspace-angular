@@ -1616,6 +1616,8 @@
 
   "cookies.consent.app.title.preferences": "Preferences",
 
+  "cookies.consent.app.title.google-recaptcha-feedback": "Google reCaptcha",
+
   "cookies.consent.app.description.preferences": "Required for saving your preferences",
 
   "cookies.consent.app.title.acknowledgement": "Acknowledgement",
@@ -1628,13 +1630,19 @@
 
   "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
 
-  "cookies.consent.app.description.google-recaptcha": "We use google reCAPTCHA service during registration and password recovery",
+  "cookies.consent.app.description.google-recaptcha": "We use google reCAPTCHA service during registration, password recovery or send suggestions",
 
   "cookies.consent.purpose.functional": "Functional",
 
   "cookies.consent.purpose.statistical": "Statistical",
 
-  "cookies.consent.purpose.registration-password-recovery": "Registration and Password recovery",
+  "cookies.consent.app.purposes": "Purposes",
+
+  "cookies.consent.purpose.registration-password-recovery.suggestions": "Registration, Password recovery and Send suggestions",
+
+  "cookies.consent.purpose.suggestions": "Send suggestions",
+
+  "cookies.consent.purpose.registration-password-recovery": "Registration, Password recovery",
 
   "cookies.consent.purpose.sharing": "Sharing",
 
@@ -2152,6 +2160,18 @@
 
   "info.feedback.breadcrumbs": "Feedback",
 
+  "info.feedback.google-recaptcha.must-accept-cookies": "To send you must accept <b>Suggestions</b> cookies (Google reCaptcha).",
+
+  "info.feedback.google-recaptcha.open-cookie-settings": "Open Cookie settings",
+
+  "info.feedback.submit": "Send",
+
+  "info.feedback.google-recaptcha.notification.title": "Google reCaptcha",
+
+  "info.feedback.google-recaptcha.notification.message.error": "An error occurred during reCaptcha verification",
+
+  "info.feedback.google-recaptcha.notification.message.expired": "Verification expired. Check again.",
+
   "info.feedback.head": "Feedback",
 
   "info.feedback.title": "Feedback",
@@ -2167,6 +2187,8 @@
   "info.feedback.email-label": "Your Email",
 
   "info.feedback.create.success": "Feedback Sent Successfully!",
+
+  "info.feedback.create.error": "Error sending feedback!",
 
   "info.feedback.error.email.required": "A valid email address is required",
 
@@ -4566,12 +4588,6 @@
 
   "search.filters.filter.supervisedBy.label": "Search Supervised By",
 
-  "search.filters.filter.access_status.head": "Access type",
-
-  "search.filters.filter.access_status.placeholder": "Access type",
-
-  "search.filters.filter.access_status.label": "Search by access type",
-
   "search.filters.entityType.JournalIssue": "Journal Issue",
 
   "search.filters.entityType.JournalVolume": "Journal Volume",
@@ -6326,7 +6342,7 @@
 
   "quality-assurance.events.description-with-topic-and-target": "Below the list of all the suggestions for the selected topic <b>{{topic}}</b>, related to <b>{{source}}</b> and ",
 
-  "quality-assurance.event.table.event.message.serviceUrl": "Actor:",
+  "quality-assurance.event.table.event.message.serviceUrl": "Service URL:",
 
   "quality-assurance.event.table.event.message.link": "Link:",
 
@@ -6390,8 +6406,6 @@
 
   "request-status-alert-box.rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been rejected.",
 
-  "request-status-alert-box.tentative_rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been tentatively rejected. Revisions are required",
-
   "request-status-alert-box.requested": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> is pending.",
 
   "ldn-service-button-mark-inbound-deletion": "Mark supported pattern for deletion",
@@ -6407,10 +6421,6 @@
   "ldn-service-overview-select-edit": "Edit LDN service",
 
   "ldn-service-overview-close-modal": "Close modal",
-
-  "ldn-service-usesActorEmailId": "Requires actor email in notifications",
-
-  "ldn-service-usesActorEmailId-description": "If enabled, initial notifications sent will include the submitter email rather than the repository URL. This is usually the case for endorsement or review services.",
 
   "a-common-or_statement.label": "Item type is Journal Article or Dataset",
 
@@ -6539,8 +6549,6 @@
   "search.filters.applied.f.notifyEndorsement": "Notify Endorsement",
 
   "search.filters.applied.f.notifyRelation": "Notify Relation",
-
-  "search.filters.applied.f.access_status": "Access type",
 
   "search.filters.filter.queue_last_start_time.head": "Last processing time ",
 
@@ -6809,14 +6817,4 @@
   "live-region.ordering.dropped": "{{ itemName }}, dropped at position {{ index }} of {{ length }}.",
 
   "dynamic-form-array.sortable-list.label": "Sortable list",
-
-  "search.filters.access_status.open.access": "Open access",
-
-  "search.filters.access_status.restricted": "Restricted access",
-
-  "search.filters.access_status.embargo": "Embargoed access",
-
-  "search.filters.access_status.metadata.only": "Metadata only",
-
-  "search.filters.access_status.unknown": "Unknown",
 }

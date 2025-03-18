@@ -447,7 +447,9 @@ describe('ResourcePoliciesComponent test suite', () => {
   selector: 'ds-test-cmp',
   template: ``,
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [CommonModule,
+    FormsModule,
+    ReactiveFormsModule],
 })
 class TestComponent {
 

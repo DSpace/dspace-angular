@@ -1,6 +1,7 @@
 import {
   AsyncPipe,
   NgClass,
+  NgIf,
   NgTemplateOutlet,
 } from '@angular/common';
 import { Component } from '@angular/core';
@@ -16,7 +17,7 @@ import { FileDownloadLinkComponent as BaseComponent } from '../../../../../app/s
   // styleUrls: ['./file-download-link.component.scss'],
   styleUrls: ['../../../../../app/shared/file-download-link/file-download-link.component.scss'],
   standalone: true,
-  imports: [RouterLink, NgClass, NgTemplateOutlet, AsyncPipe, TranslateModule],
+  imports: [RouterLink, NgClass, NgIf, NgTemplateOutlet, AsyncPipe, TranslateModule],
 })
 export class FileDownloadLinkComponent extends BaseComponent {
 }

@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -19,7 +22,7 @@ import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbn
   templateUrl: './journal-volume-search-result-grid-element.component.html',
   animations: [focusShadow],
   standalone: true,
-  imports: [TruncatableComponent, RouterLink, ThemedThumbnailComponent, ThemedBadgesComponent, TruncatablePartComponent, AsyncPipe, TranslateModule],
+  imports: [TruncatableComponent, NgIf, RouterLink, ThemedThumbnailComponent, ThemedBadgesComponent, TruncatablePartComponent, AsyncPipe, TranslateModule],
 })
 /**
  * The component for displaying a grid element for an item search result of the type Journal Volume

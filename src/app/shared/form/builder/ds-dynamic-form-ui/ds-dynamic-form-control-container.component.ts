@@ -1,6 +1,8 @@
 import {
   AsyncPipe,
   NgClass,
+  NgForOf,
+  NgIf,
   NgTemplateOutlet,
 } from '@angular/common';
 import {
@@ -131,10 +133,12 @@ import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/d
   changeDetection: ChangeDetectionStrategy.Default,
   imports: [
     ExistingMetadataListElementComponent,
+    NgIf,
     NgClass,
     AsyncPipe,
     TranslateModule,
     ReactiveFormsModule,
+    NgForOf,
     FormsModule,
     NgbTooltipModule,
     NgTemplateOutlet,

@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -45,7 +48,7 @@ import { VarDirective } from '../../shared/utils/var.directive';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeInOut],
   standalone: true,
-  imports: [VarDirective, ObjectCollectionComponent, ErrorComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [VarDirective, NgIf, ObjectCollectionComponent, ErrorComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
 })
 
 export class TopLevelCommunityListComponent implements OnInit, OnDestroy {

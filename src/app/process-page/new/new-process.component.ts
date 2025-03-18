@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   OnInit,
@@ -28,7 +31,7 @@ import { Script } from '../scripts/script.model';
   templateUrl: './new-process.component.html',
   styleUrls: ['./new-process.component.scss'],
   standalone: true,
-  imports: [VarDirective, ProcessFormComponent, AsyncPipe, HasValuePipe],
+  imports: [NgIf, VarDirective, ProcessFormComponent, AsyncPipe, HasValuePipe],
 })
 export class NewProcessComponent implements OnInit {
   /**

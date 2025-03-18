@@ -1,5 +1,6 @@
 import {
   AsyncPipe,
+  NgIf,
   NgTemplateOutlet,
 } from '@angular/common';
 import {
@@ -28,6 +29,7 @@ import { ViewModeSwitchComponent } from '../../../../../app/shared/view-mode-swi
   standalone: true,
   imports: [
     AsyncPipe,
+    NgIf,
     NgTemplateOutlet,
     PageWithSidebarComponent,
     ThemedSearchFormComponent,

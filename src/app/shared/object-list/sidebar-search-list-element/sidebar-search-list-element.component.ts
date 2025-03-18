@@ -1,6 +1,7 @@
 import {
   AsyncPipe,
   NgClass,
+  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -36,7 +37,7 @@ import { SearchResultListElementComponent } from '../search-result-list-element/
   selector: 'ds-sidebar-search-list-element',
   templateUrl: './sidebar-search-list-element.component.html',
   standalone: true,
-  imports: [TruncatablePartComponent, NgClass, AsyncPipe, TranslateModule],
+  imports: [TruncatablePartComponent, NgClass, NgIf, AsyncPipe, TranslateModule],
 })
 /**
  * Component displaying a list element for a {@link SearchResult} in the sidebar search modal

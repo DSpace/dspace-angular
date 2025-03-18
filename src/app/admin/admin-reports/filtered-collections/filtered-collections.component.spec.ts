@@ -1,8 +1,4 @@
-import {
-  provideHttpClient,
-  withInterceptorsFromDi,
-} from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
@@ -43,21 +39,22 @@ describe('FiltersComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      schemas: [NO_ERRORS_SCHEMA],
-      imports: [NgbAccordionModule,
+      imports: [
+        NgbAccordionModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
         }),
-        FilteredCollectionsComponent],
+        HttpClientTestingModule,
+        FilteredCollectionsComponent,
+      ],
       providers: [
         FormBuilder,
         DspaceRestService,
-        provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting(),
       ],
+      schemas: [NO_ERRORS_SCHEMA],
     });
   }));
 

@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -46,6 +49,7 @@ export const MYDSPACE_ROUTE = '/mydspace';
     MyDSpaceNewSubmissionComponent,
     AsyncPipe,
     RoleDirective,
+    NgIf,
     SuggestionsNotificationComponent,
     MyDspaceQaEventsNotificationsComponent,
   ],

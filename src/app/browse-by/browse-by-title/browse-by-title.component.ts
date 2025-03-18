@@ -1,6 +1,7 @@
 import {
   AsyncPipe,
   isPlatformServer,
+  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -38,6 +39,7 @@ import {
   standalone: true,
   imports: [
     AsyncPipe,
+    NgIf,
     TranslateModule,
     ThemedLoadingComponent,
     ThemedBrowseByComponent,

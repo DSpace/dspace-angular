@@ -1,4 +1,8 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -34,7 +38,7 @@ import { rendersAuthMethodType } from './methods/log-in.methods-decorator';
   styleUrls: ['./log-in.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [ThemedLoadingComponent, LogInContainerComponent, AsyncPipe],
+  imports: [NgIf, ThemedLoadingComponent, NgFor, LogInContainerComponent, AsyncPipe],
 })
 export class LogInComponent implements OnInit {
 

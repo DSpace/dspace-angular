@@ -1,12 +1,10 @@
 <div>
-  @if (formModel) {
-    <ds-form
-      #formRef="formComponent"
-      [formId]="formId"
-      [formModel]="formModel"
-      [displaySubmit]="false"
-    [displayCancel]="false"></ds-form>
-  }
+  <ds-form *ngIf="formModel"
+           #formRef="formComponent"
+           [formId]="formId"
+           [formModel]="formModel"
+           [displaySubmit]="false"
+           [displayCancel]="false"></ds-form>
   <div class="container-fluid">
     <label for="ResourcePolicyObject">{{'resource-policies.form.eperson-group-list.label' | translate}}</label>
     <input id="ResourcePolicyObject" class="form-control mb-3" type="text" [value]="resourcePolicyTargetName$ | async">
@@ -21,61 +19,57 @@
         <a ngbNavLink>{{'resource-policies.form.eperson-group-list.tab.group' | translate}}</a>
         <ng-template ngbNavContent>
           <ds-eperson-group-list [isListOfEPerson]="false"
-          (select)="updateObjectSelected($event, false)"></ds-eperson-group-list>
+                                 (select)="updateObjectSelected($event, false)"></ds-eperson-group-list>
         </ng-template>
       </li>
     </ul>
     <div [ngbNavOutlet]="nav"></div>
     <div>
       <hr>
-        <div class="mb-3 row">
+      <div class="mb-3 row">
 
-          <div class="col text-end">
-            <button type="reset"
-              class="btn btn-default"
-              [dsBtnDisabled]="(isProcessing | async)"
-            (click)="onReset()">{{'form.cancel' | translate}}</button>
-            <button type="button"
-              class="btn btn-primary"
-              [dsBtnDisabled]="(isFormValid() | async) !== true || (isProcessing | async)"
-              (click)="onSubmit()">
-              @if ((isProcessing | async)) {
-                <span>
+        <div class="col text-end">
+          <button type="reset"
+                  class="btn btn-default"
+                  [dsBtnDisabled]="(isProcessing | async)"
+                  (click)="onReset()">{{'form.cancel' | translate}}</button>
+          <button type="button"
+                  class="btn btn-primary"
+                  [dsBtnDisabled]="(isFormValid() | async) !== true || (isProcessing | async)"
+                  (click)="onSubmit()">
+            <span *ngIf="(isProcessing | async)">
                   <i class='fas fa-circle-notch fa-spin'></i> {{'submission.workflow.tasks.generic.processing' | translate}}
                 </span>
-              }
-              @if ((isProcessing | async) !== true) {
-                <span>
+            <span *ngIf="(isProcessing | async) !== true">
                   {{'form.submit' | translate}}
                 </span>
-              }
-            </button>
-          </div>
+          </button>
         </div>
       </div>
     </div>
   </div>
+</div>
 
 
-  <ng-template #content let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">{{ 'resource-policies.form.eperson-group-list.modal.header' | translate }}</h4>
-      <button type="button" class="btn-close" aria-label="Close" (click)="modal.close()">
-      </button>
-    </div>
-    <div class="modal-body">
-      <div class="d-flex flex-row">
-        <div class="me-3">
-          <i class="fas fa-info-circle fa-2x text-info"></i>
-        </div>
-        <div>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{ 'resource-policies.form.eperson-group-list.modal.header' | translate }}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.close()">
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="d-flex flex-row">
+      <div class="me-3">
+        <i class="fas fa-info-circle fa-2x text-info"></i>
+      </div>
+      <div>
       <p [innerHTML]="(navActiveId === 'eperson' ? 'resource-policies.form.eperson-group-list.modal.text1.toGroup' :
        'resource-policies.form.eperson-group-list.modal.text1.toEPerson') | translate" class="fw-bold"></p>
-          <p [innerHTML]="'resource-policies.form.eperson-group-list.modal.text2' | translate"></p>
-        </div>
+      <p [innerHTML]="'resource-policies.form.eperson-group-list.modal.text2' | translate"></p>
       </div>
     </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" (click)="modal.close()">{{ 'resource-policies.form.eperson-group-list.modal.close' | translate }}</button>
-    </div>
-  </ng-template>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close()">{{ 'resource-policies.form.eperson-group-list.modal.close' | translate }}</button>
+  </div>
+</ng-template>

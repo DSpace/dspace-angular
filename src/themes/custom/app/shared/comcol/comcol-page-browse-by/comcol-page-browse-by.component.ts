@@ -1,4 +1,8 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
@@ -18,10 +22,12 @@ import { ComcolPageBrowseByComponent as BaseComponent } from '../../../../../../
   standalone: true,
   imports: [
     FormsModule,
+    NgForOf,
     RouterLink,
     RouterLinkActive,
     TranslateModule,
     AsyncPipe,
+    NgIf,
   ],
 })
 export class ComcolPageBrowseByComponent extends BaseComponent {

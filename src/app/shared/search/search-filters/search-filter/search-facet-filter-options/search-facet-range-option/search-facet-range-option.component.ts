@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   Input,
@@ -38,7 +41,7 @@ const rangeDelimiter = '-';
   // templateUrl: './search-facet-range-option.component.html',
   templateUrl: './search-facet-range-option.component.html',
   standalone: true,
-  imports: [RouterLink, AsyncPipe, ShortNumberPipe],
+  imports: [NgIf, RouterLink, AsyncPipe, ShortNumberPipe],
 })
 
 /**

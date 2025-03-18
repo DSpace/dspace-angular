@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
@@ -15,7 +18,7 @@ import { BrowseEntryListElementComponent as BaseComponent } from '../../../../..
   // templateUrl: './browse-entry-list-element.component.html',
   templateUrl: '../../../../../../app/shared/object-list/browse-entry-list-element/browse-entry-list-element.component.html',
   standalone: true,
-  imports: [RouterLink, AsyncPipe],
+  imports: [NgIf, RouterLink, AsyncPipe],
 })
 @listableObjectComponent(BrowseEntry, ViewMode.ListElement, Context.Any, 'custom')
 export class BrowseEntryListElementComponent extends BaseComponent {

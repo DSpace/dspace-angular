@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
@@ -16,7 +17,7 @@ import { CollectionListElementComponent as BaseComponent } from '../../../../../
   // templateUrl: './collection-list-element.component.html'
   templateUrl: '../../../../../../app/shared/object-list/collection-list-element/collection-list-element.component.html',
   standalone: true,
-  imports: [ RouterLink],
+  imports: [NgIf, RouterLink],
 })
 /**
  * Component representing list element for a collection

@@ -53,9 +53,6 @@ export class LdnService extends CacheableObject {
   enabled: boolean;
 
   @autoserialize
-  usesActorEmailId: boolean;
-
-  @autoserialize
   ldnUrl: string;
 
   @autoserialize

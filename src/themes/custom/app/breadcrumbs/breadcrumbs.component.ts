@@ -1,5 +1,7 @@
 import {
   AsyncPipe,
+  NgFor,
+  NgIf,
   NgTemplateOutlet,
 } from '@angular/common';
 import { Component } from '@angular/core';
@@ -20,7 +22,7 @@ import { VarDirective } from '../../../../app/shared/utils/var.directive';
   // styleUrls: ['./breadcrumbs.component.scss']
   styleUrls: ['../../../../app/breadcrumbs/breadcrumbs.component.scss'],
   standalone: true,
-  imports: [VarDirective, NgTemplateOutlet, RouterLink, NgbTooltipModule, AsyncPipe, TranslateModule],
+  imports: [VarDirective, NgIf, NgTemplateOutlet, NgFor, RouterLink, NgbTooltipModule, AsyncPipe, TranslateModule],
 })
 export class BreadcrumbsComponent extends BaseComponent {
 }

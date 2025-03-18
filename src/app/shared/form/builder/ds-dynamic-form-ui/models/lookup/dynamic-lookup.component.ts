@@ -1,5 +1,7 @@
 import {
   NgClass,
+  NgForOf,
+  NgIf,
   NgTemplateOutlet,
 } from '@angular/common';
 import {
@@ -69,8 +71,10 @@ import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
     NgbDropdownModule,
     AuthorityConfidenceStateDirective,
     FormsModule,
+    NgIf,
     NgClass,
     InfiniteScrollModule,
+    NgForOf,
     NgTemplateOutlet,
     ObjNgFor,
     BtnDisabledDirective,

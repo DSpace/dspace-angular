@@ -1,6 +1,8 @@
 import {
   AsyncPipe,
   NgClass,
+  NgFor,
+  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -33,7 +35,7 @@ import { ObjectSelectComponent } from '../object-select/object-select.component'
   selector: 'ds-item-select',
   templateUrl: './item-select.component.html',
   standalone: true,
-  imports: [VarDirective, PaginationComponent, FormsModule, RouterLink, ErrorComponent, ThemedLoadingComponent, NgClass, AsyncPipe, TranslateModule, BtnDisabledDirective],
+  imports: [VarDirective, NgIf, PaginationComponent, NgFor, FormsModule, RouterLink, ErrorComponent, ThemedLoadingComponent, NgClass, AsyncPipe, TranslateModule, BtnDisabledDirective],
 })
 
 /**

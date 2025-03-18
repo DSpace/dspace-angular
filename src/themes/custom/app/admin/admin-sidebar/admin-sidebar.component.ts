@@ -2,6 +2,8 @@ import {
   AsyncPipe,
   NgClass,
   NgComponentOutlet,
+  NgFor,
+  NgIf,
 } from '@angular/common';
 import { Component } from '@angular/core';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
@@ -20,7 +22,7 @@ import { BrowserOnlyPipe } from '../../../../../app/shared/utils/browser-only.pi
   // styleUrls: ['./admin-sidebar.component.scss']
   styleUrls: ['../../../../../app/admin/admin-sidebar/admin-sidebar.component.scss'],
   standalone: true,
-  imports: [ NgbDropdownModule, NgClass, NgComponentOutlet, AsyncPipe, TranslateModule, BrowserOnlyPipe],
+  imports: [NgIf, NgbDropdownModule, NgClass, NgFor, NgComponentOutlet, AsyncPipe, TranslateModule, BrowserOnlyPipe],
 })
 export class AdminSidebarComponent extends BaseComponent {
 }

@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -27,6 +30,7 @@ import { SearchResultsSkeletonComponent } from '../../../../../../app/shared/sea
   imports: [
     AsyncPipe,
     ErrorComponent,
+    NgIf,
     NgxSkeletonLoaderModule,
     ObjectCollectionComponent,
     RouterLink,

@@ -1,4 +1,4 @@
-
+import { NgIf } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -38,6 +38,7 @@ import { MyDSpaceNewSubmissionDropdownComponent } from './my-dspace-new-submissi
     MyDSpaceNewExternalDropdownComponent,
     MyDSpaceNewSubmissionDropdownComponent,
     UploaderComponent,
+    NgIf,
   ],
   standalone: true,
 })

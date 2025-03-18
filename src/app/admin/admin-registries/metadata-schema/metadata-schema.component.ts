@@ -1,6 +1,8 @@
 import {
   AsyncPipe,
   NgClass,
+  NgForOf,
+  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -57,6 +59,8 @@ import { MetadataFieldFormComponent } from './metadata-field-form/metadata-field
     MetadataFieldFormComponent,
     TranslateModule,
     PaginationComponent,
+    NgIf,
+    NgForOf,
     NgClass,
     RouterLink,
   ],

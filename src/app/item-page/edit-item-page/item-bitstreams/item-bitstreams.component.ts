@@ -1,6 +1,8 @@
 import {
   AsyncPipe,
   CommonModule,
+  NgForOf,
+  NgIf,
 } from '@angular/common';
 import {
   ChangeDetectorRef,
@@ -75,7 +77,9 @@ import { ItemEditBitstreamBundleComponent } from './item-edit-bitstream-bundle/i
     TranslateModule,
     ItemEditBitstreamBundleComponent,
     RouterLink,
+    NgIf,
     VarDirective,
+    NgForOf,
     ThemedLoadingComponent,
     AlertComponent,
     BtnDisabledDirective,

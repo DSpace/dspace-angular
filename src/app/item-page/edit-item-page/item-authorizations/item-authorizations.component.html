@@ -3,10 +3,10 @@
   <ds-resource-policies [resourceType]="'item'" [resourceName]="(getItemName() | async)"
     [resourceUUID]="(getItemUUID() | async)">
   </ds-resource-policies>
-  @for (bundle of (bundles$ | async); track bundle) {
+  <ng-container *ngFor="let bundle of (bundles$ | async); trackById">
     <ds-resource-policies [resourceType]="'bundle'" [resourceUUID]="bundle.id" [resourceName]="bundle.name">
     </ds-resource-policies>
-    @if ((bundleBitstreamsMap.get(bundle.id)?.bitstreams | async)?.length > 0) {
+    <ng-container *ngIf="(bundleBitstreamsMap.get(bundle.id)?.bitstreams | async)?.length > 0">
       <div class="card auth-bitstream-container">
         <div class="card-header">
           <button type="button" class="btn btn-outline-primary" (click)="collapseArea(bundle.id)"
@@ -15,22 +15,19 @@
           </button>
         </div>
         <div class="card-body" [id]="bundle.id" [ngbCollapse]="bundleBitstreamsMap.get(bundle.id).isCollapsed">
-          @for (bitstream of (bundleBitstreamsMap.get(bundle.id).bitstreams | async); track bitstream) {
+          <ng-container
+            *ngFor="let bitstream of (bundleBitstreamsMap.get(bundle.id).bitstreams | async); trackById">
             <ds-resource-policies [resourceType]="'bitstream'" [resourceUUID]="bitstream.id"
-            [resourceName]="bitstream.name"></ds-resource-policies>
-          }
-          @if (!bundleBitstreamsMap.get(bundle.id).allBitstreamsLoaded) {
-            <div class="row justify-content-center">
-              <button type="button" class="btn btn-link" (click)="onBitstreamsLoad(bundle)">{{ 'collection.edit.item.authorizations.load-more-button' | translate }}</button>
-            </div>
-          }
+              [resourceName]="bitstream.name"></ds-resource-policies>
+          </ng-container>
+          <div class="row justify-content-center" *ngIf="!bundleBitstreamsMap.get(bundle.id).allBitstreamsLoaded">
+            <button type="button" class="btn btn-link" (click)="onBitstreamsLoad(bundle)">{{ 'collection.edit.item.authorizations.load-more-button' | translate }}</button>
+          </div>
         </div>
       </div>
-    }
-  }
-  @if (!allBundlesLoaded) {
-    <div class="row justify-content-center">
-      <button type="button" class="btn btn-link" (click)="onBundleLoad()">{{ 'collection.edit.item.authorizations.load-bundle-button' | translate }}</button>
-    </div>
-  }
+    </ng-container>
+  </ng-container>
+  <div class="row justify-content-center" *ngIf="!allBundlesLoaded">
+    <button type="button" class="btn btn-link" (click)="onBundleLoad()">{{ 'collection.edit.item.authorizations.load-bundle-button' | translate }}</button>
+  </div>
 </div>

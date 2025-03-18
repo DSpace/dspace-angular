@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -83,6 +86,7 @@ import { followLink } from '../../shared/utils/follow-link-config.model';
     TranslateModule,
     AsyncPipe,
     ItemSelectComponent,
+    NgIf,
     BrowserOnlyPipe,
   ],
   standalone: true,

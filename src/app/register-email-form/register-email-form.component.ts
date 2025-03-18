@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -64,7 +67,7 @@ export const TYPE_REQUEST_REGISTER = 'register';
   selector: 'ds-base-register-email-form',
   templateUrl: './register-email-form.component.html',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, AlertComponent, GoogleRecaptchaComponent, AsyncPipe, TranslateModule, BtnDisabledDirective],
+  imports: [NgIf, FormsModule, ReactiveFormsModule, AlertComponent, GoogleRecaptchaComponent, AsyncPipe, TranslateModule, BtnDisabledDirective],
 })
 /**
  * Component responsible to render an email registration form.

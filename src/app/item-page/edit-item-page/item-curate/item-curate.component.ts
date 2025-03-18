@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   OnInit,
@@ -26,6 +29,7 @@ import { hasValue } from '../../../shared/empty.util';
   templateUrl: './item-curate.component.html',
   imports: [
     CurationFormComponent,
+    NgIf,
     TranslateModule,
     AsyncPipe,
   ],

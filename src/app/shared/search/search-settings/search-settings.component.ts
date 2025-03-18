@@ -1,4 +1,7 @@
-
+import {
+  NgFor,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   Inject,
@@ -22,7 +25,7 @@ import { SidebarDropdownComponent } from '../../sidebar/sidebar-dropdown.compone
   styleUrls: ['./search-settings.component.scss'],
   templateUrl: './search-settings.component.html',
   standalone: true,
-  imports: [SidebarDropdownComponent, FormsModule, PageSizeSelectorComponent, TranslateModule],
+  imports: [NgIf, SidebarDropdownComponent, NgFor, FormsModule, PageSizeSelectorComponent, TranslateModule],
 })
 
 /**

@@ -1,5 +1,3 @@
-@if (typeMessage) {
-  <span>
-    <span class="badge bg-info">{{ typeMessage | translate }}</span>
-  </span>
-}
+<span *ngIf="typeMessage">
+  <span class="badge bg-info">{{ typeMessage | translate }}</span>
+</span>

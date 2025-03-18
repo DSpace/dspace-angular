@@ -1,6 +1,8 @@
 import {
   AsyncPipe,
   isPlatformBrowser,
+  NgFor,
+  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -51,7 +53,7 @@ import {
   templateUrl: './search-range-filter.component.html',
   animations: [facetLoad],
   standalone: true,
-  imports: [FormsModule, NouisliderComponent, DebounceDirective, SearchFacetRangeOptionComponent, AsyncPipe, TranslateModule],
+  imports: [FormsModule, NgIf, NouisliderComponent, DebounceDirective, NgFor, SearchFacetRangeOptionComponent, AsyncPipe, TranslateModule],
 })
 
 /**

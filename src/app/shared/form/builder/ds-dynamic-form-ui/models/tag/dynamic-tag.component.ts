@@ -1,4 +1,4 @@
-
+import { NgIf } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -64,6 +64,7 @@ import { DynamicTagModel } from './dynamic-tag.model';
   imports: [
     NgbTypeaheadModule,
     FormsModule,
+    NgIf,
     ChipsComponent,
   ],
   standalone: true,

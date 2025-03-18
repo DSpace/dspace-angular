@@ -1,4 +1,8 @@
-import { KeyValuePipe } from '@angular/common';
+import {
+  KeyValuePipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   Input,
@@ -20,6 +24,8 @@ import { ContentAccordionComponent } from '../content-accordion/content-accordio
     ContentAccordionComponent,
     TranslateModule,
     KeyValuePipe,
+    NgForOf,
+    NgIf,
   ],
   standalone: true,
 })

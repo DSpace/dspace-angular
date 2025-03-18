@@ -1,4 +1,8 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   OnDestroy,
@@ -61,8 +65,10 @@ interface BundleBitstreamsMapEntry {
     ResourcePoliciesComponent,
     NgbCollapseModule,
     TranslateModule,
+    NgForOf,
     NgForTrackByIdDirective,
     AsyncPipe,
+    NgIf,
     AlertComponent,
   ],
   standalone: true,

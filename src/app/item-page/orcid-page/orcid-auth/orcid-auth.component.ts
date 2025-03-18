@@ -1,4 +1,8 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -41,6 +45,8 @@ import { createFailedRemoteDataObjectFromError$ } from '../../../shared/remote-d
   imports: [
     TranslateModule,
     AsyncPipe,
+    NgIf,
+    NgForOf,
     AlertComponent,
     BtnDisabledDirective,
   ],

@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   Inject,
@@ -36,6 +39,7 @@ import { ThemedSearchComponent } from '../../../../shared/search/themed-search.c
     ThemedSearchComponent,
     AsyncPipe,
     TranslateModule,
+    NgIf,
   ],
 })
 

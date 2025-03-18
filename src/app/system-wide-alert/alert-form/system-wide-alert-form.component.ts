@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   OnInit,
@@ -57,7 +60,7 @@ import { SystemWideAlert } from '../system-wide-alert.model';
   styleUrls: ['./system-wide-alert-form.component.scss'],
   templateUrl: './system-wide-alert-form.component.html',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, UiSwitchModule, NgbDatepickerModule, NgbTimepickerModule, AsyncPipe, TranslateModule, BtnDisabledDirective],
+  imports: [FormsModule, ReactiveFormsModule, UiSwitchModule, NgIf, NgbDatepickerModule, NgbTimepickerModule, AsyncPipe, TranslateModule, BtnDisabledDirective],
 })
 export class SystemWideAlertFormComponent implements OnInit {
 
@@ -250,7 +253,7 @@ export class SystemWideAlertFormComponent implements OnInit {
     alert.active = this.formActive.value;
     if (this.counterEnabled$.getValue()) {
       const countDownTo = new Date(this.date.year, this.date.month - 1, this.date.day, this.time.hour, this.time.minute);
-      alert.countdownTo = utcToZonedTime(countDownTo, 'UTC').toISOString();
+      alert.countdownTo = utcToZonedTime(countDownTo, 'UTC').toUTCString();
     } else {
       alert.countdownTo = null;
     }
@@ -275,7 +278,7 @@ export class SystemWideAlertFormComponent implements OnInit {
           this.back();
         }
       } else {
-        this.notificationsService.error(this.translateService.get(`${messagePrefix}.error`));
+        this.notificationsService.error(this.translateService.get(`${messagePrefix}.error`, response.errorMessage));
       }
     });
   }

@@ -1,6 +1,7 @@
 import {
   AsyncPipe,
   NgClass,
+  NgFor,
 } from '@angular/common';
 import {
   Component,
@@ -40,7 +41,7 @@ import { InputSuggestion } from '../input-suggestions.model';
     },
   ],
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, ClickOutsideDirective, DebounceDirective, NgClass, AsyncPipe, TranslateModule],
+  imports: [FormsModule, ReactiveFormsModule, ClickOutsideDirective, DebounceDirective, NgClass, NgFor, AsyncPipe, TranslateModule],
 })
 
 /**

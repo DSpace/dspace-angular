@@ -42,7 +42,7 @@ export const environment: BuildConfig = {
     port: 443,
     // NOTE: Space is capitalized because 'namespace' is a reserved string in TypeScript
     nameSpace: '/api',
-    baseUrl: 'https://rest.com/server',
+    baseUrl: 'https://rest.com/api',
   },
 
   actuators: {

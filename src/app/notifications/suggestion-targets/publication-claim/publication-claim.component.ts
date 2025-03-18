@@ -1,4 +1,8 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -42,6 +46,8 @@ import { SuggestionTargetsStateService } from '../suggestion-targets.state.servi
     AsyncPipe,
     TranslateModule,
     PaginationComponent,
+    NgIf,
+    NgFor,
     RouterLink,
   ],
   standalone: true,

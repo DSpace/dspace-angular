@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   OnInit,
@@ -38,7 +41,7 @@ import { ThemedEmailRequestCopyComponent } from '../email-request-copy/themed-em
   styleUrls: ['./grant-request-copy.component.scss'],
   templateUrl: './grant-request-copy.component.html',
   standalone: true,
-  imports: [VarDirective, ThemedEmailRequestCopyComponent, FormsModule, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [VarDirective, NgIf, ThemedEmailRequestCopyComponent, FormsModule, ThemedLoadingComponent, AsyncPipe, TranslateModule],
 })
 /**
  * Component for granting an item request
