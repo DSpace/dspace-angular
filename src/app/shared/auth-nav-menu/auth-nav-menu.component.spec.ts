@@ -20,6 +20,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
+import { HashedFileMapping } from '../../../modules/dynamic-hash/hashed-file-mapping';
 import { AppState } from '../../app.reducer';
 import {
   authReducer,
@@ -49,6 +50,10 @@ describe('AuthNavMenuComponent', () => {
 
   let routerState = {
     url: '/home',
+  };
+
+  const mockHashedFileMapping = {
+    resolve: (path: string) => path,
   };
 
   function serviceInit() {
@@ -104,6 +109,7 @@ describe('AuthNavMenuComponent', () => {
           { provide: AuthService, useValue: authService },
           { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
           { provide: XSRFService, useValue: {} },
+          { provide: HashedFileMapping, useValue: mockHashedFileMapping },
         ],
         schemas: [
           CUSTOM_ELEMENTS_SCHEMA,

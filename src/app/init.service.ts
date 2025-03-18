@@ -20,10 +20,16 @@ import {
 } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import isEqual from 'lodash/isEqual';
-import { Observable } from 'rxjs';
+import {
+  combineLatest,
+  Observable,
+  of,
+} from 'rxjs';
 import {
   distinctUntilChanged,
   find,
+  map,
+  take,
 } from 'rxjs/operators';
 
 import {
@@ -36,10 +42,12 @@ import { AppState } from './app.reducer';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
 import { CheckAuthenticationTokenAction } from './core/auth/auth.actions';
 import { isAuthenticationBlocking } from './core/auth/selectors';
+import { HrefOnlyDataService } from './core/data/href-only-data.service';
 import { LAZY_DATA_SERVICES } from './core/data-services-map';
 import { LocaleService } from './core/locale/locale.service';
 import { HeadTagService } from './core/metadata/head-tag.service';
 import { CorrelationIdService } from './correlation-id/correlation-id.service';
+import { hasValue } from './shared/empty.util';
 import { dsDynamicFormControlMapFn } from './shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 import { MenuService } from './shared/menu/menu.service';
 import { ThemeService } from './shared/theme-support/theme.service';
@@ -74,7 +82,7 @@ export abstract class InitService {
     protected breadcrumbsService: BreadcrumbsService,
     protected themeService: ThemeService,
     protected menuService: MenuService,
-
+    protected hrefOnlyDataService: HrefOnlyDataService,
   ) {
   }
 
@@ -229,5 +237,25 @@ export abstract class InitService {
       distinctUntilChanged(),
       find((b: boolean) => b === false),
     );
+  }
+
+  /**
+   * Use the bootstrapped requests to prefill the cache
+   */
+  protected initBootstrapEndpoints$(): Observable<void> {
+    if (hasValue(this.appConfig?.prefetch?.bootstrap)) {
+      const observables = {};
+
+      for (const url of Object.getOwnPropertyNames(this.appConfig.prefetch.bootstrap)) {
+        observables[url] = this.hrefOnlyDataService.findByHref(url, false);
+      }
+
+      return combineLatest(observables).pipe(
+        take(1),
+        map(_ => undefined),
+      );
+    } else {
+      return of(undefined);
+    }
   }
 }

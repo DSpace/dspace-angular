@@ -5,12 +5,12 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { APP_DATA_SERVICES_MAP } from '../../config/app-config.interface';
+import { HashedFileMapping } from '../../modules/dynamic-hash/hashed-file-mapping';
 import { AuthService } from '../core/auth/auth.service';
 import { XSRFService } from '../core/xsrf/xsrf.service';
 import { AuthServiceMock } from '../shared/mocks/auth.service.mock';
@@ -24,12 +24,9 @@ describe('LoginPageComponent', () => {
     params: observableOf({}),
   });
 
-  const store: Store<LoginPageComponent> = jasmine.createSpyObj('store', {
-    /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-    dispatch: {},
-    /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-    select: observableOf(true),
-  });
+  const mockHashedFileMapping = {
+    resolve: (path: string) => path,
+  };
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -43,6 +40,7 @@ describe('LoginPageComponent', () => {
         { provide: XSRFService, useValue: {} },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         provideMockStore({}),
+        { provide: HashedFileMapping, useValue: mockHashedFileMapping },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
