@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -30,7 +27,6 @@ import { VarDirective } from '../../../../../app/shared/utils/var.directive';
     AsyncPipe,
     ComcolPageHeaderComponent,
     ComcolPageLogoComponent,
-    NgIf,
     ThemedComcolPageHandleComponent,
     ThemedComcolPageContentComponent,
     DsoEditMenuComponent,

@@ -1,10 +1,12 @@
-<ng-container *ngIf="ePersonId">
-  <ng-container *ngIf="getEPersonData$() | async as ePersonData">
-    <ng-container *ngFor="let property of properties">
-      <span *ngIf="ePersonData[property]">
-        {{ ePersonData[property] }}
-      </span>
+@if (ePersonId) {
+  @if (getEPersonData$() | async; as ePersonData) {
+    @for (property of properties; track property) {
+      @if (ePersonData[property]) {
+        <span>
+          {{ ePersonData[property] }}
+        </span>
+      }
       <br>
-    </ng-container>
-  </ng-container>
-</ng-container>
+      }
+    }
+  }

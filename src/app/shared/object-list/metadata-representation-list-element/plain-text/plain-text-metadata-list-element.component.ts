@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
@@ -9,7 +9,7 @@ import { MetadataRepresentationListElementComponent } from '../metadata-represen
   selector: 'ds-plain-text-metadata-list-element',
   templateUrl: './plain-text-metadata-list-element.component.html',
   standalone: true,
-  imports: [NgIf, RouterLink],
+  imports: [RouterLink],
 })
 /**
  * A component for displaying MetadataRepresentation objects in the form of plain text

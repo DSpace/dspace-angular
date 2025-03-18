@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   Input,
@@ -12,7 +12,7 @@ import { Item } from '../../../../../core/shared/item.model';
   selector: 'ds-base-item-page-title-field',
   templateUrl: './item-page-title-field.component.html',
   standalone: true,
-  imports: [NgIf, TranslateModule],
+  imports: [TranslateModule],
 })
 /**
  * This component is used for displaying the title (defined by the {@link DSONameService}) of an item
