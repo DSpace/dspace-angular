@@ -211,11 +211,10 @@ export class ItemRequestDataService extends IdentifiableDataService<ItemRequest>
    * if the 'send secure link' feature is configured.
    * Expects integer values, conversion to number is done in this processing
    */
-  getConfiguredAccessPeriods(): Observable<number[]> {
+  getConfiguredAccessPeriods(): Observable<string[]> {
     return this.configService.findByPropertyName('request.item.grant.link.period').pipe(
       getFirstCompletedRemoteData(),
       map((propertyRD: RemoteData<ConfigurationProperty>) => propertyRD.hasSucceeded ? propertyRD.payload.values : []),
-      map((values) => values.map(value => parseInt(value, 10))),
     );
   }
 

@@ -2088,15 +2088,15 @@
 
   "grant-request-copy.access-period.header": "Access period",
 
-  "grant-request-copy.access-period.120": "2 minutes",
+  "grant-request-copy.access-period.+1DAY": "1 day",
 
-  "grant-request-copy.access-period.240": "4 minutes",
+  "grant-request-copy.access-period.+1WEEK": "1 week",
 
-  "grant-request-copy.access-period.86400": "1 day",
+  "grant-request-copy.access-period.+1MONTH": "1 month",
 
-  "grant-request-copy.access-period.604800": "7 days",
+  "grant-request-copy.access-period.+3MONTHS": "3 months",
 
-  "grant-request-copy.access-period.0": "Forever",
+  "grant-request-copy.access-period.FOREVER": "Forever",
 
   "health.breadcrumbs": "Health",
 

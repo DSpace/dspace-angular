@@ -34,7 +34,7 @@ export class EmailRequestCopyComponent implements OnInit {
    * Event emitter for sending the email
    */
   @Output() send: EventEmitter<RequestCopyEmail> = new EventEmitter<RequestCopyEmail>();
-  @Output() selectedAccessPeriod: EventEmitter<number> = new EventEmitter();
+  @Output() selectedAccessPeriod: EventEmitter<string> = new EventEmitter();
 
   /**
    * The subject of the email
@@ -49,12 +49,13 @@ export class EmailRequestCopyComponent implements OnInit {
   /**
    * A list of valid access periods to render in a drop-down menu
    */
-  @Input() validAccessPeriods: number[] = [];
+  @Input() validAccessPeriods: string [] = [];
 
   /**
-   * The selected access period
+   * The selected access period, e.g. +7DAYS, +12MONTHS, FOREVER. These will be
+   * calculated as a timestamp to store as the access expiry date for the requested item
    */
-  accessPeriod = 0;
+  accessPeriod = 'FOREVER';
 
   protected readonly hasValue = hasValue;
 
@@ -86,7 +87,7 @@ export class EmailRequestCopyComponent implements OnInit {
    * Update the access period when a dropdown menu button is clicked for a value
    * @param accessPeriod
    */
-  selectAccessPeriod(accessPeriod: number) {
+  selectAccessPeriod(accessPeriod: string) {
     this.accessPeriod = accessPeriod;
     this.selectedAccessPeriod.emit(accessPeriod);
   }
