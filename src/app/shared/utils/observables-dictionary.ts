@@ -29,7 +29,7 @@ export type ObservablesDictionary<T extends { [key: string]: any }> = {
   }
 
   Now the input for the 'combineLatest' should be of type ObservablesDictionary<MyData>.
-  In essence ObservablesDictionary<T> creates a copy of the defined interface T, while making observables of all T's
+  In essence ObservablesDictionary<T> creates a copy of the defined interface T, while making observables of all of T's
   fields. ObservablesDictionary<T> also applies the additional constraint that all the keys of T must be strings, which
   is required for objects used in 'combineLatest'.
 
@@ -55,7 +55,7 @@ export type ObservablesDictionary<T extends { [key: string]: any }> = {
 
 
   An example of this type in action can be found in the edit-bitstream-page component (as of writing this explainer).
-  The edit-bitstream-page has the following interface with that contains the required data:
+  The edit-bitstream-page has the following interface that contains the required data:
 
   interface DataObjects {
     bitstream: Bitstream,

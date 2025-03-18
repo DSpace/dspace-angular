@@ -527,7 +527,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     this.updateFormatModel();
 
     if (this.isIIIF) {
-      this.appendFormWIthIiifFields();
+      this.appendFormWithIiifFields();
     }
   }
 
@@ -543,7 +543,6 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
    */
   updateForm() {
     const bitstream = this.bitstream;
-    const format = this.bitstreamFormat;
 
     this.formGroup.patchValue({
       fileNamePrimaryContainer: {
@@ -574,7 +573,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
       });
     }
 
-    this.bitstreamFormat = format;
+    const format = this.bitstreamFormat;
     this.formGroup.patchValue({
       formatContainer: {
         selectedFormat: format.id
@@ -661,6 +660,9 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     );
   }
 
+  /**
+   * Collects all observables that update the different parts of the bitstream.
+   */
   getUpdateObservables(updatedValues: any): ObservablesDictionary<UpdateResult> {
     return {
       metadataUpdateRD: this.updateBitstreamMetadataRD$(updatedValues),
@@ -669,6 +671,9 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     };
   }
 
+  /**
+   * Creates and returns an observable that updates the bitstream metadata according to the data in the form.
+   */
   updateBitstreamMetadataRD$(updatedValues: any): Observable<RemoteData<Bitstream>> {
     const updatedBitstream = this.formToBitstream(updatedValues);
 
@@ -776,6 +781,11 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     return updatedBitstream;
   }
 
+  /**
+   * Handle the update result by checking for errors.
+   * When there are no errors, the user is redirected to the edit-bitstreams page.
+   * When there are errors, a notification is shown.
+   */
   handleUpdateResult(updateResult: UpdateResult) {
     let errorWhileSaving = false;
 
@@ -846,7 +856,10 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     return isImage && isIIIFBundle && isEnabled;
   }
 
-  appendFormWIthIiifFields(): void {
+  /**
+   * Extend the form with IIIF fields
+   */
+  appendFormWithIiifFields(): void {
     this.inputModels.push(this.iiifLabelModel);
     this.formModel.push(this.iiifLabelContainer);
     this.inputModels.push(this.iiifTocModel);
