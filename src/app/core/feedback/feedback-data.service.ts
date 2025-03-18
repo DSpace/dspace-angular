@@ -72,7 +72,7 @@ export class FeedbackDataService extends IdentifiableDataService<Feedback> imple
   }
 
   /**
-   * Create a new object on the server, and store the response in the object cache
+   * Creates a new object on the server, and stores the response in the object cache, checks if the request is sent with recaptcha token
    *
    * @param object    The object to create
    * @param captchaToken ReCaptchaToken if the verification is enabled
