@@ -50,7 +50,7 @@
       </div>
 
       <ng-container *ngIf="(!registrationVerification  || ((googleRecaptchaService.captchaVersion() | async) !== 'v2' && (googleRecaptchaService.captchaMode() | async) === 'invisible')); else v2Invisible">
-        <button type="submit" class="btn btn-primary" [dsBtnDisabled]="feedbackForm.invalid || registrationVerification && !isRecaptchaCookieAccepted() || disableUntilChecked">
+        <button type="submit" class="btn btn-primary" [dsBtnDisabled]="!feedbackForm.valid || registrationVerification && !isRecaptchaCookieAccepted() || disableUntilChecked">
           {{ MESSAGE_PREFIX + '.submit' | translate }}
         </button>
       </ng-container>

@@ -23,16 +23,14 @@ import { AuthService } from '../../core/auth/auth.service';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import {
-  CAPTCHA_FEEDBACK_NAME,
-  CAPTCHA_NAME,
-} from '../../core/google-recaptcha/google-recaptcha.service';
+import {  CAPTCHA_NAME } from '../../core/google-recaptcha/google-recaptcha.service';
 import { CookieService } from '../../core/services/cookie.service';
 import {
   NativeWindowRef,
   NativeWindowService,
 } from '../../core/services/window.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { PurposesMessages } from '../../shared/interfaces/purposes-messages.interface';
 import {
   hasValue,
   isEmpty,
@@ -43,7 +41,6 @@ import {
   ANONYMOUS_STORAGE_NAME_OREJIME,
   getOrejimeConfiguration,
 } from './orejime-configuration';
-
 /**
  * Metadata field to store a user's cookie consent preferences in
  */
@@ -102,6 +99,11 @@ export class BrowserOrejimeService extends OrejimeService {
 
   private orejimeInstance: any;
 
+  /**
+   * Stores messages categorized by application of the Orejime settings, allowing you to update or add messages as appropriate.
+   */
+  private purposesMessages: PurposesMessages = {};
+
   constructor(
     @Inject(NativeWindowService) private _window: NativeWindowRef,
     private translateService: TranslateService,
@@ -148,16 +150,19 @@ export class BrowserOrejimeService extends OrejimeService {
     const appsToHide$: Observable<string[]> = observableCombineLatest([hideGoogleAnalytics$, hideRegistrationVerification$,hideFeedBackVerification$]).pipe(
       map(([hideGoogleAnalytics, hideRegistrationVerification,hideFeedBackVerification]) => {
         const appsToHideArray: string[] = [];
+        const messages = [];
         if (hideGoogleAnalytics) {
           appsToHideArray.push(this.GOOGLE_ANALYTICS_SERVICE_NAME);
         }
-        if (hideRegistrationVerification) {
+        if (hideRegistrationVerification && hideFeedBackVerification) {
           appsToHideArray.push(CAPTCHA_NAME);
         }
-        if (hideFeedBackVerification) {
-          appsToHideArray.push(CAPTCHA_FEEDBACK_NAME);
+        if (!hideRegistrationVerification) {
+          this.addPurposeMessageToApp(CAPTCHA_NAME, 'registration-password-recovery');
         }
-
+        if (!hideFeedBackVerification) {
+          this.addPurposeMessageToApp(CAPTCHA_NAME, 'suggestions');
+        }
         return appsToHideArray;
       }),
     );
@@ -292,10 +297,29 @@ export class BrowserOrejimeService extends OrejimeService {
         title: this.getTitleTranslation(app.name),
         description: this.getDescriptionTranslation(app.name),
       };
-      app.purposes.forEach((purpose) => {
-        this.orejimeConfig.translations.zz.purposes[purpose] = this.getPurposeTranslation(purpose);
-      });
+      //Verify if applications have customized purposes
+      if (this.purposesMessages && this.purposesMessages[app.name]){
+        app.purposes  = this.purposesMessages[app.name];
+        this.purposesMessages[app.name].forEach((purpose) => {
+          this.orejimeConfig.translations.zz.purposes[purpose] = this.getPurposeTranslation(purpose);
+        });
+      } else {
+        app.purposes.forEach((purpose) => {
+          this.orejimeConfig.translations.zz.purposes[purpose] = this.getPurposeTranslation(purpose);
+        });
+      }
     });
+  }
+
+  /**
+   * Registers a message in purposesMessages under the name of the corresponding application.
+   * If the application has no previous messages, a new entry is created for it.
+   */
+  private addPurposeMessageToApp(appName: string, message: string): void {
+    if (!this.purposesMessages[appName]) {
+      this.purposesMessages[appName] = [];
+    }
+    this.purposesMessages[appName] = [...new Set([...this.purposesMessages[appName], message])];
   }
 
   /**
@@ -317,9 +341,10 @@ export class BrowserOrejimeService extends OrejimeService {
     this.orejimeConfig.categories = this.orejimeConfig.apps.reduce((accumulator, current) => {
       let category = accumulator.find((cat) => cat.name === current.purposes[0]);
       if (!category) {
+        const name = (current.purposes.length === 1) ? current.purposes[0] : current.purposes.join('.');
         category = {
-          name: current.purposes[0],
-          title: this.translateService.instant(this.getPurposeTranslation(current.purposes[0])),
+          name,
+          title: this.translateService.instant(this.getPurposeTranslation(name)),
           apps: [],
         };
         accumulator.push(category);

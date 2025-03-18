@@ -1630,16 +1630,19 @@
 
   "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
 
-  "cookies.consent.app.description.google-recaptcha": "We use google reCAPTCHA service during registration and password recovery",
-
-  "cookies.consent.app.description.google-recaptcha-feedback": "We use the Google reCAPTCHA service to send suggestions",
-  "cookies.consent.purpose.feedback": "Sending suggestions",
+  "cookies.consent.app.description.google-recaptcha": "We use google reCAPTCHA service during registration, password recovery or send suggestions",
 
   "cookies.consent.purpose.functional": "Functional",
 
   "cookies.consent.purpose.statistical": "Statistical",
 
-  "cookies.consent.purpose.registration-password-recovery": "Registration and Password recovery",
+  "cookies.consent.app.purposes": "Purposes",
+
+  "cookies.consent.purpose.registration-password-recovery.suggestions": "Registration, Password recovery and Send suggestions",
+
+  "cookies.consent.purpose.suggestions": "Send suggestions",
+
+  "cookies.consent.purpose.registration-password-recovery": "Registration, Password recovery",
 
   "cookies.consent.purpose.sharing": "Sharing",
 
@@ -2184,6 +2187,8 @@
   "info.feedback.email-label": "Your Email",
 
   "info.feedback.create.success": "Feedback Sent Successfully!",
+
+  "info.feedback.create.error": "Error sending feedback!",
 
   "info.feedback.error.email.required": "A valid email address is required",
 

@@ -24,16 +24,19 @@ import {
 import {
   BehaviorSubject,
   combineLatest,
+  EMPTY,
   Observable,
   of,
   Subscription,
 } from 'rxjs';
 import {
+  filter,
   map,
   startWith,
   switchMap,
   take,
 } from 'rxjs/operators';
+import { Feedback } from 'src/app/core/feedback/models/feedback.model';
 
 import { getHomePageRoute } from '../../../app-routing-paths';
 import { AuthService } from '../../../core/auth/auth.service';
@@ -42,7 +45,7 @@ import { RemoteData } from '../../../core/data/remote-data';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { FeedbackDataService } from '../../../core/feedback/feedback-data.service';
 import {
-  CAPTCHA_FEEDBACK_NAME,
+  CAPTCHA_NAME,
   GoogleRecaptchaService,
 } from '../../../core/google-recaptcha/google-recaptcha.service';
 import { CookieService } from '../../../core/services/cookie.service';
@@ -162,15 +165,8 @@ export class FeedbackFormComponent implements OnInit,OnDestroy {
   /**
    * Function to create the feedback from form values
    */
-  createFeedback(token: string = null): void {
-    const url = this.feedbackForm.value.page.replace(this._window.nativeWindow.origin, '');
-    this.feedbackDataService.create(this.feedbackForm.value).pipe(getFirstCompletedRemoteData()).subscribe((response: RemoteData<NoContent>) => {
-      if (response.isSuccess) {
-        this.notificationsService.success(this.translate.instant('info.feedback.create.success'));
-        this.feedbackForm.reset();
-        this.router.navigateByUrl(url);
-      }
-    });
+  createFeedback(token: string = null): Observable<RemoteData<Feedback>> {
+    return this.feedbackDataService.registerFeedback(this.feedbackForm.value,token).pipe(getFirstCompletedRemoteData());
   }
 
 
@@ -178,41 +174,46 @@ export class FeedbackFormComponent implements OnInit,OnDestroy {
    * Return true if the user has accepted the required cookies for reCaptcha
    */
   isRecaptchaCookieAccepted(): boolean {
-    const klaroAnonymousCookie = this.cookieService.get('klaro-anonymous');
-    return isNotEmpty(klaroAnonymousCookie) ? klaroAnonymousCookie[CAPTCHA_FEEDBACK_NAME] : false;
+    const klaroAnonymousCookie = this.cookieService.get('orejime-anonymous');
+    return isNotEmpty(klaroAnonymousCookie) ? klaroAnonymousCookie[CAPTCHA_NAME] : false;
   }
 
   /**
    * Verify and send feedback
    */
-  send(tokenV2?) {
-    if (!this.feedbackForm.invalid) {
-      if (this.registrationVerification) {
-        this.subscriptions.push(combineLatest([this.captchaVersion(), this.captchaMode()]).pipe(
-          switchMap(([captchaVersion, captchaMode])  => {
-            if (captchaVersion === 'v3') {
-              return this.googleRecaptchaService.getRecaptchaToken('feedback');
-            } else if (captchaVersion === 'v2' && captchaMode === 'checkbox') {
-              return of(this.googleRecaptchaService.getRecaptchaTokenResponse());
-            } else if (captchaVersion === 'v2' && captchaMode === 'invisible') {
-              return of(tokenV2);
-            } else {
-              console.error(`Invalid reCaptcha configuration: version = ${captchaVersion}, mode = ${captchaMode}`);
-            }
-          }),
-          take(1),
-        ).subscribe((token) => {
-          if (isNotEmpty(token)) {
-            this.createFeedback(token);
+  send(tokenV2?: string) {
+    let tokenObservable: Observable<string>;
+    if (this.registrationVerification) {
+      tokenObservable = combineLatest([this.captchaVersion(), this.captchaMode()]).pipe(
+        switchMap(([captchaVersion, captchaMode]) => {
+          if (captchaVersion === 'v3') {
+            return this.googleRecaptchaService.getRecaptchaToken('feedback');
+          } else if (captchaVersion === 'v2' && captchaMode === 'checkbox') {
+            return this.googleRecaptchaService.getRecaptchaTokenResponse();
+          } else if (captchaVersion === 'v2' && captchaMode === 'invisible') {
+            return tokenV2;
           } else {
-            console.error('reCaptcha error');
+            this.notificationsService.error(this.translate.instant('info.feedback.create.error'));
+            return EMPTY;
           }
-        },
-        ));
-      } else {
-        this.createFeedback();
-      }
+        }),
+        filter(token => isNotEmpty(token)),
+        take(1),
+      );
+    } else {
+      tokenObservable = of(null);
     }
+    tokenObservable.subscribe(token => {
+      this.createFeedback(token).subscribe((response: RemoteData<NoContent>) => {
+        const url = this.feedbackForm.value.page.replace(this._window.nativeWindow.origin, '');
+        if (response.isSuccess) {
+          this.notificationsService.success(this.translate.instant('info.feedback.create.success'));
+          this.router.navigate(url);
+        } else {
+          this.notificationsService.error(this.translate.instant('info.feedback.create.error'));
+        }
+      });
+    });
   }
 
   /**
