@@ -14,6 +14,7 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { HashedFileMapping } from '../../../../../modules/dynamic-hash/hashed-file-mapping';
 import { AuthService } from '../../../../core/auth/auth.service';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { RemoteDataBuildService } from '../../../../core/cache/builders/remote-data-build.service';
@@ -73,6 +74,10 @@ const linkService = jasmine.createSpyObj('linkService', {
 
 describe('CollectionSearchResultGridElementComponent', () => {
   beforeEach(waitForAsync(() => {
+    const mockHashedFileMapping = {
+      resolve: (path: string) => path,
+    };
+
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
@@ -98,6 +103,7 @@ describe('CollectionSearchResultGridElementComponent', () => {
         { provide: BitstreamFormatDataService, useValue: {} },
         { provide: XSRFService, useValue: {} },
         { provide: LinkService, useValue: linkService },
+        { provide: HashedFileMapping, useValue: mockHashedFileMapping },
         provideMockStore({}),
       ],
       schemas: [NO_ERRORS_SCHEMA],
