@@ -11,12 +11,15 @@ import { BASE_THEME_NAME } from '../app/shared/theme-support/theme.constants';
 /**
  * Extend Angular environment with app config.
  *
- * @param env       environment object
- * @param appConfig app config
+ * @param env          environment object
+ * @param appConfig    app config
+ * @param logToConsole whether to log a message in the console
  */
-const extendEnvironmentWithAppConfig = (env: any, appConfig: AppConfig): void => {
+const extendEnvironmentWithAppConfig = (env: any, appConfig: AppConfig, logToConsole = true): void => {
   mergeConfig(env, appConfig);
-  console.log(`Environment extended with app config`);
+  if (logToConsole) {
+    console.log(`Environment extended with app config`);
+  }
 };
 
 /**

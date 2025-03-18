@@ -444,3 +444,13 @@ search:
   # Since we don't know how many filters will be loaded before we receive a response from the server we use this parameter for the skeletons count.
   # e.g. If we set 5 then 5 loading skeletons will be visualized before the actual filters are retrieved.
   defaultFiltersCount: 5
+
+
+# REST response prefetching configuration
+prefetch:
+  # The URLs for which the response will be prefetched
+  urls:
+    - /api
+    - /api/discover
+  # How often the responses are refreshed in milliseconds
+  refreshInterval: 60000

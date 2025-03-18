@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { compare } from 'fast-json-patch';
-import { Operation } from 'fast-json-patch';
-import { getClassForType } from '../cache/builders/build-decorators';
+import {
+  compare,
+  Operation,
+} from 'fast-json-patch';
+import { getClassForObject } from '../cache/builders/build-decorators';
+import { TypedObject } from '../cache/typed-object.model';
 import { DSpaceNotNullSerializer } from '../dspace-rest/dspace-not-null.serializer';
 import { ChangeAnalyzer } from './change-analyzer';
-import { TypedObject } from '../cache/typed-object.model';
 
 /**
  * A class to determine what differs between two
@@ -22,8 +24,8 @@ export class DefaultChangeAnalyzer<T extends TypedObject> implements ChangeAnaly
    *    The second object to compare
    */
   diff(object1: T, object2: T): Operation[] {
-    const serializer1 = new DSpaceNotNullSerializer(getClassForType(object1.type));
-    const serializer2 = new DSpaceNotNullSerializer(getClassForType(object2.type));
+    const serializer1 = new DSpaceNotNullSerializer(getClassForObject(object1));
+    const serializer2 = new DSpaceNotNullSerializer(getClassForObject(object2));
     return compare(serializer1.serialize(object1), serializer2.serialize(object2));
   }
 }
