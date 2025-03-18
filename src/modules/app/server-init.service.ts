@@ -70,7 +70,7 @@ export class ServerInitService extends InitService {
       this.initRouteListeners();
       this.themeService.listenForThemeChanges(false);
 
-      this.initBootstrapEndpoints();
+      this.initBootstrapEndpoints$().subscribe();
 
       await this.authenticationReady$().toPromise();
 

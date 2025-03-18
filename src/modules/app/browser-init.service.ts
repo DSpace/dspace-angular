@@ -104,7 +104,12 @@ export class BrowserInitService extends InitService {
 
       this.initKlaro();
 
-      this.initBootstrapEndpoints();
+      this.initBootstrapEndpoints$().subscribe(_ => {
+        if (hasValue(this.appConfig?.prefetch?.bootstrap)) {
+          // Clear bootstrap once finished so the dspace-rest.service does not keep using the bootstrapped responses
+          this.appConfig.prefetch.bootstrap = undefined;
+        }
+      });
 
       await this.authenticationReady$().toPromise();
 
@@ -175,18 +180,6 @@ export class BrowserInitService extends InitService {
     firstValueFrom(this.authenticationReady$()).then(() => {
         this.sub.unsubscribe();
       });
-  }
-
-  /**
-   * Use the bootstrapped requests from the server to prefill the cache on the client
-   */
-  override initBootstrapEndpoints() {
-    super.initBootstrapEndpoints();
-
-    if (hasValue(this.appConfig?.prefetch?.bootstrap)) {
-      // Clear bootstrap once finished so the dspace-rest.service does not keep using the bootstrap
-      this.appConfig.prefetch.bootstrap = undefined;
-    }
   }
 
 }
