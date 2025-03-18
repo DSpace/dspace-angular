@@ -1,4 +1,7 @@
-
+import {
+  NgSwitch,
+  NgSwitchCase,
+} from '@angular/common';
 import {
   Component,
   Input,
@@ -16,7 +19,7 @@ import { HealthStatus } from '../../models/health-component.model';
   templateUrl: './health-status.component.html',
   styleUrls: ['./health-status.component.scss'],
   standalone: true,
-  imports: [NgbTooltipModule, TranslateModule],
+  imports: [NgSwitch, NgSwitchCase, NgbTooltipModule, TranslateModule],
 })
 export class HealthStatusComponent {
   /**

@@ -1,6 +1,8 @@
 import {
   AsyncPipe,
   NgClass,
+  NgForOf,
+  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -70,9 +72,11 @@ enum SubKey {
     ContextHelpDirective,
     ReactiveFormsModule,
     PaginationComponent,
+    NgIf,
     AsyncPipe,
     RouterLink,
     NgClass,
+    NgForOf,
     BtnDisabledDirective,
   ],
 })

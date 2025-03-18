@@ -191,7 +191,7 @@ describe('MyDSpaceNewExternalDropdownComponent test', () => {
   selector: 'ds-test-cmp',
   template: ``,
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
 })
 class TestComponent {
   reload = (event) => {

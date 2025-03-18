@@ -1,6 +1,8 @@
 import {
   AsyncPipe,
   NgClass,
+  NgFor,
+  NgIf,
 } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
@@ -27,6 +29,8 @@ import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/the
     ItemCollectionComponent,
     ItemSubmitterComponent,
     NgClass,
+    NgFor,
+    NgIf,
     ThemedBadgesComponent,
     ThemedThumbnailComponent,
     TranslateModule,

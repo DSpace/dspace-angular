@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -20,6 +23,7 @@ import { ThemedThumbnailComponent } from '../../../../../app/thumbnail/themed-th
     ThemedMediaViewerImageComponent,
     ThemedThumbnailComponent,
     AsyncPipe,
+    NgIf,
     ThemedMediaViewerVideoComponent,
     TranslateModule,
     ThemedLoadingComponent,

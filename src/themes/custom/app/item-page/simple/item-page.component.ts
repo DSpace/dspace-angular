@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -43,6 +46,7 @@ import { ViewTrackerComponent } from '../../../../../app/statistics/angulartics/
     ThemedLoadingComponent,
     TranslateModule,
     AsyncPipe,
+    NgIf,
     NotifyRequestsStatusComponent,
     QaEventNotificationComponent,
   ],

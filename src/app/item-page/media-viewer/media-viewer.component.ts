@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -46,6 +49,7 @@ import { ThemedMediaViewerVideoComponent } from './media-viewer-video/themed-med
     ThemedMediaViewerImageComponent,
     ThemedThumbnailComponent,
     AsyncPipe,
+    NgIf,
     ThemedMediaViewerVideoComponent,
     TranslateModule,
     ThemedLoadingComponent,

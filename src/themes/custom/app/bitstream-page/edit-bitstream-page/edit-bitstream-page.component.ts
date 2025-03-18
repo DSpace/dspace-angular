@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -24,6 +27,7 @@ import { ThemedThumbnailComponent } from '../../../../../app/thumbnail/themed-th
   standalone: true,
   imports: [
     FormComponent,
+    NgIf,
     VarDirective,
     ThemedThumbnailComponent,
     AsyncPipe,

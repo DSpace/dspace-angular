@@ -2,6 +2,8 @@ import {
   AsyncPipe,
   NgClass,
   NgComponentOutlet,
+  NgFor,
+  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -41,7 +43,7 @@ import { ThemeService } from '../shared/theme-support/theme.service';
   templateUrl: './navbar.component.html',
   animations: [slideMobileNav],
   standalone: true,
-  imports: [NgbDropdownModule, NgClass, ThemedUserMenuComponent, NgComponentOutlet, AsyncPipe, TranslateModule],
+  imports: [NgbDropdownModule, NgClass, NgIf, ThemedUserMenuComponent, NgFor, NgComponentOutlet, AsyncPipe, TranslateModule],
 })
 export class NavbarComponent extends MenuComponent implements OnInit {
   /**

@@ -2,6 +2,8 @@ import {
   AsyncPipe,
   isPlatformBrowser,
   NgClass,
+  NgForOf,
+  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -89,6 +91,8 @@ export interface ProcessOverviewTableEntry {
     TranslateModule,
     PaginationComponent,
     RouterLink,
+    NgForOf,
+    NgIf,
     ThemedLoadingComponent,
     VarDirective,
   ],

@@ -1,10 +1,6 @@
 import {
-  provideHttpClient,
-  withInterceptorsFromDi,
-} from '@angular/common/http';
-import {
+  HttpClientTestingModule,
   HttpTestingController,
-  provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import {
   DebugElement,
@@ -87,15 +83,13 @@ describe('LangSwitchComponent', () => {
       };
 
       TestBed.configureTestingModule({
-        schemas: [NO_ERRORS_SCHEMA],
-        imports: [TranslateModule.forRoot({
+        imports: [HttpClientTestingModule, TranslateModule.forRoot({
           loader: { provide: TranslateLoader, useClass: CustomLoader },
         }), LangSwitchComponent],
+        schemas: [NO_ERRORS_SCHEMA],
         providers: [
           TranslateService,
           { provide: LocaleService, useValue: getMockLocaleService() },
-          provideHttpClient(withInterceptorsFromDi()),
-          provideHttpClientTesting(),
         ],
       }).compileComponents()
         .then(() => {
@@ -172,15 +166,13 @@ describe('LangSwitchComponent', () => {
       };
 
       TestBed.configureTestingModule({
-        schemas: [NO_ERRORS_SCHEMA],
-        imports: [TranslateModule.forRoot({
+        imports: [HttpClientTestingModule, TranslateModule.forRoot({
           loader: { provide: TranslateLoader, useClass: CustomLoader },
         }), LangSwitchComponent],
+        schemas: [NO_ERRORS_SCHEMA],
         providers: [
           TranslateService,
           { provide: LocaleService, useValue: getMockLocaleService() },
-          provideHttpClient(withInterceptorsFromDi()),
-          provideHttpClientTesting(),
         ],
       }).compileComponents();
       translate = TestBed.inject(TranslateService);

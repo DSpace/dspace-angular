@@ -1,6 +1,8 @@
 import {
   AsyncPipe,
   NgClass,
+  NgFor,
+  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -94,6 +96,8 @@ import { EditRelationshipComponent } from '../edit-relationship/edit-relationshi
     AsyncPipe,
     ObjectValuesPipe,
     VarDirective,
+    NgIf,
+    NgFor,
     TranslateModule,
     NgClass,
     ThemedLoadingComponent,

@@ -1,6 +1,7 @@
 import {
   Location,
   NgClass,
+  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -20,7 +21,7 @@ import { RequestCopyEmail } from './request-copy-email.model';
   styleUrls: ['./email-request-copy.component.scss'],
   templateUrl: './email-request-copy.component.html',
   standalone: true,
-  imports: [FormsModule, NgClass, TranslateModule, BtnDisabledDirective],
+  imports: [FormsModule, NgClass, NgIf, TranslateModule, BtnDisabledDirective],
 })
 /**
  * A form component for an email to send back to the user requesting an item

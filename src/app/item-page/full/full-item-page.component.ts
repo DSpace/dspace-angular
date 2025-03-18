@@ -2,6 +2,8 @@ import {
   AsyncPipe,
   KeyValuePipe,
   Location,
+  NgForOf,
+  NgIf,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -69,6 +71,8 @@ import { ThemedFullFileSectionComponent } from './field-components/file-section/
     ThemedFullFileSectionComponent,
     CollectionsComponent,
     ItemVersionsComponent,
+    NgIf,
+    NgForOf,
     AsyncPipe,
     KeyValuePipe,
     RouterLink,

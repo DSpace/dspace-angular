@@ -1,4 +1,8 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -19,10 +23,12 @@ import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/the
   standalone: true,
   imports: [
     PaginationComponent,
+    NgIf,
     TranslateModule,
     AsyncPipe,
     VarDirective,
     ThemedThumbnailComponent,
+    NgForOf,
     ThemedFileDownloadLinkComponent,
     FileSizePipe,
     MetadataFieldWrapperComponent,

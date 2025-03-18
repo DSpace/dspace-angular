@@ -4,12 +4,10 @@
     </button>
   </div>
   <div class="modal-body">
-    @if (header) {
-      <span class="h5 px-2">{{header | translate}}</span>
-    }
+    <span *ngIf="header" class="h5 px-2">{{header | translate}}</span>
     <ds-authorized-collection-selector [currentDSOId]="dsoRD?.payload.uuid"
-      [entityType]="entityType"
-      [types]="selectorTypes"
-    (onSelect)="selectObject($event)"></ds-authorized-collection-selector>
+                                       [entityType]="entityType"
+                                       [types]="selectorTypes"
+                                       (onSelect)="selectObject($event)"></ds-authorized-collection-selector>
   </div>
 </div>

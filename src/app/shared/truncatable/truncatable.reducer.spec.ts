@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-namespace
-import deepFreeze from 'deep-freeze';
+import * as deepFreeze from 'deep-freeze';
 
 import {
   TruncatableCollapseAction,

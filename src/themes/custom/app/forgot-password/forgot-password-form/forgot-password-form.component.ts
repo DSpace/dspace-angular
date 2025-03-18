@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -19,6 +22,7 @@ import { BrowserOnlyPipe } from '../../../../../app/shared/utils/browser-only.pi
     BrowserOnlyPipe,
     ProfilePageSecurityFormComponent,
     AsyncPipe,
+    NgIf,
     BtnDisabledDirective,
   ],
 })

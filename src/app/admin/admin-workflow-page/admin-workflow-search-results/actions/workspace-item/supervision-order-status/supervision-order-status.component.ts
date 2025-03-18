@@ -1,4 +1,8 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -38,7 +42,7 @@ export interface SupervisionOrderListEntry {
   templateUrl: './supervision-order-status.component.html',
   styleUrls: ['./supervision-order-status.component.scss'],
   standalone: true,
-  imports: [VarDirective, NgbTooltipModule, AsyncPipe, TranslateModule],
+  imports: [VarDirective, NgIf, NgFor, NgbTooltipModule, AsyncPipe, TranslateModule],
 })
 export class SupervisionOrderStatusComponent implements OnChanges {
 

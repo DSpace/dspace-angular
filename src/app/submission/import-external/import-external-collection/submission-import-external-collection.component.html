@@ -4,13 +4,11 @@
     </button>
   </div>
   <div class="modal-body">
-    @if (isLoading()) {
-      <ds-loading></ds-loading>
-    }
+    <ds-loading *ngIf="isLoading()"></ds-loading>
     <ds-collection-dropdown [ngClass]="{'d-none': isLoading()}"
-      (selectionChange)="selectObject($event)"
-      (searchComplete)="searchComplete()"
-      [entityType]="entityType">
+                            (selectionChange)="selectObject($event)"
+                            (searchComplete)="searchComplete()"
+                            [entityType]="entityType">
     </ds-collection-dropdown>
   </div>
 </div>

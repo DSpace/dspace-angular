@@ -6,9 +6,7 @@ import {
 } from '@angular/core';
 import {
   ComponentFixture,
-  fakeAsync,
   TestBed,
-  tick,
   waitForAsync,
 } from '@angular/core/testing';
 import {
@@ -212,11 +210,6 @@ describe('SubmissionSectionDuplicatesComponent test suite', () => {
       formOperationsService = TestBed.inject(SectionFormOperationsService);
       collectionDataService = TestBed.inject(CollectionDataService);
       compAsAny.pathCombiner = new JsonPatchOperationPathCombiner('sections', sectionObject.id);
-      spyOn(comp, 'getDuplicateData').and.returnValue(observableOf({ potentialDuplicates: duplicates }));
-      collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
-      sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
-      sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
-      compAsAny.submissionService.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkspaceItem);
     });
 
     afterEach(() => {
@@ -226,13 +219,18 @@ describe('SubmissionSectionDuplicatesComponent test suite', () => {
     });
 
     // Test initialisation of the submission section
-    it('Should init section properly', fakeAsync(() => {
+    it('Should init section properly', () => {
+      collectionDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(mockCollection));
+      sectionsServiceStub.getSectionErrors.and.returnValue(observableOf([]));
+      sectionsServiceStub.isSectionReadOnly.and.returnValue(observableOf(false));
+      compAsAny.submissionService.getSubmissionScope.and.returnValue(SubmissionScopeType.WorkspaceItem);
       spyOn(comp, 'getSectionStatus').and.returnValue(observableOf(true));
+      spyOn(comp, 'getDuplicateData').and.returnValue(observableOf({ potentialDuplicates: duplicates }));
       expect(comp.isLoading).toBeTruthy();
       comp.onSectionInit();
-      tick(100);
+      fixture.detectChanges();
       expect(comp.isLoading).toBeFalsy();
-    }));
+    });
 
     // The following tests look for proper logic in the getSectionStatus() implementation
     // These are very simple as we don't really have a 'false' state unless we're still loading
@@ -243,7 +241,7 @@ describe('SubmissionSectionDuplicatesComponent test suite', () => {
       }));
     });
     it('Should return FALSE', () => {
-      compAsAny.isLoading = true;
+      compAsAny.isLoadin = true;
       expect(compAsAny.getSectionStatus()).toBeObservable(cold('(a|)', {
         a: false,
       }));
@@ -257,7 +255,11 @@ describe('SubmissionSectionDuplicatesComponent test suite', () => {
   selector: 'ds-test-cmp',
   template: ``,
   standalone: true,
-  imports: [BrowserModule, FormsModule, ReactiveFormsModule, NgxPaginationModule],
+  imports: [BrowserModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxPaginationModule],
 })
 class TestComponent {
 

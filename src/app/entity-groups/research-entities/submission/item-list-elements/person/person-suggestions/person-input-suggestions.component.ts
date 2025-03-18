@@ -1,6 +1,7 @@
 import {
   AsyncPipe,
   NgClass,
+  NgFor,
 } from '@angular/common';
 import {
   Component,
@@ -32,7 +33,7 @@ import { DebounceDirective } from '../../../../../../shared/utils/debounce.direc
     },
   ],
   standalone: true,
-  imports: [FormsModule, ClickOutsideDirective, DebounceDirective, NgClass, AsyncPipe, TranslateModule],
+  imports: [FormsModule, ClickOutsideDirective, DebounceDirective, NgClass, NgFor, AsyncPipe, TranslateModule],
 })
 
 /**

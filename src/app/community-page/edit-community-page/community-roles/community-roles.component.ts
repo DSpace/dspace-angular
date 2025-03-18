@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgForOf,
+} from '@angular/common';
 import {
   Component,
   OnInit,
@@ -28,6 +31,7 @@ import { ComcolRoleComponent } from '../../../shared/comcol/comcol-forms/edit-co
   imports: [
     ComcolRoleComponent,
     AsyncPipe,
+    NgForOf,
   ],
   standalone: true,
 })

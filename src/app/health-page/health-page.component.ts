@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   OnInit,
@@ -23,7 +26,7 @@ import {
   templateUrl: './health-page.component.html',
   styleUrls: ['./health-page.component.scss'],
   standalone: true,
-  imports: [NgbNavModule, HealthPanelComponent, HealthInfoComponent, AlertComponent, AsyncPipe, TranslateModule],
+  imports: [NgIf, NgbNavModule, HealthPanelComponent, HealthInfoComponent, AlertComponent, AsyncPipe, TranslateModule],
 })
 export class HealthPageComponent implements OnInit {
 

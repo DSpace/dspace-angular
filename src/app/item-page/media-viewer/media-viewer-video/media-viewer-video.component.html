@@ -8,49 +8,47 @@
   "
   preload="none"
   controls
-  >
-  @if (getMediaCap(medias[currentIndex].bitstream.name, captions); as capInfos) {
-    @for (capInfo of capInfos; track capInfo) {
+>
+  <ng-container *ngIf="getMediaCap(medias[currentIndex].bitstream.name, captions) as capInfos">
+    <ng-container *ngFor="let capInfo of capInfos">
       <track [src]="capInfo.src" [label]="capInfo.langLabel" [srclang]="capInfo.srclang" />
-    }
-  }
+    </ng-container>
+  </ng-container>
 
 </video>
-@if (medias?.length > 1) {
-  <div class="buttons">
+<div class="buttons" *ngIf="medias?.length > 1">
+  <button
+    class="btn btn-primary previous"
+    [dsBtnDisabled]="currentIndex === 0"
+    (click)="prevMedia()"
+  >
+    {{ "media-viewer.previous" | translate }}
+  </button>
+
+  <button
+    class="btn btn-primary next"
+    [dsBtnDisabled]="currentIndex === medias.length - 1"
+    (click)="nextMedia()"
+  >
+    {{ "media-viewer.next" | translate }}
+  </button>
+  <div ngbDropdown class="d-inline-block">
     <button
-      class="btn btn-primary previous"
-      [dsBtnDisabled]="currentIndex === 0"
-      (click)="prevMedia()"
-      >
-      {{ "media-viewer.previous" | translate }}
+      class="btn btn-outline-primary playlist"
+      id="dropdownBasic1"
+      ngbDropdownToggle
+    >
+      {{ "media-viewer.playlist" | translate }}
     </button>
-    <button
-      class="btn btn-primary next"
-      [dsBtnDisabled]="currentIndex === medias.length - 1"
-      (click)="nextMedia()"
-      >
-      {{ "media-viewer.next" | translate }}
-    </button>
-    <div ngbDropdown class="d-inline-block">
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
       <button
-        class="btn btn-outline-primary playlist"
-        id="dropdownBasic1"
-        ngbDropdownToggle
-        >
-        {{ "media-viewer.playlist" | translate }}
+        ngbDropdownItem
+        *ngFor="let item of medias; index as indexOfelement"
+        class="list-element"
+        (click)="selectedMedia(indexOfelement)"
+      >
+        {{ dsoNameService.getName(item.bitstream) }}
       </button>
-      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-        @for (item of medias; track item; let indexOfelement = $index) {
-          <button
-            ngbDropdownItem
-            class="list-element"
-            (click)="selectedMedia(indexOfelement)"
-            >
-            {{ dsoNameService.getName(item.bitstream) }}
-          </button>
-        }
-      </div>
     </div>
   </div>
-}
+</div>

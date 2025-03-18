@@ -1,6 +1,8 @@
 import {
   AsyncPipe,
   DatePipe,
+  NgFor,
+  NgIf,
   NgTemplateOutlet,
 } from '@angular/common';
 import {
@@ -30,7 +32,7 @@ import { ProcessOverviewTableComponent } from './table/process-overview-table.co
   selector: 'ds-process-overview',
   templateUrl: './process-overview.component.html',
   standalone: true,
-  imports: [RouterLink, PaginationComponent, VarDirective, AsyncPipe, DatePipe, TranslateModule, NgTemplateOutlet, ProcessOverviewTableComponent, BtnDisabledDirective],
+  imports: [NgIf, RouterLink, PaginationComponent, NgFor, VarDirective, AsyncPipe, DatePipe, TranslateModule, NgTemplateOutlet, ProcessOverviewTableComponent, BtnDisabledDirective],
 })
 /**
  * Component displaying a list of all processes in a paginated table

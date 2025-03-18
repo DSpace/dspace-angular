@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -53,6 +56,7 @@ import { ThemedCommunityPageSubCommunityListComponent } from './sections/sub-com
     ThemedComcolPageContentComponent,
     ErrorComponent,
     ThemedLoadingComponent,
+    NgIf,
     TranslateModule,
     ThemedCommunityPageSubCommunityListComponent,
     ThemedCollectionPageSubCollectionListComponent,

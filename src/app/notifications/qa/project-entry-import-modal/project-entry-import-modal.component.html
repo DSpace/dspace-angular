@@ -1,7 +1,7 @@
 <div class="modal-header">
   <h4 class="modal-title" id="modal-title">{{ (labelPrefix + label + '.title') | translate }}</h4>
   <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
-    (click)="close()">
+          (click)="close()">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
@@ -14,18 +14,16 @@
       </a>
     </div>
   </div>
-  @if (externalSourceEntry.projectTitle) {
-    <div>
-      <small>{{ (labelPrefix + label + '.bountToLocal' |translate) }}</small>
-      <div class="mb-3">
-        <div class="text-truncate">
-          <a target="_blank" [routerLink]="'/items/{{externalSourceEntry.projectId}}'">
-            {{externalSourceEntry.projectTitle}}
-          </a>
-        </div>
+  <div *ngIf="externalSourceEntry.projectTitle">
+    <small>{{ (labelPrefix + label + '.bountToLocal' |translate) }}</small>
+    <div class="mb-3">
+      <div class="text-truncate">
+        <a target="_blank" [routerLink]="'/items/{{externalSourceEntry.projectId}}'">
+          {{externalSourceEntry.projectTitle}}
+        </a>
       </div>
     </div>
-  }
+  </div>
 
   <h4>{{ (labelPrefix + label + '.select' | translate) }}</h4>
 
@@ -39,33 +37,27 @@
       </div>
     </div>
 
-    @if ((isLoading$ | async)) {
-      <ds-loading message="{{'loading.search-results' | translate}}"></ds-loading>
-    }
-    @if ((localEntitiesRD$ | async)?.payload?.page?.length > 0 && (isLoading$ | async) !== true) {
-      <ds-search-results
-        [searchResults]="(localEntitiesRD$ | async)"
-        [sortConfig]="this.searchOptions?.sort"
-        [searchConfig]="this.searchOptions"
-        [selectable]="true"
-        [disableHeader]="true"
-        [hidePaginationDetail]="false"
-        [selectionConfig]="{ repeatable: false, listId: entityListId }"
-        [showCsvExport]="false"
-        [linkType]="linkTypes.ExternalLink"
-        [context]="context"
-        (deselectObject)="deselectEntity()"
-        (selectObject)="selectEntity($event)">
-      </ds-search-results>
-    }
+    <ds-loading *ngIf="(isLoading$ | async)" message="{{'loading.search-results' | translate}}"></ds-loading>
+    <ds-search-results *ngIf="(localEntitiesRD$ | async)?.payload?.page?.length > 0 && (isLoading$ | async) !== true"
+                              [searchResults]="(localEntitiesRD$ | async)"
+                              [sortConfig]="this.searchOptions?.sort"
+                              [searchConfig]="this.searchOptions"
+                              [selectable]="true"
+                              [disableHeader]="true"
+                              [hidePaginationDetail]="false"
+                              [selectionConfig]="{ repeatable: false, listId: entityListId }"
+                              [showCsvExport]="false"
+                              [linkType]="linkTypes.ExternalLink"
+                              [context]="context"
+                              (deselectObject)="deselectEntity()"
+                              (selectObject)="selectEntity($event)">
+    </ds-search-results>
 
-    @if ((localEntitiesRD$ | async)?.payload?.page?.length < 1 && (isLoading$ | async) !== true) {
-      <div>
-        <ds-alert [type]="'alert-info'">
-          <p class="lead mb-0">{{(labelPrefix + label + '.notFound' | translate)}}</p>
-        </ds-alert>
-      </div>
-    }
+    <div *ngIf="(localEntitiesRD$ | async)?.payload?.page?.length < 1 && (isLoading$ | async) !== true">
+      <ds-alert [type]="'alert-info'">
+        <p class="lead mb-0">{{(labelPrefix + label + '.notFound' | translate)}}</p>
+      </ds-alert>
+    </div>
 
   </div>
 </div>

@@ -5,7 +5,11 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -73,7 +77,9 @@ import { notifyPatterns } from '../ldn-services-patterns/ldn-service-coar-patter
   imports: [
     ReactiveFormsModule,
     TranslateModule,
+    NgIf,
     NgbDropdownModule,
+    NgForOf,
     AsyncPipe,
   ],
 })
@@ -125,7 +131,6 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
       score: ['', [Validators.required, Validators.pattern('^0*(\.[0-9]+)?$|^1(\.0+)?$')]], inboundPattern: [''],
       constraintPattern: [''],
       enabled: [''],
-      usesActorEmailId: [''],
       type: LDN_SERVICE.value,
     });
   }
@@ -179,8 +184,7 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
       return rest;
     });
 
-    const values = { ...this.formModel.value, enabled: true,
-      usesActorEmailId: this.formModel.get('usesActorEmailId').value };
+    const values = { ...this.formModel.value, enabled: true };
 
     const ldnServiceData = this.ldnServicesService.create(values);
 
@@ -239,7 +243,6 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
             ldnUrl: this.ldnService.ldnUrl,
             type: this.ldnService.type,
             enabled: this.ldnService.enabled,
-            usesActorEmailId: this.ldnService.usesActorEmailId,
             lowerIp: this.ldnService.lowerIp,
             upperIp: this.ldnService.upperIp,
           });
@@ -385,32 +388,6 @@ export class LdnServiceFormComponent implements OnInit, OnDestroy {
         this.cdRef.detectChanges();
       },
     );
-  }
-
-  /**
-   * Toggles the usesActorEmailId field of the LDN service by sending a patch request
-   */
-  toggleUsesActorEmailId() {
-    const newStatus = !this.formModel.get('usesActorEmailId').value;
-    if (!this.isNewService) {
-      const patchOperation: Operation = {
-        op: 'replace',
-        path: '/usesActorEmailId',
-        value: newStatus,
-      };
-
-      this.ldnServicesService.patch(this.ldnService, [patchOperation]).pipe(
-        getFirstCompletedRemoteData(),
-      ).subscribe(
-        () => {
-          this.formModel.get('usesActorEmailId').setValue(newStatus);
-          this.cdRef.detectChanges();
-        },
-      );
-    } else {
-      this.formModel.get('usesActorEmailId').setValue(newStatus);
-      this.cdRef.detectChanges();
-    }
   }
 
   /**

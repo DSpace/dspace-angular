@@ -1,4 +1,7 @@
-import { NgStyle } from '@angular/common';
+import {
+  NgIf,
+  NgStyle,
+} from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -23,6 +26,7 @@ import { listableObjectComponent } from '../object-collection/shared/listable-ob
     NgStyle,
     HoverClassDirective,
     TranslateModule,
+    NgIf,
   ],
 })
 /**

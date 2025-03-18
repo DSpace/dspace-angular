@@ -1,12 +1,10 @@
 import {
   HttpErrorResponse,
   HttpHeaders,
-  provideHttpClient,
-  withInterceptorsFromDi,
 } from '@angular/common/http';
 import {
+  HttpClientTestingModule,
   HttpTestingController,
-  provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import {
   inject,
@@ -35,12 +33,8 @@ describe('DspaceRestService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [],
-      providers: [
-        DspaceRestService,
-        provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting(),
-      ],
+      imports: [HttpClientTestingModule],
+      providers: [DspaceRestService],
     });
 
     dspaceRestService = TestBed.inject(DspaceRestService);

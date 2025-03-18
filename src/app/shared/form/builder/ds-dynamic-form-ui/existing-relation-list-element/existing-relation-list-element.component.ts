@@ -1,5 +1,8 @@
 /* eslint-disable max-classes-per-file */
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -80,6 +83,7 @@ export abstract class Reorderable {
     ThemedLoadingComponent,
     AsyncPipe,
     ListableObjectComponentLoaderComponent,
+    NgIf,
   ],
   standalone: true,
 })

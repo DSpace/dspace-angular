@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   OnInit,
@@ -23,6 +26,7 @@ import { ThemedCommunityPageSubCommunityListComponent } from './sub-community-li
     ThemedCommunityPageSubCommunityListComponent,
     ThemedCollectionPageSubCollectionListComponent,
     AsyncPipe,
+    NgIf,
   ],
   standalone: true,
 })

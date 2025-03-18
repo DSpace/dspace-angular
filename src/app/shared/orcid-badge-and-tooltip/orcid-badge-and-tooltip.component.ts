@@ -1,4 +1,7 @@
-import { NgClass } from '@angular/common';
+import {
+  NgClass,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   Input,
@@ -17,6 +20,7 @@ import { MetadataValue } from '../../core/shared/metadata.models';
   selector: 'ds-orcid-badge-and-tooltip',
   standalone: true,
   imports: [
+    NgIf,
     NgbTooltipModule,
     NgClass,
   ],

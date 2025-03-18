@@ -1,4 +1,8 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -37,7 +41,7 @@ import { ThemedLoadingComponent } from '../loading/themed-loading.component';
   templateUrl: './entity-dropdown.component.html',
   styleUrls: ['./entity-dropdown.component.scss'],
   standalone: true,
-  imports: [InfiniteScrollModule, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [InfiniteScrollModule, NgIf, NgFor, ThemedLoadingComponent, AsyncPipe, TranslateModule],
 })
 export class EntityDropdownComponent implements OnInit, OnDestroy {
   /**

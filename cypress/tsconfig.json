@@ -1,16 +1,10 @@
 {
   "extends": "../tsconfig.json",
   "include": [
-    "**/*.ts",
-    "../cypress.config.ts"
+    "**/*.ts"
   ],
   "compilerOptions": {
     "sourceMap": false,
-    "typeRoots": [
-      "../node_modules",
-      "../node_modules/@types",
-      "../src/typings.d.ts"
-    ],
     "types": [
       "cypress",
       "cypress-axe",

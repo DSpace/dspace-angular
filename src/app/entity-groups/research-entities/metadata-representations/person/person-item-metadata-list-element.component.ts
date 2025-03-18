@@ -1,4 +1,7 @@
-
+import {
+  NgFor,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
@@ -11,7 +14,7 @@ import { TruncatableComponent } from '../../../../shared/truncatable/truncatable
   selector: 'ds-person-item-metadata-list-element',
   templateUrl: './person-item-metadata-list-element.component.html',
   standalone: true,
-  imports: [TruncatableComponent, RouterLink, NgbTooltipModule, OrcidBadgeAndTooltipComponent],
+  imports: [NgIf, NgFor, TruncatableComponent, RouterLink, NgbTooltipModule, OrcidBadgeAndTooltipComponent],
 })
 /**
  * The component for displaying an item of the type Person as a metadata field

@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   OnDestroy,
@@ -43,7 +46,7 @@ import { SearchResultDetailElementComponent } from '../search-result-detail-elem
   styleUrls: ['../search-result-detail-element.component.scss'],
   templateUrl: './pool-search-result-detail-element.component.html',
   standalone: true,
-  imports: [ItemDetailPreviewComponent, PoolTaskActionsComponent, AsyncPipe],
+  imports: [NgIf, ItemDetailPreviewComponent, PoolTaskActionsComponent, AsyncPipe],
 })
 
 @listableObjectComponent(PoolTaskSearchResult, ViewMode.DetailedListElement)

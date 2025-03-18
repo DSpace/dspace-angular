@@ -1,4 +1,7 @@
-
+import {
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -23,7 +26,9 @@ import { AdminNotifyMessage } from '../models/admin-notify-message.model';
   ],
   standalone: true,
   imports: [
+    NgForOf,
     TranslateModule,
+    NgIf,
   ],
 })
 /**

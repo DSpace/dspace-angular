@@ -1,4 +1,8 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   Input,
@@ -34,7 +38,7 @@ import { isEmpty } from '../../shared/empty.util';
   templateUrl: './statistics-table.component.html',
   styleUrls: ['./statistics-table.component.scss'],
   standalone: true,
-  imports: [AsyncPipe, TranslateModule],
+  imports: [NgIf, NgFor, AsyncPipe, TranslateModule],
 })
 export class StatisticsTableComponent implements OnInit {
 

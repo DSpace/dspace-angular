@@ -1,6 +1,7 @@
 import {
   DOCUMENT,
   NgClass,
+  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -39,6 +40,7 @@ export const DS_DATE_PICKER_SEPARATOR = '-';
   templateUrl: './date-picker.component.html',
   imports: [
     NgClass,
+    NgIf,
     NumberPickerComponent,
     FormsModule,
     TranslateModule,

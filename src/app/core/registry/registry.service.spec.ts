@@ -44,7 +44,7 @@ import { RegistryService } from './registry.service';
 @Component({
   template: '',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
 })
 class DummyComponent {
 }

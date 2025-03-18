@@ -1,4 +1,4 @@
-
+import { NgForOf } from '@angular/common';
 import {
   Component,
   Input,
@@ -23,6 +23,7 @@ import { FilterGroup } from './filter-group.model';
   templateUrl: './filters-section.component.html',
   styleUrls: ['./filters-section.component.scss'],
   imports: [
+    NgForOf,
     ReactiveFormsModule,
     TranslateModule,
   ],

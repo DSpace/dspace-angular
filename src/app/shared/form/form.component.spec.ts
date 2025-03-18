@@ -195,13 +195,11 @@ describe('FormComponent test suite', () => {
     // synchronous beforeEach
     beforeEach(() => {
       html = `
-        @if('formModel') {
-            <ds-form #formRef="formComponent"
+        <ds-form *ngIf="formModel" #formRef="formComponent"
                  [formId]="formId"
                  [formModel]="formModel"
                  [displaySubmit]="displaySubmit"
-                 [displayCancel]="displayCancel"></ds-form>
-        }`;
+                 [displayCancel]="displayCancel"></ds-form>`;
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
@@ -473,13 +471,13 @@ describe('FormComponent test suite', () => {
   template: ``,
   standalone: true,
   imports: [
+    CommonModule,
     FormComponent,
     DsDynamicFormComponent,
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    DynamicFormsCoreModule,
-  ],
+    DynamicFormsCoreModule],
 })
 class TestComponent {
 

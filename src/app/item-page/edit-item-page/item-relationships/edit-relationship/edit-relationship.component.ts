@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   Input,
@@ -49,6 +52,7 @@ import { VirtualMetadataComponent } from '../../virtual-metadata/virtual-metadat
   imports: [
     ListableObjectComponentLoaderComponent,
     AsyncPipe,
+    NgIf,
     TranslateModule,
     VirtualMetadataComponent,
     BtnDisabledDirective,

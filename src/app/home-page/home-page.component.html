@@ -1,31 +1,25 @@
 <ds-home-coar></ds-home-coar>
 <ds-home-news></ds-home-news>
-@if (showDiscoverFilters) {
-  <ds-configuration-search-page
-    [sideBarWidth]="3"
-    [showViewModes]="false"
-    [searchEnabled]="false"
-    [inPlaceSearch]="false"
-    [showScopeSelector]="false">
-    <ng-container searchContentTop *ngTemplateOutlet="homeContent"></ng-container>
-  </ds-configuration-search-page>
-}
-@if (!showDiscoverFilters) {
-  <div class="container">
-    <ng-container *ngTemplateOutlet="homeContent"></ng-container>
-  </div>
-}
+<ds-configuration-search-page *ngIf="showDiscoverFilters"
+                              [sideBarWidth]="3"
+                              [showViewModes]="false"
+                              [searchEnabled]="false"
+                              [inPlaceSearch]="false"
+                              [showScopeSelector]="false">
+  <ng-container searchContentTop *ngTemplateOutlet="homeContent"></ng-container>
+</ds-configuration-search-page>
+<div *ngIf="!showDiscoverFilters" class="container">
+  <ng-container *ngTemplateOutlet="homeContent"></ng-container>
+</div>
 <ds-suggestions-popup></ds-suggestions-popup>
 
 <ng-template #homeContent>
-  @if ((site$ | async); as site) {
+  <ng-container *ngIf="(site$ | async) as site">
     <ds-view-tracker [object]="site"></ds-view-tracker>
-  }
+  </ng-container>
   <ds-search-form [inPlaceSearch]="false"
-    [searchPlaceholder]="'home.search-form.placeholder' | translate">
+                         [searchPlaceholder]="'home.search-form.placeholder' | translate">
   </ds-search-form>
   <ds-top-level-community-list></ds-top-level-community-list>
-  @if (recentSubmissionspageSize>0) {
-    <ds-recent-item-list></ds-recent-item-list>
-  }
+  <ds-recent-item-list *ngIf="recentSubmissionspageSize>0"></ds-recent-item-list>
 </ng-template>

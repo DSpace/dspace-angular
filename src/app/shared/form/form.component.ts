@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -65,6 +68,7 @@ import { FormService } from './form.service';
     ReactiveFormsModule,
     TranslateModule,
     DynamicFormsCoreModule,
+    NgIf,
     AsyncPipe,
     BtnDisabledDirective,
   ],

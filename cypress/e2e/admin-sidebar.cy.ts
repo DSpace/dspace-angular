@@ -1,4 +1,5 @@
 import { testA11y } from 'cypress/support/utils';
+import { Options } from 'cypress-axe';
 
 describe('Admin Sidebar', () => {
   beforeEach(() => {
@@ -15,6 +16,13 @@ describe('Admin Sidebar', () => {
     cy.get('ds-expandable-admin-sidebar-section').click({ multiple: true });
 
     // Analyze <ds-admin-sidebar> for accessibility
-    testA11y('ds-admin-sidebar');
+    testA11y('ds-admin-sidebar',
+        {
+          rules: {
+            // Currently all expandable sections have nested interactive elements
+            // See https://github.com/DSpace/dspace-angular/issues/2178
+            'nested-interactive': { enabled: false },
+          },
+        } as Options);
   });
 });

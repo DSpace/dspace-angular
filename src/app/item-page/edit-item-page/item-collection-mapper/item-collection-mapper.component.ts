@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -76,6 +79,7 @@ import { getItemPageRoute } from '../../item-page-routing-paths';
     ThemedSearchFormComponent,
     AsyncPipe,
     TranslateModule,
+    NgIf,
     BrowserOnlyPipe,
   ],
   standalone: true,

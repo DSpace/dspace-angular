@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   OnInit,
@@ -36,6 +39,7 @@ import { getCollectionEditRoute } from '../collection-page-routing-paths';
     RouterLink,
     AsyncPipe,
     VarDirective,
+    NgIf,
     TranslateModule,
     ThemedLoadingComponent,
     AlertComponent,

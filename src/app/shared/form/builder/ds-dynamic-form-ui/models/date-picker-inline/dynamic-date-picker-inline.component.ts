@@ -1,4 +1,7 @@
-import { NgClass } from '@angular/common';
+import {
+  NgClass,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -32,6 +35,7 @@ import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
     NgClass,
     NgbDatepickerModule,
     ReactiveFormsModule,
+    NgIf,
     BtnDisabledDirective,
   ],
   standalone: true,

@@ -1,4 +1,7 @@
-import { NgClass } from '@angular/common';
+import {
+  NgClass,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   OnInit,
@@ -17,7 +20,7 @@ import { SearchResultListElementComponent } from '../search-result-list-element.
   styleUrls: ['../search-result-list-element.component.scss', 'community-search-result-list-element.component.scss'],
   templateUrl: 'community-search-result-list-element.component.html',
   standalone: true,
-  imports: [NgClass, ThemedBadgesComponent, RouterLink],
+  imports: [NgIf, NgClass, ThemedBadgesComponent, RouterLink],
 })
 /**
  * Component representing a community search result in list view

@@ -1,4 +1,7 @@
-
+import {
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   Input,
@@ -21,8 +24,10 @@ import { languageHelper } from './language-helper';
   templateUrl: './media-viewer-video.component.html',
   styleUrls: ['./media-viewer-video.component.scss'],
   imports: [
+    NgForOf,
     NgbDropdownModule,
     TranslateModule,
+    NgIf,
     BtnDisabledDirective,
   ],
   standalone: true,

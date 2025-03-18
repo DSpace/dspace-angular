@@ -1,4 +1,7 @@
-import { NgClass } from '@angular/common';
+import {
+  NgClass,
+  NgFor,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -40,7 +43,7 @@ import { notificationsStateSelector } from '../selectors';
   styleUrls: ['./notifications-board.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NgClass, NotificationComponent],
+  imports: [NgClass, NgFor, NotificationComponent],
 })
 export class NotificationsBoardComponent implements OnInit, OnDestroy {
 

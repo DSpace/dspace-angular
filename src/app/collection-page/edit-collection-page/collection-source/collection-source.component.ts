@@ -1,6 +1,7 @@
 import {
   AsyncPipe,
   Location,
+  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -77,6 +78,7 @@ import { CollectionSourceControlsComponent } from './collection-source-controls/
   imports: [
     AsyncPipe,
     TranslateModule,
+    NgIf,
     ThemedLoadingComponent,
     FormComponent,
     CollectionSourceControlsComponent,

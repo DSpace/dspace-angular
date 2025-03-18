@@ -1,6 +1,7 @@
 import {
   AsyncPipe,
   NgClass,
+  NgIf,
 } from '@angular/common';
 import {
   ChangeDetectorRef,
@@ -73,6 +74,7 @@ import { DynamicRelationGroupModel } from './dynamic-relation-group.model';
   templateUrl: './dynamic-relation-group.component.html',
   animations: [shrinkInOut],
   imports: [
+    NgIf,
     AsyncPipe,
     NgbTooltipModule,
     TranslateModule,

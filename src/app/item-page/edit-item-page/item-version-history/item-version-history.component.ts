@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   OnInit,
@@ -20,6 +23,7 @@ import { ItemVersionsComponent } from '../../versions/item-versions.component';
   imports: [
     ItemVersionsComponent,
     VarDirective,
+    NgIf,
     AsyncPipe,
   ],
   standalone: true,

@@ -1,6 +1,8 @@
 import {
   AsyncPipe,
   DatePipe,
+  NgFor,
+  NgIf,
 } from '@angular/common';
 import {
   AfterViewInit,
@@ -38,7 +40,7 @@ import { NotificationsStateService } from '../../notifications-state.service';
   templateUrl: './quality-assurance-source.component.html',
   styleUrls: ['./quality-assurance-source.component.scss'],
   standalone: true,
-  imports: [AlertComponent, ThemedLoadingComponent, PaginationComponent, RouterLink, AsyncPipe, TranslateModule, DatePipe],
+  imports: [AlertComponent, NgIf, ThemedLoadingComponent, PaginationComponent, NgFor, RouterLink, AsyncPipe, TranslateModule, DatePipe],
 })
 export class QualityAssuranceSourceComponent implements OnDestroy, OnInit, AfterViewInit {
 

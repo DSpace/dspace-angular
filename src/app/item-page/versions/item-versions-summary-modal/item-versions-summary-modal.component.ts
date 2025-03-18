@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -18,7 +21,7 @@ import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.c
   templateUrl: './item-versions-summary-modal.component.html',
   styleUrls: ['./item-versions-summary-modal.component.scss'],
   standalone: true,
-  imports: [FormsModule, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [NgIf, FormsModule, ThemedLoadingComponent, AsyncPipe, TranslateModule],
 })
 export class ItemVersionsSummaryModalComponent implements OnInit, ModalBeforeDismiss {
 

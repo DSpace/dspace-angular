@@ -1,4 +1,7 @@
-
+import {
+  NgFor,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   Input,
@@ -40,7 +43,7 @@ import { ScriptsSelectComponent } from './scripts-select/scripts-select.componen
   templateUrl: './process-form.component.html',
   styleUrls: ['./process-form.component.scss'],
   standalone: true,
-  imports: [FormsModule, ScriptsSelectComponent, ProcessParametersComponent, RouterLink, ScriptHelpComponent, TranslateModule],
+  imports: [FormsModule, ScriptsSelectComponent, ProcessParametersComponent, RouterLink, ScriptHelpComponent, NgIf, NgFor, TranslateModule],
 })
 export class ProcessFormComponent implements OnInit {
   /**

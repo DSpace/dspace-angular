@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -28,6 +31,7 @@ import { EditRelationshipListComponent } from '../edit-relationship-list/edit-re
   imports: [
     AsyncPipe,
     EditRelationshipListComponent,
+    NgIf,
   ],
 })
 /**

@@ -1,3 +1,7 @@
+import {
+  NgFor,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -11,6 +15,8 @@ import { ItemDetailPreviewFieldComponent as BaseComponent } from '../../../../..
   standalone: true,
   imports: [
     MetadataFieldWrapperComponent,
+    NgFor,
+    NgIf,
     TranslateModule,
   ],
 })

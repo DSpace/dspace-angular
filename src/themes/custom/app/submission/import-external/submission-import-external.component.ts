@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -26,6 +29,7 @@ import { SubmissionImportExternalComponent as BaseComponent } from '../../../../
     ObjectCollectionComponent,
     ThemedLoadingComponent,
     AlertComponent,
+    NgIf,
     AsyncPipe,
     SubmissionImportExternalSearchbarComponent,
     TranslateModule,

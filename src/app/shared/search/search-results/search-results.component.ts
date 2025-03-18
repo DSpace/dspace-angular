@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -57,6 +60,7 @@ export interface SelectionConfig {
   imports: [
     AsyncPipe,
     ErrorComponent,
+    NgIf,
     NgxSkeletonLoaderModule,
     ObjectCollectionComponent,
     RouterLink,

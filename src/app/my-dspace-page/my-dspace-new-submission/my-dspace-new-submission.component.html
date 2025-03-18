@@ -1,12 +1,10 @@
 <div class="parent mb-3">
   <div class="upload">
-    @if (uploadFilesOptions.url !== '') {
-      <ds-uploader
-        [uploadFilesOptions]="uploadFilesOptions"
-        (onCompleteItem)="onCompleteItem($event)"
-        (onUploadError)="onUploadError($event)"
-      (onFileSelected)="afterFileLoaded($event)"></ds-uploader>
-    }
+    <ds-uploader *ngIf="uploadFilesOptions.url !== ''"
+                 [uploadFilesOptions]="uploadFilesOptions"
+                 (onCompleteItem)="onCompleteItem($event)"
+                 (onUploadError)="onUploadError($event)"
+                 (onFileSelected)="afterFileLoaded($event)"></ds-uploader>
 
   </div>
   <div class="add">

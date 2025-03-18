@@ -1,4 +1,7 @@
-import { NgClass } from '@angular/common';
+import {
+  NgClass,
+  NgIf,
+} from '@angular/common';
 import {
   ComponentFixture,
   TestBed,
@@ -21,6 +24,7 @@ describe('OrcidBadgeAndTooltipComponent', () => {
         OrcidBadgeAndTooltipComponent,
         NgbTooltipModule,
         NgClass,
+        NgIf,
       ],
       providers: [
         { provide: TranslateService, useValue: { instant: (key: string) => key } },

@@ -1,6 +1,8 @@
 import {
   AsyncPipe,
   NgClass,
+  NgForOf,
+  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -47,6 +49,8 @@ import { MetadataSchemaFormComponent } from './metadata-schema-form/metadata-sch
     TranslateModule,
     AsyncPipe,
     PaginationComponent,
+    NgIf,
+    NgForOf,
     NgClass,
     RouterLink,
   ],

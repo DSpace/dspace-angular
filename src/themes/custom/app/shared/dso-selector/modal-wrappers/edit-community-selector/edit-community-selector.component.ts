@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -10,7 +11,7 @@ import { EditCommunitySelectorComponent as BaseComponent } from '../../../../../
   // templateUrl: './edit-community-selector.component.html',
   templateUrl: '../../../../../../../app/shared/dso-selector/modal-wrappers/dso-selector-modal-wrapper.component.html',
   standalone: true,
-  imports: [DSOSelectorComponent, TranslateModule],
+  imports: [NgIf, DSOSelectorComponent, TranslateModule],
 })
 export class EditCommunitySelectorComponent extends BaseComponent {
 }

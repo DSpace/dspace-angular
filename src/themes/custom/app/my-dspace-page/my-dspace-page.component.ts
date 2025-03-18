@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -39,6 +42,7 @@ import { ThemedSearchComponent } from '../../../../app/shared/search/themed-sear
     MyDSpaceNewSubmissionComponent,
     AsyncPipe,
     RoleDirective,
+    NgIf,
     SuggestionsNotificationComponent,
     MyDspaceQaEventsNotificationsComponent,
   ],

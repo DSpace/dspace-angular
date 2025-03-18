@@ -1,6 +1,4 @@
 <div class="d-inline-block">
   <div>{{object.display}}</div>
-  @if (uri) {
-    <div><a target="_blank" [href]="uri.value">{{uri.value}}</a></div>
-  }
+  <div *ngIf="uri"><a target="_blank" [href]="uri.value">{{uri.value}}</a></div>
 </div>

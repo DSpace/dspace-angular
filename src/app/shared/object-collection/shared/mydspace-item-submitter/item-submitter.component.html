@@ -2,11 +2,12 @@
   <span class="text-muted">
     {{'submission.workflow.tasks.generic.submitter' | translate}}:
     <span class="badge bg-info">
-      @if (submitter$ | async; as submitter) {
+      <ng-container *ngIf="submitter$ | async as submitter; else noSubmitter">
         {{ dsoNameService.getName(submitter) }}
-      } @else {
+      </ng-container>
+      <ng-template #noSubmitter>
         {{ 'submitter.empty' | translate }}
-      }
+      </ng-template>
     </span>
   </span>
 </div>

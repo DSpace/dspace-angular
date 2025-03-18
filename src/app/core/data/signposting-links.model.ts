@@ -4,6 +4,5 @@
 export interface SignpostingLink {
     href?: string,
     rel?: string,
-    type?: string,
-    profile?: string
+    type?: string
 }

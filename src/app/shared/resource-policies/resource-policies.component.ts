@@ -1,4 +1,8 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -57,7 +61,9 @@ import {
   imports: [
     ResourcePolicyEntryComponent,
     TranslateModule,
+    NgIf,
     AsyncPipe,
+    NgForOf,
     BtnDisabledDirective,
   ],
   standalone: true,

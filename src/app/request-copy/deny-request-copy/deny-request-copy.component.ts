@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   OnInit,
@@ -45,7 +48,7 @@ import { ThemedEmailRequestCopyComponent } from '../email-request-copy/themed-em
   styleUrls: ['./deny-request-copy.component.scss'],
   templateUrl: './deny-request-copy.component.html',
   standalone: true,
-  imports: [VarDirective, ThemedEmailRequestCopyComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [VarDirective, NgIf, ThemedEmailRequestCopyComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
 })
 /**
  * Component for denying an item request

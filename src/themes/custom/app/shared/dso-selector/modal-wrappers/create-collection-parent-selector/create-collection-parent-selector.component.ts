@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -10,7 +11,7 @@ import { CreateCollectionParentSelectorComponent as BaseComponent } from '../../
   // templateUrl: './create-collection-parent-selector.component.html',
   templateUrl: '../../../../../../../app/shared/dso-selector/modal-wrappers/dso-selector-modal-wrapper.component.html',
   standalone: true,
-  imports: [DSOSelectorComponent, TranslateModule],
+  imports: [NgIf, DSOSelectorComponent, TranslateModule],
 })
 export class CreateCollectionParentSelectorComponent extends BaseComponent {
 }

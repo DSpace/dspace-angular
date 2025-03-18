@@ -1,6 +1,8 @@
 import {
   AsyncPipe,
   NgClass,
+  NgForOf,
+  NgIf,
 } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -28,7 +30,9 @@ import {
   standalone: true,
   imports: [
     TranslateModule,
+    NgForOf,
     AsyncPipe,
+    NgIf,
     RouterLink,
     ItemOperationComponent,
     NgClass,

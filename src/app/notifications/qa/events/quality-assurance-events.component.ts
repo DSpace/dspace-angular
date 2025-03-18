@@ -1,4 +1,8 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   OnDestroy,
@@ -83,7 +87,7 @@ import { EPersonDataComponent } from './ePerson-data/ePerson-data.component';
   templateUrl: './quality-assurance-events.component.html',
   styleUrls: ['./quality-assurance-events.component.scss'],
   standalone: true,
-  imports: [AlertComponent, ThemedLoadingComponent, PaginationComponent, RouterLink, NgbTooltipModule, AsyncPipe, TranslateModule, EPersonDataComponent, BtnDisabledDirective],
+  imports: [AlertComponent, NgIf, ThemedLoadingComponent, PaginationComponent, NgFor, RouterLink, NgbTooltipModule, AsyncPipe, TranslateModule, EPersonDataComponent, BtnDisabledDirective],
 })
 export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
   /**

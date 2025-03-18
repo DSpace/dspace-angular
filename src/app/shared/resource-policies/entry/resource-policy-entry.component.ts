@@ -5,7 +5,10 @@
  *
  * http://www.dspace.org/license/
  */
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -57,6 +60,7 @@ export interface ResourcePolicyCheckboxEntry {
     AsyncPipe,
     TranslateModule,
     FormsModule,
+    NgIf,
     HasValuePipe,
   ],
   standalone: true,

@@ -175,7 +175,7 @@ describe('QualityAssuranceTopicsComponent test suite', () => {
   selector: 'ds-test-cmp',
   template: ``,
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
 })
 class TestComponent {
 

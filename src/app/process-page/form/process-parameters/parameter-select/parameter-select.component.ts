@@ -1,4 +1,7 @@
-
+import {
+  NgFor,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -31,7 +34,7 @@ import { ParameterValueInputComponent } from '../parameter-value-input/parameter
     deps: [[new Optional(), NgForm]],
   }],
   standalone: true,
-  imports: [FormsModule, ParameterValueInputComponent, TranslateModule],
+  imports: [FormsModule, NgFor, ParameterValueInputComponent, NgIf, TranslateModule],
 })
 export class ParameterSelectComponent {
   @Input() index: number;

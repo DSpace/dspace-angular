@@ -1,6 +1,8 @@
 import {
   AsyncPipe,
   NgClass,
+  NgFor,
+  NgIf,
   NgTemplateOutlet,
 } from '@angular/common';
 import {
@@ -33,7 +35,7 @@ import { InputSuggestion } from '../input-suggestions.model';
     },
   ],
   standalone: true,
-  imports: [FormsModule, ClickOutsideDirective, NgTemplateOutlet, DebounceDirective, NgClass, AsyncPipe, TranslateModule],
+  imports: [FormsModule, ClickOutsideDirective, NgIf, NgTemplateOutlet, DebounceDirective, NgClass, NgFor, AsyncPipe, TranslateModule],
 })
 
 /**

@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgFor,
+} from '@angular/common';
 import {
   Component,
   Inject,
@@ -27,7 +30,7 @@ import { SidebarDropdownComponent } from '../sidebar/sidebar-dropdown.component'
   styleUrls: ['./page-size-selector.component.scss'],
   templateUrl: './page-size-selector.component.html',
   standalone: true,
-  imports: [SidebarDropdownComponent, FormsModule, AsyncPipe],
+  imports: [SidebarDropdownComponent, NgFor, FormsModule, AsyncPipe],
 })
 
 /**

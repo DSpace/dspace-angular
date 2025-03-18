@@ -1,4 +1,7 @@
-import { NgClass } from '@angular/common';
+import {
+  NgClass,
+  NgForOf,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -34,6 +37,7 @@ import { DsDynamicFormControlContainerComponent } from '../../ds-dynamic-form-co
   imports: [
     ReactiveFormsModule,
     NgClass,
+    NgForOf,
     forwardRef(() => DsDynamicFormControlContainerComponent),
   ],
   standalone: true,

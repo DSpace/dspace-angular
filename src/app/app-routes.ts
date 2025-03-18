@@ -108,7 +108,7 @@ export const APP_ROUTES: Route[] = [
         path: COLLECTION_MODULE_PATH,
         loadChildren: () => import('./collection-page/collection-page-routes')
           .then((m) => m.ROUTES),
-        data: { enableRSS: true },
+        data: { showBreadcrumbs: false,  enableRSS: true },
         canActivate: [endUserAgreementCurrentUserGuard],
       },
       {

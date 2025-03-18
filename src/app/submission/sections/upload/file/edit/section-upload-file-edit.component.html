@@ -5,17 +5,15 @@
     </button>
   </div>
   <div class="modal-body">
-    @if (formModel) {
-      <ds-form
-        #formRef="formComponent"
-        [formId]="formId"
-        [formModel]="formModel"
-        [displaySubmit]="!isSaving"
-        [displayCancel]="!isSaving"
-        (submitForm)="onSubmit()"
-        (cancel)="onModalClose()"
-      (dfChange)="onChange($event)"></ds-form>
-    }
+    <ds-form *ngIf="formModel"
+             #formRef="formComponent"
+             [formId]="formId"
+             [formModel]="formModel"
+             [displaySubmit]="!isSaving"
+             [displayCancel]="!isSaving"
+             (submitForm)="onSubmit()"
+             (cancel)="onModalClose()"
+             (dfChange)="onChange($event)"></ds-form>
 
   </div>
 </div>

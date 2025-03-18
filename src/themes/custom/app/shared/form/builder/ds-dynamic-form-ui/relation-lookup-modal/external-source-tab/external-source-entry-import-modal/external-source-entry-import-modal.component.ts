@@ -1,4 +1,7 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -15,6 +18,7 @@ import { ThemedSearchResultsComponent } from '../../../../../../../../../../app/
   imports: [
     TranslateModule,
     ThemedSearchResultsComponent,
+    NgIf,
     AsyncPipe,
     BtnDisabledDirective,
   ],
