@@ -76,7 +76,7 @@ export class GrantRequestCopyComponent implements OnInit {
   /**
    * A list of integers determining valid access periods in seconds
    */
-  validAccessPeriods$: Observable<number[]>;
+  validAccessPeriods$: Observable<string[]>;
 
   /**
    * The currently selected access period

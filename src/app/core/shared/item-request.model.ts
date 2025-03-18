@@ -86,10 +86,10 @@ export class ItemRequest implements CacheableObject {
   @autoserialize
   accessToken: string;
   /**
-   * Access period of the request
+   * Access expiry date of the request
    */
   @autoserialize
-  accessPeriod: number;
+  accessExpiry: string;
 
   /**
    * The {@link HALLink}s for this ItemRequest
