@@ -136,7 +136,12 @@ export class BrowserInitService extends InitService {
 
       this.initOrejime();
 
-      this.initBootstrapEndpoints();
+      this.initBootstrapEndpoints$().subscribe(_ => {
+        if (hasValue(this.appConfig?.prefetch?.bootstrap)) {
+          // Clear bootstrap once finished so the dspace-rest.service does not keep using the bootstrapped responses
+          this.appConfig.prefetch.bootstrap = undefined;
+        }
+      });
 
       await lastValueFrom(this.authenticationReady$());
 
@@ -239,18 +244,6 @@ export class BrowserInitService extends InitService {
     ).subscribe(() => {
       this.rootDataService.invalidateRootCache();
     });
-  }
-
-  /**
-   * Use the bootstrapped requests from the server to prefill the cache on the client
-   */
-  override initBootstrapEndpoints() {
-    super.initBootstrapEndpoints();
-
-    if (hasValue(this.appConfig?.prefetch?.bootstrap)) {
-      // Clear bootstrap once finished so the dspace-rest.service does not keep using the bootstrap
-      this.appConfig.prefetch.bootstrap = undefined;
-    }
   }
 
 }
