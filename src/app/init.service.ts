@@ -21,8 +21,8 @@ import { MetadataService } from './core/metadata/metadata.service';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
 import { ThemeService } from './shared/theme-support/theme.service';
 import { isAuthenticationBlocking } from './core/auth/selectors';
-import { distinctUntilChanged, find, take } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { distinctUntilChanged, find, map, take } from 'rxjs/operators';
+import { combineLatest, Observable, of } from 'rxjs';
 import { MenuService } from './shared/menu/menu.service';
 import { hasValue } from './shared/empty.util';
 import { HrefOnlyDataService } from './core/data/href-only-data.service';
@@ -207,11 +207,20 @@ export abstract class InitService {
   /**
    * Use the bootstrapped requests to prefill the cache
    */
-  protected initBootstrapEndpoints() {
+  protected initBootstrapEndpoints$(): Observable<void> {
     if (hasValue(this.appConfig?.prefetch?.bootstrap)) {
+      const observables = {};
+
       for (let url of Object.getOwnPropertyNames(this.appConfig.prefetch.bootstrap)) {
-        this.hrefOnlyDataService.findByHref(url, false).pipe(take(1)).subscribe();
+        observables[url] = this.hrefOnlyDataService.findByHref(url, false);
       }
+
+      return combineLatest(observables).pipe(
+        take(1),
+        map(_ => undefined),
+      );
+    } else {
+      return of(undefined);
     }
   }
 }
