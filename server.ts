@@ -20,10 +20,10 @@ import 'reflect-metadata';
 
 /* eslint-disable import/no-namespace */
 import * as morgan from 'morgan';
-import * as express from 'express';
+import express from 'express';
 import * as ejs from 'ejs';
 import * as compression from 'compression';
-import * as expressStaticGzip from 'express-static-gzip';
+import expressStaticGzip from 'express-static-gzip';
 /* eslint-enable import/no-namespace */
 import axios from 'axios';
 import LRU from 'lru-cache';

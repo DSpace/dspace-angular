@@ -1,7 +1,5 @@
 import {
   AsyncPipe,
-  NgFor,
-  NgIf,
   NgTemplateOutlet,
 } from '@angular/common';
 import {
@@ -36,7 +34,7 @@ import { ImageField } from '../../simple/field-components/specific-field/image-f
   styleUrls: ['./metadata-values.component.scss'],
   templateUrl: './metadata-values.component.html',
   standalone: true,
-  imports: [MetadataFieldWrapperComponent, NgFor, NgTemplateOutlet, NgIf, RouterLink, AsyncPipe, TranslateModule, MarkdownDirective],
+  imports: [MetadataFieldWrapperComponent, NgTemplateOutlet, RouterLink, AsyncPipe, TranslateModule, MarkdownDirective],
 })
 export class MetadataValuesComponent implements OnChanges {
 

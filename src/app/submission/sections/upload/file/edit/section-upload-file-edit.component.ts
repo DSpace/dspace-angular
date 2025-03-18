@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   ChangeDetectorRef,
   Component,
@@ -82,7 +82,6 @@ import {
   templateUrl: './section-upload-file-edit.component.html',
   imports: [
     FormComponent,
-    NgIf,
     TranslateModule,
     BtnDisabledDirective,
   ],

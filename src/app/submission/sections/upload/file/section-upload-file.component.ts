@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -51,7 +48,6 @@ import { SubmissionSectionUploadFileViewComponent } from './view/section-upload-
   imports: [
     TranslateModule,
     SubmissionSectionUploadFileViewComponent,
-    NgIf,
     AsyncPipe,
     ThemedFileDownloadLinkComponent,
     FileSizePipe,

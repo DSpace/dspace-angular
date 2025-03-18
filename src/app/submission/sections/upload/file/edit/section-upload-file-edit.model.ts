@@ -15,7 +15,7 @@ export const BITSTREAM_METADATA_FORM_GROUP_CONFIG: DynamicFormGroupModelConfig =
 };
 export const BITSTREAM_METADATA_FORM_GROUP_LAYOUT: DynamicFormControlLayout = {
   element: {
-    container: 'form-group',
+    container: 'mb-3',
     label: 'col-form-label',
   },
   grid: {
@@ -29,9 +29,9 @@ export const BITSTREAM_ACCESS_CONDITION_GROUP_CONFIG: DynamicFormGroupModelConfi
 
 export const BITSTREAM_ACCESS_CONDITION_GROUP_LAYOUT: DynamicFormControlLayout = {
   element: {
-    host: 'form-group access-condition-group col',
-    container: 'pl-1 pr-1',
-    control: 'form-row ',
+    host: 'mb-3 access-condition-group col',
+    container: 'ps-1 pe-1',
+    control: 'row ',
   },
 };
 
@@ -41,7 +41,7 @@ export const BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_CONFIG: DynamicFormArrayMode
 };
 export const BITSTREAM_ACCESS_CONDITIONS_FORM_ARRAY_LAYOUT: DynamicFormControlLayout = {
   grid: {
-    group: 'form-row pt-4',
+    group: 'row pt-4',
   },
 };
 

@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   EventEmitter,
@@ -30,7 +30,6 @@ import { SuggestionApproveAndImport } from '../suggestion-list-element/suggestio
   imports: [
     EntityDropdownComponent,
     TranslateModule,
-    NgIf,
     NgbDropdownModule,
     BtnDisabledDirective,
   ],
