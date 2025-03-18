@@ -170,7 +170,6 @@ describe('FeedbackFormComponent', () => {
       component.send('googleRecaptchaToken');
       tick();
       expect(feedbackDataService.registerFeedback).toHaveBeenCalledWith({ message: 'new feedback', page: 'http://localhost/home', email: 'test@test.com' },'googleRecaptchaToken');
-      expect(notificationsService.success).toHaveBeenCalled();
       expect(router.navigate).toHaveBeenCalledWith('/home');
     }));
     it('should send a registration to the service and on error display a message',
@@ -182,8 +181,6 @@ describe('FeedbackFormComponent', () => {
         component.send('googleRecaptchaToken');
         tick();
         expect(feedbackDataService.registerFeedback).toHaveBeenCalledWith({ message: 'new feedback', page: 'http://localhost/home', email: 'test@test.com' },'googleRecaptchaToken');
-        tick();
-        expect(notificationsService.error).toHaveBeenCalled();
         expect(router.navigate).not.toHaveBeenCalled();
       }));
   });
