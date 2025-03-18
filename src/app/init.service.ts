@@ -20,10 +20,15 @@ import {
 } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import isEqual from 'lodash/isEqual';
-import { Observable } from 'rxjs';
+import {
+  combineLatest,
+  Observable,
+  of,
+} from 'rxjs';
 import {
   distinctUntilChanged,
   find,
+  map,
   take,
 } from 'rxjs/operators';
 
@@ -237,11 +242,20 @@ export abstract class InitService {
   /**
    * Use the bootstrapped requests to prefill the cache
    */
-  protected initBootstrapEndpoints() {
+  protected initBootstrapEndpoints$(): Observable<void> {
     if (hasValue(this.appConfig?.prefetch?.bootstrap)) {
+      const observables = {};
+
       for (const url of Object.getOwnPropertyNames(this.appConfig.prefetch.bootstrap)) {
-        this.hrefOnlyDataService.findByHref(url, false).pipe(take(1)).subscribe();
+        observables[url] = this.hrefOnlyDataService.findByHref(url, false);
       }
+
+      return combineLatest(observables).pipe(
+        take(1),
+        map(_ => undefined),
+      );
+    } else {
+      return of(undefined);
     }
   }
 }
