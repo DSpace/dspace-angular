@@ -28,6 +28,15 @@ import {
   ID,
 } from './hashed-file-mapping';
 
+const HEAD_LINK_CLASS = 'hfm';
+
+interface HeadLink {
+  path: string;
+  rel: string;
+  as: string;
+  crossorigin?: string;
+}
+
 /**
  * Server-side implementation of {@link HashedFileMapping}.
  * Registers dynamically hashed files and stores them in index.html for the browser to use.
@@ -36,7 +45,7 @@ export class ServerHashedFileMapping extends HashedFileMapping {
   public readonly indexPath: string;
   private readonly indexContent: string;
 
-  protected readonly headLinks: Set<string> = new Set();
+  protected readonly headLinks: Set<HeadLink> = new Set();
 
   constructor(
     private readonly root: string,
@@ -113,7 +122,11 @@ export class ServerHashedFileMapping extends HashedFileMapping {
 
       // We know this CSS is likely needed, so wecan avoid a FOUC by retrieving it in advance
       // Angular does the same for global styles, but doesn't "know" about out themes
-      this.addHeadLink(p, 'prefetch', 'style');
+      this.addHeadLink({
+        path: p,
+        rel: 'prefetch',
+        as: 'style',
+      });
 
       this.ensureCompressedFilesAssumingUnchangedContent(p, hp, '.br');
       this.ensureCompressedFilesAssumingUnchangedContent(p, hp, '.gz');
@@ -123,14 +136,17 @@ export class ServerHashedFileMapping extends HashedFileMapping {
   /**
    * Include a head link for a given resource to the index HTML.
    */
-  addHeadLink(path: string, rel: string, as: string, crossorigin?: string) {
-    const href = relative(this.root, this.resolve(path));
+  addHeadLink(headLink: HeadLink) {
+    this.headLinks.add(headLink);
+  }
 
-    if (hasValue(crossorigin)) {
-      this.headLinks.add(`<link rel="${rel}" as="${as}" crossorigin="${crossorigin}" href="${href}">`);
+  private renderHeadLink(link: HeadLink): string {
+    const href = relative(this.root, this.resolve(link.path));
 
+    if (hasValue(link.crossorigin)) {
+      return `<link rel="${link.rel}" as="${link.as}" href="${href}" crossorigin="${link.crossorigin}" class="${HEAD_LINK_CLASS}">`;
     } else {
-      this.headLinks.add(`<link rel="${rel}" as="${as}" href="${href}">`);
+      return `<link rel="${link.rel}" as="${link.as}" href="${href}" class="${HEAD_LINK_CLASS}">`;
     }
   }
 
@@ -155,15 +171,15 @@ export class ServerHashedFileMapping extends HashedFileMapping {
                      }, {});
 
     let root = parse(this.indexContent);
-    root.querySelector(`script#${ID}`)?.remove();
+    root.querySelectorAll(`script#${ID}, link.${HEAD_LINK_CLASS}`)?.forEach(e => e.remove());
     root.querySelector('head')
         .appendChild(`<script id="${ID}" type="application/json">${JSON.stringify(out)}</script>` as any);
 
     for (const headLink of this.headLinks) {
       root.querySelector('head')
-          .appendChild(headLink as any);
+          .appendChild(this.renderHeadLink(headLink) as any);
     }
 
-    this.add(this.indexPath, root.toString());
+    writeFileSync(this.indexPath, root.toString());
   }
 }

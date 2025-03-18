@@ -261,7 +261,7 @@ function ngApp(req, res) {
  */
 function serverSideRender(req, res, sendToUser: boolean = true) {
   // Render the page via SSR (server side rendering)
-  res.render(hashedFileMapping.resolve(indexHtml), {
+  res.render(indexHtml, {
     req,
     res,
     preboot: environment.universal.preboot,
@@ -303,7 +303,11 @@ function serverSideRender(req, res, sendToUser: boolean = true) {
  * @param res current response
  */
 function clientSideRender(req, res) {
-  res.sendFile(hashedFileMapping.resolve(indexHtml));
+  res.sendFile(indexHtml, {
+    headers: {
+      'Cache-Control': 'no-cache, no-store',
+    },
+  });
 }
 
 
@@ -314,7 +318,11 @@ function clientSideRender(req, res) {
  */
 function addCacheControl(req, res, next) {
   // instruct browser to revalidate
-  res.header('Cache-Control', environment.cache.control || 'max-age=604800');
+  if (environment.cache.noCacheFiles.includes(req.originalUrl)) {
+    res.header('Cache-Control', 'no-cache, no-store');
+  } else {
+    res.header('Cache-Control', environment.cache.control || 'max-age=604800');
+  }
   next();
 }
 

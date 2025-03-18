@@ -2,7 +2,6 @@ import { red, blue, green, bold } from 'colors';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { load } from 'js-yaml';
 import { join } from 'path';
-import { environment } from '../environments/environment';
 import { ServerHashedFileMapping } from '../modules/dynamic-hash/hashed-file-mapping.server';
 
 import { AppConfig } from './app-config.interface';
@@ -175,7 +174,7 @@ const buildBaseUrl = (config: ServerConfig): void => {
  */
 export const buildAppConfig = (destConfigPath?: string, mapping?: ServerHashedFileMapping): AppConfig => {
   // start with default app config
-  const appConfig: BuildConfig = new DefaultAppConfig() as BuildConfig;
+  const appConfig: AppConfig = new DefaultAppConfig();
 
   // determine which dist app config by environment
   const env = getEnvironment();
@@ -245,9 +244,14 @@ export const buildAppConfig = (destConfigPath?: string, mapping?: ServerHashedFi
     writeFileSync(destConfigPath, content);
     if (mapping !== undefined) {
       mapping.add(destConfigPath, content);
-      if (!appConfig.universal.preboot) {
+      if (!(appConfig as BuildConfig).universal?.preboot) {
         // If we're serving for CSR we can retrieve the configuration before JS is loaded/executed
-        mapping.addHeadLink(destConfigPath, 'preload', 'fetch', 'anonymous');
+        mapping.addHeadLink({
+          path: destConfigPath,
+          rel: 'preload',
+          as: 'fetch',
+          crossorigin: 'anonymous',
+        });
       }
     }
 

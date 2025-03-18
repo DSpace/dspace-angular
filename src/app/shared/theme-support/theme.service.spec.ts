@@ -1,7 +1,6 @@
 import { of as observableOf } from 'rxjs';
 import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { HashedFileMapping } from '../../../modules/dynamic-hash/hashed-file-mapping';
 import { LinkService } from '../../core/cache/builders/link.service';
 import { hot } from 'jasmine-marbles';
 import { SetThemeAction } from './theme.actions';
