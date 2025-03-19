@@ -65,6 +65,11 @@ export class FileDownloadLinkComponent implements OnInit {
 
   @Input() enableRequestACopy = true;
 
+  /**
+   * A boolean indicating whether the access status badge is displayed
+   */
+  @Input() showAccessStatusBadge = true;
+
   bitstreamPath$: Observable<{
     routerLink: string,
     queryParams: any,
