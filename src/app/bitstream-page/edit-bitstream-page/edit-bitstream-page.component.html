@@ -1,6 +1,6 @@
 <ng-container *ngVar="(bitstreamRD$ | async) as bitstreamRD">
   <div class="container">
-    @if (bitstreamRD?.hasSucceeded) {
+    @if (bitstreamRD?.hasSucceeded && (isLoading$ | async) === false) {
       <div class="row">
         <div class="col-md-2">
           <ds-thumbnail [thumbnail]="bitstreamRD?.payload"></ds-thumbnail>
@@ -33,9 +33,8 @@
     @if (bitstreamRD?.hasFailed) {
       <ds-error message="{{'error.bitstream' | translate}}"></ds-error>
     }
-    @if (!bitstreamRD || bitstreamRD?.isLoading) {
-      <ds-loading
-      message="{{'loading.bitstream' | translate}}"></ds-loading>
+    @if (!bitstreamRD || bitstreamRD?.isLoading || (isLoading$ | async)) {
+      <ds-loading message="{{'loading.bitstream' | translate}}"></ds-loading>
     }
   </div>
 </ng-container>
