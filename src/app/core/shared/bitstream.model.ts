@@ -82,7 +82,7 @@ export class Bitstream extends DSpaceObject implements ChildHALResource {
    * The access status for this Bitstream
    * Will be undefined unless the access status {@link HALLink} has been resolved.
    */
-  @link(ACCESS_STATUS)
+  @link(ACCESS_STATUS, false, 'accessStatus')
   accessStatus?: Observable<RemoteData<AccessStatusObject>>;
 
   getParentLinkKey(): keyof this['_links'] {

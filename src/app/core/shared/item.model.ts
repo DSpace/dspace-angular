@@ -130,7 +130,7 @@ export class Item extends DSpaceObject implements ChildHALResource, HandleObject
    * The access status for this Item
    * Will be undefined unless the access status {@link HALLink} has been resolved.
    */
-   @link(ACCESS_STATUS)
+   @link(ACCESS_STATUS, false, 'accessStatus')
      accessStatus?: Observable<RemoteData<AccessStatusObject>>;
 
   /**

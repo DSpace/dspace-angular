@@ -15,12 +15,12 @@ import {
   catchError,
   map,
 } from 'rxjs/operators';
-import { AccessStatusDataService } from 'src/app/core/data/access-status-data.service';
+import { LinkService } from 'src/app/core/cache/builders/link.service';
 import { Bitstream } from 'src/app/core/shared/bitstream.model';
 import { getFirstSucceededRemoteDataPayload } from 'src/app/core/shared/operators';
+import { followLink } from 'src/app/shared/utils/follow-link-config.model';
 import { environment } from 'src/environments/environment';
 
-import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { hasValue } from '../../../../empty.util';
 import { AccessStatusObject } from './access-status.model';
@@ -37,7 +37,7 @@ import { AccessStatusObject } from './access-status.model';
  */
 export class AccessStatusBadgeComponent implements OnDestroy, OnInit {
 
-  @Input() object: DSpaceObject;
+  @Input() object: Item | Bitstream;
 
   accessStatus$: Observable<string>;
   embargoDate$: Observable<string>;
@@ -60,13 +60,19 @@ export class AccessStatusBadgeComponent implements OnDestroy, OnInit {
   /**
    * Initialize instance variables
    *
-   * @param {AccessStatusDataService} accessStatusDataService
+   * @param {LinkService} linkService
    */
-  constructor(private accessStatusDataService: AccessStatusDataService) { }
+  constructor(
+    private linkService: LinkService,
+  ) { }
 
   ngOnInit(): void {
     if (!hasValue(this.object)) {
       return;
+    }
+    if (!hasValue(this.object.accessStatus)) {
+      // In case the access status has not been loaded, do it individually.
+      this.linkService.resolveLink(this.object, followLink('accessStatus'));
     }
     switch ((this.object as any).type) {
       case Item.type.value:
@@ -91,19 +97,8 @@ export class AccessStatusBadgeComponent implements OnDestroy, OnInit {
       // Do not show the badge if the feature is inactive.
       return;
     }
-    const item = this.object as Item;
-    if (item.accessStatus == null) {
-      // In case the access status has not been loaded, do it individually.
-      item.accessStatus = this.accessStatusDataService.findItemAccessStatusFor(item);
-    }
-    this.accessStatus$ = item.accessStatus.pipe(
-      map((accessStatusRD) => {
-        if (accessStatusRD.statusCode !== 401 && hasValue(accessStatusRD.payload)) {
-          return accessStatusRD.payload;
-        } else {
-          return [];
-        }
-      }),
+    this.accessStatus$ = this.object.accessStatus.pipe(
+      getFirstSucceededRemoteDataPayload(),
       map((accessStatus: AccessStatusObject) => hasValue(accessStatus.status) ? accessStatus.status : 'unknown'),
       map((status: string) => `access-status.${status.toLowerCase()}.listelement.badge`),
       catchError(() => observableOf('access-status.unknown.listelement.badge')),
@@ -127,19 +122,9 @@ export class AccessStatusBadgeComponent implements OnDestroy, OnInit {
       // Do not show the badge if the feature is inactive.
       return;
     }
-    const bitstream = this.object as Bitstream;
-    if (bitstream.accessStatus == null) {
-      return;
-    }
-    this.embargoDate$ = bitstream.accessStatus.pipe(
+    this.embargoDate$ = this.object.accessStatus.pipe(
       getFirstSucceededRemoteDataPayload(),
-      map((accessStatus: AccessStatusObject) => {
-        if (hasValue(accessStatus.embargoDate)) {
-          return accessStatus.embargoDate;
-        } else {
-          return null;
-        }
-      }),
+      map((accessStatus: AccessStatusObject) => hasValue(accessStatus.embargoDate) ? accessStatus.embargoDate : null),
       catchError(() => observableOf(null)),
     );
     this.subs.push(
