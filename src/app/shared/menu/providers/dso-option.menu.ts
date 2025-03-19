@@ -18,8 +18,8 @@ import { PartialMenuSection } from '../menu-provider.model';
 import { DSpaceObjectPageMenuProvider } from './helper-providers/dso.menu';
 
 /**
- * Menu provider to create the parent wrapper menu of the various DSO page menu sections
- * This section will be rendered as a button on the DSO pages if sub providers have been added
+ * Menu provider to create the "Options" menu wrapper on the DSO pages.
+ * This section will be rendered as a button on the DSO pages if sub providers have been added.
  */
 @Injectable()
 export class DsoOptionMenuProvider extends DSpaceObjectPageMenuProvider {

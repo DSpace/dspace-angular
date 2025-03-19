@@ -12,6 +12,7 @@ import { of as observableOf } from 'rxjs';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { AuthorizationDataServiceStub } from '../../testing/authorization-service.stub';
+import { LinkMenuItemModel } from '../menu-item/models/link.model';
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';
 import { NewMenuProvider } from './new.menu';
@@ -59,6 +60,15 @@ describe('NewMenuProvider', () => {
         text: 'menu.section.new_process',
         link: '/processes/new',
       },
+    },
+    {
+      visible: true,
+      model: {
+        type: MenuItemType.LINK,
+        text: 'menu.section.services_new',
+        link: '/admin/ldn/services/new',
+      } as LinkMenuItemModel,
+      icon: '',
     },
   ];
 

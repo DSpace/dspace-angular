@@ -8,7 +8,6 @@
 
 import { Injectable } from '@angular/core';
 import {
-  combineLatest,
   map,
   Observable,
 } from 'rxjs';
@@ -22,7 +21,7 @@ import {
 } from '../menu-provider.model';
 
 /**
- * Menu provider to create the Admin search menu section
+ * Menu provider to create the "Admin Search" menu in the admin sidebar
  */
 @Injectable()
 export class AdminSearchMenuProvider extends AbstractMenuProvider {
@@ -33,10 +32,8 @@ export class AdminSearchMenuProvider extends AbstractMenuProvider {
   }
 
   public getSections(): Observable<PartialMenuSection[]> {
-    return combineLatest([
-      this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
-    ]).pipe(
-      map(([isSiteAdmin]) => {
+    return this.authorizationService.isAuthorized(FeatureID.AdministratorOf).pipe(
+      map((isSiteAdmin) => {
         return [
           {
             visible: isSiteAdmin,

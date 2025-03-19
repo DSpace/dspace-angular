@@ -23,7 +23,7 @@ import { PartialMenuSection } from '../menu-provider.model';
 import { DSpaceObjectPageMenuProvider } from './helper-providers/dso.menu';
 
 /**
- * Menu provider to create the DSO edit menu section
+ * Menu provider to create the "Edit" option in the DSO edit menu
  */
 @Injectable()
 export class DSpaceObjectEditMenuProvider extends DSpaceObjectPageMenuProvider {

@@ -19,7 +19,7 @@ import {
 } from '../menu-provider.model';
 
 /**
- * Menu provider to create the community list menu section
+ * Menu provider to create the "Communities & Collections" menu section in the public navbar
  */
 @Injectable()
 export class CommunityListMenuProvider extends AbstractMenuProvider {

@@ -22,7 +22,7 @@ import {
 } from '../menu-provider.model';
 
 /**
- * Menu provider to create the health menu section
+ * Menu provider to create the "Health" menu in the admin sidebar
  */
 @Injectable()
 export class HealthMenuProvider extends AbstractMenuProvider {

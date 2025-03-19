@@ -22,7 +22,7 @@ import { PartialMenuSection } from '../menu-provider.model';
 import { DSpaceObjectPageMenuProvider } from './helper-providers/dso.menu';
 
 /**
- * Menu provider to create the versioning menu section on item pages
+ * Menu provider to create the version related options in the DSO edit menu
  */
 @Injectable()
 export class VersioningMenuProvider extends DSpaceObjectPageMenuProvider {

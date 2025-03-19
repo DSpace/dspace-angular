@@ -22,7 +22,7 @@ import {
 } from '../menu-provider.model';
 
 /**
- * Menu provider to create the workflow admin menu section
+ * Menu provider to create the "Administer Workflow" menu in the admin sidebar
  */
 @Injectable()
 export class WorkflowMenuProvider extends AbstractMenuProvider {

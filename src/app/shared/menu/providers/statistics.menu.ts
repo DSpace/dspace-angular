@@ -23,9 +23,9 @@ import { PartialMenuSection } from '../menu-provider.model';
 import { DSpaceObjectPageMenuProvider } from './helper-providers/dso.menu';
 
 /**
- * Menu provider to create the statistics menu section depending on the page it is on
+ * Menu provider to create the "Statistics" menu section in the public navbar. The menu depends on the page it is on.
  * When the user is on a DSO page or a derivative, this menu section will contain a link to the statistics of that DSO
- * In all other cases the menu section will contain a link to the repository wide statistics
+ * In all other cases the menu section will contain a link to the repository wide statistics page.
  */
 @Injectable()
 export class StatisticsMenuProvider extends DSpaceObjectPageMenuProvider {

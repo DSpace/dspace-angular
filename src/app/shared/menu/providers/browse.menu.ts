@@ -24,7 +24,7 @@ import { PartialMenuSection } from '../menu-provider.model';
 import { AbstractExpandableMenuProvider } from './helper-providers/expandable-menu-provider';
 
 /**
- * Menu provider to create the browse menu sections
+ * Menu provider to create the "All of DSpace" browse menu sections in the public navbar
  */
 @Injectable()
 export class BrowseMenuProvider extends AbstractExpandableMenuProvider {
@@ -47,6 +47,9 @@ export class BrowseMenuProvider extends AbstractExpandableMenuProvider {
     );
   }
 
+  /**
+   * Retrieves subsections by fetching the browse definitions from the backend and mapping them to partial menu sections.
+   */
   getSubSections(): Observable<PartialMenuSection[]> {
     return this.browseService.getBrowseDefinitions().pipe(
       getFirstSucceededRemoteData(),

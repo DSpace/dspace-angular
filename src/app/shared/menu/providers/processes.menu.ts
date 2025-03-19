@@ -22,7 +22,7 @@ import {
 } from '../menu-provider.model';
 
 /**
- * Menu provider to create the scripts and processes menu section
+ * Menu provider to create the "Processes" menu in the admin sidebar
  */
 @Injectable()
 export class ProcessesMenuProvider extends AbstractMenuProvider {

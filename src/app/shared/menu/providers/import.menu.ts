@@ -26,7 +26,7 @@ import { PartialMenuSection } from '../menu-provider.model';
 import { AbstractExpandableMenuProvider } from './helper-providers/expandable-menu-provider';
 
 /**
- * Menu provider to create the import menu sections
+ * Menu provider to create the "Import" menu (and subsections) in the admin sidebar
  */
 @Injectable()
 export class ImportMenuProvider extends AbstractExpandableMenuProvider {

@@ -23,7 +23,7 @@ import {
 } from '../menu-provider.model';
 
 /**
- * Menu provider to create the curation menu section
+ * Menu provider to create the "Curation Task" menu in the admin sidebar
  */
 @Injectable()
 export class CurationMenuProvider extends AbstractMenuProvider {

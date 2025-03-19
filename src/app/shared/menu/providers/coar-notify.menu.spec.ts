@@ -9,27 +9,22 @@
 import { TestBed } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
 
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { AuthorizationDataServiceStub } from '../../testing/authorization-service.stub';
-import { ConfigurationDataServiceStub } from '../../testing/configuration-data.service.stub';
 import { LinkMenuItemModel } from '../menu-item/models/link.model';
 import { TextMenuItemModel } from '../menu-item/models/text.model';
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';
-import { CreateReportMenuProvider } from './create-report.menu';
+import { CoarNotifyMenuProvider } from './coar-notify.menu';
 
-describe('CreateReportMenuProvider', () => {
+describe('CoarNotifyMenuProvider', () => {
   const expectedTopSection: PartialMenuSection = {
     visible: true,
     model: {
       type: MenuItemType.TEXT,
-      text: 'menu.section.reports',
+      text: 'menu.section.coar_notify',
     } as TextMenuItemModel,
-    icon: 'file-alt',
+    icon: 'inbox',
   };
 
   const expectedSubSections: PartialMenuSection[] = [
@@ -37,47 +32,35 @@ describe('CreateReportMenuProvider', () => {
       visible: true,
       model: {
         type: MenuItemType.LINK,
-        text: 'menu.section.reports.collections',
-        link: '/admin/reports/collections',
+        text: 'menu.section.notify_dashboard',
+        link: '/admin/notify-dashboard',
       } as LinkMenuItemModel,
-      icon: 'user-check',
     },
     {
       visible: true,
       model: {
         type: MenuItemType.LINK,
-        text: 'menu.section.reports.queries',
-        link: '/admin/reports/queries',
+        text: 'menu.section.services',
+        link: '/admin/ldn/services',
       } as LinkMenuItemModel,
-      icon: 'user-check',
     },
   ];
 
-  let provider: CreateReportMenuProvider;
+  let provider: CoarNotifyMenuProvider;
   let authorizationServiceStub = new AuthorizationDataServiceStub();
-  let configurationDataService = new ConfigurationDataServiceStub();
 
   beforeEach(() => {
-    spyOn(authorizationServiceStub, 'isAuthorized').and.callFake((id: FeatureID) => {
-      if (id === FeatureID.AdministratorOf) {
-        return observableOf(true);
-      } else {
-        return observableOf(false);
-      }
-    });
 
-    spyOn(configurationDataService, 'findByPropertyName').and.callFake((property: string) => {
-      return createSuccessfulRemoteDataObject$(Object.assign({}, new ConfigurationProperty(), { values: ['true'] }));
-    });
-
+    spyOn(authorizationServiceStub, 'isAuthorized').and.returnValue(
+      observableOf(true),
+    );
     TestBed.configureTestingModule({
       providers: [
-        CreateReportMenuProvider,
+        CoarNotifyMenuProvider,
         { provide: AuthorizationDataService, useValue: authorizationServiceStub },
-        { provide: ConfigurationDataService, useValue: configurationDataService },
       ],
     });
-    provider = TestBed.inject(CreateReportMenuProvider);
+    provider = TestBed.inject(CoarNotifyMenuProvider);
   });
 
   it('should be created', () => {

@@ -23,7 +23,7 @@ import { PartialMenuSection } from '../menu-provider.model';
 import { AbstractExpandableMenuProvider } from './helper-providers/expandable-menu-provider';
 
 /**
- * Menu provider to create the registries menu sections
+ * Menu provider to create the "Registries" menu (and subsections) in the admin sidebar
  */
 @Injectable()
 export class RegistriesMenuProvider extends AbstractExpandableMenuProvider {

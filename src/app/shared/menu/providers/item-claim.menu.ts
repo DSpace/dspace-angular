@@ -29,7 +29,8 @@ import { PartialMenuSection } from '../menu-provider.model';
 import { DSpaceObjectPageMenuProvider } from './helper-providers/dso.menu';
 
 /**
- * Menu provider to create the menu section on person entity pages to claim a researcher by creating a profile
+ * Menu provider to create the "Claim" option in the DSO edit menu on person entity pages.
+ * This option allows to claim a researcher by creating a profile.
  */
 @Injectable()
 export class ClaimMenuProvider extends DSpaceObjectPageMenuProvider {

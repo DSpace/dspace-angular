@@ -23,7 +23,7 @@ import { PartialMenuSection } from '../menu-provider.model';
 import { AbstractExpandableMenuProvider } from './helper-providers/expandable-menu-provider';
 
 /**
- * Menu provider to create Access Control related menu sections
+ * Menu provider to create the "Access Control" menu (and subsections) in the admin sidebar
  */
 @Injectable()
 export class AccessControlMenuProvider extends AbstractExpandableMenuProvider {
@@ -52,7 +52,7 @@ export class AccessControlMenuProvider extends AbstractExpandableMenuProvider {
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
       this.authorizationService.isAuthorized(FeatureID.CanManageGroups),
     ]).pipe(
-      map(([isSiteAdmin, canManageGroups]) => {
+      map(([isSiteAdmin, canManageGroups]: [boolean, boolean]) => {
         return [
           {
             visible: isSiteAdmin,
@@ -78,18 +78,6 @@ export class AccessControlMenuProvider extends AbstractExpandableMenuProvider {
               link: '/access-control/bulk-access',
             },
           },
-          // TODO: enable this menu item once the feature has been implemented
-          // {
-          //   id: 'access_control_authorizations',
-          //   parentID: 'access_control',
-          //   active: false,
-          //   visible: authorized,
-          //   model: {
-          //     type: MenuItemType.LINK,
-          //     text: 'menu.section.access_control_authorizations',
-          //     link: ''
-          //   } as LinkMenuItemModel,
-          // },
         ];
       }),
     );

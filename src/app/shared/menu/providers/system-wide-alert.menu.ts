@@ -22,7 +22,7 @@ import {
 } from '../menu-provider.model';
 
 /**
- * Menu provider to create the system wide alert menu section
+ * Menu provider to create the "System-wide Alert" menu in the admin sidebar
  */
 @Injectable()
 export class SystemWideAlertMenuProvider extends AbstractMenuProvider {

@@ -23,7 +23,7 @@ import { PartialMenuSection } from '../menu-provider.model';
 import { DSpaceObjectPageMenuProvider } from './helper-providers/dso.menu';
 
 /**
- * Menu provider to create the Orcid synchronisation menu section on person entity pages
+ * Menu provider to create the Orcid settings related option in the DSO edit menu on person entity pages
  */
 @Injectable()
 export class OrcidMenuProvider extends DSpaceObjectPageMenuProvider {

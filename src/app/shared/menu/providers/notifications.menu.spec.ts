@@ -9,27 +9,24 @@
 import { TestBed } from '@angular/core/testing';
 import { of as observableOf } from 'rxjs';
 
-import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
+import { PUBLICATION_CLAIMS_PATH } from '../../../admin/admin-notifications/admin-notifications-routing-paths';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
-import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { AuthorizationDataServiceStub } from '../../testing/authorization-service.stub';
-import { ConfigurationDataServiceStub } from '../../testing/configuration-data.service.stub';
 import { LinkMenuItemModel } from '../menu-item/models/link.model';
 import { TextMenuItemModel } from '../menu-item/models/text.model';
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';
-import { CreateReportMenuProvider } from './create-report.menu';
+import { NotificationsMenuProvider } from './notifications.menu';
 
-describe('CreateReportMenuProvider', () => {
+describe('NotificationsMenuProvider', () => {
   const expectedTopSection: PartialMenuSection = {
     visible: true,
     model: {
       type: MenuItemType.TEXT,
-      text: 'menu.section.reports',
+      text: 'menu.section.notifications',
     } as TextMenuItemModel,
-    icon: 'file-alt',
+    icon: 'bell',
   };
 
   const expectedSubSections: PartialMenuSection[] = [
@@ -37,47 +34,39 @@ describe('CreateReportMenuProvider', () => {
       visible: true,
       model: {
         type: MenuItemType.LINK,
-        text: 'menu.section.reports.collections',
-        link: '/admin/reports/collections',
+        text: 'menu.section.quality-assurance',
+        link: '/notifications/quality-assurance',
       } as LinkMenuItemModel,
-      icon: 'user-check',
     },
     {
       visible: true,
       model: {
         type: MenuItemType.LINK,
-        text: 'menu.section.reports.queries',
-        link: '/admin/reports/queries',
+        text: 'menu.section.notifications_publication-claim',
+        link: '/admin/notifications/' + PUBLICATION_CLAIMS_PATH,
       } as LinkMenuItemModel,
-      icon: 'user-check',
     },
   ];
 
-  let provider: CreateReportMenuProvider;
+  let provider: NotificationsMenuProvider;
   let authorizationServiceStub = new AuthorizationDataServiceStub();
-  let configurationDataService = new ConfigurationDataServiceStub();
 
   beforeEach(() => {
     spyOn(authorizationServiceStub, 'isAuthorized').and.callFake((id: FeatureID) => {
-      if (id === FeatureID.AdministratorOf) {
+      if (id === FeatureID.CanSeeQA || id === FeatureID.AdministratorOf) {
         return observableOf(true);
       } else {
         return observableOf(false);
       }
     });
 
-    spyOn(configurationDataService, 'findByPropertyName').and.callFake((property: string) => {
-      return createSuccessfulRemoteDataObject$(Object.assign({}, new ConfigurationProperty(), { values: ['true'] }));
-    });
-
     TestBed.configureTestingModule({
       providers: [
-        CreateReportMenuProvider,
+        NotificationsMenuProvider,
         { provide: AuthorizationDataService, useValue: authorizationServiceStub },
-        { provide: ConfigurationDataService, useValue: configurationDataService },
       ],
     });
-    provider = TestBed.inject(CreateReportMenuProvider);
+    provider = TestBed.inject(NotificationsMenuProvider);
   });
 
   it('should be created', () => {

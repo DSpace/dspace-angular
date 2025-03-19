@@ -20,13 +20,14 @@ import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { ThemedCreateCollectionParentSelectorComponent } from '../../dso-selector/modal-wrappers/create-collection-parent-selector/themed-create-collection-parent-selector.component';
 import { ThemedCreateCommunityParentSelectorComponent } from '../../dso-selector/modal-wrappers/create-community-parent-selector/themed-create-community-parent-selector.component';
 import { ThemedCreateItemParentSelectorComponent } from '../../dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';
+import { LinkMenuItemModel } from '../menu-item/models/link.model';
 import { TextMenuItemModel } from '../menu-item/models/text.model';
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';
 import { AbstractExpandableMenuProvider } from './helper-providers/expandable-menu-provider';
 
 /**
- * Menu provider to create the admin sidebar new menu sections
+ * Menu provider to create the "New" menu (and subsections) in the admin sidebar
  */
 @Injectable()
 export class NewMenuProvider extends AbstractExpandableMenuProvider {
@@ -57,7 +58,8 @@ export class NewMenuProvider extends AbstractExpandableMenuProvider {
       this.authorizationService.isAuthorized(FeatureID.IsCommunityAdmin),
       this.authorizationService.isAuthorized(FeatureID.AdministratorOf),
       this.authorizationService.isAuthorized(FeatureID.CanSubmit),
-    ]).pipe(map(([isCollectionAdmin, isCommunityAdmin, isSiteAdmin, canSubmit]: [boolean, boolean, boolean, boolean]) => {
+      this.authorizationService.isAuthorized(FeatureID.CoarNotifyEnabled),
+    ]).pipe(map(([isCollectionAdmin, isCommunityAdmin, isSiteAdmin, canSubmit, isCoarNotifyEnabled]: [boolean, boolean, boolean, boolean, boolean]) => {
 
       return [
         {
@@ -97,6 +99,15 @@ export class NewMenuProvider extends AbstractExpandableMenuProvider {
             text: 'menu.section.new_process',
             link: '/processes/new',
           },
+        },
+        {
+          visible: isSiteAdmin && isCoarNotifyEnabled,
+          model: {
+            type: MenuItemType.LINK,
+            text: 'menu.section.services_new',
+            link: '/admin/ldn/services/new',
+          } as LinkMenuItemModel,
+          icon: '',
         },
       ];
     }));
