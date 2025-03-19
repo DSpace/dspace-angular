@@ -4878,6 +4878,8 @@
 
   "submission.import-external.source.openalexPublicationByAuthorId": "OpenAlex Search by Author ID",
 
+  "submission.import-external.source.openalexPublicationByDOI": "OpenAlex Search by DOI",
+
   "submission.import-external.source.openalexPerson": "OpenAlex Search by name",
 
   "submission.import-external.source.openalexJournal": "OpenAlex Journals",
