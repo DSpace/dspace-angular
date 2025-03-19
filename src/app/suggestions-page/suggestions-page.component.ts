@@ -43,14 +43,14 @@ import {
 } from '../core/shared/operators';
 import { WorkspaceItem } from '../core/submission/models/workspaceitem.model';
 import { WorkspaceitemDataService } from '../core/submission/workspaceitem-data.service';
-import { SuggestionActionsComponent } from '../notifications/suggestion-actions/suggestion-actions.component';
-import { SuggestionApproveAndImport } from '../notifications/suggestion-list-element/suggestion-approve-and-import';
-import { SuggestionListElementComponent } from '../notifications/suggestion-list-element/suggestion-list-element.component';
-import { SuggestionTargetsStateService } from '../notifications/suggestion-targets/suggestion-targets.state.service';
+import { SuggestionActionsComponent } from '../notifications/suggestions/actions/suggestion-actions.component';
+import { SuggestionApproveAndImport } from '../notifications/suggestions/list-element/suggestion-approve-and-import';
+import { SuggestionListElementComponent } from '../notifications/suggestions/list-element/suggestion-list-element.component';
 import {
   SuggestionBulkResult,
   SuggestionsService,
-} from '../notifications/suggestions.service';
+} from '../notifications/suggestions/suggestions.service';
+import { SuggestionTargetsStateService } from '../notifications/suggestions/targets/suggestion-targets.state.service';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { NotificationsService } from '../shared/notifications/notifications.service';

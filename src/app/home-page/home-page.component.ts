@@ -18,7 +18,7 @@ import {
 } from 'src/config/app-config.interface';
 
 import { Site } from '../core/shared/site.model';
-import { SuggestionsPopupComponent } from '../notifications/suggestions-popup/suggestions-popup.component';
+import { SuggestionsPopupComponent } from '../notifications/suggestions/popup/suggestions-popup.component';
 import { ThemedConfigurationSearchPageComponent } from '../search-page/themed-configuration-search-page.component';
 import { ThemedSearchFormComponent } from '../shared/search-form/themed-search-form.component';
 import { PageWithSidebarComponent } from '../shared/sidebar/page-with-sidebar.component';

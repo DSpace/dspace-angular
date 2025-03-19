@@ -16,16 +16,18 @@ import { of as observableOf } from 'rxjs';
 
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { AlertComponent } from '../../../shared/alert/alert.component';
-import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import {
   getMockNotificationsStateService,
   qualityAssuranceSourceObjectMoreAbstract,
   qualityAssuranceSourceObjectMorePid,
 } from '../../../shared/mocks/notifications.mock';
-import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import { NotificationsStateService } from '../../notifications-state.service';
+import {
+  SourceListComponent,
+  SourceObject,
+} from '../../shared/source-list.component';
 import { QualityAssuranceSourceComponent } from './quality-assurance-source.component';
 
 describe('QualityAssuranceSourceComponent test suite', () => {
@@ -61,8 +63,7 @@ describe('QualityAssuranceSourceComponent test suite', () => {
         remove: {
           imports: [
             AlertComponent,
-            ThemedLoadingComponent,
-            PaginationComponent,
+            SourceListComponent,
           ],
         },
       })
@@ -119,12 +120,19 @@ describe('QualityAssuranceSourceComponent test suite', () => {
     it(('Should init component properly'), () => {
       comp.ngOnInit();
       fixture.detectChanges();
+      const expected: SourceObject[] = [
+        { id: qualityAssuranceSourceObjectMorePid.id,
+          lastEvent: qualityAssuranceSourceObjectMorePid.lastEvent,
+          total: qualityAssuranceSourceObjectMorePid.totalEvents,
+        },
+        { id: qualityAssuranceSourceObjectMoreAbstract.id,
+          lastEvent: qualityAssuranceSourceObjectMoreAbstract.lastEvent,
+          total: qualityAssuranceSourceObjectMoreAbstract.totalEvents,
+        },
+      ];
 
       expect(comp.sources$).toBeObservable(cold('(a|)', {
-        a: [
-          qualityAssuranceSourceObjectMorePid,
-          qualityAssuranceSourceObjectMoreAbstract,
-        ],
+        a: expected,
       }));
       expect(comp.totalElements$).toBeObservable(cold('(a|)', {
         a: 2,
