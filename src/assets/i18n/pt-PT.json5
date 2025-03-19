@@ -6873,6 +6873,15 @@
   // "search.filters.filter.supervisedBy.label": "Search Supervised By",
   "search.filters.filter.supervisedBy.label": "Pesquisar supervisionado por",
 
+  // "search.filters.filter.access_status.head": "Access type",
+  "search.filters.filter.access_status.head": "Tipo de acesso",
+
+  // "search.filters.filter.access_status.placeholder": "Access type",
+  "search.filters.filter.access_status.placeholder": "Acesso",
+
+  // "search.filters.filter.access_status.label": "Search by access type",
+  "search.filters.filter.access_status.label": "Pesquisar por tipo de acesso",
+
   // "search.filters.entityType.JournalIssue": "Journal Issue",
   "search.filters.entityType.JournalIssue": "Número de revista",
 
@@ -9986,6 +9995,9 @@
   // "search.filters.applied.f.notifyRelation": "Notify Relation",
   "search.filters.applied.f.notifyRelation": "Notificar relação",
 
+  // "search.filters.applied.f.access_status": "Access type",
+  "search.filters.applied.f.access_status": "Tipo de acesso",
+
   // "search.filters.filter.queue_last_start_time.head": "Last processing time",
   "search.filters.filter.queue_last_start_time.head": "Última hora de processamento",
 
@@ -10453,27 +10465,6 @@
   // "item.preview.dc.identifier.eisbn": "EISBN",
   "item.preview.dc.identifier.eisbn": "EISBN",
 
-  // "forgot-email.form.google-recaptcha.notification.title": "Forgot password (Google reCAPTCHA)",
-  "forgot-email.form.google-recaptcha.notification.title": "Esqueceu palavra passe (Google reCAPTCHA)",
-
-  // "forgot-email.form.google-recaptcha.notification.message.error": "Error when trying to reset password (Google reCAPTCHA)",
-  "forgot-email.form.google-recaptcha.notification.message.error": "Ocorreu um erro ao tentar redefinir a senha de acesso (Google reCAPTCHA)",
-
-  // "cclicense.notavailable": "Without CC licence",
-  "cclicense.notavailable": "Sem licença CC",
-
-  // "search.filters.filter.access_status.head": "Access type",
-  "search.filters.filter.access_status.head": "Tipo de acesso",
-
-  // "search.filters.filter.access_status.placeholder": "Access type",
-  "search.filters.filter.access_status.placeholder": "Acesso",
-
-  // "search.filters.filter.access_status.label": "Search by access type",
-  "search.filters.filter.access_status.label": "Pesquisar por tipo de acesso",
-
-  // "search.filters.applied.f.access_status": "Access type",
-  "search.filters.applied.f.access_status": "Tipo de acesso",
-
   // "search.filters.access_status.open.access": "Open access",
   "search.filters.access_status.open.access": "Acesso aberto",
 
@@ -10488,26 +10479,5 @@
 
   // "search.filters.access_status.unknown": "Unknown",
   "search.filters.access_status.unknown": "Desconhecido",
-
-  // "submission.import-external.source.sherpaJournal": "'Open Policy Finder' Journals",
-  "submission.import-external.source.sherpaJournal": "Revistas 'Open Policy Finder' por nome",
-
-  // "submission.import-external.source.sherpaJournalIssn": "'Open Policy Finder' Journals by ISSN",
-  "submission.import-external.source.sherpaJournalIssn": "Revistas 'Open Policy Finder' por ISSN",
-
-  // "submission.import-external.source.sherpaPublisher": "'Open Policy Finder' Publishers",
-  "submission.import-external.source.sherpaPublisher": "Editoras 'Open Policy Finder'",
-
-  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importing from 'Open Policy Finder' Journal",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "A importar revista do 'Open Policy Finder'",
-
-  // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Importing from 'Open Policy Finder' Publisher",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "A importar editora do 'Open Policy Finder'",
-
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "'Open Policy Finder' Journals ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "'Open Policy Finder' do Sherpa ({{ count }})",
-
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "'Open Policy Finder'a Publishers ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaPublisher": "Editoras do 'Open Policy Finder' ({{ count }})",
 
 }
