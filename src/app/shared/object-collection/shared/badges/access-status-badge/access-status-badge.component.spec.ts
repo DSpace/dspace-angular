@@ -6,9 +6,12 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
+import { LinkService } from 'src/app/core/cache/builders/link.service';
+import { getMockLinkService } from 'src/app/shared/mocks/link-service.mock';
+import { followLink } from 'src/app/shared/utils/follow-link-config.model';
+import { APP_DATA_SERVICES_MAP } from 'src/config/app-config.interface';
 import { environment } from 'src/environments/environment';
 
-import { AccessStatusDataService } from '../../../../../core/data/access-status-data.service';
 import { Bitstream } from '../../../../../core/shared/bitstream.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
@@ -26,7 +29,7 @@ describe('ItemAccessStatusBadgeComponent', () => {
   let embargoStatus: AccessStatusObject;
   let restrictedStatus: AccessStatusObject;
 
-  let accessStatusDataService: AccessStatusDataService;
+  let linkService;
 
   let item: Item;
   let bitstream: Bitstream;
@@ -53,9 +56,7 @@ describe('ItemAccessStatusBadgeComponent', () => {
       status: 'restricted',
     });
 
-    accessStatusDataService = jasmine.createSpyObj('accessStatusDataService', {
-      findItemAccessStatusFor: createSuccessfulRemoteDataObject$(unknownStatus),
-    });
+    linkService = getMockLinkService();
 
     item = Object.assign(new Item(), {
       uuid: 'item-uuid',
@@ -73,7 +74,8 @@ describe('ItemAccessStatusBadgeComponent', () => {
       imports: [TranslateModule.forRoot(), AccessStatusBadgeComponent, TruncatePipe],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
-        { provide: AccessStatusDataService, useValue: accessStatusDataService },
+        { provide: LinkService, useValue: linkService },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
       ],
     }).compileComponents();
   }
@@ -111,12 +113,13 @@ describe('ItemAccessStatusBadgeComponent', () => {
     expect(badge.nativeElement.textContent).toEqual(``);
   }
 
-  describe('init with Item', () => {
+  describe('init with item', () => {
     beforeEach(waitForAsync(() => {
       init();
       initTestBed();
     }));
     beforeEach(() => {
+      item.accessStatus = createSuccessfulRemoteDataObject$(unknownStatus);
       initFixtureAndComponentWithItem();
     });
     it('should init the component', () => {
@@ -124,12 +127,32 @@ describe('ItemAccessStatusBadgeComponent', () => {
     });
   });
 
-  describe('When the findItemAccessStatusFor method returns unknown with Item', () => {
+  describe('When the item have no accessStatus link', () => {
     beforeEach(waitForAsync(() => {
       init();
       initTestBed();
     }));
     beforeEach(() => {
+      item.accessStatus = null;
+      linkService.resolveLink.and.callFake((model: any) => {
+        item.accessStatus = createSuccessfulRemoteDataObject$(embargoStatus);
+        return model;
+      });
+      initFixtureAndComponentWithItem();
+    });
+    it('should show the embargo badge', () => {
+      expect(linkService.resolveLink).toHaveBeenCalledWith(item, followLink('accessStatus'));
+      lookForAccessStatusBadgeForItem('embargo');
+    });
+  });
+
+  describe('When the item accessStatus link returns unknown', () => {
+    beforeEach(waitForAsync(() => {
+      init();
+      initTestBed();
+    }));
+    beforeEach(() => {
+      item.accessStatus = createSuccessfulRemoteDataObject$(unknownStatus);
       initFixtureAndComponentWithItem();
     });
     it('should show the unknown badge', () => {
@@ -137,10 +160,10 @@ describe('ItemAccessStatusBadgeComponent', () => {
     });
   });
 
-  describe('When the findItemAccessStatusFor method returns metadata.only with Item', () => {
+  describe('When the item accessStatus link returns metadata.only', () => {
     beforeEach(waitForAsync(() => {
       init();
-      (accessStatusDataService.findItemAccessStatusFor as jasmine.Spy).and.returnValue(createSuccessfulRemoteDataObject$(metadataOnlyStatus));
+      item.accessStatus = createSuccessfulRemoteDataObject$(metadataOnlyStatus);
       initTestBed();
     }));
     beforeEach(() => {
@@ -151,10 +174,10 @@ describe('ItemAccessStatusBadgeComponent', () => {
     });
   });
 
-  describe('When the findItemAccessStatusFor method returns open.access with Item', () => {
+  describe('When the item accessStatus link returns open.access', () => {
     beforeEach(waitForAsync(() => {
       init();
-      (accessStatusDataService.findItemAccessStatusFor as jasmine.Spy).and.returnValue(createSuccessfulRemoteDataObject$(openAccessStatus));
+      item.accessStatus = createSuccessfulRemoteDataObject$(openAccessStatus);
       initTestBed();
     }));
     beforeEach(() => {
@@ -165,10 +188,10 @@ describe('ItemAccessStatusBadgeComponent', () => {
     });
   });
 
-  describe('When the findItemAccessStatusFor method returns embargo with Item', () => {
+  describe('When the item accessStatus link returns embargo', () => {
     beforeEach(waitForAsync(() => {
       init();
-      (accessStatusDataService.findItemAccessStatusFor as jasmine.Spy).and.returnValue(createSuccessfulRemoteDataObject$(embargoStatus));
+      item.accessStatus = createSuccessfulRemoteDataObject$(embargoStatus);
       initTestBed();
     }));
     beforeEach(() => {
@@ -179,10 +202,10 @@ describe('ItemAccessStatusBadgeComponent', () => {
     });
   });
 
-  describe('When the findItemAccessStatusFor method returns restricted with Item', () => {
+  describe('When the item accessStatus link returns restricted', () => {
     beforeEach(waitForAsync(() => {
       init();
-      (accessStatusDataService.findItemAccessStatusFor as jasmine.Spy).and.returnValue(createSuccessfulRemoteDataObject$(restrictedStatus));
+      item.accessStatus = createSuccessfulRemoteDataObject$(restrictedStatus);
       initTestBed();
     }));
     beforeEach(() => {
@@ -193,12 +216,13 @@ describe('ItemAccessStatusBadgeComponent', () => {
     });
   });
 
-  describe('init with Bitstream', () => {
+  describe('init with bitstream', () => {
     beforeEach(waitForAsync(() => {
       init();
       initTestBed();
     }));
     beforeEach(() => {
+      bitstream.accessStatus = createSuccessfulRemoteDataObject$(unknownStatus);
       initFixtureAndComponentWithBitstream();
     });
     it('should init the component', () => {
@@ -206,20 +230,26 @@ describe('ItemAccessStatusBadgeComponent', () => {
     });
   });
 
-  describe('When the bitstream have no access status', () => {
+  describe('When the bitstream have no accessStatus link', () => {
     beforeEach(waitForAsync(() => {
       init();
       initTestBed();
     }));
     beforeEach(() => {
+      bitstream.accessStatus = null;
+      linkService.resolveLink.and.callFake((model: any) => {
+        bitstream.accessStatus = createSuccessfulRemoteDataObject$(embargoStatus);
+        return model;
+      });
       initFixtureAndComponentWithBitstream();
     });
-    it('should not show the badge', () => {
-      lookForNoAccessStatusBadgeForBitstream();
+    it('should show the badge', () => {
+      expect(linkService.resolveLink).toHaveBeenCalledWith(bitstream, followLink('accessStatus'));
+      lookForAccessStatusBadgeForBitstream();
     });
   });
 
-  describe('When the bitstream have an access status with no embargo date', () => {
+  describe('When the bitstream have an accessStatus link with no embargo date', () => {
     beforeEach(waitForAsync(() => {
       init();
       initTestBed();
@@ -233,7 +263,7 @@ describe('ItemAccessStatusBadgeComponent', () => {
     });
   });
 
-  describe('When the bitstream have an access status with an embargo date', () => {
+  describe('When the bitstream have an accessStatus link with an embargo date', () => {
     beforeEach(waitForAsync(() => {
       init();
       initTestBed();
