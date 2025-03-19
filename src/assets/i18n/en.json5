@@ -6819,4 +6819,6 @@
   "search.filters.access_status.metadata.only": "Metadata only",
 
   "search.filters.access_status.unknown": "Unknown",
+
+  "embargo.listelement.badge": "Embargo until {{ date }}",
 }
