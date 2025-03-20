@@ -11,11 +11,16 @@
               {{'admin.reports.items.section.collectionSelector' | translate}}
             </ng-template>
             <ng-template ngbPanelContent>
-              <select id="collSel" name="collSel" class="form-control" multiple="multiple" size="10" formControlName="collections">
-                @for (item of collections; track item) {
-                  <option [value]="item.id" [disabled]="item.disabled">{{item.name$ | async}}</option>
-                }
-              </select>
+              @if (loadingCollections$ | async) {
+                <ds-loading></ds-loading>
+              }
+              @if ((loadingCollections$ | async) !== true) {
+                <select id="collSel" name="collSel" class="form-control" multiple="multiple" size="10" formControlName="collections">
+                  @for (item of collections; track item) {
+                    <option [value]="item.id" [disabled]="item.disabled">{{item.name$ | async}}</option>
+                  }
+                </select>
+              }
               <div class="row">
                 <span class="col-3"></span>
                 <button class="btn btn-primary mt-1 col-6" (click)="submit()">{{'admin.reports.items.run' | translate}}</button>
@@ -132,6 +137,10 @@
                 </select>
               </div>
               <div class="row">
+                @if (csvExportEnabled$ | async) {
+                  <span class="col-3"></span>
+                  <div class="warning">{{ 'metadata-export-filtered-items.columns.warning' | translate }}</div>
+                }
                 <span class="col-3"></span>
                 <button class="btn btn-primary mt-1 col-6" (click)="submit()">{{'admin.reports.items.run' | translate}}</button>
               </div>

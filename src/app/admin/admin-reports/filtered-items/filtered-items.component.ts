@@ -20,13 +20,16 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import {
+  BehaviorSubject,
   map,
   Observable,
 } from 'rxjs';
 import { CollectionDataService } from 'src/app/core/data/collection-data.service';
 import { CommunityDataService } from 'src/app/core/data/community-data.service';
+import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 import { MetadataFieldDataService } from 'src/app/core/data/metadata-field-data.service';
 import { MetadataSchemaDataService } from 'src/app/core/data/metadata-schema-data.service';
+import { ScriptDataService } from 'src/app/core/data/processes/script-data.service';
 import { RestRequestMethod } from 'src/app/core/data/rest-request-method';
 import { DspaceRestService } from 'src/app/core/dspace-rest/dspace-rest.service';
 import { RawRestResponse } from 'src/app/core/dspace-rest/raw-rest-response.model';
@@ -36,6 +39,7 @@ import { Collection } from 'src/app/core/shared/collection.model';
 import { Community } from 'src/app/core/shared/community.model';
 import { getFirstSucceededRemoteListPayload } from 'src/app/core/shared/operators';
 import { isEmpty } from 'src/app/shared/empty.util';
+import { ThemedLoadingComponent } from 'src/app/shared/loading/themed-loading.component';
 import { environment } from 'src/environments/environment';
 
 import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
@@ -64,12 +68,18 @@ import { QueryPredicate } from './query-predicate.model';
     FiltersComponent,
     BtnDisabledDirective,
     FilteredItemsExportCsvComponent,
+    ThemedLoadingComponent,
   ],
   standalone: true,
 })
 export class FilteredItemsComponent implements OnInit {
 
   collections: OptionVO[];
+  /**
+   * A Boolean representing if loading the list of collections is pending
+   */
+  loadingCollections$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   presetQueries: PresetQuery[];
   metadataFields: OptionVO[];
   metadataFieldsWithAny: OptionVO[];
@@ -81,6 +91,10 @@ export class FilteredItemsComponent implements OnInit {
   results: FilteredItems = new FilteredItems();
   results$: Observable<FilteredItem[]>;
   @ViewChild('acc') accordionComponent: NgbAccordion;
+  /**
+   * Observable used to determine whether CSV export is enabled
+   */
+  csvExportEnabled$: Observable<boolean>;
 
   constructor(
     private communityService: CommunityDataService,
@@ -88,6 +102,8 @@ export class FilteredItemsComponent implements OnInit {
     private metadataSchemaService: MetadataSchemaDataService,
     private metadataFieldService: MetadataFieldDataService,
     private translateService: TranslateService,
+    private scriptDataService: ScriptDataService,
+    private authorizationDataService: AuthorizationDataService,
     private formBuilder: FormBuilder,
     private restService: DspaceRestService) {}
 
@@ -102,6 +118,8 @@ export class FilteredItemsComponent implements OnInit {
       new QueryPredicate().toFormGroup(this.formBuilder),
     ];
 
+    this.csvExportEnabled$ = FilteredItemsExportCsvComponent.csvExportEnabled(this.scriptDataService, this.authorizationDataService);
+
     this.queryForm = this.formBuilder.group({
       collections: this.formBuilder.control([''], []),
       presetQuery: this.formBuilder.control('new', []),
@@ -113,6 +131,7 @@ export class FilteredItemsComponent implements OnInit {
   }
 
   loadCollections(): void {
+    this.loadingCollections$.next(true);
     this.collections = [];
     const wholeRepo$ = this.translateService.stream('admin.reports.items.wholeRepo');
     this.collections.push(OptionVO.collectionLoc('', wholeRepo$));
@@ -134,6 +153,7 @@ export class FilteredItemsComponent implements OnInit {
                   const collVO = OptionVO.collection(collection.uuid, '–' + collection.name);
                   this.collections.push(collVO);
                 });
+              this.loadingCollections$.next(false);
             },
           );
         });
