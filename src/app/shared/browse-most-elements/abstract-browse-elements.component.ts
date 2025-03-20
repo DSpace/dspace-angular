@@ -12,9 +12,9 @@ import {
   mergeMap,
   Observable,
 } from 'rxjs';
-import { SearchManager } from 'src/app/core/browse/search-manager';
 
 import { APP_CONFIG } from '../../../config/app-config.interface';
+import { SearchManager } from '../../core/browse/search-manager';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { TopSection } from '../../core/layout/models/section.model';
@@ -107,7 +107,9 @@ export abstract class AbstractBrowseElementsComponent implements OnInit, OnChang
     this.paginatedSearchOptions = Object.assign(new PaginatedSearchOptions({}), this.paginatedSearchOptions, {
       projection: this.projection,
     });
+
     this.paginatedSearchOptions$ = new BehaviorSubject<PaginatedSearchOptions>(this.paginatedSearchOptions);
+
     this.searchResults$ = this.paginatedSearchOptions$.asObservable().pipe(
       mergeMap((paginatedSearchOptions) =>
         this.searchManager.search(paginatedSearchOptions, null, true, true, ...followLinks),

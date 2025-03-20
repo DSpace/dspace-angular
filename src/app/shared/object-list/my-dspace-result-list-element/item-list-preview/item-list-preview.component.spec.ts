@@ -25,6 +25,7 @@ import { ItemCollectionComponent } from '../../../object-collection/shared/mydsp
 import { ItemCorrectionComponent } from '../../../object-collection/shared/mydspace-item-correction/item-correction.component';
 import { ItemSubmitterComponent } from '../../../object-collection/shared/mydspace-item-submitter/item-submitter.component';
 import { TruncatableComponent } from '../../../truncatable/truncatable.component';
+import { TruncatableService } from '../../../truncatable/truncatable.service';
 import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/truncatable-part.component';
 import { TruncatePipe } from '../../../utils/truncate.pipe';
 import { AdditionalMetadataComponent } from '../../search-result-list-element/additional-metadata/additional-metadata.component';
@@ -97,6 +98,10 @@ const enviromentNoThumbs = {
   },
 };
 
+const truncatableServiceStub: any = {
+  isCollapsed: (id: number) => observableOf(true),
+};
+
 describe('ItemListPreviewComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -113,6 +118,7 @@ describe('ItemListPreviewComponent', () => {
       providers: [
         { provide: 'objectElementProvider', useValue: { mockItemWithAuthorAndDate } },
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
+        { provide: TruncatableService, useValue: truncatableServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemListPreviewComponent, {
@@ -227,6 +233,33 @@ describe('ItemListPreviewComponent', () => {
       expect(entityField).toBeNull();
     });
   });
+
+
+  describe('When truncatable section is collapsed', () => {
+    beforeEach(() => {
+      component.isCollapsed$ = observableOf(true);
+      component.item = mockItemWithAuthorAndDate;
+      fixture.detectChanges();
+    });
+
+    it('should show limitedMetadata', () => {
+      const authorElements = fixture.debugElement.queryAll(By.css('span.item-list-authors ds-metadata-link-view'));
+      expect(authorElements.length).toBe(mockItemWithAuthorAndDate.limitedMetadata(component.authorMetadata, component.authorMetadataLimit).length);
+    });
+  });
+
+  describe('When truncatable section is expanded', () => {
+    beforeEach(() => {
+      component.isCollapsed$ = observableOf(false);
+      component.item = mockItemWithAuthorAndDate;
+      fixture.detectChanges();
+    });
+
+    it('should show allMetadata', () => {
+      const authorElements = fixture.debugElement.queryAll(By.css('span.item-list-authors ds-metadata-link-view'));
+      expect(authorElements.length).toBe(mockItemWithAuthorAndDate.allMetadata(component.authorMetadata).length);
+    });
+  });
 });
 
 describe('ItemListPreviewComponent', () => {
@@ -245,6 +278,7 @@ describe('ItemListPreviewComponent', () => {
       providers: [
         { provide: 'objectElementProvider', useValue: { mockItemWithAuthorAndDate } },
         { provide: APP_CONFIG, useValue: enviromentNoThumbs },
+        { provide: TruncatableService, useValue: truncatableServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemListPreviewComponent, {

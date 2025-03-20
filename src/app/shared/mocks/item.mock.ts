@@ -183,6 +183,10 @@ export const ItemMock: Item = Object.assign(new Item(), {
         language: 'en_US',
         value: 'Doe, Jane',
       },
+      {
+        language: 'en_US',
+        value: 'Doe, John',
+      },
     ],
     'dc.date.accessioned': [
       {

@@ -11,6 +11,7 @@ import {
   MyDSpaceConfigurationService,
   SEARCH_CONFIG_SERVICE,
 } from '../../../../app/my-dspace-page/my-dspace-configuration.service';
+import { MyDSpaceBulkActionComponent } from '../../../../app/my-dspace-page/my-dspace-new-submission/my-dspace-bulk-action/my-dspace-bulk-action.component';
 import { MyDSpaceNewBulkImportComponent } from '../../../../app/my-dspace-page/my-dspace-new-submission/my-dspace-new-bulk-import/my-dspace-new-bulk-import.component';
 import { MyDSpaceNewSubmissionComponent } from '../../../../app/my-dspace-page/my-dspace-new-submission/my-dspace-new-submission.component';
 import { MyDSpacePageComponent as BaseComponent } from '../../../../app/my-dspace-page/my-dspace-page.component';
@@ -46,6 +47,7 @@ import { ThemedSearchComponent } from '../../../../app/shared/search/themed-sear
     NgIf,
     SuggestionsNotificationComponent,
     MyDspaceQaEventsNotificationsComponent,
+    MyDSpaceBulkActionComponent,
     MyDSpaceNewBulkImportComponent,
   ],
 })
