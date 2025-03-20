@@ -79,16 +79,6 @@ export class FilteredItemsExportCsvComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    /*const scriptExists$ = this.scriptDataService.findById('metadata-export-filtered-items-report').pipe(
-      getFirstCompletedRemoteData(),
-      map((rd) => rd.isSuccess && hasValue(rd.payload)),
-    );
-
-    const isAuthorized$ = this.authorizationDataService.isAuthorized(FeatureID.AdministratorOf);
-
-    this.shouldShowButton$ = observableCombineLatest([scriptExists$, isAuthorized$]).pipe(
-      map(([scriptExists, isAuthorized]: [boolean, boolean]) => scriptExists && isAuthorized),
-    );*/
     this.shouldShowButton$ = FilteredItemsExportCsvComponent.csvExportEnabled(this.scriptDataService, this.authorizationDataService);
   }
 
