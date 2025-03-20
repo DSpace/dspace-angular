@@ -6,6 +6,14 @@ import { schemaJsonLDForEntity } from '../schema-type-decorator';
 export class ProductCreativeWorkSchemaType extends SchemaType {
 
   protected createSchema(item: Item): Record<string, any> {
+  
+    let description: string;
+    if (!SchemaType.getMetadataValue(item, 'dc.description')) {
+      description = SchemaType.getMetadataValue(item, 'dc.description.abstract');
+    } else {
+      description = SchemaType.getMetadataValue(item, 'dc.description');
+    }
+    
     return {
       '@context': 'https://schema.org',
       '@type': 'CreativeWork',
@@ -18,6 +26,7 @@ export class ProductCreativeWorkSchemaType extends SchemaType {
       'inLanguage': SchemaType.getMetadataValue(item, 'dc.language.iso'),
       'genre': SchemaType.getMetadataValue(item, 'dc.subject'),
       'abstract': SchemaType.getMetadataValue(item, 'dc.description.abstract'),
+      'description': description,
       'funding': SchemaType.getMetadataValue(item, 'dc.relation.funding'),
       'sponsor': SchemaType.getMetadataValue(item, 'dc.description.sponsorship')
     };
