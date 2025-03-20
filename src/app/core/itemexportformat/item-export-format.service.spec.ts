@@ -122,7 +122,7 @@ describe('ItemExportFormatService', () => {
       const searchOptions = new PaginatedSearchOptions({
         query: 'queryX',
         filters: [
-          new SearchFilter('f.name', ['nameX']),
+          new SearchFilter('f.name', ['nameX', 'nameY']),
           new SearchFilter('f.type', ['typeX']),
           new SearchFilter('other.name', ['nameY']),
         ],
@@ -135,7 +135,7 @@ describe('ItemExportFormatService', () => {
         Object.assign(new ProcessParameter(), { name: '-f', value: 'publication-xml' }),
         Object.assign(new ProcessParameter(), { name: '-t', value: 'Publication' }),
         Object.assign(new ProcessParameter(), { name: '-q', value: 'queryX' }),
-        Object.assign(new ProcessParameter(), { name: '-sf', value: 'name=nameX&type=typeX' }),
+        Object.assign(new ProcessParameter(), { name: '-sf', value: 'name=nameX&name=nameY&type=typeX' }),
         Object.assign(new ProcessParameter(), { name: '-s', value: 'scopeX' }),
         Object.assign(new ProcessParameter(), { name: '-c', value: 'configurationX' }),
         Object.assign(new ProcessParameter(), { name: '-so', value: 'fieldX,ASC' }),
