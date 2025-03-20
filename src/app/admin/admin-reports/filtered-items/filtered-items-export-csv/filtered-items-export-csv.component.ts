@@ -65,6 +65,19 @@ export class FilteredItemsExportCsvComponent implements OnInit {
   ) {
   }
 
+  static csvExportEnabled(scriptDataService: ScriptDataService, authorizationDataService: AuthorizationDataService): Observable<boolean> {
+    const scriptExists$ = scriptDataService.findById('metadata-export-filtered-items-report').pipe(
+      getFirstCompletedRemoteData(),
+      map((rd) => rd.isSuccess && hasValue(rd.payload)),
+    );
+
+    const isAuthorized$ = authorizationDataService.isAuthorized(FeatureID.AdministratorOf);
+
+    return observableCombineLatest([scriptExists$, isAuthorized$]).pipe(
+      map(([scriptExists, isAuthorized]: [boolean, boolean]) => scriptExists && isAuthorized),
+    );
+  }
+
   ngOnInit(): void {
     /*const scriptExists$ = this.scriptDataService.findById('metadata-export-filtered-items-report').pipe(
       getFirstCompletedRemoteData(),
@@ -115,19 +128,6 @@ export class FilteredItemsExportCsvComponent implements OnInit {
         this.notificationsService.error(this.translateService.get('metadata-export-filtered-items.submit.error'));
       }
     });
-  }
-
-  static csvExportEnabled(scriptDataService: ScriptDataService, authorizationDataService: AuthorizationDataService): Observable<boolean> {
-    const scriptExists$ = scriptDataService.findById('metadata-export-filtered-items-report').pipe(
-      getFirstCompletedRemoteData(),
-      map((rd) => rd.isSuccess && hasValue(rd.payload)),
-    );
-
-    const isAuthorized$ = authorizationDataService.isAuthorized(FeatureID.AdministratorOf);
-
-    return observableCombineLatest([scriptExists$, isAuthorized$]).pipe(
-      map(([scriptExists, isAuthorized]: [boolean, boolean]) => scriptExists && isAuthorized),
-    );
   }
 
 }
