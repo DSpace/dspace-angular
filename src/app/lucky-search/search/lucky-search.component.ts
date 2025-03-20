@@ -63,6 +63,7 @@ export class LuckySearchComponent implements OnInit {
   private DESCRIPTION_METADATA = 'dc.description';
 
   bitstreamFilters$ = new BehaviorSubject<MetadataFilter[]>(null);
+  bundleName: string;
   item$ = new Subject<Item>();
   bitstreams$: BehaviorSubject<Bitstream[]> = new BehaviorSubject([]);
 
@@ -92,6 +93,7 @@ export class LuckySearchComponent implements OnInit {
         }
       });
       const value = this.parseBitstreamFilters(queryParams);
+      this.bundleName = queryParams?.bundleName ?? 'ORIGINAL';
       this.bitstreamFilters$.next(value);
     } else {
       this.bitstreamFilters$.next([]);
@@ -208,7 +210,7 @@ export class LuckySearchComponent implements OnInit {
   }
 
   private loadBitstreamsAndRedirectIfNeeded(item: Item, bitstreamFilters: MetadataFilter[]): Observable<Bitstream[]> {
-    return this.bitstreamDataService.findByItem(item.uuid, 'ORIGINAL', bitstreamFilters, {})
+    return this.bitstreamDataService.findByItem(item.uuid, this.bundleName, bitstreamFilters, {})
       .pipe(
         getFirstCompletedRemoteData(),
         map(bitstreamsResult => bitstreamsResult.payload?.page),
