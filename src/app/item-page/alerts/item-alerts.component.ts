@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -37,7 +34,6 @@ import {
   styleUrls: ['./item-alerts.component.scss'],
   imports: [
     AlertComponent,
-    NgIf,
     TranslateModule,
     RouterLink,
     AsyncPipe,

@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -106,7 +103,7 @@ export interface QualityAssuranceEventData {
   styleUrls: ['./project-entry-import-modal.component.scss'],
   templateUrl: './project-entry-import-modal.component.html',
   standalone: true,
-  imports: [RouterLink, NgIf, FormsModule, ThemedLoadingComponent, ThemedSearchResultsComponent, AlertComponent, AsyncPipe, TranslateModule, BtnDisabledDirective],
+  imports: [RouterLink, FormsModule, ThemedLoadingComponent, ThemedSearchResultsComponent, AlertComponent, AsyncPipe, TranslateModule, BtnDisabledDirective],
 })
 /**
  * Component to display a modal window for linking a project to an Quality Assurance event

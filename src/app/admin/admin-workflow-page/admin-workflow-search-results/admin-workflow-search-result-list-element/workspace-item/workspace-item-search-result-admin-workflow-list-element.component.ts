@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Inject,
@@ -52,7 +49,7 @@ import { WorkspaceItemAdminWorkflowActionsComponent } from '../../actions/worksp
   styleUrls: ['./workspace-item-search-result-admin-workflow-list-element.component.scss'],
   templateUrl: './workspace-item-search-result-admin-workflow-list-element.component.html',
   standalone: true,
-  imports: [NgIf, ListableObjectComponentLoaderComponent, WorkspaceItemAdminWorkflowActionsComponent, AsyncPipe, TranslateModule],
+  imports: [ListableObjectComponentLoaderComponent, WorkspaceItemAdminWorkflowActionsComponent, AsyncPipe, TranslateModule],
 })
 /**
  * The component for displaying a list element for a workflow item on the admin workflow search page

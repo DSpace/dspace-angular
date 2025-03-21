@@ -1,7 +1,5 @@
 import {
   AsyncPipe,
-  NgForOf,
-  NgIf,
   NgTemplateOutlet,
 } from '@angular/common';
 import {
@@ -71,8 +69,6 @@ import { ProfilePageSecurityFormComponent } from './profile-page-security-form/p
     TranslateModule,
     ProfilePageResearcherFormComponent,
     VarDirective,
-    NgIf,
-    NgForOf,
     SuggestionsNotificationComponent,
     NgTemplateOutlet,
     PaginationComponent,

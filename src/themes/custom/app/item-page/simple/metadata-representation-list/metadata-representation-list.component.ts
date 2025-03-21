@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgFor,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -17,7 +13,7 @@ import { VarDirective } from '../../../../../../app/shared/utils/var.directive';
   // templateUrl: './metadata-representation-list.component.html'
   templateUrl: '../../../../../../app/item-page/simple/metadata-representation-list/metadata-representation-list.component.html',
   standalone: true,
-  imports: [MetadataFieldWrapperComponent, NgFor, VarDirective, MetadataRepresentationLoaderComponent, NgIf, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [MetadataFieldWrapperComponent, VarDirective, MetadataRepresentationLoaderComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
 })
 export class MetadataRepresentationListComponent extends BaseComponent {
 

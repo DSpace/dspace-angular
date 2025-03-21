@@ -5,10 +5,6 @@
  *
  * https://www.atmire.com/software-license/
  */
-import {
-  NgFor,
-  NgIf,
-} from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
@@ -33,7 +29,7 @@ import { SidebarDropdownComponent } from '../../../../../../app/shared/sidebar/s
     },
   ],
   standalone: true,
-  imports: [NgIf, SidebarDropdownComponent, NgFor, FormsModule, PageSizeSelectorComponent, TranslateModule],
+  imports: [ SidebarDropdownComponent, FormsModule, PageSizeSelectorComponent, TranslateModule],
 })
 
 export class SearchSettingsComponent extends BaseComponent {}

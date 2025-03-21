@@ -2,8 +2,6 @@ import {
   AsyncPipe,
   NgClass,
   NgComponentOutlet,
-  NgFor,
-  NgIf,
 } from '@angular/common';
 import { Component } from '@angular/core';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
@@ -22,7 +20,7 @@ import { ThemedUserMenuComponent } from '../../../../app/shared/auth-nav-menu/us
   templateUrl: './navbar.component.html',
   animations: [slideMobileNav],
   standalone: true,
-  imports: [NgbDropdownModule, NgClass, NgIf, ThemedUserMenuComponent, NgFor, NgComponentOutlet, AsyncPipe, TranslateModule],
+  imports: [NgbDropdownModule, NgClass, ThemedUserMenuComponent, NgComponentOutlet, AsyncPipe, TranslateModule],
 })
 export class NavbarComponent extends BaseComponent {
 }

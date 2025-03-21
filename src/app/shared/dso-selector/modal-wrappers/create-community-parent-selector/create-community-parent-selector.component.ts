@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -50,7 +47,6 @@ import {
   imports: [
     AsyncPipe,
     DSOSelectorComponent,
-    NgIf,
     TranslateModule,
   ],
 })

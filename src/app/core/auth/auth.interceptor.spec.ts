@@ -1,7 +1,11 @@
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import {
-  HttpClientTestingModule,
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
+import {
   HttpTestingController,
+  provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
@@ -28,7 +32,7 @@ describe(`AuthInterceptor`, () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [],
       providers: [
         DspaceRestService,
         { provide: AuthService, useValue: authServiceStub },
@@ -39,6 +43,8 @@ describe(`AuthInterceptor`, () => {
           multi: true,
         },
         { provide: Store, useValue: store },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
       ],
     });
 
