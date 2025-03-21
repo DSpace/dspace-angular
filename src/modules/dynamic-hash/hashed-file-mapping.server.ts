@@ -21,8 +21,9 @@ import {
   relative,
 } from 'path';
 import zlib from 'zlib';
+
 import { hasValue } from '../../app/shared/empty.util';
-import { ThemeConfig } from '../../config/theme.model';
+import { ThemeConfig } from '../../config/theme.config';
 import {
   HashedFileMapping,
   ID,
@@ -71,13 +72,13 @@ export class ServerHashedFileMapping extends HashedFileMapping {
     // remove previous files
     const ext = extname(path);
     glob.GlobSync(path.replace(`${ext}`, `.*${ext}*`))
-        .found
-        .forEach(p => rmSync(p));
+      .found
+      .forEach(p => rmSync(p));
 
     // hash the content
     const hash = crypto.createHash('md5')
-                       .update(content)
-                       .digest('hex');
+      .update(content)
+      .digest('hex');
 
     // add the hash to the path
     const hashPath = path.replace(`${ext}`, `.${hash}${ext}`);
@@ -165,19 +166,19 @@ export class ServerHashedFileMapping extends HashedFileMapping {
    */
   save(): void {
     const out = Array.from(this.map.entries())
-                     .reduce((object, [plain, hashed]) => {
-                       object[relative(this.root, plain)] = relative(this.root, hashed);
-                       return object;
-                     }, {});
+      .reduce((object, [plain, hashed]) => {
+        object[relative(this.root, plain)] = relative(this.root, hashed);
+        return object;
+      }, {});
 
-    let root = parse(this.indexContent);
+    const root = parse(this.indexContent);
     root.querySelectorAll(`script#${ID}, link.${HEAD_LINK_CLASS}`)?.forEach(e => e.remove());
     root.querySelector('head')
-        .appendChild(`<script id="${ID}" type="application/json">${JSON.stringify(out)}</script>` as any);
+      .appendChild(`<script id="${ID}" type="application/json">${JSON.stringify(out)}</script>` as any);
 
     for (const headLink of this.headLinks) {
       root.querySelector('head')
-          .appendChild(this.renderHeadLink(headLink) as any);
+        .appendChild(this.renderHeadLink(headLink) as any);
     }
 
     writeFileSync(this.indexPath, root.toString());

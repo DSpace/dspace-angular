@@ -1,16 +1,25 @@
-import { red, blue, green, bold } from 'colors';
-import { existsSync, readFileSync, writeFileSync } from 'fs';
+import {
+  blue,
+  bold,
+  green,
+  red,
+} from 'colors';
+import {
+  existsSync,
+  readFileSync,
+  writeFileSync,
+} from 'fs';
 import { load } from 'js-yaml';
 import { join } from 'path';
-import { ServerHashedFileMapping } from '../modules/dynamic-hash/hashed-file-mapping.server';
 
+import { isNotEmpty } from '../app/shared/empty.util';
+import { ServerHashedFileMapping } from '../modules/dynamic-hash/hashed-file-mapping.server';
 import { AppConfig } from './app-config.interface';
 import { BuildConfig } from './build-config.interface';
 import { Config } from './config.interface';
+import { mergeConfig } from './config.util';
 import { DefaultAppConfig } from './default-app-config';
 import { ServerConfig } from './server-config.interface';
-import { mergeConfig } from './config.util';
-import { isNotEmpty } from '../app/shared/empty.util';
 
 const CONFIG_PATH = join(process.cwd(), 'config');
 
@@ -157,7 +166,7 @@ const buildBaseUrl = (config: ServerConfig): void => {
     config.ssl ? 'https://' : 'http://',
     config.host,
     config.port && config.port !== 80 && config.port !== 443 ? `:${config.port}` : '',
-    config.nameSpace && config.nameSpace.startsWith('/') ? config.nameSpace : `/${config.nameSpace}`
+    config.nameSpace && config.nameSpace.startsWith('/') ? config.nameSpace : `/${config.nameSpace}`,
   ].join('');
 };
 
@@ -230,6 +239,7 @@ export const buildAppConfig = (destConfigPath?: string, mapping?: ServerHashedFi
   appConfig.rest.port = isNotEmpty(ENV('REST_PORT', true)) ? getNumberFromString(ENV('REST_PORT', true)) : appConfig.rest.port;
   appConfig.rest.nameSpace = isNotEmpty(ENV('REST_NAMESPACE', true)) ? ENV('REST_NAMESPACE', true) : appConfig.rest.nameSpace;
   appConfig.rest.ssl = isNotEmpty(ENV('REST_SSL', true)) ? getBooleanFromString(ENV('REST_SSL', true)) : appConfig.rest.ssl;
+  appConfig.rest.ssrBaseUrl = isNotEmpty(ENV('REST_SSRBASEURL', true)) ? ENV('REST_SSRBASEURL', true) : appConfig.rest.ssrBaseUrl;
 
   // apply build defined production
   appConfig.production = env === 'production';
@@ -244,7 +254,7 @@ export const buildAppConfig = (destConfigPath?: string, mapping?: ServerHashedFi
     writeFileSync(destConfigPath, content);
     if (mapping !== undefined) {
       mapping.add(destConfigPath, content);
-      if (!(appConfig as BuildConfig).universal?.preboot) {
+      if (!(appConfig as BuildConfig).ssr?.enabled) {
         // If we're serving for CSR we can retrieve the configuration before JS is loaded/executed
         mapping.addHeadLink({
           path: destConfigPath,

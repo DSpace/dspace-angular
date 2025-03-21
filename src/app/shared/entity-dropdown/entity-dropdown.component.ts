@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   ElementRef,
@@ -7,22 +12,36 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
+  Output,
 } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { hasValue } from '../empty.util';
-import { reduce, startWith, switchMap } from 'rxjs/operators';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list.model';
+import { TranslateModule } from '@ngx-translate/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  reduce,
+  startWith,
+  switchMap,
+} from 'rxjs/operators';
+
 import { EntityTypeDataService } from '../../core/data/entity-type-data.service';
+import { FindListOptions } from '../../core/data/find-list-options.model';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
 import { getFirstSucceededRemoteWithNotEmptyData } from '../../core/shared/operators';
-import { FindListOptions } from '../../core/data/find-list-options.model';
+import { hasValue } from '../empty.util';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 
 @Component({
   selector: 'ds-entity-dropdown',
   templateUrl: './entity-dropdown.component.html',
-  styleUrls: ['./entity-dropdown.component.scss']
+  styleUrls: ['./entity-dropdown.component.scss'],
+  standalone: true,
+  imports: [InfiniteScrollModule, NgIf, NgFor, ThemedLoadingComponent, AsyncPipe, TranslateModule],
 })
 export class EntityDropdownComponent implements OnInit, OnDestroy {
   /**
@@ -84,12 +103,12 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
    *
    * @param {ChangeDetectorRef} changeDetectorRef
    * @param {EntityTypeDataService} entityTypeService
-   * @param {ElementRef} el
+   * @param el
    */
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private entityTypeService: EntityTypeDataService,
-    private el: ElementRef
+    private el: ElementRef,
   ) { }
 
   /**
@@ -154,7 +173,7 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
     // Set the pagination info
     const findOptions: FindListOptions = {
       elementsPerPage: 10,
-      currentPage: page
+      currentPage: page,
     };
     let searchListEntity$;
     if (this.isSubmission) {
@@ -163,21 +182,21 @@ export class EntityDropdownComponent implements OnInit, OnDestroy {
       searchListEntity$ = this.entityTypeService.getAllAuthorizedRelationshipTypeImport(findOptions);
     }
     this.searchListEntity$ = searchListEntity$.pipe(
-        getFirstSucceededRemoteWithNotEmptyData(),
-        switchMap((entityType: RemoteData<PaginatedList<ItemType>>) => {
-          if ( (this.searchListEntity.length + findOptions.elementsPerPage) >= entityType.payload.totalElements ) {
-            this.hasNextPage = false;
-          }
-          return entityType.payload.page;
-        }),
-        reduce((acc: any, value: any) => [...acc, value], []),
-        startWith([])
+      getFirstSucceededRemoteWithNotEmptyData(),
+      switchMap((entityType: RemoteData<PaginatedList<ItemType>>) => {
+        if ( (this.searchListEntity.length + findOptions.elementsPerPage) >= entityType.payload.totalElements ) {
+          this.hasNextPage = false;
+        }
+        return entityType.payload.page;
+      }),
+      reduce((acc: any, value: any) => [...acc, value], []),
+      startWith([]),
     );
     this.subs.push(
       this.searchListEntity$.subscribe(
         (next) => { this.searchListEntity.push(...next); }, undefined,
-        () => { this.hideShowLoader(false); this.changeDetectorRef.detectChanges(); }
-      )
+        () => { this.hideShowLoader(false); this.changeDetectorRef.detectChanges(); },
+      ),
     );
   }
 

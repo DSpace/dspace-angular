@@ -1,10 +1,15 @@
-import { EmailRequestCopyComponent } from './email-request-copy.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { VarDirective } from '../../shared/utils/var.directive';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Location } from '@angular/common';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { VarDirective } from '../../shared/utils/var.directive';
+import { EmailRequestCopyComponent } from './email-request-copy.component';
 import { RequestCopyEmail } from './request-copy-email.model';
 
 describe('EmailRequestCopyComponent', () => {
@@ -17,12 +22,11 @@ describe('EmailRequestCopyComponent', () => {
     location = jasmine.createSpyObj('location', ['back']);
 
     TestBed.configureTestingModule({
-      declarations: [EmailRequestCopyComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), EmailRequestCopyComponent, VarDirective],
       providers: [
         { provide: Location, useValue: location },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

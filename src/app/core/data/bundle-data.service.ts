@@ -1,36 +1,39 @@
 import { Injectable } from '@angular/core';
+import { Operation } from 'fast-json-patch';
 import { Observable } from 'rxjs';
-import { map, switchMap, take } from 'rxjs/operators';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
 import { hasValue } from '../../shared/empty.util';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { Bitstream } from '../shared/bitstream.model';
 import { Bundle } from '../shared/bundle.model';
-import { BUNDLE } from '../shared/bundle.resource-type';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
+import { IdentifiableDataService } from './base/identifiable-data.service';
+import {
+  PatchData,
+  PatchDataImpl,
+} from './base/patch-data';
+import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
+import { FindListOptions } from './find-list-options.model';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
 import { GetRequest } from './request.models';
 import { RequestService } from './request.service';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { Bitstream } from '../shared/bitstream.model';
 import { RequestEntryState } from './request-entry-state.model';
-import { FindListOptions } from './find-list-options.model';
-import { IdentifiableDataService } from './base/identifiable-data.service';
-import { PatchData, PatchDataImpl } from './base/patch-data';
-import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
 import { RestRequestMethod } from './rest-request-method';
-import { Operation } from 'fast-json-patch';
-import { dataService } from './base/data-service.decorator';
 
 /**
  * A service to retrieve {@link Bundle}s from the REST API
  */
-@Injectable(
-  { providedIn: 'root' },
-)
-@dataService(BUNDLE)
+@Injectable({ providedIn: 'root' })
 export class BundleDataService extends IdentifiableDataService<Bundle> implements PatchData<Bundle> {
   private bitstreamsEndpoint = 'bitstreams';
 
@@ -75,10 +78,14 @@ export class BundleDataService extends IdentifiableDataService<Bundle> implement
    *                                    requested after the response becomes stale
    * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
    *                                    {@link HALLink}s should be automatically resolved
+   * @param options                     the {@link FindListOptions} for the request
    */
   // TODO should be implemented rest side
-  findByItemAndName(item: Item, bundleName: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<Bundle>[]): Observable<RemoteData<Bundle>> {
-    return this.findAllByItem(item, { elementsPerPage: 9999 }, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow).pipe(
+  findByItemAndName(item: Item, bundleName: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<Bundle>[]): Observable<RemoteData<Bundle>> {
+    //Since we filter by bundleName where the pagination options are not indicated we need to load all the possible bundles.
+    // This is a workaround, in substitution of the previously recursive call with expand
+    const paginationOptions = options ?? { elementsPerPage: 9999 };
+    return this.findAllByItem(item, paginationOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow).pipe(
       map((rd: RemoteData<PaginatedList<Bundle>>) => {
         if (hasValue(rd.payload) && hasValue(rd.payload.page)) {
           const matchingBundle = rd.payload.page.find((bundle: Bundle) =>
@@ -91,7 +98,7 @@ export class BundleDataService extends IdentifiableDataService<Bundle> implement
               RequestEntryState.Success,
               null,
               matchingBundle,
-              200
+              200,
             );
           } else {
             return new RemoteData(
@@ -101,7 +108,7 @@ export class BundleDataService extends IdentifiableDataService<Bundle> implement
               RequestEntryState.Error,
               `The bundle with name ${bundleName} was not found.`,
               null,
-              404
+              404,
             );
           }
         } else {
@@ -119,7 +126,7 @@ export class BundleDataService extends IdentifiableDataService<Bundle> implement
   getBitstreamsEndpoint(bundleId: string, searchOptions?: PaginatedSearchOptions): Observable<string> {
     return this.getBrowseEndpoint().pipe(
       switchMap((href: string) => this.halService.getEndpoint(this.bitstreamsEndpoint, `${href}/${bundleId}`)),
-      map((href) => searchOptions ? searchOptions.toRestUrl(href) : href)
+      map((href) => searchOptions ? searchOptions.toRestUrl(href) : href),
     );
   }
 

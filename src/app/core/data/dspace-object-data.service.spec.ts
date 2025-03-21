@@ -1,12 +1,16 @@
-import { cold, getTestScheduler } from 'jasmine-marbles';
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
+
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { DSpaceObjectDataService } from './dspace-object-data.service';
 import { GetRequest } from './request.models';
 import { RequestService } from './request.service';
-import { DSpaceObjectDataService } from './dspace-object-data.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
 
 describe('DSpaceObjectDataService', () => {
   let scheduler: TestScheduler;
@@ -16,7 +20,7 @@ describe('DSpaceObjectDataService', () => {
   let rdbService: RemoteDataBuildService;
   let objectCache: ObjectCacheService;
   const testObject = {
-    uuid: '9b4f22f4-164a-49db-8817-3316b6ee5746'
+    uuid: '9b4f22f4-164a-49db-8817-3316b6ee5746',
   } as DSpaceObject;
   const dsoLink = 'https://rest.api/rest/api/dso/find{?uuid}';
   const requestURL = `https://rest.api/rest/api/dso/find?uuid=${testObject.uuid}`;
@@ -26,18 +30,18 @@ describe('DSpaceObjectDataService', () => {
     scheduler = getTestScheduler();
 
     halService = jasmine.createSpyObj('halService', {
-      getEndpoint: cold('a', { a: dsoLink })
+      getEndpoint: cold('a', { a: dsoLink }),
     });
     requestService = jasmine.createSpyObj('requestService', {
       generateRequestId: requestUUID,
-      send: true
+      send: true,
     });
     rdbService = jasmine.createSpyObj('rdbService', {
       buildSingle: cold('a', {
         a: {
-          payload: testObject
-        }
-      })
+          payload: testObject,
+        },
+      }),
     });
     objectCache = {} as ObjectCacheService;
 
@@ -68,8 +72,8 @@ describe('DSpaceObjectDataService', () => {
       const result = service.findById(testObject.uuid);
       const expected = cold('a', {
         a: {
-          payload: testObject
-        }
+          payload: testObject,
+        },
       });
       expect(result).toBeObservable(expected);
     });

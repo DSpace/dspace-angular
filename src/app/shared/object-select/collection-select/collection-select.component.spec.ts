@@ -1,28 +1,32 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
-import { TranslateModule } from '@ngx-translate/core';
-import { SharedModule } from '../../shared.module';
-import { ObjectSelectServiceStub } from '../../testing/object-select-service.stub';
-import { ObjectSelectService } from '../object-select.service';
-import { HostWindowService } from '../../host-window.service';
-import { HostWindowServiceStub } from '../../testing/host-window-service.stub';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { CollectionSelectComponent } from './collection-select.component';
-import { Collection } from '../../../core/shared/collection.model';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
-import { createPaginatedList } from '../../testing/utils.test';
-import { PaginationService } from '../../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../../testing/pagination-service.stub';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { LinkHeadService } from '../../../core/services/link-head.service';
-import { GroupDataService } from '../../../core/eperson/group-data.service';
+
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { GroupDataService } from '../../../core/eperson/group-data.service';
+import { PaginationService } from '../../../core/pagination/pagination.service';
+import { LinkHeadService } from '../../../core/services/link-head.service';
+import { Collection } from '../../../core/shared/collection.model';
 import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { HostWindowService } from '../../host-window.service';
+import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
+import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
+import { HostWindowServiceStub } from '../../testing/host-window-service.stub';
+import { ObjectSelectServiceStub } from '../../testing/object-select-service.stub';
+import { PaginationServiceStub } from '../../testing/pagination-service.stub';
+import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
+import { createPaginatedList } from '../../testing/utils.test';
+import { ObjectSelectService } from '../object-select.service';
+import { CollectionSelectComponent } from './collection-select.component';
 
 describe('CollectionSelectComponent', () => {
   let comp: CollectionSelectComponent;
@@ -32,26 +36,26 @@ describe('CollectionSelectComponent', () => {
   const mockCollectionList = [
     Object.assign(new Collection(), {
       id: 'id1',
-      name: 'name1'
+      name: 'name1',
     }),
     Object.assign(new Collection(), {
       id: 'id2',
-      name: 'name2'
-    })
+      name: 'name2',
+    }),
   ];
   const mockCollections = createSuccessfulRemoteDataObject$(createPaginatedList(mockCollectionList));
   const mockPaginationOptions = Object.assign(new PaginationComponentOptions(), {
     id: 'search-page-configuration',
     pageSize: 10,
-    currentPage: 1
+    currentPage: 1,
   });
 
   const authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
-    isAuthorized: observableOf(true)
+    isAuthorized: observableOf(true),
   });
 
   const linkHeadService = jasmine.createSpyObj('linkHeadService', {
-    addTag: ''
+    addTag: '',
   });
 
   const groupDataService = jasmine.createSpyObj('groupsDataService', {
@@ -64,16 +68,15 @@ describe('CollectionSelectComponent', () => {
     findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
       name: 'test',
       values: [
-        'org.dspace.ctask.general.ProfileFormats = test'
-      ]
-    }))
+        'org.dspace.ctask.general.ProfileFormats = test',
+      ],
+    })),
   });
 
   const paginationService = new PaginationServiceStub();
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), SharedModule, RouterTestingModule.withRoutes([])],
-      declarations: [],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
         { provide: ObjectSelectService, useValue: new ObjectSelectServiceStub([mockCollectionList[1].id]) },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
@@ -84,7 +87,7 @@ describe('CollectionSelectComponent', () => {
         { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 

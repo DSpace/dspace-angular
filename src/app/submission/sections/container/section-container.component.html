@@ -9,7 +9,7 @@
           'submission.sections.'+sectionData.header | translate
           }}</span>
         <div class="d-inline-block float-right">
-          <i *ngIf="!(sectionRef.isValid() | async) && !(sectionRef.hasErrors()) && !(sectionRef.isInfo())"
+          <i *ngIf="(sectionRef.isValid() | async) !== true && !(sectionRef.hasErrors()) && !(sectionRef.isInfo())"
             class="fas fa-exclamation-circle text-warning mr-3"
             title="{{'submission.sections.status.warnings.title' | translate}}" role="img"
             [attr.aria-label]="'submission.sections.status.warnings.aria' | translate"></i>

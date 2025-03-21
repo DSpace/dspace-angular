@@ -1,72 +1,77 @@
-import { FilterType } from './filter-type.model';
-import { autoserialize, autoserializeAs, deserialize } from 'cerialize';
-import { HALLink } from '../../../core/shared/hal-link.model';
+import {
+  autoserialize,
+  autoserializeAs,
+  deserialize,
+} from 'cerialize';
+
 import { typedObject } from '../../../core/cache/builders/build-decorators';
-import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
-import { SEARCH_FILTER_CONFIG } from './types/search-filter-config.resource-type';
 import { CacheableObject } from '../../../core/cache/cacheable-object.model';
+import { HALLink } from '../../../core/shared/hal-link.model';
+import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
+import { FilterType } from './filter-type.model';
+import { SEARCH_FILTER_CONFIG } from './types/search-filter-config.resource-type';
 
 /**
  * The configuration for a search filter
  */
 @typedObject
-  export class SearchFilterConfig implements CacheableObject {
-    static type = SEARCH_FILTER_CONFIG;
+export class SearchFilterConfig implements CacheableObject {
+  static type = SEARCH_FILTER_CONFIG;
 
     /**
      * The object type,
      * hardcoded because rest doesn't set one.
      */
     @excludeFromEquals
-    type = SEARCH_FILTER_CONFIG;
+      type = SEARCH_FILTER_CONFIG;
 
     /**
      * The name of this filter
      */
     @autoserialize
-    name: string;
+      name: string;
 
     /**
      * The FilterType of this filter
      */
     @autoserializeAs(String, 'facetType')
-    filterType: FilterType;
+      filterType: FilterType;
 
     /**
      * True if the filter has facets
      */
     @autoserialize
-    hasFacets: boolean;
+      hasFacets: boolean;
 
     /**
      * @type {number} The page size used for this facet
      */
     @autoserializeAs(String, 'facetLimit')
-    pageSize = 5;
+      pageSize = 5;
 
     /**
      * Defines if the item facet is collapsed by default or not on the search page
      */
     @autoserialize
-    isOpenByDefault: boolean;
+      isOpenByDefault: boolean;
 
     /**
      * Minimum value possible for this facet in the repository
      */
     @autoserialize
-    maxValue: string;
+      maxValue: string;
 
     /**
      * Maximum value possible for this facet in the repository
      */
     @autoserialize
-    minValue: string;
+      minValue: string;
 
     /**
      * The {@link HALLink}s for this SearchFilterConfig
      */
     @deserialize
-    _links: {
+      _links: {
       self: HALLink;
     };
 
@@ -77,4 +82,4 @@ import { CacheableObject } from '../../../core/cache/cacheable-object.model';
     get paramName(): string {
       return 'f.' + this.name;
     }
-  }
+}
