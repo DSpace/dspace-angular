@@ -50,6 +50,11 @@ declare global {
              * @returns Chainable reference to allow CSRF token to also be sent in header.
              */
             createCSRFCookie(): Chainable<any>;
+
+            /**
+             * Click accept in the Orejime cookie popup
+             * */
+            acceptOrejimePopup(): typeof acceptOrejimePopup;
         }
     }
 }
@@ -106,6 +111,9 @@ function loginViaForm(email: string, password: string): void {
   cy.get('[data-test="password"]').type(password);
   // Click login button
   cy.get('[data-test="login-button"]').click();
+
+  // wait for the browse to redirect to the reload page, and back
+  cy.acceptOrejimePopup();
 }
 // Add as a Cypress command (i.e. assign to 'cy.loginViaForm')
 Cypress.Commands.add('loginViaForm', loginViaForm);
@@ -173,3 +181,13 @@ function createCSRFCookie(): Cypress.Chainable {
 }
 // Add as a Cypress command (i.e. assign to 'cy.createCSRFCookie')
 Cypress.Commands.add('createCSRFCookie', createCSRFCookie);
+
+/**
+ * Click accept in te Orejime cookie popup
+ */
+function acceptOrejimePopup(): void {
+  cy.get('.orejime-Notice-saveButton').click();
+}
+Cypress.Commands.add('acceptOrejimePopup', acceptOrejimePopup);
+
+
