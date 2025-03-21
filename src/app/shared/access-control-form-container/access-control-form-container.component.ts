@@ -15,7 +15,7 @@ import {
 import { BulkAccessConfigDataService } from '../../core/config/bulk-access-config-data.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { BulkAccessConditionOptions } from '../../core/config/models/bulk-access-condition-options.model';
-import { AlertType } from '../alert/aletr-type';
+import { AlertType } from '../alert/alert-type';
 import {
   createAccessControlInitialFormState
 } from './access-control-form-container-intial-state';

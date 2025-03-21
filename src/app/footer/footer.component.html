@@ -62,21 +62,22 @@
         <a class="text-white"
            href="https://www.lyrasis.org/">{{ 'footer.link.lyrasis' | translate}}</a>
       </p>
-      <ul class="footer-info list-unstyled small d-flex justify-content-center mb-0">
+      <ul class="footer-info list-unstyled d-flex justify-content-center mb-0">
         <li>
-            <a class="text-white" href="javascript:void(0);"
-             (click)="showCookieSettings()">{{ 'footer.link.cookies' | translate}}</a>
+          <button class="btn btn-link text-white" type="button" (click)="showCookieSettings()">
+            {{ 'footer.link.cookies' | translate}}
+          </button>
         </li>
         <li *ngIf="showPrivacyPolicy">
-          <a class="text-white"
+          <a class="btn text-white"
              routerLink="info/privacy">{{ 'footer.link.privacy-policy' | translate}}</a>
         </li>
         <li *ngIf="showEndUserAgreement">
-          <a class="text-white"
+          <a class="btn text-white"
              routerLink="info/end-user-agreement">{{ 'footer.link.end-user-agreement' | translate}}</a>
         </li>
         <li *ngIf="showSendFeedback$ | async">
-          <a class="text-white"
+          <a class="btn text-white"
              routerLink="info/feedback">{{ 'footer.link.feedback' | translate}}</a>
         </li>
       </ul>

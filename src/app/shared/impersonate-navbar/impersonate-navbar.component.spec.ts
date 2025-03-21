@@ -14,6 +14,7 @@ import { authReducer } from '../../core/auth/auth.reducer';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 import { EPersonMock } from '../testing/eperson.mock';
 import { AppState, storeModuleConfig } from '../../app.reducer';
+import { of as observableOf } from 'rxjs';
 
 describe('ImpersonateNavbarComponent', () => {
   let component: ImpersonateNavbarComponent;
@@ -65,7 +66,7 @@ describe('ImpersonateNavbarComponent', () => {
 
   describe('when the user is impersonating another user', () => {
     beforeEach(() => {
-      component.isImpersonating = true;
+      component.isImpersonating$ = observableOf(true);
       fixture.detectChanges();
     });
 

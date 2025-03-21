@@ -22,7 +22,8 @@ import {
 } from 'path';
 import zlib from 'zlib';
 import { hasValue } from '../../app/shared/empty.util';
-import { ThemeConfig } from '../../config/theme.model';
+import { ThemeConfig } from '../../config/theme.config';
+
 import {
   HashedFileMapping,
   ID,

@@ -40,6 +40,7 @@ import { AppState } from '../../../app.reducer';
 import { getMockFormService } from '../../../shared/mocks/form-service.mock';
 import { mockAccessesFormData } from '../../../shared/mocks/submission.mock';
 import { accessConditionChangeEvent, checkboxChangeEvent } from '../../../shared/testing/form-event.stub';
+import { XSRFService } from '../../../core/xsrf/xsrf.service';
 
 describe('SubmissionSectionAccessesComponent', () => {
   let component: SubmissionSectionAccessesComponent;
@@ -96,6 +97,7 @@ describe('SubmissionSectionAccessesComponent', () => {
           { provide: TranslateService, useValue: getMockTranslateService() },
           { provide: FormService, useValue: getMockFormService() },
           { provide: Store, useValue: storeStub },
+          { provide: XSRFService, useValue: {} },
           { provide: SubmissionJsonPatchOperationsService, useValue: SubmissionJsonPatchOperationsServiceStub },
           { provide: 'sectionDataProvider', useValue: sectionData },
           { provide: 'submissionIdProvider', useValue: '1508' },
@@ -188,6 +190,7 @@ describe('SubmissionSectionAccessesComponent', () => {
           { provide: TranslateService, useValue: getMockTranslateService() },
           { provide: FormService, useValue: getMockFormService() },
           { provide: Store, useValue: storeStub },
+          { provide: XSRFService, useValue: {} },
           { provide: SubmissionJsonPatchOperationsService, useValue: SubmissionJsonPatchOperationsServiceStub },
           { provide: 'sectionDataProvider', useValue: sectionData },
           { provide: 'submissionIdProvider', useValue: '1508' },

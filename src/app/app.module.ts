@@ -32,6 +32,7 @@ import { EagerThemesModule } from '../themes/eager-themes.module';
 import { APP_CONFIG, AppConfig } from '../config/app-config.interface';
 import { StoreDevModules } from '../config/store/devtools';
 import { RootModule } from './root.module';
+import { DspaceRestInterceptor } from './core/dspace-rest/dspace-rest.interceptor';
 
 export function getConfig() {
   return environment;
@@ -103,6 +104,12 @@ const PROVIDERS = [
   {
     provide: HTTP_INTERCEPTORS,
     useClass: LogInterceptor,
+    multi: true
+  },
+  // register DspaceRestInterceptor as HttpInterceptor
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: DspaceRestInterceptor,
     multi: true
   },
   {

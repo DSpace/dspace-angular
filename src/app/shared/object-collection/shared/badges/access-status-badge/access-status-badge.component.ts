@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { catchError, map } from 'rxjs/operators';
-import { Observable, of as observableOf } from 'rxjs';
+import { Observable, of as observableOf, Subscription } from 'rxjs';
 import { AccessStatusObject } from './access-status.model';
 import { hasValue } from '../../../../empty.util';
 import { environment } from 'src/environments/environment';
@@ -11,7 +11,8 @@ import { ITEM } from '../../../../../core/shared/item.resource-type';
 
 @Component({
   selector: 'ds-access-status-badge',
-  templateUrl: './access-status-badge.component.html'
+  templateUrl: './access-status-badge.component.html',
+  styleUrls: ['./access-status-badge.component.scss']
 })
 /**
  * Component rendering the access status of an item as a badge
@@ -25,6 +26,16 @@ export class AccessStatusBadgeComponent {
    * Whether to show the access status badge or not
    */
   showAccessStatus: boolean;
+
+  /**
+   * Value based stylesheet class for access status badge
+   */
+  accessStatusClass: string;
+
+  /**
+   * List of subscriptions
+   */
+  subs: Subscription[] = [];
 
   /**
    * Initialize instance variables
@@ -57,5 +68,18 @@ export class AccessStatusBadgeComponent {
       map((status: string) => `access-status.${status.toLowerCase()}.listelement.badge`),
       catchError(() => observableOf('access-status.unknown.listelement.badge'))
     );
+
+    // stylesheet based on the access status value
+    this.subs.push(
+      this.accessStatus$.pipe(
+        map((accessStatusClass: string) => accessStatusClass.replace(/\./g, '-'))
+      ).subscribe((accessStatusClass: string) => {
+        this.accessStatusClass = accessStatusClass;
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 }

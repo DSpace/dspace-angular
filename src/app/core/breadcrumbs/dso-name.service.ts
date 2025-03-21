@@ -50,7 +50,7 @@ export class DSONameService {
       }
     },
     OrgUnit: (dso: DSpaceObject): string => {
-      return dso.firstMetadataValue('organization.legalName');
+      return dso.firstMetadataValue('organization.legalName') || this.translateService.instant('dso.name.untitled');
     },
     Default: (dso: DSpaceObject): string => {
       // If object doesn't have dc.title metadata use name property
@@ -106,7 +106,7 @@ export class DSONameService {
       }
       return `${familyName}, ${givenName}`;
     } else if (entityType === 'OrgUnit') {
-      return this.firstMetadataValue(object, dso, 'organization.legalName');
+      return this.firstMetadataValue(object, dso, 'organization.legalName') || this.translateService.instant('dso.name.untitled');
     }
     return this.firstMetadataValue(object, dso, 'dc.title') || dso.name || this.translateService.instant('dso.name.untitled');
   }

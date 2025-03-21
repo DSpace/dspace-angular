@@ -34,6 +34,7 @@ import { PatchData, PatchDataImpl } from '../data/base/patch-data';
 import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { dataService } from '../data/base/data-service.decorator';
+import { getEPersonEditRoute } from '../../access-control/access-control-routing-paths';
 
 const ePeopleRegistryStateSelector = (state: AppState) => state.epeopleRegistry;
 const editEPersonSelector = createSelector(ePeopleRegistryStateSelector, (ePeopleRegistryState: EPeopleRegistryState) => ePeopleRegistryState.editEPerson);
@@ -130,7 +131,7 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
    */
   public getEPersonByEmail(query: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<EPerson>[]): Observable<RemoteData<EPerson | NoContent>> {
     const findListOptions = new FindListOptions();
-    findListOptions.searchParams = [new RequestParam('email', encodeURIComponent(query))];
+    findListOptions.searchParams = [new RequestParam('email', query)];
     const href$ = this.searchData.getSearchByHref(this.searchByEmailPath, findListOptions, ...linksToFollow);
     return this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
@@ -147,7 +148,7 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
    *                                    {@link HALLink}s should be automatically resolved
    */
   private getEpeopleByMetadata(query: string, options?: FindListOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<EPerson>[]): Observable<RemoteData<PaginatedList<EPerson>>> {
-    const searchParams = [new RequestParam('query', encodeURIComponent(query))];
+    const searchParams = [new RequestParam('query', query)];
     return this.getEPeopleBy(searchParams, this.searchByMetadataPath, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
@@ -174,6 +175,34 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
       findListOptions.searchParams = searchParams;
     }
     return this.searchBy(searchMethod, findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
+  }
+
+  /**
+   * Searches for all EPerons which are *not* a member of a given group, via a passed in query
+   * (searches all EPerson metadata and by exact UUID).
+   * Endpoint used: /eperson/epesons/search/isNotMemberOf?query=<:string>&group=<:uuid>
+   * @param query                       search query param
+   * @param group                       UUID of group to exclude results from. Members of this group will never be returned.
+   * @param options
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   */
+  public searchNonMembers(query: string, group: string, options?: FindListOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true, ...linksToFollow: FollowLinkConfig<EPerson>[]): Observable<RemoteData<PaginatedList<EPerson>>> {
+    const searchParams = [new RequestParam('query', query), new RequestParam('group', group)];
+    let findListOptions = new FindListOptions();
+    if (options) {
+      findListOptions = Object.assign(new FindListOptions(), options);
+    }
+    if (findListOptions.searchParams) {
+      findListOptions.searchParams = [...findListOptions.searchParams, ...searchParams];
+    } else {
+      findListOptions.searchParams = searchParams;
+    }
+    return this.searchBy('isNotMemberOf', findListOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);
   }
 
   /**
@@ -281,15 +310,7 @@ export class EPersonDataService extends IdentifiableDataService<EPerson> impleme
         this.editEPerson(ePerson);
       }
     });
-    return '/access-control/epeople';
-  }
-
-  /**
-   * Get EPeople admin page
-   * @param ePerson New EPerson to edit
-   */
-  public getEPeoplePageRouterLink(): string {
-    return '/access-control/epeople';
+    return getEPersonEditRoute(ePerson.id);
   }
 
   /**

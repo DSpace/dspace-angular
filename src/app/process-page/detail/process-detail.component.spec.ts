@@ -147,7 +147,7 @@ describe('ProcessDetailComponent', () => {
       providers: [
         {
           provide: ActivatedRoute,
-          useValue: { data: observableOf({ process: createSuccessfulRemoteDataObject(process) }) }
+          useValue: { data: observableOf({ process: createSuccessfulRemoteDataObject(process) }), snapshot: { params: { id: 1 } } },
         },
         { provide: ProcessDataService, useValue: processService },
         { provide: BitstreamDataService, useValue: bitstreamDataService },
@@ -310,10 +310,11 @@ describe('ProcessDetailComponent', () => {
       });
 
       it('should call refresh method every 5 seconds, until process is completed', fakeAsync(() => {
-        spyOn(component, 'refresh');
-        spyOn(component, 'stopRefreshTimer');
+        spyOn(component, 'refresh').and.callThrough();
+        spyOn(component, 'stopRefreshTimer').and.callThrough();
 
-        process.processStatus = ProcessStatus.COMPLETED;
+        // start off with a running process in order for the refresh counter starts counting up
+        process.processStatus = ProcessStatus.RUNNING;
         // set findbyId to return a completed process
         (processService.findById as jasmine.Spy).and.returnValue(observableOf(createSuccessfulRemoteDataObject(process)));
 
@@ -335,6 +336,10 @@ describe('ProcessDetailComponent', () => {
 
         tick(1001); // 1 second + 1 ms by the setTimeout
         expect(component.refreshCounter$.value).toBe(0); // 1 - 1
+
+        // set the process to completed right before the counter checks the process
+        process.processStatus = ProcessStatus.COMPLETED;
+        (processService.findById as jasmine.Spy).and.returnValue(observableOf(createSuccessfulRemoteDataObject(process)));
 
         tick(1000); // 1 second
 
