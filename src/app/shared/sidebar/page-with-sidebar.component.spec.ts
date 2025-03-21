@@ -1,13 +1,16 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of as observableOf } from 'rxjs';
 
-import { PageWithSidebarComponent } from './page-with-sidebar.component';
-import { SidebarService } from './sidebar.service';
 import { HostWindowService } from '../host-window.service';
 import { SidebarServiceStub } from '../testing/sidebar-service.stub';
+import { PageWithSidebarComponent } from './page-with-sidebar.component';
+import { SidebarService } from './sidebar.service';
 
 describe('PageWithSidebarComponent', () => {
   let comp: PageWithSidebarComponent;
@@ -15,22 +18,20 @@ describe('PageWithSidebarComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
+      imports: [NoopAnimationsModule, PageWithSidebarComponent],
       providers: [
         {
           provide: SidebarService,
-          useClass: SidebarServiceStub
+          useClass: SidebarServiceStub,
         },
         {
-          provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService',
-            {
-              isXs: observableOf(true),
-              isSm: observableOf(false),
-              isXsOrSm: observableOf(true)
-            })
+          provide: HostWindowService, useValue: jasmine.createSpyObj('hostWindowService', {
+            isXs: observableOf(true),
+            isSm: observableOf(false),
+            isXsOrSm: observableOf(true),
+          }),
         },
       ],
-      declarations: [PageWithSidebarComponent]
     }).compileComponents().then(() => {
       fixture = TestBed.createComponent(PageWithSidebarComponent);
       comp = fixture.componentInstance;

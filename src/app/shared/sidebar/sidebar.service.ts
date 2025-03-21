@@ -1,11 +1,22 @@
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { SidebarState } from './sidebar.reducer';
-import { createSelector, select, Store } from '@ngrx/store';
-import { SidebarCollapseAction, SidebarExpandAction } from './sidebar.actions';
+import {
+  createSelector,
+  select,
+  Store,
+} from '@ngrx/store';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+} from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { AppState } from '../../app.reducer';
 import { HostWindowService } from '../host-window.service';
-import { map } from 'rxjs/operators';
+import {
+  SidebarCollapseAction,
+  SidebarExpandAction,
+} from './sidebar.actions';
+import { SidebarState } from './sidebar.reducer';
 
 const sidebarStateSelector = (state: AppState) => state.sidebar;
 const sidebarCollapsedSelector = createSelector(sidebarStateSelector, (sidebar: SidebarState) => sidebar.sidebarCollapsed);
@@ -13,7 +24,7 @@ const sidebarCollapsedSelector = createSelector(sidebarStateSelector, (sidebar: 
 /**
  * Service that performs all actions that have to do with the sidebar
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SidebarService {
   /**
    * Emits true is the current screen size is mobile
@@ -37,9 +48,9 @@ export class SidebarService {
   get isCollapsed(): Observable<boolean> {
     return observableCombineLatest(
       this.isXsOrSm$,
-      this.isCollapsedInStore
+      this.isCollapsedInStore,
     ).pipe(
-      map(([mobile, store]) => mobile ? store : true)
+      map(([mobile, store]) => mobile ? store : true),
     );
   }
 

@@ -1,9 +1,14 @@
-import { Inject, Injectable } from '@angular/core';
-
-import { REQUEST } from '@nguniversal/express-engine/tokens';
-
-import { Subject ,  Observable } from 'rxjs';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
 import { CookieAttributes } from 'js-cookie';
+import {
+  Observable,
+  Subject,
+} from 'rxjs';
+
+import { REQUEST } from '../../../express.tokens';
 
 export interface ICookieService {
   readonly cookies$: Observable<{ readonly [key: string]: any }>;

@@ -1,8 +1,18 @@
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+
 import { ConfirmationModalComponent } from './confirmation-modal.component';
 
 describe('ConfirmationModalComponent', () => {
@@ -14,12 +24,11 @@ describe('ConfirmationModalComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ConfirmationModalComponent],
+      imports: [TranslateModule.forRoot(), ConfirmationModalComponent],
       providers: [
-        { provide: NgbActiveModal, useValue: modalStub }
+        { provide: NgbActiveModal, useValue: modalStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
   }));
@@ -73,9 +82,9 @@ describe('ConfirmationModalComponent', () => {
   describe('when the click method emits on close button', () => {
     beforeEach(fakeAsync(() => {
       spyOn(component, 'close');
-      debugElement.query(By.css('button.close')).triggerEventHandler('click', {
+      debugElement.query(By.css('button.btn-close')).triggerEventHandler('click', {
         preventDefault: () => {/**/
-        }
+        },
       });
       tick();
       fixture.detectChanges();
@@ -91,7 +100,7 @@ describe('ConfirmationModalComponent', () => {
       spyOn(component.response, 'emit');
       debugElement.query(By.css('button.cancel')).triggerEventHandler('click', {
         preventDefault: () => {/**/
-        }
+        },
       });
       tick();
       fixture.detectChanges();
@@ -110,7 +119,7 @@ describe('ConfirmationModalComponent', () => {
       spyOn(component.response, 'emit');
       debugElement.query(By.css('button.confirm')).triggerEventHandler('click', {
         preventDefault: () => {/**/
-        }
+        },
       });
       tick();
       fixture.detectChanges();

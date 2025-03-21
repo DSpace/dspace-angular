@@ -1,4 +1,5 @@
 import { of as observableOf } from 'rxjs';
+
 import { hasValue } from '../empty.util';
 
 export class HALEndpointServiceStub {

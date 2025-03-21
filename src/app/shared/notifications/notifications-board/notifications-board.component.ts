@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -5,26 +6,41 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
-
-import { select, Store } from '@ngrx/store';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
 import difference from 'lodash/difference';
+import {
+  BehaviorSubject,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import { take } from 'rxjs/operators';
 
-import { NotificationsService } from '../notifications.service';
-import { AppState } from '../../../app.reducer';
-import { notificationsStateSelector } from '../selectors';
-import { INotification } from '../models/notification.model';
-import { NotificationsState } from '../notifications.reducers';
 import { INotificationBoardOptions } from '../../../../config/notifications-config.interfaces';
+import { AppState } from '../../../app.reducer';
+import {
+  hasNoValue,
+  isNotEmptyOperator,
+} from '../../empty.util';
+import { LiveRegionService } from '../../live-region/live-region.service';
+import { INotification } from '../models/notification.model';
+import { NotificationComponent } from '../notification/notification.component';
+import { NotificationsState } from '../notifications.reducers';
+import { NotificationsService } from '../notifications.service';
+import { notificationsStateSelector } from '../selectors';
 
 @Component({
   selector: 'ds-notifications-board',
   encapsulation: ViewEncapsulation.None,
   templateUrl: './notifications-board.component.html',
   styleUrls: ['./notifications-board.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [NgClass, NotificationComponent],
 })
 export class NotificationsBoardComponent implements OnInit, OnDestroy {
 
@@ -49,9 +65,12 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
    */
   public isPaused$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  constructor(private service: NotificationsService,
-              private store: Store<AppState>,
-              private cdr: ChangeDetectorRef) {
+  constructor(
+    private service: NotificationsService,
+    private store: Store<AppState>,
+    private cdr: ChangeDetectorRef,
+    protected liveRegionService: LiveRegionService,
+  ) {
   }
 
   ngOnInit(): void {
@@ -85,6 +104,7 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
         this.notifications.splice(this.notifications.length - 1, 1);
       }
       this.notifications.splice(0, 0, item);
+      this.addContentToLiveRegion(item);
     } else {
       // Remove the notification from the store
       // This notification was in the store, but not in this.notifications
@@ -93,29 +113,44 @@ export class NotificationsBoardComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Adds the content of the notification (if any) to the live region, so it can be announced by screen readers.
+   */
+  private addContentToLiveRegion(item: INotification) {
+    let content = item.content;
+
+    if (!item.options.announceContentInLiveRegion || hasNoValue(content)) {
+      return;
+    }
+
+    if (typeof content === 'string') {
+      content = observableOf(content);
+    }
+
+    content.pipe(
+      isNotEmptyOperator(),
+      take(1),
+    ).subscribe(contentStr => this.liveRegionService.addMessage(contentStr));
+  }
+
+  /**
+   * Whether to block the provided item because a duplicate notification with the exact same information already
+   * exists within the notifications array.
+   * @param item The item to check
+   * @return true if the notifications array already contains a notification with the exact same information as the
+   * provided item. false otherwise.
+   * @private
+   */
   private block(item: INotification): boolean {
     const toCheck = item.html ? this.checkHtml : this.checkStandard;
+
     this.notifications.forEach((notification) => {
       if (toCheck(notification, item)) {
         return true;
       }
     });
 
-    if (this.notifications.length > 0) {
-      this.notifications.forEach((notification) => {
-        if (toCheck(notification, item)) {
-          return true;
-        }
-      });
-    }
-
-    let comp: INotification;
-    if (this.notifications.length > 0) {
-      comp = this.notifications[0];
-    } else {
-      return false;
-    }
-    return toCheck(comp, item);
+    return false;
   }
 
   private checkStandard(checker: INotification, item: INotification): boolean {

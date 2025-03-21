@@ -1,0 +1,28 @@
+<!--
+Template for the detect duplicates submission section component
+@author Kim Shepherd
+-->
+<div class="text-sm-left" *ngVar="(this.getDuplicateData() | async) as data">
+  @if (data?.potentialDuplicates.length === 0) {
+    <div class="alert alert-success w-100">{{ 'submission.sections.duplicates.none' | translate }}</div>
+  }
+  @if (data?.potentialDuplicates.length > 0) {
+    <div class="alert alert-warning w-100">{{ 'submission.sections.duplicates.detected' | translate }}</div>
+    @for (dupe of data?.potentialDuplicates; track dupe) {
+      <div class="ds-duplicate">
+        <a target="_blank" [href]="getItemLink(dupe.uuid)">{{dupe.title}}</a>
+        @for (metadatum of Metadata.toViewModelList(dupe.metadata); track metadatum) {
+          <div>
+            {{('item.preview.' + metadatum.key) | translate}} {{metadatum.value}}
+          </div>
+        }
+        @if (dupe.workspaceItemId) {
+          <p>{{ 'submission.sections.duplicates.in-workspace' | translate }}</p>
+        }
+        @if (dupe.workflowItemId) {
+          <p>{{ 'submission.sections.duplicates.in-workflow' | translate }}</p>
+        }
+      </div>
+    }
+  }
+</div>

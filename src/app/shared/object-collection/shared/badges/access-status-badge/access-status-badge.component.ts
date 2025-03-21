@@ -1,22 +1,40 @@
-import { Component, Input } from '@angular/core';
-import { catchError, map } from 'rxjs/operators';
-import { Observable, of as observableOf } from 'rxjs';
-import { AccessStatusObject } from './access-status.model';
-import { hasValue } from '../../../../empty.util';
-import { environment } from 'src/environments/environment';
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  catchError,
+  map,
+} from 'rxjs/operators';
 import { AccessStatusDataService } from 'src/app/core/data/access-status-data.service';
+import { environment } from 'src/environments/environment';
+
 import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { ITEM } from '../../../../../core/shared/item.resource-type';
+import { hasValue } from '../../../../empty.util';
+import { AccessStatusObject } from './access-status.model';
 
 @Component({
-  selector: 'ds-access-status-badge',
-  templateUrl: './access-status-badge.component.html'
+  selector: 'ds-base-access-status-badge',
+  templateUrl: './access-status-badge.component.html',
+  styleUrls: ['./access-status-badge.component.scss'],
+  standalone: true,
+  imports: [AsyncPipe, TranslateModule],
 })
 /**
  * Component rendering the access status of an item as a badge
  */
-export class AccessStatusBadgeComponent {
+export class AccessStatusBadgeComponent implements OnDestroy, OnInit {
 
   @Input() object: DSpaceObject;
   accessStatus$: Observable<string>;
@@ -25,6 +43,16 @@ export class AccessStatusBadgeComponent {
    * Whether to show the access status badge or not
    */
   showAccessStatus: boolean;
+
+  /**
+   * Value based stylesheet class for access status badge
+   */
+  accessStatusClass: string;
+
+  /**
+   * List of subscriptions
+   */
+  subs: Subscription[] = [];
 
   /**
    * Initialize instance variables
@@ -55,7 +83,20 @@ export class AccessStatusBadgeComponent {
       }),
       map((accessStatus: AccessStatusObject) => hasValue(accessStatus.status) ? accessStatus.status : 'unknown'),
       map((status: string) => `access-status.${status.toLowerCase()}.listelement.badge`),
-      catchError(() => observableOf('access-status.unknown.listelement.badge'))
+      catchError(() => observableOf('access-status.unknown.listelement.badge')),
     );
+
+    // stylesheet based on the access status value
+    this.subs.push(
+      this.accessStatus$.pipe(
+        map((accessStatusClass: string) => accessStatusClass.replace(/\./g, '-')),
+      ).subscribe((accessStatusClass: string) => {
+        this.accessStatusClass = accessStatusClass;
+      }),
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
   }
 }

@@ -1,10 +1,11 @@
+import { deserialize } from 'cerialize';
+
 import { typedObject } from '../../../core/cache/builders/build-decorators';
-import { FACET_CONFIG_RESPONSE } from './types/facet-config-response.resouce-type';
+import { CacheableObject } from '../../../core/cache/cacheable-object.model';
+import { HALLink } from '../../../core/shared/hal-link.model';
 import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
 import { SearchFilterConfig } from './search-filter-config.model';
-import { deserialize } from 'cerialize';
-import { HALLink } from '../../../core/shared/hal-link.model';
-import { CacheableObject } from '../../../core/cache/cacheable-object.model';
+import { FACET_CONFIG_RESPONSE } from './types/facet-config-response.resouce-type';
 
 /**
  * The response from the discover/facets endpoint

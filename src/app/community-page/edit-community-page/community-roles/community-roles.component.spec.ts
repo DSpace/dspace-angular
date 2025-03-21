@@ -1,22 +1,30 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { ActivatedRoute } from '@angular/router';
-import { of as observableOf } from 'rxjs';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { CommunityRolesComponent } from './community-roles.component';
-import { Community } from '../../../core/shared/community.model';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { RequestService } from '../../../core/data/request.service';
 import { GroupDataService } from '../../../core/eperson/group-data.service';
-import { SharedModule } from '../../../shared/shared.module';
-import { RouterTestingModule } from '@angular/router/testing';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ComcolModule } from '../../../shared/comcol/comcol.module';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { Community } from '../../../core/shared/community.model';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../shared/remote-data.utils';
+import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
+import { CommunityRolesComponent } from './community-roles.component';
 
 describe('CommunityRolesComponent', () => {
 
@@ -39,10 +47,10 @@ describe('CommunityRolesComponent', () => {
                   href: 'adminGroup link',
                 },
               },
-            })
+            }),
           ),
-        })
-      }
+        }),
+      },
     };
 
     const requestService = {
@@ -55,13 +63,9 @@ describe('CommunityRolesComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        ComcolModule,
-        SharedModule,
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot(),
-        NoopAnimationsModule
-      ],
-      declarations: [
+        NoopAnimationsModule,
         CommunityRolesComponent,
       ],
       providers: [
@@ -69,9 +73,9 @@ describe('CommunityRolesComponent', () => {
         { provide: ActivatedRoute, useValue: route },
         { provide: RequestService, useValue: requestService },
         { provide: GroupDataService, useValue: groupDataService },
-        { provide: NotificationsService, useClass: NotificationsServiceStub }
+        { provide: NotificationsService, useClass: NotificationsServiceStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CommunityRolesComponent);

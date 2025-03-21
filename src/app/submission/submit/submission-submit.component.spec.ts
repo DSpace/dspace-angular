@@ -1,22 +1,34 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  NO_ERRORS_SCHEMA,
+  ViewContainerRef,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NO_ERRORS_SCHEMA, ViewContainerRef } from '@angular/core';
-
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { SubmissionService } from '../submission.service';
-import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
-import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
-import { RouterStub } from '../../shared/testing/router.stub';
-import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
-import { SubmissionSubmitComponent } from './submission-submit.component';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { ItemDataService } from '../../core/data/item-data.service';
+import { mockSubmissionObject } from '../../shared/mocks/submission.mock';
+import { getMockTranslateService } from '../../shared/mocks/translate.service.mock';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { RouterStub } from '../../shared/testing/router.stub';
+import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
+import { SubmissionService } from '../submission.service';
+import { SubmissionSubmitComponent } from './submission-submit.component';
 
 describe('SubmissionSubmitComponent Component', () => {
 
@@ -37,9 +49,9 @@ describe('SubmissionSubmitComponent Component', () => {
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([
           { path: '', component: SubmissionSubmitComponent, pathMatch: 'full' },
-        ])
+        ]),
+        SubmissionSubmitComponent,
       ],
-      declarations: [SubmissionSubmitComponent],
       providers: [
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
@@ -47,9 +59,9 @@ describe('SubmissionSubmitComponent Component', () => {
         { provide: TranslateService, useValue: getMockTranslateService() },
         { provide: Router, useValue: new RouterStub() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
-        ViewContainerRef
+        ViewContainerRef,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -78,11 +90,11 @@ describe('SubmissionSubmitComponent Component', () => {
 
   it('should redirect to workspaceitem edit when a not empty SubmissionObject has been retrieved',() => {
 
-    submissionServiceStub.createSubmission.and.returnValue(observableOf({ id: '1234'}));
+    submissionServiceStub.createSubmission.and.returnValue(observableOf({ id: '1234' }));
 
     fixture.detectChanges();
 
-    expect(router.navigate).toHaveBeenCalledWith(['/workspaceitems', '1234', 'edit'], { replaceUrl: true});
+    expect(router.navigate).toHaveBeenCalledWith(['/workspaceitems', '1234', 'edit'], { replaceUrl: true });
 
   });
 

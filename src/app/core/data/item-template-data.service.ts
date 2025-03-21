@@ -1,22 +1,23 @@
 /* eslint-disable max-classes-per-file */
 import { Injectable } from '@angular/core';
-import { BaseItemDataService } from './item-data.service';
-import { Item } from '../shared/item.model';
-import { RemoteData } from './remote-data';
 import { Observable } from 'rxjs';
-import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { RequestService } from './request.service';
+import { switchMap } from 'rxjs/operators';
+
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { BrowseService } from '../browse/browse.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { BrowseService } from '../browse/browse.service';
-import { CollectionDataService } from './collection-data.service';
-import { switchMap } from 'rxjs/operators';
-import { BundleDataService } from './bundle-data.service';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { IdentifiableDataService } from './base/identifiable-data.service';
+import { Item } from '../shared/item.model';
 import { CreateDataImpl } from './base/create-data';
+import { IdentifiableDataService } from './base/identifiable-data.service';
+import { BundleDataService } from './bundle-data.service';
+import { CollectionDataService } from './collection-data.service';
+import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
+import { BaseItemDataService } from './item-data.service';
+import { RemoteData } from './remote-data';
+import { RequestService } from './request.service';
 
 /**
  * Data service for interacting with Item templates via their Collection
@@ -63,7 +64,7 @@ class CollectionItemTemplateDataService extends IdentifiableDataService<Item> {
 /**
  * A service responsible for fetching/sending data from/to the REST API on a collection's itemtemplates endpoint
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ItemTemplateDataService extends BaseItemDataService {
   private byCollection: CollectionItemTemplateDataService;
 

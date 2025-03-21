@@ -1,11 +1,15 @@
-import { Observable, of as observableOf } from 'rxjs';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
 import { KeyValuePair } from '../key-value-pair.model';
 
 const variables = {
-  '--bs-sm-min': '576px,',
-  '--bs-md-min': '768px,',
-  '--bs-lg-min': '992px',
-  '--bs-xl-min': '1200px',
+  '--bs-sm': '576px,',
+  '--bs-md': '768px,',
+  '--bs-lg': '992px',
+  '--bs-xl': '1200px',
 } as any;
 
 export class CSSVariableServiceStub {
