@@ -30,11 +30,11 @@
 
       <div class="col-sm-4">
         <input [type]="'number'" [id]="'notificationTimeOutInput'" class="form-control"
-               [ngClass]="{'is-invalid': !settingsService.isValid('notificationTimeOut', formValues)}"
-               [min]="1"
-               [readOnly]="!formValues.notificationTimeOutEnabled"
-               [(ngModel)]="formValues.notificationTimeOut" [ngModelOptions]="{ standalone: true }"
-               [attr.aria-describedby]="'notificationTimeOutHint'">
+          [ngClass]="{'is-invalid': !settingsService.isValid('notificationTimeOut', formValues)}"
+          [min]="1"
+          [readOnly]="!formValues.notificationTimeOutEnabled"
+          [(ngModel)]="formValues.notificationTimeOut" [ngModelOptions]="{ standalone: true }"
+          [attr.aria-describedby]="'notificationTimeOutHint'">
         <div class="invalid-feedback" [ngClass]="{ 'd-block': !settingsService.isValid('notificationTimeOut', formValues) }">
           {{ 'info.accessibility-settings.notificationTimeOut.invalid' | translate }}
         </div>
@@ -57,10 +57,10 @@
 
       <div class="col-sm-4">
         <input [type]="'number'" [id]="'liveRegionTimeOutInput'" class="form-control"
-               [ngClass]="{'is-invalid': !settingsService.isValid('liveRegionTimeOut', formValues)}"
-               [min]="1"
-               [(ngModel)]="formValues.liveRegionTimeOut" [ngModelOptions]="{ standalone: true }"
-               [attr.aria-describedby]="'liveRegionTimeOutHint'">
+          [ngClass]="{'is-invalid': !settingsService.isValid('liveRegionTimeOut', formValues)}"
+          [min]="1"
+          [(ngModel)]="formValues.liveRegionTimeOut" [ngModelOptions]="{ standalone: true }"
+          [attr.aria-describedby]="'liveRegionTimeOutHint'">
         <div class="invalid-feedback" [ngClass]="{ 'd-block': !settingsService.isValid('liveRegionTimeOut', formValues) }">
           {{ 'info.accessibility-settings.liveRegionTimeOut.invalid' | translate }}
         </div>
@@ -87,8 +87,10 @@
 
   </form>
 
-  <div *ngIf="(isAuthenticated | async) === false && (cookieIsAccepted | async) === false" class="mt-2">
-    <ds-alert [type]="AlertType.Warning">{{ 'info.accessibility-settings.cookie-warning' | translate }}</ds-alert>
-  </div>
+  @if ((isAuthenticated | async) === false && (cookieIsAccepted | async) === false) {
+    <div class="mt-2">
+      <ds-alert [type]="AlertType.Warning">{{ 'info.accessibility-settings.cookie-warning' | translate }}</ds-alert>
+    </div>
+  }
 
 </div>
