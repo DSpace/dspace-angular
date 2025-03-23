@@ -128,6 +128,22 @@
       }
     </div>
 
+    <!-- In the usesActorEmailId section -->
+    <div class="mb-5 mt-5">
+      <label class="status-label font-weight-bold" for="usesActorEmailId">{{ 'ldn-service-usesActorEmailId' | translate }}</label>
+      <div>
+        <input formControlName="usesActorEmailId" hidden id="usesActorEmailId"
+               name="usesActorEmailId" type="checkbox">
+        <div (click)="toggleUsesActorEmailId()"
+             [class.checked]="formModel.get('usesActorEmailId').value" class="toggle-switch">
+          <div class="slider"></div>
+        </div>
+        <div class="text-muted">
+          {{ 'ldn-service-usesActorEmailId-description' | translate }}
+        </div>
+      </div>
+    </div>
+
 
     <!-- In the Inbound Patterns Labels section -->
     @if (areControlsInitialized) {
