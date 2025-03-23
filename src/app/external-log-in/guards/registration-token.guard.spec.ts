@@ -23,7 +23,7 @@ import {
 } from '../../shared/remote-data.utils';
 import { registrationTokenGuard } from './registration-token-guard';
 
-fdescribe('RegistrationTokenGuard',
+describe('RegistrationTokenGuard',
   () => {
     const route = new RouterMock();
     const registrationWithGroups = Object.assign(new Registration(),

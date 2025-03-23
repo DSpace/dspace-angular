@@ -22,6 +22,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { AuthService } from '../../core/auth/auth.service';
+import { AuthMethodsService } from '../../core/auth/auth-methods.service';
 import { AuthMethodType } from '../../core/auth/models/auth.method-type';
 import { AuthRegistrationType } from '../../core/auth/models/auth.registration-type';
 import { Registration } from '../../core/shared/registration.model';
@@ -31,6 +32,7 @@ import {
   hasValue,
   isEmpty,
 } from '../../shared/empty.util';
+import { AuthMethodTypeComponent } from '../../shared/log-in/methods/auth-methods.type';
 import { ThemedLogInComponent } from '../../shared/log-in/themed-log-in.component';
 import {
   ExternalLoginTypeComponent,
@@ -79,6 +81,11 @@ export class ExternalLogInComponent implements OnInit, OnDestroy {
    */
   @Input() token: string;
   /**
+   * The authMethods taken from the configuration
+   * @memberof ExternalLogInComponent
+   */
+  @Input() authMethods: Map<AuthMethodType, AuthMethodTypeComponent>;
+  /**
    * The information text to be displayed,
    * depending on the registration type and the presence of an email
    * @memberof ExternalLogInComponent
@@ -109,6 +116,7 @@ export class ExternalLogInComponent implements OnInit, OnDestroy {
     private translate: TranslateService,
     private modalService: NgbModal,
     private authService: AuthService,
+    private authMethodsService: AuthMethodsService,
   ) {
   }
 
@@ -128,11 +136,14 @@ export class ExternalLogInComponent implements OnInit, OnDestroy {
       parent: this.injector,
     });
     this.registrationType = this.registrationData?.registrationType ?? null;
-    this.relatedAuthMethod = isEmpty(this.registrationType) ? null : this.registrationType.replace('VALIDATION_', '').toLocaleLowerCase() as AuthMethodType;
+    this.relatedAuthMethod = isEmpty(this.registrationType) ? null :
+      this.registrationType.replace('VALIDATION_', '').toLocaleLowerCase() as AuthMethodType;
     this.informationText = hasValue(this.registrationData?.email)
       ? this.generateInformationTextWhenEmail(this.registrationType)
       : this.generateInformationTextWhenNOEmail(this.registrationType);
-    this.hasAuthMethodTypes = this.authService.getAuthMethods(this.relatedAuthMethod).pipe(map(methods => methods.length > 0));
+    this.hasAuthMethodTypes =
+      this.authMethodsService.getAuthMethods(this.authMethods, this.relatedAuthMethod)
+        .pipe(map(methods => methods.length > 0));
   }
 
   /**

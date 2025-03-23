@@ -12,6 +12,7 @@ import {
 import { Observable } from 'rxjs';
 
 import { AuthService } from '../../core/auth/auth.service';
+import { AuthMethodsService } from '../../core/auth/auth-methods.service';
 import { AuthMethod } from '../../core/auth/models/auth.method';
 import { AuthMethodType } from '../../core/auth/models/auth.method-type';
 import {
@@ -23,6 +24,7 @@ import { CoreState } from '../../core/core-state.model';
 import { hasValue } from '../empty.util';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { LogInContainerComponent } from './container/log-in-container.component';
+import { AUTH_METHOD_FOR_DECORATOR_MAP } from './methods/log-in.methods-decorator';
 
 @Component({
   selector: 'ds-base-log-in',
@@ -69,11 +71,12 @@ export class LogInComponent implements OnInit {
 
   constructor(private store: Store<CoreState>,
               private authService: AuthService,
+              private authMethodsService: AuthMethodsService,
   ) {
   }
 
   ngOnInit(): void {
-    this.authMethods = this.authService.getAuthMethods(this.excludedAuthMethod);
+    this.authMethods = this.authMethodsService.getAuthMethods(AUTH_METHOD_FOR_DECORATOR_MAP, this.excludedAuthMethod);
 
     // set loading
     this.loading = this.store.pipe(select(isAuthenticationLoading));
