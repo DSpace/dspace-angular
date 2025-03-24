@@ -67,6 +67,7 @@ const mockPointValues = createSuccessfulRemoteDataObject$(buildPaginatedList(new
 const expectedSearchOptions: PaginatedSearchOptions = Object.assign({
   'configuration': environment.geospatialMapViewer.spatialFacetDiscoveryConfiguration,
   'scope': scope,
+  'facetLimit': 99999,
 });
 
 // Mock search config service returns mock search filter config on getConfig()
