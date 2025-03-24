@@ -18,7 +18,10 @@ import {
 } from '../core/services/window.service';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import { OrejimeService } from '../shared/cookies/orejime.service';
-import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../shared/remote-data.utils';
 import {
   MATOMO_SITE_ID,
   MATOMO_TRACKER_URL,
@@ -39,6 +42,7 @@ describe('MatomoService', () => {
     orejimeService = jasmine.createSpyObj('OrejimeService', ['getSavedPreferences']);
     nativeWindowService = jasmine.createSpyObj('NativeWindowService', [], { nativeWindow: {} });
     configService = jasmine.createSpyObj('ConfigurationDataService', ['findByPropertyName']);
+    configService.findByPropertyName.and.returnValue(createFailedRemoteDataObject$());
 
     TestBed.configureTestingModule({
       imports: [MatomoTestingModule.forRoot()],
