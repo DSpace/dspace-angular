@@ -42,7 +42,7 @@ describe('ItemRequestDataService', () => {
         case 'request.item.grant.link.period':
           return createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
             name: 'request.item.grant.link.period',
-            values: ['3600', '7200', '86400'],
+            values: ['FOREVER', '+1DAY', '+1MONTH'],
           }));
         default:
           return createSuccessfulRemoteDataObject$(new ConfigurationProperty());
@@ -116,7 +116,7 @@ describe('ItemRequestDataService', () => {
     });
 
     it('should send a PUT request containing the correct properties', (done) => {
-      service.grant(itemRequest.token, email, true).subscribe(() => {
+      service.grant(itemRequest.token, email, true, '+1DAY').subscribe(() => {
         expect(requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({
           method: RestRequestMethod.PUT,
           href: `${restApiEndpoint}/${itemRequest.token}`,
@@ -125,7 +125,7 @@ describe('ItemRequestDataService', () => {
             responseMessage: email.message,
             subject: email.subject,
             suggestOpenAccess: true,
-            accessPeriod: 0,
+            accessPeriod: '+1DAY',
           }),
           options: jasmine.objectContaining({
             headers: jasmine.any(HttpHeaders),
@@ -153,7 +153,7 @@ describe('ItemRequestDataService', () => {
             responseMessage: email.message,
             subject: email.subject,
             suggestOpenAccess: false,
-            accessPeriod: 0,
+            accessPeriod: null,
           }),
           options: jasmine.objectContaining({
             headers: jasmine.any(HttpHeaders),
@@ -187,7 +187,7 @@ describe('ItemRequestDataService', () => {
   describe('getConfiguredAccessPeriods', () => {
     it('should return parsed integer values from config', () => {
       service.getConfiguredAccessPeriods().subscribe(periods => {
-        expect(periods).toEqual([3600, 7200, 86400]);
+        expect(periods).toEqual(['FOREVER', '+1DAY', '+1MONTH']);
       });
     });
   });

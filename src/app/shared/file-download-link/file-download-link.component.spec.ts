@@ -27,6 +27,7 @@ import { getItemModuleRoute } from '../../item-page/item-page-routing-paths';
 import { ActivatedRouteStub } from '../testing/active-router.stub';
 import { RouterLinkDirectiveStub } from '../testing/router-link-directive.stub';
 import { FileDownloadLinkComponent } from './file-download-link.component';
+import { ItemRequest } from '../../core/shared/item-request.model';
 
 describe('FileDownloadLinkComponent', () => {
   let component: FileDownloadLinkComponent;
@@ -38,6 +39,13 @@ describe('FileDownloadLinkComponent', () => {
   let bitstream: Bitstream;
   let item: Item;
   let storeMock: any;
+
+  const itemRequestStub = Object.assign(new ItemRequest(), {
+    token: 'item-request-token',
+    requestName: 'requester name',
+    accessToken: 'abc123',
+    allfiles: true,
+  });
 
   function init() {
     authorizationService = jasmine.createSpyObj('authorizationService', {
@@ -62,7 +70,8 @@ describe('FileDownloadLinkComponent', () => {
     });
   }
 
-  function initTestbed() {
+  function initTestbed(itemRequest = null) {
+    const activatedRoute = new ActivatedRouteStub({}, { itemRequest: itemRequest });
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
@@ -71,7 +80,7 @@ describe('FileDownloadLinkComponent', () => {
       providers: [
         RouterLinkDirectiveStub,
         { provide: AuthorizationDataService, useValue: authorizationService },
-        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: ActivatedRoute, useValue: activatedRoute },
         { provide: Store, useValue: storeMock },
         { provide: APP_DATA_SERVICES_MAP, useValue: {} },
       ],
@@ -85,6 +94,9 @@ describe('FileDownloadLinkComponent', () => {
 
   describe('init', () => {
     describe('getBitstreamPath', () => {
+
+
+
       describe('when the user has download rights', () => {
         beforeEach(waitForAsync(() => {
           scheduler = getTestScheduler();
@@ -113,6 +125,7 @@ describe('FileDownloadLinkComponent', () => {
           expect(lock).toBeNull();
         });
       });
+
       describe('when the user has no download rights but has the right to request a copy', () => {
         beforeEach(waitForAsync(() => {
           scheduler = getTestScheduler();
@@ -146,6 +159,7 @@ describe('FileDownloadLinkComponent', () => {
           expect(lock).toBeTruthy();
         });
       });
+
       describe('when the user has no download rights and no request a copy rights', () => {
         beforeEach(waitForAsync(() => {
           scheduler = getTestScheduler();
@@ -165,12 +179,41 @@ describe('FileDownloadLinkComponent', () => {
           expect(component.canDownload$).toBeObservable(cold('--a', { a: false }));
 
         });
-        it('should init the component', () => {
+        it('should init the component and show the locked icon', () => {
           scheduler.flush();
           fixture.detectChanges();
           const link = fixture.debugElement.query(By.css('a'));
           expect(link.injector.get(RouterLinkDirectiveStub).routerLink).toContain(new URLCombiner(getBitstreamModuleRoute(), bitstream.uuid, 'download').toString());
           const lock = fixture.debugElement.query(By.css('.fa-lock')).nativeElement;
+          expect(lock).toBeTruthy();
+        });
+      });
+
+      describe('when the user has no (normal) download rights and request a copy rights via access token', () => {
+        beforeEach(waitForAsync(() => {
+          scheduler = getTestScheduler();
+          init();
+          (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(cold('-a', { a: false }));
+          initTestbed(itemRequestStub);
+        }));
+        beforeEach(() => {
+          fixture = TestBed.createComponent(FileDownloadLinkComponent);
+          component = fixture.componentInstance;
+          component.bitstream = bitstream;
+          component.item = item;
+          fixture.detectChanges();
+        });
+        it('should return the bitstreamPath based on the access token and request-a-copy path', () => {
+          expect(component.bitstreamPath$).toBeObservable(cold('-a', { a: { routerLink: new URLCombiner(getBitstreamModuleRoute(), bitstream.uuid, 'download').toString(), queryParams: { accessToken: 'abc123' } } }));
+          expect(component.canDownload$).toBeObservable(cold('--a', { a: false }));
+
+        });
+        it('should init the component and show an open lock', () => {
+          scheduler.flush();
+          fixture.detectChanges();
+          const link = fixture.debugElement.query(By.css('a'));
+          expect(link.injector.get(RouterLinkDirectiveStub).routerLink).toContain(new URLCombiner(getBitstreamModuleRoute(), bitstream.uuid, 'download').toString());
+          const lock = fixture.debugElement.query(By.css('.fa-lock-open')).nativeElement;
           expect(lock).toBeTruthy();
         });
       });
