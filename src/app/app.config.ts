@@ -10,6 +10,7 @@ import {
 import {
   NoPreloading,
   provideRouter,
+  withComponentInputBinding,
   withEnabledBlockingInitialNavigation,
   withInMemoryScrolling,
   withPreloading,
@@ -109,6 +110,7 @@ export const commonAppConfig: ApplicationConfig = {
       withInMemoryScrolling(APP_ROUTING_SCROLL_CONF),
       withEnabledBlockingInitialNavigation(),
       withPreloading(NoPreloading),
+      withComponentInputBinding(),
     ),
     {
       provide: APP_BASE_HREF,
