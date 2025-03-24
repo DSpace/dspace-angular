@@ -81,7 +81,7 @@ export class GrantRequestCopyComponent implements OnInit {
   /**
    * The currently selected access period
    */
-  accessPeriod: any = 0;
+  accessPeriod: string = null;
 
   /**
    * Will this email attach file(s) directly, or send a secure link with an access token to provide temporary access?
@@ -113,6 +113,9 @@ export class GrantRequestCopyComponent implements OnInit {
 
   }
 
+  /**
+   * Initialize the component - get the item request from route data an duse it to populate the form
+   */
   ngOnInit(): void {
     // Get item request data via the router (async)
     this.itemRequestRD$ = this.route.data.pipe(
@@ -157,7 +160,7 @@ export class GrantRequestCopyComponent implements OnInit {
     });
   }
 
-  selectAccessPeriod(accessPeriod: number) {
+  selectAccessPeriod(accessPeriod: string) {
     this.accessPeriod = accessPeriod;
   }
 

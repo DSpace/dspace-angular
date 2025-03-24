@@ -125,7 +125,7 @@ export class ItemRequestDataService extends IdentifiableDataService<ItemRequest>
    * @param suggestOpenAccess Whether or not to suggest the item to become open access
    * @param accessPeriod How long in seconds to grant access, from the decision date (only applies to links, not attachments)
    */
-  grant(token: string, email: RequestCopyEmail, suggestOpenAccess = false, accessPeriod = 0): Observable<RemoteData<ItemRequest>> {
+  grant(token: string, email: RequestCopyEmail, suggestOpenAccess = false, accessPeriod: string = null): Observable<RemoteData<ItemRequest>> {
     return this.process(token, email, true, suggestOpenAccess, accessPeriod);
   }
 
@@ -137,7 +137,7 @@ export class ItemRequestDataService extends IdentifiableDataService<ItemRequest>
    * @param suggestOpenAccess Whether or not to suggest the item to become open access
    * @param accessPeriod How long in seconds to grant access, from the decision date (only applies to links, not attachments)
    */
-  process(token: string, email: RequestCopyEmail, grant: boolean, suggestOpenAccess = false, accessPeriod = 0): Observable<RemoteData<ItemRequest>> {
+  process(token: string, email: RequestCopyEmail, grant: boolean, suggestOpenAccess = false, accessPeriod: string = null): Observable<RemoteData<ItemRequest>> {
     const requestId = this.requestService.generateRequestId();
 
     this.getItemRequestEndpointByToken(token).pipe(
@@ -159,26 +159,6 @@ export class ItemRequestDataService extends IdentifiableDataService<ItemRequest>
     ).subscribe();
 
     return this.rdbService.buildFromRequestUUID(requestId);
-  }
-
-  // TODO: Remove this, after discussion about implications and compare to bitstream data service byItemHandle
-  // Reviewers may ask that we instead just wrap the REST response in pagination even though we only expect one obj
-  /**
-   * Get a sanitized item request using the searchBy method and the access token sent to the original requester.
-   *
-   * @param accessToken access token contained in the secure link sent to a requester
-   */
-  getSanitizedRequestByAccessTokenPaged(accessToken: string): Observable<RemoteData<PaginatedList<ItemRequest>>> {
-    // We only expect / want one result as access tokens are unique
-    const findListOptions = Object.assign({}, new FindListOptions(), {
-      elementsPerPage: 1,
-      currentPage: 1,
-      searchParams: [
-        new RequestParam('accessToken', accessToken),
-      ],
-    });
-    // Pipe the paginated searchBy results and return a single item request
-    return this.searchBy('byAccessToken', findListOptions);
   }
 
   /**

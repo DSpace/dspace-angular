@@ -4,6 +4,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ThemedComponent } from 'src/app/shared/theme-support/themed.component';
 
 import { EmailRequestCopyComponent } from './email-request-copy.component';
@@ -28,7 +29,7 @@ export class ThemedEmailRequestCopyComponent extends ThemedComponent<EmailReques
   /**
    * Event emitter for a selected / changed access period
    */
-  @Output() selectedAccessPeriod: EventEmitter<number> = new EventEmitter();
+  @Output() selectedAccessPeriod: EventEmitter<string> = new EventEmitter();
 
   /**
    * The subject of the email
@@ -43,10 +44,10 @@ export class ThemedEmailRequestCopyComponent extends ThemedComponent<EmailReques
   /**
    * A list of valid access periods, if configured
    */
-  @Input() validAccessPeriods: number[];
+  @Input() validAccessPeriods$: Observable<string[]>;
 
 
-  protected inAndOutputNames: (keyof EmailRequestCopyComponent & keyof this)[] = ['send', 'subject', 'message', 'validAccessPeriods', 'selectedAccessPeriod'];
+  protected inAndOutputNames: (keyof EmailRequestCopyComponent & keyof this)[] = ['send', 'subject', 'message', 'selectedAccessPeriod', 'validAccessPeriods$'];
 
   protected getComponentName(): string {
     return 'EmailRequestCopyComponent';

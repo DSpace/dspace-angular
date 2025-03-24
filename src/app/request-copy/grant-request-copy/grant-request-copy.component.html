@@ -21,9 +21,9 @@
       <!-- Only send access periods for display if an access token was present -->
       <ds-email-request-copy [subject]="subject$ | async"
                              [message]="message$ | async"
-                             [validAccessPeriods]="(hasValue(itemRequestRD.payload.accessToken) ? (validAccessPeriods$ | async) : [])"
                              (send)="grant($event)"
                              (selectedAccessPeriod)="selectAccessPeriod($event)"
+                             [validAccessPeriods$]="validAccessPeriods$"
       >
         <p>{{ 'grant-deny-request-copy.email.permissions.info' | translate }}</p>
         <form class="mb-3">
