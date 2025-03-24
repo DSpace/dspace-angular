@@ -90,6 +90,7 @@ export class BrowserOrejimeService extends OrejimeService {
 
   private readonly GOOGLE_ANALYTICS_SERVICE_NAME = 'google-analytics';
 
+  private readonly MATOMO_ENABLED = 'matomo.enabled';
 
   /**
    * Initial Orejime configuration
@@ -134,7 +135,13 @@ export class BrowserOrejimeService extends OrejimeService {
       ),
     );
 
-    const hideMatomo$ = observableOf(!(environment.matomo?.trackerUrl && environment.matomo?.siteId));
+    const hideMatomo$ =
+      this.configService.findByPropertyName(this.MATOMO_ENABLED).pipe(
+        getFirstCompletedRemoteData(),
+        map((remoteData) =>
+          !remoteData.hasSucceeded || !remoteData.payload || isEmpty(remoteData.payload.values) || remoteData.payload.values[0].toLowerCase() !== 'true',
+        ),
+      );
 
     const appsToHide$: Observable<string[]> = observableCombineLatest([hideGoogleAnalytics$, hideRegistrationVerification$, hideMatomo$]).pipe(
       map(([hideGoogleAnalytics, hideRegistrationVerification, hideMatomo]) => {

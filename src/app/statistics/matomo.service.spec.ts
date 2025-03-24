@@ -1,4 +1,8 @@
-import { TestBed } from '@angular/core/testing';
+import {
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
 import {
   MatomoInitializerService,
   MatomoTracker,
@@ -7,12 +11,19 @@ import { MatomoTestingModule } from 'ngx-matomo-client/testing';
 import { of } from 'rxjs';
 
 import { environment } from '../../environments/environment';
+import { ConfigurationDataService } from '../core/data/configuration-data.service';
 import {
   NativeWindowRef,
   NativeWindowService,
 } from '../core/services/window.service';
+import { ConfigurationProperty } from '../core/shared/configuration-property.model';
 import { OrejimeService } from '../shared/cookies/orejime.service';
-import { MatomoService } from './matomo.service';
+import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
+import {
+  MATOMO_SITE_ID,
+  MATOMO_TRACKER_URL,
+  MatomoService,
+} from './matomo.service';
 
 describe('MatomoService', () => {
   let service: MatomoService;
@@ -20,12 +31,14 @@ describe('MatomoService', () => {
   let matomoInitializer: jasmine.SpyObj<MatomoInitializerService>;
   let orejimeService: jasmine.SpyObj<OrejimeService>;
   let nativeWindowService: jasmine.SpyObj<NativeWindowRef>;
+  let configService: jasmine.SpyObj<ConfigurationDataService>;
 
   beforeEach(() => {
-    matomoTracker = jasmine.createSpyObj('MatomoTracker', ['setConsentGiven', 'forgetConsentGiven']);
+    matomoTracker = jasmine.createSpyObj('MatomoTracker', ['setConsentGiven', 'forgetConsentGiven', 'getVisitorId']);
     matomoInitializer = jasmine.createSpyObj('MatomoInitializerService', ['initializeTracker']);
     orejimeService = jasmine.createSpyObj('OrejimeService', ['getSavedPreferences']);
     nativeWindowService = jasmine.createSpyObj('NativeWindowService', [], { nativeWindow: {} });
+    configService = jasmine.createSpyObj('ConfigurationDataService', ['findByPropertyName']);
 
     TestBed.configureTestingModule({
       imports: [MatomoTestingModule.forRoot()],
@@ -34,6 +47,7 @@ describe('MatomoService', () => {
         { provide: MatomoInitializerService, useValue: matomoInitializer },
         { provide: OrejimeService, useValue: orejimeService },
         { provide: NativeWindowService, useValue: nativeWindowService },
+        { provide: ConfigurationDataService, useValue: configService },
       ],
     });
 
@@ -50,9 +64,23 @@ describe('MatomoService', () => {
     expect(nativeWindowService.nativeWindow.changeMatomoConsent).toBe(service.changeMatomoConsent);
   });
 
+  it('should call setConsentGiven when consent is true', () => {
+    service.changeMatomoConsent(true);
+    expect(matomoTracker.setConsentGiven).toHaveBeenCalled();
+  });
+
+  it('should call forgetConsentGiven when consent is false', () => {
+    service.changeMatomoConsent(false);
+    expect(matomoTracker.forgetConsentGiven).toHaveBeenCalled();
+  });
+
   it('should initialize tracker with correct parameters in production', () => {
     environment.production = true;
-    environment.matomo = { siteId: '1', trackerUrl: 'http://example.com' };
+    configService.findByPropertyName.withArgs(MATOMO_TRACKER_URL).and.returnValue(
+      createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(),{ values: ['http://example.com'] })),
+    );
+    configService.findByPropertyName.withArgs(MATOMO_SITE_ID).and.returnValue(
+      createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), { values: ['1'] })));
     orejimeService.getSavedPreferences.and.returnValue(of({ matomo: true }));
 
     service.init();
@@ -72,13 +100,17 @@ describe('MatomoService', () => {
     expect(matomoInitializer.initializeTracker).not.toHaveBeenCalled();
   });
 
-  it('should call setConsentGiven when consent is true', () => {
-    service.changeMatomoConsent(true);
-    expect(matomoTracker.setConsentGiven).toHaveBeenCalled();
+  describe('with visitorId set', () => {
+    beforeEach(() => {
+      matomoTracker.getVisitorId.and.returnValue(Promise.resolve('12345'));
+    });
+
+    it('should add trackerId parameter', fakeAsync(() => {
+      service.appendVisitorId('http://example.com/')
+        .subscribe(url => expect(url).toEqual('http://example.com/?trackerId=12345'));
+      tick();
+    }));
+
   });
 
-  it('should call forgetConsentGiven when consent is false', () => {
-    service.changeMatomoConsent(false);
-    expect(matomoTracker.forgetConsentGiven).toHaveBeenCalled();
-  });
 });
