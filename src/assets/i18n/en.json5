@@ -6861,4 +6861,12 @@
   "search.filters.access_status.metadata.only": "Metadata only",
 
   "search.filters.access_status.unknown": "Unknown",
+
+  "metadata-export-filtered-items.tooltip": "Export report output as CSV",
+
+  "metadata-export-filtered-items.submit.success": "CSV export succeeded.",
+
+  "metadata-export-filtered-items.submit.error": "CSV export failed.",
+
+  "metadata-export-filtered-items.columns.warning": "CSV export automatically includes all relevant fields, so selections in this list are not taken into account.",
 }
