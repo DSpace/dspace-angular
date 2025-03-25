@@ -41,7 +41,7 @@ import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../core/shared/operators';
-import { SuggestionsNotificationComponent } from '../notifications/suggestions-notification/suggestions-notification.component';
+import { SuggestionsNotificationComponent } from '../notifications/suggestions/notification/suggestions-notification.component';
 import { AlertComponent } from '../shared/alert/alert.component';
 import {
   hasValue,
