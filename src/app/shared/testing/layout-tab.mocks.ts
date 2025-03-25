@@ -1050,4 +1050,19 @@ export const tabPeoplesTest: CrisLayoutTab = {
     },
   },
 };
+export const tabFundingsTest: CrisLayoutTab = {
+  'id': 395,
+  'shortname': 'outputs::fundings',
+  'header': 'Fundings',
+  'entityType': 'OrgUnit',
+  'priority': 0,
+  'security': 0,
+  'type': TAB,
+  'uuid': '123123123123',
+  '_links': {
+    'self': {
+      'href': 'http://localhost:8080/server/api/layout/tabs/401',
+    },
+  },
+};
 export const tabsWithNestedLevel = [tabDetailsTest, tabPublicationsTest, tabRpPublicationsTest, tabProjectsTest, tabRpProjectsTest, tabPeoplesTest];
