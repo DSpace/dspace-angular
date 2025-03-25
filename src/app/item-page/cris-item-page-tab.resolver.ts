@@ -55,7 +55,12 @@ export class CrisItemPageTabResolver implements Resolve<RemoteData<PaginatedList
                 const urlSplit = state.url.split(route.params.id);
                 const givenTab = urlSplit[1];
                 const itemPageRoute = getItemPageRoute(itemRD.payload);
-                const isValidTab = tabsRD.payload.page.some((tab) => !givenTab || `/${tab.shortname}` === givenTab);
+
+                const isValidTab = !givenTab || tabsRD.payload.page.some((tab) => {
+                  const shortnameSplit = tab.shortname.split('::');
+                  const shortname = shortnameSplit[shortnameSplit.length - 1];
+                  return `/${shortname}` === givenTab;
+                });
 
                 const mainTab = tabsRD.payload.page.length === 1
                   ? tabsRD.payload.page[0]
