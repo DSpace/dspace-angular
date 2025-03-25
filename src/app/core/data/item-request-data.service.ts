@@ -49,7 +49,6 @@ import { RequestService } from './request.service';
 })
 export class ItemRequestDataService extends IdentifiableDataService<ItemRequest> implements SearchData<ItemRequest> {
 
-  // TODO: This is only public for access by the test class - smell?
   private searchData: SearchDataImpl<ItemRequest>;
 
   constructor(

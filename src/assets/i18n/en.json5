@@ -1002,6 +1002,8 @@
 
   "bitstream-request-a-copy.access-by-token.expiry-label": "Access provided by this link will expire on",
 
+  "bitstream-request-a-copy.access-by-token.alt-text": "Access to this item is provided by a secure token",
+
   "browse.back.all-results": "All browse results",
 
   "browse.comcol.by.author": "By Author",
@@ -1897,6 +1899,8 @@
   "feed.description": "Syndication feed",
 
   "file-download-link.restricted": "Restricted bitstream",
+
+  "file-download-link.secure-access": "Restricted bitstream available via secure access token",
 
   "file-section.error.header": "Error obtaining files for this item",
 

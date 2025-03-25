@@ -129,7 +129,6 @@ export class BitstreamDownloadPageComponent implements OnInit {
         // For now, the access token does not care if we are logged in or not.
         if (hasValue(accessToken)) {
           this.hardRedirectService.redirect(bitstream._links.content.href + '?accessToken=' + accessToken);
-          // this.router.navigateByUrl(getForbiddenRoute(), {skipLocationChange: true});
         } else if (isLoggedIn) {
           this.router.navigateByUrl(getForbiddenRoute(), { skipLocationChange: true });
         } else if (!isLoggedIn) {

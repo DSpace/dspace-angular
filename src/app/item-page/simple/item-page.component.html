@@ -6,9 +6,10 @@
           <ng-container *ngVar="(itemRequest$ | async) as itemRequest">
             @if (hasValue(itemRequest)) {
               <div class="alert alert-warning wb-100 mb-2">
-                <p><span role="img" class="request-a-copy-access-icon"><i class="fa-solid fa-lock-open"></i></span>{{'bitstream-request-a-copy.access-by-token.warning' | translate}}</p>
-                @if (hasValue(itemRequest.accessPeriod) && itemRequest.accessPeriod > 0 && hasValue(itemRequest.decisionDate)) {
-                  <p>{{ 'bitstream-request-a-copy.access-by-token.expiry-label' | translate }} {{ getAccessPeriodEndDate(itemRequest.accessPeriod, itemRequest.decisionDate) }}</p>
+                <p><span role="img" class="request-a-copy-access-icon" [attr.aria-label]="'bitstream-request-a-copy.access-by-token.alt-text' | translate"><i class="fa-solid fa-lock-open"></i></span>{{'bitstream-request-a-copy.access-by-token.warning' | translate}}</p>
+                <!-- Only show the expiry date if it's not null, and doesn't start with the "FOREVER" year -->
+                @if (hasValue(itemRequest.accessExpiry) && !itemRequest.accessExpiry.startsWith('+294276')) {
+                  <p>{{ 'bitstream-request-a-copy.access-by-token.expiry-label' | translate }} {{ itemRequest.accessExpiry }}</p>
                 }
               </div>
             }
