@@ -1,6 +1,6 @@
 {
 
-  // DSpace v8.x > i18n pt-PT > last updated 2025-03-12
+  // DSpace v8.x > i18n pt-PT > last updated 2025-03-25
 
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Não está autorizado a aceder a esta página. Pode utilizar o botão em baixo para voltar à página de início.",
@@ -9774,13 +9774,16 @@
   "error.validation.coarnotify.invalidfilter": "Filtro inválido, tente selecionar outro serviço ou nenhum.",
 
   // "request-status-alert-box.accepted": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been taken in charge.",
-  "request-status-alert-box.accepted": "O {{ offerType }} solicitado para <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> foi assumido como responsável.",
+  "request-status-alert-box.accepted": "O pedido {{ offerType }} solicitado para <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> foi assumido.",
 
   // "request-status-alert-box.rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been rejected.",
-  "request-status-alert-box.rejected": "O {{ offerType }} solicitado para <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> foi rejeitado.",
+  "request-status-alert-box.rejected": "O pedido  {{ offerType }} solicitado para <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> foi rejeitado.",
+
+  // "request-status-alert-box.tentative_rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been tentatively rejected. Revisions are required",
+  "request-status-alert-box.tentative_rejected": "O pedido {{ offerType }} solicitado para <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> foi provisoriamente rejeitado. são necessárias revisões.",
 
   // "request-status-alert-box.requested": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> is pending.",
-  "request-status-alert-box.requested": "O {{ offerType }} solicitado para <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> está a aguardar.",
+  "request-status-alert-box.requested": "O pedido {{ offerType }} solicitado para <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> está pendente.",
 
   // "ldn-service-button-mark-inbound-deletion": "Mark supported pattern for deletion",
   "ldn-service-button-mark-inbound-deletion": "Marcar padrão suportado para exclusão",
@@ -9802,6 +9805,12 @@
 
   // "ldn-service-overview-close-modal": "Close modal",
   "ldn-service-overview-close-modal": "Fechar 'modal'",
+
+  // "ldn-service-usesActorEmailId": "Requires actor email in notifications",
+  "ldn-service-usesActorEmailId": "Requer o e-mail do ator nas notificações",
+
+  // "ldn-service-usesActorEmailId-description": "If enabled, initial notifications sent will include the submitter email rather than the repository URL. This is usually the case for endorsement or review services.",
+  "ldn-service-usesActorEmailId-description": "Se estiverem ativas, as notificações iniciais enviadas incluirão o e-mail do remetente em vez do URL do repositório. Este é normalmente o caso dos serviços de aprovação ou revisão.",
 
   // "a-common-or_statement.label": "Item type is Journal Article or Dataset",
   "a-common-or_statement.label": "O tipo de item é um 'Artigo científico' ou 'Conjunto de dados'",
@@ -10400,6 +10409,21 @@
   // "dynamic-form-array.sortable-list.label": "Sortable list",
   "dynamic-form-array.sortable-list.label": "Lista ordenável",
 
+  // "search.filters.access_status.open.access": "Open access",
+  "search.filters.access_status.open.access": "Acesso aberto",
+
+  // "search.filters.access_status.restricted": "Restricted access",
+  "search.filters.access_status.restricted": "Acesso restrito",
+
+  // "search.filters.access_status.embargo": "Embargoed access",
+  "search.filters.access_status.embargo": "Acesso embargado",
+
+  // "search.filters.access_status.metadata.only": "Metadata only",
+  "search.filters.access_status.metadata.only": "Apenas metadados",
+
+  // "search.filters.access_status.unknown": "Unknown",
+  "search.filters.access_status.unknown": "Desconhecido",
+
 
   // Other strings...
   // Missing, deprecated, duplicate or redundant ???
@@ -10464,20 +10488,5 @@
 
   // "item.preview.dc.identifier.eisbn": "EISBN",
   "item.preview.dc.identifier.eisbn": "EISBN",
-
-  // "search.filters.access_status.open.access": "Open access",
-  "search.filters.access_status.open.access": "Acesso aberto",
-
-  // "search.filters.access_status.restricted": "Restricted access",
-  "search.filters.access_status.restricted": "Acesso restrito",
-
-  // "search.filters.access_status.embargo": "Embargoed access",
-  "search.filters.access_status.embargo": "Acesso embargado",
-
-  // "search.filters.access_status.metadata.only": "Metadata only",
-  "search.filters.access_status.metadata.only": "Apenas metadados",
-
-  // "search.filters.access_status.unknown": "Unknown",
-  "search.filters.access_status.unknown": "Desconhecido",
 
 }
