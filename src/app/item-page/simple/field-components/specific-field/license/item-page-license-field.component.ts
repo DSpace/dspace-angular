@@ -33,7 +33,7 @@ import { MetadataFieldWrapperComponent } from 'src/app/shared/metadata-field-wra
   selector: 'ds-item-page-license-field',
   templateUrl: './item-page-license-field.component.html',
   standalone: true,
-  imports: [NgIf, NgFor, NgClass, NgStyle, TranslateModule, MetadataFieldWrapperComponent, ItemPageCcLicenseFieldComponent, AsyncPipe],
+  imports: [NgClass, NgStyle, TranslateModule, MetadataFieldWrapperComponent, ItemPageCcLicenseFieldComponent, AsyncPipe],
 })
 /**
  * Displays the item's licenses
