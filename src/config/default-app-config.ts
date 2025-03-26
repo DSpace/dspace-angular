@@ -330,12 +330,6 @@ export class DefaultAppConfig implements AppConfig {
       // settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
       pageSize: 5,
     },
-    // Metadatafields to determine the CC license variant
-    ccLicense: {
-      position: 'content',
-      showName: true,
-      showDisclaimer: true,
-    },
   };
 
   // Community Page Config

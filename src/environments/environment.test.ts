@@ -270,11 +270,6 @@ export const environment: BuildConfig = {
       // settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
       pageSize: 5,
     },
-    ccLicense: {
-      position: 'content',
-      showName: true,
-      showDisclaimer: true,
-    },
   },
   community: {
     searchSection: {

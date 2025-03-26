@@ -1,5 +1,4 @@
 import { Config } from './config.interface';
-import { CreativeCommonsLicenseConfig } from './creative-commons-license-config.interface';
 
 export interface ItemConfig extends Config {
   edit: {
@@ -14,6 +13,4 @@ export interface ItemConfig extends Config {
     // settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
     pageSize: number;
   }
-
-  ccLicense: CreativeCommonsLicenseConfig;
 }

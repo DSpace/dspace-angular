@@ -24,10 +24,6 @@ import {
   getRemoteDataPayload,
 } from 'src/app/core/shared/operators';
 import { MetadataFieldWrapperComponent } from 'src/app/shared/metadata-field-wrapper/metadata-field-wrapper.component';
-import {
-  APP_CONFIG,
-  AppConfig,
-} from 'src/config/app-config.interface';
 
 @Component({
   selector: 'ds-item-page-cc-license-field',
@@ -46,10 +42,10 @@ export class ItemPageCcLicenseFieldComponent implements OnInit, OnDestroy {
   @Input() item: Item;
 
   /**
-   * 'full' variant is designed for the item page content
-   * 'small' variant is designed for the item page sidebar
+   * 'full' variant shows image, a disclaimer (optional) and name (always), better for the item page content.
+   * 'small' variant shows image and name (optional), better for the item page sidebar
    */
-  @Input() variant: 'small' | 'full';
+  @Input() variant?: 'small' | 'full' = 'small';
 
   /**
    * Field name containing the CC license URI
@@ -62,14 +58,14 @@ export class ItemPageCcLicenseFieldComponent implements OnInit, OnDestroy {
   @Input() ccLicenseNameField?;
 
   /**
-   * Shows the CC license name with the image. Always shows if image fails to load
+   * Shows the CC license name with the image. Always show if image fails to load
    */
-  @Input() showName? = this.appConfig.item.ccLicense.showName;
+  @Input() showName? = true;
 
   /**
-   * Shows the disclaimer text
+   * Shows the disclaimer in the 'full' variant of the component
    */
-  @Input() showDisclaimer? = this.appConfig.item.ccLicense.showDisclaimer;
+  @Input() showDisclaimer? = true;
 
 
   subscriptions: Subscription[] = [];
@@ -80,7 +76,6 @@ export class ItemPageCcLicenseFieldComponent implements OnInit, OnDestroy {
   imgSrc$: Observable<string>;
 
   constructor(
-    @Inject(APP_CONFIG) protected appConfig: AppConfig,
     protected configService: ConfigurationDataService,
   ) {
   }
