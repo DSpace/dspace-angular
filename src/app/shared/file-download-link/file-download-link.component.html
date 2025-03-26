@@ -1,4 +1,7 @@
-<a [routerLink]="(bitstreamPath$| async)?.routerLink" class="dont-break-out"
+@if (showAccessStatusBadge) {
+  <ds-access-status-badge [object]="bitstream"></ds-access-status-badge>
+}
+<a [routerLink]="(bitstreamPath$| async)?.routerLink" class="d-block dont-break-out mb-1"
   [queryParams]="(bitstreamPath$| async)?.queryParams"
   [target]="isBlank ? '_blank': '_self'"
   [ngClass]="cssClasses"
