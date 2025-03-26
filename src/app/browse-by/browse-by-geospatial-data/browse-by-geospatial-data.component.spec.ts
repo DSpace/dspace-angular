@@ -102,8 +102,6 @@ describe('BrowseByGeospatialDataComponent', () => {
   it('component should be created successfully', () => {
     expect(component).toBeTruthy();
   });
-  // return this.searchService.getFacetValuesFor(searchFilterConfig, 1, searchOptions,
-  //   null, true);
   describe('BrowseByGeospatialDataComponent component with valid facet values', () => {
     beforeEach(() => {
       fixture = TestBed.createComponent(BrowseByGeospatialDataComponent);

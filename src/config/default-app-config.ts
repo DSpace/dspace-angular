@@ -613,6 +613,7 @@ export class DefaultAppConfig implements AppConfig {
     ],
     spatialFacetDiscoveryConfiguration: 'geospatial',
     spatialPointFilterName: 'point',
+    enableItemPageFields: false,
     enableSearchViewMode: false,
     enableBrowseMap: false,
     tileProviders: [

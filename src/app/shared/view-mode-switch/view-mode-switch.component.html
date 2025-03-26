@@ -40,20 +40,20 @@
       [attr.data-test]="'detail-view' | dsBrowserOnly">
       <i class="far fa-square"></i>
     </button>
-    @if (isToShow(viewModeEnum.GeospatialMap)) {
-      <button
-        [attr.aria-current]="currentMode === viewModeEnum.GeospatialMap"
-        [attr.aria-label]="'search.view-switch.show-geospatialMap' | translate"
-         routerLink="."
-         [queryParams]="{view: 'geospatialMap'}"
-         queryParamsHandling="merge"
-         (click)="switchViewTo(viewModeEnum.GeospatialMap)"
-         routerLinkActive="active"
-         [class.active]="currentMode === viewModeEnum.GeospatialMap"
-         class="btn btn-secondary"
-         [attr.data-test]="'geospatial-view' | dsBrowserOnly">
-         <span class="fas fa-map"></span><span class="sr-only">{{'search.view-switch.show-geospatialMap' | translate}}</span>
-      </button>
-    }
+  }
+  @if (isToShow(viewModeEnum.GeospatialMap)) {
+    <button
+      [attr.aria-current]="currentMode === viewModeEnum.GeospatialMap"
+      [attr.aria-label]="'search.view-switch.show-geospatialMap' | translate"
+       routerLink="."
+       [queryParams]="{view: 'geospatialMap'}"
+       queryParamsHandling="merge"
+       (click)="switchViewTo(viewModeEnum.GeospatialMap)"
+       routerLinkActive="active"
+       [class.active]="currentMode === viewModeEnum.GeospatialMap"
+       class="btn btn-secondary"
+       [attr.data-test]="'geospatial-view' | dsBrowserOnly">
+       <span class="fas fa-map"></span><span class="sr-only">{{'search.view-switch.show-geospatialMap' | translate}}</span>
+    </button>
   }
 </div>

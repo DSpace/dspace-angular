@@ -213,7 +213,7 @@ export class GeospatialMapComponent implements AfterViewInit, OnInit, OnDestroy 
 
     // Map bounds / zoom fitting tends to be smoother when done after a short delay
     setTimeout(() => {
-      if (isNotEmpty(this.parsedBoundingBoxes) && this.coordinates.length === 1) {
+      if (bboxBounds && this.coordinates.length === 1) {
         // One point, at least one bbox, use its bounds. Otherwise, use the calculation based on points.
         bounds = bboxBounds;
       }
@@ -315,12 +315,34 @@ export class GeospatialMapComponent implements AfterViewInit, OnInit, OnDestroy 
    * @param bbox
    * @private
    */
-  private renderBoundingBox(L, bbox: string): string[][] {
+  private renderBoundingBox(L, bbox: string): number[][] {
     if (hasValue(bbox)) {
       let parsedBbox = bbox.replace(/[{} ]/g, '');
       parsedBbox = parsedBbox.replace(/[^=,]+=/g, '');
-      const parsedBboxParts = parsedBbox.split(',');
-      const bounds = [[parsedBboxParts[1], parsedBboxParts[0]], [parsedBboxParts[2], parsedBboxParts[3]]];
+      const parsedBboxParts = parsedBbox.split(',', 4);
+      // Validate that we have exactly 4 parts
+      if (parsedBboxParts.length !== 4) {
+        console.error('Invalid bounding box format: expected 4 coordinates but got ' + parsedBboxParts.length);
+        return;
+      }
+      // Convert to numbers and validate
+      const coordinates = parsedBboxParts.map(part => parseFloat(part));
+      if (coordinates.some(isNaN)) {
+        console.error('Invalid bounding box: contains non-numeric values', parsedBboxParts);
+        return;
+      }
+      // Create bounds array with proper structure [[lat1, lng1], [lat2, lng2]]
+      const bounds = [[coordinates[1], coordinates[0]], [coordinates[2], coordinates[3]]];
+      // Validate latitude values (-90 to 90)
+      if (bounds[0][0] < -90 || bounds[0][0] > 90 || bounds[1][0] < -90 || bounds[1][0] > 90) {
+        console.error('Invalid bounding box: latitude values must be between -90 and 90', bounds);
+        return;
+      }
+      // Validate longitude values (-180 to 180)
+      if (bounds[0][1] < -180 || bounds[0][1] > 180 || bounds[1][1] < -180 || bounds[1][1] > 180) {
+        console.error('Invalid bounding box: longitude values must be between -180 and 180', bounds);
+        return;
+      }
       const boundingBox = L.rectangle(bounds, { color: '#5574BB', weight: 2, fill: false });
       this.map.addLayer(boundingBox);
       // return bounds so the map can be centred / zoomed appropriately

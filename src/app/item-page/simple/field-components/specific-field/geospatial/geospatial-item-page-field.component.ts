@@ -51,7 +51,7 @@ export class GeospatialItemPageFieldComponent extends ItemPageFieldComponent imp
   /**
    * List of fields to parse for bounding box GeoJSON
    */
-  @Input() bboxFields = ['gnd.coordinates.bbox'];
+  @Input() bboxFields = ['dcterms.spatial'];
 
   /**
    * Whether to cluster markers into groups

@@ -18,6 +18,11 @@ export class GeospatialMapConfig implements Config {
   public spatialPointFilterName: string;
 
   /**
+   * A simple switch to test for inclusion of geospatial item page fields in templates
+   */
+  public enableItemPageFields: boolean;
+
+  /**
    * Include the map view mode in the list of view modes provided in a search results page
    */
   public enableSearchViewMode: boolean;
