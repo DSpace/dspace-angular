@@ -5,7 +5,6 @@ import {
 } from '@angular/common';
 import {
   Component,
-  Inject,
   Input,
   OnDestroy,
   OnInit,
