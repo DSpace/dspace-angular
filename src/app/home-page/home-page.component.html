@@ -14,9 +14,6 @@
 <ds-suggestions-popup></ds-suggestions-popup>
 
 <ng-template #homeContent>
-  <ng-container *ngIf="(site$ | async) as site">
-    <ds-view-tracker [object]="site"></ds-view-tracker>
-  </ng-container>
   <ds-search-form [inPlaceSearch]="false"
                          [searchPlaceholder]="'home.search-form.placeholder' | translate">
   </ds-search-form>

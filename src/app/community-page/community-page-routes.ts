@@ -21,6 +21,7 @@ import { createCommunityPageGuard } from './create-community-page/create-communi
 import { DeleteCommunityPageComponent } from './delete-community-page/delete-community-page.component';
 import { SubComColSectionComponent } from './sections/sub-com-col-section/sub-com-col-section.component';
 import { ThemedCommunityPageComponent } from './themed-community-page.component';
+import { viewTrackerResolver } from '../statistics/angulartics/dspace/view-tracker.resolver';
 
 export const ROUTES: Route[] = [
   {
@@ -70,6 +71,9 @@ export const ROUTES: Route[] = [
       {
         path: '',
         component: ThemedCommunityPageComponent,
+        resolve: {
+          tracking: viewTrackerResolver,
+        },
         children: [
           {
             path: '',
