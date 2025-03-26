@@ -70,6 +70,19 @@ export const BITSTREAM_FORM_PRIMARY: DynamicSwitchModelConfig = {
   label: 'bitstream.edit.form.primaryBitstream.label',
 };
 
+export const BITSTREAM_FORM_ALTERNATIVE_CONTENT_LAYOUT: DynamicFormControlLayout = {
+  element: {
+    host: 'col-12',
+    container: 'text-right',
+  },
+};
+
+export const BITSTREAM_FORM_ALTERNATIVE_CONTENT: DynamicSwitchModelConfig = {
+  id: 'alternativeContent',
+  name: 'alternativeContent',
+  label: 'bitstream.edit.form.alternativeContent.label',
+};
+
 
 export const BITSTREAM_FORM_ACCESS_CONDITION_START_DATE_CONFIG: DynamicDatePickerModelConfig = {
   id: 'startDate',

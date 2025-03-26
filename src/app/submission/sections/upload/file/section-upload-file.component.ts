@@ -64,6 +64,12 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
   @Input() isPrimary: boolean | null;
 
   /**
+   * The indicator if is alternative content bitstream
+   * @type {boolean, null}
+   */
+  @Input() isAlternativeContent: boolean | null;
+
+  /**
    * The list of available access condition
    * @type {Array}
    */
@@ -283,6 +289,7 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
     activeModal.componentInstance.pathCombiner = this.pathCombiner;
     activeModal.componentInstance.submissionId = this.submissionId;
     activeModal.componentInstance.isPrimary = this.isPrimary;
+    activeModal.componentInstance.isAlternativeContent = this.isAlternativeContent;
   }
 
   togglePrimaryBitstream(event) {

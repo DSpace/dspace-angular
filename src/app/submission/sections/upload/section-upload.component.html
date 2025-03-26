@@ -32,6 +32,7 @@
   @for (fileEntry of fileList; track fileEntry; let i = $index) {
     <ds-submission-upload-section-file
       [isPrimary]="primaryBitstreamUUID ? primaryBitstreamUUID === fileEntry.uuid : null"
+      [isAlternativeContent]="fileEntry.metadata['dc.type'] ? fileEntry.metadata['dc.type'][0].value === 'alternative content' : null"
       [availableAccessConditionOptions]="availableAccessConditionOptions"
       [collectionId]="collectionId"
       [collectionPolicyType]="collectionPolicyType"

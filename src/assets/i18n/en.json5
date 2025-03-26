@@ -928,6 +928,8 @@
 
   "bitstream.edit.form.primaryBitstream.label": "Primary File",
 
+  "bitstream.edit.form.alternativeContent.label": "Alternative Content File",
+
   "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
 
   "bitstream.edit.form.selectedFormat.label": "Selected Format",
@@ -2801,6 +2803,8 @@
   "item.page.bitstreams.collapse": "Collapse",
 
   "item.page.bitstreams.primary": "Primary",
+
+  "item.page.bitstreams.alternativeContent": "Alternative Content",
 
   "item.page.filesection.original.bundle": "Original bundle",
 
