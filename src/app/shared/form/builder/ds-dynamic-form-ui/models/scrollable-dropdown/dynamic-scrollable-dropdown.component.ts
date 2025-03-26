@@ -1,4 +1,14 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+  ElementRef,
+  OnDestroy
+} from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 
 import { Observable, of as observableOf, Subject, Subscription } from 'rxjs';
@@ -32,6 +42,8 @@ import { RemoteData } from '../../../../../../core/data/remote-data';
   templateUrl: './dynamic-scrollable-dropdown.component.html'
 })
 export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyComponent implements OnInit, OnDestroy {
+  @ViewChild('dropdownMenu', { read: ElementRef }) dropdownMenu: ElementRef;
+
   @Input() bindId = true;
   @Input() group: UntypedFormGroup;
   @Input() model: DynamicScrollableDropdownModel;
@@ -45,6 +57,10 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
   public loading = false;
   public pageInfo: PageInfo;
   public optionsList: VocabularyEntry[] = [];
+  public inputText: string = null;
+  public selectedIndex = 0;
+  public acceptableKeys = ['Space', 'NumpadMultiply', 'NumpadAdd', 'NumpadSubtract', 'NumpadDecimal', 'Semicolon', 'Equal', 'Comma', 'Minus', 'Period', 'Quote', 'Backquote'];
+
 
 
   /**
@@ -58,9 +74,10 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
   filterTextChanged: Subject<string> = new Subject<string>();
 
   /**
-   * The subscribtion to be utilized on destroy to remove filterTextChange subscription
+   * The subscription to be utilized on destroy to remove filterTextChange subscription
    */
   subSearch: Subscription;
+
 
   constructor(protected vocabularyService: VocabularyService,
               protected cdr: ChangeDetectorRef,
@@ -124,7 +141,27 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
   openDropdown(sdRef: NgbDropdown) {
     if (!this.model.readOnly) {
       this.group.markAsUntouched();
+      this.inputText = null;
+      this.updatePageInfo(this.model.maxOptions, 1);
+      this.retrieveEntries(null, false);
       sdRef.open();
+    }
+  }
+
+  navigateDropdown(event: KeyboardEvent) {
+    if (event.key === 'ArrowDown') {
+      this.selectedIndex = Math.min(this.selectedIndex + 1, this.optionsList.length - 1);
+    } else if (event.key === 'ArrowUp') {
+      this.selectedIndex = Math.max(this.selectedIndex - 1, 0);
+    }
+    this.scrollToSelected();
+  }
+
+  scrollToSelected() {
+    const dropdownItems = this.dropdownMenu.nativeElement.querySelectorAll('.dropdown-item');
+    const selectedItem = dropdownItems[this.selectedIndex];
+    if (selectedItem) {
+      selectedItem.scrollIntoView({ block: 'nearest' });
     }
   }
 
@@ -136,13 +173,54 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
   selectOnKeyDown(event: KeyboardEvent, sdRef: NgbDropdown) {
     const keyName = event.key;
 
-    if (keyName === ' ' || keyName === 'Enter') {
+    if (keyName === 'Enter') {
       event.preventDefault();
       event.stopPropagation();
-      sdRef.toggle();
+      if (sdRef.isOpen()) {
+        this.onSelect(this.optionsList[this.selectedIndex]);
+        sdRef.close();
+      } else {
+        sdRef.open();
+      }
     } else if (keyName === 'ArrowDown' || keyName === 'ArrowUp') {
-      this.openDropdown(sdRef);
+      event.preventDefault();
+      event.stopPropagation();
+      this.navigateDropdown(event);
+    } else if (keyName === 'Backspace') {
+      this.removeKeyFromInput();
+    } else if (this.isAcceptableKey(keyName)) {
+      this.addKeyToInput(keyName);
     }
+  }
+
+  addKeyToInput(keyName: string) {
+    if (this.inputText === null) {
+      this.inputText = '';
+    }
+    this.inputText += keyName;
+    // When a new key is added, we need to reset the page info
+    this.updatePageInfo(this.model.maxOptions, 1);
+    this.retrieveEntries(this.inputText, false);
+  }
+
+  removeKeyFromInput() {
+    if (this.inputText !== null) {
+      this.inputText = this.inputText.slice(0, -1);
+      if (this.inputText === '') {
+        this.inputText = null;
+      }
+      this.retrieveEntries(this.inputText, false);
+    }
+  }
+
+
+  isAcceptableKey(keyPress: string): boolean {
+    // allow all letters and numbers
+    if (keyPress.length === 1 && keyPress.match(/^[a-zA-Z0-9]*$/)) {
+      return true;
+    }
+    // Some other characters like space, dash, etc should be allowed as well
+    return this.acceptableKeys.includes(keyPress);
   }
 
   /**
@@ -157,7 +235,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
         this.pageInfo.totalElements,
         this.pageInfo.totalPages
       );
-      this.retrieveEntries(this.searchText, false, true);
+      this.retrieveEntries(this.searchText, false, true, true);
     }
   }
 
@@ -203,13 +281,13 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
    * @param concatResults  If true concat results to the current list
    * @private
    */
-  private retrieveEntries(searchText = null, initModel = false, concatResults = false) {
+  private retrieveEntries(searchText = null, initModel = false, concatResults = false, isScrolling = false) {
     this.searchText = searchText;
     let search$: Observable<RemoteData<PaginatedList<VocabularyEntry>>>;
     if (searchText) {
       const searchPageInfo = Object.assign(new PageInfo(), {
         elementsPerPage: this.pageInfo.elementsPerPage,
-        currentPage: 1,
+        currentPage: isScrolling ? this.pageInfo.currentPage : 1,
         totalElements: this.pageInfo.totalElements,
         totalPages: this.pageInfo.totalPages });
       search$ = this.vocabularyService.getVocabularyEntriesByValue(this.searchText, false, this.model.vocabularyOptions,
@@ -236,6 +314,7 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
           list.pageInfo.totalElements,
           list.pageInfo.totalPages
         );
+        this.selectedIndex = 0;
         this.cdr.detectChanges();
       });
   }

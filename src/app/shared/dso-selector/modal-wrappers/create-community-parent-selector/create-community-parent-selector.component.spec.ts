@@ -8,6 +8,9 @@ import { Community } from '../../../../core/shared/community.model';
 import { CreateCommunityParentSelectorComponent } from './create-community-parent-selector.component';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
+import { of as observableOf } from 'rxjs';
+import { By } from '@angular/platform-browser';
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 
 describe('CreateCommunityParentSelectorComponent', () => {
   let component: CreateCommunityParentSelectorComponent;
@@ -26,6 +29,9 @@ describe('CreateCommunityParentSelectorComponent', () => {
   const communityRD = createSuccessfulRemoteDataObject(community);
   const modalStub = jasmine.createSpyObj('modalStub', ['close']);
   const createPath = '/communities/create';
+  const mockAuthorizationDataService = jasmine.createSpyObj('authorizationService', {
+    isAuthorized: observableOf(true),
+  });
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -47,7 +53,8 @@ describe('CreateCommunityParentSelectorComponent', () => {
         },
         {
           provide: Router, useValue: router
-        }
+        },
+        { provide: AuthorizationDataService, useValue: mockAuthorizationDataService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -69,5 +76,21 @@ describe('CreateCommunityParentSelectorComponent', () => {
     component.navigate(community);
     expect(router.navigate).toHaveBeenCalledWith([createPath], { queryParams: { parent: community.uuid } });
   });
+
+  it('should show the div when user is an admin', (waitForAsync(() => {
+    component.isAdmin$ = observableOf(true);
+    fixture.detectChanges();
+
+    const divElement = fixture.debugElement.query(By.css('div[data-test="admin-div"]'));
+    expect(divElement).toBeTruthy();
+  })));
+
+  it('should hide the div when user is not an admin', (waitForAsync(() => {
+    component.isAdmin$ = observableOf(false);
+    fixture.detectChanges();
+
+    const divElement = fixture.debugElement.query(By.css('div[data-test="admin-div"]'));
+    expect(divElement).toBeFalsy();
+  })));
 
 });

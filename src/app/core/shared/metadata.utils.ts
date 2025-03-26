@@ -14,6 +14,8 @@ import { validate as uuidValidate } from 'uuid';
 
 export const AUTHORITY_GENERATE = 'will be generated::';
 export const AUTHORITY_REFERENCE = 'will be referenced::';
+export const PLACEHOLDER_VALUE = '#PLACEHOLDER_PARENT_METADATA_VALUE#';
+
 
 /**
  * Utility class for working with DSpace object metadata.
@@ -29,7 +31,6 @@ export const AUTHORITY_REFERENCE = 'will be referenced::';
  * followed by any other (non-dc) metadata values.
  */
 export class Metadata {
-
   /**
    * Gets all matching metadata in the map(s).
    *
@@ -37,10 +38,11 @@ export class Metadata {
    * checked in order, and only values from the first with at least one match will be returned.
    * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see above.
    * @param {MetadataValueFilter} filter The value filter to use. If unspecified, no filtering will be done.
+   * @param {number} limit The maximum number of values to return. If unspecified, all matching values will be returned.
    * @returns {MetadataValue[]} the matching values or an empty array.
    */
   public static all(mapOrMaps: MetadataMapInterface | MetadataMapInterface[], keyOrKeys: string | string[],
-                    filter?: MetadataValueFilter): MetadataValue[] {
+                    filter?: MetadataValueFilter, limit?: number): MetadataValue[] {
     const mdMaps: MetadataMapInterface[] = mapOrMaps instanceof Array ? mapOrMaps : [mapOrMaps];
     const matches: MetadataValue[] = [];
     for (const mdMap of mdMaps) {
@@ -50,6 +52,9 @@ export class Metadata {
           for (const candidate of candidates) {
             if (Metadata.valueMatches(candidate as MetadataValue, filter)) {
               matches.push(candidate as MetadataValue);
+              if (hasValue(limit) && matches.length >= limit) {
+                return  matches;
+              }
             }
           }
         }
@@ -148,11 +153,11 @@ export class Metadata {
    * Returns true if this Metadatum's value is defined
    */
   public static hasValue(value: MetadataValue|string): boolean {
-    if (isEmpty(value)) {
+    if (isEmpty(value) || value === PLACEHOLDER_VALUE) {
       return false;
     }
     if (isObject(value) && value.hasOwnProperty('value')) {
-      return isNotEmpty(value.value);
+      return isNotEmpty(value.value) && value.value !== PLACEHOLDER_VALUE;
     }
     return true;
   }
@@ -165,7 +170,9 @@ export class Metadata {
    * @returns {boolean} whether the filter matches, or true if no filter is given.
    */
   public static valueMatches(mdValue: MetadataValue, filter: MetadataValueFilter) {
-    if (!filter) {
+    if (mdValue.value === PLACEHOLDER_VALUE) {
+      return false;
+    } else if (!filter) {
       return true;
     } else if (filter.language && filter.language !== mdValue.language) {
       return false;

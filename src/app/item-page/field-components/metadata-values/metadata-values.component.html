@@ -12,7 +12,7 @@
 
 <!-- Render value as markdown -->
 <ng-template #markdown let-value="value">
-  <span class="dont-break-out" [innerHTML]="value | dsMarkdown | async">
+  <span class="dont-break-out" [dsMarkdown]="value">
   </span>
 </ng-template>
 
@@ -32,7 +32,5 @@
 <ng-template #browselink let-value="value">
   <a class="dont-break-out preserve-line-breaks ds-browse-link"
      [routerLink]="['/browse', browseDefinition.id]"
-     [queryParams]="getQueryParams(value)">
-    {{value}}
-  </a>
+     [queryParams]="getQueryParams(value)">{{value}}</a>
 </ng-template>

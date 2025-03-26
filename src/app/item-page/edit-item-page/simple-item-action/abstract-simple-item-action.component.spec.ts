@@ -111,7 +111,7 @@ describe('AbstractSimpleItemActionComponent', () => {
   });
 
   it('should render a page with messages based on the provided messageKey', () => {
-    const header = fixture.debugElement.query(By.css('h2')).nativeElement;
+    const header = fixture.debugElement.query(By.css('h1')).nativeElement;
     expect(header.innerHTML).toContain('item.edit.myEditAction.header');
 
     const description = fixture.debugElement.query(By.css('p')).nativeElement;

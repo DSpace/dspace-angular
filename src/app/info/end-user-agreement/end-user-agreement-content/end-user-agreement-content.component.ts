@@ -4,6 +4,7 @@ import { SiteDataService } from '../../../core/data/site-data.service';
 import { LocaleService } from '../../../core/locale/locale.service';
 import { MetadatumViewModel } from '../../../core/shared/metadata.models';
 import { isNotEmpty } from '../../../shared/empty.util';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-end-user-agreement-content',
@@ -21,9 +22,12 @@ export class EndUserAgreementContentComponent implements OnInit, OnDestroy {
 
   userAgreementText$: BehaviorSubject<string> = new BehaviorSubject('');
 
-  constructor(private siteService: SiteDataService,
-              private localeService: LocaleService) {
+  fallbackText = 'info.end-user-agreement.content.fallback';
 
+  constructor(private siteService: SiteDataService,
+              private localeService: LocaleService,
+              private translateService: TranslateService
+            ) {
   }
 
   private filterMetadata(metadata: MetadatumViewModel, langCode: string) {
@@ -37,8 +41,9 @@ export class EndUserAgreementContentComponent implements OnInit, OnDestroy {
 
       const textArray = site?.metadataAsList.filter((metadata) => this.filterMetadata(metadata, langCode));
       const fallbackTextArray = site?.metadataAsList.filter((metadata) => this.filterMetadata(metadata, fallbackLangCode));
+      const defaultFallbackText = this.translateService.instant(this.fallbackText);
 
-      this.userAgreementText$.next(textArray[0]?.value || fallbackTextArray[0]?.value || '');
+      this.userAgreementText$.next(textArray[0]?.value || fallbackTextArray[0]?.value || defaultFallbackText);
     }));
   }
 

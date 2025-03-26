@@ -17,7 +17,6 @@ import { HALEndpointService } from '../core/shared/hal-endpoint.service';
 import { RequestService } from '../core/data/request.service';
 import { RemoteDataBuildService } from '../core/cache/builders/remote-data-build.service';
 import { Context } from '../core/shared/context.model';
-import { UUIDService } from '../core/shared/uuid.service';
 
 export const MyDSpaceConfigurationToContextMap = new Map([
   [MyDSpaceConfigurationValueType.Workspace, Context.Workspace],
@@ -36,7 +35,7 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
    * Default pagination settings
    */
   protected defaultPagination = Object.assign(new PaginationComponentOptions(), {
-    id: this.uuidService.generate(),
+    id: 'mydspace-page',
     pageSize: 10,
     currentPage: 1
   });
@@ -84,8 +83,7 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
               protected linkService: LinkService,
               protected halService: HALEndpointService,
               protected requestService: RequestService,
-              protected rdb: RemoteDataBuildService,
-              protected uuidService: UUIDService) {
+              protected rdb: RemoteDataBuildService) {
 
     super(routeService, paginationService, route, linkService, halService, requestService, rdb);
 

@@ -26,7 +26,6 @@ import { PaginationService } from '../core/pagination/pagination.service';
 import { FindListOptions } from '../core/data/find-list-options.model';
 import { WorkspaceItem } from '../core/submission/models/workspaceitem.model';
 import { redirectOn4xx } from '../core/shared/authorized.operators';
-import { UUIDService } from '../core/shared/uuid.service';
 
 @Component({
   selector: 'ds-suggestion-page',
@@ -39,7 +38,7 @@ export class SuggestionsPageComponent implements OnInit {
    * The pagination configuration
    */
   paginationOptions: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: this.uuidService.generate(),
+    id: 'sp',
     pageSizeOptions: [5, 10, 20, 40, 60]
   });
 
@@ -84,8 +83,7 @@ export class SuggestionsPageComponent implements OnInit {
     private suggestionService: SuggestionsService,
     private suggestionTargetsStateService: SuggestionTargetsStateService,
     private translateService: TranslateService,
-    private workspaceItemService: WorkspaceitemDataService,
-    private uuidService: UUIDService
+    private workspaceItemService: WorkspaceitemDataService
   ) {
   }
 

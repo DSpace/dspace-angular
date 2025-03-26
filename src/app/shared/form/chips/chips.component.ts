@@ -83,8 +83,18 @@ export class ChipsComponent implements OnChanges {
     this.dragged = index;
   }
 
-  onDrop(event: CdkDragDrop<ChipsItem[]>) {
-    moveItemInArray(this.chips.chipsItems.getValue(), event.previousIndex, event.currentIndex);
+  onDrop(event: CdkDragDrop<{ index: number }>) {
+    const previousContainerIndex = event.previousContainer.data.index;
+    const currentContainerIndex = event.container.data.index;
+
+    const currentPositionInCurrentContainer = event.currentIndex;
+
+    // if we move forward we need to adjust the new position
+    const directionAdjuster = currentContainerIndex > previousContainerIndex ? -1 : 0;
+
+    moveItemInArray(this.chips.chipsItems.getValue(),
+      previousContainerIndex,
+      currentContainerIndex + currentPositionInCurrentContainer + directionAdjuster);
     this.dragged = -1;
     this.chips.updateOrder();
     this.isDragging.next(false);
@@ -175,7 +185,7 @@ export class ChipsComponent implements OnChanges {
   }
 
   textTruncate(text: string): string {
-    if (text.length >= TOOLTIP_TEXT_LIMIT) {
+    if (text && text.length >= TOOLTIP_TEXT_LIMIT) {
       return `${text.substring(0, TOOLTIP_TEXT_LIMIT)}...`;
     }
     return text;

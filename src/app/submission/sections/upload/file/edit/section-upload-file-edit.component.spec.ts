@@ -47,6 +47,9 @@ import {
 } from '../../../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { dateToISOFormat } from '../../../../../shared/date.util';
 import { of } from 'rxjs';
+import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
+import { SectionsService } from '../../../sections.service';
+import { SectionsServiceStub } from '../../../../../shared/testing/sections-service.stub';
 
 const jsonPatchOpBuilder: any = jasmine.createSpyObj('jsonPatchOpBuilder', {
   add: jasmine.createSpy('add'),
@@ -62,6 +65,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
   let compAsAny: any;
   let fixture: ComponentFixture<SubmissionSectionUploadFileEditComponent>;
   let submissionServiceStub: SubmissionServiceStub;
+  let sectionServiceStub: SectionsServiceStub;
   let formbuilderService: any;
   let operationsBuilder: any;
   let operationsService: any;
@@ -79,6 +83,9 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
   const fileId = '123456-test-upload';
   const fileData: any = mockUploadFiles[0];
   const pathCombiner = new JsonPatchOperationPathCombiner('sections', sectionId, 'files', fileIndex);
+
+  let noAccessConditionsMock = Object.assign({}, mockFileFormData);
+  delete noAccessConditionsMock.accessConditions;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -100,6 +107,8 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
         { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsServiceStub },
         { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
         { provide: SectionUploadService, useValue: getMockSectionUploadService() },
+        { provide: XSRFService, useValue: {} },
+        { provide: SectionsService, useClass: SectionsServiceStub },
         FormBuilderService,
         ChangeDetectorRef,
         SubmissionSectionUploadFileEditComponent,
@@ -151,6 +160,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       comp = fixture.componentInstance;
       compAsAny = comp;
       submissionServiceStub = TestBed.inject(SubmissionService as any);
+      sectionServiceStub = TestBed.inject(SectionsService as any);
       formbuilderService = TestBed.inject(FormBuilderService);
       operationsBuilder = TestBed.inject(JsonPatchOperationsBuilder);
       operationsService = TestBed.inject(SubmissionJsonPatchOperationsService);
@@ -314,6 +324,28 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
 
     }));
 
+    it('should update Bitstream data properly when access options are omitted', fakeAsync(() => {
+      compAsAny.formRef = {formGroup: null};
+      compAsAny.fileData = fileData;
+      compAsAny.pathCombiner = pathCombiner;
+      formService.validateAllFormFields.and.callFake(() => null);
+      formService.isValid.and.returnValue(of(true));
+      formService.getFormData.and.returnValue(of(noAccessConditionsMock));
+      const response = [
+        Object.assign(mockSubmissionObject, {
+          sections: {
+            upload: {
+              files: mockUploadFiles
+            }
+          }
+        })
+      ];
+      operationsService.jsonPatchByResourceID.and.returnValue(of(response));
+      comp.saveBitstreamData();
+      tick();
+      expect(uploadService.updateFileData).toHaveBeenCalled();
+    }));
+
     it('should not save Bitstream File data properly when form is not valid', fakeAsync(() => {
       compAsAny.formRef = {formGroup: null};
       compAsAny.pathCombiner = pathCombiner;
@@ -325,7 +357,6 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
       expect(uploadService.updateFileData).not.toHaveBeenCalled();
 
     }));
-
   });
 });
 

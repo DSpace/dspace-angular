@@ -18,7 +18,6 @@ import { NoContent } from '../../../../core/shared/NoContent.model';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { followLink } from '../../../../shared/utils/follow-link-config.model';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { UUIDService } from '../../../../core/shared/uuid.service';
 
 /**
  * Keys to keep track of specific subscriptions
@@ -59,7 +58,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
    * Pagination config used to display the list of groups that are result of groups search
    */
   configSearch: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: this.uuidService.generate(),
+    id: 'ssgl',
     pageSize: 5,
     currentPage: 1
   });
@@ -67,7 +66,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
    * Pagination config used to display the list of subgroups of currently active group being edited
    */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: this.uuidService.generate(),
+    id: 'sgl',
     pageSize: 5,
     currentPage: 1
   });
@@ -90,8 +89,7 @@ export class SubgroupsListComponent implements OnInit, OnDestroy {
               private formBuilder: UntypedFormBuilder,
               private paginationService: PaginationService,
               private router: Router,
-              public dsoNameService: DSONameService,
-              private uuidService: UUIDService) {
+              public dsoNameService: DSONameService) {
     this.currentSearchQuery = '';
   }
 

@@ -40,7 +40,6 @@ import { TYPE_REQUEST_FORGOT } from '../../../register-email-form/register-email
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { getEPersonsRoute } from '../../access-control-routing-paths';
-import { UUIDService } from '../../../core/shared/uuid.service';
 
 @Component({
   selector: 'ds-eperson-form',
@@ -154,7 +153,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    * Pagination config used to display the list of groups
    */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: this.uuidService.generate(),
+    id: 'gem',
     pageSize: 5,
     currentPage: 1
   });
@@ -198,8 +197,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
     private epersonRegistrationService: EpersonRegistrationService,
     public dsoNameService: DSONameService,
     protected route: ActivatedRoute,
-    protected router: Router,
-    private uuidService: UUIDService
+    protected router: Router
   ) {
     this.subs.push(this.epersonService.getActiveEPerson().subscribe((eperson: EPerson) => {
       this.epersonInitial = eperson;

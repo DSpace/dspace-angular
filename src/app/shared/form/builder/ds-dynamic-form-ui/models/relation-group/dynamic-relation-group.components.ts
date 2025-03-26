@@ -55,6 +55,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
   protected selectedChipItemIndex: number;
 
   private subs: Subscription[] = [];
+  private valueChangeSubscription: Subscription;
 
   constructor(private vocabularyService: VocabularyService,
               private formBuilderService: FormBuilderService,
@@ -70,12 +71,18 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
 
   ngOnInit() {
     this.initChipsFromModelValue();
+    this.valueChangeSubscription = this.model.valueChanges.subscribe(() => {
+      this.initChipsFromModelValue();
+    });
   }
 
   ngOnDestroy(): void {
     this.subs
       .filter((sub) => hasValue(sub))
       .forEach((sub) => sub.unsubscribe());
+    if (hasValue(this.valueChangeSubscription)) {
+      this.valueChangeSubscription.unsubscribe();
+    }
   }
 
   onBlur(event) {
@@ -103,7 +110,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
     modalRef.componentInstance.group = this.group;
     modalRef.componentInstance.model = this.model;
 
-    modalRef.componentInstance.editMode = this.selectedChipItem ? true : false;
+    modalRef.componentInstance.editMode = !!this.selectedChipItem;
     modalRef.componentInstance.itemIndex = this.selectedChipItemIndex;
     modalRef.componentInstance.item = this.selectedChipItem?.item;
     modalRef.componentInstance.changedSecurity = false;
@@ -114,15 +121,23 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
     modalRef.componentInstance.add.pipe(take(1)).subscribe((item) => {
       this.chips.add(item);
     });
-
+    if (hasValue(this.valueChangeSubscription)) {
+      this.valueChangeSubscription.unsubscribe();
+    }
     modalRef.result.then(() => {
       // close
       this.selectedChipItemIndex = null;
       this.selectedChipItem = null;
+      this.valueChangeSubscription = this.model.valueChanges.subscribe(() => {
+        this.initChipsFromModelValue();
+      });
     }, () => {
       // dismiss
       this.selectedChipItemIndex = null;
       this.selectedChipItem = null;
+      this.valueChangeSubscription = this.model.valueChanges.subscribe(() => {
+        this.initChipsFromModelValue();
+      });
     });
 
     return modalRef;
@@ -133,12 +148,13 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
     if (this.model.isEmpty()) {
       this.initChips([]);
     } else {
-      initChipsValue$ = observableOf(this.model.value as any[]);
+      initChipsValue$ = observableOf(this.model.getGroupValue() as any[]);
       // If authority
       this.subs.push(initChipsValue$.pipe(
         mergeMap((valueModel) => {
           const returnList: Observable<any>[] = [];
           valueModel.forEach((valueObj) => {
+
             const returnObj = Object.keys(valueObj).map((fieldName) => {
               let return$: Observable<any>;
               if (isObject(valueObj[fieldName]) && this.hasValidAuthority(valueObj[fieldName]) && valueObj[fieldName].otherInformation === null) {
@@ -171,7 +187,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
           }
           return acc;
         }, []),
-        filter((modelValues: any[]) => (this.model.value as any[]).length === modelValues.length)
+        filter((modelValues: any[]) => this.model.getGroupValue().length === modelValues.length)
       ).subscribe((modelValue) => {
         this.model.value = modelValue;
         this.initChips(modelValue);

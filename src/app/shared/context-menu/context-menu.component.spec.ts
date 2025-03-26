@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { Component, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
+import { Component, Injector, NO_ERRORS_SCHEMA, PLATFORM_ID } from '@angular/core';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { By } from '@angular/platform-browser';
 
@@ -27,6 +27,7 @@ import { NotificationsServiceStub } from '../testing/notifications-service.stub'
 import { AuthService } from '../../core/auth/auth.service';
 import { EPersonMock } from '../testing/eperson.mock';
 import { ItemExportFormConfiguration, ItemExportService } from '../search/item-export/item-export.service';
+import { BrowserOnlyDirective } from '../utils/browser-only.directive';
 
 describe('ContextMenuComponent', () => {
   let component: ContextMenuComponent;
@@ -98,7 +99,8 @@ describe('ContextMenuComponent', () => {
             useClass: TranslateLoaderMock
           }
         }),
-        NgbDropdownModule
+        NgbDropdownModule,
+        BrowserOnlyDirective
       ],
       declarations: [ContextMenuComponent, TestComponent, ExportItemMenuComponent, StatisticsMenuComponent, SubscriptionMenuComponent],
       providers: [
@@ -110,6 +112,7 @@ describe('ContextMenuComponent', () => {
         { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationDataService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: PLATFORM_ID, useValue: 'browser' },
         Injector
       ],
       schemas: [NO_ERRORS_SCHEMA]

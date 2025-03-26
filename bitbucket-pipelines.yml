@@ -6,9 +6,9 @@ definitions:
     - step: &unittest-code-checks
         name: test-code-checks
         image:
-          name: cypress/browsers:node18.12.0-chrome107
+          name: cypress/browsers:node-18.20.3-chrome-125.0.6422.141-1-ff-126.0.1-edge-125.0.2535.85-1
           run-as-user: 1000
-        size: 2x
+        size: 4x
         caches:
           - node
         script:
@@ -21,6 +21,8 @@ definitions:
 pipelines:
   branches:
     'dspace-cris-2023_02_x':
+      - step: *unittest-code-checks
+    'prod/**':
       - step: *unittest-code-checks
   pull-requests:
     '**':

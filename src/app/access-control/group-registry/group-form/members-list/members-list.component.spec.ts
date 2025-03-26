@@ -30,8 +30,6 @@ import { PaginationService } from '../../../../core/pagination/pagination.servic
 import { PaginationServiceStub } from '../../../../shared/testing/pagination-service.stub';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../../shared/mocks/dso-name.service.mock';
-import { UUIDService } from '../../../../core/shared/uuid.service';
-import { getMockUUIDService } from '../../../../shared/mocks/uuid.service.mock';
 
 describe('MembersListComponent', () => {
   let component: MembersListComponent;
@@ -70,9 +68,6 @@ describe('MembersListComponent', () => {
       clearLinkRequests() {
         // empty
       },
-      getEPeoplePageRouterLink(): string {
-        return '/access-control/epeople';
-      }
     };
     groupsDataServiceStub = {
       activeGroup: activeGroup,
@@ -138,7 +133,6 @@ describe('MembersListComponent', () => {
         { provide: Router, useValue: new RouterMock() },
         { provide: PaginationService, useValue: paginationService },
         { provide: DSONameService, useValue: new DSONameServiceMock() },
-        { provide: UUIDService, useValue: getMockUUIDService() }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

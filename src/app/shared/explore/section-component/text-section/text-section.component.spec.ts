@@ -62,10 +62,10 @@ describe('TextSectionComponent', () => {
     expect(component).toBeTruthy();
   });
   // FIXME: complete scenarios
-  it('should render text-metadata with innerHtml', () => {
+  it('should render text-metadata with ds-markdown-viewer', () => {
     component.sectionId = 'site';
     fixture.detectChanges();
-    const name = fixture.debugElement.queryAll(By.css('div'))[0].nativeElement;
-    expect(name.innerHTML).toContain(component.site.metadata['cms.homepage.footer'][0].value);
+    const dsMarkdownViewer = fixture.debugElement.query(By.css('[data-test="ds-markdown-viewer"]'));
+    expect(dsMarkdownViewer).toBeTruthy();
   });
 });

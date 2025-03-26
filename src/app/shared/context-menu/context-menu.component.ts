@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject, Injector, Input, OnInit } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, Inject, Injector, Input, OnInit } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
 import { from, Observable } from 'rxjs';
@@ -24,7 +24,7 @@ import { GenericConstructor } from '../../core/shared/generic-constructor';
   styleUrls: ['./context-menu.component.scss'],
   templateUrl: './context-menu.component.html'
 })
-export class ContextMenuComponent implements OnInit {
+export class ContextMenuComponent implements OnInit, AfterViewChecked {
 
   /**
    * The related item
@@ -48,6 +48,9 @@ export class ContextMenuComponent implements OnInit {
    */
   public optionCount = 0;
 
+  public standAloneEntries$: Observable<any>;
+  public contextEntries$: Observable<any>;
+
   /**
    * Initialize instance variables
    *
@@ -61,8 +64,7 @@ export class ContextMenuComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private configurationService: ConfigurationDataService,
     private injector: Injector
-  ) {
-  }
+  ) { }
 
   ngOnInit(): void {
     this.objectInjector = Injector.create({
@@ -72,6 +74,9 @@ export class ContextMenuComponent implements OnInit {
       ],
       parent: this.injector
     });
+
+    this.standAloneEntries$ = this.getStandAloneMenuEntries();
+    this.contextEntries$ = this.getContextMenuEntries();
   }
 
   /**
@@ -91,7 +96,7 @@ export class ContextMenuComponent implements OnInit {
   private retrieveSelectedContextMenuEntries(isStandAlone: boolean): Observable<any[]> {
     const list = this.contextMenuObjectType ? getContextMenuEntriesForDSOType(this.contextMenuObjectType) : [];
     return from(list).pipe(
-      filter((renderOptions: ContextMenuEntryRenderOptions) => isNotEmpty(renderOptions ?.componentRef) && renderOptions ?.isStandAlone === isStandAlone),
+      filter((renderOptions: ContextMenuEntryRenderOptions) => isNotEmpty(renderOptions?.componentRef) && renderOptions?.isStandAlone === isStandAlone),
       map((renderOptions: ContextMenuEntryRenderOptions) => renderOptions.componentRef),
       concatMap((constructor: GenericConstructor<ContextMenuEntryComponent>) => {
         const entryComp: ContextMenuEntryComponent = new constructor();
@@ -117,10 +122,6 @@ export class ContextMenuComponent implements OnInit {
         return res.hasSucceeded && res.payload && isNotEmpty(res.payload.values) && res.payload.values[0].toLowerCase() === 'false';
       })
     );
-  }
-
-  isItem(): boolean {
-    return this.contextMenuObjectType === DSpaceObjectType.ITEM;
   }
 
   ngAfterViewChecked() {

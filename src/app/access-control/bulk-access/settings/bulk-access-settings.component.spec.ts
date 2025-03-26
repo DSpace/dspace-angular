@@ -36,7 +36,6 @@ describe('BulkAccessSettingsComponent', () => {
 
   const mockControl: any = jasmine.createSpyObj('AccessControlFormContainerComponent',  {
     getFormValue: jasmine.createSpy('getFormValue'),
-    reset: jasmine.createSpy('reset')
   });
 
   beforeEach(async () => {
@@ -62,20 +61,11 @@ describe('BulkAccessSettingsComponent', () => {
     expect(component.getValue).toBeDefined();
   });
 
-  it('should have a method to reset the form', () => {
-    expect(component.reset).toBeDefined();
-  });
-
   it('should return the correct form value', () => {
     const expectedValue = mockFormState;
     (component.controlForm as any).getFormValue.and.returnValue(mockFormState);
     const actualValue = component.getValue();
     // @ts-ignore
     expect(actualValue).toEqual(expectedValue);
-  });
-
-  it('should call reset on the control form', () => {
-    component.reset();
-    expect(component.controlForm.reset).toHaveBeenCalled();
   });
 });

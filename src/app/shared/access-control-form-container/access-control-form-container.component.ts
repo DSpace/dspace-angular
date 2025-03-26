@@ -16,9 +16,8 @@ import { BulkAccessConfigDataService } from '../../core/config/bulk-access-confi
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { BulkAccessConditionOptions } from '../../core/config/models/bulk-access-condition-options.model';
 import { AlertType } from '../alert/alert-type';
-import {
-  createAccessControlInitialFormState
-} from './access-control-form-container-intial-state';
+import { createAccessControlInitialFormState } from './access-control-form-container-intial-state';
+import { SwitchColor, SwitchOption } from '../switch/switch.component';
 
 @Component({
   selector: 'ds-access-control-form-container',
@@ -54,6 +53,14 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> impleme
   @ViewChild('itemAccessCmp', { static: true }) itemAccessCmp: AccessControlArrayFormComponent;
 
   readonly AlertType = AlertType;
+
+  /**
+   * The custom options for the 'ds-switch' component
+   */
+  switchOptions: SwitchOption[] = [
+    { value: true, backgroundColor: SwitchColor.Success },
+    { value: false },
+  ];
 
   constructor(
     private bulkAccessConfigService: BulkAccessConfigDataService,

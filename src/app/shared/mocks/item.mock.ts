@@ -182,6 +182,10 @@ export const ItemMock: Item = Object.assign(new Item(), {
       {
         language: 'en_US',
         value: 'Doe, Jane'
+      },
+      {
+        language: 'en_US',
+        value: 'Doe, John'
       }
     ],
     'dc.date.accessioned': [
@@ -275,6 +279,18 @@ export const ItemMock: Item = Object.assign(new Item(), {
         language: 'en_US',
         value: 'text'
       }
+    ],
+    'dc.relation.issn': [
+      {
+        language: 'en_US',
+        value: '123456789',
+      },
+    ],
+    'dspace.entity.type': [
+      {
+        language: 'en',
+        value: 'Publication',
+      },
     ]
   },
   owningCollection: observableOf({

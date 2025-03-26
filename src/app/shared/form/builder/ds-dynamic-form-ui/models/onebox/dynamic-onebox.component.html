@@ -7,10 +7,14 @@
 
 <ng-template #hasInfo let-entry="entry">
   <ul class="list-unstyled mb-0">
-    <li class="list-item text-truncate text-primary font-weight-bold">{{entry.value}}</li>
+    <li class="list-item d-flex align-items-center">
+      <img *ngIf="entry.source" class="mr-2" #imgTag [src]="getAuthoritySourceIcon(entry.source, imgTag)" [attr.alt]="('form.entry.source.' + entry.source) | translate" />
+      <div class="text-truncate text-primary font-weight-bold">{{entry.value}}</div>
+      <div *ngIf="entry.source" class="ml-2 text-truncate text-secondary">{{ ('form.entry.source.' + entry.source) | translate}}</div>
+    </li>
     <ng-container *ngFor="let item of entry.otherInformation | dsObjNgFor">
       <li *ngIf="!item.key.startsWith('data-')" class="list-item text-truncate text-secondary"  >
-        {{ 'form.other-information.' + item.key | translate }} : {{item.value !== '' ? getOtherInfoValue(item.value) : ('form.other-information.not-available' | translate)}}
+        {{ 'form.other-information.' + item.key | translate }} : {{item.value !== '' ? getOtherInfoValue(item.value, item.key) : ('form.other-information.not-available' | translate)}}
       </li>
     </ng-container>
   </ul>
@@ -18,7 +22,11 @@
 
 <ng-template #noInfo let-entry="entry">
   <ul class="list-unstyled mb-0">
-    <li class="list-item text-truncate text-primary font-weight-bold">{{entry.value}}</li>
+    <li class="list-item d-flex align-items-center">
+      <img  *ngIf="entry.source" class="mr-2" #imgTag [src]="getAuthoritySourceIcon(entry.source, imgTag)" [attr.alt]="('form.entry.source.' + entry.source) | translate" />
+      <div class="text-truncate text-primary font-weight-bold">{{entry.value}}</div>
+      <div *ngIf="entry.source" class="ml-2 text-truncate text-secondary">{{ ('form.entry.source.' + entry.source) | translate}}</div>
+    </li>
   </ul>
 </ng-template>
 
@@ -31,9 +39,14 @@
        aria-hidden="true"
        [authorityValue]="currentValue"
        (whenClickOnConfidenceNotAccepted)="whenClickOnConfidenceNotAccepted($event)"></i>
+    <i  *ngIf="otherInfoValues.length > 0 && (model.id === otherInfoKey || otherInfoKey === alternativeNamesKey || 'data-' + model.id === otherInfoKey)"
+        class="fa-solid fa-angle-down fa-fw fa-2x fa-fw position-absolute mt-1 p-0 additional-items-icon"
+        (click)="toggleOtherInfoSelection()"
+    ></i>
+
     <input #instance="ngbTypeahead"
            class="form-control"
-         [attr.aria-labelledby]="'label_' + model.id"
+           [attr.aria-labelledby]="'label_' + model.id"
            [attr.autoComplete]="model.autoComplete"
            [class.is-invalid]="showErrorMessages"
            [id]="model.id"
@@ -85,4 +98,16 @@
          (keydown)="$event.preventDefault()"
          (keypress)="$event.preventDefault()"
          (keyup)="$event.preventDefault()">
+</div>
+
+
+<div *ngIf="additionalInfoSelectIsOpen" class="bg-white border border-primary position-absolute additional-info-selection">
+  <span class="m-2 text-muted">{{'form.other-information.selection.' + otherInfoKey | translate}}</span>
+  <ul class="list-unstyled mb-0">
+    <ng-container *ngFor="let info of otherInfoValues">
+      <li [class.font-weight-bold]="(info === otherInfoValue && otherInfoKey !== alternativeNamesKey)  || (info === otherName && otherInfoKey === alternativeNamesKey) || (model.value && info === model.value['display'] && !otherInfoValue && !otherName)" class="list-item d-flex align-items-center p-2" (click)="selectAlternativeInfo(info)">
+        {{info}}
+      </li>
+    </ng-container>
+  </ul>
 </div>

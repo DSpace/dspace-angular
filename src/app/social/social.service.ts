@@ -63,7 +63,21 @@ export class SocialService {
     script.type = 'text/javascript';
     script.src = environment.addToAnyPlugin.scriptUrl;
     script.async = true;
-    this._document.body.appendChild(script);
+
+    // Wait for document to finish grow vertically so that script listener handles properly body height changes
+    let lastBodyHeight = 0;
+    const documentBody = this._document.body;
+
+    const bodyHeightInterval = setInterval(() => {
+      const currentBodyHeight = documentBody.getBoundingClientRect().height;
+
+      if (currentBodyHeight > lastBodyHeight) {
+        lastBodyHeight = currentBodyHeight;
+      } else {
+        this._document.head.appendChild(script);
+        clearInterval(bodyHeightInterval);
+      }
+    }, 200);
   }
 
   /**

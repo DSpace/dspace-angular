@@ -51,6 +51,11 @@ export class ObjectGridComponent implements OnInit {
   @Input() sortConfig: SortOptions;
 
   /**
+   * Whether to show the badge label or not
+   */
+  @Input() showLabel: boolean;
+
+  /**
    * Whether to show the metrics badges
    */
   @Input() showMetrics = true;
@@ -63,7 +68,7 @@ export class ObjectGridComponent implements OnInit {
   /**
    * Whether to show the thumbnail preview
    */
-  @Input() showThumbnails;
+  @Input() showThumbnails: boolean;
 
   /**
    * The whether or not the gear is hidden

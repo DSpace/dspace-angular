@@ -5,21 +5,20 @@ import { PaginatedList } from '../../core/data/paginated-list.model';
 import { Process } from '../processes/process.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { map, switchMap, take } from 'rxjs/operators';
+import { switchMap, take } from 'rxjs/operators';
 import { ProcessDataService } from '../../core/data/processes/process-data.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { FindListOptions } from '../../core/data/find-list-options.model';
 import { ProcessBulkDeleteService } from './process-bulk-delete.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { hasValue } from '../../shared/empty.util';
+import { hasValue, isNotEmpty } from '../../shared/empty.util';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { TranslateService } from '@ngx-translate/core';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { UUIDService } from '../../core/shared/uuid.service';
 
 @Component({
   selector: 'ds-process-overview',
@@ -46,7 +45,7 @@ export class ProcessOverviewComponent implements OnInit, OnDestroy {
    * The current pagination configuration for the page
    */
   pageConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: this.uuidService.generate(),
+    id: 'po',
     pageSize: 20
   });
 
@@ -66,10 +65,9 @@ export class ProcessOverviewComponent implements OnInit, OnDestroy {
               protected modalService: NgbModal,
               public processBulkDeleteService: ProcessBulkDeleteService,
               protected dsoNameService: DSONameService,
+              private translateService: TranslateService,
               protected authorizationService: AuthorizationDataService,
               protected notificationService: NotificationsService,
-              protected translateService: TranslateService,
-              protected uuidService: UUIDService,
   ) {
   }
 
@@ -120,10 +118,20 @@ export class ProcessOverviewComponent implements OnInit, OnDestroy {
    * @param id  ID of the EPerson
    */
   getEpersonName(id: string): Observable<string> {
-    return this.ePersonService.findById(id).pipe(
-      getFirstSucceededRemoteDataPayload(),
-      map((eperson: EPerson) => this.dsoNameService.getName(eperson)),
-    );
+    if (isNotEmpty(id)) {
+      return this.ePersonService.findById(id).pipe(
+        getFirstCompletedRemoteData(),
+        switchMap((rd: RemoteData<EPerson>) => {
+          if (rd.hasSucceeded) {
+            return [this.dsoNameService.getName(rd.payload)];
+          } else {
+            return this.translateService.get('process.overview.unknown.user');
+          }
+        })
+      );
+    } else {
+      return this.translateService.get('process.overview.unknown.user');
+    }
   }
 
   delete(process: Process) {

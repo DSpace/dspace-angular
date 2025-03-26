@@ -61,6 +61,9 @@ import { DynamicFormControlCondition } from '@ng-dynamic-forms/core/lib/model/mi
 import { DynamicDateControlValue } from '@ng-dynamic-forms/core/lib/model/dynamic-date-control.model';
 import { DynamicSelectModelConfig } from '@ng-dynamic-forms/core/lib/model/select/dynamic-select.model';
 import { TranslateService } from '@ngx-translate/core';
+import parseSectionErrors from '../../../../utils/parseSectionErrors';
+import { SectionsService } from '../../../sections.service';
+import { normalizeSectionData } from '../../../../../core/submission/submission-response-parsing.service';
 
 /**
  * This component represents the edit form for bitstream
@@ -181,6 +184,8 @@ export class SubmissionSectionUploadFileEditComponent
    * @param {JsonPatchOperationsBuilder} operationsBuilder
    * @param {SubmissionJsonPatchOperationsService} operationsService
    * @param {SectionUploadService} uploadService
+   * @param translate
+   * @param sectionService
    */
   constructor(
     protected activeModal: NgbActiveModal,
@@ -192,6 +197,7 @@ export class SubmissionSectionUploadFileEditComponent
     private operationsService: SubmissionJsonPatchOperationsService,
     private uploadService: SectionUploadService,
     private translate: TranslateService,
+    private sectionService: SectionsService,
   ) {
   }
 
@@ -308,7 +314,12 @@ export class SubmissionSectionUploadFileEditComponent
       configForm,
       this.collectionId,
       this.fileData.metadata,
-      this.submissionService.getSubmissionScope()
+      this.submissionService.getSubmissionScope(),
+      false,
+      null,
+      false,
+      null,
+      false
     );
     formModel.push(new DynamicFormGroupModel(metadataGroupModelConfig, BITSTREAM_METADATA_FORM_GROUP_LAYOUT));
     const accessConditionTypeModelConfig = Object.assign({}, BITSTREAM_FORM_ACCESS_CONDITION_TYPE_CONFIG);
@@ -413,8 +424,7 @@ export class SubmissionSectionUploadFileEditComponent
         if (this.singleAccessCondition) {
           accessConditionsToIterate = [formData[BITSTREAM_ACCESS_CONDITION_GROUP_CONFIG.id]];
         } else {
-          accessConditionsToIterate = formData.accessConditions
-            .map((accessConditions) => accessConditions.accessConditionGroup);
+          accessConditionsToIterate = formData?.accessConditions?.map((accessConditions) => accessConditions.accessConditionGroup) || [];
         }
         accessConditionsToIterate
           .filter((accessCondition) => isNotEmpty(accessCondition))
@@ -478,12 +488,20 @@ export class SubmissionSectionUploadFileEditComponent
       })
     ).subscribe((result: SubmissionObject[]) => {
       if (result[0].sections[this.sectionId]) {
-        const uploadSection = (result[0].sections[this.sectionId] as WorkspaceitemSectionUploadObject);
+        const resultSection = result[0].sections[this.sectionId];
+        const uploadSection = (resultSection as WorkspaceitemSectionUploadObject);
+        const { errors } = result[0];
+        const errorsList = parseSectionErrors(errors);
+        const sectionData = normalizeSectionData(resultSection);
+        const sectionErrors = errorsList[this.sectionId];
+
         Object.keys(uploadSection.files)
           .filter((key) => uploadSection.files[key].uuid === this.fileId)
           .forEach((key) => this.uploadService.updateFileData(
             this.submissionId, this.sectionId, this.fileId, uploadSection.files[key])
           );
+
+        this.sectionService.updateSectionData(this.submissionId, this.sectionId, sectionData, sectionErrors, sectionErrors);
       }
       this.isSaving = false;
       this.activeModal.close();

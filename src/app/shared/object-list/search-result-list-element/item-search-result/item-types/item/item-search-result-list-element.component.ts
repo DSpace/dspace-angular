@@ -15,7 +15,9 @@ import { TruncatableService } from '../../../../../truncatable/truncatable.servi
 import { DSONameService } from '../../../../../../core/breadcrumbs/dso-name.service';
 import { APP_CONFIG, AppConfig } from '../../../../../../../config/app-config.interface';
 import { getFirstSucceededRemoteListPayload } from '../../../../../../core/shared/operators';
-import { map } from 'rxjs/operators';
+import { differenceInDays, differenceInMilliseconds, parseISO} from 'date-fns';
+import { filter, map } from 'rxjs/operators';
+import { isNotEmpty } from '../../../../../empty.util';
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.ListElement)
 @listableObjectComponent(ItemSearchResult, ViewMode.ListElement)
@@ -69,7 +71,9 @@ export class ItemSearchResultListElementComponent extends SearchResultListElemen
       this.klaroService.watchConsentUpdates();
 
       this.hasLoadedThirdPartyMetrics$ = combineLatest([
-        this.klaroService.consentsUpdates$,
+        this.klaroService.consentsUpdates$.pipe(
+          filter(consents => isNotEmpty(consents))
+        ),
         this.dso.metrics?.pipe(
           getFirstSucceededRemoteListPayload(),
           map(metrics => {
@@ -84,6 +88,14 @@ export class ItemSearchResultListElementComponent extends SearchResultListElemen
         })
       );
     }
+  }
+
+  getDateForItem(itemStartDate: string) {
+    const itemStartDateConverted: Date = parseISO(itemStartDate);
+    const days: number = Math.floor(differenceInDays(Date.now(), itemStartDateConverted));
+    const remainingMilliseconds: number = differenceInMilliseconds(Date.now(), itemStartDateConverted) - days * 24 * 60 * 60 * 1000;
+    const hours: number = Math.floor(remainingMilliseconds / (60 * 60 * 1000));
+    return `${days} d ${hours} h`;
   }
 
   /**

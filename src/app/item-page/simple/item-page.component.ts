@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { isPlatformServer } from '@angular/common';
 
 import { Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
@@ -11,13 +11,10 @@ import { Item } from '../../core/shared/item.model';
 import { fadeInOut } from '../../shared/animations/fade';
 import { getAllSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { ViewMode } from '../../core/shared/view-mode.model';
-import { AuthService } from '../../core/auth/auth.service';
 import { getItemPageRoute } from '../item-page-routing-paths';
-import { redirectOn204, redirectOn4xx } from '../../core/shared/authorized.operators';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { ServerResponseService } from '../../core/services/server-response.service';
-import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { SignpostingLink } from '../../core/data/signposting-links.model';
 import { isNotEmpty } from '../../shared/empty.util';
 import { LinkDefinition, LinkHeadService } from '../../core/services/link-head.service';
@@ -79,10 +76,8 @@ export class ItemPageComponent implements OnInit, OnDestroy {
     protected route: ActivatedRoute,
     protected router: Router,
     protected items: ItemDataService,
-    protected authService: AuthService,
     protected authorizationService: AuthorizationDataService,
     protected responseService: ServerResponseService,
-    protected signpostingDataService: SignpostingDataService,
     protected linkHeadService: LinkHeadService,
     @Inject(PLATFORM_ID) protected platformId: string
   ) {
@@ -94,9 +89,7 @@ export class ItemPageComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     this.itemRD$ = this.route.data.pipe(
-      map((data) => data.dso as RemoteData<Item>),
-      redirectOn204<Item>(this.router, this.authService),
-      redirectOn4xx<Item>(this.router, this.authService)
+      map((data) => data.dso as RemoteData<Item>)
     );
     this.tabsRD$ = this.route.data.pipe(
       map((data) => data.tabs as RemoteData<PaginatedList<CrisLayoutTab>>),
@@ -116,29 +109,25 @@ export class ItemPageComponent implements OnInit, OnDestroy {
    * @private
    */
   private initPageLinks(): void {
-    this.route.params.subscribe(params => {
-      this.signpostingDataService.getLinks(params.id).pipe(take(1)).subscribe((signpostingLinks: SignpostingLink[]) => {
-        let links = '';
-        this.signpostingLinks = signpostingLinks;
-
-        signpostingLinks.forEach((link: SignpostingLink) => {
-          links = links + (isNotEmpty(links) ? ', ' : '') + `<${link.href}> ; rel="${link.rel}"` + (isNotEmpty(link.type) ? ` ; type="${link.type}" ` : ' ');
-          let tag: LinkDefinition = {
-            href: link.href,
-            rel: link.rel
-          };
-          if (isNotEmpty(link.type)) {
-            tag = Object.assign(tag, {
-              type: link.type
-            });
-          }
-          this.linkHeadService.addTag(tag);
-        });
-
-        if (isPlatformServer(this.platformId)) {
-          this.responseService.setHeader('Link', links);
+    this.route.data.subscribe(data => {
+      this.signpostingLinks = data.links ?? [];
+      let links = '';
+      this.signpostingLinks.forEach((link: SignpostingLink) => {
+        links = links + (isNotEmpty(links) ? ', ' : '') + `<${link.href}> ; rel="${link.rel}"` + (isNotEmpty(link.type) ? ` ; type="${link.type}" ` : ' ');
+        let tag: LinkDefinition = {
+          href: link.href,
+          rel: link.rel
+        };
+        if (isNotEmpty(link.type)) {
+          tag = Object.assign(tag, {
+            type: link.type
+          });
         }
+        this.linkHeadService.addTag(tag);
       });
+      if (isPlatformServer(this.platformId)) {
+        this.responseService.setHeader('Link', links);
+      }
     });
   }
 

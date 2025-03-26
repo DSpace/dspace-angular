@@ -8,11 +8,12 @@ import { ResourcePolicyCreateComponent } from '../shared/resource-policies/creat
 import { ResourcePolicyResolver } from '../shared/resource-policies/resolvers/resource-policy.resolver';
 import { ResourcePolicyEditComponent } from '../shared/resource-policies/edit/resource-policy-edit.component';
 import { BitstreamAuthorizationsComponent } from './bitstream-authorizations/bitstream-authorizations.component';
-import { LegacyBitstreamUrlResolver } from './legacy-bitstream-url.resolver';
+import { legacyBitstreamURLRedirectGuard } from './legacy-bitstream-url-redirect.guard';
 import { BitstreamBreadcrumbResolver } from '../core/breadcrumbs/bitstream-breadcrumb.resolver';
 import { BitstreamBreadcrumbsService } from '../core/breadcrumbs/bitstream-breadcrumbs.service';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ThemedEditBitstreamPageComponent } from './edit-bitstream-page/themed-edit-bitstream-page.component';
+import { bitstreamDownloadRedirectGuard } from './bitstream-download-redirect.guard';
 
 const EDIT_BITSTREAM_PATH = ':id/edit';
 const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
@@ -27,17 +28,13 @@ const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
         // Resolve XMLUI bitstream download URLs
         path: 'handle/:prefix/:suffix/:filename',
         component: BitstreamDownloadPageComponent,
-        resolve: {
-          bitstream: LegacyBitstreamUrlResolver
-        },
+        canActivate: [legacyBitstreamURLRedirectGuard],
       },
       {
         // Resolve JSPUI bitstream download URLs
         path: ':prefix/:suffix/:sequence_id/:filename',
         component: BitstreamDownloadPageComponent,
-        resolve: {
-          bitstream: LegacyBitstreamUrlResolver
-        },
+        canActivate: [legacyBitstreamURLRedirectGuard],
       },
       {
         // Resolve angular bitstream download URLs
@@ -46,6 +43,7 @@ const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
         resolve: {
           bitstream: BitstreamPageResolver
         },
+        canActivate: [bitstreamDownloadRedirectGuard],
       },
       {
         path: EDIT_BITSTREAM_PATH,

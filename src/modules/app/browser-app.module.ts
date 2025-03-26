@@ -1,5 +1,5 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule, BrowserTransferStateModule, makeStateKey, TransferState } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
@@ -32,7 +32,13 @@ import { AuthRequestService } from '../../app/core/auth/auth-request.service';
 import { BrowserAuthRequestService } from '../../app/core/auth/browser-auth-request.service';
 import { BrowserInitService } from './browser-init.service';
 import { ReferrerService } from '../../app/core/services/referrer.service';
+import { BrowserXSRFService } from '../../app/core/xsrf/browser-xsrf.service';
+import { XSRFService } from '../../app/core/xsrf/xsrf.service';
 import { BrowserReferrerService } from '../../app/core/services/browser.referrer.service';
+import { MathService } from '../../app/core/shared/math.service';
+import { ClientMathService } from '../../app/core/shared/client-math.service';
+import { DatadogRumService } from '../../app/shared/datadog-rum/datadog-rum.service';
+import { BrowserDatadogRumService } from '../../app/shared/datadog-rum/browser-datadog-rum.service';
 
 export const REQ_KEY = makeStateKey<string>('req');
 
@@ -74,6 +80,16 @@ export function getRequest(transferState: TransferState): any {
       deps: [TransferState]
     },
     {
+      provide: APP_INITIALIZER,
+      useFactory: (xsrfService: XSRFService, httpClient: HttpClient) => xsrfService.initXSRFToken(httpClient),
+      deps: [ XSRFService, HttpClient ],
+      multi: true,
+    },
+    {
+      provide: XSRFService,
+      useClass: BrowserXSRFService,
+    },
+    {
       provide: AuthService,
       useClass: AuthService
     },
@@ -84,6 +100,10 @@ export function getRequest(transferState: TransferState): any {
     {
       provide: KlaroService,
       useClass: BrowserKlaroService
+    },
+    {
+      provide: DatadogRumService,
+      useClass: BrowserDatadogRumService
     },
     {
       provide: SubmissionService,
@@ -116,6 +136,10 @@ export function getRequest(transferState: TransferState): any {
     {
       provide: LocationToken,
       useFactory: locationProvider,
+    },
+    {
+      provide: MathService,
+      useClass: ClientMathService
     }
   ]
 })

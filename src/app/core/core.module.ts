@@ -162,7 +162,7 @@ import { EditItemMode } from './submission/models/edititem-mode.model';
 import { AuditDataService } from './audit/audit-data.service';
 import { Audit } from './audit/model/audit.model';
 import { ItemExportFormat } from './itemexportformat/model/item-export-format.model';
-import { MetricsComponentsDataService } from './layout/metrics-components-data.service';
+import { MetricsComponentsService } from './layout/metrics-components.service';
 import { MetricsComponent } from './layout/models/metrics-component.model';
 import { Metric } from './shared/metric.model';
 import { MetricsDataService } from './data/metrics-data.service';
@@ -206,6 +206,7 @@ import { FlatBrowseDefinition } from './shared/flat-browse-definition.model';
 import { ValueListBrowseDefinition } from './shared/value-list-browse-definition.model';
 import { NonHierarchicalBrowseDefinition } from './shared/non-hierarchical-browse-definition';
 import { BulkAccessConditionOptions } from './config/models/bulk-access-condition-options.model';
+import { SubmissionParentBreadcrumbsService } from './submission/submission-parent-breadcrumb.service';
 import { WorkflowStepStatisticsDataService } from './statistics/workflow-step-statistics-data.service';
 import { WorkflowStepStatistics } from './statistics/models/workflow-step-statistics.model';
 import { WorkflowOwnerStatisticsDataService } from './statistics/workflow-owner-statistics-data.service';
@@ -304,6 +305,7 @@ const PROVIDERS = [
   NotificationsService,
   WorkspaceitemDataService,
   WorkflowItemDataService,
+  SubmissionParentBreadcrumbsService,
   DSpaceObjectDataService,
   ConfigurationDataService,
   DSOChangeAnalyzer,
@@ -354,7 +356,7 @@ const PROVIDERS = [
   FilteredDiscoveryPageResponseParsingService,
   { provide: NativeWindowService, useFactory: NativeWindowFactory },
   TabDataService,
-  MetricsComponentsDataService,
+  MetricsComponentsService,
   MetricsDataService,
   VocabularyService,
   VocabularyDataService,

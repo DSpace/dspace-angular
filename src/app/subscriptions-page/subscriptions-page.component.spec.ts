@@ -26,8 +26,6 @@ import { SubscriptionViewComponent } from '../shared/subscriptions/subscription-
 import { PageInfo } from '../core/shared/page-info.model';
 import { createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
 import { buildPaginatedList } from '../core/data/paginated-list.model';
-import { UUIDService } from '../core/shared/uuid.service';
-import { getMockUUIDService } from '../shared/mocks/uuid.service.mock';
 
 describe('SubscriptionsPageComponent', () => {
   let component: SubscriptionsPageComponent;
@@ -73,8 +71,7 @@ describe('SubscriptionsPageComponent', () => {
         { provide: SubscriptionsDataService, useValue: subscriptionServiceStub },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
         { provide: AuthService, useValue: authServiceStub },
-        { provide: PaginationService, useValue: paginationService },
-        { provide: UUIDService, useValue: getMockUUIDService() }
+        { provide: PaginationService, useValue: paginationService }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })

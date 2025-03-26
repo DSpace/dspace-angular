@@ -23,6 +23,11 @@ export class CrisLayoutBoxContainerComponent implements OnInit {
   @Input() item: Item;
 
   /**
+   * The tab name
+   */
+  @Input() tabName: string;
+
+  /**
    * CrisLayoutBoxRenderOptions reference of the box that will be created
    */
   componentLoader: CrisLayoutBoxRenderOptions;
@@ -64,6 +69,7 @@ export class CrisLayoutBoxContainerComponent implements OnInit {
       providers: [
         { provide: 'boxProvider', useFactory: () => (this.box), deps: [] },
         { provide: 'itemProvider', useFactory: () => (this.item), deps: [] },
+        { provide: 'tabNameProvider', useFactory: () => (this.tabName), deps: []}
       ],
       parent: this.injector
     });

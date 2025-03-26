@@ -115,7 +115,7 @@ describe('BulkImportPageComponent', () => {
       expect(scriptDataService.invoke).toHaveBeenCalledWith('bulk-import', [
         { name: '-c', value: '626b80c5-ef15-4b29-8e69-bda89b0a7acf' },
         { name: '-f', value: 'test.xls' },
-        { name: '-e', value: true }
+        { name: '-er', value: true }
       ], [file]);
     });
 

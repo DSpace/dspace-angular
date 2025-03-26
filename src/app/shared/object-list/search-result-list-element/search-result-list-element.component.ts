@@ -11,6 +11,7 @@ import { TruncatableService } from '../../truncatable/truncatable.service';
 import { Metadata } from '../../../core/shared/metadata.utils';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'ds-search-result-list-element',
@@ -23,6 +24,11 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
   dso: K;
   dsoTitle: string;
 
+  /**
+   * Limit of additional metadata values to show
+   */
+  additionalMetadataLimit = environment.followAuthorityMetadataValuesLimit;
+
   public constructor(protected truncatableService: TruncatableService,
                      public dsoNameService: DSONameService,
                      @Inject(APP_CONFIG) protected appConfig?: AppConfig) {
@@ -33,6 +39,7 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
    * Retrieve the dso from the search result
    */
   ngOnInit(): void {
+    this.showLabel = this.showLabel ?? this.appConfig.browseBy.showLabels;
     this.showThumbnails = this.showThumbnails ?? this.appConfig.browseBy.showThumbnails;
     if (hasValue(this.object)) {
       this.dso = this.object.indexableObject;
@@ -41,13 +48,22 @@ export class SearchResultListElementComponent<T extends SearchResult<K>, K exten
   }
 
   /**
-   * Gets all matching metadata string values from hitHighlights or dso metadata, preferring hitHighlights.
+   * Gets all matching metadata string values from hitHighlights or dso metadata.
    *
    * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
    * @returns {string[]} the matching string values or an empty array.
    */
   allMetadataValues(keyOrKeys: string | string[]): string[] {
-    return Metadata.allValues([this.object.hitHighlights, this.dso.metadata], keyOrKeys);
+    let dsoMetadata: string[] = Metadata.allValues([this.dso.metadata], keyOrKeys);
+    let highlights: string[] = Metadata.allValues([this.object.hitHighlights], keyOrKeys);
+    let removedHighlights: string[] = highlights.map(str => str.replace(/<\/?em>/g, ''));
+    for (let i = 0; i < removedHighlights.length; i++) {
+        let index = dsoMetadata.indexOf(removedHighlights[i]);
+        if (index !== -1) {
+          dsoMetadata[index] = highlights[i];
+        }
+    }
+    return dsoMetadata;
   }
 
   /**

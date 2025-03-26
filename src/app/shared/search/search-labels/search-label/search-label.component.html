@@ -1,6 +1,10 @@
-<a class="badge badge-primary mr-1 mb-1" [routerLink]="searchLink" [queryParams]="(removeParameters | async)"
-    queryParamsHandling="merge">
-    {{('search.filters.applied.' + key) | translate}}: {{'search.filters.' + filterName + '.' + (filterValue | async) | translate: {default:
-    (filterValue | async)} }}
-    <span> ×</span>
+@let filter = filterValue | async;
+<a class="badge badge-primary mb-1"
+   [attr.aria-label]="'search.filters.remove' | translate:{ type: ('search.filters.applied.' + key) | translate, value: filter }"
+   [routerLink]="searchLink"
+   [queryParams]="(removeParameters | async)" queryParamsHandling="merge">
+    <span class="d-flex">
+      <span class="flex-grow-1 text-left">{{('search.filters.applied.' + key) | translate}}: {{'search.filters.' + filterName + '.' + value | translate: {default: filter } }}</span>
+      <span class="pl-1" aria-hidden="true">×</span>
+    </span>
 </a>

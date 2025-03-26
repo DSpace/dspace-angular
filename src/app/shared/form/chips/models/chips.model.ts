@@ -8,6 +8,7 @@ import { MetadataIconConfig } from '../../../../../config/submission-config.inte
 import { FormFieldMetadataValueObject } from '../../builder/models/form-field-metadata-value.model';
 import { VocabularyEntry } from '../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { PLACEHOLDER_PARENT_METADATA } from '../../builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
+import { environment } from '../../../../../environments/environment';
 
 export class Chips {
   chipsItems: BehaviorSubject<ChipsItem[]>;
@@ -110,6 +111,8 @@ export class Chips {
 
     const defaultConfigIndex: number = findIndex(this.iconsConfig, {name: 'default'});
     const defaultConfig: MetadataIconConfig = (defaultConfigIndex !== -1) ? this.iconsConfig[defaultConfigIndex] : undefined;
+    const iconsVisibleWithNoAuthority = environment.submission.icons.iconsVisibleWithNoAuthority ?? [];
+
     let config: MetadataIconConfig;
     let configIndex: number;
     let value: any;
@@ -125,7 +128,7 @@ export class Chips {
         if (hasValue(value) && isNotEmpty(config) && !this.hasPlaceholder(value)) {
 
           let icon: ChipsItemIcon;
-          const visibleWhenAuthorityEmpty = this.displayObj !== metadata;
+          const visibleWhenAuthorityEmpty = this.displayObj !== metadata || (iconsVisibleWithNoAuthority.includes(config.style));
 
           // Set icon
           icon = {

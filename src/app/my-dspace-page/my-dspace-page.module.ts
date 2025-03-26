@@ -23,6 +23,9 @@ import {
 import { ThemedMyDSpacePageComponent } from './themed-my-dspace-page.component';
 import { SearchModule } from '../shared/search/search.module';
 import { UploadModule } from '../shared/upload/upload.module';
+import {
+  MyDSpaceBulkActionComponent
+} from './my-dspace-new-submission/my-dspace-bulk-action/my-dspace-bulk-action.component';
 
 const DECLARATIONS = [
   MyDSpacePageComponent,
@@ -31,7 +34,8 @@ const DECLARATIONS = [
   CollectionSelectorComponent,
   MyDSpaceNewSubmissionDropdownComponent,
   MyDSpaceNewExternalDropdownComponent,
-  MyDSpaceNewBulkImportComponent
+  MyDSpaceNewBulkImportComponent,
+  MyDSpaceBulkActionComponent
 ];
 
 @NgModule({

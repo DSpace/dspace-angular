@@ -82,6 +82,7 @@ import { FormBuilderService } from '../form-builder.service';
 import { NgxMaskModule } from 'ngx-mask';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment';
+import { getMockFormBuilderService } from '../../../mocks/form-builder-service.mock';
 
 function getMockDsDynamicTypeBindRelationService(): DsDynamicTypeBindRelationService {
   return jasmine.createSpyObj('DsDynamicTypeBindRelationService', {
@@ -246,7 +247,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
         { provide: RelationshipDataService, useValue: {} },
         { provide: SelectableListService, useValue: {} },
         { provide: FormService, useValue: {} },
-        { provide: FormBuilderService, useValue: {} },
+        { provide: FormBuilderService, useValue: getMockFormBuilderService() },
         { provide: SubmissionService, useValue: {} },
         {
           provide: SubmissionObjectDataService,

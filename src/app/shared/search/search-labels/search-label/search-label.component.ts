@@ -15,6 +15,7 @@ import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 @Component({
   selector: 'ds-search-label',
   templateUrl: './search-label.component.html',
+  styleUrls: ['./search-label.component.scss']                                                        ,
 })
 
 /**

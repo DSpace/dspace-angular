@@ -11,14 +11,13 @@ import {
   concat as observableConcat,
   EMPTY,
   Observable,
-  of as observableOf
+  of as observableOf,
+  of
 } from 'rxjs';
 import { filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
 
 import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
-import { BitstreamDataService } from '../data/bitstream-data.service';
-import { BitstreamFormatDataService } from '../data/bitstream-format-data.service';
 
 import { RemoteData } from '../data/remote-data';
 import { BitstreamFormat } from '../shared/bitstream-format.model';
@@ -29,8 +28,6 @@ import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from 
 import { RootDataService } from '../data/root-data.service';
 import { getBitstreamDownloadRoute } from '../../app-routing-paths';
 import { BundleDataService } from '../data/bundle-data.service';
-import { followLink } from '../../shared/utils/follow-link-config.model';
-import { Bundle } from '../shared/bundle.model';
 import { PaginatedList } from '../data/paginated-list.model';
 import { URLCombiner } from '../url-combiner/url-combiner';
 import { HardRedirectService } from '../services/hard-redirect.service';
@@ -44,8 +41,11 @@ import { getDownloadableBitstream } from '../shared/bitstream.operators';
 import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
 import { SchemaJsonLDService } from './schema-json-ld/schema-json-ld.service';
 import { ITEM } from '../shared/item.resource-type';
-import { isPlatformServer } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { Root } from '../data/root.model';
+import { environment } from '../../../environments/environment';
+import { Bundle } from '../shared/bundle.model';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 
 /**
  * The base selector function to select the metaTag section in the store
@@ -84,6 +84,10 @@ export class MetadataService {
     'application/epub+zip',                                                     // .epub
   ];
 
+  private fallbackImagePath = environment.metaTags.defaultLogo;
+  private defaultPageDescription = environment.metaTags.defaultDescription;
+  private origin: string;
+
   constructor(
     private router: Router,
     private translate: TranslateService,
@@ -91,8 +95,6 @@ export class MetadataService {
     private title: Title,
     private dsoNameService: DSONameService,
     private bundleDataService: BundleDataService,
-    private bitstreamDataService: BitstreamDataService,
-    private bitstreamFormatDataService: BitstreamFormatDataService,
     private rootService: RootDataService,
     private store: Store<CoreState>,
     private hardRedirectService: HardRedirectService,
@@ -100,6 +102,7 @@ export class MetadataService {
     private authorizationService: AuthorizationDataService,
     private schemaJsonLDService: SchemaJsonLDService,
     @Inject(PLATFORM_ID) private platformId: any,
+    @Inject(DOCUMENT) private _document: Document,
   ) {
   }
 
@@ -119,6 +122,12 @@ export class MetadataService {
   }
 
   private processRouteChange(routeInfo: any): void {
+    this.rootService.findRoot().pipe(
+      getFirstCompletedRemoteData(),
+      filter(data => !!data),
+    map((rootRD: RemoteData<Root>) => rootRD?.payload?.dspaceUI)
+    ).subscribe(uiOrigin => this.origin = uiOrigin);
+
     this.clearMetaTags();
 
     if (hasValue(routeInfo.data.value.dso) && hasValue(routeInfo.data.value.dso.payload)) {
@@ -154,6 +163,10 @@ export class MetadataService {
       }
     }
 
+    if (!hasValue(routeInfo.data.value.dso)) {
+      this.setGenericPageMetaTags();
+    }
+
 
   }
 
@@ -165,9 +178,20 @@ export class MetadataService {
   }
 
   private setDSOMetaTags(): void {
+    const openGraphType = this.getOpenGraphType();
 
-    this.setTitleTag();
-    this.setDescriptionTag();
+    this.setTitleTags();
+    this.setDescriptionTags();
+
+    this.setOpenGraphImageTag();
+    this.setOpenGraphUrlTag();
+
+    if (openGraphType) {
+      this.setOpenGraphTypeTag(openGraphType);
+    }
+
+    this.setTwitterImageTag();
+    this.setTwitterSummaryCardTag();
 
     if (!this.isResearchOutput()) {
       return;
@@ -202,32 +226,34 @@ export class MetadataService {
     if (this.isTechReport()) {
       this.setCitationTechnicalReportNumberTag();
     }
-
-    this.setOpenGraphTitleTag();
-    this.setOpenGraphDescriptionTag();
-    this.setOpenGraphImageTag();
-
-    this.setTwitterTitleTag();
-    this.setTwitterDescriptionTag();
-    this.setTwitterImageTag();
   }
 
   /**
-   * Add <meta name="title" ... >  to the <head>
+   * Add <meta name="title" ... >  and
+   * <meta name="og:title" ... > and
+   * <meta name="twitter:title" ... >  to the <head>
    */
-  private setTitleTag(): void {
-    const value = this.dsoNameService.getName(this.currentObject.getValue());
+  private setTitleTags(title?: string): void {
+    const value = title ?? this.dsoNameService.getName(this.currentObject.getValue());
+
     this.addMetaTag('title', value);
+    this.addMetaTag('og:title', value, true);
+    this.addMetaTag('twitter:title', value, true);
+
     this.title.setTitle(value);
   }
 
   /**
-   * Add <meta name="description" ... >  to the <head>
+   * Add <meta name="description" ... > and
+   * <meta name="og:description" ... >  and
+   * <meta name="twitter:description" ... >  to the <head>
    */
-  private setDescriptionTag(): void {
+  private setDescriptionTags(description?: string): void {
     // TODO: truncate abstract
-    const value = this.getMetaTagValue('dc.description.abstract');
+    const value = description ?? this.getMetaTagValue('dc.description.abstract');
     this.addMetaTag('description', value);
+    this.addMetaTag('og:description', value, true);
+    this.addMetaTag('twitter:description', value, true);
   }
 
   /**
@@ -242,9 +268,7 @@ export class MetadataService {
    * Add <meta name="citation_author" ... >  to the <head>
    */
   private setCitationAuthorTags(): void {
-    // limit author to first 20 entries to avoid issue with item page rendering
-    const values: string[] = this.getMetaTagValues(['dc.author', 'dc.contributor.author', 'dc.creator'])
-      .slice(0, this.appConfig.item.metatagLimit);
+    const values: string[] = this.getMetaTagValues(['dc.author', 'dc.contributor.author', 'dc.creator']);
     this.addMetaTags('citation_author', values);
   }
 
@@ -407,66 +431,74 @@ export class MetadataService {
    * Add <meta name="citation_pdf_url" ... >  to the <head>
    */
   private setCitationPdfUrlTag(): void {
-    this.setPrimaryBitstreamInBundleTag('ORIGINAL', 'citation_pdf_url');
+    this.setPrimaryBitstreamInBundleTag('citation_pdf_url');
   }
 
   /**
-   * Add <meta name="og:title" ... >  to the <head>
+   * Add <meta name="og:type" ... >  to the <head>
    */
-  private setOpenGraphTitleTag(): void {
-    const value = this.getMetaTagValue('dc.title');
-    this.addMetaTag('og:title', value);
-  }
-
-  /**
-   * Add <meta name="og:description" ... >  to the <head>
-   */
-  private setOpenGraphDescriptionTag(): void {
-    // TODO: truncate abstract
-    const value = this.getMetaTagValue('dc.description.abstract');
-    this.addMetaTag('og:description', value);
+  private setOpenGraphTypeTag(type: string): void {
+    this.addMetaTag('og:type', type ?? 'website', true);
   }
 
   /**
    * Add <meta name="og:image" ... >  to the <head>
    */
   private setOpenGraphImageTag(): void {
-    this.setPrimaryBitstreamInBundleTag('THUMBNAIL', 'og:image');
-  }
-
-
-  /**
-   * Add <meta name="twitter:title" ... >  to the <head>
-   */
-  private setTwitterTitleTag(): void {
-    const value = this.getMetaTagValue('dc.title');
-    this.addMetaTag('twitter:title', value);
+    this.setPrimaryImageInBundleTag('og:image');
   }
 
   /**
-   * Add <meta name="twitter:description" ... >  to the <head>
+   * Add <meta name="og:url" ... >  to the <head>
    */
-  private setTwitterDescriptionTag(): void {
-    // TODO: truncate abstract
-    const value = this.getMetaTagValue('dc.description.abstract');
-    this.addMetaTag('twitter:description', value);
-  }
+  private setOpenGraphUrlTag(url?: string): void {
+    const value = url ?? this.getMetaTagValue('dc.identifier.uri');
+    this.addMetaTag('og:url', value);
+}
+
 
   /**
    * Add <meta name="twitter:image" ... >  to the <head>
    */
   private setTwitterImageTag(): void {
-    this.setPrimaryBitstreamInBundleTag('THUMBNAIL', 'twitter:image');
+    this.setPrimaryImageInBundleTag('twitter:image');
   }
 
-  private setPrimaryBitstreamInBundleTag(bundleName: string, tag: string): void {
+  /**
+   * Add <meta name="twitter:card" ... >  to the <head>
+   */
+  private setTwitterSummaryCardTag(): void {
+    this.addMetaTag('twitter:card', 'summary');
+  }
+
+  /**
+   * Get bitstream from item thumbnail link
+   *
+   * @param item
+   * @private
+   */
+  private getBitstreamFromThumbnail(item: Item): Observable<Bitstream> {
+    return hasValue(item.thumbnail) ? item.thumbnail.pipe(
+      getFirstCompletedRemoteData(),
+      map((thumbnailRD) => {
+        if (thumbnailRD.hasSucceeded && isNotEmpty(thumbnailRD.payload)) {
+          return thumbnailRD.payload;
+        } else {
+          return null;
+        }
+      }),
+      getDownloadableBitstream(this.authorizationService)
+    ) : of(null);
+  }
+
+  private setPrimaryBitstreamInBundleTag(tag: string): void {
     if (this.currentObject.value instanceof Item) {
       const item = this.currentObject.value as Item;
 
-      // Retrieve the bundle for the item
+      // Retrieve the ORIGINAL bundle for the item
       this.bundleDataService.findByItemAndName(
         item,
-        bundleName,
+        'ORIGINAL',
         true,
         true,
         followLink('primaryBitstream'),
@@ -474,8 +506,8 @@ export class MetadataService {
           findListOptions: {
             // limit the number of bitstreams used to find the citation pdf url to the number
             // shown by default on an item page
-            elementsPerPage: this.appConfig.item.bitstream.pageSize
-          }
+            elementsPerPage: this.appConfig.item.bitstream.pageSize,
+          },
         }, followLink('format')),
       ).pipe(
         getFirstSucceededRemoteDataPayload(),
@@ -492,8 +524,8 @@ export class MetadataService {
             }),
             getDownloadableBitstream(this.authorizationService),
             // return the bundle as well so we can use it again if there's no primary bitstream
-            map((bitstream: Bitstream) => [bundle, bitstream])
-          )
+            map((bitstream: Bitstream) => [bundle, bitstream]),
+          ),
         ),
         switchMap(([bundle, primaryBitstream]: [Bundle, Bitstream]) => {
           if (hasValue(primaryBitstream)) {
@@ -511,18 +543,48 @@ export class MetadataService {
                   // Otherwise check all bitstreams to see if one matches the format whitelist
                   return this.getFirstAllowedFormatBitstreamLink(bitstreamRd);
                 }
-              })
+              }),
             );
           }
         }),
-        take(1)
+        take(1),
       ).subscribe((link: string) => {
         // Use the found link to set the <meta> tag
         this.addMetaTag(
           tag,
-          new URLCombiner(this.hardRedirectService.getCurrentOrigin(), link).toString()
+          new URLCombiner(this.hardRedirectService.getCurrentOrigin(), link).toString(),
+          true,
         );
       });
+    }
+  }
+
+  private setPrimaryImageInBundleTag(tag: string): void {
+    if (this.currentObject.value instanceof Item) {
+      const item = this.currentObject.value as Item;
+      this.getBitstreamFromThumbnail(item).pipe(
+        map((bitstream) => {
+          if (hasValue(bitstream)) {
+            return getBitstreamDownloadRoute(bitstream);
+          } else {
+            return null;
+          }
+        }),
+        take(1),
+      ).subscribe((link) => {
+        if (hasValue(link)) {
+          // Use the found link to set the <meta> tag
+          this.addMetaTag(
+            tag,
+            new URLCombiner(this.getUrlOrigin(), link).toString(),
+            true,
+          );
+        } else {
+          this.addFallbackImageToTag(tag);
+        }
+      });
+    } else {
+      this.addFallbackImageToTag(tag);
     }
   }
 
@@ -588,6 +650,7 @@ export class MetadataService {
   private setGenerator(): void {
     this.rootService.findRoot().pipe(getFirstSucceededRemoteDataPayload()).subscribe((root) => {
       this.meta.addTag({ name: 'Generator', content: root.dspaceVersion });
+      this.meta.addTag({ name: 'Generator', content: root.crisVersion });
     });
   }
 
@@ -640,11 +703,11 @@ export class MetadataService {
   }
 
   private getMetaTagValue(key: string): string {
-    return this.currentObject.value.firstMetadataValue(key);
+    return this.currentObject?.value?.firstMetadataValue(key);
   }
 
   private getFirstMetaTagValue(keys: string[]): string {
-    return this.currentObject.value.firstMetadataValue(keys);
+    return this.currentObject?.value?.firstMetadataValue(keys);
   }
 
   private getMetaTagValuesAndCombine(key: string): string {
@@ -655,17 +718,19 @@ export class MetadataService {
     return this.currentObject.value.allMetadataValues(keys);
   }
 
-  private addMetaTag(name: string, content: string): void {
+  protected addMetaTag(name: string, content: string, isProperty = false, isMultiple = false): void {
     if (content) {
-      const tag = { name, content } as MetaDefinition;
-      this.meta.addTag(tag);
+      const tag = isProperty ? { name, property: name, content } as MetaDefinition
+        : { name, content } as MetaDefinition;
+      isMultiple ? this.meta.addTag(tag) : this.meta.updateTag(tag);
       this.storeTag(name);
     }
   }
 
   private addMetaTags(name: string, content: string[]): void {
-    for (const value of content) {
-      this.addMetaTag(name, value);
+    // limit meta tags with the same name to avoid issues with page rendering
+    for (const value of content.slice(0, this.appConfig.item.metatagLimit)) {
+      this.addMetaTag(name, value, false, true);
     }
   }
 
@@ -680,11 +745,71 @@ export class MetadataService {
       take(1)
     ).subscribe((tagsInUse: string[]) => {
       for (const name of tagsInUse) {
-        this.meta.removeTag('name=\'' + name + '\'');
+        this.meta.getTags(`name="${name}"`).forEach((tag) => {
+          this.meta.removeTagElement(tag);
+        });
       }
       this.store.dispatch(new ClearMetaTagAction());
     });
   }
 
+  private addFallbackImageToTag(tag: string) {
+    this.addMetaTag(
+      tag,
+      new URLCombiner(this.getUrlOrigin(), this.fallbackImagePath).toString(),
+      true
+    );
+  }
 
+  private getOpenGraphType(): string {
+    let type = '';
+    if (this.currentObject.value instanceof Item) {
+      const item = this.currentObject.value as Item;
+      switch (item.entityType) {
+        case 'News':
+          type = 'article';
+          break;
+        case 'Publication':
+          type =  'article';
+          break;
+        case 'Book':
+          type =  'book';
+          break;
+        case 'Person':
+          type =  'profile';
+          break;
+        case 'Audio':
+          type =  'music';
+          break;
+        case 'Video':
+          type =  'video';
+          break;
+        default:
+          break;
+      }
+    }
+    return type;
+  }
+
+
+  private setGenericPageMetaTags() {
+    const pageDocumentTitle = this._document.getElementsByTagName('title')[0].innerText;
+    const pageUrl = new URLCombiner(this.hardRedirectService.getCurrentOrigin(), this.router.url).toString();
+    const genericPageOpenGraphType = 'website';
+
+    this.setTitleTags(pageDocumentTitle);
+    this.setDescriptionTags(this.defaultPageDescription);
+
+    this.setOpenGraphUrlTag(pageUrl);
+    this.setOpenGraphImageTag();
+    this.setOpenGraphTypeTag(genericPageOpenGraphType);
+
+
+    this.setTwitterImageTag();
+    this.setTwitterSummaryCardTag();
+  }
+
+  private getUrlOrigin(): string {
+    return isPlatformBrowser(this.platformId) ? this.hardRedirectService.getCurrentOrigin() : this.origin;
+  }
 }

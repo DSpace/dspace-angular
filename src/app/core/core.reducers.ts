@@ -14,6 +14,7 @@ import {
 import { historyReducer } from './history/history.reducer';
 import { metaTagReducer } from './metadata/meta-tag.reducer';
 import { CoreState } from './core-state.model';
+import { datadogRumReducer } from '../shared/datadog-rum/datadog-rum.reducer';
 
 export const coreReducers: ActionReducerMap<CoreState> = {
   'bitstreamFormats': bitstreamFormatReducer,
@@ -26,5 +27,6 @@ export const coreReducers: ActionReducerMap<CoreState> = {
   'auth': authReducer,
   'json/patch': jsonPatchOperationsReducer,
   'metaTag': metaTagReducer,
-  'route': routeReducer
+  'route': routeReducer,
+  'datadogRum': datadogRumReducer,
 };

@@ -18,26 +18,34 @@
     </span>
   </div>
   <div [ngClass]="showThumbnails ? 'col-9 col-xl-10' : 'col-md-12'">
-    <ds-truncatable [id]="dso.id">
-      <ds-themed-badges *ngIf="showLabel" [object]="dso" [context]="context"></ds-themed-badges>
-      <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'"
-         [attr.rel]="(linkType == linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
-         [routerLink]="[itemPageRoute]" class="lead item-list-title dont-break-out"
-         [innerHTML]="dsoTitle"></a>
-      <span *ngIf="linkType == linkTypes.None"
-            class="lead item-list-title dont-break-out"
-            [innerHTML]="dsoTitle"></span>
-      <!--<span class="text-muted">-->
-      <!--<ds-truncatable-part [id]="dso.id" [minLines]="1">-->
-      <!--<span *ngIf="dso.allMetadata(['project.identifier.status']).length > 0"-->
-      <!--class="item-list-status">-->
-      <!--<span *ngFor="let value of allMetadataValues(['project.identifier.status']); let last=last;">-->
-      <!--<span [innerHTML]="value"><span [innerHTML]="value"></span></span>-->
-      <!--</span>-->
-      <!--</span>-->
-      <!--</ds-truncatable-part>-->
-      <!--</span>-->
-    <ds-additional-metadata [object]="dso"></ds-additional-metadata>
-    </ds-truncatable>
+    <div class="d-flex justify-content-between">
+      <div class="flex-fill">
+        <ds-truncatable [id]="dso.id">
+          <ds-themed-badges *ngIf="showLabel" [object]="dso" [context]="context"></ds-themed-badges>
+          <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'"
+            [attr.rel]="(linkType == linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
+            [routerLink]="[itemPageRoute]" class="lead item-list-title dont-break-out"
+            [innerHTML]="dsoTitle"></a>
+          <span *ngIf="linkType == linkTypes.None"
+                class="lead item-list-title dont-break-out"
+                [innerHTML]="dsoTitle"></span>
+          <!--<span class="text-muted">-->
+          <!--<ds-truncatable-part [id]="dso.id" [minLines]="1">-->
+          <!--<span *ngIf="dso.allMetadata(['project.identifier.status']).length > 0"-->
+          <!--class="item-list-status">-->
+          <!--<span *ngFor="let value of allMetadataValues(['project.identifier.status']); let last=last;">-->
+          <!--<span [innerHTML]="value"><span [innerHTML]="value"></span></span>-->
+          <!--</span>-->
+          <!--</span>-->
+          <!--</ds-truncatable-part>-->
+          <!--</span>-->
+        <ds-additional-metadata [object]="dso"></ds-additional-metadata>
+        </ds-truncatable>
+        <ds-metric-badges *ngIf="showMetrics" class="d-block clearfix" [item]="dso"></ds-metric-badges>
+      </div>
+      <div class="align-self-center">
+        <ds-metric-donuts [item]="dso"></ds-metric-donuts>
+      </div>
+    </div>
   </div>
 </div>

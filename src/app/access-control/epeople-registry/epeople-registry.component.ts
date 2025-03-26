@@ -23,7 +23,6 @@ import { NoContent } from '../../core/shared/NoContent.model';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { getEPersonEditRoute, getEPersonsRoute } from '../access-control-routing-paths';
-import { UUIDService } from '../../core/shared/uuid.service';
 
 @Component({
   selector: 'ds-epeople-registry',
@@ -61,7 +60,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
    * Pagination config used to display the list of epeople
    */
   config: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: this.uuidService.generate(),
+    id: 'elp',
     pageSize: 5,
     currentPage: 1
   });
@@ -92,8 +91,7 @@ export class EPeopleRegistryComponent implements OnInit, OnDestroy {
               private modalService: NgbModal,
               private paginationService: PaginationService,
               public requestService: RequestService,
-              public dsoNameService: DSONameService,
-              private uuidService: UUIDService) {
+              public dsoNameService: DSONameService) {
     this.currentSearchQuery = '';
     this.currentSearchScope = 'metadata';
     this.searchForm = this.formBuilder.group(({

@@ -1,4 +1,4 @@
-import { Component, Input, ComponentFactoryResolver, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, ChangeDetectorRef } from '@angular/core';
 import { ThemedComponent } from '../theme-support/themed.component';
 import { LoadingComponent } from './loading.component';
 import { ThemeService } from '../theme-support/theme.service';
@@ -16,15 +16,30 @@ export class ThemedLoadingComponent extends ThemedComponent<LoadingComponent> {
   @Input() message: string;
   @Input() showMessage: boolean;
   @Input() spinner: boolean;
+  @Input() showFallbackMessages: boolean;
+  @Input() numberOfAutomaticPageReloads: number;
+  @Input() warningMessage: string;
+  @Input() warningMessageDelay: number;
+  @Input() errorMessage: string;
+  @Input() errorMessageDelay: number;
 
-  protected inAndOutputNames: (keyof LoadingComponent & keyof this)[] = ['message', 'showMessage', 'spinner'];
+  protected inAndOutputNames: (keyof LoadingComponent & keyof this)[] = [
+    'message',
+    'showMessage',
+    'spinner',
+    'showFallbackMessages',
+    'numberOfAutomaticPageReloads',
+    'warningMessage',
+    'warningMessageDelay',
+    'errorMessage',
+    'errorMessageDelay'
+  ];
 
   constructor(
-    protected resolver: ComponentFactoryResolver,
     protected cdr: ChangeDetectorRef,
     protected themeService: ThemeService
   ) {
-    super(resolver, cdr, themeService);
+    super(cdr, themeService);
   }
 
   protected getComponentName(): string {

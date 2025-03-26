@@ -15,6 +15,7 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../../core/shared/bitstream-format-support-level';
+import { XSRFService } from '../../../core/xsrf/xsrf.service';
 import { cold, getTestScheduler, hot } from 'jasmine-marbles';
 import { TestScheduler } from 'rxjs/testing';
 import {
@@ -26,8 +27,6 @@ import {
 import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
-import { UUIDService } from '../../../core/shared/uuid.service';
-import { getMockUUIDService } from '../../../shared/mocks/uuid.service.mock';
 
 describe('BitstreamFormatsComponent', () => {
   let comp: BitstreamFormatsComponent;
@@ -111,7 +110,7 @@ describe('BitstreamFormatsComponent', () => {
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: NotificationsService, useValue: notificationsServiceStub },
         { provide: PaginationService, useValue: paginationService },
-        { provide: UUIDService, useValue: getMockUUIDService() }
+        { provide: XSRFService, useValue: {} },
       ]
     }).compileComponents();
   };
@@ -239,8 +238,7 @@ describe('BitstreamFormatsComponent', () => {
             { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
             { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
             { provide: NotificationsService, useValue: notificationsServiceStub },
-            { provide: PaginationService, useValue: paginationService },
-            { provide: UUIDService, useValue: getMockUUIDService() }
+            { provide: PaginationService, useValue: paginationService }
           ]
         }).compileComponents();
       }
@@ -289,8 +287,7 @@ describe('BitstreamFormatsComponent', () => {
             { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
             { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
             { provide: NotificationsService, useValue: notificationsServiceStub },
-            { provide: PaginationService, useValue: paginationService },
-            { provide: UUIDService, useValue: getMockUUIDService() }
+            { provide: PaginationService, useValue: paginationService }
           ]
         }).compileComponents();
       }

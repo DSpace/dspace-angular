@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { Observable, of } from 'rxjs';
 import { RemoteData } from '../../../../../core/data/remote-data';
@@ -16,7 +16,7 @@ import { SharedModule } from '../../../../../shared/shared.module';
 import { CrisLayoutMetricsBoxComponent } from './cris-layout-metrics-box.component';
 import { metricsComponent } from '../../../../../shared/testing/metrics-components.mock';
 import { MetricsComponent } from '../../../../../core/layout/models/metrics-component.model';
-import { MetricsComponentsDataService } from '../../../../../core/layout/metrics-components-data.service';
+import { MetricsComponentsService } from '../../../../../core/layout/metrics-components.service';
 import { Metric } from '../../../../../core/shared/metric.model';
 import { ItemDataService } from '../../../../../core/data/item-data.service';
 import { CrisLayoutMetricRow } from '../../../../../core/layout/models/tab.model';
@@ -78,7 +78,7 @@ describe('CrisLayoutMetricsBoxComponent', () => {
   let component: CrisLayoutMetricsBoxComponent;
   let fixture: ComponentFixture<CrisLayoutMetricsBoxComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     itemDataService = jasmine.createSpyObj('ItemDataService', {
       getMetrics: jasmine.createSpy('getMetrics')
@@ -94,7 +94,7 @@ describe('CrisLayoutMetricsBoxComponent', () => {
         BrowserAnimationsModule,
         SharedModule],
       providers: [
-        { provide: MetricsComponentsDataService, useClass: MetricsComponentsDataServiceMock },
+        { provide: MetricsComponentsService, useClass: MetricsComponentsDataServiceMock },
         { provide: ItemDataService, useValue: itemDataService },
         { provide: 'boxProvider', useClass: boxMetrics },
         { provide: 'itemProvider', useClass: { metrics: [metric1Mock, metric2Mock] } },

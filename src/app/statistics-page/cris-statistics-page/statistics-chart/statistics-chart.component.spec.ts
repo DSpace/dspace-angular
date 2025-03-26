@@ -189,10 +189,67 @@ describe('StatisticsChartComponent', () => {
       expect(de.query(By.css('.container'))).toBeNull();
   });
 
-  it('after reports check if container of pills are truthly', () => {
+  it('after reports check if container of pills are truthy', () => {
     component.reports = reports;
     fixture.detectChanges();
     expect(de.query(By.css('.container'))).toBeTruthy();
+  });
+
+  it('should set selectedReport to the report matching selectedReportId', () => {
+    component.reports = reports;
+    component.selectedReportId = '1911e8a4-6939-490c-b58b-a5d70f8d91fb_TotalVisits';
+    component.ngOnInit();
+    expect(component.selectedReport.id).toBe('1911e8a4-6939-490c-b58b-a5d70f8d91fb_TotalVisits');
+  });
+
+  it('should set selectedReport to the first report if selectedReportId does not match any report', () => {
+    component.reports = reports;
+    component.selectedReportId = 'non_existing_id';
+    component.ngOnInit();
+    expect(component.selectedReport.id).toBe('1911e8a4-6939-490c-b58b-a5d70f8d91fb_TotalVisits');
+  });
+
+  it('should emit changeReportEvent with the first report id if selectedReportId does not match any report', () => {
+    spyOn(component.changeReportEvent, 'emit');
+    component.reports = reports;
+    component.selectedReportId = 'non_existing_id';
+    component.ngOnInit();
+    expect(component.changeReportEvent.emit).toHaveBeenCalledWith('1911e8a4-6939-490c-b58b-a5d70f8d91fb_TotalVisits');
+  });
+
+  it('should call addQueryParams with the reportType of the selected report', () => {
+    spyOn(component, 'addQueryParams');
+    component.reports = reports;
+    component.selectedReportId = '1911e8a4-6939-490c-b58b-a5d70f8d91fb_TotalVisits';
+    component.ngOnInit();
+    expect(component.addQueryParams).toHaveBeenCalledWith('TotalVisits');
+  });
+
+  it('should not set selectedReport if reports is undefined', () => {
+    component.reports = undefined;
+    component.ngOnInit();
+    expect(component.selectedReport).toBeUndefined();
+  });
+
+  it('should not set selectedReport if reports is empty', () => {
+    component.reports = [];
+    component.ngOnInit();
+    expect(component.selectedReport).toBeUndefined();
+  });
+
+  it('should update selectedReport and emit changeReportEvent on changeReport', () => {
+    spyOn(component.changeReportEvent, 'emit');
+    const newReport = reports[1];
+    component.changeReport(newReport);
+    expect(component.selectedReport).toBe(newReport);
+    expect(component.changeReportEvent.emit).toHaveBeenCalledWith(newReport.id);
+  });
+
+  it('should call addQueryParams with the reportType of the new report on changeReport', () => {
+    spyOn(component, 'addQueryParams');
+    const newReport = reports[1];
+    component.changeReport(newReport);
+    expect(component.addQueryParams).toHaveBeenCalledWith(newReport.reportType);
   });
 
 });

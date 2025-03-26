@@ -3,8 +3,7 @@ import {
   Component,
   ComponentFactoryResolver,
   ContentChildren,
-  EventEmitter,
-  Inject,
+  EventEmitter, Inject,
   Input,
   NgZone,
   OnChanges,
@@ -59,9 +58,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ReorderableRelationship } from './existing-metadata-list-element/existing-metadata-list-element.component';
 
 import { DYNAMIC_FORM_CONTROL_TYPE_ONEBOX } from './models/onebox/dynamic-onebox.model';
-import {
-  DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN
-} from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_SCROLLABLE_DROPDOWN } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_TAG } from './models/tag/dynamic-tag.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER } from './models/date-picker/date-picker.model';
 import { DYNAMIC_FORM_CONTROL_TYPE_LOOKUP } from './models/lookup/dynamic-lookup.model';
@@ -73,9 +70,7 @@ import { DsDynamicTagComponent } from './models/tag/dynamic-tag.component';
 import { DsDatePickerComponent } from './models/date-picker/date-picker.component';
 import { DsDynamicListComponent } from './models/list/dynamic-list.component';
 import { DsDynamicOneboxComponent } from './models/onebox/dynamic-onebox.component';
-import {
-  DsDynamicScrollableDropdownComponent
-} from './models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
+import { DsDynamicScrollableDropdownComponent } from './models/scrollable-dropdown/dynamic-scrollable-dropdown.component';
 import { DsDynamicLookupComponent } from './models/lookup/dynamic-lookup.component';
 import { DsDynamicFormGroupComponent } from './models/form-group/dynamic-form-group.component';
 import { DsDynamicFormArrayComponent } from './models/array-group/dynamic-form-array.component';
@@ -87,9 +82,7 @@ import { CustomSwitchComponent } from './models/custom-switch/custom-switch.comp
 import { find, map, startWith, switchMap, take } from 'rxjs/operators';
 import { combineLatest as observableCombineLatest, Observable, Subscription } from 'rxjs';
 import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
-import {
-  DsDynamicRelationInlineGroupComponent
-} from './models/relation-inline-group/dynamic-relation-inline-group.components';
+import { DsDynamicRelationInlineGroupComponent } from './models/relation-inline-group/dynamic-relation-inline-group.components';
 import { SearchResult } from '../../../search/models/search-result.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -130,6 +123,8 @@ import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interfac
 import { itemLinksToFollow } from '../../../utils/relation-query.utils';
 import { DynamicConcatModel } from './models/ds-dynamic-concat.model';
 import { Metadata } from '../../../../core/shared/metadata.utils';
+import { DynamicLinkModel } from './models/ds-dynamic-link.model';
+import { environment } from '../../../../../environments/environment';
 
 export function dsDynamicFormControlMapFn(model: DynamicFormControlModel): Type<DynamicFormControl> | null {
   switch (model.type) {
@@ -254,6 +249,8 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     return dsDynamicFormControlMapFn(this.model);
   }
 
+  enabledDropdownHints = environment.submission.dropdownHintEnabled;
+
   constructor(
     protected componentFactoryResolver: ComponentFactoryResolver,
     protected dynamicFormComponentService: DynamicFormComponentService,
@@ -363,7 +360,6 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     } else {
       this.securityLevel = this.model.securityLevel;
     }
-
  }
 
   get isCheckbox(): boolean {
@@ -555,13 +551,13 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
   addSecurityLevelToMetadata($event) {
     this.model.securityLevel = $event;
     this.securityLevel = $event;
-    if (this.model.parent && this.model.parent instanceof DynamicConcatModel) {
+    if (this.model.parent && (this.model.parent instanceof DynamicConcatModel || this.model.parent instanceof DynamicLinkModel)) {
       this.model.parent.securityLevel = $event;
     }
     if (this.model.value) {
       this.model.securityLevel = $event;
       this.securityLevel = $event;
-      if (this.model.parent && this.model.parent instanceof DynamicConcatModel) {
+      if (this.model.parent && (this.model.parent instanceof DynamicConcatModel || this.model.parent instanceof DynamicLinkModel)) {
         this.model.parent.securityLevel = $event;
       }
       this.change.emit(
@@ -585,4 +581,21 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     }
    }
 
+  isNotRequiredGroupAndEmpty(): boolean {
+    const parent = this.model.parent;
+    // Check if the model is part of a group, the group needs to be an inner form and be in the submission form not in a nested form.
+    // The check hasValue(parent.parent) tells if the parent is in the submission or in a modal (nested cases)
+    if (hasValue(parent) && parent.type === 'GROUP' && this.model.isModelOfInnerForm && hasValue(parent.parent)) {
+
+     const groupHasSomeValue = parent.group.some(elem => !!elem.value);
+
+      if (!groupHasSomeValue && !parent.isRequired && parent.group?.length > 1) {
+        this.group.reset();
+      }
+
+      return (groupHasSomeValue && !parent.isRequired) || (hasValue(parent.isRequired) && parent.isRequired);
+    } else {
+      return true;
+    }
+  }
 }

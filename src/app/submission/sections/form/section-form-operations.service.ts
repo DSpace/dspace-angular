@@ -55,17 +55,19 @@ export class SectionFormOperationsService {
    *    the [[FormFieldPreviousValueObject]] for the specified operation
    * @param hasStoredValue
    *    representing if field value related to the specified operation has stored value
+   * @param languageMap
    */
   public dispatchOperationsFromEvent(pathCombiner: JsonPatchOperationPathCombiner,
                                      event: DynamicFormControlEvent,
                                      previousValue: FormFieldPreviousValueObject,
-                                     hasStoredValue: boolean): void {
+                                     hasStoredValue: boolean,
+                                     languageMap: Map<string, string[]> = null): void {
     switch (event.type) {
       case 'remove':
         this.dispatchOperationsFromRemoveEvent(pathCombiner, event, previousValue);
         break;
       case 'change':
-        this.dispatchOperationsFromChangeEvent(pathCombiner, event, previousValue, hasStoredValue);
+        this.dispatchOperationsFromChangeEvent(pathCombiner, event, previousValue, hasStoredValue, languageMap);
         break;
       case 'move':
         this.dispatchOperationsFromMoveEvent(pathCombiner, event, previousValue);
@@ -374,11 +376,13 @@ export class SectionFormOperationsService {
    *    the [[FormFieldPreviousValueObject]] for the specified operation
    * @param hasStoredValue
    *    representing if field value related to the specified operation has stored value
+   * @param languageMap
    */
   protected dispatchOperationsFromChangeEvent(pathCombiner: JsonPatchOperationPathCombiner,
                                               event: DynamicFormControlEvent,
                                               previousValue: FormFieldPreviousValueObject,
-                                              hasStoredValue: boolean): void {
+                                              hasStoredValue: boolean,
+                                              languageMap?: Map<string, string[]>): void {
     if (event.context && event.context instanceof DynamicFormArrayGroupModel) {
       // Model is a DynamicRowArrayModel
       this.handleArrayGroupPatch(pathCombiner, event, (event as any).context.context, previousValue);
@@ -396,7 +400,7 @@ export class SectionFormOperationsService {
     if (this.formBuilder.isQualdropGroup(event.model.parent as DynamicFormControlModel)
       || this.formBuilder.isQualdropGroup(event.model as DynamicFormControlModel)) {
       // It's a qualdrup model
-      this.dispatchOperationsFromMap(this.getQualdropValueMap(event), pathCombiner, event, previousValue);
+      this.dispatchOperationsFromMap(this.getQualdropValueMap(event), pathCombiner, event, previousValue, languageMap);
     } else if (this.formBuilder.isRelationGroup(event.model)) {
       // It's a relation model
       this.dispatchOperationsFromMap(this.getValueMap(value), pathCombiner, event, previousValue);
@@ -465,11 +469,13 @@ export class SectionFormOperationsService {
    *    the [[DynamicFormControlEvent]] for the specified operation
    * @param previousValue
    *    the [[FormFieldPreviousValueObject]] for the specified operation
+   * @param languageMap
    */
   protected dispatchOperationsFromMap(valueMap: Map<string, any>,
                                       pathCombiner: JsonPatchOperationPathCombiner,
                                       event: DynamicFormControlEvent,
-                                      previousValue: FormFieldPreviousValueObject): void {
+                                      previousValue: FormFieldPreviousValueObject,
+                                      languageMap: Map<string, string[]> = null): void {
     const currentValueMap = valueMap;
     if (event.type === 'remove') {
       const path = this.getQualdropItemPathFromEvent(event);
@@ -480,7 +486,8 @@ export class SectionFormOperationsService {
           const currentValue = currentValueMap.get(index);
           if (currentValue) {
             if (!isEqual(entry, currentValue)) {
-              this.operationsBuilder.add(pathCombiner.getPath(index), currentValue, true);
+              const metadataFromPath = pathCombiner.getPath(index).path.split('/').slice(-1)[0];
+              this.operationsBuilder.add(pathCombiner.getPath(index), currentValue, true, false, languageMap?.get(metadataFromPath));
             }
             currentValueMap.delete(index);
           } else if (!currentValue) {
@@ -493,7 +500,8 @@ export class SectionFormOperationsService {
           // The last item of the group has been deleted so make a remove op
           this.operationsBuilder.remove(pathCombiner.getPath(index));
         } else {
-          this.operationsBuilder.add(pathCombiner.getPath(index), entry, true);
+          const metadataFromPath = pathCombiner.getPath(index).path.split('/').slice(-1)[0];
+          this.operationsBuilder.add(pathCombiner.getPath(index), entry, true, null, languageMap?.get(metadataFromPath));
         }
       });
     }
@@ -576,4 +584,5 @@ export class SectionFormOperationsService {
       }
     }
   }
+
 }

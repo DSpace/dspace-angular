@@ -1,0 +1,20 @@
+<div class="m-2">
+  <ng-container *ngIf="(searchResults$ | async) as searchResults">
+      <ul *ngIf="searchResults?.hasSucceeded" class="list-unstyled">
+          <li *ngFor="let object of searchResults?.payload?.page; let i = index; let last = last" class="mt-4 mb-4 d-flex" [class.border-bottom]="!last">
+              <ds-listable-object-component-loader [context]="context"
+                                                   [index]="i"
+                                                   [listID]="paginatedSearchOptions.configuration"
+                                                   [object]="object"
+                                                   [showMetrics]="showMetrics"
+                                                   [showLabel]="showLabel"
+                                                   [showThumbnails]="showThumbnails"
+                                                   [viewMode]="paginatedSearchOptions.view"></ds-listable-object-component-loader>
+          </li>
+      </ul>
+      <div *ngIf="searchResults?.hasFailed">
+          {{ 'remote.error' | translate }}
+      </div>
+  </ng-container>
+  <ds-loading *ngIf="!(searchResults$ | async)"></ds-loading>
+</div>

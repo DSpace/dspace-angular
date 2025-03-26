@@ -26,6 +26,7 @@ import { FormFieldMetadataValueObject } from './builder/models/form-field-metada
 import { createTestComponent } from '../testing/utils.test';
 import { BehaviorSubject } from 'rxjs';
 import { storeModuleConfig } from '../../app.reducer';
+import { XSRFService } from '../../core/xsrf/xsrf.service';
 import {
   DynamicScrollableDropdownModel,
   DynamicScrollableDropdownModelConfig
@@ -163,7 +164,8 @@ describe('FormComponent test suite', () => {
         FormBuilderService,
         FormComponent,
         FormService,
-        { provide: Store, useClass: StoreMock }
+        { provide: Store, useClass: StoreMock },
+        { provide: XSRFService, useValue: {} },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
@@ -178,7 +180,7 @@ describe('FormComponent test suite', () => {
                  [formId]="formId"
                  [formModel]="formModel"
                  [displaySubmit]="displaySubmit"
-                 [displayCancel]="displayCancel"></ds-form>`;
+                 [displayReset]="displayCancel"></ds-form>`;
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
@@ -205,7 +207,7 @@ describe('FormComponent test suite', () => {
       formComp.formId = 'testForm';
       formComp.formModel = TEST_FORM_MODEL;
       formComp.displaySubmit = false;
-      formComp.displayCancel = false;
+      formComp.displayReset = false;
       form = new BehaviorSubject(formState);
       valid = new BehaviorSubject(false);
       spyOn((formComp as any).formService, 'getForm').and.returnValue(form);
@@ -405,7 +407,7 @@ describe('FormComponent test suite', () => {
       formComp.formId = 'testFormArray';
       formComp.formModel = TEST_FORM_MODEL_WITH_ARRAY;
       formComp.displaySubmit = false;
-      formComp.displayCancel = false;
+      formComp.displayReset = false;
       formFixture.detectChanges();
       spyOn(store, 'dispatch');
     });
@@ -460,7 +462,7 @@ describe('FormComponent test suite', () => {
       formComp.formId = 'testFormArray';
       formComp.formModel = TEST_FORM_MODEL_WITH_ARRAY;
       formComp.displaySubmit = false;
-      formComp.displayCancel = false;
+      formComp.displayReset = false;
       formFixture.detectChanges();
       spyOn(store, 'dispatch');
     });
@@ -563,7 +565,7 @@ describe('FormComponent test suite', () => {
       formComp.formId = 'testFormArray';
       formComp.formModel = TEST_FORM_MODEL_WITH_ARRAY;
       formComp.displaySubmit = false;
-      formComp.displayCancel = false;
+      formComp.displayReset = false;
       formFixture.detectChanges();
       spyOn(store, 'dispatch');
     });

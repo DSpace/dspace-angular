@@ -10,7 +10,6 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
 import { OpenaireStateService } from '../../openaire-state.service';
 import { AdminNotificationsOpenaireTopicsPageParams } from '../../../admin/admin-notifications/admin-notifications-openaire-topics-page/admin-notifications-openaire-topics-page-resolver.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
-import { UUIDService } from '../../../core/shared/uuid.service';
 
 /**
  * Component to display the OpenAIRE Broker topic list.
@@ -26,7 +25,7 @@ export class OpenaireBrokerTopicsComponent implements OnInit {
    * @type {PaginationComponentOptions}
    */
   public paginationConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: this.uuidService.generate(),
+    id: 'btp',
     pageSize: 10,
     pageSizeOptions: [5, 10, 20, 40, 60]
   });
@@ -53,12 +52,10 @@ export class OpenaireBrokerTopicsComponent implements OnInit {
    * Initialize the component variables.
    * @param {PaginationService} paginationService
    * @param {OpenaireStateService} openaireStateService
-   * @param {UuidService} uuidService
    */
   constructor(
     private paginationService: PaginationService,
     private openaireStateService: OpenaireStateService,
-    private uuidService: UUIDService
   ) { }
 
   /**

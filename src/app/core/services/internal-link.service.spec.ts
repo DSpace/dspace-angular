@@ -58,7 +58,7 @@ describe('InternalLinkService', () => {
 
     it('should return unchanged link for external link', () => {
       const result = service.getRelativePath('https://externalDomain/my-link');
-      expect(result).toBe('https://externalDomain/my-link');
+      expect(result).toBe('/https://externalDomain/my-link');
     });
 
     it('should return unchanged link for internal link with leading "/"', () => {

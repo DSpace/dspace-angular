@@ -17,8 +17,6 @@ import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { By } from '@angular/platform-browser';
 import { Item } from '../../../core/shared/item.model';
 import { OrcidAuthService } from '../../../core/orcid/orcid-auth.service';
-import { UUIDService } from '../../../core/shared/uuid.service';
-import { getMockUUIDService } from '../../../shared/mocks/uuid.service.mock';
 
 describe('OrcidQueueComponent test suite', () => {
   let component: OrcidQueueComponent;
@@ -126,7 +124,6 @@ describe('OrcidQueueComponent test suite', () => {
         { provide: OrcidHistoryDataService, useValue: {} },
         { provide: PaginationService, useValue: new PaginationServiceStub() },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
-        { provide: UUIDService, useValue: getMockUUIDService() }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

@@ -43,7 +43,8 @@ export class ProfilePageMetadataFormComponent implements OnInit {
     new DynamicInputModel({
       id: 'email',
       name: 'email',
-      readOnly: true
+      readOnly: true,
+      disabled: true,
     }),
     new DynamicInputModel({
       id: 'firstname',
@@ -55,6 +56,7 @@ export class ProfilePageMetadataFormComponent implements OnInit {
       errorMessages: {
         required: 'This field is required'
       },
+      autoComplete: 'given-name',
     }),
     new DynamicInputModel({
       id: 'lastname',
@@ -66,10 +68,12 @@ export class ProfilePageMetadataFormComponent implements OnInit {
       errorMessages: {
         required: 'This field is required'
       },
+      autoComplete: 'family-name',
     }),
     new DynamicInputModel({
       id: 'phone',
-      name: 'eperson.phone'
+      name: 'eperson.phone',
+      autoComplete: 'tel',
     }),
     new DynamicSelectModel<string>({
       id: 'language',

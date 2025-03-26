@@ -47,11 +47,16 @@ export abstract class CrisLayoutTabsComponent {
    */
   @Output() selectedTab = new EventEmitter<CrisLayoutTab>();
 
+  /**
+   * The item base url
+   */
+  itemBaseUrl: string;
 
   constructor(public location: Location, public router: Router, public route: ActivatedRoute) {
   }
 
   init(): void {
+    this.itemBaseUrl = getItemPageRoute(this.item) + '/';
     if (this.tabs && this.tabs.length > 0) {
       if (isNotNull(this.route.snapshot.paramMap.get('tab'))) {
         this.parseTabs(this.route.snapshot.paramMap.get('tab'));
@@ -112,9 +117,13 @@ export abstract class CrisLayoutTabsComponent {
     this.activeTab$.next(tab);
     this.emitSelected(tab);
     if (this.tabs[0].shortname === tab.shortname) {
-      this.location.replaceState(itemPageRoute);
+      this.router.navigate([], { queryParams: {}, replaceUrl: true, skipLocationChange: true }).then(() => {
+        this.location.replaceState(itemPageRoute);
+      });
     } else {
-      this.location.replaceState(itemPageRoute + '/' + tab.shortname);
+      this.router.navigate([], { queryParams: {}, replaceUrl: true, skipLocationChange: true  }).then(() => {
+        this.location.replaceState(itemPageRoute + '/' + tab.shortname);
+      });
     }
   }
 

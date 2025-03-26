@@ -19,7 +19,9 @@ import { FacetValues } from '../../../models/facet-values.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
 import {
   FILTER_CONFIG,
-  IN_PLACE_SEARCH, REFRESH_FILTER,
+  IN_PLACE_SEARCH,
+  REFRESH_FILTER,
+  SCOPE,
   SearchFilterService
 } from '../../../../../core/shared/search/search-filter.service';
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
@@ -40,16 +42,19 @@ import { getAllCompletedRemoteData } from '../../../../../core/shared/operators'
 @renderChartFor(FilterType['chart.pie'])
 export class SearchChartPieComponent extends SearchChartFilterComponent {
 
-  constructor(protected searchService: SearchService,
-              protected filterService: SearchFilterService,
-              protected rdbs: RemoteDataBuildService,
-              protected router: Router,
-              protected translate: TranslateService,
-              @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
-              @Inject(IN_PLACE_SEARCH) public inPlaceSearch: boolean,
-              @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
-              @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>) {
-    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters);
+  constructor(
+      protected searchService: SearchService,
+      protected filterService: SearchFilterService,
+      protected rdbs: RemoteDataBuildService,
+      protected router: Router,
+      protected translate: TranslateService,
+      @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
+      @Inject(IN_PLACE_SEARCH) public inPlaceSearch: boolean,
+      @Inject(FILTER_CONFIG) public filterConfig: SearchFilterConfig,
+      @Inject(REFRESH_FILTER) public refreshFilters: BehaviorSubject<boolean>,
+      @Inject(SCOPE) public scope: string,
+  ) {
+    super(searchService, filterService, rdbs, router, searchConfigService, inPlaceSearch, filterConfig, refreshFilters, scope);
   }
 
   protected getInitData(): Observable<ChartSeries[] | ChartData[]> {

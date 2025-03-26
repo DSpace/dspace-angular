@@ -102,7 +102,7 @@ export class MetadataRenderComponent implements OnInit {
     const providers = [
       { provide: 'fieldProvider', useValue: this.field, deps: [] },
       { provide: 'itemProvider', useValue: this.item, deps: [] },
-      { provide: 'renderingSubTypeProvider', useValue: this.renderingSubType, deps: [] }
+      { provide: 'renderingSubTypeProvider', useValue: this.renderingSubType, deps: [] },
     ];
     if (isNotEmpty(this.metadataValue)) {
       this.metadataValue = this.normalizeMetadataValue(this.metadataValue);

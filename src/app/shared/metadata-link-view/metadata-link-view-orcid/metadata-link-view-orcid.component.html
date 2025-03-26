@@ -1,0 +1,15 @@
+<span class="d-flex align-items-center txt-value">
+  <a *ngIf="(orcidUrl$ | async); else noOrcidUrl" href="{{(orcidUrl$ | async)}}/{{metadataValue}}" target="_blank">
+    {{ metadataValue }}
+  </a>
+
+  <ng-template #noOrcidUrl>{{ metadataValue }}</ng-template>
+
+  <img *ngIf="hasOrcidBadge()"
+        placement="top"
+        ngbTooltip="{{ 'orcid.badge.tooltip' | translate }}"
+        class="orcid-icon"
+        alt="orcid-logo"
+        src="assets/images/orcid.logo.icon.svg"/>
+
+</span>

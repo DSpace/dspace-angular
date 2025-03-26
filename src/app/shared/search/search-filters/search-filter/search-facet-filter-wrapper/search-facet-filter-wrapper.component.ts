@@ -4,6 +4,7 @@ import { FilterType } from '../../../models/filter-type.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import {
   FILTER_CONFIG,
+  SCOPE,
   IN_PLACE_SEARCH,
   REFRESH_FILTER
 } from '../../../../../core/shared/search/search-filter.service';
@@ -36,6 +37,11 @@ export class SearchFacetFilterWrapperComponent implements OnInit {
   @Input() refreshFilters: BehaviorSubject<boolean>;
 
   /**
+   * The current scope
+   */
+  @Input() scope: string;
+
+  /**
    * The constructor of the search facet filter that should be rendered, based on the filter config's type
    */
   searchFilter: GenericConstructor<SearchFacetFilterComponent>;
@@ -56,7 +62,8 @@ export class SearchFacetFilterWrapperComponent implements OnInit {
       providers: [
         { provide: FILTER_CONFIG, useFactory: () => (this.filterConfig), deps: [] },
         { provide: IN_PLACE_SEARCH, useFactory: () => (this.inPlaceSearch), deps: [] },
-        { provide: REFRESH_FILTER, useFactory: () => (this.refreshFilters), deps: [] }
+        { provide: REFRESH_FILTER, useFactory: () => (this.refreshFilters), deps: [] },
+        { provide: SCOPE, useFactory: () => (this.scope), deps: [] },
       ],
       parent: this.injector
     });

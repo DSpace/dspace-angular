@@ -41,8 +41,9 @@ import {
 } from '@ng-dynamic-forms/core';
 import { AppState } from '../../../app.reducer';
 import { getMockFormService } from '../../../shared/mocks/form-service.mock';
-import { mockAccessesFormData } from '../../../shared/mocks/submission.mock';
+import { mockAccessesFormData, mockAccessesServiceData } from '../../../shared/mocks/submission.mock';
 import { accessConditionChangeEvent, checkboxChangeEvent } from '../../../shared/testing/form-event.stub';
+import { XSRFService } from '../../../core/xsrf/xsrf.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 
 describe('SubmissionSectionAccessesComponent', () => {
@@ -100,6 +101,7 @@ describe('SubmissionSectionAccessesComponent', () => {
           { provide: TranslateService, useValue: getMockTranslateService() },
           { provide: FormService, useValue: getMockFormService() },
           { provide: Store, useValue: storeStub },
+          { provide: XSRFService, useValue: {} },
           { provide: SubmissionJsonPatchOperationsService, useValue: SubmissionJsonPatchOperationsServiceStub },
           { provide: 'sectionDataProvider', useValue: sectionData },
           { provide: 'submissionIdProvider', useValue: '1508' },
@@ -118,6 +120,7 @@ describe('SubmissionSectionAccessesComponent', () => {
         formService.validateAllFormFields.and.callFake(() => null);
         formService.isValid.and.returnValue(observableOf(true));
         formService.getFormData.and.returnValue(observableOf(mockAccessesFormData));
+        sectionsServiceStub.getSectionErrors.and.returnValue(observableOf(null));
         submissionAccessesConfigService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(accessConditionSectionConfigRes) as any);
         fixture.detectChanges();
       }));
@@ -181,6 +184,7 @@ describe('SubmissionSectionAccessesComponent', () => {
         formService.validateAllFormFields.and.callFake(() => null);
         formService.isValid.and.returnValue(observableOf(true));
         formService.getFormData.and.returnValue(observableOf(mockAccessesFormData));
+        sectionsServiceStub.getSectionErrors.and.returnValue(observableOf(null));
         submissionAccessesConfigService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(accessConditionSectionSingleAccessConfigRes) as any);
         fixture.detectChanges();
       }));
@@ -246,6 +250,7 @@ describe('SubmissionSectionAccessesComponent', () => {
           { provide: TranslateService, useValue: getMockTranslateService() },
           { provide: FormService, useValue: getMockFormService() },
           { provide: Store, useValue: storeStub },
+          { provide: XSRFService, useValue: {} },
           { provide: SubmissionJsonPatchOperationsService, useValue: SubmissionJsonPatchOperationsServiceStub },
           { provide: 'sectionDataProvider', useValue: sectionData },
           { provide: 'submissionIdProvider', useValue: '1508' },
@@ -261,6 +266,7 @@ describe('SubmissionSectionAccessesComponent', () => {
       formService.validateAllFormFields.and.callFake(() => null);
       formService.isValid.and.returnValue(observableOf(true));
       formService.getFormData.and.returnValue(observableOf(mockAccessesFormData));
+      sectionsServiceStub.getSectionErrors.and.returnValue(observableOf(null));
       fixture.detectChanges();
     }));
 
@@ -273,5 +279,83 @@ describe('SubmissionSectionAccessesComponent', () => {
       expect(component.formModel[0] instanceof DynamicFormArrayModel).toBeTrue();
     });
 
+  });
+
+  describe('when section is required', () => {
+
+    const service = getSectionAccessesService();
+
+    beforeEach(async () => {
+      await TestBed.configureTestingModule({
+        imports: [
+          BrowserModule,
+          TranslateModule.forRoot()
+        ],
+        declarations: [SubmissionSectionAccessesComponent, FormComponent],
+        providers: [
+          { provide: SectionsService, useValue: sectionsServiceStub },
+          { provide: SubmissionAccessesConfigDataService, useValue: submissionAccessesConfigService },
+          { provide: SectionAccessesService, useValue: service },
+          { provide: SectionFormOperationsService, useValue: sectionFormOperationsService },
+          { provide: JsonPatchOperationsBuilder, useValue: operationsBuilder },
+          { provide: TranslateService, useValue: getMockTranslateService() },
+          { provide: FormService, useValue: getMockFormService() },
+          { provide: Store, useValue: storeStub },
+          { provide: XSRFService, useValue: {} },
+          { provide: SubmissionJsonPatchOperationsService, useValue: SubmissionJsonPatchOperationsServiceStub },
+          { provide: 'sectionDataProvider', useValue: sectionData },
+          { provide: 'submissionIdProvider', useValue: '1508' },
+          FormBuilderService
+        ]
+      })
+        .compileComponents();
+    });
+
+    beforeEach(inject([Store], (store: Store<AppState>) => {
+      fixture = TestBed.createComponent(SubmissionSectionAccessesComponent);
+      component = fixture.componentInstance;
+      formService = TestBed.inject(FormService);
+      formService.validateAllFormFields.and.callFake(() => null);
+      formService.isValid.and.returnValue(observableOf(true));
+      formService.getFormData.and.returnValue(observableOf(mockAccessesFormData));
+      sectionsServiceStub.getSectionErrors.and.returnValue(observableOf(null));
+      submissionAccessesConfigService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$(accessConditionSectionConfigRes) as any);
+      fixture.detectChanges();
+    }));
+
+    it('should have section status invalid on init', (done) => {
+      component.required$.next(true);
+      service.getAccessesData.and.returnValue(observableOf({}));
+      fixture.detectChanges();
+
+      component.getSectionStatus().subscribe(status => {
+        expect(status).toEqual(false);
+        done();
+      });
+    });
+
+    it('should have section status valid if there are data and no error', (done) => {
+      service.getAccessesData.and.returnValue(observableOf(mockAccessesServiceData));
+      component.required$.next(true);
+      fixture.detectChanges();
+
+      component.getSectionStatus().subscribe(status => {
+        expect(status).toEqual(true);
+        done();
+      });
+    });
+
+    it('should have section status invalid if there are data and errors', (done) => {
+      service.getAccessesData.and.returnValue(observableOf(mockAccessesServiceData));
+      component.required$.next(true);
+      sectionsServiceStub.getSectionErrors.and.returnValue(observableOf({error: 'testError'}));
+
+      fixture.detectChanges();
+
+      component.getSectionStatus().subscribe(status => {
+        expect(status).toEqual(false);
+        done();
+      });
+    });
   });
 });

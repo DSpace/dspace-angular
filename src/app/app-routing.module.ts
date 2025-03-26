@@ -3,9 +3,8 @@ import { NoPreloading, RouterModule } from '@angular/router';
 import { AuthBlockingGuard } from './core/auth/auth-blocking.guard';
 
 import { AuthenticatedGuard } from './core/auth/authenticated.guard';
-import {
-  SiteAdministratorGuard
-} from './core/data/feature-authorization/feature-authorization-guard/site-administrator.guard';
+
+
 import {
   ACCESS_CONTROL_MODULE_PATH,
   ADMIN_MODULE_PATH,
@@ -18,7 +17,7 @@ import {
   HEALTH_PAGE_PATH,
   INFO_MODULE_PATH,
   INTERNAL_SERVER_ERROR,
-  LEGACY_BITSTREAM_MODULE_PATH,
+  LEGACY_BITSTREAM_MODULE_PATH, PAGE_NOT_FOUND_PATH,
   PROFILE_MODULE_PATH,
   REGISTER_PATH,
   REQUEST_COPY_MODULE_PATH,
@@ -43,14 +42,20 @@ import {
 import { ServerCheckGuard } from './core/server-check/server-check.guard';
 import { MenuResolver } from './menu.resolver';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
+import { ForgotPasswordCheckGuard } from './core/rest-property/forgot-password-check-guard.guard';
 import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-routing-paths';
 import { RedirectService } from './redirect/redirect.service';
+import {
+  GenericAdministratorGuard
+} from './core/data/feature-authorization/feature-authorization-guard/generic-administrator-guard';
+
+
 
 @NgModule({
   imports: [
     RouterModule.forRoot([
-      { path: INTERNAL_SERVER_ERROR, component: ThemedPageInternalServerErrorComponent },
-      { path: ERROR_PAGE , component: ThemedPageErrorComponent },
+      { path: INTERNAL_SERVER_ERROR, component: ThemedPageInternalServerErrorComponent, data: { title: INTERNAL_SERVER_ERROR } },
+      { path: ERROR_PAGE , component: ThemedPageErrorComponent, data: { title: ERROR_PAGE}  },
       {
         path: '',
         canActivate: [AuthBlockingGuard],
@@ -62,7 +67,10 @@ import { RedirectService } from './redirect/redirect.service';
             path: 'reload/:rnd',
             component: ThemedPageNotFoundComponent,
             pathMatch: 'full',
-            canActivate: [ReloadGuard]
+            canActivate: [ReloadGuard],
+            data: {
+              title: PAGE_NOT_FOUND_PATH
+            }
           },
           {
             path: 'home',
@@ -99,7 +107,10 @@ import { RedirectService } from './redirect/redirect.service';
             path: FORGOT_PASSWORD_PATH,
             loadChildren: () => import('./forgot-password/forgot-password.module')
               .then((m) => m.ForgotPasswordModule),
-            canActivate: [EndUserAgreementCurrentUserGuard]
+            canActivate: [
+              ForgotPasswordCheckGuard,
+              EndUserAgreementCurrentUserGuard
+            ]
           },
           {
             path: COMMUNITY_MODULE_PATH,
@@ -164,7 +175,7 @@ import { RedirectService } from './redirect/redirect.service';
             path: ADMIN_MODULE_PATH,
             loadChildren: () => import('./admin/admin.module')
               .then((m) => m.AdminModule),
-            canActivate: [SiteAdministratorGuard, EndUserAgreementCurrentUserGuard]
+            canActivate: [GenericAdministratorGuard, EndUserAgreementCurrentUserGuard]
           },
           {
             path: 'login',
@@ -260,7 +271,10 @@ import { RedirectService } from './redirect/redirect.service';
           },
           {
             path: FORBIDDEN_PATH,
-            component: ThemedForbiddenComponent
+            component: ThemedForbiddenComponent,
+            data: {
+              title: FORBIDDEN_PATH
+            }
           },
           {
             path: STATISTICS_PAGE_PATH,
@@ -299,7 +313,7 @@ import { RedirectService } from './redirect/redirect.service';
             loadChildren: () => import('./invitation/invitation.module')
               .then((m) => m.InvitationModule)
           },
-          { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent, canActivate: [RedirectService] },
+          { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent, canActivate: [RedirectService], data: { title: PAGE_NOT_FOUND_PATH }  },
         ]
       }
     ], {

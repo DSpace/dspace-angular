@@ -14,8 +14,6 @@ import { createPaginatedList } from '../../shared/testing/utils.test';
 import { Item } from '../shared/item.model';
 import { of } from 'rxjs';
 import SpyObj = jasmine.SpyObj;
-import { UUIDService } from '../shared/uuid.service';
-import { getMockUUIDService } from '../../shared/mocks/uuid.service.mock';
 
 const url = 'fake-url';
 
@@ -27,7 +25,6 @@ describe('VersionHistoryDataService', () => {
   let rdbService: RemoteDataBuildService;
   let objectCache: ObjectCacheService;
   let versionService: SpyObj<VersionDataService>;
-  let uuidService: UUIDService;
   let halService: any;
 
   const versionHistoryId = 'version-history-id';
@@ -67,6 +64,10 @@ describe('VersionHistoryDataService', () => {
         href: 'version2-url',
       },
     },
+  });
+  const version1WithDraft = Object.assign(new Version(), {
+    ...version1,
+    versionhistory: createSuccessfulRemoteDataObject$(versionHistoryDraft),
   });
   const versions = [version1, version2];
   versionHistory.versions = createSuccessfulRemoteDataObject$(createPaginatedList(versions));
@@ -112,7 +113,6 @@ describe('VersionHistoryDataService', () => {
       findListByHref: jasmine.createSpy('findListByHref'),
       getHistoryFromVersion: jasmine.createSpy('getHistoryFromVersion'),
     });
-    uuidService = getMockUUIDService();
     halService = new HALEndpointServiceStub(url);
     notificationsService = new NotificationsServiceStub();
 
@@ -122,7 +122,6 @@ describe('VersionHistoryDataService', () => {
       objectCache,
       halService,
       versionService,
-      uuidService
     );
   }
 
@@ -191,21 +190,18 @@ describe('VersionHistoryDataService', () => {
   });
 
   describe('hasDraftVersion$', () => {
-    beforeEach(waitForAsync(() => {
-      versionService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$<Version>(version1));
-    }));
     it('should return false if draftVersion is false', fakeAsync(() => {
-      versionService.getHistoryFromVersion.and.returnValue(of(versionHistory));
+      versionService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$<Version>(version1));
       service.hasDraftVersion$('href').subscribe((res) => {
         expect(res).toBeFalse();
       });
     }));
+
     it('should return true if draftVersion is true', fakeAsync(() => {
-      versionService.getHistoryFromVersion.and.returnValue(of(versionHistoryDraft));
+      versionService.findByHref.and.returnValue(createSuccessfulRemoteDataObject$<Version>(version1WithDraft));
       service.hasDraftVersion$('href').subscribe((res) => {
         expect(res).toBeTrue();
       });
     }));
   });
-
 });

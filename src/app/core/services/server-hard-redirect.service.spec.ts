@@ -1,12 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 import { ServerHardRedirectService } from './server-hard-redirect.service';
+import { environment } from '../../../environments/environment.test';
 
 describe('ServerHardRedirectService', () => {
 
   const mockRequest = jasmine.createSpyObj(['get']);
   const mockResponse = jasmine.createSpyObj(['redirect', 'end']);
 
-  const service: ServerHardRedirectService = new ServerHardRedirectService(mockRequest, mockResponse);
+  const service: ServerHardRedirectService = new ServerHardRedirectService(environment, mockRequest, mockResponse);
   const origin = 'https://test-host.com:4000';
 
   beforeEach(() => {

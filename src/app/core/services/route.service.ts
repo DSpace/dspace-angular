@@ -225,4 +225,23 @@ export class RouteService {
         }
       );
   }
+
+  /**
+   * Remove a parameter from the current route
+   * @param key The parameter name
+   */
+  removeQueryParam(key: string) {
+    let queryParams = { ...this.route.snapshot.queryParams };
+    delete queryParams[key];
+
+    // Navigate to the same route with the updated queryParams
+    this.router.navigate(
+      [],
+      {
+        relativeTo: this.route,
+        queryParams: queryParams,
+      }
+    );
+
+  }
 }

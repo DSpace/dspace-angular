@@ -275,11 +275,17 @@ export class ResourcePolicyFormComponent implements OnInit, OnDestroy {
   /**
    * Update reference to the eperson or group that will be granted the permission
    */
-  updateObjectSelected(object: DSpaceObject, isEPerson: boolean): void {
+  updateObjectSelected(object: DSpaceObject, isEPerson: boolean, deselect = false): void {
     this.resourcePolicyTargetUpdated = true;
-    this.resourcePolicyGrant = object;
     this.resourcePolicyGrantType = isEPerson ? 'eperson' : 'group';
-    this.resourcePolicyTargetName$.next(this.getResourcePolicyTargetName());
+
+    if (deselect) {
+      this.resourcePolicyGrant = null;
+      this.resourcePolicyTargetName$.next(null);
+    } else {
+      this.resourcePolicyGrant = object;
+      this.resourcePolicyTargetName$.next(this.getResourcePolicyTargetName());
+    }
   }
 
   /**

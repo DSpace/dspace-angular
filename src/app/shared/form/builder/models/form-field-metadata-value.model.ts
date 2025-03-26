@@ -25,6 +25,7 @@ export class FormFieldMetadataValueObject implements MetadataValueInterface {
   place: number;
   label: string;
   securityLevel: number;
+  source: string;
   otherInformation: OtherInformation;
 
   constructor(value: any = null,
@@ -35,7 +36,9 @@ export class FormFieldMetadataValueObject implements MetadataValueInterface {
               place: number = 0,
               confidence: number = null,
               otherInformation: any = null,
-              metadata: string = null) {
+              source: string = null,
+              metadata: string = null
+              ) {
     this.value = isNotNull(value) ? ((typeof value === 'string') ? value.trim() : value) : null;
     this.language = language;
     this.authority = authority;
@@ -54,7 +57,7 @@ export class FormFieldMetadataValueObject implements MetadataValueInterface {
     if (isNotEmpty(metadata)) {
       this.metadata = metadata;
     }
-
+    this.source = source;
     this.otherInformation = otherInformation;
   }
 

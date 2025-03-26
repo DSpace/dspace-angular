@@ -185,6 +185,7 @@ describe('OrcidComponent', () => {
         { provide: 'itemProvider', useValue: testItem },
         { provide: 'metadataValueProvider', useValue: metadataValue },
         { provide: 'renderingSubTypeProvider', useValue: '' },
+        { provide: 'tabNameProvider', useValue: '' },
         { provide: ConfigurationDataService, useValue: configurationDataService}
       ],
       declarations: [OrcidComponent, DsDatePipe]

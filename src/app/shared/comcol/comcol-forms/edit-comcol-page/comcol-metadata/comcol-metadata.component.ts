@@ -5,7 +5,7 @@ import { RemoteData } from '../../../../../core/data/remote-data';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, take } from 'rxjs/operators';
 import { getFirstCompletedRemoteData, getFirstSucceededRemoteData } from '../../../../../core/shared/operators';
-import { hasValue, isEmpty } from '../../../../empty.util';
+import { isEmpty } from '../../../../empty.util';
 import { ResourceType } from '../../../../../core/shared/resource-type';
 import { ComColDataService } from '../../../../../core/data/comcol-data.service';
 import { NotificationsService } from '../../../../notifications/notifications.service';
@@ -19,14 +19,13 @@ import { Collection } from '../../../../../core/shared/collection.model';
 })
 export class ComcolMetadataComponent<TDomain extends Community | Collection> implements OnInit {
   /**
-   * Frontend endpoint for this type of DSO
-   */
-  protected frontendURL: string;
-  /**
    * The initial DSO object
    */
   public dsoRD$: Observable<RemoteData<TDomain>>;
-
+  /**
+   * Frontend endpoint for this type of DSO
+   */
+  protected frontendURL: string;
   /**
    * The type of the dso
    */
@@ -50,25 +49,11 @@ export class ComcolMetadataComponent<TDomain extends Community | Collection> imp
    * @param event   The event returned by the community/collection form. Contains the new dso and logo uploader
    */
   onSubmit(event) {
-
-    const uploader = event.uploader;
-    const deleteLogo = event.deleteLogo;
-
-    const newLogo = hasValue(uploader) && uploader.queue.length > 0;
-    if (newLogo) {
-      this.dsoDataService.getLogoEndpoint(event.dso.uuid).pipe(take(1)).subscribe((href: string) => {
-        uploader.options.url = href;
-        uploader.uploadAll();
-      });
-    }
-
     if (!isEmpty(event.operations)) {
       this.dsoDataService.patch(event.dso, event.operations).pipe(getFirstCompletedRemoteData())
         .subscribe(async (response: RemoteData<DSpaceObject>) => {
           if (response.hasSucceeded) {
-            if (!newLogo && !deleteLogo) {
-              await this.router.navigate([this.frontendURL + event.dso.uuid]);
-            }
+            await this.router.navigate([this.frontendURL, event.dso.uuid]);
             this.notificationsService.success(null, this.translate.get(`${this.type.value}.edit.notifications.success`));
           } else if (response.statusCode === 403) {
             this.notificationsService.error(null, this.translate.get(`${this.type.value}.edit.notifications.unauthorized`));
@@ -76,11 +61,13 @@ export class ComcolMetadataComponent<TDomain extends Community | Collection> imp
             this.notificationsService.error(null, this.translate.get(`${this.type.value}.edit.notifications.error`));
           }
         });
+    } else {
+      this.router.navigate([this.frontendURL, event.dso.uuid]);
     }
   }
 
   /**
-   * Navigate to the home page of the object
+   * Navigate to the relative DSO page
    */
   navigateToHomePage() {
     this.dsoRD$.pipe(
@@ -88,6 +75,6 @@ export class ComcolMetadataComponent<TDomain extends Community | Collection> imp
       take(1)
     ).subscribe((dsoRD: RemoteData<TDomain>) => {
       this.router.navigate([this.frontendURL + dsoRD.payload.id]);
-      });
+    });
   }
 }

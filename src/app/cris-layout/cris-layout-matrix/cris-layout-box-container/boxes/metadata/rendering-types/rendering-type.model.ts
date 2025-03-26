@@ -38,6 +38,11 @@ export abstract class RenderingTypeModelComponent {
   @Input() indexToBeRendered;
 
   /**
+   * The tab name
+   */
+  @Input() tabName: string;
+
+  /**
    * The prefix used for box field label's i18n key
    */
   fieldI18nPrefix = 'layout.field.label.';

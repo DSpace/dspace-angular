@@ -10,7 +10,8 @@
         <ul class="nav nav-pills mb-2">
           <li class="nav-item mr-3" *ngFor="let report of (reports | dsFilterMap : false)">
             <a class="nav-link" [ngClass]="{'active' : !!selectedReport && selectedReport.id == report.id}"
-               routerLink="./" (click)="$event.preventDefault();changeReport(report)">
+               href="#"
+               (click)="$event.preventDefault();$event.stopPropagation();changeReport(report)">
               {{'statistics.table.' + categoryType + '.title.' + report.reportType | translate}}
             </a>
           </li>

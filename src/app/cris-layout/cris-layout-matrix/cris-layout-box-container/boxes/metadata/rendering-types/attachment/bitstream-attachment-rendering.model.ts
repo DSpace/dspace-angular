@@ -26,10 +26,11 @@ export abstract class BitstreamAttachmentRenderingModelComponent extends Bitstre
     @Inject('fieldProvider') fieldProvider: LayoutField,
     @Inject('itemProvider') itemProvider: Item,
     @Inject('renderingSubTypeProvider') renderingSubTypeProvider: string,
+    @Inject('tabNameProvider') public tabNameProvider: string,
     bitstreamDataService: BitstreamDataService,
     translateService: TranslateService
   ) {
-    super(fieldProvider, itemProvider, renderingSubTypeProvider, bitstreamDataService, translateService);
+    super(fieldProvider, itemProvider, renderingSubTypeProvider, tabNameProvider, bitstreamDataService, translateService);
   }
 
   getBitstreamsByItem(options?: FindListOptions): Observable<PaginatedList<Bitstream>> {

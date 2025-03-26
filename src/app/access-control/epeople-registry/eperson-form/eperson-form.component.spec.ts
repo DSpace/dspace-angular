@@ -35,8 +35,6 @@ import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
-import { UUIDService } from '../../../core/shared/uuid.service';
-import { getMockUUIDService } from '../../../shared/mocks/uuid.service.mock';
 
 describe('EPersonFormComponent', () => {
   let component: EPersonFormComponent;
@@ -222,7 +220,6 @@ describe('EPersonFormComponent', () => {
         { provide: EpersonRegistrationService, useValue: epersonRegistrationService },
         { provide: ActivatedRoute, useValue: route },
         { provide: Router, useValue: router },
-        { provide: UUIDService, useValue: getMockUUIDService() },
         EPeopleRegistryComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]

@@ -1,5 +1,5 @@
 <div class="container">
-  <h2 id="header">{{'admin.batch-import.page.header' | translate}}</h2>
+  <h1 id="header">{{'admin.batch-import.page.header' | translate}}</h1>
   <p>{{'admin.batch-import.page.help' | translate}}</p>
   <p *ngIf="dso">
     selected collection: <b>{{getDspaceObjectName()}}</b>&nbsp;
@@ -20,15 +20,15 @@
     </small>
   </div>
 
-  <ui-switch color="#ebebeb"
-             [checkedLabel]="'admin.metadata-import.page.toggle.upload' | translate"
-             [uncheckedLabel]="'admin.metadata-import.page.toggle.url' | translate"
-             [checked]="isUpload"
-             (change)="toggleUpload()" ></ui-switch>
+  <ds-switch
+    [options]="switchOptions"
+    [selectedValue]="isUpload ? 'upload' : 'url'"
+    (selectedValueChange)="toggleUpload()">
+  </ds-switch>
   <small class="form-text text-muted">
     {{'admin.batch-import.page.toggle.help' | translate}}
   </small>
-  
+
 
   <ds-file-dropzone-no-uploader
     *ngIf="isUpload"
@@ -47,6 +47,8 @@
     <button class="btn btn-secondary" id="backButton"
             (click)="this.onReturn();">{{'admin.metadata-import.page.button.return' | translate}}</button>
     <button class="btn btn-primary" id="proceedButton"
-            (click)="this.importMetadata();">{{'admin.metadata-import.page.button.proceed' | translate}}</button>
+            (click)="this.importMetadata();">
+            <i class="fas fa-arrow-right mr-1"></i>
+            {{'admin.metadata-import.page.button.proceed' | translate}}</button>
   </div>
 </div>
