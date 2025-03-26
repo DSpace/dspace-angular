@@ -29,4 +29,16 @@ export class AuthServiceMock {
   public isUserIdle(): Observable<boolean> {
     return observableOf(false);
   }
+
+  public getImpersonateID(): string {
+    return null;
+  }
+
+  public getRedirectUrl(): Observable<string> {
+    return;
+  }
+
+  public getExternalServerRedirectUrl(): string {
+    return;
+  }
 }

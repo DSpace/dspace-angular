@@ -165,11 +165,11 @@ export class LogInPasswordComponent implements OnInit {
       shareReplay({ refCount: false, bufferSize: 1 }),
     );
     this.canShowDivider$ =
-        combineLatest([this.canRegister$, this.canForgot$])
-          .pipe(
-            map(([canRegister, canForgot]) => canRegister || canForgot),
-            filter(Boolean),
-          );
+      combineLatest([this.canRegister$, this.canForgot$])
+        .pipe(
+          map(([canRegister, canForgot]) => canRegister || canForgot),
+          filter(Boolean),
+        );
   }
 
   getRegisterRoute() {

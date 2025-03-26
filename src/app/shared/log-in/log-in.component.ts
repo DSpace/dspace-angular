@@ -9,16 +9,14 @@ import {
   select,
   Store,
 } from '@ngrx/store';
-import {
-  map,
-  Observable,
-} from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { AuthService } from '../../core/auth/auth.service';
+import { AuthMethodsService } from '../../core/auth/auth-methods.service';
 import { AuthMethod } from '../../core/auth/models/auth.method';
+import { AuthMethodType } from '../../core/auth/models/auth.method-type';
 import {
   getAuthenticationError,
-  getAuthenticationMethods,
   isAuthenticated,
   isAuthenticationLoading,
 } from '../../core/auth/selectors';
@@ -26,7 +24,7 @@ import { CoreState } from '../../core/core-state.model';
 import { hasValue } from '../empty.util';
 import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { LogInContainerComponent } from './container/log-in-container.component';
-import { rendersAuthMethodType } from './methods/log-in.methods-decorator';
+import { AUTH_METHOD_FOR_DECORATOR_MAP } from './methods/log-in.methods-decorator';
 
 @Component({
   selector: 'ds-base-log-in',
@@ -43,6 +41,15 @@ export class LogInComponent implements OnInit {
    * @type {boolean}
    */
   @Input() isStandalonePage: boolean;
+
+  /**
+   * Method to exclude from the list of authentication methods
+   */
+  @Input() excludedAuthMethod: AuthMethodType;
+  /**
+   *  Weather or not to show the register link
+   */
+  @Input() showRegisterLink = true;
 
   /**
    * The list of authentication methods available
@@ -64,17 +71,12 @@ export class LogInComponent implements OnInit {
 
   constructor(private store: Store<CoreState>,
               private authService: AuthService,
+              private authMethodsService: AuthMethodsService,
   ) {
   }
 
   ngOnInit(): void {
-    this.authMethods = this.store.pipe(
-      select(getAuthenticationMethods),
-      map((methods: AuthMethod[]) => methods
-        .filter((authMethod: AuthMethod) => rendersAuthMethodType(authMethod.authMethodType) !== undefined)
-        .sort((method1: AuthMethod, method2: AuthMethod) => method1.position - method2.position),
-      ),
-    );
+    this.authMethods = this.authMethodsService.getAuthMethods(AUTH_METHOD_FOR_DECORATOR_MAP, this.excludedAuthMethod);
 
     // set loading
     this.loading = this.store.pipe(select(isAuthenticationLoading));
