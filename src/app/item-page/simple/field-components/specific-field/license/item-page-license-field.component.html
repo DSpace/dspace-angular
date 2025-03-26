@@ -11,17 +11,17 @@
       <ng-template #licensesWithLink>
         <ng-container *ngFor="let license of licenses; let last=last; let i=index;">
           <a [href]="uris[i]" target="_blank" class="license-link"><span class="license-text">{{ license }}</span></a>
-          <span class="separator" *ngIf="!last">{{ separator }}</span>
+          <span class="separator" *ngIf="!last" [innerHTML]="separator"></span>
         </ng-container>
       </ng-template>
       <ng-template #listOfLicenses>
         <ng-container *ngFor="let license of licenses; let last=last;">
           <span class="license-text">{{ license }}</span>
-          <span class="separator" *ngIf="!last || uris.length > 0">{{ separator }}</span>
+          <span class="separator" *ngIf="!last || uris.length > 0" [innerHTML]="separator"></span>
         </ng-container>
         <ng-container *ngFor="let uri of uris; let last=last;">
           <a [href]="uri" target="_blank" class="license-link"><span class="license-text">{{ uri }}</span></a>
-          <span class="separator" *ngIf="!last">{{ separator }}</span>
+          <span class="separator" *ngIf="!last" [innerHTML]="separator"></span>
         </ng-container>
       </ng-template>
     </ds-metadata-field-wrapper>

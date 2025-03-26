@@ -32,7 +32,6 @@ import { MetadataFieldWrapperComponent } from 'src/app/shared/metadata-field-wra
 @Component({
   selector: 'ds-item-page-license-field',
   templateUrl: './item-page-license-field.component.html',
-  styleUrl: './item-page-license-field.scss',
   standalone: true,
   imports: [NgIf, NgFor, NgClass, NgStyle, TranslateModule, MetadataFieldWrapperComponent, ItemPageCcLicenseFieldComponent, AsyncPipe],
 })
@@ -54,7 +53,7 @@ export class ItemPageLicenseFieldComponent implements OnInit, OnDestroy {
   /**
    * String to use as a separator if multiple rights entries are specified
    */
-  @Input() separator = '•';
+  @Input() separator = '<br>';
 
   subscriptions: Subscription[] = [];
 
