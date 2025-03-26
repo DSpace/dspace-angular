@@ -403,7 +403,6 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
   standalone: true,
   imports: [
     SubmissionSectionUploadFileEditComponent,
-    CommonModule,
     FormsModule,
     FormComponent,
     ReactiveFormsModule,

@@ -1,6 +1,5 @@
 import {
   NgClass,
-  NgIf,
   NgStyle,
 } from '@angular/common';
 import {
@@ -16,7 +15,7 @@ import { MetadataFieldWrapperComponent } from 'src/app/shared/metadata-field-wra
   selector: 'ds-item-page-cc-license-field',
   templateUrl: './item-page-cc-license-field.component.html',
   standalone: true,
-  imports: [NgIf, NgClass, NgStyle, TranslateModule, MetadataFieldWrapperComponent],
+  imports: [NgClass, NgStyle, TranslateModule, MetadataFieldWrapperComponent],
 })
 /**
  * Displays the item's Creative Commons license image in it's simple item page

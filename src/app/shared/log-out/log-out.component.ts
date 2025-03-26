@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -26,7 +23,7 @@ import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
   styleUrls: ['./log-out.component.scss'],
   animations: [fadeOut],
   standalone: true,
-  imports: [NgIf, AsyncPipe, TranslateModule, BrowserOnlyPipe],
+  imports: [AsyncPipe, TranslateModule, BrowserOnlyPipe],
 })
 export class LogOutComponent implements OnInit {
   /**

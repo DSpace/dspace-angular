@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   isPlatformServer,
-  NgIf,
 } from '@angular/common';
 import {
   ChangeDetectorRef,
@@ -62,7 +61,6 @@ import {
   standalone: true,
   imports: [
     AsyncPipe,
-    NgIf,
     TranslateModule,
     ThemedLoadingComponent,
     ThemedBrowseByComponent,

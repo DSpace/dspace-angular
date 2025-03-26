@@ -2832,9 +2832,17 @@
 
   "item.preview.dc.type": "Type:",
 
+  "item.preview.oaire.version": "Version",
+
   "item.preview.oaire.citation.issue": "Issue",
 
   "item.preview.oaire.citation.volume": "Volume",
+
+  "item.preview.oaire.citation.title": "Citation container",
+
+  "item.preview.oaire.citation.startPage": "Citation start page",
+
+  "item.preview.oaire.citation.endPage": "Citation end page",
 
   "item.preview.dc.relation.issn": "ISSN",
 
@@ -2853,6 +2861,8 @@
   "item.preview.person.givenName": "Name:",
 
   "item.preview.person.identifier.orcid": "ORCID:",
+
+  "item.preview.person.affiliation.name": "Affiliations:",
 
   "item.preview.project.funder.name": "Funder:",
 
@@ -2883,6 +2893,16 @@
   "item.preview.organization.legalName": "Legal Name",
 
   "item.preview.dspace.entity.type": "Entity Type:",
+
+  "item.preview.creativework.publisher": "Publisher",
+
+  "item.preview.creativeworkseries.issn": "ISSN",
+
+  "item.preview.dc.identifier.issn": "ISSN",
+
+  "item.preview.dc.identifier.openalex": "OpenAlex Identifier",
+
+  "item.preview.dc.description": "Description",
 
   "item.select.confirm": "Confirm selected",
 
@@ -3536,6 +3556,10 @@
 
   "none.listelement.badge": "Item",
 
+  "publication-claim.title": "Publication claim",
+
+  "publication-claim.source.description": "Below you can see all the sources.",
+
   "quality-assurance.title": "Quality Assurance",
 
   "quality-assurance.topics.description": "Below you can see all the topics received from the subscriptions to {{source}}.",
@@ -4064,6 +4088,8 @@
 
   "suggestion.source.openaire": "OpenAIRE Graph",
 
+  "suggestion.source.openalex": "OpenAlex",
+
   "suggestion.from.source": "from the ",
 
   "suggestion.count.missing": "You have no publication claims left",
@@ -4566,6 +4592,12 @@
 
   "search.filters.filter.supervisedBy.label": "Search Supervised By",
 
+  "search.filters.filter.access_status.head": "Access type",
+
+  "search.filters.filter.access_status.placeholder": "Access type",
+
+  "search.filters.filter.access_status.label": "Search by access type",
+
   "search.filters.entityType.JournalIssue": "Journal Issue",
 
   "search.filters.entityType.JournalVolume": "Journal Volume",
@@ -4847,6 +4879,22 @@
   "submission.import-external.source.lcname": "Library of Congress Names",
 
   "submission.import-external.source.ror": "Research Organization Registry (ROR)",
+
+  "submission.import-external.source.openalexPublication": "OpenAlex Search by Title",
+
+  "submission.import-external.source.openalexPublicationByAuthorId": "OpenAlex Search by Author ID",
+
+  "submission.import-external.source.openalexPublicationByDOI": "OpenAlex Search by DOI",
+
+  "submission.import-external.source.openalexPerson": "OpenAlex Search by name",
+
+  "submission.import-external.source.openalexJournal": "OpenAlex Journals",
+
+  "submission.import-external.source.openalexInstitution": "OpenAlex Institutions",
+
+  "submission.import-external.source.openalexPublisher": "OpenAlex Publishers",
+
+  "submission.import-external.source.openalexFunder": "OpenAlex Funders",
 
   "submission.import-external.preview.title": "Item Preview",
 
@@ -6320,7 +6368,7 @@
 
   "quality-assurance.events.description-with-topic-and-target": "Below the list of all the suggestions for the selected topic <b>{{topic}}</b>, related to <b>{{source}}</b> and ",
 
-  "quality-assurance.event.table.event.message.serviceUrl": "Service URL:",
+  "quality-assurance.event.table.event.message.serviceUrl": "Actor:",
 
   "quality-assurance.event.table.event.message.link": "Link:",
 
@@ -6384,6 +6432,8 @@
 
   "request-status-alert-box.rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been rejected.",
 
+  "request-status-alert-box.tentative_rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been tentatively rejected. Revisions are required",
+
   "request-status-alert-box.requested": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> is pending.",
 
   "ldn-service-button-mark-inbound-deletion": "Mark supported pattern for deletion",
@@ -6399,6 +6449,10 @@
   "ldn-service-overview-select-edit": "Edit LDN service",
 
   "ldn-service-overview-close-modal": "Close modal",
+
+  "ldn-service-usesActorEmailId": "Requires actor email in notifications",
+
+  "ldn-service-usesActorEmailId-description": "If enabled, initial notifications sent will include the submitter email rather than the repository URL. This is usually the case for endorsement or review services.",
 
   "a-common-or_statement.label": "Item type is Journal Article or Dataset",
 
@@ -6527,6 +6581,8 @@
   "search.filters.applied.f.notifyEndorsement": "Notify Endorsement",
 
   "search.filters.applied.f.notifyRelation": "Notify Relation",
+
+  "search.filters.applied.f.access_status": "Access type",
 
   "search.filters.filter.queue_last_start_time.head": "Last processing time ",
 
@@ -6797,4 +6853,22 @@
   "live-region.ordering.dropped": "{{ itemName }}, dropped at position {{ index }} of {{ length }}.",
 
   "dynamic-form-array.sortable-list.label": "Sortable list",
+
+  "search.filters.access_status.open.access": "Open access",
+
+  "search.filters.access_status.restricted": "Restricted access",
+
+  "search.filters.access_status.embargo": "Embargoed access",
+
+  "search.filters.access_status.metadata.only": "Metadata only",
+
+  "search.filters.access_status.unknown": "Unknown",
+
+  "metadata-export-filtered-items.tooltip": "Export report output as CSV",
+
+  "metadata-export-filtered-items.submit.success": "CSV export succeeded.",
+
+  "metadata-export-filtered-items.submit.error": "CSV export failed.",
+
+  "metadata-export-filtered-items.columns.warning": "CSV export automatically includes all relevant fields, so selections in this list are not taken into account.",
 }

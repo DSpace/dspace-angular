@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgIf,
 } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
@@ -19,7 +18,7 @@ import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbn
   styleUrls: ['./project-search-result-list-element.component.scss'],
   templateUrl: './project-search-result-list-element.component.html',
   standalone: true,
-  imports: [NgIf, RouterLink, ThemedThumbnailComponent, NgClass, TruncatableComponent, ThemedBadgesComponent, AsyncPipe],
+  imports: [RouterLink, ThemedThumbnailComponent, NgClass, TruncatableComponent, ThemedBadgesComponent, AsyncPipe],
 })
 /**
  * The component for displaying a list element for an item search result of the type Project

@@ -57,68 +57,62 @@
   "private": true,
   "overrides": {
     "@kolkov/ngx-gallery": {
-      "@angular/animations": "^17.3.11",
-      "@angular/common": "^17.3.11",
-      "@angular/core": "^17.3.11"
+      "@angular/animations": "^18.2.12",
+      "@angular/common": "^18.2.12",
+      "@angular/core": "^18.2.12"
     },
     "@ng-bootstrap/ng-bootstrap": {
-      "@angular/common": "^17.3.11",
-      "@angular/core": "^17.3.11",
-      "@angular/forms": "^17.3.11",
-      "@angular/localize": "^17.3.11"
+      "@angular/common": "^18.2.12",
+      "@angular/core": "^18.2.12",
+      "@angular/forms": "^18.2.12",
+      "@angular/localize": "^18.2.12"
     },
     "@ng-dynamic-forms/core": {
-      "@angular/common": "^17.3.11",
-      "@angular/core": "^17.3.11",
-      "@angular/forms": "^17.3.11"
+      "@angular/common": "^18.2.12",
+      "@angular/core": "^18.2.12",
+      "@angular/forms": "^18.2.12"
     },
     "@ng-dynamic-forms/ui-ng-bootstrap": {
       "ngx-mask": "14.2.4",
       "@ng-bootstrap/ng-bootstrap": "^12.0.0",
       "bootstrap": "^5.3"
     },
-    "@ngtools/webpack": {
-      "@angular/compiler-cli": "^17.3.11",
-      "typescript": "~5.4.5"
-    },
     "@nicky-lenaers/ngx-scroll-to": {
-      "@angular/common": "^17.3.11",
-      "@angular/core": "^17.3.11"
+      "@angular/common": "^18.2.12",
+      "@angular/core": "^18.2.12"
     },
     "eslint-plugin-unused-imports": {
       "@typescript-eslint/eslint-plugin": "^7.2.0"
     },
-    "ng2-file-upload": {
-      "@angular/common": "^17.3.11",
-      "@angular/core": "^17.3.11"
-    },
     "ngx-infinite-scroll": {
-      "@angular/common": "^17.3.11",
-      "@angular/core": "^17.3.11"
-    }
+      "@angular/common": "^18.2.12",
+      "@angular/core": "^18.2.12"
+    },
+    "notistack": "3.0.1"
   },
   "dependencies": {
-    "@angular/animations": "^17.3.12",
-    "@angular/cdk": "^17.3.10",
-    "@angular/common": "^17.3.12",
-    "@angular/compiler": "^17.3.12",
-    "@angular/core": "^17.3.12",
-    "@angular/forms": "^17.3.12",
-    "@angular/localize": "^17.3.12",
-    "@angular/platform-browser": "^17.3.12",
-    "@angular/platform-browser-dynamic": "^17.3.12",
-    "@angular/platform-server": "^17.3.12",
-    "@angular/router": "^17.3.12",
-    "@angular/ssr": "^17.3.11",
-    "@babel/runtime": "7.26.7",
+    "@angular/animations": "^18.2.12",
+    "@angular/cdk": "^18.2.12",
+    "@angular/common": "^18.2.12",
+    "@angular/compiler": "^18.2.12",
+    "@angular/core": "^18.2.12",
+    "@angular/forms": "^18.2.12",
+    "@angular/localize": "^18.2.12",
+    "@angular/platform-browser": "^18.2.12",
+    "@angular/platform-browser-dynamic": "^18.2.12",
+    "@angular/platform-server": "^18.2.12",
+    "@angular/router": "^18.2.12",
+    "@angular/ssr": "^18.2.12",
+    "@babel/runtime": "7.26.0",
     "@kolkov/ngx-gallery": "^2.0.1",
     "@ng-bootstrap/ng-bootstrap": "^12.0.0",
     "@ng-dynamic-forms/core": "^16.0.0",
     "@ng-dynamic-forms/ui-ng-bootstrap": "^16.0.0",
-    "@ngrx/effects": "^17.1.1",
-    "@ngrx/router-store": "^17.1.1",
-    "@ngrx/store": "^17.1.1",
-    "@ngx-translate/core": "^14.0.0",
+    "@ngrx/effects": "^18.1.1",
+    "@ngrx/operators": "^18.0.0",
+    "@ngrx/router-store": "^18.1.1",
+    "@ngrx/store": "^18.1.1",
+    "@ngx-translate/core": "^16.0.3",
     "@nicky-lenaers/ngx-scroll-to": "^14.0.0",
     "angulartics2": "^12.2.0",
     "axios": "^1.7.9",
@@ -152,12 +146,12 @@
     "mirador-dl-plugin": "^0.13.0",
     "mirador-share-plugin": "^0.16.0",
     "morgan": "^1.10.0",
-    "ng2-file-upload": "5.0.0",
+    "ng2-file-upload": "7.0.1",
     "ng2-nouislider": "^2.0.0",
-    "ngx-infinite-scroll": "^16.0.0",
+    "ngx-infinite-scroll": "^18.0.0",
     "ngx-pagination": "6.0.3",
     "ngx-skeleton-loader": "^9.0.0",
-    "ngx-ui-switch": "^14.1.0",
+    "ngx-ui-switch": "^15.0.0",
     "nouislider": "^15.7.1",
     "orejime": "^2.3.1",
     "pem": "1.14.8",
@@ -167,22 +161,22 @@
     "zone.js": "~0.14.10"
   },
   "devDependencies": {
-    "@angular-builders/custom-webpack": "~17.0.2",
-    "@angular-devkit/build-angular": "^17.3.11",
-    "@angular-eslint/builder": "^17.5.3",
-    "@angular-eslint/bundled-angular-compiler": "^17.5.3",
-    "@angular-eslint/eslint-plugin": "^17.5.3",
-    "@angular-eslint/eslint-plugin-template": "^17.5.3",
-    "@angular-eslint/schematics": "^17.5.3",
-    "@angular-eslint/template-parser": "^17.5.3",
-    "@angular-eslint/utils": "^17.5.3",
-    "@angular/cli": "^17.3.11",
-    "@angular/compiler-cli": "^17.3.11",
-    "@angular/language-service": "^17.3.12",
+    "@angular-builders/custom-webpack": "~18.0.0",
+    "@angular-devkit/build-angular": "^18.2.12",
+    "@angular-eslint/builder": "^18.4.1",
+    "@angular-eslint/bundled-angular-compiler": "^18.4.1",
+    "@angular-eslint/eslint-plugin": "^18.4.1",
+    "@angular-eslint/eslint-plugin-template": "^18.4.1",
+    "@angular-eslint/schematics": "^18.4.1",
+    "@angular-eslint/template-parser": "^18.4.1",
+    "@angular-eslint/utils": "^18.4.1",
+    "@angular/cli": "^18.2.12",
+    "@angular/compiler-cli": "^18.2.12",
+    "@angular/language-service": "^18.2.12",
     "@cypress/schematic": "^1.5.0",
     "@fortawesome/fontawesome-free": "^6.7.2",
-    "@ngrx/store-devtools": "^17.1.1",
-    "@ngtools/webpack": "^16.2.16",
+    "@ngrx/store-devtools": "^18.1.1",
+    "@ngtools/webpack": "^18.2.12",
     "@types/deep-freeze": "0.1.5",
     "@types/ejs": "^3.1.2",
     "@types/express": "^4.17.17",

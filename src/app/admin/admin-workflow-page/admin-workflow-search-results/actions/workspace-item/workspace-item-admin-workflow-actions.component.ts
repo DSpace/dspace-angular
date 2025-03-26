@@ -1,7 +1,4 @@
-import {
-  NgClass,
-  NgIf,
-} from '@angular/common';
+import { NgClass } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -52,7 +49,7 @@ import {
   styleUrls: ['./workspace-item-admin-workflow-actions.component.scss'],
   templateUrl: './workspace-item-admin-workflow-actions.component.html',
   standalone: true,
-  imports: [SupervisionOrderStatusComponent, NgClass, RouterLink, NgIf, TranslateModule],
+  imports: [SupervisionOrderStatusComponent, NgClass, RouterLink, TranslateModule],
 })
 /**
  * The component for displaying the actions for a list element for a workspace-item on the admin workflow search page

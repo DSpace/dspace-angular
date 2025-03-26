@@ -1,9 +1,5 @@
 // eslint-disable-next-line max-classes-per-file
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -104,11 +100,9 @@ class RelationshipDTO {
   imports: [
     TranslateModule,
     ListableObjectComponentLoaderComponent,
-    NgIf,
     ModifyItemOverviewComponent,
     AsyncPipe,
     VarDirective,
-    NgForOf,
     RouterLink,
     BtnDisabledDirective,
   ],

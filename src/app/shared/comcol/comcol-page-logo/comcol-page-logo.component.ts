@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   Input,
@@ -10,7 +10,7 @@ import { Bitstream } from '../../../core/shared/bitstream.model';
   selector: 'ds-comcol-page-logo',
   styleUrls: ['./comcol-page-logo.component.scss'],
   templateUrl: './comcol-page-logo.component.html',
-  imports: [NgIf],
+  imports: [],
   standalone: true,
 })
 export class ComcolPageLogoComponent {

@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -43,7 +40,7 @@ import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/the
   templateUrl: '../../../../../../../app/item-page/simple/item-types/publication/publication.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NgIf,
+  imports: [
     ThemedResultsBackButtonComponent,
     MiradorViewerComponent,
     ThemedItemPageTitleFieldComponent,
