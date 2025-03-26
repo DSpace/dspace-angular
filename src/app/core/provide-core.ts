@@ -25,7 +25,6 @@ import { SearchResult } from '../shared/search/models/search-result.model';
 import { Subscription } from '../shared/subscriptions/models/subscription.model';
 import { StatisticsEndpoint } from '../statistics/statistics-endpoint.model';
 import { SubmissionCoarNotifyConfig } from '../submission/sections/section-coar-notify/submission-coar-notify.config';
-import { SubmissionCoarNotifyWorkspaceitemModel } from '../submission/sections/section-coar-notify/submission-coar-notify-workspaceitem.model';
 import { SystemWideAlert } from '../system-wide-alert/system-wide-alert.model';
 import { AuthStatus } from './auth/models/auth-status.model';
 import { ShortLivedToken } from './auth/models/short-lived-token.model';
@@ -191,10 +190,10 @@ export const models =
     SearchConfig,
     SubmissionAccessesModel,
     QualityAssuranceSourceObject,
+    AccessStatusObject,
     ResearcherProfile,
     OrcidQueue,
     OrcidHistory,
-    AccessStatusObject,
     IdentifierData,
     Subscription,
     ItemRequest,
@@ -225,6 +224,5 @@ export const models =
     SearchResult,
     StatisticsEndpoint,
     CorrectionType,
-    SubmissionCoarNotifyWorkspaceitemModel,
     SupervisionOrder,
   ];
