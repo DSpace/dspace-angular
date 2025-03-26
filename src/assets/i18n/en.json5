@@ -2094,7 +2094,7 @@
 
   "grant-request-copy.access-period.+1DAY": "1 day",
 
-  "grant-request-copy.access-period.+1WEEK": "1 week",
+  "grant-request-copy.access-period.+7DAYS": "1 week",
 
   "grant-request-copy.access-period.+1MONTH": "1 month",
 
