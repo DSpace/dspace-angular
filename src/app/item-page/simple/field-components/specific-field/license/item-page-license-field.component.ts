@@ -26,6 +26,7 @@ import {
 } from 'src/app/core/shared/operators';
 import { ItemPageCcLicenseFieldComponent } from 'src/app/item-page/simple/field-components/specific-field/cc-license/item-page-cc-license-field.component';
 import { MetadataFieldWrapperComponent } from 'src/app/shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import { isCcLicense } from 'src/app/shared/utils/license.utils';
 
 @Component({
   selector: 'ds-item-page-license-field',
@@ -77,7 +78,7 @@ export class ItemPageLicenseFieldComponent implements OnInit, OnDestroy {
       getRemoteDataPayload(),
     ).subscribe((remoteData: ConfigurationProperty) => {
       const ccLicenseUriField = remoteData?.values && remoteData?.values?.length > 0 ? remoteData.values[0] : 'dc.rights.uri';
-      this.hasCcLicenseUri$ = of(!!ItemPageCcLicenseFieldComponent.parseCcCode(this.item.firstMetadataValue(ccLicenseUriField)));
+      this.hasCcLicenseUri$ = of(isCcLicense(this.item.firstMetadataValue(ccLicenseUriField)));
     }),
     );
 

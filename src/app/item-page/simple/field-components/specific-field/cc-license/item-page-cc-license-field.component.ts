@@ -10,6 +10,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { Item } from 'src/app/core/shared/item.model';
 import { MetadataFieldWrapperComponent } from 'src/app/shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import { parseCcCode } from 'src/app/shared/utils/license.utils';
 
 @Component({
   selector: 'ds-item-page-cc-license-field',
@@ -59,23 +60,12 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
   showImage = true;
   imgSrc: string;
 
-  /**
-   * Parse a URI an return its CC code. URIs pointing to non-CC licenses will return null.
-   * @param uri
-   * @returns the CC code or null if uri is not a valid CC URI
-   */
-  public static parseCcCode(uri: string): string {
-    const regex = /.*creativecommons.org\/(licenses|publicdomain)\/([^/]+)/gm;
-    const matches = regex.exec(uri ?? '') ?? [];
-    return matches.length > 2 ? matches[2] : null;
-  }
-
   ngOnInit() {
     this.uri = this.item.firstMetadataValue(this.ccLicenseUriField);
     this.name = this.item.firstMetadataValue(this.ccLicenseNameField);
 
     // Extracts the CC license code from the URI
-    const ccCode = ItemPageCcLicenseFieldComponent.parseCcCode(this.uri);
+    const ccCode = parseCcCode(this.uri);
     this.imgSrc = ccCode ? `assets/images/cc-licenses/${ccCode}.png` : null;
   }
 }
