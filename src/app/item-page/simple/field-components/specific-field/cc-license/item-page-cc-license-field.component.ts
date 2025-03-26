@@ -64,7 +64,6 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
     this.uri = this.item.firstMetadataValue(this.ccLicenseUriField);
     this.name = this.item.firstMetadataValue(this.ccLicenseNameField);
 
-    // Extracts the CC license code from the URI
     const ccCode = parseCcCode(this.uri);
     this.imgSrc = ccCode ? `assets/images/cc-licenses/${ccCode}.png` : null;
   }
