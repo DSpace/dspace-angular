@@ -22,6 +22,7 @@ import { DeleteCollectionPageComponent } from './delete-collection-page/delete-c
 import { itemTemplatePageResolver } from './edit-item-template-page/item-template-page.resolver';
 import { ThemedEditItemTemplatePageComponent } from './edit-item-template-page/themed-edit-item-template-page.component';
 import { ThemedCollectionPageComponent } from './themed-collection-page.component';
+import { viewTrackerResolver } from '../statistics/angulartics/dspace/view-tracker.resolver';
 
 export const ROUTES: Route[] = [
   {
@@ -115,6 +116,9 @@ export const ROUTES: Route[] = [
             },
           },
         ],
+        resolve: {
+          tracking: viewTrackerResolver,
+        },
       },
     ],
   },
