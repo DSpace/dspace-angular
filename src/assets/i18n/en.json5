@@ -1002,6 +1002,12 @@
 
   "bitstream-request-a-copy.access-by-token.expiry-label": "Access provided by this link will expire on",
 
+  "bitstream-request-a-copy.access-by-token.expired": "Access provided by this link is no longer possible. Access expired on",
+
+  "bitstream-request-a-copy.access-by-token.not-granted": "Access provided by this link is not possible. Access has either not been granted, or has been revoked.",
+
+  "bitstream-request-a-copy.access-by-token.re-request": "Follow restricted download links to submit a new request for access.",
+
   "bitstream-request-a-copy.access-by-token.alt-text": "Access to this item is provided by a secure token",
 
   "browse.back.all-results": "All browse results",

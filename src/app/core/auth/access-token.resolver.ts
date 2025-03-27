@@ -4,11 +4,15 @@ import {
   Router,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import {
+  map,
+  tap,
+} from 'rxjs/operators';
 
 import { getForbiddenRoute } from '../../app-routing-paths';
 import { hasValue } from '../../shared/empty.util';
 import { ItemRequestDataService } from '../data/item-request-data.service';
+import { RemoteData } from '../data/remote-data';
 import { redirectOn4xx } from '../shared/authorized.operators';
 import { ItemRequest } from '../shared/item-request.model';
 import {
@@ -43,6 +47,7 @@ export const accessTokenResolver: ResolveFn<ItemRequest> = (
     getFirstCompletedRemoteData(),
     // Handle authorization errors, not found errors and forbidden errors as normal
     redirectOn4xx(router, authService),
+    map((rd: RemoteData<ItemRequest>) => rd),
     // Get payload of the item request
     getFirstSucceededRemoteDataPayload(),
     tap(request => {

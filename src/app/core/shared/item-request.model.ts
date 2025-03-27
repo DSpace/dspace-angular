@@ -91,6 +91,8 @@ export class ItemRequest implements CacheableObject {
   @autoserialize
   accessExpiry: string;
 
+  @autoserialize
+  accessExpired: boolean;
   /**
    * The {@link HALLink}s for this ItemRequest
    */

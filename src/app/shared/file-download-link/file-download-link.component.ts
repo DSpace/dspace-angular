@@ -99,7 +99,7 @@ export class FileDownloadLinkComponent implements OnInit {
       this.itemRequest = this.route.snapshot.data.itemRequest;
       // Set up observables to test access rights to a normal bitstream download, a valid token download, and the request-a-copy feature
       this.canDownload$ = this.authorizationService.isAuthorized(FeatureID.CanDownload, isNotEmpty(this.bitstream) ? this.bitstream.self : undefined);
-      this.canDownloadWithToken$ = observableOf(this.itemRequest ? (this.itemRequest.allfiles !== false || this.itemRequest.bitstreamId === this.bitstream.uuid) : false);
+      this.canDownloadWithToken$ = observableOf((this.itemRequest && this.itemRequest.acceptRequest && !this.itemRequest.accessExpired) ? (this.itemRequest.allfiles !== false || this.itemRequest.bitstreamId === this.bitstream.uuid) : false);
       this.canRequestACopy$ = this.authorizationService.isAuthorized(FeatureID.CanRequestACopy, isNotEmpty(this.bitstream) ? this.bitstream.self : undefined);
       // Set up observable to determine the path to the bitstream based on the user's access rights and features as above
       this.bitstreamPath$ = observableCombineLatest([this.canDownload$, this.canDownloadWithToken$, this.canRequestACopy$]).pipe(

@@ -3,18 +3,9 @@
     <div class="item-page" @fadeInOut>
       @if (itemRD?.payload; as item) {
         <div>
-          <ng-container *ngVar="(itemRequest$ | async) as itemRequest">
-            @if (hasValue(itemRequest)) {
-              <div class="alert alert-warning wb-100 mb-2">
-                <p><span role="img" class="request-a-copy-access-icon" [attr.aria-label]="'bitstream-request-a-copy.access-by-token.alt-text' | translate"><i class="fa-solid fa-lock-open"></i></span>{{'bitstream-request-a-copy.access-by-token.warning' | translate}}</p>
-                <!-- Only show the expiry date if it's not null, and doesn't start with the "FOREVER" year -->
-                @if (hasValue(itemRequest.accessExpiry) && !itemRequest.accessExpiry.startsWith('+294276')) {
-                  <p>{{ 'bitstream-request-a-copy.access-by-token.expiry-label' | translate }} {{ itemRequest.accessExpiry }}</p>
-                }
-              </div>
-            }
-          </ng-container>
+
           <ds-item-alerts [item]="item"></ds-item-alerts>
+          <ds-access-by-token-notification></ds-access-by-token-notification>
           <ds-qa-event-notification [item]="item"></ds-qa-event-notification>
           <ds-notify-requests-status [itemUuid]="item.uuid"></ds-notify-requests-status>
           <ds-item-versions-notice [item]="item"></ds-item-versions-notice>

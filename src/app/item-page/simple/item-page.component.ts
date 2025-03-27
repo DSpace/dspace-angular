@@ -56,6 +56,7 @@ import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.componen
 import { getItemPageRoute } from '../item-page-routing-paths';
 import { ItemVersionsComponent } from '../versions/item-versions.component';
 import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-notice.component';
+import { AccessByTokenNotificationComponent } from './access-by-token-notification/access-by-token-notification.component';
 import { NotifyRequestsStatusComponent } from './notify-requests-status/notify-requests-status-component/notify-requests-status.component';
 import { QaEventNotificationComponent } from './qa-event-notification/qa-event-notification.component';
 
@@ -84,6 +85,7 @@ import { QaEventNotificationComponent } from './qa-event-notification/qa-event-n
     AsyncPipe,
     NotifyRequestsStatusComponent,
     QaEventNotificationComponent,
+    AccessByTokenNotificationComponent,
   ],
 })
 export class ItemPageComponent implements OnInit, OnDestroy {
@@ -155,9 +157,7 @@ export class ItemPageComponent implements OnInit, OnDestroy {
     this.itemRD$ = this.route.data.pipe(
       map((data) => data.dso as RemoteData<Item>),
     );
-    this.itemRequest$ = this.route.data.pipe(
-      map((data) => data.itemRequest as ItemRequest),
-    );
+
     this.itemPageRoute$ = this.itemRD$.pipe(
       getAllSucceededRemoteDataPayload(),
       map((item) => getItemPageRoute(item)),

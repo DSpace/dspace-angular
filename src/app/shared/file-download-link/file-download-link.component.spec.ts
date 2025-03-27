@@ -44,6 +44,8 @@ describe('FileDownloadLinkComponent', () => {
     token: 'item-request-token',
     requestName: 'requester name',
     accessToken: 'abc123',
+    acceptRequest: true,
+    accessExpired: false,
     allfiles: true,
   });
 
