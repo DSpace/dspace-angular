@@ -27,7 +27,7 @@
         > {{ 'grant-request-copy.access-period.' + this.accessPeriod | translate }}
         </button>
         <!-- Access period dropdown -->
-        <div ngbDropdownMenu aria-labelledby="accessPeriod">
+        <div ngbDropdownMenu aria-labelledby="accessPeriod" class="dropdown-menu">
           @for (accessPeriod of (validAccessPeriods$ | async); track accessPeriod) {
             <button
               ngbDropdownItem
