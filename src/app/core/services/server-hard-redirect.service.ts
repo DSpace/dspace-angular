@@ -2,8 +2,8 @@ import { Inject, Injectable } from '@angular/core';
 import { Request, Response } from 'express';
 import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
 import { HardRedirectService } from './hard-redirect.service';
-import { isNotEmpty } from '../../shared/empty.util';
 import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
+import { isNotEmpty } from '../../shared/empty.util';
 
 /**
  * Service for performing hard redirects within the server app module

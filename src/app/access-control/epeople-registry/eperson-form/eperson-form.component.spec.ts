@@ -1,11 +1,11 @@
 import { Observable, of as observableOf } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { buildPaginatedList, PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
@@ -19,7 +19,6 @@ import { EPersonMock, EPersonMock2 } from '../../../shared/testing/eperson.mock'
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { AuthService } from '../../../core/auth/auth.service';
 import { AuthServiceStub } from '../../../shared/testing/auth-service.stub';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
@@ -35,6 +34,8 @@ import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
+import { RouterTestingModule } from '@angular/router/testing';
+import {BtnDisabledDirective} from '../../../shared/btn-disabled.directive';
 
 describe('EPersonFormComponent', () => {
   let component: EPersonFormComponent;
@@ -59,9 +60,6 @@ describe('EPersonFormComponent', () => {
     ePersonDataServiceStub = {
       activeEPerson: null,
       allEpeople: mockEPeople,
-      getEPeople(): Observable<RemoteData<PaginatedList<EPerson>>> {
-        return createSuccessfulRemoteDataObject$(buildPaginatedList(null, this.allEpeople));
-      },
       getActiveEPerson(): Observable<EPerson> {
         return observableOf(this.activeEPerson);
       },
@@ -200,14 +198,10 @@ describe('EPersonFormComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BrowserModule,
-        TranslateModule.forRoot({
-          loader: {
-            provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        }),
+        RouterTestingModule,
+        TranslateModule.forRoot(),
       ],
-      declarations: [EPersonFormComponent],
+      declarations: [EPersonFormComponent, BtnDisabledDirective],
       providers: [
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
         { provide: GroupDataService, useValue: groupsDataService },
@@ -222,7 +216,7 @@ describe('EPersonFormComponent', () => {
         { provide: Router, useValue: router },
         EPeopleRegistryComponent
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -241,37 +235,13 @@ describe('EPersonFormComponent', () => {
   });
 
   describe('check form validation', () => {
-    let firstName;
-    let lastName;
-    let email;
-    let canLogIn;
-    let requireCertificate;
+    let canLogIn: boolean;
+    let requireCertificate: boolean;
 
-    let expected;
     beforeEach(() => {
-      firstName = 'testName';
-      lastName = 'testLastName';
-      email = 'testEmail@test.com';
       canLogIn = false;
       requireCertificate = false;
 
-      expected = Object.assign(new EPerson(), {
-        metadata: {
-          'eperson.firstname': [
-            {
-              value: firstName
-            }
-          ],
-          'eperson.lastname': [
-            {
-              value: lastName
-            },
-          ],
-        },
-        email: email,
-        canLogIn: canLogIn,
-        requireCertificate: requireCertificate,
-      });
       spyOn(component.submitForm, 'emit');
       component.canLogIn.value = canLogIn;
       component.requireCertificate.value = requireCertificate;
@@ -345,15 +315,13 @@ describe('EPersonFormComponent', () => {
           expect(component.formGroup.controls.email.errors.emailTaken).toBeTruthy();
       });
     });
-
-
-
   });
+
   describe('when submitting the form', () => {
     let firstName;
     let lastName;
     let email;
-    let canLogIn;
+    let canLogIn: boolean;
     let requireCertificate;
 
     let expected;
@@ -382,6 +350,7 @@ describe('EPersonFormComponent', () => {
         requireCertificate: requireCertificate,
       });
       spyOn(component.submitForm, 'emit');
+      component.ngOnInit();
       component.firstName.value = firstName;
       component.lastName.value = lastName;
       component.email.value = email;
@@ -421,9 +390,17 @@ describe('EPersonFormComponent', () => {
           email: email,
           canLogIn: canLogIn,
           requireCertificate: requireCertificate,
-          _links: undefined
+          _links: {
+            groups: {
+              href: '',
+            },
+            self: {
+              href: '',
+            },
+          },
         });
         spyOn(ePersonDataServiceStub, 'getActiveEPerson').and.returnValue(observableOf(expectedWithId));
+        component.ngOnInit();
         component.onSubmit();
         fixture.detectChanges();
       });
@@ -471,22 +448,19 @@ describe('EPersonFormComponent', () => {
   });
 
   describe('delete', () => {
-
-    let ePersonId;
     let eperson: EPerson;
     let modalService;
 
     beforeEach(() => {
       spyOn(authService, 'impersonate').and.callThrough();
-      ePersonId = 'testEPersonId';
       eperson = EPersonMock;
       component.epersonInitial = eperson;
       component.canDelete$ = observableOf(true);
       spyOn(component.epersonService, 'getActiveEPerson').and.returnValue(observableOf(eperson));
       modalService = (component as any).modalService;
       spyOn(modalService, 'open').and.returnValue(Object.assign({ componentInstance: Object.assign({ response: observableOf(true) }) }));
+      component.ngOnInit();
       fixture.detectChanges();
-
     });
 
     it('the delete button should be visible if the ePerson can be deleted', () => {
@@ -513,7 +487,8 @@ describe('EPersonFormComponent', () => {
       // ePersonDataServiceStub.activeEPerson = eperson;
       spyOn(component.epersonService, 'deleteEPerson').and.returnValue(createSuccessfulRemoteDataObject$('No Content', 204));
       const deleteButton = fixture.debugElement.query(By.css('.delete-button'));
-      expect(deleteButton.nativeElement.disabled).toBe(false);
+      expect(deleteButton.nativeElement.getAttribute('aria-disabled')).toBeNull();
+      expect(deleteButton.nativeElement.classList.contains('disabled')).toBeFalse();
       deleteButton.triggerEventHandler('click', null);
       fixture.detectChanges();
       expect(component.epersonService.deleteEPerson).toHaveBeenCalledWith(eperson);

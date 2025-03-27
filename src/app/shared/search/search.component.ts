@@ -48,11 +48,13 @@ import { ITEM_MODULE_PATH } from '../../item-page/item-page-routing-paths';
 import { COLLECTION_MODULE_PATH } from '../../collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
 import { AppConfig, APP_CONFIG } from '../../../config/app-config.interface';
+import { isPlatformServer } from '@angular/common';
+import { environment } from 'src/environments/environment';
 import { SearchManager } from '../../core/browse/search-manager';
 import { AlertType } from '../alert/alert-type';
-import { isPlatformServer } from '@angular/common';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { BuildConfig } from 'src/config/build-config.interface';
 
 @Component({
   selector: 'ds-search',
@@ -251,11 +253,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   @Input() showFilterToggle = false;
 
   /**
-   * Defines whether to fetch search results during SSR execution
-   */
-  @Input() renderOnServerSide = false;
-
-  /**
    * Defines whether to show the toggle button to Show/Hide chart
    */
   @Input() showChartsToggle = false;
@@ -274,6 +271,11 @@ export class SearchComponent implements OnInit, OnDestroy {
    * The fallback scope when no scope is defined in the url, if this is also undefined no scope will be set
    */
   @Input() scope: string;
+
+  /**
+   * Defines whether to fetch search results during SSR execution
+   */
+  @Input() renderOnServerSide = false;
 
   /**
    * For chart regular expression
@@ -393,15 +395,16 @@ export class SearchComponent implements OnInit, OnDestroy {
   @Output() customEvent = new EventEmitter<any>();
 
   constructor(protected service: SearchService,
-    protected searchManager: SearchManager,
-    protected sidebarService: SidebarService,
-    protected windowService: HostWindowService,
-    @Inject(PLATFORM_ID) public platformId: any,
-    @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
-    protected routeService: RouteService,
-    protected router: Router,
-    @Inject(APP_CONFIG) protected appConfig: AppConfig,
-    protected authorizationService: AuthorizationDataService,){
+              protected searchManager: SearchManager,
+              protected sidebarService: SidebarService,
+              protected windowService: HostWindowService,
+              @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
+              protected routeService: RouteService,
+              protected router: Router,
+              @Inject(APP_CONFIG) protected appConfig: BuildConfig,
+              @Inject(PLATFORM_ID) public platformId: any,
+              protected authorizationService: AuthorizationDataService,
+  ) {
     this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
 
@@ -413,7 +416,10 @@ export class SearchComponent implements OnInit, OnDestroy {
    * If something changes, update the list of scopes for the dropdown
    */
   ngOnInit(): void {
-    if (!this.renderOnServerSide && isPlatformServer(this.platformId)) {
+    if (!this.renderOnServerSide && !this.appConfig.universal.enableSearchComponent && isPlatformServer(this.platformId)) {
+      this.subs.push(this.getSearchOptions().pipe(distinctUntilChanged()).subscribe((options) => {
+        this.searchOptions$.next(options);
+      }));
       this.initialized$.next(true);
       return;
     }

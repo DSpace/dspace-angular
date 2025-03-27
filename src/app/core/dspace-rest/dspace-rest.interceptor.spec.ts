@@ -1,10 +1,20 @@
-import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { DspaceRestInterceptor } from './dspace-rest.interceptor';
-import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
-import { DspaceRestService } from './dspace-rest.service';
-import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
+import {
+  HTTP_INTERCEPTORS,
+  HttpClient,
+} from '@angular/common/http';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
 import { PLATFORM_ID } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
+import { DspaceRestInterceptor } from './dspace-rest.interceptor';
+import { DspaceRestService } from './dspace-rest.service';
 
 describe('DspaceRestInterceptor', () => {
   let httpMock: HttpTestingController;
@@ -16,7 +26,7 @@ describe('DspaceRestInterceptor', () => {
       port: 8080,
       nameSpace: '/server',
       baseUrl: 'http://api.example.com/server',
-    }
+    },
   };
   const appConfigWithSSR: Partial<AppConfig> = {
     rest: {
@@ -26,7 +36,7 @@ describe('DspaceRestInterceptor', () => {
       nameSpace: '/server',
       baseUrl: 'http://api.example.com/server',
       ssrBaseUrl: 'http://ssr.example.com/server',
-    }
+    },
   };
 
   describe('When SSR base URL is not set ', () => {
@@ -42,7 +52,7 @@ describe('DspaceRestInterceptor', () => {
               multi: true,
             },
             { provide: APP_CONFIG, useValue: appConfig },
-            { provide: PLATFORM_ID, useValue: 'browser' }
+            { provide: PLATFORM_ID, useValue: 'browser' },
           ],
         });
 
@@ -75,7 +85,7 @@ describe('DspaceRestInterceptor', () => {
               multi: true,
             },
             { provide: APP_CONFIG, useValue: appConfig },
-            { provide: PLATFORM_ID, useValue: 'server' }
+            { provide: PLATFORM_ID, useValue: 'server' },
           ],
         });
 
@@ -111,7 +121,7 @@ describe('DspaceRestInterceptor', () => {
               multi: true,
             },
             { provide: APP_CONFIG, useValue: appConfigWithSSR },
-            { provide: PLATFORM_ID, useValue: 'browser' }
+            { provide: PLATFORM_ID, useValue: 'browser' },
           ],
         });
 
@@ -144,7 +154,7 @@ describe('DspaceRestInterceptor', () => {
               multi: true,
             },
             { provide: APP_CONFIG, useValue: appConfigWithSSR },
-            { provide: PLATFORM_ID, useValue: 'server' }
+            { provide: PLATFORM_ID, useValue: 'server' },
           ],
         });
 

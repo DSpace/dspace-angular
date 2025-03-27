@@ -1,8 +1,21 @@
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import {
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+} from '@angular/common/http';
+import {
+  Inject,
+  Injectable,
+  PLATFORM_ID,
+} from '@angular/core';
 import { Observable } from 'rxjs';
-import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
+
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../config/app-config.interface';
 import { isEmpty } from '../../shared/empty.util';
 
 @Injectable()
@@ -32,9 +45,8 @@ export class DspaceRestInterceptor implements HttpInterceptor {
     }
 
     // Different SSR Base URL specified so replace it in the current request url
-    let newRequest: HttpRequest<any>;
     const url = request.url.replace(this.baseUrl, this.ssrBaseUrl);
-    newRequest = request.clone({ url });
+    const newRequest: HttpRequest<any> = request.clone({ url });
     return next.handle(newRequest);
   }
 }

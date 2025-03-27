@@ -22,6 +22,7 @@ import { TestScheduler } from 'rxjs/testing';
 import { By } from '@angular/platform-browser';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 import { ContentSourceSetSerializer } from '../../../../core/shared/content-source-set-serializer';
+import {BtnDisabledDirective} from '../../../../shared/btn-disabled.directive';
 
 describe('CollectionSourceControlsComponent', () => {
   let comp: CollectionSourceControlsComponent;
@@ -100,7 +101,7 @@ describe('CollectionSourceControlsComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule],
-      declarations: [CollectionSourceControlsComponent, VarDirective],
+      declarations: [CollectionSourceControlsComponent, VarDirective, BtnDisabledDirective],
       providers: [
         {provide: ScriptDataService, useValue: scriptDataService},
         {provide: ProcessDataService, useValue: processDataService},
@@ -189,9 +190,10 @@ describe('CollectionSourceControlsComponent', () => {
 
       const buttons = fixture.debugElement.queryAll(By.css('button'));
 
-      expect(buttons[0].nativeElement.disabled).toBeTrue();
-      expect(buttons[1].nativeElement.disabled).toBeTrue();
-      expect(buttons[2].nativeElement.disabled).toBeTrue();
+      buttons.forEach(button => {
+        expect(button.nativeElement.getAttribute('aria-disabled')).toBe('true');
+        expect(button.nativeElement.classList.contains('disabled')).toBeTrue();
+      });
     });
     it('should be enabled when isEnabled is true', () => {
       comp.shouldShow = true;
@@ -201,9 +203,10 @@ describe('CollectionSourceControlsComponent', () => {
 
       const buttons = fixture.debugElement.queryAll(By.css('button'));
 
-      expect(buttons[0].nativeElement.disabled).toBeFalse();
-      expect(buttons[1].nativeElement.disabled).toBeFalse();
-      expect(buttons[2].nativeElement.disabled).toBeFalse();
+      buttons.forEach(button => {
+        expect(button.nativeElement.getAttribute('aria-disabled')).toBe('false');
+        expect(button.nativeElement.classList.contains('disabled')).toBeFalse();
+      });
     });
     it('should call the corresponding button when clicked', () => {
       spyOn(comp, 'testConfiguration');

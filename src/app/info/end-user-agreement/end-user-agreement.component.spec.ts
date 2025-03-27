@@ -11,6 +11,7 @@ import { Store } from '@ngrx/store';
 import { By } from '@angular/platform-browser';
 import { LogOutAction, RefreshEpersonAndTokenRedirectAction } from '../../core/auth/auth.actions';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 
 describe('EndUserAgreementComponent', () => {
@@ -54,7 +55,7 @@ describe('EndUserAgreementComponent', () => {
     init();
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      declarations: [EndUserAgreementComponent],
+      declarations: [EndUserAgreementComponent, BtnDisabledDirective],
       providers: [
         { provide: EndUserAgreementService, useValue: endUserAgreementService },
         { provide: NotificationsService, useValue: notificationsService },
@@ -86,7 +87,8 @@ describe('EndUserAgreementComponent', () => {
 
     it('should disable the save button', () => {
       const button = fixture.debugElement.query(By.css('#button-save')).nativeElement;
-      expect(button.disabled).toBeTruthy();
+      expect(button.getAttribute('aria-disabled')).toBe('true');
+      expect(button.classList.contains('disabled')).toBeTrue();
     });
 
     describe('when user checks the chcexbox ', () => {

@@ -30,10 +30,10 @@ import { EagerThemesModule } from '../themes/eager-themes.module';
 import { APP_CONFIG, AppConfig } from '../config/app-config.interface';
 import { StoreDevModules } from '../config/store/devtools';
 import { RootModule } from './root.module';
+import { DspaceRestInterceptor } from './core/dspace-rest/dspace-rest.interceptor';
 import { NuMarkdownModule } from '@ng-util/markdown';
 import { FooterModule } from './footer/footer.module';
 import { SocialModule } from './social/social.module';
-import { DspaceRestInterceptor } from './core/dspace-rest/dspace-rest.interceptor';
 
 export function getConfig() {
   return environment;
@@ -110,6 +110,7 @@ const PROVIDERS = [
     useClass: LogInterceptor,
     multi: true
   },
+  // register DspaceRestInterceptor as HttpInterceptor
   {
     provide: HTTP_INTERCEPTORS,
     useClass: DspaceRestInterceptor,

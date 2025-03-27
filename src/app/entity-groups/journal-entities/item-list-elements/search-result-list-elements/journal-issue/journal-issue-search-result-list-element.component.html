@@ -26,15 +26,15 @@
             <span *ngIf="dso.allMetadata(['publicationvolume.volumeNumber']).length > 0"
                   class="item-list-journal-issues">
                     <span *ngFor="let value of allMetadataValues(['publicationvolume.volumeNumber']); let last=last;">
-                        <span [innerHTML]="value"><span [innerHTML]="value"></span></span>
-                    </span>
-                <span *ngIf="dso.allMetadata(['publicationissue.issueNumber']).length > 0"
-                      class="item-list-journal-issue-numbers">
-                    <span *ngFor="let value of allMetadataValues(['publicationissue.issueNumber']); let last=last;">
-                        <span> - </span><span [innerHTML]="value"><span [innerHTML]="value"></span></span>
-                    </span>
-                </span>
+              <span [innerHTML]="value"></span><span *ngIf="!last">; </span>
             </span>
+            <span *ngIf="dso.allMetadata(['publicationissue.issueNumber']).length > 0"
+                  class="item-list-journal-issue-numbers">
+              <span *ngFor="let value of allMetadataValues(['publicationissue.issueNumber']); let first=first; let last=last;">
+                <span *ngIf="first"> - </span><span [innerHTML]="value"></span><span *ngIf="!last">; </span>
+              </span>
+            </span>
+          </span>
         </ds-truncatable-part>
       </span>
     </ds-truncatable>

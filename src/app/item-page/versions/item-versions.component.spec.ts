@@ -29,6 +29,7 @@ import { ConfigurationDataService } from '../../core/data/configuration-data.ser
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ItemSharedModule } from '../item-shared.module';
+import {BtnDisabledDirective} from '../../shared/btn-disabled.directive';
 
 describe('ItemVersionsComponent', () => {
   let component: ItemVersionsComponent;
@@ -155,7 +156,7 @@ describe('ItemVersionsComponent', () => {
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-      declarations: [ItemVersionsComponent, VarDirective],
+      declarations: [ItemVersionsComponent, VarDirective, BtnDisabledDirective],
       imports: [TranslateModule.forRoot(), CommonModule, FormsModule, ReactiveFormsModule, BrowserModule, ItemSharedModule],
       providers: [
         {provide: PaginationService, useValue: new PaginationServiceStub()},
@@ -242,17 +243,20 @@ describe('ItemVersionsComponent', () => {
     it('should not disable the delete button', () => {
       const deleteButtons = fixture.debugElement.queryAll(By.css(`.version-row-element-delete`));
       deleteButtons.forEach((btn) => {
-        expect(btn.nativeElement.disabled).toBe(false);
+        expect(btn.nativeElement.getAttribute('aria-disabled')).toBe('false');
+        expect(btn.nativeElement.classList.contains('disabled')).toBeFalse();
       });
     });
     it('should disable other buttons', () => {
       const createButtons = fixture.debugElement.queryAll(By.css(`.version-row-element-create`));
       createButtons.forEach((btn) => {
-        expect(btn.nativeElement.disabled).toBe(true);
+        expect(btn.nativeElement.getAttribute('aria-disabled')).toBe('true');
+        expect(btn.nativeElement.classList.contains('disabled')).toBeTrue();
       });
       const editButtons = fixture.debugElement.queryAll(By.css(`.version-row-element-create`));
       editButtons.forEach((btn) => {
-        expect(btn.nativeElement.disabled).toBe(true);
+        expect(btn.nativeElement.getAttribute('aria-disabled')).toBe('true');
+        expect(btn.nativeElement.classList.contains('disabled')).toBeTrue();
       });
     });
   });

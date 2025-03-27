@@ -1,6 +1,7 @@
 import { defineConfig } from 'cypress';
 
 export default defineConfig({
+  video: true,
   videosFolder: 'cypress/videos',
   screenshotsFolder: 'cypress/screenshots',
   fixturesFolder: 'cypress/fixtures',
@@ -18,6 +19,7 @@ export default defineConfig({
 
     // Admin account used for administrative tests
     DSPACE_TEST_ADMIN_USER: 'dspacedemo+admin@gmail.com',
+    DSPACE_TEST_ADMIN_USER_UUID: '335647b6-8a52-4ecb-a8c1-7ebabb199bda',
     DSPACE_TEST_ADMIN_PASSWORD: 'dspace',
     // Community/collection/publication used for view/edit tests
     DSPACE_TEST_COMMUNITY: '0958c910-2037-42a9-81c7-dca80e3892b4',
@@ -33,6 +35,8 @@ export default defineConfig({
     // Account used to test basic submission process
     DSPACE_TEST_SUBMIT_USER: 'dspacedemo+submit@gmail.com',
     DSPACE_TEST_SUBMIT_USER_PASSWORD: 'dspace',
+    // Administrator users group
+    DSPACE_ADMINISTRATOR_GROUP: 'e59f5659-bff9-451e-b28f-439e7bd467e4'
   },
   e2e: {
     // Setup our plugins for e2e tests

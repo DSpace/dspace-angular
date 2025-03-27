@@ -15,7 +15,6 @@ import { ItemPrivateComponent } from './item-private/item-private.component';
 import { ItemPublicComponent } from './item-public/item-public.component';
 import { ItemDeleteComponent } from './item-delete/item-delete.component';
 import { ItemBitstreamsComponent } from './item-bitstreams/item-bitstreams.component';
-import { ItemEditBitstreamComponent } from './item-bitstreams/item-edit-bitstream/item-edit-bitstream.component';
 import { SearchPageModule } from '../../search-page/search-page.module';
 import { ItemCollectionMapperComponent } from './item-collection-mapper/item-collection-mapper.component';
 import { ItemRelationshipsComponent } from './item-relationships/item-relationships.component';
@@ -26,8 +25,6 @@ import { ItemMoveComponent } from './item-move/item-move.component';
 import { ItemEditBitstreamBundleComponent } from './item-bitstreams/item-edit-bitstream-bundle/item-edit-bitstream-bundle.component';
 import { BundleDataService } from '../../core/data/bundle-data.service';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { ItemEditBitstreamDragHandleComponent } from './item-bitstreams/item-edit-bitstream-drag-handle/item-edit-bitstream-drag-handle.component';
-import { PaginatedDragAndDropBitstreamListComponent } from './item-bitstreams/item-edit-bitstream-bundle/paginated-drag-and-drop-bitstream-list/paginated-drag-and-drop-bitstream-list.component';
 import { VirtualMetadataComponent } from './virtual-metadata/virtual-metadata.component';
 import { ItemVersionHistoryComponent } from './item-version-history/item-version-history.component';
 import { ItemAuthorizationsComponent } from './item-authorizations/item-authorizations.component';
@@ -87,14 +84,11 @@ import { EditItemResolver } from '../../core/shared/resolvers/edit-item.resolver
     ItemRelationshipsComponent,
     ItemBitstreamsComponent,
     ItemVersionHistoryComponent,
-    ItemEditBitstreamComponent,
     ItemEditBitstreamBundleComponent,
-    PaginatedDragAndDropBitstreamListComponent,
     EditRelationshipComponent,
     EditRelationshipListComponent,
     ItemCollectionMapperComponent,
     ItemMoveComponent,
-    ItemEditBitstreamDragHandleComponent,
     VirtualMetadataComponent,
     ItemAuthorizationsComponent,
     IdentifierDataComponent,

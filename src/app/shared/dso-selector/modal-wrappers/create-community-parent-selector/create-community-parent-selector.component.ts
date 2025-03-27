@@ -14,9 +14,9 @@ import {
 } from '../../../../community-page/community-page-routing-paths';
 import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
 import { environment } from '../../../../../environments/environment';
-import { Observable } from 'rxjs/internal/Observable';
 import { FeatureID } from '../../../../core/data/feature-authorization/feature-id';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
+import { Observable } from 'rxjs';
 
 /**
  * Component to wrap a button - for top communities -

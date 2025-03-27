@@ -1,38 +1,40 @@
-<div class="mb-4 ccLicense-select">
-  <ds-select
-    [disabled]="!submissionCcLicenses">
-
-    <ng-container class="selection">
-      <span *ngIf="!submissionCcLicenses">
-        <ds-themed-loading></ds-themed-loading>
-      </span>
-      <span *ngIf="getSelectedCcLicense()">
-        {{ getSelectedCcLicense().name }}
-      </span>
-      <span *ngIf="submissionCcLicenses && !getSelectedCcLicense()">
-        <ng-container *ngIf="storedCcLicenseLink">
-          {{ 'submission.sections.ccLicense.change' | translate }}
+<ng-container *ngIf="selectedCcLicense">
+  <div class="mb-4 ccLicense-select">
+    <div ngbDropdown>
+      <input id="cc-license-dropdown"
+             class="form-control"
+             [(ngModel)]="selectedCcLicense.name"
+             placeholder="{{ !storedCcLicenseLink ? ('submission.sections.ccLicense.select' | translate) : ('submission.sections.ccLicense.change' | translate)}}"
+             [ngModelOptions]="{standalone: true}"
+             ngbDropdownToggle
+             role="combobox"
+             #script="ngModel">
+      <div ngbDropdownMenu aria-labelledby="cc-license-dropdown" class="w-100 scrollable-menu"
+           role="menu"
+           infiniteScroll
+           (scroll)="onScroll($event)"
+           [infiniteScrollDistance]="5"
+           [infiniteScrollThrottle]="300"
+           [infiniteScrollUpDistance]="1.5"
+           [fromRoot]="true"
+           [scrollWindow]="false">
+        <ng-container *ngIf="submissionCcLicenses?.length === 0; else licensesList">
+          <button class="dropdown-item disabled">
+            {{ 'submission.sections.ccLicense.none' | translate }}
+          </button>
         </ng-container>
-        <ng-container *ngIf="!storedCcLicenseLink">
-          {{ 'submission.sections.ccLicense.select' | translate }}
-        </ng-container>
-      </span>
-    </ng-container>
+      </div>
+    </div>
+  </div>
+</ng-container>
 
-    <ng-container class="menu">
-      <button *ngIf="submissionCcLicenses?.length == 0"
-              class="dropdown-item disabled">
-        {{ 'submission.sections.ccLicense.none' | translate }}
-      </button>
-      <button *ngFor="let license of submissionCcLicenses"
-              class="dropdown-item"
-              (click)="selectCcLicense(license)">
-        {{ license.name }}
-      </button>
-    </ng-container>
-
-  </ds-select>
-</div>
+<ng-template #licensesList>
+  <ng-container *ngFor="let license of submissionCcLicenses">
+    <button class="dropdown-item" (click)="selectCcLicense(license)">
+      {{ license.name }}
+    </button>
+  </ng-container>
+</ng-template>
 
 <ng-container *ngIf="getSelectedCcLicense()">
 
