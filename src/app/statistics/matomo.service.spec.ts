@@ -78,8 +78,27 @@ describe('MatomoService', () => {
     expect(matomoTracker.forgetConsentGiven).toHaveBeenCalled();
   });
 
-  it('should initialize tracker with correct parameters in production', () => {
+  it('should initialize tracker with values from angular configuration', () => {
     environment.production = true;
+    environment.matomo = { trackerUrl: 'http://localhost:80801' };
+    configService.findByPropertyName.withArgs(MATOMO_TRACKER_URL).and.returnValue(
+      createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(),{ values: ['http://matomo'] })),
+    );
+    configService.findByPropertyName.withArgs(MATOMO_SITE_ID).and.returnValue(
+      createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), { values: ['1'] })));
+    orejimeService.getSavedPreferences.and.returnValue(of({ matomo: true }));
+    service.init();
+
+    expect(matomoTracker.setConsentGiven).toHaveBeenCalled();
+    expect(matomoInitializer.initializeTracker).toHaveBeenCalledWith({
+      siteId: '1',
+      trackerUrl: 'http://localhost:80801',
+    });
+  });
+
+  it('should initialize tracker with REST configuration correct parameters in production', () => {
+    environment.production = true;
+    environment.matomo = { trackerUrl: '' };
     configService.findByPropertyName.withArgs(MATOMO_TRACKER_URL).and.returnValue(
       createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(),{ values: ['http://example.com'] })),
     );

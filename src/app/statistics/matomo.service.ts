@@ -10,6 +10,7 @@ import {
   combineLatest,
   from as fromPromise,
   Observable,
+  of,
   switchMap,
 } from 'rxjs';
 import {
@@ -114,6 +115,11 @@ export class MatomoService {
    * @returns An Observable that emits the Matomo tracker URL if available.
    */
   getTrackerUrl$() {
+
+    if (isNotEmpty(environment.matomo?.trackerUrl)) {
+      return of(environment.matomo.trackerUrl);
+    }
+
     return this.configService.findByPropertyName(MATOMO_TRACKER_URL)
       .pipe(
         getFirstCompletedRemoteData(),
