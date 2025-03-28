@@ -1562,6 +1562,12 @@
   // "browse.metadata.title.breadcrumbs": "Browse by Title",
   "browse.metadata.title.breadcrumbs": "Titel",
 
+  "browse.metadata.map": "Stöbern in Kartenansicht",
+
+  "browse.metadata.map.breadcrumbs": "Stöbern in Kartenansicht",
+
+  "browse.metadata.map.count.items": "Items",
+
   // "pagination.next.button": "Next",
   "pagination.next.button": "Weiter",
 
@@ -3992,6 +3998,9 @@
   // "item.search.title": "Item Search",
   "item.search.title": "Item-Suche",
 
+  //"item.page.dcterms.spatial": "Geospatial point",
+  "item.page.dcterms.spatial": "Geostandpunkt",
+
   // "item.truncatable-part.show-more": "Show more",
   "item.truncatable-part.show-more": "Mehr anzeigen",
 
@@ -4870,6 +4879,9 @@
 
   // "menu.section.browse_global_communities_and_collections": "Communities & Collections",
   "menu.section.browse_global_communities_and_collections": "Bereiche & Sammlungen",
+
+  // "menu.section.browse_global_geospatial_map": "By Geolocation (Map)",
+  "menu.section.browse_global_geospatial_map": "Nach Ort (Kartenansicht)",
 
   // "menu.section.control_panel": "Control Panel",
   "menu.section.control_panel": "Kontrollfeld",
@@ -6961,6 +6973,9 @@
 
   // "search.view-switch.show-list": "Show as list",
   "search.view-switch.show-list": "Als Liste anzeigen",
+
+  //"search.view-switch.show-geospatialMap": "Show as map"
+  "search.view-switch.show-geospatialMap": "Als Karte anzeigen",
 
   // "selectable-list-item-control.deselect": "Deselect item",
   "selectable-list-item-control.deselect": "Itemauswahl zurücknehmen",

@@ -106,6 +106,15 @@
       [fields]="['datacite.relation.isReferencedBy']"
       [label]="'item.page.referenced'">
     </ds-item-page-uri-field>
+    @if (geospatialItemPageFieldsEnabled) {
+      <ds-geospatial-item-page-field [item]="object"
+                                     [label]="'item.page.places'"
+                                     [pointFields]="['dcterms.spatial']"
+                                     [bboxFields]="['dcterms.spatial']"
+                                     [cluster]="true"
+      >
+      </ds-geospatial-item-page-field>
+    }
     <div>
       <a class="btn btn-outline-primary" role="button" [routerLink]="[itemPageRoute + '/full']">
         <i class="fas fa-info-circle"></i> {{"item.page.link.full" | translate}}

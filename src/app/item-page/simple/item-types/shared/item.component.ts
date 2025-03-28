@@ -75,9 +75,15 @@ export class ItemComponent implements OnInit {
 
   mediaViewer;
 
+  /**
+   * Enables display of geospatial item page fields
+   */
+  geospatialItemPageFieldsEnabled = false;
+
   constructor(protected routeService: RouteService,
               protected router: Router) {
     this.mediaViewer = environment.mediaViewer;
+    this.geospatialItemPageFieldsEnabled = environment.geospatialMapViewer.enableItemPageFields;
   }
 
   /**

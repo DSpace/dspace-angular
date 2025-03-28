@@ -17,6 +17,7 @@ import { ItemPageAbstractFieldComponent } from '../../../../../../../app/item-pa
 import { ItemPageCcLicenseFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/cc-license/item-page-cc-license-field.component';
 import { ItemPageDateFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/date/item-page-date-field.component';
 import { GenericItemPageFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/generic/generic-item-page-field.component';
+import { GeospatialItemPageFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/geospatial/geospatial-item-page-field.component';
 import { ThemedItemPageTitleFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/title/themed-item-page-field.component';
 import { ItemPageUriFieldComponent } from '../../../../../../../app/item-page/simple/field-components/specific-field/uri/item-page-uri-field.component';
 import { UntypedItemComponent as BaseComponent } from '../../../../../../../app/item-page/simple/item-types/untyped-item/untyped-item.component';
@@ -61,6 +62,7 @@ import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/the
     AsyncPipe,
     TranslateModule,
     ItemPageCcLicenseFieldComponent,
+    GeospatialItemPageFieldComponent,
   ],
 })
 export class UntypedItemComponent extends BaseComponent {}
