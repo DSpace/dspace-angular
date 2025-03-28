@@ -47,13 +47,14 @@ export class JsonPatchOperationsBuilder {
    *    A boolean representing if the value to be added is the first of an array
    * @param plain
    *    A boolean representing if the value to be added is a plain text value
+   * @param languages
    */
-  add(path: JsonPatchOperationPathObject, value, first = false, plain = false) {
+  add(path: JsonPatchOperationPathObject, value, first = false, plain = false, languages: string[] = null) {
     this.store.dispatch(
       new NewPatchAddOperationAction(
         path.rootElement,
         path.subRootElement,
-        path.path, this.prepareValue(value, plain, first)));
+        path.path, this.prepareValue(value, plain, first, null, languages)));
   }
 
   /**
@@ -66,8 +67,9 @@ export class JsonPatchOperationsBuilder {
    * @param plain
    *    a boolean representing if the value to be added is a plain text value
    * @param securityLevel
+   * @param language
    */
-  replace(path: JsonPatchOperationPathObject, value, plain = false, securityLevel = null) {
+  replace(path: JsonPatchOperationPathObject, value, plain = false, securityLevel = null, language = null) {
     if (hasNoValue(value) || (typeof value === 'object' && hasNoValue(value.value))) {
       this.remove(path);
     } else {
@@ -76,7 +78,7 @@ export class JsonPatchOperationsBuilder {
           path.rootElement,
           path.subRootElement,
           path.path,
-          this.prepareValue(value, plain, false, securityLevel)));
+          this.prepareValue(value, plain, false, securityLevel, language)));
     }
   }
 
@@ -127,7 +129,7 @@ export class JsonPatchOperationsBuilder {
         path.path));
   }
 
-  protected prepareValue(value: any, plain: boolean, first: boolean, securityLevel = null) {
+  protected prepareValue(value: any, plain: boolean, first: boolean, securityLevel = null, languages: string[] = null) {
     let operationValue: any = null;
     if (hasValue(value)) {
       if (plain) {
@@ -135,7 +137,7 @@ export class JsonPatchOperationsBuilder {
       } else {
         if (Array.isArray(value)) {
           operationValue = [];
-          value.forEach((entry) => {
+          value.forEach((entry, index) => {
             if ((typeof entry === 'object')) {
               if (isNotEmpty(securityLevel)) {
                 operationValue.push(this.prepareObjectValue(entry, securityLevel));
@@ -143,7 +145,7 @@ export class JsonPatchOperationsBuilder {
                 operationValue.push(this.prepareObjectValue(entry));
               }
             } else {
-              operationValue.push(new FormFieldMetadataValueObject(entry, null, securityLevel));
+              operationValue.push(new FormFieldMetadataValueObject(entry, languages ? languages[index] : null, securityLevel));
             }
           });
         } else if (typeof value === 'object') {

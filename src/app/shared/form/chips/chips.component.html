@@ -4,17 +4,20 @@
 </ng-template>
 
 <div [className]="'float-left w-100 ' + wrapperClass">
-  <div  *ngIf="isPlatformBrowser" role="list" class="nav nav-pills d-flex flex-column flex-sm-row" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="onDrop($event)">
+  <div  *ngIf="isPlatformBrowser" role="list" class="nav nav-pills d-flex flex-column flex-sm-row" cdkDropListGroup>
     <ng-container *ngFor="let c of chips.getChips(); let i = index">
-    <ng-template #tipContent>
-        <p class="text-left p-0 m-0" *ngFor="let tip of (tipText$ | async)">
-        {{tip}}
-      </p>
-    </ng-template>
-    <div role="listitem" class="nav-item mr-2 mb-1"
-           *ngFor="let c of chips.getChips(); let i = index"
+      <ng-template #tipContent>
+          <p class="text-left p-0 m-0" *ngFor="let tip of (tipText$ | async)">
+          {{tip}}
+        </p>
+      </ng-template>
+      <div role="listitem" class="nav-item mr-2 mb-1 d-flex flex-row"
            #t="ngbTooltip"
            triggers="manual"
+           cdkDropList
+           [cdkDropListData]="{ index: i }"
+           cdkDropListOrientation="horizontal"
+           (cdkDropListDropped)="onDrop($event)"
            [ngbTooltip]="tipContent"
            (mouseover)="showTooltip(t, i)"
            (mouseout)="t.close()">

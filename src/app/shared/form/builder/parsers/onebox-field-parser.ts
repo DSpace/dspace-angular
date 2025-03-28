@@ -3,6 +3,7 @@ import {
   DynamicSelectModelConfig,
 } from '@ng-dynamic-forms/core';
 
+import { environment } from '../../../../../environments/environment';
 import { isNotEmpty } from '../../../empty.util';
 import {
   DsDynamicInputModel,
@@ -79,7 +80,7 @@ export class OneboxFieldParser extends FieldParser {
       inputSelectGroup.readOnly = selectModelConfig.disabled && inputModelConfig.readOnly;
       // in case of qualdrop do not show toggle of security
       inputModelConfig.toggleSecurityVisibility = false;
-
+      inputSelectGroup.language = inputModelConfig.language;
       inputSelectGroup.group.push(new DynamicSelectModel(selectModelConfig, clsSelect));
       inputSelectGroup.group.push(new DsDynamicInputModel(inputModelConfig, clsInput));
 
@@ -88,6 +89,7 @@ export class OneboxFieldParser extends FieldParser {
       const oneboxModelConfig: DsDynamicOneboxModelConfig = this.initModel(null, label);
       this.setVocabularyOptions(oneboxModelConfig, this.parserOptions.collectionUUID);
       oneboxModelConfig.submissionScope = this.parserOptions.submissionScope;
+      oneboxModelConfig.minChars = environment.submission.minChars;
       this.setValues(oneboxModelConfig, fieldValue, true);
 
       return new DynamicOneboxModel(oneboxModelConfig);

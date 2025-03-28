@@ -3878,6 +3878,95 @@ export const mockAccessesFormData = {
   ],
 };
 
+export const mockAccessesServiceData = {
+  discoverable: true,
+  accessConditions: [
+    {
+      accessConditionGroup: {
+        name: [
+          {
+            value: 'openaccess',
+            language: null,
+            authority: null,
+            display: 'openaccess',
+            confidence: -1,
+            place: 0,
+            otherInformation: null,
+          },
+        ],
+      },
+    },
+    {
+      accessConditionGroup: {
+        name: [
+          {
+            value: 'lease',
+            language: null,
+            authority: null,
+            display: 'lease',
+            confidence: -1,
+            place: 0,
+            otherInformation: null,
+          },
+        ],
+        endDate: [
+          {
+            value: {
+              year: 2019,
+              month: 1,
+              day: 16,
+            },
+            language: null,
+            authority: null,
+            display: {
+              year: 2019,
+              month: 1,
+              day: 16,
+            },
+            confidence: -1,
+            place: 0,
+            otherInformation: null,
+          },
+        ],
+      },
+    },
+    {
+      accessConditionGroup: {
+        name: [
+          {
+            value: 'embargo',
+            language: null,
+            authority: null,
+            display: 'lease',
+            confidence: -1,
+            place: 0,
+            otherInformation: null,
+          },
+        ],
+        startDate: [
+          {
+            value: {
+              year: 2019,
+              month: 1,
+              day: 16,
+            },
+            language: null,
+            authority: null,
+            display: {
+              year: 2019,
+              month: 1,
+              day: 16,
+            },
+            confidence: -1,
+            place: 0,
+            otherInformation: null,
+          },
+        ],
+      },
+    },
+  ],
+};
+
 // mockDeduplicationMatches id for Workflow decision
 export const mockDeduplicationWorkflowId = '78ca1d06-cce7-4ee9-abda-46440d9b0bb7';
 // mockDeduplicationMatches id for Submitter decision

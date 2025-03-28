@@ -7,7 +7,10 @@ import {
   MetadataValueFilter,
   MetadatumViewModel,
 } from './metadata.models';
-import { Metadata } from './metadata.utils';
+import {
+  Metadata,
+  PLACEHOLDER_VALUE,
+} from './metadata.utils';
 
 const mdValue = (value: string, language?: string, authority?: string): MetadataValue => {
   return Object.assign(new MetadataValue(), {
@@ -50,11 +53,11 @@ const multiViewModelList = [
   { key: 'foo', ...bar, order: 0 },
 ];
 
-const testMethod = (fn, resultKind, mapOrMaps, keyOrKeys, expected, filter?) => {
+const testMethod = (fn, resultKind, mapOrMaps, keyOrKeys, expected, filter?, limit?: number) => {
   const keys = keyOrKeys instanceof Array ? keyOrKeys : [keyOrKeys];
   describe('and key' + (keys.length === 1 ? (' ' + keys[0]) : ('s ' + JSON.stringify(keys)))
     + ' with ' + (isUndefined(filter) ? 'no filter' : 'filter ' + JSON.stringify(filter)), () => {
-    const result = fn(mapOrMaps, keys, filter);
+    const result = fn(mapOrMaps, keys, filter, limit);
     let shouldReturn;
     if (resultKind === 'boolean') {
       shouldReturn = expected;
@@ -62,7 +65,8 @@ const testMethod = (fn, resultKind, mapOrMaps, keyOrKeys, expected, filter?) => 
       shouldReturn = 'undefined';
     } else if (expected instanceof Array) {
       shouldReturn = 'an array with ' + expected.length + ' ' + (expected.length > 1 ? 'ordered ' : '')
-        + resultKind + (expected.length !== 1 ? 's' : '');
+        + resultKind + (expected.length !== 1 ? 's' : '')
+        + (isUndefined(limit) ? '' : ' (limited to ' + limit + ')');
     } else {
       shouldReturn = 'a ' + resultKind;
     }
@@ -301,6 +305,31 @@ describe('Metadata', () => {
     testSetFirstValue(metadataMap, 'dc.title', 'New Title');
     testSetFirstValue(metadataMap, 'dc.format', 'Completely new field and value');
 
+  });
+
+  describe('all method with limit', () => {
+    const testAllWithLimit = (mapOrMaps, keyOrKeys, expected, limit) =>
+      testMethod(Metadata.all, 'value', mapOrMaps, keyOrKeys, expected, undefined, limit);
+
+    describe('with multiMap and limit', () => {
+      testAllWithLimit(multiMap, 'dc.title', [dcTitle1], 1);
+    });
+  });
+
+  describe('Placeholder values', () => {
+    it('should ignore placeholder values in get methods', () => {
+      const placeholderMd = mdValue(PLACEHOLDER_VALUE);
+      const key = 'dc.test.placeholder';
+      const map = { 'dc.test.placeholder': [placeholderMd] };
+
+      expect(Metadata.all(map, key).length).toEqual(0);
+      expect(Metadata.allValues(map, key).length).toEqual(0);
+      expect(Metadata.has(map, key)).toBeFalsy();
+      expect(Metadata.first(map, key)).toBeUndefined();
+      expect(Metadata.firstValue(map, key)).toBeUndefined();
+      expect(Metadata.hasValue(placeholderMd)).toBeFalsy();
+      expect(Metadata.valueMatches(placeholderMd, null)).toBeFalsy();
+    });
   });
 
 });

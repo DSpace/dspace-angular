@@ -1,7 +1,7 @@
 <div class="container">
   <ds-suggestions-notification></ds-suggestions-notification>
   <ds-my-dspace-qa-events-notifications></ds-my-dspace-qa-events-notifications>
-  <ds-my-dspace-new-submission *dsShowOnlyForRole="[roleTypeEnum.Submitter]"></ds-my-dspace-new-submission>
+  <ds-my-dspace-new-submission *dsShowOnlyForRole="[roleTypeEnum.Submitter]" (uploadEnd)="refreshData($event)"></ds-my-dspace-new-submission>
 </div>
 
 <ds-search *ngIf="configuration() && context()"
@@ -9,7 +9,13 @@
            [configurationList]="(configurationList$ | async)"
            [context]="context()"
            [viewModeList]="viewModeList"
-           [projection]="projection"
-           [showThumbnails]="false">
+           [showThumbnails]="false"
+           [selectable]="(currentConfiguration$ | async) === workflowType"
+           [selectionConfig]="{ repeatable: true, listId: listId }"
+           (deselectObject)="onDeselectObject($event)"
+           (selectObject)="onSelectObject($event)">
+  <ds-my-dspace-bulk-action *ngIf="(currentConfiguration$ | async) === workflowType"
+                            bulkActions
+                            [listId]="listId"></ds-my-dspace-bulk-action>
   <ds-my-dspace-new-bulk-import additionalSearchFormOptions></ds-my-dspace-new-bulk-import>
 </ds-search>

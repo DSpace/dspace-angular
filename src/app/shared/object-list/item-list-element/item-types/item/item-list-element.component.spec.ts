@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -9,6 +9,8 @@ import { ActivatedRoute } from '@angular/router';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
+import { ItemSearchResultListElementComponent } from 'src/app/shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
+import { TestDataService } from 'src/app/shared/testing/test-data-service.mock';
 
 import {
   APP_CONFIG,
@@ -19,6 +21,8 @@ import { AuthService } from '../../../../../core/auth/auth.service';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
 import { Item } from '../../../../../core/shared/item.model';
+import { ITEM } from '../../../../../core/shared/item.resource-type';
+import { METRIC } from '../../../../../core/shared/metric.resource-type';
 import { XSRFService } from '../../../../../core/xsrf/xsrf.service';
 import { DSONameServiceMock } from '../../../../mocks/dso-name.service.mock';
 import { getMockThemeService } from '../../../../mocks/theme-service.mock';
@@ -68,6 +72,11 @@ const mockItem: Item = Object.assign(new Item(), {
   },
 });
 
+const mockDataServiceMap: any = new Map([
+  [ITEM.value, () => import('../../../../../shared/testing/test-data-service.mock').then(m => m.TestDataService)],
+  [METRIC.value, () => import('../../../../../shared/testing/test-data-service.mock').then(m => m.TestDataService)],
+]);
+
 describe('ItemListElementComponent', () => {
   let comp: ItemListElementComponent;
   let fixture: ComponentFixture<ItemListElementComponent>;
@@ -85,7 +94,7 @@ describe('ItemListElementComponent', () => {
     themeService = getMockThemeService();
     truncatableService = new TruncatableServiceStub();
 
-    void TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
         TruncatePipe,
@@ -99,12 +108,19 @@ describe('ItemListElementComponent', () => {
         { provide: ThemeService, useValue: themeService },
         { provide: TruncatableService, useValue: truncatableService },
         { provide: XSRFService, useValue: {} },
+        { provide: APP_DATA_SERVICES_MAP, useValue: mockDataServiceMap },
         provideMockStore(),
-        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        TestDataService,
       ],
-    }).overrideComponent(ItemListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
-    }).compileComponents();
+      schemas: [
+        NO_ERRORS_SCHEMA,
+      ],
+    }).overrideComponent(ItemSearchResultListElementComponent, {
+      set: {
+        template: '<div>Mock Item Search Result List Element</div>',
+      },
+    })
+      .compileComponents();
   }));
 
   beforeEach(waitForAsync(() => {

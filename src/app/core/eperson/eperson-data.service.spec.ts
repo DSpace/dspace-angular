@@ -31,6 +31,7 @@ import {
 import {
   EPersonMock,
   EPersonMock2,
+  EPersonMockWithNoName,
 } from '../../shared/testing/eperson.mock';
 import { GroupMock } from '../../shared/testing/group-mock';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
@@ -275,6 +276,70 @@ describe('EPersonDataService', () => {
         const operations = [
           { op: 'replace', path: '/eperson.lastname/0/value', value: newLastName },
           { op: 'replace', path: '/eperson.firstname/0/value', value: newFirstName }];
+        const expected = new PatchRequest(requestService.generateRequestId(), epersonsEndpoint + '/' + EPersonMock.uuid, operations);
+        expect(requestService.send).toHaveBeenCalledWith(expected);
+      });
+    });
+  });
+
+  describe('updateEPerson with non existing metadata', () => {
+    beforeEach(() => {
+      spyOn(service, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(EPersonMockWithNoName));
+    });
+
+    describe('add name that was not previously set', () => {
+      beforeEach(() => {
+        const changedEPerson = Object.assign(new EPerson(), {
+          id: EPersonMock.id,
+          metadata: Object.assign(EPersonMock.metadata, {
+            'eperson.firstname': [
+              {
+                language: null,
+                value: 'User',
+              },
+            ],
+          }),
+          email: EPersonMock.email,
+          canLogIn: EPersonMock.canLogIn,
+          requireCertificate: EPersonMock.requireCertificate,
+          _links: EPersonMock._links,
+        });
+        service.updateEPerson(changedEPerson).subscribe();
+      });
+      it('should send PatchRequest with add email operation', () => {
+        const operations = [{ op: 'add', path: '/eperson.firstname', value: [{ language: null, value: 'User' }] }];
+        const expected = new PatchRequest(requestService.generateRequestId(), epersonsEndpoint + '/' + EPersonMock.uuid, operations);
+        expect(requestService.send).toHaveBeenCalledWith(expected);
+      });
+    });
+  });
+
+  describe('updateEPerson with non existing metadata', () => {
+    beforeEach(() => {
+      spyOn(service, 'findByHref').and.returnValue(createSuccessfulRemoteDataObject$(EPersonMockWithNoName));
+    });
+
+    describe('add name that was not previously set', () => {
+      beforeEach(() => {
+        const changedEPerson = Object.assign(new EPerson(), {
+          id: EPersonMock.id,
+          metadata: Object.assign(EPersonMock.metadata, {
+            'eperson.firstname': [
+              {
+                language: null,
+                value: 'User',
+              },
+            ],
+          }),
+          email: EPersonMock.email,
+          canLogIn: EPersonMock.canLogIn,
+          requireCertificate: EPersonMock.requireCertificate,
+          _links: EPersonMock._links,
+        });
+        service.updateEPerson(changedEPerson).subscribe();
+      });
+      it('should send PatchRequest with add email operation', () => {
+        const operations = [{ op: 'add', path: '/eperson.firstname', value: [{ language: null, value: 'User' }] }];
         const expected = new PatchRequest(requestService.generateRequestId(), epersonsEndpoint + '/' + EPersonMock.uuid, operations);
         expect(requestService.send).toHaveBeenCalledWith(expected);
       });

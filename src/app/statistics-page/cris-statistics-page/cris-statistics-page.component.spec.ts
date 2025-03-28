@@ -70,7 +70,12 @@ describe('CrisStatisticsPageComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule.withRoutes([]),
+        RouterTestingModule.withRoutes([
+          {
+            path: 'fake-url',
+            redirectTo: '/',
+          },
+        ]),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -143,6 +148,73 @@ describe('CrisStatisticsPageComponent', () => {
     fixture.detectChanges();
     const renderedCategories = fixture.debugElement.queryAll(By.css('#categories-tabs li a'));
     expect(renderedCategories[0].nativeElement.classList.contains('active')).toBe(true);
+  });
+
+  it('should set selectedReportId to the first report id if no reportType query param is present', () => {
+    const category = { id: 'category1' };
+    const reports = [{ id: 'report1', reportType: 'type1' }, { id: 'report2', reportType: 'type2' }];
+    spyOn(component, 'getReports$').and.returnValue(of(reports as UsageReport[]));
+    spyOn(component, 'getReportId').and.returnValue(of(null));
+    spyOn(component, 'getCategoryId').and.returnValue(of(null));
+    spyOn(component, 'setStatisticsState');
+
+    component.getUserReports(category);
+
+    expect(component.setStatisticsState).toHaveBeenCalledWith('report1', 'category1');
+    expect(component.selectedReportId).toBe('report1');
+  });
+
+  it('should set selectedReportId to the report id matching the reportType query param', () => {
+    const category = { id: 'category1' };
+    const reports = [{ id: 'report1', reportType: 'type1' }, { id: 'report2', reportType: 'type2' }];
+    spyOn(component, 'getReports$').and.returnValue(of(reports as UsageReport[]));
+    spyOn(component, 'getReportId').and.returnValue(of(null));
+    spyOn(component, 'getCategoryId').and.returnValue(of(null));
+    spyOn(component, 'setStatisticsState');
+
+    component.getUserReports(category, 'type2');
+
+    expect(component.setStatisticsState).toHaveBeenCalledWith('report2', 'category1');
+    expect(component.selectedReportId).toBe('report2');
+  });
+
+  it('should set selectedReportId to the first report id if reportType query param does not match any report', () => {
+    const category = { id: 'category1' };
+    const reports = [{ id: 'report1', reportType: 'type1' }, { id: 'report2', reportType: 'type2' }];
+    spyOn(component, 'getReports$').and.returnValue(of(reports as UsageReport[]));
+    spyOn(component, 'getReportId').and.returnValue(of(null));
+    spyOn(component, 'getCategoryId').and.returnValue(of(null));
+    spyOn(component, 'setStatisticsState');
+
+    component.getUserReports(category, 'non_existing_type');
+
+    expect(component.setStatisticsState).toHaveBeenCalledWith('report1', 'category1');
+    expect(component.selectedReportId).toBe('report1');
+  });
+
+  it('should set selectedReportId and categoryId from state if they exist', () => {
+    const category = { id: 'category1' };
+    const reports = [{ id: 'report1', reportType: 'type1' }, { id: 'report2', reportType: 'type2' }];
+    spyOn(component, 'getReports$').and.returnValue(of(reports as UsageReport[]));
+    spyOn(component, 'getReportId').and.returnValue(of('report1'));
+    spyOn(component, 'getCategoryId').and.returnValue(of('category1'));
+    spyOn(component, 'setStatisticsState');
+
+    component.getUserReports(category);
+
+    expect(component.setStatisticsState).toHaveBeenCalledWith('report1', 'category1');
+  });
+
+  it('should handle null category gracefully', () => {
+    spyOn(component, 'getReports$').and.returnValue(of([]));
+    spyOn(component, 'getReportId').and.returnValue(of(null));
+    spyOn(component, 'getCategoryId').and.returnValue(of(null));
+    spyOn(component, 'setStatisticsState');
+
+    component.getUserReports(null);
+
+    expect(component.setStatisticsState).not.toHaveBeenCalled();
+    expect(component.selectedReportId).toBeUndefined();
   });
 
   it('should set selectedReportId to the first report id if no reportType query param is present', () => {

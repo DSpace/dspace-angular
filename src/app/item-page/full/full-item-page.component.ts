@@ -38,7 +38,6 @@ import { NotifyInfoService } from '../../core/coar-notify/notify-info/notify-inf
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { RemoteData } from '../../core/data/remote-data';
-import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
 import { ServerResponseService } from '../../core/services/server-response.service';
 import { Item } from '../../core/shared/item.model';
@@ -116,13 +115,12 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit, 
     protected items: ItemDataService,
     protected authorizationService: AuthorizationDataService,
     protected responseService: ServerResponseService,
-    protected signpostingDataService: SignpostingDataService,
     protected linkHeadService: LinkHeadService,
     protected notifyInfoService: NotifyInfoService,
     @Inject(PLATFORM_ID) protected platformId: string,
     @Inject(APP_CONFIG) private appConfig: AppConfig,
   ) {
-    super(route, router, items, authorizationService, responseService, signpostingDataService, linkHeadService, notifyInfoService, platformId);
+    super(route, router, items, authorizationService, responseService, linkHeadService, notifyInfoService, platformId);
   }
 
   /*** AoT inheritance fix, will hopefully be resolved in the near future **/
@@ -150,6 +148,7 @@ export class FullItemPageComponent extends ItemPageComponent implements OnInit, 
 
   ngOnDestroy() {
     this.subs.filter((sub) => hasValue(sub)).forEach((sub) => sub.unsubscribe());
+    super.ngOnDestroy();
   }
 
   protected increaseLimit(metadataKey: string) {

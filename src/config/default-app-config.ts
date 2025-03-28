@@ -318,6 +318,8 @@ export class DefaultAppConfig implements AppConfig {
       // NOTE: list of metadata fields for which the dropdown hint is enabled
       // eg. 'dc.access.rights': true,
     },
+    // Minimum number of characters required before performing a lookup.
+    minChars: 3,
   };
 
   // Default Language in which the UI will be rendered if the user's browser language is not an active language
@@ -436,6 +438,12 @@ export class DefaultAppConfig implements AppConfig {
     },
   ];
 
+  // The maximum number of item to process when following authority metadata values.
+  followAuthorityMaxItemLimit = 100;
+  // The maximum number of metadata values to process for each metadata key
+  // when following authority metadata values.
+  followAuthorityMetadataValuesLimit = 5;
+
   // Collection Page Config
   collection: CollectionPageConfig = {
     searchSection: {
@@ -542,14 +550,6 @@ export class DefaultAppConfig implements AppConfig {
           attributes: {
             'rel': 'manifest',
             'href': 'assets/dspace/images/favicons/manifest.webmanifest',
-          },
-        },
-        {
-          // Insert   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> into the <head> of the page.
-          tagName: 'link',
-          attributes: {
-            'rel': 'stylesheet',
-            'href': 'https://fonts.googleapis.com/icon?family=Material+Icons',
           },
         },
       ],

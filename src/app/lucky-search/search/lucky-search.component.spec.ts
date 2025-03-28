@@ -180,7 +180,7 @@ describe('LuckySearchComponent', () => {
           },
         }),
       });
-      spyOn(routerStub, 'parseUrl').and.returnValue(urlTree);
+      routerStub.parseUrl.and.returnValue(urlTree);
       const data = createSuccessfulRemoteDataObject(createPaginatedList([
         firstSearchResult, secondSearchResult,
       ]));
@@ -244,7 +244,7 @@ describe('LuckySearchComponent', () => {
       spyOn((component as any), 'loadBitstreamsAndRedirectIfNeeded').and.returnValue(observableOf([bitstream]));
       spyOn((component as any), 'hasBitstreamFilters').and.returnValue(true);
       spyOn(component, 'redirect');
-      spyOn(routerStub, 'parseUrl').and.returnValue(bitstreamSearchTree);
+      routerStub.parseUrl.and.returnValue(bitstreamSearchTree).and.callThrough();
 
       component.resultsRD$.next(data);
 
@@ -307,7 +307,7 @@ describe('LuckySearchComponent', () => {
       spyOn((component as any), 'loadBitstreamsAndRedirectIfNeeded').and.returnValue(observableOf([bitstream]));
       spyOn((component as any), 'hasBitstreamFilters').and.returnValue(true);
       spyOn(component, 'redirect');
-      spyOn(routerStub, 'parseUrl').and.returnValue(bitstreamSearchTree);
+      routerStub.parseUrl.and.returnValue(bitstreamSearchTree);
 
       component.resultsRD$.next(data);
 
