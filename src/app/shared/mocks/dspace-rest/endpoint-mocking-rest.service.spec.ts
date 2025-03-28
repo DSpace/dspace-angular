@@ -4,6 +4,7 @@ import {
 } from '@angular/common/http';
 import { of as observableOf } from 'rxjs';
 
+import { environment } from '../../../../environments/environment.test';
 import { RestRequestMethod } from '../../../core/data/rest-request-method';
 import { EndpointMockingRestService } from './endpoint-mocking-rest.service';
 import { ResponseMapMock } from './mocks/response-map.mock';
@@ -31,7 +32,7 @@ describe('EndpointMockingRestService', () => {
       request: observableOf(serverHttpResponse),
     });
 
-    service = new EndpointMockingRestService(mockResponseMap, httpStub);
+    service = new EndpointMockingRestService(mockResponseMap, httpStub, environment);
   });
 
   describe('get', () => {

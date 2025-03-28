@@ -23,6 +23,7 @@ import {
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { environment } from '../../../../../environments/environment.test';
 import { REQUEST } from '../../../../../express.tokens';
+import { HashedFileMapping } from '../../../../../modules/dynamic-hash/hashed-file-mapping';
 import { AuthRequestService } from '../../../../core/auth/auth-request.service';
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
@@ -108,6 +109,10 @@ describe('EditRelationshipListComponent', () => {
       'data/request': {},
       'index': {},
     },
+  };
+
+  const mockHashedFileMapping = {
+    resolve: (path: string) => path,
   };
 
   function init(leftType: string, rightType: string, leftMaxCardinality?: number, rightMaxCardinality?: number): void {
@@ -273,6 +278,7 @@ describe('EditRelationshipListComponent', () => {
         { provide: APP_CONFIG, useValue: environment },
         { provide: REQUEST, useValue: {} },
         CookieService,
+        { provide: HashedFileMapping, useValue: mockHashedFileMapping },
       ], schemas: [
         NO_ERRORS_SCHEMA,
       ],

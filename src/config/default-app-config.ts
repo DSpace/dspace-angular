@@ -21,6 +21,7 @@ import { LangConfig } from './lang-config.interface';
 import { MarkdownConfig } from './markdown-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
+import { PrefetchConfig } from './prefetch-config';
 import { QualityAssuranceConfig } from './quality-assurance.config';
 import { SearchConfig } from './search-page-config.interface';
 import { ServerConfig } from './server-config.interface';
@@ -600,5 +601,12 @@ export class DefaultAppConfig implements AppConfig {
   liveRegion: LiveRegionConfig = {
     messageTimeOutDurationMs: 30000,
     isVisible: false,
+  };
+
+  // EndpointMap prefetching configuration
+  prefetch: PrefetchConfig = {
+    urls: [],
+    bootstrap: {},
+    refreshInterval: 60000, // refresh every minute
   };
 }

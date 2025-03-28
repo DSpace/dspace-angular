@@ -26,6 +26,7 @@ import { LangConfig } from './lang-config.interface';
 import { MarkdownConfig } from './markdown-config.interface';
 import { MediaViewerConfig } from './media-viewer-config.interface';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
+import { PrefetchConfig } from './prefetch-config';
 import { QualityAssuranceConfig } from './quality-assurance.config';
 import { SearchConfig } from './search-page-config.interface';
 import { ServerConfig } from './server-config.interface';
@@ -33,7 +34,6 @@ import { SubmissionConfig } from './submission-config.interface';
 import { SuggestionConfig } from './suggestion-config.interfaces';
 import { ThemeConfig } from './theme.config';
 import { UIServerConfig } from './ui-server-config.interface';
-
 
 interface AppConfig extends Config {
   ui: UIServerConfig;
@@ -66,6 +66,7 @@ interface AppConfig extends Config {
   search: SearchConfig;
   notifyMetrics: AdminNotifyMetricsRow[];
   liveRegion: LiveRegionConfig;
+  prefetch: PrefetchConfig;
 }
 
 /**
