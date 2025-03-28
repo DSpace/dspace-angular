@@ -39,6 +39,7 @@ import { StoreDevModules } from '../config/store/devtools';
 import { environment } from '../environments/environment';
 import { EagerThemesModule } from '../themes/eager-themes.module';
 import { appEffects } from './app.effects';
+import { MENUS } from './app.menus';
 import {
   appMetaReducers,
   debugMetaReducers,
@@ -159,6 +160,10 @@ export const commonAppConfig: ApplicationConfig = {
     },
     // register the dynamic matcher used by form. MUST be provided by the app module
     ...DYNAMIC_MATCHER_PROVIDERS,
+
+    // DI-composable menus
+    ...MENUS,
+
     provideCore(),
   ],
 };

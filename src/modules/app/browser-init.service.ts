@@ -42,6 +42,7 @@ import { InitService } from '../../app/init.service';
 import { OrejimeService } from '../../app/shared/cookies/orejime.service';
 import { isNotEmpty } from '../../app/shared/empty.util';
 import { MenuService } from '../../app/shared/menu/menu.service';
+import { MenuProviderService } from '../../app/shared/menu/menu-provider.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
@@ -88,7 +89,7 @@ export class BrowserInitService extends InitService {
     private requestService: RequestService,
     private halService: HALEndpointService,
     private matomoService: MatomoService,
-
+    protected menuProviderService: MenuProviderService,
   ) {
     super(
       store,
@@ -101,6 +102,7 @@ export class BrowserInitService extends InitService {
       breadcrumbsService,
       themeService,
       menuService,
+      menuProviderService,
     );
   }
 
@@ -135,6 +137,7 @@ export class BrowserInitService extends InitService {
       this.initOrejime();
 
       await lastValueFrom(this.authenticationReady$());
+      this.menuProviderService.initPersistentMenus(false);
 
       return true;
     };
@@ -221,6 +224,7 @@ export class BrowserInitService extends InitService {
   protected initRouteListeners(): void {
     super.initRouteListeners();
     this.listenForRouteChanges();
+    this.menuProviderService.listenForRouteChanges(false);
   }
 
   /**
