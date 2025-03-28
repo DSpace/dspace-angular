@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import {
   ActivatedRoute,
+  Params,
   Router,
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -83,6 +84,10 @@ export class BitstreamDownloadPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const accessToken$: Observable<string> = this.route.queryParams.pipe(
+      map((queryParams: Params) => queryParams?.accessToken || null),
+      take(1),
+    );
 
     this.bitstreamRD$ = this.route.data.pipe(
       map((data) => data.bitstream));
@@ -96,11 +101,11 @@ export class BitstreamDownloadPageComponent implements OnInit {
       switchMap((bitstream: Bitstream) => {
         const isAuthorized$ = this.authorizationService.isAuthorized(FeatureID.CanDownload, isNotEmpty(bitstream) ? bitstream.self : undefined);
         const isLoggedIn$ = this.auth.isAuthenticated();
-        return observableCombineLatest([isAuthorized$, isLoggedIn$, observableOf(bitstream)]);
+        return observableCombineLatest([isAuthorized$, isLoggedIn$, accessToken$, observableOf(bitstream)]);
       }),
-      filter(([isAuthorized, isLoggedIn, bitstream]: [boolean, boolean, Bitstream]) => hasValue(isAuthorized) && hasValue(isLoggedIn)),
+      filter(([isAuthorized, isLoggedIn, accessToken, bitstream]: [boolean, boolean, string, Bitstream]) => (hasValue(isAuthorized) && hasValue(isLoggedIn)) || hasValue(accessToken)),
       take(1),
-      switchMap(([isAuthorized, isLoggedIn, bitstream]: [boolean, boolean, Bitstream]) => {
+      switchMap(([isAuthorized, isLoggedIn, accessToken, bitstream]: [boolean, boolean, string, Bitstream]) => {
         if (isAuthorized && isLoggedIn) {
           return this.fileService.retrieveFileDownloadLink(bitstream._links.content.href).pipe(
             filter((fileLink) => hasValue(fileLink)),
@@ -108,20 +113,28 @@ export class BitstreamDownloadPageComponent implements OnInit {
             map((fileLink) => {
               return [isAuthorized, isLoggedIn, bitstream, fileLink];
             }));
+        } else if (hasValue(accessToken)) {
+          return [[isAuthorized, !isLoggedIn, bitstream, '', accessToken]];
         } else {
           return [[isAuthorized, isLoggedIn, bitstream, '']];
         }
       }),
-    ).subscribe(([isAuthorized, isLoggedIn, bitstream, fileLink]: [boolean, boolean, Bitstream, string]) => {
+    ).subscribe(([isAuthorized, isLoggedIn, bitstream, fileLink, accessToken]: [boolean, boolean, Bitstream, string, string]) => {
       if (isAuthorized && isLoggedIn && isNotEmpty(fileLink)) {
         this.hardRedirectService.redirect(fileLink);
-      } else if (isAuthorized && !isLoggedIn) {
+      } else if (isAuthorized && !isLoggedIn && !hasValue(accessToken)) {
         this.hardRedirectService.redirect(bitstream._links.content.href);
-      } else if (!isAuthorized && isLoggedIn) {
-        this.router.navigateByUrl(getForbiddenRoute(), { skipLocationChange: true });
-      } else if (!isAuthorized && !isLoggedIn) {
-        this.auth.setRedirectUrl(this.router.url);
-        this.router.navigateByUrl('login');
+      } else if (!isAuthorized) {
+        // Either we have an access token, or we are logged in, or we are not logged in.
+        // For now, the access token does not care if we are logged in or not.
+        if (hasValue(accessToken)) {
+          this.hardRedirectService.redirect(bitstream._links.content.href + '?accessToken=' + accessToken);
+        } else if (isLoggedIn) {
+          this.router.navigateByUrl(getForbiddenRoute(), { skipLocationChange: true });
+        } else if (!isLoggedIn) {
+          this.auth.setRedirectUrl(this.router.url);
+          this.router.navigateByUrl('login');
+        }
       }
     });
   }

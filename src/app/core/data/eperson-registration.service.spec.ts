@@ -95,7 +95,7 @@ describe('EpersonRegistrationService', () => {
       const expected = service.registerEmail('test@mail.org', 'afreshcaptchatoken');
       let headers = new HttpHeaders();
       const options: HttpOptions = Object.create({});
-      headers = headers.append('x-recaptcha-token', 'afreshcaptchatoken');
+      headers = headers.append('x-captcha-payload', 'afreshcaptchatoken');
       options.headers = headers;
 
       expect(requestService.send).toHaveBeenCalledWith(new PostRequest('request-id', 'rest-url/registrations', registration, options));
