@@ -1,6 +1,13 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
+import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed-loading.component';
+import { SubmissionFormCollectionComponent } from '../../../../../app/submission/form/collection/submission-form-collection.component';
+import { ThemedSubmissionFormFooterComponent } from '../../../../../app/submission/form/footer/themed-submission-form-footer.component';
+import { SubmissionFormSectionAddComponent } from '../../../../../app/submission/form/section-add/submission-form-section-add.component';
 import { SubmissionFormComponent as BaseComponent } from '../../../../../app/submission/form/submission-form.component';
+import { ThemedSubmissionUploadFilesComponent } from '../../../../../app/submission/form/submission-upload-files/themed-submission-upload-files.component';
+import { ThemedSubmissionSectionContainerComponent } from '../../../../../app/submission/sections/container/themed-section-container.component';
 
 @Component({
   selector: 'ds-themed-submission-form',
@@ -9,6 +16,15 @@ import { SubmissionFormComponent as BaseComponent } from '../../../../../app/sub
   // templateUrl: './submission-form.component.html'
   templateUrl: '../../../../../app/submission/form/submission-form.component.html',
   standalone: true,
+  imports: [
+    CommonModule,
+    ThemedLoadingComponent,
+    ThemedSubmissionSectionContainerComponent,
+    ThemedSubmissionFormFooterComponent,
+    ThemedSubmissionUploadFilesComponent,
+    SubmissionFormCollectionComponent,
+    SubmissionFormSectionAddComponent,
+  ],
 })
 export class SubmissionFormComponent extends BaseComponent {
 
