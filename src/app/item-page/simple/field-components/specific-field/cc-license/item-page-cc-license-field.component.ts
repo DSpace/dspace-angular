@@ -49,12 +49,12 @@ export class ItemPageCcLicenseFieldComponent implements OnInit, OnDestroy {
   /**
    * Field name containing the CC license URI
    */
-  @Input() ccLicenseUriField?;
+  @Input() ccLicenseUriField? : string;
 
   /**
    * Field name containing the CC license name
    */
-  @Input() ccLicenseNameField?;
+  @Input() ccLicenseNameField? : string;
 
   /**
    * Shows the CC license name with the image. Always show if image fails to load
