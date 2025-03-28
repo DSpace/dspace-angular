@@ -2029,6 +2029,13 @@
   "cookies.consent.app.description.google-recaptcha": "Utilizziamo il servizio Google reCAPTCHA nelle fasi di registrazione e recupero password",
 
 
+  // "cookies.consent.app.title.matomo": "Matomo",
+  "cookies.consent.app.title.matomo": "Matomo",
+
+  // "cookies.consent.app.description.matomo": "Allows us to track statistical data",
+  "cookies.consent.app.description.matomo": "Ci permette di tracciare i dati statistici",
+
+
   // "cookies.consent.purpose.functional": "Functional",
   "cookies.consent.purpose.functional": "Funzionale",
 

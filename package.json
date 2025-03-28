@@ -150,6 +150,7 @@
     "ng2-file-upload": "7.0.1",
     "ng2-nouislider": "^2.0.0",
     "ngx-infinite-scroll": "^18.0.0",
+    "ngx-matomo-client": "^6.4.1",
     "ngx-pagination": "6.0.3",
     "ngx-skeleton-loader": "^9.0.0",
     "ngx-ui-switch": "^15.0.0",

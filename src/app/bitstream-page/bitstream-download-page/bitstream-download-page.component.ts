@@ -45,6 +45,7 @@ import {
   hasValue,
   isNotEmpty,
 } from '../../shared/empty.util';
+import { MatomoService } from '../../statistics/matomo.service';
 
 @Component({
   selector: 'ds-bitstream-download-page',
@@ -74,6 +75,7 @@ export class BitstreamDownloadPageComponent implements OnInit {
     public dsoNameService: DSONameService,
     private signpostingDataService: SignpostingDataService,
     private responseService: ServerResponseService,
+    private matomoService: MatomoService,
     @Inject(PLATFORM_ID) protected platformId: string,
   ) {
     this.initPageLinks();
@@ -116,14 +118,20 @@ export class BitstreamDownloadPageComponent implements OnInit {
         } else if (hasValue(accessToken)) {
           return [[isAuthorized, !isLoggedIn, bitstream, '', accessToken]];
         } else {
-          return [[isAuthorized, isLoggedIn, bitstream, '']];
+          return [[isAuthorized, isLoggedIn, bitstream, bitstream._links.content.href]];
         }
       }),
+      switchMap(([isAuthorized, isLoggedIn, bitstream, fileLink, accessToken]: [boolean, boolean, Bitstream, string, string]) =>
+        this.matomoService.appendVisitorId(fileLink)
+          .pipe(
+            map((fileLinkWithVisitorId) => [isAuthorized, isLoggedIn, bitstream, fileLinkWithVisitorId, accessToken]),
+          ),
+      ),
     ).subscribe(([isAuthorized, isLoggedIn, bitstream, fileLink, accessToken]: [boolean, boolean, Bitstream, string, string]) => {
       if (isAuthorized && isLoggedIn && isNotEmpty(fileLink)) {
         this.hardRedirectService.redirect(fileLink);
       } else if (isAuthorized && !isLoggedIn && !hasValue(accessToken)) {
-        this.hardRedirectService.redirect(bitstream._links.content.href);
+        this.hardRedirectService.redirect(fileLink);
       } else if (!isAuthorized) {
         // Either we have an access token, or we are logged in, or we are not logged in.
         // For now, the access token does not care if we are logged in or not.
