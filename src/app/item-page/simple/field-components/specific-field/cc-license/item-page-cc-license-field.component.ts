@@ -23,6 +23,7 @@ import {
   getRemoteDataPayload,
 } from 'src/app/core/shared/operators';
 import { MetadataFieldWrapperComponent } from 'src/app/shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import { parseCcCode } from 'src/app/shared/utils/license.utils';
 
 @Component({
   selector: 'ds-item-page-cc-license-field',
@@ -79,17 +80,6 @@ export class ItemPageCcLicenseFieldComponent implements OnInit, OnDestroy {
   ) {
   }
 
-  /**
-   * Parse a URI an return its CC code. URIs pointing to non-CC licenses will return null.
-   * @param uri
-   * @returns the CC code or null if uri is not a valid CC URI
-   */
-  public static parseCcCode(uri: string): string {
-    const regex = /.*creativecommons.org\/(licenses|publicdomain)\/([^/]+)/gm;
-    const matches = regex.exec(uri ?? '') ?? [];
-    return matches.length > 2 ? matches[2] : null;
-  }
-
   ngOnDestroy(): void {
     this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
   }
@@ -104,7 +94,7 @@ export class ItemPageCcLicenseFieldComponent implements OnInit, OnDestroy {
         this.ccLicenseUriField = remoteData?.values && remoteData?.values?.length > 0 ? remoteData.values[0] : 'dc.rights.uri';
       }
       const uri = this.item.firstMetadataValue(this.ccLicenseUriField);
-      const ccCode = ItemPageCcLicenseFieldComponent.parseCcCode(uri);
+      const ccCode = parseCcCode(uri);
       this.uri$ = of(uri);
       this.imgSrc$ = of(ccCode ? `assets/images/cc-licenses/${ccCode}.png` : null);
     }),
