@@ -3,7 +3,9 @@
     <div class="item-page" @fadeInOut>
       @if (itemRD?.payload; as item) {
         <div>
+
           <ds-item-alerts [item]="item"></ds-item-alerts>
+          <ds-access-by-token-notification></ds-access-by-token-notification>
           <ds-qa-event-notification [item]="item"></ds-qa-event-notification>
           <ds-notify-requests-status [itemUuid]="item.uuid"></ds-notify-requests-status>
           <ds-item-versions-notice [item]="item"></ds-item-versions-notice>

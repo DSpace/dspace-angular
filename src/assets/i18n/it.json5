@@ -2029,6 +2029,13 @@
   "cookies.consent.app.description.google-recaptcha": "Utilizziamo il servizio Google reCAPTCHA nelle fasi di registrazione e recupero password",
 
 
+  // "cookies.consent.app.title.matomo": "Matomo",
+  "cookies.consent.app.title.matomo": "Matomo",
+
+  // "cookies.consent.app.description.matomo": "Allows us to track statistical data",
+  "cookies.consent.app.description.matomo": "Ci permette di tracciare i dati statistici",
+
+
   // "cookies.consent.purpose.functional": "Functional",
   "cookies.consent.purpose.functional": "Funzionale",
 
@@ -2304,6 +2311,26 @@
 
   // "confirmation-modal.delete-subscription.confirm": "Delete",
   "confirmation-modal.delete-subscription.confirm": "Elimina",
+
+  // "confirmation-modal.review-account-info.header": "Save the changes",
+  // TODO New key - Add a translation
+  "confirmation-modal.review-account-info.header": "Save the changes",
+
+  // "confirmation-modal.review-account-info.info": "Are you sure you want to save the changes to your profile",
+  // TODO New key - Add a translation
+  "confirmation-modal.review-account-info.info": "Are you sure you want to save the changes to your profile?",
+
+  // "confirmation-modal.review-account-info.cancel": "Cancel",
+  // TODO New key - Add a translation
+  "confirmation-modal.review-account-info.cancel": "Cancel",
+
+  // "confirmation-modal.review-account-info.confirm": "Confirm",
+  // TODO New key - Add a translation
+  "confirmation-modal.review-account-info.confirm": "Confirm",
+
+  // "confirmation-modal.review-account-info.save": "Save",
+  // TODO New key - Add a translation
+  "confirmation-modal.review-account-info.save": "Save",
 
   // "error.bitstream": "Error fetching bitstream",
   "error.bitstream": "Errore durante il recupero del bitstream",
@@ -4192,8 +4219,6 @@
 
   // "login.breadcrumbs": "Login",
   "login.breadcrumbs": "Accesso",
-
-
 
   // "logout.form.header": "Log out from DSpace",
   "logout.form.header": "Disconnettersi da DSpace",
@@ -7838,5 +7863,163 @@
   // "admin.system-wide-alert.title": "System-wide Alerts",
   "admin.system-wide-alert.title": "Allarmi di sistema",
 
+  // "external-login.confirmation.header": "Information needed to complete the login process",
+  // TODO New key - Add a translation
+  "external-login.confirmation.header": "Information needed to complete the login process",
 
+  // "external-login.noEmail.informationText": "The information received from {{authMethod}} are not sufficient to complete the login process. Please provide the missing information below, or login via a different method to associate your {{authMethod}} to an existing account.",
+  // TODO New key - Add a translation
+  "external-login.noEmail.informationText": "The information received from {{authMethod}} are not sufficient to complete the login process. Please provide the missing information below, or login via a different method to associate your {{authMethod}} to an existing account.",
+
+  // "external-login.haveEmail.informationText": "It seems that you have not yet an account in this system. If this is the case, please confirm the data received from {{authMethod}} and a new account will be created for you. Otherwise, if you already have an account in the system, please update the email address to match the one already in use in the system or login via a different method to associate your {{authMethod}} to your existing account.",
+  // TODO New key - Add a translation
+  "external-login.haveEmail.informationText": "It seems that you have not yet an account in this system. If this is the case, please confirm the data received from {{authMethod}} and a new account will be created for you. Otherwise, if you already have an account in the system, please update the email address to match the one already in use in the system or login via a different method to associate your {{authMethod}} to your existing account.",
+
+  // "external-login.component.or": "or"
+  // TODO New key - Add a translation
+  "external-login.component.or": "or",
+
+  // "external-login.confirm-email.header": "Confirm or update email",
+  // TODO New key - Add a translation
+  "external-login.confirm-email.header": "Confirm or update email",
+
+  //  "external-login.confirmation.email-label": "User Email",
+  // TODO New key - Add a translation
+  "external-login.confirmation.email-label": "User Email",
+
+  // "external-login.confirmation.email-required": "Email is required.",
+  // TODO New key - Add a translation
+  "external-login.confirmation.email-required": "Email is required.",
+
+  // "external-login.confirmation.email-invalid": "Invalid email format.",
+  // TODO New key - Add a translation
+  "external-login.confirmation.email-invalid": "Invalid email format.",
+
+  // "external-login.confirm.button.label": "Confirm this email",
+  // TODO New key - Add a translation
+  "external-login.confirm.button.label": "Confirm this email",
+
+  // "external-login.confirm-email-sent.header": "Confirmation email sent",
+  // TODO New key - Add a translation
+  "external-login.confirm-email-sent.header": "Confirmation email sent",
+
+  // "external-login.confirm-email-sent.info": " We have sent an emait to the provided address to validate your input. <br> Please follow the instructions in the email to complete the login process.",
+  // TODO New key - Add a translation
+  "external-login.confirm-email-sent.info": " We have sent an emait to the provided address to validate your input. <br> Please follow the instructions in the email to complete the login process.",
+
+  // "external-login.provide-email.header": "Provide email",
+  // TODO New key - Add a translation
+  "external-login.provide-email.header": "Provide email",
+
+  // "external-login.provide-email.button.label": "Send Verification link",
+  // TODO New key - Add a translation
+  "external-login.provide-email.button.label": "Send Verification link",
+
+  // "external-login-validation.review-account-info.header": "Review your account information",
+  // TODO New key - Add a translation
+  "external-login-validation.review-account-info.header": "Review your account information",
+
+  // "external-login-validation.review-account-info.info": "The information received from ORCID differs from the one recorded in your profile. <br /> Please review them and decide if you want to update any of them.After saving you will be redirected to your profile page.",
+  // TODO New key - Add a translation
+  "external-login-validation.review-account-info.info": "The information received from ORCID differs from the one recorded in your profile. <br /> Please review them and decide if you want to update any of them.After saving you will be redirected to your profile page.",
+
+  // "external-login-validation.review-account-info.table.header.information": "Information",
+  // TODO New key - Add a translation
+  "external-login-validation.review-account-info.table.header.information": "Information",
+
+  // "external-login-validation.review-account-info.table.header.received-value": "Received value",
+  // TODO New key - Add a translation
+  "external-login-validation.review-account-info.table.header.received-value": "Received value",
+
+  // "external-login-validation.review-account-info.table.header.current-value": "Current value",
+  // TODO New key - Add a translation
+  "external-login-validation.review-account-info.table.header.current-value": "Current value",
+
+  // "external-login-validation.review-account-info.table.header.action": "Override",
+  // TODO New key - Add a translation
+  "external-login-validation.review-account-info.table.header.action": "Override",
+
+  // "external-login-validation.review-account-info.table.row.not-applicable": "N/A",
+  // TODO New key - Add a translation
+  "external-login-validation.review-account-info.table.row.not-applicable": "N/A",
+
+  // "on-label": "ON",
+  // TODO New key - Add a translation
+  "on-label": "ON",
+
+  // "off-label": "OFF",
+  // TODO New key - Add a translation
+  "off-label": "OFF",
+
+  // "review-account-info.merge-data.notification.success": "Your account information has been updated successfully",
+  // TODO New key - Add a translation
+  "review-account-info.merge-data.notification.success": "Your account information has been updated successfully",
+
+  // "review-account-info.merge-data.notification.error": "Something went wrong while updating your account information",
+  // TODO New key - Add a translation
+  "review-account-info.merge-data.notification.error": "Something went wrong while updating your account information",
+
+  // "review-account-info.alert.error.content": "Something went wrong. Please try again later.",
+  // TODO New key - Add a translation
+  "review-account-info.alert.error.content": "Something went wrong. Please try again later.",
+
+  // "external-login-page.provide-email.notifications.error": "Something went wrong.Email address was omitted or the operation is not valid.",
+  // TODO New key - Add a translation
+  "external-login-page.provide-email.notifications.error": "Something went wrong.Email address was omitted or the operation is not valid.",
+
+  // "external-login.error.notification": "There was an error while processing your request. Please try again later.",
+  // TODO New key - Add a translation
+  "external-login.error.notification": "There was an error while processing your request. Please try again later.",
+
+  // "external-login.connect-to-existing-account.label": "Connect to an existing user",
+  // TODO New key - Add a translation
+  "external-login.connect-to-existing-account.label": "Connect to an existing user",
+
+  // "external-login.modal.label.close": "Close",
+  // TODO New key - Add a translation
+  "external-login.modal.label.close": "Close",
+
+  // "external-login-page.provide-email.create-account.notifications.error.header": "Something went wrong",
+  // TODO New key - Add a translation
+  "external-login-page.provide-email.create-account.notifications.error.header": "Something went wrong",
+
+  // "external-login-page.provide-email.create-account.notifications.error.content": "Please check again your email address and try again.",
+  // TODO New key - Add a translation
+  "external-login-page.provide-email.create-account.notifications.error.content": "Please check again your email address and try again.",
+
+  //   "external-login-page.confirm-email.create-account.notifications.error.no-netId": "Something went wrong with this email account. Try again or use a different method to login.",
+  // TODO New key - Add a translation
+  "external-login-page.confirm-email.create-account.notifications.error.no-netId": "Something went wrong with this email account. Try again or use a different method to login.",
+
+  //"external-login-page.orcid-confirmation.firstname": "First name",
+  // TODO New key - Add a translation
+  "external-login-page.orcid-confirmation.firstname": "First name",
+
+  //"external-login-page.orcid-confirmation.firstname.label": "First name",
+  // TODO New key - Add a translation
+  "external-login-page.orcid-confirmation.firstname.label": "First name",
+
+  // "external-login-page.orcid-confirmation.lastname": "Last name",
+  // TODO New key - Add a translation
+  "external-login-page.orcid-confirmation.lastname": "Last name",
+
+  // "external-login-page.orcid-confirmation.lastname.label": "Last name",
+  // TODO New key - Add a translation
+  "external-login-page.orcid-confirmation.lastname.label": "Last name",
+
+  // "external-login-page.orcid-confirmation.netid": "Account Identifier",
+  // TODO New key - Add a translation
+  "external-login-page.orcid-confirmation.netid": "Account Identifier",
+
+  // "external-login-page.orcid-confirmation.netid.placeholder": "xxxx-xxxx-xxxx-xxxx",
+  // TODO New key - Add a translation
+  "external-login-page.orcid-confirmation.netid.placeholder": "xxxx-xxxx-xxxx-xxxx",
+
+  // "external-login-page.orcid-confirmation.email": "Email",
+  // TODO New key - Add a translation
+  "external-login-page.orcid-confirmation.email": "Email",
+
+  // "external-login-page.orcid-confirmation.email.label": "Email"
+  // TODO New key - Add a translation
+  "external-login-page.orcid-confirmation.email.label": "Email",
 }

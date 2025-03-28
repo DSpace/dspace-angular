@@ -46,6 +46,7 @@ import { MenuProviderService } from '../../app/shared/menu/menu-provider.service
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
+import { MatomoService } from '../../app/statistics/matomo.service';
 import {
   StoreAction,
   StoreActionTypes,
@@ -87,6 +88,7 @@ export class BrowserInitService extends InitService {
     protected router: Router,
     private requestService: RequestService,
     private halService: HALEndpointService,
+    private matomoService: MatomoService,
     protected menuProviderService: MenuProviderService,
   ) {
     super(
@@ -127,6 +129,7 @@ export class BrowserInitService extends InitService {
       this.initI18n();
       this.initAngulartics();
       this.initGoogleAnalytics();
+      this.initMatomo();
       this.initRouteListeners();
       this.themeService.listenForThemeChanges(true);
       this.trackAuthTokenExpiration();
@@ -180,6 +183,10 @@ export class BrowserInitService extends InitService {
 
   protected initGoogleAnalytics() {
     this.googleAnalyticsService.addTrackingIdToPage();
+  }
+
+  protected initMatomo(): void {
+    this.matomoService.init();
   }
 
   /**
