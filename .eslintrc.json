@@ -8,7 +8,6 @@
     "eslint-plugin-deprecation",
     "unused-imports",
     "eslint-plugin-lodash",
-    "eslint-plugin-jsonc",
     "eslint-plugin-rxjs",
     "eslint-plugin-simple-import-sort",
     "eslint-plugin-import-newlines",
@@ -303,11 +302,33 @@
         "*.json5"
       ],
       "extends": [
-        "plugin:jsonc/recommended-with-jsonc"
+        "plugin:jsonc/recommended-with-json5"
       ],
       "rules": {
-        "no-irregular-whitespace": "error",
+        // ESLint core no-irregular-whitespace rule doesn't work well in JSON
+        "no-irregular-whitespace": "off",
+        "jsonc/no-irregular-whitespace": [
+          "error",
+          {
+            "skipStrings": true,
+            "skipComments": false,
+            "skipRegExps": true,
+            "skipTemplates": false
+          }
+        ],
         "no-trailing-spaces": "error",
+        "no-multiple-empty-lines": ["error",
+          {
+            "max": 1,
+            "maxEOF": 1
+          }
+        ],
+        "comma-spacing": ["error",
+          {
+            "before": false,
+            "after": true
+          }
+        ],
         "jsonc/comma-dangle": [
           "error",
           "always-multiline"
