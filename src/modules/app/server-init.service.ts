@@ -85,10 +85,16 @@ export class ServerInitService extends InitService {
       this.themeService.listenForThemeChanges(false);
 
       await lastValueFrom(this.authenticationReady$());
-      this.menuProviderService.initPersistentMenus();
+      this.menuProviderService.initPersistentMenus(true);
 
       return true;
     };
+  }
+
+
+  protected initRouteListeners(): void {
+    super.initRouteListeners();
+    this.menuProviderService.listenForRouteChanges(true);
   }
 
   // Server-only initialization steps

@@ -33,7 +33,7 @@ export const ROUTES: Route[] = [
         component: ThemedItemPageComponent,
         pathMatch: 'full',
         data: {
-          menuRoute: MenuRoute.SIMPLE_ITEM_PAGE,
+          menuRoute: MenuRoute.ITEM_PAGE,
         },
 
       },
@@ -41,7 +41,7 @@ export const ROUTES: Route[] = [
         path: 'full',
         component: ThemedFullItemPageComponent,
         data: {
-          menuRoute: MenuRoute.FULL_ITEM_PAGE,
+          menuRoute: MenuRoute.ITEM_PAGE,
         },
 
       },

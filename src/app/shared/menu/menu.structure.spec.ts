@@ -48,27 +48,23 @@ describe('buildMenuStructure', () => {
       [MenuID.DSO_EDIT]: [
         DsoOptionMenuProvider.withSubs([
           SubscribeMenuProvider.onRoute(
-            MenuRoute.SIMPLE_COMMUNITY_PAGE,
-            MenuRoute.SIMPLE_COLLECTION_PAGE,
+            MenuRoute.COMMUNITY_PAGE,
+            MenuRoute.COLLECTION_PAGE,
           ),
           DSpaceObjectEditMenuProvider.onRoute(
-            MenuRoute.SIMPLE_COMMUNITY_PAGE,
-            MenuRoute.SIMPLE_COLLECTION_PAGE,
-            MenuRoute.SIMPLE_ITEM_PAGE,
-            MenuRoute.FULL_ITEM_PAGE,
+            MenuRoute.COMMUNITY_PAGE,
+            MenuRoute.COLLECTION_PAGE,
+            MenuRoute.ITEM_PAGE,
           ),
           VersioningMenuProvider.onRoute(
-            MenuRoute.SIMPLE_ITEM_PAGE,
-            MenuRoute.FULL_ITEM_PAGE,
+            MenuRoute.ITEM_PAGE,
           ),
           OrcidMenuProvider.onRoute(
-            MenuRoute.SIMPLE_ITEM_PAGE,
-            MenuRoute.FULL_ITEM_PAGE,
+            MenuRoute.ITEM_PAGE,
           ),
           ClaimMenuProvider.onRoute(
-            MenuRoute.SIMPLE_ITEM_PAGE,
-            MenuRoute.FULL_ITEM_PAGE,
-            MenuRoute.SIMPLE_COLLECTION_PAGE,
+            MenuRoute.ITEM_PAGE,
+            MenuRoute.COLLECTION_PAGE,
           ),
         ]),
       ],

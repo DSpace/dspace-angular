@@ -68,7 +68,7 @@ export const ROUTES: Route[] = [
         path: '',
         component: ThemedCommunityPageComponent,
         data: {
-          menuRoute: MenuRoute.SIMPLE_COMMUNITY_PAGE,
+          menuRoute: MenuRoute.COMMUNITY_PAGE,
         },
         children: [
           {
@@ -85,7 +85,7 @@ export const ROUTES: Route[] = [
             },
             data: {
               breadcrumbKey: 'community.subcoms-cols',
-              menuRoute: MenuRoute.SIMPLE_COMMUNITY_SUBCOLCOM_PAGE,
+              menuRoute: MenuRoute.COMMUNITY_PAGE,
             },
           },
           {
@@ -98,7 +98,7 @@ export const ROUTES: Route[] = [
             },
             data: {
               breadcrumbKey: 'browse.metadata',
-              menuRoute: MenuRoute.SIMPLE_COMMUNITY_BROWSE_PAGE,
+              menuRoute: MenuRoute.COMMUNITY_PAGE,
             },
           },
         ],

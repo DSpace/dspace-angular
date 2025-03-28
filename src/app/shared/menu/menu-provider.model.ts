@@ -112,6 +112,11 @@ export abstract class AbstractMenuProvider implements MenuProvider {
   alwaysRenderExpandable? = false;
 
   /**
+   * When true, this provider will only add its sections on Browser Side Rendering.
+   */
+  renderBrowserOnly? = false;
+
+  /**
    * Static method to be called from the app.menus.ts file to define paths on which this provider should the active
    * @param paths - The paths on which the sections of this provider should be active
    */

@@ -31,6 +31,7 @@ import { ProcessesMenuProvider } from './shared/menu/providers/processes.menu';
 import { RegistriesMenuProvider } from './shared/menu/providers/registries.menu';
 import { StatisticsMenuProvider } from './shared/menu/providers/statistics.menu';
 import { SystemWideAlertMenuProvider } from './shared/menu/providers/system-wide-alert.menu';
+import { WithdrawnReinstateItemMenuProvider } from './shared/menu/providers/withdrawn-reinstate-item.menu';
 import { WorkflowMenuProvider } from './shared/menu/providers/workflow.menu';
 
 /**
@@ -75,32 +76,25 @@ export const MENUS = buildMenuStructure({
   [MenuID.DSO_EDIT]: [
     DsoOptionMenuProvider.withSubs([
       SubscribeMenuProvider.onRoute(
-        MenuRoute.SIMPLE_COMMUNITY_PAGE,
-        MenuRoute.SIMPLE_COMMUNITY_BROWSE_PAGE,
-        MenuRoute.SIMPLE_COMMUNITY_SUBCOLCOM_PAGE,
-        MenuRoute.SIMPLE_COLLECTION_PAGE,
-        MenuRoute.SIMPLE_COLLECTION_BROWSE_PAGE,
+        MenuRoute.COMMUNITY_PAGE,
+        MenuRoute.COLLECTION_PAGE,
       ),
       DSpaceObjectEditMenuProvider.onRoute(
-        MenuRoute.SIMPLE_COMMUNITY_PAGE,
-        MenuRoute.SIMPLE_COMMUNITY_BROWSE_PAGE,
-        MenuRoute.SIMPLE_COMMUNITY_SUBCOLCOM_PAGE,
-        MenuRoute.SIMPLE_COLLECTION_PAGE,
-        MenuRoute.SIMPLE_COLLECTION_BROWSE_PAGE,
-        MenuRoute.SIMPLE_ITEM_PAGE,
-        MenuRoute.FULL_ITEM_PAGE,
+        MenuRoute.COMMUNITY_PAGE,
+        MenuRoute.COLLECTION_PAGE,
+        MenuRoute.ITEM_PAGE,
+      ),
+      WithdrawnReinstateItemMenuProvider.onRoute(
+        MenuRoute.ITEM_PAGE,
       ),
       VersioningMenuProvider.onRoute(
-        MenuRoute.SIMPLE_ITEM_PAGE,
-        MenuRoute.FULL_ITEM_PAGE,
+        MenuRoute.ITEM_PAGE,
       ),
       OrcidMenuProvider.onRoute(
-        MenuRoute.SIMPLE_ITEM_PAGE,
-        MenuRoute.FULL_ITEM_PAGE,
+        MenuRoute.ITEM_PAGE,
       ),
       ClaimMenuProvider.onRoute(
-        MenuRoute.SIMPLE_ITEM_PAGE,
-        MenuRoute.FULL_ITEM_PAGE,
+        MenuRoute.ITEM_PAGE,
       ),
     ]),
   ],

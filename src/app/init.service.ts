@@ -217,7 +217,6 @@ export abstract class InitService {
     this.headTagService.listenForRouteChange();
     this.breadcrumbsService.listenForRouteChanges();
     this.themeService.listenForRouteChanges();
-    this.menuProviderService.listenForRouteChanges();
   }
 
   /**

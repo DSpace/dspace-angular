@@ -81,7 +81,7 @@ export const ROUTES: Route[] = [
         path: '',
         component: ThemedCollectionPageComponent,
         data: {
-          menuRoute: MenuRoute.SIMPLE_COLLECTION_PAGE,
+          menuRoute: MenuRoute.COLLECTION_PAGE,
         },
         children: [
           {
@@ -99,7 +99,7 @@ export const ROUTES: Route[] = [
             },
             data: {
               breadcrumbKey: 'browse.metadata',
-              menuRoute: MenuRoute.SIMPLE_COLLECTION_BROWSE_PAGE,
+              menuRoute: MenuRoute.COLLECTION_PAGE,
             },
           },
         ],

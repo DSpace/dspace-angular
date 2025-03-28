@@ -134,7 +134,7 @@ export class BrowserInitService extends InitService {
       this.initOrejime();
 
       await lastValueFrom(this.authenticationReady$());
-      this.menuProviderService.initPersistentMenus();
+      this.menuProviderService.initPersistentMenus(false);
 
       return true;
     };
@@ -217,6 +217,7 @@ export class BrowserInitService extends InitService {
   protected initRouteListeners(): void {
     super.initRouteListeners();
     this.listenForRouteChanges();
+    this.menuProviderService.listenForRouteChanges(false);
   }
 
   /**

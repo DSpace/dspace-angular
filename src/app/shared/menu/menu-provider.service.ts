@@ -73,12 +73,12 @@ export class MenuProviderService {
   /**
    * Listen for route changes and resolve the route dependent menu sections on route change
    */
-  listenForRouteChanges() {
+  listenForRouteChanges(isServerRendering) {
     this.router.events.pipe(
       filter(event => event instanceof ResolveEnd),
       switchMap((event: ResolveEnd) => {
         const currentRoute = this.getCurrentRoute(event.state.root);
-        return this.resolveRouteMenus(currentRoute, event.state);
+        return this.resolveRouteMenus(currentRoute, event.state, isServerRendering);
       }),
     ).subscribe();
   }
@@ -97,12 +97,13 @@ export class MenuProviderService {
   /**
    * Initialise the persistent menu sections
    */
-  public initPersistentMenus() {
+  public initPersistentMenus(isServerRendering) {
     combineLatest([
       ...this.providers
         .map((provider) => {
           return provider;
         })
+        .filter(provider => !(isServerRendering && provider.renderBrowserOnly))
         .filter(provider => provider.shouldPersistOnRouteChange)
         .map(provider => provider.getSections()
           .pipe(
@@ -133,10 +134,12 @@ export class MenuProviderService {
    * Resolve the non-persistent route based menu sections
    * @param route - the current route
    * @param state - the current router state
+   * @param isServerRendering - whether server side rendering is true
    */
   public resolveRouteMenus(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
+    isServerRendering,
   ): Observable<boolean> {
     const currentNonPersistentMenuSections$ = combineLatest([
       ...Object.values(MenuID).map((menuID) => {
@@ -149,6 +152,7 @@ export class MenuProviderService {
 
     const routeDependentMenuSections$ = combineLatest([
       ...this.providers
+        .filter(provider => !(isServerRendering && provider.renderBrowserOnly))
         .filter(provider => {
           let shouldUpdate = false;
           if (!provider.shouldPersistOnRouteChange && isNotEmpty(provider.activePaths)) {
