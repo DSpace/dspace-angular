@@ -2,7 +2,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgIf,
 } from '@angular/common';
 import {
   ChangeDetectorRef,
@@ -374,7 +373,6 @@ describe('DsDynamicRelationGroupComponent test suite', () => {
   standalone: true,
   imports: [
     DsDynamicRelationGroupComponent,
-    NgIf,
     AsyncPipe,
     NgbTooltipModule,
     TranslateModule,

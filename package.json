@@ -114,6 +114,7 @@
     "@ngrx/store": "^18.1.1",
     "@ngx-translate/core": "^16.0.3",
     "@nicky-lenaers/ngx-scroll-to": "^14.0.0",
+    "altcha": "^0.9.0",
     "angulartics2": "^12.2.0",
     "axios": "^1.7.9",
     "bootstrap": "^5.3",

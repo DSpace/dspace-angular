@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   ViewChild,
@@ -16,7 +16,6 @@ import { AccessControlFormContainerComponent } from '../../../shared/access-cont
   imports: [
     NgbAccordionModule,
     TranslateModule,
-    NgIf,
     AccessControlFormContainerComponent,
   ],
   standalone: true,

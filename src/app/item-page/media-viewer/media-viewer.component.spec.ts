@@ -6,6 +6,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute } from '@angular/router';
 import {
   TranslateLoader,
   TranslateModule,
@@ -22,6 +23,7 @@ import { MockBitstreamFormat1 } from '../../shared/mocks/item.mock';
 import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
@@ -91,6 +93,7 @@ describe('MediaViewerComponent', () => {
         { provide: BitstreamDataService, useValue: bitstreamDataService },
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: AuthService, useValue: new AuthServiceMock() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

@@ -1,8 +1,6 @@
 import {
   AsyncPipe,
   DatePipe,
-  NgForOf,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -42,8 +40,6 @@ import { AdminNotifyMessagesService } from '../services/admin-notify-messages.se
   standalone: true,
   imports: [
     TranslateModule,
-    NgForOf,
-    NgIf,
     DatePipe,
     AsyncPipe,
     TruncatableComponent,

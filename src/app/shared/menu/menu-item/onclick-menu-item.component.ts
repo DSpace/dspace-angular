@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   Inject,
@@ -16,7 +16,7 @@ import { OnClickMenuItemModel } from './models/onclick.model';
   styleUrls: ['./menu-item.component.scss', './onclick-menu-item.component.scss'],
   templateUrl: './onclick-menu-item.component.html',
   standalone: true,
-  imports: [NgIf, TranslateModule, RouterLinkActive],
+  imports: [TranslateModule, RouterLinkActive],
 })
 export class OnClickMenuItemComponent {
   item: OnClickMenuItemModel;

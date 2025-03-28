@@ -20,6 +20,7 @@ import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { ItemRequestDataService } from '../../core/data/item-request-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
+import { HardRedirectService } from '../../core/services/hard-redirect.service';
 import { Item } from '../../core/shared/item.model';
 import { ItemRequest } from '../../core/shared/item-request.model';
 import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
@@ -46,6 +47,7 @@ describe('GrantRequestCopyComponent', () => {
   let itemDataService: ItemDataService;
   let itemRequestService: ItemRequestDataService;
   let notificationsService: NotificationsService;
+  let hardRedirectService: HardRedirectService;
 
   let itemRequest: ItemRequest;
   let user: EPerson;
@@ -90,7 +92,6 @@ describe('GrantRequestCopyComponent', () => {
         ],
       },
     });
-
     router = jasmine.createSpyObj('router', {
       navigateByUrl: jasmine.createSpy('navigateByUrl'),
     });
@@ -106,11 +107,17 @@ describe('GrantRequestCopyComponent', () => {
     itemDataService = jasmine.createSpyObj('itemDataService', {
       findById: createSuccessfulRemoteDataObject$(item),
     });
-    itemRequestService = jasmine.createSpyObj('itemRequestService', {
+    itemRequestService = jasmine.createSpyObj('ItemRequestDataService', {
+      getSanitizedRequestByAccessToken: observableOf(createSuccessfulRemoteDataObject(itemRequest)),
       grant: createSuccessfulRemoteDataObject$(itemRequest),
+      getConfiguredAccessPeriods: observableOf([3600, 7200, 14400]), // Common access periods in seconds
+    });
+
+    authService = jasmine.createSpyObj('authService', {
+      isAuthenticated: observableOf(true),
+      getAuthenticatedUserFromStore: observableOf(user),
     });
     notificationsService = jasmine.createSpyObj('notificationsService', ['success', 'error']);
-
     return TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), GrantRequestCopyComponent, VarDirective],
       providers: [
@@ -121,6 +128,7 @@ describe('GrantRequestCopyComponent', () => {
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: ItemRequestDataService, useValue: itemRequestService },
         { provide: NotificationsService, useValue: notificationsService },
+        { provide: HardRedirectService, useValue: hardRedirectService },
         { provide: ThemeService, useValue: getMockThemeService() },
       ],
       schemas: [NO_ERRORS_SCHEMA],

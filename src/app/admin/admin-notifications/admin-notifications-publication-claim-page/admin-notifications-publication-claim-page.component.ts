@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
 
-import { PublicationClaimComponent } from '../../../notifications/suggestion-targets/publication-claim/publication-claim.component';
+import { SuggestionSourcesComponent } from '../../../notifications/suggestions/sources/suggestion-sources.component';
 
 @Component({
   selector: 'ds-admin-notifications-publication-claim-page',
   templateUrl: './admin-notifications-publication-claim-page.component.html',
   styleUrls: ['./admin-notifications-publication-claim-page.component.scss'],
-  imports: [
-    PublicationClaimComponent,
-  ],
+  imports: [ SuggestionSourcesComponent ],
   standalone: true,
 })
 export class AdminNotificationsPublicationClaimPageComponent {
