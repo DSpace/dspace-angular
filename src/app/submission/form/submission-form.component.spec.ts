@@ -10,13 +10,18 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { Store } from '@ngrx/store';
 import {
   cold,
   getTestScheduler,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import {
+  of as observableOf,
+  of,
+} from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 import { AuthService } from '../../core/auth/auth.service';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { Item } from '../../core/shared/item.model';
@@ -56,6 +61,8 @@ describe('SubmissionFormComponent Component', () => {
   let scheduler: TestScheduler;
 
   const submissionServiceStub: SubmissionServiceStub = new SubmissionServiceStub();
+  submissionServiceStub.getSubmissionStatus = jasmine.createSpy('getSubmissionStatus')
+    .and.returnValue(of(true));
   const submissionId = mockSubmissionId;
   const collectionId = mockSubmissionCollectionId;
   const submissionObjectNew: any = mockSubmissionObjectNew;
@@ -64,6 +71,7 @@ describe('SubmissionFormComponent Component', () => {
   const selfUrl: any = mockSubmissionSelfUrl;
   const sectionsList: any = mockSectionsList;
   const sectionsData: any = mockSectionsData;
+  const store = jasmine.createSpyObj('store', ['dispatch']);
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -75,6 +83,8 @@ describe('SubmissionFormComponent Component', () => {
         { provide: SubmissionService, useValue: submissionServiceStub },
         { provide: SectionsService, useValue: { isSectionTypeAvailable: () => observableOf(true) } },
         { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: Store, useValue: store },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         ChangeDetectorRef,
         SubmissionFormComponent,
       ],
