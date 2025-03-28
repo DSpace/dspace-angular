@@ -208,7 +208,7 @@
     "karma-mocha-reporter": "2.2.5",
     "ngx-export-as": "~1.15.1",
     "ng-mocks": "^14.13.2",
-    "ngx-mask": "^13.1.7",
+    "ngx-mask": "13.1.7",
     "nodemon": "^2.0.22",
     "postcss": "^8.5",
     "postcss-import": "^14.0.0",

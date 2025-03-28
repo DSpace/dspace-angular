@@ -9908,10 +9908,10 @@ ngx-infinite-scroll@^15.0.0:
   dependencies:
     tslib "^2.3.0"
 
-ngx-mask@^13.1.7:
-  version "13.2.2"
-  resolved "https://registry.yarnpkg.com/ngx-mask/-/ngx-mask-13.2.2.tgz#d92e488876f624e1521a06d3e224fb2505dff5b8"
-  integrity sha512-GvTxODtx0Err6z6U7HGdd9t8qCOLwycLYcD5yek/b4FoxbUs3FRyFsiuTyfPxbWeUgFPLbHjLWR2y5qDI/4Tdg==
+ngx-mask@13.1.7:
+  version "13.1.7"
+  resolved "https://registry.yarnpkg.com/ngx-mask/-/ngx-mask-13.1.7.tgz#9ef40354a83484aaf77aff74742cd0f43b4a65cd"
+  integrity sha512-zwGSEGt+WRlb31qMd92K25MCNUhfI2XKOMv+m5NypkZ+stONdBxAXjp8wA/1MJ46uYF5UYLmKPdkXloZBtOXQQ==
   dependencies:
     tslib "^2.3.0"
 
