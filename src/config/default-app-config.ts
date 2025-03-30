@@ -619,5 +619,11 @@ export class DefaultAppConfig implements AppConfig {
     tileProviders: [
       'OpenStreetMap.Mapnik',
     ],
+    // Starting centre point for maps (before drawing and zooming to markers)
+    // Defaults to Istanbul
+    defaultCentrePoint: {
+      lat: 41.015137,
+      lng: 28.979530,
+    },
   };
 }

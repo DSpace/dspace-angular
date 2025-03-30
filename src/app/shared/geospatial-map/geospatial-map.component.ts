@@ -92,6 +92,8 @@ export class GeospatialMapComponent implements AfterViewInit, OnInit, OnDestroy 
    */
   @Input() layout = 'item';
 
+  DEFAULT_CENTRE_POINT = [environment.geospatialMapViewer.defaultCentrePoint.lat, environment.geospatialMapViewer.defaultCentrePoint.lng];
+
   private subs: Subscription[] = [];
 
   constructor(private elRef: ElementRef,
@@ -146,7 +148,7 @@ export class GeospatialMapComponent implements AfterViewInit, OnInit, OnDestroy 
     const el = this.elRef.nativeElement.querySelector('div.geospatial-map');
     // Defaults are London - we update this after drawing markers to zoom and fit based on data
     this.map = L.map(el, {
-      center: [51.505, -0.09],
+      center: this.DEFAULT_CENTRE_POINT,
       zoom: 11,
     });
     const tileProviders = environment.geospatialMapViewer.tileProviders;
@@ -247,9 +249,15 @@ export class GeospatialMapComponent implements AfterViewInit, OnInit, OnDestroy 
       point.url = '/search';
       return point;
     }).filter((point) => hasValue(point) && hasValue(point.coordinates) && point.coordinates.length === 2);
+    // If there are no points to draw, instead zoom out and show a tooltip and return early
     if (isEmpty(points)) {
+      this.map.setZoom(1);
+      const marker = new L.marker(this.DEFAULT_CENTRE_POINT, { opacity: 0 });
+      marker.bindTooltip('<span class="fs-4 no-results-tooltip">' + this.translateService.instant('search.results.geospatial-map.empty') + '</span>', { permanent: true, offset: [0, 0], direction: 'top' });
+      this.map.addLayer(marker);
       return;
     }
+    // We have >0 markers, so construct links and tooltips for each
     const markers = L.markerClusterGroup();
     for (let i = 0; i < points.length; i++) {
       // GeoJSON coordinates are [x, y] or [longitude, latitude] or [eastings, northings]
@@ -305,6 +313,12 @@ export class GeospatialMapComponent implements AfterViewInit, OnInit, OnDestroy 
       this.map.addLayer(markers);
       const bounds = L.latLngBounds(points.map(point => [point.latitude, point.longitude]));
       this.map.fitBounds(bounds);
+    } else {
+      // If there are no points to draw, instead zoom out and show a tooltip
+      this.map.setZoom(1);
+      const marker = new L.marker(this.DEFAULT_CENTRE_POINT, { opacity: 0 });
+      marker.bindTooltip('<span class="fs-4 no-results-tooltip">' + this.translateService.instant('search.results.geospatial-map.empty') + '</span>', { permanent: true, offset: [0, 0], direction: 'top' });
+      this.map.addLayer(marker);
     }
   }
 

@@ -38,6 +38,11 @@ export class GeospatialMapConfig implements Config {
    */
   public tileProviders: string[];
 
-
+  /**
+   * Starting centre point for maps (before drawing and zooming to markers)
+   * Takes a lat and lng float value as coordinates
+   * Defaults to Istanbul
+   */
+  public defaultCentrePoint: { lat: number, lng: number };
 
 }

@@ -578,3 +578,10 @@ geospatialMapViewer:
   # (see https://leaflet-extras.github.io/leaflet-providers/preview/) for a full list
   tileProviders:
     - 'OpenStreetMap.Mapnik'
+  # Starting centre point for the map, as lat and lng coordinates. This is useful
+  # to set the centre of the map when the map is first loaded and if there are no
+  # points, shapes or markers to display.
+  # Defaults to the centre of Istanbul
+  defaultCentrePoint:
+    lat: 41.015137
+    lng: 28.979530

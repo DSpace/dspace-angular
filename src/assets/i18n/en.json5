@@ -4483,6 +4483,8 @@
 
   "search.filters.applied.operator.query": "",
 
+  "search.filters.applied.f.point": "Coordinates",
+
   "search.filters.filter.title.head": "Title",
 
   "search.filters.filter.title.placeholder": "Title",
@@ -4730,6 +4732,8 @@
   "search.results.no-results-link": "quotes around it",
 
   "search.results.empty": "Your search returned no results.",
+
+  "search.results.geospatial-map.empty": "No results on this page with geospatial locations",
 
   "search.results.view-result": "View",
 
