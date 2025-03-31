@@ -18,6 +18,7 @@ import {
   take,
 } from 'rxjs/operators';
 
+import { environment } from '../environments/environment';
 import { PUBLICATION_CLAIMS_PATH } from './admin/admin-notifications/admin-notifications-routing-paths';
 import { AuthService } from './core/auth/auth.service';
 import { BrowseService } from './core/browse/browse.service';
@@ -110,6 +111,7 @@ export class MenuResolverService  {
           link: `/community-list`,
         } as LinkMenuItemModel,
       },
+
     ];
     // Read the different Browse-By types from config and add them to the browse menu
     this.browseService.getBrowseDefinitions()
@@ -143,6 +145,25 @@ export class MenuResolverService  {
             },
           );
         }
+        /* Add "Browse by Geolocation" map if enabled in configuration, with index = length to put it at the end of the list */
+        if (environment.geospatialMapViewer.enableBrowseMap) {
+          menuList.push(
+            {
+              id: `browse_global_geospatial_map`,
+              parentID: 'browse_global',
+              active: false,
+              visible: true,
+              index: menuList.length,
+              model: {
+                type: MenuItemType.LINK,
+                text: `menu.section.browse_global_geospatial_map`,
+                link: `/browse/map`,
+                disabled: false,
+              } as LinkMenuItemModel,
+            },
+          );
+        }
+
         menuList.forEach((menuSection) => this.menuService.addSection(MenuID.PUBLIC, Object.assign(menuSection, {
           shouldPersistOnRouteChange: true,
         })));

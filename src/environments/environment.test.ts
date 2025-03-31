@@ -436,4 +436,23 @@ export const environment: BuildConfig = {
     messageTimeOutDurationMs: 30000,
     isVisible: false,
   },
+
+  // Leaflet tile providers and other configurable attributes
+  geospatialMapViewer: {
+    spatialMetadataFields: [
+      'dcterms.spatial',
+    ],
+    spatialFacetDiscoveryConfiguration: 'geospatial',
+    spatialPointFilterName: 'point',
+    enableItemPageFields: true,
+    enableSearchViewMode: true,
+    enableBrowseMap: true,
+    tileProviders: [
+      'OpenStreetMap.Mapnik',
+    ],
+    defaultCentrePoint: {
+      lat: 41.015137,
+      lng: 28.979530,
+    },
+  },
 };

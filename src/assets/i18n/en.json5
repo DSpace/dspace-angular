@@ -1054,6 +1054,12 @@
 
   "browse.metadata.title.breadcrumbs": "Browse by Title",
 
+  "browse.metadata.map": "Browse by Geolocation",
+
+  "browse.metadata.map.breadcrumbs": "Browse by Geolocation",
+
+  "browse.metadata.map.count.items": "items",
+
   "pagination.next.button": "Next",
 
   "pagination.previous.button": "Previous",
@@ -2732,6 +2738,8 @@
 
   "item.page.volume-title": "Volume Title",
 
+  "item.page.dcterms.spatial": "Geospatial point",
+
   "item.search.results.head": "Item Search Results",
 
   "item.search.title": "Item Search",
@@ -3347,6 +3355,8 @@
   "menu.section.browse_global_by_title": "By Title",
 
   "menu.section.browse_global_communities_and_collections": "Communities & Collections",
+
+  "menu.section.browse_global_geospatial_map": "By Geolocation (Map)",
 
   "menu.section.control_panel": "Control Panel",
 
@@ -4443,6 +4453,7 @@
   "search.filters.applied.f.original_bundle_filenames": "File name",
 
   "search.filters.applied.f.original_bundle_descriptions": "File description",
+  "search.filters.applied.f.has_geospatial_metadata": "Has geographical location",
 
   "search.filters.applied.f.itemtype": "Type",
 
@@ -4475,6 +4486,8 @@
   "search.filters.applied.operator.notcontains": " not contains",
 
   "search.filters.applied.operator.query": "",
+
+  "search.filters.applied.f.point": "Coordinates",
 
   "search.filters.filter.title.head": "Title",
 
@@ -4551,6 +4564,8 @@
   "search.filters.filter.has_content_in_original_bundle.head": "Has files",
 
   "search.filters.filter.original_bundle_filenames.head": "File name",
+
+  "search.filters.filter.has_geospatial_metadata.head": "Has geographical location",
 
   "search.filters.filter.original_bundle_filenames.placeholder": "File name",
 
@@ -4666,6 +4681,10 @@
 
   "search.filters.has_content_in_original_bundle.false": "No",
 
+  "search.filters.has_geospatial_metadata.true": "Yes",
+
+  "search.filters.has_geospatial_metadata.false": "No",
+
   "search.filters.discoverable.true": "No",
 
   "search.filters.discoverable.false": "Yes",
@@ -4718,6 +4737,8 @@
 
   "search.results.empty": "Your search returned no results.",
 
+  "search.results.geospatial-map.empty": "No results on this page with geospatial locations",
+
   "search.results.view-result": "View",
 
   "search.results.response.500": "An error occurred during query execution, please try again later",
@@ -4755,6 +4776,8 @@
   "search.view-switch.show-grid": "Show as grid",
 
   "search.view-switch.show-list": "Show as list",
+
+  "search.view-switch.show-geospatialMap": "Show as map",
 
   "selectable-list-item-control.deselect": "Deselect item",
 
@@ -6402,6 +6425,8 @@
   "submission.sections.notify.info": "The selected service is compatible with the item according to its current status. {{ service.name }}: {{ service.description }}",
 
   "item.page.endorsement": "Endorsement",
+
+  "item.page.places": "Related places",
 
   "item.page.review": "Review",
 
