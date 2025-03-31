@@ -38,6 +38,7 @@ import { ArrayMoveChangeAnalyzer } from '../../core/data/array-move-change-analy
 import { RemoteData } from '../../core/data/remote-data';
 import { UpdateDataService } from '../../core/data/update-data.service';
 import { lazyDataService } from '../../core/lazy-data-service';
+import { Context } from '../../core/shared/context.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { ResourceType } from '../../core/shared/resource-type';
@@ -141,6 +142,8 @@ export class DsoEditMetadataComponent implements OnInit, OnDestroy {
    * Unsubscribed from in ngOnDestroy()
    */
   dsoUpdateSubscription: Subscription;
+
+  public readonly Context = Context;
 
   constructor(protected route: ActivatedRoute,
               protected notificationsService: NotificationsService,

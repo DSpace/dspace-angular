@@ -6,6 +6,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ThemedItemAlertsComponent } from '../../../../../app/item-page/alerts/themed-item-alerts.component';
+import { AccessByTokenNotificationComponent } from '../../../../../app/item-page/simple/access-by-token-notification/access-by-token-notification.component';
 import { ItemPageComponent as BaseComponent } from '../../../../../app/item-page/simple/item-page.component';
 import { NotifyRequestsStatusComponent } from '../../../../../app/item-page/simple/notify-requests-status/notify-requests-status-component/notify-requests-status.component';
 import { QaEventNotificationComponent } from '../../../../../app/item-page/simple/qa-event-notification/qa-event-notification.component';
@@ -45,6 +46,7 @@ import { ViewTrackerComponent } from '../../../../../app/statistics/angulartics/
     AsyncPipe,
     NotifyRequestsStatusComponent,
     QaEventNotificationComponent,
+    AccessByTokenNotificationComponent,
   ],
 })
 export class ItemPageComponent extends BaseComponent {

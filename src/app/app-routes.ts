@@ -263,6 +263,20 @@ export const APP_ROUTES: Route[] = [
           .then((m) => m.ROUTES),
         canActivate: [authenticatedGuard],
       },
+      {
+        path: 'external-login/:token',
+        loadChildren: () => import('./external-login-page/external-login-routes').then((m) => m.ROUTES),
+      },
+      {
+        path: 'review-account/:token',
+        loadChildren: () => import('./external-login-review-account-info-page/external-login-review-account-info-page-routes')
+          .then((m) => m.ROUTES),
+      },
+      {
+        path: 'email-confirmation',
+        loadChildren: () => import('./external-login-email-confirmation-page/external-login-email-confirmation-page-routes')
+          .then((m) => m.ROUTES),
+      },
       { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
     ],
   },

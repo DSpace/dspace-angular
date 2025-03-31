@@ -10,7 +10,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import { AuthService } from '../../../../../core/auth/auth.service';
-import { AccessStatusDataService } from '../../../../../core/data/access-status-data.service';
 import { BitstreamDataService } from '../../../../../core/data/bitstream-data.service';
 import { AuthorizationDataService } from '../../../../../core/data/feature-authorization/authorization-data.service';
 import { RemoteData } from '../../../../../core/data/remote-data';
@@ -22,7 +21,6 @@ import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
-import { AccessStatusObject } from '../../../../../shared/object-collection/shared/badges/access-status-badge/access-status.model';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../shared/remote-data.utils';
 import { AuthServiceStub } from '../../../../../shared/testing/auth-service.stub';
@@ -41,12 +39,6 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
   const mockBitstreamDataService = {
     getThumbnailFor(item: Item): Observable<RemoteData<Bitstream>> {
       return createSuccessfulRemoteDataObject$(new Bitstream());
-    },
-  };
-
-  const mockAccessStatusDataService = {
-    findAccessStatusFor(item: Item): Observable<RemoteData<AccessStatusObject>> {
-      return createSuccessfulRemoteDataObject$(new AccessStatusObject());
     },
   };
 
@@ -74,7 +66,6 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
           { provide: TruncatableService, useValue: mockTruncatableService },
           { provide: BitstreamDataService, useValue: mockBitstreamDataService },
           { provide: ThemeService, useValue: mockThemeService },
-          { provide: AccessStatusDataService, useValue: mockAccessStatusDataService },
           { provide: AuthService, useClass: AuthServiceStub },
           { provide: FileService, useClass: FileServiceStub },
           { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
