@@ -21,8 +21,8 @@ import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from 'src/app/core/shared/operators';
-import { MetadataFieldWrapperComponent } from 'src/app/shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { hasValue } from 'src/app/shared/empty.util';
+import { MetadataFieldWrapperComponent } from 'src/app/shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { parseCcCode } from 'src/app/shared/utils/license.utils';
 
 
@@ -51,12 +51,12 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
   /**
    * Field name containing the CC license URI
    */
-  @Input() ccLicenseUriField? : string;
+  @Input() ccLicenseUriField?: string;
 
   /**
    * Field name containing the CC license name
    */
-  @Input() ccLicenseNameField? : string;
+  @Input() ccLicenseNameField?: string;
 
   /**
    * Shows the CC license name with the image. Always show if image fails to load
@@ -70,12 +70,12 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
 
 
   showImage = true;
-  
-  name$ : Observable<string>;
-  uri$ : Observable<string>;
-  imgSrc$ : Observable<string>;
 
-  
+  name$: Observable<string>;
+  uri$: Observable<string>;
+  imgSrc$: Observable<string>;
+
+
   constructor(
     protected configService: ConfigurationDataService,
   ) {
@@ -90,8 +90,8 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
         getRemoteDataPayload(),
         map((configurationProperty: ConfigurationProperty) => configurationProperty?.values?.[0]),
         map((metadataField: string) => hasValue(metadataField) ? metadataField : 'dc.rights'),
-        map((metadataField: string) => this.item.firstMetadataValue(metadataField))
-      )
+        map((metadataField: string) => this.item.firstMetadataValue(metadataField)),
+      );
     }
 
     if (hasValue(this.ccLicenseNameField)) {
@@ -102,13 +102,13 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
         getRemoteDataPayload(),
         map((configurationProperty: ConfigurationProperty) => configurationProperty?.values?.[0]),
         map((metadataField: string) => hasValue(metadataField) ? metadataField : 'dc.rights.uri'),
-        map((metadataField: string) => this.item.firstMetadataValue(metadataField))
-      )
+        map((metadataField: string) => this.item.firstMetadataValue(metadataField)),
+      );
     }
 
     this.imgSrc$ = this.uri$.pipe(
       map((uri: string) => parseCcCode(uri)),
-      map((ccCode: string) => ccCode ? `assets/images/cc-licenses/${ccCode}.png` : null)
+      map((ccCode: string) => ccCode ? `assets/images/cc-licenses/${ccCode}.png` : null),
     );
   }
 }
