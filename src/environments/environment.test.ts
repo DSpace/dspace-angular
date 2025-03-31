@@ -274,11 +274,13 @@ export const environment: BuildConfig = {
     },
   },
   community: {
+    defaultBrowseTab: 'search',
     searchSection: {
       showSidebar: true,
     },
   },
   collection: {
+    defaultBrowseTab: 'search',
     searchSection: {
       showSidebar: true,
     },
