@@ -94,7 +94,7 @@ export class ItemPageCcLicenseFieldComponent implements OnInit {
       );
     }
 
-    if (hasValue(this.ccLicenseNameField)) {
+    if (hasValue(this.ccLicenseUriField)) {
       this.uri$ = of(this.item.firstMetadataValue(this.ccLicenseUriField));
     } else {
       this.uri$ = this.configService.findByPropertyName('cc.license.uri').pipe(
