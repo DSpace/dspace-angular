@@ -53,9 +53,9 @@ describe('Chips component', () => {
   // synchronous beforeEach
   beforeEach(() => {
     html = `
-      <ds-uploader [onBeforeUpload]="onBeforeUpload"
-                   [uploadFilesOptions]="uploadFilesOptions"
-                   (onCompleteItem)="onCompleteItem($event)"></ds-uploader>`;
+      <ds-base-uploader [onBeforeUpload]="onBeforeUpload"
+                        [uploadFilesOptions]="uploadFilesOptions"
+                        (onCompleteItem)="onCompleteItem($event)"></ds-base-uploader>`;
 
     testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
     testComp = testFixture.componentInstance;

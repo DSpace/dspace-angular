@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   ChangeDetectorRef,
   Component,
@@ -39,7 +39,6 @@ import { ThemedMyDSpaceNewSubmissionDropdownComponent } from './my-dspace-new-su
     ThemedMyDSpaceNewExternalDropdownComponent,
     ThemedMyDSpaceNewSubmissionDropdownComponent,
     ThemedUploaderComponent,
-    NgIf,
   ],
   standalone: true,
 })

@@ -8,8 +8,8 @@
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "declaration": false,
-    "downlevelIteration": true,
     "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
     "experimentalDecorators": true,
     "sourceMap": true,
     "module": "es2020",
@@ -20,7 +20,6 @@
     "strictNullChecks": false,
     "skipDefaultLibCheck": true,
     "pretty": true,
-    "allowSyntheticDefaultImports": true,
     "target": "ES2022",
     "typeRoots": [
       "node_modules/@types",

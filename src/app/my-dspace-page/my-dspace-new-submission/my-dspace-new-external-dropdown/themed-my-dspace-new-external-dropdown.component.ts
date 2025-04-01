@@ -10,28 +10,19 @@ import { MyDSpaceNewExternalDropdownComponent } from './my-dspace-new-external-d
   selector: 'ds-my-dspace-new-external-dropdown',
   templateUrl: './../../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports : [MyDSpaceNewExternalDropdownComponent] ,
+  imports : [MyDSpaceNewExternalDropdownComponent],
 })
 export class ThemedMyDSpaceNewExternalDropdownComponent extends ThemedComponent<MyDSpaceNewExternalDropdownComponent> {
-  /**
-   * The name of the unthemed component
-   */
+
   protected getComponentName(): string {
     return 'MyDSpaceNewExternalDropdownComponent';
   }
 
-  /**
-   * Import the themed component for a specific theme
-   * @param themeName The name of the theme
-   */
   protected importThemedComponent(themeName: string): Promise<any> {
     return import(`../../../../themes/${themeName}/app/my-dspace-page/my-dspace-new-submission/my-dspace-new-external-dropdown/my-dspace-new-external-dropdown.component`);
   }
 
-  /**
-   * Import the default unthemed component
-   */
   protected importUnthemedComponent(): Promise<any> {
-    return import(`./my-dspace-new-external-dropdown.component`);
+    return import('./my-dspace-new-external-dropdown.component');
   }
 }

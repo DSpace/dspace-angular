@@ -26,7 +26,7 @@ import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { getMockLinkService } from '../../../mocks/link-service.mock';
 import { mockTruncatableService } from '../../../mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../mocks/theme-service.mock';
-import { WorkspaceitemActionsComponent } from '../../../mydspace-actions/workspaceitem/workspaceitem-actions.component';
+import { ThemedWorkspaceitemActionsComponent } from '../../../mydspace-actions/workspaceitem/themed-workspaceitem-actions.component';
 import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
@@ -98,7 +98,11 @@ describe('WorkspaceItemSearchResultListElementComponent', () => {
     }).overrideComponent(WorkspaceItemSearchResultListElementComponent, {
       add: { changeDetection: ChangeDetectionStrategy.Default },
       remove: {
-        imports: [ListableObjectComponentLoaderComponent, WorkspaceitemActionsComponent, ThemedLoadingComponent],
+        imports: [
+          ListableObjectComponentLoaderComponent,
+          ThemedLoadingComponent,
+          ThemedWorkspaceitemActionsComponent,
+        ],
       },
     }).compileComponents();
   }));

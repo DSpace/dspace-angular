@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -47,7 +44,11 @@ import {
   styleUrls: ['./create-community-parent-selector.component.scss'],
   templateUrl: './create-community-parent-selector.component.html',
   standalone: true,
-  imports: [DSOSelectorComponent, TranslateModule, NgIf, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    DSOSelectorComponent,
+    TranslateModule,
+  ],
 })
 export class CreateCommunityParentSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.COMMUNITY;

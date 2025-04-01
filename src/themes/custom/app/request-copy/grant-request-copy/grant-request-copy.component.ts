@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
@@ -18,6 +15,6 @@ import { VarDirective } from '../../../../../app/shared/utils/var.directive';
   // templateUrl: './grant-request-copy.component.html',
   templateUrl: './../../../../../app/request-copy/grant-request-copy/grant-request-copy.component.html',
   standalone: true,
-  imports: [VarDirective, NgIf, ThemedEmailRequestCopyComponent, FormsModule, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [VarDirective, ThemedEmailRequestCopyComponent, FormsModule, ThemedLoadingComponent, AsyncPipe, TranslateModule],
 })
 export class GrantRequestCopyComponent extends BaseComponent {}

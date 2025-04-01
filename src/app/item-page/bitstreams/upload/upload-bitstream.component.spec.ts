@@ -34,7 +34,7 @@ import { AuthServiceStub } from '../../../shared/testing/auth-service.stub';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
-import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
+import { ThemedUploaderComponent } from '../../../shared/upload/uploader/themed-uploader.component';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { UploadBitstreamComponent } from './upload-bitstream.component';
 
@@ -315,7 +315,10 @@ describe('UploadBitstreamComponent', () => {
     })
       .overrideComponent(UploadBitstreamComponent, {
         remove: {
-          imports: [UploaderComponent, DsoInputSuggestionsComponent],
+          imports: [
+            DsoInputSuggestionsComponent,
+            ThemedUploaderComponent,
+          ],
         },
       })
       .compileComponents();

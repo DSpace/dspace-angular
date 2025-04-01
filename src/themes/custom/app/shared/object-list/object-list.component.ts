@@ -1,8 +1,4 @@
-import {
-  NgClass,
-  NgFor,
-  NgIf,
-} from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
 
 import { ImportableListItemControlComponent } from '../../../../../app/shared/object-collection/shared/importable-list-item-control/importable-list-item-control.component';
@@ -22,7 +18,7 @@ import { BrowserOnlyPipe } from '../../../../../app/shared/utils/browser-only.pi
   styleUrls: ['../../../../../app/shared/object-list/object-list.component.scss'],
   // templateUrl: './object-list.component.html'
   templateUrl: '../../../../../app/shared/object-list/object-list.component.html',
-  imports: [PaginationComponent, NgIf, NgClass, NgFor, SelectableListItemControlComponent, ImportableListItemControlComponent, ListableObjectComponentLoaderComponent, BrowserOnlyPipe],
+  imports: [PaginationComponent,  NgClass, SelectableListItemControlComponent, ImportableListItemControlComponent, ListableObjectComponentLoaderComponent, BrowserOnlyPipe],
   standalone: true,
 })
 

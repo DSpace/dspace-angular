@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnDestroy,
@@ -46,7 +43,7 @@ import { SearchResultDetailElementComponent } from '../search-result-detail-elem
   styleUrls: ['../search-result-detail-element.component.scss'],
   templateUrl: './claimed-task-search-result-detail-element.component.html',
   standalone: true,
-  imports: [NgIf, ItemDetailPreviewComponent, ClaimedTaskActionsComponent, AsyncPipe],
+  imports: [ItemDetailPreviewComponent, ClaimedTaskActionsComponent, AsyncPipe],
 })
 
 @listableObjectComponent(ClaimedTaskSearchResult, ViewMode.DetailedListElement)

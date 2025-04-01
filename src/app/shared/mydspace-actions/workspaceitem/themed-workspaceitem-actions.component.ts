@@ -21,37 +21,24 @@ import { WorkspaceitemActionsComponent } from './workspaceitem-actions.component
 })
 export class ThemedWorkspaceitemActionsComponent extends ThemedComponent<WorkspaceitemActionsComponent> {
 
-
   @Input() object: WorkspaceItem;
 
-
-  @Output() processCompleted = new EventEmitter<MyDSpaceActionsResult>();
+  @Output() processCompleted: EventEmitter<MyDSpaceActionsResult> = new EventEmitter();
 
   protected inAndOutputNames: (keyof WorkspaceitemActionsComponent & keyof this)[] = [
     'object',
     'processCompleted',
   ];
 
-  /**
-   * Return the exact class name of the unthemed component
-   */
   protected getComponentName(): string {
     return 'WorkspaceitemActionsComponent';
   }
 
-  /**
-   * Dynamically load a theme-specific version if available
-   */
   protected importThemedComponent(themeName: string): Promise<any> {
-    return import(
-      `../../../../themes/${themeName}/app/shared/mydspace-actions/workspaceitem/workspaceitem-actions.component`
-    );
+    return import(`../../../../themes/${themeName}/app/shared/mydspace-actions/workspaceitem/workspaceitem-actions.component`);
   }
 
-  /**
-   * Load the default, unthemed version
-   */
   protected importUnthemedComponent(): Promise<any> {
-    return import(`./workspaceitem-actions.component`);
+    return import('./workspaceitem-actions.component');
   }
 }

@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import {
   Component,
   Input,
@@ -39,7 +38,6 @@ import parseSectionErrors from '../../utils/parseSectionErrors';
   selector: 'ds-base-submission-upload-files',
   templateUrl: './submission-upload-files.component.html',
   imports: [
-    NgIf,
     ThemedUploaderComponent,
   ],
   standalone: true,

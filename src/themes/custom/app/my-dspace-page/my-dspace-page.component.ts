@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -14,7 +11,7 @@ import {
 import { ThemedMyDSpaceNewSubmissionComponent } from '../../../../app/my-dspace-page/my-dspace-new-submission/themed-my-dspace-new-submission.component';
 import { MyDSpacePageComponent as BaseComponent } from '../../../../app/my-dspace-page/my-dspace-page.component';
 import { MyDspaceQaEventsNotificationsComponent } from '../../../../app/my-dspace-page/my-dspace-qa-events-notifications/my-dspace-qa-events-notifications.component';
-import { SuggestionsNotificationComponent } from '../../../../app/notifications/suggestions-notification/suggestions-notification.component';
+import { SuggestionsNotificationComponent } from '../../../../app/notifications/suggestions/notification/suggestions-notification.component';
 import { pushInOut } from '../../../../app/shared/animations/push';
 import { RoleDirective } from '../../../../app/shared/roles/role.directive';
 import { ThemedSearchComponent } from '../../../../app/shared/search/themed-search.component';
@@ -38,13 +35,12 @@ import { ThemedSearchComponent } from '../../../../app/shared/search/themed-sear
   ],
   standalone: true,
   imports: [
-    ThemedSearchComponent,
-    ThemedMyDSpaceNewSubmissionComponent,
     AsyncPipe,
-    RoleDirective,
-    NgIf,
-    SuggestionsNotificationComponent,
     MyDspaceQaEventsNotificationsComponent,
+    RoleDirective,
+    SuggestionsNotificationComponent,
+    ThemedMyDSpaceNewSubmissionComponent,
+    ThemedSearchComponent,
   ],
 })
 export class MyDSpacePageComponent extends BaseComponent {

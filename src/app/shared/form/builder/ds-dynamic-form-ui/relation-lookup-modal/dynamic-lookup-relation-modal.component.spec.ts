@@ -271,8 +271,8 @@ describe('DsDynamicLookupRelationModalComponent', () => {
       expect(debugElement.query(By.css('.submit')).nativeElement?.classList.contains('disabled')).toBeTrue();
       expect(debugElement.query(By.css('.discard')).nativeElement?.getAttribute('aria-disabled')).toBe('true');
       expect(debugElement.query(By.css('.discard')).nativeElement?.classList.contains('disabled')).toBeTrue();
-      expect(debugElement.query(By.css('.close')).nativeElement?.getAttribute('aria-disabled')).toBe('true');
-      expect(debugElement.query(By.css('.close')).nativeElement?.classList.contains('disabled')).toBeTrue();
+      expect(debugElement.query(By.css('.btn-close')).nativeElement?.getAttribute('aria-disabled')).toBe('true');
+      expect(debugElement.query(By.css('.btn-close')).nativeElement?.classList.contains('disabled')).toBeTrue();
     });
 
   });

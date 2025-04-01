@@ -17,7 +17,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
 import { DSONameServiceMock } from '../../../mocks/dso-name.service.mock';
 import { getMockLinkService } from '../../../mocks/link-service.mock';
-import { WorkspaceitemActionsComponent } from '../../../mydspace-actions/workspaceitem/workspaceitem-actions.component';
+import { ThemedWorkspaceitemActionsComponent } from '../../../mydspace-actions/workspaceitem/themed-workspaceitem-actions.component';
 import { WorkflowItemSearchResult } from '../../../object-collection/shared/workflow-item-search-result.model';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { ItemDetailPreviewComponent } from '../item-detail-preview/item-detail-preview.component';
@@ -80,7 +80,7 @@ describe('WorkspaceItemSearchResultDetailElementComponent', () => {
       remove: {
         imports: [
           ItemDetailPreviewComponent,
-          WorkspaceitemActionsComponent,
+          ThemedWorkspaceitemActionsComponent,
         ],
       },
     }).compileComponents();

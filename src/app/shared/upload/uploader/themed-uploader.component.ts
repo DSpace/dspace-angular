@@ -45,27 +45,15 @@ export class ThemedUploaderComponent extends ThemedComponent<UploaderComponent> 
     'onFileSelected',
   ];
 
-  /**
-   * Return the class name of the underlying (un-themed) component
-   */
   protected getComponentName(): string {
     return 'UploaderComponent';
   }
 
-
-  /**
-   * Import a theme-specific version of this component (if it exists)
-   */
   protected importThemedComponent(themeName: string): Promise<any> {
-    return import(
-      `../../../../themes/${themeName}/app/shared/upload/uploader/uploader.component`
-    );
+    return import(`../../../../themes/${themeName}/app/shared/upload/uploader/uploader.component`);
   }
 
-  /**
-   * Import the default, unthemed version of the component
-   */
   protected importUnthemedComponent(): Promise<any> {
-    return import(`./uploader.component`);
+    return import('./uploader.component');
   }
 }

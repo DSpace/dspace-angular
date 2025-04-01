@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 
 import { ThemedUploaderComponent } from '../../../../../../app/shared/upload/uploader/themed-uploader.component';
@@ -10,7 +9,6 @@ import { SubmissionUploadFilesComponent as BaseComponent } from '../../../../../
   templateUrl: '../../../../../../app/submission/form/submission-upload-files/submission-upload-files.component.html',
   imports: [
     ThemedUploaderComponent,
-    NgIf,
   ],
   standalone: true,
 })

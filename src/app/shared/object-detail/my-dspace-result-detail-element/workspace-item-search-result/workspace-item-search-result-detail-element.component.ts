@@ -28,7 +28,7 @@ import { SearchResultDetailElementComponent } from '../search-result-detail-elem
   styleUrls: ['../search-result-detail-element.component.scss', './workspace-item-search-result-detail-element.component.scss'],
   templateUrl: './workspace-item-search-result-detail-element.component.html',
   standalone: true,
-  imports: [ItemDetailPreviewComponent, ThemedWorkspaceitemActionsComponent, ThemedWorkspaceitemActionsComponent],
+  imports: [ItemDetailPreviewComponent, ThemedWorkspaceitemActionsComponent],
 })
 
 @listableObjectComponent(WorkspaceItemSearchResult, ViewMode.DetailedListElement)

@@ -20,35 +20,21 @@ import { MyDSpaceNewSubmissionComponent } from './my-dspace-new-submission.compo
 })
 export class ThemedMyDSpaceNewSubmissionComponent extends ThemedComponent<MyDSpaceNewSubmissionComponent> {
 
-  /**
-   * Output that emits the workspace item when the upload has completed
-   */
-  @Output() uploadEnd = new EventEmitter<SearchResult<DSpaceObject>[]>();
+  @Output() uploadEnd: EventEmitter<SearchResult<DSpaceObject>[]> = new EventEmitter();
 
-  /**
-   * Properties to bind between the themed and unthemed components
-   */
-  protected inAndOutputNames: (keyof MyDSpaceNewSubmissionComponent & keyof this)[] = ['uploadEnd'];
+  protected inAndOutputNames: (keyof MyDSpaceNewSubmissionComponent & keyof this)[] = [
+    'uploadEnd',
+  ];
 
-  /**
-   * The name of the unthemed component
-   */
   protected getComponentName(): string {
     return 'MyDSpaceNewSubmissionComponent';
   }
 
-  /**
-   * Import the themed component for a specific theme
-   * @param themeName The name of the theme
-   */
   protected importThemedComponent(themeName: string): Promise<any> {
     return import(`../../../themes/${themeName}/app/my-dspace-page/my-dspace-new-submission/my-dspace-new-submission.component`);
   }
 
-  /**
-   * Import the default unthemed component
-   */
   protected importUnthemedComponent(): Promise<any> {
-    return import(`./my-dspace-new-submission.component`);
+    return import('./my-dspace-new-submission.component');
   }
 }
