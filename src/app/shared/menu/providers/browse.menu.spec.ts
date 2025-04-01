@@ -8,6 +8,10 @@
 
 import { TestBed } from '@angular/core/testing';
 
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../config/app-config.interface';
 import { BrowseService } from '../../../core/browse/browse.service';
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
 import { BrowseDefinition } from '../../../core/shared/browse-definition.model';
@@ -30,7 +34,7 @@ describe('BrowseMenuProvider', () => {
     icon: 'globe',
   };
 
-  const expectedSubSections: PartialMenuSection[] = [
+  const expectedSubSections: (enableMapLink: boolean) => PartialMenuSection[] = (enableMapLink) => [
     {
       visible: true,
       model: {
@@ -45,6 +49,14 @@ describe('BrowseMenuProvider', () => {
         type: MenuItemType.LINK,
         text: 'menu.section.browse_global_by_subject',
         link: '/browse/subject',
+      },
+    },
+    {
+      visible: enableMapLink,
+      model: {
+        type: MenuItemType.LINK,
+        text: `menu.section.browse_global_geospatial_map`,
+        link: `/browse/map`,
       },
     },
   ];
@@ -66,6 +78,7 @@ describe('BrowseMenuProvider', () => {
         BrowseMenuProvider,
         { provide: BrowseService, useValue: browseServiceStub },
         { provide: ObjectCacheService, useValue: getMockObjectCacheService() },
+        { provide: APP_CONFIG, useValue: { geospatialMapViewer: { enableBrowseMap: true } } as AppConfig },
       ],
     });
     provider = TestBed.inject(BrowseMenuProvider);
@@ -84,7 +97,15 @@ describe('BrowseMenuProvider', () => {
 
   it('getSubSections should return expected menu sections', (done) => {
     provider.getSubSections().subscribe((sections) => {
-      expect(sections).toEqual(expectedSubSections);
+      expect(sections).toEqual(expectedSubSections(true));
+      done();
+    });
+  });
+
+  it('getSubSections should return expected menu sections', (done) => {
+    TestBed.inject(APP_CONFIG).geospatialMapViewer.enableBrowseMap = false;
+    provider.getSubSections().subscribe((sections) => {
+      expect(sections).toEqual(expectedSubSections(false));
       done();
     });
   });
