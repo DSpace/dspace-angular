@@ -13,6 +13,8 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import {
+  FormControl,
+  FormGroup,
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
@@ -34,6 +36,7 @@ import {
   Observable,
   of as observableOf,
 } from 'rxjs';
+import { mockGroup } from 'src/app/shared/mocks/submission.mock';
 
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
 import { RestResponse } from '../../../../core/cache/response.models';
@@ -56,7 +59,10 @@ import { RouterMock } from '../../../../shared/mocks/router.mock';
 import { getMockTranslateService } from '../../../../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
 import { PaginationComponent } from '../../../../shared/pagination/pagination.component';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 import {
   EPersonMock,
@@ -100,6 +106,9 @@ describe('MembersListComponent', () => {
           return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), epersonNonMembers));
         }
         return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []));
+      },
+      searchMembers(query: string, groupId: string, pagination, exact: boolean, currentMembers: boolean) {
+        return observableOf(createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), [])));
       },
       clearEPersonRequests() {
         // empty
@@ -273,6 +282,64 @@ describe('MembersListComponent', () => {
           expect(component.search).toHaveBeenCalled();
         });
       });
+    });
+  });
+
+  describe('test for searchMembers', () => {
+    let fakePagination: any;
+    let comp: any;
+
+    beforeEach(() => {
+      fakePagination = { currentPage: 1, pageSize: 10 };
+      comp = component as any;
+
+      spyOn(comp.paginationService, 'getCurrentPagination').and.returnValue(observableOf(fakePagination));
+
+      comp.ePersonDataService.searchMembers = jasmine.createSpy('searchMembers');
+    });
+
+    it('should search members and update ePeopleMembersOfGroup', fakeAsync(() => {
+      const fakeGroup = mockGroup;
+      const fakeMember = EPersonMock;
+      const fakePaginatedList = { pageInfo: { totalPages: 1 }, page: [fakeMember] };
+      const fakeResponse = createSuccessfulRemoteDataObject$(fakePaginatedList);
+
+      comp.groupBeingEdited = fakeGroup;
+      comp.ePersonDataService.searchMembers.and.returnValue(fakeResponse);
+
+      spyOn(comp, 'isMemberOfGroup').and.returnValue(observableOf(true));
+      const groupSpy = spyOn(comp.ePeopleMembersOfGroup, 'next');
+
+      comp.searchMembers({ queryCurrentMembers: 'John' });
+      tick();
+
+      expect(comp.ePersonDataService.searchMembers).toHaveBeenCalled();
+      expect(groupSpy).toHaveBeenCalled();
+    }));
+
+    it('should show error notification when API call fails', fakeAsync(() => {
+      const fakeGroup = mockGroup;
+      comp.groupBeingEdited = fakeGroup;
+
+      comp.ePersonDataService.searchMembers.and.returnValue(createFailedRemoteDataObject$('Server Error'));
+
+      const notificationSpy = spyOn(comp.notificationsService, 'error');
+      comp.searchMembers({ queryCurrentMembers: 'John' });
+      tick();
+
+      expect(notificationSpy).toHaveBeenCalled();
+    }));
+
+    it('should reset the searchCurrentMembersForm and call searchMembers with empty query', () => {
+      comp.searchCurrentMembersForm = new FormGroup({
+        queryCurrentMembers: new FormControl('John Doe'),
+      });
+
+      const searchSpy = spyOn(comp, 'searchMembers');
+      comp.clearCurrentMembersFormAndResetResult();
+
+      expect(comp.searchCurrentMembersForm.value.queryCurrentMembers).toBe('');
+      expect(searchSpy).toHaveBeenCalledWith({ queryCurrentMembers: '' });
     });
   });
 
