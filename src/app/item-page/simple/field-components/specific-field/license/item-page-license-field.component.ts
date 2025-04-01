@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
+  map,
   Observable,
   of,
   Subscription,
@@ -25,6 +26,7 @@ import {
   getRemoteDataPayload,
 } from 'src/app/core/shared/operators';
 import { ItemPageCcLicenseFieldComponent } from 'src/app/item-page/simple/field-components/specific-field/cc-license/item-page-cc-license-field.component';
+import { hasValue } from 'src/app/shared/empty.util';
 import { MetadataFieldWrapperComponent } from 'src/app/shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { isCcLicense } from 'src/app/shared/utils/license.utils';
 
@@ -43,7 +45,7 @@ import { isCcLicense } from 'src/app/shared/utils/license.utils';
  * appear. In any other case, all the 'dc.rights*' fields will be shown as a list (where the URIs
  * will be rendered as links).
  */
-export class ItemPageLicenseFieldComponent implements OnInit, OnDestroy {
+export class ItemPageLicenseFieldComponent implements OnInit {
   /**
    * The item to display the license for
    */
@@ -67,28 +69,24 @@ export class ItemPageLicenseFieldComponent implements OnInit, OnDestroy {
     protected configService: ConfigurationDataService,
   ) {}
 
-  ngOnDestroy(): void {
-    this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
-  }
-
   ngOnInit() {
     // First, retrieve from the back-end the configuration regarding CC fields...
-    this.subscriptions.push(this.configService.findByPropertyName('cc.license.uri').pipe(
+    this.hasCcLicenseName$ = this.configService.findByPropertyName('cc.license.name').pipe(
       getFirstCompletedRemoteData(),
       getRemoteDataPayload(),
-    ).subscribe((remoteData: ConfigurationProperty) => {
-      const ccLicenseUriField = remoteData?.values && remoteData?.values?.length > 0 ? remoteData.values[0] : 'dc.rights.uri';
-      this.hasCcLicenseUri$ = of(isCcLicense(this.item.firstMetadataValue(ccLicenseUriField)));
-    }),
+      map((configurationProperty: ConfigurationProperty) => configurationProperty?.values?.[0]),
+      map((metadataField: string) => hasValue(metadataField) ? metadataField : 'dc.rights'),
+      map((metadataField: string) => this.item.firstMetadataValue(metadataField)),
+      map((metadataValue: string) => hasValue(metadataValue)),
     );
 
-    this.subscriptions.push(this.configService.findByPropertyName('cc.license.name').pipe(
+    this.hasCcLicenseUri$ = this.configService.findByPropertyName('cc.license.uri').pipe(
       getFirstCompletedRemoteData(),
       getRemoteDataPayload(),
-    ).subscribe((remoteData: ConfigurationProperty) => {
-      const ccLicenseNameField = remoteData?.values && remoteData?.values?.length > 0 ? remoteData.values[0] : 'dc.rights';
-      this.hasCcLicenseName$ = of(!!this.item.firstMetadataValue(ccLicenseNameField));
-    }),
+      map((configurationProperty: ConfigurationProperty) => configurationProperty?.values?.[0]),
+      map((metadataField: string) => hasValue(metadataField) ? metadataField : 'dc.rights'),
+      map((metadataField: string) => this.item.firstMetadataValue(metadataField)),
+      map((metadataValue: string) => isCcLicense(metadataValue)),
     );
 
     // Now, get the data for this component, in case we need to render the license data as a generic license...
