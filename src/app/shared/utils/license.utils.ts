@@ -8,12 +8,3 @@ export function parseCcCode(uri: string): string {
   const matches = regex.exec(uri ?? '') ?? [];
   return matches.length > 2 ? matches[2] : null;
 }
-
-/**
-   * Returns whether a URI denotes a valid URI for CC licenses.
-   * @param uri
-   * @returns true if the URI corresponds to a reconigzable CC license URI or false otherwise
-   */
-export function isCcLicense(uri: string): boolean {
-  return !!parseCcCode(uri);
-}
