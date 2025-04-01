@@ -6,13 +6,20 @@
  * http://www.dspace.org/license/
  */
 
-import { Injectable } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
 import {
   Observable,
   of as observableOf,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../config/app-config.interface';
 import { BrowseService } from '../../../core/browse/browse.service';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -29,6 +36,7 @@ import { AbstractExpandableMenuProvider } from './helper-providers/expandable-me
 @Injectable()
 export class BrowseMenuProvider extends AbstractExpandableMenuProvider {
   constructor(
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
     protected browseService: BrowseService,
   ) {
     super();
@@ -65,6 +73,14 @@ export class BrowseMenuProvider extends AbstractExpandableMenuProvider {
               },
             };
           }),
+          {
+            visible: this.appConfig.geospatialMapViewer.enableBrowseMap,
+            model: {
+              type: MenuItemType.LINK,
+              text: `menu.section.browse_global_geospatial_map`,
+              link: `/browse/map`,
+            },
+          },
         ];
       }),
     );

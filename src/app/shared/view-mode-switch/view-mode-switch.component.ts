@@ -16,6 +16,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
+import { environment } from '../../../environments/environment';
 import { SearchService } from '../../core/shared/search/search.service';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import {
@@ -77,6 +78,9 @@ export class ViewModeSwitchComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (isEmpty(this.viewModeList)) {
       this.viewModeList = [ViewMode.ListElement, ViewMode.GridElement];
+      if (environment.geospatialMapViewer.enableSearchViewMode) {
+        this.viewModeList.push(ViewMode.GeospatialMap);
+      }
     }
 
     this.sub = this.searchService.getViewMode().pipe(
