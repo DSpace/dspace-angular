@@ -90,6 +90,7 @@ function getItem(metadata: MetadataMap) {
 describe('UntypedItemComponent', () => {
   let comp: UntypedItemComponent;
   let fixture: ComponentFixture<UntypedItemComponent>;
+  let configurationDataService = new ConfigurationDataServiceStub();
 
   beforeEach(waitForAsync(() => {
     const mockBitstreamDataService = {
@@ -133,6 +134,7 @@ describe('UntypedItemComponent', () => {
         { provide: RouteService, useValue: mockRouteService },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
         { provide: ConfigurationDataService, useValue: new ConfigurationDataServiceStub() },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
         { provide: APP_CONFIG, useValue: environment },
       ],
       schemas: [NO_ERRORS_SCHEMA],
