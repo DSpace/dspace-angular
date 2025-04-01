@@ -3458,6 +3458,14 @@
 
   "menu.section.statistics": "Statistics",
 
+  "menu.section.statistics.site": "Site Statistics",
+
+  "menu.section.statistics.community": "Community Statistics",
+
+  "menu.section.statistics.collection": "Collection Statistics",
+
+  "menu.section.statistics.item": "Item Statistics",
+
   "menu.section.statistics_task": "Statistics Task",
 
   "menu.section.toggle.access_control": "Toggle Access Control section",
