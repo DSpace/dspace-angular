@@ -4,9 +4,7 @@ import { REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
 import { accessTokenResolver } from '../core/auth/access-token.resolver';
 import { authenticatedGuard } from '../core/auth/authenticated.guard';
 import { itemBreadcrumbResolver } from '../core/breadcrumbs/item-breadcrumb.resolver';
-import { dsoEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
-import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
-import { MenuItemType } from '../shared/menu/menu-item-type.model';
+import { MenuRoute } from '../shared/menu/menu-route.model';
 import { BitstreamRequestACopyPageComponent } from './bitstreams/request-a-copy/bitstream-request-a-copy-page.component';
 import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.component';
 import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';
@@ -37,16 +35,18 @@ export const ROUTES: Route[] = [
         path: '',
         component: ThemedItemPageComponent,
         pathMatch: 'full',
-        resolve: {
-          menu: dsoEditMenuResolver,
+        data: {
+          menuRoute: MenuRoute.ITEM_PAGE,
         },
+
       },
       {
         path: 'full',
         component: ThemedFullItemPageComponent,
-        resolve: {
-          menu: dsoEditMenuResolver,
+        data: {
+          menuRoute: MenuRoute.ITEM_PAGE,
         },
+
       },
       {
         path: ITEM_EDIT_PATH,
@@ -75,21 +75,6 @@ export const ROUTES: Route[] = [
         },
       },
     ],
-    data: {
-      menu: {
-        public: [{
-          id: 'statistics_item_:id',
-          active: true,
-          visible: true,
-          index: 2,
-          model: {
-            type: MenuItemType.LINK,
-            text: 'menu.section.statistics',
-            link: 'statistics/items/:id/',
-          } as LinkMenuItemModel,
-        }],
-      },
-    },
   },
   {
     path: 'version',
