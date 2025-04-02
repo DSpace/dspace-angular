@@ -10,13 +10,22 @@ import {
   RouterLink,
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
+import { map } from 'rxjs/operators';
 
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { ItemDataService } from '../../../../core/data/item-data.service';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
+import { isNotEmpty } from '../../../empty.util';
 import { currentPath } from '../../../utils/route.utils';
+import { VarDirective } from '../../../utils/var.directive';
 import { AppliedFilter } from '../../models/applied-filter.model';
 
 /**
@@ -27,13 +36,15 @@ import { AppliedFilter } from '../../models/applied-filter.model';
   templateUrl: './search-label.component.html',
   styleUrls: ['./search-label.component.scss'],
   standalone: true,
-  imports: [RouterLink, AsyncPipe, TranslateModule],
+  imports: [RouterLink, AsyncPipe, TranslateModule, VarDirective],
 })
 export class SearchLabelComponent implements OnInit {
   @Input() inPlaceSearch: boolean;
   @Input() appliedFilter: AppliedFilter;
   searchLink: string;
   removeParameters$: Observable<Params>;
+
+  filterLabel$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   /**
    * Initialize the instance variable
@@ -44,13 +55,15 @@ export class SearchLabelComponent implements OnInit {
     protected searchConfigurationService: SearchConfigurationService,
     protected searchService: SearchService,
     protected searchFilterService: SearchFilterService,
+    protected itemDataService: ItemDataService,
+    protected dsoNameService: DSONameService,
   ) {
   }
 
   ngOnInit(): void {
-    console.log(this.appliedFilter);
     this.searchLink = this.getSearchLink();
     this.removeParameters$ = this.updateRemoveParams();
+    this.setFilterValue();
   }
 
   /**
@@ -58,6 +71,30 @@ export class SearchLabelComponent implements OnInit {
    */
   updateRemoveParams(): Observable<Params> {
     return this.searchConfigurationService.unselectAppliedFilterParams(this.appliedFilter.filter, this.appliedFilter.value, this.appliedFilter.operator);
+  }
+
+  /**
+   * Retrieves and sets the appropriate filter value based on the given input, updating the filterValue accordingly.
+   * @returns {void}
+   */
+  setFilterValue(): void{
+    if (this.appliedFilter.operator === 'authority') {
+      const id = this.appliedFilter.value;
+      this.itemDataService.findById(id).pipe(
+        getFirstCompletedRemoteData(),
+        map((rq)=> rq.hasSucceeded ? rq.payload : null),
+      ).subscribe((result)=>{
+        let tmpValue: string;
+        if (isNotEmpty(result)){
+          tmpValue = this.dsoNameService.getName(result);
+        } else {
+          tmpValue = this.appliedFilter.value;
+        }
+        this.filterLabel$.next(tmpValue);
+      });
+    } else {
+      this.filterLabel$.next(this.appliedFilter.label);
+    }
   }
 
   /**
