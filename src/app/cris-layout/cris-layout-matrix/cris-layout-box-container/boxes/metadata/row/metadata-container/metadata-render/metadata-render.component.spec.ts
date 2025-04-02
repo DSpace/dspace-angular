@@ -160,6 +160,11 @@ describe('MetadataRenderComponent', () => {
       component.field = fieldMock;
     });
 
+    it('Should apply word-break style to host element', () => {
+      const hostElement = fixture.nativeElement;
+      expect(getComputedStyle(hostElement).wordBreak).toBe('break-word');
+    });
+
     describe('When field rendering type is not structured', () => {
       beforeEach(() => {
         component.metadataValue = metadataValue;
