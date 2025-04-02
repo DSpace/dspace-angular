@@ -3,6 +3,7 @@ import {
   Component,
   Injector,
   Input,
+  OnChanges,
   OnInit,
   SimpleChanges,
 } from '@angular/core';
@@ -32,7 +33,7 @@ import { renderChartFilterType } from '../../chart-search-result-element-decorat
 /**
  * Wrapper component that renders a specific chart facet filter based on the filter config's type
  */
-export class SearchChartFilterWrapperComponent implements OnInit {
+export class SearchChartFilterWrapperComponent implements OnInit, OnChanges {
   /**
    * Configuration for the filter of this wrapper component
    */
