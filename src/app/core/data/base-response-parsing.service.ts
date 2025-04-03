@@ -6,7 +6,7 @@ import { PageInfo } from '../shared/page-info.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { GenericConstructor } from '../shared/generic-constructor';
 import { PaginatedList, buildPaginatedList } from './paginated-list.model';
-import { getClassForType } from '../cache/builders/build-decorators';
+import { getClassForObject } from '../cache/builders/build-decorators';
 import { environment } from '../../../environments/environment';
 import { CacheableObject } from '../cache/cacheable-object.model';
 import { RestRequest } from './rest-request.model';
@@ -111,7 +111,7 @@ export abstract class BaseResponseParsingService {
   protected deserialize<ObjectDomain>(obj): any {
     const type: string = obj.type;
     if (hasValue(type)) {
-      const objConstructor = getClassForType(type) as GenericConstructor<ObjectDomain>;
+      const objConstructor = getClassForObject(obj) as GenericConstructor<ObjectDomain>;
 
       if (hasValue(objConstructor)) {
         const serializer = new this.serializerConstructor(objConstructor);

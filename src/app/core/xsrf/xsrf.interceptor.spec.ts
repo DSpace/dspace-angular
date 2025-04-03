@@ -7,6 +7,8 @@ import { CookieService } from '../services/cookie.service';
 import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
 import { XsrfInterceptor } from './xsrf.interceptor';
 import { HttpXsrfTokenExtractorMock } from '../../shared/mocks/http-xsrf-token-extractor.mock';
+import { APP_CONFIG } from '../../../config/app-config.interface';
+import { environment } from 'src/environments/environment.test';
 
 describe(`XsrfInterceptor`, () => {
   let service: DspaceRestService;
@@ -35,7 +37,8 @@ describe(`XsrfInterceptor`, () => {
           multi: true,
         },
         { provide: HttpXsrfTokenExtractor, useValue: new HttpXsrfTokenExtractorMock(testToken) },
-        { provide: CookieService, useValue: new CookieServiceMock() }
+        { provide: CookieService, useValue: new CookieServiceMock() },
+        { provide: APP_CONFIG, useValue: environment },
       ],
     });
 
