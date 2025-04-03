@@ -1,13 +1,13 @@
 <h3>{{"search.filters.head" | translate}}</h3>
 <div *ngIf="(filters | async)?.hasSucceeded">
-    <div [class.visually-hidden]="filtersWithComputedVisibility !== (filters | async)?.payload?.length"
-         *ngFor="let filter of (filters | async)?.payload; trackBy: trackUpdate">
-        <ds-search-filter (isVisibilityComputed)="countFiltersWithComputedVisibility($event)" [scope]="currentScope" [filter]="filter" [inPlaceSearch]="inPlaceSearch" [refreshFilters]="refreshFilters"></ds-search-filter>
-    </div>
+  <div [class.visually-hidden]="getFinalFiltersComputed(this.currentConfiguration) !== (filters | async)?.payload?.length"
+       *ngFor="let filter of (filters | async)?.payload">
+    <ds-search-filter (isVisibilityComputed)="countFiltersWithComputedVisibility($event)" [scope]="currentScope" [filter]="filter" [inPlaceSearch]="inPlaceSearch" [refreshFilters]="refreshFilters"></ds-search-filter>
+  </div>
 </div>
 
 
-<ng-container *ngIf="filtersWithComputedVisibility !== (filters | async)?.payload?.length">
+<ng-container *ngIf="getFinalFiltersComputed(this.currentConfiguration) !== (filters | async)?.payload?.length">
   <ngx-skeleton-loader [count]="defaultFilterCount"/>
 </ng-container>
 <a class="btn btn-primary" [routerLink]="[searchLink]" [queryParams]="clearParams | async" queryParamsHandling="merge" role="button"><i class="fas fa-undo"></i> {{"search.filters.reset" | translate}}</a>
