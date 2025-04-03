@@ -188,7 +188,7 @@ export abstract class ThemedComponent<T extends object> implements AfterViewInit
    * @param {string[]} ngSelectors - An array of ng-content selectors to match against the element's children.
    * @returns {Node[][]} - A 2D array where each sub-array contains the nodes matching a specific selector.
    */
-  private getNgContent(element: Element, ngSelectors: string[]): Node[][] {
+  protected getNgContent(element: Element, ngSelectors: string[]): Node[][] {
     return ngSelectors.map(selector => {
       if (selector === '*') {
         // If the selector is '*', return all child nodes of the element.
