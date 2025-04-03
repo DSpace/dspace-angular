@@ -24,6 +24,7 @@ import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { DiscoverySortConfig } from './discovery-sort.config';
 import { LiveRegionConfig } from '../app/shared/live-region/live-region.config';
 import { SearchConfig } from './search-page-config.interface';
+import { AccessibilitySettingsConfig } from '../app/accessibility/accessibility-settings.config';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -446,5 +447,10 @@ export class DefaultAppConfig implements AppConfig {
 
   search: SearchConfig = {
     filterPlaceholdersCount: 5
+  };
+
+  // Accessibility settings configuration, used by the AccessibilitySettingsService
+  accessibility: AccessibilitySettingsConfig = {
+    cookieExpirationDuration: 7,
   };
 }
