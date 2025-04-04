@@ -7,7 +7,7 @@ import {
   hasValue,
   isNotEmpty,
 } from '../../shared/empty.util';
-import { getClassForType } from '../cache/builders/build-decorators';
+import { getClassForObject } from '../cache/builders/build-decorators';
 import { CacheableObject } from '../cache/cacheable-object.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { ParsedResponse } from '../cache/response.models';
@@ -29,7 +29,6 @@ import {
 import { ResponseParsingService } from './parsing.service';
 import { RestRequest } from './rest-request.model';
 import { RestRequestMethod } from './rest-request-method';
-
 
 /**
  * Return true if obj has a value for `_links.self`
@@ -209,13 +208,12 @@ export class DspaceRestResponseParsingService implements ResponseParsingService 
   }
 
   protected deserialize<ObjectDomain>(obj): any {
-    const type = obj.type;
-    const objConstructor = this.getConstructorFor<ObjectDomain>(type);
+    const objConstructor = this.getConstructorFor<ObjectDomain>(obj);
     if (hasValue(objConstructor)) {
       const serializer = new this.serializerConstructor(objConstructor);
       return serializer.deserialize(obj);
     } else {
-      console.warn('cannot deserialize type ' + type);
+      console.warn('cannot deserialize type ', obj?.type);
       return null;
     }
   }
@@ -224,15 +222,19 @@ export class DspaceRestResponseParsingService implements ResponseParsingService 
    * Returns the constructor for the given type, or null if there isn't a registered model for that
    * type
    *
-   * @param type the object to find the constructor for.
+   * @param obj the object to find the constructor for.
    * @protected
    */
-  protected getConstructorFor<ObjectDomain>(type: string): GenericConstructor<ObjectDomain> {
-    if (hasValue(type)) {
-      return getClassForType(type) as GenericConstructor<ObjectDomain>;
-    } else {
-      return null;
+  protected getConstructorFor<ObjectDomain>(obj: any): GenericConstructor<ObjectDomain> {
+    if (hasValue(obj?.type)) {
+      const constructor = getClassForObject(obj) as GenericConstructor<ObjectDomain>;
+
+      if (hasValue(constructor)) {
+        return constructor;
+      }
     }
+
+    return null;
   }
 
   /**

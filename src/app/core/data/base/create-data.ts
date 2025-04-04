@@ -19,7 +19,7 @@ import {
 } from '../../../shared/empty.util';
 import { NotificationOptions } from '../../../shared/notifications/models/notification-options.model';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { getClassForType } from '../../cache/builders/build-decorators';
+import { getClassForObject } from '../../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { CacheableObject } from '../../cache/cacheable-object.model';
 import { RequestParam } from '../../cache/models/request-param.model';
@@ -87,7 +87,7 @@ export class CreateDataImpl<T extends CacheableObject> extends BaseDataService<T
    */
   createOnEndpoint(object: T, endpoint$: Observable<string>): Observable<RemoteData<T>> {
     const requestId = this.requestService.generateRequestId();
-    const serializedObject = new DSpaceSerializer(getClassForType(object.type)).serialize(object);
+    const serializedObject = new DSpaceSerializer(getClassForObject(object)).serialize(object);
 
     endpoint$.pipe(
       take(1),
