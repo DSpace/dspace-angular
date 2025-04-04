@@ -1,20 +1,10 @@
-import {
-  AfterViewChecked, AfterViewInit,
-  Component, Injectable,
-  Input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Injectable, } from '@angular/core';
 import { Angulartics2 } from 'angulartics2';
-import { Observable, Subscription, switchMap } from 'rxjs';
+import { switchMap } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 
 import { ReferrerService } from '../../../core/services/referrer.service';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { hasValue } from '../../../shared/empty.util';
-import { ActivatedRoute, ActivatedRouteSnapshot, Resolve, ResolveEnd, Router, RouterStateSnapshot } from '@angular/router';
-import { BreadcrumbConfig } from '../../../breadcrumbs/breadcrumb/breadcrumb-config.model';
-import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
+import { ActivatedRouteSnapshot, ResolveEnd, Router, RouterStateSnapshot } from '@angular/router';
 
 /**
  * This component triggers a page view statistic
@@ -32,7 +22,7 @@ export class ViewTrackerResolverService {
   }
 
   resolve(routeSnapshot: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    const dsoPath = routeSnapshot.data['dsoPath'] || 'dso.payload'; // Fetch the resolvers passed via the route data
+    const dsoPath = routeSnapshot.data.dsoPath || 'dso.payload'; // Fetch the resolvers passed via the route data
     this.router.events.pipe(
       filter(event => event instanceof ResolveEnd),
       take(1),
