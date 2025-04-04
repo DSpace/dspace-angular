@@ -8,6 +8,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { AccessibilitySettingsService } from '../accessibility/accessibility-settings.service';
+import { AccessibilitySettingsServiceStub } from '../accessibility/accessibility-settings.service.stub';
 import { ThemedAdminSidebarComponent } from '../admin/admin-sidebar/themed-admin-sidebar.component';
 import { ThemedBreadcrumbsComponent } from '../breadcrumbs/themed-breadcrumbs.component';
 import { ThemedFooterComponent } from '../footer/themed-footer.component';
@@ -41,6 +43,7 @@ describe('RootComponent', () => {
         { provide: MenuService, useValue: new MenuServiceStub() },
         { provide: CSSVariableService, useClass: CSSVariableServiceStub },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
+        { provide: AccessibilitySettingsService, useValue: new AccessibilitySettingsServiceStub() },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
