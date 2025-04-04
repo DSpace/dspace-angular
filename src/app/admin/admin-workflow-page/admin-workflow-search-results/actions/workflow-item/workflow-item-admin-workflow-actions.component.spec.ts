@@ -7,7 +7,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { RequestEntryState } from '../../../../../core/data/request-entry-state.model';
@@ -33,7 +33,7 @@ describe('WorkflowItemAdminWorkflowActionsComponent', () => {
     id = '780b2588-bda5-4112-a1cd-0b15000a5339';
     wfi = new WorkflowItem();
     wfi.id = id;
-    wfi.item = of(rd);
+    wfi.item = observableOf(rd);
   }
 
   beforeEach(waitForAsync(() => {

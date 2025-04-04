@@ -9,7 +9,7 @@ import {
   NgbNavModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
@@ -70,7 +70,7 @@ describe('BulkAccessBrowseComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(BulkAccessBrowseComponent);
     component = fixture.componentInstance;
-    (component as any).selectableListService.getSelectableList.and.returnValue(of(testSelection));
+    (component as any).selectableListService.getSelectableList.and.returnValue(observableOf(testSelection));
     fixture.detectChanges();
   });
 

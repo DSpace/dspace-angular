@@ -16,7 +16,7 @@ import {
 } from '@ngx-translate/core';
 import {
   Observable,
-  of,
+  of as observableOf,
   Subscription,
 } from 'rxjs';
 
@@ -51,14 +51,14 @@ describe('ReviewAccountInfoComponent', () => {
   let authService: any;
 
   const translateServiceStub = {
-    get: () => of('test-message'),
+    get: () => observableOf('test-message'),
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
     onDefaultLangChange: new EventEmitter(),
   };
   const mockEPerson = EPersonMock;
   const modalStub = {
-    open: () => ({ componentInstance: { response: of(true) } }),
+    open: () => ({ componentInstance: { response: observableOf(true) } }),
     close: () => null,
     dismiss: () => null,
   };
@@ -89,7 +89,7 @@ describe('ReviewAccountInfoComponent', () => {
     router = new RouterMock();
     notificationsService = new NotificationsServiceStub();
     externalLoginServiceStub = {
-      getExternalAuthLocation: () => of('https://orcid.org/oauth/authorize'),
+      getExternalAuthLocation: () => observableOf('https://orcid.org/oauth/authorize'),
     };
     hardRedirectService = jasmine.createSpyObj('HardRedirectService', {
       redirect: (url: string) => null,
@@ -159,7 +159,7 @@ describe('ReviewAccountInfoComponent', () => {
 
   it('should open a confirmation modal on onSave and confirm', fakeAsync(() => {
     spyOn(modalStub, 'open').and.returnValue({
-      componentInstance: { response: of(true) },
+      componentInstance: { response: observableOf(true) },
     });
     spyOn(component, 'mergeEPersonDataWithToken');
     component.onSave();
@@ -170,7 +170,7 @@ describe('ReviewAccountInfoComponent', () => {
 
   it('should open a confirmation modal on onSave and cancel', fakeAsync(() => {
     spyOn(modalStub, 'open').and.returnValue({
-      componentInstance: { response: of(false) },
+      componentInstance: { response: observableOf(false) },
     });
     spyOn(component, 'mergeEPersonDataWithToken');
     component.onSave();
@@ -182,7 +182,7 @@ describe('ReviewAccountInfoComponent', () => {
   it('should merge EPerson data with token when overrideValue is true', fakeAsync(() => {
     component.dataToCompare[0].overrideValue = true;
     spyOn(ePersonDataServiceStub, 'mergeEPersonDataWithToken').and.returnValue(
-      of({ hasSucceeded: true }),
+      observableOf({ hasSucceeded: true }),
     );
     component.mergeEPersonDataWithToken(registrationDataMock.user, registrationDataMock.registrationType);
     tick();

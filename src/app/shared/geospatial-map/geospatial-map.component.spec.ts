@@ -11,7 +11,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { getMockTranslateService } from '../mocks/translate.service.mock';
 import { GeospatialMapComponent } from './geospatial-map.component';
@@ -174,7 +174,7 @@ describe('GeospatialMapComponent', () => {
           },
         ],
       });
-      component.facetValues = of(mockFacetValues);
+      component.facetValues = observableOf(mockFacetValues);
       component.cluster = true;
 
       elRef = {

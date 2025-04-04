@@ -5,7 +5,7 @@ import {
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { mockRegistrationDataModel } from '../external-log-in/models/registration-data.mock.model';
 import { ExternalLoginReviewAccountInfoPageComponent } from './external-login-review-account-info-page.component';
@@ -21,7 +21,7 @@ describe('ExternalLoginReviewAccountInfoPageComponent', () => {
         token: '1234567890',
       },
     },
-    data: of({
+    data: observableOf({
       registrationData: mockRegistrationDataModel,
     }),
   };
@@ -61,7 +61,7 @@ describe('ExternalLoginReviewAccountInfoPageComponent', () => {
 
   it('should display review account info component when there are no errors', () => {
     component.hasErrors = false;
-    component.registrationData$ = of(mockRegistrationDataModel);
+    component.registrationData$ = observableOf(mockRegistrationDataModel);
     fixture.detectChanges();
     const reviewAccountInfoComponent = fixture.nativeElement.querySelector('ds-review-account-info');
     expect(reviewAccountInfoComponent).toBeTruthy();

@@ -20,7 +20,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import { NgxMaskModule } from 'ngx-mask';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import {
   APP_CONFIG,
@@ -35,7 +35,7 @@ import { DsDynamicFormArrayComponent } from './dynamic-form-array.component';
 
 describe('DsDynamicFormArrayComponent', () => {
   const translateServiceStub = {
-    get: () => of('translated-text'),
+    get: () => observableOf('translated-text'),
     instant: () => 'translated-text',
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),

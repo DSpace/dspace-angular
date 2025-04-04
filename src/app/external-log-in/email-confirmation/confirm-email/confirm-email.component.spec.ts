@@ -17,7 +17,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { AuthService } from '../../../core/auth/auth.service';
 import { AuthMethodType } from '../../../core/auth/models/auth.method-type';
@@ -46,7 +46,7 @@ describe('ConfirmEmailComponent', () => {
   let hardRedirectService: HardRedirectService;
 
   const translateServiceStub = {
-    get: () => of(''),
+    get: () => observableOf(''),
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
     onDefaultLangChange: new EventEmitter(),
@@ -157,8 +157,8 @@ describe('ConfirmEmailComponent', () => {
     });
 
     it('should call EPersonDataService.createEPersonForToken and ExternalLoginService.getExternalAuthLocation if the registration data has a netId', () => {
-      externalLoginServiceSpy.getExternalAuthLocation.and.returnValue(of('test-location'));
-      authServiceSpy.getRedirectUrl.and.returnValue(of('/test-redirect'));
+      externalLoginServiceSpy.getExternalAuthLocation.and.returnValue(observableOf('test-location'));
+      authServiceSpy.getRedirectUrl.and.returnValue(observableOf('/test-redirect'));
       authServiceSpy.getExternalServerRedirectUrl.and.returnValue('test-external-url');
       epersonDataServiceSpy.createEPersonForToken.and.returnValue(createSuccessfulRemoteDataObject$(new EPerson()));
       (component as any).postCreateAccountFromToken('test-token', component.registrationData);

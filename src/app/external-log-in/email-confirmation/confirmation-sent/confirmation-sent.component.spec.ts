@@ -12,7 +12,7 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { ConfirmationSentComponent } from './confirmation-sent.component';
@@ -23,7 +23,7 @@ describe('ConfirmationSentComponent', () => {
   let compiledTemplate: HTMLElement;
 
   const translateServiceStub = {
-    get: () => of('Mocked Translation Text'),
+    get: () => observableOf('Mocked Translation Text'),
     instant: (key: any) => 'Mocked Translation Text',
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),

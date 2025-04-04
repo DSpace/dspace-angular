@@ -8,7 +8,7 @@ import {
 import {
   map,
   Observable,
-  of,
+  of as observableOf,
 } from 'rxjs';
 
 import { EpersonRegistrationService } from '../../core/data/eperson-registration.service';
@@ -48,6 +48,6 @@ export const registrationTokenGuard: CanActivateFn = (
       );
   } else {
     router.navigate(['/404']);
-    return of(false);
+    return observableOf(false);
   }
 };
