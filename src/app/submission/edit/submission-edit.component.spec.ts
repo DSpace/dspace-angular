@@ -57,6 +57,8 @@ describe('SubmissionEditComponent Component', () => {
   const submissionObject: any = mockSubmissionObject;
 
   beforeEach(waitForAsync(() => {
+    // Fix for missing CSS custom property
+    document.documentElement.style.setProperty('--bs-xl', '1200');
     itemDataService = jasmine.createSpyObj('itemDataService', {
       findByHref: createSuccessfulRemoteDataObject$(submissionObject.item),
     });
@@ -105,6 +107,10 @@ describe('SubmissionEditComponent Component', () => {
   });
 
   afterEach(() => {
+    if (fixture) {
+      // Ensure Angular cleans up the component properly
+      fixture.destroy();
+    }
     comp = null;
     fixture = null;
     router = null;
