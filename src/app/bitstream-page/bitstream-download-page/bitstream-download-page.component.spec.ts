@@ -18,6 +18,7 @@ import { of as observableOf } from 'rxjs';
 import { getForbiddenRoute } from '../../app-routing-paths';
 import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { HardRedirectService } from '../../core/services/hard-redirect.service';
@@ -112,7 +113,10 @@ describe('BitstreamDownloadPageComponent', () => {
     signpostingDataService = jasmine.createSpyObj('SignpostingDataService', {
       getLinks: observableOf([mocklink, mocklink2]),
     });
-    matomoService = jasmine.createSpyObj('MatomoService', ['appendVisitorId']);
+    matomoService = jasmine.createSpyObj('MatomoService', {
+      appendVisitorId: observableOf(''),
+      isMatomoEnabled$: observableOf(true),
+    });
     matomoService.appendVisitorId.and.callFake((link) => observableOf(link));
   }
 
@@ -132,6 +136,7 @@ describe('BitstreamDownloadPageComponent', () => {
         { provide: PLATFORM_ID, useValue: 'server' },
         { provide: Location, useValue: location },
         { provide: DSONameService, useValue: dsoNameService },
+        { provide: ConfigurationDataService, useValue: {} },
       ],
     })
       .compileComponents();
@@ -226,5 +231,43 @@ describe('BitstreamDownloadPageComponent', () => {
         });
       }));
     });
+  });
+
+  describe('when Matomo is enabled', () => {
+    beforeEach(waitForAsync(() => {
+      init();
+      (matomoService.appendVisitorId as jasmine.Spy).and.callFake((link) => observableOf(link + '?visitorId=12345'));
+      initTestbed();
+    }));
+    beforeEach(() => {
+      fixture = TestBed.createComponent(BitstreamDownloadPageComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    });
+    it('should append visitor ID to the file link', waitForAsync(() => {
+      fixture.whenStable().then(() => {
+        expect(matomoService.appendVisitorId).toHaveBeenCalledWith('content-url-with-headers');
+        expect(hardRedirectService.redirect).toHaveBeenCalledWith('content-url-with-headers?visitorId=12345');
+      });
+    }));
+  });
+
+  describe('when Matomo is not enabled', () => {
+    beforeEach(waitForAsync(() => {
+      init();
+      (matomoService.isMatomoEnabled$ as jasmine.Spy).and.returnValue(observableOf(false));
+      initTestbed();
+    }));
+    beforeEach(() => {
+      fixture = TestBed.createComponent(BitstreamDownloadPageComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    });
+    it('should not append visitor ID to the file link', waitForAsync(() => {
+      fixture.whenStable().then(() => {
+        expect(matomoService.appendVisitorId).not.toHaveBeenCalled();
+        expect(hardRedirectService.redirect).toHaveBeenCalledWith('content-url-with-headers');
+      });
+    }));
   });
 });

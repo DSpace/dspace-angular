@@ -30,6 +30,7 @@ import {
   NativeWindowService,
 } from '../../core/services/window.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { MATOMO_ENABLED } from '../../statistics/matomo.service';
 import {
   hasValue,
   isEmpty,
@@ -90,7 +91,7 @@ export class BrowserOrejimeService extends OrejimeService {
 
   private readonly GOOGLE_ANALYTICS_SERVICE_NAME = 'google-analytics';
 
-  private readonly MATOMO_ENABLED = 'matomo.enabled';
+  private readonly MATOMO_ENABLED = MATOMO_ENABLED;
 
   /**
    * Initial Orejime configuration

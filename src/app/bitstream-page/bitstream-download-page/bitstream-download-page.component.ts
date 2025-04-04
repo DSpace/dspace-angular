@@ -6,6 +6,7 @@ import {
 import {
   Component,
   Inject,
+  inject,
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
@@ -30,6 +31,7 @@ import {
 import { getForbiddenRoute } from '../../app-routing-paths';
 import { AuthService } from '../../core/auth/auth.service';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { RemoteData } from '../../core/data/remote-data';
@@ -63,6 +65,8 @@ export class BitstreamDownloadPageComponent implements OnInit {
 
   bitstream$: Observable<Bitstream>;
   bitstreamRD$: Observable<RemoteData<Bitstream>>;
+
+  configService = inject(ConfigurationDataService);
 
   constructor(
     private route: ActivatedRoute,
@@ -103,30 +107,33 @@ export class BitstreamDownloadPageComponent implements OnInit {
       switchMap((bitstream: Bitstream) => {
         const isAuthorized$ = this.authorizationService.isAuthorized(FeatureID.CanDownload, isNotEmpty(bitstream) ? bitstream.self : undefined);
         const isLoggedIn$ = this.auth.isAuthenticated();
-        return observableCombineLatest([isAuthorized$, isLoggedIn$, accessToken$, observableOf(bitstream)]);
+        const isMatomoEnabled$ = this.matomoService.isMatomoEnabled$();
+        return observableCombineLatest([isAuthorized$, isLoggedIn$, isMatomoEnabled$, accessToken$, observableOf(bitstream)]);
       }),
-      filter(([isAuthorized, isLoggedIn, accessToken, bitstream]: [boolean, boolean, string, Bitstream]) => (hasValue(isAuthorized) && hasValue(isLoggedIn)) || hasValue(accessToken)),
+      filter(([isAuthorized, isLoggedIn, isMatomoEnabled, accessToken, bitstream]: [boolean, boolean, boolean, string, Bitstream]) => (hasValue(isAuthorized) && hasValue(isLoggedIn)) || hasValue(accessToken)),
       take(1),
-      switchMap(([isAuthorized, isLoggedIn, accessToken, bitstream]: [boolean, boolean, string, Bitstream]) => {
+      switchMap(([isAuthorized, isLoggedIn, isMatomoEnabled, accessToken, bitstream]: [boolean, boolean, boolean, string, Bitstream]) => {
         if (isAuthorized && isLoggedIn) {
           return this.fileService.retrieveFileDownloadLink(bitstream._links.content.href).pipe(
             filter((fileLink) => hasValue(fileLink)),
             take(1),
             map((fileLink) => {
-              return [isAuthorized, isLoggedIn, bitstream, fileLink];
+              return [isAuthorized, isLoggedIn, isMatomoEnabled, bitstream, fileLink];
             }));
         } else if (hasValue(accessToken)) {
-          return [[isAuthorized, !isLoggedIn, bitstream, '', accessToken]];
+          return [[isAuthorized, !isLoggedIn, isMatomoEnabled, bitstream, '', accessToken]];
         } else {
-          return [[isAuthorized, isLoggedIn, bitstream, bitstream._links.content.href]];
+          return [[isAuthorized, isLoggedIn, isMatomoEnabled, bitstream, bitstream._links.content.href]];
         }
       }),
-      switchMap(([isAuthorized, isLoggedIn, bitstream, fileLink, accessToken]: [boolean, boolean, Bitstream, string, string]) =>
-        this.matomoService.appendVisitorId(fileLink)
-          .pipe(
+      switchMap(([isAuthorized, isLoggedIn, isMatomoEnabled, bitstream, fileLink, accessToken]: [boolean, boolean, boolean, Bitstream, string, string]) => {
+        if (isMatomoEnabled) {
+          return this.matomoService.appendVisitorId(fileLink).pipe(
             map((fileLinkWithVisitorId) => [isAuthorized, isLoggedIn, bitstream, fileLinkWithVisitorId, accessToken]),
-          ),
-      ),
+          );
+        }
+        return observableOf([isAuthorized, isLoggedIn, bitstream, fileLink, accessToken]);
+      }),
     ).subscribe(([isAuthorized, isLoggedIn, bitstream, fileLink, accessToken]: [boolean, boolean, Bitstream, string, string]) => {
       if (isAuthorized && isLoggedIn && isNotEmpty(fileLink)) {
         this.hardRedirectService.redirect(fileLink);

@@ -31,6 +31,8 @@ import { isNotEmpty } from '../shared/empty.util';
 export const MATOMO_TRACKER_URL = 'matomo.tracker.url';
 export const MATOMO_SITE_ID = 'matomo.request.siteid';
 
+export const MATOMO_ENABLED = 'matomo.enabled';
+
 /**
  * Service to manage Matomo analytics integration.
  * Handles initialization and consent management for Matomo tracking.
@@ -139,6 +141,21 @@ export class MatomoService {
         getFirstCompletedRemoteData(),
         map((res: RemoteData<ConfigurationProperty>) => {
           return res.hasSucceeded && res.payload && isNotEmpty(res.payload.values) && res.payload.values[0];
+        }),
+      );
+  }
+
+  /**
+   * Checks if Matomo tracking is enabled by retrieving the configuration property.
+   * @returns An Observable that emits a boolean indicating whether Matomo tracking is enabled.
+   */
+  isMatomoEnabled$(): Observable<boolean> {
+    return this.configService.findByPropertyName(MATOMO_ENABLED)
+      .pipe(
+        getFirstCompletedRemoteData(),
+        map((res: RemoteData<ConfigurationProperty>) => {
+          return res.hasSucceeded && res.payload && isNotEmpty(res.payload.values) &&
+            res.payload.values[0]?.toLowerCase() === 'true';
         }),
       );
   }
