@@ -28,15 +28,9 @@ import { MenuItemType } from '../shared/menu/menu-item-type.model';
               } as LinkMenuItemModel,
             }],
           },
-        },
-        resolve: {
-          site: HomePageResolver
         }
       }
     ])
-  ],
-  providers: [
-    HomePageResolver
   ]
 })
 export class HomePageRoutingModule {

@@ -22,6 +22,7 @@ import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { ThemedCollectionPageComponent } from './themed-collection-page.component';
 import { MenuItemType } from '../shared/menu/menu-item-type.model';
 import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
+import { ViewTrackerResolverService } from '../statistics/angulartics/dspace/view-tracker-resolver.service';
 
 @NgModule({
   imports: [
@@ -66,6 +67,9 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
             path: '',
             component: ThemedCollectionPageComponent,
             pathMatch: 'full',
+            resolve: {
+              tracking: ViewTrackerResolverService,
+            },
           }
         ],
         data: {
@@ -94,6 +98,7 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
     LinkService,
     CreateCollectionPageGuard,
     CollectionPageAdministratorGuard,
+    ViewTrackerResolverService,
   ]
 })
 export class CollectionPageRoutingModule {

@@ -19,6 +19,7 @@ import { REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
 import { OrcidPageComponent } from './orcid-page/orcid-page.component';
 import { OrcidPageGuard } from './orcid-page/orcid-page.guard';
 import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
+import { ViewTrackerResolverService } from '../statistics/angulartics/dspace/view-tracker-resolver.service';
 
 @NgModule({
   imports: [
@@ -36,10 +37,16 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
             path: '',
             component: ThemedItemPageComponent,
             pathMatch: 'full',
+            resolve: {
+              tracking: ViewTrackerResolverService,
+            }
           },
           {
             path: 'full',
             component: ThemedFullItemPageComponent,
+            resolve: {
+              tracking: ViewTrackerResolverService,
+            }
           },
           {
             path: ITEM_EDIT_PATH,
@@ -98,7 +105,8 @@ import { DSOEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
     LinkService,
     ItemPageAdministratorGuard,
     VersionResolver,
-    OrcidPageGuard
+    OrcidPageGuard,
+    ViewTrackerResolverService,
   ]
 
 })
