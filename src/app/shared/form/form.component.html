@@ -13,7 +13,7 @@
       (ngbEvent)="onCustomEvent($event)">
       <ng-template modelType="ARRAY" let-group let-index="index" let-context="context">
         <!--Array with repeatable items-->
-        <div *ngIf="(!context.notRepeatable) && !isVirtual(context, index) && group.context.groups.length !== 1 && !isItemReadOnly(context, index)"
+        <div *ngIf="(!context.notRepeatable) && !isVirtual(context, index) && isValidForShowDeleteButton(context, index) &&  !isItemReadOnly(context, index)"
              class="col-xs-2 d-flex flex-column justify-content-sm-start align-items-end">
             <button type="button" class="btn btn-secondary" role="button"
                     title="{{'form.remove' | translate}}"
