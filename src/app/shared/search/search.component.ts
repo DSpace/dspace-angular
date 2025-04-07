@@ -47,9 +47,8 @@ import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model'
 import { ITEM_MODULE_PATH } from '../../item-page/item-page-routing-paths';
 import { COLLECTION_MODULE_PATH } from '../../collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
-import { AppConfig, APP_CONFIG } from '../../../config/app-config.interface';
+import { APP_CONFIG } from '../../../config/app-config.interface';
 import { isPlatformServer } from '@angular/common';
-import { environment } from 'src/environments/environment';
 import { SearchManager } from '../../core/browse/search-manager';
 import { AlertType } from '../alert/alert-type';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
