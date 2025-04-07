@@ -26,6 +26,18 @@ import { signpostingLinksResolver } from './simple/link-resolver/signposting-lin
   imports: [
     RouterModule.forChild([
       {
+        path: 'version',
+        children: [
+          {
+            path: ':id',
+            component: VersionPageComponent,
+            resolve: {
+              dso: VersionResolver,
+            },
+          }
+        ],
+      },
+      {
         path: ':id',
         resolve: {
           dso: ItemPageResolver,
@@ -92,18 +104,7 @@ import { signpostingLinksResolver } from './simple/link-resolver/signposting-lin
           showSocialButtons: true
         },
       },
-      {
-        path: 'version',
-        children: [
-          {
-            path: ':id',
-            component: VersionPageComponent,
-            resolve: {
-              dso: VersionResolver,
-            },
-          }
-        ],
-      }
+
     ])
   ],
   providers: [
