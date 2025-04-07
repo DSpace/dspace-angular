@@ -176,7 +176,9 @@ export class AdditionalMetadataComponent implements OnInit {
     if (metadataValue.startsWith(rep)) {
       value = metadataValue.replace(rep, '');
     }
-    const href = this.resolver.getBaseUrl(urn) + value;
+    const shouldKeepWhiteSpaces = environment.crisLayout
+      .urn?.find((urnConfig) => urnConfig.name === urn)?.shouldKeepWhiteSpaces;
+    const href = this.resolver.getBaseUrl(urn) + (shouldKeepWhiteSpaces ? value : value.replace(/\s/g, ''));
     const text = isNotEmpty(value) && value !== '' ? value : href;
     return {
       href,
