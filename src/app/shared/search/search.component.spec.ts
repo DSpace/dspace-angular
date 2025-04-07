@@ -435,7 +435,7 @@ describe('SearchComponent', () => {
         comp.ngOnInit();
         tick(100);
         //Check that the last method from which the search depend upon is being called
-        expect(searchServiceStub.search).toHaveBeenCalled();
+        expect(searchManagerStub.search).toHaveBeenCalled();
       }));
     });
   });

@@ -321,7 +321,8 @@ describe('SubmissionFormCollectionComponent Component', () => {
         comp.hasChoice = false;
         fixture.detectChanges();
         fixture.whenStable().then(() => {
-          expect(dropdowBtn.nativeElement.disabled).toBeTruthy();
+          expect(dropdowBtn.nativeNode.getAttribute('aria-disabled')).toBe('true');
+          expect(dropdowBtn.nativeNode.classList.contains('disabled')).toBeTrue();
         });
       }));
     });

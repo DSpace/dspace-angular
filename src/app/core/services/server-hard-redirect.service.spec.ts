@@ -2,7 +2,6 @@ import { TestBed } from '@angular/core/testing';
 
 import { environment } from '../../../environments/environment.test';
 import { ServerHardRedirectService } from './server-hard-redirect.service';
-import { environment } from '../../../environments/environment.test';
 
 describe('ServerHardRedirectService', () => {
 
