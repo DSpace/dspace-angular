@@ -9,7 +9,7 @@
         <option *ngFor="let md of metadataList" [value]="md">{{md}}</option>
       </select>
       <span class="input-group-btn">
-        <button id="edit-metadata-btn" class="btn btn-primary" (click)="editSelectedMetadata()" [disabled]="!selectedMetadata">
+        <button id="edit-metadata-btn" class="btn btn-primary" (click)="editSelectedMetadata()" [dsBtnDisabled]="!selectedMetadata">
           <i class="fas fa-edit mr-1"></i>
           {{'admin.edit-cms-metadata.edit-button' | translate}}
         </button>

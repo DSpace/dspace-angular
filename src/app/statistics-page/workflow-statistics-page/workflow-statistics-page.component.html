@@ -33,7 +33,7 @@
         <button class="btn btn-outline-secondary" (click)="onCollectionFilterButtonClick()" type="button">
           {{ collectionName }}
         </button>
-        <button class="btn btn-outline-secondary" (click)="resetCollectionFilter()" type="button" [disabled]="!collectionId">
+        <button class="btn btn-outline-secondary" (click)="resetCollectionFilter()" type="button" [dsBtnDisabled]="!collectionId">
           <i class="fas fa-eraser"></i>
         </button>
       </div>

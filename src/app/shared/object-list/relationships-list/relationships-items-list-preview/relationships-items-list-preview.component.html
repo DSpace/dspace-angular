@@ -45,7 +45,7 @@
   <ds-item-submitter *ngIf="showSubmitter" [object]="item"></ds-item-submitter>
   <div *ngIf="viewConfig === 'relationship-sort-list'" class="d-flex justify-content-end mr-3">
     <button class="btn btn-danger btn-sm"
-            [disabled]="processing || pendingChanges"
+            [dsBtnDisabled]="processing || pendingChanges"
             (click)="dispatchDelete()">
       <span *ngIf="processing"><i class='fas fa-circle-notch fa-spin'></i> {{'loading.default' | translate}}</span>
       <span *ngIf="!processing"> {{"manage.relationships.unselect" | translate}}</span>
