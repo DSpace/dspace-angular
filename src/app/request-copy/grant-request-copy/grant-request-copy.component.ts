@@ -24,7 +24,6 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { getAccessTokenRequestRoute } from '../../app-routing-paths';
 import { AuthService } from '../../core/auth/auth.service';
 import { ItemRequestDataService } from '../../core/data/item-request-data.service';
 import { RemoteData } from '../../core/data/remote-data';
@@ -35,6 +34,8 @@ import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteDataPayload,
 } from '../../core/shared/operators';
+import { URLCombiner } from '../../core/url-combiner/url-combiner';
+import { getItemModuleRoute } from '../../item-page/item-page-routing-paths';
 import { hasValue } from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -126,7 +127,12 @@ export class GrantRequestCopyComponent implements OnInit {
         // and appropriately created a token to use with a secure link instead of attaching file directly
         if (rd.hasSucceeded && hasValue(rd.payload.accessToken)) {
           this.sendAsAttachment = false;
-          this.previewLinkOptions = getAccessTokenRequestRoute(rd.payload.itemId, rd.payload.accessToken);
+          this.previewLinkOptions = {
+            routerLink: new URLCombiner(getItemModuleRoute(), rd.payload.itemId).toString(),
+            queryParams: {
+              accessToken: rd.payload.accessToken,
+            },
+          };
           this.previewLink = this.hardRedirectService.getCurrentOrigin()
             + this.previewLinkOptions.routerLink + '?accessToken=' + rd.payload.accessToken;
         }
