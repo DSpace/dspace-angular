@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import findIndex from 'lodash/findIndex';
 import {
-  BehaviorSubject, EMPTY,
+  BehaviorSubject,
+  EMPTY,
   Observable,
   of as observableOf,
 } from 'rxjs';
@@ -129,7 +130,7 @@ export class VocabularyTreeviewService {
         .subscribe((hierarchy: string[]) => {
           this.initValueHierarchy = hierarchy;
           this.retrieveTopNodes(pageInfo, [], selectedItems, loadAll);
-      });
+        });
     } else {
       this.retrieveTopNodes(pageInfo, [], selectedItems);
     }
@@ -311,7 +312,7 @@ export class VocabularyTreeviewService {
     return this.vocabularyService.getEntryDetailChildren(parentId, this.vocabularyName, pageInfo).pipe(
       getFirstSucceededRemoteDataPayload(),
     ).pipe(
-      expand(res => this.getPaginatedChildren(res, parentId, loadAll))
+      expand(res => this.getPaginatedChildren(res, parentId, loadAll)),
     );
   }
 
@@ -325,9 +326,9 @@ export class VocabularyTreeviewService {
    */
   private getPaginatedChildren(res: PaginatedList<VocabularyEntryDetail>, parentId: string, loadAll: boolean): Observable<PaginatedList<VocabularyEntryDetail>> {
     if (res.pageInfo.currentPage + 1 <= res.pageInfo.totalPages && loadAll) {
-      const newPageInfo = Object.assign({}, res.pageInfo, {currentPage: res.pageInfo.currentPage + 1});
+      const newPageInfo = Object.assign({}, res.pageInfo, { currentPage: res.pageInfo.currentPage + 1 });
       return this.vocabularyService.getEntryDetailChildren(parentId, this.vocabularyName, newPageInfo).pipe(
-        getFirstSucceededRemoteDataPayload()
+        getFirstSucceededRemoteDataPayload(),
       );
     }
     return EMPTY;
