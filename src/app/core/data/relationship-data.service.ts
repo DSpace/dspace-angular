@@ -53,6 +53,7 @@ import { MetadataRepresentation } from '../shared/metadata-representation/metada
 import { MetadatumRepresentation } from '../shared/metadata-representation/metadatum/metadatum-representation.model';
 import { ItemMetadataRepresentation } from '../shared/metadata-representation/item/item-metadata-representation.model';
 import { DSpaceObject } from '../shared/dspace-object.model';
+import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
 
 const relationshipListsStateSelector = (state: AppState) => state.relationshipLists;
 
@@ -94,6 +95,7 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
     protected itemService: ItemDataService,
     protected appStore: Store<AppState>,
     @Inject(PAGINATED_RELATIONS_TO_ITEMS_OPERATOR) private paginatedRelationsToItems: (thisId: string) => (source: Observable<RemoteData<PaginatedList<Relationship>>>) => Observable<RemoteData<PaginatedList<Item>>>,
+    @Inject(APP_CONFIG) private appConfig: AppConfig,
   ) {
     super('relationships', requestService, rdbService, objectCache, halService, 15 * 60 * 1000);
 
@@ -305,7 +307,7 @@ export class RelationshipDataService extends IdentifiableDataService<Relationshi
    * @param options
    */
   getRelatedItemsByLabel(item: Item, label: string, options?: FindListOptions): Observable<RemoteData<PaginatedList<Item>>> {
-    let linksToFollow: FollowLinkConfig<Relationship>[] = itemLinksToFollow(options.fetchThumbnail);
+    let linksToFollow: FollowLinkConfig<Relationship>[] = itemLinksToFollow(options.fetchThumbnail, this.appConfig.item.showAccessStatuses);
     linksToFollow.push(followLink('relationshipType'));
 
     return this.getItemRelationshipsByLabel(item, label, options, true, true, ...linksToFollow).pipe(this.paginatedRelationsToItems(item.uuid));

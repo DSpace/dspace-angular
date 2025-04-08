@@ -12,6 +12,8 @@ import { environment } from '../../../../../environments/environment';
 import { SharedModule } from '../../../../shared/shared.module';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { By } from '@angular/platform-browser';
+import { BrowseService } from '../../../../core/browse/browse.service';
+import { BrowseServiceStub } from '../../../../shared/testing/browse-service.stub';
 import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
 import { BrowseDefinitionDataServiceStub } from '../../../../shared/testing/browse-definition-data-service.stub';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -53,6 +55,7 @@ describe('ItemPageFieldComponent', () => {
       providers: [
         { provide: APP_CONFIG, useValue: appConfig },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
+        { provide: BrowseService, useValue: BrowseServiceStub },
         { provide: MathService, useValue: {} }
       ],
       declarations: [ItemPageFieldComponent, MetadataValuesComponent],

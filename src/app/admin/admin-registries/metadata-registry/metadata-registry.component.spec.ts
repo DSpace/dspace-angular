@@ -1,7 +1,6 @@
 import { MetadataRegistryComponent } from './metadata-registry.component';
 import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { of, of as observableOf } from 'rxjs';
-import { buildPaginatedList } from '../../../core/data/paginated-list.model';
+import { of as observableOf } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
@@ -15,11 +14,12 @@ import { HostWindowService } from '../../../shared/host-window.service';
 import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
-import { RestResponse } from '../../../core/cache/response.models';
 import { MetadataSchema } from '../../../core/metadata/metadata-schema.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
+import { RegistryServiceStub } from '../../../shared/testing/registry.service.stub';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
 import {
   MetadataSchemaExportService
 } from '../../../shared/metadata-export/metadata-schema-export/metadata-schema-export.service';
@@ -27,9 +27,11 @@ import {
 describe('MetadataRegistryComponent', () => {
   let comp: MetadataRegistryComponent;
   let fixture: ComponentFixture<MetadataRegistryComponent>;
-  let registryService: RegistryService;
-  let paginationService;
-  const mockSchemasList = [
+
+  let paginationService: PaginationServiceStub;
+  let registryService: RegistryServiceStub;
+
+  const mockSchemasList: MetadataSchema[] = [
     {
       id: 1,
       _links: {
@@ -50,39 +52,25 @@ describe('MetadataRegistryComponent', () => {
       prefix: 'mock',
       namespace: 'http://dspace.org/mockschema'
     }
-  ];
-  const mockSchemas = createSuccessfulRemoteDataObject$(buildPaginatedList(null, mockSchemasList));
-  /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
-  const registryServiceStub = {
-    getMetadataSchemas: () => mockSchemas,
-    getActiveMetadataSchema: () => observableOf(undefined),
-    getSelectedMetadataSchemas: () => observableOf([]),
-    editMetadataSchema: (schema) => {
-    },
-    cancelEditMetadataSchema: () => {
-    },
-    deleteMetadataSchema: () => observableOf(new RestResponse(true, 200, 'OK')),
-    deselectAllMetadataSchema: () => {
-    },
-    clearMetadataSchemaRequests: () => observableOf(undefined)
-  };
-  /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
-
-  paginationService = new PaginationServiceStub();
+  ] as MetadataSchema[];
 
   beforeEach(waitForAsync(() => {
+    paginationService = new PaginationServiceStub();
+    registryService = new RegistryServiceStub();
+    spyOn(registryService, 'getMetadataSchemas').and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList(mockSchemasList)));
+
     TestBed.configureTestingModule({
       imports: [CommonModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
       declarations: [MetadataRegistryComponent, PaginationComponent, EnumKeysPipe],
       providers: [
-        { provide: RegistryService, useValue: registryServiceStub },
+        { provide: RegistryService, useValue: registryService },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: PaginationService, useValue: paginationService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         {
           provide: MetadataSchemaExportService,
           useValue: jasmine.createSpyObj('metadataSchemaExportService', {
-            exportSchema: of(1),
+            exportSchema: observableOf(1),
           })
         }
       ],
@@ -132,7 +120,7 @@ describe('MetadataRegistryComponent', () => {
     }));
 
     it('should cancel editing the selected schema when clicked again', waitForAsync(() => {
-      spyOn(registryService, 'getActiveMetadataSchema').and.returnValue(observableOf(mockSchemasList[0] as MetadataSchema));
+      comp.activeMetadataSchema$ = observableOf(mockSchemasList[0] as MetadataSchema);
       spyOn(registryService, 'cancelEditMetadataSchema');
       row.click();
       fixture.detectChanges();
@@ -147,7 +135,7 @@ describe('MetadataRegistryComponent', () => {
 
     beforeEach(() => {
       spyOn(registryService, 'deleteMetadataSchema').and.callThrough();
-      spyOn(registryService, 'getSelectedMetadataSchemas').and.returnValue(observableOf(selectedSchemas as MetadataSchema[]));
+      comp.selectedMetadataSchemaIDs$ = observableOf(selectedSchemas.map((selectedSchema: MetadataSchema) => selectedSchema.id));
       comp.deleteSchemas();
       fixture.detectChanges();
     });

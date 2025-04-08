@@ -10,7 +10,7 @@ import { PaginatedList } from './core/data/paginated-list.model';
 import { RemoteData } from './core/data/remote-data';
 import { TextMenuItemModel } from './shared/menu/menu-item/models/text.model';
 import { MenuService } from './shared/menu/menu.service';
-import { filter, find, map, switchMap, take } from 'rxjs/operators';
+import { filter, find, map, mergeMap, switchMap, take } from 'rxjs/operators';
 import { hasValue, isNotEmpty } from './shared/empty.util';
 import { FeatureID } from './core/data/feature-authorization/feature-id';
 import {
@@ -48,6 +48,7 @@ import {
 import {
   ExportBatchSelectorComponent
 } from './shared/dso-selector/modal-wrappers/export-batch-selector/export-batch-selector.component';
+import { AuthService } from './core/auth/auth.service';
 import { environment } from '../environments/environment';
 import { SectionDataService } from './core/layout/section-data.service';
 import { Section } from './core/layout/models/section.model';
@@ -73,6 +74,7 @@ export class MenuResolver implements Resolve<boolean> {
     protected authorizationService: AuthorizationDataService,
     protected modalService: NgbModal,
     protected scriptDataService: ScriptDataService,
+    protected authService: AuthService,
     protected sectionDataService: SectionDataService,
     protected configService: ConfigurationDataService,
   ) {
@@ -87,7 +89,7 @@ export class MenuResolver implements Resolve<boolean> {
     }
     return observableCombineLatest([
       this.createPublicMenu$(),
-      this.createAdminMenu$(),
+      this.createAdminMenuIfLoggedIn$(),
     ]).pipe(
       map((menusDone: boolean[]) => menusDone.every(Boolean)),
     );
@@ -253,6 +255,16 @@ export class MenuResolver implements Resolve<boolean> {
       })));
     });
   }
+
+  /**
+   * Initialize all menu sections and items for {@link MenuID.ADMIN}, only if the user is logged in.
+   */
+  createAdminMenuIfLoggedIn$() {
+    return this.authService.isAuthenticated().pipe(
+      mergeMap((isAuthenticated) => isAuthenticated ? this.createAdminMenu$() : of(true)),
+    );
+  }
+
   /**
    * Initialize all menu sections and items for {@link MenuID.ADMIN}
    */

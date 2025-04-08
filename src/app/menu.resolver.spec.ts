@@ -17,8 +17,10 @@ import { MenuID } from './shared/menu/menu-id.model';
 import { cold } from 'jasmine-marbles';
 import { createSuccessfulRemoteDataObject$ } from './shared/remote-data.utils';
 import { createPaginatedList } from './shared/testing/utils.test';
-import { SectionDataService } from './core/layout/section-data.service';
 import createSpy = jasmine.createSpy;
+import { AuthService } from './core/auth/auth.service';
+import { AuthServiceStub } from './shared/testing/auth-service.stub';
+import { SectionDataService } from './core/layout/section-data.service';
 import { ConfigurationDataService } from './core/data/configuration-data.service';
 
 const BOOLEAN = { t: true, f: false };
@@ -97,6 +99,7 @@ describe('MenuResolver', () => {
         { provide: SectionDataService, useValue: sectionsService },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ScriptDataService, useValue: scriptService },
+        { provide: AuthService, useValue: AuthServiceStub },
         { provide: ConfigurationDataService, useValue: configService },
         {
           provide: NgbModal, useValue: {
@@ -117,19 +120,19 @@ describe('MenuResolver', () => {
   describe('resolve', () => {
     it('should create all menus', (done) => {
       spyOn(resolver, 'createPublicMenu$').and.returnValue(observableOf(true));
-      spyOn(resolver, 'createAdminMenu$').and.returnValue(observableOf(true));
+      spyOn(resolver, 'createAdminMenuIfLoggedIn$').and.returnValue(observableOf(true));
 
       resolver.resolve(null, null).subscribe(resolved => {
         expect(resolved).toBeTrue();
         expect(resolver.createPublicMenu$).toHaveBeenCalled();
-        expect(resolver.createAdminMenu$).toHaveBeenCalled();
+        expect(resolver.createAdminMenuIfLoggedIn$).toHaveBeenCalled();
         done();
       });
     });
 
     it('should return an Observable that emits true as soon as all menus are created', () => {
       spyOn(resolver, 'createPublicMenu$').and.returnValue(cold('--(t|)', BOOLEAN));
-      spyOn(resolver, 'createAdminMenu$').and.returnValue(cold('----(t|)', BOOLEAN));
+      spyOn(resolver, 'createAdminMenuIfLoggedIn$').and.returnValue(cold('----(t|)', BOOLEAN));
 
       expect(resolver.resolve(null, null)).toBeObservable(cold('----(t|)', BOOLEAN));
     });

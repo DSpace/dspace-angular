@@ -34,7 +34,7 @@
             (click)="activeModal.close()">
       {{'subscriptions.modal.close' | translate}}
     </button>
-    <button type="submit" class="btn btn-success" [disabled]="(processing$ | async) || !isValid">
+    <button type="submit" class="btn btn-success" [dsBtnDisabled]="(processing$ | async) || !isValid">
         <span *ngIf="(processing$ | async)">
           <i class='fas fa-circle-notch fa-spin'></i> {{'subscriptions.modal.new-subscription-form.processing' | translate}}
         </span>

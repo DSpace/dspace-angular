@@ -4,6 +4,7 @@ import { ItemOperationComponent } from './item-operation.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import {BtnDisabledDirective} from '../../../shared/btn-disabled.directive';
 
 describe('ItemOperationComponent', () => {
   let itemOperation: ItemOperation;
@@ -14,7 +15,7 @@ describe('ItemOperationComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
-      declarations: [ItemOperationComponent]
+      declarations: [ItemOperationComponent, BtnDisabledDirective]
     }).compileComponents();
   }));
 
@@ -40,7 +41,8 @@ describe('ItemOperationComponent', () => {
     const span = fixture.debugElement.query(By.css('.action-label span')).nativeElement;
     expect(span.textContent).toContain('item.edit.tabs.status.buttons.key1.label');
     const button = fixture.debugElement.query(By.css('button')).nativeElement;
-    expect(button.disabled).toBeTrue();
+    expect(button.getAttribute('aria-disabled')).toBe('true');
+    expect(button.classList.contains('disabled')).toBeTrue();
     expect(button.textContent).toContain('item.edit.tabs.status.buttons.key1.button');
   });
 });

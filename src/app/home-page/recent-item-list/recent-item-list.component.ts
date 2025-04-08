@@ -70,6 +70,9 @@ export class RecentItemListComponent implements OnInit {
     if (this.appConfig.browseBy.showThumbnails) {
       linksToFollow.push(followLink('thumbnail'));
     }
+    if (this.appConfig.item.showAccessStatuses) {
+      linksToFollow.push(followLink('accessStatus'));
+    }
 
     this.itemRD$ = this.searchService.search(
       new PaginatedSearchOptions({
