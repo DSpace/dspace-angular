@@ -96,7 +96,10 @@ export const ROUTES: Route[] = [
             resolve: {
               breadcrumb: i18nBreadcrumbResolver,
             },
-            data: { breadcrumbKey: 'collection.search' },
+            data: {
+              breadcrumbKey: 'collection.search',
+              menuRoute: MenuRoute.COLLECTION_PAGE,
+            },
           },
           {
             path: 'browse/:id',
