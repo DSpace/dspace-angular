@@ -26,7 +26,7 @@
       <span>{{'vocabulary-treeview.search.no-result' | translate}}</span>
     </h2>
   </div>
-  <cdk-tree [dataSource]="dataSource" [treeControl]="treeControl">
+  <cdk-tree *ngIf="!(loading | async) && dataSource.data.length !== 0" [dataSource]="dataSource" [treeControl]="treeControl">
     <!-- Leaf node -->
     <cdk-tree-node *cdkTreeNodeDef="let node" cdkTreeNodePadding class="d-flex">
       <span aria-hidden="true" type="button" class="btn btn-default px-2 mr-1" cdkTreeNodeToggle>
