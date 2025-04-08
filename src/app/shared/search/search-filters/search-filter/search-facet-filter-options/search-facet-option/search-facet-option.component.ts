@@ -2,16 +2,17 @@ import { combineLatest as observableCombineLatest, Observable, Subscription } fr
 import { map } from 'rxjs/operators';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { FacetValue } from '../../../../models/facet-value.model';
 import { SearchFilterConfig } from '../../../../models/search-filter-config.model';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
+import { LiveRegionService } from '../../../../../../shared/live-region/live-region.service';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { hasValue } from '../../../../../empty.util';
 import { currentPath } from '../../../../../utils/route.utils';
 import { getFacetValueForType } from '../../../../search.utils';
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ds-search-facet-option',
@@ -73,7 +74,8 @@ export class SearchFacetOptionComponent implements OnInit, OnDestroy {
               protected router: Router,
               protected activatedRoute: ActivatedRoute,
               protected paginationService: PaginationService,
-              protected translateService: TranslateService
+              protected liveRegionService: LiveRegionService,
+              protected translateService: TranslateService,
   ) {
   }
 
@@ -159,5 +161,13 @@ export class SearchFacetOptionComponent implements OnInit, OnDestroy {
     if (hasValue(this.sub)) {
       this.sub.unsubscribe();
     }
+  }
+
+  /**
+   * Announces to the screen reader that the page will be reloaded, which filter has been selected
+   */
+  announceFilter() {
+    const message = this.translateService.instant('search-facet-option.update.announcement', { filter: this.filterValue.value });
+    this.liveRegionService.addMessage(message);
   }
 }

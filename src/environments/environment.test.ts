@@ -14,6 +14,11 @@ export const environment: BuildConfig = {
     async: true,
     time: false,
     inlineCriticalCss: false,
+    transferState: true,
+    replaceRestUrl: false,
+    paths: [ '/home', '/items/', '/entities/', '/collections/', '/communities/', '/bitstream/', '/bitstreams/', '/handle/', '/reload/' ],
+    enableSearchComponent: false,
+    enableBrowseComponent: false,
   },
 
   // Angular Universal server settings.
@@ -368,6 +373,15 @@ export const environment: BuildConfig = {
       enabled: true
     }
   ],
+
+  liveRegion: {
+    messageTimeOutDurationMs: 30000,
+    isVisible: false,
+  },
+
+  search: {
+    filterPlaceholdersCount: 5
+  },
 
   crisLayout: {
     urn: [

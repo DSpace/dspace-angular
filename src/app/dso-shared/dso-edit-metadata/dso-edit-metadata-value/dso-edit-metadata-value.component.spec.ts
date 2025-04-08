@@ -13,6 +13,7 @@ import {
 import { MetadataValue, VIRTUAL_METADATA_PREFIX } from '../../../core/shared/metadata.models';
 import { DsoEditMetadataChangeType, DsoEditMetadataValue } from '../dso-edit-metadata-form';
 import { By } from '@angular/platform-browser';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { mockSecurityConfig } from '../../../shared/mocks/submission.mock';
 
 const EDIT_BTN = 'edit';
@@ -52,7 +53,7 @@ describe('DsoEditMetadataValueComponent', () => {
     initServices();
 
     TestBed.configureTestingModule({
-      declarations: [DsoEditMetadataValueComponent, VarDirective],
+      declarations: [DsoEditMetadataValueComponent, VarDirective, BtnDisabledDirective],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
         { provide: RelationshipDataService, useValue: relationshipService },
@@ -176,7 +177,14 @@ describe('DsoEditMetadataValueComponent', () => {
         });
 
         it(`should${disabled ? ' ' : ' not '}be disabled`, () => {
-          expect(btn.nativeElement.disabled).toBe(disabled);
+          if (disabled) {
+            expect(btn.nativeElement.getAttribute('aria-disabled')).toBe('true');
+            expect(btn.nativeElement.classList.contains('disabled')).toBeTrue();
+          } else {
+            // Can be null or false, depending on if button was ever disabled so just check not true
+            expect(btn.nativeElement.getAttribute('aria-disabled')).not.toBe('true');
+            expect(btn.nativeElement.classList.contains('disabled')).toBeFalse();
+          }
         });
       } else {
         it('should not exist', () => {

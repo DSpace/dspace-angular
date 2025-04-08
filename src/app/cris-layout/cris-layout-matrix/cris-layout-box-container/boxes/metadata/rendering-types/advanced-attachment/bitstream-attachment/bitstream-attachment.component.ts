@@ -9,6 +9,9 @@ import { BitstreamDataService } from '../../../../../../../../core/data/bitstrea
 import { TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AttachmentRenderingType } from './attachment-type.decorator';
+import { RemoteData } from '../../../../../../../../core/data/remote-data';
+import { BehaviorSubject } from 'rxjs';
+import { getFirstCompletedRemoteData } from '../../../../../../../../core/shared/operators';
 
 @Component({
   selector: 'ds-bitstream-attachment',
@@ -43,6 +46,8 @@ export class BitstreamAttachmentComponent extends BitstreamRenderingModelCompone
   @Input()
   attachment: Bitstream;
 
+  thumbnail$: BehaviorSubject<RemoteData<Bitstream>> = new BehaviorSubject<RemoteData<Bitstream>>(null);
+
   constructor(
     @Inject('fieldProvider') public fieldProvider: LayoutField,
     @Inject('itemProvider') public itemProvider: Item,
@@ -57,6 +62,11 @@ export class BitstreamAttachmentComponent extends BitstreamRenderingModelCompone
   }
 
   ngOnInit() {
+    this.attachment.thumbnail.pipe(
+      getFirstCompletedRemoteData()
+    ).subscribe((thumbnail: RemoteData<Bitstream>) => {
+      this.thumbnail$.next(thumbnail);
+    });
     this.allAttachmentProviders = this.attachment?.allMetadataValues('bitstream.viewer.provider');
   }
 }

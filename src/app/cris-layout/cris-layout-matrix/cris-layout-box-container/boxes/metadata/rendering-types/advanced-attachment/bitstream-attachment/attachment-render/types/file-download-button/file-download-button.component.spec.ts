@@ -3,9 +3,9 @@ import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
-import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
-import { Bitstream } from 'src/app/core/shared/bitstream.model';
-import { Item } from 'src/app/core/shared/item.model';
+import { AuthorizationDataService } from '../../../../../../../../../../../core/data/feature-authorization/authorization-data.service';
+import { Bitstream } from '../../../../../../../../../../../core/shared/bitstream.model';
+import { Item } from '../../../../../../../../../../../core/shared/item.model';
 import { TranslateLoaderMock } from '../../../../../../../../../../../shared/mocks/translate-loader.mock';
 import { SharedModule } from '../../../../../../../../../../../shared/shared.module';
 
@@ -106,6 +106,8 @@ describe('FileDownloadButtonComponent', () => {
     (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(of(false));
     component.ngOnInit();
     fixture.detectChanges();
-    expect(fixture.debugElement.query(By.css('[data-test="requestACopy"]')).nativeElement.disabled).toBeTruthy();
+    const btn = fixture.debugElement.query(By.css('[data-test="requestACopy"]'));
+    expect(btn.nativeNode.getAttribute('aria-disabled')).toBe('true');
+    expect(btn.nativeNode.classList.contains('disabled')).toBeTrue();
   });
 });

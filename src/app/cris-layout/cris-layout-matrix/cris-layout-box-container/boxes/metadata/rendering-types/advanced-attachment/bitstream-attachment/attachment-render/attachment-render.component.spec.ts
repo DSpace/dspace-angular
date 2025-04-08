@@ -9,6 +9,8 @@ import { AuthorizationDataServiceStub } from '../../../../../../../../../shared/
 import { ConfigurationDataService } from '../../../../../../../../../core/data/configuration-data.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../../../../../shared/remote-data.utils';
 import { ConfigurationProperty } from '../../../../../../../../../core/shared/configuration-property.model';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoaderMock } from '../../../../../../../../../shared/mocks/translate-loader.mock';
 
 describe('AttachmentRenderComponent', () => {
   let component: AttachmentRenderComponent;
@@ -25,6 +27,14 @@ describe('AttachmentRenderComponent', () => {
 
     await TestBed.configureTestingModule({
       declarations: [ AttachmentRenderComponent ],
+      imports: [
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock
+          }
+        }),
+      ],
       providers: [
         {provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub},
         {provide: ConfigurationDataService, useValue: configurationDataService}

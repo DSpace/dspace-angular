@@ -18,7 +18,7 @@
 
                             <div class="m-2" (click)="setSelected(typeDto.relationshipType, !selected)">
                                 <label>
-                                    <input type="checkbox" [checked]="selected" [disabled]="isDeleting$ | async">
+                                    <input type="checkbox" [checked]="selected" [dsBtnDisabled]="isDeleting$ | async">
                                 </label>
                             </div>
 
@@ -86,10 +86,10 @@
             </ng-container>
 
             <div class="space-children-mr">
-              <button [disabled]="isDeleting$ | async" (click)="performAction()"
+              <button [dsBtnDisabled]="isDeleting$ | async" (click)="performAction()"
                       class="btn btn-outline-secondary perform-action">{{confirmMessage | translate}}
               </button>
-              <button [disabled]="isDeleting$ | async" [routerLink]="[itemPageRoute, 'edit']"
+              <button [dsBtnDisabled]="isDeleting$ | async" [routerLink]="[itemPageRoute, 'edit']"
                       class="btn btn-outline-secondary cancel">
                 {{cancelMessage| translate}}
               </button>

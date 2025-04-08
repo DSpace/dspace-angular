@@ -3,7 +3,7 @@
 
     <button *ngIf="notification.options.clickToClose"
             (click)="remove()"
-            [disabled]="!(finished | async)"
+            [dsBtnDisabled]="!(finished | async)"
             type="button" class="close pt-0 pr-1 pl-0 pb-0" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>

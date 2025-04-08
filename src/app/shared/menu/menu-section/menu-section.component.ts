@@ -20,9 +20,9 @@ import { MenuItemType } from '../menu-item-type.model';
 export class MenuSectionComponent implements OnInit, OnDestroy {
 
   /**
-   * Observable that emits whether or not this section is currently active
+   * {@link BehaviorSubject} containing the current state to whether this section is currently active
    */
-  active: Observable<boolean>;
+  active$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   /**
    * The ID of the menu this section resides in
@@ -55,7 +55,11 @@ export class MenuSectionComponent implements OnInit, OnDestroy {
    * Set initial values for instance variables
    */
   ngOnInit(): void {
-    this.active = this.menuService.isSectionActive(this.menuID, this.section.id).pipe(distinctUntilChanged());
+    this.subs.push(this.menuService.isSectionActive(this.menuID, this.section.id).pipe(distinctUntilChanged()).subscribe((isActive: boolean) => {
+      if (this.active$.value !== isActive) {
+        this.active$.next(isActive);
+      }
+    }));
     this.initializeInjectorData();
   }
 
@@ -73,9 +77,12 @@ export class MenuSectionComponent implements OnInit, OnDestroy {
   /**
    * Activate this section
    * @param {Event} event The user event that triggered this method
+   * @param skipEvent Weather the event should still be triggered after deactivating the section or not
    */
-  activateSection(event: Event) {
-    event.preventDefault();
+  activateSection(event: Event, skipEvent = true): void {
+    if (skipEvent) {
+      event.preventDefault();
+    }
     if (!this.section.model?.disabled) {
       this.menuService.activateSection(this.menuID, this.section.id);
     }
@@ -83,10 +90,14 @@ export class MenuSectionComponent implements OnInit, OnDestroy {
 
   /**
    * Deactivate this section
+   *
    * @param {Event} event The user event that triggered this method
+   * @param skipEvent Weather the event should still be triggered after deactivating the section or not
    */
-  deactivateSection(event: Event) {
-    event.preventDefault();
+  deactivateSection(event: Event, skipEvent = true): void {
+    if (skipEvent) {
+      event.preventDefault();
+    }
     this.menuService.deactivateSection(this.menuID, this.section.id);
   }
 

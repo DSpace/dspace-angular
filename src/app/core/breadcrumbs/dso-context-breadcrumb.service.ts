@@ -16,9 +16,9 @@ import { CollectionDataService } from '../data/collection-data.service';
 import { Collection } from '../shared/collection.model';
 import { ItemDataService } from '../data/item-data.service';
 import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../shared/operators';
-import { ITEM_PAGE_LINKS_TO_FOLLOW } from '../../item-page/item.resolver';
 import { getCollectionPageRoute } from '../../collection-page/collection-page-routing-paths';
 import { getCommunityPageRoute } from '../../community-page/community-page-routing-paths';
+import { getItemPageLinksToFollow } from 'src/app/item-page/item.resolver';
 
 /**
  * Service to calculate DSpaceObject breadcrumbs for a single part of the route
@@ -153,6 +153,6 @@ export class DsoContextBreadcrumbService implements BreadcrumbsProviderService<s
    * Requesting them as embeds will limit the number of requests
    */
   get followLinks(): FollowLinkConfig<Item>[] {
-    return ITEM_PAGE_LINKS_TO_FOLLOW;
+    return getItemPageLinksToFollow();
   }
 }

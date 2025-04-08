@@ -8,9 +8,9 @@ import { Community } from '../../../../core/shared/community.model';
 import { CreateCommunityParentSelectorComponent } from './create-community-parent-selector.component';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
-import { of as observableOf } from 'rxjs';
-import { By } from '@angular/platform-browser';
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
+import { By } from '@angular/platform-browser';
+import { of as observableOf } from 'rxjs';
 
 describe('CreateCommunityParentSelectorComponent', () => {
   let component: CreateCommunityParentSelectorComponent;

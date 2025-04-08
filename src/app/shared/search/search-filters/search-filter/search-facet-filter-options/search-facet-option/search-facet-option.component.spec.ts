@@ -19,6 +19,7 @@ import { PaginationComponentOptions } from '../../../../../pagination/pagination
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { PaginationServiceStub } from '../../../../../testing/pagination-service.stub';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
+import { UUIDService } from '../../../../../../core/shared/uuid.service';
 import { MockActivatedRoute } from '../../../../../mocks/active-router.mock';
 import { CapitalizePipe } from '../../../../../utils/capitalize.pipe';
 
@@ -116,7 +117,8 @@ describe('SearchFacetOptionComponent', () => {
             }
             /* eslint-enable no-empty, @typescript-eslint/no-empty-function */
           }
-        }
+        },
+        { provide: UUIDService, useClass: UUIDService },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).overrideComponent(SearchFacetOptionComponent, {

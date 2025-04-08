@@ -32,14 +32,14 @@
               type="button"
               class="btn btn-secondary"
               ngbTooltip="{{'form.external.source.group-help' | translate}}"
-              [disabled]="!canImport()"
+              [dsBtnDisabled]="!canImport()"
               (click)="createEntityFromMetadata()">
         <span><i class="far fa-share-square"></i> {{'form.external.source.group.btn' | translate}}</span>
       </button>
       <button *ngIf="!model.readOnly"
               type="button"
               class="btn btn-primary mr-2"
-              [disabled]="isMandatoryFieldEmpty()"
+              [dsBtnDisabled]="isMandatoryFieldEmpty()"
               (click)="save()">
         <span *ngIf="item"><i class="fas fa-save"></i> {{'form.group.set' | translate}}</span>
         <span *ngIf="!item"><i class="fas fa-save"></i> {{'form.group.add' | translate}}</span>

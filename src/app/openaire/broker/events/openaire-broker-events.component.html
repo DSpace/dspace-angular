@@ -94,13 +94,13 @@
                       <a target="_blank" *ngIf="eventElement.hasProject" title="{{eventElement.projectTitle}}" [routerLink]="['/items', eventElement.projectId]">{{eventElement.handle}}</a>
                       <div class="btn-group">
                         <button class="btn btn-outline-primary btn-sm"
-                                [disabled]="eventElement.isRunning"
+                                [dsBtnDisabled]="eventElement.isRunning"
                                 (click)="openModalLookup(eventElement); $event.stopPropagation();">
                           <i class="fas fa-search"></i>
                         </button>
                         <button *ngIf="eventElement.hasProject"
                                 class="btn btn-outline-danger btn-sm"
-                                [disabled]="eventElement.isRunning"
+                                [dsBtnDisabled]="eventElement.isRunning"
                                 (click)="removeProject(eventElement)">
                           <i class="fas fa-trash-alt"></i>
                         </button>
@@ -111,20 +111,20 @@
                     <div class="btn-group-vertical button-width">
                       <button *ngIf="showTopic.indexOf('/PROJECT') !== -1"
                               class="btn btn-outline-success btn-sm button-width"
-                              [disabled]="eventElement.isRunning"
+                              [dsBtnDisabled]="eventElement.isRunning"
                               (click)="modalChoice('ACCEPTED', eventElement, acceptModal)">
                         <i class="fas fa-check"></i>
                         <span class="d-none d-sm-inline">{{'openaire.broker.event.action.import' | translate}}</span>
                       </button>
-                      <button *ngIf="showTopic.indexOf('/PROJECT') == -1" class="btn btn-outline-success btn-sm button-width" [disabled]="eventElement.isRunning" (click)="executeAction('ACCEPTED', eventElement)">
+                      <button *ngIf="showTopic.indexOf('/PROJECT') == -1" class="btn btn-outline-success btn-sm button-width" [dsBtnDisabled]="eventElement.isRunning" (click)="executeAction('ACCEPTED', eventElement)">
                         <i class="fas fa-check"></i>
                         <span class="d-none d-sm-inline">{{'openaire.broker.event.action.accept' | translate}}</span>
                       </button>
-                      <button class="btn btn-outline-dark btn-sm button-width" [disabled]="eventElement.isRunning" (click)="openModal('DISCARDED', eventElement, ignoreModal)">
+                      <button class="btn btn-outline-dark btn-sm button-width" [dsBtnDisabled]="eventElement.isRunning" (click)="openModal('DISCARDED', eventElement, ignoreModal)">
                         <i class="fas fa-trash-alt"></i>
                         <span class="d-none d-sm-inline">{{'openaire.broker.event.action.ignore' | translate}}</span>
                       </button>
-                      <button class="btn btn-outline-danger btn-sm button-width" [disabled]="eventElement.isRunning" (click)="openModal('REJECTED', eventElement, rejectModal)">
+                      <button class="btn btn-outline-danger btn-sm button-width" [dsBtnDisabled]="eventElement.isRunning" (click)="openModal('REJECTED', eventElement, rejectModal)">
                         <i class="fas fa-trash-alt"></i>
                         <span class="d-none d-sm-inline">{{'openaire.broker.event.action.reject' | translate}}</span>
                       </button>

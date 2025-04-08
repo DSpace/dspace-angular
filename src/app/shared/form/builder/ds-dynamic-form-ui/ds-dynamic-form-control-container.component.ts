@@ -335,7 +335,7 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
         const relationship$ = this.relationshipService.findById(this.value.virtualValue,
           true,
           true,
-          ... itemLinksToFollow(this.fetchThumbnail)).pipe(
+          ... itemLinksToFollow(this.fetchThumbnail, this.appConfig.item.showAccessStatuses)).pipe(
             getAllSucceededRemoteData(),
             getRemoteDataPayload());
         this.relationshipValue$ = observableCombineLatest([this.item$.pipe(take(1)), relationship$]).pipe(

@@ -112,7 +112,7 @@ export class BrowserKlaroService extends KlaroService {
   initialize() {
     if (!environment.info.enablePrivacyStatement) {
       delete this.klaroConfig.privacyPolicy;
-      this.klaroConfig.translations.zz.consentNotice.description = 'cookies.consent.content-notice.description.no-privacy';
+      this.klaroConfig.translations.zy.consentNotice.description = 'cookies.consent.content-notice.description.no-privacy';
     }
 
     if (hasValue(environment.info.metricsConsents)) {
@@ -296,12 +296,12 @@ export class BrowserKlaroService extends KlaroService {
    */
   addAppMessages() {
     this.klaroConfig.services.forEach((app) => {
-      this.klaroConfig.translations.zz[app.name] = {
+      this.klaroConfig.translations.zy[app.name] = {
         title: this.getTitleTranslation(app.name),
         description: this.getDescriptionTranslation(app.name)
       };
       app.purposes.forEach((purpose) => {
-        this.klaroConfig.translations.zz.purposes[purpose] = this.getPurposeTranslation(purpose);
+        this.klaroConfig.translations.zy.purposes[purpose] = this.getPurposeTranslation(purpose);
       });
     });
   }
@@ -315,7 +315,7 @@ export class BrowserKlaroService extends KlaroService {
      */
     this.translateService.setDefaultLang(environment.defaultLanguage);
 
-    this.translate(this.klaroConfig.translations.zz);
+    this.translate(this.klaroConfig.translations.zy);
   }
 
   /**

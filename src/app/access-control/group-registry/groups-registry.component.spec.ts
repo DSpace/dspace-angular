@@ -34,6 +34,7 @@ import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { NoContent } from '../../core/shared/NoContent.model';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock, UNDEFINED_NAME } from '../../shared/mocks/dso-name.service.mock';
+import {BtnDisabledDirective} from '../../shared/btn-disabled.directive';
 
 describe('GroupsRegistryComponent', () => {
   let component: GroupsRegistryComponent;
@@ -171,7 +172,7 @@ describe('GroupsRegistryComponent', () => {
           }
         }),
       ],
-      declarations: [GroupsRegistryComponent],
+      declarations: [GroupsRegistryComponent, BtnDisabledDirective],
       providers: [GroupsRegistryComponent,
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
@@ -231,7 +232,8 @@ describe('GroupsRegistryComponent', () => {
         const editButtonsFound = fixture.debugElement.queryAll(By.css('#groups tr td:nth-child(5) button.btn-edit'));
         expect(editButtonsFound.length).toEqual(2);
         editButtonsFound.forEach((editButtonFound) => {
-          expect(editButtonFound.nativeElement.disabled).toBeFalse();
+          expect(editButtonFound.nativeElement.getAttribute('aria-disabled')).toBeNull();
+          expect(editButtonFound.nativeElement.classList.contains('disabled')).toBeFalse();
         });
       });
 
@@ -265,7 +267,8 @@ describe('GroupsRegistryComponent', () => {
         const editButtonsFound = fixture.debugElement.queryAll(By.css('#groups tr td:nth-child(5) button.btn-edit'));
         expect(editButtonsFound.length).toEqual(2);
         editButtonsFound.forEach((editButtonFound) => {
-          expect(editButtonFound.nativeElement.disabled).toBeFalse();
+          expect(editButtonFound.nativeElement.getAttribute('aria-disabled')).toBeNull();
+          expect(editButtonFound.nativeElement.classList.contains('disabled')).toBeFalse();
         });
       });
     });
@@ -284,7 +287,8 @@ describe('GroupsRegistryComponent', () => {
         const editButtonsFound = fixture.debugElement.queryAll(By.css('#groups tr td:nth-child(5) button.btn-edit'));
         expect(editButtonsFound.length).toEqual(2);
         editButtonsFound.forEach((editButtonFound) => {
-          expect(editButtonFound.nativeElement.disabled).toBeTrue();
+          expect(editButtonFound.nativeElement.getAttribute('aria-disabled')).toBe('true');
+          expect(editButtonFound.nativeElement.classList.contains('disabled')).toBeTrue();
         });
       });
     });

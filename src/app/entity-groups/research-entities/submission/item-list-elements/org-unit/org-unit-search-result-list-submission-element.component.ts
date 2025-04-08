@@ -26,7 +26,7 @@ import { APP_CONFIG, AppConfig } from '../../../../../../config/app-config.inter
 @listableObjectComponent('OrgUnitSearchResult', ViewMode.ListElement, Context.EntitySearchModal)
 @listableObjectComponent('OrgUnitSearchResult', ViewMode.ListElement, Context.EntitySearchModalWithNameVariants)
 @Component({
-  selector: 'ds-person-search-result-list-submission-element',
+  selector: 'ds-org-unit-search-result-list-submission-element',
   styleUrls: ['./org-unit-search-result-list-submission-element.component.scss'],
   templateUrl: './org-unit-search-result-list-submission-element.component.html'
 })
