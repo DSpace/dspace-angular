@@ -3,6 +3,7 @@ import { Config } from './config.interface';
 export interface UrnConfig extends Config {
   name: string;
   baseUrl: string;
+  shouldKeepWhiteSpaces?: boolean;
 }
 
 export interface CrisRefEntityStyleConfig extends Config {
