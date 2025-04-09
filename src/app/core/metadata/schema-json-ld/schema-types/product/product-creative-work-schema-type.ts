@@ -1,3 +1,4 @@
+import { isNotEmpty } from '../../../../../shared/empty.util';
 import { Item } from '../../../../shared/item.model';
 import { SchemaType } from '../schema-type';
 import { schemaJsonLDForEntity } from '../schema-type-decorator';
@@ -6,14 +7,11 @@ import { schemaJsonLDForEntity } from '../schema-type-decorator';
 export class ProductCreativeWorkSchemaType extends SchemaType {
 
   protected createSchema(item: Item): Record<string, any> {
-  
-    let description: string;
-    if (!SchemaType.getMetadataValue(item, 'dc.description')) {
-      description = SchemaType.getMetadataValue(item, 'dc.description.abstract');
-    } else {
-      description = SchemaType.getMetadataValue(item, 'dc.description');
-    }
-    
+
+    const description: string|string[] = isNotEmpty(SchemaType.getMetadataValue(item, 'dc.description')) ?
+      SchemaType.getMetadataValue(item, 'dc.description') :
+      SchemaType.getMetadataValue(item, 'dc.description.abstract');
+
     return {
       '@context': 'https://schema.org',
       '@type': 'CreativeWork',
