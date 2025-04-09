@@ -486,6 +486,11 @@ export const environment: BuildConfig = {
         baseUrl: 'https://doi.org/',
       },
       {
+        name: 'keepMyWhiteSpaces',
+        baseUrl: 'https://keepmywhitespaces.com/',
+        shouldKeepWhiteSpaces: true,
+      },
+      {
         name: 'hdl',
         baseUrl: 'https://hdl.handle.net/',
       },

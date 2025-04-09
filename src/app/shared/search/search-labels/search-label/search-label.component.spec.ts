@@ -15,11 +15,18 @@ import {
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { ItemDataService } from '../../../../core/data/item-data.service';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
+import { Item } from '../../../../core/shared/item.model';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
 import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../../../remote-data.utils';
 import { ActivatedRouteStub } from '../../../testing/active-router.stub';
 import { PaginationServiceStub } from '../../../testing/pagination-service.stub';
 import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
@@ -43,6 +50,8 @@ describe('SearchLabelComponent', () => {
   let appliedFilter: AppliedFilter;
   let initialRouteParams: Params;
   let pagination: PaginationComponentOptions;
+  let itemDataService: jasmine.SpyObj<ItemDataService>;
+  let dsoNameService: jasmine.SpyObj<DSONameService>;
 
   function init(): void {
     appliedFilter = Object.assign(new AppliedFilter(), {
@@ -70,6 +79,12 @@ describe('SearchLabelComponent', () => {
     searchConfigurationService = new SearchConfigurationServiceStub();
     searchFilterService = new SearchFilterServiceStub();
     paginationService = new PaginationServiceStub(pagination);
+    itemDataService = jasmine.createSpyObj('ItemDataService', {
+      findById: createSuccessfulRemoteDataObject$({}),
+    });
+    dsoNameService = jasmine.createSpyObj('DSONameService', {
+      getName: 'Thor Odinson',
+    });
 
     await TestBed.configureTestingModule({
       imports: [
@@ -87,6 +102,8 @@ describe('SearchLabelComponent', () => {
         { provide: ActivatedRoute, useValue: route },
         { provide: Router, useValue: {} },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: ItemDataService, useValue: itemDataService },
+        { provide: DSONameService, useValue: dsoNameService },
       ],
     }).overrideComponent(SearchLabelComponent, {
       remove: {
@@ -94,16 +111,47 @@ describe('SearchLabelComponent', () => {
       },
       add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
-  }));
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(SearchLabelComponent);
     comp = fixture.componentInstance;
     comp.appliedFilter = appliedFilter;
     fixture.detectChanges();
-  });
+  }));
 
-  it('should create', () => {
-    expect(comp).toBeTruthy();
+  it('should set filter value to the name from dsoNameService when operator is authority and item is found', waitForAsync(() => {
+    const id = '1282121b-5394-4689-ab93-78d537764052';
+    const name = 'Thor Odinson';
+    const item = { id, name };
+
+    itemDataService.findById.and.returnValue(createSuccessfulRemoteDataObject$(item as Item));
+    dsoNameService.getName.and.returnValue(name);
+
+    comp.appliedFilter = { filter: 'author', operator: 'authority', value: id, label: 'Odinson, Thor' };
+    comp.setFilterValue();
+
+    fixture.detectChanges();
+    expect(comp.filterLabel$.value).toBe(name);
+  }));
+
+  it('should set filter value to the appliedFilter value when operator is authority and item is not found', waitForAsync(() => {
+    const id = '1282121b-5394-4689-ab93-78d537764052';
+
+    itemDataService.findById.and.returnValue(createFailedRemoteDataObject$());
+
+    comp.appliedFilter = { filter: 'author', operator: 'authority', value: id, label: 'Odinson, Thor' };
+    comp.setFilterValue();
+
+    fixture.detectChanges();
+    expect(comp.filterLabel$.value).toBe(id);
+  }));
+
+  it('should set filter value to the appliedFilter label when operator is not authority', () => {
+    const label = 'Odinson, Thor';
+
+    comp.appliedFilter = { filter: 'author', operator: 'equals', value: '1282121b-5394-4689-ab93-78d537764052', label };
+    comp.setFilterValue();
+
+    fixture.detectChanges();
+    expect(comp.filterLabel$.value).toBe(label);
   });
 });
