@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
+import { BehaviorSubject, EMPTY, expand, Observable, of as observableOf } from 'rxjs';
 import { map, merge, mergeMap, scan } from 'rxjs/operators';
 import findIndex from 'lodash/findIndex';
 
@@ -97,8 +97,9 @@ export class VocabularyTreeviewService {
    * @param pageInfo The {@link PageInfo} object
    * @param selectedItems The currently selected items
    * @param initValueId The entry id of the node to mark as selected, if any
+   * @param loadAll
    */
-  initialize(options: VocabularyOptions, pageInfo: PageInfo, selectedItems: string[], initValueId?: string): void {
+  initialize(options: VocabularyOptions, pageInfo: PageInfo, selectedItems: string[], initValueId?: string, loadAll = false): void {
     this.loading.next(true);
     this.vocabularyOptions = options;
     this.vocabularyName = options.name;
@@ -107,7 +108,7 @@ export class VocabularyTreeviewService {
       this.getNodeHierarchyById(initValueId, selectedItems)
         .subscribe((hierarchy: string[]) => {
           this.initValueHierarchy = hierarchy;
-          this.retrieveTopNodes(pageInfo, [], selectedItems);
+          this.retrieveTopNodes(pageInfo, [], selectedItems, loadAll);
       });
     } else {
       this.retrieveTopNodes(pageInfo, [], selectedItems);
@@ -137,22 +138,25 @@ export class VocabularyTreeviewService {
    * @param item
    * @param selectedItems
    * @param onlyFirstTime
+   * @param loadAll
    */
-  loadMore(item: VocabularyEntryDetail, selectedItems: string[], onlyFirstTime = false) {
+  loadMore(item: VocabularyEntryDetail, selectedItems: string[], onlyFirstTime = false, loadAll = false) {
     if (!this.nodeMap.has(item.otherInformation.id)) {
       return;
     }
     const parent: TreeviewNode = this.nodeMap.get(item.otherInformation.id)!;
     const children = this.nodeMap.get(item.otherInformation.id)!.children || [];
-    this.getChildrenNodesByParent(item.otherInformation.id, parent.pageInfo).subscribe((list: PaginatedList<VocabularyEntryDetail>) => {
-
-      if (onlyFirstTime && parent.children!.length > 0) {
+    this.getChildrenNodesByParent(item.otherInformation.id, parent.pageInfo, (loadAll && selectedItems.length > 0)).subscribe((list: PaginatedList<VocabularyEntryDetail>) => {
+      if (onlyFirstTime && parent.children!.length > 0 && !loadAll) {
         return;
       }
 
       const newNodes: TreeviewNode[] = list.page.map((entry) => this._generateNode(entry, selectedItems));
       if (newNodes.length > 0) {
-        children.pop();
+        if (!loadAll) {
+          //remove load more button
+          children.pop();
+        }
         children.push(...newNodes);
       }
 
@@ -162,16 +166,19 @@ export class VocabularyTreeviewService {
           currentPage: list.pageInfo.currentPage + 1
         });
         parent.updatePageInfo(newPageInfo);
+        parent.childrenChange.next(children);
 
-        // Need a new load more node
-        children.push(new TreeviewNode(LOAD_MORE_NODE, false, newPageInfo, item));
+        if (!(loadAll && selectedItems.length > 0)) {
+          // if not all loaded add a load more button
+          children.push(new TreeviewNode(LOAD_MORE_NODE, false, newPageInfo, item));
+        }
+      } else {
+        parent.childrenChange.next(children);
       }
-      parent.childrenChange.next(children);
       this.dataChange.next(this.dataChange.value);
     });
 
   }
-
   /**
    * Check if any operation is pending
    */
@@ -276,12 +283,34 @@ export class VocabularyTreeviewService {
    * Return the vocabulary entry's children
    * @param parentId The node id
    * @param pageInfo The {@link PageInfo} object
+   * @param loadAll
+   * @param selectedItem
    * @return Observable<PaginatedList<VocabularyEntryDetail>>
    */
-  private getChildrenNodesByParent(parentId: string, pageInfo: PageInfo): Observable<PaginatedList<VocabularyEntryDetail>> {
+  private getChildrenNodesByParent(parentId: string, pageInfo: PageInfo, loadAll = false): Observable<PaginatedList<VocabularyEntryDetail>> {
     return this.vocabularyService.getEntryDetailChildren(parentId, this.vocabularyName, pageInfo).pipe(
-      getFirstSucceededRemoteDataPayload()
+      getFirstSucceededRemoteDataPayload(),
+    ).pipe(
+      expand(res => this.getPaginatedChildren(res, parentId, loadAll))
     );
+  }
+
+
+  /**
+   * Get children recursively in expand to load all children
+   * @param res
+   * @param parentId
+   * @param loadAll
+   * @private
+   */
+  private getPaginatedChildren(res: PaginatedList<VocabularyEntryDetail>, parentId: string, loadAll: boolean): Observable<PaginatedList<VocabularyEntryDetail>> {
+    if (res.pageInfo.currentPage + 1 <= res.pageInfo.totalPages && loadAll) {
+      const newPageInfo = Object.assign({}, res.pageInfo, {currentPage: res.pageInfo.currentPage + 1});
+      return this.vocabularyService.getEntryDetailChildren(parentId, this.vocabularyName, newPageInfo).pipe(
+        getFirstSucceededRemoteDataPayload()
+      );
+    }
+    return EMPTY;
   }
 
   /**
@@ -310,8 +339,9 @@ export class VocabularyTreeviewService {
    * @param pageInfo The {@link PageInfo} object
    * @param nodes The top level nodes already loaded, if any
    * @param selectedItems The currently selected items
+   * @param loadAll
    */
-  private retrieveTopNodes(pageInfo: PageInfo, nodes: TreeviewNode[], selectedItems: string[]): void {
+  private retrieveTopNodes(pageInfo: PageInfo, nodes: TreeviewNode[], selectedItems: string[], loadAll = false): void {
     this.vocabularyService.searchTopEntries(this.vocabularyName, pageInfo).pipe(
       getFirstSucceededRemoteDataPayload()
     ).subscribe((list: PaginatedList<VocabularyEntryDetail>) => {
@@ -320,13 +350,19 @@ export class VocabularyTreeviewService {
       nodes.push(...newNodes);
 
       if ((list.pageInfo.currentPage + 1) <= list.pageInfo.totalPages) {
-        // Need a new load more node
         const newPageInfo: PageInfo = Object.assign(new PageInfo(), list.pageInfo, {
           currentPage: list.pageInfo.currentPage + 1
         });
-        const loadMoreNode = new TreeviewNode(LOAD_MORE_ROOT_NODE, false, newPageInfo);
-        loadMoreNode.updatePageInfo(newPageInfo);
-        nodes.push(loadMoreNode);
+
+        if (loadAll) {
+          // loop over pages until we load all of them
+          this.retrieveTopNodes(newPageInfo, nodes, selectedItems);
+          return;
+        } else {
+          const loadMoreNode = new TreeviewNode(LOAD_MORE_ROOT_NODE, false, newPageInfo);
+          loadMoreNode.updatePageInfo(newPageInfo);
+          nodes.push(loadMoreNode);
+        }
       }
       this.loading.next(false);
       // Notify the change.
