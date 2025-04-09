@@ -4473,6 +4473,19 @@
   // "explore.title": "Explore section",
   // TODO New key - Add a translation
   "explore.title": "Explore section",
+
+  // "confirmation-modal.pending-changes.header": "Unsaved changes",
+  "confirmation-modal.pending-changes.header": "Nicht gespeicherte Änderungen",
+
+  // "confirmation-modal.pending-changes.info": "There are unsaved changes. Do you want to leave the page?",
+  "confirmation-modal.pending-changes.info": "Auf dieser Seite gibt es Änderungen, die noch nicht gespeichert wurden. Wollen Sie diese Seite wirklich verlassen?",
+
+  // "confirmation-modal.pending-changes.cancel": "Cancel",
+  "confirmation-modal.pending-changes.cancel": "Abbrechen",
+
+  // "confirmation-modal.pending-changes.confirm": "Leave",
+  "confirmation-modal.pending-changes.confirm": "Seite verlassen",
+
   // "export-schema.process.title": "Metadata Schema Export",
   // TODO New key - Add a translation
   "export-schema.process.title": "Metadata Schema Export",
@@ -4483,7 +4496,6 @@
 
   // "file-section.error.header": "Error obtaining files for this item",
   "file-section.error.header": "Fehler beim Abrufen der Dateien für dieses Item",
-
 
   // "footer.built-with": "Built with",
   // TODO New key - Add a translation
@@ -11215,6 +11227,9 @@
 
   // "submission.sections.describe.relationship-lookup.title.DataFile": "Data Files",
   "submission.sections.describe.relationship-lookup.title.DataFile": "Dateien",
+
+  // "submission.general.save-later.edit-item": "Save and return",
+  "submission.general.save-later.edit-item": "Speichern und Beenden",
 
   // "submission.sections.describe.relationship-lookup.title.Funding Agency": "Funding Agency",
   "submission.sections.describe.relationship-lookup.title.Funding Agency": "Fördereinrichtung",
