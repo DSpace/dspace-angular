@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -6,7 +7,12 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { Router } from '@angular/router';
+import {
+  Router,
+  RouterLink,
+  RouterLinkActive,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
@@ -16,6 +22,7 @@ import {
   isEmpty,
   isNotEmpty,
 } from '../empty.util';
+import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
 import { currentPath } from '../utils/route.utils';
 
 /**
@@ -25,6 +32,8 @@ import { currentPath } from '../utils/route.utils';
   selector: 'ds-view-mode-switch',
   styleUrls: ['./view-mode-switch.component.scss'],
   templateUrl: './view-mode-switch.component.html',
+  standalone: true,
+  imports: [NgIf, RouterLink, RouterLinkActive, TranslateModule, BrowserOnlyPipe],
 })
 export class ViewModeSwitchComponent implements OnInit, OnDestroy {
 

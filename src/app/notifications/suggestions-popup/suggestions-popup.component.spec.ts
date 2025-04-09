@@ -4,10 +4,12 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { mockSuggestionTargetsObjectOne } from '../../shared/mocks/publication-claim-targets.mock';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { SuggestionTargetsStateService } from '../suggestion-targets/suggestion-targets.state.service';
 import { SuggestionsService } from '../suggestions.service';
 import { SuggestionsPopupComponent } from './suggestions-popup.component';
@@ -31,14 +33,13 @@ describe('SuggestionsPopupComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ SuggestionsPopupComponent ],
+      imports: [TranslateModule.forRoot(), SuggestionsPopupComponent],
       providers: [
         { provide: SuggestionTargetsStateService, useValue: suggestionStateService },
         { provide: SuggestionsService, useValue: suggestionService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-
     })
       .compileComponents();
   }));

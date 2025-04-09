@@ -12,7 +12,7 @@ xdescribe('MultiColumnTopSectionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MultiColumnTopSectionComponent ],
+      imports: [MultiColumnTopSectionComponent],
     })
       .compileComponents();
   }));

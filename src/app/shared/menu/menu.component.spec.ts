@@ -53,6 +53,7 @@ const mockMenuID = 'mock-menuID' as MenuID;
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',
   template: '',
+  standalone: true,
 })
 @rendersSectionForMenu(mockMenuID, true)
 class TestExpandableMenuComponent {
@@ -126,14 +127,8 @@ describe('MenuComponent', () => {
       isAuthorized: observableOf(false),
     });
 
-    void TestBed.configureTestingModule({
-      imports: [
-        TranslateModule.forRoot(),
-        NoopAnimationsModule,
-        RouterTestingModule,
-        StoreModule.forRoot(authReducer, storeModuleConfig),
-      ],
-      declarations: [MenuComponent],
+    TestBed.configureTestingModule({
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule, MenuComponent, StoreModule.forRoot(authReducer, storeModuleConfig)],
       providers: [
         Injector,
         { provide: ThemeService, useValue: getMockThemeService() },

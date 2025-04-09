@@ -17,6 +17,7 @@ import { TestScheduler } from 'rxjs/testing';
 import { AuthService } from '../../core/auth/auth.service';
 import { MachineToken } from '../../core/auth/models/machine-token.model';
 import { EPerson } from '../../core/eperson/models/eperson.model';
+import { AlertComponent } from '../../shared/alert/alert.component';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {
@@ -57,8 +58,8 @@ describe('ProfilePageAccessTokenComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        ProfilePageAccessTokenComponent,
       ],
-      declarations: [ProfilePageAccessTokenComponent],
       providers: [
         { provide: AuthService, useValue: authServiceStub },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
@@ -67,7 +68,7 @@ describe('ProfilePageAccessTokenComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .compileComponents();
+      .overrideComponent(ProfilePageAccessTokenComponent, { remove: { imports: [AlertComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

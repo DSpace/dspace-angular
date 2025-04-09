@@ -67,8 +67,7 @@ describe('StatisticsChartPieComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [StatisticsChartPieComponent],
+      imports: [TranslateModule.forRoot(), StatisticsChartPieComponent],
       providers: [
         { provide: REPORT_DATA, useValue: selectedReport },
         { provide: BrowserExportService, useValue: ExportServiceStub },

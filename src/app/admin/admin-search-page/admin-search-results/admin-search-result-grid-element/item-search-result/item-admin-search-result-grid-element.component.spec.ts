@@ -19,8 +19,8 @@ import { RemoteData } from '../../../../../core/data/remote-data';
 import { Bitstream } from '../../../../../core/shared/bitstream.model';
 import { FileService } from '../../../../../core/shared/file.service';
 import { Item } from '../../../../../core/shared/item.model';
+import { ListableModule } from '../../../../../core/shared/listable.module';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
-import { DynamicComponentLoaderDirective } from '../../../../../shared/abstract-component-loader/dynamic-component-loader.directive';
 import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
 import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
@@ -36,6 +36,7 @@ import { FileServiceStub } from '../../../../../shared/testing/file-service.stub
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { ThumbnailService } from '../../../../../shared/thumbnail/thumbnail.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
+import { ItemAdminSearchResultActionsComponent } from '../../item-admin-search-result-actions.component';
 import { ItemAdminSearchResultGridElementComponent } from './item-admin-search-result-grid-element.component';
 
 describe('ItemAdminSearchResultGridElementComponent', () => {
@@ -74,13 +75,14 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
     init();
     TestBed.configureTestingModule(
       {
-        declarations: [ItemAdminSearchResultGridElementComponent, DynamicComponentLoaderDirective],
         imports: [
           CommonModule,
           BrowserModule,
           NoopAnimationsModule,
           TranslateModule.forRoot(),
           RouterTestingModule.withRoutes([]),
+          ListableModule,
+          ItemAdminSearchResultGridElementComponent,
         ],
         providers: [
           { provide: TruncatableService, useValue: mockTruncatableService },
@@ -94,7 +96,7 @@ describe('ItemAdminSearchResultGridElementComponent', () => {
         ],
         schemas: [NO_ERRORS_SCHEMA],
       })
-      .compileComponents();
+      .overrideComponent(ItemAdminSearchResultGridElementComponent, { remove: { imports: [ItemAdminSearchResultActionsComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

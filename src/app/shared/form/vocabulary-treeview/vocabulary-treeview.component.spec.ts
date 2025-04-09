@@ -1,5 +1,6 @@
 import { CdkTreeModule } from '@angular/cdk/tree';
 import {
+  ChangeDetectorRef,
   Component,
   NO_ERRORS_SCHEMA,
 } from '@angular/core';
@@ -10,6 +11,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
@@ -19,6 +21,8 @@ import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vo
 import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '../../../core/submission/vocabularies/vocabulary.service';
+import { AlertComponent } from '../../alert/alert.component';
+import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { createTestComponent } from '../../testing/utils.test';
 import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
 import { VocabularyTreeviewComponent } from './vocabulary-treeview.component';
@@ -75,19 +79,19 @@ describe('VocabularyTreeviewComponent test suite', () => {
       imports: [
         CdkTreeModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         VocabularyTreeviewComponent,
         TestComponent,
+        NoopAnimationsModule,
       ],
       providers: [
         { provide: VocabularyTreeviewService, useValue: vocabularyTreeviewServiceStub },
         { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: NgbActiveModal, useValue: modalStub },
+        ChangeDetectorRef,
         VocabularyTreeviewComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents().then(() => {
+    }).overrideComponent(VocabularyTreeviewComponent, { remove: { imports: [ThemedLoadingComponent, AlertComponent] } }).compileComponents().then(() => {
       vocabularyTreeviewServiceStub.getData.and.returnValue(observableOf([]));
       vocabularyTreeviewServiceStub.isLoading.and.returnValue(observableOf(false));
     });
@@ -141,7 +145,7 @@ describe('VocabularyTreeviewComponent test suite', () => {
       comp.selectedItems = [currentValue];
       fixture.detectChanges();
       expect(comp.dataSource.data).toEqual([]);
-      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), ['entryID'], 'entryID');
+      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), ['entryID'], 'entryID', false);
     });
 
     it('should should init component properly with init value as VocabularyEntry', () => {
@@ -153,7 +157,7 @@ describe('VocabularyTreeviewComponent test suite', () => {
       comp.selectedItems = [currentValue];
       fixture.detectChanges();
       expect(comp.dataSource.data).toEqual([]);
-      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), ['entryID'], 'entryID');
+      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), ['entryID'], 'entryID', false);
     });
 
     it('should should init component properly with init value as VocabularyEntryDetail', () => {
@@ -163,7 +167,7 @@ describe('VocabularyTreeviewComponent test suite', () => {
       comp.selectedItems = [currentValue];
       fixture.detectChanges();
       expect(comp.dataSource.data).toEqual([]);
-      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), ['entryID'], 'entryID');
+      expect(vocabularyTreeviewServiceStub.initialize).toHaveBeenCalledWith(comp.vocabularyOptions, new PageInfo(), ['entryID'], 'entryID', false);
     });
 
     it('should call loadMore function', () => {
@@ -183,7 +187,7 @@ describe('VocabularyTreeviewComponent test suite', () => {
       const node = new TreeviewFlatNode(item);
       comp.loadChildren(node);
       fixture.detectChanges();
-      expect(vocabularyTreeviewServiceStub.loadMore).toHaveBeenCalledWith(node.item, [], true);
+      expect(vocabularyTreeviewServiceStub.loadMore).toHaveBeenCalledWith(node.item, [], true, false);
     });
 
     it('should emit proper FormFieldMetadataValueObject when VocabularyEntryDetail has authority', () => {
@@ -309,6 +313,8 @@ describe('VocabularyTreeviewComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [CdkTreeModule],
 })
 class TestComponent {
 

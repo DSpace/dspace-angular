@@ -10,7 +10,7 @@ import { getFirstCompletedRemoteData } from '../../core/shared/operators';
  * Set up Google Analytics on the client side.
  * See: {@link addTrackingIdToPage}.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ThumbnailService {
 
   constructor(

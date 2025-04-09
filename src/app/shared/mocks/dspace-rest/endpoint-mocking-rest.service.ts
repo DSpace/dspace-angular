@@ -31,7 +31,7 @@ import {
  * This service can be used for mocking REST responses when developing new features
  * This is especially useful, when a REST endpoint is broken or does not exist yet
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class EndpointMockingRestService extends DspaceRestService {
 
   constructor(

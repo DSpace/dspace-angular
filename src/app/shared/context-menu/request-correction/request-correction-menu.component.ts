@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Inject,
   OnDestroy,
@@ -8,7 +12,10 @@ import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -17,6 +24,7 @@ import {
 } from 'rxjs';
 import {
   catchError,
+  switchMap,
   take,
 } from 'rxjs/operators';
 
@@ -32,7 +40,6 @@ import {
   isNotEmpty,
 } from '../../empty.util';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
 
@@ -42,10 +49,16 @@ import { ContextMenuEntryType } from '../context-menu-entry-type';
 @Component({
   selector: 'ds-context-menu-request-correction',
   templateUrl: './request-correction-menu.component.html',
+  standalone: true,
+  imports: [
+    NgIf,
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
-@rendersContextMenuEntriesForType(DSpaceObjectType.ITEM)
 export class RequestCorrectionMenuComponent extends ContextMenuEntryComponent implements OnDestroy {
 
+  canCreateCorrection$: Observable<boolean>;
   /**
    * A boolean representing if a request operation is pending
    * @type {BehaviorSubject<boolean>}
@@ -121,9 +134,10 @@ export class RequestCorrectionMenuComponent extends ContextMenuEntryComponent im
         this.router.navigate(['workspaceitems', response.id, 'edit']);
       }
     });
-    this.notificationService.claimedProfile.subscribe(() => {
-      this.canCreateCorrection(false);
-    });
+
+    this.canCreateCorrection$ = this.notificationService.claimedProfile.pipe(
+      switchMap(() => this.canCreateCorrection(false)),
+    );
   }
 
   /**
@@ -144,13 +158,19 @@ export class RequestCorrectionMenuComponent extends ContextMenuEntryComponent im
       case 403:
         this.notificationService.warning(
           null,
-          this.translate.instant('item.page.context-menu.options.request-correction.error.403'),
+          this.translate.instant('context-menu.actions.request-correction.error.403'),
+        );
+        break;
+      case 422:
+        this.notificationService.warning(
+          null,
+          this.translate.instant('context-menu.actions.request-correction.error.422'),
         );
         break;
       default :
         this.notificationService.error(
           null,
-          this.translate.instant('item.page.context-menu.options.request-correction.error.generic'),
+          this.translate.instant('context-menu.actions.request-correction.error.generic'),
         );
     }
   }

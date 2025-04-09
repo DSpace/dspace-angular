@@ -4,7 +4,6 @@ import {
 } from '@angular/core';
 import {
   ComponentFixture,
-  inject,
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
@@ -14,13 +13,16 @@ import {
   NgbActiveModal,
   NgbModal,
 } from '@ng-bootstrap/ng-bootstrap';
+import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 import { ExternalSourceEntry } from '../../../core/shared/external-source-entry.model';
 import { MetadataValue } from '../../../core/shared/metadata.models';
+import { Metadata } from '../../../core/shared/metadata.utils';
 import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
@@ -72,8 +74,6 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         SubmissionImportExternalPreviewComponent,
         TestComponent,
       ],
@@ -83,10 +83,12 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
         { provide: NgbModal, useValue: ngbModal },
         { provide: NgbActiveModal, useValue: ngbActiveModal },
-        SubmissionImportExternalPreviewComponent,
+        provideMockStore(),
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents().then();
+    })
+      .compileComponents().then();
   }));
 
   // First test to check the correct component creation
@@ -106,9 +108,9 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
       testFixture.destroy();
     });
 
-    it('should create SubmissionImportExternalPreviewComponent', inject([SubmissionImportExternalPreviewComponent], (app: SubmissionImportExternalPreviewComponent) => {
-      expect(app).toBeDefined();
-    }));
+    it('should create SubmissionImportExternalPreviewComponent', () => {
+      expect(testComp).toBeDefined();
+    });
   });
 
   describe('', () => {
@@ -128,7 +130,7 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
     it('Should init component properly', () => {
       comp.externalSourceEntry = externalEntry;
       const expected = [
-        { key: 'dc.identifier.uri', value: uriMetadata },
+        { key: 'dc.identifier.uri', values: Metadata.all(comp.externalSourceEntry.metadata, 'dc.identifier.uri') },
       ];
       fixture.detectChanges();
 
@@ -198,6 +200,7 @@ describe('SubmissionImportExternalPreviewComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
 })
 class TestComponent {
 

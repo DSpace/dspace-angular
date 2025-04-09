@@ -10,7 +10,6 @@
                  [collectionSize]="(ldnServicesRD$ | async)?.payload?.totalElements"
                  [hideGear]="true"
                  [hidePagerWhenSinglePage]="true"
-                 [pageInfoState]="(ldnServicesRD$ | async)?.payload"
                  [paginationOptions]="pageConfig">
     <div class="table-responsive">
       <table class="table table-striped table-hover">
@@ -83,10 +82,10 @@
       <div>
         {{ 'service.overview.delete.body' | translate }}
       </div>
-      <div class="mt-4">
+      <div class="mt-4 text-right">
         <button (click)="closeModal()"
                 [attr.aria-label]="'ldn-service-overview-close-modal' | translate"
-                class="btn btn-primary mr-2">{{ 'service.detail.delete.cancel' | translate }}</button>
+                class="btn btn-outline-secondary mr-2">{{ 'service.detail.delete.cancel' | translate }}</button>
         <button (click)="deleteSelected(this.selectedServiceId.toString(), ldnServicesService)"
                 class="btn btn-danger"
                 [attr.aria-label]="'ldn-service-overview-select-delete' | translate"

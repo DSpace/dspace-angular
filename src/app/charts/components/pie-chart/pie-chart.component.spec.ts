@@ -46,8 +46,7 @@ xdescribe('PieChartComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [BrowserAnimationsModule, NgxChartsModule],
-      declarations: [PieChartComponent],
+      imports: [BrowserAnimationsModule, NgxChartsModule, PieChartComponent],
       providers: [
         { provide: 'view', useValue: view },
         { provide: 'results', useValue: results },

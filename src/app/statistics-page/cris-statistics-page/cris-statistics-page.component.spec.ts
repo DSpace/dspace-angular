@@ -14,22 +14,28 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import {
+  of as observableOf,
+  of,
+} from 'rxjs';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { SiteDataService } from '../../core/data/site-data.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { UsageReport } from '../../core/statistics/models/usage-report.model';
 import { StatisticsState } from '../../core/statistics/statistics.reducer';
 import { StatisticsCategoriesDataService } from '../../core/statistics/statistics-categories-data.service';
 import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { SharedModule } from '../../shared/shared.module';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { SiteDataServiceStub } from '../../shared/testing/site-data-service.stub';
 import { StatisticsCategoriesServiceStub } from '../../shared/testing/statistics-category-service.stub';
 import { UsageReportServiceStub } from '../../shared/testing/usage-report-service.stub';
 import { CrisStatisticsPageComponent } from './cris-statistics-page.component';
+import { StatisticsChartComponent } from './statistics-chart/statistics-chart.component';
+import { StatisticsMapComponent } from './statistics-map/statistics-map.component';
 
 describe('CrisStatisticsPageComponent', () => {
 
@@ -63,17 +69,21 @@ describe('CrisStatisticsPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports : [
-        RouterTestingModule.withRoutes([]),
-        SharedModule,
+      imports: [
+        RouterTestingModule.withRoutes([
+          {
+            path: 'fake-url',
+            redirectTo: '/',
+          },
+        ]),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
         }),
+        CrisStatisticsPageComponent,
       ],
-      declarations: [ CrisStatisticsPageComponent ],
       providers: [
         provideMockStore({ initialState }),
         { provide: ActivatedRoute, useValue: activatedRouteStub },
@@ -84,7 +94,7 @@ describe('CrisStatisticsPageComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .compileComponents();
+      .overrideComponent(CrisStatisticsPageComponent, { remove: { imports: [ThemedLoadingComponent, StatisticsMapComponent, StatisticsChartComponent] } }).compileComponents();
   });
 
   beforeEach(() => {
@@ -138,6 +148,140 @@ describe('CrisStatisticsPageComponent', () => {
     fixture.detectChanges();
     const renderedCategories = fixture.debugElement.queryAll(By.css('#categories-tabs li a'));
     expect(renderedCategories[0].nativeElement.classList.contains('active')).toBe(true);
+  });
+
+  it('should set selectedReportId to the first report id if no reportType query param is present', () => {
+    const category = { id: 'category1' };
+    const reports = [{ id: 'report1', reportType: 'type1' }, { id: 'report2', reportType: 'type2' }];
+    spyOn(component, 'getReports$').and.returnValue(of(reports as UsageReport[]));
+    spyOn(component, 'getReportId').and.returnValue(of(null));
+    spyOn(component, 'getCategoryId').and.returnValue(of(null));
+    spyOn(component, 'setStatisticsState');
+
+    component.getUserReports(category);
+
+    expect(component.setStatisticsState).toHaveBeenCalledWith('report1', 'category1');
+    expect(component.selectedReportId).toBe('report1');
+  });
+
+  it('should set selectedReportId to the report id matching the reportType query param', () => {
+    const category = { id: 'category1' };
+    const reports = [{ id: 'report1', reportType: 'type1' }, { id: 'report2', reportType: 'type2' }];
+    spyOn(component, 'getReports$').and.returnValue(of(reports as UsageReport[]));
+    spyOn(component, 'getReportId').and.returnValue(of(null));
+    spyOn(component, 'getCategoryId').and.returnValue(of(null));
+    spyOn(component, 'setStatisticsState');
+
+    component.getUserReports(category, 'type2');
+
+    expect(component.setStatisticsState).toHaveBeenCalledWith('report2', 'category1');
+    expect(component.selectedReportId).toBe('report2');
+  });
+
+  it('should set selectedReportId to the first report id if reportType query param does not match any report', () => {
+    const category = { id: 'category1' };
+    const reports = [{ id: 'report1', reportType: 'type1' }, { id: 'report2', reportType: 'type2' }];
+    spyOn(component, 'getReports$').and.returnValue(of(reports as UsageReport[]));
+    spyOn(component, 'getReportId').and.returnValue(of(null));
+    spyOn(component, 'getCategoryId').and.returnValue(of(null));
+    spyOn(component, 'setStatisticsState');
+
+    component.getUserReports(category, 'non_existing_type');
+
+    expect(component.setStatisticsState).toHaveBeenCalledWith('report1', 'category1');
+    expect(component.selectedReportId).toBe('report1');
+  });
+
+  it('should set selectedReportId and categoryId from state if they exist', () => {
+    const category = { id: 'category1' };
+    const reports = [{ id: 'report1', reportType: 'type1' }, { id: 'report2', reportType: 'type2' }];
+    spyOn(component, 'getReports$').and.returnValue(of(reports as UsageReport[]));
+    spyOn(component, 'getReportId').and.returnValue(of('report1'));
+    spyOn(component, 'getCategoryId').and.returnValue(of('category1'));
+    spyOn(component, 'setStatisticsState');
+
+    component.getUserReports(category);
+
+    expect(component.setStatisticsState).toHaveBeenCalledWith('report1', 'category1');
+  });
+
+  it('should handle null category gracefully', () => {
+    spyOn(component, 'getReports$').and.returnValue(of([]));
+    spyOn(component, 'getReportId').and.returnValue(of(null));
+    spyOn(component, 'getCategoryId').and.returnValue(of(null));
+    spyOn(component, 'setStatisticsState');
+
+    component.getUserReports(null);
+
+    expect(component.setStatisticsState).not.toHaveBeenCalled();
+    expect(component.selectedReportId).toBeUndefined();
+  });
+
+  it('should set selectedReportId to the first report id if no reportType query param is present', () => {
+    const category = { id: 'category1' };
+    const reports = [{ id: 'report1', reportType: 'type1' }, { id: 'report2', reportType: 'type2' }];
+    spyOn(component, 'getReports$').and.returnValue(of(reports as UsageReport[]));
+    spyOn(component, 'getReportId').and.returnValue(of(null));
+    spyOn(component, 'getCategoryId').and.returnValue(of(null));
+    spyOn(component, 'setStatisticsState');
+
+    component.getUserReports(category);
+
+    expect(component.setStatisticsState).toHaveBeenCalledWith('report1', 'category1');
+    expect(component.selectedReportId).toBe('report1');
+  });
+
+  it('should set selectedReportId to the report id matching the reportType query param', () => {
+    const category = { id: 'category1' };
+    const reports = [{ id: 'report1', reportType: 'type1' }, { id: 'report2', reportType: 'type2' }];
+    spyOn(component, 'getReports$').and.returnValue(of(reports as UsageReport[]));
+    spyOn(component, 'getReportId').and.returnValue(of(null));
+    spyOn(component, 'getCategoryId').and.returnValue(of(null));
+    spyOn(component, 'setStatisticsState');
+
+    component.getUserReports(category, 'type2');
+
+    expect(component.setStatisticsState).toHaveBeenCalledWith('report2', 'category1');
+    expect(component.selectedReportId).toBe('report2');
+  });
+
+  it('should set selectedReportId to the first report id if reportType query param does not match any report', () => {
+    const category = { id: 'category1' };
+    const reports = [{ id: 'report1', reportType: 'type1' }, { id: 'report2', reportType: 'type2' }];
+    spyOn(component, 'getReports$').and.returnValue(of(reports as UsageReport[]));
+    spyOn(component, 'getReportId').and.returnValue(of(null));
+    spyOn(component, 'getCategoryId').and.returnValue(of(null));
+    spyOn(component, 'setStatisticsState');
+
+    component.getUserReports(category, 'non_existing_type');
+
+    expect(component.setStatisticsState).toHaveBeenCalledWith('report1', 'category1');
+    expect(component.selectedReportId).toBe('report1');
+  });
+
+  it('should set selectedReportId and categoryId from state if they exist', () => {
+    const category = { id: 'category1' };
+    const reports = [{ id: 'report1', reportType: 'type1' }, { id: 'report2', reportType: 'type2' }];
+    spyOn(component, 'getReports$').and.returnValue(of(reports as UsageReport[]));
+    spyOn(component, 'getReportId').and.returnValue(of('report1'));
+    spyOn(component, 'getCategoryId').and.returnValue(of('category1'));
+    spyOn(component, 'setStatisticsState');
+
+    component.getUserReports(category);
+
+    expect(component.setStatisticsState).toHaveBeenCalledWith('report1', 'category1');
+  });
+
+  it('should handle null category gracefully', () => {
+    spyOn(component, 'getReports$').and.returnValue(of([]));
+    spyOn(component, 'getReportId').and.returnValue(of(null));
+    spyOn(component, 'getCategoryId').and.returnValue(of(null));
+    spyOn(component, 'setStatisticsState');
+
+    component.getUserReports(null);
+
+    expect(component.setStatisticsState).not.toHaveBeenCalled();
+    expect(component.selectedReportId).toBeUndefined();
   });
 
 });

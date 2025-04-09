@@ -1,8 +1,14 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   Inject,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   combineLatest,
@@ -32,11 +38,13 @@ import { Group } from '../../../core/eperson/models/group.model';
 import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
 import { Collection } from '../../../core/shared/collection.model';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
 import {
   hasValue,
   isNotEmpty,
   isNotUndefined,
+  isObjectEmpty,
   isUndefined,
 } from '../../../shared/empty.util';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
@@ -46,8 +54,8 @@ import { SubmissionVisibility } from '../../utils/visibility.util';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
-import { renderSectionFor } from '../sections-decorator';
-import { SectionsType } from '../sections-type';
+import { SubmissionSectionUploadAccessConditionsComponent } from './accessConditions/submission-section-upload-access-conditions.component';
+import { ThemedSubmissionSectionUploadFileComponent } from './file/themed-section-upload-file.component';
 import { SectionUploadService } from './section-upload.service';
 
 export const POLICY_DEFAULT_NO_LIST = 1; // Banner1
@@ -65,8 +73,17 @@ export interface AccessConditionGroupsMapEntry {
   selector: 'ds-submission-section-upload',
   styleUrls: ['./section-upload.component.scss'],
   templateUrl: './section-upload.component.html',
+  imports: [
+    ThemedSubmissionSectionUploadFileComponent,
+    SubmissionSectionUploadAccessConditionsComponent,
+    NgIf,
+    AlertComponent,
+    TranslateModule,
+    NgForOf,
+    AsyncPipe,
+  ],
+  standalone: true,
 })
-@renderSectionFor(SectionsType.Upload)
 export class SubmissionSectionUploadComponent extends SectionModelComponent {
 
   /**
@@ -218,20 +235,21 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
         this.changeDetectorRef.detectChanges();
       }),
 
-
       // retrieve submission's bitstream data from state
-      combineLatest([this.configMetadataForm$,
-        this.bitstreamService.getUploadedFilesData(this.submissionId, this.sectionData.id)]).pipe(
-        filter(([configMetadataForm, { files }]: [SubmissionFormsModel, WorkspaceitemSectionUploadObject]) => {
-          return isNotEmpty(configMetadataForm) && isNotEmpty(files);
+      combineLatest([
+        this.configMetadataForm$,
+        this.bitstreamService.getUploadedFilesData(this.submissionId, this.sectionData.id),
+      ]).pipe(
+        filter(([configMetadataForm, sectionUploadObject]: [SubmissionFormsModel, WorkspaceitemSectionUploadObject]) => {
+          return isNotEmpty(configMetadataForm) && isNotEmpty(sectionUploadObject);
         }),
-        distinctUntilChanged())
-        .subscribe(([configMetadataForm, { primary, files }]: [SubmissionFormsModel, WorkspaceitemSectionUploadObject]) => {
-          this.primaryBitstreamUUID = primary;
-          this.fileList = files;
-          this.fileNames = Array.from(files, file => this.getFileName(configMetadataForm, file));
-        },
-        ),
+        distinctUntilChanged(),
+      ).subscribe(([configMetadataForm, { primary, files }]: [SubmissionFormsModel, WorkspaceitemSectionUploadObject]) => {
+        this.primaryBitstreamUUID = primary;
+        this.fileList = files;
+        this.fileNames = Array.from(files, file => this.getFileName(configMetadataForm, file));
+        this.changeDetectorRef.detectChanges();
+      }),
     );
   }
 
@@ -273,11 +291,12 @@ export class SubmissionSectionUploadComponent extends SectionModelComponent {
    */
   protected getSectionStatus(): Observable<boolean> {
     // if not mandatory, always true
-    // if mandatory, at least one file is required
+    // if mandatory, at least one file is required and no errors are present
     return observableCombineLatest(this.required$,
       this.bitstreamService.getUploadedFileList(this.submissionId, this.sectionData.id),
-      (required,fileList: any[]) => {
-        return (!required || (isNotUndefined(fileList) && fileList.length > 0));
+      this.sectionService.getSectionErrors(this.submissionId,  this.sectionData.id),
+      (required,fileList: any[], errors) => {
+        return (!required || (isNotUndefined(fileList) && fileList.length > 0 && isObjectEmpty(errors)));
       });
   }
 

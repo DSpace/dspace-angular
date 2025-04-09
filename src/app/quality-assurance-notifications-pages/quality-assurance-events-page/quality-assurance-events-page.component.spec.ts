@@ -5,6 +5,7 @@ import {
   TestBed,
 } from '@angular/core/testing';
 
+import { QualityAssuranceEventsComponent } from '../../notifications/qa/events/quality-assurance-events.component';
 import { QualityAssuranceEventsPageComponent } from './quality-assurance-events-page.component';
 
 describe('QualityAssuranceEventsPageComponent', () => {
@@ -13,9 +14,14 @@ describe('QualityAssuranceEventsPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ QualityAssuranceEventsPageComponent ],
+      imports: [QualityAssuranceEventsPageComponent],
       schemas: [NO_ERRORS_SCHEMA],
     })
+      .overrideComponent(QualityAssuranceEventsPageComponent, {
+        remove: {
+          imports: [QualityAssuranceEventsComponent],
+        },
+      })
       .compileComponents();
   }));
 

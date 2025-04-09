@@ -1,8 +1,13 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   first,
   map,
@@ -12,12 +17,22 @@ import {
 
 import { RemoteData } from '../core/data/remote-data';
 import { Registration } from '../core/shared/registration.model';
+import { ExternalLogInComponent } from '../external-log-in/external-log-in/external-log-in.component';
+import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';
 import { hasNoValue } from '../shared/empty.util';
 
 @Component({
   templateUrl: './external-login-page.component.html',
   styleUrls: ['./external-login-page.component.scss'],
+  standalone: true,
+  imports: [
+    AlertComponent,
+    ExternalLogInComponent,
+    AsyncPipe,
+    NgIf,
+    TranslateModule,
+  ],
 })
 export class ExternalLoginPageComponent implements OnInit {
   /**

@@ -12,13 +12,16 @@ import {
 import { of } from 'rxjs';
 
 import { RawRestResponse } from '../core/dspace-rest/raw-rest-response.model';
+import { AlertComponent } from '../shared/alert/alert.component';
 import {
   HealthInfoResponseObj,
   HealthResponseObj,
 } from '../shared/mocks/health-endpoint.mocks';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import { HealthService } from './health.service';
+import { HealthInfoComponent } from './health-info/health-info.component';
 import { HealthPageComponent } from './health-page.component';
+import { HealthPanelComponent } from './health-panel/health-panel.component';
 
 describe('HealthPageComponent', () => {
   let component: HealthPageComponent;
@@ -52,13 +55,13 @@ describe('HealthPageComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        HealthPageComponent,
       ],
-      declarations: [ HealthPageComponent ],
       providers: [
         { provide: HealthService, useValue: healthService },
       ],
     })
-      .compileComponents();
+      .overrideComponent(HealthPageComponent, { remove: { imports: [HealthPanelComponent, HealthInfoComponent, AlertComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   NgZone,
@@ -7,10 +12,15 @@ import {
 import {
   ActivatedRoute,
   Router,
+  RouterLink,
 } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import {
+  combineLatest,
   Observable,
   Subscription,
   zip as observableZip,
@@ -44,16 +54,34 @@ import {
   hasValue,
   isNotEmpty,
 } from '../../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { ResponsiveColumnSizes } from '../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../shared/responsive-table-sizes/responsive-table-sizes';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
+import { ObjectValuesPipe } from '../../../shared/utils/object-values-pipe';
+import { VarDirective } from '../../../shared/utils/var.directive';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
+import { ItemEditBitstreamBundleComponent } from './item-edit-bitstream-bundle/item-edit-bitstream-bundle.component';
+import { ItemEditBitstreamDragHandleComponent } from './item-edit-bitstream-drag-handle/item-edit-bitstream-drag-handle.component';
 
 @Component({
   selector: 'ds-item-bitstreams',
   styleUrls: ['./item-bitstreams.component.scss'],
   templateUrl: './item-bitstreams.component.html',
+  imports: [
+    AsyncPipe,
+    TranslateModule,
+    ItemEditBitstreamBundleComponent,
+    RouterLink,
+    NgIf,
+    VarDirective,
+    ItemEditBitstreamDragHandleComponent,
+    NgForOf,
+    ThemedLoadingComponent,
+  ],
+  providers: [ObjectValuesPipe],
+  standalone: true,
 })
 /**
  * Component for displaying an item's bitstreams edit page
@@ -246,7 +274,7 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    */
   isReinstatable(): Observable<boolean> {
     return this.bundles$.pipe(
-      switchMap((bundles: Bundle[]) => observableZip(...bundles.map((bundle: Bundle) => this.objectUpdatesService.isReinstatable(bundle.self)))),
+      switchMap((bundles: Bundle[]) => combineLatest(bundles.map((bundle: Bundle) => this.objectUpdatesService.isReinstatable(bundle.self)))),
       map((reinstatable: boolean[]) => reinstatable.includes(true)),
     );
   }
@@ -256,7 +284,7 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    */
   hasChanges(): Observable<boolean> {
     return this.bundles$.pipe(
-      switchMap((bundles: Bundle[]) => observableZip(...bundles.map((bundle: Bundle) => this.objectUpdatesService.hasUpdates(bundle.self)))),
+      switchMap((bundles: Bundle[]) => combineLatest(bundles.map((bundle: Bundle) => this.objectUpdatesService.hasUpdates(bundle.self)))),
       map((hasChanges: boolean[]) => hasChanges.includes(true)),
     );
   }

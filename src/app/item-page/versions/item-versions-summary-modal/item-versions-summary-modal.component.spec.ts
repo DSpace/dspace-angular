@@ -6,6 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { ItemVersionsSummaryModalComponent } from './item-versions-summary-modal.component';
 
 describe('ItemVersionsSummaryModalComponent', () => {
@@ -14,12 +15,11 @@ describe('ItemVersionsSummaryModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ItemVersionsSummaryModalComponent ],
-      imports: [ TranslateModule.forRoot(), RouterTestingModule.withRoutes([]) ],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ItemVersionsSummaryModalComponent],
       providers: [
         { provide: NgbActiveModal },
       ],
-    }).compileComponents();
+    }).overrideComponent(ItemVersionsSummaryModalComponent, { remove: { imports: [ThemedLoadingComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

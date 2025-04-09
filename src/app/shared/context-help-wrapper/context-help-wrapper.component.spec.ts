@@ -36,6 +36,8 @@ import { PlacementDir } from './placement-dir.model';
     >
     </ds-context-help-wrapper>
   `,
+  standalone: true,
+  imports: [NgbTooltipModule, ContextHelpWrapperComponent],
 })
 class TemplateComponent {
   @Input() content: string;
@@ -84,12 +86,11 @@ describe('ContextHelpWrapperComponent', () => {
     ]);
 
     TestBed.configureTestingModule({
-      imports: [ NgbTooltipModule ],
+      imports: [NgbTooltipModule, TemplateComponent, ContextHelpWrapperComponent],
       providers: [
         { provide: TranslateService, useValue: translateService },
         { provide: ContextHelpService, useValue: contextHelpService },
       ],
-      declarations: [ TemplateComponent, ContextHelpWrapperComponent ],
     }).compileComponents();
   }));
 

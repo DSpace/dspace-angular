@@ -1,4 +1,11 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgForOf,
+  NgIf,
+  NgTemplateOutlet,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
@@ -7,16 +14,23 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import {
+  FormsModule,
+  UntypedFormGroup,
+} from '@angular/forms';
 import {
   NgbDropdown,
+  NgbDropdownModule,
   NgbModal,
+  NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlCustomEvent,
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {
   of as observableOf,
   Subscription,
@@ -41,6 +55,8 @@ import {
   isEmpty,
   isNotEmpty,
 } from '../../../../../empty.util';
+import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
+import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
 import { FormBuilderService } from '../../../form-builder.service';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
@@ -53,6 +69,21 @@ import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
   selector: 'ds-dynamic-lookup',
   styleUrls: ['./dynamic-lookup.component.scss'],
   templateUrl: './dynamic-lookup.component.html',
+  imports: [
+    TranslateModule,
+    NgbTooltipModule,
+    NgbDropdownModule,
+    AuthorityConfidenceStateDirective,
+    FormsModule,
+    NgIf,
+    NgClass,
+    InfiniteScrollModule,
+    NgForOf,
+    NgTemplateOutlet,
+    ObjNgFor,
+    AsyncPipe,
+  ],
+  standalone: true,
 })
 export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent implements OnDestroy, OnInit {
 

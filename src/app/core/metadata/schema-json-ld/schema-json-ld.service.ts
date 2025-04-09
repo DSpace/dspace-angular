@@ -16,7 +16,7 @@ import {
   getSchemaJsonLDProviderByType,
 } from './schema-types/schema-type-decorator';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SchemaJsonLDService {
   static scriptType = 'application/ld+json';
 

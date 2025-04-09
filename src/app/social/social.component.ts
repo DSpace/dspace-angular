@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   Component,
   OnInit,
@@ -12,6 +17,12 @@ import { SocialService } from './social.service';
   templateUrl: './social.component.html',
   styleUrls: ['./social.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    NgFor,
+    NgIf,
+    AsyncPipe,
+  ],
 })
 /**
  * Component to render dynamically the social2 buttons using addToAny plugin

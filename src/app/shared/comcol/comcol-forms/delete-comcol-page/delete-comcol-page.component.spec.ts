@@ -25,7 +25,6 @@ import {
   createFailedRemoteDataObject$,
   createNoContentRemoteDataObject$,
 } from '../../../remote-data.utils';
-import { SharedModule } from '../../../shared.module';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { DeleteComColPageComponent } from './delete-comcol-page.component';
 
@@ -100,7 +99,7 @@ describe('DeleteComColPageComponent', () => {
   beforeEach(waitForAsync(() => {
     initializeVars();
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
+      imports: [TranslateModule.forRoot(), CommonModule, RouterTestingModule],
       providers: [
         { provide: ComColDataService, useValue: dsoDataService },
         { provide: Router, useValue: routerStub },

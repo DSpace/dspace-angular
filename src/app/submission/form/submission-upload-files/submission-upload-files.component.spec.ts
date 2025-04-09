@@ -26,18 +26,17 @@ import {
   mockSubmissionCollectionId,
   mockSubmissionId,
   mockSubmissionObject,
-  mockUploadResponse1ParsedErrors,
   mockUploadResponse2Errors,
   mockUploadResponse2ParsedErrors,
 } from '../../../shared/mocks/submission.mock';
 import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { SharedModule } from '../../../shared/shared.module';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
 import { SubmissionJsonPatchOperationsServiceStub } from '../../../shared/testing/submission-json-patch-operations-service.stub';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
 import { createTestComponent } from '../../../shared/testing/utils.test';
+import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
 import { SectionsService } from '../../sections/sections.service';
 import { SubmissionService } from '../../submission.service';
@@ -66,10 +65,7 @@ describe('SubmissionUploadFilesComponent Component', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        SharedModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         SubmissionUploadFilesComponent,
         TestComponent,
       ],
@@ -84,7 +80,7 @@ describe('SubmissionUploadFilesComponent Component', () => {
         SubmissionUploadFilesComponent,
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(SubmissionUploadFilesComponent, { remove: { imports: [UploaderComponent] } }).compileComponents();
   }));
 
   describe('', () => {
@@ -167,17 +163,21 @@ describe('SubmissionUploadFilesComponent Component', () => {
         compAsAny.uploadEnabled = observableOf(true);
       });
 
-      it('should show a success notification and call updateSectionData if successful', () => {
-        const expectedErrors: any = mockUploadResponse1ParsedErrors;
+      it('should show a success notification and call updateSectionData if successful and no errors are present', () => {
+        const expectedErrors: any = [];
         fixture.detectChanges();
+        const data = {
+          upload: {
+            files: [{ url: 'testUrl' }],
+          } };
 
-        comp.onCompleteItem(Object.assign({}, uploadRestResponse, { sections: mockSectionsData }));
+        comp.onCompleteItem(Object.assign({}, uploadRestResponse, { sections: data }));
 
-        Object.keys(mockSectionsData).forEach((sectionId) => {
+        Object.keys(data).forEach((sectionId) => {
           expect(sectionsServiceStub.updateSectionData).toHaveBeenCalledWith(
             submissionId,
             sectionId,
-            mockSectionsData[sectionId],
+            data[sectionId],
             expectedErrors[sectionId],
             expectedErrors[sectionId],
           );
@@ -218,6 +218,7 @@ describe('SubmissionUploadFilesComponent Component', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
 })
 class TestComponent {
 

@@ -37,9 +37,7 @@ describe('BrowseSectionComponent', () => {
             provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
-        }),
-      ],
-      declarations: [BrowseSectionComponent],
+        }), BrowseSectionComponent],
       providers: [BrowseSectionComponent],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();

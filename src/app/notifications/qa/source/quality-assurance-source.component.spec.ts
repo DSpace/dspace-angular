@@ -15,11 +15,14 @@ import { cold } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import {
   getMockNotificationsStateService,
   qualityAssuranceSourceObjectMoreAbstract,
   qualityAssuranceSourceObjectMorePid,
 } from '../../../shared/mocks/notifications.mock';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import { NotificationsStateService } from '../../notifications-state.service';
@@ -43,8 +46,6 @@ describe('QualityAssuranceSourceComponent test suite', () => {
       imports: [
         CommonModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         QualityAssuranceSourceComponent,
         TestComponent,
       ],
@@ -55,18 +56,28 @@ describe('QualityAssuranceSourceComponent test suite', () => {
         QualityAssuranceSourceComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents().then(() => {
-      mockNotificationsStateService.getQualityAssuranceSource.and.returnValue(observableOf([
-        qualityAssuranceSourceObjectMorePid,
-        qualityAssuranceSourceObjectMoreAbstract,
-      ]));
-      mockNotificationsStateService.getQualityAssuranceSourceTotalPages.and.returnValue(observableOf(1));
-      mockNotificationsStateService.getQualityAssuranceSourceCurrentPage.and.returnValue(observableOf(0));
-      mockNotificationsStateService.getQualityAssuranceSourceTotals.and.returnValue(observableOf(2));
-      mockNotificationsStateService.isQualityAssuranceSourceLoaded.and.returnValue(observableOf(true));
-      mockNotificationsStateService.isQualityAssuranceSourceLoading.and.returnValue(observableOf(false));
-      mockNotificationsStateService.isQualityAssuranceSourceProcessing.and.returnValue(observableOf(false));
-    });
+    })
+      .overrideComponent(QualityAssuranceSourceComponent, {
+        remove: {
+          imports: [
+            AlertComponent,
+            ThemedLoadingComponent,
+            PaginationComponent,
+          ],
+        },
+      })
+      .compileComponents().then(() => {
+        mockNotificationsStateService.getQualityAssuranceSource.and.returnValue(observableOf([
+          qualityAssuranceSourceObjectMorePid,
+          qualityAssuranceSourceObjectMoreAbstract,
+        ]));
+        mockNotificationsStateService.getQualityAssuranceSourceTotalPages.and.returnValue(observableOf(1));
+        mockNotificationsStateService.getQualityAssuranceSourceCurrentPage.and.returnValue(observableOf(0));
+        mockNotificationsStateService.getQualityAssuranceSourceTotals.and.returnValue(observableOf(2));
+        mockNotificationsStateService.isQualityAssuranceSourceLoaded.and.returnValue(observableOf(true));
+        mockNotificationsStateService.isQualityAssuranceSourceLoading.and.returnValue(observableOf(false));
+        mockNotificationsStateService.isQualityAssuranceSourceProcessing.and.returnValue(observableOf(false));
+      });
   }));
 
   // First test to check the correct component creation
@@ -155,6 +166,8 @@ describe('QualityAssuranceSourceComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [CommonModule],
 })
 class TestComponent {
 

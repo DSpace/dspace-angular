@@ -4,16 +4,13 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Metric } from '../shared/metric.model';
-import { METRIC } from '../shared/metric.resource-type';
-import { dataService } from './base/data-service.decorator';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import { RequestService } from './request.service';
 
 /**
  * A service responsible for fetching data from the REST API on the metrics endpoint
  */
-@Injectable()
-@dataService(METRIC)
+@Injectable({ providedIn: 'root' })
 export class MetricsDataService extends IdentifiableDataService<Metric> {
 
   protected linkPath = 'metrics';

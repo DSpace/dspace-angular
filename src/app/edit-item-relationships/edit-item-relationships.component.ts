@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnDestroy,
   OnInit,
@@ -9,7 +13,10 @@ import {
   Router,
 } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   EMPTY,
@@ -40,37 +47,34 @@ import {
   getRemoteDataPayload,
 } from '../core/shared/operators';
 import { getItemPageRoute } from '../item-page/item-page-routing-paths';
+import { ThemedConfigurationSearchPageComponent } from '../search-page/themed-configuration-search-page.component';
 import { hasValue } from '../shared/empty.util';
 import { HostWindowService } from '../shared/host-window.service';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { NotificationsService } from '../shared/notifications/notifications.service';
 import { followLink } from '../shared/utils/follow-link-config.model';
+import { VarDirective } from '../shared/utils/var.directive';
+import {
+  ManageRelationshipEvent,
+  ManageRelationshipEventType,
+} from './edit-item-relationship-types';
 import { EditItemRelationshipsActionTypes } from './edit-item-relationships.actions';
-
-export enum ManageRelationshipEventType {
-  Select = 'select',
-  Unselect = 'unselect',
-  Hide = 'hide',
-  Unhide = 'unhide',
-  Sort = 'sort'
-}
-
-export interface ManageRelationshipEvent {
-  action: ManageRelationshipEventType;
-  item: Item;
-  relationship: Relationship;
-  place?: number
-}
-
-export interface ManageRelationshipCustomData {
-  relationships$: BehaviorSubject<Relationship[]>;
-  entityType: string;
-  updateStatusByItemId$: BehaviorSubject<string>;
-}
+import { RelationshipsSortListComponent } from './relationships-sort-list/relationships-sort-list.component';
 
 @Component({
   selector: 'ds-edit-item-relationships',
   templateUrl: './edit-item-relationships.component.html',
   styleUrls: ['./edit-item-relationships.component.scss'],
+  imports: [
+    ThemedLoadingComponent,
+    AsyncPipe,
+    ThemedConfigurationSearchPageComponent,
+    TranslateModule,
+    NgIf,
+    RelationshipsSortListComponent,
+    VarDirective,
+  ],
+  standalone: true,
 })
 export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
 
@@ -405,7 +409,7 @@ export class EditItemRelationshipsComponent implements OnInit, OnDestroy {
           return this.addRelationship(type, objectItem, action);
         } else {
           this.processing$.next(false);
-          const errMsg = (action === 'unselect') ? 'manage.relationships.error.unselect' : 'manage.relationships.error.unhide';
+          const errMsg = (action?.toString() === 'unselect') ? 'manage.relationships.error.unselect' : 'manage.relationships.error.unhide';
           this.notification.error(null, errMsg);
           return EMPTY;
         }

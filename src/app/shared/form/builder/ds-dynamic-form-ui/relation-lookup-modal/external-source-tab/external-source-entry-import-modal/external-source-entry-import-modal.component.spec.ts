@@ -4,6 +4,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
   NgbActiveModal,
@@ -20,6 +21,7 @@ import { NotificationsService } from '../../../../../../notifications/notificati
 import { ItemSearchResult } from '../../../../../../object-collection/shared/item-search-result.model';
 import { SelectableListService } from '../../../../../../object-list/selectable-list/selectable-list.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../../remote-data.utils';
+import { ThemedSearchResultsComponent } from '../../../../../../search/search-results/themed-search-results.component';
 import { createPaginatedList } from '../../../../../../testing/utils.test';
 import { RelationshipOptions } from '../../../../models/relationship-options.model';
 import {
@@ -78,8 +80,13 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [ExternalSourceEntryImportModalComponent],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule],
+      imports: [
+        TranslateModule.forRoot(),
+        RouterTestingModule.withRoutes([]),
+        NgbModule,
+        ExternalSourceEntryImportModalComponent,
+        NoopAnimationsModule,
+      ],
       providers: [
         { provide: LookupRelationService, useValue: lookupRelationService },
         { provide: SelectableListService, useValue: selectService },
@@ -88,7 +95,11 @@ describe('DsDynamicLookupRelationExternalSourceTabComponent', () => {
         { provide: NgbActiveModal, useValue: modalStub },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(ExternalSourceEntryImportModalComponent, {
+        remove: { imports: [ThemedSearchResultsComponent] },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

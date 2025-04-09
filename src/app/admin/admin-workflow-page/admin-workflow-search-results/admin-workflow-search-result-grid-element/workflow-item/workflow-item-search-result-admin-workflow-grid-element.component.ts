@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   ComponentRef,
@@ -6,6 +7,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
@@ -33,12 +35,15 @@ import { SearchResultGridElementComponent } from '../../../../../shared/object-g
 import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { followLink } from '../../../../../shared/utils/follow-link-config.model';
+import { WorkflowItemAdminWorkflowActionsComponent } from '../../actions/workflow-item/workflow-item-admin-workflow-actions.component';
 
 @listableObjectComponent(WorkflowItemSearchResult, ViewMode.GridElement, Context.AdminWorkflowSearch)
 @Component({
   selector: 'ds-workflow-item-search-result-admin-workflow-grid-element',
   styleUrls: ['./workflow-item-search-result-admin-workflow-grid-element.component.scss'],
   templateUrl: './workflow-item-search-result-admin-workflow-grid-element.component.html',
+  standalone: true,
+  imports: [NgIf, WorkflowItemAdminWorkflowActionsComponent, TranslateModule, DynamicComponentLoaderDirective],
 })
 /**
  * The component for displaying a grid element for an workflow item on the admin workflow search page

@@ -1,10 +1,20 @@
 import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Inject,
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { RouterLink } from '@angular/router';
+import {
+  NgbDropdownModule,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -29,7 +39,6 @@ import {
   isNotEmpty,
 } from '../../empty.util';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
 
@@ -39,8 +48,16 @@ import { ContextMenuEntryType } from '../context-menu-entry-type';
 @Component({
   selector: 'ds-context-menu-edit-item',
   templateUrl: './edit-item-menu.component.html',
+  standalone: true,
+  imports: [
+    NgIf,
+    NgFor,
+    NgbDropdownModule,
+    RouterLink,
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
-@rendersContextMenuEntriesForType(DSpaceObjectType.ITEM)
 export class EditItemMenuComponent extends ContextMenuEntryComponent implements OnInit, OnDestroy {
 
   /**
@@ -54,6 +71,8 @@ export class EditItemMenuComponent extends ContextMenuEntryComponent implements 
    */
   public processing$ = new BehaviorSubject<boolean>(false);
 
+  isEditAvailable$: Observable<boolean>;
+
   /**
    * Reference to NgbModal
    */
@@ -63,7 +82,7 @@ export class EditItemMenuComponent extends ContextMenuEntryComponent implements 
    * List of Edit Modes available on this item
    * for the current user
    */
-  private editModes$: BehaviorSubject<EditItemMode[]> = new BehaviorSubject<EditItemMode[]>([]);
+  editModes$: BehaviorSubject<EditItemMode[]> = new BehaviorSubject<EditItemMode[]>([]);
 
   /**
    * Variable to track subscription and unsubscribe it onDestroy
@@ -92,6 +111,10 @@ export class EditItemMenuComponent extends ContextMenuEntryComponent implements 
     this.notificationService.claimedProfile.subscribe(() => {
       this.getData();
     });
+
+    this.isEditAvailable$ = this.editModes$.pipe(
+      map((editModes) => isNotEmpty(editModes) && editModes.length > 0),
+    );
   }
 
   /**

@@ -33,6 +33,7 @@ import {
   Observable,
   of as observableOf,
 } from 'rxjs';
+import { HALEndpointServiceStub } from 'src/app/shared/testing/hal-endpoint-service.stub';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '../../../core/cache/builders/remote-data-build.service';
@@ -53,7 +54,11 @@ import { HALEndpointService } from '../../../core/shared/hal-endpoint.service';
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { UUIDService } from '../../../core/shared/uuid.service';
+import { XSRFService } from '../../../core/xsrf/xsrf.service';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { ContextHelpDirective } from '../../../shared/context-help.directive';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
+import { FormComponent } from '../../../shared/form/form.component';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 import { RouterMock } from '../../../shared/mocks/router.mock';
@@ -67,6 +72,8 @@ import {
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { TranslateLoaderMock } from '../../../shared/testing/translate-loader.mock';
 import { GroupFormComponent } from './group-form.component';
+import { MembersListComponent } from './members-list/members-list.component';
+import { SubgroupsListComponent } from './subgroup-list/subgroups-list.component';
 import { ValidateGroupExists } from './validators/group-exists.validator';
 
 describe('GroupFormComponent', () => {
@@ -227,9 +234,7 @@ describe('GroupFormComponent', () => {
             provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
-        }),
-      ],
-      declarations: [GroupFormComponent],
+        }), GroupFormComponent],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
@@ -240,10 +245,11 @@ describe('GroupFormComponent', () => {
         { provide: DSOChangeAnalyzer, useValue: {} },
         { provide: HttpClient, useValue: {} },
         { provide: ObjectCacheService, useValue: {} },
-        { provide: UUIDService, useValue: {} },
+        { provide: UUIDService, useValue: jasmine.createSpyObj('UUIDService', ['generate']) },
+        { provide: XSRFService, useValue: {} },
         { provide: Store, useValue: {} },
         { provide: RemoteDataBuildService, useValue: {} },
-        { provide: HALEndpointService, useValue: {} },
+        { provide: HALEndpointService, useValue: new HALEndpointServiceStub('test') },
         {
           provide: ActivatedRoute,
           useValue: { data: observableOf({ dso: { payload: {} } }), params: observableOf({}) },
@@ -252,7 +258,17 @@ describe('GroupFormComponent', () => {
         { provide: AuthorizationDataService, useValue: authorizationService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(GroupFormComponent, {
+        remove: { imports: [
+          FormComponent,
+          AlertComponent,
+          ContextHelpDirective,
+          MembersListComponent,
+          SubgroupsListComponent,
+        ] },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

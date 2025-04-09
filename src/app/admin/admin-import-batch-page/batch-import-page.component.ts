@@ -1,8 +1,15 @@
-import { Location } from '@angular/common';
+import {
+  Location,
+  NgIf,
+} from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
 
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
@@ -22,10 +29,24 @@ import {
   isNotEmpty,
 } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import {
+  SwitchColor,
+  SwitchComponent,
+  SwitchOption,
+} from '../../shared/switch/switch.component';
+import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';
 
 @Component({
   selector: 'ds-batch-import-page',
   templateUrl: './batch-import-page.component.html',
+  imports: [
+    NgIf,
+    TranslateModule,
+    FormsModule,
+    FileDropzoneNoUploaderComponent,
+    SwitchComponent,
+  ],
+  standalone: true,
 })
 export class BatchImportPageComponent {
   /**
@@ -52,6 +73,14 @@ export class BatchImportPageComponent {
    * File URL when flag is for url
    */
   fileURL: string;
+
+  /**
+   * The custom options for the 'ds-switch' component
+   */
+  switchOptions: SwitchOption[] = [
+    { value: 'upload', icon: 'fa fa-upload', label: 'admin.metadata-import.page.toggle.upload', iconColor: SwitchColor.Primary },
+    { value: 'url', icon: 'fa fa-link', label: 'admin.metadata-import.page.toggle.url', iconColor: SwitchColor.Primary },
+  ];
 
   public constructor(private location: Location,
                      protected translate: TranslateService,

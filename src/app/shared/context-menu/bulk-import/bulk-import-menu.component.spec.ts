@@ -43,7 +43,6 @@ describe('BulkImportMenuComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      declarations: [ BulkImportMenuComponent ],
       imports: [
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot({
@@ -52,6 +51,7 @@ describe('BulkImportMenuComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        BulkImportMenuComponent,
       ],
       providers: [
         { provide: 'contextMenuObjectProvider', useValue: dso },

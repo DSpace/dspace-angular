@@ -17,7 +17,6 @@ import { ConfigurationDataService } from '../../../../../../../../../../../core/
 import { ConfigurationProperty } from '../../../../../../../../../../../core/shared/configuration-property.model';
 import { TranslateLoaderMock } from '../../../../../../../../../../../shared/mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../../../../../../../shared/remote-data.utils';
-import { SharedModule } from '../../../../../../../../../../../shared/shared.module';
 import { FileDownloadButtonComponent } from './file-download-button.component';
 
 describe('FileDownloadButtonComponent', () => {
@@ -61,15 +60,15 @@ describe('FileDownloadButtonComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [
-        SharedModule,
         RouterTestingModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
-        })],
-      declarations: [FileDownloadButtonComponent],
+        }),
+        FileDownloadButtonComponent,
+      ],
       providers: [
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ConfigurationDataService, useValue: configurationDataService },

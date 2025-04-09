@@ -18,7 +18,6 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { Item } from '../../../core/shared/item.model';
 import { DsoVersioningModalService } from '../../dso-page/dso-versioning-modal-service/dso-versioning-modal.service';
-import { SharedModule } from '../../shared.module';
 import { ItemVersionMenuComponent } from './item-version-menu.component';
 
 describe('ItemVersionMenuComponent', () => {
@@ -50,9 +49,7 @@ describe('ItemVersionMenuComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      declarations: [ItemVersionMenuComponent],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]),
-        SharedModule],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ItemVersionMenuComponent],
       providers: [
         { provide: NgbModal, useValue: ngbModal },
         { provide: 'contextMenuObjectProvider', useValue: dso },

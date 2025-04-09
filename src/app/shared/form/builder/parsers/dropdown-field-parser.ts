@@ -1,5 +1,6 @@
 import { Inject } from '@angular/core';
 import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import { isNotEmpty } from '../../../empty.util';
 import {
@@ -26,11 +27,12 @@ export class DropdownFieldParser extends FieldParser {
     @Inject(INIT_FORM_VALUES) initFormValues,
     @Inject(PARSER_OPTIONS) parserOptions: ParserOptions,
     @Inject(SECURITY_CONFIG)  securityConfig: any = null,
+    translate: TranslateService,
   ) {
-    super(submissionId, configData, initFormValues, parserOptions, securityConfig);
+    super(submissionId, configData, initFormValues, parserOptions, securityConfig, translate);
   }
 
-  public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {
+  public modelFactory(fieldValue?: FormFieldMetadataValueObject, label?: boolean): any {
     const dropdownModelConfig: DynamicScrollableDropdownModelConfig = this.initModel(null, label);
     let layout: DynamicFormControlLayout;
 

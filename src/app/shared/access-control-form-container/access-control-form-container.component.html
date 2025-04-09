@@ -16,11 +16,12 @@
               <h2 class="h3 mb-0 mr-4">
                 {{ 'access-control-item-header-toggle' | translate }}
               </h2>
-              <ui-switch
+              <ds-switch
                 [ariaLabel]="(state.bitstream.toggleStatus ? 'access-control-item-toggle.disable' : 'access-control-item-toggle.enable') | translate"
-                [(ngModel)]="state.item.toggleStatus"
-                (ngModelChange)="handleStatusChange('item', $event)">
-              </ui-switch>
+                [options]="switchOptions"
+                [(selectedValue)] = "state.item.toggleStatus"
+                (selectedValueChange) = "handleStatusChange('item', $event)">
+              </ds-switch>
             </div>
 
             <fieldset class="row mt-3">
@@ -70,11 +71,12 @@
               <h2 class="h3 mb-0 mr-4">
                 {{'access-control-bitstream-header-toggle' | translate}}
               </h2>
-              <ui-switch
+              <ds-switch
                 [ariaLabel]="(state.bitstream.toggleStatus ? 'access-control-bitstream-toggle.disable' : 'access-control-bitstream-toggle.enable') | translate"
-                [(ngModel)]="state.bitstream.toggleStatus"
-                (ngModelChange)="handleStatusChange('bitstream', $event)">
-              </ui-switch>
+                [options]="switchOptions"
+                [(selectedValue)] = "state.bitstream.toggleStatus"
+                (selectedValueChange) = "handleStatusChange('bitstream', $event)">
+              </ds-switch>
             </div>
 
             <div *ngIf="showLimitToSpecificBitstreams" class="row mt-3">

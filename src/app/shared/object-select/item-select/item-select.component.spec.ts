@@ -18,10 +18,12 @@ import { LinkHeadService } from '../../../core/services/link-head.service';
 import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
 import { Item } from '../../../core/shared/item.model';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { ErrorComponent } from '../../error/error.component';
 import { HostWindowService } from '../../host-window.service';
+import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
+import { PaginationComponent } from '../../pagination/pagination.component';
 import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
-import { SharedModule } from '../../shared.module';
 import { HostWindowServiceStub } from '../../testing/host-window-service.stub';
 import { ObjectSelectServiceStub } from '../../testing/object-select-service.stub';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';
@@ -102,8 +104,7 @@ describe('ItemSelectComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), SharedModule, RouterTestingModule.withRoutes([])],
-      declarations: [],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
         { provide: ObjectSelectService, useValue: new ObjectSelectServiceStub([mockItemList[1].id]) },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
@@ -115,7 +116,7 @@ describe('ItemSelectComponent', () => {
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(ItemSelectComponent, { remove: { imports: [PaginationComponent, ErrorComponent, ThemedLoadingComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -189,15 +190,16 @@ describe('ItemSelectComponent', () => {
     beforeEach(() => {
       comp.featureId = FeatureID.CanManageMappings;
       spyOn(authorizationDataService, 'isAuthorized').and.returnValue(of(false));
+      comp.ngOnInit();
     });
 
-    it('should disable the checkbox', waitForAsync(() => {
+    it('should disable the checkbox', waitForAsync(async () => {
       fixture.detectChanges();
-      fixture.whenStable().then(() => {
-        const checkbox = fixture.debugElement.query(By.css('input.item-checkbox')).nativeElement;
-        expect(authorizationDataService.isAuthorized).toHaveBeenCalled();
-        expect(checkbox.disabled).toBeTrue();
-      });
+      await fixture.whenStable();
+
+      const checkbox = fixture.debugElement.query(By.css('input.item-checkbox')).nativeElement;
+      expect(authorizationDataService.isAuthorized).toHaveBeenCalled();
+      expect(checkbox.disabled).toBeTrue();
     }));
   });
 });

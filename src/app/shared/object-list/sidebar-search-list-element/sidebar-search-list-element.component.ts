@@ -1,7 +1,13 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Inject,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   of as observableOf,
@@ -27,12 +33,15 @@ import {
 } from '../../empty.util';
 import { SearchResult } from '../../search/models/search-result.model';
 import { TruncatableService } from '../../truncatable/truncatable.service';
+import { TruncatablePartComponent } from '../../truncatable/truncatable-part/truncatable-part.component';
 import { followLink } from '../../utils/follow-link-config.model';
 import { SearchResultListElementComponent } from '../search-result-list-element/search-result-list-element.component';
 
 @Component({
   selector: 'ds-sidebar-search-list-element',
   templateUrl: './sidebar-search-list-element.component.html',
+  standalone: true,
+  imports: [TruncatablePartComponent, NgClass, NgIf, AsyncPipe, TranslateModule],
 })
 /**
  * Component displaying a list element for a {@link SearchResult} in the sidebar search modal

@@ -7,6 +7,7 @@ import {
 } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { PublicationClaimComponent } from '../../../notifications/suggestion-targets/publication-claim/publication-claim.component';
 import { AdminNotificationsSuggestionTargetsPageComponent } from './admin-notifications-suggestion-targets-page.component';
 
 describe('AdminNotificationsSuggestionTargetsPageComponent', () => {
@@ -18,8 +19,6 @@ describe('AdminNotificationsSuggestionTargetsPageComponent', () => {
       imports: [
         CommonModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         AdminNotificationsSuggestionTargetsPageComponent,
       ],
       providers: [
@@ -27,7 +26,7 @@ describe('AdminNotificationsSuggestionTargetsPageComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .compileComponents();
+      .overrideComponent(AdminNotificationsSuggestionTargetsPageComponent, { remove: { imports: [PublicationClaimComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

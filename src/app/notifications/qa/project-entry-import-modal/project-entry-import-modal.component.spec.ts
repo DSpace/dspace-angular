@@ -9,6 +9,7 @@ import {
   inject,
   TestBed,
 } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
@@ -17,6 +18,8 @@ import { buildPaginatedList } from '../../../core/data/paginated-list.model';
 import { Item } from '../../../core/shared/item.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { SearchService } from '../../../core/shared/search/search.service';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import {
   ItemMockPid10,
   NotificationsMockDspaceObject,
@@ -27,6 +30,8 @@ import { SelectableListService } from '../../../shared/object-list/selectable-li
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
+import { ThemedSearchResultsComponent } from '../../../shared/search/search-results/themed-search-results.component';
+import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import { createTestComponent } from '../../../shared/testing/utils.test';
 import {
   ImportType,
@@ -86,19 +91,28 @@ describe('ProjectEntryImportModalComponent test suite', () => {
       imports: [
         CommonModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         ProjectEntryImportModalComponent,
         TestComponent,
       ],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         { provide: SearchService, useValue: searchServiceStub },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: SelectableListService, useValue: jasmine.createSpyObj('selectableListService', ['deselect', 'select', 'deselectAll']) },
         ProjectEntryImportModalComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents().then();
+    })
+      .overrideComponent(ProjectEntryImportModalComponent, {
+        remove: {
+          imports: [
+            ThemedLoadingComponent,
+            ThemedSearchResultsComponent,
+            AlertComponent,
+          ],
+        },
+      })
+      .compileComponents().then();
   }));
 
   // First test to check the correct component creation
@@ -216,6 +230,8 @@ describe('ProjectEntryImportModalComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [CommonModule],
 })
 class TestComponent {
   eventData = eventData;

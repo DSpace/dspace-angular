@@ -18,6 +18,7 @@ import {
   of as observableOf,
 } from 'rxjs';
 import {
+  filter,
   map,
   switchMap,
   take,
@@ -30,6 +31,10 @@ import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { CAPTCHA_NAME } from '../../core/google-recaptcha/google-recaptcha.service';
 import { CookieService } from '../../core/services/cookie.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '../../core/services/window.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import {
   hasValue,
@@ -84,7 +89,7 @@ const LAZY_KLARO = new InjectionToken<Promise<any>>(
 /**
  * Browser implementation for the KlaroService, representing a service for handling Klaro consent preferences and UI
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class BrowserKlaroService extends KlaroService {
 
   private readonly GOOGLE_ANALYTICS_KEY = 'google.analytics.key';
@@ -92,9 +97,6 @@ export class BrowserKlaroService extends KlaroService {
   private readonly REGISTRATION_VERIFICATION_ENABLED_KEY = 'registration.verification.enabled';
 
   private readonly GOOGLE_ANALYTICS_SERVICE_NAME = 'google-analytics';
-
-  private lastCookiesConsents: CookieConsents;
-
   /**
    * Initial Klaro configuration
    */
@@ -104,8 +106,21 @@ export class BrowserKlaroService extends KlaroService {
    * Subject to emit updates in the consents
    */
   consentsUpdates$:  BehaviorSubject<CookieConsents> = new BehaviorSubject<CookieConsents>(null);
+  /**
+   * Subject to emit initialization
+   */
+  initialized$:  BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-
+  /**
+   * Boolean to check if a new watch method from the manager needs to be fired
+   * @private
+   */
+  private isKlaroManagerWatching = false;
+  /**
+   * Boolean to check if service has been initialized
+   * @private
+   */
+  private initialized = false;
   constructor(
     private translateService: TranslateService,
     private authService: AuthService,
@@ -113,6 +128,7 @@ export class BrowserKlaroService extends KlaroService {
     private configService: ConfigurationDataService,
     private cookieService: CookieService,
     @Inject(LAZY_KLARO) private lazyKlaro: Promise<any>,
+    @Inject(NativeWindowService) private _window: NativeWindowRef,
   ) {
     super();
   }
@@ -206,9 +222,21 @@ export class BrowserKlaroService extends KlaroService {
          */
         this.translateConfiguration();
 
-        this.klaroConfig.services = this.filterConfigServices(servicesToHide);
-        this.lazyKlaro.then(({ setup }) => setup(this.klaroConfig));
+        if (this._window?.nativeWindow?.Cypress) {
+          this.klaroConfig.services = [];
+        } else {
+          this.klaroConfig.services = this.filterConfigServices(servicesToHide);
+        }
+        this.lazyKlaro.then(({ setup }) => {
+          setup(this.klaroConfig);
+          this.initialized = true;
+          this.initialized$.next(this.initialized);
+        });
       });
+
+    this.consentsUpdates$.pipe(
+      filter(() => this.initialized),
+    ).subscribe((consents) => this.isKlaroManagerWatching = hasValue(consents));
   }
 
   /**
@@ -291,7 +319,7 @@ export class BrowserKlaroService extends KlaroService {
    * Show the cookie consent form
    */
   showSettings() {
-    this.lazyKlaro.then(({ show }) => show(this.klaroConfig));
+    void this.lazyKlaro.then(({ show }) => show(this.klaroConfig, true));
   }
 
   /**
@@ -393,15 +421,18 @@ export class BrowserKlaroService extends KlaroService {
   }
 
   watchConsentUpdates(): void {
+    if (this.isKlaroManagerWatching || !this.initialized) {
+      return;
+    }
+
     this.lazyKlaro.then(({ getManager }) => {
       const manager = getManager(this.klaroConfig);
       const consentsSubject$ = this.consentsUpdates$;
-      let lastCookiesConsents = this.lastCookiesConsents;
+      let lastCookiesConsents;
 
       consentsSubject$.next(manager.consents);
       manager.watch({
         update(_, eventName, consents) {
-
           if (eventName === 'consents' && !isEqual(consents, lastCookiesConsents)) {
             lastCookiesConsents = deepClone(consents);
             consentsSubject$.next(consents);

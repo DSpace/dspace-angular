@@ -13,6 +13,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
 import { ProfileClaimService } from '../../../../profile-page/profile-claim/profile-claim.service';
+import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { ClaimItemSelectorComponent } from './claim-item-selector.component';
 
 describe('ClaimItemSelectorComponent', () => {
@@ -25,8 +26,7 @@ describe('ClaimItemSelectorComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ ClaimItemSelectorComponent ],
+      imports: [TranslateModule.forRoot(), ClaimItemSelectorComponent],
       providers: [
         { provide: NgbActiveModal, useValue: {} },
         { provide: ActivatedRoute, useValue: {} },
@@ -35,7 +35,7 @@ describe('ClaimItemSelectorComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .compileComponents();
+      .overrideComponent(ClaimItemSelectorComponent, { remove: { imports: [ListableObjectComponentLoaderComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

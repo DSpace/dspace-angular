@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import { inject } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  CanActivate,
+  CanActivateFn,
   Router,
   RouterStateSnapshot,
   UrlTree,
@@ -11,27 +11,13 @@ import { map } from 'rxjs/operators';
 
 import { NotifyInfoService } from './notify-info.service';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class NotifyInfoGuard implements CanActivate {
-  constructor(
-        private notifyInfoService: NotifyInfoService,
-        private router: Router,
-  ) {}
-
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot,
-  ): Observable<boolean | UrlTree> {
-    return this.notifyInfoService.isCoarConfigEnabled().pipe(
-      map(coarLdnEnabled => {
-        if (coarLdnEnabled) {
-          return true;
-        } else {
-          return this.router.parseUrl('/404');
-        }
-      }),
-    );
-  }
-}
+export const notifyInfoGuard: CanActivateFn = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+  notifyInfoService: NotifyInfoService = inject(NotifyInfoService),
+  router: Router = inject(Router),
+): Observable<boolean | UrlTree> => {
+  return notifyInfoService.isCoarConfigEnabled().pipe(
+    map(isEnabled => isEnabled ? true : router.parseUrl('/404')),
+  );
+};

@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   Input,
@@ -15,7 +20,10 @@ import {
   DynamicFormService,
   DynamicSelectModel,
 } from '@ng-dynamic-forms/core';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   combineLatest,
   Observable,
@@ -41,7 +49,11 @@ import { NONE_ENTITY_TYPE } from '../../core/shared/item-relationships/item-type
 import { MetadataValue } from '../../core/shared/metadata.models';
 import { getFirstSucceededRemoteListPayload } from '../../core/shared/operators';
 import { ComColFormComponent } from '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component';
+import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
+import { FormComponent } from '../../shared/form/form.component';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
+import { VarDirective } from '../../shared/utils/var.directive';
 import {
   collectionFormCorrectionSubmissionDefinitionSelectionConfig,
   collectionFormEntityTypeSelectionConfig,
@@ -57,6 +69,17 @@ import {
   selector: 'ds-collection-form',
   styleUrls: ['../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.scss'],
   templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html',
+  standalone: true,
+  imports: [
+    FormComponent,
+    TranslateModule,
+    UploaderComponent,
+    AsyncPipe,
+    ComcolPageLogoComponent,
+    NgIf,
+    NgClass,
+    VarDirective,
+  ],
 })
 export class CollectionFormComponent extends ComColFormComponent<Collection> implements OnInit, OnChanges {
   /**
@@ -104,8 +127,8 @@ export class CollectionFormComponent extends ComColFormComponent<Collection> imp
                      protected objectCache: ObjectCacheService,
                      protected entityTypeService: EntityTypeDataService,
                      protected chd: ChangeDetectorRef,
-                     protected modalService: NgbModal,
-                     protected submissionDefinitionService: SubmissionDefinitionsConfigDataService) {
+                     protected submissionDefinitionService: SubmissionDefinitionsConfigDataService,
+                     protected modalService: NgbModal) {
     super(formService, translate, notificationsService, authService, requestService, objectCache, modalService);
   }
 

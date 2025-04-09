@@ -113,8 +113,7 @@ describe('BitstreamRequestACopyPageComponent', () => {
 
   function initTestbed() {
     TestBed.configureTestingModule({
-      imports: [CommonModule, TranslateModule.forRoot(), FormsModule, ReactiveFormsModule],
-      declarations: [BitstreamRequestACopyPageComponent],
+      imports: [CommonModule, TranslateModule.forRoot(), FormsModule, ReactiveFormsModule, BitstreamRequestACopyPageComponent],
       providers: [
         { provide: Location, useValue: location },
         { provide: ActivatedRoute, useValue: activatedRoute },

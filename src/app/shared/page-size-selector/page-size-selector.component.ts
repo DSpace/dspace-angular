@@ -1,8 +1,13 @@
 import {
+  AsyncPipe,
+  NgFor,
+} from '@angular/common';
+import {
   Component,
   Inject,
   OnInit,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import {
   ActivatedRoute,
   Router,
@@ -15,14 +20,17 @@ import {
 
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
-import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../my-dspace-page/my-dspace-configuration.service';
 import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
+import { SidebarDropdownComponent } from '../sidebar/sidebar-dropdown.component';
 
 @Component({
   selector: 'ds-page-size-selector',
   styleUrls: ['./page-size-selector.component.scss'],
   templateUrl: './page-size-selector.component.html',
+  standalone: true,
+  imports: [SidebarDropdownComponent, NgFor, FormsModule, AsyncPipe],
 })
 
 /**

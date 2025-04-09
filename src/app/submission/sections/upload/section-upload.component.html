@@ -29,7 +29,7 @@
     </div>
   </div>
   <ng-container *ngFor="let fileEntry of fileList; let i = index;">
-    <ds-themed-submission-upload-section-file [singleAccessCondition]="singleAccessCondition"
+    <ds-submission-upload-section-file [singleAccessCondition]="singleAccessCondition"
                                               [isPrimary]="primaryBitstreamUUID ? primaryBitstreamUUID === fileEntry.uuid : null"
                                               [availableAccessConditionOptions]="availableAccessConditionOptions"
                                               [collectionId]="collectionId"
@@ -40,7 +40,7 @@
                                               [fileName]="fileNames[i]"
                                               [readOnly]="isReadOnly()"
                                               [sectionId]="sectionData.id"
-                                              [submissionId]="submissionId"></ds-themed-submission-upload-section-file>
+                                       [submissionId]="submissionId"></ds-submission-upload-section-file>
     <div class="row">
       <div class="col-md-12">
         <hr/>

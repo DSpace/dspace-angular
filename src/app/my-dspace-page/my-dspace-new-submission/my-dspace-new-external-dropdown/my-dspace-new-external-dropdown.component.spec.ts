@@ -19,8 +19,8 @@ import { EntityTypeDataService } from '../../../core/data/entity-type-data.servi
 import { ItemType } from '../../../core/shared/item-relationships/item-type.model';
 import { PageInfo } from '../../../core/shared/page-info.model';
 import { ResourceType } from '../../../core/shared/resource-type';
+import { EntityDropdownComponent } from '../../../shared/entity-dropdown/entity-dropdown.component';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { BrowserOnlyMockPipe } from '../../../shared/testing/browser-only-mock.pipe';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import {
   createPaginatedList,
@@ -94,11 +94,8 @@ describe('MyDSpaceNewExternalDropdownComponent test', () => {
         imports: [
           CommonModule,
           TranslateModule.forRoot(),
-        ],
-        declarations: [
           MyDSpaceNewExternalDropdownComponent,
           TestComponent,
-          BrowserOnlyMockPipe,
         ],
         providers: [
           { provide: EntityTypeDataService, useValue: getMockEmptyEntityTypeService() },
@@ -106,7 +103,8 @@ describe('MyDSpaceNewExternalDropdownComponent test', () => {
           MyDSpaceNewExternalDropdownComponent,
         ],
         schemas: [NO_ERRORS_SCHEMA],
-      }).compileComponents();
+      }).overrideComponent(MyDSpaceNewExternalDropdownComponent, { remove: { imports: [EntityDropdownComponent] } })
+        .compileComponents();
 
       const html = `<ds-my-dspace-new-submission (uploadEnd)="reload($event)"></ds-my-dspace-new-submission>`;
 
@@ -146,11 +144,8 @@ describe('MyDSpaceNewExternalDropdownComponent test', () => {
         imports: [
           CommonModule,
           TranslateModule.forRoot(),
-        ],
-        declarations: [
           MyDSpaceNewExternalDropdownComponent,
           TestComponent,
-          BrowserOnlyMockPipe,
         ],
         providers: [
           { provide: EntityTypeDataService, useValue: getMockEntityTypeService() },
@@ -158,7 +153,8 @@ describe('MyDSpaceNewExternalDropdownComponent test', () => {
           MyDSpaceNewExternalDropdownComponent,
         ],
         schemas: [NO_ERRORS_SCHEMA],
-      }).compileComponents();
+      }).overrideComponent(MyDSpaceNewExternalDropdownComponent, { remove: { imports: [EntityDropdownComponent] } })
+        .compileComponents();
 
       const html = `<ds-my-dspace-new-submission (uploadEnd)="reload($event)"></ds-my-dspace-new-submission>`;
 
@@ -197,6 +193,8 @@ describe('MyDSpaceNewExternalDropdownComponent test', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [CommonModule],
 })
 class TestComponent {
   reload = (event) => {

@@ -12,15 +12,12 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
-import { DSPACE_OBJECT } from '../shared/dspace-object.resource-type';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { dataService } from './base/data-service.decorator';
 import { IdentifiableDataService } from './base/identifiable-data.service';
 import { RemoteData } from './remote-data';
 import { RequestService } from './request.service';
 
-@Injectable()
-@dataService(DSPACE_OBJECT)
+@Injectable({ providedIn: 'root' })
 export class DSpaceObjectDataService extends IdentifiableDataService<DSpaceObject> {
 
   constructor(

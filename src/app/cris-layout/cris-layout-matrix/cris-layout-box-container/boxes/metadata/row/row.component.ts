@@ -1,3 +1,4 @@
+import { NgFor } from '@angular/common';
 import {
   Component,
   Input,
@@ -10,6 +11,7 @@ import {
   MetadataBoxRow,
 } from '../../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../../core/shared/item.model';
+import { MetadataContainerComponent } from './metadata-container/metadata-container.component';
 
 /**
  * This component renders the rows of metadata boxes
@@ -19,6 +21,8 @@ import { Item } from '../../../../../../core/shared/item.model';
   selector: '[ds-row]',
   templateUrl: './row.component.html',
   styleUrls: ['./row.component.scss'],
+  standalone: true,
+  imports: [NgFor, MetadataContainerComponent],
 })
 export class RowComponent {
 

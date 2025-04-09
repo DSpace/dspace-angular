@@ -53,8 +53,9 @@ describe('ScriptsSelectComponent', () => {
             provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
-        })],
-      declarations: [ScriptsSelectComponent],
+        }),
+        ScriptsSelectComponent,
+      ],
       providers: [
         { provide: ScriptDataService, useValue: scriptService },
         { provide: Router, useClass: RouterStub },

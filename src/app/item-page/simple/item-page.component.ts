@@ -1,4 +1,9 @@
-import { isPlatformServer } from '@angular/common';
+import {
+  AsyncPipe,
+  isPlatformServer,
+  NgClass,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -11,6 +16,7 @@ import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest,
   Observable,
@@ -23,13 +29,11 @@ import {
 } from 'rxjs/operators';
 import { NotifyInfoService } from 'src/app/core/coar-notify/notify-info/notify-info.service';
 
-import { AuthService } from '../../core/auth/auth.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
-import { SignpostingDataService } from '../../core/data/signposting-data.service';
 import { SignpostingLink } from '../../core/data/signposting-links.model';
 import { CrisLayoutTab } from '../../core/layout/models/tab.model';
 import {
@@ -37,16 +41,23 @@ import {
   LinkHeadService,
 } from '../../core/services/link-head.service';
 import { ServerResponseService } from '../../core/services/server-response.service';
-import {
-  redirectOn4xx,
-  redirectOn204,
-} from '../../core/shared/authorized.operators';
 import { Item } from '../../core/shared/item.model';
 import { getAllSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { ViewMode } from '../../core/shared/view-mode.model';
+import { CrisItemPageComponent } from '../../cris-item-page/cris-item-page.component';
 import { fadeInOut } from '../../shared/animations/fade';
 import { isNotEmpty } from '../../shared/empty.util';
+import { ErrorComponent } from '../../shared/error/error.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { ListableObjectComponentLoaderComponent } from '../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { ViewTrackerComponent } from '../../statistics/angulartics/dspace/view-tracker.component';
+import { ThemedItemAlertsComponent } from '../alerts/themed-item-alerts.component';
 import { getItemPageRoute } from '../item-page-routing-paths';
+import { ItemVersionsComponent } from '../versions/item-versions.component';
+import { ItemVersionsNoticeComponent } from '../versions/notice/item-versions-notice.component';
+import { NotifyRequestsStatusComponent } from './notify-requests-status/notify-requests-status-component/notify-requests-status.component';
+import { QaEventNotificationComponent } from './qa-event-notification/qa-event-notification.component';
 
 /**
  * This component renders a simple item page.
@@ -54,11 +65,29 @@ import { getItemPageRoute } from '../item-page-routing-paths';
  * All fields of the item that should be displayed, are defined in its template.
  */
 @Component({
-  selector: 'ds-item-page',
+  selector: 'ds-base-item-page',
   styleUrls: ['./item-page.component.scss'],
   templateUrl: './item-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeInOut],
+  standalone: true,
+  imports: [
+    VarDirective,
+    ThemedItemAlertsComponent,
+    ItemVersionsNoticeComponent,
+    ViewTrackerComponent,
+    ListableObjectComponentLoaderComponent,
+    ItemVersionsComponent,
+    ErrorComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    AsyncPipe,
+    NgIf,
+    NotifyRequestsStatusComponent,
+    QaEventNotificationComponent,
+    NgClass,
+    CrisItemPageComponent,
+  ],
 })
 export class ItemPageComponent implements OnInit, OnDestroy {
 
@@ -110,10 +139,8 @@ export class ItemPageComponent implements OnInit, OnDestroy {
     protected route: ActivatedRoute,
     protected router: Router,
     protected items: ItemDataService,
-    protected authService: AuthService,
     protected authorizationService: AuthorizationDataService,
     protected responseService: ServerResponseService,
-    protected signpostingDataService: SignpostingDataService,
     protected linkHeadService: LinkHeadService,
     protected notifyInfoService: NotifyInfoService,
     @Inject(PLATFORM_ID) protected platformId: string,
@@ -127,8 +154,6 @@ export class ItemPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.itemRD$ = this.route.data.pipe(
       map((data) => data.dso as RemoteData<Item>),
-      redirectOn204<Item>(this.router, this.authService),
-      redirectOn4xx<Item>(this.router, this.authService),
     );
     this.tabsRD$ = this.route.data.pipe(
       map((data) => data.tabs as RemoteData<PaginatedList<CrisLayoutTab>>),
@@ -148,36 +173,34 @@ export class ItemPageComponent implements OnInit, OnDestroy {
    * @private
    */
   private initPageLinks(): void {
-    this.route.params.subscribe(params => {
-      combineLatest([this.signpostingDataService.getLinks(params.id).pipe(take(1)), this.getCoarLdnLocalInboxUrls()])
-        .subscribe(([signpostingLinks, coarRestApiUrls]) => {
-          let links = '';
-          this.signpostingLinks = signpostingLinks;
+    combineLatest([this.route.data.pipe(take(1)), this.getCoarLdnLocalInboxUrls()])
+      .subscribe(([data, coarRestApiUrls]) => {
+        let links = '';
+        this.signpostingLinks = data.links ?? [];
 
-          signpostingLinks.forEach((link: SignpostingLink) => {
-            links = links + (isNotEmpty(links) ? ', ' : '') + `<${link.href}> ; rel="${link.rel}"` + (isNotEmpty(link.type) ? ` ; type="${link.type}" ` : ' ');
-            let tag: LinkDefinition = {
-              href: link.href,
-              rel: link.rel,
-            };
-            if (isNotEmpty(link.type)) {
-              tag = Object.assign(tag, {
-                type: link.type,
-              });
-            }
-            this.linkHeadService.addTag(tag);
-          });
-
-          if (coarRestApiUrls.length > 0) {
-            const inboxLinks = this.initPageInboxLinks(coarRestApiUrls);
-            links = links + (isNotEmpty(links) ? ', ' : '') + inboxLinks;
+        this.signpostingLinks.forEach((link: SignpostingLink) => {
+          links = links + (isNotEmpty(links) ? ', ' : '') + `<${link.href}> ; rel="${link.rel}"` + (isNotEmpty(link.type) ? ` ; type="${link.type}" ` : ' ');
+          let tag: LinkDefinition = {
+            href: link.href,
+            rel: link.rel,
+          };
+          if (isNotEmpty(link.type)) {
+            tag = Object.assign(tag, {
+              type: link.type,
+            });
           }
-
-          if (isPlatformServer(this.platformId)) {
-            this.responseService.setHeader('Link', links);
-          }
+          this.linkHeadService.addTag(tag);
         });
-    });
+
+        if (coarRestApiUrls.length > 0) {
+          const inboxLinks = this.initPageInboxLinks(coarRestApiUrls);
+          links = links + (isNotEmpty(links) ? ', ' : '') + inboxLinks;
+        }
+
+        if (isPlatformServer(this.platformId)) {
+          this.responseService.setHeader('Link', links);
+        }
+      });
   }
 
   /**

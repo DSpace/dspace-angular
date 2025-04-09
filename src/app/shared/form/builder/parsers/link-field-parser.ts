@@ -1,5 +1,6 @@
 import { Inject } from '@angular/core';
 import { DynamicFormControlLayout } from '@ng-dynamic-forms/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import {
   hasNoValue,
@@ -17,7 +18,6 @@ import {
 } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DynamicLinkModel } from '../ds-dynamic-form-ui/models/ds-dynamic-link.model';
 import { FormFieldModel } from '../models/form-field.model';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { ConcatFieldParser } from './concat-field-parser';
 import {
   CONFIG_DATA,
@@ -36,11 +36,12 @@ export class LinkFieldParser extends ConcatFieldParser {
         @Inject(INIT_FORM_VALUES) initFormValues,
         @Inject(PARSER_OPTIONS) parserOptions: ParserOptions,
         @Inject(SECURITY_CONFIG) securityConfig: any = null,
+        protected translateService: TranslateService,
   ) {
-    super(submissionId, configData, initFormValues, parserOptions, securityConfig, ',', 'Label', 'Value');
+    super(submissionId, configData, initFormValues, parserOptions, securityConfig, translateService, ',', 'Label', 'Value');
   }
 
-  public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {
+  public modelFactory(fieldValue?: any, label?: boolean): any {
     const clsGroup: DynamicFormControlLayout = {
       element: {
         control: 'form-row',

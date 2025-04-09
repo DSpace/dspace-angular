@@ -13,8 +13,8 @@
       <div id="loginDropdownMenu" [ngClass]="{'pl-3 pr-3': (loading | async)}" ngbDropdownMenu
            role="menu"
            [attr.aria-label]="'nav.login' | translate">
-        <ds-themed-log-in
-          [isStandalonePage]="false"></ds-themed-log-in>
+        <ds-log-in
+          [isStandalonePage]="false"></ds-log-in>
       </div>
     </div>
   </div>
@@ -30,7 +30,7 @@
          ngbDropdownToggle>
         <i class="fas fa-user-circle fa-lg fa-fw"></i></a>
       <div id="logoutDropdownMenu" ngbDropdownMenu>
-        <ds-themed-user-menu [inExpandableNavbar]="false"></ds-themed-user-menu>
+        <ds-user-menu [inExpandableNavbar]="false"></ds-user-menu>
       </div>
     </div>
   </div>

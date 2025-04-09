@@ -1,4 +1,8 @@
 import {
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnInit,
@@ -9,6 +13,7 @@ import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { mergeMap } from 'rxjs/operators';
 
 import { ExternalSourceEntry } from '../../../core/shared/external-source-entry.model';
@@ -17,6 +22,8 @@ import { Metadata } from '../../../core/shared/metadata.utils';
 import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
 import { CollectionListEntry } from '../../../shared/collection-dropdown/collection-dropdown.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { TruncatableComponent } from '../../../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionImportExternalCollectionComponent } from '../import-external-collection/submission-import-external-collection.component';
 
@@ -27,6 +34,14 @@ import { SubmissionImportExternalCollectionComponent } from '../import-external-
   selector: 'ds-submission-import-external-preview',
   styleUrls: ['./submission-import-external-preview.component.scss'],
   templateUrl: './submission-import-external-preview.component.html',
+  imports: [
+    NgFor,
+    TranslateModule,
+    TruncatablePartComponent,
+    TruncatableComponent,
+    NgIf,
+  ],
+  standalone: true,
 })
 export class SubmissionImportExternalPreviewComponent implements OnInit {
   /**
@@ -36,7 +51,7 @@ export class SubmissionImportExternalPreviewComponent implements OnInit {
   /**
    * The entry metadata list
    */
-  public metadataList: { key: string, value: MetadataValue }[];
+  public metadataList: { key: string, values: MetadataValue[] }[];
   /**
    * The label prefix to use to generate the translation label
    */
@@ -71,7 +86,7 @@ export class SubmissionImportExternalPreviewComponent implements OnInit {
     metadataKeys.forEach((key) => {
       this.metadataList.push({
         key: key,
-        value: Metadata.first(this.externalSourceEntry.metadata, key),
+        values: Metadata.all(this.externalSourceEntry.metadata, key),
       });
     });
   }

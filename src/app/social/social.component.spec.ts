@@ -20,8 +20,7 @@ describe('SocialComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SocialComponent],
-      imports: [StoreModule.forRoot({})],
+      imports: [StoreModule.forRoot({}), SocialComponent],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: SocialService, useValue: socialServiceStub },

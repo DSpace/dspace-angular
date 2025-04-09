@@ -49,8 +49,6 @@ describe('StatisticsChartWrapperComponent', () => {
       imports: [
         CommonModule,
         BrowserAnimationsModule,
-      ],
-      declarations: [
         StatisticsChartWrapperComponent,
         StatisticsChartBarComponent,
       ],

@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnInit,
@@ -6,12 +10,18 @@ import {
 import {
   FormBuilder,
   FormGroup,
+  ReactiveFormsModule,
 } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import {
   NgbModal,
   NgbModalRef,
+  NgbTooltipModule,
 } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   Observable,
   of as observableOf,
@@ -29,6 +39,7 @@ import { DetectDuplicateMatch } from '../../../../core/submission/models/workspa
 import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
 import { getItemPageRoute } from '../../../../item-page/item-page-routing-paths';
 import { isNotEmpty } from '../../../../shared/empty.util';
+import { ThemedItemListPreviewComponent } from '../../../../shared/object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
 import { SubmissionService } from '../../../submission.service';
 import { SectionsService } from '../../sections.service';
 import { DetectDuplicateService } from '../detect-duplicate.service';
@@ -43,6 +54,16 @@ import { DuplicateMatchMetadataDetailConfig } from '../models/duplicate-detail-m
 @Component({
   selector: 'ds-duplicate-match',
   templateUrl: 'duplicate-match.component.html',
+  imports: [
+    ThemedItemListPreviewComponent,
+    AsyncPipe,
+    TranslateModule,
+    NgIf,
+    NgbTooltipModule,
+    RouterLink,
+    ReactiveFormsModule,
+  ],
+  standalone: true,
 })
 
 export class DuplicateMatchComponent implements OnInit {
@@ -234,10 +255,10 @@ export class DuplicateMatchComponent implements OnInit {
       : this.match.submitterDecision !== null;
 
     if (this.match.submitterDecision) {
-      this.submitterDecision$ = (this.match.submitterDecision === DuplicateDecisionValue.Reject) ?
+      this.submitterDecision$ = (this.match.submitterDecision === DuplicateDecisionValue.Reject.toString()) ?
         this.translate.get('submission.sections.detect-duplicate.not-duplicate') :
         this.translate.get('submission.sections.detect-duplicate.duplicate');
-      this.decisionLabelClass = (this.match.submitterDecision === DuplicateDecisionValue.Reject) ? 'badge-success' : 'badge-warning';
+      this.decisionLabelClass = (this.match.submitterDecision === DuplicateDecisionValue.Reject.toString()) ? 'badge-success' : 'badge-warning';
       this.submitterNote = this.match.submitterNote;
     } else {
       this.submitterDecision$ = this.translate.get('submission.sections.detect-duplicate.no-decision');
@@ -247,12 +268,12 @@ export class DuplicateMatchComponent implements OnInit {
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionId);
 
     this.duplicateBtnLabel$ = this.isWorkFlow ?
-      ((this.match.submitterDecision === DuplicateDecisionValue.Verify) ?
+      ((this.match.submitterDecision === DuplicateDecisionValue.Verify.toString()) ?
         this.translate.get('submission.sections.detect-duplicate.confirm-duplicate') :
         this.translate.get('submission.sections.detect-duplicate.duplicate-ctrl'))
       : this.translate.get('submission.sections.detect-duplicate.duplicate');
 
-    this.notDuplicateBtnLabel$ = (this.isWorkFlow && this.match.submitterDecision === DuplicateDecisionValue.Reject) ?
+    this.notDuplicateBtnLabel$ = (this.isWorkFlow && this.match.submitterDecision === DuplicateDecisionValue.Reject.toString()) ?
       this.translate.get('submission.sections.detect-duplicate.confirm-not-duplicate') :
       this.translate.get('submission.sections.detect-duplicate.not-duplicate');
   }

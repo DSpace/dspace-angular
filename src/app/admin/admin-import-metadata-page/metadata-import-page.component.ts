@@ -1,7 +1,11 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 
 import {
   METADATA_IMPORT_SCRIPT_NAME,
@@ -14,10 +18,17 @@ import { Process } from '../../process-page/processes/process.model';
 import { ProcessParameter } from '../../process-page/processes/process-parameter.model';
 import { isNotEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { FileDropzoneNoUploaderComponent } from '../../shared/upload/file-dropzone-no-uploader/file-dropzone-no-uploader.component';
 
 @Component({
-  selector: 'ds-metadata-import-page',
+  selector: 'ds-base-metadata-import-page',
   templateUrl: './metadata-import-page.component.html',
+  imports: [
+    FileDropzoneNoUploaderComponent,
+    FormsModule,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 
 /**

@@ -1,4 +1,11 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgFor,
+  NgIf,
+  NgTemplateOutlet,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnDestroy,
@@ -6,7 +13,10 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
-import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbTooltip,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import { PlacementArray } from '@ng-bootstrap/ng-bootstrap/util/positioning';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -36,6 +46,8 @@ type ParsedContent = (string | {href: string, text: string})[];
   selector: 'ds-context-help-wrapper',
   templateUrl: './context-help-wrapper.component.html',
   styleUrls: ['./context-help-wrapper.component.scss'],
+  standalone: true,
+  imports: [NgFor, NgIf, NgClass, NgbTooltipModule, NgTemplateOutlet, AsyncPipe],
 })
 export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
   /**

@@ -1,9 +1,16 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnDestroy,
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import isEqual from 'lodash/isEqual';
 import {
   BehaviorSubject,
@@ -33,10 +40,13 @@ import {
   getFirstSucceededRemoteDataPayload,
   getFirstSucceededRemoteDataWithNotEmptyPayload,
 } from '../../../core/shared/operators';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import {
   hasValue,
   isNotEmpty,
 } from '../../../shared/empty.util';
+import { NgForTrackByIdDirective } from '../../../shared/ng-for-track-by-id.directive';
+import { ResourcePoliciesComponent } from '../../../shared/resource-policies/resource-policies.component';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
 
 /**
@@ -50,7 +60,18 @@ interface BundleBitstreamsMapEntry {
 @Component({
   selector: 'ds-item-authorizations',
   templateUrl: './item-authorizations.component.html',
-  styleUrls:['./item-authorizations.component.scss'],
+  styleUrls: ['./item-authorizations.component.scss'],
+  imports: [
+    ResourcePoliciesComponent,
+    NgbCollapseModule,
+    TranslateModule,
+    NgForOf,
+    NgForTrackByIdDirective,
+    AsyncPipe,
+    NgIf,
+    AlertComponent,
+  ],
+  standalone: true,
 })
 /**
  * Component that handles the item Authorizations
@@ -106,6 +127,8 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
    */
   bitstreamSize = 4;
 
+  itemUuid$: Observable<string>;
+
   /**
    * The size of the loaded bitstremas at a certain moment
    * @private
@@ -131,6 +154,7 @@ export class ItemAuthorizationsComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     this.getBundlesPerItem();
+    this.itemUuid$ = this.getItemUUID();
   }
 
   /**

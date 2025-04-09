@@ -1,4 +1,5 @@
 import { Inject } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import { FormFieldModel } from '../models/form-field.model';
 import { ConcatFieldParser } from './concat-field-parser';
@@ -19,7 +20,8 @@ export class NameFieldParser extends ConcatFieldParser {
     @Inject(INIT_FORM_VALUES) initFormValues,
     @Inject(PARSER_OPTIONS) parserOptions: ParserOptions,
     @Inject(SECURITY_CONFIG) securityConfig: any = null,
+    translate: TranslateService,
   ) {
-    super(submissionId, configData, initFormValues, parserOptions, securityConfig, ',', 'form.last-name', 'form.first-name');
+    super(submissionId, configData, initFormValues, parserOptions, securityConfig, translate, ',', 'form.last-name', 'form.first-name');
   }
 }

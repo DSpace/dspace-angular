@@ -15,6 +15,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import {
   mockSubmissionCollectionId,
   mockSubmissionId,
@@ -87,12 +88,10 @@ describe('SubmissionSectionContainerComponent test suite', () => {
       imports: [
         NgbModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         SubmissionSectionContainerComponent,
         SectionsDirective,
         TestComponent,
-      ], // declare the test component
+      ],
       providers: [
         { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
         { provide: SectionsService, useValue: sectionsServiceStub },
@@ -100,7 +99,7 @@ describe('SubmissionSectionContainerComponent test suite', () => {
         SubmissionSectionContainerComponent,
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(SubmissionSectionContainerComponent, { remove: { imports: [AlertComponent] } }).compileComponents();
 
   }));
 
@@ -246,6 +245,8 @@ describe('SubmissionSectionContainerComponent test suite', () => {
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',
   template: ``,
+  standalone: true,
+  imports: [NgbModule],
 })
 class TestComponent {
 

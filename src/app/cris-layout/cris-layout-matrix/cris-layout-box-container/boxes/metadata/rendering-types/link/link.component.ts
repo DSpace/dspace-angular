@@ -10,10 +10,6 @@ import { Item } from '../../../../../../../core/shared/item.model';
 import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
 import { hasValue } from '../../../../../../../shared/empty.util';
 import { MetadataLinkValue } from '../../../../../../models/cris-layout-metadata-link-value.model';
-import {
-  FieldRenderingType,
-  MetadataBoxFieldRendering,
-} from '../metadata-box.decorator';
 import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
 
 /**
@@ -33,8 +29,8 @@ enum TYPES {
   selector: 'span[ds-link]',
   templateUrl: './link.component.html',
   styleUrls: ['./link.component.scss'],
+  standalone: true,
 })
-@MetadataBoxFieldRendering(FieldRenderingType.LINK)
 export class LinkComponent extends RenderingTypeValueModelComponent implements OnInit {
 
   /**
@@ -67,16 +63,16 @@ export class LinkComponent extends RenderingTypeValueModelComponent implements O
     let linkText: string;
     let metadataValue: string;
 
-    if (hasValue(this.renderingSubType) && this.renderingSubType.toUpperCase() === TYPES.EMAIL) {
+    if (hasValue(this.renderingSubType) && this.renderingSubType.toUpperCase() === TYPES.EMAIL.toString()) {
       this.isEmail = true;
       metadataValue = 'mailto:' + this.metadataValue.value;
       linkText = (hasValue(this.renderingSubType) &&
-        this.renderingSubType.toUpperCase() === TYPES.EMAIL) ? this.metadataValue.value : this.translateService.instant(this.field.label);
+        this.renderingSubType.toUpperCase() === TYPES.EMAIL.toString()) ? this.metadataValue.value : this.translateService.instant(this.field.label);
     } else {
       const startsWithProtocol = [/^https?:\/\//, /^ftp:\/\//];
       metadataValue = startsWithProtocol.some(rx => rx.test(this.metadataValue.value)) ? this.metadataValue.value : 'http://' + this.metadataValue.value;
       linkText = (hasValue(this.renderingSubType) &&
-        this.renderingSubType.toUpperCase() === TYPES.LABEL) ? this.translateService.instant(this.field.label) : this.metadataValue.value;
+        this.renderingSubType.toUpperCase() === TYPES.LABEL.toString()) ? this.translateService.instant(this.field.label) : this.metadataValue.value;
     }
 
     return {

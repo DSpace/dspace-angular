@@ -25,6 +25,7 @@ import {
 import { ScriptDataService } from '../../core/data/processes/script-data.service';
 import { SiteDataService } from '../../core/data/site-data.service';
 import { Site } from '../../core/shared/site.model';
+import { AlertComponent } from '../../shared/alert/alert.component';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
@@ -69,15 +70,13 @@ describe('AdminEditUserAgreementComponent', () => {
             provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
-        }),
-      ],
-      declarations: [AdminEditUserAgreementComponent],
+        }), AdminEditUserAgreementComponent],
       providers: [AdminEditUserAgreementComponent,
         { provide: NotificationsService, useValue: notificationService },
         { provide: SiteDataService, useValue: siteService },
         { provide: ScriptDataService, useValue: scriptDataService }],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(AdminEditUserAgreementComponent, { remove: { imports: [AlertComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

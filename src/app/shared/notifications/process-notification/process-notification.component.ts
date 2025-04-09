@@ -1,16 +1,23 @@
 import { trigger } from '@angular/animations';
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+  NgTemplateOutlet,
+  TitleCasePipe,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   Input,
-  NgZone,
   OnDestroy,
   OnInit,
   TemplateRef,
   ViewEncapsulation,
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -18,14 +25,22 @@ import {
   Subscription,
   timer,
 } from 'rxjs';
+import {
+  filter,
+  map,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { ProcessDataService } from '../../../core/data/processes/process-data.service';
+import { RemoteData } from '../../../core/data/remote-data';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import {
+  getAllCompletedRemoteData,
   getFirstCompletedRemoteData,
-  getFirstSucceededRemoteListPayload,
 } from '../../../core/shared/operators';
 import { Process } from '../../../process-page/processes/process.model';
 import {
@@ -71,6 +86,8 @@ import {
   scaleOutState,
 } from '../../animations/scale';
 import { isNotEmpty } from '../../empty.util';
+import { ThemedFileDownloadLinkComponent } from '../../file-download-link/themed-file-download-link.component';
+import { FileSizePipe } from '../../utils/file-size-pipe';
 import { NotificationAnimationsStatus } from '../models/notification-animations-type';
 import { IProcessNotification } from '../models/process-notification.model';
 import { NotificationsService } from '../notifications.service';
@@ -92,6 +109,17 @@ import { NotificationsService } from '../notifications.service';
   templateUrl: './process-notification.component.html',
   styleUrls: ['./process-notification.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    NgIf,
+    AsyncPipe,
+    NgTemplateOutlet,
+    TranslateModule,
+    ThemedFileDownloadLinkComponent,
+    FileSizePipe,
+    TitleCasePipe,
+    NgForOf,
+  ],
+  standalone: true,
 })
 
 export class ProcessNotificationComponent implements OnInit, OnDestroy {
@@ -129,7 +157,7 @@ export class ProcessNotificationComponent implements OnInit, OnDestroy {
   /**
    * The process that is being checked.
    */
-  public process: Process;
+  public processStatus$: BehaviorSubject<string> = new BehaviorSubject('');
 
   /**
    * If process checking is finished.
@@ -139,19 +167,19 @@ export class ProcessNotificationComponent implements OnInit, OnDestroy {
   /**
    * Files generated from process end.
    */
-  public files: Bitstream[];
+  public files$: BehaviorSubject<Bitstream[]> = new BehaviorSubject<Bitstream[]>([]);
 
   /**
    * Type of the notification visualisation.
    */
-  public notificationType = 'alert-info';
+  public notificationType$: BehaviorSubject<string> = new BehaviorSubject('alert-info');
 
   constructor(private notificationService: NotificationsService,
               private domSanitizer: DomSanitizer,
               protected processService: ProcessDataService,
               protected nameService: DSONameService,
               private cdr: ChangeDetectorRef,
-              private zone: NgZone) {
+  ) {
   }
 
   /**
@@ -159,56 +187,56 @@ export class ProcessNotificationComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     this.animate = this.notification.options.animate + NotificationAnimationsStatus.In;
-    this.initCheckProcess();
+    this.pollUntilProcessFinished();
     this.html = this.notification.html;
     this.contentType(this.notification.title, 'title');
   }
 
   /**
-   * Initialization of timer.
+   * Poll process endpoint until it's finished.
    */
-  initCheckProcess() {
-    const source = timer(0, this.notification.checkTime);
-    this.sub = source.subscribe(val => {
-      this.checkProcess();
+  pollUntilProcessFinished() {
+    timer(0, this.notification.checkTime).pipe(
+      switchMap(() => this.processService.getProcess(this.notification.processId)),
+      getAllCompletedRemoteData(),
+      filter((res: RemoteData<Process>) => res.hasFailed || res?.payload?.processStatus.toString() === 'COMPLETED' || res?.payload?.processStatus.toString() === 'FAILED'),
+      take(1),
+      tap((res: RemoteData<Process>) => this.pollingFinishedFor(res)),
+      switchMap((res: RemoteData<Process>) => this.getFiles(res)),
+    ).subscribe((files: Bitstream[]) => {
+      const logFiles = files.filter( (file) => !this.getFileName(file).includes('.log'));
+      this.files$.next(logFiles);
+      this.finished.next(true);
     });
   }
 
   /**
-   * Send request to get the updated process information.
+   * Handle process results
+   *
+   * @param processRD The RemoteData object for finished process
    */
-  checkProcess() {
-    this.processService.getProcess(this.notification.processId)
-      .pipe(getFirstCompletedRemoteData())
-      .subscribe( (res) => {
-        this.process = res.payload;
-        this.zone.run(() => this.cdr.detectChanges());
-        if (this.process.processStatus.toString() === 'COMPLETED' || this.process.processStatus.toString() === 'FAILED') {
-          this.sub.unsubscribe();
-          if (this.process.processStatus.toString() === 'COMPLETED') {
-            this.notificationType = 'alert-success';
-            this.getFiles();
-          } else {
-            this.notificationType = 'alert-danger';
-            this.zone.run(() => this.cdr.detectChanges());
-          }
-          this.finished.next(true);
-        }
-      });
+  pollingFinishedFor(processRD: RemoteData<Process>) {
+    if (processRD.hasSucceeded && processRD.payload.processStatus.toString() === 'COMPLETED') {
+      this.notificationType$.next('alert-success');
+      this.processStatus$.next('process.new.notification.process.status.completed');
+    } else {
+      this.processStatus$.next('process.new.notification.process.status.failed');
+      this.notificationType$.next('alert-danger');
+    }
   }
 
   /**
    * When the process is completed get the files output.
    */
-  getFiles() {
-    this.processService.getFiles(this.notification.processId)
-      .pipe(
-        getFirstSucceededRemoteListPayload(),
-      )
-      .subscribe( (files: Bitstream[]) => {
-        this.files = files.filter( (file) => !this.getFileName(file).includes('.log'));
-        this.zone.run(() => this.cdr.detectChanges());
-      });
+  getFiles(processRD: RemoteData<Process>): Observable<Bitstream[]> {
+    if (processRD.hasSucceeded && processRD.payload.processStatus.toString() === 'COMPLETED') {
+      return this.processService.getFiles(processRD.payload.processId).pipe(
+        getFirstCompletedRemoteData(),
+        map((response) => response.hasSucceeded ? response.payload.page : []),
+      );
+    } else {
+      return observableOf([]);
+    }
   }
 
   /**

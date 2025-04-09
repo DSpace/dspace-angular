@@ -7,7 +7,10 @@ import {
   Router,
 } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 
 import {
   COLLECTION_EXPORT_SCRIPT_NAME,
@@ -21,6 +24,7 @@ import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { Process } from '../../../../process-page/processes/process.model';
 import { ProcessParameter } from '../../../../process-page/processes/process-parameter.model';
 import { NotificationsService } from '../../../notifications/notifications.service';
+import { AdministeredCollectionSelectorComponent } from '../../dso-selector/administered-collection-selector/administered-collection-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
@@ -33,6 +37,11 @@ import {
 @Component({
   selector: 'ds-export-excel-selector',
   templateUrl: './export-excel-selector.component.html',
+  standalone: true,
+  imports: [
+    AdministeredCollectionSelectorComponent,
+    TranslateModule,
+  ],
 })
 export class ExportExcelSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.ITEM;

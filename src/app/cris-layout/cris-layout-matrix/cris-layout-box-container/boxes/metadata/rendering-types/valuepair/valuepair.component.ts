@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Inject,
@@ -20,10 +21,6 @@ import {
   getRemoteDataPayload,
 } from '../../../../../../../core/shared/operators';
 import { VocabularyService } from '../../../../../../../core/submission/vocabularies/vocabulary.service';
-import {
-  FieldRenderingType,
-  MetadataBoxFieldRendering,
-} from '../metadata-box.decorator';
 import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
 
 /**
@@ -34,8 +31,9 @@ import { RenderingTypeValueModelComponent } from '../rendering-type-value.model'
   selector: 'span[ds-valuepair]',
   templateUrl: './valuepair.component.html',
   styleUrls: ['./valuepair.component.scss'],
+  standalone: true,
+  imports: [AsyncPipe],
 })
-@MetadataBoxFieldRendering(FieldRenderingType.VALUEPAIR)
 export class ValuepairComponent extends RenderingTypeValueModelComponent implements OnInit {
 
   /**

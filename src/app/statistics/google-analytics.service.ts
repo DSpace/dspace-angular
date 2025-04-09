@@ -19,7 +19,7 @@ import { isEmpty } from '../shared/empty.util';
  * Set up Google Analytics on the client side.
  * See: {@link addTrackingIdToPage}.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class GoogleAnalyticsService {
 
   constructor(

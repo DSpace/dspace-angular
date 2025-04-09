@@ -1,8 +1,19 @@
 import {
+  AsyncPipe,
+  DatePipe,
+  NgClass,
+  NgForOf,
+  NgIf,
+  NgSwitch,
+  NgSwitchCase,
+  NgTemplateOutlet,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   interval,
   Observable,
@@ -31,6 +42,8 @@ import {
   hasValue,
   isNotEmpty,
 } from '../../../empty.util';
+import { MetadataLinkViewComponent } from '../../../metadata-link-view/metadata-link-view.component';
+import { VarDirective } from '../../../utils/var.directive';
 
 interface LinkData {
   href: string,
@@ -41,6 +54,20 @@ interface LinkData {
   selector: 'ds-additional-metadata',
   templateUrl: './additional-metadata.component.html',
   styleUrls: ['./additional-metadata.component.scss'],
+  imports: [
+    NgForOf,
+    NgIf,
+    NgClass,
+    TranslateModule,
+    NgSwitch,
+    NgTemplateOutlet,
+    NgSwitchCase,
+    MetadataLinkViewComponent,
+    VarDirective,
+    DatePipe,
+    AsyncPipe,
+  ],
+  standalone: true,
 })
 export class AdditionalMetadataComponent implements OnInit {
 
@@ -149,7 +176,9 @@ export class AdditionalMetadataComponent implements OnInit {
     if (metadataValue.startsWith(rep)) {
       value = metadataValue.replace(rep, '');
     }
-    const href = this.resolver.getBaseUrl(urn) + value;
+    const shouldKeepWhiteSpaces = environment.crisLayout
+      .urn?.find((urnConfig) => urnConfig.name === urn)?.shouldKeepWhiteSpaces;
+    const href = this.resolver.getBaseUrl(urn) + (shouldKeepWhiteSpaces ? value : value.replace(/\s/g, ''));
     const text = isNotEmpty(value) && value !== '' ? value : href;
     return {
       href,

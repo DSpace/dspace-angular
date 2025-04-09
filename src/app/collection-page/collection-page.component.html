@@ -17,10 +17,10 @@
             </ds-comcol-page-logo>
 
             <!-- Handle -->
-            <ds-themed-comcol-page-handle
+            <ds-comcol-page-handle
                 [content]="collection.handle"
                 [title]="'collection.page.handle'">
-            </ds-themed-comcol-page-handle>
+            </ds-comcol-page-handle>
             <!-- Introductory text -->
             <ds-comcol-page-content
                 [content]="collection.introductoryText"
@@ -34,15 +34,15 @@
             </ds-comcol-page-content>
           </header>
                 <div class="pl-2 btn-group h-100">
-                  <ds-context-menu [contextMenuObject]="collection" [contextMenuObjectType]="'COLLECTION'"></ds-context-menu>
+                  <ds-context-menu [contextMenuObject]="collection" [contextMenuObjectType]="$any('COLLECTION')"></ds-context-menu>
                 </div>
         </div>
         <section class="comcol-page-browse-section">
           <!-- Browse-By Links -->
-          <ds-themed-comcol-page-browse-by
+          <ds-comcol-page-browse-by
               [id]="collection.id"
-              [contentType]="collection.type">
-          </ds-themed-comcol-page-browse-by>
+              [contentType]="$any(collection.type)">
+          </ds-comcol-page-browse-by>
 
           <router-outlet></router-outlet>
         </section>
@@ -57,7 +57,7 @@
     </div>
     <ds-error *ngIf="collectionRD?.hasFailed"
               message="{{'error.collection' | translate}}"></ds-error>
-        <ds-themed-loading *ngIf="!collectionRD || collectionRD?.isLoading"
-                       message="{{'loading.collection' | translate}}"></ds-themed-loading>
+        <ds-loading *ngIf="!collectionRD || collectionRD?.isLoading"
+                       message="{{'loading.collection' | translate}}"></ds-loading>
   </div>
 </div>

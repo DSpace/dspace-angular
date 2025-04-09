@@ -18,6 +18,7 @@ import { FeedbackDataService } from '../../../core/feedback/feedback-data.servic
 import { Feedback } from '../../../core/feedback/models/feedback.model';
 import { RouteService } from '../../../core/services/route.service';
 import { NativeWindowService } from '../../../core/services/window.service';
+import { ErrorComponent } from '../../../shared/error/error.component';
 import { NativeWindowMockFactory } from '../../../shared/mocks/mock-native-window-ref';
 import { RouterMock } from '../../../shared/mocks/router.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
@@ -45,8 +46,7 @@ describe('FeedbackFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [FeedbackFormComponent],
+      imports: [TranslateModule.forRoot(), FeedbackFormComponent],
       providers: [
         { provide: RouteService, useValue: routeServiceStub },
         { provide: UntypedFormBuilder, useValue: new UntypedFormBuilder() },
@@ -57,7 +57,7 @@ describe('FeedbackFormComponent', () => {
         { provide: Router, useValue: routerStub },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(FeedbackFormComponent, { remove: { imports: [ErrorComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

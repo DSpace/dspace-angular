@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ViewMode } from '../../../core/shared/view-mode.model';
+import { NotificationBoxComponent } from '../../../shared/notification-box/notification-box.component';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { AdminNotifyMetricsComponent } from './admin-notify-metrics.component';
 
@@ -21,11 +22,10 @@ describe('AdminNotifyMetricsComponent', () => {
 
 
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ AdminNotifyMetricsComponent ],
+      imports: [TranslateModule.forRoot(), AdminNotifyMetricsComponent],
       providers: [{ provide: Router, useValue: router }],
     })
-      .compileComponents();
+      .overrideComponent(AdminNotifyMetricsComponent, { remove: { imports: [NotificationBoxComponent] } }).compileComponents();
 
 
 

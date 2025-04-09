@@ -1,9 +1,18 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   Component,
   Inject,
 } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -14,16 +23,20 @@ import {
 import { PaginationService } from '../../../core/pagination/pagination.service';
 import { WorkspaceitemSectionDetectDuplicateObject } from '../../../core/submission/models/workspaceitem-section-deduplication.model';
 import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import { AlertType } from '../../../shared/alert/alert-type';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { ObjNgFor } from '../../../shared/utils/object-ngfor.pipe';
+import { VarDirective } from '../../../shared/utils/var.directive';
 import { SubmissionService } from '../../submission.service';
 import { SubmissionVisibility } from '../../utils/visibility.util';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
-import { renderSectionFor } from '../sections-decorator';
-import { SectionsType } from '../sections-type';
 import { DetectDuplicateService } from './detect-duplicate.service';
+import { DuplicateMatchComponent } from './duplicate-match/duplicate-match.component';
 
 /**
  * This component represents a section that contains possible duplications.
@@ -32,9 +45,22 @@ import { DetectDuplicateService } from './detect-duplicate.service';
   selector: 'ds-submission-section-detect-duplicate',
   templateUrl: './section-detect-duplicate.component.html',
   changeDetection: ChangeDetectionStrategy.Default,
+  imports: [
+    ThemedLoadingComponent,
+    NgIf,
+    AlertComponent,
+    PaginationComponent,
+    AsyncPipe,
+    TranslateModule,
+    ObjNgFor,
+    VarDirective,
+    DuplicateMatchComponent,
+    NgxPaginationModule,
+    NgForOf,
+  ],
+  standalone: true,
 })
 
-@renderSectionFor(SectionsType.DetectDuplicate)
 export class SubmissionSectionDetectDuplicateComponent extends SectionModelComponent {
   /**
    * The Alert categories.

@@ -35,8 +35,6 @@ describe('MediaViewerVideoComponent', () => {
           },
         }),
         BrowserAnimationsModule,
-      ],
-      declarations: [
         MediaViewerVideoComponent,
         VarDirective,
         FileSizePipe,

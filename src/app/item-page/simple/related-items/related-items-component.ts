@@ -1,4 +1,10 @@
-import { isPlatformBrowser } from '@angular/common';
+import {
+  AsyncPipe,
+  isPlatformBrowser,
+  NgClass,
+  NgFor,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -6,6 +12,7 @@ import {
   Input,
   PLATFORM_ID,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import {
@@ -18,13 +25,19 @@ import { RelationshipDataService } from '../../../core/data/relationship-data.se
 import { RemoteData } from '../../../core/data/remote-data';
 import { Item } from '../../../core/shared/item.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { MetadataFieldWrapperComponent } from '../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
+import { ListableObjectComponentLoaderComponent } from '../../../shared/object-collection/shared/listable-object/listable-object-component-loader.component';
 import { setPlaceHolderAttributes } from '../../../shared/utils/object-list-utils';
+import { VarDirective } from '../../../shared/utils/var.directive';
 import { AbstractIncrementalListComponent } from '../abstract-incremental-list/abstract-incremental-list.component';
 
 @Component({
   selector: 'ds-related-items',
   styleUrls: ['./related-items.component.scss'],
   templateUrl: './related-items.component.html',
+  standalone: true,
+  imports: [MetadataFieldWrapperComponent, NgClass, NgFor, VarDirective, ListableObjectComponentLoaderComponent, NgIf, ThemedLoadingComponent, AsyncPipe, TranslateModule],
 })
 /**
  * This component is used for displaying relations between items

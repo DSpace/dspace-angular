@@ -1,4 +1,11 @@
-import { isPlatformServer } from '@angular/common';
+import {
+  AsyncPipe,
+  isPlatformServer,
+  NgClass,
+  NgForOf,
+  NgIf,
+  NgTemplateOutlet,
+} from '@angular/common';
 import {
   Component,
   Inject,
@@ -6,6 +13,8 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
   forkJoin,
@@ -18,14 +27,26 @@ import { SearchManager } from '../../../../core/browse/search-manager';
 import { SectionComponent } from '../../../../core/layout/models/section.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
+import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
 import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../../search/models/paginated-search-options.model';
 import { SearchObjects } from '../../../search/models/search-objects.model';
 
 @Component({
-  selector: 'ds-counters-section',
+  selector: 'ds-base-counters-section',
   styleUrls: ['./counters-section.component.scss'],
   templateUrl: './counters-section.component.html',
+  standalone: true,
+  imports: [
+    NgClass,
+    ThemedLoadingComponent,
+    NgIf,
+    NgTemplateOutlet,
+    TranslateModule,
+    AsyncPipe,
+    RouterLink,
+    NgForOf,
+  ],
 })
 export class CountersSectionComponent implements OnInit {
 

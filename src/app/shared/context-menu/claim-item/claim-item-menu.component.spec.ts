@@ -62,7 +62,6 @@ describe('ClaimItemMenuComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      declarations: [ ClaimItemMenuComponent ],
       imports: [
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot({
@@ -70,7 +69,9 @@ describe('ClaimItemMenuComponent', () => {
             provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
-        })],
+        }),
+        ClaimItemMenuComponent,
+      ],
       providers: [
         { provide: 'contextMenuObjectProvider', useValue: dso },
         { provide: 'contextMenuObjectTypeProvider', useValue: DSpaceObjectType.ITEM },

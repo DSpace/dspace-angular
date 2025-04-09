@@ -5,6 +5,7 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { Bitstream } from 'src/app/core/shared/bitstream.model';
 import { Item } from 'src/app/core/shared/item.model';
@@ -12,6 +13,8 @@ import { MetadataValueFilter } from 'src/app/core/shared/metadata.models';
 import { environment } from 'src/environments/environment.test';
 
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
+import { MetadataLinkViewAvatarPopoverComponent } from '../metadata-link-view-avatar-popover/metadata-link-view-avatar-popover.component';
+import { MetadataLinkViewOrcidComponent } from '../metadata-link-view-orcid/metadata-link-view-orcid.component';
 import { MetadataLinkViewPopoverComponent } from './metadata-link-view-popover.component';
 
 describe('MetadataLinkViewPopoverComponent', () => {
@@ -21,6 +24,7 @@ describe('MetadataLinkViewPopoverComponent', () => {
 
   const itemMock = Object.assign(new Item(), {
     uuid: '1234-1234-1234-1234',
+    entityType: 'Publication',
 
     firstMetadataValue(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): string {
       return itemMock.metadata[keyOrKeys as string][0].value;
@@ -69,11 +73,13 @@ describe('MetadataLinkViewPopoverComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MetadataLinkViewPopoverComponent ],
-      imports: [TranslateModule.forRoot()],
+      imports: [TranslateModule.forRoot(), MetadataLinkViewPopoverComponent],
       schemas: [NO_ERRORS_SCHEMA],
+      providers: [
+        { provide: ActivatedRoute, useValue: { snapshot: { data: { dso: itemMock } } } },
+      ],
     })
-      .compileComponents();
+      .overrideComponent(MetadataLinkViewPopoverComponent, { remove: { imports: [MetadataLinkViewOrcidComponent, MetadataLinkViewAvatarPopoverComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -125,7 +131,7 @@ describe('MetadataLinkViewPopoverComponent', () => {
     spyOn(component, 'getItemPageRoute').and.returnValue('/item/' + itemMock.uuid);
     fixture.detectChanges();
     const moreInfoLinkElement = fixture.debugElement.query(By.css('a[data-test="more-info-link"]'));
-    expect(moreInfoLinkElement.nativeElement.routerLink).toContain('/item/' + itemMock.uuid);
+    expect(moreInfoLinkElement.nativeElement.href).toContain('/item/' + itemMock.uuid);
   });
 
   it('should display the avatar popover when item has a thumbnail', () => {

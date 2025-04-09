@@ -26,6 +26,7 @@ import {
 } from '../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
+import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
 import { ItemPrivateComponent } from './item-private.component';
 
 let comp: ItemPrivateComponent;
@@ -68,8 +69,7 @@ describe('ItemPrivateComponent', () => {
     notificationsServiceStub = new NotificationsServiceStub();
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [ItemPrivateComponent],
+      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, ItemPrivateComponent],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: Router, useValue: routerStub },
@@ -78,7 +78,7 @@ describe('ItemPrivateComponent', () => {
       ], schemas: [
         CUSTOM_ELEMENTS_SCHEMA,
       ],
-    }).compileComponents();
+    }).overrideComponent(ItemPrivateComponent, { remove: { imports: [ModifyItemOverviewComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -21,6 +21,15 @@ import { DSONameService } from '../core/breadcrumbs/dso-name.service';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { Bitstream } from '../core/shared/bitstream.model';
 import { Community } from '../core/shared/community.model';
+import { ThemedComcolPageBrowseByComponent } from '../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
+import { ThemedComcolPageContentComponent } from '../shared/comcol/comcol-page-content/themed-comcol-page-content.component';
+import { ThemedComcolPageHandleComponent } from '../shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
+import { ComcolPageHeaderComponent } from '../shared/comcol/comcol-page-header/comcol-page-header.component';
+import { ComcolPageLogoComponent } from '../shared/comcol/comcol-page-logo/comcol-page-logo.component';
+import { ContextMenuComponent } from '../shared/context-menu/context-menu.component';
+import { DsoEditMenuComponent } from '../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
+import { ErrorComponent } from '../shared/error/error.component';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import {
   createNoContentRemoteDataObject,
   createNoContentRemoteDataObject$,
@@ -29,7 +38,10 @@ import {
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
 import { RouterStub } from '../shared/testing/router.stub';
 import { VarDirective } from '../shared/utils/var.directive';
+import { ViewTrackerComponent } from '../statistics/angulartics/dspace/view-tracker.component';
 import { CommunityPageComponent } from './community-page.component';
+import { ThemedCollectionPageSubCollectionListComponent } from './sections/sub-com-col-section/sub-collection-list/themed-community-page-sub-collection-list.component';
+import { ThemedCommunityPageSubCommunityListComponent } from './sections/sub-com-col-section/sub-community-list/themed-community-page-sub-community-list.component';
 
 describe('CommunityPageComponent', () => {
   let component: CommunityPageComponent;
@@ -78,8 +90,7 @@ describe('CommunityPageComponent', () => {
     authorizationDataServiceSpy = jasmine.createSpyObj('AuthorizationDataService', ['isAuthorized']);
     dsoNameServiceSpy = jasmine.createSpyObj('DSONameService', ['getName']);
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule, FormsModule, TranslateModule.forRoot(), BrowserAnimationsModule],
-      declarations: [CommunityPageComponent, VarDirective],
+      imports: [RouterTestingModule, FormsModule, TranslateModule.forRoot(), BrowserAnimationsModule, CommunityPageComponent, VarDirective],
       providers: [
         { provide: ActivatedRoute, useValue: aroute },
         { provide: Router, useValue: router },
@@ -87,8 +98,8 @@ describe('CommunityPageComponent', () => {
         { provide: AuthorizationDataService, useValue: authorizationDataServiceSpy },
         { provide: DSONameService, useValue: dsoNameServiceSpy },
       ],
-      schemas: [ NO_ERRORS_SCHEMA ],
-    }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(CommunityPageComponent, { remove: { imports: [ThemedComcolPageContentComponent, ErrorComponent, ThemedLoadingComponent, ThemedCommunityPageSubCommunityListComponent, ThemedCollectionPageSubCollectionListComponent, ThemedComcolPageBrowseByComponent, DsoEditMenuComponent, ThemedComcolPageHandleComponent, ComcolPageLogoComponent, ComcolPageHeaderComponent, ViewTrackerComponent, ContextMenuComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

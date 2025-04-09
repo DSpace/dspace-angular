@@ -26,7 +26,7 @@
           [match]="item.value"
           [readOnly]="isReadOnly()"
           [submissionId]="submissionId"
-          [index]=totalIndex
+          [index]="$any(totalIndex)"
           [itemId]="item.key"></ds-duplicate-match>
       </li>
     </ul>

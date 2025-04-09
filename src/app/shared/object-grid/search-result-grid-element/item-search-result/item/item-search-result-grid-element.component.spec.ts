@@ -9,6 +9,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -16,6 +17,7 @@ import {
   of as observableOf,
   of,
 } from 'rxjs';
+import { HALEndpointServiceStub } from 'src/app/shared/testing/hal-endpoint-service.stub';
 
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../../../core/cache/object-cache.service';
@@ -35,16 +37,21 @@ import { HALEndpointService } from '../../../../../core/shared/hal-endpoint.serv
 import { Item } from '../../../../../core/shared/item.model';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { UUIDService } from '../../../../../core/shared/uuid.service';
+import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
 import { NotificationsService } from '../../../../notifications/notifications.service';
+import { ThemedBadgesComponent } from '../../../../object-collection/shared/badges/themed-badges.component';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
 import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../../../remote-data.utils';
+import { ActivatedRouteStub } from '../../../../testing/active-router.stub';
 import { createPaginatedList } from '../../../../testing/utils.test';
 import { ThumbnailService } from '../../../../thumbnail/thumbnail.service';
+import { TruncatableComponent } from '../../../../truncatable/truncatable.component';
 import { TruncatableService } from '../../../../truncatable/truncatable.service';
+import { TruncatablePartComponent } from '../../../../truncatable/truncatable-part/truncatable-part.component';
 import { FollowLinkConfig } from '../../../../utils/follow-link-config.model';
 import { TruncatePipe } from '../../../../utils/truncate.pipe';
 import { ItemSearchResultGridElementComponent } from './item-search-result-grid-element.component';
@@ -251,27 +258,34 @@ export function getEntityGridElementTestComponent(component, searchResultWithMet
         imports: [
           NoopAnimationsModule,
           TranslateModule.forRoot(),
+          TruncatePipe,
+          component,
         ],
-        declarations: [component, TruncatePipe],
         providers: [
           { provide: TruncatableService, useValue: truncatableServiceStub },
           { provide: ObjectCacheService, useValue: {} },
-          { provide: UUIDService, useValue: {} },
+          { provide: UUIDService, useValue: jasmine.createSpyObj('UUIDService', ['generate']) },
           { provide: Store, useValue: {} },
           { provide: RemoteDataBuildService, useValue: {} },
           { provide: CommunityDataService, useValue: {} },
-          { provide: HALEndpointService, useValue: {} },
+          { provide: HALEndpointService, useValue: new HALEndpointServiceStub('test') },
           { provide: HttpClient, useValue: {} },
           { provide: DSOChangeAnalyzer, useValue: {} },
           { provide: NotificationsService, useValue: {} },
           { provide: DefaultChangeAnalyzer, useValue: {} },
           { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+          { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
           { provide: ConfigurationDataService, useValue: {} },
           { provide: ThumbnailService, useValue: defaultThumbnailService },
         ],
         schemas: [NO_ERRORS_SCHEMA],
       }).overrideComponent(component, {
-        set: { changeDetection: ChangeDetectionStrategy.Default },
+        add: { changeDetection: ChangeDetectionStrategy.Default },
+        remove: {
+          imports: [
+            ThemedThumbnailComponent, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent,
+          ],
+        },
       }).compileComponents();
     }));
 
@@ -362,16 +376,17 @@ export const getGridElementTestBet = (component) => {
     imports: [
       NoopAnimationsModule,
       TranslateModule.forRoot(),
+      component,
+      TruncatePipe,
     ],
-    declarations: [component, TruncatePipe],
     providers: [
       { provide: TruncatableService, useValue: truncatableServiceStub },
       { provide: ObjectCacheService, useValue: {} },
-      { provide: UUIDService, useValue: {} },
+      { provide: UUIDService, useValue: jasmine.createSpyObj('UUIDService', ['generate']) },
       { provide: Store, useValue: {} },
       { provide: RemoteDataBuildService, useValue: {} },
       { provide: CommunityDataService, useValue: {} },
-      { provide: HALEndpointService, useValue: {} },
+      { provide: HALEndpointService, useValue: new HALEndpointServiceStub('test') },
       { provide: HttpClient, useValue: {} },
       { provide: DSOChangeAnalyzer, useValue: {} },
       { provide: NotificationsService, useValue: {} },
@@ -379,6 +394,7 @@ export const getGridElementTestBet = (component) => {
       { provide: BitstreamDataService, useValue: mockBitstreamDataService },
       { provide: ConfigurationDataService, useValue: {} },
       { provide: ThumbnailService, useValue: defaultThumbnailService },
+      { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
     ],
     schemas: [NO_ERRORS_SCHEMA],
   };

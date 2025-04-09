@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'ds-test-component',
   template: '',
+  standalone: true,
 })
 export class TestComponent {
   type = 'default';

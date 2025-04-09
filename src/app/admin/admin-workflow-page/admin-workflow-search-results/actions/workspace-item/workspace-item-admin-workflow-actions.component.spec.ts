@@ -24,6 +24,7 @@ import { NotificationsServiceStub } from '../../../../../shared/testing/notifica
 import { supervisionOrderEntryMock } from '../../../../../shared/testing/supervision-order.mock';
 import { getWorkspaceItemDeleteRoute } from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
 import { SupervisionOrderGroupSelectorComponent } from './supervision-order-group-selector/supervision-order-group-selector.component';
+import { SupervisionOrderStatusComponent } from './supervision-order-status/supervision-order-status.component';
 import { WorkspaceItemAdminWorkflowActionsComponent } from './workspace-item-admin-workflow-actions.component';
 
 describe('WorkspaceItemAdminWorkflowActionsComponent', () => {
@@ -56,8 +57,8 @@ describe('WorkspaceItemAdminWorkflowActionsComponent', () => {
         NgbModalModule,
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
+        WorkspaceItemAdminWorkflowActionsComponent,
       ],
-      declarations: [WorkspaceItemAdminWorkflowActionsComponent],
       providers: [
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: NotificationsService, useValue: notificationService },
@@ -65,7 +66,7 @@ describe('WorkspaceItemAdminWorkflowActionsComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .compileComponents();
+      .overrideComponent(WorkspaceItemAdminWorkflowActionsComponent, { remove: { imports: [SupervisionOrderStatusComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

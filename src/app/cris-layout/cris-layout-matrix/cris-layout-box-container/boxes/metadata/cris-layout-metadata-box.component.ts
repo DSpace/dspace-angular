@@ -1,3 +1,4 @@
+import { NgFor } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -14,9 +15,8 @@ import {
 } from '../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { hasValue } from '../../../../../shared/empty.util';
-import { RenderCrisLayoutBoxFor } from '../../../../decorators/cris-layout-box.decorator';
-import { LayoutBox } from '../../../../enums/layout-box.enum';
 import { CrisLayoutBoxModelComponent } from '../../../../models/cris-layout-box-component.model';
+import { RowComponent } from './row/row.component';
 
 /**
  * This component renders the metadata boxes of items
@@ -25,12 +25,13 @@ import { CrisLayoutBoxModelComponent } from '../../../../models/cris-layout-box-
   selector: 'ds-cris-layout-metadata-box',
   templateUrl: './cris-layout-metadata-box.component.html',
   styleUrls: ['./cris-layout-metadata-box.component.scss'],
+  standalone: true,
+  imports: [NgFor, RowComponent],
 })
 /**
  * For overwrite this component create a new one that extends CrisLayoutBoxObj and
  * add the CrisLayoutBoxModelComponent decorator indicating the type of box to overwrite
  */
-@RenderCrisLayoutBoxFor(LayoutBox.METADATA)
 export class CrisLayoutMetadataBoxComponent extends CrisLayoutBoxModelComponent implements OnInit, OnDestroy {
 
   /**

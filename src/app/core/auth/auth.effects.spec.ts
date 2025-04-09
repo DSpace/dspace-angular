@@ -38,6 +38,7 @@ import { EPersonMock } from '../../shared/testing/eperson.mock';
 import { RouterStub } from '../../shared/testing/router.stub';
 import { StoreActionTypes } from '../../store.actions';
 import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
+import { EPerson } from '../eperson/models/eperson.model';
 import {
   AuthActionTypes,
   AuthenticatedAction,
@@ -68,6 +69,7 @@ import { authReducer } from './auth.reducer';
 import { AuthService } from './auth.service';
 import { AuthStatus } from './models/auth-status.model';
 import {
+  getAuthenticatedUser,
   isAuthenticated,
   isAuthenticatedLoaded,
 } from './selectors';
@@ -493,6 +495,8 @@ describe('AuthEffects', () => {
 
     describe('when refresh state, token and redirect action', () => {
       it('should return a REFRESH_STATE_TOKEN_AND_REDIRECT_SUCCESS action in response to a REFRESH_STATE_TOKEN_AND_REDIRECT action', (done) => {
+
+        store.overrideSelector(getAuthenticatedUser, { id: EPersonMock.id } as EPerson);
         spyOn((authEffects as any).authService, 'retrieveAuthenticatedUserById').and.returnValue(observableOf(EPersonMock));
 
         actions = hot('--a-', {
@@ -510,7 +514,9 @@ describe('AuthEffects', () => {
     });
 
     describe('when refresh state token failed', () => {
-      it('should return a REFRESH_STATE_TOKEN_AND_REDIRECT_SUCCESS action in response to a REFRESH_STATE_TOKEN_AND_REDIRECT action', (done) => {
+      it('should return a REFRESH_STATE_TOKEN_AND_REDIRECT_ERROR action in response to a REFRESH_STATE_TOKEN_AND_REDIRECT action', (done) => {
+
+        store.overrideSelector(getAuthenticatedUser, { id: 'mock-id' } as EPerson);
         spyOn((authEffects as any).authService, 'retrieveAuthenticatedUserById').and.returnValue(observableThrow(''));
 
         actions = hot('--a-', {

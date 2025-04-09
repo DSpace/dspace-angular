@@ -1,5 +1,9 @@
 // Load the implementations that should be tested
 import {
+  CommonModule,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
@@ -39,13 +43,12 @@ describe('ChipsComponent test suite', () => {
     TestBed.configureTestingModule({
       imports: [
         NgbModule,
+        CommonModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         ChipsComponent,
         TestComponent,
         AuthorityConfidenceStateDirective,
-      ], // declare the test component
+      ],
       providers: [
         ChangeDetectorRef,
         ChipsComponent,
@@ -112,9 +115,9 @@ describe('ChipsComponent test suite', () => {
 
     it('should update chips item order when drag and drop end', fakeAsync(() => {
       spyOn(chipsComp.chips, 'updateOrder');
-      const de = chipsFixture.debugElement.query(By.css('div[role="list"]'));
+      const de = chipsFixture.debugElement.query(By.css('div[role="listitem"]'));
 
-      de.triggerEventHandler('cdkDropListDropped', { previousIndex: 0, currentIndex: 1 });
+      de.triggerEventHandler('cdkDropListDropped', { previousIndex: 0, currentIndex: 1, previousContainer: { data: { index: 0 } }, container: { data: { index: 1 } } });
 
       expect(chipsComp.dragged).toBe(-1);
       expect(chipsComp.chips.updateOrder).toHaveBeenCalled();
@@ -278,6 +281,8 @@ describe('ChipsComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [NgbModule, NgIf],
 })
 class TestComponent {
 

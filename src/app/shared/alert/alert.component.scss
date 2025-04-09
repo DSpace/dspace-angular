@@ -2,7 +2,13 @@
   opacity: 0.75;
   &:focus {
     outline: none !important;
+    box-shadow: none !important;
   }
+}
+
+.btn-link:focus {
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 .collapse:not(.show) {

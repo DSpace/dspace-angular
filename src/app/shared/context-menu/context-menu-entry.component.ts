@@ -13,6 +13,7 @@ import { ContextMenuEntryType } from './context-menu-entry-type';
  */
 @Component({
   template: '',
+  standalone: true,
 })
 export abstract class ContextMenuEntryComponent {
 

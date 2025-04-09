@@ -17,6 +17,13 @@ ui:
   # Trust X-FORWARDED-* headers from proxies (default = true)
   useProxies: true
 
+universal:
+  # Whether to inline "critical" styles into the server-side rendered HTML.
+  # Determining which styles are critical is a relatively expensive operation;
+  # this option can be disabled to boost server performance at the expense of
+  # loading smoothness. For improved SSR performance, DSpace defaults this to false (disabled).
+  inlineCriticalCss: false
+
 # The REST API server settings
 # NOTE: these settings define which (publicly available) REST API to use. They are usually
 # 'synced' with the 'dspace.server.url' setting in your backend's local.cfg.
@@ -194,6 +201,8 @@ submission:
     metadataDetailsList:
       - label: 'Document type'
         name: dc.type
+  # Minimum number of characters required before performing a lookup.
+  minChars: 3
 
 #  Default Language in which the UI will be rendered if the user's browser language is not an active language
 defaultLanguage: en
@@ -204,6 +213,12 @@ languages:
   - code: en
     label: English
     active: true
+  - code: ar
+    label: العربية
+    active: true
+  - code: bn
+    label: বাংলা
+    active: true
   - code: ca
     label: Català
     active: true
@@ -213,8 +228,14 @@ languages:
   - code: de
     label: Deutsch
     active: true
+  - code: el
+    label: Ελληνικά
+    active: true
   - code: es
     label: Español
+    active: true
+  - code: fi
+    label: Suomi
     active: true
   - code: fr
     label: Français
@@ -222,17 +243,20 @@ languages:
   - code: gd
     label: Gàidhlig
     active: true
-  - code: it
-    label: Italiano
-    active: true
-  - code: it
-    label: Italiano
-    active: true
-  - code: lv
-    label: Latviešu
+  - code: hi
+    label: हिंदी
     active: true
   - code: hu
     label: Magyar
+    active: true
+  - code: it
+    label: Italiano
+    active: true
+  - code: kk
+    label: Қазақ
+    active: true
+  - code: lv
+    label: Latviešu
     active: true
   - code: nl
     label: Nederlands
@@ -249,8 +273,8 @@ languages:
   - code: sr-lat
     label: Srpski (lat)
     active: true
-  - code: fi
-    label: Suomi
+  - code: sr-cyr
+    label: Српски
     active: true
   - code: sv
     label: Svenska
@@ -258,29 +282,11 @@ languages:
   - code: tr
     label: Türkçe
     active: true
-  - code: vi
-    label: Tiếng Việt
-    active: true
-  - code: kk
-    label: Қазақ
-    active: true
-  - code: bn
-    label: বাংলা
-    active: true
-  - code: hi
-    label: हिंदी
-    active: true
-  - code: el
-    label: Ελληνικά
-    active: true
-  - code: sr-cyr
-    label: Српски
-    active: true
-  - code: sr-cyr
-    label: Српски
-    active: true
   - code: uk
     label: Yкраї́нська
+    active: true
+  - code: vi
+    label: Tiếng Việt
     active: true
 
 
@@ -292,8 +298,12 @@ browseBy:
   fiveYearLimit: 30
   # The absolute lowest year to display in the dropdown (only used when no lowest date can be found for all items)
   defaultLowerLimit: 1900
+  # Whether to add item badges to BOTH browse and search result lists.
+  showLabels: true
   # If true, thumbnail images for items will be added to BOTH search and browse result lists.
   showThumbnails: true
+  # Whether to add item thumbnail images to BOTH browse and search result lists.
+  showMetrics: false
   # The number of entries in a paginated browse results list.
   # Rounded to the nearest size in the list of selectable sizes on the
   # settings menu.
@@ -331,15 +341,6 @@ item:
   metatagLimit: 20
   # The maximum number of values for repeatable metadata to show in the full item
   metadataLimit: 20
-
-# When the search results are retrieved, for each item type the metadata with a valid authority value are inspected.
-# Referenced items will be fetched with a find all by id strategy to avoid individual rest requests
-# to efficiently display the search results.
-followAuthorityMetadata:
-  - type: Publication
-    metadata: dc.contributor.author
-  - type: Product
-    metadata: dc.contributor.author
 
 # Community Page Config
 community:
@@ -414,10 +415,6 @@ themes:
       attributes:
         rel: manifest
         href: assets/dspace/images/favicons/manifest.webmanifest
-    - tagName: link
-      attributes:
-        rel: stylesheet
-        href: "https://fonts.googleapis.com/icon?family=Material+Icons"
 
 # The default bundles that should always be displayed as suggestions when you upload a new bundle
 bundle:
@@ -432,10 +429,11 @@ mediaViewer:
 
 # Whether the end user agreement is required before users use the repository.
 # If enabled, the user will be required to accept the agreement before they can use the repository.
-# And whether the privacy statement should exist or not.
+# And whether the privacy statement/COAR notify support page should exist or not.
 info:
   enableEndUserAgreement: true
   enablePrivacyStatement: true
+  enableCOARNotifySupport: true
 
 # Whether to enable Markdown (https://commonmark.org/) and MathJax (https://www.mathjax.org/)
 # display in supported metadata fields. By default, only dc.description.abstract is supported.
@@ -604,3 +602,19 @@ addToAnyPlugin:
   title: DSpace CRIS 7 demo
   # The link to be shown in the shared post, if different from document.location.origin (optional)
   # link: https://dspacecris7.4science.cloud/
+
+# When the search results are retrieved, for each item type the metadata with a valid authority value are inspected.
+# Referenced items will be fetched with a find all by id strategy to avoid individual rest requests
+# to efficiently display the search results.
+followAuthorityMetadata:
+  - type: Publication
+    metadata: dc.contributor.author
+  - type: Product
+    metadata: dc.contributor.author
+
+# The maximum number of item to process when following authority metadata values.
+followAuthorityMaxItemLimit: 100
+
+# The maximum number of metadata values to process for each metadata key
+# when following authority metadata values.
+followAuthorityMetadataValuesLimit: 5

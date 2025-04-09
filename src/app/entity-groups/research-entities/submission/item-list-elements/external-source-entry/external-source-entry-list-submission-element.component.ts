@@ -1,7 +1,20 @@
 import {
+  DatePipe,
+  NgForOf,
+  NgIf,
+  SlicePipe,
+} from '@angular/common';
+import {
   Component,
   OnInit,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import {
+  NgbCollapseModule,
+  NgbPaginationModule,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { environment } from '../../../../../../environments/environment';
 import { Context } from '../../../../../core/shared/context.model';
@@ -13,7 +26,10 @@ import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { getItemPageRoute } from '../../../../../item-page/item-page-routing-paths';
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { AbstractListableElementComponent } from '../../../../../shared/object-collection/shared/object-collection-element/abstract-listable-element.component';
+import { ThemedItemListPreviewComponent } from '../../../../../shared/object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
 import { PaginationComponentOptions } from '../../../../../shared/pagination/pagination-component-options.model';
+import { TruncatableComponent } from '../../../../../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { DuplicateMatchMetadataDetailConfig } from '../../../../../submission/sections/detect-duplicate/models/duplicate-detail-metadata.model';
 
 @listableObjectComponent(ExternalSourceEntry, ViewMode.ListElement, Context.EntitySearchModal)
@@ -22,6 +38,8 @@ import { DuplicateMatchMetadataDetailConfig } from '../../../../../submission/se
   selector: 'ds-external-source-entry-list-submission-element',
   styleUrls: ['./external-source-entry-list-submission-element.component.scss'],
   templateUrl: './external-source-entry-list-submission-element.component.html',
+  standalone: true,
+  imports: [NgIf, TruncatableComponent, TruncatablePartComponent, DatePipe, NgbCollapseModule, ThemedItemListPreviewComponent, SlicePipe, NgbTooltipModule, RouterLink, TranslateModule, NgbPaginationModule, NgForOf],
 })
 /**
  * The component for displaying a list element of an external source entry

@@ -43,7 +43,7 @@ export enum LANG_ORIGIN {
 /**
  * Service to provide localization handler
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class LocaleService {
 
   /**
@@ -69,6 +69,7 @@ export class LocaleService {
     this.routeService.getQueryParameterValue('lang').subscribe(lang => {
       if (lang && this.translate.getLangs().includes(lang)) {
         this.setCurrentLanguageCode(lang);
+        this.routeService.removeQueryParam('lang');
       }
     });
   }

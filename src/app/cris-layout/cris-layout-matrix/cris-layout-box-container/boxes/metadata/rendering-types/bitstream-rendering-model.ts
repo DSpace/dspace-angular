@@ -4,7 +4,10 @@ import {
 } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
 
 import {
   BitstreamDataService,
@@ -37,6 +40,7 @@ import { RenderingTypeStructuredModelComponent } from './rendering-type-structur
  */
 @Component({
   template: '',
+  standalone: true,
 })
 export abstract class BitstreamRenderingModelComponent extends RenderingTypeStructuredModelComponent {
 
@@ -122,6 +126,7 @@ export abstract class BitstreamRenderingModelComponent extends RenderingTypeStru
       map((rd: RemoteData<BitstreamFormat>) => {
         return rd.payload?.shortDescription;
       }),
+      take(1),
     );
   }
 

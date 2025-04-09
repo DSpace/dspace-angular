@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { GenericConstructor } from '../../../../../../../../core/shared/generic-constructor';
+import { FileDownloadButtonComponent } from './attachment-render/types/file-download-button/file-download-button.component';
 
 export enum AttachmentRenderingType {
   DOWNLOAD = 'DOWNLOAD',
@@ -9,6 +10,12 @@ export enum AttachmentRenderingType {
 }
 
 const fieldType = new Map();
+
+fieldType.set(AttachmentRenderingType.DOWNLOAD, {
+  componentRef: FileDownloadButtonComponent,
+  structured: true,
+} as AttachmentTypeFieldRenderOptions);
+
 
 export interface AttachmentTypeFieldRenderOptions {
   componentRef: GenericConstructor<Component>;

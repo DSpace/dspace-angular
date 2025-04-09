@@ -1,3 +1,5 @@
+import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
+
 import { DsDynamicInputModel } from '../ds-dynamic-form-ui/models/ds-dynamic-input.model';
 import { DynamicQualdropModel } from '../ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { DynamicOneboxModel } from '../ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
@@ -10,6 +12,7 @@ describe('OneboxFieldParser test suite', () => {
   let field1: FormFieldModel;
   let field2: FormFieldModel;
   let field3: FormFieldModel;
+  let translateService = getMockTranslateService();
 
   const submissionId = '1234';
   const initFormValues = {};
@@ -74,13 +77,13 @@ describe('OneboxFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new OneboxFieldParser(submissionId, field1, initFormValues, parserOptions);
+    const parser = new OneboxFieldParser(submissionId, field1, initFormValues, parserOptions, null, translateService);
 
     expect(parser instanceof OneboxFieldParser).toBe(true);
   });
 
   it('should return a DynamicQualdropModel object when selectableMetadata is multiple', () => {
-    const parser = new OneboxFieldParser(submissionId, field2, initFormValues, parserOptions);
+    const parser = new OneboxFieldParser(submissionId, field2, initFormValues, parserOptions, null, translateService);
 
     const fieldModel = parser.parse();
 
@@ -88,7 +91,7 @@ describe('OneboxFieldParser test suite', () => {
   });
 
   it('should return a DsDynamicInputModel object when selectableMetadata is not multiple', () => {
-    const parser = new OneboxFieldParser(submissionId, field3, initFormValues, parserOptions);
+    const parser = new OneboxFieldParser(submissionId, field3, initFormValues, parserOptions, null, translateService);
 
     const fieldModel = parser.parse();
 
@@ -96,7 +99,7 @@ describe('OneboxFieldParser test suite', () => {
   });
 
   it('should return a DynamicOneboxModel object when selectableMetadata has authority', () => {
-    const parser = new OneboxFieldParser(submissionId, field1, initFormValues, parserOptions);
+    const parser = new OneboxFieldParser(submissionId, field1, initFormValues, parserOptions, null, translateService);
 
     const fieldModel = parser.parse();
 
@@ -125,7 +128,7 @@ describe('OneboxFieldParser test suite', () => {
         languageCodes: [],
       } as FormFieldModel;
 
-      parser = new OneboxFieldParser(submissionId, regexField, initFormValues, parserOptions);
+      parser = new OneboxFieldParser(submissionId, regexField, initFormValues, parserOptions, null, translateService);
       fieldModel = parser.parse();
     });
 

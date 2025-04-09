@@ -25,9 +25,9 @@ import { AuthService } from '../../core/auth/auth.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { HardRedirectService } from '../../core/services/hard-redirect.service';
 import { NativeWindowService } from '../../core/services/window.service';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { NativeWindowMockFactory } from '../mocks/mock-native-window-ref';
 import { getMockThemeService } from '../mocks/theme-service.mock';
-import { SharedModule } from '../shared.module';
 import { ActivatedRouteStub } from '../testing/active-router.stub';
 import {
   authMethodsMock,
@@ -35,6 +35,7 @@ import {
 } from '../testing/auth-service.stub';
 import { createTestComponent } from '../testing/utils.test';
 import { ThemeService } from '../theme-support/theme.service';
+import { LogInContainerComponent } from './container/log-in-container.component';
 import { LogInComponent } from './log-in.component';
 
 describe('LogInComponent', () => {
@@ -76,10 +77,7 @@ describe('LogInComponent', () => {
           },
         }),
         RouterTestingModule,
-        SharedModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         TestComponent,
       ],
       providers: [
@@ -97,7 +95,7 @@ describe('LogInComponent', () => {
         CUSTOM_ELEMENTS_SCHEMA,
       ],
     })
-      .compileComponents();
+      .overrideComponent(LogInComponent, { remove: { imports: [ThemedLoadingComponent, LogInContainerComponent] } }).compileComponents();
 
   }));
 
@@ -107,7 +105,7 @@ describe('LogInComponent', () => {
 
     // synchronous beforeEach
     beforeEach(() => {
-      const html = `<ds-themed-log-in [isStandalonePage]="isStandalonePage"> </ds-themed-log-in>`;
+      const html = `<ds-log-in [isStandalonePage]="isStandalonePage"> </ds-log-in>`;
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
@@ -150,6 +148,10 @@ describe('LogInComponent', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [FormsModule,
+    ReactiveFormsModule,
+    RouterTestingModule],
 })
 class TestComponent {
 

@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgForOf,
+} from '@angular/common';
+import {
   Component,
   OnInit,
 } from '@angular/core';
@@ -16,6 +20,7 @@ import {
   getFirstSucceededRemoteData,
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
+import { ComcolRoleComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-role/comcol-role.component';
 import { hasValue } from '../../../shared/empty.util';
 
 /**
@@ -24,6 +29,12 @@ import { hasValue } from '../../../shared/empty.util';
 @Component({
   selector: 'ds-collection-roles',
   templateUrl: './collection-roles.component.html',
+  imports: [
+    ComcolRoleComponent,
+    NgForOf,
+    AsyncPipe,
+  ],
+  standalone: true,
 })
 export class CollectionRolesComponent implements OnInit {
 

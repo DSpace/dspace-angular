@@ -1,4 +1,11 @@
-import { isPlatformServer } from '@angular/common';
+import {
+  AsyncPipe,
+  isPlatformServer,
+  NgForOf,
+  NgIf,
+  NgSwitch,
+  NgSwitchCase,
+} from '@angular/common';
 import {
   Component,
   Inject,
@@ -38,15 +45,43 @@ import {
 import { ServerResponseService } from '../core/services/server-response.service';
 import { getFirstSucceededRemoteDataPayload } from '../core/shared/operators';
 import { Site } from '../core/shared/site.model';
+import { SuggestionsPopupComponent } from '../notifications/suggestions-popup/suggestions-popup.component';
 import {
   isEmpty,
   isNotEmpty,
 } from '../shared/empty.util';
+import { ThemedBrowseSectionComponent } from '../shared/explore/section-component/browse-section/themed-browse-section.component';
+import { ThemedCountersSectionComponent } from '../shared/explore/section-component/counters-section/themed-counters-section.component';
+import { ThemedFacetSectionComponent } from '../shared/explore/section-component/facet-section/themed-facet-section.component';
+import { ThemedSearchSectionComponent } from '../shared/explore/section-component/search-section/themed-search-section.component';
+import { ThemedTextSectionComponent } from '../shared/explore/section-component/text-section/themed-text-section.component';
+import { ThemedTopSectionComponent } from '../shared/explore/section-component/top-section/themed-top-section.component';
+import { ViewTrackerComponent } from '../statistics/angulartics/dspace/view-tracker.component';
+import { HomeCoarComponent } from './home-coar/home-coar.component';
+import { ThemedHomeNewsComponent } from './home-news/themed-home-news.component';
 
 @Component({
-  selector: 'ds-home-page',
+  selector: 'ds-base-home-page',
   styleUrls: ['./home-page.component.scss'],
   templateUrl: './home-page.component.html',
+  standalone: true,
+  imports: [
+    ThemedTextSectionComponent,
+    HomeCoarComponent,
+    ThemedHomeNewsComponent,
+    NgSwitch,
+    NgForOf,
+    NgIf,
+    ThemedTopSectionComponent,
+    NgSwitchCase,
+    ThemedBrowseSectionComponent,
+    ThemedSearchSectionComponent,
+    ThemedFacetSectionComponent,
+    ThemedCountersSectionComponent,
+    ViewTrackerComponent,
+    SuggestionsPopupComponent,
+    AsyncPipe,
+  ],
 })
 export class HomePageComponent implements OnInit, OnDestroy {
 

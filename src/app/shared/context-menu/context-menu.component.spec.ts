@@ -2,6 +2,7 @@ import {
   Component,
   Injector,
   NO_ERRORS_SCHEMA,
+  PLATFORM_ID,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -10,6 +11,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { ActivatedRoute } from '@angular/router';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import {
@@ -29,6 +31,7 @@ import { AuthorizationDataService } from '../../core/data/feature-authorization/
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
 import { Item } from '../../core/shared/item.model';
+import { MockActivatedRoute } from '../mocks/active-router.mock';
 import { TranslateLoaderMock } from '../mocks/translate-loader.mock';
 import { NotificationsService } from '../notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
@@ -38,6 +41,7 @@ import {
 } from '../search/item-export/item-export.service';
 import { EPersonMock } from '../testing/eperson.mock';
 import { NotificationsServiceStub } from '../testing/notifications-service.stub';
+import { BrowserOnlyDirective } from '../utils/browser-only.directive';
 import { ContextMenuComponent } from './context-menu.component';
 import { rendersContextMenuEntriesForType } from './context-menu.decorator';
 import { ExportItemMenuComponent } from './export-item/export-item-menu.component';
@@ -115,8 +119,13 @@ describe('ContextMenuComponent', () => {
           },
         }),
         NgbDropdownModule,
+        ContextMenuComponent,
+        TestComponent,
+        ExportItemMenuComponent,
+        StatisticsMenuComponent,
+        SubscriptionMenuComponent,
+        BrowserOnlyDirective,
       ],
-      declarations: [ContextMenuComponent, TestComponent, ExportItemMenuComponent, StatisticsMenuComponent, SubscriptionMenuComponent],
       providers: [
         provideMockStore({ initialState }),
         { provide: ItemExportService, useValue: itemExportService },
@@ -126,14 +135,12 @@ describe('ContextMenuComponent', () => {
         { provide: AuthService, useValue: authService },
         { provide: AuthorizationDataService, useValue: authorizationDataService },
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
+        { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
+        { provide: PLATFORM_ID, useValue: 'browser' },
         Injector,
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).overrideModule(BrowserDynamicTestingModule, {
-      set: {
-        entryComponents: [TestComponent],
-      },
-    });
+    }).overrideModule(BrowserDynamicTestingModule, {});
   }));
 
   beforeEach(() => {
@@ -291,6 +298,8 @@ describe('ContextMenuComponent', () => {
   selector: 'ds-test-menu-entry',
   template: `
     <button class="dropdown-item">test menu item</button>`,
+  standalone: true,
+  imports: [NgbDropdownModule],
 })
 @rendersContextMenuEntriesForType(DSpaceObjectType.COLLECTION)
 class TestComponent {

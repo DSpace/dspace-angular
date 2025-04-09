@@ -8,6 +8,7 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { BrowserExportService } from '../../../../core/export-service/browser-export.service';
@@ -84,8 +85,7 @@ describe('StatisticsTableComponent', () => {
   };
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [StatisticsTableComponent],
+      imports: [TranslateModule.forRoot(), StatisticsTableComponent, NoopAnimationsModule],
       providers: [
         { provide: REPORT_DATA, useValue: report },
         { provide: BrowserExportService, useValue: ExportServiceStub },

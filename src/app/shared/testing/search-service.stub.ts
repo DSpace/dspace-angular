@@ -5,7 +5,13 @@ import {
 } from 'rxjs';
 
 import { ViewMode } from '../../core/shared/view-mode.model';
+import { AppliedFilter } from '../search/models/applied-filter.model';
+import { PaginatedSearchOptions } from '../search/models/paginated-search-options.model';
+import { SearchFilterConfig } from '../search/models/search-filter-config.model';
 
+/**
+ * Stub class of {@link SearchService}
+ */
 export class SearchServiceStub {
 
   private _viewMode: ViewMode;
@@ -17,6 +23,10 @@ export class SearchServiceStub {
     this.setViewMode(ViewMode.ListElement);
   }
 
+  getSelectedValuesForFilter(_filterName: string): Observable<AppliedFilter[]> {
+    return observableOf([]);
+  }
+
   getViewMode(): Observable<ViewMode> {
     return this.viewMode;
   }
@@ -25,7 +35,7 @@ export class SearchServiceStub {
     this.testViewMode = viewMode;
   }
 
-  getFacetValuesFor() {
+  getFacetValuesFor(_filterConfig: SearchFilterConfig, _valuePage: number, _searchOptions?: PaginatedSearchOptions, _filterQuery?: string, _useCachedVersionIfAvailable = true) {
     return null;
   }
 

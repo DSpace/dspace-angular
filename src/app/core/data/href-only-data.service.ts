@@ -6,11 +6,7 @@ import { RemoteDataBuildService } from '../cache/builders/remote-data-build.serv
 import { CacheableObject } from '../cache/cacheable-object.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { ITEM_TYPE } from '../shared/item-relationships/item-type.resource-type';
-import { LICENSE } from '../shared/license.resource-type';
-import { VOCABULARY_ENTRY } from '../submission/vocabularies/models/vocabularies.resource-type';
 import { BaseDataService } from './base/base-data.service';
-import { dataService } from './base/data-service.decorator';
 import { HALDataService } from './base/hal-data-service.interface';
 import { FindListOptions } from './find-list-options.model';
 import { PaginatedList } from './paginated-list.model';
@@ -33,12 +29,7 @@ import { RequestService } from './request.service';
  * ```
  * This means we cannot extend from {@link BaseDataService} directly because the method signatures would not match.
  */
-@Injectable({
-  providedIn: 'root',
-})
-@dataService(VOCABULARY_ENTRY)
-@dataService(ITEM_TYPE)
-@dataService(LICENSE)
+@Injectable({ providedIn: 'root' })
 export class HrefOnlyDataService implements HALDataService<any> {
   /**
    * Works with a {@link BaseDataService} internally, but only exposes two of its methods

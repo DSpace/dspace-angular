@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { DatadogRumService } from './datadog-rum.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ServerDatadogRumService extends DatadogRumService {
 
   initDatadogRum() {

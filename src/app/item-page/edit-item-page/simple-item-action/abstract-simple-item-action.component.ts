@@ -6,8 +6,12 @@ import {
 import {
   ActivatedRoute,
   Router,
+  RouterLink,
 } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
   first,
@@ -24,6 +28,7 @@ import {
   getItemPageRoute,
 } from '../../item-page-routing-paths';
 import { findSuccessfulAccordingTo } from '../edit-item-operators';
+import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
 
 /**
  * Component to render and handle simple item edit actions such as withdrawal and reinstatement.
@@ -32,6 +37,12 @@ import { findSuccessfulAccordingTo } from '../edit-item-operators';
 @Component({
   selector: 'ds-simple-action',
   templateUrl: './abstract-simple-item-action.component.html',
+  imports: [
+    ModifyItemOverviewComponent,
+    TranslateModule,
+    RouterLink,
+  ],
+  standalone: true,
 })
 export class AbstractSimpleItemActionComponent implements OnInit {
 

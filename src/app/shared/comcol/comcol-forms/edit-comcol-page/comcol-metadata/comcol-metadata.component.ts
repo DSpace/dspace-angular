@@ -29,6 +29,7 @@ import { NotificationsService } from '../../../../notifications/notifications.se
 @Component({
   selector: 'ds-comcol-metadata',
   template: '',
+  standalone: true,
 })
 export class ComcolMetadataComponent<TDomain extends Community | Collection> implements OnInit {
   /**
@@ -63,18 +64,17 @@ export class ComcolMetadataComponent<TDomain extends Community | Collection> imp
    */
   onSubmit(event) {
     if (!isEmpty(event.operations)) {
-      this.dsoDataService.patch(event.dso, event.operations).pipe(
-        getFirstCompletedRemoteData(),
-      ).subscribe((response: RemoteData<DSpaceObject>) => {
-        if (response.hasSucceeded) {
-          this.router.navigate([this.frontendURL, event.dso.uuid]);
-          this.notificationsService.success(null, this.translate.get(`${this.type.value}.edit.notifications.success`));
-        } else if (response.statusCode === 403) {
-          this.notificationsService.error(null, this.translate.get(`${this.type.value}.edit.notifications.unauthorized`));
-        } else {
-          this.notificationsService.error(null, this.translate.get(`${this.type.value}.edit.notifications.error`));
-        }
-      });
+      this.dsoDataService.patch(event.dso, event.operations).pipe(getFirstCompletedRemoteData())
+        .subscribe( (response: RemoteData<DSpaceObject>) => {
+          if (response.hasSucceeded) {
+            this.router.navigate([this.frontendURL, event.dso.uuid]);
+            this.notificationsService.success(null, this.translate.get(`${this.type.value}.edit.notifications.success`));
+          } else if (response.statusCode === 403) {
+            this.notificationsService.error(null, this.translate.get(`${this.type.value}.edit.notifications.unauthorized`));
+          } else {
+            this.notificationsService.error(null, this.translate.get(`${this.type.value}.edit.notifications.error`));
+          }
+        });
     } else {
       this.router.navigate([this.frontendURL, event.dso.uuid]);
     }

@@ -33,9 +33,10 @@ describe('DatadogRumService', () => {
 
   const klaroServiceSpy = jasmine.createSpyObj('KlaroService', {
     getSavedPreferences: jasmine.createSpy('getSavedPreferences'),
-    watchConsentUpdates: jasmine.createSpy('watchConsentUpdates'),
+    watchConsentUpdates: jasmine.createSpy('watchConsentUpdates').and.returnValue(null),
   }, {
     consentsUpdates$: of(consentsAccepted),
+    initialized$: of(true),
   });
 
   const datadogRumEnvironmentOptions = {

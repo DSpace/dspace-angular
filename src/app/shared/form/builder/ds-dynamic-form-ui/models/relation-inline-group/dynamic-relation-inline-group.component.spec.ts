@@ -19,22 +19,26 @@ import {
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
+  DYNAMIC_FORM_CONTROL_MAP_FN,
   DynamicFormControlEvent,
   DynamicFormGroupModel,
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
-import {
-  Store,
-  StoreModule,
-} from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from '../../../../../../../config/app-config.interface';
+import { environment } from '../../../../../../../environments/environment.test';
 import { FormRowModel } from '../../../../../../core/config/models/config-submission-form.model';
 import { SubmissionFormsModel } from '../../../../../../core/config/models/config-submission-forms.model';
+import { SubmissionObjectDataService } from '../../../../../../core/submission/submission-object-data.service';
+import { XSRFService } from '../../../../../../core/xsrf/xsrf.service';
 import { SubmissionService } from '../../../../../../submission/submission.service';
-import { StoreMock } from '../../../../../testing/store.mock';
 import { SubmissionServiceStub } from '../../../../../testing/submission-service.stub';
 import { createTestComponent } from '../../../../../testing/utils.test';
 import { FormComponent } from '../../../../form.component';
@@ -43,6 +47,7 @@ import { FormBuilderService } from '../../../form-builder.service';
 import { FormFieldModel } from '../../../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 import { PLACEHOLDER_PARENT_METADATA } from '../../ds-dynamic-form-constants';
+import { dsDynamicFormControlMapFn } from '../../ds-dynamic-form-control-map-fn';
 import { DsDynamicInputModel } from '../ds-dynamic-input.model';
 import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';
 import { DynamicRowGroupModel } from '../ds-dynamic-row-group-model';
@@ -71,6 +76,23 @@ const metadataSecurity = {
     },
   },
 };
+
+const initialState: any = {
+  core: {
+    'bitstreamFormats': {},
+    'cache/object': {},
+    'cache/syncbuffer': {},
+    'cache/object-updates': {},
+    'data/request': {},
+    'history': {},
+    'index': {},
+    'auth': {},
+    'json/patch': {},
+    'metaTag': {},
+    'route': {},
+  },
+};
+
 function init() {
   FORM_GROUP_TEST_MODEL_CONFIG = {
     disabled: false,
@@ -140,7 +162,7 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
   let control2: FormControl;
   let model2: DsDynamicInputModel;
   let event: DynamicFormControlEvent;
-  let submissionServiceStub: SubmissionServiceStub;
+  const submissionServiceStub: any = new SubmissionServiceStub();
 
   // async beforeEach
   beforeEach(waitForAsync(() => {
@@ -152,10 +174,8 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
         FormsModule,
         ReactiveFormsModule,
         NgbModule,
-        StoreModule.forRoot({}),
         TranslateModule.forRoot(),
-      ],
-      declarations: [
+        // MockComponent(FormComponent),
         FormComponent,
         DsDynamicRelationInlineGroupComponent,
         TestComponent,
@@ -168,8 +188,13 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
         FormBuilderService,
         FormComponent,
         FormService,
-        { provide: Store, useClass: StoreMock },
-        { provide: SubmissionService, useClass: SubmissionServiceStub },
+        provideMockStore({ initialState }),
+        { provide: SubmissionService, useValue: submissionServiceStub },
+        { provide: SubmissionObjectDataService, useValue: {} },
+        { provide: XSRFService, useValue: {} },
+        { provide: APP_CONFIG, useValue: environment },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        { provide: DYNAMIC_FORM_CONTROL_MAP_FN, useValue: dsDynamicFormControlMapFn },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
@@ -179,17 +204,16 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
   describe('', () => {
     // synchronous beforeEach
     beforeEach(() => {
-      html = `<ds-dynamic-relation-group [model]="model"
+      submissionServiceStub.getSubmissionSecurityConfiguration.and.returnValue(observableOf(metadataSecurity));
+      html = `<ds-dynamic-relation-inline-group [model]="model"
                             [formId]="formId"
                             [group]="group"
                             (blur)="onBlur($event)"
                             (change)="onValueChange($event)"
-                            (focus)="onFocus($event)"></ds-dynamic-relation-group>`;
+                            (focus)="onFocus($event)"></ds-dynamic-relation-inline-group>`;
 
       testFixture = createTestComponent(html, TestComponent) as ComponentFixture<TestComponent>;
       testComp = testFixture.componentInstance;
-      submissionServiceStub = TestBed.inject(SubmissionService as any);
-      submissionServiceStub.getSubmissionSecurityConfiguration.and.returnValue(observableOf(metadataSecurity));
     });
 
     afterEach(() => {
@@ -207,7 +231,7 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
     beforeEach(inject([FormBuilderService], (service: FormBuilderService) => {
 
       groupFixture = TestBed.createComponent(DsDynamicRelationInlineGroupComponent);
-      submissionServiceStub = TestBed.inject(SubmissionService as any);
+      service = TestBed.inject(FormBuilderService as any);
       submissionServiceStub.getSubmissionSecurityConfiguration.and.returnValue(observableOf(metadataSecurity));
       groupComp = groupFixture.componentInstance; // FormComponent test instance
       groupCompAsAny = groupComp;
@@ -626,7 +650,6 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
     beforeEach(() => {
 
       groupFixture = TestBed.createComponent(DsDynamicRelationInlineGroupComponent);
-      submissionServiceStub = TestBed.inject(SubmissionService as any);
       submissionServiceStub.getSubmissionSecurityConfiguration.and.returnValue(observableOf(metadataSecurity));
       groupComp = groupFixture.componentInstance; // FormComponent test instance
       groupComp.formId = 'testForm';
@@ -659,6 +682,13 @@ describe('DsDynamicRelationInlineGroupComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [
+    DsDynamicRelationInlineGroupComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    NgbModule,
+  ],
 })
 class TestComponent {
 

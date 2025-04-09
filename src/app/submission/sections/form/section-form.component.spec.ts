@@ -14,7 +14,6 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
 import {
   DynamicFormControlEvent,
   DynamicFormControlEventType,
@@ -46,6 +45,7 @@ import { FormFieldModel } from '../../../shared/form/builder/models/form-field.m
 import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 import { getMockFormOperationsService } from '../../../shared/mocks/form-operations-service.mock';
 import { getMockFormService } from '../../../shared/mocks/form-service.mock';
@@ -54,6 +54,7 @@ import {
   mockSubmissionId,
   mockUploadResponse1ParsedErrors,
 } from '../../../shared/mocks/submission.mock';
+import { getMockThemeService } from '../../../shared/mocks/theme-service.mock';
 import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
@@ -61,6 +62,7 @@ import { NotificationsServiceStub } from '../../../shared/testing/notifications-
 import { SectionsServiceStub } from '../../../shared/testing/sections-service.stub';
 import { SubmissionServiceStub } from '../../../shared/testing/submission-service.stub';
 import { createTestComponent } from '../../../shared/testing/utils.test';
+import { ThemeService } from '../../../shared/theme-support/theme.service';
 import { SubmissionSectionError } from '../../objects/submission-section-error.model';
 import { SubmissionService } from '../../submission.service';
 import { SectionDataObject } from '../models/section-data.model';
@@ -170,6 +172,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
   let submissionServiceStub: SubmissionServiceStub;
   let notificationsServiceStub: NotificationsServiceStub;
   let formService: any = getMockFormService();
+  let themeService = getMockThemeService();
 
   let formOperationsService: any;
   let formBuilderService: any;
@@ -184,13 +187,10 @@ describe('SubmissionSectionFormComponent test suite', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        BrowserModule,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         FormComponent,
         SubmissionSectionFormComponent,
         TestComponent,
@@ -202,10 +202,13 @@ describe('SubmissionSectionFormComponent test suite', () => {
         { provide: SubmissionFormsConfigDataService, useValue: formConfigService },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
         { provide: SectionsService, useValue: sectionsServiceStub },
+        { provide: ThemeService, useValue: themeService },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: TranslateService, useValue: getMockTranslateService() },
-        { provide: ObjectCacheService, useValue: { remove: () => {/*do nothing*/}, hasBySelfLinkObservable: () => observableOf(false), hasByHref$: () => observableOf(false) } },
-        { provide: RequestService, useValue: { removeByHrefSubstring: () => {/*do nothing*/}, hasByHref$: () => observableOf(false) } },
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        { provide: ObjectCacheService, useValue: { remove: () => { }, hasBySelfLinkObservable: () => observableOf(false), hasByHref$: () => observableOf(false) } },
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        { provide: RequestService, useValue: { removeByHrefSubstring: () => { }, hasByHref$: () => observableOf(false) } },
         { provide: 'collectionIdProvider', useValue: collectionId },
         { provide: 'sectionDataProvider', useValue: Object.assign({}, sectionObject) },
         { provide: 'submissionIdProvider', useValue: submissionId },
@@ -215,7 +218,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
         SubmissionSectionFormComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents().then();
+    }).overrideComponent(SubmissionSectionFormComponent, { remove: { imports: [FormComponent, ThemedLoadingComponent] } }).compileComponents().then();
   }));
 
   describe('', () => {
@@ -287,7 +290,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
       expect(comp.sectionData.errorsToShow).toEqual([]);
       expect(comp.sectionData.data).toEqual(sectionData);
       expect(comp.isLoading).toBeFalsy();
-      expect(comp.initForm).toHaveBeenCalledWith(sectionData);
+      expect(comp.initForm).toHaveBeenCalledWith(sectionData, [], []);
       expect(comp.subscriptions).toHaveBeenCalled();
     });
 
@@ -295,7 +298,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
       formBuilderService.modelFromConfiguration.and.returnValue(testFormModel);
       const sectionData = {};
 
-      comp.initForm(sectionData);
+      comp.initForm(sectionData, [], []);
 
       expect(comp.formModel).toEqual(testFormModel);
 
@@ -310,7 +313,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
         path: '/sections/' + sectionObject.id,
       };
 
-      comp.initForm(sectionData);
+      comp.initForm(sectionData, [], []);
 
       expect(comp.formModel).toBeUndefined();
       expect(sectionsServiceStub.setSectionError).toHaveBeenCalledWith(submissionId, sectionObject.id, sectionError);
@@ -475,7 +478,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
       compAsAny.formData = {};
       compAsAny.sectionMetadata = ['dc.title'];
 
-      comp.updateForm(sectionData, sectionError);
+      comp.updateForm({ data: sectionData, errorsToShow: sectionError } as any);
 
       expect(comp.isUpdating).toBeFalsy();
       expect(comp.initForm).toHaveBeenCalled();
@@ -487,15 +490,19 @@ describe('SubmissionSectionFormComponent test suite', () => {
     it('should update form error properly', () => {
       spyOn(comp, 'initForm');
       spyOn(comp, 'checksForErrors');
-      const sectionData: any = {
+      const sectionData = {
         'dc.title': [new FormFieldMetadataValueObject('test')],
       };
+      const sectionState = {
+        data: sectionData,
+        errorsToShow: [{ path: '/test', message: 'test' }],
+      } as any;
       comp.sectionData.data = {};
       comp.sectionData.errorsToShow = [];
       compAsAny.formData = sectionData;
       compAsAny.sectionMetadata = ['dc.title'];
 
-      comp.updateForm(sectionData, parsedSectionErrors);
+      comp.updateForm(sectionState);
 
       expect(comp.initForm).not.toHaveBeenCalled();
       expect(comp.checksForErrors).toHaveBeenCalled();
@@ -506,8 +513,9 @@ describe('SubmissionSectionFormComponent test suite', () => {
       spyOn(comp, 'initForm');
       spyOn(comp, 'checksForErrors');
       const sectionData: any = {};
+      const sectionErrors: any = [{ path: '/test', message: 'test' }];
 
-      comp.updateForm(sectionData, parsedSectionErrors);
+      comp.updateForm({ data: sectionData, errorsToShow: sectionErrors } as any);
 
       expect(comp.initForm).not.toHaveBeenCalled();
       expect(comp.checksForErrors).toHaveBeenCalled();
@@ -573,7 +581,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
       const sectionState = {
         data: sectionData,
         errorsToShow: parsedSectionErrors,
-      };
+      } as any;
 
       formService.getFormData.and.returnValue(observableOf(formData));
       sectionsServiceStub.getSectionState.and.returnValue(observableOf(sectionState));
@@ -582,7 +590,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
 
       expect(compAsAny.subs.length).toBe(2);
       expect(compAsAny.formData).toEqual(formData);
-      expect(comp.updateForm).toHaveBeenCalledWith(sectionState.data, sectionState.errorsToShow);
+      expect(comp.updateForm).toHaveBeenCalledWith(sectionState);
 
     });
 
@@ -667,7 +675,7 @@ describe('SubmissionSectionFormComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
 })
-class TestComponent {
-
-}
+class TestComponent {}

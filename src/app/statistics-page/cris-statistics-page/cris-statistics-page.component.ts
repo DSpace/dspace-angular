@@ -1,9 +1,15 @@
 import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import {
   ActivatedRoute,
   Router,
@@ -11,12 +17,15 @@ import {
 import {
   NgbDate,
   NgbDateParserFormatter,
+  NgbDatepickerModule,
   NgbDateStruct,
+  NgbNavModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   select,
   Store,
 } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest,
   Observable,
@@ -52,11 +61,31 @@ import {
   getReportId,
 } from '../../core/statistics/statistics-selector';
 import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { StatisticsChartComponent } from './statistics-chart/statistics-chart.component';
+import { StatisticsMapComponent } from './statistics-map/statistics-map.component';
+import { FilterMapPipe } from './statistics-pipes/filter-map.pipe';
 
 @Component({
   selector: 'ds-cris-statistics-page',
   templateUrl: './cris-statistics-page.component.html',
   styleUrls: ['./cris-statistics-page.component.scss'],
+  standalone: true,
+  imports: [
+    VarDirective,
+    NgIf,
+    ThemedLoadingComponent,
+    NgbDatepickerModule,
+    FormsModule,
+    NgbNavModule,
+    NgFor,
+    StatisticsMapComponent,
+    StatisticsChartComponent,
+    AsyncPipe,
+    FilterMapPipe,
+    TranslateModule,
+  ],
 })
 export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
 
@@ -210,8 +239,9 @@ export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
   /**
    * Get the user reports for the specific category.
    * @param category the that is being selected
+   * @param reportType
    */
-  getUserReports(category) {
+  getUserReports(category, reportType = this.route?.snapshot?.queryParams?.reportType) {
     this.reports$ =
       of(category)
         .pipe(
@@ -221,8 +251,15 @@ export class CrisStatisticsPageComponent implements OnInit, OnDestroy {
       this.reports$, this.getReportId(), this.getCategoryId(),
     ]).subscribe(([report, reportId, categoryId]) => {
       if (!reportId && !categoryId) {
-        this.setStatisticsState(report[0].id, category.id);
-        this.selectedReportId = report[0].id;
+        let reportToShowId = report[0].id;
+        if (reportType) {
+          const newReport = report.find((r) => r.reportType === reportType)?.id;
+          if (newReport) {
+            reportToShowId = newReport;
+          }
+        }
+        this.setStatisticsState(reportToShowId, category.id);
+        this.selectedReportId = reportToShowId;
       } else {
         this.setStatisticsState(reportId, categoryId);
       }

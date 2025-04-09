@@ -23,6 +23,7 @@ import { ConfigurationDataService } from '../../../../core/data/configuration-da
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { ItemExportFormatMolteplicity } from '../../../../core/itemexportformat/item-export-format.service';
 import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
+import { EntityDropdownComponent } from '../../../entity-dropdown/entity-dropdown.component';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
 import { ItemExportComponent } from '../item-export/item-export.component';
@@ -70,9 +71,9 @@ describe('ItemExportModalWrapperComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         BrowserModule,
-        TranslateModule.forRoot({ loader: { provide: TranslateLoader,  useClass: TranslateLoaderMock } }),
+        TranslateModule.forRoot({ loader: { provide: TranslateLoader, useClass: TranslateLoaderMock } }),
+        ItemExportModalLauncherComponent,
       ],
-      declarations: [ItemExportModalLauncherComponent],
       providers: [
         { provide: AuthService, useValue: authServiceMock },
         { provide: NgbModal, useValue: modalService },
@@ -80,7 +81,7 @@ describe('ItemExportModalWrapperComponent', () => {
         { provide: ConfigurationDataService, useValue: configurationDataService },
         ViewContainerRef,
       ],
-    }).compileComponents();
+    }).overrideComponent(ItemExportModalLauncherComponent, { remove: { imports: [EntityDropdownComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

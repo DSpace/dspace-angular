@@ -1,4 +1,8 @@
-import { isPlatformBrowser } from '@angular/common';
+import {
+  AsyncPipe,
+  isPlatformBrowser,
+  NgIf,
+} from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -11,6 +15,7 @@ import {
   DomSanitizer,
   SafeResourceUrl,
 } from '@angular/platform-browser';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   of,
@@ -35,7 +40,12 @@ import { MiradorViewerService } from './mirador-viewer.service';
   styleUrls: ['./mirador-viewer.component.scss'],
   templateUrl: './mirador-viewer.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [ MiradorViewerService ],
+  imports: [
+    TranslateModule,
+    AsyncPipe,
+    NgIf,
+  ],
+  standalone: true,
 })
 export class MiradorViewerComponent implements OnInit {
 
@@ -50,6 +60,11 @@ export class MiradorViewerComponent implements OnInit {
    * True if searchable.
    */
   @Input() searchable: boolean;
+
+  /**
+   * Is used as canvas identifier of the element to show.
+   */
+  @Input() canvasId: string;
 
   /**
    * Hides embedded viewer in dev mode.
@@ -109,6 +124,9 @@ export class MiradorViewerComponent implements OnInit {
     }
     if (environment.mirador.enableDownloadPlugin) {
       viewerPath += '&enableDownloadPlugin=true';
+    }
+    if (this.canvasId) {
+      viewerPath += `&canvasId=${this.canvasId}`;
     }
 
     // TODO: Should the query term be trusted here?

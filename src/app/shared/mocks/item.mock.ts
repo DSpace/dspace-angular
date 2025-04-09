@@ -183,6 +183,10 @@ export const ItemMock: Item = Object.assign(new Item(), {
         language: 'en_US',
         value: 'Doe, Jane',
       },
+      {
+        language: 'en_US',
+        value: 'Doe, John',
+      },
     ],
     'dc.date.accessioned': [
       {
@@ -203,6 +207,12 @@ export const ItemMock: Item = Object.assign(new Item(), {
       },
     ],
     'dc.identifier.issn': [
+      {
+        language: 'en_US',
+        value: '123456789',
+      },
+    ],
+    'dc.relation.issn': [
       {
         language: 'en_US',
         value: '123456789',
@@ -276,6 +286,12 @@ export const ItemMock: Item = Object.assign(new Item(), {
         value: 'text',
       },
     ],
+    'dspace.entity.type': [
+      {
+        language: 'en',
+        value: 'Publication',
+      },
+    ],
   },
   owningCollection: observableOf({
     _links: {
@@ -292,5 +308,13 @@ export const ItemMock: Item = Object.assign(new Item(), {
     payload: [],
   },
   ),
+});
+
+export const ResearchOutputItemMock: Item = Object.assign(new Item(), ItemMock, {
+  metadata: Object.assign({}, ItemMock.metadata, {
+    'dspace.entity.type': [{
+      value: 'Publication',
+    }],
+  }),
 });
 /* eslint-enable @typescript-eslint/no-shadow */

@@ -15,8 +15,12 @@ import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service
 import { Collection } from '../../../../../core/shared/collection.model';
 import { ViewMode } from '../../../../../core/shared/view-mode.model';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
+import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
+import { getMockThemeService } from '../../../../../shared/mocks/theme-service.mock';
 import { CollectionElementLinkType } from '../../../../../shared/object-collection/collection-element-link.type';
 import { CollectionSearchResult } from '../../../../../shared/object-collection/shared/collection-search-result.model';
+import { CollectionSearchResultListElementComponent } from '../../../../../shared/object-list/search-result-list-element/collection-search-result/collection-search-result-list-element.component';
+import { ThemeService } from '../../../../../shared/theme-support/theme.service';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
 import { CollectionAdminSearchResultListElementComponent } from './collection-admin-search-result-list-element.component';
 
@@ -39,14 +43,22 @@ describe('CollectionAdminSearchResultListElementComponent', () => {
       imports: [
         TranslateModule.forRoot(),
         RouterTestingModule.withRoutes([]),
+        CollectionAdminSearchResultListElementComponent,
       ],
-      declarations: [CollectionAdminSearchResultListElementComponent],
-      providers: [{ provide: TruncatableService, useValue: {} },
+      providers: [
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: environment }],
+        { provide: APP_CONFIG, useValue: environment },
+        { provide: ThemeService, useValue: getMockThemeService() },
+      ],
       schemas: [NO_ERRORS_SCHEMA],
-    })
-      .compileComponents();
+    }).overrideComponent(CollectionAdminSearchResultListElementComponent, {
+      remove: {
+        imports: [
+          CollectionSearchResultListElementComponent,
+        ],
+      },
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -64,7 +76,7 @@ describe('CollectionAdminSearchResultListElementComponent', () => {
   });
 
   it('should render an edit button with the correct link', () => {
-    const a = fixture.debugElement.query(By.css('a'));
+    const a = fixture.debugElement.query(By.css('a[data-test="coll-link"]'));
     const link = a.nativeElement.href;
     expect(link).toContain(getCollectionEditRoute(id));
   });

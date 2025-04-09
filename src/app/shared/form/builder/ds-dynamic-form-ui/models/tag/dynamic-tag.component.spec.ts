@@ -1,6 +1,5 @@
 // Load the implementations that should be tested
 import {
-  ChangeDetectorRef,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
 } from '@angular/core';
@@ -8,7 +7,6 @@ import {
   ComponentFixture,
   fakeAsync,
   flush,
-  inject,
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
@@ -29,8 +27,11 @@ import {
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
 import { DynamicFormsNGBootstrapUIModule } from '@ng-dynamic-forms/ui-ng-bootstrap';
+import { provideMockStore } from '@ngrx/store/testing';
+import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
+import { APP_DATA_SERVICES_MAP } from '../../../../../../../config/app-config.interface';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
@@ -42,6 +43,7 @@ import {
 import { SubmissionServiceStub } from '../../../../../testing/submission-service.stub';
 import { createTestComponent } from '../../../../../testing/utils.test';
 import { VocabularyServiceStub } from '../../../../../testing/vocabulary-service.stub';
+import { ChipsComponent } from '../../../../chips/chips.component';
 import { Chips } from '../../../../chips/models/chips.model';
 import { FormBuilderService } from '../../../form-builder.service';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
@@ -102,27 +104,30 @@ describe('DsDynamicTagComponent test suite', () => {
     init();
     TestBed.configureTestingModule({
       imports: [
+        TranslateModule.forRoot(),
         DynamicFormsCoreModule,
         DynamicFormsNGBootstrapUIModule,
         FormsModule,
         NgbModule,
         ReactiveFormsModule,
-      ],
-      declarations: [
         DsDynamicTagComponent,
         TestComponent,
-      ], // declare the test component
+      ],
       providers: [
-        ChangeDetectorRef,
-        DsDynamicTagComponent,
         { provide: VocabularyService, useValue: vocabularyServiceStub },
         { provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService },
         { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService },
         { provide: FormBuilderService },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
+        provideMockStore(),
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         NgbModal,
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    }).overrideComponent(DsDynamicTagComponent, {
+      remove: {
+        imports: [ChipsComponent],
+      },
     });
 
   }));
@@ -144,10 +149,9 @@ describe('DsDynamicTagComponent test suite', () => {
     afterEach(() => {
       testFixture.destroy();
     });
-    it('should create DsDynamicTagComponent', inject([DsDynamicTagComponent], (app: DsDynamicTagComponent) => {
-
-      expect(app).toBeDefined();
-    }));
+    it('should create DsDynamicTagComponent', () => {
+      expect(testComp).toBeDefined();
+    });
   });
 
   describe('when vocabularyOptions are set', () => {
@@ -317,6 +321,12 @@ describe('DsDynamicTagComponent test suite', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
+  imports: [DynamicFormsCoreModule,
+    DynamicFormsNGBootstrapUIModule,
+    FormsModule,
+    NgbModule,
+    ReactiveFormsModule],
 })
 class TestComponent {
 

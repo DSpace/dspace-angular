@@ -19,11 +19,11 @@ describe('DsMarkdownViewerComponent', () => {
   });
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MarkdownViewerComponent, MarkdownDirective ],
+      imports: [MarkdownViewerComponent, MarkdownDirective],
       providers: [{
         provide: MathService,
         useValue: mathServiceMock,
-      } ],
+      }],
     })
       .compileComponents();
   });

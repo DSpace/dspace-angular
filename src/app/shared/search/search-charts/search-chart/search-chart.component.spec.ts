@@ -17,7 +17,7 @@ import {
 
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
 import { SearchConfigurationServiceStub } from '../../../testing/search-configuration-service.stub';
 import { FilterType } from '../../models/filter-type.model';
 import { SearchFilterConfig } from '../../models/search-filter-config.model';
@@ -59,8 +59,7 @@ describe('SearchChartComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule],
-      declarations: [SearchChartComponent],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NoopAnimationsModule, SearchChartComponent],
       providers: [
         { provide: SearchService, useValue: searchServiceStub },
         { provide: SearchFilterService, useValue: mockFilterService },

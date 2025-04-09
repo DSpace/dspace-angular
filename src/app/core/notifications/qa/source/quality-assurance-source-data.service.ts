@@ -5,7 +5,6 @@ import { NotificationsService } from '../../../../shared/notifications/notificat
 import { FollowLinkConfig } from '../../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../../cache/object-cache.service';
-import { dataService } from '../../../data/base/data-service.decorator';
 import {
   FindAllData,
   FindAllDataImpl,
@@ -21,13 +20,11 @@ import { RemoteData } from '../../../data/remote-data';
 import { RequestService } from '../../../data/request.service';
 import { HALEndpointService } from '../../../shared/hal-endpoint.service';
 import { QualityAssuranceSourceObject } from '../models/quality-assurance-source.model';
-import { QUALITY_ASSURANCE_SOURCE_OBJECT } from '../models/quality-assurance-source-object.resource-type';
 
 /**
  * The service handling all Quality Assurance source REST requests.
  */
-@Injectable()
-@dataService(QUALITY_ASSURANCE_SOURCE_OBJECT)
+@Injectable({ providedIn: 'root' })
 export class QualityAssuranceSourceDataService extends IdentifiableDataService<QualityAssuranceSourceObject> {
 
   private findAllData: FindAllData<QualityAssuranceSourceObject>;

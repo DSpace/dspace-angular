@@ -20,7 +20,7 @@ import { SidebarCollapseAction } from './sidebar.actions';
 /**
  * Makes sure that if the user navigates to another route, the sidebar is collapsed
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SidebarEffects {
   private previousPath: string;
   routeChange$ = createEffect(() => this.actions$

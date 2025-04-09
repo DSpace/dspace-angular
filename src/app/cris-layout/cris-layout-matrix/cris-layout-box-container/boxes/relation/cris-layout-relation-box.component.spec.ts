@@ -21,8 +21,8 @@ import { EPerson } from '../../../../../core/eperson/models/eperson.model';
 import { CrisLayoutBox } from '../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { MetadataValue } from '../../../../../core/shared/metadata.models';
+import { ThemedConfigurationSearchPageComponent } from '../../../../../search-page/themed-configuration-search-page.component';
 import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
-import { SharedModule } from '../../../../../shared/shared.module';
 import {
   EPersonMock,
   EPersonMock2,
@@ -87,9 +87,8 @@ describe('CrisLayoutRelationBoxComponent', () => {
           },
         }),
         CommonModule,
-        SharedModule,
+        CrisLayoutRelationBoxComponent,
       ],
-      declarations: [CrisLayoutRelationBoxComponent],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
         { provide: 'boxProvider', useValue: testBox },
@@ -97,7 +96,7 @@ describe('CrisLayoutRelationBoxComponent', () => {
         { provide: AuthService, useValue: authService },
       ],
     })
-      .compileComponents();
+      .overrideComponent(CrisLayoutRelationBoxComponent, { remove: { imports: [ThemedConfigurationSearchPageComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

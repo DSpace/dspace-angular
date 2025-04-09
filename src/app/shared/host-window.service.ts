@@ -5,7 +5,7 @@ import {
   Store,
 } from '@ngrx/store';
 import {
-  combineLatest as observableCombineLatest,
+  combineLatest,
   Observable,
 } from 'rxjs';
 import {
@@ -32,7 +32,7 @@ export const maxMobileWidth = WidthCategory.SM;
 const hostWindowStateSelector = (state: AppState) => state.hostWindow;
 const widthSelector = createSelector(hostWindowStateSelector, (hostWindow: HostWindowState) => hostWindow.width);
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class HostWindowService {
   private breakPoints: { XS_MIN, SM_MIN, MD_MIN, LG_MIN, XL_MIN } = {} as any;
 
@@ -147,10 +147,10 @@ export class HostWindowService {
   }
 
   isXsOrSm(): Observable<boolean> {
-    return observableCombineLatest(
+    return combineLatest([
       this.isXs(),
       this.isSm(),
-    ).pipe(
+    ]).pipe(
       map(([isXs, isSm]) => isXs || isSm),
       distinctUntilChanged(),
     );

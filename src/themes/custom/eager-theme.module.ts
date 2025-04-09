@@ -1,19 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { AttachmentRenderingModule } from '../../app/cris-layout/cris-layout-matrix/cris-layout-box-container/boxes/metadata/rendering-types/advanced-attachment/bitstream-attachment/attachment-render/attachment-rendering.module';
-import { FooterModule } from '../../app/footer/footer.module';
-import { ItemPageModule } from '../../app/item-page/item-page.module';
-import { ItemSharedModule } from '../../app/item-page/item-shared.module';
-import { MiradorViewerModule } from '../../app/item-page/mirador-viewer/mirador-viewer.module';
-import { NavbarModule } from '../../app/navbar/navbar.module';
 import { RootModule } from '../../app/root.module';
-import { SharedBrowseByModule } from '../../app/shared/browse-by/shared-browse-by.module';
-import { ContextMenuModule } from '../../app/shared/context-menu/context-menu.module';
-import { DsoPageModule } from '../../app/shared/dso-page/dso-page.module';
-import { ExploreModule } from '../../app/shared/explore/explore.module';
-import { ResultsBackButtonModule } from '../../app/shared/results-back-button/results-back-button.module';
-import { SharedModule } from '../../app/shared/shared.module';
 import { JournalComponent } from './app/entity-groups/journal-entities/item-pages/journal/journal.component';
 import { JournalIssueComponent } from './app/entity-groups/journal-entities/item-pages/journal-issue/journal-issue.component';
 import { JournalVolumeComponent } from './app/entity-groups/journal-entities/item-pages/journal-volume/journal-volume.component';
@@ -41,7 +29,7 @@ import { BrowseEntryListElementComponent } from './app/shared/object-list/browse
 import { CollectionListElementComponent } from './app/shared/object-list/collection-list-element/collection-list-element.component';
 import { CommunityListElementComponent } from './app/shared/object-list/community-list-element/community-list-element.component';
 import { ItemSearchResultListElementComponent } from './app/shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
-import { PublicationSidebarSearchListElementComponent } from './app/shared/object-list/sidebar-search-list-element/item-types/publication-sidebar-search-list-element.component';
+import { PublicationSidebarSearchListElementComponent } from './app/shared/object-list/sidebar-search-list-element/item-types/publication/publication-sidebar-search-list-element.component';
 import { StartsWithDateComponent } from './app/shared/starts-with/date/starts-with-date.component';
 import { StartsWithTextComponent } from './app/shared/starts-with/text/starts-with-text.component';
 
@@ -89,26 +77,11 @@ const DECLARATIONS = [
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule,
     RootModule,
-    NavbarModule,
-    SharedBrowseByModule,
-    ResultsBackButtonModule,
-    ItemPageModule,
-    ItemSharedModule,
-    DsoPageModule,
-    AttachmentRenderingModule,
-    ContextMenuModule,
-    FooterModule,
-    ExploreModule,
-    MiradorViewerModule,
+    ...DECLARATIONS,
   ],
-  declarations: DECLARATIONS,
   providers: [
     ...ENTRY_COMPONENTS.map((component) => ({ provide: component })),
-  ],
-  exports: [
-    ItemSearchResultListElementComponent,
   ],
 })
 /**

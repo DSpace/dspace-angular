@@ -1,4 +1,9 @@
 import {
+  NgForOf,
+  NgIf,
+  TitleCasePipe,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   Component,
   Inject,
@@ -8,7 +13,10 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   combineLatest,
   filter,
@@ -33,9 +41,16 @@ import {
 } from '../../core/services/window.service';
 import { Registration } from '../../core/shared/registration.model';
 import { ExternalLoginService } from '../../external-log-in/services/external-login.service';
+import { AlertComponent } from '../../shared/alert/alert.component';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import {
+  SwitchColor,
+  SwitchComponent,
+  SwitchOption,
+} from '../../shared/switch/switch.component';
+import { CompareValuesPipe } from '../helpers/compare-values.pipe';
 
 export interface ReviewAccountInfoData {
   label: string;
@@ -50,6 +65,16 @@ export interface ReviewAccountInfoData {
   templateUrl: './review-account-info.component.html',
   styleUrls: ['./review-account-info.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    AlertComponent,
+    TranslateModule,
+    TitleCasePipe,
+    NgForOf,
+    CompareValuesPipe,
+    NgIf,
+    SwitchComponent,
+  ],
+  standalone: true,
 })
 export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
   /**
@@ -73,6 +98,14 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
    * List of subscriptions
    */
   subs: Subscription[] = [];
+
+  /**
+   * The custom options for the 'ds-switch' component
+   */
+  switchOptions: SwitchOption[] = [
+    { value: true, labelColor: SwitchColor.Success, backgroundColor: SwitchColor.Success ,label: 'on-label' },
+    { value: false, label: 'off-label' },
+  ];
 
   constructor(
     @Inject(NativeWindowService) protected _window: NativeWindowRef,

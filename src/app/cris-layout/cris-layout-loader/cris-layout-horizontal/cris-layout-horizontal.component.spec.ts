@@ -8,10 +8,13 @@ import {
   Router,
 } from '@angular/router';
 
+import { ContextMenuComponent } from '../../../shared/context-menu/context-menu.component';
 import { MockActivatedRoute } from '../../../shared/mocks/active-router.mock';
 import { RouterMock } from '../../../shared/mocks/router.mock';
 import { loaderTabs } from '../../../shared/testing/layout-tab.mocks';
+import { CrisLayoutMatrixComponent } from '../../cris-layout-matrix/cris-layout-matrix.component';
 import { CrisLayoutHorizontalComponent } from './cris-layout-horizontal.component';
+import { CrisLayoutNavbarComponent } from './cris-layout-navbar/cris-layout-navbar.component';
 
 describe('CrisLayoutHorizontalComponent', () => {
   let component: CrisLayoutHorizontalComponent;
@@ -19,13 +22,13 @@ describe('CrisLayoutHorizontalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CrisLayoutHorizontalComponent],
+      imports: [CrisLayoutHorizontalComponent],
       providers: [
         { provide: Router, useValue: new RouterMock() },
         { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
       ],
     })
-      .compileComponents();
+      .overrideComponent(CrisLayoutHorizontalComponent, { remove: { imports: [CrisLayoutNavbarComponent, ContextMenuComponent, CrisLayoutMatrixComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

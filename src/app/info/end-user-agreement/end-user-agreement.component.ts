@@ -1,14 +1,19 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   combineLatest,
   of as observableOf,
@@ -29,11 +34,14 @@ import { AuthService } from '../../core/auth/auth.service';
 import { EndUserAgreementService } from '../../core/end-user-agreement/end-user-agreement.service';
 import { isNotEmpty } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { EndUserAgreementContentComponent } from './end-user-agreement-content/end-user-agreement-content.component';
 
 @Component({
-  selector: 'ds-end-user-agreement',
+  selector: 'ds-base-end-user-agreement',
   templateUrl: './end-user-agreement.component.html',
   styleUrls: ['./end-user-agreement.component.scss'],
+  standalone: true,
+  imports: [EndUserAgreementContentComponent, FormsModule, TranslateModule, NgIf],
 })
 /**
  * Component displaying the End User Agreement and an option to accept it

@@ -1,4 +1,10 @@
 import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+  NgTemplateOutlet,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
@@ -7,11 +13,16 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import {
+  FormsModule,
+  UntypedFormGroup,
+} from '@angular/forms';
 import {
   NgbModal,
   NgbModalRef,
+  NgbTooltipModule,
   NgbTypeahead,
+  NgbTypeaheadModule,
   NgbTypeaheadSelectItemEvent,
 } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -19,6 +30,7 @@ import {
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   of as observableOf,
@@ -55,6 +67,8 @@ import {
   isNotEmpty,
   isNotNull,
 } from '../../../../../empty.util';
+import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
+import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
 import { VocabularyTreeviewModalComponent } from '../../../../vocabulary-treeview-modal/vocabulary-treeview-modal.component';
 import { FormBuilderService } from '../../../form-builder.service';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
@@ -69,6 +83,19 @@ import { DynamicOneboxModel } from './dynamic-onebox.model';
   selector: 'ds-dynamic-onebox',
   styleUrls: ['./dynamic-onebox.component.scss'],
   templateUrl: './dynamic-onebox.component.html',
+  imports: [
+    NgbTypeaheadModule,
+    NgIf,
+    AsyncPipe,
+    AuthorityConfidenceStateDirective,
+    NgTemplateOutlet,
+    TranslateModule,
+    ObjNgFor,
+    NgForOf,
+    FormsModule,
+    NgbTooltipModule,
+  ],
+  standalone: true,
 })
 export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent implements OnInit {
 
@@ -355,7 +382,7 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
       this.previousValue = result;
       this.cdr.detectChanges();
     }
-    if (hasValue(this.currentValue.otherInformation)) {
+    if (hasValue(this.currentValue?.otherInformation)) {
       const infoKeys = Object.keys(this.currentValue.otherInformation);
       this.setMultipleValuesForOtherInfo(infoKeys, this.currentValue);
     }

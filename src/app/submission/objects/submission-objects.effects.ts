@@ -43,6 +43,7 @@ import { WorkspaceitemSectionsObject } from '../../core/submission/models/worksp
 import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
 import { SubmissionObjectDataService } from '../../core/submission/submission-object-data.service';
 import { SubmissionScopeType } from '../../core/submission/submission-scope-type';
+import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
 import {
   isEmpty,
   isNotEmpty,
@@ -377,6 +378,7 @@ export class SubmissionObjectEffects {
   depositSubmissionSuccess$ = createEffect(() => this.actions$.pipe(
     ofType(SubmissionObjectActionTypes.DEPOSIT_SUBMISSION_SUCCESS),
     tap(() => this.notificationsService.success(null, this.translate.get('submission.sections.general.deposit_success_notice'))),
+    tap((action: DepositSubmissionSuccessAction) => this.workspaceItemDataService.invalidateById(action.payload.submissionId)),
     tap(() => this.submissionService.redirectToMyDSpace())), { dispatch: false });
 
   /**
@@ -445,14 +447,17 @@ export class SubmissionObjectEffects {
     ofType(SubmissionObjectActionTypes.DISCARD_SUBMISSION_ERROR),
     tap(() => this.notificationsService.error(null, this.translate.get('submission.sections.general.discard_error_notice')))), { dispatch: false });
 
-  constructor(private actions$: Actions,
+  constructor(
+    private actions$: Actions,
     private notificationsService: NotificationsService,
     private operationsService: SubmissionJsonPatchOperationsService,
     private sectionService: SectionsService,
     private store$: Store<any>,
     private submissionService: SubmissionService,
     private submissionObjectService: SubmissionObjectDataService,
-    private translate: TranslateService) {
+    private translate: TranslateService,
+    private workspaceItemDataService: WorkspaceitemDataService,
+  ) {
   }
 
   /**
@@ -652,7 +657,7 @@ function getForm(forms, currentState, sectionId) {
  *  Whether notifications are enabled
  */
 function filterErrors(sectionForm: FormState, sectionErrors: SubmissionSectionError[], sectionType: string, notify: boolean): SubmissionSectionError[] {
-  if (notify || sectionType !== SectionsType.SubmissionForm) {
+  if (notify || sectionType !== SectionsType.SubmissionForm.valueOf()) {
     return sectionErrors;
   }
   if (!sectionForm || !sectionForm.touched) {

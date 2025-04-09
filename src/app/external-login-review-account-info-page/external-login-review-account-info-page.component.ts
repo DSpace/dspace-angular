@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnInit,
 } from '@angular/core';
@@ -12,12 +16,21 @@ import {
 
 import { RemoteData } from '../core/data/remote-data';
 import { Registration } from '../core/shared/registration.model';
+import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';
 import { hasNoValue } from '../shared/empty.util';
+import { ReviewAccountInfoComponent } from './review-account-info/review-account-info.component';
 
 @Component({
   templateUrl: './external-login-review-account-info-page.component.html',
   styleUrls: ['./external-login-review-account-info-page.component.scss'],
+  standalone: true,
+  imports: [
+    ReviewAccountInfoComponent,
+    AlertComponent,
+    AsyncPipe,
+    NgIf,
+  ],
 })
 export class ExternalLoginReviewAccountInfoPageComponent implements OnInit {
   /**

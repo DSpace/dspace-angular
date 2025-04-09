@@ -20,7 +20,7 @@ import { RestRequest } from './rest-request.model';
  *
  * When all endpoints are properly typed, it can be removed.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class EndpointMapResponseParsingService extends DspaceRestResponseParsingService {
 
   /**

@@ -32,7 +32,6 @@ describe('ConfirmationSentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ConfirmationSentComponent ],
       providers: [
         { provide: TranslateService, useValue: translateServiceStub },
       ],
@@ -44,6 +43,7 @@ describe('ConfirmationSentComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        ConfirmationSentComponent,
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })

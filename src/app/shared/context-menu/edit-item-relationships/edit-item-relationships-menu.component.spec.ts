@@ -177,7 +177,6 @@ describe('EditItemRelationshipsMenuComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      declarations: [EditItemRelationshipsMenuComponent],
       imports: [
         TranslateModule.forRoot({
           loader: {
@@ -185,7 +184,9 @@ describe('EditItemRelationshipsMenuComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
-        RouterTestingModule.withRoutes([])],
+        RouterTestingModule.withRoutes([]),
+        EditItemRelationshipsMenuComponent,
+      ],
       providers: [
         { provide: EditItemDataService, useValue: editItemDataService },
         { provide: 'contextMenuObjectProvider', useValue: dso },

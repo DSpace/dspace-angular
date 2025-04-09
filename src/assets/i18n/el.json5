@@ -8424,6 +8424,10 @@
   // "resource-policies.form.name.label": "Name",
   "resource-policies.form.name.label": "Ονομα",
 
+  //"resource-policies.form.name.hint": "Max 30 characters",
+  // TODO New key - Add a translation
+  "resource-policies.form.name.hint": "Max 30 characters",
+
   // "resource-policies.form.policy-type.label": "Select the policy type",
   "resource-policies.form.policy-type.label": "Επιλέξτε τον τύπο πολιτικής",
 
@@ -9964,7 +9968,7 @@
   // "submission.import-external.source.cinii": "CiNii",
   "submission.import-external.source.cinii": "CiNii",
 
-  // "submission.import-external.source.crossref": "CrossRef",
+  // "submission.import-external.source.crossref": "Crossref",
   "submission.import-external.source.crossref": "CrossRef",
 
   // "submission.import-external.source.datacite": "DataCite",

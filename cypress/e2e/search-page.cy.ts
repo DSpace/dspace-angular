@@ -46,11 +46,11 @@ describe('Search Page', () => {
     // Analyze <ds-search-page> for accessibility issues
     /*        testA11y('ds-search-page',
             {
-                rules: {
-                    // Card titles fail this test currently
-                    'heading-order': { enabled: false }
-                }
-            } as Options
-        );*/
+              rules: {
+                // Card titles fail this test currently
+                'heading-order': { enabled: false },
+              },
+            } as Options,
+    );*/
   });
 });

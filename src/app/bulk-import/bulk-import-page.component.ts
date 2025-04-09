@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnDestroy,
   OnInit,
@@ -7,12 +11,16 @@ import {
   FormBuilder,
   FormControl,
   FormGroup,
+  ReactiveFormsModule,
 } from '@angular/forms';
 import {
   ActivatedRoute,
   Router,
 } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Observable,
@@ -35,6 +43,7 @@ import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { Process } from '../process-page/processes/process.model';
 import { ProcessParameter } from '../process-page/processes/process-parameter.model';
 import { NotificationsService } from '../shared/notifications/notifications.service';
+import { FileValidator } from '../shared/utils/require-file.validator';
 
 /**
  * Page to perform an items bulk imports into the given collection.
@@ -42,6 +51,14 @@ import { NotificationsService } from '../shared/notifications/notifications.serv
 @Component({
   selector: 'ds-bulk-import-page',
   templateUrl: './bulk-import-page.component.html',
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    TranslateModule,
+    FileValidator,
+    AsyncPipe,
+    NgIf,
+  ],
 })
 export class BulkImportPageComponent implements OnInit, OnDestroy {
 
@@ -109,7 +126,7 @@ export class BulkImportPageComponent implements OnInit, OnDestroy {
     ];
 
     if (values.abortOnError) {
-      stringParameters.push( { name: '-e', value: values.abortOnError } );
+      stringParameters.push( { name: '-er', value: values.abortOnError } );
     }
 
     this.scriptService.invoke('bulk-import', stringParameters, [file])

@@ -62,7 +62,6 @@ describe('ExportCollectionMenuComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      declarations: [ ExportCollectionMenuComponent ],
       imports: [
         TranslateModule.forRoot({
           loader: {
@@ -70,6 +69,7 @@ describe('ExportCollectionMenuComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        ExportCollectionMenuComponent,
       ],
       providers: [
         { provide: 'contextMenuObjectProvider', useValue: dso },

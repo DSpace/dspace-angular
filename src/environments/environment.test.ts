@@ -9,14 +9,14 @@ import { AdvancedAttachmentElementType } from '../config/advanced-attachment-ren
 export const environment: BuildConfig = {
   production: false,
 
-  // Angular Universal settings
-  universal: {
-    preboot: true,
-    async: true,
-    time: false,
+  // Angular SSR (Server Side Rendering) settings
+  ssr: {
+    enabled: true,
+    enablePerformanceProfiler: false,
+    inlineCriticalCss: false,
   },
 
-  // Angular Universal server settings.
+  // Angular express server settings.
   ui: {
     ssl: false,
     host: 'dspace.com',
@@ -256,8 +256,12 @@ export const environment: BuildConfig = {
     fiveYearLimit: 30,
     // The absolute lowest year to display in the dropdown (only used when no lowest date can be found for all items)
     defaultLowerLimit: 1900,
+    // Whether to add item badges to BOTH browse and search result lists.
+    showLabels: true,
     // Whether to add item thumbnail images to BOTH browse and search result lists.
     showThumbnails: true,
+    // Whether to add item thumbnail images to BOTH browse and search result lists.
+    showMetrics: false,
     // The number of entries in a paginated browse results list.
     // Rounded to the nearest size in the list of selectable sizes on the
     // settings menu.  See pageSizeOptions in 'pagination-component-options.model.ts'.
@@ -283,6 +287,8 @@ export const environment: BuildConfig = {
       metadata: ['dc.contributor.author'],
     },
   ],
+  followAuthorityMaxItemLimit: 100,
+  followAuthorityMetadataValuesLimit: 5,
   item: {
     edit: {
       undoTimeout: 10000, // 10 seconds
@@ -349,6 +355,7 @@ export const environment: BuildConfig = {
   info: {
     enableEndUserAgreement: true,
     enablePrivacyStatement: true,
+    enableCOARNotifySupport: true,
     //Configuration for third-party metrics in Klaro
     metricsConsents: [
       {
@@ -479,6 +486,11 @@ export const environment: BuildConfig = {
         baseUrl: 'https://doi.org/',
       },
       {
+        name: 'keepMyWhiteSpaces',
+        baseUrl: 'https://keepmywhitespaces.com/',
+        shouldKeepWhiteSpaces: true,
+      },
+      {
         name: 'hdl',
         baseUrl: 'https://hdl.handle.net/',
       },
@@ -553,9 +565,6 @@ export const environment: BuildConfig = {
     navbar: {
       // If true, show the "Community and Collections" link in the navbar; otherwise, show it in the admin sidebar
       showCommunityCollection: true,
-    },
-    breadcrumbs: {
-      charLimit: 10,
     },
   },
   security: {

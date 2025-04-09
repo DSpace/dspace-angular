@@ -19,6 +19,7 @@ import { WorkflowItem } from '../../../core/submission/models/workflowitem.model
 import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
 import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
 import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
+import { ModifyItemOverviewComponent } from '../../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   createSuccessfulRemoteDataObject,
@@ -40,6 +41,7 @@ import {
   ADVANCED_WORKFLOW_TASK_OPTION_SELECT_REVIEWER,
   AdvancedWorkflowActionSelectReviewerComponent,
 } from './advanced-workflow-action-select-reviewer.component';
+import { ReviewersListComponent } from './reviewers-list/reviewers-list.component';
 
 const claimedTaskId = '2';
 const workflowId = '1';
@@ -68,8 +70,6 @@ describe('AdvancedWorkflowActionSelectReviewerComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         AdvancedWorkflowActionSelectReviewerComponent,
       ],
       providers: [
@@ -99,7 +99,7 @@ describe('AdvancedWorkflowActionSelectReviewerComponent', () => {
         { provide: RequestService, useClass: RequestServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(AdvancedWorkflowActionSelectReviewerComponent, { remove: { imports: [ModifyItemOverviewComponent, ReviewersListComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

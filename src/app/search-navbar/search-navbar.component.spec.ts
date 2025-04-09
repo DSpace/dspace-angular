@@ -13,9 +13,9 @@ import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   NavigationExtras,
+  provideRouter,
   Router,
 } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
 import {
   TranslateLoader,
   TranslateModule,
@@ -23,7 +23,6 @@ import {
 
 import { SearchService } from '../core/shared/search/search.service';
 import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
-import { BrowserOnlyMockPipe } from '../shared/testing/browser-only-mock.pipe';
 import { SearchNavbarComponent } from './search-navbar.component';
 
 describe('SearchNavbarComponent', () => {
@@ -44,18 +43,16 @@ describe('SearchNavbarComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,
-        RouterTestingModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
-        })],
-      declarations: [
+        }),
         SearchNavbarComponent,
-        BrowserOnlyMockPipe,
       ],
       providers: [
+        provideRouter([]),
         { provide: SearchService, useValue: mockSearchService },
       ],
     })

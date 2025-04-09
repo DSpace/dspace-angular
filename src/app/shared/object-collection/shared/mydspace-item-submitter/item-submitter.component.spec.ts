@@ -44,8 +44,8 @@ describe('ItemSubmitterComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        ItemSubmitterComponent,
       ],
-      declarations: [ItemSubmitterComponent],
       providers: [
         { provide: LinkService, useValue: getMockLinkService() },
       ],

@@ -1,8 +1,13 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
   of as observableOf,
@@ -25,6 +30,12 @@ import { getFirstSucceededRemoteListPayload } from '../../../../core/shared/oper
   selector: 'ds-item-correction',
   styleUrls: ['./item-correction.component.scss'],
   templateUrl: './item-correction.component.html',
+  imports: [
+    NgIf,
+    AsyncPipe,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 export class ItemCorrectionComponent implements OnInit {
 

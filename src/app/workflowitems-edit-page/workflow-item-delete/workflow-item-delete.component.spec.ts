@@ -19,6 +19,7 @@ import { RequestService } from '../../core/data/request.service';
 import { RouteService } from '../../core/services/route.service';
 import { WorkflowItem } from '../../core/submission/models/workflowitem.model';
 import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
+import { ModifyItemOverviewComponent } from '../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -59,8 +60,7 @@ describe('WorkflowItemDeleteComponent', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      })],
-      declarations: [WorkflowItemDeleteComponent, VarDirective],
+      }), WorkflowItemDeleteComponent, VarDirective],
       providers: [
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub({}, { wfi: createSuccessfulRemoteDataObject(wfi) }) },
         { provide: Router, useClass: RouterStub },
@@ -72,7 +72,7 @@ describe('WorkflowItemDeleteComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .compileComponents();
+      .overrideComponent(WorkflowItemDeleteComponent, { remove: { imports: [ModifyItemOverviewComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

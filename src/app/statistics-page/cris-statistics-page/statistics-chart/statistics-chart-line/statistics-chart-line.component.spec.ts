@@ -9,6 +9,7 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
@@ -191,8 +192,7 @@ describe('StatisticsChartLineComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [StatisticsChartLineComponent],
+      imports: [TranslateModule.forRoot(), StatisticsChartLineComponent, NoopAnimationsModule],
       providers: [
         { provide: REPORT_DATA, useValue: selectedReport },
         { provide: BrowserExportService, useValue: ExportServiceStub },

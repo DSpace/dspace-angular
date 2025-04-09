@@ -1,4 +1,8 @@
 import {
+  NgComponentOutlet,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   Component,
   Injector,
@@ -10,23 +14,40 @@ import {
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { AuthMethodType } from '../../core/auth/models/auth.method-type';
 import { AuthRegistrationType } from '../../core/auth/models/auth.registration-type';
 import { Registration } from '../../core/shared/registration.model';
+import { AlertComponent } from '../../shared/alert/alert.component';
 import {
   hasValue,
   isEmpty,
 } from '../../shared/empty.util';
+import { ThemedLogInComponent } from '../../shared/log-in/themed-log-in.component';
 import { getExternalLoginConfirmationType } from '../decorators/external-log-in.methods-decorator';
+import { ConfirmEmailComponent } from '../email-confirmation/confirm-email/confirm-email.component';
+import { ProvideEmailComponent } from '../email-confirmation/provide-email/provide-email.component';
 
 @Component({
   selector: 'ds-external-log-in',
   templateUrl: './external-log-in.component.html',
   styleUrls: ['./external-log-in.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    TranslateModule,
+    NgComponentOutlet,
+    AlertComponent,
+    NgIf,
+    ThemedLogInComponent,
+    ConfirmEmailComponent,
+    ProvideEmailComponent,
+  ],
 })
 export class ExternalLogInComponent implements OnInit, OnDestroy {
 

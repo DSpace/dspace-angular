@@ -33,6 +33,7 @@ import {
 } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { APP_DATA_SERVICES_MAP } from '../../../../../../../../config/app-config.interface';
 import { storeModuleConfig } from '../../../../../../../app.reducer';
 import { FormRowModel } from '../../../../../../../core/config/models/config-submission-form.model';
 import { SubmissionFormsModel } from '../../../../../../../core/config/models/config-submission-forms.model';
@@ -195,8 +196,6 @@ describe('DsDynamicRelationGroupModelComponent test suite', () => {
         NgbModule,
         StoreModule.forRoot({}, storeModuleConfig),
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         FormComponent,
         DsDynamicRelationGroupModalComponent,
       ], // declare the test component
@@ -212,6 +211,7 @@ describe('DsDynamicRelationGroupModelComponent test suite', () => {
         { provide: Store, useClass: StoreMock },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: NgbActiveModal, useValue: modal },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });

@@ -49,8 +49,6 @@ xdescribe('ChartComponent', () => {
       imports: [
         BrowserAnimationsModule,
         NgxChartsModule,
-      ],
-      declarations: [
         ChartComponent,
         BarChartComponent,
         LineChartComponent,
@@ -63,23 +61,15 @@ xdescribe('ChartComponent', () => {
         { provide: 'legend', useValue: legend },
         { provide: 'legendTitle', useValue: legendTitle },
         { provide: 'legendPosition', userValue: legendPosition },
-        { provide: 'select', useValue:  select },
-        { provide: 'enableScrollToLeft', useValue:  enableScrollToLeft },
-        { provide: 'enableScrollToRight', useValue:  enableScrollToRight },
-        { provide: 'showMore', useValue:  loadMore },
-        { provide: 'isLastPage', useValue:  isLastPage },
-        { provide: 'currentPage', useValue:  currentPage },
-        { provide: 'type', useValue:  type },
+        { provide: 'select', useValue: select },
+        { provide: 'enableScrollToLeft', useValue: enableScrollToLeft },
+        { provide: 'enableScrollToRight', useValue: enableScrollToRight },
+        { provide: 'showMore', useValue: loadMore },
+        { provide: 'isLastPage', useValue: isLastPage },
+        { provide: 'currentPage', useValue: currentPage },
+        { provide: 'type', useValue: type },
       ],
-    }).overrideComponent(ChartComponent, {
-      set: {
-        entryComponents: [
-          BarChartComponent,
-          LineChartComponent,
-          PieChartComponent,
-        ],
-      },
-    })
+    }).overrideComponent(ChartComponent, {})
       .compileComponents();
   }));
 

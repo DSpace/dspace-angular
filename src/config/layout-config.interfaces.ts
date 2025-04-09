@@ -3,6 +3,7 @@ import { Config } from './config.interface';
 export interface UrnConfig extends Config {
   name: string;
   baseUrl: string;
+  shouldKeepWhiteSpaces?: boolean;
 }
 
 export interface CrisRefEntityStyleConfig extends Config {
@@ -38,10 +39,6 @@ export interface NavbarConfig extends Config {
   showCommunityCollection: boolean;
 }
 
-export interface BreadcrumbsConfig extends Config {
-  charLimit: number;
-}
-
 export interface CrisItemPageConfig extends Config {
   [entity: string]: CrisLayoutTypeConfig;
   default: CrisLayoutTypeConfig;
@@ -63,7 +60,6 @@ export interface CrisLayoutConfig extends Config {
 
 export interface LayoutConfig extends Config {
   navbar: NavbarConfig;
-  breadcrumbs: BreadcrumbsConfig;
 }
 
 export interface SuggestionConfig extends Config {

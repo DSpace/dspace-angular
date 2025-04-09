@@ -1,9 +1,14 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { RouterLink } from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   BehaviorSubject,
   Subscription,
@@ -13,11 +18,15 @@ import { SiteDataService } from '../../../core/data/site-data.service';
 import { LocaleService } from '../../../core/locale/locale.service';
 import { MetadatumViewModel } from '../../../core/shared/metadata.models';
 import { isNotEmpty } from '../../../shared/empty.util';
+import { MarkdownViewerComponent } from '../../../shared/markdown-viewer/markdown-viewer.component';
+
 
 @Component({
   selector: 'ds-end-user-agreement-content',
   templateUrl: './end-user-agreement-content.component.html',
   styleUrls: ['./end-user-agreement-content.component.scss'],
+  standalone: true,
+  imports: [RouterLink, TranslateModule, AsyncPipe, MarkdownViewerComponent],
 })
 /**
  * Component displaying the contents of the End User Agreement

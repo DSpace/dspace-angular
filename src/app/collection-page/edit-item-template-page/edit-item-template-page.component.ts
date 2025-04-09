@@ -1,8 +1,16 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   OnInit,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRoute,
+  RouterLink,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import {
   first,
@@ -16,12 +24,27 @@ import { RemoteData } from '../../core/data/remote-data';
 import { Collection } from '../../core/shared/collection.model';
 import { Item } from '../../core/shared/item.model';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
+import { ThemedDsoEditMetadataComponent } from '../../dso-shared/dso-edit-metadata/themed-dso-edit-metadata.component';
+import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { VarDirective } from '../../shared/utils/var.directive';
 import { getCollectionEditRoute } from '../collection-page-routing-paths';
 
 @Component({
-  selector: 'ds-edit-item-template-page',
+  selector: 'ds-base-edit-item-template-page',
   templateUrl: './edit-item-template-page.component.html',
+  imports: [
+    ThemedDsoEditMetadataComponent,
+    RouterLink,
+    AsyncPipe,
+    VarDirective,
+    NgIf,
+    TranslateModule,
+    ThemedLoadingComponent,
+    AlertComponent,
+  ],
+  standalone: true,
 })
 /**
  * Component for editing the item template of a collection

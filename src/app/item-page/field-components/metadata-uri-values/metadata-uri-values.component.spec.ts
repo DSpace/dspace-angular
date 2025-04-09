@@ -46,11 +46,10 @@ describe('MetadataUriValuesComponent', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      })],
+      }), MetadataUriValuesComponent],
       providers: [
         { provide: APP_CONFIG, useValue: environment },
       ],
-      declarations: [MetadataUriValuesComponent],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(MetadataUriValuesComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },
@@ -83,6 +82,13 @@ describe('MetadataUriValuesComponent', () => {
   it('should contain separators equal to the amount of metadata values minus one', () => {
     const separators = fixture.debugElement.queryAll(By.css('a span'));
     expect(separators.length).toBe(mockMetadata.length - 1);
+  });
+
+  it('should contain the correct target attribute for metadata links', () => {
+    const links = fixture.debugElement.queryAll(By.css('a'));
+    for (const link of links) {
+      expect(link.nativeElement.getAttribute('target')).toBe('_blank');
+    }
   });
 
   describe('when linktext is defined', () => {

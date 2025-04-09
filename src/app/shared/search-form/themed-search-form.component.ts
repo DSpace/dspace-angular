@@ -12,9 +12,11 @@ import { SearchFormComponent } from './search-form.component';
  * Themed wrapper for {@link SearchFormComponent}
  */
 @Component({
-  selector: 'ds-themed-search-form',
+  selector: 'ds-search-form',
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
+  standalone: true,
+  imports: [SearchFormComponent],
 })
 export class ThemedSearchFormComponent extends ThemedComponent<SearchFormComponent> {
 
@@ -36,6 +38,8 @@ export class ThemedSearchFormComponent extends ThemedComponent<SearchFormCompone
 
   @Input() showScopeSelector: boolean;
 
+  @Input() configuration: string;
+
   @Output() submitSearch: EventEmitter<any> = new EventEmitter();
 
   protected inAndOutputNames: (keyof SearchFormComponent & keyof this)[] = [
@@ -49,6 +53,7 @@ export class ThemedSearchFormComponent extends ThemedComponent<SearchFormCompone
     'searchPlaceholder',
     'showScopeSelector',
     'submitSearch',
+    'configuration',
   ];
 
   protected getComponentName(): string {

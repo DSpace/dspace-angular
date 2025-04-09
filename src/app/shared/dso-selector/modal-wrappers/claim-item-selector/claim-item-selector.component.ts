@@ -1,4 +1,8 @@
 import {
+  AsyncPipe,
+  NgForOf,
+} from '@angular/common';
+import {
   Component,
   EventEmitter,
   Input,
@@ -10,6 +14,7 @@ import {
   Router,
 } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
@@ -21,6 +26,7 @@ import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { getItemPageRoute } from '../../../../item-page/item-page-routing-paths';
 import { ProfileClaimService } from '../../../../profile-page/profile-claim/profile-claim.service';
 import { CollectionElementLinkType } from '../../../object-collection/collection-element-link.type';
+import { ListableObjectComponentLoaderComponent } from '../../../object-collection/shared/listable-object/listable-object-component-loader.component';
 import { SearchResult } from '../../../search/models/search-result.model';
 import { DSOSelectorModalWrapperComponent } from '../dso-selector-modal-wrapper.component';
 
@@ -29,6 +35,13 @@ import { DSOSelectorModalWrapperComponent } from '../dso-selector-modal-wrapper.
 @Component({
   selector: 'ds-claim-item-selector',
   templateUrl: './claim-item-selector.component.html',
+  imports: [
+    ListableObjectComponentLoaderComponent,
+    NgForOf,
+    TranslateModule,
+    AsyncPipe,
+  ],
+  standalone: true,
 })
 export class ClaimItemSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
 

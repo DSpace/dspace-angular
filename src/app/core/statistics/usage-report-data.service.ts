@@ -4,8 +4,8 @@ import { map } from 'rxjs/operators';
 
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { dataService } from '../data/base/data-service.decorator';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import {
   SearchData,
@@ -21,13 +21,11 @@ import {
   getRemoteDataPayload,
 } from '../shared/operators';
 import { UsageReport } from './models/usage-report.model';
-import { USAGE_REPORT } from './models/usage-report.resource-type';
 
 /**
  * A service to retrieve {@link UsageReport}s from the REST API
  */
-@Injectable()
-@dataService(USAGE_REPORT)
+@Injectable({ providedIn: 'root' })
 export class UsageReportDataService extends IdentifiableDataService<UsageReport> implements SearchData<UsageReport> {
   private searchData: SearchDataImpl<UsageReport>;
 
@@ -51,27 +49,20 @@ export class UsageReportDataService extends IdentifiableDataService<UsageReport>
 
   searchStatistics(uri: string, page: number, size: number, categoryId?: string, startDate?: string, endDate?: string): Observable<UsageReport[]> {
     const params = [
-      {
-        fieldName: `uri`,
-        fieldValue: uri,
-      },{
-        fieldName: `category`,
-        fieldValue: categoryId,
-      },
+      new RequestParam('uri', uri),
+      new RequestParam('category', categoryId),
     ];
 
     if (startDate !== undefined) {
-      params.push({
-        fieldName: `startDate`,
-        fieldValue: startDate,
-      });
+      params.push(
+        new RequestParam('startDate', startDate),
+      );
     }
 
     if (endDate !== undefined) {
-      params.push({
-        fieldName: `endDate`,
-        fieldValue: endDate,
-      });
+      params.push(
+        new RequestParam('endDate', endDate),
+      );
     }
 
     return this.searchBy('object', {

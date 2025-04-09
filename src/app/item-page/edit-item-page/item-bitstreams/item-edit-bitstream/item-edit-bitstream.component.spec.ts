@@ -5,6 +5,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
@@ -16,7 +17,7 @@ import { BitstreamFormat } from '../../../../core/shared/bitstream-format.model'
 import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
-import { BrowserOnlyMockPipe } from '../../../../shared/testing/browser-only-mock.pipe';
+import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
 import { VarDirective } from '../../../../shared/utils/var.directive';
 import { ItemEditBitstreamComponent } from './item-edit-bitstream.component';
 
@@ -79,16 +80,14 @@ describe('ItemEditBitstreamComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot(),
-      ],
-      declarations: [
+        RouterTestingModule.withRoutes([]),
         ItemEditBitstreamComponent,
         VarDirective,
-        BrowserOnlyMockPipe,
       ],
       providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ], schemas: [
         NO_ERRORS_SCHEMA,
       ],

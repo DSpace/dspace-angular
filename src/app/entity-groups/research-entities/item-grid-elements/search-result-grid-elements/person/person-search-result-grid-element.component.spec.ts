@@ -14,6 +14,7 @@ import {
   bitstreamWithoutThumbnail,
   mockThumbnail,
 } from '../../../../../shared/mocks/bitstreams.mock';
+import { ThemedBadgesComponent } from '../../../../../shared/object-collection/shared/badges/themed-badges.component';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import {
   getEntityGridElementTestComponent,
@@ -23,6 +24,9 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../../../../shared/remote-data.utils';
+import { TruncatableComponent } from '../../../../../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
+import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
 import { PersonSearchResultGridElementComponent } from './person-search-result-grid-element.component';
 
 const mockItemWithMetadata: ItemSearchResult = new ItemSearchResult();
@@ -100,7 +104,17 @@ describe('PersonSearchResultGridElementComponent check different maxSize of thum
 
   // waitForAsync beforeEach
   beforeEach(waitForAsync(() => {
-    return TestBed.configureTestingModule(getGridElementTestBet(PersonSearchResultGridElementComponent));
+    return TestBed.configureTestingModule(getGridElementTestBet(PersonSearchResultGridElementComponent))
+      .overrideComponent(PersonSearchResultGridElementComponent, {
+        remove: {
+          imports: [
+            ThemedThumbnailComponent,
+            ThemedBadgesComponent,
+            TruncatableComponent,
+            TruncatablePartComponent,
+          ],
+        },
+      });
   }));
 
   beforeEach(() => {
@@ -123,7 +137,7 @@ describe('PersonSearchResultGridElementComponent check different maxSize of thum
     });
 
     it('should show bitstream content image src', () => {
-      const thum = fixture.debugElement.query(By.css('ds-themed-thumbnail'));
+      const thum = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thum.nativeElement.thumbnail.id).toEqual('bitstream1');
     });
 
@@ -138,7 +152,7 @@ describe('PersonSearchResultGridElementComponent check different maxSize of thum
     });
 
     it('should not show bitstream content image src', () => {
-      const thum = fixture.debugElement.query(By.css('ds-themed-thumbnail'));
+      const thum = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thum.nativeElement.thumbnail).toBeFalsy();
     });
 
@@ -154,7 +168,7 @@ describe('PersonSearchResultGridElementComponent check different maxSize of thum
     });
 
     it('should show thumbnail content image src', () => {
-      const thum = fixture.debugElement.query(By.css('ds-themed-thumbnail'));
+      const thum = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thum.nativeElement.thumbnail.id).toEqual('thumbnail1');
     });
 
@@ -170,7 +184,7 @@ describe('PersonSearchResultGridElementComponent check different maxSize of thum
     });
 
     it('should not show thumbnail content image src', () => {
-      const thum = fixture.debugElement.query(By.css('ds-themed-thumbnail'));
+      const thum = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thum.nativeElement.thumbnail).toBeFalsy();
     });
 

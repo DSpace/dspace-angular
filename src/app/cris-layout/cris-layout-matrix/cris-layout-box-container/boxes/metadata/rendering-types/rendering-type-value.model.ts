@@ -16,6 +16,7 @@ import { RenderingTypeModelComponent } from './rendering-type.model';
  */
 @Component({
   template: '',
+  standalone: true,
 })
 export abstract class RenderingTypeValueModelComponent extends RenderingTypeModelComponent {
 

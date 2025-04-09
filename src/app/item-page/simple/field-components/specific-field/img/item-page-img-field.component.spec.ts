@@ -19,7 +19,7 @@ import { BrowseDefinitionDataServiceStub } from '../../../../../shared/testing/b
 import { TranslateLoaderMock } from '../../../../../shared/testing/translate-loader.mock';
 import { MetadataValuesComponent } from '../../../../field-components/metadata-values/metadata-values.component';
 import { GenericItemPageFieldComponent } from '../generic/generic-item-page-field.component';
-import { ImageField } from '../item-page-field.component';
+import { ImageField } from '../image-field';
 import { mockItemWithMetadataFieldsAndValue } from '../item-page-field.component.spec';
 import { ItemPageImgFieldComponent } from './item-page-img-field.component';
 
@@ -45,12 +45,11 @@ describe('ItemPageImgFieldComponent', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      })],
+      }), GenericItemPageFieldComponent, MetadataValuesComponent, ItemPageImgFieldComponent],
       providers: [
         { provide: APP_CONFIG, useValue: environment },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
       ],
-      declarations: [ItemPageImgFieldComponent, GenericItemPageFieldComponent, MetadataValuesComponent],
       schemas: [NO_ERRORS_SCHEMA],
     })
       .overrideComponent(GenericItemPageFieldComponent, {

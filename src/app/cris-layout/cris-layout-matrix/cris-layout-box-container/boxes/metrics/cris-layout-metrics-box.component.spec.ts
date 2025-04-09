@@ -24,7 +24,6 @@ import { CrisLayoutMetricRow } from '../../../../../core/layout/models/tab.model
 import { Metric } from '../../../../../core/shared/metric.model';
 import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject } from '../../../../../shared/remote-data.utils';
-import { SharedModule } from '../../../../../shared/shared.module';
 import { boxMetrics } from '../../../../../shared/testing/box.mock';
 import { metricsComponent } from '../../../../../shared/testing/metrics-components.mock';
 import { CrisLayoutLoaderDirective } from '../../../../directives/cris-layout-loader.directive';
@@ -101,25 +100,17 @@ describe('CrisLayoutMetricsBoxComponent', () => {
           useClass: TranslateLoaderMock,
         },
       }),
-      BrowserAnimationsModule,
-      SharedModule],
+      BrowserAnimationsModule, CrisLayoutMetricsBoxComponent,
+      CrisLayoutLoaderDirective,
+      TextComponent],
       providers: [
         { provide: MetricsComponentsService, useClass: MetricsComponentsDataServiceMock },
         { provide: ItemDataService, useValue: itemDataService },
         { provide: 'boxProvider', useClass: boxMetrics },
         { provide: 'itemProvider', useClass: { metrics: [metric1Mock, metric2Mock] } },
       ],
-      declarations: [
-        CrisLayoutMetricsBoxComponent,
-        CrisLayoutLoaderDirective,
-        TextComponent,
-      ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).overrideComponent(CrisLayoutMetricsBoxComponent, {
-      set: {
-        entryComponents: [TextComponent],
-      },
-    }).compileComponents();
+    }).overrideComponent(CrisLayoutMetricsBoxComponent, {}).compileComponents();
   }));
 
   beforeEach(() => {

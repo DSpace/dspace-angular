@@ -8,6 +8,7 @@ import { By } from '@angular/platform-browser';
 import { LocaleService } from '../../../../core/locale/locale.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { Site } from '../../../../core/shared/site.model';
+import { MarkdownViewerComponent } from '../../../markdown-viewer/markdown-viewer.component';
 import { TextSectionComponent } from './text-section.component';
 
 describe('TextSectionComponent', () => {
@@ -22,13 +23,13 @@ describe('TextSectionComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ TextSectionComponent ],
+      imports: [TextSectionComponent],
       providers: [
         { provide: SearchService, useValue: {} },
         { provide: LocaleService, useValue: localeServiceStub },
       ],
     })
-      .compileComponents();
+      .overrideComponent(TextSectionComponent, { remove: { imports: [MarkdownViewerComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

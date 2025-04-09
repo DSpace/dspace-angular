@@ -1,4 +1,9 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
@@ -11,6 +16,7 @@ import {
   AbstractControl,
   FormArray,
   FormControl,
+  ReactiveFormsModule,
   UntypedFormArray,
   UntypedFormControl,
   UntypedFormGroup,
@@ -23,7 +29,9 @@ import {
   DynamicFormControlModel,
   DynamicFormGroupModel,
   DynamicFormLayout,
+  DynamicFormsCoreModule,
 } from '@ng-dynamic-forms/core';
+import { TranslateModule } from '@ngx-translate/core';
 import cloneDeep from 'lodash/cloneDeep';
 import findIndex from 'lodash/findIndex';
 import isEqual from 'lodash/isEqual';
@@ -43,6 +51,7 @@ import {
   isNotNull,
   isNull,
 } from '../empty.util';
+import { DsDynamicFormComponent } from './builder/ds-dynamic-form-ui/ds-dynamic-form.component';
 import { DynamicConcatModel } from './builder/ds-dynamic-form-ui/models/ds-dynamic-concat.model';
 import { DynamicLinkModel } from './builder/ds-dynamic-form-ui/models/ds-dynamic-link.model';
 import { DynamicRowGroupModel } from './builder/ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
@@ -68,6 +77,16 @@ export interface MetadataFields {
   selector: 'ds-form',
   styleUrls: ['form.component.scss'],
   templateUrl: 'form.component.html',
+  imports: [
+    DsDynamicFormComponent,
+    ReactiveFormsModule,
+    TranslateModule,
+    DynamicFormsCoreModule,
+    NgIf,
+    AsyncPipe,
+    NgClass,
+  ],
+  standalone: true,
 })
 export class FormComponent implements OnDestroy, OnInit {
 

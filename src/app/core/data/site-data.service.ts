@@ -16,8 +16,6 @@ import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { Site } from '../shared/site.model';
-import { SITE } from '../shared/site.resource-type';
-import { dataService } from './base/data-service.decorator';
 import {
   FindAllData,
   FindAllDataImpl,
@@ -36,8 +34,7 @@ import { RequestService } from './request.service';
 /**
  * Service responsible for handling requests related to the Site object
  */
-@Injectable()
-@dataService(SITE)
+@Injectable({ providedIn: 'root' })
 export class SiteDataService extends IdentifiableDataService<Site> implements FindAllData<Site> {
   private findAllData: FindAllData<Site>;
   private patchData: PatchData<Site>;
@@ -57,17 +54,27 @@ export class SiteDataService extends IdentifiableDataService<Site> implements Fi
 
   /**
    * Retrieve the Site Object
+   *
+   * @param options                     Find list options object
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @param linksToFollow               List of {@link FollowLinkConfig} that indicate which
+   *                                    {@link HALLink}s should be automatically resolved
+   * @return {Observable<RemoteData<PaginatedList<T>>>}
+   *    Return an observable that emits object list
    */
-  find(): Observable<Site> {
+  find(options?: FindListOptions, useCachedVersionIfAvailable?: boolean, reRequestOnStale?: boolean, ...linksToFollow: FollowLinkConfig<Site>[]): Observable<Site> {
     const searchParams: RequestParam[] = [new RequestParam('projection', 'allLanguages')];
-    const options = Object.assign(new FindListOptions(), { searchParams });
-    return this.findAll(options).pipe(
+    const findOptions = Object.assign(new FindListOptions(), options, { searchParams });
+    return this.findAll(findOptions, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow).pipe(
       getFirstCompletedRemoteData(),
       switchMap((remoteData: RemoteData<PaginatedList<Site>>) => {
         if (remoteData.hasSucceeded) {
           return of(remoteData.payload.page[0]);
         } else {
-          return this.findAll().pipe(
+          return this.findAll(options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow).pipe(
             getFirstCompletedRemoteData(),
             map((rd: RemoteData<PaginatedList<Site>>) => rd.hasSucceeded ? rd.payload.page[0] : null),
           );

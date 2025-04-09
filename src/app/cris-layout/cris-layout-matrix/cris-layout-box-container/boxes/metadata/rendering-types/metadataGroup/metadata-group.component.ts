@@ -21,6 +21,7 @@ export interface NestedMetadataGroupEntry {
 
 @Component({
   template: '',
+  standalone: true,
 })
 export abstract class MetadataGroupComponent extends RenderingTypeStructuredModelComponent implements OnInit, OnDestroy {
 
@@ -94,7 +95,7 @@ export abstract class MetadataGroupComponent extends RenderingTypeStructuredMode
    * Returns the translated label, if exists, otherwiuse returns a fallback value
    */
   getLabel(field: LayoutField): string {
-    return this.getTranslationIfExists(`${this.fieldI18nPrefix}.${this.item.entityType}.${this.nestedMetadataPrefix}[${field.metadata}]}`) ??
+    return this.getTranslationIfExists(`${this.fieldI18nPrefix}.${this.item.entityType}.${this.nestedMetadataPrefix}[${field.metadata}]`) ??
       this.getTranslationIfExists(`${this.fieldI18nPrefix}.${this.item.entityType}.[${field.metadata}]`) ??
       this.getTranslationIfExists(`${this.fieldI18nPrefix}.${this.item.entityType}.${field.metadata}`) ?? // old syntax - do not use
       this.getTranslationIfExists(`${this.fieldI18nPrefix}.[${field.metadata}]`) ??

@@ -27,10 +27,10 @@ export class UsageReport extends HALResource {
    */
   @excludeFromEquals
   @autoserialize
-    type: ResourceType;
+  type: ResourceType;
 
   @autoserialize
-    id: string;
+  id: string;
 
   @autoserializeAs('view-mode')
     viewMode: StatisticsType;
@@ -39,10 +39,10 @@ export class UsageReport extends HALResource {
     reportType: string;
 
   @autoserialize
-    points: Point[];
+  points: Point[];
 
   @deserialize
-    _links: {
+  _links: {
     category?: HALLink;
     self: HALLink;
   };
@@ -55,7 +55,7 @@ export interface Point {
   id: string;
   label: string;
   type: string;
-  values: any | any[];
+  values: any;
   //  {
   //   views?: number;
   //   downloads?: number;

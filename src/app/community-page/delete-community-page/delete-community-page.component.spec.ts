@@ -15,7 +15,6 @@ import { CommunityDataService } from '../../core/data/community-data.service';
 import { RequestService } from '../../core/data/request.service';
 import { DSONameServiceMock } from '../../shared/mocks/dso-name.service.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { SharedModule } from '../../shared/shared.module';
 import { DeleteCommunityPageComponent } from './delete-community-page.component';
 
 describe('DeleteCommunityPageComponent', () => {
@@ -24,8 +23,7 @@ describe('DeleteCommunityPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), SharedModule, CommonModule, RouterTestingModule],
-      declarations: [DeleteCommunityPageComponent],
+      imports: [TranslateModule.forRoot(), CommonModule, RouterTestingModule, DeleteCommunityPageComponent],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: CommunityDataService, useValue: {} },

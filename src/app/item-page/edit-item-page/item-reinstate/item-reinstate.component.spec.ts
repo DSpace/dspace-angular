@@ -25,6 +25,7 @@ import {
 } from '../../../shared/remote-data.utils';
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
+import { ModifyItemOverviewComponent } from '../modify-item-overview/modify-item-overview.component';
 import { ItemReinstateComponent } from './item-reinstate.component';
 
 let comp: ItemReinstateComponent;
@@ -67,8 +68,7 @@ describe('ItemReinstateComponent', () => {
     notificationsServiceStub = new NotificationsServiceStub();
 
     TestBed.configureTestingModule({
-      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule],
-      declarations: [ItemReinstateComponent],
+      imports: [CommonModule, FormsModule, RouterTestingModule.withRoutes([]), TranslateModule.forRoot(), NgbModule, ItemReinstateComponent],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: Router, useValue: routerStub },
@@ -77,7 +77,7 @@ describe('ItemReinstateComponent', () => {
       ], schemas: [
         CUSTOM_ELEMENTS_SCHEMA,
       ],
-    }).compileComponents();
+    }).overrideComponent(ItemReinstateComponent, { remove: { imports: [ModifyItemOverviewComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -13,6 +13,7 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
+import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
@@ -79,6 +80,7 @@ describe('SectionFormOperationsService test suite', () => {
       providers: [
         { provide: FormBuilderService, useValue: getMockFormBuilderService() },
         { provide: JsonPatchOperationsBuilder, useValue: jsonPatchOpBuilder },
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         SectionFormOperationsService,
       ],
     }).compileComponents().then();
@@ -743,7 +745,7 @@ describe('SectionFormOperationsService test suite', () => {
 
       serviceAsAny.dispatchOperationsFromMap(valueMap, pathCombiner, dynamicFormControlChangeEvent, previousValue);
 
-      expect(jsonPatchOpBuilder.add).toHaveBeenCalledWith(pathCombiner.getPath('path'), ['testMapNew'], true);
+      expect(jsonPatchOpBuilder.add).toHaveBeenCalledWith(pathCombiner.getPath('path'), ['testMapNew'], true, null, undefined);
     });
 
     it('should dispatch a json-path add operation when a map entry has changed', () => {
@@ -756,7 +758,7 @@ describe('SectionFormOperationsService test suite', () => {
 
       serviceAsAny.dispatchOperationsFromMap(valueMap, pathCombiner, dynamicFormControlChangeEvent, previousValue);
 
-      expect(jsonPatchOpBuilder.add).toHaveBeenCalledWith(pathCombiner.getPath('path'), ['testMapNew'], true);
+      expect(jsonPatchOpBuilder.add).toHaveBeenCalledWith(pathCombiner.getPath('path'), ['testMapNew'], true, false, undefined);
     });
 
     it('should dispatch a json-path remove operation when a map entry has changed', () => {

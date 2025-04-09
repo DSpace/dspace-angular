@@ -1,6 +1,8 @@
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
+  OnInit,
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -8,25 +10,9 @@ import { map } from 'rxjs/operators';
 import { BrowseDefinitionDataService } from '../../../../core/browse/browse-definition-data.service';
 import { BrowseDefinition } from '../../../../core/shared/browse-definition.model';
 import { Item } from '../../../../core/shared/item.model';
-import { getRemoteDataPayload } from '../../../../core/shared/operators';
-
-/**
- * Interface that encapsulate Image configuration for this component.
- */
-export interface ImageField {
-  /**
-   * URI that is used to retrieve the image.
-   */
-  URI: string;
-  /**
-   * i18n Key that represents the alt text to display
-   */
-  alt: string;
-  /**
-   * CSS variable that contains the height of the inline image.
-   */
-  heightVar: string;
-}
+import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
+import { MetadataValuesComponent } from '../../../field-components/metadata-values/metadata-values.component';
+import { ImageField } from './image-field';
 
 
 /**
@@ -37,12 +23,13 @@ export interface ImageField {
 
 @Component({
   templateUrl: './item-page-field.component.html',
+  imports: [
+    MetadataValuesComponent,
+    AsyncPipe,
+  ],
+  standalone: true,
 })
-export class ItemPageFieldComponent {
-
-  constructor(protected browseDefinitionDataService: BrowseDefinitionDataService) {
-  }
-
+export class ItemPageFieldComponent implements OnInit {
     /**
      * The item to display metadata for
      */
@@ -56,7 +43,7 @@ export class ItemPageFieldComponent {
     /**
      * Fields (schema.element.qualifier) used to render their values.
      */
-    fields: string[];
+    fields: string[] = [];
 
     /**
      * Label i18n key for the rendered metadata
@@ -79,14 +66,18 @@ export class ItemPageFieldComponent {
      */
     img: ImageField;
 
+    browseDefinition$: Observable<BrowseDefinition>;
+
     /**
-     * Return browse definition that matches any field used in this component if it is configured as a browse
-     * link in dspace.cfg (webui.browse.link.<n>)
-     */
-    get browseDefinition(): Observable<BrowseDefinition> {
-      return this.browseDefinitionDataService.findByFields(this.fields).pipe(
-        getRemoteDataPayload(),
-        map((def) => def),
+   * Return browse definition that matches any field used in this component if it is configured as a browse
+   * link in dspace.cfg (webui.browse.link.<n>)
+   */
+    constructor(protected browseDefinitionDataService: BrowseDefinitionDataService) {}
+
+    ngOnInit() {
+      this.browseDefinition$ =  this.browseDefinitionDataService.findByFields(this.fields).pipe(
+        getFirstCompletedRemoteData(),
+        map((def) => def.payload),
       );
     }
 }

@@ -8,13 +8,17 @@ import {
   MATCH_VISIBLE,
   OR_OPERATOR,
 } from '@ng-dynamic-forms/core';
+import { TranslateService } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
 
-import { SubmissionVisibilityType } from '../../../../core/config/models/config-submission-section.model';
+import {
+  SubmissionVisibilityType,
+  SubmissionVisibilityValue,
+} from '../../../../core/config/models/config-submission-section.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { Metadata } from '../../../../core/shared/metadata.utils';
+import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
 import { VocabularyOptions } from '../../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { SubmissionVisibility } from '../../../../submission/utils/visibility.util';
 import { isNgbDateStruct } from '../../../date.util';
 import {
   hasValue,
@@ -65,6 +69,7 @@ export abstract class FieldParser {
     @Inject(INIT_FORM_VALUES) protected initFormValues: any,
     @Inject(PARSER_OPTIONS) protected parserOptions: ParserOptions,
     @Inject(SECURITY_CONFIG) protected securityConfig: any = null,
+    protected translate: TranslateService,
   ) {
   }
 
@@ -72,10 +77,10 @@ export abstract class FieldParser {
 
   public parse() {
     if (((this.getInitValueCount() > 1 && !this.configData.repeatable) || (this.configData.repeatable))
-      && (this.configData.input.type !== ParserType.List)
-      && (this.configData.input.type !== ParserType.Tag)
-      && (this.configData.input.type !== ParserType.RelationGroup)
-      && (this.configData.input.type !== ParserType.InlineGroup)
+      && (this.configData.input.type !== ParserType.List.valueOf())
+      && (this.configData.input.type !== ParserType.Tag.valueOf())
+      && (this.configData.input.type !== ParserType.RelationGroup.toString())
+      && (this.configData.input.type !== ParserType.InlineGroup.toString())
     ) {
       let arrayCounter = 0;
       let fieldArrayCounter = 0;
@@ -87,7 +92,7 @@ export abstract class FieldParser {
       }
 
       let isDraggable = true;
-      if (this.configData.input.type === ParserType.Onebox && this.configData?.selectableMetadata?.length > 1) {
+      if (this.configData.input.type === ParserType.Onebox.valueOf() && this.configData?.selectableMetadata?.length > 1) {
         isDraggable = false;
       }
       const config = {
@@ -325,7 +330,7 @@ export abstract class FieldParser {
 
     // Set read only option
     controlModel.readOnly = this.parserOptions.readOnly
-      || this.isFieldReadOnly(this.configData.visibility, this.parserOptions.submissionScope);
+      || this.isFieldReadOnly(this.configData.visibility, 'test', this.parserOptions.submissionScope);
     controlModel.disabled = controlModel.readOnly;
     controlModel.isModelOfInnerForm = this.parserOptions.isInnerForm;
     if (hasValue(this.configData.selectableRelationship)) {
@@ -371,8 +376,19 @@ export abstract class FieldParser {
    * @param visibility
    * @param submissionScope
    */
-  private isFieldReadOnly(visibility: SubmissionVisibilityType, submissionScope) {
-    return isNotEmpty(submissionScope) && SubmissionVisibility.isReadOnly(visibility, submissionScope);
+  private isFieldReadOnly(visibility: SubmissionVisibilityType, fieldScope: string, submissionScope: string) {
+    return isNotEmpty(submissionScope)
+      && isNotEmpty(fieldScope)
+      && isNotEmpty(visibility)
+      && ((
+        submissionScope === SubmissionScopeType.WorkspaceItem.valueOf()
+          && visibility.main === SubmissionVisibilityValue.ReadOnly
+      )
+        ||
+          (visibility.other === SubmissionVisibilityValue.ReadOnly
+          && submissionScope === SubmissionScopeType.WorkflowItem.valueOf()
+          )
+      );
   }
 
   /**
@@ -426,11 +442,14 @@ export abstract class FieldParser {
     } else {
       regex = new RegExp(this.configData.input.regex);
     }
+    const baseTranslationKey = 'error.validation.pattern';
+    const fieldranslationKey = `${baseTranslationKey}.${controlModel.id}`;
+    const fieldTranslationExists = this.translate.instant(fieldranslationKey) !== fieldranslationKey;
     controlModel.validators = Object.assign({}, controlModel.validators, { pattern: regex });
     controlModel.errorMessages = Object.assign(
       {},
       controlModel.errorMessages,
-      { pattern: 'error.validation.pattern' });
+      { pattern: fieldTranslationExists ? fieldranslationKey : baseTranslationKey });
   }
 
   protected markAsRequired(controlModel) {

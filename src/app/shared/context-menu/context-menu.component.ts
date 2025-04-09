@@ -1,5 +1,13 @@
-import { DOCUMENT } from '@angular/common';
 import {
+  AsyncPipe,
+  DOCUMENT,
+  NgClass,
+  NgComponentOutlet,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  AfterViewChecked,
   ChangeDetectorRef,
   Component,
   Inject,
@@ -7,6 +15,8 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   from,
   Observable,
@@ -27,6 +37,7 @@ import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { isNotEmpty } from '../empty.util';
+import { BrowserOnlyDirective } from '../utils/browser-only.directive';
 import {
   ContextMenuEntryRenderOptions,
   getContextMenuEntriesForDSOType,
@@ -41,8 +52,29 @@ import { ContextMenuEntryType } from './context-menu-entry-type';
   selector: 'ds-context-menu',
   styleUrls: ['./context-menu.component.scss'],
   templateUrl: './context-menu.component.html',
+  standalone: true,
+  imports: [
+    NgIf,
+    NgFor,
+    NgComponentOutlet,
+    NgbDropdownModule,
+    NgClass,
+    AsyncPipe,
+    TranslateModule,
+    BrowserOnlyDirective,
+  ],
 })
-export class ContextMenuComponent implements OnInit {
+export class ContextMenuComponent implements OnInit, AfterViewChecked {
+
+  /**
+   * The context menu entries
+   */
+  menuEntries$: Observable<any[]>;
+
+  /**
+   * The context menu standalone entries
+   */
+  menuStandaloneEntries$: Observable<any[]>;
 
   /**
    * The related item
@@ -65,6 +97,9 @@ export class ContextMenuComponent implements OnInit {
    * @type {number}
    */
   public optionCount = 0;
+
+  public standAloneEntries$: Observable<any>;
+  public contextEntries$: Observable<any>;
 
   /**
    * Initialize instance variables
@@ -90,6 +125,9 @@ export class ContextMenuComponent implements OnInit {
       ],
       parent: this.injector,
     });
+
+    this.menuEntries$ = this.getContextMenuEntries();
+    this.menuStandaloneEntries$ = this.getStandAloneMenuEntries();
   }
 
   /**
@@ -109,7 +147,7 @@ export class ContextMenuComponent implements OnInit {
   private retrieveSelectedContextMenuEntries(isStandAlone: boolean): Observable<any[]> {
     const list = this.contextMenuObjectType ? getContextMenuEntriesForDSOType(this.contextMenuObjectType) : [];
     return from(list).pipe(
-      filter((renderOptions: ContextMenuEntryRenderOptions) => isNotEmpty(renderOptions ?.componentRef) && renderOptions ?.isStandAlone === isStandAlone),
+      filter((renderOptions: ContextMenuEntryRenderOptions) => isNotEmpty(renderOptions?.componentRef) && renderOptions?.isStandAlone === isStandAlone),
       map((renderOptions: ContextMenuEntryRenderOptions) => renderOptions.componentRef),
       concatMap((constructor: GenericConstructor<ContextMenuEntryComponent>) => {
         const entryComp: ContextMenuEntryComponent = new constructor();
@@ -135,10 +173,6 @@ export class ContextMenuComponent implements OnInit {
         return res.hasSucceeded && res.payload && isNotEmpty(res.payload.values) && res.payload.values[0].toLowerCase() === 'false';
       }),
     );
-  }
-
-  isItem(): boolean {
-    return this.contextMenuObjectType === DSpaceObjectType.ITEM;
   }
 
   ngAfterViewChecked() {

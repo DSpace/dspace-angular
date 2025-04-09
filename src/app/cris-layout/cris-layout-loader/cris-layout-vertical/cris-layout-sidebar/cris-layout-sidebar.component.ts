@@ -1,4 +1,9 @@
-import { Location } from '@angular/common';
+import {
+  AsyncPipe,
+  NgClass,
+  NgFor,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -6,10 +11,6 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import {
-  ActivatedRoute,
-  Router,
-} from '@angular/router';
 import {
   BehaviorSubject,
   Observable,
@@ -19,11 +20,20 @@ import { map } from 'rxjs/operators';
 import { CrisLayoutTab } from '../../../../core/layout/models/tab.model';
 import { Item } from '../../../../core/shared/item.model';
 import { CrisLayoutTabsComponent } from '../../shared/cris-layout-tabs/cris-layout-tabs.component';
+import { CrisLayoutSidebarItemComponent } from '../../shared/sidebar-item/cris-layout-sidebar-item.component';
 
 @Component({
   selector: 'ds-cris-layout-sidebar',
   templateUrl: './cris-layout-sidebar.component.html',
   styleUrls: ['./cris-layout-sidebar.component.scss'],
+  standalone: true,
+  imports: [
+    NgClass,
+    NgIf,
+    NgFor,
+    CrisLayoutSidebarItemComponent,
+    AsyncPipe,
+  ],
 })
 export class CrisLayoutSidebarComponent extends CrisLayoutTabsComponent implements OnInit {
 
@@ -50,16 +60,14 @@ export class CrisLayoutSidebarComponent extends CrisLayoutTabsComponent implemen
   /**
    * A boolean representing if to render or not the sidebar menu
    */
-  private hasSidebar$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  hasSidebar$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   /**
    * This parameter define the status of sidebar (hide/show)
    */
   private sidebarStatus$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  constructor(public location: Location, public router: Router, public route: ActivatedRoute) {
-    super(location, router, route);
-  }
+  isSideBarHidden$: Observable<boolean>;
 
   ngOnInit(): void {
     this.init();
@@ -72,6 +80,7 @@ export class CrisLayoutSidebarComponent extends CrisLayoutTabsComponent implemen
 
     // Init the sidebar status
     this.sidebarStatus$.next(this.hasSidebar$.value);
+    this.isSideBarHidden$ = this.isSideBarHidden();
   }
 
   /**

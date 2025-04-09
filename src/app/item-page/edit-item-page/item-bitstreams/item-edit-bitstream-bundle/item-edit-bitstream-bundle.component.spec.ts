@@ -13,7 +13,9 @@ import { Bundle } from '../../../../core/shared/bundle.model';
 import { Item } from '../../../../core/shared/item.model';
 import { ResponsiveColumnSizes } from '../../../../shared/responsive-table-sizes/responsive-column-sizes';
 import { ResponsiveTableSizes } from '../../../../shared/responsive-table-sizes/responsive-table-sizes';
+import { ItemEditBitstreamDragHandleComponent } from '../item-edit-bitstream-drag-handle/item-edit-bitstream-drag-handle.component';
 import { ItemEditBitstreamBundleComponent } from './item-edit-bitstream-bundle.component';
+import { PaginatedDragAndDropBitstreamListComponent } from './paginated-drag-and-drop-bitstream-list/paginated-drag-and-drop-bitstream-list.component';
 
 describe('ItemEditBitstreamBundleComponent', () => {
   let comp: ItemEditBitstreamBundleComponent;
@@ -41,12 +43,11 @@ describe('ItemEditBitstreamBundleComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ItemEditBitstreamBundleComponent],
+      imports: [TranslateModule.forRoot(), ItemEditBitstreamBundleComponent],
       schemas: [
         NO_ERRORS_SCHEMA,
       ],
-    }).compileComponents();
+    }).overrideComponent(ItemEditBitstreamBundleComponent, { remove: { imports: [PaginatedDragAndDropBitstreamListComponent, ItemEditBitstreamDragHandleComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

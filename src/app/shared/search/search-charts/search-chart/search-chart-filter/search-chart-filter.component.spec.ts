@@ -20,7 +20,7 @@ import {
   IN_PLACE_SEARCH,
   SearchFilterService,
 } from '../../../../../core/shared/search/search-filter.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { RouterStub } from '../../../../testing/router.stub';
 import { SearchConfigurationServiceStub } from '../../../../testing/search-configuration-service.stub';
@@ -95,8 +95,7 @@ xdescribe('SearchChartFilterComponent', () => {
   const mockValues = createSuccessfulRemoteDataObject$(createPaginatedList(values));
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule],
-      declarations: [SearchChartFilterComponent],
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, FormsModule, SearchChartFilterComponent],
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: Router, useValue: new RouterStub() },

@@ -1,10 +1,15 @@
-import { Location } from '@angular/common';
+import {
+  AsyncPipe,
+  Location,
+  NgIf,
+} from '@angular/common';
 import {
   Component,
   OnDestroy,
   OnInit,
 } from '@angular/core';
 import {
+  ReactiveFormsModule,
   UntypedFormBuilder,
   UntypedFormControl,
   UntypedFormGroup,
@@ -13,8 +18,12 @@ import {
 import {
   ActivatedRoute,
   Router,
+  RouterLink,
 } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
   Observable,
@@ -56,6 +65,14 @@ import { getItemPageRoute } from '../../item-page-routing-paths';
 @Component({
   selector: 'ds-bitstream-request-a-copy-page',
   templateUrl: './bitstream-request-a-copy-page.component.html',
+  imports: [
+    TranslateModule,
+    RouterLink,
+    AsyncPipe,
+    ReactiveFormsModule,
+    NgIf,
+  ],
+  standalone: true,
 })
 /**
  * Page component for requesting a copy for a bitstream

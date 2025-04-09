@@ -1,8 +1,10 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 import {
   SortDirection,
@@ -10,6 +12,7 @@ import {
 } from '../../../../core/cache/models/sort-options.model';
 import { TopSection } from '../../../../core/layout/models/section.model';
 import { Context } from '../../../../core/shared/context.model';
+import { ThemedBrowseMostElementsComponent } from '../../../browse-most-elements/themed-browse-most-elements.component';
 import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../../search/models/paginated-search-options.model';
 
@@ -17,8 +20,14 @@ import { PaginatedSearchOptions } from '../../../search/models/paginated-search-
  * Component representing the Top component section.
  */
 @Component({
-  selector: 'ds-top-section',
+  selector: 'ds-base-top-section',
   templateUrl: './top-section.component.html',
+  standalone: true,
+  imports: [
+    ThemedBrowseMostElementsComponent,
+    NgIf,
+    TranslateModule,
+  ],
 })
 export class TopSectionComponent implements OnInit {
 
@@ -32,8 +41,6 @@ export class TopSectionComponent implements OnInit {
     context: Context = Context.BrowseMostElements;
 
   paginatedSearchOptions: PaginatedSearchOptions;
-
-  showThumbnails: boolean;
 
   ngOnInit() {
     const order = this.topSection.order;
@@ -50,8 +57,6 @@ export class TopSectionComponent implements OnInit {
       pagination: pagination,
       sort: new SortOptions(this.topSection.sortField, sortDirection),
     });
-
-    this.showThumbnails = this.topSection.showThumbnails;
   }
 
 }

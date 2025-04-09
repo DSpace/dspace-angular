@@ -16,7 +16,7 @@ import { Subscription } from 'rxjs';
 
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { hasValue } from '../empty.util';
-import { StartsWithType } from './starts-with-decorator';
+import { StartsWithType } from './starts-with-type';
 
 /**
  * An abstract component to render StartsWith options
@@ -24,6 +24,7 @@ import { StartsWithType } from './starts-with-decorator';
 @Component({
   selector: 'ds-start-with-abstract',
   template: '',
+  standalone: true,
 })
 export abstract class StartsWithAbstractComponent implements OnInit, OnDestroy {
 

@@ -46,20 +46,20 @@ export class DSpaceObject extends ListableObject implements CacheableObject {
    */
   @excludeFromEquals
   @autoserializeAs(String, 'uuid')
-    id: string;
+  id: string;
 
   /**
    * The universally unique ide ntifier of this DSpaceObject
    */
   @autoserializeAs(String)
-    uuid: string;
+  uuid: string;
 
   /**
    * A string representing the kind of DSpaceObject, e.g. community, item, …
    */
   @excludeFromEquals
   @autoserialize
-    type: ResourceType;
+  type: ResourceType;
 
   /**
    * A shorthand to get this DSpaceObject's self link
@@ -100,10 +100,10 @@ export class DSpaceObject extends ListableObject implements CacheableObject {
    */
   @excludeFromEquals
   @autoserializeAs(MetadataMapSerializer)
-    metadata: MetadataMap;
+  metadata: MetadataMap;
 
   @deserialize
-    _links: {
+  _links: {
     self: HALLink;
   };
 
@@ -123,6 +123,18 @@ export class DSpaceObject extends ListableObject implements CacheableObject {
    */
   allMetadata(keyOrKeys: string | string[], valueFilter?: MetadataValueFilter): MetadataValue[] {
     return Metadata.all(this.metadata, keyOrKeys, valueFilter);
+  }
+
+  /**
+   * Gets all matching metadata in this DSpaceObject, up to a limit.
+   *
+   * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see [[Metadata]].
+   * @param {number} limit The maximum number of results to return.
+   * @param {MetadataValueFilter} valueFilter The value filter to use. If unspecified, no filtering will be done.
+   * @returns {MetadataValue[]} the matching values or an empty array.
+   */
+  limitedMetadata(keyOrKeys: string | string[], limit: number, valueFilter?: MetadataValueFilter): MetadataValue[] {
+    return Metadata.all(this.metadata, keyOrKeys, valueFilter, limit);
   }
 
   /**

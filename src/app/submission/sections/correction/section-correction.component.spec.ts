@@ -117,8 +117,6 @@ describe('CorrectionComponent', () => {
         NoopAnimationsModule,
         ReactiveFormsModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         AlertComponent,
         SubmissionSectionCorrectionComponent,
       ],
@@ -132,7 +130,7 @@ describe('CorrectionComponent', () => {
         SubmissionSectionLicenseComponent,
       ],
     })
-      .compileComponents();
+      .overrideComponent(SubmissionSectionCorrectionComponent, { remove: { imports: [AlertComponent] } }).compileComponents();
   }));
 
   beforeEach(waitForAsync(() => {

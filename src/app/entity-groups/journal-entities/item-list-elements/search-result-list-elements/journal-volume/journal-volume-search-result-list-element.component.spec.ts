@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   NO_ERRORS_SCHEMA,
@@ -8,15 +9,24 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { of as observableOf } from 'rxjs';
+import { getMockThemeService } from 'src/app/shared/mocks/theme-service.mock';
+import { ActivatedRouteStub } from 'src/app/shared/testing/active-router.stub';
+import { ThemeService } from 'src/app/shared/theme-support/theme.service';
 
 import { APP_CONFIG } from '../../../../../../config/app-config.interface';
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { Item } from '../../../../../core/shared/item.model';
 import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
+import { mockTruncatableService } from '../../../../../shared/mocks/mock-trucatable.service';
+import { ThemedBadgesComponent } from '../../../../../shared/object-collection/shared/badges/themed-badges.component';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
+import { TruncatableComponent } from '../../../../../shared/truncatable/truncatable.component';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
+import { TruncatablePartComponent } from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
+import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
 import { JournalVolumeSearchResultListElementComponent } from './journal-volume-search-result-list-element.component';
 
 let journalVolumeListElementComponent: JournalVolumeSearchResultListElementComponent;
@@ -80,16 +90,22 @@ const enviromentNoThumbs = {
 describe('JournalVolumeSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [JournalVolumeSearchResultListElementComponent, TruncatePipe],
+      imports: [TruncatePipe, JournalVolumeSearchResultListElementComponent],
       providers: [
-        { provide: TruncatableService, useValue: {} },
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: environmentUseThumbs },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
-
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(JournalVolumeSearchResultListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: {
+        imports: [
+          ThemedThumbnailComponent, NgClass, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent,
+        ],
+      },
     }).compileComponents();
   }));
 
@@ -167,16 +183,25 @@ describe('JournalVolumeSearchResultListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [JournalVolumeSearchResultListElementComponent, TruncatePipe],
+      imports: [TruncatePipe, JournalVolumeSearchResultListElementComponent],
       providers: [
-        { provide: TruncatableService, useValue: {} },
+        { provide: TruncatableService, useValue: mockTruncatableService },
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: APP_CONFIG, useValue: enviromentNoThumbs },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
-
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(JournalVolumeSearchResultListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: {
+        imports: [
+          ThemedThumbnailComponent,
+          ThemedBadgesComponent,
+          TruncatableComponent,
+          TruncatablePartComponent,
+        ],
+      },
     }).compileComponents();
   }));
 

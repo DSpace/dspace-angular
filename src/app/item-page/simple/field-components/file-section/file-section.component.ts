@@ -1,10 +1,14 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
   Inject,
   Input,
   OnInit,
 } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import {
   APP_CONFIG,
@@ -19,15 +23,30 @@ import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { Item } from '../../../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 import { hasValue } from '../../../../shared/empty.util';
+import { ThemedFileDownloadLinkComponent } from '../../../../shared/file-download-link/themed-file-download-link.component';
+import { ThemedLoadingComponent } from '../../../../shared/loading/themed-loading.component';
+import { MetadataFieldWrapperComponent } from '../../../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
 import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { FileSizePipe } from '../../../../shared/utils/file-size-pipe';
+import { VarDirective } from '../../../../shared/utils/var.directive';
 
 /**
  * This component renders the file section of the item
  * inside a 'ds-metadata-field-wrapper' component.
  */
 @Component({
-  selector: 'ds-item-page-file-section',
+  selector: 'ds-base-item-page-file-section',
   templateUrl: './file-section.component.html',
+  imports: [
+    CommonModule,
+    ThemedFileDownloadLinkComponent,
+    MetadataFieldWrapperComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    FileSizePipe,
+    VarDirective,
+  ],
+  standalone: true,
 })
 export class FileSectionComponent implements OnInit {
 

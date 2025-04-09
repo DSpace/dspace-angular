@@ -14,7 +14,7 @@
       <ng-container *ngTemplateOutlet="startTemplate?.templateRef; context: { $implicit: model };"></ng-container>
       <!-- Should be *ngIf instead of class d-none, but that breaks the #componentViewContainer reference-->
       <div [ngClass]="{'form-row': model.hasLanguages || isRelationship || model.hasSecurityToggle,
-                     'd-none': value?.isVirtual && (model.hasSelectableMetadata || context?.index > 0)}">
+                     'd-none': this.metadataService.isVirtual(value) && (model.hasSelectableMetadata || context?.index > 0)}">
         <div [ngClass]="getClass('grid', 'control')">
           <div>
             <ng-container #componentViewContainer></ng-container>
@@ -41,12 +41,12 @@
           <!-- In case of repeatable fields show empty space for all elements except the first -->
           <!-- In case of not repeatable field with multiple values show empty space for all elements except the last -->
           <div *ngIf="(context?.index !== null && (!showErrorMessages || errorMessages.length === 0)) || (!hasHint && !showErrorMessages) ||
-                  (!model.hideErrorMessages && showErrorMessages && !(!(model?.isModelOfNotRepeatableGroup) || model?.isModelOfNotRepeatableGroup && context?.index === context?.context?.groups?.length - 1))"
+                  (!model.hideErrorMessages && showErrorMessages && !(!(model?.isModelOfNotRepeatableGroup) || model?.isModelOfNotRepeatableGroup && context?.index === context?.context?.groups?.length - 1)) && isNotRequiredGroupAndEmpty()"
                class="clearfix w-100 mb-2"></div>
 
           <!-- In case of not repeatable field with multiple values show error message for the last element only -->
           <div
-            *ngIf="!model.hideErrorMessages && showErrorMessages && (!(model?.isModelOfNotRepeatableGroup) || model?.isModelOfNotRepeatableGroup && context?.index === context?.context?.groups?.length - 1)"
+            *ngIf="!model.hideErrorMessages && showErrorMessages && (!(model?.isModelOfNotRepeatableGroup) || model?.isModelOfNotRepeatableGroup && context?.index === context?.context?.groups?.length - 1) && isNotRequiredGroupAndEmpty()"
             [id]="id + '_errors'"
             [ngClass]="[getClass('element', 'errors'), getClass('grid', 'errors')]">
             <small *ngFor="let message of errorMessages"
@@ -88,7 +88,7 @@
     </div>
     <ng-container
       *ngTemplateOutlet="endTemplate?.templateRef; context: { $implicit: model, model: model }"></ng-container>
-    <ng-container *ngIf="value?.isVirtual">
+    <ng-container *ngIf="this.metadataService.isVirtual(value)">
       <ds-existing-metadata-list-element
         *ngIf="model.hasSelectableMetadata"
         [reoRel]="relationshipValue$ | async"

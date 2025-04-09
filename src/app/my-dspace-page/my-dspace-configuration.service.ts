@@ -1,4 +1,8 @@
-import { Injectable } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+  InjectionToken,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
   combineLatest,
@@ -10,6 +14,10 @@ import {
   take,
 } from 'rxjs/operators';
 
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../config/app-config.interface';
 import { LinkService } from '../core/cache/builders/link.service';
 import { RemoteDataBuildService } from '../core/cache/builders/remote-data-build.service';
 import {
@@ -34,11 +42,12 @@ export const MyDSpaceConfigurationToContextMap = new Map([
   [MyDSpaceConfigurationValueType.Workflow, Context.Workflow],
 ]);
 
+export const SEARCH_CONFIG_SERVICE: InjectionToken<SearchConfigurationService> = new InjectionToken<SearchConfigurationService>('searchConfigurationService');
 
 /**
  * Service that performs all actions that have to do with the current mydspace configuration
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class MyDSpaceConfigurationService extends SearchConfigurationService {
   /**
    * Default pagination settings
@@ -73,18 +82,6 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
   private isController$: Observable<boolean>;
   private isSubmitter$: Observable<boolean>;
 
-  /**
-   * Initialize class
-   *
-   * @param {roleService} roleService
-   * @param {RouteService} routeService
-   * @param {PaginationService} paginationService
-   * @param {ActivatedRoute} route
-   * @param linkService
-   * @param halService
-   * @param requestService
-   * @param rdb
-   */
   constructor(protected roleService: RoleService,
               protected routeService: RouteService,
               protected paginationService: PaginationService,
@@ -92,9 +89,19 @@ export class MyDSpaceConfigurationService extends SearchConfigurationService {
               protected linkService: LinkService,
               protected halService: HALEndpointService,
               protected requestService: RequestService,
-              protected rdb: RemoteDataBuildService) {
-
-    super(routeService, paginationService, route, linkService, halService, requestService, rdb);
+              protected rdb: RemoteDataBuildService,
+              @Inject(APP_CONFIG) protected appConfig: AppConfig,
+  ) {
+    super(
+      routeService,
+      paginationService,
+      route,
+      linkService,
+      halService,
+      requestService,
+      rdb,
+      appConfig,
+    );
 
     // override parent class initialization
     this._defaults = null;

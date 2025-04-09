@@ -35,8 +35,7 @@ describe('DsoPageEditMenuComponent', () => {
       isAuthorized: observableOf(true),
     });
     TestBed.configureTestingModule({
-      declarations: [ DsoPageEditMenuComponent ],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), DsoPageEditMenuComponent],
       providers: [
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: 'contextMenuObjectProvider', useValue: dso },

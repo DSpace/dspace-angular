@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import {
   Component,
   Inject,
@@ -8,11 +9,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
+import { isEmpty } from '../../../../../../../shared/empty.util';
 import { MetadataLinkValue } from '../../../../../../models/cris-layout-metadata-link-value.model';
-import {
-  FieldRenderingType,
-  MetadataBoxFieldRendering,
-} from '../metadata-box.decorator';
 import { RenderingTypeValueModelComponent } from '../rendering-type-value.model';
 
 /**
@@ -24,8 +22,9 @@ import { RenderingTypeValueModelComponent } from '../rendering-type-value.model'
   selector: 'span[ds-link-authority]',
   templateUrl: './link-authority.component.html',
   styleUrls: ['./link-authority.component.scss'],
+  standalone: true,
+  imports: [NgClass],
 })
-@MetadataBoxFieldRendering(FieldRenderingType.AUTHORITYLINK)
 export class LinkAuthorityComponent extends RenderingTypeValueModelComponent implements OnInit {
 
   /**
@@ -62,8 +61,11 @@ export class LinkAuthorityComponent extends RenderingTypeValueModelComponent imp
   }
 
   getWebsiteIcon(): string {
-    const siteUrl = this.metadataValue.authority;
     let iconStyle = '';
+    const siteUrl = this.metadataValue.authority;
+    if (isEmpty(siteUrl)) {
+      return iconStyle;
+    }
 
     if (siteUrl.includes('linkedin')) {
       iconStyle = 'fab fa-linkedin';

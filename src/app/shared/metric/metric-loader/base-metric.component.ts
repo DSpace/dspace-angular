@@ -11,6 +11,7 @@ import { hasNoValue } from '../../empty.util';
 
 @Component({
   template: '',
+  standalone: true,
 })
 export abstract class BaseMetricComponent {
 

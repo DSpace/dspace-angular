@@ -26,6 +26,7 @@ import {
 } from '../../../remote-data.utils';
 import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import { RouterStub } from '../../../testing/router.stub';
+import { AdministeredCollectionSelectorComponent } from '../../dso-selector/administered-collection-selector/administered-collection-selector.component';
 import { ExportExcelSelectorComponent } from './export-excel-selector.component';
 
 
@@ -63,8 +64,7 @@ describe('ExportExcelSelectorComponent', () => {
 
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ExportExcelSelectorComponent],
+      imports: [TranslateModule.forRoot(), ExportExcelSelectorComponent],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         {
@@ -87,7 +87,7 @@ describe('ExportExcelSelectorComponent', () => {
         { provide: ScriptDataService, useValue: scriptDataService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(ExportExcelSelectorComponent, { remove: { imports: [AdministeredCollectionSelectorComponent] } }).compileComponents();
 
   }));
 

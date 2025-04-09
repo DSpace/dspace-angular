@@ -23,6 +23,7 @@ import { RouteService } from '../../core/services/route.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
 import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
+import { ModifyItemOverviewComponent } from '../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 import { RouterMock } from '../../shared/mocks/router.mock';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
@@ -57,17 +58,15 @@ describe('WorkspaceitemsDeletePageComponent', () => {
       imports: [
         NgbModalModule,
         TranslateModule.forRoot(),
+        WorkspaceItemsDeletePageComponent,
       ],
-      declarations: [WorkspaceItemsDeletePageComponent],
       providers: [
         {
           provide: ActivatedRoute,
-          useValue: new ActivatedRouteStub(
-            {},
-            {
-              wsi: createSuccessfulRemoteDataObject(wsi),
-              dso: createSuccessfulRemoteDataObject(dso),
-            },
+          useValue: new ActivatedRouteStub({}, {
+            wsi: createSuccessfulRemoteDataObject(wsi),
+            dso: createSuccessfulRemoteDataObject(dso),
+          },
           ),
         },
         { provide: Router, useValue: new RouterMock() },
@@ -84,7 +83,7 @@ describe('WorkspaceitemsDeletePageComponent', () => {
         { provide: RouteService, useValue: routeServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(WorkspaceItemsDeletePageComponent, { remove: { imports: [ModifyItemOverviewComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

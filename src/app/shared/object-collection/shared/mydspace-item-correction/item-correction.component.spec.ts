@@ -58,8 +58,8 @@ describe('ItemCorrectionComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        ItemCorrectionComponent,
       ],
-      declarations: [ItemCorrectionComponent],
       providers: [
         { provide: RelationshipDataService, useValue: mockRelationshipService },
       ],

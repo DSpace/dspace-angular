@@ -44,8 +44,7 @@ describe('MetricGooglescholarComponent', () => {
           provide: TranslateLoader,
           useClass: TranslateLoaderMock,
         },
-      })],
-      declarations: [MetricGooglescholarComponent, RedirectDirective, RedirectWithHrefDirective],
+      }), MetricGooglescholarComponent, RedirectDirective, RedirectWithHrefDirective],
       providers: [
         { provide: Router, useValue: routerStub },
         { provide: RedirectService, useValue: redirectServiceStub },

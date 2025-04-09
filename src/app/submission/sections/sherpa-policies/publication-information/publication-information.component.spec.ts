@@ -28,8 +28,8 @@ describe('PublicationInformationComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        PublicationInformationComponent,
       ],
-      declarations: [PublicationInformationComponent],
     })
       .compileComponents();
   });

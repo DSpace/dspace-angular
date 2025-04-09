@@ -5,10 +5,7 @@
  *
  * http://www.dspace.org/license/
  */
-import {
-  Observable,
-  of as observableOf,
-} from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
@@ -18,14 +15,14 @@ import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
-import { FindListOptions } from '../find-list-options.model';
 import { RemoteData } from '../remote-data';
 import { RequestService } from '../request.service';
 import { RequestEntryState } from '../request-entry-state.model';
 import { EMBED_SEPARATOR } from './base-data.service';
 import { IdentifiableDataService } from './identifiable-data.service';
 
-const endpoint = 'https://rest.api/core';
+const base = 'https://rest.api/core';
+const endpoint = 'test';
 
 class TestService extends IdentifiableDataService<any> {
   constructor(
@@ -34,11 +31,7 @@ class TestService extends IdentifiableDataService<any> {
     protected objectCache: ObjectCacheService,
     protected halService: HALEndpointService,
   ) {
-    super(undefined, requestService, rdbService, objectCache, halService);
-  }
-
-  public getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {
-    return observableOf(endpoint);
+    super(endpoint, requestService, rdbService, objectCache, halService);
   }
 }
 
@@ -55,7 +48,7 @@ describe('IdentifiableDataService', () => {
 
   function initTestService(): TestService {
     requestService = getMockRequestService();
-    halService = new HALEndpointServiceStub('url') as any;
+    halService = new HALEndpointServiceStub(base) as any;
     rdbService = getMockRemoteDataBuildService();
     objectCache = {
 
@@ -145,6 +138,14 @@ describe('IdentifiableDataService', () => {
       const expected = `${endpointMock}/${resourceIdMock}?embed=owningCollection${EMBED_SEPARATOR}itemtemplate${EMBED_SEPARATOR}relationships`;
       const result = (service as any).getIDHref(endpointMock, resourceIdMock, followLink('owningCollection', {}, followLink('itemtemplate', {}, followLink('relationships'))));
       expect(result).toEqual(expected);
+    });
+  });
+
+  describe('invalidateById', () => {
+    it('should invalidate the correct resource by href', () => {
+      spyOn(service, 'invalidateByHref').and.returnValue(observableOf(true));
+      service.invalidateById('123');
+      expect(service.invalidateByHref).toHaveBeenCalledWith(`${base}/${endpoint}/123`);
     });
   });
 });

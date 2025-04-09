@@ -37,20 +37,14 @@ describe('DsoEditMenuExpandableSectionComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [DsoEditMenuExpandableSectionComponent, TestComponent],
+      imports: [TranslateModule.forRoot(), DsoEditMenuExpandableSectionComponent, TestComponent],
       providers: [
         { provide: 'sectionDataProvider', useValue: dummySection },
         { provide: MenuService, useValue: menuService },
         { provide: CSSVariableService, useClass: CSSVariableServiceStub },
         { provide: Router, useValue: new RouterStub() },
       ],
-    }).overrideComponent(DsoEditMenuExpandableSectionComponent, {
-      set: {
-        entryComponents: [TestComponent],
-      },
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -75,6 +69,7 @@ describe('DsoEditMenuExpandableSectionComponent', () => {
 @Component({
   selector: 'ds-test-cmp',
   template: ``,
+  standalone: true,
 })
 class TestComponent {
 }

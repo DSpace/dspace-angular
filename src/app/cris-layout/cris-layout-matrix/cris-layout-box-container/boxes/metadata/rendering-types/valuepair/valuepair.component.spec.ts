@@ -110,8 +110,8 @@ describe('ValuepairComponent', () => {
               useClass: TranslateLoaderMock,
             },
           }),
+          ValuepairComponent, DsDatePipe,
         ],
-        declarations: [ValuepairComponent, DsDatePipe],
         providers: [
           { provide: VocabularyService, useValue: vocabularyServiceSpy },
           { provide: AuthService, useValue: authService },
@@ -158,8 +158,8 @@ describe('ValuepairComponent', () => {
               useClass: TranslateLoaderMock,
             },
           }),
+          ValuepairComponent, DsDatePipe,
         ],
-        declarations: [ValuepairComponent, DsDatePipe],
         providers: [
           { provide: VocabularyService, useValue: vocabularyServiceSpy },
           { provide: AuthService, useValue: authService },

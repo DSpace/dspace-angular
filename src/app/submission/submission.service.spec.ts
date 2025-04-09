@@ -39,6 +39,10 @@ import { RequestService } from '../core/data/request.service';
 import { RequestError } from '../core/data/request-error.model';
 import { HttpOptions } from '../core/dspace-rest/dspace-rest.service';
 import { RouteService } from '../core/services/route.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '../core/services/window.service';
 import { Item } from '../core/shared/item.model';
 import { SearchService } from '../core/shared/search/search.service';
 import { SubmissionJsonPatchOperationsService } from '../core/submission/submission-json-patch-operations.service';
@@ -429,6 +433,7 @@ describe('SubmissionService test suite', () => {
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestServce },
         { provide: SubmissionJsonPatchOperationsService, useValue: submissionJsonPatchOperationsService },
+        { provide: NativeWindowService, useValue: new NativeWindowRef() },
         ScrollToService,
         NotificationsService,
         RouteService,

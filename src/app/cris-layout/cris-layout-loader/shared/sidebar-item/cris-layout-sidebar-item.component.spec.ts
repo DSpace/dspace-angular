@@ -28,14 +28,8 @@ describe('CrisLayoutSidebarItemComponent', () => {
           useClass: TranslateLoaderMock,
         },
       }),
-      NoopAnimationsModule,
-        // BrowserAnimationsModule
-      ],
-      declarations: [
-        CrisLayoutSidebarItemComponent,
-        CrisLayoutLoaderDirective,
-        // CrisLayoutMetadataBoxComponent
-      ],
+      NoopAnimationsModule, CrisLayoutSidebarItemComponent,
+      CrisLayoutLoaderDirective],
       providers: [
         { provide: BitstreamDataService, useValue: {} },
       ],

@@ -101,8 +101,6 @@ xdescribe('LineChartComponent', () => {
       imports: [
         BrowserAnimationsModule,
         NgxChartsModule,
-      ],
-      declarations: [
         LineChartComponent,
       ],
       providers: [

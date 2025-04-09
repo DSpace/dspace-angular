@@ -1,20 +1,32 @@
 import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   ChangeDetectionStrategy,
   Component,
   Input,
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import {
   select,
   Store,
 } from '@ngrx/store';
+import { TranslateModule } from '@ngx-translate/core';
 import uniqBy from 'lodash/uniqBy';
 import {
+  combineLatest,
   map,
   Observable,
   Subscription,
 } from 'rxjs';
+import {
+  filter,
+  shareReplay,
+} from 'rxjs/operators';
 
 import {
   getForgotPasswordRoute,
@@ -33,13 +45,18 @@ import { CoreState } from '../../core/core-state.model';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { hasValue } from '../empty.util';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
+import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
+import { LogInContainerComponent } from './container/log-in-container.component';
 import { rendersAuthMethodType } from './methods/log-in.methods-decorator';
 
 @Component({
-  selector: 'ds-log-in',
+  selector: 'ds-base-log-in',
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [NgIf, ThemedLoadingComponent, NgFor, LogInContainerComponent, AsyncPipe, RouterLink, BrowserOnlyPipe, TranslateModule],
 })
 export class LogInComponent implements OnInit, OnDestroy {
 
@@ -82,6 +99,16 @@ export class LogInComponent implements OnInit, OnDestroy {
   canRegister$: Observable<boolean>;
 
   /**
+   * Whether or not the current user (or anonymous) is authorized to register an account
+   */
+  canForgot$: Observable<boolean>;
+
+  /**
+   * Shows the divider only if contains at least one link to show
+   */
+  canShowDivider$: Observable<boolean>;
+
+  /**
    * Track subscription to unsubscribe on destroy
    * @private
    */
@@ -120,6 +147,13 @@ export class LogInComponent implements OnInit, OnDestroy {
     });
 
     this.canRegister$ = this.authorizationService.isAuthorized(FeatureID.EPersonRegistration);
+
+    this.canForgot$ = this.authorizationService.isAuthorized(FeatureID.EPersonForgotPassword).pipe(shareReplay({ refCount: false, bufferSize: 1 }));
+    this.canShowDivider$ = combineLatest([this.canRegister$, this.canForgot$])
+      .pipe(
+        map(([canRegister, canForgot]) => canRegister || canForgot),
+        filter(Boolean),
+      );
   }
 
   getRegisterRoute() {

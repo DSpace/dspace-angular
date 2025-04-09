@@ -6,7 +6,6 @@ import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { dataService } from '../data/base/data-service.decorator';
 import { FindAllData } from '../data/base/find-all-data';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { SearchDataImpl } from '../data/base/search-data';
@@ -16,13 +15,11 @@ import { RemoteData } from '../data/remote-data';
 import { RequestService } from '../data/request.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Section } from './models/section.model';
-import { SECTION } from './models/section.resource-type';
 
 /**
  * A service responsible for fetching data from the REST API on the sections endpoint.
  */
-@Injectable()
-@dataService(SECTION)
+@Injectable({ providedIn: 'root' })
 export class SectionDataService extends IdentifiableDataService<Section> {
 
   protected linkPath = 'sections';

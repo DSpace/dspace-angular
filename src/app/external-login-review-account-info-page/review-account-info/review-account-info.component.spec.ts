@@ -27,6 +27,7 @@ import { HardRedirectService } from '../../core/services/hard-redirect.service';
 import { NativeWindowService } from '../../core/services/window.service';
 import { Registration } from '../../core/shared/registration.model';
 import { ExternalLoginService } from '../../external-log-in/services/external-login.service';
+import { AlertComponent } from '../../shared/alert/alert.component';
 import { AuthServiceMock } from '../../shared/mocks/auth.service.mock';
 import { NativeWindowMockFactory } from '../../shared/mocks/mock-native-window-ref';
 import { RouterMock } from '../../shared/mocks/router.mock';
@@ -95,7 +96,6 @@ describe('ReviewAccountInfoComponent', () => {
     });
     authService = new AuthServiceMock();
     await TestBed.configureTestingModule({
-      declarations: [ReviewAccountInfoComponent, CompareValuesPipe],
       providers: [
         { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
         { provide: EPersonDataService, useValue: ePersonDataServiceStub },
@@ -111,6 +111,8 @@ describe('ReviewAccountInfoComponent', () => {
         { provide: HardRedirectService, useValue: hardRedirectService },
       ],
       imports: [
+        ReviewAccountInfoComponent,
+        CompareValuesPipe,
         CommonModule,
         TranslateModule.forRoot({
           loader: {
@@ -119,7 +121,7 @@ describe('ReviewAccountInfoComponent', () => {
           },
         }),
       ],
-    }).compileComponents();
+    }).overrideComponent(ReviewAccountInfoComponent, { remove: { imports: [AlertComponent] } }).compileComponents();
   });
 
   beforeEach(() => {
@@ -203,7 +205,7 @@ describe('ReviewAccountInfoComponent', () => {
     const firstDataRow = dataRows[1];
     const firstDataLabel: HTMLElement = firstDataRow.querySelector('th');
     const firstDataReceivedValue: HTMLElement = firstDataRow.querySelectorAll('td')[0];
-    const firstDataOverrideSwitch: HTMLElement = firstDataRow.querySelector('ui-switch');
+    const firstDataOverrideSwitch: HTMLElement = firstDataRow.querySelector('ds-switch');
     expect(firstDataLabel.textContent.trim()).toBe('Lastname');
     expect(firstDataReceivedValue.textContent.trim()).toBe('Doe');
     expect(firstDataOverrideSwitch).toBeNull();

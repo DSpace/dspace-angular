@@ -13,6 +13,7 @@ import { of as observableOf } from 'rxjs';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { Item } from '../../../core/shared/item.model';
+import { CurationFormComponent } from '../../../curation-form/curation-form.component';
 import { createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
 import { ItemCurateComponent } from './item-curate.component';
 
@@ -43,14 +44,19 @@ describe('ItemCurateComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ItemCurateComponent],
+      imports: [TranslateModule.forRoot(), ItemCurateComponent],
       providers: [
         { provide: ActivatedRoute, useValue: routeStub },
         { provide: DSONameService, useValue: dsoNameService },
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    }).compileComponents();
+    })
+      .overrideComponent(ItemCurateComponent, {
+        remove: {
+          imports: [CurationFormComponent],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

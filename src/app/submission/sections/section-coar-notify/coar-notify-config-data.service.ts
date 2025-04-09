@@ -13,7 +13,6 @@ import {
   CreateData,
   CreateDataImpl,
 } from '../../../core/data/base/create-data';
-import { dataService } from '../../../core/data/base/data-service.decorator';
 import {
   DeleteData,
   DeleteDataImpl,
@@ -40,15 +39,13 @@ import { NoContent } from '../../../core/shared/NoContent.model';
 import { URLCombiner } from '../../../core/url-combiner/url-combiner';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
-import { SUBMISSION_COAR_NOTIFY_CONFIG } from './section-coar-notify-service.resource-type';
 import { SubmissionCoarNotifyConfig } from './submission-coar-notify.config';
 
 
 /**
  * A service responsible for fetching/sending data from/to the REST API on the CoarNotifyConfig endpoint
  */
-@Injectable()
-@dataService(SUBMISSION_COAR_NOTIFY_CONFIG)
+@Injectable({ providedIn: 'root' })
 export class CoarNotifyConfigDataService extends IdentifiableDataService<SubmissionCoarNotifyConfig> implements FindAllData<SubmissionCoarNotifyConfig>, DeleteData<SubmissionCoarNotifyConfig>, PatchData<SubmissionCoarNotifyConfig>, CreateData<SubmissionCoarNotifyConfig> {
   createData: CreateDataImpl<SubmissionCoarNotifyConfig>;
   private findAllData: FindAllDataImpl<SubmissionCoarNotifyConfig>;

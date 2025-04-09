@@ -64,8 +64,7 @@ describe('StatisticsMapComponent', () => {
   let  exportService: ExportService = exportServiceMock;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ StatisticsMapComponent ],
+      imports: [TranslateModule.forRoot(), StatisticsMapComponent],
       providers: [
         // { provide: ExportService, useValue: exportServiceMock }
       ],
@@ -96,6 +95,7 @@ describe('StatisticsMapComponent', () => {
     fixture.detectChanges();
     component.ngOnInit();
     fixture.detectChanges();
+    delete component.geoChart.component;
     expect(component.geoChart).toEqual(geoChartExpected);
   });
 

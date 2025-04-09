@@ -5,7 +5,10 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { RouterTestingModule } from '@angular/router/testing';
+import {
+  ActivatedRoute,
+  provideRouter,
+} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
@@ -14,9 +17,17 @@ import {
   SortOptions,
 } from '../../../core/cache/models/sort-options.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
-import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.component';
+import { SearchService } from '../../../core/shared/search/search.service';
+import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-configuration.service';
+import { PageSizeSelectorComponent } from '../../page-size-selector/page-size-selector.component';
 import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
+import { SidebarService } from '../../sidebar/sidebar.service';
+import { SidebarDropdownComponent } from '../../sidebar/sidebar-dropdown.component';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { PaginationServiceStub } from '../../testing/pagination-service.stub';
+import { SearchServiceStub } from '../../testing/search-service.stub';
+import { SidebarServiceStub } from '../../testing/sidebar-service.stub';
 import { EnumKeysPipe } from '../../utils/enum-keys-pipe';
 import { VarDirective } from '../../utils/var.directive';
 import { SearchSettingsComponent } from './search-settings.component';
@@ -55,9 +66,24 @@ describe('SearchSettingsComponent', () => {
     paginationService = new PaginationServiceStub(pagination, sort);
 
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
-      declarations: [SearchSettingsComponent, EnumKeysPipe, VarDirective],
+      imports: [
+        TranslateModule.forRoot(),
+        SearchSettingsComponent,
+        EnumKeysPipe,
+        VarDirective,
+      ],
       providers: [
+        provideRouter([]),
+        { provide: SearchService, useValue: new SearchServiceStub() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        {
+          provide: SidebarService,
+          useValue: SidebarServiceStub,
+        },
+        {
+          provide: SearchFilterService,
+          useValue: {},
+        },
         {
           provide: PaginationService,
           useValue: paginationService,
@@ -71,7 +97,7 @@ describe('SearchSettingsComponent', () => {
         },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(SearchSettingsComponent, { remove: { imports: [SidebarDropdownComponent, PageSizeSelectorComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

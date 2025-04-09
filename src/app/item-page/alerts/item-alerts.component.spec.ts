@@ -5,6 +5,8 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
@@ -13,6 +15,7 @@ import { AuthorizationDataService } from '../../core/data/feature-authorization/
 import { Item } from '../../core/shared/item.model';
 import { CorrectionTypeDataService } from '../../core/submission/correctiontype-data.service';
 import { CorrectionType } from '../../core/submission/models/correctiontype.model';
+import { AlertComponent } from '../../shared/alert/alert.component';
 import {
   DsoWithdrawnReinstateModalService,
   REQUEST_REINSTATE,
@@ -21,6 +24,7 @@ import {
   createSuccessfulRemoteDataObject,
   createSuccessfulRemoteDataObject$,
 } from '../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { ItemAlertsComponent } from './item-alerts.component';
 
@@ -41,18 +45,20 @@ describe('ItemAlertsComponent', () => {
   beforeEach(waitForAsync(() => {
     authorizationService = jasmine.createSpyObj('authorizationService', ['isAuthorized']);
     dsoWithdrawnReinstateModalService = jasmine.createSpyObj('dsoWithdrawnReinstateModalService', ['openCreateWithdrawnReinstateModal']);
-    correctionTypeDataService = jasmine.createSpyObj('correctionTypeDataService',  ['findByItem']);
+    correctionTypeDataService = jasmine.createSpyObj('correctionTypeDataService',  {
+      findByItem: createSuccessfulRemoteDataObject$([]),
+    });
     TestBed.configureTestingModule({
-      declarations: [ItemAlertsComponent],
-      imports: [TranslateModule.forRoot()],
+      imports: [TranslateModule.forRoot(), ItemAlertsComponent, NoopAnimationsModule],
       providers: [
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: DsoWithdrawnReinstateModalService, useValue: dsoWithdrawnReinstateModalService },
         { provide: CorrectionTypeDataService, useValue: correctionTypeDataService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .compileComponents();
+      .overrideComponent(ItemAlertsComponent, { remove: { imports: [AlertComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -69,6 +75,7 @@ describe('ItemAlertsComponent', () => {
         isDiscoverable: true,
       });
       component.item = item;
+      (correctionTypeDataService.findByItem).and.returnValue(createSuccessfulRemoteDataObject$([]));
       fixture.detectChanges();
     });
 
@@ -83,6 +90,7 @@ describe('ItemAlertsComponent', () => {
       item = Object.assign(new Item(), {
         isDiscoverable: false,
       });
+      (correctionTypeDataService.findByItem).and.returnValue(createSuccessfulRemoteDataObject$([]));
       component.item = item;
       fixture.detectChanges();
     });
@@ -142,23 +150,13 @@ describe('ItemAlertsComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should return true when user is not an admin and there is at least one correction with topic REQUEST_REINSTATE', () => {
-      testScheduler.run(({ cold, expectObservable }) => {
-        const isAdminMarble = 'a';
-        const correctionMarble = 'b';
-        const expectedMarble = 'c';
+    it('should return true when user is not an admin and there is at least one correction with topic REQUEST_REINSTATE', (done) => {
 
-        const isAdminValues = { a: false };
-        const correctionValues = { b: correctionRD };
-        const expectedValues = { c: true };
-
-        const isAdmin$ = cold(isAdminMarble, isAdminValues);
-        const correction$ = cold(correctionMarble, correctionValues);
-
-        (authorizationService.isAuthorized).and.returnValue(isAdmin$);
-        (correctionTypeDataService.findByItem).and.returnValue(correction$);
-
-        expectObservable(component.showReinstateButton$()).toBe(expectedMarble, expectedValues);
+      (authorizationService.isAuthorized).and.returnValue(of(false));
+      component.ngOnInit();
+      component.showReinstateButton$.subscribe(value => {
+        expect(value).toBeTruthy();
+        done();
       });
     });
 

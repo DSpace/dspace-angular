@@ -13,6 +13,7 @@ import { AuditDataService } from '../../core/audit/audit-data.service';
 import { Audit } from '../../core/audit/model/audit.model';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { AuditMock } from '../../shared/testing/audit.mock';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
@@ -41,15 +42,14 @@ describe('AuditOverviewComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [AuditOverviewComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), VarDirective, AuditOverviewComponent],
       providers: [
         { provide: AuditDataService, useValue: auditService },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: PaginationService, useValue: paginationService },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(AuditOverviewComponent, { remove: { imports: [PaginationComponent] } }).compileComponents();
   }));
 
   describe('if the current user is an admin', () => {

@@ -25,6 +25,7 @@ import { WorkflowItemDataService } from '../../../core/submission/workflowitem-d
 import { ClaimedTaskDataService } from '../../../core/tasks/claimed-task-data.service';
 import { ProcessTaskResponse } from '../../../core/tasks/models/process-task-response';
 import { RatingAdvancedWorkflowInfo } from '../../../core/tasks/models/rating-advanced-workflow-info.model';
+import { ModifyItemOverviewComponent } from '../../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   createSuccessfulRemoteDataObject,
@@ -70,8 +71,6 @@ describe('AdvancedWorkflowActionRatingComponent', () => {
         NgbModule,
         ReactiveFormsModule,
         TranslateModule.forRoot(),
-      ],
-      declarations: [
         AdvancedWorkflowActionRatingComponent,
         VarDirective,
       ],
@@ -101,7 +100,7 @@ describe('AdvancedWorkflowActionRatingComponent', () => {
         { provide: RequestService, useClass: RequestServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(AdvancedWorkflowActionRatingComponent, { remove: { imports: [ModifyItemOverviewComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

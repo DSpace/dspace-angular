@@ -1,8 +1,16 @@
 import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Inject,
 } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 
 import {
   APP_CONFIG,
@@ -18,12 +26,15 @@ import { ItemSearchResult } from '../../../../../shared/object-collection/shared
 import { listableObjectComponent } from '../../../../../shared/object-collection/shared/listable-object/listable-object.decorator';
 import { SidebarSearchListElementComponent } from '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component';
 import { TruncatableService } from '../../../../../shared/truncatable/truncatable.service';
+import { TruncatablePartComponent } from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement, Context.SideBarSearchModal)
 @listableObjectComponent('PersonSearchResult', ViewMode.ListElement, Context.SideBarSearchModalCurrent)
 @Component({
   selector: 'ds-person-sidebar-search-list-element',
   templateUrl: '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component.html',
+  standalone: true,
+  imports: [TruncatablePartComponent, NgClass, NgIf, AsyncPipe, TranslateModule],
 })
 /**
  * Component displaying a list element for a {@link ItemSearchResult} of type "Person" within the context of

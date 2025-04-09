@@ -104,7 +104,6 @@ describe('RequestCorrectionMenuComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      declarations: [ RequestCorrectionMenuComponent ],
       imports: [
         TranslateModule.forRoot({
           loader: {
@@ -112,6 +111,7 @@ describe('RequestCorrectionMenuComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
+        RequestCorrectionMenuComponent,
       ],
       providers: [
         { provide: 'contextMenuObjectProvider', useValue: dso },

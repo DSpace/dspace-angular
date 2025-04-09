@@ -12,7 +12,7 @@ import { ParserType } from './parser-type';
 
 export class RelationGroupFieldParser extends FieldParser {
 
-  public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean) {
+  public modelFactory(fieldValue?: FormFieldMetadataValueObject, label?: boolean) {
     const modelConfiguration: DynamicRelationGroupModelConfig = this.initModel(null, label);
 
     modelConfiguration.submissionId = this.submissionId;
@@ -60,7 +60,7 @@ export class RelationGroupFieldParser extends FieldParser {
     this.initSecurityValue(modelConfiguration);
     const model = new DynamicRelationGroupModel(modelConfiguration, cls);
     model.name = this.getFieldId();
-    model.isInlineGroup = (this.configData.input.type === ParserType.InlineGroup);
+    model.isInlineGroup = (this.configData.input.type === ParserType.InlineGroup.toString());
 
     return model;
   }

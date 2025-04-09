@@ -1,15 +1,21 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
   OnInit,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import {
   NgbDate,
   NgbDateParserFormatter,
+  NgbDatepickerModule,
   NgbDateStruct,
   NgbModal,
   NgbModalRef,
 } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
@@ -23,7 +29,12 @@ import { WorkflowStepStatistics } from '../../core/statistics/models/workflow-st
 import { WorkflowOwnerStatisticsDataService } from '../../core/statistics/workflow-owner-statistics-data.service';
 import { WorkflowStepStatisticsDataService } from '../../core/statistics/workflow-step-statistics-data.service';
 import { CollectionSelectorComponent } from '../../my-dspace-page/collection-selector/collection-selector.component';
+import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { CrisStatisticsPageComponent } from '../cris-statistics-page/cris-statistics-page.component';
+import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
 
 /**
  * Component related to the WORKFLOW statistics page.
@@ -32,6 +43,8 @@ import { AlertType } from '../../shared/alert/alert-type';
   selector: 'ds-workflow-statistics',
   templateUrl: './workflow-statistics-page.component.html',
   styleUrls: ['./workflow-statistics-page.component.scss'],
+  standalone: true,
+  imports: [CommonModule, VarDirective, ThemedLoadingComponent, StatisticsTableComponent, TranslateModule, CrisStatisticsPageComponent, AlertComponent, FormsModule, NgbDatepickerModule],
 })
 export class WorkflowStatisticsPageComponent implements OnInit {
 

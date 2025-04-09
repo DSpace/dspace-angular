@@ -28,8 +28,7 @@ describe('MetadataRepresentationListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     return TestBed.configureTestingModule({
-      imports: [],
-      declarations: [MetadataRepresentationListElementComponent],
+      imports: [MetadataRepresentationListElementComponent],
       schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(MetadataRepresentationListElementComponent, {
       set: { changeDetection: ChangeDetectionStrategy.Default },

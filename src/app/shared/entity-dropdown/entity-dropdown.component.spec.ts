@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   NO_ERRORS_SCHEMA,
@@ -10,7 +11,12 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
+import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
@@ -21,12 +27,17 @@ import {
   ItemExportFormatMap,
 } from '../../core/itemexportformat/model/item-export-format.model';
 import { ItemType } from '../../core/shared/item-relationships/item-type.model';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
 import { createPaginatedList } from '../testing/utils.test';
+import { SortPipe } from '../utils/sort.pipe';
 import { EntityDropdownComponent } from './entity-dropdown.component';
 
-// eslint-disable-next-line @angular-eslint/pipe-prefix
-@Pipe({ name: 'translate' })
+@Pipe({
+  // eslint-disable-next-line @angular-eslint/pipe-prefix
+  name: 'translate',
+  standalone: true,
+})
 class MockTranslatePipe implements PipeTransform {
   transform(value: string): string {
     return value;
@@ -104,18 +115,30 @@ describe('EntityDropdownComponent', () => {
     byEntityTypeAndMolteplicity: jasmine.createSpy('byEntityTypeAndMolteplicity'),
   });
 
-  let translatePipeSpy: jasmine.Spy;
+  const translateServiceMock: any = {
+    instant(name) {
+      return 'Statistics';
+    },
+  };
 
   const paginatedEntities = createPaginatedList(entities);
   const paginatedEntitiesRD$ = createSuccessfulRemoteDataObject$(paginatedEntities);
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [],
-      declarations: [EntityDropdownComponent, MockTranslatePipe],
+      imports: [
+        EntityDropdownComponent,
+        MockTranslatePipe,
+        InfiniteScrollDirective,
+        ThemedLoadingComponent,
+        AsyncPipe,
+        TranslateModule.forRoot(),
+        SortPipe,
+      ],
       providers: [
         { provide: EntityTypeDataService, useValue: entityTypeServiceMock },
         { provide: ItemExportFormatService, useValue: itemExportFormatServiceMock },
+        { provide: TranslateService, useValue: translateServiceMock },
         ChangeDetectorRef,
       ],
       schemas: [NO_ERRORS_SCHEMA],
@@ -132,15 +155,6 @@ describe('EntityDropdownComponent', () => {
     componentAsAny.entityTypeService.getAllAuthorizedRelationshipTypeImport.and.returnValue(paginatedEntitiesRD$);
     componentAsAny.itemExportFormatService.byEntityTypeAndMolteplicity.and.returnValue(of(entityFormatList));
     component.isSubmission = true;
-
-    translatePipeSpy = spyOn(MockTranslatePipe.prototype, 'transform');
-  });
-
-  it('should translate entries', () => {
-    scheduler.schedule(() => fixture.detectChanges());
-    scheduler.flush();
-
-    expect(translatePipeSpy).toHaveBeenCalledWith('entity_1.listelement.badge');
   });
 
   it('should init component with entities list', () => {

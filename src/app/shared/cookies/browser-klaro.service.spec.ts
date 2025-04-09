@@ -12,8 +12,10 @@ import { ConfigurationDataService } from '../../core/data/configuration-data.ser
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { CookieService } from '../../core/services/cookie.service';
+import { NativeWindowService } from '../../core/services/window.service';
 import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 import { MetadataValue } from '../../core/shared/metadata.models';
+import { NativeWindowMockFactory } from '../mocks/mock-native-window-ref';
 import { getMockTranslateService } from '../mocks/translate.service.mock';
 import {
   createFailedRemoteDataObject$,
@@ -79,6 +81,10 @@ describe('BrowserKlaroService', () => {
     TestBed.configureTestingModule({
       providers: [
         BrowserKlaroService,
+        {
+          provide: NativeWindowService,
+          useFactory: NativeWindowMockFactory,
+        },
         {
           provide: TranslateService,
           useValue: translateService,

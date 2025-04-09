@@ -1,7 +1,7 @@
 <div class="container">
   <ds-alert [type]="'alert-info'" [content]="'item.edit.authorizations.heading'"></ds-alert>
   <ds-resource-policies [resourceType]="'item'" [resourceName]="(getItemName() | async)"
-    [resourceUUID]="(getItemUUID() | async)">
+    [resourceUUID]="(itemUuid$ | async)">
   </ds-resource-policies>
   <ng-container *ngFor="let bundle of (bundles$ | async); trackById">
     <ds-resource-policies [resourceType]="'bundle'" [resourceUUID]="bundle.id" [resourceName]="bundle.name">

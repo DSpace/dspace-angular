@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { HttpXsrfTokenExtractor } from '@angular/common/http';
 import {
   ChangeDetectionStrategy,
@@ -9,9 +10,13 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import uniqueId from 'lodash/uniqueId';
-import { FileUploader } from 'ng2-file-upload';
+import {
+  FileUploader,
+  FileUploadModule,
+} from 'ng2-file-upload';
 import { of as observableOf } from 'rxjs';
 
 import { ON_BEHALF_OF_HEADER } from '../../../core/auth/auth.interceptor';
@@ -37,8 +42,9 @@ import { UploaderProperties } from './uploader-properties.model';
   styleUrls: ['uploader.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
+  standalone: true,
+  imports: [TranslateModule, FileUploadModule, CommonModule],
 })
-
 export class UploaderComponent {
 
   /**

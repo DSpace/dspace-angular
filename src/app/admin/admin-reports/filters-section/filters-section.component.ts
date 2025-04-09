@@ -1,3 +1,4 @@
+import { NgForOf } from '@angular/common';
 import {
   Component,
   Input,
@@ -6,7 +7,9 @@ import {
   FormBuilder,
   FormControl,
   FormGroup,
+  ReactiveFormsModule,
 } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { Filter } from './filter.model';
 import { FilterGroup } from './filter-group.model';
@@ -19,6 +22,12 @@ import { FilterGroup } from './filter-group.model';
   selector: 'ds-filters',
   templateUrl: './filters-section.component.html',
   styleUrls: ['./filters-section.component.scss'],
+  imports: [
+    NgForOf,
+    ReactiveFormsModule,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 export class FiltersComponent {
 

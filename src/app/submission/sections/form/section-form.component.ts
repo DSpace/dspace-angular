@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -54,10 +55,12 @@ import {
   isNotEmpty,
   isUndefined,
 } from '../../../shared/empty.util';
+import { DynamicQualdropModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
 import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 import { FormComponent } from '../../../shared/form/form.component';
 import { FormService } from '../../../shared/form/form.service';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { difference } from '../../../shared/object.util';
 import { followLink } from '../../../shared/utils/follow-link-config.model';
@@ -68,8 +71,6 @@ import { SubmissionVisibility } from '../../utils/visibility.util';
 import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
-import { renderSectionFor } from '../sections-decorator';
-import { SectionsType } from '../sections-type';
 import { SectionFormOperationsService } from './section-form-operations.service';
 
 /**
@@ -79,8 +80,13 @@ import { SectionFormOperationsService } from './section-form-operations.service'
   selector: 'ds-submission-section-form',
   styleUrls: ['./section-form.component.scss'],
   templateUrl: './section-form.component.html',
+  imports: [
+    FormComponent,
+    ThemedLoadingComponent,
+    NgIf,
+  ],
+  standalone: true,
 })
-@renderSectionFor(SectionsType.SubmissionForm)
 export class SubmissionSectionFormComponent extends SectionModelComponent implements OnDestroy {
 
   /**
@@ -231,7 +237,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
           // this.sectionData.errorsToShow = [];
           this.submissionObject = submissionObject;
           // Is the first loading so init form
-          this.initForm(sectionData);
+          this.initForm(sectionData, this.sectionData.errorsToShow, this.sectionData.serverValidationErrors);
           this.sectionData.data = sectionData;
           this.subscriptions();
           this.isLoading = false;
@@ -328,7 +334,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
    * @param sectionData
    *    the section data retrieved from the server
    */
-  initForm(sectionData: WorkspaceitemSectionFormObject): void {
+  initForm(sectionData: WorkspaceitemSectionFormObject, errorsToShow: SubmissionSectionError[], serverValidationErrors: SubmissionSectionError[]): void {
     try {
       this.formModel = this.formBuilderService.modelFromConfiguration(
         this.submissionId,
@@ -342,11 +348,11 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
         this.metadataSecurityConfiguration,
       );
       const sectionMetadata = this.sectionService.computeSectionConfiguredMetadata(this.formConfig);
-      this.sectionService.updateSectionData(this.submissionId, this.sectionData.id, sectionData, this.sectionData.errorsToShow, this.sectionData.serverValidationErrors, sectionMetadata);
+      this.sectionService.updateSectionData(this.submissionId, this.sectionData.id, sectionData, errorsToShow, serverValidationErrors, sectionMetadata);
       // Add created model to formBulderService
       this.formBuilderService.addFormModel(this.formId, this.formModel);
-    } catch (e) {
-      const msg: string = this.translate.instant('error.submission.sections.init-form-error') + e.toString();
+    } catch (e: unknown) {
+      const msg: string = this.translate.instant('error.submission.sections.init-form-error') + (e as Error).toString();
       const sectionError: SubmissionSectionError = {
         message: msg,
         path: '/sections/' + this.sectionData.id,
@@ -361,12 +367,13 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
   /**
    * Update form model
    *
-   * @param sectionData
-   *    the section data retrieved from the server
-   * @param errors
-   *    the section errors retrieved from the server
+   * @param sectionState
+   *    the section state retrieved from the server
    */
-  updateForm(sectionData: WorkspaceitemSectionFormObject, errors: SubmissionSectionError[]): void {
+  updateForm(sectionState: SubmissionSectionObject): void {
+
+    const sectionData = sectionState.data as WorkspaceitemSectionFormObject;
+    const errors = sectionState.errorsToShow;
 
     if (isNotEmpty(sectionData) && !isEqual(sectionData, this.sectionData.data)) {
       this.sectionData.data = sectionData;
@@ -374,7 +381,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
         this.isUpdating = true;
         this.formModel = null;
         this.cdr.detectChanges();
-        this.initForm(sectionData);
+        this.initForm(sectionData, errors, sectionState.serverValidationErrors);
         this.checksForErrors(errors);
         this.isUpdating = false;
         this.cdr.detectChanges();
@@ -428,7 +435,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
         .subscribe((sectionState: SubmissionSectionObject) => {
           this.fieldsOnTheirWayToBeRemoved = new Map();
           this.sectionMetadata = sectionState.metadata;
-          this.updateForm(sectionState.data as WorkspaceitemSectionFormObject, sectionState.errorsToShow);
+          this.updateForm(sectionState);
         }),
     );
   }
@@ -441,11 +448,45 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
    *    the [[DynamicFormControlEvent]] emitted
    */
   onChange(event: DynamicFormControlEvent): void {
-    this.formOperationsService.dispatchOperationsFromEvent(
-      this.pathCombiner,
-      event,
-      this.previousValue,
-      this.hasStoredValue(this.formBuilderService.getId(event.model), this.formOperationsService.getArrayIndexFromEvent(event)));
+    const languageMap = new Map();
+    const isQualdrop = event.model.parent instanceof DynamicQualdropModel;
+
+    if (isQualdrop) {
+      const qualdropMap = this.formOperationsService.getQualdropValueMap(event);
+
+      if (qualdropMap) {
+        const groupMetadata = qualdropMap.keys();
+        this.formService.getForm(this.formId).pipe(take(1)).subscribe((form) => {
+          for (const metadata of groupMetadata) {
+            if (hasValue(form.data[metadata]) && form.data[metadata].length > 1) {
+              form.data[metadata].forEach((entry: any) => {
+                languageMap.set(metadata, [...(languageMap.get(metadata) ?? []), entry.language]);
+              });
+            } else {
+              languageMap.set(metadata, [form.data[metadata][0].language]);
+            }
+          }
+        });
+      }
+
+      this.formOperationsService.dispatchOperationsFromEvent(
+        this.pathCombiner,
+        event,
+        this.previousValue,
+        this.hasStoredValue(this.formBuilderService.getId(event.model), this.formOperationsService.getArrayIndexFromEvent(event)),
+        languageMap,
+      );
+    } else {
+      this.formOperationsService.dispatchOperationsFromEvent(
+        this.pathCombiner,
+        event,
+        this.previousValue,
+        this.hasStoredValue(this.formBuilderService.getId(event.model), this.formOperationsService.getArrayIndexFromEvent(event)),
+        null,
+      );
+    }
+
+
     const metadata = this.formOperationsService.getFieldPathSegmentedFromChangeEvent(event);
     const value = this.formOperationsService.getFieldValueFromChangeEvent(event);
 

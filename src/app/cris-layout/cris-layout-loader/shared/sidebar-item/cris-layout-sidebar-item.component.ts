@@ -1,9 +1,15 @@
 import {
+  NgClass,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   EventEmitter,
   Input,
   Output,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 import { CrisLayoutTab } from '../../../../core/layout/models/tab.model';
@@ -23,8 +29,20 @@ import { slide } from '../../../../shared/animations/slide';
   templateUrl: './cris-layout-sidebar-item.component.html',
   styleUrls: ['./cris-layout-sidebar-item.component.scss'],
   animations: [rotate, slide, rotateNavbar],
+  standalone: true,
+  imports: [
+    NgClass,
+    NgIf,
+    NgFor,
+    RouterLink,
+  ],
 })
 export class CrisLayoutSidebarItemComponent {
+  /**
+   * Contains the items base url
+   */
+  @Input() itemBaseUrl: string;
+
   /**
    * The tab that will be shown
    */

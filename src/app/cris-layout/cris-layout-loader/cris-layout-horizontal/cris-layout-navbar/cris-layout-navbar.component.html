@@ -1,4 +1,4 @@
-<button *ngIf="(windowService.isXsOrSm() | async) && showNav" class="navbar-toggler pl-2 float-right" type="button" (click)="toggleNavbar()"
+<button *ngIf="(isXsOrSm$ | async) && showNav" class="navbar-toggler pl-2 float-right" type="button" (click)="toggleNavbar()"
     aria-controls="collapsingNav" aria-expanded="false" [attr.aria-label]="'nav.toggle' | translate">
     <span class="navbar-toggler-icon fas fa-bars fa-fw" aria-hidden="true"></span>
 </button>
@@ -11,8 +11,8 @@
             <div id="collapsingNav">
                 <ul class="navbar-nav mr-auto shadow-none">
                     <ng-container *ngIf="!!(activeTab$ |async)">
-                        <ds-cris-layout-sidebar-item *ngFor="let tab of tabs;" [tab]="tab" [layout]="'horizontal'" [activeTab]="(activeTab$ |async)"
-                            (tabSelectedChange)="setActiveTab($event)"></ds-cris-layout-sidebar-item>
+                        <ds-cris-layout-sidebar-item *ngFor="let tab of tabs;" [itemBaseUrl]="itemBaseUrl" [tab]="tab" [layout]="'horizontal'" [activeTab]="(activeTab$ |async)"
+                            (tabSelectedChange)="navigateToTab($event)"></ds-cris-layout-sidebar-item>
                     </ng-container>
                 </ul>
             </div>

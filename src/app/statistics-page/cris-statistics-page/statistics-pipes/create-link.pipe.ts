@@ -22,6 +22,7 @@ import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
 
 @Pipe({
   name: 'dsCreateLink',
+  standalone: true,
 })
 export class CreateLinkPipe implements PipeTransform {
   constructor(private itemService: ItemDataService, private bitstreamService: BitstreamDataService) {
@@ -30,7 +31,7 @@ export class CreateLinkPipe implements PipeTransform {
   transform(value: Point): Observable<string> {
     if (value) {
       let link$: Observable<string>;
-      switch (value.type) {
+      switch (value.type as EntityTypeEnum) {
         case EntityTypeEnum.Community:
           link$ = of(getCommunityPageRoute(value.id));
           break;

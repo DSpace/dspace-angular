@@ -1,14 +1,18 @@
+import { NgIf } from '@angular/common';
 import {
   Component,
   Inject,
 } from '@angular/core';
-import { Router } from '@angular/router';
+import {
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { Item } from '../../../core/shared/item.model';
 import { getItemFullPageRoute } from '../../../item-page/item-page-routing-paths';
-import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
 
@@ -18,8 +22,13 @@ import { ContextMenuEntryType } from '../context-menu-entry-type';
 @Component({
   selector: 'ds-context-menu-full-item',
   templateUrl: './full-item-menu.component.html',
+  standalone: true,
+  imports: [
+    NgIf,
+    RouterLink,
+    TranslateModule,
+  ],
 })
-@rendersContextMenuEntriesForType(DSpaceObjectType.ITEM)
 export class FullItemMenuComponent extends ContextMenuEntryComponent {
 
   constructor(

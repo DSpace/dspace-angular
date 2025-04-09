@@ -1,7 +1,9 @@
+import { NgComponentOutlet } from '@angular/common';
 import {
   Component,
   Injector,
   Input,
+  OnChanges,
   OnInit,
   SimpleChanges,
 } from '@angular/core';
@@ -12,6 +14,7 @@ import {
   FILTER_CONFIG,
   IN_PLACE_SEARCH,
   REFRESH_FILTER,
+  SCOPE,
 } from '../../../../../core/shared/search/search-filter.service';
 import { FilterType } from '../../../models/filter-type.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
@@ -21,12 +24,16 @@ import { renderChartFilterType } from '../../chart-search-result-element-decorat
 @Component({
   selector: 'ds-search-chart-wrapper',
   templateUrl: './search-chart-wrapper.component.html',
+  imports: [
+    NgComponentOutlet,
+  ],
+  standalone: true,
 })
 
 /**
  * Wrapper component that renders a specific chart facet filter based on the filter config's type
  */
-export class SearchChartFilterWrapperComponent implements OnInit {
+export class SearchChartFilterWrapperComponent implements OnInit, OnChanges {
   /**
    * Configuration for the filter of this wrapper component
    */
@@ -41,6 +48,11 @@ export class SearchChartFilterWrapperComponent implements OnInit {
    * Emits when the search filters values may be stale, and so they must be refreshed.
    */
   @Input() refreshFilters: BehaviorSubject<boolean>;
+
+  /**
+   * The scope of the search.
+   */
+  @Input() scope: string;
 
   /**
    * The constructor of the search facet filter that should be rendered, based on the filter config's type
@@ -65,6 +77,7 @@ export class SearchChartFilterWrapperComponent implements OnInit {
         { provide: FILTER_CONFIG, useFactory: () => (this.filterConfig), deps: [] },
         { provide: IN_PLACE_SEARCH, useFactory: () => (this.inPlaceSearch), deps: [] },
         { provide: REFRESH_FILTER, useFactory: () => (this.refreshFilters), deps: [] },
+        { provide: SCOPE, useFactory: () => (this.scope), deps: [] },
       ],
       parent: this.injector,
     });

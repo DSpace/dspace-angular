@@ -1,9 +1,16 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Inject,
   OnInit,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 import { getBulkImportRoute } from '../../../app-routing-paths';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
@@ -12,7 +19,6 @@ import { Collection } from '../../../core/shared/collection.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
 import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
 
@@ -22,9 +28,17 @@ import { ContextMenuEntryType } from '../context-menu-entry-type';
 @Component({
   selector: 'ds-context-menu-audit-item',
   templateUrl: './bulk-import-menu.component.html',
+  standalone: true,
+  imports: [
+    NgIf,
+    RouterLink,
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
-@rendersContextMenuEntriesForType(DSpaceObjectType.COLLECTION)
 export class BulkImportMenuComponent extends ContextMenuEntryComponent implements OnInit {
+
+  isCollectionAdmin$: Observable<boolean>;
 
   /**
    * Initialize instance variables
@@ -43,9 +57,9 @@ export class BulkImportMenuComponent extends ContextMenuEntryComponent implement
     super(injectedContextMenuObject, injectedContextMenuObjectType, ContextMenuEntryType.BulkImport);
   }
   ngOnInit() {
-    this.notificationService.claimedProfile.subscribe(() => {
-      this.isCollectionAdmin(false);
-    });
+    this.isCollectionAdmin$ = this.notificationService.claimedProfile.pipe(
+      switchMap(() => this.isCollectionAdmin(false)),
+    );
   }
 
   /**

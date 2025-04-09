@@ -28,9 +28,8 @@ describe('NumberValueInputComponent', () => {
             provide: TranslateLoader,
             useClass: TranslateLoaderMock,
           },
-        })],
-      declarations: [NumberValueInputComponent],
-      providers: [
+        }),
+        NumberValueInputComponent,
       ],
     })
       .compileComponents();

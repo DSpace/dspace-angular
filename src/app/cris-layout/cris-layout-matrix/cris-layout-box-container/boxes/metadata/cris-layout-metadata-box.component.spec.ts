@@ -13,7 +13,6 @@ import {
 
 import { Item } from '../../../../../core/shared/item.model';
 import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
-import { SharedModule } from '../../../../../shared/shared.module';
 import { boxMetadata } from '../../../../../shared/testing/box.mock';
 import { CrisLayoutLoaderDirective } from '../../../../directives/cris-layout-loader.directive';
 import { CrisLayoutMetadataBoxComponent } from './cris-layout-metadata-box.component';
@@ -48,20 +47,16 @@ describe('CrisLayoutMetadataBoxComponent', () => {
           useClass: TranslateLoaderMock,
         },
       }),
-      BrowserAnimationsModule,
-      SharedModule],
+      BrowserAnimationsModule, CrisLayoutMetadataBoxComponent,
+      CrisLayoutLoaderDirective,
+      RowComponent,
+      TextComponent],
       providers: [
         { provide: 'boxProvider', useValue: boxMetadata },
         { provide: 'itemProvider', useValue: testItem },
       ],
-      declarations: [
-        CrisLayoutMetadataBoxComponent,
-        CrisLayoutLoaderDirective,
-        RowComponent,
-        TextComponent,
-      ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(CrisLayoutMetadataBoxComponent, { remove: { imports: [RowComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

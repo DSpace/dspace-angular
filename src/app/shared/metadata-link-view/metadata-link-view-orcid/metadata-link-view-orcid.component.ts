@@ -1,8 +1,14 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   map,
   Observable,
@@ -17,6 +23,13 @@ import { getFirstSucceededRemoteDataPayload } from './../../../core/shared/opera
   selector: 'ds-metadata-link-view-orcid',
   templateUrl: './metadata-link-view-orcid.component.html',
   styleUrls: ['./metadata-link-view-orcid.component.scss'],
+  imports: [
+    NgbTooltipModule,
+    TranslateModule,
+    AsyncPipe,
+    NgIf,
+  ],
+  standalone: true,
 })
 export class MetadataLinkViewOrcidComponent implements OnInit {
   /**

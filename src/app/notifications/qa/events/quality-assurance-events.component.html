@@ -156,7 +156,7 @@
                     </div>
                   </td>
                   <td>
-                    <div *ngIf="(isAdmin$ | async)" class="btn-group button-width">
+                    <div *ngIf="(isAdmin$ | async) || !isReinstateWithdrawnRequest" class="btn-group button-width">
                       <button *ngIf="showTopic.indexOf('/PROJECT') !== -1"
                               class="btn btn-outline-success btn-sm button-width"
                               ngbTooltip="{{'quality-assurance.event.action.import' | translate}}"
@@ -187,6 +187,7 @@
                         <i class="fas fa-ban"></i>
                       </button>
                       <button class="btn btn-outline-danger btn-sm button-width"
+                              *ngIf="(isAdmin$ | async)"
                               ngbTooltip="{{'quality-assurance.event.action.reject' | translate}}"
                               container="body"
                               [disabled]="eventElement.isRunning"
@@ -195,8 +196,17 @@
                       >
                         <i class="fas fa-trash-alt"></i>
                       </button>
+                      <button class="btn btn-outline-danger btn-sm button-width"
+                              *ngIf="(isAdmin$ | async) === false"
+                              ngbTooltip="{{'quality-assurance.event.action.undo' | translate }}"
+                              container="body"
+                              [disabled]="eventElement.isRunning"
+                              [attr.aria-label]="'quality-assurance.event.action.undo' | translate"
+                              (click)="openModal('UNDO', eventElement, undoModal)">
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
                     </div>
-                    <div *ngIf="(isAdmin$ | async) !== true" class="btn-group button-width">
+                    <div *ngIf="(isAdmin$ | async) !== true && isReinstateWithdrawnRequest" class="btn-group button-width">
                       <button class="btn btn-outline-danger btn-sm button-width"
                               ngbTooltip="{{'quality-assurance.event.action.undo' | translate}}"
                               container="body"

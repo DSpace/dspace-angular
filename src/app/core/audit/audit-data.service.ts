@@ -8,6 +8,7 @@ import {
   startWith,
 } from 'rxjs/operators';
 
+import { hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import {
   followLink,
@@ -17,7 +18,6 @@ import { DSONameService } from '../breadcrumbs/dso-name.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { dataService } from '../data/base/data-service.decorator';
 import { DeleteDataImpl } from '../data/base/delete-data';
 import {
   FindAllData,
@@ -36,14 +36,12 @@ import {
   getFirstSucceededRemoteDataWithNotEmptyPayload,
 } from '../shared/operators';
 import { Audit } from './model/audit.model';
-import { AUDIT } from './model/audit.resource-type';
 
 export const AUDIT_PERSON_NOT_AVAILABLE = 'n/a';
 
 export const AUDIT_FIND_BY_OBJECT_SEARCH_METHOD = 'findByObject';
 
-@Injectable()
-@dataService(AUDIT)
+@Injectable({ providedIn: 'root' })
 export class AuditDataService extends IdentifiableDataService<Audit>{
 
   private searchData: SearchDataImpl<Audit>;
@@ -70,12 +68,23 @@ export class AuditDataService extends IdentifiableDataService<Audit>{
    *
    * @param objectId The objectId id
    * @param options The [[FindListOptions]] object
+   * @param collUuid The Uuid of the collection
+   * @param commUuid The Uuid of the community
    * @return Observable<RemoteData<PaginatedList<Audit>>>
    */
-  findByObject(objectId: string, options: FindListOptions = {}): Observable<RemoteData<PaginatedList<Audit>>> {
+  findByObject(objectId: string, options: FindListOptions = {}, collUuid?: string, commUuid?: string): Observable<RemoteData<PaginatedList<Audit>>> {
     const searchMethod = AUDIT_FIND_BY_OBJECT_SEARCH_METHOD;
+    const searchParams = [new RequestParam('object', objectId)];
+
+    if (hasValue(commUuid)) {
+      searchParams.push(new RequestParam('commUuid', commUuid));
+    }
+
+    if (hasValue(collUuid)) {
+      searchParams.push(new RequestParam('collUuid', collUuid));
+    }
     const optionsWithObject = Object.assign(new FindListOptions(), options, {
-      searchParams: [new RequestParam('object', objectId)],
+      searchParams,
     });
     return this.searchData.searchBy(searchMethod, optionsWithObject, true, true, followLink('eperson'));
   }

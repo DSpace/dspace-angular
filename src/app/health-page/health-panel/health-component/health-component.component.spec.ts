@@ -12,6 +12,7 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 
+import { AlertComponent } from '../../../shared/alert/alert.component';
 import {
   HealthComponentOne,
   HealthComponentTwo,
@@ -36,14 +37,12 @@ describe('HealthComponentComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
-      ],
-      declarations: [
         HealthComponentComponent,
         ObjNgFor,
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
-      .compileComponents();
+      .overrideComponent(HealthComponentComponent, { remove: { imports: [AlertComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

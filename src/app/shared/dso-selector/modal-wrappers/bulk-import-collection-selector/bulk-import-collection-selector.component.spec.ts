@@ -18,6 +18,7 @@ import { Collection } from '../../../../core/shared/collection.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { RouterStub } from '../../../testing/router.stub';
+import { AdministeredCollectionSelectorComponent } from '../../dso-selector/administered-collection-selector/administered-collection-selector.component';
 import { BulkImportSelectorComponent } from './bulk-import-collection-selector.component';
 
 describe('BulkImportSelectorComponent', () => {
@@ -39,8 +40,7 @@ describe('BulkImportSelectorComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [BulkImportSelectorComponent],
+      imports: [TranslateModule.forRoot(), BulkImportSelectorComponent],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         {
@@ -60,7 +60,7 @@ describe('BulkImportSelectorComponent', () => {
         },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(BulkImportSelectorComponent, { remove: { imports: [AdministeredCollectionSelectorComponent] } }).compileComponents();
 
   }));
 
