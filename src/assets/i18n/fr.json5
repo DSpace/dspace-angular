@@ -3645,6 +3645,9 @@
   // "item.preview.dc.title": "Title:",
   "item.preview.dc.title": "Title :",
 
+  //"item.preview.dc.type": "Type:",
+  "item.preview.dc.type": "Type de document :",
+
   // "item.preview.person.familyName": "Surname:",
   "item.preview.person.familyName": "Nom de famille :",
 
@@ -3671,6 +3674,30 @@
 
   // "item.preview.oaire.fundingStream": "Funding Stream:",
   "item.preview.oaire.fundingStream": "Volet de financement :",
+
+  //"item.preview.oairecerif.identifier.url": "URL",
+  "item.preview.oairecerif.identifier.url": "URL",
+
+  //"item.preview.organization.address.addressCountry": "Country",
+  "item.preview.organization.address.addressCountry": "Pays",
+
+  //"item.preview.organization.foundingDate": "Founding Date",
+  "item.preview.organization.foundingDate": "Date de création",
+
+  //"item.preview.organization.identifier.crossrefid": "Crossref ID",
+  "item.preview.organization.identifier.crossrefid": "Identifiant Crossref",
+
+  //"item.preview.organization.identifier.isni": "ISNI",
+  "item.preview.organization.identifier.isni": "ISNI",
+
+  //"item.preview.organization.identifier.ror": "ROR ID",
+  "item.preview.organization.identifier.ror": "Identifiant ROR",
+
+  //"item.preview.organization.legalName": "Legal Name",
+  "item.preview.organization.legalName": "Nom officiel",
+
+  //"item.preview.dspace.entity.type": "Entity Type:",
+  "item.preview.dspace.entity.type": "Type d'entité :",
 
   // "item.select.confirm": "Confirm selected",
   "item.select.confirm": "Confirmer la sélection",
@@ -5267,6 +5294,33 @@
   // "search.filters.applied.f.withdrawn": "Withdrawn",
   "search.filters.applied.f.withdrawn": "Retiré",
 
+  //"search.filters.applied.operator.equals": "",
+  "search.filters.applied.operator.equals": "est égal à",
+
+  //"search.filters.applied.operator.notequals": " not equals",
+  "search.filters.applied.operator.notequals": " n'est pas égal à",
+
+  //"search.filters.applied.operator.authority": "",
+  "search.filters.applied.operator.authority": "",
+
+  //"search.filters.applied.operator.notauthority": " not authority",
+  //"search.filters.applied.operator.notauthority": "",
+
+  //"search.filters.applied.operator.contains": " contains",
+  "search.filters.applied.operator.contains": " contient",
+
+  //"search.filters.applied.operator.notcontains": " not contains",
+  "search.filters.applied.operator.notcontains": " ne contient pas",
+
+  //"search.filters.applied.operator.query": "",
+  "search.filters.applied.operator.query": "",
+
+  //"search.filters.filter.title.head": "Title",
+  "search.filters.filter.title.head": "Titre",
+
+  //"search.filters.filter.title.placeholder": "Title",
+  "search.filters.filter.title.placeholder": "Titre",
+
   // "search.filters.filter.author.head": "Author",
   "search.filters.filter.author.head": "Auteur",
 
@@ -5510,6 +5564,27 @@
   // "search.filters.search.submit": "Submit",
   "search.filters.search.submit": "Soumettre",
 
+  //"search.filters.operator.equals.text": "Equals",
+  "search.filters.operator.equals.text": "Est égal à",
+
+  //"search.filters.operator.notequals.text": "Not Equals",
+  "search.filters.operator.notequals.text": "N'est pas égal à",
+
+  //"search.filters.operator.authority.text": "Authority",
+  "search.filters.operator.authority.text": "Est une autorité",
+
+  //"search.filters.operator.notauthority.text": "Not Authority",
+  "search.filters.operator.notauthority.text": "N'est pas une autorité",
+
+  //"search.filters.operator.contains.text": "Contains",
+  "search.filters.operator.contains.text": "Contient",
+
+  //"search.filters.operator.notcontains.text": "Not Contains",
+  "search.filters.operator.notcontains.text": "Ne contient pas",
+
+  //"search.filters.operator.query.text": "Query",
+  "search.filters.operator.query.text": "Requête",
+
   // "search.form.search": "Search",
   "search.form.search": "Recherche",
 
@@ -5557,6 +5632,22 @@
 
   // "search.sidebar.settings.sort-by": "Sort By",
   "search.sidebar.settings.sort-by": "Trier par",
+
+  //"search.sidebar.advanced-search.title": "Advanced Search",
+  "search.sidebar.advanced-search.title": "Recherche avancée",
+
+  //"search.sidebar.advanced-search.filter-by": "Filter by",
+  "search.sidebar.advanced-search.filter-by": "Filtrer par",
+
+  //"search.sidebar.advanced-search.filters": "Filters",
+  "search.sidebar.advanced-search.filters": "Filtres",
+
+  //"search.sidebar.advanced-search.operators": "Operators",
+  "search.sidebar.advanced-search.operators": "Opérateurs",
+
+  //"search.sidebar.advanced-search.add": "Add",
+  "search.sidebar.advanced-search.add": "Ajouter",
+
 
   // "search.sidebar.settings.title": "Settings",
   "search.sidebar.settings.title": "Paramètres",
@@ -6269,6 +6360,9 @@
   // "submission.sections.submit.progressbar.describe.steptwo": "Describe",
   "submission.sections.submit.progressbar.describe.steptwo": "Décrire",
 
+  //"submission.sections.submit.progressbar.duplicates": "Potential duplicates",
+  "submission.sections.submit.progressbar.duplicates": "Doublons potentiels",
+
   // "submission.sections.submit.progressbar.detect-duplicate": "Potential duplicates",
   "submission.sections.submit.progressbar.detect-duplicate": "Doublon(s) potentiel(s)",
 
@@ -6446,6 +6540,17 @@
   // "submission.sections.accesses.form.until-placeholder": "Until",
   "submission.sections.accesses.form.until-placeholder": "Jusqu'au",
 
+  //"submission.sections.duplicates.none": "No duplicates were detected.",
+  "submission.sections.duplicates.none": "Aucun doublon n'a été détecté.",
+
+  //"submission.sections.duplicates.detected": "Potential duplicates were detected. Please review the list below.",
+  "submission.sections.duplicates.detected": "Des doublons potentiels ont été détectés. Vérifier la liste ci-dessous.",
+
+  //"submission.sections.duplicates.in-workspace": "This item is in workspace",
+  "submission.sections.duplicates.in-workspace": "Cet item est en cours de dépôt",
+
+  //"submission.sections.duplicates.in-workflow": "This item is in workflow",
+  "submission.sections.duplicates.in-workflow": "Cet item est en traitement",
 
   // "submission.sections.license.granted-label": "I confirm the license above",
   "submission.sections.license.granted-label": "J'approuve la licence ci-dessus",
