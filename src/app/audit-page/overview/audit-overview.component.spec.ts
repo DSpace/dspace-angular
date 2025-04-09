@@ -1,19 +1,25 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { VarDirective } from '../../shared/utils/var.directive';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { of } from 'rxjs';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { createPaginatedList } from '../../shared/testing/utils.test';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { AuditOverviewComponent } from './audit-overview.component';
-import { AuditMock } from '../../shared/testing/audit.mock';
-import { Audit } from '../../core/audit/model/audit.model';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
 import { AuditDataService } from '../../core/audit/audit-data.service';
+import { Audit } from '../../core/audit/model/audit.model';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { AuditMock } from '../../shared/testing/audit.mock';
 import { PaginationServiceStub } from '../../shared/testing/pagination-service.stub';
+import { createPaginatedList } from '../../shared/testing/utils.test';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { AuditOverviewComponent } from './audit-overview.component';
 
 describe('AuditOverviewComponent', () => {
   let component: AuditOverviewComponent;
@@ -28,7 +34,7 @@ describe('AuditOverviewComponent', () => {
     audits = [ AuditMock, AuditMock, AuditMock ];
     auditService = jasmine.createSpyObj('processService', {
       findAll: createSuccessfulRemoteDataObject$(createPaginatedList(audits)),
-      getEpersonName: of('Eperson Name')
+      getEpersonName: of('Eperson Name'),
     });
     authorizationService = jasmine.createSpyObj('authorizationService', ['isAuthorized']);
   }
@@ -36,15 +42,14 @@ describe('AuditOverviewComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [AuditOverviewComponent, VarDirective],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), VarDirective, AuditOverviewComponent],
       providers: [
         { provide: AuditDataService, useValue: auditService },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: PaginationService, useValue: paginationService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(AuditOverviewComponent, { remove: { imports: [PaginationComponent] } }).compileComponents();
   }));
 
   describe('if the current user is an admin', () => {

@@ -1,19 +1,29 @@
 import { Injectable } from '@angular/core';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
+import { Observable } from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+  startWith,
+} from 'rxjs/operators';
 
-import { select, Store } from '@ngrx/store';
-import { distinctUntilChanged, map, startWith } from 'rxjs/operators';
-
-import { SubmissionState } from '../../submission.reducers';
+import { WorkspaceitemSectionDetectDuplicateObject } from '../../../core/submission/models/workspaceitem-section-deduplication.model';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../../../shared/empty.util';
 import { SetDuplicateDecisionAction } from '../../objects/submission-objects.actions';
 import { submissionSectionDataFromIdSelector } from '../../selectors';
-import { WorkspaceitemSectionDetectDuplicateObject } from '../../../core/submission/models/workspaceitem-section-deduplication.model';
-import { hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
-import { Observable } from 'rxjs';
+import { SubmissionState } from '../../submission.reducers';
 
 /**
  * A service that provides methods used in the deduplication process.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DetectDuplicateService {
 
   /**
@@ -36,7 +46,7 @@ export class DetectDuplicateService {
     return this.store.pipe(
       select(submissionSectionDataFromIdSelector(submissionId, sectionId)),
       map((sectionData: WorkspaceitemSectionDetectDuplicateObject) => {
-        let matches: {};
+        let matches: WorkspaceitemSectionDetectDuplicateObject = null;
         if (isNotEmpty(sectionData)) {
           matches = sectionData;
         }
@@ -78,7 +88,7 @@ export class DetectDuplicateService {
             });
         }
         return outputObject;
-      })
+      }),
     );
   }
 

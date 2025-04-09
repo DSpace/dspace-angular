@@ -1,8 +1,19 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-
-import { interval, Subject } from 'rxjs';
-import { take, takeUntil, tap } from 'rxjs/operators';
+import {
+  interval,
+  Subject,
+} from 'rxjs';
+import {
+  take,
+  takeUntil,
+  tap,
+} from 'rxjs/operators';
 
 import { BaseMetricComponent } from './base-metric.component';
 
@@ -14,7 +25,8 @@ export const METRIC_SCRIPT_MAX_RETRY = 1;
  * to initialize the dynamically added html snippet.
  */
 @Component({
-  template: ''
+  template: '',
+  standalone: true,
 })
 export abstract class BaseEmbeddedMetricComponent extends BaseMetricComponent implements OnInit, AfterViewInit {
 
@@ -24,7 +36,7 @@ export abstract class BaseEmbeddedMetricComponent extends BaseMetricComponent im
   /**
    * Give a context to the script (if supported) to target the metric initialization.
    */
-  @ViewChild('metricChild', {static: false}) metricChild;
+  @ViewChild('metricChild', { static: false }) metricChild;
 
   sanitizedInnerHtml;
 
@@ -61,16 +73,16 @@ export abstract class BaseEmbeddedMetricComponent extends BaseMetricComponent im
       tap(() => this.applyScriptHandler(successNotifier)),
       take(this.maxRetry),
       takeUntil(successNotifier),
-      ).subscribe({
-        complete: () => {
-          if (!this.success) {
-            this.failed = true;
-            this.hide.emit(true);
-            console.error('The script of type ' + this.metric.metricType + ' hasn\'t been initialized successfully');
-          }
+    ).subscribe({
+      complete: () => {
+        if (!this.success) {
+          this.failed = true;
+          this.hide.emit(true);
+          console.error('The script of type ' + this.metric.metricType + ' hasn\'t been initialized successfully');
         }
+      },
     });
- }
+  }
 
   /**
    * Apply the script and set success true when no error occurs.

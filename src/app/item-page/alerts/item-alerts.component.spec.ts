@@ -1,36 +1,81 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ItemAlertsComponent } from './item-alerts.component';
-import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { Item } from '../../core/shared/item.model';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
+
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { Item } from '../../core/shared/item.model';
+import { CorrectionTypeDataService } from '../../core/submission/correctiontype-data.service';
+import { CorrectionType } from '../../core/submission/models/correctiontype.model';
+import { AlertComponent } from '../../shared/alert/alert.component';
+import {
+  DsoWithdrawnReinstateModalService,
+  REQUEST_REINSTATE,
+} from '../../shared/dso-page/dso-withdrawn-reinstate-service/dso-withdrawn-reinstate-modal.service';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { createPaginatedList } from '../../shared/testing/utils.test';
+import { ItemAlertsComponent } from './item-alerts.component';
 
 describe('ItemAlertsComponent', () => {
   let component: ItemAlertsComponent;
   let fixture: ComponentFixture<ItemAlertsComponent>;
   let item: Item;
+  let authorizationService;
+  let dsoWithdrawnReinstateModalService;
+  let correctionTypeDataService;
+  let testScheduler: TestScheduler;
+
+  const itemMock = Object.assign(new Item(), {
+    uuid: 'item-uuid',
+    id: 'item-uuid',
+  });
 
   beforeEach(waitForAsync(() => {
+    authorizationService = jasmine.createSpyObj('authorizationService', ['isAuthorized']);
+    dsoWithdrawnReinstateModalService = jasmine.createSpyObj('dsoWithdrawnReinstateModalService', ['openCreateWithdrawnReinstateModal']);
+    correctionTypeDataService = jasmine.createSpyObj('correctionTypeDataService',  {
+      findByItem: createSuccessfulRemoteDataObject$([]),
+    });
     TestBed.configureTestingModule({
-      declarations: [ItemAlertsComponent],
-      imports: [TranslateModule.forRoot()],
-      schemas: [NO_ERRORS_SCHEMA]
+      imports: [TranslateModule.forRoot(), ItemAlertsComponent, NoopAnimationsModule],
+      providers: [
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: DsoWithdrawnReinstateModalService, useValue: dsoWithdrawnReinstateModalService },
+        { provide: CorrectionTypeDataService, useValue: correctionTypeDataService },
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
     })
-      .compileComponents();
+      .overrideComponent(ItemAlertsComponent, { remove: { imports: [AlertComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ItemAlertsComponent);
+
     component = fixture.componentInstance;
+    component.item = itemMock;
     fixture.detectChanges();
   });
 
   describe('when the item is discoverable', () => {
     beforeEach(() => {
       item = Object.assign(new Item(), {
-        isDiscoverable: true
+        isDiscoverable: true,
       });
       component.item = item;
+      (correctionTypeDataService.findByItem).and.returnValue(createSuccessfulRemoteDataObject$([]));
       fixture.detectChanges();
     });
 
@@ -43,8 +88,9 @@ describe('ItemAlertsComponent', () => {
   describe('when the item is not discoverable', () => {
     beforeEach(() => {
       item = Object.assign(new Item(), {
-        isDiscoverable: false
+        isDiscoverable: false,
       });
+      (correctionTypeDataService.findByItem).and.returnValue(createSuccessfulRemoteDataObject$([]));
       component.item = item;
       fixture.detectChanges();
     });
@@ -58,9 +104,10 @@ describe('ItemAlertsComponent', () => {
   describe('when the item is withdrawn', () => {
     beforeEach(() => {
       item = Object.assign(new Item(), {
-        isWithdrawn: true
+        isWithdrawn: true,
       });
       component.item = item;
+      (correctionTypeDataService.findByItem).and.returnValue(createSuccessfulRemoteDataObject$([]));
       fixture.detectChanges();
     });
 
@@ -73,9 +120,10 @@ describe('ItemAlertsComponent', () => {
   describe('when the item is not withdrawn', () => {
     beforeEach(() => {
       item = Object.assign(new Item(), {
-        isWithdrawn: false
+        isWithdrawn: false,
       });
       component.item = item;
+      (correctionTypeDataService.findByItem).and.returnValue(createSuccessfulRemoteDataObject$([]));
       fixture.detectChanges();
     });
 
@@ -83,5 +131,34 @@ describe('ItemAlertsComponent', () => {
       const privateWarning = fixture.debugElement.query(By.css('.withdrawn-warning'));
       expect(privateWarning).toBeNull();
     });
+  });
+
+  describe('when the item is reinstated', () => {
+    const correctionType = Object.assign(new CorrectionType(), {
+      topic: REQUEST_REINSTATE,
+    });
+    const correctionRD = createSuccessfulRemoteDataObject(createPaginatedList([correctionType]));
+
+    beforeEach(() => {
+      item =  itemMock;
+      component.item = item;
+      (correctionTypeDataService.findByItem).and.returnValue(of(correctionRD));
+
+      testScheduler = new TestScheduler((actual, expected) => {
+        expect(actual).toEqual(expected);
+      });
+      fixture.detectChanges();
+    });
+
+    it('should return true when user is not an admin and there is at least one correction with topic REQUEST_REINSTATE', (done) => {
+
+      (authorizationService.isAuthorized).and.returnValue(of(false));
+      component.ngOnInit();
+      component.showReinstateButton$.subscribe(value => {
+        expect(value).toBeTruthy();
+        done();
+      });
+    });
+
   });
 });

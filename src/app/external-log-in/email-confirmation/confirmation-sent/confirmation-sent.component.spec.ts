@@ -1,11 +1,21 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ConfirmationSentComponent } from './confirmation-sent.component';
 import { CommonModule } from '@angular/common';
-import { CUSTOM_ELEMENTS_SCHEMA, EventEmitter } from '@angular/core';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  EventEmitter,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { of } from 'rxjs';
+
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
+import { ConfirmationSentComponent } from './confirmation-sent.component';
 
 describe('ConfirmationSentComponent', () => {
   let component: ConfirmationSentComponent;
@@ -17,27 +27,27 @@ describe('ConfirmationSentComponent', () => {
     instant: (key: any) => 'Mocked Translation Text',
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
-    onDefaultLangChange: new EventEmitter()
+    onDefaultLangChange: new EventEmitter(),
   };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ConfirmationSentComponent ],
       providers: [
         { provide: TranslateService, useValue: translateServiceStub },
-       ],
-       imports: [
+      ],
+      imports: [
         CommonModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
+        ConfirmationSentComponent,
       ],
-       schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

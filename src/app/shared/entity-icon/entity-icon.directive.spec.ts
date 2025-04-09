@@ -1,5 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { EntityIconDirective } from './entity-icon.directive';
@@ -10,10 +13,8 @@ describe('EntityIconDirective', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
-        EntityIconDirective,
-        TestComponent
-      ]
+      imports: [EntityIconDirective,
+        TestComponent],
     })
       .compileComponents();
   });
@@ -104,12 +105,17 @@ describe('EntityIconDirective', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: `<div [attr.data-test]="'entityTestComponent'">
+  template: `
+    <div [attr.data-test]="'entityTestComponent'">
               <span dsEntityIcon
-                   [iconPosition]="iconPosition"
-                   [entityType]="metadata.entityType"
-                   [entityStyle]="metadata.entityStyle"
-                   [fallbackOnDefault]="fallbackOnDefault">{{metadata.value}}</span></div>`
+                    [iconPosition]="iconPosition"
+                    [entityType]="metadata.entityType"
+                    [entityStyle]="metadata.entityStyle"
+                    [fallbackOnDefault]="fallbackOnDefault">{{ metadata.value }}</span></div>`,
+  standalone: true,
+  imports: [
+    EntityIconDirective,
+  ],
 })
 class TestComponent {
 
@@ -118,7 +124,7 @@ class TestComponent {
     value: 'Test',
     orcidAuthenticated: null,
     entityType: 'default',
-    entityStyle: 'default'
+    entityStyle: 'default',
   };
   iconPosition = 'after';
   fallbackOnDefault = true;

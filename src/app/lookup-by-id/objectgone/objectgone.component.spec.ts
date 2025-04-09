@@ -1,6 +1,13 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ObjectGoneComponent } from './objectgone.component';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+
+import { AlertComponent } from '../../shared/alert/alert.component';
+import { MockActivatedRoute } from '../../shared/mocks/active-router.mock';
+import { ObjectGoneComponent } from './objectgone.component';
 
 describe('ObjectGoneComponent', () => {
   let component: ObjectGoneComponent;
@@ -9,11 +16,14 @@ describe('ObjectGoneComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
+        ObjectGoneComponent,
       ],
-      declarations: [ ObjectGoneComponent ]
+      providers: [
+        { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
+      ],
     })
-    .compileComponents();
+      .overrideComponent(ObjectGoneComponent, { remove: { imports: [AlertComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

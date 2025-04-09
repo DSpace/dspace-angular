@@ -2,9 +2,14 @@
   <div
     [ngClass]="{'container': (itemRD?.hasSucceeded && !itemRD?.hasNoContent) && tabsRD?.payload?.pageInfo?.totalElements < 1}"
     *ngVar="(itemRD$ | async) as itemRD">
+    <div [ngClass]="{'container': (itemRD?.hasSucceeded && !itemRD?.hasNoContent) && tabsRD?.payload?.pageInfo?.totalElements > 0}">
+      <ds-item-versions-notice [item]="itemRD?.payload" ></ds-item-versions-notice>
+    </div>
     <div class="item-page" *ngIf="(itemRD?.hasSucceeded && !itemRD?.hasNoContent) && tabsRD?.payload?.pageInfo?.totalElements < 1" @fadeInOut>
       <div *ngIf="itemRD?.payload as item">
-        <ds-themed-item-alerts [item]="item"></ds-themed-item-alerts>
+      <ds-item-alerts [item]="item"></ds-item-alerts>
+        <ds-qa-event-notification [item]="item"></ds-qa-event-notification>
+        <ds-notify-requests-status [itemUuid]="item.uuid"></ds-notify-requests-status>
         <ds-item-versions-notice [item]="item"></ds-item-versions-notice>
         <ds-view-tracker [object]="item"></ds-view-tracker>
         <ds-listable-object-component-loader *ngIf="!item.isWithdrawn || (isAdmin$|async)" [object]="item" [viewMode]="viewMode"></ds-listable-object-component-loader>
@@ -13,6 +18,6 @@
     </div>
     <ds-cris-item-page *ngIf="(itemRD?.hasSucceeded && !itemRD?.hasNoContent) && tabsRD?.payload?.pageInfo?.totalElements > 0"></ds-cris-item-page>
     <ds-error *ngIf="itemRD?.hasFailed" message="{{'error.item' | translate}}"></ds-error>
-    <ds-themed-loading *ngIf="itemRD?.isLoading" message="{{'loading.item' | translate}}"></ds-themed-loading>
+  <ds-loading *ngIf="itemRD?.isLoading" message="{{'loading.item' | translate}}"></ds-loading>
   </div>
 </div>

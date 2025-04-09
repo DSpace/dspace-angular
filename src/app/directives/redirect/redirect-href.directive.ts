@@ -1,10 +1,15 @@
-import { Directive, HostBinding } from '@angular/core';
-import { RedirectDirective } from './redirect.directive';
+import {
+  Directive,
+  HostBinding,
+} from '@angular/core';
+
 import { RedirectService } from '../../redirect/redirect.service';
+import { RedirectDirective } from './redirect.directive';
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
-  selector: 'a[dsRedirect],area[dsRedirect]'
+  selector: 'a[dsRedirect],area[dsRedirect]',
+  standalone: true,
 })
 export class RedirectWithHrefDirective extends RedirectDirective {
 

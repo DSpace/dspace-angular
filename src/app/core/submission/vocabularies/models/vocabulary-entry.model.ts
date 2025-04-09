@@ -1,17 +1,18 @@
-import { autoserialize, deserialize } from 'cerialize';
-
-import { HALLink } from '../../../shared/hal-link.model';
-import { VOCABULARY_ENTRY } from './vocabularies.resource-type';
-import { typedObject } from '../../../cache/builders/build-decorators';
-import { excludeFromEquals } from '../../../utilities/equals.decorators';
 import {
-  PLACEHOLDER_PARENT_METADATA
-} from '../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
-import { OtherInformation } from '../../../../shared/form/builder/models/form-field-metadata-value.model';
+  autoserialize,
+  deserialize,
+} from 'cerialize';
+
 import { isNotEmpty } from '../../../../shared/empty.util';
+import { PLACEHOLDER_PARENT_METADATA } from '../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
+import { OtherInformation } from '../../../../shared/form/builder/models/form-field-metadata-value.model';
 import { ListableObject } from '../../../../shared/object-collection/shared/listable-object.model';
+import { typedObject } from '../../../cache/builders/build-decorators';
 import { GenericConstructor } from '../../../shared/generic-constructor';
+import { HALLink } from '../../../shared/hal-link.model';
 import { Metadata } from '../../../shared/metadata.utils';
+import { excludeFromEquals } from '../../../utilities/equals.decorators';
+import { VOCABULARY_ENTRY } from './vocabularies.resource-type';
 
 /**
  * Model class for a VocabularyEntry
@@ -48,7 +49,7 @@ export class VocabularyEntry extends ListableObject {
    * A value representing security level value of the metadata
    */
   @autoserialize
-  securityLevel: number;
+    securityLevel: number;
 
   /**
    * A string representing the kind of vocabulary entry

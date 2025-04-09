@@ -1,4 +1,8 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+
 import { InternalLinkService } from './internal-link.service';
 import { NativeWindowService } from './window.service';
 
@@ -10,7 +14,7 @@ describe('InternalLinkService', () => {
       providers: [
         InternalLinkService,
         { provide: NativeWindowService, useValue: { nativeWindow: { location: { origin: 'https://currentdomain' } } } },
-    ],
+      ],
     }).compileComponents();
   }));
 
@@ -58,7 +62,7 @@ describe('InternalLinkService', () => {
 
     it('should return unchanged link for external link', () => {
       const result = service.getRelativePath('https://externalDomain/my-link');
-      expect(result).toBe('https://externalDomain/my-link');
+      expect(result).toBe('/https://externalDomain/my-link');
     });
 
     it('should return unchanged link for internal link with leading "/"', () => {

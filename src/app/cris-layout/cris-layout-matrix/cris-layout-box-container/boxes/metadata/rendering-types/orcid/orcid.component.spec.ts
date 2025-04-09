@@ -112,28 +112,36 @@ describe('OrcidComponent', () => {
 });
 */
 
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-
-import { OrcidComponent } from './orcid.component';
-import { Item } from '../../../../../../../core/shared/item.model';
-import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
-import { DsDatePipe } from '../../../../../../pipes/ds-date.pipe';
-import { LayoutField } from '../../../../../../../core/layout/models/box.model';
-import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
-import { FieldRenderingType } from '../metadata-box.decorator';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../../shared/remote-data.utils';
 import { ConfigurationDataService } from '../../../../../../../core/data/configuration-data.service';
+import { LayoutField } from '../../../../../../../core/layout/models/box.model';
+import { Item } from '../../../../../../../core/shared/item.model';
+import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
+import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../../shared/remote-data.utils';
+import { DsDatePipe } from '../../../../../../pipes/ds-date.pipe';
+import { FieldRenderingType } from '../field-rendering-type';
+import { OrcidComponent } from './orcid.component';
 
 describe('OrcidComponent', () => {
   let component: OrcidComponent;
   let fixture: ComponentFixture<OrcidComponent>;
 
   const configurationDataService = jasmine.createSpyObj('configurationDataService', {
-    findByPropertyName: createSuccessfulRemoteDataObject$({ values: ['https://sandbox.orcid.org'] })
+    findByPropertyName: createSuccessfulRemoteDataObject$({ values: ['https://sandbox.orcid.org'] }),
   });
 
   const metadataValue = Object.assign(new MetadataValue(), {
@@ -141,7 +149,7 @@ describe('OrcidComponent', () => {
     'language': 'en_US',
     'authority': null,
     'confidence': -1,
-    'place': 0
+    'place': 0,
   });
 
   const testItem = Object.assign(new Item(),
@@ -152,12 +160,12 @@ describe('OrcidComponent', () => {
         'dspace.orcid.authenticated': [
           {
             language: null,
-            value: 'authenticated'
-          }
-        ]
+            value: 'authenticated',
+          },
+        ],
       },
       uuid: 'test-item-uuid',
-    }
+    },
   );
 
   const mockField: LayoutField = {
@@ -169,7 +177,7 @@ describe('OrcidComponent', () => {
     'styleLabel': 'test-style-label',
     'styleValue': 'test-style-value',
     'labelAsHeading': false,
-    'valuesInline': true
+    'valuesInline': true,
   };
 
   beforeEach(waitForAsync(() => {
@@ -177,17 +185,17 @@ describe('OrcidComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      }), BrowserAnimationsModule],
+          useClass: TranslateLoaderMock,
+        },
+      }), BrowserAnimationsModule, OrcidComponent, DsDatePipe],
       providers: [
         { provide: 'fieldProvider', useValue: mockField },
         { provide: 'itemProvider', useValue: testItem },
         { provide: 'metadataValueProvider', useValue: metadataValue },
         { provide: 'renderingSubTypeProvider', useValue: '' },
-        { provide: ConfigurationDataService, useValue: configurationDataService}
+        { provide: 'tabNameProvider', useValue: '' },
+        { provide: ConfigurationDataService, useValue: configurationDataService },
       ],
-      declarations: [OrcidComponent, DsDatePipe]
     })
       .compileComponents();
   }));

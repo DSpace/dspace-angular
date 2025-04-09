@@ -1,4 +1,4 @@
-import { makeStateKey } from '@angular/platform-browser';
+import { makeStateKey } from '@angular/core';
 
 /**
  * Represents ngx-translate messages in different languages in the TransferState

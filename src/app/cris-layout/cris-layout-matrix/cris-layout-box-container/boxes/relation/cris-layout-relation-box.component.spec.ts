@@ -1,19 +1,33 @@
-import { ComponentFixture, fakeAsync, TestBed, waitForAsync } from '@angular/core/testing';
-
-import { CrisLayoutRelationBoxComponent } from './cris-layout-relation-box.component';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../../../../../shared/shared.module';
-import { Item } from '../../../../../core/shared/item.model';
-import { of as observableOf, of } from 'rxjs';
-import { CrisLayoutBox } from '../../../../../core/layout/models/box.model';
-import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
-import { MetadataValue } from '../../../../../core/shared/metadata.models';
-import { AuthService } from '../../../../../core/auth/auth.service';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { EPersonMock, EPersonMock2 } from '../../../../../shared/testing/eperson.mock';
+import {
+  of as observableOf,
+  of,
+} from 'rxjs';
+
+import { AuthService } from '../../../../../core/auth/auth.service';
 import { EPerson } from '../../../../../core/eperson/models/eperson.model';
+import { CrisLayoutBox } from '../../../../../core/layout/models/box.model';
+import { Item } from '../../../../../core/shared/item.model';
+import { MetadataValue } from '../../../../../core/shared/metadata.models';
+import { ThemedConfigurationSearchPageComponent } from '../../../../../search-page/themed-configuration-search-page.component';
+import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
+import {
+  EPersonMock,
+  EPersonMock2,
+} from '../../../../../shared/testing/eperson.mock';
+import { CrisLayoutRelationBoxComponent } from './cris-layout-relation-box.component';
 
 describe('CrisLayoutRelationBoxComponent', () => {
   let component: CrisLayoutRelationBoxComponent;
@@ -22,7 +36,7 @@ describe('CrisLayoutRelationBoxComponent', () => {
   const testItem = Object.assign(new Item(), {
     id: '1234-65487-12354-1235',
     bundles: of({}),
-    metadata: {}
+    metadata: {},
   });
 
   const testBox = Object.assign(new CrisLayoutBox(), {
@@ -30,7 +44,7 @@ describe('CrisLayoutRelationBoxComponent', () => {
     collapsed: false,
     header: 'CrisLayoutBox Header',
     shortname: 'test-box',
-    configuration: { 'discovery-configuration': 'box-configuration-id' }
+    configuration: { 'discovery-configuration': 'box-configuration-id' },
   });
 
   const relationPublicationsBox = Object.assign(new CrisLayoutBox(), {
@@ -38,7 +52,7 @@ describe('CrisLayoutRelationBoxComponent', () => {
     collapsed: false,
     header: 'Publications',
     shortname: 'publications',
-    configuration: { 'discovery-configuration': 'RELATION.Person.researchoutputs' }
+    configuration: { 'discovery-configuration': 'RELATION.Person.researchoutputs' },
   });
 
   const personItem = Object.assign(new Item(), {
@@ -47,7 +61,7 @@ describe('CrisLayoutRelationBoxComponent', () => {
     metadata: {
       'dspace.entity.type': [{ value: 'Person' }] as MetadataValue[],
       'dspace.object.owner': [{ value: 'not Owner', authority:  EPersonMock2.id }] as MetadataValue[],
-    }
+    },
   });
 
   const ownerItem = Object.assign(new Item(), {
@@ -56,11 +70,11 @@ describe('CrisLayoutRelationBoxComponent', () => {
     metadata: {
       'dspace.entity.type': [{ value: 'Person' }] as MetadataValue[],
       'dspace.object.owner': [{ value: 'Owner', authority: EPersonMock.id }] as MetadataValue[],
-    }
+    },
   });
 
   const authService = jasmine.createSpyObj('authService', {
-    getAuthenticatedUserFromStore: observableOf(null)
+    getAuthenticatedUserFromStore: observableOf(null),
   });
 
   beforeEach(waitForAsync(() => {
@@ -69,21 +83,20 @@ describe('CrisLayoutRelationBoxComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
         CommonModule,
-        SharedModule
+        CrisLayoutRelationBoxComponent,
       ],
-      declarations: [CrisLayoutRelationBoxComponent],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
         { provide: 'boxProvider', useValue: testBox },
         { provide: 'itemProvider', useValue: testItem },
         { provide: AuthService, useValue: authService },
-      ]
+      ],
     })
-      .compileComponents();
+      .overrideComponent(CrisLayoutRelationBoxComponent, { remove: { imports: [ThemedConfigurationSearchPageComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

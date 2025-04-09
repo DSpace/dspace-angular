@@ -1,10 +1,17 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { MetricAltmetricComponent } from './metric-altmetric.component';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
+import {
+  async,
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+
+import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { ListMetricPropsPipe } from '../pipes/list-metric-props/list-metric-props.pipe';
+import { MetricAltmetricComponent } from './metric-altmetric.component';
 
 describe('MetricAltmetricComponent', () => {
   let component: MetricAltmetricComponent;
@@ -22,17 +29,16 @@ describe('MetricAltmetricComponent', () => {
     remark: '{"popover":"bottom","doiAttr":"10.1056/Test","pmidAttr":"1234567890","list-data-badge-enabled":"true","data-badge-enabled":"true"}',
     startDate: null,
     type: null,
-    _links: null
+    _links: null,
   };
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      })],
-      declarations: [MetricAltmetricComponent, ListMetricPropsPipe]
+          useClass: TranslateLoaderMock,
+        },
+      }), MetricAltmetricComponent, ListMetricPropsPipe],
     })
       .compileComponents();
   }));

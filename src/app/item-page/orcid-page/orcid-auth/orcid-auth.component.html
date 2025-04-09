@@ -1,18 +1,18 @@
 <div class="container mb-5">
-  <h2>{{'person.orcid.registry.auth' | translate}}</h2>
-  <ng-container *ngIf="(isLinkedToOrcid() | async); then orcidLinked; else orcidNotLinked"></ng-container>
+  <h1>{{'person.orcid.registry.auth' | translate}}</h1>
+  <ng-container *ngIf="(isOrcidLinked$ | async); then orcidLinked; else orcidNotLinked"></ng-container>
 </div>
 
 <ng-template #orcidLinked>
   <div data-test="orcidLinked">
     <div class="row">
-      <div *ngIf="(hasOrcidAuthorizations() | async)" class="col-sm-6 mb-3" data-test="hasOrcidAuthorizations">
+      <div *ngIf="(hasOrcidAuthorizations$ | async)" class="col-sm-6 mb-3" data-test="hasOrcidAuthorizations">
         <div class="card h-100">
           <div class="card-header">{{ 'person.page.orcid.granted-authorizations'| translate }}</div>
           <div class="card-body">
             <div class="container p-0">
               <ul>
-                <li *ngFor="let auth of (getOrcidAuthorizations() | async)" data-test="orcidAuthorization">
+                <li *ngFor="let auth of (profileAuthorizationScopes | async)" data-test="orcidAuthorization">
                   {{getAuthorizationDescription(auth) | translate}}
                 </li>
               </ul>
@@ -25,13 +25,13 @@
           <div class="card-header">{{ 'person.page.orcid.missing-authorizations'| translate }}</div>
           <div class="card-body">
             <div class="container">
-              <ds-alert *ngIf="!(hasMissingOrcidAuthorizations() | async)" [type]="'alert-success'" data-test="noMissingOrcidAuthorizations">
+              <ds-alert *ngIf="(hasMissingOrcidAuthorizations$ | async) !== true" [type]="'alert-success'" data-test="noMissingOrcidAuthorizations">
                 {{'person.page.orcid.no-missing-authorizations-message' | translate}}
               </ds-alert>
-              <ds-alert *ngIf="(hasMissingOrcidAuthorizations() | async)" [type]="'alert-warning'" data-test="missingOrcidAuthorizations">
+              <ds-alert *ngIf="(hasMissingOrcidAuthorizations$ | async)" [type]="'alert-warning'" data-test="missingOrcidAuthorizations">
                 {{'person.page.orcid.missing-authorizations-message' | translate}}
                 <ul>
-                  <li *ngFor="let auth of (getMissingOrcidAuthorizations() | async)" data-test="missingOrcidAuthorization">
+                  <li *ngFor="let auth of (profileAuthorizationScopes | async)" data-test="missingOrcidAuthorization">
                     {{getAuthorizationDescription(auth) | translate }}
                   </li>
                 </ul>
@@ -41,20 +41,20 @@
         </div>
       </div>
     </div>
-    <ds-alert *ngIf="(onlyAdminCanDisconnectProfileFromOrcid() | async) && !(ownerCanDisconnectProfileFromOrcid() | async)"
+    <ds-alert *ngIf="(onlyAdminCanDisconnectProfileFromOrcid$ | async) && (ownerCanDisconnectProfileFromOrcid$ | async) !== true"
               [type]="'alert-warning'" data-test="unlinkOnlyAdmin">
       {{ 'person.page.orcid.remove-orcid-message' | translate}}
     </ds-alert>
-    <div class="row" *ngIf="(ownerCanDisconnectProfileFromOrcid() | async)" data-test="unlinkOwner">
+    <div class="row" *ngIf="(ownerCanDisconnectProfileFromOrcid$ | async)" data-test="unlinkOwner">
       <div class="col">
         <button type="submit" class="btn btn-danger float-right" (click)="unlinkOrcid()"
                 [disabled]="(unlinkProcessing | async)">
-          <span *ngIf="!(unlinkProcessing | async)"><i
+          <span *ngIf="(unlinkProcessing | async) !== true"><i
             class="fas fa-unlink"></i> {{ 'person.page.orcid.unlink' | translate }}</span>
           <span *ngIf="(unlinkProcessing | async)"><i
             class='fas fa-circle-notch fa-spin'></i> {{'person.page.orcid.unlink.processing' | translate}}</span>
         </button>
-        <button *ngIf="(hasMissingOrcidAuthorizations() | async)" type="submit"
+        <button *ngIf="(hasMissingOrcidAuthorizations$ | async)" type="submit"
                 class="btn btn-primary float-right" (click)="linkOrcid()">
           <span><i class="fas fa-check"></i> {{ 'person.page.orcid.grant-authorizations' | translate }}</span>
         </button>
@@ -68,7 +68,7 @@
     <div class="row">
       <div class="col-2"><img alt="orcid-logo" src="../../../../assets/images/orcid.logo.icon.svg"/></div>
       <div class="col">
-        <ds-alert [type]="'alert-info'">{{ getOrcidNotLinkedMessage() | async }}</ds-alert>
+        <ds-alert [type]="'alert-info'">{{ orcidNotLinkedMessage$ | async }}</ds-alert>
       </div>
     </div>
     <div class="row">

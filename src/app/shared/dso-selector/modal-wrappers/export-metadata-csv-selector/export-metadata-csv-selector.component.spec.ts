@@ -1,11 +1,34 @@
-import { of as observableOf } from 'rxjs';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  DebugElement,
+  NgModule,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { DebugElement, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
-import { NgbActiveModal, NgbModal, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-import { ActivatedRoute, Router } from '@angular/router';
-import { METADATA_EXPORT_SCRIPT_NAME, ScriptDataService } from '../../../../core/data/processes/script-data.service';
+import {
+  NgbActiveModal,
+  NgbModal,
+  NgbModalModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
+import {
+  METADATA_EXPORT_SCRIPT_NAME,
+  ScriptDataService,
+} from '../../../../core/data/processes/script-data.service';
 import { Collection } from '../../../../core/shared/collection.model';
 import { Community } from '../../../../core/shared/community.model';
 import { Item } from '../../../../core/shared/item.model';
@@ -13,29 +36,27 @@ import { ProcessParameter } from '../../../../process-page/processes/process-par
 import { ConfirmationModalComponent } from '../../../confirmation-modal/confirmation-modal.component';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../../remote-data.utils';
+import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
+import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
 import { ExportMetadataCsvSelectorComponent } from './export-metadata-csv-selector.component';
-import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 
 // No way to add entryComponents yet to testbed; alternative implemented; source: https://stackoverflow.com/questions/41689468/how-to-shallow-test-a-component-with-an-entrycomponents
 @NgModule({
-    imports: [
-        NgbModalModule,
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useClass: TranslateLoaderMock
-            }
-        }),
-    ],
-    exports: [],
-    declarations: [ConfirmationModalComponent],
-    providers: []
+  imports: [
+    NgbModalModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useClass: TranslateLoaderMock,
+      },
+    }), ConfirmationModalComponent],
+  exports: [],
+  providers: [],
 })
 class ModelTestModule {
 }
@@ -55,7 +76,7 @@ describe('ExportMetadataCsvSelectorComponent', () => {
     id: 'fake-id',
     uuid: 'fake-id',
     handle: 'fake/handle',
-    lastModified: '2018'
+    lastModified: '2018',
   });
 
   const mockCollection: Collection = Object.assign(new Collection(), {
@@ -66,10 +87,10 @@ describe('ExportMetadataCsvSelectorComponent', () => {
       'dc.identifier.uri': [
         {
           language: null,
-          value: 'fake/test-collection-1'
-        }
-      ]
-    }
+          value: 'fake/test-collection-1',
+        },
+      ],
+    },
   });
 
   const mockCommunity = Object.assign(new Community(), {
@@ -79,10 +100,10 @@ describe('ExportMetadataCsvSelectorComponent', () => {
       'dc.identifier.uri': [
         {
           language: null,
-          value: 'fake/test-community-1'
-        }
-      ]
-    }
+          value: 'fake/test-community-1',
+        },
+      ],
+    },
   });
 
   const itemRD = createSuccessfulRemoteDataObject(mockItem);
@@ -91,19 +112,18 @@ describe('ExportMetadataCsvSelectorComponent', () => {
   beforeEach(waitForAsync(() => {
     notificationService = new NotificationsServiceStub();
     router = jasmine.createSpyObj('router', {
-      navigateByUrl: jasmine.createSpy('navigateByUrl')
+      navigateByUrl: jasmine.createSpy('navigateByUrl'),
     });
     scriptService = jasmine.createSpyObj('scriptService',
       {
-        invoke: createSuccessfulRemoteDataObject$({ processId: '45' })
-      }
+        invoke: createSuccessfulRemoteDataObject$({ processId: '45' }),
+      },
     );
     authorizationDataService = jasmine.createSpyObj('authorizationDataService', {
-      isAuthorized: observableOf(true)
+      isAuthorized: observableOf(true),
     });
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ModelTestModule],
-      declarations: [ExportMetadataCsvSelectorComponent],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), ModelTestModule, ExportMetadataCsvSelectorComponent],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         { provide: NotificationsService, useValue: notificationService },
@@ -118,15 +138,19 @@ describe('ExportMetadataCsvSelectorComponent', () => {
                   dso: itemRD,
                 },
               },
-            }
+            },
           },
         },
         {
-          provide: Router, useValue: router
-        }
+          provide: Router, useValue: router,
+        },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(ExportMetadataCsvSelectorComponent, {
+        remove: { imports: [DSOSelectorComponent] },
+      })
+      .compileComponents();
 
   }));
 

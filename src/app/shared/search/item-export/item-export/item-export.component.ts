@@ -1,32 +1,72 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
-
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs/operators';
 
+import { SearchManager } from '../../../../core/browse/search-manager';
+import { RemoteData } from '../../../../core/data/remote-data';
+import { ItemExportFormatMolteplicity } from '../../../../core/itemexportformat/item-export-format.service';
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
 import { Item } from '../../../../core/shared/item.model';
 import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
-import { SearchOptions } from '../../models/search-options.model';
-import { ItemExportFormConfiguration, ItemExportService } from '../item-export.service';
-import { ItemExportFormatMolteplicity } from '../../../../core/itemexportformat/item-export-format.service';
-import { NotificationsService } from '../../../notifications/notifications.service';
-import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
-import { isEmpty, isNotEmpty } from '../../../empty.util';
-import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
-import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
-import { SearchResult } from '../../models/search-result.model';
-import { MYDSPACE_ROUTE } from '../../../../my-dspace-page/my-dspace-page.component';
-import { SearchManager } from '../../../../core/browse/search-manager';
-import { PaginatedSearchOptions } from '../../models/paginated-search-options.model';
-import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
 import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
-import { RemoteData } from '../../../../core/data/remote-data';
+import { MYDSPACE_ROUTE } from '../../../../my-dspace-page/my-dspace-route';
+import { AlertComponent } from '../../../alert/alert.component';
+import { AdministeredCollectionSelectorComponent } from '../../../dso-selector/dso-selector/administered-collection-selector/administered-collection-selector.component';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '../../../empty.util';
+import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
+import { NotificationsService } from '../../../notifications/notifications.service';
+import { SelectableListState } from '../../../object-list/selectable-list/selectable-list.reducer';
+import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
+import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
+import { PaginatedSearchOptions } from '../../models/paginated-search-options.model';
 import { SearchObjects } from '../../models/search-objects.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { UUIDService } from '../../../../core/shared/uuid.service';
+import { SearchOptions } from '../../models/search-options.model';
+import { SearchResult } from '../../models/search-result.model';
+import {
+  ItemExportFormConfiguration,
+  ItemExportService,
+} from '../item-export.service';
+import { ItemExportAlertComponent } from '../item-export-alert/item-export-alert.component';
+import { ItemExportListComponent } from './item-export-list/item-export-list.component';
 
 export enum ExportSelectionMode {
   All = 'all',
@@ -35,7 +75,21 @@ export enum ExportSelectionMode {
 
 @Component({
   selector: 'ds-item-export',
-  templateUrl: './item-export.component.html'
+  templateUrl: './item-export.component.html',
+  imports: [
+    ThemedLoadingComponent,
+    NgIf,
+    FormsModule,
+    NgForOf,
+    TranslateModule,
+    ReactiveFormsModule,
+    AsyncPipe,
+    ItemExportListComponent,
+    ItemExportAlertComponent,
+    AdministeredCollectionSelectorComponent,
+    AlertComponent,
+  ],
+  standalone: true,
 })
 export class ItemExportComponent implements OnInit, OnDestroy {
 
@@ -106,8 +160,7 @@ export class ItemExportComponent implements OnInit, OnDestroy {
     protected translate: TranslateService,
     public activeModal: NgbActiveModal,
     private selectableListService: SelectableListService,
-    private searchManager: SearchManager,
-    private uuidService: UUIDService) {
+    private searchManager: SearchManager) {
   }
 
   ngOnInit() {
@@ -131,7 +184,7 @@ export class ItemExportComponent implements OnInit, OnDestroy {
         filter((canExport) => canExport),
         switchMap(() => {
           return this.itemExportService.initialItemExportFormConfiguration(this.item).pipe(take(1));
-        })
+        }),
       );
     } else {
       init$ = this.itemExportService.initialItemExportFormConfiguration(this.item).pipe(take(1));
@@ -143,9 +196,9 @@ export class ItemExportComponent implements OnInit, OnDestroy {
       this.configurationLoaded$.next(true);
       this.initialized$.next(true);
 
-      if (!!this.item) {
+      if (this.item) {
         this.exportForm = this.initForm(configuration);
-      } else if (!!this.itemType) {
+      } else if (this.itemType) {
         this.exportForm = this.initForm(configuration, true);
         this.onEntityTypeChange(this.itemType.label);
         if (this.showListSelection) {
@@ -199,7 +252,7 @@ export class ItemExportComponent implements OnInit, OnDestroy {
   isFormValid(): Observable<boolean> {
     if (this.exportForm?.value?.selectionMode === ExportSelectionMode.OnlySelection) {
       return this.selectableListService.getSelectableList(this.listId).pipe(
-        map((list: SelectableListState) => list?.selection?.length > 0)
+        map((list: SelectableListState) => list?.selection?.length > 0),
       );
     } else {
       return of(this.exportForm.valid);
@@ -222,7 +275,7 @@ export class ItemExportComponent implements OnInit, OnDestroy {
         if (isNotEmpty(this.bulkImportXlsEntityTypeCollectionUUID)) {
           this.searchOptions = Object.assign(new SearchOptions({}), this.searchOptions, {
             query: `location.coll:${this.bulkImportXlsEntityTypeCollectionUUID}`,
-            scope: this.bulkImportXlsEntityTypeCollectionUUID
+            scope: this.bulkImportXlsEntityTypeCollectionUUID,
           });
         }
 
@@ -230,7 +283,7 @@ export class ItemExportComponent implements OnInit, OnDestroy {
           of([]) :
           this.selectableListService.getSelectableList(this.listId).pipe(
             take(1),
-            map((list: SelectableListState) => (list?.selection || []).map((entry: SearchResult<any>) => entry?.indexableObject?.id))
+            map((list: SelectableListState) => (list?.selection || []).map((entry: SearchResult<any>) => entry?.indexableObject?.id)),
           );
         list$.pipe(
           switchMap((list: string[]) => {
@@ -240,9 +293,9 @@ export class ItemExportComponent implements OnInit, OnDestroy {
               this.searchOptions,
               this.itemType ? this.exportForm.controls.entityType.value : this.exportForm.value.entityType,
               this.exportForm.value.format,
-              list
+              list,
             );
-          })
+          }),
         ).pipe(take(1)).subscribe((processId) => {
           const title = this.translate.get('item-export.process.title');
           this.notificationsService.process(processId.toString(), 5000, title);
@@ -262,13 +315,13 @@ export class ItemExportComponent implements OnInit, OnDestroy {
       Object.assign(new PaginatedSearchOptions({}), this.searchOptions, {
         fixedFilter: `f.entityType=${this.itemType.label},equals`,
         pagination: Object.assign(new PaginationComponentOptions(), {
-          id: this.uuidService.generate(),
-          pageSize: 1
-        })
-      })
+          id: 'ex' + this.item?.id,
+          pageSize: 1,
+        }),
+      }),
     ).pipe(
       getFirstCompletedRemoteData(),
-      map((rd: RemoteData<SearchObjects<DSpaceObject>>) => rd?.payload?.totalElements > 0)
+      map((rd: RemoteData<SearchObjects<DSpaceObject>>) => rd?.payload?.totalElements > 0),
     );
   }
 

@@ -1,17 +1,34 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { AuthRegistrationType } from '../../../core/auth/models/auth.registration-type';
+import { NgIf } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { Registration } from '../../../core/shared/registration.model';
-import { renderExternalLoginConfirmationFor } from '../../decorators/external-log-in.methods-decorator';
+import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 import { ExternalLoginMethodEntryComponent } from '../../decorators/external-login-method-entry.component';
 
 @Component({
   selector: 'ds-orcid-confirmation',
   templateUrl: './orcid-confirmation.component.html',
   styleUrls: ['./orcid-confirmation.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    TranslateModule,
+    BrowserOnlyPipe,
+    NgIf,
+  ],
 })
-@renderExternalLoginConfirmationFor(AuthRegistrationType.Orcid)
 export class OrcidConfirmationComponent extends ExternalLoginMethodEntryComponent implements OnInit  {
 
   /**
@@ -25,7 +42,7 @@ export class OrcidConfirmationComponent extends ExternalLoginMethodEntryComponen
    */
   constructor(
     @Inject('registrationDataProvider') protected injectedRegistrationDataObject: Registration,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
   ) {
     super(injectedRegistrationDataObject);
   }

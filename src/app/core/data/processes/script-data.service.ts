@@ -1,26 +1,31 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
+
+import { Process } from '../../../process-page/processes/process.model';
+import { ProcessParameter } from '../../../process-page/processes/process-parameter.model';
+import { Script } from '../../../process-page/scripts/script.model';
+import { hasValue } from '../../../shared/empty.util';
+import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
-import { Script } from '../../../process-page/scripts/script.model';
-import { ProcessParameter } from '../../../process-page/processes/process-parameter.model';
-import { map, take } from 'rxjs/operators';
+import { getFirstCompletedRemoteData } from '../../shared/operators';
 import { URLCombiner } from '../../url-combiner/url-combiner';
+import {
+  FindAllData,
+  FindAllDataImpl,
+} from '../base/find-all-data';
+import { IdentifiableDataService } from '../base/identifiable-data.service';
+import { FindListOptions } from '../find-list-options.model';
+import { PaginatedList } from '../paginated-list.model';
 import { RemoteData } from '../remote-data';
 import { MultipartPostRequest } from '../request.models';
 import { RequestService } from '../request.service';
-import { Observable } from 'rxjs';
-import { SCRIPT } from '../../../process-page/scripts/script.resource-type';
-import { Process } from '../../../process-page/processes/process.model';
-import { hasValue } from '../../../shared/empty.util';
-import { getFirstCompletedRemoteData } from '../../shared/operators';
 import { RestRequest } from '../rest-request.model';
-import { IdentifiableDataService } from '../base/identifiable-data.service';
-import { FindAllData, FindAllDataImpl } from '../base/find-all-data';
-import { FindListOptions } from '../find-list-options.model';
-import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
-import { PaginatedList } from '../paginated-list.model';
-import { dataService } from '../base/data-service.decorator';
 
 export const METADATA_IMPORT_SCRIPT_NAME = 'metadata-import';
 export const METADATA_EXPORT_SCRIPT_NAME = 'metadata-export';
@@ -30,8 +35,7 @@ export const BATCH_EXPORT_SCRIPT_NAME = 'export';
 export const ITEM_EXPORT_SCRIPT_NAME = 'item-export';
 export const BULK_ITEM_EXPORT_SCRIPT_NAME = 'bulk-item-export';
 
-@Injectable()
-@dataService(SCRIPT)
+@Injectable({ providedIn: 'root' })
 export class ScriptDataService extends IdentifiableDataService<Script> implements FindAllData<Script> {
   private findAllData: FindAllDataImpl<Script>;
 
@@ -54,7 +58,7 @@ export class ScriptDataService extends IdentifiableDataService<Script> implement
       map((endpoint: string) => {
         const body = this.getInvocationFormData(parameters, files);
         return new MultipartPostRequest(requestId, endpoint, body);
-      })
+      }),
     ).subscribe((request: RestRequest) => this.requestService.send(request));
 
     return this.rdbService.buildFromRequestUUID<Process>(requestId);

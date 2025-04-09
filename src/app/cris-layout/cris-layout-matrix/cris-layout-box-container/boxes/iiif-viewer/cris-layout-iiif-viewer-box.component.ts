@@ -1,21 +1,27 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { RenderCrisLayoutBoxFor } from '../../../../decorators/cris-layout-box.decorator';
-import { LayoutBox } from '../../../../enums/layout-box.enum';
-import { CrisLayoutBoxModelComponent } from '../../../../models/cris-layout-box-component.model';
+import { AsyncPipe } from '@angular/common';
+import {
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
 import { AuthService } from '../../../../../core/auth/auth.service';
 import { CrisLayoutBox } from '../../../../../core/layout/models/box.model';
-import { Item } from '../../../../../core/shared/item.model';
-import { getDSpaceQuery } from '../../../../../item-page/simple/item-types/shared/item-iiif-utils';
 import { RouteService } from '../../../../../core/services/route.service';
-import { Observable } from 'rxjs';
+import { Item } from '../../../../../core/shared/item.model';
+import { MiradorViewerComponent } from '../../../../../item-page/mirador-viewer/mirador-viewer.component';
+import { getDSpaceQuery } from '../../../../../item-page/simple/item-types/shared/item-iiif-utils';
+import { CrisLayoutBoxModelComponent } from '../../../../models/cris-layout-box-component.model';
 
 @Component({
   selector: 'ds-cris-layout-iiif-viewer-box',
   templateUrl: './cris-layout-iiif-viewer-box.component.html',
-  styleUrls: ['./cris-layout-iiif-viewer-box.component.scss']
+  styleUrls: ['./cris-layout-iiif-viewer-box.component.scss'],
+  standalone: true,
+  imports: [MiradorViewerComponent, AsyncPipe],
 })
-@RenderCrisLayoutBoxFor(LayoutBox.IIIFVIEWER)
 export class CrisLayoutIIIFViewerBoxComponent extends CrisLayoutBoxModelComponent implements OnInit {
 
   isSearchable: boolean;
@@ -26,7 +32,7 @@ export class CrisLayoutIIIFViewerBoxComponent extends CrisLayoutBoxModelComponen
     public authService: AuthService,
     protected routeService: RouteService,
     @Inject('boxProvider') public boxProvider: CrisLayoutBox,
-    @Inject('itemProvider') public itemProvider: Item
+    @Inject('itemProvider') public itemProvider: Item,
   ) {
     super(translateService, boxProvider, itemProvider);
   }

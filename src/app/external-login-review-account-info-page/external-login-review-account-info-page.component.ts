@@ -1,14 +1,36 @@
-import { Component, OnInit } from '@angular/core';
-import { AlertType } from '../shared/alert/alert-type';
-import { first, map, Observable, tap } from 'rxjs';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { hasNoValue } from '../shared/empty.util';
-import { Registration } from '../core/shared/registration.model';
+import {
+  first,
+  map,
+  Observable,
+  tap,
+} from 'rxjs';
+
 import { RemoteData } from '../core/data/remote-data';
+import { Registration } from '../core/shared/registration.model';
+import { AlertComponent } from '../shared/alert/alert.component';
+import { AlertType } from '../shared/alert/alert-type';
+import { hasNoValue } from '../shared/empty.util';
+import { ReviewAccountInfoComponent } from './review-account-info/review-account-info.component';
 
 @Component({
   templateUrl: './external-login-review-account-info-page.component.html',
-  styleUrls: ['./external-login-review-account-info-page.component.scss']
+  styleUrls: ['./external-login-review-account-info-page.component.scss'],
+  standalone: true,
+  imports: [
+    ReviewAccountInfoComponent,
+    AlertComponent,
+    AsyncPipe,
+    NgIf,
+  ],
 })
 export class ExternalLoginReviewAccountInfoPageComponent implements OnInit {
   /**
@@ -31,7 +53,7 @@ export class ExternalLoginReviewAccountInfoPageComponent implements OnInit {
   public hasErrors = false;
 
   constructor(
-    private arouter: ActivatedRoute
+    private arouter: ActivatedRoute,
   ) {
     this.token = this.arouter.snapshot.params.token;
     this.hasErrors = hasNoValue(this.arouter.snapshot.params.token);

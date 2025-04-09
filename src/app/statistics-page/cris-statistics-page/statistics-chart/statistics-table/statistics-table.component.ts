@@ -1,21 +1,44 @@
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import {
+  AsyncPipe,
+  NgClass,
+  NgFor,
+  NgIf,
+  SlicePipe,
+} from '@angular/common';
+import {
+  Component,
+  Inject,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
-import { StatisticsType } from '../../statistics-type.model';
-import { renderChartFor } from '../../cris-statistics-element-decorator';
-import { StatisticsChartDataComponent } from '../statistics-chart-data/statistics-chart-data.component';
 import { REPORT_DATA } from '../../../../core/statistics/data-report.service';
 import { UsageReport } from '../../../../core/statistics/models/usage-report.model';
 import { EntityTypeEnum } from '../../../../cris-layout/enums/entity-type.enum';
+import { AlertComponent } from '../../../../shared/alert/alert.component';
+import { CreateLinkPipe } from '../../statistics-pipes/create-link.pipe';
+import { StatisticsChartDataComponent } from '../statistics-chart-data/statistics-chart-data.component';
 
 @Component({
   selector: 'ds-statistics-table',
   templateUrl: './statistics-table.component.html',
   styleUrls: ['./statistics-table.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    NgFor,
+    NgClass,
+    AlertComponent,
+    AsyncPipe,
+    SlicePipe,
+    CreateLinkPipe,
+    TranslateModule,
+  ],
 })
 /**
  * Component that represents a table for report
  */
-@renderChartFor(StatisticsType.table)
 export class StatisticsTableComponent extends StatisticsChartDataComponent implements OnInit {
   /**
    * Boolean indicating whether the usage report has data
@@ -42,7 +65,7 @@ export class StatisticsTableComponent extends StatisticsChartDataComponent imple
   constructor(
     @Inject(REPORT_DATA) public report: UsageReport,
     @Inject('categoryType') public categoryType: string,
-    @Inject(PLATFORM_ID) protected platformId: Object
+    @Inject(PLATFORM_ID) protected platformId: any,
   ) {
     super(report, categoryType, platformId);
   }

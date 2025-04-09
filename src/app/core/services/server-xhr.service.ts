@@ -8,9 +8,15 @@
 
 import { XhrFactory } from '@angular/common';
 import { Injectable } from '@angular/core';
-import { Agent as HttpAgent, AgentOptions as HttpAgentOptions } from 'http';
+import {
+  Agent as HttpAgent,
+  AgentOptions as HttpAgentOptions,
+} from 'http';
 import { Agent as HttpsAgent } from 'https';
-import { prototype, XMLHttpRequest } from 'xhr2';
+import {
+  prototype,
+  XMLHttpRequest,
+} from 'xhr2';
 
 /**
  * Allow HTTP sessions to be kept alive.
@@ -40,7 +46,7 @@ const httpsAgent = new HttpsAgent(agentOptions);
  * Note that this must be provided in ServerAppModule;
  * it doesn't work when added as a Universal engine provider.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ServerXhrService implements XhrFactory {
   build(): XMLHttpRequest {
     prototype._restrictedHeaders.cookie = false;

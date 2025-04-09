@@ -1,0 +1,22 @@
+<ng-container *ngIf="(sources$ | async) as sources">
+  <ng-container *ngFor="let source of sources">
+    <div class="alert alert-info d-flex flex-row" *ngIf="source.totalEvents > 0">
+      <div class="source-logo-container">
+        <img class="source-logo"
+             src="assets/images/qa-{{(source.id | dsSplit: ':')[0]}}-logo.png"
+             alt="{{source.id}} logo"
+             onerror="this.src='assets/images/dspace-logo.svg'">
+      </div>
+      <div class="w-100 d-flex justify-content-between">
+        <div class="pl-4 align-self-center">
+          {{'item.qa-event-notification.check.notification-info' | translate : {num: source.totalEvents } }}
+        </div>
+        <button [routerLink]="[ getQualityAssuranceRoute(), (source.id | dsSplit: ':')[0], 'target', item.id]"
+                [queryParams]="{ forward: true }"
+                class="btn btn-primary align-self-center">
+                {{'item.qa-event-notification-info.check.button' | translate}}
+        </button>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>

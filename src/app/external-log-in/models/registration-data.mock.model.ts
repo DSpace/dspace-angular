@@ -42,5 +42,5 @@ export const mockRegistrationDataModel: Registration = Object.assign(
         },
       ],
     },
-  }
+  },
 );

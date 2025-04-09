@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+
 import { CrisLayoutTab } from '../../core/layout/models/tab.model';
 import { CrisLayoutPageModelComponent } from './cris-layout-page-component.model';
 
@@ -6,7 +12,8 @@ import { CrisLayoutPageModelComponent } from './cris-layout-page-component.model
  * This class is a model to be extended for creating custom layouts for tabs
  */
 @Component({
-  template: ''
+  template: '',
+  standalone: true,
 })
 export abstract class CrisLayoutTabModelComponent extends CrisLayoutPageModelComponent {
   /**

@@ -1,18 +1,43 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Script } from '../scripts/script.model';
+import {
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  FormsModule,
+  NgForm,
+} from '@angular/forms';
+import {
+  NavigationExtras,
+  Router,
+  RouterLink,
+} from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+
+import { ScriptDataService } from '../../core/data/processes/script-data.service';
+import { RemoteData } from '../../core/data/remote-data';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import {
+  hasValue,
+  isEmpty,
+  isUndefined,
+} from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { getProcessListRoute } from '../process-page-routing.paths';
 import { Process } from '../processes/process.model';
 import { ProcessParameter } from '../processes/process-parameter.model';
-import { ScriptDataService } from '../../core/data/processes/script-data.service';
-import { ControlContainer, NgForm } from '@angular/forms';
+import { Script } from '../scripts/script.model';
 import { ScriptParameter } from '../scripts/script-parameter.model';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { RequestService } from '../../core/data/request.service';
-import { Router } from '@angular/router';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { RemoteData } from '../../core/data/remote-data';
-import { getProcessListRoute } from '../process-page-routing.paths';
-import { hasValue, isEmpty, isUndefined } from '../../shared/empty.util';
+import { ProcessParametersComponent } from './process-parameters/process-parameters.component';
+import { ScriptHelpComponent } from './script-help/script-help.component';
+import { ScriptsSelectComponent } from './scripts-select/scripts-select.component';
 
 /**
  * Component to create a new script
@@ -21,6 +46,8 @@ import { hasValue, isEmpty, isUndefined } from '../../shared/empty.util';
   selector: 'ds-process-form',
   templateUrl: './process-form.component.html',
   styleUrls: ['./process-form.component.scss'],
+  standalone: true,
+  imports: [FormsModule, ScriptsSelectComponent, ProcessParametersComponent, RouterLink, ScriptHelpComponent, NgIf, NgFor, TranslateModule],
 })
 export class ProcessFormComponent implements OnInit {
   /**
@@ -57,7 +84,6 @@ export class ProcessFormComponent implements OnInit {
     private scriptService: ScriptDataService,
     private notificationsService: NotificationsService,
     private translationService: TranslateService,
-    private requestService: RequestService,
     private router: Router) {
   }
 
@@ -81,11 +107,11 @@ export class ProcessFormComponent implements OnInit {
 
     if (hasValue(this.parameters)) {
       stringParameters = this.parameters.map((parameter: ProcessParameter) => {
-          return {
-            name: parameter.name,
-            value: this.checkValue(parameter)
-          };
-        }
+        return {
+          name: parameter.name,
+          value: this.checkValue(parameter),
+        };
+      },
       );
     }
     this.scriptService.invoke(this.selectedScript.id, stringParameters, this.files)
@@ -95,7 +121,7 @@ export class ProcessFormComponent implements OnInit {
           const title = this.translationService.get('process.new.notification.success.title');
           const content = this.translationService.get('process.new.notification.success.content');
           this.notificationsService.success(title, content);
-          this.sendBack();
+          this.sendBack(rd.payload);
         } else {
           const title = this.translationService.get('process.new.notification.error.title');
           const content = this.translationService.get('process.new.notification.error.content');
@@ -150,14 +176,39 @@ export class ProcessFormComponent implements OnInit {
     return this.missingParameters.length > 0;
   }
 
-  private sendBack() {
-    this.requestService.removeByHrefSubstring('/processes');
-    /* should subscribe on the previous method to know the action is finished and then navigate,
-    will fix this when the removeByHrefSubstring changes are merged */
-    this.router.navigateByUrl(getProcessListRoute());
+  /**
+   * Redirect the user to the processes overview page with the new process' ID,
+   * so it can be highlighted in the overview table.
+   * @param newProcess The newly created process
+   * @private
+   */
+  private sendBack(newProcess: Process) {
+    const extras: NavigationExtras = {
+      queryParams: { new_process_id: newProcess.processId },
+    };
+    void this.router.navigate([getProcessListRoute()], extras);
   }
-}
 
-export function controlContainerFactory(controlContainer?: ControlContainer) {
-  return controlContainer;
+  updateScript($event: Script) {
+    this.selectedScript = $event;
+    this.parameters = undefined;
+  }
+
+  get generatedProcessName() {
+    const paramsString = this.parameters?.map((p: ProcessParameter) => {
+      const value = this.parseValue(p.value);
+      return isEmpty(value) ? p.name : `${p.name} ${value}`;
+    }).join(' ') || '';
+    return isEmpty(paramsString) ? this.selectedScript.name : `${this.selectedScript.name} ${paramsString}`;
+  }
+
+  private parseValue(value: any) {
+    if (typeof value === 'boolean') {
+      return undefined;
+    }
+    if (value instanceof File) {
+      return value.name;
+    }
+    return value?.toString();
+  }
 }

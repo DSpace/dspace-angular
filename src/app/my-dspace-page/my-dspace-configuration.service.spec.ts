@@ -1,19 +1,25 @@
+import {
+  cold,
+  hot,
+} from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
-import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
-import { PaginatedSearchOptions } from '../shared/search/models/paginated-search-options.model';
+import { environment } from '../../environments/environment.test';
+import {
+  SortDirection,
+  SortOptions,
+} from '../core/cache/models/sort-options.model';
+import { Context } from '../core/shared/context.model';
+import { getMockRemoteDataBuildService } from '../shared/mocks/remote-data-build.service.mock';
+import { RoleServiceMock } from '../shared/mocks/role-service.mock';
 import { PaginationComponentOptions } from '../shared/pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../core/cache/models/sort-options.model';
+import { PaginatedSearchOptions } from '../shared/search/models/paginated-search-options.model';
 import { SearchFilter } from '../shared/search/models/search-filter.model';
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
-import { RoleServiceMock } from '../shared/mocks/role-service.mock';
-import { cold, hot } from 'jasmine-marbles';
-import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
-import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
-import { Context } from '../core/shared/context.model';
 import { HALEndpointServiceStub } from '../shared/testing/hal-endpoint-service.stub';
-import { getMockRemoteDataBuildService } from '../shared/mocks/remote-data-build.service.mock';
-import { getMockUUIDService } from '../shared/mocks/uuid.service.mock';
+import { PaginationServiceStub } from '../shared/testing/pagination-service.stub';
+import { MyDSpaceConfigurationService } from './my-dspace-configuration.service';
+import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-type';
 
 describe('MyDSpaceConfigurationService', () => {
   let service: MyDSpaceConfigurationService;
@@ -21,25 +27,25 @@ describe('MyDSpaceConfigurationService', () => {
   const prefixFilter = {
     'f.namedresourcetype': ['another value'],
     'f.dateSubmitted.min': ['2013'],
-    'f.dateSubmitted.max': ['2018']
+    'f.dateSubmitted.max': ['2018'],
   };
   const defaults = new PaginatedSearchOptions({
     pagination: Object.assign(new PaginationComponentOptions(), { currentPage: 1, pageSize: 20 }),
     sort: new SortOptions('score', SortDirection.DESC),
     query: '',
-    scope: ''
+    scope: '',
   });
 
   const backendFilters = [
     new SearchFilter('f.namedresourcetype', ['another value']),
-    new SearchFilter('f.dateSubmitted', ['[2013 TO 2018]'], 'equals')
+    new SearchFilter('f.dateSubmitted', ['[2013 TO 2018]'], 'equals'),
   ];
 
   const spy = jasmine.createSpyObj('RouteService', {
     getQueryParameterValue: observableOf(value1),
     getQueryParamsWithPrefix: observableOf(prefixFilter),
     getRouteParameterValue: observableOf(''),
-    getRouteDataValue: observableOf({})
+    getRouteDataValue: observableOf({}),
   });
 
   const paginationService = new PaginationServiceStub();
@@ -51,10 +57,9 @@ describe('MyDSpaceConfigurationService', () => {
   const halService: any = new HALEndpointServiceStub('');
   const requestService: any = {};
   const rdb: any = getMockRemoteDataBuildService();
-  const uuidService = getMockUUIDService();
 
   beforeEach(() => {
-    service = new MyDSpaceConfigurationService(roleService, spy, paginationService as any, activatedRoute, linkService, halService, requestService, rdb, uuidService);
+    service = new MyDSpaceConfigurationService(roleService, spy, paginationService as any, activatedRoute, linkService, halService, requestService, rdb, environment);
   });
 
   describe('when the scope is called', () => {
@@ -187,8 +192,8 @@ describe('MyDSpaceConfigurationService', () => {
       expect(list$).toBeObservable(cold('(b|)', {
         b: [
           MyDSpaceConfigurationValueType.Workspace,
-          MyDSpaceConfigurationValueType.OtherWorkspace
-        ]
+          MyDSpaceConfigurationValueType.OtherWorkspace,
+        ],
       }));
     });
 
@@ -202,8 +207,8 @@ describe('MyDSpaceConfigurationService', () => {
       expect(list$).toBeObservable(cold('(b|)', {
         b: [
           MyDSpaceConfigurationValueType.SupervisedItems,
-          MyDSpaceConfigurationValueType.Workflow
-        ]
+          MyDSpaceConfigurationValueType.Workflow,
+        ],
       }));
     });
 
@@ -217,8 +222,8 @@ describe('MyDSpaceConfigurationService', () => {
       expect(list$).toBeObservable(cold('(b|)', {
         b: [
           MyDSpaceConfigurationValueType.SupervisedItems,
-          MyDSpaceConfigurationValueType.Workflow
-        ]
+          MyDSpaceConfigurationValueType.Workflow,
+        ],
       }));
     });
 
@@ -234,8 +239,8 @@ describe('MyDSpaceConfigurationService', () => {
           MyDSpaceConfigurationValueType.Workspace,
           MyDSpaceConfigurationValueType.OtherWorkspace,
           MyDSpaceConfigurationValueType.SupervisedItems,
-          MyDSpaceConfigurationValueType.Workflow
-        ]
+          MyDSpaceConfigurationValueType.Workflow,
+        ],
       }));
     });
   });
@@ -246,8 +251,8 @@ describe('MyDSpaceConfigurationService', () => {
       spyOn(service, 'getAvailableConfigurationTypes').and.returnValue(hot('a', {
         a: [
           MyDSpaceConfigurationValueType.Workspace,
-          MyDSpaceConfigurationValueType.Workflow
-        ]
+          MyDSpaceConfigurationValueType.Workflow,
+        ],
       }));
 
       const list$ = service.getAvailableConfigurationOptions();
@@ -257,14 +262,14 @@ describe('MyDSpaceConfigurationService', () => {
           {
             value: MyDSpaceConfigurationValueType.Workspace,
             label: `mydspace.show.${MyDSpaceConfigurationValueType.Workspace}`,
-            context: Context.Workspace
+            context: Context.Workspace,
           },
           {
             value: MyDSpaceConfigurationValueType.Workflow,
             label: `mydspace.show.${MyDSpaceConfigurationValueType.Workflow}`,
-            context: Context.Workflow
-          }
-        ]
+            context: Context.Workflow,
+          },
+        ],
       }));
     });
   });

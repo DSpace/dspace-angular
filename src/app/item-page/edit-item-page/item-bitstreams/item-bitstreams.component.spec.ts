@@ -1,31 +1,51 @@
-import { Bitstream } from '../../../core/shared/bitstream.model';
-import { of as observableOf } from 'rxjs';
-import { Item } from '../../../core/shared/item.model';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ItemBitstreamsComponent } from './item-bitstreams.component';
-import { ItemDataService } from '../../../core/data/item-data.service';
+import {
+  ChangeDetectorRef,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
-import { INotification, Notification } from '../../../shared/notifications/models/notification.model';
-import { NotificationType } from '../../../shared/notifications/models/notification-type';
-import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
+import { of as observableOf } from 'rxjs';
+
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
+import { RestResponse } from '../../../core/cache/response.models';
+import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
+import { BundleDataService } from '../../../core/data/bundle-data.service';
+import { ItemDataService } from '../../../core/data/item-data.service';
+import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
+import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { RequestService } from '../../../core/data/request.service';
+import { Bitstream } from '../../../core/shared/bitstream.model';
+import { Bundle } from '../../../core/shared/bundle.model';
+import { Item } from '../../../core/shared/item.model';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
+import {
+  INotification,
+  Notification,
+} from '../../../shared/notifications/models/notification.model';
+import { NotificationType } from '../../../shared/notifications/models/notification-type';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../shared/remote-data.utils';
+import { BitstreamDataServiceStub } from '../../../shared/testing/bitstream-data-service.stub';
+import { RouterStub } from '../../../shared/testing/router.stub';
+import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { ObjectValuesPipe } from '../../../shared/utils/object-values-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
-import { BundleDataService } from '../../../core/data/bundle-data.service';
-import { Bundle } from '../../../core/shared/bundle.model';
-import { RestResponse } from '../../../core/cache/response.models';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
-import { RouterStub } from '../../../shared/testing/router.stub';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { createPaginatedList } from '../../../shared/testing/utils.test';
-import { FieldChangeType } from '../../../core/data/object-updates/field-change-type.model';
-import { BitstreamDataServiceStub } from '../../../shared/testing/bitstream-data-service.stub';
+import { ItemBitstreamsComponent } from './item-bitstreams.component';
+import { ItemEditBitstreamBundleComponent } from './item-edit-bitstream-bundle/item-edit-bitstream-bundle.component';
+import { ItemEditBitstreamDragHandleComponent } from './item-edit-bitstream-drag-handle/item-edit-bitstream-drag-handle.component';
 
 let comp: ItemBitstreamsComponent;
 let fixture: ComponentFixture<ItemBitstreamsComponent>;
@@ -35,34 +55,34 @@ const warningNotification: INotification = new Notification('id', NotificationTy
 const successNotification: INotification = new Notification('id', NotificationType.Success, 'success');
 const bitstream1 = Object.assign(new Bitstream(), {
   id: 'bitstream1',
-  uuid: 'bitstream1'
+  uuid: 'bitstream1',
 });
 const bitstream2 = Object.assign(new Bitstream(), {
   id: 'bitstream2',
-  uuid: 'bitstream2'
+  uuid: 'bitstream2',
 });
 const fieldUpdate1 = {
   field: bitstream1,
-  changeType: undefined
+  changeType: undefined,
 };
 const fieldUpdate2 = {
   field: bitstream2,
-  changeType: FieldChangeType.REMOVE
+  changeType: FieldChangeType.REMOVE,
 };
 const bundle = Object.assign(new Bundle(), {
   id: 'bundle1',
   uuid: 'bundle1',
   _links: {
-    self: { href: 'bundle1-selflink' }
+    self: { href: 'bundle1-selflink' },
   },
-  bitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1, bitstream2]))
+  bitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1, bitstream2])),
 });
 const moveOperations = [
   {
     op: 'move',
     from: '/0',
-    path: '/1'
-  }
+    path: '/1',
+  },
 ];
 const date = new Date();
 const url = 'thisUrl';
@@ -100,57 +120,56 @@ describe('ItemBitstreamsComponent', () => {
         hasUpdates: observableOf(true),
         isReinstatable: observableOf(false),
         isValidPage: observableOf(true),
-        getMoveOperations: observableOf(moveOperations)
-      }
+        getMoveOperations: observableOf(moveOperations),
+      },
     );
     router = Object.assign(new RouterStub(), {
-      url: url
+      url: url,
     });
     notificationsService = jasmine.createSpyObj('notificationsService',
       {
         info: infoNotification,
         warning: warningNotification,
-        success: successNotification
-      }
+        success: successNotification,
+      },
     );
     bitstreamService = new BitstreamDataServiceStub();
     objectCache = jasmine.createSpyObj('objectCache', {
-      remove: jasmine.createSpy('remove')
+      remove: jasmine.createSpy('remove'),
     });
     requestService = getMockRequestService();
     searchConfig = Object.assign({
-      paginatedSearchOptions: observableOf({})
+      paginatedSearchOptions: observableOf({}),
     });
 
     item = Object.assign(new Item(), {
       uuid: 'item',
       id: 'item',
       _links: {
-        self: { href: 'item-selflink' }
+        self: { href: 'item-selflink' },
       },
       bundles: createSuccessfulRemoteDataObject$(createPaginatedList([bundle])),
-      lastModified: date
+      lastModified: date,
     });
     itemService = Object.assign({
       getBitstreams: () => createSuccessfulRemoteDataObject$(createPaginatedList([bitstream1, bitstream2])),
       findByHref: () => createSuccessfulRemoteDataObject$(item),
       findById: () => createSuccessfulRemoteDataObject$(item),
-      getBundles: () => createSuccessfulRemoteDataObject$(createPaginatedList([bundle]))
+      getBundles: () => createSuccessfulRemoteDataObject$(createPaginatedList([bundle])),
     });
     route = Object.assign({
       parent: {
-        data: observableOf({ dso: createSuccessfulRemoteDataObject(item) })
+        data: observableOf({ dso: createSuccessfulRemoteDataObject(item) }),
       },
       data: observableOf({}),
-      url: url
+      url: url,
     });
     bundleService = jasmine.createSpyObj('bundleService', {
-      patch: observableOf(new RestResponse(true, 200, 'OK'))
+      patch: observableOf(new RestResponse(true, 200, 'OK')),
     });
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ItemBitstreamsComponent, ObjectValuesPipe, VarDirective],
+      imports: [TranslateModule.forRoot(), ItemBitstreamsComponent, ObjectValuesPipe, VarDirective],
       providers: [
         { provide: ItemDataService, useValue: itemService },
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
@@ -162,11 +181,19 @@ describe('ItemBitstreamsComponent', () => {
         { provide: RequestService, useValue: requestService },
         { provide: SearchConfigurationService, useValue: searchConfig },
         { provide: BundleDataService, useValue: bundleService },
-        ChangeDetectorRef
+        ChangeDetectorRef,
       ], schemas: [
-        NO_ERRORS_SCHEMA
-      ]
-    }).compileComponents();
+        NO_ERRORS_SCHEMA,
+      ],
+    })
+      .overrideComponent(ItemBitstreamsComponent, {
+        remove: {
+          imports: [ItemEditBitstreamBundleComponent,
+            ItemEditBitstreamDragHandleComponent,
+            ThemedLoadingComponent],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -192,27 +219,13 @@ describe('ItemBitstreamsComponent', () => {
   });
 
   describe('when dropBitstream is called', () => {
-    const event = {
-      fromIndex: 0,
-      toIndex: 50,
-      // eslint-disable-next-line no-empty,@typescript-eslint/no-empty-function
-      finish: () => {
-      }
-    };
-
-    beforeEach(() => {
-      comp.dropBitstream(bundle, event);
-    });
-  });
-
-  describe('when dropBitstream is called', () => {
     beforeEach((done) => {
       comp.dropBitstream(bundle, {
         fromIndex: 0,
         toIndex: 50,
         finish: () => {
           done();
-        }
+        },
       });
     });
 

@@ -1,29 +1,30 @@
 import { Injectable } from '@angular/core';
-
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { EditItem } from './models/edititem.model';
-import { dataService } from '../data/base/data-service.decorator';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { RequestService } from '../data/request.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { getAllSucceededRemoteDataPayload, getPaginatedListPayload } from '../shared/operators';
-import { EditItemMode } from './models/edititem-mode.model';
-import { RemoteData } from '../data/remote-data';
-import { PaginatedList } from '../data/paginated-list.model';
+import { DeleteDataImpl } from '../data/base/delete-data';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { SearchDataImpl } from '../data/base/search-data';
-import { DeleteDataImpl } from '../data/base/delete-data';
 import { FindListOptions } from '../data/find-list-options.model';
+import { PaginatedList } from '../data/paginated-list.model';
+import { RemoteData } from '../data/remote-data';
+import { RequestService } from '../data/request.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import {
+  getAllSucceededRemoteDataPayload,
+  getPaginatedListPayload,
+} from '../shared/operators';
+import { EditItem } from './models/edititem.model';
+import { EditItemMode } from './models/edititem-mode.model';
 
 /**
  * A service that provides methods to make REST requests with edititems endpoint.
  */
-@Injectable()
-@dataService(EditItem.type)
+@Injectable({ providedIn: 'root' })
 export class EditItemDataService extends IdentifiableDataService<EditItem> {
   protected linkPath = 'edititems';
   protected searchById = 'findModesById';
@@ -56,10 +57,7 @@ export class EditItemDataService extends IdentifiableDataService<EditItem> {
   searchEditModesById(id: string, useCachedVersionIfAvailable = true, reRequestOnStale = true): Observable<RemoteData<PaginatedList<EditItemMode>>> {
     const options = new FindListOptions();
     options.searchParams = [
-      {
-        fieldName: 'uuid',
-        fieldValue: id
-      },
+      new RequestParam('uuid', id, false),
     ];
     return this.searchData.searchBy(this.searchById, options, useCachedVersionIfAvailable, reRequestOnStale);
   }

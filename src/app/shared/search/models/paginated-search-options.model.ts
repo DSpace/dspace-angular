@@ -1,10 +1,10 @@
 import { SortOptions } from '../../../core/cache/models/sort-options.model';
-import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
-import { isNotEmpty } from '../../empty.util';
-import { SearchOptions } from './search-options.model';
-import { SearchFilter } from './search-filter.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { ViewMode } from '../../../core/shared/view-mode.model';
+import { isNotEmpty } from '../../empty.util';
+import { PaginationComponentOptions } from '../../pagination/pagination-component-options.model';
+import { SearchFilter } from './search-filter.model';
+import { SearchOptions } from './search-options.model';
 
 /**
  * This model class represents all parameters needed to request information about a certain page of a search request, in a certain order
@@ -14,12 +14,13 @@ export class PaginatedSearchOptions extends SearchOptions {
   sort?: SortOptions;
   forcedEmbeddedKeys?: string[];
 
-  constructor(options: {configuration?: string, scope?: string, query?: string, dsoTypes?: DSpaceObjectType[], filters?: SearchFilter[], fixedFilter?: any, pagination?: PaginationComponentOptions, sort?: SortOptions, view?: ViewMode, forcedEmbeddedKeys?: string[]}) {
+  constructor(options: {configuration?: string, scope?: string, query?: string, dsoTypes?: DSpaceObjectType[], filters?: SearchFilter[], fixedFilter?: any, pagination?: PaginationComponentOptions, sort?: SortOptions, view?: ViewMode, forcedEmbeddedKeys?: string[], projection?: string}) {
     super(options);
     this.pagination = options.pagination;
     this.sort = options.sort;
     this.view = options.view;
     this.forcedEmbeddedKeys = options.forcedEmbeddedKeys;
+    this.projection = options.projection; // optional projection parameter for the search results
   }
 
   /**

@@ -1,13 +1,22 @@
-import { Inject, Injectable } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
 
-import { Item } from '../../shared/item.model';
-import { getSchemaJsonLDProviderByEntity, getSchemaJsonLDProviderByType } from './schema-types/schema-type-decorator';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '../../../shared/empty.util';
 import { GenericConstructor } from '../../shared/generic-constructor';
+import { Item } from '../../shared/item.model';
 import { SchemaType } from './schema-types/schema-type';
-import { isEmpty, isNotEmpty } from '../../../shared/empty.util';
+import {
+  getSchemaJsonLDProviderByEntity,
+  getSchemaJsonLDProviderByType,
+} from './schema-types/schema-type-decorator';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SchemaJsonLDService {
   static scriptType = 'application/ld+json';
 

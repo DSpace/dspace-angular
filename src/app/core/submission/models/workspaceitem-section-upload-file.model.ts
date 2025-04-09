@@ -1,6 +1,6 @@
+import { ChecksumInfo } from '../../shared/bitstream.model';
 import { SubmissionUploadFileAccessConditionObject } from './submission-upload-file-access-condition.model';
 import { WorkspaceitemSectionFormObject } from './workspaceitem-section-form.model';
-import { ChecksumInfo } from '../../shared/bitstream.model';
 
 /**
  * An interface to represent submission's upload section file entry.

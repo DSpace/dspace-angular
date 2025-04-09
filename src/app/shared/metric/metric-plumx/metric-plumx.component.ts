@@ -1,14 +1,43 @@
-import { Component, Inject, Injector, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import {
+  AsyncPipe,
+  NgIf,
+  NgSwitch,
+  NgSwitchCase,
+  TitleCasePipe,
+} from '@angular/common';
+import {
+  Component,
+  Inject,
+  Injector,
+  OnDestroy,
+  OnInit,
+  Renderer2,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
-import { BaseMetricComponent } from '../metric-loader/base-metric.component';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '../../../core/services/window.service';
 import { hasValue } from '../../empty.util';
+import { BaseMetricComponent } from '../metric-loader/base-metric.component';
 import { MetricLoadScriptService } from '../metric-loader/metric-load-script.service';
-import { NativeWindowRef, NativeWindowService } from '../../../core/services/window.service';
+import { ListMetricPropsPipe } from '../pipes/list-metric-props/list-metric-props.pipe';
 
 @Component({
   selector: 'ds-metric-plumx',
   templateUrl: './metric-plumx.component.html',
   styleUrls: ['./metric-plumx.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    NgSwitch,
+    NgSwitchCase,
+    AsyncPipe,
+    TitleCasePipe,
+    TranslateModule,
+    ListMetricPropsPipe,
+  ],
 })
 export class MetricPlumxComponent extends BaseMetricComponent implements OnInit, OnDestroy {
   remark: JSON;

@@ -1,20 +1,27 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  async,
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { Item } from '../../../core/shared/item.model';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
+import { Item } from '../../../core/shared/item.model';
 import { EditItemDataService } from '../../../core/submission/edititem-data.service';
-import { EditItemMenuComponent } from './edit-item-menu.component';
 import { EditItem } from '../../../core/submission/models/edititem.model';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
-import { createPaginatedList } from '../../testing/utils.test';
 import { EditItemMode } from '../../../core/submission/models/edititem-mode.model';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import { By } from '@angular/platform-browser';
 import { NotificationsService } from '../../notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
+import { createPaginatedList } from '../../testing/utils.test';
+import { EditItemMenuComponent } from './edit-item-menu.component';
 
 describe('EditItemMenuComponent', () => {
   let component: EditItemMenuComponent;
@@ -26,45 +33,45 @@ describe('EditItemMenuComponent', () => {
   const notificationService = new NotificationsServiceStub();
   const editItemMode: EditItemMode = Object.assign(new EditItemMode(), {
     name: 'test',
-    label: 'test'
+    label: 'test',
   });
 
   const editItem: EditItem = Object.assign(new EditItem(), {
-    modes: createSuccessfulRemoteDataObject$(createPaginatedList([editItemMode]))
+    modes: createSuccessfulRemoteDataObject$(createPaginatedList([editItemMode])),
   });
 
   const noEditItem: EditItem = Object.assign(new EditItem(), {
-    modes: createSuccessfulRemoteDataObject$(createPaginatedList([]))
+    modes: createSuccessfulRemoteDataObject$(createPaginatedList([])),
   });
 
   beforeEach(async(() => {
     dso = Object.assign(new Item(), {
       id: 'test-item',
       _links: {
-        self: { href: 'test-item-selflink' }
-      }
+        self: { href: 'test-item-selflink' },
+      },
     });
     editItemDataService = jasmine.createSpyObj('EditItemDataService', {
-      searchEditModesById: jasmine.createSpy('searchEditModesById')
+      searchEditModesById: jasmine.createSpy('searchEditModesById'),
     });
 
     TestBed.configureTestingModule({
-      declarations: [EditItemMenuComponent],
       imports: [
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
-        RouterTestingModule.withRoutes([])],
+        RouterTestingModule.withRoutes([]),
+        EditItemMenuComponent,
+      ],
       providers: [
         { provide: EditItemDataService, useValue: editItemDataService },
         { provide: 'contextMenuObjectProvider', useValue: dso },
         { provide: 'contextMenuObjectTypeProvider', useValue: DSpaceObjectType.ITEM },
-        { provide: NotificationsService, useValue: notificationService }
-
-      ]
+        { provide: NotificationsService, useValue: notificationService },
+      ],
     }).compileComponents();
   }));
 

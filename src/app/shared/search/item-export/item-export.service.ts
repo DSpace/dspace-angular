@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
-import { map, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
+
+import {
+  ItemExportFormatMolteplicity,
+  ItemExportFormatService,
+} from '../../../core/itemexportformat/item-export-format.service';
 import { ItemExportFormat } from '../../../core/itemexportformat/model/item-export-format.model';
 import { Item } from '../../../core/shared/item.model';
 import { isEmpty } from '../../empty.util';
-import {
-  ItemExportFormatMolteplicity,
-  ItemExportFormatService
-} from '../../../core/itemexportformat/item-export-format.service';
 import { SearchOptions } from '../models/search-options.model';
 
 export interface ItemExportFormConfiguration {
@@ -19,7 +23,7 @@ export interface ItemExportFormConfiguration {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ItemExportService {
 
@@ -46,7 +50,7 @@ export class ItemExportService {
   public onSelectEntityType(entityTypes: string[], entityType): Observable<ItemExportFormConfiguration> {
     return this.itemExportFormatService.byEntityTypeAndMolteplicity(entityType, ItemExportFormatMolteplicity.MULTIPLE).pipe(
       take(1),
-      map(values => this.buildConfiguration(entityTypes, entityType, values[entityType]))
+      map(values => this.buildConfiguration(entityTypes, entityType, values[entityType])),
     );
   }
 
@@ -65,7 +69,7 @@ export class ItemExportService {
     searchOptions: SearchOptions,
     entityType: string,
     format: ItemExportFormat,
-    itemList: string[] = []
+    itemList: string[] = [],
   ): Observable<number> {
     if (molteplicity === ItemExportFormatMolteplicity.SINGLE) {
       return this.itemExportFormatService.doExport(item.uuid, format);
@@ -81,14 +85,14 @@ export class ItemExportService {
     }
     return this.itemExportFormatService.byEntityTypeAndMolteplicity(entityType, ItemExportFormatMolteplicity.SINGLE).pipe(
       take(1),
-      map(values => this.buildConfiguration(null, entityType, values[entityType]))
+      map(values => this.buildConfiguration(null, entityType, values[entityType])),
     );
   }
 
   protected initialItemExportFormConfigurationMultiple(): Observable<ItemExportFormConfiguration> {
     return this.itemExportFormatService.byEntityTypeAndMolteplicity(null, ItemExportFormatMolteplicity.MULTIPLE).pipe(
       take(1),
-      map(values => this.buildConfiguration(Object.keys(values), null, []))
+      map(values => this.buildConfiguration(Object.keys(values), null, [])),
     );
   }
 
@@ -98,7 +102,7 @@ export class ItemExportService {
       entityType,
       format: _formats.length > 0 ? _formats[0] : null,
       entityTypes: entityTypes,
-      formats: _formats
+      formats: _formats,
     };
   }
 

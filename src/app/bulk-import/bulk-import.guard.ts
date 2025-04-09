@@ -1,42 +1,42 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-
+import { inject } from '@angular/core';
+import {
+  ActivatedRouteSnapshot,
+  CanActivateFn,
+  Router,
+  RouterStateSnapshot,
+  UrlTree,
+} from '@angular/router';
 import { Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
+import { AuthService } from '../core/auth/auth.service';
 import { CollectionDataService } from '../core/data/collection-data.service';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
+import {
+  redirectOn4xx,
+  returnForbiddenUrlTreeOrLoginOnFalse,
+} from '../core/shared/authorized.operators';
 import { Collection } from '../core/shared/collection.model';
-import { getFirstCompletedRemoteData, } from '../core/shared/operators';
-import { AuthService } from '../core/auth/auth.service';
-import { redirectOn4xx, returnForbiddenUrlTreeOrLoginOnFalse } from '../core/shared/authorized.operators';
+import { getFirstCompletedRemoteData } from '../core/shared/operators';
 
-/**
- * A guard taking care of the correct route.data being set for the BulkImport components
- */
-@Injectable()
-export class BulkImportGuard implements CanActivate {
+export const bulkImportGuard: CanActivateFn = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+): Observable<boolean | UrlTree> => {
+  const authService = inject(AuthService);
+  const authorizationService = inject(AuthorizationDataService);
+  const collectionService = inject(CollectionDataService);
+  const router = inject(Router);
 
-  constructor(
-    private authService: AuthService,
-    private authorizationService: AuthorizationDataService,
-    private collectionService: CollectionDataService,
-    private router: Router) {
+  const isCollectionAdmin = (collection: Collection): Observable<boolean> => {
+    return authorizationService.isAuthorized(FeatureID.AdministratorOf, collection.self, undefined);
+  };
 
-  }
-
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    return this.collectionService.findById(route.params.id).pipe(
-      getFirstCompletedRemoteData(),
-      redirectOn4xx(this.router, this.authService),
-      mergeMap((RD) => this.isCollectionAdmin(RD.payload)),
-      returnForbiddenUrlTreeOrLoginOnFalse(this.router, this.authService, state.url)
-    );
-  }
-
-  isCollectionAdmin(collection: Collection): Observable<boolean> {
-    return this.authorizationService.isAuthorized(FeatureID.AdministratorOf, collection.self, undefined);
-  }
-
-}
+  return collectionService.findById(route.params.id).pipe(
+    getFirstCompletedRemoteData(),
+    redirectOn4xx(router, authService),
+    mergeMap((RD) => isCollectionAdmin(RD.payload)),
+    returnForbiddenUrlTreeOrLoginOnFalse(router, authService, state.url),
+  );
+};

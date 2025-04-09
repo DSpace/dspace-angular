@@ -1,20 +1,52 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
-import { NgbDateParserFormatter, NgbDatepicker, NgbDatepickerConfig, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgClass,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
+import {
+  ReactiveFormsModule,
+  UntypedFormGroup,
+} from '@angular/forms';
+import {
+  NgbDateParserFormatter,
+  NgbDatepicker,
+  NgbDatepickerConfig,
+  NgbDatepickerModule,
+  NgbDateStruct,
+} from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicDatePickerModel,
   DynamicFormControlComponent,
   DynamicFormControlLayout,
   DynamicFormLayoutService,
-  DynamicFormValidationService
+  DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
+import { Subscription } from 'rxjs';
+
+import { hasValue } from '../../../../../empty.util';
+import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 
 @Component({
   selector: 'ds-dynamic-date-picker-inline',
   styleUrls: ['./dynamic-date-picker-inline.component.scss'],
-  templateUrl: './dynamic-date-picker-inline.component.html'
+  templateUrl: './dynamic-date-picker-inline.component.html',
+  imports: [
+    NgClass,
+    NgbDatepickerModule,
+    ReactiveFormsModule,
+    NgIf,
+  ],
+  standalone: true,
 })
-export class DsDatePickerInlineComponent extends DynamicFormControlComponent {
+export class DsDatePickerInlineComponent extends DynamicFormControlComponent implements OnInit, OnDestroy{
 
   @Input() bindId = true;
   @Input() group: UntypedFormGroup;
@@ -26,6 +58,9 @@ export class DsDatePickerInlineComponent extends DynamicFormControlComponent {
   @Output() focus: EventEmitter<any> = new EventEmitter();
 
   @ViewChild(NgbDatepicker) ngbDatePicker: NgbDatepicker;
+  formattedDate: string;
+  private isOnFocus: boolean;
+  private modelChangeSub: Subscription;
 
   constructor(protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService,
@@ -35,7 +70,38 @@ export class DsDatePickerInlineComponent extends DynamicFormControlComponent {
     super(layoutService, validationService);
   }
 
-  getInitDate(): string {
-    return this.formatter.format(this.model.value as NgbDateStruct);
+  ngOnInit() {
+    this.formattedDate = this.getInitDate();
+    this.modelChangeSub = this.model.valueChanges.subscribe(() => {
+      const newDate = this.getInitDate();
+      if (hasValue(newDate) && newDate !== this.formattedDate && !this.isOnFocus) {
+        this.formattedDate = newDate;
+      }
+    });
   }
+
+  ngOnDestroy() {
+    if (hasValue(this.modelChangeSub)) {
+      this.modelChangeSub.unsubscribe();
+    }
+  }
+
+  getInitDate(): string {
+    return this.model.value instanceof FormFieldMetadataValueObject ? this.model.value.value : this.formatter.format(this.model.value as NgbDateStruct);
+  }
+
+  onBlur(event) {
+    this.isOnFocus = false;
+    const newDate = this.getInitDate();
+    if (!hasValue(this.model.value) || newDate !== this.formattedDate) {
+      this.formattedDate = newDate;
+      this.blur.emit(event);
+    }
+  }
+
+  onFocus($event: any) {
+    super.onFocus($event);
+    this.isOnFocus = true;
+  }
+
 }

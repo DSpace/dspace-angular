@@ -1,20 +1,85 @@
-import { Inject, Injectable, Optional } from '@angular/core';
-import { Router } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
-import { REQUEST, RESPONSE } from '@nguniversal/express-engine/tokens';
-
-import { Observable, of as observableOf } from 'rxjs';
-import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
-import { select, Store } from '@ngrx/store';
+import {
+  Inject,
+  Injectable,
+  Optional,
+} from '@angular/core';
+import { Router } from '@angular/router';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import { CookieAttributes } from 'js-cookie';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  startWith,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
-import { EPerson } from '../eperson/models/eperson.model';
-import { AuthRequestService } from './auth-request.service';
+import { environment } from '../../../environments/environment';
+import {
+  REQUEST,
+  RESPONSE,
+} from '../../../express.tokens';
+import { AppState } from '../../app.reducer';
+import {
+  hasNoValue,
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isNotNull,
+  isNotUndefined,
+} from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { followLink } from '../../shared/utils/follow-link-config.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../data/paginated-list.model';
+import { RemoteData } from '../data/remote-data';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { AuthStatus } from './models/auth-status.model';
-import { AuthTokenInfo, TOKENITEM } from './models/auth-token-info.model';
-import { hasNoValue, hasValue, isEmpty, isNotEmpty, isNotNull, isNotUndefined } from '../../shared/empty.util';
+import { EPersonDataService } from '../eperson/eperson-data.service';
+import { EPerson } from '../eperson/models/eperson.model';
+import { Group } from '../eperson/models/group.model';
 import { CookieService } from '../services/cookie.service';
+import { HardRedirectService } from '../services/hard-redirect.service';
+import { RouteService } from '../services/route.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '../services/window.service';
+import { NoContent } from '../shared/NoContent.model';
+import {
+  getAllSucceededRemoteDataPayload,
+  getFirstCompletedRemoteData,
+} from '../shared/operators';
+import { PageInfo } from '../shared/page-info.model';
+import { URLCombiner } from '../url-combiner/url-combiner';
+import {
+  CheckAuthenticationTokenAction,
+  RefreshTokenAction,
+  ResetAuthenticationMessagesAction,
+  SetAuthCookieStatus,
+  SetRedirectUrlAction,
+  SetUserAsIdleAction,
+  UnsetUserAsIdleAction,
+} from './auth.actions';
+import { AuthRequestService } from './auth-request.service';
+import { AuthMethod } from './models/auth.method';
+import { AuthStatus } from './models/auth-status.model';
+import {
+  AuthTokenInfo,
+  TOKENITEM,
+} from './models/auth-token-info.model';
+import { MachineToken } from './models/machine-token.model';
 import {
   getAuthenticatedUser,
   getAuthenticationToken,
@@ -23,35 +88,8 @@ import {
   isAuthenticated,
   isAuthenticatedLoaded,
   isIdle,
-  isTokenRefreshing
+  isTokenRefreshing,
 } from './selectors';
-import { AppState } from '../../app.reducer';
-import {
-  CheckAuthenticationTokenAction,
-  RefreshTokenAction,
-  ResetAuthenticationMessagesAction, SetAuthCookieStatus,
-  SetRedirectUrlAction,
-  SetUserAsIdleAction,
-  UnsetUserAsIdleAction
-} from './auth.actions';
-import { NativeWindowRef, NativeWindowService } from '../services/window.service';
-import { RouteService } from '../services/route.service';
-import { EPersonDataService } from '../eperson/eperson-data.service';
-import { getAllSucceededRemoteDataPayload, getFirstCompletedRemoteData } from '../shared/operators';
-import { AuthMethod } from './models/auth.method';
-import { HardRedirectService } from '../services/hard-redirect.service';
-import { RemoteData } from '../data/remote-data';
-import { environment } from '../../../environments/environment';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { buildPaginatedList, PaginatedList } from '../data/paginated-list.model';
-import { Group } from '../eperson/models/group.model';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { PageInfo } from '../shared/page-info.model';
-import { followLink } from '../../shared/utils/follow-link-config.model';
-import { MachineToken } from './models/machine-token.model';
-import { NoContent } from '../shared/NoContent.model';
-import { URLCombiner } from '../url-combiner/url-combiner';
 
 export const LOGIN_ROUTE = '/login';
 export const LOGOUT_ROUTE = '/logout';
@@ -61,7 +99,7 @@ export const IMPERSONATING_COOKIE = 'dsImpersonatingEPerson';
 /**
  * The auth service.
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AuthService {
 
   /**
@@ -86,13 +124,13 @@ export class AuthService {
               protected store: Store<AppState>,
               protected hardRedirectService: HardRedirectService,
               private notificationService: NotificationsService,
-              private translateService: TranslateService
+              private translateService: TranslateService,
   ) {
     this.store.pipe(
       // when this service is constructed the store is not fully initialized yet
       filter((state: any) => state?.core?.auth !== undefined),
       select(isAuthenticated),
-      startWith(false)
+      startWith(false),
     ).subscribe((authenticated: boolean) => this._authenticated = authenticated);
   }
 
@@ -115,7 +153,7 @@ export class AuthService {
         if (hasValue(rd.payload) && rd.payload.authenticated) {
           return rd.payload;
         } else {
-          throw (new Error('Invalid email or password'));
+          throw (new Error('auth.errors.invalid-user'));
         }
       }));
 
@@ -132,7 +170,7 @@ export class AuthService {
     options.headers = headers;
     options.withCredentials = true;
     return this.authRequestService.getRequest('status', options).pipe(
-      map((rd: RemoteData<AuthStatus>) => Object.assign(new AuthStatus(), rd.payload))
+      map((rd: RemoteData<AuthStatus>) => Object.assign(new AuthStatus(), rd.payload)),
     );
   }
 
@@ -198,7 +236,7 @@ export class AuthService {
    */
   public retrieveAuthenticatedUserByHref(userHref: string): Observable<EPerson> {
     return this.epersonService.findByHref(userHref).pipe(
-      getAllSucceededRemoteDataPayload()
+      getAllSucceededRemoteDataPayload(),
     );
   }
 
@@ -208,7 +246,7 @@ export class AuthService {
    */
   public retrieveAuthenticatedUserById(userId: string): Observable<EPerson> {
     return this.epersonService.findById(userId).pipe(
-      getAllSucceededRemoteDataPayload()
+      getAllSucceededRemoteDataPayload(),
     );
   }
 
@@ -220,7 +258,7 @@ export class AuthService {
     return this.store.pipe(
       select(getAuthenticatedUser),
       map ((eperson) => Object.assign(new EPerson(), eperson)),
-      take(1)
+      take(1),
     );
   }
 
@@ -243,7 +281,7 @@ export class AuthService {
         } else {
           return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(),[]));
         }
-      })
+      }),
     );
   }
 
@@ -255,15 +293,14 @@ export class AuthService {
       select(getAuthenticationToken),
       take(1),
       map((authTokenInfo: AuthTokenInfo) => {
-        let token: AuthTokenInfo;
         // Retrieve authentication token info and check if is valid
-        token = isNotEmpty(authTokenInfo) ? authTokenInfo : this.storage.get(TOKENITEM);
+        const token = isNotEmpty(authTokenInfo) ? authTokenInfo : this.storage.get(TOKENITEM);
         if (isNotEmpty(token) && token.hasOwnProperty('accessToken') && isNotEmpty(token.accessToken) && !this.isTokenExpired(token)) {
           return token;
         } else {
           throw false;
         }
-      })
+      }),
     );
   }
 
@@ -407,7 +444,7 @@ export class AuthService {
           const token = this.getToken();
           return token.expires - (60 * 5 * 1000) < Date.now();
         }
-      })
+      }),
     );
   }
 
@@ -432,7 +469,7 @@ export class AuthService {
 
     // Set the cookie expire date
     const expires = new Date(expireDate);
-    const options: CookieAttributes = {expires: expires};
+    const options: CookieAttributes = { expires: expires };
 
     // Save cookie with the token
     return this.storage.set(TOKENITEM, token, options);
@@ -511,7 +548,7 @@ export class AuthService {
         } else {
           return this.storage.get(REDIRECT_COOKIE);
         }
-      })
+      }),
     );
   }
 
@@ -524,7 +561,7 @@ export class AuthService {
 
     // Set the cookie expire date
     const expires = new Date(expireDate);
-    const options: CookieAttributes = {expires: expires};
+    const options: CookieAttributes = { expires: expires };
     this.storage.set(REDIRECT_COOKIE, url, options);
     this.store.dispatch(new SetRedirectUrlAction(isNotUndefined(url) ? url : ''));
   }
@@ -629,7 +666,7 @@ export class AuthService {
    */
   getShortlivedToken(): Observable<string> {
     return this.isAuthenticated().pipe(
-      switchMap((authenticated) => authenticated ? this.authRequestService.getShortlivedToken() : observableOf(null))
+      switchMap((authenticated) => authenticated ? this.authRequestService.getShortlivedToken() : observableOf(null)),
     );
   }
 

@@ -1,12 +1,12 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <h2>{{'item.edit.move.head' | translate: {id: (itemRD$ | async)?.payload?.handle} }}</h2>
+            <h1>{{'item.edit.move.head' | translate: {id: (itemRD$ | async)?.payload?.handle} }}</h1>
             <p>{{'item.edit.move.description' | translate}}</p>
             <div class="row">
                 <div class="col-12">
                   <div class="card mb-3">
-                    <div class="card-header">{{'dso-selector.placeholder' | translate: { type: 'collection' } }}</div>
+                    <div class="card-header">{{'dso-selector.placeholder' | translate: { type: 'dso-selector.placeholder.type.collection' | translate } }}</div>
                     <div class="card-body">
                       <ds-authorized-collection-selector [types]="COLLECTIONS"
                                                          [currentDSOId]="selectedCollection ? selectedCollection.id : originalCollection.id"

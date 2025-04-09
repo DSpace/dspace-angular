@@ -1,25 +1,37 @@
 import { Injectable } from '@angular/core';
-import { ExternalSource } from '../shared/external-source.model';
-import { RequestService } from './request.service';
+import { Observable } from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import {
+  hasValue,
+  isNotEmptyOperator,
+} from '../../shared/empty.util';
+import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Observable } from 'rxjs';
-import { distinctUntilChanged, map, switchMap, take } from 'rxjs/operators';
-import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { hasValue, isNotEmptyOperator } from '../../shared/empty.util';
-import { RemoteData } from './remote-data';
-import { PaginatedList } from './paginated-list.model';
+import { ExternalSource } from '../shared/external-source.model';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { FindListOptions } from './find-list-options.model';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { IdentifiableDataService } from './base/identifiable-data.service';
-import { SearchData, SearchDataImpl } from './base/search-data';
+import {
+  SearchData,
+  SearchDataImpl,
+} from './base/search-data';
+import { FindListOptions } from './find-list-options.model';
+import { PaginatedList } from './paginated-list.model';
+import { RemoteData } from './remote-data';
+import { RequestService } from './request.service';
 
 /**
  * A service handling all external source requests
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ExternalSourceDataService extends IdentifiableDataService<ExternalSource> implements SearchData<ExternalSource> {
   private searchData: SearchData<ExternalSource>;
 
@@ -50,7 +62,7 @@ export class ExternalSourceDataService extends IdentifiableDataService<ExternalS
   getEntriesEndpoint(externalSourceId: string): Observable<string> {
     return this.getBrowseEndpoint().pipe(
       map((href) => this.getIDHref(href, externalSourceId)),
-      switchMap((href) => this.halService.getEndpoint('entries', href))
+      switchMap((href) => this.halService.getEndpoint('entries', href)),
     );
   }
 
@@ -61,7 +73,7 @@ export class ExternalSourceDataService extends IdentifiableDataService<ExternalS
    */
   getEntryIDHref(externalSourceId: string, entryId: string): Observable<string> {
     return this.getBrowseEndpoint().pipe(
-      map((href) => href + '/' + externalSourceId + '/entryValues/' + entryId)
+      map((href) => href + '/' + externalSourceId + '/entryValues/' + entryId),
     );
   }
 
@@ -89,7 +101,7 @@ export class ExternalSourceDataService extends IdentifiableDataService<ExternalS
     return this.hasCachedErrorResponse(href$).pipe(
       switchMap((hasCachedErrorResponse) => {
         return this.findListByHref(href$, undefined, !hasCachedErrorResponse, reRequestOnStale, ...linksToFollow as any);
-      })
+      }),
     ) as any;
   }
 
@@ -119,7 +131,7 @@ export class ExternalSourceDataService extends IdentifiableDataService<ExternalS
   getExternalSourceEntryById(externalSourceId: string, entryId: string): Observable<RemoteData<ExternalSourceEntry>> {
     const href$ = this.getEntryIDHref(externalSourceId, entryId).pipe(
       isNotEmptyOperator(),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
 
     // TODO create a dedicated ExternalSourceEntryDataService and move this entire method to it. Then the "as any"s won't be necessary

@@ -1,24 +1,30 @@
-import { ThemedComponent } from '../../../theme-support/themed.component';
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
 import { TextRowSection } from '../../../../core/layout/models/section.model';
-import { TextSectionComponent } from './text-section.component';
 import { Site } from '../../../../core/shared/site.model';
+import { ThemedComponent } from '../../../theme-support/themed.component';
+import { TextSectionComponent } from './text-section.component';
 
 @Component({
-  selector: 'ds-themed-text-section',
+  selector: 'ds-text-section',
   styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
+  standalone: true,
+  imports: [TextSectionComponent],
 })
 export class ThemedTextSectionComponent extends ThemedComponent<TextSectionComponent> {
 
   @Input()
-  sectionId: string;
+    sectionId: string;
 
   @Input()
-  textRowSection: TextRowSection;
+    textRowSection: TextRowSection;
 
   @Input()
-  site: Site;
+    site: Site;
 
   protected inAndOutputNames: (keyof TextSectionComponent & keyof this)[] = ['sectionId', 'textRowSection', 'site'];
 

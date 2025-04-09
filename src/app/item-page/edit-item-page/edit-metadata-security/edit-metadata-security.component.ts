@@ -1,12 +1,33 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { environment } from '../../../../environments/environment';
+import {
+  NgForOf,
+  NgIf,
+  NgStyle,
+} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+
 import { LevelSecurityConfig } from '../../../../config/metadata-security-config';
-import { hasNoValue, isEmpty } from '../../../shared/empty.util';
+import { environment } from '../../../../environments/environment';
+import {
+  hasNoValue,
+  isEmpty,
+} from '../../../shared/empty.util';
 
 @Component({
   selector: 'ds-edit-metadata-security',
   templateUrl: './edit-metadata-security.component.html',
   styleUrls: ['./edit-metadata-security.component.scss'],
+  imports: [
+    NgStyle,
+    NgForOf,
+    NgIf,
+  ],
+  standalone: true,
 })
 export class EditMetadataSecurityComponent implements OnInit {
 
@@ -83,7 +104,7 @@ export class EditMetadataSecurityComponent implements OnInit {
       this.securityLevelsMap = this.securityLevelsMap.filter(
         (el: any, index) => {
           return index === 0 || this.securityConfigLevel.includes(el.value);
-        }
+        },
       );
     }
   }

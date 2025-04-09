@@ -1,19 +1,51 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
+import {
+  NgbDropdownModule,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  startWith,
+} from 'rxjs/operators';
 
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { map, startWith, } from 'rxjs/operators';
-import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { hasValue, isNotEmpty } from '../../empty.util';
-import { EditItemMode } from '../../../core/submission/models/edititem-mode.model';
-import { getAllSucceededRemoteDataPayload, getFirstSucceededRemoteListPayload, getPaginatedListPayload } from '../../../core/shared/operators';
-import { EditItemDataService } from '../../../core/submission/edititem-data.service';
-import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
-import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { ContextMenuEntryComponent } from '../context-menu-entry.component';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import {
+  CrisLayoutCell,
+  CrisLayoutRow,
+  CrisLayoutTab,
+} from '../../../core/layout/models/tab.model';
 import { TabDataService } from '../../../core/layout/tab-data.service';
-import { CrisLayoutCell, CrisLayoutRow, CrisLayoutTab } from '../../../core/layout/models/tab.model';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
+import {
+  getAllSucceededRemoteDataPayload,
+  getFirstSucceededRemoteListPayload,
+  getPaginatedListPayload,
+} from '../../../core/shared/operators';
+import { EditItemDataService } from '../../../core/submission/edititem-data.service';
+import { EditItemMode } from '../../../core/submission/models/edititem-mode.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../empty.util';
 import { NotificationsService } from '../../notifications/notifications.service';
+import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
 
 /**
@@ -21,10 +53,20 @@ import { ContextMenuEntryType } from '../context-menu-entry-type';
  */
 @Component({
   selector: 'ds-context-menu-edit-item-relationships',
-  templateUrl: './edit-item-relationships-menu.component.html'
+  templateUrl: './edit-item-relationships-menu.component.html',
+  standalone: true,
+  imports: [
+    NgIf,
+    NgFor,
+    NgbDropdownModule,
+    RouterLink,
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
-@rendersContextMenuEntriesForType(DSpaceObjectType.ITEM)
 export class EditItemRelationshipsMenuComponent extends ContextMenuEntryComponent implements OnInit, OnDestroy {
+
+  isEditAvailable$: Observable<boolean>;
 
   /**
    * A boolean representing if a request operation is pending
@@ -66,7 +108,7 @@ export class EditItemRelationshipsMenuComponent extends ContextMenuEntryComponen
     @Inject('contextMenuObjectTypeProvider') protected injectedContextMenuObjectType: DSpaceObjectType,
     private editItemService: EditItemDataService,
     protected tabService: TabDataService,
-    private notificationService: NotificationsService
+    private notificationService: NotificationsService,
   ) {
     super(injectedContextMenuObject, injectedContextMenuObjectType, ContextMenuEntryType.EditRelationships);
   }
@@ -108,7 +150,7 @@ export class EditItemRelationshipsMenuComponent extends ContextMenuEntryComponen
    */
   isEditAvailable(): Observable<boolean> {
     return this.editModes$.asObservable().pipe(
-      map((editModes) => isNotEmpty(editModes) && editModes.length > 0)
+      map((editModes) => isNotEmpty(editModes) && editModes.length > 0),
     );
   }
 
@@ -125,17 +167,19 @@ export class EditItemRelationshipsMenuComponent extends ContextMenuEntryComponen
       this.editItemService.searchEditModesById(this.contextMenuObject.id).pipe(
         getAllSucceededRemoteDataPayload(),
         getPaginatedListPayload(),
-        startWith([])
+        startWith([]),
       ).subscribe((editModes: EditItemMode[]) => {
         this.editModes$.next(editModes);
       }));
 
     // Retrieve tabs by UUID of item
     this.subs.push(this.tabService.findByItem(this.contextMenuObject.id, false).pipe(
-      getFirstSucceededRemoteListPayload()
+      getFirstSucceededRemoteListPayload(),
     ).subscribe((tabs) => {
       this.tabs = tabs;
       this.initBoxes();
     }));
+
+    this.isEditAvailable$ = this.isEditAvailable();
   }
 }

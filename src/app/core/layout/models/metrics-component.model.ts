@@ -1,9 +1,13 @@
-import { CacheableObject } from '../../cache/cacheable-object.model';
+import {
+  autoserialize,
+  deserialize,
+} from 'cerialize';
+
 import { typedObject } from '../../cache/builders/build-decorators';
-import { autoserialize, deserialize } from 'cerialize';
+import { CacheableObject } from '../../cache/cacheable-object.model';
 import { HALLink } from '../../shared/hal-link.model';
-import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { ResourceType } from '../../shared/resource-type';
+import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { METRICSCOMPONENT } from './metrics-component.resource-type';
 
 /**
@@ -18,22 +22,22 @@ export class MetricsComponent extends CacheableObject {
    */
   @excludeFromEquals
   @autoserialize
-  type: ResourceType;
+    type: ResourceType;
 
   /**
    * The identifier of the related CrisLayoutBox (shortname)
    */
   @autoserialize
-  id: string;
+    id: string;
 
   @autoserialize
-  metrics: string[];
+    metrics: string[];
 
   /**
    * The {@link HALLink}s for this metricscomponent
    */
   @deserialize
-  _links: {
+    _links: {
     self: HALLink
   };
 }

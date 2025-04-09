@@ -1,12 +1,12 @@
 <div class="container">
-    <h3 class="mb-4">{{'bitstream-request-a-copy.header' | translate}}</h3>
+    <h1 class="mb-4">{{'bitstream-request-a-copy.header' | translate}}</h1>
     <div *ngIf="canDownload$|async" class="alert alert-success">
         <span>{{'bitstream-request-a-copy.alert.canDownload1' | translate}}</span>
         <a [routerLink]="getBitstreamLink()">{{'bitstream-request-a-copy.alert.canDownload2'| translate}}</a>
     </div>
     <div>
         <p>{{'bitstream-request-a-copy.intro' | translate}} <a [routerLink]="getItemPath()">{{itemName}}</a></p>
-        <p *ngIf="bitstream != undefined && allfiles.value === 'false'">{{'bitstream-request-a-copy.intro.bitstream.one' | translate}} {{bitstreamName}}</p>
+        <p *ngIf="bitstream !== undefined && allfiles.value === 'false'">{{'bitstream-request-a-copy.intro.bitstream.one' | translate}} {{bitstreamName}}</p>
         <p *ngIf="allfiles.value === 'true'">{{'bitstream-request-a-copy.intro.bitstream.all' | translate}}</p>
     </div>
     <form [class]="'ng-invalid'" [formGroup]="requestCopyForm" (ngSubmit)="onSubmit()">

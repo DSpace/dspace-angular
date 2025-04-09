@@ -1,7 +1,12 @@
 import { EventEmitter } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  async,
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+
 import { ChartType } from '../../models/chart-type';
 import { BarChartComponent } from '../bar-chart/bar-chart.component';
 import { LineChartComponent } from '../line-chart/line-chart.component';
@@ -16,16 +21,16 @@ xdescribe('ChartComponent', () => {
   const results = [
     {
       name: 'Germany',
-      value: 8940000
+      value: 8940000,
     },
     {
       name: 'USA',
-      value: 5000000
+      value: 5000000,
     },
     {
       name: 'France',
-      value: 7200000
-    }
+      value: 7200000,
+    },
   ];
   const animations = true;
   const legend = true;
@@ -43,13 +48,11 @@ xdescribe('ChartComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         BrowserAnimationsModule,
-        NgxChartsModule
-      ],
-      declarations: [
+        NgxChartsModule,
         ChartComponent,
         BarChartComponent,
         LineChartComponent,
-        PieChartComponent
+        PieChartComponent,
       ],
       providers: [
         { provide: 'view', useValue: view },
@@ -58,24 +61,16 @@ xdescribe('ChartComponent', () => {
         { provide: 'legend', useValue: legend },
         { provide: 'legendTitle', useValue: legendTitle },
         { provide: 'legendPosition', userValue: legendPosition },
-        { provide: 'select', useValue:  select},
-        { provide: 'enableScrollToLeft', useValue:  enableScrollToLeft},
-        { provide: 'enableScrollToRight', useValue:  enableScrollToRight},
-        { provide: 'showMore', useValue:  loadMore},
-        { provide: 'isLastPage', useValue:  isLastPage},
-        { provide: 'currentPage', useValue:  currentPage},
-        { provide: 'type', useValue:  type}
-      ]
-    }).overrideComponent(ChartComponent, {
-      set: {
-        entryComponents: [
-          BarChartComponent,
-          LineChartComponent,
-          PieChartComponent
-        ]
-      }
-    })
-    .compileComponents();
+        { provide: 'select', useValue: select },
+        { provide: 'enableScrollToLeft', useValue: enableScrollToLeft },
+        { provide: 'enableScrollToRight', useValue: enableScrollToRight },
+        { provide: 'showMore', useValue: loadMore },
+        { provide: 'isLastPage', useValue: isLastPage },
+        { provide: 'currentPage', useValue: currentPage },
+        { provide: 'type', useValue: type },
+      ],
+    }).overrideComponent(ChartComponent, {})
+      .compileComponents();
   }));
 
   beforeEach(() => {

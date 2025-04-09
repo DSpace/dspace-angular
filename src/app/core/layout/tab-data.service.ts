@@ -1,30 +1,33 @@
 import { Injectable } from '@angular/core';
-
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import { CrisLayoutCell, CrisLayoutRow, CrisLayoutTab } from './models/tab.model';
-import { RequestService } from '../data/request.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
+import {
+  hasNoValue,
+  hasValue,
+} from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { TAB } from './models/tab.resource-type';
-import { dataService } from '../data/base/data-service.decorator';
-import { RemoteData } from '../data/remote-data';
-import { PaginatedList } from '../data/paginated-list.model';
-import { FindListOptions } from '../data/find-list-options.model';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { RequestParam } from '../cache/models/request-param.model';
+import { ObjectCacheService } from '../cache/object-cache.service';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
 import { SearchDataImpl } from '../data/base/search-data';
-import { map } from 'rxjs/operators';
-import { hasNoValue, hasValue } from '../../shared/empty.util';
+import { FindListOptions } from '../data/find-list-options.model';
+import { PaginatedList } from '../data/paginated-list.model';
+import { RemoteData } from '../data/remote-data';
+import { RequestService } from '../data/request.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { CrisLayoutBox } from './models/box.model';
+import {
+  CrisLayoutCell,
+  CrisLayoutRow,
+  CrisLayoutTab,
+} from './models/tab.model';
 
 /**
  * A service responsible for fetching data from the REST API on the tabs endpoint
  */
-@Injectable()
-@dataService(TAB)
+@Injectable({ providedIn: 'root' })
 export class TabDataService extends IdentifiableDataService<CrisLayoutTab> {
   protected searchFindByItem = 'findByItem';
   protected searchFindByEntityType = 'findByEntityType';
@@ -58,7 +61,7 @@ export class TabDataService extends IdentifiableDataService<CrisLayoutTab> {
    * @param useCachedVersionIfAvailable
    */
   findByItem(
-    itemUuid: string, useCachedVersionIfAvailable: boolean, excludeMinors?: boolean
+    itemUuid: string, useCachedVersionIfAvailable: boolean, excludeMinors?: boolean,
   ): Observable<RemoteData<PaginatedList<CrisLayoutTab>>> {
     const options = new FindListOptions();
     options.searchParams = [new RequestParam('uuid', itemUuid)];

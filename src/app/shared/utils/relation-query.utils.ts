@@ -1,5 +1,8 @@
-import { followLink, FollowLinkConfig } from './follow-link-config.model';
 import { Relationship } from '../../core/shared/item-relationships/relationship.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from './follow-link-config.model';
 
 /**
  * Get the query for looking up items by relation type
@@ -30,7 +33,7 @@ export function itemLinksToFollow(showThumbnail: boolean):  FollowLinkConfig<Rel
   if (showThumbnail) {
     linksToFollow = [
       followLink('leftItem',{}, followLink('thumbnail')),
-      followLink('rightItem',{}, followLink('thumbnail'))
+      followLink('rightItem',{}, followLink('thumbnail')),
     ];
   } else {
     linksToFollow = [followLink('leftItem'), followLink('rightItem')];

@@ -1,25 +1,43 @@
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { ObjectUpdatesService } from '../../core/data/object-updates/object-updates.service';
-import { distinctUntilChanged, map, switchMap } from 'rxjs/operators';
-import { hasValue } from '../empty.util';
 import {
-  paginatedListToArray,
-  getFirstSucceededRemoteData,
-  getAllSucceededRemoteData
-} from '../../core/shared/operators';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, ElementRef, EventEmitter, OnDestroy, Output, ViewChild } from '@angular/core';
-import { PaginationComponent } from '../pagination/pagination.component';
-import { ObjectValuesPipe } from '../utils/object-values-pipe';
-import { compareArraysUsing } from '../../item-page/simple/item-types/shared/item-relationships-utils';
-import { PaginationService } from '../../core/pagination/pagination.service';
+  CdkDragDrop,
+  moveItemInArray,
+} from '@angular/cdk/drag-drop';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  OnDestroy,
+  Output,
+  ViewChild,
+} from '@angular/core';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+  switchMap,
+} from 'rxjs/operators';
+
 import { FieldUpdate } from '../../core/data/object-updates/field-update.model';
 import { FieldUpdates } from '../../core/data/object-updates/field-updates.model';
-import { UUIDService } from '../../core/shared/uuid.service';
+import { ObjectUpdatesService } from '../../core/data/object-updates/object-updates.service';
+import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import {
+  getAllSucceededRemoteData,
+  getFirstSucceededRemoteData,
+  paginatedListToArray,
+} from '../../core/shared/operators';
+import { compareArraysUsing } from '../../item-page/simple/item-types/shared/item-relationships-utils';
+import { hasValue } from '../empty.util';
+import { PaginationComponent } from '../pagination/pagination.component';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import { ObjectValuesPipe } from '../utils/object-values-pipe';
 
 /**
  * Operator used for comparing {@link FieldUpdate}s by their field's UUID
@@ -45,7 +63,8 @@ export const compareArraysUsingFieldUuids = () =>
  */
 @Component({
   selector: 'ds-paginated-drag-drop-abstract',
-  template: ''
+  template: '',
+  standalone: true,
 })
 export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpaceObject> implements OnDestroy {
   /**
@@ -91,9 +110,9 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
    * Start at page 1 and always use the set page size
    */
   options = Object.assign(new PaginationComponentOptions(),{
-    id: this.uuidService.generate(),
+    id: 'dad',
     currentPage: 1,
-    pageSize: this.pageSize
+    pageSize: this.pageSize,
   });
 
   /**
@@ -118,8 +137,7 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
                         protected elRef: ElementRef,
                         protected objectValuesPipe: ObjectValuesPipe,
                         protected paginationService: PaginationService,
-                        protected uuidService: UUIDService
-                        ) {
+  ) {
   }
 
   /**
@@ -164,19 +182,19 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
     this.updates$ = this.objectsRD$.pipe(
       getAllSucceededRemoteData(),
       paginatedListToArray(),
-      switchMap((objects: T[]) => this.objectUpdatesService.getFieldUpdatesExclusive(this.url, objects))
+      switchMap((objects: T[]) => this.objectUpdatesService.getFieldUpdatesExclusive(this.url, objects)),
     );
     this.subs.push(
       this.updates$.pipe(
         map((fieldUpdates) => this.objectValuesPipe.transform(fieldUpdates)),
-        distinctUntilChanged(compareArraysUsingFieldUuids())
+        distinctUntilChanged(compareArraysUsingFieldUuids()),
       ).subscribe((updateValues) => {
         this.customOrder = updateValues.map((fieldUpdate) => fieldUpdate.field.uuid);
         // We received new values, stop displaying a loading indicator if it's present
         this.loading$.next(false);
       }),
       // Disable the pagination when objects are loading
-      this.loading$.subscribe((loading) => this.options.disabled = loading)
+      this.loading$.subscribe((loading) => this.options.disabled = loading),
     );
   }
 
@@ -226,7 +244,7 @@ export abstract class AbstractPaginatedDragAndDropListComponent<T extends DSpace
           if (isNewPage) {
             this.paginationComponent.doPageChange(redirectPage);
           }
-        }
+        },
       }));
     }
   }

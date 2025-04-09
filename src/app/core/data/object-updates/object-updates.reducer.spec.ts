@@ -1,5 +1,8 @@
 // eslint-disable-next-line import/no-namespace
 import * as deepFreeze from 'deep-freeze';
+
+import { Relationship } from '../../shared/item-relationships/relationship.model';
+import { FieldChangeType } from './field-change-type.model';
 import {
   AddFieldUpdateAction,
   DiscardObjectUpdatesAction,
@@ -10,11 +13,13 @@ import {
   RemoveObjectUpdatesAction,
   SelectVirtualMetadataAction,
   SetEditableFieldUpdateAction,
-  SetValidFieldUpdateAction
+  SetValidFieldUpdateAction,
 } from './object-updates.actions';
-import { OBJECT_UPDATES_TRASH_PATH, objectUpdatesReducer } from './object-updates.reducer';
-import { Relationship } from '../../shared/item-relationships/relationship.model';
-import { FieldChangeType } from './field-change-type.model';
+import {
+  OBJECT_UPDATES_TRASH_PATH,
+  objectUpdatesReducer,
+  ObjectUpdatesState,
+} from './object-updates.reducer';
 
 class NullAction extends RemoveFieldUpdateAction {
   type = null;
@@ -29,26 +34,26 @@ const identifiable1 = {
   uuid: '8222b07e-330d-417b-8d7f-3b82aeaf2320',
   key: 'dc.contributor.author',
   language: null,
-  value: 'Smith, John'
+  value: 'Smith, John',
 };
 
 const identifiable1update = {
   uuid: '8222b07e-330d-417b-8d7f-3b82aeaf2320',
   key: 'dc.contributor.author',
   language: null,
-  value: 'Smith, James'
+  value: 'Smith, James',
 };
 const identifiable2 = {
   uuid: '26cbb5ce-5786-4e57-a394-b9fcf8eaf241',
   key: 'dc.title',
   language: null,
-  value: 'New title'
+  value: 'New title',
 };
 const identifiable3 = {
   uuid: 'c5d2c2f7-d757-48bf-84cc-8c9229c8407e',
   key: 'dc.description.abstract',
   language: null,
-  value: 'Unchanged value'
+  value: 'Unchanged value',
 };
 const relationship: Relationship = Object.assign(new Relationship(), { uuid: 'test relationship uuid' });
 
@@ -56,65 +61,62 @@ const modDate = new Date(2010, 2, 11);
 const uuid = identifiable1.uuid;
 const url = 'test-object.url/edit';
 describe('objectUpdatesReducer', () => {
-  const testState = {
+  const testState: ObjectUpdatesState = {
     [url]: {
       fieldStates: {
         [identifiable1.uuid]: {
           editable: true,
           isNew: false,
-          isValid: true
+          isValid: true,
         },
         [identifiable2.uuid]: {
           editable: false,
           isNew: true,
-          isValid: true
+          isValid: true,
         },
         [identifiable3.uuid]: {
           editable: false,
           isNew: false,
-          isValid: false
+          isValid: false,
         },
       },
       fieldUpdates: {
         [identifiable2.uuid]: {
           field: {
             uuid: identifiable2.uuid,
-            key: 'dc.titl',
-            language: null,
-            value: 'New title'
           },
-          changeType: FieldChangeType.ADD
-        }
+          changeType: FieldChangeType.ADD,
+        },
       },
       lastModified: modDate,
       virtualMetadataSources: {
-        [relationship.uuid]: { [identifiable1.uuid]: true }
+        [relationship.uuid]: { [identifiable1.uuid]: true },
       },
-    }
+    },
   };
 
-  const discardedTestState = {
+  const discardedTestState: ObjectUpdatesState = {
     [url]: {
       fieldStates: {
         [identifiable1.uuid]: {
           editable: true,
           isNew: false,
-          isValid: true
+          isValid: true,
         },
         [identifiable2.uuid]: {
           editable: false,
           isNew: true,
-          isValid: true
+          isValid: true,
         },
         [identifiable3.uuid]: {
           editable: false,
           isNew: false,
-          isValid: true
+          isValid: true,
         },
       },
       lastModified: modDate,
       virtualMetadataSources: {
-        [relationship.uuid]: { [identifiable1.uuid]: true }
+        [relationship.uuid]: { [identifiable1.uuid]: true },
       },
     },
     [url + OBJECT_UPDATES_TRASH_PATH]: {
@@ -122,35 +124,32 @@ describe('objectUpdatesReducer', () => {
         [identifiable1.uuid]: {
           editable: true,
           isNew: false,
-          isValid: true
+          isValid: true,
         },
         [identifiable2.uuid]: {
           editable: false,
           isNew: true,
-          isValid: true
+          isValid: true,
         },
         [identifiable3.uuid]: {
           editable: false,
           isNew: false,
-          isValid: false
+          isValid: false,
         },
       },
       fieldUpdates: {
         [identifiable2.uuid]: {
           field: {
             uuid: identifiable2.uuid,
-            key: 'dc.titl',
-            language: null,
-            value: 'New title'
           },
-          changeType: FieldChangeType.ADD
-        }
+          changeType: FieldChangeType.ADD,
+        },
       },
       lastModified: modDate,
       virtualMetadataSources: {
-        [relationship.uuid]: { [identifiable1.uuid]: true }
+        [relationship.uuid]: { [identifiable1.uuid]: true },
       },
-    }
+    },
   };
 
   deepFreeze(testState);
@@ -173,48 +172,80 @@ describe('objectUpdatesReducer', () => {
     const action = new InitializeFieldsAction(url, [identifiable1, identifiable2], modDate);
     // testState has already been frozen above
     objectUpdatesReducer(testState, action);
+
+    // no expect required, deepFreeze will ensure an exception is thrown if the state
+    // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should perform the SET_EDITABLE_FIELD action without affecting the previous state', () => {
     const action = new SetEditableFieldUpdateAction(url, uuid, false);
     // testState has already been frozen above
     objectUpdatesReducer(testState, action);
+
+    // no expect required, deepFreeze will ensure an exception is thrown if the state
+    // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should perform the ADD_FIELD action without affecting the previous state', () => {
     const action = new AddFieldUpdateAction(url, identifiable1update, FieldChangeType.UPDATE);
     // testState has already been frozen above
     objectUpdatesReducer(testState, action);
+
+    // no expect required, deepFreeze will ensure an exception is thrown if the state
+    // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should perform the DISCARD action without affecting the previous state', () => {
     const action = new DiscardObjectUpdatesAction(url, null);
     // testState has already been frozen above
     objectUpdatesReducer(testState, action);
+
+    // no expect required, deepFreeze will ensure an exception is thrown if the state
+    // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should perform the REINSTATE action without affecting the previous state', () => {
     const action = new ReinstateObjectUpdatesAction(url);
     // testState has already been frozen above
     objectUpdatesReducer(testState, action);
+
+    // no expect required, deepFreeze will ensure an exception is thrown if the state
+    // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should perform the REMOVE action without affecting the previous state', () => {
     const action = new RemoveFieldUpdateAction(url, uuid);
     // testState has already been frozen above
     objectUpdatesReducer(testState, action);
+
+    // no expect required, deepFreeze will ensure an exception is thrown if the state
+    // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should perform the REMOVE_FIELD action without affecting the previous state', () => {
     const action = new RemoveFieldUpdateAction(url, uuid);
     // testState has already been frozen above
     objectUpdatesReducer(testState, action);
+
+    // no expect required, deepFreeze will ensure an exception is thrown if the state
+    // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should perform the SELECT_VIRTUAL_METADATA action without affecting the previous state', () => {
     const action = new SelectVirtualMetadataAction(url, relationship.uuid, identifiable1.uuid, true);
     // testState has already been frozen above
     objectUpdatesReducer(testState, action);
+
+    // no expect required, deepFreeze will ensure an exception is thrown if the state
+    // is mutated, and any uncaught exception will cause the test to fail
+    expect().nothing();
   });
 
   it('should initialize all fields when the INITIALIZE action is dispatched, based on the payload', () => {
@@ -226,19 +257,19 @@ describe('objectUpdatesReducer', () => {
           [identifiable1.uuid]: {
             editable: false,
             isNew: false,
-            isValid: true
+            isValid: true,
           },
           [identifiable3.uuid]: {
             editable: false,
             isNew: false,
-            isValid: true
+            isValid: true,
           },
         },
         fieldUpdates: {},
         virtualMetadataSources: {},
         lastModified: modDate,
-        patchOperationService: undefined
-      }
+        patchOperationService: undefined,
+      },
     };
     const newState = objectUpdatesReducer(testState, action);
     expect(newState).toEqual(expectedState);

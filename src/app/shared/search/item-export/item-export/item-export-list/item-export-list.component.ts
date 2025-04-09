@@ -1,19 +1,35 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { SearchOptions } from '../../../models/search-options.model';
-import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-page.component';
-import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
-import { RemoteData } from '../../../../../core/data/remote-data';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { getFirstCompletedRemoteData } from '../../../../../core/shared/operators';
-import { SearchObjects } from '../../../models/search-objects.model';
-import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
+
 import { SearchManager } from '../../../../../core/browse/search-manager';
-import { PaginationComponentOptions } from '../../../../pagination/pagination-component-options.model';
-import { Context } from '../../../../../core/shared/context.model';
+import { RemoteData } from '../../../../../core/data/remote-data';
 import { PaginationService } from '../../../../../core/pagination/pagination.service';
+import { Context } from '../../../../../core/shared/context.model';
+import { DSpaceObject } from '../../../../../core/shared/dspace-object.model';
+import { getFirstCompletedRemoteData } from '../../../../../core/shared/operators';
+import { SearchConfigurationService } from '../../../../../core/shared/search/search-configuration.service';
+import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { fadeIn } from '../../../../animations/fade';
+import { ErrorComponent } from '../../../../error/error.component';
+import { ThemedLoadingComponent } from '../../../../loading/themed-loading.component';
+import { ObjectCollectionComponent } from '../../../../object-collection/object-collection.component';
+import { PaginationComponentOptions } from '../../../../pagination/pagination-component-options.model';
+import { VarDirective } from '../../../../utils/var.directive';
 import { PaginatedSearchOptions } from '../../../models/paginated-search-options.model';
-import { UUIDService } from '../../../../../core/shared/uuid.service';
+import { SearchObjects } from '../../../models/search-objects.model';
+import { SearchOptions } from '../../../models/search-options.model';
 
 @Component({
   selector: 'ds-item-export-list',
@@ -22,10 +38,20 @@ import { UUIDService } from '../../../../../core/shared/uuid.service';
   providers: [
     {
       provide: SEARCH_CONFIG_SERVICE,
-      useClass: SearchConfigurationService
-    }
+      useClass: SearchConfigurationService,
+    },
   ],
-  animations: [fadeIn]
+  animations: [fadeIn],
+  imports: [
+    ObjectCollectionComponent,
+    ThemedLoadingComponent,
+    ErrorComponent,
+    TranslateModule,
+    AsyncPipe,
+    NgIf,
+    VarDirective,
+  ],
+  standalone: true,
 })
 export class ItemExportListComponent implements OnInit {
 
@@ -53,10 +79,7 @@ export class ItemExportListComponent implements OnInit {
   /**
    * The initial pagination options
    */
-  initialPagination = Object.assign(new PaginationComponentOptions(), {
-    id: this.uuidService.generate(),
-    pageSize: 10
-  });
+  initialPagination: PaginationComponentOptions;
 
   /**
    * The displayed list of entries
@@ -65,17 +88,20 @@ export class ItemExportListComponent implements OnInit {
 
   constructor(
     private paginationService: PaginationService,
-    private searchManager: SearchManager,
-    private uuidService: UUIDService) {
+    private searchManager: SearchManager) {
   }
 
   ngOnInit(): void {
+    this.initialPagination = Object.assign(new PaginationComponentOptions(), {
+      id: 'el' + this.listId,
+      pageSize: 10,
+    });
     this.configuration = this.searchOptions.configuration;
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.initialPagination.id, this.initialPagination);
     this.currentPagination$.subscribe((paginationOptions: PaginationComponentOptions) => {
       this.searchOptions = Object.assign(new PaginatedSearchOptions({}), this.searchOptions, {
         fixedFilter: `f.entityType=${this.itemEntityType},equals`,
-        pagination: paginationOptions
+        pagination: paginationOptions,
       });
       this.retrieveResultList(this.searchOptions);
     });

@@ -1,28 +1,57 @@
-import {Injectable} from '@angular/core';
-import {AsyncSubject, combineLatest as observableCombineLatest, lastValueFrom, Observable, of as observableOf,} from 'rxjs';
-import {distinctUntilKeyChanged, filter, map, startWith, switchMap} from 'rxjs/operators';
-import {hasNoValue, hasValue, isEmpty, isNotEmpty, isUndefined} from '../../../shared/empty.util';
-import {createSuccessfulRemoteDataObject$} from '../../../shared/remote-data.utils';
-import {followLink, FollowLinkConfig} from '../../../shared/utils/follow-link-config.model';
-import {PaginatedList} from '../../data/paginated-list.model';
-import {RemoteData} from '../../data/remote-data';
-import {RequestService} from '../../data/request.service';
-import {ObjectCacheService} from '../object-cache.service';
-import {LinkService} from './link.service';
-import {HALLink} from '../../shared/hal-link.model';
-import {GenericConstructor} from '../../shared/generic-constructor';
-import {getClassForType} from './build-decorators';
-import {HALResource} from '../../shared/hal-resource.model';
-import {PAGINATED_LIST} from '../../data/paginated-list.resource-type';
-import {getUrlWithoutEmbedParams} from '../../index/index.selectors';
-import {getResourceTypeValueFor} from '../object-cache.reducer';
-import {hasSucceeded, isStale, RequestEntryState} from '../../data/request-entry-state.model';
-import {getRequestFromRequestHref, getRequestFromRequestUUID} from '../../shared/request.operators';
-import {RequestEntry} from '../../data/request-entry.model';
-import {ResponseState} from '../../data/response-state.model';
-import {getFirstCompletedRemoteData} from '../../shared/operators';
+import { Injectable } from '@angular/core';
+import {
+  AsyncSubject,
+  combineLatest as observableCombineLatest,
+  lastValueFrom,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  distinctUntilKeyChanged,
+  filter,
+  map,
+  startWith,
+  switchMap,
+} from 'rxjs/operators';
 
-@Injectable()
+import {
+  hasNoValue,
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isUndefined,
+} from '../../../shared/empty.util';
+import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../../shared/utils/follow-link-config.model';
+import { PaginatedList } from '../../data/paginated-list.model';
+import { PAGINATED_LIST } from '../../data/paginated-list.resource-type';
+import { RemoteData } from '../../data/remote-data';
+import { RequestService } from '../../data/request.service';
+import { RequestEntry } from '../../data/request-entry.model';
+import {
+  hasSucceeded,
+  isStale,
+  RequestEntryState,
+} from '../../data/request-entry-state.model';
+import { ResponseState } from '../../data/response-state.model';
+import { getUrlWithoutEmbedParams } from '../../index/index.selectors';
+import { GenericConstructor } from '../../shared/generic-constructor';
+import { HALLink } from '../../shared/hal-link.model';
+import { HALResource } from '../../shared/hal-resource.model';
+import { getFirstCompletedRemoteData } from '../../shared/operators';
+import {
+  getRequestFromRequestHref,
+  getRequestFromRequestUUID,
+} from '../../shared/request.operators';
+import { getResourceTypeValueFor } from '../object-cache.reducer';
+import { ObjectCacheService } from '../object-cache.service';
+import { getClassForType } from './build-decorators';
+import { LinkService } from './link.service';
+
+@Injectable({ providedIn: 'root' })
 export class RemoteDataBuildService {
   constructor(protected objectCache: ObjectCacheService,
               protected linkService: LinkService,
@@ -72,7 +101,7 @@ export class RemoteDataBuildService {
           }
         }
         return [obj];
-      })
+      }),
     );
   }
 
@@ -146,7 +175,7 @@ export class RemoteDataBuildService {
           paginatedList.page = page
             .map((obj: any) => this.plainObjectToInstance<T>(obj))
             .map((obj: any) =>
-              this.linkService.resolveLinks(obj, ...pageLink.linksToFollow)
+              this.linkService.resolveLinks(obj, ...pageLink.linksToFollow),
             );
           if (isNotEmpty(otherLinks)) {
             return this.linkService.resolveLinks(paginatedList, ...otherLinks);
@@ -156,9 +185,10 @@ export class RemoteDataBuildService {
       } else {
         // in case the elements of the paginated list were already filled in, because they're UnCacheableObjects
         paginatedList.page = paginatedList.page
+          .filter((obj: any) => obj != null)
           .map((obj: any) => this.plainObjectToInstance<T>(obj))
           .map((obj: any) =>
-            this.linkService.resolveLinks(obj, ...pageLink.linksToFollow)
+            this.linkService.resolveLinks(obj, ...pageLink.linksToFollow),
           );
         if (isNotEmpty(otherLinks)) {
           return observableOf(this.linkService.resolveLinks(paginatedList, ...otherLinks));
@@ -224,7 +254,7 @@ export class RemoteDataBuildService {
         } else {
           return [rd];
         }
-      })
+      }),
     );
   }
 
@@ -233,7 +263,7 @@ export class RemoteDataBuildService {
 
     const callbackDone$ = new AsyncSubject<boolean>();
     return await lastValueFrom(response$.pipe(
-        getFirstCompletedRemoteData<T>()
+      getFirstCompletedRemoteData<T>(),
     ));
   }
 
@@ -276,12 +306,13 @@ export class RemoteDataBuildService {
           return isStale(r2.state) ? r1 : r2;
         }
       }),
-      distinctUntilKeyChanged('lastUpdated')
     );
 
     const payload$ = this.buildPayload<T>(requestEntry$, href$, ...linksToFollow);
 
-    return this.toRemoteDataObservable<T>(requestEntry$, payload$);
+    return this.toRemoteDataObservable<T>(requestEntry$, payload$).pipe(
+      distinctUntilKeyChanged('lastUpdated'),
+    );
   }
 
   /**
@@ -297,12 +328,12 @@ export class RemoteDataBuildService {
   toRemoteDataObservable<T>(requestEntry$: Observable<RequestEntry>, payload$: Observable<T>) {
     return observableCombineLatest([
       requestEntry$,
-      payload$
+      payload$,
     ]).pipe(
       filter(([entry,payload]: [RequestEntry, T]) =>
         hasValue(entry) &&
         // filter out cases where the state is successful, but the payload isn't yet set
-        !(hasSucceeded(entry.state) && isUndefined(payload))
+        !(hasSucceeded(entry.state) && isUndefined(payload)),
       ),
       map(([entry, payload]: [RequestEntry, T]) => {
         let response = entry.response;
@@ -318,9 +349,9 @@ export class RemoteDataBuildService {
           response.errorMessage,
           payload,
           response.statusCode,
-          response.errors
+          response.errors,
         );
-      })
+      }),
     );
   }
 
@@ -411,7 +442,7 @@ export class RemoteDataBuildService {
           state,
           errorMessage,
           payload,
-          statusCode
+          statusCode,
         );
       }));
   }

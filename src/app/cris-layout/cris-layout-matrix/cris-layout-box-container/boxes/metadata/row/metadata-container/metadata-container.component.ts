@@ -1,29 +1,62 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { Item } from '../../../../../../../core/shared/item.model';
-import { CrisLayoutBox, LayoutField, LayoutFieldType } from '../../../../../../../core/layout/models/box.model';
 import {
-  FieldRenderingType,
-  getMetadataBoxFieldRendering,
-  MetadataBoxFieldRenderOptions
-} from '../../rendering-types/metadata-box.decorator';
-import { hasValue, isEmpty, isNotEmpty } from '../../../../../../../shared/empty.util';
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  inject,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { environment } from '../../../../../../../../environments/environment';
-import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
-import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
-import { getFirstCompletedRemoteData } from '../../../../../../../core/shared/operators';
-import { map, take } from 'rxjs/operators';
-import { BitstreamDataService } from '../../../../../../../core/data/bitstream-data.service';
-import { MetadataFilter } from '../../../../../../../core/data/bitstream-data.service';
-import { RemoteData } from '../../../../../../../core/data/remote-data';
-import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
 import { Observable } from 'rxjs';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
+
+import { CRIS_FIELD_RENDERING_MAP } from '../../../../../../../../config/app-config.interface';
+import { environment } from '../../../../../../../../environments/environment';
+import {
+  BitstreamDataService,
+  MetadataFilter,
+} from '../../../../../../../core/data/bitstream-data.service';
+import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../../../../../core/data/remote-data';
+import {
+  CrisLayoutBox,
+  LayoutField,
+  LayoutFieldType,
+} from '../../../../../../../core/layout/models/box.model';
+import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
+import { Item } from '../../../../../../../core/shared/item.model';
+import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
+import { getFirstCompletedRemoteData } from '../../../../../../../core/shared/operators';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../../../../../shared/empty.util';
+import { FieldRenderingType } from '../../rendering-types/field-rendering-type';
+import {
+  computeRenderingFn,
+  getMetadataBoxFieldRenderOptionsFn,
+} from '../../rendering-types/metadata-box.decorator';
+import { MetadataBoxFieldRenderOptions } from '../../rendering-types/rendering-type.model';
+import { MetadataRenderComponent } from './metadata-render/metadata-render.component';
 
 @Component({
   selector: 'ds-metadata-container',
   templateUrl: './metadata-container.component.html',
   styleUrls: ['./metadata-container.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    NgIf,
+    NgFor,
+    MetadataRenderComponent,
+  ],
 })
 export class MetadataContainerComponent implements OnInit {
   /**
@@ -38,11 +71,15 @@ export class MetadataContainerComponent implements OnInit {
    * The metadata field to render
    */
   @Input() field: LayoutField;
+  /**
+   * The tab name
+   */
+  @Input() tabName: string;
 
   /**
    * The prefix used for box field label's i18n key
    */
-  fieldI18nPrefix = 'layout.field.label.';
+  readonly fieldI18nPrefix = 'layout.field.label';
 
   /**
    * A boolean representing if metadata rendering type is structured or not
@@ -54,12 +91,10 @@ export class MetadataContainerComponent implements OnInit {
    */
   metadataFieldRenderOptions: MetadataBoxFieldRenderOptions;
 
-  constructor(
-    protected bitstreamDataService: BitstreamDataService,
-    protected translateService: TranslateService,
-    protected cd: ChangeDetectorRef
-  ) {
-  }
+  protected readonly bitstreamDataService = inject(BitstreamDataService);
+  protected readonly translateService = inject(TranslateService);
+  protected readonly cd = inject(ChangeDetectorRef);
+  protected readonly layoutBoxesMap: Map<FieldRenderingType, MetadataBoxFieldRenderOptions> = inject(CRIS_FIELD_RENDERING_MAP);
 
   /**
    * Returns all metadata values in the item
@@ -78,15 +113,27 @@ export class MetadataContainerComponent implements OnInit {
   /**
    * Returns a string representing the label of field if exists
    */
-  get label(): string {
-    const fieldLabelI18nKey = this.fieldI18nPrefix + this.item.entityType + '.' + this.field.metadata;
-    const header: string = this.translateService.instant(fieldLabelI18nKey);
-    if (header === fieldLabelI18nKey) {
-      // if translation does not exist return the value present in the header property
-      return this.translateService.instant(this.field.label);
+  getLabel(): string {
+    if (this.field.fieldType === LayoutFieldType.BITSTREAM.toString()) {
+      return (hasValue(this.field.bitstream.metadataValue) ?
+        this.getTranslationIfExists(`${this.fieldI18nPrefix}.${this.item.entityType}.BITSTREAM[${this.field.bitstream.metadataValue}]`) :
+        this.getTranslationIfExists(`${this.fieldI18nPrefix}.${this.item.entityType}.BITSTREAM`)
+      ) ?? this.field.label;
     } else {
-      return header;
+      return this.getTranslationIfExists(`${this.fieldI18nPrefix}.${this.item.entityType}.[${this.field.metadata}]`) ??
+      this.getTranslationIfExists(`${this.fieldI18nPrefix}.${this.item.entityType}.${this.field.metadata}`) ?? // old syntax - do not use
+      this.getTranslationIfExists(`${this.fieldI18nPrefix}.[${this.field.metadata}]`) ??
+      this.getTranslationIfExists(`${this.fieldI18nPrefix}.${this.field.label}`) ?? // old syntax - do not use
+      this.field.label; // the untranslated value from the CRIS layout
     }
+  }
+
+  /**
+   * Return the translated label, if exists, otherwise returns null
+   */
+  getTranslationIfExists(key: string): string {
+    const translation: string = this.translateService.instant(key);
+    return translation !== key ? translation : null;
   }
 
   /**
@@ -106,8 +153,8 @@ export class MetadataContainerComponent implements OnInit {
   }
 
   ngOnInit() {
-    const rendering = this.computeRendering(this.field);
-    if (this.field.fieldType === LayoutFieldType.BITSTREAM
+    const rendering = computeRenderingFn(this.field?.rendering);
+    if (this.field.fieldType === LayoutFieldType.BITSTREAM.toString()
       && (rendering.toLocaleLowerCase() === FieldRenderingType.ATTACHMENT.toLocaleLowerCase()
         || rendering.toLocaleLowerCase() === FieldRenderingType.ADVANCEDATTACHMENT.toLocaleLowerCase())) {
       this.hasBitstream().pipe(take(1)).subscribe((hasBitstream: boolean) => {
@@ -121,17 +168,17 @@ export class MetadataContainerComponent implements OnInit {
   }
 
   initRenderOptions(renderingType: string | FieldRenderingType): void {
-    this.metadataFieldRenderOptions = this.getMetadataBoxFieldRenderOptions(renderingType);
+    this.metadataFieldRenderOptions = getMetadataBoxFieldRenderOptionsFn(this.layoutBoxesMap, renderingType);
     this.isStructured = this.metadataFieldRenderOptions.structured;
     this.cd.detectChanges();
   }
 
   hasBitstream(): Observable<boolean> {
-    let filters: MetadataFilter[] = [];
+    const filters: MetadataFilter[] = [];
     if (isNotEmpty(this.field.bitstream.metadataValue)) {
       filters.push({
         metadataName: this.field.bitstream.metadataField,
-        metadataValue: this.field.bitstream.metadataValue
+        metadataValue: this.field.bitstream.metadataValue,
       });
     }
     return this.bitstreamDataService.findShowableBitstreamsByItem(this.item.uuid, this.field.bitstream.bundle, filters)
@@ -139,45 +186,26 @@ export class MetadataContainerComponent implements OnInit {
         getFirstCompletedRemoteData(),
         map((response: RemoteData<PaginatedList<Bitstream>>) => {
           return response.hasSucceeded && response.payload.page.length > 0;
-        })
+        }),
       );
   }
 
   hasFieldMetadataComponent(field: LayoutField) {
-    // if it is metadatagroup and none of the nested metadatas has values then dont generate the component
+    // if it is metadata-group and none of the nested metadata has values then don't generate the component
     let existOneMetadataWithValue = false;
-    if (field.fieldType === LayoutFieldType.METADATAGROUP) {
+    if (field.fieldType === LayoutFieldType.METADATAGROUP.toString()) {
       field.metadataGroup.elements.forEach(el => {
         if (this.item.metadata[el.metadata]) {
           existOneMetadataWithValue = true;
         }
       });
     }
-    return (this.field.fieldType === LayoutFieldType.BITSTREAM) ||
-      (field.fieldType === LayoutFieldType.METADATAGROUP && existOneMetadataWithValue) ||
-      (field.fieldType === LayoutFieldType.METADATA && this.item.firstMetadataValue(field.metadata));
+    return (this.field.fieldType === LayoutFieldType.BITSTREAM.toString()) ||
+      (field.fieldType === LayoutFieldType.METADATAGROUP.toString() && existOneMetadataWithValue) ||
+      (field.fieldType === LayoutFieldType.METADATA.toString() && this.item.firstMetadataValue(field.metadata));
   }
 
-  computeRendering(field: LayoutField): string | FieldRenderingType {
-    let rendering = hasValue(field.rendering) ? field.rendering : FieldRenderingType.TEXT;
-
-    if (rendering.indexOf('.') > -1) {
-      const values = rendering.split('.');
-      rendering = values[0];
-    }
-    return rendering;
-  }
-
-  getMetadataBoxFieldRenderOptions(fieldRenderingType: string): MetadataBoxFieldRenderOptions {
-    let renderOptions = getMetadataBoxFieldRendering(fieldRenderingType);
-    // If the rendering type not exists will use TEXT type rendering
-    if (isEmpty(renderOptions)) {
-      renderOptions = getMetadataBoxFieldRendering(FieldRenderingType.TEXT);
-    }
-    return renderOptions;
-  }
-
-  trackUpdate(index, value: string) {
+  trackUpdate(index: number, value: string) {
     return value;
   }
 }

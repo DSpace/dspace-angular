@@ -1,39 +1,69 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { combineLatest as observableCombineLatest, Observable } from 'rxjs';
-import { find, map, switchMap, take } from 'rxjs/operators';
+import {
+  Operation,
+  RemoveOperation,
+} from 'fast-json-patch';
+import {
+  combineLatest as observableCombineLatest,
+  EMPTY,
+  Observable,
+} from 'rxjs';
+import {
+  find,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
 import { hasValue } from '../../shared/empty.util';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { Bitstream } from '../shared/bitstream.model';
-import { BITSTREAM } from '../shared/bitstream.resource-type';
+import { BitstreamFormat } from '../shared/bitstream-format.model';
 import { Bundle } from '../shared/bundle.model';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { Item } from '../shared/item.model';
-import { BundleDataService } from './bundle-data.service';
-import { buildPaginatedList, PaginatedList } from './paginated-list.model';
-import { RemoteData } from './remote-data';
-import { PatchRequest, PutRequest } from './request.models';
-import { RequestService } from './request.service';
-import { BitstreamFormatDataService } from './bitstream-format-data.service';
-import { BitstreamFormat } from '../shared/bitstream-format.model';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { PageInfo } from '../shared/page-info.model';
-import { RequestParam } from '../cache/models/request-param.model';
-import { sendRequest } from '../shared/request.operators';
-import { FindListOptions } from './find-list-options.model';
-import { SearchData, SearchDataImpl } from './base/search-data';
-import { PatchData, PatchDataImpl } from './base/patch-data';
-import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
-import { RestRequestMethod } from './rest-request-method';
-import { DeleteData, DeleteDataImpl } from './base/delete-data';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { NoContent } from '../shared/NoContent.model';
+import { getFirstCompletedRemoteData } from '../shared/operators';
+import { PageInfo } from '../shared/page-info.model';
+import { sendRequest } from '../shared/request.operators';
+import {
+  DeleteData,
+  DeleteDataImpl,
+} from './base/delete-data';
 import { IdentifiableDataService } from './base/identifiable-data.service';
-import { dataService } from './base/data-service.decorator';
-import { Operation, RemoveOperation } from 'fast-json-patch';
+import {
+  PatchData,
+  PatchDataImpl,
+} from './base/patch-data';
+import {
+  SearchData,
+  SearchDataImpl,
+} from './base/search-data';
+import { BitstreamFormatDataService } from './bitstream-format-data.service';
+import { BundleDataService } from './bundle-data.service';
+import { DSOChangeAnalyzer } from './dso-change-analyzer.service';
+import { FindListOptions } from './find-list-options.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from './paginated-list.model';
+import { RemoteData } from './remote-data';
+import {
+  PatchRequest,
+  PutRequest,
+} from './request.models';
+import { RequestService } from './request.service';
+import { RestRequestMethod } from './rest-request-method';
 
 export interface MetadataFilter {
   metadataName: string;
@@ -43,10 +73,7 @@ export interface MetadataFilter {
 /**
  * A service to retrieve {@link Bitstream}s from the REST API
  */
-@Injectable({
-  providedIn: 'root',
-})
-@dataService(BITSTREAM)
+@Injectable({ providedIn: 'root' })
 export class BitstreamDataService extends IdentifiableDataService<Bitstream> implements SearchData<Bitstream>, PatchData<Bitstream>, DeleteData<Bitstream> {
   private searchData: SearchDataImpl<Bitstream>;
   private patchData: PatchDataImpl<Bitstream>;
@@ -112,7 +139,7 @@ export class BitstreamDataService extends IdentifiableDataService<Bitstream> imp
         } else {
           return [bundleRD as any];
         }
-      })
+      }),
     );
   }
 
@@ -125,10 +152,10 @@ export class BitstreamDataService extends IdentifiableDataService<Bitstream> imp
     const requestId = this.requestService.generateRequestId();
     const bitstreamHref$ = this.getBrowseEndpoint().pipe(
       map((href: string) => `${href}/${bitstream.id}`),
-      switchMap((href: string) => this.halService.getEndpoint('format', href))
+      switchMap((href: string) => this.halService.getEndpoint('format', href)),
     );
     const formatHref$ = this.bitstreamFormatService.getBrowseEndpoint().pipe(
-      map((href: string) => `${href}/${format.id}`)
+      map((href: string) => `${href}/${format.id}`),
     );
     observableCombineLatest([bitstreamHref$, formatHref$]).pipe(
       map(([bitstreamHref, formatHref]) => {
@@ -139,7 +166,7 @@ export class BitstreamDataService extends IdentifiableDataService<Bitstream> imp
         return new PutRequest(requestId, bitstreamHref, formatHref, options);
       }),
       sendRequest(this.requestService),
-      take(1)
+      take(1),
     ).subscribe(() => {
       this.requestService.removeByHrefSubstring(bitstream.self + '/format');
     });
@@ -182,7 +209,7 @@ export class BitstreamDataService extends IdentifiableDataService<Bitstream> imp
     const hrefObs = this.getSearchByHref(
       'byItemHandle',
       { searchParams },
-      ...linksToFollow
+      ...linksToFollow,
     );
 
     return this.findByHref(
@@ -204,6 +231,37 @@ export class BitstreamDataService extends IdentifiableDataService<Bitstream> imp
    */
   public getSearchByHref(searchMethod: string, options?: FindListOptions, ...linksToFollow: FollowLinkConfig<Bitstream>[]): Observable<string> {
     return this.searchData.getSearchByHref(searchMethod, options, ...linksToFollow);
+  }
+
+
+  /**
+   *
+   * Make a request to get primary bitstream
+   * in all current use cases, and having it simplifies this method
+   *
+   * @param item                        the {@link Item} the {@link Bundle} is a part of
+   * @param bundleName                  the name of the {@link Bundle} we want to find
+   *                                    {@link Bitstream}s for
+   * @param useCachedVersionIfAvailable If this is true, the request will only be sent if there's
+   *                                    no valid cached version. Defaults to true
+   * @param reRequestOnStale            Whether or not the request should automatically be re-
+   *                                    requested after the response becomes stale
+   * @return {Observable<Bitstream | null>}
+   *    Return an observable that constains primary bitstream information or null
+   */
+  public findPrimaryBitstreamByItemAndName(item: Item, bundleName: string, useCachedVersionIfAvailable = true, reRequestOnStale = true): Observable<Bitstream | null> {
+    return this.bundleService.findByItemAndName(item, bundleName, useCachedVersionIfAvailable, reRequestOnStale, followLink('primaryBitstream')).pipe(
+      getFirstCompletedRemoteData(),
+      switchMap((rd: RemoteData<Bundle>) => {
+        if (!rd.hasSucceeded) {
+          return EMPTY;
+        }
+        return rd.payload.primaryBitstream.pipe(
+          getFirstCompletedRemoteData(),
+          map((rdb: RemoteData<Bitstream>) => rdb.hasSucceeded ? rdb.payload : null),
+        );
+      }),
+    );
   }
 
   /**
@@ -320,7 +378,7 @@ export class BitstreamDataService extends IdentifiableDataService<Bitstream> imp
     const hrefObs = this.getSearchByHref(
       'byItemId',
       { searchParams },
-      ...linksToFollow
+      ...linksToFollow,
     );
 
     return this.findListByHref(
@@ -328,7 +386,7 @@ export class BitstreamDataService extends IdentifiableDataService<Bitstream> imp
       options,
       useCachedVersionIfAvailable,
       reRequestOnStale,
-      ...linksToFollow
+      ...linksToFollow,
     );
   }
 
@@ -369,7 +427,7 @@ export class BitstreamDataService extends IdentifiableDataService<Bitstream> imp
     const hrefObs = this.getSearchByHref(
       'showableByItem',
       { searchParams },
-      ...linksToFollow
+      ...linksToFollow,
     );
 
     return this.findListByHref(
@@ -377,7 +435,7 @@ export class BitstreamDataService extends IdentifiableDataService<Bitstream> imp
       options,
       useCachedVersionIfAvailable,
       reRequestOnStale,
-      ...linksToFollow
+      ...linksToFollow,
     );
   }
 
@@ -418,7 +476,7 @@ export class BitstreamDataService extends IdentifiableDataService<Bitstream> imp
     const hrefObs = this.getSearchByHref(
       'showableByItem',
       { searchParams },
-      ...linksToFollow
+      ...linksToFollow,
     );
 
     return this.findListByHref(
@@ -426,7 +484,7 @@ export class BitstreamDataService extends IdentifiableDataService<Bitstream> imp
       options,
       useCachedVersionIfAvailable,
       reRequestOnStale,
-      ...linksToFollow
+      ...linksToFollow,
     );
   }
 

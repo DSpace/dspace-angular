@@ -1,12 +1,18 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ProvideEmailComponent } from './provide-email.component';
-import { FormBuilder } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ExternalLoginService } from '../../services/external-login.service';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import { FormBuilder } from '@angular/forms';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
+import { ExternalLoginService } from '../../services/external-login.service';
+import { ProvideEmailComponent } from './provide-email.component';
 
 describe('ProvideEmailComponent', () => {
   let component: ProvideEmailComponent;
@@ -17,7 +23,6 @@ describe('ProvideEmailComponent', () => {
     const externalLoginService = jasmine.createSpyObj('ExternalLoginService', ['patchUpdateRegistration']);
 
     await TestBed.configureTestingModule({
-      declarations: [ ProvideEmailComponent ],
       providers: [
         FormBuilder,
         { provide: ExternalLoginService, useValue: externalLoginService },
@@ -27,13 +32,14 @@ describe('ProvideEmailComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
+        ProvideEmailComponent,
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

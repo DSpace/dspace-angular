@@ -1,32 +1,66 @@
-import { BehaviorSubject, combineLatest as observableCombineLatest, Observable } from 'rxjs';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  combineLatest as observableCombineLatest,
+  Observable,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  startWith,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { CollectionDataService } from '../../../core/data/collection-data.service';
-import { fadeIn, fadeInOut } from '../../../shared/animations/fade';
-import { RemoteData } from '../../../core/data/remote-data';
+import { ItemDataService } from '../../../core/data/item-data.service';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { RemoteData } from '../../../core/data/remote-data';
 import { Collection } from '../../../core/shared/collection.model';
+import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
 import { Item } from '../../../core/shared/item.model';
+import { NoContent } from '../../../core/shared/NoContent.model';
 import {
   getAllSucceededRemoteData,
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
-  toDSpaceObjectListRD
+  toDSpaceObjectListRD,
 } from '../../../core/shared/operators';
-import { ActivatedRoute, Router } from '@angular/router';
-import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
-import { ItemDataService } from '../../../core/data/item-data.service';
-import { TranslateService } from '@ngx-translate/core';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { hasValue, isNotEmpty } from '../../../shared/empty.util';
-import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
-import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SearchService } from '../../../core/shared/search/search.service';
-import { NoContent } from '../../../core/shared/NoContent.model';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import {
+  fadeIn,
+  fadeInOut,
+} from '../../../shared/animations/fade';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../shared/empty.util';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { CollectionSelectComponent } from '../../../shared/object-select/collection-select/collection-select.component';
+import { PaginatedSearchOptions } from '../../../shared/search/models/paginated-search-options.model';
+import { ThemedSearchFormComponent } from '../../../shared/search-form/themed-search-form.component';
 import { getItemPageRoute } from '../../item-page-routing-paths';
 
 @Component({
@@ -36,8 +70,17 @@ import { getItemPageRoute } from '../../item-page-routing-paths';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     fadeIn,
-    fadeInOut
-  ]
+    fadeInOut,
+  ],
+  imports: [
+    NgbNavModule,
+    CollectionSelectComponent,
+    ThemedSearchFormComponent,
+    AsyncPipe,
+    TranslateModule,
+    NgIf,
+  ],
+  standalone: true,
 })
 /**
  * Component for mapping collections to an item
@@ -106,7 +149,7 @@ export class ItemCollectionMapperComponent implements OnInit {
       filter((rd: RemoteData<Item>) => hasValue(rd)),
       map((rd: RemoteData<Item>) => {
         return this.dsoNameService.getName(rd.payload);
-      })
+      }),
     );
     this.searchOptions$ = this.searchConfigService.paginatedSearchOptions;
     this.loadCollectionLists();
@@ -127,9 +170,9 @@ export class ItemCollectionMapperComponent implements OnInit {
           this.itemDataService.getMappedCollectionsEndpoint(item.id),
           undefined,
           !shouldUpdate,
-          false
+          false,
         ).pipe(
-          getAllSucceededRemoteData()
+          getAllSucceededRemoteData(),
         );
       }),
     );
@@ -142,7 +185,7 @@ export class ItemCollectionMapperComponent implements OnInit {
     const itemCollectionsAndOptions$ = observableCombineLatest(
       this.itemCollectionsRD$,
       owningCollectionRD$,
-      this.searchOptions$
+      this.searchOptions$,
     );
     this.mappedCollectionsRD$ = itemCollectionsAndOptions$.pipe(
       switchMap(([itemCollectionsRD, owningCollectionRD, searchOptions]) => {
@@ -152,9 +195,9 @@ export class ItemCollectionMapperComponent implements OnInit {
           configuration: 'communityOrCollection',
         }), 10000).pipe(
           toDSpaceObjectListRD(),
-          startWith(undefined)
+          startWith(undefined),
         );
-      })
+      }),
     ) as Observable<RemoteData<PaginatedList<Collection>>>;
   }
 
@@ -167,13 +210,13 @@ export class ItemCollectionMapperComponent implements OnInit {
       this.itemRD$.pipe(
         getFirstSucceededRemoteData(),
         map((rd: RemoteData<Item>) => rd.payload),
-        map((item: Item) => item.id)
+        map((item: Item) => item.id),
       ),
       this.itemCollectionsRD$.pipe(
         getFirstSucceededRemoteData(),
         map((rd: RemoteData<PaginatedList<Collection>>) => rd.payload.page),
-        map((collections: Collection[]) => collections.map((collection: Collection) => collection.id))
-      )
+        map((collections: Collection[]) => collections.map((collection: Collection) => collection.id)),
+      ),
     ]);
 
     // Map the item to the collections found in ids, excluding the collections the item is already mapped to
@@ -181,9 +224,9 @@ export class ItemCollectionMapperComponent implements OnInit {
       switchMap(([itemId, excludingIds]) =>
         observableCombineLatest(
           this.filterIds(ids, excludingIds).map((id: string) =>
-            this.itemDataService.mapToCollection(itemId, id).pipe(getFirstCompletedRemoteData())
-        ))
-      )
+            this.itemDataService.mapToCollection(itemId, id).pipe(getFirstCompletedRemoteData()),
+          )),
+      ),
     );
 
     this.showNotifications(responses$, 'item.edit.item-mapper.notifications.add');
@@ -199,9 +242,9 @@ export class ItemCollectionMapperComponent implements OnInit {
       map((itemRD: RemoteData<Item>) => itemRD.payload.id),
       switchMap((itemId: string) => observableCombineLatest(
         ids.map((id: string) =>
-          this.itemDataService.removeMappingFromCollection(itemId, id).pipe(getFirstCompletedRemoteData())
-        ))
-      )
+          this.itemDataService.removeMappingFromCollection(itemId, id).pipe(getFirstCompletedRemoteData()),
+        )),
+      ),
     );
 
     this.showNotifications(responses$, 'item.edit.item-mapper.notifications.remove');
@@ -229,7 +272,7 @@ export class ItemCollectionMapperComponent implements OnInit {
       if (successful.length > 0) {
         const successMessages = observableCombineLatest([
           this.translateService.get(`${messagePrefix}.success.head`),
-          this.translateService.get(`${messagePrefix}.success.content`, { amount: successful.length })
+          this.translateService.get(`${messagePrefix}.success.content`, { amount: successful.length }),
         ]);
 
         successMessages.subscribe(([head, content]) => {
@@ -240,7 +283,7 @@ export class ItemCollectionMapperComponent implements OnInit {
       if (unsuccessful.length > 0) {
         const unsuccessMessages = observableCombineLatest([
           this.translateService.get(`${messagePrefix}.error.head`),
-          this.translateService.get(`${messagePrefix}.error.content`, { amount: unsuccessful.length })
+          this.translateService.get(`${messagePrefix}.error.content`, { amount: unsuccessful.length }),
         ]);
 
         unsuccessMessages.subscribe(([head, content]) => {
@@ -312,7 +355,7 @@ export class ItemCollectionMapperComponent implements OnInit {
     this.itemRD$.pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
-      take(1)
+      take(1),
     ).subscribe((item: Item) => {
       this.router.navigate([getItemPageRoute(item)]);
     });

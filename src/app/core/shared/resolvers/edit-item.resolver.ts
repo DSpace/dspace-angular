@@ -1,30 +1,41 @@
-import { ItemDataService } from './../../data/item-data.service';
-import { Injectable } from '@angular/core';
+import { inject } from '@angular/core';
+import {
+  ActivatedRouteSnapshot,
+  ResolveFn,
+  RouterStateSnapshot,
+} from '@angular/router';
+import { Observable } from 'rxjs';
+
+import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { ItemDataService } from '../../data/item-data.service';
+import { RemoteData } from '../../data/remote-data';
 import { Item } from '../item.model';
-import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
-import { EditDsoResolver } from './edit-dso.resolver';
+import { getFirstCompletedRemoteData } from '../operators';
 
-/**
- * This class represents a resolver that requests a specific Item before the route is activated
- */
-@Injectable()
-export class EditItemResolver extends EditDsoResolver<Item> {
-  constructor(
-    protected itemdataService: ItemDataService,
-  ) {
-    super(itemdataService);
-  }
+const getFollowLinks = () => [
+  followLink('owningCollection', {},
+    followLink('parentCommunity', {},
+      followLink('parentCommunity')),
+  ),
+  followLink('relationships'),
+  followLink('version', {}, followLink('versionhistory')),
+  followLink('thumbnail'),
+  followLink('metrics'),
+];
 
-  getFollowLinks(): FollowLinkConfig<Item>[] {
-    return [
-      followLink('owningCollection', {},
-        followLink('parentCommunity', {},
-          followLink('parentCommunity'))
-      ),
-      followLink('relationships'),
-      followLink('version', {}, followLink('versionhistory')),
-      followLink('thumbnail'),
-      followLink('metrics')
-    ];
-  }
-}
+export const editItemResolver: ResolveFn<RemoteData<Item>> = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+): Observable<RemoteData<Item>> => {
+  const itemDataService = inject(ItemDataService);
+
+  return itemDataService.findByIdWithProjections(
+    route.params.id,
+    ['allLanguages'],
+    true,
+    false,
+    ...getFollowLinks(),
+  ).pipe(
+    getFirstCompletedRemoteData(),
+  );
+};

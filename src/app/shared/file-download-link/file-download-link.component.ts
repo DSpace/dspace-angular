@@ -1,20 +1,52 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Bitstream } from '../../core/shared/bitstream.model';
-import { getBitstreamDownloadRoute, getBitstreamRequestACopyRoute } from '../../app-routing-paths';
+import {
+  AsyncPipe,
+  NgClass,
+  NgIf,
+  NgTemplateOutlet,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+  shareReplay,
+} from 'rxjs';
+import {
+  catchError,
+  map,
+} from 'rxjs/operators';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from 'src/app/core/shared/operators';
+
+import {
+  getBitstreamDownloadRoute,
+  getBitstreamRequestACopyRoute,
+} from '../../app-routing-paths';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { hasValue, isNotEmpty } from '../empty.util';
-import { catchError, map } from 'rxjs/operators';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf, shareReplay } from 'rxjs';
-import { Item } from '../../core/shared/item.model';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { getFirstCompletedRemoteData, getRemoteDataPayload } from 'src/app/core/shared/operators';
+import { Bitstream } from '../../core/shared/bitstream.model';
 import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
+import { Item } from '../../core/shared/item.model';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../empty.util';
 
 @Component({
-  selector: 'ds-file-download-link',
+  selector: 'ds-base-file-download-link',
   templateUrl: './file-download-link.component.html',
-  styleUrls: ['./file-download-link.component.scss']
+  styleUrls: ['./file-download-link.component.scss'],
+  standalone: true,
+  imports: [RouterLink, NgClass, NgIf, NgTemplateOutlet, AsyncPipe, TranslateModule],
 })
 /**
  * Component displaying a download link
@@ -55,7 +87,7 @@ export class FileDownloadLinkComponent implements OnInit {
    * Whether or not the user can request a copy of the item
    * based on the configuration property `request.item.type`.
    */
-    public canRequestItemCopy$: Observable<boolean>;
+  public canRequestItemCopy$: Observable<boolean>;
 
 
   constructor(
@@ -69,7 +101,7 @@ export class FileDownloadLinkComponent implements OnInit {
       this.canDownload$ = this.authorizationService.isAuthorized(FeatureID.CanDownload, isNotEmpty(this.bitstream) ? this.bitstream.self : undefined);
       const canRequestACopy$ = this.authorizationService.isAuthorized(FeatureID.CanRequestACopy, isNotEmpty(this.bitstream) ? this.bitstream.self : undefined);
       this.bitstreamPath$ = observableCombineLatest([this.canDownload$, canRequestACopy$]).pipe(
-        map(([canDownload, canRequestACopy]) => this.getBitstreamPath(canDownload, canRequestACopy))
+        map(([canDownload, canRequestACopy]) => this.getBitstreamPath(canDownload, canRequestACopy)),
       );
 
       this.canRequestItemCopy$ = this.configurationService.findByPropertyName('request.item.type').pipe(
@@ -77,10 +109,10 @@ export class FileDownloadLinkComponent implements OnInit {
         getRemoteDataPayload(),
         map((requestItemType: ConfigurationProperty) =>
         // in case requestItemType empty/commented out(undefined) - request-copy not allowed
-            hasValue(requestItemType) && requestItemType.values.length > 0
+          hasValue(requestItemType) && requestItemType.values.length > 0,
         ),
         catchError(() => observableOf(false)),
-        shareReplay(1)
+        shareReplay({ refCount: false, bufferSize: 1 }),
       );
     } else {
       this.bitstreamPath$ = observableOf(this.getBitstreamDownloadPath());
@@ -99,7 +131,7 @@ export class FileDownloadLinkComponent implements OnInit {
   getBitstreamDownloadPath() {
     return {
       routerLink: getBitstreamDownloadRoute(this.bitstream),
-      queryParams: {}
+      queryParams: {},
     };
   }
 }

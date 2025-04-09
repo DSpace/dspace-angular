@@ -2,33 +2,56 @@ import { CommonModule } from '@angular/common';
 import { HttpHeaders } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { Store, StoreModule } from '@ngrx/store';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { compare, Operation } from 'fast-json-patch';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import { createMockStore } from '@ngrx/store/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import {
+  compare,
+  Operation,
+} from 'fast-json-patch';
+import { of as observableOf } from 'rxjs';
+
 import {
   GroupRegistryCancelGroupAction,
-  GroupRegistryEditGroupAction
+  GroupRegistryEditGroupAction,
 } from '../../access-control/group-registry/group-registry.actions';
-import { GroupMock, GroupMock2 } from '../../shared/testing/group-mock';
+import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
+import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import {
+  EPersonMock,
+  EPersonMock2,
+} from '../../shared/testing/eperson.mock';
+import {
+  GroupMock,
+  GroupMock2,
+} from '../../shared/testing/group-mock';
+import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+import { TranslateLoaderMock } from '../../shared/testing/translate-loader.mock';
+import {
+  createPaginatedList,
+  createRequestEntry$,
+} from '../../shared/testing/utils.test';
 import { RequestParam } from '../cache/models/request-param.model';
+import { ObjectCacheEntry } from '../cache/object-cache.reducer';
+import { CoreState } from '../core-state.model';
 import { ChangeAnalyzer } from '../data/change-analyzer';
-import { DeleteRequest, PostRequest } from '../data/request.models';
+import { FindListOptions } from '../data/find-list-options.model';
+import {
+  DeleteRequest,
+  PostRequest,
+} from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { Item } from '../shared/item.model';
 import { GroupDataService } from './group-data.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { getMockRemoteDataBuildServiceHrefMap } from '../../shared/mocks/remote-data-build.service.mock';
-import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
-import { TranslateLoaderMock } from '../../shared/testing/translate-loader.mock';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
-import { EPersonMock, EPersonMock2 } from '../../shared/testing/eperson.mock';
-import { createPaginatedList, createRequestEntry$ } from '../../shared/testing/utils.test';
-import { CoreState } from '../core-state.model';
-import { FindListOptions } from '../data/find-list-options.model';
-import { of as observableOf } from 'rxjs';
-import { ObjectCacheEntry } from '../cache/object-cache.reducer';
-import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
 
 describe('GroupDataService', () => {
   let service: GroupDataService;
@@ -57,13 +80,12 @@ describe('GroupDataService', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
-      declarations: [],
       providers: [],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
   }
 
@@ -83,7 +105,7 @@ describe('GroupDataService', () => {
   beforeEach(() => {
     init();
     requestService = getMockRequestService(createRequestEntry$(groups));
-    store = new Store<CoreState>(undefined, undefined, undefined);
+    store = createMockStore({});
     service = initTestService();
     spyOn(store, 'dispatch');
     spyOn(rdbService, 'buildFromRequestUUIDAndAwait').and.callThrough();
@@ -97,7 +119,7 @@ describe('GroupDataService', () => {
     it('search with empty query', () => {
       service.searchGroups('');
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new RequestParam('query', ''))]
+        searchParams: [Object.assign(new RequestParam('query', ''))],
       });
       expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options, true, true);
     });
@@ -105,7 +127,7 @@ describe('GroupDataService', () => {
     it('search with query', () => {
       service.searchGroups('test');
       const options = Object.assign(new FindListOptions(), {
-        searchParams: [Object.assign(new RequestParam('query', 'test'))]
+        searchParams: [Object.assign(new RequestParam('query', 'test'))],
       });
       expect(service.searchBy).toHaveBeenCalledWith('byMetadata', options, true, true);
     });
@@ -120,7 +142,7 @@ describe('GroupDataService', () => {
       service.searchNonMemberGroups('', GroupMock.id);
       const options = Object.assign(new FindListOptions(), {
         searchParams: [Object.assign(new RequestParam('query', '')),
-                       Object.assign(new RequestParam('group', GroupMock.id))]
+          Object.assign(new RequestParam('group', GroupMock.id))],
       });
       expect(service.searchBy).toHaveBeenCalledWith('isNotMemberOf', options, true, true);
     });
@@ -129,7 +151,7 @@ describe('GroupDataService', () => {
       service.searchNonMemberGroups('test', GroupMock.id);
       const options = Object.assign(new FindListOptions(), {
         searchParams: [Object.assign(new RequestParam('query', 'test')),
-                       Object.assign(new RequestParam('group', GroupMock.id))]
+          Object.assign(new RequestParam('group', GroupMock.id))],
       });
       expect(service.searchBy).toHaveBeenCalledWith('isNotMemberOf', options, true, true);
     });

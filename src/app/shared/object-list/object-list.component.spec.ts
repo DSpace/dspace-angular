@@ -1,7 +1,18 @@
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { ObjectListComponent } from './object-list.component';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+
+import { PaginationComponent } from '../pagination/pagination.component';
+import { ObjectListComponent } from './object-list.component';
 import { SelectableListService } from './selectable-list/selectable-list.service';
 
 describe('ObjectListComponent', () => {
@@ -9,14 +20,16 @@ describe('ObjectListComponent', () => {
   let fixture: ComponentFixture<ObjectListComponent>;
   const testEvent: any = { test: 'test' };
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [],
-      declarations: [ObjectListComponent],
+  beforeEach(waitForAsync(async () => {
+    await TestBed.configureTestingModule({
+      imports: [ObjectListComponent],
       providers: [{ provide: SelectableListService, useValue: {} }],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ObjectListComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      remove: {
+        imports: [PaginationComponent],
+      },
+      add: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

@@ -1,27 +1,54 @@
-import { Injectable, NgZone } from '@angular/core';
-
+import {
+  Injectable,
+  NgZone,
+  Type,
+} from '@angular/core';
+import { Router } from '@angular/router';
+// import @ngrx
+// import @ngrx
+import {
+  Actions,
+  createEffect,
+  ofType,
+} from '@ngrx/effects';
+import {
+  Action,
+  select,
+  Store,
+} from '@ngrx/store';
 import {
   asyncScheduler,
   combineLatest as observableCombineLatest,
   Observable,
   of as observableOf,
   queueScheduler,
-  timer
+  timer,
 } from 'rxjs';
-import { catchError, delay, filter, map, observeOn, switchMap, take, tap } from 'rxjs/operators';
-// import @ngrx
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Action, select, Store } from '@ngrx/store';
+import {
+  catchError,
+  delay,
+  filter,
+  map,
+  observeOn,
+  switchMap,
+  take,
+  tap,
+  withLatestFrom,
+} from 'rxjs/operators';
 
-// import services
-import { AuthService } from './auth.service';
-import { EPerson } from '../eperson/models/eperson.model';
-import { AuthStatus } from './models/auth-status.model';
-import { AuthTokenInfo } from './models/auth-token-info.model';
+import { environment } from '../../../environments/environment';
 import { AppState } from '../../app.reducer';
-import { isAuthenticated, isAuthenticatedLoaded } from './selectors';
+import {
+  hasValue,
+  isNotNull,
+} from '../../shared/empty.util';
+import { NotificationsActionTypes } from '../../shared/notifications/notifications.actions';
 import { StoreActionTypes } from '../../store.actions';
-import { AuthMethod } from './models/auth.method';
+import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
+import { RequestActionTypes } from '../data/request.actions';
+import { EPerson } from '../eperson/models/eperson.model';
+import { EnterZoneScheduler } from '../utilities/enter-zone.scheduler';
+import { LeaveZoneScheduler } from '../utilities/leave-zone.scheduler';
 // import actions
 import {
   AuthActionTypes,
@@ -31,6 +58,7 @@ import {
   AuthenticatedSuccessAction,
   AuthenticationErrorAction,
   AuthenticationSuccessAction,
+  AuthErrorActionsWithErrorPayload,
   CheckAuthenticationTokenCookieAction,
   LogOutErrorAction,
   LogOutSuccessAction,
@@ -51,21 +79,33 @@ import {
   RetrieveAuthMethodsErrorAction,
   RetrieveAuthMethodsSuccessAction,
   RetrieveTokenAction,
-  SetUserAsIdleAction
+  SetUserAsIdleAction,
 } from './auth.actions';
-import { hasValue } from '../../shared/empty.util';
-import { Router } from '@angular/router';
-import { environment } from '../../../environments/environment';
-import { RequestActionTypes } from '../data/request.actions';
-import { NotificationsActionTypes } from '../../shared/notifications/notifications.actions';
-import { LeaveZoneScheduler } from '../utilities/leave-zone.scheduler';
-import { EnterZoneScheduler } from '../utilities/enter-zone.scheduler';
-import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
+// import services
+import { AuthService } from './auth.service';
+import { AuthMethod } from './models/auth.method';
+import { AuthStatus } from './models/auth-status.model';
+import { AuthTokenInfo } from './models/auth-token-info.model';
+import {
+  getAuthenticatedUser,
+  isAuthenticated,
+  isAuthenticatedLoaded,
+} from './selectors';
 
 // Action Types that do not break/prevent the user from an idle state
 const IDLE_TIMER_IGNORE_TYPES: string[]
   = [...Object.values(AuthActionTypes).filter((t: string) => t !== AuthActionTypes.UNSET_USER_AS_IDLE),
-  ...Object.values(RequestActionTypes), ...Object.values(NotificationsActionTypes)];
+    ...Object.values(RequestActionTypes), ...Object.values(NotificationsActionTypes)];
+
+export function errorToAuthAction$<T extends AuthErrorActionsWithErrorPayload>(actionType: Type<T>, error: unknown): Observable<T> {
+  if (error instanceof Error) {
+    return observableOf(new actionType(error));
+  }
+
+  // If we caught something that's not an Error: complain & drop type safety
+  console.warn('AuthEffects caught non-Error object:', error);
+  return observableOf(new actionType(error as any));
+}
 
 @Injectable()
 export class AuthEffects {
@@ -80,14 +120,14 @@ export class AuthEffects {
       return this.authService.authenticate(action.payload.email, action.payload.password).pipe(
         take(1),
         map((response: AuthStatus) => new AuthenticationSuccessAction(response.token)),
-        catchError((error) => observableOf(new AuthenticationErrorAction(error)))
+        catchError((error: unknown) => errorToAuthAction$(AuthenticationErrorAction, error)),
       );
-    })
+    }),
   ));
 
   public authenticateSuccess$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(AuthActionTypes.AUTHENTICATE_SUCCESS),
-    map((action: AuthenticationSuccessAction) => new AuthenticatedAction(action.payload))
+    map((action: AuthenticationSuccessAction) => new AuthenticatedAction(action.payload)),
   ));
 
   public authenticated$: Observable<Action> = createEffect(() => this.actions$.pipe(
@@ -95,8 +135,9 @@ export class AuthEffects {
     switchMap((action: AuthenticatedAction) => {
       return this.authService.authenticatedUser(action.payload).pipe(
         map((userHref: string) => new AuthenticatedSuccessAction((userHref !== null), action.payload, userHref)),
-        catchError((error) => observableOf(new AuthenticatedErrorAction(error))),);
-    })
+        catchError((error: unknown) => errorToAuthAction$(AuthenticatedErrorAction, error)),
+      );
+    }),
   ));
 
   public authenticatedSuccess$: Observable<Action> = createEffect(() => this.actions$.pipe(
@@ -104,7 +145,7 @@ export class AuthEffects {
     tap((action: AuthenticatedSuccessAction) => this.authService.storeToken(action.payload.authToken)),
     switchMap((action: AuthenticatedSuccessAction) => this.authService.getRedirectUrl().pipe(
       take(1),
-      map((redirectUrl: string) => [action, redirectUrl])
+      map((redirectUrl: string) => [action, redirectUrl]),
     )),
     map(([action, redirectUrl]: [AuthenticatedSuccessAction, string]) => {
       if (hasValue(redirectUrl)) {
@@ -112,7 +153,7 @@ export class AuthEffects {
       } else {
         return new RetrieveAuthenticatedEpersonAction(action.payload.userHref);
       }
-    })
+    }),
   ));
 
   public redirectAfterLoginSuccess$: Observable<Action> = createEffect(() => this.actions$.pipe(
@@ -120,13 +161,13 @@ export class AuthEffects {
     tap((action: RedirectAfterLoginSuccessAction) => {
       this.authService.clearRedirectUrl();
       this.authService.navigateToRedirectUrl(action.payload);
-    })
+    }),
   ), { dispatch: false });
 
   // It means "reacts to this action but don't send another"
   public authenticatedError$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(AuthActionTypes.AUTHENTICATED_ERROR),
-    tap((action: LogOutSuccessAction) => this.authService.removeToken())
+    tap((action: LogOutSuccessAction) => this.authService.removeToken()),
   ), { dispatch: false });
 
   public retrieveAuthenticatedEperson$: Observable<Action> = createEffect(() => this.actions$.pipe(
@@ -142,17 +183,18 @@ export class AuthEffects {
       return user$.pipe(
         take(1),
         map((user: EPerson) => new RetrieveAuthenticatedEpersonSuccessAction(user)),
-        catchError((error) => observableOf(new RetrieveAuthenticatedEpersonErrorAction(error))));
-    })
+        catchError((error: unknown) => errorToAuthAction$(RetrieveAuthenticatedEpersonErrorAction, error)),
+      );
+    }),
   ));
 
   public checkToken$: Observable<Action> = createEffect(() => this.actions$.pipe(ofType(AuthActionTypes.CHECK_AUTHENTICATION_TOKEN),
     switchMap(() => {
       return this.authService.hasValidAuthenticationToken().pipe(
         map((token: AuthTokenInfo) => new AuthenticatedAction(token)),
-        catchError((error) => observableOf(new CheckAuthenticationTokenCookieAction()))
+        catchError((error: unknown) => observableOf(new CheckAuthenticationTokenCookieAction())),
       );
-    })
+    }),
   ));
 
   public checkTokenCookie$: Observable<Action> = createEffect(() => this.actions$.pipe(
@@ -168,9 +210,9 @@ export class AuthEffects {
             return new RetrieveAuthMethodsAction(response);
           }
         }),
-        catchError((error) => observableOf(new AuthenticatedErrorAction(error)))
+        catchError((error: unknown) => errorToAuthAction$(AuthenticatedErrorAction, error)),
       );
-    })
+    }),
   ));
 
   public retrieveToken$: Observable<Action> = createEffect(() => this.actions$.pipe(
@@ -179,24 +221,25 @@ export class AuthEffects {
       return this.authService.refreshAuthenticationToken(null).pipe(
         take(1),
         map((token: AuthTokenInfo) => new AuthenticationSuccessAction(token)),
-        catchError((error) => observableOf(new AuthenticationErrorAction(error)))
+        catchError((error: unknown) => errorToAuthAction$(AuthenticationErrorAction, error)),
       );
-    })
+    }),
   ));
 
   public refreshToken$: Observable<Action> = createEffect(() => this.actions$.pipe(ofType(AuthActionTypes.REFRESH_TOKEN),
     switchMap((action: RefreshTokenAction) => {
       return this.authService.refreshAuthenticationToken(action.payload).pipe(
+        take(1),
         map((token: AuthTokenInfo) => new RefreshTokenSuccessAction(token)),
-        catchError((error) => observableOf(new RefreshTokenErrorAction()))
+        catchError(() => observableOf(new RefreshTokenErrorAction())),
       );
-    })
+    }),
   ));
 
   // It means "reacts to this action but don't send another"
   public refreshTokenSuccess$: Observable<Action> = createEffect(() => this.actions$.pipe(
     ofType(AuthActionTypes.REFRESH_TOKEN_SUCCESS),
-    tap((action: RefreshTokenSuccessAction) => this.authService.replaceToken(action.payload))
+    tap((action: RefreshTokenSuccessAction) => this.authService.replaceToken(action.payload)),
   ), { dispatch: false });
 
   /**
@@ -212,7 +255,7 @@ export class AuthEffects {
         take(1),
         filter(([loaded, authenticated]) => loaded && !authenticated),
         tap(() => this.authService.removeToken()),
-        tap(() => this.authService.resetAuthenticationError())
+        tap(() => this.authService.resetAuthenticationError()),
       );
     })), { dispatch: false });
 
@@ -221,9 +264,9 @@ export class AuthEffects {
    * authorizations endpoint, to be sure to have consistent responses after a login with external idp
    *
    */
-   invalidateAuthorizationsRequestCache$ = createEffect(() => this.actions$
+  invalidateAuthorizationsRequestCache$ = createEffect(() => this.actions$
     .pipe(ofType(StoreActionTypes.REHYDRATE),
-      tap(() => this.authorizationsService.invalidateAuthorizationsRequestCache())
+      tap(() => this.authorizationsService.invalidateAuthorizationsRequestCache()),
     ), { dispatch: false });
 
   public logOut$: Observable<Action> = createEffect(() => this.actions$
@@ -232,24 +275,24 @@ export class AuthEffects {
       switchMap(() => {
         this.authService.stopImpersonating();
         return this.authService.logout().pipe(
-          map((value) => new LogOutSuccessAction()),
-          catchError((error) => observableOf(new LogOutErrorAction(error)))
+          map(() => new LogOutSuccessAction()),
+          catchError((error: unknown) => errorToAuthAction$(LogOutErrorAction, error)),
         );
-      })
+      }),
     ));
 
   public logOutSuccess$: Observable<Action> = createEffect(() => this.actions$
     .pipe(ofType(AuthActionTypes.LOG_OUT_SUCCESS),
       tap(() => this.authService.removeToken()),
       tap(() => this.authService.clearRedirectUrl()),
-      tap(() => this.authService.refreshAfterLogout())
+      tap(() => this.authService.refreshAfterLogout()),
     ), { dispatch: false });
 
   public redirectToLoginTokenExpired$: Observable<Action> = createEffect(() => this.actions$
     .pipe(
       ofType(AuthActionTypes.REDIRECT_TOKEN_EXPIRED),
       tap(() => this.authService.removeToken()),
-      tap(() => this.authService.redirectToLoginWhenTokenExpired())
+      tap(() => this.authService.redirectToLoginWhenTokenExpired()),
     ), { dispatch: false });
 
   public retrieveMethods$: Observable<Action> = createEffect(() => this.actions$
@@ -259,46 +302,49 @@ export class AuthEffects {
         return this.authService.retrieveAuthMethodsFromAuthStatus(action.payload)
           .pipe(
             map((authMethodModels: AuthMethod[]) => new RetrieveAuthMethodsSuccessAction(authMethodModels)),
-            catchError((error) => observableOf(new RetrieveAuthMethodsErrorAction()))
+            catchError(() => observableOf(new RetrieveAuthMethodsErrorAction())),
           );
-      })
+      }),
     ));
 
   public refreshTokenAndRedirect$: Observable<Action> = createEffect(() => this.actions$
     .pipe(ofType(AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT),
       switchMap((action: RefreshTokenAndRedirectAction) => {
         return this.authService.refreshAuthenticationToken(action.payload.token)
-          .pipe(map((token: AuthTokenInfo) => new RefreshTokenAndRedirectSuccessAction(token, action.payload.redirectUrl)),
-            catchError((error) => observableOf(new RefreshTokenAndRedirectErrorAction()))
+          .pipe(
+            take(1),
+            map((token: AuthTokenInfo) => new RefreshTokenAndRedirectSuccessAction(token, action.payload.redirectUrl)),
+            catchError(() => observableOf(new RefreshTokenAndRedirectErrorAction())),
           );
-      }))
+      })),
   );
 
   public refreshStateTokenRedirect$: Observable<Action> = createEffect(() => this.actions$
     .pipe(ofType(AuthActionTypes.REFRESH_EPERSON_AND_TOKEN_REDIRECT),
-      switchMap((action: RefreshEpersonAndTokenRedirectAction) =>
-        this.authService.getAuthenticatedUserFromStore()
-          .pipe(
-            switchMap(user => this.authService.retrieveAuthenticatedUserById(user.id)),
-            map(user => new RefreshEpersonAndTokenRedirectSuccessAction(user, action.payload.token, action.payload.redirectUrl)),
-            catchError((error) => observableOf(new RefreshEpersonAndTokenRedirectErrorAction()))
-          )
-      )
-    )
+      map(({ payload }: RefreshEpersonAndTokenRedirectAction) => payload),
+      withLatestFrom(this.store.pipe(select(getAuthenticatedUser), filter(isNotNull))),
+      switchMap(([{ token, redirectUrl }, { id }]) =>
+        this.authService.retrieveAuthenticatedUserById(id).pipe(
+          take(1),
+          map(user => new RefreshEpersonAndTokenRedirectSuccessAction(user, token, redirectUrl)),
+          catchError(() => observableOf(new RefreshEpersonAndTokenRedirectErrorAction())),
+        ),
+      ),
+    ),
   );
 
   public refreshStateTokenRedirectSuccess$: Observable<Action> = createEffect(() => this.actions$
     .pipe(ofType(AuthActionTypes.REFRESH_EPERSON_AND_TOKEN_REDIRECT_SUCCESS),
-      map((action: RefreshEpersonAndTokenRedirectAction) => new RefreshTokenAndRedirectAction(action.payload.token, action.payload.redirectUrl)))
+      map((action: RefreshEpersonAndTokenRedirectAction) => new RefreshTokenAndRedirectAction(action.payload.token, action.payload.redirectUrl))),
   );
 
   public refreshTokenAndRedirectSuccess$: Observable<Action> = createEffect(() => this.actions$
-      .pipe(ofType(AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT_SUCCESS),
-        tap((action: RefreshTokenAndRedirectSuccessAction) => this.authService.replaceToken(action.payload.token)),
-        delay(1),
-        tap((action: RefreshTokenAndRedirectSuccessAction) => this.router.navigate([decodeURIComponent(action.payload.redirectUrl)]))
-      ),
-    { dispatch: false }
+    .pipe(ofType(AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT_SUCCESS),
+      tap((action: RefreshTokenAndRedirectSuccessAction) => this.authService.replaceToken(action.payload.token)),
+      delay(1),
+      tap((action: RefreshTokenAndRedirectSuccessAction) => this.router.navigate([decodeURIComponent(action.payload.redirectUrl)])),
+    ),
+  { dispatch: false },
   );
 
   /**
@@ -313,7 +359,7 @@ export class AuthEffects {
     // in, and start a new timer
     switchMap(() =>
       // Start a timer outside of Angular's zone
-      timer(environment.auth.ui.timeUntilIdle, new LeaveZoneScheduler(this.zone, asyncScheduler))
+      timer(environment.auth.ui.timeUntilIdle, new LeaveZoneScheduler(this.zone, asyncScheduler)),
     ),
     // Re-enter the zone to dispatch the action
     observeOn(new EnterZoneScheduler(this.zone, queueScheduler)),

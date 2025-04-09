@@ -1,11 +1,15 @@
-import { ItemExportService } from './item-export.service';
+import { of } from 'rxjs';
+
 import {
   ItemExportFormatMolteplicity,
-  ItemExportFormatService
+  ItemExportFormatService,
 } from '../../../core/itemexportformat/item-export-format.service';
+import {
+  ItemExportFormat,
+  ItemExportFormatMap,
+} from '../../../core/itemexportformat/model/item-export-format.model';
 import { Item } from '../../../core/shared/item.model';
-import { ItemExportFormat, ItemExportFormatMap } from '../../../core/itemexportformat/model/item-export-format.model';
-import { of } from 'rxjs';
+import { ItemExportService } from './item-export.service';
 
 
 const ThePublication = Object.assign(new Item(), {
@@ -13,17 +17,17 @@ const ThePublication = Object.assign(new Item(), {
   metadata: {
     'dc.title': [ { value: 'A Title' }],
     'dspace.entity.type': [ { value: 'Publication' }],
-  }
+  },
 });
 
 export const ItemExportFormatsMap: ItemExportFormatMap = {
   'Publication': [
-    Object.assign(new ItemExportFormat(), { id: 'publication-xml', entityType: 'Publication'}),
-    Object.assign(new ItemExportFormat(), { id: 'publication-json', entityType: 'Publication'}),
+    Object.assign(new ItemExportFormat(), { id: 'publication-xml', entityType: 'Publication' }),
+    Object.assign(new ItemExportFormat(), { id: 'publication-json', entityType: 'Publication' }),
   ],
   'Project': [
-    Object.assign(new ItemExportFormat(), { id: 'project-xml', entityType: 'Project'})
-  ]
+    Object.assign(new ItemExportFormat(), { id: 'project-xml', entityType: 'Project' }),
+  ],
 };
 
 describe('ItemExportService', () => {

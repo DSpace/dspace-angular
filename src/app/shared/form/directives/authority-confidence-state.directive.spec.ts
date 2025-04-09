@@ -1,15 +1,23 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { v4 as uuidv4 } from 'uuid';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { AuthorityConfidenceStateDirective } from './authority-confidence-state.directive';
+import { ConfidenceType } from '../../../core/shared/confidence-type';
+import {
+  AUTHORITY_GENERATE,
+  AUTHORITY_REFERENCE,
+} from '../../../core/shared/metadata.utils';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { FormFieldMetadataValueObject } from '../builder/models/form-field-metadata-value.model';
-import { ConfidenceType } from '../../../core/shared/confidence-type';
-import { AUTHORITY_GENERATE, AUTHORITY_REFERENCE } from '../../../core/shared/metadata.utils';
+import { AuthorityConfidenceStateDirective } from './authority-confidence-state.directive';
 
 describe('AuthorityConfidenceStateDirective', () => {
   let component: TestComponent;
@@ -21,14 +29,12 @@ describe('AuthorityConfidenceStateDirective', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
-      ],
-      declarations: [
+            useClass: TranslateLoaderMock,
+          },
+        }),
         AuthorityConfidenceStateDirective,
-        TestComponent
-      ]
+        TestComponent,
+      ],
     })
       .compileComponents();
   });
@@ -96,7 +102,7 @@ describe('AuthorityConfidenceStateDirective', () => {
         uuidv4(),
         null,
         0,
-        ConfidenceType.CF_UNCERTAIN
+        ConfidenceType.CF_UNCERTAIN,
       );
       fixture.detectChanges();
     });
@@ -116,7 +122,7 @@ describe('AuthorityConfidenceStateDirective', () => {
         uuidv4(),
         null,
         0,
-        ConfidenceType.CF_AMBIGUOUS
+        ConfidenceType.CF_AMBIGUOUS,
       );
       fixture.detectChanges();
     });
@@ -136,7 +142,7 @@ describe('AuthorityConfidenceStateDirective', () => {
         uuidv4(),
         null,
         0,
-        ConfidenceType.CF_NOTFOUND
+        ConfidenceType.CF_NOTFOUND,
       );
       fixture.detectChanges();
     });
@@ -156,7 +162,7 @@ describe('AuthorityConfidenceStateDirective', () => {
         uuidv4(),
         null,
         0,
-        ConfidenceType.CF_FAILED
+        ConfidenceType.CF_FAILED,
       );
       fixture.detectChanges();
     });
@@ -176,7 +182,7 @@ describe('AuthorityConfidenceStateDirective', () => {
         uuidv4(),
         null,
         0,
-        ConfidenceType.CF_REJECTED
+        ConfidenceType.CF_REJECTED,
       );
       fixture.detectChanges();
     });
@@ -194,7 +200,11 @@ describe('AuthorityConfidenceStateDirective', () => {
   template: `<i dsAuthorityConfidenceState
                 class="far fa-circle fa-2x fa-fw"
                 aria-hidden="true"
-                [authorityValue]="authorityValue"></i>`
+                [authorityValue]="authorityValue"></i>`,
+  standalone: true,
+  imports: [
+    AuthorityConfidenceStateDirective,
+  ],
 })
 class TestComponent {
 

@@ -1,9 +1,14 @@
-import { ResourceType } from '../../shared/resource-type';
+import {
+  autoserialize,
+  deserialize,
+  deserializeAs,
+} from 'cerialize';
+
 import { typedObject } from '../../cache/builders/build-decorators';
-import { autoserialize, deserialize, deserializeAs } from 'cerialize';
+import { CacheableObject } from '../../cache/cacheable-object.model';
 import { IDToUUIDSerializer } from '../../cache/id-to-uuid-serializer';
 import { HALLink } from '../../shared/hal-link.model';
-import { CacheableObject } from '../../cache/cacheable-object.model';
+import { ResourceType } from '../../shared/resource-type';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { METADATA_SECURITY_TYPE } from './metadata-security-config.resource-type';
 
@@ -22,28 +27,28 @@ export class MetadataSecurityConfiguration extends CacheableObject {
    * It is based on the ID, so it will be the same for each refresh.
    */
   @deserializeAs(new IDToUUIDSerializer(MetadataSecurityConfiguration.type.value), 'id')
-  uuid: string;
+    uuid: string;
   /**
    * List of security configurations for all of the metadatas of the entity type
    */
   @autoserialize
-  metadataSecurityDefault: number[];
+    metadataSecurityDefault: number[];
   /**
    * List of security configurations for all of the metadatas of the entity type
    */
   @autoserialize
-  metadataCustomSecurity: MetadataCustomSecurityEntries;
+    metadataCustomSecurity: MetadataCustomSecurityEntries;
   /**
    * The object type
    */
   @excludeFromEquals
   @autoserialize
-  type: ResourceType;
+    type: ResourceType;
   /**
    * The {@link HALLink}s for this MetadataSecurityConfiguration
    */
   @deserialize
-  _links: {
+    _links: {
     self: HALLink;
   };
 }

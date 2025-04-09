@@ -1,20 +1,33 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ViewContainerRef } from '@angular/core';
-
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  BrowserModule,
+  By,
+} from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { of, of as observableOf } from 'rxjs';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import {
+  of as observableOf,
+  of,
+} from 'rxjs';
 
 import { AuthService } from '../../../../core/auth/auth.service';
-import { BrowserModule, By } from '@angular/platform-browser';
-import { ItemExportComponent } from '../item-export/item-export.component';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
-import { ItemExportModalLauncherComponent } from './item-export-modal-launcher.component';
+import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
+import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { ItemExportFormatMolteplicity } from '../../../../core/itemexportformat/item-export-format.service';
 import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
-import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
-import { ConfigurationDataService } from '../../../../core/data/configuration-data.service';
+import { EntityDropdownComponent } from '../../../entity-dropdown/entity-dropdown.component';
+import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
+import { ItemExportComponent } from '../item-export/item-export.component';
+import { ItemExportModalLauncherComponent } from './item-export-modal-launcher.component';
 
 describe('ItemExportModalWrapperComponent', () => {
   let component: ItemExportModalLauncherComponent;
@@ -25,15 +38,15 @@ describe('ItemExportModalWrapperComponent', () => {
 
   let authorizationService: AuthorizationDataService;
   authorizationService = jasmine.createSpyObj('authorizationService', {
-    isAuthorized: observableOf(true)
+    isAuthorized: observableOf(true),
   });
 
   const configurationDataService = jasmine.createSpyObj('configurationDataService', {
-    findByPropertyName: jasmine.createSpy('findByPropertyName')
+    findByPropertyName: jasmine.createSpy('findByPropertyName'),
   });
 
   const authServiceMock: any = jasmine.createSpyObj('AuthService', {
-    isAuthenticated: jasmine.createSpy('isAuthenticated')
+    isAuthenticated: jasmine.createSpy('isAuthenticated'),
   });
 
   const itemType = Object.assign(new ItemType(),{
@@ -42,13 +55,13 @@ describe('ItemExportModalWrapperComponent', () => {
     'label': 'Person',
     'uuid': 'entitytype-1',
     '_links': {
-        'self': {
-            'href': 'https://dspacecris7.4science.cloud/server/api/core/entitytypes/1'
-        },
-        'relationshiptypes': {
-            'href': 'https://dspacecris7.4science.cloud/server/api/core/entitytypes/1/relationshiptypes'
-        }
-    }
+      'self': {
+        'href': 'https://dspacecris7.4science.cloud/server/api/core/entitytypes/1',
+      },
+      'relationshiptypes': {
+        'href': 'https://dspacecris7.4science.cloud/server/api/core/entitytypes/1/relationshiptypes',
+      },
+    },
   });
 
   const confResponseDisabled$ = createSuccessfulRemoteDataObject$({ values: ['0'] });
@@ -58,17 +71,17 @@ describe('ItemExportModalWrapperComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         BrowserModule,
-        TranslateModule.forRoot({ loader: { provide: TranslateLoader,  useClass: TranslateLoaderMock }})
+        TranslateModule.forRoot({ loader: { provide: TranslateLoader, useClass: TranslateLoaderMock } }),
+        ItemExportModalLauncherComponent,
       ],
-      declarations: [ItemExportModalLauncherComponent],
       providers: [
         { provide: AuthService, useValue: authServiceMock },
         { provide: NgbModal, useValue: modalService },
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ConfigurationDataService, useValue: configurationDataService },
-        ViewContainerRef
-      ]
-    }).compileComponents();
+        ViewContainerRef,
+      ],
+    }).overrideComponent(ItemExportModalLauncherComponent, { remove: { imports: [EntityDropdownComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -83,7 +96,7 @@ describe('ItemExportModalWrapperComponent', () => {
     beforeEach(() => {
       authServiceMock.isAuthenticated.and.returnValue(observableOf(false));
       configurationDataService.findByPropertyName.and.returnValues(confResponseDisabled$);
-  });
+    });
 
     it('should not display the open modal button', () => {
       fixture.detectChanges();
@@ -114,7 +127,7 @@ describe('ItemExportModalWrapperComponent', () => {
       let modalRef;
 
       beforeEach(() => {
-        modalRef = { componentInstance: {}};
+        modalRef = { componentInstance: {} };
         modalService.open.and.returnValue(modalRef);
         spyOn(component, 'open').and.callThrough();
       });

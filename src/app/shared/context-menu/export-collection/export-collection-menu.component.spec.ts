@@ -1,25 +1,31 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { Router } from '@angular/router';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-
-import { TestScheduler } from 'rxjs/testing';
+import { Router } from '@angular/router';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
 
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { ScriptDataService } from '../../../core/data/processes/script-data.service';
+import { RequestService } from '../../../core/data/request.service';
+import { RequestEntry } from '../../../core/data/request-entry.model';
+import { Collection } from '../../../core/shared/collection.model';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
-import { ExportCollectionMenuComponent } from './export-collection-menu.component';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
-import { RequestService } from '../../../core/data/request.service';
-import { ScriptDataService } from '../../../core/data/processes/script-data.service';
-import { Collection } from '../../../core/shared/collection.model';
-import { RequestEntry } from '../../../core/data/request-entry.model';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { Process } from '../../../process-page/processes/process.model';
+import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
+import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
+import { ExportCollectionMenuComponent } from './export-collection-menu.component';
 
 describe('ExportCollectionMenuComponent', () => {
   let component: ExportCollectionMenuComponent;
@@ -38,32 +44,32 @@ describe('ExportCollectionMenuComponent', () => {
     dso = Object.assign(new Collection(), {
       id: 'test-collection',
       _links: {
-        self: { href: 'test-collection-selflink' }
-      }
+        self: { href: 'test-collection-selflink' },
+      },
     });
 
     authorizationService = jasmine.createSpyObj('AuthorizationDataService', {
-      isAuthorized: jasmine.createSpy('isAuthorized')
+      isAuthorized: jasmine.createSpy('isAuthorized'),
     });
     requestService = jasmine.createSpyObj('RequestService', {
-      removeByHrefSubstring: jasmine.createSpy('removeByHrefSubstring')
+      removeByHrefSubstring: jasmine.createSpy('removeByHrefSubstring'),
     });
     router = jasmine.createSpyObj('Router', {
-      navigateByUrl: jasmine.createSpy('navigateByUrl')
+      navigateByUrl: jasmine.createSpy('navigateByUrl'),
     });
     scriptDataService = jasmine.createSpyObj('ScriptDataService', {
-      invoke: jasmine.createSpy('invoke')
+      invoke: jasmine.createSpy('invoke'),
     });
 
     TestBed.configureTestingModule({
-      declarations: [ ExportCollectionMenuComponent ],
       imports: [
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
+        ExportCollectionMenuComponent,
       ],
       providers: [
         { provide: 'contextMenuObjectProvider', useValue: dso },
@@ -74,7 +80,7 @@ describe('ExportCollectionMenuComponent', () => {
         { provide: RequestService, useValue: requestService },
         { provide: ScriptDataService, useValue: scriptDataService },
         { provide: NotificationsService, useValue: notificationService },
-      ]
+      ],
     }).compileComponents();
   }));
 
@@ -100,8 +106,8 @@ describe('ExportCollectionMenuComponent', () => {
     it('should invoke script process', () => {
       const requestEntry = Object.assign(new RequestEntry(), {
         response: {
-          isSuccessful: true
-        }
+          isSuccessful: true,
+        },
       });
       scriptDataService.invoke.and.returnValue(createSuccessfulRemoteDataObject$(new Process()));
       spyOn(componentAsAny, 'navigateToProcesses').and.callThrough();

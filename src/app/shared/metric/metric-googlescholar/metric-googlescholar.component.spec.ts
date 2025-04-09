@@ -1,13 +1,20 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { MetricGooglescholarComponent } from './metric-googlescholar.component';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
+import {
+  async,
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+
 import { RedirectDirective } from '../../../directives/redirect/redirect.directive';
 import { RedirectWithHrefDirective } from '../../../directives/redirect/redirect-href.directive';
-import { Router } from '@angular/router';
 import { RedirectService } from '../../../redirect/redirect.service';
+import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
+import { MetricGooglescholarComponent } from './metric-googlescholar.component';
 
 describe('MetricGooglescholarComponent', () => {
   let component: MetricGooglescholarComponent;
@@ -28,23 +35,22 @@ describe('MetricGooglescholarComponent', () => {
     remark: '{"href":"' + href + '"}',
     startDate: null,
     type: null,
-    _links: null
+    _links: null,
   };
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      })],
-      declarations: [MetricGooglescholarComponent, RedirectDirective, RedirectWithHrefDirective],
+          useClass: TranslateLoaderMock,
+        },
+      }), MetricGooglescholarComponent, RedirectDirective, RedirectWithHrefDirective],
       providers: [
         { provide: Router, useValue: routerStub },
         { provide: RedirectService, useValue: redirectServiceStub },
       ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

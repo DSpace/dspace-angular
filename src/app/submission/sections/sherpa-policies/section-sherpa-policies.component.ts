@@ -1,20 +1,38 @@
-import { AlertType } from '../../../shared/alert/alert-type';
-import { Component, Inject } from '@angular/core';
-
-import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Inject,
+} from '@angular/core';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+  of,
+  Subscription,
+} from 'rxjs';
 
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import { WorkspaceitemSectionSherpaPoliciesObject } from '../../../core/submission/models/workspaceitem-section-sherpa-policies.model';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { AlertType } from '../../../shared/alert/alert-type';
 import {
-  WorkspaceitemSectionSherpaPoliciesObject
-} from '../../../core/submission/models/workspaceitem-section-sherpa-policies.model';
-import { renderSectionFor } from '../sections-decorator';
-import { SectionsType } from '../sections-type';
+  hasValue,
+  isEmpty,
+} from '../../../shared/empty.util';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { SubmissionService } from '../../submission.service';
+import { SectionModelComponent } from '../models/section.model';
 import { SectionDataObject } from '../models/section-data.model';
 import { SectionsService } from '../sections.service';
-import { SectionModelComponent } from '../models/section.model';
-import { SubmissionService } from '../../submission.service';
-import { hasValue, isEmpty } from '../../../shared/empty.util';
+import { MetadataInformationComponent } from './metadata-information/metadata-information.component';
+import { PublicationInformationComponent } from './publication-information/publication-information.component';
+import { PublisherPolicyComponent } from './publisher-policy/publisher-policy.component';
 
 /**
  * This component represents a section for the sherpa policy informations structure.
@@ -22,9 +40,21 @@ import { hasValue, isEmpty } from '../../../shared/empty.util';
 @Component({
   selector: 'ds-section-sherpa-policies',
   templateUrl: './section-sherpa-policies.component.html',
-  styleUrls: ['./section-sherpa-policies.component.scss']
+  styleUrls: ['./section-sherpa-policies.component.scss'],
+  imports: [
+    MetadataInformationComponent,
+    NgbCollapseModule,
+    AlertComponent,
+    TranslateModule,
+    PublisherPolicyComponent,
+    NgIf,
+    PublicationInformationComponent,
+    AsyncPipe,
+    VarDirective,
+    NgForOf,
+  ],
+  standalone: true,
 })
-@renderSectionFor(SectionsType.SherpaPolicies)
 export class SubmissionSectionSherpaPoliciesComponent extends SectionModelComponent {
 
   /**
@@ -95,7 +125,7 @@ export class SubmissionSectionSherpaPoliciesComponent extends SectionModelCompon
       this.sectionService.getSectionData(this.submissionId, this.sectionData.id, this.sectionData.sectionType)
         .subscribe((sherpaPolicies: WorkspaceitemSectionSherpaPoliciesObject) => {
           this.sherpaPoliciesData$.next(sherpaPolicies);
-        })
+        }),
     );
   }
 

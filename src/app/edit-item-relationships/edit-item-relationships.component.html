@@ -24,14 +24,14 @@
                                     [showScopeSelector]="false"
                                     (customEvent)="manageRelationship($event)"></ds-configuration-search-page>
 
-      <div *ngIf="!(isXsOrSm$ | async)">
+      <div *ngIf="(isXsOrSm$ | async) !== true">
         <button type="button" class="btn btn-link menu-toggle" (click)="toggleSidebar()">
           <i class="fa fa-chevron-circle-{{(isSideBarHidden() | async) ? 'left' : 'right'}} fa-2x"
              aria-hidden="true"></i>
         </button>
       </div>
     </div>
-    <div class="col-md-4" *ngIf="!(isSideBarHidden() | async) && isActive && isInit">
+    <div class="col-md-4" *ngIf="(isSideBarHidden() | async) !== true && isActive && isInit">
       <ng-container *ngVar="(relationshipResults$ | async) as relationships">
         <ds-relationships-sort-list [item]="item"
                                     [relationships]="relationships"

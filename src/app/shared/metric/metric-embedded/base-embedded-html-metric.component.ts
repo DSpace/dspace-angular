@@ -1,10 +1,16 @@
-import { BaseMetricComponent } from '../metric-loader/base-metric.component';
-import { Component, OnInit, Renderer2 } from '@angular/core';
-import { hasValue } from '../../empty.util';
+import {
+  Component,
+  OnInit,
+  Renderer2,
+} from '@angular/core';
+
 import { LOCAL_PROTOCOL } from '../../../redirect/redirect.service';
+import { hasValue } from '../../empty.util';
+import { BaseMetricComponent } from '../metric-loader/base-metric.component';
 
 @Component({
-  template: ''
+  template: '',
+  standalone: true,
 })
 export abstract class BaseEmbeddedHtmlMetricComponent extends BaseMetricComponent implements OnInit {
 
@@ -22,9 +28,9 @@ export abstract class BaseEmbeddedHtmlMetricComponent extends BaseMetricComponen
     }
   }
 
-  getDetailUrl(): null | any {
+  getDetailUrl(): any {
     const href = ((this.parseRemark()?.childNodes[0] as any)?.href || '');
-    let protocolEnd: number = href.indexOf('//');
+    const protocolEnd: number = href.indexOf('//');
     let noProtocol = null;
     let strippedHref = null;
     if (protocolEnd > 0) {

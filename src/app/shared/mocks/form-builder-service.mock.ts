@@ -1,7 +1,11 @@
-import { FormBuilderService } from '../form/builder/form-builder.service';
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
-import { DsDynamicInputModel } from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import {
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
 import { of } from 'rxjs';
+
+import { DsDynamicInputModel } from '../form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import { FormBuilderService } from '../form/builder/form-builder.service';
 
 export function getMockFormBuilderService(): FormBuilderService {
 
@@ -12,6 +16,7 @@ export function getMockFormBuilderService(): FormBuilderService {
     getFormControlById: new UntypedFormControl(),
     hasMappedGroupValue: false,
     findById: {},
+    fromJSON: {},
     getPath: ['test', 'path'],
     getId: 'path',
     clearAllModelsValue: {},
@@ -22,30 +27,30 @@ export function getMockFormBuilderService(): FormBuilderService {
     isRelationGroup: true,
     isConcatGroup: false,
     hasArrayGroupValue: true,
+    isScrollableDropdown: false,
     getTypeBindModel: new DsDynamicInputModel({
-        name: 'dc.type',
-        id: 'dc_type',
-        readOnly: false,
-        disabled: false,
-        repeatable: false,
-        value: {
-          value: 'boundType',
-          display: 'Bound Type',
-          authority: 'bound-auth-key'
-        },
-        submissionId: '1234',
-        metadataFields: ['dc.type'],
-        hasSelectableMetadata: false,
-        typeBindRelations: [
-          { match: 'VISIBLE', operator: 'OR', when: [{ id: 'dc.type', value: 'boundType' }] }
-        ]
-      }
+      name: 'dc.type',
+      id: 'dc_type',
+      readOnly: false,
+      disabled: false,
+      repeatable: false,
+      value: {
+        value: 'boundType',
+        display: 'Bound Type',
+        authority: 'bound-auth-key',
+      },
+      submissionId: '1234',
+      metadataFields: ['dc.type'],
+      hasSelectableMetadata: false,
+      typeBindRelations: [
+        { match: 'VISIBLE', operator: 'OR', when: [{ id: 'dc.type', value: 'boundType' }] },
+      ],
+    },
     ),
     removeFormModel: {},
     addFormModel: {},
     updateValue: {},
     addFormGroups: {},
-    getTypeBindModelUpdates: of('test')
+    getTypeBindModelUpdates: of('test'),
   });
-
 }

@@ -1,17 +1,43 @@
-import { Component, ComponentFactoryResolver, Injector, Input, OnInit } from '@angular/core';
+import {
+  NgComponentOutlet,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  ComponentFactoryResolver,
+  Injector,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 
 import { CrisLayoutBox } from '../../../core/layout/models/box.model';
-import { CrisLayoutBoxRenderOptions, getCrisLayoutBox } from '../../decorators/cris-layout-box.decorator';
-import { TranslateService } from '@ngx-translate/core';
-import { Item } from '../../../core/shared/item.model';
-import { LayoutBox } from '../../enums/layout-box.enum';
-import { hasNoValue } from '../../../shared/empty.util';
 import { GenericConstructor } from '../../../core/shared/generic-constructor';
+import { Item } from '../../../core/shared/item.model';
+import { hasNoValue } from '../../../shared/empty.util';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import {
+  CrisLayoutBoxRenderOptions,
+  getCrisLayoutBox,
+} from '../../decorators/cris-layout-box.decorator';
+import { LayoutBox } from '../../enums/layout-box.enum';
 
 @Component({
   selector: 'ds-cris-layout-box-container',
   templateUrl: './cris-layout-box-container.component.html',
-  styleUrls: ['./cris-layout-box-container.component.scss']
+  styleUrls: ['./cris-layout-box-container.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    NgbAccordionModule,
+    NgComponentOutlet,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 export class CrisLayoutBoxContainerComponent implements OnInit {
 
@@ -21,6 +47,11 @@ export class CrisLayoutBoxContainerComponent implements OnInit {
    * Item that is being viewed
    */
   @Input() item: Item;
+
+  /**
+   * The tab name
+   */
+  @Input() tabName: string;
 
   /**
    * CrisLayoutBoxRenderOptions reference of the box that will be created
@@ -64,8 +95,9 @@ export class CrisLayoutBoxContainerComponent implements OnInit {
       providers: [
         { provide: 'boxProvider', useFactory: () => (this.box), deps: [] },
         { provide: 'itemProvider', useFactory: () => (this.item), deps: [] },
+        { provide: 'tabNameProvider', useFactory: () => (this.tabName), deps: [] },
       ],
-      parent: this.injector
+      parent: this.injector,
     });
 
     this.componentLoader = this.getComponent();
@@ -82,7 +114,7 @@ export class CrisLayoutBoxContainerComponent implements OnInit {
    * Active tab utilized by accordion
    */
   getComponent(): CrisLayoutBoxRenderOptions {
-    return getCrisLayoutBox(LayoutBox[this.box.boxType]);
+    return getCrisLayoutBox(this.box.boxType as LayoutBox);
   }
   /**
    * Get component reference to be inserted in the ngComponentOutlet

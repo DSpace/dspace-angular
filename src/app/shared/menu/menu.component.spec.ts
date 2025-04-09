@@ -1,27 +1,51 @@
 // eslint-disable-next-line max-classes-per-file
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Injector,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { TranslateModule } from '@ngx-translate/core';
-import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA, Component } from '@angular/core';
-import { MenuService } from './menu.service';
-import { MenuComponent } from './menu.component';
-import { of as observableOf, BehaviorSubject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MenuSection } from './menu-section.model';
-import { MenuID } from './menu-id.model';
-import { Item } from '../../core/shared/item.model';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import {
+  MockStore,
+  provideMockStore,
+} from '@ngrx/store/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  of as observableOf,
+} from 'rxjs';
+
+import {
+  AppState,
+  storeModuleConfig,
+} from '../../app.reducer';
+import { authReducer } from '../../core/auth/auth.reducer';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { Item } from '../../core/shared/item.model';
+import { getMockThemeService } from '../mocks/theme-service.mock';
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 import { ThemeService } from '../theme-support/theme.service';
-import { getMockThemeService } from '../mocks/theme-service.mock';
-import { MenuItemType } from './menu-item-type.model';
+import { MenuComponent } from './menu.component';
+import { MenuService } from './menu.service';
+import { MenuID } from './menu-id.model';
 import { LinkMenuItemModel } from './menu-item/models/link.model';
-import { provideMockStore, MockStore } from '@ngrx/store/testing';
-import { StoreModule, Store } from '@ngrx/store';
-import { authReducer } from '../../core/auth/auth.reducer';
-import { storeModuleConfig, AppState } from '../../app.reducer';
+import { MenuItemType } from './menu-item-type.model';
 import { rendersSectionForMenu } from './menu-section.decorator';
+import { MenuSection } from './menu-section.model';
 
 const mockMenuID = 'mock-menuID' as MenuID;
 
@@ -29,6 +53,7 @@ const mockMenuID = 'mock-menuID' as MenuID;
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',
   template: '',
+  standalone: true,
 })
 @rendersSectionForMenu(mockMenuID, true)
 class TestExpandableMenuComponent {
@@ -58,16 +83,16 @@ describe('MenuComponent', () => {
     lastModified: '2018',
     _links: {
       self: {
-        href: 'https://localhost:8000/items/fake-id'
-      }
-    }
+        href: 'https://localhost:8000/items/fake-id',
+      },
+    },
   });
 
   const routeStub = {
     data: observableOf({
-      dso: createSuccessfulRemoteDataObject(mockItem)
+      dso: createSuccessfulRemoteDataObject(mockItem),
     }),
-    children: []
+    children: [],
   };
 
   const initialState = {
@@ -99,17 +124,11 @@ describe('MenuComponent', () => {
   beforeEach(waitForAsync(() => {
 
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(false)
+      isAuthorized: observableOf(false),
     });
 
-    void TestBed.configureTestingModule({
-      imports: [
-        TranslateModule.forRoot(),
-        NoopAnimationsModule,
-        RouterTestingModule,
-        StoreModule.forRoot(authReducer, storeModuleConfig),
-      ],
-      declarations: [MenuComponent],
+    TestBed.configureTestingModule({
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule, MenuComponent, StoreModule.forRoot(authReducer, storeModuleConfig)],
       providers: [
         Injector,
         { provide: ThemeService, useValue: getMockThemeService() },
@@ -120,9 +139,9 @@ describe('MenuComponent', () => {
         TestExpandableMenuComponent,
         TestMenuComponent,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(MenuComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -173,7 +192,7 @@ describe('MenuComponent', () => {
                   text: 'test',
                   link: '/test',
                 } as LinkMenuItemModel,
-              }
+              },
             },
             visible: true,
           },

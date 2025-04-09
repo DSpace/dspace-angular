@@ -1,20 +1,25 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { StatisticsPageComponent } from '../statistics-page/statistics-page.component';
-import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
-import { ActivatedRoute , Router} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { Collection } from '../../core/shared/collection.model';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { AuthService } from '../../core/auth/auth.service';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { CrisStatisticsPageComponent } from '../cris-statistics-page/cris-statistics-page.component';
+import { StatisticsPageDirective } from '../statistics-page/statistics-page.directive';
+import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
 
 /**
  * Component representing the statistics page for a collection.
  */
 @Component({
-  selector: 'ds-collection-statistics-page',
+  selector: 'ds-base-collection-statistics-page',
   templateUrl: '../statistics-page/statistics-page.component.html',
-  styleUrls: ['./collection-statistics-page.component.scss']
+  styleUrls: ['./collection-statistics-page.component.scss'],
+  standalone: true,
+  imports: [CommonModule, VarDirective, ThemedLoadingComponent, StatisticsTableComponent, TranslateModule, CrisStatisticsPageComponent],
 })
-export class CollectionStatisticsPageComponent extends StatisticsPageComponent<Collection> {
+export class CollectionStatisticsPageComponent extends StatisticsPageDirective<Collection> {
 
   /**
    * The report types to show on this statistics page.
@@ -25,20 +30,4 @@ export class CollectionStatisticsPageComponent extends StatisticsPageComponent<C
     'TopCountries',
     'TopCities',
   ];
-
-  constructor(
-    protected route: ActivatedRoute,
-    protected router: Router,
-    protected usageReportService: UsageReportDataService,
-    protected nameService: DSONameService,
-    protected authService: AuthService
-  ) {
-    super(
-      route,
-      router,
-      usageReportService,
-      nameService,
-      authService,
-    );
-  }
 }

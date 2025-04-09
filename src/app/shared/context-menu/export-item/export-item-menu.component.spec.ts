@@ -1,19 +1,28 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  async,
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TestScheduler } from 'rxjs/testing';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
+import { of as observableOf } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
 
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { Item } from '../../../core/shared/item.model';
+import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
+import {
+  ItemExportFormConfiguration,
+  ItemExportService,
+} from '../../search/item-export/item-export.service';
 import { ExportItemMenuComponent } from './export-item-menu.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ItemExportFormConfiguration, ItemExportService } from '../../search/item-export/item-export.service';
-import { of as observableOf } from 'rxjs';
 
 describe('ExportItemMenuComponent', () => {
   let component: ExportItemMenuComponent;
@@ -27,7 +36,7 @@ describe('ExportItemMenuComponent', () => {
   const itemExportService: any = jasmine.createSpyObj('ItemExportFormatService', {
     initialItemExportFormConfiguration: jasmine.createSpy('initialItemExportFormConfiguration'),
     onSelectEntityType: jasmine.createSpy('onSelectEntityType'),
-    submitForm: jasmine.createSpy('submitForm')
+    submitForm: jasmine.createSpy('submitForm'),
   });
 
   beforeEach(async(() => {
@@ -35,27 +44,27 @@ describe('ExportItemMenuComponent', () => {
     dso = Object.assign(new Item(), {
       id: 'test-item',
       _links: {
-        self: { href: 'test-item-selflink' }
-      }
+        self: { href: 'test-item-selflink' },
+      },
     });
 
     TestBed.configureTestingModule({
-      declarations: [ ExportItemMenuComponent ],
       imports: [
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
+        ExportItemMenuComponent,
       ],
       providers: [
         { provide: ItemExportService, useValue: itemExportService },
         { provide: 'contextMenuObjectProvider', useValue: dso },
         { provide: 'contextMenuObjectTypeProvider', useValue: DSpaceObjectType.ITEM },
         { provide: NgbModal, useValue: ngbModal },
-      ]
+      ],
     }).compileComponents();
   }));
 
@@ -79,8 +88,8 @@ describe('ExportItemMenuComponent', () => {
 
   it('should render a button', () => {
     fixture.detectChanges();
-    component.configuration = configuration;
-    component.configuration.formats = [{ type: null, id: '1', mimeType: '1', entityType: 'Patent', molteplicity: '1', _links: null }];
+    const testConfig = { ...configuration, formats: [{ type: null, id: '1', mimeType: '1', entityType: 'Patent', molteplicity: '1', _links: null }] };
+    component.configuration$.next(testConfig);
     fixture.detectChanges();
     const link = fixture.debugElement.query(By.css('button'));
     expect(link).not.toBeNull();
@@ -91,7 +100,7 @@ describe('ExportItemMenuComponent', () => {
       componentInstance: { molteplicity: null, item: null },
       close: () => {
         return;
-      }
+      },
     });
     component.openExportModal();
     expect(componentAsAny.modalService.open).toHaveBeenCalled();

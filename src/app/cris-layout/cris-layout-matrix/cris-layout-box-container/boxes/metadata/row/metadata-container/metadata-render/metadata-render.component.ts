@@ -1,32 +1,38 @@
 import {
   Component,
-  ComponentFactory,
-  ComponentFactoryResolver,
   ComponentRef,
+  inject,
   Injector,
   Input,
   OnInit,
   ViewChild,
-  ViewContainerRef
+  ViewContainerRef,
 } from '@angular/core';
-import { Item } from '../../../../../../../../core/shared/item.model';
-import { CrisLayoutBox, LayoutField } from '../../../../../../../../core/layout/models/box.model';
+
+import { CRIS_FIELD_RENDERING_MAP } from '../../../../../../../../../config/app-config.interface';
+import {
+  CrisLayoutBox,
+  LayoutField,
+} from '../../../../../../../../core/layout/models/box.model';
 import { GenericConstructor } from '../../../../../../../../core/shared/generic-constructor';
-import { hasValue, isEmpty, isNotEmpty } from '../../../../../../../../shared/empty.util';
-import {
-  FieldRenderingType,
-  getMetadataBoxFieldRendering,
-  MetadataBoxFieldRenderOptions
-} from '../../../rendering-types/metadata-box.decorator';
-import {
-  PLACEHOLDER_PARENT_METADATA
-} from '../../../../../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
+import { Item } from '../../../../../../../../core/shared/item.model';
 import { MetadataValue } from '../../../../../../../../core/shared/metadata.models';
+import { isNotEmpty } from '../../../../../../../../shared/empty.util';
+import { PLACEHOLDER_PARENT_METADATA } from '../../../../../../../../shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-constants';
+import { CrisLayoutLoaderDirective } from '../../../../../../../directives/cris-layout-loader.directive';
+import { FieldRenderingType } from '../../../rendering-types/field-rendering-type';
+import {
+  computeRenderingFn,
+  getMetadataBoxFieldRenderOptionsFn,
+} from '../../../rendering-types/metadata-box.decorator';
+import { MetadataBoxFieldRenderOptions } from '../../../rendering-types/rendering-type.model';
 
 @Component({
   selector: 'ds-metadata-render',
   templateUrl: './metadata-render.component.html',
-  styleUrls: ['./metadata-render.component.scss']
+  styleUrls: ['./metadata-render.component.scss'],
+  standalone: true,
+  imports: [CrisLayoutLoaderDirective],
 })
 export class MetadataRenderComponent implements OnInit {
 
@@ -48,9 +54,9 @@ export class MetadataRenderComponent implements OnInit {
   @Input() metadataValue: MetadataValue;
 
   /**
-   * The rendering sub-type, if exists
+   * The rendering subtype, if exists
    * e.g. for type identifier.doi this property
-   * contains the sub-type doi
+   * contains the subtype doi
    */
   renderingSubType: string;
 
@@ -59,40 +65,35 @@ export class MetadataRenderComponent implements OnInit {
    */
   @ViewChild('metadataValue', {
     static: true,
-    read: ViewContainerRef
+    read: ViewContainerRef,
   }) metadataValueViewRef: ViewContainerRef;
 
-  constructor(
-    protected componentFactoryResolver: ComponentFactoryResolver,
-    private injector: Injector,
-  ) {
-
-  }
+  protected readonly layoutBoxesMap: Map<FieldRenderingType, MetadataBoxFieldRenderOptions> = inject(CRIS_FIELD_RENDERING_MAP);
+  protected readonly injector: Injector = inject(Injector);
 
   ngOnInit(): void {
     this.metadataValueViewRef.clear();
-    this.renderingSubType = this.computeSubType(this.field);
+    this.renderingSubType = computeRenderingFn(this.field.rendering, true);
     this.generateComponentRef();
   }
 
   /**
-   * Generate ComponentFactory for metadata rendering
+   * Generate Component for metadata rendering
    */
-  computeComponentFactory(): ComponentFactory<any> {
-    const rendering = this.computeRendering();
-    const metadataFieldRenderOptions = this.getMetadataBoxFieldRenderOptions(rendering);
-    const constructor: GenericConstructor<Component> = metadataFieldRenderOptions?.componentRef;
-    return constructor ? this.componentFactoryResolver.resolveComponentFactory(constructor) : null;
+  computeComponent(): GenericConstructor<Component> {
+    const rendering = computeRenderingFn(this.field?.rendering);
+    const metadataFieldRenderOptions = getMetadataBoxFieldRenderOptionsFn(this.layoutBoxesMap, rendering);
+    return  metadataFieldRenderOptions?.componentRef;
   }
 
   /**
    * Generate ComponentRef for metadata rendering
    */
   generateComponentRef(): ComponentRef<any> {
-    let metadataRef: ComponentRef<Component>;
-    const factory: ComponentFactory<any> = this.computeComponentFactory();
-    metadataRef = this.metadataValueViewRef.createComponent(factory, 0, this.getComponentInjector());
-    return metadataRef;
+    const component: GenericConstructor<Component> = this.computeComponent();
+    return this.metadataValueViewRef.createComponent(component, {
+      injector: this.getComponentInjector(),
+    });
   }
 
   /**
@@ -102,7 +103,7 @@ export class MetadataRenderComponent implements OnInit {
     const providers = [
       { provide: 'fieldProvider', useValue: this.field, deps: [] },
       { provide: 'itemProvider', useValue: this.item, deps: [] },
-      { provide: 'renderingSubTypeProvider', useValue: this.renderingSubType, deps: [] }
+      { provide: 'renderingSubTypeProvider', useValue: this.renderingSubType, deps: [] },
     ];
     if (isNotEmpty(this.metadataValue)) {
       this.metadataValue = this.normalizeMetadataValue(this.metadataValue);
@@ -111,52 +112,8 @@ export class MetadataRenderComponent implements OnInit {
 
     return Injector.create({
       providers: providers,
-      parent: this.injector
+      parent: this.injector,
     });
-  }
-
-  /**
-   * Return the rendering type of the field to render
-   *
-   * @return the rendering type
-   */
-  computeRendering(): string | FieldRenderingType {
-    let rendering = hasValue(this.field.rendering) ? this.field.rendering : FieldRenderingType.TEXT;
-
-    if (rendering.indexOf('.') > -1) {
-      const values = rendering.split('.');
-      rendering = values[0];
-    }
-    return rendering;
-  }
-
-  /**
-   * Return the rendering sub-type of the field to render
-   *
-   * @return the rendering type
-   */
-  computeSubType(field: LayoutField): string | FieldRenderingType {
-    const rendering = field.rendering;
-    let subtype: string;
-
-    if (rendering?.indexOf('.') > -1) {
-      const values = rendering.split('.');
-      subtype = values[1];
-    }
-    return subtype;
-  }
-
-  /**
-   * Return the rendering option related to the given rendering type
-   * @param fieldRenderingType
-   */
-  getMetadataBoxFieldRenderOptions(fieldRenderingType: string): MetadataBoxFieldRenderOptions {
-    let renderOptions = getMetadataBoxFieldRendering(fieldRenderingType);
-    // If the rendering type not exists will use TEXT type rendering
-    if (isEmpty(renderOptions)) {
-      renderOptions = getMetadataBoxFieldRendering(FieldRenderingType.TEXT);
-    }
-    return renderOptions;
   }
 
   /**
@@ -168,7 +125,7 @@ export class MetadataRenderComponent implements OnInit {
     const value = metadataValue.value;
     if (isNotEmpty(value) && value.includes(PLACEHOLDER_PARENT_METADATA)) {
       return Object.assign(new MetadataValue(), metadataValue, {
-        value: ''
+        value: '',
       });
     } else {
       return metadataValue;

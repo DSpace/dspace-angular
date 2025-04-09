@@ -9,7 +9,7 @@ describe('ShortNumber Pipe', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        ShortNumberPipe
+        ShortNumberPipe,
       ],
     }).compileComponents();
 
@@ -19,78 +19,78 @@ describe('ShortNumber Pipe', () => {
   it('should not transform with an invalid number', async () => {
     await testTransform(
       'tre',
-      'tre'
+      'tre',
     );
   });
 
   it('should not transform with an empty string', async () => {
     await testTransform(
       '',
-      ''
+      '',
     );
   });
 
   it('should not transform with zero', async () => {
     await testTransform(
       0,
-      '0'
+      '0',
     );
   });
 
   it('should render 1K', async () => {
     await testTransform(
       '1000',
-      '1K'
+      '1K',
     );
   });
 
   it('should render 1K', async () => {
     await testTransform(
       1000,
-      '1K'
+      '1K',
     );
   });
 
   it('should render 19.3K', async () => {
     await testTransform(
       19300,
-      '19.3K'
+      '19.3K',
     );
   });
 
   it('should render 1M', async () => {
     await testTransform(
       1000000,
-      '1M'
+      '1M',
     );
   });
 
   it('should render 1B', async () => {
     await testTransform(
       1000000000,
-      '1B'
+      '1B',
     );
   });
 
   it('should render 1T', async () => {
     await testTransform(
       1000000000000,
-      '1T'
+      '1T',
     );
   });
 
   it('should render 1Q', async () => {
     await testTransform(
       1000000000000000,
-      '1Q'
+      '1Q',
     );
   });
 
   async function testTransform(input: any, output: string) {
     expect(
-      await shortNumberPipe.transform(input)
+      await shortNumberPipe.transform(input),
     ).toMatch(
-      output
+      output,
     );
   }
 });

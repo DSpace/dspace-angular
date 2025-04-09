@@ -1,22 +1,45 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
+import {
+  NgClass,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
+
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
-import { fadeIn } from '../animations/fade';
-import { ListableObject } from '../object-collection/shared/listable-object.model';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { SelectableListService } from './selectable-list/selectable-list.service';
-import { ViewMode } from '../../core/shared/view-mode.model';
 import { Context } from '../../core/shared/context.model';
+import { ViewMode } from '../../core/shared/view-mode.model';
+import { fadeIn } from '../animations/fade';
 import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
+import { ImportableListItemControlComponent } from '../object-collection/shared/importable-list-item-control/importable-list-item-control.component';
+import { ListableObject } from '../object-collection/shared/listable-object.model';
+import { ListableObjectComponentLoaderComponent } from '../object-collection/shared/listable-object/listable-object-component-loader.component';
+import { SelectableListItemControlComponent } from '../object-collection/shared/selectable-list-item-control/selectable-list-item-control.component';
+import { PaginationComponent } from '../pagination/pagination.component';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
+import { SelectableListService } from './selectable-list/selectable-list.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
-  selector: 'ds-object-list',
+  selector: 'ds-base-object-list',
   styleUrls: ['./object-list.component.scss'],
   templateUrl: './object-list.component.html',
-  animations: [fadeIn]
+  animations: [fadeIn],
+  standalone: true,
+  imports: [PaginationComponent, NgIf, NgClass, NgFor, SelectableListItemControlComponent, ImportableListItemControlComponent, ListableObjectComponentLoaderComponent, BrowserOnlyPipe],
 })
 export class ObjectListComponent {
   /**
@@ -82,6 +105,11 @@ export class ObjectListComponent {
   @Input() importConfig: { buttonLabel: string };
 
   /**
+   * Whether to show the badge label or not
+   */
+  @Input() showLabel: boolean;
+
+  /**
    * Whether to show the metrics badges
    */
   @Input() showMetrics = true;
@@ -94,7 +122,12 @@ export class ObjectListComponent {
   /**
    * Whether to show the thumbnail preview
    */
-  @Input() showThumbnails;
+  @Input() showThumbnails: boolean;
+
+  /**
+   * Whether to show if the item is a correction
+   */
+  @Input() showCorrection = false;
 
   /**
    * Emit when one of the listed object has changed.
@@ -232,14 +265,14 @@ export class ObjectListComponent {
    * Go to the previous page
    */
   goPrev() {
-      this.prev.emit(true);
+    this.prev.emit(true);
   }
 
   /**
    * Go to the next page
    */
   goNext() {
-      this.next.emit(true);
+    this.next.emit(true);
   }
 
 }

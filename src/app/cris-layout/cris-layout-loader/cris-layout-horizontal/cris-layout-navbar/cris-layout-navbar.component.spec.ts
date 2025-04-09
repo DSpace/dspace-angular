@@ -1,26 +1,40 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DebugElement } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-
-import { CrisLayoutNavbarComponent } from './cris-layout-navbar.component';
-import { HostWindowService } from '../../../../shared/host-window.service';
-import { HostWindowServiceStub } from '../../../../shared/testing/host-window-service.stub';
-import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  of,
+} from 'rxjs';
+
+import { CrisLayoutTab } from '../../../../core/layout/models/tab.model';
+import { Item } from '../../../../core/shared/item.model';
+import { HostWindowService } from '../../../../shared/host-window.service';
+import { TranslateLoaderMock } from '../../../../shared/mocks/translate-loader.mock';
+import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
+import { HostWindowServiceStub } from '../../../../shared/testing/host-window-service.stub';
 import { loaderMultilevelTabs } from '../../../../shared/testing/layout-tab.mocks';
 import { RouterStub } from '../../../../shared/testing/router.stub';
-import { ActivatedRouteStub } from '../../../../shared/testing/active-router.stub';
-import { Item } from '../../../../core/shared/item.model';
-import { CrisLayoutTab } from '../../../../core/layout/models/tab.model';
-import { BehaviorSubject } from 'rxjs';
+import { CrisLayoutSidebarItemComponent } from '../../shared/sidebar-item/cris-layout-sidebar-item.component';
+import { CrisLayoutNavbarComponent } from './cris-layout-navbar.component';
 
 
 describe('CrisLayoutNavbarComponent', () => {
   let component: CrisLayoutNavbarComponent;
   let fixture: ComponentFixture<CrisLayoutNavbarComponent>;
   let de: DebugElement;
+  let router: RouterStub;
 
   const windowServiceStub = new HostWindowServiceStub(1000);
 
@@ -34,16 +48,16 @@ describe('CrisLayoutNavbarComponent', () => {
       'dc.title': [
         {
           language: null,
-          value: 'test'
-        }
+          value: 'test',
+        },
       ],
       'dspace.entity.type': [
         {
           language: null,
-          value: 'Person'
-        }
-      ]
-    }
+          value: 'Person',
+        },
+      ],
+    },
   });
 
   beforeEach(async () => {
@@ -53,22 +67,24 @@ describe('CrisLayoutNavbarComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
+        CrisLayoutNavbarComponent,
       ],
-      declarations: [CrisLayoutNavbarComponent],
       providers: [
         { provide: HostWindowService, useValue: windowServiceStub },
         { provide: Router, useClass: RouterStub },
         { provide: ActivatedRoute, useValue: activatedRouteStub },
-      ]
+      ],
     })
-      .compileComponents();
+      .overrideComponent(CrisLayoutNavbarComponent, { remove: { imports: [CrisLayoutSidebarItemComponent] } }).compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CrisLayoutNavbarComponent);
+    router = TestBed.inject(Router) as unknown as RouterStub;
+    router.setNavigateReturnValue(true);
     component = fixture.componentInstance;
     component.item = mockItem;
     component.tabs = [];
@@ -88,6 +104,7 @@ describe('CrisLayoutNavbarComponent', () => {
       component.tabs = loaderMultilevelTabs;
       component.item = mockItem;
       component.activeTab$ = new BehaviorSubject<CrisLayoutTab>(loaderMultilevelTabs[0]);
+      component.isXsOrSm$ = of(true);
       component.ngOnInit();
       fixture.detectChanges();
     });
@@ -101,6 +118,7 @@ describe('CrisLayoutNavbarComponent', () => {
 
       beforeEach(() => {
         windowServiceStub.setWidth(400);
+        component.ngOnInit();
         fixture.detectChanges();
       });
 

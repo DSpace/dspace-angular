@@ -1,23 +1,36 @@
+import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
+
 import {
+  dateToISOFormat,
+  dateToString,
+  isNgbDateStruct,
+} from '../../../shared/date.util';
+import {
+  hasNoValue,
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../../../shared/empty.util';
+import { FormFieldLanguageValueObject } from '../../../shared/form/builder/models/form-field-language-value.model';
+import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
+import { CoreState } from '../../core-state.model';
+import { ConfidenceType } from '../../shared/confidence-type';
+import { Metadata } from '../../shared/metadata.utils';
+import { VocabularyEntry } from '../../submission/vocabularies/models/vocabulary-entry.model';
+import {
+  FlushPatchOperationAction,
   NewPatchAddOperationAction,
   NewPatchMoveOperationAction,
   NewPatchRemoveOperationAction,
-  NewPatchReplaceOperationAction
+  NewPatchReplaceOperationAction,
 } from '../json-patch-operations.actions';
 import { JsonPatchOperationPathObject } from './json-patch-operation-path-combiner';
-import { Injectable } from '@angular/core';
-import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../../shared/empty.util';
-import { dateToISOFormat, dateToString, isNgbDateStruct } from '../../../shared/date.util';
-import { VocabularyEntry } from '../../submission/vocabularies/models/vocabulary-entry.model';
-import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
-import { FormFieldLanguageValueObject } from '../../../shared/form/builder/models/form-field-language-value.model';
-import { CoreState } from '../../core-state.model';
 
 /**
  * Provides methods to dispatch JsonPatch Operations Actions
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class JsonPatchOperationsBuilder {
 
   constructor(private store: Store<CoreState>) {
@@ -34,13 +47,14 @@ export class JsonPatchOperationsBuilder {
    *    A boolean representing if the value to be added is the first of an array
    * @param plain
    *    A boolean representing if the value to be added is a plain text value
+   * @param languages
    */
-  add(path: JsonPatchOperationPathObject, value, first = false, plain = false) {
+  add(path: JsonPatchOperationPathObject, value, first = false, plain = false, languages: string[] = null) {
     this.store.dispatch(
       new NewPatchAddOperationAction(
         path.rootElement,
         path.subRootElement,
-        path.path, this.prepareValue(value, plain, first)));
+        path.path, this.prepareValue(value, plain, first, null, languages)));
   }
 
   /**
@@ -53,8 +67,9 @@ export class JsonPatchOperationsBuilder {
    * @param plain
    *    a boolean representing if the value to be added is a plain text value
    * @param securityLevel
+   * @param language
    */
-  replace(path: JsonPatchOperationPathObject, value, plain = false, securityLevel = null) {
+  replace(path: JsonPatchOperationPathObject, value, plain = false, securityLevel = null, language = null) {
     if (hasNoValue(value) || (typeof value === 'object' && hasNoValue(value.value))) {
       this.remove(path);
     } else {
@@ -63,7 +78,7 @@ export class JsonPatchOperationsBuilder {
           path.rootElement,
           path.subRootElement,
           path.path,
-          this.prepareValue(value, plain, false, securityLevel)));
+          this.prepareValue(value, plain, false, securityLevel, language)));
     }
   }
 
@@ -81,8 +96,8 @@ export class JsonPatchOperationsBuilder {
         path.rootElement,
         path.subRootElement,
         prevPath,
-        path.path
-      )
+        path.path,
+      ),
     );
   }
 
@@ -100,15 +115,29 @@ export class JsonPatchOperationsBuilder {
         path.path));
   }
 
-  protected prepareValue(value: any, plain: boolean, first: boolean, securityLevel = null) {
-      let operationValue: any = null;
+  /**
+   * Dispatches a new FlushPatchOperationAction
+   *
+   * @param path
+   *    a JsonPatchOperationPathObject representing path
+   */
+  flushOperation(path: JsonPatchOperationPathObject) {
+    this.store.dispatch(
+      new FlushPatchOperationAction(
+        path.rootElement,
+        path.subRootElement,
+        path.path));
+  }
+
+  protected prepareValue(value: any, plain: boolean, first: boolean, securityLevel = null, languages: string[] = null) {
+    let operationValue: any = null;
     if (hasValue(value)) {
       if (plain) {
         operationValue = value;
       } else {
         if (Array.isArray(value)) {
           operationValue = [];
-          value.forEach((entry) => {
+          value.forEach((entry, index) => {
             if ((typeof entry === 'object')) {
               if (isNotEmpty(securityLevel)) {
                 operationValue.push(this.prepareObjectValue(entry, securityLevel));
@@ -116,7 +145,7 @@ export class JsonPatchOperationsBuilder {
                 operationValue.push(this.prepareObjectValue(entry));
               }
             } else {
-              operationValue.push(new FormFieldMetadataValueObject(entry, null, securityLevel));
+              operationValue.push(new FormFieldMetadataValueObject(entry, languages ? languages[index] : null, securityLevel));
             }
           });
         } else if (typeof value === 'object') {
@@ -148,6 +177,11 @@ export class JsonPatchOperationsBuilder {
       } else {
         operationValue = value;
       }
+      //Update confidence if was added once the field was already created, value is set only in constructor of FormFieldMetadataValueObject
+      if (Metadata.hasValidAuthority(operationValue.authority) && (isEmpty(operationValue.confidence) || operationValue.confidence === -1)) {
+        operationValue.confidence = ConfidenceType.CF_ACCEPTED;
+      }
+
     } else if (value instanceof Date) {
       if (securityLevel != null) {
         operationValue = new FormFieldMetadataValueObject(dateToISOFormat(value), null, securityLevel);

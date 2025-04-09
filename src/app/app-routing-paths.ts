@@ -1,12 +1,15 @@
-import { DSpaceObject } from './core/shared/dspace-object.model';
-import { Community } from './core/shared/community.model';
-import { Collection } from './core/shared/collection.model';
-import { Item } from './core/shared/item.model';
-import { getCommunityPageRoute } from './community-page/community-page-routing-paths';
 import { getCollectionPageRoute } from './collection-page/collection-page-routing-paths';
-import { getItemModuleRoute, getItemPageRoute } from './item-page/item-page-routing-paths';
-import { hasValue } from './shared/empty.util';
+import { getCommunityPageRoute } from './community-page/community-page-routing-paths';
+import { Collection } from './core/shared/collection.model';
+import { Community } from './core/shared/community.model';
+import { DSpaceObject } from './core/shared/dspace-object.model';
+import { Item } from './core/shared/item.model';
 import { URLCombiner } from './core/url-combiner/url-combiner';
+import {
+  getItemModuleRoute,
+  getItemPageRoute,
+} from './item-page/item-page-routing-paths';
+import { hasValue } from './shared/empty.util';
 
 export const BITSTREAM_MODULE_PATH = 'bitstreams';
 
@@ -27,12 +30,12 @@ export function getBitstreamRequestACopyRoute(item, bitstream): { routerLink: st
   return {
     routerLink: url,
     queryParams: {
-      bitstream: bitstream.uuid
-    }
+      bitstream: bitstream.uuid,
+    },
   };
 }
 
-export const HOME_PAGE_PATH = 'admin';
+export const HOME_PAGE_PATH = 'home';
 
 export function getHomePageRoute() {
   return `/${HOME_PAGE_PATH}`;
@@ -142,6 +145,7 @@ export const EDIT_ITEM_PATH = 'edit-items';
 export function getEditItemPageRoute() {
   return `/${EDIT_ITEM_PATH}`;
 }
+export const CORRECTION_TYPE_PATH = 'corrections';
 
 export const STATISTICS_PAGE_PATH = 'statistics';
 export function getStatisticsModuleRoute() {

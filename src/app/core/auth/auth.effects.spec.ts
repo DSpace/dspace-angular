@@ -1,15 +1,44 @@
-import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import {
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
 import { Router } from '@angular/router';
-
 import { provideMockActions } from '@ngrx/effects/testing';
-import { Store, StoreModule } from '@ngrx/store';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
-import { Observable, of as observableOf, throwError as observableThrow } from 'rxjs';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import {
+  MockStore,
+  provideMockStore,
+} from '@ngrx/store/testing';
+import {
+  cold,
+  getTestScheduler,
+  hot,
+} from 'jasmine-marbles';
+import {
+  Observable,
+  of as observableOf,
+  throwError as observableThrow,
+} from 'rxjs';
 import { take } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
 
-import { AuthEffects } from './auth.effects';
+import {
+  AppState,
+  storeModuleConfig,
+} from '../../app.reducer';
+import {
+  authMethodsMock,
+  AuthServiceStub,
+} from '../../shared/testing/auth-service.stub';
+import { EPersonMock } from '../../shared/testing/eperson.mock';
+import { RouterStub } from '../../shared/testing/router.stub';
+import { StoreActionTypes } from '../../store.actions';
+import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
+import { EPerson } from '../eperson/models/eperson.model';
 import {
   AuthActionTypes,
   AuthenticatedAction,
@@ -33,18 +62,17 @@ import {
   RetrieveAuthMethodsAction,
   RetrieveAuthMethodsErrorAction,
   RetrieveAuthMethodsSuccessAction,
-  RetrieveTokenAction
+  RetrieveTokenAction,
 } from './auth.actions';
-import { authMethodsMock, AuthServiceStub } from '../../shared/testing/auth-service.stub';
-import { AuthService } from './auth.service';
+import { AuthEffects } from './auth.effects';
 import { authReducer } from './auth.reducer';
+import { AuthService } from './auth.service';
 import { AuthStatus } from './models/auth-status.model';
-import { EPersonMock } from '../../shared/testing/eperson.mock';
-import { AppState, storeModuleConfig } from '../../app.reducer';
-import { StoreActionTypes } from '../../store.actions';
-import { isAuthenticated, isAuthenticatedLoaded } from './selectors';
-import { AuthorizationDataService } from '../data/feature-authorization/authorization-data.service';
-import { RouterStub } from '../../shared/testing/router.stub';
+import {
+  getAuthenticatedUser,
+  isAuthenticated,
+  isAuthenticatedLoaded,
+} from './selectors';
 
 
 describe('AuthEffects', () => {
@@ -73,9 +101,9 @@ describe('AuthEffects', () => {
           authenticated: false,
           loaded: false,
           loading: false,
-          authMethods: []
-        }
-      }
+          authMethods: [],
+        },
+      },
     };
   }
 
@@ -83,7 +111,7 @@ describe('AuthEffects', () => {
     init();
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({ auth: authReducer }, storeModuleConfig)
+        StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
       ],
       providers: [
         AuthEffects,
@@ -106,8 +134,8 @@ describe('AuthEffects', () => {
         actions = hot('--a-', {
           a: {
             type: AuthActionTypes.AUTHENTICATE,
-            payload: { email: 'user', password: 'password' }
-          }
+            payload: { email: 'user', password: 'password' },
+          },
         });
 
         const expected = cold('--b-', { b: new AuthenticationSuccessAction(token) });
@@ -124,8 +152,8 @@ describe('AuthEffects', () => {
         actions = hot('--a-', {
           a: {
             type: AuthActionTypes.AUTHENTICATE,
-            payload: { email: 'user', password: 'wrongpassword' }
-          }
+            payload: { email: 'user', password: 'wrongpassword' },
+          },
         });
 
         const expected = cold('--b-', { b: new AuthenticationErrorAction(new Error('Message Error test')) });
@@ -184,9 +212,9 @@ describe('AuthEffects', () => {
           type: AuthActionTypes.AUTHENTICATED_SUCCESS, payload: {
             authenticated: true,
             authToken: token,
-            userHref: EPersonMock._links.self.href
-          }
-        }
+            userHref: EPersonMock._links.self.href,
+          },
+        },
       });
 
       const expected = cold('--b-', { b: new RetrieveAuthenticatedEpersonAction(EPersonMock._links.self.href) });
@@ -236,8 +264,8 @@ describe('AuthEffects', () => {
         spyOn((authEffects as any).authService, 'checkAuthenticationCookie').and.returnValue(
           observableOf(
             {
-              authenticated: true
-            })
+              authenticated: true,
+            }),
         );
         spyOn((authEffects as any).authService, 'setExternalAuthStatus');
         actions = hot('--a-', { a: { type: AuthActionTypes.CHECK_AUTHENTICATION_TOKEN_COOKIE } });
@@ -256,7 +284,7 @@ describe('AuthEffects', () => {
       it('should return a RETRIEVE_AUTH_METHODS action in response to a CHECK_AUTHENTICATION_TOKEN_COOKIE action when authenticated is false', () => {
         spyOn((authEffects as any).authService, 'checkAuthenticationCookie').and.returnValue(
           observableOf(
-            { authenticated: false })
+            { authenticated: false }),
         );
         actions = hot('--a-', { a: { type: AuthActionTypes.CHECK_AUTHENTICATION_TOKEN_COOKIE } });
 
@@ -287,8 +315,8 @@ describe('AuthEffects', () => {
         actions = hot('--a-', {
           a: {
             type: AuthActionTypes.RETRIEVE_AUTHENTICATED_EPERSON,
-            payload: EPersonMock._links.self.href
-          }
+            payload: EPersonMock._links.self.href,
+          },
         });
 
         const expected = cold('--b-', { b: new RetrieveAuthenticatedEpersonSuccessAction(EPersonMock) });
@@ -345,8 +373,8 @@ describe('AuthEffects', () => {
       it('should return a AUTHENTICATE_SUCCESS action in response to a RETRIEVE_TOKEN action', (done) => {
         actions = hot('--a-', {
           a: {
-            type: AuthActionTypes.RETRIEVE_TOKEN
-          }
+            type: AuthActionTypes.RETRIEVE_TOKEN,
+          },
         });
 
         const expected = cold('--b-', { b: new AuthenticationSuccessAction(token) });
@@ -362,8 +390,8 @@ describe('AuthEffects', () => {
 
         actions = hot('--a-', {
           a: {
-            type: AuthActionTypes.RETRIEVE_TOKEN
-          }
+            type: AuthActionTypes.RETRIEVE_TOKEN,
+          },
         });
 
         const expected = cold('--b-', { b: new AuthenticationErrorAction(new Error('Message Error test')) });
@@ -467,13 +495,15 @@ describe('AuthEffects', () => {
 
     describe('when refresh state, token and redirect action', () => {
       it('should return a REFRESH_STATE_TOKEN_AND_REDIRECT_SUCCESS action in response to a REFRESH_STATE_TOKEN_AND_REDIRECT action', (done) => {
+
+        store.overrideSelector(getAuthenticatedUser, { id: EPersonMock.id } as EPerson);
         spyOn((authEffects as any).authService, 'retrieveAuthenticatedUserById').and.returnValue(observableOf(EPersonMock));
 
         actions = hot('--a-', {
           a: {
             type: AuthActionTypes.REFRESH_EPERSON_AND_TOKEN_REDIRECT,
-            payload: { token, redirectUrl }
-          }
+            payload: { token, redirectUrl },
+          },
         });
 
         const expected = cold('--b-', { b: new RefreshEpersonAndTokenRedirectSuccessAction(EPersonMock, token, redirectUrl) });
@@ -484,14 +514,16 @@ describe('AuthEffects', () => {
     });
 
     describe('when refresh state token failed', () => {
-      it('should return a REFRESH_STATE_TOKEN_AND_REDIRECT_SUCCESS action in response to a REFRESH_STATE_TOKEN_AND_REDIRECT action', (done) => {
+      it('should return a REFRESH_STATE_TOKEN_AND_REDIRECT_ERROR action in response to a REFRESH_STATE_TOKEN_AND_REDIRECT action', (done) => {
+
+        store.overrideSelector(getAuthenticatedUser, { id: 'mock-id' } as EPerson);
         spyOn((authEffects as any).authService, 'retrieveAuthenticatedUserById').and.returnValue(observableThrow(''));
 
         actions = hot('--a-', {
           a: {
             type: AuthActionTypes.REFRESH_EPERSON_AND_TOKEN_REDIRECT,
-            payload: { token, redirectUrl }
-          }
+            payload: { token, redirectUrl },
+          },
         });
 
         const expected = cold('--b-', { b: new RefreshEpersonAndTokenRedirectErrorAction() });
@@ -514,8 +546,8 @@ describe('AuthEffects', () => {
       actions = hot('--a-', {
         a: {
           type: AuthActionTypes.REFRESH_EPERSON_AND_TOKEN_REDIRECT_SUCCESS,
-          payload: { ePerson: EPersonMock, token, redirectUrl }
-        }
+          payload: { ePerson: EPersonMock, token, redirectUrl },
+        },
       });
 
       const expected = cold('--b-', { b: new RefreshTokenAndRedirectAction(token, redirectUrl) });
@@ -530,7 +562,7 @@ describe('AuthEffects', () => {
     describe('when refresh token and redirect succeeded', () => {
       it('should return a REFRESH_TOKEN_AND_REDIRECT_SUCCESS action in response to a REFRESH_TOKEN_AND_REDIRECT action', (done) => {
 
-        actions = hot('--a-', { a: { type: AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT, payload: {token, redirectUrl} } });
+        actions = hot('--a-', { a: { type: AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT, payload: { token, redirectUrl } } });
 
         const expected = cold('--b-', { b: new RefreshTokenAndRedirectSuccessAction(token, redirectUrl) });
 
@@ -543,7 +575,7 @@ describe('AuthEffects', () => {
       it('should return a REFRESH_TOKEN_AND_REDIRECT_ERROR action in response to a REFRESH_TOKEN_AND_REDIRECT action', (done) => {
         spyOn((authEffects as any).authService, 'refreshAuthenticationToken').and.returnValue(observableThrow(''));
 
-        actions = hot('--a-', { a: { type: AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT, payload: {token, redirectUrl} } });
+        actions = hot('--a-', { a: { type: AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT, payload: { token, redirectUrl } } });
 
         const expected = cold('--b-', { b: new RefreshTokenAndRedirectErrorAction() });
 
@@ -562,7 +594,7 @@ describe('AuthEffects', () => {
 
     it('should replace token and redirect in response to a REFRESH_TOKEN_AND_REDIRECT_SUCCESS action', () => {
 
-      actions = hot('--a-', { a: { type: AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT_SUCCESS, payload: {token, redirectUrl} } });
+      actions = hot('--a-', { a: { type: AuthActionTypes.REFRESH_TOKEN_AND_REDIRECT_SUCCESS, payload: { token, redirectUrl } } });
 
       spyOn(authServiceStub, 'replaceToken');
 

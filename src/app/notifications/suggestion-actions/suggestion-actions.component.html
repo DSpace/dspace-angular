@@ -1,0 +1,29 @@
+<div class="d-inline">
+  <div ngbDropdown class="d-inline">
+    <button *ngIf="isCollectionFixed; else chooseCollection" class="btn btn-success" type="button" (click)="approveAndImportCollectionFixed()">
+      <i class="fa fa-check" aria-hidden="true"></i> {{ approveAndImportLabel() | translate}}
+    </button>
+    <ng-template #chooseCollection>
+      <button class="btn btn-success" id="dropdownSubmission" ngbDropdownToggle
+              type="button">
+        <i class="fa fa-check" aria-hidden="true"></i> {{ approveAndImportLabel() | translate}}
+        <span class="caret"></span>
+      </button>
+
+      <div ngbDropdownMenu
+           class="dropdown-menu"
+           id="entityControlsDropdownMenu"
+           aria-labelledby="dropdownSubmission">
+        <ds-entity-dropdown (selectionChange)="openDialog($event)"></ds-entity-dropdown>
+      </div>
+    </ng-template>
+
+  </div>
+  <button (click)="ignoreSuggestion()" class="btn btn-danger ml-2"><i class="fa fa-ban"></i>
+    {{ ignoreSuggestionLabel() | translate}}</button>
+  <button *ngIf="!isBulk" (click)="toggleSeeEvidences()" [disabled]="!hasEvidence" class="btn btn-info ml-2">
+    <i class="fa fa-eye"></i>
+    <ng-container *ngIf="!seeEvidence"> {{ 'suggestion.seeEvidence' | translate}}</ng-container>
+    <ng-container *ngIf="seeEvidence"> {{ 'suggestion.hideEvidence' | translate}}</ng-container>
+  </button>
+</div>

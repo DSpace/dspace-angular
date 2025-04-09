@@ -1,21 +1,33 @@
-import { bitstreamWithoutThumbnail, mockThumbnail } from '../../../../../shared/mocks/bitstreams.mock';
-import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
-import { Item } from '../../../../../core/shared/item.model';
+import { DebugElement } from '@angular/core';
 import {
-  createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
-} from '../../../../../shared/remote-data.utils';
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { of } from 'rxjs';
+
 import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
+import { Item } from '../../../../../core/shared/item.model';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
-import { PersonSearchResultGridElementComponent } from './person-search-result-grid-element.component';
+import {
+  bitstreamWithoutThumbnail,
+  mockThumbnail,
+} from '../../../../../shared/mocks/bitstreams.mock';
+import { ThemedBadgesComponent } from '../../../../../shared/object-collection/shared/badges/themed-badges.component';
+import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
 import {
   getEntityGridElementTestComponent,
-  getGridElementTestBet
+  getGridElementTestBet,
 } from '../../../../../shared/object-grid/search-result-grid-element/item-search-result/item/item-search-result-grid-element.component.spec';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { DebugElement } from '@angular/core';
-import { of } from 'rxjs';
-import { By } from '@angular/platform-browser';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../../../shared/remote-data.utils';
+import { TruncatableComponent } from '../../../../../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
+import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbnail.component';
+import { PersonSearchResultGridElementComponent } from './person-search-result-grid-element.component';
 
 const mockItemWithMetadata: ItemSearchResult = new ItemSearchResult();
 mockItemWithMetadata.hitHighlights = {};
@@ -25,23 +37,23 @@ mockItemWithMetadata.indexableObject = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
+        value: 'This is just another title',
+      },
     ],
     'person.email': [
       {
         language: 'en_US',
-        value: 'Smith-Donald@gmail.com'
-      }
+        value: 'Smith-Donald@gmail.com',
+      },
     ],
     'person.jobTitle': [
       {
         language: 'en_US',
-        value: 'Web Developer'
-      }
-    ]
+        value: 'Web Developer',
+      },
+    ],
   },
-  thumbnail: createSuccessfulRemoteDataObject$(mockThumbnail)
+  thumbnail: createSuccessfulRemoteDataObject$(mockThumbnail),
 });
 
 const mockItemWithoutMetadata: ItemSearchResult = new ItemSearchResult();
@@ -52,11 +64,11 @@ mockItemWithoutMetadata.indexableObject = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
-    ]
+        value: 'This is just another title',
+      },
+    ],
   },
-  thumbnail: createSuccessfulRemoteDataObject$(null)
+  thumbnail: createSuccessfulRemoteDataObject$(null),
 });
 
 const thumbnailConfig = {
@@ -65,9 +77,9 @@ const thumbnailConfig = {
   'type': 'property',
   '_links': {
     'self': {
-      'href': 'http://localhost:8080/server/api/config/properties/cris.layout.thumbnail.maxsize'
-    }
-  }
+      'href': 'http://localhost:8080/server/api/config/properties/cris.layout.thumbnail.maxsize',
+    },
+  },
 };
 
 const thumbnailConfigLess = {
@@ -76,9 +88,9 @@ const thumbnailConfigLess = {
   'type': 'property',
   '_links': {
     'self': {
-      'href': 'http://localhost:8080/server/api/config/properties/cris.layout.thumbnail.maxsize'
-    }
-  }
+      'href': 'http://localhost:8080/server/api/config/properties/cris.layout.thumbnail.maxsize',
+    },
+  },
 };
 
 
@@ -92,7 +104,17 @@ describe('PersonSearchResultGridElementComponent check different maxSize of thum
 
   // waitForAsync beforeEach
   beforeEach(waitForAsync(() => {
-    return TestBed.configureTestingModule(getGridElementTestBet(PersonSearchResultGridElementComponent));
+    return TestBed.configureTestingModule(getGridElementTestBet(PersonSearchResultGridElementComponent))
+      .overrideComponent(PersonSearchResultGridElementComponent, {
+        remove: {
+          imports: [
+            ThemedThumbnailComponent,
+            ThemedBadgesComponent,
+            TruncatableComponent,
+            TruncatablePartComponent,
+          ],
+        },
+      });
   }));
 
   beforeEach(() => {
@@ -115,7 +137,7 @@ describe('PersonSearchResultGridElementComponent check different maxSize of thum
     });
 
     it('should show bitstream content image src', () => {
-      const thum = fixture.debugElement.query(By.css('ds-themed-thumbnail'));
+      const thum = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thum.nativeElement.thumbnail.id).toEqual('bitstream1');
     });
 
@@ -130,7 +152,7 @@ describe('PersonSearchResultGridElementComponent check different maxSize of thum
     });
 
     it('should not show bitstream content image src', () => {
-      const thum = fixture.debugElement.query(By.css('ds-themed-thumbnail'));
+      const thum = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thum.nativeElement.thumbnail).toBeFalsy();
     });
 
@@ -146,7 +168,7 @@ describe('PersonSearchResultGridElementComponent check different maxSize of thum
     });
 
     it('should show thumbnail content image src', () => {
-      const thum = fixture.debugElement.query(By.css('ds-themed-thumbnail'));
+      const thum = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thum.nativeElement.thumbnail.id).toEqual('thumbnail1');
     });
 
@@ -162,7 +184,7 @@ describe('PersonSearchResultGridElementComponent check different maxSize of thum
     });
 
     it('should not show thumbnail content image src', () => {
-      const thum = fixture.debugElement.query(By.css('ds-themed-thumbnail'));
+      const thum = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thum.nativeElement.thumbnail).toBeFalsy();
     });
 

@@ -1,24 +1,23 @@
 import { Injectable } from '@angular/core';
-
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import {
+  filter,
+  map,
+} from 'rxjs/operators';
 import { validate as uuidValidate } from 'uuid';
 
+import { isNotEmpty } from '../../shared/empty.util';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
-import { DSPACE_OBJECT } from '../shared/dspace-object.resource-type';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { RequestService } from './request.service';
 import { IdentifiableDataService } from './base/identifiable-data.service';
-import { dataService } from './base/data-service.decorator';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteData } from './remote-data';
-import { RequestParam } from '../cache/models/request-param.model';
-import { isNotEmpty } from '../../shared/empty.util';
+import { RequestService } from './request.service';
 
-@Injectable()
-@dataService(DSPACE_OBJECT)
+@Injectable({ providedIn: 'root' })
 export class DSpaceObjectDataService extends IdentifiableDataService<DSpaceObject> {
 
   constructor(
@@ -77,7 +76,7 @@ export class DSpaceObjectDataService extends IdentifiableDataService<DSpaceObjec
     const options = Object.assign({}, {
       searchParams: [
         new RequestParam('q', id),
-      ]
+      ],
     });
 
     projections.forEach((projection) => {
@@ -87,7 +86,7 @@ export class DSpaceObjectDataService extends IdentifiableDataService<DSpaceObjec
     const hrefObs = this.halService.getEndpoint('items').pipe(
       filter((href: string) => isNotEmpty(href)),
       map((href: string) => `${href}/search/${searchMethod}`),
-      map((href: string) => this.buildHrefFromFindOptions(href, options, [], ...linksToFollow))
+      map((href: string) => this.buildHrefFromFindOptions(href, options, [], ...linksToFollow)),
     );
 
     return this.findByHref(hrefObs, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow);

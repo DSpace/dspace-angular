@@ -8,7 +8,6 @@
 
 # Docker Compose for running the DSpace Angular UI dist build
 # for previewing with the DSpace Demo site backend
-version: '3.7'
 networks:
   dspacenet:
 services:
@@ -24,10 +23,10 @@ services:
       # This is because Server Side Rendering (SSR) currently requires a public URL,
       # see this bug: https://github.com/DSpace/dspace-angular/issues/1485
       DSPACE_REST_SSL: 'true'
-      DSPACE_REST_HOST: demo.dspace.org
+      DSPACE_REST_HOST: sandbox.dspace.org
       DSPACE_REST_PORT: 443
       DSPACE_REST_NAMESPACE: /server
-    image: dspace/dspace-angular:dspace-7_x-dist
+    image: dspace/dspace-angular:${DSPACE_VER:-latest}-dist
     build:
       context: ..
       dockerfile: Dockerfile.dist

@@ -1,7 +1,7 @@
 <footer class="text-lg-start">
   <div *ngIf="showTopFooter" class="top-footer">
     <!-- Grid container -->
-    <ds-themed-text-section *ngIf="hasSiteFooterSections" [sectionId]="'site'" [textRowSection]=section [site]="(site | async)"></ds-themed-text-section>
+    <ds-text-section *ngIf="hasSiteFooterSections" [sectionId]="'site'" [textRowSection]=section [site]="(site | async)"></ds-text-section>
     <div *ngIf="!hasSiteFooterSections" class=" container p-4">
       <!--Grid row-->
       <div class="row">
@@ -63,24 +63,31 @@
           <img src="assets/images/logo-4science-small.png" alt="{{ 'footer.link.4science' | translate}}" />
         </a>
       </p>
-      <ul class="footer-info list-unstyled small d-flex justify-content-center mb-0">
+      <ul class="footer-info list-unstyled d-flex justify-content-center mb-0">
         <li>
-            <a class="text-white" href="javascript:void(0);"
-             (click)="showCookieSettings()">{{ 'footer.link.cookies' | translate}}</a>
+          <button class="btn btn-link text-white" type="button" (click)="showCookieSettings()">
+            {{ 'footer.link.cookies' | translate}}
+          </button>
         </li>
         <li *ngIf="showPrivacyPolicy">
-          <a class="text-white"
+          <a class="btn text-white"
              routerLink="info/privacy">{{ 'footer.link.privacy-policy' | translate}}</a>
         </li>
         <li *ngIf="showEndUserAgreement">
-          <a class="text-white"
+          <a class="btn text-white"
              routerLink="info/end-user-agreement">{{ 'footer.link.end-user-agreement' | translate}}</a>
         </li>
         <li *ngIf="showSendFeedback$ | async">
-          <a class="text-white"
+          <a class="btn text-white"
              routerLink="info/feedback">{{ 'footer.link.feedback' | translate}}</a>
         </li>
       </ul>
+    </div>
+    <div *ngIf="coarLdnEnabled$ | async" class="notify-enabled text-white">
+      <a class="coar-notify-support-route" routerLink="info/coar-notify-support">
+        <img class="n-coar" src="assets/images/n-coar.svg" [attr.alt]="'menu.header.image.logo' | translate" />
+        {{ 'footer.link.coar-notify-support' | translate }}
+      </a>
     </div>
   </div>
   <!-- Copyright -->

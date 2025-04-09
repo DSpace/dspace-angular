@@ -14,7 +14,10 @@
             [linkType]="linkType"
             [context]="context"
             [hidePaginationDetail]="hidePaginationDetail"
+            [showLabel]="showLabel"
+            [showMetrics]="showMetrics"
             [showThumbnails]="showThumbnails"
+            [showCorrection]="showCorrection"
             [customData]="customData"
             (contentChange)="contentChange.emit($event)"
             (customEvent)="emitCustomEvent($event)"
@@ -22,10 +25,10 @@
             (selectObject)="selectObject.emit($event)">
     </ds-viewable-collection>
 </div>
-<ds-themed-loading *ngIf="isLoading()" message="{{'loading.search-results' | translate}}"></ds-themed-loading>
+<ds-loading *ngIf="isLoading()" message="{{'loading.search-results' | translate}}" [showFallbackMessages]="true"></ds-loading>
 <ds-error *ngIf="showError()"
           message="{{errorMessageLabel() | translate}}"></ds-error>
-<div *ngIf="searchResults?.payload?.page.length == 0 || searchResults?.statusCode == 400">
+<div *ngIf="searchResults?.payload?.page.length === 0 || searchResults?.statusCode === 400">
     {{ 'search.results.no-results' | translate }}
     <a [routerLink]="['/search']"
        [queryParams]="{ query: surroundStringWithQuotes(searchConfig?.query) }"

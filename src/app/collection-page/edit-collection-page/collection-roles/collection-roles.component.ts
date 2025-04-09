@@ -1,11 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AsyncPipe,
+  NgForOf,
+} from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { first, map } from 'rxjs/operators';
+import {
+  first,
+  map,
+} from 'rxjs/operators';
+
 import { RemoteData } from '../../../core/data/remote-data';
 import { Collection } from '../../../core/shared/collection.model';
-import { getRemoteDataPayload, getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { HALLink } from '../../../core/shared/hal-link.model';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../../core/shared/operators';
+import { ComcolRoleComponent } from '../../../shared/comcol/comcol-forms/edit-comcol-page/comcol-role/comcol-role.component';
 import { hasValue } from '../../../shared/empty.util';
 
 /**
@@ -14,6 +29,12 @@ import { hasValue } from '../../../shared/empty.util';
 @Component({
   selector: 'ds-collection-roles',
   templateUrl: './collection-roles.component.html',
+  imports: [
+    ComcolRoleComponent,
+    NgForOf,
+    AsyncPipe,
+  ],
+  standalone: true,
 })
 export class CollectionRolesComponent implements OnInit {
 

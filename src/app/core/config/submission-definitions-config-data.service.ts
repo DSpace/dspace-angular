@@ -1,23 +1,22 @@
 import { Injectable } from '@angular/core';
-
 import { Observable } from 'rxjs';
-import { mergeMap, take } from 'rxjs/operators';
+import {
+  mergeMap,
+  take,
+} from 'rxjs/operators';
 
-import { ConfigDataService } from './config-data.service';
-import { RequestService } from '../data/request.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { ConfigObject } from './models/config.model';
-import { dataService } from '../data/base/data-service.decorator';
-import { SUBMISSION_DEFINITION_TYPE } from './models/config-type';
-import { RemoteData } from '../data/remote-data';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { FindListOptions } from '../data/find-list-options.model';
 import { PaginatedList } from '../data/paginated-list.model';
+import { RemoteData } from '../data/remote-data';
+import { RequestService } from '../data/request.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { ConfigDataService } from './config-data.service';
+import { ConfigObject } from './models/config.model';
 
-@Injectable()
-@dataService(SUBMISSION_DEFINITION_TYPE)
+@Injectable({ providedIn: 'root' })
 export class SubmissionDefinitionsConfigDataService extends ConfigDataService {
   constructor(
     protected requestService: RequestService,

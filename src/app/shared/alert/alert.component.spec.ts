@@ -1,13 +1,23 @@
-import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { BrowserModule, By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectorRef,
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
 import { TranslateModule } from '@ngx-translate/core';
 
-import { AlertComponent } from './alert.component';
 import { createTestComponent } from '../testing/utils.test';
+import { TruncatableComponent } from '../truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../truncatable/truncatable-part/truncatable-part.component';
+import { AlertComponent } from './alert.component';
 import { AlertType } from './alert-type';
 
 describe('AlertComponent test suite', () => {
@@ -19,21 +29,18 @@ describe('AlertComponent test suite', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        BrowserModule,
         CommonModule,
         NoopAnimationsModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        TranslateModule.forRoot(),
         AlertComponent,
-        TestComponent
+        TestComponent,
       ],
       providers: [
         ChangeDetectorRef,
-        AlertComponent
+        AlertComponent,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents().then();
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(AlertComponent, { remove: { imports: [TruncatableComponent, TruncatablePartComponent] } }).compileComponents().then();
   }));
 
   describe('', () => {
@@ -104,7 +111,9 @@ describe('AlertComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
+  standalone: true,
+  imports: [CommonModule],
 })
 class TestComponent {
 

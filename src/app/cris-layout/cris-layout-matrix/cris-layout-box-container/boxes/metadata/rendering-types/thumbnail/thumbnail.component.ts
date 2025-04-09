@@ -1,30 +1,52 @@
-import { Component, Inject, OnInit } from '@angular/core';
-
-import { BehaviorSubject, of as observableOf } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  of as observableOf,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+} from 'rxjs/operators';
 
-import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
 import { BitstreamDataService } from '../../../../../../../core/data/bitstream-data.service';
-import { hasValue, isEmpty, isNotEmpty } from '../../../../../../../shared/empty.util';
-import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
-import { BitstreamRenderingModelComponent } from '../bitstream-rendering-model';
-import { Item } from '../../../../../../../core/shared/item.model';
-import { LayoutField } from '../../../../../../../core/layout/models/box.model';
-import { getFirstCompletedRemoteData } from '../../../../../../../core/shared/operators';
 import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
+import { LayoutField } from '../../../../../../../core/layout/models/box.model';
+import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
+import { Item } from '../../../../../../../core/shared/item.model';
+import { getFirstCompletedRemoteData } from '../../../../../../../core/shared/operators';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../../../../../../../shared/empty.util';
+import { ThemedThumbnailComponent } from '../../../../../../../thumbnail/themed-thumbnail.component';
+import { BitstreamRenderingModelComponent } from '../bitstream-rendering-model';
 
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
+  // eslint-disable-next-line @angular-eslint/component-selector, dspace-angular-ts/themed-component-selectors
   selector: 'span[ds-thumbnail].float-left',
   templateUrl: './thumbnail.component.html',
-  styleUrls: ['./thumbnail.component.scss']
+  styleUrls: ['./thumbnail.component.scss'],
+  standalone: true,
+  imports: [
+    ThemedThumbnailComponent,
+    AsyncPipe,
+    NgIf,
+  ],
 })
-@MetadataBoxFieldRendering(FieldRenderingType.THUMBNAIL, true)
 /**
  * The component for displaying a thumbnail rendered metadata box
  */
-export class ThumbnailComponent extends BitstreamRenderingModelComponent implements OnInit {
+export class ThumbnailRenderingComponent extends BitstreamRenderingModelComponent implements OnInit {
 
   /**
    * The bitstream to be rendered
@@ -50,10 +72,11 @@ export class ThumbnailComponent extends BitstreamRenderingModelComponent impleme
     @Inject('fieldProvider') public fieldProvider: LayoutField,
     @Inject('itemProvider') public itemProvider: Item,
     @Inject('renderingSubTypeProvider') public renderingSubTypeProvider: string,
+    @Inject('tabNameProvider') public tabNameProvider: string,
     protected bitstreamDataService: BitstreamDataService,
-    protected translateService: TranslateService
+    protected translateService: TranslateService,
   ) {
-    super(fieldProvider, itemProvider, renderingSubTypeProvider, bitstreamDataService, translateService);
+    super(fieldProvider, itemProvider, renderingSubTypeProvider, tabNameProvider, bitstreamDataService, translateService);
   }
 
   /**
@@ -76,13 +99,13 @@ export class ThumbnailComponent extends BitstreamRenderingModelComponent impleme
                 } else {
                   return null;
                 }
-              })
+              }),
             );
           }
         } else {
           return observableOf(null);
         }
-      })
+      }),
     ).subscribe((thumbnail: Bitstream) => {
       if (isNotEmpty(thumbnail)) {
         this.thumbnail$.next(thumbnail);

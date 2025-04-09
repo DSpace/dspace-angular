@@ -1,28 +1,68 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-
-import { BehaviorSubject, combineLatest, from, shareReplay } from 'rxjs';
-import { map, mergeMap, take, tap, toArray } from 'rxjs/operators';
-import { TranslateService } from '@ngx-translate/core';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  AsyncPipe,
+  KeyValuePipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
+import {
+  NgbActiveModal,
+  NgbModal,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import findIndex from 'lodash/findIndex';
+import {
+  BehaviorSubject,
+  combineLatest,
+  from,
+  shareReplay,
+} from 'rxjs';
+import {
+  map,
+  mergeMap,
+  take,
+  tap,
+  toArray,
+} from 'rxjs/operators';
 
-import { Subscription } from '../models/subscription.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { SubscriptionsDataService } from '../subscriptions-data.service';
-import { NotificationsService } from '../../notifications/notifications.service';
+import { AuthService } from '../../../core/auth/auth.service';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../core/data/remote-data';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../../core/shared/operators';
-import { AuthService } from '../../../core/auth/auth.service';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../../core/shared/operators';
+import { AlertComponent } from '../../alert/alert.component';
 import { isNotEmpty } from '../../empty.util';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { ThemedTypeBadgeComponent } from '../../object-collection/shared/badges/type-badge/themed-type-badge.component';
+import { Subscription } from '../models/subscription.model';
+import { SubscriptionsDataService } from '../subscriptions-data.service';
 
 @Component({
   selector: 'ds-subscription-modal',
   templateUrl: './subscription-modal.component.html',
-  styleUrls: ['./subscription-modal.component.scss']
+  styleUrls: ['./subscription-modal.component.scss'],
+  standalone: true,
+  imports: [NgIf, FormsModule, ReactiveFormsModule, ThemedTypeBadgeComponent, NgFor, AlertComponent, AsyncPipe, KeyValuePipe, TranslateModule],
 })
 /**
  * Modal that allows to manage the subscriptions for the selected item
@@ -103,7 +143,7 @@ export class SubscriptionModalComponent implements OnInit {
     this.authService.getAuthenticatedUserFromStore().pipe(
       take(1),
       map((ePerson) => ePerson.uuid),
-      shareReplay(),
+      shareReplay({ refCount: false }),  // todo: check if this is ok
     ).subscribe((ePersonId: string) => {
       this.ePersonId = ePersonId;
       if (isNotEmpty(this.subscription)) {
@@ -115,8 +155,8 @@ export class SubscriptionModalComponent implements OnInit {
 
     this.subscriptionForm.valueChanges.subscribe((newValue) => {
       let anyFrequencySelected = false;
-      for (let f of this.frequencyDefaultValues) {
-        for (let type of this.subscriptionDefaultTypes) {
+      for (const f of this.frequencyDefaultValues) {
+        for (const type of this.subscriptionDefaultTypes) {
           anyFrequencySelected = anyFrequencySelected || newValue[type].frequencies[f];
         }
         if (anyFrequencySelected) {
@@ -129,11 +169,11 @@ export class SubscriptionModalComponent implements OnInit {
 
   initFormByAllSubscriptions(): void {
     this.subscriptionForm = new UntypedFormGroup({});
-    for (let t of this.subscriptionDefaultTypes) {
+    for (const t of this.subscriptionDefaultTypes) {
       const formGroup = new UntypedFormGroup({});
       formGroup.addControl('subscriptionId', this.formBuilder.control(''));
       formGroup.addControl('frequencies', this.formBuilder.group({}));
-      for (let f of this.frequencyDefaultValues) {
+      for (const f of this.frequencyDefaultValues) {
         (formGroup.controls.frequencies as UntypedFormGroup).addControl(f, this.formBuilder.control(false));
       }
       this.subscriptionForm.addControl(t, formGroup);
@@ -150,13 +190,13 @@ export class SubscriptionModalComponent implements OnInit {
     formGroup.addControl('subscriptionId', this.formBuilder.control(this.subscription.id));
     formGroup.addControl('frequencies', this.formBuilder.group({}));
     (formGroup.get('frequencies') as UntypedFormGroup).addValidators(Validators.required);
-    for (let f of this.frequencyDefaultValues) {
+    for (const f of this.frequencyDefaultValues) {
       const value = findIndex(this.subscription.subscriptionParameterList, ['value', f]) !== -1;
       (formGroup.controls.frequencies as UntypedFormGroup).addControl(f, this.formBuilder.control(value));
     }
 
     this.subscriptionForm = this.formBuilder.group({
-      [this.subscription.subscriptionType]: formGroup
+      [this.subscription.subscriptionType]: formGroup,
     });
   }
 
@@ -172,12 +212,12 @@ export class SubscriptionModalComponent implements OnInit {
       next: (res: PaginatedList<Subscription>) => {
         if (res.pageInfo.totalElements > 0) {
           this.showDeleteInfo$.next(true);
-          for (let subscription of res.page) {
+          for (const subscription of res.page) {
             const type = subscription.subscriptionType;
             const subscriptionGroup: UntypedFormGroup = this.subscriptionForm.get(type) as UntypedFormGroup;
             if (isNotEmpty(subscriptionGroup)) {
               subscriptionGroup.controls.subscriptionId.setValue(subscription.id);
-              for (let parameter of subscription.subscriptionParameterList.filter((p) => p.name === 'frequency')) {
+              for (const parameter of subscription.subscriptionParameterList.filter((p) => p.name === 'frequency')) {
                 (subscriptionGroup.controls.frequencies as UntypedFormGroup).controls[parameter.value]?.setValue(true);
               }
             }
@@ -185,9 +225,9 @@ export class SubscriptionModalComponent implements OnInit {
         }
         this.processing$.next(false);
       },
-      error: err => {
+      error: (err: unknown) => {
         this.processing$.next(false);
-      }
+      },
     });
   }
 
@@ -206,7 +246,7 @@ export class SubscriptionModalComponent implements OnInit {
         const body = this.createBody(
           subscriptionGroup.controls.subscriptionId.value,
           subscriptionType,
-          subscriptionGroup.controls.frequencies as UntypedFormGroup
+          subscriptionGroup.controls.frequencies as UntypedFormGroup,
         );
 
         if (isNotEmpty(body.id)) {
@@ -223,13 +263,13 @@ export class SubscriptionModalComponent implements OnInit {
       toBeProcessed.push(from(subscriptionsToBeCreated).pipe(
         mergeMap((subscriptionBody) => {
           return this.subscriptionService.createSubscription(subscriptionBody, this.ePersonId, this.dso.uuid).pipe(
-            getFirstCompletedRemoteData()
+            getFirstCompletedRemoteData(),
           );
         }),
         toArray(),
         tap((res: RemoteData<Subscription>[]) => {
           const successTypes = res.filter((rd: RemoteData<Subscription>) => rd.hasSucceeded)
-                                  .map((rd: RemoteData<Subscription>) => rd.payload.subscriptionType);
+            .map((rd: RemoteData<Subscription>) => rd.payload.subscriptionType);
           const failedTypes = res.filter((rd: RemoteData<Subscription>) => rd.hasFailed);
 
           if (successTypes.length > 0) {
@@ -239,7 +279,7 @@ export class SubscriptionModalComponent implements OnInit {
           if (failedTypes.length > 0) {
             this.notificationsService.error(null, this.translate.instant('subscriptions.modal.create.error'));
           }
-        })
+        }),
       ));
     }
 
@@ -247,7 +287,7 @@ export class SubscriptionModalComponent implements OnInit {
       toBeProcessed.push(from(subscriptionsToBeUpdated).pipe(
         mergeMap((subscriptionBody) => {
           return this.subscriptionService.updateSubscription(subscriptionBody, this.ePersonId, this.dso.uuid).pipe(
-            getFirstCompletedRemoteData()
+            getFirstCompletedRemoteData(),
           );
         }),
         toArray(),
@@ -263,7 +303,7 @@ export class SubscriptionModalComponent implements OnInit {
           if (failedTypes.length > 0) {
             this.notificationsService.error(null, this.translate.instant('subscriptions.modal.update.error'));
           }
-        })
+        }),
       ));
     }
 
@@ -277,16 +317,16 @@ export class SubscriptionModalComponent implements OnInit {
     const body = {
       id: (isNotEmpty(subscriptionId) ? subscriptionId : null),
       subscriptionType: subscriptionType,
-      subscriptionParameterList: []
+      subscriptionParameterList: [],
     };
 
-    for (let frequency of this.frequencyDefaultValues) {
+    for (const frequency of this.frequencyDefaultValues) {
       if (frequencies.value[frequency]) {
         body.subscriptionParameterList.push(
           {
             name: 'frequency',
             value: frequency,
-          }
+          },
         );
       }
     }

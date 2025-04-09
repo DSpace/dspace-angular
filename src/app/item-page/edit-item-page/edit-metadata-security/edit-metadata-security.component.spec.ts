@@ -1,7 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 
 import { EditMetadataSecurityComponent } from './edit-metadata-security.component';
-import { By } from '@angular/platform-browser';
 
 describe('EditMetadataSecurityComponent', () => {
   let component: EditMetadataSecurityComponent;
@@ -9,7 +12,7 @@ describe('EditMetadataSecurityComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [EditMetadataSecurityComponent]
+      imports: [EditMetadataSecurityComponent],
     })
       .compileComponents();
   });

@@ -1,14 +1,15 @@
 <ng-container *ngIf="(site$.value && hasHomeHeaderMetadata); then dsHomeHeader; else dsHomeNews"></ng-container>
 <ng-template #dsHomeHeader>
   <div id="home-header-wrapper">
-    <ds-themed-text-section [sectionId]="'site'"
+    <ds-text-section [sectionId]="'site'"
                             [textRowSection]="homeHeaderSection"
-                            [site]="site$.value"></ds-themed-text-section>
+                            [site]="site$.value"></ds-text-section>
   </div>
 </ng-template>
 
 <ng-template #dsHomeNews>
-  <ds-themed-home-news></ds-themed-home-news>
+  <ds-home-coar></ds-home-coar>
+  <ds-home-news></ds-home-news>
 </ng-template>
 
 <ng-container *ngIf="site$.value">
@@ -18,30 +19,30 @@
         <div *ngFor="let sectionComponent of sectionComponentRow" [class]="componentClass(sectionComponent)"
              [ngSwitch]="sectionComponent.componentType">
 
-          <ds-themed-top-section *ngSwitchCase="'top'"
+          <ds-top-section *ngSwitchCase="'top'"
                                  [sectionId]="sectionId"
-                                 [topSection]="$any(sectionComponent)"></ds-themed-top-section>
+                                 [topSection]="$any(sectionComponent)"></ds-top-section>
 
-          <ds-themed-browse-section *ngSwitchCase="'browse'"
+          <ds-browse-section *ngSwitchCase="'browse'"
                                     [sectionId]="sectionId"
-                                    [browseSection]="$any(sectionComponent)"></ds-themed-browse-section>
+                                    [browseSection]="$any(sectionComponent)"></ds-browse-section>
 
-          <ds-themed-search-section *ngSwitchCase="'search'"
+          <ds-search-section *ngSwitchCase="'search'"
                                     [sectionId]="sectionId"
-                                    [searchSection]="$any(sectionComponent)"></ds-themed-search-section>
+                                    [searchSection]="$any(sectionComponent)"></ds-search-section>
 
-          <ds-themed-facet-section *ngSwitchCase="'facet'"
+          <ds-facet-section *ngSwitchCase="'facet'"
                                    [sectionId]="sectionId"
-                                   [facetSection]="$any(sectionComponent)"></ds-themed-facet-section>
+                                   [facetSection]="$any(sectionComponent)"></ds-facet-section>
 
-          <ds-themed-counters-section *ngSwitchCase="'counters'"
+          <ds-counters-section *ngSwitchCase="'counters'"
                                       [sectionId]="sectionId"
-                                      [countersSection]="$any(sectionComponent)"></ds-themed-counters-section>
+                                      [countersSection]="$any(sectionComponent)"></ds-counters-section>
 
-          <ds-themed-text-section *ngSwitchCase="'text-row'"
+          <ds-text-section *ngSwitchCase="'text-row'"
                                   [sectionId]="sectionId"
                                   [textRowSection]="$any(sectionComponent)"
-                                  [site]="$any(sectionComponent).contentType === 'text-metadata' ? site$.value : null"></ds-themed-text-section>
+                                  [site]="$any(sectionComponent).contentType === 'text-metadata' ? site$.value : null"></ds-text-section>
 
         </div>
       </div>

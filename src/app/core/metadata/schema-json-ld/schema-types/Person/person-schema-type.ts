@@ -20,7 +20,7 @@ export class PersonSchemaType extends SchemaType {
       'email': SchemaType.getMetadataValue(item, 'person.email'),
       'identifier': SchemaType.getMetadataValue(item, 'person.identifier.*'),
       'nationality': SchemaType.getMetadataValue(item, 'crisrp.country'),
-      'knowsLanguage': SchemaType.getMetadataValue(item, 'person.knowsLanguage')
+      'knowsLanguage': SchemaType.getMetadataValue(item, 'person.knowsLanguage'),
     };
   }
 }

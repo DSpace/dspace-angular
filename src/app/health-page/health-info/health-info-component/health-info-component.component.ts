@@ -1,7 +1,17 @@
-import { Component, Input } from '@angular/core';
+import {
+  NgFor,
+  NgIf,
+  TitleCasePipe,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { HealthInfoComponent } from '../../models/health-component.model';
+import { ObjNgFor } from '../../../shared/utils/object-ngfor.pipe';
 import { HealthComponentComponent } from '../../health-panel/health-component/health-component.component';
+import { HealthInfoComponent } from '../../models/health-component.model';
 
 /**
  * Shows a health info object
@@ -9,7 +19,9 @@ import { HealthComponentComponent } from '../../health-panel/health-component/he
 @Component({
   selector: 'ds-health-info-component',
   templateUrl: './health-info-component.component.html',
-  styleUrls: ['./health-info-component.component.scss']
+  styleUrls: ['./health-info-component.component.scss'],
+  standalone: true,
+  imports: [NgFor, NgIf, NgbCollapseModule, TitleCasePipe, ObjNgFor],
 })
 export class HealthInfoComponentComponent extends HealthComponentComponent {
 

@@ -1,13 +1,21 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { metadataBoxConfigurationMock } from 'src/app/shared/testing/box-configurations.mock';
 
-import { RowComponent } from './row.component';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { Item } from '../../../../../../core/shared/item.model';
 import { TranslateLoaderMock } from '../../../../../../shared/mocks/translate-loader.mock';
 import { TextComponent } from '../rendering-types/text/text.component';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { Item } from '../../../../../../core/shared/item.model';
-import { metadataBoxConfigurationMock } from 'src/app/shared/testing/box-configurations.mock';
-import { By } from '@angular/platform-browser';
+import { MetadataContainerComponent } from './metadata-container/metadata-container.component';
+import { RowComponent } from './row.component';
 
 class TestItem {
   firstMetadataValue(key: string): string {
@@ -24,15 +32,12 @@ describe('RowComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      })],
-      declarations: [
-        RowComponent,
-        TextComponent
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+          useClass: TranslateLoaderMock,
+        },
+      }), RowComponent,
+      TextComponent],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(RowComponent, { remove: { imports: [MetadataContainerComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

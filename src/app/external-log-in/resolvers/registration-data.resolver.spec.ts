@@ -1,16 +1,23 @@
 import { TestBed } from '@angular/core/testing';
+import {
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+} from '@angular/router';
+import { Observable } from 'rxjs';
 
-import { RegistrationDataResolver } from './registration-data.resolver';
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { EpersonRegistrationService } from '../../core/data/eperson-registration.service';
+import { RemoteData } from '../../core/data/remote-data';
 import { Registration } from '../../core/shared/registration.model';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../shared/remote-data.utils';
+import { registrationDataResolver } from './registration-data.resolver';
 
-describe('RegistrationDataResolver', () => {
-  let resolver: RegistrationDataResolver;
+describe('registrationDataResolver', () => {
   let epersonRegistrationServiceSpy: jasmine.SpyObj<EpersonRegistrationService>;
   const registrationMock = Object.assign(new Registration(), {
-     email: 'test@user.com',
+    email: 'test@user.com',
   });
 
   beforeEach(() => {
@@ -18,16 +25,10 @@ describe('RegistrationDataResolver', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        RegistrationDataResolver,
-        { provide: EpersonRegistrationService, useValue: spy }
-      ]
+        { provide: EpersonRegistrationService, useValue: spy },
+      ],
     });
-    resolver = TestBed.inject(RegistrationDataResolver);
     epersonRegistrationServiceSpy = TestBed.inject(EpersonRegistrationService) as jasmine.SpyObj<EpersonRegistrationService>;
-  });
-
-  it('should be created', () => {
-    expect(resolver).toBeTruthy();
   });
 
   it('should resolve registration data based on a token', () => {
@@ -38,7 +39,11 @@ describe('RegistrationDataResolver', () => {
     route.params = { token: token };
     const state = {} as RouterStateSnapshot;
 
-    resolver.resolve(route, state).subscribe((data) => {
+    const obs = TestBed.runInInjectionContext(() => {
+      return registrationDataResolver(route, state);
+    }) as Observable<RemoteData<Registration>>;
+
+    obs.subscribe((data) => {
       expect(data).toEqual(createSuccessfulRemoteDataObject(registrationMock));
     });
     expect(epersonRegistrationServiceSpy.searchRegistrationByToken).toHaveBeenCalledWith(token);

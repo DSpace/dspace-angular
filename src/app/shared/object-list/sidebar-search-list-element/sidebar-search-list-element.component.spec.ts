@@ -1,17 +1,24 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { VarDirective } from '../../utils/var.directive';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { SearchResult } from '../../search/models/search-result.model';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { TruncatableService } from '../../truncatable/truncatable.service';
-import { LinkService } from '../../../core/cache/builders/link.service';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
-import { HALResource } from '../../../core/shared/hal-resource.model';
-import { ChildHALResource } from '../../../core/shared/child-hal-resource.model';
-import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+
 import { APP_CONFIG } from '../../../../config/app-config.interface';
+import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
+import { LinkService } from '../../../core/cache/builders/link.service';
+import { ChildHALResource } from '../../../core/shared/child-hal-resource.model';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { HALResource } from '../../../core/shared/hal-resource.model';
+import { mockTruncatableService } from '../../mocks/mock-trucatable.service';
+import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
+import { SearchResult } from '../../search/models/search-result.model';
+import { TruncatableService } from '../../truncatable/truncatable.service';
+import { TruncatablePartComponent } from '../../truncatable/truncatable-part/truncatable-part.component';
+import { VarDirective } from '../../utils/var.directive';
 
 export function createSidebarSearchListElementTests(
   componentClass: any,
@@ -20,7 +27,7 @@ export function createSidebarSearchListElementTests(
   expectedParentTitle: string,
   expectedTitle: string,
   expectedDescription: string,
-  extraProviders: any[] = []
+  extraProviders: any[] = [],
 ) {
   return () => {
     let component;
@@ -30,28 +37,27 @@ export function createSidebarSearchListElementTests(
 
     const environment = {
       browseBy: {
-        showThumbnails: true
-      }
+        showThumbnails: true,
+      },
     };
 
     beforeEach(waitForAsync(() => {
       linkService = jasmine.createSpyObj('linkService', {
         resolveLink: Object.assign(new HALResource(), {
-          [object.indexableObject.getParentLinkKey()]: createSuccessfulRemoteDataObject$(parent)
-        })
+          [object.indexableObject.getParentLinkKey()]: createSuccessfulRemoteDataObject$(parent),
+        }),
       });
       TestBed.configureTestingModule({
-        declarations: [componentClass, VarDirective],
-        imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+        imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), VarDirective],
         providers: [
-          { provide: TruncatableService, useValue: {} },
+          { provide: TruncatableService, useValue: mockTruncatableService },
           { provide: LinkService, useValue: linkService },
           { provide: APP_CONFIG, useValue: environment },
           DSONameService,
-          ...extraProviders
+          ...extraProviders,
         ],
-        schemas: [NO_ERRORS_SCHEMA]
-      }).compileComponents();
+        schemas: [NO_ERRORS_SCHEMA],
+      }).overrideComponent(componentClass, { remove: { imports: [TruncatablePartComponent] } }).compileComponents();
     }));
 
     beforeEach(() => {

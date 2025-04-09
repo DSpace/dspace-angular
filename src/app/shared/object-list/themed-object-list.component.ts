@@ -1,21 +1,32 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ObjectListComponent } from './object-list.component';
-import { ThemedComponent } from '../theme-support/themed.component';
-import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
-import { SortDirection, SortOptions } from '../../core/cache/models/sort-options.model';
-import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
-import { Context } from '../../core/shared/context.model';
-import { RemoteData } from '../../core/data/remote-data';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+
+import {
+  SortDirection,
+  SortOptions,
+} from '../../core/cache/models/sort-options.model';
 import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
+import { Context } from '../../core/shared/context.model';
+import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
 import { ListableObject } from '../object-collection/shared/listable-object.model';
+import { PaginationComponentOptions } from '../pagination/pagination-component-options.model';
+import { ThemedComponent } from '../theme-support/themed.component';
+import { ObjectListComponent } from './object-list.component';
 
 /**
  * Themed wrapper for ObjectListComponent
  */
 @Component({
-  selector: 'ds-themed-object-list',
+  selector: 'ds-object-list',
   styleUrls: [],
   templateUrl: '../theme-support/themed.component.html',
+  standalone: true,
+  imports: [ObjectListComponent],
 })
 export class ThemedObjectListComponent extends ThemedComponent<ObjectListComponent> {
 
@@ -79,6 +90,11 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
   @Input() importConfig: { buttonLabel: string };
 
   /**
+   * Whether to show the badge label or not
+   */
+  @Input() showLabel: boolean;
+
+  /**
    * Whether to show the metrics badges
    */
   @Input() showMetrics = true;
@@ -91,7 +107,12 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
   /**
    * Whether to show the thumbnail preview
    */
-  @Input() showThumbnails;
+  @Input() showThumbnails: boolean;
+
+  /**
+   * Whether to show if the item is a correction
+   */
+  @Input() showCorrection = false;
 
   /**
    * Emit when one of the listed object has changed.
@@ -175,9 +196,11 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
     'hidePaginationDetail',
     'importable',
     'importConfig',
+    'showLabel',
     'showMetrics',
     'showPaginator',
     'showThumbnails',
+    'showCorrection',
     'contentChange',
     'prev',
     'next',
@@ -192,7 +215,7 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
     'importObject',
     'sortFieldChange',
     'customData',
-    'customEvent'
+    'customEvent',
   ];
 
   protected getComponentName(): string {

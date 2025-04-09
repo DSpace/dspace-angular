@@ -1,15 +1,24 @@
-import { autoserialize, deserialize } from 'cerialize';
-
-import { HALLink } from '../../../shared/hal-link.model';
-import { VOCABULARY, VOCABULARY_ENTRY } from './vocabularies.resource-type';
-import { typedObject, link } from '../../../cache/builders/build-decorators';
-import { excludeFromEquals } from '../../../utilities/equals.decorators';
-import { isNotEmpty } from '../../../../shared/empty.util';
+import {
+  autoserialize,
+  deserialize,
+} from 'cerialize';
 import { Observable } from 'rxjs';
-import { RemoteData } from '../../../data/remote-data';
-import { PaginatedList } from '../../../data/paginated-list.model';
-import { VocabularyEntry } from './vocabulary-entry.model';
+
+import { isNotEmpty } from '../../../../shared/empty.util';
+import {
+  link,
+  typedObject,
+} from '../../../cache/builders/build-decorators';
 import { CacheableObject } from '../../../cache/cacheable-object.model';
+import { PaginatedList } from '../../../data/paginated-list.model';
+import { RemoteData } from '../../../data/remote-data';
+import { HALLink } from '../../../shared/hal-link.model';
+import { excludeFromEquals } from '../../../utilities/equals.decorators';
+import {
+  VOCABULARY,
+  VOCABULARY_ENTRY,
+} from './vocabularies.resource-type';
+import { VocabularyEntry } from './vocabulary-entry.model';
 
 export interface VocabularyExternalSourceMap {
   [metadata: string]: string;
@@ -57,13 +66,13 @@ export class Vocabulary implements CacheableObject {
    * this vocabulary
    */
   @autoserialize
-  entity: string;
+    entity: string;
 
   /**
    * If available represent that this vocabulary can be use to create a new entity
    */
   @autoserialize
-  externalSource: VocabularyExternalSourceMap;
+    externalSource: VocabularyExternalSourceMap;
 
   /**
    * A string representing the kind of Vocabulary model

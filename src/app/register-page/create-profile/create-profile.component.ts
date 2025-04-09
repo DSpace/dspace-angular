@@ -1,33 +1,75 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { map, switchMap, take } from 'rxjs/operators';
-import { Registration } from '../../core/shared/registration.model';
-import { Observable } from 'rxjs';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { LangConfig } from '../../../config/lang-config.interface';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
+import {
+  ActivatedRoute,
+  Router,
+  RouterLink,
+} from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AuthenticateAction } from '../../core/auth/auth.actions';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import { LangConfig } from '../../../config/lang-config.interface';
 import { environment } from '../../../environments/environment';
-import { isEmpty } from '../../shared/empty.util';
+import { AuthenticateAction } from '../../core/auth/auth.actions';
+import { CoreState } from '../../core/core-state.model';
 import { RemoteData } from '../../core/data/remote-data';
 import {
   END_USER_AGREEMENT_METADATA_FIELD,
-  EndUserAgreementService
+  EndUserAgreementService,
 } from '../../core/end-user-agreement/end-user-agreement.service';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
-import { CoreState } from '../../core/core-state.model';
+import { EPersonDataService } from '../../core/eperson/eperson-data.service';
+import { EPerson } from '../../core/eperson/models/eperson.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../core/shared/operators';
+import { Registration } from '../../core/shared/registration.model';
+import { ProfilePageSecurityFormComponent } from '../../profile-page/profile-page-security-form/profile-page-security-form.component';
+import { AlertComponent } from '../../shared/alert/alert.component';
+import { isEmpty } from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 
 /**
  * Component that renders the create profile page to be used by a user registering through a token
  */
 @Component({
-  selector: 'ds-create-profile',
+  selector: 'ds-base-create-profile',
   styleUrls: ['./create-profile.component.scss'],
-  templateUrl: './create-profile.component.html'
+  templateUrl: './create-profile.component.html',
+  imports: [
+    ProfilePageSecurityFormComponent,
+    TranslateModule,
+    NgIf,
+    AsyncPipe,
+    ReactiveFormsModule,
+    NgForOf,
+    AlertComponent,
+    RouterLink,
+  ],
+  standalone: true,
 })
 export class CreateProfileComponent implements OnInit {
   registration$: Observable<Registration>;
@@ -54,7 +96,7 @@ export class CreateProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private formBuilder: UntypedFormBuilder,
     private notificationsService: NotificationsService,
-    private endUserAgreementService: EndUserAgreementService
+    private endUserAgreementService: EndUserAgreementService,
   ) {
 
   }
@@ -71,7 +113,7 @@ export class CreateProfileComponent implements OnInit {
         }
         this.email = registration.email;
         this.token = registration.token;
-    });
+      });
     this.activeLangs = environment.languages.filter((MyLangConfig) => MyLangConfig.active === true);
 
     this.userInfoForm = this.formBuilder.group({
@@ -85,7 +127,7 @@ export class CreateProfileComponent implements OnInit {
       language: new UntypedFormControl(''),
       userAgreementAccept: new UntypedFormControl(false, {
         validators: [Validators.requiredTrue],
-      })
+      }),
     });
 
   }
@@ -137,29 +179,29 @@ export class CreateProfileComponent implements OnInit {
         metadata: {
           'eperson.firstname': [
             {
-              value: this.firstName.value
-            }
+              value: this.firstName.value,
+            },
           ],
           'eperson.lastname': [
             {
-              value: this.lastName.value
+              value: this.lastName.value,
             },
           ],
           'eperson.phone': [
             {
-              value: this.contactPhone.value
-            }
+              value: this.contactPhone.value,
+            },
           ],
           'eperson.language': [
             {
-              value: this.language.value
-            }
-          ]
+              value: this.language.value,
+            },
+          ],
         },
         email: this.email,
         password: this.password,
         canLogIn: true,
-        requireCertificate: false
+        requireCertificate: false,
       };
 
       // If the End User Agreement cookie is accepted, add end-user agreement metadata to the user
@@ -168,8 +210,8 @@ export class CreateProfileComponent implements OnInit {
           if (isUserAgreementEnabled && this.userAgreementAccept) {
             values.metadata[END_USER_AGREEMENT_METADATA_FIELD] = [
               {
-                value: String(true)
-              }
+                value: String(true),
+              },
             ];
             this.endUserAgreementService.removeCookieAccepted();
           }
@@ -180,7 +222,7 @@ export class CreateProfileComponent implements OnInit {
           return this.ePersonDataService.createEPersonForToken(eperson, this.token).pipe(
             getFirstCompletedRemoteData(),
           );
-        })
+        }),
       ).subscribe((rd: RemoteData<EPerson>) => {
         if (rd.hasSucceeded) {
           this.notificationsService.success(this.translateService.get(this.NOTIFICATIONS_PREFIX + 'success.head'),

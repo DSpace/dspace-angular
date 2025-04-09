@@ -1,18 +1,36 @@
-import { Component, OnInit, } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Site } from '../../core/shared/site.model';
-import { TextRowSection } from '../../core/layout/models/section.model';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SectionDataService } from '../../core/layout/section-data.service';
+import { Observable } from 'rxjs';
+import {
+  map,
+  take,
+} from 'rxjs/operators';
+
 import { SiteDataService } from '../../core/data/site-data.service';
+import { TextRowSection } from '../../core/layout/models/section.model';
+import { SectionDataService } from '../../core/layout/section-data.service';
 import { LocaleService } from '../../core/locale/locale.service';
-import { map, take } from 'rxjs/operators';
+import { Site } from '../../core/shared/site.model';
 import { isEmpty } from '../../shared/empty.util';
+import { ThemedTextSectionComponent } from '../../shared/explore/section-component/text-section/themed-text-section.component';
 
 @Component({
-  selector: 'ds-home-news',
+  selector: 'ds-base-home-news',
   styleUrls: ['./home-news.component.scss'],
-  templateUrl: './home-news.component.html'
+  templateUrl: './home-news.component.html',
+  standalone: true,
+  imports: [
+    ThemedTextSectionComponent,
+    AsyncPipe,
+    NgIf,
+  ],
 })
 
 /**
@@ -46,8 +64,8 @@ export class HomeNewsComponent implements OnInit {
     this.siteService.find().pipe(take(1)).subscribe(
       (site: Site) => {
         this.hasHomeNewsMetadata = !isEmpty(site?.firstMetadataValue('cris.cms.home-news',
-          {language: this.locale.getCurrentLanguageCode()}));
-      }
+          { language: this.locale.getCurrentLanguageCode() }));
+      },
     );
   }
 

@@ -13,10 +13,10 @@ export interface PathableObjectError {
  * The response substate in the NgRx store
  */
 export class ResponseState {
-    timeCompleted: number;
-    statusCode: number;
-    errorMessage?: string;
-    errors?: PathableObjectError[];
-    payloadLink?: HALLink;
-    unCacheableObject?: UnCacheableObject;
+  timeCompleted: number;
+  statusCode: number;
+  errorMessage?: string;
+  errors?: PathableObjectError[];
+  payloadLink?: HALLink;
+  unCacheableObject?: UnCacheableObject;
 }

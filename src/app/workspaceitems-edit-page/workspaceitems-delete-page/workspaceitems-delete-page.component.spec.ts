@@ -1,31 +1,44 @@
-import { RouteService } from '../../core/services/route.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
-import { RouterMock } from '../../shared/mocks/router.mock';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { WorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page.component';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Location } from '@angular/common';
-import { of as observableOf } from 'rxjs';
-import { routeServiceStub } from '../../shared/testing/route-service.stub';
-import { LocationStub } from '../../shared/testing/location.stub';
+import {
+  EventEmitter,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
-import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { RouteService } from '../../core/services/route.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import { WorkspaceItem } from '../../core/submission/models/workspaceitem.model';
+import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
+import { ModifyItemOverviewComponent } from '../../item-page/edit-item-page/modify-item-overview/modify-item-overview.component';
+import { RouterMock } from '../../shared/mocks/router.mock';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject } from '../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { LocationStub } from '../../shared/testing/location.stub';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { routeServiceStub } from '../../shared/testing/route-service.stub';
+import { WorkspaceItemsDeletePageComponent } from './workspaceitems-delete-page.component';
 
 describe('WorkspaceitemsDeletePageComponent', () => {
   let component: WorkspaceItemsDeletePageComponent;
   let fixture: ComponentFixture<WorkspaceItemsDeletePageComponent>;
 
   const workspaceitemDataServiceSpy = jasmine.createSpyObj('WorkspaceitemDataService', {
-    delete: observableOf(createSuccessfulRemoteDataObject({}))
+    delete: observableOf(createSuccessfulRemoteDataObject({})),
   });
 
   const wsi = new WorkspaceItem();
@@ -37,25 +50,23 @@ describe('WorkspaceitemsDeletePageComponent', () => {
     get: () => observableOf('test-message'),
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
-    onDefaultLangChange: new EventEmitter()
+    onDefaultLangChange: new EventEmitter(),
   };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
         NgbModalModule,
-        TranslateModule.forRoot()
+        TranslateModule.forRoot(),
+        WorkspaceItemsDeletePageComponent,
       ],
-      declarations: [WorkspaceItemsDeletePageComponent],
       providers: [
         {
           provide: ActivatedRoute,
-          useValue: new ActivatedRouteStub(
-            {},
-            {
-              wsi: createSuccessfulRemoteDataObject(wsi),
-              dso: createSuccessfulRemoteDataObject(dso),
-            }
+          useValue: new ActivatedRouteStub({}, {
+            wsi: createSuccessfulRemoteDataObject(wsi),
+            dso: createSuccessfulRemoteDataObject(dso),
+          },
           ),
         },
         { provide: Router, useValue: new RouterMock() },
@@ -72,7 +83,7 @@ describe('WorkspaceitemsDeletePageComponent', () => {
         { provide: RouteService, useValue: routeServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).compileComponents();
+    }).overrideComponent(WorkspaceItemsDeletePageComponent, { remove: { imports: [ModifyItemOverviewComponent] } }).compileComponents();
   });
 
   beforeEach(() => {
@@ -92,7 +103,7 @@ describe('WorkspaceitemsDeletePageComponent', () => {
   });
 
   it('should delete the target workspace item', () => {
-    spyOn((component as any).modalService, 'open').and.returnValue({result: Promise.resolve('ok')});
+    spyOn((component as any).modalService, 'open').and.returnValue({ result: Promise.resolve('ok') });
     component.confirmDelete(By.css('#delete-modal'));
     fixture.detectChanges();
     expect((component as any).modalService.open).toHaveBeenCalled();

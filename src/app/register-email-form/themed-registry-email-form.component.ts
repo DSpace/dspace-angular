@@ -1,4 +1,8 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
 import { ThemedComponent } from '../shared/theme-support/themed.component';
 import { RegisterEmailFormComponent } from './register-email-form.component';
 
@@ -6,9 +10,11 @@ import { RegisterEmailFormComponent } from './register-email-form.component';
  * Themed wrapper for {@link RegisterEmailFormComponent}
  */
 @Component({
-  selector: 'ds-themed-register-email-form',
+  selector: 'ds-register-email-form',
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
+  standalone: true,
+  imports: [RegisterEmailFormComponent],
 })
 export class ThemedRegisterEmailFormComponent extends ThemedComponent<RegisterEmailFormComponent> {
 

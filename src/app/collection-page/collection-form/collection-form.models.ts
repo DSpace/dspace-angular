@@ -2,9 +2,10 @@ import {
   DynamicCheckboxModelConfig,
   DynamicFormControlModel,
   DynamicInputModel,
-  DynamicTextAreaModel
+  DynamicTextAreaModel,
 } from '@ng-dynamic-forms/core';
 import { DynamicSelectModelConfig } from '@ng-dynamic-forms/core/lib/model/select/dynamic-select.model';
+
 import { environment } from '../../../environments/environment';
 
 export const collectionFormEntityTypeSelectionConfig: DynamicSelectModelConfig<string> = {
@@ -13,10 +14,10 @@ export const collectionFormEntityTypeSelectionConfig: DynamicSelectModelConfig<s
   required: true,
   disabled: false,
   validators: {
-    required: null
+    required: null,
   },
   errorMessages: {
-    required: 'collection.form.errors.entityType.required'
+    required: 'collection.form.errors.entityType.required',
   },
 };
 
@@ -26,23 +27,23 @@ export const collectionFormSubmissionDefinitionSelectionConfig: DynamicSelectMod
   required: true,
   disabled: false,
   validators: {
-    required: null
+    required: null,
   },
   errorMessages: {
-    required: 'collection.form.errors.submissionDefinition.required'
+    required: 'collection.form.errors.submissionDefinition.required',
   },
 };
 export const collectionFormCorrectionSubmissionDefinitionSelectionConfig: DynamicSelectModelConfig<string> = {
   id: 'correctionSubmissionDefinition',
   name: 'cris.submission.definition-correction',
   required: false,
-  disabled: false
+  disabled: false,
 };
 
 export const collectionFormSharedWorkspaceCheckboxConfig: DynamicCheckboxModelConfig = {
   id: 'sharedWorkspace',
   name: 'cris.workspace.shared',
-  disabled: false
+  disabled: false,
 };
 
 /**
@@ -55,10 +56,10 @@ export const collectionFormModels: DynamicFormControlModel[] = [
     name: 'dc.title',
     required: true,
     validators: {
-      required: null
+      required: null,
     },
     errorMessages: {
-      required: 'Please enter a name for this title'
+      required: 'Please enter a name for this title',
     },
   }),
   new DynamicTextAreaModel({
@@ -85,5 +86,5 @@ export const collectionFormModels: DynamicFormControlModel[] = [
     id: 'license',
     name: 'dc.rights.license',
     spellCheck: environment.form.spellCheck,
-  })
+  }),
 ];

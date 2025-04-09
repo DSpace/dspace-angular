@@ -1,13 +1,35 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { Bitstream } from '../core/shared/bitstream.model';
-import { hasNoValue, hasValue } from '../shared/empty.util';
-import { RemoteData } from '../core/data/remote-data';
-import { BehaviorSubject, of as observableOf } from 'rxjs';
+import {
+  CommonModule,
+  isPlatformBrowser,
+} from '@angular/common';
+import {
+  Component,
+  Inject,
+  Input,
+  OnChanges,
+  PLATFORM_ID,
+  SimpleChanges,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  of as observableOf,
+} from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { FeatureID } from '../core/data/feature-authorization/feature-id';
-import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+
 import { AuthService } from '../core/auth/auth.service';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../core/data/feature-authorization/feature-id';
+import { RemoteData } from '../core/data/remote-data';
+import { Bitstream } from '../core/shared/bitstream.model';
 import { FileService } from '../core/shared/file.service';
+import {
+  hasNoValue,
+  hasValue,
+} from '../shared/empty.util';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
+import { SafeUrlPipe } from '../shared/utils/safe-url-pipe';
+import { VarDirective } from '../shared/utils/var.directive';
 
 /**
  * This component renders a given Bitstream as a thumbnail.
@@ -15,9 +37,11 @@ import { FileService } from '../core/shared/file.service';
  * If no Bitstream is provided, an HTML placeholder will be rendered instead.
  */
 @Component({
-  selector: 'ds-thumbnail',
+  selector: 'ds-base-thumbnail',
   styleUrls: ['./thumbnail.component.scss'],
   templateUrl: './thumbnail.component.html',
+  standalone: true,
+  imports: [VarDirective, CommonModule, ThemedLoadingComponent, TranslateModule, SafeUrlPipe],
 })
 export class ThumbnailComponent implements OnChanges {
   /**
@@ -60,6 +84,7 @@ export class ThumbnailComponent implements OnChanges {
   isLoading$ = new BehaviorSubject(true);
 
   constructor(
+    @Inject(PLATFORM_ID) private platformID: any,
     protected auth: AuthService,
     protected authorizationService: AuthorizationDataService,
     protected fileService: FileService,
@@ -71,16 +96,18 @@ export class ThumbnailComponent implements OnChanges {
    * Use a default image if no actual image is available.
    */
   ngOnChanges(changes: SimpleChanges): void {
-    if (hasNoValue(this.thumbnail)) {
-      this.setSrc(this.defaultImage);
-      return;
-    }
+    if (isPlatformBrowser(this.platformID)) {
+      if (hasNoValue(this.thumbnail)) {
+        this.setSrc(this.defaultImage);
+        return;
+      }
 
-    const src = this.contentHref;
-    if (hasValue(src)) {
-      this.setSrc(src);
-    } else {
-      this.setSrc(this.defaultImage);
+      const src = this.contentHref;
+      if (hasValue(src)) {
+        this.setSrc(src);
+      } else {
+        this.setSrc(this.defaultImage);
+      }
     }
   }
 
@@ -134,7 +161,7 @@ export class ThumbnailComponent implements OnChanges {
           } else {
             return observableOf(null);
           }
-        })
+        }),
       ).subscribe((url: string) => {
         if (hasValue(url)) {
           // If we got a URL, try to load it

@@ -1,5 +1,12 @@
-import { inject, TestBed } from '@angular/core/testing';
-
+import { Injector } from '@angular/core';
+import {
+  inject,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  ReactiveFormsModule,
+  UntypedFormControl,
+} from '@angular/forms';
 import {
   DISABLED_MATCHER_PROVIDER,
   DynamicFormControlRelation,
@@ -11,14 +18,15 @@ import {
   REQUIRED_MATCHER_PROVIDER,
 } from '@ng-dynamic-forms/core';
 
-import { mockInputWithTypeBindModel, MockRelationModel } from '../../../mocks/form-models.mock';
-import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
-import { ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
-import { FormBuilderService } from '../form-builder.service';
-import { getMockFormBuilderService } from '../../../mocks/form-builder-service.mock';
-import { Injector } from '@angular/core';
 import { VocabularyEntryDetail } from '../../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import { getMockFormBuilderService } from '../../../mocks/form-builder-service.mock';
+import {
+  mockInputWithTypeBindModel,
+  MockRelationModel,
+} from '../../../mocks/form-models.mock';
+import { FormBuilderService } from '../form-builder.service';
+import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import { DsDynamicTypeBindRelationService } from './ds-dynamic-type-bind-relation.service';
 
 describe('DSDynamicTypeBindRelationService test suite', () => {
   let service: DsDynamicTypeBindRelationService;
@@ -32,14 +40,14 @@ describe('DSDynamicTypeBindRelationService test suite', () => {
         { provide: FormBuilderService, useValue: getMockFormBuilderService() },
         { provide: DsDynamicTypeBindRelationService, useClass: DsDynamicTypeBindRelationService },
         { provide: DynamicFormRelationService },
-        DISABLED_MATCHER_PROVIDER, HIDDEN_MATCHER_PROVIDER, REQUIRED_MATCHER_PROVIDER
-      ]
+        DISABLED_MATCHER_PROVIDER, HIDDEN_MATCHER_PROVIDER, REQUIRED_MATCHER_PROVIDER,
+      ],
     }).compileComponents().then();
   });
 
   beforeEach(inject([DsDynamicTypeBindRelationService, DynamicFormRelationService],
     (relationService: DsDynamicTypeBindRelationService,
-     formRelationService: DynamicFormRelationService
+      formRelationService: DynamicFormRelationService,
     ) => {
       service = relationService;
       dynamicFormRelationService = formRelationService;
@@ -48,14 +56,14 @@ describe('DSDynamicTypeBindRelationService test suite', () => {
   describe('Test getTypeBindValue method', () => {
     it('Should get type bind "boundType" from the given metadata object value', () => {
       const mockMetadataValueObject: FormFieldMetadataValueObject = new FormFieldMetadataValueObject(
-        'boundType', null, null, null, 'Bound Type'
+        'boundType', null, null, null, 'Bound Type',
       );
       const bindType = service.getTypeBindValue(mockMetadataValueObject);
       expect(bindType).toBe('boundType');
     });
     it('Should get type authority key "bound-auth-key" from the given metadata object value', () => {
       const mockMetadataValueObject: FormFieldMetadataValueObject = new FormFieldMetadataValueObject(
-        'boundType', null, null, 'bound-auth-key', 'Bound Type'
+        'boundType', null, null, 'bound-auth-key', 'Bound Type',
       );
       const bindType = service.getTypeBindValue(mockMetadataValueObject);
       expect(bindType).toBe('bound-auth-key');
@@ -146,12 +154,12 @@ function getTypeBindRelations(configuredTypeBindValues: string[]): DynamicFormCo
   configuredTypeBindValues.forEach((value) => {
     bindValues.push({
       id: 'dc.type',
-      value: value
+      value: value,
     });
   });
   return [{
     match: MATCH_VISIBLE,
     operator: OR_OPERATOR,
-    when: bindValues
+    when: bindValues,
   }];
 }

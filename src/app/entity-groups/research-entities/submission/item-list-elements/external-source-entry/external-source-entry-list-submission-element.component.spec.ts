@@ -1,11 +1,24 @@
-import { ExternalSourceEntryListSubmissionElementComponent } from './external-source-entry-list-submission-element.component';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ExternalSourceEntry } from '../../../../../core/shared/external-source-entry.model';
-import { TranslateModule } from '@ngx-translate/core';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { provideMockStore } from '@ngrx/store/testing';
+import { TranslateModule } from '@ngx-translate/core';
 import { MetadataValueFilter } from 'src/app/core/shared/metadata.models';
+
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+} from '../../../../../../config/app-config.interface';
+import { environment } from '../../../../../../environments/environment.test';
+import { ExternalSourceEntry } from '../../../../../core/shared/external-source-entry.model';
+import { MockActivatedRoute } from '../../../../../shared/mocks/active-router.mock';
+import { ExternalSourceEntryListSubmissionElementComponent } from './external-source-entry-list-submission-element.component';
 
 describe('ExternalSourceEntryListSubmissionElementComponent', () => {
   let component: ExternalSourceEntryListSubmissionElementComponent;
@@ -112,10 +125,16 @@ describe('ExternalSourceEntryListSubmissionElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ExternalSourceEntryListSubmissionElementComponent],
-      imports: [TranslateModule.forRoot(), NgbCollapseModule],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+      imports: [TranslateModule.forRoot(), ExternalSourceEntryListSubmissionElementComponent, NgbCollapseModule],
+      schemas: [NO_ERRORS_SCHEMA],
+      providers: [
+        provideMockStore(),
+        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
+        { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
+        { provide: APP_CONFIG, useValue: environment },
+      ],
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -152,7 +171,7 @@ describe('ExternalSourceEntryListSubmissionElementComponent', () => {
   it('should display the entry\'s duplicate match titles when matchObjects has items', () => {
     const accordionHeaderBtn = fixture.nativeElement.querySelector('.btn-link');
     accordionHeaderBtn.click();
-    const matchObjectsLinks = fixture.nativeElement.querySelectorAll('ds-themed-item-list-preview');
+    const matchObjectsLinks = fixture.nativeElement.querySelectorAll('ds-item-list-preview');
     expect(matchObjectsLinks).toBeTruthy();
   });
 });

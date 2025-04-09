@@ -1,20 +1,56 @@
-import { ChangeDetectionStrategy, Component, Inject, Input, OnDestroy, OnInit, } from '@angular/core';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { combineLatest, filter, from, map, Observable, Subscription, switchMap, take, tap } from 'rxjs';
-import { RemoteData } from '../../core/data/remote-data';
-import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { hasValue } from '../../shared/empty.util';
-import { TranslateService } from '@ngx-translate/core';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
+import {
+  NgForOf,
+  NgIf,
+  TitleCasePipe,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
-import { Registration } from '../../core/shared/registration.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  combineLatest,
+  filter,
+  from,
+  map,
+  Observable,
+  Subscription,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs';
+
 import { AuthService } from '../../core/auth/auth.service';
-import { HardRedirectService } from '../../core/services/hard-redirect.service';
 import { AuthRegistrationType } from '../../core/auth/models/auth.registration-type';
+import { RemoteData } from '../../core/data/remote-data';
+import { EPersonDataService } from '../../core/eperson/eperson-data.service';
+import { EPerson } from '../../core/eperson/models/eperson.model';
+import { HardRedirectService } from '../../core/services/hard-redirect.service';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '../../core/services/window.service';
+import { Registration } from '../../core/shared/registration.model';
 import { ExternalLoginService } from '../../external-log-in/services/external-login.service';
-import { NativeWindowRef, NativeWindowService } from '../../core/services/window.service';
+import { AlertComponent } from '../../shared/alert/alert.component';
+import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
+import { hasValue } from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import {
+  SwitchColor,
+  SwitchComponent,
+  SwitchOption,
+} from '../../shared/switch/switch.component';
+import { CompareValuesPipe } from '../helpers/compare-values.pipe';
 
 export interface ReviewAccountInfoData {
   label: string;
@@ -29,6 +65,16 @@ export interface ReviewAccountInfoData {
   templateUrl: './review-account-info.component.html',
   styleUrls: ['./review-account-info.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    AlertComponent,
+    TranslateModule,
+    TitleCasePipe,
+    NgForOf,
+    CompareValuesPipe,
+    NgIf,
+    SwitchComponent,
+  ],
+  standalone: true,
 })
 export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
   /**
@@ -53,6 +99,14 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
    */
   subs: Subscription[] = [];
 
+  /**
+   * The custom options for the 'ds-switch' component
+   */
+  switchOptions: SwitchOption[] = [
+    { value: true, labelColor: SwitchColor.Success, backgroundColor: SwitchColor.Success ,label: 'on-label' },
+    { value: false, label: 'off-label' },
+  ];
+
   constructor(
     @Inject(NativeWindowService) protected _window: NativeWindowRef,
     private ePersonService: EPersonDataService,
@@ -76,7 +130,7 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
    */
   public onOverrideChange(value: boolean, identifier: string) {
     this.dataToCompare.find(
-      (data) => data.identifier === identifier
+      (data) => data.identifier === identifier,
     ).overrideValue = value;
   }
 
@@ -114,11 +168,11 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
                   if (confirm) {
                     this.mergeEPersonDataWithToken(userId, this.registrationData.registrationType);
                   }
-                })
-              )
-            )
+                }),
+              ),
+            ),
           )
-          .subscribe()
+          .subscribe(),
       );
     } else if (this.registrationData.user) {
       this.subs.push(
@@ -129,7 +183,7 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
               const registrationType = this.registrationData.registrationType.split(AuthRegistrationType.Validation)[1];
               this.mergeEPersonDataWithToken(this.registrationData.user, registrationType);
             }
-          })
+          }),
       );
     }
   }
@@ -148,14 +202,14 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
           return this.ePersonService.mergeEPersonDataWithToken(
             userId,
             this.registrationToken,
-            data.identifier
+            data.identifier,
           );
-        })
+        }),
       );
     } else {
       override$ = this.ePersonService.mergeEPersonDataWithToken(
         userId,
-        this.registrationToken
+        this.registrationToken,
       );
     }
     if (this.registrationData.user && this.registrationData.registrationType.includes(AuthRegistrationType.Validation)) {
@@ -176,18 +230,18 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
         if (response.hasSucceeded) {
           this.notificationService.success(
             this.translateService.get(
-              'review-account-info.merge-data.notification.success'
-            )
+              'review-account-info.merge-data.notification.success',
+            ),
           );
           this.router.navigate(['/profile']);
         } else if (response.hasFailed) {
           this.notificationService.error(
             this.translateService.get(
-              'review-account-info.merge-data.notification.error'
-            )
+              'review-account-info.merge-data.notification.error',
+            ),
           );
         }
-      })
+      }),
     );
   }
 
@@ -208,26 +262,26 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
           if (response.hasSucceeded) {
             this.notificationService.success(
               this.translateService.get(
-                'review-account-info.merge-data.notification.success'
-              )
+                'review-account-info.merge-data.notification.success',
+              ),
             );
             // set Redirect URL to User profile, so the user is redirected to the profile page after logging in
             this.authService.setRedirectUrl('/profile');
             const externalServerUrl = this.authService.getExternalServerRedirectUrl(
               this._window.nativeWindow.origin,
               redirectRoute,
-              location
+              location,
             );
             // redirect to external registration type authentication url
             this.hardRedirectService.redirect(externalServerUrl);
           } else if (response.hasFailed) {
             this.notificationService.error(
               this.translateService.get(
-                'review-account-info.merge-data.notification.error'
-              )
+                'review-account-info.merge-data.notification.error',
+              ),
             );
           }
-        })
+        }),
     );
   }
 
@@ -263,7 +317,7 @@ export class ReviewAccountInfoComponent implements OnInit, OnDestroy {
           overrideValue: false,
           identifier: key,
         });
-      }
+      },
     );
 
     return dataToCompare;

@@ -1,5 +1,5 @@
-import { URLCombiner } from '../core/url-combiner/url-combiner';
 import { Item } from '../core/shared/item.model';
+import { URLCombiner } from '../core/url-combiner/url-combiner';
 import { isNotEmpty } from '../shared/empty.util';
 
 export const ITEM_MODULE_PATH = 'items';
@@ -53,7 +53,7 @@ export function getEntityEditRoute(entityType: string, itemId: string) {
  * @param versionId the ID of the version for which the route will be retrieved
  */
 export function getItemVersionRoute(versionId: string) {
-  return new URLCombiner(getItemModuleRoute(), ITEM_VERSION_PATH, versionId).toString();
+  return new URLCombiner(getItemModuleRoute(), versionId).toString();
 }
 
 

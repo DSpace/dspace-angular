@@ -1,15 +1,27 @@
-import { CrisLayoutPageModelComponent } from './cris-layout-page-component.model';
-import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
-import { CrisLayoutBox } from '../../core/layout/models/box.model';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+
+import { CrisLayoutBox } from '../../core/layout/models/box.model';
 import { Item } from '../../core/shared/item.model';
-import { hasValue, isEmpty } from '../../shared/empty.util';
+import {
+  hasValue,
+  isEmpty,
+} from '../../shared/empty.util';
+import { CrisLayoutPageModelComponent } from './cris-layout-page-component.model';
 
 /**
  * This class is a model to be extended for creating custom layouts for boxes
  */
 @Component({
-  template: ''
+  template: '',
+  standalone: true,
 })
 export abstract class CrisLayoutBoxModelComponent extends CrisLayoutPageModelComponent implements OnInit {
 
@@ -44,7 +56,7 @@ export abstract class CrisLayoutBoxModelComponent extends CrisLayoutPageModelCom
     protected translateService: TranslateService,
     @Inject('boxProvider') public boxProvider: CrisLayoutBox,
     @Inject('itemProvider') public itemProvider: Item,
-    ) {
+  ) {
     super();
     this.box = boxProvider;
     this.item = itemProvider;

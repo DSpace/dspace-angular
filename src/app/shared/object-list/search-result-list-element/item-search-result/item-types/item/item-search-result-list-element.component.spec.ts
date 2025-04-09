@@ -1,17 +1,42 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { of as observableOf } from 'rxjs';
-import { ItemSearchResultListElementComponent } from './item-search-result-list-element.component';
-import { Item } from '../../../../../../core/shared/item.model';
-import { TruncatePipe } from '../../../../../utils/truncate.pipe';
-import { TruncatableService } from '../../../../../truncatable/truncatable.service';
-import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
-import { DSONameService } from '../../../../../../core/breadcrumbs/dso-name.service';
-import { DSONameServiceMock, UNDEFINED_NAME } from '../../../../../mocks/dso-name.service.mock';
-import { VarDirective } from '../../../../../utils/var.directive';
-import { APP_CONFIG } from '../../../../../../../config/app-config.interface';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { APP_CONFIG } from '../../../../../../../config/app-config.interface';
+import { AuthService } from '../../../../../../core/auth/auth.service';
+import { DSONameService } from '../../../../../../core/breadcrumbs/dso-name.service';
+import { AuthorizationDataService } from '../../../../../../core/data/feature-authorization/authorization-data.service';
+import { Item } from '../../../../../../core/shared/item.model';
+import { ThemedThumbnailComponent } from '../../../../../../thumbnail/themed-thumbnail.component';
+import { MetadataLinkViewComponent } from '../../../../../metadata-link-view/metadata-link-view.component';
+import {
+  DSONameServiceMock,
+  UNDEFINED_NAME,
+} from '../../../../../mocks/dso-name.service.mock';
+import { mockTruncatableService } from '../../../../../mocks/mock-trucatable.service';
+import { getMockThemeService } from '../../../../../mocks/theme-service.mock';
+import { ItemSearchResult } from '../../../../../object-collection/shared/item-search-result.model';
+import { ActivatedRouteStub } from '../../../../../testing/active-router.stub';
+import { AuthServiceStub } from '../../../../../testing/auth-service.stub';
+import { ThemeService } from '../../../../../theme-support/theme.service';
+import { TruncatableComponent } from '../../../../../truncatable/truncatable.component';
+import { TruncatableService } from '../../../../../truncatable/truncatable.service';
+import { TruncatablePartComponent } from '../../../../../truncatable/truncatable-part/truncatable-part.component';
+import { TruncatePipe } from '../../../../../utils/truncate.pipe';
+import { MetricBadgesComponent } from '../../../../metric-badges/metric-badges.component';
+import { MetricDonutsComponent } from '../../../../metric-donuts/metric-donuts.component';
+import { AdditionalMetadataComponent } from '../../../additional-metadata/additional-metadata.component';
+import { ItemSearchResultListElementComponent } from './item-search-result-list-element.component';
 
 let publicationListElementComponent: ItemSearchResultListElementComponent;
 let fixture: ComponentFixture<ItemSearchResultListElementComponent>;
@@ -19,7 +44,7 @@ const dcTitle = 'This is just another <em>title</em>';
 const mockItemWithMetadata: ItemSearchResult = Object.assign(new ItemSearchResult(), {
   hitHighlights: {
     'dc.title': [{
-      value: dcTitle
+      value: dcTitle,
     }],
   },
   indexableObject:
@@ -29,47 +54,47 @@ const mockItemWithMetadata: ItemSearchResult = Object.assign(new ItemSearchResul
         'dc.title': [
           {
             language: 'en_US',
-            value: dcTitle
-          }
+            value: dcTitle,
+          },
         ],
         'dc.contributor.author': [
           {
             language: 'en_US',
-            value: 'Smith, Donald'
-          }
+            value: 'Smith, Donald',
+          },
         ],
         'dc.publisher': [
           {
             language: 'en_US',
-            value: 'a publisher'
-          }
+            value: 'a publisher',
+          },
         ],
         'dc.date.issued': [
           {
             language: 'en_US',
-            value: '2015-06-26'
-          }
+            value: '2015-06-26',
+          },
         ],
         'dc.description.abstract': [
           {
             language: 'en_US',
-            value: 'This is the abstract'
-          }
-        ]
-      }
-    })
+            value: 'This is the abstract',
+          },
+        ],
+      },
+    }),
 });
 const mockItemWithoutMetadata: ItemSearchResult = Object.assign(new ItemSearchResult(), {
   indexableObject:
     Object.assign(new Item(), {
       bundles: observableOf({}),
-      metadata: {}
-    })
+      metadata: {},
+    }),
 });
 const mockPerson: ItemSearchResult = Object.assign(new ItemSearchResult(), {
   hitHighlights: {
     'person.familyName': [{
-      value: '<em>Michel</em>'
+      value: '<em>Michel</em>',
     }],
   },
   indexableObject:
@@ -80,50 +105,50 @@ const mockPerson: ItemSearchResult = Object.assign(new ItemSearchResult(), {
         'dc.title': [
           {
             language: 'en_US',
-            value: 'This is just another title'
-          }
+            value: 'This is just another title',
+          },
         ],
         'dc.contributor.author': [
           {
             language: 'en_US',
-            value: 'Smith, Donald'
-          }
+            value: 'Smith, Donald',
+          },
         ],
         'dc.publisher': [
           {
             language: 'en_US',
-            value: 'a publisher'
-          }
+            value: 'a publisher',
+          },
         ],
         'dc.date.issued': [
           {
             language: 'en_US',
-            value: '2015-06-26'
-          }
+            value: '2015-06-26',
+          },
         ],
         'dc.description.abstract': [
           {
             language: 'en_US',
-            value: 'This is the abstract'
-          }
+            value: 'This is the abstract',
+          },
         ],
         'person.familyName': [
           {
-            value: 'Michel'
-          }
+            value: 'Michel',
+          },
         ],
         'dspace.entity.type': [
           {
-            value: 'Person'
-          }
-        ]
-      }
-    })
+            value: 'Person',
+          },
+        ],
+      },
+    }),
 });
 const mockOrgUnit: ItemSearchResult = Object.assign(new ItemSearchResult(), {
   hitHighlights: {
     'organization.legalName': [{
-      value: '<em>Science</em>'
+      value: '<em>Science</em>',
     }],
   },
   indexableObject:
@@ -134,71 +159,93 @@ const mockOrgUnit: ItemSearchResult = Object.assign(new ItemSearchResult(), {
         'dc.title': [
           {
             language: 'en_US',
-            value: 'This is just another title'
-          }
+            value: 'This is just another title',
+          },
         ],
         'dc.contributor.author': [
           {
             language: 'en_US',
-            value: 'Smith, Donald'
-          }
+            value: 'Smith, Donald',
+          },
         ],
         'dc.publisher': [
           {
             language: 'en_US',
-            value: 'a publisher'
-          }
+            value: 'a publisher',
+          },
         ],
         'dc.date.issued': [
           {
             language: 'en_US',
-            value: '2015-06-26'
-          }
+            value: '2015-06-26',
+          },
         ],
         'dc.description.abstract': [
           {
             language: 'en_US',
-            value: 'This is the abstract'
-          }
+            value: 'This is the abstract',
+          },
         ],
         'organization.legalName': [
           {
-            value: 'Science'
-          }
+            value: 'Science',
+          },
         ],
         'dspace.entity.type': [
           {
-            value: 'OrgUnit'
-          }
-        ]
-      }
-    })
+            value: 'OrgUnit',
+          },
+        ],
+      },
+    }),
 });
 const environmentUseThumbs = {
   browseBy: {
-    showThumbnails: true
-  }
+    showThumbnails: true,
+  },
 };
 
 const enviromentNoThumbs = {
   browseBy: {
-    showThumbnails: false
-  }
+    showThumbnails: false,
+  },
 };
 
 describe('ItemSearchResultListElementComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ItemSearchResultListElementComponent, TruncatePipe, VarDirective],
-      providers: [
-        { provide: TruncatableService, useValue: {} },
-        { provide: DSONameService, useClass: DSONameServiceMock },
-        { provide: APP_CONFIG, useValue: environmentUseThumbs }
+      imports: [
+        TranslateModule.forRoot(),
+        TruncatePipe,
+        ItemSearchResultListElementComponent,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      providers: [
+        { provide: TruncatableService, useValue: mockTruncatableService },
+        { provide: DSONameService, useClass: DSONameServiceMock },
+        { provide: APP_CONFIG, useValue: environmentUseThumbs },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: AuthService, useValue: new AuthServiceStub() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        {
+          provide: AuthorizationDataService,
+          useValue: jasmine.createSpyObj('AuthorizationDataService', [
+            'invalidateAuthorizationsRequestCache',
+          ]),
+        },
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemSearchResultListElementComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+    }).overrideComponent(ItemSearchResultListElementComponent, {
+      remove: { imports: [
+        ThemedThumbnailComponent,
+        TruncatableComponent,
+        TruncatablePartComponent,
+        AdditionalMetadataComponent,
+        MetadataLinkViewComponent,
+        MetricBadgesComponent,
+        MetricDonutsComponent,
+      ] },
     }).compileComponents();
   }));
 
@@ -217,7 +264,7 @@ describe('ItemSearchResultListElementComponent', () => {
       expect(publicationListElementComponent.showThumbnails).toBeTrue();
     });
 
-    it('should add ds-thumbnail element', () => {
+    it('should add thumbnail element', () => {
       const thumbnailElement = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thumbnailElement).toBeTruthy();
     });
@@ -244,6 +291,32 @@ describe('ItemSearchResultListElementComponent', () => {
     it('should not show the author paragraph', () => {
       const itemAuthorField = fixture.debugElement.query(By.css('span.item-list-authors'));
       expect(itemAuthorField).toBeNull();
+    });
+  });
+
+  describe('When the item has authors and isCollapsed is true', () => {
+    beforeEach(() => {
+      spyOn(publicationListElementComponent, 'isCollapsed').and.returnValue(observableOf(true));
+      publicationListElementComponent.object = mockItemWithMetadata;
+      fixture.detectChanges();
+    });
+
+    it('should show limitedMetadata', () => {
+      const authorElements = fixture.debugElement.queryAll(By.css('span.item-list-authors ds-metadata-link-view'));
+      expect(authorElements.length).toBe(mockItemWithMetadata.indexableObject.limitedMetadata(publicationListElementComponent.authorMetadata, publicationListElementComponent.additionalMetadataLimit).length);
+    });
+  });
+
+  describe('When the item has authors and isCollapsed is false', () => {
+    beforeEach(() => {
+      spyOn(publicationListElementComponent, 'isCollapsed').and.returnValue(observableOf(false));
+      publicationListElementComponent.object = mockItemWithMetadata;
+      fixture.detectChanges();
+    });
+
+    it('should show allMetadata', () => {
+      const authorElements = fixture.debugElement.queryAll(By.css('span.item-list-authors ds-metadata-link-view'));
+      expect(authorElements.length).toBe(mockItemWithMetadata.indexableObject.allMetadata(publicationListElementComponent.authorMetadata).length);
     });
   });
 
@@ -372,17 +445,27 @@ describe('ItemSearchResultListElementComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [ItemSearchResultListElementComponent, TruncatePipe],
+      imports: [TruncatePipe, TranslateModule.forRoot(), ItemSearchResultListElementComponent],
       providers: [
-        {provide: TruncatableService, useValue: {}},
-        {provide: DSONameService, useClass: DSONameServiceMock},
-        { provide: APP_CONFIG, useValue: enviromentNoThumbs }
+        { provide: TruncatableService, useValue: mockTruncatableService },
+        { provide: DSONameService, useClass: DSONameServiceMock },
+        { provide: APP_CONFIG, useValue: enviromentNoThumbs },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],
-
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemSearchResultListElementComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default}
+      set: { changeDetection: ChangeDetectionStrategy.Default },
+    }).overrideComponent(ItemSearchResultListElementComponent, {
+      remove: { imports: [
+        ThemedThumbnailComponent,
+        TruncatableComponent,
+        TruncatablePartComponent,
+        AdditionalMetadataComponent,
+        MetadataLinkViewComponent,
+        MetricBadgesComponent,
+        MetricDonutsComponent,
+      ] },
     }).compileComponents();
   }));
 
@@ -398,7 +481,7 @@ describe('ItemSearchResultListElementComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should not add ds-thumbnail element', () => {
+    it('should not add thumbnail element', () => {
       const thumbnailElement = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thumbnailElement).toBeFalsy();
     });

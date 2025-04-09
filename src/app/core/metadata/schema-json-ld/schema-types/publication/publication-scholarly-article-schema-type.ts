@@ -35,13 +35,13 @@ export class PublicationScholarlyArticleSchemaType extends SchemaType {
             '@id': '#periodical',
             '@type': [
               'PublicationVolume',
-              'Periodical'
+              'Periodical',
             ],
             'name': SchemaType.getMetadataValue(item, 'dc.relation.ispartof'),
             'issn': SchemaType.getMetadataValue(item, 'dc.relation.issn'),
             'volumeNumber': SchemaType.getMetadataValue(item, 'oaire.citation.volume'),
-            'publisher': SchemaType.getMetadataValue(item, 'dc.publisher')
-          }
+            'publisher': SchemaType.getMetadataValue(item, 'dc.publisher'),
+          },
         },
         {
           '@type': 'ScholarlyArticle',
@@ -56,8 +56,8 @@ export class PublicationScholarlyArticleSchemaType extends SchemaType {
           'editor': SchemaType.getMetadataValue(item, 'dc.contributor.editor'),
           'datePublished': SchemaType.getMetadataValue(item, 'dc.date.issued'),
           'inLanguage': SchemaType.getMetadataValue(item, 'dc.language.iso'),
-        }
-      ]
+        },
+      ],
     };
   }
 }

@@ -1,10 +1,3 @@
-import { hasValue, isEmpty, isNotEmpty, isNotUndefined, isUndefined } from '../../shared/empty.util';
-import {
-  MetadataMapInterface,
-  MetadataValue,
-  MetadataValueFilter,
-  MetadatumViewModel
-} from './metadata.models';
 import differenceWith from 'lodash/differenceWith';
 import groupBy from 'lodash/groupBy';
 import isObject from 'lodash/isObject';
@@ -12,8 +5,24 @@ import orderBy from 'lodash/orderBy';
 import sortBy from 'lodash/sortBy';
 import { validate as uuidValidate } from 'uuid';
 
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+  isNotUndefined,
+  isUndefined,
+} from '../../shared/empty.util';
+import {
+  MetadataMapInterface,
+  MetadataValue,
+  MetadataValueFilter,
+  MetadatumViewModel,
+} from './metadata.models';
+
 export const AUTHORITY_GENERATE = 'will be generated::';
 export const AUTHORITY_REFERENCE = 'will be referenced::';
+export const PLACEHOLDER_VALUE = '#PLACEHOLDER_PARENT_METADATA_VALUE#';
+
 
 /**
  * Utility class for working with DSpace object metadata.
@@ -29,7 +38,6 @@ export const AUTHORITY_REFERENCE = 'will be referenced::';
  * followed by any other (non-dc) metadata values.
  */
 export class Metadata {
-
   /**
    * Gets all matching metadata in the map(s).
    *
@@ -37,10 +45,14 @@ export class Metadata {
    * checked in order, and only values from the first with at least one match will be returned.
    * @param {string|string[]} keyOrKeys The metadata key(s) in scope. Wildcards are supported; see above.
    * @param {MetadataValueFilter} filter The value filter to use. If unspecified, no filtering will be done.
+   * @param {number} limit The maximum number of values to return. If unspecified, all matching values will be returned.
    * @returns {MetadataValue[]} the matching values or an empty array.
    */
-  public static all(mapOrMaps: MetadataMapInterface | MetadataMapInterface[], keyOrKeys: string | string[],
-                    filter?: MetadataValueFilter): MetadataValue[] {
+  public static all(
+    mapOrMaps: MetadataMapInterface | MetadataMapInterface[],
+    keyOrKeys: string | string[],
+    filter?: MetadataValueFilter,
+    limit?: number): MetadataValue[] {
     const mdMaps: MetadataMapInterface[] = mapOrMaps instanceof Array ? mapOrMaps : [mapOrMaps];
     const matches: MetadataValue[] = [];
     for (const mdMap of mdMaps) {
@@ -50,6 +62,9 @@ export class Metadata {
           for (const candidate of candidates) {
             if (Metadata.valueMatches(candidate as MetadataValue, filter)) {
               matches.push(candidate as MetadataValue);
+              if (hasValue(limit) && matches.length >= limit) {
+                return  matches;
+              }
             }
           }
         }
@@ -71,7 +86,7 @@ export class Metadata {
    * @returns {string[]} the matching string values or an empty array.
    */
   public static allValues(mapOrMaps: MetadataMapInterface | MetadataMapInterface[], keyOrKeys: string | string[],
-                          filter?: MetadataValueFilter): string[] {
+    filter?: MetadataValueFilter): string[] {
     return Metadata.all(mapOrMaps, keyOrKeys, filter).map((mdValue) => mdValue.value);
   }
 
@@ -84,7 +99,7 @@ export class Metadata {
    * @returns {MetadataValue} the first matching value, or `undefined`.
    */
   public static first(mdMapOrMaps: MetadataMapInterface | MetadataMapInterface[], keyOrKeys: string | string[],
-                      filter?: MetadataValueFilter): MetadataValue {
+    filter?: MetadataValueFilter): MetadataValue {
     const mdMaps: MetadataMapInterface[] = mdMapOrMaps instanceof Array ? mdMapOrMaps : [mdMapOrMaps];
     for (const mdMap of mdMaps) {
       for (const key of Metadata.resolveKeys(mdMap, keyOrKeys)) {
@@ -105,7 +120,7 @@ export class Metadata {
    * @returns {string} the first matching string value, or `undefined`.
    */
   public static firstValue(mdMapOrMaps: MetadataMapInterface | MetadataMapInterface[], keyOrKeys: string | string[],
-                           filter?: MetadataValueFilter): string {
+    filter?: MetadataValueFilter): string {
     const value = Metadata.first(mdMapOrMaps, keyOrKeys, filter);
     return isUndefined(value) ? undefined : value.value;
   }
@@ -119,7 +134,7 @@ export class Metadata {
    * @returns {boolean} whether a match is found.
    */
   public static has(mdMapOrMaps: MetadataMapInterface | MetadataMapInterface[], keyOrKeys: string | string[],
-                    filter?: MetadataValueFilter): boolean {
+    filter?: MetadataValueFilter): boolean {
     return isNotUndefined(Metadata.first(mdMapOrMaps, keyOrKeys, filter));
   }
 
@@ -148,11 +163,11 @@ export class Metadata {
    * Returns true if this Metadatum's value is defined
    */
   public static hasValue(value: MetadataValue|string): boolean {
-    if (isEmpty(value)) {
+    if (isEmpty(value) || value === PLACEHOLDER_VALUE) {
       return false;
     }
     if (isObject(value) && value.hasOwnProperty('value')) {
-      return isNotEmpty(value.value);
+      return isNotEmpty(value.value) && value.value !== PLACEHOLDER_VALUE;
     }
     return true;
   }
@@ -165,7 +180,9 @@ export class Metadata {
    * @returns {boolean} whether the filter matches, or true if no filter is given.
    */
   public static valueMatches(mdValue: MetadataValue, filter: MetadataValueFilter) {
-    if (!filter) {
+    if (mdValue.value === PLACEHOLDER_VALUE) {
+      return false;
+    } else if (!filter) {
       return true;
     } else if (filter.language && filter.language !== mdValue.language) {
       return false;
@@ -229,7 +246,7 @@ export class Metadata {
               metadataValue,
               {
                 order: index,
-                key
+                key,
               }));
         metadatumList = [...metadatumList, ...fields];
       });
@@ -250,11 +267,11 @@ export class Metadata {
       .forEach((key: string) => {
         const orderedValues = sortBy(groupedList[key], ['order']);
         metadataMap[key] = orderedValues.map((value: MetadatumViewModel) => {
-            const val = Object.assign(new MetadataValue(), value);
-            delete (val as any).order;
-            delete (val as any).key;
-            return val;
-          }
+          const val = Object.assign(new MetadataValue(), value);
+          delete (val as any).order;
+          delete (val as any).key;
+          return val;
+        },
         );
       });
     return metadataMap;
@@ -275,27 +292,27 @@ export class Metadata {
     }
   }
 
-    /**
+  /**
      * Check whether the two arrays of metadata are equals (value matching).
      * @param metadata1
      * @param metadata2
      * @private
      */
-    public static multiEquals(metadata1: MetadataValue[], metadata2: MetadataValue[]): boolean {
-      if (metadata1.length !== metadata2.length) {
-        return false;
-      }
-
-      // 0. sort array by value
-      const sortedMetadata1 = orderBy(metadata1, ['value'],['asc']);
-      const sortedMetadata2 = orderBy(metadata2, ['value'],['asc']);
-      // 1. check differences
-      const differences = differenceWith(sortedMetadata1, sortedMetadata2, Metadata.valueMatches);
-      if (differences.length > 0) {
-        return false;
-      }
-
-      // arrays appear to be equal ...
-      return true;
+  public static multiEquals(metadata1: MetadataValue[], metadata2: MetadataValue[]): boolean {
+    if (metadata1.length !== metadata2.length) {
+      return false;
     }
+
+    // 0. sort array by value
+    const sortedMetadata1 = orderBy(metadata1, ['value'],['asc']);
+    const sortedMetadata2 = orderBy(metadata2, ['value'],['asc']);
+    // 1. check differences
+    const differences = differenceWith(sortedMetadata1, sortedMetadata2, Metadata.valueMatches);
+    if (differences.length > 0) {
+      return false;
+    }
+
+    // arrays appear to be equal ...
+    return true;
+  }
 }

@@ -1,11 +1,14 @@
-import { inject, TestBed } from '@angular/core/testing';
 import {
+  inject,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  NG_ASYNC_VALIDATORS,
+  NG_VALIDATORS,
+  ReactiveFormsModule,
   UntypedFormArray,
   UntypedFormControl,
   UntypedFormGroup,
-  NG_ASYNC_VALIDATORS,
-  NG_VALIDATORS,
-  ReactiveFormsModule
 } from '@angular/forms';
 import {
   DynamicCheckboxGroupModel,
@@ -28,31 +31,32 @@ import {
   DynamicTextAreaModel,
   DynamicTimePickerModel,
 } from '@ng-dynamic-forms/core';
-import { DynamicTagModel } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
-import { DynamicListCheckboxGroupModel } from './ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
-import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
-import {
-  DynamicScrollableDropdownModel
-} from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
-import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
-import { DynamicLookupModel } from './ds-dynamic-form-ui/models/lookup/dynamic-lookup.model';
-import { DynamicDsDatePickerModel } from './ds-dynamic-form-ui/models/date-picker/date-picker.model';
-import { DynamicOneboxModel } from './ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
-import { DynamicListRadioGroupModel } from './ds-dynamic-form-ui/models/list/dynamic-list-radio-group.model';
-import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
-import { FormFieldModel } from './models/form-field.model';
-import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
-import { FormBuilderService } from './form-builder.service';
-import { DynamicRowGroupModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
-import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
-import { FormFieldMetadataValueObject } from './models/form-field-metadata-value.model';
-import { DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
-import { DynamicLookupNameModel } from './ds-dynamic-form-ui/models/lookup/dynamic-lookup-name.model';
-import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
+import { TranslateService } from '@ngx-translate/core';
+
 import { FormRowModel } from '../../../core/config/models/config-submission-form.model';
+import { SubmissionFormsModel } from '../../../core/config/models/config-submission-forms.model';
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
-import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
 import { ConfigurationProperty } from '../../../core/shared/configuration-property.model';
+import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
+import { getMockTranslateService } from '../../mocks/translate.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
+import { DynamicDsDatePickerModel } from './ds-dynamic-form-ui/models/date-picker/date-picker.model';
+import { DynamicConcatModel } from './ds-dynamic-form-ui/models/ds-dynamic-concat.model';
+import { DsDynamicInputModel } from './ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import { DynamicQualdropModel } from './ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
+import { DynamicRowArrayModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
+import { DynamicRowGroupModel } from './ds-dynamic-form-ui/models/ds-dynamic-row-group-model';
+import { DynamicListCheckboxGroupModel } from './ds-dynamic-form-ui/models/list/dynamic-list-checkbox-group.model';
+import { DynamicListRadioGroupModel } from './ds-dynamic-form-ui/models/list/dynamic-list-radio-group.model';
+import { DynamicLookupModel } from './ds-dynamic-form-ui/models/lookup/dynamic-lookup.model';
+import { DynamicLookupNameModel } from './ds-dynamic-form-ui/models/lookup/dynamic-lookup-name.model';
+import { DynamicOneboxModel } from './ds-dynamic-form-ui/models/onebox/dynamic-onebox.model';
+import { DynamicRelationGroupModel } from './ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
+import { DynamicScrollableDropdownModel } from './ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
+import { DynamicTagModel } from './ds-dynamic-form-ui/models/tag/dynamic-tag.model';
+import { FormBuilderService } from './form-builder.service';
+import { FormFieldModel } from './models/form-field.model';
+import { FormFieldMetadataValueObject } from './models/form-field-metadata-value.model';
 
 describe('FormBuilderService test suite', () => {
 
@@ -83,6 +87,7 @@ describe('FormBuilderService test suite', () => {
 
   beforeEach(() => {
     configSpy = createConfigSuccessSpy(typeFieldTestValue);
+    let translateService = getMockTranslateService();
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule],
       providers: [
@@ -90,15 +95,16 @@ describe('FormBuilderService test suite', () => {
         { provide: DynamicFormValidationService, useValue: {} },
         { provide: NG_VALIDATORS, useValue: testValidator, multi: true },
         { provide: NG_ASYNC_VALIDATORS, useValue: testAsyncValidator, multi: true },
-        { provide: ConfigurationDataService, useValue: configSpy }
-      ]
+        { provide: ConfigurationDataService, useValue: configSpy },
+        { provide: TranslateService, useValue: translateService },
+      ],
     });
 
     const vocabularyOptions: VocabularyOptions = {
       name: 'type_programme',
       metadata: null,
       scope: null,
-      closed: false
+      closed: false,
     };
 
     testModel = [
@@ -109,22 +115,22 @@ describe('FormBuilderService test suite', () => {
           options: [
             {
               label: 'Option 1',
-              value: 'option-1'
+              value: 'option-1',
             },
             {
               label: 'Option 2',
-              value: 'option-2'
-            }
+              value: 'option-2',
+            },
           ],
-          value: 'option-3'
-        }
+          value: 'option-3',
+        },
       ),
 
       new DynamicInputModel(
         {
           id: 'testInput',
           mask: '(000) 000-0000',
-        }
+        },
       ),
 
       new DynamicCheckboxGroupModel(
@@ -134,17 +140,17 @@ describe('FormBuilderService test suite', () => {
             new DynamicCheckboxModel(
               {
                 id: 'testCheckboxGroup1',
-                value: true
-              }
+                value: true,
+              },
             ),
             new DynamicCheckboxModel(
               {
                 id: 'testCheckboxGroup2',
-                value: true
-              }
-            )
-          ]
-        }
+                value: true,
+              },
+            ),
+          ],
+        },
       ),
 
       new DynamicRadioGroupModel<string>(
@@ -153,15 +159,15 @@ describe('FormBuilderService test suite', () => {
           options: [
             {
               label: 'Option 1',
-              value: 'option-1'
+              value: 'option-1',
             },
             {
               label: 'Option 2',
-              value: 'option-2'
-            }
+              value: 'option-2',
+            },
           ],
-          value: 'option-3'
-        }
+          value: 'option-3',
+        },
       ),
 
       new DynamicTextAreaModel({ id: 'testTextArea' }),
@@ -177,12 +183,12 @@ describe('FormBuilderService test suite', () => {
               new DynamicInputModel({ id: 'testFormArrayGroupInput' }),
               new DynamicFormArrayModel({
                 id: 'testNestedFormArray', groupFactory: () => [
-                  new DynamicInputModel({ id: 'testNestedFormArrayGroupInput' })
-                ]
-              })
+                  new DynamicInputModel({ id: 'testNestedFormArrayGroupInput' }),
+                ],
+              }),
             ];
-          }
-        }
+          },
+        },
       ),
 
       new DynamicFormGroupModel(
@@ -190,9 +196,9 @@ describe('FormBuilderService test suite', () => {
           id: 'testFormGroup',
           group: [
             new DynamicInputModel({ id: 'nestedTestInput' }),
-            new DynamicTextAreaModel({ id: 'nestedTestTextArea' })
-          ]
-        }
+            new DynamicTextAreaModel({ id: 'nestedTestTextArea' }),
+          ],
+        },
       ),
 
       new DynamicSliderModel({ id: 'testSlider' }),
@@ -225,7 +231,7 @@ describe('FormBuilderService test suite', () => {
         repeatable: false,
         metadataFields: [],
         submissionId: '1234',
-        hasSelectableMetadata: false
+        hasSelectableMetadata: false,
       }),
 
       new DynamicTagModel({
@@ -233,7 +239,7 @@ describe('FormBuilderService test suite', () => {
         repeatable: false,
         metadataFields: [],
         submissionId: '1234',
-        hasSelectableMetadata: false
+        hasSelectableMetadata: false,
       }),
 
       new DynamicListCheckboxGroupModel({
@@ -268,9 +274,9 @@ describe('FormBuilderService test suite', () => {
             selectableMetadata: [{
               controlledVocabulary: 'RPAuthority',
               closed: false,
-              metadata: 'dc.contributor.author'
-            }]
-          } as FormFieldModel]
+              metadata: 'dc.contributor.author',
+            }],
+          } as FormFieldModel],
         } as FormRowModel, {
           fields: [{
             hints: 'Enter the affiliation of the author.',
@@ -282,9 +288,9 @@ describe('FormBuilderService test suite', () => {
             selectableMetadata: [{
               controlledVocabulary: 'OUAuthority',
               closed: false,
-              metadata: 'local.contributor.affiliation'
-            }]
-          } as FormFieldModel]
+              metadata: 'local.contributor.affiliation',
+            }],
+          } as FormFieldModel],
         } as FormRowModel],
         isInlineGroup: false,
         mandatoryField: '',
@@ -294,17 +300,17 @@ describe('FormBuilderService test suite', () => {
         submissionScope: '',
         repeatable: false,
         metadataFields: [],
-        hasSelectableMetadata: true
+        hasSelectableMetadata: true,
       }),
 
-      new DynamicDsDatePickerModel({ id: 'testDate', repeatable: false}),
+      new DynamicDsDatePickerModel({ id: 'testDate', repeatable: false }),
 
       new DynamicLookupModel({
         id: 'testLookup',
         repeatable: false,
         metadataFields: [],
         submissionId: '1234',
-        hasSelectableMetadata: true
+        hasSelectableMetadata: true,
       }),
 
       new DynamicLookupNameModel({
@@ -312,7 +318,7 @@ describe('FormBuilderService test suite', () => {
         repeatable: false,
         metadataFields: [],
         submissionId: '1234',
-        hasSelectableMetadata: true
+        hasSelectableMetadata: true,
       }),
 
       new DynamicQualdropModel({ id: 'testCombobox', readOnly: false, required: false }),
@@ -327,7 +333,7 @@ describe('FormBuilderService test suite', () => {
           isDraggable: true,
           groupFactory: () => {
             return [
-              new DynamicInputModel({ id: 'testFormRowArrayGroupInput' })
+              new DynamicInputModel({ id: 'testFormRowArrayGroupInput' }),
             ];
           },
           required: false,
@@ -335,7 +341,7 @@ describe('FormBuilderService test suite', () => {
           metadataFields: ['dc.contributor.author'],
           hasSelectableMetadata: true,
           showButtons: true,
-          typeBindRelations: [{ match: 'VISIBLE', operator: 'OR', when: [{id: 'dc.type', value: 'Book' }]}]
+          typeBindRelations: [{ match: 'VISIBLE', operator: 'OR', when: [{ id: 'dc.type', value: 'Book' }] }],
         },
       ),
 
@@ -344,8 +350,8 @@ describe('FormBuilderService test suite', () => {
         group: [
           new DynamicInputModel({ id: 'testConcatGroup_CONCAT_FIRST_INPUT' }),
           new DynamicInputModel({ id: 'testConcatGroup_CONCAT_SECOND_INPUT' }),
-        ]
-      } as any)
+        ],
+      } as any),
     ];
 
     testFormConfiguration = {
@@ -363,10 +369,10 @@ describe('FormBuilderService test suite', () => {
                 {
                   metadata: 'journal',
                   controlledVocabulary: 'JOURNALAuthority',
-                  closed: false
-                }
+                  closed: false,
+                },
               ],
-              languageCodes: []
+              languageCodes: [],
             } as FormFieldModel,
             {
               input: { type: 'onebox' },
@@ -376,10 +382,10 @@ describe('FormBuilderService test suite', () => {
               hints: ' Enter issue number.',
               selectableMetadata: [
                 {
-                  metadata: 'issue'
-                }
+                  metadata: 'issue',
+                },
               ],
-              languageCodes: []
+              languageCodes: [],
             } as FormFieldModel,
             {
               input: { type: 'name' },
@@ -389,12 +395,12 @@ describe('FormBuilderService test suite', () => {
               hints: 'Enter full name.',
               selectableMetadata: [
                 {
-                  metadata: 'name'
-                }
+                  metadata: 'name',
+                },
               ],
-              languageCodes: []
-            } as FormFieldModel
-          ]
+              languageCodes: [],
+            } as FormFieldModel,
+          ],
         } as FormRowModel,
         {
           fields: [
@@ -414,8 +420,8 @@ describe('FormBuilderService test suite', () => {
                 { metadata: 'dc.identifier.isbn', label: 'ISBN' },
                 { metadata: 'dc.identifier.doi', label: 'DOI' },
                 { metadata: 'dc.identifier.pmid', label: 'PubMed ID' },
-                { metadata: 'dc.identifier.arxiv', label: 'arXiv' }
-              ]
+                { metadata: 'dc.identifier.arxiv', label: 'arXiv' },
+              ],
             }, {
               input: { type: 'onebox' },
               label: 'Publisher',
@@ -424,12 +430,12 @@ describe('FormBuilderService test suite', () => {
               hints: 'Enter the name of the publisher of the previously issued instance of this item.',
               selectableMetadata: [
                 {
-                  metadata: 'publisher'
-                }
+                  metadata: 'publisher',
+                },
               ],
-              languageCodes: []
-            }
-          ]
+              languageCodes: [],
+            },
+          ],
         } as FormRowModel,
         {
           fields: [
@@ -443,23 +449,23 @@ describe('FormBuilderService test suite', () => {
                 {
                   metadata: 'conference',
                   controlledVocabulary: 'EVENTAuthority',
-                  closed: false
-                }
+                  closed: false,
+                },
               ],
-              languageCodes: []
-            }
-          ]
-        } as FormRowModel
+              languageCodes: [],
+            },
+          ],
+        } as FormRowModel,
       ],
       self: {
-        href: 'testFormConfiguration.url'
+        href: 'testFormConfiguration.url',
       },
       type: 'submissionform',
       _links: {
         self: {
-          href: 'testFormConfiguration.url'
-        }
-      }
+          href: 'testFormConfiguration.url',
+        },
+      },
     } as any;
   });
 
@@ -520,7 +526,7 @@ describe('FormBuilderService test suite', () => {
   it('should return form\'s fields value from form model', () => {
     const formModel = service.modelFromConfiguration(submissionId, testFormConfiguration, 'testScopeUUID');
     let value: any = {
-      name: [new FormFieldMetadataValueObject()]
+      name: [new FormFieldMetadataValueObject()],
     };
     expect(service.getValueFromModel(formModel)).toEqual(value);
 
@@ -528,7 +534,7 @@ describe('FormBuilderService test suite', () => {
 
     value = {
       name: [new FormFieldMetadataValueObject()],
-      issue: [new FormFieldMetadataValueObject('test')]
+      issue: [new FormFieldMetadataValueObject('test')],
     };
     expect(service.getValueFromModel(formModel)).toEqual(value);
 
@@ -536,7 +542,7 @@ describe('FormBuilderService test suite', () => {
     value = {
       name: [new FormFieldMetadataValueObject()],
       issue: [new FormFieldMetadataValueObject('test')],
-      conference: [new FormFieldMetadataValueObject('test one')]
+      conference: [new FormFieldMetadataValueObject('test one')],
     };
     expect(service.getValueFromModel(formModel)).toEqual(value);
   });

@@ -1,13 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { OrcidConfirmationComponent } from './orcid-confirmation.component';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
-import { mockRegistrationDataModel } from '../../models/registration-data.mock.model';
-import { BrowserOnlyMockPipe } from './../../../shared/testing/browser-only-mock.pipe';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  FormBuilder,
+  FormGroup,
+} from '@angular/forms';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+
+import { mockRegistrationDataModel } from '../../models/registration-data.mock.model';
 import { TranslateLoaderMock } from './../../../shared/mocks/translate-loader.mock';
+import { BrowserOnlyMockPipe } from './../../../shared/testing/browser-only-mock.pipe';
+import { OrcidConfirmationComponent } from './orcid-confirmation.component';
 
 describe('OrcidConfirmationComponent', () => {
   let component: OrcidConfirmationComponent;
@@ -15,24 +24,22 @@ describe('OrcidConfirmationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
-        OrcidConfirmationComponent,
-        BrowserOnlyMockPipe
-      ],
       providers: [
         FormBuilder,
         { provide: 'registrationDataProvider', useValue: mockRegistrationDataModel },
       ],
       imports: [
         CommonModule,
+        OrcidConfirmationComponent,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
+        BrowserOnlyMockPipe,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   });

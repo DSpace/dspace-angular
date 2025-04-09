@@ -1,19 +1,29 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { MetadataContainerComponent } from './metadata-container.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+
+import { CRIS_FIELD_RENDERING_MAP } from '../../../../../../../../config/app-config.interface';
+import { BitstreamDataService } from '../../../../../../../core/data/bitstream-data.service';
+import { LayoutField } from '../../../../../../../core/layout/models/box.model';
+import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
-import { boxMetadata } from '../../../../../../../shared/testing/box.mock';
-import { By } from '@angular/platform-browser';
-import { FieldRenderingType } from '../../rendering-types/metadata-box.decorator';
-import { LayoutField } from '../../../../../../../core/layout/models/box.model';
-import { BitstreamDataService } from '../../../../../../../core/data/bitstream-data.service';
+import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../../../shared/remote-data.utils';
+import { boxMetadata } from '../../../../../../../shared/testing/box.mock';
 import { createPaginatedList } from '../../../../../../../shared/testing/utils.test';
-import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
+import { FieldRenderingType } from '../../rendering-types/field-rendering-type';
+import { layoutBoxesMap } from '../../rendering-types/metadata-box-rendering-map';
+import { TextComponent } from '../../rendering-types/text/text.component';
+import { MetadataContainerComponent } from './metadata-container.component';
+import { MetadataRenderComponent } from './metadata-render/metadata-render.component';
 
 describe('MetadataContainerComponent', () => {
   let component: MetadataContainerComponent;
@@ -24,7 +34,7 @@ describe('MetadataContainerComponent', () => {
     'language': null,
     'authority': null,
     'confidence': -1,
-    'place': 0
+    'place': 0,
   });
 
   const testItem = Object.assign(new Item(),
@@ -34,23 +44,23 @@ describe('MetadataContainerComponent', () => {
         'dc.title': [metadataValue],
         'dc.contributor.author': [
           {
-            value: 'Donohue, Tim'
+            value: 'Donohue, Tim',
           },
           {
-            value: 'Surname, Name'
-          }
+            value: 'Surname, Name',
+          },
         ],
         'oairecerif.author.affiliation': [
           {
-            value: 'Duraspace'
+            value: 'Duraspace',
           },
           {
-            value: '4Science'
-          }
-        ]
+            value: '4Science',
+          },
+        ],
       },
       uuid: 'test-item-uuid',
-    }
+    },
   );
 
   const fieldMock = {
@@ -62,7 +72,7 @@ describe('MetadataContainerComponent', () => {
     styleLabel: 'test-style-label',
     styleValue: 'test-style-value',
     labelAsHeading: false,
-    valuesInline: true
+    valuesInline: true,
   };
 
   const fieldMockWithoutLabel = {
@@ -74,7 +84,7 @@ describe('MetadataContainerComponent', () => {
     styleLabel: 'test-style-label',
     styleValue: 'test-style-value',
     labelAsHeading: false,
-    valuesInline: true
+    valuesInline: true,
   };
 
   const fieldMockWithoutMetadata = {
@@ -86,7 +96,7 @@ describe('MetadataContainerComponent', () => {
     styleLabel: 'test-style-label',
     styleValue: 'test-style-value',
     labelAsHeading: false,
-    valuesInline: true
+    valuesInline: true,
   };
 
   const fieldStructuredMock = Object.assign({
@@ -117,10 +127,10 @@ describe('MetadataContainerComponent', () => {
           fieldType: 'METADATA',
           style: null,
           styleLabel: 'font-weight-bold col-0',
-          styleValue: 'col'
-        }
-      ]
-    }
+          styleValue: 'col',
+        },
+      ],
+    },
   }) as LayoutField;
 
   const bitstreamField = Object.assign({
@@ -135,17 +145,17 @@ describe('MetadataContainerComponent', () => {
     bitstream: {
       bundle: 'ORIGINAL',
       metadataField: 'dc.type',
-      metadataValue: 'thumbnail'
-    }
+      metadataValue: 'thumbnail',
+    },
   });
 
   const bitstream1 = Object.assign(new Bitstream(), {
     id: 'bitstream1',
-    uuid: 'bitstream1'
+    uuid: 'bitstream1',
   });
 
   const mockBitstreamDataService = jasmine.createSpyObj('BitstreamDataService', {
-    findShowableBitstreamsByItem: jasmine.createSpy('findShowableBitstreamsByItem')
+    findShowableBitstreamsByItem: jasmine.createSpy('findShowableBitstreamsByItem'),
   });
 
   beforeEach(async () => {
@@ -154,17 +164,19 @@ describe('MetadataContainerComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
+        MetadataContainerComponent,
+        TextComponent,
       ],
       providers: [
         { provide: BitstreamDataService, useValue: mockBitstreamDataService },
+        { provide: CRIS_FIELD_RENDERING_MAP, useValue: layoutBoxesMap },
       ],
-      declarations: [MetadataContainerComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
-      .compileComponents();
+      .overrideComponent(MetadataContainerComponent, { remove: { imports: [MetadataRenderComponent] } }).compileComponents();
   });
 
   beforeEach(() => {
@@ -174,7 +186,7 @@ describe('MetadataContainerComponent', () => {
     component.box = boxMetadata;
 
     mockBitstreamDataService.findShowableBitstreamsByItem.and.returnValue(
-      createSuccessfulRemoteDataObject$(createPaginatedList([]))
+      createSuccessfulRemoteDataObject$(createPaginatedList([])),
     );
   });
 
@@ -315,7 +327,7 @@ describe('MetadataContainerComponent', () => {
         expect(mockBitstreamDataService.findShowableBitstreamsByItem).toHaveBeenCalledWith(
           testItem.uuid,
           bitstreamField.bitstream.bundle,
-          [ { metadataName: 'metadataFieldTest', metadataValue: 'metadataValueTest' } ]
+          [ { metadataName: 'metadataFieldTest', metadataValue: 'metadataValueTest' } ],
         );
       });
     });
@@ -330,7 +342,7 @@ describe('MetadataContainerComponent', () => {
         expect(mockBitstreamDataService.findShowableBitstreamsByItem).toHaveBeenCalledWith(
           testItem.uuid,
           bitstreamField.bitstream.bundle,
-          [] // <--- empty array of filters
+          [], // <--- empty array of filters
         );
       });
     });

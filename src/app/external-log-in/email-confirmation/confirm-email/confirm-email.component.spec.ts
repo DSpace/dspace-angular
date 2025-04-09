@@ -1,24 +1,40 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ConfirmEmailComponent } from './confirm-email.component';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { TranslateLoader, TranslateModule, TranslateService, } from '@ngx-translate/core';
-import { EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ExternalLoginService } from '../../services/external-login.service';
+import {
+  EventEmitter,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  FormBuilder,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { of } from 'rxjs';
+
 import { AuthService } from '../../../core/auth/auth.service';
 import { AuthMethodType } from '../../../core/auth/models/auth.method-type';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { HardRedirectService } from '../../../core/services/hard-redirect.service';
+import { NativeWindowService } from '../../../core/services/window.service';
 import { Registration } from '../../../core/shared/registration.model';
+import {
+  MockWindow,
+  NativeWindowMockFactory,
+} from '../../../shared/mocks/mock-native-window-ref';
 import { TranslateLoaderMock } from '../../../shared/mocks/translate-loader.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
-import { NativeWindowService } from '../../../core/services/window.service';
-import { MockWindow, NativeWindowMockFactory } from '../../../shared/mocks/mock-native-window-ref';
-import { By } from '@angular/platform-browser';
+import { ExternalLoginService } from '../../services/external-login.service';
+import { ConfirmEmailComponent } from './confirm-email.component';
 
 describe('ConfirmEmailComponent', () => {
   let component: ConfirmEmailComponent;
@@ -52,7 +68,6 @@ describe('ConfirmEmailComponent', () => {
       redirect: {},
     });
     await TestBed.configureTestingModule({
-      declarations: [ConfirmEmailComponent],
       providers: [
         FormBuilder,
         { provide: NativeWindowService, useFactory: NativeWindowMockFactory },
@@ -71,7 +86,8 @@ describe('ConfirmEmailComponent', () => {
             useClass: TranslateLoaderMock,
           },
         }),
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        ConfirmEmailComponent,
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
@@ -108,7 +124,7 @@ describe('ConfirmEmailComponent', () => {
       spyOn(component as any, 'postCreateAccountFromToken');
       component.submitForm();
       expect(
-        (component as any).postCreateAccountFromToken
+        (component as any).postCreateAccountFromToken,
       ).toHaveBeenCalledWith('test-token', component.registrationData);
     });
 
@@ -127,7 +143,7 @@ describe('ConfirmEmailComponent', () => {
       spyOn(component as any, 'patchUpdateRegistration');
       component.submitForm();
       expect(
-        (component as any).postCreateAccountFromToken
+        (component as any).postCreateAccountFromToken,
       ).not.toHaveBeenCalled();
       expect((component as any).patchUpdateRegistration).not.toHaveBeenCalled();
     });

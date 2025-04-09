@@ -1,13 +1,15 @@
-import { FormFieldModel } from '../models/form-field.model';
-import { RelationGroupFieldParser } from './relation-group-field-parser';
+import { getMockTranslateService } from '../../../mocks/translate.service.mock';
 import { DynamicRelationGroupModel } from '../ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
+import { FormFieldModel } from '../models/form-field.model';
 import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
 import { ParserOptions } from './parser-options';
+import { RelationGroupFieldParser } from './relation-group-field-parser';
 
 describe('RelationGroupFieldParser test suite', () => {
   let field: FormFieldModel;
   let inLineField: FormFieldModel;
   let initFormValues = {};
+  let translateService = getMockTranslateService();
 
   const submissionId = '1234';
   const parserOptions: ParserOptions = {
@@ -15,20 +17,20 @@ describe('RelationGroupFieldParser test suite', () => {
     submissionScope: 'testScopeUUID',
     collectionUUID: 'WORKSPACE',
     typeField: 'dc_type',
-    isInnerForm: false
+    isInnerForm: false,
   };
 
   beforeEach(() => {
     field = {
       input: {
-        type: 'group'
+        type: 'group',
       },
       rows: [
         {
           fields: [
             {
               input: {
-                type: 'onebox'
+                type: 'onebox',
               },
               label: 'Author',
               mandatory: 'false',
@@ -36,14 +38,14 @@ describe('RelationGroupFieldParser test suite', () => {
               hints: 'Enter the name of the author.',
               selectableMetadata: [
                 {
-                  metadata: 'author'
-                }
+                  metadata: 'author',
+                },
               ],
-              languageCodes: []
+              languageCodes: [],
             },
             {
               input: {
-                type: 'onebox'
+                type: 'onebox',
               },
               label: 'Affiliation',
               mandatory: false,
@@ -51,13 +53,13 @@ describe('RelationGroupFieldParser test suite', () => {
               hints: 'Enter the affiliation of the author.',
               selectableMetadata: [
                 {
-                  metadata: 'affiliation'
-                }
+                  metadata: 'affiliation',
+                },
               ],
-              languageCodes: []
-            }
-          ]
-        }
+              languageCodes: [],
+            },
+          ],
+        },
       ],
       label: 'Authors',
       mandatory: 'true',
@@ -66,10 +68,10 @@ describe('RelationGroupFieldParser test suite', () => {
       hints: 'Enter the names of the authors of this item.',
       selectableMetadata: [
         {
-          metadata: 'author'
-        }
+          metadata: 'author',
+        },
       ],
-      languageCodes: []
+      languageCodes: [],
     } as FormFieldModel;
 
   });
@@ -80,13 +82,13 @@ describe('RelationGroupFieldParser test suite', () => {
   });
 
   it('should init parser properly', () => {
-    const parser = new RelationGroupFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new RelationGroupFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     expect(parser instanceof RelationGroupFieldParser).toBe(true);
   });
 
   it('should return a DynamicRelationGroupModel object', () => {
-    const parser = new RelationGroupFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new RelationGroupFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     const fieldModel = parser.parse();
 
@@ -97,7 +99,7 @@ describe('RelationGroupFieldParser test suite', () => {
   it('should return a DynamicRelationGroupModel object when has a inline group', () => {
     inLineField = Object.assign({}, field);
     inLineField.input.type = 'inline-group';
-    const parser = new RelationGroupFieldParser(submissionId, inLineField, initFormValues, parserOptions);
+    const parser = new RelationGroupFieldParser(submissionId, inLineField, initFormValues, parserOptions, null, translateService);
 
     const fieldModel = parser.parse();
 
@@ -107,7 +109,7 @@ describe('RelationGroupFieldParser test suite', () => {
 
   it('should throw when rows configuration is empty', () => {
     field.rows = null;
-    const parser = new RelationGroupFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new RelationGroupFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     expect(() => parser.parse())
       .toThrow();
@@ -116,14 +118,14 @@ describe('RelationGroupFieldParser test suite', () => {
   it('should set group init value properly', () => {
     initFormValues = {
       author: [new FormFieldMetadataValueObject('test author')],
-      affiliation: [new FormFieldMetadataValueObject('test affiliation')]
+      affiliation: [new FormFieldMetadataValueObject('test affiliation')],
     };
-    const parser = new RelationGroupFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new RelationGroupFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     const fieldModel = parser.parse();
     const expectedValue = [{
       author: new FormFieldMetadataValueObject('test author'),
-      affiliation: new FormFieldMetadataValueObject('test affiliation')
+      affiliation: new FormFieldMetadataValueObject('test affiliation'),
     }];
 
     expect(fieldModel.value).toEqual(expectedValue);

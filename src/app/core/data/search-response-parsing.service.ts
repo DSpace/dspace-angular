@@ -1,21 +1,25 @@
 import { Injectable } from '@angular/core';
+
 import { hasValue } from '../../shared/empty.util';
 import { SearchObjects } from '../../shared/search/models/search-objects.model';
 import { ParsedResponse } from '../cache/response.models';
-import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
-import { MetadataMap, MetadataValue } from '../shared/metadata.models';
+import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+import {
+  MetadataMap,
+  MetadataValue,
+} from '../shared/metadata.models';
 import { DspaceRestResponseParsingService } from './dspace-rest-response-parsing.service';
 import { RestRequest } from './rest-request.model';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SearchResponseParsingService extends DspaceRestResponseParsingService {
   parse(request: RestRequest, data: RawRestResponse): ParsedResponse {
     // fallback for unexpected empty response
     const emptyPayload = {
       _embedded : {
-        objects: []
-      }
+        objects: [],
+      },
     };
     const payload = data.payload._embedded.searchResult || emptyPayload;
     payload.appliedFilters = data.payload.appliedFilters;
@@ -47,7 +51,7 @@ export class SearchResponseParsingService extends DspaceRestResponseParsingServi
       .map((object, index) => Object.assign({}, object, {
         indexableObject: dsoSelfLinks[index],
         hitHighlights: hitHighlights[index],
-        _embedded: this.filterEmbeddedObjects(object, request)
+        _embedded: this.filterEmbeddedObjects(object, request),
       }));
     payload.objects = objects;
     const deserialized: any = new DSpaceSerializer(SearchObjects).deserialize(payload);
@@ -67,8 +71,8 @@ export class SearchResponseParsingService extends DspaceRestResponseParsingServi
             .reduce((obj, key) => {
               obj[key] = object._embedded.indexableObject._embedded[key];
               return obj;
-            }, {})
-        })
+            }, {}),
+        }),
       });
     } else {
       return object;

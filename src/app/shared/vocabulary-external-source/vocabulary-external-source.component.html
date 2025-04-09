@@ -8,7 +8,7 @@
 <div class="modal-body">
   <div class="container">
     <ds-loading *ngIf="(loading$ | async)"></ds-loading>
-    <div *ngIf="!(loading$ | async) && metadataList.length > 0">
+    <div *ngIf="(loading$ | async) !== true && metadataList.length > 0">
       <div class="row">
         <div class="col-md-12">
           <p>{{'vocabulary.import-external.preview.subtitle' | translate}}</p>
@@ -38,7 +38,7 @@
         </div>
       </div>
     </div>
-    <div *ngIf="!(loading$ | async) && metadataList.length === 0">
+    <div *ngIf="(loading$ | async) !== true && metadataList.length === 0">
       <ds-alert [type]="'alert-danger'" [content]="'vocabulary.import-external.preview.not-found'"></ds-alert>
     </div>
   </div>

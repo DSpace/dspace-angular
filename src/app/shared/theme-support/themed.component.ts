@@ -2,7 +2,6 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
-  ComponentFactoryResolver,
   ComponentRef,
   ElementRef,
   HostBinding,
@@ -10,24 +9,42 @@ import {
   OnDestroy,
   SimpleChanges,
   ViewChild,
-  ViewContainerRef
+  ViewContainerRef,
 } from '@angular/core';
-import { hasNoValue, hasValue, isNotEmpty } from '../empty.util';
-import { BehaviorSubject, combineLatest, from as fromPromise, Observable, of as observableOf, Subscription } from 'rxjs';
-import { ThemeService } from './theme.service';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import {
+  BehaviorSubject,
+  combineLatest,
+  from as fromPromise,
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  catchError,
+  map,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
+
 import { GenericConstructor } from '../../core/shared/generic-constructor';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../empty.util';
 import { BASE_THEME_NAME } from './theme.constants';
+import { ThemeService } from './theme.service';
 
 @Component({
   selector: 'ds-themed',
   styleUrls: ['./themed.component.scss'],
   templateUrl: './themed.component.html',
+  standalone: true,
 })
-export abstract class ThemedComponent<T> implements AfterViewInit, OnDestroy, OnChanges {
+export abstract class ThemedComponent<T extends object> implements AfterViewInit, OnDestroy, OnChanges {
   @ViewChild('vcr', { read: ViewContainerRef }) vcr: ViewContainerRef;
   @ViewChild('content') themedElementContent: ElementRef;
-  protected compRef: ComponentRef<T>;
+  compRef: ComponentRef<T>;
 
   /**
    * A reference to the themed component. Will start as undefined and emit every time the themed
@@ -47,7 +64,6 @@ export abstract class ThemedComponent<T> implements AfterViewInit, OnDestroy, On
   @HostBinding('attr.data-used-theme') usedTheme: string;
 
   constructor(
-    protected resolver: ComponentFactoryResolver,
     protected cdr: ChangeDetectorRef,
     protected themeService: ThemeService,
   ) {
@@ -106,10 +122,10 @@ export abstract class ThemedComponent<T> implements AfterViewInit, OnDestroy, On
             } else {
               // otherwise import and return the default component
               return fromPromise(this.importUnthemedComponent()).pipe(
-            tap(() => this.usedTheme = BASE_THEME_NAME),
+                tap(() => this.usedTheme = BASE_THEME_NAME),
                 map((unthemedFile: any) => {
                   return unthemedFile[this.getComponentName()];
-                })
+                }),
               );
             }
           })),
@@ -118,8 +134,9 @@ export abstract class ThemedComponent<T> implements AfterViewInit, OnDestroy, On
 
     this.lazyLoadSub = this.lazyLoadObs.subscribe(([simpleChanges, constructor]: [SimpleChanges, GenericConstructor<T>]) => {
       this.destroyComponentInstance();
-      const factory = this.resolver.resolveComponentFactory(constructor);
-      this.compRef = this.vcr.createComponent(factory, undefined, undefined, [this.themedElementContent.nativeElement.childNodes]);
+      this.compRef = this.vcr.createComponent(constructor, {
+        projectableNodes: [this.themedElementContent.nativeElement.childNodes],
+      });
       if (hasValue(simpleChanges)) {
         this.ngOnChanges(simpleChanges);
       } else {

@@ -1,20 +1,47 @@
-import { LogOutAction, RefreshEpersonAndTokenRedirectAction } from '../../core/auth/auth.actions';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AuthService } from '../../core/auth/auth.service';
-import { map, switchMap, take } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
+import { NgIf } from '@angular/common';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { Store } from '@ngrx/store';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  combineLatest,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
 import { AppState } from '../../app.reducer';
+import {
+  LogOutAction,
+  RefreshEpersonAndTokenRedirectAction,
+} from '../../core/auth/auth.actions';
+import { AuthService } from '../../core/auth/auth.service';
 import { EndUserAgreementService } from '../../core/end-user-agreement/end-user-agreement.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { combineLatest, of as observableOf, Subscription } from 'rxjs';
 import { isNotEmpty } from '../../shared/empty.util';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { EndUserAgreementContentComponent } from './end-user-agreement-content/end-user-agreement-content.component';
 
 @Component({
-  selector: 'ds-end-user-agreement',
+  selector: 'ds-base-end-user-agreement',
   templateUrl: './end-user-agreement.component.html',
-  styleUrls: ['./end-user-agreement.component.scss']
+  styleUrls: ['./end-user-agreement.component.scss'],
+  standalone: true,
+  imports: [EndUserAgreementContentComponent, FormsModule, TranslateModule, NgIf],
 })
 /**
  * Component displaying the End User Agreement and an option to accept it
@@ -56,7 +83,7 @@ export class EndUserAgreementComponent implements OnInit, OnDestroy {
     this.subscription.add(
       combineLatest([
         this.endUserAgreementService.hasCurrentUserOrCookieAcceptedAgreement(false),
-        this.authService.isAuthenticated()
+        this.authService.isAuthenticated(),
       ])
         .subscribe(([accepted, authorized]) => {
           if (authorized) {
@@ -70,7 +97,7 @@ export class EndUserAgreementComponent implements OnInit, OnDestroy {
           } else {
             this.alreadyAccepted = true;
           }
-        })
+        }),
     );
   }
 
@@ -89,7 +116,7 @@ export class EndUserAgreementComponent implements OnInit, OnDestroy {
           return observableOf(undefined);
         }
       }),
-      take(1)
+      take(1),
     ).subscribe((redirectUrl) => {
       if (isNotEmpty(redirectUrl)) {
         this.store.dispatch(new RefreshEpersonAndTokenRedirectAction(this.authService.getToken(), redirectUrl));

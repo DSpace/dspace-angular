@@ -1,26 +1,78 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ThemedComponent } from '../theme-support/themed.component';
-import { SearchComponent } from './search.component';
-import { SearchConfigurationOption } from './search-switch-configuration/search-configuration-option.model';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+
 import { Context } from '../../core/shared/context.model';
-import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
-import { SelectionConfig } from './search-results/search-results.component';
-import { ViewMode } from '../../core/shared/view-mode.model';
-import { SearchObjects } from './models/search-objects.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
-import { ListableObject } from '../object-collection/shared/listable-object.model';
+import { ViewMode } from '../../core/shared/view-mode.model';
 import { AlertType } from '../alert/alert-type';
+import { CollectionElementLinkType } from '../object-collection/collection-element-link.type';
+import { ListableObject } from '../object-collection/shared/listable-object.model';
+import { ThemedComponent } from '../theme-support/themed.component';
+import { SearchObjects } from './models/search-objects.model';
+import { SearchComponent } from './search.component';
+import { SelectionConfig } from './search-results/search-results.component';
+import { SearchConfigurationOption } from './search-switch-configuration/search-configuration-option.model';
 
 /**
  * Themed wrapper for {@link SearchComponent}
  */
 @Component({
-  selector: 'ds-themed-search',
-  styleUrls: [],
+  selector: 'ds-search',
   templateUrl: '../theme-support/themed.component.html',
+  standalone: true,
+  imports: [SearchComponent],
 })
 export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
-  protected inAndOutputNames: (keyof SearchComponent & keyof this)[] = ['configurationList', 'context', 'configuration', 'fixedFilterQuery', 'forcedEmbeddedKeys', 'useCachedVersionIfAvailable', 'collapseCharts', 'collapseFilters', 'inPlaceSearch', 'linkType', 'paginationId', 'projection', 'searchEnabled', 'sideBarWidth', 'searchFormPlaceholder', 'selectable', 'selectionConfig', 'showCharts', 'showExport', 'showSidebar', 'showThumbnails', 'showViewModes', 'useUniquePageId', 'viewModeList', 'showScopeSelector', 'showFilterToggle', 'showChartsToggle', 'showCsvExport', 'resultFound', 'deselectObject', 'selectObject', 'customEvent', 'trackStatistics', 'query', 'searchResultNotice', 'searchResultNoticeType', 'showSearchResultNotice', 'renderOnServerSide'];
+
+  protected inAndOutputNames: (keyof SearchComponent & keyof this)[] = [
+    'collapseCharts',
+    'collapseFilters',
+    'configurationList',
+    'context',
+    'configuration',
+    'customEvent',
+    'deselectObject',
+    'fixedFilterQuery',
+    'forcedEmbeddedKeys',
+    'hiddenQuery',
+    'hideScopeInUrl',
+    'useCachedVersionIfAvailable',
+    'inPlaceSearch',
+    'linkType',
+    'paginationId',
+    'projection',
+    'query',
+    'renderOnServerSide',
+    'resultFound',
+    'scope',
+    'searchEnabled',
+    'searchFormPlaceholder',
+    'searchResultNotice',
+    'searchResultNoticeType',
+    'selectable',
+    'selectionConfig',
+    'selectObject',
+    'showCharts',
+    'showChartsToggle',
+    'showCsvExport',
+    'showExport',
+    'showFilterToggle',
+    'showLabel',
+    'showMetrics',
+    'showScopeSelector',
+    'showSearchResultNotice',
+    'showSidebar',
+    'showThumbnails',
+    'showViewModes',
+    'sideBarWidth',
+    'trackStatistics',
+    'useUniquePageId',
+    'viewModeList',
+  ];
 
   @Input() configurationList: SearchConfigurationOption[];
 
@@ -31,6 +83,8 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
   @Input() fixedFilterQuery: string;
 
   @Input() forcedEmbeddedKeys: Map<string, string[]>;
+
+  @Input() hiddenQuery: string;
 
   @Input() useCachedVersionIfAvailable: boolean;
 
@@ -66,9 +120,13 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
 
   @Input() showExport: boolean;
 
+  @Input() showLabel: boolean;
+
+  @Input() showMetrics: boolean;
+
   @Input() showSidebar: boolean;
 
-  @Input() showThumbnails;
+  @Input() showThumbnails: boolean;
 
   @Input() showViewModes: boolean;
 
@@ -88,7 +146,11 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
 
   @Input() query: string;
 
+  @Input() hideScopeInUrl: boolean;
+
   @Input() renderOnServerSide = false;
+
+  @Input() scope: string;
 
   @Output() resultFound: EventEmitter<SearchObjects<DSpaceObject>> = new EventEmitter();
 

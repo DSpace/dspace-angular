@@ -1,11 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ExternalLoginEmailConfirmationPageComponent } from './external-login-email-confirmation-page.component';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
 import {
-  ConfirmationSentComponent
-} from '../external-log-in/email-confirmation/confirmation-sent/confirmation-sent.component';
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+
+import { ConfirmationSentComponent } from '../external-log-in/email-confirmation/confirmation-sent/confirmation-sent.component';
+import { TranslateLoaderMock } from '../shared/mocks/translate-loader.mock';
+import { ExternalLoginEmailConfirmationPageComponent } from './external-login-email-confirmation-page.component';
 
 describe('ExternalLoginEmailConfirmationPageComponent', () => {
   let component: ExternalLoginEmailConfirmationPageComponent;
@@ -13,19 +17,18 @@ describe('ExternalLoginEmailConfirmationPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
+      imports: [
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
+        }),
         ExternalLoginEmailConfirmationPageComponent,
-        ConfirmationSentComponent ],
-        imports: [
-          TranslateModule.forRoot({
-            loader: {
-              provide: TranslateLoader,
-              useClass: TranslateLoaderMock,
-            },
-          }),
-        ]
+        ConfirmationSentComponent,
+      ],
     })
-    .compileComponents();
+      .overrideComponent(ExternalLoginEmailConfirmationPageComponent, { remove: { imports: [ConfirmationSentComponent] } }).compileComponents();
   });
 
   beforeEach(() => {

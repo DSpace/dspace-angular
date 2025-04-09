@@ -1,23 +1,35 @@
-import { ComponentFixture, ComponentFixtureAutoDetect, TestBed, waitForAsync } from '@angular/core/testing';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { Item } from '../../../core/shared/item.model';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
-import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { EditItemDataService } from '../../../core/submission/edititem-data.service';
-import { EditItemRelationshipsMenuComponent } from './edit-item-relationships-menu.component';
-import { createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
-import { createPaginatedList } from '../../testing/utils.test';
-import { EditItemMode } from '../../../core/submission/models/edititem-mode.model';
-import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
+import {
+  ComponentFixture,
+  ComponentFixtureAutoDetect,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { TabDataService } from '../../../core/layout/tab-data.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
+
 import { CrisLayoutBox } from '../../../core/layout/models/box.model';
-import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
-import { NotificationsService } from '../../notifications/notifications.service';
 import { CrisLayoutTab } from '../../../core/layout/models/tab.model';
 import { TAB } from '../../../core/layout/models/tab.resource-type';
+import { TabDataService } from '../../../core/layout/tab-data.service';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
+import { Item } from '../../../core/shared/item.model';
+import { EditItemDataService } from '../../../core/submission/edititem-data.service';
+import { EditItemMode } from '../../../core/submission/models/edititem-mode.model';
+import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
+import { NotificationsService } from '../../notifications/notifications.service';
+import {
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../remote-data.utils';
+import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
+import { createPaginatedList } from '../../testing/utils.test';
+import { EditItemRelationshipsMenuComponent } from './edit-item-relationships-menu.component';
 
 describe('EditItemRelationshipsMenuComponent', () => {
   let component: EditItemRelationshipsMenuComponent;
@@ -30,7 +42,7 @@ describe('EditItemRelationshipsMenuComponent', () => {
   const notificationService = new NotificationsServiceStub();
   const editItemMode: EditItemMode = Object.assign(new EditItemMode(), {
     name: 'test',
-    label: 'test'
+    label: 'test',
   });
 
 
@@ -46,7 +58,7 @@ describe('EditItemRelationshipsMenuComponent', () => {
       'security': 0,
       'boxType': 'METADATA',
       'clear': true,
-      'maxColumns': null
+      'maxColumns': null,
     }),
     Object.assign(new CrisLayoutBox(), {
       'id': 623,
@@ -59,8 +71,8 @@ describe('EditItemRelationshipsMenuComponent', () => {
       'security': 0,
       'boxType': 'RELATION',
       'clear': true,
-      'maxColumns': null
-    })
+      'maxColumns': null,
+    }),
   ];
 
   const boxesWithoutRelations: CrisLayoutBox[] = [
@@ -75,8 +87,8 @@ describe('EditItemRelationshipsMenuComponent', () => {
       'security': 0,
       'boxType': 'METADATA',
       'clear': true,
-      'maxColumns': null
-    })
+      'maxColumns': null,
+    }),
   ];
 
   const tabWithRelationBoxes: CrisLayoutTab = {
@@ -92,18 +104,18 @@ describe('EditItemRelationshipsMenuComponent', () => {
         cells: [
           {
             boxes: boxesWithRelations,
-            style: ''
-          }
+            style: '',
+          },
         ],
-        style: ''
-      }
+        style: '',
+      },
     ],
     uuid: 'person-profile-1',
     _links: {
       self: {
-        href: 'https://rest.api/rest/api/tabs/1'
-      }
-    }
+        href: 'https://rest.api/rest/api/tabs/1',
+      },
+    },
   };
 
   const tabWithoutRelationBoxes: CrisLayoutTab = {
@@ -119,18 +131,18 @@ describe('EditItemRelationshipsMenuComponent', () => {
         cells: [
           {
             boxes: boxesWithoutRelations,
-            style: ''
-          }
+            style: '',
+          },
         ],
-        style: ''
-      }
+        style: '',
+      },
     ],
     uuid: 'person-profile-1',
     _links: {
       self: {
-        href: 'https://rest.api/rest/api/tabs/1'
-      }
-    }
+        href: 'https://rest.api/rest/api/tabs/1',
+      },
+    },
   };
 
   const relationships = [
@@ -145,35 +157,36 @@ describe('EditItemRelationshipsMenuComponent', () => {
       'security': 0,
       'boxType': 'RELATION',
       'clear': true,
-      'maxColumns': null
-    })
+      'maxColumns': null,
+    }),
   ];
 
   const tabDataServiceMock: any = jasmine.createSpyObj('TabDataService', {
-    findByItem: jasmine.createSpy('findByItem')
+    findByItem: jasmine.createSpy('findByItem'),
   });
 
   beforeEach(waitForAsync(() => {
     dso = Object.assign(new Item(), {
       id: 'test-item',
       _links: {
-        self: { href: 'test-item-selflink' }
-      }
+        self: { href: 'test-item-selflink' },
+      },
     });
     editItemDataService = jasmine.createSpyObj('EditItemDataService', {
-      searchEditModesById: jasmine.createSpy('searchEditModesById')
+      searchEditModesById: jasmine.createSpy('searchEditModesById'),
     });
 
     TestBed.configureTestingModule({
-      declarations: [EditItemRelationshipsMenuComponent],
       imports: [
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
-        RouterTestingModule.withRoutes([])],
+        RouterTestingModule.withRoutes([]),
+        EditItemRelationshipsMenuComponent,
+      ],
       providers: [
         { provide: EditItemDataService, useValue: editItemDataService },
         { provide: 'contextMenuObjectProvider', useValue: dso },
@@ -181,7 +194,7 @@ describe('EditItemRelationshipsMenuComponent', () => {
         { provide: TabDataService, useValue: tabDataServiceMock },
         { provide: ComponentFixtureAutoDetect, useValue: true },
         { provide: NotificationsService, useValue: notificationService },
-      ]
+      ],
     }).compileComponents();
   }));
 
@@ -189,7 +202,7 @@ describe('EditItemRelationshipsMenuComponent', () => {
     beforeEach(() => {
       editItemDataService.searchEditModesById.and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList([editItemMode])));
       tabDataServiceMock.findByItem.and.returnValue(cold('a|', {
-        a: createSuccessfulRemoteDataObject(createPaginatedList([tabWithRelationBoxes]))
+        a: createSuccessfulRemoteDataObject(createPaginatedList([tabWithRelationBoxes])),
       }));
 
       fixture = TestBed.createComponent(EditItemRelationshipsMenuComponent);
@@ -215,7 +228,7 @@ describe('EditItemRelationshipsMenuComponent', () => {
     beforeEach(() => {
       editItemDataService.searchEditModesById.and.returnValue(createSuccessfulRemoteDataObject$(createPaginatedList([])));
       tabDataServiceMock.findByItem.and.returnValue(cold('a|', {
-        a: createSuccessfulRemoteDataObject(createPaginatedList([tabWithoutRelationBoxes]))
+        a: createSuccessfulRemoteDataObject(createPaginatedList([tabWithoutRelationBoxes])),
       }));
 
       fixture = TestBed.createComponent(EditItemRelationshipsMenuComponent);

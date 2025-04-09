@@ -1,14 +1,22 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-
-import { LongtextComponent } from './longtext.component';
-import { Item } from '../../../../../../../core/shared/item.model';
-import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
+import { Item } from '../../../../../../../core/shared/item.model';
 import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
+import { TranslateLoaderMock } from '../../../../../../../shared/mocks/translate-loader.mock';
+import { TruncatableComponent } from '../../../../../../../shared/truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
+import { LongtextComponent } from './longtext.component';
 
 describe('LongtextComponent', () => {
   let component: LongtextComponent;
@@ -19,17 +27,17 @@ describe('LongtextComponent', () => {
     'language': null,
     'authority': null,
     'confidence': -1,
-    'place': 0
+    'place': 0,
   });
 
   const testItem = Object.assign(new Item(),
     {
       type: 'item',
       metadata: {
-        'dc.abstract': [metadataValue]
+        'dc.abstract': [metadataValue],
       },
       uuid: 'test-item-uuid',
-    }
+    },
   );
 
 
@@ -42,7 +50,7 @@ describe('LongtextComponent', () => {
     'styleLabel': 'test-style-label',
     'styleValue': 'test-style-value',
     'labelAsHeading': false,
-    'valuesInline': true
+    'valuesInline': true,
   };
 
   beforeEach(waitForAsync(() => {
@@ -50,18 +58,18 @@ describe('LongtextComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      }), BrowserAnimationsModule],
+          useClass: TranslateLoaderMock,
+        },
+      }), BrowserAnimationsModule, LongtextComponent],
       providers: [
         { provide: 'fieldProvider', useValue: mockField },
         { provide: 'itemProvider', useValue: testItem },
         { provide: 'metadataValueProvider', useValue: metadataValue },
         { provide: 'renderingSubTypeProvider', useValue: '' },
+        { provide: 'tabNameProvider', useValue: '' },
       ],
-      declarations: [LongtextComponent]
     })
-      .compileComponents();
+      .overrideComponent(LongtextComponent, { remove: { imports: [TruncatableComponent, TruncatablePartComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -70,7 +78,7 @@ describe('LongtextComponent', () => {
     fixture.detectChanges();
   });
 
- it('should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 

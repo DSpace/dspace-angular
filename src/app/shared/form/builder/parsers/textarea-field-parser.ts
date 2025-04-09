@@ -1,14 +1,14 @@
-import { FieldParser } from './field-parser';
-import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import { environment } from '../../../../../environments/environment';
 import {
   DsDynamicTextAreaModel,
-  DsDynamicTextAreaModelConfig
+  DsDynamicTextAreaModelConfig,
 } from '../ds-dynamic-form-ui/models/ds-dynamic-textarea.model';
-import { environment } from '../../../../../environments/environment';
+import { FormFieldMetadataValueObject } from '../models/form-field-metadata-value.model';
+import { FieldParser } from './field-parser';
 
 export class TextareaFieldParser extends FieldParser {
 
-  public modelFactory(fieldValue?: FormFieldMetadataValueObject | any, label?: boolean): any {
+  public modelFactory(fieldValue?: FormFieldMetadataValueObject, label?: boolean): any {
     const textAreaModelConfig: DsDynamicTextAreaModelConfig = this.initModel(null, label);
 
     textAreaModelConfig.rows = 10;

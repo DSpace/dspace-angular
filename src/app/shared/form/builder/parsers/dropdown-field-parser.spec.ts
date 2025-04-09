@@ -1,10 +1,13 @@
+import { getMockTranslateService } from 'src/app/shared/mocks/translate.service.mock';
+
+import { DynamicScrollableDropdownModel } from '../ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { FormFieldModel } from '../models/form-field.model';
 import { DropdownFieldParser } from './dropdown-field-parser';
-import { DynamicScrollableDropdownModel } from '../ds-dynamic-form-ui/models/scrollable-dropdown/dynamic-scrollable-dropdown.model';
 import { ParserOptions } from './parser-options';
 
 describe('DropdownFieldParser test suite', () => {
   let field: FormFieldModel;
+  let translateService = getMockTranslateService();
 
   const submissionId = '1234';
   const initFormValues = {};
@@ -13,13 +16,13 @@ describe('DropdownFieldParser test suite', () => {
     submissionScope: 'testScopeUUID',
     collectionUUID: null,
     typeField: 'dc_type',
-    isInnerForm: false
+    isInnerForm: false,
   };
 
   beforeEach(() => {
     field = {
       input: {
-        type: 'dropdown'
+        type: 'dropdown',
       },
       label: 'Type',
       mandatory: 'false',
@@ -29,22 +32,22 @@ describe('DropdownFieldParser test suite', () => {
         {
           metadata: 'type',
           controlledVocabulary: 'common_types_dataset',
-          closed: false
-        }
+          closed: false,
+        },
       ],
-      languageCodes: []
+      languageCodes: [],
     } as FormFieldModel;
 
   });
 
   it('should init parser properly', () => {
-    const parser = new DropdownFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new DropdownFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     expect(parser instanceof DropdownFieldParser).toBe(true);
   });
 
   it('should return a DynamicScrollableDropdownModel object when repeatable option is false', () => {
-    const parser = new DropdownFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new DropdownFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     const fieldModel = parser.parse();
 
@@ -53,7 +56,7 @@ describe('DropdownFieldParser test suite', () => {
 
   it('should throw when authority is not passed', () => {
     field.selectableMetadata[0].controlledVocabulary = null;
-    const parser = new DropdownFieldParser(submissionId, field, initFormValues, parserOptions);
+    const parser = new DropdownFieldParser(submissionId, field, initFormValues, parserOptions, null, translateService);
 
     expect(() => parser.parse())
       .toThrow();

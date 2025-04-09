@@ -1,8 +1,17 @@
 import { Injectable } from '@angular/core';
-import { CookieAttributes, getJSON, remove, set } from 'js-cookie';
-import { CookieService, ICookieService } from './cookie.service';
+import {
+  CookieAttributes,
+  getJSON,
+  remove,
+  set,
+} from 'js-cookie';
 
-@Injectable()
+import {
+  CookieService,
+  ICookieService,
+} from './cookie.service';
+
+@Injectable({ providedIn: 'root' })
 export class ClientCookieService extends CookieService implements ICookieService {
 
   public set(name: string, value: any, options?: CookieAttributes): void {

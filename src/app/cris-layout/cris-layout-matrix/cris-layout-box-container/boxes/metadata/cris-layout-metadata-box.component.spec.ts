@@ -1,16 +1,22 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 
-import { CrisLayoutMetadataBoxComponent } from './cris-layout-metadata-box.component';
 import { Item } from '../../../../../core/shared/item.model';
 import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
-import { CrisLayoutLoaderDirective } from '../../../../directives/cris-layout-loader.directive';
 import { boxMetadata } from '../../../../../shared/testing/box.mock';
+import { CrisLayoutLoaderDirective } from '../../../../directives/cris-layout-loader.directive';
+import { CrisLayoutMetadataBoxComponent } from './cris-layout-metadata-box.component';
 import { TextComponent } from './rendering-types/text/text.component';
-import { SharedModule } from '../../../../../shared/shared.module';
 import { RowComponent } from './row/row.component';
 
 describe('CrisLayoutMetadataBoxComponent', () => {
@@ -26,11 +32,11 @@ describe('CrisLayoutMetadataBoxComponent', () => {
           'language': null,
           'authority': null,
           'confidence': -1,
-          'place': 0
-        }]
+          'place': 0,
+        }],
       },
       uuid: 'test-item-uuid',
-    }
+    },
   );
 
   beforeEach(waitForAsync(() => {
@@ -38,23 +44,19 @@ describe('CrisLayoutMetadataBoxComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
+          useClass: TranslateLoaderMock,
+        },
       }),
-        BrowserAnimationsModule,
-        SharedModule],
+      BrowserAnimationsModule, CrisLayoutMetadataBoxComponent,
+      CrisLayoutLoaderDirective,
+      RowComponent,
+      TextComponent],
       providers: [
         { provide: 'boxProvider', useValue: boxMetadata },
         { provide: 'itemProvider', useValue: testItem },
       ],
-      declarations: [
-        CrisLayoutMetadataBoxComponent,
-        CrisLayoutLoaderDirective,
-        RowComponent,
-        TextComponent
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(CrisLayoutMetadataBoxComponent, { remove: { imports: [RowComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

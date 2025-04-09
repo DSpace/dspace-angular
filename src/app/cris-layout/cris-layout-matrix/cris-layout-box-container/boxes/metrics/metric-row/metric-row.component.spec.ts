@@ -1,12 +1,20 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../../../../../shared/mocks/translate-loader.mock';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { MetricRowComponent } from './metric-row.component';
-import { metricRowsMock } from '../cris-layout-metrics-box.component.spec';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+
+import { MetricLoaderComponent } from '../../../../../../shared/metric/metric-loader/metric-loader.component';
+import { TranslateLoaderMock } from '../../../../../../shared/mocks/translate-loader.mock';
+import { metricRowsMock } from '../cris-layout-metrics-box.component.spec';
+import { MetricRowComponent } from './metric-row.component';
 
 describe('MetricRowComponent', () => {
   let component: MetricRowComponent;
@@ -17,14 +25,11 @@ describe('MetricRowComponent', () => {
       imports: [TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
-          useClass: TranslateLoaderMock
-        }
-      }), BrowserAnimationsModule],
-      declarations: [
-        MetricRowComponent
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+          useClass: TranslateLoaderMock,
+        },
+      }), BrowserAnimationsModule, MetricRowComponent],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).overrideComponent(MetricRowComponent, { remove: { imports: [MetricLoaderComponent] } }).compileComponents();
   }));
 
   beforeEach(() => {

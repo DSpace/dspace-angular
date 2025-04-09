@@ -1,32 +1,42 @@
-import { Component, Input, OnInit } from '@angular/core';
-
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Metadata } from '../../../../core/shared/metadata.utils';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { MultiColumnTopSection, TopSectionColumn } from '../../../../core/layout/models/section.model';
-import { SearchResult } from '../../../search/models/search-result.model';
-import { SearchObjects } from '../../../search/models/search-objects.model';
-import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
-import { PaginatedSearchOptions } from '../../../search/models/paginated-search-options.model';
-import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
 import { SearchManager } from '../../../../core/browse/search-manager';
-import { SortDirection, SortOptions } from '../../../../core/cache/models/sort-options.model';
-import { getItemPageRoute } from '../../../../item-page/item-page-routing-paths';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../../../core/cache/models/sort-options.model';
+import {
+  MultiColumnTopSection,
+  TopSectionColumn,
+} from '../../../../core/layout/models/section.model';
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { Item } from '../../../../core/shared/item.model';
+import { Metadata } from '../../../../core/shared/metadata.utils';
+import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/operators';
+import { getItemPageRoute } from '../../../../item-page/item-page-routing-paths';
+import { PaginationComponentOptions } from '../../../pagination/pagination-component-options.model';
+import { PaginatedSearchOptions } from '../../../search/models/paginated-search-options.model';
+import { SearchObjects } from '../../../search/models/search-objects.model';
+import { SearchResult } from '../../../search/models/search-result.model';
 
 @Component({
-  selector: 'ds-multi-column-top-section',
-  templateUrl: './multi-column-top-section.component.html'
+  selector: 'ds-base-multi-column-top-section',
+  templateUrl: './multi-column-top-section.component.html',
+  standalone: true,
 })
 export class MultiColumnTopSectionComponent implements OnInit {
 
   @Input()
-  sectionId: string;
+    sectionId: string;
 
   @Input()
-  topSection: MultiColumnTopSection;
+    topSection: MultiColumnTopSection;
 
   topObjects: Observable<DSpaceObject[]>;
 
@@ -40,18 +50,18 @@ export class MultiColumnTopSectionComponent implements OnInit {
     const pagination: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
       id: 'search-object-pagination',
       pageSize: 50,
-      currentPage: 1
+      currentPage: 1,
     });
 
     this.topObjects = this.searchService.search(new PaginatedSearchOptions({
       configuration: this.topSection.discoveryConfigurationName,
       pagination: pagination,
-      sort: new SortOptions(this.topSection.sortField, sortDirection)
+      sort: new SortOptions(this.topSection.sortField, sortDirection),
     })).pipe(
       getFirstSucceededRemoteDataPayload(),
       map((response: SearchObjects<DSpaceObject>) => response.page
-        .map((searchResult: SearchResult<DSpaceObject>) => searchResult._embedded.indexableObject)
-      )
+        .map((searchResult: SearchResult<DSpaceObject>) => searchResult._embedded.indexableObject),
+      ),
     );
   }
 

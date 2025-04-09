@@ -1,22 +1,46 @@
-import { Component, Inject, OnDestroy } from '@angular/core';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Inject,
+  OnDestroy,
+} from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  catchError,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
-import { BehaviorSubject, Observable, of as observableOf, Subscription } from 'rxjs';
-import { catchError, take } from 'rxjs/operators';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
-
-import { NotificationsService } from '../../notifications/notifications.service';
-import { SubmissionService } from '../../../submission/submission.service';
-import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
-import { hasValue, isNotEmpty } from '../../empty.util';
 import { ErrorResponse } from '../../../core/cache/response.models';
-import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
-import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { ContextMenuEntryComponent } from '../context-menu-entry.component';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
+import { SubmissionObject } from '../../../core/submission/models/submission-object.model';
+import { SubmissionService } from '../../../submission/submission.service';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../empty.util';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
 
 /**
@@ -24,11 +48,17 @@ import { ContextMenuEntryType } from '../context-menu-entry-type';
  */
 @Component({
   selector: 'ds-context-menu-request-correction',
-  templateUrl: './request-correction-menu.component.html'
+  templateUrl: './request-correction-menu.component.html',
+  standalone: true,
+  imports: [
+    NgIf,
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
-@rendersContextMenuEntriesForType(DSpaceObjectType.ITEM)
 export class RequestCorrectionMenuComponent extends ContextMenuEntryComponent implements OnDestroy {
 
+  canCreateCorrection$: Observable<boolean>;
   /**
    * A boolean representing if a request operation is pending
    * @type {BehaviorSubject<boolean>}
@@ -64,7 +94,7 @@ export class RequestCorrectionMenuComponent extends ContextMenuEntryComponent im
     private notificationService: NotificationsService,
     private router: Router,
     private submissionService: SubmissionService,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {
     super(injectedContextMenuObject, injectedContextMenuObjectType, ContextMenuEntryType.RequestCorrection);
   }
@@ -85,10 +115,12 @@ export class RequestCorrectionMenuComponent extends ContextMenuEntryComponent im
     this.processing$.next(true);
     this.sub = this.submissionService.createSubmissionByItem(this.contextMenuObject.id, 'isCorrectionOfItem').pipe(
       take(1),
-      catchError((error: ErrorResponse) => {
-        this.handleErrorResponse(error.statusCode);
-        return observableOf({});
-      })
+      catchError((error: unknown) => {
+        if (error instanceof ErrorResponse) {
+          this.handleErrorResponse(error.statusCode);
+          return observableOf({});
+        }
+      }),
     ).subscribe((response: SubmissionObject) => {
       this.processing$.next(false);
       this.modalRef.close();
@@ -96,15 +128,16 @@ export class RequestCorrectionMenuComponent extends ContextMenuEntryComponent im
       if (isNotEmpty(response)) {
         this.notificationService.success(
           null,
-          this.translate.instant('submission.workflow.tasks.generic.success')
+          this.translate.instant('submission.workflow.tasks.generic.success'),
         );
         // redirect to workspaceItem edit page
         this.router.navigate(['workspaceitems', response.id, 'edit']);
       }
     });
-    this.notificationService.claimedProfile.subscribe(() => {
-      this.canCreateCorrection(false);
-    });
+
+    this.canCreateCorrection$ = this.notificationService.claimedProfile.pipe(
+      switchMap(() => this.canCreateCorrection(false)),
+    );
   }
 
   /**
@@ -125,13 +158,19 @@ export class RequestCorrectionMenuComponent extends ContextMenuEntryComponent im
       case 403:
         this.notificationService.warning(
           null,
-          this.translate.instant('item.page.context-menu.options.request-correction.error.403')
+          this.translate.instant('context-menu.actions.request-correction.error.403'),
+        );
+        break;
+      case 422:
+        this.notificationService.warning(
+          null,
+          this.translate.instant('context-menu.actions.request-correction.error.422'),
         );
         break;
       default :
         this.notificationService.error(
           null,
-          this.translate.instant('item.page.context-menu.options.request-correction.error.generic')
+          this.translate.instant('context-menu.actions.request-correction.error.generic'),
         );
     }
   }

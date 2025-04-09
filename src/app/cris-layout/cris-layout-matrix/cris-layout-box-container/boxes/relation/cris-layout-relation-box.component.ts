@@ -1,24 +1,46 @@
-import { Component, Inject, OnInit } from '@angular/core';
-
-import { BehaviorSubject, Observable, shareReplay } from 'rxjs';
-import { filter, map, take } from 'rxjs/operators';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+  shareReplay,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  take,
+} from 'rxjs/operators';
 
-import { RenderCrisLayoutBoxFor } from '../../../../decorators/cris-layout-box.decorator';
-import { LayoutBox } from '../../../../enums/layout-box.enum';
-import { CrisLayoutBoxModelComponent } from '../../../../models/cris-layout-box-component.model';
-import { CrisLayoutBox, RelationBoxConfiguration } from '../../../../../core/layout/models/box.model';
-import { Item } from '../../../../../core/shared/item.model';
 import { AuthService } from '../../../../../core/auth/auth.service';
-import { isNotEmpty } from '../../../../../shared/empty.util';
 import { EPerson } from '../../../../../core/eperson/models/eperson.model';
+import {
+  CrisLayoutBox,
+  RelationBoxConfiguration,
+} from '../../../../../core/layout/models/box.model';
+import { Item } from '../../../../../core/shared/item.model';
+import { ThemedConfigurationSearchPageComponent } from '../../../../../search-page/themed-configuration-search-page.component';
+import { isNotEmpty } from '../../../../../shared/empty.util';
+import { CrisLayoutBoxModelComponent } from '../../../../models/cris-layout-box-component.model';
 
 @Component({
   selector: 'ds-cris-layout-search-box',
   templateUrl: './cris-layout-relation-box.component.html',
-  styleUrls: ['./cris-layout-relation-box.component.scss']
+  styleUrls: ['./cris-layout-relation-box.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    ThemedConfigurationSearchPageComponent,
+    AsyncPipe,
+  ],
 })
-@RenderCrisLayoutBoxFor(LayoutBox.RELATION)
 export class CrisLayoutRelationBoxComponent extends CrisLayoutBoxModelComponent implements OnInit {
 
   /**
@@ -48,7 +70,7 @@ export class CrisLayoutRelationBoxComponent extends CrisLayoutBoxModelComponent 
     protected authService: AuthService,
     protected translateService: TranslateService,
     @Inject('boxProvider') public boxProvider: CrisLayoutBox,
-    @Inject('itemProvider') public itemProvider: Item
+    @Inject('itemProvider') public itemProvider: Item,
   ) {
     super(translateService, boxProvider, itemProvider);
   }
@@ -78,7 +100,7 @@ export class CrisLayoutRelationBoxComponent extends CrisLayoutBoxModelComponent 
     return this.authService.getAuthenticatedUserFromStore().pipe(
       filter(isNotEmpty),
       map((user) => isNotEmpty(this.getOwner(user))),
-      shareReplay(1)
+      shareReplay({ refCount: false, bufferSize: 1 }),
     );
   }
 

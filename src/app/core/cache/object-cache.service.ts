@@ -1,32 +1,68 @@
 import { Injectable } from '@angular/core';
-import { createSelector, MemoizedSelector, select, Store } from '@ngrx/store';
-import { applyPatch, Operation } from 'fast-json-patch';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
+import {
+  createSelector,
+  MemoizedSelector,
+  select,
+  Store,
+} from '@ngrx/store';
+import {
+  applyPatch,
+  Operation,
+} from 'fast-json-patch';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  mergeMap,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
-import { distinctUntilChanged, filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
-import { hasNoValue, hasValue, isEmpty, isNotEmpty } from '../../shared/empty.util';
-import { CoreState } from '../core-state.model';
+import {
+  hasNoValue,
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../../shared/empty.util';
 import { coreSelector } from '../core.selectors';
+import { CoreState } from '../core-state.model';
 import { RestRequestMethod } from '../data/rest-request-method';
-import { selfLinkFromAlternativeLinkSelector, selfLinkFromUuidSelector } from '../index/index.selectors';
+import { RemoveFromIndexBySubstringAction } from '../index/index.actions';
+import {
+  selfLinkFromAlternativeLinkSelector,
+  selfLinkFromUuidSelector,
+} from '../index/index.selectors';
+import { IndexName } from '../index/index-name.model';
 import { GenericConstructor } from '../shared/generic-constructor';
+import { HALLink } from '../shared/hal-link.model';
 import { getClassForType } from './builders/build-decorators';
 import { LinkService } from './builders/link.service';
-import { AddDependentsObjectCacheAction, AddPatchObjectCacheAction, AddToObjectCacheAction, ApplyPatchObjectCacheAction, RemoveDependentsObjectCacheAction, RemoveFromObjectCacheAction } from './object-cache.actions';
-
-import { ObjectCacheEntry, ObjectCacheState } from './object-cache.reducer';
-import { AddToSSBAction } from './server-sync-buffer.actions';
-import { RemoveFromIndexBySubstringAction } from '../index/index.actions';
-import { HALLink } from '../shared/hal-link.model';
 import { CacheableObject } from './cacheable-object.model';
-import { IndexName } from '../index/index-name.model';
+import {
+  AddDependentsObjectCacheAction,
+  AddPatchObjectCacheAction,
+  AddToObjectCacheAction,
+  ApplyPatchObjectCacheAction,
+  RemoveDependentsObjectCacheAction,
+  RemoveFromObjectCacheAction,
+} from './object-cache.actions';
+import {
+  ObjectCacheEntry,
+  ObjectCacheState,
+} from './object-cache.reducer';
+import { AddToSSBAction } from './server-sync-buffer.actions';
 
 /**
  * The base selector function to select the object cache in the store
  */
 const objectCacheSelector = createSelector(
   coreSelector,
-  (state: CoreState) => state['cache/object']
+  (state: CoreState) => state['cache/object'],
 );
 
 /**
@@ -42,11 +78,11 @@ const entryFromSelfLinkSelector =
 /**
  * A service to interact with the object cache
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ObjectCacheService {
   constructor(
     private store: Store<CoreState>,
-    private linkService: LinkService
+    private linkService: LinkService,
   ) {
   }
 
@@ -82,12 +118,12 @@ export class ObjectCacheService {
     const cacheEntry$ = this.getByHref(href);
     const altLinks$ = cacheEntry$.pipe(map((entry: ObjectCacheEntry) => entry.alternativeLinks), take(1));
     const childLinks$ = cacheEntry$.pipe(map((entry: ObjectCacheEntry) => {
-        return Object
-          .entries(entry.data._links)
-          .filter(([key, value]: [string, HALLink]) => key !== 'self')
-          .map(([key, value]: [string, HALLink]) => value.href);
-      }),
-      take(1)
+      return Object
+        .entries(entry.data._links)
+        .filter(([key, value]: [string, HALLink]) => key !== 'self')
+        .map(([key, value]: [string, HALLink]) => value.href);
+    }),
+    take(1),
     );
     this.removeLinksFromAlternativeLinkIndex(altLinks$);
     this.removeLinksFromAlternativeLinkIndex(childLinks$);
@@ -96,8 +132,8 @@ export class ObjectCacheService {
 
   private removeLinksFromAlternativeLinkIndex(links$: Observable<string[]>) {
     links$.subscribe((links: string[]) => links.forEach((link: string) => {
-        this.store.dispatch(new RemoveFromIndexBySubstringAction(IndexName.ALTERNATIVE_OBJECT_LINK, link));
-      }
+      this.store.dispatch(new RemoveFromIndexBySubstringAction(IndexName.ALTERNATIVE_OBJECT_LINK, link));
+    },
     ));
   }
 
@@ -113,8 +149,8 @@ export class ObjectCacheService {
     Observable<T> {
     return this.store.pipe(
       select(selfLinkFromUuidSelector(uuid)),
-      mergeMap((selfLink: string) => this.getObjectByHref<T>(selfLink)
-      )
+      mergeMap((selfLink: string) => this.getObjectByHref<T>(selfLink),
+      ),
     );
   }
 
@@ -129,14 +165,14 @@ export class ObjectCacheService {
   getObjectByHref<T extends CacheableObject>(href: string): Observable<T> {
     return this.getByHref(href).pipe(
       map((entry: ObjectCacheEntry) => {
-          if (isNotEmpty(entry.patches)) {
-            const flatPatch: Operation[] = [].concat(...entry.patches.map((patch) => patch.operations));
-            const patchedData = applyPatch(entry.data, flatPatch, undefined, false).newDocument;
-            return Object.assign({}, entry, { data: patchedData });
-          } else {
-            return entry;
-          }
+        if (isNotEmpty(entry.patches)) {
+          const flatPatch: Operation[] = [].concat(...entry.patches.map((patch) => patch.operations));
+          const patchedData = applyPatch(entry.data, flatPatch, undefined, false).newDocument;
+          return Object.assign({}, entry, { data: patchedData });
+        } else {
+          return entry;
         }
+      },
       ),
       map((entry: ObjectCacheEntry) => {
         const type: GenericConstructor<T> = getClassForType((entry.data as any).type);
@@ -144,7 +180,7 @@ export class ObjectCacheService {
           throw new Error(`${type} is not a valid constructor for ${JSON.stringify(entry.data)}`);
         }
         return Object.assign(new type(), entry.data) as T;
-      })
+      }),
     );
   }
 
@@ -162,13 +198,13 @@ export class ObjectCacheService {
       this.getBySelfLink(href),
     ]).pipe(
       map((results: ObjectCacheEntry[]) => results.find((entry: ObjectCacheEntry) => hasValue(entry))),
-      filter((entry: ObjectCacheEntry) => hasValue(entry))
+      filter((entry: ObjectCacheEntry) => hasValue(entry)),
     );
   }
 
   private getBySelfLink(selfLink: string): Observable<ObjectCacheEntry> {
     return this.store.pipe(
-      select(entryFromSelfLinkSelector(selfLink))
+      select(entryFromSelfLinkSelector(selfLink)),
     );
   }
 
@@ -204,7 +240,7 @@ export class ObjectCacheService {
   getRequestUUIDByObjectUUID(uuid: string): Observable<string> {
     return this.store.pipe(
       select(selfLinkFromUuidSelector(uuid)),
-      mergeMap((selfLink: string) => this.getRequestUUIDBySelfLink(selfLink))
+      mergeMap((selfLink: string) => this.getRequestUUIDBySelfLink(selfLink)),
     );
   }
 
@@ -232,7 +268,7 @@ export class ObjectCacheService {
       return observableOf([]);
     } else {
       return observableCombineLatest(
-        selfLinks.map((selfLink: string) => this.getObjectByHref<T>(selfLink))
+        selfLinks.map((selfLink: string) => this.getObjectByHref<T>(selfLink)),
       );
     }
   }
@@ -252,7 +288,7 @@ export class ObjectCacheService {
     /* NB: that this is only a solution because the select method is synchronous, see: https://github.com/ngrx/store/issues/296#issuecomment-269032571*/
     this.store.pipe(
       select(selfLinkFromUuidSelector(uuid)),
-      take(1)
+      take(1),
     ).subscribe((selfLink: string) => result = this.hasByHref(selfLink));
 
     return result;
@@ -290,9 +326,9 @@ export class ObjectCacheService {
   hasByHref$(href: string): Observable<boolean> {
     return observableCombineLatest(
       this.getBySelfLink(href),
-      this.getByAlternativeLink(href)
+      this.getByAlternativeLink(href),
     ).pipe(
-      map((entries: ObjectCacheEntry[]) => entries.some((entry) => hasValue(entry)))
+      map((entries: ObjectCacheEntry[]) => entries.some((entry) => hasValue(entry))),
     );
   }
 
@@ -358,7 +394,7 @@ export class ObjectCacheService {
     observableCombineLatest([
       href$,
       dependsOnHref$.pipe(
-        switchMap(dependsOnHref => this.resolveSelfLink(dependsOnHref))
+        switchMap(dependsOnHref => this.resolveSelfLink(dependsOnHref)),
       ),
     ]).pipe(
       switchMap(([href, dependsOnSelfLink]: [string, string]) => {
@@ -373,7 +409,7 @@ export class ObjectCacheService {
           this.getByHref(href).pipe(
             // only add the latest request to keep dependency index from growing indefinitely
             map((entry: ObjectCacheEntry) => entry?.requestUUIDs?.[0]),
-          )
+          ),
         ]);
       }),
       take(1),

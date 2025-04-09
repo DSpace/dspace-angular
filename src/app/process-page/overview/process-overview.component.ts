@@ -1,147 +1,62 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
-import { RemoteData } from '../../core/data/remote-data';
-import { PaginatedList } from '../../core/data/paginated-list.model';
-import { Process } from '../processes/process.model';
-import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { EPersonDataService } from '../../core/eperson/eperson-data.service';
-import { getFirstCompletedRemoteData, getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
-import { EPerson } from '../../core/eperson/models/eperson.model';
-import { map, switchMap, take } from 'rxjs/operators';
-import { ProcessDataService } from '../../core/data/processes/process-data.service';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { FindListOptions } from '../../core/data/find-list-options.model';
-import { ProcessBulkDeleteService } from './process-bulk-delete.service';
+import {
+  AsyncPipe,
+  DatePipe,
+  NgFor,
+  NgIf,
+  NgTemplateOutlet,
+} from '@angular/common';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
+
 import { hasValue } from '../../shared/empty.util';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
-import { UUIDService } from '../../core/shared/uuid.service';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { ProcessStatus } from '../processes/process-status.model';
+import { ProcessBulkDeleteService } from './process-bulk-delete.service';
+import {
+  ProcessOverviewService,
+  ProcessSortField,
+} from './process-overview.service';
+import { ProcessOverviewTableComponent } from './table/process-overview-table.component';
 
 @Component({
   selector: 'ds-process-overview',
   templateUrl: './process-overview.component.html',
+  standalone: true,
+  imports: [NgIf, RouterLink, PaginationComponent, NgFor, VarDirective, AsyncPipe, DatePipe, TranslateModule, NgTemplateOutlet, ProcessOverviewTableComponent],
 })
 /**
  * Component displaying a list of all processes in a paginated table
  */
 export class ProcessOverviewComponent implements OnInit, OnDestroy {
 
-  /**
-   * List of all processes
-   */
-  processesRD$: BehaviorSubject<RemoteData<PaginatedList<Process>>> = new BehaviorSubject(null);
+  // Enums are redeclared here so they can be used in the template
+  protected readonly ProcessStatus = ProcessStatus;
+  protected readonly ProcessSortField = ProcessSortField;
 
-  /**
-   * The current pagination configuration for the page used by the FindAll method
-   */
-  config: FindListOptions = Object.assign(new FindListOptions(), {
-    elementsPerPage: 20
-  });
-
-  /**
-   * The current pagination configuration for the page
-   */
-  pageConfig: PaginationComponentOptions = Object.assign(new PaginationComponentOptions(), {
-    id: this.uuidService.generate(),
-    pageSize: 20
-  });
-
-  /**
-   * Date format to use for start and end time of processes
-   */
-  dateFormat = 'yyyy-MM-dd HH:mm:ss';
-
-  processesToDelete: string[] = [];
   private modalRef: any;
 
   isProcessingSub: Subscription;
 
-  constructor(protected processService: ProcessDataService,
-              protected paginationService: PaginationService,
-              protected ePersonService: EPersonDataService,
+  constructor(protected processOverviewService: ProcessOverviewService,
               protected modalService: NgbModal,
               public processBulkDeleteService: ProcessBulkDeleteService,
-              protected dsoNameService: DSONameService,
-              protected authorizationService: AuthorizationDataService,
-              protected notificationService: NotificationsService,
-              protected translateService: TranslateService,
-              protected uuidService: UUIDService,
   ) {
   }
 
   ngOnInit(): void {
-    this.setProcesses();
     this.processBulkDeleteService.clearAllProcesses();
   }
 
-  /**
-   * Send a request to fetch all processes for the current page
-   */
-  setProcesses() {
-    const pageConfig$ = this.paginationService.getFindListOptions(this.pageConfig.id, this.config);
-    const isAdmin$ = this.isCurrentUserAdmin();
-    combineLatest([
-      isAdmin$,
-      pageConfig$
-    ]).pipe(
-      switchMap(([isAdmin, config]) => {
-        if (isAdmin) {
-          return this.processService.findAll(config, false, true);
-        } else {
-          return this.processService.searchItsOwnProcesses(config, false, true);
-        }
-      }),
-      getFirstCompletedRemoteData(),
-      take(1),
-    ).subscribe(remoteData => {
-      this.processesRD$.next(remoteData);
-    });
-  }
-
-  onPaginationChange() {
-    this.processService.setStale();
-    this.setProcesses();
-  }
-
-  isCurrentUserAdmin(): Observable<boolean> {
-    return this.authorizationService.isAuthorized(FeatureID.AdministratorOf, undefined, undefined);
-  }
-
-  isProcessCompleted(process: Process): boolean {
-    return process.processStatus?.toString() === 'COMPLETED' || process.processStatus?.toString() === 'FAILED';
-  }
-
-  /**
-   * Get the name of an EPerson by ID
-   * @param id  ID of the EPerson
-   */
-  getEpersonName(id: string): Observable<string> {
-    return this.ePersonService.findById(id).pipe(
-      getFirstSucceededRemoteDataPayload(),
-      map((eperson: EPerson) => this.dsoNameService.getName(eperson)),
-    );
-  }
-
-  delete(process: Process) {
-    this.processService.setStale();
-    this.processService.delete(process.processId).pipe(
-      getFirstCompletedRemoteData()
-    ).subscribe((remoteData => {
-      if (remoteData.isSuccess) {
-        this.notificationService.success(this.translateService.get('process.overview.delete.success'));
-        this.setProcesses();
-      } else {
-        this.notificationService.error(this.translateService.get('process.overview.delete.failed'));
-      }
-    }));
-  }
-
   ngOnDestroy(): void {
-    this.paginationService.clearPagination(this.pageConfig.id);
     if (hasValue(this.isProcessingSub)) {
       this.isProcessingSub.unsubscribe();
     }
@@ -151,7 +66,7 @@ export class ProcessOverviewComponent implements OnInit, OnDestroy {
    * Open a given modal.
    * @param content   - the modal content.
    */
-  openDeleteModal(content) {
+  openDeleteModal(content: TemplateRef<any>) {
     this.modalRef = this.modalService.open(content);
   }
 
@@ -175,10 +90,9 @@ export class ProcessOverviewComponent implements OnInit, OnDestroy {
     }
     this.isProcessingSub = this.processBulkDeleteService.isProcessing$()
       .subscribe((isProcessing) => {
-      if (!isProcessing) {
-        this.closeModal();
-        this.setProcesses();
-      }
-    });
+        if (!isProcessing) {
+          this.closeModal();
+        }
+      });
   }
 }

@@ -1,14 +1,25 @@
-import { Component, EventEmitter } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
-
+import {
+  Component,
+  EventEmitter,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { of } from 'rxjs';
 
-import { MetricLoaderComponent } from './metric-loader.component';
-import { MetricLoaderService } from './metric-loader.service';
 import { metric1Mock } from '../../../cris-layout/cris-layout-matrix/cris-layout-box-container/boxes/metrics/cris-layout-metrics-box.component.spec';
 import { MetricStyleConfigPipe } from '../pipes/metric-style-config/metric-style-config.pipe';
+import { MetricLoaderComponent } from './metric-loader.component';
+import { MetricLoaderService } from './metric-loader.service';
 import SpyObj = jasmine.SpyObj;
-import { CookieConsents, KlaroService } from '../../cookies/klaro.service';
+import {
+  CookieConsents,
+  KlaroService,
+} from '../../cookies/klaro.service';
 import { BaseMetricComponent } from './base-metric.component';
 
 
@@ -23,7 +34,7 @@ describe('MetricLoaderComponent', () => {
   const consentsAccepted: CookieConsents = {
     acknowledgement: true,
     authentication: true,
-    preferences: true
+    preferences: true,
   };
 
 
@@ -31,28 +42,28 @@ describe('MetricLoaderComponent', () => {
     (TestComponent as unknown as BaseMetricComponent).hide = new EventEmitter();
     (TestComponent as unknown as BaseMetricComponent).requestSettingsConsent = new EventEmitter();
     metricLoaderService = jasmine.createSpyObj('MetricLoaderService', {
-      loadMetricTypeComponent: jasmine.createSpy('loadMetricTypeComponent')
+      loadMetricTypeComponent: jasmine.createSpy('loadMetricTypeComponent'),
     });
     metricLoaderService.loadMetricTypeComponent.and.returnValue(of(TestComponent).toPromise());
 
     klaroServiceSpy = jasmine.createSpyObj('KlaroService', {
       getSavedPreferences: jasmine.createSpy('getSavedPreferences'),
-      watchConsentUpdates: jasmine.createSpy('watchConsentUpdates')
+      watchConsentUpdates: jasmine.createSpy('watchConsentUpdates').and.returnValue(null),
     },{
-      consentsUpdates$: of(consentsAccepted)
+      consentsUpdates$: of(consentsAccepted),
     });
 
     klaroServiceSpy.getSavedPreferences.and.returnValue(of(consentsAccepted));
 
 
     TestBed.configureTestingModule({
-      declarations: [ MetricLoaderComponent, MetricStyleConfigPipe ],
+      imports: [MetricLoaderComponent, MetricStyleConfigPipe],
       providers: [
         { provide: MetricLoaderService, useValue: metricLoaderService },
         { provide: KlaroService, useValue: klaroServiceSpy },
       ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -108,12 +119,12 @@ describe('MetricLoaderComponent', () => {
   describe('getCanLoadScript', () => {
 
     it('should return true for not restricted metrics', fakeAsync(() => {
-        expect((component as any).getCanLoadScript(consentsAccepted)).toBeTruthy();
+      expect((component as any).getCanLoadScript(consentsAccepted)).toBeTruthy();
     }));
 
     it('should return false for restricted metrics', fakeAsync(() => {
-      const consentRejected = {...consentsAccepted, acknowledgement: false};
-      component.metric = {...metric1Mock, metricType: 'altmetric'};
+      const consentRejected = { ...consentsAccepted, acknowledgement: false };
+      component.metric = { ...metric1Mock, metricType: 'altmetric' };
       expect((component as any).getCanLoadScript(consentRejected)).toBeFalsy();
     }));
 
@@ -124,7 +135,8 @@ describe('MetricLoaderComponent', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
+  standalone: true,
 })
 class TestComponent {
   hide = new EventEmitter();

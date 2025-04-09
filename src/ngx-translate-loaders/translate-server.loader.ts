@@ -1,8 +1,15 @@
-import { TranslateLoader } from '@ngx-translate/core';
-import { Observable, of as observableOf } from 'rxjs';
-import { readFileSync } from 'fs';
 import { TransferState } from '@angular/platform-browser';
-import { NGX_TRANSLATE_STATE, NgxTranslateState } from './ngx-translate-state';
+import { TranslateLoader } from '@ngx-translate/core';
+import { readFileSync } from 'fs';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+
+import {
+  NGX_TRANSLATE_STATE,
+  NgxTranslateState,
+} from './ngx-translate-state';
 
 /**
  * A TranslateLoader for ngx-translate to parse json5 files server-side, and store them in the
@@ -13,7 +20,7 @@ export class TranslateServerLoader implements TranslateLoader {
   constructor(
     protected transferState: TransferState,
     protected prefix: string = 'dist/assets/i18n/',
-    protected suffix: string = '.json'
+    protected suffix: string = '.json',
   ) {
   }
 
@@ -44,7 +51,7 @@ export class TranslateServerLoader implements TranslateLoader {
   protected storeInTransferState(lang: string, messages) {
     const prevState = this.transferState.get<NgxTranslateState>(NGX_TRANSLATE_STATE, {});
     const nextState = Object.assign({}, prevState, {
-      [lang]: messages
+      [lang]: messages,
     });
     this.transferState.set(NGX_TRANSLATE_STATE, nextState);
   }

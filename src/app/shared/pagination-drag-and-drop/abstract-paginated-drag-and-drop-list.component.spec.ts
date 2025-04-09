@@ -1,24 +1,31 @@
-import { AbstractPaginatedDragAndDropListComponent } from './abstract-paginated-drag-and-drop-list.component';
-import { DSpaceObject } from '../../core/shared/dspace-object.model';
+import {
+  Component,
+  ElementRef,
+} from '@angular/core';
+import {
+  BehaviorSubject,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import { take } from 'rxjs/operators';
+
+import { FieldUpdates } from '../../core/data/object-updates/field-updates.model';
 import { ObjectUpdatesService } from '../../core/data/object-updates/object-updates.service';
-import { Component, ElementRef } from '@angular/core';
-import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
-import { take } from 'rxjs/operators';
+import { PaginationService } from '../../core/pagination/pagination.service';
+import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
+import { PaginationServiceStub } from '../testing/pagination-service.stub';
 import { createPaginatedList } from '../testing/utils.test';
 import { ObjectValuesPipe } from '../utils/object-values-pipe';
-import { PaginationService } from '../../core/pagination/pagination.service';
-import { PaginationServiceStub } from '../testing/pagination-service.stub';
-import { FieldUpdates } from '../../core/data/object-updates/field-updates.model';
-import { UUIDService } from '../../core/shared/uuid.service';
-import { getMockUUIDService } from '../mocks/uuid.service.mock';
+import { AbstractPaginatedDragAndDropListComponent } from './abstract-paginated-drag-and-drop-list.component';
 
 @Component({
   selector: 'ds-mock-paginated-drag-drop-abstract',
-  template: ''
+  template: '',
+  standalone: true,
 })
 class MockAbstractPaginatedDragAndDropListComponent extends AbstractPaginatedDragAndDropListComponent<DSpaceObject> {
 
@@ -27,9 +34,8 @@ class MockAbstractPaginatedDragAndDropListComponent extends AbstractPaginatedDra
               protected objectValuesPipe: ObjectValuesPipe,
               protected mockUrl: string,
               protected paginationService: PaginationService,
-              protected mockObjectsRD$: Observable<RemoteData<PaginatedList<DSpaceObject>>>,
-              protected uuidService: UUIDService) {
-    super(objectUpdatesService, elRef, objectValuesPipe, paginationService, uuidService);
+              protected mockObjectsRD$: Observable<RemoteData<PaginatedList<DSpaceObject>>>) {
+    super(objectUpdatesService, elRef, objectValuesPipe, paginationService);
   }
 
   initializeObjectsRD(): void {
@@ -46,7 +52,6 @@ describe('AbstractPaginatedDragAndDropListComponent', () => {
   let objectUpdatesService: ObjectUpdatesService;
   let elRef: ElementRef;
   let objectValuesPipe: ObjectValuesPipe;
-  let uuidService: UUIDService;
 
   const url = 'mock-abstract-paginated-drag-and-drop-list-component';
 
@@ -59,7 +64,7 @@ describe('AbstractPaginatedDragAndDropListComponent', () => {
 
   const updates = {
     [object1.uuid]: { field: object1, changeType: undefined },
-    [object2.uuid]: { field: object2, changeType: undefined }
+    [object2.uuid]: { field: object2, changeType: undefined },
   } as FieldUpdates;
 
   let paginationComponent: PaginationComponent;
@@ -67,21 +72,20 @@ describe('AbstractPaginatedDragAndDropListComponent', () => {
   beforeEach(() => {
     objectUpdatesService = jasmine.createSpyObj('objectUpdatesService', {
       initialize: {},
-      getFieldUpdatesExclusive: observableOf(updates)
+      getFieldUpdatesExclusive: observableOf(updates),
     });
     elRef = {
       nativeElement: jasmine.createSpyObj('nativeElement', {
-        querySelector: {}
-      })
+        querySelector: {},
+      }),
     };
     objectValuesPipe = new ObjectValuesPipe();
     paginationComponent = jasmine.createSpyObj('paginationComponent', {
-      doPageChange: {}
+      doPageChange: {},
     });
     paginationService = new PaginationServiceStub();
     objectsRD$ = new BehaviorSubject(objectsRD);
-    uuidService = getMockUUIDService();
-    component = new MockAbstractPaginatedDragAndDropListComponent(objectUpdatesService, elRef, objectValuesPipe, url, paginationService, objectsRD$, uuidService);
+    component = new MockAbstractPaginatedDragAndDropListComponent(objectUpdatesService, elRef, objectValuesPipe, url, paginationService, objectsRD$);
     component.paginationComponent = paginationComponent;
     component.ngOnInit();
   });
@@ -101,7 +105,7 @@ describe('AbstractPaginatedDragAndDropListComponent', () => {
     const event = {
       previousIndex: 0,
       currentIndex: 1,
-      item: { element: { nativeElement: { id: object1.uuid } } }
+      item: { element: { nativeElement: { id: object1.uuid } } },
     } as any;
 
     describe('when the user is hovering over a new page', () => {
@@ -118,7 +122,7 @@ describe('AbstractPaginatedDragAndDropListComponent', () => {
         expect(component.dropObject.emit).toHaveBeenCalledWith(Object.assign({
           fromIndex: ((component.currentPage$.value.currentPage - 1) * component.pageSize) + event.previousIndex,
           toIndex: ((hoverPage - 1) * component.pageSize),
-          finish: jasmine.anything()
+          finish: jasmine.anything(),
         }));
       });
     });
@@ -133,7 +137,7 @@ describe('AbstractPaginatedDragAndDropListComponent', () => {
         expect(component.dropObject.emit).toHaveBeenCalledWith(Object.assign({
           fromIndex: event.previousIndex,
           toIndex: event.currentIndex,
-          finish: jasmine.anything()
+          finish: jasmine.anything(),
         }));
       });
     });

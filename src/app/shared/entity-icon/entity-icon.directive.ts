@@ -1,14 +1,26 @@
-import { Directive, ElementRef, Input, OnInit } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  Input,
+  OnInit,
+} from '@angular/core';
 
+import {
+  CrisRefConfig,
+  CrisRefEntityStyleConfig,
+} from '../../../config/layout-config.interfaces';
 import { environment } from '../../../environments/environment';
-import { CrisRefConfig, CrisRefEntityStyleConfig } from '../../../config/layout-config.interfaces';
-import { isEmpty, isNotEmpty } from '../empty.util';
+import {
+  isEmpty,
+  isNotEmpty,
+} from '../empty.util';
 
 /**
  * Directive to add to the element a entity icon based on metadata entity type and entity style
  */
 @Directive({
-  selector: '[dsEntityIcon]'
+  selector: '[dsEntityIcon]',
+  standalone: true,
 })
 export class EntityIconDirective implements OnInit {
 

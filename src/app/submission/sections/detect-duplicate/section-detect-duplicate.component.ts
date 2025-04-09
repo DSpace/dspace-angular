@@ -1,23 +1,42 @@
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
-
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+} from '@angular/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { TranslateService } from '@ngx-translate/core';
 
-import { SectionsType } from '../sections-type';
-import { SectionModelComponent } from '../models/section.model';
-import { renderSectionFor } from '../sections-decorator';
-import { SectionDataObject } from '../models/section-data.model';
-import { SortDirection, SortOptions } from '../../../core/cache/models/sort-options.model';
-import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
-import { SubmissionService } from '../../submission.service';
-import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
-import { AlertType } from '../../../shared/alert/alert-type';
-import { DetectDuplicateService } from './detect-duplicate.service';
-import { SectionsService } from '../sections.service';
-import { WorkspaceitemSectionDetectDuplicateObject } from '../../../core/submission/models/workspaceitem-section-deduplication.model';
+import {
+  SortDirection,
+  SortOptions,
+} from '../../../core/cache/models/sort-options.model';
 import { PaginationService } from '../../../core/pagination/pagination.service';
+import { WorkspaceitemSectionDetectDuplicateObject } from '../../../core/submission/models/workspaceitem-section-deduplication.model';
+import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { AlertType } from '../../../shared/alert/alert-type';
+import { ThemedLoadingComponent } from '../../../shared/loading/themed-loading.component';
+import { PaginationComponent } from '../../../shared/pagination/pagination.component';
+import { PaginationComponentOptions } from '../../../shared/pagination/pagination-component-options.model';
+import { ObjNgFor } from '../../../shared/utils/object-ngfor.pipe';
+import { VarDirective } from '../../../shared/utils/var.directive';
+import { SubmissionService } from '../../submission.service';
 import { SubmissionVisibility } from '../../utils/visibility.util';
+import { SectionModelComponent } from '../models/section.model';
+import { SectionDataObject } from '../models/section-data.model';
+import { SectionsService } from '../sections.service';
+import { DetectDuplicateService } from './detect-duplicate.service';
+import { DuplicateMatchComponent } from './duplicate-match/duplicate-match.component';
 
 /**
  * This component represents a section that contains possible duplications.
@@ -25,10 +44,23 @@ import { SubmissionVisibility } from '../../utils/visibility.util';
 @Component({
   selector: 'ds-submission-section-detect-duplicate',
   templateUrl: './section-detect-duplicate.component.html',
-  changeDetection: ChangeDetectionStrategy.Default
+  changeDetection: ChangeDetectionStrategy.Default,
+  imports: [
+    ThemedLoadingComponent,
+    NgIf,
+    AlertComponent,
+    PaginationComponent,
+    AsyncPipe,
+    TranslateModule,
+    ObjNgFor,
+    VarDirective,
+    DuplicateMatchComponent,
+    NgxPaginationModule,
+    NgForOf,
+  ],
+  standalone: true,
 })
 
-@renderSectionFor(SectionsType.DetectDuplicate)
 export class SubmissionSectionDetectDuplicateComponent extends SectionModelComponent {
   /**
    * The Alert categories.
@@ -138,7 +170,7 @@ export class SubmissionSectionDetectDuplicateComponent extends SectionModelCompo
           output = true;
         }
         return output;
-      })
+      }),
     );
   }
 
@@ -150,7 +182,7 @@ export class SubmissionSectionDetectDuplicateComponent extends SectionModelCompo
    */
   getTotalMatches(): Observable<number> {
     return this.sectionData$.pipe(
-      map((totalMatches: any) => Object.keys(totalMatches.matches).length)
+      map((totalMatches: any) => Object.keys(totalMatches.matches).length),
     );
   }
 
@@ -160,7 +192,7 @@ export class SubmissionSectionDetectDuplicateComponent extends SectionModelCompo
   isReadOnly(): boolean {
     return SubmissionVisibility.isReadOnly(
       this.sectionData.sectionVisibility,
-      this.submissionService.getSubmissionScope()
+      this.submissionService.getSubmissionScope(),
     );
   }
 

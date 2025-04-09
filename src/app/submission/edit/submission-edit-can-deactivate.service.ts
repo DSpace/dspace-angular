@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-
-import { combineLatest, Observable } from 'rxjs';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  combineLatest,
+  Observable,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { SubmissionService } from '../submission.service';
@@ -11,7 +16,7 @@ interface PendingChangesGuardComponentInterface {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SubmissionEditCanDeactivateService implements PendingChangesGuardComponentInterface {
 
@@ -24,7 +29,7 @@ export class SubmissionEditCanDeactivateService implements PendingChangesGuardCo
   public canDeactivate(id: string): Observable<boolean> {
     return combineLatest([
       this.submissionService.isSubmissionDiscarding(id),
-      this.submissionService.hasUnsavedModification()
+      this.submissionService.hasUnsavedModification(),
     ]).pipe(
       map(([isSubmissionDiscarding,hasUnsavedModification]) => isSubmissionDiscarding || !hasUnsavedModification),
     );

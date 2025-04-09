@@ -1,16 +1,36 @@
-import { Component, Injector, Input, OnInit, ViewChild } from '@angular/core';
-
-import { BehaviorSubject, Observable } from 'rxjs';
+import {
+  AsyncPipe,
+  NgClass,
+  NgComponentOutlet,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Injector,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
-import { TranslateService } from '@ngx-translate/core';
 
-import { SectionsDirective } from '../sections.directive';
-import { SectionDataObject } from '../models/section-data.model';
-import { rendersSectionType } from '../sections-decorator';
-import { AlertType } from '../../../shared/alert/alert-type';
 import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import { AlertComponent } from '../../../shared/alert/alert.component';
+import { AlertType } from '../../../shared/alert/alert-type';
 import { isNotEmpty } from '../../../shared/empty.util';
+import { SectionDataObject } from '../models/section-data.model';
+import { SectionsDirective } from '../sections.directive';
+import { rendersSectionType } from '../sections-decorator';
 
 /**
  * This component represents a section that contains the submission license form.
@@ -18,7 +38,19 @@ import { isNotEmpty } from '../../../shared/empty.util';
 @Component({
   selector: 'ds-submission-section-container',
   templateUrl: './section-container.component.html',
-  styleUrls: ['./section-container.component.scss']
+  styleUrls: ['./section-container.component.scss'],
+  imports: [
+    AlertComponent,
+    NgForOf,
+    NgbAccordionModule,
+    NgComponentOutlet,
+    TranslateModule,
+    NgClass,
+    NgIf,
+    AsyncPipe,
+    SectionsDirective,
+  ],
+  standalone: true,
 })
 export class SubmissionSectionContainerComponent implements OnInit {
 
@@ -105,12 +137,12 @@ export class SubmissionSectionContainerComponent implements OnInit {
         { provide: 'submissionIdProvider', useFactory: () => (this.submissionId), deps: [] },
         { provide: 'entityType', useFactory: () => (this.entityType), deps: [] },
       ],
-      parent: this.injector
+      parent: this.injector,
     });
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionData.id);
     const messageInfoKey = 'submission.sections.' + this.sectionData.header + '.info';
     this.hasInfoMessage = this.translate.get(messageInfoKey).pipe(
-      map((message: string) => isNotEmpty(message) && messageInfoKey !== message)
+      map((message: string) => isNotEmpty(message) && messageInfoKey !== message),
     );
   }
 
@@ -137,7 +169,7 @@ export class SubmissionSectionContainerComponent implements OnInit {
   /**
    * Find the correct component based on the section's type
    */
-  getSectionContent(): string {
+  getSectionContent() {
     return rendersSectionType(this.sectionData.sectionType);
   }
 }

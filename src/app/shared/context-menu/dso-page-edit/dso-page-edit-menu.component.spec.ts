@@ -1,16 +1,21 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { DsoPageEditMenuComponent } from './dso-page-edit-menu.component';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { Item } from '../../../core/shared/item.model';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { of as observableOf } from 'rxjs';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import {NotificationsService} from '../../notifications/notifications.service';
-import {NotificationsServiceStub} from '../../testing/notifications-service.stub';
+import { Item } from '../../../core/shared/item.model';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
+import { DsoPageEditMenuComponent } from './dso-page-edit-menu.component';
 
 describe('DsoPageEditMenuComponent', () => {
   let component: DsoPageEditMenuComponent;
@@ -23,21 +28,20 @@ describe('DsoPageEditMenuComponent', () => {
     dso = Object.assign(new Item(), {
       id: 'test-item',
       _links: {
-        self: { href: 'test-item-selflink' }
-      }
+        self: { href: 'test-item-selflink' },
+      },
     });
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true)
+      isAuthorized: observableOf(true),
     });
     TestBed.configureTestingModule({
-      declarations: [ DsoPageEditMenuComponent ],
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), DsoPageEditMenuComponent],
       providers: [
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: 'contextMenuObjectProvider', useValue: dso },
         { provide: 'contextMenuObjectTypeProvider', useValue: DSpaceObjectType.ITEM },
         { provide: NotificationsService, useValue: notificationService },
-      ]
+      ],
     }).compileComponents();
   }));
 

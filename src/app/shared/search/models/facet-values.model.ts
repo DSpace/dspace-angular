@@ -1,11 +1,16 @@
+import {
+  autoserialize,
+  autoserializeAs,
+  inheritSerialization,
+} from 'cerialize';
+
 import { typedObject } from '../../../core/cache/builders/build-decorators';
-import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
-import { FACET_VALUES } from './types/facet-values.resource-type';
-import { FacetValue } from './facet-value.model';
-import { SearchQueryResponse } from './search-query-response.model';
-import { autoserialize, autoserializeAs, inheritSerialization } from 'cerialize';
-import { FilterType } from './filter-type.model';
 import { PaginatedList } from '../../../core/data/paginated-list.model';
+import { excludeFromEquals } from '../../../core/utilities/equals.decorators';
+import { FacetValue } from './facet-value.model';
+import { FilterType } from './filter-type.model';
+import { SearchQueryResponse } from './search-query-response.model';
+import { FACET_VALUES } from './types/facet-values.resource-type';
 
 @typedObject
 @inheritSerialization(PaginatedList)
@@ -42,13 +47,13 @@ export class FacetValues extends SearchQueryResponse<FacetValue> {
    * The total number of missing facet values
    */
   @autoserialize
-  missing?: string;
+    missing?: string;
 
   /**
    * The total number of more facet values
    */
   @autoserialize
-  more?: string;
+    more?: string;
 
   /**
    * The results for this query

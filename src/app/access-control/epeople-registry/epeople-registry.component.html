@@ -2,7 +2,7 @@
   <div class="epeople-registry row">
     <div class="col-12">
       <div class="d-flex justify-content-between border-bottom mb-3">
-        <h2 id="header" class="pb-2">{{labelPrefix + 'head' | translate}}</h2>
+        <h1 id="header" class="pb-2">{{labelPrefix + 'head' | translate}}</h1>
 
         <div>
           <button class="mr-auto btn btn-success addEPerson-button"
@@ -13,9 +13,9 @@
         </div>
       </div>
 
-      <h3 id="search" class="border-bottom pb-2">{{labelPrefix + 'search.head' | translate}}
-
-      </h3>
+      <h2 id="search" class="border-bottom pb-2">
+        {{labelPrefix + 'search.head' | translate}}
+      </h2>
       <form [formGroup]="searchForm" (ngSubmit)="search(searchForm.value)" class="d-flex justify-content-between">
         <div>
           <select name="scope" id="scope" formControlName="scope" class="form-control" aria-label="Search scope">
@@ -41,11 +41,10 @@
         </div>
       </form>
 
-      <ds-themed-loading *ngIf="searching$ | async"></ds-themed-loading>
+      <ds-loading *ngIf="searching$ | async"></ds-loading>
       <ds-pagination
-        *ngIf="(pageInfoState$ | async)?.totalElements > 0 && !(searching$ | async)"
+        *ngIf="(pageInfoState$ | async)?.totalElements > 0 && (searching$ | async) !== true"
         [paginationOptions]="config"
-        [pageInfoState]="pageInfoState$"
         [collectionSize]="(pageInfoState$ | async)?.totalElements"
         [hideGear]="true"
         [hidePagerWhenSinglePage]="true">
@@ -87,7 +86,7 @@
 
       </ds-pagination>
 
-      <div *ngIf="(pageInfoState$ | async)?.totalElements == 0" class="alert alert-info w-100 mb-2" role="alert">
+      <div *ngIf="(pageInfoState$ | async)?.totalElements === 0" class="alert alert-info w-100 mb-2" role="alert">
         {{labelPrefix + 'no-items' | translate}}
       </div>
     </div>

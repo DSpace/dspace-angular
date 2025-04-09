@@ -1,26 +1,60 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { CrisLayoutBoxModelComponent } from '../../../../models/cris-layout-box-component.model';
-import { CrisLayoutBox } from '../../../../../core/layout/models/box.model';
-import { Item } from '../../../../../core/shared/item.model';
-import { TranslateService } from '@ngx-translate/core';
-import { RenderCrisLayoutBoxFor } from '../../../../decorators/cris-layout-box.decorator';
-import { LayoutBox } from '../../../../enums/layout-box.enum';
-import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
-import { getFirstSucceededRemoteDataPayload, getPaginatedListPayload, getFirstCompletedRemoteData } from '../../../../../core/shared/operators';
-import { shareReplay, tap, map } from 'rxjs/operators';
-import { Collection } from '../../../../../core/shared/collection.model';
+import {
+  AsyncPipe,
+  NgClass,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  map,
+  shareReplay,
+  tap,
+} from 'rxjs/operators';
+import { hasValue } from 'src/app/shared/empty.util';
+
+import { environment } from '../../../../../../environments/environment';
 import { CollectionDataService } from '../../../../../core/data/collection-data.service';
 import { FindListOptions } from '../../../../../core/data/find-list-options.model';
 import { PaginatedList } from '../../../../../core/data/paginated-list.model';
-import { environment } from '../../../../../../environments/environment';
-import { hasValue } from 'src/app/shared/empty.util';
+import { CrisLayoutBox } from '../../../../../core/layout/models/box.model';
+import { Collection } from '../../../../../core/shared/collection.model';
+import { Item } from '../../../../../core/shared/item.model';
+import {
+  getFirstCompletedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+  getPaginatedListPayload,
+} from '../../../../../core/shared/operators';
+import { CrisLayoutBoxModelComponent } from '../../../../models/cris-layout-box-component.model';
 
 @Component({
   selector: 'ds-cris-layout-collection-box',
   templateUrl: './cris-layout-collection-box.component.html',
-  styleUrls: ['./cris-layout-collection-box.component.scss']
+  styleUrls: ['./cris-layout-collection-box.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    RouterLink,
+    NgClass,
+    NgFor,
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
-@RenderCrisLayoutBoxFor(LayoutBox.COLLECTIONS)
 export class CrisLayoutCollectionBoxComponent extends CrisLayoutBoxModelComponent implements OnInit {
 
   isInline = environment.crisLayout.collectionsBox.isInline;
@@ -30,7 +64,7 @@ export class CrisLayoutCollectionBoxComponent extends CrisLayoutBoxModelComponen
    */
   pageSize = 5;
 
-   /**
+  /**
     * Last page of the mapped collections that has been fetched.
     */
   lastPage = 0;
@@ -50,7 +84,7 @@ export class CrisLayoutCollectionBoxComponent extends CrisLayoutBoxModelComponen
    */
   owningCollection$: Observable<Collection>;
 
-   /**
+  /**
     * This includes the mapped collection
     */
   mappedCollections$: Observable<Collection[]> = of([]);
@@ -59,7 +93,7 @@ export class CrisLayoutCollectionBoxComponent extends CrisLayoutBoxModelComponen
     protected translateService: TranslateService,
     @Inject('boxProvider') public boxProvider: CrisLayoutBox,
     @Inject('itemProvider') public itemProvider: Item,
-    private cds: CollectionDataService
+    private cds: CollectionDataService,
   ) {
     super(translateService, boxProvider, itemProvider);
   }
@@ -69,7 +103,7 @@ export class CrisLayoutCollectionBoxComponent extends CrisLayoutBoxModelComponen
 
     this.owningCollection$ = this.item.owningCollection.pipe(
       getFirstSucceededRemoteDataPayload(),
-      shareReplay(),
+      shareReplay({ refCount: false, bufferSize: 1 }),
     );
 
     this.handleLoadMore();

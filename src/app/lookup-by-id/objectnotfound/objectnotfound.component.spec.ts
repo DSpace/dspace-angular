@@ -1,11 +1,16 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-
-import { ObjectNotFoundComponent } from './objectnotfound.component';
-import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
-import { of as observableOf } from 'rxjs';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { of as observableOf } from 'rxjs';
+import { ServerResponseService } from 'src/app/core/services/server-response.service';
+
+import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { ObjectNotFoundComponent } from './objectnotfound.component';
 
 describe('ObjectNotFoundComponent', () => {
   let comp: ObjectNotFoundComponent;
@@ -15,21 +20,26 @@ describe('ObjectNotFoundComponent', () => {
   const handlePrefix = '123456789';
   const handleId = '22';
   const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
-    params: observableOf({id: testUUID, idType: uuidType})
+    params: observableOf({ id: testUUID, idType: uuidType }),
   });
+  const serverResponseServiceStub = jasmine.createSpyObj('ServerResponseService', {
+    setNotFound: jasmine.createSpy('setNotFound'),
+  });
+
   const activatedRouteStubHandle = Object.assign(new ActivatedRouteStub(), {
-    params: observableOf({id: handleId, idType: handlePrefix})
+    params: observableOf({ id: handleId, idType: handlePrefix }),
   });
   describe('uuid request', () => {
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
         imports: [
-          TranslateModule.forRoot()
+          TranslateModule.forRoot(),
+          ObjectNotFoundComponent,
         ], providers: [
-          {provide: ActivatedRoute, useValue: activatedRouteStub}
+          { provide: ServerResponseService, useValue: serverResponseServiceStub } ,
+          { provide: ActivatedRoute, useValue: activatedRouteStub },
         ],
-        declarations: [ObjectNotFoundComponent],
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
       }).compileComponents();
     }));
 
@@ -48,18 +58,23 @@ describe('ObjectNotFoundComponent', () => {
       expect(comp.idType).toEqual(uuidType);
       expect(comp.missingItem).toEqual('uuid: ' + testUUID);
     });
+
+    it('should call serverResponseService.setNotFound', () => {
+      expect(serverResponseServiceStub.setNotFound).toHaveBeenCalled();
+    });
   });
 
   describe( 'legacy handle request', () => {
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
         imports: [
-          TranslateModule.forRoot()
+          TranslateModule.forRoot(),
+          ObjectNotFoundComponent,
         ], providers: [
-          {provide: ActivatedRoute, useValue: activatedRouteStubHandle}
+          { provide: ServerResponseService, useValue: serverResponseServiceStub },
+          { provide: ActivatedRoute, useValue: activatedRouteStubHandle },
         ],
-        declarations: [ObjectNotFoundComponent],
-        schemas: [NO_ERRORS_SCHEMA]
+        schemas: [NO_ERRORS_SCHEMA],
       }).compileComponents();
     }));
 
@@ -73,6 +88,10 @@ describe('ObjectNotFoundComponent', () => {
       expect(comp.id).toEqual(handleId);
       expect(comp.idType).toEqual(handlePrefix);
       expect(comp.missingItem).toEqual('handle: ' + handlePrefix + '/' + handleId);
+    });
+
+    it('should call serverResponseService.setNotFound', () => {
+      expect(serverResponseServiceStub.setNotFound).toHaveBeenCalled();
     });
   });
 

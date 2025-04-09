@@ -1,31 +1,58 @@
-import { Item } from '../../../../core/shared/item.model';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { BrowserModule, By } from '@angular/platform-browser';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-
-import { of, of as observableOf } from 'rxjs';
-
-import { ExportSelectionMode, ItemExportComponent } from './item-export.component';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { RouterMock } from '../../../mocks/router.mock';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import {
+  BrowserModule,
+  By,
+} from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { ItemExportFormConfiguration, ItemExportService } from '../item-export.service';
-import { ItemExportAlertStubComponent } from '../item-export-alert/item-export-alert.component.spec';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import {
+  of as observableOf,
+  of,
+} from 'rxjs';
+
+import { SearchManager } from '../../../../core/browse/search-manager';
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { Item } from '../../../../core/shared/item.model';
+import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
+import { PageInfo } from '../../../../core/shared/page-info.model';
+import { AlertComponent } from '../../../alert/alert.component';
+import { AdministeredCollectionSelectorComponent } from '../../../dso-selector/dso-selector/administered-collection-selector/administered-collection-selector.component';
+import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
+import { RouterMock } from '../../../mocks/router.mock';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
-import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
-import { SearchResult } from '../../models/search-result.model';
-import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { SearchManager } from '../../../../core/browse/search-manager';
-import { SearchObjects } from '../../models/search-objects.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../remote-data.utils';
-import { PageInfo } from '../../../../core/shared/page-info.model';
-import { UUIDService } from '../../../../core/shared/uuid.service';
-import { getMockUUIDService } from '../../../mocks/uuid.service.mock';
+import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
+import { SearchObjects } from '../../models/search-objects.model';
+import { SearchResult } from '../../models/search-result.model';
+import {
+  ItemExportFormConfiguration,
+  ItemExportService,
+} from '../item-export.service';
+import { ItemExportAlertComponent } from '../item-export-alert/item-export-alert.component';
+import { ItemExportAlertStubComponent } from '../item-export-alert/item-export-alert.component.spec';
+import {
+  ExportSelectionMode,
+  ItemExportComponent,
+} from './item-export.component';
+import { ItemExportListComponent } from './item-export-list/item-export-list.component';
 
 describe('ItemExportComponent', () => {
   let component: ItemExportComponent;
@@ -37,12 +64,12 @@ describe('ItemExportComponent', () => {
   const itemExportService: any = jasmine.createSpyObj('ItemExportFormatService', {
     initialItemExportFormConfiguration: jasmine.createSpy('initialItemExportFormConfiguration'),
     onSelectEntityType: jasmine.createSpy('onSelectEntityType'),
-    submitForm: jasmine.createSpy('submitForm')
+    submitForm: jasmine.createSpy('submitForm'),
   });
 
   const modal: any = jasmine.createSpyObj('NgbActiveModal', {
     close: jasmine.createSpy('close').and.callFake(() => { /**/
-    })
+    }),
   });
 
   const mockItem = Object.assign(new Item(), {
@@ -53,9 +80,9 @@ describe('ItemExportComponent', () => {
     entityType: 'Person',
     _links: {
       self: {
-        href: 'https://localhost:8000/items/fake-id'
-      }
-    }
+        href: 'https://localhost:8000/items/fake-id',
+      },
+    },
   });
 
   const router = new RouterMock();
@@ -67,36 +94,36 @@ describe('ItemExportComponent', () => {
     'uuid': 'entitytype-1',
     '_links': {
       'self': {
-        'href': 'https://dspacecris7.4science.cloud/server/api/core/entitytypes/1'
+        'href': 'https://dspacecris7.4science.cloud/server/api/core/entitytypes/1',
       },
       'relationshiptypes': {
-        'href': 'https://dspacecris7.4science.cloud/server/api/core/entitytypes/1/relationshiptypes'
-      }
-    }
+        'href': 'https://dspacecris7.4science.cloud/server/api/core/entitytypes/1/relationshiptypes',
+      },
+    },
   });
 
   const mockSearchResults: SearchObjects<DSpaceObject> = Object.assign(new SearchObjects(), {
     page: [mockItem],
     pageInfo: Object.assign(new PageInfo(), {
-      totalElements: 10
-    })
+      totalElements: 10,
+    }),
   });
 
   const mockEmptySearchResults: SearchObjects<DSpaceObject> = Object.assign(new SearchObjects(), {
     page: [],
     pageInfo: Object.assign(new PageInfo(), {
-      totalElements: 0
-    })
+      totalElements: 0,
+    }),
   });
 
 
   const mockSearchManager = jasmine.createSpyObj('SearchManager', {
-    search: jasmine.createSpy('search')
+    search: jasmine.createSpy('search'),
   });
 
   const selectService = jasmine.createSpyObj('selectService', {
     getSelectableList: jasmine.createSpy('getSelectableList'),
-    removeSelection: jasmine.createSpy('removeSelection')
+    removeSelection: jasmine.createSpy('removeSelection'),
   });
 
   const firstSearchResult = Object.assign(new SearchResult(), {
@@ -106,10 +133,10 @@ describe('ItemExportComponent', () => {
       name: 'My first publication',
       metadata: {
         'dspace.entity.type': [
-          { value: 'Publication' }
-        ]
-      }
-    })
+          { value: 'Publication' },
+        ],
+      },
+    }),
   });
 
   beforeEach(waitForAsync(() => {
@@ -118,9 +145,10 @@ describe('ItemExportComponent', () => {
         BrowserModule,
         TranslateModule.forRoot({ loader: { provide: TranslateLoader, useClass: TranslateLoaderMock } }),
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        ItemExportComponent,
+        ItemExportAlertStubComponent,
       ],
-      declarations: [ItemExportComponent, ItemExportAlertStubComponent],
       providers: [
         { provide: ItemExportService, useValue: itemExportService },
         { provide: NgbActiveModal, useValue: modal },
@@ -128,13 +156,12 @@ describe('ItemExportComponent', () => {
         { provide: SelectableListService, useValue: selectService },
         { provide: Router, useValue: router },
         { provide: SearchManager, useValue: mockSearchManager },
-        { provide: UUIDService, useValue: getMockUUIDService() }
       ],
       schemas: [
-        NO_ERRORS_SCHEMA
-      ]
+        NO_ERRORS_SCHEMA,
+      ],
     })
-      .compileComponents();
+      .overrideComponent(ItemExportComponent, { remove: { imports: [ThemedLoadingComponent, ItemExportListComponent, ItemExportAlertComponent, AdministeredCollectionSelectorComponent, AlertComponent] } }).compileComponents();
   }));
 
   describe('when cannot export', () => {
@@ -347,7 +374,7 @@ describe('ItemExportComponent', () => {
       component.exportForm = new FormGroup({
         format: new FormControl('format', [Validators.required]),
         entityType: new FormControl('Person', [Validators.required]),
-        selectionMode: new FormControl(ExportSelectionMode.OnlySelection, [Validators.required])
+        selectionMode: new FormControl(ExportSelectionMode.OnlySelection, [Validators.required]),
       });
 
       // spies
@@ -359,7 +386,7 @@ describe('ItemExportComponent', () => {
     describe('when has no selection', () => {
       beforeEach(() => {
         const selection = {
-          selection: []
+          selection: [],
         };
         selectService.getSelectableList.and.returnValue(observableOf(selection));
       });
@@ -378,7 +405,7 @@ describe('ItemExportComponent', () => {
       beforeEach(() => {
         component.showListSelection = true;
         const selection = {
-          selection: [firstSearchResult]
+          selection: [firstSearchResult],
         };
         selectService.getSelectableList.and.returnValue(observableOf(selection));
       });

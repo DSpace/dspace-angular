@@ -1,17 +1,35 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectionStrategy, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
-import { TruncatePipe } from '../../../utils/truncate.pipe';
-import { Item } from '../../../../core/shared/item.model';
-import { ItemListPreviewComponent } from './item-list-preview.component';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { VarDirective } from '../../../utils/var.directive';
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
+import { Item } from '../../../../core/shared/item.model';
+import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail.component';
+import { MetadataLinkViewComponent } from '../../../metadata-link-view/metadata-link-view.component';
+import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
+import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
+import { ItemCollectionComponent } from '../../../object-collection/shared/mydspace-item-collection/item-collection.component';
+import { ItemCorrectionComponent } from '../../../object-collection/shared/mydspace-item-correction/item-correction.component';
+import { ItemSubmitterComponent } from '../../../object-collection/shared/mydspace-item-submitter/item-submitter.component';
+import { TruncatableComponent } from '../../../truncatable/truncatable.component';
+import { TruncatableService } from '../../../truncatable/truncatable.service';
+import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/truncatable-part.component';
+import { TruncatePipe } from '../../../utils/truncate.pipe';
+import { AdditionalMetadataComponent } from '../../search-result-list-element/additional-metadata/additional-metadata.component';
+import { ItemListPreviewComponent } from './item-list-preview.component';
 
 let component: ItemListPreviewComponent;
 let fixture: ComponentFixture<ItemListPreviewComponent>;
@@ -22,16 +40,16 @@ const mockItemWithAuthorAndDate: Item = Object.assign(new Item(), {
     'dc.contributor.author': [
       {
         language: 'en_US',
-        value: 'Smith, Donald'
-      }
+        value: 'Smith, Donald',
+      },
     ],
     'dc.date.issued': [
       {
         language: null,
-        value: '2015-06-26'
-      }
-    ]
-  }
+        value: '2015-06-26',
+      },
+    ],
+  },
 });
 const mockItemWithoutAuthorAndDate: Item = Object.assign(new Item(), {
   bundles: observableOf({}),
@@ -39,16 +57,16 @@ const mockItemWithoutAuthorAndDate: Item = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
+        value: 'This is just another title',
+      },
     ],
     'dc.type': [
       {
         language: null,
-        value: 'Article'
-      }
-    ]
-  }
+        value: 'Article',
+      },
+    ],
+  },
 });
 const mockItemWithEntityType: Item = Object.assign(new Item(), {
   bundles: observableOf({}),
@@ -56,28 +74,32 @@ const mockItemWithEntityType: Item = Object.assign(new Item(), {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
+        value: 'This is just another title',
+      },
     ],
     'dspace.entity.type': [
       {
         language: null,
-        value: 'Publication'
-      }
-    ]
-  }
+        value: 'Publication',
+      },
+    ],
+  },
 });
 
 const environmentUseThumbs = {
   browseBy: {
-    showThumbnails: true
-  }
+    showThumbnails: true,
+  },
 };
 
 const enviromentNoThumbs = {
   browseBy: {
-    showThumbnails: false
-  }
+    showThumbnails: false,
+  },
+};
+
+const truncatableServiceStub: any = {
+  isCollapsed: (id: number) => observableOf(true),
 };
 
 describe('ItemListPreviewComponent', () => {
@@ -87,20 +109,33 @@ describe('ItemListPreviewComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
-        NoopAnimationsModule
+        NoopAnimationsModule,
+        ItemListPreviewComponent, TruncatePipe,
       ],
-      declarations: [ItemListPreviewComponent, TruncatePipe, VarDirective],
       providers: [
-        { provide: 'objectElementProvider', useValue: { mockItemWithAuthorAndDate }},
-        { provide: APP_CONFIG, useValue: environmentUseThumbs }
+        { provide: 'objectElementProvider', useValue: { mockItemWithAuthorAndDate } },
+        { provide: APP_CONFIG, useValue: environmentUseThumbs },
+        { provide: TruncatableService, useValue: truncatableServiceStub },
       ],
-
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemListPreviewComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: {
+        imports: [
+          ItemCollectionComponent,
+          ItemSubmitterComponent,
+          ThemedBadgesComponent,
+          ThemedThumbnailComponent,
+          TruncatableComponent,
+          TruncatablePartComponent,
+          MetadataLinkViewComponent,
+          AdditionalMetadataComponent,
+          ItemCorrectionComponent,
+        ],
+      },
     }).compileComponents();
   }));
 
@@ -119,7 +154,7 @@ describe('ItemListPreviewComponent', () => {
       component.item = mockItemWithAuthorAndDate;
       fixture.detectChanges();
     });
-    it('should add the ds-thumbnail element', () => {
+    it('should add the thumbnail element', () => {
       const thumbnail = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thumbnail).toBeTruthy();
     });
@@ -173,15 +208,56 @@ describe('ItemListPreviewComponent', () => {
     });
   });
 
-  describe('When the item has an entity type', () => {
+  describe('When the item has an entity type and showLabel is true', () => {
     beforeEach(() => {
       component.item = mockItemWithEntityType;
+      component.showLabel = true;
       fixture.detectChanges();
     });
 
     it('should show the badges', () => {
-      const entityField = fixture.debugElement.query(By.css('ds-themed-badges'));
+      const entityField = fixture.debugElement.query(By.css('ds-badges'));
       expect(entityField).not.toBeNull();
+    });
+  });
+
+  describe('When the item has an entity type and showLabel is false', () => {
+    beforeEach(() => {
+      component.item = mockItemWithEntityType;
+      component.showLabel = false;
+      fixture.detectChanges();
+    });
+
+    it('should not show the badges', () => {
+      const entityField = fixture.debugElement.query(By.css('ds-badges'));
+      expect(entityField).toBeNull();
+    });
+  });
+
+
+  describe('When truncatable section is collapsed', () => {
+    beforeEach(() => {
+      component.isCollapsed$ = observableOf(true);
+      component.item = mockItemWithAuthorAndDate;
+      fixture.detectChanges();
+    });
+
+    it('should show limitedMetadata', () => {
+      const authorElements = fixture.debugElement.queryAll(By.css('span.item-list-authors ds-metadata-link-view'));
+      expect(authorElements.length).toBe(mockItemWithAuthorAndDate.limitedMetadata(component.authorMetadata, component.authorMetadataLimit).length);
+    });
+  });
+
+  describe('When truncatable section is expanded', () => {
+    beforeEach(() => {
+      component.isCollapsed$ = observableOf(false);
+      component.item = mockItemWithAuthorAndDate;
+      fixture.detectChanges();
+    });
+
+    it('should show allMetadata', () => {
+      const authorElements = fixture.debugElement.queryAll(By.css('span.item-list-authors ds-metadata-link-view'));
+      expect(authorElements.length).toBe(mockItemWithAuthorAndDate.allMetadata(component.authorMetadata).length);
     });
   });
 });
@@ -193,20 +269,33 @@ describe('ItemListPreviewComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
-        NoopAnimationsModule
+        NoopAnimationsModule,
+        ItemListPreviewComponent, TruncatePipe,
       ],
-      declarations: [ItemListPreviewComponent, TruncatePipe],
       providers: [
-        {provide: 'objectElementProvider', useValue: {mockItemWithAuthorAndDate}},
-        {provide: APP_CONFIG, useValue: enviromentNoThumbs}
+        { provide: 'objectElementProvider', useValue: { mockItemWithAuthorAndDate } },
+        { provide: APP_CONFIG, useValue: enviromentNoThumbs },
+        { provide: TruncatableService, useValue: truncatableServiceStub },
       ],
-
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ItemListPreviewComponent, {
-      set: {changeDetection: ChangeDetectionStrategy.Default}
+      add: { changeDetection: ChangeDetectionStrategy.Default },
+      remove: {
+        imports: [
+          ItemCollectionComponent,
+          ItemSubmitterComponent,
+          ThemedBadgesComponent,
+          ThemedThumbnailComponent,
+          TruncatableComponent,
+          TruncatablePartComponent,
+          MetadataLinkViewComponent,
+          AdditionalMetadataComponent,
+          ItemCorrectionComponent,
+        ],
+      },
     }).compileComponents();
   }));
   beforeEach(waitForAsync(() => {
@@ -224,9 +313,22 @@ describe('ItemListPreviewComponent', () => {
       component.item = mockItemWithAuthorAndDate;
       fixture.detectChanges();
     });
-    it('should add the ds-thumbnail element', () => {
+    it('should add the thumbnail element', () => {
       const thumbnail = fixture.debugElement.query(By.css('ds-thumbnail'));
       expect(thumbnail).toBeFalsy();
+    });
+  });
+
+  describe('When showCorrection is false', () => {
+    beforeEach(() => {
+      component.item = mockItemWithAuthorAndDate;
+      component.showCorrection = false;
+      fixture.detectChanges();
+    });
+
+    it('should not show the correction badge', () => {
+      const correctionBadge = fixture.debugElement.query(By.css('ds-item-correction'));
+      expect(correctionBadge).toBeFalsy();
     });
   });
 });

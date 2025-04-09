@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
 
-import { BehaviorSubject, Observable } from 'rxjs';
 export interface CookieConsents {
   [key: string]: boolean;
 }
@@ -33,4 +36,8 @@ export abstract class KlaroService {
    * Subject to emit updates in the consents
    */
   abstract consentsUpdates$:  BehaviorSubject<CookieConsents>;
+  /**
+   * Subject to emit initialization
+   */
+  abstract initialized$:  BehaviorSubject<boolean>;
 }

@@ -1,7 +1,7 @@
 import isObject from 'lodash/isObject';
 
-import { Item } from '../../../shared/item.model';
 import { isNotEmpty } from '../../../../shared/empty.util';
+import { Item } from '../../../shared/item.model';
 
 export abstract class SchemaType {
   protected abstract createSchema(item: Item): Record<string, any>;
@@ -26,7 +26,7 @@ export abstract class SchemaType {
         .filter(([_, v]) => isNotEmpty(v))
         .reduce(
           (acc, [k, v]) => ({ ...acc, [k]: v === Object(v) ? SchemaType.removeEmpty(v) : v }),
-          {}
+          {},
         );
     }
   }

@@ -1,13 +1,14 @@
 /* eslint-disable max-classes-per-file */
 // import @ngrx
 import { Action } from '@ngrx/store';
+
 // import type function
 import { type } from '../../shared/ngrx/type';
-// import models
-import { AuthTokenInfo } from './models/auth-token-info.model';
+import { EPerson } from '../eperson/models/eperson.model';
 import { AuthMethod } from './models/auth.method';
 import { AuthStatus } from './models/auth-status.model';
-import { EPerson } from '../eperson/models/eperson.model';
+// import models
+import { AuthTokenInfo } from './models/auth-token-info.model';
 
 export const AuthActionTypes = {
   AUTHENTICATE: type('dspace/auth/AUTHENTICATE'),
@@ -45,7 +46,7 @@ export const AuthActionTypes = {
   REFRESH_TOKEN_AND_REDIRECT_SUCCESS: type('dspace/auth/REFRESH_TOKEN_AND_REDIRECT_SUCCESS'),
   REFRESH_TOKEN_AND_REDIRECT_ERROR: type('dspace/auth/REFRESH_TOKEN_AND_REDIRECT_ERROR'),
   SET_USER_AS_IDLE: type('dspace/auth/SET_USER_AS_IDLE'),
-  UNSET_USER_AS_IDLE: type('dspace/auth/UNSET_USER_AS_IDLE')
+  UNSET_USER_AS_IDLE: type('dspace/auth/UNSET_USER_AS_IDLE'),
 };
 
 
@@ -491,7 +492,7 @@ export class RefreshTokenAndRedirectAction implements Action {
   };
 
   constructor(token: AuthTokenInfo, redirectUrl: string) {
-    this.payload = {token, redirectUrl};
+    this.payload = { token, redirectUrl };
   }
 }
 
@@ -508,7 +509,7 @@ export class RefreshTokenAndRedirectSuccessAction implements Action {
   };
 
   constructor(token: AuthTokenInfo, redirectUrl: string) {
-    this.payload = {token, redirectUrl};
+    this.payload = { token, redirectUrl };
   }
 }
 
@@ -522,15 +523,22 @@ export class RefreshTokenAndRedirectErrorAction implements Action {
 }
 
 /**
+ * Authentication error actions that include Error payloads.
+ */
+export type AuthErrorActionsWithErrorPayload
+  = AuthenticatedErrorAction
+  | AuthenticationErrorAction
+  | LogOutErrorAction
+  | RetrieveAuthenticatedEpersonErrorAction;
+
+/**
  * Actions type.
  * @type {AuthActions}
  */
 export type AuthActions
   = AuthenticateAction
   | AuthenticatedAction
-  | AuthenticatedErrorAction
   | AuthenticatedSuccessAction
-  | AuthenticationErrorAction
   | AuthenticationSuccessAction
   | CheckAuthenticationTokenAction
   | CheckAuthenticationTokenCookieAction
@@ -547,7 +555,6 @@ export type AuthActions
   | RetrieveAuthMethodsErrorAction
   | RetrieveTokenAction
   | RetrieveAuthenticatedEpersonAction
-  | RetrieveAuthenticatedEpersonErrorAction
   | RetrieveAuthenticatedEpersonSuccessAction
   | SetRedirectUrlAction
   | RedirectAfterLoginSuccessAction
@@ -555,5 +562,5 @@ export type AuthActions
   | RefreshTokenAndRedirectErrorAction
   | RefreshTokenAndRedirectSuccessAction
   | SetUserAsIdleAction
-  | UnsetUserAsIdleAction;
-
+  | UnsetUserAsIdleAction
+  | AuthErrorActionsWithErrorPayload;

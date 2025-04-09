@@ -1,12 +1,16 @@
-import { RESPONSE } from '@nguniversal/express-engine/tokens';
-import { Inject, Injectable, Optional } from '@angular/core';
-
+import {
+  Inject,
+  Injectable,
+  Optional,
+} from '@angular/core';
 import { Response } from 'express';
+
+import { RESPONSE } from '../../../express.tokens';
 
 /**
  * Service responsible to provide method to manage the response object
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ServerResponseService {
   private response: Response;
 
@@ -73,7 +77,7 @@ export class ServerResponseService {
    * @param content
    */
   setHeader(header: string, content: string) {
-    if (this.response) {
+    if (this.response && !this.response.writableEnded) {
       this.response.setHeader(header, content);
     }
   }

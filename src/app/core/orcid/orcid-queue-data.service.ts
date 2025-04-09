@@ -1,27 +1,31 @@
-import { OrcidQueue } from './model/orcid-queue.model';
-import { RequestService } from '../data/request.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { Injectable } from '@angular/core';
-import { ORCID_QUEUE } from './model/orcid-queue.resource-type';
 import { Observable } from 'rxjs';
-import { RemoteData } from '../data/remote-data';
-import { PaginatedList } from '../data/paginated-list.model';
-import { RequestParam } from '../cache/models/request-param.model';
+
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
-import { NoContent } from '../shared/NoContent.model';
-import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
-import { SearchData, SearchDataImpl } from '../data/base/search-data';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import {
+  DeleteData,
+  DeleteDataImpl,
+} from '../data/base/delete-data';
 import { IdentifiableDataService } from '../data/base/identifiable-data.service';
-import { dataService } from '../data/base/data-service.decorator';
+import {
+  SearchData,
+  SearchDataImpl,
+} from '../data/base/search-data';
+import { PaginatedList } from '../data/paginated-list.model';
+import { RemoteData } from '../data/remote-data';
+import { RequestService } from '../data/request.service';
+import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { NoContent } from '../shared/NoContent.model';
+import { OrcidQueue } from './model/orcid-queue.model';
 
 /**
  * A service that provides methods to make REST requests with Orcid Queue endpoint.
  */
-@Injectable()
-@dataService(ORCID_QUEUE)
+@Injectable({ providedIn: 'root' })
 export class OrcidQueueDataService extends IdentifiableDataService<OrcidQueue> {
   private searchData: SearchData<OrcidQueue>;
   private deleteData: DeleteData<OrcidQueue>;
@@ -50,12 +54,12 @@ export class OrcidQueueDataService extends IdentifiableDataService<OrcidQueue> {
    */
   searchByProfileItemId(itemId: string, paginationOptions: PaginationComponentOptions, useCachedVersionIfAvailable = true, reRequestOnStale = true): Observable<RemoteData<PaginatedList<OrcidQueue>>> {
     return this.searchData.searchBy('findByProfileItem', {
-        searchParams: [new RequestParam('profileItemId', itemId)],
-        elementsPerPage: paginationOptions.pageSize,
-        currentPage: paginationOptions.currentPage,
-      },
-      useCachedVersionIfAvailable,
-      reRequestOnStale,
+      searchParams: [new RequestParam('profileItemId', itemId)],
+      elementsPerPage: paginationOptions.pageSize,
+      currentPage: paginationOptions.currentPage,
+    },
+    useCachedVersionIfAvailable,
+    reRequestOnStale,
     );
   }
 

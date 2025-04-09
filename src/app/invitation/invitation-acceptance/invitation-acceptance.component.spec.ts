@@ -1,19 +1,35 @@
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  convertToParamMap,
+  Params,
+  Router,
+} from '@angular/router';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
 
-import { InvitationAcceptanceComponent } from './invitation-acceptance.component';
-import { RouterMock } from '../../shared/mocks/router.mock';
-import { ActivatedRoute, convertToParamMap, Params, Router } from '@angular/router';
-import { Observable, of as observableOf } from 'rxjs';
-import { Registration } from '../../core/shared/registration.model';
+import { AuthService } from '../../core/auth/auth.service';
 import { EpersonRegistrationService } from '../../core/data/eperson-registration.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { RemoteData } from '../../core/data/remote-data';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { AuthService } from '../../core/auth/auth.service';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { Registration } from '../../core/shared/registration.model';
+import { RouterMock } from '../../shared/mocks/router.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { By } from '@angular/platform-browser';
-import { RemoteData } from '../../core/data/remote-data';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
+import { InvitationAcceptanceComponent } from './invitation-acceptance.component';
 
 describe('InvitationAcceptanceComponent', () => {
   let component: InvitationAcceptanceComponent;
@@ -24,47 +40,47 @@ describe('InvitationAcceptanceComponent', () => {
       email: 'test@email.org',
       token: 'test-token',
       groups: ['group1UUID', 'group2UUID'],
-      groupNames: ['group1', 'group2']
+      groupNames: ['group1', 'group2'],
     });
   const epersonRegistrationService = jasmine.createSpyObj('epersonRegistrationService', {
-    searchByTokenAndUpdateData: createSuccessfulRemoteDataObject$(registrationWithGroups)
+    searchByTokenAndUpdateData: createSuccessfulRemoteDataObject$(registrationWithGroups),
   });
   const ePersonDataServiceStub = {
     acceptInvitationToJoinGroups(person: EPerson): Observable<RemoteData<EPerson>> {
       return createSuccessfulRemoteDataObject$(person);
-    }
+    },
   };
   const ePerson = Object.assign(new EPerson(), {
     id: 'test-eperson',
-    uuid: 'test-eperson'
+    uuid: 'test-eperson',
   });
   const paramObject: Params = {};
   paramObject.registrationToken = '1234';
   const authService = {
-    getAuthenticatedUserFromStore: () => observableOf(ePerson)
+    getAuthenticatedUserFromStore: () => observableOf(ePerson),
   } as AuthService;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [InvitationAcceptanceComponent],
       imports: [
+        InvitationAcceptanceComponent,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
-      providers: [{provide: Router, useValue: route},
+      providers: [{ provide: Router, useValue: route },
         {
           provide: ActivatedRoute,
           useValue: {
-            paramMap: observableOf(convertToParamMap(paramObject))
+            paramMap: observableOf(convertToParamMap(paramObject)),
           },
         },
-        {provide: EpersonRegistrationService, useValue: epersonRegistrationService},
-        {provide: EPersonDataService, useValue: ePersonDataServiceStub},
-        {provide: AuthService, useValue: authService}
-      ]
+        { provide: EpersonRegistrationService, useValue: epersonRegistrationService },
+        { provide: EPersonDataService, useValue: ePersonDataServiceStub },
+        { provide: AuthService, useValue: authService },
+      ],
     })
       .compileComponents();
   });
@@ -85,7 +101,7 @@ describe('InvitationAcceptanceComponent', () => {
       const ignoreButton = fixture.debugElement.queryAll(By.css('button'))[1];
       ignoreButton.triggerEventHandler('click', {
         preventDefault: () => {/**/
-        }
+        },
       });
       tick();
       fixture.detectChanges();
@@ -97,7 +113,7 @@ describe('InvitationAcceptanceComponent', () => {
       const ignoreButton = fixture.debugElement.queryAll(By.css('button'))[0];
       ignoreButton.triggerEventHandler('click', {
         preventDefault: () => {/**/
-        }
+        },
       });
       tick();
       fixture.detectChanges();
@@ -110,7 +126,7 @@ describe('InvitationAcceptanceComponent', () => {
       const ignoreButton = fixture.debugElement.queryAll(By.css('button'))[0];
       ignoreButton.triggerEventHandler('click', {
         preventDefault: () => {/**/
-        }
+        },
       });
       tick();
       fixture.detectChanges();
@@ -124,7 +140,7 @@ describe('InvitationAcceptanceComponent', () => {
       const ignoreButton = fixture.debugElement.queryAll(By.css('button'))[1];
       ignoreButton.triggerEventHandler('click', {
         preventDefault: () => {/**/
-        }
+        },
       });
       tick();
       fixture.detectChanges();

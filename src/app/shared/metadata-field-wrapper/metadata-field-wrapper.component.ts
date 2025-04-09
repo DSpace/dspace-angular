@@ -1,4 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { NgIf } from '@angular/common';
+import {
+  Component,
+  Input,
+} from '@angular/core';
 
 /**
  * This component renders any content inside this wrapper.
@@ -7,7 +11,9 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'ds-metadata-field-wrapper',
   styleUrls: ['./metadata-field-wrapper.component.scss'],
-  templateUrl: './metadata-field-wrapper.component.html'
+  templateUrl: './metadata-field-wrapper.component.html',
+  standalone: true,
+  imports: [NgIf],
 })
 export class MetadataFieldWrapperComponent {
 

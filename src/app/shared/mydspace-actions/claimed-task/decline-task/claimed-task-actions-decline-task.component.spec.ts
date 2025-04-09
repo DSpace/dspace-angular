@@ -1,21 +1,33 @@
-import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ChangeDetectionStrategy,
+  Injector,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
+import { Router } from '@angular/router';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+
+import { RequestService } from '../../../../core/data/request.service';
+import { SearchService } from '../../../../core/shared/search/search.service';
 import { ClaimedTaskDataService } from '../../../../core/tasks/claimed-task-data.service';
 import { ClaimedTask } from '../../../../core/tasks/models/claimed-task-object.model';
-import { getMockSearchService } from '../../../mocks/search-service.mock';
-import { getMockRequestService } from '../../../mocks/request.service.mock';
 import { PoolTaskDataService } from '../../../../core/tasks/pool-task-data.service';
+import { getMockRequestService } from '../../../mocks/request.service.mock';
+import { getMockSearchService } from '../../../mocks/search-service.mock';
+import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
-import { Router } from '@angular/router';
-import { RouterStub } from '../../../testing/router.stub';
-import { SearchService } from '../../../../core/shared/search/search.service';
-import { RequestService } from '../../../../core/data/request.service';
-import { ClaimedTaskActionsDeclineTaskComponent } from './claimed-task-actions-decline-task.component';
 import { ClaimedTaskDataServiceStub } from '../../../testing/claimed-task-data-service.stub';
+import { NotificationsServiceStub } from '../../../testing/notifications-service.stub';
+import { RouterStub } from '../../../testing/router.stub';
+import { ClaimedTaskActionsDeclineTaskComponent } from './claimed-task-actions-decline-task.component';
 
 let component: ClaimedTaskActionsDeclineTaskComponent;
 let fixture: ComponentFixture<ClaimedTaskActionsDeclineTaskComponent>;
@@ -40,9 +52,10 @@ describe('ClaimedTaskActionsDeclineTaskComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
+        ClaimedTaskActionsDeclineTaskComponent,
       ],
       providers: [
         { provide: ClaimedTaskDataService, useValue: claimedTaskService },
@@ -53,10 +66,9 @@ describe('ClaimedTaskActionsDeclineTaskComponent', () => {
         { provide: RequestService, useValue: requestService },
         { provide: PoolTaskDataService, useValue: mockPoolTaskDataService },
       ],
-      declarations: [ClaimedTaskActionsDeclineTaskComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(ClaimedTaskActionsDeclineTaskComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 

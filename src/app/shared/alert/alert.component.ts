@@ -1,10 +1,23 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { trigger } from '@angular/animations';
-
+import { NgIf } from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
 
+import {
+  fadeOutLeave,
+  fadeOutState,
+} from '../animations/fade';
+import { TruncatableComponent } from '../truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../truncatable/truncatable-part/truncatable-part.component';
 import { AlertType } from './alert-type';
-import { fadeOutLeave, fadeOutState } from '../animations/fade';
 
 /**
  * This component allow to create div that uses the Bootstrap's Alerts component.
@@ -14,10 +27,12 @@ import { fadeOutLeave, fadeOutState } from '../animations/fade';
   animations: [
     trigger('enterLeave', [
       fadeOutLeave, fadeOutState,
-    ])
+    ]),
   ],
   templateUrl: './alert.component.html',
-  styleUrls: ['./alert.component.scss']
+  styleUrls: ['./alert.component.scss'],
+  standalone: true,
+  imports: [NgIf, TranslateModule, TruncatableComponent, TruncatablePartComponent],
 })
 export class AlertComponent implements OnInit {
 

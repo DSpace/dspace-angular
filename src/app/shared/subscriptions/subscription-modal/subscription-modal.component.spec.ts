@@ -1,22 +1,46 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
-import { UntypedFormControl, UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { NgbActiveModal, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ReactiveFormsModule,
+  UntypedFormControl,
+  UntypedFormGroup,
+} from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import {
+  NgbActiveModal,
+  NgbModalModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 
-import { SubscriptionModalComponent } from './subscription-modal.component';
+import { AuthService } from '../../../core/auth/auth.service';
+import { buildPaginatedList } from '../../../core/data/paginated-list.model';
+import { EPerson } from '../../../core/eperson/models/eperson.model';
+import { Item } from '../../../core/shared/item.model';
+import { PageInfo } from '../../../core/shared/page-info.model';
+import { AlertComponent } from '../../alert/alert.component';
+import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { SubscriptionsDataService } from '../subscriptions-data.service';
+import { ThemedTypeBadgeComponent } from '../../object-collection/shared/badges/type-badge/themed-type-badge.component';
 import { createSuccessfulRemoteDataObject$ } from '../../remote-data.utils';
-import { Item } from '../../../core/shared/item.model';
-import { AuthService } from '../../../core/auth/auth.service';
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { PageInfo } from '../../../core/shared/page-info.model';
-import { buildPaginatedList } from '../../../core/data/paginated-list.model';
-import { By } from '@angular/platform-browser';
-import { subscriptionMock, subscriptionMock2 } from '../../testing/subscriptions-data.mock';
+import {
+  subscriptionMock,
+  subscriptionMock2,
+} from '../../testing/subscriptions-data.mock';
+import { ThemeService } from '../../theme-support/theme.service';
+import { SubscriptionsDataService } from '../subscriptions-data.service';
+import { SubscriptionModalComponent } from './subscription-modal.component';
 
 describe('SubscriptionModalComponent', () => {
   let component: SubscriptionModalComponent;
@@ -32,13 +56,13 @@ describe('SubscriptionModalComponent', () => {
 
   const emptyPageInfo = Object.assign(new PageInfo(), {
     'elementsPerPage': 0,
-    'totalElements': 0
+    'totalElements': 0,
   });
 
 
   const pageInfo = Object.assign(new PageInfo(), {
     'elementsPerPage': 2,
-    'totalElements': 2
+    'totalElements': 2,
   });
 
   const mockEperson = Object.assign(new EPerson(), {
@@ -46,9 +70,9 @@ describe('SubscriptionModalComponent', () => {
     uuid: 'fake-id',
     _links: {
       self: {
-        href: 'https://localhost:8000/eperson/fake-id'
-      }
-    }
+        href: 'https://localhost:8000/eperson/fake-id',
+      },
+    },
   });
 
   const mockItem = Object.assign(new Item(), {
@@ -58,13 +82,13 @@ describe('SubscriptionModalComponent', () => {
     lastModified: '2018',
     _links: {
       self: {
-        href: 'https://localhost:8000/items/fake-id'
-      }
-    }
+        href: 'https://localhost:8000/items/fake-id',
+      },
+    },
   });
 
   const authService = jasmine.createSpyObj('authService', {
-    getAuthenticatedUserFromStore: createSuccessfulRemoteDataObject$(mockEperson)
+    getAuthenticatedUserFromStore: createSuccessfulRemoteDataObject$(mockEperson),
   });
 
   subscriptionServiceStub = jasmine.createSpyObj('SubscriptionsDataService', {
@@ -83,21 +107,22 @@ describe('SubscriptionModalComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
+        SubscriptionModalComponent,
       ],
-      declarations: [SubscriptionModalComponent],
       providers: [
         NgbActiveModal,
         { provide: AuthService, useValue: authService },
         { provide: NotificationsService, useValue: notificationServiceStub },
         { provide: SubscriptionsDataService, useValue: subscriptionServiceStub },
+        { provide: ThemeService, useValue: getMockThemeService() },
       ],
       schemas: [
-        NO_ERRORS_SCHEMA
-      ]
-    }).compileComponents();
+        NO_ERRORS_SCHEMA,
+      ],
+    }).overrideComponent(SubscriptionModalComponent, { remove: { imports: [ThemedTypeBadgeComponent, AlertComponent] } }).compileComponents();
 
   }));
 
@@ -127,7 +152,7 @@ describe('SubscriptionModalComponent', () => {
           frequencies: new UntypedFormGroup({
             f: new UntypedFormControl(false),
             g: new UntypedFormControl(true),
-          })
+          }),
         });
         component.subscriptionForm.addControl(t, formGroup);
         component.subscriptionForm.get('test1').markAsDirty();
@@ -150,7 +175,7 @@ describe('SubscriptionModalComponent', () => {
           frequencies: new UntypedFormGroup({
             f: new UntypedFormControl(false),
             g: new UntypedFormControl(true),
-          })
+          }),
         });
         component.subscriptionForm.addControl(t, formGroup);
         component.subscriptionForm.get('test1').markAsDirty();

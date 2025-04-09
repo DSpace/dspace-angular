@@ -1,32 +1,70 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-
-import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
-import { catchError, map, switchMap, take } from 'rxjs/operators';
-import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import {
+  AsyncPipe,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  NgbActiveModal,
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  catchError,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
 
 import { ExternalSourceDataService } from '../../core/data/external-source-data.service';
+import { ItemDataService } from '../../core/data/item-data.service';
+import { RemoteData } from '../../core/data/remote-data';
+import { Collection } from '../../core/shared/collection.model';
 import { ExternalSourceEntry } from '../../core/shared/external-source-entry.model';
+import { Item } from '../../core/shared/item.model';
 import { MetadatumViewModel } from '../../core/shared/metadata.models';
-import { getFinishedRemoteData, getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { Metadata } from '../../core/shared/metadata.utils';
 import {
-  CreateItemParentSelectorComponent
-} from '../dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component';
-import { SubmissionObjectDataService } from '../../core/submission/submission-object-data.service';
-import { followLink } from '../utils/follow-link-config.model';
+  getFinishedRemoteData,
+  getFirstSucceededRemoteDataPayload,
+} from '../../core/shared/operators';
 import { SubmissionObject } from '../../core/submission/models/submission-object.model';
-import { RemoteData } from '../../core/data/remote-data';
-import { Item } from '../../core/shared/item.model';
-import { createFailedRemoteDataObject } from '../remote-data.utils';
-import { ItemDataService } from '../../core/data/item-data.service';
-import { Collection } from '../../core/shared/collection.model';
+import { SubmissionObjectDataService } from '../../core/submission/submission-object-data.service';
+import { AlertComponent } from '../alert/alert.component';
+import { ThemedCreateItemParentSelectorComponent } from '../dso-selector/modal-wrappers/create-item-parent-selector/themed-create-item-parent-selector.component';
+import { ThemedLoadingComponent } from '../loading/themed-loading.component';
 import { NotificationsService } from '../notifications/notifications.service';
-import { TranslateService } from '@ngx-translate/core';
+import { createFailedRemoteDataObject } from '../remote-data.utils';
+import { followLink } from '../utils/follow-link-config.model';
 
 @Component({
   selector: 'ds-vocabulary-external-source',
   templateUrl: './vocabulary-external-source.component.html',
-  styleUrls: ['./vocabulary-external-source.component.scss']
+  styleUrls: ['./vocabulary-external-source.component.scss'],
+  imports: [
+    AlertComponent,
+    NgIf,
+    AsyncPipe,
+    TranslateModule,
+    NgForOf,
+    ThemedLoadingComponent,
+  ],
+  standalone: true,
 })
 export class VocabularyExternalSourceComponent implements OnInit {
 
@@ -66,7 +104,7 @@ export class VocabularyExternalSourceComponent implements OnInit {
     private modalService: NgbModal,
     private notificationService: NotificationsService,
     private submissionObjectService: SubmissionObjectDataService,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) { }
 
   ngOnInit() {
@@ -79,14 +117,14 @@ export class VocabularyExternalSourceComponent implements OnInit {
         const externalSourceId = itemUUID + ':' + this.metadataPlace;
         return this.externalSourceService.getExternalSourceEntryById(
           this.externalSourceIdentifier,
-          externalSourceId
+          externalSourceId,
         );
       }),
       getFinishedRemoteData(),
-      catchError((err) => {
+      catchError((err: unknown) => {
         console.error(err);
         return observableOf(createFailedRemoteDataObject(null));
-      })
+      }),
     ).subscribe((externalSourceRD: RemoteData<ExternalSourceEntry>) => {
       if (externalSourceRD.hasSucceeded) {
         const externalSource = externalSourceRD.payload;
@@ -103,7 +141,7 @@ export class VocabularyExternalSourceComponent implements OnInit {
    * Start the import of an entry by opening up a collection choice modal window.
    */
   public import(): void {
-    this.modalRef = this.modalService.open(CreateItemParentSelectorComponent, {
+    this.modalRef = this.modalService.open(ThemedCreateItemParentSelectorComponent, {
       size: 'lg',
     });
     this.modalRef.componentInstance.entityType = this.entityType;
@@ -128,10 +166,10 @@ export class VocabularyExternalSourceComponent implements OnInit {
       switchMap((submissionObject: SubmissionObject) => (submissionObject.item as Observable<RemoteData<Item>>)
         .pipe(
           getFirstSucceededRemoteDataPayload(),
-        )
+        ),
       ),
       map((item: Item) => item.uuid),
-      take(1)
+      take(1),
     );
   }
 
@@ -142,13 +180,13 @@ export class VocabularyExternalSourceComponent implements OnInit {
       if (rd.hasSucceeded) {
         this.notificationService.success(
           null,
-          this.translate.instant('vocabulary.import-external.preview.import.success')
+          this.translate.instant('vocabulary.import-external.preview.import.success'),
         );
         this.updateAuthority.emit(rd.payload.uuid);
       } else {
         this.notificationService.error(
           null,
-          this.translate.instant('vocabulary.import-external.preview.import.error')
+          this.translate.instant('vocabulary.import-external.preview.import.error'),
         );
       }
       this.closeModal();

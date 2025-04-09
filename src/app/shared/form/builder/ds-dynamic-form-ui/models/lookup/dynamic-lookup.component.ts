@@ -1,27 +1,66 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
-
-import { of as observableOf, Subscription } from 'rxjs';
-import { catchError, distinctUntilChanged } from 'rxjs/operators';
-import { NgbDropdown, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  AsyncPipe,
+  NgClass,
+  NgForOf,
+  NgIf,
+  NgTemplateOutlet,
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  FormsModule,
+  UntypedFormGroup,
+} from '@angular/forms';
+import {
+  NgbDropdown,
+  NgbDropdownModule,
+  NgbModal,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import {
   DynamicFormControlCustomEvent,
   DynamicFormLayoutService,
-  DynamicFormValidationService
+  DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import {
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
+import {
+  catchError,
+  distinctUntilChanged,
+} from 'rxjs/operators';
 
-import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import { hasValue, isEmpty, isNotEmpty } from '../../../../../empty.util';
-import { PageInfo } from '../../../../../../core/shared/page-info.model';
-import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
-import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from '../../../../../../core/data/paginated-list.model';
 import { ConfidenceType } from '../../../../../../core/shared/confidence-type';
-import { buildPaginatedList, PaginatedList } from '../../../../../../core/data/paginated-list.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
-import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
-import { FormBuilderService } from '../../../form-builder.service';
+import { PageInfo } from '../../../../../../core/shared/page-info.model';
+import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { SubmissionService } from '../../../../../../submission/submission.service';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../../../../../empty.util';
+import { ObjNgFor } from '../../../../../utils/object-ngfor.pipe';
+import { AuthorityConfidenceStateDirective } from '../../../../directives/authority-confidence-state.directive';
+import { FormBuilderService } from '../../../form-builder.service';
+import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
+import { DsDynamicVocabularyComponent } from '../dynamic-vocabulary.component';
+import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
 
 /**
  * Component representing a lookup or lookup-name input field
@@ -29,7 +68,22 @@ import { SubmissionService } from '../../../../../../submission/submission.servi
 @Component({
   selector: 'ds-dynamic-lookup',
   styleUrls: ['./dynamic-lookup.component.scss'],
-  templateUrl: './dynamic-lookup.component.html'
+  templateUrl: './dynamic-lookup.component.html',
+  imports: [
+    TranslateModule,
+    NgbTooltipModule,
+    NgbDropdownModule,
+    AuthorityConfidenceStateDirective,
+    FormsModule,
+    NgIf,
+    NgClass,
+    InfiniteScrollModule,
+    NgForOf,
+    NgTemplateOutlet,
+    ObjNgFor,
+    AsyncPipe,
+  ],
+  standalone: true,
 })
 export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent implements OnDestroy, OnInit {
 
@@ -56,7 +110,7 @@ export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent imple
               protected validationService: DynamicFormValidationService,
               protected formBuilderService: FormBuilderService,
               protected modalService: NgbModal,
-              protected submissionService: SubmissionService
+              protected submissionService: SubmissionService,
   ) {
     super(vocabularyService, layoutService, validationService, formBuilderService, modalService, submissionService);
   }
@@ -168,7 +222,7 @@ export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent imple
         this.pageInfo.elementsPerPage,
         this.pageInfo.currentPage + 1,
         this.pageInfo.totalElements,
-        this.pageInfo.totalPages
+        this.pageInfo.totalPages,
       );
       this.search();
     }
@@ -208,7 +262,7 @@ export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent imple
     if (isNotEmpty(this.getCurrentValue())) {
       const newValue = Object.assign(new VocabularyEntry(), this.model.value, {
         display: this.getCurrentValue(),
-        value: this.getCurrentValue()
+        value: this.getCurrentValue(),
       });
       this.updateModel(newValue);
     } else {
@@ -230,14 +284,14 @@ export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent imple
       this.getCurrentValue(),
       false,
       this.model.vocabularyOptions,
-      this.pageInfo
+      this.pageInfo,
     ).pipe(
       getFirstSucceededRemoteDataPayload(),
       catchError(() =>
         observableOf(buildPaginatedList(
           new PageInfo(),
-          []
-        ))
+          [],
+        )),
       ),
       distinctUntilChanged())
       .subscribe((list: PaginatedList<VocabularyEntry>) => {
@@ -246,7 +300,7 @@ export class DsDynamicLookupComponent extends DsDynamicVocabularyComponent imple
           list.pageInfo.elementsPerPage,
           list.pageInfo.currentPage,
           list.pageInfo.totalElements,
-          list.pageInfo.totalPages
+          list.pageInfo.totalPages,
         );
         this.loading = false;
         this.cdr.detectChanges();

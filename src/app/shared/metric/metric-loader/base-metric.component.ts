@@ -1,11 +1,17 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 import { Metric } from '../../../core/shared/metric.model';
 import { hasNoValue } from '../../empty.util';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Component({
-  template: ''
+  template: '',
+  standalone: true,
 })
 export abstract class BaseMetricComponent {
 

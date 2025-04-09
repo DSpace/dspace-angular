@@ -1,18 +1,35 @@
-import { Component, ElementRef, Inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import {
+  Component,
+  ElementRef,
+  Inject,
+  OnInit,
+  PLATFORM_ID,
+  ViewChild,
+} from '@angular/core';
+import {
+  BehaviorSubject,
+  Observable,
+  of,
+} from 'rxjs';
 
-import { BehaviorSubject, Observable, of } from 'rxjs';
-
-import { ChartType } from '../../../../charts/models/chart-type';
 import { ChartData } from '../../../../charts/models/chart-data';
 import { ChartSeries } from '../../../../charts/models/chart-series';
+import { ChartType } from '../../../../charts/models/chart-type';
+import {
+  ExportImageType,
+  ExportService,
+} from '../../../../core/export-service/export.service';
 import { REPORT_DATA } from '../../../../core/statistics/data-report.service';
-import { Point, UsageReport } from '../../../../core/statistics/models/usage-report.model';
-import { ExportImageType, ExportService } from '../../../../core/export-service/export.service';
+import {
+  Point,
+  UsageReport,
+} from '../../../../core/statistics/models/usage-report.model';
 
 @Component({
   selector: 'ds-search-chart-filter',
   template: ``,
+  standalone: true,
 })
 /**
  * Component that is being injected by wrapper and obtains the report information
@@ -49,7 +66,7 @@ export abstract class StatisticsChartDataComponent implements OnInit {
   constructor(
     @Inject(REPORT_DATA) public report: UsageReport,
     @Inject('categoryType') public categoryType: string,
-    @Inject(PLATFORM_ID) protected platformId: Object
+    @Inject(PLATFORM_ID) protected platformId: any,
   ) {
 
     /* IMPORTANT
@@ -114,7 +131,7 @@ export abstract class StatisticsChartDataComponent implements OnInit {
   protected getInitData(): Observable<ChartSeries[] | ChartData[]> {
     let key = 'views';
 
-    if (!!this.report.points[0]) {
+    if (this.report.points[0]) {
       key = Object.keys(this.report.points[0].values)[0];
     }
 

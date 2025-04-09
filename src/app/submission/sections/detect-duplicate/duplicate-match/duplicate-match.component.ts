@@ -1,26 +1,52 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import {
+  NgbModal,
+  NgbModalRef,
+  NgbTooltipModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  filter,
+  take,
+} from 'rxjs/operators';
 
-import { Observable, of as observableOf } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
-
-import { Item } from '../../../../core/shared/item.model';
-import { SubmissionService } from '../../../submission.service';
-import { DetectDuplicateService } from '../detect-duplicate.service';
-import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
+import { environment } from '../../../../../environments/environment';
 import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/json-patch-operations-builder';
+import { Item } from '../../../../core/shared/item.model';
+import { DetectDuplicateMatch } from '../../../../core/submission/models/workspaceitem-section-deduplication.model';
 import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
-import { DuplicateDecisionValue } from '../models/duplicate-decision-value';
+import { getItemPageRoute } from '../../../../item-page/item-page-routing-paths';
+import { isNotEmpty } from '../../../../shared/empty.util';
+import { ThemedItemListPreviewComponent } from '../../../../shared/object-list/my-dspace-result-list-element/item-list-preview/themed-item-list-preview.component';
+import { SubmissionService } from '../../../submission.service';
+import { SectionsService } from '../../sections.service';
+import { DetectDuplicateService } from '../detect-duplicate.service';
 import { DuplicateDecision } from '../models/duplicate-decision.model';
 import { DuplicateDecisionType } from '../models/duplicate-decision-type';
-import { isNotEmpty } from '../../../../shared/empty.util';
-import { SectionsService } from '../../sections.service';
+import { DuplicateDecisionValue } from '../models/duplicate-decision-value';
 import { DuplicateMatchMetadataDetailConfig } from '../models/duplicate-detail-metadata.model';
-import { DetectDuplicateMatch } from '../../../../core/submission/models/workspaceitem-section-deduplication.model';
-import { environment } from '../../../../../environments/environment';
-import { getItemPageRoute } from '../../../../item-page/item-page-routing-paths';
 
 /**
  * This component shows a single possible duplication within the duplications section.
@@ -28,6 +54,16 @@ import { getItemPageRoute } from '../../../../item-page/item-page-routing-paths'
 @Component({
   selector: 'ds-duplicate-match',
   templateUrl: 'duplicate-match.component.html',
+  imports: [
+    ThemedItemListPreviewComponent,
+    AsyncPipe,
+    TranslateModule,
+    NgIf,
+    NgbTooltipModule,
+    RouterLink,
+    ReactiveFormsModule,
+  ],
+  standalone: true,
 })
 
 export class DuplicateMatchComponent implements OnInit {
@@ -211,7 +247,7 @@ export class DuplicateMatchComponent implements OnInit {
     this.itemPageRoute = getItemPageRoute(this.item);
 
     this.rejectForm = this.formBuilder.group({
-      reason: ['']
+      reason: [''],
     });
 
     this.hasDecision = this.isWorkFlow ?
@@ -219,10 +255,10 @@ export class DuplicateMatchComponent implements OnInit {
       : this.match.submitterDecision !== null;
 
     if (this.match.submitterDecision) {
-      this.submitterDecision$ = (this.match.submitterDecision === DuplicateDecisionValue.Reject) ?
+      this.submitterDecision$ = (this.match.submitterDecision === DuplicateDecisionValue.Reject.toString()) ?
         this.translate.get('submission.sections.detect-duplicate.not-duplicate') :
         this.translate.get('submission.sections.detect-duplicate.duplicate');
-      this.decisionLabelClass = (this.match.submitterDecision === DuplicateDecisionValue.Reject) ? 'badge-success' : 'badge-warning';
+      this.decisionLabelClass = (this.match.submitterDecision === DuplicateDecisionValue.Reject.toString()) ? 'badge-success' : 'badge-warning';
       this.submitterNote = this.match.submitterNote;
     } else {
       this.submitterDecision$ = this.translate.get('submission.sections.detect-duplicate.no-decision');
@@ -232,12 +268,12 @@ export class DuplicateMatchComponent implements OnInit {
     this.pathCombiner = new JsonPatchOperationPathCombiner('sections', this.sectionId);
 
     this.duplicateBtnLabel$ = this.isWorkFlow ?
-      ((this.match.submitterDecision === DuplicateDecisionValue.Verify) ?
+      ((this.match.submitterDecision === DuplicateDecisionValue.Verify.toString()) ?
         this.translate.get('submission.sections.detect-duplicate.confirm-duplicate') :
         this.translate.get('submission.sections.detect-duplicate.duplicate-ctrl'))
       : this.translate.get('submission.sections.detect-duplicate.duplicate');
 
-    this.notDuplicateBtnLabel$ = (this.isWorkFlow && this.match.submitterDecision === DuplicateDecisionValue.Reject) ?
+    this.notDuplicateBtnLabel$ = (this.isWorkFlow && this.match.submitterDecision === DuplicateDecisionValue.Reject.toString()) ?
       this.translate.get('submission.sections.detect-duplicate.confirm-not-duplicate') :
       this.translate.get('submission.sections.detect-duplicate.not-duplicate');
   }
@@ -289,7 +325,7 @@ export class DuplicateMatchComponent implements OnInit {
     const pathDecision = Array.of('matches', this.itemId, this.isWorkFlow ? 'workflowDecision' : 'submitterDecision').join('/');
     const payload = {
       value: isNotEmpty(decision.value) ? decision.value : null,
-      note: isNotEmpty(decision.note) ? decision.note : null
+      note: isNotEmpty(decision.note) ? decision.note : null,
     };
 
     // dispatch patch operation only when section is active

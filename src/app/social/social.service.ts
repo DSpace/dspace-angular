@@ -1,11 +1,24 @@
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-
+import {
+  DOCUMENT,
+  isPlatformBrowser,
+} from '@angular/common';
+import {
+  Inject,
+  Injectable,
+  PLATFORM_ID,
+} from '@angular/core';
+import {
+  ChildActivationEnd,
+  Router,
+} from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { distinctUntilChanged, filter, map } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+} from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { ChildActivationEnd, Router } from '@angular/router';
 
 @Injectable( { providedIn: 'root' } )
 export class SocialService {
@@ -20,7 +33,7 @@ export class SocialService {
   private readonly isSocialEnabled: boolean;
 
   constructor(
-    @Inject(PLATFORM_ID) protected platformId: Object,
+    @Inject(PLATFORM_ID) protected platformId: any,
     @Inject(DOCUMENT) private _document: Document,
     private router: Router,
   ) {
@@ -37,7 +50,7 @@ export class SocialService {
       return route;
     }),
     filter(route => route.outlet === 'primary'),
-    map(route => route.data)
+    map(route => route.data),
   );
 
   /**
@@ -63,7 +76,21 @@ export class SocialService {
     script.type = 'text/javascript';
     script.src = environment.addToAnyPlugin.scriptUrl;
     script.async = true;
-    this._document.body.appendChild(script);
+
+    // Wait for document to finish grow vertically so that script listener handles properly body height changes
+    let lastBodyHeight = 0;
+    const documentBody = this._document.body;
+
+    const bodyHeightInterval = setInterval(() => {
+      const currentBodyHeight = documentBody.getBoundingClientRect().height;
+
+      if (currentBodyHeight > lastBodyHeight) {
+        lastBodyHeight = currentBodyHeight;
+      } else {
+        this._document.head.appendChild(script);
+        clearInterval(bodyHeightInterval);
+      }
+    }, 200);
   }
 
   /**

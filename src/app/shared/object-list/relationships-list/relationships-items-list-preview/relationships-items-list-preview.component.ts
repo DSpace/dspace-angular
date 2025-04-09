@@ -1,17 +1,46 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { fadeInOut } from '../../../animations/fade';
+import {
+  NgClass,
+  NgForOf,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { environment } from '../../../../../environments/environment';
 import { Item } from '../../../../core/shared/item.model';
 import {
   ManageRelationshipEvent,
-  ManageRelationshipEventType
-} from '../../../../edit-item-relationships/edit-item-relationships.component';
-import { environment } from '../../../../../environments/environment';
+  ManageRelationshipEventType,
+} from '../../../../edit-item-relationships/edit-item-relationship-types';
+import { fadeInOut } from '../../../animations/fade';
+import { MetadataLinkViewComponent } from '../../../metadata-link-view/metadata-link-view.component';
+import { ThemedTypeBadgeComponent } from '../../../object-collection/shared/badges/type-badge/themed-type-badge.component';
+import { ItemSubmitterComponent } from '../../../object-collection/shared/mydspace-item-submitter/item-submitter.component';
+import { TruncatableComponent } from '../../../truncatable/truncatable.component';
+import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/truncatable-part.component';
 
 @Component({
   selector: 'ds-relationships-items-list-preview',
   templateUrl: './relationships-items-list-preview.component.html',
   styleUrls: ['./relationships-items-list-preview.component.scss'],
-  animations: [fadeInOut]
+  animations: [fadeInOut],
+  imports: [
+    ThemedTypeBadgeComponent,
+    TruncatableComponent,
+    TruncatablePartComponent,
+    NgIf,
+    NgClass,
+    TranslateModule,
+    MetadataLinkViewComponent,
+    NgForOf,
+    ItemSubmitterComponent,
+  ],
+  standalone: true,
 })
 export class RelationshipsItemsListPreviewComponent {
 
@@ -56,7 +85,7 @@ export class RelationshipsItemsListPreviewComponent {
     this.deleteRelationship.emit({
       action: ManageRelationshipEventType.Unselect,
       item: this.item,
-      relationship: this.customData.relationship
+      relationship: this.customData.relationship,
     });
   }
 }

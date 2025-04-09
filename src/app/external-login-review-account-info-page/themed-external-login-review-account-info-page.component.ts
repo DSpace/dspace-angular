@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ThemedComponent } from '../shared/theme-support/themed.component';
 import { ExternalLoginReviewAccountInfoPageComponent } from './external-login-review-account-info-page.component';
 
@@ -6,9 +7,11 @@ import { ExternalLoginReviewAccountInfoPageComponent } from './external-login-re
  * Themed wrapper for ExternalLoginReviewAccountInfoPageComponent
  */
 @Component({
-  selector: 'ds-themed-external-login-page',
+  selector: 'ds-external-login-page',
   styleUrls: [],
-  templateUrl: './../shared/theme-support/themed.component.html'
+  templateUrl: './../shared/theme-support/themed.component.html',
+  standalone: true,
+  imports: [ExternalLoginReviewAccountInfoPageComponent],
 })
 export class ThemedExternalLoginReviewAccountInfoPageComponent extends ThemedComponent<ExternalLoginReviewAccountInfoPageComponent> {
   protected getComponentName(): string {

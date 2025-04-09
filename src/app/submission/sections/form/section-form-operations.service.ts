@@ -1,36 +1,45 @@
 import { Injectable } from '@angular/core';
-
-import isEqual from 'lodash/isEqual';
-import isObject from 'lodash/isObject';
 import {
   DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
   DYNAMIC_FORM_CONTROL_TYPE_GROUP,
   DynamicFormArrayGroupModel,
   DynamicFormControlEvent,
   DynamicFormControlModel,
-  isDynamicFormControlEvent
+  isDynamicFormControlEvent,
 } from '@ng-dynamic-forms/core';
-
-import { hasValue, isNotEmpty, isNotNull, isNotUndefined, isNull, isUndefined } from '../../../shared/empty.util';
-import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
-import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
-import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
-import { FormFieldLanguageValueObject } from '../../../shared/form/builder/models/form-field-language-value.model';
-import { DsDynamicInputModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
-import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
-import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
-import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
-import { DynamicQualdropModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
-import { DynamicRelationGroupModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
-import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
 import { deepClone } from 'fast-json-patch';
-import { dateToString, isNgbDateStruct } from '../../../shared/date.util';
+import isEqual from 'lodash/isEqual';
+import isObject from 'lodash/isObject';
+
+import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder/json-patch-operation-path-combiner';
+import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
+import { VocabularyEntry } from '../../../core/submission/vocabularies/models/vocabulary-entry.model';
+import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/models/vocabulary-entry-detail.model';
+import {
+  dateToString,
+  isNgbDateStruct,
+} from '../../../shared/date.util';
+import {
+  hasValue,
+  isNotEmpty,
+  isNotNull,
+  isNotUndefined,
+  isNull,
+  isUndefined,
+} from '../../../shared/empty.util';
+import { DsDynamicInputModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-input.model';
+import { DynamicQualdropModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-qualdrop.model';
 import { DynamicRowArrayModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/ds-dynamic-row-array-model';
+import { DynamicRelationGroupModel } from '../../../shared/form/builder/ds-dynamic-form-ui/models/relation-group/dynamic-relation-group.model';
+import { FormBuilderService } from '../../../shared/form/builder/form-builder.service';
+import { FormFieldLanguageValueObject } from '../../../shared/form/builder/models/form-field-language-value.model';
+import { FormFieldMetadataValueObject } from '../../../shared/form/builder/models/form-field-metadata-value.model';
+import { FormFieldPreviousValueObject } from '../../../shared/form/builder/models/form-field-previous-value-object';
 
 /**
  * The service handling all form section operations
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SectionFormOperationsService {
 
   /**
@@ -55,17 +64,19 @@ export class SectionFormOperationsService {
    *    the [[FormFieldPreviousValueObject]] for the specified operation
    * @param hasStoredValue
    *    representing if field value related to the specified operation has stored value
+   * @param languageMap
    */
   public dispatchOperationsFromEvent(pathCombiner: JsonPatchOperationPathCombiner,
-                                     event: DynamicFormControlEvent,
-                                     previousValue: FormFieldPreviousValueObject,
-                                     hasStoredValue: boolean): void {
+    event: DynamicFormControlEvent,
+    previousValue: FormFieldPreviousValueObject,
+    hasStoredValue: boolean,
+    languageMap: Map<string, string[]> = null): void {
     switch (event.type) {
       case 'remove':
         this.dispatchOperationsFromRemoveEvent(pathCombiner, event, previousValue);
         break;
       case 'change':
-        this.dispatchOperationsFromChangeEvent(pathCombiner, event, previousValue, hasStoredValue);
+        this.dispatchOperationsFromChangeEvent(pathCombiner, event, previousValue, hasStoredValue, languageMap);
         break;
       case 'move':
         this.dispatchOperationsFromMoveEvent(pathCombiner, event, previousValue);
@@ -86,7 +97,7 @@ export class SectionFormOperationsService {
    * @return number
    *    the array index is part of array, zero otherwise
    */
-  public getArrayIndexFromEvent(event: DynamicFormControlEvent | any): number {
+  public getArrayIndexFromEvent(event: any): number {
     let fieldIndex: number;
 
     if (isNotEmpty(event)) {
@@ -104,7 +115,7 @@ export class SectionFormOperationsService {
 
       } else {
         // This is the case of a custom event which contains indexes information
-        fieldIndex = event.index as any;
+        fieldIndex = event?.index as any;
       }
     }
 
@@ -239,12 +250,12 @@ export class SectionFormOperationsService {
       if ((event.model as DsDynamicInputModel).hasAuthority) {
         if (Array.isArray(value)) {
           value.forEach((authority, index) => {
-            authority = Object.assign(new VocabularyEntry(), authority, {language});
+            authority = Object.assign(new VocabularyEntry(), authority, { language });
             value[index] = authority;
           });
           fieldValue = value;
         } else {
-          fieldValue = Object.assign(new VocabularyEntry(), value, {language});
+          fieldValue = Object.assign(new VocabularyEntry(), value, { language });
         }
       } else {
         // Language without Authority (input, textArea)
@@ -312,8 +323,8 @@ export class SectionFormOperationsService {
    *    the [[FormFieldPreviousValueObject]] for the specified operation
    */
   protected dispatchOperationsFromRemoveEvent(pathCombiner: JsonPatchOperationPathCombiner,
-                                              event: DynamicFormControlEvent,
-                                              previousValue: FormFieldPreviousValueObject): void {
+    event: DynamicFormControlEvent,
+    previousValue: FormFieldPreviousValueObject): void {
 
     const path = this.getFieldPathFromEvent(event);
     const value = this.getFieldValueFromChangeEvent(event);
@@ -337,7 +348,7 @@ export class SectionFormOperationsService {
    */
   protected dispatchOperationsFromAddEvent(
     pathCombiner: JsonPatchOperationPathCombiner,
-    event: DynamicFormControlEvent
+    event: DynamicFormControlEvent,
   ): void {
     const path = this.getFieldPathSegmentedFromChangeEvent(event);
     const value = deepClone(this.getFieldValueFromChangeEvent(event));
@@ -374,11 +385,13 @@ export class SectionFormOperationsService {
    *    the [[FormFieldPreviousValueObject]] for the specified operation
    * @param hasStoredValue
    *    representing if field value related to the specified operation has stored value
+   * @param languageMap
    */
   protected dispatchOperationsFromChangeEvent(pathCombiner: JsonPatchOperationPathCombiner,
-                                              event: DynamicFormControlEvent,
-                                              previousValue: FormFieldPreviousValueObject,
-                                              hasStoredValue: boolean): void {
+    event: DynamicFormControlEvent,
+    previousValue: FormFieldPreviousValueObject,
+    hasStoredValue: boolean,
+    languageMap?: Map<string, string[]>): void {
     if (event.context && event.context instanceof DynamicFormArrayGroupModel) {
       // Model is a DynamicRowArrayModel
       this.handleArrayGroupPatch(pathCombiner, event, (event as any).context.context, previousValue);
@@ -396,7 +409,7 @@ export class SectionFormOperationsService {
     if (this.formBuilder.isQualdropGroup(event.model.parent as DynamicFormControlModel)
       || this.formBuilder.isQualdropGroup(event.model as DynamicFormControlModel)) {
       // It's a qualdrup model
-      this.dispatchOperationsFromMap(this.getQualdropValueMap(event), pathCombiner, event, previousValue);
+      this.dispatchOperationsFromMap(this.getQualdropValueMap(event), pathCombiner, event, previousValue, languageMap);
     } else if (this.formBuilder.isRelationGroup(event.model)) {
       // It's a relation model
       this.dispatchOperationsFromMap(this.getValueMap(value), pathCombiner, event, previousValue);
@@ -418,7 +431,7 @@ export class SectionFormOperationsService {
           if (isNotEmpty(moveFrom.path) && isNotEmpty(moveTo.path) && moveFrom.path !== moveTo.path) {
             this.operationsBuilder.move(
               moveTo,
-              moveFrom.path
+              moveFrom.path,
             );
           }
         }
@@ -465,11 +478,13 @@ export class SectionFormOperationsService {
    *    the [[DynamicFormControlEvent]] for the specified operation
    * @param previousValue
    *    the [[FormFieldPreviousValueObject]] for the specified operation
+   * @param languageMap
    */
   protected dispatchOperationsFromMap(valueMap: Map<string, any>,
-                                      pathCombiner: JsonPatchOperationPathCombiner,
-                                      event: DynamicFormControlEvent,
-                                      previousValue: FormFieldPreviousValueObject): void {
+    pathCombiner: JsonPatchOperationPathCombiner,
+    event: DynamicFormControlEvent,
+    previousValue: FormFieldPreviousValueObject,
+    languageMap: Map<string, string[]> = null): void {
     const currentValueMap = valueMap;
     if (event.type === 'remove') {
       const path = this.getQualdropItemPathFromEvent(event);
@@ -480,7 +495,8 @@ export class SectionFormOperationsService {
           const currentValue = currentValueMap.get(index);
           if (currentValue) {
             if (!isEqual(entry, currentValue)) {
-              this.operationsBuilder.add(pathCombiner.getPath(index), currentValue, true);
+              const metadataFromPath = pathCombiner.getPath(index).path.split('/').slice(-1)[0];
+              this.operationsBuilder.add(pathCombiner.getPath(index), currentValue, true, false, languageMap?.get(metadataFromPath));
             }
             currentValueMap.delete(index);
           } else if (!currentValue) {
@@ -493,7 +509,8 @@ export class SectionFormOperationsService {
           // The last item of the group has been deleted so make a remove op
           this.operationsBuilder.remove(pathCombiner.getPath(index));
         } else {
-          this.operationsBuilder.add(pathCombiner.getPath(index), entry, true);
+          const metadataFromPath = pathCombiner.getPath(index).path.split('/').slice(-1)[0];
+          this.operationsBuilder.add(pathCombiner.getPath(index), entry, true, null, languageMap?.get(metadataFromPath));
         }
       });
     }
@@ -511,8 +528,8 @@ export class SectionFormOperationsService {
    *    the [[FormFieldPreviousValueObject]] for the specified operation
    */
   private dispatchOperationsFromMoveEvent(pathCombiner: JsonPatchOperationPathCombiner,
-                                          event: DynamicFormControlEvent,
-                                          previousValue: FormFieldPreviousValueObject) {
+    event: DynamicFormControlEvent,
+    previousValue: FormFieldPreviousValueObject) {
 
     return this.handleArrayGroupPatch(pathCombiner, event.$event, (event as any).$event.arrayModel, previousValue);
   }
@@ -530,16 +547,16 @@ export class SectionFormOperationsService {
    *    the [[FormFieldPreviousValueObject]] for the specified operation
    */
   private handleArrayGroupPatch(pathCombiner: JsonPatchOperationPathCombiner,
-                                event,
-                                model: DynamicRowArrayModel,
-                                previousValue: FormFieldPreviousValueObject) {
+    event,
+    model: DynamicRowArrayModel,
+    previousValue: FormFieldPreviousValueObject) {
     const arrayValue = this.formBuilder.getValueFromModel([model]);
     const segmentedPath = this.getFieldPathSegmentedFromChangeEvent(event);
     if (isNotEmpty(arrayValue)) {
       this.operationsBuilder.add(
         pathCombiner.getPath(segmentedPath),
         arrayValue[segmentedPath],
-        false
+        false,
       );
     } else if (previousValue.isPathEqual(this.formBuilder.getPath(event.model))) {
       this.operationsBuilder.remove(pathCombiner.getPath(segmentedPath));
@@ -547,8 +564,8 @@ export class SectionFormOperationsService {
   }
 
   protected changeSecurityLevel(pathCombiner: JsonPatchOperationPathCombiner,
-                                event: DynamicFormControlEvent,
-                                previousValue: FormFieldPreviousValueObject): void {
+    event: DynamicFormControlEvent,
+    previousValue: FormFieldPreviousValueObject): void {
     if (event.context && event.context instanceof DynamicFormArrayGroupModel) {
       // Model is a DynamicRowArrayModel
       this.handleArrayGroupPatch(pathCombiner, event, (event as any).context.context, previousValue);
@@ -576,4 +593,5 @@ export class SectionFormOperationsService {
       }
     }
   }
+
 }

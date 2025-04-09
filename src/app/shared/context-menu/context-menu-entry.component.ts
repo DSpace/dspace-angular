@@ -1,15 +1,19 @@
-import { Component, Inject } from '@angular/core';
+import {
+  Component,
+  Inject,
+} from '@angular/core';
+import { Subject } from 'rxjs';
 
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../core/shared/dspace-object-type.model';
-import { Subject } from 'rxjs';
 import { ContextMenuEntryType } from './context-menu-entry-type';
 
 /**
  * This component renders a context menu option that provides the links to edit item page.
  */
 @Component({
-  template: ''
+  template: '',
+  standalone: true,
 })
 export abstract class ContextMenuEntryComponent {
 
@@ -36,7 +40,7 @@ export abstract class ContextMenuEntryComponent {
   constructor(
     @Inject('contextMenuObjectProvider') protected injectedContextMenuObject: DSpaceObject,
     @Inject('contextMenuObjectTypeProvider') protected injectedContextMenuObjectType: DSpaceObjectType,
-    _menuEntryType: ContextMenuEntryType
+    _menuEntryType: ContextMenuEntryType,
   ) {
     this.contextMenuObject = injectedContextMenuObject;
     this.contextMenuObjectType = injectedContextMenuObjectType;

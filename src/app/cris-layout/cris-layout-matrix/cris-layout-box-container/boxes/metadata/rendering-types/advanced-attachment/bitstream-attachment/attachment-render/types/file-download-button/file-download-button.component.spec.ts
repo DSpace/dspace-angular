@@ -1,18 +1,23 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
 import { Bitstream } from 'src/app/core/shared/bitstream.model';
 import { Item } from 'src/app/core/shared/item.model';
-import { TranslateLoaderMock } from '../../../../../../../../../../../shared/mocks/translate-loader.mock';
-import { SharedModule } from '../../../../../../../../../../../shared/shared.module';
 
-import { FileDownloadButtonComponent } from './file-download-button.component';
 import { ConfigurationDataService } from '../../../../../../../../../../../core/data/configuration-data.service';
-import { createSuccessfulRemoteDataObject$ } from '../../../../../../../../../../../shared/remote-data.utils';
 import { ConfigurationProperty } from '../../../../../../../../../../../core/shared/configuration-property.model';
+import { TranslateLoaderMock } from '../../../../../../../../../../../shared/mocks/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../../../../../../shared/remote-data.utils';
+import { FileDownloadButtonComponent } from './file-download-button.component';
 
 describe('FileDownloadButtonComponent', () => {
   let component: FileDownloadButtonComponent;
@@ -26,25 +31,25 @@ describe('FileDownloadButtonComponent', () => {
 
   function init() {
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: jasmine.createSpy('isAuthorized')
+      isAuthorized: jasmine.createSpy('isAuthorized'),
     });
     bitstream = Object.assign(new Bitstream(), {
       uuid: 'bitstreamUuid',
       _links: {
-        self: { href: 'obj-selflink' }
-      }
+        self: { href: 'obj-selflink' },
+      },
     });
     item = Object.assign(new Item(), {
       uuid: 'itemUuid',
       _links: {
-        self: { href: 'obj-selflink' }
-      }
+        self: { href: 'obj-selflink' },
+      },
     });
     configurationDataService = jasmine.createSpyObj('configurationDataService', {
       findByPropertyName: createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), {
         name: 'request.item.type',
-        values: []
-      }))
+        values: [],
+      })),
     });
   }
 
@@ -55,19 +60,19 @@ describe('FileDownloadButtonComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [
-        SharedModule,
         RouterTestingModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })],
-      declarations: [FileDownloadButtonComponent],
+            useClass: TranslateLoaderMock,
+          },
+        }),
+        FileDownloadButtonComponent,
+      ],
       providers: [
         { provide: AuthorizationDataService, useValue: authorizationService },
-        { provide: ConfigurationDataService, useValue: configurationDataService }
-      ]
+        { provide: ConfigurationDataService, useValue: configurationDataService },
+      ],
     })
       .compileComponents();
   });
@@ -79,7 +84,7 @@ describe('FileDownloadButtonComponent', () => {
     (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(of(true));
     component.bitstreamPath$ = of({
       routerLink: 'test',
-      queryParams: {}
+      queryParams: {},
     });
     component.ngOnInit();
     fixture.detectChanges();

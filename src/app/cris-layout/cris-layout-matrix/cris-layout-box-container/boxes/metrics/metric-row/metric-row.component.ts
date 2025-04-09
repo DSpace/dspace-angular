@@ -1,8 +1,16 @@
-import { Component, Input } from '@angular/core';
-
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import {
+  AsyncPipe,
+  NgFor,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 import { CrisLayoutMetricRow } from '../../../../../../core/layout/models/tab.model';
+import { MetricLoaderComponent } from '../../../../../../shared/metric/metric-loader/metric-loader.component';
 
 /**
  * This component renders the rows of metadata boxes
@@ -12,6 +20,13 @@ import { CrisLayoutMetricRow } from '../../../../../../core/layout/models/tab.mo
   selector: '[ds-metric-row]',
   templateUrl: './metric-row.component.html',
   styleUrls: ['./metric-row.component.scss'],
+  standalone: true,
+  imports: [
+    NgFor,
+    NgIf,
+    MetricLoaderComponent,
+    AsyncPipe,
+  ],
 })
 export class MetricRowComponent {
   /**
@@ -27,11 +42,11 @@ export class MetricRowComponent {
     this.isVisible$.next(newMap);
   }
 
-  isHidden(metricId): Observable<boolean> {
+  isHidden(metricId): boolean {
     if (this.isVisible$.value.has(metricId)) {
-      return of(this.isVisible$.value.get(metricId));
+      return this.isVisible$.value.get(metricId);
     } else {
-      return of(false);
+      return false;
     }
   }
 }

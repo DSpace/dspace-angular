@@ -1,22 +1,35 @@
-import { Component, Inject } from '@angular/core';
+import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
-
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
-import { rendersContextMenuEntriesForType } from '../context-menu.decorator';
-import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
-import { ContextMenuEntryComponent } from '../context-menu-entry.component';
-import { DSpaceObject } from '../../../core/shared/dspace-object.model';
-import { ProcessParameter } from '../../../process-page/processes/process-parameter.model';
-import { COLLECTION_EXPORT_SCRIPT_NAME, ScriptDataService } from '../../../core/data/processes/script-data.service';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { RequestService } from '../../../core/data/request.service';
-import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
-import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
+import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
+import {
+  COLLECTION_EXPORT_SCRIPT_NAME,
+  ScriptDataService,
+} from '../../../core/data/processes/script-data.service';
 import { RemoteData } from '../../../core/data/remote-data';
+import { RequestService } from '../../../core/data/request.service';
+import { DSpaceObject } from '../../../core/shared/dspace-object.model';
+import { DSpaceObjectType } from '../../../core/shared/dspace-object-type.model';
+import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { Process } from '../../../process-page/processes/process.model';
+import { ProcessParameter } from '../../../process-page/processes/process-parameter.model';
+import { NotificationsService } from '../../notifications/notifications.service';
+import { ContextMenuEntryComponent } from '../context-menu-entry.component';
 import { ContextMenuEntryType } from '../context-menu-entry-type';
 
 /**
@@ -24,10 +37,17 @@ import { ContextMenuEntryType } from '../context-menu-entry-type';
  */
 @Component({
   selector: 'ds-context-menu-export-item',
-  templateUrl: './export-collection-menu.component.html'
+  templateUrl: './export-collection-menu.component.html',
+  standalone: true,
+  imports: [
+    NgIf,
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
-@rendersContextMenuEntriesForType(DSpaceObjectType.COLLECTION)
-export class ExportCollectionMenuComponent extends ContextMenuEntryComponent {
+export class ExportCollectionMenuComponent extends ContextMenuEntryComponent implements OnInit {
+
+  isCollectionAdmin$: Observable<boolean>;
 
   /**
    * Initialize instance variables
@@ -49,9 +69,15 @@ export class ExportCollectionMenuComponent extends ContextMenuEntryComponent {
     private requestService: RequestService,
     private router: Router,
     private scriptService: ScriptDataService,
-    private translationService: TranslateService
+    private translationService: TranslateService,
   ) {
     super(injectedContextMenuObject, injectedContextMenuObjectType, ContextMenuEntryType.ExportCollection);
+  }
+
+  ngOnInit() {
+    this.isCollectionAdmin$ = this.notificationService.claimedProfile.pipe(
+      switchMap(() => this.isCollectionAdmin(false)),
+    );
   }
 
   /**
@@ -59,7 +85,7 @@ export class ExportCollectionMenuComponent extends ContextMenuEntryComponent {
    */
   exportCollection() {
     const stringParameters: ProcessParameter[] = [
-      { name: '-c', value: this.contextMenuObject.id }
+      { name: '-c', value: this.contextMenuObject.id },
     ];
 
     this.scriptService.invoke(COLLECTION_EXPORT_SCRIPT_NAME, stringParameters, [])
@@ -72,9 +98,6 @@ export class ExportCollectionMenuComponent extends ContextMenuEntryComponent {
           this.notificationService.error(this.translationService.get('collection-export.error'));
         }
       });
-    this.notificationService.claimedProfile.subscribe(() => {
-      this.isCollectionAdmin(false);
-    });
   }
 
   /**

@@ -1,21 +1,26 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { StatisticsPageComponent } from '../statistics-page/statistics-page.component';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { SiteDataService } from '../../core/data/site-data.service';
-import { UsageReportDataService } from '../../core/statistics/usage-report-data.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Site } from '../../core/shared/site.model';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
-import { AuthService } from '../../core/auth/auth.service';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { VarDirective } from '../../shared/utils/var.directive';
+import { CrisStatisticsPageComponent } from '../cris-statistics-page/cris-statistics-page.component';
+import { StatisticsPageDirective } from '../statistics-page/statistics-page.directive';
+import { StatisticsTableComponent } from '../statistics-table/statistics-table.component';
 
 /**
  * Component representing the site-wide statistics page.
  */
 @Component({
-  selector: 'ds-site-statistics-page',
+  selector: 'ds-base-site-statistics-page',
   templateUrl: '../statistics-page/statistics-page.component.html',
-  styleUrls: ['./site-statistics-page.component.scss']
+  styleUrls: ['./site-statistics-page.component.scss'],
+  standalone: true,
+  imports: [CommonModule, VarDirective, ThemedLoadingComponent, StatisticsTableComponent, TranslateModule, CrisStatisticsPageComponent],
 })
-export class SiteStatisticsPageComponent extends StatisticsPageComponent<Site> {
+export class SiteStatisticsPageComponent extends StatisticsPageDirective<Site> {
 
   /**
    * The report types to show on this statistics page.
@@ -24,32 +29,12 @@ export class SiteStatisticsPageComponent extends StatisticsPageComponent<Site> {
     'TotalVisits',
   ];
 
-  constructor(
-    protected route: ActivatedRoute,
-    protected router: Router,
-    protected usageReportService: UsageReportDataService,
-    protected nameService: DSONameService,
-    protected siteService: SiteDataService,
-    protected authService: AuthService,
-  ) {
-    super(
-      route,
-      router,
-      usageReportService,
-      nameService,
-      authService,
-    );
+  constructor(protected siteService: SiteDataService) {
+    super();
   }
 
   protected getScope$() {
     return this.siteService.find();
   }
 
-  // protected getReports$() {
-  //   return this.scope$.pipe(
-  //     switchMap((scope) =>
-  //       this.usageReportService.searchStatistics(scope._links.self.href, 0, 10),
-  //     ),
-  //   );
-  // }
 }

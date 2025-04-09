@@ -1,7 +1,11 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {
+  Pipe,
+  PipeTransform,
+} from '@angular/core';
 
 @Pipe({
-  name: 'dsCompareValues'
+  name: 'dsCompareValues',
+  standalone: true,
 })
 export class CompareValuesPipe implements PipeTransform {
 

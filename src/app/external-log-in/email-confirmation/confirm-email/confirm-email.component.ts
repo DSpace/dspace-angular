@@ -1,24 +1,60 @@
-import { ChangeDetectionStrategy, Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ExternalLoginService } from '../../services/external-login.service';
-import { TranslateService } from '@ngx-translate/core';
+import { NgIf } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import isEqual from 'lodash/isEqual';
-import { combineLatest, Subscription, take } from 'rxjs';
+import {
+  combineLatest,
+  Subscription,
+  take,
+} from 'rxjs';
+
 import { AuthService } from '../../../core/auth/auth.service';
 import { EPersonDataService } from '../../../core/eperson/eperson-data.service';
 import { EPerson } from '../../../core/eperson/models/eperson.model';
 import { HardRedirectService } from '../../../core/services/hard-redirect.service';
-import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../../core/shared/operators';
+import {
+  NativeWindowRef,
+  NativeWindowService,
+} from '../../../core/services/window.service';
+import {
+  getFirstCompletedRemoteData,
+  getRemoteDataPayload,
+} from '../../../core/shared/operators';
 import { Registration } from '../../../core/shared/registration.model';
-import { hasNoValue, hasValue } from '../../../shared/empty.util';
+import {
+  hasNoValue,
+  hasValue,
+} from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { NativeWindowRef, NativeWindowService } from '../../../core/services/window.service';
+import { ExternalLoginService } from '../../services/external-login.service';
 
 @Component({
   selector: 'ds-confirm-email',
   templateUrl: './confirm-email.component.html',
   styleUrls: ['./confirm-email.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    TranslateModule,
+    ReactiveFormsModule,
+    NgIf,
+  ],
 })
 export class ConfirmEmailComponent implements OnInit, OnDestroy {
   /**
@@ -55,7 +91,7 @@ export class ConfirmEmailComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.emailForm = this.formBuilder.group({
-      email: [this.registrationData.email, [Validators.required, Validators.email]]
+      email: [this.registrationData.email, [Validators.required, Validators.email]],
     });
   }
 
@@ -101,7 +137,7 @@ export class ConfirmEmailComponent implements OnInit, OnDestroy {
     */
   private postCreateAccountFromToken(
     token: string,
-    registrationData: Registration
+    registrationData: Registration,
   ) {
     // check if the netId is present
     // in order to create an account, the netId is required (since the user is created without a password)
@@ -130,13 +166,13 @@ export class ConfirmEmailComponent implements OnInit, OnDestroy {
           getFirstCompletedRemoteData(),
         ),
         this.externalLoginService.getExternalAuthLocation(this.registrationData.registrationType),
-        this.authService.getRedirectUrl().pipe(take(1))
+        this.authService.getRedirectUrl().pipe(take(1)),
       ])
         .subscribe(([rd, location, redirectRoute]) => {
           if (rd.hasFailed) {
             this.notificationService.error(
               this.translate.get('external-login-page.provide-email.create-account.notifications.error.header'),
-              this.translate.get('external-login-page.provide-email.create-account.notifications.error.content')
+              this.translate.get('external-login-page.provide-email.create-account.notifications.error.content'),
             );
           } else if (rd.hasSucceeded) {
             // set Redirect URL to User profile, so the user is redirected to the profile page after logging in
@@ -144,12 +180,12 @@ export class ConfirmEmailComponent implements OnInit, OnDestroy {
             const externalServerUrl = this.authService.getExternalServerRedirectUrl(
               this._window.nativeWindow.origin,
               redirectRoute,
-              location
+              location,
             );
             // redirect to external registration type authentication url
             this.hardRedirectService.redirect(externalServerUrl);
           }
-        })
+        }),
     );
   }
 

@@ -1,14 +1,20 @@
-import { EventEmitter, Injector } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  EventEmitter,
+  Injector,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { of as observableOf } from 'rxjs';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { of as observableOf } from 'rxjs';
 
 import { ChartType } from '../../models/chart-type';
-import { BarChartComponent } from './bar-chart.component';
 import { AbstractChartComponent } from '../abstract-chart/abstract-chart.component';
-import { By } from '@angular/platform-browser';
+import { BarChartComponent } from './bar-chart.component';
 
 xdescribe('BarChartComponent', () => {
   let component: BarChartComponent;
@@ -18,16 +24,16 @@ xdescribe('BarChartComponent', () => {
   const results = observableOf([
     {
       name: 'Germany',
-      value: 8940000
+      value: 8940000,
     },
     {
       name: 'USA',
-      value: 5000000
+      value: 5000000,
     },
     {
       name: 'France',
-      value: 7200000
-    }
+      value: 7200000,
+    },
   ]);
   const animations = true;
   const legend = true;
@@ -45,11 +51,9 @@ xdescribe('BarChartComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         BrowserAnimationsModule,
-        NgxChartsModule
-      ],
-      declarations: [
+        NgxChartsModule,
+        BarChartComponent,
         AbstractChartComponent,
-        BarChartComponent
       ],
       providers: [
         { provide: 'view', useValue: view },
@@ -65,10 +69,10 @@ xdescribe('BarChartComponent', () => {
         { provide: 'isLastPage', useValue: isLastPage },
         { provide: 'currentPage', useValue: currentPage },
         { provide: 'type', useValue: type },
-        Injector
-      ]
+        Injector,
+      ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -88,7 +92,7 @@ xdescribe('BarChartComponent', () => {
     done();
   });
 
-/*  describe('when the setViewSize method is called', () => {
+  /*  describe('when the setViewSize method is called', () => {
     beforeEach(() => {
       spyOn(component, 'setViewSize');
       component.setViewSize();

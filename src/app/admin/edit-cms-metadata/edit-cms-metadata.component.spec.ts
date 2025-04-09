@@ -1,23 +1,31 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { EditCmsMetadataComponent } from './edit-cms-metadata.component';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { of } from 'rxjs';
-import { Site } from '../../core/shared/site.model';
-import { SiteDataService } from '../../core/data/site-data.service';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { By } from '@angular/platform-browser';
-import { environment } from '../../../environments/environment.test';
-import { FormsModule } from '@angular/forms';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { of } from 'rxjs';
+
+import { environment } from '../../../environments/environment.test';
+import { SiteDataService } from '../../core/data/site-data.service';
+import { Site } from '../../core/shared/site.model';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { EditCmsMetadataComponent } from './edit-cms-metadata.component';
 
 describe('EditCmsMetadataComponent', () => {
 
   let component: EditCmsMetadataComponent;
   let fixture: ComponentFixture<EditCmsMetadataComponent>;
   const site = Object.assign(new Site(), {
-    metadata: { }
+    metadata: { },
   });
 
   const siteServiceStub = jasmine.createSpyObj('SiteDataService', {
@@ -43,16 +51,16 @@ describe('EditCmsMetadataComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
+        EditCmsMetadataComponent,
       ],
-      declarations: [EditCmsMetadataComponent],
       providers: [
         { provide: NotificationsService, useValue: NotificationsServiceStub },
-        { provide: SiteDataService, useValue: siteServiceStub }
+        { provide: SiteDataService, useValue: siteServiceStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -129,8 +137,8 @@ describe('EditCmsMetadataComponent', () => {
           path: '/metadata/' + component.selectedMetadata,
           value: {
             value: component.selectedMetadataValues.get(environment.languages[0].code),
-            language: environment.languages[0].code
-          }
+            language: environment.languages[0].code,
+          },
         });
         component.selectedMetadataValues.forEach((value, key) => {
           if (key !== environment.languages[0].code) {
@@ -139,8 +147,8 @@ describe('EditCmsMetadataComponent', () => {
               path: '/metadata/' + component.selectedMetadata,
               value: {
                 value: value,
-                language: key
-              }
+                language: key,
+              },
             });
           }
         });

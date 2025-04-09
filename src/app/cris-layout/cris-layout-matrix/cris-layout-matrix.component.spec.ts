@@ -1,10 +1,13 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { CrisLayoutMatrixComponent } from './cris-layout-matrix.component';
-
 import { leadingTabs } from '../../shared/testing/layout-tab.mocks';
+import { CrisLayoutBoxContainerComponent } from './cris-layout-box-container/cris-layout-box-container.component';
+import { CrisLayoutMatrixComponent } from './cris-layout-matrix.component';
 
 describe('CrisLayoutMatrixComponent', () => {
   let component: CrisLayoutMatrixComponent;
@@ -15,9 +18,9 @@ describe('CrisLayoutMatrixComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CrisLayoutMatrixComponent]
+      imports: [CrisLayoutMatrixComponent],
     })
-      .compileComponents();
+      .overrideComponent(CrisLayoutMatrixComponent, { remove: { imports: [CrisLayoutBoxContainerComponent] } }).compileComponents();
   });
 
   beforeEach(() => {
