@@ -449,7 +449,7 @@ export class DsoEditMetadataForm {
                   value: value.newValue.value,
                   language: value.newValue.language,
                   authority: value.newValue.authority,
-                  confidence: value.newValue.confidence,                  
+                  confidence: value.newValue.confidence,
                 }));
               }
             } else if (value.change === DsoEditMetadataChangeType.REMOVE) {
