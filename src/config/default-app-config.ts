@@ -803,9 +803,6 @@ export class DefaultAppConfig implements AppConfig {
       // If true, show the "Community and Collections" link in the navbar; otherwise, show it in the admin sidebar
       showCommunityCollection: true,
     },
-    breadcrumbs: {
-      charLimit: 10,
-    },
   };
 
   security: MetadataSecurityConfig = {
