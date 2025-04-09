@@ -1,6 +1,7 @@
 import { trigger } from '@angular/animations';
 import {
   AsyncPipe,
+  NgForOf,
   NgIf,
   NgTemplateOutlet,
   TitleCasePipe,
@@ -116,6 +117,7 @@ import { NotificationsService } from '../notifications.service';
     ThemedFileDownloadLinkComponent,
     FileSizePipe,
     TitleCasePipe,
+    NgForOf,
   ],
   standalone: true,
 })

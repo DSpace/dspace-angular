@@ -287,6 +287,8 @@ export const environment: BuildConfig = {
       metadata: ['dc.contributor.author'],
     },
   ],
+  followAuthorityMaxItemLimit: 100,
+  followAuthorityMetadataValuesLimit: 5,
   item: {
     edit: {
       undoTimeout: 10000, // 10 seconds
@@ -484,6 +486,11 @@ export const environment: BuildConfig = {
         baseUrl: 'https://doi.org/',
       },
       {
+        name: 'keepMyWhiteSpaces',
+        baseUrl: 'https://keepmywhitespaces.com/',
+        shouldKeepWhiteSpaces: true,
+      },
+      {
         name: 'hdl',
         baseUrl: 'https://hdl.handle.net/',
       },
@@ -558,9 +565,6 @@ export const environment: BuildConfig = {
     navbar: {
       // If true, show the "Community and Collections" link in the navbar; otherwise, show it in the admin sidebar
       showCommunityCollection: true,
-    },
-    breadcrumbs: {
-      charLimit: 10,
     },
   },
   security: {

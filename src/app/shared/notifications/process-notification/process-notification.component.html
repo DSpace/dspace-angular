@@ -37,7 +37,7 @@
         </div>
       </div>
 
-      <div  *ngIf="(finished | async) && (files$ | async)?.length > 0">
+      <div [attr.data-test]="'files-content'" *ngIf="(finished | async) && (files$ | async)?.length > 0">
           <div class="notification-content pl-1">{{ 'process.new.notification.process.files' | translate}}</div>
           <ds-file-download-link class="pl-1" *ngFor="let file of (files$ | async); let last=last;" [bitstream]="file">
             <span>{{getFileName(file)}}</span>

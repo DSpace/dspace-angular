@@ -123,9 +123,7 @@ export class FormBuilderService extends DynamicFormService {
   getTypeBindModelUpdates(): Observable<any> {
     return this.typeBindModel.pipe(
       distinctUntilChanged(),
-      switchMap((bindModel: any) => {
-        return (bindModel.type === 'CHECKBOX_GROUP' ? bindModel.valueUpdates : bindModel.valueChanges);
-      }),
+      switchMap((bindModel: any) => bindModel.valueChanges),
       distinctUntilChanged(),
     );
   }

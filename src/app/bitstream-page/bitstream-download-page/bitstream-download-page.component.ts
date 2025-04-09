@@ -33,7 +33,6 @@ import {
   NativeWindowRef,
   NativeWindowService,
 } from '../../core/services/window.service';
-import { redirectOn4xx } from '../../core/shared/authorized.operators';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { FileService } from '../../core/shared/file.service';
 import { getRemoteDataPayload } from '../../core/shared/operators';
@@ -91,7 +90,6 @@ export class BitstreamDownloadPageComponent implements OnInit {
     );
 
     this.bitstream$ = this.bitstreamRD$.pipe(
-      redirectOn4xx(this.router, this.auth),
       getRemoteDataPayload(),
     );
 
