@@ -5568,13 +5568,13 @@
   "search.filters.operator.equals.text": "Est égal à",
 
   //"search.filters.operator.notequals.text": "Not Equals",
-  search.filters.operator.notequals.text": "N'est pas égal à",
+  "search.filters.operator.notequals.text": "N'est pas égal à",
 
   //"search.filters.operator.authority.text": "Authority",
   "search.filters.operator.authority.text": "Est une autorité",
 
   //"search.filters.operator.notauthority.text": "Not Authority",
-  "search.filters.operator.notauthority.text": "N'est pas une autorité"
+  "search.filters.operator.notauthority.text": "N'est pas une autorité",
 
   //"search.filters.operator.contains.text": "Contains",
   "search.filters.operator.contains.text": "Contient",
