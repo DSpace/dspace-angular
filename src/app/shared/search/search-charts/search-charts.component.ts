@@ -69,6 +69,18 @@ export class SearchChartsComponent implements OnInit {
    */
   isPlatformBrowser: boolean;
 
+  /**
+   * Prop that provides the boolean value for an existing valid chart (true if at least one valid chart is found)
+   */
+  hasValidCharts = false;
+
+  /**
+   *
+   * @param cdr
+   * @param searchService
+   * @param platformId
+   * @param searchConfigService
+   */
   constructor(
     private cdr: ChangeDetectorRef,
     private searchService: SearchService,
@@ -89,6 +101,7 @@ export class SearchChartsComponent implements OnInit {
               this.selectedFilter = this.selectedFilter
                 ? this.selectedFilter
                 : rd.hasSucceeded && hasValues ? rd.payload[0] : null;
+              this.hasValidCharts = hasValues;
               this.cdr.detectChanges();
             })
           );

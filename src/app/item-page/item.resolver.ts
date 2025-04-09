@@ -8,22 +8,29 @@ import { followLink, FollowLinkConfig } from '../shared/utils/follow-link-config
 import { getFirstCompletedRemoteData } from '../core/shared/operators';
 import { Store } from '@ngrx/store';
 import { ResolvedAction } from '../core/resolving/resolver.actions';
+import { environment } from '../../environments/environment';
 
 /**
  * The self links defined in this list are expected to be requested somewhere in the near future
  * Requesting them as embeds will limit the number of requests
  */
-export const ITEM_PAGE_LINKS_TO_FOLLOW: FollowLinkConfig<Item>[] = [
-  followLink('owningCollection', {},
-    followLink('parentCommunity', {},
-      followLink('parentCommunity'))
-  ),
-  followLink('relationships'),
-  followLink('version', {}, followLink('versionhistory')),
-  followLink('bundles', {}, followLink('bitstreams')),
-  followLink('thumbnail'),
-  followLink('metrics')
-];
+export function getItemPageLinksToFollow(): FollowLinkConfig<Item>[] {
+  const followLinks: FollowLinkConfig<Item>[] = [
+    followLink('owningCollection', {},
+      followLink('parentCommunity', {},
+        followLink('parentCommunity'))
+    ),
+    followLink('relationships'),
+    followLink('version', {}, followLink('versionhistory')),
+    followLink('bundles', {}, followLink('bitstreams')),
+    followLink('thumbnail'),
+    followLink('metrics')
+  ];
+  if (environment.item.showAccessStatuses) {
+    followLinks.push(followLink('accessStatus'));
+  }
+  return followLinks;
+}
 
 /**
  * This class represents a resolver that requests a specific item before the route is activated
@@ -49,7 +56,7 @@ export class ItemResolver implements Resolve<RemoteData<Item>> {
     const itemRD$ = this.itemService.findById(route.params.id,
       false,
       true,
-      ...ITEM_PAGE_LINKS_TO_FOLLOW
+      ...getItemPageLinksToFollow(),
     ).pipe(
       getFirstCompletedRemoteData(),
     );

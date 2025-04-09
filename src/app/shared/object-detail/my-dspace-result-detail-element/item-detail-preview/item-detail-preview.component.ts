@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
@@ -13,6 +13,7 @@ import { HALEndpointService } from '../../../../core/shared/hal-endpoint.service
 import { SearchResult } from '../../../search/models/search-result.model';
 import { Context } from '../../../../core/shared/context.model';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { hasValue } from '../../../empty.util';
 
 /**
  * This component show metadata for the given item object in the detail view.
@@ -23,7 +24,7 @@ import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
   templateUrl: './item-detail-preview.component.html',
   animations: [fadeInOut]
 })
-export class ItemDetailPreviewComponent {
+export class ItemDetailPreviewComponent implements OnChanges {
   /**
    * The item to display
    */
@@ -70,6 +71,12 @@ export class ItemDetailPreviewComponent {
     protected bitstreamDataService: BitstreamDataService,
     public dsoNameService: DSONameService,
   ) {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (hasValue(changes.item)) {
+      this.bitstreams$ = this.getFiles();
+    }
   }
 
   /**

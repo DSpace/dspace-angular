@@ -25,7 +25,7 @@ import { AuthorizationDataService } from '../core/data/feature-authorization/aut
 import { FeatureID } from '../core/data/feature-authorization/feature-id';
 import { getCollectionPageRoute } from './collection-page-routing-paths';
 import { redirectOn4xx } from '../core/shared/authorized.operators';
-import { BROWSE_LINKS_TO_FOLLOW } from '../core/browse/browse.service';
+import { getBrowseLinksToFollow } from '../core/browse/browse.service';
 import { DSONameService } from '../core/breadcrumbs/dso-name.service';
 import { APP_CONFIG, AppConfig } from '../../../src/config/app-config.interface';
 import { SearchManager } from '../core/browse/search-manager';
@@ -118,7 +118,7 @@ export class CollectionPageComponent implements OnInit {
               sort: currentSort,
               dsoTypes: [DSpaceObjectType.ITEM],
               forcedEmbeddedKeys: ['metrics'],
-            }), null, true, true, ...BROWSE_LINKS_TO_FOLLOW)
+            }), null, true, true, ...getBrowseLinksToFollow())
             .pipe(toDSpaceObjectListRD()) as Observable<RemoteData<PaginatedList<Item>>>;
         }),
         startWith(undefined) // Make sure switching pages shows loading component

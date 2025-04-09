@@ -15,6 +15,9 @@ import { MyDSpaceConfigurationValueType } from './my-dspace-configuration-value-
 import { Context } from '../core/shared/context.model';
 import SpyObj = jasmine.SpyObj;
 import { SelectableListService } from '../shared/object-list/selectable-list/selectable-list.service';
+import { RequestService } from '../core/data/request.service';
+import { getMockRequestService } from '../shared/mocks/request.service.mock';
+import { RequestEntry } from '../core/data/request-entry.model';
 
 describe('MyDSpacePageComponent', () => {
   let comp: MyDSpacePageComponent;
@@ -42,6 +45,12 @@ describe('MyDSpacePageComponent', () => {
     }
   ];
 
+  const getRequestEntry$ = (successful: boolean) => {
+    return observableOf({
+      response: { isSuccessful: successful, payload: {} } as any
+    } as RequestEntry);
+  };
+
   const selectableListService = jasmine.createSpyObj('selectableListService', {
     selectSingle: jasmine.createSpy('selectSingle'),
     deselectSingle: jasmine.createSpy('deselectSingle'),
@@ -63,6 +72,10 @@ describe('MyDSpacePageComponent', () => {
           {
             provide: SEARCH_CONFIG_SERVICE,
             useValue: myDSpaceConfigurationServiceStub
+          },
+          {
+            provide: RequestService,
+            useValue: getMockRequestService(getRequestEntry$(true))
           }
         ]
       }

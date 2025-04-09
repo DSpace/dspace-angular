@@ -9,7 +9,7 @@ import { HardRedirectService } from '../core/services/hard-redirect.service';
 import { CrisItemPageTabResolver } from './cris-item-page-tab.resolver';
 import { TabDataService } from '../core/layout/tab-data.service';
 import { createPaginatedList } from '../shared/testing/utils.test';
-import { tabDetailsTest, tabPublicationsTest } from '../shared/testing/layout-tab.mocks';
+import { tabDetailsTest, tabFundingsTest, tabPublicationsTest, } from '../shared/testing/layout-tab.mocks';
 import { PLATFORM_ID } from '@angular/core';
 
 describe('CrisItemPageTabResolver', () => {
@@ -48,8 +48,8 @@ describe('CrisItemPageTabResolver', () => {
       }
     });
 
-    const tabsRD = createSuccessfulRemoteDataObject(createPaginatedList([tabPublicationsTest, tabDetailsTest]));
-    const tabsRD$ = createSuccessfulRemoteDataObject$(createPaginatedList([tabPublicationsTest, tabDetailsTest]));
+  const tabsRD = createSuccessfulRemoteDataObject(createPaginatedList([tabPublicationsTest, tabDetailsTest, tabFundingsTest]));
+  const tabsRD$ = createSuccessfulRemoteDataObject$(createPaginatedList([tabPublicationsTest, tabDetailsTest, tabFundingsTest]));
 
     const noTabsRD = createSuccessfulRemoteDataObject(createPaginatedList([]));
     const noTabsRD$ = createSuccessfulRemoteDataObject$(createPaginatedList([]));
@@ -128,6 +128,18 @@ describe('CrisItemPageTabResolver', () => {
               }
             );
         });
+
+      it('Should handle tab shortnames with "::" correctly', () => {
+        const tabRD = createSuccessfulRemoteDataObject(createPaginatedList([{ ...tabPublicationsTest, shortname: 'publication::details' }]));
+        tabService.findByItem.and.returnValue(createSuccessfulRemoteDataObject$(tabRD) as any);
+
+        TestBed.runInInjectionContext(() => {
+          return resolver.resolve({ params: { id: uuid } } as any, { url: '/entities/publication/1234-65487-12354-1235/publication::details' } as any);
+        });
+
+        expect(router.navigateByUrl).not.toHaveBeenCalled();
+        expect(hardRedirectService.redirect).not.toHaveBeenCalled();
+      });
       });
 
       describe('when platform is server', () => {

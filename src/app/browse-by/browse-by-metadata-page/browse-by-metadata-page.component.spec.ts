@@ -3,7 +3,7 @@ import {
   browseParamsToOptions,
   getBrowseSearchOptions
 } from './browse-by-metadata-page.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { BrowseService } from '../../core/browse/browse.service';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -13,7 +13,7 @@ import { EnumKeysPipe } from '../../shared/utils/enum-keys-pipe';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { Observable, of as observableOf } from 'rxjs';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA, PLATFORM_ID } from '@angular/core';
 import { RemoteData } from '../../core/data/remote-data';
 import { buildPaginatedList, PaginatedList } from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
@@ -117,7 +117,8 @@ describe('BrowseByMetadataPageComponent', () => {
         { provide: DSpaceObjectDataService, useValue: mockDsoService },
         { provide: PaginationService, useValue: paginationService },
         { provide: Router, useValue: new RouterMock() },
-        { provide: APP_CONFIG, useValue: environmentMock }
+        { provide: APP_CONFIG, useValue: environmentMock },
+        { provide: PLATFORM_ID, useValue: 'browser' },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -229,6 +230,35 @@ describe('BrowseByMetadataPageComponent', () => {
       expect(result.sort.field).toEqual('fake-field');
       expect(result.fetchThumbnail).toBeTrue();
     });
+  });
+
+  describe('when rendered in SSR', () => {
+    beforeEach(() => {
+      comp.ssrRenderingDisabled = true;
+      spyOn((comp as any).browseService, 'getBrowseEntriesFor').and.returnValue(createSuccessfulRemoteDataObject$(null));
+    });
+
+    it('should not call getBrowseEntriesFor on init', (done) => {
+      comp.ngOnInit();
+      expect((comp as any).browseService.getBrowseEntriesFor).not.toHaveBeenCalled();
+      comp.loading$.subscribe((res) => {
+        expect(res).toBeFalsy();
+        done();
+      });
+    });
+  });
+
+  describe('when rendered in CSR', () => {
+    beforeEach(() => {
+      comp.ssrRenderingDisabled = false;
+      spyOn((comp as any).browseService, 'getBrowseEntriesFor').and.returnValue(createSuccessfulRemoteDataObject$(new BrowseEntry()));
+    });
+
+    it('should call getBrowseEntriesFor on init', fakeAsync(() => {
+      comp.ngOnInit();
+      tick(100);
+      expect((comp as any).browseService.getBrowseEntriesFor).toHaveBeenCalled();
+    }));
   });
 });
 

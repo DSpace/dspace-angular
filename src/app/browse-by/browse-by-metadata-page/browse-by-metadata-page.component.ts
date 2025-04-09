@@ -1,5 +1,5 @@
 import { combineLatest as observableCombineLatest, Observable, Subscription, of as observableOf } from 'rxjs';
-import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy, Input, PLATFORM_ID } from '@angular/core';
 import { RemoteData } from '../../core/data/remote-data';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
@@ -15,13 +15,15 @@ import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.serv
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { StartsWithType } from '../../shared/starts-with/starts-with-decorator';
 import { PaginationService } from '../../core/pagination/pagination.service';
-import { filter, map, mergeMap } from 'rxjs/operators';
+import { filter, map, mergeMap, distinctUntilChanged } from 'rxjs/operators';
 import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { Collection } from '../../core/shared/collection.model';
 import { Community } from '../../core/shared/community.model';
 import { APP_CONFIG, AppConfig } from '../../../config/app-config.interface';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { isPlatformServer } from '@angular/common';
+import { environment } from '../../../environments/environment';
 import { SearchManager } from '../../core/browse/search-manager';
 
 export const BBM_PAGINATION_ID = 'bbm';
@@ -38,7 +40,10 @@ export const BBM_PAGINATION_ID = 'bbm';
  * 'dc.contributor.*'
  */
 export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
-
+  /**
+   * Defines whether to fetch search results during SSR execution
+   */
+  @Input() renderOnServerSide = false;
   /**
    * The list of browse-entries to display
    */
@@ -127,6 +132,10 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
    * Observable determining if the loading animation needs to be shown
    */
   loading$ = observableOf(true);
+  /**
+   * Whether this component should be rendered or not in SSR
+   */
+  ssrRenderingDisabled = false;
 
   public constructor(protected route: ActivatedRoute,
                      protected browseService: BrowseService,
@@ -136,6 +145,7 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
                      protected router: Router,
                      @Inject(APP_CONFIG) public appConfig: AppConfig,
                      public dsoNameService: DSONameService,
+                     @Inject(PLATFORM_ID) public platformId: any,
   ) {
 
     this.fetchThumbnails = this.appConfig.browseBy.showThumbnails;
@@ -144,22 +154,32 @@ export class BrowseByMetadataPageComponent implements OnInit, OnDestroy {
         currentPage: 1,
         pageSize: this.appConfig.browseBy.pageSize,
         });
-    }
+    this.ssrRenderingDisabled = !this.renderOnServerSide && !environment.universal.enableBrowseComponent && isPlatformServer(this.platformId);
+  }
 
 
   ngOnInit(): void {
-
+    if (this.ssrRenderingDisabled) {
+      this.loading$ = observableOf(false);
+      return;
+    }
     const sortConfig = new SortOptions('default', SortDirection.ASC);
-    this.updatePage(getBrowseSearchOptions(this.defaultBrowseId, this.paginationConfig, sortConfig));
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
     this.currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, sortConfig);
+    const routeParams$: Observable<Params> = observableCombineLatest([
+      this.route.params,
+      this.route.queryParams,
+    ]).pipe(
+      map(([params, queryParams]: [Params, Params]) => Object.assign({}, params, queryParams)),
+      distinctUntilChanged((prev: Params, curr: Params) => prev.id === curr.id && prev.authority === curr.authority && prev.value === curr.value && prev.startsWith === curr.startsWith),
+    );
     this.subs.push(
-      observableCombineLatest([this.route.params, this.route.queryParams, this.currentPagination$, this.currentSort$]).pipe(
-        map(([routeParams, queryParams, currentPage, currentSort]) => {
-          return [Object.assign({}, routeParams, queryParams),currentPage,currentSort];
-        })
-      ).subscribe(([params, currentPage, currentSort]: [Params, PaginationComponentOptions, SortOptions]) => {
-          this.browseId = params.id || this.defaultBrowseId;
+      observableCombineLatest([
+        routeParams$,
+        this.currentPagination$,
+        this.currentSort$,
+      ]).subscribe(([params, currentPage, currentSort]: [Params, PaginationComponentOptions, SortOptions]) => {
+        this.browseId = params.id || this.defaultBrowseId;
           this.authority = +params.authority || params.authority || '';
 
           if (typeof params.value === 'string'){

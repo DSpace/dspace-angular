@@ -11,6 +11,8 @@ import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { MetadataValue } from '../../../../../../../core/shared/metadata.models';
 import { FieldRenderingType } from '../metadata-box.decorator';
 import { ResolverStrategyService } from '../../../../../../services/resolver-strategy.service';
+import { APP_CONFIG } from '../../../../../../../../config/app-config.interface';
+import { environment } from '../../../../../../../../environments/environment';
 
 describe('IdentifierComponent', () => {
   let component: IdentifierComponent;
@@ -84,7 +86,8 @@ describe('IdentifierComponent', () => {
         { provide: 'metadataValueProvider', useValue: doiMetadataValueWithoutSubType },
         { provide: 'renderingSubTypeProvider', useValue: '' },
         { provide: 'tabNameProvider', useValue: '' },
-        { provide: ResolverStrategyService, useClass: ResolverStrategyService }
+        { provide: ResolverStrategyService, useClass: ResolverStrategyService },
+        { provide: APP_CONFIG, useValue: environment }
       ],
       declarations: [IdentifierComponent]
     })
@@ -220,6 +223,20 @@ describe('IdentifierComponent', () => {
       const spanValueFound = fixture.debugElement.queryAll(By.css('.test-style-value'));
       expect(spanValueFound.length).toBe(1);
       done();
+    });
+  });
+
+  it('should keep white space in metadata value if shouldKeepWhiteSpaces is true', () => {
+    expect(component.composeLink('keep my white spaces', 'keepMyWhiteSpaces')).toEqual({
+      href: 'https://keepmywhitespaces.com/keep my white spaces',
+      text: 'keep my white spaces'
+    });
+  });
+
+  it('should not keep white space in metadata value if shouldKeepWhiteSpaces is false', () => {
+    expect(component.composeLink('do not keep my white spaces', 'doi')).toEqual({
+      href: 'https://doi.org/donotkeepmywhitespaces',
+      text: 'do not keep my white spaces'
     });
   });
 

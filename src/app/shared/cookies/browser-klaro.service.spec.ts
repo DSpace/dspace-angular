@@ -17,6 +17,8 @@ import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from
 import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
 import { ANONYMOUS_STORAGE_NAME_KLARO } from './klaro-configuration';
 import { TestScheduler } from 'rxjs/testing';
+import { NativeWindowService } from '../../core/services/window.service';
+import { NativeWindowMockFactory } from '../mocks/mock-native-window-ref';
 
 describe('BrowserKlaroService', () => {
   const trackingIdProp = 'google.analytics.key';
@@ -73,6 +75,10 @@ describe('BrowserKlaroService', () => {
       providers: [
         BrowserKlaroService,
         {
+          provide: NativeWindowService,
+          useFactory: NativeWindowMockFactory
+        },
+        {
           provide: TranslateService,
           useValue: translateService
         },
@@ -101,7 +107,7 @@ describe('BrowserKlaroService', () => {
 
     mockConfig = {
       translations: {
-        zz: {
+        zy: {
           purposes: {},
           test: {
             testeritis: testKey
@@ -159,8 +165,8 @@ describe('BrowserKlaroService', () => {
 
   it('addAppMessages', () => {
     service.addAppMessages();
-    expect(mockConfig.translations.zz[appName]).toBeDefined();
-    expect(mockConfig.translations.zz.purposes[purpose]).toBeDefined();
+    expect(mockConfig.translations.zy[appName]).toBeDefined();
+    expect(mockConfig.translations.zy.purposes[purpose]).toBeDefined();
   });
 
   it('translateConfiguration', () => {

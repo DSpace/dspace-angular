@@ -1,7 +1,7 @@
 <ng-container *ngVar="(user$ | async) as user">
   <div class="container" *ngIf="user">
     <h1>{{'profile.title' | translate}}</h1>
-    <ng-container>
+    <ng-container *ngIf="isResearcherProfileEnabled$ | async">
       <div class="card mb-4">
         <div class="card-header">{{'profile.card.researcher' | translate}}</div>
         <div class="card-body">
@@ -42,13 +42,29 @@
       </div>
     </div>
 
-    <ng-container *ngVar="(groupsRD$ | async)?.payload?.page as groups">
-      <div *ngIf="groups?.length > 0">
-        <h2 class="mt-4">{{'profile.groups.head' | translate}}</h2>
-        <ul class="list-group list-group-flush">
-          <li *ngFor="let group of groups" class="list-group-item">{{ dsoNameService.getName(group) }}</li>
-        </ul>
-      </div>
+    <ng-container *ngIf="(groupsRD$ | async) as groupsRD;">
+      <ng-container *ngTemplateOutlet="groupsRD?.isLoading ? loader : content"></ng-container>
+      <ng-template #content>
+        <ds-pagination *ngIf="groupsRD?.payload"
+                       [hideGear]="true"
+                       [hidePagerWhenSinglePage]="true"
+                       [hidePaginationDetail]="true"
+                       [paginationOptions]="optionsGroupsPagination"
+                       [collectionSize]="groupsRD?.payload?.totalElements">
+          <ng-container *ngIf="groupsRD?.payload?.page as groups">
+            <div *ngIf="groups?.length > 0">
+              <h2 class="mt-4">{{ 'profile.groups.head' | translate }}</h2>
+              <ul class="list-group list-group-flush">
+                <li *ngFor="let group of groups" class="list-group-item">{{ dsoNameService.getName(group) }}</li>
+              </ul>
+            </div>
+          </ng-container>
+        </ds-pagination>
+      </ng-template>
+      <ng-template #loader>
+        <ds-loading [showMessage]="false"></ds-loading>
+      </ng-template>
+      <ds-error *ngIf="groupsRD?.hasFailed" message="{{ 'error.profile-groups' | translate }}"></ds-error>
     </ng-container>
 
     <ng-container *ngVar="(specialGroupsRD$ | async)?.payload?.page as specialGroups">

@@ -10,6 +10,7 @@ import {
   DsoEditMenuExpandableSectionComponent
 } from './dso-edit-menu/dso-edit-expandable-menu-section/dso-edit-menu-expandable-section.component';
 import { NgbDropdownModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {SharedModule} from '../shared.module';
 
 const COMPONENTS = [
   DsoEditMenuComponent,
@@ -26,6 +27,7 @@ const MODULES = [
   CommonModule,
   NgbTooltipModule,
   NgbDropdownModule,
+  SharedModule
 ];
 const PROVIDERS = [
 

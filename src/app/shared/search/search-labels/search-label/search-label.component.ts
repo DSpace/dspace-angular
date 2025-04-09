@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Params, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { hasValue, isNotEmpty } from '../../../empty.util';
@@ -8,6 +8,9 @@ import { currentPath } from '../../../utils/route.utils';
 import { PaginationService } from '../../../../core/pagination/pagination.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { stripOperatorFromFilterValue } from '../../search.utils';
+import { ItemDataService } from '../../../../core/data/item-data.service';
+import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
+import { getFirstCompletedRemoteData } from '../../../../core/shared/operators';
 
 @Component({
   selector: 'ds-search-label',
@@ -32,12 +35,19 @@ export class SearchLabelComponent implements OnInit {
   filterName: string;
 
   /**
+   * Represents the name associated with the corresponding ID value.
+   */
+  filterValue: BehaviorSubject<string> = new BehaviorSubject<string>('');
+
+  /**
    * Initialize the instance variable
    */
   constructor(
     private searchService: SearchService,
     private paginationService: PaginationService,
     private searchConfigurationService: SearchConfigurationService,
+    private itemDataService: ItemDataService,
+    private dsoNameService: DSONameService,
     private router: Router) {
   }
 
@@ -45,6 +55,33 @@ export class SearchLabelComponent implements OnInit {
     this.searchLink = this.getSearchLink();
     this.removeParameters = this.getRemoveParams();
     this.filterName = this.getFilterName();
+    this.setFilterValue();
+  }
+
+  /**
+   * Retrieves and sets the appropriate filter value based on the given input, updating the filterValue accordingly.
+   * @returns {void}
+   */
+  setFilterValue(): void{
+    const parts = this.value.split(',');
+    const partTrimmed = parts.pop().trim();
+    if (partTrimmed === 'authority') {
+      const id = parts[0].trim();
+      this.itemDataService.findById(id).pipe(
+        getFirstCompletedRemoteData(),
+        map((rq)=> rq.hasSucceeded ? rq.payload : null),
+      ).subscribe((result)=>{
+        let tmpValue: string;
+        if (isNotEmpty(result)){
+          tmpValue = this.dsoNameService.getName(result);
+        } else {
+          tmpValue = this.value;
+        }
+        this.filterValue.next(this.normalizeFilterValue(this.getStrippedValue(tmpValue)));
+      });
+    } else {
+      this.filterValue.next(this.normalizeFilterValue(this.getStrippedValue(this.value)));
+    }
   }
 
   /**

@@ -21,7 +21,8 @@ import { BreadcrumbsService } from '../../app/breadcrumbs/breadcrumbs.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
 import { take } from 'rxjs/operators';
 import { MenuService } from '../../app/shared/menu/menu.service';
-import { isNotEmpty } from '../../app/shared/empty.util';
+import { isEmpty, isNotEmpty } from '../../app/shared/empty.util';
+import { BuildConfig } from '../../config/build-config.interface';
 
 /**
  * Performs server-side initialization.
@@ -32,7 +33,7 @@ export class ServerInitService extends InitService {
     protected store: Store<AppState>,
     protected correlationIdService: CorrelationIdService,
     protected transferState: TransferState,
-    @Inject(APP_CONFIG) protected appConfig: AppConfig,
+    @Inject(APP_CONFIG) protected appConfig: BuildConfig,
     protected translate: TranslateService,
     protected localeService: LocaleService,
     protected angulartics2DSpace: Angulartics2DSpace,
@@ -81,21 +82,23 @@ export class ServerInitService extends InitService {
    * @private
    */
   private saveAppState() {
-    this.transferState.onSerialize(InitService.NGRX_STATE, () => {
-      let state;
-      this.store.pipe(take(1)).subscribe((saveState: any) => {
-        state = saveState;
-      });
+    if (this.appConfig.universal.transferState && (isEmpty(this.appConfig.rest.ssrBaseUrl) || this.appConfig.universal.replaceRestUrl)) {
+      this.transferState.onSerialize(InitService.NGRX_STATE, () => {
+        let state;
+        this.store.pipe(take(1)).subscribe((saveState: any) => {
+          state = saveState;
+        });
 
-      return state;
-    });
+        return state;
+      });
+    }
   }
 
   private saveAppConfigForCSR(): void {
     if (isNotEmpty(environment.rest.ssrBaseUrl) && environment.rest.baseUrl !== environment.rest.ssrBaseUrl) {
-      // Avoid to transfer ssrBaseUrl in order to avoid security issues
+      // Avoid to transfer ssrBaseUrl in order to prevent security issues
       const config: AppConfig = Object.assign({}, environment as AppConfig, {
-        rest: Object.assign({}, environment.rest, { ssrBaseUrl: '', hasSsrBaseUrl: true })
+        rest: Object.assign({}, environment.rest, { ssrBaseUrl: '', hasSsrBaseUrl: true }),
       });
       this.transferState.set<AppConfig>(APP_CONFIG_STATE, config);
     } else {

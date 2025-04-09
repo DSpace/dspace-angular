@@ -3,7 +3,7 @@ import { Component, Inject, ViewChild } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 
 import { filter, map, mergeMap, take } from 'rxjs/operators';
-import { combineLatest, Observable, of, Subscription } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 
 import { renderSectionFor } from '../sections-decorator';
@@ -42,7 +42,7 @@ import {
   FORM_ACCESS_CONDITION_TYPE_CONFIG,
   FORM_ACCESS_CONDITION_TYPE_LAYOUT
 } from './section-accesses.model';
-import { hasValue, isNotEmpty, isNotNull } from '../../../shared/empty.util';
+import { hasValue, isNotEmpty, isNotNull, isObjectEmpty } from '../../../shared/empty.util';
 import {
   WorkspaceitemSectionAccessesObject
 } from '../../../core/submission/models/workspaceitem-section-accesses.model';
@@ -125,6 +125,11 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
   public canChangeDiscoverable: boolean;
 
   /**
+   * Whether the section is required
+   */
+  public required$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+  /**
    * Initialize instance variables
    *
    * @param {SectionsService} sectionService
@@ -161,7 +166,7 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
    *    The form model
    */
   public initModelData(formModel: DynamicFormControlModel[]) {
-    this.accessesData.accessConditions.forEach((accessCondition, index) => {
+    this.accessesData.accessConditions?.forEach((accessCondition, index) => {
       Array.of('name', 'startDate', 'endDate')
         .filter((key) => accessCondition.hasOwnProperty(key) && isNotEmpty(accessCondition[key]))
         .forEach((key) => {
@@ -298,9 +303,8 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
       this.canChangeDiscoverable = !!config.canChangeDiscoverable;
       this.accessesData = accessData;
       this.formModel = this.buildFileEditForm();
+      this.required$.next(config.required);
     });
-
-
   }
 
   /**
@@ -309,8 +313,14 @@ export class SubmissionSectionAccessesComponent extends SectionModelComponent {
    * @return Observable<boolean>
    *     the section status
    */
-  protected getSectionStatus(): Observable<boolean> {
-    return of(true);
+  getSectionStatus(): Observable<boolean> {
+    return combineLatest([
+      this.required$,
+      this.sectionService.getSectionErrors(this.submissionId,  this.sectionData.id),
+      this.accessesService.getAccessesData(this.submissionId, this.sectionData.id)
+    ]).pipe(
+      map(([required, errors, accessesData]) => (!required || (required  && isObjectEmpty(errors) && !!accessesData?.accessConditions?.length)))
+    );
   }
 
   /**

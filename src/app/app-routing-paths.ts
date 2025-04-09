@@ -32,7 +32,7 @@ export function getBitstreamRequestACopyRoute(item, bitstream): { routerLink: st
   };
 }
 
-export const HOME_PAGE_PATH = 'admin';
+export const HOME_PAGE_PATH = 'home';
 
 export function getHomePageRoute() {
   return `/${HOME_PAGE_PATH}`;

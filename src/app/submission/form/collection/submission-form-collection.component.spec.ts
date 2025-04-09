@@ -25,6 +25,7 @@ import { Collection } from '../../../core/shared/collection.model';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
+import {BtnDisabledDirective} from '../../../shared/btn-disabled.directive';
 
 describe('SubmissionFormCollectionComponent Component', () => {
 
@@ -135,7 +136,8 @@ describe('SubmissionFormCollectionComponent Component', () => {
       ],
       declarations: [
         SubmissionFormCollectionComponent,
-        TestComponent
+        TestComponent,
+        BtnDisabledDirective
       ],
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
@@ -255,7 +257,8 @@ describe('SubmissionFormCollectionComponent Component', () => {
       it('the dropdown button should be disabled when isReadonly is true', () => {
         comp.isReadonly = true;
         fixture.detectChanges();
-        expect(dropdowBtn.nativeNode.attributes.disabled).toBeDefined();
+        expect(dropdowBtn.nativeNode.getAttribute('aria-disabled')).toBe('true');
+        expect(dropdowBtn.nativeNode.classList.contains('disabled')).toBeTrue();
       });
 
       it('should be simulated when the drop-down menu is closed', () => {
@@ -318,7 +321,8 @@ describe('SubmissionFormCollectionComponent Component', () => {
         comp.hasChoice = false;
         fixture.detectChanges();
         fixture.whenStable().then(() => {
-          expect(dropdowBtn.nativeElement.disabled).toBeTruthy();
+          expect(dropdowBtn.nativeNode.getAttribute('aria-disabled')).toBe('true');
+          expect(dropdowBtn.nativeNode.classList.contains('disabled')).toBeTrue();
         });
       }));
     });

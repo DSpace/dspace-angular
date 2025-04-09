@@ -19,15 +19,30 @@ import { REQUEST_COPY_MODULE_PATH } from '../app-routing-paths';
 import { CrisItemPageTabResolver } from './cris-item-page-tab.resolver';
 import { OrcidPageComponent } from './orcid-page/orcid-page.component';
 import { OrcidPageGuard } from './orcid-page/orcid-page.guard';
+import { signpostingLinksResolver } from './simple/link-resolver/signposting-links.resolver';
+
 
 @NgModule({
   imports: [
     RouterModule.forChild([
       {
+        path: 'version',
+        children: [
+          {
+            path: ':id',
+            component: VersionPageComponent,
+            resolve: {
+              dso: VersionResolver,
+            },
+          }
+        ],
+      },
+      {
         path: ':id',
         resolve: {
           dso: ItemPageResolver,
           breadcrumb: ItemBreadcrumbResolver,
+          links: signpostingLinksResolver,
         },
         runGuardsAndResolvers: 'always',
         children: [
@@ -89,18 +104,7 @@ import { OrcidPageGuard } from './orcid-page/orcid-page.guard';
           showSocialButtons: true
         },
       },
-      {
-        path: 'version',
-        children: [
-          {
-            path: ':id',
-            component: VersionPageComponent,
-            resolve: {
-              dso: VersionResolver,
-            },
-          }
-        ],
-      }
+
     ])
   ],
   providers: [

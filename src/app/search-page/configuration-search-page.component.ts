@@ -8,9 +8,10 @@ import { SearchConfigurationService } from '../core/shared/search/search-configu
 import { RouteService } from '../core/services/route.service';
 import { SearchService } from '../core/shared/search/search.service';
 import { Router } from '@angular/router';
-import { APP_CONFIG, AppConfig } from '../../config/app-config.interface';
+import { APP_CONFIG } from '../../config/app-config.interface';
 import { SearchManager } from '../core/browse/search-manager';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { BuildConfig } from '../../config/build-config.interface';
 
 /**
  * This component renders a search page using a configuration as input.
@@ -34,12 +35,13 @@ export class ConfigurationSearchPageComponent extends SearchComponent {
               protected searchManager: SearchManager,
               protected sidebarService: SidebarService,
               protected windowService: HostWindowService,
-              @Inject(PLATFORM_ID) public platformId: any,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
               protected routeService: RouteService,
               protected router: Router,
-              @Inject(APP_CONFIG) protected appConfig: AppConfig,
-              protected authorizationService: AuthorizationDataService,) {
-    super(service, searchManager, sidebarService, windowService, searchConfigService, platformId, routeService, router, appConfig, authorizationService);
+              @Inject(APP_CONFIG) protected appConfig: BuildConfig,
+              @Inject(PLATFORM_ID) public platformId: any,
+              protected authorizationService: AuthorizationDataService,
+  ) {
+    super(service, searchManager, sidebarService, windowService, searchConfigService, routeService, router, appConfig, platformId, authorizationService);
   }
 }

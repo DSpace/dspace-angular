@@ -16,7 +16,7 @@
       (selected)="onChipSelected($event)"></ds-chips>
     <button type="button" class="ds-form-add-more btn btn-link"
             title="{{'form.add' | translate}}"
-            [disabled]="model.readOnly"
+            [dsBtnDisabled]="model.readOnly"
             (click)="openModal()">
       <span attr.aria-label="{{'form.add' | translate}}"><i class="fas fa-plus"></i> {{'form.add' | translate}}</span>
     </button>

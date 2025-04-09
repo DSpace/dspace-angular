@@ -1,4 +1,4 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA, PLATFORM_ID } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 
@@ -9,6 +9,7 @@ import { of as observableOf } from 'rxjs';
 import { XSRFService } from '../core/xsrf/xsrf.service';
 import { LoginPageComponent } from './login-page.component';
 import { ActivatedRouteStub } from '../shared/testing/active-router.stub';
+import { By } from '@angular/platform-browser';
 
 describe('LoginPageComponent', () => {
   let comp: LoginPageComponent;
@@ -24,29 +25,65 @@ describe('LoginPageComponent', () => {
     select: observableOf(true)
   });
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        TranslateModule.forRoot()
-      ],
-      declarations: [LoginPageComponent],
-      providers: [
-        { provide: ActivatedRoute, useValue: activatedRouteStub },
-        { provide: Store, useValue: store },
-        { provide: XSRFService, useValue: {} },
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
-  }));
+  describe('when platform is browser', () => {
+    beforeEach(waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          TranslateModule.forRoot()
+        ],
+        declarations: [LoginPageComponent],
+        providers: [
+          { provide: ActivatedRoute, useValue: activatedRouteStub },
+          { provide: Store, useValue: store },
+          { provide: XSRFService, useValue: {} },
+          { provide: PLATFORM_ID, useValue: 'browser' }
+        ],
+        schemas: [NO_ERRORS_SCHEMA]
+      }).compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(LoginPageComponent);
-    comp = fixture.componentInstance; // SearchPageComponent test instance
-    fixture.detectChanges();
+    beforeEach(() => {
+      fixture = TestBed.createComponent(LoginPageComponent);
+      comp = fixture.componentInstance; // SearchPageComponent test instance
+      fixture.detectChanges();
+    });
+
+    it('should create instance', () => {
+      const login = fixture.debugElement.query(By.css('[data-test="login"]'));
+      const loading = fixture.debugElement.query(By.css('[data-test="loading"]'));
+      expect(login).toBeTruthy();
+      expect(loading).toBeFalsy();
+    });
   });
 
-  it('should create instance', () => {
-    expect(comp).toBeDefined();
+  describe('when platform is browser', () => {
+    beforeEach(waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          TranslateModule.forRoot()
+        ],
+        declarations: [LoginPageComponent],
+        providers: [
+          { provide: ActivatedRoute, useValue: activatedRouteStub },
+          { provide: Store, useValue: store },
+          { provide: PLATFORM_ID, useValue: 'server' }
+        ],
+        schemas: [NO_ERRORS_SCHEMA]
+      }).compileComponents();
+    }));
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(LoginPageComponent);
+      comp = fixture.componentInstance; // SearchPageComponent test instance
+      fixture.detectChanges();
+    });
+
+    it('should create instance', () => {
+      const login = fixture.debugElement.query(By.css('[data-test="login"]'));
+      const loading = fixture.debugElement.query(By.css('[data-test="loading"]'));
+      expect(login).toBeFalsy();
+      expect(loading).toBeTruthy();
+    });
   });
 
 });

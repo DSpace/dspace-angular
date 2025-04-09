@@ -1,5 +1,5 @@
 import { BrowseByDatePageComponent } from './browse-by-date-page.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BrowseService } from '../../core/browse/browse.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { RouterMock } from '../../shared/mocks/router.mock';
-import { ChangeDetectorRef, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ChangeDetectorRef, NO_ERRORS_SCHEMA, PLATFORM_ID } from '@angular/core';
 import { of as observableOf } from 'rxjs';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
 import { Community } from '../../core/shared/community.model';
@@ -25,6 +25,8 @@ import { environment } from '../../../environments/environment';
 import { SortDirection } from '../../core/cache/models/sort-options.model';
 import { SearchManager } from '../../core/browse/search-manager';
 import { cold } from 'jasmine-marbles';
+import { Store } from '@ngrx/store';
+import { BrowseEntry } from '../../core/shared/browse-entry.model';
 
 describe('BrowseByDatePageComponent', () => {
   let comp: BrowseByDatePageComponent;
@@ -101,7 +103,10 @@ describe('BrowseByDatePageComponent', () => {
         { provide: Router, useValue: new RouterMock() },
         { provide: PaginationService, useValue: paginationService },
         { provide: ChangeDetectorRef, useValue: mockCdRef },
-        { provide: APP_CONFIG, useValue: environment }
+        { provide: APP_CONFIG, useValue: environment },
+        { provide: Store, useValue: {} },
+        { provide: APP_CONFIG, useValue: environment },
+        { provide: PLATFORM_ID, useValue: 'browser' },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -136,5 +141,34 @@ describe('BrowseByDatePageComponent', () => {
   it('should create a list of startsWith options with the current year first', () => {
     //expect(comp.startsWithOptions[0]).toEqual(new Date().getUTCFullYear());
     expect(comp.startsWithOptions[0]).toEqual(1960);
+  });
+
+  describe('when rendered in SSR', () => {
+    beforeEach(() => {
+      comp.platformId = 'server';
+      spyOn((comp as any).searchManager, 'getBrowseItemsFor');
+    });
+
+    it('should not call getBrowseItemsFor on init', (done) => {
+      comp.ngOnInit();
+      expect((comp as any).searchManager.getBrowseItemsFor).not.toHaveBeenCalled();
+      comp.loading$.subscribe((res) => {
+        expect(res).toBeFalsy();
+        done();
+      });
+    });
+  });
+
+  describe('when rendered in CSR', () => {
+    beforeEach(() => {
+      comp.platformId = 'browser';
+      spyOn((comp as any).searchManager, 'getBrowseItemsFor').and.returnValue(createSuccessfulRemoteDataObject$(new BrowseEntry()));
+    });
+
+    it('should call getBrowseItemsFor on init', fakeAsync(() => {
+      comp.ngOnInit();
+      tick(100);
+      expect((comp as any).searchManager.getBrowseItemsFor).toHaveBeenCalled();
+    }));
   });
 });
