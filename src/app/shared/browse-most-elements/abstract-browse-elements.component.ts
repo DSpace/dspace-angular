@@ -78,13 +78,13 @@ export abstract class AbstractBrowseElementsComponent implements OnInit, OnChang
   searchResultArray$: Observable<DSpaceObject[]>;
 
   ngOnChanges() {
-    if (isPlatformServer(this.platformId)) {
-      return;
-    }
     this.paginatedSearchOptions$?.next(this.paginatedSearchOptions);
   }
 
   ngOnInit() {
+    if (isPlatformServer(this.platformId)) {
+      return;
+    }
     const followLinks = [];
     if (this.followThumbnailLink) {
       followLinks.push(followLink('thumbnail'));
