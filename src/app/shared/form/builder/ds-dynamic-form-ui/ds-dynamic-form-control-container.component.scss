@@ -15,7 +15,6 @@
   appearance: none;
 }
 
-
 :host ::ng-deep .btn-group-toggle > .btn input[type="radio"] {
   position: absolute;
   clip: rect(0,0,0,0);
@@ -32,4 +31,14 @@
 
 :host ::ng-deep .custom-control-input.is-invalid ~ .custom-control-label {
   color: var(--bs-form-invalid-color);
+}
+
+.invalid-feedback {
+  margin-top: 0;
+}
+
+.col-form-label {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-bottom: 0.5rem;
 }
