@@ -13,6 +13,7 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { hot } from 'jasmine-marbles';
 import { of as observableOf } from 'rxjs';
 
+import { HashedFileMapping } from '../../../modules/dynamic-hash/hashed-file-mapping';
 import { LinkService } from '../../core/cache/builders/link.service';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
@@ -55,6 +56,10 @@ class MockLinkService {
     }
   }
 }
+
+const mockHashedFileMapping = {
+  resolve: (path: string) => path,
+};
 
 describe('ThemeService', () => {
   let themeService: ThemeService;
@@ -108,7 +113,10 @@ describe('ThemeService', () => {
         provideMockActions(() => mockActions),
         { provide: DSpaceObjectDataService, useValue: mockDsoService },
         { provide: Router, useValue: new RouterMock() },
-        { provide: ConfigurationDataService, useValue: configurationService },
+        {
+          provide: HashedFileMapping,
+          useValue: mockHashedFileMapping,
+        },
       ],
     });
 
@@ -422,6 +430,10 @@ describe('ThemeService', () => {
           { provide: DSpaceObjectDataService, useValue: mockDsoService },
           { provide: Router, useValue: new RouterMock() },
           { provide: ConfigurationDataService, useValue: configurationService },
+          {
+            provide: HashedFileMapping,
+            useValue: mockHashedFileMapping,
+          },
         ],
       });
 

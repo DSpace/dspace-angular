@@ -6,6 +6,8 @@ import {
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 
+import { APP_CONFIG } from '../../../config/app-config.interface';
+import { environment } from '../../../environments/environment.test';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
 import { LocaleInterceptor } from './locale.interceptor';
@@ -34,6 +36,7 @@ describe(`LocaleInterceptor`, () => {
           multi: true,
         },
         { provide: LocaleService, useValue: mockLocaleService },
+        { provide: APP_CONFIG, useValue: environment },
       ],
     });
 

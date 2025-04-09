@@ -1,6 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { makeEnvironmentProviders } from '@angular/core';
 
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../config/app-config.interface';
 import { environment } from '../../environments/environment';
 import { Itemfilter } from '../admin/admin-ldn-services/ldn-services-model/ldn-service-itemfilters';
 import { LdnService } from '../admin/admin-ldn-services/ldn-services-model/ldn-services.model';
@@ -15,6 +19,7 @@ import {
 import { AccessStatusObject } from '../shared/object-collection/shared/badges/access-status-badge/access-status.model';
 import { IdentifierData } from '../shared/object-list/identifier-data/identifier-data.model';
 import { Subscription } from '../shared/subscriptions/models/subscription.model';
+import { StatisticsEndpoint } from '../statistics/statistics-endpoint.model';
 import { SubmissionCoarNotifyConfig } from '../submission/sections/section-coar-notify/submission-coar-notify.config';
 import { SystemWideAlert } from '../system-wide-alert/system-wide-alert.model';
 import { AuthStatus } from './auth/models/auth-status.model';
@@ -88,7 +93,7 @@ import { WorkflowAction } from './tasks/models/workflow-action-object.model';
 
 export const provideCore = () => {
   return makeEnvironmentProviders([
-    { provide: DspaceRestService, useFactory: restServiceFactory, deps: [MOCK_RESPONSE_MAP, HttpClient] },
+    { provide: DspaceRestService, useFactory: restServiceFactory, deps: [MOCK_RESPONSE_MAP, HttpClient, APP_CONFIG] },
   ]);
 };
 
@@ -96,11 +101,11 @@ export const provideCore = () => {
  * When not in production, endpoint responses can be mocked for testing purposes
  * If there is no mock version available for the endpoint, the actual REST response will be used just like in production mode
  */
-export const restServiceFactory = (mocks: ResponseMapMock, http: HttpClient) => {
+export const restServiceFactory = (mocks: ResponseMapMock, http: HttpClient, appConfig: AppConfig) => {
   if (environment.production) {
-    return new DspaceRestService(http);
+    return new DspaceRestService(http, appConfig);
   } else {
-    return new EndpointMockingRestService(mocks, http);
+    return new EndpointMockingRestService(mocks, http, appConfig);
   }
 };
 
@@ -188,4 +193,5 @@ export const models =
     SubmissionCoarNotifyConfig,
     NotifyRequestsStatus,
     SystemWideAlert,
+    StatisticsEndpoint,
   ];
