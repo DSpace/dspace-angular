@@ -425,7 +425,7 @@ export class DsoEditMetadataForm {
                   language: value.newValue.language,
                   authority: value.newValue.authority,
                   confidence: value.newValue.confidence,
-                  securityLevel: value.newValue.securityLevel,
+                  securityLevel: value.originalValue.securityLevel,
                 }));
               }
               // "replace" the security level value
