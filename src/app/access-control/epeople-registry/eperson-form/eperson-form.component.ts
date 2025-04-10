@@ -576,7 +576,7 @@ export class EPersonFormComponent implements OnInit, OnDestroy {
    */
   private updateGroups(options) {
     this.subs.push(this.activeEPerson$.subscribe((eperson: EPerson) => {
-      this.groups = this.groupsDataService.findListByHref(eperson._links.groups.href, options);
+      this.groups = this.groupsDataService.findListByHref(eperson._links.groups.href, options, undefined, undefined, followLink('object'));
     }));
   }
 }
