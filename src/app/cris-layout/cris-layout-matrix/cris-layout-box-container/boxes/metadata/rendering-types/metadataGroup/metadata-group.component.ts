@@ -81,7 +81,7 @@ export abstract class MetadataGroupComponent extends RenderingTypeStructuredMode
 
   getMetadataValue(field: LayoutField, index: number): MetadataValue {
     const metadataList = this.item.findMetadataSortedByPlace(field.metadata);
-    return isNotEmpty(metadataList[index]) ? metadataList[index] : null;
+    return metadataList.find(metadata => metadata.place === index) ?? null;
   }
 
   /**
