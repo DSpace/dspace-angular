@@ -8099,8 +8099,8 @@
   // "submission.sections.sherpa.publisher.policy": "Publisher Policy",
   "submission.sections.sherpa.publisher.policy": "Política editorial",
 
-  // "submission.sections.sherpa.publisher.policy.description": "The below information was found via Sherpa Romeo. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
-  "submission.sections.sherpa.publisher.policy.description": "La següent informacióm s'ha trobat via Sherpa Romeo. En base a aquestes polítiques, es proporcionen consells sobre les necessitats d'un embargament i d'aquells fitxers que podeu utilitzar. Si teniu dubtes, si us plau, contacteu amb l'administrador del repositori mitjançant el formulari de suggeriments.",
+  // "submission.sections.sherpa.publisher.policy.description": "The below information was found via Open Policy Finder. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
+  "submission.sections.sherpa.publisher.policy.description": "La següent informacióm s'ha trobat via Open Policy Finder. En base a aquestes polítiques, es proporcionen consells sobre les necessitats d'un embargament i d'aquells fitxers que podeu utilitzar. Si teniu dubtes, si us plau, contacteu amb l'administrador del repositori mitjançant el formulari de suggeriments.",
 
   // "submission.sections.sherpa.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
   "submission.sections.sherpa.publisher.policy.openaccess": "Els camins cap a l'accés Obert que aquesta revista permet es llisten a sota per versió d'article. Feu clic en un camí per a una visió més detallada",

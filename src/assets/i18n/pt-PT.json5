@@ -8110,7 +8110,7 @@
   // "submission.sections.sherpa.publisher.policy": "Publisher Policy",
   "submission.sections.sherpa.publisher.policy": "Política da editora",
 
-  // "submission.sections.sherpa.publisher.policy.description": "The below information was found via Sherpa Romeo. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
+  // "submission.sections.sherpa.publisher.policy.description": "The below information was found via Open Policy Finder. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
   "submission.sections.sherpa.publisher.policy.description": "A seguinte informação foi obtida através do diretório SHERPA, com base nas políticas disponíveis das editoras/revistas. Fornece informações úteis, sobre as versões dos ficheiros que deverá carregar em repositórios, bem como tipo de embargo ou restrições de acesso poderá ser aconselhável. As informações do SHERPA são fidedignas tanto quanto é do nosso conhecimento, mas não devem ser assumidas como aconselhamento jurídico. Se tiver dúvidas, por favor contacte o(s) administrador(es) do seu repositório através do formulário de feedback no rodapé.",
 
   // "submission.sections.sherpa.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
