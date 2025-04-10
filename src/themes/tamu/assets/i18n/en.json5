@@ -7,7 +7,7 @@
 
   "menu.section.browse_global": "Browse OAKTrust",
 
-  "menu.section.browse_global_by_srsc": "By Department",
+  "menu.section.browse_global_by_department": "By Department",
 
   "menu.section.browse_global_by_type": "By Type",
 
@@ -55,13 +55,13 @@
 
   "admin.registries.metadata.description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, OAKTrust requires the qualified Dublin Core schema.",
 
-  "browse.comcol.by.srsc": "By Department",
+  "browse.comcol.by.department": "By Department",
 
   "browse.comcol.by.type": "By Type",
 
   "browse.metadata.type": " Type",
 
-  "browse.metadata.srsc.breadcrumbs": "Browse by Department",
+  "browse.metadata.department.breadcrumbs": "Browse by Department",
 
   "browse.metadata.type.breadcrumbs": "Browse by Type",
 
