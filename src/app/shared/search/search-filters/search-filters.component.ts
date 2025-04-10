@@ -15,7 +15,10 @@ import {
   BehaviorSubject,
   Observable,
 } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
+import {
+  filter,
+  map,
+} from 'rxjs/operators';
 
 import {
   APP_CONFIG,
@@ -162,7 +165,7 @@ export class SearchFiltersComponent implements OnInit {
             // We haven't reached the total yet, proceed with increment
             return {
               shouldIncrement: true,
-              totalFilters
+              totalFilters,
             };
           }
           return { shouldIncrement: false };
@@ -180,14 +183,14 @@ export class SearchFiltersComponent implements OnInit {
             // Create new counter entry
             this.currentFiltersComputed.push({
               configuration: this.currentConfiguration,
-              filtersComputed: 1
+              filtersComputed: 1,
             });
           }
 
           // Pass along the total and updated count
           return {
             totalFilters: result.totalFilters,
-            currentComputed: this.getCurrentFiltersComputed(this.currentConfiguration)
+            currentComputed: this.getCurrentFiltersComputed(this.currentConfiguration),
           };
         }),
         // Check if we've reached the total after incrementing
@@ -197,7 +200,7 @@ export class SearchFiltersComponent implements OnInit {
             this.updateFinalFiltersComputed(this.currentConfiguration, result.currentComputed);
           }
           return result;
-        })
+        }),
       ).subscribe().unsubscribe(); // Execute the pipeline and immediately unsubscribe
     }
   }
@@ -209,7 +212,7 @@ export class SearchFiltersComponent implements OnInit {
    */
   private findConfigInCurrentFilters(configuration: string) {
     return this.currentFiltersComputed.find(
-      (configFilter) => configFilter.configuration === configuration
+      (configFilter) => configFilter.configuration === configuration,
     );
   }
 
@@ -220,7 +223,7 @@ export class SearchFiltersComponent implements OnInit {
    */
   private findConfigInFinalFilters(configuration: string) {
     return this.finalFiltersComputed.find(
-      (configFilter) => configFilter.configuration === configuration
+      (configFilter) => configFilter.configuration === configuration,
     );
   }
 
@@ -237,7 +240,7 @@ export class SearchFiltersComponent implements OnInit {
     } else {
       this.finalFiltersComputed.push({
         configuration,
-        filtersComputed: count
+        filtersComputed: count,
       });
     }
   }
