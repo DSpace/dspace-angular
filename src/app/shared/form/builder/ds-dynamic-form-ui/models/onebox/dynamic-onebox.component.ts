@@ -1,12 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  ViewChild
-} from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 
 import {
@@ -373,6 +365,19 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
     this.currentValue = null;
     this.currentValue = temp;
 
+    const unformattedOtherInfoValue = this.otherInfoValuesUnformatted.find((unformattedItem) => {
+      return unformattedItem.startsWith(info);
+    });
+
+    if (hasValue(unformattedOtherInfoValue)) {
+      const lastIndexOfSeparator = unformattedOtherInfoValue.lastIndexOf('::');
+      if (lastIndexOfSeparator !== -1) {
+        this.currentValue.authority = unformattedOtherInfoValue.substring(lastIndexOfSeparator + 2);
+      } else {
+        this.currentValue.authority = undefined;
+      }
+    }
+
     const event = {
       item: this.currentValue
     } as any;
@@ -388,7 +393,14 @@ export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent imple
 
     this.otherInfoKey = hasAlternativeNames ? this.alternativeNamesKey : keys.find(key => hasValue(item.otherInformation[key]) && item.otherInformation[key].includes('|||'));
     this.otherInfoValuesUnformatted = item.otherInformation[this.otherInfoKey] ? item.otherInformation[this.otherInfoKey].split('|||') : [];
-    this.otherInfoValues = this.otherInfoValuesUnformatted.map(unformattedItem => unformattedItem.substring(0, unformattedItem.lastIndexOf('::')));
+
+    this.otherInfoValues = this.otherInfoValuesUnformatted.map(unformattedItem => {
+      let lastIndexOfSeparator = unformattedItem.lastIndexOf('::');
+      if (lastIndexOfSeparator === -1) {
+        lastIndexOfSeparator = undefined;
+      }
+      return unformattedItem.substring(0, lastIndexOfSeparator);
+    });
 
     if (hasAlternativeNames) {
       this.otherName = hasValue(this.otherName) ? this.otherName : this.otherInfoValues[0];

@@ -175,12 +175,12 @@ describe('DsDynamicOneboxComponent test suite', () => {
       providers: [
         ChangeDetectorRef,
         DsDynamicOneboxComponent,
-        { provide: VocabularyService, useValue: vocabularyServiceStub },
-        { provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService },
-        { provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService },
-        { provide: NgbModal, useValue: modal },
-        { provide: FormBuilderService },
-        { provide: SubmissionService, useClass: SubmissionServiceStub }
+        {provide: VocabularyService, useValue: vocabularyServiceStub},
+        {provide: DynamicFormLayoutService, useValue: mockDynamicFormLayoutService},
+        {provide: DynamicFormValidationService, useValue: mockDynamicFormValidationService},
+        {provide: NgbModal, useValue: modal},
+        {provide: FormBuilderService},
+        {provide: SubmissionService, useClass: SubmissionServiceStub}
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
@@ -348,7 +348,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
         }));
         spyOn((oneboxComponent as any).vocabularyService, 'getVocabularyEntryByValue').and.returnValue(entry);
         spyOn((oneboxComponent as any).vocabularyService, 'getVocabularyEntryByID').and.returnValue(entry);
-        (oneboxComponent.model as any).value = new FormFieldMetadataValueObject('test', null, null,null, 'testDisplay');
+        (oneboxComponent.model as any).value = new FormFieldMetadataValueObject('test', null, null, null, 'testDisplay');
         oneboxCompFixture.detectChanges();
       });
 
@@ -359,7 +359,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
 
       it('should init component properly', fakeAsync(() => {
         tick();
-        expect(oneboxComponent.currentValue).toEqual(new FormFieldMetadataValueObject('test', null, null,null, 'testDisplay'));
+        expect(oneboxComponent.currentValue).toEqual(new FormFieldMetadataValueObject('test', null, null, null, 'testDisplay'));
         expect((oneboxComponent as any).vocabularyService.getVocabularyEntryByValue).not.toHaveBeenCalled();
       }));
 
@@ -396,7 +396,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
 
       it('should init component properly', fakeAsync(() => {
         tick();
-        expect(oneboxComponent.currentValue).toEqual(new FormFieldMetadataValueObject('test', null, null,validAuthority, 'test'));
+        expect(oneboxComponent.currentValue).toEqual(new FormFieldMetadataValueObject('test', null, null, validAuthority, 'test'));
         expect((oneboxComponent as any).vocabularyService.getVocabularyEntryByID).not.toHaveBeenCalled();
       }));
 
@@ -457,7 +457,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
         }));
         spyOn((oneboxComponent as any).vocabularyService, 'getVocabularyEntryByValue').and.returnValue(entry);
         spyOn((oneboxComponent as any).vocabularyService, 'getVocabularyEntryByID').and.returnValue(entry);
-        (oneboxComponent.model as any).value = new FormFieldMetadataValueObject('test', null, null,  null, 'testDisplay');
+        (oneboxComponent.model as any).value = new FormFieldMetadataValueObject('test', null, null, null, 'testDisplay');
         oneboxCompFixture.detectChanges();
       });
 
@@ -468,7 +468,7 @@ describe('DsDynamicOneboxComponent test suite', () => {
 
       it('should init component properly', fakeAsync(() => {
         tick();
-        expect(oneboxComponent.currentValue).toEqual(new FormFieldMetadataValueObject('test', null, null,null, 'testDisplay'));
+        expect(oneboxComponent.currentValue).toEqual(new FormFieldMetadataValueObject('test', null, null, null, 'testDisplay'));
         expect((oneboxComponent as any).vocabularyService.getVocabularyEntryByValue).toHaveBeenCalled();
       }));
 
@@ -517,6 +517,38 @@ describe('DsDynamicOneboxComponent test suite', () => {
       }));
     });
 
+  describe('selectAlternativeInformation', () => {
+    beforeEach(() => {
+      oneboxCompFixture = TestBed.createComponent(DsDynamicOneboxComponent);
+      debugElement = oneboxCompFixture.debugElement;
+      oneboxComponent = oneboxCompFixture.componentInstance;
+      oneboxComponent.currentValue = new FormFieldMetadataValueObject('test', null, null, null, 'testDisplay');
+      oneboxComponent.model = new DynamicOneboxModel(ONEBOX_TEST_MODEL_CONFIG);
+
+      spyOn(oneboxComponent, 'onSelectItem').and.returnValue(undefined);
+      spyOn(oneboxComponent, 'toggleOtherInfoSelection').and.returnValue(undefined);
+    });
+
+    it('sets authority when unformattedOtherInfoValue contains "::"', () => {
+      const info = 'testInfo';
+      const unformattedItem = 'testInfo::authorityValue';
+      oneboxComponent.otherInfoValuesUnformatted = [unformattedItem];
+
+      oneboxComponent.selectAlternativeInfo(info);
+
+      expect(oneboxComponent.currentValue.authority).toBe('authorityValue');
+    });
+
+    it('sets authority to undefined when unformattedOtherInfoValue does not contain "::"', () => {
+      const info = 'testInfo';
+      const unformattedItem = 'testInfo';
+      oneboxComponent.otherInfoValuesUnformatted = [unformattedItem];
+
+      oneboxComponent.selectAlternativeInfo(info);
+
+      expect(oneboxComponent.currentValue.authority).toBeUndefined();
+    });
+  });
   });
 });
 
