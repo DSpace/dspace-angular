@@ -1,7 +1,17 @@
-import { AfterViewChecked, Component, Inject, Input, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
+import {
+  AfterViewChecked,
+  AfterViewInit,
+  Component,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  QueryList,
+  ViewChildren
+} from '@angular/core';
 import { Router } from '@angular/router';
 
-import { BehaviorSubject, combineLatest, distinctUntilChanged, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, distinctUntilChanged, Observable, startWith, switchMap } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 import { SearchService } from '../../../core/shared/search/search.service';
@@ -25,7 +35,7 @@ import { SearchFilterComponent } from './search-filter/search-filter.component';
 /**
  * This component represents the part of the search sidebar that contains filters.
  */
-export class SearchFiltersComponent implements OnInit, AfterViewChecked, OnDestroy {
+export class SearchFiltersComponent implements OnInit, OnDestroy, AfterViewInit {
   /**
    * An observable containing configuration about which filters are shown and how they are shown
    */
@@ -121,13 +131,6 @@ export class SearchFiltersComponent implements OnInit, AfterViewChecked, OnDestr
     return config ? config.name : undefined;
   }
 
-  ngAfterViewChecked() {
-    this.subs.push(
-      combineLatest(this.childrenFilters.map(child => child.active$)).pipe(distinctUntilChanged()).subscribe((visibilityValues) => {
-        this.filtersWithComputedVisibility = visibilityValues.filter(visible => !!visible).length;
-      })
-    );
-  }
 
   ngOnDestroy() {
     this.subs.forEach((sub) => {
@@ -135,5 +138,19 @@ export class SearchFiltersComponent implements OnInit, AfterViewChecked, OnDestr
         sub.unsubscribe();
       }
     });
+  }
+
+  ngAfterViewInit() {
+    this.subs.push(
+      this.childrenFilters.changes.pipe(
+        startWith(this.childrenFilters),
+        switchMap(() =>
+          combineLatest(this.childrenFilters.map(child => child.active$))
+        ),
+        distinctUntilChanged()
+      ).subscribe((visibilityValues) => {
+        this.filtersWithComputedVisibility = visibilityValues.filter(visible => !!visible).length;
+      })
+    );
   }
 }
