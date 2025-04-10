@@ -14,8 +14,6 @@ import { validate as uuidValidate } from 'uuid';
 
 export const AUTHORITY_GENERATE = 'will be generated::';
 export const AUTHORITY_REFERENCE = 'will be referenced::';
-export const PLACEHOLDER_VALUE = '#PLACEHOLDER_PARENT_METADATA_VALUE#';
-
 
 /**
  * Utility class for working with DSpace object metadata.
@@ -31,6 +29,7 @@ export const PLACEHOLDER_VALUE = '#PLACEHOLDER_PARENT_METADATA_VALUE#';
  * followed by any other (non-dc) metadata values.
  */
 export class Metadata {
+
   /**
    * Gets all matching metadata in the map(s).
    *
@@ -153,7 +152,7 @@ export class Metadata {
    * Returns true if this Metadatum's value is defined
    */
   public static hasValue(value: MetadataValue|string): boolean {
-    if (isEmpty(value) || value === PLACEHOLDER_VALUE) {
+    if (isEmpty(value)) {
       return false;
     }
     if (isObject(value) && value.hasOwnProperty('value')) {
@@ -170,9 +169,7 @@ export class Metadata {
    * @returns {boolean} whether the filter matches, or true if no filter is given.
    */
   public static valueMatches(mdValue: MetadataValue, filter: MetadataValueFilter) {
-    if (mdValue.value === PLACEHOLDER_VALUE) {
-      return false;
-    } else if (!filter) {
+    if (!filter) {
       return true;
     } else if (filter.language && filter.language !== mdValue.language) {
       return false;
