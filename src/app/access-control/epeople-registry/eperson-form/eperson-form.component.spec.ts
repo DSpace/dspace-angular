@@ -2,7 +2,9 @@ import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
+  fakeAsync,
   TestBed,
+  tick,
   waitForAsync,
 } from '@angular/core/testing';
 import {
@@ -63,7 +65,10 @@ import { NotificationsServiceStub } from '../../../shared/testing/notifications-
 import { PaginationServiceStub } from '../../../shared/testing/pagination-service.stub';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { createPaginatedList } from '../../../shared/testing/utils.test';
-import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../../shared/utils/follow-link-config.model';
 import { HasNoValuePipe } from '../../../shared/utils/has-no-value.pipe';
 import { EPeopleRegistryComponent } from '../epeople-registry.component';
 import { EPersonFormComponent } from './eperson-form.component';
@@ -575,5 +580,16 @@ describe('EPersonFormComponent', () => {
     it('should call epersonRegistrationService.registerEmail', () => {
       expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith(ePersonEmail, null, 'forgot');
     });
+  });
+
+  describe('findListByHref functionality', () => {
+    it('retrieves groups and object on page change', fakeAsync(() => {
+      spyOn(ePersonDataServiceStub, 'getActiveEPerson').and.returnValue(observableOf({ _links: { groups: { href: 'groups' } } } as EPerson));
+
+      const options = { currentPage: 1, elementsPerPage: 5 };
+      component.onPageChange(options.currentPage);
+      tick();
+      expect(groupsDataService.findListByHref).toHaveBeenCalledWith(jasmine.anything(), options, undefined, undefined, followLink('object'));
+    }));
   });
 });
