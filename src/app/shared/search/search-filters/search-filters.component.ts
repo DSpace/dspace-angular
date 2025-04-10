@@ -2,7 +2,7 @@ import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
+import { map, filter, take } from 'rxjs/operators';
 
 import { SearchService } from '../../../core/shared/search/search.service';
 import { RemoteData } from '../../../core/data/remote-data';
@@ -188,7 +188,7 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
           }
           return result;
         })
-      ).subscribe().unsubscribe(); // Execute the pipeline and immediately unsubscribe
+      ).pipe(take(1)).subscribe(); // Execute the pipeline and immediately unsubscribe
     }
   }
 
