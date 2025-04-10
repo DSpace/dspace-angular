@@ -1,5 +1,3 @@
-import 'altcha';
-
 import {
   AsyncPipe,
   Location,
@@ -65,7 +63,6 @@ import {
   isNotEmpty,
 } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { VarDirective } from '../../../shared/utils/var.directive';
 import { getItemPageRoute } from '../../item-page-routing-paths';
 import { AltchaCaptchaComponent } from './altcha-captcha.component';
 
@@ -78,7 +75,6 @@ import { AltchaCaptchaComponent } from './altcha-captcha.component';
     AsyncPipe,
     ReactiveFormsModule,
     BtnDisabledDirective,
-    VarDirective,
     AltchaCaptchaComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
