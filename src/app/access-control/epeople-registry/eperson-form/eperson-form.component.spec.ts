@@ -1,7 +1,7 @@
 import { Observable, of as observableOf } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrowserModule, By } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -30,7 +30,7 @@ import { PaginationServiceStub } from '../../../shared/testing/pagination-servic
 import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { ValidateEmailNotTaken } from './validators/email-taken.validator';
 import { EpersonRegistrationService } from '../../../core/data/eperson-registration.service';
-import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
+import { followLink, FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterStub } from '../../../shared/testing/router.stub';
 import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
@@ -46,7 +46,7 @@ describe('EPersonFormComponent', () => {
   let ePersonDataServiceStub: any;
   let authService: AuthServiceStub;
   let authorizationService: AuthorizationDataService;
-  let groupsDataService: GroupDataService;
+  let groupsDataService: jasmine.SpyObj<GroupDataService>;
   let epersonRegistrationService: EpersonRegistrationService;
   let route: ActivatedRouteStub;
   let router: RouterStub;
@@ -512,5 +512,16 @@ describe('EPersonFormComponent', () => {
     it('should call epersonRegistrationService.registerEmail', () => {
       expect(epersonRegistrationService.registerEmail).toHaveBeenCalledWith(ePersonEmail, null, 'forgot');
     });
+  });
+
+  describe('findListByHref functionality', () => {
+    it('retrieves groups and object on page change', fakeAsync(() => {
+      component.activeEPerson$ = observableOf({_links: { groups: { href: 'groups' } } } as EPerson);
+
+      const options = { currentPage: 1, elementsPerPage: 5 };
+      component.onPageChange(options.currentPage);
+      tick();
+      expect(groupsDataService.findListByHref).toHaveBeenCalledWith(jasmine.anything(), options, undefined, undefined, followLink('object'));
+    }));
   });
 });
