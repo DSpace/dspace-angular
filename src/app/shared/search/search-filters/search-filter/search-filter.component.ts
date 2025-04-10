@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 
-import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
-import { filter, map, startWith, switchMap, take } from 'rxjs/operators';
+import { BehaviorSubject, distinctUntilChanged, Observable, of as observableOf } from 'rxjs';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 
 import { SearchFilterConfig } from '../../models/search-filter-config.model';
 import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
@@ -42,8 +42,6 @@ export class SearchFilterComponent implements OnInit {
    * The current scope
    */
   @Input() scope: string;
-
-  @Output() isVisibilityComputed = new EventEmitter<boolean>();
 
   /**
    * True when the filter is 100% collapsed in the UI
@@ -93,18 +91,13 @@ export class SearchFilterComponent implements OnInit {
    */
   ngOnInit() {
     this.selectedValues$ = this.getSelectedValues();
-    this.active$ = this.isActive().pipe(
-      startWith(true)
-    );
+    this.active$ = this.isActive();
     this.collapsed$ = this.isCollapsed();
     this.initializeFilter();
     this.selectedValues$.pipe(take(1)).subscribe((selectedValues) => {
       if (isNotEmpty(selectedValues)) {
         this.filterService.expand(this.filter.name);
       }
-    });
-    this.isActive().pipe(take(1)).subscribe(() => {
-      this.isVisibilityComputed.emit(true);
     });
   }
 
@@ -177,6 +170,7 @@ export class SearchFilterComponent implements OnInit {
    */
   private isActive(): Observable<boolean> {
     return this.selectedValues$.pipe(
+      distinctUntilChanged(),
       switchMap((isActive) => {
         if (isNotEmpty(isActive)) {
           return observableOf(true);

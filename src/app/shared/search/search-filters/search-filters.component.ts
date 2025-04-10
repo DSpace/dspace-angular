@@ -1,7 +1,7 @@
-import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, Inject, Input, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, distinctUntilChanged, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 import { SearchService } from '../../../core/shared/search/search.service';
@@ -13,6 +13,7 @@ import { SEARCH_CONFIG_SERVICE } from '../../../my-dspace-page/my-dspace-page.co
 import { currentPath } from '../../utils/route.utils';
 import { hasValue } from '../../empty.util';
 import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
+import { SearchFilterComponent } from './search-filter/search-filter.component';
 
 @Component({
   selector: 'ds-search-filters',
@@ -24,7 +25,7 @@ import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
 /**
  * This component represents the part of the search sidebar that contains filters.
  */
-export class SearchFiltersComponent implements OnInit, OnDestroy {
+export class SearchFiltersComponent implements OnInit, AfterViewChecked, OnDestroy {
   /**
    * An observable containing configuration about which filters are shown and how they are shown
    */
@@ -55,6 +56,11 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
    * Emits when the search filters values may be stale, and so they must be refreshed.
    */
   @Input() refreshFilters: BehaviorSubject<boolean>;
+
+  /**
+   * List of children filters
+   */
+  @ViewChildren(SearchFilterComponent) childrenFilters!: QueryList<SearchFilterComponent>;
 
   /**
    * Link to the search page
@@ -88,16 +94,14 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.router.events.subscribe(() => {
-      this.clearParams = this.searchConfigService.getCurrentFrontendFilters().pipe(
-        tap(() => this.filtersWithComputedVisibility = 0),
-        map((filters) => {
-          Object.keys(filters).forEach((f) => filters[f] = null);
-          return filters;
-        })
-      );
-      this.searchLink = this.getSearchLink();
-    });
+    this.clearParams = this.searchConfigService.getCurrentFrontendFilters().pipe(
+      tap(() => this.filtersWithComputedVisibility = 0),
+      map((filters) => {
+        Object.keys(filters).forEach((f) => filters[f] = null);
+        return filters;
+      })
+    );
+    this.searchLink = this.getSearchLink();
   }
 
   /**
@@ -117,17 +121,19 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
     return config ? config.name : undefined;
   }
 
+  ngAfterViewChecked() {
+    this.subs.push(
+      combineLatest(this.childrenFilters.map(child => child.active$)).pipe(distinctUntilChanged()).subscribe((visibilityValues) => {
+        this.filtersWithComputedVisibility = visibilityValues.filter(visible => !!visible).length;
+      })
+    );
+  }
+
   ngOnDestroy() {
     this.subs.forEach((sub) => {
       if (hasValue(sub)) {
         sub.unsubscribe();
       }
     });
-  }
-
-  countFiltersWithComputedVisibility(computed: boolean) {
-    if (computed) {
-      this.filtersWithComputedVisibility += 1;
-    }
   }
 }
