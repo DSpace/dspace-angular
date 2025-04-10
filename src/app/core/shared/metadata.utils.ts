@@ -14,7 +14,7 @@ import { validate as uuidValidate } from 'uuid';
 
 export const AUTHORITY_GENERATE = 'will be generated::';
 export const AUTHORITY_REFERENCE = 'will be referenced::';
-
+export const PLACEHOLDER_VALUE = '#PLACEHOLDER_PARENT_METADATA_VALUE#';
 /**
  * Utility class for working with DSpace object metadata.
  *
@@ -178,15 +178,19 @@ export class Metadata {
     } else if (filter.value) {
       let fValue = filter.value;
       let mValue = mdValue.value;
+
       if (filter.ignoreCase) {
         fValue = filter.value.toLowerCase();
         mValue = mdValue.value.toLowerCase();
       }
+      let result;
+
       if (filter.substring) {
-        return mValue.includes(fValue);
+        result = mValue.includes(fValue);
       } else {
-        return mValue === fValue;
+        result = mValue === fValue;
       }
+      return filter.negate ? !result : result;
     }
     return true;
   }
