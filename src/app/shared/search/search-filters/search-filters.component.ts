@@ -17,7 +17,8 @@ import {
 } from 'rxjs';
 import {
   map,
-  filter
+  filter,
+  take
 } from 'rxjs/operators';
 
 import {
@@ -201,7 +202,7 @@ export class SearchFiltersComponent implements OnInit {
           }
           return result;
         })
-      ).subscribe().unsubscribe(); // Execute the pipeline and immediately unsubscribe
+      ).pipe(take(1)).subscribe(); // Execute the pipeline and immediately unsubscribe
     }
   }
 
