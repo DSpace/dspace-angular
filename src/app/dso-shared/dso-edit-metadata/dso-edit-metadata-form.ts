@@ -439,6 +439,7 @@ export class DsoEditMetadataForm {
                   language: value.newValue.language,
                   authority: value.newValue.authority,
                   confidence: value.newValue.confidence,
+                  securityLevel: value.originalValue.securityLevel,
                 }));
               }
               // "replace" the security level value
@@ -448,6 +449,7 @@ export class DsoEditMetadataForm {
                   value: value.newValue.value,
                   language: value.newValue.language,
                   authority: value.newValue.authority,
+                  confidence: value.newValue.confidence,
                 }));
               }
             } else if (value.change === DsoEditMetadataChangeType.REMOVE) {
