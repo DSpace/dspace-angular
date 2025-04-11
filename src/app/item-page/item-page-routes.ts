@@ -78,7 +78,8 @@ export const ROUTES: Route[] = [
         public: [{
           id: 'statistics_item_:id',
           active: true,
-          visible: false,
+          visible: true,
+          parentID: 'statistics',
           index: 2,
           model: {
             type: MenuItemType.LINK,
