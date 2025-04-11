@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA, Component } from '@angular/core';
 
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
@@ -57,10 +57,15 @@ describe('BulkAccessComponent', () => {
     'file': {  }
   };
 
-  const mockSettings: any = jasmine.createSpyObj('AccessControlFormContainerComponent',  {
-    getValue: jasmine.createSpy('getValue'),
-    reset: jasmine.createSpy('reset')
-  });
+  @Component({
+    selector: 'ds-bulk-access-settings',
+    template: ''
+  })
+  class MockBulkAccessSettingsComponent {
+    isFormValid = jasmine.createSpy('isFormValid').and.returnValue(false);
+    getValue = jasmine.createSpy('getValue');
+    reset = jasmine.createSpy('reset');
+  }
   const selection: any[] = [{ indexableObject: { uuid: '1234' } }, { indexableObject: { uuid: '5678' } }];
   const selectableListState: SelectableListState = { id: 'test', selection };
   const expectedIdList = ['1234', '5678'];
@@ -73,7 +78,10 @@ describe('BulkAccessComponent', () => {
         RouterTestingModule,
         TranslateModule.forRoot()
       ],
-      declarations: [ BulkAccessComponent ],
+      declarations: [
+        BulkAccessComponent,
+        MockBulkAccessSettingsComponent,
+      ],
       providers: [
         { provide: BulkAccessControlService, useValue: bulkAccessControlServiceMock },
         { provide: NotificationsService, useValue: NotificationsServiceStub },
@@ -102,7 +110,6 @@ describe('BulkAccessComponent', () => {
 
       (component as any).selectableListService.getSelectableList.and.returnValue(of(selectableListStateEmpty));
       fixture.detectChanges();
-      component.settings = mockSettings;
     });
 
     it('should create', () => {
@@ -119,13 +126,12 @@ describe('BulkAccessComponent', () => {
 
   });
 
-  describe('when there are elements selected', () => {
+  describe('when there are elements selected and step two form is invalid', () => {
 
     beforeEach(() => {
 
       (component as any).selectableListService.getSelectableList.and.returnValue(of(selectableListState));
       fixture.detectChanges();
-      component.settings = mockSettings;
     });
 
     it('should create', () => {
@@ -136,14 +142,31 @@ describe('BulkAccessComponent', () => {
       expect(component.objectsSelected$.value).toEqual(expectedIdList);
     });
 
-    it('should enable the execute button when there are objects selected', () => {
+    it('should not enable the execute button when there are objects selected and step two form is invalid', () => {
       component.objectsSelected$.next(['1234']);
-      expect(component.canExport()).toBe(true);
+      expect(component.canExport()).toBe(false);
     });
 
     it('should call the settings reset method when reset is called', () => {
       component.reset();
       expect(component.settings.reset).toHaveBeenCalled();
+    });
+
+
+  });
+
+  describe('when there are elements selectedted and the step two form is valid', () => {
+
+    beforeEach(() => {
+
+      (component as any).selectableListService.getSelectableList.and.returnValue(of(selectableListState));
+      fixture.detectChanges();
+      (component as any).settings.isFormValid.and.returnValue(true);
+    });
+
+    it('should enable the execute button when there are objects selected and step two form is valid', () => {
+      component.objectsSelected$.next(['1234']);
+      expect(component.canExport()).toBe(true);
     });
 
     it('should call the bulkAccessControlService executeScript method when submit is called', () => {
