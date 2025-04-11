@@ -13,9 +13,11 @@ import { BitstreamBreadcrumbResolver } from '../core/breadcrumbs/bitstream-bread
 import { BitstreamBreadcrumbsService } from '../core/breadcrumbs/bitstream-breadcrumbs.service';
 import { I18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ThemedEditBitstreamPageComponent } from './edit-bitstream-page/themed-edit-bitstream-page.component';
+import { ReplaceBitstreamPageComponent } from './replace-bitstream-page/replace-bitstream-page.component';
 
 const EDIT_BITSTREAM_PATH = ':id/edit';
 const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
+export const REPLACE_BITSTREAM_PATH = ':id/replace';
 
 /**
  * Routing module to help navigate Bitstream pages
@@ -55,6 +57,20 @@ const EDIT_BITSTREAM_AUTHORIZATIONS_PATH = ':id/authorizations';
           breadcrumb: BitstreamBreadcrumbResolver,
         },
         canActivate: [AuthenticatedGuard]
+      },
+      {
+        path: REPLACE_BITSTREAM_PATH,
+        component: ReplaceBitstreamPageComponent,
+        resolve: {
+          bitstream: BitstreamPageResolver,
+          breadcrumb: I18nBreadcrumbResolver
+        },
+        canActivate: [AuthenticatedGuard],
+        data: {
+          title: 'bitstream.replace.page.title',
+          breadcrumbKey: 'bitstream.replace.page',
+          showBreadcrumbs: true
+        }
       },
       {
         path: EDIT_BITSTREAM_AUTHORIZATIONS_PATH,

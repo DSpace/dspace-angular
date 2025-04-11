@@ -8,6 +8,8 @@ import { FormModule } from '../shared/form/form.module';
 import { ResourcePoliciesModule } from '../shared/resource-policies/resource-policies.module';
 import { BitstreamDownloadPageComponent } from './bitstream-download-page/bitstream-download-page.component';
 import { ThemedEditBitstreamPageComponent } from './edit-bitstream-page/themed-edit-bitstream-page.component';
+import { ReplaceBitstreamPageComponent } from './replace-bitstream-page/replace-bitstream-page.component';
+import { UploadModule } from '../shared/upload/upload.module';
 
 /**
  * This module handles all components that are necessary for Bitstream related pages
@@ -18,13 +20,15 @@ import { ThemedEditBitstreamPageComponent } from './edit-bitstream-page/themed-e
     SharedModule,
     BitstreamPageRoutingModule,
     FormModule,
-    ResourcePoliciesModule
+    ResourcePoliciesModule,
+    UploadModule,
   ],
   declarations: [
     BitstreamAuthorizationsComponent,
     EditBitstreamPageComponent,
     ThemedEditBitstreamPageComponent,
     BitstreamDownloadPageComponent,
+    ReplaceBitstreamPageComponent,
   ]
 })
 export class BitstreamPageModule {

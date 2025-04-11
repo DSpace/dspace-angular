@@ -5216,4 +5216,24 @@
 
   "access-control-option-end-date-note": "Select the date until which the related access condition is applied",
 
+  "bitstream.replace.page.title": "Replace File",
+
+  "bitstream.replace.page.header": "Replace {{fileName}} ({{fileSize}})",
+
+  "bitstream.replace.page.content": "Select a file to replace {{fileName}}. This may update the filename and format. Note that this transfer can take a while to process, and may not start immediately.",
+
+  "bitstream.replace.page.button.return": "Back",
+
+  "bitstream.replace.page.button.save": "Save",
+
+  "bitstream.replace.page.upload.failed": "Bitstream upload failed",
+
+  "bitstream.replace.page.breadcrumbs": "Replace File",
+
+  "item.edit.bitstreams.edit.buttons.replace": "Replace",
+
+  "bitstream.replace.page.upload.success": "Bitstream successfully replaced",
+
+  "bitstream.edit.replace.link": "Replace file",
+
 }

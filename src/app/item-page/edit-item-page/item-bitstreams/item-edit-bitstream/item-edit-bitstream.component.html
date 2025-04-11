@@ -35,6 +35,10 @@
                 title="{{'item.edit.bitstreams.edit.buttons.edit' | translate}}">
           <i class="fas fa-edit fa-fw"></i>
         </button>
+        <button [routerLink]="['/bitstreams/', bitstream.id, 'replace']" class="btn btn-outline-primary btn-sm"
+                title="{{'item.edit.bitstreams.edit.buttons.replace' | translate}}">
+          <i class="fas fa-retweet fa-fw"></i>
+        </button>
         <button [disabled]="!canRemove()" (click)="remove()"
                 class="btn btn-outline-danger btn-sm"
                 title="{{'item.edit.bitstreams.edit.buttons.remove' | translate}}">

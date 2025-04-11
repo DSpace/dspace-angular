@@ -21,7 +21,14 @@
                   (cancel)="onCancel()"
                   (dfChange)="onChange($event)">
           <div additional class="container py-3">
-            <a [routerLink]="['/bitstreams', bitstreamRD?.payload?.id, 'authorizations']">{{'bitstream.edit.authorizations.link' | translate}}</a>
+            <p>
+              <a
+                [routerLink]="['/bitstreams', bitstreamRD?.payload?.id, 'authorizations']">{{'bitstream.edit.authorizations.link' | translate}}</a>
+            </p>
+            <p>
+              <a
+                [routerLink]="['/bitstreams', bitstreamRD?.payload?.id, 'replace']">{{'bitstream.edit.replace.link' | translate}}</a>
+            </p>
           </div>
         </ds-form>
       </div>
