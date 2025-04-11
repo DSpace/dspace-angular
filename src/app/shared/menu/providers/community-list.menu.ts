@@ -9,7 +9,7 @@
 import { Injectable } from '@angular/core';
 import {
   Observable,
-  of,
+  of as observableOf,
 } from 'rxjs';
 
 import { MenuItemType } from '../menu-item-type.model';
@@ -24,7 +24,7 @@ import {
 @Injectable()
 export class CommunityListMenuProvider extends AbstractMenuProvider {
   public getSections(): Observable<PartialMenuSection[]> {
-    return of([
+    return observableOf([
       {
         visible: true,
         model: {

@@ -8,7 +8,7 @@ import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { RemoteData } from '../../../../../core/data/remote-data';
@@ -46,7 +46,7 @@ describe('WorkspaceItemAdminWorkflowActionsComponent', () => {
     id = '780b2588-bda5-4112-a1cd-0b15000a5339';
     wsi = new WorkspaceItem();
     wsi.id = id;
-    wsi.item = of(rd);
+    wsi.item = observableOf(rd);
   }
 
   beforeEach(waitForAsync(() => {
@@ -96,14 +96,14 @@ describe('WorkspaceItemAdminWorkflowActionsComponent', () => {
     beforeEach(() => {
       spyOn(component.delete, 'emit');
       spyOn((component as any).modalService, 'open').and.returnValue({
-        componentInstance: { response: of(true) },
+        componentInstance: { response: observableOf(true) },
       });
     });
 
     describe('when delete succeeded', () => {
 
       beforeEach(() => {
-        supervisionOrderDataService.delete.and.returnValue(of(true));
+        supervisionOrderDataService.delete.and.returnValue(observableOf(true));
       });
 
       it('should notify success', () => {
@@ -118,7 +118,7 @@ describe('WorkspaceItemAdminWorkflowActionsComponent', () => {
     describe('when delete failed', () => {
 
       beforeEach(() => {
-        supervisionOrderDataService.delete.and.returnValue(of(false));
+        supervisionOrderDataService.delete.and.returnValue(observableOf(false));
       });
 
       it('should notify success', () => {
@@ -137,7 +137,7 @@ describe('WorkspaceItemAdminWorkflowActionsComponent', () => {
     beforeEach(() => {
       spyOn(component.create, 'emit');
       spyOn((component as any).modalService, 'open').and.returnValue({
-        componentInstance: { create: of(true) },
+        componentInstance: { create: observableOf(true) },
       });
     });
 

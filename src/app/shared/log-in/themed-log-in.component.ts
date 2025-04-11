@@ -23,7 +23,7 @@ export class ThemedLogInComponent extends ThemedComponent<LogInComponent> {
 
   @Input() excludedAuthMethod: AuthMethodType;
 
-  @Input() showRegisterLink = true;
+  @Input() showRegisterLink: boolean;
 
   protected inAndOutputNames: (keyof LogInComponent & keyof this)[] = [
     'isStandalonePage', 'excludedAuthMethod', 'showRegisterLink',

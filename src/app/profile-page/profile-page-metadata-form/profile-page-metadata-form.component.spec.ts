@@ -13,7 +13,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import cloneDeep from 'lodash/cloneDeep';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
@@ -75,7 +75,7 @@ describe('ProfilePageMetadataFormComponent', () => {
     };
 
     configurationDataService = jasmine.createSpyObj('ConfigurationDataService', {
-      findByPropertyName: of({ payload: { value: 'test' } }),
+      findByPropertyName: observableOf({ payload: { value: 'test' } }),
     });
 
   }

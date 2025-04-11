@@ -52,6 +52,7 @@ export const info = {
       [Message.WRAPPER_IMPORTS_BASE]: 'Themed component wrapper classes must only import the base class',
     },
   },
+  optionDocs: [],
   defaultOptions: [],
 } as DSpaceESLintRuleInfo;
 
@@ -180,7 +181,7 @@ class Something {
   selector: 'ds-base-test-themable',
   standalone: true,
 })
-class TestThemeableTomponent {
+class TestThemeableComponent {
 }
       `,
     },
@@ -195,7 +196,7 @@ class TestThemeableTomponent {
     TestThemeableComponent,
   ],
 })
-class ThemedTestThemeableTomponent extends ThemedComponent<TestThemeableComponent> {
+class ThemedTestThemeableComponent extends ThemedComponent<TestThemeableComponent> {
 }
       `,
     },

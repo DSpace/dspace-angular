@@ -13,7 +13,6 @@ import {
 import {
   Observable,
   of as observableOf,
-  of,
 } from 'rxjs';
 
 import { AuthService } from '../../core/auth/auth.service';
@@ -104,7 +103,7 @@ describe('ReviewAccountGuard', () => {
   it('should navigate to 404 if the registration type is not validation and the user is not authenticated', fakeAsync(() => {
     registrationMock.registrationType = AuthRegistrationType.Orcid;
     epersonRegistrationService.searchByTokenAndHandleError.and.returnValue(createSuccessfulRemoteDataObject$(registrationMock));
-    spyOn(authService, 'isAuthenticated').and.returnValue(of(false));
+    spyOn(authService, 'isAuthenticated').and.returnValue(observableOf(false));
     const activatedRoute = TestBed.inject(ActivatedRoute);
 
     const result$ = TestBed.runInInjectionContext(() => {

@@ -3,7 +3,7 @@ import {
   TestBed,
   tick,
 } from '@angular/core/testing';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { DspaceRestService } from '../dspace-rest/dspace-rest.service';
@@ -64,7 +64,7 @@ describe('SignpostingDataService', () => {
     const uuid = '123';
     const baseUrl = 'http://localhost:8080';
 
-    restServiceSpy.get.and.returnValue(of(mockResponse));
+    restServiceSpy.get.and.returnValue(observableOf(mockResponse));
 
     let result: SignpostingLink[];
 
@@ -84,7 +84,7 @@ describe('SignpostingDataService', () => {
     const uuid = '123';
     const baseUrl = 'http://localhost:8080';
 
-    restServiceSpy.get.and.returnValue(of(mockErrResponse));
+    restServiceSpy.get.and.returnValue(observableOf(mockErrResponse));
 
     let result: any;
 

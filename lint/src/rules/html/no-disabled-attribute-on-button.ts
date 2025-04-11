@@ -33,6 +33,7 @@ export const info = {
       [Message.USE_DSBTN_DISABLED]: 'Buttons should use the `dsBtnDisabled` directive instead of the `disabled` attribute.',
     },
   },
+  optionDocs: [],
   defaultOptions: [],
 } as DSpaceESLintRuleInfo;
 

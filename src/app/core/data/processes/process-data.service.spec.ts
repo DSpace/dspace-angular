@@ -13,7 +13,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { ReducerManager } from '@ngrx/store';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { Process } from '../../../process-page/processes/process.model';
@@ -183,7 +183,7 @@ describe('ProcessDataService', () => {
       const runningProcessRD = new RemoteData(0, 0, 0, RequestEntryState.Success, null, runningProcessPagination);
 
       spyOn(processDataService, 'searchBy').and.returnValue(
-        of(runningProcessRD),
+        observableOf(runningProcessRD),
       );
 
       expect(processDataService.searchBy).toHaveBeenCalledTimes(0);

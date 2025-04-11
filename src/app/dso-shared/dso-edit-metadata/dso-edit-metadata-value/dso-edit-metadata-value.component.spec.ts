@@ -10,7 +10,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { RelationshipDataService } from '../../../core/data/relationship-data.service';
@@ -50,7 +50,7 @@ describe('DsoEditMetadataValueComponent', () => {
 
   function initServices(): void {
     relationshipService = jasmine.createSpyObj('relationshipService', {
-      resolveMetadataRepresentation: of(
+      resolveMetadataRepresentation: observableOf(
         new ItemMetadataRepresentation(metadataValue),
       ),
     });
@@ -101,7 +101,7 @@ describe('DsoEditMetadataValueComponent', () => {
     fixture = TestBed.createComponent(DsoEditMetadataValueComponent);
     component = fixture.componentInstance;
     component.mdValue = editMetadataValue;
-    component.saving$ = of(false);
+    component.saving$ = observableOf(false);
     fixture.detectChanges();
   });
 

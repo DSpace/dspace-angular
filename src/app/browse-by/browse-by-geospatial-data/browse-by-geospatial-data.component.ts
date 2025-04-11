@@ -18,7 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest,
   Observable,
-  of,
+  of as observableOf,
 } from 'rxjs';
 import {
   filter,
@@ -59,7 +59,7 @@ export class BrowseByGeospatialDataComponent implements OnInit {
 
   protected readonly isPlatformBrowser = isPlatformBrowser;
 
-  public facetValues$: Observable<FacetValues> = of(null);
+  public facetValues$: Observable<FacetValues> = observableOf(null);
 
   constructor(
     @Inject(PLATFORM_ID) public platformId: string,
