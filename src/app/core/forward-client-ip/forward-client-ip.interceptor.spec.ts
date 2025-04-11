@@ -4,6 +4,8 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
+import { APP_CONFIG } from '../../../config/app-config.interface';
+import { environment } from 'src/environments/environment.test';
 
 describe('ForwardClientIpInterceptor', () => {
   let service: DspaceRestService;
@@ -25,7 +27,8 @@ describe('ForwardClientIpInterceptor', () => {
           useClass: ForwardClientIpInterceptor,
           multi: true,
         },
-        { provide: REQUEST, useValue: { get: () => undefined, connection: { remoteAddress: clientIp } } }
+        { provide: REQUEST, useValue: { get: () => undefined, connection: { remoteAddress: clientIp } } },
+        { provide: APP_CONFIG, useValue: environment },
       ],
     });
 

@@ -27,15 +27,51 @@ const linkMap = new Map();
  * @param target the typed class to map
  */
 export function typedObject(target: TypedObject) {
-  typeMap.set(target.type.value, target);
+  typeMap.set(target.type.value, new Map([[null, target]]));
+}
+
+/**
+ * Decorator function to map a ResourceType and sub-type to its class
+ */
+export function typedObjectWithSubType(subTypeProperty: string) {
+  return function(target: TypedObject) {
+    if (hasNoValue(target[subTypeProperty]?.value)) {
+      throw new Error(`Class ${(target as any).name} has no static property '${subTypeProperty}' to define as the sub-type`);
+    }
+
+    if (!typeMap.has(target.type.value)) {
+      typeMap.set(target.type.value, new Map());
+    }
+    if (!typeMap.get(target.type.value).has(subTypeProperty)) {
+      typeMap.get(target.type.value)
+             .set(subTypeProperty, new Map());
+    }
+
+    typeMap.get(target.type.value)
+           .get(subTypeProperty)
+           .set(target[subTypeProperty].value, target);
+  };
 }
 
 /**
  * Returns the mapped class for the given type
- * @param type The resource type
  */
-export function getClassForType(type: string | ResourceType) {
-  return typeMap.get(getResourceTypeValueFor(type));
+export function getClassForObject(obj: any) {
+  const map = typeMap.get(getResourceTypeValueFor(obj.type));
+
+  if (hasValue(map)) {
+    for (const subTypeProperty of map.keys()) {
+      if (subTypeProperty === null) {
+        // Regular class without subtype
+        return map.get(subTypeProperty);
+      } else if (hasValue(obj?.[subTypeProperty])) {
+        // Class with subtype
+        return map.get(subTypeProperty).get(getResourceTypeValueFor(obj?.[subTypeProperty]));
+      }
+    }
+  }
+
+  return undefined;
 }
 
 /**

@@ -8,6 +8,7 @@ import { RawRestResponse } from '../../../core/dspace-rest/raw-rest-response.mod
 import { DspaceRestService, HttpOptions } from '../../../core/dspace-rest/dspace-rest.service';
 import { MOCK_RESPONSE_MAP, ResponseMapMock } from './mocks/response-map.mock';
 import { environment } from '../../../../environments/environment';
+import { APP_CONFIG, AppConfig } from '../../../../config/app-config.interface';
 
 /**
  * Service to access DSpace's REST API.
@@ -21,9 +22,10 @@ export class EndpointMockingRestService extends DspaceRestService {
 
   constructor(
     @Inject(MOCK_RESPONSE_MAP) protected mockResponseMap: ResponseMapMock,
-    protected http: HttpClient
+    protected http: HttpClient,
+    @Inject(APP_CONFIG) protected appConfig: AppConfig,
   ) {
-    super(http);
+    super(http, appConfig);
   }
 
   /**
