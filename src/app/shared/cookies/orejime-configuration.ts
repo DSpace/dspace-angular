@@ -115,6 +115,7 @@ export function getOrejimeConfiguration(_window: NativeWindowRef): any {
         name: 'authentication',
         purposes: ['functional'],
         required: true,
+        optOut: true,
         cookies: [
           TOKENITEM,
           IMPERSONATING_COOKIE,
@@ -125,6 +126,7 @@ export function getOrejimeConfiguration(_window: NativeWindowRef): any {
         name: 'preferences',
         purposes: ['functional'],
         required: true,
+        optOut: true,
         cookies: [
           LANG_COOKIE,
         ],
@@ -133,6 +135,7 @@ export function getOrejimeConfiguration(_window: NativeWindowRef): any {
         name: 'acknowledgement',
         purposes: ['functional'],
         required: true,
+        optOut: true,
         cookies: [
           [/^orejime-.+$/],
           HAS_AGREED_END_USER,
