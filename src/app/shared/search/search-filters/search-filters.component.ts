@@ -95,15 +95,13 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.router.events.subscribe(() => {
-      this.clearParams = this.searchConfigService.getCurrentFrontendFilters().pipe(
-        map((filters) => {
-          Object.keys(filters).forEach((f) => filters[f] = null);
-          return filters;
-        })
-      );
-      this.searchLink = this.getSearchLink();
-    });
+    this.clearParams = this.searchConfigService.getCurrentFrontendFilters().pipe(
+      map((filters) => {
+        Object.keys(filters).forEach((f) => filters[f] = null);
+        return filters;
+      })
+    );
+    this.searchLink = this.getSearchLink();
   }
 
   /**
