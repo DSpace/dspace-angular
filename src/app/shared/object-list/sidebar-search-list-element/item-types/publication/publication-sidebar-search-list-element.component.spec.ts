@@ -1,7 +1,10 @@
 import { Collection } from '../../../../../core/shared/collection.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { ItemSearchResult } from '../../../../object-collection/shared/item-search-result.model';
-import { createSidebarSearchListElementTests } from '../../sidebar-search-list-element.component.spec';
+import {
+  createSidebarSearchListElementTests,
+  getExpectedHierarchicalTitle,
+} from '../../sidebar-search-list-element.component.spec';
 import { PublicationSidebarSearchListElementComponent } from './publication-sidebar-search-list-element.component';
 
 const object = Object.assign(new ItemSearchResult(), {
@@ -42,6 +45,11 @@ const parent = Object.assign(new Collection(), {
   },
 });
 
-describe('PublicationSidebarSearchListElementComponent',
-  createSidebarSearchListElementTests(PublicationSidebarSearchListElementComponent, object, parent, 'parent title', 'title', '(publisher, date) author'),
-);
+const expectedHierarchicalTitle = getExpectedHierarchicalTitle(parent, object);
+if (expectedHierarchicalTitle) {
+  expectedHierarchicalTitle.subscribe((hierarchicalTitle: string) => {
+    describe('PublicationSidebarSearchListElementComponent', () => {
+      createSidebarSearchListElementTests(PublicationSidebarSearchListElementComponent, object, parent, hierarchicalTitle, 'title', '(publisher, date) author');
+    });
+  });
+}
