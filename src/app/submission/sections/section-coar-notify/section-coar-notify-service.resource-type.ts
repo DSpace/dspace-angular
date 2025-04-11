@@ -8,6 +8,3 @@ import { ResourceType } from '../../../core/shared/resource-type';
 
 
 export const SUBMISSION_COAR_NOTIFY_CONFIG = new ResourceType('submissioncoarnotifyconfig');
-
-export const COAR_NOTIFY_WORKSPACEITEM = new ResourceType('workspaceitem');
-
