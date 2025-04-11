@@ -176,5 +176,9 @@ export class AccessControlFormContainerComponent<T extends DSpaceObject> impleme
     this.selectableListService.deselectAll(ITEM_ACCESS_CONTROL_SELECT_BITSTREAMS_LIST_ID);
   }
 
+  isValid() {
+    return this.bitstreamAccessCmp.isValid() || this.itemAccessCmp.isValid();
+  }
+
 }
 
