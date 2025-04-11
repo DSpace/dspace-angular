@@ -188,6 +188,9 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
   private handleModalResult(): void {
     this.selectedChipItemIndex = null;
     this.selectedChipItem = null;
+    if (this.valueChangeSubscription) {
+      this.valueChangeSubscription.unsubscribe();
+    }
     this.valueChangeSubscription = this.model.valueChanges.pipe(
       distinctUntilChanged((a,b) => JSON.stringify(a) === JSON.stringify(b)),
     ).subscribe(() => {
