@@ -7102,6 +7102,8 @@
 
   "submission.sections.submit.progressbar.describe.steptwo": "Describe",
 
+  "submission.sections.submit.progressbar.detect-duplicate": "Potential duplicates",
+
   "submission.sections.submit.progressbar.duplicates": "Potential duplicates",
 
   "submission.sections.submit.progressbar.identifiers": "Identifiers",
