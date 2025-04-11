@@ -355,7 +355,7 @@ export class SearchService {
   }
 
   /**
-   * Send search event to rest api using angularitics
+   * Send search event to rest api using angulartics2
    * @param config              Paginated search options used
    * @param searchQueryResponse The response objects of the performed search
    * @param clickedObject       Optional UUID of an object a search was performed and clicked for
