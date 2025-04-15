@@ -12,7 +12,7 @@ import { SubmissionSectionContainerComponent as BaseComponent } from '../../../.
 import { SectionsDirective } from '../../../../../../app/submission/sections/sections.directive';
 
 @Component({
-  selector: 'ds-themed-submission-upload-section-file',
+  selector: 'ds-themed-base-submission-section-container',
   // styleUrls: ['./section-container.component.scss'],
   styleUrls: ['../../../../../../app/submission/sections/container/section-container.component.scss'],
   // templateUrl: './section-container.component.html'
