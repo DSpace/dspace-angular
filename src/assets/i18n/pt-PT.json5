@@ -6733,7 +6733,7 @@
 
   // "search.filters.applied.f.original_bundle_descriptions": "File description",
   "search.filters.applied.f.original_bundle_descriptions": "Descrição do ficheiro",
-  
+
   // "search.filters.applied.f.has_geospatial_metadata": "Has geographical location",
   "search.filters.applied.f.has_geospatial_metadata": "Tem localização geográfica",
 
@@ -7619,7 +7619,7 @@
   // "submission.sections.describe.relationship - lookup.external - source.import - modal.authority.new": "Import as a new local authority entry",
   "submission.sections.describe.relationship - lookup.external - source.import - modal.authority.new": "Importar como nova autoridade local",
 
-  // "submission.sections.describe.relationship - lookup.external - source.import - modal.cancel": "Cancel",                   
+  // "submission.sections.describe.relationship - lookup.external - source.import - modal.cancel": "Cancel",
   "submission.sections.describe.relationship - lookup.external - source.import - modal.cancel": "Cancelar",
 
   // "submission.sections.describe.relationship - lookup.external - source.import - modal.collection": "Select a collection to import new entries to",
