@@ -12,7 +12,6 @@
     "eslint-plugin-rxjs",
     "eslint-plugin-simple-import-sort",
     "eslint-plugin-import-newlines",
-    "eslint-plugin-jsonc",
     "dspace-angular-ts",
     "dspace-angular-html"
   ],
