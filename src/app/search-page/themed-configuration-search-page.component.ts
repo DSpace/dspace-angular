@@ -228,6 +228,8 @@ export class ThemedConfigurationSearchPageComponent extends ThemedComponent<Conf
     'query',
     'scope',
     'hideScopeInUrl',
+    'customEvent',
+    'customData',
   ];
 
   protected getComponentName(): string {
