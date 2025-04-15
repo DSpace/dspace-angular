@@ -2,7 +2,7 @@
   <fieldset class="d-flex">
     @if (!model.repeatable) {
       <legend [id]="'legend_' + model.id" [ngClass]="[getClass('element', 'label'), getClass('grid', 'label')]">
-        {{model.placeholder}} @if (model.required) {
+        {{model.label}} @if (model.required) {
         <span>*</span>
       }
     </legend>

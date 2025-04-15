@@ -36,6 +36,7 @@ import { VisibilityType } from './../../../../submission/sections/visibility-typ
 import { setLayout } from './parser.utils';
 import { ParserOptions } from './parser-options';
 import { ParserType } from './parser-type';
+import { environment } from "../../../../../environments/environment";
 
 export const SUBMISSION_ID: InjectionToken<string> = new InjectionToken<string>('submissionId');
 export const CONFIG_DATA: InjectionToken<FormFieldModel> = new InjectionToken<FormFieldModel>('configData');
@@ -310,7 +311,9 @@ export abstract class FieldParser {
     if (hint) {
       controlModel.hint = this.configData.hints || '&nbsp;';
     }
-    controlModel.placeholder = this.configData.label;
+    if (!environment.submission.hidePlaceholderForBasicFields) {
+      controlModel.placeholder = this.configData.label;
+    }
 
     if (this.configData.mandatory && setErrors) {
       this.markAsRequired(controlModel);

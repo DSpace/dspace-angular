@@ -2,7 +2,7 @@
      [class.d-none]="model.hidden"
   [formGroup]="group"
   [ngClass]="[getClass('element', 'container'), getClass('grid', 'container')]">
-  @if (!isCheckbox && hasLabel) {
+  @if (!isCheckbox && hasLabel && !isDateField) {
     <label
       [id]="'label_' + model.id"
       [for]="id"

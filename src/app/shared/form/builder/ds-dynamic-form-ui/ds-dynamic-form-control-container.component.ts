@@ -301,6 +301,10 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
     return this.model.type === DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX || this.model.type === DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH;
   }
 
+  get isDateField(): boolean {
+    return this.model.type === DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER;
+  }
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes && !this.isRelationship && hasValue(this.group.get(this.model.id))) {
       super.ngOnChanges(changes);
