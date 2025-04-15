@@ -1,4 +1,9 @@
-@if ((currentMode$ | async) === viewModeEnum.ListElement) {
+@if ((currentMode$ | async) === viewModeEnum.GeospatialMap) {
+  <ds-object-geospatial-map [objects]="objects">
+  </ds-object-geospatial-map>
+}
+
+@if ((currentMode$ | async) === viewModeEnum.ListElement || (currentMode$ | async) === viewModeEnum.GeospatialMap) {
   <ds-object-list [ngClass]="placeholderFontClass"
     [config]="config"
     [sortConfig]="sortConfig"

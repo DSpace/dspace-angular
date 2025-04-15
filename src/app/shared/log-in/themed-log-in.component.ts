@@ -3,6 +3,7 @@ import {
   Input,
 } from '@angular/core';
 
+import { AuthMethodType } from '../../core/auth/models/auth.method-type';
 import { ThemedComponent } from '../theme-support/themed.component';
 import { LogInComponent } from './log-in.component';
 
@@ -20,8 +21,12 @@ export class ThemedLogInComponent extends ThemedComponent<LogInComponent> {
 
   @Input() isStandalonePage: boolean;
 
+  @Input() excludedAuthMethod: AuthMethodType;
+
+  @Input() showRegisterLink = true;
+
   protected inAndOutputNames: (keyof LogInComponent & keyof this)[] = [
-    'isStandalonePage',
+    'isStandalonePage', 'excludedAuthMethod', 'showRegisterLink',
   ];
 
   protected getComponentName(): string {

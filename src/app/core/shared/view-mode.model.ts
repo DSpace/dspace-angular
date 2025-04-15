@@ -8,4 +8,5 @@ export enum ViewMode {
   DetailedListElement = 'detailed',
   StandalonePage = 'standalone',
   Table = 'table',
+  GeospatialMap = 'geospatial-map'
 }

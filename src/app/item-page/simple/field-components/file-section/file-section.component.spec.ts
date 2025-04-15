@@ -111,17 +111,17 @@ describe('FileSectionComponent', () => {
   }));
 
   it('should set the id of primary bitstream', () => {
-    comp.primaryBitsreamId = undefined;
+    comp.primaryBitstreamId = undefined;
     bitstreamDataService.findPrimaryBitstreamByItemAndName.and.returnValue(observableOf(mockBitstream));
     comp.ngOnInit();
-    expect(comp.primaryBitsreamId).toBe(mockBitstream.id);
+    expect(comp.primaryBitstreamId).toBe(mockBitstream.id);
   });
 
   it('should not set the id of primary bitstream', () => {
-    comp.primaryBitsreamId = undefined;
+    comp.primaryBitstreamId = undefined;
     bitstreamDataService.findPrimaryBitstreamByItemAndName.and.returnValue(observableOf(null));
     comp.ngOnInit();
-    expect(comp.primaryBitsreamId).toBeUndefined();
+    expect(comp.primaryBitstreamId).toBeUndefined();
   });
 
   describe('when the bitstreams are loading', () => {

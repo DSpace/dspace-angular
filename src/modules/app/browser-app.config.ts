@@ -1,3 +1,5 @@
+import 'altcha';
+
 import {
   HttpClient,
   provideHttpClient,
@@ -29,6 +31,11 @@ import {
   Angulartics2GoogleTagManager,
   Angulartics2RouterlessModule,
 } from 'angulartics2';
+import {
+  provideMatomo,
+  withRouteData,
+  withRouter,
+} from 'ngx-matomo-client';
 
 import { commonAppConfig } from '../../app/app.config';
 import { storeModuleConfig } from '../../app/app.reducer';
@@ -157,5 +164,12 @@ export const browserAppConfig: ApplicationConfig = mergeApplicationConfig({
       provide: MathService,
       useClass: ClientMathService,
     },
+    provideMatomo(
+      {
+        mode: 'deferred',
+      },
+      withRouter(),
+      withRouteData(),
+    ),
   ],
 }, commonAppConfig);

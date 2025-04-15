@@ -15,7 +15,11 @@ import {
   BehaviorSubject,
   Observable,
 } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {
+  filter,
+  map,
+  take,
+} from 'rxjs/operators';
 
 import {
   APP_CONFIG,
@@ -82,9 +86,16 @@ export class SearchFiltersComponent implements OnInit {
   searchLink: string;
 
   /**
-   * Filters for which visibility has been computed
+   * Keeps track of the filters computed for each configuration during the current rendering cycle
+   * This array stores objects with configuration identifier and number of computed filters
    */
-  filtersWithComputedVisibility = 0;
+  private currentFiltersComputed = [];
+
+  /**
+   * Stores the final count of computed filters for each configuration
+   * Used to determine when all filters for a configuration have been processed
+   */
+  private finalFiltersComputed = [];
 
   subs = [];
   filterLabel = 'search';
@@ -136,7 +147,122 @@ export class SearchFiltersComponent implements OnInit {
 
   countFiltersWithComputedVisibility(computed: boolean) {
     if (computed) {
-      this.filtersWithComputedVisibility += 1;
+      this.filters.pipe(
+        // Get filter data and check if we need to increment the counter
+        map(filtersData => {
+          if (filtersData && filtersData.hasSucceeded && filtersData.payload) {
+            const totalFilters = filtersData.payload.length;
+            const currentComputed = this.getCurrentFiltersComputed(this.currentConfiguration);
+
+            // If we've already computed all filters for this configuration
+            if (currentComputed >= totalFilters) {
+              // Register in finalFiltersComputed if not already registered
+              if (!this.findConfigInFinalFilters(this.currentConfiguration)) {
+                this.updateFinalFiltersComputed(this.currentConfiguration, totalFilters);
+              }
+              return { shouldIncrement: false };
+            }
+
+            // We haven't reached the total yet, proceed with increment
+            return {
+              shouldIncrement: true,
+              totalFilters,
+            };
+          }
+          return { shouldIncrement: false };
+        }),
+        // Only continue if we need to increment the counter
+        filter(result => result.shouldIncrement),
+        // Increment the counter for the current configuration
+        map(result => {
+          const filterConfig = this.findConfigInCurrentFilters(this.currentConfiguration);
+
+          if (filterConfig) {
+            // Update existing counter
+            filterConfig.filtersComputed += 1;
+          } else {
+            // Create new counter entry
+            this.currentFiltersComputed.push({
+              configuration: this.currentConfiguration,
+              filtersComputed: 1,
+            });
+          }
+
+          // Pass along the total and updated count
+          return {
+            totalFilters: result.totalFilters,
+            currentComputed: this.getCurrentFiltersComputed(this.currentConfiguration),
+          };
+        }),
+        // Check if we've reached the total after incrementing
+        map(result => {
+          if (result.currentComputed === result.totalFilters) {
+            // If we've reached the total, update final filters count
+            this.updateFinalFiltersComputed(this.currentConfiguration, result.currentComputed);
+          }
+          return result;
+        }),
+      ).pipe(take(1)).subscribe(); // Execute the pipeline once and complete
     }
+  }
+
+  /**
+   * Finds a configuration entry in the currentFiltersComputed array
+   * @param configuration The configuration identifier to search for
+   * @returns The filter configuration object if found, otherwise undefined
+   */
+  private findConfigInCurrentFilters(configuration: string) {
+    return this.currentFiltersComputed.find(
+      (configFilter) => configFilter.configuration === configuration,
+    );
+  }
+
+  /**
+   * Finds a configuration entry in the finalFiltersComputed array
+   * @param configuration The configuration identifier to search for
+   * @returns The filter configuration object if found, otherwise undefined
+   */
+  private findConfigInFinalFilters(configuration: string) {
+    return this.finalFiltersComputed.find(
+      (configFilter) => configFilter.configuration === configuration,
+    );
+  }
+
+  /**
+   * Updates or adds a new entry in the finalFiltersComputed array
+   * @param configuration The configuration identifier to update
+   * @param count The number of computed filters to set for this configuration
+   */
+  private updateFinalFiltersComputed(configuration: string, count: number) {
+    const filterConfig = this.findConfigInFinalFilters(configuration);
+
+    if (filterConfig) {
+      filterConfig.filtersComputed = count;
+    } else {
+      this.finalFiltersComputed.push({
+        configuration,
+        filtersComputed: count,
+      });
+    }
+  }
+
+  /**
+   * Gets the current number of computed filters for a specific configuration
+   * @param configuration The configuration identifier to get the count for
+   * @returns The number of computed filters, or 0 if none found
+   */
+  private getCurrentFiltersComputed(configuration: string) {
+    const configFilter = this.findConfigInCurrentFilters(configuration);
+    return configFilter?.filtersComputed || 0;
+  }
+
+  /**
+   * Gets the final number of computed filters for a specific configuration
+   * @param configuration The configuration identifier to get the count for
+   * @returns The number of computed filters in the final state, or 0 if none found
+   */
+  getFinalFiltersComputed(configuration: string): number {
+    const configFilter = this.findConfigInFinalFilters(configuration);
+    return configFilter?.filtersComputed || 0;
   }
 }

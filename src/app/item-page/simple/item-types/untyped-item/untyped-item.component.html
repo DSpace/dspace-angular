@@ -71,6 +71,15 @@
       [fields]="['dc.identifier.citation']"
       [label]="'item.page.citation'">
     </ds-generic-item-page-field>
+    @if (geospatialItemPageFieldsEnabled) {
+      <ds-geospatial-item-page-field [item]="object"
+                                     [label]="'item.page.places'"
+                                     [pointFields]="['dcterms.spatial']"
+                                     [bboxFields]="['dcterms.spatial']"
+                                     [cluster]="true"
+      >
+      </ds-geospatial-item-page-field>
+    }
     <ds-item-page-uri-field [item]="object"
       [fields]="['dc.identifier.uri']"
       [label]="'item.page.uri'">

@@ -1,6 +1,6 @@
 {
 
-  // DSpace v8.x > i18n pt-PT > last updated 2025-03-25
+  // DSpace v9.x > i18n pt-PT > last updated 2025-04-15
 
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Não está autorizado a aceder a esta página. Pode utilizar o botão em baixo para voltar à página de início.",
@@ -29,7 +29,7 @@
   // "500.link.home-page": "Take me to the home page",
   "500.link.home-page": "Voltar à página de início",
 
-  // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page.",
+  // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
   "404.help": "Não encontramos a página que procura. A página pode ter sido movida ou eliminada. Pode utilizar o botão em baixo para voltar à página de início.",
 
   // "404.link.home-page": "Take me to the home page",
@@ -377,7 +377,7 @@
   // "admin.access-control.bulk-access-browse.search.header": "Search",
   "admin.access-control.bulk-access-browse.search.header": "Pesquisa",
 
-  // "admin.access-control.bulk-access-browse.selected.header": "Current selection ({{number}})",
+  // "admin.access-control.bulk-access-browse.selected.header": "Current selection({{number}})",
   "admin.access-control.bulk-access-browse.selected.header": "Selecção atual ({{number}})",
 
   // "admin.access-control.bulk-access-settings.header": "Step 2: Operation to Perform",
@@ -494,17 +494,17 @@
   // "admin.access-control.epeople.form.notification.created.failure": "Failed to create EPerson \"{{name}}\"",
   "admin.access-control.epeople.form.notification.created.failure": "Falha ao criar o Utilizador \"{{name}}\"",
 
-  // "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Failed to create EPerson \"{{name}}\", email \"{{email}}\"already in use.",
-  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Falha ao criar o Utilizador \"{{name}}\", o email \"{{email}}\"já está registado no repositório.",
+  // "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Failed to create EPerson \"{{name}}\", email \"{{email}}\" already in use.",
+  "admin.access-control.epeople.form.notification.created.failure.emailInUse": "Falha ao criar o utilizador \"{{name}}\", o email \"{{email}}\"já está registado no repositório.",
 
-  // "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Failed to edit EPerson \"{{name}}\", email \"{{email}}\"already in use.",
-  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Falha ao editar o Utilizador \"{{name}}\", o email \"{{email}}\"já está registado no repositório.",
+  // "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Failed to edit EPerson \"{{name}}\", email \"{{email}}\" already in use.",
+  "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "Falha ao editar o utilizador \"{{name}}\", o email \"{{email}}\"já está registado no repositório.",
 
   // "admin.access-control.epeople.form.notification.edited.success": "Successfully edited EPerson \"{{name}}\"",
   "admin.access-control.epeople.form.notification.edited.success": "Utilizador editado com successo \"{{name}}\"",
 
   // "admin.access-control.epeople.form.notification.edited.failure": "Failed to edit EPerson \"{{name}}\"",
-  "admin.access-control.epeople.form.notification.edited.failure": "Falha ao editor Utilizador \"{{name}}\"",
+  "admin.access-control.epeople.form.notification.edited.failure": "Falha ao editar o utilizador \"{{name}}\"",
 
   // "admin.access-control.epeople.form.notification.deleted.success": "Successfully deleted EPerson \"{{name}}\"",
   "admin.access-control.epeople.form.notification.deleted.success": "Utilizador removido com sucesso \"{{name}}\"",
@@ -530,8 +530,8 @@
   // "admin.access-control.epeople.form.goToGroups": "Add to groups",
   "admin.access-control.epeople.form.goToGroups": "Adicionar a grupos",
 
-  // "admin.access-control.epeople.notification.deleted.failure": "Error occurred when trying to delete EPerson with id \"{{id}}\"with code: \"{{statusCode}}\"and message: \"{{restResponse.errorMessage}}\"",
-  "admin.access-control.epeople.notification.deleted.failure": "Ocorreu um erro ao tentar eliminar a 'EPessoa' com o id \"{{id}}\", com o código: \"{{statusCode}}\"e mensagem: \"{{restResponse.errorMessage}}\"",
+  // "admin.access-control.epeople.notification.deleted.failure": "Error occurred when trying to delete EPerson with id \"{{id}}\" with code: \"{{statusCode}}\" and message: \"{{restResponse.errorMessage}}\"",
+  "admin.access-control.epeople.notification.deleted.failure": "Ocorreu um erro ao tentar eliminar o utilizador com o id \"{{id}}\", com o código: \"{{statusCode}}\" e mensagem: \"{{restResponse.errorMessage}}\"",
 
   // "admin.access-control.epeople.notification.deleted.success": "Successfully deleted EPerson: \"{{name}}\"",
   "admin.access-control.epeople.notification.deleted.success": "Utilizador removido com sucesso: \"{{name}}\"",
@@ -608,8 +608,8 @@
   // "admin.access-control.groups.form.alert.permanent": "This group is permanent, so it can't be edited or deleted. You can still add and remove group members using this page.",
   "admin.access-control.groups.form.alert.permanent": "Este grupo é permanente, não pode ser editado ou apagado. Pode adicionar ou remover membros deste grupo nesta página.",
 
-  // "admin.access-control.groups.form.alert.workflowGroup": "This group can’t be modified or deleted because it corresponds to a role in the submission and workflow process in the \"{{name}}\"{{comcol}}. You can delete it from the <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
-  "admin.access-control.groups.form.alert.workflowGroup": "Este grupo não pode ser editado ou apagado porque corresponde a um papel no 'workflow' de depósito em \"{{name}}\"{{comcol}}. Pode apagá-lo na aba <a href='{{comcolEditRolesRoute}}'>\"Atribuir Papéis\"</a> na edição da página {{comcol}}. Pode adicionar ou remover membros nesta página.",
+  // "admin.access-control.groups.form.alert.workflowGroup": "This group can’t be modified or deleted because it corresponds to a role in the submission and workflow process in the \"{{name}}\" {{comcol}}. You can delete it from the <a href='{{comcolEditRolesRoute}}'>\"assign roles\"</a> tab on the edit {{comcol}} page. You can still add and remove group members using this page.",
+  "admin.access-control.groups.form.alert.workflowGroup": "Este grupo não pode ser editado ou removido porque corresponde a um papel no 'workflow' de depósito em \"{{name}}\"{{comcol}}. Pode apagá-lo na aba <a href='{{comcolEditRolesRoute}}'>\"Atribuir papéis\"</a> na edição da página {{comcol}}. Pode adicionar ou remover membros nesta página.",
 
   // "admin.access-control.groups.form.head.create": "Create group",
   "admin.access-control.groups.form.head.create": "Criar grupo",
@@ -638,8 +638,8 @@
   // "admin.access-control.groups.form.notification.edited.failure": "Failed to edit Group \"{{name}}\"",
   "admin.access-control.groups.form.notification.edited.failure": "Falha ao editar grupo \"{{name}}\"",
 
-  // "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Name \"{{name}}\"already in use!",
-  "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Nome \"{{name}}\"já utilizado!",
+  // "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Name \"{{name}}\" already in use!",
+  "admin.access-control.groups.form.notification.edited.failure.groupNameInUse": "Nome \"{{name}}\" já utilizado!",
 
   // "admin.access-control.groups.form.notification.edited.success": "Successfully edited Group \"{{name}}\"",
   "admin.access-control.groups.form.notification.edited.success": "Grupo editado com sucesso \"{{name}}\"",
@@ -960,7 +960,7 @@
   "admin.reports.items.handle": "URI",
 
   // "admin.reports.items.title": "Title",
-  "admin.reports.items.title": "Relatório de consulta de metadados",
+  "admin.reports.items.title": "Título",
 
   // "admin.reports.commons.filters": "Filters",
   "admin.reports.commons.filters": "Filtros",
@@ -992,12 +992,11 @@
   // "admin.reports.commons.filters.matches_all": "Matches all specified filters",
   "admin.reports.commons.filters.matches_all": "Corresponde a todos os filtros especificados",
 
-
   // "admin.reports.commons.filters.property": "Item Property Filters",
   "admin.reports.commons.filters.property": "Filtros de propriedades do item",
 
   // "admin.reports.commons.filters.property.is_item": "Is Item - always true",
-  "admin.reports.commons.filters.property.is_item": "É Item - sempre verdadeiro",
+  "admin.reports.commons.filters.property.is_item": "É item - sempre verdadeiro",
 
   // "admin.reports.commons.filters.property.is_withdrawn": "Withdrawn Items",
   "admin.reports.commons.filters.property.is_withdrawn": "Itens retirados",
@@ -1371,10 +1370,10 @@
   // "bitstream.edit.return": "Back",
   "bitstream.edit.return": "Voltar",
 
-  // "bitstream.edit.bitstream": "Bitstream:",
+  // "bitstream.edit.bitstream": "Bitstream: ",
   "bitstream.edit.bitstream": "Ficheiros:",
 
-  // "bitstream.edit.form.description.hint": "Optionally, provide a brief description of the file, for example \"<i>Main article</i>\"or \"<i>Experiment data readings</i>\".",
+  // "bitstream.edit.form.description.hint": "Optionally, provide a brief description of the file, for example \"<i>Main article</i>\" or \"<i>Experiment data readings</i>\".",
   "bitstream.edit.form.description.hint": "Opcionalmente, pode indicar uma breve descrição do ficheiro, por exemplo \"<i>Texto Principal</i>\"ou \"<i>Dados da experiência</i>\".",
 
   // "bitstream.edit.form.description.label": "Description",
@@ -1401,7 +1400,7 @@
   // "bitstream.edit.form.primaryBitstream.label": "Primary File",
   "bitstream.edit.form.primaryBitstream.label": "Ficheiro primário",
 
-  // "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\"above</b> and describe it under \"Describe new format\".",
+  // "bitstream.edit.form.selectedFormat.hint": "If the format is not in the above list, <b>select \"format not in list\" above</b> and describe it under \"Describe new format\".",
   "bitstream.edit.form.selectedFormat.hint": "Se o formato não se encontrar listado, selecione por favor a opção <b> \"Formato não está na lista\"</b> e faculte detalhes em \"Descreva o novo formato\".",
 
   // "bitstream.edit.form.selectedFormat.label": "Selected Format",
@@ -1449,7 +1448,7 @@
   // "bitstream.edit.title": "Edit bitstream",
   "bitstream.edit.title": "Editar ficheiro",
 
-  // "bitstream-request-a-copy.alert.canDownload1": "You already have access to this file. If you want to download the file, click",
+  // "bitstream-request-a-copy.alert.canDownload1": "You already have access to this file. If you want to download the file, click ",
   "bitstream-request-a-copy.alert.canDownload1": "Já tem acesso a este ficheiro. Se quiser descarregar o ficheiro, clique",
 
   // "bitstream-request-a-copy.alert.canDownload2": "here",
@@ -1458,13 +1457,13 @@
   // "bitstream-request-a-copy.header": "Request a copy of the file",
   "bitstream-request-a-copy.header": "Solicitar cópia ao autor",
 
-  // "bitstream-request-a-copy.intro": "Enter the following information to request a copy for the following item:",
+  // "bitstream-request-a-copy.intro": "Enter the following information to request a copy for the following item: ",
   "bitstream-request-a-copy.intro": "Preencha a seguinte informação para solicitar uma cópia do ficheiro:",
 
-  // "bitstream-request-a-copy.intro.bitstream.one": "Requesting the following file:",
+  // "bitstream-request-a-copy.intro.bitstream.one": "Requesting the following file: ",
   "bitstream-request-a-copy.intro.bitstream.one": "Solicitar o seguinte ficheiro:",
 
-  // "bitstream-request-a-copy.intro.bitstream.all": "Requesting all files.",
+  // "bitstream-request-a-copy.intro.bitstream.all": "Requesting all files. ",
   "bitstream-request-a-copy.intro.bitstream.all": "Solicitar todos os ficheiros.",
 
   // "bitstream-request-a-copy.name.label": "Name *",
@@ -1505,6 +1504,24 @@
 
   // "bitstream-request-a-copy.submit.error": "Something went wrong with submitting the item request.",
   "bitstream-request-a-copy.submit.error": "Ocorreu algum erro no envio do pedido de cópia!",
+
+  // "bitstream-request-a-copy.access-by-token.warning": "You are viewing this item with the secure access link provided to you by the author or repository staff. It is important not to share this link to unauthorised users.",
+  "bitstream-request-a-copy.access-by-token.warning": "Está a visualizar este item com a hiperligação de acesso seguro que lhe foi fornecida pelo autor ou pela equipa do repositório. É importante não partilhar esta ligação com utilizadores não autorizados.",
+
+  // "bitstream-request-a-copy.access-by-token.expiry-label": "Access provided by this link will expire on",
+  "bitstream-request-a-copy.access-by-token.expiry-label": "O acesso fornecido por esta ligação expira em",
+
+  // "bitstream-request-a-copy.access-by-token.expired": "Access provided by this link is no longer possible. Access expired on",
+  "bitstream-request-a-copy.access-by-token.expired": "O acesso através desta hiperligação já não é possível. O acesso expirou em",
+
+  // "bitstream-request-a-copy.access-by-token.not-granted": "Access provided by this link is not possible. Access has either not been granted, or has been revoked.",
+  "bitstream-request-a-copy.access-by-token.not-granted": "O acesso fornecido por esta hiperligação não é possível. O acesso não foi concedido ou foi revogado.",
+
+  // "bitstream-request-a-copy.access-by-token.re-request": "Follow restricted download links to submit a new request for access.",
+  "bitstream-request-a-copy.access-by-token.re-request": "Siga hiperligações de descarregamento restritas para apresentar um novo pedido de acesso.",
+
+  // "bitstream-request-a-copy.access-by-token.alt-text": "Access to this item is provided by a secure token",
+  "bitstream-request-a-copy.access-by-token.alt-text": "O acesso a este item é fornecido através de um token seguro",
 
   // "browse.back.all-results": "All browse results",
   "browse.back.all-results": "Todos os resultados",
@@ -1571,6 +1588,15 @@
 
   // "browse.metadata.title.breadcrumbs": "Browse by Title",
   "browse.metadata.title.breadcrumbs": "Percorrer por título",
+
+  // "browse.metadata.map": "Browse by Geolocation",
+  "browse.metadata.map": "Percorrer por geolocalização",
+
+  // "browse.metadata.map.breadcrumbs": "Browse by Geolocation",
+  "browse.metadata.map.breadcrumbs": "Percorrer por geolocalização",
+
+  // "browse.metadata.map.count.items": "items",
+  "browse.metadata.map.count.items": "itens",
 
   // "pagination.next.button": "Next",
   "pagination.next.button": "Próximo",
@@ -1657,8 +1683,8 @@
   "browse.startsWith.input": "Filtrar",
 
   // "browse.taxonomy_srsc.title": "Browsing by Subject Category",
-  "browse.taxonomy_srsc.title": "Percorrer por vocabulário controlado",
-
+  "browse.taxonomy_srsc.title": "Percorrer por vocabulário controlado",                                                                  
+  
   // "browse.taxonomy.button": "Browse",
   "browse.taxonomy.button": "Pesquisar",
 
@@ -1994,7 +2020,7 @@
 
   // "collection.page.browse.recent.empty": "No items to show",
   "collection.page.browse.recent.empty": "Nenhum item para exibir",
-
+  
   // "collection.page.edit": "Edit this collection",
   "collection.page.edit": "Editar esta coleção",
 
@@ -2006,6 +2032,12 @@
 
   // "collection.page.news": "News",
   "collection.page.news": "Notícias",
+
+  // "collection.page.options": "Options",
+  "collection.page.options": "Opções",
+
+  // "collection.search.breadcrumbs": "Search",
+  "collection.search.breadcrumbs": "Pesquisa",
 
   // "collection.search.results.head": "Search Results",
   "collection.search.results.head": "Resultados da pesquisa",
@@ -2212,7 +2244,7 @@
   "community.edit.notifications.unauthorized": "Não tem os privilégios necessários para efetuar esta alteração",
 
   // "community.edit.notifications.error": "An error occurred while editing the community",
-  "community.edit.notifications.error": "Ocorreu um erro ao editar a comunidade",
+  "community.edit.notifications.error": "Ocorreu um erro na edição da comunidade",
 
   // "community.edit.return": "Back",
   "community.edit.return": "Voltar",
@@ -2361,8 +2393,14 @@
   // "community.page.news": "News",
   "community.page.news": "Notícias",
 
+  // "community.page.options": "Options",
+  "community.page.options": "Opções",
+
   // "community.all-lists.head": "Subcommunities and Collections",
   "community.all-lists.head": "Sub-comunidade e coleções",
+
+  // "community.search.breadcrumbs": "Search",
+  "community.search.breadcrumbs": "Pesquisa",
 
   // "community.search.results.head": "Search Results",
   "community.search.results.head": "Resultados da pesquisa",
@@ -2413,8 +2451,8 @@
   "cookies.consent.save": "Guardar",
 
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: {purposes}",
-  "cookies.consent.content-notice.description": "Recolhemos e processamos informação pessoal para os seguintes propósitos: <strong>Autenticação, Guardar Preferências, Termos de Uso e Estatísticas</strong>. <br/> Para saber mais, por favor leia a nossa {privacyPolicy}.",
-
+  "cookies.consent.content-notice.description": "Recolhemos e processamos informação pessoal para os seguintes propósitos: {purposes}",
+  
   // "cookies.consent.content-notice.learnMore": "Customize",
   "cookies.consent.content-notice.learnMore": "Pesonalizar",
 
@@ -2462,6 +2500,12 @@
 
   // "cookies.consent.app.description.google-recaptcha": "We use google reCAPTCHA service during registration and password recovery",
   "cookies.consent.app.description.google-recaptcha": "Utilizamos o serviço Google reCAPTCHA durante o registo e recuperação de palavra-passe",
+
+  // "cookies.consent.app.title.matomo": "Matomo",
+  "cookies.consent.app.title.matomo": "Matomo",
+
+  // "cookies.consent.app.description.matomo": "Allows us to track statistical data",
+  "cookies.consent.app.description.matomo": "Permite-nos registar dados estatísticos",
 
   // "cookies.consent.purpose.functional": "Functional",
   "cookies.consent.purpose.functional": "Funcional",
@@ -2754,6 +2798,21 @@
   // "confirmation-modal.delete-subscription.confirm": "Delete",
   "confirmation-modal.delete-subscription.confirm": "Apagar",
 
+  // "confirmation-modal.review-account-info.header": "Save the changes",
+  "confirmation-modal.review-account-info.header": "Guardar as alterações",
+
+  // "confirmation-modal.review-account-info.info": "Are you sure you want to save the changes to your profile",
+  "confirmation-modal.review-account-info.info": "Tem certeza de que pretende guardar as alterações no seu perfil?",
+
+  // "confirmation-modal.review-account-info.cancel": "Cancel",
+  "confirmation-modal.review-account-info.cancel": "Cancelar",
+
+  // "confirmation-modal.review-account-info.confirm": "Confirm",
+  "confirmation-modal.review-account-info.confirm": "Confirmar",
+
+  // "confirmation-modal.review-account-info.save": "Save",
+  "confirmation-modal.review-account-info.save": "Guardar",
+
   // "error.bitstream": "Error fetching bitstream",
   "error.bitstream": "Erro ao carregar ficheiro!",
 
@@ -2793,7 +2852,7 @@
   // "error.search-results": "Error fetching search results",
   "error.search-results": "Erro ao carregar os resultados da pesquisa!",
 
-  // "error.invalid-search-query": "Search query is not valid. Please check <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\"target=\"_blank\">Solr query syntax</a> best practices for further information about this error.",
+  // "error.invalid-search-query": "Search query is not valid. Please check <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\" target=\"_blank\">Solr query syntax</a> best practices for further information about this error.",
   "error.invalid-search-query": "A query da pesquisa não é válida! Por favor verifique <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\"target=\"_blank\">Sintaxe de consulta Solr</a> melhores práticas para obter mais informações sobre este erro.",
 
   // "error.sub-collections": "Error fetching sub-collections",
@@ -2858,6 +2917,9 @@
 
   // "file-download-link.restricted": "Restricted bitstream",
   "file-download-link.restricted": "Ficheiro restrito",
+
+  // "file-download-link.secure-access": "Restricted bitstream available via secure access token",
+  "file-download-link.secure-access": "Ficheiro restrito disponível através de um token de acesso seguro",
 
   // "file-section.error.header": "Error obtaining files for this item",
   "file-section.error.header": "Erro na obtenção de ficheiros para este item!",
@@ -2934,7 +2996,7 @@
   // "forgot-password.form.identification.header": "Identify",
   "forgot-password.form.identification.header": "Identificação",
 
-  // "forgot-password.form.identification.email": "Email address:",
+  // "forgot-password.form.identification.email": "Email address: ",
   "forgot-password.form.identification.email": "Endereço de correio eletrónico:",
 
   // "forgot-password.form.label.password": "Password",
@@ -3069,8 +3131,11 @@
   // "form.repeatable.sort.tip": "Drop the item in the new position",
   "form.repeatable.sort.tip": "Largue o item na nova posição",
 
-  // "grant-deny-request-copy.deny": "Don't send copy",
+  // "grant-deny-request-copy.deny": "Deny access request",
   "grant-deny-request-copy.deny": "Não enviar cópia",
+
+  // "grant-deny-request-copy.revoke": "Revoke access",
+  "grant-deny-request-copy.revoke": "Revogar acesso",
 
   // "grant-deny-request-copy.email.back": "Back",
   "grant-deny-request-copy.email.back": "Voltar",
@@ -3096,7 +3161,7 @@
   // "grant-deny-request-copy.email.subject.empty": "Please enter a subject",
   "grant-deny-request-copy.email.subject.empty": "Por favor, introduza o assunto",
 
-  // "grant-deny-request-copy.grant": "Send copy",
+  // "grant-deny-request-copy.grant": "Grant access request",
   "grant-deny-request-copy.grant": "Enviar cópia",
 
   // "grant-deny-request-copy.header": "Document copy request",
@@ -3111,6 +3176,9 @@
   // "grant-deny-request-copy.intro2": "After choosing an option, you will be presented with a suggested email reply which you may edit.",
   "grant-deny-request-copy.intro2": "Depois de escolher uma opção, ser-lhe-á apresentado um um texto de resposta padrão que poderá editar.",
 
+  // "grant-deny-request-copy.previous-decision": "This request was previously granted with a secure access token. You may revoke this access now to immediately invalidate the access token",
+  "grant-deny-request-copy.previous-decision": "Este pedido foi concedido previamente através de um token de acesso seguro. Pode revogar este acesso agora para invalidar imediatamente o token de acesso",
+
   // "grant-deny-request-copy.processed": "This request has already been processed. You can use the button below to get back to the home page.",
   "grant-deny-request-copy.processed": "Este pedido já foi processado. Pode utilizar o botão em baixo para voltar para a página principal.",
 
@@ -3123,11 +3191,35 @@
   // "grant-request-copy.header": "Grant document copy request",
   "grant-request-copy.header": "Conceder cópia de documento",
 
-  // "grant-request-copy.intro": "A message will be sent to the applicant of the request. The requested document(s) will be attached.",
-  "grant-request-copy.intro": "Esta mensagem será enviada ao requerente do pedido de cópia. Os ficheiros solicitado(s) serão anexado(s) à mensagem.",
+  // "grant-request-copy.intro.attachment": "A message will be sent to the applicant of the request. The requested document(s) will be attached.",
+  "grant-request-copy.intro.attachment": "Será enviada uma mensagem ao requerente do pedido. O(s) documento(s) solicitado(s) será(ão) anexado(s).",
+
+  // "grant-request-copy.intro.link": "A message will be sent to the applicant of the request. A secure link providing access to the requested document(s) will be attached. The link will provide access for the duration of time selected in the \"Access Period\" menu below.",
+  "grant-request-copy.intro.link": "Será enviada uma mensagem ao requerente do pedido. Será anexada uma hiperligação segura que permite o acesso ao(s) documento(s) solicitado(s). A hiperligação permitirá o acesso durante o período de tempo selecionado no menu \"Período de acesso\" abaixo.",
+
+  // "grant-request-copy.intro.link.preview": "Below is a preview of the link that will be sent to the applicant:",
+  "grant-request-copy.intro.link.preview": "Em seguida apresenta-se uma pré-visualização da hiperligação que será enviada ao requerente:",
 
   // "grant-request-copy.success": "Successfully granted item request",
   "grant-request-copy.success": "Pedido de cópia concedido com sucesso!",
+
+  // "grant-request-copy.access-period.header": "Access period",
+  "grant-request-copy.access-period.header": "Período de acesso",
+
+  // "grant-request-copy.access-period.+1DAY": "1 day",
+  "grant-request-copy.access-period.+1DAY": "1 dia",
+
+  // "grant-request-copy.access-period.+7DAYS": "1 week",
+  "grant-request-copy.access-period.+7DAYS": "1 semana",
+
+  // "grant-request-copy.access-period.+1MONTH": "1 month",
+  "grant-request-copy.access-period.+1MONTH": "1 mês",
+
+  // "grant-request-copy.access-period.+3MONTHS": "3 months",
+  "grant-request-copy.access-period.+3MONTHS": "3 meses",
+
+  // "grant-request-copy.access-period.FOREVER": "Forever",
+  "grant-request-copy.access-period.FOREVER": "Ilimitado",
 
   // "health.breadcrumbs": "Health",
   "health.breadcrumbs": "Diagnóstico do sistema",
@@ -3195,7 +3287,7 @@
   // "home.breadcrumbs": "Home",
   "home.breadcrumbs": "Página inicial",
 
-  // "home.search-form.placeholder": "Search the repository...",
+  // "home.search-form.placeholder": "Search the repository ...",
   "home.search-form.placeholder": "pesquisar no repositório...",
 
   // "home.title": "Home",
@@ -3330,7 +3422,7 @@
   // "item.bitstreams.upload.drop-message": "Drop a file to upload",
   "item.bitstreams.upload.drop-message": "Arraste um ficheiro para carregar",
 
-  // "item.bitstreams.upload.item": "Item:",
+  // "item.bitstreams.upload.item": "Item: ",
   "item.bitstreams.upload.item": "Item:",
 
   // "item.bitstreams.upload.notifications.bundle.created.content": "Successfully created new bundle.",
@@ -3351,7 +3443,7 @@
   // "item.edit.bitstreams.bundle.displaying": "Currently displaying {{ amount }} bitstreams of {{ total }}.",
   "item.edit.bitstreams.bundle.displaying": "Atualmente a mostrar {{ amount }} ficheiros de {{ total }}.",
 
-  // "item.edit.bitstreams.bundle.load.all": "Load all  ({{ total }})",
+  // "item.edit.bitstreams.bundle.load.all": "Load all ({{ total }})",
   "item.edit.bitstreams.bundle.load.all": "Carregar todos  ({{ total }})",
 
   // "item.edit.bitstreams.bundle.load.more": "Load more",
@@ -3651,7 +3743,7 @@
   // "item.edit.metadata.edit.buttons.unedit": "Stop editing",
   "item.edit.metadata.edit.buttons.unedit": "Parar edição",
 
-  // "item.edit.metadata.edit.buttons.virtual": "This is a virtual metadata value, i.e. a value inherited from a related entity. It can’t be modified directly. Add or remove the corresponding relationship in the \"Relationships\"tab",
+  // "item.edit.metadata.edit.buttons.virtual": "This is a virtual metadata value, i.e. a value inherited from a related entity. It can’t be modified directly. Add or remove the corresponding relationship in the \"Relationships\" tab",
   "item.edit.metadata.edit.buttons.virtual": "Este é um valor de metadados virtual, ou seja, um valor herdado de uma entidade relacionada. Não pode ser modificado diretamente. Adicionar ou remover a relação correspondente no separador 'Relacionamentos'",
 
   // "item.edit.metadata.empty": "The item currently doesn't contain any metadata. Click Add to start adding a metadata value.",
@@ -3714,7 +3806,7 @@
   // "item.edit.metadata.save-button": "Save",
   "item.edit.metadata.save-button": "Guardar",
 
-  // "item.edit.metadata.authority.label": "Authority:",
+  // "item.edit.metadata.authority.label": "Authority: ",
   "item.edit.metadata.authority.label": "Autoridade:",
 
   // "item.edit.metadata.edit.buttons.open-authority-edition": "Unlock the authority key value for manual editing",
@@ -4032,11 +4124,14 @@
   // "item.page.publisher": "Publisher",
   "item.page.publisher": "Editora",
 
-  // "item.page.titleprefix": "Item:",
+  // "item.page.titleprefix": "Item: ",
   "item.page.titleprefix": "Item:",
 
   // "item.page.volume-title": "Volume Title",
   "item.page.volume-title": "Título do volume",
+
+  // "item.page.dcterms.spatial": "Geospatial point",
+  "item.page.dcterms.spatial": "Ponto geoespacial",
 
   // "item.search.results.head": "Item Search Results",
   "item.search.results.head": "Resultados da pesquisa de item",
@@ -4164,6 +4259,9 @@
   // "item.page.link.simple": "Simple item page",
   "item.page.link.simple": "Ver registo simples",
 
+  // "item.page.options": "Options",
+  "item.page.options": "Opções",
+
   // "item.page.orcid.title": "ORCID",
   "item.page.orcid.title": "ORCID",
 
@@ -4266,11 +4364,23 @@
   // "item.preview.dc.type": "Type:",
   "item.preview.dc.type": "Tipo:",
 
+  // "item.preview.oaire.version": "Version",
+  "item.preview.oaire.version": "Versão",
+
   // "item.preview.oaire.citation.issue": "Issue",
   "item.preview.oaire.citation.issue": "Número",
 
   // "item.preview.oaire.citation.volume": "Volume",
   "item.preview.oaire.citation.volume": "Volume",
+
+  // "item.preview.oaire.citation.title": "Citation container",
+  "item.preview.oaire.citation.title": "Citação",
+
+  // "item.preview.oaire.citation.startPage": "Citation start page",
+  "item.preview.oaire.citation.startPage": "Página inicial",
+
+  // "item.preview.oaire.citation.endPage": "Citation end page",
+  "item.preview.oaire.citation.endPage": "Página final",
 
   // "item.preview.dc.relation.issn": "ISSN",
   "item.preview.dc.relation.issn": "ISSN",
@@ -4298,6 +4408,9 @@
 
   // "item.preview.person.identifier.orcid": "ORCID:",
   "item.preview.person.identifier.orcid": "ORCID:",
+
+  // "item.preview.person.affiliation.name": "Affiliations:",
+  "item.preview.person.affiliation.name": "Afiliações:",
 
   // "item.preview.project.funder.name": "Funder:",
   "item.preview.project.funder.name": "Financiador:",
@@ -4329,7 +4442,7 @@
   // "item.preview.organization.foundingDate": "Founding Date",
   "item.preview.organization.foundingDate": "Data de fundação",
 
-  // "item.preview.organization.identifier.crossrefid": "CrossRef ID",
+  // "item.preview.organization.identifier.crossrefid": "Crossref ID",
   "item.preview.organization.identifier.crossrefid": "CrossRef ID",
 
   // "item.preview.organization.identifier.isni": "ISNI",
@@ -4343,6 +4456,21 @@
 
   // "item.preview.dspace.entity.type": "Entity Type:",
   "item.preview.dspace.entity.type": "Tipo de entidade:",
+
+  // "item.preview.creativework.publisher": "Publisher",
+  "item.preview.creativework.publisher": "Editora",
+
+  // "item.preview.creativeworkseries.issn": "ISSN",
+  "item.preview.creativeworkseries.issn": "ISSN",
+
+  // "item.preview.dc.identifier.issn": "ISSN",
+  "item.preview.dc.identifier.issn": "ISSN",
+
+  // "item.preview.dc.identifier.openalex": "OpenAlex Identifier",
+  "item.preview.dc.identifier.openalex": "Identificador OpenAlex",
+
+  // "item.preview.dc.description": "Description",
+  "item.preview.dc.description": "Descrição",
 
   // "item.select.confirm": "Confirm selected",
   "item.select.confirm": "Confirmar seleção",
@@ -4662,7 +4790,10 @@
   // "journal.page.publisher": "Publisher",
   "journal.page.publisher": "Editora",
 
-  // "journal.page.titleprefix": "Journal:",
+  // "journal.page.options": "Options",
+  "journal.page.options": "Opções",
+
+  // "journal.page.titleprefix": "Journal: ",
   "journal.page.titleprefix": "Revista:",
 
   // "journal.search.results.head": "Journal Search Results",
@@ -4698,8 +4829,11 @@
   // "journalissue.page.number": "Number",
   "journalissue.page.number": "Número de páginas",
 
-  // "journalissue.page.titleprefix": "Journal Issue:",
-  "journalissue.page.titleprefix": "Número de revista:",
+  // "journalissue.page.options": "Options",
+  "journalissue.page.options": "Opções",
+
+  // "journalissue.page.titleprefix": "Journal Issue: ",
+  "journalissue.page.titleprefix": "Número da revista:",
 
   // "journalissue.search.results.head": "Journal Issue Search Results",
   "journalissue.search.results.head": "Resultados da pesquisa de números da revista",
@@ -4716,7 +4850,10 @@
   // "journalvolume.page.issuedate": "Issue Date",
   "journalvolume.page.issuedate": "Data de publicação",
 
-  // "journalvolume.page.titleprefix": "Journal Volume:",
+  // "journalvolume.page.options": "Options",
+  "journalvolume.page.options": "Opções",
+
+  // "journalvolume.page.titleprefix": "Journal Volume: ",
   "journalvolume.page.titleprefix": "Volume da revista:",
 
   // "journalvolume.page.volume": "Volume",
@@ -4728,16 +4865,16 @@
   // "iiifsearchable.listelement.badge": "Document Media",
   "iiifsearchable.listelement.badge": "Media do documeo",
 
-  // "iiifsearchable.page.titleprefix": "Document:",
+  // "iiifsearchable.page.titleprefix": "Document: ",
   "iiifsearchable.page.titleprefix": "Documento:",
 
-  // "iiifsearchable.page.doi": "Permanent Link:",
+  // "iiifsearchable.page.doi": "Permanent Link: ",
   "iiifsearchable.page.doi": "URI permanente:",
 
-  // "iiifsearchable.page.issue": "Issue:",
+  // "iiifsearchable.page.issue": "Issue: ",
   "iiifsearchable.page.issue": "Número:",
 
-  // "iiifsearchable.page.description": "Description:",
+  // "iiifsearchable.page.description": "Description: ",
   "iiifsearchable.page.description": "Descrição:",
 
   // "iiifviewer.fullscreen.notice": "Use full screen for better viewing.",
@@ -4746,17 +4883,17 @@
   // "iiif.listelement.badge": "Image Media",
   "iiif.listelement.badge": "Media da imagem",
 
-  // "iiif.page.titleprefix": "Image:",
+  // "iiif.page.titleprefix": "Image: ",
   "iiif.page.titleprefix": "Imagem:",
 
-  // "iiif.page.doi": "Permanent Link:",
+  // "iiif.page.doi": "Permanent Link: ",
   "iiif.page.doi": "URI permanente:",
 
-  // "iiif.page.issue": "Issue:",
+  // "iiif.page.issue": "Issue: ",
   "iiif.page.issue": "Número:",
 
-  // "iiif.page.description": "Description:",
-  "iiif.page.description": "Description:",
+  // "iiif.page.description": "Description: ",
+  "iiif.page.description": "Descrição:",
 
   // "loading.bitstream": "Loading bitstream...",
   "loading.bitstream": "A carregar ficheiro...",
@@ -4825,8 +4962,8 @@
   "login.form.new-user": "Novo utilizador? Clique aqui para se registar.",
 
   // "login.form.or-divider": "or",
-  "login.form.or-divider": "ou",
-
+  "login.form.or-divider": "ou",                                   
+  
   // "login.form.oidc": "Log in with OIDC",
   "login.form.oidc": "Entrar com OIDC",
 
@@ -4935,6 +5072,9 @@
   // "menu.section.browse_global_communities_and_collections": "Communities & Collections",
   "menu.section.browse_global_communities_and_collections": "Comunidades & Coleções",
 
+  // "menu.section.browse_global_geospatial_map": "By Geolocation (Map)",
+  "menu.section.browse_global_geospatial_map": "Por geolocalização (Mapa)",
+
   // "menu.section.control_panel": "Control Panel",
   "menu.section.control_panel": "Painel de controle",
 
@@ -5006,7 +5146,7 @@
 
   // "menu.section.icon.pin": "Pin sidebar",
   "menu.section.icon.pin": "Fixar barra lateral",
-
+  
   // "menu.section.icon.processes": "Processes Health",
   "menu.section.icon.processes": "Processos diagnóstico",
 
@@ -5018,7 +5158,7 @@
 
   // "menu.section.icon.workflow": "Administer workflow menu section",
   "menu.section.icon.workflow": "Secção do menu de administração do fluxo de trabalho",
-
+  
   // "menu.section.icon.unpin": "Unpin sidebar",
   "menu.section.icon.unpin": "Soltar barra lateral",
 
@@ -5325,6 +5465,12 @@
   // "none.listelement.badge": "Item",
   "none.listelement.badge": "Item",
 
+  // "publication-claim.title": "Publication claim",
+  "publication-claim.title": "Reivindicação de publicação",
+
+  // "publication-claim.source.description": "Below you can see all the sources.",
+  "publication-claim.source.description": "Em baixo pode ver todas as fontes.",
+
   // "quality-assurance.title": "Quality Assurance",
   "quality-assurance.title": "Controlo de Qualidade",
 
@@ -5559,8 +5705,11 @@
   // "orgunit.page.id": "ID",
   "orgunit.page.id": "ID",
 
-  // "orgunit.page.titleprefix": "Organizational Unit:",
-  "orgunit.page.titleprefix": "Organização:",
+  // "orgunit.page.options": "Options",
+  "orgunit.page.options": "Opções",
+
+  // "orgunit.page.titleprefix": "Organizational Unit: ",
+  "orgunit.page.titleprefix": "Unidade organizacional:",
 
   // "orgunit.page.ror": "ROR Identifier",
   "orgunit.page.ror": "Identificador ROR",
@@ -5577,7 +5726,7 @@
   // "pagination.showing.detail": "{{ range }} of {{ total }}",
   "pagination.showing.detail": "{{ range }} de {{ total }}",
 
-  // "pagination.showing.label": "Now showing",
+  // "pagination.showing.label": "Now showing ",
   "pagination.showing.label": "A mostrar",
 
   // "pagination.sort-direction": "Sort Options",
@@ -5613,14 +5762,17 @@
   // "person.page.link.full": "Show all metadata",
   "person.page.link.full": "Mostrar todos os metadados",
 
+  // "person.page.options": "Options",
+  "person.page.options": "Opções",
+
   // "person.page.orcid": "ORCID",
   "person.page.orcid": "ORCID",
 
   // "person.page.staffid": "Staff ID",
   "person.page.staffid": "ID interno",
 
-  // "person.page.titleprefix": "Person:",
-  "person.page.titleprefix": "Pessoa:",
+  // "person.page.titleprefix": "Person: ",
+  "person.page.titleprefix": "Pessoa: ",
 
   // "person.search.results.head": "Person Search Results",
   "person.search.results.head": "Resultados da pesquisa de pessoas",
@@ -5856,7 +6008,7 @@
   // "process.bulk.delete.error.head": "Error on deleteing process",
   "process.bulk.delete.error.head": "Ocorreu um erro ao apagar os processos",
 
-  // "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted.",
+  // "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted. ",
   "process.bulk.delete.error.body": "O processo com  o ID {{{processId}} não pôde ser removido. Os restantes processos continuarão a ser removidos.",
 
   // "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
@@ -5879,10 +6031,10 @@
 
   // "profile.special.groups.head": "Authorization special groups you belong to",
   "profile.special.groups.head": "Autorização de grupos especiais aos quais pertence",
-
+  
   // "profile.head": "Update Profile",
   "profile.head": "Atualizar perfil",
-
+  
   // "profile.metadata.form.error.firstname.required": "First Name is required",
   "profile.metadata.form.error.firstname.required": "O preenchimento do nome é um elemento obrigatório!",
 
@@ -5979,11 +6131,14 @@
   // "project.page.keyword": "Keywords",
   "project.page.keyword": "Palavras-chave",
 
+  // "project.page.options": "Options",
+  "project.page.options": "Opções",
+
   // "project.page.status": "Status",
   "project.page.status": "Estado",
 
-  // "project.page.titleprefix": "Research Project:",
-  "project.page.titleprefix": "Projeto de investigação:",
+  // "project.page.titleprefix": "Research Project: ",
+  "project.page.titleprefix": "Projeto de investigação: ",
 
   // "project.search.results.head": "Project Search Results",
   "project.search.results.head": "Resultados da pesquisa de projetos",
@@ -6009,8 +6164,11 @@
   // "publication.page.publisher": "Publisher",
   "publication.page.publisher": "Editora",
 
-  // "publication.page.titleprefix": "Publication:",
-  "publication.page.titleprefix": "Publicação:",
+  // "publication.page.options": "Options",
+  "publication.page.options": "Opções",
+
+  // "publication.page.titleprefix": "Publication: ",
+  "publication.page.titleprefix": "Publicação: ",
 
   // "publication.page.volume-title": "Volume Title",
   "publication.page.volume-title": "Título do Volume",
@@ -6042,7 +6200,7 @@
   // "suggestion.title.breadcrumbs": "Publication Claim",
   "suggestion.title.breadcrumbs": "Reivindicar publicação",
 
-  // "suggestion.targets.description": "Below you can see all the suggestions",
+  // "suggestion.targets.description": "Below you can see all the suggestions ",
   "suggestion.targets.description": "Em baixo pode ver todas as sugestões",
 
   // "suggestion.targets": "Current Suggestions",
@@ -6057,7 +6215,7 @@
   // "suggestion.button.review": "Review {{ total }} suggestion(s)",
   "suggestion.button.review": "Rever {{ total }} sugestão(ões)",
 
-  // "suggestion.button.review.title": "Review {{ total }} suggestion(s) for",
+  // "suggestion.button.review.title": "Review {{ total }} suggestion(s) for ",
   "suggestion.button.review.title": "Rever {{ total }} sugestão(ões) para",
 
   // "suggestion.noTargets": "No target found.",
@@ -6084,7 +6242,7 @@
   // "suggestion.approveAndImport.bulk": "Approve & import Selected",
   "suggestion.approveAndImport.bulk": "Aprovar & importar selecionados",
 
-  // "suggestion.approveAndImport.bulk.success": "{{ count }} suggestions have been imported successfully",
+  // "suggestion.approveAndImport.bulk.success": "{{ count }} suggestions have been imported successfully ",
   "suggestion.approveAndImport.bulk.success": "{{ count }} sugestões foram importadas com sucesso",
 
   // "suggestion.approveAndImport.bulk.error": "{{ count }} suggestions haven't been imported due to unexpected server errors",
@@ -6099,7 +6257,7 @@
   // "suggestion.ignoreSuggestion.bulk": "Ignore Suggestion Selected",
   "suggestion.ignoreSuggestion.bulk": "Ignorar sugestão selecionada",
 
-  // "suggestion.ignoreSuggestion.bulk.success": "{{ count }} suggestions have been discarded",
+  // "suggestion.ignoreSuggestion.bulk.success": "{{ count }} suggestions have been discarded ",
   "suggestion.ignoreSuggestion.bulk.success": "{{ count }} sugestões foram rejeitadas",
 
   // "suggestion.ignoreSuggestion.bulk.error": "{{ count }} suggestions haven't been discarded due to unexpected server errors",
@@ -6120,7 +6278,10 @@
   // "suggestion.source.openaire": "OpenAIRE Graph",
   "suggestion.source.openaire": "OpenAIRE Graph",
 
-  // "suggestion.from.source": "from the",
+  // "suggestion.source.openalex": "OpenAlex",
+  "suggestion.source.openalex": "OpenAlex",
+
+  // "suggestion.from.source": "from the ",
   "suggestion.from.source": "do",
 
   // "suggestion.count.missing": "You have no publication claims left",
@@ -6318,7 +6479,7 @@
   // "relationships.isContributorOf": "Contributors",
   "relationships.isContributorOf": "Contribuidores",
 
-  // "relationships.isContributorOf.OrgUnit": "Contributor(Organizational Unit)",
+  // "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
   "relationships.isContributorOf.OrgUnit": "Colaborador(Unidade organizacional)",
 
   // "relationships.isContributorOf.Person": "Contributor",
@@ -6331,205 +6492,205 @@
   "repository.image.logo": "Logótipo do repositório",
 
   // "repository.title": "DSpace Repository",
-  "repository.title": "Repositório::",
+  "repository.title": "Repositório ::",
 
-  // "repository.title.prefix": "DSpace Repository::",
-  "repository.title.prefix": "Repositório::",
+  // "repository.title.prefix": "DSpace Repository :: ",
+  "repository.title.prefix": "Repositório :: ",
 
-  // "resource - policies.add.button": "Add",
-  "resource - policies.add.button": "Adicionar",
+  // "resource-policies.add.button": "Add",
+  "resource-policies.add.button": "Adicionar",
 
-  // "resource - policies.add.for.": "Add a new policy",
-  "resource - policies.add.for.": "Adicionar nova política",
+  // "resource-policies.add.for.": "Add a new policy",
+  "resource-policies.add.for.": "Adicionar nova política",
 
-  // "resource - policies.add.for.bitstream": "Add a new Bitstream policy",
-  "resource - policies.add.for.bitstream": "Adicionar uma nova política de fichiero",
+  // "resource-policies.add.for.bitstream": "Add a new Bitstream policy",
+  "resource-policies.add.for.bitstream": "Adicionar uma nova política de ficheiro",
 
-  // "resource - policies.add.for.bundle": "Add a new Bundle policy",
-  "resource - policies.add.for.bundle": "Adicionar uma nova política de pacote",
+  // "resource-policies.add.for.bundle": "Add a new Bundle policy",
+  "resource-policies.add.for.bundle": "Adicionar uma nova política de pacote",
 
-  // "resource - policies.add.for.item": "Add a new Item policy",
-  "resource - policies.add.for.item": "Adicionar uma nova política de Item",
+  // "resource-policies.add.for.item": "Add a new Item policy",
+  "resource-policies.add.for.item": "Adicionar uma nova política de item",
 
-  // "resource - policies.add.for.community": "Add a new Community policy",
-  "resource - policies.add.for.community": "Adicionar uma nova política de Comunidade",
+  // "resource-policies.add.for.community": "Add a new Community policy",
+  "resource-policies.add.for.community": "Adicionar uma nova política de comunidade",
 
-  // "resource - policies.add.for.collection": "Add a new Collection policy",
-  "resource - policies.add.for.collection": "Adicionar uma nova política de Coleção",
+  // "resource-policies.add.for.collection": "Add a new Collection policy",
+  "resource-policies.add.for.collection": "Adicionar uma nova política de coleção",
 
-  // "resource - policies.create.page.heading": "Create new resource policy for",
-  "resource - policies.create.page.heading": "Criar uma nova política de recursos para",
+  // "resource-policies.create.page.heading": "Create new resource policy for ",
+  "resource-policies.create.page.heading": "Criar uma nova política de recurso para ",
 
-  // "resource - policies.create.page.failure.content": "An error occurred while creating the resource policy.",
-  "resource - policies.create.page.failure.content": "Ocorreu um erro ao criar uma política de recursos.",
+  // "resource-policies.create.page.failure.content": "An error occurred while creating the resource policy.",
+  "resource-policies.create.page.failure.content": "Ocorreu um erro ao criar a política de recursos.",
 
-  // "resource - policies.create.page.success.content": "Operation successful",
-  "resource - policies.create.page.success.content": "Operação bem sucedida",
+  // "resource-policies.create.page.success.content": "Operation successful",
+  "resource-policies.create.page.success.content": "Operação bem sucedida",
 
-  // "resource - policies.create.page.title": "Create new resource policy",
-  "resource - policies.create.page.title": "Criar uma nova política de recursos",
+  // "resource-policies.create.page.title": "Create new resource policy",
+  "resource-policies.create.page.title": "Criar nova política de recursos",
 
-  // "resource - policies.delete.btn": "Delete selected",
-  "resource - policies.delete.btn": "Apagar selecionado",
+  // "resource-policies.delete.btn": "Delete selected",
+  "resource-policies.delete.btn": "Eliminar selecionado",
 
-  // "resource - policies.delete.btn.title": "Delete selected resource policies",
-  "resource - policies.delete.btn.title": "Apagar política de recurso selecionada",
+  // "resource-policies.delete.btn.title": "Delete selected resource policies",
+  "resource-policies.delete.btn.title": "Eliminar as políticas de recurso selecionadas",
 
-  // "resource - policies.delete.failure.content": "An error occurred while deleting selected resource policies.",
-  "resource - policies.delete.failure.content": "Ocorreu um erro ao apagar a política de recurso selecionada.",
+  // "resource-policies.delete.failure.content": "An error occurred while deleting selected resource policies.",
+  "resource-policies.delete.failure.content": "Ocorreu um erro ao eliminar as políticas de recurso selecionadas.",
 
-  // "resource - policies.delete.success.content": "Operation successful",
-  "resource - policies.delete.success.content": "Operação bem sucedida",
+  // "resource-policies.delete.success.content": "Operation successful",
+  "resource-policies.delete.success.content": "Operação bem sucedida",
 
-  // "resource - policies.edit.page.heading": "Edit resource policy",
-  "resource - policies.edit.page.heading": "Editar política de recurso",
+  // "resource-policies.edit.page.heading": "Edit resource policy ",
+  "resource-policies.edit.page.heading": "Editar política de recurso ",
 
-  // "resource - policies.edit.page.failure.content": "An error occurred while editing the resource policy.",
-  "resource - policies.edit.page.failure.content": "Ocorreu um erro ao editar a política de recurso.",
+  // "resource-policies.edit.page.failure.content": "An error occurred while editing the resource policy.",
+  "resource-policies.edit.page.failure.content": "Ocorreu um erro ao editar a política de recurso.",
 
-  // "resource - policies.edit.page.target - failure.content": "An error occurred while editing the target(ePerson or group)of the resource policy.",
-  "resource - policies.edit.page.target - failure.content": "Ocorreu um erro durante a edição da(ePerson ou grupo)da política de recursos.",
+  // "resource-policies.edit.page.target-failure.content": "An error occurred while editing the target (ePerson or group) of the resource policy.",
+  "resource-policies.edit.page.target-failure.content": "Ocorreu um erro ao editar o sujeito (pessoa ou grupo) da política de recursos.",
 
-  // "resource - policies.edit.page.other - failure.content": "An error occurred while editing the resource policy.The target(ePerson or group)has been successfully updated.",
-  "resource - policies.edit.page.other - failure.content": "Ocorreu um erro durante a edição da política de recursos.A(ePerson ou grupo)foi actualizado com sucesso.",
+  // "resource-policies.edit.page.other-failure.content": "An error occurred while editing the resource policy. The target (ePerson or group) has been successfully updated.",
+  "resource-policies.edit.page.other-failure.content": "Ocorreu um erro ao editar a política do recurso. O sujeito (utilizador ou grupo) foi atualizado com êxito.",
 
-  // "resource - policies.edit.page.success.content": "Operation successful",
-  "resource - policies.edit.page.success.content": "Operação bem sucedida",
+  // "resource-policies.edit.page.success.content": "Operation successful",
+  "resource-policies.edit.page.success.content": "Operação bem sucedida",
 
-  // "resource - policies.edit.page.title": "Edit resource policy",
-  "resource - policies.edit.page.title": "Editar política de recurso",
+  // "resource-policies.edit.page.title": "Edit resource policy",
+  "resource-policies.edit.page.title": "Editar política de recurso",
 
-  // "resource - policies.form.action - type.label": "Select the action type",
-  "resource - policies.form.action - type.label": "Selecione o tipo de ação",
+  // "resource-policies.form.action-type.label": "Select the action type",
+  "resource-policies.form.action-type.label": "Selecionar o tipo de ação",
 
-  // "resource - policies.form.action - type.required": "You must select the resource policy action.",
-  "resource - policies.form.action - type.required": "Deve selecionar a ação da política de recurso.",
+  // "resource-policies.form.action-type.required": "You must select the resource policy action.",
+  "resource-policies.form.action-type.required": "É necessário selecionar a ação da política de recurso.",
 
-  // "resource - policies.form.eperson - group - list.label": "The eperson or group that will be granted the permission",
-  "resource - policies.form.eperson - group - list.label": "O utilizador ou grupo ao qual serão atribuídas as permissões",
+  // "resource-policies.form.eperson-group-list.label": "The eperson or group that will be granted the permission",
+  "resource-policies.form.eperson-group-list.label": "O utilizador ou grupo a quem será concedida a autorização",
 
-  // "resource - policies.form.eperson - group - list.select.btn": "Select",
-  "resource - policies.form.eperson - group - list.select.btn": "Seleccionar",
+  // "resource-policies.form.eperson-group-list.select.btn": "Select",
+  "resource-policies.form.eperson-group-list.select.btn": "Selecionar",
 
-  // "resource - policies.form.eperson - group - list.tab.eperson": "Search for a ePerson",
-  "resource - policies.form.eperson - group - list.tab.eperson": "Pesquisar um utilizador",
+  // "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
+  "resource-policies.form.eperson-group-list.tab.eperson": "Procurar um utilizador",
 
-  // "resource - policies.form.eperson - group - list.tab.group": "Search for a group",
-  "resource - policies.form.eperson - group - list.tab.group": "Pesquisar um grupo",
+  // "resource-policies.form.eperson-group-list.tab.group": "Search for a group",
+  "resource-policies.form.eperson-group-list.tab.group": "Procurar um grupo",
 
-  // "resource - policies.form.eperson - group - list.table.headers.action": "Action",
-  "resource - policies.form.eperson - group - list.table.headers.action": "Ação",
+  // "resource-policies.form.eperson-group-list.table.headers.action": "Action",
+  "resource-policies.form.eperson-group-list.table.headers.action": "Ação",
 
-  // "resource - policies.form.eperson - group - list.table.headers.id": "ID",
-  "resource - policies.form.eperson - group - list.table.headers.id": "ID",
+  // "resource-policies.form.eperson-group-list.table.headers.id": "ID",
+  "resource-policies.form.eperson-group-list.table.headers.id": "ID",
 
-  // "resource - policies.form.eperson - group - list.table.headers.name": "Name",
-  "resource - policies.form.eperson - group - list.table.headers.name": "Nome",
+  // "resource-policies.form.eperson-group-list.table.headers.name": "Name",
+  "resource-policies.form.eperson-group-list.table.headers.name": "Nome",
 
-  // "resource - policies.form.eperson - group - list.modal.header": "Cannot change type",
-  "resource - policies.form.eperson - group - list.modal.header": "Não pode mudar de tipo",
+  // "resource-policies.form.eperson-group-list.modal.header": "Cannot change type",
+  "resource-policies.form.eperson-group-list.modal.header": "Não é possível alterar o tipo",
 
-  // "resource - policies.form.eperson - group - list.modal.text1.toGroup": "It is not possible to replace an ePerson with a group.",
-  "resource - policies.form.eperson - group - list.modal.text1.toGroup": "Não é possível substituir um utilizador por um grupo.",
+  // "resource-policies.form.eperson-group-list.modal.text1.toGroup": "It is not possible to replace an ePerson with a group.",
+  "resource-policies.form.eperson-group-list.modal.text1.toGroup": "Não é possível substituir um utilizador por um grupo.",
 
-  // "resource - policies.form.eperson - group - list.modal.text1.toEPerson": "It is not possible to replace a group with an ePerson.",
-  "resource - policies.form.eperson - group - list.modal.text1.toEPerson": "Não é possível substituir um grupo por uma ePerson.",
+  // "resource-policies.form.eperson-group-list.modal.text1.toEPerson": "It is not possible to replace a group with an ePerson.",
+  "resource-policies.form.eperson-group-list.modal.text1.toEPerson": "Não é possível substituir um grupo por um utilizador.",
 
-  // "resource - policies.form.eperson - group - list.modal.text2": "Delete the current resource policy and create a new one with the desired type.",
-  "resource - policies.form.eperson - group - list.modal.text2": "Eliminar a política actual de recursos e criar uma nova política com o tipo desejado.",
+  // "resource-policies.form.eperson-group-list.modal.text2": "Delete the current resource policy and create a new one with the desired type.",
+  "resource-policies.form.eperson-group-list.modal.text2": "Eliminar a política de recursos atual e criar uma nova com o tipo pretendido.",
 
-  // "resource - policies.form.eperson - group - list.modal.close": "Ok",
-  "resource - policies.form.eperson - group - list.modal.close": "Ok",
+  // "resource-policies.form.eperson-group-list.modal.close": "Ok",
+  "resource-policies.form.eperson-group-list.modal.close": "Ok",
 
-  // "resource - policies.form.date.end.label": "End Date",
-  "resource - policies.form.date.end.label": "Data de término",
+  // "resource-policies.form.date.end.label": "End Date",
+  "resource-policies.form.date.end.label": "Data de término",
 
-  // "resource - policies.form.date.start.label": "Start Date",
-  "resource - policies.form.date.start.label": "Data de início",
+  // "resource-policies.form.date.start.label": "Start Date",
+  "resource-policies.form.date.start.label": "Data de início",
 
-  // "resource - policies.form.description.label": "Description",
-  "resource - policies.form.description.label": "Descrição",
+  // "resource-policies.form.description.label": "Description",
+  "resource-policies.form.description.label": "Descrição",
 
-  // "resource - policies.form.name.label": "Name",
-  "resource - policies.form.name.label": "Nome",
+  // "resource-policies.form.name.label": "Name",
+  "resource-policies.form.name.label": "Nome",
 
-  // "resource - policies.form.name.hint": "Max 30 characters",
-  "resource - policies.form.name.hint": "Máximo 30 characters",
+  // "resource-policies.form.name.hint": "Max 30 characters",
+  "resource-policies.form.name.hint": "Máximo 30 carateres",
 
-  // "resource - policies.form.policy - type.label": "Select the policy type",
-  "resource - policies.form.policy - type.label": "Selecione o tipo de política",
+  // "resource-policies.form.policy-type.label": "Select the policy type",
+  "resource-policies.form.policy-type.label": "Selecionar o tipo de política",
 
-  // "resource - policies.form.policy - type.required": "You must select the resource policy type.",
-  "resource - policies.form.policy - type.required": "Deve selecionar um tipo de política de recurso.",
+  // "resource-policies.form.policy-type.required": "You must select the resource policy type.",
+  "resource-policies.form.policy-type.required": "Deve selecionar o tipo de política de recurso.",
 
-  // "resource - policies.table.headers.action": "Action",
-  "resource - policies.table.headers.action": "Ação",
+  // "resource-policies.table.headers.action": "Action",
+  "resource-policies.table.headers.action": "Ação",
 
-  // "resource - policies.table.headers.date.end": "End Date",
-  "resource - policies.table.headers.date.end": "Data de término",
+  // "resource-policies.table.headers.date.end": "End Date",
+  "resource-policies.table.headers.date.end": "Data de término",
 
-  // "resource - policies.table.headers.date.start": "Start Date",
-  "resource - policies.table.headers.date.start": "Data de início",
+  // "resource-policies.table.headers.date.start": "Start Date",
+  "resource-policies.table.headers.date.start": "Data de início",
 
-  // "resource - policies.table.headers.edit": "Edit",
-  "resource - policies.table.headers.edit": "Editar",
+  // "resource-policies.table.headers.edit": "Edit",
+  "resource-policies.table.headers.edit": "Editar",
 
-  // "resource - policies.table.headers.edit.group": "Edit group",
-  "resource - policies.table.headers.edit.group": "Editar grupo",
+  // "resource-policies.table.headers.edit.group": "Edit group",
+  "resource-policies.table.headers.edit.group": "Editar grupo",
 
-  // "resource - policies.table.headers.edit.policy": "Edit policy",
-  "resource - policies.table.headers.edit.policy": "Editar política",
+  // "resource-policies.table.headers.edit.policy": "Edit policy",
+  "resource-policies.table.headers.edit.policy": "Editar política",
 
-  // "resource - policies.table.headers.eperson": "EPerson",
-  "resource - policies.table.headers.eperson": "Utilizador",
+  // "resource-policies.table.headers.eperson": "EPerson",
+  "resource-policies.table.headers.eperson": "Utilizador",
 
-  // "resource - policies.table.headers.group": "Group",
-  "resource - policies.table.headers.group": "Grupo",
+  // "resource-policies.table.headers.group": "Group",
+  "resource-policies.table.headers.group": "Grupo",
 
-  // "resource - policies.table.headers.select - all": "Select all",
-  "resource - policies.table.headers.select - all": "Selecionar tudo",
+  // "resource-policies.table.headers.select-all": "Select all",
+  "resource-policies.table.headers.select-all": "Selecionar tudo",
 
-  // "resource - policies.table.headers.deselect - all": "Deselect all",
-  "resource - policies.table.headers.deselect - all": "Desmarcar tudo",
+  // "resource-policies.table.headers.deselect-all": "Deselect all",
+  "resource-policies.table.headers.deselect-all": "Desmarcar tudo",
 
-  // "resource - policies.table.headers.select": "Select",
-  "resource - policies.table.headers.select": "Selecionar",
+  // "resource-policies.table.headers.select": "Select",
+  "resource-policies.table.headers.select": "Selecionar",
 
-  // "resource - policies.table.headers.deselect": "Deselect",
-  "resource - policies.table.headers.deselect": "Desmarcar",
+  // "resource-policies.table.headers.deselect": "Deselect",
+  "resource-policies.table.headers.deselect": "Desmarcar",
 
-  // "resource - policies.table.headers.id": "ID",
-  "resource - policies.table.headers.id": "ID",
+  // "resource-policies.table.headers.id": "ID",
+  "resource-policies.table.headers.id": "ID",
 
-  // "resource - policies.table.headers.name": "Name",
-  "resource - policies.table.headers.name": "Nome",
+  // "resource-policies.table.headers.name": "Name",
+  "resource-policies.table.headers.name": "Nome",
 
-  // "resource - policies.table.headers.policyType": "type",
-  "resource - policies.table.headers.policyType": "tipo",
+  // "resource-policies.table.headers.policyType": "type",
+  "resource-policies.table.headers.policyType": "tipo",
 
-  // "resource - policies.table.headers.title.for.bitstream": "Policies for Bitstream",
-  "resource - policies.table.headers.title.for.bitstream": "Política de ficheiros",
+  // "resource-policies.table.headers.title.for.bitstream": "Policies for Bitstream",
+  "resource-policies.table.headers.title.for.bitstream": "Políticas para ficheiro",
 
-  // "resource - policies.table.headers.title.for.bundle": "Policies for Bundle",
-  "resource - policies.table.headers.title.for.bundle": "Políticas para pacote",
+  // "resource-policies.table.headers.title.for.bundle": "Policies for Bundle",
+  "resource-policies.table.headers.title.for.bundle": "Políticas para pacote",
 
-  // "resource - policies.table.headers.title.for.item": "Policies for Item",
-  "resource - policies.table.headers.title.for.item": "Políticas para item",
+  // "resource-policies.table.headers.title.for.item": "Policies for Item",
+  "resource-policies.table.headers.title.for.item": "Políticas para item",
 
-  // "resource - policies.table.headers.title.for.community": "Policies for Community",
-  "resource - policies.table.headers.title.for.community": "Políticas para comunidade",
+  // "resource-policies.table.headers.title.for.community": "Policies for Community",
+  "resource-policies.table.headers.title.for.community": "Políticas para comunidade",
 
-  // "resource - policies.table.headers.title.for.collection": "Policies for Collection",
-  "resource - policies.table.headers.title.for.collection": "Políticas para coleção",
+  // "resource-policies.table.headers.title.for.collection": "Policies for Collection",
+  "resource-policies.table.headers.title.for.collection": "Políticas para coleção",
 
-  // "root.skip - to - content": "Skip to main content",
-  "root.skip - to - content": "Ir para o conteúdo principal",
+  // "root.skip-to-content": "Skip to main content",
+  "root.skip-to-content": "Ir para o conteúdo principal",
 
   // "search.description": "",
   "search.description": "",
 
-  // "search.switch - configuration.title": "Show",
-  "search.switch - configuration.title": "Mostrar",
+  // "search.switch-configuration.title": "Show",
+  "search.switch-configuration.title": "Mostrar",
 
   // "search.title": "Search",
   "search.title": "Pesquisa",
@@ -6537,8 +6698,8 @@
   // "search.breadcrumbs": "Search",
   "search.breadcrumbs": "Pesquisar",
 
-  // "search.search - form.placeholder": "Search the repository...",
-  "search.search - form.placeholder": "Pesquisar no repositório...",
+  // "search.search-form.placeholder": "Search the repository ...",
+  "search.search-form.placeholder": "Pesquisar no repositório...",
 
   // "search.filters.remove": "Remove filter of type {{ type }} with value {{ value }}",
   "search.filters.remove": "Remover filtro de tipo {{ type }} com valor {{ value }}",
@@ -6558,8 +6719,8 @@
   // "search.filters.applied.f.dateSubmitted": "Date submitted",
   "search.filters.applied.f.dateSubmitted": "Data de depósito",
 
-  // "search.filters.applied.f.discoverable": "Non - discoverable",
-  "search.filters.applied.f.discoverable": "Privado",
+  // "search.filters.applied.f.discoverable": "Non-discoverable",
+  "search.filters.applied.f.discoverable": "Não detetável",
 
   // "search.filters.applied.f.entityType": "Item Type",
   "search.filters.applied.f.entityType": "Tipo de item",
@@ -6572,6 +6733,9 @@
 
   // "search.filters.applied.f.original_bundle_descriptions": "File description",
   "search.filters.applied.f.original_bundle_descriptions": "Descrição do ficheiro",
+  
+  // "search.filters.applied.f.has_geospatial_metadata": "Has geographical location",
+  "search.filters.applied.f.has_geospatial_metadata": "Tem localização geográfica",
 
   // "search.filters.applied.f.itemtype": "Type",
   "search.filters.applied.f.itemtype": "Tipo",
@@ -6603,23 +6767,26 @@
   // "search.filters.applied.operator.equals": "",
   "search.filters.applied.operator.equals": "",
 
-  // "search.filters.applied.operator.notequals": "not equals",
+  // "search.filters.applied.operator.notequals": " not equals",
   "search.filters.applied.operator.notequals": "não é igual",
 
   // "search.filters.applied.operator.authority": "",
   "search.filters.applied.operator.authority": "",
 
-  // "search.filters.applied.operator.notauthority": "not authority",
+  // "search.filters.applied.operator.notauthority": " not authority",
   "search.filters.applied.operator.notauthority": "não autoridade",
 
-  // "search.filters.applied.operator.contains": "contains",
+  // "search.filters.applied.operator.contains": " contains",
   "search.filters.applied.operator.contains": "contém",
 
-  // "search.filters.applied.operator.notcontains": "not contains",
-  "search.filters.applied.operator.notcontains": "não comtém",
+  // "search.filters.applied.operator.notcontains": " not contains",
+  "search.filters.applied.operator.notcontains": "não contém",
 
   // "search.filters.applied.operator.query": "",
   "search.filters.applied.operator.query": "",
+
+  // "search.filters.applied.f.point": "Coordinates",
+  "search.filters.applied.f.point": "Coordenadas",
 
   // "search.filters.filter.title.head": "Title",
   "search.filters.filter.title.head": "Título",
@@ -6711,8 +6878,8 @@
   // "search.filters.filter.dateSubmitted.label": "Search date submitted",
   "search.filters.filter.dateSubmitted.label": "Procurar data de depósito",
 
-  // "search.filters.filter.discoverable.head": "Non - discoverable",
-  "search.filters.filter.discoverable.head": "Privado",
+  // "search.filters.filter.discoverable.head": "Non-discoverable",
+  "search.filters.filter.discoverable.head": "Não detetável",
 
   // "search.filters.filter.withdrawn.head": "Withdrawn",
   "search.filters.filter.withdrawn.head": "Retirado",
@@ -6734,6 +6901,9 @@
 
   // "search.filters.filter.original_bundle_filenames.head": "File name",
   "search.filters.filter.original_bundle_filenames.head": "Nome do ficheiro",
+
+  // "search.filters.filter.has_geospatial_metadata.head": "Has geographical location",
+  "search.filters.filter.has_geospatial_metadata.head": "Tem localização geográfica",
 
   // "search.filters.filter.original_bundle_filenames.placeholder": "File name",
   "search.filters.filter.original_bundle_filenames.placeholder": "Nome do ficheiro",
@@ -6831,11 +7001,11 @@
   // "search.filters.filter.scope.label": "Search scope filter",
   "search.filters.filter.scope.label": "Filtro do âmbito da pesquisa",
 
-  // "search.filters.filter.show - less": "Collapse",
-  "search.filters.filter.show - less": "Colapsar",
+  // "search.filters.filter.show-less": "Collapse",
+  "search.filters.filter.show-less": "Colapsar",
 
-  // "search.filters.filter.show - more": "Show more",
-  "search.filters.filter.show - more": "Expandir",
+  // "search.filters.filter.show-more": "Show more",
+  "search.filters.filter.show-more": "Expandir",
 
   // "search.filters.filter.subject.head": "Subject",
   "search.filters.filter.subject.head": "Assunto",
@@ -6855,8 +7025,8 @@
   // "search.filters.filter.submitter.label": "Search submitter",
   "search.filters.filter.submitter.label": "Procurar depositante",
 
-  // "search.filters.filter.show - tree": "Browse {{ name }} tree",
-  "search.filters.filter.show - tree": "Percorrer por hierarquia de {{ name }}",
+  // "search.filters.filter.show-tree": "Browse {{ name }} tree",
+  "search.filters.filter.show-tree": "Percorrer por hierarquia de {{ name }}",
 
   // "search.filters.filter.funding.head": "Funding",
   "search.filters.filter.funding.head": "Financiamento",
@@ -6906,6 +7076,12 @@
   // "search.filters.has_content_in_original_bundle.false": "No",
   "search.filters.has_content_in_original_bundle.false": "Não",
 
+  // "search.filters.has_geospatial_metadata.true": "Yes",
+  "search.filters.has_geospatial_metadata.true": "Sim",
+
+  // "search.filters.has_geospatial_metadata.false": "No",
+  "search.filters.has_geospatial_metadata.false": "Não",
+
   // "search.filters.discoverable.true": "No",
   "search.filters.discoverable.true": "Não",
 
@@ -6919,7 +7095,7 @@
   "search.filters.namedresourcetype.Validation": "Em validação",
 
   // "search.filters.namedresourcetype.Waiting for Controller": "Waiting for reviewer",
-  "search.filters.namedresourcetype.Waiting for Controller": "Aguarda validador",
+  "search.filters.namedresourcetype.Waiting for Controller": "Aguarda por revisor",
 
   // "search.filters.namedresourcetype.Workflow": "Workflow",
   "search.filters.namedresourcetype.Workflow": "Em fluxo de trabalho",
@@ -6975,7 +7151,7 @@
   // "search.results.head": "Search Results",
   "search.results.head": "Resultados da pesquisa",
 
-  // "search.results.no - results": "Your search returned no results.Having trouble finding what you 're looking for? Try putting",
+  // "search.results.no-results": "Your search returned no results. Having trouble finding what you're looking for? Try putting",
   "search.results.no-results": "Sua pesquisa não retornou resultados. Tem dificuldade em encontrar o que procura? Tente incluir",
 
   // "search.results.no-results-link": "quotes around it",
@@ -6983,6 +7159,9 @@
 
   // "search.results.empty": "Your search returned no results.",
   "search.results.empty": "A sua pesquisa não retornou resultados.",
+
+  // "search.results.geospatial-map.empty": "No results on this page with geospatial locations",
+  "search.results.geospatial-map.empty": "Não existem resultados nesta página com localizações geoespaciais",
 
   // "search.results.view-result": "View",
   "search.results.view-result": "Ver",
@@ -7040,6 +7219,9 @@
 
   // "search.view-switch.show-list": "Show as list",
   "search.view-switch.show-list": "Mostrar como lista",
+
+  // "search.view-switch.show-geospatialMap": "Show as map",
+  "search.view-switch.show-geospatialMap": "Mostrar como mapa",
 
   // "selectable-list-item-control.deselect": "Deselect item",
   "selectable-list-item-control.deselect": "Desmarcar item",
@@ -7146,7 +7328,7 @@
   // "submission.general.cancel": "Cancel",
   "submission.general.cancel": "Cancelar",
 
-  // "submission.general.cannot_submit": "You don' t have permission to make a new submission.",
+  // "submission.general.cannot_submit": "You don't have permission to make a new submission.",
   "submission.general.cannot_submit": "Não possui permissões para fazer um novo depósito.",
 
   // "submission.general.deposit": "Deposit",
@@ -7155,10 +7337,10 @@
   // "submission.general.discard.confirm.cancel": "Cancel",
   "submission.general.discard.confirm.cancel": "Cancelar",
 
-  // "submission.general.discard.confirm.info": "This operation can 't be undone. Are you sure?",
+  // "submission.general.discard.confirm.info": "This operation can't be undone. Are you sure?",
   "submission.general.discard.confirm.info": "Esta operação não pode ser desfeita. Tem certeza?",
 
-  // "submission.general.discard.confirm.submit": "Yes, I' m sure",
+  // "submission.general.discard.confirm.submit": "Yes, I'm sure",
   "submission.general.discard.confirm.submit": "Sim, tenho certeza",
 
   // "submission.general.discard.confirm.title": "Discard submission",
@@ -7173,230 +7355,257 @@
   // "submission.general.info.saved": "Saved",
   "submission.general.info.saved": "Informação guardada",
 
-  // "submission.general.info.pending - changes": "Unsaved changes",
-  "submission.general.info.pending - changes": "Alterações não guardadas",
+  // "submission.general.info.pending-changes": "Unsaved changes",
+  "submission.general.info.pending-changes": "Alterações não guardadas",
 
   // "submission.general.save": "Save",
   "submission.general.save": "Guardar",
 
-  // "submission.general.save - later": "Save for later",
-  "submission.general.save - later": "Guardar e fechar",
+  // "submission.general.save-later": "Save for later",
+  "submission.general.save-later": "Guardar e fechar",
 
-  // "submission.import - external.page.title": "Import metadata from an external source",
-  "submission.import - external.page.title": "Importar metadados de uma fonte externa",
+  // "submission.import-external.page.title": "Import metadata from an external source",
+  "submission.import-external.page.title": "Importar metadados de uma fonte externa",
 
-  // "submission.import - external.title": "Import metadata from an external source",
-  "submission.import - external.title": "Importar metadados de uma fonte externa",
+  // "submission.import-external.title": "Import metadata from an external source",
+  "submission.import-external.title": "Importar metadados de uma fonte externa",
 
-  // "submission.import - external.title.Journal": "Import a journal from an external source",
-  "submission.import - external.title.Journal": "Importar revista de uma fonte externa",
+  // "submission.import-external.title.Journal": "Import a journal from an external source",
+  "submission.import-external.title.Journal": "Importar uma revista de uma fonte externa",
 
-  // "submission.import - external.title.JournalIssue": "Import a journal issue from an external source",
-  "submission.import - external.title.JournalIssue": "Importar o número de um revista de um fonte externa",
+  // "submission.import-external.title.JournalIssue": "Import a journal issue from an external source",
+  "submission.import-external.title.JournalIssue": "Importar o número de uma revista de uma fonte externa",
 
-  // "submission.import - external.title.JournalVolume": "Import a journal volume from an external source",
-  "submission.import - external.title.JournalVolume": "Importar o volume de uma revista de fonte externa",
+  // "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
+  "submission.import-external.title.JournalVolume": "Importar o volume de uma revista de uma fonte externa",
 
-  // "submission.import - external.title.OrgUnit": "Import a publisher from an external source",
-  "submission.import - external.title.OrgUnit": "Importar editora de uma fonte externa",
+  // "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
+  "submission.import-external.title.OrgUnit": "Importar uma editora de uma fonte externa",
 
-  // "submission.import - external.title.Person": "Import a person from an external source",
-  "submission.import - external.title.Person": "Importar pessoa de uma fonte externa",
+  // "submission.import-external.title.Person": "Import a person from an external source",
+  "submission.import-external.title.Person": "Importar uma pessoa de uma fonte externa",
 
-  // "submission.import - external.title.Project": "Import a project from an external source",
-  "submission.import - external.title.Project": "Importar projeto de uma fonte externa",
+  // "submission.import-external.title.Project": "Import a project from an external source", 
+  "submission.import-external.title.Project": "Importar um projeto de uma fonte externa",
 
-  // "submission.import - external.title.Publication": "Import a publication from an external source",
-  "submission.import - external.title.Publication": "Importar uma publicação de uma fonte externa",
+  // "submission.import-external.title.Publication": "Import a publication from an external source",
+  "submission.import-external.title.Publication": "Importar uma publicação de uma fonte externa",
 
-  // "submission.import - external.title.none": "Import metadata from an external source",
-  "submission.import - external.title.none": "Importar metadados de uma fonte externa",
+  // "submission.import-external.title.none": "Import metadata from an external source",
+  "submission.import-external.title.none": "Importar metadados de uma fonte externa",
 
-  // "submission.import - external.page.hint": "Enter a query above to find items from the web to import in to DSpace.",
-  "submission.import - external.page.hint": "Pesquise itens abaixo disponíveis na internet para que sejam importados para o repositório.",
+  // "submission.import-external.page.hint": "Enter a query above to find items from the web to import in to DSpace.",
+  "submission.import-external.page.hint": "Efetue uma pesquisa em cima para procurar itens na Internet e importar para o repositório.",
 
-  // "submission.import - external.back - to - my - dspace": "Back to MyDSpace",
-  "submission.import - external.back - to - my - dspace": "Voltar à 'Minha área pessoal'",
+  // "submission.import-external.back-to-my-dspace": "Back to MyDSpace",
+  "submission.import-external.back-to-my-dspace": "Voltar à 'Minha área pessoal'",
 
-  // "submission.import - external.search.placeholder": "Search the external source",
-  "submission.import - external.search.placeholder": "Pesquisar em fonte externa",
+  // "submission.import-external.search.placeholder": "Search the external source",
+  "submission.import-external.search.placeholder": "Pesquisar a fonte externa",
 
-  // "submission.import - external.search.button": "Search",
-  "submission.import - external.search.button": "Pesquisar",
+  // "submission.import-external.search.button": "Search",
+  "submission.import-external.search.button": "Pesquisar",
 
-  // "submission.import - external.search.button.hint": "Write some words to search",
-  "submission.import - external.search.button.hint": "Escreva algumas palavras para pesquisar",
+  // "submission.import-external.search.button.hint": "Write some words to search",
+  "submission.import-external.search.button.hint": "Escreva algumas palavras para pesquisar",
 
-  // "submission.import - external.search.source.hint": "Pick an external source",
-  "submission.import - external.search.source.hint": "Selecione uma fonte externa",
+  // "submission.import-external.search.source.hint": "Pick an external source",
+  "submission.import-external.search.source.hint": "Selecione uma fonte externa",
 
-  // "submission.import - external.source.arxiv": "arXiv",
-  "submission.import - external.source.arxiv": "arXiv",
+  // "submission.import-external.source.arxiv": "arXiv",
+  "submission.import-external.source.arxiv": "arXiv",
 
-  // "submission.import - external.source.ads": "NASA / ADS",
-  "submission.import - external.source.ads": "NASA / ADS",
+  // "submission.import-external.source.ads": "NASA/ADS",
+  "submission.import-external.source.ads": "NASA/ADS",
 
-  // "submission.import - external.source.cinii": "CiNii",
-  "submission.import - external.source.cinii": "CiNii",
+  // "submission.import-external.source.cinii": "CiNii",
+  "submission.import-external.source.cinii": "CiNii",
 
-  // "submission.import - external.source.crossref": "Crossref",
-  "submission.import - external.source.crossref": "Crossref",
+  // "submission.import-external.source.crossref": "CrossRef",
+  "submission.import-external.source.crossref": "CrossRef",
 
-  // "submission.import - external.source.datacite": "DataCite",
-  "submission.import - external.source.datacite": "DataCite",
+  // "submission.import-external.source.datacite": "DataCite",
+  "submission.import-external.source.datacite": "DataCite",
 
   // "submission.import-external.source.dataciteProject": "DataCite",
   "submission.import-external.source.dataciteProject": "Projeto DataCite",
 
-  // "submission.import - external.source.doi": "DOI",
-  "submission.import - external.source.doi": "DOI",
+  // "submission.import-external.source.doi": "DOI",
+  "submission.import-external.source.doi": "DOI",
 
-  // "submission.import - external.source.scielo": "SciELO",
-  "submission.import - external.source.scielo": "SciELO",
+  // "submission.import-external.source.scielo": "SciELO",
+  "submission.import-external.source.scielo": "SciELO",
 
-  // "submission.import - external.source.scopus": "Scopus",
-  "submission.import - external.source.scopus": "Scopus",
+  // "submission.import-external.source.scopus": "Scopus",
+  "submission.import-external.source.scopus": "Scopus",
 
-  // "submission.import - external.source.vufind": "VuFind",
-  "submission.import - external.source.vufind": "VuFind",
+  // "submission.import-external.source.vufind": "VuFind",
+  "submission.import-external.source.vufind": "VuFind",
 
-  // "submission.import - external.source.wos": "Web of Science",
-  "submission.import - external.source.wos": "Web of Science",
+  // "submission.import-external.source.wos": "Web of Science",
+  "submission.import-external.source.wos": "Web of Science",
 
-  // "submission.import - external.source.orcidWorks": "ORCID",
-  "submission.import - external.source.orcidWorks": "ORCID",
+  // "submission.import-external.source.orcidWorks": "ORCID",
+  "submission.import-external.source.orcidWorks": "ORCID",
 
-  // "submission.import - external.source.epo": "European Patent Office(EPO)",
-  "submission.import - external.source.epo": "European Patent Office(EPO)",
+  // "submission.import-external.source.epo": "European Patent Office (EPO)",
+  "submission.import-external.source.epo": "European Patent Office (EPO)",
 
-  // "submission.import - external.source.loading": "Loading...",
-  "submission.import - external.source.loading": "A carregar...",
+  // "submission.import-external.source.loading": "Loading ...",
+  "submission.import-external.source.loading": "A carregar...",
 
-  // "submission.import - external.source.sherpaJournal": "SHERPA Journals",
-  "submission.import - external.source.sherpaJournal": "Revistas SHERPA",
+  // "submission.import-external.source.sherpaJournal": "SHERPA Journals",
+  "submission.import-external.source.sherpaJournal": "Revistas via 'Open Policy Finder'",
 
-  // "submission.import - external.source.sherpaJournalIssn": "SHERPA Journals by ISSN",
-  "submission.import - external.source.sherpaJournalIssn": "Revistas SHERPA por ISSN",
+  // "submission.import-external.source.sherpaJournalIssn": "SHERPA Journals by ISSN",
+  "submission.import-external.source.sherpaJournalIssn": "Revistas 'Open Policy Finder' por ISSN",
 
-  // "submission.import - external.source.sherpaPublisher": "SHERPA Publishers",
-  "submission.import - external.source.sherpaPublisher": "Editoras SHERPA",
+  // "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
+  "submission.import-external.source.sherpaPublisher": "Editoras via 'Open Policy Finder'",
 
-  // "submission.import - external.source.openaire": "OpenAIRE Search by Authors",
-  "submission.import - external.source.openaire": "OpenAIRE pesquisar por autores",
+  // "submission.import-external.source.openaire": "OpenAIRE Search by Authors",
+  "submission.import-external.source.openaire": "Pesquisa 'OpenAIRE' por autores",
 
-  // "submission.import - external.source.openaireTitle": "OpenAIRE Search by Title",
-  "submission.import - external.source.openaireTitle": "OpenAIRE pesquisar por título",
+  // "submission.import-external.source.openaireTitle": "OpenAIRE Search by Title",
+  "submission.import-external.source.openaireTitle": "Pesquisa 'OpenAIRE' por título",
 
-  // "submission.import - external.source.openaireFunding": "OpenAIRE Search by Funder",
-  "submission.import - external.source.openaireFunding": "OpenAIRE pesquisar por financiador",
+  // "submission.import-external.source.openaireFunding": "OpenAIRE Search by Funder",
+  "submission.import-external.source.openaireFunding": "Pesquisa 'OpenAIRE' por financiador",
 
-  // "submission.import - external.source.orcid": "ORCID",
-  "submission.import - external.source.orcid": "ORCID",
+  // "submission.import-external.source.orcid": "ORCID",
+  "submission.import-external.source.orcid": "ORCID",
 
-  // "submission.import - external.source.pubmed": "PubMed",
-  "submission.import - external.source.pubmed": "PubMed",
+  // "submission.import-external.source.pubmed": "PubMed",
+  "submission.import-external.source.pubmed": "PubMed",
 
-  // "submission.import - external.source.pubmedeu": "PubMed Europe",
-  "submission.import - external.source.pubmedeu": "PubMed Europa",
+  // "submission.import-external.source.pubmedeu": "PubMed Europe",
+  "submission.import-external.source.pubmedeu": "PubMed Europa",
 
-  // "submission.import - external.source.lcname": "Library of Congress Names",
-  "submission.import - external.source.lcname": "Nomes da Library of Congress",
+  // "submission.import-external.source.lcname": "Library of Congress Names",
+  "submission.import-external.source.lcname": "Nomes via Library of Congress",
 
-  // "submission.import - external.source.ror": "Research Organization Registry(ROR)",
-  "submission.import - external.source.ror": "Research Organization Registry(ROR)",
+  // "submission.import-external.source.ror": "Research Organization Registry (ROR)",
+  "submission.import-external.source.ror": "Research Organization Registry (ROR)",
 
-  // "submission.import - external.preview.title": "Item Preview",
-  "submission.import - external.preview.title": "Pré-visualização do item",
+  // "submission.import-external.source.openalexPublication": "OpenAlex Search by Title",
+  "submission.import-external.source.openalexPublication": "Pesquisa 'OpenAlex' por título",
 
-  // "submission.import - external.preview.title.Publication": "Publication Preview",
-  "submission.import - external.preview.title.Publication": "Pré-visualização da publicação",
+  // "submission.import-external.source.openalexPublicationByAuthorId": "OpenAlex Search by Author ID",
+  "submission.import-external.source.openalexPublicationByAuthorId": "Pesquisa 'OpenAlex' ID autor",
 
-  // "submission.import - external.preview.title.none": "Item Preview",
-  "submission.import - external.preview.title.none": "Pré-visualização do item",
+  // "submission.import-external.source.openalexPublicationByDOI": "OpenAlex Search by DOI",
+  "submission.import-external.source.openalexPublicationByDOI": "Pesquisa 'OpenAlex' por DOI",
 
-  // "submission.import - external.preview.title.Journal": "Journal Preview",
-  "submission.import - external.preview.title.Journal": "Pré-visualização da revista",
+  // "submission.import-external.source.openalexPerson": "OpenAlex Search by name",
+  "submission.import-external.source.openalexPerson": "Pesquisa 'OpenAlex' por nome",
 
-  // "submission.import - external.preview.title.OrgUnit": "Organizational Unit Preview",
-  "submission.import - external.preview.title.OrgUnit": "Pré-visualização da organização",
+  // "submission.import-external.source.openalexJournal": "OpenAlex Journals",
+  "submission.import-external.source.openalexJournal": "Revistas 'OpenAlex'",
 
-  // "submission.import - external.preview.title.Person": "Person Preview",
-  "submission.import - external.preview.title.Person": "Pré-visualização dos dados pessoais a importar",
+  // "submission.import-external.source.openalexInstitution": "OpenAlex Institutions",
+  "submission.import-external.source.openalexInstitution": "Instituições 'OpenAlex'",
 
-  // "submission.import - external.preview.title.Project": "Project Preview",
-  "submission.import - external.preview.title.Project": "Pré-visualização do dados do projeto a importar",
+  // "submission.import-external.source.openalexPublisher": "OpenAlex Publishers",
+  "submission.import-external.source.openalexPublisher": "Editoras 'OpenAlex'",
 
-  // "submission.import - external.preview.subtitle": "The metadata below was imported from an external source.It will be pre - filled when you start the submission.",
-  "submission.import - external.preview.subtitle": "Os seguintes metadados foram importados de uma fonte externa.Serão pré-preenchidos quando iniciar o depósito.",
+  // "submission.import-external.source.openalexFunder": "OpenAlex Funders",
+  "submission.import-external.source.openalexFunder": "Financiadores 'OpenAlex'",
 
-  // "submission.import - external.preview.button.import": "Start submission",
-  "submission.import - external.preview.button.import": "Iniciar depósito",
+  // "submission.import-external.preview.title": "Item Preview",
+  "submission.import-external.preview.title": "Pré-visualização do item",
 
-  // "submission.import - external.preview.error.import.title": "Submission error",
-  "submission.import - external.preview.error.import.title": "Erro no depósito",
+  // "submission.import-external.preview.title.Publication": "Publication Preview",
+  "submission.import-external.preview.title.Publication": "Pré-visualização da publicação",
 
-  // "submission.import - external.preview.error.import.body": "An error occurs during the external source entry import process.",
-  "submission.import - external.preview.error.import.body": "Ocorreu um erro durante o processo de importação de metadados de uma fonte externa.",
+  // "submission.import-external.preview.title.none": "Item Preview",
+  "submission.import-external.preview.title.none": "Pré-visualização do item",
 
-  // "submission.sections.describe.relationship - lookup.close": "Close",
-  "submission.sections.describe.relationship - lookup.close": "Fechar",
+  // "submission.import-external.preview.title.Journal": "Journal Preview",
+  "submission.import-external.preview.title.Journal": "Pré-visualização da revista",
 
-  // "submission.sections.describe.relationship - lookup.external - source.added": "Successfully added local entry to the selection",
-  "submission.sections.describe.relationship - lookup.external - source.added": "Adicionada com sucesso uma entrada local à seleção",
+  // "submission.import-external.preview.title.OrgUnit": "Organizational Unit Preview",
+  "submission.import-external.preview.title.OrgUnit": "Pré-visualização da unidade organizacioanal",
 
-  // "submission.sections.describe.relationship - lookup.external - source.import - button - title.isAuthorOfPublication": "Import remote author",
-  "submission.sections.describe.relationship - lookup.external - source.import - button - title.isAuthorOfPublication": "Importar autor remoto",
+  // "submission.import-external.preview.title.Person": "Person Preview",
+  "submission.import-external.preview.title.Person": "Pré-visualização dos dados pessoais",
 
-  // "submission.sections.describe.relationship - lookup.external - source.import - button - title.Journal": "Import remote journal",
-  "submission.sections.describe.relationship - lookup.external - source.import - button - title.Journal": "Importar revista remota",
+  // "submission.import-external.preview.title.Project": "Project Preview",
+  "submission.import-external.preview.title.Project": "Pré-visualização do projeto",
 
-  // "submission.sections.describe.relationship - lookup.external - source.import - button - title.Journal Issue": "Import remote journal issue",
-  "submission.sections.describe.relationship - lookup.external - source.import - button - title.Journal Issue": "Importar número de revista remoto",
+  // "submission.import-external.preview.subtitle": "The metadata below was imported from an external source. It will be pre-filled when you start the submission.",
+  "submission.import-external.preview.subtitle": "Os seguintes metadados foram importados de uma fonte externa. Serão pré-preenchidos quando iniciar o depósito.",
 
-  // "submission.sections.describe.relationship - lookup.external - source.import - button - title.Journal Volume": "Import remote journal volume",
-  "submission.sections.describe.relationship - lookup.external - source.import - button - title.Journal Volume": "Importar volume de revista remoto",
+  // "submission.import-external.preview.button.import": "Start submission",
+  "submission.import-external.preview.button.import": "Iniciar depósito",
 
-  // "submission.sections.describe.relationship - lookup.external - source.import - button - title.isProjectOfPublication": "Project",
-  "submission.sections.describe.relationship - lookup.external - source.import - button - title.isProjectOfPublication": "Projeto",
+  // "submission.import-external.preview.error.import.title": "Submission error",
+  "submission.import-external.preview.error.import.title": "Erro no depósito",
 
-  // "submission.sections.describe.relationship - lookup.external - source.import - button - title.none": "Import remote item",
-  "submission.sections.describe.relationship - lookup.external - source.import - button - title.none": "Importar item remoto",
+  // "submission.import-external.preview.error.import.body": "An error occurs during the external source entry import process.",
+  "submission.import-external.preview.error.import.body": "Ocorre um erro durante o processo de importação de uma fonte externa.",
 
-  // "submission.sections.describe.relationship - lookup.external - source.import - button - title.Event": "Import remote event",
-  "submission.sections.describe.relationship - lookup.external - source.import - button - title.Event": "Importar evento remoto",
+  // "submission.sections.describe.relationship-lookup.close": "Close",
+  "submission.sections.describe.relationship-lookup.close": "Fechar",
 
-  // "submission.sections.describe.relationship - lookup.external - source.import - button - title.Product": "Import remote product",
-  "submission.sections.describe.relationship - lookup.external - source.import - button - title.Product": "Importar produto remoto",
+  // "submission.sections.describe.relationship-lookup.external-source.added": "Successfully added local entry to the selection",
+  "submission.sections.describe.relationship-lookup.external-source.added": "Adicionada com sucesso uma entrada local à seleção",
 
-  // "submission.sections.describe.relationship - lookup.external - source.import - button - title.Equipment": "Import remote equipment",
-  "submission.sections.describe.relationship - lookup.external - source.import - button - title.Equipment": "Importar equipamento remoto",
+  // "submission.sections.describe.relationship-lookup.external-source.import-button-title.isAuthorOfPublication": "Import remote author",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.isAuthorOfPublication": "Importar autor remoto",
 
-  // "submission.sections.describe.relationship - lookup.external - source.import - button - title.OrgUnit": "Import remote organizational unit",
-  "submission.sections.describe.relationship - lookup.external - source.import - button - title.OrgUnit": "Importar organização remota",
+  // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal": "Import remote journal",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal": "Importar revista remota",
 
-  // "submission.sections.describe.relationship - lookup.external - source.import - button - title.Funding": "Import remote fund",
-  "submission.sections.describe.relationship - lookup.external - source.import - button - title.Funding": "Importar financiamento remoto",
+  // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Issue": "Import remote journal issue",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Issue": "Importar número de revista remoto",
 
-  // "submission.sections.describe.relationship - lookup.external - source.import - button - title.Person": "Import remote person",
-  "submission.sections.describe.relationship - lookup.external - source.import - button - title.Person": "Import remote person",
+  // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Import remote journal volume",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Importar volume de revista remoto",
 
-  // "submission.sections.describe.relationship - lookup.external - source.import - button - title.Patent": "Import remote patent",
-  "submission.sections.describe.relationship - lookup.external - source.import - button - title.Patent": "Import remote patent",
+  // "submission.sections.describe.relationship-lookup.external-source.import-button-title.isProjectOfPublication": "Project",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.isProjectOfPublication": "Projeto",
 
-  // "submission.sections.describe.relationship - lookup.external - source.import - button - title.Project": "Import remote project",
-  "submission.sections.describe.relationship - lookup.external - source.import - button - title.Project": "Importar projeto remoto",
+  // "submission.sections.describe.relationship-lookup.external-source.import-button-title.none": "Import remote item",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.none": "Importar item remoto",
 
-  // "submission.sections.describe.relationship - lookup.external - source.import - button - title.Publication": "Import remote publication",
-  "submission.sections.describe.relationship - lookup.external - source.import - button - title.Publication": "Importar publicação remota",
+  // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Event": "Import remote event",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Event": "Importar evento remoto",
 
-  // "submission.sections.describe.relationship - lookup.external - source.import - modal.isProjectOfPublication.added.new - entity": "New Entity Added!",
-  "submission.sections.describe.relationship - lookup.external - source.import - modal.isProjectOfPublication.added.new - entity": "Nova entidade adicionada!",
+  // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Product": "Import remote product",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Product": "Importar produto remoto",
 
-  // "submission.sections.describe.relationship - lookup.external - source.import - modal.isProjectOfPublication.title": "Project",
-  "submission.sections.describe.relationship - lookup.external - source.import - modal.isProjectOfPublication.title": "Projeto",
+  // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Equipment": "Import remote equipment",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Equipment": "Importar equipamento remoto",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-button-title.OrgUnit": "Import remote organizational unit",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.OrgUnit": "Importar unidade organizacional",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Funding": "Import remote fund",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Funding": "Importar financiamento remoto",
 
   // "submission.sections.describe.relationship - lookup.external - source.import - modal.isAuthorOfPublication.title": "Import Remote Author",
   "submission.sections.describe.relationship - lookup.external - source.import - modal.isAuthorOfPublication.title": "Importar autor remoto",
+  
+  // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Person": "Import remote person",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Person": "Importar pessoa remota",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Patent": "Import remote patent",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Patent": "Importar patente remota",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Project": "Import remote project",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Project": "Importar projeto remoto",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Publication": "Import remote publication",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Publication": "Importar publicação remota",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.added.new-entity": "New Entity Added!",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.added.new-entity": "Nova entidade adicionada!",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.title": "Project",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.title": "Projeto",
+
+  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Import Remote Author",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Importar autor remoto",
 
   // "submission.sections.describe.relationship - lookup.external - source.import - modal.isAuthorOfPublication.added.local - entity": "Successfully added local author to the selection",
   "submission.sections.describe.relationship - lookup.external - source.import - modal.isAuthorOfPublication.added.local - entity": "Adicionado com sucesso um autor local à seleção",
@@ -7407,13 +7616,13 @@
   // "submission.sections.describe.relationship - lookup.external - source.import - modal.authority": "Authority",
   "submission.sections.describe.relationship - lookup.external - source.import - modal.authority": "Autoridade",
 
-  // "submission.sections.describe.relationship - lookup.external - source.import - modal.authority.new": "Import as a new local authority entry",
+  // "submission.sections.describe.relationship - lookup.external - source.import - modal.authority.new": "Import as a new local authority entry",             
   "submission.sections.describe.relationship - lookup.external - source.import - modal.authority.new": "Importar como nova autoridade local",
 
-  // "submission.sections.describe.relationship - lookup.external - source.import - modal.cancel": "Cancel",
+  // "submission.sections.describe.relationship - lookup.external - source.import - modal.cancel": "Cancel",                   
   "submission.sections.describe.relationship - lookup.external - source.import - modal.cancel": "Cancelar",
 
-  // "submission.sections.describe.relationship - lookup.external - source.import - modal.collection": "Select a collection to import new entries to",
+  // "submission.sections.describe.relationship - lookup.external - source.import - modal.collection": "Select a collection to import new entries to",                 
   "submission.sections.describe.relationship - lookup.external - source.import - modal.collection": "Selecione a coleção para onde pretende importar as novas entradas",
 
   // "submission.sections.describe.relationship - lookup.external - source.import - modal.entities": "Entities",
@@ -7434,16 +7643,16 @@
   // "submission.sections.describe.relationship - lookup.external - source.import - modal.head.openaireTitle": "Importing from OpenAIRE",
   "submission.sections.describe.relationship - lookup.external - source.import - modal.head.openaireTitle": "Importar do OpenAIRE",
 
-  // "submission.sections.describe.relationship - lookup.external - source.import - modal.head.openaireFunding": "Importing from OpenAIRE",
+  // "submission.sections.describe.relationship - lookup.external - source.import - modal.head.openaireFunding": "Importing from OpenAIRE",   
   "submission.sections.describe.relationship - lookup.external - source.import - modal.head.openaireFunding": "Importar do OpenAIRE",
 
-  // "submission.sections.describe.relationship - lookup.external - source.import - modal.head.sherpaJournal": "Importing from Sherpa Journal",
+  // "submission.sections.describe.relationship - lookup.external - source.import - modal.head.sherpaJournal": "Importing from Sherpa Journal",    
   "submission.sections.describe.relationship - lookup.external - source.import - modal.head.sherpaJournal": "A importar revista do Sherpa",
 
   // "submission.sections.describe.relationship - lookup.external - source.import - modal.head.sherpaPublisher": "Importing from Sherpa Publisher",
   "submission.sections.describe.relationship - lookup.external - source.import - modal.head.sherpaPublisher": "A importar editora do Sherpa",
 
-  // "submission.sections.describe.relationship - lookup.external - source.import - modal.head.pubmed": "Importing from PubMed",
+  // "submission.sections.describe.relationship - lookup.external - source.import - modal.head.pubmed": "Importing from PubMed",       
   "submission.sections.describe.relationship - lookup.external - source.import - modal.head.pubmed": "A importar da PubMed",
 
   // "submission.sections.describe.relationship - lookup.external - source.import - modal.head.arxiv": "Importing from arXiv",
@@ -7458,47 +7667,47 @@
   // "submission.sections.describe.relationship - lookup.external - source.import - modal.Journal.title": "Import Remote Journal",
   "submission.sections.describe.relationship - lookup.external - source.import - modal.Journal.title": "Importar revista remota",
 
-  // "submission.sections.describe.relationship - lookup.external - source.import - modal.Journal.added.local - entity": "Successfully added local journal to the selection",
+  // "submission.sections.describe.relationship - lookup.external - source.import - modal.Journal.added.local - entity": "Successfully added local journal to the selection",      
   "submission.sections.describe.relationship - lookup.external - source.import - modal.Journal.added.local - entity": "Revista local adicionada com sucesso à seleção",
 
-  // "submission.sections.describe.relationship - lookup.external - source.import - modal.Journal.added.new - entity": "Successfully imported and added external journal to the selection",
+  // "submission.sections.describe.relationship - lookup.external - source.import - modal.Journal.added.new - entity": "Successfully imported and added external journal to the selection",      
   "submission.sections.describe.relationship - lookup.external - source.import - modal.Journal.added.new - entity": "Importada e adicionada com sucesso uma revista externa à seleção",
 
-  // "submission.sections.describe.relationship - lookup.external - source.import - modal.Journal Issue.title": "Import Remote Journal Issue",
+  // "submission.sections.describe.relationship - lookup.external - source.import - modal.Journal Issue.title": "Import Remote Journal Issue",         
   "submission.sections.describe.relationship - lookup.external - source.import - modal.Journal Issue.title": "Importar número de revista remota",
 
-  // "submission.sections.describe.relationship - lookup.external - source.import - modal.Journal Issue.added.local - entity": "Successfully added local journal issue to the selection",
+  // "submission.sections.describe.relationship - lookup.external - source.import - modal.Journal Issue.added.local - entity": "Successfully added local journal issue to the selection",                   
   "submission.sections.describe.relationship - lookup.external - source.import - modal.Journal Issue.added.local - entity": "Número de revista local adicionado com sucesso à seleção",
 
   // "submission.sections.describe.relationship - lookup.external - source.import - modal.Journal Issue.added.new - entity": "Successfully imported and added external journal issue to the selection",
   "submission.sections.describe.relationship - lookup.external - source.import - modal.Journal Issue.added.new - entity": "Importado e adicionado um número de revista externa com sucesso à seleção",
 
-  // "submission.sections.describe.relationship - lookup.external - source.import - modal.Journal Volume.title": "Import Remote Journal Volume",
+  // "submission.sections.describe.relationship - lookup.external - source.import - modal.Journal Volume.title": "Import Remote Journal Volume",         
   "submission.sections.describe.relationship - lookup.external - source.import - modal.Journal Volume.title": "Importar volume de revista remota",
 
-  // "submission.sections.describe.relationship - lookup.external - source.import - modal.Journal Volume.added.local - entity": "Successfully added local journal volume to the selection",
+  // "submission.sections.describe.relationship - lookup.external - source.import - modal.Journal Volume.added.local - entity": "Successfully added local journal volume to the selection",                  
   "submission.sections.describe.relationship - lookup.external - source.import - modal.Journal Volume.added.local - entity": "Volume de revista local adicionado com sucesso à seleção",
 
-  // "submission.sections.describe.relationship - lookup.external - source.import - modal.Journal Volume.added.new - entity": "Successfully imported and added external journal volume to the selection",
+  // "submission.sections.describe.relationship - lookup.external - source.import - modal.Journal Volume.added.new - entity": "Successfully imported and added external journal volume to the selection",                          
   "submission.sections.describe.relationship - lookup.external - source.import - modal.Journal Volume.added.new - entity": "Importado e adicionado um volume de revista externa com sucesso à seleção",
 
-  // "submission.sections.describe.relationship - lookup.external - source.import - modal.select": "Select a local match:",
+  // "submission.sections.describe.relationship - lookup.external - source.import - modal.select": "Select a local match:",                       
   "submission.sections.describe.relationship - lookup.external - source.import - modal.select": "Selecione uma correspondência local:",
 
-  // "submission.sections.describe.relationship - lookup.external - source.import - modal.isOrgUnitOfProject.title": "Import Remote Organization",
+  // "submission.sections.describe.relationship - lookup.external - source.import - modal.isOrgUnitOfProject.title": "Import Remote Organization",                       
   "submission.sections.describe.relationship - lookup.external - source.import - modal.isOrgUnitOfProject.title": "Importar organização remota",
 
-  // "submission.sections.describe.relationship - lookup.external - source.import - modal.isOrgUnitOfProject.added.local - entity": "Successfully added local organization to the selection",
+  // "submission.sections.describe.relationship - lookup.external - source.import - modal.isOrgUnitOfProject.added.local - entity": "Successfully added local organization to the selection",                     
   "submission.sections.describe.relationship - lookup.external - source.import - modal.isOrgUnitOfProject.added.local - entity": "Organização local adicionada com êxito à seleção",
 
   // "submission.sections.describe.relationship - lookup.external - source.import - modal.isOrgUnitOfProject.added.new - entity": "Successfully imported and added external organization to the selection",
   "submission.sections.describe.relationship - lookup.external - source.import - modal.isOrgUnitOfProject.added.new - entity": "Organização externa importada e adicionada com sucesso à seleção",
 
   // "submission.sections.describe.relationship - lookup.search - tab.deselect - all": "Deselect all",
-  "submission.sections.describe.relationship - lookup.search - tab.deselect - all": "Deselecionar todos",
+  "submission.sections.describe.relationship - lookup.search - tab.deselect - all": "Desmarcar todos",
 
   // "submission.sections.describe.relationship - lookup.search - tab.deselect - page": "Deselect page",
-  "submission.sections.describe.relationship - lookup.search - tab.deselect - page": "Deselecionar página",
+  "submission.sections.describe.relationship - lookup.search - tab.deselect - page": "Desmarcar página",
 
   // "submission.sections.describe.relationship - lookup.search - tab.loading": "Loading...",
   "submission.sections.describe.relationship - lookup.search - tab.loading": "A carregar...",
@@ -7509,13 +7718,13 @@
   // "submission.sections.describe.relationship - lookup.search - tab.search": "Go",
   "submission.sections.describe.relationship - lookup.search - tab.search": "Pesquisar",
 
-  // "submission.sections.describe.relationship - lookup.search - tab.search - form.placeholder": "Search...",
+  // "submission.sections.describe.relationship - lookup.search - tab.search - form.placeholder": "Search...",                        
   "submission.sections.describe.relationship - lookup.search - tab.search - form.placeholder": "Pesquisar...",
 
-  // "submission.sections.describe.relationship - lookup.search - tab.select - all": "Select all",
+  // "submission.sections.describe.relationship - lookup.search - tab.select - all": "Select all",                        
   "submission.sections.describe.relationship - lookup.search - tab.select - all": "Selecionar todos",
 
-  // "submission.sections.describe.relationship - lookup.search - tab.select - page": "Select page",
+  // "submission.sections.describe.relationship - lookup.search - tab.select - page": "Select page",                  
   "submission.sections.describe.relationship - lookup.search - tab.select - page": "Selecionar página",
 
   // "submission.sections.describe.relationship - lookup.selected": "Selected {{ size }} items",
@@ -7561,165 +7770,168 @@
   "submission.sections.describe.relationship - lookup.search - tab.tab - title.JournalVolume": "Volumes de revistas locais ({{ count }})",
 
   // "submission.sections.describe.relationship - lookup.search - tab.tab - title.sherpaJournal": "Sherpa Journals ({{ count }})",
-  "submission.sections.describe.relationship - lookup.search - tab.tab - title.sherpaJournal": "Revistas do Sherpa ({{ count }})",
+  "submission.sections.describe.relationship - lookup.search - tab.tab - title.sherpaJournal": "Revistas do 'Open Policy Finder' ({{ count }})",
 
   // "submission.sections.describe.relationship - lookup.search - tab.tab - title.sherpaPublisher": "Sherpa Publishers ({{ count }})",
-  "submission.sections.describe.relationship - lookup.search - tab.tab - title.sherpaPublisher": "Editoras do Sherpa ({{ count }})",
+  "submission.sections.describe.relationship - lookup.search - tab.tab - title.sherpaPublisher": "Editoras do 'Open Policy Finder' ({{ count }})",
 
-  // "submission.sections.describe.relationship - lookup.search - tab.tab - title.orcid": "ORCID ({{ count }})",
-  "submission.sections.describe.relationship - lookup.search - tab.tab - title.orcid": "ORCID ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcid": "ORCID ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcid": "ORCID ({{ count }})",
 
-  // "submission.sections.describe.relationship - lookup.search - tab.tab - title.lcname": "LC Names ({{ count }})",
-  "submission.sections.describe.relationship - lookup.search - tab.tab - title.lcname": "Nomes LC ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.lcname": "LC Names ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.lcname": "Nomes LC ({{ count }})",
 
-  // "submission.sections.describe.relationship - lookup.search - tab.tab - title.pubmed": "PubMed ({{ count }})",
-  "submission.sections.describe.relationship - lookup.search - tab.tab - title.pubmed": "PubMed ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.pubmed": "PubMed ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.pubmed": "PubMed ({{ count }})",
 
-  // "submission.sections.describe.relationship - lookup.search - tab.tab - title.arxiv": "arXiv ({{ count }})",
-  "submission.sections.describe.relationship - lookup.search - tab.tab - title.arxiv": "arXiv ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.arxiv": "arXiv ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.arxiv": "arXiv ({{ count }})",
 
-  // "submission.sections.describe.relationship - lookup.search - tab.tab - title.ror": "ROR ({{ count }})",
-  "submission.sections.describe.relationship - lookup.search - tab.tab - title.ror": "ROR ({{ count }})",
-
-  // "submission.sections.describe.relationship - lookup.search - tab.tab - title.orcidWorks": "ORCID ({{ count }})",
-  "submission.sections.describe.relationship - lookup.search - tab.tab - title.orcidWorks": "ORCID ({{ count }})",
-
-  // "submission.sections.describe.relationship - lookup.search - tab.tab - title.crossref": "Crossref ({{ count }})",
-  "submission.sections.describe.relationship - lookup.search - tab.tab - title.crossref": "Crossref ({{ count }})",
-
-  // "submission.sections.describe.relationship - lookup.search - tab.tab - title.scopus": "Scopus ({{ count }})",
-  "submission.sections.describe.relationship - lookup.search - tab.tab - title.scopus": "Scopus ({{ count }})",
-
-  // "submission.sections.describe.relationship - lookup.search - tab.tab - title.openaire": "OpenAIRE Search by Authors ({{ count }})",
-  "submission.sections.describe.relationship - lookup.search - tab.tab - title.openaire": "OpenAIRE pesquisa por autores ({{ count }})",
-
-  // "submission.sections.describe.relationship - lookup.search - tab.tab - title.openaireTitle": "OpenAIRE Search by Title ({{ count }})",
-  "submission.sections.describe.relationship - lookup.search - tab.tab - title.openaireTitle": "OpenAIRE pesquisa por títulos ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.ror": "ROR ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.ror": "ROR ({{ count }})",
 
   // "submission.sections.describe.relationship - lookup.search - tab.tab - title.openaireFunding": "OpenAIRE Search by Funder ({{ count }})",
   "submission.sections.describe.relationship - lookup.search - tab.tab - title.openaireFunding": "Pesquisa via API OpenAIRE por financiador ({{ count }})",
 
-  // "submission.sections.describe.relationship - lookup.search - tab.tab - title.sherpaJournalIssn": "Sherpa Journals by ISSN ({{ count }})",
-  "submission.sections.describe.relationship - lookup.search - tab.tab - title.sherpaJournalIssn": "Revistas Sherpa por ISSN ({{ count }  })",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcidWorks": "ORCID ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcidWorks": "ORCID ({{ count }})",
 
-  // "submission.sections.describe.relationship - lookup.search - tab.tab - title.isFundingAgencyOfPublication": "Search for Funding Agencies",
-  "submission.sections.describe.relationship - lookup.search - tab.tab - title.isFundingAgencyOfPublication": "Pesquisar por agências de financiamento",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.crossref": "CrossRef ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.crossref": "CrossRef ({{ count }})",
 
-  // "submission.sections.describe.relationship - lookup.search - tab.tab - title.isFundingOfPublication": "Search for Funding",
-  "submission.sections.describe.relationship - lookup.search - tab.tab - title.isFundingAgencyOfPublication": "Pesquisar por financiamento",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.scopus": "Scopus ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.scopus": "Scopus ({{ count }})",
 
-  // "submission.sections.describe.relationship - lookup.search - tab.tab - title.isChildOrgUnitOf": "Search for Organizational Units",
-  "submission.sections.describe.relationship - lookup.search - tab.tab - title.isChildOrgUnitOf": "Pesquisar por unidades organizacionais",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaire": "OpenAIRE Search by Authors ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaire": "OpenAIRE pesquisa por autores ({{ count }})",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireTitle": "OpenAIRE Search by Title ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireTitle": "OpenAIRE pesquisa por título ({{ count }})",
 
   // "submission.sections.describe.relationship - lookup.search - tab.tab - title.isProjectOfPublication": "Projects",
   "submission.sections.describe.relationship - lookup.search - tab.tab - title.isProjectOfPublication": "Projetos",
 
-  // "submission.sections.describe.relationship - lookup.search - tab.tab - title.isFundingAgencyOfProject": "Funder of the Project",
-  "submission.sections.describe.relationship - lookup.search - tab.tab - title.isFundingAgencyOfProject": "Financiador do projeto",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireFunding": "OpenAIRE Search by Funder ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireFunding": "OpenAIRE pesquisa por financiador ({{ count }})",
 
-  // "submission.sections.describe.relationship - lookup.search - tab.tab - title.isPublicationOfAuthor": "Publication of the Author",
-  "submission.sections.describe.relationship - lookup.search - tab.tab - title.isPublicationOfAuthor": "Publicação do author",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournalIssn": "Sherpa Journals by ISSN ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournalIssn": "Revistas 'Open Policy finder' por ISSN ({{ count }})",
 
-  // "submission.sections.describe.relationship - lookup.selection - tab.title.openAIREFunding": "Funding OpenAIRE API",
-  "submission.sections.describe.relationship - lookup.selection - tab.title.openAIREFunding": "Financiamento API OpenAIRE",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfPublication": "Search for Funding Agencies",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfPublication": "Pesquisar por agências de financiamento",
 
-  // "submission.sections.describe.relationship - lookup.search - tab.tab - title.isOrgUnitOfProject": "OrgUnit of the Project",
-  "submission.sections.describe.relationship - lookup.search - tab.tab - title.isOrgUnitOfProject": "OrgUnit do projeto",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingOfPublication": "Search for Funding",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingOfPublication": "Pesquisar por financiamento",
 
-  // "submission.sections.describe.relationship - lookup.selection - tab.title.isProjectOfPublication": "Project",
-  "submission.sections.describe.relationship - lookup.selection - tab.title.isProjectOfPublication": "Projeto",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isChildOrgUnitOf": "Search for Organizational Units",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isChildOrgUnitOf": "Pesquisar por unidades organizacionais",
 
-  // "submission.sections.describe.relationship - lookup.title.isProjectOfPublication": "Projects",
-  "submission.sections.describe.relationship - lookup.title.isProjectOfPublication": "Projetos",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isProjectOfPublication": "Projects",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isProjectOfPublication": "Projetos",
 
-  // "submission.sections.describe.relationship - lookup.title.isFundingAgencyOfProject": "Funder of the Project",
-  "submission.sections.describe.relationship - lookup.title.isFundingAgencyOfProject": "Financiador do projeto",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfProject": "Funder of the Project",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfProject": "Financiador do projeto",
 
-  // "submission.sections.describe.relationship - lookup.selection - tab.search - form.placeholder": "Search...",
-  "submission.sections.describe.relationship - lookup.selection - tab.search - form.placeholder": "Pesquisar...",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isPublicationOfAuthor": "Publication of the Author",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isPublicationOfAuthor": "Publicação do autor",
 
-  // "submission.sections.describe.relationship - lookup.selection - tab.tab - title": "Current Selection ({{ count }})",
-  "submission.sections.describe.relationship - lookup.selection - tab.tab - title": "Seleção atual ({{ count }})",
+  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isOrgUnitOfProject": "OrgUnit of the Project",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isOrgUnitOfProject": "Unidade organizacional do projeto",
 
-  // "submission.sections.describe.relationship - lookup.title.Journal": "Journal",
-  "submission.sections.describe.relationship - lookup.title.Journal": "Revista",
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Project",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Projeto",
 
-  // "submission.sections.describe.relationship - lookup.title.isJournalIssueOfPublication": "Journal Issues",
-  "submission.sections.describe.relationship - lookup.title.isJournalIssueOfPublication": "Números de revista",
+  // "submission.sections.describe.relationship-lookup.title.isProjectOfPublication": "Projects",
+  "submission.sections.describe.relationship-lookup.title.isProjectOfPublication": "Projetos",
 
-  // "submission.sections.describe.relationship - lookup.title.JournalIssue": "Journal Issues",
-  "submission.sections.describe.relationship - lookup.title.JournalIssue": "Pesquisar números de revista",
+  // "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "Funder of the Project",
+  "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "Financiador do projeto",
 
-  // "submission.sections.describe.relationship - lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
-  "submission.sections.describe.relationship - lookup.title.isJournalVolumeOfPublication": "Volumes de Revistas",
+  // "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Search...",
+  "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Pesquisar...",
 
-  // "submission.sections.describe.relationship - lookup.title.JournalVolume": "Journal Volumes",
-  "submission.sections.describe.relationship - lookup.title.JournalVolume": "Volumes de revistas",
+  // "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Current Selection ({{ count }})",
+  "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Seleção atual ({{ count }})",
 
-  // "submission.sections.describe.relationship - lookup.title.isJournalOfPublication": "Journals",
-  "submission.sections.describe.relationship - lookup.title.isJournalOfPublication": "Revistas",
+  // "submission.sections.describe.relationship-lookup.title.Journal": "Journal",
+  "submission.sections.describe.relationship-lookup.title.Journal": "Revista",
 
-  // "submission.sections.describe.relationship - lookup.title.isAuthorOfPublication": "Authors",
-  "submission.sections.describe.relationship - lookup.title.isAuthorOfPublication": "Autores",
+  // "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Journal Issues",
+  "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Números de revista",
 
-  // "submission.sections.describe.relationship - lookup.title.isFundingAgencyOfPublication": "Funding Agency",
-  "submission.sections.describe.relationship - lookup.title.isFundingAgencyOfPublication": "Agência de financiamento",
+  // "submission.sections.describe.relationship-lookup.title.JournalIssue": "Journal Issues",
+  "submission.sections.describe.relationship-lookup.title.JournalIssue": "Números de revista",
 
-  // "submission.sections.describe.relationship - lookup.title.Project": "Projects",
-  "submission.sections.describe.relationship - lookup.title.Project": "Pesquisar projetos",
+  // "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
+  "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Volumes de revista",
 
-  // "submission.sections.describe.relationship - lookup.title.Publication": "Publications",
-  "submission.sections.describe.relationship - lookup.title.Publication": "Publicações",
+  // "submission.sections.describe.relationship-lookup.title.JournalVolume": "Journal Volumes",
+  "submission.sections.describe.relationship-lookup.title.JournalVolume": "Volume de revista",
 
-  // "submission.sections.describe.relationship - lookup.title.Person": "Authors",
-  "submission.sections.describe.relationship - lookup.title.Person": "Pesquisar autores",
+  // "submission.sections.describe.relationship-lookup.title.isJournalOfPublication": "Journals",
+  "submission.sections.describe.relationship-lookup.title.isJournalOfPublication": "Revistas",
 
-  // "submission.sections.describe.relationship - lookup.title.OrgUnit": "Organizational Units",
-  "submission.sections.describe.relationship - lookup.title.OrgUnit": "Pesquisar unidades organizacionais",
+  // "submission.sections.describe.relationship-lookup.title.isAuthorOfPublication": "Authors",
+  "submission.sections.describe.relationship-lookup.title.isAuthorOfPublication": "Autores",
 
-  // "submission.sections.describe.relationship - lookup.title.DataPackage": "Data Packages",
-  "submission.sections.describe.relationship - lookup.title.DataPackage": "Pacote de dados",
+  // "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfPublication": "Funding Agency",
+  "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfPublication": "Agência de finaciamento",
 
-  // "submission.sections.describe.relationship - lookup.title.DataFile": "Data Files",
-  "submission.sections.describe.relationship - lookup.title.DataFile": "Ficheiros de dados",
+  // "submission.sections.describe.relationship-lookup.title.Project": "Projects",
+  "submission.sections.describe.relationship-lookup.title.Project": "Pesquiasr projetos",
 
-  // "submission.sections.describe.relationship - lookup.title.Funding Agency": "Funding Agency",
-  "submission.sections.describe.relationship - lookup.title.Funding Agency": "Agência de financiamento",
+  // "submission.sections.describe.relationship-lookup.title.Publication": "Publications",
+  "submission.sections.describe.relationship-lookup.title.Publication": "Publicações",
 
-  // "submission.sections.describe.relationship - lookup.title.isFundingOfPublication": "Funding",
-  "submission.sections.describe.relationship - lookup.title.isFundingOfPublication": "Financiamento",
+  // "submission.sections.describe.relationship-lookup.title.Person": "Authors",
+  "submission.sections.describe.relationship-lookup.title.Person": "Pesquisar autores",
 
-  // "submission.sections.describe.relationship - lookup.title.isChildOrgUnitOf": "Parent Organizational Unit",
-  "submission.sections.describe.relationship - lookup.title.isChildOrgUnitOf": "Organização principal",
+  // "submission.sections.describe.relationship-lookup.title.OrgUnit": "Organizational Units",
+  "submission.sections.describe.relationship-lookup.title.OrgUnit": "Pesquisar unidades organizacionais",
 
-  // "submission.sections.describe.relationship - lookup.title.isPublicationOfAuthor": "Publication",
-  "submission.sections.describe.relationship - lookup.title.isPublicationOfAuthor": "Publicação",
+  // "submission.sections.describe.relationship-lookup.title.DataPackage": "Data Packages",
+  "submission.sections.describe.relationship-lookup.title.DataPackage": "Pacotes de dados",
 
-  // "submission.sections.describe.relationship - lookup.title.isOrgUnitOfProject": "OrgUnit",
-  "submission.sections.describe.relationship - lookup.title.isOrgUnitOfProject": "OrgUnit",
+  // "submission.sections.describe.relationship-lookup.title.DataFile": "Data Files",
+  "submission.sections.describe.relationship-lookup.title.DataFile": "Ficheiros de dados",
 
-  // "submission.sections.describe.relationship - lookup.search - tab.toggle - dropdown": "Toggle dropdown",
-  "submission.sections.describe.relationship - lookup.search - tab.toggle - dropdown": "Alternar menu dropdown",
+  // "submission.sections.describe.relationship-lookup.title.Funding Agency": "Funding Agency",
+  "submission.sections.describe.relationship-lookup.title.Funding Agency": "Agência de finaciamento",
 
-  // "submission.sections.describe.relationship - lookup.selection - tab.settings": "Settings",
-  "submission.sections.describe.relationship - lookup.selection - tab.settings": "Configurações",
+  // "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Funding",
+  "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Financiamento",
+
+  // "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Parent Organizational Unit",
+  "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Organização principal",
+
+  // "submission.sections.describe.relationship-lookup.title.isPublicationOfAuthor": "Publication",
+  "submission.sections.describe.relationship-lookup.title.isPublicationOfAuthor": "Publicação",
+
+  // "submission.sections.describe.relationship-lookup.title.isOrgUnitOfProject": "OrgUnit",
+  "submission.sections.describe.relationship-lookup.title.isOrgUnitOfProject": "OrgUnit",
+
+  // "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Toggle dropdown",
+  "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Alternar menu",
+
+  // "submission.sections.describe.relationship-lookup.selection-tab.settings": "Settings",
+  "submission.sections.describe.relationship-lookup.selection-tab.settings": "Configurações",
 
   // "submission.sections.describe.relationship - lookup.selection - tab.no - selection": "Your selection is currently empty.",
   "submission.sections.describe.relationship - lookup.selection - tab.no - selection": "Não selecionou nenhum item.",
 
-  // "submission.sections.describe.relationship - lookup.selection - tab.title.isAuthorOfPublication": "Selected Authors",
+  // "submission.sections.describe.relationship - lookup.selection - tab.title.isAuthorOfPublication": "Selected Authors",            
   "submission.sections.describe.relationship - lookup.selection - tab.title.isAuthorOfPublication": "Autores selecionados",
 
-  // "submission.sections.describe.relationship - lookup.selection - tab.title.isJournalOfPublication": "Selected Journals",
+  // "submission.sections.describe.relationship - lookup.selection - tab.title.isJournalOfPublication": "Selected Journals",           
   "submission.sections.describe.relationship - lookup.selection - tab.title.isJournalOfPublication": "Revistas selecionadas",
 
-  // "submission.sections.describe.relationship - lookup.selection - tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",
+  // "submission.sections.describe.relationship - lookup.selection - tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",             
   "submission.sections.describe.relationship - lookup.selection - tab.title.isJournalVolumeOfPublication": "Volume de revistas selecionadas",
 
-  // "submission.sections.describe.relationship - lookup.selection - tab.title.Project": "Selected Projects",
+  // "submission.sections.describe.relationship - lookup.selection - tab.title.Project": "Selected Projects",              
   "submission.sections.describe.relationship - lookup.selection - tab.title.Project": "Projetos selecionados",
 
-  // "submission.sections.describe.relationship - lookup.selection - tab.title.Publication": "Selected Publications",
+  // "submission.sections.describe.relationship - lookup.selection - tab.title.Publication": "Selected Publications",         
   "submission.sections.describe.relationship - lookup.selection - tab.title.Publication": "Publicações selecionadas",
 
   // "submission.sections.describe.relationship - lookup.selection - tab.title.Person": "Selected Authors",
@@ -7728,19 +7940,19 @@
   // "submission.sections.describe.relationship - lookup.selection - tab.title.OrgUnit": "Selected Organizational Units",
   "submission.sections.describe.relationship - lookup.selection - tab.title.OrgUnit": "Unidades organizacionais selecionadas",
 
-  // "submission.sections.describe.relationship - lookup.selection - tab.title.DataPackage": "Selected Data Packages",
+  // "submission.sections.describe.relationship - lookup.selection - tab.title.DataPackage": "Selected Data Packages",    
   "submission.sections.describe.relationship - lookup.selection - tab.title.DataPackage": "Pacotes de dados selecionados",
 
-  // "submission.sections.describe.relationship - lookup.selection - tab.title.DataFile": "Selected Data Files",
+  // "submission.sections.describe.relationship - lookup.selection - tab.title.DataFile": "Selected Data Files",  
   "submission.sections.describe.relationship - lookup.selection - tab.title.DataFile": "Ficheiros de dados selecionados",
 
   // "submission.sections.describe.relationship - lookup.selection - tab.title.Journal": "Selected Journals",
   "submission.sections.describe.relationship - lookup.selection - tab.title.Journal": "Revistas selecionadas",
 
-  // "submission.sections.describe.relationship - lookup.selection - tab.title.isJournalIssueOfPublication": "Selected Issue",
+  // "submission.sections.describe.relationship - lookup.selection - tab.title.isJournalIssueOfPublication": "Selected Issue",        
   "submission.sections.describe.relationship - lookup.selection - tab.title.isJournalIssueOfPublication": "Número selecionado",
 
-  // "submission.sections.describe.relationship - lookup.selection - tab.title.JournalVolume": "Selected Journal Volume",
+  // "submission.sections.describe.relationship - lookup.selection - tab.title.JournalVolume": "Selected Journal Volume",          
   "submission.sections.describe.relationship - lookup.selection - tab.title.JournalVolume": "Volume de revista selecionado",
 
   // "submission.sections.describe.relationship - lookup.selection - tab.title.isFundingAgencyOfPublication": "Selected Funding Agency",
@@ -7806,7 +8018,7 @@
   // "submission.sections.describe.relationship - lookup.selection - tab.title": "Search Results",
   "submission.sections.describe.relationship - lookup.selection - tab.title": "Resultados da pesquisa",
 
-  // "submission.sections.describe.relationship - lookup.name - variant.notification.content": "Would you like to save \"{{ value }}\"as a name variant for this person so you and others can reuse it for future submissions? If you don't you can still use it for this submission.",
+  // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don't you can still use it for this submission.",
   "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Pretende guardar \"{{ value }}\"como um nome alternativo para esta pessoa permitindo a sua reutilização por si e outros em futuros depósitos? Se não, pode usar apenas neste depósito.",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Save a new name variant",
@@ -7893,13 +8105,13 @@
   // "submission.sections.identifiers.no_doi": "No DOIs have been minted for this item.",
   "submission.sections.identifiers.no_doi": "Não foram gerados DOIs para este item.",
 
-  // "submission.sections.identifiers.handle_label": "Handle:",
+  // "submission.sections.identifiers.handle_label": "Handle: ",
   "submission.sections.identifiers.handle_label": "Handle:",
 
-  // "submission.sections.identifiers.doi_label": "DOI:",
+  // "submission.sections.identifiers.doi_label": "DOI: ",
   "submission.sections.identifiers.doi_label": "DOI:",
 
-  // "submission.sections.identifiers.otherIdentifiers_label": "Other identifiers:",
+  // "submission.sections.identifiers.otherIdentifiers_label": "Other identifiers: ",
   "submission.sections.identifiers.otherIdentifiers_label": "Outros identificadores:",
 
   // "submission.sections.submit.progressbar.accessCondition": "Item access conditions",
@@ -8370,7 +8582,7 @@
   // "subscriptions.modal.close": "Close",
   "subscriptions.modal.close": "Fechar",
 
-  // "subscriptions.modal.delete-info": "To remove this subscription, please visit the \"Subscriptions\"page under your user profile",
+  // "subscriptions.modal.delete-info": "To remove this subscription, please visit the \"Subscriptions\" page under your user profile",
   "subscriptions.modal.delete-info": "Para remover esta subscrição, por favor aceda à página de 'subscrições' debaixo do seu perfil de utilizador",
 
   // "subscriptions.modal.new-subscription-form.type.content": "Content",
@@ -8499,8 +8711,8 @@
   // "uploader.delete.btn-title": "Delete",
   "uploader.delete.btn-title": "Apagar",
 
-  // "uploader.or": ", or",
-  "uploader.or": "ou",
+  // "uploader.or": ", or ",
+  "uploader.or": " ou ",
 
   // "uploader.processing": "Processing uploaded file(s)... (it's now safe to close this page)",
   "uploader.processing": "A processar o(s) ficheiro(s) carregado(s)... (agora é seguro fechar esta página)",
@@ -8757,7 +8969,7 @@
   // "person.page.orcid.link.error.message": "Something went wrong while connecting the profile with ORCID. If the problem persists, contact the administrator.",
   "person.page.orcid.link.error.message": "Ocorreu algum problema ao ligar o perfil ao ORCID. Se o problema persistir, contacte o administrador.",
 
-  // "person.page.orcid.orcid-not-linked-message": "The ORCID iD of this profile  ({{ orcid }}) has not yet been connected to an account on the ORCID registry or the connection is expired.",
+  // "person.page.orcid.orcid-not-linked-message": "The ORCID iD of this profile ({{ orcid }}) has not yet been connected to an account on the ORCID registry or the connection is expired.",
   "person.page.orcid.orcid-not-linked-message": "O ORCID iD deste perfil  ({{{ orcid }}) ainda não foi ligado a uma conta no registo do ORCID ou a ligação está expirada.",
 
   // "person.page.orcid.unlink": "Disconnect from ORCID",
@@ -9000,7 +9212,7 @@
   // "person.page.orcid.synchronization-mode.label": "Synchronization mode",
   "person.page.orcid.synchronization-mode.label": "Modo sincronização",
 
-  // "person.page.orcid.synchronization-mode-message": "Please select how you would like synchronization to ORCID to occur. The options include 'Manual' (you must send your data to ORCID manually), or 'Batch' (the system will send your data to ORCID via a scheduled script).",
+  // "person.page.orcid.synchronization-mode-message": "Please select how you would like synchronization to ORCID to occur. The options include \"Manual\" (you must send your data to ORCID manually), or \"Batch\" (the system will send your data to ORCID via a scheduled script).",
   "person.page.orcid.synchronization-mode-message": "Por favor, selecione a forma como deseja que a sincronização com ORCID ocorra. As opções incluem 'Manual' (deve enviar os seus dados para o ORCID manualmente), ou 'Batch' (o sistema enviará os seus dados para o ORCID através de um script agendado).",
 
   // "person.page.orcid.synchronization-mode-funding-message": "Select whether to send your linked Project entities to your ORCID record's list of funding information.",
@@ -9240,7 +9452,7 @@
   // "coar-notify-support.title": "COAR Notify Protocol",
   "coar-notify-support.title": "Protocolo COAR Notify",
 
-  // "coar-notify-support-title.content": "Here, we fully support the COAR Notify protocol, which is designed to enhance the communication between repositories. To learn more about the COAR Notify protocol, visit the <a href=\"https://notify.coar-repositories.org/\"rel=\"noopener noreferrer\">COAR Notify website</a>.",
+  // "coar-notify-support-title.content": "Here, we fully support the COAR Notify protocol, which is designed to enhance the communication between repositories. To learn more about the COAR Notify protocol, visit the <a href=\"https://notify.coar-repositories.org/\" rel=\"noopener noreferrer\">COAR Notify website</a>.",
   "coar-notify-support-title.content": "Aqui, suportamos totalmente o protocolo COAR Notify, que foi concebido para melhorar a comunicação entre repositórios. Para saber mais sobre o protocolo COAR Notify, visite a página <a href=\"https://notify.coar-repositories.org/\"rel=\"noopener noreferrer\">COAR Notify</a>.",
 
   // "coar-notify-support.ldn-inbox.title": "LDN InBox",
@@ -9255,7 +9467,7 @@
   // "coar-notify-support.message-moderation.content": "To ensure a secure and productive environment, all incoming LDN messages are moderated. If you are planning to exchange information with us, kindly reach out via our dedicated",
   "coar-notify-support.message-moderation.content": "Para garantir um ambiente seguro e produtivo, todas as mensagens LDN recebidas são moderadas. Se pretende trocar informações connosco, contacte-nos através do nosso",
 
-  // "coar-notify-support.message-moderation.feedback-form": "Feedback form.",
+  // "coar-notify-support.message-moderation.feedback-form": " Feedback form.",
   "coar-notify-support.message-moderation.feedback-form": "Formulário de comentários.",
 
   // "service.overview.delete.header": "Delete Service",
@@ -9263,390 +9475,391 @@
 
   // "ldn-registered-services.title": "Registered Services",
   "ldn-registered-services.title": "Serviços registados",
-
+  
   // "ldn-registered-services.table.name": "Name",
   "ldn-registered-services.table.name": "Nome",
 
   // "ldn-registered-services.table.description": "Description",
   "ldn-registered-services.table.description": "Descrição",
-
+  
   // "ldn-registered-services.table.status": "Status",
   "ldn-registered-services.table.status": "Estado",
-
+  
   // "ldn-registered-services.table.action": "Action",
   "ldn-registered-services.table.action": "Ação",
-
+  
   // "ldn-registered-services.new": "NEW",
   "ldn-registered-services.new": "NOVO",
-
+  
   // "ldn-registered-services.new.breadcrumbs": "Registered Services",
   "ldn-registered-services.new.breadcrumbs": "Serviços registados",
 
   // "ldn-service.overview.table.enabled": "Enabled",
   "ldn-service.overview.table.enabled": "Ativo",
-
+  
   // "ldn-service.overview.table.disabled": "Disabled",
   "ldn-service.overview.table.disabled": "Inativo",
-
+  
   // "ldn-service.overview.table.clickToEnable": "Click to enable",
   "ldn-service.overview.table.clickToEnable": "Clique para ativar",
-
+  
   // "ldn-service.overview.table.clickToDisable": "Click to disable",
   "ldn-service.overview.table.clickToDisable": "Clique para inativar",
 
   // "ldn-edit-registered-service.title": "Edit Service",
   "ldn-edit-registered-service.title": "Editar serviço",
-
+  
   // "ldn-create-service.title": "Create service",
   "ldn-create-service.title": "Criar serviço",
-
+  
   // "service.overview.create.modal": "Create Service",
   "service.overview.create.modal": "Criar serviço",
-
+  
   // "service.overview.create.body": "Please confirm the creation of this service.",
   "service.overview.create.body": "Por favor confirme a criação deste serviço.",
-
+  
   // "ldn-service-status": "Status",
   "ldn-service-status": "Estado",
-
+  
   // "service.confirm.create": "Create",
   "service.confirm.create": "Criar",
-
+  
   // "service.refuse.create": "Cancel",
   "service.refuse.create": "Cancelar",
+  
   // "ldn-register-new-service.title": "Register a new service",
   "ldn-register-new-service.title": "Registar um novo serviço",
-
+  
   // "ldn-new-service.form.label.submit": "Save",
   "ldn-new-service.form.label.submit": "Guardar",
-
+  
   // "ldn-new-service.form.label.name": "Name",
   "ldn-new-service.form.label.name": "Nome",
-
+  
   // "ldn-new-service.form.label.description": "Description",
   "ldn-new-service.form.label.description": "Descrição",
-
+  
   // "ldn-new-service.form.label.url": "Service URL",
   "ldn-new-service.form.label.url": "URL do serviço",
-
+  
   // "ldn-new-service.form.label.ip-range": "Service IP range",
   "ldn-new-service.form.label.ip-range": "Gama de IP do serviço",
-
+  
   // "ldn-new-service.form.label.score": "Level of trust",
   "ldn-new-service.form.label.score": "Nível de confiança",
-
+  
   // "ldn-new-service.form.label.ldnUrl": "LDN Inbox URL",
   "ldn-new-service.form.label.ldnUrl": "URL da caixa de entrada LDN",
-
+  
   // "ldn-new-service.form.placeholder.name": "Please provide service name",
   "ldn-new-service.form.placeholder.name": "Por favor, forneça o nome do serviço",
-
+  
   // "ldn-new-service.form.placeholder.description": "Please provide a description regarding your service",
   "ldn-new-service.form.placeholder.description": "Por favor, forneça uma descrição do seu serviço",
-
+  
   // "ldn-new-service.form.placeholder.url": "Please input the URL for users to check out more information about the service",
   "ldn-new-service.form.placeholder.url": "Por favor, introduza o URL para que os utilizadores possam obter mais informações sobre o serviço",
-
+  
   // "ldn-new-service.form.placeholder.lowerIp": "IPv4 range lower bound",
   "ldn-new-service.form.placeholder.lowerIp": "Limite inferior do intervalo IPv4",
-
+  
   // "ldn-new-service.form.placeholder.upperIp": "IPv4 range upper bound",
   "ldn-new-service.form.placeholder.upperIp": "Limite superior do intervalo IPv4",
-
+  
   // "ldn-new-service.form.placeholder.ldnUrl": "Please specify the URL of the LDN Inbox",
   "ldn-new-service.form.placeholder.ldnUrl": "Por favor, especifique o URL da caixa de entrada LDN",
-
+  
   // "ldn-new-service.form.placeholder.score": "Please enter a value between 0 and 1. Use the “.” as decimal separator",
   "ldn-new-service.form.placeholder.score": "Por favor, introduza um valor entre 0 e 1. Utilize o “.” como separador decimal",
-
+  
   // "ldn-service.form.label.placeholder.default-select": "Select a pattern",
   "ldn-service.form.label.placeholder.default-select": "Selecione um padrão",
 
   // "ldn-service.form.pattern.ack-accept.label": "Acknowledge and Accept",
   "ldn-service.form.pattern.ack-accept.label": "Reconhecer e aceitar",
-
+  
   // "ldn-service.form.pattern.ack-accept.description": "This pattern is used to acknowledge and accept a request (offer). It implies an intention to act on the request.",
   "ldn-service.form.pattern.ack-accept.description": "Este padrão é utilizado para reconhecer e aceitar um pedido (oferta). Implica uma intenção de atuar sobre o pedido.",
-
+  
   // "ldn-service.form.pattern.ack-accept.category": "Acknowledgements",
   "ldn-service.form.pattern.ack-accept.category": "Reconhecimentos",
 
   // "ldn-service.form.pattern.ack-reject.label": "Acknowledge and Reject",
   "ldn-service.form.pattern.ack-reject.label": "Reconhecer e rejeitar",
-
+  
   // "ldn-service.form.pattern.ack-reject.description": "This pattern is used to acknowledge and reject a request (offer). It signifies no further action regarding the request.",
   "ldn-service.form.pattern.ack-reject.description": "Este padrão é utilizado para reconhecer e rejeitar um pedido (oferta). Significa que não há mais nenhuma ação relativamente ao pedido.",
-
+  
   // "ldn-service.form.pattern.ack-reject.category": "Acknowledgements",
   "ldn-service.form.pattern.ack-reject.category": "Reconhecimentos",
 
   // "ldn-service.form.pattern.ack-tentative-accept.label": "Acknowledge and Tentatively Accept",
   "ldn-service.form.pattern.ack-tentative-accept.label": "Reconhecer e aceitar provisoriamente",
-
+  
   // "ldn-service.form.pattern.ack-tentative-accept.description": "This pattern is used to acknowledge and tentatively accept a request (offer). It implies an intention to act, which may change.",
   "ldn-service.form.pattern.ack-tentative-accept.description": "Este padrão é utilizado para reconhecer e aceitar provisoriamente um pedido (oferta). Implica uma intenção de atuar, que pode mudar.",
-
+  
   // "ldn-service.form.pattern.ack-tentative-accept.category": "Acknowledgements",
   "ldn-service.form.pattern.ack-tentative-accept.category": "Reconhecimentos",
 
   // "ldn-service.form.pattern.ack-tentative-reject.label": "Acknowledge and Tentatively Reject",
   "ldn-service.form.pattern.ack-tentative-reject.label": "Reconhecer e rejeitar provisoriamente",
-
+  
   // "ldn-service.form.pattern.ack-tentative-reject.description": "This pattern is used to acknowledge and tentatively reject a request (offer). It signifies no further action, subject to change.",
   "ldn-service.form.pattern.ack-tentative-reject.description": "Este padrão é utilizado para reconhecer e rejeitar provisoriamente um pedido (oferta). Significa que não há mais nenhuma ação, sujeita a alterações.",
-
+  
   // "ldn-service.form.pattern.ack-tentative-reject.category": "Acknowledgements",
   "ldn-service.form.pattern.ack-tentative-reject.category": "Reconhecimentos",
 
   // "ldn-service.form.pattern.announce-endorsement.label": "Announce Endorsement",
   "ldn-service.form.pattern.announce-endorsement.label": "Anunciar o avaliação",
-
+  
   // "ldn-service.form.pattern.announce-endorsement.description": "This pattern is used to announce the existence of an endorsement, referencing the endorsed resource.",
   "ldn-service.form.pattern.announce-endorsement.description": "Este padrão é utilizado para anunciar a existência de uma avaliação, referenciando o recurso avaliado.",
-
+  
   // "ldn-service.form.pattern.announce-endorsement.category": "Announcements",
   "ldn-service.form.pattern.announce-endorsement.category": "Anúncios",
 
   // "ldn-service.form.pattern.announce-ingest.label": "Announce Ingest",
   "ldn-service.form.pattern.announce-ingest.label": "Anunciar a integração",
-
+  
   // "ldn-service.form.pattern.announce-ingest.description": "This pattern is used to announce that a resource has been ingested.",
   "ldn-service.form.pattern.announce-ingest.description": "Este padrão é utilizado para anunciar que um recurso foi integrado.",
-
+  
   // "ldn-service.form.pattern.announce-ingest.category": "Announcements",
   "ldn-service.form.pattern.announce-ingest.category": "Anúncios",
 
   // "ldn-service.form.pattern.announce-relationship.label": "Announce Relationship",
   "ldn-service.form.pattern.announce-relationship.label": "Anunciar relacionamento",
-
+  
   // "ldn-service.form.pattern.announce-relationship.description": "This pattern is used to announce a relationship between two resources.",
   "ldn-service.form.pattern.announce-relationship.description": "Este padrão é utilizado para anunciar um relacionamento entre dois recursos.",
-
+  
   // "ldn-service.form.pattern.announce-relationship.category": "Announcements",
   "ldn-service.form.pattern.announce-relationship.category": "Anúncios",
 
   // "ldn-service.form.pattern.announce-review.label": "Announce Review",
   "ldn-service.form.pattern.announce-review.label": "Anunciar revisão",
-
+  
   // "ldn-service.form.pattern.announce-review.description": "This pattern is used to announce the existence of a review, referencing the reviewed resource.",
   "ldn-service.form.pattern.announce-review.description": "Este padrão é utilizado para anunciar a existência de uma revisão, referenciando o recurso revisto.",
-
+  
   // "ldn-service.form.pattern.announce-review.category": "Announcements",
   "ldn-service.form.pattern.announce-review.category": "Anúncios",
 
   // "ldn-service.form.pattern.announce-service-result.label": "Announce Service Result",
   "ldn-service.form.pattern.announce-service-result.label": "Anunciar o resultado do serviço",
-
+  
   // "ldn-service.form.pattern.announce-service-result.description": "This pattern is used to announce the existence of a 'service result', referencing the relevant resource.",
   "ldn-service.form.pattern.announce-service-result.description": "Este padrão é utilizado para anunciar a existência de um 'resultado de serviço', referenciando o recurso relevante.",
-
+  
   // "ldn-service.form.pattern.announce-service-result.category": "Announcements",
   "ldn-service.form.pattern.announce-service-result.category": "Anúncios",
 
   // "ldn-service.form.pattern.request-endorsement.label": "Request Endorsement",
   "ldn-service.form.pattern.request-endorsement.label": "Solicitar avaliação",
-
+  
   // "ldn-service.form.pattern.request-endorsement.description": "This pattern is used to request endorsement of a resource owned by the origin system.",
   "ldn-service.form.pattern.request-endorsement.description": "Este padrão é utilizado para solicitar o endosso de um recurso pertencente ao sistema de origem.",
-
+  
   // "ldn-service.form.pattern.request-endorsement.category": "Requests",
   "ldn-service.form.pattern.request-endorsement.category": "Solicitações",
 
   // "ldn-service.form.pattern.request-ingest.label": "Request Ingest",
   "ldn-service.form.pattern.request-ingest.label": "Solicitar integração",
-
+  
   // "ldn-service.form.pattern.request-ingest.description": "This pattern is used to request that the target system ingest a resource.",
   "ldn-service.form.pattern.request-ingest.description": "Este padrão é utilizado para solicitar que o sistema de destino integre um recurso.",
-
+  
   // "ldn-service.form.pattern.request-ingest.category": "Requests",
   "ldn-service.form.pattern.request-ingest.category": "Solicitações",
 
   // "ldn-service.form.pattern.request-review.label": "Request Review",
   "ldn-service.form.pattern.request-review.label": "Solicitar revisão",
-
+  
   // "ldn-service.form.pattern.request-review.description": "This pattern is used to request a review of a resource owned by the origin system.",
   "ldn-service.form.pattern.request-review.description": "Este padrão é utilizado para solicitar uma revisão de um recurso pertencente ao sistema de origem.",
-
+  
   // "ldn-service.form.pattern.request-review.category": "Requests",
   "ldn-service.form.pattern.request-review.category": "Solicitações",
 
   // "ldn-service.form.pattern.undo-offer.label": "Undo Offer",
   "ldn-service.form.pattern.undo-offer.label": "Anular oferta",
-
+  
   // "ldn-service.form.pattern.undo-offer.description": "This pattern is used to undo (retract) an offer previously made.",
   "ldn-service.form.pattern.undo-offer.description": "Este padrão é utilizado para anular (retirar) uma oferta feita anteriormente.",
-
+  
   // "ldn-service.form.pattern.undo-offer.category": "Undo",
   "ldn-service.form.pattern.undo-offer.category": "Anular",
 
   // "ldn-new-service.form.label.placeholder.selectedItemFilter": "No Item Filter Selected",
   "ldn-new-service.form.label.placeholder.selectedItemFilter": "Nenhum filtro de item selecionado",
-
+  
   // "ldn-new-service.form.label.ItemFilter": "Item Filter",
   "ldn-new-service.form.label.ItemFilter": "Filtro de item",
-
+  
   // "ldn-new-service.form.label.automatic": "Automatic",
   "ldn-new-service.form.label.automatic": "Automático",
-
+  
   // "ldn-new-service.form.error.name": "Name is required",
   "ldn-new-service.form.error.name": "O nome é obrigatório",
-
+  
   // "ldn-new-service.form.error.url": "URL is required",
   "ldn-new-service.form.error.url": "O URL é obrigatório",
-
+  
   // "ldn-new-service.form.error.ipRange": "Please enter a valid IP range",
   "ldn-new-service.form.error.ipRange": "Por favor, introduza uma gama de IPs válida",
-
+  
   // "ldn-new-service.form.hint.ipRange": "Please enter a valid IpV4 in both range bounds (note: for single IP, please enter the same value in both fields)",
   "ldn-new-service.form.hint.ipRange": "Introduza um IpV4 válido em ambos os limites do intervalo (nota: para um IP único, introduza o mesmo valor em ambos os campos)",
-
+  
   // "ldn-new-service.form.error.ldnurl": "LDN URL is required",
   "ldn-new-service.form.error.ldnurl": "O URL do LDN é obrigatório",
-
+  
   // "ldn-new-service.form.error.patterns": "At least a pattern is required",
   "ldn-new-service.form.error.patterns": "Pelo menos um padrão é obrigatório",
-
+  
   // "ldn-new-service.form.error.score": "Please enter a valid score (between 0 and 1). Use the “.” as decimal separator",
   "ldn-new-service.form.error.score": "Introduza uma pontuação válida (entre 0 e 1). Utilize o “.” como separador decimal",
 
   // "ldn-new-service.form.label.inboundPattern": "Supported Pattern",
   "ldn-new-service.form.label.inboundPattern": "Padrão suportado",
-
+  
   // "ldn-new-service.form.label.addPattern": "+ Add more",
   "ldn-new-service.form.label.addPattern": "+ Adicionar mais",
-
+  
   // "ldn-new-service.form.label.removeItemFilter": "Remove",
   "ldn-new-service.form.label.removeItemFilter": "Remover",
-
+  
   // "ldn-register-new-service.breadcrumbs": "New Service",
   "ldn-register-new-service.breadcrumbs": "Novo serviço",
-
+  
   // "service.overview.delete.body": "Are you sure you want to delete this service?",
   "service.overview.delete.body": "Tem certeza de que pretende apagar este serviço?",
-
+  
   // "service.overview.edit.body": "Do you confirm the changes?",
   "service.overview.edit.body": "Confirma as alterações?",
-
+  
   // "service.overview.edit.modal": "Edit Service",
   "service.overview.edit.modal": "Editar serviço",
-
+  
   // "service.detail.update": "Confirm",
   "service.detail.update": "Confirmar",
-
+  
   // "service.detail.return": "Cancel",
   "service.detail.return": "Cancelar",
-
+  
   // "service.overview.reset-form.body": "Are you sure you want to discard the changes and leave?",
   "service.overview.reset-form.body": "Tem a certeza de que pretende descartar as alterações e deixar?",
-
+  
   // "service.overview.reset-form.modal": "Discard Changes",
   "service.overview.reset-form.modal": "Descartar as alterações",
-
+  
   // "service.overview.reset-form.reset-confirm": "Discard",
   "service.overview.reset-form.reset-confirm": "Descartar",
-
+  
   // "admin.registries.services-formats.modify.success.head": "Successful Edit",
   "admin.registries.services-formats.modify.success.head": "Edição bem-sucedida",
-
+  
   // "admin.registries.services-formats.modify.success.content": "The service has been edited",
   "admin.registries.services-formats.modify.success.content": "O serviço foi editado",
-
+  
   // "admin.registries.services-formats.modify.failure.head": "Failed Edit",
   "admin.registries.services-formats.modify.failure.head": "Edição falhou",
-
+  
   // "admin.registries.services-formats.modify.failure.content": "The service has not been edited",
   "admin.registries.services-formats.modify.failure.content": "O serviço não foi editado",
-
+  
   // "ldn-service-notification.created.success.title": "Successful Create",
   "ldn-service-notification.created.success.title": "Criação bem-sucedida",
-
+  
   // "ldn-service-notification.created.success.body": "The service has been created",
   "ldn-service-notification.created.success.body": "O serviço foi criado",
-
+  
   // "ldn-service-notification.created.failure.title": "Failed Create",
   "ldn-service-notification.created.failure.title": "Criação falhou",
-
+  
   // "ldn-service-notification.created.failure.body": "The service has not been created",
   "ldn-service-notification.created.failure.body": "O serviço não foi criado",
-
+  
   // "ldn-service-notification.created.warning.title": "Please select at least one Inbound Pattern",
   "ldn-service-notification.created.warning.title": "Por favor, selecionar pelo menos um padrão de entrada",
-
+  
   // "ldn-enable-service.notification.success.title": "Successful status updated",
   "ldn-enable-service.notification.success.title": "Estado atualizado com êxito",
-
+  
   // "ldn-enable-service.notification.success.content": "The service status has been updated",
   "ldn-enable-service.notification.success.content": "O estado do serviço foi atualizado",
-
+  
   // "ldn-service-delete.notification.success.title": "Successful Deletion",
   "ldn-service-delete.notification.success.title": "Excluído com sucesso",
-
+  
   // "ldn-service-delete.notification.success.content": "The service has been deleted",
   "ldn-service-delete.notification.success.content": "O serviço foi excluído",
-
+  
   // "ldn-service-delete.notification.error.title": "Failed Deletion",
   "ldn-service-delete.notification.error.title": "Falha na exclusão",
-
+  
   // "ldn-service-delete.notification.error.content": "The service has not been deleted",
   "ldn-service-delete.notification.error.content": "O serviço não foi excluído",
-
+  
   // "service.overview.reset-form.reset-return": "Cancel",
   "service.overview.reset-form.reset-return": "Cancelar",
-
+  
   // "service.overview.delete": "Delete service",
   "service.overview.delete": "Excluir serviço",
-
+  
   // "ldn-edit-service.title": "Edit service",
   "ldn-edit-service.title": "Editar serviço",
-
+  
   // "ldn-edit-service.form.label.name": "Name",
   "ldn-edit-service.form.label.name": "Nome",
-
+  
   // "ldn-edit-service.form.label.description": "Description",
   "ldn-edit-service.form.label.description": "Descrição",
-
+  
   // "ldn-edit-service.form.label.url": "Service URL",
   "ldn-edit-service.form.label.url": "URL do serviço",
-
+  
   // "ldn-edit-service.form.label.ldnUrl": "LDN Inbox URL",
   "ldn-edit-service.form.label.ldnUrl": "URL da caixa de entrada LDN",
-
+  
   // "ldn-edit-service.form.label.inboundPattern": "Inbound Pattern",
   "ldn-edit-service.form.label.inboundPattern": "Padrão de entrada",
-
+  
   // "ldn-edit-service.form.label.noInboundPatternSelected": "No Inbound Pattern",
   "ldn-edit-service.form.label.noInboundPatternSelected": "Nenhum padrão de entrada",
-
+  
   // "ldn-edit-service.form.label.selectedItemFilter": "Selected Item Filter",
   "ldn-edit-service.form.label.selectedItemFilter": "Filtro de item selecionado",
-
+  
   // "ldn-edit-service.form.label.selectItemFilter": "No Item Filter",
   "ldn-edit-service.form.label.selectItemFilter": "Sem filtro de itens",
-
+  
   // "ldn-edit-service.form.label.automatic": "Automatic",
   "ldn-edit-service.form.label.automatic": "Automático",
-
+  
   // "ldn-edit-service.form.label.addInboundPattern": "+ Add more",
   "ldn-edit-service.form.label.addInboundPattern": "+ Adicionar mais",
-
+  
   // "ldn-edit-service.form.label.submit": "Save",
   "ldn-edit-service.form.label.submit": "Guardar",
-
+  
   // "ldn-edit-service.breadcrumbs": "Edit Service",
   "ldn-edit-service.breadcrumbs": "Editar Serviço",
-
+  
   // "ldn-service.control-constaint-select-none": "Select none",
   "ldn-service.control-constaint-select-none": "Não selecionar nenhum",
 
   // "ldn-register-new-service.notification.error.title": "Error",
   "ldn-register-new-service.notification.error.title": "Erro",
-
+  
   // "ldn-register-new-service.notification.error.content": "An error occurred while creating this process",
   "ldn-register-new-service.notification.error.content": "Ocorreu um erro na criação deste processo",
-
+  
   // "ldn-register-new-service.notification.success.title": "Success",
   "ldn-register-new-service.notification.success.title": "Sucesso",
-
+  
   // "ldn-register-new-service.notification.success.content": "The process was successfully created",
   "ldn-register-new-service.notification.success.content": "O processo foi criado com êxito",
 
@@ -9655,6 +9868,9 @@
 
   // "item.page.endorsement": "Endorsement",
   "item.page.endorsement": "Avaliação",
+
+  // "item.page.places": "Related places",
+  "item.page.places": "Locais relacionados",
 
   // "item.page.review": "Review",
   "item.page.review": "Revisão",
@@ -9680,11 +9896,11 @@
   // "quality-assurance.events.description": "Below the list of all the suggestions for the selected topic <b>{{topic}}</b>, related to <b>{{source}}</b>.",
   "quality-assurance.events.description": "Em baixo encontra-se a lista de todas as sugestões para o tópico selecionado <b>{{topic}}</b>, relacionado com <b>{{source}}</b>.",
 
-  // "quality-assurance.events.description-with-topic-and-target": "Below the list of all the suggestions for the selected topic <b>{{topic}}</b>, related to <b>{{source}}</b> and",
-  "quality-assurance.events.description-with-topic-and-target": "Em baixo, a lista de todas as sugestões para o tópico selecionado <b>{{topic}}</b>, relacionado com <b>{{source}}</b> e",
+  // "quality-assurance.events.description-with-topic-and-target": "Below the list of all the suggestions for the selected topic <b>{{topic}}</b>, related to <b>{{source}}</b> and ",
+  "quality-assurance.events.description-with-topic-and-target": "Em baixo, encontram-se listadas todas as sugestões para o tópico selecionado <b>{{topic}}</b>, relacionado com <b>{{source}}</b> e",
 
-  // "quality-assurance.event.table.event.message.serviceUrl": "Service URL:",
-  "quality-assurance.event.table.event.message.serviceUrl": "URL do serviço:",
+  // "quality-assurance.event.table.event.message.serviceUrl": "Actor:",
+  "quality-assurance.event.table.event.message.serviceUrl": "Serviço:",
 
   // "quality-assurance.event.table.event.message.link": "Link:",
   "quality-assurance.event.table.event.message.link": "Hiperligação:",
@@ -9780,7 +9996,7 @@
   "request-status-alert-box.rejected": "O pedido  {{ offerType }} solicitado para <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> foi rejeitado.",
 
   // "request-status-alert-box.tentative_rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been tentatively rejected. Revisions are required",
-  "request-status-alert-box.tentative_rejected": "O pedido {{ offerType }} solicitado para <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> foi provisoriamente rejeitado. são necessárias revisões.",
+  "request-status-alert-box.tentative_rejected": "O pedido {{ offerType }} solicitado para <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> foi provisoriamente rejeitado. São necessárias revisões.",
 
   // "request-status-alert-box.requested": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> is pending.",
   "request-status-alert-box.requested": "O pedido {{ offerType }} solicitado para <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> está pendente.",
@@ -9807,7 +10023,7 @@
   "ldn-service-overview-close-modal": "Fechar 'modal'",
 
   // "ldn-service-usesActorEmailId": "Requires actor email in notifications",
-  "ldn-service-usesActorEmailId": "Requer o e-mail do ator nas notificações",
+  "ldn-service-usesActorEmailId": "Requer o e-mail do serviço nas notificações",
 
   // "ldn-service-usesActorEmailId-description": "If enabled, initial notifications sent will include the submitter email rather than the repository URL. This is usually the case for endorsement or review services.",
   "ldn-service-usesActorEmailId-description": "Se estiverem ativas, as notificações iniciais enviadas incluirão o e-mail do remetente em vez do URL do repositório. Este é normalmente o caso dos serviços de aprovação ou revisão.",
@@ -9828,7 +10044,7 @@
   "doi-filter.label": "Filtro DOI",
 
   // "driver-document-type_condition.label": "Document type equals driver",
-  "driver-document-type_condition.label": "Tipo de documento é igual a 'Driver'",
+  "driver-document-type_condition.label": "Tipo de documento é igual a 'driver'",
 
   // "has-at-least-one-bitstream_condition.label": "Has at least one Bitstream",
   "has-at-least-one-bitstream_condition.label": "Tem pelo menos um ficheiro",
@@ -9986,8 +10202,8 @@
   // "admin.notify.dashboard.inbound-logs": "Logs/Inbound",
   "admin.notify.dashboard.inbound-logs": "Registos/Entrada",
 
-  // "admin.notify.dashboard.filter": "Filter:",
-  "admin.notify.dashboard.filter": "Filtro:",
+  // "admin.notify.dashboard.filter": "Filter: ",
+  "admin.notify.dashboard.filter": "Filtro: ",
 
   // "search.filters.applied.f.relateditem": "Related items",
   "search.filters.applied.f.relateditem": "Itens relacionados",
@@ -10007,7 +10223,7 @@
   // "search.filters.applied.f.access_status": "Access type",
   "search.filters.applied.f.access_status": "Tipo de acesso",
 
-  // "search.filters.filter.queue_last_start_time.head": "Last processing time",
+  // "search.filters.filter.queue_last_start_time.head": "Last processing time ",
   "search.filters.filter.queue_last_start_time.head": "Última hora de processamento",
 
   // "search.filters.filter.queue_last_start_time.min.label": "Min range",
@@ -10409,6 +10625,126 @@
   // "dynamic-form-array.sortable-list.label": "Sortable list",
   "dynamic-form-array.sortable-list.label": "Lista ordenável",
 
+  // "external-login.component.or": "or",
+  "external-login.component.or": "ou",
+
+  // "external-login.confirmation.header": "Information needed to complete the login process",
+  "external-login.confirmation.header": "Falta informação para concluir o processo de autenticação",
+
+  // "external-login.noEmail.informationText": "The information received from {{authMethod}} are not sufficient to complete the login process. Please provide the missing information below, or login via a different method to associate your {{authMethod}} to an existing account.",
+  "external-login.noEmail.informationText": "As informações recebidas de {{authMethod}} não são suficientes para concluir o processo de autenticação. Forneça as informações em falta em baixo ou autentique-se através de um método diferente para associar o seu {{authMethod}} a uma conta existente.",
+
+  // "external-login.haveEmail.informationText": "It seems that you have not yet an account in this system. If this is the case, please confirm the data received from {{authMethod}} and a new account will be created for you. Otherwise, if you already have an account in the system, please update the email address to match the one already in use in the system or login via a different method to associate your {{authMethod}} to your existing account.",
+  "external-login.haveEmail.informationText": "Parece que ainda não tem uma conta neste sistema. Se for esse o caso, confirme os dados recebidos de {{authMethod}} e será criada uma nova conta para si. Caso contrário, se já tiver uma conta no sistema, actualize o endereço de e-mail para corresponder ao que já está a ser utilizado no sistema ou inicie sessão através de um método diferente para associar o seu {{authMethod}} à sua conta existente.",
+
+  // "external-login.confirm-email.header": "Confirm or update email",
+  "external-login.confirm-email.header": "Confirmar ou atualizar o correio eletrónico",
+
+  // "external-login.confirmation.email-required": "Email is required.",
+  "external-login.confirmation.email-required": "O E-mail é obrigatório.",
+
+  // "external-login.confirmation.email-label": "User Email",
+  "external-login.confirmation.email-label": "E-mail do utilizador",
+
+  // "external-login.confirmation.email-invalid": "Invalid email format.",
+  "external-login.confirmation.email-invalid": "Formato de correio eletrónico inválido.",
+
+  // "external-login.confirm.button.label": "Confirm this email",
+  "external-login.confirm.button.label": "Confirmar esta mensagem de correio eletrónico",
+
+  // "external-login.confirm-email-sent.header": "Confirmation email sent",
+  "external-login.confirm-email-sent.header": "Envio de correio eletrónico de confirmação",
+
+  // "external-login.confirm-email-sent.info": " We have sent an emait to the provided address to validate your input. <br> Please follow the instructions in the email to complete the login process.",
+  "external-login.confirm-email-sent.info": "Enviámos uma mensagem de correio eletrónico para o endereço fornecido para validar os dados introduzidos. <br> Por favor, siga as instruções no e-mail para concluir o processo de login.",
+
+  // "external-login.provide-email.header": "Provide email",
+  "external-login.provide-email.header": "Fornecer E-mail",
+
+  // "external-login.provide-email.button.label": "Send Verification link",
+  "external-login.provide-email.button.label": "Enviar hiperligação para verificação",
+
+  // "external-login-validation.review-account-info.header": "Review your account information",
+  "external-login-validation.review-account-info.header": "Rever as informações da sua conta",
+
+  // "external-login-validation.review-account-info.info": "The information received from ORCID differs from the one recorded in your profile. <br /> Please review them and decide if you want to update any of them.After saving you will be redirected to your profile page.",
+  "external-login-validation.review-account-info.info": "As informações recebidas do ORCID diferem das registadas no seu perfil. <br /> Por favor, reveja-as e decida se pretende atualizar algo. Depois de as guardar, será redireccionado para a sua página de perfil.",
+
+  // "external-login-validation.review-account-info.table.header.information": "Information",
+  "external-login-validation.review-account-info.table.header.information": "Informação",
+
+  // "external-login-validation.review-account-info.table.header.received-value": "Received value",
+  "external-login-validation.review-account-info.table.header.received-value": "Valor recebido",
+
+  // "external-login-validation.review-account-info.table.header.current-value": "Current value",
+  "external-login-validation.review-account-info.table.header.current-value": "Valor atual",
+
+  // "external-login-validation.review-account-info.table.header.action": "Override",
+  "external-login-validation.review-account-info.table.header.action": "Substituir",
+
+  // "external-login-validation.review-account-info.table.row.not-applicable": "N/A",
+  "external-login-validation.review-account-info.table.row.not-applicable": "N/A",
+
+  // "on-label": "ON",
+  "on-label": "Ligado",
+
+  // "off-label": "OFF",
+  "off-label": "Desligado",
+
+  // "review-account-info.merge-data.notification.success": "Your account information has been updated successfully",
+  "review-account-info.merge-data.notification.success": "As informações da sua conta foram actualizadas com êxito",
+
+  // "review-account-info.merge-data.notification.error": "Something went wrong while updating your account information",
+  "review-account-info.merge-data.notification.error": "Algo correu mal ao atualizar as informações da sua conta",
+
+  // "review-account-info.alert.error.content": "Something went wrong. Please try again later.",
+  "review-account-info.alert.error.content": "Algo correu mal. Por favor, tente novamente mais tarde.",
+
+  // "external-login-page.provide-email.notifications.error": "Something went wrong.Email address was omitted or the operation is not valid.",
+  "external-login-page.provide-email.notifications.error": "Algo correu mal. O endereço de correio eletrónico foi omitido ou a operação não é válida.",
+
+  // "external-login.error.notification": "There was an error while processing your request. Please try again later.",
+  "external-login.error.notification": "Ocorreu um erro ao processar o seu pedido. Por favor, tente novamente mais tarde.",
+
+  // "external-login.connect-to-existing-account.label": "Connect to an existing user",
+  "external-login.connect-to-existing-account.label": "Ligar a um utilizador existente",
+
+  // "external-login.modal.label.close": "Close",
+  "external-login.modal.label.close": "Fechar",
+
+  // "external-login-page.provide-email.create-account.notifications.error.header": "Something went wrong",
+  "external-login-page.provide-email.create-account.notifications.error.header": "Algo correu mal",
+
+  // "external-login-page.provide-email.create-account.notifications.error.content": "Please check again your email address and try again.",
+  "external-login-page.provide-email.create-account.notifications.error.content": "Verifique novamente o seu endereço de correio eletrónico e tente de novo.",
+
+  // "external-login-page.confirm-email.create-account.notifications.error.no-netId": "Something went wrong with this email account. Try again or use a different method to login.",
+  "external-login-page.confirm-email.create-account.notifications.error.no-netId": "Algo correu mal com esta conta de correio eletrónico. Tente novamente ou utilize um método diferente para iniciar sessão.",
+
+  // "external-login-page.orcid-confirmation.firstname": "First name",
+  "external-login-page.orcid-confirmation.firstname": "Nome",
+
+  // "external-login-page.orcid-confirmation.firstname.label": "First name",
+  "external-login-page.orcid-confirmation.firstname.label": "Nome",
+
+  // "external-login-page.orcid-confirmation.lastname": "Last name",
+  "external-login-page.orcid-confirmation.lastname": "Apelido",
+
+  // "external-login-page.orcid-confirmation.lastname.label": "Last name",
+  "external-login-page.orcid-confirmation.lastname.label": "Apelido",
+
+  // "external-login-page.orcid-confirmation.netid": "Account Identifier",
+  "external-login-page.orcid-confirmation.netid": "Identificador de conta",
+
+  // "external-login-page.orcid-confirmation.netid.placeholder": "xxxx-xxxx-xxxx-xxxx",
+  "external-login-page.orcid-confirmation.netid.placeholder": "xxxx-xxxx-xxxx-xxxx",
+
+  // "external-login-page.orcid-confirmation.email": "Email",
+  "external-login-page.orcid-confirmation.email": "E-mail",
+
+  // "external-login-page.orcid-confirmation.email.label": "Email",
+  "external-login-page.orcid-confirmation.email.label": "E-mail",
+  
   // "search.filters.access_status.open.access": "Open access",
   "search.filters.access_status.open.access": "Acesso aberto",
 
@@ -10424,28 +10760,24 @@
   // "search.filters.access_status.unknown": "Unknown",
   "search.filters.access_status.unknown": "Desconhecido",
 
+  // "metadata-export-filtered-items.tooltip": "Export report output as CSV",
+  "metadata-export-filtered-items.tooltip": "Exportar o resultado do relatório como CSV",
 
+  // "metadata-export-filtered-items.submit.success": "CSV export succeeded.",
+  "metadata-export-filtered-items.submit.success": "A exportação CSV foi bem sucedida.",
+
+  // "metadata-export-filtered-items.submit.error": "CSV export failed.",
+  "metadata-export-filtered-items.submit.error": "Exportação CSV falhou.",
+
+  // "metadata-export-filtered-items.columns.warning": "CSV export automatically includes all relevant fields, so selections in this list are not taken into account.",
+  "metadata-export-filtered-items.columns.warning": "A exportação CSV inclui automaticamente todos os campos relevantes, pelo que as seleções nesta lista não são tidas em conta.",
+
+  // "embargo.listelement.badge": "Embargo until {{ date }}",
+  "embargo.listelement.badge": "Embargo até {{ date }}",
+  
   // Other strings...
   // Missing, deprecated, duplicate or redundant ???
-  // Not found when compared to 'en.json5' 2025-03-12
-
-  // "datafile.listelement.badge": "Data file",
-  "datafile.listelement.badge": "Ficheiro de dados",
-
-  // "datapackage.listelement.badge": "Data package",
-  "datapackage.listelement.badge": "Pacote de dados",
-
-  // "browse.next.button": "Next",
-  "browse.next.button": "Próximo",
-
-  // "browse.previous.button": "Previous",
-  "browse.previous.button": "Anterior",
-
-  // "mydspace.general.text-here": "here",
-  "mydspace.general.text-here": "aqui",
-
-  // "mydspace.upload.upload-successful": "New workspace item created. Click {{here}} for edit it.",
-  "mydspace.upload.upload-successful": "Novo item de espaço de trabalho criado. Clique {{here}} para o editar.",
+  // Not found when compared to 'en.json5' 2025-04-15
 
   // "search.form.search_mydspace": "Search MyDSpace",
   "search.form.search_mydspace": "Pesquisar na área pessoal",
@@ -10453,40 +10785,7 @@
   // "profile.security.form.notifications.error.not-long-enough": "The password has to be at least 6 characters long.",
   "profile.security.form.notifications.error.not-long-enough": "A senha deve ter pelo menos 6 caracteres.",
 
-  // "register-page.create-profile.security.error.password-length": "The password should be at least 6 characters long.",
-  "register-page.create-profile.security.error.password-length": "A senha deve possuir pelo menos 6 caracteres.",
-
   // "forgot-password.form.error.password-length": "The password should be at least 6 characters long.",
-  "forgot-password.form.error.password-length": "A senha deve ter pelo menos 6 caracteres.",
-
-  // "search.filters.entityType.Journal": "Journal",
-  "search.filters.entityType.Journal": "Revista",
-
-  // "search.filters.entityType.DataFile": "Data File",
-  "search.filters.entityType.DataFile": "Ficheiro de dados",
-
-  // "forgot-email.form.google-recaptcha.must-accept-cookies": "Must accept cookies",
-  "forgot-email.form.google-recaptcha.must-accept-cookies": "Deve aceitar cookies",
-
-  // "forgot-email.form.google-recaptcha.open-cookie-settings": "Cookie settings",
-  "forgot-email.form.google-recaptcha.open-cookie-settings": "Configurar cookies",
-
-  // "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.added.local-entity": "Successfully imported and added external project to the selection",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.added.local-entity": "Importado com sucesso e projeto externo adicionado à seleção",
-
-  // "orgunit-relationships.search.results.head": "Organizational Unit Search Results",
-  "orgunit-relationships.search.results.head": "Resultados da pesquisa de organizações",
-
-  // "journalissue-relationships.search.results.head": "Journal Issue Search Results",
-  "journalissue-relationships.search.results.head": "Resultados da pesquisa de números",
-
-  // "grant-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I have the pleasure to send you in attachment a copy of the file(s) concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
-  "grant-request-copy.email.message": "Caro {{ recipientName }},\nEm resposta ao seu pedido de cópia, tenho o prazer de lhe enviar em anexo uma cópia do(s) ficheiro(s) relativo(s) ao documento: \"{{ itemUrl }}\" ({{ itemName }}), do qual sou autor.\n\nCom os melhores cumprimentos,\n{{ authorName }} <{{ authorEmail }}>",
-
-  // "item.preview.dc.relation.eissn": "EISSN",
-  "item.preview.dc.relation.eissn": "EISSN",
-
-  // "item.preview.dc.identifier.eisbn": "EISBN",
-  "item.preview.dc.identifier.eisbn": "EISBN",
+  "forgot-password.form.error.password-length": "A senha deve ter pelo menos 6 carateres.",
 
 }

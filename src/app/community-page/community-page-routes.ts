@@ -7,9 +7,7 @@ import { communityBreadcrumbResolver } from '../core/breadcrumbs/community-bread
 import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.resolver';
 import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
 import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
-import { dsoEditMenuResolver } from '../shared/dso-page/dso-edit-menu.resolver';
-import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
-import { MenuItemType } from '../shared/menu/menu-item-type.model';
+import { MenuRoute } from '../shared/menu/menu-route.model';
 import { communityPageResolver } from './community-page.resolver';
 import { communityPageAdministratorGuard } from './community-page-administrator.guard';
 import {
@@ -69,8 +67,8 @@ export const ROUTES: Route[] = [
       {
         path: '',
         component: ThemedCommunityPageComponent,
-        resolve: {
-          menu: dsoEditMenuResolver,
+        data: {
+          menuRoute: MenuRoute.COMMUNITY_PAGE,
         },
         children: [
           {
@@ -79,13 +77,28 @@ export const ROUTES: Route[] = [
             component: ComcolSearchSectionComponent,
           },
           {
+            path: 'search',
+            pathMatch: 'full',
+            component: ComcolSearchSectionComponent,
+            resolve: {
+              breadcrumb: i18nBreadcrumbResolver,
+            },
+            data: {
+              breadcrumbKey: 'community.search',
+              menuRoute: MenuRoute.COMMUNITY_PAGE,
+            },
+          },
+          {
             path: 'subcoms-cols',
             pathMatch: 'full',
             component: SubComColSectionComponent,
             resolve: {
               breadcrumb: i18nBreadcrumbResolver,
             },
-            data: { breadcrumbKey: 'community.subcoms-cols' },
+            data: {
+              breadcrumbKey: 'community.subcoms-cols',
+              menuRoute: MenuRoute.COMMUNITY_PAGE,
+            },
           },
           {
             path: 'browse/:id',
@@ -95,25 +108,13 @@ export const ROUTES: Route[] = [
             resolve: {
               breadcrumb: browseByI18nBreadcrumbResolver,
             },
-            data: { breadcrumbKey: 'browse.metadata' },
+            data: {
+              breadcrumbKey: 'browse.metadata',
+              menuRoute: MenuRoute.COMMUNITY_PAGE,
+            },
           },
         ],
       },
     ],
-    data: {
-      menu: {
-        public: [{
-          id: 'statistics_community_:id',
-          active: true,
-          visible: true,
-          index: 2,
-          model: {
-            type: MenuItemType.LINK,
-            text: 'menu.section.statistics',
-            link: 'statistics/communities/:id/',
-          } as LinkMenuItemModel,
-        }],
-      },
-    },
   },
 ];
