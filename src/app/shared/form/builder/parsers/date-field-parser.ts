@@ -11,7 +11,7 @@ export class DateFieldParser extends FieldParser {
 
   public modelFactory(fieldValue?: FormFieldMetadataValueObject, label?: boolean): any {
     let malformedDate = false;
-    const inputDateModelConfig: DynamicDsDatePickerModelConfig = this.initModel(null, label, true);
+    const inputDateModelConfig: DynamicDsDateControlModelConfig = this.initModel(null, label, true);
     inputDateModelConfig.legend = this.configData.repeatable ? null : this.configData.label;
     inputDateModelConfig.disabled = inputDateModelConfig.readOnly;
     inputDateModelConfig.toggleIcon = 'fas fa-calendar';

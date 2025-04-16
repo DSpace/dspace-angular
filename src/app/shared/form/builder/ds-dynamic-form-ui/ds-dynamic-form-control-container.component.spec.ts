@@ -434,4 +434,12 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
     });
   });
 
+  it('should not show a label if is a checkbox or a date field', () => {
+    const checkboxLabel =  fixture.debugElement.query(By.css('#label_' + formModel[0].id));
+    const dsDatePickerLabel =  fixture.debugElement.query(By.css('#label_' + formModel[22].id));
+
+    expect(checkboxLabel).toBeNull();
+    expect(dsDatePickerLabel).toBeNull();
+  });
+
 });
