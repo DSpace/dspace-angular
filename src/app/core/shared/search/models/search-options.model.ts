@@ -19,11 +19,12 @@ export class SearchOptions {
   dsoTypes?: DSpaceObjectType[];
   filters?: SearchFilter[];
   fixedFilter?: string;
+  advanced?: boolean;
 
   constructor(
     options: {
       configuration?: string, scope?: string, query?: string, dsoTypes?: DSpaceObjectType[], filters?: SearchFilter[],
-      fixedFilter?: string
+      fixedFilter?: string, advanced?: boolean
     },
   ) {
     this.configuration = options.configuration;
@@ -32,6 +33,7 @@ export class SearchOptions {
     this.dsoTypes = options.dsoTypes;
     this.filters = options.filters;
     this.fixedFilter = options.fixedFilter;
+    this.advanced = options.advanced;
   }
 
   /**
@@ -48,6 +50,9 @@ export class SearchOptions {
       args.push(this.encodedFixedFilter);
     }
     if (isNotEmpty(this.query)) {
+      if (!this.advanced){
+        this.query.replace(':', '\:');
+      }
       args.push(`query=${encodeURIComponent(this.query)}`);
     }
     if (isNotEmpty(this.scope)) {
