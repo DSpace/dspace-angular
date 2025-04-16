@@ -137,6 +137,10 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
     detectChanges: () => undefined,
   });
 
+  const mockCdRef = Object.assign({
+    detectChanges: () => undefined,
+  });
+
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -168,7 +172,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
         { provide: XSRFService, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).overrideComponent(SubmissionSectionUploadFileEditComponent, { remove: { imports: [FormComponent] } }).compileComponents().then();
+    }).compileComponents().then();
   }));
 
   describe('', () => {

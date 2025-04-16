@@ -2,6 +2,7 @@ import {
   CdkDrag,
   CdkDragDrop,
   CdkDropList,
+  CdkDropListGroup,
   moveItemInArray,
 } from '@angular/cdk/drag-drop';
 import {
@@ -62,6 +63,7 @@ const TOOLTIP_TEXT_LIMIT = 21;
     TranslateModule,
     CdkDrag,
     CdkDropList,
+    CdkDropListGroup,
     NgTemplateOutlet,
   ],
   standalone: true,

@@ -9,7 +9,7 @@
         <ds-badges *ngIf="showLabel" [object]="item" [context]="badgeContext" [showAccessStatus]="true"></ds-badges>
       </div>
       <ds-truncatable [id]="item.id">
-        <h3 [innerHTML]="dsoTitle" [ngClass]="{'lead': true,'text-muted': !item.firstMetadataValue('dc.title')}"></h3>
+        <h2 [innerHTML]="dsoTitle" [ngClass]="{'lead': true,'text-muted': !item.firstMetadataValue('dc.title')}"></h2>
         <div *ngIf="item.hasMetadata('dspace.workflow.startDateTime') && item.hasMetadata('dc.date.accessioned')">
           {{ 'mydspace.results.in-workflow-for' | translate }}
           {{ getDateForArchivedItem(item.firstMetadataValue('dspace.workflow.startDateTime'), item.firstMetadataValue('dc.date.accessioned')) }}

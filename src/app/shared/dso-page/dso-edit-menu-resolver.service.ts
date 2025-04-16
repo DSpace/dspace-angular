@@ -157,7 +157,7 @@ export class DSOEditMenuResolverService  {
         this.dsoVersioningModalService.getVersioningTooltipMessage(dso, 'item.page.version.hasDraft', 'item.page.version.create'),
         this.authorizationService.isAuthorized(FeatureID.CanSynchronizeWithORCID, dso.self),
         this.authorizationService.isAuthorized(FeatureID.CanClaimItem, dso.self),
-        this.correctionTypeDataService.findByItem(dso.uuid, false).pipe(
+        this.correctionTypeDataService.findByItem(dso.uuid, true).pipe(
           getFirstCompletedRemoteData(),
           getRemoteDataPayload()),
       ]).pipe(

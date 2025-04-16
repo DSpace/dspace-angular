@@ -44,6 +44,7 @@ import { JsonPatchOperationsBuilder } from '../../../../../core/json-patch/build
 import { WorkspaceitemSectionUploadFileObject } from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { SubmissionJsonPatchOperationsService } from '../../../../../core/submission/submission-json-patch-operations.service';
 import { normalizeSectionData } from '../../../../../core/submission/submission-response-parsing.service';
+import { BtnDisabledDirective } from '../../../../../shared/btn-disabled.directive';
 import { dateToISOFormat } from '../../../../../shared/date.util';
 import {
   hasNoValue,
@@ -89,6 +90,7 @@ import {
     FormComponent,
     NgIf,
     TranslateModule,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })
@@ -534,11 +536,11 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit, OnDestr
 
         this.uploadService.updateFilePrimaryBitstream(this.submissionId, this.sectionId, uploadSection.primary);
 
-        Object.keys(uploadSection.files)
-          .filter((key) => uploadSection.files[key].uuid === this.fileId)
-          .forEach((key) => this.uploadService.updateFileData(
+      Object.keys(uploadSection.files)
+        .filter((key) => uploadSection.files[key].uuid === this.fileId)
+        .forEach((key) => this.uploadService.updateFileData(
             this.submissionId, this.sectionId, this.fileId, uploadSection.files[key]),
-          );
+        );
 
         this.sectionService.updateSectionData(this.submissionId, this.sectionId, sectionData, sectionErrors, sectionErrors);
       }

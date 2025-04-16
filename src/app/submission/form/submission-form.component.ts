@@ -38,6 +38,7 @@ import {
 } from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { UploaderOptions } from '../../shared/upload/uploader/uploader-options.model';
+import { SectionVisibility } from '../objects/section-visibility.model';
 import { SubmissionError } from '../objects/submission-error.model';
 import { SubmissionObjectEntry } from '../objects/submission-objects.reducer';
 import { SubmissionSectionContainerComponent } from '../sections/container/section-container.component';

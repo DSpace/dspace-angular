@@ -29,13 +29,11 @@ import { AuthService } from '../../core/auth/auth.service';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
 import { XSRFService } from '../../core/xsrf/xsrf.service';
 import { HostWindowService } from '../host-window.service';
-import { ThemedLogInComponent } from '../log-in/themed-log-in.component';
 import { ActivatedRouteStub } from '../testing/active-router.stub';
 import { BrowserOnlyMockPipe } from '../testing/browser-only-mock.pipe';
 import { EPersonMock } from '../testing/eperson.mock';
 import { HostWindowServiceStub } from '../testing/host-window-service.stub';
 import { AuthNavMenuComponent } from './auth-nav-menu.component';
-import { ThemedUserMenuComponent } from './user-menu/themed-user-menu.component';
 
 describe('AuthNavMenuComponent', () => {
 
@@ -111,7 +109,7 @@ describe('AuthNavMenuComponent', () => {
           CUSTOM_ELEMENTS_SCHEMA,
         ],
       })
-        .overrideComponent(AuthNavMenuComponent, { remove: { imports: [ThemedLogInComponent, ThemedUserMenuComponent] } }).compileComponents();
+        .compileComponents();
     }));
 
     beforeEach(() => {

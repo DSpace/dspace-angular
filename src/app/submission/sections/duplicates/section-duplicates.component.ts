@@ -7,6 +7,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   Inject,
+  OnInit,
 } from '@angular/core';
 import {
   TranslateModule,
@@ -48,7 +49,7 @@ import { SectionsService } from '../sections.service';
   standalone: true,
 })
 
-export class SubmissionSectionDuplicatesComponent extends SectionModelComponent {
+export class SubmissionSectionDuplicatesComponent extends SectionModelComponent implements OnInit {
   protected readonly Metadata = Metadata;
   /**
    * The Alert categories.

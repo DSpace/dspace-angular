@@ -9,6 +9,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnDestroy,
   OnInit,
   Output,
   ViewChild,
@@ -60,6 +61,7 @@ import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { Vocabulary } from '../../../../../../core/submission/vocabularies/models/vocabulary.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import { SubmissionService } from '../../../../../../submission/submission.service';
 import {
   hasValue,
@@ -93,11 +95,12 @@ import { DynamicOneboxModel } from './dynamic-onebox.model';
     ObjNgFor,
     NgForOf,
     FormsModule,
+    BtnDisabledDirective,
     NgbTooltipModule,
   ],
   standalone: true,
 })
-export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent implements OnInit {
+export class DsDynamicOneboxComponent extends DsDynamicVocabularyComponent implements OnDestroy, OnInit {
 
   @Input() group: UntypedFormGroup;
   @Input() model: DynamicOneboxModel;

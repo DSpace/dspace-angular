@@ -7,14 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { BrowseByTitleComponent as BaseComponent } from '../../../../../app/browse-by/browse-by-title/browse-by-title.component';
 import { ThemedBrowseByComponent } from '../../../../../app/shared/browse-by/themed-browse-by.component';
-import { ThemedComcolPageBrowseByComponent } from '../../../../../app/shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
-import { ThemedComcolPageContentComponent } from '../../../../../app/shared/comcol/comcol-page-content/themed-comcol-page-content.component';
-import { ThemedComcolPageHandleComponent } from '../../../../../app/shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
-import { ComcolPageHeaderComponent } from '../../../../../app/shared/comcol/comcol-page-header/comcol-page-header.component';
-import { ComcolPageLogoComponent } from '../../../../../app/shared/comcol/comcol-page-logo/comcol-page-logo.component';
-import { DsoEditMenuComponent } from '../../../../../app/shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed-loading.component';
-import { VarDirective } from '../../../../../app/shared/utils/var.directive';
 
 @Component({
   selector: 'ds-browse-by-title',
@@ -24,15 +17,8 @@ import { VarDirective } from '../../../../../app/shared/utils/var.directive';
   templateUrl: '../../../../../app/browse-by/browse-by-metadata/browse-by-metadata.component.html',
   standalone: true,
   imports: [
-    VarDirective,
     AsyncPipe,
-    ComcolPageHeaderComponent,
-    ComcolPageLogoComponent,
     NgIf,
-    ThemedComcolPageHandleComponent,
-    ThemedComcolPageContentComponent,
-    DsoEditMenuComponent,
-    ThemedComcolPageBrowseByComponent,
     TranslateModule,
     ThemedLoadingComponent,
     ThemedBrowseByComponent,

@@ -97,7 +97,7 @@
                 class="btn btn-outline-secondary">
                 <i class="fas fa-times mr-1"></i>
                 {{'system-wide-alert.form.cancel' | translate}}</button>
-        <button class="btn btn-primary" [disabled]="alertForm.invalid"
+        <button class="btn btn-primary" [dsBtnDisabled]="alertForm.invalid"
                 (click)="save()">
             <i class="fa fa-save mr-1"></i> {{ 'system-wide-alert.form.save' | translate }}
         </button>

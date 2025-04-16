@@ -36,6 +36,7 @@ import { FormClearErrorsAction } from '../../shared/form/form.actions';
 import { FormError } from '../../shared/form/form.reducer';
 import { FormService } from '../../shared/form/form.service';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { SectionScope } from '../objects/section-visibility.model';
 import {
   DisableSectionAction,
   EnableSectionAction,

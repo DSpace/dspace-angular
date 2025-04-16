@@ -16,13 +16,7 @@ import {
   BehaviorSubject,
   Observable,
 } from 'rxjs';
-import {
-  map,
-  mapTo,
-  switchMap,
-  take,
-  tap,
-} from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 
 import { LookupRelationService } from '../../../../../../core/data/lookup-relation.service';
 import { PaginatedList } from '../../../../../../core/data/paginated-list.model';
@@ -44,7 +38,6 @@ import { hasValue } from '../../../../../empty.util';
 import { CollectionElementLinkType } from '../../../../../object-collection/collection-element-link.type';
 import { ListableObject } from '../../../../../object-collection/shared/listable-object.model';
 import { SelectableListService } from '../../../../../object-list/selectable-list/selectable-list.service';
-import { PaginationComponentOptions } from '../../../../../pagination/pagination-component-options.model';
 import { SearchObjects } from '../../../../../search/models/search-objects.model';
 import { SearchResult } from '../../../../../search/models/search-result.model';
 import { ThemedSearchComponent } from '../../../../../search/themed-search.component';
@@ -238,35 +231,6 @@ export class DsDynamicLookupRelationSearchTabComponent implements OnInit, OnDest
         this.deselectObject.emit(...filteredPage);
       });
     this.selectableListService.deselect(this.listId, page);
-  }
-
-  /**
-   * Select all items that were found using the current search query
-   */
-  selectAll() {
-    this.allSelected = true;
-    this.selectAllLoading = true;
-    const fullPagination = Object.assign(new PaginationComponentOptions(), {
-      currentPage: 1,
-      pageSize: 9999,
-    });
-    const fullSearchConfig = Object.assign(this.lookupRelationService.searchConfig, { pagination: fullPagination });
-    const results$ = this.searchService.search<Item>(fullSearchConfig);
-    results$.pipe(
-      getFirstSucceededRemoteData(),
-      map((resultsRD) => resultsRD.payload.page),
-      tap(() => this.selectAllLoading = false),
-      switchMap((results) => this.selection$.pipe(
-        take(1),
-        tap((selection: SearchResult<Item>[]) => {
-          const filteredResults = results.filter((pageItem) => selection.findIndex((selected) => selected.equals(pageItem)) < 0);
-          this.selectObject.emit(...filteredResults);
-        }),
-        mapTo(results),
-      )),
-    ).subscribe((results) => {
-      this.selectableListService.select(this.listId, results);
-    });
   }
 
   /**

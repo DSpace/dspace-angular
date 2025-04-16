@@ -7,6 +7,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   ActivatedRoute,
   Router,
@@ -15,7 +16,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
 
 import { ObjectCacheService } from '../../../core/cache/object-cache.service';
-import { RestResponse } from '../../../core/cache/response.models';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { BundleDataService } from '../../../core/data/bundle-data.service';
 import { ItemDataService } from '../../../core/data/item-data.service';
@@ -44,8 +44,12 @@ import { createPaginatedList } from '../../../shared/testing/utils.test';
 import { ObjectValuesPipe } from '../../../shared/utils/object-values-pipe';
 import { VarDirective } from '../../../shared/utils/var.directive';
 import { ItemBitstreamsComponent } from './item-bitstreams.component';
+import { ItemBitstreamsService } from './item-bitstreams.service';
+import {
+  getItemBitstreamsServiceStub,
+  ItemBitstreamsServiceStub,
+} from './item-bitstreams.service.stub';
 import { ItemEditBitstreamBundleComponent } from './item-edit-bitstream-bundle/item-edit-bitstream-bundle.component';
-import { ItemEditBitstreamDragHandleComponent } from './item-edit-bitstream-drag-handle/item-edit-bitstream-drag-handle.component';
 
 let comp: ItemBitstreamsComponent;
 let fixture: ComponentFixture<ItemBitstreamsComponent>;
@@ -97,6 +101,7 @@ let objectCache: ObjectCacheService;
 let requestService: RequestService;
 let searchConfig: SearchConfigurationService;
 let bundleService: BundleDataService;
+let itemBitstreamsService: ItemBitstreamsServiceStub;
 
 describe('ItemBitstreamsComponent', () => {
   beforeEach(waitForAsync(() => {
@@ -165,11 +170,19 @@ describe('ItemBitstreamsComponent', () => {
       url: url,
     });
     bundleService = jasmine.createSpyObj('bundleService', {
-      patch: observableOf(new RestResponse(true, 200, 'OK')),
+      patch: createSuccessfulRemoteDataObject$({}),
     });
 
+    itemBitstreamsService = getItemBitstreamsServiceStub();
+
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), ItemBitstreamsComponent, ObjectValuesPipe, VarDirective],
+      imports: [
+        TranslateModule.forRoot(),
+        ItemBitstreamsComponent,
+        ObjectValuesPipe,
+        VarDirective,
+        BrowserAnimationsModule,
+      ],
       providers: [
         { provide: ItemDataService, useValue: itemService },
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
@@ -181,6 +194,7 @@ describe('ItemBitstreamsComponent', () => {
         { provide: RequestService, useValue: requestService },
         { provide: SearchConfigurationService, useValue: searchConfig },
         { provide: BundleDataService, useValue: bundleService },
+        { provide: ItemBitstreamsService, useValue: itemBitstreamsService },
         ChangeDetectorRef,
       ], schemas: [
         NO_ERRORS_SCHEMA,
@@ -189,7 +203,6 @@ describe('ItemBitstreamsComponent', () => {
       .overrideComponent(ItemBitstreamsComponent, {
         remove: {
           imports: [ItemEditBitstreamBundleComponent,
-            ItemEditBitstreamDragHandleComponent,
             ThemedLoadingComponent],
         },
       })
@@ -209,28 +222,8 @@ describe('ItemBitstreamsComponent', () => {
       comp.submit();
     });
 
-    it('should call removeMultiple on the bitstreamService for the marked field', () => {
-      expect(bitstreamService.removeMultiple).toHaveBeenCalledWith([bitstream2]);
-    });
-
-    it('should not call removeMultiple on the bitstreamService for the unmarked field', () => {
-      expect(bitstreamService.removeMultiple).not.toHaveBeenCalledWith([bitstream1]);
-    });
-  });
-
-  describe('when dropBitstream is called', () => {
-    beforeEach((done) => {
-      comp.dropBitstream(bundle, {
-        fromIndex: 0,
-        toIndex: 50,
-        finish: () => {
-          done();
-        },
-      });
-    });
-
-    it('should send out a patch for the move operation', () => {
-      expect(bundleService.patch).toHaveBeenCalled();
+    it('should call removeMarkedBitstreams on the itemBitstreamsService', () => {
+      expect(itemBitstreamsService.removeMarkedBitstreams).toHaveBeenCalled();
     });
   });
 
@@ -245,6 +238,116 @@ describe('ItemBitstreamsComponent', () => {
     it('should reinstate field updates on the bundle', () => {
       comp.reinstate();
       expect(objectUpdatesService.reinstateFieldUpdates).toHaveBeenCalledWith(bundle.self);
+    });
+  });
+
+  describe('moveUp', () => {
+    it('should move the selected bitstream up', () => {
+      itemBitstreamsService.hasSelectedBitstream.and.returnValue(true);
+
+      const event = {
+        preventDefault: () => {/* Intentionally empty */},
+      } as KeyboardEvent;
+      comp.moveUp(event);
+
+      expect(itemBitstreamsService.moveSelectedBitstreamUp).toHaveBeenCalled();
+    });
+
+    it('should not do anything if no bitstream is selected', () => {
+      itemBitstreamsService.hasSelectedBitstream.and.returnValue(false);
+
+      const event = {
+        preventDefault: () => {/* Intentionally empty */},
+      } as KeyboardEvent;
+      comp.moveUp(event);
+
+      expect(itemBitstreamsService.moveSelectedBitstreamUp).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('moveDown', () => {
+    it('should move the selected bitstream down', () => {
+      itemBitstreamsService.hasSelectedBitstream.and.returnValue(true);
+
+      const event = {
+        preventDefault: () => {/* Intentionally empty */},
+      } as KeyboardEvent;
+      comp.moveDown(event);
+
+      expect(itemBitstreamsService.moveSelectedBitstreamDown).toHaveBeenCalled();
+    });
+
+    it('should not do anything if no bitstream is selected', () => {
+      itemBitstreamsService.hasSelectedBitstream.and.returnValue(false);
+
+      const event = {
+        preventDefault: () => {/* Intentionally empty */},
+      } as KeyboardEvent;
+      comp.moveDown(event);
+
+      expect(itemBitstreamsService.moveSelectedBitstreamDown).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('cancelSelection', () => {
+    it('should cancel the selection', () => {
+      itemBitstreamsService.hasSelectedBitstream.and.returnValue(true);
+
+      const event = {
+        preventDefault: () => {/* Intentionally empty */},
+      } as KeyboardEvent;
+      comp.cancelSelection(event);
+
+      expect(itemBitstreamsService.cancelSelection).toHaveBeenCalled();
+    });
+
+    it('should not do anything if no bitstream is selected', () => {
+      itemBitstreamsService.hasSelectedBitstream.and.returnValue(false);
+
+      const event = {
+        preventDefault: () => {/* Intentionally empty */},
+      } as KeyboardEvent;
+      comp.cancelSelection(event);
+
+      expect(itemBitstreamsService.cancelSelection).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('clearSelection', () => {
+    it('should clear the selection', () => {
+      itemBitstreamsService.hasSelectedBitstream.and.returnValue(true);
+
+      const event = {
+        target: document.createElement('BODY'),
+        preventDefault: () => {/* Intentionally empty */},
+      } as unknown as KeyboardEvent;
+      comp.clearSelection(event);
+
+      expect(itemBitstreamsService.clearSelection).toHaveBeenCalled();
+    });
+
+    it('should not do anything if no bitstream is selected', () => {
+      itemBitstreamsService.hasSelectedBitstream.and.returnValue(false);
+
+      const event = {
+        target: document.createElement('BODY'),
+        preventDefault: () => {/* Intentionally empty */},
+      } as unknown as KeyboardEvent;
+      comp.clearSelection(event);
+
+      expect(itemBitstreamsService.clearSelection).not.toHaveBeenCalled();
+    });
+
+    it('should not do anything if the event target is not \'BODY\'', () => {
+      itemBitstreamsService.hasSelectedBitstream.and.returnValue(true);
+
+      const event = {
+        target: document.createElement('NOT-BODY'),
+        preventDefault: () => {/* Intentionally empty */},
+      } as unknown as KeyboardEvent;
+      comp.clearSelection(event);
+
+      expect(itemBitstreamsService.clearSelection).not.toHaveBeenCalled();
     });
   });
 });

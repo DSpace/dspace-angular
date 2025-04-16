@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
   Component,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   SimpleChanges,
@@ -56,7 +57,7 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
   ],
   standalone: true,
 })
-export class OrcidQueueComponent implements OnInit, OnDestroy {
+export class OrcidQueueComponent implements OnInit, OnDestroy, OnChanges {
 
   /**
    * The item for which showing the orcid settings

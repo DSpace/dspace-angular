@@ -85,6 +85,9 @@ export const ROUTES: Route[] = [
       {
         path: '',
         component: ThemedCollectionPageComponent,
+        resolve: {
+          menu: dsoEditMenuResolver,
+        },
         children: [
           {
             path: '',

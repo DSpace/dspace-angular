@@ -163,18 +163,6 @@ describe('DsDynamicLookupRelationSearchTabComponent', () => {
     });
   });
 
-  describe('selectAll', () => {
-    beforeEach(() => {
-      spyOn(component.selectObject, 'emit');
-      component.selectAll();
-    });
-
-    it('should emit the page filtered from already selected objects and call select on the service for all objects', () => {
-      expect(component.selectObject.emit).toHaveBeenCalledWith(searchResult3);
-      expect(selectableListService.select).toHaveBeenCalledWith(listID, [searchResult1, searchResult2, searchResult3]);
-    });
-  });
-
   describe('deselectAll', () => {
     beforeEach(() => {
       spyOn(component.deselectObject, 'emit');

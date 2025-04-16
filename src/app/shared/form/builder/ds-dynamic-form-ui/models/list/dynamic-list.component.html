@@ -29,9 +29,7 @@
           <span [ngClass]="model.layout.element?.label" [innerHTML]="item.label"></span>
         </label>
       </div>
-      <br>
     </div>
-
   </div>
 
   <div *ngIf="!model.repeatable"
@@ -61,8 +59,10 @@
           <span [ngClass]="model.layout.element?.label" [innerHTML]="item.label"></span>
         </label>
       </div>
-      <br>
     </div>
-
   </div>
+  <div class="d-flex justify-content-center" *ngIf="(isLoading$ | async)">
+    <ds-loading></ds-loading>
+  </div>
+
 </div>

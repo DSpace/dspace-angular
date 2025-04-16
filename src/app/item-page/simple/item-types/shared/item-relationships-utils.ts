@@ -87,32 +87,31 @@ export const relationsToItems = (thisId: string): (source: Observable<Relationsh
  * @param {string} thisId       The item's id of which the relations belong to
  * @returns {(source: Observable<Relationship[]>) => Observable<Item[]>}
  */
-export const paginatedRelationsToItems = (thisId: string): (source: Observable<RemoteData<PaginatedList<Relationship>>>) => Observable<RemoteData<PaginatedList<Item>>> =>
-  (source: Observable<RemoteData<PaginatedList<Relationship>>>): Observable<RemoteData<PaginatedList<Item>>> =>
-    source.pipe(
-      getFirstCompletedRemoteData(),
-      switchMap((relationshipsRD: RemoteData<PaginatedList<Relationship>>) => {
-        return observableCombineLatest(
-          relationshipsRD.payload.page.map((rel: Relationship) =>
-            observableCombineLatest([
-              rel.leftItem.pipe(
-                getFirstCompletedRemoteData(),
-                map((rd: RemoteData<Item>) => {
-                  if (rd.hasSucceeded) {
-                    return rd.payload;
-                  } else {
-                    return null;
-                  }
+export const paginatedRelationsToItems = (thisId: string) => (source: Observable<RemoteData<PaginatedList<Relationship>>>): Observable<RemoteData<PaginatedList<Item>>> =>
+  source.pipe(
+    getFirstCompletedRemoteData(),
+    switchMap((relationshipsRD: RemoteData<PaginatedList<Relationship>>) => {
+      return observableCombineLatest(
+        relationshipsRD.payload.page.map((rel: Relationship) =>
+          observableCombineLatest([
+            rel.leftItem.pipe(
+              getFirstCompletedRemoteData(),
+              map((rd: RemoteData<Item>) => {
+                if (rd.hasSucceeded) {
+                  return rd.payload;
+                } else {
+                  return null;
+                }
                 }),
-              ),
-              rel.rightItem.pipe(
-                getFirstCompletedRemoteData(),
-                map((rd: RemoteData<Item>) => {
-                  if (rd.hasSucceeded) {
-                    return rd.payload;
-                  } else {
-                    return null;
-                  }
+            ),
+            rel.rightItem.pipe(
+              getFirstCompletedRemoteData(),
+              map((rd: RemoteData<Item>) => {
+                if (rd.hasSucceeded) {
+                  return rd.payload;
+                } else {
+                  return null;
+                }
                 }),
               ),
             ],
@@ -128,11 +127,11 @@ export const paginatedRelationsToItems = (thisId: string): (source: Observable<R
               }
             })
               .filter((item: Item) => hasValue(item)),
-          ),
-          distinctUntilChanged(compareArraysUsingIds()),
-          map((relatedItems: Item[]) =>
+        ),
+        distinctUntilChanged(compareArraysUsingIds()),
+        map((relatedItems: Item[]) =>
             Object.assign(relationshipsRD, { payload: Object.assign(relationshipsRD.payload, { page: relatedItems } ) }),
           ),
-        );
+      );
       }),
-    );
+  );

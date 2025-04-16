@@ -115,7 +115,7 @@
     <div class="row">
         <div class="col-12">
             <button
-                    [disabled]="isInValidPassword || userInfoForm.invalid"
+                    [dsBtnDisabled]="isInValidPassword || userInfoForm.invalid"
                     class="btn btn-default btn-primary"
                     (click)="submitEperson()">{{'register-page.create-profile.submit' | translate}}</button>
         </div>

@@ -68,6 +68,9 @@ export const ROUTES: Route[] = [
       {
         path: '',
         component: ThemedCommunityPageComponent,
+        resolve: {
+          menu: dsoEditMenuResolver,
+        },
         children: [
           {
             path: '',

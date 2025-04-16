@@ -9,6 +9,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { HostWindowService } from '../../../shared/host-window.service';
 import { SectionDataObject } from '../../sections/models/section-data.model';
 import { SectionsService } from '../../sections/sections.service';
@@ -22,7 +23,7 @@ import { SubmissionService } from '../../submission.service';
   styleUrls: ['./submission-form-section-add.component.scss'],
   templateUrl: './submission-form-section-add.component.html',
   standalone: true,
-  imports: [CommonModule, TranslateModule, NgbDropdownModule],
+  imports: [CommonModule, TranslateModule, NgbDropdownModule, BtnDisabledDirective],
 })
 export class SubmissionFormSectionAddComponent implements OnInit {
 

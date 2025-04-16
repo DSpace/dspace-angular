@@ -79,8 +79,8 @@ export abstract class FieldParser {
     if (((this.getInitValueCount() > 1 && !this.configData.repeatable) || (this.configData.repeatable))
       && (this.configData.input.type !== ParserType.List.valueOf())
       && (this.configData.input.type !== ParserType.Tag.valueOf())
-      && (this.configData.input.type !== ParserType.RelationGroup.toString())
-      && (this.configData.input.type !== ParserType.InlineGroup.toString())
+      && (this.configData.input.type !== ParserType.RelationGroup.valueOf())
+      && (this.configData.input.type !== ParserType.InlineGroup.valueOf())
     ) {
       let arrayCounter = 0;
       let fieldArrayCounter = 0;

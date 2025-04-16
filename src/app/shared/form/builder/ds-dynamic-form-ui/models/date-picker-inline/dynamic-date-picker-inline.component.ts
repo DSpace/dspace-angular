@@ -34,6 +34,8 @@ import { Subscription } from 'rxjs';
 import { hasValue } from '../../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 
+import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
+
 @Component({
   selector: 'ds-dynamic-date-picker-inline',
   styleUrls: ['./dynamic-date-picker-inline.component.scss'],
@@ -43,6 +45,7 @@ import { FormFieldMetadataValueObject } from '../../../models/form-field-metadat
     NgbDatepickerModule,
     ReactiveFormsModule,
     NgIf,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

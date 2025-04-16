@@ -3,20 +3,26 @@
      [ngClass]="{ 'ds-warning': mdValue.reordered || mdValue.change === DsoEditMetadataChangeTypeEnum.UPDATE, 'ds-danger': mdValue.change === DsoEditMetadataChangeTypeEnum.REMOVE, 'ds-success': mdValue.change === DsoEditMetadataChangeTypeEnum.ADD, 'h-100': isOnlyValue }">
   <div class="flex-grow-1 ds-flex-cell ds-value-cell d-flex flex-column" *ngVar="(mdRepresentation$ | async) as mdRepresentation" role="cell">
     <div class="dont-break-out preserve-line-breaks" *ngIf="!mdValue.editing && !mdRepresentation">{{ mdValue.newValue.value }}</div>
-    <textarea class="form-control" rows="5" *ngIf="mdValue.editing && !mdRepresentation && (isAuthorityControlled() | async) !== true" [(ngModel)]="mdValue.newValue.value"
+    <textarea class="form-control" rows="5" *ngIf="mdValue.editing && !mdRepresentation && ((isAuthorityControlled() | async) !== true || (enabledFreeTextEditing && (isSuggesterVocabulary() | async) !== true))" [(ngModel)]="mdValue.newValue.value"
               [attr.aria-label]="(dsoType + '.edit.metadata.edit.value') | translate"
               [dsDebounce]="300" (onDebounce)="confirm.emit(false)"></textarea>
-    <ds-dynamic-scrollable-dropdown *ngIf="mdValue.editing && (isScrollableVocabulary() | async)"
-                                    [bindId]="$any(mdField)"
+    <ds-dynamic-scrollable-dropdown *ngIf="mdValue.editing && (isScrollableVocabulary() | async) && !enabledFreeTextEditing"
+                                    [bindId]="mdField"
                                     [group]="group"
-                                    [model]="$any(getModel())"
+                                    [model]="getModel()"
                                     (change)="onChangeAuthorityField($event)">
     </ds-dynamic-scrollable-dropdown>
-    <ds-dynamic-onebox *ngIf="mdValue.editing && ((isHierarchicalVocabulary() | async) || (isSuggesterVocabulary() | async))"
+    <ds-dynamic-onebox *ngIf="mdValue.editing && (((isHierarchicalVocabulary() | async)  && !enabledFreeTextEditing) || (isSuggesterVocabulary() | async))"
                       [group]="group"
-                      [model]="$any(getModel())"
+                      [model]="getModel()"
                       (change)="onChangeAuthorityField($event)">
     </ds-dynamic-onebox>
+    <button class="btn btn-secondary mt-2" *ngIf="mdValue.editing && ((isScrollableVocabulary() | async) || (isHierarchicalVocabulary() | async))"
+        [title]="enabledFreeTextEditing ? dsoType + '.edit.metadata.edit.buttons.disable-free-text-editing' : dsoType + '.edit.metadata.edit.buttons.enable-free-text-editing' | translate"
+        (click)="toggleFreeTextEdition()">
+    <i class="fas fa-fw" [ngClass]="enabledFreeTextEditing ? 'fa-lock' : 'fa-unlock'"></i>
+    {{ (enabledFreeTextEditing ? dsoType + '.edit.metadata.edit.buttons.disable-free-text-editing' : dsoType + '.edit.metadata.edit.buttons.enable-free-text-editing') | translate }}
+    </button>
     <div *ngIf="!isVirtual && !mdValue.editing && mdValue.newValue.authority && mdValue.newValue.confidence !== ConfidenceTypeEnum.CF_UNSET && mdValue.newValue.confidence !== ConfidenceTypeEnum.CF_NOVALUE">
       <span class="badge badge-light border" >
         <i dsAuthorityConfidenceState
@@ -33,7 +39,7 @@
         <i dsAuthorityConfidenceState
           class="fas fa-fw p-0 mr-1 mt-auto mb-auto"
           aria-hidden="true"
-          [authorityValue]="$any(mdValue.newValue.confidence)"
+          [authorityValue]="mdValue.newValue.confidence"
           [iconMode]="true"
       ></i>
         <input class="form-control form-outline" data-test="authority-input" [(ngModel)]="mdValue.newValue.authority" [disabled]="!editingAuthority"
@@ -87,29 +93,29 @@
           <button class="btn btn-outline-primary btn-sm ng-star-inserted" data-test="metadata-edit-btn" *ngIf="!mdValue.editing"
                   [title]="dsoType + '.edit.metadata.edit.buttons.edit' | translate"
                   ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.edit' | translate }}"
-                  [disabled]="isVirtual || mdValue.change === DsoEditMetadataChangeTypeEnum.REMOVE || (saving$ | async)" (click)="edit.emit()">
+                  [dsBtnDisabled]="isVirtual || mdValue.change === DsoEditMetadataChangeTypeEnum.REMOVE || (saving$ | async)" (click)="edit.emit()">
             <i class="fas fa-edit fa-fw"></i>
           </button>
           <button class="btn btn-outline-success btn-sm ng-star-inserted" data-test="metadata-confirm-btn" *ngIf="mdValue.editing"
                   [title]="dsoType + '.edit.metadata.edit.buttons.confirm' | translate"
                   ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.confirm' | translate }}"
-                  [disabled]="isVirtual || (saving$ | async)" (click)="confirm.emit(true)">
+                  [dsBtnDisabled]="isVirtual || (saving$ | async)" (click)="confirm.emit(true)">
             <i class="fas fa-check fa-fw"></i>
           </button>
           <button class="btn btn-outline-danger btn-sm" data-test="metadata-remove-btn"
                   [title]="dsoType + '.edit.metadata.edit.buttons.remove' | translate"
                   ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.remove' | translate }}"
-                  [disabled]="isVirtual || (mdValue.change && mdValue.change !== DsoEditMetadataChangeTypeEnum.ADD) || mdValue.editing || (saving$ | async)" (click)="remove.emit()">
+                  [dsBtnDisabled]="isVirtual || (mdValue.change && mdValue.change !== DsoEditMetadataChangeTypeEnum.ADD) || mdValue.editing || (saving$ | async)" (click)="remove.emit()">
             <i class="fas fa-trash-alt fa-fw"></i>
           </button>
           <button class="btn btn-outline-warning btn-sm" data-test="metadata-undo-btn"
                   [title]="dsoType + '.edit.metadata.edit.buttons.undo' | translate"
                   ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.undo' | translate }}"
-                  [disabled]="isVirtual || (!mdValue.change && mdValue.reordered) || (!mdValue.change && !mdValue.editing) || (saving$ | async)" (click)="undo.emit()">
+                  [dsBtnDisabled]="isVirtual || (!mdValue.change && mdValue.reordered) || (!mdValue.change && !mdValue.editing) || (saving$ | async)" (click)="undo.emit()">
             <i class="fas fa-undo-alt fa-fw"></i>
           </button>
           <button class="btn btn-outline-secondary ds-drag-handle btn-sm" data-test="metadata-drag-btn" *ngVar="(isOnlyValue || (saving$ | async)) as disabled"
-                  cdkDragHandle [cdkDragHandleDisabled]="disabled" [ngClass]="{'disabled': disabled}" [disabled]="disabled"
+                  cdkDragHandle [cdkDragHandleDisabled]="disabled" [ngClass]="{'disabled': disabled}" [dsBtnDisabled]="disabled"
                   [title]="dsoType + '.edit.metadata.edit.buttons.drag' | translate"
                   ngbTooltip="{{ dsoType + '.edit.metadata.edit.buttons.drag' | translate }}">
             <i class="fas fa-grip-vertical fa-fw"></i>

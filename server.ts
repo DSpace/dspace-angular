@@ -28,7 +28,7 @@ import * as domino from 'domino-ext';
 /* eslint-enable import/no-namespace */
 import axios from 'axios';
 import LRU from 'lru-cache';
-import isbot from 'isbot';
+import { isbot } from 'isbot';
 import { createCertificate } from 'pem';
 import { createServer } from 'https';
 import { json } from 'body-parser';
@@ -236,7 +236,7 @@ export function app() {
  * The callback function to serve server side angular
  */
 function ngApp(req, res, next) {
-  if (environment.ssr.enabled) {
+  if (environment.ssr.enabled && req.method === 'GET' && (req.path === '/' || environment.ssr.paths.some(pathPrefix => req.path.startsWith(pathPrefix)))) {
     // Render the page to user via SSR (server side rendering)
     serverSideRender(req, res, next);
   } else {
@@ -284,6 +284,11 @@ function serverSideRender(req, res, next, sendToUser: boolean = true) {
     })
     .then((html) => {
       if (hasValue(html)) {
+        // Replace REST URL with UI URL
+        if (environment.ssr.replaceRestUrl && REST_BASE_URL !== environment.rest.baseUrl) {
+          html = html.replace(new RegExp(REST_BASE_URL, 'g'), environment.rest.baseUrl);
+        }
+
         // save server side rendered page to cache (if any are enabled)
         saveToCache(req, html);
         if (sendToUser) {

@@ -29,7 +29,7 @@ import {
   hasValue,
   isNotEmpty,
 } from '../shared/empty.util';
-import { ITEM_PAGE_LINKS_TO_FOLLOW } from './item.resolver';
+import { getItemPageLinksToFollow } from './item.resolver';
 import { getItemPageRoute } from './item-page-routing-paths';
 
 /**
@@ -55,15 +55,23 @@ export const itemPageResolver: ResolveFn<RemoteData<Item>> = (
   platformId: any = inject(PLATFORM_ID),
   hardRedirectService: HardRedirectService = inject(HardRedirectService),
 ): Observable<RemoteData<Item>> => {
-  return itemService.findById(
+
+  const itemRD$ = itemService.findById(
     route.params.id,
     false,
     true,
-    ...ITEM_PAGE_LINKS_TO_FOLLOW,
+    ...getItemPageLinksToFollow(),
   ).pipe(
     getFirstCompletedRemoteData(),
     redirectOn204<Item>(router, authService),
     redirectOn4xx(router, authService),
+  );
+
+  itemRD$.subscribe((itemRD: RemoteData<Item>) => {
+    store.dispatch(new ResolvedAction(state.url, itemRD.payload));
+  });
+
+  return itemRD$.pipe(
     map((rd: RemoteData<Item>) => {
       store.dispatch(new ResolvedAction(state.url, rd.payload));
       if (rd.hasSucceeded && hasValue(rd.payload)) {
@@ -74,17 +82,17 @@ export const itemPageResolver: ResolveFn<RemoteData<Item>> = (
             router.navigateByUrl(newUrl);
           }
         } else {
-          const thisRoute = state.url;
+        const thisRoute = state.url;
 
-          // Angular uses a custom function for encodeURIComponent, (e.g. it doesn't encode commas
-          // or semicolons) and thisRoute has been encoded with that function. If we want to compare
-          // it with itemRoute, we have to run itemRoute through Angular's version as well to ensure
-          // the same characters are encoded the same way.
+        // Angular uses a custom function for encodeURIComponent, (e.g. it doesn't encode commas
+        // or semicolons) and thisRoute has been encoded with that function. If we want to compare
+        // it with itemRoute, we have to run itemRoute through Angular's version as well to ensure
+        // the same characters are encoded the same way.
           const itemRoute = router.parseUrl(getItemPageRoute(rd.payload)).toString();
 
-          if (!thisRoute.startsWith(itemRoute)) {
-            const itemId = rd.payload.uuid;
-            const subRoute = thisRoute.substring(thisRoute.indexOf(itemId) + itemId.length, thisRoute.length);
+        if (!thisRoute.startsWith(itemRoute)) {
+          const itemId = rd.payload.uuid;
+          const subRoute = thisRoute.substring(thisRoute.indexOf(itemId) + itemId.length, thisRoute.length);
             if (isPlatformServer(platformId)) {
               hardRedirectService.redirect(itemRoute + subRoute, 301);
             } else {
