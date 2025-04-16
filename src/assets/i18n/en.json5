@@ -4870,6 +4870,8 @@
 
   "search.form.search": "Search",
 
+  "search.form.search": "Advanced",
+
   "search.form.search_dspace": "All repository",
 
   "search.form.scope.all": "All of DSpace",
