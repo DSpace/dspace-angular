@@ -118,19 +118,19 @@ export class ServerHashedFileMapping extends HashedFileMapping {
    */
   addThemeStyles(themeConfigurations: ThemeConfig[]) {
     for (const themeConfiguration of themeConfigurations) {
-      const p = `${this.root}/${themeConfiguration.name}-theme.css`;
-      const hp = this.add(p);
+      const path = `${this.root}/${themeConfiguration.name}-theme.css`;
+      const hashPath = this.add(path);
 
-      // We know this CSS is likely needed, so wecan avoid a FOUC by retrieving it in advance
-      // Angular does the same for global styles, but doesn't "know" about out themes
+      // We know this CSS is likely needed, so we can avoid a FOUC by retrieving it in advance
+      // Angular does the same for global styles, but doesn't "know" about our themes
       this.addHeadLink({
-        path: p,
+        path,
         rel: 'prefetch',
         as: 'style',
       });
 
-      this.ensureCompressedFilesAssumingUnchangedContent(p, hp, '.br');
-      this.ensureCompressedFilesAssumingUnchangedContent(p, hp, '.gz');
+      this.ensureCompressedFilesAssumingUnchangedContent(path, hashPath, '.br');
+      this.ensureCompressedFilesAssumingUnchangedContent(path, hashPath, '.gz');
     }
   }
 
