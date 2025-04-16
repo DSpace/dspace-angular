@@ -228,6 +228,11 @@ export class SearchComponent implements OnDestroy, OnInit {
   @Input() query: string;
 
   /**
+   * True to pass the query as-is without escaping of special characters.
+   */
+  @Input() advanced = false;
+
+  /**
    * The fallback scope when no scope is defined in the url, if this is also undefined no scope will be set
    */
   @Input() scope: string;
@@ -427,6 +432,7 @@ export class SearchComponent implements OnDestroy, OnInit {
         });
       if (combinedOptions.query === '') {
         combinedOptions.query = this.query;
+        combinedOptions.advanced = this.advanced;
       }
       if (isEmpty(combinedOptions.scope)) {
         combinedOptions.scope = scope;
