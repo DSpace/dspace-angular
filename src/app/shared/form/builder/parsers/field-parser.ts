@@ -11,6 +11,7 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import uniqueId from 'lodash/uniqueId';
 
+import { environment } from '../../../../../environments/environment';
 import { SubmissionScopeType } from '../../../../core/submission/submission-scope-type';
 import { VocabularyOptions } from '../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { isNgbDateStruct } from '../../../date.util';
@@ -36,7 +37,6 @@ import { VisibilityType } from './../../../../submission/sections/visibility-typ
 import { setLayout } from './parser.utils';
 import { ParserOptions } from './parser-options';
 import { ParserType } from './parser-type';
-import { environment } from "../../../../../environments/environment";
 
 export const SUBMISSION_ID: InjectionToken<string> = new InjectionToken<string>('submissionId');
 export const CONFIG_DATA: InjectionToken<FormFieldModel> = new InjectionToken<FormFieldModel>('configData');
@@ -58,6 +58,8 @@ export abstract class FieldParser {
    */
   protected typeField: string;
 
+  ignorePlaceholderForSimpleFields: boolean;
+
   constructor(
     @Inject(SUBMISSION_ID) protected submissionId: string,
     @Inject(CONFIG_DATA) protected configData: FormFieldModel,
@@ -65,6 +67,7 @@ export abstract class FieldParser {
     @Inject(PARSER_OPTIONS) protected parserOptions: ParserOptions,
     protected translate: TranslateService,
   ) {
+    this.ignorePlaceholderForSimpleFields = environment.submission.ignorePlaceholderForSimpleFields;
   }
 
   public abstract modelFactory(fieldValue?: FormFieldMetadataValueObject, label?: boolean): any;
@@ -311,7 +314,7 @@ export abstract class FieldParser {
     if (hint) {
       controlModel.hint = this.configData.hints || '&nbsp;';
     }
-    if (!environment.submission.hidePlaceholderForBasicFields) {
+    if (!this.ignorePlaceholderForSimpleFields) {
       controlModel.placeholder = this.configData.label;
     }
 
