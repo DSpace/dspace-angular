@@ -2,8 +2,7 @@ import {
   Pipe,
   PipeTransform,
 } from '@angular/core';
-// eslint-disable-next-line import/no-namespace
-import fileSize from 'filesize';
+import { filesize } from 'filesize';
 
 /*
  * Convert bytes into largest possible unit.
@@ -21,6 +20,6 @@ import fileSize from 'filesize';
 })
 export class FileSizePipe implements PipeTransform {
   transform(bytes: number = 0, precision: number = 2): string {
-    return fileSize(bytes, { standard: 'jedec', round: precision });
+    return filesize(bytes, { standard: 'jedec', round: precision });
   }
 }

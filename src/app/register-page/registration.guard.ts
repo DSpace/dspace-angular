@@ -26,7 +26,7 @@ export const registrationGuard: CanActivateFn = (
   router: Router = inject(Router),
 ): Observable<boolean> => {
   const token = route.params.token;
-  return epersonRegistrationService.searchByToken(token).pipe(
+  return epersonRegistrationService.searchByTokenAndUpdateData(token).pipe(
     getFirstCompletedRemoteData(),
     redirectOn4xx(router, authService),
     map((rd) => {

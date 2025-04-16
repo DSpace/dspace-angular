@@ -998,6 +998,18 @@
 
   "bitstream-request-a-copy.submit.error": "Something went wrong with submitting the item request.",
 
+  "bitstream-request-a-copy.access-by-token.warning": "You are viewing this item with the secure access link provided to you by the author or repository staff. It is important not to share this link to unauthorised users.",
+
+  "bitstream-request-a-copy.access-by-token.expiry-label": "Access provided by this link will expire on",
+
+  "bitstream-request-a-copy.access-by-token.expired": "Access provided by this link is no longer possible. Access expired on",
+
+  "bitstream-request-a-copy.access-by-token.not-granted": "Access provided by this link is not possible. Access has either not been granted, or has been revoked.",
+
+  "bitstream-request-a-copy.access-by-token.re-request": "Follow restricted download links to submit a new request for access.",
+
+  "bitstream-request-a-copy.access-by-token.alt-text": "Access to this item is provided by a secure token",
+
   "browse.back.all-results": "All browse results",
 
   "browse.comcol.by.author": "By Author",
@@ -1041,6 +1053,12 @@
   "browse.metadata.nsi.tree.description": "Select an index to add as search filter",
 
   "browse.metadata.title.breadcrumbs": "Browse by Title",
+
+  "browse.metadata.map": "Browse by Geolocation",
+
+  "browse.metadata.map.breadcrumbs": "Browse by Geolocation",
+
+  "browse.metadata.map.count.items": "items",
 
   "pagination.next.button": "Next",
 
@@ -1326,6 +1344,10 @@
 
   "collection.page.news": "News",
 
+  "collection.page.options": "Options",
+
+  "collection.search.breadcrumbs": "Search",
+
   "collection.search.results.head": "Search Results",
 
   "collection.select.confirm": "Confirm selected",
@@ -1562,7 +1584,11 @@
 
   "community.page.news": "News",
 
+  "community.page.options": "Options",
+
   "community.all-lists.head": "Subcommunities and Collections",
+
+  "community.search.breadcrumbs": "Search",
 
   "community.search.results.head": "Search Results",
 
@@ -1633,6 +1659,10 @@
   "cookies.consent.app.title.google-recaptcha": "Google reCaptcha",
 
   "cookies.consent.app.description.google-recaptcha": "We use google reCAPTCHA service during registration and password recovery",
+
+  "cookies.consent.app.title.matomo": "Matomo",
+
+  "cookies.consent.app.description.matomo": "Allows us to track statistical data",
 
   "cookies.consent.purpose.functional": "Functional",
 
@@ -1828,6 +1858,16 @@
 
   "confirmation-modal.delete-subscription.confirm": "Delete",
 
+  "confirmation-modal.review-account-info.header": "Save the changes",
+
+  "confirmation-modal.review-account-info.info": "Are you sure you want to save the changes to your profile",
+
+  "confirmation-modal.review-account-info.cancel": "Cancel",
+
+  "confirmation-modal.review-account-info.confirm": "Confirm",
+
+  "confirmation-modal.review-account-info.save": "Save",
+
   "error.bitstream": "Error fetching bitstream",
 
   "error.browse-by": "Error fetching items",
@@ -1897,6 +1937,8 @@
   "feed.description": "Syndication feed",
 
   "file-download-link.restricted": "Restricted bitstream",
+
+  "file-download-link.secure-access": "Restricted bitstream available via secure access token",
 
   "file-section.error.header": "Error obtaining files for this item",
 
@@ -2040,7 +2082,9 @@
 
   "form.repeatable.sort.tip": "Drop the item in the new position",
 
-  "grant-deny-request-copy.deny": "Don't send copy",
+  "grant-deny-request-copy.deny": "Deny access request",
+
+  "grant-deny-request-copy.revoke": "Revoke access",
 
   "grant-deny-request-copy.email.back": "Back",
 
@@ -2058,7 +2102,7 @@
 
   "grant-deny-request-copy.email.subject.empty": "Please enter a subject",
 
-  "grant-deny-request-copy.grant": "Send copy",
+  "grant-deny-request-copy.grant": "Grant access request",
 
   "grant-deny-request-copy.header": "Document copy request",
 
@@ -2068,6 +2112,8 @@
 
   "grant-deny-request-copy.intro2": "After choosing an option, you will be presented with a suggested email reply which you may edit.",
 
+  "grant-deny-request-copy.previous-decision": "This request was previously granted with a secure access token. You may revoke this access now to immediately invalidate the access token",
+
   "grant-deny-request-copy.processed": "This request has already been processed. You can use the button below to get back to the home page.",
 
   "grant-request-copy.email.subject": "Request copy of document",
@@ -2076,9 +2122,25 @@
 
   "grant-request-copy.header": "Grant document copy request",
 
-  "grant-request-copy.intro": "A message will be sent to the applicant of the request. The requested document(s) will be attached.",
+  "grant-request-copy.intro.attachment": "A message will be sent to the applicant of the request. The requested document(s) will be attached.",
+
+  "grant-request-copy.intro.link": "A message will be sent to the applicant of the request. A secure link providing access to the requested document(s) will be attached. The link will provide access for the duration of time selected in the \"Access Period\" menu below.",
+
+  "grant-request-copy.intro.link.preview": "Below is a preview of the link that will be sent to the applicant:",
 
   "grant-request-copy.success": "Successfully granted item request",
+
+  "grant-request-copy.access-period.header": "Access period",
+
+  "grant-request-copy.access-period.+1DAY": "1 day",
+
+  "grant-request-copy.access-period.+7DAYS": "1 week",
+
+  "grant-request-copy.access-period.+1MONTH": "1 month",
+
+  "grant-request-copy.access-period.+3MONTHS": "3 months",
+
+  "grant-request-copy.access-period.FOREVER": "Forever",
 
   "health.breadcrumbs": "Health",
 
@@ -2724,6 +2786,8 @@
 
   "item.page.volume-title": "Volume Title",
 
+  "item.page.dcterms.spatial": "Geospatial point",
+
   "item.search.results.head": "Item Search Results",
 
   "item.search.title": "Item Search",
@@ -2807,6 +2871,8 @@
   "item.page.link.full": "Full item page",
 
   "item.page.link.simple": "Simple item page",
+
+  "item.page.options": "Options",
 
   "item.page.orcid.title": "ORCID",
 
@@ -3160,6 +3226,8 @@
 
   "journal.page.publisher": "Publisher",
 
+  "journal.page.options": "Options",
+
   "journal.page.titleprefix": "Journal: ",
 
   "journal.search.results.head": "Journal Search Results",
@@ -3184,6 +3252,8 @@
 
   "journalissue.page.number": "Number",
 
+  "journalissue.page.options": "Options",
+
   "journalissue.page.titleprefix": "Journal Issue: ",
 
   "journalissue.search.results.head": "Journal Issue Search Results",
@@ -3195,6 +3265,8 @@
   "journalvolume.page.edit": "Edit this item",
 
   "journalvolume.page.issuedate": "Issue Date",
+
+  "journalvolume.page.options": "Options",
 
   "journalvolume.page.titleprefix": "Journal Volume: ",
 
@@ -3340,6 +3412,8 @@
 
   "menu.section.browse_global_communities_and_collections": "Communities & Collections",
 
+  "menu.section.browse_global_geospatial_map": "By Geolocation (Map)",
+
   "menu.section.control_panel": "Control Panel",
 
   "menu.section.curation_task": "Curation Task",
@@ -3387,14 +3461,6 @@
   "menu.section.icon.new": "New menu section",
 
   "menu.section.icon.pin": "Pin sidebar",
-
-  "menu.section.icon.processes": "Processes Health",
-
-  "menu.section.icon.registries": "Registries menu section",
-
-  "menu.section.icon.statistics_task": "Statistics Task menu section",
-
-  "menu.section.icon.workflow": "Administer workflow menu section",
 
   "menu.section.icon.unpin": "Unpin sidebar",
 
@@ -3760,6 +3826,8 @@
 
   "orgunit.page.id": "ID",
 
+  "orgunit.page.options": "Options",
+
   "orgunit.page.titleprefix": "Organizational Unit: ",
 
   "orgunit.page.ror": "ROR Identifier",
@@ -3795,6 +3863,8 @@
   "person.page.name": "Name",
 
   "person.page.link.full": "Show all metadata",
+
+  "person.page.options": "Options",
 
   "person.page.orcid": "ORCID",
 
@@ -4044,6 +4114,8 @@
 
   "project.page.keyword": "Keywords",
 
+  "project.page.options": "Options",
+
   "project.page.status": "Status",
 
   "project.page.titleprefix": "Research Project: ",
@@ -4063,6 +4135,8 @@
   "publication.page.journal-title": "Journal Title",
 
   "publication.page.publisher": "Publisher",
+
+  "publication.page.options": "Options",
 
   "publication.page.titleprefix": "Publication: ",
 
@@ -4441,6 +4515,7 @@
   "search.filters.applied.f.original_bundle_filenames": "File name",
 
   "search.filters.applied.f.original_bundle_descriptions": "File description",
+  "search.filters.applied.f.has_geospatial_metadata": "Has geographical location",
 
   "search.filters.applied.f.itemtype": "Type",
 
@@ -4473,6 +4548,8 @@
   "search.filters.applied.operator.notcontains": " not contains",
 
   "search.filters.applied.operator.query": "",
+
+  "search.filters.applied.f.point": "Coordinates",
 
   "search.filters.filter.title.head": "Title",
 
@@ -4549,6 +4626,8 @@
   "search.filters.filter.has_content_in_original_bundle.head": "Has files",
 
   "search.filters.filter.original_bundle_filenames.head": "File name",
+
+  "search.filters.filter.has_geospatial_metadata.head": "Has geographical location",
 
   "search.filters.filter.original_bundle_filenames.placeholder": "File name",
 
@@ -4664,6 +4743,10 @@
 
   "search.filters.has_content_in_original_bundle.false": "No",
 
+  "search.filters.has_geospatial_metadata.true": "Yes",
+
+  "search.filters.has_geospatial_metadata.false": "No",
+
   "search.filters.discoverable.true": "No",
 
   "search.filters.discoverable.false": "Yes",
@@ -4716,6 +4799,8 @@
 
   "search.results.empty": "Your search returned no results.",
 
+  "search.results.geospatial-map.empty": "No results on this page with geospatial locations",
+
   "search.results.view-result": "View",
 
   "search.results.response.500": "An error occurred during query execution, please try again later",
@@ -4753,6 +4838,8 @@
   "search.view-switch.show-grid": "Show as grid",
 
   "search.view-switch.show-list": "Show as list",
+
+  "search.view-switch.show-geospatialMap": "Show as map",
 
   "selectable-list-item-control.deselect": "Deselect item",
 
@@ -6401,6 +6488,8 @@
 
   "item.page.endorsement": "Endorsement",
 
+  "item.page.places": "Related places",
+
   "item.page.review": "Review",
 
   "item.page.referenced": "Referenced By",
@@ -6902,6 +6991,86 @@
 
   "dynamic-form-array.sortable-list.label": "Sortable list",
 
+  "external-login.component.or": "or",
+
+  "external-login.confirmation.header": "Information needed to complete the login process",
+
+  "external-login.noEmail.informationText": "The information received from {{authMethod}} are not sufficient to complete the login process. Please provide the missing information below, or login via a different method to associate your {{authMethod}} to an existing account.",
+
+  "external-login.haveEmail.informationText": "It seems that you have not yet an account in this system. If this is the case, please confirm the data received from {{authMethod}} and a new account will be created for you. Otherwise, if you already have an account in the system, please update the email address to match the one already in use in the system or login via a different method to associate your {{authMethod}} to your existing account.",
+
+  "external-login.confirm-email.header": "Confirm or update email",
+
+  "external-login.confirmation.email-required": "Email is required.",
+
+  "external-login.confirmation.email-label": "User Email",
+
+  "external-login.confirmation.email-invalid": "Invalid email format.",
+
+  "external-login.confirm.button.label": "Confirm this email",
+
+  "external-login.confirm-email-sent.header": "Confirmation email sent",
+
+  "external-login.confirm-email-sent.info": " We have sent an emait to the provided address to validate your input. <br> Please follow the instructions in the email to complete the login process.",
+
+  "external-login.provide-email.header": "Provide email",
+
+  "external-login.provide-email.button.label": "Send Verification link",
+
+  "external-login-validation.review-account-info.header": "Review your account information",
+
+  "external-login-validation.review-account-info.info": "The information received from ORCID differs from the one recorded in your profile. <br /> Please review them and decide if you want to update any of them.After saving you will be redirected to your profile page.",
+
+  "external-login-validation.review-account-info.table.header.information": "Information",
+
+  "external-login-validation.review-account-info.table.header.received-value": "Received value",
+
+  "external-login-validation.review-account-info.table.header.current-value": "Current value",
+
+  "external-login-validation.review-account-info.table.header.action": "Override",
+
+  "external-login-validation.review-account-info.table.row.not-applicable": "N/A",
+
+  "on-label": "ON",
+
+  "off-label": "OFF",
+
+  "review-account-info.merge-data.notification.success": "Your account information has been updated successfully",
+
+  "review-account-info.merge-data.notification.error": "Something went wrong while updating your account information",
+
+  "review-account-info.alert.error.content": "Something went wrong. Please try again later.",
+
+  "external-login-page.provide-email.notifications.error": "Something went wrong.Email address was omitted or the operation is not valid.",
+
+  "external-login.error.notification": "There was an error while processing your request. Please try again later.",
+
+  "external-login.connect-to-existing-account.label": "Connect to an existing user",
+
+  "external-login.modal.label.close": "Close",
+
+  "external-login-page.provide-email.create-account.notifications.error.header": "Something went wrong",
+
+  "external-login-page.provide-email.create-account.notifications.error.content": "Please check again your email address and try again.",
+
+  "external-login-page.confirm-email.create-account.notifications.error.no-netId": "Something went wrong with this email account. Try again or use a different method to login.",
+
+  "external-login-page.orcid-confirmation.firstname": "First name",
+
+  "external-login-page.orcid-confirmation.firstname.label": "First name",
+
+  "external-login-page.orcid-confirmation.lastname": "Last name",
+
+  "external-login-page.orcid-confirmation.lastname.label": "Last name",
+
+  "external-login-page.orcid-confirmation.netid": "Account Identifier",
+
+  "external-login-page.orcid-confirmation.netid.placeholder": "xxxx-xxxx-xxxx-xxxx",
+
+  "external-login-page.orcid-confirmation.email": "Email",
+
+  "external-login-page.orcid-confirmation.email.label": "Email",
+
   "search.filters.access_status.open.access": "Open access",
 
   "search.filters.access_status.restricted": "Restricted access",
@@ -6911,4 +7080,14 @@
   "search.filters.access_status.metadata.only": "Metadata only",
 
   "search.filters.access_status.unknown": "Unknown",
+
+  "metadata-export-filtered-items.tooltip": "Export report output as CSV",
+
+  "metadata-export-filtered-items.submit.success": "CSV export succeeded.",
+
+  "metadata-export-filtered-items.submit.error": "CSV export failed.",
+
+  "metadata-export-filtered-items.columns.warning": "CSV export automatically includes all relevant fields, so selections in this list are not taken into account.",
+
+  "embargo.listelement.badge": "Embargo until {{ date }}",
 }

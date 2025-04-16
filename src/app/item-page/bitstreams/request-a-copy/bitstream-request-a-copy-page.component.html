@@ -84,6 +84,14 @@
     </div>
   </form>
 
+  <!-- Captcha - to be rendered only if enabled in backend requestitem.cfg -->
+  @if (!!(captchaEnabled$ | async)) {
+    <div>
+      <ds-altcha-captcha autoload="onload" challengeUrl="{{ challengeHref$ | async }}" (payload)="handlePayload($event)">
+      </ds-altcha-captcha>
+    </div>
+  }
+
   <hr>
     <div class="row">
       <div class="col-12 text-end">

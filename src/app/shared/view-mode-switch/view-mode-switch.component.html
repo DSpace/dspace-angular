@@ -3,6 +3,7 @@
     <button
       [attr.aria-current]="currentMode === viewModeEnum.ListElement"
       [attr.aria-label]="'search.view-switch.show-list' | translate"
+      [title]="'search.view-switch.show-list' | translate"
       routerLink="."
       [queryParams]="{view: 'list'}"
       queryParamsHandling="merge"
@@ -17,6 +18,7 @@
     <button
       [attr.aria-current]="currentMode === viewModeEnum.GridElement"
       [attr.aria-label]="'search.view-switch.show-grid' | translate"
+      [title]="'search.view-switch.show-grid' | translate"
       routerLink="."
       [queryParams]="{view: 'grid'}"
       queryParamsHandling="merge"
@@ -31,6 +33,7 @@
     <button
       [attr.aria-current]="currentMode === viewModeEnum.DetailedListElement"
       [attr.aria-label]="'search.view-switch.show-detail' | translate"
+      [title]="'search.view-switch.show-detail' | translate"
       routerLink="."
       [queryParams]="{view: 'detailed'}"
       queryParamsHandling="merge"
@@ -39,6 +42,22 @@
       class="btn btn-secondary"
       [attr.data-test]="'detail-view' | dsBrowserOnly">
       <i class="far fa-square"></i>
+    </button>
+  }
+  @if (isToShow(viewModeEnum.GeospatialMap)) {
+    <button
+      [attr.aria-current]="currentMode === viewModeEnum.GeospatialMap"
+      [attr.aria-label]="'search.view-switch.show-geospatialMap' | translate"
+      [title]="'search.view-switch.show-geospatialMap' | translate"
+       routerLink="."
+       [queryParams]="{view: 'geospatialMap'}"
+       queryParamsHandling="merge"
+       (click)="switchViewTo(viewModeEnum.GeospatialMap)"
+       routerLinkActive="active"
+       [class.active]="currentMode === viewModeEnum.GeospatialMap"
+       class="btn btn-secondary"
+       [attr.data-test]="'geospatial-view' | dsBrowserOnly">
+       <span class="fas fa-map"></span><span class="sr-only">{{'search.view-switch.show-geospatialMap' | translate}}</span>
     </button>
   }
 </div>

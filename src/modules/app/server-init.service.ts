@@ -26,6 +26,7 @@ import {
   isNotEmpty,
 } from '../../app/shared/empty.util';
 import { MenuService } from '../../app/shared/menu/menu.service';
+import { MenuProviderService } from '../../app/shared/menu/menu-provider.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
 import {
@@ -53,6 +54,7 @@ export class ServerInitService extends InitService {
     protected breadcrumbsService: BreadcrumbsService,
     protected themeService: ThemeService,
     protected menuService: MenuService,
+    protected menuProviderService: MenuProviderService,
   ) {
     super(
       store,
@@ -65,6 +67,7 @@ export class ServerInitService extends InitService {
       breadcrumbsService,
       themeService,
       menuService,
+      menuProviderService,
     );
   }
 
@@ -82,9 +85,16 @@ export class ServerInitService extends InitService {
       this.themeService.listenForThemeChanges(false);
 
       await lastValueFrom(this.authenticationReady$());
+      this.menuProviderService.initPersistentMenus(true);
 
       return true;
     };
+  }
+
+
+  protected initRouteListeners(): void {
+    super.initRouteListeners();
+    this.menuProviderService.listenForRouteChanges(true);
   }
 
   // Server-only initialization steps
