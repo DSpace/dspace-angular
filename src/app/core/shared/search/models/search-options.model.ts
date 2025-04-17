@@ -16,10 +16,10 @@ export class SearchOptions {
   view?: ViewMode = ViewMode.ListElement;
   scope?: string;
   query?: string;
+  advanced?: boolean;
   dsoTypes?: DSpaceObjectType[];
   filters?: SearchFilter[];
   fixedFilter?: string;
-  advanced?: boolean;
 
   constructor(
     options: {

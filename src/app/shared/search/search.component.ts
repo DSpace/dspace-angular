@@ -427,6 +427,7 @@ export class SearchComponent implements OnDestroy, OnInit {
       debounceTime(100),
     ).subscribe(([configuration, searchSortOptions, searchOptions, sortOption, scope]: [string, SortOptions[], PaginatedSearchOptions, SortOptions, string]) => {
       // Build the PaginatedSearchOptions object
+      console.log("searchOptions", searchOptions);
       const combinedOptions = Object.assign({}, searchOptions,
         {
           configuration: searchOptions.configuration || configuration,
@@ -434,8 +435,11 @@ export class SearchComponent implements OnDestroy, OnInit {
         });
       if (combinedOptions.query === '') {
         combinedOptions.query = this.query;
+      }
+      if (combinedOptions.advanced === undefined) {
         combinedOptions.advanced = this.advanced;
       }
+      console.log(this.advanced, combinedOptions.advanced);
       if (isEmpty(combinedOptions.scope)) {
         combinedOptions.scope = scope;
       }
@@ -543,7 +547,7 @@ export class SearchComponent implements OnDestroy, OnInit {
       followLinks.push(followLink<WorkspaceItem>('supervisionOrders', { isOptional: true }) as any);
     }
 
-    const searchOptionsWithHidden = Object.assign (new PaginatedSearchOptions({}), searchOptions);
+    const searchOptionsWithHidden = Object.assign(new PaginatedSearchOptions({}), searchOptions);
     if (isNotEmpty(this.hiddenQuery)) {
       if (isNotEmpty(searchOptionsWithHidden.query)) {
         searchOptionsWithHidden.query = searchOptionsWithHidden.query + ' AND ' + this.hiddenQuery;

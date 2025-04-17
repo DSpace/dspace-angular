@@ -188,6 +188,15 @@ export class SearchConfigurationService implements OnDestroy {
   }
 
   /**
+   * @returns {Observable<boolean>} Emits the current advanced string
+   */
+  getCurrentAdvanced(defaultAdvanced: boolean) {
+    return this.routeService.getQueryParameterValue('advanced').pipe(map((advanced) => {
+      return advanced === 'true' || defaultAdvanced;
+    }));
+  }
+
+  /**
    * @returns {Observable<number>} Emits the current DSpaceObject type as a number
    */
   getCurrentDSOType(): Observable<DSpaceObjectType> {
@@ -360,6 +369,7 @@ export class SearchConfigurationService implements OnDestroy {
       this.getConfigurationPart(defaults.configuration),
       this.getScopePart(defaults.scope),
       this.getQueryPart(defaults.query),
+      this.getAdvancedPart(defaults.advanced),
       this.getDSOTypePart(),
       this.getFiltersPart(),
       this.getFixedFilterPart(),
@@ -384,6 +394,7 @@ export class SearchConfigurationService implements OnDestroy {
       this.getSortPart(paginationId, defaults.sort),
       this.getScopePart(defaults.scope),
       this.getQueryPart(defaults.query),
+      this.getAdvancedPart(defaults.advanced),
       this.getDSOTypePart(),
       this.getFiltersPart(),
       this.getFixedFilterPart(),
@@ -432,6 +443,16 @@ export class SearchConfigurationService implements OnDestroy {
   private getQueryPart(defaultQuery: string): Observable<any> {
     return this.getCurrentQuery(defaultQuery).pipe(map((query) => {
       return { query };
+    }));
+  }
+
+  /**
+   * @returns {Observable<{advanced: boolean}>} Emits the current advanced boolean as a partial SearchOptions object
+   */
+  private getAdvancedPart(defaultAdvanced: boolean): Observable<{advanced: boolean}> {
+    return this.getCurrentAdvanced(defaultAdvanced).pipe(map((advanced) => {
+      console.log("getAdvancedPart", advanced)
+      return { advanced };
     }));
   }
 
