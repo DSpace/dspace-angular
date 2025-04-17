@@ -22,6 +22,7 @@ import {
   UsageReport,
 } from '../../../../core/statistics/models/usage-report.model';
 import { AlertComponent } from '../../../../shared/alert/alert.component';
+import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { StatisticsChartDataComponent } from '../statistics-chart-data/statistics-chart-data.component';
 
 /**
@@ -40,6 +41,7 @@ import { StatisticsChartDataComponent } from '../statistics-chart-data/statistic
     AlertComponent,
     AsyncPipe,
     TranslateModule,
+    BtnDisabledDirective,
   ],
 })
 

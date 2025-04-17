@@ -6,11 +6,13 @@ import {
 } from '@angular/common';
 import {
   Component,
+  EventEmitter,
   Inject,
   Input,
   OnChanges,
   OnDestroy,
   OnInit,
+  Output,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {

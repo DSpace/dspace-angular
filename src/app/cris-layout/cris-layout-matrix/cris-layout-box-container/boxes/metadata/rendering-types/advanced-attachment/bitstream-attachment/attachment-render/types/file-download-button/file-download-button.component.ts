@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { BtnDisabledDirective } from 'src/app/shared/btn-disabled.directive';
 
 import { FileDownloadLinkComponent } from '../../../../../../../../../../../shared/file-download-link/file-download-link.component';
 
@@ -21,6 +22,7 @@ import { FileDownloadLinkComponent } from '../../../../../../../../../../../shar
     RouterLink,
     AsyncPipe,
     TranslateModule,
+    BtnDisabledDirective,
   ],
 })
 /**

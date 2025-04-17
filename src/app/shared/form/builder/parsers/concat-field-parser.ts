@@ -131,7 +131,7 @@ export class ConcatFieldParser extends FieldParser {
         control: 'form-row',
       },
     };
-    this.initSecurityValue(concatGroup, fieldValue);
+    this.initSecurityValue(concatGroup, fieldValue as any);
     const concatModel = new DynamicConcatModel(concatGroup, clsGroup);
     concatModel.name = this.getFieldId();
 

@@ -336,7 +336,7 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
   /**
    * All input models in a simple array for easier iterations
    */
-  inputModels = [this.primaryBitstreamModel, this.fileNameModel, this.descriptionModel, this.fileTypeModel, this.selectedFormatModel,
+  inputModels: DynamicFormControlModel[] = [this.primaryBitstreamModel, this.fileNameModel, this.descriptionModel, this.fileTypeModel, this.selectedFormatModel,
     this.newFormatModel];
 
   /**
@@ -347,8 +347,8 @@ export class EditBitstreamPageComponent implements OnInit, OnDestroy {
     new DynamicFormGroupModel({
       id: 'fileNamePrimaryContainer',
       group: [
-        this.primaryBitstreamModel,
         this.fileNameModel,
+        this.primaryBitstreamModel,
       ],
     }, {
       grid: {

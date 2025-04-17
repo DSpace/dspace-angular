@@ -17,6 +17,7 @@ import { REPORT_DATA } from '../../../../core/statistics/data-report.service';
 import { UsageReport } from '../../../../core/statistics/models/usage-report.model';
 import { EntityTypeEnum } from '../../../../cris-layout/enums/entity-type.enum';
 import { AlertComponent } from '../../../../shared/alert/alert.component';
+import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { CreateLinkPipe } from '../../statistics-pipes/create-link.pipe';
 import { StatisticsChartDataComponent } from '../statistics-chart-data/statistics-chart-data.component';
 
@@ -34,6 +35,7 @@ import { StatisticsChartDataComponent } from '../statistics-chart-data/statistic
     SlicePipe,
     CreateLinkPipe,
     TranslateModule,
+    BtnDisabledDirective,
   ],
 })
 /**

@@ -152,8 +152,6 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
 
   @Input() scope: string;
 
-  @Input() hideScopeInUrl: boolean;
-
   @Output() resultFound: EventEmitter<SearchObjects<DSpaceObject>> = new EventEmitter();
 
   @Output() deselectObject: EventEmitter<ListableObject> = new EventEmitter();

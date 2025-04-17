@@ -5,6 +5,7 @@ import {
 } from '@angular/common';
 import {
   Component,
+  Inject,
   OnInit,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';

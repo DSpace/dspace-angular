@@ -22,6 +22,7 @@ import {
   mergeMap,
   take,
 } from 'rxjs/operators';
+import { BtnDisabledDirective } from 'src/app/shared/btn-disabled.directive';
 
 import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
@@ -45,6 +46,7 @@ import { EntityDropdownComponent } from '../../../shared/entity-dropdown/entity-
     TranslateModule,
     NgbDropdownModule,
     EntityDropdownComponent,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

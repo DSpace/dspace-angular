@@ -7,6 +7,7 @@ import {
   Store,
 } from '@ngrx/store';
 import {
+  combineLatest,
   combineLatest as observableCombineLatest,
   Observable,
   of as observableOf,
@@ -188,6 +189,27 @@ export class SearchFilterService {
    */
   getDisplayValue(facet: FacetValue, query: string): string {
     return `${new EmphasizePipe().transform(facet.value, query)} (${facet.count})`;
+  }
+
+  /**
+   * Requests the active filter values set for a given filter
+   * @param {SearchFilterConfig} filterConfig The configuration for which the filters are active
+   * @returns {Observable<string[]>} Emits the active filters for the given filter configuration
+   */
+  getSelectedValuesForFilter(filterConfig: SearchFilterConfig): Observable<string[]> {
+    const values$ = this.routeService.getQueryParameterValues(filterConfig.paramName);
+    const prefixValues$ = this.routeService.getQueryParamsWithPrefix(filterConfig.paramName + '.').pipe(
+      map((params: Params) => [].concat(...Object.values(params))),
+    );
+    return combineLatest([values$, prefixValues$]).pipe(
+      map(([values, prefixValues]) => {
+        if (isNotEmpty(values)) {
+          return values;
+        }
+        return prefixValues;
+      },
+      ),
+    );
   }
 
   /**

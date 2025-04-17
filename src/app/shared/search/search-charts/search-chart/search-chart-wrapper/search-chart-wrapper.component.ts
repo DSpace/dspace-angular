@@ -1,21 +1,16 @@
 import { NgComponentOutlet } from '@angular/common';
 import {
   Component,
-  Injector,
   Input,
   OnChanges,
   OnInit,
   SimpleChanges,
+  ViewChild,
+  ViewContainerRef,
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
-import {
-  FILTER_CONFIG,
-  IN_PLACE_SEARCH,
-  REFRESH_FILTER,
-  SCOPE,
-} from '../../../../../core/shared/search/search-filter.service';
 import { FilterType } from '../../../models/filter-type.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchFacetFilterComponent } from '../../../search-filters/search-filter/search-facet-filter/search-facet-filter.component';
@@ -62,25 +57,19 @@ export class SearchChartFilterWrapperComponent implements OnInit, OnChanges {
   /**
    * Injector to inject a child component with the @Input parameters
    */
-  objectInjector: Injector;
-
-  constructor(private injector: Injector) {
-  }
+  @ViewChild('container', { read: ViewContainerRef }) vcr!: ViewContainerRef;
 
   /**
    * Initialize and add the filter config to the injector
    */
   ngOnInit(): void {
     this.searchFilter = this.getSearchFilter();
-    this.objectInjector = Injector.create({
-      providers: [
-        { provide: FILTER_CONFIG, useFactory: () => (this.filterConfig), deps: [] },
-        { provide: IN_PLACE_SEARCH, useFactory: () => (this.inPlaceSearch), deps: [] },
-        { provide: REFRESH_FILTER, useFactory: () => (this.refreshFilters), deps: [] },
-        { provide: SCOPE, useFactory: () => (this.scope), deps: [] },
-      ],
-      parent: this.injector,
-    });
+    this.vcr.clear();
+    const componentRef = this.vcr.createComponent(this.searchFilter);
+    componentRef.setInput('filterConfig', this.filterConfig);
+    componentRef.setInput('inPlaceSearch', this.inPlaceSearch);
+    componentRef.setInput('refreshFilters', this.refreshFilters);
+    componentRef.setInput('scope', this.scope);
   }
 
   ngOnChanges(changes: SimpleChanges): void {

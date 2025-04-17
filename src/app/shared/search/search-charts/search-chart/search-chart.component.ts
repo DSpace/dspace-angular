@@ -25,7 +25,10 @@ import { SearchService } from '../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../my-dspace-page/my-dspace-configuration.service';
-import { isNotEmpty } from '../../../empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../../empty.util';
 import { SearchFilterConfig } from '../../models/search-filter-config.model';
 import { SearchChartFilterWrapperComponent } from './search-chart-wrapper/search-chart-wrapper.component';
 
@@ -145,6 +148,9 @@ export class SearchChartComponent implements OnInit, OnChanges {
         } else {
           return this.searchConfigService.searchOptions.pipe(
             switchMap((options) => {
+              if (hasValue(this.scope)) {
+                options.scope = this.scope;
+              }
               return this.searchService.getFacetValuesFor(this.filter, 1, options).pipe(
                 filter((RD) => !RD.isLoading),
                 map((valuesRD) => {
@@ -156,4 +162,5 @@ export class SearchChartComponent implements OnInit, OnChanges {
       }),
       startWith(true));
   }
+
 }

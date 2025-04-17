@@ -36,10 +36,8 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../config/app-config.interface';
+import { APP_CONFIG } from '../../../config/app-config.interface';
+import { BuildConfig } from '../../../config/build-config.interface';
 import { COLLECTION_MODULE_PATH } from '../../collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
 import { SearchManager } from '../../core/browse/search-manager';
@@ -452,7 +450,7 @@ export class SearchComponent implements OnDestroy, OnInit {
   constructor(
     @Inject(PLATFORM_ID) public platformId: any,
     @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
-    @Inject(APP_CONFIG) protected appConfig: AppConfig,
+    @Inject(APP_CONFIG) protected appConfig: BuildConfig,
     protected service: SearchService,
     protected searchManager: SearchManager,
     protected sidebarService: SidebarService,

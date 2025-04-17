@@ -120,13 +120,13 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
    */
   ngOnInit() {
     if (this.model.vocabularyOptions && hasValue(this.model.vocabularyOptions.name)) {
-      this.setOptionsFromVocabulary();
+      this.initOptionsFromVocabulary();
     }
     this.currentListValue = this.model.value;
     this.subscription = this.model.valueChanges.pipe(
       filter((value) => this.currentListValue !== value),
     ).subscribe(() => {
-      this.setOptionsFromVocabulary();
+      this.initOptionsFromVocabulary();
     });
   }
 
