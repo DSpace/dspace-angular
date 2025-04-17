@@ -188,11 +188,11 @@ export class SearchConfigurationService implements OnDestroy {
   }
 
   /**
-   * @returns {Observable<boolean>} Emits the current advanced string
+   * @returns {Observable<boolean>} Emits the current expert string
    */
-  getCurrentAdvanced(defaultAdvanced: boolean) {
-    return this.routeService.getQueryParameterValue('advanced').pipe(map((advanced) => {
-      return advanced === 'true' || defaultAdvanced;
+  getCurrentExpert(defaultExpert: boolean) {
+    return this.routeService.getQueryParameterValue('expert').pipe(map((expert) => {
+      return expert === 'true' || defaultExpert;
     }));
   }
 
@@ -369,7 +369,7 @@ export class SearchConfigurationService implements OnDestroy {
       this.getConfigurationPart(defaults.configuration),
       this.getScopePart(defaults.scope),
       this.getQueryPart(defaults.query),
-      this.getAdvancedPart(defaults.advanced),
+      this.getExpertPart(defaults.expert),
       this.getDSOTypePart(),
       this.getFiltersPart(),
       this.getFixedFilterPart(),
@@ -394,7 +394,7 @@ export class SearchConfigurationService implements OnDestroy {
       this.getSortPart(paginationId, defaults.sort),
       this.getScopePart(defaults.scope),
       this.getQueryPart(defaults.query),
-      this.getAdvancedPart(defaults.advanced),
+      this.getExpertPart(defaults.expert),
       this.getDSOTypePart(),
       this.getFiltersPart(),
       this.getFixedFilterPart(),
@@ -447,12 +447,11 @@ export class SearchConfigurationService implements OnDestroy {
   }
 
   /**
-   * @returns {Observable<{advanced: boolean}>} Emits the current advanced boolean as a partial SearchOptions object
+   * @returns {Observable<{expert: boolean}>} Emits the current expert boolean as a partial SearchOptions object
    */
-  private getAdvancedPart(defaultAdvanced: boolean): Observable<{advanced: boolean}> {
-    return this.getCurrentAdvanced(defaultAdvanced).pipe(map((advanced) => {
-      console.log("getAdvancedPart", advanced)
-      return { advanced };
+  private getExpertPart(defaultExpert: boolean): Observable<{expert: boolean}> {
+    return this.getCurrentExpert(defaultExpert).pipe(map((expert) => {
+      return { expert };
     }));
   }
 
