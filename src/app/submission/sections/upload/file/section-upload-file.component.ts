@@ -27,6 +27,9 @@ import { SubmissionJsonPatchOperationsService } from '../../../../core/submissio
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap/modal/modal-config';
+import {
+  SubmissionSectionUploadFileReplaceComponent
+} from './replace/submission-section-upload-file-replace/submission-section-upload-file-replace.component';
 
 /**
  * This component represents a single bitstream contained in the submission
@@ -267,6 +270,19 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
       });
     }
     );
+  }
+
+  protected replaceBitstream(): void {
+    const options: NgbModalOptions = {
+      size: 'xl',
+      backdrop: 'static',
+    };
+    const modal = this.modalService.open(SubmissionSectionUploadFileReplaceComponent, options);
+    const instance: SubmissionSectionUploadFileReplaceComponent = modal.componentInstance;
+    instance.fileIndex = this.fileIndex;
+    instance.fileName = this.fileName;
+    instance.fileSizeBytes = this.fileData.sizeBytes;
+    instance.submissionId = this.submissionId;
   }
 
   /**

@@ -53,6 +53,8 @@ export class UploaderComponent {
    */
   @Input() uploadProperties: UploaderProperties;
 
+  @Input() dragoverContainer = 'ds-app';
+
   /**
    * The function to call when upload is completed
    */
@@ -75,7 +77,11 @@ export class UploaderComponent {
 
   @HostListener('window:dragover', ['$event'])
   onDragOver(event: any) {
-
+    if (hasValue(this.dragoverContainer)) {
+      if (!event.target.closest(this.dragoverContainer)) {
+        return;
+      }
+    }
     if (this.enableDragOverDocument && this.dragService.isAllowedDragOverPage()) {
       // Show drop area on the page
       event.preventDefault();
