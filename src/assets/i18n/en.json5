@@ -6961,7 +6961,7 @@
 
   "external-login.confirm-email-sent.header": "Confirmation email sent",
 
-  "external-login.confirm-email-sent.info": " We have sent an emait to the provided address to validate your input. <br> Please follow the instructions in the email to complete the login process.",
+  "external-login.confirm-email-sent.info": " We have sent an email to the provided address to validate your input. <br> Please follow the instructions in the email to complete the login process.",
 
   "external-login.provide-email.header": "Provide email",
 
