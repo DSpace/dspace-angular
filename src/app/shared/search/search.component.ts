@@ -232,7 +232,7 @@ export class SearchComponent implements OnDestroy, OnInit {
   /**
    * True to pass the query as-is without escaping of special characters.
    */
-  @Input() advanced = false;
+  @Input() expert = false;
 
   /**
    * The fallback scope when no scope is defined in the url, if this is also undefined no scope will be set
@@ -427,7 +427,6 @@ export class SearchComponent implements OnDestroy, OnInit {
       debounceTime(100),
     ).subscribe(([configuration, searchSortOptions, searchOptions, sortOption, scope]: [string, SortOptions[], PaginatedSearchOptions, SortOptions, string]) => {
       // Build the PaginatedSearchOptions object
-      console.log("searchOptions", searchOptions);
       const combinedOptions = Object.assign({}, searchOptions,
         {
           configuration: searchOptions.configuration || configuration,
@@ -436,10 +435,9 @@ export class SearchComponent implements OnDestroy, OnInit {
       if (combinedOptions.query === '') {
         combinedOptions.query = this.query;
       }
-      if (combinedOptions.advanced === undefined) {
-        combinedOptions.advanced = this.advanced;
+      if (combinedOptions.expert === undefined) {
+        combinedOptions.expert = this.expert;
       }
-      console.log(this.advanced, combinedOptions.advanced);
       if (isEmpty(combinedOptions.scope)) {
         combinedOptions.scope = scope;
       }

@@ -57,7 +57,7 @@ export class SearchFormComponent implements OnChanges {
   /**
    * True to pass the search query without esacping of special characters.
    */
-  @Input() advanced: boolean;
+  @Input() expert: boolean;
 
   /**
    * True when the search component should show results on the current page
