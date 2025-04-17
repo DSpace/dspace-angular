@@ -11,7 +11,7 @@
       <input type="text" [(ngModel)]="query" name="query" class="form-control"
         [attr.aria-label]="searchPlaceholder" [attr.data-test]="'search-box' | dsBrowserOnly"
         [placeholder]="searchPlaceholder" tabindex="0">
-      <input type="checkbox" [(ngModel)]="advanced" [attr.name]="{{ ('search.form.advanced' | translate ) }}" checked />
+      <input type="checkbox" [(ngModel)]="advanced" name="advanced" checked /><label for="advanced">{{ "('search.form.advanced' | translate )" }}</label>
       <button type="submit" class="search-button btn btn-{{brandColor}}" [attr.data-test]="'search-button' | dsBrowserOnly" role="button" tabindex="0"><i class="fas fa-search"></i> {{ ('search.form.search' | translate) }}</button>
     </div>
   </div>

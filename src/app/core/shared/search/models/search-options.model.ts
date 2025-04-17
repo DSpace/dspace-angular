@@ -50,10 +50,11 @@ export class SearchOptions {
       args.push(this.encodedFixedFilter);
     }
     if (isNotEmpty(this.query)) {
-      if (!this.advanced){
-        this.query.replace(':', '\:');
+      if (!this.advanced) {
+        args.push(`query=${encodeURIComponent(this.query.replace(':', '\\:'))}`);
+      } else {
+        args.push(`query=${encodeURIComponent(this.query)}`);
       }
-      args.push(`query=${encodeURIComponent(this.query)}`);
     }
     if (isNotEmpty(this.scope)) {
       args.push(`scope=${encodeURIComponent(this.scope)}`);

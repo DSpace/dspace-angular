@@ -106,6 +106,7 @@
 <ng-template #searchForm>
   <ds-search-form id="search-form"
     [query]="(searchOptions$ | async)?.query"
+    [advanced]="(searchOptions$ | async)?.advanced"
     [scope]="(searchOptions$ | async)?.scope"
     [hideScopeInUrl]="hideScopeInUrl"
     [currentUrl]="searchLink"
