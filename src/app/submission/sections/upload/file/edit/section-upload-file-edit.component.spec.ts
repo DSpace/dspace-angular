@@ -137,10 +137,6 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
     detectChanges: () => undefined,
   });
 
-  const mockCdRef = Object.assign({
-    detectChanges: () => undefined,
-  });
-
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [

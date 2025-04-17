@@ -83,7 +83,7 @@ describe('LoginPageComponent', () => {
           { provide: XSRFService, useValue: {} },
           { provide: PLATFORM_ID, useValue: 'server' },
           { provide: APP_DATA_SERVICES_MAP, useValue: {} },
-        provideMockStore({}),
+          provideMockStore({}),
         ],
         schemas: [NO_ERRORS_SCHEMA],
       }).compileComponents();

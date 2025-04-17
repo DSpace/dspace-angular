@@ -10,7 +10,7 @@
     <ng-template #requestACopyTpl>
       <button [routerLink]="bitstreamLink?.routerLink"
               [queryParams]="bitstreamLink?.queryParams"
-              [disabled]="(canRequestItemCopy$ | async) !== true"
+              [dsBtnDisabled]="(canRequestItemCopy$ | async) !== true"
               class="btn btn-outline-primary"
               data-test="requestACopy">
         {{ 'cris-layout.advanced-attachment.requestACopy' | translate }}

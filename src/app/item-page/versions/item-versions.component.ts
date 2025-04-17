@@ -62,7 +62,6 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { CanEditVersionPipe } from '../../shared/utils/can-edit-version.pipe';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { VarDirective } from '../../shared/utils/var.directive';
 import {

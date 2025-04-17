@@ -20,6 +20,7 @@ import {
   Inject,
   Input,
   OnChanges,
+  OnInit,
   Output,
   PLATFORM_ID,
   SimpleChanges,
@@ -68,7 +69,7 @@ const TOOLTIP_TEXT_LIMIT = 21;
   ],
   standalone: true,
 })
-export class ChipsComponent implements OnChanges {
+export class ChipsComponent implements OnChanges, OnInit {
   @Input() chips: Chips;
   @Input() wrapperClass: string;
   @Input() editable = false;

@@ -3,7 +3,7 @@
           *ngIf="((isSelected | async) === undefined || (isSelected | async) === null) && !!object"
           ngbTooltip="{{'manage.relationships.select' | translate}}"
           (click)="emitAction('select')"
-          [disabled]="pendingChanges$ | async">
+          [dsBtnDisabled]="pendingChanges$ | async">
     <span *ngIf="(isProcessingSelect | async)"><i class='fas fa-circle-notch fa-spin'></i> {{'loading.default' | translate}}</span>
     <span *ngIf="(isProcessingSelect | async) !== true"> {{"manage.relationships.select" | translate}}</span>
 
@@ -12,7 +12,7 @@
           *ngIf="(isSelected | async) && !!object"
           ngbTooltip="{{'manage.relationships.unselect' | translate}}"
           (click)="emitAction('unselect')"
-          [disabled]="pendingChanges$ | async">
+          [dsBtnDisabled]="pendingChanges$ | async">
     <span *ngIf="(isProcessingUnselect | async)"><i class='fas fa-circle-notch fa-spin'></i> {{'loading.default' | translate}}</span>
     <span *ngIf="(isProcessingUnselect | async) !== true"> {{"manage.relationships.unselect" | translate}}</span>
 
@@ -21,7 +21,7 @@
           *ngIf="((isHidden | async) === null || (isHidden | async) === undefined) && !!object"
           ngbTooltip="{{'manage.relationships.hide' | translate}}"
           (click)="emitAction('hide')"
-          [disabled]="pendingChanges$ | async">
+          [dsBtnDisabled]="pendingChanges$ | async">
     <span *ngIf="(isProcessingHide | async)"><i class='fas fa-circle-notch fa-spin'></i> {{'loading.default' | translate}}</span>
     <span *ngIf="(isProcessingHide | async) !== true"> {{"manage.relationships.hide" | translate}}</span>
   </button>
@@ -29,7 +29,7 @@
           *ngIf="(isHidden | async) && !!object"
           ngbTooltip="{{'manage.relationships.unhide' | translate}}"
           (click)="emitAction('unhide')"
-          [disabled]="pendingChanges$ | async">
+          [dsBtnDisabled]="pendingChanges$ | async">
     <span *ngIf="(isProcessingUnhide | async)"><i class='fas fa-circle-notch fa-spin'></i> {{'loading.default' | translate}}</span>
     <span *ngIf="(isProcessingUnhide | async) !== true"> {{"manage.relationships.unhide" | translate}}</span>
 

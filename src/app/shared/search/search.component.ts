@@ -459,7 +459,7 @@ export class SearchComponent implements OnDestroy, OnInit {
     protected windowService: HostWindowService,
     protected routeService: RouteService,
     protected router: Router,
-    protected authorizationService: AuthorizationDataService
+    protected authorizationService: AuthorizationDataService,
   ){
     this.isXsOrSm$ = this.windowService.isXsOrSm();
   }

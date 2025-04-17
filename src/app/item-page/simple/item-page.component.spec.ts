@@ -37,8 +37,8 @@ import {
 } from '../../core/services/link-head.service';
 import { ServerResponseService } from '../../core/services/server-response.service';
 import { Item } from '../../core/shared/item.model';
-import { ErrorComponent } from '../../shared/error/error.component';
 import { CrisItemPageComponent } from '../../cris-item-page/cris-item-page.component';
+import { ErrorComponent } from '../../shared/error/error.component';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
 import { RouterMock } from '../../shared/mocks/router.mock';

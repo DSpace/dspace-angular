@@ -1,5 +1,8 @@
 /* eslint-disable max-classes-per-file */
-import { Injectable } from '@angular/core';
+import {
+  Injectable,
+  OnDestroy,
+} from '@angular/core';
 import { Angulartics2 } from 'angulartics2';
 import {
   BehaviorSubject,
@@ -89,7 +92,7 @@ class SearchDataService extends BaseDataService<any> {
  * Service that performs all general actions that have to do with the search page
  */
 @Injectable({ providedIn: 'root' })
-export class SearchService {
+export class SearchService implements OnDestroy {
 
   /**
    * Endpoint link path for retrieving general search results

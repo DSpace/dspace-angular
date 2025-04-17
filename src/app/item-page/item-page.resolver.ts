@@ -82,17 +82,17 @@ export const itemPageResolver: ResolveFn<RemoteData<Item>> = (
             router.navigateByUrl(newUrl);
           }
         } else {
-        const thisRoute = state.url;
+          const thisRoute = state.url;
 
-        // Angular uses a custom function for encodeURIComponent, (e.g. it doesn't encode commas
-        // or semicolons) and thisRoute has been encoded with that function. If we want to compare
-        // it with itemRoute, we have to run itemRoute through Angular's version as well to ensure
-        // the same characters are encoded the same way.
+          // Angular uses a custom function for encodeURIComponent, (e.g. it doesn't encode commas
+          // or semicolons) and thisRoute has been encoded with that function. If we want to compare
+          // it with itemRoute, we have to run itemRoute through Angular's version as well to ensure
+          // the same characters are encoded the same way.
           const itemRoute = router.parseUrl(getItemPageRoute(rd.payload)).toString();
 
-        if (!thisRoute.startsWith(itemRoute)) {
-          const itemId = rd.payload.uuid;
-          const subRoute = thisRoute.substring(thisRoute.indexOf(itemId) + itemId.length, thisRoute.length);
+          if (!thisRoute.startsWith(itemRoute)) {
+            const itemId = rd.payload.uuid;
+            const subRoute = thisRoute.substring(thisRoute.indexOf(itemId) + itemId.length, thisRoute.length);
             if (isPlatformServer(platformId)) {
               hardRedirectService.redirect(itemRoute + subRoute, 301);
             } else {

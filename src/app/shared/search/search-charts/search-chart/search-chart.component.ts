@@ -3,6 +3,7 @@ import {
   Component,
   Inject,
   Input,
+  OnChanges,
   OnInit,
   SimpleChanges,
 } from '@angular/core';
@@ -42,7 +43,7 @@ import { SearchChartFilterWrapperComponent } from './search-chart-wrapper/search
 /**
  * Represents a part of the filter charts tabs for a single type of chart filter
  */
-export class SearchChartComponent implements OnInit {
+export class SearchChartComponent implements OnInit, OnChanges {
   /**
    * The filter config for this component
    */

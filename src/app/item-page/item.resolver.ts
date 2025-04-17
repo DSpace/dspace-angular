@@ -31,9 +31,9 @@ export function getItemPageLinksToFollow(): FollowLinkConfig<Item>[] {
     ),
     followLink('relationships'),
     followLink('version', {}, followLink('versionhistory')),
-  followLink('bundles', {}, followLink('bitstreams')),
+    followLink('bundles', {}, followLink('bitstreams')),
     followLink('thumbnail'),
-  followLink('metrics'),
+    followLink('metrics'),
   ];
   if (environment.item.showAccessStatuses) {
     followLinks.push(followLink('accessStatus'));

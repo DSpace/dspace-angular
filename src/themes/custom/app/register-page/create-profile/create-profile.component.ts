@@ -9,8 +9,8 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { ProfilePageSecurityFormComponent } from '../../../../../app/profile-page/profile-page-security-form/profile-page-security-form.component';
 import { CreateProfileComponent as BaseComponent } from '../../../../../app/register-page/create-profile/create-profile.component';
-import { BtnDisabledDirective } from '../../../../../app/shared/btn-disabled.directive';
 import { AlertComponent } from '../../../../../app/shared/alert/alert.component';
+import { BtnDisabledDirective } from '../../../../../app/shared/btn-disabled.directive';
 
 /**
  * Component that renders the create profile page to be used by a user registering through a token

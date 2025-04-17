@@ -13,18 +13,18 @@ import {
   switchMap,
   tap,
 } from 'rxjs/operators';
-import { ConfigurationDataService } from '../../core/data/configuration-data.service';
-import { RemoteData } from '../../core/data/remote-data';
-import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
-import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 
 import {
   AuthActionTypes,
   RetrieveAuthenticatedEpersonSuccessAction,
 } from '../../core/auth/auth.actions';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { SuggestionTarget } from '../../core/notifications/suggestions/models/suggestion-target.model';
+import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SuggestionsService } from '../suggestions.service';
 import {

@@ -2,7 +2,11 @@ import {
   AsyncPipe,
   NgIf,
 } from '@angular/common';
-import { Component } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import {
   NgbDropdownModule,
   NgbModal,
@@ -44,7 +48,7 @@ import { EntityDropdownComponent } from '../../../shared/entity-dropdown/entity-
   ],
   standalone: true,
 })
-export class MyDSpaceNewBulkImportComponent {
+export class MyDSpaceNewBulkImportComponent implements OnInit, OnDestroy {
 
   /**
    * Used to verify if there are one or more entities available

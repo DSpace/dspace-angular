@@ -41,10 +41,10 @@ import {
 } from '../../../../core/shared/operators';
 import { WorkspaceitemSectionUploadFileObject } from '../../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { SubmissionJsonPatchOperationsService } from '../../../../core/submission/submission-json-patch-operations.service';
-import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import { VocabularyService } from '../../../../core/submission/vocabularies/vocabulary.service';
 import { AlertComponent } from '../../../../shared/alert/alert.component';
 import { AlertType } from '../../../../shared/alert/alert-type';
+import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import {
   hasValue,
   isNotUndefined,

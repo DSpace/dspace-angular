@@ -102,7 +102,7 @@ export const paginatedRelationsToItems = (thisId: string) => (source: Observable
                 } else {
                   return null;
                 }
-                }),
+              }),
             ),
             rel.rightItem.pipe(
               getFirstCompletedRemoteData(),
@@ -112,26 +112,26 @@ export const paginatedRelationsToItems = (thisId: string) => (source: Observable
                 } else {
                   return null;
                 }
-                }),
-              ),
-            ],
+              }),
             ),
+          ],
           ),
-        ).pipe(
-          map((arr) =>
-            arr.map(([leftItem, rightItem]) => {
-              if (hasValue(leftItem) && leftItem.id === thisId) {
-                return rightItem;
-              } else if (hasValue(rightItem) && rightItem.id === thisId) {
-                return leftItem;
-              }
-            })
-              .filter((item: Item) => hasValue(item)),
+        ),
+      ).pipe(
+        map((arr) =>
+          arr.map(([leftItem, rightItem]) => {
+            if (hasValue(leftItem) && leftItem.id === thisId) {
+              return rightItem;
+            } else if (hasValue(rightItem) && rightItem.id === thisId) {
+              return leftItem;
+            }
+          })
+            .filter((item: Item) => hasValue(item)),
         ),
         distinctUntilChanged(compareArraysUsingIds()),
         map((relatedItems: Item[]) =>
-            Object.assign(relationshipsRD, { payload: Object.assign(relationshipsRD.payload, { page: relatedItems } ) }),
-          ),
+          Object.assign(relationshipsRD, { payload: Object.assign(relationshipsRD.payload, { page: relatedItems } ) }),
+        ),
       );
-      }),
+    }),
   );

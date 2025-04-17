@@ -22,8 +22,8 @@ import { HostWindowService } from '../../shared/host-window.service';
 import { MenuService } from '../../shared/menu/menu.service';
 import { MenuID } from '../../shared/menu/menu-id.model';
 import { MenuSection } from '../../shared/menu/menu-section.model';
-import { VarDirective } from '../../shared/utils/var.directive';
 import { HoverOutsideDirective } from '../../shared/utils/hover-outside.directive';
+import { VarDirective } from '../../shared/utils/var.directive';
 import { NavbarSectionComponent } from '../navbar-section/navbar-section.component';
 
 /**

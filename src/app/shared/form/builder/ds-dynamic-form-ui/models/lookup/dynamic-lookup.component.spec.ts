@@ -41,8 +41,8 @@ import { Vocabulary } from '../../../../../../core/submission/vocabularies/model
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyOptions } from '../../../../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
-import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import { SubmissionService } from '../../../../../../submission/submission.service';
+import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import { createSuccessfulRemoteDataObject$ } from '../../../../../remote-data.utils';
 import {
   mockDynamicFormLayoutService,

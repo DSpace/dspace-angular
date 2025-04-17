@@ -60,7 +60,6 @@ import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
 } from '../shared/remote-data.utils';
-import { SectionScope } from './objects/section-visibility.model';
 import { SubmissionError } from './objects/submission-error.model';
 import {
   CancelSubmissionFormAction,

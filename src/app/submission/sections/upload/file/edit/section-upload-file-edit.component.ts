@@ -536,11 +536,11 @@ export class SubmissionSectionUploadFileEditComponent implements OnInit, OnDestr
 
         this.uploadService.updateFilePrimaryBitstream(this.submissionId, this.sectionId, uploadSection.primary);
 
-      Object.keys(uploadSection.files)
-        .filter((key) => uploadSection.files[key].uuid === this.fileId)
-        .forEach((key) => this.uploadService.updateFileData(
+        Object.keys(uploadSection.files)
+          .filter((key) => uploadSection.files[key].uuid === this.fileId)
+          .forEach((key) => this.uploadService.updateFileData(
             this.submissionId, this.sectionId, this.fileId, uploadSection.files[key]),
-        );
+          );
 
         this.sectionService.updateSectionData(this.submissionId, this.sectionId, sectionData, sectionErrors, sectionErrors);
       }

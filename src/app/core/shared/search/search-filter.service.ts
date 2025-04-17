@@ -1,7 +1,4 @@
-import {
-  Injectable,
-  InjectionToken,
-} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import {
   createSelector,
@@ -10,7 +7,6 @@ import {
   Store,
 } from '@ngrx/store';
 import {
-  BehaviorSubject,
   combineLatest as observableCombineLatest,
   Observable,
   of as observableOf,

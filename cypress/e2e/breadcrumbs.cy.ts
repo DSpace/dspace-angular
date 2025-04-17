@@ -9,6 +9,6 @@ xdescribe('Breadcrumbs', () => {
     cy.get('ds-breadcrumbs').should('be.visible');
 
     // Analyze <ds-breadcrumbs> for accessibility
-        testA11y('ds-breadcrumbs');
+    testA11y('ds-breadcrumbs');
   });
 });

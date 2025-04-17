@@ -86,6 +86,17 @@ export class ItemPageFieldComponent implements OnInit {
    */
   browseDefinition$: Observable<BrowseDefinition>;
 
+  /**
+   * Returns true iff the spec and field match.
+   * @param spec  Specification of a metadata field name: either a metadata field, or a prefix ending in ".*".
+   * @param field A metadata field name.
+   * @private
+   */
+  private static fieldMatch(spec: string, field: string): boolean {
+    return field === spec
+      || (spec.endsWith('.*') && field.substring(0, spec.length - 1) === spec.substring(0, spec.length - 1));
+  }
+
   ngOnInit() {
     this.browseDefinition$ = this.browseDefinition();
   }
@@ -107,14 +118,4 @@ export class ItemPageFieldComponent implements OnInit {
     );
   }
 
-  /**
-   * Returns true iff the spec and field match.
-   * @param spec  Specification of a metadata field name: either a metadata field, or a prefix ending in ".*".
-   * @param field A metadata field name.
-   * @private
-   */
-  private static fieldMatch(spec: string, field: string): boolean {
-    return field === spec
-      || (spec.endsWith('.*') && field.substring(0, spec.length - 1) === spec.substring(0, spec.length - 1));
-  }
 }

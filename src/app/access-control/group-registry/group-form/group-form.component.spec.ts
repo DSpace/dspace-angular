@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -26,7 +25,6 @@ import { Store } from '@ngrx/store';
 import {
   TranslateLoader,
   TranslateModule,
-  TranslateService,
 } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import {
@@ -62,7 +60,6 @@ import { FormComponent } from '../../../shared/form/form.component';
 import { DSONameServiceMock } from '../../../shared/mocks/dso-name.service.mock';
 import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-service.mock';
 import { RouterMock } from '../../../shared/mocks/router.mock';
-import { getMockTranslateService } from '../../../shared/mocks/translate.service.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import {
