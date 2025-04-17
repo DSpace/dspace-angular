@@ -169,6 +169,13 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
   @Input() public retainScrollPosition = false;
 
   /**
+   * Options for showing or hiding the RSS syndication feed. This is useful for e.g. top-level community lists
+   * or other lists where an RSS feed doesn't make sense, but uses the same components as recent items or search result
+   * lists.
+   */
+  @Input() public showRSS = false;
+
+  /**
    * Current page.
    */
   public currentPage$: Observable<number>;
@@ -266,7 +273,6 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
    * Initializes all default variables
    */
   private initializeConfig() {
-    // Set initial values
     this.id = this.paginationOptions.id || null;
     this.pageSizeOptions = this.paginationOptions.pageSizeOptions;
     this.currentPage$ = this.paginationService.getCurrentPagination(this.id, this.paginationOptions).pipe(

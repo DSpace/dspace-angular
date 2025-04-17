@@ -3,6 +3,7 @@
     <div class="mt-4" [ngClass]="placeholderFontClass" @fadeIn>
       <div class="d-flex flex-row border-bottom mb-4 pb-4"></div>
       <h2> {{'home.recent-submissions.head' | translate}}</h2>
+      <ds-rss [sortConfig]="sortConfig"></ds-rss>
       @for (item of itemRD?.payload?.page; track item) {
         <div class="my-4">
           <ds-listable-object-component-loader [object]="item" [viewMode]="viewMode" class="pb-4">

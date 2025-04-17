@@ -85,6 +85,8 @@ export class ObjectDetailComponent {
    */
   @Input() showThumbnails;
 
+  @Input() showRSS = false;
+
   /**
    * Emit when one of the listed object has changed.
    */
