@@ -300,7 +300,7 @@ describe('SearchComponent', () => {
       configuration: 'default',
       scope: '',
       sort: sortOptionsList[0],
-      advanced: false,
+      expert: false,
     });
     expect(comp.currentConfiguration$).toBeObservable(cold('b', {
       b: 'default',
