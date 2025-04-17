@@ -22,7 +22,7 @@ export class ThemedSearchFormComponent extends ThemedComponent<SearchFormCompone
 
   @Input() query: string;
 
-  @Input() advanced: boolean;
+  @Input() expert: boolean;
 
   @Input() inPlaceSearch: boolean;
 
@@ -44,7 +44,7 @@ export class ThemedSearchFormComponent extends ThemedComponent<SearchFormCompone
 
   protected inAndOutputNames: (keyof SearchFormComponent & keyof this)[] = [
     'query',
-    'advanced',
+    'expert',
     'inPlaceSearch',
     'scope',
     'hideScopeInUrl',
