@@ -87,7 +87,7 @@ describe('SearchFormComponent', () => {
 
     fixture.detectChanges();
     tick();
-    const queryInput = de.query(By.css('input')).nativeElement;
+    const queryInput = de.query(By.css('input[name="query"]')).nativeElement;
 
     expect(queryInput.value).toBe(testString);
   }));
