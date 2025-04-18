@@ -8,7 +8,7 @@ import { AlertType } from '../alert/alert-type';
 import { Router } from '@angular/router';
 import { isPlatformBrowser, Location } from '@angular/common';
 
-enum MessageType {
+export enum MessageType {
   LOADING = 'loading',
   WARNING = 'warning',
   ERROR = 'error'
