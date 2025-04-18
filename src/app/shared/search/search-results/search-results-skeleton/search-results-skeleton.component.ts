@@ -3,7 +3,8 @@ import {
   NgForOf,
 } from '@angular/common';
 import {
-  Component,
+  ChangeDetectorRef,
+  Component, Inject,
   Input,
   OnInit,
 } from '@angular/core';
@@ -13,6 +14,9 @@ import { Observable } from 'rxjs';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { hasValue } from '../../../empty.util';
+import { AlertType } from "../../../alert/alert-type";
+import { TranslateService } from "@ngx-translate/core";
+import { APP_CONFIG, AppConfig } from "../../../../../config/app-config.interface";
 
 @Component({
   selector: 'ds-search-results-skeleton',
@@ -45,6 +49,26 @@ export class SearchResultsSkeletonComponent implements OnInit {
   @Input()
   textLineCount = 2;
   /**
+   * Whether to show fallback messages after a certain loading time
+   */
+  @Input() showFallbackMessages: boolean;
+  /**
+   * The message text for a warning
+   */
+  @Input() warningMessage: string;
+  /**
+   * The amount of time to wait for the warning message to be visible
+   */
+  @Input() warningMessageDelay: number;
+  /**
+   * The message text for an error
+   */
+  @Input() errorMessage: string;
+  /**
+   * The amount of time to wait for the error message to be visible
+   */
+  @Input() errorMessageDelay: number;
+  /**
    * The view mode of the search page
    */
   public viewMode$: Observable<ViewMode>;
@@ -53,10 +77,22 @@ export class SearchResultsSkeletonComponent implements OnInit {
    */
   public loadingResults: number[];
 
+
   protected readonly ViewMode = ViewMode;
 
-  constructor(private searchService: SearchService) {
+
+  readonly AlertTypeEnum = AlertType;
+
+  constructor(
+    private searchService: SearchService,
+    private translate: TranslateService,
+    private changeDetectorRef: ChangeDetectorRef,
+    @Inject(APP_CONFIG) private appConfig: AppConfig,
+  ) {
     this.viewMode$ = this.searchService.getViewMode();
+    this.showFallbackMessages = this.showFallbackMessages ?? this.appConfig.loader.showFallbackMessagesByDefault;
+    this.warningMessageDelay = this.warningMessageDelay ?? this.appConfig.loader.warningMessageDelay;
+    this.errorMessageDelay = this.errorMessageDelay ?? this.appConfig.loader.errorMessageDelay;
   }
 
   ngOnInit() {
