@@ -5,14 +5,14 @@
 }
 
 @if ((filters | async)?.hasSucceeded) {
-  <div [class.visually-hidden]="filtersWithComputedVisibility !== (filters | async)?.payload?.length">
+  <div [class.visually-hidden]="getFinalFiltersComputed(this.currentConfiguration) !== (filters | async)?.payload?.length">
     @for (filter of (filters | async)?.payload; track filter.name) {
       <ds-search-filter (isVisibilityComputed)="countFiltersWithComputedVisibility($event)" [scope]="currentScope" [filter]="filter" [inPlaceSearch]="inPlaceSearch" [refreshFilters]="refreshFilters"></ds-search-filter>
     }
   </div>
 }
 
-@if(filtersWithComputedVisibility !== (filters | async)?.payload?.length) {
+@if(getFinalFiltersComputed(this.currentConfiguration) !== (filters | async)?.payload?.length) {
   <ngx-skeleton-loader [count]="defaultFilterCount"/>
 }
 

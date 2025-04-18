@@ -2708,6 +2708,12 @@
 
   "form.copy": "Duplicate",
 
+  "form.date-picker.placeholder.year": "Year",
+
+  "form.date-picker.placeholder.month": "Month",
+
+  "form.date-picker.placeholder.day": "Day",
+
   "form.discard": "Discard",
 
   "form.drag": "Drag",

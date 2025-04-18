@@ -125,7 +125,6 @@ export class MetadataValuesComponent implements OnChanges {
     return queryParams;
   }
 
-
   /**
    * Checks if the given link value is an internal link.
    * @param linkValue - The link value to check.

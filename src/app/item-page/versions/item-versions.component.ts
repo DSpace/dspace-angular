@@ -171,7 +171,11 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
    * The page options to use for fetching the versions
    * Start at page 1 and always use the set page size
    */
-  options: PaginationComponentOptions;
+  options = Object.assign(new PaginationComponentOptions(), {
+    id: 'ivo',
+    currentPage: 1,
+    pageSize: this.pageSize,
+  });
 
   /**
    * The routes to the versions their item pages
@@ -244,14 +248,10 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
 
   /**
    * Get the route to the specified version
-   * @param version the version for which the route will be retrieved
+   * @param versionId the ID of the version for which the route will be retrieved
    */
-  getVersionRoute(version: Version): Observable<string> {
-    return version.item.pipe(
-      getFirstCompletedRemoteData(),
-      map(data => data.payload),
-      map(item => getItemVersionRoute(item.uuid)),
-    );
+  getVersionRoute(versionId: string) {
+    return getItemVersionRoute(versionId);
   }
 
   /**

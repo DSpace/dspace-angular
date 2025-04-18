@@ -22,7 +22,10 @@ import {
   DynamicFormLayoutService,
   DynamicFormValidationService,
 } from '@ng-dynamic-forms/core';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import isEqual from 'lodash/isEqual';
 
 import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
@@ -83,6 +86,7 @@ export class DsDatePickerComponent extends DynamicFormControlComponent implement
 
   constructor(protected layoutService: DynamicFormLayoutService,
               protected validationService: DynamicFormValidationService,
+              protected translateService: TranslateService,
               private renderer: Renderer2,
               @Inject(DOCUMENT) private _document: Document,
   ) {

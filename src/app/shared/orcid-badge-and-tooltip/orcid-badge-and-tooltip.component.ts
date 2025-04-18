@@ -25,7 +25,7 @@ import { MetadataValue } from '../../core/shared/metadata.models';
     NgClass,
   ],
   templateUrl: './orcid-badge-and-tooltip.component.html',
-  styleUrl: './orcid-badge-and-tooltip.component.scss',
+  styleUrls: ['./orcid-badge-and-tooltip.component.scss'],
 })
 export class OrcidBadgeAndTooltipComponent implements OnInit {
 

@@ -16,6 +16,7 @@ import {
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
+import { BtnDisabledDirective } from 'src/app/shared/btn-disabled.directive';
 
 import { PaginatedList } from '../../../../core/data/paginated-list.model';
 import { RemoteData } from '../../../../core/data/remote-data';
@@ -40,6 +41,7 @@ import { DSOSelectorModalWrapperComponent } from '../dso-selector-modal-wrapper.
     NgForOf,
     TranslateModule,
     AsyncPipe,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

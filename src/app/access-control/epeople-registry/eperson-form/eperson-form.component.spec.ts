@@ -81,7 +81,7 @@ describe('EPersonFormComponent', () => {
   let ePersonDataServiceStub: any;
   let authService: AuthServiceStub;
   let authorizationService: AuthorizationDataService;
-  let groupsDataService: GroupDataService;
+  let groupsDataService: jasmine.SpyObj<GroupDataService>;
   let epersonRegistrationService: EpersonRegistrationService;
   let route: ActivatedRouteStub;
   let router: RouterStub;

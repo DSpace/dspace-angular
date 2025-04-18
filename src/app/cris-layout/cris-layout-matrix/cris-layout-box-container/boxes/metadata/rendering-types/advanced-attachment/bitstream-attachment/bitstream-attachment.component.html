@@ -2,7 +2,7 @@
   <div class="d-flex flex-row flex-wrap flex-lg-nowrap card-container mt-1 mb-3 gap-3" data-test="attachment-info">
 
     <div class="order-lg-1 thumbnail-wrapper">
-      <ds-thumbnail [thumbnail]="attachment.thumbnail | async"></ds-thumbnail>
+      <ds-thumbnail [thumbnail]="thumbnail$ | async"></ds-thumbnail>
     </div>
 
     <div class="order-lg-3 ml-auto">

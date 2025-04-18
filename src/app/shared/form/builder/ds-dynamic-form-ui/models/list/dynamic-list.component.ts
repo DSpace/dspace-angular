@@ -123,11 +123,11 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
       this.initOptionsFromVocabulary();
     }
     this.currentListValue = this.model.value;
-    this.subscription = this.model.valueChanges.pipe(
+    this.subs.push(this.model.valueChanges.pipe(
       filter((value) => this.currentListValue !== value),
     ).subscribe(() => {
       this.initOptionsFromVocabulary();
-    });
+    }));
   }
 
   ngOnDestroy() {
@@ -285,5 +285,4 @@ export class DsDynamicListComponent extends DynamicFormControlComponent implemen
       }),
     );
   }
-
 }

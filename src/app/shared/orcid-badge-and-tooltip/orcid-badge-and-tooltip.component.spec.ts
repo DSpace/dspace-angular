@@ -20,6 +20,7 @@ describe('OrcidBadgeAndTooltipComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      declarations: [OrcidBadgeAndTooltipComponent],
       imports: [
         OrcidBadgeAndTooltipComponent,
         NgbTooltipModule,

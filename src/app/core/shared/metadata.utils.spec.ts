@@ -7,10 +7,7 @@ import {
   MetadataValueFilter,
   MetadatumViewModel,
 } from './metadata.models';
-import {
-  Metadata,
-  PLACEHOLDER_VALUE,
-} from './metadata.utils';
+import { Metadata } from './metadata.utils';
 
 const mdValue = (value: string, language?: string, authority?: string): MetadataValue => {
   return Object.assign(new MetadataValue(), {
@@ -315,21 +312,4 @@ describe('Metadata', () => {
       testAllWithLimit(multiMap, 'dc.title', [dcTitle1], 1);
     });
   });
-
-  describe('Placeholder values', () => {
-    it('should ignore placeholder values in get methods', () => {
-      const placeholderMd = mdValue(PLACEHOLDER_VALUE);
-      const key = 'dc.test.placeholder';
-      const map = { 'dc.test.placeholder': [placeholderMd] };
-
-      expect(Metadata.all(map, key).length).toEqual(0);
-      expect(Metadata.allValues(map, key).length).toEqual(0);
-      expect(Metadata.has(map, key)).toBeFalsy();
-      expect(Metadata.first(map, key)).toBeUndefined();
-      expect(Metadata.firstValue(map, key)).toBeUndefined();
-      expect(Metadata.hasValue(placeholderMd)).toBeFalsy();
-      expect(Metadata.valueMatches(placeholderMd, null)).toBeFalsy();
-    });
-  });
-
 });

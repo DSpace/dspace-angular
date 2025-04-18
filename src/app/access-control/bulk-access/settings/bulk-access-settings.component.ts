@@ -34,4 +34,13 @@ export class BulkAccessSettingsComponent {
   getValue() {
     return this.controlForm.getFormValue();
   }
+
+  /**
+   * Reset the form to its initial state
+   * This will also reset the state of the child components (bitstream and item access)
+   */
+  reset() {
+    this.controlForm.reset();
+  }
+
 }

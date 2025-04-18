@@ -18,7 +18,7 @@
 
                             <div class="m-2" (click)="setSelected(typeDto.relationshipType, !selected)">
                                 <label>
-                                    <input type="checkbox" [checked]="selected" [disabled]="isDeleting$ | async">
+                                    <input type="checkbox" [checked]="selected" [dsBtnDisabled]="isDeleting$ | async">
                                 </label>
                             </div>
 

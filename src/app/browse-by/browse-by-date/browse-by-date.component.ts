@@ -84,7 +84,7 @@ export class BrowseByDateComponent extends BrowseByMetadataComponent implements 
   public constructor(
     protected route: ActivatedRoute,
     protected browseService: BrowseService,
-                     protected searchManager: SearchManager,
+    protected searchManager: SearchManager,
     protected dsoService: DSpaceObjectDataService,
     protected paginationService: PaginationService,
     protected router: Router,

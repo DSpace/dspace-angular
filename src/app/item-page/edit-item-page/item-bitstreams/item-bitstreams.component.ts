@@ -127,6 +127,11 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
   itemUpdateSubscription: Subscription;
 
   /**
+   * An observable which emits a boolean which represents whether the service is currently handling a 'move' request
+   */
+  isProcessingMoveRequest: Observable<boolean>;
+
+  /**
    * The flag indicating to show the load more link
    */
   showLoadMoreLink$: BehaviorSubject<boolean> = new BehaviorSubject(true);
@@ -137,11 +142,6 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
   get bundles$(): Observable<Bundle[]> {
     return this.bundlesSubject.asObservable();
   }
-
-  /**
-   * An observable which emits a boolean which represents whether the service is currently handling a 'move' request
-   */
-  isProcessingMoveRequest: Observable<boolean>;
 
   constructor(
     public itemService: ItemDataService,

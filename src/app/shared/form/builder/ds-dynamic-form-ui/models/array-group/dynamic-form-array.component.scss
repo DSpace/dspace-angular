@@ -24,7 +24,7 @@
     text-indent: calc(0.5 * var(--bs-spacer))
   }
 
-  &:hover:not(.cdk-drag-disabled), &:focus:not(.cdk-drag-disabled) {
+  &:hover, &:focus {
     cursor: grab;
   }
 

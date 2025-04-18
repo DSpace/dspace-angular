@@ -251,11 +251,12 @@ export class OrcidSyncSettingsComponent implements OnInit, OnDestroy {
         take(1),
       )
       .subscribe((remoteData: RemoteData<ResearcherProfile>) => {
-        if (remoteData.hasFailed) {
-          this.notificationsService.error(this.translateService.get(this.messagePrefix + '.synchronization-settings-update.error'));
-        } else {
+        // hasSucceeded is true if the response is success or successStale
+        if (remoteData.hasSucceeded) {
           this.notificationsService.success(this.translateService.get(this.messagePrefix + '.synchronization-settings-update.success'));
           this.settingsUpdated.emit();
+        } else {
+          this.notificationsService.error(this.translateService.get(this.messagePrefix + '.synchronization-settings-update.error'));
         }
       });
   }
@@ -283,6 +284,16 @@ export class OrcidSyncSettingsComponent implements OnInit, OnDestroy {
       map(i => this.getCurrentPreference(i, 'dspace.orcid.sync-fundings', ['DISABLED', 'ALL'], 'DISABLED')),
       takeUntil(this.#destroy$),
     ).subscribe(val => this.currentSyncFunding = val);
+    item.pipe(
+      filter(hasValue),
+      map(i => this.getCurrentPreference(i, 'dspace.orcid.sync-patents', ['DISABLED', 'ALL'], 'DISABLED')),
+      takeUntil(this.#destroy$),
+    ).subscribe(val => this.currentSyncPatent = val);
+    item.pipe(
+      filter(hasValue),
+      map(i => this.getCurrentPreference(i, 'dspace.orcid.sync-products', ['DISABLED', 'ALL'], 'DISABLED')),
+      takeUntil(this.#destroy$),
+    ).subscribe(val => this.currentSyncProduct = val);
   }
 
   /**

@@ -16,6 +16,7 @@ import {
 } from '@ng-dynamic-forms/core';
 import { provideMockStore } from '@ngrx/store/testing';
 import {
+  TranslateLoader,
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
@@ -28,6 +29,7 @@ import {
 } from '../../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../../environments/environment.test';
 import { SubmissionService } from '../../../../../../submission/submission.service';
+import { TranslateLoaderMock } from '../../../../../mocks/translate-loader.mock';
 import { DsDynamicFormControlContainerComponent } from '../../ds-dynamic-form-control-container.component';
 import { dsDynamicFormControlMapFn } from '../../ds-dynamic-form-control-map-fn';
 import { DynamicRowArrayModel } from '../ds-dynamic-row-array-model';
@@ -42,16 +44,28 @@ describe('DsDynamicFormArrayComponent', () => {
     onDefaultLangChange: new EventEmitter(),
   };
 
+  const uuidServiceStub = {
+    generate: () => 'fake-id',
+  };
+
   let component: DsDynamicFormArrayComponent;
   let fixture: ComponentFixture<DsDynamicFormArrayComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      declarations: [
+        DsDynamicFormArrayComponent,
+      ],
       imports: [
         ReactiveFormsModule,
         DsDynamicFormArrayComponent,
         NgxMaskModule.forRoot(),
-        TranslateModule.forRoot(),
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
+        }),
       ],
       providers: [
         DynamicFormLayoutService,

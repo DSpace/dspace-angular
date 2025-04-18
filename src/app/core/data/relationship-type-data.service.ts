@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import {
   combineLatest as observableCombineLatest,
+  EMPTY,
+  from,
   Observable,
 } from 'rxjs';
 import {
+  expand,
   map,
   mergeMap,
-  switchMap,
+  reduce,
   toArray,
 } from 'rxjs/operators';
 
@@ -75,11 +78,26 @@ export class RelationshipTypeDataService extends BaseDataService<RelationshipTyp
    */
   getRelationshipTypeByLabelAndTypes(relationshipTypeLabel: string, firstItemType: string, secondItemType: string): Observable<RelationshipType> {
     // Retrieve all relationship types from the server in a single page
-    return this.findAllData.findAll({ currentPage: 1, elementsPerPage: 9999 }, true, true, followLink('leftType'), followLink('rightType'))
+    const initialPageInfo = { currentPage: 1, elementsPerPage: 20 };
+    return this.findAllData.findAll(initialPageInfo, true, true, followLink('leftType'), followLink('rightType'))
       .pipe(
         getFirstSucceededRemoteData(),
         // Emit each type in the page array separately
-        switchMap((typeListRD: RemoteData<PaginatedList<RelationshipType>>) => typeListRD.payload.page),
+        expand((typeListRD: RemoteData<PaginatedList<RelationshipType>>) => {
+          const currentPage = typeListRD.payload.pageInfo.currentPage;
+          const totalPages = typeListRD.payload.pageInfo.totalPages;
+          if (currentPage < totalPages) {
+            const nextPageInfo = { currentPage: currentPage + 1, elementsPerPage: 20 };
+            return this.findAllData.findAll(nextPageInfo, true, true, followLink('leftType'), followLink('rightType')).pipe(
+              getFirstSucceededRemoteData(),
+            );
+          } else {
+            return EMPTY;
+          }
+        }),
+        // Collect all pages into a single array
+        reduce((acc: RelationshipType[], typeListRD: RemoteData<PaginatedList<RelationshipType>>) => acc.concat(typeListRD.payload.page), []),
+        mergeMap((relationshipTypes: RelationshipType[]) => from(relationshipTypes)),
         // Check each type individually, to see if it matches the provided types
         mergeMap((relationshipType: RelationshipType) => {
           if (relationshipType.leftwardType === relationshipTypeLabel) {
