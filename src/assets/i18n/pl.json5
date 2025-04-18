@@ -3574,5 +3574,5 @@
   "metadata-export-filtered-items.submit.error": "Eksport CSV nie powiódł się.",
   "metadata-export-filtered-items.columns.warning": "Eksport CSV automatycznie obejmuje wszystkie odpowiednie pola, więc wybory na tej liście nie są brane pod uwagę.",
   "embargo.listelement.badge": "Embargo do {{ date }}",
-  "admin.reports.commons.filters.property.all_filters.tooltip": "Ten filtr obejmuje wszystkie pozycje, które pasują do WSZYSTKICH określonych filtrów"
+  "admin.reports.commons.filters.property.all_filters.tooltip": "Ten filtr obejmuje wszystkie pozycje, które pasują do WSZYSTKICH określonych filtrów",
 }
