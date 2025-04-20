@@ -916,7 +916,7 @@
   "admin.reports.items.preset.hasNoIdentifierUri": "Brak dc.identifier.uri",
 
   // "admin.reports.items.preset.hasCompoundSubject": "Has compound subject",
- "admin.reports.items.preset.hasCompoundSubject": "Temat składający się z kilku pól",
+  "admin.reports.items.preset.hasCompoundSubject": "Temat składający się z kilku pól",
 
   // "admin.reports.items.preset.hasCompoundAuthor": "Has compound dc.contributor.author",
   "admin.reports.items.preset.hasCompoundAuthor": "dc.contributor.author składający się z kilku pól",
@@ -943,7 +943,7 @@
   "admin.reports.items.preset.hasXmlEntityInMetadata": "XML w metadanych",
 
   // "admin.reports.items.preset.hasNonAsciiCharInMetadata": "Has non-ascii character in metadata",
- "admin.reports.items.preset.hasNonAsciiCharInMetadata": "Nie-ASCII w metadanych",
+  "admin.reports.items.preset.hasNonAsciiCharInMetadata": "Nie-ASCII w metadanych",
 
   // "admin.reports.items.number": "No.",
   "admin.reports.items.number": "Nr",
@@ -5955,7 +5955,7 @@
   "process.overview.delete": "Usuń {{count}} proces/y",
 
   // "process.overview.delete-process": "Delete process",
- "process.overview.delete-process": "Usuń proces",
+  "process.overview.delete-process": "Usuń proces",
 
   // "process.overview.delete.clear": "Clear delete selection",
   "process.overview.delete.clear": "Wyczyść selekcję procesów do usunięcia",
@@ -7599,13 +7599,13 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcid": "Importuj z ORCID",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaire": "Importing from OpenAIRE",
-"submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaire": "Importowanie z OpenAIRE",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaire": "Importowanie z OpenAIRE",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireTitle": "Importing from OpenAIRE",
-"submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireTitle": "Importowanie z OpenAIRE",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireTitle": "Importowanie z OpenAIRE",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireFunding": "Importing from OpenAIRE",
-"submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireFunding": "Importowanie z OpenAIRE",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireFunding": "Importowanie z OpenAIRE",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importing from Sherpa Journal",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importuj z Sherpa Journal",
@@ -7620,7 +7620,7 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.head.arxiv": "Importuj z arXiv",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.ror": "Import from ROR",
- "submission.sections.describe.relationship-lookup.external-source.import-modal.head.ror": "Import z ROR",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.ror": "Import z ROR",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.import": "Import",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.import": "Import",
@@ -7656,13 +7656,13 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.select": "Wybierz lokalne dopasowanie:",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfProject.title": "Import Remote Organization",
-"submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfProject.title": "Importuj organizację",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfProject.title": "Importuj organizację",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfProject.added.local-entity": "Successfully added local organization to the selection",
-"submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfProject.added.local-entity": "Pomyślnie dodano lokalną organizację do wyboru",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfProject.added.local-entity": "Pomyślnie dodano lokalną organizację do wyboru",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfProject.added.new-entity": "Successfully imported and added external organization to the selection",
-"submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfProject.added.new-entity": "Pomyślnie zaimportowano i dodano zewnętrzną organizację do wyboru",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfProject.added.new-entity": "Pomyślnie zaimportowano i dodano zewnętrzną organizację do wyboru",
 
   // "submission.sections.describe.relationship-lookup.search-tab.deselect-all": "Deselect all",
   "submission.sections.describe.relationship-lookup.search-tab.deselect-all": "Odznacz wszystko",
@@ -9663,7 +9663,7 @@
   "ldn-new-service.form.error.url": "URL jest wymagany",
 
   // "ldn-new-service.form.error.ipRange": "Please enter a valid IP range",
- "ldn-new-service.form.error.ipRange": "Proszę wprowadzić prawidłowy zakres IP",
+  "ldn-new-service.form.error.ipRange": "Proszę wprowadzić prawidłowy zakres IP",
 
   // "ldn-new-service.form.hint.ipRange": "Please enter a valid IpV4 in both range bounds (note: for single IP, please enter the same value in both fields)",
   "ldn-new-service.form.hint.ipRange": "Proszę wprowadzić prawidłowy IpV4 w obu granicach zakresu (uwaga: dla pojedynczego IP proszę wprowadzić tę samą wartość w obu polach)",
@@ -9672,7 +9672,7 @@
   "ldn-new-service.form.error.ldnurl": "URL LDN jest wymagany",
 
   // "ldn-new-service.form.error.patterns": "At least a pattern is required",
- "ldn-new-service.form.error.patterns": "Wymagany jest co najmniej jeden wzorzec",
+  "ldn-new-service.form.error.patterns": "Wymagany jest co najmniej jeden wzorzec",
 
   // "ldn-new-service.form.error.score": "Please enter a valid score (between 0 and 1). Use the “.” as decimal separator",
   "ldn-new-service.form.error.score": "Proszę wprowadzić prawidłowy wynik (między 0 a 1). Użyj „.” jako separatora dziesiętnego",
@@ -10256,7 +10256,7 @@
   "search.filters.queue_status.3,authority": "Przetworzone",
 
   // "search.filters.queue_status.4,authority": "Failed",
- "search.filters.queue_status.4,authority": "Niepowodzenie",
+  "search.filters.queue_status.4,authority": "Niepowodzenie",
 
   // "search.filters.queue_status.5,authority": "Untrusted",
   "search.filters.queue_status.5,authority": "Niepotwierdzone",
