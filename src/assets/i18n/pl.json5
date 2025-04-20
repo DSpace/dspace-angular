@@ -811,8 +811,7 @@
   "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "Aby dodać lub usunąć użytkownika z/lub grupy, wybierz przycisk 'Przeglądaj' lub użyj paska wyszukiwania poniżej (możesz wybrać czy chcesz wyszukiwać wg metadanych lub adresu e-mailowego). Następnie wybierz przycisk plusa, baby dodać użytkownika z listy lub ikoną kosza, aby usunąć użytkownika. Poniższa lista może mieć kilka stron: możesz użyć strzałek, aby przejść do kolejnych stron.",
 
   // "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "To add or remove a Subgroup to/from this group, either click the 'Browse All' button or use the search bar below to search for groups. Then click the plus icon for each group you wish to add in the list below, or the trash can icon for each group you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.",
-  "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "
-Aby dodać lub usunąć użytkownika z/lub podgrupy, wybierz przycisk 'Przeglądaj' lub użyj paska wyszukiwania poniżej. Następnie wybierz przycisk plusa, baby dodać użytkownika z listy lub ikoną kosza, aby usunąć użytkownika. Poniższa lista może mieć kilka stron: możesz użyć strzałek, aby przejść do kolejnych stron.",
+  "admin.access-control.groups.form.tooltip.editGroup.addSubgroups": "Aby dodać lub usunąć użytkownika z/lub podgrupy, wybierz przycisk 'Przeglądaj' lub użyj paska wyszukiwania poniżej. Następnie wybierz przycisk plusa, baby dodać użytkownika z listy lub ikoną kosza, aby usunąć użytkownika. Poniższa lista może mieć kilka stron: możesz użyć strzałek, aby przejść do kolejnych stron.",
 
   // "admin.reports.collections.title": "Collection Filter Report",
   "admin.reports.collections.title": "Raport filtrów kolekcji",
@@ -2554,7 +2553,7 @@ Aby dodać lub usunąć użytkownika z/lub podgrupy, wybierz przycisk 'Przegląd
   "curation.form.handle.hint": "Wskazówka: Wpisz [prefix swojego identyfikatora]/0, aby zautomatyzować zadanie (nie wszystkie zadania mogą wspierać tę funkcję) ",
 
   // "deny-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I regret to inform you that it's not possible to send you a copy of the file(s) you have requested, concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
-  "deny-request-copy.email.message": "Drogi użytkowniku {{ recipientName }}, W odpowiedzi na Państwa zapytanie, przykro mi poinformować, że to niemożliwe, aby przestać kopię pliku, o który Państwo prosili: "{{ itemUrl }}" ({{ itemName }}), którego jestem autorem. Pozdrawiam serdecznie, {{ authorName }} <{{ authorEmail }}>",
+  "deny-request-copy.email.message": "Drogi użytkowniku {{ recipientName }}, W odpowiedzi na Państwa zapytanie, przykro mi poinformować, że to niemożliwe, aby przestać kopię pliku, o który Państwo prosili: \"{{ itemUrl }}"\ ({{ itemName }}), którego jestem autorem. \n\nPozdrawiam serdecznie, \n{{ authorName }} <{{ authorEmail }}>",
 
   // "deny-request-copy.email.subject": "Request copy of document",
   "deny-request-copy.email.subject": "Wystąp o kopię dokumentu",
@@ -2836,7 +2835,7 @@ Aby dodać lub usunąć użytkownika z/lub podgrupy, wybierz przycisk 'Przegląd
   "error.search-results": "Wystąpił błąd podczas tworzenia wyników wyszukiwania",
 
   // "error.invalid-search-query": "Search query is not valid. Please check <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\" target=\"_blank\">Solr query syntax</a> best practices for further information about this error.",
-  "error.invalid-search-query": "Zapytanie nie jest poprawne. Wejdź na <a href="https://solr.apache.org/guide/query-syntax-and-parsing.html" target="_blank">Solr query syntax</a>, aby dowiedzieć się o najlepszych praktykach i dodatkowych informacjach o tym błędzie.",
+  "error.invalid-search-query": "Zapytanie nie jest poprawne. Wejdź na <a href=\"https://solr.apache.org/guide/query-syntax-and-parsing.html\" target=\"_blank\">Solr query syntax</a>, aby dowiedzieć się o najlepszych praktykach i dodatkowych informacjach o tym błędzie.",
 
   // "error.sub-collections": "Error fetching sub-collections",
   "error.sub-collections": "Wystąpił błąd podczas tworzenia podkolekcji",
@@ -5647,7 +5646,7 @@ Aby dodać lub usunąć użytkownika z/lub podgrupy, wybierz przycisk 'Przegląd
   "quality-assurance.event.project.error": "Wystąpił błąd. Nie wykonano żadnej operacji.",
 
   // "quality-assurance.event.reason": "Reason",
-  "quality-assurance.event.reason": "Powód"
+  "quality-assurance.event.reason": "Powód",
 
   // "orgunit.listelement.badge": "Organizational Unit",
   "orgunit.listelement.badge": "Jednostka organizacyjna",
@@ -5929,7 +5928,7 @@ Aby dodać lub usunąć użytkownika z/lub podgrupy, wybierz przycisk 'Przegląd
   "process.overview.table.scheduled.info": "Czas utworzenia (UTC)",
 
   // "process.overview.table.scheduled.title": "Scheduled processes",
-  "process.overview.table.scheduled.title": "Zaplanowane procesy"
+  "process.overview.table.scheduled.title": "Zaplanowane procesy",
 
   // "process.overview.table.start": "Start time (UTC)",
   "process.overview.table.start": "Czas rozpoczęcia (UTC)",
@@ -10575,7 +10574,7 @@ Aby dodać lub usunąć użytkownika z/lub podgrupy, wybierz przycisk 'Przegląd
   "live-region.ordering.status": "{{ itemName }}, przechwycono. Obecna pozycja na liście: {{ index }} z {{ length }}. Naciśnij strzałki w górę i w dół, aby zmienić pozycję, Spacja, aby upuścić, Escape, aby anulować.",
 
   // "live-region.ordering.moved": "{{ itemName }}, moved to position {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
-  "live-region.ordering.moved": "{{ itemName }}, przeniesiono na pozycję {{ index }} z {{ length }}. Naciśnij strzałki w górę i w dół, aby zmienić pozycję, Spacja, aby upuścić, Escape, aby anulować.",,
+  "live-region.ordering.moved": "{{ itemName }}, przeniesiono na pozycję {{ index }} z {{ length }}. Naciśnij strzałki w górę i w dół, aby zmienić pozycję, Spacja, aby upuścić, Escape, aby anulować.",
 
   // "live-region.ordering.dropped": "{{ itemName }}, dropped at position {{ index }} of {{ length }}.",
   "live-region.ordering.dropped": "{{ itemName }}, upuszczono na pozycję {{ index }} z {{ length }}.",
