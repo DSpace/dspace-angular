@@ -2553,7 +2553,7 @@
   "curation.form.handle.hint": "Wskazówka: Wpisz [prefix swojego identyfikatora]/0, aby zautomatyzować zadanie (nie wszystkie zadania mogą wspierać tę funkcję) ",
 
   // "deny-request-copy.email.message": "Dear {{ recipientName }},\nIn response to your request I regret to inform you that it's not possible to send you a copy of the file(s) you have requested, concerning the document: \"{{ itemUrl }}\" ({{ itemName }}), of which I am an author.\n\nBest regards,\n{{ authorName }} <{{ authorEmail }}>",
-  "deny-request-copy.email.message": "Drogi użytkowniku {{ recipientName }}, W odpowiedzi na Państwa zapytanie, przykro mi poinformować, że to niemożliwe, aby przestać kopię pliku, o który Państwo prosili: \"{{ itemUrl }}"\ ({{ itemName }}), którego jestem autorem. \n\nPozdrawiam serdecznie, \n{{ authorName }} <{{ authorEmail }}>",
+  "deny-request-copy.email.message": "Drogi użytkowniku {{ recipientName }},\nW odpowiedzi na Państwa zapytanie, przykro mi poinformować, że to niemożliwe, aby przestać kopię pliku, o który Państwo prosili: \"{{ itemUrl }}\" ({{ itemName }}), którego jestem autorem. \n\nPozdrawiam serdecznie, \n{{ authorName }} <{{ authorEmail }}>",
 
   // "deny-request-copy.email.subject": "Request copy of document",
   "deny-request-copy.email.subject": "Wystąp o kopię dokumentu",
