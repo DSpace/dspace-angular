@@ -9966,7 +9966,7 @@
   "ldn-service-input-inbound-item-filter-dropdown": "Wybierz filtr pozycji dla wzorca",
 
   // "ldn-service-input-inbound-pattern-dropdown": "Select a pattern for service",
- "ldn-service-input-inbound-pattern-dropdown": "Wybierz wzorzec dla usługi",
+  "ldn-service-input-inbound-pattern-dropdown": "Wybierz wzorzec dla usługi",
 
   // "ldn-service-overview-select-delete": "Select service for deletion",
   "ldn-service-overview-select-delete": "Wybierz usługę do usunięcia",
