@@ -101,12 +101,12 @@ export const rule = ESLintUtils.RuleCreator.withoutDocs({
   create(context: TSESLint.RuleContext<Message, unknown[]>, [{ locale, maxItems, indent, trailingComma }]: any) {
     return {
       ['ClassDeclaration > Decorator > CallExpression[callee.name="Component"] > ObjectExpression > Property[key.name="imports"] > ArrayExpression']: (node: TSESTree.ArrayExpression) => {
-        const identifiers = node.elements.filter(TSESLintASTUtils.isIdentifier);
-        const sortedNames: string[] = identifiers
-          .map((identifier) => identifier.name)
+        const elements = node.elements.filter((element) => element !== null && (TSESLintASTUtils.isIdentifier(element) || element?.type === TSESTree.AST_NODE_TYPES.CallExpression));
+        const sortedNames: string[] = elements
+          .map((element) => context.sourceCode.getText(element!))
           .sort((a: string, b: string) => a.localeCompare(b, locale));
 
-        const isSorted: boolean = identifiers.every((identifier, index) => identifier.name === sortedNames[index]);
+        const isSorted: boolean = elements.every((identifier, index) => context.sourceCode.getText(identifier!) === sortedNames[index]);
 
         const requiresMultiline: boolean = maxItems < node.elements.length;
         const isMultiline: boolean = /\n/.test(context.sourceCode.getText(node));
