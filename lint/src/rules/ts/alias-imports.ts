@@ -13,9 +13,10 @@ import {
 } from '../../util/structure';
 
 export enum Message {
-  NO_ALIAS = 'noAlias',
+  MISSING_ALIAS = 'missingAlias',
   WRONG_ALIAS = 'wrongAlias',
   MULTIPLE_ALIASES = 'multipleAliases',
+  UNNECESSARY_ALIAS = 'unnecessaryAlias',
 }
 
 interface AliasImportOptions {
@@ -39,9 +40,10 @@ export const info: DSpaceESLintRuleInfo<[AliasImportOptions], [AliasImportDocOpt
       description: 'Unclear imports should be aliased for clarity',
     },
     messages: {
-      [Message.NO_ALIAS]: 'This import must be aliased',
+      [Message.MISSING_ALIAS]: 'This import must be aliased',
       [Message.WRONG_ALIAS]: 'This import uses the wrong alias (should be {{ local }})',
       [Message.MULTIPLE_ALIASES]: 'This import was used twice with a different alias (should be {{ local }})',
+      [Message.UNNECESSARY_ALIAS]: 'This import should not use an alias',
     },
     fixable: 'code',
     type: 'problem',
@@ -103,6 +105,34 @@ export const tests: NamedTests = {
       code: `
 import { of as observableOf } from 'rxjs';
         `,
+      options: [
+        {
+          aliases: [
+            {
+              package: 'rxjs',
+              imported: 'of',
+              local: 'observableOf',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'enforce unaliased import',
+      code: `
+import { combineLatest } from 'rxjs';
+        `,
+      options: [
+        {
+          aliases: [
+            {
+              package: 'rxjs',
+              imported: 'combineLatest',
+              local: 'combineLatest',
+            },
+          ],
+        },
+      ],
     },
   ],
   invalid: [
@@ -113,7 +143,7 @@ import { of } from 'rxjs';
         `,
       errors: [
         {
-          messageId: 'noAlias',
+          messageId: 'missingAlias',
         },
       ],
       output: `
@@ -134,6 +164,31 @@ import { of as ofSomething } from 'rxjs';
 import { of as observableOf } from 'rxjs';
         `,
     },
+    {
+      name: 'disallow aliasing import',
+      code: `
+import { combineLatest as observableCombineLatest } from 'rxjs';
+        `,
+      errors: [
+        {
+          messageId: 'unnecessaryAlias',
+        },
+      ],
+      output: `
+import { combineLatest } from 'rxjs';
+        `,
+      options: [
+        {
+          aliases: [
+            {
+              package: 'rxjs',
+              imported: 'combineLatest',
+              local: 'combineLatest',
+            },
+          ],
+        },
+      ],
+    },
   ],
 };
 
@@ -145,56 +200,94 @@ import { of as observableOf } from 'rxjs';
  * @param node The incorrect import node that should be fixed
  */
 function handleUnaliasedImport(context: TSESLint.RuleContext<Message, unknown[]>, option: AliasImportOption, node: TSESTree.ImportSpecifier): void {
-  const hasAliasedImport: boolean = (node.parent as TSESTree.ImportDeclaration).specifiers.find((specifier: TSESTree.ImportClause) => specifier.local.name === option.local && specifier.type === AST_NODE_TYPES.ImportSpecifier && (specifier as TSESTree.ImportSpecifier).imported.name === option.imported) !== undefined;
+  const hasCorrectAliasedImport: boolean = (node.parent as TSESTree.ImportDeclaration).specifiers.find((specifier: TSESTree.ImportClause) => specifier.local.name === option.local && specifier.type === AST_NODE_TYPES.ImportSpecifier && (specifier as TSESTree.ImportSpecifier).imported.name === option.imported) !== undefined;
+  if (option.imported === option.local) {
+    if (hasCorrectAliasedImport) {
+      context.report({
+        messageId: Message.MULTIPLE_ALIASES,
+        data: { local: option.local },
+        node: node,
+        fix(fixer: TSESLint.RuleFixer) {
+          const fixes: TSESLint.RuleFix[] = [];
 
-  if (hasAliasedImport) {
-    context.report({
-      messageId: Message.MULTIPLE_ALIASES,
-      data: { local: option.local },
-      node: node,
-      fix(fixer: TSESLint.RuleFixer) {
-        const fixes: TSESLint.RuleFix[] = [];
+          const commaAfter = context.sourceCode.getTokenAfter(node, {
+            filter: (token: TSESTree.Token) => token.value === ',',
+          });
+          if (commaAfter) {
+            fixes.push(fixer.removeRange([node.range[0], commaAfter.range[1]]));
+          } else {
+            fixes.push(fixer.remove(node));
+          }
+          fixes.push(...retrieveUsageReplacementFixes(context, fixer, node, option.local));
 
-        const commaAfter = context.sourceCode.getTokenAfter(node, {
-          filter: (token: TSESTree.Token) => token.value === ',',
-        });
-        if (commaAfter) {
-          fixes.push(fixer.removeRange([node.range[0], commaAfter.range[1]]));
-        } else {
-          fixes.push(fixer.remove(node));
-        }
-        fixes.push(...retrieveUsageReplacementFixes(context, fixer, node, option.local));
+          return fixes;
+        },
+      });
+    } else {
+      context.report({
+        messageId: Message.UNNECESSARY_ALIAS,
+        data: { local: option.local },
+        node: node,
+        fix(fixer: TSESLint.RuleFixer) {
+          const fixes: TSESLint.RuleFix[] = [];
 
-        return fixes;
-      },
-    });
-  } else if (node.local.name === node.imported.name) {
-    context.report({
-      messageId: Message.NO_ALIAS,
-      node: node,
-      fix(fixer: TSESLint.RuleFixer) {
-        const fixes: TSESLint.RuleFix[] = [];
+          fixes.push(fixer.replaceText(node, option.imported));
+          fixes.push(...retrieveUsageReplacementFixes(context, fixer, node, option.local));
 
-        fixes.push(fixer.replaceText(node.local, `${option.imported} as ${option.local}`));
-        fixes.push(...retrieveUsageReplacementFixes(context, fixer, node, option.local));
-
-        return fixes;
-      },
-    });
+          return fixes;
+        },
+      });
+    }
   } else {
-    context.report({
-      messageId: Message.WRONG_ALIAS,
-      data: { local: option.local },
-      node: node,
-      fix(fixer: TSESLint.RuleFixer) {
-        const fixes: TSESLint.RuleFix[] = [];
+    if (hasCorrectAliasedImport) {
+      context.report({
+        messageId: Message.MULTIPLE_ALIASES,
+        data: { local: option.local },
+        node: node,
+        fix(fixer: TSESLint.RuleFixer) {
+          const fixes: TSESLint.RuleFix[] = [];
 
-        fixes.push(fixer.replaceText(node.local, option.local));
-        fixes.push(...retrieveUsageReplacementFixes(context, fixer, node, option.local));
+          const commaAfter = context.sourceCode.getTokenAfter(node, {
+            filter: (token: TSESTree.Token) => token.value === ',',
+          });
+          if (commaAfter) {
+            fixes.push(fixer.removeRange([node.range[0], commaAfter.range[1]]));
+          } else {
+            fixes.push(fixer.remove(node));
+          }
+          fixes.push(...retrieveUsageReplacementFixes(context, fixer, node, option.local));
 
-        return fixes;
-      },
-    });
+          return fixes;
+        },
+      });
+    } else if (node.local.name === node.imported.name) {
+      context.report({
+        messageId: Message.MISSING_ALIAS,
+        node: node,
+        fix(fixer: TSESLint.RuleFixer) {
+          const fixes: TSESLint.RuleFix[] = [];
+
+          fixes.push(fixer.replaceText(node.local, `${option.imported} as ${option.local}`));
+          fixes.push(...retrieveUsageReplacementFixes(context, fixer, node, option.local));
+
+          return fixes;
+        },
+      });
+    } else {
+      context.report({
+        messageId: Message.WRONG_ALIAS,
+        data: { local: option.local },
+        node: node,
+        fix(fixer: TSESLint.RuleFixer) {
+          const fixes: TSESLint.RuleFix[] = [];
+
+          fixes.push(fixer.replaceText(node.local, option.local));
+          fixes.push(...retrieveUsageReplacementFixes(context, fixer, node, option.local));
+
+          return fixes;
+        },
+      });
+    }
   }
 }
 

@@ -270,7 +270,7 @@
               {
                 "package": "rxjs",
                 "imported": "of",
-                "local": "observableOf"
+                "local": "of"
               }
             ]
           }

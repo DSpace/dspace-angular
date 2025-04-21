@@ -44,6 +44,7 @@ Whether the last import should have a trailing comma (only applicable for multil
 })
 export class AppComponent {}
 ```
+        
     
 ##### should not inlines singular imports when maxItems is 0
         
@@ -59,6 +60,7 @@ export class AppComponent {}
 })
 export class AppComponent {}
 ```
+        
     
 ##### should inline singular imports when maxItems is 1
         
@@ -72,6 +74,15 @@ export class AppComponent {}
 })
 export class AppComponent {}
 ```
+        
+With options:
+
+```json
+{
+  "maxItems": 1
+}
+```
+        
     
 
 
@@ -92,6 +103,9 @@ export class AppComponent {}
   ],
 })
 export class AppComponent {}
+
+        
+
 ```
 Will produce the following error(s):
 ```
@@ -125,6 +139,9 @@ export class AppComponent {}
   imports: [RootComponent],
 })
 export class AppComponent {}
+
+        
+
 ```
 Will produce the following error(s):
 ```
@@ -159,6 +176,17 @@ export class AppComponent {}
   ],
 })
 export class AppComponent {}
+
+        
+With options:
+
+```json
+{
+  "maxItems": 1
+}
+```
+        
+
 ```
 Will produce the following error(s):
 ```
@@ -189,6 +217,9 @@ export class AppComponent {}
   imports: [AsyncPipe, RootComponent],
 })
 export class AppComponent {}
+
+        
+
 ```
 Will produce the following error(s):
 ```

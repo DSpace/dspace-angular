@@ -29,6 +29,7 @@ Filename: `lint/test/fixture/src/themes/test/app/dynamic-component/dynamic-compo
 export class Something extends SomethingElse {
 }
 ```
+        
     
 ##### plain file declares no theme in @listableObjectComponent
         
@@ -39,6 +40,7 @@ Filename: `lint/test/fixture/src/app/dynamic-component/dynamic-component.ts`
 export class Something extends SomethingElse {
 }
 ```
+        
     
 ##### plain file declares explicit undefined theme in @listableObjectComponent
         
@@ -49,6 +51,7 @@ Filename: `lint/test/fixture/src/app/dynamic-component/dynamic-component.ts`
 export class Something extends SomethingElse {
 }
 ```
+        
     
 ##### test file declares theme outside of theme directory
         
@@ -59,6 +62,7 @@ Filename: `lint/test/fixture/src/app/dynamic-component/dynamic-component.spec.ts
 export class Something extends SomethingElse {
 }
 ```
+        
     
 ##### only track configured decorators
         
@@ -69,6 +73,7 @@ Filename: `lint/test/fixture/src/app/dynamic-component/dynamic-component.ts`
 export class Something extends SomethingElse {
 }
 ```
+        
     
 
 
@@ -83,6 +88,9 @@ Filename: `lint/test/fixture/src/themes/test/app/dynamic-component/dynamic-compo
 @listableObjectComponent(something, somethingElse, undefined, 'test-2')
 export class Something extends SomethingElse {
 }
+
+        
+
 ```
 Will produce the following error(s):
 ```
@@ -105,6 +113,9 @@ Filename: `lint/test/fixture/src/app/dynamic-component/dynamic-component.ts`
 @listableObjectComponent(something, somethingElse, undefined, 'test-2')
 export class Something extends SomethingElse {
 }
+
+        
+
 ```
 Will produce the following error(s):
 ```
@@ -127,6 +138,9 @@ Filename: `lint/test/fixture/src/themes/test-2/app/dynamic-component/dynamic-com
 @listableObjectComponent(something, somethingElse, undefined)
 export class Something extends SomethingElse {
 }
+
+        
+
 ```
 Will produce the following error(s):
 ```
@@ -149,6 +163,9 @@ Filename: `lint/test/fixture/src/themes/test-2/app/dynamic-component/dynamic-com
 @listableObjectComponent(something, somethingElse, undefined, undefined)
 export class Something extends SomethingElse {
 }
+
+        
+
 ```
 Will produce the following error(s):
 ```
