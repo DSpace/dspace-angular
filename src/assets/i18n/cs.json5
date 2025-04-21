@@ -9221,7 +9221,7 @@
   "thumbnail.default.alt": "Náhled",
 
   // "thumbnail.default.placeholder": "No Thumbnail Available",
-  "thumbnail.default.placeholder": "Náhled není k dispozici",
+  "thumbnail.default.placeholder": "Miniatura neexistuje",
 
   // "thumbnail.project.alt": "Project Logo",
   "thumbnail.project.alt": "Logo projektu",
