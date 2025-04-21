@@ -43,6 +43,7 @@ export class C {
 export class C {
 }
 ```
+        
     
 ##### unchecked decorator, some repetitions
         
@@ -55,6 +56,7 @@ export class A {
 export class B {
 }
 ```
+        
     
 
 
@@ -71,6 +73,9 @@ export class A {
 @listableObjectComponent(a)
 export class B {
 }
+
+        
+
 ```
 Will produce the following error(s):
 ```

@@ -32,6 +32,7 @@ const config = {
   b: ChipsComponent,
 }
 ```
+        
     
 ##### allow base class in class declaration
         
@@ -39,6 +40,7 @@ const config = {
 export class TestThemeableComponent {
 }
 ```
+        
     
 ##### allow inheriting from base class
         
@@ -48,6 +50,7 @@ import { TestThemeableComponent } from './app/test/test-themeable.component';
 export class ThemedAdminSidebarComponent extends ThemedComponent<TestThemeableComponent> {
 }
 ```
+        
     
 ##### allow base class in ViewChild
         
@@ -58,6 +61,7 @@ export class Something {
   @ViewChild(TestThemeableComponent) test: TestThemeableComponent;
 }
 ```
+        
     
 ##### allow wrapper selectors in test queries
         
@@ -67,6 +71,7 @@ Filename: `lint/test/fixture/src/app/test/test.component.spec.ts`
 By.css('ds-themeable');
 By.css('#test > ds-themeable > #nest');
 ```
+        
     
 ##### allow wrapper selectors in cypress queries
         
@@ -76,6 +81,7 @@ Filename: `lint/test/fixture/src/app/test/test.component.cy.ts`
 By.css('ds-themeable');
 By.css('#test > ds-themeable > #nest');
 ```
+        
     
 
 
@@ -92,6 +98,9 @@ const config = {
   a: TestThemeableComponent,
   b: TestComponent,
 }
+
+        
+
 ```
 Will produce the following error(s):
 ```
@@ -122,6 +131,9 @@ const config = {
   b: TestComponent,
   c: Something,
 }
+
+        
+
 ```
 Will produce the following error(s):
 ```
@@ -152,6 +164,9 @@ const DECLARATIONS = [
   Something,
   ThemedTestThemeableComponent,
 ];
+
+        
+
 ```
 Will produce the following error(s):
 ```
@@ -175,6 +190,9 @@ Filename: `lint/test/fixture/src/app/test/test.component.spec.ts`
 ```typescript
 By.css('ds-themed-themeable');
 By.css('#test > ds-themed-themeable > #nest');
+
+        
+
 ```
 Will produce the following error(s):
 ```
@@ -196,6 +214,9 @@ Filename: `lint/test/fixture/src/app/test/test.component.spec.ts`
 ```typescript
 By.css('ds-base-themeable');
 By.css('#test > ds-base-themeable > #nest');
+
+        
+
 ```
 Will produce the following error(s):
 ```
@@ -217,6 +238,9 @@ Filename: `lint/test/fixture/src/app/test/test.component.cy.ts`
 ```typescript
 cy.get('ds-themed-themeable');
 cy.get('#test > ds-themed-themeable > #nest');
+
+        
+
 ```
 Will produce the following error(s):
 ```
@@ -238,6 +262,9 @@ Filename: `lint/test/fixture/src/app/test/test.component.cy.ts`
 ```typescript
 cy.get('ds-base-themeable');
 cy.get('#test > ds-base-themeable > #nest');
+
+        
+
 ```
 Will produce the following error(s):
 ```
@@ -268,6 +295,9 @@ import { TestThemeableComponent } from '../../../../app/test/test-themeable.comp
 })
 export class UsageComponent {
 }
+
+        
+
 ```
 Will produce the following error(s):
 ```
@@ -308,6 +338,9 @@ import { ThemedTestThemeableComponent } from '../../../../app/test/themed-test-t
 })
 export class UsageComponent {
 }
+
+        
+
 ```
 Will produce the following error(s):
 ```

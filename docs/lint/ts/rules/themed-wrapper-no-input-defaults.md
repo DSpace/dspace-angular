@@ -23,6 +23,7 @@ export class TTest extends ThemedComponent<Test> {
 test;
 }
 ```
+        
     
 ##### Regular class defines an input with a default value
         
@@ -33,6 +34,7 @@ export class Test {
 test = 'test';
 }
 ```
+        
     
 
 
@@ -56,6 +58,9 @@ test2: number = 123;
 @Input()
 test3: number[] = [1,2,3];
 }
+
+        
+
 ```
 Will produce the following error(s):
 ```
@@ -74,6 +79,9 @@ export class TTest extends ThemedComponent<Test> {
 @Input()
 test = undefined;
 }
+
+        
+
 ```
 Will produce the following error(s):
 ```

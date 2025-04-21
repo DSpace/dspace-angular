@@ -32,6 +32,42 @@ A list of all the imports that you want to alias for clarity. Every alias should
 ```typescript
 import { of as observableOf } from 'rxjs';
 ```
+        
+With options:
+
+```json
+{
+  "aliases": [
+    {
+      "package": "rxjs",
+      "imported": "of",
+      "local": "observableOf"
+    }
+  ]
+}
+```
+        
+    
+##### enforce unaliased import
+        
+```typescript
+import { combineLatest } from 'rxjs';
+```
+        
+With options:
+
+```json
+{
+  "aliases": [
+    {
+      "package": "rxjs",
+      "imported": "combineLatest",
+      "local": "combineLatest"
+    }
+  ]
+}
+```
+        
     
 
 
@@ -42,6 +78,9 @@ import { of as observableOf } from 'rxjs';
         
 ```typescript
 import { of } from 'rxjs';
+
+        
+
 ```
 Will produce the following error(s):
 ```
@@ -58,6 +97,9 @@ import { of as observableOf } from 'rxjs';
         
 ```typescript
 import { of as ofSomething } from 'rxjs';
+
+        
+
 ```
 Will produce the following error(s):
 ```
@@ -67,6 +109,39 @@ This import uses the wrong alias (should be {{ local }})
 Result of `yarn lint --fix`:
 ```typescript
 import { of as observableOf } from 'rxjs';
+```
+        
+    
+##### disallow aliasing import
+        
+```typescript
+import { combineLatest as observableCombineLatest } from 'rxjs';
+
+        
+With options:
+
+```json
+{
+  "aliases": [
+    {
+      "package": "rxjs",
+      "imported": "combineLatest",
+      "local": "combineLatest"
+    }
+  ]
+}
+```
+        
+
+```
+Will produce the following error(s):
+```
+This import should not use an alias
+```
+        
+Result of `yarn lint --fix`:
+```typescript
+import { combineLatest } from 'rxjs';
 ```
         
     

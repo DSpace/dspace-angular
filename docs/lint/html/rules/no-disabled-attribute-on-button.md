@@ -21,24 +21,28 @@ _______
 ```html
 <button [dsBtnDisabled]="true">Submit</button>
 ```
+        
     
 ##### disabled attribute is still valid on non-button elements
         
 ```html
 <input disabled>
 ```
+        
     
 ##### [disabled] attribute is still valid on non-button elements
         
 ```html
 <input [disabled]="true">
 ```
+        
     
 ##### angular dynamic attributes that use disabled are still valid
         
 ```html
 <button [class.disabled]="isDisabled">Submit</button>
 ```
+        
     
 
 
@@ -49,6 +53,9 @@ _______
         
 ```html
 <button disabled>Submit</button>
+
+        
+
 ```
 Will produce the following error(s):
 ```
@@ -65,6 +72,9 @@ Result of `yarn lint --fix`:
         
 ```html
 <button [disabled]="true">Submit</button>
+
+        
+
 ```
 Will produce the following error(s):
 ```

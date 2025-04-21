@@ -24,6 +24,13 @@ Filename: `<%- test.filename %>`
 ```<%- plugin.language.toLowerCase() %>
 <%- test.code.trim() %>
 ```
+        <% if (test?.options?.length > 0) { %>
+With options:
+
+```json
+<%- JSON.stringify(test.options[0], null, 2) %>
+```
+        <% }%>
     <% }) %>
 <% } %>
 
@@ -36,6 +43,15 @@ Filename: `<%- test.filename %>`
         <% } %>
 ```<%- plugin.language.toLowerCase() %>
 <%- test.code.trim() %>
+
+        <% if (test?.options?.length > 0) { %>
+With options:
+
+```json
+<%- JSON.stringify(test.options[0], null, 2) %>
+```
+        <% }%>
+
 ```
 Will produce the following error(s):
 ```
