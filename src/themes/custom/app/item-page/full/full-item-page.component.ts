@@ -23,7 +23,7 @@ import { DsoEditMenuComponent } from '../../../../../app/shared/dso-page/dso-edi
 import { ErrorComponent } from '../../../../../app/shared/error/error.component';
 import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed-loading.component';
 import { VarDirective } from '../../../../../app/shared/utils/var.directive';
-import { ViewTrackerComponent } from '../../../../../app/statistics/angulartics/dspace/view-tracker.component';
+import { ViewTrackerResolverService } from '../../../../../app/statistics/angulartics/dspace/view-tracker-resolver.service';
 
 /**
  * This component renders a full item page.
@@ -54,7 +54,6 @@ import { ViewTrackerComponent } from '../../../../../app/statistics/angulartics/
     ThemedItemPageTitleFieldComponent,
     DsoEditMenuComponent,
     ItemVersionsNoticeComponent,
-    ViewTrackerComponent,
     ThemedItemAlertsComponent,
     VarDirective,
   ],

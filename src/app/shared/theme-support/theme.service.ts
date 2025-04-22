@@ -5,7 +5,7 @@ import {
   Injector,
 } from '@angular/core';
 import {
-  ActivatedRouteSnapshot,
+  ActivatedRouteSnapshot, NavigationStart,
   ResolveEnd,
   Router,
 } from '@angular/router';

@@ -20,6 +20,8 @@ import { orcidPageGuard } from './orcid-page/orcid-page.guard';
 import { ThemedItemPageComponent } from './simple/themed-item-page.component';
 import { versionResolver } from './version-page/version.resolver';
 import { VersionPageComponent } from './version-page/version-page/version-page.component';
+import { ViewTrackerResolverService } from '../statistics/angulartics/dspace/view-tracker-resolver.service';
+import { viewTrackerResolver } from '../statistics/angulartics/dspace/view-tracker.resolver';
 
 export const ROUTES: Route[] = [
   {
@@ -36,6 +38,7 @@ export const ROUTES: Route[] = [
         pathMatch: 'full',
         resolve: {
           menu: dsoEditMenuResolver,
+          tracking: viewTrackerResolver,
         },
       },
       {
@@ -43,6 +46,7 @@ export const ROUTES: Route[] = [
         component: ThemedFullItemPageComponent,
         resolve: {
           menu: dsoEditMenuResolver,
+          tracking: viewTrackerResolver,
         },
       },
       {
