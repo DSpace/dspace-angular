@@ -44,18 +44,11 @@ describe('DsDynamicFormArrayComponent', () => {
     onDefaultLangChange: new EventEmitter(),
   };
 
-  const uuidServiceStub = {
-    generate: () => 'fake-id',
-  };
-
   let component: DsDynamicFormArrayComponent;
   let fixture: ComponentFixture<DsDynamicFormArrayComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
-        DsDynamicFormArrayComponent,
-      ],
       imports: [
         ReactiveFormsModule,
         DsDynamicFormArrayComponent,

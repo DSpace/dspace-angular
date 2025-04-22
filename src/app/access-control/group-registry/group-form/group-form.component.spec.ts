@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -62,6 +63,7 @@ import { getMockFormBuilderService } from '../../../shared/mocks/form-builder-se
 import { RouterMock } from '../../../shared/mocks/router.mock';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
+import { ActivatedRouteStub } from '../../../shared/testing/active-router.stub';
 import {
   GroupMock,
   GroupMock2,
@@ -264,10 +266,7 @@ describe('GroupFormComponent', () => {
         { provide: Store, useValue: {} },
         { provide: RemoteDataBuildService, useValue: {} },
         { provide: HALEndpointService, useValue: new HALEndpointServiceStub('test') },
-        {
-          provide: ActivatedRoute,
-          useValue: { data: observableOf({ dso: { payload: {} } }), params: observableOf({}) },
-        },
+        { provide: ActivatedRoute, useValue: route },
         { provide: Router, useValue: router },
         { provide: AuthorizationDataService, useValue: authorizationService },
       ],

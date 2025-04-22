@@ -141,13 +141,13 @@ describe('BrowseByTitleComponent', () => {
   describe('when rendered in SSR', () => {
     beforeEach(() => {
       comp.platformId = 'server';
-      spyOn((comp as any).browseService, 'getBrowseItemsFor');
+      spyOn((comp as any).searchManager, 'getBrowseItemsFor');
       fixture.detectChanges();
     });
 
     it('should not call getBrowseItemsFor on init', (done) => {
       comp.ngOnInit();
-      expect((comp as any).browseService.getBrowseItemsFor).not.toHaveBeenCalled();
+      expect((comp as any).searchManager.getBrowseItemsFor).not.toHaveBeenCalled();
       comp.loading$.subscribe((res) => {
         expect(res).toBeFalsy();
         done();
@@ -159,13 +159,13 @@ describe('BrowseByTitleComponent', () => {
     beforeEach(() => {
       comp.platformId = 'browser';
       fixture.detectChanges();
-      spyOn((comp as any).browseService, 'getBrowseItemsFor').and.returnValue(createSuccessfulRemoteDataObject$(new BrowseEntry()));
+      spyOn((comp as any).searchManager, 'getBrowseItemsFor').and.returnValue(createSuccessfulRemoteDataObject$(new BrowseEntry()));
     });
 
     it('should call getBrowseItemsFor on init', fakeAsync(() => {
       comp.ngOnInit();
       tick(100);
-      expect((comp as any).browseService.getBrowseItemsFor).toHaveBeenCalled();
+      expect((comp as any).searchManager.getBrowseItemsFor).toHaveBeenCalled();
     }));
   });
 });

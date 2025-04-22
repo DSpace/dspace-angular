@@ -88,8 +88,6 @@ describe('EPersonFormComponent', () => {
 
   let paginationService;
 
-
-
   beforeEach(waitForAsync(() => {
     mockEPeople = [EPersonMock, EPersonMock2];
     ePersonDataServiceStub = {
@@ -226,11 +224,6 @@ describe('EPersonFormComponent', () => {
     paginationService = new PaginationServiceStub();
     route = new ActivatedRouteStub();
     router = new RouterStub();
-
-    epersonRegistrationService = jasmine.createSpyObj('epersonRegistrationService', {
-      registerEmail: createSuccessfulRemoteDataObject$(null),
-    });
-
     TestBed.configureTestingModule({
       imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule, BtnDisabledDirective, BrowserModule,
         RouterModule.forRoot([]),
@@ -546,6 +539,7 @@ describe('EPersonFormComponent', () => {
         id: ePersonId,
         email: ePersonEmail,
       });
+
       component.resetPassword();
     });
 
@@ -556,7 +550,7 @@ describe('EPersonFormComponent', () => {
 
   describe('findListByHref functionality', () => {
     it('retrieves groups and object on page change', fakeAsync(() => {
-      spyOn(ePersonDataServiceStub, 'getActiveEPerson').and.returnValue(observableOf({ _links: { groups: { href: 'groups' } } } as EPerson));
+      component.activeEPerson$ = observableOf({ _links: { groups: { href: 'groups' } } } as EPerson);
 
       const options = { currentPage: 1, elementsPerPage: 5 };
       component.onPageChange(options.currentPage);
