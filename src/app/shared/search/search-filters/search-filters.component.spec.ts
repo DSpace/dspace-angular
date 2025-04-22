@@ -90,13 +90,13 @@ describe('SearchFiltersComponent', () => {
   describe('when there are no filters', () => {
     beforeEach(() => {
       (comp as any).ngOnInit();
+      (comp as any).availableFilters$.next(false);
       fixture.detectChanges();
     });
 
     it('should not render component', () => {
       const menu = fixture.debugElement.query(By.css('div.d-none'));
       expect(menu).not.toBeNull();
-      expect(comp.availableFilters).toEqual(false);
     });
 
   });

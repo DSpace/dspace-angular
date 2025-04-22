@@ -2,12 +2,15 @@ import { AsyncPipe } from '@angular/common';
 import {
   AfterViewChecked,
   Component,
+  DestroyRef,
   Inject,
+  inject,
   Input,
   OnDestroy,
   OnInit,
   ViewChildren,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   Router,
   RouterLink,
@@ -19,6 +22,7 @@ import {
   Observable,
 } from 'rxjs';
 import {
+  distinctUntilChanged,
   filter,
   map,
   take,
@@ -90,7 +94,7 @@ export class SearchFiltersComponent implements OnInit, AfterViewChecked, OnDestr
   /**
    * counts for the active filters
    */
-  availableFilters = false;
+  availableFilters$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
   appliedFilters: Map<string, AppliedFilter[]> = new Map();
 
@@ -110,6 +114,10 @@ export class SearchFiltersComponent implements OnInit, AfterViewChecked, OnDestr
    * Used to determine when all filters for a configuration have been processed
    */
   private finalFiltersComputed = [];
+
+  private allFiltersComputed = false;
+
+  private destroyRef = inject(DestroyRef);
 
   subs = [];
   filterLabel = 'search';
@@ -220,7 +228,12 @@ export class SearchFiltersComponent implements OnInit, AfterViewChecked, OnDestr
         }),
         // Automatically complete the observable after one emission
         take(1),
-      ).subscribe();
+      ).subscribe((results) => {
+        if (results.totalFilters === results.currentComputed) {
+          this.allFiltersComputed = true;
+          this.availableFilters$.next(this.searchFilter._results.some(element => element.nativeElement?.children[0]?.children.length > 0));
+        }
+      });
     }
   }
 
@@ -285,7 +298,14 @@ export class SearchFiltersComponent implements OnInit, AfterViewChecked, OnDestr
   }
 
   ngAfterViewChecked() {
-    this.availableFilters = this.searchFilter._results.some(element => element.nativeElement?.children[0]?.children.length > 0);
+    this.searchFilter.changes.pipe(
+      filter(() => this.allFiltersComputed),
+      map((filters: any) => {
+        return filters._results.some(element => element.nativeElement?.children[0]?.children.length > 0);
+      }),
+      distinctUntilChanged(),
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe(this.availableFilters$);
   }
 
   ngOnDestroy() {
