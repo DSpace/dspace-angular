@@ -1,9 +1,9 @@
 import { NgComponentOutlet } from '@angular/common';
 import {
+  AfterViewInit,
   Component,
   Input,
   OnChanges,
-  OnInit,
   SimpleChanges,
   ViewChild,
   ViewContainerRef,
@@ -28,7 +28,7 @@ import { renderChartFilterType } from '../../chart-search-result-element-decorat
 /**
  * Wrapper component that renders a specific chart facet filter based on the filter config's type
  */
-export class SearchChartFilterWrapperComponent implements OnInit, OnChanges {
+export class SearchChartFilterWrapperComponent implements OnChanges, AfterViewInit {
   /**
    * Configuration for the filter of this wrapper component
    */
@@ -57,24 +57,17 @@ export class SearchChartFilterWrapperComponent implements OnInit, OnChanges {
   /**
    * Injector to inject a child component with the @Input parameters
    */
-  @ViewChild('container', { read: ViewContainerRef }) vcr!: ViewContainerRef;
+  @ViewChild('containerCharts', { read: ViewContainerRef }) vcr!: ViewContainerRef;
 
-  /**
-   * Initialize and add the filter config to the injector
-   */
-  ngOnInit(): void {
-    this.searchFilter = this.getSearchFilter();
-    this.vcr.clear();
-    const componentRef = this.vcr.createComponent(this.searchFilter);
-    componentRef.setInput('filterConfig', this.filterConfig);
-    componentRef.setInput('inPlaceSearch', this.inPlaceSearch);
-    componentRef.setInput('refreshFilters', this.refreshFilters);
-    componentRef.setInput('scope', this.scope);
+  ngAfterViewInit(): void {
+    this.createFilterComponent();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.filterConfig = changes.filterConfig.currentValue;
-    this.ngOnInit();
+    if (changes.filterConfig && changes.filterConfig.currentValue !== changes.filterConfig.previousValue) {
+      this.filterConfig = changes.filterConfig.currentValue;
+      this.createFilterComponent();
+    }
   }
 
   /**
@@ -83,5 +76,20 @@ export class SearchChartFilterWrapperComponent implements OnInit, OnChanges {
   getSearchFilter() {
     const type: FilterType = this.filterConfig.filterType;
     return renderChartFilterType(type);
+  }
+
+  /**
+   * Initialize and add the filter config to the injector
+   */
+  private createFilterComponent() {
+    if (this.vcr) {
+      this.searchFilter = this.getSearchFilter();
+      this.vcr.clear();
+      const componentRef = this.vcr.createComponent(this.searchFilter);
+      componentRef.setInput('filterConfig', this.filterConfig);
+      componentRef.setInput('inPlaceSearch', this.inPlaceSearch);
+      componentRef.setInput('refreshFilters', this.refreshFilters);
+      componentRef.setInput('scope', this.scope);
+    }
   }
 }
