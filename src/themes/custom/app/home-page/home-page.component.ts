@@ -16,7 +16,6 @@ import { SuggestionsPopupComponent } from '../../../../app/notifications/suggest
 import { ThemedConfigurationSearchPageComponent } from '../../../../app/search-page/themed-configuration-search-page.component';
 import { ThemedSearchFormComponent } from '../../../../app/shared/search-form/themed-search-form.component';
 import { PageWithSidebarComponent } from '../../../../app/shared/sidebar/page-with-sidebar.component';
-import { ViewTrackerResolverService } from '../../../../app/statistics/angulartics/dspace/view-tracker-resolver.service';
 
 @Component({
   selector: 'ds-themed-home-page',
