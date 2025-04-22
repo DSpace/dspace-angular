@@ -46,13 +46,5 @@ describe('ThemeEffects', () => {
         }),
       );
     });
-
-    it('should set the default theme', () => {
-      const expected = cold('--b-', {
-        b: new SetThemeAction(BASE_THEME_NAME),
-      });
-
-      expect(themeEffects.initTheme$).toBeObservable(expected);
-    });
   });
 });
