@@ -85,6 +85,7 @@ export const ROUTES: Route[] = [
         component: ThemedCollectionPageComponent,
         resolve: {
           menu: dsoEditMenuResolver,
+          tracking: viewTrackerResolver,
         },
         children: [
           {
@@ -103,9 +104,6 @@ export const ROUTES: Route[] = [
             data: { breadcrumbKey: 'browse.metadata' },
           },
         ],
-        resolve: {
-          tracking: viewTrackerResolver,
-        },
       },
     ],
     data: {
