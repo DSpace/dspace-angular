@@ -8,6 +8,7 @@ import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
 import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
 import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
 import { MenuRoute } from '../shared/menu/menu-route.model';
+import { viewTrackerResolver } from '../statistics/angulartics/dspace/view-tracker.resolver';
 import { communityPageResolver } from './community-page.resolver';
 import { communityPageAdministratorGuard } from './community-page-administrator.guard';
 import {
@@ -19,7 +20,6 @@ import { createCommunityPageGuard } from './create-community-page/create-communi
 import { DeleteCommunityPageComponent } from './delete-community-page/delete-community-page.component';
 import { SubComColSectionComponent } from './sections/sub-com-col-section/sub-com-col-section.component';
 import { ThemedCommunityPageComponent } from './themed-community-page.component';
-import { viewTrackerResolver } from '../statistics/angulartics/dspace/view-tracker.resolver';
 
 export const ROUTES: Route[] = [
   {

@@ -1,18 +1,24 @@
+import { Injectable } from '@angular/core';
 import {
-  Injectable,
-} from '@angular/core';
+  ActivatedRouteSnapshot,
+  ResolveEnd,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { Angulartics2 } from 'angulartics2';
 import { switchMap } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
+import {
+  filter,
+  take,
+} from 'rxjs/operators';
 
 import { ReferrerService } from '../../../core/services/referrer.service';
-import { ActivatedRouteSnapshot, ResolveEnd, Router, RouterStateSnapshot } from '@angular/router';
 
 /**
  * This component triggers a page view statistic
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ViewTrackerResolverService {
 
@@ -24,7 +30,7 @@ export class ViewTrackerResolverService {
   }
 
   resolve(routeSnapshot: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    const dsoPath = routeSnapshot.data['dsoPath'] || 'dso.payload'; // Fetch the resolvers passed via the route data
+    const dsoPath = routeSnapshot.data.dsoPath || 'dso.payload'; // Fetch the resolvers passed via the route data
     this.router.events.pipe(
       filter(event => event instanceof ResolveEnd),
       take(1),

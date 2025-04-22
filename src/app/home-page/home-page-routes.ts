@@ -23,7 +23,7 @@ export const ROUTES: Route[] = [
             link: 'statistics',
           } as LinkMenuItemModel,
         }],
-      }
+      },
     },
   },
 ];
