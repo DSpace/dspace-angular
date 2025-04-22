@@ -3,6 +3,11 @@ import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { TranslateLoaderMock } from 'src/app/shared/testing/translate-loader.mock';
 
 import { ConfigurationDataService } from '../../../../../../../../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../../../../../../../../core/data/feature-authorization/authorization-data.service';
@@ -25,7 +30,15 @@ describe('AttachmentRenderComponent', () => {
     });
 
     await TestBed.configureTestingModule({
-      imports: [AttachmentRenderComponent],
+      imports: [
+        AttachmentRenderComponent,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useClass: TranslateLoaderMock,
+          },
+        }),
+      ],
       providers: [
         { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
         { provide: ConfigurationDataService, useValue: configurationDataService },

@@ -10,8 +10,9 @@ import {
 } from '@ngx-translate/core';
 
 import { BitstreamDataService } from '../../../../../../../../core/data/bitstream-data.service';
-import { MockBitstream1 } from '../../../../../../../../shared/mocks/item.mock';
+import { Bitstream } from '../../../../../../../../core/shared/bitstream.model';
 import { TranslateLoaderMock } from '../../../../../../../../shared/mocks/translate-loader.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../../../../../../../shared/remote-data.utils';
 import { TruncatableComponent } from '../../../../../../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { ThemedThumbnailComponent } from '../../../../../../../../thumbnail/themed-thumbnail.component';
@@ -22,6 +23,15 @@ import { BitstreamAttachmentComponent } from './bitstream-attachment.component';
 describe('BitstreamAttachmentComponent', () => {
   let component: BitstreamAttachmentComponent;
   let fixture: ComponentFixture<BitstreamAttachmentComponent>;
+  const attachmentMock: any = Object.assign(new Bitstream(),
+    {
+      checkSum: {
+        checkSumAlgorithm: 'MD5',
+        value: 'checksum',
+      },
+      thumbnail: createSuccessfulRemoteDataObject$(new Bitstream()),
+    },
+  );
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -51,7 +61,7 @@ describe('BitstreamAttachmentComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(BitstreamAttachmentComponent);
     component = fixture.componentInstance;
-    component.attachment = MockBitstream1;
+    component.attachment = attachmentMock;
     fixture.detectChanges();
   });
 

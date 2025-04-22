@@ -15,11 +15,7 @@ import { of as observableOf } from 'rxjs';
 
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { SearchService } from '../../../../../core/shared/search/search.service';
-import {
-  FILTER_CONFIG,
-  IN_PLACE_SEARCH,
-  SearchFilterService,
-} from '../../../../../core/shared/search/search-filter.service';
+import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { RouterStub } from '../../../../testing/router.stub';
@@ -99,10 +95,8 @@ xdescribe('SearchChartFilterComponent', () => {
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: Router, useValue: new RouterStub() },
-        { provide: FILTER_CONFIG, useValue: new SearchFilterConfig() },
         { provide: RemoteDataBuildService, useValue: { aggregate: () => observableOf({}) } },
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
-        { provide: IN_PLACE_SEARCH, useValue: false },
         {
           provide: SearchFilterService, useValue: {
             getSelectedValuesForFilter: () => observableOf(selectedValues),

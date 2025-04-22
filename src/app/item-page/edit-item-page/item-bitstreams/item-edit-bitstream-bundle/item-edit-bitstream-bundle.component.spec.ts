@@ -93,7 +93,7 @@ describe('ItemEditBitstreamBundleComponent', () => {
       schemas: [
         NO_ERRORS_SCHEMA,
       ],
-    }).overrideComponent(ItemEditBitstreamBundleComponent, { remove: { imports: [PaginatedDragAndDropBitstreamListComponent] } }).compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -164,8 +164,12 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
     lazyProvider$.pipe(take(1)).subscribe((dataService) => {
       this.findAllService = dataService as unknown as FindAllDataImpl<CacheableObject>;
       this.useFindAllService = hasValue(this.findAllService?.findAll) && typeof this.findAllService.findAll === 'function';
+
+      if (this.model.metadataValue) {
+        this.setCurrentValue(this.model.metadataValue, true);
+      }
       this.updatePageInfo(this.model.maxOptions, 1);
-      this.loadOptions(true);
+      this.loadOptions(null, true);
     });
 
     this.group.get(this.model.id).valueChanges.pipe(distinctUntilChanged())

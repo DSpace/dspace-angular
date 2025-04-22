@@ -1,14 +1,13 @@
 import {
-  NgClass,
-  NgIf,
-} from '@angular/common';
-import {
   ComponentFixture,
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 
 import { MetadataValue } from '../../core/shared/metadata.models';
 import { OrcidBadgeAndTooltipComponent } from './orcid-badge-and-tooltip.component';
@@ -20,15 +19,10 @@ describe('OrcidBadgeAndTooltipComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [OrcidBadgeAndTooltipComponent],
       imports: [
+        TranslateModule.forRoot(),
         OrcidBadgeAndTooltipComponent,
         NgbTooltipModule,
-        NgClass,
-        NgIf,
-      ],
-      providers: [
-        { provide: TranslateService, useValue: { instant: (key: string) => key } },
       ],
     }).compileComponents();
 
