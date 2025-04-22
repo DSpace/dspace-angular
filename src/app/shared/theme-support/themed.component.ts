@@ -25,11 +25,11 @@ import {
   switchMap,
   tap,
 } from 'rxjs/operators';
-
 import { GenericConstructor } from '../../core/shared/generic-constructor';
 import {
   hasNoValue,
-  hasValue, hasValueOperator,
+  hasValue,
+  hasValueOperator,
   isNotEmpty,
 } from '../empty.util';
 import { BASE_THEME_NAME } from './theme.constants';
