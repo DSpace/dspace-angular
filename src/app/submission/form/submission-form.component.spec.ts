@@ -10,18 +10,13 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
-import { Store } from '@ngrx/store';
 import {
   cold,
   getTestScheduler,
 } from 'jasmine-marbles';
-import {
-  of as observableOf,
-  of,
-} from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
-import { APP_DATA_SERVICES_MAP } from '../../../config/app-config.interface';
 import { AuthService } from '../../core/auth/auth.service';
 import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { Item } from '../../core/shared/item.model';
@@ -42,12 +37,12 @@ import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-servic
 import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
 import { createTestComponent } from '../../shared/testing/utils.test';
 import { ThemeService } from '../../shared/theme-support/theme.service';
-import { SubmissionSectionContainerComponent } from '../sections/container/section-container.component';
+import { ThemedSubmissionSectionContainerComponent } from '../sections/container/themed-section-container.component';
 import { SectionsService } from '../sections/sections.service';
 import { VisibilityType } from '../sections/visibility-type';
 import { SubmissionService } from '../submission.service';
 import { SubmissionFormCollectionComponent } from './collection/submission-form-collection.component';
-import { SubmissionFormFooterComponent } from './footer/submission-form-footer.component';
+import { ThemedSubmissionFormFooterComponent } from './footer/themed-submission-form-footer.component';
 import { SubmissionFormSectionAddComponent } from './section-add/submission-form-section-add.component';
 import { SubmissionFormComponent } from './submission-form.component';
 import { ThemedSubmissionUploadFilesComponent } from './submission-upload-files/themed-submission-upload-files.component';
@@ -61,8 +56,6 @@ describe('SubmissionFormComponent Component', () => {
   let scheduler: TestScheduler;
 
   const submissionServiceStub: SubmissionServiceStub = new SubmissionServiceStub();
-  submissionServiceStub.getSubmissionStatus = jasmine.createSpy('getSubmissionStatus')
-    .and.returnValue(of(true));
   const submissionId = mockSubmissionId;
   const collectionId = mockSubmissionCollectionId;
   const submissionObjectNew: any = mockSubmissionObjectNew;
@@ -71,7 +64,6 @@ describe('SubmissionFormComponent Component', () => {
   const selfUrl: any = mockSubmissionSelfUrl;
   const sectionsList: any = mockSectionsList;
   const sectionsData: any = mockSectionsData;
-  const store = jasmine.createSpyObj('store', ['dispatch']);
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -83,8 +75,6 @@ describe('SubmissionFormComponent Component', () => {
         { provide: SubmissionService, useValue: submissionServiceStub },
         { provide: SectionsService, useValue: { isSectionTypeAvailable: () => observableOf(true) } },
         { provide: ThemeService, useValue: getMockThemeService() },
-        { provide: Store, useValue: store },
-        { provide: APP_DATA_SERVICES_MAP, useValue: {} },
         ChangeDetectorRef,
         SubmissionFormComponent,
       ],
@@ -94,8 +84,8 @@ describe('SubmissionFormComponent Component', () => {
         remove: {
           imports: [
             ThemedLoadingComponent,
-            SubmissionSectionContainerComponent,
-            SubmissionFormFooterComponent,
+            ThemedSubmissionSectionContainerComponent,
+            ThemedSubmissionFormFooterComponent,
             ThemedSubmissionUploadFilesComponent,
             SubmissionFormCollectionComponent,
             SubmissionFormSectionAddComponent,

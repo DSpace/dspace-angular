@@ -22,7 +22,7 @@ export class ThemedSubmissionFormComponent extends ThemedComponent<SubmissionFor
 
   @Input() item: Item;
 
-  @Input() collectionModifiable: boolean | null = null;
+  @Input() collectionModifiable: boolean | null;
 
   @Input() sections: WorkspaceitemSectionsObject;
 
