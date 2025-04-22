@@ -12,6 +12,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { APP_CONFIG } from '../../../../config/app-config.interface';
+import { environment } from '../../../../environments/environment';
 import { Community } from '../../../core/shared/community.model';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
@@ -27,8 +29,6 @@ import { ThemeService } from '../../theme-support/theme.service';
 import { SearchExportCsvComponent } from '../search-export-csv/search-export-csv.component';
 import { SearchResultsComponent } from './search-results.component';
 import { SearchResultsSkeletonComponent } from './search-results-skeleton/search-results-skeleton.component';
-import { APP_CONFIG } from '../../../../config/app-config.interface';
-import { environment } from '../../../../environments/environment';
 
 describe('SearchResultsComponent', () => {
   let comp: SearchResultsComponent;

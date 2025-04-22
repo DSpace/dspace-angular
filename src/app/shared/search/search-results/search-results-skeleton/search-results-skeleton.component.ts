@@ -1,22 +1,27 @@
+import { AsyncPipe } from '@angular/common';
 import {
-  AsyncPipe,
-  NgForOf,
-} from '@angular/common';
-import {
-  ChangeDetectorRef,
-  Component, Inject,
+  Component,
+  Inject,
   Input,
   OnInit,
 } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-import { Observable } from 'rxjs';
+import {
+  interval,
+  Observable,
+} from 'rxjs';
 
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../../config/app-config.interface';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { AlertComponent } from '../../../alert/alert.component';
+import { AlertType } from '../../../alert/alert-type';
 import { hasValue } from '../../../empty.util';
-import { AlertType } from "../../../alert/alert-type";
-import { TranslateService } from "@ngx-translate/core";
-import { APP_CONFIG, AppConfig } from "../../../../../config/app-config.interface";
+import { VarDirective } from '../../../utils/var.directive';
 
 @Component({
   selector: 'ds-search-results-skeleton',
@@ -24,7 +29,8 @@ import { APP_CONFIG, AppConfig } from "../../../../../config/app-config.interfac
   imports: [
     NgxSkeletonLoaderModule,
     AsyncPipe,
-    NgForOf,
+    AlertComponent,
+    VarDirective,
   ],
   templateUrl: './search-results-skeleton.component.html',
   styleUrl: './search-results-skeleton.component.scss',
@@ -77,6 +83,11 @@ export class SearchResultsSkeletonComponent implements OnInit {
    */
   public loadingResults: number[];
 
+  /**
+   * Timer for fallback messages visualization
+   */
+  delayTimer$: Observable<any>;
+
 
   protected readonly ViewMode = ViewMode;
 
@@ -86,7 +97,6 @@ export class SearchResultsSkeletonComponent implements OnInit {
   constructor(
     private searchService: SearchService,
     private translate: TranslateService,
-    private changeDetectorRef: ChangeDetectorRef,
     @Inject(APP_CONFIG) private appConfig: AppConfig,
   ) {
     this.viewMode$ = this.searchService.getViewMode();
@@ -102,5 +112,16 @@ export class SearchResultsSkeletonComponent implements OnInit {
       // this is needed as the default value of show thumbnails is true but set in lower levels of the DOM.
       this.showThumbnails = true;
     }
+
+    if (this.showFallbackMessages) {
+      this.setFallBackMessages();
+    }
+  }
+
+  setFallBackMessages(): void {
+    this.warningMessage = this.warningMessage || this.translate.instant('loading.warning');
+    this.errorMessage = this.errorMessage || this.translate.instant('loading.error');
+
+    this.delayTimer$ = interval(1);
   }
 }
