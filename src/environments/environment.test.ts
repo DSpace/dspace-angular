@@ -603,6 +603,7 @@ export const environment: BuildConfig = {
 
   mirador: {
     enableDownloadPlugin: true,
+    allowedOrigins: []
   },
 
   loader: {
