@@ -9,6 +9,7 @@ import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
 import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
 import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
 import { MenuRoute } from '../shared/menu/menu-route.model';
+import { viewTrackerResolver } from '../statistics/angulartics/dspace/view-tracker.resolver';
 import { collectionPageResolver } from './collection-page.resolver';
 import { collectionPageAdministratorGuard } from './collection-page-administrator.guard';
 import {
@@ -115,6 +116,9 @@ export const ROUTES: Route[] = [
             },
           },
         ],
+        resolve: {
+          tracking: viewTrackerResolver,
+        },
       },
     ],
   },
