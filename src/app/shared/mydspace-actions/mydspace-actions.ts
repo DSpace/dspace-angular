@@ -107,15 +107,19 @@ export abstract class MyDSpaceActionsComponent<T extends DSpaceObject, TService 
     };
     // This assures that the search cache is empty before reloading mydspace.
     // See https://github.com/DSpace/dspace-angular/pull/468
-    this.invalidateCacheForCurrentSearchUrl();
+    this.invalidateCacheForCurrentSearchUrl(true);
   }
 
-  invalidateCacheForCurrentSearchUrl(): void {
+  invalidateCacheForCurrentSearchUrl(shouldNavigate = false): void {
     const url = decodeURIComponent(this.router.url);
     this.searchService.getEndpoint().pipe(
       take(1),
       tap((cachedHref: string) => this.requestService.removeByHrefSubstring(cachedHref)),
-    ).subscribe(() => this.router.navigateByUrl(url));
+    ).subscribe(() => {
+      if (shouldNavigate) {
+        this.router.navigateByUrl(url);
+      }
+    });
   }
 
   /**
