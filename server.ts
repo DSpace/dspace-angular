@@ -67,6 +67,8 @@ const DIST_FOLDER = join(process.cwd(), 'dist/browser');
 // Set path fir IIIF viewer.
 const IIIF_VIEWER = join(process.cwd(), 'dist/iiif');
 
+const miradorHtml = join(IIIF_VIEWER, '/mirador/index.html');
+
 const indexHtml = join(DIST_FOLDER, 'index.html');
 
 const cookieParser = require('cookie-parser');
@@ -87,6 +89,8 @@ const _window = domino.createWindow(indexHtml);
 
 // The REST server base URL
 const REST_BASE_URL = environment.rest.ssrBaseUrl || environment.rest.baseUrl;
+
+const IIIF_ALLOWED_ORIGINS = environment.mirador.allowedOrigins;
 
 // Assign the DOM window and document objects to the global object
 (_window as any).screen = {deviceXDPI: 0, logicalXDPI: 0};
@@ -210,6 +214,35 @@ export function app() {
   * Fallthrough to the IIIF viewer (must be included in the build).
   */
   router.use('/iiif', express.static(IIIF_VIEWER, { index: false }));
+
+  /*
+  * Adapt headers to allow embedding of IIIF viewer in authorized pages
+  */
+  server.get('/iiif/mirador/index.html', (req, res) => {
+    const referer = req.headers.referer;
+
+    if(referer && !referer.startsWith('/')) {
+      try {
+        const origin =  new URL(referer).origin;
+        if (isIiifAllowedOrigin(origin)) {
+          console.info('Found allowed origin, setting headers for IIIF viewer');
+          // CORS header
+          res.setHeader('Access-Control-Allow-Origin', origin);
+          // CSP for iframe embedding
+          res.setHeader('Content-Security-Policy', `frame-ancestors ${origin};`);
+          console.info('Headers have been set ', res.getHeader('Access-Control-Allow-Origin'), res.getHeader('Content-Security-Policy'));
+        }
+      } catch (error) {
+        console.error("An error occurred setting security headers in response:", error.message);
+      }
+    }
+
+    res.sendFile(miradorHtml, (err) => {
+      if (err) {
+        res.status(500).send('Internal Server Error');
+      }
+    });
+  });
 
   /**
    * Checking server status
@@ -667,6 +700,14 @@ function healthCheck(req, res) {
       });
     });
 }
+
+/*
+ * Helper to determine if the origin is allowed
+ */
+function isIiifAllowedOrigin(origin) {
+  return origin === REST_BASE_URL.replace("/server", "") || IIIF_ALLOWED_ORIGINS.includes(origin);
+}
+
 // Webpack will replace 'require' with '__webpack_require__'
 // '__non_webpack_require__' is a proxy to Node 'require'
 // The below code is to ensure that the server is run only when not requiring the bundle.

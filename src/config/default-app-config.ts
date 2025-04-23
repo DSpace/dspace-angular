@@ -943,6 +943,7 @@ export class DefaultAppConfig implements AppConfig {
 
   mirador: MiradorConfig = {
     enableDownloadPlugin: true,
+    allowedOrigins: []
   };
 
   loader: LoaderConfig = {
