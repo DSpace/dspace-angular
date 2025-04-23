@@ -23,6 +23,7 @@ import { take } from 'rxjs/operators';
 import { MenuService } from '../../app/shared/menu/menu.service';
 import { isEmpty, isNotEmpty } from '../../app/shared/empty.util';
 import { BuildConfig } from '../../config/build-config.interface';
+import { HrefOnlyDataService } from '../../app/core/data/href-only-data.service';
 
 /**
  * Performs server-side initialization.
@@ -40,7 +41,8 @@ export class ServerInitService extends InitService {
     protected metadata: MetadataService,
     protected breadcrumbsService: BreadcrumbsService,
     protected themeService: ThemeService,
-    protected menuService: MenuService
+    protected menuService: MenuService,
+    protected hrefOnlyDataService: HrefOnlyDataService,
   ) {
     super(
       store,
@@ -53,6 +55,7 @@ export class ServerInitService extends InitService {
       breadcrumbsService,
       themeService,
       menuService,
+      hrefOnlyDataService,
     );
   }
 
@@ -68,6 +71,8 @@ export class ServerInitService extends InitService {
       this.initAngulartics();
       this.initRouteListeners();
       this.themeService.listenForThemeChanges(false);
+
+      this.initBootstrapEndpoints$().subscribe();
 
       await this.authenticationReady$().toPromise();
 

@@ -5,6 +5,8 @@ import { DEFAULT_CONTENT_TYPE, DspaceRestService } from './dspace-rest.service';
 import { DSpaceObject } from '../shared/dspace-object.model';
 import { RestRequestMethod } from '../data/rest-request-method';
 import { HttpHeaders } from '@angular/common/http';
+import { APP_CONFIG } from '../../../config/app-config.interface';
+import { environment } from '../../../environments/environment.test';
 
 describe('DspaceRestService', () => {
   let dspaceRestService: DspaceRestService;
@@ -19,7 +21,10 @@ describe('DspaceRestService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [DspaceRestService]
+      providers: [
+        DspaceRestService,
+        { provide: APP_CONFIG, useValue: environment },
+      ],
     });
 
     dspaceRestService = TestBed.inject(DspaceRestService);

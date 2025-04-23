@@ -27,7 +27,7 @@ import { ThemeService } from '../../app/shared/theme-support/theme.service';
 import { StoreAction, StoreActionTypes } from '../../app/store.actions';
 import { coreSelector } from '../../app/core/core.selectors';
 import { filter, find, map } from 'rxjs/operators';
-import { isNotEmpty } from '../../app/shared/empty.util';
+import { isNotEmpty, hasValue } from '../../app/shared/empty.util';
 import { logStartupMessage } from '../../../startup-message';
 import { MenuService } from '../../app/shared/menu/menu.service';
 import { RequestService } from '../../app/core/data/request.service';
@@ -36,6 +36,7 @@ import { firstValueFrom, lastValueFrom, Subscription } from 'rxjs';
 import { ServerCheckGuard } from '../../app/core/server-check/server-check.guard';
 import { HALEndpointService } from '../../app/core/shared/hal-endpoint.service';
 import { BuildConfig } from '../../config/build-config.interface';
+import { HrefOnlyDataService } from '../../app/core/data/href-only-data.service';
 
 /**
  * Performs client-side initialization.
@@ -64,6 +65,7 @@ export class BrowserInitService extends InitService {
     protected serverCheckGuard: ServerCheckGuard,
     private requestService: RequestService,
     private halService: HALEndpointService,
+    protected hrefOnlyDataService: HrefOnlyDataService,
   ) {
     super(
       store,
@@ -76,6 +78,7 @@ export class BrowserInitService extends InitService {
       breadcrumbsService,
       themeService,
       menuService,
+      hrefOnlyDataService,
     );
   }
 
@@ -107,6 +110,13 @@ export class BrowserInitService extends InitService {
       this.trackAuthTokenExpiration();
 
       this.initKlaro();
+
+      this.initBootstrapEndpoints$().subscribe(_ => {
+        if (hasValue(this.appConfig?.prefetch?.bootstrap)) {
+          // Clear bootstrap once finished so the dspace-rest.service does not keep using the bootstrapped responses
+          this.appConfig.prefetch.bootstrap = undefined;
+        }
+      });
 
       await this.authenticationReady$().toPromise();
 

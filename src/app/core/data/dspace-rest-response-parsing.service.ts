@@ -1,24 +1,33 @@
 /* eslint-disable max-classes-per-file */
-import { hasNoValue, hasValue, isNotEmpty } from '../../shared/empty.util';
-import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
-import { Serializer } from '../serializer';
-import { PageInfo } from '../shared/page-info.model';
-import { ObjectCacheService } from '../cache/object-cache.service';
-import { GenericConstructor } from '../shared/generic-constructor';
-import { PaginatedList, buildPaginatedList } from './paginated-list.model';
-import { getClassForType } from '../cache/builders/build-decorators';
-import { environment } from '../../../environments/environment';
-import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
-import { DSpaceObject } from '../shared/dspace-object.model';
 import { Injectable } from '@angular/core';
-import { ResponseParsingService } from './parsing.service';
-import { ParsedResponse } from '../cache/response.models';
-import { RestRequestMethod } from './rest-request-method';
-import { getUrlWithoutEmbedParams, getEmbedSizeParams } from '../index/index.selectors';
-import { URLCombiner } from '../url-combiner/url-combiner';
+import { environment } from '../../../environments/environment';
+import {
+  hasNoValue,
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
+import { getClassForObject } from '../cache/builders/build-decorators';
 import { CacheableObject } from '../cache/cacheable-object.model';
+import { ObjectCacheService } from '../cache/object-cache.service';
+import { ParsedResponse } from '../cache/response.models';
+import { DSpaceSerializer } from '../dspace-rest/dspace.serializer';
+import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+import {
+  getEmbedSizeParams,
+  getUrlWithoutEmbedParams,
+} from '../index/index.selectors';
+import { Serializer } from '../serializer';
+import { DSpaceObject } from '../shared/dspace-object.model';
+import { GenericConstructor } from '../shared/generic-constructor';
+import { PageInfo } from '../shared/page-info.model';
+import { URLCombiner } from '../url-combiner/url-combiner';
+import {
+  buildPaginatedList,
+  PaginatedList,
+} from './paginated-list.model';
+import { ResponseParsingService } from './parsing.service';
+import { RestRequestMethod } from './rest-request-method';
 import { RestRequest } from './rest-request.model';
-
 
 /**
  * Return true if obj has a value for `_links.self`
@@ -198,13 +207,12 @@ export class DspaceRestResponseParsingService implements ResponseParsingService 
   }
 
   protected deserialize<ObjectDomain>(obj): any {
-    const type = obj.type;
-    const objConstructor = this.getConstructorFor<ObjectDomain>(type);
+    const objConstructor = this.getConstructorFor<ObjectDomain>(obj);
     if (hasValue(objConstructor)) {
       const serializer = new this.serializerConstructor(objConstructor);
       return serializer.deserialize(obj);
     } else {
-      console.warn('cannot deserialize type ' + type);
+      console.warn('cannot deserialize type ', obj?.type);
       return null;
     }
   }
@@ -213,15 +221,19 @@ export class DspaceRestResponseParsingService implements ResponseParsingService 
    * Returns the constructor for the given type, or null if there isn't a registered model for that
    * type
    *
-   * @param type the object to find the constructor for.
+   * @param obj the object to find the constructor for.
    * @protected
    */
-  protected getConstructorFor<ObjectDomain>(type: string): GenericConstructor<ObjectDomain> {
-    if (hasValue(type)) {
-      return getClassForType(type) as GenericConstructor<ObjectDomain>;
-    } else {
-      return null;
+  protected getConstructorFor<ObjectDomain>(obj: any): GenericConstructor<ObjectDomain> {
+    if (hasValue(obj?.type)) {
+      const constructor = getClassForObject(obj) as GenericConstructor<ObjectDomain>;
+
+      if (hasValue(constructor)) {
+        return constructor;
+      }
     }
+
+    return null;
   }
 
   /**

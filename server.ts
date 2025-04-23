@@ -50,9 +50,10 @@ import { UIServerConfig } from './src/config/ui-server-config.interface';
 
 import { ServerAppModule } from './src/main.server';
 
-import { buildAppConfig } from './src/config/config.server';
+import { buildAppConfig, setupEndpointPrefetching } from './src/config/config.server';
 import { APP_CONFIG, AppConfig } from './src/config/app-config.interface';
 import { extendEnvironmentWithAppConfig } from './src/config/config.util';
+import { ServerHashedFileMapping } from './src/modules/dynamic-hash/hashed-file-mapping.server';
 import { logStartupMessage } from './startup-message';
 import { TOKENITEM } from './src/app/core/auth/models/auth-token-info.model';
 
@@ -68,7 +69,11 @@ const indexHtml = join(DIST_FOLDER, 'index.html');
 
 const cookieParser = require('cookie-parser');
 
-const appConfig: AppConfig = buildAppConfig(join(DIST_FOLDER, 'assets/config.json'));
+const destConfigPath = join(DIST_FOLDER, 'assets/config.json');
+const hashedFileMapping = new ServerHashedFileMapping(DIST_FOLDER, 'index.html');
+const appConfig: AppConfig = buildAppConfig(destConfigPath, hashedFileMapping);
+hashedFileMapping.addThemeStyles();
+hashedFileMapping.save();
 
 // cache of SSR pages for known bots, only enabled in production mode
 let botCache: LRU<string, any>;
@@ -261,7 +266,7 @@ function ngApp(req, res) {
  */
 function serverSideRender(req, res, sendToUser: boolean = true) {
   // Render the page via SSR (server side rendering)
-  res.render(indexHtml, {
+  res.render(hashedFileMapping.resolve(indexHtml), {
     req,
     res,
     preboot: environment.universal.preboot,
@@ -308,7 +313,7 @@ function serverSideRender(req, res, sendToUser: boolean = true) {
  * @param res current response
  */
 function clientSideRender(req, res) {
-  res.sendFile(indexHtml);
+  res.sendFile(hashedFileMapping.resolve(indexHtml));
 }
 
 
@@ -535,7 +540,7 @@ function serverStarted() {
  * Create an HTTPS server with the configured port and host
  * @param keys SSL credentials
  */
-function createHttpsServer(keys) {
+function createHttpsServer(prefetchRefreshTimeout: NodeJS.Timeout, keys) {
   const listener = createServer({
     key: keys.serviceKey,
     cert: keys.certificate
@@ -546,18 +551,21 @@ function createHttpsServer(keys) {
   // Graceful shutdown when signalled
   const terminator = createHttpTerminator({server: listener});
   process.on('SIGINT', () => {
-      void (async ()=> {
-        console.debug('Closing HTTPS server on signal');
-        await terminator.terminate().catch(e => { console.error(e); });
-        console.debug('HTTPS server closed');
-      })();
+    void (async () => {
+      console.debug('Closing HTTPS server on signal');
+      clearTimeout(prefetchRefreshTimeout);
+      await terminator.terminate().catch(e => {
+        console.error(e);
       });
+      console.debug('HTTPS server closed');
+    })();
+  });
 }
 
 /**
  * Create an HTTP server with the configured port and host.
  */
-function run() {
+function run(prefetchRefreshTimeout: NodeJS.Timeout) {
   const port = environment.ui.port || 4000;
   const host = environment.ui.host || '/';
 
@@ -570,15 +578,18 @@ function run() {
   // Graceful shutdown when signalled
   const terminator = createHttpTerminator({server: listener});
   process.on('SIGINT', () => {
-      void (async () => {
-        console.debug('Closing HTTP server on signal');
-        await terminator.terminate().catch(e => { console.error(e); });
-        console.debug('HTTP server closed.');return undefined;
-        })();
+    void (async () => {
+      console.debug('Closing HTTP server on signal');
+      clearTimeout(prefetchRefreshTimeout);
+      await terminator.terminate().catch(e => {
+        console.error(e);
       });
+      console.debug('HTTP server closed.');
+    })();
+  });
 }
 
-function start() {
+function start(prefetchRefreshTimeout: NodeJS.Timeout) {
   logStartupMessage(environment);
 
   /*
@@ -604,10 +615,11 @@ function start() {
     }
 
     if (serviceKey && certificate) {
-      createHttpsServer({
-        serviceKey: serviceKey,
-        certificate: certificate
-      });
+      createHttpsServer(prefetchRefreshTimeout,
+        {
+          serviceKey: serviceKey,
+          certificate: certificate
+        });
     } else {
       console.warn('Disabling certificate validation and proceeding with a self-signed certificate. If this is a production server, it is recommended that you configure a valid certificate instead.');
 
@@ -617,11 +629,11 @@ function start() {
         days: 1,
         selfSigned: true
       }, (error, keys) => {
-        createHttpsServer(keys);
+        createHttpsServer(prefetchRefreshTimeout, keys);
       });
     }
   } else {
-    run();
+    run(prefetchRefreshTimeout);
   }
 }
 
@@ -646,8 +658,12 @@ function healthCheck(req, res) {
 declare const __non_webpack_require__: NodeRequire;
 const mainModule = __non_webpack_require__.main;
 const moduleFilename = (mainModule && mainModule.filename) || '';
-if (moduleFilename === __filename || moduleFilename.includes('iisnode')) {
-  start();
-}
+setupEndpointPrefetching(appConfig, destConfigPath, environment, hashedFileMapping).then(prefetchRefreshTimeout => {
+  if (moduleFilename === __filename || moduleFilename.includes('iisnode')) {
+    start(prefetchRefreshTimeout);
+  }
+}).catch((error) => {
+  console.error('Errored while prefetching Endpoint Maps', error);
+});
 
 export * from './src/main.server';

@@ -31,6 +31,8 @@ import objectContaining = jasmine.objectContaining;
 import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
 import { getTestScheduler } from 'jasmine-marbles';
+import { HrefOnlyDataService } from './core/data/href-only-data.service';
+import { getMockHrefOnlyDataService } from './shared/mocks/href-only-data.service.mock';
 
 let spy: SpyObj<any>;
 
@@ -180,6 +182,7 @@ describe('InitService', () => {
           { provide: ActivatedRoute, useValue: new MockActivatedRoute() },
           { provide: MenuService, useValue: menuServiceSpy },
           { provide: ThemeService, useValue: getMockThemeService() },
+          { provide: HrefOnlyDataService, useValue: getMockHrefOnlyDataService() },
           provideMockStore({ initialState }),
           AppComponent,
           RouteService,
