@@ -11,7 +11,9 @@ import { ExpandableNavbarSectionComponent } from './expandable-navbar-section.co
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [ExpandableNavbarSectionComponent],
+  imports: [
+    ExpandableNavbarSectionComponent,
+  ],
 })
 export class ThemedExpandableNavbarSectionComponent  extends ThemedComponent<ExpandableNavbarSectionComponent> {
   protected getComponentName(): string {

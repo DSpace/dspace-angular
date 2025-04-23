@@ -12,7 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { CookieAttributes } from 'js-cookie';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   filter,
@@ -337,7 +337,7 @@ export class AuthService {
     if (isNotEmpty(status.authMethods)) {
       authMethods = status.authMethods;
     }
-    return observableOf(authMethods);
+    return of(authMethods);
   }
 
   /**
@@ -656,7 +656,7 @@ export class AuthService {
    */
   getShortlivedToken(): Observable<string> {
     return this.isAuthenticated().pipe(
-      switchMap((authenticated) => authenticated ? this.authRequestService.getShortlivedToken() : observableOf(null)),
+      switchMap((authenticated) => authenticated ? this.authRequestService.getShortlivedToken() : of(null)),
     );
   }
 

@@ -71,10 +71,10 @@ import { notifyPatterns } from '../ldn-services-patterns/ldn-service-coar-patter
     ]),
   ],
   imports: [
+    AsyncPipe,
+    NgbDropdownModule,
     ReactiveFormsModule,
     TranslateModule,
-    NgbDropdownModule,
-    AsyncPipe,
   ],
 })
 export class LdnServiceFormComponent implements OnInit, OnDestroy {

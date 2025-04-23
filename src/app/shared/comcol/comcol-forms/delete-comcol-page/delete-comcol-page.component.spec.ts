@@ -15,7 +15,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { ComColDataService } from '../../../../core/data/comcol-data.service';
 import { CommunityDataService } from '../../../../core/data/community-data.service';
@@ -87,7 +87,7 @@ describe('DeleteComColPageComponent', () => {
     };
 
     routeStub = {
-      data: observableOf(community),
+      data: of(community),
     };
 
     translateServiceStub = jasmine.createSpyObj('TranslateService', {

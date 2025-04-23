@@ -11,7 +11,7 @@ import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { AuthorizationDataService } from '../../../../core/data/feature-authorization/authorization-data.service';
 import { ScriptDataService } from '../../../../core/data/processes/script-data.service';
@@ -59,7 +59,7 @@ describe('FilteredItemsExportCsvComponent', () => {
       invoke: createSuccessfulRemoteDataObject$(process),
     });
     authorizationDataService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true),
+      isAuthorized: of(true),
     });
 
     notificationsService = new NotificationsServiceStub();
@@ -110,7 +110,7 @@ describe('FilteredItemsExportCsvComponent', () => {
     describe('when the user is not an admin', () => {
       beforeEach(waitForAsync(() => {
         initBeforeEachAsync();
-        (authorizationDataService.isAuthorized as jasmine.Spy).and.returnValue(observableOf(false));
+        (authorizationDataService.isAuthorized as jasmine.Spy).and.returnValue(of(false));
       }));
       beforeEach(() => {
         initBeforeEach();

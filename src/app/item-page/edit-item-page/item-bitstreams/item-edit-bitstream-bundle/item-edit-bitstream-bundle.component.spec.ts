@@ -10,7 +10,6 @@ import {
 } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import {
-  of as observableOf,
   of,
   Subject,
 } from 'rxjs';
@@ -66,7 +65,7 @@ describe('ItemEditBitstreamBundleComponent', () => {
 
   const restEndpoint = 'fake-rest-endpoint';
   const bundleService = jasmine.createSpyObj('bundleService', {
-    getBitstreamsEndpoint: observableOf(restEndpoint),
+    getBitstreamsEndpoint: of(restEndpoint),
     getBitstreams: createSuccessfulRemoteDataObject$(createPaginatedList([])),
   });
 

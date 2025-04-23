@@ -14,7 +14,7 @@ import {
   getTestScheduler,
   hot,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
 
@@ -151,7 +151,7 @@ describe('RouteService', () => {
 
   describe('getHistory', () => {
     it('should dispatch AddUrlToHistoryAction on NavigationEnd event', () => {
-      serviceAsAny.store = observableOf({
+      serviceAsAny.store = of({
         core: {
           history: ['url', 'newurl'],
         },
@@ -165,7 +165,7 @@ describe('RouteService', () => {
 
   describe('getCurrentUrl', () => {
     it('should return an observable with the current url', () => {
-      serviceAsAny.store = observableOf({
+      serviceAsAny.store = of({
         core: {
           history: ['url', 'newurl'],
         },
@@ -179,7 +179,7 @@ describe('RouteService', () => {
 
   describe('getCurrentUrl', () => {
     it('should return an observable with the previous url', () => {
-      serviceAsAny.store = observableOf({
+      serviceAsAny.store = of({
         core: {
           history: ['url', 'newurl'],
         },

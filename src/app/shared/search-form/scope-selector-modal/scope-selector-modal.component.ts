@@ -32,7 +32,10 @@ import {
   styleUrls: ['./scope-selector-modal.component.scss'],
   templateUrl: './scope-selector-modal.component.html',
   standalone: true,
-  imports: [DSOSelectorComponent, TranslateModule],
+  imports: [
+    DSOSelectorComponent,
+    TranslateModule,
+  ],
 })
 export class ScopeSelectorModalComponent extends DSOSelectorModalWrapperComponent implements OnInit {
 

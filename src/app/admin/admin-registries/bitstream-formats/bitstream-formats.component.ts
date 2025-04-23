@@ -38,9 +38,9 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
   templateUrl: './bitstream-formats.component.html',
   imports: [
     AsyncPipe,
+    PaginationComponent,
     RouterLink,
     TranslateModule,
-    PaginationComponent,
   ],
   standalone: true,
 })

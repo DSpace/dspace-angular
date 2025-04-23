@@ -37,13 +37,13 @@ import { ChipsItem } from './models/chips-item.model';
   styleUrls: ['./chips.component.scss'],
   templateUrl: './chips.component.html',
   imports: [
-    NgbTooltipModule,
-    NgClass,
     AsyncPipe,
     AuthorityConfidenceStateDirective,
-    TranslateModule,
     CdkDrag,
     CdkDropList,
+    NgbTooltipModule,
+    NgClass,
+    TranslateModule,
   ],
   standalone: true,
 })

@@ -1,6 +1,6 @@
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { CacheableObject } from '../../core/cache/cacheable-object.model';
@@ -18,7 +18,7 @@ export abstract class BaseDataServiceStub<T extends CacheableObject> {
   }
 
   invalidateByHref(_href: string): Observable<boolean> {
-    return observableOf(true);
+    return of(true);
   }
 
 }

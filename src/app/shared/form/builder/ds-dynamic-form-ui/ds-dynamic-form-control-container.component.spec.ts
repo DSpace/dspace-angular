@@ -55,7 +55,7 @@ import {
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxMaskModule } from 'ngx-mask';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import {
   APP_CONFIG,
@@ -207,7 +207,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
   let testElement: DebugElement;
   const testItem: Item = new Item();
   const testWSI: WorkspaceItem = new WorkspaceItem();
-  testWSI.item = observableOf(createSuccessfulRemoteDataObject(testItem));
+  testWSI.item = of(createSuccessfulRemoteDataObject(testItem));
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
@@ -234,7 +234,7 @@ describe('DsDynamicFormControlContainerComponent test suite', () => {
         {
           provide: SubmissionObjectDataService,
           useValue: {
-            findById: () => observableOf(createSuccessfulRemoteDataObject(testWSI)),
+            findById: () => of(createSuccessfulRemoteDataObject(testWSI)),
           },
         },
         { provide: APP_CONFIG, useValue: environment },

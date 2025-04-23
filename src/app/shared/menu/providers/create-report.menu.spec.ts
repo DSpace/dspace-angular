@@ -7,7 +7,7 @@
  */
 
 import { TestBed } from '@angular/core/testing';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
@@ -60,9 +60,9 @@ describe('CreateReportMenuProvider', () => {
   beforeEach(() => {
     spyOn(authorizationServiceStub, 'isAuthorized').and.callFake((id: FeatureID) => {
       if (id === FeatureID.AdministratorOf) {
-        return observableOf(true);
+        return of(true);
       } else {
-        return observableOf(false);
+        return of(false);
       }
     });
 

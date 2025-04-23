@@ -22,9 +22,9 @@ import { languageHelper } from './language-helper';
   templateUrl: './media-viewer-video.component.html',
   styleUrls: ['./media-viewer-video.component.scss'],
   imports: [
+    BtnDisabledDirective,
     NgbDropdownModule,
     TranslateModule,
-    BtnDisabledDirective,
   ],
   standalone: true,
 })

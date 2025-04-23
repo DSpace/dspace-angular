@@ -1,7 +1,7 @@
 import { Params } from '@angular/router';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import {
@@ -18,19 +18,19 @@ import { SearchFilterConfig } from '../search/models/search-filter-config.model'
 export class SearchFilterServiceStub {
 
   isFilterActiveWithValue(_paramName: string, _filterValue: string): Observable<boolean> {
-    return observableOf(true);
+    return of(true);
   }
 
   isFilterActive(_paramName: string): Observable<boolean> {
-    return observableOf(true);
+    return of(true);
   }
 
   getCurrentScope(): Observable<string> {
-    return observableOf(undefined);
+    return of(undefined);
   }
 
   getCurrentQuery(): Observable<string> {
-    return observableOf(undefined);
+    return of(undefined);
   }
 
   getCurrentPagination(_pagination: any = {}): Observable<PaginationComponentOptions> {
@@ -38,23 +38,23 @@ export class SearchFilterServiceStub {
   }
 
   getCurrentSort(_defaultSort: SortOptions): Observable<SortOptions> {
-    return observableOf(new SortOptions('', SortDirection.ASC));
+    return of(new SortOptions('', SortDirection.ASC));
   }
 
   getCurrentFilters(): Observable<Params> {
-    return observableOf({});
+    return of({});
   }
 
   getCurrentView(): Observable<string> {
-    return observableOf(undefined);
+    return of(undefined);
   }
 
   isCollapsed(_filterName: string): Observable<boolean> {
-    return observableOf(true);
+    return of(true);
   }
 
   getPage(_filterName: string): Observable<number> {
-    return observableOf(1);
+    return of(1);
   }
 
   collapse(_filterName: string): void {

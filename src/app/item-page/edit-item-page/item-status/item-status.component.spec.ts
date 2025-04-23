@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
@@ -61,7 +61,7 @@ describe('ItemStatusComponent', () => {
 
   const routeStub = {
     parent: {
-      data: observableOf({ dso: createSuccessfulRemoteDataObject(mockItem) }),
+      data: of({ dso: createSuccessfulRemoteDataObject(mockItem) }),
     },
   };
 
@@ -70,11 +70,11 @@ describe('ItemStatusComponent', () => {
 
   beforeEach(waitForAsync(() => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true),
+      isAuthorized: of(true),
     });
 
     orcidAuthService = jasmine.createSpyObj('OrcidAuthService', {
-      onlyAdminCanDisconnectProfileFromOrcid: observableOf ( true ),
+      onlyAdminCanDisconnectProfileFromOrcid: of ( true ),
       isLinkedToOrcid: true,
     });
 

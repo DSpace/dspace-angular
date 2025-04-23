@@ -29,7 +29,12 @@ import { WorkflowItemActionPageDirective } from '../workflow-item-action-page.co
   selector: 'ds-base-workflow-item-delete',
   templateUrl: '../workflow-item-action-page.component.html',
   standalone: true,
-  imports: [VarDirective, TranslateModule, CommonModule, ModifyItemOverviewComponent],
+  imports: [
+    CommonModule,
+    ModifyItemOverviewComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 /**
  * Component representing a page to delete a workflow item

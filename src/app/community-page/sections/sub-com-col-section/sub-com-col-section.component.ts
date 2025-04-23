@@ -20,9 +20,9 @@ import { ThemedCommunityPageSubCommunityListComponent } from './sub-community-li
   templateUrl: './sub-com-col-section.component.html',
   styleUrls: ['./sub-com-col-section.component.scss'],
   imports: [
-    ThemedCommunityPageSubCommunityListComponent,
-    ThemedCollectionPageSubCollectionListComponent,
     AsyncPipe,
+    ThemedCollectionPageSubCollectionListComponent,
+    ThemedCommunityPageSubCommunityListComponent,
   ],
   standalone: true,
 })

@@ -1,4 +1,4 @@
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
@@ -38,7 +38,7 @@ describe('MetadataFieldDataService', () => {
     requestService = jasmine.createSpyObj('requestService', {
       generateRequestId: '34cfed7c-f597-49ef-9cbe-ea351f0023c2',
       send: {},
-      getByUUID: observableOf({ response: new RestResponse(true, 200, 'OK') }),
+      getByUUID: of({ response: new RestResponse(true, 200, 'OK') }),
       setStaleByHrefSubstring: {},
     });
     halService = Object.assign(new HALEndpointServiceStub(endpoint));
@@ -82,7 +82,7 @@ describe('MetadataFieldDataService', () => {
 
   describe('clearRequests', () => {
     it('should remove requests on the data service\'s endpoint', () => {
-      spyOn(metadataFieldService, 'getBrowseEndpoint').and.returnValue(observableOf(endpoint));
+      spyOn(metadataFieldService, 'getBrowseEndpoint').and.returnValue(of(endpoint));
       metadataFieldService.clearRequests();
       expect(requestService.setStaleByHrefSubstring).toHaveBeenCalledWith(endpoint);
     });

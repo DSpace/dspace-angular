@@ -402,10 +402,10 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
   template: ``,
   standalone: true,
   imports: [
-    SubmissionSectionUploadFileEditComponent,
-    FormsModule,
     FormComponent,
+    FormsModule,
     ReactiveFormsModule,
+    SubmissionSectionUploadFileEditComponent,
   ],
 })
 class TestComponent {

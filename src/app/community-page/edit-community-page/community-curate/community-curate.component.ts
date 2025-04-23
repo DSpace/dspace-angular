@@ -25,9 +25,9 @@ import { hasValue } from '../../../shared/empty.util';
   selector: 'ds-community-curate',
   templateUrl: './community-curate.component.html',
   imports: [
+    AsyncPipe,
     CurationFormComponent,
     TranslateModule,
-    AsyncPipe,
   ],
   standalone: true,
 })

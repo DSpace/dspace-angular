@@ -13,7 +13,12 @@ import { ThemedTypeBadgeComponent } from '../../../../../../../app/shared/object
   // templateUrl: './badges.component.html',
   templateUrl: '../../../../../../../app/shared/object-collection/shared/badges/badges.component.html',
   standalone: true,
-  imports: [ThemedStatusBadgeComponent, ThemedMyDSpaceStatusBadgeComponent, ThemedTypeBadgeComponent, ThemedAccessStatusBadgeComponent],
+  imports: [
+    ThemedAccessStatusBadgeComponent,
+    ThemedMyDSpaceStatusBadgeComponent,
+    ThemedStatusBadgeComponent,
+    ThemedTypeBadgeComponent,
+  ],
 })
 export class BadgesComponent extends BaseComponent {
 }

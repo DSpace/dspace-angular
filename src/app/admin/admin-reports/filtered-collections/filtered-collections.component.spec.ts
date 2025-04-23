@@ -18,7 +18,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { DspaceRestService } from 'src/app/core/dspace-rest/dspace-rest.service';
 import { RawRestResponse } from 'src/app/core/dspace-rest/raw-rest-response.model';
 import { TranslateLoaderMock } from 'src/app/shared/mocks/translate-loader.mock';
@@ -80,7 +80,7 @@ describe('FiltersComponent', () => {
 
   describe('toggle', () => {
     beforeEach(() => {
-      spyOn(component, 'getFilteredCollections').and.returnValue(observableOf(expected));
+      spyOn(component, 'getFilteredCollections').and.returnValue(of(expected));
       spyOn(component.results, 'deserialize');
       spyOn(component.accordionComponent, 'expand').and.callThrough();
       component.submit();

@@ -2,7 +2,7 @@ import {
   cold,
   hot,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { environment } from '../../environments/environment.test';
 import {
@@ -42,10 +42,10 @@ describe('MyDSpaceConfigurationService', () => {
   ];
 
   const spy = jasmine.createSpyObj('RouteService', {
-    getQueryParameterValue: observableOf(value1),
-    getQueryParamsWithPrefix: observableOf(prefixFilter),
-    getRouteParameterValue: observableOf(''),
-    getRouteDataValue: observableOf({}),
+    getQueryParameterValue: of(value1),
+    getQueryParamsWithPrefix: of(prefixFilter),
+    getRouteParameterValue: of(''),
+    getRouteDataValue: of({}),
   });
 
   const paginationService = new PaginationServiceStub();

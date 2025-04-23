@@ -18,7 +18,7 @@ import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import {
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 
@@ -95,7 +95,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
     searchResult1 = Object.assign(new ItemSearchResult(), { indexableObject: item1 });
     searchResult2 = Object.assign(new ItemSearchResult(), { indexableObject: item2 });
     listID = '6b0c8221-fcb4-47a8-b483-ca32363fffb3';
-    selection$ = observableOf([searchResult1, searchResult2]);
+    selection$ = of([searchResult1, searchResult2]);
     selectableListService = { getSelectableList: () => selection$ };
     relationship = Object.assign(new RelationshipOptions(), {
       filter: 'filter',
@@ -112,8 +112,8 @@ describe('DsDynamicLookupRelationModalComponent', () => {
       findById: createSuccessfulRemoteDataObject$(externalSources[0]),
     });
     lookupRelationService = jasmine.createSpyObj('lookupRelationService', {
-      getTotalLocalResults: observableOf(totalLocal),
-      getTotalExternalResults: observableOf(totalExternal),
+      getTotalLocalResults: of(totalLocal),
+      getTotalExternalResults: of(totalExternal),
     });
     rdbService = jasmine.createSpyObj('rdbService', {
       aggregate: createSuccessfulRemoteDataObject$(externalSources),
@@ -128,7 +128,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
       providers: [
         {
           provide: SearchConfigurationService, useValue: {
-            paginatedSearchOptions: observableOf(pSearchOptions),
+            paginatedSearchOptions: of(pSearchOptions),
           },
         },
         { provide: ExternalSourceDataService, useValue: externalSourceService },
@@ -137,7 +137,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
           provide: SelectableListService, useValue: selectableListService,
         },
         {
-          provide: RelationshipDataService, useValue: { getNameVariant: () => observableOf(nameVariant) },
+          provide: RelationshipDataService, useValue: { getNameVariant: () => of(nameVariant) },
         },
         { provide: RemoteDataBuildService, useValue: rdbService },
         {
@@ -168,7 +168,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
     component.metadataFields = metadataField;
     component.submissionId = submissionId;
     component.isEditRelationship = true;
-    component.currentItemIsLeftItem$ = observableOf(true);
+    component.currentItemIsLeftItem$ = of(true);
     component.toAdd = [];
     component.toRemove = [];
     fixture.detectChanges();

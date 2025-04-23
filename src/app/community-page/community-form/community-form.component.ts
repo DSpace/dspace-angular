@@ -40,11 +40,11 @@ import { VarDirective } from '../../shared/utils/var.directive';
   templateUrl: '../../shared/comcol/comcol-forms/comcol-form/comcol-form.component.html',
   standalone: true,
   imports: [
+    AsyncPipe,
+    ComcolPageLogoComponent,
     FormComponent,
     TranslateModule,
     UploaderComponent,
-    AsyncPipe,
-    ComcolPageLogoComponent,
     VarDirective,
   ],
 })

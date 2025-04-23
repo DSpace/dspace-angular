@@ -35,11 +35,11 @@ import { BrowserOnlyPipe } from '../../shared/utils/browser-only.pipe';
   styleUrls: ['./forgot-password-form.component.scss'],
   templateUrl: './forgot-password-form.component.html',
   imports: [
-    TranslateModule,
-    BrowserOnlyPipe,
-    ProfilePageSecurityFormComponent,
     AsyncPipe,
+    BrowserOnlyPipe,
     BtnDisabledDirective,
+    ProfilePageSecurityFormComponent,
+    TranslateModule,
   ],
   standalone: true,
 })

@@ -3,7 +3,7 @@ import { Injector } from '@angular/core';
 import {
   combineLatest,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   map,
@@ -32,7 +32,7 @@ export class Theme {
   }
 
   matches(url: string, dso: DSpaceObject): Observable<boolean> {
-    return observableOf(true);
+    return of(true);
   }
 }
 
@@ -56,7 +56,7 @@ export class RegExTheme extends Theme {
       match = url.match(this.regex);
     }
 
-    return observableOf(hasValue(match));
+    return of(hasValue(match));
   }
 }
 
@@ -80,7 +80,7 @@ export class HandleTheme extends Theme {
         take(1),
       );
     } else {
-      return observableOf(false);
+      return of(false);
     }
   }
 }
@@ -91,7 +91,7 @@ export class UUIDTheme extends Theme {
   }
 
   matches(url: string, dso: DSpaceObject): Observable<boolean> {
-    return observableOf(hasValue(dso) && dso.uuid === this.config.uuid);
+    return of(hasValue(dso) && dso.uuid === this.config.uuid);
   }
 }
 

@@ -37,7 +37,13 @@ import { PaginationComponentOptions } from '../pagination/pagination-component-o
   templateUrl: './object-detail.component.html',
   animations: [fadeIn],
   standalone: true,
-  imports: [PaginationComponent, ListableObjectComponentLoaderComponent, ErrorComponent, ThemedLoadingComponent, TranslateModule],
+  imports: [
+    ErrorComponent,
+    ListableObjectComponentLoaderComponent,
+    PaginationComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 export class ObjectDetailComponent {
   /**

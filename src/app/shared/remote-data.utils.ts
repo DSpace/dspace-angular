@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { environment } from '../../environments/environment';
@@ -36,7 +36,7 @@ export function createSuccessfulRemoteDataObject<T>(object: T, timeCompleted = F
  * @param timeCompleted the moment when the remoteData was completed
  */
 export function createSuccessfulRemoteDataObject$<T>(object: T, timeCompleted?: number): Observable<RemoteData<T>> {
-  return observableOf(createSuccessfulRemoteDataObject(object, timeCompleted));
+  return of(createSuccessfulRemoteDataObject(object, timeCompleted));
 }
 
 /**
@@ -66,7 +66,7 @@ export function createFailedRemoteDataObject<T>(errorMessage?: string, statusCod
  * @param timeCompleted the moment when the remoteData was completed
  */
 export function createFailedRemoteDataObject$<T>(errorMessage?: string, statusCode?: number, timeCompleted?: number): Observable<RemoteData<T>> {
-  return observableOf(createFailedRemoteDataObject<T>(errorMessage, statusCode, timeCompleted));
+  return of(createFailedRemoteDataObject<T>(errorMessage, statusCode, timeCompleted));
 }
 
 /**
@@ -90,7 +90,7 @@ export function createPendingRemoteDataObject<T>(lastVerified = FIXED_TIMESTAMP)
  * @param lastVerified the moment when the remoteData was last verified
  */
 export function createPendingRemoteDataObject$<T>(lastVerified?: number): Observable<RemoteData<T>> {
-  return observableOf(createPendingRemoteDataObject<T>(lastVerified));
+  return of(createPendingRemoteDataObject<T>(lastVerified));
 }
 
 /**
@@ -130,5 +130,5 @@ export function createFailedRemoteDataObjectFromError<T>(error: unknown): Remote
  * @param error
  */
 export function createFailedRemoteDataObjectFromError$<T>(error: unknown): Observable<RemoteData<T>> {
-  return observableOf(createFailedRemoteDataObjectFromError<T>(error));
+  return of(createFailedRemoteDataObjectFromError<T>(error));
 }

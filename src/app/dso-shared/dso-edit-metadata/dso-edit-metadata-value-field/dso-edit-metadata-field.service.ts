@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
@@ -50,7 +50,7 @@ export class DsoEditMetadataFieldService {
         )),
       );
     } else {
-      return observableOf(undefined);
+      return of(undefined);
     }
   }
 }

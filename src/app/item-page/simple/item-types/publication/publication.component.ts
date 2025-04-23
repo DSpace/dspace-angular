@@ -37,7 +37,27 @@ import { ItemComponent } from '../shared/item.component';
   templateUrl: './publication.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [ThemedResultsBackButtonComponent, MiradorViewerComponent, ThemedItemPageTitleFieldComponent, DsoEditMenuComponent, MetadataFieldWrapperComponent, ThemedThumbnailComponent, ThemedMediaViewerComponent, ThemedFileSectionComponent, ItemPageDateFieldComponent, ThemedMetadataRepresentationListComponent, GenericItemPageFieldComponent, RelatedItemsComponent, ItemPageAbstractFieldComponent, ItemPageUriFieldComponent, CollectionsComponent, RouterLink, AsyncPipe, TranslateModule, GeospatialItemPageFieldComponent],
+  imports: [
+    AsyncPipe,
+    CollectionsComponent,
+    DsoEditMenuComponent,
+    GenericItemPageFieldComponent,
+    GeospatialItemPageFieldComponent,
+    ItemPageAbstractFieldComponent,
+    ItemPageDateFieldComponent,
+    ItemPageUriFieldComponent,
+    MetadataFieldWrapperComponent,
+    MiradorViewerComponent,
+    RelatedItemsComponent,
+    RouterLink,
+    ThemedFileSectionComponent,
+    ThemedItemPageTitleFieldComponent,
+    ThemedMediaViewerComponent,
+    ThemedMetadataRepresentationListComponent,
+    ThemedResultsBackButtonComponent,
+    ThemedThumbnailComponent,
+    TranslateModule,
+  ],
 })
 export class PublicationComponent extends ItemComponent {
 

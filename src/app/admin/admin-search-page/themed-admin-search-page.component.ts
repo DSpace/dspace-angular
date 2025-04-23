@@ -10,7 +10,9 @@ import { AdminSearchPageComponent } from './admin-search-page.component';
   selector: 'ds-admin-search-page',
   templateUrl: '../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [AdminSearchPageComponent],
+  imports: [
+    AdminSearchPageComponent,
+  ],
 })
 export class ThemedAdminSearchPageComponent extends ThemedComponent<AdminSearchPageComponent> {
 

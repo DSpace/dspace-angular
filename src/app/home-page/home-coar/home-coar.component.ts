@@ -7,7 +7,7 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import {
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -46,7 +46,7 @@ export class HomeCoarComponent implements OnInit, OnDestroy {
     // Get COAR REST API URLs from REST configuration
     // only if COAR configuration is enabled
     this.subs.push(this.notifyInfoService.isCoarConfigEnabled().pipe(
-      switchMap((coarLdnEnabled: boolean) => coarLdnEnabled ? this.notifyInfoService.getCoarLdnLocalInboxUrls() : observableOf([])),
+      switchMap((coarLdnEnabled: boolean) => coarLdnEnabled ? this.notifyInfoService.getCoarLdnLocalInboxUrls() : of([])),
     ).subscribe((coarRestApiUrls: string[]) => {
       if (coarRestApiUrls.length > 0) {
         this.initPageLinks(coarRestApiUrls);

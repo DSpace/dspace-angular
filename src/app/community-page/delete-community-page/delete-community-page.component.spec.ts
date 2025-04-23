@@ -8,7 +8,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { CommunityDataService } from '../../core/data/community-data.service';
@@ -27,7 +27,7 @@ describe('DeleteCommunityPageComponent', () => {
       providers: [
         { provide: DSONameService, useValue: new DSONameServiceMock() },
         { provide: CommunityDataService, useValue: {} },
-        { provide: ActivatedRoute, useValue: { data: observableOf({ dso: { payload: {} } }) } },
+        { provide: ActivatedRoute, useValue: { data: of({ dso: { payload: {} } }) } },
         { provide: NotificationsService, useValue: {} },
         { provide: RequestService, useValue: {} },
       ],

@@ -16,15 +16,11 @@ import { VarDirective } from '../../../../../../../app/shared/utils/var.directiv
   templateUrl: '../../../../../../../app/community-page/sections/sub-com-col-section/sub-community-list/community-page-sub-community-list.component.html',
   standalone: true,
   imports: [
-    ErrorComponent,
-    ThemedLoadingComponent,
-    VarDirective,
-    ObjectCollectionComponent,
     AsyncPipe,
-    TranslateModule,
-    ObjectCollectionComponent,
     ErrorComponent,
+    ObjectCollectionComponent,
     ThemedLoadingComponent,
+    TranslateModule,
     VarDirective,
   ],
 })

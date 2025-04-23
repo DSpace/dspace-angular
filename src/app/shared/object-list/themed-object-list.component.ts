@@ -26,7 +26,9 @@ import { ObjectListComponent } from './object-list.component';
   styleUrls: [],
   templateUrl: '../theme-support/themed.component.html',
   standalone: true,
-  imports: [ObjectListComponent],
+  imports: [
+    ObjectListComponent,
+  ],
 })
 export class ThemedObjectListComponent extends ThemedComponent<ObjectListComponent> {
 

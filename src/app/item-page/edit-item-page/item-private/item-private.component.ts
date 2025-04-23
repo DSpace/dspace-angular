@@ -23,8 +23,8 @@ import { AbstractSimpleItemActionComponent } from '../simple-item-action/abstrac
   standalone: true,
   imports: [
     ModifyItemOverviewComponent,
-    TranslateModule,
     RouterLink,
+    TranslateModule,
   ],
 })
 /**

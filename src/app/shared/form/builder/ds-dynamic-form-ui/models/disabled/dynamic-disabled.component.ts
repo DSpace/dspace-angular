@@ -22,8 +22,8 @@ import { DynamicDisabledModel } from './dynamic-disabled.model';
   selector: 'ds-dynamic-disabled',
   templateUrl: './dynamic-disabled.component.html',
   imports: [
-    TranslateModule,
     BtnDisabledDirective,
+    TranslateModule,
   ],
   standalone: true,
 })

@@ -1,5 +1,5 @@
 import { CanActivateFn } from '@angular/router';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { dsoPageSomeFeatureGuard } from '../../core/data/feature-authorization/feature-authorization-guard/dso-page-some-feature.guard';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
@@ -13,5 +13,5 @@ import { itemPageResolver } from '../item-page.resolver';
 export const itemPageStatusGuard: CanActivateFn =
   dsoPageSomeFeatureGuard(
     () => itemPageResolver,
-    () => observableOf([FeatureID.CanManageMappings, FeatureID.WithdrawItem, FeatureID.ReinstateItem, FeatureID.CanManagePolicies, FeatureID.CanMakePrivate, FeatureID.CanDelete, FeatureID.CanMove, FeatureID.CanRegisterDOI]),
+    () => of([FeatureID.CanManageMappings, FeatureID.WithdrawItem, FeatureID.ReinstateItem, FeatureID.CanManagePolicies, FeatureID.CanMakePrivate, FeatureID.CanDelete, FeatureID.CanMove, FeatureID.CanRegisterDOI]),
   );

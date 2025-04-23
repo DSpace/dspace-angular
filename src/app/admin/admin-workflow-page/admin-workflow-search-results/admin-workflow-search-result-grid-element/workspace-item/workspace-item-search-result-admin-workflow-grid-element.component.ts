@@ -56,7 +56,12 @@ import { WorkspaceItemAdminWorkflowActionsComponent } from '../../actions/worksp
   styleUrls: ['./workspace-item-search-result-admin-workflow-grid-element.component.scss'],
   templateUrl: './workspace-item-search-result-admin-workflow-grid-element.component.html',
   standalone: true,
-  imports: [WorkspaceItemAdminWorkflowActionsComponent, AsyncPipe, TranslateModule, DynamicComponentLoaderDirective],
+  imports: [
+    AsyncPipe,
+    DynamicComponentLoaderDirective,
+    TranslateModule,
+    WorkspaceItemAdminWorkflowActionsComponent,
+  ],
 })
 /**
  * The component for displaying a grid element for an workflow item on the admin workflow search page

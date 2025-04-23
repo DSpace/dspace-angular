@@ -12,7 +12,7 @@ import {
 } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 import { AuthService } from '../../../core/auth/auth.service';
@@ -57,8 +57,8 @@ describe('CollectionMetadataComponent', () => {
   const itemTemplateServiceStub = jasmine.createSpyObj('itemTemplateService', {
     findByCollectionID: createSuccessfulRemoteDataObject$(template),
     createByCollectionID: createSuccessfulRemoteDataObject$(template),
-    delete: observableOf(true),
-    getCollectionEndpoint: observableOf(collectionTemplateHref),
+    delete: of(true),
+    getCollectionEndpoint: of(collectionTemplateHref),
   });
 
   const notificationsService = jasmine.createSpyObj('notificationsService', {
@@ -70,7 +70,7 @@ describe('CollectionMetadataComponent', () => {
   });
 
   const routerMock = {
-    events: observableOf(new NavigationEnd(1, 'url', 'url')),
+    events: of(new NavigationEnd(1, 'url', 'url')),
     navigate: jasmine.createSpy('navigate'),
   };
 
@@ -80,7 +80,7 @@ describe('CollectionMetadataComponent', () => {
       providers: [
         { provide: CollectionDataService, useValue: {} },
         { provide: ItemTemplateDataService, useValue: itemTemplateServiceStub },
-        { provide: ActivatedRoute, useValue: { parent: { data: observableOf({ dso: createSuccessfulRemoteDataObject(collection) }) } } },
+        { provide: ActivatedRoute, useValue: { parent: { data: of({ dso: createSuccessfulRemoteDataObject(collection) }) } } },
         { provide: NotificationsService, useValue: notificationsService },
         { provide: RequestService, useValue: requestService },
         { provide: Router, useValue: routerMock },
@@ -100,7 +100,7 @@ describe('CollectionMetadataComponent', () => {
     spyOn(comp, 'ngOnInit');
     spyOn(comp, 'initTemplateItem');
 
-    routerMock.events = observableOf(new NavigationEnd(1, 'url', 'url'));
+    routerMock.events = of(new NavigationEnd(1, 'url', 'url'));
     fixture.detectChanges();
   });
 

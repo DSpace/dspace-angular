@@ -12,7 +12,7 @@ import {
   combineLatest,
   map,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
@@ -37,7 +37,7 @@ export class EditMenuProvider extends AbstractExpandableMenuProvider {
   }
 
   public getTopSection(): Observable<PartialMenuSection> {
-    return observableOf(
+    return of(
       {
         accessibilityHandle: 'edit',
         model: {

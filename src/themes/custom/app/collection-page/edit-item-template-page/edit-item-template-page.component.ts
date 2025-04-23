@@ -16,17 +16,14 @@ import { VarDirective } from '../../../../../app/shared/utils/var.directive';
   templateUrl: '../../../../../app/collection-page/edit-item-template-page/edit-item-template-page.component.html',
   standalone: true,
   imports: [
-    ThemedDsoEditMetadataComponent,
-    RouterLink,
-    AsyncPipe,
-    VarDirective,
-    TranslateModule,
-    ThemedLoadingComponent,
     AlertComponent,
+    AsyncPipe,
+    RouterLink,
+    ThemedDsoEditMetadataComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
   ],
 })
-/**
- * Component for editing the item template of a collection
- */
 export class EditItemTemplatePageComponent extends BaseComponent {
 }

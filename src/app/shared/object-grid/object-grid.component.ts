@@ -54,7 +54,15 @@ import { BrowserOnlyPipe } from '../utils/browser-only.pipe';
   templateUrl: './object-grid.component.html',
   animations: [fadeIn],
   standalone: true,
-  imports: [PaginationComponent, ListableObjectComponentLoaderComponent, ErrorComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule, BrowserOnlyPipe],
+  imports: [
+    AsyncPipe,
+    BrowserOnlyPipe,
+    ErrorComponent,
+    ListableObjectComponentLoaderComponent,
+    PaginationComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 
 export class ObjectGridComponent implements OnInit {

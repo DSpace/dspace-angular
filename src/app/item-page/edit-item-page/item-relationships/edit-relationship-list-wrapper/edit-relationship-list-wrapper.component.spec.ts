@@ -6,7 +6,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { Item } from '../../../../core/shared/item.model';
 import { ItemType } from '../../../../core/shared/item-relationships/item-type.model';
@@ -42,8 +42,8 @@ describe('EditRelationshipListWrapperComponent', () => {
   beforeEach(waitForAsync(() => {
 
     editItemRelationshipsService = jasmine.createSpyObj('editItemRelationshipsService', {
-      isProvidedItemTypeLeftType: observableOf(true),
-      shouldDisplayBothRelationshipSides: observableOf(false),
+      isProvidedItemTypeLeftType: of(true),
+      shouldDisplayBothRelationshipSides: of(false),
     });
 
 
@@ -99,7 +99,7 @@ describe('EditRelationshipListWrapperComponent', () => {
 
   describe('when the current item is right', () => {
     it('should render one relationship list section', () => {
-      (editItemRelationshipsService.isProvidedItemTypeLeftType as jasmine.Spy).and.returnValue(observableOf(false));
+      (editItemRelationshipsService.isProvidedItemTypeLeftType as jasmine.Spy).and.returnValue(of(false));
       comp.ngOnInit();
       fixture.detectChanges();
 
@@ -110,7 +110,7 @@ describe('EditRelationshipListWrapperComponent', () => {
 
   describe('when the current item is both left and right', () => {
     it('should render two relationship list sections', () => {
-      (editItemRelationshipsService.shouldDisplayBothRelationshipSides as jasmine.Spy).and.returnValue(observableOf(true));
+      (editItemRelationshipsService.shouldDisplayBothRelationshipSides as jasmine.Spy).and.returnValue(of(true));
       comp.ngOnInit();
       fixture.detectChanges();
 

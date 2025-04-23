@@ -9,7 +9,7 @@
 import { TestBed } from '@angular/core/testing';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { MenuID } from '../../menu-id.model';
@@ -46,11 +46,11 @@ describe('AbstractExpandableMenuProvider', () => {
 
   class TestClass extends AbstractExpandableMenuProvider {
     getTopSection(): Observable<PartialMenuSection> {
-      return observableOf(topSection);
+      return of(topSection);
     }
 
     getSubSections(): Observable<PartialMenuSection[]> {
-      return observableOf(subSections);
+      return of(subSections);
     }
 
   }

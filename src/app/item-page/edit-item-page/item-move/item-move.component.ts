@@ -47,13 +47,13 @@ import {
   selector: 'ds-item-move',
   templateUrl: './item-move.component.html',
   imports: [
-    TranslateModule,
-    NgbModule,
-    FormsModule,
-    RouterLink,
     AsyncPipe,
     AuthorizedCollectionSelectorComponent,
     BtnDisabledDirective,
+    FormsModule,
+    NgbModule,
+    RouterLink,
+    TranslateModule,
   ],
   standalone: true,
 })

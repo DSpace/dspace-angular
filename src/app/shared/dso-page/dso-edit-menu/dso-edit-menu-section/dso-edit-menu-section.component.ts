@@ -24,7 +24,12 @@ import { MenuSection } from '../../../menu/menu-section.model';
   templateUrl: './dso-edit-menu-section.component.html',
   styleUrls: ['./dso-edit-menu-section.component.scss'],
   standalone: true,
-  imports: [NgbTooltipModule, RouterLink, TranslateModule, BtnDisabledDirective],
+  imports: [
+    BtnDisabledDirective,
+    NgbTooltipModule,
+    RouterLink,
+    TranslateModule,
+  ],
 })
 export class DsoEditMenuSectionComponent extends AbstractMenuSectionComponent implements OnInit {
 

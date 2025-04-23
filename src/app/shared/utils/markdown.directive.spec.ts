@@ -16,7 +16,9 @@ import { MarkdownDirective } from './markdown.directive';
 @Component({
   template: `<div [dsMarkdown]="'test<script>alert(1);</script>'"></div>`,
   standalone: true,
-  imports: [ MarkdownDirective ],
+  imports: [
+    MarkdownDirective,
+  ],
 })
 class TestComponent {}
 

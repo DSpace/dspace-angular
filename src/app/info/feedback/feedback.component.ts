@@ -7,7 +7,9 @@ import { ThemedFeedbackFormComponent } from './feedback-form/themed-feedback-for
   templateUrl: './feedback.component.html',
   styleUrls: ['./feedback.component.scss'],
   standalone: true,
-  imports: [ThemedFeedbackFormComponent],
+  imports: [
+    ThemedFeedbackFormComponent,
+  ],
 })
 /**
  * Component displaying the Feedback Statement

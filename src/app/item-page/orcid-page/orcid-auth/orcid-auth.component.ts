@@ -39,10 +39,10 @@ import { createFailedRemoteDataObjectFromError$ } from '../../../shared/remote-d
   templateUrl: './orcid-auth.component.html',
   styleUrls: ['./orcid-auth.component.scss'],
   imports: [
-    TranslateModule,
-    AsyncPipe,
     AlertComponent,
+    AsyncPipe,
     BtnDisabledDirective,
+    TranslateModule,
   ],
   standalone: true,
 })

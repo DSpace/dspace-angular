@@ -94,11 +94,11 @@ import { SearchConfigurationOption } from './search-switch-configuration/search-
     AsyncPipe,
     NgTemplateOutlet,
     PageWithSidebarComponent,
+    SearchLabelsComponent,
     ThemedSearchFormComponent,
     ThemedSearchResultsComponent,
     ThemedSearchSidebarComponent,
     TranslateModule,
-    SearchLabelsComponent,
     ViewModeSwitchComponent,
   ],
 })

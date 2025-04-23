@@ -3,7 +3,7 @@ import { TranslateLoader } from '@ngx-translate/core';
 import { readFileSync } from 'fs';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import {
@@ -37,7 +37,7 @@ export class TranslateServerLoader implements TranslateLoader {
     // app loads on the client
     this.storeInTransferState(lang, messages);
     // Return the parsed messages to translate things server side
-    return observableOf(messages);
+    return of(messages);
   }
 
   /**

@@ -23,22 +23,18 @@ import { VarDirective } from '../../../../app/shared/utils/var.directive';
   templateUrl: '../../../../app/profile-page/profile-page.component.html',
   standalone: true,
   imports: [
-    ThemedProfilePageMetadataFormComponent,
-    ProfilePageSecurityFormComponent,
     AsyncPipe,
-    TranslateModule,
-    ProfilePageResearcherFormComponent,
-    VarDirective,
-    SuggestionsNotificationComponent,
+    ErrorComponent,
     NgTemplateOutlet,
     PaginationComponent,
+    ProfilePageResearcherFormComponent,
+    ProfilePageSecurityFormComponent,
+    SuggestionsNotificationComponent,
     ThemedLoadingComponent,
-    ErrorComponent,
+    ThemedProfilePageMetadataFormComponent,
+    TranslateModule,
+    VarDirective,
   ],
 })
-/**
- * Component for a user to edit their profile information
- */
 export class ProfilePageComponent extends BaseComponent {
-
 }

@@ -18,7 +18,7 @@ import {
   cold,
   hot,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { SubmissionJsonPatchOperationsService } from '../../../core/submission/submission-json-patch-operations.service';
 import {
@@ -116,7 +116,7 @@ describe('SubmissionUploadFilesComponent Component', () => {
       compAsAny = comp;
       submissionServiceStub = TestBed.inject(SubmissionService as any);
       sectionsServiceStub = TestBed.inject(SectionsService as any);
-      sectionsServiceStub.isSectionTypeAvailable.and.returnValue(observableOf(true));
+      sectionsServiceStub.isSectionTypeAvailable.and.returnValue(of(true));
       notificationsServiceStub = TestBed.inject(NotificationsService as any);
       translateService = TestBed.inject(TranslateService);
       comp.submissionId = submissionId;
@@ -159,8 +159,8 @@ describe('SubmissionUploadFilesComponent Component', () => {
 
     describe('on upload complete', () => {
       beforeEach(() => {
-        sectionsServiceStub.isSectionType.and.callFake((_, sectionId, __) => observableOf(sectionId === 'upload'));
-        compAsAny.uploadEnabled = observableOf(true);
+        sectionsServiceStub.isSectionType.and.callFake((_, sectionId, __) => of(sectionId === 'upload'));
+        compAsAny.uploadEnabled = of(true);
       });
 
       it('should show a success notification and call updateSectionData if successful', () => {

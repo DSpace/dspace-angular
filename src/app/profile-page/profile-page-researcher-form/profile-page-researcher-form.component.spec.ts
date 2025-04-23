@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { EPerson } from '../../core/eperson/models/eperson.model';
@@ -55,21 +55,21 @@ describe('ProfilePageResearcherFormComponent', () => {
     });
 
     authService = jasmine.createSpyObj('authService', {
-      getAuthenticatedUserFromStore: observableOf(user),
+      getAuthenticatedUserFromStore: of(user),
     });
 
     researcherProfileService = jasmine.createSpyObj('researcherProfileService', {
       findById: createSuccessfulRemoteDataObject$(profile),
-      create: observableOf(profile),
+      create: of(profile),
       setVisibility: jasmine.createSpy('setVisibility'),
-      delete: observableOf(true),
-      findRelatedItemId: observableOf('a42557ca-cbb8-4442-af9c-3bb5cad2d075'),
+      delete: of(true),
+      findRelatedItemId: of('a42557ca-cbb8-4442-af9c-3bb5cad2d075'),
     });
 
     notificationsServiceStub = new NotificationsServiceStub();
 
     profileClaimService = jasmine.createSpyObj('profileClaimService', {
-      hasProfilesToSuggest: observableOf(false),
+      hasProfilesToSuggest: of(false),
     });
 
   }
@@ -163,7 +163,7 @@ describe('ProfilePageResearcherFormComponent', () => {
   describe('deleteProfile', () => {
     beforeEach(() => {
       const modalService = (component as any).modalService;
-      spyOn(modalService, 'open').and.returnValue(Object.assign({ componentInstance: Object.assign({ response: observableOf(true) }) }));
+      spyOn(modalService, 'open').and.returnValue(Object.assign({ componentInstance: Object.assign({ response: of(true) }) }));
       component.deleteProfile(profile);
       fixture.detectChanges();
     });

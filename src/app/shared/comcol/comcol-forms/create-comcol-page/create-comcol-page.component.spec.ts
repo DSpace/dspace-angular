@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { ComColDataService } from '../../../../core/data/comcol-data.service';
 import { CommunityDataService } from '../../../../core/data/community-data.service';
@@ -81,7 +81,7 @@ describe('CreateComColPageComponent', () => {
         }],
       })),
       create: (com, uuid?) => createSuccessfulRemoteDataObject$(newCommunity),
-      getLogoEndpoint: () => observableOf(logoEndpoint),
+      getLogoEndpoint: () => of(logoEndpoint),
       findByHref: () => null,
       refreshCache: () => {
         return;
@@ -89,7 +89,7 @@ describe('CreateComColPageComponent', () => {
     };
 
     routeServiceStub = {
-      getQueryParameterValue: (param) => observableOf(community.uuid),
+      getQueryParameterValue: (param) => of(community.uuid),
     };
     routerStub = {
       navigate: (commands) => commands,

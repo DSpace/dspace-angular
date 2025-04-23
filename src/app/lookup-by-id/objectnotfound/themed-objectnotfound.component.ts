@@ -11,7 +11,9 @@ import { ObjectNotFoundComponent } from './objectnotfound.component';
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [ObjectNotFoundComponent],
+  imports: [
+    ObjectNotFoundComponent,
+  ],
 })
 export class ThemedObjectNotFoundComponent extends ThemedComponent<ObjectNotFoundComponent> {
   protected getComponentName(): string {

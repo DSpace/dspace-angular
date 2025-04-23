@@ -27,7 +27,12 @@ import { followLink } from '../../utils/follow-link-config.model';
   styleUrls: ['./community-grid-element.component.scss'],
   templateUrl: './community-grid-element.component.html',
   standalone: true,
-  imports: [RouterLink, ThemedThumbnailComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    RouterLink,
+    ThemedThumbnailComponent,
+    TranslateModule,
+  ],
 })
 
 @listableObjectComponent(Community, ViewMode.GridElement)

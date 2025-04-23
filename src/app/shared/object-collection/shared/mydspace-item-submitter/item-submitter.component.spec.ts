@@ -14,7 +14,7 @@ import {
   TranslateModule,
 } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { LinkService } from '../../../../core/cache/builders/link.service';
 import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
@@ -30,9 +30,9 @@ let fixture: ComponentFixture<ItemSubmitterComponent>;
 let mockResultObject: PoolTask;
 
 const rdSumbitter = createSuccessfulRemoteDataObject(EPersonMock);
-const workflowitem = Object.assign(new WorkflowItem(), { submitter: observableOf(rdSumbitter) });
+const workflowitem = Object.assign(new WorkflowItem(), { submitter: of(rdSumbitter) });
 const rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
-mockResultObject = Object.assign(new PoolTask(), { workflowitem: observableOf(rdWorkflowitem) });
+mockResultObject = Object.assign(new PoolTask(), { workflowitem: of(rdWorkflowitem) });
 
 describe('ItemSubmitterComponent', () => {
   beforeEach(waitForAsync(() => {
@@ -72,7 +72,7 @@ describe('ItemSubmitterComponent', () => {
   });
 
   it('should show N/A when submitter is null', () => {
-    component.submitter$ = observableOf(null);
+    component.submitter$ = of(null);
     fixture.detectChanges();
 
     const badge: DebugElement = fixture.debugElement.query(By.css('.badge'));

@@ -11,7 +11,9 @@ import { SearchPageComponent } from './search-page.component';
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [SearchPageComponent],
+  imports: [
+    SearchPageComponent,
+  ],
 })
 export class ThemedSearchPageComponent extends ThemedComponent<SearchPageComponent> {
 

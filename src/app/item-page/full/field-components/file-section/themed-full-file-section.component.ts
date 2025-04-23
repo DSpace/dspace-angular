@@ -15,7 +15,9 @@ import { FullFileSectionComponent } from './full-file-section.component';
   styleUrls: [],
   templateUrl: './../../../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [FullFileSectionComponent],
+  imports: [
+    FullFileSectionComponent,
+  ],
 })
 export class ThemedFullFileSectionComponent extends ThemedComponent<FullFileSectionComponent> {
 

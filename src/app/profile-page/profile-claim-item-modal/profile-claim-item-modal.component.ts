@@ -36,10 +36,10 @@ import { ProfileClaimService } from '../profile-claim/profile-claim.service';
   selector: 'ds-profile-claim-item-modal',
   templateUrl: './profile-claim-item-modal.component.html',
   imports: [
-    ListableObjectComponentLoaderComponent,
     AsyncPipe,
-    TranslateModule,
     BtnDisabledDirective,
+    ListableObjectComponentLoaderComponent,
+    TranslateModule,
   ],
   standalone: true,
 })

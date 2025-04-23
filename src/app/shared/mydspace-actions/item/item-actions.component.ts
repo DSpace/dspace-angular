@@ -30,7 +30,11 @@ import { MyDSpaceActionsComponent } from '../mydspace-actions';
   styleUrls: ['./item-actions.component.scss'],
   templateUrl: './item-actions.component.html',
   standalone: true,
-  imports: [NgbTooltipModule, RouterLink, TranslateModule],
+  imports: [
+    NgbTooltipModule,
+    RouterLink,
+    TranslateModule,
+  ],
 })
 
 export class ItemActionsComponent extends MyDSpaceActionsComponent<Item, ItemDataService> implements OnInit {

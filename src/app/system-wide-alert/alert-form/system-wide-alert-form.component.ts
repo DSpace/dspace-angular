@@ -57,7 +57,16 @@ import { SystemWideAlert } from '../system-wide-alert.model';
   styleUrls: ['./system-wide-alert-form.component.scss'],
   templateUrl: './system-wide-alert-form.component.html',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, UiSwitchModule, NgbDatepickerModule, NgbTimepickerModule, AsyncPipe, TranslateModule, BtnDisabledDirective],
+  imports: [
+    AsyncPipe,
+    BtnDisabledDirective,
+    FormsModule,
+    NgbDatepickerModule,
+    NgbTimepickerModule,
+    ReactiveFormsModule,
+    TranslateModule,
+    UiSwitchModule,
+  ],
 })
 export class SystemWideAlertFormComponent implements OnInit {
 

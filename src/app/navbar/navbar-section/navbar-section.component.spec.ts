@@ -5,7 +5,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { HostWindowService } from '../../shared/host-window.service';
 import { MenuService } from '../../shared/menu/menu.service';
@@ -30,7 +30,7 @@ describe('NavbarSectionComponent', () => {
   }));
 
   beforeEach(() => {
-    spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(observableOf([]));
+    spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(of([]));
 
     fixture = TestBed.createComponent(NavbarSectionComponent);
     component = fixture.componentInstance;

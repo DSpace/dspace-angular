@@ -11,6 +11,8 @@ _______
 
 [Source code](../../../../lint/src/rules/html/themed-component-usages.ts)
 
+
+
 ### Examples
 
 
@@ -23,6 +25,7 @@ _______
 <ds-test-themeable></ds-test-themeable>
 <ds-test-themeable [test]="something"></ds-test-themeable>
 ```
+        
     
 ##### use no-prefix selectors in TypeScript templates
         
@@ -33,6 +36,7 @@ _______
 class Test {
 }
 ```
+        
     
 ##### use no-prefix selectors in TypeScript test templates
         
@@ -45,6 +49,7 @@ Filename: `lint/test/fixture/src/test.spec.ts`
 class Test {
 }
 ```
+        
     
 ##### base selectors are also allowed in TypeScript test templates
         
@@ -57,6 +62,7 @@ Filename: `lint/test/fixture/src/test.spec.ts`
 class Test {
 }
 ```
+        
     
 
 
@@ -69,6 +75,9 @@ class Test {
 <ds-themed-test-themeable/>
 <ds-themed-test-themeable></ds-themed-test-themeable>
 <ds-themed-test-themeable [test]="something"></ds-themed-test-themeable>
+
+        
+
 ```
 Will produce the following error(s):
 ```
@@ -91,6 +100,9 @@ Result of `yarn lint --fix`:
 <ds-base-test-themeable/>
 <ds-base-test-themeable></ds-base-test-themeable>
 <ds-base-test-themeable [test]="something"></ds-base-test-themeable>
+
+        
+
 ```
 Will produce the following error(s):
 ```

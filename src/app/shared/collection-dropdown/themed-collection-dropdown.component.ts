@@ -16,7 +16,9 @@ import {
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [CollectionDropdownComponent],
+  imports: [
+    CollectionDropdownComponent,
+  ],
 })
 export class ThemedCollectionDropdownComponent extends ThemedComponent<CollectionDropdownComponent> {
 

@@ -9,7 +9,7 @@ import {
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { RestResponse } from '../../core/cache/response.models';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
@@ -29,7 +29,7 @@ describe('ProfilePageSecurityFormComponent', () => {
 
   function init() {
     epersonService = jasmine.createSpyObj('epersonService', {
-      patch: observableOf(new RestResponse(true, 200, 'OK')),
+      patch: of(new RestResponse(true, 200, 'OK')),
     });
     notificationsService = jasmine.createSpyObj('notificationsService', {
       success: {},

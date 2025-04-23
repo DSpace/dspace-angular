@@ -13,7 +13,9 @@ import { getFilterByRelation } from '../../../../shared/utils/relation-query.uti
   selector: 'ds-related-entities-search',
   templateUrl: './related-entities-search.component.html',
   standalone: true,
-  imports: [ThemedConfigurationSearchPageComponent],
+  imports: [
+    ThemedConfigurationSearchPageComponent,
+  ],
 })
 /**
  * A component to show related items as search results.

@@ -11,7 +11,9 @@ import { NavbarComponent } from './navbar.component';
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [NavbarComponent],
+  imports: [
+    NavbarComponent,
+  ],
 })
 export class ThemedNavbarComponent  extends ThemedComponent<NavbarComponent> {
   protected getComponentName(): string {

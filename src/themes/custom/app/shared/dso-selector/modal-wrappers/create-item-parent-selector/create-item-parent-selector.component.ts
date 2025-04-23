@@ -10,7 +10,10 @@ import { CreateItemParentSelectorComponent as BaseComponent } from '../../../../
   // templateUrl: './create-item-parent-selector.component.html',
   templateUrl: '../../../../../../../app/shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component.html',
   standalone: true,
-  imports: [AuthorizedCollectionSelectorComponent, TranslateModule],
+  imports: [
+    AuthorizedCollectionSelectorComponent,
+    TranslateModule,
+  ],
 })
 export class CreateItemParentSelectorComponent extends BaseComponent {
 }

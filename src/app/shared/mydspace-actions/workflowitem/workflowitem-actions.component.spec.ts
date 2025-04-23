@@ -17,7 +17,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { RequestService } from '../../../core/data/request.service';
 import { Item } from '../../../core/shared/item.model';
@@ -46,7 +46,7 @@ const searchService = getMockSearchService();
 const requestServce = getMockRequestService();
 
 const item = Object.assign(new Item(), {
-  bundles: observableOf({}),
+  bundles: of({}),
   metadata: {
     'dc.title': [
       {
@@ -75,7 +75,7 @@ const item = Object.assign(new Item(), {
   },
 });
 const rd = createSuccessfulRemoteDataObject(item);
-mockObject = Object.assign(new WorkflowItem(), { item: observableOf(rd), id: '1234', uuid: '1234' });
+mockObject = Object.assign(new WorkflowItem(), { item: of(rd), id: '1234', uuid: '1234' });
 
 describe('WorkflowitemActionsComponent', () => {
   beforeEach(waitForAsync(() => {

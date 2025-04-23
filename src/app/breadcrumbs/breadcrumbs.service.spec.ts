@@ -7,7 +7,7 @@ import {
 import { cold } from 'jasmine-marbles';
 import {
   Observable,
-  of as observableOf,
+  of,
   Subject,
 } from 'rxjs';
 
@@ -18,7 +18,7 @@ import { BreadcrumbsService } from './breadcrumbs.service';
 
 class TestBreadcrumbsService implements BreadcrumbsProviderService<string> {
   getBreadcrumbs(key: string, url: string): Observable<Breadcrumb[]> {
-    return observableOf([new Breadcrumb(key, url)]);
+    return of([new Breadcrumb(key, url)]);
   }
 }
 

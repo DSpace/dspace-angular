@@ -28,10 +28,10 @@ import { SuggestionApproveAndImport } from '../list-element/suggestion-approve-a
   styleUrls: ['./suggestion-actions.component.scss'],
   templateUrl: './suggestion-actions.component.html',
   imports: [
-    EntityDropdownComponent,
-    TranslateModule,
-    NgbDropdownModule,
     BtnDisabledDirective,
+    EntityDropdownComponent,
+    NgbDropdownModule,
+    TranslateModule,
   ],
   standalone: true,
 })

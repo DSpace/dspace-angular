@@ -21,7 +21,7 @@ import {
   BehaviorSubject,
   from as observableFrom,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -72,7 +72,14 @@ export interface CollectionListEntry {
   templateUrl: './collection-dropdown.component.html',
   styleUrls: ['./collection-dropdown.component.scss'],
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, InfiniteScrollModule, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    FormsModule,
+    InfiniteScrollModule,
+    ReactiveFormsModule,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 export class CollectionDropdownComponent implements OnInit, OnDestroy {
 
@@ -268,7 +275,7 @@ export class CollectionDropdownComponent implements OnInit, OnDestroy {
           );
         } else {
           this.hasNextPage = false;
-          return observableOf([]);
+          return of([]);
         }
       }),
     );

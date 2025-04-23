@@ -10,7 +10,9 @@ import { MetadataImportPageComponent } from './metadata-import-page.component';
   selector: 'ds-metadata-import-page',
   templateUrl: '../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [MetadataImportPageComponent],
+  imports: [
+    MetadataImportPageComponent,
+  ],
 })
 export class ThemedMetadataImportPageComponent extends ThemedComponent<MetadataImportPageComponent> {
   protected getComponentName(): string {

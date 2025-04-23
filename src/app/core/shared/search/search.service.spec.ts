@@ -10,7 +10,7 @@ import { Angulartics2 } from 'angulartics2';
 import {
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -162,7 +162,7 @@ describe('SearchService', () => {
 
     it('should return ViewMode.List when the viewMode is set to ViewMode.List in the ActivatedRoute', () => {
       let viewMode = ViewMode.GridElement;
-      spyOn(routeService, 'getQueryParamMap').and.returnValue(observableOf(new Map([
+      spyOn(routeService, 'getQueryParamMap').and.returnValue(of(new Map([
         ['view', ViewMode.ListElement],
       ])));
 
@@ -172,7 +172,7 @@ describe('SearchService', () => {
 
     it('should return ViewMode.Grid when the viewMode is set to ViewMode.Grid in the ActivatedRoute', () => {
       let viewMode = ViewMode.ListElement;
-      spyOn(routeService, 'getQueryParamMap').and.returnValue(observableOf(new Map([
+      spyOn(routeService, 'getQueryParamMap').and.returnValue(of(new Map([
         ['view', ViewMode.GridElement],
       ])));
       searchService.getViewMode().subscribe((mode) => viewMode = mode);
@@ -183,7 +183,7 @@ describe('SearchService', () => {
       const endPoint = 'http://endpoint.com/test/test';
       const searchOptions = new PaginatedSearchOptions({});
       beforeEach(() => {
-        spyOn((searchService as any).halService, 'getEndpoint').and.returnValue(observableOf(endPoint));
+        spyOn((searchService as any).halService, 'getEndpoint').and.returnValue(of(endPoint));
         spyOn((searchService as any).rdb, 'buildFromHref').and.callThrough();
         /* eslint-disable no-empty,@typescript-eslint/no-empty-function */
         searchService.search(searchOptions).subscribe((t) => {

@@ -7,7 +7,7 @@ import {
 } from 'fast-json-patch';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   find,
@@ -167,7 +167,7 @@ export class ResearcherProfileDataService extends IdentifiableDataService<Resear
         if (rd.hasSucceeded) {
           return this.findRelatedItemId(rd.payload);
         } else {
-          return observableOf(null);
+          return of(null);
         }
       }),
     );

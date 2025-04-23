@@ -22,7 +22,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -44,12 +44,12 @@ import { getItemPageRoute } from '../item-page-routing-paths';
     fadeInOut,
   ],
   imports: [
-    TranslateModule,
-    NgClass,
     AsyncPipe,
     NgbTooltipModule,
+    NgClass,
     RouterLink,
     RouterOutlet,
+    TranslateModule,
   ],
   standalone: true,
 })
@@ -82,7 +82,7 @@ export class EditItemPageComponent implements OnInit {
     this.pages = this.route.routeConfig.children
       .filter((child: Route) => isNotEmpty(child.path))
       .map((child: Route) => {
-        let enabled = observableOf(true);
+        let enabled = of(true);
         if (isNotEmpty(child.canActivate)) {
           enabled = observableCombineLatest(child.canActivate.map((guardFn: CanActivateFn) => {
             return runInInjectionContext(this.injector, () => {

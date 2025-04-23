@@ -47,10 +47,10 @@ import { ProfileClaimItemModalComponent } from '../profile-claim-item-modal/prof
   templateUrl: './profile-page-researcher-form.component.html',
   imports: [
     AsyncPipe,
+    BtnDisabledDirective,
     TranslateModule,
     UiSwitchModule,
     VarDirective,
-    BtnDisabledDirective,
   ],
   standalone: true,
 })

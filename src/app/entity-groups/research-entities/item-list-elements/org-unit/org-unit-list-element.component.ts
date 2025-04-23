@@ -12,7 +12,9 @@ import { OrgUnitSearchResultListElementComponent } from '../search-result-list-e
   styleUrls: ['./org-unit-list-element.component.scss'],
   templateUrl: './org-unit-list-element.component.html',
   standalone: true,
-  imports: [OrgUnitSearchResultListElementComponent],
+  imports: [
+    OrgUnitSearchResultListElementComponent,
+  ],
 })
 /**
  * The component for displaying a list element for an item of the type Organisation Unit

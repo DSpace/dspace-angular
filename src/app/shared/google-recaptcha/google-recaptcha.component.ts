@@ -22,7 +22,9 @@ import { isNotEmpty } from '../empty.util';
   templateUrl: './google-recaptcha.component.html',
   styleUrls: ['./google-recaptcha.component.scss'],
   standalone: true,
-  imports: [AsyncPipe],
+  imports: [
+    AsyncPipe,
+  ],
 })
 export class GoogleRecaptchaComponent implements OnInit {
 

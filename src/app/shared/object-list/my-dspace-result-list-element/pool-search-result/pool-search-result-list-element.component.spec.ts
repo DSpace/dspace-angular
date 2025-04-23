@@ -12,7 +12,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
@@ -58,13 +58,13 @@ const configurationDataService = jasmine.createSpyObj('configurationDataService'
   })),
 });
 const duplicateDataServiceStub = {
-  findListByHref: () => observableOf(emptyList),
+  findListByHref: () => of(emptyList),
   findDuplicates: () => createSuccessfulRemoteDataObject$({}),
 };
 
 const item = Object.assign(new Item(), {
-  duplicates: observableOf([]),
-  bundles: observableOf({}),
+  duplicates: of([]),
+  bundles: of({}),
   metadata: {
     'dc.title': [
       {
@@ -100,9 +100,9 @@ const environmentUseThumbs = {
 };
 
 const rdItem = createSuccessfulRemoteDataObject(item);
-const workflowitem = Object.assign(new WorkflowItem(), { item: observableOf(rdItem) });
+const workflowitem = Object.assign(new WorkflowItem(), { item: of(rdItem) });
 const rdWorkflowitem = createSuccessfulRemoteDataObject(workflowitem);
-mockResultObject.indexableObject = Object.assign(new PoolTask(), { workflowitem: observableOf(rdWorkflowitem) });
+mockResultObject.indexableObject = Object.assign(new PoolTask(), { workflowitem: of(rdWorkflowitem) });
 const linkService = getMockLinkService();
 const objectCacheServiceMock = jasmine.createSpyObj('ObjectCacheService', {
   remove: jasmine.createSpy('remove'),

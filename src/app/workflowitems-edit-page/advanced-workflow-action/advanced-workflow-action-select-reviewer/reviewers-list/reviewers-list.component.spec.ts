@@ -31,7 +31,7 @@ import {
 } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { RestResponse } from '../../../../core/cache/response.models';
@@ -116,7 +116,7 @@ describe('ReviewersListComponent', () => {
       epersonMembers: epersonMembers,
       epersonNonMembers: epersonNonMembers,
       getActiveGroup(): Observable<Group> {
-        return observableOf(activeGroup);
+        return of(activeGroup);
       },
       getEPersonMembers() {
         return this.epersonMembers;
@@ -130,7 +130,7 @@ describe('ReviewersListComponent', () => {
             this.epersonNonMembers.splice(index, 1);
           }
         });
-        return observableOf(new RestResponse(true, 200, 'Success'));
+        return of(new RestResponse(true, 200, 'Success'));
       },
       clearGroupsRequests() {
         // empty
@@ -150,7 +150,7 @@ describe('ReviewersListComponent', () => {
         });
         // Add eperson to list of non-members
         this.epersonNonMembers = [...this.epersonNonMembers, epersonToDelete];
-        return observableOf(new RestResponse(true, 200, 'Success'));
+        return of(new RestResponse(true, 200, 'Success'));
       },
       // Used to find the currently active group
       findById(id: string) {

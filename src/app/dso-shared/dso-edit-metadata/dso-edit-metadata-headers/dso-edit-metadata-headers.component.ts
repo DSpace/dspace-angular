@@ -9,7 +9,9 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrls: ['./dso-edit-metadata-headers.component.scss', '../dso-edit-metadata-shared/dso-edit-metadata-cells.scss'],
   templateUrl: './dso-edit-metadata-headers.component.html',
   standalone: true,
-  imports: [TranslateModule],
+  imports: [
+    TranslateModule,
+  ],
 })
 /**
  * Component displaying the header table row for DSO edit metadata page

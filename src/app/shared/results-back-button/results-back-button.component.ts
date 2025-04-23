@@ -14,7 +14,9 @@ import { Observable } from 'rxjs';
   templateUrl: './results-back-button.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [AsyncPipe],
+  imports: [
+    AsyncPipe,
+  ],
 })
 /**
  * Component for creating a back to result list button.

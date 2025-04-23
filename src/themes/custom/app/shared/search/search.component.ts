@@ -30,11 +30,11 @@ import { ViewModeSwitchComponent } from '../../../../../app/shared/view-mode-swi
     AsyncPipe,
     NgTemplateOutlet,
     PageWithSidebarComponent,
+    SearchLabelsComponent,
     ThemedSearchFormComponent,
     ThemedSearchResultsComponent,
     ThemedSearchSidebarComponent,
     TranslateModule,
-    SearchLabelsComponent,
     ViewModeSwitchComponent,
   ],
 })

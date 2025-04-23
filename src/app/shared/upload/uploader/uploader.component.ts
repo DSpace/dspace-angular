@@ -18,7 +18,7 @@ import {
   FileUploader,
   FileUploadModule,
 } from 'ng2-file-upload';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { DragService } from '../../../core/drag.service';
 import { CookieService } from '../../../core/services/cookie.service';
@@ -43,7 +43,12 @@ import { UploaderProperties } from './uploader-properties.model';
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
   standalone: true,
-  imports: [TranslateModule, FileUploadModule, CommonModule, BtnDisabledDirective],
+  imports: [
+    BtnDisabledDirective,
+    CommonModule,
+    FileUploadModule,
+    TranslateModule,
+  ],
 })
 export class UploaderComponent implements OnInit, AfterViewInit {
 
@@ -99,8 +104,8 @@ export class UploaderComponent implements OnInit, AfterViewInit {
 
   public uploader: FileUploader;
   public uploaderId: string;
-  public isOverBaseDropZone = observableOf(false);
-  public isOverDocumentDropZone = observableOf(false);
+  public isOverBaseDropZone = of(false);
+  public isOverDocumentDropZone = of(false);
 
   @HostListener('window:dragover', ['$event'])
   onDragOver(event: any) {
@@ -109,7 +114,7 @@ export class UploaderComponent implements OnInit, AfterViewInit {
       // Show drop area on the page
       event.preventDefault();
       if ((event.target as any).tagName !== 'HTML') {
-        this.isOverDocumentDropZone = observableOf(true);
+        this.isOverDocumentDropZone = of(true);
       }
     }
   }
@@ -164,7 +169,7 @@ export class UploaderComponent implements OnInit, AfterViewInit {
       // Ensure the current XSRF token is included in every upload request (token may change between items uploaded)
       this.uploader.options.headers = [{ name: XSRF_REQUEST_HEADER, value: this.tokenExtractor.getToken() }];
       this.onBeforeUpload();
-      this.isOverDocumentDropZone = observableOf(false);
+      this.isOverDocumentDropZone = of(false);
     };
     if (hasValue(this.uploadProperties)) {
       this.uploader.onBuildItemForm = (item, form) => {
@@ -207,7 +212,7 @@ export class UploaderComponent implements OnInit, AfterViewInit {
    * Called when files are dragged on the base drop area.
    */
   public fileOverBase(isOver: boolean): void {
-    this.isOverBaseDropZone = observableOf(isOver);
+    this.isOverBaseDropZone = of(isOver);
   }
 
   /**
@@ -215,7 +220,7 @@ export class UploaderComponent implements OnInit, AfterViewInit {
    */
   public fileOverDocument(isOver: boolean) {
     if (!isOver) {
-      this.isOverDocumentDropZone = observableOf(isOver);
+      this.isOverDocumentDropZone = of(isOver);
     }
   }
 

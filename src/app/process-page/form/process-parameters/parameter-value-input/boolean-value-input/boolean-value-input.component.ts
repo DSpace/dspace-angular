@@ -19,7 +19,9 @@ import { ValueInputComponent } from '../value-input.component';
   selector: 'ds-boolean-value-input',
   templateUrl: './boolean-value-input.component.html',
   styleUrls: ['./boolean-value-input.component.scss'],
-  imports: [TranslateModule],
+  imports: [
+    TranslateModule,
+  ],
   viewProviders: [{ provide: ControlContainer,
     useFactory: controlContainerFactory,
     deps: [[new Optional(), NgForm]] }],

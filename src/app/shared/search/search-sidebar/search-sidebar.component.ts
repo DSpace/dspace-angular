@@ -43,7 +43,15 @@ import { SearchSwitchConfigurationComponent } from '../search-switch-configurati
   styleUrls: ['./search-sidebar.component.scss'],
   templateUrl: './search-sidebar.component.html',
   standalone: true,
-  imports: [ViewModeSwitchComponent, SearchSwitchConfigurationComponent, ThemedSearchFiltersComponent, ThemedSearchSettingsComponent, TranslateModule, AdvancedSearchComponent, AsyncPipe],
+  imports: [
+    AdvancedSearchComponent,
+    AsyncPipe,
+    SearchSwitchConfigurationComponent,
+    ThemedSearchFiltersComponent,
+    ThemedSearchSettingsComponent,
+    TranslateModule,
+    ViewModeSwitchComponent,
+  ],
 })
 
 /**

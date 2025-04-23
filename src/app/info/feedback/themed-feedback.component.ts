@@ -11,7 +11,9 @@ import { FeedbackComponent } from './feedback.component';
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [FeedbackComponent],
+  imports: [
+    FeedbackComponent,
+  ],
 })
 export class ThemedFeedbackComponent extends ThemedComponent<FeedbackComponent> {
   protected getComponentName(): string {

@@ -1,7 +1,7 @@
 /* eslint-disable no-empty, @typescript-eslint/no-empty-function */
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { FindListOptions } from '../../core/data/find-list-options.model';
@@ -33,11 +33,11 @@ export class RelationshipDataServiceStub {
   }
 
   getItemRelationshipsArray(_item: Item, ..._linksToFollow: FollowLinkConfig<Relationship>[]): Observable<Relationship[]> {
-    return observableOf([]);
+    return of([]);
   }
 
   getRelatedItems(_item: Item): Observable<Item[]> {
-    return observableOf([]);
+    return of([]);
   }
 
   getRelatedItemsByLabel(_item: Item, _label: string, _options?: FindListOptions): Observable<RemoteData<PaginatedList<Item>>> {
@@ -49,14 +49,14 @@ export class RelationshipDataServiceStub {
   }
 
   getRelationshipByItemsAndLabel(_item1: Item, _item2: Item, _label: string, _options?: FindListOptions): Observable<Relationship> {
-    return observableOf(new Relationship());
+    return of(new Relationship());
   }
 
   setNameVariant(_listID: string, _itemID: string, _nameVariant: string): void {
   }
 
   getNameVariant(_listID: string, _itemID: string): Observable<string> {
-    return observableOf('');
+    return of('');
   }
 
   updateNameVariant(_item1: Item, _item2: Item, _relationshipLabel: string, _nameVariant: string): Observable<RemoteData<Relationship>> {
@@ -64,7 +64,7 @@ export class RelationshipDataServiceStub {
   }
 
   isLeftItem(_relationship: Relationship, _item: Item): Observable<boolean> {
-    return observableOf(false);
+    return of(false);
   }
 
   update(_object: Relationship): Observable<RemoteData<Relationship>> {
@@ -80,7 +80,7 @@ export class RelationshipDataServiceStub {
   }
 
   resolveMetadataRepresentation(_metadatum: MetadataValue, _parentItem: DSpaceObject, _itemType: string): Observable<MetadataRepresentation> {
-    return observableOf({} as MetadataRepresentation);
+    return of({} as MetadataRepresentation);
   }
 
 }
