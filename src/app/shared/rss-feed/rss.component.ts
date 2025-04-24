@@ -33,7 +33,6 @@ import { GroupDataService } from '../../core/eperson/group-data.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { LinkHeadService } from '../../core/services/link-head.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
-import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
 import {
   hasValue,
@@ -69,7 +68,6 @@ export class RSSComponent implements OnInit, OnDestroy, OnChanges {
               private linkHeadService: LinkHeadService,
               private configurationService: ConfigurationDataService,
               private searchConfigurationService: SearchConfigurationService,
-              private searchService: SearchService,
               private router: Router,
               private route: ActivatedRoute,
               protected paginationService: PaginationService,
