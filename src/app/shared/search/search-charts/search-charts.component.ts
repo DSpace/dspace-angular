@@ -227,7 +227,7 @@ export class SearchChartsComponent implements OnInit {
         getRemoteDataPayload(),
         map((configs: SearchFilterConfig[]) => {
           if (!hasValues && this.selectedFilter === filterConfig) {
-            const index = configs.findIndex(x => x.filterType === this.selectedFilter.filterType);
+            const index = configs.findIndex(x => x?.filterType === this.selectedFilter?.filterType);
             if (index > -1) {
               if (hasValue(configs[index - 1])) {
                 this.changeChartType(configs[index - 1]);

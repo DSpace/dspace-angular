@@ -1,4 +1,4 @@
-<div [class.d-none]="!availableFilters">
+<div [class.d-none]="(availableFilters$ | async) === false">
   @if (inPlaceSearch) {
     <h3>{{filterLabel+'.filters.head' | translate}}</h3>
   } @else {
@@ -6,11 +6,13 @@
   }
 
   @if ((filters | async)?.hasSucceeded) {
-    <div [class.visually-hidden]="getFinalFiltersComputed(this.currentConfiguration) !== (filters | async)?.payload?.length">
+    <ng-container [class.visually-hidden]="getFinalFiltersComputed(this.currentConfiguration) !== (filters | async)?.payload?.length">
       @for (filter of (filters | async)?.payload; track filter.name) {
-        <ds-search-filter (isVisibilityComputed)="countFiltersWithComputedVisibility($event)" [scope]="currentScope" [filter]="filter" [inPlaceSearch]="inPlaceSearch" [refreshFilters]="refreshFilters"></ds-search-filter>
+        <div #searchFilter>
+          <ds-search-filter (isVisibilityComputed)="countFiltersWithComputedVisibility($event)" [scope]="currentScope" [filter]="filter" [inPlaceSearch]="inPlaceSearch" [refreshFilters]="refreshFilters"></ds-search-filter>
+        </div>
       }
-    </div>
+    </ng-container>
   }
 
   @if(getFinalFiltersComputed(this.currentConfiguration) !== (filters | async)?.payload?.length) {
