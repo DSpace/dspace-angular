@@ -4,14 +4,19 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import { of } from 'rxjs';
+import { createSuccessfulRemoteDataObject$ } from 'src/app/shared/remote-data.utils';
 
+import { ItemDataService } from '../../../core/data/item-data.service';
 import { SignpostingDataService } from '../../../core/data/signposting-data.service';
+import { Item } from '../../../core/shared/item.model';
+import { MetadataMap } from '../../../core/shared/metadata.models';
 import { signpostingLinksResolver } from './signposting-links.resolver';
 
 describe('signpostingLinksResolver', () => {
   let resolver: any;
   let route: ActivatedRouteSnapshot;
   let state = {};
+  let itemDataService: ItemDataService;
   let signpostingDataService: SignpostingDataService;
   const testUuid = '1234567890';
   const mocklink = {
@@ -29,11 +34,18 @@ describe('signpostingLinksResolver', () => {
     href: 'http://test2.org',
     rel: 'rel2',
   };
+  const mockItem = Object.assign(new Item(), {
+    uuid: testUuid,
+    metadata: new MetadataMap(),
+  });
   function init() {
     route = Object.assign(new ActivatedRouteSnapshot(), {
       params: {
         id: testUuid,
       },
+    });
+    itemDataService = jasmine.createSpyObj('itemDataService', {
+      findById: createSuccessfulRemoteDataObject$(mockItem),
     });
     signpostingDataService = jasmine.createSpyObj('signpostingDataService', {
       getLinks: of([mocklink, mocklink2]),
@@ -46,6 +58,7 @@ describe('signpostingLinksResolver', () => {
       providers: [
         { provide: RouterStateSnapshot, useValue: state },
         { provide: ActivatedRouteSnapshot, useValue: route },
+        { provide: ItemDataService, useValue: itemDataService },
         { provide: SignpostingDataService, useValue: signpostingDataService },
       ],
     });

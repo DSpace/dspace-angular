@@ -30,6 +30,7 @@ import {
   getBitstreamDownloadRoute,
   getBitstreamRequestACopyRoute,
 } from '../../app-routing-paths';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
@@ -93,6 +94,7 @@ export class FileDownloadLinkComponent implements OnInit {
   constructor(
     private authorizationService: AuthorizationDataService,
     private configurationService: ConfigurationDataService,
+    public dsoNameService: DSONameService,
   ) {
   }
 

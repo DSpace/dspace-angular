@@ -7,6 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SubmissionSectionUploadFileComponent as BaseComponent } from 'src/app/submission/sections/upload/file/section-upload-file.component';
 
 import { AlertComponent } from '../../../../../../../app/shared/alert/alert.component';
+import { BtnDisabledDirective } from '../../../../../../../app/shared/btn-disabled.directive';
 import { ThemedFileDownloadLinkComponent } from '../../../../../../../app/shared/file-download-link/themed-file-download-link.component';
 import { FileSizePipe } from '../../../../../../../app/shared/utils/file-size-pipe';
 import { SubmissionSectionUploadFileViewComponent } from '../../../../../../../app/submission/sections/upload/file/view/section-upload-file-view.component';
@@ -29,6 +30,7 @@ import { SubmissionSectionUploadFileViewComponent } from '../../../../../../../a
     AsyncPipe,
     ThemedFileDownloadLinkComponent,
     FileSizePipe,
+    BtnDisabledDirective,
   ],
 })
 export class SubmissionSectionUploadFileComponent

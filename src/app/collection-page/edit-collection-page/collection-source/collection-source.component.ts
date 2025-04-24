@@ -60,6 +60,7 @@ import {
   getFirstCompletedRemoteData,
   getFirstSucceededRemoteData,
 } from '../../../core/shared/operators';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import {
   hasNoValue,
   hasValue,
@@ -85,6 +86,7 @@ import { CollectionSourceControlsComponent } from './collection-source-controls/
     ThemedLoadingComponent,
     FormComponent,
     CollectionSourceControlsComponent,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

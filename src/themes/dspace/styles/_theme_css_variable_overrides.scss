@@ -11,13 +11,14 @@
     --ds-header-height: 90px;
   }
 
-  --ds-banner-text-background: rgba(0, 0, 0, 0.45);
+  --ds-banner-text-background: rgba(0, 0, 0, 0.58);
   --ds-banner-background-gradient-width: 300px;
 
   --ds-header-navbar-border-bottom-height: 5px;
 
   /* set the next two properties as `--ds-header-navbar-border-bottom-*`
   in order to keep the bottom border of the header when navbar is expanded */
+
   --ds-expandable-navbar-border-top-color: #{$white};
   --ds-expandable-navbar-border-top-height: 0;
   --ds-expandable-navbar-padding-top: 0;
@@ -25,3 +26,4 @@
   --ds-item-page-img-field-default-inline-height: 24px;
   --ds-item-page-img-field-ror-inline-height: var(--ds-item-page-img-field-default-inline-height);
 }
+

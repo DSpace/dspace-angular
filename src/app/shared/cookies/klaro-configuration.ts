@@ -23,7 +23,7 @@ export const GOOGLE_ANALYTICS_KLARO_KEY = 'google-analytics';
 
 /**
  * Klaro configuration
- * For more information see https://kiprotect.com/docs/klaro/annotated-config
+ * For more information see https://klaro.org/docs/integration/annotated-configuration
  */
 export const klaroConfiguration: any = {
   storageName: ANONYMOUS_STORAGE_NAME_KLARO,
@@ -54,20 +54,29 @@ export const klaroConfiguration: any = {
   htmlTexts: true,
 
   /*
+  Force Klaro to use our custom "zy" lang configs defined below.
+  */
+  lang: 'zy',
+
+  /*
   You can overwrite existing translations and add translations for your app
   descriptions and purposes. See `src/translations/` for a full list of
   translations that can be overwritten:
-  https://github.com/KIProtect/klaro/tree/master/src/translations
+  https://github.com/klaro-org/klaro-js/tree/master/src/translations
   */
   translations: {
     /*
-      The `zz` key contains default translations that will be used as fallback values.
-      This can e.g. be useful for defining a fallback privacy policy URL.
-      FOR DSPACE: We use 'zz' to map to our own i18n translations for klaro, see
+      For DSpace we use this custom 'zy' key to map to our own i18n translations for klaro, see
       translateConfiguration() in browser-klaro.service.ts. All the below i18n keys are specified
       in your /src/assets/i18n/*.json5 translation pack.
+      This 'zy' key has no special meaning to Klaro & is not a valid language code. It just
+      allows DSpace to override Klaro's own translations in favor of DSpace's i18n keys.
+      NOTE: we do not use 'zz' as that has special meaning to Klaro and is ONLY used as a "fallback"
+      if no other translations can be found within Klaro. Currently, a bug in Klaro means that
+      'zz' is never used as there's no way to exclude translations:
+      https://github.com/klaro-org/klaro-js/issues/515
     */
-    zz: {
+    zy: {
       acceptAll: 'cookies.consent.accept-all',
       acceptSelected: 'cookies.consent.accept-selected',
       close: 'cookies.consent.close',
@@ -189,7 +198,6 @@ export const klaroConfiguration: any = {
       purposes: ['registration-password-recovery'],
       required: false,
       cookies: [
-        [/^klaro-.+$/],
         CAPTCHA_COOKIE,
       ],
       onAccept: `window.refreshCaptchaScript?.call()`,

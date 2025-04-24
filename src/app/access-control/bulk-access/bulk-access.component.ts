@@ -15,6 +15,7 @@ import {
 } from 'rxjs/operators';
 
 import { BulkAccessControlService } from '../../shared/access-control-form-container/bulk-access-control.service';
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { SelectableListState } from '../../shared/object-list/selectable-list/selectable-list.reducer';
 import { SelectableListService } from '../../shared/object-list/selectable-list/selectable-list.service';
 import { BulkAccessBrowseComponent } from './browse/bulk-access-browse.component';
@@ -28,6 +29,7 @@ import { BulkAccessSettingsComponent } from './settings/bulk-access-settings.com
     TranslateModule,
     BulkAccessSettingsComponent,
     BulkAccessBrowseComponent,
+    BtnDisabledDirective,
     RouterLink,
   ],
   standalone: true,
@@ -71,6 +73,14 @@ export class BulkAccessComponent implements OnInit {
 
   canExport(): boolean {
     return this.objectsSelected$.value?.length > 0;
+  }
+
+  /**
+   * Reset the form to its initial state
+   * This will also reset the state of the child components (bitstream and item access)
+   */
+  reset(): void {
+    this.settings.reset();
   }
 
   /**

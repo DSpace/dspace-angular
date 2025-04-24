@@ -30,6 +30,7 @@ import {
 import { NoContent } from '../../../core/shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../../../core/shared/operators';
 import { URLCombiner } from '../../../core/url-combiner/url-combiner';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ErrorComponent } from '../../../shared/error/error.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 
@@ -38,7 +39,7 @@ import { NotificationsService } from '../../../shared/notifications/notification
   templateUrl: './feedback-form.component.html',
   styleUrls: ['./feedback-form.component.scss'],
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgIf, ErrorComponent, TranslateModule],
+  imports: [FormsModule, ReactiveFormsModule, NgIf, ErrorComponent, TranslateModule, BtnDisabledDirective],
 })
 /**
  * Component displaying the contents of the Feedback Statement

@@ -52,6 +52,7 @@ import { VocabularyEntryDetail } from '../../../../../../core/submission/vocabul
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
 import { SubmissionService } from '../../../../../../submission/submission.service';
 import { shrinkInOut } from '../../../../../animations/shrink';
+import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import {
   hasValue,
   isEmpty,
@@ -84,6 +85,7 @@ import { DsDynamicRelationGroupModalComponent } from './modal/dynamic-relation-g
     ThemedLoadingComponent,
     ChipsComponent,
     forwardRef(() => FormComponent),
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

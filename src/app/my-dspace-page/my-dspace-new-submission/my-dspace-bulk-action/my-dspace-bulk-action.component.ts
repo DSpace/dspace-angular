@@ -38,6 +38,7 @@ import {
   take,
   tap,
 } from 'rxjs/operators';
+import { BtnDisabledDirective } from 'src/app/shared/btn-disabled.directive';
 
 import { RequestService } from '../../../core/data/request.service';
 import { SearchService } from '../../../core/shared/search/search.service';
@@ -69,6 +70,7 @@ import { SelectableListService } from '../../../shared/object-list/selectable-li
     AsyncPipe,
     ReactiveFormsModule,
     NgIf,
+    BtnDisabledDirective,
   ],
 })
 export class MyDSpaceBulkActionComponent  implements OnInit, OnDestroy{

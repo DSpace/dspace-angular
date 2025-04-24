@@ -1281,11 +1281,11 @@
 
   "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
 
-  "browse.metadata.srsc.tree.descrption": "Select a subject to add as search filter",
+  "browse.metadata.srsc.tree.description": "Select a subject to add as search filter",
 
   "browse.metadata.nsi.breadcrumbs": "Browse by Norwegian Science Index",
 
-  "browse.metadata.nsi.tree.descrption": "Select an index to add as search filter",
+  "browse.metadata.nsi.tree.description": "Select an index to add as search filter",
 
   "browse.metadata.type.breadcrumbs": "Browse by Type",
 
@@ -1296,6 +1296,8 @@
   "pagination.previous.button": "Previous",
 
   "pagination.next.button.disabled.tooltip": "No more pages of results",
+
+  "pagination.page-number-bar": "Control bar for page navigation, relative to element with ID: ",
 
   "browse.startsWith": ", starting with {{ startsWith }}",
 
@@ -1344,8 +1346,6 @@
   "browse.startsWith.type_text": "Filter results by typing the first few letters",
 
   "browse.startsWith.input": "Filter",
-
-  "browse.taxonomy_srsc.title": "Browsing by Subject Category",
 
   "browse.taxonomy.button": "Browse",
 
@@ -1773,7 +1773,7 @@
 
   "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
 
-  "community.edit.notifications.error": "An error occured while editing the community",
+  "community.edit.notifications.error": "An error occurred while editing the community",
 
   "community.edit.return": "Back",
 
@@ -2163,7 +2163,7 @@
 
   "curation.form.submit.error.head": "Running the curation task failed",
 
-  "curation.form.submit.error.content": "An error occured when trying to start the curation task.",
+  "curation.form.submit.error.content": "An error occurred when trying to start the curation task.",
 
   "curation.form.submit.error.invalid-handle": "Couldn't determine the handle for this object",
 
@@ -2182,6 +2182,8 @@
   "deny-request-copy.intro": "This message will be sent to the applicant of the request",
 
   "deny-request-copy.success": "Successfully denied item request",
+
+  "dynamic-list.load-more": "Load more",
 
   "dropdown.clear": "Clear selection",
 
@@ -2382,6 +2384,8 @@
   "error.objects": "Error fetching objects",
 
   "error.recent-submissions": "Error fetching recent submissions",
+
+  "error.profile-groups": "Error retrieving profile groups",
 
   "error.search-results": "Error fetching search results",
 
@@ -2660,7 +2664,7 @@
 
   "forgot-email.form.error.head": "Error when trying to reset password",
 
-  "forgot-email.form.error.content": "An error occured when attempting to reset the password for the account associated with the following email address: {{ email }}",
+  "forgot-email.form.error.content": "An error occurred when attempting to reset the password for the account associated with the following email address: {{ email }}",
 
   "forgot-password.title": "Forgot Password",
 
@@ -2703,6 +2707,12 @@
   "form.clear-help": "Click here to remove the selected value",
 
   "form.copy": "Duplicate",
+
+  "form.date-picker.placeholder.year": "Year",
+
+  "form.date-picker.placeholder.month": "Month",
+
+  "form.date-picker.placeholder.day": "Day",
 
   "form.discard": "Discard",
 
@@ -3012,6 +3022,10 @@
 
   "item.edit.bitstreams.bundle.name": "BUNDLE: {{ name }}",
 
+  "item.edit.bitstreams.bundle.table.aria-label": "Bitstreams in the  {{ bundle }} Bundle",
+
+  "item.edit.bitstreams.bundle.tooltip": "You can move a bitstream to a different page by dropping it on the page number.",
+
   "item.edit.bitstreams.discard-button": "Discard",
 
   "item.edit.bitstreams.edit.buttons.download": "Download",
@@ -3024,7 +3038,19 @@
 
   "item.edit.bitstreams.edit.buttons.undo": "Undo changes",
 
+  "item.edit.bitstreams.edit.live.cancel": "{{ bitstream }} was returned to position {{ toIndex }} and is no longer selected.",
+
+  "item.edit.bitstreams.edit.live.clear": "{{ bitstream }} is no longer selected.",
+
+  "item.edit.bitstreams.edit.live.loading": "Waiting for move to complete.",
+
+  "item.edit.bitstreams.edit.live.select": "{{ bitstream }} is selected.",
+
+  "item.edit.bitstreams.edit.live.move": "{{ bitstream }} is now in position {{ toIndex }}.",
+
   "item.edit.bitstreams.empty": "This item doesn't contain any bitstreams. Click the upload button to create one.",
+
+  "item.edit.bitstreams.info-alert": "Bitstreams can be reordered within their bundles by holding the drag handle and moving the mouse. Alternatively, bitstreams can be moved using the keyboard in the following way: Select the bitstream by pressing enter when the bitstream's drag handle is in focus. Move the bitstream up or down using the arrow keys. Press enter again to confirm the current position of the bitstream.",
 
   "item.edit.bitstreams.headers.actions": "Actions",
 
@@ -3061,6 +3087,8 @@
   "item.edit.bitstreams.save-button": "Save",
 
   "item.edit.bitstreams.upload-button": "Upload",
+
+  "item.edit.bitstreams.load-more.link": "Load more",
 
   "item.edit.delete.cancel": "Cancel",
 
@@ -3171,6 +3199,10 @@
   "item.edit.metadata.edit.value": "Edit value",
 
   "item.edit.metadata.edit.authority.key": "Edit authority key",
+
+  "item.edit.metadata.edit.buttons.enable-free-text-editing": "Enable free-text editing",
+
+  "item.edit.metadata.edit.buttons.disable-free-text-editing": "Disable free-text editing",
 
   "item.edit.metadata.edit.buttons.confirm": "Confirm",
 
@@ -4749,72 +4781,6 @@
 
   "quality-assurance.event.reason": "Reason",
 
-  "reciter.suggestion.loading": "Loading ...",
-
-  "reciter.suggestion.title": "Suggestions",
-
-  "reciter.suggestion.targets.description": "Below you can see all the suggestions ",
-
-  "reciter.suggestion.targets": "Current Suggestions",
-
-  "reciter.suggestion.table.name": "Researcher Name",
-
-  "reciter.suggestion.table.actions": "Actions",
-
-  "reciter.suggestion.button.review": "Review {{ total }} suggestion(s)",
-
-  "reciter.suggestion.noTargets": "No target found.",
-
-  "reciter.suggestion.target.error.service.retrieve": "An error occurred while loading the Suggestion targets",
-
-  "reciter.suggestion.evidence.type": "Type",
-
-  "reciter.suggestion.evidence.score": "Score",
-
-  "reciter.suggestion.evidence.notes": "Notes",
-
-  "reciter.suggestion.approveAndImport": "Approve & import",
-
-  "reciter.suggestion.approveAndImport.success": "The suggestion has been imported successfully. <a href='/workspaceitems/{{workspaceItemId}}/edit'>View.</a>",
-
-  "reciter.suggestion.approveAndImport.bulk": "Approve & import Selected",
-
-  "reciter.suggestion.approveAndImport.bulk.success": "{{ count }} suggestions have been imported successfully ",
-
-  "reciter.suggestion.approveAndImport.bulk.error": "{{ count }} suggestions haven't been imported due to unexpected server errors",
-
-  "reciter.suggestion.notMine": "Not mine",
-
-  "reciter.suggestion.notMine.success": "The suggestion has been discarded",
-
-  "reciter.suggestion.notMine.bulk": "Not mine Selected",
-
-  "reciter.suggestion.notMine.bulk.success": "{{ count }} suggestions have been discarded ",
-
-  "reciter.suggestion.notMine.bulk.error": "{{ count }} suggestions haven't been discarded due to unexpected server errors",
-
-  "reciter.suggestion.empty": "All the <b>{{type}}</b> suggestions in the {{source}}<br> related to your profile have been either approved or rejected.",
-
-  "reciter.suggestion.seeEvidence": "See evidence",
-
-  "reciter.suggestion.hideEvidence": "Hide evidence",
-
-  "reciter.suggestion.not-found": "No suggestion found with the given identifier.",
-
-  "reciter.suggestion.suggestionFor": "Suggestion for",
-
-  "reciter.suggestion.source.oaire": "OpenAIRE Graph",
-
-  "reciter.suggestion.source.orcidWorks": "ORCID registry",
-
-  "reciter.suggestion.from.source": "from the ",
-
-  "reciter.suggestion.totalScore": "Total Score",
-
-  "reciter.suggestion.type.oaire": "Publications",
-
-  "reciter.suggestion.type.orcidWorks": "Publications",
-
   "orgunit.listelement.badge": "Organizational Unit",
 
   "orgunit.listelement.no-title": "Untitled",
@@ -5337,7 +5303,7 @@
 
   "register-page.registration.error.head": "Error when trying to register email",
 
-  "register-page.registration.error.content": "An error occured when registering the following email address: {{ email }}",
+  "register-page.registration.error.content": "An error occurred when registering the following email address: {{ email }}",
 
   "register-page.registration.error.recaptcha": "Error when trying to authenticate with recaptcha",
 
@@ -6702,6 +6668,12 @@
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.Author.title": "Import Remote Author",
 
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.added.new-entity": "New Entity Added!",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.title": "Project",
+
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Import Remote Author",
+
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.local-entity": "Successfully added local author to the selection",
 
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "Successfully imported and added external author to the selection",
@@ -7994,6 +7966,10 @@
 
   "person.orcid.registry.auth": "ORCID Authorizations",
 
+  "person.orcid-tooltip.authenticated": "{{orcid}}",
+
+  "person.orcid-tooltip.not-authenticated": "{{orcid}} (unconfirmed)",
+
   "home.recent-submissions.head": "Recent Submissions",
 
   "relation.rp.researchoutputs.search.results.head": "Related Publications",
@@ -8819,6 +8795,24 @@
   "item.page.cc.license.disclaimer": "Except where otherwised noted, this item's license is described as",
 
   "browse.search-form.placeholder": "Search the repository",
+
+  "file-download-link.download": "Download ",
+
+  "register-page.registration.aria.label": "Enter your e-mail address",
+
+  "forgot-email.form.aria.label": "Enter your e-mail address",
+
+  "search-facet-option.update.announcement": "The page will be reloaded. Filter {{ filter }} is selected.",
+
+  "live-region.ordering.instructions": "Press spacebar to reorder {{ itemName }}.",
+
+  "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of  {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+
+  "live-region.ordering.moved": "{{ itemName }}, moved to position {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
+
+  "live-region.ordering.dropped": "{{ itemName }}, dropped at position {{ index }} of {{ length }}.",
+
+  "dynamic-form-array.sortable-list.label": "Sortable list",
 
   "external-login.form.email": "Enter the email",
 

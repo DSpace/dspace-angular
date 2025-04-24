@@ -1,21 +1,16 @@
 import { NgComponentOutlet } from '@angular/common';
 import {
+  AfterViewInit,
   Component,
-  Injector,
   Input,
   OnChanges,
-  OnInit,
   SimpleChanges,
+  ViewChild,
+  ViewContainerRef,
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { GenericConstructor } from '../../../../../core/shared/generic-constructor';
-import {
-  FILTER_CONFIG,
-  IN_PLACE_SEARCH,
-  REFRESH_FILTER,
-  SCOPE,
-} from '../../../../../core/shared/search/search-filter.service';
 import { FilterType } from '../../../models/filter-type.model';
 import { SearchFilterConfig } from '../../../models/search-filter-config.model';
 import { SearchFacetFilterComponent } from '../../../search-filters/search-filter/search-facet-filter/search-facet-filter.component';
@@ -33,7 +28,7 @@ import { renderChartFilterType } from '../../chart-search-result-element-decorat
 /**
  * Wrapper component that renders a specific chart facet filter based on the filter config's type
  */
-export class SearchChartFilterWrapperComponent implements OnInit, OnChanges {
+export class SearchChartFilterWrapperComponent implements OnChanges, AfterViewInit {
   /**
    * Configuration for the filter of this wrapper component
    */
@@ -62,30 +57,17 @@ export class SearchChartFilterWrapperComponent implements OnInit, OnChanges {
   /**
    * Injector to inject a child component with the @Input parameters
    */
-  objectInjector: Injector;
+  @ViewChild('containerCharts', { read: ViewContainerRef }) vcr!: ViewContainerRef;
 
-  constructor(private injector: Injector) {
-  }
-
-  /**
-   * Initialize and add the filter config to the injector
-   */
-  ngOnInit(): void {
-    this.searchFilter = this.getSearchFilter();
-    this.objectInjector = Injector.create({
-      providers: [
-        { provide: FILTER_CONFIG, useFactory: () => (this.filterConfig), deps: [] },
-        { provide: IN_PLACE_SEARCH, useFactory: () => (this.inPlaceSearch), deps: [] },
-        { provide: REFRESH_FILTER, useFactory: () => (this.refreshFilters), deps: [] },
-        { provide: SCOPE, useFactory: () => (this.scope), deps: [] },
-      ],
-      parent: this.injector,
-    });
+  ngAfterViewInit(): void {
+    this.createFilterComponent();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.filterConfig = changes.filterConfig.currentValue;
-    this.ngOnInit();
+    if (changes.filterConfig && changes.filterConfig.currentValue !== changes.filterConfig.previousValue) {
+      this.filterConfig = changes.filterConfig.currentValue;
+      this.createFilterComponent();
+    }
   }
 
   /**
@@ -94,5 +76,20 @@ export class SearchChartFilterWrapperComponent implements OnInit, OnChanges {
   getSearchFilter() {
     const type: FilterType = this.filterConfig.filterType;
     return renderChartFilterType(type);
+  }
+
+  /**
+   * Initialize and add the filter config to the injector
+   */
+  private createFilterComponent() {
+    if (this.vcr) {
+      this.searchFilter = this.getSearchFilter();
+      this.vcr.clear();
+      const componentRef = this.vcr.createComponent(this.searchFilter);
+      componentRef.setInput('filterConfig', this.filterConfig);
+      componentRef.setInput('inPlaceSearch', this.inPlaceSearch);
+      componentRef.setInput('refreshFilters', this.refreshFilters);
+      componentRef.setInput('scope', this.scope);
+    }
   }
 }

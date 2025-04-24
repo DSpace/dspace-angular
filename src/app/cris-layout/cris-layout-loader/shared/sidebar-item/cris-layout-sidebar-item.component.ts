@@ -7,6 +7,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnInit,
   Output,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
@@ -37,7 +38,7 @@ import { slide } from '../../../../shared/animations/slide';
     RouterLink,
   ],
 })
-export class CrisLayoutSidebarItemComponent {
+export class CrisLayoutSidebarItemComponent implements OnInit {
   /**
    * Contains the items base url
    */

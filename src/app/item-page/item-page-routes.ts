@@ -25,6 +25,18 @@ import { VersionPageComponent } from './version-page/version-page/version-page.c
 
 export const ROUTES: Route[] = [
   {
+    path: 'version',
+    children: [
+      {
+        path: ':id',
+        component: VersionPageComponent,
+        resolve: {
+          dso: versionResolver,
+        },
+      },
+    ],
+  },
+  {
     path: ':id',
     resolve: {
       dso: itemPageResolver,
@@ -91,16 +103,5 @@ export const ROUTES: Route[] = [
       showSocialButtons: true,
     },
   },
-  {
-    path: 'version',
-    children: [
-      {
-        path: ':id',
-        component: VersionPageComponent,
-        resolve: {
-          dso: versionResolver,
-        },
-      },
-    ],
-  },
+
 ];

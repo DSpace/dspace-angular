@@ -30,6 +30,7 @@ import {
   filter,
   take,
 } from 'rxjs/operators';
+import { BtnDisabledDirective } from 'src/app/shared/btn-disabled.directive';
 
 import { environment } from '../../../../../environments/environment';
 import { JsonPatchOperationPathCombiner } from '../../../../core/json-patch/builder/json-patch-operation-path-combiner';
@@ -62,6 +63,7 @@ import { DuplicateMatchMetadataDetailConfig } from '../models/duplicate-detail-m
     NgbTooltipModule,
     RouterLink,
     ReactiveFormsModule,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

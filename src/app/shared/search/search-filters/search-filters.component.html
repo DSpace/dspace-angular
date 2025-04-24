@@ -1,12 +1,27 @@
-<div [class.d-none]="!availableFilters">
-    <h3 *ngIf="inPlaceSearch">{{filterLabel+'.filters.head' | translate}}</h3>
-    <h2 *ngIf="!inPlaceSearch">{{filterLabel+'.filters.head' | translate}}</h2>
-      <div *ngIf="(filters | async)?.hasSucceeded">
-          <div #searchFilter *ngFor="let filter of (filters | async)?.payload; trackBy: trackUpdate">
-              <ds-search-filter [filter]="filter" [inPlaceSearch]="inPlaceSearch" [refreshFilters]="refreshFilters" [scope]="currentScope"></ds-search-filter>
-          </div>
-      </div>
-      <button *ngIf="inPlaceSearch" class="btn btn-primary" [routerLink]="[searchLink]" [queryParams]="clearParams | async" queryParamsHandling="merge" role="button">
-  <i class="fas fa-undo"></i> {{"search.filters.reset" | translate}}
-</button>
+<div [class.d-none]="(availableFilters$ | async) === false">
+  @if (inPlaceSearch) {
+    <h3>{{filterLabel+'.filters.head' | translate}}</h3>
+  } @else {
+    <h2>{{filterLabel+'.filters.head' | translate}}</h2>
+  }
+
+  @if ((filters | async)?.hasSucceeded) {
+    <ng-container [class.visually-hidden]="getFinalFiltersComputed(this.currentConfiguration) !== (filters | async)?.payload?.length">
+      @for (filter of (filters | async)?.payload; track filter.name) {
+        <div #searchFilter>
+          <ds-search-filter (isVisibilityComputed)="countFiltersWithComputedVisibility($event)" [scope]="currentScope" [filter]="filter" [inPlaceSearch]="inPlaceSearch" [refreshFilters]="refreshFilters"></ds-search-filter>
+        </div>
+      }
+    </ng-container>
+  }
+
+  @if(getFinalFiltersComputed(this.currentConfiguration) !== (filters | async)?.payload?.length) {
+    <ngx-skeleton-loader [count]="defaultFilterCount"/>
+  }
+
+  @if (inPlaceSearch) {
+    <button class="btn btn-primary" [routerLink]="[searchLink]" [queryParams]="clearParams | async" queryParamsHandling="merge" role="button">
+      <i class="fas fa-undo"></i> {{"search.filters.reset" | translate}}
+    </button>
+  }
 </div>

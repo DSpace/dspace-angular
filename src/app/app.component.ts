@@ -65,7 +65,6 @@ import { ThemeService } from './shared/theme-support/theme.service';
 import { SocialComponent } from './social/social.component';
 import { SocialService } from './social/social.service';
 
-
 @Component({
   selector: 'ds-app',
   templateUrl: './app.component.html',

@@ -2,7 +2,11 @@ import {
   AsyncPipe,
   NgIf,
 } from '@angular/common';
-import { Component } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import {
   NgbDropdownModule,
   NgbModal,
@@ -18,6 +22,7 @@ import {
   mergeMap,
   take,
 } from 'rxjs/operators';
+import { BtnDisabledDirective } from 'src/app/shared/btn-disabled.directive';
 
 import { EntityTypeDataService } from '../../../core/data/entity-type-data.service';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
@@ -41,10 +46,11 @@ import { EntityDropdownComponent } from '../../../shared/entity-dropdown/entity-
     TranslateModule,
     NgbDropdownModule,
     EntityDropdownComponent,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })
-export class MyDSpaceNewBulkImportComponent {
+export class MyDSpaceNewBulkImportComponent implements OnInit, OnDestroy {
 
   /**
    * Used to verify if there are one or more entities available

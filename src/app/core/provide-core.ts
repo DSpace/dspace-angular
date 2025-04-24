@@ -16,6 +16,7 @@ import { AccessStatusObject } from '../shared/object-collection/shared/badges/ac
 import { IdentifierData } from '../shared/object-list/identifier-data/identifier-data.model';
 import { Subscription } from '../shared/subscriptions/models/subscription.model';
 import { SubmissionCoarNotifyConfig } from '../submission/sections/section-coar-notify/submission-coar-notify.config';
+import { SystemWideAlert } from '../system-wide-alert/system-wide-alert.model';
 import { Audit } from './audit/model/audit.model';
 import { AuthStatus } from './auth/models/auth-status.model';
 import { MachineToken } from './auth/models/machine-token.model';
@@ -200,6 +201,7 @@ export const models =
     Itemfilter,
     SubmissionCoarNotifyConfig,
     NotifyRequestsStatus,
+    SystemWideAlert,
     Section,
     Audit,
     CrisLayoutTab,

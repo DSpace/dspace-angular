@@ -21,7 +21,6 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import {
-  BehaviorSubject,
   combineLatest,
   Observable,
   Subscription,
@@ -54,6 +53,7 @@ import { Version } from '../../core/shared/version.model';
 import { VersionHistory } from '../../core/shared/version-history.model';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import {
   hasValue,
   hasValueOperator,
@@ -62,7 +62,6 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { PaginatedSearchOptions } from '../../shared/search/models/paginated-search-options.model';
-import { CanEditVersionPipe } from '../../shared/utils/can-edit-version.pipe';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { VarDirective } from '../../shared/utils/var.directive';
 import {
@@ -71,13 +70,22 @@ import {
 } from '../item-page-routing-paths';
 import { ItemVersionsRowElementVersionComponent } from './item-versions-row-element-version/item-versions-row-element-version.component';
 
+interface VersionsDTO {
+  totalElements: number;
+  versionDTOs: VersionDTO[];
+}
+
+interface VersionDTO {
+  version: Version;
+  canEditVersion: Observable<boolean>;
+}
 
 @Component({
   selector: 'ds-item-versions',
   templateUrl: './item-versions.component.html',
   styleUrls: ['./item-versions.component.scss'],
   standalone: true,
-  imports: [VarDirective, NgIf, AlertComponent, PaginationComponent, NgFor, RouterLink, NgClass, FormsModule, AsyncPipe, DatePipe, TranslateModule, ItemVersionsRowElementVersionComponent, CanEditVersionPipe],
+  imports: [VarDirective, NgIf, AlertComponent, PaginationComponent, NgFor, RouterLink, NgClass, FormsModule, AsyncPipe, DatePipe, TranslateModule, ItemVersionsRowElementVersionComponent, BtnDisabledDirective],
 })
 
 /**
@@ -134,16 +142,15 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
   versionHistory$: Observable<VersionHistory>;
 
   /**
-   * The version history's list of versions
+   * The version history information that is used to render the HTML
    */
-  versionsRD$: BehaviorSubject<RemoteData<PaginatedList<Version>>> = new BehaviorSubject<RemoteData<PaginatedList<Version>>>(null);
+  versionsDTO$: Observable<VersionsDTO>;
 
   /**
    * Verify if the list of versions has at least one e-person to display
    * Used to hide the "Editor" column when no e-persons are present to display
    */
   hasEpersons$: Observable<boolean>;
-
   /**
    * Verify if there is an inprogress submission in the version history
    * Used to disable the "Create version" button
@@ -164,7 +171,11 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
    * The page options to use for fetching the versions
    * Start at page 1 and always use the set page size
    */
-  options: PaginationComponentOptions;
+  options = Object.assign(new PaginationComponentOptions(), {
+    id: 'ivo',
+    currentPage: 1,
+    pageSize: this.pageSize,
+  });
 
   /**
    * The routes to the versions their item pages
@@ -189,9 +200,6 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
    * The summary currently being edited
    */
   versionBeingEditedSummary: string;
-
-  canCreateVersion$: Observable<boolean>;
-  createVersionTitle$: Observable<string>;
 
   constructor(private versionHistoryService: VersionHistoryDataService,
               private versionService: VersionDataService,
@@ -240,14 +248,10 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
 
   /**
    * Get the route to the specified version
-   * @param version the version for which the route will be retrieved
+   * @param versionId the ID of the version for which the route will be retrieved
    */
-  getVersionRoute(version: Version): Observable<string> {
-    return version.item.pipe(
-      getFirstCompletedRemoteData(),
-      map(data => data.payload),
-      map(item => getItemVersionRoute(item.uuid)),
-    );
+  getVersionRoute(versionId: string) {
+    return getItemVersionRoute(versionId);
   }
 
   /**
@@ -322,16 +326,22 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
    */
   getAllVersions(versionHistory$: Observable<VersionHistory>): void {
     const currentPagination = this.paginationService.getCurrentPagination(this.options.id, this.options);
-    combineLatest([versionHistory$, currentPagination]).pipe(
+    this.versionsDTO$ = combineLatest([versionHistory$, currentPagination]).pipe(
       switchMap(([versionHistory, options]: [VersionHistory, PaginationComponentOptions]) => {
         return this.versionHistoryService.getVersions(versionHistory.id,
           new PaginatedSearchOptions({ pagination: Object.assign({}, options, { currentPage: options.currentPage }) }),
           false, true, followLink('item'), followLink('eperson'));
       }),
       getFirstCompletedRemoteData(),
-    ).subscribe((res: RemoteData<PaginatedList<Version>>) => {
-      this.versionsRD$.next(res);
-    });
+      getRemoteDataPayload(),
+      map((versions: PaginatedList<Version>) => ({
+        totalElements: versions.totalElements,
+        versionDTOs: (versions?.page ?? []).map((version: Version) => ({
+          version: version,
+          canEditVersion: this.canEditVersion$(version),
+        })),
+      })),
+    );
   }
 
   /**
@@ -386,16 +396,12 @@ export class ItemVersionsComponent implements OnDestroy, OnInit {
       );
 
       this.getAllVersions(this.versionHistory$);
-      this.hasEpersons$ = this.versionsRD$.pipe(
-        getAllSucceededRemoteData(),
-        getRemoteDataPayload(),
-        hasValueOperator(),
-        map((versions: PaginatedList<Version>) => versions.page.filter((version: Version) => version.eperson !== undefined).length > 0),
+      this.hasEpersons$ = this.versionsDTO$.pipe(
+        map((versionsDTO: VersionsDTO) => versionsDTO.versionDTOs.filter((versionDTO: VersionDTO) => versionDTO.version.eperson !== undefined).length > 0),
         startWith(false),
       );
-      this.itemPageRoutes$ = this.versionsRD$.pipe(
-        getAllSucceededRemoteDataPayload(),
-        switchMap((versions) => combineLatest(versions.page.map((version) => version.item.pipe(getAllSucceededRemoteDataPayload())))),
+      this.itemPageRoutes$ = this.versionsDTO$.pipe(
+        switchMap((versionsDTO: VersionsDTO) => combineLatest(versionsDTO.versionDTOs.map((versionDTO: VersionDTO) => versionDTO.version.item.pipe(getAllSucceededRemoteDataPayload())))),
         map((versions) => {
           const itemPageRoutes = {};
           versions.forEach((item) => itemPageRoutes[item.uuid] = getItemPageRoute(item));

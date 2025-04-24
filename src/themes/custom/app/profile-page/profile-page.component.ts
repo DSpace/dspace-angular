@@ -2,6 +2,7 @@ import {
   AsyncPipe,
   NgForOf,
   NgIf,
+  NgTemplateOutlet,
 } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
@@ -12,6 +13,9 @@ import { ProfilePageAccessTokenComponent } from '../../../../app/profile-page/pr
 import { ThemedProfilePageMetadataFormComponent } from '../../../../app/profile-page/profile-page-metadata-form/themed-profile-page-metadata-form.component';
 import { ProfilePageResearcherFormComponent } from '../../../../app/profile-page/profile-page-researcher-form/profile-page-researcher-form.component';
 import { ProfilePageSecurityFormComponent } from '../../../../app/profile-page/profile-page-security-form/profile-page-security-form.component';
+import { ErrorComponent } from '../../../../app/shared/error/error.component';
+import { ThemedLoadingComponent } from '../../../../app/shared/loading/themed-loading.component';
+import { PaginationComponent } from '../../../../app/shared/pagination/pagination.component';
 import { VarDirective } from '../../../../app/shared/utils/var.directive';
 
 @Component({
@@ -31,6 +35,10 @@ import { VarDirective } from '../../../../app/shared/utils/var.directive';
     NgIf,
     NgForOf,
     SuggestionsNotificationComponent,
+    NgTemplateOutlet,
+    PaginationComponent,
+    ThemedLoadingComponent,
+    ErrorComponent,
     ProfilePageAccessTokenComponent,
   ],
 })

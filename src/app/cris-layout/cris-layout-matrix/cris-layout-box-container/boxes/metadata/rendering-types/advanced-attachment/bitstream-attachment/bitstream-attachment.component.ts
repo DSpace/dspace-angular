@@ -16,17 +16,22 @@ import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
 
 import { AdvancedAttachmentElementType } from '../../../../../../../../../config/advanced-attachment-rendering.config';
 import { environment } from '../../../../../../../../../environments/environment';
 import { BitstreamDataService } from '../../../../../../../../core/data/bitstream-data.service';
+import { RemoteData } from '../../../../../../../../core/data/remote-data';
 import { LayoutField } from '../../../../../../../../core/layout/models/box.model';
 import {
   Bitstream,
   ChecksumInfo,
 } from '../../../../../../../../core/shared/bitstream.model';
 import { Item } from '../../../../../../../../core/shared/item.model';
+import { getFirstCompletedRemoteData } from '../../../../../../../../core/shared/operators';
 import { TruncatableComponent } from '../../../../../../../../shared/truncatable/truncatable.component';
 import { TruncatablePartComponent } from '../../../../../../../../shared/truncatable/truncatable-part/truncatable-part.component';
 import { FileSizePipe } from '../../../../../../../../shared/utils/file-size-pipe';
@@ -97,6 +102,8 @@ export class BitstreamAttachmentComponent extends BitstreamRenderingModelCompone
    */
   checksumInfo: ChecksumInfo;
 
+  thumbnail$: BehaviorSubject<RemoteData<Bitstream>> = new BehaviorSubject<RemoteData<Bitstream>>(null);
+
   constructor(
     @Inject('fieldProvider') public fieldProvider: LayoutField,
     @Inject('itemProvider') public itemProvider: Item,
@@ -111,6 +118,11 @@ export class BitstreamAttachmentComponent extends BitstreamRenderingModelCompone
   }
 
   ngOnInit() {
+    this.attachment.thumbnail.pipe(
+      getFirstCompletedRemoteData(),
+    ).subscribe((thumbnail: RemoteData<Bitstream>) => {
+      this.thumbnail$.next(thumbnail);
+    });
     this.allAttachmentProviders = this.attachment?.allMetadataValues('bitstream.viewer.provider');
     this.bitstreamFormat$ = this.getFormat(this.attachment);
     this.bitstreamSize = this.getSize(this.attachment);

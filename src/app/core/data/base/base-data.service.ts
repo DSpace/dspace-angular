@@ -11,6 +11,7 @@ import {
   from as observableFrom,
   Observable,
   of as observableOf,
+  shareReplay,
 } from 'rxjs';
 import {
   map,
@@ -283,8 +284,13 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
       isNotEmptyOperator(),
       take(1),
       map((href: string) => this.buildHrefFromFindOptions(href, {}, [], ...linksToFollow)),
+      shareReplay({
+        bufferSize: 1,
+        refCount: true,
+      }),
     );
 
+    const startTime: number = new Date().getTime();
     this.createAndSendGetRequest(requestHref$, useCachedVersionIfAvailable);
 
     const response$: Observable<RemoteData<T>> = this.rdbService.buildSingle<T>(requestHref$, ...linksToFollow).pipe(
@@ -292,7 +298,7 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
       // call it isn't immediately returned, but we wait until the remote data for the new request
       // is created. If useCachedVersionIfAvailable is false it also ensures you don't get a
       // cached completed object
-      skipWhile((rd: RemoteData<T>) => rd.isStale || (!useCachedVersionIfAvailable && rd.hasCompleted)),
+      skipWhile((rd: RemoteData<T>) => rd.isStale || (!useCachedVersionIfAvailable && rd.lastUpdated < startTime)),
       this.reRequestStaleRemoteData(reRequestOnStale, () =>
         this.findByHref(href$, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow)),
     );
@@ -336,8 +342,13 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
       isNotEmptyOperator(),
       take(1),
       map((href: string) => this.buildHrefFromFindOptions(href, options, [], ...linksToFollow)),
+      shareReplay({
+        bufferSize: 1,
+        refCount: true,
+      }),
     );
 
+    const startTime: number = new Date().getTime();
     this.createAndSendGetRequest(requestHref$, useCachedVersionIfAvailable);
 
     const response$: Observable<RemoteData<PaginatedList<T>>> = this.rdbService.buildList<T>(requestHref$, ...linksToFollow).pipe(
@@ -345,7 +356,7 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
       // call it isn't immediately returned, but we wait until the remote data for the new request
       // is created. If useCachedVersionIfAvailable is false it also ensures you don't get a
       // cached completed object
-      skipWhile((rd: RemoteData<PaginatedList<T>>) => rd.isStale || (!useCachedVersionIfAvailable && rd.hasCompleted)),
+      skipWhile((rd: RemoteData<PaginatedList<T>>) => rd.isStale || (!useCachedVersionIfAvailable && rd.lastUpdated < startTime)),
       this.reRequestStaleRemoteData(reRequestOnStale, () =>
         this.findListByHref(href$, options, useCachedVersionIfAvailable, reRequestOnStale, ...linksToFollow)),
     );

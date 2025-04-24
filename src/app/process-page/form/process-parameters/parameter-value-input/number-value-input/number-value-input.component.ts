@@ -2,6 +2,7 @@ import { NgIf } from '@angular/common';
 import {
   Component,
   Input,
+  OnInit,
   Optional,
 } from '@angular/core';
 import {
@@ -33,7 +34,7 @@ import { ValueInputComponent } from '../value-input.component';
     NgIf,
   ],
 })
-export class NumberValueInputComponent extends ValueInputComponent<string> {
+export class NumberValueInputComponent extends ValueInputComponent<string> implements OnInit {
   /**
    * The current value of the string
    */

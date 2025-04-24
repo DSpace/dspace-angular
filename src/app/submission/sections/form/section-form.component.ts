@@ -320,11 +320,6 @@ export class SubmissionSectionFormComponent extends SectionModelComponent implem
       }
     })?.fields?.[0]?.visibility;
 
-    //
-    // const visibility: SubmissionVisibilityType = this.formConfig?.rows.find(row => {
-    //   return row?.fields?.[0]?.selectableMetadata?.[0]?.metadata === field;
-    // })?.fields?.[0]?.visibility;
-
     return SubmissionVisibility.isVisible(visibility, this.submissionService.getSubmissionScope());
   }
 

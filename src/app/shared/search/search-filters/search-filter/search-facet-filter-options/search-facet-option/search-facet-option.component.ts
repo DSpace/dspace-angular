@@ -24,6 +24,7 @@ import { PaginationService } from '../../../../../../core/pagination/pagination.
 import { SearchService } from '../../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
+import { LiveRegionService } from '../../../../../../shared/live-region/live-region.service';
 import { CapitalizePipe } from '../../../../../utils/capitalize.pipe';
 import { currentPath } from '../../../../../utils/route.utils';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
@@ -84,6 +85,7 @@ export class SearchFacetOptionComponent implements OnInit {
               protected router: Router,
               protected activatedRoute: ActivatedRoute,
               protected paginationService: PaginationService,
+              protected liveRegionService: LiveRegionService,
               protected translateService: TranslateService,
   ) {
   }
@@ -154,4 +156,11 @@ export class SearchFacetOptionComponent implements OnInit {
     return getFacetValueForType(this.filterValue, this.filterConfig);
   }
 
+  /**
+   * Announces to the screen reader that the page will be reloaded, which filter has been selected
+   */
+  announceFilter() {
+    const message = this.translateService.instant('search-facet-option.update.announcement', { filter: this.filterValue.value });
+    this.liveRegionService.addMessage(message);
+  }
 }

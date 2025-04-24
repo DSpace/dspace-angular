@@ -15,6 +15,7 @@ import {
 } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import { BehaviorSubject } from 'rxjs';
+import { BtnDisabledDirective } from 'src/app/shared/btn-disabled.directive';
 
 import { environment } from '../../../environments/environment';
 import { SiteDataService } from '../../core/data/site-data.service';
@@ -36,6 +37,7 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
     AsyncPipe,
     NgIf,
     NgTemplateOutlet,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

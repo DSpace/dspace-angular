@@ -17,11 +17,7 @@ import { RemoteDataBuildService } from '../../../../../core/cache/builders/remot
 import { buildPaginatedList } from '../../../../../core/data/paginated-list.model';
 import { PageInfo } from '../../../../../core/shared/page-info.model';
 import { SearchService } from '../../../../../core/shared/search/search.service';
-import {
-  FILTER_CONFIG,
-  IN_PLACE_SEARCH,
-  SearchFilterService,
-} from '../../../../../core/shared/search/search-filter.service';
+import { SearchFilterService } from '../../../../../core/shared/search/search-filter.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-configuration.service';
 import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils';
 import { RouterStub } from '../../../../testing/router.stub';
@@ -105,7 +101,6 @@ xdescribe('SearchChartLineComponent', () => {
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub(searchLink) },
         { provide: Router, useValue: new RouterStub() },
-        { provide: FILTER_CONFIG, useValue: new SearchFilterConfig() },
         {
           provide: RemoteDataBuildService,
           useValue: { aggregate: () => observableOf({}) },
@@ -114,7 +109,6 @@ xdescribe('SearchChartLineComponent', () => {
           provide: SEARCH_CONFIG_SERVICE,
           useValue: new SearchConfigurationServiceStub(),
         },
-        { provide: IN_PLACE_SEARCH, useValue: false },
         {
           provide: SearchFilterService,
           useValue: {

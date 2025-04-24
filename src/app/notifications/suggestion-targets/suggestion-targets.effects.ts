@@ -18,9 +18,13 @@ import {
   AuthActionTypes,
   RetrieveAuthenticatedEpersonSuccessAction,
 } from '../../core/auth/auth.actions';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { PaginatedList } from '../../core/data/paginated-list.model';
+import { RemoteData } from '../../core/data/remote-data';
 import { EPerson } from '../../core/eperson/models/eperson.model';
 import { SuggestionTarget } from '../../core/notifications/suggestions/models/suggestion-target.model';
+import { ConfigurationProperty } from '../../core/shared/configuration-property.model';
+import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SuggestionsService } from '../suggestions.service';
 import {
@@ -73,14 +77,23 @@ export class SuggestionTargetsEffects {
   ), { dispatch: false });
 
   /**
-   * Show a notification on error.
+   * Retrieve the current user suggestions after retrieving the authenticated user
    */
   retrieveUserTargets$ = createEffect(() => this.actions$.pipe(
     ofType(AuthActionTypes.RETRIEVE_AUTHENTICATED_EPERSON_SUCCESS),
     switchMap((action: RetrieveAuthenticatedEpersonSuccessAction) => {
-      return this.suggestionsService.retrieveCurrentUserSuggestions(action.payload.uuid).pipe(
-        map((suggestionTargets: SuggestionTarget[]) => new AddUserSuggestionsAction(suggestionTargets)),
-      );
+      return this.configurationService.findByPropertyName('researcher-profile.entity-type').pipe(
+        getFirstCompletedRemoteData(),
+        switchMap((configRD: RemoteData<ConfigurationProperty> ) => {
+          if (configRD.hasSucceeded && configRD.payload.values.length > 0) {
+            return this.suggestionsService.retrieveCurrentUserSuggestions(action.payload.uuid).pipe(
+              map((suggestionTargets: SuggestionTarget[]) => new AddUserSuggestionsAction(suggestionTargets)),
+            );
+          } else {
+            return of(new AddUserSuggestionsAction([]));
+          }
+        },
+        ));
     })));
 
   /**
@@ -92,16 +105,35 @@ export class SuggestionTargetsEffects {
       return this.store$.select((state: any) => state.core.auth.user)
         .pipe(
           switchMap((user: EPerson) => {
-            return this.suggestionsService.retrieveCurrentUserSuggestions(user?.uuid)
-              .pipe(
-                map((suggestionTargets: SuggestionTarget[]) => new AddUserSuggestionsAction(suggestionTargets)),
-                catchError((error: unknown) => {
-                  if (error instanceof Error) {
-                    console.error(error.message);
-                  }
-                  return of(new RefreshUserSuggestionsErrorAction());
-                }),
-              );
+            if (!user) {
+              return of(new AddUserSuggestionsAction([]));
+            }
+            return this.configurationService.findByPropertyName('researcher-profile.entity-type').pipe(
+              getFirstCompletedRemoteData(),
+              switchMap((configRD: RemoteData<ConfigurationProperty> ) => {
+                if (configRD.hasSucceeded && configRD.payload.values.length > 0) {
+                  return this.suggestionsService.retrieveCurrentUserSuggestions(user.uuid)
+                    .pipe(
+                      map((suggestionTargets: SuggestionTarget[]) => new AddUserSuggestionsAction(suggestionTargets)),
+                      catchError((error: unknown) => {
+                        if (error instanceof Error) {
+                          console.error(error.message);
+                        }
+                        return of(new RefreshUserSuggestionsErrorAction());
+                      }),
+                    );
+                } else {
+                  return of(new AddUserSuggestionsAction([]));
+                }
+              },
+              ),
+              catchError((error: unknown) => {
+                if (error instanceof Error) {
+                  console.error(error.message);
+                }
+                return of(new RefreshUserSuggestionsErrorAction());
+              }),
+            );
           }),
           catchError((error: unknown) => {
             if (error instanceof Error) {
@@ -120,6 +152,7 @@ export class SuggestionTargetsEffects {
    * @param {TranslateService} translate
    * @param {NotificationsService} notificationsService
    * @param {SuggestionsService} suggestionsService
+   * @param {ConfigurationDataService} configurationService
    */
   constructor(
     private actions$: Actions,
@@ -127,6 +160,7 @@ export class SuggestionTargetsEffects {
     private translate: TranslateService,
     private notificationsService: NotificationsService,
     private suggestionsService: SuggestionsService,
+    private configurationService: ConfigurationDataService,
   ) {
   }
 }

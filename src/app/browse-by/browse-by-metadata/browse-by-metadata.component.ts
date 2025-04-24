@@ -1,5 +1,6 @@
 import {
   AsyncPipe,
+  isPlatformServer,
   NgIf,
 } from '@angular/common';
 import {
@@ -9,6 +10,8 @@ import {
   OnChanges,
   OnDestroy,
   OnInit,
+  PLATFORM_ID,
+  SimpleChanges,
 } from '@angular/core';
 import {
   ActivatedRoute,
@@ -23,13 +26,17 @@ import {
   of as observableOf,
   Subscription,
 } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {
+  distinctUntilChanged,
+  map,
+} from 'rxjs/operators';
 import { ThemedBrowseByComponent } from 'src/app/shared/browse-by/themed-browse-by.component';
 
 import {
   APP_CONFIG,
   AppConfig,
 } from '../../../config/app-config.interface';
+import { environment } from '../../../environments/environment';
 import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { BrowseService } from '../../core/browse/browse.service';
 import { BrowseEntrySearchOptions } from '../../core/browse/browse-entry-search-options.model';
@@ -47,12 +54,6 @@ import { Context } from '../../core/shared/context.model';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import { Item } from '../../core/shared/item.model';
 import { getFirstSucceededRemoteData } from '../../core/shared/operators';
-import { ThemedComcolPageBrowseByComponent } from '../../shared/comcol/comcol-page-browse-by/themed-comcol-page-browse-by.component';
-import { ThemedComcolPageContentComponent } from '../../shared/comcol/comcol-page-content/themed-comcol-page-content.component';
-import { ThemedComcolPageHandleComponent } from '../../shared/comcol/comcol-page-handle/themed-comcol-page-handle.component';
-import { ComcolPageHeaderComponent } from '../../shared/comcol/comcol-page-header/comcol-page-header.component';
-import { ComcolPageLogoComponent } from '../../shared/comcol/comcol-page-logo/comcol-page-logo.component';
-import { DsoEditMenuComponent } from '../../shared/dso-page/dso-edit-menu/dso-edit-menu.component';
 import {
   hasValue,
   isNotEmpty,
@@ -60,11 +61,7 @@ import {
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { PaginationComponentOptions } from '../../shared/pagination/pagination-component-options.model';
 import { StartsWithType } from '../../shared/starts-with/starts-with-type';
-import {
-  followLink,
-  FollowLinkConfig,
-} from '../../shared/utils/follow-link-config.model';
-import { VarDirective } from '../../shared/utils/var.directive';
+import { followLink } from '../../shared/utils/follow-link-config.model';
 import { BrowseByDataType } from '../browse-by-switcher/browse-by-data-type';
 
 export const BBM_PAGINATION_ID = 'bbm';
@@ -74,15 +71,8 @@ export const BBM_PAGINATION_ID = 'bbm';
   styleUrls: ['./browse-by-metadata.component.scss'],
   templateUrl: './browse-by-metadata.component.html',
   imports: [
-    VarDirective,
     AsyncPipe,
-    ComcolPageHeaderComponent,
-    ComcolPageLogoComponent,
     NgIf,
-    ThemedComcolPageHandleComponent,
-    ThemedComcolPageContentComponent,
-    DsoEditMenuComponent,
-    ThemedComcolPageBrowseByComponent,
     TranslateModule,
     ThemedLoadingComponent,
     ThemedBrowseByComponent,
@@ -116,6 +106,11 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
    * Display the h1 title in the section
    */
   @Input() displayTitle = true;
+
+  /**
+   * Defines whether to fetch search results during SSR execution
+   */
+  @Input() renderOnServerSide: boolean;
 
   scope$: BehaviorSubject<string> = new BehaviorSubject(undefined);
 
@@ -202,6 +197,10 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
    * Observable determining if the loading animation needs to be shown
    */
   loading$ = observableOf(true);
+  /**
+   * Whether this component should be rendered or not in SSR
+   */
+  ssrRenderingDisabled = false;
 
   public constructor(protected route: ActivatedRoute,
                      protected browseService: BrowseService,
@@ -211,6 +210,7 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
                      protected router: Router,
                      @Inject(APP_CONFIG) public appConfig: AppConfig,
                      public dsoNameService: DSONameService,
+                     @Inject(PLATFORM_ID) public platformId: any,
   ) {
     this.fetchThumbnails = this.appConfig.browseBy.showThumbnails;
     this.paginationConfig = Object.assign(new PaginationComponentOptions(), {
@@ -218,21 +218,32 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
       currentPage: 1,
       pageSize: this.appConfig.browseBy.pageSize,
     });
+    this.ssrRenderingDisabled = !this.renderOnServerSide && !environment.ssr.enableBrowseComponent && isPlatformServer(this.platformId);
   }
 
 
   ngOnInit(): void {
-
+    if (this.ssrRenderingDisabled) {
+      this.loading$ = observableOf(false);
+      return;
+    }
     const sortConfig = new SortOptions('default', SortDirection.ASC);
-    this.updatePage(getBrowseSearchOptions(this.defaultBrowseId, this.paginationConfig, sortConfig));
     this.currentPagination$ = this.paginationService.getCurrentPagination(this.paginationConfig.id, this.paginationConfig);
     this.currentSort$ = this.paginationService.getCurrentSort(this.paginationConfig.id, sortConfig);
+    const routeParams$: Observable<Params> = observableCombineLatest([
+      this.route.params,
+      this.route.queryParams,
+    ]).pipe(
+      map(([params, queryParams]: [Params, Params]) => Object.assign({}, params, queryParams)),
+      distinctUntilChanged((prev: Params, curr: Params) => prev.id === curr.id && prev.authority === curr.authority && prev.value === curr.value && prev.startsWith === curr.startsWith),
+    );
     this.subs.push(
-      observableCombineLatest([this.route.params, this.route.queryParams, this.scope$, this.currentPagination$, this.currentSort$]).pipe(
-        map(([routeParams, queryParams, scope, currentPage, currentSort]) => {
-          return [Object.assign({}, routeParams, queryParams), scope, currentPage, currentSort];
-        }),
-      ).subscribe(([params, scope, currentPage, currentSort]: [Params, string, PaginationComponentOptions, SortOptions]) => {
+      observableCombineLatest([
+        routeParams$,
+        this.scope$,
+        this.currentPagination$,
+        this.currentSort$,
+      ]).subscribe(([params, scope, currentPage, currentSort]: [Params, string, PaginationComponentOptions, SortOptions]) => {
         this.browseId = params.id || this.defaultBrowseId;
         this.authority = +params.authority || params.authority || '';
 
@@ -260,8 +271,10 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
 
   }
 
-  ngOnChanges(): void {
-    this.scope$.next(this.scope);
+  ngOnChanges(changes: SimpleChanges): void {
+    if (hasValue(changes.scope)) {
+      this.scope$.next(this.scope);
+    }
   }
 
   /**
@@ -307,24 +320,6 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   /**
-   * Update the parent Community or Collection using their scope
-   * @param scope   The UUID of the Community or Collection to fetch
-   */
-  updateParent(scope: string) {
-    if (hasValue(scope)) {
-      const linksToFollow = () => {
-        return [followLink('logo')];
-      };
-      this.parent$ = this.dsoService.findById(scope,
-        true,
-        true,
-        ...linksToFollow() as FollowLinkConfig<DSpaceObject>[]).pipe(
-        getFirstSucceededRemoteData(),
-      );
-    }
-  }
-
-  /**
    * Navigate to the previous page
    */
   goPrev() {
@@ -358,7 +353,6 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
     this.subs.filter((sub: Subscription) => hasValue(sub)).forEach((sub: Subscription) => sub.unsubscribe());
     this.paginationService.clearPagination(this.paginationConfig.id);
   }
-
 
 }
 
