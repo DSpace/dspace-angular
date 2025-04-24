@@ -4424,6 +4424,10 @@
 
   "search.filters.filter.creativeDatePublished.label": "Search date published",
 
+  "search.filters.filter.creativeDatePublished.min.label": "Start",
+
+  "search.filters.filter.creativeDatePublished.max.label": "End",
+
   "search.filters.filter.creativeWorkEditor.head": "Editor",
 
   "search.filters.filter.creativeWorkEditor.placeholder": "Editor",
@@ -5012,6 +5016,8 @@
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Local Journal Issues ({{ count }})",
 
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfIssue": "Local Journal Volumes ({{ count }})",
+
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Local Journal Volumes ({{ count }})",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Local Journal Volumes ({{ count }})",
@@ -5074,6 +5080,8 @@
 
   "submission.sections.describe.relationship-lookup.title.JournalIssue": "Journal Issues",
 
+  "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfIssue": "Journal Volumes",
+
   "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
 
   "submission.sections.describe.relationship-lookup.title.JournalVolume": "Journal Volumes",
@@ -5115,6 +5123,8 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.isAuthorOfPublication": "Selected Authors",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Selected Journals",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfIssue": "Selected Journal Volume",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",
 
