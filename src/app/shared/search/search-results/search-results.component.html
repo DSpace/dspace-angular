@@ -28,6 +28,7 @@
 
 <ds-search-results-skeleton
   *ngIf="isLoading()"
+  [showFallbackMessages]="true"
   [showThumbnails]="showThumbnails"
   [numberOfResults]="searchConfig.pagination.pageSize"
 ></ds-search-results-skeleton>
