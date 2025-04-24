@@ -34,10 +34,12 @@ import {
   Subscription,
 } from 'rxjs';
 import {
+  distinctUntilChanged,
   filter,
   map,
   mergeMap,
   scan,
+  startWith,
   take,
 } from 'rxjs/operators';
 
@@ -116,8 +118,10 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
   }
 
   ngOnInit() {
-    this.initChipsFromModelValue();
-    this.valueChangeSubscription = this.model.valueChanges.subscribe(() => {
+    this.valueChangeSubscription = this.model.valueChanges.pipe(
+      startWith([]),
+      distinctUntilChanged((a,b) => JSON.stringify(a) === JSON.stringify(b)),
+    ).subscribe(() => {
       this.initChipsFromModelValue();
     });
   }
@@ -172,21 +176,26 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
     }
     modalRef.result.then(() => {
       // close
-      this.selectedChipItemIndex = null;
-      this.selectedChipItem = null;
-      this.valueChangeSubscription = this.model.valueChanges.subscribe(() => {
-        this.initChipsFromModelValue();
-      });
+      this.handleModalResult();
     }, () => {
       // dismiss
-      this.selectedChipItemIndex = null;
-      this.selectedChipItem = null;
-      this.valueChangeSubscription = this.model.valueChanges.subscribe(() => {
-        this.initChipsFromModelValue();
-      });
+      this.handleModalResult();
     });
 
     return modalRef;
+  }
+
+  private handleModalResult(): void {
+    this.selectedChipItemIndex = null;
+    this.selectedChipItem = null;
+    if (this.valueChangeSubscription) {
+      this.valueChangeSubscription.unsubscribe();
+    }
+    this.valueChangeSubscription = this.model.valueChanges.pipe(
+      distinctUntilChanged((a,b) => JSON.stringify(a) === JSON.stringify(b)),
+    ).subscribe(() => {
+      this.initChipsFromModelValue();
+    });
   }
 
   private initChipsFromModelValue() {
@@ -234,7 +243,7 @@ export class DsDynamicRelationGroupComponent extends DynamicFormControlComponent
           return acc;
         }, []),
         filter((modelValues: any[]) => this.model.getGroupValue().length === modelValues.length),
-      ).subscribe((modelValue) => {
+      ).pipe(distinctUntilChanged((a,b) => JSON.stringify(a) === JSON.stringify(b))).subscribe((modelValue) => {
         this.model.value = modelValue;
         this.initChips(modelValue);
         this.cdr.markForCheck();
