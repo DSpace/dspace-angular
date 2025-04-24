@@ -73,7 +73,7 @@ export class ObjectListComponent {
   /**
    * Whether to show an RSS syndication button for the current search options
    */
-  @Input() showRSS = false;
+  @Input() showRSS: SortOptions | boolean = false;
 
   /**
    * The link type of the listable elements
