@@ -1,18 +1,27 @@
-import {
-  AsyncPipe,
-  NgForOf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
+  Inject,
   Input,
   OnInit,
 } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-import { Observable } from 'rxjs';
+import {
+  interval,
+  Observable,
+} from 'rxjs';
 
+import {
+  APP_CONFIG,
+  AppConfig,
+} from '../../../../../config/app-config.interface';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { ViewMode } from '../../../../core/shared/view-mode.model';
+import { AlertComponent } from '../../../alert/alert.component';
+import { AlertType } from '../../../alert/alert-type';
 import { hasValue } from '../../../empty.util';
+import { VarDirective } from '../../../utils/var.directive';
 
 @Component({
   selector: 'ds-search-results-skeleton',
@@ -20,7 +29,8 @@ import { hasValue } from '../../../empty.util';
   imports: [
     NgxSkeletonLoaderModule,
     AsyncPipe,
-    NgForOf,
+    AlertComponent,
+    VarDirective,
   ],
   templateUrl: './search-results-skeleton.component.html',
   styleUrl: './search-results-skeleton.component.scss',
@@ -45,6 +55,26 @@ export class SearchResultsSkeletonComponent implements OnInit {
   @Input()
   textLineCount = 2;
   /**
+   * Whether to show fallback messages after a certain loading time
+   */
+  @Input() showFallbackMessages: boolean;
+  /**
+   * The message text for a warning
+   */
+  @Input() warningMessage: string;
+  /**
+   * The amount of time to wait for the warning message to be visible
+   */
+  @Input() warningMessageDelay: number;
+  /**
+   * The message text for an error
+   */
+  @Input() errorMessage: string;
+  /**
+   * The amount of time to wait for the error message to be visible
+   */
+  @Input() errorMessageDelay: number;
+  /**
    * The view mode of the search page
    */
   public viewMode$: Observable<ViewMode>;
@@ -53,10 +83,26 @@ export class SearchResultsSkeletonComponent implements OnInit {
    */
   public loadingResults: number[];
 
+  /**
+   * Timer for fallback messages visualization
+   */
+  delayTimer$: Observable<any>;
+
+
   protected readonly ViewMode = ViewMode;
 
-  constructor(private searchService: SearchService) {
+
+  readonly AlertTypeEnum = AlertType;
+
+  constructor(
+    private searchService: SearchService,
+    private translate: TranslateService,
+    @Inject(APP_CONFIG) private appConfig: AppConfig,
+  ) {
     this.viewMode$ = this.searchService.getViewMode();
+    this.showFallbackMessages = this.showFallbackMessages ?? this.appConfig.loader.showFallbackMessagesByDefault;
+    this.warningMessageDelay = this.warningMessageDelay ?? this.appConfig.loader.warningMessageDelay;
+    this.errorMessageDelay = this.errorMessageDelay ?? this.appConfig.loader.errorMessageDelay;
   }
 
   ngOnInit() {
@@ -66,5 +112,16 @@ export class SearchResultsSkeletonComponent implements OnInit {
       // this is needed as the default value of show thumbnails is true but set in lower levels of the DOM.
       this.showThumbnails = true;
     }
+
+    if (this.showFallbackMessages) {
+      this.setFallBackMessages();
+    }
+  }
+
+  setFallBackMessages(): void {
+    this.warningMessage = this.warningMessage || this.translate.instant('loading.warning');
+    this.errorMessage = this.errorMessage || this.translate.instant('loading.error');
+
+    this.delayTimer$ = interval(1);
   }
 }

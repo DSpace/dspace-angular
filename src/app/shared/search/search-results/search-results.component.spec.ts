@@ -12,6 +12,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { APP_CONFIG } from '../../../../config/app-config.interface';
+import { environment } from '../../../../environments/environment';
 import { Community } from '../../../core/shared/community.model';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
@@ -44,6 +46,7 @@ describe('SearchResultsComponent', () => {
           provide: SearchConfigurationService,
           useValue: new SearchConfigurationServiceStub(),
         },
+        { provide: APP_CONFIG, useValue: environment },
       ],
       imports: [
         TranslateModule.forRoot(),

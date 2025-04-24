@@ -22,7 +22,7 @@ import { AlertComponent } from '../alert/alert.component';
 import { AlertType } from '../alert/alert-type';
 import { hasValue } from '../empty.util';
 
-enum MessageType {
+export enum MessageType {
   LOADING = 'loading',
   WARNING = 'warning',
   ERROR = 'error'
