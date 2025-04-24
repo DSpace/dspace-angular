@@ -111,6 +111,7 @@ import { ItemSearchResultListElementSubmissionComponent } from '../../shared/obj
 import { PoolSearchResultListElementComponent } from '../../shared/object-list/my-dspace-result-list-element/pool-search-result/pool-search-result-list-element.component';
 import { WorkflowItemSearchResultListElementComponent } from '../../shared/object-list/my-dspace-result-list-element/workflow-item-search-result/workflow-item-search-result-list-element.component';
 import { WorkspaceItemSearchResultListElementComponent } from '../../shared/object-list/my-dspace-result-list-element/workspace-item-search-result/workspace-item-search-result-list-element.component';
+import { RelationshipsListComponent } from '../../shared/object-list/relationships-list/relationships-list.component';
 import { CollectionSearchResultListElementComponent } from '../../shared/object-list/search-result-list-element/collection-search-result/collection-search-result-list-element.component';
 import { CommunitySearchResultListElementComponent } from '../../shared/object-list/search-result-list-element/community-search-result/community-search-result-list-element.component';
 import { ItemSearchResultListElementComponent } from '../../shared/object-list/search-result-list-element/item-search-result/item-types/item/item-search-result-list-element.component';
@@ -205,6 +206,7 @@ const ENTRY_COMPONENTS = [
   ClaimedTaskSearchResultDetailElementComponent,
   PoolSearchResultDetailElementComponent,
   ItemSearchResultListElementSubmissionComponent,
+  RelationshipsListComponent,
   PublicationComponent,
   UntypedItemComponent,
 ];
