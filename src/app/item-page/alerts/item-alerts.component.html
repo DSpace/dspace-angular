@@ -10,7 +10,7 @@
         <div class="d-flex justify-content-between flex-wrap">
           <span class="align-self-center">{{'item.alerts.withdrawn' | translate}}</span>
           <div class="gap-2 d-flex">
-            <a routerLink="/home" class="btn btn-primary btn-sm">{{"404.link.home-page" | translate}}</a>
+            <a routerLink="/home" class="btn btn-primary btn-sm" role="button" tabindex="0">{{"404.link.home-page" | translate}}</a>
             @if (showReinstateButton$ | async) {
               <a class="btn btn-primary btn-sm" (click)="openReinstateModal()">{{ 'item.alerts.reinstate-request' | translate}}</a>
             }

@@ -5,7 +5,9 @@
   [queryParams]="(bitstreamPath$| async)?.queryParams"
   [target]="isBlank ? '_blank': '_self'"
   [ngClass]="cssClasses"
-  [attr.aria-label]="('file-download-link.download' | translate) + dsoNameService.getName(bitstream)">
+  [attr.aria-label]="('file-download-link.download' | translate) + dsoNameService.getName(bitstream)"
+  role="link"
+  tabindex="0">
   @if ((canDownload$ | async) === false && (canDownloadWithToken$ | async) === false) {
     <!-- If the user cannot download the file by auth or token, show a lock icon -->
     <span role="img" [attr.aria-label]="'file-download-link.restricted' | translate" class="pr-1"><i class="fas fa-lock"></i></span>
