@@ -33,6 +33,7 @@ import { RequestEntry } from '../core/data/request-entry.model';
 import { SuggestionsNotificationComponent } from '../notifications/suggestions-notification/suggestions-notification.component';
 import { getMockRequestService } from '../shared/mocks/request.service.mock';
 import { SelectableListService } from '../shared/object-list/selectable-list/selectable-list.service';
+import { MyDSpaceBulkActionComponent } from './my-dspace-new-submission/my-dspace-bulk-action/my-dspace-bulk-action.component';
 import { MyDSpaceNewBulkImportComponent } from './my-dspace-new-submission/my-dspace-new-bulk-import/my-dspace-new-bulk-import.component';
 import { MyDspaceQaEventsNotificationsComponent } from './my-dspace-qa-events-notifications/my-dspace-qa-events-notifications.component';
 
@@ -124,6 +125,7 @@ describe('MyDSpacePageComponent', () => {
             SuggestionsNotificationComponent,
             MyDspaceQaEventsNotificationsComponent,
             MyDSpaceNewBulkImportComponent,
+            MyDSpaceBulkActionComponent,
           ],
         },
       })
