@@ -8,10 +8,12 @@ import {
   Input,
   OnChanges,
   PLATFORM_ID,
+  signal,
   SimpleChanges,
+  WritableSignal,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf, BehaviorSubject } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { AuthService } from '../core/auth/auth.service';
@@ -54,7 +56,7 @@ export class ThumbnailComponent implements OnChanges {
   /**
    * The src attribute used in the template to render the image.
    */
-  src$: BehaviorSubject<string> = new BehaviorSubject<string>(undefined);
+  src: WritableSignal<string> = signal(undefined);
 
   retriedWithToken = false;
 
@@ -77,7 +79,7 @@ export class ThumbnailComponent implements OnChanges {
    * Whether the thumbnail is currently loading
    * Start out as true to avoid flashing the alt text while a thumbnail is being loaded.
    */
-  isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+  isLoading: WritableSignal<boolean> = signal(true);
 
   constructor(
     @Inject(PLATFORM_ID) private platformID: any,
@@ -96,8 +98,8 @@ export class ThumbnailComponent implements OnChanges {
       // every time the inputs change we need to start the loading animation again, as it's possible
       // that thumbnail is first set to null when the parent component initializes and then set to
       // the actual value
-      if (this.isLoading$.getValue() === false) {
-        this.isLoading$.next(true);
+      if (!this.isLoading()) {
+        this.isLoading.set(true);
       }
 
       if (hasNoValue(this.thumbnail)) {
@@ -140,7 +142,7 @@ export class ThumbnailComponent implements OnChanges {
    * Otherwise, fall back to the default image or a HTML placeholder
    */
   errorHandler() {
-    const src = this.src$.getValue();
+    const src = this.src();
     const thumbnail = this.bitstream;
     const thumbnailSrc = thumbnail?._links?.content?.href;
 
@@ -192,9 +194,9 @@ export class ThumbnailComponent implements OnChanges {
    * @param src
    */
   setSrc(src: string): void {
-    this.src$.next(src);
+    this.src.set(src);
     if (src === null) {
-      this.isLoading$.next(false);
+      this.isLoading.set(false);
     }
   }
 
@@ -202,6 +204,6 @@ export class ThumbnailComponent implements OnChanges {
    * Stop the loading animation once the thumbnail is successfully loaded
    */
   successHandler() {
-    this.isLoading$.next(false);
+    this.isLoading.set(false);
   }
 }
