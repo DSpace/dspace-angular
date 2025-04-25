@@ -20,7 +20,6 @@ import { MetadataImportPageComponent } from './app/admin/admin-import-metadata-p
 import { AdminSearchPageComponent } from './app/admin/admin-search-page/admin-search-page.component';
 import { AdminSidebarComponent } from './app/admin/admin-sidebar/admin-sidebar.component';
 import { AdminWorkflowPageComponent } from './app/admin/admin-workflow-page/admin-workflow-page.component';
-import { EditBitstreamPageComponent } from './app/bitstream-page/edit-bitstream-page/edit-bitstream-page.component';
 import { BreadcrumbsComponent } from './app/breadcrumbs/breadcrumbs.component';
 import { BrowseByDateComponent } from './app/browse-by/browse-by-date/browse-by-date.component';
 import { BrowseByMetadataComponent } from './app/browse-by/browse-by-metadata/browse-by-metadata.component';
@@ -43,7 +42,6 @@ import { FeedbackComponent } from './app/info/feedback/feedback.component';
 import { FeedbackFormComponent } from './app/info/feedback/feedback-form/feedback-form.component';
 import { PrivacyComponent } from './app/info/privacy/privacy.component';
 import { ItemAlertsComponent } from './app/item-page/alerts/item-alerts.component';
-import { ItemStatusComponent } from './app/item-page/edit-item-page/item-status/item-status.component';
 import { FullFileSectionComponent } from './app/item-page/full/field-components/file-section/full-file-section.component';
 import { FullItemPageComponent } from './app/item-page/full/full-item-page.component';
 import { MediaViewerComponent } from './app/item-page/media-viewer/media-viewer.component';
@@ -102,9 +100,12 @@ import { SiteStatisticsPageComponent } from './app/statistics-page/site-statisti
 import { SubmissionEditComponent } from './app/submission/edit/submission-edit.component';
 import { SubmissionUploadFilesComponent } from './app/submission/form/submission-upload-files/submission-upload-files.component';
 import { SubmissionImportExternalComponent } from './app/submission/import-external/submission-import-external.component';
-import { SubmissionSectionUploadFileComponent } from './app/submission/sections/upload/file/section-upload-file.component';
 import { SubmissionSubmitComponent } from './app/submission/submit/submission-submit.component';
 import { ThumbnailComponent } from './app/thumbnail/thumbnail.component';
+import { SubmissionSectionUploadFileComponent } from './app/submission/sections/upload/file/section-upload-file.component';
+import { ItemStatusComponent } from './app/item-page/edit-item-page/item-status/item-status.component';
+import { EditBitstreamPageComponent } from './app/bitstream-page/edit-bitstream-page/edit-bitstream-page.component';
+import { ResourcePolicyEditComponent } from './app/shared/resource-policies/edit/resource-policy-edit.component';
 import { WorkflowItemDeleteComponent } from './app/workflowitems-edit-page/workflow-item-delete/workflow-item-delete.component';
 import { WorkflowItemSendBackComponent } from './app/workflowitems-edit-page/workflow-item-send-back/workflow-item-send-back.component';
 import { WorkspaceItemsDeletePageComponent } from './app/workspaceitems-edit-page/workspaceitems-delete-page/workspaceitems-delete-page.component';
@@ -204,6 +205,7 @@ const DECLARATIONS = [
   AdminSearchPageComponent,
   AdminWorkflowPageComponent,
   SearchResultsSkeletonComponent,
+  ResourcePolicyEditComponent,
 ];
 
 @NgModule({
