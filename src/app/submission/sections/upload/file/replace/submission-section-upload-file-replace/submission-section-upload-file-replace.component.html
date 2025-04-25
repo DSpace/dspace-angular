@@ -26,6 +26,8 @@
                  [dropOverDocumentMsg]="'item.bitstreams.upload.drop-message'"
                  [enableDragOverDocument]="true"
                  [uploadFilesOptions]="uploadFilesOptions"
+                 [dragoverContainer]="'ngb-modal-window'"
+                 (onFileSelected)="onFileSelected(uploader)"
                  (onCompleteItem)="onCompleteItem($event)"
                  (onUploadError)="onUploadError()"></ds-uploader>
     <div class="button-row bottom">

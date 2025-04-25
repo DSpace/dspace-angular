@@ -57,7 +57,7 @@ export class SubmissionSectionUploadFileReplaceComponent implements OnInit, OnCh
     authToken: null,
     disableMultipart: false,
     itemAlias: null,
-    autoUpload: false
+    autoUpload: false,
   });
 
   /**
@@ -133,6 +133,16 @@ export class SubmissionSectionUploadFileReplaceComponent implements OnInit, OnCh
           }
         })
     );
+  }
+
+  onFileSelected(uploader: UploaderComponent): void {
+    if (!hasValue(uploader.uploader)) {
+      return;
+    }
+    // Only keep last file in queue
+    uploader.uploader.queue.slice(0, -1).forEach((file) => {
+      uploader.uploader?.removeFromQueue(file);
+    });
   }
 
   protected onUploadError(): void {

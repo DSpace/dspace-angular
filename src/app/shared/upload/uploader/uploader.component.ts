@@ -53,6 +53,9 @@ export class UploaderComponent {
    */
   @Input() uploadProperties: UploaderProperties;
 
+  /**
+   * Component that defines the area in which `dragOver` events are processed
+   */
   @Input() dragoverContainer = 'ds-app';
 
   /**
