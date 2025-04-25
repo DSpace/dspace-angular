@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/co
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { of, of as observableOf } from 'rxjs';
+import { of as observableOf } from 'rxjs';
 
 import { ClaimedTaskActionsApproveComponent } from './claimed-task-actions-approve.component';
 import { TranslateLoaderMock } from '../../../mocks/translate-loader.mock';
@@ -18,6 +18,7 @@ import { Router } from '@angular/router';
 import { RouterStub } from '../../../testing/router.stub';
 import { SearchService } from '../../../../core/shared/search/search.service';
 import { RequestService } from '../../../../core/data/request.service';
+import { WorkflowItemDataService } from '../../../../core/submission/workflowitem-data.service';
 
 let component: ClaimedTaskActionsApproveComponent;
 let fixture: ComponentFixture<ClaimedTaskActionsApproveComponent>;
@@ -27,6 +28,7 @@ const searchService = getMockSearchService();
 const requestService = getMockRequestService();
 
 let mockPoolTaskDataService: PoolTaskDataService;
+let mockWorkflowItemDataService: WorkflowItemDataService;
 
 describe('ClaimedTaskActionsApproveComponent', () => {
   const object = Object.assign(new ClaimedTask(), { id: 'claimed-task-1' });
@@ -36,6 +38,10 @@ describe('ClaimedTaskActionsApproveComponent', () => {
 
   beforeEach(waitForAsync(() => {
     mockPoolTaskDataService = new PoolTaskDataService(null, null, null, null);
+    mockWorkflowItemDataService = jasmine.createSpyObj('WorkflowItemDataService', {
+      'invalidateByHref': observableOf(false),
+    });
+
     TestBed.configureTestingModule({
       imports: [
         TranslateModule.forRoot({
@@ -53,6 +59,7 @@ describe('ClaimedTaskActionsApproveComponent', () => {
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestService },
         { provide: PoolTaskDataService, useValue: mockPoolTaskDataService },
+        { provide: WorkflowItemDataService, useValue: mockWorkflowItemDataService },
       ],
       declarations: [ClaimedTaskActionsApproveComponent],
       schemas: [NO_ERRORS_SCHEMA]
@@ -89,7 +96,7 @@ describe('ClaimedTaskActionsApproveComponent', () => {
 
     beforeEach(() => {
       spyOn(component.processCompleted, 'emit');
-      spyOn(component, 'startActionExecution').and.returnValue(of(null));
+      spyOn(component, 'startActionExecution').and.returnValue(observableOf(null));
 
       expectedBody = {
         [component.option]: 'true'

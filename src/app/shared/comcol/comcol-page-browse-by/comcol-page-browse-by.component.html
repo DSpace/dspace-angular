@@ -2,12 +2,14 @@
 <nav class="comcol-browse mb-4" aria-label="Browse Community or Collection">
   <div class="d-none d-sm-block">
 
-    <div class="list-group list-group-horizontal">
+    <div class="list-group list-group-horizontal" role="tablist">
       <a *ngFor="let option of allOptions"
+         [attr.aria-current]="(currentOptionId$ | async) === option.id"
          class="list-group-item"
+         role="tab"
          [routerLink]="option.routerLink"
          [queryParams]="option.params"
-         routerLinkActive="active">{{ option.label | translate }}</a>
+         [class.active]="(currentOptionId$ | async) === option.id">{{ option.label | translate }}</a>
     </div>
   </div>
 

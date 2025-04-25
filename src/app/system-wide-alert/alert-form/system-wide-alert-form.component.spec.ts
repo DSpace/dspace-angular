@@ -302,6 +302,14 @@ describe('SystemWideAlertFormComponent', () => {
       expect(comp.back).not.toHaveBeenCalled();
 
     });
+    it('should not create the new alert when the enable button is clicked on an invalid the form', () => {
+      spyOn(comp as any, 'handleResponse');
+
+      comp.formMessage.patchValue('');
+      comp.save();
+
+      expect((comp as any).handleResponse).not.toHaveBeenCalled();
+    });
   });
   describe('back', () => {
     it('should navigate back to the home page', () => {

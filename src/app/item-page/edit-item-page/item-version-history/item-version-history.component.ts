@@ -5,7 +5,7 @@ import { Item } from '../../../core/shared/item.model';
 import { map } from 'rxjs/operators';
 import { getFirstSucceededRemoteData } from '../../../core/shared/operators';
 import { ActivatedRoute } from '@angular/router';
-import { AlertType } from '../../../shared/alert/aletr-type';
+import { AlertType } from '../../../shared/alert/alert-type';
 
 @Component({
   selector: 'ds-item-version-history',

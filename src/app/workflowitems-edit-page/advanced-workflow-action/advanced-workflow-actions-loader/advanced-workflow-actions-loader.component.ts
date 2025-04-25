@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ComponentFactoryResolver, OnInit } from '@angular/core';
+import { Component, Input, ViewChild, OnInit, ComponentRef, OnDestroy } from '@angular/core';
 import { hasValue } from '../../../shared/empty.util';
 import {
   getAdvancedComponentByWorkflowTaskOption
@@ -15,7 +15,7 @@ import { PAGE_NOT_FOUND_PATH } from '../../../app-routing-paths';
   templateUrl: './advanced-workflow-actions-loader.component.html',
   styleUrls: ['./advanced-workflow-actions-loader.component.scss'],
 })
-export class AdvancedWorkflowActionsLoaderComponent implements OnInit {
+export class AdvancedWorkflowActionsLoaderComponent implements OnDestroy, OnInit {
 
   /**
    * The name of the type to render
@@ -28,8 +28,12 @@ export class AdvancedWorkflowActionsLoaderComponent implements OnInit {
    */
   @ViewChild(AdvancedWorkflowActionsDirective, { static: true }) claimedTaskActionsDirective: AdvancedWorkflowActionsDirective;
 
+  /**
+   * The reference to the dynamic component
+   */
+  protected compRef: ComponentRef<Component>;
+
   constructor(
-    private componentFactoryResolver: ComponentFactoryResolver,
     private router: Router,
   ) {
   }
@@ -40,13 +44,21 @@ export class AdvancedWorkflowActionsLoaderComponent implements OnInit {
   ngOnInit(): void {
     const comp = this.getComponentByWorkflowTaskOption(this.type);
     if (hasValue(comp)) {
-      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(comp);
-
       const viewContainerRef = this.claimedTaskActionsDirective.viewContainerRef;
       viewContainerRef.clear();
-      viewContainerRef.createComponent(componentFactory);
+      this.compRef = viewContainerRef.createComponent(comp);
     } else {
       void this.router.navigate([PAGE_NOT_FOUND_PATH]);
+    }
+  }
+
+  /**
+   * Destroy the dynamically created component
+   */
+  ngOnDestroy(): void {
+    if (hasValue(this.compRef)) {
+      this.compRef.destroy();
+      this.compRef = undefined;
     }
   }
 

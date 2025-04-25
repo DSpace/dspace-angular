@@ -11,7 +11,13 @@ import {
   ResetResponseTimestampsAction
 } from './request.actions';
 import { isNull } from '../../shared/empty.util';
-import { hasSucceeded, isStale, RequestEntryState } from './request-entry-state.model';
+import {
+  hasSucceeded,
+  isStale,
+  RequestEntryState,
+  isRequestPending,
+  isResponsePending
+} from './request-entry-state.model';
 import { RequestState } from './request-state.model';
 
 // Object.create(null) ensures the object has no default js properties (e.g. `__proto__`)
@@ -91,14 +97,17 @@ function executeRequest(storeState: RequestState, action: RequestExecuteAction):
  *    the new storeState, with the response added to the request
  */
 function completeSuccessRequest(storeState: RequestState, action: RequestSuccessAction): RequestState {
-  if (isNull(storeState[action.payload.uuid])) {
+  const prevEntry = storeState[action.payload.uuid];
+  if (isNull(prevEntry)) {
     // after a request has been removed it's possible pending changes still come in.
     // Don't store them
     return storeState;
   } else {
     return Object.assign({}, storeState, {
-      [action.payload.uuid]: Object.assign({}, storeState[action.payload.uuid], {
-        state: RequestEntryState.Success,
+      [action.payload.uuid]: Object.assign({}, prevEntry, {
+        // If a response comes in for a request that's already stale, still store it otherwise
+        // components that are waiting for it might freeze
+        state: isStale(prevEntry.state) ? RequestEntryState.SuccessStale : RequestEntryState.Success,
         response: {
           timeCompleted: action.payload.timeCompleted,
           lastUpdated: action.payload.timeCompleted,
@@ -124,14 +133,17 @@ function completeSuccessRequest(storeState: RequestState, action: RequestSuccess
  *    the new storeState, with the response added to the request
  */
 function completeFailedRequest(storeState: RequestState, action: RequestErrorAction): RequestState {
-  if (isNull(storeState[action.payload.uuid])) {
+  const prevEntry = storeState[action.payload.uuid];
+  if (isNull(prevEntry)) {
     // after a request has been removed it's possible pending changes still come in.
     // Don't store them
     return storeState;
   } else {
     return Object.assign({}, storeState, {
-      [action.payload.uuid]: Object.assign({}, storeState[action.payload.uuid], {
-        state: RequestEntryState.Error,
+      [action.payload.uuid]: Object.assign({}, prevEntry, {
+        // If a response comes in for a request that's already stale, still store it otherwise
+        // components that are waiting for it might freeze
+        state: isStale(prevEntry.state) ? RequestEntryState.ErrorStale : RequestEntryState.Error,
         response: {
           timeCompleted: action.payload.timeCompleted,
           lastUpdated: action.payload.timeCompleted,
@@ -155,22 +167,27 @@ function completeFailedRequest(storeState: RequestState, action: RequestErrorAct
  *    the new storeState, set to stale
  */
 function expireRequest(storeState: RequestState, action: RequestStaleAction): RequestState {
-  if (isNull(storeState[action.payload.uuid])) {
-    // after a request has been removed it's possible pending changes still come in.
-    // Don't store them
+  const prevEntry = storeState[action.payload.uuid];
+  if (isNull(prevEntry) || isStale(prevEntry.state) || isRequestPending(prevEntry.state)) {
+    // No need to do anything if the entry doesn't exist, is already stale, or if the request is
+    // still pending, because that means it still needs to be sent to the server. Any response
+    // is guaranteed to have been generated after the request was set to stale.
     return storeState;
   } else {
-    const prevEntry = storeState[action.payload.uuid];
-    if (isStale(prevEntry.state)) {
-      return storeState;
+    let nextRequestEntryState: RequestEntryState;
+    if (isResponsePending(prevEntry.state)) {
+      nextRequestEntryState = RequestEntryState.ResponsePendingStale;
+    } else if (hasSucceeded(prevEntry.state)) {
+      nextRequestEntryState = RequestEntryState.SuccessStale;
     } else {
-      return Object.assign({}, storeState, {
-        [action.payload.uuid]: Object.assign({}, prevEntry, {
-          state: hasSucceeded(prevEntry.state) ? RequestEntryState.SuccessStale : RequestEntryState.ErrorStale,
-          lastUpdated: action.lastUpdated
-        })
-      });
+      nextRequestEntryState = RequestEntryState.ErrorStale;
     }
+    return Object.assign({}, storeState, {
+      [action.payload.uuid]: Object.assign({}, prevEntry, {
+        state: nextRequestEntryState,
+        lastUpdated: action.lastUpdated
+      })
+    });
   }
 }
 

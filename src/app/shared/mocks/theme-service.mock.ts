@@ -1,6 +1,6 @@
 import { ThemeService } from '../theme-support/theme.service';
 import { of as observableOf } from 'rxjs';
-import { ThemeConfig } from '../../../config/theme.model';
+import { ThemeConfig } from '../../../config/theme.config';
 import { isNotEmpty } from '../empty.util';
 
 export function getMockThemeService(themeName = 'base', themes?: ThemeConfig[]): ThemeService {

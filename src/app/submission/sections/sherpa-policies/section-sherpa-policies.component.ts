@@ -1,4 +1,4 @@
-import { AlertType } from '../../../shared/alert/aletr-type';
+import { AlertType } from '../../../shared/alert/alert-type';
 import { Component, Inject } from '@angular/core';
 
 import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
