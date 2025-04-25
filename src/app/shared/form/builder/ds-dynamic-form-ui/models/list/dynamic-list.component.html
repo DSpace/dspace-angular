@@ -7,7 +7,7 @@
       [formGroupName]="model.id"
       [ngClass]="model.layout.element?.control">
       @for (columnItems of items; track columnItems) {
-        <div class="col-sm ms-3">
+        <div class="col-sm">
           @for (item of columnItems; track item) {
             <div  class="custom-control custom-checkbox">
               <input type="checkbox" class="custom-control-input"
@@ -43,7 +43,7 @@
       [ngClass]="model.layout.element?.control"
       (change)="onChange($event)">
       @for (columnItems of items; track columnItems) {
-        <div class="col-sm ms-3">
+        <div class="col-sm">
           @for (item of columnItems; track item) {
             <div  class="custom-control custom-radio">
               <input type="radio" class="custom-control-input"
