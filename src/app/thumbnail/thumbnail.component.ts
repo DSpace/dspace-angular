@@ -11,7 +11,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of as observableOf, BehaviorSubject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { AuthService } from '../core/auth/auth.service';
@@ -26,7 +26,6 @@ import {
 } from '../shared/empty.util';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { SafeUrlPipe } from '../shared/utils/safe-url-pipe';
-import { VarDirective } from '../shared/utils/var.directive';
 
 /**
  * This component renders a given Bitstream as a thumbnail.
@@ -38,7 +37,7 @@ import { VarDirective } from '../shared/utils/var.directive';
   styleUrls: ['./thumbnail.component.scss'],
   templateUrl: './thumbnail.component.html',
   standalone: true,
-  imports: [VarDirective, CommonModule, ThemedLoadingComponent, TranslateModule, SafeUrlPipe],
+  imports: [CommonModule, ThemedLoadingComponent, TranslateModule, SafeUrlPipe],
 })
 export class ThumbnailComponent implements OnChanges {
   /**
@@ -55,7 +54,7 @@ export class ThumbnailComponent implements OnChanges {
   /**
    * The src attribute used in the template to render the image.
    */
-  src: string = undefined;
+  src$: BehaviorSubject<string> = new BehaviorSubject<string>(undefined);
 
   retriedWithToken = false;
 
@@ -78,7 +77,7 @@ export class ThumbnailComponent implements OnChanges {
    * Whether the thumbnail is currently loading
    * Start out as true to avoid flashing the alt text while a thumbnail is being loaded.
    */
-  isLoading = true;
+  isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(true);
 
   constructor(
     @Inject(PLATFORM_ID) private platformID: any,
@@ -94,6 +93,13 @@ export class ThumbnailComponent implements OnChanges {
    */
   ngOnChanges(changes: SimpleChanges): void {
     if (isPlatformBrowser(this.platformID)) {
+      // every time the inputs change we need to start the loading animation again, as it's possible
+      // that thumbnail is first set to null when the parent component initializes and then set to
+      // the actual value
+      if (this.isLoading$.getValue() === false) {
+        this.isLoading$.next(true);
+      }
+
       if (hasNoValue(this.thumbnail)) {
         this.setSrc(this.defaultImage);
         return;
@@ -134,7 +140,7 @@ export class ThumbnailComponent implements OnChanges {
    * Otherwise, fall back to the default image or a HTML placeholder
    */
   errorHandler() {
-    const src = this.src;
+    const src = this.src$.getValue();
     const thumbnail = this.bitstream;
     const thumbnailSrc = thumbnail?._links?.content?.href;
 
@@ -186,9 +192,9 @@ export class ThumbnailComponent implements OnChanges {
    * @param src
    */
   setSrc(src: string): void {
-    this.src = src;
+    this.src$.next(src);
     if (src === null) {
-      this.isLoading = false;
+      this.isLoading$.next(false);
     }
   }
 
@@ -196,6 +202,6 @@ export class ThumbnailComponent implements OnChanges {
    * Stop the loading animation once the thumbnail is successfully loaded
    */
   successHandler() {
-    this.isLoading = false;
+    this.isLoading$.next(false);
   }
 }
