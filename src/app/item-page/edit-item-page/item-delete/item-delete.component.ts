@@ -1,9 +1,5 @@
 // eslint-disable-next-line max-classes-per-file
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -56,6 +52,7 @@ import {
   getRemoteDataPayload,
 } from '../../../core/shared/operators';
 import { ViewMode } from '../../../core/shared/view-mode.model';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import {
   hasValue,
   isNotEmpty,
@@ -103,12 +100,11 @@ class RelationshipDTO {
   imports: [
     TranslateModule,
     ListableObjectComponentLoaderComponent,
-    NgIf,
     ModifyItemOverviewComponent,
     AsyncPipe,
     VarDirective,
-    NgForOf,
     RouterLink,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

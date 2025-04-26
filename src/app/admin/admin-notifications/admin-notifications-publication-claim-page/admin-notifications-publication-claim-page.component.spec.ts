@@ -6,8 +6,9 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
+import { MockComponent } from 'ng-mocks';
 
-import { PublicationClaimComponent } from '../../../notifications/suggestion-targets/publication-claim/publication-claim.component';
+import { SuggestionSourcesComponent } from '../../../notifications/suggestions/sources/suggestion-sources.component';
 import { AdminNotificationsPublicationClaimPageComponent } from './admin-notifications-publication-claim-page.component';
 
 describe('AdminNotificationsPublicationClaimPageComponent', () => {
@@ -20,17 +21,10 @@ describe('AdminNotificationsPublicationClaimPageComponent', () => {
         CommonModule,
         TranslateModule.forRoot(),
         AdminNotificationsPublicationClaimPageComponent,
-      ],
-      providers: [
-        AdminNotificationsPublicationClaimPageComponent,
+        MockComponent(SuggestionSourcesComponent),
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).overrideComponent(AdminNotificationsPublicationClaimPageComponent, {
-      remove: {
-        imports: [PublicationClaimComponent],
-      },
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

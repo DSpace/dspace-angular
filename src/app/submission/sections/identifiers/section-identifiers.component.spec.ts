@@ -276,10 +276,10 @@ describe('SubmissionSectionIdentifiersComponent test suite', () => {
   template: ``,
   standalone: true,
   imports: [
-    CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxPaginationModule],
+    NgxPaginationModule,
+  ],
 })
 class TestComponent {
 

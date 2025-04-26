@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   AfterViewChecked,
   Component,
@@ -19,7 +19,7 @@ import { TruncatableService } from '../truncatable.service';
   templateUrl: './truncatable-part.component.html',
   styleUrls: ['./truncatable-part.component.scss'],
   standalone: true,
-  imports: [DragClickDirective, NgIf, TranslateModule],
+  imports: [DragClickDirective, TranslateModule],
 })
 
 /**
@@ -148,6 +148,13 @@ export class TruncatablePartComponent implements AfterViewChecked, OnInit, OnDes
         entry.classList.add('removeFaded');
       }
     }
+  }
+
+  /**
+   * Indicates if the content is expanded, button state is 'Collapse'
+   */
+  public get isExpanded() {
+    return this.expand && this.expandable;
   }
 
   /**

@@ -1,7 +1,5 @@
 import {
   AsyncPipe,
-  NgForOf,
-  NgIf,
   NgTemplateOutlet,
 } from '@angular/common';
 import {
@@ -42,7 +40,7 @@ import {
   getFirstCompletedRemoteData,
   getRemoteDataPayload,
 } from '../core/shared/operators';
-import { SuggestionsNotificationComponent } from '../notifications/suggestions-notification/suggestions-notification.component';
+import { SuggestionsNotificationComponent } from '../notifications/suggestions/notification/suggestions-notification.component';
 import {
   hasValue,
   isNotEmpty,
@@ -69,8 +67,6 @@ import { ProfilePageSecurityFormComponent } from './profile-page-security-form/p
     TranslateModule,
     ProfilePageResearcherFormComponent,
     VarDirective,
-    NgIf,
-    NgForOf,
     SuggestionsNotificationComponent,
     NgTemplateOutlet,
     PaginationComponent,
@@ -220,7 +216,8 @@ export class ProfilePageComponent implements OnInit {
    */
   updateSecurity() {
     const passEntered = isNotEmpty(this.password);
-    if (this.invalidSecurity) {
+    const validCurrentPassword = isNotEmpty(this.currentPassword);
+    if (validCurrentPassword && !passEntered) {
       this.notificationsService.error(this.translate.instant(this.PASSWORD_NOTIFICATIONS_PREFIX + 'error.general'));
     }
     if (!this.invalidSecurity && passEntered) {

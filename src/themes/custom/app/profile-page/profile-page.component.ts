@@ -1,12 +1,11 @@
 import {
   AsyncPipe,
-  NgForOf,
-  NgIf,
+  NgTemplateOutlet,
 } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { SuggestionsNotificationComponent } from '../../../../app/notifications/suggestions-notification/suggestions-notification.component';
+import { SuggestionsNotificationComponent } from '../../../../app/notifications/suggestions/notification/suggestions-notification.component';
 import { ProfilePageComponent as BaseComponent } from '../../../../app/profile-page/profile-page.component';
 import { ThemedProfilePageMetadataFormComponent } from '../../../../app/profile-page/profile-page-metadata-form/themed-profile-page-metadata-form.component';
 import { ProfilePageResearcherFormComponent } from '../../../../app/profile-page/profile-page-researcher-form/profile-page-researcher-form.component';
@@ -30,9 +29,8 @@ import { VarDirective } from '../../../../app/shared/utils/var.directive';
     TranslateModule,
     ProfilePageResearcherFormComponent,
     VarDirective,
-    NgIf,
-    NgForOf,
     SuggestionsNotificationComponent,
+    NgTemplateOutlet,
     PaginationComponent,
     ThemedLoadingComponent,
     ErrorComponent,

@@ -370,7 +370,7 @@ export class SearchService {
   }
 
   /**
-   * Send search event to rest api using angularitics
+   * Send search event to rest api using angulartics2
    * @param config              Paginated search options used
    * @param searchQueryResponse The response objects of the performed search
    * @param clickedObject       Optional UUID of an object a search was performed and clicked for
@@ -382,7 +382,7 @@ export class SearchService {
       const appliedFilter = appliedFilters[i];
       filters.push(appliedFilter);
     }
-    this.angulartics2.eventTrack.next({
+    const searchTrackObject = {
       action: 'search',
       properties: {
         searchOptions: config,
@@ -399,7 +399,9 @@ export class SearchService {
         filters: filters,
         clickedObject,
       },
-    });
+    };
+
+    this.angulartics2.eventTrack.next(searchTrackObject);
   }
 
   /**

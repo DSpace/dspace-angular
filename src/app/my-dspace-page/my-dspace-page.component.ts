@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -17,7 +14,7 @@ import { RoleType } from '../core/roles/role-types';
 import { Context } from '../core/shared/context.model';
 import { SearchService } from '../core/shared/search/search.service';
 import { ViewMode } from '../core/shared/view-mode.model';
-import { SuggestionsNotificationComponent } from '../notifications/suggestions-notification/suggestions-notification.component';
+import { SuggestionsNotificationComponent } from '../notifications/suggestions/notification/suggestions-notification.component';
 import { RoleDirective } from '../shared/roles/role.directive';
 import { SearchConfigurationOption } from '../shared/search/search-switch-configuration/search-configuration-option.model';
 import { ThemedSearchComponent } from '../shared/search/themed-search.component';
@@ -49,7 +46,6 @@ export const MYDSPACE_ROUTE = '/mydspace';
     MyDSpaceNewSubmissionComponent,
     AsyncPipe,
     RoleDirective,
-    NgIf,
     SuggestionsNotificationComponent,
     MyDspaceQaEventsNotificationsComponent,
   ],

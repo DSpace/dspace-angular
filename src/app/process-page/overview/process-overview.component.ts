@@ -1,8 +1,6 @@
 import {
   AsyncPipe,
   DatePipe,
-  NgFor,
-  NgIf,
   NgTemplateOutlet,
 } from '@angular/common';
 import {
@@ -16,6 +14,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import { hasValue } from '../../shared/empty.util';
 import { PaginationComponent } from '../../shared/pagination/pagination.component';
 import { VarDirective } from '../../shared/utils/var.directive';
@@ -31,7 +30,7 @@ import { ProcessOverviewTableComponent } from './table/process-overview-table.co
   selector: 'ds-process-overview',
   templateUrl: './process-overview.component.html',
   standalone: true,
-  imports: [NgIf, RouterLink, PaginationComponent, NgFor, VarDirective, AsyncPipe, DatePipe, TranslateModule, NgTemplateOutlet, ProcessOverviewTableComponent],
+  imports: [RouterLink, PaginationComponent, VarDirective, AsyncPipe, DatePipe, TranslateModule, NgTemplateOutlet, ProcessOverviewTableComponent, BtnDisabledDirective],
 })
 /**
  * Component displaying a list of all processes in a paginated table

@@ -2,10 +2,7 @@ import {
   CdkTreeModule,
   FlatTreeControl,
 } from '@angular/cdk/tree';
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -32,6 +29,7 @@ import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/mod
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { AlertComponent } from '../../alert/alert.component';
 import { AlertType } from '../../alert/alert-type';
+import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import {
   hasValue,
   isEmpty,
@@ -61,12 +59,12 @@ export type VocabularyTreeItemType = FormFieldMetadataValueObject | VocabularyEn
   imports: [
     FormsModule,
     NgbTooltipModule,
-    NgIf,
     CdkTreeModule,
     TranslateModule,
     AsyncPipe,
     ThemedLoadingComponent,
     AlertComponent,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

@@ -2,8 +2,6 @@ import {
   AsyncPipe,
   DatePipe,
   NgClass,
-  NgFor,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -48,6 +46,7 @@ import { Version } from '../../core/shared/version.model';
 import { VersionHistory } from '../../core/shared/version-history.model';
 import { AlertComponent } from '../../shared/alert/alert.component';
 import { AlertType } from '../../shared/alert/alert-type';
+import { BtnDisabledDirective } from '../../shared/btn-disabled.directive';
 import {
   hasValue,
   hasValueOperator,
@@ -81,10 +80,9 @@ interface VersionDTO {
     FormsModule,
     ItemVersionsRowElementVersionComponent,
     NgClass,
-    NgFor,
-    NgIf,
     PaginationComponent,
     TranslateModule,
+    BtnDisabledDirective,
   ],
 })
 

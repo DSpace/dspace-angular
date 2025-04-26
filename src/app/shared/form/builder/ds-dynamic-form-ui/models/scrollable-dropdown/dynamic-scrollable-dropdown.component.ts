@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -54,6 +50,7 @@ import { lazyDataService } from '../../../../../../core/lazy-data-service';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/shared/operators';
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import {
   hasValue,
   isEmpty,
@@ -71,11 +68,10 @@ import { DynamicScrollableDropdownModel } from './dynamic-scrollable-dropdown.mo
   templateUrl: './dynamic-scrollable-dropdown.component.html',
   imports: [
     NgbDropdownModule,
-    NgIf,
     AsyncPipe,
     InfiniteScrollModule,
-    NgForOf,
     TranslateModule,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

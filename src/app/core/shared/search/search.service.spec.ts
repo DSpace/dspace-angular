@@ -29,6 +29,15 @@ import { SearchService } from './search.service';
 import { SearchConfigurationService } from './search-configuration.service';
 import anything = jasmine.anything;
 import SpyObj = jasmine.SpyObj;
+import { Component } from '@angular/core';
+
+@Component({
+  template: '',
+  standalone: true,
+  imports: [],
+})
+class DummyComponent {
+}
 
 describe('SearchService', () => {
   let service: SearchService;

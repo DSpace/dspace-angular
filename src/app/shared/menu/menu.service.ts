@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   ActivatedRoute,
-  NavigationEnd,
   Router,
 } from '@angular/router';
 import {
@@ -16,10 +15,8 @@ import {
 } from 'rxjs';
 import {
   distinctUntilChanged,
-  filter,
   map,
   switchMap,
-  take,
 } from 'rxjs/operators';
 
 import {
@@ -31,7 +28,6 @@ import {
   hasNoValue,
   hasValue,
   hasValueOperator,
-  isEmpty,
   isNotEmpty,
 } from '../empty.util';
 import {
@@ -376,96 +372,5 @@ export class MenuService {
   isSectionVisible(menuID: MenuID, id: string): Observable<boolean> {
     return this.getMenuSection(menuID, id).pipe(map((section) => section.visible));
   }
-
-  listenForRouteChanges(): void {
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd),
-    ).subscribe(() => {
-      Object.values(MenuID).forEach((menuID) => {
-        this.buildRouteMenuSections(menuID);
-      });
-    });
-  }
-
-  /**
-   * Build menu sections depending on the current route
-   * - Adds sections found in the current route data that aren't active yet
-   * - Removes sections that are active, but not present in the current route data
-   * @param menuID  The menu to add/remove sections to/from
-   */
-  buildRouteMenuSections(menuID: MenuID) {
-    this.getNonPersistentMenuSections(menuID).pipe(
-      map((sections) => sections.map((section) => section.id)),
-      take(1),
-    ).subscribe((shouldNotPersistIDs: string[]) => {
-      const resolvedSections = this.resolveRouteMenuSections(this.route.root, menuID);
-      resolvedSections.forEach((section) => {
-        const index = shouldNotPersistIDs.indexOf(section.id);
-        if (index > -1) {
-          shouldNotPersistIDs.splice(index, 1);
-        } else {
-          this.addSection(menuID, section);
-        }
-      });
-      shouldNotPersistIDs.forEach((id) => {
-        this.removeSection(menuID, id);
-      });
-    });
-  }
-
-  /**
-   * Resolve menu sections defined in the current route data (including parent routes)
-   * @param route   The route to resolve data for
-   * @param menuID  The menu to resolve data for
-   */
-  resolveRouteMenuSections(route: ActivatedRoute, menuID: MenuID): MenuSection[] {
-    const data = route.snapshot.data;
-    const params = route.snapshot.params;
-    const last: boolean = hasNoValue(route.firstChild);
-
-    if (hasValue(data) && hasValue(data.menu) && hasValue(data.menu[menuID])) {
-      let menuSections: MenuSection[] | MenuSection = data.menu[menuID];
-      menuSections = this.resolveSubstitutions(menuSections, params);
-
-      if (!Array.isArray(menuSections)) {
-        menuSections = [menuSections];
-      }
-
-      if (!last) {
-        const childMenuSections = this.resolveRouteMenuSections(route.firstChild, menuID);
-        return [...menuSections.filter(menu => !(childMenuSections).map(childMenu => childMenu.id).includes(menu.id)), ...childMenuSections];
-      } else {
-        return [...menuSections];
-      }
-    }
-
-    return !last ? this.resolveRouteMenuSections(route.firstChild, menuID) : [];
-  }
-
-  protected resolveSubstitutions(object, params) {
-    let resolved;
-    if (isEmpty(params)) {
-      resolved = object;
-    } else if (typeof object === 'string') {
-      resolved = object;
-      Object.entries(params).forEach(([key, value]: [string, string]) =>
-        resolved = resolved.replaceAll(`:${key}`, value),
-      );
-    } else if (Array.isArray(object)) {
-      resolved = [];
-      object.forEach((entry, index) => {
-        resolved[index] = this.resolveSubstitutions(object[index], params);
-      });
-    } else if (typeof object === 'object') {
-      resolved = {};
-      Object.keys(object).forEach((key) => {
-        resolved[key] = this.resolveSubstitutions(object[key], params);
-      });
-    } else {
-      resolved = object;
-    }
-    return resolved;
-  }
-
 
 }

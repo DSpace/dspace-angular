@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgIf,
 } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
@@ -16,11 +15,13 @@ import { SidebarSearchListElementComponent } from '../sidebar-search-list-elemen
 
 @listableObjectComponent(CollectionSearchResult, ViewMode.ListElement, Context.SideBarSearchModal)
 @listableObjectComponent(CollectionSearchResult, ViewMode.ListElement, Context.SideBarSearchModalCurrent)
+@listableObjectComponent(CollectionSearchResult, ViewMode.ListElement, Context.ScopeSelectorModal)
+@listableObjectComponent(CollectionSearchResult, ViewMode.ListElement, Context.ScopeSelectorModalCurrent)
 @Component({
   selector: 'ds-collection-sidebar-search-list-element',
   templateUrl: '../sidebar-search-list-element.component.html',
   standalone: true,
-  imports: [TruncatablePartComponent, NgClass, NgIf, AsyncPipe, TranslateModule],
+  imports: [TruncatablePartComponent, NgClass, AsyncPipe, TranslateModule],
 })
 /**
  * Component displaying a list element for a {@link CollectionSearchResult} within the context of a sidebar search modal

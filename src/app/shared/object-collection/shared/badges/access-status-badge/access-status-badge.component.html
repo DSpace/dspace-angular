@@ -1,5 +1,5 @@
-<ng-container *ngIf="showAccessStatus">
-  <span *ngIf="accessStatus$ | async as accessStatus">
-    <span [class]="'badge badge-secondary access-status-list-element-badge ' + accessStatusClass">{{ accessStatus | translate }}</span>
-  </span>
-</ng-container>
+@if (showAccessStatus) {
+  @if ({ status: accessStatus$ | async, date: embargoDate$ | async }; as accessStatus) {
+    <span [class]="'badge bg-secondary access-status-list-element-badge ' + accessStatusClass">{{ accessStatus.status | translate: {date: accessStatus.date} }}</span>
+  }
+}

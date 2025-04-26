@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -81,7 +80,6 @@ import { ComcolPageLogoComponent } from '../../comcol-page-logo/comcol-page-logo
     UploaderComponent,
     AsyncPipe,
     ComcolPageLogoComponent,
-    NgIf,
     NgClass,
     VarDirective,
   ],

@@ -1,7 +1,5 @@
 import {
   NgClass,
-  NgForOf,
-  NgIf,
   NgTemplateOutlet,
 } from '@angular/common';
 import {
@@ -46,6 +44,7 @@ import { getFirstSucceededRemoteDataPayload } from '../../../../../../core/share
 import { PageInfo } from '../../../../../../core/shared/page-info.model';
 import { VocabularyEntry } from '../../../../../../core/submission/vocabularies/models/vocabulary-entry.model';
 import { VocabularyService } from '../../../../../../core/submission/vocabularies/vocabulary.service';
+import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import {
   hasValue,
   isEmpty,
@@ -70,12 +69,11 @@ import { DynamicLookupNameModel } from './dynamic-lookup-name.model';
     NgbDropdownModule,
     AuthorityConfidenceStateDirective,
     FormsModule,
-    NgIf,
     NgClass,
     InfiniteScrollModule,
-    NgForOf,
     NgTemplateOutlet,
     ObjNgFor,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })
