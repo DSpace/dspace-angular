@@ -24,6 +24,23 @@ import { SubmissionResponse } from './submission-response.model';
 import { RestRequest } from '../data/rest-request.model';
 
 /**
+ * Retrieve the first emitting payload's dataDefinition, or throw an error if the request failed
+ */
+export const getFirstDataDefinition = () =>
+  (source: Observable<RemoteData<SubmissionResponse>>): Observable<SubmitDataResponseDefinitionObject> =>
+    source.pipe(
+      getFirstCompletedRemoteData(),
+      map((response: RemoteData<SubmissionResponse>) => {
+        if (response.hasFailed) {
+          throw new Error(response.errorMessage);
+        } else {
+          return hasValue(response.payload) ? response.payload.dataDefinition : response.payload;
+        }
+      }),
+      distinctUntilChanged(),
+    );
+
+/**
  * The service handling all submission REST requests
  */
 @Injectable()
@@ -46,15 +63,7 @@ export class SubmissionRestService {
    */
   protected fetchRequest(requestId: string): Observable<SubmitDataResponseDefinitionObject> {
     return this.rdbService.buildFromRequestUUID<SubmissionResponse>(requestId).pipe(
-      getFirstCompletedRemoteData(),
-      map((response: RemoteData<SubmissionResponse>) => {
-        if (response.hasFailed) {
-          throw new Error(response.errorMessage);
-        } else {
-          return hasValue(response.payload) ? response.payload.dataDefinition : response.payload;
-        }
-      }),
-      distinctUntilChanged()
+      getFirstDataDefinition(),
     );
   }
 
@@ -119,8 +128,9 @@ export class SubmissionRestService {
       tap((request: RestRequest) => {
         this.requestService.send(request);
       }),
-      mergeMap(() => this.fetchRequest(requestId)),
-      distinctUntilChanged());
+      mergeMap((request) => this.rdbService.buildSingle(request.href)),
+      getFirstDataDefinition(),
+    );
   }
 
   /**
