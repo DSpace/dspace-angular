@@ -8,6 +8,7 @@ import { i18nBreadcrumbResolver } from '../core/breadcrumbs/i18n-breadcrumb.reso
 import { ComcolBrowseByComponent } from '../shared/comcol/sections/comcol-browse-by/comcol-browse-by.component';
 import { ComcolSearchSectionComponent } from '../shared/comcol/sections/comcol-search-section/comcol-search-section.component';
 import { MenuRoute } from '../shared/menu/menu-route.model';
+import { viewTrackerResolver } from '../statistics/angulartics/dspace/view-tracker.resolver';
 import { communityPageResolver } from './community-page.resolver';
 import { communityPageAdministratorGuard } from './community-page-administrator.guard';
 import {
@@ -69,6 +70,9 @@ export const ROUTES: Route[] = [
         component: ThemedCommunityPageComponent,
         data: {
           menuRoute: MenuRoute.COMMUNITY_PAGE,
+        },
+        resolve: {
+          tracking: viewTrackerResolver,
         },
         children: [
           {

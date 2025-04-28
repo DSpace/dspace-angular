@@ -15,8 +15,8 @@ import { SidebarSearchListElementComponent } from '../../sidebar-search-list-ele
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.ListElement, Context.SideBarSearchModal)
 @listableObjectComponent('PublicationSearchResult', ViewMode.ListElement, Context.SideBarSearchModalCurrent)
-@listableObjectComponent(ItemSearchResult, ViewMode.ListElement, Context.ScopeSelectorModal)
-@listableObjectComponent(ItemSearchResult, ViewMode.ListElement, Context.ScopeSelectorModalCurrent)
+@listableObjectComponent(ItemSearchResult, ViewMode.ListElement, Context.SideBarSearchModal)
+@listableObjectComponent(ItemSearchResult, ViewMode.ListElement, Context.SideBarSearchModalCurrent)
 @Component({
   selector: 'ds-publication-sidebar-search-list-element',
   templateUrl: '../../sidebar-search-list-element.component.html',
