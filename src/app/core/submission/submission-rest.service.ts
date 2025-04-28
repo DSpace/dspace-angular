@@ -5,7 +5,7 @@ import {
   filter,
   map,
   mergeMap,
-  tap,
+ switchMap, tap,
 } from 'rxjs/operators';
 
 import {
@@ -136,9 +136,12 @@ export class SubmissionRestService {
       filter((href: string) => isNotEmpty(href)),
       distinctUntilChanged(),
       mergeMap((endpointURL: string) => {
-        const request = this.sendGetDataRequest(endpointURL, useCachedVersionIfAvailable);
+        this.sendGetDataRequest(endpointURL, useCachedVersionIfAvailable);
         const startTime: number = new Date().getTime();
-        return this.rdbService.buildSingle(request.href).pipe(
+        return this.requestService.getByHref(endpointURL).pipe(
+          map((requestEntry) => requestEntry.request.uuid),
+          distinctUntilChanged(),
+          switchMap((requestId) => this.rdbService.buildFromRequestUUID<SubmissionResponse>(requestId)),
           // This skip ensures that if a stale object is present in the cache when you do a
           // call it isn't immediately returned, but we wait until the remote data for the new request
           // is created. If useCachedVersionIfAvailable is false it also ensures you don't get a
@@ -162,14 +165,11 @@ export class SubmissionRestService {
    *    Endpoint URL of the submission data
    * @param useCachedVersionIfAvailable
    *    If this is true, the request will only be sent if there's no valid & cached version. Defaults to false
-   * @return RestRequest
-   *    Request sent
    */
-  private sendGetDataRequest(href: string, useCachedVersionIfAvailable = false): RestRequest {
+  private sendGetDataRequest(href: string, useCachedVersionIfAvailable = false) {
     const requestId = this.requestService.generateRequestId();
     const request = new SubmissionRequest(requestId, href);
     this.requestService.send(request, useCachedVersionIfAvailable);
-    return request;
   }
 
   /**
