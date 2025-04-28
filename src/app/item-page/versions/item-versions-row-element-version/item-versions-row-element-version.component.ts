@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -49,6 +48,7 @@ import { VersionHistory } from '../../../core/shared/version-history.model';
 import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
 import { WorkflowItemDataService } from '../../../core/submission/workflowitem-data.service';
 import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
 import {
   getItemEditVersionhistoryRoute,
@@ -66,7 +66,7 @@ import { ItemVersionsSummaryModalComponent } from '../item-versions-summary-moda
     RouterLink,
     TranslateModule,
     NgClass,
-    NgIf,
+    BtnDisabledDirective,
   ],
   templateUrl: './item-versions-row-element-version.component.html',
   styleUrl: './item-versions-row-element-version.component.scss',

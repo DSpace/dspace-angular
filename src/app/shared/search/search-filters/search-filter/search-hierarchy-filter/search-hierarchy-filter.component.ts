@@ -1,8 +1,6 @@
 import {
   AsyncPipe,
   LowerCasePipe,
-  NgFor,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -61,7 +59,7 @@ import { SearchFacetSelectedOptionComponent } from '../search-facet-filter-optio
   templateUrl: './search-hierarchy-filter.component.html',
   animations: [facetLoad],
   standalone: true,
-  imports: [NgFor, SearchFacetSelectedOptionComponent, SearchFacetOptionComponent, NgIf, FilterInputSuggestionsComponent, FormsModule, AsyncPipe, LowerCasePipe, TranslateModule],
+  imports: [SearchFacetSelectedOptionComponent, SearchFacetOptionComponent, FilterInputSuggestionsComponent, FormsModule, AsyncPipe, LowerCasePipe, TranslateModule],
 })
 
 /**

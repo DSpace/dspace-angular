@@ -1,7 +1,4 @@
-import {
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+
 import {
   Component,
   Input,
@@ -16,6 +13,7 @@ import {
 import { Metadata } from '../../../../../core/shared/metadata.utils';
 import { WorkspaceitemSectionUploadFileObject } from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { isNotEmpty } from '../../../../../shared/empty.util';
+import { FileSizePipe } from '../../../../../shared/utils/file-size-pipe';
 import { TruncatePipe } from '../../../../../shared/utils/truncate.pipe';
 import { SubmissionSectionUploadAccessConditionsComponent } from '../../accessConditions/submission-section-upload-access-conditions.component';
 
@@ -29,8 +27,7 @@ import { SubmissionSectionUploadAccessConditionsComponent } from '../../accessCo
     SubmissionSectionUploadAccessConditionsComponent,
     TranslateModule,
     TruncatePipe,
-    NgIf,
-    NgForOf,
+    FileSizePipe,
   ],
   standalone: true,
 })

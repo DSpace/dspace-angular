@@ -35,6 +35,26 @@ export function getBitstreamRequestACopyRoute(item, bitstream): { routerLink: st
   };
 }
 
+/**
+ * Get a bitstream download route with an access token (to provide direct access to a user) added as a query parameter
+ * @param bitstream the bitstream to download
+ * @param accessToken the access token, which should match an access_token in the requestitem table
+ */
+export function getBitstreamDownloadWithAccessTokenRoute(bitstream, accessToken): { routerLink: string, queryParams: any } {
+  const url = new URLCombiner(getBitstreamModuleRoute(), bitstream.uuid, 'download').toString();
+  const options = {
+    routerLink: url,
+    queryParams: {},
+  };
+  // Only add the access token if it is not empty, otherwise keep valid empty query parameters
+  if (hasValue(accessToken)) {
+    options.queryParams = { accessToken: accessToken };
+  }
+  return options;
+}
+
+export const COAR_NOTIFY_SUPPORT = 'coar-notify-support';
+
 export const HOME_PAGE_PATH = 'home';
 
 export function getHomePageRoute() {

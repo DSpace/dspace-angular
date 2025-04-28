@@ -142,17 +142,17 @@ describe('DsoEditMenuSectionComponent', () => {
         stopPropagation: jasmine.createSpy('stopPropagation'),
       });
       it('should call the item model function when not disabled', () => {
-        spyOn(component.section.model as OnClickMenuItemModel, 'function');
+        spyOn((component as any).section.model as OnClickMenuItemModel, 'function');
         component.activate(mockEvent);
 
-        expect((component.section.model as OnClickMenuItemModel).function).toHaveBeenCalled();
+        expect(((component as any).section.model as OnClickMenuItemModel).function).toHaveBeenCalled();
       });
       it('should call not the item model function when disabled', () => {
-        spyOn(component.section.model as OnClickMenuItemModel, 'function');
+        spyOn((component as any).section.model as OnClickMenuItemModel, 'function');
         component.itemModel.disabled = true;
         component.activate(mockEvent);
 
-        expect((component.section.model as OnClickMenuItemModel).function).not.toHaveBeenCalled();
+        expect(((component as any).section.model as OnClickMenuItemModel).function).not.toHaveBeenCalled();
         component.itemModel.disabled = false;
       });
     });
