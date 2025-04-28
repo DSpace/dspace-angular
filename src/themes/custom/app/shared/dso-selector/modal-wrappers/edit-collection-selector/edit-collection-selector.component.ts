@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { DSOSelectorComponent } from '../../../../../../../app/shared/dso-selector/dso-selector/dso-selector.component';
+import { ThemedDSOSelectorComponent } from '../../../../../../../app/shared/dso-selector/dso-selector/themed-dso-selector.component';
 import { EditCollectionSelectorComponent as BaseComponent } from '../../../../../../../app/shared/dso-selector/modal-wrappers/edit-collection-selector/edit-collection-selector.component';
 
 @Component({
@@ -10,7 +10,7 @@ import { EditCollectionSelectorComponent as BaseComponent } from '../../../../..
   // templateUrl: './edit-collection-selector.component.html',
   templateUrl: '../../../../../../../app/shared/dso-selector/modal-wrappers/dso-selector-modal-wrapper.component.html',
   standalone: true,
-  imports: [DSOSelectorComponent, TranslateModule],
+  imports: [ThemedDSOSelectorComponent, TranslateModule],
 })
 export class EditCollectionSelectorComponent extends BaseComponent {
 }

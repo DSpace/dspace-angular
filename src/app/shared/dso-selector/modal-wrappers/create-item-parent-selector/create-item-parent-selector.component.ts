@@ -1,4 +1,3 @@
-
 import {
   Component,
   Input,
@@ -19,7 +18,7 @@ import {
 } from '../../../../core/cache/models/sort-options.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
-import { AuthorizedCollectionSelectorComponent } from '../../dso-selector/authorized-collection-selector/authorized-collection-selector.component';
+import { ThemedAuthorizedCollectionSelectorComponent } from '../../dso-selector/authorized-collection-selector/themed-authorized-collection-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
@@ -36,7 +35,7 @@ import {
   // templateUrl: '../dso-selector-modal-wrapper.component.html',
   templateUrl: './create-item-parent-selector.component.html',
   standalone: true,
-  imports: [AuthorizedCollectionSelectorComponent, TranslateModule],
+  imports: [ThemedAuthorizedCollectionSelectorComponent, TranslateModule],
 })
 export class CreateItemParentSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.ITEM;

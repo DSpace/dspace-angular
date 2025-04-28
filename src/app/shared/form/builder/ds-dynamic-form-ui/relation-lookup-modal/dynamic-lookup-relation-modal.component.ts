@@ -146,7 +146,7 @@ export class DynamicLookupRelationModalComponent implements OnInit, OnDestroy {
   /**
    * A hidden query that will be used but not displayed in the url/searchbar
    */
-  hiddenQuery: string;
+  @Input() hiddenQuery: string;
 
   /**
    * A map of subscriptions within this component

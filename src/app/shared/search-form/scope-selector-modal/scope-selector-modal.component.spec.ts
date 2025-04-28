@@ -16,7 +16,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { Community } from '../../../core/shared/community.model';
 import { MetadataValue } from '../../../core/shared/metadata.models';
-import { DSOSelectorComponent } from '../../dso-selector/dso-selector/dso-selector.component';
+import { ThemedDSOSelectorComponent } from '../../dso-selector/dso-selector/themed-dso-selector.component';
 import { createSuccessfulRemoteDataObject } from '../../remote-data.utils';
 import { RouterStub } from '../../testing/router.stub';
 import { ScopeSelectorModalComponent } from './scope-selector-modal.component';
@@ -64,7 +64,7 @@ describe('ScopeSelectorModalComponent', () => {
     })
       .overrideComponent(ScopeSelectorModalComponent, {
         remove: {
-          imports: [DSOSelectorComponent],
+          imports: [ThemedDSOSelectorComponent],
         },
       })
       .compileComponents();

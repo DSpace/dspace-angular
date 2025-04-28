@@ -18,7 +18,7 @@ import { Item } from '../../../../core/shared/item.model';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
 import { RouterStub } from '../../../testing/router.stub';
-import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
+import { ThemedDSOSelectorComponent } from '../../dso-selector/themed-dso-selector.component';
 import { EditItemSelectorComponent } from './edit-item-selector.component';
 
 describe('EditItemSelectorComponent', () => {
@@ -67,7 +67,7 @@ describe('EditItemSelectorComponent', () => {
     })
       .overrideComponent(EditItemSelectorComponent, {
         remove: {
-          imports: [DSOSelectorComponent],
+          imports: [ThemedDSOSelectorComponent],
         },
       })
       .compileComponents();

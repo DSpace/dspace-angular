@@ -47,7 +47,7 @@ import {
 } from './relationship.actions';
 import { ThemedDynamicLookupRelationModalComponent } from './themed-dynamic-lookup-relation-modal.component';
 
-describe('DsDynamicLookupRelationModalComponent', () => {
+describe('DynamicLookupRelationModalComponent', () => {
   let component: DynamicLookupRelationModalComponent;
   let fixture: ComponentFixture<DynamicLookupRelationModalComponent>;
   let debugElement: DebugElement;
@@ -125,7 +125,6 @@ describe('DsDynamicLookupRelationModalComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [ThemedDynamicLookupRelationModalComponent],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule, ThemedDynamicLookupRelationModalComponent, BtnDisabledDirective],
       providers: [
         {

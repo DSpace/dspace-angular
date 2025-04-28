@@ -41,7 +41,7 @@ import { followLink } from '../../../utils/follow-link-config.model';
 import { DSOSelectorComponent } from '../dso-selector.component';
 
 @Component({
-  selector: 'ds-authorized-collection-selector',
+  selector: 'ds-base-authorized-collection-selector',
   styleUrls: ['../dso-selector.component.scss'],
   templateUrl: '../dso-selector.component.html',
   standalone: true,
@@ -59,11 +59,11 @@ export class AuthorizedCollectionSelectorComponent extends DSOSelectorComponent 
   constructor(
     protected searchService: SearchService,
     protected collectionDataService: CollectionDataService,
-    protected notifcationsService: NotificationsService,
+    protected notificationService: NotificationsService,
     protected translate: TranslateService,
     protected dsoNameService: DSONameService,
   ) {
-    super(searchService, notifcationsService, translate, dsoNameService);
+    super(searchService, notificationService, translate, dsoNameService);
   }
 
   /**

@@ -17,7 +17,7 @@ import {
 } from '../../../../core/cache/models/sort-options.model';
 import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
 import { DSpaceObjectType } from '../../../../core/shared/dspace-object-type.model';
-import { DSOSelectorComponent } from '../../dso-selector/dso-selector.component';
+import { ThemedDSOSelectorComponent } from '../../dso-selector/themed-dso-selector.component';
 import {
   DSOSelectorModalWrapperComponent,
   SelectorActionType,
@@ -32,7 +32,7 @@ import {
   selector: 'ds-base-edit-community-selector',
   templateUrl: '../dso-selector-modal-wrapper.component.html',
   standalone: true,
-  imports: [DSOSelectorComponent, TranslateModule],
+  imports: [ThemedDSOSelectorComponent, TranslateModule],
 })
 
 export class EditCommunitySelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {

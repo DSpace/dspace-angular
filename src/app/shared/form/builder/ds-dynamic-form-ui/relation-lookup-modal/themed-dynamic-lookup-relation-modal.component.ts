@@ -2,10 +2,7 @@ import {
   Component,
   Input,
 } from '@angular/core';
-import {
-  Observable,
-  Subscription,
-} from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { Collection } from '../../../../../core/shared/collection.model';
 import { Context } from '../../../../../core/shared/context.model';
@@ -57,17 +54,7 @@ export class ThemedDynamicLookupRelationModalComponent extends ThemedComponent<D
 
   @Input() isPending: boolean;
 
-  /**
-   * A hidden query that will be used but not displayed in the url/searchbar
-   */
-  hiddenQuery: string;
-
-  /**
-   * A map of subscriptions within this component
-   */
-  subMap: {
-    [uuid: string]: Subscription
-  } = {};
+  @Input() hiddenQuery: string;
 
   @Input() submissionId: string;
 
@@ -87,6 +74,7 @@ export class ThemedDynamicLookupRelationModalComponent extends ThemedComponent<D
     'toAdd',
     'toRemove',
     'isPending',
+    'hiddenQuery',
     'submissionId',
   ];
 

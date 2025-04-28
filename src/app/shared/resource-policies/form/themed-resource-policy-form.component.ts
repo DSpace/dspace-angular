@@ -4,10 +4,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import {
-  Observable,
-  of as observableOf,
-} from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { ResourcePolicy } from '../../../core/resource-policy/models/resource-policy.model';
 import { ThemedComponent } from '../../theme-support/themed.component';
@@ -29,11 +26,11 @@ export class ThemedResourcePolicyFormComponent extends ThemedComponent<ResourceP
 
   @Input() resourcePolicy: ResourcePolicy;
 
-  @Input() isProcessing: Observable<boolean> = observableOf(false);
+  @Input() isProcessing: Observable<boolean>;
 
-  @Output() reset: EventEmitter<any> = new EventEmitter<any>();
+  @Output() reset: EventEmitter<any> = new EventEmitter();
 
-  @Output() submit: EventEmitter<ResourcePolicyEvent> = new EventEmitter<ResourcePolicyEvent>();
+  @Output() submit: EventEmitter<ResourcePolicyEvent> = new EventEmitter();
 
   protected inAndOutputNames: (keyof ResourcePolicyFormComponent & keyof this)[] = [
     'resourcePolicy',

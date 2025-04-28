@@ -14,6 +14,7 @@ import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { SearchService } from '../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../core/shared/search/search-configuration.service';
+import { ThemedDSOSelectorComponent } from '../../shared/dso-selector/dso-selector/themed-dso-selector.component';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { FacetValue } from '../../shared/search/models/facet-value.model';
 import { FilterType } from '../../shared/search/models/filter-type.model';
@@ -91,6 +92,9 @@ describe('BrowseByGeospatialDataComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
+      .overrideComponent(BrowseByGeospatialDataComponent, {
+        remove: { imports: [ThemedDSOSelectorComponent] },
+      })
       .compileComponents();
   }));
 

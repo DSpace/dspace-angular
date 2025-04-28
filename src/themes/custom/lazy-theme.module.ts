@@ -14,7 +14,6 @@ import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
-import { ThemedRelatedEntitiesSearchComponent } from '../../app/item-page/simple/related-entities/related-entities-search/themed-related-entities-search.component';
 import { RootModule } from '../../app/root.module';
 import { SearchResultsSkeletonComponent } from '../../app/shared/search/search-results/search-results-skeleton/search-results-skeleton.component';
 import { MetadataImportPageComponent } from './app/admin/admin-import-metadata-page/metadata-import-page.component';
@@ -54,6 +53,7 @@ import { FileSectionComponent } from './app/item-page/simple/field-components/fi
 import { ItemPageTitleFieldComponent } from './app/item-page/simple/field-components/specific-field/title/item-page-title-field.component';
 import { ItemPageComponent } from './app/item-page/simple/item-page.component';
 import { MetadataRepresentationListComponent } from './app/item-page/simple/metadata-representation-list/metadata-representation-list.component';
+import { RelatedEntitiesSearchComponent } from './app/item-page/simple/related-entities/related-entities-search/related-entities-search.component';
 import { LoginPageComponent } from './app/login-page/login-page.component';
 import { LogoutPageComponent } from './app/logout-page/logout-page.component';
 import { ObjectNotFoundComponent } from './app/lookup-by-id/objectnotfound/objectnotfound.component';
@@ -77,6 +77,8 @@ import { BrowseByComponent } from './app/shared/browse-by/browse-by.component';
 import { ComcolPageBrowseByComponent } from './app/shared/comcol/comcol-page-browse-by/comcol-page-browse-by.component';
 import { ComcolPageContentComponent } from './app/shared/comcol/comcol-page-content/comcol-page-content.component';
 import { ComcolPageHandleComponent } from './app/shared/comcol/comcol-page-handle/comcol-page-handle.component';
+import { AuthorizedCollectionSelectorComponent } from './app/shared/dso-selector/dso-selector/authorized-collection-selector/authorized-collection-selector.component';
+import { DSOSelectorComponent } from './app/shared/dso-selector/dso-selector/dso-selector.component';
 import { DynamicLookupRelationModalComponent } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/dynamic-lookup-relation-modal.component';
 import { DsDynamicLookupRelationExternalSourceTabComponent } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/dynamic-lookup-relation-external-source-tab.component';
 import { ExternalSourceEntryImportModalComponent } from './app/shared/form/builder/ds-dynamic-form-ui/relation-lookup-modal/external-source-tab/external-source-entry-import-modal/external-source-entry-import-modal.component';
@@ -211,7 +213,9 @@ const DECLARATIONS = [
   ResourcePolicyEditComponent,
   ResourcePolicyFormComponent,
   DynamicLookupRelationModalComponent,
-  ThemedRelatedEntitiesSearchComponent,
+  RelatedEntitiesSearchComponent,
+  AuthorizedCollectionSelectorComponent,
+  DSOSelectorComponent,
 ];
 
 @NgModule({
