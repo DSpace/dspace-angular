@@ -1,10 +1,18 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { UntypedFormBuilder } from '@angular/forms';
-
+import {
+  Component,
+  EventEmitter,
+  Output,
+} from '@angular/core';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+} from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
-import { SearchEvent } from '../eperson-group-list.component';
 import { isNotNull } from '../../empty.util';
+import { SearchEvent } from '../eperson-group-list-event-type';
 
 /**
  * A component used to show a search box for epersons.
@@ -12,6 +20,8 @@ import { isNotNull } from '../../empty.util';
 @Component({
   selector: 'ds-eperson-search-box',
   templateUrl: './eperson-search-box.component.html',
+  standalone: true,
+  imports: [FormsModule, ReactiveFormsModule, TranslateModule],
 })
 export class EpersonSearchBoxComponent {
 
@@ -57,7 +67,7 @@ export class EpersonSearchBoxComponent {
   submit(data: any) {
     const event: SearchEvent = {
       scope: isNotNull(data) ? data.scope : 'metadata',
-      query: isNotNull(data) ? data.query : ''
+      query: isNotNull(data) ? data.query : '',
     };
 
     this.search.emit(event);

@@ -1,7 +1,8 @@
 /* eslint-disable max-classes-per-file */
 import { Action } from '@ngrx/store';
-import { type } from '../../../shared/ngrx/type';
+
 import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
+import { type } from '../../../shared/ngrx/type';
 
 /**
  * For each action type in an action group, make a simple
@@ -15,7 +16,7 @@ export const BitstreamFormatsRegistryActionTypes = {
 
   SELECT_FORMAT: type('dspace/bitstream-formats-registry/SELECT_FORMAT'),
   DESELECT_FORMAT: type('dspace/bitstream-formats-registry/DESELECT_FORMAT'),
-  DESELECT_ALL_FORMAT: type('dspace/bitstream-formats-registry/DESELECT_ALL_FORMAT')
+  DESELECT_ALL_FORMAT: type('dspace/bitstream-formats-registry/DESELECT_ALL_FORMAT'),
 };
 
 /**

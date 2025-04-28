@@ -1,0 +1,364 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="border-bottom pb-2">
+        <div class="d-flex justify-content-between">
+          {{'notifications.events.title'| translate}}
+        </div>
+      </h1>
+      @if (!targetId) {
+        <ds-alert  [type]="'alert-info'">
+          <span [innerHTML]="'quality-assurance.events.description' | translate : {topic: selectedTopicName, source: sourceId}"></span>
+        </ds-alert>
+      }
+      @if (targetId) {
+        <ds-alert [type]="'alert-info'">
+          <span [innerHTML]="'quality-assurance.events.description-with-topic-and-target' | translate : {topic: selectedTopicName, source: sourceId}"></span>
+          <a [routerLink]="itemPageUrl" target="_blank">{{(getTargetItemTitle() | async)}}</a>
+        </ds-alert>
+      }
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <h2 class="border-bottom pb-2">
+        {{'quality-assurance.events.topic' | translate}} {{this.showTopic}}
+      </h2>
+
+      @if ((isEventPageLoading | async)) {
+        <ds-loading class="container" message="{{'quality-assurance.loading' | translate}}"></ds-loading>
+      }
+
+      @if ((isEventPageLoading | async) !== true) {
+        <ds-pagination
+          [paginationOptions]="paginationConfig"
+          [collectionSize]="(totalElements$ | async)"
+          [sortOptions]="paginationSortConfig"
+          (paginationChange)="getQualityAssuranceEvents()">
+          <ng-container>
+            @if ((eventsUpdated$ | async)?.length === 0) {
+              <div class="alert alert-info w-100 mb-2 mt-2" role="alert">
+                {{'quality-assurance.noEvents' | translate}}
+              </div>
+            }
+            @if ((eventsUpdated$ | async)?.length !== 0) {
+              <div class="table-responsive mt-2">
+                <table id="events" class="table table-striped table-hover table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="trust-col">{{'quality-assurance.event.table.trust' | translate}}</th>
+                      <th scope="col" class="title-col">{{'quality-assurance.event.table.publication' | translate}}</th>
+                      @if (hasDetailColumn() && showTopic.indexOf('/PROJECT') !== -1) {
+                        <th scope="col" class="content-col">
+                          {{'quality-assurance.event.table.project-details' | translate}}
+                        </th>
+                      }
+                      @if (hasDetailColumn() && (showTopic.indexOf('/REINSTATE') !== -1 || showTopic.indexOf('/WITHDRAWN') !== -1)) {
+                        <th scope="col" class="content-col">
+                          {{'quality-assurance.event.table.reasons' | translate}}
+                        </th>
+                        <th scope="col" class="content-col">
+                          {{'quality-assurance.event.table.person-who-requested' | translate}}
+                        </th>
+                      }
+                      <th scope="col" class="button-col">{{'quality-assurance.event.table.actions' | translate}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @for (eventElement of (eventsUpdated$ | async); track eventElement; let i = $index) {
+                      <tr>
+                        <td>{{eventElement?.event?.trust}}
+                        </td>
+                        <td>@if (eventElement?.target) {
+                          <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          [routerLink]="['/items', eventElement?.target?.id]">{{eventElement.title}}</a>
+                        }
+                        @if (!eventElement?.target) {
+                          <span>{{eventElement.title}}</span>
+                        }
+                        @if (eventElement?.event?.message?.serviceId) {
+                          <div>
+                            <span class="small pe-1">{{'quality-assurance.event.table.event.message.serviceUrl' | translate}}</span>
+                            <span [title]="eventElement.event.message.serviceId">
+                              <a [href]="eventElement.event.message.serviceId" target="_blank">{{eventElement.event.message.serviceId}}</a>
+                            </span>
+                          </div>
+                        }
+                        @if (eventElement?.event?.message?.href) {
+                          <div class="d-flex align-items-center">
+                            <span class="small pe-1">{{'quality-assurance.event.table.event.message.link' | translate}}</span>
+                            <span [title]="eventElement.event.message.href" class="text-truncate d-inline-block w-75">
+                              <a [href]="eventElement.event.message.href" target="_blank">{{eventElement.event.message.href}}</a>
+                            </span>
+                          </div>
+                        }
+                      </td>
+                      @if (showTopic.indexOf('/PID') !== -1) {
+                        <td>
+                          <p><span class="small">{{'quality-assurance.event.table.pidtype' | translate}}</span>&nbsp;<span class="badge bg-info">{{eventElement.event.message.type}}</span></p>
+                          <p><span class="small">{{'quality-assurance.event.table.pidvalue' | translate}}</span><br>
+                          @if (hasPIDHref(eventElement.event.message)) {
+                            <a href="{{getPIDHref(eventElement.event.message)}}" rel="noopener noreferrer" target="_blank">
+                              {{eventElement.event.message.value}}
+                            </a>
+                          } @else {
+                            <span class="badge bg-info">{{eventElement.event.message.value}}</span>
+                          }
+                        </p>
+                      </td>
+                    }
+                    @if (showTopic.indexOf('/SUBJECT') !== -1) {
+                      <td>
+                        <p><span class="small">{{'quality-assurance.event.table.subjectValue' | translate}}
+                          </span><br><span class="badge bg-info">{{eventElement.event.message.value}}</span></p>
+                        </td>
+                      }
+                      @if (showTopic.indexOf('/ABSTRACT') !== -1) {
+                        <td>
+                          <p class="abstract-container" [class.show]="showMore">
+                            <span class="small">{{'quality-assurance.event.table.abstract' | translate}}</span><br>
+                            <span class="text-ellipsis">{{eventElement.event.message.abstract}}</span>
+                          </p>
+                          <button class="btn btn-outline-primary btn-sm" (click)="showMore = !showMore">
+                            @if (!showMore) {
+                              <i class="fas fa-angle-down"></i>
+                            }
+                            @if (showMore) {
+                              <i class="fas fa-angle-up"></i>
+                            }
+                            {{ (showMore ? 'quality-assurance.event.table.less': 'quality-assurance.event.table.more') | translate }}
+                          </button>
+                        </td>
+                      }
+                      @if (showTopic.indexOf('/REINSTATE') !== -1 || showTopic.indexOf('/WITHDRAWN') !== -1) {
+                        <td>
+                          <p>
+                            @if (eventElement.event.message) {
+                              <span>
+                                <span>{{eventElement.event.message.reason}}</span><br>
+                              </span>
+                            }
+                          </p>
+                        </td>
+                        <td>
+                          <p>
+                            @if (eventElement.event.originalId) {
+                              <span>
+                                <ds-eperson-data [ePersonId]="eventElement.event.originalId" [properties]="['email']"></ds-eperson-data>
+                              </span>
+                            }
+                          </p>
+                        </td>
+                      }
+                      @if (showTopic.indexOf('/PROJECT') !== -1) {
+                        <td>
+                          <p>
+                            {{'quality-assurance.event.table.suggestedProject' | translate}}
+                          </p>
+                          <p>
+                            <span class="small">{{'quality-assurance.event.table.project' | translate}}</span><br>
+                            <a href="{{sourceUrlForProjectSearch}}{{ eventElement.event.message.sourceId}}" rel="noopener noreferrer" target="_blank">{{eventElement.event.message.title}}</a>
+                          </p>
+                          <p>
+                            @if (eventElement.event.message.acronym) {
+                              <span><span class="small">{{'quality-assurance.event.table.acronym' | translate}}</span>&nbsp;<span class="badge bg-info">{{eventElement.event.message.acronym}}</span><br></span>
+                            }
+                            @if (eventElement.event.message.code) {
+                              <span><span class="small">{{'quality-assurance.event.table.code' | translate}}</span>&nbsp;<span class="badge bg-info">{{eventElement.event.message.code}}</span><br></span>
+                            }
+                            @if (eventElement.event.message.funder) {
+                              <span><span class="small">{{'quality-assurance.event.table.funder' | translate}}</span>&nbsp;<span class="badge bg-info">{{eventElement.event.message.funder}}</span><br></span>
+                            }
+                            @if (eventElement.event.message.fundingProgram) {
+                              <span><span class="small">{{'quality-assurance.event.table.fundingProgram' | translate}}</span>&nbsp;<span class="badge bg-info">{{eventElement.event.message.fundingProgram}}</span><br></span>
+                            }
+                            @if (eventElement.event.message.jurisdiction) {
+                              <span><span class="small">{{'quality-assurance.event.table.jurisdiction' | translate}}</span>&nbsp;<span class="badge bg-info">{{eventElement.event.message.jurisdiction}}</span></span>
+                            }
+                          </p>
+                          <hr>
+                            <div>
+                              {{(eventElement.hasProject ? 'quality-assurance.event.project.found' : 'quality-assurance.event.project.notFound') | translate}}
+                              @if (eventElement.hasProject) {
+                                <a target="_blank" rel="noopener noreferrer" title="{{eventElement.projectTitle}}" [routerLink]="['/items', eventElement.projectId]">{{eventElement.handle}} </a>
+                              }
+                              <div class="btn-group">
+                                @if (!eventElement.hasProject) {
+                                  <button
+                                    class="btn btn-outline-primary btn-sm"
+                                    [dsBtnDisabled]="eventElement.isRunning"
+                                    (click)="openModalLookup(eventElement); $event.stopPropagation();"
+                                    [attr.aria-label]="'quality-assurance.event.modal.project.select' | translate"
+                                    >
+                                    <i class="fas fa-search"></i>
+                                  </button>
+                                }
+                                @if (eventElement.hasProject) {
+                                  <button
+                                    class="btn btn-outline-danger btn-sm"
+                                    [dsBtnDisabled]="eventElement.isRunning"
+                                    (click)="removeProject(eventElement)"
+                                    [attr.aria-label]="'quality-assurance.event.modal.project.remove' | translate"
+                                    >
+                                    <i class="fas fa-trash-alt"></i>
+                                  </button>
+                                }
+                              </div>
+                            </div>
+                          </td>
+                        }
+                        <td>
+                          @if ((isAdmin$ | async) || !isReinstateWithdrawnRequest) {
+                            <div class="btn-group button-width">
+                              @if (showTopic.indexOf('/PROJECT') !== -1) {
+                                <button
+                                  class="btn btn-outline-success btn-sm button-width"
+                                  ngbTooltip="{{'quality-assurance.event.action.import' | translate}}"
+                                  container="body"
+                                  [dsBtnDisabled]="eventElement.isRunning"
+                                  (click)="modalChoice('ACCEPTED', eventElement, acceptModal)"
+                                  [attr.aria-label]="'quality-assurance.event.action.import' | translate"
+                                  >
+                                  <i class="fas fa-check"></i>
+                                </button>
+                              }
+                              @if (showTopic.indexOf('/PROJECT') === -1) {
+                                <button
+                                  class="btn btn-outline-success btn-sm button-width"
+                                  ngbTooltip="{{'quality-assurance.event.action.accept' | translate}}"
+                                  container="body"
+                                  [dsBtnDisabled]="eventElement.isRunning"
+                                  (click)="executeAction('ACCEPTED', eventElement)"
+                                  [attr.aria-label]="'quality-assurance.event.action.accept' | translate"
+                                  >
+                                  <i class="fas fa-check"></i>
+                                </button>
+                              }
+                              <button class="btn btn-outline-dark btn-sm button-width"
+                                ngbTooltip="{{'quality-assurance.event.action.ignore' | translate}}"
+                                container="body"
+                                [dsBtnDisabled]="eventElement.isRunning"
+                                (click)="openModal('DISCARDED', eventElement, ignoreModal)"
+                                [attr.aria-label]="'quality-assurance.event.action.ignore' | translate"
+                                >
+                                <i class="fas fa-ban"></i>
+                              </button>
+                              @if ((isAdmin$ | async)) {
+                                <button class="btn btn-outline-danger btn-sm button-width"
+                                  ngbTooltip="{{'quality-assurance.event.action.reject' | translate}}"
+                                  container="body"
+                                  [dsBtnDisabled]="eventElement.isRunning"
+                                  (click)="openModal('REJECTED', eventElement, rejectModal)"
+                                  [attr.aria-label]="'quality-assurance.event.action.reject' | translate"
+                                  >
+                                  <i class="fas fa-trash-alt"></i>
+                                </button>
+                              }
+                              @if ((isAdmin$ | async) === false) {
+                                <button class="btn btn-outline-danger btn-sm button-width"
+                                  ngbTooltip="{{'quality-assurance.event.action.undo' | translate }}"
+                                  container="body"
+                                  [dsBtnDisabled]="eventElement.isRunning"
+                                  [attr.aria-label]="'quality-assurance.event.action.undo' | translate"
+                                  (click)="openModal('UNDO', eventElement, undoModal)">
+                                  <i class="fas fa-trash-alt"></i>
+                                </button>
+                              }
+                            </div>
+                          }
+                          @if ((isAdmin$ | async) !== true && isReinstateWithdrawnRequest) {
+                            <div class="btn-group button-width">
+                              <button class="btn btn-outline-danger btn-sm button-width"
+                                ngbTooltip="{{'quality-assurance.event.action.undo' | translate}}"
+                                container="body"
+                                [dsBtnDisabled]="eventElement.isRunning"
+                                [attr.aria-label]="'quality-assurance.event.action.undo' | translate"
+                                (click)="openModal('UNDO', eventElement, undoModal)">
+                                <i class="fas fa-trash-alt"></i>
+                              </button>
+                            </div>
+                          }
+                        </td>
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+            }
+          </ng-container>
+        </ds-pagination>
+      }
+    </div>
+  </div>
+</div>
+
+<ng-template #acceptModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="acceptModal">{{'quality-assurance.event.sure' | translate}}</h4>
+  </div>
+  <div class="modal-body">
+    <p>{{'quality-assurance.event.accept.description' | translate}}</p>
+
+    <button class="btn btn-outline-success float-right" (click)="modal.close('do')">
+      <i class="fas fa-check"></i>
+      <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.import' | translate}}</span>
+    </button>
+    <button class="btn btn-outline-secondary" (click)="modal.close('cancel')">
+      <i class="fas fa-close"></i>
+      <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.cancel' | translate}}</span>
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #ignoreModal let-modal>
+  <div class="modal-header">
+    <h1 class="modal-title h4" id="ignoreModal">{{'quality-assurance.event.sure' | translate}}</h1>
+  </div>
+  <div class="modal-body">
+    <p>{{'quality-assurance.event.ignore.description' | translate}}</p>
+    <button class="btn btn-outline-danger float-right" (click)="modal.close('do')">
+      <i class="fas fa-trash-alt"></i>
+      <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.ignore' | translate}}</span>
+    </button>
+    <button class="btn btn-outline-secondary" (click)="modal.close('cancel')">
+      <i class="fas fa-close"></i>
+      <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.cancel' | translate}}</span>
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #rejectModal let-modal>
+  <div class="modal-header">
+    <h1 class="modal-title h4" id="rejectModal">{{'quality-assurance.event.sure' | translate}}</h1>
+  </div>
+  <div class="modal-body">
+    <p>{{'quality-assurance.event.reject.description' | translate}}</p>
+    <button class="btn btn-outline-danger float-right" (click)="modal.close('do')">
+      <i class="fas fa-trash-alt"></i>
+      <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.reject' | translate}}</span>
+    </button>
+    <button class="btn btn-outline-secondary" (click)="modal.close('cancel')">
+      <i class="fas fa-close"></i>
+      <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.cancel' | translate}}</span>
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #undoModal let-modal>
+  <div class="modal-header">
+    <h1 class="modal-title h4" id="undoModal">{{'quality-assurance.event.sure' | translate}}</h1>
+  </div>
+  <div class="modal-body">
+    <p>{{'quality-assurance.event.undo.description' | translate}}</p>
+    <button class="btn btn-outline-danger float-right" (click)="modal.close('do')">
+      <i class="fas fa-trash-alt"></i>
+      <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.undo' | translate}}</span>
+    </button>
+    <button class="btn btn-outline-secondary" (click)="modal.close('cancel')">
+      <i class="fas fa-close"></i>
+      <span class="d-none d-sm-inline"> {{'quality-assurance.event.action.cancel' | translate}}</span>
+    </button>
+  </div>
+</ng-template>

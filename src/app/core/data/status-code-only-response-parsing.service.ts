@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+
 import { RestResponse } from '../cache/response.models';
 import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { ResponseParsingService } from './parsing.service';
@@ -9,7 +10,7 @@ import { RestRequest } from './rest-request.model';
  * text of the response, and ignore anything else that might be there
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StatusCodeOnlyResponseParsingService implements ResponseParsingService {
 

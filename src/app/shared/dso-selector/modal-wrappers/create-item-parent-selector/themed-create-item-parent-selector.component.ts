@@ -1,31 +1,51 @@
-import {Component, Input} from '@angular/core';
-import {CreateItemParentSelectorComponent} from './create-item-parent-selector.component';
-import {ThemedComponent} from 'src/app/shared/theme-support/themed.component';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+import { ThemedComponent } from 'src/app/shared/theme-support/themed.component';
+
+import { DSpaceObject } from '../../../../core/shared/dspace-object.model';
+import { ThemeService } from '../../../theme-support/theme.service';
+import { CreateItemParentSelectorComponent } from './create-item-parent-selector.component';
 
 /**
  * Themed wrapper for CreateItemParentSelectorComponent
  */
 @Component({
-    selector: 'ds-themed-create-item-parent-selector',
-    styleUrls: [],
-    templateUrl: '../../../theme-support/themed.component.html'
+  selector: 'ds-create-item-parent-selector',
+  styleUrls: [],
+  templateUrl: '../../../theme-support/themed.component.html',
+  standalone: true,
+  imports: [CreateItemParentSelectorComponent],
 })
 export class ThemedCreateItemParentSelectorComponent
-    extends ThemedComponent<CreateItemParentSelectorComponent> {
-    @Input() entityType: string;
+  extends ThemedComponent<CreateItemParentSelectorComponent> {
+  @Input() entityType: string;
+  @Output() select: EventEmitter<DSpaceObject> = new EventEmitter<DSpaceObject>();
+  @Input() emitOnly = false;
 
-    protected inAndOutputNames: (keyof CreateItemParentSelectorComponent & keyof this)[] = ['entityType'];
+  protected inAndOutputNames: (keyof CreateItemParentSelectorComponent & keyof this)[] = ['entityType', 'select', 'emitOnly'];
 
-    protected getComponentName(): string {
-        return 'CreateItemParentSelectorComponent';
-    }
+  constructor(
+    protected cdr: ChangeDetectorRef,
+    protected themeService: ThemeService,
+  ) {
+    super(cdr, themeService);
+  }
 
-    protected importThemedComponent(themeName: string): Promise<any> {
-        return import(`../../../../../themes/${themeName}/app/shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component`);
-    }
+  protected getComponentName(): string {
+    return 'CreateItemParentSelectorComponent';
+  }
 
-    protected importUnthemedComponent(): Promise<any> {
-        return import('./create-item-parent-selector.component');
-    }
+  protected importThemedComponent(themeName: string): Promise<any> {
+    return import(`../../../../../themes/${themeName}/app/shared/dso-selector/modal-wrappers/create-item-parent-selector/create-item-parent-selector.component`);
+  }
+
+  protected importUnthemedComponent(): Promise<any> {
+    return import('./create-item-parent-selector.component');
+  }
 
 }

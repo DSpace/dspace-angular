@@ -1,15 +1,21 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+} from '@angular/core';
+
+import { Item } from '../../../../core/shared/item.model';
 import { ThemedComponent } from '../../../../shared/theme-support/themed.component';
 import { FullFileSectionComponent } from './full-file-section.component';
-import { Item } from '../../../../core/shared/item.model';
 
 /**
  * Themed wrapper for {@link FullFileSectionComponent}
  */
 @Component({
-  selector: 'ds-themed-item-page-full-file-section',
+  selector: 'ds-item-page-full-file-section',
   styleUrls: [],
   templateUrl: './../../../../shared/theme-support/themed.component.html',
+  standalone: true,
+  imports: [FullFileSectionComponent],
 })
 export class ThemedFullFileSectionComponent extends ThemedComponent<FullFileSectionComponent> {
 

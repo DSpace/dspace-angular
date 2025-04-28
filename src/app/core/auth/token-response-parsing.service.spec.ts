@@ -1,6 +1,6 @@
-import { TokenResponseParsingService } from './token-response-parsing.service';
-import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
 import { TokenResponse } from '../cache/response.models';
+import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+import { TokenResponseParsingService } from './token-response-parsing.service';
 
 describe('TokenResponseParsingService', () => {
   let service: TokenResponseParsingService;
@@ -13,10 +13,10 @@ describe('TokenResponseParsingService', () => {
     it('should return a TokenResponse containing the token', () => {
       const data = {
         payload: {
-          token: 'valid-token'
+          token: 'valid-token',
         },
         statusCode: 200,
-        statusText: 'OK'
+        statusText: 'OK',
       } as RawRestResponse;
       const expected = new TokenResponse(data.payload.token, true, 200, 'OK');
       expect(service.parse(undefined, data)).toEqual(expected);
@@ -26,7 +26,7 @@ describe('TokenResponseParsingService', () => {
       const data = {
         payload: {},
         statusCode: 200,
-        statusText: 'OK'
+        statusText: 'OK',
       } as RawRestResponse;
       const expected = new TokenResponse(null, false, 200, 'OK');
       expect(service.parse(undefined, data)).toEqual(expected);
@@ -36,7 +36,7 @@ describe('TokenResponseParsingService', () => {
       const data = {
         payload: {},
         statusCode: 400,
-        statusText: 'BAD REQUEST'
+        statusText: 'BAD REQUEST',
       } as RawRestResponse;
       const expected = new TokenResponse(null, false, 400, 'BAD REQUEST');
       expect(service.parse(undefined, data)).toEqual(expected);

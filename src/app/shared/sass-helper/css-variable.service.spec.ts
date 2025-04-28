@@ -1,10 +1,14 @@
 import { TestBed } from '@angular/core/testing';
-import { CSSVariableService } from './css-variable.service';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import {
+  MockStore,
+  provideMockStore,
+} from '@ngrx/store/testing';
 import { getTestScheduler } from 'jasmine-marbles';
+
 import { buildPaginatedList } from '../../core/data/paginated-list.model';
 import { PageInfo } from '../../core/shared/page-info.model';
 import { KeyValuePair } from '../key-value-pair.model';
+import { CSSVariableService } from './css-variable.service';
 
 describe('CSSVariableService', () => {
   let store: MockStore;
@@ -26,7 +30,7 @@ describe('CSSVariableService', () => {
         [varKey1]: varValue1,
         [varKey2]: varValue2,
         [varKey3]: varValue3,
-      }
+      },
     };
   }
 

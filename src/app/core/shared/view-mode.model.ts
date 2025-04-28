@@ -7,4 +7,6 @@ export enum ViewMode {
   GridElement = 'grid',
   DetailedListElement = 'detailed',
   StandalonePage = 'standalone',
+  Table = 'table',
+  GeospatialMap = 'geospatial-map'
 }

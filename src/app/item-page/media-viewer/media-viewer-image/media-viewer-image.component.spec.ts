@@ -1,21 +1,24 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { NgxGalleryOptions } from '@kolkov/ngx-gallery';
+import { of as observableOf } from 'rxjs';
+
+import { AuthService } from '../../../core/auth/auth.service';
 import { Bitstream } from '../../../core/shared/bitstream.model';
 import { MediaViewerItem } from '../../../core/shared/media-viewer-item.model';
 import { MockBitstreamFormat1 } from '../../../shared/mocks/item.mock';
-
 import { MediaViewerImageComponent } from './media-viewer-image.component';
-
-import { of as observableOf } from 'rxjs';
-import { AuthService } from '../../../core/auth/auth.service';
 
 describe('MediaViewerImageComponent', () => {
   let component: MediaViewerImageComponent;
   let fixture: ComponentFixture<MediaViewerImageComponent>;
 
   const authService = jasmine.createSpyObj('authService', {
-    isAuthenticated: observableOf(false)
+    isAuthenticated: observableOf(false),
   });
 
   const mockBitstream: Bitstream = Object.assign(new Bitstream(), {
@@ -52,13 +55,12 @@ describe('MediaViewerImageComponent', () => {
     [
       { bitstream: mockBitstream, format: 'image', thumbnail: null },
       { bitstream: mockBitstream, format: 'image', thumbnail: null },
-    ]
+    ],
   );
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports:[],
-      declarations: [MediaViewerImageComponent],
+      imports: [MediaViewerImageComponent],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
         { provide: AuthService, useValue: authService },
@@ -71,7 +73,7 @@ describe('MediaViewerImageComponent', () => {
     component = fixture.componentInstance;
     component.galleryOptions = [new NgxGalleryOptions({})];
     component.galleryImages = component.convertToGalleryImage(
-      mockMediaViewerItems
+      mockMediaViewerItems,
     );
   });
 

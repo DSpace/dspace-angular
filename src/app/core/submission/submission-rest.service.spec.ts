@@ -1,19 +1,19 @@
-import { TestScheduler } from 'rxjs/testing';
 import { getTestScheduler } from 'jasmine-marbles';
+import { TestScheduler } from 'rxjs/testing';
 
-import { SubmissionRestService } from './submission-rest.service';
-import { RequestService } from '../data/request.service';
-import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { FormFieldMetadataValueObject } from '../../shared/form/builder/models/form-field-metadata-value.model';
 import { getMockRemoteDataBuildService } from '../../shared/mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../shared/mocks/request.service.mock';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
+import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import {
   SubmissionDeleteRequest,
   SubmissionPatchRequest,
   SubmissionPostRequest,
-  SubmissionRequest
+  SubmissionRequest,
 } from '../data/request.models';
-import { FormFieldMetadataValueObject } from '../../shared/form/builder/models/form-field-metadata-value.model';
+import { RequestService } from '../data/request.service';
+import { SubmissionRestService } from './submission-rest.service';
 
 describe('SubmissionRestService test suite', () => {
   let scheduler: TestScheduler;
@@ -26,14 +26,14 @@ describe('SubmissionRestService test suite', () => {
   const resourceEndpoint = 'workspaceitems';
   const resourceScope = '260';
   const body = { test: new FormFieldMetadataValueObject('test') };
-  const resourceHref = resourceEndpointURL + '/' + resourceEndpoint + '/' + resourceScope + '?projection=full';
+  const resourceHref = resourceEndpointURL + '/' + resourceEndpoint + '/' + resourceScope + '?embed=item,sections,collection';
   const timestampResponse = 1545994811992;
 
   function initTestService() {
     return new SubmissionRestService(
       rdbService,
       requestService,
-      halService
+      halService,
     );
   }
 

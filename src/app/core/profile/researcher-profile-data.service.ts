@@ -1,44 +1,69 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  Operation,
+  ReplaceOperation,
+} from 'fast-json-patch';
+import {
+  Observable,
+  of as observableOf,
+} from 'rxjs';
+import {
+  find,
+  map,
+  mergeMap,
+} from 'rxjs/operators';
 
-import { Operation, ReplaceOperation } from 'fast-json-patch';
-import { Observable, of as observableOf } from 'rxjs';
-import { find, map, mergeMap } from 'rxjs/operators';
+import {
+  hasValue,
+  isEmpty,
+} from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { createFailedRemoteDataObject$ } from '../../shared/remote-data.utils';
+import {
+  followLink,
+  FollowLinkConfig,
+} from '../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
+import {
+  CreateData,
+  CreateDataImpl,
+} from '../data/base/create-data';
+import {
+  DeleteData,
+  DeleteDataImpl,
+} from '../data/base/delete-data';
+import { IdentifiableDataService } from '../data/base/identifiable-data.service';
+import {
+  PatchData,
+  PatchDataImpl,
+} from '../data/base/patch-data';
+import {
+  SearchData,
+  SearchDataImpl,
+} from '../data/base/search-data';
 import { DefaultChangeAnalyzer } from '../data/default-change-analyzer.service';
+import { FindListOptions } from '../data/find-list-options.model';
 import { ItemDataService } from '../data/item-data.service';
+import { PaginatedList } from '../data/paginated-list.model';
 import { RemoteData } from '../data/remote-data';
+import { PostRequest } from '../data/request.models';
 import { RequestService } from '../data/request.service';
+import { RestRequestMethod } from '../data/rest-request-method';
+import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
+import { Item } from '../shared/item.model';
 import { NoContent } from '../shared/NoContent.model';
 import { getFirstCompletedRemoteData } from '../shared/operators';
 import { ResearcherProfile } from './model/researcher-profile.model';
-import { RESEARCHER_PROFILE } from './model/researcher-profile.resource-type';
-import { HttpOptions } from '../dspace-rest/dspace-rest.service';
-import { PostRequest } from '../data/request.models';
-import { hasValue, isEmpty } from '../../shared/empty.util';
-import { followLink, FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { Item } from '../shared/item.model';
-import { createFailedRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { IdentifiableDataService } from '../data/base/identifiable-data.service';
-import { CreateData, CreateDataImpl } from '../data/base/create-data';
-import { SearchData, SearchDataImpl } from '../data/base/search-data';
-import { PatchData, PatchDataImpl } from '../data/base/patch-data';
-import { DeleteData, DeleteDataImpl } from '../data/base/delete-data';
-import { RestRequestMethod } from '../data/rest-request-method';
-import { RequestParam } from '../cache/models/request-param.model';
-import { FindListOptions } from '../data/find-list-options.model';
-import { PaginatedList } from '../data/paginated-list.model';
-import { dataService } from '../data/base/data-service.decorator';
 
 /**
  * A service that provides methods to make REST requests with researcher profile endpoint.
  */
-@Injectable()
-@dataService(RESEARCHER_PROFILE)
+@Injectable({ providedIn: 'root' })
 export class ResearcherProfileDataService extends IdentifiableDataService<ResearcherProfile> implements CreateData<ResearcherProfile>, SearchData<ResearcherProfile>, PatchData<ResearcherProfile>, DeleteData<ResearcherProfile> {
   private createData: CreateDataImpl<ResearcherProfile>;
   private searchData: SearchDataImpl<ResearcherProfile>;
@@ -86,7 +111,7 @@ export class ResearcherProfileDataService extends IdentifiableDataService<Resear
     const relatedItem$ = researcherProfile.item ? researcherProfile.item : this.itemService.findByHref(researcherProfile._links.item.href, false);
     return relatedItem$.pipe(
       getFirstCompletedRemoteData(),
-      map((itemRD: RemoteData<Item>) => (itemRD.hasSucceeded && itemRD.payload) ? itemRD.payload.id : null)
+      map((itemRD: RemoteData<Item>) => (itemRD.hasSucceeded && itemRD.payload) ? itemRD.payload.id : null),
     );
   }
 
@@ -100,7 +125,7 @@ export class ResearcherProfileDataService extends IdentifiableDataService<Resear
     const replaceOperation: ReplaceOperation<boolean> = {
       path: '/visible',
       op: 'replace',
-      value: visible
+      value: visible,
     };
 
     return this.patch(researcherProfile, [replaceOperation]);
