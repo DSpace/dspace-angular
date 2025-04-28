@@ -14,6 +14,7 @@ import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
+import { ThemedRelatedEntitiesSearchComponent } from '../../app/item-page/simple/related-entities/related-entities-search/themed-related-entities-search.component';
 import { RootModule } from '../../app/root.module';
 import { SearchResultsSkeletonComponent } from '../../app/shared/search/search-results/search-results-skeleton/search-results-skeleton.component';
 import { MetadataImportPageComponent } from './app/admin/admin-import-metadata-page/metadata-import-page.component';
@@ -210,6 +211,7 @@ const DECLARATIONS = [
   ResourcePolicyEditComponent,
   ResourcePolicyFormComponent,
   DynamicLookupRelationModalComponent,
+  ThemedRelatedEntitiesSearchComponent,
 ];
 
 @NgModule({

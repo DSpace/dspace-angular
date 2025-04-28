@@ -10,7 +10,7 @@ import { isNotEmpty } from '../../../../shared/empty.util';
 import { getFilterByRelation } from '../../../../shared/utils/relation-query.utils';
 
 @Component({
-  selector: 'ds-related-entities-search',
+  selector: 'ds-base-related-entities-search',
   templateUrl: './related-entities-search.component.html',
   standalone: true,
   imports: [ThemedConfigurationSearchPageComponent],

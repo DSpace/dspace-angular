@@ -15,13 +15,13 @@ import { map } from 'rxjs/operators';
 
 import { Item } from '../../../../core/shared/item.model';
 import { VarDirective } from '../../../../shared/utils/var.directive';
-import { RelatedEntitiesSearchComponent } from '../related-entities-search/related-entities-search.component';
+import { ThemedRelatedEntitiesSearchComponent } from '../related-entities-search/themed-related-entities-search.component';
 
 @Component({
   selector: 'ds-tabbed-related-entities-search',
   templateUrl: './tabbed-related-entities-search.component.html',
   standalone: true,
-  imports: [NgbNavModule, RelatedEntitiesSearchComponent, VarDirective, AsyncPipe, TranslateModule],
+  imports: [NgbNavModule, ThemedRelatedEntitiesSearchComponent, VarDirective, AsyncPipe, TranslateModule],
 })
 /**
  * A component to show related items as search results, split into tabs by relationship-type
