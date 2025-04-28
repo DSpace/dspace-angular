@@ -99,6 +99,7 @@ export const ROUTES: Route[] = [
             data: {
               breadcrumbKey: 'collection.search',
               menuRoute: MenuRoute.COLLECTION_PAGE,
+              enableRSS: true,
             },
           },
           {
