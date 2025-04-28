@@ -82,7 +82,7 @@ export interface ResourcePolicyEvent {
 }
 
 @Component({
-  selector: 'ds-resource-policy-form',
+  selector: 'ds-base-resource-policy-form',
   templateUrl: './resource-policy-form.component.html',
   imports: [
     FormComponent,
