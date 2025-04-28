@@ -1,5 +1,5 @@
 <ds-metadata-field-wrapper [label]="label | translate">
-    <a class="dont-break-out" *ngFor="let mdValue of mdValues; let last=last;" [href]="mdValue.value" [target]="linkTarget">
+    <a class="dont-break-out" *ngFor="let mdValue of mdValues; let last=last;" [href]="mdValue.value" [target]="hasInternalLink(mdValue.value) ? '_self' : '_blank'">
        {{ linktext || mdValue.value }}<span *ngIf="!last" [innerHTML]="separator"></span>
     </a>
 </ds-metadata-field-wrapper>

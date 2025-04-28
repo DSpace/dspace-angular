@@ -5602,7 +5602,6 @@
   "item.version.create.notification.failure": "Non è stata creata una nuova versione",
 
   // "item.version.create.notification.inProgress": "A new version cannot be created because there is an in-progress submission in the version history",
-  // TODO Source message changed - Revise the translation
   "item.version.create.notification.inProgress": "Non è possibile creare una nuova versione perchè c'è già una submission in progress nella cronologia delle versioni",
 
   // "item.version.delete.modal.header": "Delete version",

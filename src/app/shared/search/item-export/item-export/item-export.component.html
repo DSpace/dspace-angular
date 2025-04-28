@@ -88,7 +88,7 @@
     <button type="button" class="btn btn-outline-secondary mr-2" (click)="activeModal.close('Close click')">
       <i class="fa fa-times"></i> {{ 'item-export.form.btn.cancel' | translate }}
     </button>
-    <button *ngIf="exportForm" type="submit" class="btn btn-primary" [disabled]='(isFormValid() | async) !== true'
+    <button *ngIf="exportForm" type="submit" class="btn btn-primary" [dsBtnDisabled]='(isFormValid() | async) !== true'
             (click)="onSubmit()">
       <i class="fas fa-file-export"></i>{{ 'item-export.form.btn.submit' | translate }}
     </button>

@@ -27,6 +27,7 @@ import {
   switchMap,
   take,
 } from 'rxjs/operators';
+import { BtnDisabledDirective } from 'src/app/shared/btn-disabled.directive';
 
 import { ErrorResponse } from '../../../core/cache/response.models';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
@@ -54,6 +55,7 @@ import { ContextMenuEntryType } from '../context-menu-entry-type';
     NgIf,
     AsyncPipe,
     TranslateModule,
+    BtnDisabledDirective,
   ],
 })
 export class RequestCorrectionMenuComponent extends ContextMenuEntryComponent implements OnDestroy {

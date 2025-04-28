@@ -5,7 +5,9 @@ import {
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
+  fakeAsync,
   TestBed,
+  tick,
   waitForAsync,
 } from '@angular/core/testing';
 import {
@@ -24,6 +26,7 @@ import { SearchManager } from '../../core/browse/search-manager';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { ItemDataService } from '../../core/data/item-data.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { BrowseEntry } from '../../core/shared/browse-entry.model';
 import { Community } from '../../core/shared/community.model';
 import { Item } from '../../core/shared/item.model';
 import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by.component';
@@ -86,6 +89,7 @@ describe('BrowseByTitleComponent', () => {
 
   const activatedRouteStub = Object.assign(new ActivatedRouteStub(), {
     params: observableOf({}),
+    queryParams: observableOf({}),
     data: observableOf({ metadata: 'title' }),
   });
 
@@ -132,5 +136,36 @@ describe('BrowseByTitleComponent', () => {
     comp.items$.subscribe((result) => {
       expect(result.payload.page).toEqual(mockItems);
     });
+  });
+
+  describe('when rendered in SSR', () => {
+    beforeEach(() => {
+      comp.platformId = 'server';
+      spyOn((comp as any).searchManager, 'getBrowseItemsFor');
+      fixture.detectChanges();
+    });
+
+    it('should not call getBrowseItemsFor on init', (done) => {
+      comp.ngOnInit();
+      expect((comp as any).searchManager.getBrowseItemsFor).not.toHaveBeenCalled();
+      comp.loading$.subscribe((res) => {
+        expect(res).toBeFalsy();
+        done();
+      });
+    });
+  });
+
+  describe('when rendered in CSR', () => {
+    beforeEach(() => {
+      comp.platformId = 'browser';
+      fixture.detectChanges();
+      spyOn((comp as any).searchManager, 'getBrowseItemsFor').and.returnValue(createSuccessfulRemoteDataObject$(new BrowseEntry()));
+    });
+
+    it('should call getBrowseItemsFor on init', fakeAsync(() => {
+      comp.ngOnInit();
+      tick(100);
+      expect((comp as any).searchManager.getBrowseItemsFor).toHaveBeenCalled();
+    }));
   });
 });

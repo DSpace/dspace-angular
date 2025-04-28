@@ -18,6 +18,7 @@ import { FeedbackDataService } from '../../../core/feedback/feedback-data.servic
 import { Feedback } from '../../../core/feedback/models/feedback.model';
 import { RouteService } from '../../../core/services/route.service';
 import { NativeWindowService } from '../../../core/services/window.service';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ErrorComponent } from '../../../shared/error/error.component';
 import { NativeWindowMockFactory } from '../../../shared/mocks/mock-native-window-ref';
 import { RouterMock } from '../../../shared/mocks/router.mock';
@@ -46,7 +47,7 @@ describe('FeedbackFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), FeedbackFormComponent],
+      imports: [TranslateModule.forRoot(), FeedbackFormComponent, BtnDisabledDirective],
       providers: [
         { provide: RouteService, useValue: routeServiceStub },
         { provide: UntypedFormBuilder, useValue: new UntypedFormBuilder() },
@@ -80,7 +81,8 @@ describe('FeedbackFormComponent', () => {
   });
 
   it('should have disabled button', () => {
-    expect(de.query(By.css('button')).nativeElement.disabled).toBeTrue();
+    expect(de.query(By.css('button')).nativeElement.getAttribute('aria-disabled')).toBe('true');
+    expect(de.query(By.css('button')).nativeElement.classList.contains('disabled')).toBeTrue();
   });
 
   describe('when message is inserted', () => {
@@ -91,7 +93,8 @@ describe('FeedbackFormComponent', () => {
     });
 
     it('should not have disabled button', () => {
-      expect(de.query(By.css('button')).nativeElement.disabled).toBeFalse();
+      expect(de.query(By.css('button')).nativeElement.getAttribute('aria-disabled')).toBe('false');
+      expect(de.query(By.css('button')).nativeElement.classList.contains('disabled')).toBeFalse();
     });
 
     it('on submit should call createFeedback of feedbackDataServiceStub service', () => {

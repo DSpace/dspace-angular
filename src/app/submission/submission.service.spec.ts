@@ -62,6 +62,7 @@ import { NotificationsService } from '../shared/notifications/notifications.serv
 import { createFailedRemoteDataObject } from '../shared/remote-data.utils';
 import { SubmissionJsonPatchOperationsServiceStub } from '../shared/testing/submission-json-patch-operations-service.stub';
 import { SubmissionRestServiceStub } from '../shared/testing/submission-rest-service.stub';
+import { SectionScope } from './objects/section-visibility.model';
 import {
   CancelSubmissionFormAction,
   ChangeSubmissionCollectionAction,
@@ -257,6 +258,7 @@ describe('SubmissionService test suite', () => {
           extraction: {
             config: '',
             mandatory: true,
+            scope: SectionScope.Submission,
             sectionType: 'utils',
             visibility: {
               submission: SubmissionVisibilityValue.Hidden,
@@ -273,6 +275,7 @@ describe('SubmissionService test suite', () => {
           collection: {
             config: '',
             mandatory: true,
+            scope: SectionScope.Submission,
             sectionType: 'collection',
             visibility: {
               submission: SubmissionVisibilityValue.Hidden,

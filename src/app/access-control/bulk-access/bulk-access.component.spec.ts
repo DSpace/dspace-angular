@@ -1,9 +1,15 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
   ComponentFixture,
+  fakeAsync,
   TestBed,
+  tick,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  Router,
+  Routes,
+} from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
@@ -72,11 +78,14 @@ describe('BulkAccessComponent', () => {
   const expectedIdList = ['1234', '5678'];
 
   const selectableListStateEmpty: SelectableListState = { id: 'test', selection: [] };
+  const routes = [
+    { path: 'home', component: {} },
+  ] as Routes;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
+        RouterTestingModule.withRoutes(routes),
         TranslateModule.forRoot(),
         BulkAccessComponent,
       ],
@@ -164,10 +173,14 @@ describe('BulkAccessComponent', () => {
       expect(bulkAccessControlService.executeScript).toHaveBeenCalled();
     });
 
-    it('should have a link to /home', () => {
-      const link = fixture.debugElement.query(By.css('a.btn-outline-primary'));
+    it('should have a link to /home', fakeAsync(() => {
+      const router: Router = TestBed.inject(Router);
+      const link = fixture.debugElement.query(By.css('[data-test="back-btn"]'));
       expect(link).toBeTruthy();
-      expect(link.properties.href).toContain('/home');
-    });
+
+      link.nativeElement.click();
+      tick();
+      expect(router.url).toBe(`/home`);
+    }));
   });
 });

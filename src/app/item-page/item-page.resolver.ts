@@ -29,7 +29,7 @@ import {
   hasValue,
   isNotEmpty,
 } from '../shared/empty.util';
-import { ITEM_PAGE_LINKS_TO_FOLLOW } from './item.resolver';
+import { getItemPageLinksToFollow } from './item.resolver';
 import { getItemPageRoute } from './item-page-routing-paths';
 
 /**
@@ -55,15 +55,23 @@ export const itemPageResolver: ResolveFn<RemoteData<Item>> = (
   platformId: any = inject(PLATFORM_ID),
   hardRedirectService: HardRedirectService = inject(HardRedirectService),
 ): Observable<RemoteData<Item>> => {
-  return itemService.findById(
+
+  const itemRD$ = itemService.findById(
     route.params.id,
     false,
     true,
-    ...ITEM_PAGE_LINKS_TO_FOLLOW,
+    ...getItemPageLinksToFollow(),
   ).pipe(
     getFirstCompletedRemoteData(),
     redirectOn204<Item>(router, authService),
     redirectOn4xx(router, authService),
+  );
+
+  itemRD$.subscribe((itemRD: RemoteData<Item>) => {
+    store.dispatch(new ResolvedAction(state.url, itemRD.payload));
+  });
+
+  return itemRD$.pipe(
     map((rd: RemoteData<Item>) => {
       store.dispatch(new ResolvedAction(state.url, rd.payload));
       if (rd.hasSucceeded && hasValue(rd.payload)) {

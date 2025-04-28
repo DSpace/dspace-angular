@@ -125,7 +125,6 @@ export class MetadataValuesComponent implements OnChanges {
     return queryParams;
   }
 
-
   /**
    * Checks if the given link value is an internal link.
    * @param linkValue - The link value to check.
@@ -133,5 +132,17 @@ export class MetadataValuesComponent implements OnChanges {
    */
   hasInternalLink(linkValue: string): boolean {
     return linkValue.startsWith(environment.ui.baseUrl);
+  }
+
+  /**
+   * This method performs a validation and determines the target of the url.
+   * @returns - Returns the target url.
+   */
+  getLinkAttributes(urlValue: string): { target: string, rel: string } {
+    if (this.hasInternalLink(urlValue)) {
+      return { target: '_self', rel: '' };
+    } else {
+      return { target: '_blank', rel: 'noopener noreferrer' };
+    }
   }
 }

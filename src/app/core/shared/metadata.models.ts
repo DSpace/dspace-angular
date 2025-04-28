@@ -101,6 +101,10 @@ export interface MetadataValueFilter {
 
   /** Whether the value constraint should match as a substring. */
   substring?: boolean;
+  /**
+   * Whether to negate the filter
+   */
+  negate?: boolean;
 }
 
 export class MetadatumViewModel {

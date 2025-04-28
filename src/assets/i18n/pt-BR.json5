@@ -1547,14 +1547,14 @@
   // "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
   "browse.metadata.srsc.breadcrumbs": "Navegue por Categoria de Assunto",
 
-  // "browse.metadata.srsc.tree.descrption": "Select a subject to add as search filter",
-  "browse.metadata.srsc.tree.descrption": "Selecione um assunto para adicionar como filtro de pesquisa",
+  // "browse.metadata.srsc.tree.description": "Select a subject to add as search filter",
+  "browse.metadata.srsc.tree.description": "Selecione um assunto para adicionar como filtro de pesquisa",
 
   // "browse.metadata.nsi.breadcrumbs": "Browse by Norwegian Science Index",
   "browse.metadata.nsi.breadcrumbs": "Navegue pelo Índice de Ciência Norueguês",
 
-  // "browse.metadata.nsi.tree.descrption": "Select an index to add as search filter",
-  "browse.metadata.nsi.tree.descrption": "Selecione um índice para adicionar como filtro de pesquisa",
+  // "browse.metadata.nsi.tree.description": "Select an index to add as search filter",
+  "browse.metadata.nsi.tree.description": "Selecione um índice para adicionar como filtro de pesquisa",
 
   // "browse.metadata.title.breadcrumbs": "Browse by Title",
   "browse.metadata.title.breadcrumbs": "Pesquisar por Título",
@@ -10249,4 +10249,16 @@
 
   //"browse.search-form.placeholder": "Search the repository",
   "browse.search-form.placeholder": "Buscar no repositório",
+
+  // "file-download-link.download": "Download ",
+  "file-download-link.download": "Baixar ",
+
+  // "register-page.registration.aria.label": "Enter your e-mail address",
+  "register-page.registration.aria.label": "Digite seu e-mail",
+
+  // "forgot-email.form.aria.label": "Enter your e-mail address",
+  "forgot-email.form.aria.label": "Digite seu e-mail",
+
+  // "search-facet-option.update.announcement": "The page will be reloaded. Filter {{ filter }} is selected.",
+  "search-facet-option.update.announcement": "A página será recarregada. O filtro {{ filter }} foi selecionado.",
 }

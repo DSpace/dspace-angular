@@ -16,7 +16,7 @@
             *ngFor="let image of exportImageTypes"
             ngbDropdownItem
             (click)="exportMapAsImage(image.type)"
-            [disabled]="isLoading$ | async"
+            [dsBtnDisabled]="isLoading$ | async"
           >
             {{ image.label }}
           </button>

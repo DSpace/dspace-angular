@@ -18,6 +18,7 @@ import {
 } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { BtnDisabledDirective } from 'src/app/shared/btn-disabled.directive';
 
 import {
   getFirstSucceededRemoteData,
@@ -44,7 +45,7 @@ import { StatisticsTableComponent } from '../statistics-table/statistics-table.c
   templateUrl: './workflow-statistics-page.component.html',
   styleUrls: ['./workflow-statistics-page.component.scss'],
   standalone: true,
-  imports: [CommonModule, VarDirective, ThemedLoadingComponent, StatisticsTableComponent, TranslateModule, CrisStatisticsPageComponent, AlertComponent, FormsModule, NgbDatepickerModule],
+  imports: [CommonModule, VarDirective, ThemedLoadingComponent, StatisticsTableComponent, TranslateModule, CrisStatisticsPageComponent, AlertComponent, FormsModule, NgbDatepickerModule, BtnDisabledDirective],
 })
 export class WorkflowStatisticsPageComponent implements OnInit {
 

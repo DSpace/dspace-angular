@@ -12,6 +12,7 @@ import {
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   combineLatest as observableCombineLatest,
+  mergeMap,
   Observable,
   of,
 } from 'rxjs';
@@ -25,6 +26,7 @@ import {
 import { environment } from 'src/environments/environment';
 
 import { PUBLICATION_CLAIMS_PATH } from './admin/admin-notifications/admin-notifications-routing-paths';
+import { AuthService } from './core/auth/auth.service';
 import { ConfigurationDataService } from './core/data/configuration-data.service';
 import { AuthorizationDataService } from './core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from './core/data/feature-authorization/feature-id';
@@ -77,6 +79,7 @@ export class MenuResolverService  {
     protected modalService: NgbModal,
     protected scriptDataService: ScriptDataService,
     protected configurationDataService: ConfigurationDataService,
+    protected authService: AuthService,
     protected sectionDataService: SectionDataService,
     protected configService: ConfigurationDataService,
   ) {
@@ -91,7 +94,7 @@ export class MenuResolverService  {
     }
     return observableCombineLatest([
       this.createPublicMenu$(),
-      this.createAdminMenu$(),
+      this.createAdminMenuIfLoggedIn$(),
     ]).pipe(
       map((menusDone: boolean[]) => menusDone.every(Boolean)),
     );
@@ -257,6 +260,16 @@ export class MenuResolverService  {
       })));
     });
   }
+
+  /**
+   * Initialize all menu sections and items for {@link MenuID.ADMIN}, only if the user is logged in.
+   */
+  createAdminMenuIfLoggedIn$() {
+    return this.authService.isAuthenticated().pipe(
+      mergeMap((isAuthenticated) => isAuthenticated ? this.createAdminMenu$() : of(true)),
+    );
+  }
+
   /**
    * Initialize all menu sections and items for {@link MenuID.ADMIN}
    */
@@ -266,9 +279,7 @@ export class MenuResolverService  {
     this.createExportMenuSections();
     this.createImportMenuSections();
     this.createAccessControlMenuSections();
-    this.createReportMenuSections();
     this.createDLExporterMenuItem();
-
     return this.waitForMenu$(MenuID.ADMIN);
   }
 

@@ -22,6 +22,7 @@ import { PaginatedList } from '../../../core/data/paginated-list.model';
 import { Item } from '../../../core/shared/item.model';
 import { getAllSucceededRemoteDataPayload } from '../../../core/shared/operators';
 import { getItemPageRoute } from '../../../item-page/item-page-routing-paths';
+import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import {
   hasValueOperator,
   isNotEmpty,
@@ -38,7 +39,7 @@ import { ObjectSelectComponent } from '../object-select/object-select.component'
   selector: 'ds-item-select',
   templateUrl: './item-select.component.html',
   standalone: true,
-  imports: [VarDirective, NgIf, PaginationComponent, NgFor, FormsModule, RouterLink, ErrorComponent, ThemedLoadingComponent, NgClass, AsyncPipe, TranslateModule],
+  imports: [VarDirective, NgIf, PaginationComponent, NgFor, FormsModule, RouterLink, ErrorComponent, ThemedLoadingComponent, NgClass, AsyncPipe, TranslateModule, BtnDisabledDirective],
 })
 
 /**

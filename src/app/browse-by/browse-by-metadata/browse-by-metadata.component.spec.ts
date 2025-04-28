@@ -1,8 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  NO_ERRORS_SCHEMA,
+  PLATFORM_ID,
+} from '@angular/core';
 import {
   ComponentFixture,
+  fakeAsync,
   TestBed,
+  tick,
   waitForAsync,
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -154,6 +159,7 @@ describe('BrowseByMetadataComponent', () => {
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: SelectableListService, useValue: {} },
         { provide: HostWindowService, useValue: {} },
+        { provide: PLATFORM_ID, useValue: 'browser' },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
@@ -265,6 +271,35 @@ describe('BrowseByMetadataComponent', () => {
       expect(result.sort.field).toEqual('fake-field');
       expect(result.fetchThumbnail).toBeTrue();
     });
+  });
+
+  describe('when rendered in SSR', () => {
+    beforeEach(() => {
+      comp.ssrRenderingDisabled = true;
+      spyOn((comp as any).browseService, 'getBrowseEntriesFor').and.returnValue(createSuccessfulRemoteDataObject$(null));
+    });
+
+    it('should not call getBrowseEntriesFor on init', (done) => {
+      comp.ngOnInit();
+      expect((comp as any).browseService.getBrowseEntriesFor).not.toHaveBeenCalled();
+      comp.loading$.subscribe((res) => {
+        expect(res).toBeFalsy();
+        done();
+      });
+    });
+  });
+
+  describe('when rendered in CSR', () => {
+    beforeEach(() => {
+      comp.ssrRenderingDisabled = false;
+      spyOn((comp as any).browseService, 'getBrowseEntriesFor').and.returnValue(createSuccessfulRemoteDataObject$(new BrowseEntry()));
+    });
+
+    it('should call getBrowseEntriesFor on init', fakeAsync(() => {
+      comp.ngOnInit();
+      tick(100);
+      expect((comp as any).browseService.getBrowseEntriesFor).toHaveBeenCalled();
+    }));
   });
 });
 

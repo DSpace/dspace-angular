@@ -20,7 +20,7 @@
                   title="{{'form.remove' | translate}}"
                   attr.aria-label="{{'form.remove' | translate}}"
                   (click)="clearScrollableDropdown($event, model)"
-                  [disabled]="!model.value || model.readOnly">
+                  [dsBtnDisabled]="!model.value || model.readOnly">
             <span><i class="fas fa-trash" aria-hidden="false"></i></span>
           </button>
         </div>
@@ -36,7 +36,7 @@
                   title="{{'form.remove' | translate}}"
                   [attr.aria-label]="'form.remove' | translate"
                   (click)="removeItem($event, context, index)"
-                  [disabled]="isArrayGroupEmpty(group) || isItemReadOnly(context, index)">
+                  [dsBtnDisabled]="isArrayGroupEmpty(group) || isItemReadOnly(context, index)">
             <span><i class="fas fa-trash" aria-hidden="true"></i></span>
           </button>
           <div *ngIf="isInlineGroupForm" class="clearfix w-100 mb-2"></div>
@@ -47,7 +47,7 @@
             <button type="button" role="button" class="ds-form-add-more btn btn-link"
                     title="{{'form.copy' | translate}}"
                     attr.aria-label="{{'form.copy' | translate}}"
-                    [disabled]="isItemReadOnly(context, index)"
+                    [dsBtnDisabled]="isItemReadOnly(context, index)"
                     (click)="copyItem($event, group.context, index)">
               <span><i class="fas fa-copy"></i> {{'form.copy' | translate}}</span>
             </button>
@@ -62,7 +62,7 @@
                 title="{{'form.add' | translate}}"
                 attr.aria-label="{{'form.add' | translate}}"
                 [class.pl-0]="isInlineGroupForm"
-                [disabled]="isItemReadOnly(context, index)"
+                [dsBtnDisabled]="isItemReadOnly(context, index)"
                 (click)="insertItem($event, group.context, group.context.groups.length)">
               <span><i class="fas fa-plus"></i> {{'form.add' | translate}}</span>
             </button>
@@ -78,7 +78,7 @@
                     title="{{'form.discard' | translate}}"
                     attr.aria-label="{{'form.discard' | translate}}"
                     (click)="removeItem($event, context, index)"
-                    [disabled]="group.context.groups.length === 1 || isItemReadOnly(context, index)">
+                    [dsBtnDisabled]="group.context.groups.length === 1 || isItemReadOnly(context, index)">
               <span>{{'form.discard' | translate}}</span>
             </button>
             <div *ngIf="isInlineGroupForm" class="clearfix w-100 mb-2"></div>
@@ -100,7 +100,7 @@
             </button>
             <ng-content select="[between]"></ng-content>
             <button *ngIf="displaySubmit" type="submit" class="btn btn-primary" (click)="onSubmit()"
-                    [disabled]="(isValid() | async) !== true">
+                    [dsBtnDisabled]="(isValid() | async) !== true">
               <i class="fas fa-save mr-1" aria-hidden="true"></i> {{submitLabel | translate}}
             </button>
             <ng-content select="[after]"></ng-content>

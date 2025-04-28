@@ -10,6 +10,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { BtnDisabledDirective } from 'src/app/shared/btn-disabled.directive';
 
 import { LevelSecurityConfig } from '../../../../config/metadata-security-config';
 import { environment } from '../../../../environments/environment';
@@ -26,6 +27,7 @@ import {
     NgStyle,
     NgForOf,
     NgIf,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

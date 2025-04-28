@@ -43,17 +43,39 @@ body {
     .cm-btn.cm-btn-success {
       color: var(--button-text-color-cookie);
       background-color: var(--green1);
-    }
-    .cm-btn.cm-btn-success.cm-btn-accept-all {
-      color: var(--button-text-color-cookie);
-      background-color: var(--green1);
+      font-weight: 600;
     }
   }
 }
 
-.klaro .cookie-modal a, .klaro .context-notice a, .klaro .cookie-notice a
-{
+.klaro .cookie-modal .cm-btn.cm-btn-success.cm-btn-accept-all {
+  color: var(--button-text-color-cookie);
+  background-color: var(--green1);
+  font-weight: 600;
+}
+
+.klaro .cookie-modal a,
+.klaro .context-notice a,
+.klaro .cookie-notice a {
   color: var(--green1);
+  text-decoration: underline !important;
+}
+
+.klaro .cookie-modal .cm-modal .cm-body span,
+.klaro
+  .cookie-modal
+  .cm-modal
+  .cm-body
+  ul.cm-purposes
+  li.cm-purpose
+  span.cm-required,
+p.purposes,
+.klaro .cookie-modal .cm-modal .cm-footer .cm-powered-by a {
+  color: var(--bs-light) !important;
+}
+
+.klaro .cookie-modal .cm-btn.cm-btn-info {
+  background-color: var(--very-dark-cyan) !important;
 }
 
 .media-viewer
@@ -483,6 +505,17 @@ ngb-accordion {
     color: darken($danger, 22%);
 }
 
+// An element that is disabled should not have focus styles to avoid confusion
+// It however is still focusable for screen readers and keyboard navigation
+.disabled {
+    pointer-events: none;
+}
+
+.disabled:focus {
+    outline: none;
+    box-shadow: none;
+}
+
 // Margin utility classes based on DSpace content spacing
 .mt-cs { margin-top: var(--ds-content-spacing); }
 .mb-cs { margin-bottom: var(--ds-content-spacing); }
@@ -490,6 +523,14 @@ ngb-accordion {
 .mt-ncs { margin-top: calc(var(--ds-content-spacing) * -1); }
 .mb-ncs { margin-bottom: calc(var(--ds-content-spacing) * -1); }
 .my-ncs { margin-top: calc(var(--ds-content-spacing) * -1); margin-bottom: calc(var(--ds-content-spacing) * -1); }
+
+
+.link-contrast {
+  // Rules for accessibility to meet minimum contrast and have an identifiable link between other texts
+  color: darken($link-color, 5%);
+  // We use underline to discern link from text as we can't make color lighter on a white bg
+  text-decoration: underline;
+}
 
 
 .text-gray-500 {

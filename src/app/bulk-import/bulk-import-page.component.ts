@@ -30,6 +30,7 @@ import {
   map,
   take,
 } from 'rxjs/operators';
+import { BtnDisabledDirective } from 'src/app/shared/btn-disabled.directive';
 
 import { getCollectionPageRoute } from '../collection-page/collection-page-routing-paths';
 import { AuthService } from '../core/auth/auth.service';
@@ -58,6 +59,7 @@ import { FileValidator } from '../shared/utils/require-file.validator';
     FileValidator,
     AsyncPipe,
     NgIf,
+    BtnDisabledDirective,
   ],
 })
 export class BulkImportPageComponent implements OnInit, OnDestroy {

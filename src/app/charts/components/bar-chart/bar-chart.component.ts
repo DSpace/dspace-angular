@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { BarChartModule } from '@swimlane/ngx-charts';
+import { BtnDisabledDirective } from 'src/app/shared/btn-disabled.directive';
 
 import { fadeIn } from '../../../shared/animations/fade';
 import { ChartData } from '../../models/chart-data';
@@ -30,6 +31,7 @@ import { AbstractChartComponent } from '../abstract-chart/abstract-chart.compone
     NgClass,
     AsyncPipe,
     TranslateModule,
+    BtnDisabledDirective,
   ],
 })
 export class BarChartComponent extends AbstractChartComponent implements OnInit {

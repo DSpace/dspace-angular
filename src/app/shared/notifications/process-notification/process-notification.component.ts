@@ -32,6 +32,7 @@ import {
   take,
   tap,
 } from 'rxjs/operators';
+import { BtnDisabledDirective } from 'src/app/shared/btn-disabled.directive';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { ProcessDataService } from '../../../core/data/processes/process-data.service';
@@ -118,6 +119,7 @@ import { NotificationsService } from '../notifications.service';
     FileSizePipe,
     TitleCasePipe,
     NgForOf,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

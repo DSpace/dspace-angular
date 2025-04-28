@@ -45,6 +45,7 @@ import {
   map,
 } from 'rxjs/operators';
 
+import { BtnDisabledDirective } from '../btn-disabled.directive';
 import {
   hasValue,
   isNotEmpty,
@@ -84,6 +85,7 @@ export interface MetadataFields {
     DynamicFormsCoreModule,
     NgIf,
     AsyncPipe,
+    BtnDisabledDirective,
     NgClass,
   ],
   standalone: true,

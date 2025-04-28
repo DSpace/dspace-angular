@@ -21,6 +21,7 @@ import {
   Ng2GoogleChartsModule,
 } from 'ng2-google-charts';
 import { BehaviorSubject } from 'rxjs';
+import { BtnDisabledDirective } from 'src/app/shared/btn-disabled.directive';
 
 import {
   ExportImageType,
@@ -40,6 +41,7 @@ import { UsageReport } from '../../../core/statistics/models/usage-report.model'
     Ng2GoogleChartsModule,
     AsyncPipe,
     TranslateModule,
+    BtnDisabledDirective,
   ],
 })
 // @renderChartFor(StatisticsType['map'])

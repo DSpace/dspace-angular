@@ -47,7 +47,12 @@ import {
   styleUrls: ['./create-community-parent-selector.component.scss'],
   templateUrl: './create-community-parent-selector.component.html',
   standalone: true,
-  imports: [DSOSelectorComponent, TranslateModule, AsyncPipe, NgIf],
+  imports: [
+    AsyncPipe,
+    DSOSelectorComponent,
+    NgIf,
+    TranslateModule,
+  ],
 })
 export class CreateCommunityParentSelectorComponent extends DSOSelectorModalWrapperComponent implements OnInit {
   objectType = DSpaceObjectType.COMMUNITY;

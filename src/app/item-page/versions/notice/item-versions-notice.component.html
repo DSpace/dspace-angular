@@ -1,5 +1,7 @@
-<ds-alert *ngIf="(showLatestVersionNotice$ | async) === true"
-          [content]="('item.version.notice' | translate:{ destination: destinationPage$ | async })"
-          [dismissible]="false"
-          [type]="AlertTypeEnum.Warning">
-</ds-alert>
+<ng-container *ngIf="(showLatestVersionNotice$ | async) === true">
+  <ds-alert [content]="('item.version.notice' | translate:{ destination: destinationPage$ | async })"
+            [dismissible]="false"
+            [type]="AlertTypeEnum.Warning">
+  </ds-alert>
+  <br>
+</ng-container>

@@ -1,6 +1,5 @@
 import {
   autoserialize,
-  autoserializeAs,
   deserialize,
   inheritSerialization,
 } from 'cerialize';
@@ -32,9 +31,6 @@ export class HierarchicalBrowseDefinition extends BrowseDefinition {
 
   @autoserialize
   vocabulary: string;
-
-  @autoserializeAs('metadata')
-  metadataKeys: string[];
 
   get self(): string {
     return this._links.self.href;

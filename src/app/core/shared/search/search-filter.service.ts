@@ -1,7 +1,4 @@
-import {
-  Injectable,
-  InjectionToken,
-} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import {
   createSelector,
@@ -10,7 +7,7 @@ import {
   Store,
 } from '@ngrx/store';
 import {
-  BehaviorSubject,
+  combineLatest,
   combineLatest as observableCombineLatest,
   Observable,
   of as observableOf,
@@ -59,11 +56,6 @@ import { getFirstSucceededRemoteData } from '../operators';
 import { SearchService } from './search.service';
 
 const filterStateSelector = (state: SearchFiltersState) => state.searchFilter;
-
-export const FILTER_CONFIG: InjectionToken<SearchFilterConfig> = new InjectionToken<SearchFilterConfig>('filterConfig');
-export const IN_PLACE_SEARCH: InjectionToken<boolean> = new InjectionToken<boolean>('inPlaceSearch');
-export const REFRESH_FILTER: InjectionToken<BehaviorSubject<any>> = new InjectionToken<boolean>('refreshFilters');
-export const SCOPE: InjectionToken<string> = new InjectionToken<string>('scope');
 
 /**
  * Service that performs all actions that have to do with search filters and facets
@@ -164,27 +156,6 @@ export class SearchFilterService {
   }
 
   /**
-   * Requests the active filter values set for a given filter
-   * @param {SearchFilterConfig} filterConfig The configuration for which the filters are active
-   * @returns {Observable<string[]>} Emits the active filters for the given filter configuration
-   */
-  getSelectedValuesForFilter(filterConfig: SearchFilterConfig): Observable<string[]> {
-    const values$ = this.routeService.getQueryParameterValues(filterConfig.paramName);
-    const prefixValues$ = this.routeService.getQueryParamsWithPrefix(filterConfig.paramName + '.').pipe(
-      map((params: Params) => [].concat(...Object.values(params))),
-    );
-    return observableCombineLatest(values$, prefixValues$).pipe(
-      map(([values, prefixValues]) => {
-        if (isNotEmpty(values)) {
-          return values;
-        }
-        return prefixValues;
-      },
-      ),
-    );
-  }
-
-  /**
    * Updates the found facet value suggestions for a given query
    * Transforms the found values into display values
    *
@@ -218,6 +189,27 @@ export class SearchFilterService {
    */
   getDisplayValue(facet: FacetValue, query: string): string {
     return `${new EmphasizePipe().transform(facet.value, query)} (${facet.count})`;
+  }
+
+  /**
+   * Requests the active filter values set for a given filter
+   * @param {SearchFilterConfig} filterConfig The configuration for which the filters are active
+   * @returns {Observable<string[]>} Emits the active filters for the given filter configuration
+   */
+  getSelectedValuesForFilter(filterConfig: SearchFilterConfig): Observable<string[]> {
+    const values$ = this.routeService.getQueryParameterValues(filterConfig.paramName);
+    const prefixValues$ = this.routeService.getQueryParamsWithPrefix(filterConfig.paramName + '.').pipe(
+      map((params: Params) => [].concat(...Object.values(params))),
+    );
+    return combineLatest([values$, prefixValues$]).pipe(
+      map(([values, prefixValues]) => {
+        if (isNotEmpty(values)) {
+          return values;
+        }
+        return prefixValues;
+      },
+      ),
+    );
   }
 
   /**

@@ -119,10 +119,21 @@ describe('CreateCommunityParentSelectorComponent', () => {
       expect(router.navigate).toHaveBeenCalledWith([createPath], { queryParams: { parent: community.uuid } });
     });
 
-    it('should hide the div when user is not an admin', (() => {
-      const divElement = debugElement.query(By.css('div[data-test="admin-div"]'));
-      expect(divElement).toBeFalsy();
-    }));
-  });
+    it('should show the div when user is an admin', (waitForAsync(() => {
+      component.isAdmin$ = of(true);
+      fixture.detectChanges();
 
+      const divElement = fixture.debugElement.query(By.css('div[data-test="admin-div"]'));
+      expect(divElement).toBeTruthy();
+    })));
+
+    it('should hide the div when user is not an admin', (waitForAsync(() => {
+      component.isAdmin$ = of(false);
+      fixture.detectChanges();
+
+      const divElement = fixture.debugElement.query(By.css('div[data-test="admin-div"]'));
+      expect(divElement).toBeFalsy();
+    })));
+
+  });
 });

@@ -22,8 +22,7 @@
           (blur)="onBlur($event)"
           (dateSelect)="onChange($event)"
           (change)="onChange($event)"
-          (focus)="onFocus($event)"
-  >
+          (focus)="onFocus($event)">
 
   <div class="input-group-append">
 
@@ -31,7 +30,7 @@
             type="button"
             [attr.aria-labelledby]="'label_' + model.id"
             [class.disabled]="model.disabled"
-            [disabled]="model.disabled"
+                [dsBtnDisabled]="model.disabled"
             (click)="datepicker.toggle()">
 
       <i *ngIf="model.toggleIcon" class="{{model.toggleIcon}}" aria-hidden="true"></i>

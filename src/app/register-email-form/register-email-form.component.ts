@@ -54,6 +54,7 @@ import {
 import { Registration } from '../core/shared/registration.model';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';
+import { BtnDisabledDirective } from '../shared/btn-disabled.directive';
 import { KlaroService } from '../shared/cookies/klaro.service';
 import { isNotEmpty } from '../shared/empty.util';
 import { GoogleRecaptchaComponent } from '../shared/google-recaptcha/google-recaptcha.component';
@@ -66,7 +67,7 @@ export const TYPE_REQUEST_REGISTER = 'register';
   selector: 'ds-base-register-email-form',
   templateUrl: './register-email-form.component.html',
   standalone: true,
-  imports: [NgIf, FormsModule, ReactiveFormsModule, AlertComponent, GoogleRecaptchaComponent, AsyncPipe, TranslateModule],
+  imports: [NgIf, FormsModule, ReactiveFormsModule, AlertComponent, GoogleRecaptchaComponent, AsyncPipe, TranslateModule, BtnDisabledDirective],
 })
 /**
  * Component responsible to render an email registration form.
@@ -290,5 +291,4 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
         console.warn(`Unimplemented notification '${key}' from reCaptcha service`);
     }
   }
-
 }

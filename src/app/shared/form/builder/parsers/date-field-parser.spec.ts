@@ -6,10 +6,6 @@ import { FormFieldMetadataValueObject } from '../models/form-field-metadata-valu
 import { DateFieldParser } from './date-field-parser';
 import { ParserOptions } from './parser-options';
 
-
-
-
-
 describe('DateFieldParser test suite', () => {
   let field: FormFieldModel;
   let initFormValues: any = {};

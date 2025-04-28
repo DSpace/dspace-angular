@@ -2,6 +2,7 @@ import {
   Component,
   EventEmitter,
   Inject,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -24,7 +25,7 @@ import { ChartType } from '../../models/chart-type';
   template: '',
   standalone: true,
 })
-export abstract class AbstractChartComponent implements OnInit {
+export abstract class AbstractChartComponent implements OnInit, OnDestroy {
 
   public chartData: BehaviorSubject<ChartData[] | ChartSeries[]> = new BehaviorSubject<ChartData[] | ChartSeries[]>([]);
 
