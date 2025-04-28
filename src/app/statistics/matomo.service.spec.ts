@@ -23,6 +23,7 @@ import {
   createSuccessfulRemoteDataObject$,
 } from '../shared/remote-data.utils';
 import {
+  MATOMO_ENABLED,
   MATOMO_SITE_ID,
   MATOMO_TRACKER_URL,
   MatomoService,
@@ -84,6 +85,9 @@ describe('MatomoService', () => {
     configService.findByPropertyName.withArgs(MATOMO_TRACKER_URL).and.returnValue(
       createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(),{ values: ['http://matomo'] })),
     );
+    configService.findByPropertyName.withArgs(MATOMO_ENABLED).and.returnValue(
+      createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(),{ values: ['true'] })),
+    );
     configService.findByPropertyName.withArgs(MATOMO_SITE_ID).and.returnValue(
       createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), { values: ['1'] })));
     orejimeService.getSavedPreferences.and.returnValue(of({ matomo: true }));
@@ -102,6 +106,9 @@ describe('MatomoService', () => {
     configService.findByPropertyName.withArgs(MATOMO_TRACKER_URL).and.returnValue(
       createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(),{ values: ['http://example.com'] })),
     );
+    configService.findByPropertyName.withArgs(MATOMO_ENABLED).and.returnValue(
+      createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(),{ values: ['true'] })),
+    );
     configService.findByPropertyName.withArgs(MATOMO_SITE_ID).and.returnValue(
       createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), { values: ['1'] })));
     orejimeService.getSavedPreferences.and.returnValue(of({ matomo: true }));
@@ -117,6 +124,24 @@ describe('MatomoService', () => {
 
   it('should not initialize tracker if not in production', () => {
     environment.production = false;
+
+    service.init();
+
+    expect(matomoInitializer.initializeTracker).not.toHaveBeenCalled();
+  });
+
+  it('should not initialize tracker if matomo is disabled', () => {
+    environment.production = true;
+    environment.matomo = { trackerUrl: '' };
+    configService.findByPropertyName.withArgs(MATOMO_TRACKER_URL).and.returnValue(
+      createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(),{ values: ['http://example.com'] })),
+    );
+    configService.findByPropertyName.withArgs(MATOMO_ENABLED).and.returnValue(
+      createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(),{ values: ['false'] })),
+    );
+    configService.findByPropertyName.withArgs(MATOMO_SITE_ID).and.returnValue(
+      createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), { values: ['1'] })));
+    orejimeService.getSavedPreferences.and.returnValue(of({ matomo: true }));
 
     service.init();
 
