@@ -40,15 +40,16 @@ import { createSuccessfulRemoteDataObject$ } from '../../../../remote-data.utils
 import { PaginatedSearchOptions } from '../../../../search/models/paginated-search-options.model';
 import { createPaginatedList } from '../../../../testing/utils.test';
 import { RelationshipOptions } from '../../models/relationship-options.model';
-import { DsDynamicLookupRelationModalComponent } from './dynamic-lookup-relation-modal.component';
+import { DynamicLookupRelationModalComponent } from './dynamic-lookup-relation-modal.component';
 import {
   AddRelationshipAction,
   RemoveRelationshipAction,
 } from './relationship.actions';
+import { ThemedDynamicLookupRelationModalComponent } from './themed-dynamic-lookup-relation-modal.component';
 
 describe('DsDynamicLookupRelationModalComponent', () => {
-  let component: DsDynamicLookupRelationModalComponent;
-  let fixture: ComponentFixture<DsDynamicLookupRelationModalComponent>;
+  let component: DynamicLookupRelationModalComponent;
+  let fixture: ComponentFixture<DynamicLookupRelationModalComponent>;
   let debugElement: DebugElement;
   let item;
   let item1;
@@ -124,7 +125,8 @@ describe('DsDynamicLookupRelationModalComponent', () => {
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule, DsDynamicLookupRelationModalComponent, BtnDisabledDirective],
+      declarations: [ThemedDynamicLookupRelationModalComponent],
+      imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([]), NgbModule, ThemedDynamicLookupRelationModalComponent, BtnDisabledDirective],
       providers: [
         {
           provide: SearchConfigurationService, useValue: {
@@ -159,7 +161,7 @@ describe('DsDynamicLookupRelationModalComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DsDynamicLookupRelationModalComponent);
+    fixture = TestBed.createComponent(DynamicLookupRelationModalComponent);
     debugElement = fixture.debugElement;
     component = fixture.componentInstance;
     component.listId = listID;
