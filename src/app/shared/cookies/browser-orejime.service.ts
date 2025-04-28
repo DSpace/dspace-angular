@@ -413,7 +413,9 @@ export class BrowserOrejimeService extends OrejimeService {
    * @param user
    */
   updateSettingsForUsers(user: EPerson) {
-    this.setSettingsForUser(user, this.cookieService.get(this.getStorageName(user.uuid)));
+    if (user) {
+      this.setSettingsForUser(user, this.cookieService.get(this.getStorageName(user.uuid)));
+    }
   }
 
   /**
