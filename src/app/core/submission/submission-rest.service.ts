@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs';
+import { Observable, skipWhile } from 'rxjs';
 import { distinctUntilChanged, filter, map, mergeMap, tap } from 'rxjs/operators';
 
 import { RequestService } from '../data/request.service';
@@ -115,22 +115,51 @@ export class SubmissionRestService {
    *    The endpoint link name
    * @param id
    *    The submission Object to retrieve
+   * @param useCachedVersionIfAvailable
+   *    If this is true, the request will only be sent if there's no valid & cached version. Defaults to false
    * @return Observable<SubmitDataResponseDefinitionObject>
    *     server response
    */
-  public getDataById(linkName: string, id: string): Observable<SubmitDataResponseDefinitionObject> {
-    const requestId = this.requestService.generateRequestId();
+  public getDataById(linkName: string, id: string, useCachedVersionIfAvailable = false): Observable<SubmitDataResponseDefinitionObject> {
     return this.halService.getEndpoint(linkName).pipe(
       map((endpointURL: string) => this.getEndpointByIDHref(endpointURL, id)),
       filter((href: string) => isNotEmpty(href)),
       distinctUntilChanged(),
-      map((endpointURL: string) => new SubmissionRequest(requestId, endpointURL)),
-      tap((request: RestRequest) => {
-        this.requestService.send(request);
+      mergeMap((endpointURL: string) => {
+        const request = this.sendGetDataRequest(endpointURL, useCachedVersionIfAvailable);
+        const startTime: number = new Date().getTime();
+        return this.rdbService.buildSingle(request.href).pipe(
+          // This skip ensures that if a stale object is present in the cache when you do a
+          // call it isn't immediately returned, but we wait until the remote data for the new request
+          // is created. If useCachedVersionIfAvailable is false it also ensures you don't get a
+          // cached completed object
+          skipWhile((rd: RemoteData<SubmissionResponse>) => rd.isStale || (!useCachedVersionIfAvailable && rd.lastUpdated < startTime)),
+          tap((rd: RemoteData<SubmissionResponse>) => {
+            if (hasValue(rd) && rd.isStale) {
+              this.sendGetDataRequest(endpointURL, useCachedVersionIfAvailable);
+            }
+          })
+        );
       }),
-      mergeMap((request) => this.rdbService.buildSingle(request.href)),
       getFirstDataDefinition(),
     );
+  }
+
+  /**
+   * Send a GET SubmissionRequest
+   *
+   * @param href
+   *    Endpoint URL of the submission data
+   * @param useCachedVersionIfAvailable
+   *    If this is true, the request will only be sent if there's no valid & cached version. Defaults to false
+   * @return RestRequest
+   *    Request sent
+   */
+  private sendGetDataRequest(href: string, useCachedVersionIfAvailable = false): RestRequest {
+    const requestId = this.requestService.generateRequestId();
+    const request = new SubmissionRequest(requestId, href);
+    this.requestService.send(request, useCachedVersionIfAvailable);
+    return request;
   }
 
   /**
