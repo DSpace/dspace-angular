@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   EventEmitter,
@@ -8,6 +8,8 @@ import {
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { BtnDisabledDirective } from '../btn-disabled.directive';
+
 /**
  * Component which represent a DSpace dropdown selector.
  */
@@ -16,7 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './ds-select.component.html',
   styleUrls: ['./ds-select.component.scss'],
   standalone: true,
-  imports: [NgbDropdownModule, NgIf, TranslateModule],
+  imports: [NgbDropdownModule, TranslateModule, BtnDisabledDirective],
 })
 export class DsSelectComponent {
 

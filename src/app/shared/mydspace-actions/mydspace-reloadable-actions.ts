@@ -105,6 +105,8 @@ export abstract class MyDSpaceReloadableActionsComponent<T extends DSpaceObject,
     if (result) {
       if (reloadedObject) {
         this.processCompleted.emit({ result, reloadedObject });
+        // Ensure that next time the page is requested the objects have the correct render type.
+        this.invalidateCacheForCurrentSearchUrl();
       } else {
         this.reload();
       }

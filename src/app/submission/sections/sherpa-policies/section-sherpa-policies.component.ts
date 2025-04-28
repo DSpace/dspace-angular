@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Inject,
@@ -47,11 +43,9 @@ import { PublisherPolicyComponent } from './publisher-policy/publisher-policy.co
     AlertComponent,
     TranslateModule,
     PublisherPolicyComponent,
-    NgIf,
     PublicationInformationComponent,
     AsyncPipe,
     VarDirective,
-    NgForOf,
   ],
   standalone: true,
 })

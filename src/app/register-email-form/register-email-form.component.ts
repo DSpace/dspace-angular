@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -54,7 +51,8 @@ import {
 import { Registration } from '../core/shared/registration.model';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { AlertType } from '../shared/alert/alert-type';
-import { KlaroService } from '../shared/cookies/klaro.service';
+import { BtnDisabledDirective } from '../shared/btn-disabled.directive';
+import { OrejimeService } from '../shared/cookies/orejime.service';
 import { isNotEmpty } from '../shared/empty.util';
 import { GoogleRecaptchaComponent } from '../shared/google-recaptcha/google-recaptcha.component';
 import { NotificationsService } from '../shared/notifications/notifications.service';
@@ -66,7 +64,7 @@ export const TYPE_REQUEST_REGISTER = 'register';
   selector: 'ds-base-register-email-form',
   templateUrl: './register-email-form.component.html',
   standalone: true,
-  imports: [NgIf, FormsModule, ReactiveFormsModule, AlertComponent, GoogleRecaptchaComponent, AsyncPipe, TranslateModule],
+  imports: [FormsModule, ReactiveFormsModule, AlertComponent, GoogleRecaptchaComponent, AsyncPipe, TranslateModule, BtnDisabledDirective],
 })
 /**
  * Component responsible to render an email registration form.
@@ -126,7 +124,7 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
     private configService: ConfigurationDataService,
     public googleRecaptchaService: GoogleRecaptchaService,
     public cookieService: CookieService,
-    @Optional() public klaroService: KlaroService,
+    @Optional() public orejimeService: OrejimeService,
     private changeDetectorRef: ChangeDetectorRef,
     private notificationsService: NotificationsService,
   ) {
@@ -247,8 +245,8 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
    * Return true if the user has accepted the required cookies for reCaptcha
    */
   isRecaptchaCookieAccepted(): boolean {
-    const klaroAnonymousCookie = this.cookieService.get('klaro-anonymous');
-    return isNotEmpty(klaroAnonymousCookie) ? klaroAnonymousCookie[CAPTCHA_NAME] : false;
+    const orejimeAnonymousCookie = this.cookieService.get('orejime-anonymous');
+    return isNotEmpty(orejimeAnonymousCookie) ? orejimeAnonymousCookie[CAPTCHA_NAME] : false;
   }
 
   /**
@@ -290,5 +288,4 @@ export class RegisterEmailFormComponent implements OnDestroy, OnInit {
         console.warn(`Unimplemented notification '${key}' from reCaptcha service`);
     }
   }
-
 }

@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -12,7 +9,10 @@ import {
   Router,
   RouterLink,
 } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -20,6 +20,7 @@ import { PaginationService } from '../../../../../../core/pagination/pagination.
 import { SearchService } from '../../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../../../../core/shared/search/search-filter.service';
+import { LiveRegionService } from '../../../../../../shared/live-region/live-region.service';
 import { currentPath } from '../../../../../utils/route.utils';
 import { ShortNumberPipe } from '../../../../../utils/short-number.pipe';
 import { FacetValue } from '../../../../models/facet-value.model';
@@ -31,7 +32,7 @@ import { getFacetValueForType } from '../../../../search.utils';
   styleUrls: ['./search-facet-option.component.scss'],
   templateUrl: './search-facet-option.component.html',
   standalone: true,
-  imports: [NgIf, RouterLink, AsyncPipe, TranslateModule, ShortNumberPipe],
+  imports: [RouterLink, AsyncPipe, TranslateModule, ShortNumberPipe],
 })
 
 /**
@@ -75,6 +76,8 @@ export class SearchFacetOptionComponent implements OnInit {
               protected searchConfigService: SearchConfigurationService,
               protected router: Router,
               protected paginationService: PaginationService,
+              protected liveRegionService: LiveRegionService,
+              private translateService: TranslateService,
   ) {
   }
 
@@ -119,4 +122,11 @@ export class SearchFacetOptionComponent implements OnInit {
     return getFacetValueForType(this.filterValue, this.filterConfig);
   }
 
+  /**
+   * Announces to the screen reader that the page will be reloaded, which filter has been selected
+   */
+  announceFilter() {
+    const message = this.translateService.instant('search-facet-option.update.announcement', { filter: this.filterValue.value });
+    this.liveRegionService.addMessage(message);
+  }
 }

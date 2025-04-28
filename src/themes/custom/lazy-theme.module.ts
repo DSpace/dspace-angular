@@ -1,6 +1,9 @@
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -12,8 +15,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
 import { RootModule } from '../../app/root.module';
+import { SearchResultsSkeletonComponent } from '../../app/shared/search/search-results/search-results-skeleton/search-results-skeleton.component';
 import { MetadataImportPageComponent } from './app/admin/admin-import-metadata-page/metadata-import-page.component';
+import { AdminSearchPageComponent } from './app/admin/admin-search-page/admin-search-page.component';
 import { AdminSidebarComponent } from './app/admin/admin-sidebar/admin-sidebar.component';
+import { AdminWorkflowPageComponent } from './app/admin/admin-workflow-page/admin-workflow-page.component';
 import { EditBitstreamPageComponent } from './app/bitstream-page/edit-bitstream-page/edit-bitstream-page.component';
 import { BreadcrumbsComponent } from './app/breadcrumbs/breadcrumbs.component';
 import { BrowseByDateComponent } from './app/browse-by/browse-by-date/browse-by-date.component';
@@ -102,6 +108,7 @@ import { ThumbnailComponent } from './app/thumbnail/thumbnail.component';
 import { WorkflowItemDeleteComponent } from './app/workflowitems-edit-page/workflow-item-delete/workflow-item-delete.component';
 import { WorkflowItemSendBackComponent } from './app/workflowitems-edit-page/workflow-item-send-back/workflow-item-send-back.component';
 import { WorkspaceItemsDeletePageComponent } from './app/workspaceitems-edit-page/workspaceitems-delete-page/workspaceitems-delete-page.component';
+
 
 const DECLARATIONS = [
   FileSectionComponent,
@@ -194,15 +201,16 @@ const DECLARATIONS = [
   ProfilePageMetadataFormComponent,
   SubmissionUploadFilesComponent,
   ComcolPageContentComponent,
+  AdminSearchPageComponent,
+  AdminWorkflowPageComponent,
+  SearchResultsSkeletonComponent,
 ];
 
 @NgModule({
-  imports: [
-    RootModule,
+  imports: [RootModule,
     CommonModule,
     DragDropModule,
     FormsModule,
-    HttpClientModule,
     NgbModule,
     RouterModule,
     ScrollToModule,
@@ -211,7 +219,9 @@ const DECLARATIONS = [
     TranslateModule,
     FormsModule,
     NgxGalleryModule,
-    ...DECLARATIONS,
+    ...DECLARATIONS],
+  providers: [
+    provideHttpClient(withInterceptorsFromDi()),
   ],
 })
 

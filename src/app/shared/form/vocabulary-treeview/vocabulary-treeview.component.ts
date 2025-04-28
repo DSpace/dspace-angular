@@ -2,12 +2,10 @@ import {
   CdkTreeModule,
   FlatTreeControl,
 } from '@angular/cdk/tree';
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
+  ElementRef,
   EventEmitter,
   Input,
   OnChanges,
@@ -15,6 +13,7 @@ import {
   OnInit,
   Output,
   SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
@@ -30,6 +29,7 @@ import { VocabularyEntryDetail } from '../../../core/submission/vocabularies/mod
 import { VocabularyOptions } from '../../../core/submission/vocabularies/models/vocabulary-options.model';
 import { AlertComponent } from '../../alert/alert.component';
 import { AlertType } from '../../alert/alert-type';
+import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import {
   hasValue,
   isEmpty,
@@ -59,16 +59,21 @@ export type VocabularyTreeItemType = FormFieldMetadataValueObject | VocabularyEn
   imports: [
     FormsModule,
     NgbTooltipModule,
-    NgIf,
     CdkTreeModule,
     TranslateModule,
     AsyncPipe,
     ThemedLoadingComponent,
     AlertComponent,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })
 export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges {
+
+  /**
+   * Implemented to manage focus on input
+   */
+  @ViewChild('searchInput') searchInput!: ElementRef;
 
   /**
    * The {@link VocabularyOptions} object
@@ -331,6 +336,9 @@ export class VocabularyTreeviewComponent implements OnDestroy, OnInit, OnChanges
       this.nodeMap = this.storedNodeMap;
       this.storedNodeMap = new Map<string, TreeviewFlatNode>();
       this.vocabularyTreeviewService.restoreNodes();
+    }
+    if (this.searchInput) {
+      this.searchInput.nativeElement.focus();
     }
   }
 

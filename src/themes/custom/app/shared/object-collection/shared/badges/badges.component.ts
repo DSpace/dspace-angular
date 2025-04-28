@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { BadgesComponent as BaseComponent } from 'src/app/shared/object-collection/shared/badges/badges.component';
 
@@ -14,7 +13,7 @@ import { ThemedTypeBadgeComponent } from '../../../../../../../app/shared/object
   // templateUrl: './badges.component.html',
   templateUrl: '../../../../../../../app/shared/object-collection/shared/badges/badges.component.html',
   standalone: true,
-  imports: [ThemedStatusBadgeComponent, NgIf, ThemedMyDSpaceStatusBadgeComponent, ThemedTypeBadgeComponent, ThemedAccessStatusBadgeComponent],
+  imports: [ThemedStatusBadgeComponent, ThemedMyDSpaceStatusBadgeComponent, ThemedTypeBadgeComponent, ThemedAccessStatusBadgeComponent],
 })
 export class BadgesComponent extends BaseComponent {
 }

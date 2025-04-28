@@ -1,8 +1,4 @@
-import {
-  NgFor,
-  NgIf,
-  TitleCasePipe,
-} from '@angular/common';
+import { TitleCasePipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -27,7 +23,7 @@ import { HealthStatusComponent } from './health-status/health-status.component';
   templateUrl: './health-panel.component.html',
   styleUrls: ['./health-panel.component.scss'],
   standalone: true,
-  imports: [HealthStatusComponent, NgbAccordionModule, NgFor, NgIf, HealthComponentComponent, TitleCasePipe, ObjNgFor, TranslateModule],
+  imports: [HealthStatusComponent, NgbAccordionModule, HealthComponentComponent, TitleCasePipe, ObjNgFor, TranslateModule],
 })
 export class HealthPanelComponent implements OnInit {
 

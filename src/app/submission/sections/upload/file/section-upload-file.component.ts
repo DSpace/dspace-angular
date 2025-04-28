@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -28,6 +25,7 @@ import { JsonPatchOperationsBuilder } from '../../../../core/json-patch/builder/
 import { Bitstream } from '../../../../core/shared/bitstream.model';
 import { WorkspaceitemSectionUploadFileObject } from '../../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { SubmissionJsonPatchOperationsService } from '../../../../core/submission/submission-json-patch-operations.service';
+import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import {
   hasValue,
   isNotUndefined,
@@ -50,10 +48,10 @@ import { SubmissionSectionUploadFileViewComponent } from './view/section-upload-
   imports: [
     TranslateModule,
     SubmissionSectionUploadFileViewComponent,
-    NgIf,
     AsyncPipe,
     ThemedFileDownloadLinkComponent,
     FileSizePipe,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

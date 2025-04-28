@@ -1,12 +1,18 @@
-<ng-container [ngSwitch]="status">
-  <i *ngSwitchCase="HealthStatus.UP"
-     class="fa fa-check-circle text-success my-auto"
-     ngbTooltip="{{'health-page.status.ok.info' | translate}}" container="body" ></i>
-  <i *ngSwitchCase="HealthStatus.UP_WITH_ISSUES"
-     class="fa fa-exclamation-triangle text-warning my-auto"
-     ngbTooltip="{{'health-page.status.warning.info' | translate}}" container="body"></i>
-  <i *ngSwitchCase="HealthStatus.DOWN"
-     class="fa fa-times-circle text-danger my-auto"
-     ngbTooltip="{{'health-page.status.error.info' | translate}}" container="body"></i>
 
-</ng-container>
+@switch (status) {
+  @case (HealthStatus.UP) {
+    <i
+      class="fa fa-check-circle text-success ms-2 mt-1"
+    ngbTooltip="{{'health-page.status.ok.info' | translate}}" container="body" ></i>
+  }
+  @case (HealthStatus.UP_WITH_ISSUES) {
+    <i
+      class="fa fa-exclamation-triangle text-warning ms-2 mt-1"
+    ngbTooltip="{{'health-page.status.warning.info' | translate}}" container="body"></i>
+  }
+  @case (HealthStatus.DOWN) {
+    <i
+      class="fa fa-times-circle text-danger ms-2 mt-1"
+    ngbTooltip="{{'health-page.status.error.info' | translate}}" container="body"></i>
+  }
+}
