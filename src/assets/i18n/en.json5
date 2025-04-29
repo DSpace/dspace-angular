@@ -7050,4 +7050,6 @@
   "metadata-export-filtered-items.columns.warning": "CSV export automatically includes all relevant fields, so selections in this list are not taken into account.",
 
   "embargo.listelement.badge": "Embargo until {{ date }}",
+
+  "metadata-export-search.submit.error.limit-exceeded": "Only the first {{limit}} items will be exported",
 }

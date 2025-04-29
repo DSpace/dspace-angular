@@ -15,7 +15,7 @@
     <h1>{{ (configuration ? configuration + '.search.results.head' : 'search.results.head') | translate }}</h1>
   }
   @if (showCsvExport) {
-    <ds-search-export-csv [searchConfig]="searchConfig"></ds-search-export-csv>
+    <ds-search-export-csv [searchConfig]="searchConfig" [total]="searchResults?.payload?.totalElements"></ds-search-export-csv>
   }
 </div>
 @if (searchResults && searchResults?.hasSucceeded && !searchResults?.isLoading && searchResults?.payload?.page.length > 0) {
