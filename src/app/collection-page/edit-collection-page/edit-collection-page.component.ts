@@ -1,8 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgForOf,
-  NgIf,
 } from '@angular/common';
 import { Component } from '@angular/core';
 import {
@@ -23,13 +21,12 @@ import { getCollectionPageRoute } from '../collection-page-routing-paths';
 @Component({
   selector: 'ds-edit-collection',
   templateUrl: '../../shared/comcol/comcol-forms/edit-comcol-page/edit-comcol-page.component.html',
+  styleUrls: ['./edit-collection-page.component.scss'],
   imports: [
     RouterLink,
     TranslateModule,
     NgClass,
-    NgForOf,
     RouterOutlet,
-    NgIf,
     AsyncPipe,
   ],
   standalone: true,

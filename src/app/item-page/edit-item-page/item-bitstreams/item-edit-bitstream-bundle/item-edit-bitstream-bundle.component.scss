@@ -1,13 +1,16 @@
 .header-row {
-  color: var(--bs-table-dark-color);
-  background-color: var(--bs-table-dark-bg);
-  border-color: var(--bs-table-dark-bg);
+  & > th {
+    padding: .75rem;
+  }
+  --bs-table-bg: var(--bs-dark);
+  --bs-table-bg-state: var(--bs-dark);
+  --bs-table-color-state: var(--bs-light);
 }
 
 .bundle-row {
-  color: var(--bs-table-head-color);
-  background-color: var(--bs-table-head-bg);
-  border-color: var(--bs-table-border-color);
+  --bs-table-color-state: var(--bs-dark);
+  --bs-table-bg: var(--bs-light-bg-subtle);
+  --bs-table-bg-state: var(--bs-light-bg-subtle);
 }
 
 .row-element {

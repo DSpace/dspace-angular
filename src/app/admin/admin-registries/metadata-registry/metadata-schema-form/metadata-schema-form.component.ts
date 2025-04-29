@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -39,7 +36,6 @@ import { FormComponent } from '../../../../shared/form/form.component';
   selector: 'ds-metadata-schema-form',
   templateUrl: './metadata-schema-form.component.html',
   imports: [
-    NgIf,
     AsyncPipe,
     TranslateModule,
     FormComponent,

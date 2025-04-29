@@ -37,10 +37,11 @@ import { SearchService } from './search.service';
 import { SearchConfigurationService } from './search-configuration.service';
 import anything = jasmine.anything;
 
+
 @Component({
   template: '',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
 })
 class DummyComponent {
 }

@@ -1,7 +1,4 @@
-import {
-  NgFor,
-  NgIf,
-} from '@angular/common';
+
 import {
   Component,
   Input,
@@ -22,8 +19,6 @@ import { SearchResult } from '../../../../search/models/search-result.model';
   standalone: true,
   imports: [
     MetadataFieldWrapperComponent,
-    NgFor,
-    NgIf,
     TranslateModule,
   ],
 })

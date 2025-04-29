@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import {
   ActivatedRoute,
@@ -30,7 +27,6 @@ import { VarDirective } from '../../shared/utils/var.directive';
   imports: [
     TranslateModule,
     AsyncPipe,
-    NgIf,
     VarDirective,
     BtnDisabledDirective,
   ],

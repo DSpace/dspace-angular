@@ -1,7 +1,5 @@
 import {
   AsyncPipe,
-  NgForOf,
-  NgIf,
   NgTemplateOutlet,
 } from '@angular/common';
 import {
@@ -83,13 +81,11 @@ import { DynamicOneboxModel } from './dynamic-onebox.model';
   templateUrl: './dynamic-onebox.component.html',
   imports: [
     NgbTypeaheadModule,
-    NgIf,
     AsyncPipe,
     AuthorityConfidenceStateDirective,
     NgTemplateOutlet,
     TranslateModule,
     ObjNgFor,
-    NgForOf,
     FormsModule,
     BtnDisabledDirective,
   ],

@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -45,7 +42,7 @@ import { SearchFilter } from '../models/search-filter.model';
   styleUrls: ['./search-export-csv.component.scss'],
   templateUrl: './search-export-csv.component.html',
   standalone: true,
-  imports: [NgIf, NgbTooltipModule, AsyncPipe, TranslateModule],
+  imports: [NgbTooltipModule, AsyncPipe, TranslateModule],
 })
 /**
  * Display a button to export the current search results as csv

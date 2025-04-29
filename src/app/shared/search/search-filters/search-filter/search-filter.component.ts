@@ -2,7 +2,6 @@ import {
   AsyncPipe,
   LowerCasePipe,
   NgClass,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -26,7 +25,6 @@ import {
   Subscription,
   switchMap,
 } from 'rxjs';
-import { take } from 'rxjs/operators';
 
 import { RemoteData } from '../../../../core/data/remote-data';
 import { SearchService } from '../../../../core/shared/search/search.service';
@@ -53,7 +51,7 @@ import { SearchFacetFilterWrapperComponent } from './search-facet-filter-wrapper
   templateUrl: './search-filter.component.html',
   animations: [slide],
   standalone: true,
-  imports: [NgIf, NgClass, SearchFacetFilterWrapperComponent, AsyncPipe, LowerCasePipe, TranslateModule, BrowserOnlyPipe],
+  imports: [NgClass, SearchFacetFilterWrapperComponent, AsyncPipe, LowerCasePipe, TranslateModule, BrowserOnlyPipe],
 })
 
 /**
@@ -146,7 +144,7 @@ export class SearchFilterComponent implements OnInit, OnChanges, OnDestroy {
           this.filterService.expand(this.filter.name);
         }
       }),
-      this.getIsActive().pipe(take(1)).subscribe(() => {
+      this.getIsActive().subscribe(() => {
         this.isVisibilityComputed.emit(true);
       }),
     );

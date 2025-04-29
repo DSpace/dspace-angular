@@ -1,8 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgFor,
-  NgIf,
   NgTemplateOutlet,
 } from '@angular/common';
 import {
@@ -36,7 +34,7 @@ import { ContextHelpService } from '../context-help.service';
 import { hasValueOperator } from '../empty.util';
 import { PlacementDir } from './placement-dir.model';
 
-type ParsedContent = (string | {href: string, text: string})[];
+type ParsedContent = ({href?: string, text: string})[];
 
 /**
  * This component renders an info icon next to the wrapped element which
@@ -47,7 +45,7 @@ type ParsedContent = (string | {href: string, text: string})[];
   templateUrl: './context-help-wrapper.component.html',
   styleUrls: ['./context-help-wrapper.component.scss'],
   standalone: true,
-  imports: [NgFor, NgIf, NgClass, NgbTooltipModule, NgTemplateOutlet, AsyncPipe],
+  imports: [NgClass, NgbTooltipModule, NgTemplateOutlet, AsyncPipe],
 })
 export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
   /**
@@ -86,7 +84,7 @@ export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
   @Input() set content(translateKey: string) {
     this.content$.next(translateKey);
   }
-  private content$: BehaviorSubject<string | undefined> = new BehaviorSubject(undefined);
+  private content$: BehaviorSubject<string> = new BehaviorSubject(null);
 
   parsedContent$: Observable<ParsedContent>;
 
@@ -102,8 +100,8 @@ export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
       this.content$.pipe(distinctUntilChanged(), mergeMap(translateKey => this.translateService.get(translateKey))),
       this.dontParseLinks$.pipe(distinctUntilChanged()),
     ]).pipe(
-      map(([text, dontParseLinks]) =>
-        dontParseLinks ? [text] : this.parseLinks(text)),
+      map(([text, dontParseLinks]: [string, boolean]) =>
+        dontParseLinks ? [{ text }] : this.parseLinks(text)),
     );
     this.shouldShowIcon$ = this.contextHelpService.shouldShowIcons$();
   }
@@ -181,7 +179,7 @@ export class ContextHelpWrapperComponent implements OnInit, OnDestroy {
     return text.match(splitRegexp).map((substring: string) => {
       const match = substring.match(parseRegexp);
       return match === null
-        ? substring
+        ? { text: substring }
         : ({ href: match[2], text: match[1] });
     });
   }

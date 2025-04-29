@@ -18,7 +18,7 @@ export const ACCESS_FORM_CHECKBOX_CONFIG: DynamicCheckboxModelConfig = {
 export const ACCESS_FORM_CHECKBOX_LAYOUT = {
 
   element: {
-    container: 'custom-control custom-checkbox pl-1',
+    container: 'custom-control custom-checkbox ps-1',
     control: 'custom-control-input',
     label: 'custom-control-label pt-1',
   },
@@ -31,9 +31,9 @@ export const ACCESS_CONDITION_GROUP_CONFIG: DynamicFormGroupModelConfig = {
 
 export const ACCESS_CONDITION_GROUP_LAYOUT: DynamicFormControlLayout = {
   element: {
-    host: 'form-group access-condition-group col',
-    container: 'pl-1 pr-1',
-    control: 'form-row ',
+    host: 'mb-3 access-condition-group col',
+    container: 'ps-1 pe-1',
+    control: 'row ',
   },
 };
 
@@ -43,7 +43,7 @@ export const ACCESS_CONDITIONS_FORM_ARRAY_CONFIG: DynamicFormArrayModelConfig = 
 };
 export const ACCESS_CONDITIONS_FORM_ARRAY_LAYOUT: DynamicFormControlLayout = {
   grid: {
-    group: 'form-row pt-4',
+    group: 'row pt-4',
   },
 };
 

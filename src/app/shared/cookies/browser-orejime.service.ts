@@ -30,6 +30,7 @@ import {
   NativeWindowService,
 } from '../../core/services/window.service';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
+import { MATOMO_ENABLED } from '../../statistics/matomo.service';
 import {
   hasValue,
   isEmpty,
@@ -39,6 +40,7 @@ import { OrejimeService } from './orejime.service';
 import {
   ANONYMOUS_STORAGE_NAME_OREJIME,
   getOrejimeConfiguration,
+  MATOMO_OREJIME_KEY,
 } from './orejime-configuration';
 
 /**
@@ -89,6 +91,7 @@ export class BrowserOrejimeService extends OrejimeService {
 
   private readonly GOOGLE_ANALYTICS_SERVICE_NAME = 'google-analytics';
 
+  private readonly MATOMO_ENABLED = MATOMO_ENABLED;
 
   /**
    * Initial Orejime configuration
@@ -133,14 +136,25 @@ export class BrowserOrejimeService extends OrejimeService {
       ),
     );
 
-    const appsToHide$: Observable<string[]> = observableCombineLatest([hideGoogleAnalytics$, hideRegistrationVerification$]).pipe(
-      map(([hideGoogleAnalytics, hideRegistrationVerification]) => {
+    const hideMatomo$ =
+      this.configService.findByPropertyName(this.MATOMO_ENABLED).pipe(
+        getFirstCompletedRemoteData(),
+        map((remoteData) =>
+          !remoteData.hasSucceeded || !remoteData.payload || isEmpty(remoteData.payload.values) || remoteData.payload.values[0].toLowerCase() !== 'true',
+        ),
+      );
+
+    const appsToHide$: Observable<string[]> = observableCombineLatest([hideGoogleAnalytics$, hideRegistrationVerification$, hideMatomo$]).pipe(
+      map(([hideGoogleAnalytics, hideRegistrationVerification, hideMatomo]) => {
         const appsToHideArray: string[] = [];
         if (hideGoogleAnalytics) {
           appsToHideArray.push(this.GOOGLE_ANALYTICS_SERVICE_NAME);
         }
         if (hideRegistrationVerification) {
           appsToHideArray.push(CAPTCHA_NAME);
+        }
+        if (hideMatomo) {
+          appsToHideArray.push(MATOMO_OREJIME_KEY);
         }
         return appsToHideArray;
       }),
@@ -178,10 +192,37 @@ export class BrowserOrejimeService extends OrejimeService {
         this.translateConfiguration();
 
         this.orejimeConfig.apps = this.filterConfigApps(appsToHide);
-        this.lazyOrejime.then(({ init }) => {
+
+        this.applyUpdateSettingsCallbackToApps(user);
+
+        void this.lazyOrejime.then(({ init }) => {
           this.orejimeInstance = init(this.orejimeConfig);
         });
       });
+  }
+
+  /**
+   * Applies a debounced callback to update user settings for all apps in the Orejime configuration.
+   *
+   * This method modifies the `callback` property of each app in the `orejimeConfig.apps` array.
+   * It ensures that the `updateSettingsForUsers` method is called in a debounced manner whenever
+   * a consent change occurs for any app. Additionally, it preserves and invokes the original
+   * callback for each app if one is defined.
+   *
+   * @param {EPerson} user - The authenticated user whose settings are being updated.
+   */
+  applyUpdateSettingsCallbackToApps(user: EPerson) {
+    const updateSettingsCallback = debounce(() => this.updateSettingsForUsers(user), updateDebounce);
+
+    this.orejimeConfig.apps.forEach((app) => {
+      const originalCallback = app.callback;
+      app.callback = (consent: boolean) => {
+        updateSettingsCallback();
+        if (originalCallback) {
+          originalCallback(consent);
+        }
+      };
+    });
   }
 
   /**
@@ -206,7 +247,6 @@ export class BrowserOrejimeService extends OrejimeService {
    * @param user The authenticated user
    */
   private initializeUser(user: EPerson) {
-    this.orejimeConfig.callback = debounce((consent, app) => this.updateSettingsForUsers(user), updateDebounce);
     this.orejimeConfig.cookieName = this.getStorageName(user.uuid);
 
     const anonCookie = this.cookieService.get(ANONYMOUS_STORAGE_NAME_OREJIME);
@@ -373,7 +413,9 @@ export class BrowserOrejimeService extends OrejimeService {
    * @param user
    */
   updateSettingsForUsers(user: EPerson) {
-    this.setSettingsForUser(user, this.cookieService.get(this.getStorageName(user.uuid)));
+    if (user) {
+      this.setSettingsForUser(user, this.cookieService.get(this.getStorageName(user.uuid)));
+    }
   }
 
   /**
