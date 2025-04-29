@@ -298,7 +298,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
    * @private
    */
   private inCurrentSubmissionScope(field: string): boolean {
-    if (!this.sectionMetadata.includes(field)) {
+    if (isNotEmpty(this.sectionMetadata) && !this.sectionMetadata.includes(field)) {
       return false;
     }
     const scope = this.formConfig?.rows.find((row: FormRowModel) => {
