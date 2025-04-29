@@ -4,7 +4,7 @@ import { Observable, skipWhile } from 'rxjs';
 import { distinctUntilChanged, filter, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 
 import { RequestService } from '../data/request.service';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
+import { hasValue, hasValueOperator, isNotEmpty } from '../../shared/empty.util';
 import {
   DeleteRequest,
   PostRequest,
@@ -128,7 +128,8 @@ export class SubmissionRestService {
         this.sendGetDataRequest(endpointURL, useCachedVersionIfAvailable);
         const startTime: number = new Date().getTime();
         return this.requestService.getByHref(endpointURL).pipe(
-          map((requestEntry) => requestEntry.request.uuid),
+          map((requestEntry) => requestEntry?.request?.uuid),
+          hasValueOperator(),
           distinctUntilChanged(),
           switchMap((requestId) => this.rdbService.buildFromRequestUUID<SubmissionResponse>(requestId)),
           // This skip ensures that if a stale object is present in the cache when you do a
