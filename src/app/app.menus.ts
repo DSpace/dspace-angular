@@ -10,6 +10,7 @@ import { MenuID } from './shared/menu/menu-id.model';
 import { MenuRoute } from './shared/menu/menu-route.model';
 import { AccessControlMenuProvider } from './shared/menu/providers/access-control.menu';
 import { AdminSearchMenuProvider } from './shared/menu/providers/admin-search.menu';
+import { AuditLogsMenuProvider } from './shared/menu/providers/audit-item.menu';
 import { BrowseMenuProvider } from './shared/menu/providers/browse.menu';
 import { CoarNotifyMenuProvider } from './shared/menu/providers/coar-notify.menu';
 import { SubscribeMenuProvider } from './shared/menu/providers/comcol-subscribe.menu';
@@ -72,6 +73,7 @@ export const MENUS = buildMenuStructure({
     HealthMenuProvider,
     SystemWideAlertMenuProvider,
     CoarNotifyMenuProvider,
+    AuditLogsMenuProvider,
   ],
   [MenuID.DSO_EDIT]: [
     DsoOptionMenuProvider.withSubs([
