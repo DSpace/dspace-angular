@@ -43,7 +43,9 @@
                 </ul>
               </div>
             }
-            <ds-rss></ds-rss>
+            @if (showRSS !== false) {
+              <ds-rss [sortConfig]="rssSortOptions"></ds-rss>
+            }
           </div>
         </div>
       </div>
