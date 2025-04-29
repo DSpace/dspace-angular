@@ -5904,6 +5904,9 @@
   // "process.new.parameter.file.required": "Please select a file",
   "process.new.parameter.file.required": "Selecione um ficheiro",
 
+  // "process.new.parameter.integer.required": "Parameter value is required",
+  "process.new.parameter.integer.required": "É necessário um valor no parâmetro",
+
   // "process.new.parameter.string.required": "Parameter value is required",
   "process.new.parameter.string.required": "É necessário um valor no parâmetro",
 

@@ -6525,6 +6525,9 @@
   // "process.new.parameter.file.required": "Please select a file",
   "process.new.parameter.file.required": "দয়াকরে একটি ফাইল নির্বাচন করুন",
 
+  // "process.new.parameter.integer.required": "Parameter value is required",
+  "process.new.parameter.integer.required": "পরামিতির মান প্রয়োজন",
+
   // "process.new.parameter.string.required": "Parameter value is required",
   "process.new.parameter.string.required": "পরামিতির মান প্রয়োজন",
 
