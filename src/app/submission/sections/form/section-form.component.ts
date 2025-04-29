@@ -298,6 +298,9 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
    * @private
    */
   private inCurrentSubmissionScope(field: string): boolean {
+    if (!this.sectionMetadata.includes(field)) {
+      return false;
+    }
     const scope = this.formConfig?.rows.find((row: FormRowModel) => {
       if (row.fields?.[0]?.selectableMetadata) {
         return row.fields?.[0]?.selectableMetadata?.[0]?.metadata === field;

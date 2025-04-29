@@ -1910,6 +1910,8 @@
 
   "error.validation.required": "This field is required",
 
+  "error.validation.not.repeatable": "This field only accepts one value. Please discard the additional ones.",
+
   "error.validation.NotValidEmail": "This is not a valid email",
 
   "error.validation.emailTaken": "This email is already taken",
