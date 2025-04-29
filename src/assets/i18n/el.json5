@@ -6444,6 +6444,9 @@
   // "process.new.parameter.file.required": "Please select a file",
   "process.new.parameter.file.required": "Επιλέξτε ένα αρχείο",
 
+  // "process.new.parameter.integer.required": "Parameter value is required",
+  "process.new.parameter.integer.required": "Απαιτείται τιμή παραμέτρου",
+
   // "process.new.parameter.string.required": "Parameter value is required",
   "process.new.parameter.string.required": "Απαιτείται τιμή παραμέτρου",
 
