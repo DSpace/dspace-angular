@@ -3,6 +3,10 @@ import {
   InjectionToken,
 } from '@angular/core';
 import {
+  AbstractControl,
+  ValidatorFn,
+} from '@angular/forms';
+import {
   DynamicFormControlLayout,
   DynamicFormControlRelation,
   MATCH_VISIBLE,
@@ -36,7 +40,6 @@ import { VisibilityType } from './../../../../submission/sections/visibility-typ
 import { setLayout } from './parser.utils';
 import { ParserOptions } from './parser-options';
 import { ParserType } from './parser-type';
-import { AbstractControl, ValidatorFn } from '@angular/forms';
 
 export const SUBMISSION_ID: InjectionToken<string> = new InjectionToken<string>('submissionId');
 export const CONFIG_DATA: InjectionToken<FormFieldModel> = new InjectionToken<FormFieldModel>('configData');
