@@ -4,6 +4,7 @@
     <ds-metadata-link-view-avatar-popover
       *ngIf="item.thumbnail | async"
       [thumbnail]="item.thumbnail | async"
+      [entityType]="item.entityType"
     ></ds-metadata-link-view-avatar-popover>
     <span class="font-weight-bold h4"> {{item.firstMetadataValue('dc.title')}} </span>
   </div>

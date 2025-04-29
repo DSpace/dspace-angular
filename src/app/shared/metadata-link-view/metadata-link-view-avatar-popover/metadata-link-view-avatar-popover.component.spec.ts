@@ -57,4 +57,10 @@ describe('MetadataLinkViewAvatarPopoverComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should set placeholder image based on entity type', () => {
+    component.entityType = 'testEntityType';
+    component.ngOnInit();
+    expect(component.placeholderImageUrl).toBe('assets/images/testentitytype-placeholder.svg');
+  });
 });
