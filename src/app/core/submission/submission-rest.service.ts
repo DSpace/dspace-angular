@@ -1,15 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Observable, skipWhile } from 'rxjs';
+import {
+  Observable,
+  skipWhile,
+} from 'rxjs';
 import {
   distinctUntilChanged,
   filter,
   map,
   mergeMap,
- switchMap, tap,
+  switchMap,
+  tap,
 } from 'rxjs/operators';
 
 import {
   hasValue,
+  hasValueOperator,
   isNotEmpty,
 } from '../../shared/empty.util';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
@@ -25,7 +30,6 @@ import {
 } from '../data/request.models';
 import { RequestService } from '../data/request.service';
 import { RequestError } from '../data/request-error.model';
-import { RestRequest } from '../data/rest-request.model';
 import { HttpOptions } from '../dspace-rest/dspace-rest.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
 import { getFirstCompletedRemoteData } from '../shared/operators';
@@ -139,7 +143,8 @@ export class SubmissionRestService {
         this.sendGetDataRequest(endpointURL, useCachedVersionIfAvailable);
         const startTime: number = new Date().getTime();
         return this.requestService.getByHref(endpointURL).pipe(
-          map((requestEntry) => requestEntry.request.uuid),
+          map((requestEntry) => requestEntry?.request?.uuid),
+          hasValueOperator(),
           distinctUntilChanged(),
           switchMap((requestId) => this.rdbService.buildFromRequestUUID<SubmissionResponse>(requestId)),
           // This skip ensures that if a stale object is present in the cache when you do a
@@ -151,7 +156,7 @@ export class SubmissionRestService {
             if (hasValue(rd) && rd.isStale) {
               this.sendGetDataRequest(endpointURL, useCachedVersionIfAvailable);
             }
-          })
+          }),
         );
       }),
       getFirstDataDefinition(),

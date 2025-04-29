@@ -1,4 +1,5 @@
 import { getTestScheduler } from 'jasmine-marbles';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { FormFieldMetadataValueObject } from '../../shared/form/builder/models/form-field-metadata-value.model';
@@ -13,9 +14,8 @@ import {
   SubmissionRequest,
 } from '../data/request.models';
 import { RequestService } from '../data/request.service';
-import { SubmissionRestService } from './submission-rest.service';
-import { of } from 'rxjs';
 import { RequestEntry } from '../data/request-entry.model';
+import { SubmissionRestService } from './submission-rest.service';
 
 describe('SubmissionRestService test suite', () => {
   let scheduler: TestScheduler;
