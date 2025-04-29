@@ -1592,7 +1592,7 @@
 
   "error.validation.required": "This field is required",
 
-  "error.validation.not.repeatable": "This field is not repeatable",
+  "error.validation.not.repeatable": "This field only accepts one value. Please discard the additional ones.",
 
   "error.validation.NotValidEmail": "This E-mail is not a valid email",
 
