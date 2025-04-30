@@ -1,5 +1,4 @@
 {
-
   "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
 
   "401.link.home-page": "Take me to the home page",
@@ -2560,6 +2559,14 @@
 
   "item.preview.oaire.citation.volume": "Volume",
 
+  "item.preview.dc.relation.hasversion": "Has version",
+
+  "item.preview.dc.relation.ispartofseries": "Is part of series",
+
+  "item.preview.dc.rights": "Rights",
+
+  "item.preview.dc.identifier.other": "Other Identifier",
+
   "item.preview.dc.relation.issn": "ISSN",
 
   "item.preview.dc.identifier.isbn": "ISBN",
@@ -4829,6 +4836,8 @@
   "subscriptions.frequency.W": "Weekly",
 
   "subscriptions.tooltip": "Subscribe",
+
+  "subscriptions.unsubscribe": "Unsubscribe",
 
   "subscriptions.modal.title": "Subscriptions",
 
