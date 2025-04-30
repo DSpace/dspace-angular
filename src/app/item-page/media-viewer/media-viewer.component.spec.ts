@@ -15,6 +15,7 @@ import { of as observableOf } from 'rxjs';
 
 import { AuthService } from '../../core/auth/auth.service';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { Bitstream } from '../../core/shared/bitstream.model';
 import { MediaViewerItem } from '../../core/shared/media-viewer-item.model';
 import { MetadataFieldWrapperComponent } from '../../shared/metadata-field-wrapper/metadata-field-wrapper.component';
@@ -24,13 +25,12 @@ import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { ActivatedRouteStub } from '../../shared/testing/active-router.stub';
+import { AuthorizationDataServiceStub } from '../../shared/testing/authorization-service.stub';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { ThemeService } from '../../shared/theme-support/theme.service';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { MediaViewerComponent } from './media-viewer.component';
-import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
-import { AuthorizationDataServiceStub } from '../../shared/testing/authorization-service.stub';
 
 describe('MediaViewerComponent', () => {
   let comp: MediaViewerComponent;
