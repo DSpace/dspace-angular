@@ -83,9 +83,9 @@ describe('StatisticsTableComponent', () => {
       expect(de.query(By.css('table'))).toBeTruthy();
 
       expect(de.query(By.css('th.views-header')).nativeElement.innerText)
-        .toEqual('views');
+        .toEqual('statistics.table.header.views');
       expect(de.query(By.css('th.downloads-header')).nativeElement.innerText)
-        .toEqual('downloads');
+        .toEqual('statistics.table.header.downloads');
 
       expect(de.query(By.css('td.item_1-views-data')).nativeElement.innerText)
         .toEqual('7');
