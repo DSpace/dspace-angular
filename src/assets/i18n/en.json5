@@ -1,5 +1,4 @@
 {
-
   "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
 
   "401.link.home-page": "Take me to the home page",
@@ -640,7 +639,6 @@
 
   "admin.reports.items.title": "Title",
 
-
   "admin.reports.commons.filters": "Filters",
 
   "admin.reports.commons.additional-data": "Additional data to return",
@@ -660,7 +658,6 @@
   "admin.reports.commons.filters.select_all": "Select all filters",
 
   "admin.reports.commons.filters.matches_all": "Matches all specified filters",
-
 
   "admin.reports.commons.filters.property": "Item Property Filters",
 
@@ -2839,6 +2836,14 @@
   "item.preview.oaire.citation.issue": "Issue",
 
   "item.preview.oaire.citation.volume": "Volume",
+
+  "item.preview.dc.relation.hasversion": "Has version",
+
+  "item.preview.dc.relation.ispartofseries": "Is part of series",
+
+  "item.preview.dc.rights": "Rights",
+
+  "item.preview.dc.identifier.other": "Other Identifier",
 
   "item.preview.dc.relation.issn": "ISSN",
 
@@ -5557,6 +5562,8 @@
   "subscriptions.frequency.W": "Weekly",
 
   "subscriptions.tooltip": "Subscribe",
+
+  "subscriptions.unsubscribe": "Unsubscribe",
 
   "subscriptions.modal.title": "Subscriptions",
 
