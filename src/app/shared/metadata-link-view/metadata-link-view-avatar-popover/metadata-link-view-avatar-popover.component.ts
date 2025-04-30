@@ -35,4 +35,12 @@ export class MetadataLinkViewAvatarPopoverComponent extends ThumbnailComponent i
     const target = event.target as HTMLImageElement;
     target.src = this.fallbackImageUrl;
   }
+
+  /**
+   * set loading to true to prevent glitch of img with null src
+   */
+  errorHandler() {
+    this.isLoading = true;
+    super.errorHandler();
+  }
 }
