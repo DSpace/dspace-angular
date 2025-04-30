@@ -65,7 +65,7 @@ import { ItemBitstreamsService } from './item-bitstreams.service';
 import { ItemEditBitstreamBundleComponent } from './item-edit-bitstream-bundle/item-edit-bitstream-bundle.component';
 
 @Component({
-  selector: 'ds-item-bitstreams',
+  selector: 'ds-base-item-bitstreams',
   styleUrls: ['./item-bitstreams.component.scss'],
   templateUrl: './item-bitstreams.component.html',
   imports: [
