@@ -249,14 +249,10 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
    */
   updateBundles(newBundlesPL: PaginatedList<Bundle>) {
     const currentBundles = this.bundlesSubject.getValue();
-    const bundlesToAdd: Bundle[] = [];
 
     // Only add bundles to the bundle subject if they are not present yet
-    newBundlesPL.page.forEach(newBundle => {
-      if (!currentBundles.some(currentBundle => currentBundle.id === newBundle.id)) {
-        bundlesToAdd.push(newBundle);
-      }
-    });
+    const bundlesToAdd = newBundlesPL.page
+      .filter(bundleToAdd => !currentBundles.some(currentBundle => currentBundle.id === bundleToAdd.id));
 
     const updatedBundles = [...currentBundles, ...bundlesToAdd];
 
