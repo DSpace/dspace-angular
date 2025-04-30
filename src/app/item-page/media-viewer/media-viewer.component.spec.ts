@@ -29,6 +29,8 @@ import { ThemeService } from '../../shared/theme-support/theme.service';
 import { FileSizePipe } from '../../shared/utils/file-size-pipe';
 import { VarDirective } from '../../shared/utils/var.directive';
 import { MediaViewerComponent } from './media-viewer.component';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { AuthorizationDataServiceStub } from '../../shared/testing/authorization-service.stub';
 
 describe('MediaViewerComponent', () => {
   let comp: MediaViewerComponent;
@@ -94,6 +96,7 @@ describe('MediaViewerComponent', () => {
         { provide: ThemeService, useValue: getMockThemeService() },
         { provide: AuthService, useValue: new AuthServiceMock() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: AuthorizationDataService, useClass: AuthorizationDataServiceStub },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
