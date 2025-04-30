@@ -20,7 +20,7 @@ import {
 import { ItemAccessControlComponent } from './item-access-control/item-access-control.component';
 import { ItemAuthorizationsComponent } from './item-authorizations/item-authorizations.component';
 import { ItemBitstreamsComponent } from './item-bitstreams/item-bitstreams.component';
-import { ItemCollectionMapperComponent } from './item-collection-mapper/item-collection-mapper.component';
+import { ThemedItemCollectionMapperComponent } from './item-collection-mapper/themed-item-collection-mapper.component';
 import { ItemCurateComponent } from './item-curate/item-curate.component';
 import { ItemDeleteComponent } from './item-delete/item-delete.component';
 import { ItemMoveComponent } from './item-move/item-move.component';
@@ -125,7 +125,7 @@ export const ROUTES: Route[] = [
           },
           {
             path: 'mapper',
-            component: ItemCollectionMapperComponent,
+            component: ThemedItemCollectionMapperComponent,
             data: { title: 'item.edit.tabs.item-mapper.title', showBreadcrumbs: true },
             canActivate: [itemPageCollectionMapperGuard],
           },
@@ -133,7 +133,7 @@ export const ROUTES: Route[] = [
       },
       {
         path: 'mapper',
-        component: ItemCollectionMapperComponent,
+        component: ThemedItemCollectionMapperComponent,
       },
       {
         path: ITEM_EDIT_WITHDRAW_PATH,
