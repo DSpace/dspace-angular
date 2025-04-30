@@ -47,6 +47,7 @@ import {
 } from '../../../shared/empty.util';
 import { DsoInputSuggestionsComponent } from '../../../shared/input-suggestions/dso-input-suggestions/dso-input-suggestions.component';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import { ThemedUploaderComponent } from '../../../shared/upload/uploader/themed-uploader.component';
 import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
 import { VarDirective } from '../../../shared/utils/var.directive';
@@ -61,7 +62,7 @@ import { getEntityEditRoute } from '../../item-page-routing-paths';
     VarDirective,
     DsoInputSuggestionsComponent,
     FormsModule,
-    UploaderComponent,
+    ThemedUploaderComponent,
   ],
   standalone: true,
 })

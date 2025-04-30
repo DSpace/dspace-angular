@@ -20,24 +20,25 @@ import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
 import { hasValue } from '../../shared/empty.util';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { SearchResult } from '../../shared/search/models/search-result.model';
+import { ThemedUploaderComponent } from '../../shared/upload/uploader/themed-uploader.component';
 import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
 import { UploaderError } from '../../shared/upload/uploader/uploader-error.model';
 import { UploaderOptions } from '../../shared/upload/uploader/uploader-options.model';
 import { CollectionSelectorComponent } from '../collection-selector/collection-selector.component';
-import { MyDSpaceNewExternalDropdownComponent } from './my-dspace-new-external-dropdown/my-dspace-new-external-dropdown.component';
-import { MyDSpaceNewSubmissionDropdownComponent } from './my-dspace-new-submission-dropdown/my-dspace-new-submission-dropdown.component';
+import { ThemedMyDSpaceNewExternalDropdownComponent } from './my-dspace-new-external-dropdown/themed-my-dspace-new-external-dropdown.component';
+import { ThemedMyDSpaceNewSubmissionDropdownComponent } from './my-dspace-new-submission-dropdown/themed-my-dspace-new-submission-dropdown.component';
 
 /**
  * This component represents the whole mydspace page header
  */
 @Component({
-  selector: 'ds-my-dspace-new-submission',
+  selector: 'ds-base-my-dspace-new-submission',
   styleUrls: ['./my-dspace-new-submission.component.scss'],
   templateUrl: './my-dspace-new-submission.component.html',
   imports: [
-    MyDSpaceNewExternalDropdownComponent,
-    MyDSpaceNewSubmissionDropdownComponent,
-    UploaderComponent,
+    ThemedMyDSpaceNewExternalDropdownComponent,
+    ThemedMyDSpaceNewSubmissionDropdownComponent,
+    ThemedUploaderComponent,
   ],
   standalone: true,
 })

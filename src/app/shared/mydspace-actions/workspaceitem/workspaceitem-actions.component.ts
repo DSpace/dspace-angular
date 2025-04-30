@@ -45,7 +45,7 @@ import { MyDSpaceActionsComponent } from '../mydspace-actions';
  * This component represents actions related to WorkspaceItem object.
  */
 @Component({
-  selector: 'ds-workspaceitem-actions',
+  selector: 'ds-base-workspaceitem-actions',
   styleUrls: ['./workspaceitem-actions.component.scss'],
   templateUrl: './workspaceitem-actions.component.html',
   standalone: true,

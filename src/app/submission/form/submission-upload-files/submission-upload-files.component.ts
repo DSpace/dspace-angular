@@ -1,4 +1,3 @@
-
 import {
   Component,
   Input,
@@ -25,7 +24,7 @@ import {
   isNotEmpty,
 } from '../../../shared/empty.util';
 import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { UploaderComponent } from '../../../shared/upload/uploader/uploader.component';
+import { ThemedUploaderComponent } from '../../../shared/upload/uploader/themed-uploader.component';
 import { UploaderOptions } from '../../../shared/upload/uploader/uploader-options.model';
 import { SectionsService } from '../../sections/sections.service';
 import { SectionsType } from '../../sections/sections-type';
@@ -39,7 +38,7 @@ import parseSectionErrors from '../../utils/parseSectionErrors';
   selector: 'ds-base-submission-upload-files',
   templateUrl: './submission-upload-files.component.html',
   imports: [
-    UploaderComponent,
+    ThemedUploaderComponent,
   ],
   standalone: true,
 })

@@ -35,7 +35,7 @@ import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
  * This component represents the new submission dropdown
  */
 @Component({
-  selector: 'ds-my-dspace-new-submission-dropdown',
+  selector: 'ds-base-my-dspace-new-submission-dropdown',
   styleUrls: ['./my-dspace-new-submission-dropdown.component.scss'],
   templateUrl: './my-dspace-new-submission-dropdown.component.html',
   imports: [

@@ -33,7 +33,7 @@ import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
  * This component represents the 'Import metadata from external source' dropdown menu
  */
 @Component({
-  selector: 'ds-my-dspace-new-external-dropdown',
+  selector: 'ds-base-my-dspace-new-external-dropdown',
   styleUrls: ['./my-dspace-new-external-dropdown.component.scss'],
   templateUrl: './my-dspace-new-external-dropdown.component.html',
   imports: [

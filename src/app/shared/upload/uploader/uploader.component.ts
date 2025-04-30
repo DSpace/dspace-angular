@@ -37,7 +37,7 @@ import { UploaderOptions } from './uploader-options.model';
 import { UploaderProperties } from './uploader-properties.model';
 
 @Component({
-  selector: 'ds-uploader',
+  selector: 'ds-base-uploader',
   templateUrl: 'uploader.component.html',
   styleUrls: ['uploader.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default,

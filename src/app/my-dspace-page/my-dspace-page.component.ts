@@ -22,7 +22,7 @@ import {
   MyDSpaceConfigurationService,
   SEARCH_CONFIG_SERVICE,
 } from './my-dspace-configuration.service';
-import { MyDSpaceNewSubmissionComponent } from './my-dspace-new-submission/my-dspace-new-submission.component';
+import { ThemedMyDSpaceNewSubmissionComponent } from './my-dspace-new-submission/themed-my-dspace-new-submission.component';
 import { MyDspaceQaEventsNotificationsComponent } from './my-dspace-qa-events-notifications/my-dspace-qa-events-notifications.component';
 
 export const MYDSPACE_ROUTE = '/mydspace';
@@ -42,12 +42,12 @@ export const MYDSPACE_ROUTE = '/mydspace';
     },
   ],
   imports: [
-    ThemedSearchComponent,
-    MyDSpaceNewSubmissionComponent,
     AsyncPipe,
+    MyDspaceQaEventsNotificationsComponent,
     RoleDirective,
     SuggestionsNotificationComponent,
-    MyDspaceQaEventsNotificationsComponent,
+    ThemedMyDSpaceNewSubmissionComponent,
+    ThemedSearchComponent,
   ],
   standalone: true,
 })

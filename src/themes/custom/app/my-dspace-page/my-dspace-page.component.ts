@@ -8,7 +8,7 @@ import {
   MyDSpaceConfigurationService,
   SEARCH_CONFIG_SERVICE,
 } from '../../../../app/my-dspace-page/my-dspace-configuration.service';
-import { MyDSpaceNewSubmissionComponent } from '../../../../app/my-dspace-page/my-dspace-new-submission/my-dspace-new-submission.component';
+import { ThemedMyDSpaceNewSubmissionComponent } from '../../../../app/my-dspace-page/my-dspace-new-submission/themed-my-dspace-new-submission.component';
 import { MyDSpacePageComponent as BaseComponent } from '../../../../app/my-dspace-page/my-dspace-page.component';
 import { MyDspaceQaEventsNotificationsComponent } from '../../../../app/my-dspace-page/my-dspace-qa-events-notifications/my-dspace-qa-events-notifications.component';
 import { SuggestionsNotificationComponent } from '../../../../app/notifications/suggestions/notification/suggestions-notification.component';
@@ -35,12 +35,12 @@ import { ThemedSearchComponent } from '../../../../app/shared/search/themed-sear
   ],
   standalone: true,
   imports: [
-    ThemedSearchComponent,
-    MyDSpaceNewSubmissionComponent,
     AsyncPipe,
+    MyDspaceQaEventsNotificationsComponent,
     RoleDirective,
     SuggestionsNotificationComponent,
-    MyDspaceQaEventsNotificationsComponent,
+    ThemedMyDSpaceNewSubmissionComponent,
+    ThemedSearchComponent,
   ],
 })
 export class MyDSpacePageComponent extends BaseComponent {

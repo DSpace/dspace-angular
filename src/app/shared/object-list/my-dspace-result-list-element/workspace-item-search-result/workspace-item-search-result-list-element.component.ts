@@ -21,7 +21,7 @@ import { getFirstSucceededRemoteDataPayload } from '../../../../core/shared/oper
 import { ViewMode } from '../../../../core/shared/view-mode.model';
 import { WorkspaceItem } from '../../../../core/submission/models/workspaceitem.model';
 import { ThemedLoadingComponent } from '../../../loading/themed-loading.component';
-import { WorkspaceitemActionsComponent } from '../../../mydspace-actions/workspaceitem/workspaceitem-actions.component';
+import { ThemedWorkspaceitemActionsComponent } from '../../../mydspace-actions/workspaceitem/themed-workspaceitem-actions.component';
 import { CollectionElementLinkType } from '../../../object-collection/collection-element-link.type';
 import { ItemSearchResult } from '../../../object-collection/shared/item-search-result.model';
 import { listableObjectComponent } from '../../../object-collection/shared/listable-object/listable-object.decorator';
@@ -39,7 +39,7 @@ import { SearchResultListElementComponent } from '../../search-result-list-eleme
   styleUrls: ['../../search-result-list-element/search-result-list-element.component.scss', './workspace-item-search-result-list-element.component.scss'],
   templateUrl: './workspace-item-search-result-list-element.component.html',
   standalone: true,
-  imports: [ListableObjectComponentLoaderComponent, NgClass, WorkspaceitemActionsComponent, ThemedLoadingComponent, AsyncPipe],
+  imports: [ListableObjectComponentLoaderComponent, NgClass, ThemedLoadingComponent, AsyncPipe, ThemedWorkspaceitemActionsComponent],
 })
 
 @listableObjectComponent(WorkspaceItemSearchResult, ViewMode.ListElement)
