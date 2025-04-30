@@ -69,7 +69,7 @@ import { ThemedDynamicLookupRelationSearchTabComponent } from './search-tab/them
 import { DsDynamicLookupRelationSelectionTabComponent } from './selection-tab/dynamic-lookup-relation-selection-tab.component';
 
 @Component({
-  selector: 'ds-dynamic-lookup-relation-modal',
+  selector: 'ds-base-dynamic-lookup-relation-modal',
   styleUrls: ['./dynamic-lookup-relation-modal.component.scss'],
   templateUrl: './dynamic-lookup-relation-modal.component.html',
   providers: [
