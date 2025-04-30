@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, NgZone, OnDestroy, HostListener } from '@angular/core';
 import { AbstractItemUpdateComponent } from '../abstract-item-update/abstract-item-update.component';
 import { map, switchMap, take } from 'rxjs/operators';
-import { Observable, Subscription, combineLatest, BehaviorSubject, tap } from 'rxjs';
+import { Observable, Subscription, combineLatest, BehaviorSubject } from 'rxjs';
 import { ItemDataService } from '../../../core/data/item-data.service';
 import { ObjectUpdatesService } from '../../../core/data/object-updates/object-updates.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -187,27 +187,30 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
     this.itemService.getBundles(this.item.id, new PaginatedSearchOptions({pagination: this.bundlesOptions})).pipe(
       getFirstSucceededRemoteData(),
       getRemoteDataPayload(),
-      tap((bundlesPL: PaginatedList<Bundle>) =>
-        this.showLoadMoreLink$.next(bundlesPL.pageInfo.currentPage < bundlesPL.pageInfo.totalPages)
-      ),
-      map((bundlePage: PaginatedList<Bundle>) => bundlePage.page),
-    ).subscribe((bundles: Bundle[]) => {
-      this.updateBundlesSubject(bundles);
+    ).subscribe((bundles: PaginatedList<Bundle>) => {
+      this.updateBundles(bundles);
     });
   }
 
-  updateBundlesSubject(newBundles: Bundle[]) {
+  /**
+   * Update the subject containing the bundles with the provided bundles.
+   * Also updates the showLoadMoreLink observable so it does not show up when it is no longer necessary.
+   */
+  updateBundles(newBundlesPL: PaginatedList<Bundle>) {
     const currentBundles = this.bundlesSubject.getValue();
     const bundlesToAdd: Bundle[] = [];
 
     // Only add bundles to the bundle subject if they are not present yet
-    newBundles.forEach(newBundle => {
+    newBundlesPL.page.forEach(newBundle => {
       if (!currentBundles.some(currentBundle => currentBundle.id === newBundle.id)) {
         bundlesToAdd.push(newBundle);
       }
     });
 
-    this.bundlesSubject.next([...currentBundles, ...bundlesToAdd]);
+    const updatedBundles = [...currentBundles, ...bundlesToAdd];
+
+    this.showLoadMoreLink$.next(updatedBundles.length < newBundlesPL.totalElements);
+    this.bundlesSubject.next(updatedBundles);
   }
 
 
