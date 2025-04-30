@@ -3,8 +3,12 @@ import {
   NgClass,
   NgIf,
 } from '@angular/common';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { Component, Input, OnInit } from '@angular/core';
 import { ThumbnailComponent } from 'src/app/thumbnail/thumbnail.component';
 
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
