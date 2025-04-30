@@ -244,8 +244,22 @@ export class ItemBitstreamsComponent extends AbstractItemUpdateComponent impleme
       ),
       map((bundlePage: PaginatedList<Bundle>) => bundlePage.page),
     ).subscribe((bundles: Bundle[]) => {
-      this.bundlesSubject.next([...this.bundlesSubject.getValue(), ...bundles]);
+      this.updateBundlesSubject(bundles);
     });
+  }
+
+  updateBundlesSubject(newBundles: Bundle[]) {
+    const currentBundles = this.bundlesSubject.getValue();
+    const bundlesToAdd: Bundle[] = [];
+
+    // Only add bundles to the bundle subject if they are not present yet
+    newBundles.forEach(newBundle => {
+      if (!currentBundles.some(currentBundle => currentBundle.id === newBundle.id)) {
+        bundlesToAdd.push(newBundle);
+      }
+    });
+
+    this.bundlesSubject.next([...currentBundles, ...bundlesToAdd]);
   }
 
 
