@@ -57,8 +57,6 @@ describe('SubmissionEditComponent Component', () => {
   const submissionObject: any = mockSubmissionObject;
 
   beforeEach(waitForAsync(() => {
-    // Fix for missing CSS custom property
-    document.documentElement.style.setProperty('--bs-xl', '1200');
     itemDataService = jasmine.createSpyObj('itemDataService', {
       findByHref: createSuccessfulRemoteDataObject$(submissionObject.item),
     });
