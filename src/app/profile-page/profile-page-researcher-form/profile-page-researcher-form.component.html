@@ -13,9 +13,9 @@
     <p>{{'researcher.profile.not.associated' | translate}}</p>
   </div>
   <button *ngIf="!researcherProfile" class="btn btn-primary mr-2"
-          [disabled]="(processingDelete$ | async) === true"
+          [disabled]="(processingCreate$ | async) === true"
           (click)="createProfile()">
-    <span *ngIf="(processingDelete$ | async) === true">
+    <span *ngIf="(processingCreate$ | async) === true">
         <i class='fas fa-circle-notch fa-spin'></i> {{'researcher.profile.action.processing' | translate}}
     </span>
     <span *ngIf="(processingCreate$ | async) !== true">

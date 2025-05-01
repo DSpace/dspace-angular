@@ -14,7 +14,7 @@ import { ResourceType } from '../../core/shared/resource-type';
 import { EPersonDataService } from '../../core/eperson/eperson-data.service';
 import { GroupDataService } from '../../core/eperson/group-data.service';
 import { fadeInOut } from '../animations/fade';
-import { getFirstCompletedRemoteData, getRemoteDataPayload } from '../../core/shared/operators';
+import { getAllCompletedRemoteData, getRemoteDataPayload } from '../../core/shared/operators';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { FindListOptions } from '../../core/data/find-list-options.model';
 import { getDataServiceFor } from '../../core/data/base/data-service.decorator';
@@ -153,7 +153,7 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
           (this.dataService as EPersonDataService).searchByScope(scope, query, options) :
           (this.dataService as GroupDataService).searchGroups(query, options);
       }),
-      getFirstCompletedRemoteData(),
+      getAllCompletedRemoteData(),
       getRemoteDataPayload(),
     );
   }
