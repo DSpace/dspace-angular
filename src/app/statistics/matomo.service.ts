@@ -77,10 +77,10 @@ export class MatomoService {
       preferences$
         .pipe(
           tap(preferences => this.changeMatomoConsent(preferences?.matomo)),
-          switchMap(_ => combineLatest([this.getSiteId$(), this.getTrackerUrl$()])),
+          switchMap(_ => combineLatest([this.isMatomoEnabled$(), this.getSiteId$(), this.getTrackerUrl$()])),
         )
-        .subscribe(([siteId, trackerUrl]) => {
-          if (siteId && trackerUrl) {
+        .subscribe(([isMatomoEnabled, siteId, trackerUrl]) => {
+          if (isMatomoEnabled && siteId && trackerUrl) {
             this.matomoInitializer.initializeTracker({ siteId, trackerUrl });
           }
         });
