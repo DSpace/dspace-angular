@@ -3,14 +3,12 @@
 }
 <a
   [routerLink]="(bitstreamPath$ | async)?.routerLink"
-  class="d-block dont-break-out mb-1 btn btn-outline-primary btn-download"
+  class="d-block dont-break-out mb-1"
   [queryParams]="(bitstreamPath$ | async)?.queryParams"
   [target]="isBlank ? '_blank' : '_self'"
   [ngClass]="cssClasses"
-  [attr.aria-label]="
-    ('file-download-link.download' | translate) +
-    dsoNameService.getName(bitstream)
-  "
+  [attr.aria-label]="('file-download-link.download' | translate) + dsoNameService.getName(bitstream)"
+  [title]="('file-download-link.download' | translate) + dsoNameService.getName(bitstream)"
 >
   @if ((canDownload$ | async) === false && (canDownloadWithToken$ | async) ===
   false) {
@@ -18,6 +16,7 @@
   <span
     role="img"
     [attr.aria-label]="'file-download-link.restricted' | translate"
+    [title]="'file-download-link.restricted' | translate"
     class="pr-1"
     ><i class="fas fa-lock"></i
   ></span>
@@ -27,6 +26,7 @@
   <span
     role="img"
     [attr.aria-label]="'file-download-link.secure-access' | translate"
+    [title]="'file-download-link.secure-access' | translate"
     class="pr-1 request-a-copy-access-icon"
     ><i class="fa-solid fa-lock-open" style=""></i
   ></span>

@@ -6,19 +6,12 @@
         {{ "item.page.filesection.original.bundle" | translate }}
       </h3>
       @if (originals?.page?.length > 0) {
-      <ds-pagination
-        [hideGear]="true"
-        [hidePagerWhenSinglePage]="true"
-        [paginationOptions]="originalOptions"
-        [collectionSize]="originals?.totalElements"
-        [retainScrollPosition]="true"
-      >
+      <ds-pagination [hideGear]="true" [hidePagerWhenSinglePage]="true" [paginationOptions]="originalOptions"
+        [collectionSize]="originals?.totalElements" [retainScrollPosition]="true">
         @for (file of originals?.page; track file) {
         <div class="file-section row mb-3">
           <div class="col-3">
-            <ds-thumbnail
-              [thumbnail]="(file.thumbnail | async)?.payload"
-            ></ds-thumbnail>
+            <ds-thumbnail [thumbnail]="(file.thumbnail | async)?.payload"></ds-thumbnail>
           </div>
           <div class="col-7">
             <dl class="row">
@@ -47,7 +40,7 @@
             </dl>
           </div>
           <div class="col-2">
-            <ds-file-download-link [bitstream]="file" [item]="item">
+            <ds-file-download-link [bitstream]="file" [item]="item" cssClasses="btn btn-outline-primary btn-download">
               <i class="fas fa-download d-inline"></i>
               <span class="d-none d-md-inline">
                 {{ "item.page.filesection.download" | translate }}
@@ -68,19 +61,12 @@
         {{ "item.page.filesection.license.bundle" | translate }}
       </h3>
       @if (licenses?.page?.length > 0) {
-      <ds-pagination
-        [hideGear]="true"
-        [hidePagerWhenSinglePage]="true"
-        [paginationOptions]="licenseOptions"
-        [collectionSize]="licenses?.totalElements"
-        [retainScrollPosition]="true"
-      >
+      <ds-pagination [hideGear]="true" [hidePagerWhenSinglePage]="true" [paginationOptions]="licenseOptions"
+        [collectionSize]="licenses?.totalElements" [retainScrollPosition]="true">
         @for (file of licenses?.page; track file) {
         <div class="file-section row">
           <div class="col-3">
-            <ds-thumbnail
-              [thumbnail]="(file.thumbnail | async)?.payload"
-            ></ds-thumbnail>
+            <ds-thumbnail [thumbnail]="(file.thumbnail | async)?.payload"></ds-thumbnail>
           </div>
           <div class="col-7">
             <dl class="row">
@@ -107,7 +93,7 @@
             </dl>
           </div>
           <div class="col-2">
-            <ds-file-download-link [bitstream]="file" [item]="item">
+            <ds-file-download-link [bitstream]="file" [item]="item" cssClasses="btn btn-outline-primary btn-download">
               <i class="fas fa-download d-inline"></i>
               <span class="d-none d-md-inline">
                 {{ "item.page.filesection.download" | translate }}
