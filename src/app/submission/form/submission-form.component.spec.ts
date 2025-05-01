@@ -147,7 +147,7 @@ describe('SubmissionFormComponent Component', () => {
       expect(compAsAny.submissionSections).toBeUndefined();
       expect(compAsAny.subs).toEqual([]);
       expect(submissionServiceStub.startAutoSave).not.toHaveBeenCalled();
-      expect(comp.loading).toBeObservable(cold('(a|)', { a: true }));
+      expect(comp.isLoading$).toBeObservable(cold('(a|)', { a: true }));
       done();
     });
 

@@ -51,7 +51,7 @@
       </div>
     }
     <ng-content></ng-content>
-    @if (shouldShowBottomPager | async) {
+    @if (showBottomPager$ | async) {
       <div>
         @if (showPaginator) {
           <div class="pagination justify-content-center clearfix bottom">
