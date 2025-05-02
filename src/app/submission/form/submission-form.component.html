@@ -30,8 +30,8 @@
   }
 
   <div class="submission-form-content">
-    @if ((isLoading$ | async)) {
-      <ds-loading message="Loading..."></ds-loading>
+    @if (isLoading$ | async) {
+      <ds-loading [message]="'form.loading' | translate"></ds-loading>
     }
     @for (object of $any(submissionSections | async); track object) {
       <ds-submission-section-container [collectionId]="collectionId"
