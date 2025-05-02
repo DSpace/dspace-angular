@@ -1,23 +1,24 @@
 <div>
     <div class="form-group input-group">
-      <div class="input-group-prepend">
-        @if (chosenOption) {
-          <button  class="btn btn-primary dropdown-toggle dropdown-responsive" type="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false" (click)="showMenu = !showMenu">{{chosenOption.label | translate}}
-          </button>
-        }
-        <div class="dropdown-menu" [class.show]="showMenu" id="search-term-options-dropdown">
-          <ng-container *ngFor="let option of optionsToRender">
-            <ng-container>
-              <a class="dropdown-item" href="javascript:void(0);"
-                 (click)="setOption(option.id)"> {{option.label | translate}}
-              </a>
-            </ng-container>
-          </ng-container>
-
-        </div>
-      </div>
       <div class="mb-3 input-group">
+        <div class="input-group-prepend">
+          @if (chosenOption) {
+            <button  class="btn btn-primary dropdown-toggle dropdown-responsive" type="button" data-toggle="dropdown"
+                     aria-haspopup="true" aria-expanded="false" (click)="showMenu = !showMenu">{{chosenOption.label | translate}}
+            </button>
+          }
+          <div class="dropdown-menu" [class.show]="showMenu" id="search-term-options-dropdown">
+            @for (option of optionsToRender; track option) {
+              <ng-container>
+                <ng-container>
+                  <a class="dropdown-item" href="javascript:void(0);"
+                     (click)="setOption(option.id)"> {{option.label | translate}}
+                  </a>
+                </ng-container>
+              </ng-container>
+            }
+          </div>
+        </div>
         @if (showScopeSelector) {
           <button  class="scope-button btn btn-outline-secondary text-truncate"
                 [ngbTooltip]="dsoNameService.getName(selectedScope | async)" type="button"
@@ -40,10 +41,12 @@
         <button type="submit" class="search-button btn btn-{{brandColor}}" [attr.data-test]="'search-button' | dsBrowserOnly"><i class="fas fa-search"></i> {{ ('search.form.search' | translate) }}</button>
         <span class="input-group-append">
               <div [class.d-none]="!autoCompleteService.showItems" id="" class="autocomplete-list-container" #itemListContainer>
-                <div *ngFor="let term of autoCompleteService.termsToShow" class="autocomplete-term"
-                     (click)="selectResult(term.value)">
-                  <span [innerHTML]="term.text"></span>
-                </div>
+                @for (term of autoCompleteService.termsToShow; track  term) {
+                  <div class="autocomplete-term"
+                       (click)="selectResult(term.value)">
+                    <span [innerHTML]="term.text"></span>
+                  </div>
+                }
               </div>
         </span>
       </div>
