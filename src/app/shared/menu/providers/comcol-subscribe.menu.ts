@@ -62,7 +62,7 @@ export class SubscribeMenuProvider extends DSpaceObjectPageMenuProvider {
             const subscription = subscriptionRD.payload?.page[0];
             const isSubscribed = subscription != null;
             const key = isSubscribed
-              ? 'subscriptions.unsubscribe'
+              ? 'subscriptions.manage'
               : 'subscriptions.tooltip';
             return [
               {
