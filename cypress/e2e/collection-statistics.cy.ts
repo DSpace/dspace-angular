@@ -6,7 +6,6 @@ describe('Collection Statistics Page', () => {
 
   it('should load if you click on "Statistics" from a Collection page', () => {
     cy.visit(`/collections/${Cypress.env('DSPACE_TEST_COLLECTION')}`);
-    // Busca el enlace por su texto visible
     cy.contains('a', 'Statistics', { timeout: 10000 }).should('be.visible').click();
     cy.location('pathname').should('eq', COLLECTIONSTATISTICSPAGE);
   });
