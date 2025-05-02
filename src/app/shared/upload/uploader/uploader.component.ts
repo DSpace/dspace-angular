@@ -170,10 +170,10 @@ export class UploaderComponent implements OnInit, AfterViewInit {
       // Ensure the behalf header is set if impersonating
       this.uploader.options.headers = [
         { name: XSRF_REQUEST_HEADER, value: this.tokenExtractor.getToken() },
-        ...(hasValue(this.uploadFilesOptions.impersonatingID)
-          ? [{ name: this.ON_BEHALF_HEADER, value: this.uploadFilesOptions.impersonatingID }]
-          : [])
       ];
+      if (hasValue(this.uploadFilesOptions.impersonatingID)) {
+        this.uploader.options.headers.push({ name: this.ON_BEHALF_HEADER, value: this.uploadFilesOptions.impersonatingID });
+      }
       this.onBeforeUpload();
       this.isOverDocumentDropZone = observableOf(false);
     };
