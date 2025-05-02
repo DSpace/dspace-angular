@@ -5,6 +5,7 @@ import {
 import {
   ComponentFixture,
   fakeAsync,
+  flush,
   TestBed,
   tick,
   waitForAsync,
@@ -77,8 +78,9 @@ describe('SearchFormComponent', () => {
 
     fixture.detectChanges();
     tick();
-
-    expect(de.query(By.css('.scope-button'))).toBeFalsy();
+    flush();
+    const button = fixture.debugElement.query(By.css('.scope-button'));
+    expect(button).toBeFalsy();
   }));
 
   it('should not display scopes when clear button is false', fakeAsync(() => {
@@ -86,17 +88,22 @@ describe('SearchFormComponent', () => {
 
     fixture.detectChanges();
     tick();
+    flush();
 
-    expect(de.query(By.css('.clear-button'))).toBeFalsy();
+    const button = fixture.debugElement.query(By.css('.clear-button'));
+    expect(button).toBeFalsy();
   }));
 
   it('should display scopes when showScopeSelector is true', fakeAsync(() => {
     comp.showScopeSelector = true;
 
     fixture.detectChanges();
-    tick();
 
-    expect(de.query(By.css('.scope-button'))).toBeTruthy();
+    tick();     // Procesa cambios asincrónicos
+    flush();    // Asegura que se procesen todos los microtasks
+
+    const button = fixture.debugElement.query(By.css('.scope-button'));
+    expect(button).toBeTruthy();
   }));
 
   it('should display set query value in input field', fakeAsync(() => {
@@ -105,8 +112,8 @@ describe('SearchFormComponent', () => {
 
     fixture.detectChanges();
     tick();
-    const queryInput = de.query(By.css('input')).nativeElement;
 
+    const queryInput = fixture.debugElement.query(By.css('input')).nativeElement;
     expect(queryInput.value).toBe(testString);
   }));
 
@@ -119,7 +126,7 @@ describe('SearchFormComponent', () => {
 
     fixture.detectChanges();
     tick();
-    const scopeSelect = de.query(By.css('.scope-button')).nativeElement;
+    const scopeSelect = fixture.debugElement.query(By.css('.scope-button'))?.nativeElement;
 
     expect(scopeSelect.textContent).toContain('Sample Community');
   }));
@@ -130,8 +137,8 @@ describe('SearchFormComponent', () => {
     fixture.detectChanges();
 
     tick();
-    const clearText = de.query(By.css('.clear-button')).nativeElement;
-    clearText.click();
+    const button = fixture.debugElement.query(By.css('.clear-button')).nativeElement;
+    button.click();
     fixture.detectChanges();
 
     expect(comp.query).toBe('');
