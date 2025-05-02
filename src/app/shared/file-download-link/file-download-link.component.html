@@ -20,7 +20,7 @@
     class="pr-1 request-a-copy-access-icon">
       <i class="fa-solid fa-lock-open" style=""></i>
     </span>
-  } @else {
+  } @else if (showIcon) {
     <i class="fas fa-download d-inline"></i>
   }
   <ng-container *ngTemplateOutlet="content"></ng-container>

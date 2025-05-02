@@ -75,6 +75,11 @@ export class FileDownloadLinkComponent implements OnInit {
    */
   @Input() showAccessStatusBadge = true;
 
+  /**
+   * A boolean indicating whether the download icon should be displayed.
+   */
+  @Input() showIcon = false;
+
   itemRequest: ItemRequest;
 
   bitstreamPath$: Observable<{
