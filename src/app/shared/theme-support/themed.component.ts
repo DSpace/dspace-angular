@@ -84,6 +84,9 @@ export abstract class ThemedComponent<T> implements OnInit, OnDestroy, OnChanges
   }
 
   initComponentInstance(changes?: SimpleChanges) {
+    if (hasValue(this.themeSub)) {
+      this.themeSub.unsubscribe();
+    }
     this.themeSub = this.themeService?.getThemeName$().subscribe(() => {
       this.renderComponentInstance(changes);
     });
