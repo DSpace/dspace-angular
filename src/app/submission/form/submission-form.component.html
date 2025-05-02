@@ -26,7 +26,7 @@
     </div>
 
     <div class="submission-form-content">
-        <ds-themed-loading *ngIf="(isLoading$ | async) === true" message="Loading..."></ds-themed-loading>
+        <ds-themed-loading *ngIf="(isLoading$ | async) === true" [message]="'form.loading' | translate"></ds-themed-loading>
         <ng-container *ngFor="let object of (submissionSections | async)">
             <ds-submission-section-container [collectionId]="collectionId"
                                              [submissionId]="submissionId"

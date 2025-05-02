@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA, SimpleChange } from '@angular/core';
+import { ChangeDetectorRef, Component, SimpleChange } from '@angular/core';
 import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { of as observableOf } from 'rxjs';
@@ -26,6 +26,7 @@ import { Item } from '../../core/shared/item.model';
 import { TestScheduler } from 'rxjs/testing';
 import { SectionsService } from '../sections/sections.service';
 import { VisibilityType } from '../sections/visibility-type';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('SubmissionFormComponent', () => {
 
@@ -47,7 +48,9 @@ describe('SubmissionFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [],
+      imports: [
+        TranslateModule.forRoot(),
+      ],
       declarations: [
         SubmissionFormComponent,
         TestComponent
@@ -60,7 +63,6 @@ describe('SubmissionFormComponent', () => {
         ChangeDetectorRef,
         SubmissionFormComponent
       ],
-      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 
