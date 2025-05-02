@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgFor,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -48,7 +44,7 @@ import { ScopeSelectorModalComponent } from './scope-selector-modal/scope-select
   styleUrls: ['./search-form.component.scss'],
   templateUrl: './search-form.component.html',
   standalone: true,
-  imports: [FormsModule, NgIf, NgFor, NgbTooltipModule, AsyncPipe, TranslateModule, BrowserOnlyPipe],
+  imports: [FormsModule, NgbTooltipModule, AsyncPipe, TranslateModule, BrowserOnlyPipe],
 })
 /**
  * Component that represents the search form
@@ -104,32 +100,6 @@ export class SearchFormComponent implements OnChanges {
    */
   @Output() submitSearch = new EventEmitter<any>();
 
-  /**
-   * Defines whether or not to show the clear button
-   */
-  @Output() showClearButton = false;
-
-
-  /**
-   * Defines whether or not to show the clear button
-   */
-  @Output() enableAdvanceFilters = false;
-
-  /*
-  * Enable or disable menu in autocomplete options
-  * */
-  public showMenu = false;
-
-  /**
-  * Options to list in autocomplete options
-  * */
-  public optionsToRender: AutocompleteOption[] = [];
-
-  /**
-   * The current selection on autocomplete options
-   * */
-  chosenOption: AutocompleteOption;
-
   constructor(
     protected router: Router,
     protected searchService: SearchService,
@@ -139,15 +109,7 @@ export class SearchFormComponent implements OnChanges {
     protected modalService: NgbModal,
     protected dsoService: DSpaceObjectDataService,
     public dsoNameService: DSONameService,
-    public autoCompleteService: AutocompleteService,
-    private detectorRef: ChangeDetectorRef,
   ) {
-    autoCompleteService.chargeOptions().subscribe(options => {
-      this.optionsToRender = options;
-      if (this.optionsToRender.length > 0) {
-        this.chosenOption = this.optionsToRender[0];
-      }
-    });
   }
 
   /**
@@ -157,23 +119,6 @@ export class SearchFormComponent implements OnChanges {
     if (isNotEmpty(this.scope)) {
       this.dsoService.findById(this.scope).pipe(getFirstSucceededRemoteDataPayload())
         .subscribe((scope: DSpaceObject) => this.selectedScope.next(scope));
-    }
-  }
-  onChageInput(value) {
-    const option = this.chosenOption;
-    console.log(option);
-    if (option.browse) {
-      this.autoCompleteService.getResults(option?.browse,option?.queryParams(value)).pipe(
-        debounceTime(250),
-        startWith([]),
-      ).subscribe(
-        allTerms => {
-          this.autoCompleteService.termsToShow = [];
-          this.autoCompleteService.autocomplete(this.query,allTerms);
-          this.detectorRef.detectChanges();
-        },
-      );
-
     }
   }
 
@@ -205,7 +150,7 @@ export class SearchFormComponent implements OnChanges {
   updateSearch(data: any) {
     const goToFirstPage = { 'spc.page': 1 };
 
-    let queryParams = Object.assign(
+    const queryParams = Object.assign(
       {
         ...goToFirstPage,
       },
@@ -213,14 +158,6 @@ export class SearchFormComponent implements OnChanges {
     );
     if (hasValue(data.scope) && this.hideScopeInUrl) {
       delete queryParams.scope;
-    }
-
-    if (this.chosenOption) {
-      delete queryParams.query;
-      const filterQuery = this.chosenOption.query(this.query);
-      queryParams = Object.assign({
-        ...queryParams,
-      },filterQuery);
     }
 
     void this.router.navigate(this.getSearchLinkParts(), {
@@ -258,45 +195,5 @@ export class SearchFormComponent implements OnChanges {
       this.selectedScope.next(scope);
       this.onScopeChange(scope);
     });
-  }
-
-  /**
-   * Clear the current query
-   */
-  clearText() {
-    this.query = '';
-  }
-
-
-  /*
-  * Set the option selected in autocomplete options
-  * */
-  setOption(optionName: string) {
-    this.chosenOption = this.getOption(optionName);
-    this.closeTermOptionsContainer();
-  }
-
-  /**
-   * Close the current option
-   */
-  closeTermOptionsContainer() {
-    this.showMenu = false;
-  }
-
-  /*
-  * Get the option selected in autocomplete options
-  * */
-  private getOption(optionName: string) {
-    if (this.optionsToRender.length === 0) { return null; }
-    return this.optionsToRender.find(({ id }: any) => id === optionName) ?? this.optionsToRender[0];
-  }
-
-  /*
-  * On select the option, change de current query and reset the autocomplete options
-  * */
-  selectResult(value: string) {
-    this.query = value;
-    this.autoCompleteService.showItems = false;
-    this.autoCompleteService.termsToShow = [];
   }
 }

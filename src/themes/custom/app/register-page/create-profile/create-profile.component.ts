@@ -1,8 +1,4 @@
-import {
-  AsyncPipe,
-  NgForOf,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
@@ -24,10 +20,8 @@ import { BtnDisabledDirective } from '../../../../../app/shared/btn-disabled.dir
   imports: [
     ProfilePageSecurityFormComponent,
     TranslateModule,
-    NgIf,
     AsyncPipe,
     ReactiveFormsModule,
-    NgForOf,
     BtnDisabledDirective,
   ],
 })

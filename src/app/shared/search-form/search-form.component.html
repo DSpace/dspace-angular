@@ -1,9 +1,11 @@
-<form #form="ngForm" (ngSubmit)="onSubmit(form.value)" action="/search">
-  <div>
+<div>
     <div class="form-group input-group">
       <div class="input-group-prepend">
-        <button *ngIf="chosenOption" class="btn btn-primary dropdown-toggle dropdown-responsive" type="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false" (click)="showMenu = !showMenu">{{chosenOption.label | translate}}</button>
+        @if (chosenOption) {
+          <button  class="btn btn-primary dropdown-toggle dropdown-responsive" type="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false" (click)="showMenu = !showMenu">{{chosenOption.label | translate}}
+          </button>
+        }
         <div class="dropdown-menu" [class.show]="showMenu" id="search-term-options-dropdown">
           <ng-container *ngFor="let option of optionsToRender">
             <ng-container>
@@ -16,21 +18,25 @@
         </div>
       </div>
       <div class="mb-3 input-group">
-        <button *ngIf="showScopeSelector" class="scope-button btn btn-outline-secondary text-truncate"
+        @if (showScopeSelector) {
+          <button  class="scope-button btn btn-outline-secondary text-truncate"
                 [ngbTooltip]="dsoNameService.getName(selectedScope | async)" type="button"
                 (click)="openScopeModal()">
           {{dsoNameService.getName(selectedScope | async) || ('search.form.scope.all' | translate)}}
-        </button>
+          </button>
+        }
         <input type="text" [(ngModel)]="query" name="query" class="form-control"
                [class.input-clear-button]="showClearButton"
                [attr.aria-label]="searchPlaceholder" [attr.data-test]="'search-box' | dsBrowserOnly"
                [placeholder]="searchPlaceholder"
                (ngModelChange)="onChageInput($event)">
-        <div class="input-group-append" *ngIf="query && showClearButton">
-          <button class="btn clear-button" type="button" (click)="clearText()">
-            <i class="fas fa-xmark"></i>
-          </button>
-        </div>
+        @if (query && showClearButton) {
+          <div class="input-group-append">
+            <button class="btn clear-button" type="button" (click)="clearText()">
+              <i class="fas fa-xmark"></i>
+            </button>
+          </div>
+        }
         <button type="submit" class="search-button btn btn-{{brandColor}}" [attr.data-test]="'search-button' | dsBrowserOnly"><i class="fas fa-search"></i> {{ ('search.form.search' | translate) }}</button>
         <span class="input-group-append">
               <div [class.d-none]="!autoCompleteService.showItems" id="" class="autocomplete-list-container" #itemListContainer>
@@ -43,4 +49,3 @@
       </div>
     </div>
   </div>
-</form>

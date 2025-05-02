@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -24,7 +21,6 @@ import { ErrorComponent } from '../../../../app/shared/error/error.component';
 import { ThemedLoadingComponent } from '../../../../app/shared/loading/themed-loading.component';
 import { ObjectCollectionComponent } from '../../../../app/shared/object-collection/object-collection.component';
 import { VarDirective } from '../../../../app/shared/utils/var.directive';
-import { ViewTrackerComponent } from '../../../../app/statistics/angulartics/dspace/view-tracker.component';
 
 @Component({
   selector: 'ds-themed-collection-page',
@@ -41,10 +37,8 @@ import { ViewTrackerComponent } from '../../../../app/statistics/angulartics/dsp
   imports: [
     ThemedComcolPageContentComponent,
     ErrorComponent,
-    NgIf,
     ThemedLoadingComponent,
     TranslateModule,
-    ViewTrackerComponent,
     VarDirective,
     AsyncPipe,
     ComcolPageHeaderComponent,
