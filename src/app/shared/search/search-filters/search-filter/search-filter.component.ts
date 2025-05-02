@@ -25,7 +25,6 @@ import {
   Subscription,
   switchMap,
 } from 'rxjs';
-import { take } from 'rxjs/operators';
 
 import { RemoteData } from '../../../../core/data/remote-data';
 import { SearchService } from '../../../../core/shared/search/search.service';
@@ -145,7 +144,7 @@ export class SearchFilterComponent implements OnInit, OnChanges, OnDestroy {
           this.filterService.expand(this.filter.name);
         }
       }),
-      this.getIsActive().pipe(take(1)).subscribe(() => {
+      this.getIsActive().subscribe(() => {
         this.isVisibilityComputed.emit(true);
       }),
     );

@@ -219,6 +219,7 @@ describe('MyDSpaceReloadableActionsComponent', () => {
       spyOn(component, 'reloadObjectExecution').and.callThrough();
       spyOn(component, 'convertReloadedObject').and.callThrough();
       spyOn(component.processCompleted, 'emit').and.callThrough();
+      spyOn(component, 'invalidateCacheForCurrentSearchUrl').and.callThrough();
 
       (component as any).objectDataService = mockDataService;
     });
@@ -239,10 +240,11 @@ describe('MyDSpaceReloadableActionsComponent', () => {
       });
     });
 
-    it('should emit the reloaded object in case of success', (done) => {
+    it('should emit the reloaded object and invalidate cache in case of success', (done) => {
 
       component.startActionExecution().subscribe( (result) => {
         expect(component.processCompleted.emit).toHaveBeenCalledWith({ result: true, reloadedObject: result as any });
+        expect(component.invalidateCacheForCurrentSearchUrl).toHaveBeenCalled();
         done();
       });
     });

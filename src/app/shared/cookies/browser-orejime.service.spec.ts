@@ -433,4 +433,31 @@ describe('BrowserOrejimeService', () => {
       expect(service.orejimeConfig.apps).not.toContain(jasmine.objectContaining({ name: googleAnalytics }));
     });
   });
+
+  describe('applyUpdateSettingsCallbackToApps', () => {
+    let user2: EPerson;
+    let mockApp1, mockApp2;
+    let updateSettingsSpy;
+
+    beforeEach(() => {
+      user2 = Object.assign(new EPerson(), { uuid: 'test-user' });
+      mockApp1 = { name: 'app1', callback: jasmine.createSpy('originalCallback1') };
+      mockApp2 = { name: 'app2', callback: jasmine.createSpy('originalCallback2') };
+      service.orejimeConfig.apps = [mockApp1, mockApp2];
+      updateSettingsSpy = spyOn(service, 'updateSettingsForUsers');
+    });
+
+    it('calls updateSettingsForUsers in a debounced manner when a callback is triggered', (done) => {
+      service.applyUpdateSettingsCallbackToApps(user2);
+
+      mockApp1.callback(true);
+      mockApp2.callback(false);
+
+      setTimeout(() => {
+        expect(updateSettingsSpy).toHaveBeenCalledTimes(1);
+        expect(updateSettingsSpy).toHaveBeenCalledWith(user2);
+        done();
+      }, 400);
+    });
+  });
 });

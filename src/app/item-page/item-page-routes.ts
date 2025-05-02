@@ -5,6 +5,7 @@ import { accessTokenResolver } from '../core/auth/access-token.resolver';
 import { authenticatedGuard } from '../core/auth/authenticated.guard';
 import { itemBreadcrumbResolver } from '../core/breadcrumbs/item-breadcrumb.resolver';
 import { MenuRoute } from '../shared/menu/menu-route.model';
+import { viewTrackerResolver } from '../statistics/angulartics/dspace/view-tracker.resolver';
 import { BitstreamRequestACopyPageComponent } from './bitstreams/request-a-copy/bitstream-request-a-copy-page.component';
 import { UploadBitstreamComponent } from './bitstreams/upload/upload-bitstream.component';
 import { ThemedFullItemPageComponent } from './full/themed-full-item-page.component';
@@ -38,7 +39,9 @@ export const ROUTES: Route[] = [
         data: {
           menuRoute: MenuRoute.ITEM_PAGE,
         },
-
+        resolve: {
+          tracking: viewTrackerResolver,
+        },
       },
       {
         path: 'full',
@@ -46,7 +49,9 @@ export const ROUTES: Route[] = [
         data: {
           menuRoute: MenuRoute.ITEM_PAGE,
         },
-
+        resolve: {
+          tracking: viewTrackerResolver,
+        },
       },
       {
         path: ITEM_EDIT_PATH,

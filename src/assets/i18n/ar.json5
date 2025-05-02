@@ -1292,7 +1292,7 @@
   // "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
   "admin.metadata-import.page.help": "يمكنك إفلات أو استعراض ملفات CSV التي تحتوي على عمليات ميتاداتا بالدفعة على الملفات من هنا",
 
-  // "admin.batch-import.page.help": "Select the Collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the Items to import",
+  // "admin.batch-import.page.help": "Select the collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the items to import",
   "admin.batch-import.page.help": "حدد الحاوية المراد الاستيراد إليها. بعد ذلك، قم بإسقاط أو تصفح ملف مضغوط بتنسيق أرشيف بسيط (SAF) يتضمن المواد المراد استيرادها",
 
   // "admin.batch-import.page.toggle.help": "It is possible to perform import either with file upload or via URL, use above toggle to set the input source",
@@ -1818,7 +1818,7 @@
   // "collection.create.head": "Create a Collection",
   "collection.create.head": "إنشاء حاوية",
 
-  // "collection.create.notifications.success": "Successfully created the Collection",
+  // "collection.create.notifications.success": "Successfully created the collection",
   "collection.create.notifications.success": "تم إنشاء الحاوية بنجاح",
 
   // "collection.create.sub-head": "Create a Collection for Community {{ parent }}",
@@ -1926,10 +1926,10 @@
   // "collection.edit.logo.label": "Collection logo",
   "collection.edit.logo.label": "شعار الحاوية",
 
-  // "collection.edit.logo.notifications.add.error": "Uploading Collection logo failed. Please verify the content before retrying.",
+  // "collection.edit.logo.notifications.add.error": "Uploading collection logo failed. Please verify the content before retrying.",
   "collection.edit.logo.notifications.add.error": "فشل تحميل شعار الحاوية. يرجى التحقق من المحتوى قبل إعادة المحاولة.",
 
-  // "collection.edit.logo.notifications.add.success": "Upload Collection logo successful.",
+  // "collection.edit.logo.notifications.add.success": "Uploading collection logo successful.",
   "collection.edit.logo.notifications.add.success": "تم تحميل شعار الحاوية بنجاح.",
 
   // "collection.edit.logo.notifications.delete.success.title": "Logo deleted",
@@ -1941,10 +1941,10 @@
   // "collection.edit.logo.notifications.delete.error.title": "Error deleting logo",
   "collection.edit.logo.notifications.delete.error.title": "حدث خطأ أثناء حذف الشعار",
 
-  // "collection.edit.logo.upload": "Drop a Collection Logo to upload",
+  // "collection.edit.logo.upload": "Drop a collection logo to upload",
   "collection.edit.logo.upload": "قم بإسقاط شعار الحاوية للتحميل",
 
-  // "collection.edit.notifications.success": "Successfully edited the Collection",
+  // "collection.edit.notifications.success": "Successfully edited the collection",
   "collection.edit.notifications.success": "تم تحرير الحاوية بنجاح",
 
   // "collection.edit.return": "Back",
@@ -2265,7 +2265,7 @@
   // "community.create.head": "Create a Community",
   "community.create.head": "إنشاء مجتمع",
 
-  // "community.create.notifications.success": "Successfully created the Community",
+  // "community.create.notifications.success": "Successfully created the community",
   "community.create.notifications.success": "تم إنشاء المجتمع بنجاح",
 
   // "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
@@ -2339,7 +2339,7 @@
   // "community.edit.logo.upload": "Drop a community logo to upload",
   "community.edit.logo.upload": "قم بإسقاط شعار المجتمع للتحميل",
 
-  // "community.edit.notifications.success": "Successfully edited the Community",
+  // "community.edit.notifications.success": "Successfully edited the community",
   "community.edit.notifications.success": "تم تحرير المجتمع بنجاح",
 
   // "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
@@ -2511,7 +2511,7 @@
   // TODO New key - Add a translation
   "community.search.results.head": "Search Results",
 
-  // "community.sub-collection-list.head": "Collections in this Community",
+  // "community.sub-collection-list.head": "Collections in this community",
   "community.sub-collection-list.head": "حاويات هذا المجتمع",
 
   // "community.sub-community-list.head": "Communities in this Community",
@@ -4181,7 +4181,7 @@
   // "item.edit.tabs.status.buttons.mappedCollections.label": "Manage mapped collections",
   "item.edit.tabs.status.buttons.mappedCollections.label": "أدر الحاويات المخططة",
 
-  // "item.edit.tabs.status.buttons.move.button": "Move this Item to a different Collection",
+  // "item.edit.tabs.status.buttons.move.button": "Move this item to a different collection",
   "item.edit.tabs.status.buttons.move.button": "نقل هذه المادة إلى حاوية مختلفة",
 
   // "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
@@ -6044,6 +6044,9 @@
 
   // "process.new.parameter.file.required": "Please select a file",
   "process.new.parameter.file.required": "يرجى تحديد ملف",
+
+  // "process.new.parameter.integer.required": "Parameter value is required",
+  "process.new.parameter.integer.required": "قيمة المتغير مطلوبة",
 
   // "process.new.parameter.string.required": "Parameter value is required",
   "process.new.parameter.string.required": "قيمة المتغير مطلوبة",
@@ -8991,7 +8994,7 @@
   // "subscriptions.table.not-available-message": "The subscribed item has been deleted, or you don't currently have the permission to view it",
   "subscriptions.table.not-available-message": "تم حذف مادة الاشتراك، أو ليس لديك صلاحية حالياً لمشاهدتها",
 
-  // "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a Community or Collection, use the subscription button on the object's page.",
+  // "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a community or collection, use the subscription button on the object's page.",
   "subscriptions.table.empty.message": "ليس لديك أي اشتراكات في هذا الوقت. للاشتراك في تحديثات البريد الإلكتروني لمجتمع أو حاوية، استخدم زر الاشتراك الموجود في صفحة الكائن.",
 
   // "thumbnail.default.alt": "Thumbnail Image",
