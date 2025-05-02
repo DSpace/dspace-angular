@@ -35,12 +35,12 @@ import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
 import { createTestComponent } from '../../shared/testing/utils.test';
-import { SubmissionSectionContainerComponent } from '../sections/container/section-container.component';
+import { ThemedSubmissionSectionContainerComponent } from '../sections/container/themed-section-container.component';
 import { SectionsService } from '../sections/sections.service';
 import { VisibilityType } from '../sections/visibility-type';
 import { SubmissionService } from '../submission.service';
 import { SubmissionFormCollectionComponent } from './collection/submission-form-collection.component';
-import { SubmissionFormFooterComponent } from './footer/submission-form-footer.component';
+import { ThemedSubmissionFormFooterComponent } from './footer/themed-submission-form-footer.component';
 import { SubmissionFormSectionAddComponent } from './section-add/submission-form-section-add.component';
 import { SubmissionFormComponent } from './submission-form.component';
 import { ThemedSubmissionUploadFilesComponent } from './submission-upload-files/themed-submission-upload-files.component';
@@ -83,8 +83,8 @@ describe('SubmissionFormComponent', () => {
         remove: {
           imports: [
             ThemedLoadingComponent,
-            SubmissionSectionContainerComponent,
-            SubmissionFormFooterComponent,
+            ThemedSubmissionSectionContainerComponent,
+            ThemedSubmissionFormFooterComponent,
             ThemedSubmissionUploadFilesComponent,
             SubmissionFormCollectionComponent,
             SubmissionFormSectionAddComponent,
