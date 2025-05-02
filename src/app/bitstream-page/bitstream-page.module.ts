@@ -10,6 +10,7 @@ import { BitstreamDownloadPageComponent } from './bitstream-download-page/bitstr
 import { ThemedEditBitstreamPageComponent } from './edit-bitstream-page/themed-edit-bitstream-page.component';
 import { ReplaceBitstreamPageComponent } from './replace-bitstream-page/replace-bitstream-page.component';
 import { UploadModule } from '../shared/upload/upload.module';
+import { UiSwitchModule } from 'ngx-ui-switch';
 
 /**
  * This module handles all components that are necessary for Bitstream related pages
@@ -22,6 +23,7 @@ import { UploadModule } from '../shared/upload/upload.module';
     FormModule,
     ResourcePoliciesModule,
     UploadModule,
+    UiSwitchModule,
   ],
   declarations: [
     BitstreamAuthorizationsComponent,

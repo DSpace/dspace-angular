@@ -71,7 +71,7 @@ describe('SubmissionSectionUploadFileReplaceComponent', () => {
   describe('on init', () => {
     it('should have upload url with replaceFile param', () => {
       expect(uploadComponent.uploadFilesOptions.url)
-        .toBe(bitstreamReplaceUrl.concat(`/${bitstream.id}/${submissionId}?replaceFile=${fileIndex}`));
+        .toBe(bitstreamReplaceUrl.concat(`/${bitstream.id}/${submissionId}?replaceFile=${fileIndex}&replaceName=undefined`));
     });
   });
 

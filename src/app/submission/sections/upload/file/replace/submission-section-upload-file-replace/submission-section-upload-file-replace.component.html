@@ -30,6 +30,10 @@
                  (onFileSelected)="onFileSelected(uploader)"
                  (onCompleteItem)="onCompleteItem($event)"
                  (onUploadError)="onUploadError()"></ds-uploader>
+    <h4 class="mb-0">
+      {{'bitstream.replace.page.replace-name' | translate}}
+    </h4>
+    <ui-switch [(ngModel)]="shouldReplaceName"></ui-switch>
     <div class="button-row bottom">
       <div class="mt-4 float-right mb-2">
         <button class="save-button btn btn-primary" (click)="saveFile(uploader);"><i

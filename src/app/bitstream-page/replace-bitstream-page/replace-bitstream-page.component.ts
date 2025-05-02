@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { Location } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
-import { isEmpty } from '../../shared/empty.util';
+import { isEmpty, hasValue } from '../../shared/empty.util';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
 import { AuthService } from '../../core/auth/auth.service';
@@ -37,10 +37,20 @@ export class ReplaceBitstreamPageComponent implements OnInit {
   });
 
   /**
+   * Upload url without parameters
+   */
+  private uploadFilesUrlNoParam: string;
+
+  /**
    * The bitstream's remote data observable
    * Tracks changes and updates the view
    */
   bitstreamRD$: Observable<RemoteData<Bitstream>>;
+
+  /**
+   * Whether to keep the file name of the new uploaded file
+   */
+  protected shouldReplaceName = true;
 
   constructor(private route: ActivatedRoute,
               private notificationService: NotificationsService,
@@ -61,6 +71,7 @@ export class ReplaceBitstreamPageComponent implements OnInit {
   }
 
   save(uploader: UploaderComponent) {
+    this.setUploadUrlParameters(uploader);
     uploader.uploader.uploadAll();
   }
 
@@ -88,12 +99,21 @@ export class ReplaceBitstreamPageComponent implements OnInit {
   setUploadUrl() {
     this.bitstreamRD$.pipe(
       getFirstSucceededRemoteDataPayload(),
-      map((bitstream) => new URLCombiner(bitstream._links.self.href, '/replace').toString())
+      map((bitstream) => bitstream._links.self.href)
     ).subscribe((href: string) => {
-      this.uploadFilesOptions.url = href;
+      this.uploadFilesUrlNoParam = href;
+      this.setUploadUrlParameters();
       if (isEmpty(this.uploadFilesOptions.authToken)) {
         this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
       }
     });
   }
+
+  protected setUploadUrlParameters(uploader?: UploaderComponent) {
+    this.uploadFilesOptions.url = new URLCombiner(this.uploadFilesUrlNoParam, `/replace?replaceName=${this.shouldReplaceName}`).toString();
+    if (hasValue(uploader?.uploader?.options)) {
+      uploader.uploader.options.url = this.uploadFilesOptions.url;
+    }
+  }
+
 }

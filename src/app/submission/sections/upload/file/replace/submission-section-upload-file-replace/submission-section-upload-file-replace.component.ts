@@ -61,6 +61,11 @@ export class SubmissionSectionUploadFileReplaceComponent implements OnInit, OnCh
   });
 
   /**
+   * Upload url without parameters
+   */
+  private uploadFilesUrlNoParam: string;
+
+  /**
    * Array to track all subscriptions and unsubscribe them onDestroy
    * @type {Array}
    */
@@ -71,6 +76,11 @@ export class SubmissionSectionUploadFileReplaceComponent implements OnInit, OnCh
    * @type {boolean}
    */
   private uploadEnabled: Observable<boolean> = observableOf(true);
+
+  /**
+   * Whether to keep the file name of the new uploaded file
+   */
+  protected shouldReplaceName: boolean;
 
 
   constructor(
@@ -121,7 +131,7 @@ export class SubmissionSectionUploadFileReplaceComponent implements OnInit, OnCh
                         // Look for errors on upload
                         if ((isEmpty(sectionErrors))) {
                           this.notificationsService.success(null, this.translate.get('submission.sections.upload.upload-successful'));
-                          this.closeModal();
+                          this.activeModal.close();
                         } else {
                           this.notificationsService.error(null, this.translate.get('submission.sections.upload.upload-failed'));
                         }
@@ -166,7 +176,8 @@ export class SubmissionSectionUploadFileReplaceComponent implements OnInit, OnCh
   /**
    * Uploads the new replacing bitstream, if any.
    */
-  protected saveFile(uploader: UploaderComponent) {
+  saveFile(uploader: UploaderComponent) {
+    this.setUploadUrlParameters(uploader);
     uploader.uploader.uploadAll();
   }
 
@@ -180,9 +191,18 @@ export class SubmissionSectionUploadFileReplaceComponent implements OnInit, OnCh
         distinctUntilChanged())
         .subscribe((endpointURL) => {
           this.uploadFilesOptions.authToken = this.authService.buildAuthHeader();
-          this.uploadFilesOptions.url = endpointURL.concat(`/${this.submissionId}?replaceFile=${this.fileIndex}`);
+          this.uploadFilesUrlNoParam = endpointURL;
+          this.setUploadUrlParameters();
+          this.uploadFilesOptions.url = endpointURL.concat(`/${this.submissionId}?replaceFile=${this.fileIndex}&replaceName=${this.shouldReplaceName}`);
         })
     );
+  }
+
+  protected setUploadUrlParameters(uploader?: UploaderComponent) {
+    this.uploadFilesOptions.url = this.uploadFilesUrlNoParam.concat(`/${this.submissionId}?replaceFile=${this.fileIndex}&replaceName=${this.shouldReplaceName}`);
+    if (hasValue(uploader?.uploader?.options)) {
+      uploader.uploader.options.url = this.uploadFilesOptions.url;
+    }
   }
 
 }

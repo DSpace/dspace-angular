@@ -70,6 +70,7 @@ import {SubmissionSectionIdentifiersComponent} from './sections/identifiers/sect
 import {
   SubmissionSectionUploadFileReplaceComponent
 } from './sections/upload/file/replace/submission-section-upload-file-replace/submission-section-upload-file-replace.component';
+import { UiSwitchModule } from 'ngx-ui-switch';
 
 const ENTRY_COMPONENTS = [
   // put only entry components that use custom decorator
@@ -126,6 +127,7 @@ const DECLARATIONS = [
     NgbCollapseModule,
     NgbAccordionModule,
     UploadModule,
+    UiSwitchModule,
   ],
   declarations: DECLARATIONS,
   exports: [
