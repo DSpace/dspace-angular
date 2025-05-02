@@ -2,11 +2,11 @@ import { REGEX_MATCH_NON_EMPTY_TEXT } from 'cypress/support/e2e';
 import { testA11y } from 'cypress/support/utils';
 
 describe('Community Statistics Page', () => {
-  const COMMUNITYSTATISTICSPAGE = '/statistics/communities/'.concat(Cypress.env('DSPACE_TEST_COMMUNITY'));
+  const COMMUNITYSTATISTICSPAGE = `/statistics/communities/${Cypress.env('DSPACE_TEST_COMMUNITY')}`;
 
   it('should load if you click on "Statistics" from a Community page', () => {
-    cy.visit('/communities/'.concat(Cypress.env('DSPACE_TEST_COMMUNITY')));
-    cy.get('a[data-test="link-menu-item.menu.section.statistics"]', { timeout: 10000 }).should('be.visible').click();
+    cy.visit(`/communities/${Cypress.env('DSPACE_TEST_COMMUNITY')}`);
+    cy.contains('a', 'Statistics', { timeout: 10000 }).should('be.visible').click();
     cy.location('pathname').should('eq', COMMUNITYSTATISTICSPAGE);
   });
 
@@ -17,21 +17,14 @@ describe('Community Statistics Page', () => {
 
   it('should contain a "Total visits per month" section', () => {
     cy.visit(COMMUNITYSTATISTICSPAGE);
-    // Check just for existence because this table is empty in CI environment as it's historical data
-    cy.get('.'.concat(Cypress.env('DSPACE_TEST_COMMUNITY')).concat('_TotalVisitsPerMonth')).should('exist');
+    cy.get(`.${Cypress.env('DSPACE_TEST_COMMUNITY')}_TotalVisitsPerMonth`).should('exist');
   });
 
   it('should pass accessibility tests', () => {
     cy.visit(COMMUNITYSTATISTICSPAGE);
-
-    // <ds-community-statistics-page> tag must be loaded
     cy.get('ds-community-statistics-page').should('be.visible');
-
-    // Verify / wait until "Total Visits" table's label is non-empty
-    // (This table loads these labels asynchronously, so we want to wait for them before analyzing page)
-    cy.get('table[data-test="TotalVisits"] th[data-test="statistics-label"]').contains(REGEX_MATCH_NON_EMPTY_TEXT);
-
-    // Analyze <ds-community-statistics-page> for accessibility issues
+    cy.get('table[data-test="TotalVisits"] th[data-test="statistics-label"]')
+      .contains(REGEX_MATCH_NON_EMPTY_TEXT);
     testA11y('ds-community-statistics-page');
   });
 });
