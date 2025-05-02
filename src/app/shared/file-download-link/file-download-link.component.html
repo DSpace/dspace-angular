@@ -20,8 +20,9 @@
     class="pr-1 request-a-copy-access-icon">
       <i class="fa-solid fa-lock-open" style=""></i>
     </span>
+  } @else {
+    <i class="fas fa-download d-inline"></i>
   }
-  <!-- Otherwise, show no icon (normal download by authorized user), public access etc. -->
   <ng-container *ngTemplateOutlet="content"></ng-container>
 </a>
 
