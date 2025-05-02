@@ -35,7 +35,6 @@ import { DSpaceObjectPageMenuProvider } from './helper-providers/dso.menu';
  */
 @Injectable()
 export class SubscribeMenuProvider extends DSpaceObjectPageMenuProvider {
-
   private refresh$ = new Subject<void>();
 
   constructor(
@@ -50,7 +49,7 @@ export class SubscribeMenuProvider extends DSpaceObjectPageMenuProvider {
 
   public getSectionsForContext(dso: DSpaceObject): Observable<PartialMenuSection[]> {
     return this.refresh$.pipe(
-      startWith(undefined),
+      startWith(undefined), // Disparamos siempre al inicio
       switchMap(() =>
         combineLatest([
           this.authorizationService.isAuthorized(FeatureID.CanSubscribe, dso.self),
@@ -72,19 +71,13 @@ export class SubscribeMenuProvider extends DSpaceObjectPageMenuProvider {
                   type: MenuItemType.ONCLICK,
                   text: key,
                   function: () => {
-                    if (isSubscribed) {
-                      this.subscriptionService.deleteSubscription(subscription.id).subscribe(() => {
-                        this.refresh$.next();
-                      });
-                    } else {
-                      const modalRef = this.modalService.open(SubscriptionModalComponent);
-                      modalRef.componentInstance.dso = dso;
-                      modalRef.componentInstance.updated.subscribe(() => {
-                        this.refresh$.next();
-                      });
-                      modalRef.closed.subscribe(() => {
-                      });
-                    }
+                    const modalRef = this.modalService.open(SubscriptionModalComponent);
+                    modalRef.componentInstance.dso = dso;
+                    modalRef.componentInstance.updated.subscribe(() => {
+                      this.refresh$.next();
+                    });
+                    modalRef.closed.subscribe(() => {
+                    });
                   },
                 } as OnClickMenuItemModel,
                 icon: 'bell',
