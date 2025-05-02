@@ -1,6 +1,6 @@
 <div class="d-flex flex-row">
   @if (linkType !== linkTypes.None) {
-    <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="['/communities/' + object.id]" class="lead">
+    <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="['/communities/' + object.id]" class="lead" role="link" tabindex="0">
       {{ dsoNameService.getName(object) }}
     </a>
   }
