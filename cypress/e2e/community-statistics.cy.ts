@@ -4,6 +4,7 @@ import { testA11y } from 'cypress/support/utils';
 describe('Community Statistics Page', () => {
   const COMMUNITYSTATISTICSPAGE = `/statistics/communities/${Cypress.env('DSPACE_TEST_COMMUNITY')}`;
 
+  //solve error
   it('should load if you click on "Statistics" from a Community page', () => {
     cy.visit(`/communities/${Cypress.env('DSPACE_TEST_COMMUNITY')}`);
     cy.contains('a', 'Statistics', { timeout: 10000 }).should('be.visible').click();
