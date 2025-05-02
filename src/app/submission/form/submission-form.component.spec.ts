@@ -1,7 +1,6 @@
 import {
   ChangeDetectorRef,
   Component,
-  NO_ERRORS_SCHEMA,
   SimpleChange,
 } from '@angular/core';
 import {
@@ -10,6 +9,7 @@ import {
   TestBed,
   waitForAsync,
 } from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   cold,
   getTestScheduler,
@@ -31,12 +31,10 @@ import {
   mockSubmissionSelfUrl,
   mockSubmissionState,
 } from '../../shared/mocks/submission.mock';
-import { getMockThemeService } from '../../shared/mocks/theme-service.mock';
 import { AuthServiceStub } from '../../shared/testing/auth-service.stub';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
 import { createTestComponent } from '../../shared/testing/utils.test';
-import { ThemeService } from '../../shared/theme-support/theme.service';
 import { SubmissionSectionContainerComponent } from '../sections/container/section-container.component';
 import { SectionsService } from '../sections/sections.service';
 import { VisibilityType } from '../sections/visibility-type';
@@ -67,18 +65,19 @@ describe('SubmissionFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [SubmissionFormComponent, TestComponent,
+      imports: [
+        SubmissionFormComponent,
+        TestComponent,
+        TranslateModule.forRoot(),
       ],
       providers: [
         { provide: AuthService, useClass: AuthServiceStub },
         { provide: HALEndpointService, useValue: new HALEndpointServiceStub('workspaceitems') },
         { provide: SubmissionService, useValue: submissionServiceStub },
         { provide: SectionsService, useValue: { isSectionTypeAvailable: () => observableOf(true) } },
-        { provide: ThemeService, useValue: getMockThemeService() },
         ChangeDetectorRef,
         SubmissionFormComponent,
       ],
-      schemas: [NO_ERRORS_SCHEMA],
     })
       .overrideComponent(SubmissionFormComponent, {
         remove: {

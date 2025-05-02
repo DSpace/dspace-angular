@@ -7,6 +7,7 @@ import {
   OnDestroy,
   SimpleChanges,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import isEqual from 'lodash/isEqual';
 import {
   Observable,
@@ -64,6 +65,7 @@ import { ThemedSubmissionUploadFilesComponent } from './submission-upload-files/
     ThemedSubmissionUploadFilesComponent,
     SubmissionFormCollectionComponent,
     SubmissionFormSectionAddComponent,
+    TranslateModule,
   ],
   standalone: true,
 })
