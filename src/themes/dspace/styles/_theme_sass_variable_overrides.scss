@@ -50,12 +50,12 @@ $font-family-sans-serif: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI"
 // Override semantic colors here
 $primary:   #43515f;  // Gray
 $secondary: #495057;  // As Bootstrap $gray-700
-$success:   #92c642;  // Lime
+$success:   #765cc1;  // Lime
 $info:      #1e6f90;  // Light blue
-$warning:   #ec9433;  // Orange
-$danger:    #cf4444;  // Red
+$warning:   #c47827;  // Orange
+$danger:    #9b2020;  // Red
 $light:     #f8f9fa;  // As Bootstrap $gray-100
-$dark:      #43515f;  // Gray
+$dark:      #495a6b;  // Gray
 
 // Add new semantic colors here (you don't need to add existing semantic colors)
 $theme-colors: (
@@ -63,12 +63,14 @@ $theme-colors: (
 );
 
 
+
+
 /*** OTHER BOOTSTRAP VARIABLES ***/
 
 // The yiq lightness value that determines when the lightness of color changes from "dark" to "light". Acceptable values are between 0 and 255.
 $yiq-contrasted-threshold: 170;
 
-$body-color: #343a40;       // As Bootstrap $gray-800
+$body-color: #464f58;       // As Bootstrap $gray-800
 
 $link-color: #1e6f90;       // Blue green, as DSpace $info
 $link-decoration: none;
@@ -83,8 +85,8 @@ $navbar-dark-color: #fff;
 
 /*** CUSTOM DSPACE VARIABLES ***/
 
-$ds-home-news-link-color: #92c642;
-$ds-header-navbar-border-bottom-color: #92c642;
+$ds-home-news-link-color: #765cc1;
+$ds-header-navbar-border-bottom-color: #765cc1;
 
 $ds-breadcrumb-link-color: #154E66 !default;
 $ds-breadcrumb-link-active-color: #040D11 !default;
