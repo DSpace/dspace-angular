@@ -1,5 +1,5 @@
 rest:
   ssl: true
-  host: sandbox.dspace.org
+  host: dspace-api.dataqubed.io
   port: 443
   nameSpace: /server
