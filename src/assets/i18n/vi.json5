@@ -7052,6 +7052,12 @@
   // "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
   "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Số kỳ của tạp chí",
 
+  // "relationships.Publication.isContributorOfPublication.Person": "Contributor",
+  "relationships.Publication.isContributorOfPublication.Person": "Người tham gia",
+
+  // "relationships.Publication.isContributorOfPublication.OrgUnit": "Contributor (organizational units)",
+  "relationships.Publication.isContributorOfPublication.OrgUnit": "Người tham gia (Tổ chức)",
+
   // "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
   "relationships.Person.isPublicationOfAuthor.Publication": "Ấn phẩm",
 
@@ -7061,6 +7067,9 @@
   // "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
   "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Đơn vị tổ chức",
 
+  // "relationships.Person.isPublicationOfContributor.Publication": "Publications",
+  "relationships.Person.isPublicationOfContributor.Publication": "Ấn phẩm",
+
   // "relationships.Project.isPublicationOfProject.Publication": "Publications",
   "relationships.Project.isPublicationOfProject.Publication": "Ấn phẩm",
 
@@ -7069,6 +7078,9 @@
 
   // "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
   "relationships.Project.isOrgUnitOfProject.OrgUnit": "Đơn vị tổ chức",
+
+  // "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Funder",
+  "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Nhà tài trợ",
 
   // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
   // TODO New key - Add a translation
@@ -7083,6 +7095,12 @@
   // "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
   // TODO New key - Add a translation
   "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
+
+  // "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publications",
+  "relationships.OrgUnit.isPublicationOfContributor.Publication": "Ấn phẩm",
+
+  // "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Dự án nghiên cứu",
 
   // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
   "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Số tập của tạp chí",

@@ -7277,6 +7277,12 @@
   // "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
   "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "জার্নাল ইস্যু",
 
+  // "relationships.Publication.isContributorOfPublication.Person": "Contributor",
+  "relationships.Publication.isContributorOfPublication.Person": "অবদানকারী",
+
+  // "relationships.Publication.isContributorOfPublication.OrgUnit": "Contributor (organizational units)",
+  "relationships.Publication.isContributorOfPublication.OrgUnit": "অবদানকারী (সাংগঠনিক ইউনিট)",
+
   // "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
   "relationships.Person.isPublicationOfAuthor.Publication": "প্রকাশনা",
 
@@ -7286,6 +7292,9 @@
   // "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
   "relationships.Person.isOrgUnitOfPerson.OrgUnit": "সাংগঠনিক ইউনিট",
 
+  // "relationships.Person.isPublicationOfContributor.Publication": "Publications",
+  "relationships.Person.isPublicationOfContributor.Publication": "প্রকাশনা",
+
   // "relationships.Project.isPublicationOfProject.Publication": "Publications",
   "relationships.Project.isPublicationOfProject.Publication": "প্রকাশনা",
 
@@ -7294,6 +7303,9 @@
 
   // "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
   "relationships.Project.isOrgUnitOfProject.OrgUnit": "সাংগঠনিক ইউনিট",
+
+  // "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Funder",
+  "relationships.Project.isFundingAgencyOfProject.OrgUnit": "তহবিল",
 
   // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
   // TODO New key - Add a translation
@@ -7308,6 +7320,12 @@
   // "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
   // TODO New key - Add a translation
   "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
+
+  // "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publications",
+  "relationships.OrgUnit.isPublicationOfContributor.Publication": "প্রকাশনা",
+
+  // "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfFundingAgency.Project": "গবেষণা প্রকল্পগুলো",
 
   // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
   "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "জার্নাল ভলিউম",

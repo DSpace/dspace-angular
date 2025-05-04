@@ -7172,6 +7172,12 @@
   // "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
   "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "पत्रिका अंक",
 
+  // "relationships.Publication.isContributorOfPublication.Person": "Contributor",
+  "relationships.Publication.isContributorOfPublication.Person": "योगदान देने वाला",
+
+  // "relationships.Publication.isContributorOfPublication.OrgUnit": "Contributor (organizational units)",
+  "relationships.Publication.isContributorOfPublication.OrgUnit": "योगदानकर्ता (संगठनात्मक इकाई)",
+
   // "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
   "relationships.Person.isPublicationOfAuthor.Publication": "प्रकाशन",
 
@@ -7181,6 +7187,9 @@
   // "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
   "relationships.Person.isOrgUnitOfPerson.OrgUnit": "संगठनात्मक इकाइयाँ",
 
+  // "relationships.Person.isPublicationOfContributor.Publication": "Publications",
+  "relationships.Person.isPublicationOfContributor.Publication": "प्रकाशन",
+
   // "relationships.Project.isPublicationOfProject.Publication": "Publications",
   "relationships.Project.isPublicationOfProject.Publication": "प्रकाशन",
 
@@ -7189,6 +7198,9 @@
 
   // "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
   "relationships.Project.isOrgUnitOfProject.OrgUnit": "संगठनात्मक इकाइयाँ",
+
+  // "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Funder",
+  "relationships.Project.isFundingAgencyOfProject.OrgUnit": "निधिदाता",
 
   // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
   // TODO New key - Add a translation
@@ -7204,6 +7216,12 @@
   // TODO New key - Add a translation
   "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
 
+  // "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publications",
+  "relationships.OrgUnit.isPublicationOfContributor.Publication": "प्रकाशन",
+
+  // "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfFundingAgency.Project": "अनुसंधान परियोजना",
+
   // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
   "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "पत्रिका खंड",
 
@@ -7218,22 +7236,6 @@
 
   // "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
   "relationships.Journal.isVolumeOfJournal.JournalVolume": "पत्रिका खंड",
-
-  // "relationships.isVolumeOf.JournalVolume": "Journal Volume",
-  // TODO New key - Add a translation
-  "relationships.isVolumeOf.JournalVolume": "Journal Volume",
-
-  // "relationships.isContributorOf": "Contributors",
-  "relationships.isContributorOf": "योगदानकर्ता",
-
-  // "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
-  "relationships.isContributorOf.OrgUnit": "योगदानकर्ता (संगठनात्मक इकाई)",
-
-  // "relationships.isContributorOf.Person": "Contributor",
-  "relationships.isContributorOf.Person": "योगदान देने वाला",
-
-  // "relationships.isFundingAgencyOf.OrgUnit": "Funder",
-  "relationships.isFundingAgencyOf.OrgUnit": "निधिदाता",
 
   // "repository.image.logo": "Repository logo",
   "repository.image.logo": "संग्राहलय चिन्ह",

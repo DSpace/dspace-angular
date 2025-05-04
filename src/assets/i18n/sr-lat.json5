@@ -6955,6 +6955,12 @@
   // "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
   "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Izdanja časopsa",
 
+  // "relationships.Publication.isContributorOfPublication.Person": "Contributor",
+  "relationships.Publication.isContributorOfPublication.Person": "Saradnik",
+
+  // "relationships.Publication.isContributorOfPublication.OrgUnit": "Contributor (organizational units)",
+  "relationships.Publication.isContributorOfPublication.OrgUnit": "Saradnik (Organizaciona jedinica)",
+
   // "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
   "relationships.Person.isPublicationOfAuthor.Publication": "Izdanja",
 
@@ -6964,6 +6970,9 @@
   // "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
   "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizacione jedinice",
 
+  // "relationships.Person.isPublicationOfContributor.Publication": "Publications",
+  "relationships.Person.isPublicationOfContributor.Publication": "Izdanja",
+
   // "relationships.Project.isPublicationOfProject.Publication": "Publications",
   "relationships.Project.isPublicationOfProject.Publication": "Izdanja",
 
@@ -6972,6 +6981,9 @@
 
   // "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
   "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizacione jedinice",
+
+  // "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Funder",
+  "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Osnivač",
 
   // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
   // TODO New key - Add a translation
@@ -6986,6 +6998,12 @@
   // "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
   // TODO New key - Add a translation
   "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
+
+  // "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publications",
+  "relationships.OrgUnit.isPublicationOfContributor.Publication": "Izdanja",
+
+  // "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Istraživački projekti",
 
   // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
   "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Sveska časopisa",

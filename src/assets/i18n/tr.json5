@@ -7497,6 +7497,14 @@
   // "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
   "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Dergi Sayısı",
 
+  // "relationships.Publication.isContributorOfPublication.Person": "Contributor",
+  // TODO New key - Add a translation
+  "relationships.Publication.isContributorOfPublication.Person": "Contributor",
+
+  // "relationships.Publication.isContributorOfPublication.OrgUnit": "Contributor (organizational units)",
+  // TODO New key - Add a translation
+  "relationships.Publication.isContributorOfPublication.OrgUnit": "Contributor (organizational units)",
+
   // "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
   "relationships.Person.isPublicationOfAuthor.Publication": "Yayınlar",
 
@@ -7506,6 +7514,9 @@
   // "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
   "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizasyon Birimleri",
 
+  // "relationships.Person.isPublicationOfContributor.Publication": "Publications",
+  "relationships.Person.isPublicationOfContributor.Publication": "Yayınlar",
+
   // "relationships.Project.isPublicationOfProject.Publication": "Publications",
   "relationships.Project.isPublicationOfProject.Publication": "Yayınlar",
 
@@ -7514,6 +7525,10 @@
 
   // "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
   "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizasyon Birimleri",
+
+  // "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Funder",
+  // TODO New key - Add a translation
+  "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Funder",
 
   // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
   // TODO New key - Add a translation
@@ -7529,6 +7544,12 @@
   // TODO New key - Add a translation
   "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
 
+  // "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publications",
+  "relationships.OrgUnit.isPublicationOfContributor.Publication": "Yayınlar",
+
+  // "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Araştırma Projeleri",
+
   // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
   "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Dergi Cilti",
 
@@ -7543,18 +7564,6 @@
 
   // "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
   "relationships.Journal.isVolumeOfJournal.JournalVolume": "Dergi Cilti",
-
-  // "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
-  // TODO New key - Add a translation
-  "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
-
-  // "relationships.isContributorOf.Person": "Contributor",
-  // TODO New key - Add a translation
-  "relationships.isContributorOf.Person": "Contributor",
-
-  // "relationships.isFundingAgencyOf.OrgUnit": "Funder",
-  // TODO New key - Add a translation
-  "relationships.isFundingAgencyOf.OrgUnit": "Funder",
 
   // "repository.image.logo": "Repository logo",
   // TODO New key - Add a translation

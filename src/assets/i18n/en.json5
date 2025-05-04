@@ -4307,17 +4307,25 @@
 
   "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
 
+  "relationships.Publication.isContributorOfPublication.Person": "Contributor",
+
+  "relationships.Publication.isContributorOfPublication.OrgUnit": "Contributor (organizational units)",
+
   "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
 
   "relationships.Person.isProjectOfPerson.Project": "Research Projects",
 
   "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
 
+  "relationships.Person.isPublicationOfContributor.Publication": "Publications (contributor to)",
+
   "relationships.Project.isPublicationOfProject.Publication": "Publications",
 
   "relationships.Project.isPersonOfProject.Person": "Authors",
 
   "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
+
+  "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Funder",
 
   "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
 
@@ -4326,6 +4334,10 @@
   "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Research Projects",
 
   "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
+
+  "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publications (contributor to)",
+
+  "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Research Projects (funder of)",
 
   "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
 

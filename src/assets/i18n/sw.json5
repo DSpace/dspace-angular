@@ -8578,6 +8578,14 @@
   // TODO New key - Add a translation
   "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
 
+  // "relationships.Publication.isContributorOfPublication.Person": "Contributor",
+  // TODO New key - Add a translation
+  "relationships.Publication.isContributorOfPublication.Person": "Contributor",
+
+  // "relationships.Publication.isContributorOfPublication.OrgUnit": "Contributor (organizational units)",
+  // TODO New key - Add a translation
+  "relationships.Publication.isContributorOfPublication.OrgUnit": "Contributor (organizational units)",
+
   // "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
   // TODO New key - Add a translation
   "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
@@ -8590,6 +8598,10 @@
   // TODO New key - Add a translation
   "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
 
+  // "relationships.Person.isPublicationOfContributor.Publication": "Publications",
+  // TODO New key - Add a translation
+  "relationships.Person.isPublicationOfContributor.Publication": "Publications",
+
   // "relationships.Project.isPublicationOfProject.Publication": "Publications",
   // TODO New key - Add a translation
   "relationships.Project.isPublicationOfProject.Publication": "Publications",
@@ -8601,6 +8613,10 @@
   // "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
   // TODO New key - Add a translation
   "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
+
+  // "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Funder",
+  // TODO New key - Add a translation
+  "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Funder",
 
   // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
   // TODO New key - Add a translation
@@ -8617,6 +8633,14 @@
   // "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
   // TODO New key - Add a translation
   "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
+
+  // "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publications",
+  // TODO New key - Add a translation
+  "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publications",
+
+  // "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Research Projects",
+  // TODO New key - Add a translation
+  "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Research Projects",
 
   // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
   // TODO New key - Add a translation
@@ -8637,18 +8661,6 @@
   // "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
   // TODO New key - Add a translation
   "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
-
-  // "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
-  // TODO New key - Add a translation
-  "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
-
-  // "relationships.isContributorOf.Person": "Contributor",
-  // TODO New key - Add a translation
-  "relationships.isContributorOf.Person": "Contributor",
-
-  // "relationships.isFundingAgencyOf.OrgUnit": "Funder",
-  // TODO New key - Add a translation
-  "relationships.isFundingAgencyOf.OrgUnit": "Funder",
 
   // "repository.image.logo": "Repository logo",
   // TODO New key - Add a translation
