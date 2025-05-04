@@ -4151,6 +4151,33 @@
   // "item.page.description": "Description",
   "item.page.description": "Beschreibung",
 
+  // "item.page.org-units": "Organizational Units",
+  "item.page.org-units": "Organisationseinheiten",
+
+  // "item.page.projects": "Research Projects",
+  "item.page.projects": "Forschungsvorhaben",
+
+  // "item.page.publications": "Publications",
+  "item.page.publications": "Publikationen",
+
+  // "item.page.articles": "Articles",
+  "item.page.articles": "Artikel",
+
+  // "item.page.journal": "Journal",
+  "item.page.journal": "Zeitschrift",
+
+  // "item.page.journal-issue": "Journal Issue",
+  "item.page.journal-issue": "Zeitschriftenheft",
+
+  // "item.page.journal-issues": "Journal Issues",
+  "item.page.journal-issues": "Zeitschriftenhefte",
+
+  // "item.page.journal-volume": "Journal Volume",
+  "item.page.journal-volume": "Zeitschriftenband",
+
+  // "item.page.journal-volumes": "Journal Volumes",
+  "item.page.journal-volumes": "Zeitschriftenbände",
+
   // "item.page.journal-issn": "Journal ISSN",
   "item.page.journal-issn": "ISSN der Zeitschrift",
 
@@ -4247,8 +4274,8 @@
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Zusammenfassung",
 
-  // "item.page.author": "Authors",
-  "item.page.author": "Autor:innen",
+  // "item.page.authors": "Authors",
+  "item.page.authors": "Autor:innen",
 
   // "item.page.citation": "Citation",
   "item.page.citation": "Zitierform",
@@ -6471,68 +6498,67 @@
   // "relationships.add.error.title": "Unable to add relationship",
   "relationships.add.error.title": "Beziehung kann nicht hinzugefügt werden",
 
-  // "relationships.isAuthorOf": "Authors",
-  "relationships.isAuthorOf": "Autor:innen",
+  // "relationships.Publication.isAuthorOfPublication.Person": "Authors (persons)",
+  "relationships.Publication.isAuthorOfPublication.Person": "Autor:innen (Personen)",
 
-  // "relationships.isAuthorOf.Person": "Authors (persons)",
-  "relationships.isAuthorOf.Person": "Autor:innen (Personen)",
+  // "relationships.Publication.isProjectOfPublication.Project": "Research Projects",
+  "relationships.Publication.isProjectOfPublication.Project": "Forschungsvorhaben",
 
-  // "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
-  "relationships.isAuthorOf.OrgUnit": "Autor:innen (Organisationseinheiten)",
+  // "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizational Units",
+  "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organisationseinheiten",
 
-  // "relationships.isIssueOf": "Journal Issues",
-  "relationships.isIssueOf": "Zeitschriftenhefte",
+  // "relationships.Publication.isAuthorOfPublication.OrgUnit": "Authors (organizational units)",
+  "relationships.Publication.isAuthorOfPublication.OrgUnit": "Autor:innen (Organisationseinheiten)",
 
-  // "relationships.isIssueOf.JournalIssue": "Journal Issue",
-  "relationships.isIssueOf.JournalIssue": "Zeitschriftenheft",
+  // "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
+  "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Zeitschriftenheft",
 
-  // "relationships.isJournalIssueOf": "Journal Issue",
-  "relationships.isJournalIssueOf": "Zeitschriftenheft",
+  // "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
+  "relationships.Person.isPublicationOfAuthor.Publication": "Publikationen",
 
-  // "relationships.isJournalOf": "Journals",
-  "relationships.isJournalOf": "Zeitschriften",
+  // "relationships.Person.isProjectOfPerson.Project": "Research Projects",
+  "relationships.Person.isProjectOfPerson.Project": "Forschungsvorhaben",
 
-  // "relationships.isJournalVolumeOf": "Journal Volume",
-  "relationships.isJournalVolumeOf": "Zeitschriftenband",
+  // "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
+  "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organisationseinheiten",
 
-  // "relationships.isOrgUnitOf": "Organizational Units",
-  "relationships.isOrgUnitOf": "Organisationseinheiten",
+  // "relationships.Project.isPublicationOfProject.Publication": "Publications",
+  "relationships.Project.isPublicationOfProject.Publication": "Publikationen",
 
-  // "relationships.isPersonOf": "Authors",
-  "relationships.isPersonOf": "Autor:innen",
+  // "relationships.Project.isPersonOfProject.Person": "Authors",
+  "relationships.Project.isPersonOfProject.Person": "Autor:innen",
 
-  // "relationships.isProjectOf": "Research Projects",
-  "relationships.isProjectOf": "Forschungsvorhaben",
+  // "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
+  "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organisationseinheiten",
 
-  // "relationships.isPublicationOf": "Publications",
-  "relationships.isPublicationOf": "Publikationen",
+  // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
+  // TODO New key - Add a translation
+  "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
 
-  // "relationships.isPublicationOfJournalIssue": "Articles",
-  "relationships.isPublicationOfJournalIssue": "Artikel",
+  // "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Authors",
+  "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Autor:innen",
 
-  // "relationships.isSingleJournalOf": "Journal",
-  "relationships.isSingleJournalOf": "Zeitschrift",
+  // "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Forschungsvorhaben",
 
-  // "relationships.isSingleVolumeOf": "Journal Volume",
-  "relationships.isSingleVolumeOf": "Zeitschriftenband",
+  // "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
+  // TODO New key - Add a translation
+  "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
 
-  // "relationships.isVolumeOf": "Journal Volumes",
-  "relationships.isVolumeOf": "Zeitschriftenbände",
+  // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
+  "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Zeitschriftenband",
 
-  // "relationships.isVolumeOf.JournalVolume": "Journal Volume",
-  "relationships.isVolumeOf.JournalVolume": "Zeitschriftenband",
+  // "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publications",
+  "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publikationen",
 
-  // "relationships.isContributorOf": "Contributors",
-  "relationships.isContributorOf": "Beteiligte",
+  // "relationships.JournalVolume.isJournalOfVolume.Journal": "Journals",
+  "relationships.JournalVolume.isJournalOfVolume.Journal": "Zeitschriften",
 
-  // "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
-  "relationships.isContributorOf.OrgUnit": "Beteiligte (Organisationseinheit)",
+  // "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Journal Issue",
+  "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Zeitschriftenheft",
 
-  // "relationships.isContributorOf.Person": "Contributor",
-  "relationships.isContributorOf.Person": "Beteiligte (Person)",
-
-  // "relationships.isFundingAgencyOf.OrgUnit": "Funder",
-  "relationships.isFundingAgencyOf.OrgUnit": "Förderer",
+  // "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
+  "relationships.Journal.isVolumeOfJournal.JournalVolume": "Zeitschriftenband",
 
   // "repository.image.logo": "Repository logo",
   "repository.image.logo": "Repository Logo",

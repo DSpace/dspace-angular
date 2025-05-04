@@ -4364,6 +4364,33 @@
   // "item.page.description": "Description",
   "item.page.description": "Опис",
 
+  // "item.page.org-units": "Organizational Units",
+  "item.page.org-units": "Организационе јединице",
+
+  // "item.page.projects": "Research Projects",
+  "item.page.projects": "Истраживачки пројекти",
+
+  // "item.page.publications": "Publications",
+  "item.page.publications": "Публикације",
+
+  // "item.page.articles": "Articles",
+  "item.page.articles": "Чланци",
+
+  // "item.page.journal": "Journal",
+  "item.page.journal": "Часопис",
+
+  // "item.page.journal-issue": "Journal Issue",
+  "item.page.journal-issue": "Издање часописа",
+
+  // "item.page.journal-issues": "Journal Issues",
+  "item.page.journal-issues": "Издања часописа",
+
+  // "item.page.journal-volume": "Journal Volume",
+  "item.page.journal-volume": "Свеска часописа",
+
+  // "item.page.journal-volumes": "Journal Volumes",
+  "item.page.journal-volumes": "Свеске часописа",
+
   // "item.page.journal-issn": "Journal ISSN",
   "item.page.journal-issn": "ISSN часописа",
 
@@ -4476,8 +4503,8 @@
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Сажетак",
 
-  // "item.page.author": "Authors",
-  "item.page.author": "Аутори",
+  // "item.page.authors": "Authors",
+  "item.page.authors": "Аутори",
 
   // "item.page.citation": "Citation",
   "item.page.citation": "Цитат",
@@ -6915,71 +6942,67 @@
   // "relationships.add.error.title": "Unable to add relationship",
   "relationships.add.error.title": "Није могуће додати везу",
 
-  // "relationships.isAuthorOf": "Authors",
-  "relationships.isAuthorOf": "Аутори",
+  // "relationships.Publication.isAuthorOfPublication.Person": "Authors (persons)",
+  "relationships.Publication.isAuthorOfPublication.Person": "Аутори (особа)",
 
-  // "relationships.isAuthorOf.Person": "Authors (persons)",
-  "relationships.isAuthorOf.Person": "Аутори (особа)",
+  // "relationships.Publication.isProjectOfPublication.Project": "Research Projects",
+  "relationships.Publication.isProjectOfPublication.Project": "Истраживачки пројекти",
 
-  // "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
-  "relationships.isAuthorOf.OrgUnit": "Аутори (организационе јединице)",
+  // "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizational Units",
+  "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Организационе јединице",
 
-  // "relationships.isIssueOf": "Journal Issues",
-  "relationships.isIssueOf": "Издања часописа",
+  // "relationships.Publication.isAuthorOfPublication.OrgUnit": "Authors (organizational units)",
+  "relationships.Publication.isAuthorOfPublication.OrgUnit": "Аутори (организационе јединице)",
 
-  // "relationships.isIssueOf.JournalIssue": "Journal Issue",
+  // "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
+  "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Издања часопса",
+
+  // "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
+  "relationships.Person.isPublicationOfAuthor.Publication": "Издања",
+
+  // "relationships.Person.isProjectOfPerson.Project": "Research Projects",
+  "relationships.Person.isProjectOfPerson.Project": "Истраживачки пројекти",
+
+  // "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
+  "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Организационе јединице",
+
+  // "relationships.Project.isPublicationOfProject.Publication": "Publications",
+  "relationships.Project.isPublicationOfProject.Publication": "Издања",
+
+  // "relationships.Project.isPersonOfProject.Person": "Authors",
+  "relationships.Project.isPersonOfProject.Person": "Аутори",
+
+  // "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
+  "relationships.Project.isOrgUnitOfProject.OrgUnit": "Организационе јединице",
+
+  // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
   // TODO New key - Add a translation
-  "relationships.isIssueOf.JournalIssue": "Journal Issue",
+  "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
 
-  // "relationships.isJournalIssueOf": "Journal Issue",
-  "relationships.isJournalIssueOf": "Издања часопса",
+  // "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Authors",
+  "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Аутори",
 
-  // "relationships.isJournalOf": "Journals",
-  "relationships.isJournalOf": "Часописи",
+  // "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Истраживачки пројекти",
 
-  // "relationships.isJournalVolumeOf": "Journal Volume",
+  // "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
   // TODO New key - Add a translation
-  "relationships.isJournalVolumeOf": "Journal Volume",
+  "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
 
-  // "relationships.isOrgUnitOf": "Organizational Units",
-  "relationships.isOrgUnitOf": "Организационе јединице",
+  // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
+  "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Свеска часописа",
 
-  // "relationships.isPersonOf": "Authors",
-  "relationships.isPersonOf": "Аутори",
+  // "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publications",
+  "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Издања",
 
-  // "relationships.isProjectOf": "Research Projects",
-  "relationships.isProjectOf": "Истраживачки пројекти",
+  // "relationships.JournalVolume.isJournalOfVolume.Journal": "Journals",
+  "relationships.JournalVolume.isJournalOfVolume.Journal": "Часописи",
 
-  // "relationships.isPublicationOf": "Publications",
-  "relationships.isPublicationOf": "Издања",
+  // "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Journal Issue",
+  "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Издања часопса",
 
-  // "relationships.isPublicationOfJournalIssue": "Articles",
-  "relationships.isPublicationOfJournalIssue": "Чланци",
-
-  // "relationships.isSingleJournalOf": "Journal",
-  "relationships.isSingleJournalOf": "Часопис",
-
-  // "relationships.isSingleVolumeOf": "Journal Volume",
-  "relationships.isSingleVolumeOf": "Свеска часописа",
-
-  // "relationships.isVolumeOf": "Journal Volumes",
-  "relationships.isVolumeOf": "Свеске часописа",
-
-  // "relationships.isVolumeOf.JournalVolume": "Journal Volume",
-  // TODO New key - Add a translation
-  "relationships.isVolumeOf.JournalVolume": "Journal Volume",
-
-  // "relationships.isContributorOf": "Contributors",
-  "relationships.isContributorOf": "Сарадници",
-
-  // "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
-  "relationships.isContributorOf.OrgUnit": "Сарадник (Организациона јединица)",
-
-  // "relationships.isContributorOf.Person": "Contributor",
-  "relationships.isContributorOf.Person": "Сарадник",
-
-  // "relationships.isFundingAgencyOf.OrgUnit": "Funder",
-  "relationships.isFundingAgencyOf.OrgUnit": "Оснивач",
+  // "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
+  "relationships.Journal.isVolumeOfJournal.JournalVolume": "Свеска часописа",
 
   // "repository.image.logo": "Repository logo",
   "repository.image.logo": "Лого репозиторијума",

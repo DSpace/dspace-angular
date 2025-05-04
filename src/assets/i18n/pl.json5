@@ -4097,6 +4097,33 @@
   // "item.page.description": "Description",
   "item.page.description": "Opis",
 
+  // "item.page.org-units": "Organizational Units",
+  "item.page.org-units": "Jednostki organizacyjne",
+
+  // "item.page.projects": "Research Projects",
+  "item.page.projects": "Projekty badawcze",
+
+  // "item.page.publications": "Publications",
+  "item.page.publications": "Publikacje",
+
+  // "item.page.articles": "Articles",
+  "item.page.articles": "Artykuły",
+
+  // "item.page.journal": "Journal",
+  "item.page.journal": "Czasopismo",
+
+  // "item.page.journal-issue": "Journal Issue",
+  "item.page.journal-issue": "Numer czasopisma",
+
+  // "item.page.journal-issues": "Journal Issues",
+  "item.page.journal-issues": "Numery czasopisma",
+
+  // "item.page.journal-volume": "Journal Volume",
+  "item.page.journal-volume": "Tom czasopisma",
+
+  // "item.page.journal-volumes": "Journal Volumes",
+  "item.page.journal-volumes": "Tomy czasopisma",
+
   // "item.page.journal-issn": "Journal ISSN",
   "item.page.journal-issn": "ISSN czasopisma",
 
@@ -4193,8 +4220,8 @@
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Abstrakt",
 
-  // "item.page.author": "Authors",
-  "item.page.author": "Autorzy",
+  // "item.page.authors": "Authors",
+  "item.page.authors": "Autorzy",
 
   // "item.page.citation": "Citation",
   "item.page.citation": "Cytowanie",
@@ -6392,70 +6419,68 @@
   // "relationships.add.error.title": "Unable to add relationship",
   "relationships.add.error.title": "Nie można dodać relacji",
 
-  // "relationships.isAuthorOf": "Authors",
-  "relationships.isAuthorOf": "Autorzy",
+  // "relationships.Publication.isAuthorOfPublication.Person": "Authors (persons)",
+  "relationships.Publication.isAuthorOfPublication.Person": "Autorzy (osoby)",
 
-  // "relationships.isAuthorOf.Person": "Authors (persons)",
-  "relationships.isAuthorOf.Person": "Autorzy (osoby)",
+  // "relationships.Publication.isProjectOfPublication.Project": "Research Projects",
+  "relationships.Publication.isProjectOfPublication.Project": "Projekty badawcze",
 
-  // "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
-  "relationships.isAuthorOf.OrgUnit": "Autorzy (jednostki organizacyjne)",
+  // "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizational Units",
+  "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Jednostki organizacyjne",
 
-  // "relationships.isIssueOf": "Journal Issues",
-  "relationships.isIssueOf": "Numery czasopisma",
+  // "relationships.Publication.isAuthorOfPublication.OrgUnit": "Authors (organizational units)",
+  "relationships.Publication.isAuthorOfPublication.OrgUnit": "Autorzy (jednostki organizacyjne)",
 
-  // "relationships.isIssueOf.JournalIssue": "Journal Issue",
-  "relationships.isIssueOf.JournalIssue": "Numer czasopisma",
+  // "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
+  "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Numer czasopisma",
 
-  // "relationships.isJournalIssueOf": "Journal Issue",
-  "relationships.isJournalIssueOf": "Numer czasopisma",
+  // "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
+  "relationships.Person.isPublicationOfAuthor.Publication": "Publikacje",
 
-  // "relationships.isJournalOf": "Journals",
-  "relationships.isJournalOf": "Czasopisma",
+  // "relationships.Person.isProjectOfPerson.Project": "Research Projects",
+  "relationships.Person.isProjectOfPerson.Project": "Projekty badawcze",
 
-  // "relationships.isJournalVolumeOf": "Journal Volume",
-  "relationships.isJournalVolumeOf": "Tom czasopisma",
+  // "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
+  "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Jednostki organizacyjne",
 
-  // "relationships.isOrgUnitOf": "Organizational Units",
-  "relationships.isOrgUnitOf": "Jednostki organizacyjne",
+  // "relationships.Project.isPublicationOfProject.Publication": "Publications",
+  "relationships.Project.isPublicationOfProject.Publication": "Publikacje",
 
-  // "relationships.isPersonOf": "Authors",
-  "relationships.isPersonOf": "Autorzy",
+  // "relationships.Project.isPersonOfProject.Person": "Authors",
+  "relationships.Project.isPersonOfProject.Person": "Autorzy",
 
-  // "relationships.isProjectOf": "Research Projects",
-  "relationships.isProjectOf": "Projekty badawcze",
+  // "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
+  "relationships.Project.isOrgUnitOfProject.OrgUnit": "Jednostki organizacyjne",
 
-  // "relationships.isPublicationOf": "Publications",
-  "relationships.isPublicationOf": "Publikacje",
+  // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
+  // TODO New key - Add a translation
+  "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
 
-  // "relationships.isPublicationOfJournalIssue": "Articles",
-  "relationships.isPublicationOfJournalIssue": "Artykuły",
+  // "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Authors",
+  "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Autorzy",
 
-  // "relationships.isSingleJournalOf": "Journal",
-  "relationships.isSingleJournalOf": "Czasopismo",
+  // "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Projekty badawcze",
 
-  // "relationships.isSingleVolumeOf": "Journal Volume",
-  "relationships.isSingleVolumeOf": "Tom czasopisma",
+  // "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
+  // TODO New key - Add a translation
+  "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
 
-  // "relationships.isVolumeOf": "Journal Volumes",
-  "relationships.isVolumeOf": "Tomy czasopisma",
+  // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
+  "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Tom czasopisma",
 
-  // "relationships.isVolumeOf.JournalVolume": "Journal Volume",
-  "relationships.isVolumeOf.JournalVolume": "Rocznik czasopisma",
+  // "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publications",
+  "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publikacje",
 
-  // "relationships.isContributorOf": "Contributors",
-  "relationships.isContributorOf": "Autorzy",
+  // "relationships.JournalVolume.isJournalOfVolume.Journal": "Journals",
+  "relationships.JournalVolume.isJournalOfVolume.Journal": "Czasopisma",
 
-  // "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
-  "relationships.isContributorOf.OrgUnit": "Autor (Jednostka organizacyjna)",
+  // "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Journal Issue",
+  "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Numer czasopisma",
 
-  // "relationships.isContributorOf.Person": "Contributor",
-  "relationships.isContributorOf.Person": "Autor",
+  // "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
+  "relationships.Journal.isVolumeOfJournal.JournalVolume": "Tom czasopisma",
 
-  // "relationships.isFundingAgencyOf.OrgUnit": "Funder",
-  "relationships.isFundingAgencyOf.OrgUnit": "Instytucja finansująca",
-
-  // "repository.image.logo": "Repository logo",
   "repository.image.logo": "Logo repozytorium",
 
   // "repository.title": "DSpace Repository",

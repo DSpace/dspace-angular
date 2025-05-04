@@ -4392,6 +4392,33 @@
   // "item.page.description": "Description",
   "item.page.description": "Descrizione",
 
+  // "item.page.org-units": "Organizational Units",
+  "item.page.org-units": "Strutture",
+
+  // "item.page.projects": "Research Projects",
+  "item.page.projects": "Progetti di ricerca",
+
+  // "item.page.publications": "Publications",
+  "item.page.publications": "Pubblicazioni",
+
+  // "item.page.articles": "Articles",
+  "item.page.articles": "Articoli",
+
+  // "item.page.journal": "Journal",
+  "item.page.journal": "Periodico",
+
+  // "item.page.journal-issue": "Journal Issue",
+  "item.page.journal-issue": "Fascicolo Periodico",
+
+  // "item.page.journal-issues": "Journal Issues",
+  "item.page.journal-issues": "Fascicolo Periodico",
+
+  // "item.page.journal-volume": "Journal Volume",
+  "item.page.journal-volume": "Volume del Periodico",
+
+  // "item.page.journal-volumes": "Journal Volumes",
+  "item.page.journal-volumes": "Volumi di Periodico",
+
   // "item.page.journal-issn": "Journal ISSN",
   "item.page.journal-issn": "ISSN",
 
@@ -4502,8 +4529,8 @@
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Abstract",
 
-  // "item.page.author": "Authors",
-  "item.page.author": "Autori",
+  // "item.page.authors": "Authors",
+  "item.page.authors": "Autori",
 
   // "item.page.citation": "Citation",
   "item.page.citation": "Citazione",
@@ -6912,71 +6939,67 @@
   // "relationships.add.error.title": "Unable to add relationship",
   "relationships.add.error.title": "Impossibile aggiungere relazione",
 
-  // "relationships.isAuthorOf": "Authors",
-  "relationships.isAuthorOf": "Autori",
+  // "relationships.Publication.isAuthorOfPublication.Person": "Authors (persons)",
+  "relationships.Publication.isAuthorOfPublication.Person": "Autori (persone)",
 
-  // "relationships.isAuthorOf.Person": "Authors (persons)",
-  "relationships.isAuthorOf.Person": "Autori (persone)",
+  // "relationships.Publication.isProjectOfPublication.Project": "Research Projects",
+  "relationships.Publication.isProjectOfPublication.Project": "Progetti di ricerca",
 
-  // "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
-  "relationships.isAuthorOf.OrgUnit": "Autori (struttura)",
+  // "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizational Units",
+  "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Strutture",
 
-  // "relationships.isIssueOf": "Journal Issues",
-  "relationships.isIssueOf": "Fascicolo Periodico",
+  // "relationships.Publication.isAuthorOfPublication.OrgUnit": "Authors (organizational units)",
+  "relationships.Publication.isAuthorOfPublication.OrgUnit": "Autori (struttura)",
 
-  // "relationships.isIssueOf.JournalIssue": "Journal Issue",
+  // "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
+  "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Fascicolo Periodico",
+
+  // "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
+  "relationships.Person.isPublicationOfAuthor.Publication": "Pubblicazioni",
+
+  // "relationships.Person.isProjectOfPerson.Project": "Research Projects",
+  "relationships.Person.isProjectOfPerson.Project": "Progetti di ricerca",
+
+  // "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
+  "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Strutture",
+
+  // "relationships.Project.isPublicationOfProject.Publication": "Publications",
+  "relationships.Project.isPublicationOfProject.Publication": "Pubblicazioni",
+
+  // "relationships.Project.isPersonOfProject.Person": "Authors",
+  "relationships.Project.isPersonOfProject.Person": "Autori",
+
+  // "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
+  "relationships.Project.isOrgUnitOfProject.OrgUnit": "Strutture",
+
+  // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
   // TODO New key - Add a translation
-  "relationships.isIssueOf.JournalIssue": "Journal Issue",
+  "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
 
-  // "relationships.isJournalIssueOf": "Journal Issue",
-  "relationships.isJournalIssueOf": "Fascicolo Periodico",
+  // "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Authors",
+  "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Autori",
 
-  // "relationships.isJournalOf": "Journals",
-  "relationships.isJournalOf": "Periodico",
+  // "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Progetti di ricerca",
 
-  // "relationships.isJournalVolumeOf": "Journal Volume",
+  // "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
   // TODO New key - Add a translation
-  "relationships.isJournalVolumeOf": "Journal Volume",
+  "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
 
-  // "relationships.isOrgUnitOf": "Organizational Units",
-  "relationships.isOrgUnitOf": "Strutture",
+  // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
+  "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Volume del Periodico",
 
-  // "relationships.isPersonOf": "Authors",
-  "relationships.isPersonOf": "Autori",
+  // "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publications",
+  "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Pubblicazioni",
 
-  // "relationships.isProjectOf": "Research Projects",
-  "relationships.isProjectOf": "Progetti di ricerca",
+  // "relationships.JournalVolume.isJournalOfVolume.Journal": "Journals",
+  "relationships.JournalVolume.isJournalOfVolume.Journal": "Periodico",
 
-  // "relationships.isPublicationOf": "Publications",
-  "relationships.isPublicationOf": "Pubblicazioni",
+  // "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Journal Issue",
+  "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Fascicolo Periodico",
 
-  // "relationships.isPublicationOfJournalIssue": "Articles",
-  "relationships.isPublicationOfJournalIssue": "Articoli",
-
-  // "relationships.isSingleJournalOf": "Journal",
-  "relationships.isSingleJournalOf": "Periodico",
-
-  // "relationships.isSingleVolumeOf": "Journal Volume",
-  "relationships.isSingleVolumeOf": "Volume del Periodico",
-
-  // "relationships.isVolumeOf": "Journal Volumes",
-  "relationships.isVolumeOf": "Volumi di Periodico",
-
-  // "relationships.isVolumeOf.JournalVolume": "Journal Volume",
-  // TODO New key - Add a translation
-  "relationships.isVolumeOf.JournalVolume": "Journal Volume",
-
-  // "relationships.isContributorOf": "Contributors",
-  "relationships.isContributorOf": "Collaboratori",
-
-  // "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
-  "relationships.isContributorOf.OrgUnit": "Collaboratore (Struttura)",
-
-  // "relationships.isContributorOf.Person": "Contributor",
-  "relationships.isContributorOf.Person": "Collaboratore",
-
-  // "relationships.isFundingAgencyOf.OrgUnit": "Funder",
-  "relationships.isFundingAgencyOf.OrgUnit": "Finanziatore",
+  // "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
+  "relationships.Journal.isVolumeOfJournal.JournalVolume": "Volume del Periodico",
 
   // "repository.image.logo": "Repository logo",
   "repository.image.logo": "Logo del repository",

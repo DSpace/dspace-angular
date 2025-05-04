@@ -4641,6 +4641,33 @@
   // "item.page.description": "Description",
   "item.page.description": "Cunntas",
 
+  // "item.page.org-units": "Organizational Units",
+  "item.page.org-units": "Aonadan eagrachaidh",
+
+  // "item.page.projects": "Research Projects",
+  "item.page.projects": "Pròiseactan Rannsachaidh",
+
+  // "item.page.publications": "Publications",
+  "item.page.publications": "Foillseachaidhean",
+
+  // "item.page.articles": "Articles",
+  "item.page.articles": "Artaigilean",
+
+  // "item.page.journal": "Journal",
+  "item.page.journal": "Diornal",
+
+  // "item.page.journal-issue": "Journal Issue",
+  "item.page.journal-issue": "Deasachadh Diornal",
+
+  // "item.page.journal-issues": "Journal Issues",
+  "item.page.journal-issues": "Deasachaidhean Diornal",
+
+  // "item.page.journal-volume": "Journal Volume",
+  "item.page.journal-volume": "Àireamh Diornal",
+
+  // "item.page.journal-volumes": "Journal Volumes",
+  "item.page.journal-volumes": "Àireamhan Diornal",
+
   // "item.page.journal-issn": "Journal ISSN",
   "item.page.journal-issn": "ISSN Diornal",
 
@@ -4761,8 +4788,8 @@
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Giorrachadh",
 
-  // "item.page.author": "Authors",
-  "item.page.author": "Ùghdaran",
+  // "item.page.authors": "Authors",
+  "item.page.authors": "Ùghdaran",
 
   // "item.page.citation": "Citation",
   "item.page.citation": "Iomradh",
@@ -7299,71 +7326,67 @@
   // "relationships.add.error.title": "Unable to add relationship",
   "relationships.add.error.title": "Cha ghabhadh dàimh a chur-ris",
 
-  // "relationships.isAuthorOf": "Authors",
-  "relationships.isAuthorOf": "Ùghdaran",
+  // "relationships.Publication.isAuthorOfPublication.Person": "Authors (persons)",
+  "relationships.Publication.isAuthorOfPublication.Person": "Ùghdaran (daoine)",
 
-  // "relationships.isAuthorOf.Person": "Authors (persons)",
-  "relationships.isAuthorOf.Person": "Ùghdaran (daoine)",
+  // "relationships.Publication.isProjectOfPublication.Project": "Research Projects",
+  "relationships.Publication.isProjectOfPublication.Project": "Pròiseactan Rannsachaidh",
 
-  // "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
-  "relationships.isAuthorOf.OrgUnit": "Ùghdaran (aonadan eagrachaidh)",
+  // "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizational Units",
+  "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Aonadan eagrachaidh",
 
-  // "relationships.isIssueOf": "Journal Issues",
-  "relationships.isIssueOf": "Deasachaidhean Diornal",
+  // "relationships.Publication.isAuthorOfPublication.OrgUnit": "Authors (organizational units)",
+  "relationships.Publication.isAuthorOfPublication.OrgUnit": "Ùghdaran (aonadan eagrachaidh)",
 
-  // "relationships.isIssueOf.JournalIssue": "Journal Issue",
+  // "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
+  "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Deasachadh Diornal",
+
+  // "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
+  "relationships.Person.isPublicationOfAuthor.Publication": "Foillseachaidhean",
+
+  // "relationships.Person.isProjectOfPerson.Project": "Research Projects",
+  "relationships.Person.isProjectOfPerson.Project": "Pròiseactan Rannsachaidh",
+
+  // "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
+  "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Aonadan eagrachaidh",
+
+  // "relationships.Project.isPublicationOfProject.Publication": "Publications",
+  "relationships.Project.isPublicationOfProject.Publication": "Foillseachaidhean",
+
+  // "relationships.Project.isPersonOfProject.Person": "Authors",
+  "relationships.Project.isPersonOfProject.Person": "Ùghdaran",
+
+  // "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
+  "relationships.Project.isOrgUnitOfProject.OrgUnit": "Aonadan eagrachaidh",
+
+  // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
   // TODO New key - Add a translation
-  "relationships.isIssueOf.JournalIssue": "Journal Issue",
+  "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
 
-  // "relationships.isJournalIssueOf": "Journal Issue",
-  "relationships.isJournalIssueOf": "Deasachadh Diornal",
+  // "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Authors",
+  "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Ùghdaran",
 
-  // "relationships.isJournalOf": "Journals",
-  "relationships.isJournalOf": "Diornalan",
+  // "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Pròiseactan Rannsachaidh",
 
-  // "relationships.isJournalVolumeOf": "Journal Volume",
+  // "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
   // TODO New key - Add a translation
-  "relationships.isJournalVolumeOf": "Journal Volume",
+  "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
 
-  // "relationships.isOrgUnitOf": "Organizational Units",
-  "relationships.isOrgUnitOf": "Aonadan eagrachaidh",
+  // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
+  "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Àireamh Diornal",
 
-  // "relationships.isPersonOf": "Authors",
-  "relationships.isPersonOf": "Ùghdaran",
+  // "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publications",
+  "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Foillseachaidhean",
 
-  // "relationships.isProjectOf": "Research Projects",
-  "relationships.isProjectOf": "Pròiseactan Rannsachaidh",
+  // "relationships.JournalVolume.isJournalOfVolume.Journal": "Journals",
+  "relationships.JournalVolume.isJournalOfVolume.Journal": "Diornalan",
 
-  // "relationships.isPublicationOf": "Publications",
-  "relationships.isPublicationOf": "Foillseachaidhean",
+  // "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Journal Issue",
+  "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Deasachadh Diornal",
 
-  // "relationships.isPublicationOfJournalIssue": "Articles",
-  "relationships.isPublicationOfJournalIssue": "Artaigilean",
-
-  // "relationships.isSingleJournalOf": "Journal",
-  "relationships.isSingleJournalOf": "Diornal",
-
-  // "relationships.isSingleVolumeOf": "Journal Volume",
-  "relationships.isSingleVolumeOf": "Àireamh Diornal",
-
-  // "relationships.isVolumeOf": "Journal Volumes",
-  "relationships.isVolumeOf": "Àireamhan Diornal",
-
-  // "relationships.isVolumeOf.JournalVolume": "Journal Volume",
-  // TODO New key - Add a translation
-  "relationships.isVolumeOf.JournalVolume": "Journal Volume",
-
-  // "relationships.isContributorOf": "Contributors",
-  "relationships.isContributorOf": "Compàirtichean",
-
-  // "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
-  "relationships.isContributorOf.OrgUnit": "Compàirtiche (Aonad Eagrachaidh)",
-
-  // "relationships.isContributorOf.Person": "Contributor",
-  "relationships.isContributorOf.Person": "Compàirtiche",
-
-  // "relationships.isFundingAgencyOf.OrgUnit": "Funder",
-  "relationships.isFundingAgencyOf.OrgUnit": "Maoinichear",
+  // "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
+  "relationships.Journal.isVolumeOfJournal.JournalVolume": "Àireamh Diornal",
 
   // "repository.image.logo": "Repository logo",
   "repository.image.logo": "Suaicheantas ionad-tasgaidh",
