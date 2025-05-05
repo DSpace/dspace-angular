@@ -2,16 +2,11 @@ import { REGEX_MATCH_NON_EMPTY_TEXT } from 'cypress/support/e2e';
 import { testA11y } from 'cypress/support/utils';
 
 describe('Collection Statistics Page', () => {
-  const COLLECTIONSTATISTICSPAGE = `/statistics/collections/${Cypress.env('DSPACE_TEST_COLLECTION')}`;
+  const COLLECTIONSTATISTICSPAGE = '/statistics/collections/'.concat(Cypress.env('DSPACE_TEST_COLLECTION'));
 
   it('should load if you click on "Statistics" from a Collection page', () => {
-    cy.visit(`/collections/${Cypress.env('DSPACE_TEST_COLLECTION')}`);
-    // Ahora buscamos el enlace dentro de ds-dso-edit-menu, no ds-navbar
-    cy.get(
-      'ds-dso-edit-menu ds-link-menu-item a[data-test="link-menu-item.menu.section.statistics"]',
-    )
-      .should('be.visible')
-      .click();
+    cy.visit('/collections/'.concat(Cypress.env('DSPACE_TEST_COLLECTION')));
+    cy.get('ds-navbar ds-link-menu-item a[data-test="link-menu-item.menu.section.statistics"]').click();
     cy.location('pathname').should('eq', COLLECTIONSTATISTICSPAGE);
   });
 
