@@ -82,7 +82,6 @@ describe('SubscribeMenuProvider', () => {
     it('should return the expected sections', (done) => {
       provider.getSectionsForContext(dso)
         .pipe(
-          // Esperamos a que el resultado tenga al menos un ítem (el real)
           filter((sections) => sections.length > 0),
         )
         .subscribe((sections) => {
