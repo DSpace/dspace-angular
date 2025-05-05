@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed-loading.component';
 import { SubmissionFormCollectionComponent } from '../../../../../app/submission/form/collection/submission-form-collection.component';
@@ -24,6 +25,7 @@ import { ThemedSubmissionSectionContainerComponent } from '../../../../../app/su
     ThemedSubmissionUploadFilesComponent,
     SubmissionFormCollectionComponent,
     SubmissionFormSectionAddComponent,
+    TranslatePipe,
   ],
 })
 export class SubmissionFormComponent extends BaseComponent {
