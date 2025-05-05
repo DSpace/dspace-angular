@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { AuthRequestService } from 'src/app/core/auth/auth-request.service';
 
@@ -28,14 +29,16 @@ describe('SubscribeMenuProvider', () => {
 
   let provider: SubscribeMenuProvider;
 
-  const dso: Collection = Object.assign(new Collection(), { _links: { self: { href: 'self-link' } } });
-
+  // Agregamos `uuid` para que el servicio pueda obtener la suscripción
+  const dso: Collection = Object.assign(new Collection(), {
+    uuid: 'mock-uuid',
+    _links: { self: { href: 'self-link' } },
+  });
 
   let authorizationService;
   let modalService;
 
   beforeEach(() => {
-
     authorizationService = jasmine.createSpyObj('authorizationService', {
       'isAuthorized': observableOf(true),
     });
@@ -56,13 +59,18 @@ describe('SubscribeMenuProvider', () => {
         {
           provide: SubscriptionsDataService,
           useValue: {
-            getSubscriptionsByPersonDSO: jasmine.createSpy().and.returnValue(observableOf([])),
+            getSubscriptionsByPersonDSO: jasmine.createSpy().and.returnValue(observableOf({
+              payload: {
+                page: [null],
+              },
+            })),
           },
         },
         { provide: TranslateService, useValue: {} },
         { provide: AuthRequestService, useValue: {} },
       ],
     });
+
     provider = TestBed.inject(SubscribeMenuProvider);
   });
 
@@ -72,12 +80,15 @@ describe('SubscribeMenuProvider', () => {
 
   describe('getSectionsForContext', () => {
     it('should return the expected sections', (done) => {
-      provider.getSectionsForContext(dso).subscribe((sections) => {
-        expect(sections).toEqual(expectedSections);
-        done();
-      });
+      provider.getSectionsForContext(dso)
+        .pipe(
+          // Esperamos a que el resultado tenga al menos un ítem (el real)
+          filter((sections) => sections.length > 0),
+        )
+        .subscribe((sections) => {
+          expect(sections).toEqual(expectedSections);
+          done();
+        });
     });
   });
-
-
 });
