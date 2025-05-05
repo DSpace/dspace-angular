@@ -91,3 +91,43 @@ export const EPersonMock2: EPerson = Object.assign(new EPerson(), {
     ],
   },
 });
+
+export const EPersonMockWithNoName: EPerson = Object.assign(new EPerson(), {
+  handle: null,
+  groups: [],
+  netid: 'test@test.com',
+  lastActive: '2018-05-14T12:25:42.411+0000',
+  canLogIn: true,
+  email: 'test@test.com',
+  requireCertificate: false,
+  selfRegistered: false,
+  _links: {
+    self: {
+      href: 'https://rest.api/dspace-spring-rest/api/eperson/epersons/testid',
+    },
+    groups: { href: 'https://rest.api/dspace-spring-rest/api/eperson/epersons/testid/groups' },
+  },
+  id: 'testid',
+  uuid: 'testid',
+  type: 'eperson',
+  metadata: {
+    'dc.title': [
+      {
+        language: null,
+        value: 'User Test',
+      },
+    ],
+    'eperson.lastname': [
+      {
+        language: null,
+        value: 'Test',
+      },
+    ],
+    'eperson.language': [
+      {
+        language: null,
+        value: 'en',
+      },
+    ],
+  },
+});
