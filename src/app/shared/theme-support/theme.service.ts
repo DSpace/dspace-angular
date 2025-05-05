@@ -383,6 +383,13 @@ export class ThemeService {
             take(1),
             map((theme: Theme) => this.getActionForMatch(theme, currentTheme)),
           );
+        } else if (hasNoValue(currentTheme)) {
+          const defaultThemeConfig = getDefaultThemeConfig();
+          if (hasValue(defaultThemeConfig)) {
+            return [new SetThemeAction(defaultThemeConfig.name)];
+          } else {
+            return [new SetThemeAction(BASE_THEME_NAME)];
+          }
         } else {
           // If there are no themes configured, do nothing
           return observableOf(new NoOpAction());
