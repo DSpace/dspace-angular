@@ -1638,6 +1638,9 @@
   // "browse.metadata.title": "Title",
   "browse.metadata.title": "Titolo",
 
+  // "browse.metadata.title": "Title",
+  "browse.metadata.rsoTitle": "Titolo Pubblicazioni",
+
   // "browse.metadata.author.breadcrumbs": "Browse by Author",
   "browse.metadata.author.breadcrumbs": "Sfoglia per Autore",
 
@@ -3760,6 +3763,9 @@
   // "explore.index.type": "Type",
   // TODO Source message changed - Revise the translation
   "explore.index.type": "Tipologia",
+
+  // "explore.index.rsoTitle": "Title",
+  "explore.index.rsoTitle": "Titolo",
 
   // "explore.search-section.infrastructure.title": "Infrastructure",
   "explore.search-section.infrastructure.title": "Infrastruttura",
