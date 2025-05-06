@@ -152,10 +152,12 @@ describe('ThumbnailComponent', () => {
         expect(thumbnail).toBeTruthy();
       }));
 
-      it('should show default thumbnail', () => {
-        expect(component.default).toBe('assets/images/file-placeholder.svg');
+      it('should show default thumbnail', (done) => {
+        component.default$.subscribe(image => {
+          expect(image).toBe('assets/images/file-placeholder.svg');
+          done();
+        });
       });
-
     });
 
     describe('When bitstreams are only original', () => {
@@ -172,10 +174,12 @@ describe('ThumbnailComponent', () => {
         expect(thumbnail).toBeTruthy();
       }));
 
-      it('should show default thumbnail', () => {
-        expect(component.default).toBe('assets/images/file-placeholder.svg');
+      it('should show default thumbnail', (done) => {
+        component.default$.subscribe(image => {
+          expect(image).toBe('assets/images/file-placeholder.svg');
+          done();
+        });
       });
-
     });
 
     describe('When bitstreams are only thumbnail', () => {
@@ -239,10 +243,12 @@ describe('ThumbnailComponent', () => {
         expect(thumbnail).toBeTruthy();
       });
 
-      it('should show default thumbnail', () => {
-        expect(component.default).toBe('assets/images/file-placeholder.svg');
+      it('should show default thumbnail', (done) => {
+        component.default$.subscribe(image => {
+          expect(image).toBe('assets/images/file-placeholder.svg');
+          done();
+        });
       });
-
     });
 
     describe('When bitstreams are only original without the right metadata information', () => {
@@ -254,8 +260,11 @@ describe('ThumbnailComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should not show bitstream content image src but the default image', () => {
-        expect(component.default).toBe('assets/images/file-placeholder.svg');
+      it('should not show bitstream content image src but the default image', (done) => {
+        component.default$.subscribe(image => {
+          expect(image).toBe('assets/images/file-placeholder.svg');
+          done();
+        });
       });
 
     });
@@ -269,10 +278,12 @@ describe('ThumbnailComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should not show thumbnail content image src but the default image', () => {
-        expect(component.default).toBe('assets/images/file-placeholder.svg');
+      it('should not show thumbnail content image src but the default image', (done) => {
+        component.default$.subscribe(image => {
+          expect(image).toBe('assets/images/file-placeholder.svg');
+          done();
+        });
       });
-
     });
 
     describe('When bitstreams are only original with the right metadata information', () => {
@@ -284,8 +295,11 @@ describe('ThumbnailComponent', () => {
         fixture.detectChanges();
       });
 
-      it('should not show thumbnail content image src but the default image', () => {
-        expect(component.default).toBe('assets/images/file-placeholder.svg');
+      it('should not show thumbnail content image src but the default image', (done) => {
+        component.default$.subscribe(image => {
+          expect(image).toBe('assets/images/file-placeholder.svg');
+          done();
+        });
       });
 
     });
