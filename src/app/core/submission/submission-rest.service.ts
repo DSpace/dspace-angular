@@ -33,7 +33,7 @@ export const getFirstDataDefinition = () =>
         if (response.hasFailed) {
           throw new Error(response.errorMessage);
         } else {
-          return hasValue(response.payload) ? response.payload.dataDefinition : response.payload;
+          return hasValue(response?.payload?.dataDefinition) ? response.payload.dataDefinition : [response.payload];
         }
       }),
       distinctUntilChanged(),
