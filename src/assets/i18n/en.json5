@@ -7061,4 +7061,6 @@
   "embargo.listelement.badge": "Embargo until {{ date }}",
 
   "metadata-export-search.submit.error.limit-exceeded": "Only the first {{limit}} items will be exported",
+
+  "file-download-link.request-copy": "Request a copy of ",
 }
