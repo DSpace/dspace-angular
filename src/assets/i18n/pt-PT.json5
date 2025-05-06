@@ -1,4 +1,5 @@
 {
+
   // "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
   "401.help": "Não está autorizado a aceder a esta página. Pode utilizar o botão em baixo para voltar à página de início.",
 
@@ -967,6 +968,7 @@
   // TODO Source message changed - Revise the translation
   "admin.reports.items.title": "Relatório de consulta de metadados",
 
+
   // "admin.reports.commons.filters": "Filters",
   "admin.reports.commons.filters": "Filtros",
 
@@ -996,6 +998,7 @@
 
   // "admin.reports.commons.filters.matches_all": "Matches all specified filters",
   "admin.reports.commons.filters.matches_all": "Corresponde a todos os filtros especificados",
+
 
   // "admin.reports.commons.filters.property": "Item Property Filters",
   "admin.reports.commons.filters.property": "Filtros de propriedades do item",
@@ -4448,22 +4451,6 @@
   // TODO New key - Add a translation
   "item.preview.oaire.citation.endPage": "Citation end page",
 
-  // "item.preview.dc.relation.hasversion": "Has version",
-  // TODO New key - Add a translation
-  "item.preview.dc.relation.hasversion": "Has version",
-
-  // "item.preview.dc.relation.ispartofseries": "Is part of series",
-  // TODO New key - Add a translation
-  "item.preview.dc.relation.ispartofseries": "Is part of series",
-
-  // "item.preview.dc.rights": "Rights",
-  // TODO New key - Add a translation
-  "item.preview.dc.rights": "Rights",
-
-  // "item.preview.dc.identifier.other": "Other Identifier",
-  // TODO Source message changed - Revise the translation
-  "item.preview.dc.identifier.other": "Outro identificador:",
-
   // "item.preview.dc.relation.issn": "ISSN",
   "item.preview.dc.relation.issn": "ISSN",
 
@@ -7010,14 +6997,6 @@
   // "search.filters.filter.creativeDatePublished.label": "Search date published",
   "search.filters.filter.creativeDatePublished.label": "Procurar data de publicação",
 
-  // "search.filters.filter.creativeDatePublished.min.label": "Start",
-  // TODO New key - Add a translation
-  "search.filters.filter.creativeDatePublished.min.label": "Start",
-
-  // "search.filters.filter.creativeDatePublished.max.label": "End",
-  // TODO New key - Add a translation
-  "search.filters.filter.creativeDatePublished.max.label": "End",
-
   // "search.filters.filter.creativeWorkEditor.head": "Editor",
   "search.filters.filter.creativeWorkEditor.head": "Editor",
 
@@ -8099,10 +8078,6 @@
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Local Journal Issues ({{ count }})",
 
-  // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfIssue": "Local Journal Volumes ({{ count }})",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfIssue": "Local Journal Volumes ({{ count }})",
-
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Local Journal Volumes ({{ count }})",
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Local Journal Volumes ({{ count }})",
@@ -8227,10 +8202,6 @@
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.title.JournalIssue": "Journal Issues",
 
-  // "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfIssue": "Journal Volumes",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfIssue": "Journal Volumes",
-
   // "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
@@ -8314,10 +8285,6 @@
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Selected Journals",
   // TODO New key - Add a translation
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Selected Journals",
-
-  // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfIssue": "Selected Journal Volume",
-  // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfIssue": "Selected Journal Volume",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",
   // TODO New key - Add a translation
@@ -9001,10 +8968,6 @@
 
   // "subscriptions.tooltip": "Subscribe",
   "subscriptions.tooltip": "Subscrever",
-
-  // "subscriptions.unsubscribe": "Unsubscribe",
-  // TODO New key - Add a translation
-  "subscriptions.unsubscribe": "Unsubscribe",
 
   // "subscriptions.modal.title": "Subscriptions",
   "subscriptions.modal.title": "Subscrições de alertas",
@@ -11014,9 +10977,9 @@
   // TODO New key - Add a translation
   "external-login.confirm-email-sent.header": "Confirmation email sent",
 
-  // "external-login.confirm-email-sent.info": " We have sent an email to the provided address to validate your input. <br> Please follow the instructions in the email to complete the login process.",
+  // "external-login.confirm-email-sent.info": " We have sent an emait to the provided address to validate your input. <br> Please follow the instructions in the email to complete the login process.",
   // TODO New key - Add a translation
-  "external-login.confirm-email-sent.info": " We have sent an email to the provided address to validate your input. <br> Please follow the instructions in the email to complete the login process.",
+  "external-login.confirm-email-sent.info": " We have sent an emait to the provided address to validate your input. <br> Please follow the instructions in the email to complete the login process.",
 
   // "external-login.provide-email.header": "Provide email",
   // TODO New key - Add a translation
@@ -11168,14 +11131,6 @@
   // "embargo.listelement.badge": "Embargo until {{ date }}",
   // TODO New key - Add a translation
   "embargo.listelement.badge": "Embargo until {{ date }}",
-
-  // "metadata-export-search.submit.error.limit-exceeded": "Only the first {{limit}} items will be exported",
-  // TODO New key - Add a translation
-  "metadata-export-search.submit.error.limit-exceeded": "Only the first {{limit}} items will be exported",
-
-  // "file-download-link.request-copy": "Request a copy of ",
-  // TODO New key - Add a translation
-  "file-download-link.request-copy": "Request a copy of ",
 
 
 }
