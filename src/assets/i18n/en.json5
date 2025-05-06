@@ -1045,6 +1045,10 @@
 
   "browse.metadata.title": "Title",
 
+  "browse.metadata.srsc": "Subject Category",
+
+  "browse.metadata.rsoTitle": "Research Outputs Title",
+
   "browse.metadata.author.breadcrumbs": "Browse by Author",
 
   "browse.metadata.dateissued.breadcrumbs": "Browse by Date",
@@ -2354,6 +2358,8 @@
 
   "explore.index.type": "Type",
 
+  "explore.index.rsoTitle": "Title",
+
   "explore.search-section.infrastructure.title": "Infrastructure",
 
   "explore.search-section.fundings.title": "Search Projects",
@@ -2387,6 +2393,8 @@
   "explore.researchoutputs.breadcrumbs": "Research Outputs",
 
   "explore.researcherprofiles.breadcrumbs": "People",
+
+  "browse.metadata.rsoTitle.breadcrumbs": "Browse by Title",
 
   "explore.title": "Explore section",
   "export-schema.process.title": "Metadata Schema Export",
