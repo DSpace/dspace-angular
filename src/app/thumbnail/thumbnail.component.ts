@@ -95,13 +95,6 @@ export class ThumbnailComponent implements OnChanges {
    */
   ngOnChanges(changes: SimpleChanges): void {
     if (isPlatformBrowser(this.platformID)) {
-      // every time the inputs change we need to start the loading animation again, as it's possible
-      // that thumbnail is first set to null when the parent component initializes and then set to
-      // the actual value
-      if (!this.isLoading()) {
-        this.isLoading.set(true);
-      }
-
       if (hasNoValue(this.thumbnail)) {
         this.setSrc(this.defaultImage);
         return;
@@ -194,9 +187,22 @@ export class ThumbnailComponent implements OnChanges {
    * @param src
    */
   setSrc(src: string): void {
-    this.src.set(src);
-    if (src === null) {
-      this.isLoading.set(false);
+    // only update the src if it has changed (the parent component may fire the same one multiple times
+    if (this.src() !== src) {
+      // every time the src changes we need to start the loading animation again, as it's possible
+      // that it is first set to null when the parent component initializes and then set to
+      // the actual value
+      //
+      // isLoading$ will be set to false by the error or success handler afterwards, except in the
+      // case where src is null, then we have to set it manually here (because those handlers won't
+      // trigger)
+      if (this.isLoading() === false) {
+        this.isLoading.set(true);
+      }
+      this.src.set(src);
+      if (src === null) {
+        this.isLoading.set(false);
+      }
     }
   }
 
