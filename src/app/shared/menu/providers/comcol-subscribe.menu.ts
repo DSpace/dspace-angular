@@ -33,7 +33,7 @@ import { PartialMenuSection } from '../menu-provider.model';
 import { DSpaceObjectPageMenuProvider } from './helper-providers/dso.menu';
 
 /**
- * Menu provider to create the "Subscribe" option in the DSO edit menu
+ * Menu provider to create the "Subscribe" option in the DSO edit menu and "Manage subscription"
  */
 @Injectable()
 export class SubscribeMenuProvider extends DSpaceObjectPageMenuProvider {
