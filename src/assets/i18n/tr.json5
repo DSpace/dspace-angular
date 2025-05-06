@@ -1379,9 +1379,9 @@
   // "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
   "admin.metadata-import.page.help": "Dosyalarda toplu metadata işlemleri içeren CSV dosyalarını buraya bırakabilir veya bunlara göz atabilirsiniz.",
 
-  // "admin.batch-import.page.help": "Select the Collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the Items to import",
+  // "admin.batch-import.page.help": "Select the collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the items to import",
   // TODO New key - Add a translation
-  "admin.batch-import.page.help": "Select the Collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the Items to import",
+  "admin.batch-import.page.help": "Select the collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the items to import",
 
   // "admin.batch-import.page.toggle.help": "It is possible to perform import either with file upload or via URL, use above toggle to set the input source",
   // TODO New key - Add a translation
@@ -2010,7 +2010,7 @@
   // "collection.create.head": "Create a Collection",
   "collection.create.head": "Koleksiyon Oluştur",
 
-  // "collection.create.notifications.success": "Successfully created the Collection",
+  // "collection.create.notifications.success": "Successfully created the collection",
   "collection.create.notifications.success": "Koleksiyon başarıyla oluşturuldu",
 
   // "collection.create.sub-head": "Create a Collection for Community {{ parent }}",
@@ -2122,10 +2122,10 @@
   // "collection.edit.logo.label": "Collection logo",
   "collection.edit.logo.label": "Koleksiyon logosu",
 
-  // "collection.edit.logo.notifications.add.error": "Uploading Collection logo failed. Please verify the content before retrying.",
+  // "collection.edit.logo.notifications.add.error": "Uploading collection logo failed. Please verify the content before retrying.",
   "collection.edit.logo.notifications.add.error": "Koleksiyon logosu yüklemesi başarısız. Lütfen yeniden denemeden önce içeriği doğrulayın.",
 
-  // "collection.edit.logo.notifications.add.success": "Upload Collection logo successful.",
+  // "collection.edit.logo.notifications.add.success": "Uploading collection logo successful.",
   "collection.edit.logo.notifications.add.success": "Koleksiyon logosu yüklemesi başarılı.",
 
   // "collection.edit.logo.notifications.delete.success.title": "Logo deleted",
@@ -2137,10 +2137,10 @@
   // "collection.edit.logo.notifications.delete.error.title": "Error deleting logo",
   "collection.edit.logo.notifications.delete.error.title": "Logo silinirken hata",
 
-  // "collection.edit.logo.upload": "Drop a Collection Logo to upload",
+  // "collection.edit.logo.upload": "Drop a collection logo to upload",
   "collection.edit.logo.upload": "Yüklenecek bir koleksiyon logosu bırakın",
 
-  // "collection.edit.notifications.success": "Successfully edited the Collection",
+  // "collection.edit.notifications.success": "Successfully edited the collection",
   "collection.edit.notifications.success": "Koleksiyon başarıyla düzenlendi.",
 
   // "collection.edit.return": "Back",
@@ -2504,7 +2504,7 @@
   // "community.create.head": "Create a Community",
   "community.create.head": "Bir komünite oluştur",
 
-  // "community.create.notifications.success": "Successfully created the Community",
+  // "community.create.notifications.success": "Successfully created the community",
   "community.create.notifications.success": "Komünite başarıyla yaratıldı",
 
   // "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
@@ -2584,7 +2584,7 @@
   // TODO Source message changed - Revise the translation
   "community.edit.logo.upload": "Yüklenecek bir komünite logosu bırak",
 
-  // "community.edit.notifications.success": "Successfully edited the Community",
+  // "community.edit.notifications.success": "Successfully edited the community",
   "community.edit.notifications.success": "Komünite başarıyla düzenlendi",
 
   // "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
@@ -2766,7 +2766,7 @@
   // TODO New key - Add a translation
   "community.search.results.head": "Search Results",
 
-  // "community.sub-collection-list.head": "Collections in this Community",
+  // "community.sub-collection-list.head": "Collections in this community",
   // TODO Source message changed - Revise the translation
   "community.sub-collection-list.head": "Bu komünitenin koleksiyonları",
 
@@ -4639,7 +4639,7 @@
   // "item.edit.tabs.status.buttons.mappedCollections.label": "Manage mapped collections",
   "item.edit.tabs.status.buttons.mappedCollections.label": "Eşlenen koleksiyonları yönetin",
 
-  // "item.edit.tabs.status.buttons.move.button": "Move this Item to a different Collection",
+  // "item.edit.tabs.status.buttons.move.button": "Move this item to a different collection",
   "item.edit.tabs.status.buttons.move.button": "Taşınıyor...",
 
   // "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
@@ -6739,6 +6739,9 @@
 
   // "process.new.parameter.file.required": "Please select a file",
   "process.new.parameter.file.required": "Lütfen dosya seçiniz.",
+
+  // "process.new.parameter.integer.required": "Parameter value is required",
+  "process.new.parameter.integer.required": "Parametre değeri gerekli",
 
   // "process.new.parameter.string.required": "Parameter value is required",
   "process.new.parameter.string.required": "Parametre değeri gerekli",
@@ -10023,9 +10026,9 @@
   // TODO New key - Add a translation
   "subscriptions.table.not-available-message": "The subscribed item has been deleted, or you don't currently have the permission to view it",
 
-  // "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a Community or Collection, use the subscription button on the object's page.",
+  // "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a community or collection, use the subscription button on the object's page.",
   // TODO New key - Add a translation
-  "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a Community or Collection, use the subscription button on the object's page.",
+  "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a community or collection, use the subscription button on the object's page.",
 
   // "thumbnail.default.alt": "Thumbnail Image",
   // TODO New key - Add a translation
