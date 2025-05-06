@@ -29,6 +29,8 @@ export class ThemedFileDownloadLinkComponent extends ThemedComponent<FileDownloa
 
   @Input() showAccessStatusBadge: boolean;
 
+  @Input() showIcon = false;
+
   protected inAndOutputNames: (keyof FileDownloadLinkComponent & keyof this)[] = [
     'bitstream',
     'item',
@@ -36,6 +38,7 @@ export class ThemedFileDownloadLinkComponent extends ThemedComponent<FileDownloa
     'isBlank',
     'enableRequestACopy',
     'showAccessStatusBadge',
+    'showIcon',
   ];
 
   protected getComponentName(): string {
