@@ -5,7 +5,12 @@
  *
  * http://www.dspace.org/license/
  */
-import { Injectable } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import {
+  Inject,
+  Injectable,
+  PLATFORM_ID,
+} from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -33,7 +38,7 @@ import { PartialMenuSection } from '../menu-provider.model';
 import { DSpaceObjectPageMenuProvider } from './helper-providers/dso.menu';
 
 /**
- * Menu provider to create the "Subscribe" option in the DSO edit menu and "Manage subscription"
+ * Menu provider to create the "Subscribe" option in the DSO edit menu
  */
 @Injectable()
 export class SubscribeMenuProvider extends DSpaceObjectPageMenuProvider {
@@ -45,11 +50,15 @@ export class SubscribeMenuProvider extends DSpaceObjectPageMenuProvider {
     protected subscriptionService: SubscriptionsDataService,
     protected modalService: NgbModal,
     protected translateService: TranslateService,
+    @Inject(PLATFORM_ID) private platformId: unknown,
   ) {
     super();
   }
 
   public getSectionsForContext(dso: DSpaceObject): Observable<PartialMenuSection[]> {
+    if (!isPlatformBrowser(this.platformId)) {
+      return of([]);
+    }
     const realSections$ = this.refresh$.pipe(
       startWith(undefined),
       switchMap(() =>
@@ -70,9 +79,7 @@ export class SubscribeMenuProvider extends DSpaceObjectPageMenuProvider {
         return this.subscriptionService.getSubscriptionsByPersonDSO(user.id, dso.uuid).pipe(
           map((rd) => {
             const subscription = rd.payload?.page?.[0];
-            const key = subscription
-              ? 'subscriptions.manage'
-              : 'subscriptions.tooltip';
+            const key = subscription ? 'subscriptions.manage' : 'subscriptions.tooltip';
             return [
               {
                 visible: true,
