@@ -58,9 +58,29 @@ describe('MetadataLinkViewAvatarPopoverComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should set placeholder image based on entity type', () => {
-    component.entityType = 'testEntityType';
+  it('should set fallback image if no entity type', (done) => {
     component.ngOnInit();
-    expect(component.placeholderImageUrl).toBe('assets/images/testentitytype-placeholder.svg');
+    component.placeholderImageUrl$.subscribe((url) => {
+      expect(url).toBe('assets/images/file-placeholder.svg');
+      done();
+    });
+  });
+
+  it('should set correct placeholder image based on entity type if image exists', (done) => {
+    component.entityType = 'OrgUnit';
+    component.ngOnInit();
+    component.placeholderImageUrl$.subscribe((url) => {
+      expect(url).toBe('assets/images/orgunit-placeholder.svg');
+      done();
+    });
+  });
+
+  it('should set correct fallback image if image does not exists', (done) => {
+    component.entityType = 'missingEntityType';
+    component.ngOnInit();
+    component.placeholderImageUrl$.subscribe((url) => {
+      expect(url).toBe('assets/images/file-placeholder.svg');
+      done();
+    });
   });
 });
