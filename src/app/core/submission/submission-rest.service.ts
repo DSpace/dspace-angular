@@ -48,7 +48,7 @@ export const getFirstDataDefinition = () =>
         if (response.hasFailed) {
           throw new ErrorResponse({ statusText: response.errorMessage, statusCode: response.statusCode } as RequestError);
         } else {
-          return hasValue(response.payload) ? response.payload.dataDefinition : response.payload;
+          return hasValue(response?.payload?.dataDefinition) ? response.payload.dataDefinition : [response.payload];
         }
       }),
       distinctUntilChanged(),
