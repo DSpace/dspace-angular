@@ -15,6 +15,7 @@ import {
 import {
   map,
   switchMap,
+  take
 } from 'rxjs/operators';
 
 import { BitstreamDataService } from '../../../../../../../core/data/bitstream-data.service';
@@ -30,6 +31,7 @@ import {
 } from '../../../../../../../shared/empty.util';
 import { ThemedThumbnailComponent } from '../../../../../../../thumbnail/themed-thumbnail.component';
 import { BitstreamRenderingModelComponent } from '../bitstream-rendering-model';
+import { getDefaultImageUrlByEntityType } from '../../../../../../../core/shared/image.utils';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector, dspace-angular-ts/themed-component-selectors
@@ -119,13 +121,8 @@ export class ThumbnailRenderingComponent extends BitstreamRenderingModelComponen
    */
   setDefaultImage(): void {
     const eType = this.item.firstMetadataValue('dspace.entity.type');
-    this.default = 'assets/images/file-placeholder.svg';
-    if (hasValue(eType) && eType.toUpperCase() === 'PROJECT') {
-      this.default = 'assets/images/project-placeholder.svg';
-    } else if (hasValue(eType) && eType.toUpperCase() === 'ORGUNIT') {
-      this.default = 'assets/images/orgunit-placeholder.svg';
-    } else if (hasValue(eType) && eType.toUpperCase() === 'PERSON') {
-      this.default = 'assets/images/person-placeholder.svg';
-    }
+    getDefaultImageUrlByEntityType(eType).pipe(take(1)).subscribe((url) => {
+      this.default = url;
+    });
   }
 }

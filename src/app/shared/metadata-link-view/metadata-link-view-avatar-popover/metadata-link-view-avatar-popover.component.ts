@@ -10,6 +10,8 @@ import {
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { ThumbnailComponent } from 'src/app/thumbnail/thumbnail.component';
+import { getDefaultImageUrlByEntityType } from '../../../core/shared/image.utils';
+import { Observable } from 'rxjs';
 
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { SafeUrlPipe } from '../../utils/safe-url-pipe';
@@ -32,15 +34,11 @@ import { VarDirective } from '../../utils/var.directive';
 })
 export class MetadataLinkViewAvatarPopoverComponent extends ThumbnailComponent implements OnInit {
 
-  /**
-   * The fallback image to use when the thumbnail is not available
-   */
-  fallbackImageUrl = 'assets/images/replacement_image.svg';
 
   /**
    * Placeholder image url that changes based on entity type
    */
-  placeholderImageUrl: string;
+  placeholderImageUrl$: Observable<string>;
 
   /**
    * The entity type of the item which the avatar belong
@@ -48,23 +46,6 @@ export class MetadataLinkViewAvatarPopoverComponent extends ThumbnailComponent i
   @Input() entityType: string;
 
   ngOnInit() {
-    this.placeholderImageUrl = this.entityType ? `assets/images/${this.entityType.toLowerCase()}-placeholder.svg` : this.fallbackImageUrl;
-  }
-
-  /**
-   * Handle error loading image placeholder, e.g. missing placeholder image for specific entity type.
-   * @param event
-   */
-  onImageError(event: Event) {
-    const target = event.target as HTMLImageElement;
-    target.src = this.fallbackImageUrl;
-  }
-
-  /**
-   * set loading to true to prevent glitch of img with null src
-   */
-  errorHandler() {
-    this.isLoading = true;
-    super.errorHandler();
+    this.placeholderImageUrl$ = getDefaultImageUrlByEntityType(this.entityType);
   }
 }
