@@ -34,7 +34,7 @@ import { lazyDataService } from '../../core/lazy-data-service';
 import { PaginationService } from '../../core/pagination/pagination.service';
 import { DSpaceObject } from '../../core/shared/dspace-object.model';
 import {
-  getFirstCompletedRemoteData,
+  getAllCompletedRemoteData,
   getRemoteDataPayload,
 } from '../../core/shared/operators';
 import { ResourceType } from '../../core/shared/resource-type';
@@ -177,7 +177,7 @@ export class EpersonGroupListComponent implements OnInit, OnDestroy {
           (this.dataService as EPersonDataService).searchByScope(scope, query, options) :
           (this.dataService as GroupDataService).searchGroups(query, options);
       }),
-      getFirstCompletedRemoteData(),
+      getAllCompletedRemoteData(),
       getRemoteDataPayload(),
     );
   }
