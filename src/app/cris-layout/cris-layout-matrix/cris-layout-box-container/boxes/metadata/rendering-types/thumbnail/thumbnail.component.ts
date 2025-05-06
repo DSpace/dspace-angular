@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 
-import { BehaviorSubject, Observable, of as observableOf } from 'rxjs';
-import { map, switchMap, take } from 'rxjs/operators';
+import { BehaviorSubject, Observable, combineLatest, of as observableOf } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
 import { FieldRenderingType, MetadataBoxFieldRendering } from '../metadata-box.decorator';
