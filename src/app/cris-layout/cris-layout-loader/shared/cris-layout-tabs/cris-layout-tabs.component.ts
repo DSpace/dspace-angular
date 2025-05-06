@@ -126,6 +126,10 @@ export abstract class CrisLayoutTabsComponent {
   setActiveTab(tab) {
     this.activeTab$.next(tab);
     this.emitSelected(tab);
+    if (this.tabs[0].shortname === tab.shortname) {
+      const itemPageRoute = getItemPageRoute(this.item);
+      this.location.replaceState(itemPageRoute);
+    }
   }
 
   navigateToTab(tab: CrisLayoutTab): void {
