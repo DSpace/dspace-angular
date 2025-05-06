@@ -1,3 +1,4 @@
+import { PLATFORM_ID } from '@angular/core';
 import {
   ComponentFixture,
   fakeAsync,
@@ -41,6 +42,7 @@ describe('SearchResultsSkeletonComponent', () => {
       providers: [
         { provide: SearchService, useValue: new SearchServiceStub() },
         { provide: APP_CONFIG, useValue: environment },
+        { provide: PLATFORM_ID, useValue: 'browser' },
       ],
     }).overrideComponent(SearchResultsSkeletonComponent, {
       remove: {
