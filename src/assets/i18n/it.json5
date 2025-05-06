@@ -7444,10 +7444,10 @@
   "profile.card.access-token.delete": "Revoca il token",
 
   // "profile.card.access-token.no-token-generated": "You don't have personal access token. Generate a personal access token for quick access to the DSpace-CRIS API.",
-  "profile.card.access-token.no-token-generated": "Non si dispone di un token di accesso personale. Generare un token di accesso personale per accedere rapidamente all'API DSpace-CRIS.",
+  "profile.card.access-token.no-token-generated": "Non si dispone di un token di accesso personale.\nIl token di accesso personale permette di accedere alle funzionalità avanzate di DSpace ( API ) ed è legato al proprio utente.",
 
   // "profile.card.access-token.token-generated": "You have already generated a personal access token.",
-  "profile.card.access-token.token-generated": "Avete già generato un token di accesso personale.",
+  "profile.card.access-token.token-generated": "Avete già generato un token di accesso personale.\nIl token di accesso personale permette di accedere alle funzionalità avanzate di DSpace ( API ) ed è legato al proprio utente.",
 
   // "profile.card.identify": "Identify",
   "profile.card.identify": "Identificare",
