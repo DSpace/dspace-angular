@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
-  async,
   ComponentFixture,
   TestBed,
+  waitForAsync,
 } from '@angular/core/testing';
 import {
   FormsModule,
@@ -46,7 +46,7 @@ describe('ComcolPageBrowseByComponent', () => {
   let configurationServiceStub: any;
   let collectionServiceStub: any;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     collectionServiceStub = {
       findById(id: string, ...linksToFollow: FollowLinkConfig<Collection>[]): Observable<RemoteData<Collection>> {
@@ -100,95 +100,95 @@ describe('ComcolPageBrowseByComponent', () => {
 
   }));
 
-  it('should create ComcolPageBrowseByComponent for a community with only one option',  () => {
-    fixture = TestBed.createComponent(ComcolPageBrowseByComponent);
-    component = fixture.componentInstance;
-    component.id = communityId;
-    component.contentType = 'community';
+  describe('when object is a community', () => {
+    beforeEach(() => {
+      fixture = TestBed.createComponent(ComcolPageBrowseByComponent);
+      component = fixture.componentInstance;
+      component.id = communityId;
+      component.contentType = 'community';
 
-    fixture.detectChanges();
+      fixture.detectChanges();
+    });
 
-    expect(component.allOptions.length).toEqual(1);
-    const firstOption = component.allOptions[0];
-    expect(firstOption.id).toEqual(communityId);
-    expect(firstOption.label).toEqual('community.all-lists.head');
-    expect(firstOption.routerLink).toEqual('/communities/' + communityId);
+    it('should have only two option',  () => {
+      const navElements = fixture.debugElement.queryAll(By.css('.list-group-item'));
+      expect(navElements).toHaveSize(2);
+
+      expect(component.allOptions.length).toEqual(2);
+      const firstOption = component.allOptions[0];
+      expect(firstOption.id).toEqual('search');
+      expect(firstOption.label).toEqual('community.page.browse.search.head');
+      expect(firstOption.routerLink).toEqual('/communities/' + communityId);
+
+      const secondOption = component.allOptions[1];
+      expect(secondOption.id).toEqual('comcols');
+      expect(secondOption.label).toEqual('community.all-lists.head');
+      expect(secondOption.routerLink).toEqual('/communities/' + communityId + '/subcoms-cols');
+    });
   });
 
-  it('should create ComcolPageBrowseByComponent for the publication\'s collection with three option',  () => {
-    fixture = TestBed.createComponent(ComcolPageBrowseByComponent);
-    component = fixture.componentInstance;
-    component.id = publicationId;
-    component.contentType = 'collection';
+  describe('when object is a collection', () => {
+    beforeEach(() => {
+      fixture = TestBed.createComponent(ComcolPageBrowseByComponent);
+      component = fixture.componentInstance;
+      component.contentType = 'collection';
+    });
 
-    fixture.detectChanges();
+    it('should have three options for the publication\'s collection',  () => {
+      component.id = publicationId;
+      fixture.detectChanges();
 
-    expect(component.allOptions.length).toEqual(3);
-    const firstOption = component.allOptions[0];
-    expect(firstOption.id).toEqual(publicationId);
-    expect(firstOption.label).toEqual('collection.page.browse.recent.head');
-    expect(firstOption.routerLink).toEqual('/collections/' + publicationId);
-    const secondOption = component.allOptions[1];
-    expect(secondOption.id).toEqual('author');
-    expect(secondOption.label).toEqual('browse.comcol.by.author');
-    expect(secondOption.routerLink).toEqual('/browse/author');
-    expect(secondOption.params).toEqual({ scope: publicationId });
-    const thirdOption = component.allOptions[2];
-    expect(thirdOption.id).toEqual('title');
-    expect(thirdOption.label).toEqual('browse.comcol.by.title');
-    expect(thirdOption.routerLink).toEqual('/browse/title');
-    expect(thirdOption.params).toEqual({ scope: publicationId });
+      const navElements = fixture.debugElement.queryAll(By.css('.list-group-item'));
+      expect(navElements).toHaveSize(3);
+
+      expect(component.allOptions.length).toEqual(3);
+      const firstOption = component.allOptions[0];
+      expect(firstOption.id).toEqual('search');
+      expect(firstOption.label).toEqual('collection.page.browse.search.head');
+      expect(firstOption.routerLink).toEqual('/collections/' + publicationId);
+      const secondOption = component.allOptions[1];
+      expect(secondOption.id).toEqual('author');
+      expect(secondOption.label).toEqual('browse.comcol.by.author');
+      expect(secondOption.routerLink).toEqual('/collections/' + publicationId + '/browse/author');
+      const thirdOption = component.allOptions[2];
+      expect(thirdOption.id).toEqual('title');
+      expect(thirdOption.label).toEqual('browse.comcol.by.title');
+      expect(thirdOption.routerLink).toEqual('/collections/' + publicationId + '/browse/title');
+    });
+
+    it('should have two options for the orgUnit\'s collection',  () => {
+      component.id = orgUnitId;
+      fixture.detectChanges();
+
+      const navElements = fixture.debugElement.queryAll(By.css('.list-group-item'));
+      expect(navElements).toHaveSize(2);
+
+      expect(component.allOptions.length).toEqual(2);
+      const firstOption = component.allOptions[0];
+      expect(firstOption.id).toEqual('search');
+      expect(firstOption.label).toEqual('collection.page.browse.search.head');
+      expect(firstOption.routerLink).toEqual('/collections/' + orgUnitId);
+      const secondOption = component.allOptions[1];
+      expect(secondOption.id).toEqual('ouname');
+      expect(secondOption.label).toEqual('browse.comcol.by.ouname');
+      expect(secondOption.routerLink).toEqual('/collections/' + orgUnitId + '/browse/ouname');
+    });
+
+    it('should display browse options when options are more then one',  () => {
+
+      fixture = TestBed.createComponent(ComcolPageBrowseByComponent);
+      component = fixture.componentInstance;
+      component.id = publicationId;
+      component.contentType = 'collection';
+
+      fixture.detectChanges();
+
+      expect(component.allOptions.length).toEqual(3);
+
+      const navElement = fixture.debugElement.query(By.css('nav'));
+      expect(navElement).toBeTruthy();
+
+    });
   });
 
-  it('should create ComcolPageBrowseByComponent for the orgUnit\'s collection with two option',  () => {
-    fixture = TestBed.createComponent(ComcolPageBrowseByComponent);
-    component = fixture.componentInstance;
-    component.id = orgUnitId;
-    component.contentType = 'collection';
-
-    fixture.detectChanges();
-
-    expect(component.allOptions.length).toEqual(2);
-    const firstOption = component.allOptions[0];
-    expect(firstOption.id).toEqual(orgUnitId);
-    expect(firstOption.label).toEqual('collection.page.browse.recent.head');
-    expect(firstOption.routerLink).toEqual('/collections/' + orgUnitId);
-    const secondOption = component.allOptions[1];
-    expect(secondOption.id).toEqual('ouname');
-    expect(secondOption.label).toEqual('browse.comcol.by.ouname');
-    expect(secondOption.routerLink).toEqual('/browse/ouname');
-    expect(secondOption.params).toEqual({ scope: orgUnitId });
-  });
-
-  it('should display browse options when options are more then one',  () => {
-
-    fixture = TestBed.createComponent(ComcolPageBrowseByComponent);
-    component = fixture.componentInstance;
-    component.id = publicationId;
-    component.contentType = 'collection';
-
-    fixture.detectChanges();
-
-    expect(component.allOptions.length).toEqual(3);
-
-    const navElement = fixture.debugElement.query(By.css('nav'));
-    expect(navElement).toBeTruthy();
-
-  });
-
-  it('should not display browse options when options aren\'t more then one',  () => {
-
-    fixture = TestBed.createComponent(ComcolPageBrowseByComponent);
-    component = fixture.componentInstance;
-    component.id = communityId;
-    component.contentType = 'community';
-
-    fixture.detectChanges();
-
-    expect(component.allOptions.length).toEqual(1);
-
-    const navElement = fixture.debugElement.query(By.css('nav'));
-    expect(navElement).toBeNull();
-
-  });
 });
