@@ -1630,6 +1630,10 @@
   // TODO New key - Add a translation
   "browse.metadata.srsc.breadcrumbs": "Browse by Subject Category",
 
+  // "browse.metadata.rsoTitle.breadcrumbs": "Browse by Title",
+  // TODO New key - Add a translation
+  "browse.metadata.rsoTitle.breadcrumbs": "Sfoglia per Titolo",
+
   // "browse.metadata.srsc.tree.descrption": "Select a subject to add as search filter",
   // TODO New key - Add a translation
   "browse.metadata.srsc.tree.descrption": "Select a subject to add as search filter",
