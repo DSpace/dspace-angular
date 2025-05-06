@@ -196,11 +196,11 @@ export class ThumbnailComponent implements OnChanges {
       // isLoading$ will be set to false by the error or success handler afterwards, except in the
       // case where src is null, then we have to set it manually here (because those handlers won't
       // trigger)
-      if (this.isLoading() === false) {
+      if (src !== null && this.isLoading() === false) {
         this.isLoading.set(true);
       }
       this.src.set(src);
-      if (src === null) {
+      if (src === null && this.isLoading() === true) {
         this.isLoading.set(false);
       }
     }
