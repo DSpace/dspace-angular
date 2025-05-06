@@ -1,4 +1,7 @@
-import { Observable, of } from 'rxjs';
+import {
+  Observable,
+  of,
+} from 'rxjs';
 import { map } from 'rxjs/operators';
 
 export const getDefaultImageUrlByEntityType = (entityType: string): Observable<string> => {

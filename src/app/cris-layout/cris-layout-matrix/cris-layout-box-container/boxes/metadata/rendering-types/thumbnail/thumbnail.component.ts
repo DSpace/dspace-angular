@@ -10,28 +10,28 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
+  combineLatest,
+  Observable,
   of as observableOf,
 } from 'rxjs';
 import {
   map,
   switchMap,
-  take
 } from 'rxjs/operators';
 
 import { BitstreamDataService } from '../../../../../../../core/data/bitstream-data.service';
 import { PaginatedList } from '../../../../../../../core/data/paginated-list.model';
 import { LayoutField } from '../../../../../../../core/layout/models/box.model';
 import { Bitstream } from '../../../../../../../core/shared/bitstream.model';
+import { getDefaultImageUrlByEntityType } from '../../../../../../../core/shared/image.utils';
 import { Item } from '../../../../../../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../../../../../../core/shared/operators';
 import {
-  hasValue,
   isEmpty,
   isNotEmpty,
 } from '../../../../../../../shared/empty.util';
 import { ThemedThumbnailComponent } from '../../../../../../../thumbnail/themed-thumbnail.component';
 import { BitstreamRenderingModelComponent } from '../bitstream-rendering-model';
-import { getDefaultImageUrlByEntityType } from '../../../../../../../core/shared/image.utils';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector, dspace-angular-ts/themed-component-selectors
@@ -58,7 +58,7 @@ export class ThumbnailRenderingComponent extends BitstreamRenderingModelComponen
   /**
    * Default image to be shown in the thumbnail
    */
-  default: string;
+  default$: Observable<string>;
 
   /**
    * Item rendering initialization state
@@ -85,9 +85,14 @@ export class ThumbnailRenderingComponent extends BitstreamRenderingModelComponen
    * Get the thumbnail information from api for this item
    */
   ngOnInit(): void {
-    this.setDefaultImage();
-    this.getBitstreamsByItem().pipe(
-      map((bitstreamList: PaginatedList<Bitstream>) => bitstreamList.page),
+    const eType = this.item.firstMetadataValue('dspace.entity.type');
+    this.default$ = getDefaultImageUrlByEntityType(eType);
+
+    combineLatest([
+      this.default$,
+      this.getBitstreamsByItem(),
+    ]).pipe(
+      map(([_, bitstreamList]: [string, PaginatedList<Bitstream>]) => bitstreamList.page),
       switchMap((filteredBitstreams: Bitstream[]) => {
         if (filteredBitstreams.length > 0) {
           if (isEmpty(filteredBitstreams[0].thumbnail)) {
@@ -113,16 +118,6 @@ export class ThumbnailRenderingComponent extends BitstreamRenderingModelComponen
         this.thumbnail$.next(thumbnail);
       }
       this.initialized.next(true);
-    });
-  }
-
-  /**
-   * Set the default image src depending on item entity type
-   */
-  setDefaultImage(): void {
-    const eType = this.item.firstMetadataValue('dspace.entity.type');
-    getDefaultImageUrlByEntityType(eType).pipe(take(1)).subscribe((url) => {
-      this.default = url;
     });
   }
 }

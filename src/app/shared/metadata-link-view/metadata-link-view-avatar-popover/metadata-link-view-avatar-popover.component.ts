@@ -9,10 +9,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { ThumbnailComponent } from 'src/app/thumbnail/thumbnail.component';
-import { getDefaultImageUrlByEntityType } from '../../../core/shared/image.utils';
 import { Observable } from 'rxjs';
+import { ThumbnailComponent } from 'src/app/thumbnail/thumbnail.component';
 
+import { getDefaultImageUrlByEntityType } from '../../../core/shared/image.utils';
 import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { SafeUrlPipe } from '../../utils/safe-url-pipe';
 import { VarDirective } from '../../utils/var.directive';
