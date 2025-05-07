@@ -1867,6 +1867,8 @@
 
   "community.page.edit": "Edit this community",
 
+  "community.page.browse.search.head": "Search",
+
   "community.page.handle": "Permanent URI for this community",
 
   "community.page.license": "License",
