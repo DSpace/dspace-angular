@@ -293,10 +293,10 @@ describe('VocabularyTreeviewService test suite', () => {
         elementsPerPage: 1,
         totalElements: 2,
         totalPages: 2,
-        currentPage: 2
+        currentPage: 2,
       });
       spyOn(serviceAsAny, 'getChildrenNodesByParent').and.returnValue(hot('a', {
-        a: buildPaginatedList(pageInfo, [])
+        a: buildPaginatedList(pageInfo, []),
       }));
 
       serviceAsAny.dataChange.next(treeNodeListWithLoadMore);
