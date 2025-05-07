@@ -75,10 +75,11 @@ export const itemPageResolver: ResolveFn<RemoteData<Item>> = (
     map((rd: RemoteData<Item>) => {
       store.dispatch(new ResolvedAction(state.url, rd.payload));
       if (rd.hasSucceeded && hasValue(rd.payload)) {
+        const itemRoute = router.parseUrl(getItemPageRoute(rd.payload)).toString();
         // Check if custom url not empty and if the current id parameter is different from the custom url redirect to custom url
         if (hasValue(rd.payload.metadata) && isNotEmpty(rd.payload.metadata['cris.customurl'])) {
           if (route.params.id !== rd.payload.metadata['cris.customurl'][0].value) {
-            const newUrl = state.url.replace(route.params.id, rd.payload.metadata['cris.customurl'][0].value);
+            const newUrl = itemRoute.replace(route.params.id, rd.payload.metadata['cris.customurl'][0].value);
             router.navigateByUrl(newUrl);
           }
         } else {
@@ -88,7 +89,6 @@ export const itemPageResolver: ResolveFn<RemoteData<Item>> = (
           // or semicolons) and thisRoute has been encoded with that function. If we want to compare
           // it with itemRoute, we have to run itemRoute through Angular's version as well to ensure
           // the same characters are encoded the same way.
-          const itemRoute = router.parseUrl(getItemPageRoute(rd.payload)).toString();
 
           if (!thisRoute.startsWith(itemRoute)) {
             const itemId = rd.payload.uuid;
