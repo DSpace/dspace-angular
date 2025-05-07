@@ -12,7 +12,10 @@ import {
   ActivatedRoute,
   RouterLink,
 } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import {
   combineLatest as observableCombineLatest,
   Observable,
@@ -75,6 +78,11 @@ export class FileDownloadLinkComponent implements OnInit {
    */
   @Input() showAccessStatusBadge = true;
 
+  /**
+   * A boolean indicating whether the download icon should be displayed.
+   */
+  @Input() showIcon = false;
+
   itemRequest: ItemRequest;
 
   bitstreamPath$: Observable<{
@@ -90,6 +98,7 @@ export class FileDownloadLinkComponent implements OnInit {
     private authorizationService: AuthorizationDataService,
     public dsoNameService: DSONameService,
     private route: ActivatedRoute,
+    private translateService: TranslateService,
   ) {
   }
 
@@ -152,5 +161,10 @@ export class FileDownloadLinkComponent implements OnInit {
       routerLink: getBitstreamDownloadRoute(this.bitstream),
       queryParams: {},
     };
+  }
+
+  getDownloadLinkTitle(canDownload: boolean,canDownloadWithToken: boolean, bitstreamName: string): string {
+    return (canDownload || canDownloadWithToken ? this.translateService.instant('file-download-link.download') :
+      this.translateService.instant('file-download-link.request-copy')) + bitstreamName;
   }
 }
