@@ -221,7 +221,7 @@ export function app() {
  * The callback function to serve server side angular
  */
 function ngApp(req, res, next) {
-  if (environment.ssr.enabled && req.method === 'GET' && (req.path === '/' || !isExcludedFromSsr(req.path, environment.ssr.excludePathRegexes))) {
+  if (environment.ssr.enabled && req.method === 'GET' && (req.path === '/' || !isExcludedFromSsr(req.path, environment.ssr.excludePathPatterns))) {
     // Render the page to user via SSR (server side rendering)
     serverSideRender(req, res, next);
   } else {
@@ -631,10 +631,13 @@ function start() {
  * Check if SSR should be skipped for path
  *
  * @param path
- * @param excludePathRegexes
+ * @param excludePathPattern
  */
-function isExcludedFromSsr(path: string, excludePathRegexes: RegExp[]): boolean {
-  return excludePathRegexes.some((regex) => regex.test(path));
+function isExcludedFromSsr(path: string, excludePathPattern: (string | RegExp)[]): boolean {
+  return excludePathPattern.some((pattern) => {
+    const regex = new RegExp(pattern);
+    return regex.test(path)
+  });
 }
 
 /*
