@@ -1,5 +1,9 @@
 <ng-container *ngIf="showAccessStatus">
   <span *ngIf="accessStatus$ | async as accessStatus">
-    <span class="badge badge-secondary">{{ accessStatus | translate }}</span>
+    <span class="badge badge-secondary">
+      <span class="sr-only">{{ 'listelement.badge.access-status' | translate }}</span>
+      {{ accessStatus | translate }}
+      <span class="sr-only">, </span>
+    </span>
   </span>
 </ng-container>
