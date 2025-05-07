@@ -15,7 +15,6 @@ import { SuggestionsPopupComponent } from '../../../../app/notifications/suggest
 import { ThemedConfigurationSearchPageComponent } from '../../../../app/search-page/themed-configuration-search-page.component';
 import { ThemedSearchFormComponent } from '../../../../app/shared/search-form/themed-search-form.component';
 import { PageWithSidebarComponent } from '../../../../app/shared/sidebar/page-with-sidebar.component';
-import { ViewTrackerComponent } from '../../../../app/statistics/angulartics/dspace/view-tracker.component';
 
 @Component({
   selector: 'ds-themed-home-page',
@@ -24,7 +23,7 @@ import { ViewTrackerComponent } from '../../../../app/statistics/angulartics/dsp
   // templateUrl: './home-page.component.html'
   templateUrl: '../../../../app/home-page/home-page.component.html',
   standalone: true,
-  imports: [ThemedHomeNewsComponent, NgTemplateOutlet, ViewTrackerComponent, ThemedSearchFormComponent, ThemedTopLevelCommunityListComponent, RecentItemListComponent, AsyncPipe, TranslateModule, NgClass, SuggestionsPopupComponent, ThemedConfigurationSearchPageComponent, PageWithSidebarComponent, HomeCoarComponent],
+  imports: [ThemedHomeNewsComponent, NgTemplateOutlet, ThemedSearchFormComponent, ThemedTopLevelCommunityListComponent, RecentItemListComponent, AsyncPipe, TranslateModule, NgClass, SuggestionsPopupComponent, ThemedConfigurationSearchPageComponent, PageWithSidebarComponent, HomeCoarComponent],
 })
 export class HomePageComponent extends BaseComponent {
 

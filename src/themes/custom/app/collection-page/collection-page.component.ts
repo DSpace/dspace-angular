@@ -21,7 +21,6 @@ import { ErrorComponent } from '../../../../app/shared/error/error.component';
 import { ThemedLoadingComponent } from '../../../../app/shared/loading/themed-loading.component';
 import { ObjectCollectionComponent } from '../../../../app/shared/object-collection/object-collection.component';
 import { VarDirective } from '../../../../app/shared/utils/var.directive';
-import { ViewTrackerComponent } from '../../../../app/statistics/angulartics/dspace/view-tracker.component';
 
 @Component({
   selector: 'ds-themed-collection-page',
@@ -40,7 +39,6 @@ import { ViewTrackerComponent } from '../../../../app/statistics/angulartics/dsp
     ErrorComponent,
     ThemedLoadingComponent,
     TranslateModule,
-    ViewTrackerComponent,
     VarDirective,
     AsyncPipe,
     ComcolPageHeaderComponent,

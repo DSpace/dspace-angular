@@ -86,6 +86,11 @@ export class ObjectDetailComponent {
   @Input() showThumbnails;
 
   /**
+   * Whether to show the RSS syndication link. Either false, or valid SortOptions object
+   */
+  @Input() showRSS: SortOptions | boolean = false;
+
+  /**
    * Emit when one of the listed object has changed.
    */
   @Output() contentChange = new EventEmitter<any>();

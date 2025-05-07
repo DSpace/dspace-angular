@@ -59,6 +59,8 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
 
   @Input() selectionConfig: { repeatable: boolean, listId: string };
 
+  @Input() showRSS: SortOptions | boolean = false;
+
   /**
    * The link type of the listable elements
    */
@@ -163,6 +165,7 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
     'sortConfig',
     'hasBorder',
     'hideGear',
+    'showRSS',
     'hidePagerWhenSinglePage',
     'selectable',
     'selectionConfig',
