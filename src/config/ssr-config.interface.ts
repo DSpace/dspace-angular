@@ -39,9 +39,9 @@ export interface SSRConfig extends Config {
   replaceRestUrl: boolean;
 
   /**
-   * Regexes to match url's path and check if SSR is disabled for it.
+   * Patterns to be used as regexes to match url's path and check if SSR is disabled for it.
    */
-  excludePathRegexes:  RegExp[];
+  excludePathPatterns:  (string | RegExp)[];
 
   /**
    * Whether to enable rendering of search component on SSR
