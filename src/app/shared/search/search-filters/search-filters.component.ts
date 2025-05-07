@@ -231,7 +231,7 @@ export class SearchFiltersComponent implements OnInit, AfterViewChecked, OnDestr
       ).subscribe((results) => {
         if (results.totalFilters === results.currentComputed) {
           this.allFiltersComputed = true;
-          this.availableFilters$.next(this.searchFilter._results.some(element => element.nativeElement?.children[0]?.children.length > 0));
+          this.availableFilters$.next(this.searchFilter?._results.some(element => element.nativeElement?.children[0]?.children.length > 0));
         }
       });
     }
@@ -301,7 +301,7 @@ export class SearchFiltersComponent implements OnInit, AfterViewChecked, OnDestr
     this.searchFilter.changes.pipe(
       filter(() => this.allFiltersComputed),
       map((filters: any) => {
-        return filters._results.some(element => element.nativeElement?.children[0]?.children.length > 0);
+        return filters?._results.some(element => element.nativeElement?.children[0]?.children.length > 0);
       }),
       distinctUntilChanged(),
       takeUntilDestroyed(this.destroyRef),
