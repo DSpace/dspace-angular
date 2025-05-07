@@ -48,7 +48,7 @@
     <div class="row" *ngIf="(ownerCanDisconnectProfileFromOrcid$ | async)" data-test="unlinkOwner">
       <div class="col">
         <button type="submit" class="btn btn-danger float-right" (click)="unlinkOrcid()"
-                [disabled]="(unlinkProcessing | async)">
+                [dsBtnDisabled]="(unlinkProcessing | async)">
           <span *ngIf="(unlinkProcessing | async) !== true"><i
             class="fas fa-unlink"></i> {{ 'person.page.orcid.unlink' | translate }}</span>
           <span *ngIf="(unlinkProcessing | async)"><i

@@ -6,6 +6,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -29,6 +30,7 @@ import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { Item } from '../../../core/shared/item.model';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { AlertComponent } from '../../../shared/alert/alert.component';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import {
   hasValue,
   isNotEmpty,
@@ -104,13 +106,13 @@ export interface QualityAssuranceEventData {
   styleUrls: ['./project-entry-import-modal.component.scss'],
   templateUrl: './project-entry-import-modal.component.html',
   standalone: true,
-  imports: [RouterLink, NgIf, FormsModule, ThemedLoadingComponent, ThemedSearchResultsComponent, AlertComponent, AsyncPipe, TranslateModule],
+  imports: [RouterLink, NgIf, FormsModule, ThemedLoadingComponent, ThemedSearchResultsComponent, AlertComponent, AsyncPipe, TranslateModule, BtnDisabledDirective],
 })
 /**
  * Component to display a modal window for linking a project to an Quality Assurance event
  * Shows information about the selected project and a selectable list.
  */
-export class ProjectEntryImportModalComponent implements OnInit {
+export class ProjectEntryImportModalComponent implements OnInit, OnDestroy {
   /**
    * The external source entry
    */

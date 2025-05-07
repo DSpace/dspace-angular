@@ -7,6 +7,7 @@ import { RouterLink } from '@angular/router';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { ItemOperation } from './itemOperation.model';
 
 @Component({
@@ -17,6 +18,7 @@ import { ItemOperation } from './itemOperation.model';
     RouterLink,
     NgbTooltipModule,
     NgIf,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

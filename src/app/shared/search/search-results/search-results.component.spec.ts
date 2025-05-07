@@ -12,17 +12,23 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { APP_CONFIG } from '../../../../config/app-config.interface';
+import { environment } from '../../../../environments/environment';
 import { Community } from '../../../core/shared/community.model';
+import { SearchService } from '../../../core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { ErrorComponent } from '../../error/error.component';
-import { ThemedLoadingComponent } from '../../loading/themed-loading.component';
 import { getMockThemeService } from '../../mocks/theme-service.mock';
 import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
 import { createFailedRemoteDataObject } from '../../remote-data.utils';
 import { ActivatedRouteStub } from '../../testing/active-router.stub';
 import { QueryParamsDirectiveStub } from '../../testing/query-params-directive.stub';
+import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
+import { SearchServiceStub } from '../../testing/search-service.stub';
 import { ThemeService } from '../../theme-support/theme.service';
 import { SearchExportCsvComponent } from '../search-export-csv/search-export-csv.component';
 import { SearchResultsComponent } from './search-results.component';
+import { SearchResultsSkeletonComponent } from './search-results-skeleton/search-results-skeleton.component';
 
 describe('SearchResultsComponent', () => {
   let comp: SearchResultsComponent;
@@ -35,6 +41,12 @@ describe('SearchResultsComponent', () => {
       providers: [
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
         { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: SearchService, useValue: new SearchServiceStub() },
+        {
+          provide: SearchConfigurationService,
+          useValue: new SearchConfigurationServiceStub(),
+        },
+        { provide: APP_CONFIG, useValue: environment },
       ],
       imports: [
         TranslateModule.forRoot(),
@@ -48,8 +60,8 @@ describe('SearchResultsComponent', () => {
           imports: [
             SearchExportCsvComponent,
             ObjectCollectionComponent,
-            ThemedLoadingComponent,
             ErrorComponent,
+            SearchResultsSkeletonComponent,
           ],
         },
         add: { imports: [QueryParamsDirectiveStub] },
@@ -96,7 +108,7 @@ describe('SearchResultsComponent', () => {
 
   it('should display link with new search where query is quoted if search return a error 400', () => {
     (comp as any).searchResults = createFailedRemoteDataObject('Error', 400);
-    (comp as any).searchConfig = { query: 'foobar' };
+    (comp as any).searchConfig = { query: 'foobar', pagination: { pageSize: 10 } };
     fixture.detectChanges();
 
     const linkDes = fixture.debugElement.queryAll(By.directive(QueryParamsDirectiveStub));

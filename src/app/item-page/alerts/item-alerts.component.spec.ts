@@ -150,13 +150,23 @@ describe('ItemAlertsComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should return true when user is not an admin and there is at least one correction with topic REQUEST_REINSTATE', (done) => {
+    it('should return true when user is not an admin and there is at least one correction with topic REQUEST_REINSTATE', () => {
+      testScheduler.run(({ cold, expectObservable }) => {
+        const isAdminMarble = 'a';
+        const correctionMarble = 'b';
+        const expectedMarble = 'c';
 
-      (authorizationService.isAuthorized).and.returnValue(of(false));
-      component.ngOnInit();
-      component.showReinstateButton$.subscribe(value => {
-        expect(value).toBeTruthy();
-        done();
+        const isAdminValues = { a: false };
+        const correctionValues = { b: correctionRD };
+        const expectedValues = { c: true };
+
+        const isAdmin$ = cold(isAdminMarble, isAdminValues);
+        const correction$ = cold(correctionMarble, correctionValues);
+
+        (authorizationService.isAuthorized).and.returnValue(isAdmin$);
+        (correctionTypeDataService.findByItem).and.returnValue(correction$);
+
+        expectObservable(component.shouldShowReinstateButton()).toBe(expectedMarble, expectedValues);
       });
     });
 

@@ -6,11 +6,13 @@ import {
 } from '@angular/common';
 import {
   Component,
+  EventEmitter,
   Inject,
   Input,
   OnChanges,
   OnDestroy,
   OnInit,
+  Output,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -78,6 +80,8 @@ export class SearchFilterComponent implements OnInit, OnChanges, OnDestroy {
    */
   @Input() scope: string;
 
+  @Output() isVisibilityComputed = new EventEmitter<boolean>();
+
   /**
    * True when the filter is 100% collapsed in the UI
    */
@@ -136,11 +140,16 @@ export class SearchFilterComponent implements OnInit, OnChanges, OnDestroy {
     this.active$ = this.isActive();
     this.collapsed$ = this.isCollapsed();
     this.initializeFilter();
-    this.subs.push(this.appliedFilters$.pipe(take(1)).subscribe((selectedValues: AppliedFilter[]) => {
-      if (isNotEmpty(selectedValues)) {
-        this.filterService.expand(this.filter.name);
-      }
-    }));
+    this.subs.push(
+      this.appliedFilters$.subscribe((selectedValues: AppliedFilter[]) => {
+        if (isNotEmpty(selectedValues)) {
+          this.filterService.expand(this.filter.name);
+        }
+      }),
+      this.getIsActive().pipe(take(1)).subscribe(() => {
+        this.isVisibilityComputed.emit(true);
+      }),
+    );
   }
 
   ngOnChanges(): void {
@@ -223,6 +232,16 @@ export class SearchFilterComponent implements OnInit, OnChanges, OnDestroy {
    * @returns {Observable<boolean>} Emits true whenever a given filter config should be shown
    */
   isActive(): Observable<boolean> {
+    return this.getIsActive().pipe(
+      startWith(false),
+    );
+  }
+
+  /**
+   * Return current filter visibility
+   * @returns {Observable<boolean>} Emits true whenever a given filter config should be shown
+   */
+  private getIsActive():  Observable<boolean> {
     return combineLatest([
       this.appliedFilters$,
       this.searchConfigService.searchOptions,
@@ -243,7 +262,6 @@ export class SearchFilterComponent implements OnInit, OnChanges, OnDestroy {
           );
         }
       }),
-      startWith(false),
     );
   }
 }

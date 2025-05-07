@@ -1,10 +1,10 @@
 <div class="m-1">
   <div class="export-buttons-container mb-2" *ngIf="hasData">
-    <button class="btn btn-secondary mr-2" [disabled]="(isLoading | async) || (isSecondLoading | async)" (click)="exportExcel()">
+    <button class="btn btn-secondary mr-2" [dsBtnDisabled]="(isLoading | async) || (isSecondLoading | async)" (click)="exportExcel()">
       <span *ngIf="(isLoading | async) === true"><i class="fas fa-circle-notch fa-spin"></i> {{'loading.default' | translate}}</span>
       <span *ngIf="(isLoading | async) !== true"><i class="fas fa-file-export fa-fw"></i> {{'statistics.export.excel' | translate}}</span>
     </button>
-    <button class="btn btn-secondary mr-2" [disabled]="(isLoading | async) || (isSecondLoading | async)" (click)="exportCsv()">
+    <button class="btn btn-secondary mr-2" [dsBtnDisabled]="(isLoading | async) || (isSecondLoading | async)" (click)="exportCsv()">
       <span *ngIf="(isSecondLoading | async) === true"><i class="fas fa-circle-notch fa-spin"></i> {{'loading.default' | translate}}</span>
       <span *ngIf="(isSecondLoading | async) !== true"><i class="fas fa-file-export fa-fw"></i> {{'statistics.export.csv' | translate}}</span>
     </button>

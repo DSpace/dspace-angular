@@ -16,19 +16,18 @@
         </label>
       </div>
     </div>
-    <div class="col-md-12">
-      <div class="float-left ml-3 mb-2 badge badge-pill bg-primary text-white" *ngIf="(vocabularyFileType$ | async)">
-        {{(vocabularyFileType$ | async)}}
-      </div>
-    </div>
-    <div class="col-md-12">
-      <div class="float-left w-75 pl-3">
-        <h4>{{fileName}} <span class="text-secondary">({{fileData?.sizeBytes | dsFileSize}})</span></h4>
+    <div class="col-md-10">
+      <div class="float-left w-75">
+        <div class="flex-grow-0 ml-3 mb-2 badge badge-pill bg-primary text-white" *ngIf="(vocabularyFileType$ | async)">
+          {{(vocabularyFileType$ | async)}}
+        </div>
+        <div class="clearfix"></div>
+        <ds-submission-section-upload-file-view [fileData]="fileData"></ds-submission-section-upload-file-view>
       </div>
       <div *ngIf="!readOnly" class="float-right w-15">
         <ng-container>
           <ds-file-download-link [cssClasses]="'btn btn-link-focus'" [isBlank]="true"
-                                        [bitstream]="getBitstream()" [enableRequestACopy]="false">
+                                 [bitstream]="getBitstream()" [enableRequestACopy]="false">
             <i class="fa fa-download fa-2x text-normal" aria-hidden="true"></i>
           </ds-file-download-link>
           <button class="btn btn-link-focus"
@@ -40,7 +39,7 @@
           <button class="btn btn-link-focus"
                   [attr.aria-label]="'submission.sections.upload.delete.confirm.title' | translate"
                   title="{{ 'submission.sections.upload.delete.confirm.title' | translate }}"
-                  [disabled]="(processingDelete$ | async)"
+                  [dsBtnDisabled]="(processingDelete$ | async)"
                   (click)="$event.preventDefault();confirmDelete(content);">
             <i *ngIf="(processingDelete$ | async)" class="fas fa-circle-notch fa-spin fa-2x text-danger"></i>
             <i *ngIf="(processingDelete$ | async) !== true" class="fa fa-trash fa-2x text-danger"></i>
@@ -48,7 +47,6 @@
         </ng-container>
       </div>
       <div class="clearfix"></div>
-      <ds-submission-section-upload-file-view [fileData]="fileData"></ds-submission-section-upload-file-view>
     </div>
   </div>
 

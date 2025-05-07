@@ -115,11 +115,14 @@ export class SubmissionObjectEffects {
         // A section is enabled if it is mandatory or contains data in its section payload
         // except for detect duplicate steps which will be hidden with no data unless overridden in config, even if mandatory
         const enabled = (sectionDefinition.mandatory && (sectionDefinition.sectionType !== SectionsType.DetectDuplicate &&
-          sectionDefinition.sectionType !== SectionsType.Correction && sectionDefinition.sectionType !== SectionsType.Duplicates)) ||
-          (isNotEmpty(action.payload.sections) && action.payload.sections.hasOwnProperty(sectionId)
-            && sectionDefinition.sectionType !== SectionsType.Correction) ||
-          (isNotEmpty(action.payload.sections) && action.payload.sections.hasOwnProperty(sectionId)
-            && sectionDefinition.sectionType === SectionsType.Correction && !((action.payload.sections[sectionId] as any).empty));
+          sectionDefinition.sectionType !== SectionsType.Correction && sectionDefinition.sectionType !== SectionsType.Duplicates))
+          || (isNotEmpty(action.payload.sections) && action.payload.sections.hasOwnProperty(sectionId)
+            && sectionDefinition.sectionType !== SectionsType.Correction)
+          || (isNotEmpty(action.payload.sections) && action.payload.sections.hasOwnProperty(sectionId)
+            && sectionDefinition.sectionType === SectionsType.Correction && !((action.payload.sections[sectionId] as any).empty))
+          || (isNotEmpty(action.payload.sections) && action.payload.sections.hasOwnProperty(sectionId)
+            && (sectionDefinition.sectionType === SectionsType.Duplicates && (alwaysDisplayDuplicates() || isNotEmpty((action.payload.sections[sectionId] as WorkspaceitemSectionDuplicatesObject).potentialDuplicates)))
+          );
         let sectionData;
         if (sectionDefinition.sectionType !== SectionsType.SubmissionForm) {
           sectionData = (isNotUndefined(action.payload.sections) && isNotUndefined(action.payload.sections[sectionId])) ? action.payload.sections[sectionId] : Object.create(null);

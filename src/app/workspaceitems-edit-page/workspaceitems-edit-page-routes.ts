@@ -52,16 +52,6 @@ export const ROUTES: Route[] = [
         },
         data: { title: 'workspace-item.delete', breadcrumbKey: 'workspace-item.delete' },
       },
-      {
-        canActivate: [authenticatedGuard],
-        path: 'delete',
-        component: ThemedWorkspaceItemsDeletePageComponent,
-        resolve: {
-          dso: itemFromWorkspaceResolver,
-          breadcrumb: i18nBreadcrumbResolver,
-        },
-        data: { title: 'workspace-item.delete', breadcrumbKey: 'workspace-item.delete' },
-      },
     ],
   },
 ];

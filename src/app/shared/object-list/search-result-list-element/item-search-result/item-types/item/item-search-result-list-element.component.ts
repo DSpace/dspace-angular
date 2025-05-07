@@ -36,6 +36,8 @@ import { environment } from '../../../../../../../environments/environment';
 import { DSONameService } from '../../../../../../core/breadcrumbs/dso-name.service';
 import { Context } from '../../../../../../core/shared/context.model';
 import { Item } from '../../../../../../core/shared/item.model';
+import { MetadataValueFilter } from '../../../../../../core/shared/metadata.models';
+import { PLACEHOLDER_VALUE } from '../../../../../../core/shared/metadata.utils';
 import { getFirstSucceededRemoteListPayload } from '../../../../../../core/shared/operators';
 import { ViewMode } from '../../../../../../core/shared/view-mode.model';
 import { getItemPageRoute } from '../../../../../../item-page/item-page-routing-paths';
@@ -83,6 +85,11 @@ export class ItemSearchResultListElementComponent extends SearchResultListElemen
   authorMetadata = environment.searchResult.authorMetadata;
 
   hasLoadedThirdPartyMetrics$: Observable<boolean>;
+
+  readonly placeholderFilter: MetadataValueFilter = {
+    negate: true,
+    value: PLACEHOLDER_VALUE,
+  };
 
   private thirdPartyMetrics = environment.info.metricsConsents.filter(metric => metric.enabled).map(metric => metric.key);
 

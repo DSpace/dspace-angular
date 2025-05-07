@@ -79,13 +79,14 @@ describe('LoginPageComponent', () => {
         ],
         providers: [
           { provide: ActivatedRoute, useValue: activatedRouteStub },
-          { provide: Store, useValue: store },
+          { provide: AuthService, useValue: new AuthServiceMock() },
+          { provide: XSRFService, useValue: {} },
           { provide: PLATFORM_ID, useValue: 'server' },
           { provide: APP_DATA_SERVICES_MAP, useValue: {} },
           provideMockStore({}),
         ],
         schemas: [NO_ERRORS_SCHEMA],
-      }).overrideComponent(LoginPageComponent, { remove: { imports: [ThemedLoadingComponent, ThemedLogInComponent] } }).compileComponents();
+      }).compileComponents();
     }));
 
     beforeEach(() => {

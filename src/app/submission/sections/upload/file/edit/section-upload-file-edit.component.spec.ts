@@ -168,7 +168,7 @@ describe('SubmissionSectionUploadFileEditComponent test suite', () => {
         { provide: XSRFService, useValue: {} },
       ],
       schemas: [NO_ERRORS_SCHEMA],
-    }).overrideComponent(SubmissionSectionUploadFileEditComponent, { remove: { imports: [FormComponent] } }).compileComponents().then();
+    }).compileComponents().then();
   }));
 
   describe('', () => {

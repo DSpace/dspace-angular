@@ -34,7 +34,6 @@
               "ngx-export-as",
               "url-parse",
               "uuid",
-              "webfontloader",
               "xlsx",
               "zone.js"
             ],

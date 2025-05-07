@@ -22,6 +22,7 @@ import {
   Subscription,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { BtnDisabledDirective } from 'src/app/shared/btn-disabled.directive';
 
 import { AppState } from '../../../../app.reducer';
 import { Item } from '../../../../core/shared/item.model';
@@ -44,6 +45,7 @@ import { hasValue } from '../../../empty.util';
     AsyncPipe,
     NgbTooltipModule,
     TranslateModule,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

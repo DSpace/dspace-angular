@@ -1,9 +1,9 @@
 /* tslint:disable:no-unused-variable */
 import { EventEmitter } from '@angular/core';
 import {
-  async,
   ComponentFixture,
   TestBed,
+  waitForAsync,
 } from '@angular/core/testing';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -25,7 +25,7 @@ describe('MetadataLinkViewAvatarPopoverComponent', () => {
   let fileService;
   let translateServiceStub;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     authService = jasmine.createSpyObj('AuthService', {
       isAuthenticated: observableOf(true),
     });

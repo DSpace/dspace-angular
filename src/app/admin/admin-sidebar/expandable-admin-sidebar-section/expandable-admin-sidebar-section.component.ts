@@ -84,7 +84,7 @@ export class ExpandableAdminSidebarSectionComponent extends AdminSidebarSectionC
     this.sidebarActiveBg$ = this.variableService.getVariable('--ds-admin-sidebar-active-bg');
     this.isSidebarCollapsed$ = this.menuService.isMenuCollapsed(this.menuID);
     this.isSidebarPreviewCollapsed$ = this.menuService.isMenuPreviewCollapsed(this.menuID);
-    this.isExpanded$ = combineLatestObservable([this.active, this.isSidebarCollapsed$, this.isSidebarPreviewCollapsed$]).pipe(
+    this.isExpanded$ = combineLatestObservable([this.active$, this.isSidebarCollapsed$, this.isSidebarPreviewCollapsed$]).pipe(
       map(([active, sidebarCollapsed, sidebarPreviewCollapsed]) => (active && (!sidebarCollapsed || !sidebarPreviewCollapsed))),
     );
   }

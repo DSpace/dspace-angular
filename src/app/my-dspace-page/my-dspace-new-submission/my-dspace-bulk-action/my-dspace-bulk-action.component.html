@@ -3,7 +3,7 @@
     type="button"
     class="btn btn-info mr-2"
     ngbTooltip="{{'submission.workflow.tasks.pool.claim_selected_help' | translate}}"
-    [disabled]="(processing$ | async) || (claimEnabled$ | async) !== true"
+    [dsBtnDisabled]="(processing$ | async) || (claimEnabled$ | async) !== true"
     (click)="claimAllSelectedTask()"
     [attr.data-test-disabled]="(claimEnabled$ | async) !== true"
   >
@@ -17,7 +17,7 @@
     type="button"
     class="btn btn-success mr-2"
     ngbTooltip="{{'submission.workflow.tasks.claimed.approve_selected_help' | translate}}"
-    [disabled]="(processing$ | async) || (claimedTaskActionsEnabled$ | async) !== true"
+    [dsBtnDisabled]="(processing$ | async) || (claimedTaskActionsEnabled$ | async) !== true"
     (click)="submitAllSelectedTask()"
     [attr.data-test-disabled]="(claimedTaskActionsEnabled$ | async) !== true"
   >
@@ -30,7 +30,7 @@
   <button
     class="btn btn-danger mr-2"
     [ngbTooltip]="rejectTipContent"
-    [disabled]="(claimedTaskActionsEnabled$ | async) !== true"
+    [dsBtnDisabled]="(claimedTaskActionsEnabled$ | async) !== true"
     (click)="openRejectModal(rejectModal)"
     [attr.data-test-disabled]="(claimedTaskActionsEnabled$ | async) !== true"
   >
@@ -44,7 +44,7 @@
     type="button"
     class="btn btn-secondary"
     ngbTooltip="{{'submission.workflow.tasks.claimed.return_help' | translate}}"
-    [disabled]="(claimedTaskActionsEnabled$ | async) !== true"
+    [dsBtnDisabled]="(claimedTaskActionsEnabled$ | async) !== true"
     (click)="returnSelectedToPool()"
     [attr.data-test-disabled]="(claimedTaskActionsEnabled$ | async) !== true"
   >
@@ -87,7 +87,7 @@
       <button
         id="btn-chat"
         class="btn btn-danger btn-lg btn-block mt-3"
-        [disabled]="!rejectForm.valid"
+        [dsBtnDisabled]="!rejectForm.valid"
         type="submit"
       >
         <span>{{'submission.workflow.tasks.claimed.reject.reason.submit' | translate}}</span>

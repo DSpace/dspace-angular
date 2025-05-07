@@ -36,10 +36,8 @@ import {
   switchMap,
 } from 'rxjs/operators';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../../config/app-config.interface';
+import { APP_CONFIG } from '../../../config/app-config.interface';
+import { BuildConfig } from '../../../config/build-config.interface';
 import { COLLECTION_MODULE_PATH } from '../../collection-page/collection-page-routing-paths';
 import { COMMUNITY_MODULE_PATH } from '../../community-page/community-page-routing-paths';
 import { SearchManager } from '../../core/browse/search-manager';
@@ -303,11 +301,6 @@ export class SearchComponent implements OnDestroy, OnInit {
   @Input() showFilterToggle = false;
 
   /**
-   * Defines whether to fetch search results during SSR execution
-   */
-  @Input() renderOnServerSide = false;
-
-  /**
    * Defines whether to show the toggle button to Show/Hide chart
    */
   @Input() showChartsToggle = false;
@@ -331,6 +324,11 @@ export class SearchComponent implements OnDestroy, OnInit {
    * Hides the scope in the url, this can be useful when you hardcode the scope in another way
    */
   @Input() hideScopeInUrl: boolean;
+
+  /**
+   * Defines whether to fetch search results during SSR execution
+   */
+  @Input() renderOnServerSide: boolean;
 
   /**
    * For chart regular expression
@@ -452,14 +450,15 @@ export class SearchComponent implements OnDestroy, OnInit {
   constructor(
     @Inject(PLATFORM_ID) public platformId: any,
     @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
-    @Inject(APP_CONFIG) protected appConfig: AppConfig,
+    @Inject(APP_CONFIG) protected appConfig: BuildConfig,
     protected service: SearchService,
     protected searchManager: SearchManager,
     protected sidebarService: SidebarService,
     protected windowService: HostWindowService,
     protected routeService: RouteService,
     protected router: Router,
-    protected authorizationService: AuthorizationDataService){
+    protected authorizationService: AuthorizationDataService,
+  ){
     this.isXsOrSm$ = this.windowService.isXsOrSm();
   }
 
@@ -471,7 +470,10 @@ export class SearchComponent implements OnDestroy, OnInit {
    * If something changes, update the list of scopes for the dropdown
    */
   ngOnInit(): void {
-    if (!this.renderOnServerSide && isPlatformServer(this.platformId)) {
+    if (!this.renderOnServerSide && !this.appConfig.ssr.enableSearchComponent && isPlatformServer(this.platformId)) {
+      this.subs.push(this.getSearchOptions().pipe(distinctUntilChanged()).subscribe((options) => {
+        this.searchOptions$.next(options);
+      }));
       this.initialized$.next(true);
       return;
     }

@@ -4,6 +4,7 @@ import {
   inheritSerialization,
 } from 'cerialize';
 
+import { SectionScope } from '../../../submission/objects/section-visibility.model';
 import { SectionsType } from '../../../submission/sections/sections-type';
 import { typedObject } from '../../cache/builders/build-decorators';
 import { HALLink } from '../../shared/hal-link.model';
@@ -47,6 +48,12 @@ export class SubmissionSectionModel extends ConfigObject {
    */
   @autoserialize
     opened: boolean;
+
+  /**
+   * The submission scope for this section
+   */
+  @autoserialize
+  scope: SectionScope;
 
   /**
    * A string representing the kind of section object

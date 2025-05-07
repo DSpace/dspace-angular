@@ -38,9 +38,11 @@
         </div>
         <div id="search-content" class="col-12">
             <div class="d-block d-md-none search-controls clearfix">
-                <ds-view-mode-switch *ngIf="inPlaceSearch && showViewModes" [viewModeList]="viewModeList" [inPlaceSearch]="inPlaceSearch"></ds-view-mode-switch>
-                <button [attr.aria-label]="'search.sidebar.open' | translate" (click)="openSidebar()" aria-controls="#search-body"
-                        aria-controls="search-sidebar-content"
+                <ds-view-mode-switch *ngIf="inPlaceSearch && showViewModes"
+                                     [viewModeList]="viewModeList"
+                                     [inPlaceSearch]="inPlaceSearch"></ds-view-mode-switch>
+                <button (click)="openSidebar()"
+                        aria-controls="#search-body"
                         class="btn btn-outline-primary float-right open-sidebar">
                   <i class="fas fa-sliders"></i> {{"search.sidebar.open" | translate}}
                 </button>
@@ -121,7 +123,7 @@
         <ds-search-form id="search-form" class="flex-grow-1"
                         [query]="(searchOptions$ | async)?.query"
                         [scope]="(searchOptions$ | async)?.scope"
-                    [hideScopeInUrl]="hideScopeInUrl"
+                        [hideScopeInUrl]="hideScopeInUrl"
                         [currentUrl]="searchLink"
                         [showScopeSelector]="showScopeSelector"
                         [inPlaceSearch]="inPlaceSearch"

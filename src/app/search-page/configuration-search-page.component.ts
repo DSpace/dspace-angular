@@ -12,11 +12,9 @@ import {
 import { Router } from '@angular/router';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import { BuildConfig } from 'src/config/build-config.interface';
 
-import {
-  APP_CONFIG,
-  AppConfig,
-} from '../../config/app-config.interface';
+import { APP_CONFIG } from '../../config/app-config.interface';
 import { SearchManager } from '../core/browse/search-manager';
 import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
 import { RouteService } from '../core/services/route.service';
@@ -72,7 +70,7 @@ import { ViewModeSwitchComponent } from '../shared/view-mode-switch/view-mode-sw
 export class ConfigurationSearchPageComponent extends SearchComponent {
   constructor(@Inject(PLATFORM_ID) public platformId: any,
               @Inject(SEARCH_CONFIG_SERVICE) public searchConfigService: SearchConfigurationService,
-              @Inject(APP_CONFIG) protected appConfig: AppConfig,
+              @Inject(APP_CONFIG) protected appConfig: BuildConfig,
               protected service: SearchService,
               protected searchManager: SearchManager,
               protected sidebarService: SidebarService,

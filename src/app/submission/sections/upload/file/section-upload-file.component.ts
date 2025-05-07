@@ -44,6 +44,7 @@ import { SubmissionJsonPatchOperationsService } from '../../../../core/submissio
 import { VocabularyService } from '../../../../core/submission/vocabularies/vocabulary.service';
 import { AlertComponent } from '../../../../shared/alert/alert.component';
 import { AlertType } from '../../../../shared/alert/alert-type';
+import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import {
   hasValue,
   isNotUndefined,
@@ -71,6 +72,7 @@ import { SubmissionSectionUploadFileViewComponent } from './view/section-upload-
     AsyncPipe,
     ThemedFileDownloadLinkComponent,
     FileSizePipe,
+    BtnDisabledDirective,
     AlertComponent,
   ],
   standalone: true,

@@ -36,6 +36,7 @@ import {
   take,
   tap,
 } from 'rxjs/operators';
+import { BtnDisabledDirective } from 'src/app/shared/btn-disabled.directive';
 
 import { SearchManager } from '../../../../core/browse/search-manager';
 import { RemoteData } from '../../../../core/data/remote-data';
@@ -88,6 +89,7 @@ export enum ExportSelectionMode {
     ItemExportAlertComponent,
     AdministeredCollectionSelectorComponent,
     AlertComponent,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

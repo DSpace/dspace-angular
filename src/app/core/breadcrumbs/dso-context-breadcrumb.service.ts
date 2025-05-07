@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { Breadcrumb } from '../../breadcrumbs/breadcrumb/breadcrumb.model';
 import { getCollectionPageRoute } from '../../collection-page/collection-page-routing-paths';
 import { getCommunityPageRoute } from '../../community-page/community-page-routing-paths';
-import { ITEM_PAGE_LINKS_TO_FOLLOW } from '../../item-page/item.resolver';
+import { getItemPageLinksToFollow } from '../../item-page/item.resolver';
 import { getItemPageRoute } from '../../item-page/item-page-routing-paths';
 import { hasValue } from '../../shared/empty.util';
 import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
@@ -157,6 +157,6 @@ export class DsoContextBreadcrumbService implements BreadcrumbsProviderService<s
    * Requesting them as embeds will limit the number of requests
    */
   get followLinks(): FollowLinkConfig<Item>[] {
-    return ITEM_PAGE_LINKS_TO_FOLLOW;
+    return getItemPageLinksToFollow();
   }
 }

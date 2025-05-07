@@ -10,6 +10,7 @@ import {
   Output,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { BtnDisabledDirective } from 'src/app/shared/btn-disabled.directive';
 
 import { environment } from '../../../../../environments/environment';
 import { Item } from '../../../../core/shared/item.model';
@@ -39,6 +40,7 @@ import { TruncatablePartComponent } from '../../../truncatable/truncatable-part/
     MetadataLinkViewComponent,
     NgForOf,
     ItemSubmitterComponent,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

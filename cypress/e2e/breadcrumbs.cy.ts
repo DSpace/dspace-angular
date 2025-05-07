@@ -1,5 +1,4 @@
 import { testA11y } from 'cypress/support/utils';
-import { Options } from 'cypress-axe';
 
 xdescribe('Breadcrumbs', () => {
   it('should pass accessibility tests', () => {
@@ -10,12 +9,6 @@ xdescribe('Breadcrumbs', () => {
     cy.get('ds-breadcrumbs').should('be.visible');
 
     // Analyze <ds-breadcrumbs> for accessibility
-    testA11y('ds-breadcrumbs',
-          {
-            rules: {
-              'heading-order': { enabled: false },
-            },
-          } as Options,
-    );
+    testA11y('ds-breadcrumbs');
   });
 });

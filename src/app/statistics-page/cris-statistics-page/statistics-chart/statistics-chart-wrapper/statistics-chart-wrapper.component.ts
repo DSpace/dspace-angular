@@ -3,6 +3,7 @@ import {
   Component,
   Injector,
   Input,
+  OnChanges,
   OnInit,
   SimpleChanges,
 } from '@angular/core';
@@ -24,7 +25,7 @@ import { StatisticsChartDataComponent } from '../statistics-chart-data/statistic
 /**
  * Wrapper component that renders a specific report based on the view type
  */
-export class StatisticsChartWrapperComponent implements OnInit {
+export class StatisticsChartWrapperComponent implements OnInit, OnChanges {
   /**
    * Type of the statistic of this wrapper component
    */

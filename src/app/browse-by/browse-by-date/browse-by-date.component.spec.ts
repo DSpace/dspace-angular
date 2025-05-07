@@ -2,10 +2,13 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectorRef,
   NO_ERRORS_SCHEMA,
+  PLATFORM_ID,
 } from '@angular/core';
 import {
   ComponentFixture,
+  fakeAsync,
   TestBed,
+  tick,
   waitForAsync,
 } from '@angular/core/testing';
 import {
@@ -27,6 +30,7 @@ import { SearchManager } from '../../core/browse/search-manager';
 import { SortDirection } from '../../core/cache/models/sort-options.model';
 import { DSpaceObjectDataService } from '../../core/data/dspace-object-data.service';
 import { PaginationService } from '../../core/pagination/pagination.service';
+import { BrowseEntry } from '../../core/shared/browse-entry.model';
 import { Community } from '../../core/shared/community.model';
 import { Item } from '../../core/shared/item.model';
 import { ThemedBrowseByComponent } from '../../shared/browse-by/themed-browse-by.component';
@@ -129,6 +133,7 @@ describe('BrowseByDateComponent', () => {
         { provide: ChangeDetectorRef, useValue: mockCdRef },
         { provide: Store, useValue: {} },
         { provide: APP_CONFIG, useValue: environment },
+        { provide: PLATFORM_ID, useValue: 'browser' },
       ],
       schemas: [NO_ERRORS_SCHEMA],
     })
@@ -177,5 +182,34 @@ describe('BrowseByDateComponent', () => {
   it('should create a list of startsWith options with the current year first', () => {
     //expect(comp.startsWithOptions[0]).toEqual(new Date().getUTCFullYear());
     expect(comp.startsWithOptions[0]).toEqual(1960);
+  });
+
+  describe('when rendered in SSR', () => {
+    beforeEach(() => {
+      comp.platformId = 'server';
+      spyOn((comp as any).searchManager, 'getBrowseItemsFor');
+    });
+
+    it('should not call getBrowseItemsFor on init', (done) => {
+      comp.ngOnInit();
+      expect((comp as any).searchManager.getBrowseItemsFor).not.toHaveBeenCalled();
+      comp.loading$.subscribe((res) => {
+        expect(res).toBeFalsy();
+        done();
+      });
+    });
+  });
+
+  describe('when rendered in CSR', () => {
+    beforeEach(() => {
+      comp.platformId = 'browser';
+      spyOn((comp as any).searchManager, 'getBrowseItemsFor').and.returnValue(createSuccessfulRemoteDataObject$(new BrowseEntry()));
+    });
+
+    it('should call getBrowseItemsFor on init', fakeAsync(() => {
+      comp.ngOnInit();
+      tick(100);
+      expect((comp as any).searchManager.getBrowseItemsFor).toHaveBeenCalled();
+    }));
   });
 });

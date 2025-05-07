@@ -1,16 +1,16 @@
-import { commonExports } from './webpack.common';
-import { projectRoot } from './helpers';
+import { EnvironmentPlugin } from 'webpack';
 
-const webpack = require('webpack');
+import { projectRoot } from './helpers';
+import { commonExports } from './webpack.common';
 
 module.exports = Object.assign({}, commonExports, {
   plugins: [
     ...commonExports.plugins,
-    new webpack.EnvironmentPlugin({
+    new EnvironmentPlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('production'),
-        AOT: true
-      }
+        NODE_ENV: 'production',
+        AOT: true,
+      },
     }),
   ],
   mode: 'production',

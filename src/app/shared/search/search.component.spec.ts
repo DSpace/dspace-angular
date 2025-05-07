@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   NO_ERRORS_SCHEMA,
+  PLATFORM_ID,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -268,6 +269,7 @@ export function configureSearchComponentTestingModule(compType, additionalDeclar
       },
       { provide: APP_DATA_SERVICES_MAP, useValue: {} },
       { provide: APP_CONFIG, useValue: environment },
+      { provide: PLATFORM_ID, useValue: 'browser' },
       {
         provide: AuthorizationDataService,
         useValue: authorizationDataService,
@@ -449,6 +451,35 @@ describe('SearchComponent', () => {
       it('should return null', () => {
         expect(result).toBeNull();
       });
+    });
+
+    describe('when rendered in SSR', () => {
+      beforeEach(() => {
+        comp.platformId = 'server';
+      });
+
+      it('should not call search method on init', (done) => {
+        comp.ngOnInit();
+        //Check that the first method from which the search depend upon is not being called
+        expect(searchConfigurationServiceStub.getCurrentConfiguration).not.toHaveBeenCalled();
+        comp.initialized$.subscribe((res) => {
+          expect(res).toBeTruthy();
+          done();
+        });
+      });
+    });
+
+    describe('when rendered in CSR', () => {
+      beforeEach(() => {
+        comp.platformId = 'browser';
+      });
+
+      it('should call search method on init', fakeAsync(() => {
+        comp.ngOnInit();
+        tick(100);
+        //Check that the last method from which the search depend upon is being called
+        expect(searchManagerStub.search).toHaveBeenCalled();
+      }));
     });
   });
 });

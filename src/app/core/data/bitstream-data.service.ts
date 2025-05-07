@@ -200,7 +200,7 @@ export class BitstreamDataService extends IdentifiableDataService<Bitstream> imp
     const searchParams = [];
     searchParams.push(new RequestParam('handle', handle));
     if (hasValue(sequenceId)) {
-      searchParams.push(new RequestParam('sequenceId', sequenceId));
+      searchParams.push(new RequestParam('sequence', sequenceId));
     }
     if (hasValue(filename)) {
       searchParams.push(new RequestParam('filename', filename));
@@ -246,11 +246,12 @@ export class BitstreamDataService extends IdentifiableDataService<Bitstream> imp
    *                                    no valid cached version. Defaults to true
    * @param reRequestOnStale            Whether or not the request should automatically be re-
    *                                    requested after the response becomes stale
+   * @param options                     the {@link FindListOptions} for the request
    * @return {Observable<Bitstream | null>}
-   *    Return an observable that constains primary bitstream information or null
+   *    Return an observable that contains primary bitstream information or null
    */
-  public findPrimaryBitstreamByItemAndName(item: Item, bundleName: string, useCachedVersionIfAvailable = true, reRequestOnStale = true): Observable<Bitstream | null> {
-    return this.bundleService.findByItemAndName(item, bundleName, useCachedVersionIfAvailable, reRequestOnStale, followLink('primaryBitstream')).pipe(
+  public findPrimaryBitstreamByItemAndName(item: Item, bundleName: string, useCachedVersionIfAvailable = true, reRequestOnStale = true, options?: FindListOptions): Observable<Bitstream | null> {
+    return this.bundleService.findByItemAndName(item, bundleName, useCachedVersionIfAvailable, reRequestOnStale, options, followLink('primaryBitstream')).pipe(
       getFirstCompletedRemoteData(),
       switchMap((rd: RemoteData<Bundle>) => {
         if (!rd.hasSucceeded) {

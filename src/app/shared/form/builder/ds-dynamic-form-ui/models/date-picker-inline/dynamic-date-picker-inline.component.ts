@@ -31,6 +31,7 @@ import {
 } from '@ng-dynamic-forms/core';
 import { Subscription } from 'rxjs';
 
+import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 import { hasValue } from '../../../../../empty.util';
 import { FormFieldMetadataValueObject } from '../../../models/form-field-metadata-value.model';
 
@@ -43,6 +44,7 @@ import { FormFieldMetadataValueObject } from '../../../models/form-field-metadat
     NgbDatepickerModule,
     ReactiveFormsModule,
     NgIf,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

@@ -4,6 +4,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnInit,
   Output,
   SimpleChanges,
@@ -19,6 +20,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 
+import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import { isEmpty } from '../../empty.util';
 
 @Component({
@@ -32,11 +34,12 @@ import { isEmpty } from '../../empty.util';
     NgClass,
     FormsModule,
     TranslateModule,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })
 
-export class NumberPickerComponent implements OnInit, ControlValueAccessor {
+export class NumberPickerComponent implements OnChanges, OnInit, ControlValueAccessor {
   @Input() id: string;
   @Input() step: number;
   @Input() min: number;

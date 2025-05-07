@@ -30,6 +30,7 @@ import { Item } from '../../core/shared/item.model';
 import { getFirstCompletedRemoteData } from '../../core/shared/operators';
 import { AlertComponent } from '../alert/alert.component';
 import { AlertType } from '../alert/alert-type';
+import { BtnDisabledDirective } from '../btn-disabled.directive';
 import { SelectableListService } from '../object-list/selectable-list/selectable-list.service';
 import {
   SwitchColor,
@@ -50,7 +51,7 @@ import {
   styleUrls: ['./access-control-form-container.component.scss'],
   exportAs: 'dsAccessControlForm',
   standalone: true,
-  imports: [NgIf, AlertComponent, FormsModule, AccessControlArrayFormComponent, AsyncPipe, TranslateModule, SwitchComponent],
+  imports: [NgIf, AlertComponent, FormsModule, AccessControlArrayFormComponent, AsyncPipe, TranslateModule, SwitchComponent, BtnDisabledDirective],
 })
 export class AccessControlFormContainerComponent<T extends DSpaceObject> implements OnDestroy {
 

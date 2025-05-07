@@ -44,6 +44,7 @@ import { JsonPatchOperationsBuilder } from '../../../../../core/json-patch/build
 import { WorkspaceitemSectionUploadFileObject } from '../../../../../core/submission/models/workspaceitem-section-upload-file.model';
 import { SubmissionJsonPatchOperationsService } from '../../../../../core/submission/submission-json-patch-operations.service';
 import { normalizeSectionData } from '../../../../../core/submission/submission-response-parsing.service';
+import { BtnDisabledDirective } from '../../../../../shared/btn-disabled.directive';
 import { dateToISOFormat } from '../../../../../shared/date.util';
 import {
   hasNoValue,
@@ -89,6 +90,7 @@ import {
     FormComponent,
     NgIf,
     TranslateModule,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

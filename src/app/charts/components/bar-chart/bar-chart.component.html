@@ -42,7 +42,7 @@
           class="btn btn-link load-more-left"
           [title]="'chart.load-more' | translate"
           [attr.aria-label]="'chart.load-more' | translate"
-          [disabled]="enableScrollToLeft && (isLastPage | async)"
+          [dsBtnDisabled]="enableScrollToLeft && (isLastPage | async)"
           [ngClass]="{ 'no-scrollbar': !hasScrollbar }"
           (click)="loadMoreData()">
     <i class="fas fa-2x fa-caret-left"></i>
@@ -52,7 +52,7 @@
           class="btn btn-link load-more-right"
           [title]="'chart.load-more' | translate"
           [attr.aria-label]="'chart.load-more' | translate"
-          [disabled]="enableScrollToRight && (isLastPage | async)"
+          [dsBtnDisabled]="enableScrollToRight && (isLastPage | async)"
           [ngClass]="{ 'no-scrollbar': !hasScrollbar, 'load-more-right-with-scrollbar': hasScrollbar }"
           (click)="loadMoreData()">
     <i class="fas fa-2x fa-caret-right"></i>

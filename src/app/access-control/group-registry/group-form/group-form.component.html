@@ -2,7 +2,7 @@
   <div class="group-form row">
     <div class="col-12">
 
-      <div *ngIf="groupDataService.getActiveGroup() | async; then editHeader; else createHeader"></div>
+      <div *ngIf="activeGroup$ | async; then editHeader; else createHeader"></div>
 
       <ng-template #createHeader>
         <h1 class="border-bottom pb-2">{{messagePrefix + '.head.create' | translate}}</h1>
@@ -23,11 +23,15 @@
         </h1>
       </ng-template>
 
-      <ds-alert *ngIf="groupBeingEdited?.permanent" [type]="AlertTypeEnum.Warning"
-                [content]="messagePrefix + '.alert.permanent'"></ds-alert>
-      <ds-alert *ngIf="(canEdit$ | async) !== true && (groupDataService.getActiveGroup() | async)" [type]="AlertTypeEnum.Warning"
-                [content]="(messagePrefix + '.alert.workflowGroup' | translate:{ name: dsoNameService.getName((getLinkedDSO(groupBeingEdited) | async)?.payload), comcol: (getLinkedDSO(groupBeingEdited) | async)?.payload?.type, comcolEditRolesRoute: (getLinkedEditRolesRoute(groupBeingEdited) | async) })">
-      </ds-alert>
+      <ng-container *ngIf="(activeGroup$ | async) as groupBeingEdited">
+        <ds-alert *ngIf="groupBeingEdited?.permanent" [type]="AlertType.Warning"
+                  [content]="messagePrefix + '.alert.permanent'"></ds-alert>
+        <ng-container *ngIf="(activeGroupLinkedDSO$ | async) as activeGroupLinkedDSO">
+          <ds-alert *ngIf="(canEdit$ | async) !== true" [type]="AlertType.Warning"
+                    [content]="(messagePrefix + '.alert.workflowGroup' | translate:{ name: dsoNameService.getName(activeGroupLinkedDSO), comcol: activeGroupLinkedDSO.type, comcolEditRolesRoute: (linkedEditRolesRoute$ | async) })">
+          </ds-alert>
+        </ng-container>
+      </ng-container>
 
       <ds-form [formId]="formId"
                [formModel]="formModel"
@@ -39,22 +43,21 @@
           <button (click)="onCancel()" type="button"
                   class="btn btn-outline-secondary"><i class="fas fa-arrow-left"></i> {{messagePrefix + '.return' | translate}}</button>
         </div>
-        <div after *ngIf="(canEdit$ | async) && !groupBeingEdited?.permanent" class="btn-group">
+        <div after *ngIf="(canEdit$ | async) && !(activeGroup$ | async)?.permanent" class="btn-group">
           <button (click)="delete()" class="btn btn-danger delete-button" type="button">
             <i class="fa fa-trash"></i> {{ messagePrefix + '.actions.delete' | translate}}
           </button>
         </div>
       </ds-form>
 
-      <div class="mb-5">
-        <ds-members-list *ngIf="groupBeingEdited !== undefined"
-                         [messagePrefix]="messagePrefix + '.members-list'"></ds-members-list>
-      </div>
-      <ds-subgroups-list *ngIf="groupBeingEdited !== undefined"
-                         [messagePrefix]="messagePrefix + '.subgroups-list'"></ds-subgroups-list>
-
-
-
+      <ng-container *ngIf="(activeGroup$ | async) as groupBeingEdited">
+        <div class="mb-5">
+          <ds-members-list *ngIf="groupBeingEdited !== undefined"
+                           [messagePrefix]="messagePrefix + '.members-list'"></ds-members-list>
+        </div>
+        <ds-subgroups-list *ngIf="groupBeingEdited !== undefined"
+                           [messagePrefix]="messagePrefix + '.subgroups-list'"></ds-subgroups-list>
+      </ng-container>
     </div>
   </div>
 </div>

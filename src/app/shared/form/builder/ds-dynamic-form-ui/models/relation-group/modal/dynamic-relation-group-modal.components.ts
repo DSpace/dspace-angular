@@ -39,6 +39,7 @@ import {
   map,
   take,
 } from 'rxjs/operators';
+import { BtnDisabledDirective } from 'src/app/shared/btn-disabled.directive';
 
 import { SubmissionFormsModel } from '../../../../../../../core/config/models/config-submission-forms.model';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../../../core/shared/operators';
@@ -79,6 +80,7 @@ import { DynamicRelationGroupModel } from '../dynamic-relation-group.model';
     NgbTooltipModule,
     TranslateModule,
     AsyncPipe,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })

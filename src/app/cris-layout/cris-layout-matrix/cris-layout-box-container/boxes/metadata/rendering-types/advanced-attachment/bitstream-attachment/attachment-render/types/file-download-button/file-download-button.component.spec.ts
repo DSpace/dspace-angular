@@ -111,6 +111,8 @@ describe('FileDownloadButtonComponent', () => {
     (authorizationService.isAuthorized as jasmine.Spy).and.returnValue(of(false));
     component.ngOnInit();
     fixture.detectChanges();
-    expect(fixture.debugElement.query(By.css('[data-test="requestACopy"]')).nativeElement.disabled).toBeTruthy();
+    const btn = fixture.debugElement.query(By.css('[data-test="requestACopy"]'));
+    expect(btn.nativeNode.getAttribute('aria-disabled')).toBe('true');
+    expect(btn.nativeNode.classList.contains('disabled')).toBeTrue();
   });
 });
