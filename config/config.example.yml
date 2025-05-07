@@ -23,17 +23,21 @@ universal:
   # Determining which styles are critical is a relatively expensive operation; this option is
   # disabled (false) by default to boost server performance at the expense of loading smoothness.
   inlineCriticalCss: false
-  # Regexes to be run against the path of the page to check if SSR is allowed.
+  # Patterns to be run as regexes against the path of the page to check if SSR is allowed.
   # If the path match any of the regexes it will be served directly in CSR.
   # By default, excludes community and collection browse, global browse, global search, community list, and statistics.
-  excludePathRegexes: [
-    /^\/communities\/[ 0-9a-f ]{ 8 }-[ 0-9a-f ]{ 4 }-[ 0-9a-f ]{ 4 }-[ 0-9a-f ]{ 4 }-[ 0-9a-f ]{ 12 }\/browse(\/.*)?$/i,
-    /^\/collections\/[ 0-9a-f ]{ 8 }-[ 0-9a-f ]{ 4 }-[ 0-9a-f ]{ 4 }-[ 0-9a-f ]{ 4 }-[ 0-9a-f ]{ 12 }\/browse(\/.*)?$/i,
-    /^\/browse\//,
-    /^\/search$/,
-    /^\/community-list$/,
-    /^\/statistics$/,
-  ]
+  excludePathPatterns:
+    - /^\/communities\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\/browse(\/.*)?$/i
+    - /^\/collections\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\/browse(\/.*)?$/i
+    - /^\/browse\//
+    - /^\/search$/
+    - /^\/community-list$/
+    - /^\/statistics\//
+    - /^\/admin$/
+    - /^\/processes$/
+    - /^\/notifications$/
+    - /^\/health$/
+
   # Whether to enable rendering of Search component on SSR.
   # If set to true the component will be included in the HTML returned from the server side rendering.
   # If set to false the component will not be included in the HTML returned from the server side rendering.

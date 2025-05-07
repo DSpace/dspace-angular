@@ -629,10 +629,13 @@ function start() {
  * Check if SSR should be skipped for path
  *
  * @param path
- * @param excludePathRegexes
+ * @param excludePathPattern
  */
-function isExcludedFromSsr(path: string, excludePathRegexes: RegExp[]): boolean {
-  return excludePathRegexes.some((regex) => regex.test(path));
+function isExcludedFromSsr(path: string, excludePathPattern: (string | RegExp)[]): boolean {
+  return excludePathPattern.some((pattern) => {
+    const regex = new RegExp(pattern);
+    return regex.test(path)
+  });
 }
 
 /*
