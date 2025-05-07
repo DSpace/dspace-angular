@@ -172,7 +172,7 @@ export class VocabularyTreeviewService {
       return;
     }
     this.getChildrenNodesByParent(item.otherInformation.id, parent.pageInfo, (loadAll && selectedItems.length > 0)).subscribe((list: PaginatedList<VocabularyEntryDetail>) => {
-      if ((onlyFirstTime && parent.children!.length > 0 && !loadAll)) {
+      if (onlyFirstTime && parent.children!.length > 0 && !loadAll) {
         return;
       }
 
