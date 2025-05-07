@@ -189,7 +189,7 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
       this.searchService.getSelectedValuesForFilter(this.filterConfig.name),
       this.facetValues$.asObservable().pipe(
         mergeMap((values: FacetValues[]) => from(values).pipe(
-          reduce((acc: FacetValue[], value: FacetValues) => [...acc, ...value.page], []),
+          reduce((acc: FacetValue[], value: FacetValues) => acc.concat(value.page), []),
         )),
       ),
     ]).pipe(
