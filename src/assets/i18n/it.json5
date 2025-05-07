@@ -3492,10 +3492,6 @@
   // TODO Source message changed - Revise the translation
   "explore.index.has_content_in_original_bundle": "Sono presenti dei contenuti nel bundle original",
 
-  // "explore.index.investigators": "Researchers",
-  // TODO Source message changed - Revise the translation
-  "explore.index.investigators": "Ricercatori",
-
   // "explore.index.isAuthorOfPublication": "Publication's author",
   // TODO Source message changed - Revise the translation
   "explore.index.isAuthorOfPublication": "Autore della pubblicazione",
@@ -7833,8 +7829,8 @@
   // "search.filters.applied.f.has_content_in_original_bundle": "Has files",
   "search.filters.applied.f.has_content_in_original_bundle": "Ha file",
 
-  // "search.filters.applied.f.investigators": "Investigator",
-  "search.filters.applied.f.investigators": "Investigatore",
+  // "search.filters.applied.f.projectinvestigators": "Investigator",
+  "search.filters.applied.f.projectinvestigators": "Ricercatore",
 
   // "search.filters.applied.f.itemtype": "Type",
   "search.filters.applied.f.itemtype": "Tipo",
@@ -8093,14 +8089,14 @@
   // "search.filters.filter.itemtype.label": "Search type",
   "search.filters.filter.itemtype.label": "Tipo di ricerca",
 
-  // "search.filters.filter.investigators.head": "Researcher",
-  "search.filters.filter.investigators.head": "Ricercatore",
+  // "search.filters.filter.projectinvestigators.head": "Researcher",
+  "search.filters.filter.projectinvestigators.head": "Ricercatore",
 
-  // "search.filters.filter.investigators.label": "Researcher",
-  "search.filters.filter.investigators.label": "Ricercatore",
+  // "search.filters.filter.projectinvestigators.label": "Researcher",
+  "search.filters.filter.projectinvestigators.label": "Ricercatore",
 
-  // "search.filters.filter.investigators.placeholder": "Researcher",
-  "search.filters.filter.investigators.placeholder": "Ricercatore",
+  // "search.filters.filter.projectinvestigators.placeholder": "Researcher",
+  "search.filters.filter.projectinvestigators.placeholder": "Ricercatore",
 
   // "search.filters.filter.jobTitle.head": "Job Title",
   "search.filters.filter.jobTitle.head": "Titolo di lavoro",
