@@ -55,7 +55,7 @@ describe('MediaViewerComponent', () => {
       'dc.title': [
         {
           language: null,
-          value: 'test_word.docx',
+          value: 'test_image.jpg',
         },
       ],
     },
@@ -150,9 +150,9 @@ describe('MediaViewerComponent', () => {
       expect(mediaItem.thumbnail).toBe(null);
     });
 
-    it('should display a default, thumbnail', () => {
+    it('should display a default thumbnail', () => {
       const defaultThumbnail = fixture.debugElement.query(
-        By.css('ds-media-viewer-image'),
+        By.css('ds-thumbnail')
       );
       expect(defaultThumbnail.nativeElement).toBeDefined();
     });
