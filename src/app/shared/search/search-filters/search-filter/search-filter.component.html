@@ -5,6 +5,8 @@
           [attr.aria-expanded]="(collapsed$ | async) !== true"
           [attr.aria-label]="(((collapsed$ | async) ? 'search.filters.filter.expand' : 'search.filters.filter.collapse') | translate) + ' ' + (('search.filters.filter.' + filter.name + '.head') | translate | lowercase)"
           [attr.data-test]="'filter-toggle' | dsBrowserOnly"
+          role="button"
+          tabindex="0"
   >
     <span class="h4 d-inline-block text-left mt-auto mb-auto dark:text-white text-dark">
       {{'search.filters.filter.' + filter.name + '.head'| translate}}
