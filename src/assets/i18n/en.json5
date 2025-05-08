@@ -2506,8 +2506,6 @@
 
   "explore.index.has_content_in_original_bundle": "Has content in original bundle",
 
-  "explore.index.investigators": "Researchers",
-
   "explore.index.isAuthorOfPublication": "Publication's author",
 
   "explore.index.isJournalOfPublication": "Publication's journal",
@@ -2564,7 +2562,7 @@
 
   "explore.index.pjtitle": "Title",
 
-  "explore.index.projectinvestigators": "Project investigators",
+  "explore.index.projectinvestigators": "Researcher",
 
   "explore.index.rodept": "Department",
 
@@ -5050,9 +5048,9 @@
 
   "profile.card.access-token.delete": "Revoke token",
 
-  "profile.card.access-token.no-token-generated": "You don't have personal access token. Generate a personal access token for quick access to the DSpace-CRIS API.",
+  "profile.card.access-token.no-token-generated": "You don't have personal access token.\n A personal access token will allow to use advanced DSpace-CRIS features ( API ) and it's related to your user.",
 
-  "profile.card.access-token.token-generated": "You have already generated a personal access token.",
+  "profile.card.access-token.token-generated": "You have already generated a personal access token.\n A personal access token will allow to use advanced DSpace-CRIS features ( API ) and it's related to your user.",
 
   "profile.card.identify": "Identify",
 
@@ -5535,7 +5533,7 @@
 
   "search.filters.applied.f.has_content_in_original_bundle": "Has files",
 
-  "search.filters.applied.f.investigators": "Investigator",
+  "search.filters.applied.f.projectinvestigators": "Investigator",
 
   "search.filters.applied.f.original_bundle_filenames": "File name",
 
@@ -5740,11 +5738,11 @@
 
   "search.filters.filter.itemtype.label": "Search type",
 
-  "search.filters.filter.investigators.head": "Researcher",
+  "search.filters.filter.projectinvestigators.head": "Researcher",
 
-  "search.filters.filter.investigators.label": "Researcher",
+  "search.filters.filter.projectinvestigators.label": "Researcher",
 
-  "search.filters.filter.investigators.placeholder": "Researcher",
+  "search.filters.filter.projectinvestigators.placeholder": "Researcher",
 
   "search.filters.filter.jobTitle.head": "Job Title",
 
