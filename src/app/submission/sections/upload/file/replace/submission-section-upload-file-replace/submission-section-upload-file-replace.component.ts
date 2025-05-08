@@ -80,7 +80,7 @@ export class SubmissionSectionUploadFileReplaceComponent implements OnInit, OnCh
   /**
    * Whether to keep the file name of the new uploaded file
    */
-  protected shouldReplaceName: boolean;
+  protected shouldReplaceName = true;
 
 
   constructor(

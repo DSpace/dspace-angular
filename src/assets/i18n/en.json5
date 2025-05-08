@@ -5220,7 +5220,7 @@
 
   "bitstream.replace.page.header": "Replace {{fileName}} ({{fileSize}})",
 
-  "bitstream.replace.page.content": "Select a file to replace {{fileName}}. This may update the filename and format. Note that this transfer can take a while to process, and may not start immediately.",
+  "bitstream.replace.page.content": "Select a file to replace {{fileName}}. Note that this transfer can take a while to process, and may not start immediately.",
 
   "bitstream.replace.page.button.return": "Back",
 
@@ -5236,6 +5236,8 @@
 
   "bitstream.edit.replace.link": "Replace file",
 
-  "bitstream.replace.page.replace-name": "Use new filename?",
+  "bitstream.replace.page.replace-name": "Use new filename",
+
+  "bitstream.replace.page.replace-name-hint": "The new file extension will be retained in order to match the content of the replacement file.",
 
 }

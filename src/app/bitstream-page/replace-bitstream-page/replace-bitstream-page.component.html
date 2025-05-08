@@ -22,11 +22,14 @@
                  [uploadFilesOptions]="uploadFilesOptions"
                  (onCompleteItem)="onCompleteItem($event)"
                  (onUploadError)="onUploadError()"></ds-uploader>
-    <h4 class="mb-0">
-      {{'bitstream.replace.page.replace-name' | translate}}
-    </h4>
-    <ui-switch [(ngModel)]="shouldReplaceName"
-                (change)="setUploadUrlParameters(uploader)"></ui-switch>
+    <div class="mb-2 d-flex">
+      <ui-switch size="small"
+                 [(ngModel)]="shouldReplaceName"></ui-switch>
+      <span class="font-weight-bold ml-2">{{ 'bitstream.replace.page.replace-name' | translate }}</span>
+    </div>
+    <div class="mb-2">
+      <span [ngClass]="{ 'invisible': shouldReplaceName }" class="text-muted"> {{ 'bitstream.replace.page.replace-name-hint' | translate }}</span>
+    </div>
     <ds-error *ngIf="bitstreamRD?.hasFailed" [message]="'loading.bitstream' | translate"></ds-error>
     <ds-loading *ngIf="!bitstreamRD  || bitstreamRD?.isLoading"
                 [message]="'loading.bitstream' | translate"></ds-loading>

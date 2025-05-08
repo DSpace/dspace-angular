@@ -1,26 +1,23 @@
 <div>
   <div class="modal-header">
-    <h4 class="modal-title">{{ 'bitstream.edit.replace.link' | translate }}</h4>
+    <h4 class="modal-title">{{
+        'bitstream.replace.page.header' | translate: {
+          fileName: fileName,
+          fileSize: fileSizeBytes | dsFileSize
+        }
+      }}</h4>
     <button type="button" class="close" (click)="closeModal()" aria-label="Close">
       <span aria-hidden="true">×</span>
     </button>
   </div>
   <div class="modal-body">
-    <div>
-      <h3>{{
-          'bitstream.replace.page.header' | translate: {
-            fileName: fileName,
-            fileSize: fileSizeBytes | dsFileSize
-          }
-        }}</h3>
-      <p>
-        {{
-          'bitstream.replace.page.content' | translate: {
-            fileName: fileName
-          }
-        }}
-      </p>
-    </div>
+    <p>
+      {{
+        'bitstream.replace.page.content' | translate: {
+          fileName: fileName
+        }
+      }}
+    </p>
     <ds-uploader #uploader class="w-100"
                  [dropMsg]="'item.bitstreams.upload.drop-message'"
                  [dropOverDocumentMsg]="'item.bitstreams.upload.drop-message'"
@@ -30,10 +27,14 @@
                  (onFileSelected)="onFileSelected(uploader)"
                  (onCompleteItem)="onCompleteItem($event)"
                  (onUploadError)="onUploadError()"></ds-uploader>
-    <h4 class="mb-0">
-      {{'bitstream.replace.page.replace-name' | translate}}
-    </h4>
-    <ui-switch [(ngModel)]="shouldReplaceName"></ui-switch>
+    <div class="mb-2 d-flex">
+      <ui-switch size="small"
+                 [(ngModel)]="shouldReplaceName"></ui-switch>
+      <span class="font-weight-bold ml-2">{{ 'bitstream.replace.page.replace-name' | translate }}</span>
+    </div>
+    <div *ngIf="!shouldReplaceName" class="mb-2">
+      <span class="text-muted"> {{ 'bitstream.replace.page.replace-name-hint' | translate }}</span>
+    </div>
     <div class="button-row bottom">
       <div class="mt-4 float-right mb-2">
         <button class="save-button btn btn-primary" (click)="saveFile(uploader);"><i
