@@ -3,4 +3,5 @@ import { SSRConfig } from './ssr-config.interface';
 
 export interface BuildConfig extends AppConfig {
   ssr: SSRConfig;
+  isE2E?: boolean;
 }

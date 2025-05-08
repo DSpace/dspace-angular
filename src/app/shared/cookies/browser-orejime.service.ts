@@ -191,7 +191,7 @@ export class BrowserOrejimeService extends OrejimeService {
          */
         this.translateConfiguration();
 
-        if (this._window?.nativeWindow?.Cypress) {
+        if (environment.isE2E) {
           this.orejimeConfig.apps = [];
         } else {
           this.orejimeConfig.apps = this.filterConfigApps(appsToHide);

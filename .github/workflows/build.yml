@@ -102,7 +102,7 @@ jobs:
         run: npm run check-circ-deps
 
       - name: Run build
-        run: npm run build:prod
+        run: npm run build:prod-e2e
 
       - name: Run specs (unit tests)
         run: npm run test:headless
