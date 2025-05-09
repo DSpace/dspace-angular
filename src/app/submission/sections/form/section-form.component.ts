@@ -402,6 +402,9 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
    * Initialize all subscriptions
    */
   subscriptions(): void {
+    // clear existing subscriptions first
+    this.onSectionDestroy();
+    this.subs = [];
     this.subs.push(
       /**
        * Subscribe to form's data
@@ -426,6 +429,7 @@ export class SubmissionSectionFormComponent extends SectionModelComponent {
           this.updateForm(sectionState);
         }),
     );
+    console.log(`Section ${this.sectionData.id} has ${this.subs.length} active subscriptions`);
   }
 
   /**
