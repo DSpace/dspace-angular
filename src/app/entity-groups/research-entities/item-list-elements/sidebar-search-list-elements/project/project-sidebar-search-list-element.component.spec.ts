@@ -1,7 +1,10 @@
 import { Collection } from '../../../../../core/shared/collection.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
-import { createSidebarSearchListElementTests } from '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component.spec';
+import {
+  createSidebarSearchListElementTests,
+  getExpectedHierarchicalTitle,
+} from '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component.spec';
 import { ProjectSidebarSearchListElementComponent } from './project-sidebar-search-list-element.component';
 
 const object = Object.assign(new ItemSearchResult(), {
@@ -27,6 +30,11 @@ const parent = Object.assign(new Collection(), {
   },
 });
 
-describe('ProjectSidebarSearchListElementComponent',
-  createSidebarSearchListElementTests(ProjectSidebarSearchListElementComponent, object, parent, 'parent title', 'title', undefined),
-);
+const expectedHierarchicalTitle = getExpectedHierarchicalTitle(parent, object);
+if (expectedHierarchicalTitle) {
+  expectedHierarchicalTitle.subscribe((hierarchicalTitle: string) => {
+    describe('ProjectSidebarSearchListElementComponent', () => {
+      createSidebarSearchListElementTests(ProjectSidebarSearchListElementComponent, object, parent, hierarchicalTitle, 'title', undefined);
+    });
+  });
+}
