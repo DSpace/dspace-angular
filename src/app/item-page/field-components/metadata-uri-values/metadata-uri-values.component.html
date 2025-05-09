@@ -1,5 +1,5 @@
 <ds-metadata-field-wrapper [label]="label | translate">
-    <a class="dont-break-out" *ngFor="let mdValue of mdValues; let last=last;" [href]="mdValue.value" [target]="linkTarget">
+    <a class="dont-break-out" *ngFor="let mdValue of mdValues; let last=last;" [href]="mdValue.value" [target]="linkTarget" role="link" tabindex="0">
        {{ linktext || mdValue.value }}<span *ngIf="!last" [innerHTML]="separator"></span>
     </a>
 </ds-metadata-field-wrapper>
