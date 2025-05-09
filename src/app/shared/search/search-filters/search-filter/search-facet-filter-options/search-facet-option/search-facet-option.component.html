@@ -1,5 +1,4 @@
 <a *ngIf="isVisible | async" class="d-flex flex-row"
-   [tabIndex]="-1"
    [routerLink]="[searchLink]"
    [queryParams]="addQueryParams" queryParamsHandling="merge"
    (click)="announceFilter()" role="button" tabindex="0">
