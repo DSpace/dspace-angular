@@ -12,6 +12,8 @@ import { isEmpty } from '../shared/empty.util';
 import { SetCorrelationIdAction } from './correlation-id.actions';
 import { correlationIdSelector } from './correlation-id.selector';
 
+export const CORRELATION_ID_COOKIE = 'dsCorrelationId';
+
 /**
  * Service to manage the correlation id, an id used to give context to server side logs
  */

@@ -105,6 +105,37 @@
                   "maximumError": "300kb"
                 }
               ]
+            },
+            "production-e2e": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.production-e2e.ts"
+                },
+                {
+                  "replace": "src/config/store/devtools.ts",
+                  "with": "src/config/store/devtools.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "3mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "200kb",
+                  "maximumError": "300kb"
+                }
+              ]
             }
           }
         },
@@ -120,6 +151,9 @@
             },
             "production": {
               "buildTarget": "dspace-angular:build:production"
+            },
+            "production-e2e": {
+              "buildTarget": "dspace-angular:build:production-e2e"
             }
           }
         },
@@ -181,6 +215,9 @@
           "configurations": {
             "production": {
               "devServerTarget": "dspace-angular:serve:production"
+            },
+            "production-e2e": {
+              "devServerTarget": "dspace-angular:serve:production-e2e"
             }
           }
         },
@@ -215,6 +252,20 @@
                   "with": "src/config/store/devtools.prod.ts"
                 }
               ]
+            },
+            "production-e2e": {
+              "sourceMap": false,
+              "optimization": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.production-e2e.ts"
+                },
+                {
+                  "replace": "src/config/store/devtools.ts",
+                  "with": "src/config/store/devtools.prod.ts"
+                }
+              ]
             }
           }
         },
@@ -229,6 +280,10 @@
             "production": {
               "buildTarget": "dspace-angular:build:production",
               "serverTarget": "dspace-angular:server:production"
+            },
+            "production-e2e": {
+              "buildTarget": "dspace-angular:build:production-e2e",
+              "serverTarget": "dspace-angular:server:production-e2e"
             }
           }
         },
@@ -242,7 +297,8 @@
             ]
           },
           "configurations": {
-            "production": {}
+            "production": {},
+            "production-e2e": {}
           }
         },
         "cypress-run": {
@@ -253,6 +309,9 @@
           "configurations": {
             "production": {
               "devServerTarget": "dspace-angular:serve:production"
+            },
+            "production-e2e": {
+              "devServerTarget": "dspace-angular:serve:production-e2e"
             }
           }
         },

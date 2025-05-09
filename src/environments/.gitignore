@@ -1,5 +1,6 @@
 environment.*.ts
 
 !environment.production.ts
+!environment.production-e2e.ts
 !environment.test.ts
 !environment.ts

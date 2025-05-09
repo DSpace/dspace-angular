@@ -2666,6 +2666,12 @@
   // "cookies.consent.app.description.authentication": "Required for signing you in",
   "cookies.consent.app.description.authentication": "Necessario per l'accesso",
 
+  // "cookies.consent.app.title.correlation-id": "Correlation ID",
+  "cookies.consent.app.title.correlation-id": "ID di correlazione",
+
+  // "cookies.consent.app.description.correlation-id": "Allow us to track your session in backend logs for support/debugging purposes",
+  "cookies.consent.app.description.correlation-id": "Ci consente di monitorare la sessione nei log di backend per supporto/debug",
+
   // "cookies.consent.app.title.preferences": "Preferences",
   "cookies.consent.app.title.preferences": "Preferenze",
 
