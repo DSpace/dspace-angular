@@ -122,6 +122,8 @@ export class SubscriptionModalComponent implements OnInit {
    */
   @Output() updateSubscription: EventEmitter<Subscription> = new EventEmitter<Subscription>();
 
+  @Output() updated = new EventEmitter<void>();
+
   constructor(
     private formBuilder: UntypedFormBuilder,
     private modalService: NgbModal,
@@ -292,7 +294,8 @@ export class SubscriptionModalComponent implements OnInit {
     }
 
     combineLatest([...toBeProcessed]).subscribe((res) => {
-      this.activeModal.close();
+      this.updated.emit();
+      this.activeModal.close('updated');
     });
 
   }
