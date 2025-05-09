@@ -250,6 +250,7 @@ export class DefaultAppConfig implements AppConfig {
         ],
       },
     },
+    ignorePlaceholderForSimpleFields: true,
   };
 
   // Default Language in which the UI will be rendered if the user's browser language is not an active language
