@@ -47,6 +47,7 @@ export const bitstreamDownloadRedirectGuard: CanActivateFn = (
 ): Observable<UrlTree | boolean> => {
 
   const bitstreamId = route.params.id;
+  const accessToken: string = route.queryParams.accessToken;
 
   return bitstreamDataService.findById(bitstreamId, true, false, ...BITSTREAM_PAGE_LINKS_TO_FOLLOW).pipe(
     getFirstCompletedRemoteData(),
@@ -79,14 +80,21 @@ export const bitstreamDownloadRedirectGuard: CanActivateFn = (
       if (isAuthorized && isLoggedIn && isNotEmpty(fileLink)) {
         hardRedirectService.redirect(fileLink);
         return false;
-      } else if (isAuthorized && !isLoggedIn) {
+      } else if (isAuthorized && !isLoggedIn && !hasValue(accessToken)) {
         hardRedirectService.redirect(bitstream._links.content.href);
         return false;
-      } else if (!isAuthorized && isLoggedIn) {
-        return router.createUrlTree([getForbiddenRoute()]);
-      } else if (!isAuthorized && !isLoggedIn) {
-        auth.setRedirectUrl(router.url);
-        return router.createUrlTree(['login']);
+      } else if (!isAuthorized) {
+        // Either we have an access token, or we are logged in, or we are not logged in.
+        // For now, the access token does not care if we are logged in or not.
+        if (hasValue(accessToken)) {
+          hardRedirectService.redirect(bitstream._links.content.href + '?accessToken=' + accessToken);
+          return false;
+        } else if (isLoggedIn) {
+          return router.createUrlTree([getForbiddenRoute()]);
+        } else if (!isLoggedIn) {
+          auth.setRedirectUrl(router.url);
+          return router.createUrlTree(['login']);
+        }
       }
     }),
   );
