@@ -85,6 +85,54 @@ describe('ThemedComponent', () => {
         expect(component.usedTheme).toEqual('custom');
       });
     }));
+
+    describe('it checks for ngContent and', () => {
+
+      it('returns all child nodes when selector is *', () => {
+        const element = document.createElement('div');
+        element.innerHTML = '<span>1</span><span>2</span>';
+        const result = (component as any).getNgContent(element, ['*']);
+        expect(result.length).toBe(1);
+        expect(result[0].length).toBe(2);
+        expect(result[0][0].textContent).toBe('1');
+        expect(result[0][1].textContent).toBe('2');
+      });
+
+      it('returns nodes matching specific selector', () => {
+        const element = document.createElement('div');
+        element.innerHTML = '<span class="match">1</span><span>2</span>';
+        const result = (component as any).getNgContent(element, ['.match']);
+        expect(result.length).toBe(1);
+        expect(result[0].length).toBe(1);
+        expect(result[0][0].textContent).toBe('1');
+      });
+
+      it('removes selected elements from the DOM', () => {
+        const element = document.createElement('div');
+        element.innerHTML = '<span class="match">1</span><span>2</span>';
+        (component as any).getNgContent(element, ['.match']);
+        expect(element.querySelectorAll('.match').length).toBe(0);
+      });
+
+      it('returns empty array when no elements match the selector', () => {
+        const element = document.createElement('div');
+        element.innerHTML = '<span>1</span><span>2</span>';
+        const result = (component as any).getNgContent(element, ['.no-match']);
+        expect(result.length).toBe(1);
+        expect(result[0].length).toBe(0);
+      });
+
+      it('handles multiple selectors', () => {
+        const element = document.createElement('div');
+        element.innerHTML = '<span class="match1">1</span><span class="match2">2</span>';
+        const result = (component as any).getNgContent(element, ['.match1', '.match2']);
+        expect(result.length).toBe(2);
+        expect(result[0].length).toBe(1);
+        expect(result[0][0].textContent).toBe('1');
+        expect(result[1].length).toBe(1);
+        expect(result[1][0].textContent).toBe('2');
+      });
+    });
   });
 
   describe('when the current theme doesn\'t match a themed component', () => {
