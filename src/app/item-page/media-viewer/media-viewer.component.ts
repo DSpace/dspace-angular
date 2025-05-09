@@ -10,17 +10,24 @@ import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
+  combineLatest,
+  forkJoin,
   Observable,
+  of as observableOf,
   Subscription,
+  switchMap,
 } from 'rxjs';
 import {
   filter,
+  map,
   take,
 } from 'rxjs/operators';
 
 import { MediaViewerConfig } from '../../../config/media-viewer-config.interface';
 import { environment } from '../../../environments/environment';
 import { BitstreamDataService } from '../../core/data/bitstream-data.service';
+import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { FeatureID } from '../../core/data/feature-authorization/feature-id';
 import { PaginatedList } from '../../core/data/paginated-list.model';
 import { RemoteData } from '../../core/data/remote-data';
 import { Bitstream } from '../../core/shared/bitstream.model';
@@ -29,7 +36,10 @@ import { Item } from '../../core/shared/item.model';
 import { ItemRequest } from '../../core/shared/item-request.model';
 import { MediaViewerItem } from '../../core/shared/media-viewer-item.model';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
-import { hasValue } from '../../shared/empty.util';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
 import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
 import { followLink } from '../../shared/utils/follow-link-config.model';
 import { VarDirective } from '../../shared/utils/var.directive';
@@ -78,6 +88,7 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
     protected bitstreamDataService: BitstreamDataService,
     protected changeDetectorRef: ChangeDetectorRef,
     protected route: ActivatedRoute,
+    private authorizationService: AuthorizationDataService,
   ) {
   }
 
@@ -95,38 +106,68 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
       ...(this.mediaOptions.video ? ['audio', 'video'] : []),
     ];
     this.thumbnailsRD$ = this.loadRemoteData('THUMBNAIL');
-    this.subs.push(this.loadRemoteData('ORIGINAL').subscribe((bitstreamsRD: RemoteData<PaginatedList<Bitstream>>) => {
-      if (bitstreamsRD.payload.page.length === 0) {
-        this.isLoading = false;
-        this.mediaList$.next([]);
-      } else {
-        this.subs.push(this.thumbnailsRD$.subscribe((thumbnailsRD: RemoteData<PaginatedList<Bitstream>>) => {
-          for (
-            let index = 0;
-            index < bitstreamsRD.payload.page.length;
-            index++
-          ) {
-            this.subs.push(bitstreamsRD.payload.page[index].format
-              .pipe(getFirstSucceededRemoteDataPayload())
-              .subscribe((format: BitstreamFormat) => {
-                const mediaItem = this.createMediaViewerItem(
-                  bitstreamsRD.payload.page[index],
-                  format,
-                  thumbnailsRD.payload && thumbnailsRD.payload.page[index],
-                );
-                if (types.includes(mediaItem.format)) {
-                  this.mediaList$.next([...this.mediaList$.getValue(), mediaItem]);
-                } else if (format.mimetype === 'text/vtt') {
-                  this.captions$.next([...this.captions$.getValue(), bitstreamsRD.payload.page[index]]);
-                }
-              }));
-          }
-          this.isLoading = false;
-          this.changeDetectorRef.detectChanges();
-        }));
-      }
-    }));
+    this.isLoading = true;
 
+    const bitstreams$ = this.loadRemoteData('ORIGINAL').pipe(
+      filter(rd => rd.hasSucceeded),
+      map(rd => rd.payload.page),
+    );
+
+    const thumbnails$ = this.thumbnailsRD$.pipe(
+      filter(rd => rd.hasSucceeded),
+      map(rd => rd.payload.page),
+    );
+
+    this.subs.push(
+      combineLatest([bitstreams$, thumbnails$]).pipe(
+        switchMap(([bitstreams, thumbnails]) => {
+          if (bitstreams.length === 0) {
+            this.mediaList$.next([]);
+            return observableOf([]);
+          }
+
+          const mediaObservables = bitstreams.map((bitstream, index) =>
+            this.isAuthorized(bitstream).pipe(
+              switchMap(isAuth => {
+                if (!isAuth) {
+                  return observableOf(null);
+                }
+                return bitstream.format.pipe(
+                  getFirstSucceededRemoteDataPayload(),
+                  map((format: BitstreamFormat) => {
+                    const mediaItem = this.createMediaViewerItem(
+                      bitstream,
+                      format,
+                      thumbnails[index],
+                    );
+                    return { mediaItem, format, bitstream };
+                  }),
+                );
+              }),
+            ),
+          );
+          return forkJoin(mediaObservables);
+        }),
+      ).subscribe(results => {
+        const mediaItems = [];
+        const captions = [];
+
+        results.forEach(res => {
+          if (res) {
+            if (types.includes(res.mediaItem.format)) {
+              mediaItems.push(res.mediaItem);
+            } else if (res.format.mimetype === 'text/vtt') {
+              captions.push(res.bitstream);
+            }
+          }
+        });
+
+        this.mediaList$.next(mediaItems);
+        this.captions$.next(captions);
+        this.isLoading = false;
+        this.changeDetectorRef.detectChanges();
+      }),
+    );
   }
 
   /**
@@ -179,6 +220,13 @@ export class MediaViewerComponent implements OnDestroy, OnInit {
       return this.itemRequest.accessToken;
     }
     return null;
+  }
+
+  /**
+  * It checks if the Bitstream can be downloaded
+  **/
+  isAuthorized(file: Bitstream): Observable<boolean> {
+    return this.authorizationService.isAuthorized(FeatureID.CanDownload, isNotEmpty(file) ? file.self : undefined);
   }
 
 }
