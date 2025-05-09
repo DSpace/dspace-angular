@@ -44,7 +44,9 @@
     {{ 'search.results.no-results' | translate }}
     <a [routerLink]="['/search']"
        [queryParams]="{ query: surroundStringWithQuotes(searchConfig?.query) }"
-       queryParamsHandling="merge">
+       queryParamsHandling="merge"
+       role="link"
+       tabindex="0">
         {{"search.results.no-results-link" | translate}}
     </a>
 </div>

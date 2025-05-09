@@ -8,11 +8,11 @@
         </ng-container>
         <div class="clearfix toggle-more-filters">
             <a class="float-left" *ngIf="(isLastPage$ | async) !== true"
-               (click)="showMore()" href="javascript:void(0);">
+               (click)="showMore()" href="javascript:void(0);" role="button" tabindex="0">
               {{"search.filters.filter.show-more" | translate}}
             </a>
             <a class="float-right" *ngIf="(currentPage | async) > 1"
-               (click)="showFirstPageOnly()" href="javascript:void(0);">
+               (click)="showFirstPageOnly()" href="javascript:void(0);" role="button" tabindex="0">
               {{"search.filters.filter.show-less" | translate}}
             </a>
         </div>

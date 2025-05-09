@@ -21,14 +21,14 @@
     <a class="dont-break-out ds-simple-metadata-link"
       [href]="value"
       [attr.target]="getLinkAttributes(value).target"
-      [attr.rel]="getLinkAttributes(value).rel">
+      [attr.rel]="getLinkAttributes(value).rel" role="link" tabindex="0">
       {{value}}
     </a>
 </ng-template>
 
 <!-- Render value as a link with icon -->
 <ng-template #linkImg let-img="img" let-value="value">
-  <a [href]="value" class="link-anchor dont-break-out ds-simple-metadata-link" target="_blank">
+  <a [href]="value" class="link-anchor dont-break-out ds-simple-metadata-link" target="_blank" role="link" tabindex="0">
     <img class="link-logo"
       [alt]="img.alt | translate"
       [style.height]="'var(' + img.heightVar + ', --ds-item-page-img-field-default-inline-height)'"
@@ -46,5 +46,5 @@
 <ng-template #browselink let-value="value">
   <a class="dont-break-out preserve-line-breaks ds-browse-link"
      [routerLink]="['/browse', browseDefinition.id]"
-     [queryParams]="getQueryParams(value)">{{value}}</a>
+     [queryParams]="getQueryParams(value)" role="link" tabindex="0">{{value}}</a>
 </ng-template>

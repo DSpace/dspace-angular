@@ -8,13 +8,13 @@
       <div class="btn-group ">
         <a [routerLink]="grantRoute$ | async"
            class="btn btn-outline-primary"
-           title="{{'grant-deny-request-copy.grant' | translate }}">
+           title="{{'grant-deny-request-copy.grant' | translate }}" role="button" tabindex="0">
           {{'grant-deny-request-copy.grant' | translate }}
         </a>
 
         <a [routerLink]="denyRoute$ | async"
            class="btn btn-outline-danger"
-           title="{{'grant-deny-request-copy.deny' | translate }}">
+           title="{{'grant-deny-request-copy.deny' | translate }}" role="button" tabindex="0">
           {{'grant-deny-request-copy.deny' | translate }}
         </a>
       </div>
@@ -22,7 +22,7 @@
     <div *ngIf="itemRequestRD.payload.decisionDate" class="processed-message">
       <p>{{'grant-deny-request-copy.processed' | translate}}</p>
       <p class="text-center">
-        <a routerLink="/home" class="btn btn-primary">{{'grant-deny-request-copy.home-page' | translate}}</a>
+        <a routerLink="/home" class="btn btn-primary" role="link" tabindex="0">{{'grant-deny-request-copy.home-page' | translate}}</a>
       </p>
     </div>
   </div>
