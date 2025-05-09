@@ -39,9 +39,9 @@ export interface SSRConfig extends Config {
   replaceRestUrl: boolean;
 
   /**
-   * Paths to enable SSR for. Defaults to the home page and paths in the sitemap.
+   * Patterns to be used as regexes to match url's path and check if SSR is disabled for it.
    */
-  paths: Array<string>;
+  excludePathPatterns:  (string | RegExp)[];
 
   /**
    * Whether to enable rendering of search component on SSR
