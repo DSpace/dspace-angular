@@ -2729,6 +2729,34 @@
 
   "item.page.description": "Description",
 
+  "item.page.org-unit": "Organizational Unit",
+
+  "item.page.org-units": "Organizational Units",
+
+  "item.page.project": "Research Project",
+
+  "item.page.projects": "Research Projects",
+
+  "item.page.publication": "Publications",
+
+  "item.page.publications": "Publications",
+
+  "item.page.article": "Article",
+
+  "item.page.articles": "Articles",
+
+  "item.page.journal": "Journal",
+
+  "item.page.journals": "Journals",
+
+  "item.page.journal-issue": "Journal Issue",
+
+  "item.page.journal-issues": "Journal Issues",
+
+  "item.page.journal-volume": "Journal Volume",
+
+  "item.page.journal-volumes": "Journal Volumes",
+
   "item.page.journal-issn": "Journal ISSN",
 
   "item.page.journal-title": "Journal Title",
@@ -2793,7 +2821,9 @@
 
   "item.page.abstract": "Abstract",
 
-  "item.page.author": "Authors",
+  "item.page.author": "Author",
+
+  "item.page.authors": "Authors",
 
   "item.page.citation": "Citation",
 
@@ -4267,47 +4297,57 @@
 
   "relationships.add.error.title": "Unable to add relationship",
 
-  "relationships.isAuthorOf": "Authors",
+  "relationships.Publication.isAuthorOfPublication.Person": "Authors (persons)",
 
-  "relationships.isAuthorOf.Person": "Authors (persons)",
+  "relationships.Publication.isProjectOfPublication.Project": "Research Projects",
 
-  "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
+  "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizational Units",
 
-  "relationships.isIssueOf": "Journal Issues",
+  "relationships.Publication.isAuthorOfPublication.OrgUnit": "Authors (organizational units)",
 
-  "relationships.isIssueOf.JournalIssue": "Journal Issue",
+  "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
 
-  "relationships.isJournalIssueOf": "Journal Issue",
+  "relationships.Publication.isContributorOfPublication.Person": "Contributor",
 
-  "relationships.isJournalOf": "Journals",
+  "relationships.Publication.isContributorOfPublication.OrgUnit": "Contributor (organizational units)",
 
-  "relationships.isJournalVolumeOf": "Journal Volume",
+  "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
 
-  "relationships.isOrgUnitOf": "Organizational Units",
+  "relationships.Person.isProjectOfPerson.Project": "Research Projects",
 
-  "relationships.isPersonOf": "Authors",
+  "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
 
-  "relationships.isProjectOf": "Research Projects",
+  "relationships.Person.isPublicationOfContributor.Publication": "Publications (contributor to)",
 
-  "relationships.isPublicationOf": "Publications",
+  "relationships.Project.isPublicationOfProject.Publication": "Publications",
 
-  "relationships.isPublicationOfJournalIssue": "Articles",
+  "relationships.Project.isPersonOfProject.Person": "Authors",
 
-  "relationships.isSingleJournalOf": "Journal",
+  "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
 
-  "relationships.isSingleVolumeOf": "Journal Volume",
+  "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Funder",
 
-  "relationships.isVolumeOf": "Journal Volumes",
+  "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
 
-  "relationships.isVolumeOf.JournalVolume": "Journal Volume",
+  "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Authors",
 
-  "relationships.isContributorOf": "Contributors",
+  "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Research Projects",
 
-  "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
+  "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
 
-  "relationships.isContributorOf.Person": "Contributor",
+  "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publications (contributor to)",
 
-  "relationships.isFundingAgencyOf.OrgUnit": "Funder",
+  "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Research Projects (funder of)",
+
+  "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
+
+  "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publications",
+
+  "relationships.JournalVolume.isJournalOfVolume.Journal": "Journals",
+
+  "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Journal Issue",
+
+  "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
 
   "repository.image.logo": "Repository logo",
 

@@ -4595,6 +4595,33 @@
   // TODO Source message changed - Revise the translation
   "item.page.description": "Beskrivning",
 
+  // "item.page.org-units": "Organizational Units",
+  "item.page.org-units": "Organisatoriska enheter",
+
+  // "item.page.projects": "Research Projects",
+  "item.page.projects": "Forskningsprojekt",
+
+  // "item.page.publications": "Publications",
+  "item.page.publications": "Publikationer",
+
+  // "item.page.articles": "Articles",
+  "item.page.articles": "Artiklar",
+
+  // "item.page.journal": "Journal",
+  "item.page.journal": "Tidskrift",
+
+  // "item.page.journal-issue": "Journal Issue",
+  "item.page.journal-issue": "Tidskriftsexemplar",
+
+  // "item.page.journal-issues": "Journal Issues",
+  "item.page.journal-issues": "Tidskriftsexemplar",
+
+  // "item.page.journal-volume": "Journal Volume",
+  "item.page.journal-volume": "Tidskriftsexemplar",
+
+  // "item.page.journal-volumes": "Journal Volumes",
+  "item.page.journal-volumes": "Tidskriftsvolymer",
+
   // "item.page.journal-issn": "Journal ISSN",
   "item.page.journal-issn": "ISSN",
 
@@ -4715,9 +4742,9 @@
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Sammanfattning",
 
-  // "item.page.author": "Authors",
+  // "item.page.authors": "Authors",
   // TODO Source message changed - Revise the translation
-  "item.page.author": "Författare",
+  "item.page.authors": "Författare",
 
   // "item.page.citation": "Citation",
   "item.page.citation": "Citation",
@@ -7355,75 +7382,88 @@
   // "relationships.add.error.title": "Unable to add relationship",
   "relationships.add.error.title": "Det gick inte att skapa relation",
 
-  // "relationships.isAuthorOf": "Authors",
+  // "relationships.Publication.isAuthorOfPublication.Person": "Authors (persons)",
   // TODO Source message changed - Revise the translation
-  "relationships.isAuthorOf": "Författare",
+  "relationships.Publication.isAuthorOfPublication.Person": "Författare (personer)",
 
-  // "relationships.isAuthorOf.Person": "Authors (persons)",
+  // "relationships.Publication.isProjectOfPublication.Project": "Research Projects",
+  "relationships.Publication.isProjectOfPublication.Project": "Forskningsprojekt",
+
+  // "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizational Units",
+  "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organisatoriska enheter",
+
+  // "relationships.Publication.isAuthorOfPublication.OrgUnit": "Authors (organizational units)",
+  "relationships.Publication.isAuthorOfPublication.OrgUnit": "Författare (organisatoriska enheter)",
+
+  // "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
+  "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Tidskriftsexemplar",
+
+  // "relationships.Publication.isContributorOfPublication.Person": "Contributor",
+  "relationships.Publication.isContributorOfPublication.Person": "Medverkande",
+
+  // "relationships.Publication.isContributorOfPublication.OrgUnit": "Contributor (organizational units)",
+  "relationships.Publication.isContributorOfPublication.OrgUnit": "Medverkande (organisatorisk enhet)",
+
+  // "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
+  "relationships.Person.isPublicationOfAuthor.Publication": "Publikationer",
+
+  // "relationships.Person.isProjectOfPerson.Project": "Research Projects",
+  "relationships.Person.isProjectOfPerson.Project": "Forskningsprojekt",
+
+  // "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
+  "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organisatoriska enheter",
+
+  // "relationships.Person.isPublicationOfContributor.Publication": "Publications",
+  "relationships.Person.isPublicationOfContributor.Publication": "Publikationer",
+
+  // "relationships.Project.isPublicationOfProject.Publication": "Publications",
+  "relationships.Project.isPublicationOfProject.Publication": "Publikationer",
+
+  // "relationships.Project.isPersonOfProject.Person": "Authors",
   // TODO Source message changed - Revise the translation
-  "relationships.isAuthorOf.Person": "Författare (personer)",
+  "relationships.Project.isPersonOfProject.Person": "Författare",
 
-  // "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
-  // TODO Source message changed - Revise the translation
-  "relationships.isAuthorOf.OrgUnit": "Författare (organisatoriska enheter)",
+  // "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
+  "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organisatoriska enheter",
 
-  // "relationships.isIssueOf": "Journal Issues",
-  "relationships.isIssueOf": "Tidskriftsexemplar",
+  // "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Funder",
+  "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Finansiär",
 
-  // "relationships.isIssueOf.JournalIssue": "Journal Issue",
+  // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
   // TODO New key - Add a translation
-  "relationships.isIssueOf.JournalIssue": "Journal Issue",
+  "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
 
-  // "relationships.isJournalIssueOf": "Journal Issue",
-  "relationships.isJournalIssueOf": "Tidskriftsexemplar",
-
-  // "relationships.isJournalOf": "Journals",
-  "relationships.isJournalOf": "Tidskrifter",
-
-  // "relationships.isJournalVolumeOf": "Journal Volume",
-  // TODO New key - Add a translation
-  "relationships.isJournalVolumeOf": "Journal Volume",
-
-  // "relationships.isOrgUnitOf": "Organizational Units",
-  "relationships.isOrgUnitOf": "Organisatoriska enheter",
-
-  // "relationships.isPersonOf": "Authors",
+  // "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Authors",
   // TODO Source message changed - Revise the translation
-  "relationships.isPersonOf": "Författare",
+  "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Författare",
 
-  // "relationships.isProjectOf": "Research Projects",
-  "relationships.isProjectOf": "Forskningsprojekt",
+  // "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Forskningsprojekt",
 
-  // "relationships.isPublicationOf": "Publications",
-  "relationships.isPublicationOf": "Publikationer",
-
-  // "relationships.isPublicationOfJournalIssue": "Articles",
-  "relationships.isPublicationOfJournalIssue": "Artiklar",
-
-  // "relationships.isSingleJournalOf": "Journal",
-  "relationships.isSingleJournalOf": "Tidskrift",
-
-  // "relationships.isSingleVolumeOf": "Journal Volume",
-  "relationships.isSingleVolumeOf": "Tidskriftsexemplar",
-
-  // "relationships.isVolumeOf": "Journal Volumes",
-  "relationships.isVolumeOf": "Tidskriftsvolymer",
-
-  // "relationships.isVolumeOf.JournalVolume": "Journal Volume",
+  // "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
   // TODO New key - Add a translation
-  "relationships.isVolumeOf.JournalVolume": "Journal Volume",
+  "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
 
-  // "relationships.isContributorOf": "Contributors",
-  "relationships.isContributorOf": "Medverkande",
+  // "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publications",
+  "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publikationer",
 
-  // "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
-  "relationships.isContributorOf.OrgUnit": "Medverkande (organisatorisk enhet)",
+  // "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Forskningsprojekt",
 
-  // "relationships.isContributorOf.Person": "Contributor",
-  "relationships.isContributorOf.Person": "Medverkande",
+  // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
+  "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Tidskriftsexemplar",
 
-  // "relationships.isFundingAgencyOf.OrgUnit": "Funder",
-  "relationships.isFundingAgencyOf.OrgUnit": "Finansiär",
+  // "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publications",
+  "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publikationer",
+
+  // "relationships.JournalVolume.isJournalOfVolume.Journal": "Journals",
+  "relationships.JournalVolume.isJournalOfVolume.Journal": "Tidskrifter",
+
+  // "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Journal Issue",
+  "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Tidskriftsexemplar",
+
+  // "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
+  "relationships.Journal.isVolumeOfJournal.JournalVolume": "Tidskriftsexemplar",
 
   // "repository.image.logo": "Repository logo",
   "repository.image.logo": "Repositoriets logga",
