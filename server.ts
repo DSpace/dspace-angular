@@ -316,6 +316,10 @@ function serverSideRender(req, res, next, sendToUser: boolean = true) {
       ],
     })
     .then((html) => {
+      if (res.writableEnded || res.headersSent || res.finished) {
+        return;
+      }
+
       if (hasValue(html)) {
         // Replace REST URL with UI URL
         if (environment.ssr.replaceRestUrl && REST_BASE_URL !== environment.rest.baseUrl) {
