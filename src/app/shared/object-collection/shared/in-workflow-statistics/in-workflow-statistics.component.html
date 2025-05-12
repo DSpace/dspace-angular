@@ -1,0 +1,8 @@
+<div *ngIf="canViewInWorkflowSinceStatistics$ | async" >
+  <div *ngIf="canViewInWorkflowForDate$ | async">
+    {{'mydspace.results.in-workflow-for' | translate}} {{inWorkflowFor$ | async}}
+  </div>
+  <div *ngIf="canViewInWorkflowSinceDate$ | async">
+    {{'mydspace.results.in-workflow-since' | translate}} {{inWorkflowSince$ | async}}
+  </div>
+</div>

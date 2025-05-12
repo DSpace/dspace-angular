@@ -8,18 +8,19 @@ import { SearchResultListElementComponent } from '../../../search-result-list-el
 import { Item } from '../../../../../../core/shared/item.model';
 import { getItemPageRoute } from '../../../../../../item-page/item-page-routing-paths';
 import { Context } from '../../../../../../core/shared/context.model';
+import { differenceInDays, differenceInMilliseconds, parseISO, } from 'date-fns';
+import { combineLatest, Observable, } from 'rxjs';
+import { filter, map, } from 'rxjs/operators';
+
+import { APP_CONFIG, AppConfig, } from '../../../../../../../config/app-config.interface';
 import { environment } from '../../../../../../../environments/environment';
 import { KlaroService } from '../../../../../cookies/klaro.service';
-import { combineLatest, Observable } from 'rxjs';
 import { TruncatableService } from '../../../../../truncatable/truncatable.service';
 import { DSONameService } from '../../../../../../core/breadcrumbs/dso-name.service';
-import { APP_CONFIG, AppConfig } from '../../../../../../../config/app-config.interface';
-import { getFirstSucceededRemoteListPayload } from '../../../../../../core/shared/operators';
-import { differenceInDays, differenceInMilliseconds, parseISO} from 'date-fns';
-import { filter, map } from 'rxjs/operators';
-import { isNotEmpty } from '../../../../../empty.util';
 import { MetadataValueFilter } from '../../../../../../core/shared/metadata.models';
 import { PLACEHOLDER_VALUE } from '../../../../../../core/shared/metadata.utils';
+import { getFirstSucceededRemoteListPayload } from '../../../../../../core/shared/operators';
+import { isNotEmpty } from '../../../../../empty.util';
 
 @listableObjectComponent('PublicationSearchResult', ViewMode.ListElement)
 @listableObjectComponent(ItemSearchResult, ViewMode.ListElement)
@@ -111,4 +112,5 @@ export class ItemSearchResultListElementComponent extends SearchResultListElemen
   showSettings() {
     this.klaroService.showSettings();
   }
+
 }

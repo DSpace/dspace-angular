@@ -43,6 +43,9 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
     'showSidebar',
     'showThumbnails',
     'showViewModes',
+    'showWorkflowStatistics',
+    'sideBarWidth',
+    'trackStatistics',
     'useUniquePageId',
     'viewModeList',
     'showScopeSelector',
@@ -117,6 +120,8 @@ export class ThemedSearchComponent extends ThemedComponent<SearchComponent> {
   @Input() showSidebar: boolean;
 
   @Input() showThumbnails: boolean;
+
+  @Input() showWorkflowStatistics: boolean;
 
   @Input() showViewModes: boolean;
 
