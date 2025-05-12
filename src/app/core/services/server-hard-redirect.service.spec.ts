@@ -8,7 +8,11 @@ describe('ServerHardRedirectService', () => {
   const mockRequest = jasmine.createSpyObj(['get']);
   const mockResponse = jasmine.createSpyObj(['redirect', 'end']);
 
-  let service: ServerHardRedirectService = new ServerHardRedirectService(environment, mockRequest, mockResponse);
+  const serverResponseService = jasmine.createSpyObj('ServerResponseService', {
+    setHeader: jasmine.createSpy('setHeader'),
+  });
+
+  let service: ServerHardRedirectService = new ServerHardRedirectService(environment, mockRequest, mockResponse, serverResponseService);
   const origin = 'https://test-host.com:4000';
 
   beforeEach(() => {
@@ -76,7 +80,7 @@ describe('ServerHardRedirectService', () => {
       ssrBaseUrl: 'https://private-url:4000/server',
       baseUrl: 'https://public-url/server',
     } } };
-    service = new ServerHardRedirectService(environmentWithSSRUrl, mockRequest, mockResponse);
+    service = new ServerHardRedirectService(environmentWithSSRUrl, mockRequest, mockResponse, serverResponseService);
 
     beforeEach(() => {
       service.redirect(redirect);

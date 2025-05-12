@@ -64,7 +64,7 @@ export class ServerHardRedirectService extends HardRedirectService {
       this.setCorsHeader();
 
       this.res.redirect(status, redirectUrl);
-      //this.res.end();
+      this.res.end();
       // I haven't found a way to correctly stop Angular rendering.
       // So we just let it end its work, though we have already closed
       // the response.
