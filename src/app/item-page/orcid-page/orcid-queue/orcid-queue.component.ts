@@ -88,13 +88,12 @@ export class OrcidQueueComponent implements OnInit, OnDestroy, OnChanges {
   /**
    * A list of orcid queue records
    */
-  listDataRD: RemoteData<PaginatedList<OrcidQueue>>;
+  list$: BehaviorSubject<RemoteData<PaginatedList<OrcidQueue>>> = new BehaviorSubject<RemoteData<PaginatedList<OrcidQueue>>>({} as any);
 
   /**
    * The AlertType enumeration
-   * @type {AlertType}
    */
-  AlertTypeEnum = AlertType;
+  readonly AlertTypeEnum = AlertType;
 
   /**
    * Array to track all subscriptions and unsubscribe them onDestroy
@@ -140,7 +139,7 @@ export class OrcidQueueComponent implements OnInit, OnDestroy, OnChanges {
             currentPage: result.payload.pageInfo.currentPage,
           });
           this.processing$.next(false);
-          this.listDataRD = result;
+          this.list$.next(result);
           this.orcidQueueService.clearFindByProfileItemRequests();
         },
       }),
@@ -244,9 +243,11 @@ export class OrcidQueueComponent implements OnInit, OnDestroy, OnChanges {
    * @param orcidQueue The OrcidQueue object to discard
    */
   discardEntry(orcidQueue: OrcidQueue) {
+    this.processing$.next(true);
     this.subs.push(this.orcidQueueService.deleteById(orcidQueue.id).pipe(
       getFirstCompletedRemoteData(),
     ).subscribe((remoteData) => {
+      this.processing$.next(false);
       if (remoteData.isSuccess) {
         this.removeEntryFromList(orcidQueue.id);
         this.notificationsService.success(this.translateService.get('person.page.orcid.sync-queue.discard.success'));
@@ -262,10 +263,12 @@ export class OrcidQueueComponent implements OnInit, OnDestroy, OnChanges {
    * @param id The id of the entry to remove
    */
   removeEntryFromList(id: number) {
-    const index = this.listDataRD?.payload?.page.findIndex((item) => item.id === id);
+    const listDataRD = this.list$.value;
+    const index = this.list$.value?.payload?.page.findIndex((item) => item.id === id);
     if (index > -1) {
-      this.listDataRD.payload.page.splice(index, 1);
-      if (this.listDataRD.payload.page.length === 0 && this.listDataRD.payload.pageInfo.currentPage > 0) {
+      listDataRD.payload.page.splice(index, 1);
+      this.list$.next(listDataRD);
+      if (listDataRD.payload.page.length === 0 && listDataRD.payload.pageInfo.currentPage > 0) {
         this.paginationOptions.currentPage = this.paginationOptions.currentPage - 1;
         this.router.navigate([], {
           queryParams: {
@@ -369,6 +372,7 @@ export class OrcidQueueComponent implements OnInit, OnDestroy, OnChanges {
    * Unsubscribe from all subscriptions
    */
   ngOnDestroy(): void {
+    this.list$ = null;
     this.subs.filter((subscription) => hasValue(subscription))
       .forEach((subscription) => subscription.unsubscribe());
   }

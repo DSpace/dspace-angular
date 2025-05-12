@@ -845,7 +845,7 @@
   "admin.notifications.source.breadcrumbs": "Quality Assurance",
 
   // "admin.access-control.groups.form.tooltip.editGroupPage": "On this page, you can modify the properties and members of a group. In the top section, you can edit the group name and description, unless this is an admin group for a collection or community, in which case the group name and description are auto-generated and cannot be edited. In the following sections, you can edit group membership. See [the wiki](https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group) for more details.",
-  "admin.access-control.groups.form.tooltip.editGroupPage": "In questa pagina è possibile modificare le proprietà e i membri di un gruppo. Nella sezione in alto, è possibile modificare il nome e la descrizione del gruppo, a meno che non si tratti di un gruppo di amministratori di una collection o una community. In quel caso il nome e la descrizione del gruppo sono generati automaticamente e non possono essere modificati. Nelle sezioni successive è possibile modificare l'appartenenza al gruppo. Per maggiori dettagli, vedere [la wiki](https://wiki.lyrasis.org/display/DSDOC7x/Create+o+gestire+un+gruppo+utente)",
+  "admin.access-control.groups.form.tooltip.editGroupPage": "In questa pagina è possibile modificare le proprietà e i membri di un gruppo. Nella sezione in alto, è possibile modificare il nome e la descrizione del gruppo, a meno che non si tratti di un gruppo di amministratori di una collection o una community. In quel caso il nome e la descrizione del gruppo sono generati automaticamente e non possono essere modificati. Nelle sezioni successive è possibile modificare l'appartenenza al gruppo. Per maggiori dettagli, vedere [la wiki](https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group)",
 
   // "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.",
   // TODO Source message changed - Revise the translation
@@ -1334,7 +1334,7 @@
   // "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
   "admin.metadata-import.page.help": "È possibile rilasciare o sfogliare i file CSV che contengono operazioni di metadati batch sui file qui",
 
-  // "admin.batch-import.page.help": "Select the Collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the Items to import",
+  // "admin.batch-import.page.help": "Select the collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the items to import",
   "admin.batch-import.page.help": "Selezionare la Collection in cui effettuare l'import. Quindi, rilasciare o sfogliare un file zip Simple Archive Format (SAF) che include gli elementi da importare",
 
   // "admin.batch-import.page.toggle.help": "It is possible to perform import either with file upload or via URL, use above toggle to set the input source",
@@ -1880,7 +1880,7 @@
   // "collection.create.head": "Create a Collection",
   "collection.create.head": "Creare una collection",
 
-  // "collection.create.notifications.success": "Successfully created the Collection",
+  // "collection.create.notifications.success": "Successfully created the collection",
   "collection.create.notifications.success": "Collection creata con successo",
 
   // "collection.create.sub-head": "Create a Collection for Community {{ parent }}",
@@ -1988,10 +1988,10 @@
   // "collection.edit.logo.label": "Collection logo",
   "collection.edit.logo.label": "Logo della collection",
 
-  // "collection.edit.logo.notifications.add.error": "Uploading Collection logo failed. Please verify the content before retrying.",
+  // "collection.edit.logo.notifications.add.error": "Uploading collection logo failed. Please verify the content before retrying.",
   "collection.edit.logo.notifications.add.error": "Caricamento del logo della collection non riuscito. Verifica il contenuto prima di riprovare.",
 
-  // "collection.edit.logo.notifications.add.success": "Upload Collection logo successful.",
+  // "collection.edit.logo.notifications.add.success": "Uploading collection logo successful.",
   "collection.edit.logo.notifications.add.success": "Caricamento del logo della collection riuscito.",
 
   // "collection.edit.logo.notifications.delete.success.title": "Logo deleted",
@@ -2003,10 +2003,10 @@
   // "collection.edit.logo.notifications.delete.error.title": "Error deleting logo",
   "collection.edit.logo.notifications.delete.error.title": "Errore durante l'eliminazione del logo",
 
-  // "collection.edit.logo.upload": "Drop a Collection Logo to upload",
+  // "collection.edit.logo.upload": "Drop a collection logo to upload",
   "collection.edit.logo.upload": "Rilascia un logo della collection da caricare",
 
-  // "collection.edit.notifications.success": "Successfully edited the Collection",
+  // "collection.edit.notifications.success": "Successfully edited the collection",
   "collection.edit.notifications.success": "Modificata correttamente la collection",
 
   // "collection.edit.return": "Back",
@@ -2336,7 +2336,7 @@
   // "community.create.head": "Create a Community",
   "community.create.head": "Crea una Community",
 
-  // "community.create.notifications.success": "Successfully created the Community",
+  // "community.create.notifications.success": "Successfully created the community",
   "community.create.notifications.success": "Community creata con successo",
 
   // "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
@@ -2413,7 +2413,7 @@
   // TODO Source message changed - Revise the translation
   "community.edit.logo.upload": "Rilascia un logo della community da caricare",
 
-  // "community.edit.notifications.success": "Successfully edited the Community",
+  // "community.edit.notifications.success": "Successfully edited the community",
   "community.edit.notifications.success": "La community è stata modificata con successo",
 
   // "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
@@ -2589,7 +2589,7 @@
   // TODO New key - Add a translation
   "community.search.results.head": "Search Results",
 
-  // "community.sub-collection-list.head": "Collections in this Community",
+  // "community.sub-collection-list.head": "Collections in this community",
   // TODO Source message changed - Revise the translation
   "community.sub-collection-list.head": "Collections di questa community",
 
@@ -4296,7 +4296,7 @@
   // "item.edit.tabs.status.buttons.mappedCollections.label": "Manage mapped collections",
   "item.edit.tabs.status.buttons.mappedCollections.label": "Gestire le collections mappate",
 
-  // "item.edit.tabs.status.buttons.move.button": "Move this Item to a different Collection",
+  // "item.edit.tabs.status.buttons.move.button": "Move this item to a different collection",
   "item.edit.tabs.status.buttons.move.button": "Sposta questo item in un'altra collection...",
 
   // "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
@@ -4391,6 +4391,33 @@
 
   // "item.page.description": "Description",
   "item.page.description": "Descrizione",
+
+  // "item.page.org-units": "Organizational Units",
+  "item.page.org-units": "Strutture",
+
+  // "item.page.projects": "Research Projects",
+  "item.page.projects": "Progetti di ricerca",
+
+  // "item.page.publications": "Publications",
+  "item.page.publications": "Pubblicazioni",
+
+  // "item.page.articles": "Articles",
+  "item.page.articles": "Articoli",
+
+  // "item.page.journal": "Journal",
+  "item.page.journal": "Periodico",
+
+  // "item.page.journal-issue": "Journal Issue",
+  "item.page.journal-issue": "Fascicolo Periodico",
+
+  // "item.page.journal-issues": "Journal Issues",
+  "item.page.journal-issues": "Fascicolo Periodico",
+
+  // "item.page.journal-volume": "Journal Volume",
+  "item.page.journal-volume": "Volume del Periodico",
+
+  // "item.page.journal-volumes": "Journal Volumes",
+  "item.page.journal-volumes": "Volumi di Periodico",
 
   // "item.page.journal-issn": "Journal ISSN",
   "item.page.journal-issn": "ISSN",
@@ -4502,8 +4529,8 @@
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Abstract",
 
-  // "item.page.author": "Authors",
-  "item.page.author": "Autori",
+  // "item.page.authors": "Authors",
+  "item.page.authors": "Autori",
 
   // "item.page.citation": "Citation",
   "item.page.citation": "Citazione",
@@ -6256,6 +6283,9 @@
   // "process.new.parameter.file.required": "Please select a file",
   "process.new.parameter.file.required": "Seleziona un file",
 
+  // "process.new.parameter.integer.required": "Parameter value is required",
+  "process.new.parameter.integer.required": "Il valore del parametro è obbligatorio",
+
   // "process.new.parameter.string.required": "Parameter value is required",
   "process.new.parameter.string.required": "Il valore del parametro è obbligatorio",
 
@@ -6909,71 +6939,85 @@
   // "relationships.add.error.title": "Unable to add relationship",
   "relationships.add.error.title": "Impossibile aggiungere relazione",
 
-  // "relationships.isAuthorOf": "Authors",
-  "relationships.isAuthorOf": "Autori",
+  // "relationships.Publication.isAuthorOfPublication.Person": "Authors (persons)",
+  "relationships.Publication.isAuthorOfPublication.Person": "Autori (persone)",
 
-  // "relationships.isAuthorOf.Person": "Authors (persons)",
-  "relationships.isAuthorOf.Person": "Autori (persone)",
+  // "relationships.Publication.isProjectOfPublication.Project": "Research Projects",
+  "relationships.Publication.isProjectOfPublication.Project": "Progetti di ricerca",
 
-  // "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
-  "relationships.isAuthorOf.OrgUnit": "Autori (struttura)",
+  // "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizational Units",
+  "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Strutture",
 
-  // "relationships.isIssueOf": "Journal Issues",
-  "relationships.isIssueOf": "Fascicolo Periodico",
+  // "relationships.Publication.isAuthorOfPublication.OrgUnit": "Authors (organizational units)",
+  "relationships.Publication.isAuthorOfPublication.OrgUnit": "Autori (struttura)",
 
-  // "relationships.isIssueOf.JournalIssue": "Journal Issue",
+  // "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
+  "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Fascicolo Periodico",
+
+  // "relationships.Publication.isContributorOfPublication.Person": "Contributor",
+  "relationships.Publication.isContributorOfPublication.Person": "Collaboratore",
+
+  // "relationships.Publication.isContributorOfPublication.OrgUnit": "Contributor (organizational units)",
+  "relationships.Publication.isContributorOfPublication.OrgUnit": "Collaboratore (Struttura)",
+
+  // "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
+  "relationships.Person.isPublicationOfAuthor.Publication": "Pubblicazioni",
+
+  // "relationships.Person.isProjectOfPerson.Project": "Research Projects",
+  "relationships.Person.isProjectOfPerson.Project": "Progetti di ricerca",
+
+  // "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
+  "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Strutture",
+
+  // "relationships.Person.isPublicationOfContributor.Publication": "Publications",
+  "relationships.Person.isPublicationOfContributor.Publication": "Pubblicazioni",
+
+  // "relationships.Project.isPublicationOfProject.Publication": "Publications",
+  "relationships.Project.isPublicationOfProject.Publication": "Pubblicazioni",
+
+  // "relationships.Project.isPersonOfProject.Person": "Authors",
+  "relationships.Project.isPersonOfProject.Person": "Autori",
+
+  // "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
+  "relationships.Project.isOrgUnitOfProject.OrgUnit": "Strutture",
+
+  // "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Funder",
+  "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Finanziatore",
+
+  // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
   // TODO New key - Add a translation
-  "relationships.isIssueOf.JournalIssue": "Journal Issue",
+  "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
 
-  // "relationships.isJournalIssueOf": "Journal Issue",
-  "relationships.isJournalIssueOf": "Fascicolo Periodico",
+  // "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Authors",
+  "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Autori",
 
-  // "relationships.isJournalOf": "Journals",
-  "relationships.isJournalOf": "Periodico",
+  // "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Progetti di ricerca",
 
-  // "relationships.isJournalVolumeOf": "Journal Volume",
+  // "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
   // TODO New key - Add a translation
-  "relationships.isJournalVolumeOf": "Journal Volume",
+  "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
 
-  // "relationships.isOrgUnitOf": "Organizational Units",
-  "relationships.isOrgUnitOf": "Strutture",
+  // "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publications",
+  "relationships.OrgUnit.isPublicationOfContributor.Publication": "Pubblicazioni",
 
-  // "relationships.isPersonOf": "Authors",
-  "relationships.isPersonOf": "Autori",
+  // "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Progetti di ricerca",
 
-  // "relationships.isProjectOf": "Research Projects",
-  "relationships.isProjectOf": "Progetti di ricerca",
+  // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
+  "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Volume del Periodico",
 
-  // "relationships.isPublicationOf": "Publications",
-  "relationships.isPublicationOf": "Pubblicazioni",
+  // "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publications",
+  "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Pubblicazioni",
 
-  // "relationships.isPublicationOfJournalIssue": "Articles",
-  "relationships.isPublicationOfJournalIssue": "Articoli",
+  // "relationships.JournalVolume.isJournalOfVolume.Journal": "Journals",
+  "relationships.JournalVolume.isJournalOfVolume.Journal": "Periodico",
 
-  // "relationships.isSingleJournalOf": "Journal",
-  "relationships.isSingleJournalOf": "Periodico",
+  // "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Journal Issue",
+  "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Fascicolo Periodico",
 
-  // "relationships.isSingleVolumeOf": "Journal Volume",
-  "relationships.isSingleVolumeOf": "Volume del Periodico",
-
-  // "relationships.isVolumeOf": "Journal Volumes",
-  "relationships.isVolumeOf": "Volumi di Periodico",
-
-  // "relationships.isVolumeOf.JournalVolume": "Journal Volume",
-  // TODO New key - Add a translation
-  "relationships.isVolumeOf.JournalVolume": "Journal Volume",
-
-  // "relationships.isContributorOf": "Contributors",
-  "relationships.isContributorOf": "Collaboratori",
-
-  // "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
-  "relationships.isContributorOf.OrgUnit": "Collaboratore (Struttura)",
-
-  // "relationships.isContributorOf.Person": "Contributor",
-  "relationships.isContributorOf.Person": "Collaboratore",
-
-  // "relationships.isFundingAgencyOf.OrgUnit": "Funder",
-  "relationships.isFundingAgencyOf.OrgUnit": "Finanziatore",
+  // "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
+  "relationships.Journal.isVolumeOfJournal.JournalVolume": "Volume del Periodico",
 
   // "repository.image.logo": "Repository logo",
   "repository.image.logo": "Logo del repository",
@@ -9241,7 +9285,7 @@
   // "subscriptions.table.not-available-message": "The subscribed item has been deleted, or you don't currently have the permission to view it",
   "subscriptions.table.not-available-message": "L'elemento sottoscritto è stato cancellato o non si ha l'autorizzazione per visualizzarlo.",
 
-  // "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a Community or Collection, use the subscription button on the object's page.",
+  // "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a community or collection, use the subscription button on the object's page.",
   "subscriptions.table.empty.message": "Al momento non ci sono sottoscrizioni. Per ricevere aggiornamenti via e-mail di una Community o di una Collection, utilizzare il pulsante di sottoscrizione sulla pagina dell'oggetto",
 
   // "thumbnail.default.alt": "Thumbnail Image",

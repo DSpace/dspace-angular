@@ -1344,9 +1344,9 @@
   // "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
   "admin.metadata-import.page.help": "Becsatolhat vagy kikereshet CSV fájlokat, amelyek az itt tárolt fájlokra vonatkozó műveleteket tárolnak",
 
-  // "admin.batch-import.page.help": "Select the Collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the Items to import",
+  // "admin.batch-import.page.help": "Select the collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the items to import",
   // TODO New key - Add a translation
-  "admin.batch-import.page.help": "Select the Collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the Items to import",
+  "admin.batch-import.page.help": "Select the collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the items to import",
 
   // "admin.batch-import.page.toggle.help": "It is possible to perform import either with file upload or via URL, use above toggle to set the input source",
   // TODO New key - Add a translation
@@ -1967,7 +1967,7 @@
   // "collection.create.head": "Create a Collection",
   "collection.create.head": "Hozzon létre egy gyűjteményt",
 
-  // "collection.create.notifications.success": "Successfully created the Collection",
+  // "collection.create.notifications.success": "Successfully created the collection",
   "collection.create.notifications.success": "Guűjtemény sikeresen létrehozva",
 
   // "collection.create.sub-head": "Create a Collection for Community {{ parent }}",
@@ -2081,10 +2081,10 @@
   // "collection.edit.logo.label": "Collection logo",
   "collection.edit.logo.label": "Gyűjtemény logo",
 
-  // "collection.edit.logo.notifications.add.error": "Uploading Collection logo failed. Please verify the content before retrying.",
+  // "collection.edit.logo.notifications.add.error": "Uploading collection logo failed. Please verify the content before retrying.",
   "collection.edit.logo.notifications.add.error": "Gyűjtemény logo feltöltése nem sikerült. Kérjük, ellenőrizze a tartalmat, mielőtt újra próbálkozna.",
 
-  // "collection.edit.logo.notifications.add.success": "Upload Collection logo successful.",
+  // "collection.edit.logo.notifications.add.success": "Uploading collection logo successful.",
   "collection.edit.logo.notifications.add.success": "Gyűjtemény logo feltöltése sikerült.",
 
   // "collection.edit.logo.notifications.delete.success.title": "Logo deleted",
@@ -2096,10 +2096,10 @@
   // "collection.edit.logo.notifications.delete.error.title": "Error deleting logo",
   "collection.edit.logo.notifications.delete.error.title": "Logo törlése közben hiba történt",
 
-  // "collection.edit.logo.upload": "Drop a Collection Logo to upload",
+  // "collection.edit.logo.upload": "Drop a collection logo to upload",
   "collection.edit.logo.upload": "Feltöltéshez húzza ide a gyűjtemény Logót",
 
-  // "collection.edit.notifications.success": "Successfully edited the Collection",
+  // "collection.edit.notifications.success": "Successfully edited the collection",
   "collection.edit.notifications.success": "Gyűjtemény szerkesztése sikerült",
 
   // "collection.edit.return": "Back",
@@ -2459,7 +2459,7 @@
   // "community.create.head": "Create a Community",
   "community.create.head": "Hozzon létre egy közösséget",
 
-  // "community.create.notifications.success": "Successfully created the Community",
+  // "community.create.notifications.success": "Successfully created the community",
   "community.create.notifications.success": "Közösség sikeresen létrehozva",
 
   // "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
@@ -2539,7 +2539,7 @@
   // TODO Source message changed - Revise the translation
   "community.edit.logo.upload": "Feltöltéshez húzza ide a közösségi logót",
 
-  // "community.edit.notifications.success": "Successfully edited the Community",
+  // "community.edit.notifications.success": "Successfully edited the community",
   "community.edit.notifications.success": "Közösség szerkesztése sikerült",
 
   // "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
@@ -2719,7 +2719,7 @@
   // TODO New key - Add a translation
   "community.search.results.head": "Search Results",
 
-  // "community.sub-collection-list.head": "Collections in this Community",
+  // "community.sub-collection-list.head": "Collections in this community",
   // TODO Source message changed - Revise the translation
   "community.sub-collection-list.head": "Ennek a közösségnek a gyűjteményei",
 
@@ -4571,7 +4571,7 @@
   // "item.edit.tabs.status.buttons.mappedCollections.label": "Manage mapped collections",
   "item.edit.tabs.status.buttons.mappedCollections.label": "Térképezett gyűjtemények szervezése",
 
-  // "item.edit.tabs.status.buttons.move.button": "Move this Item to a different Collection",
+  // "item.edit.tabs.status.buttons.move.button": "Move this item to a different collection",
   // TODO Source message changed - Revise the translation
   "item.edit.tabs.status.buttons.move.button": "Elmozdítás...",
 
@@ -4674,6 +4674,33 @@
 
   // "item.page.description": "Description",
   "item.page.description": "Leírás",
+
+  // "item.page.org-units": "Organizational Units",
+  "item.page.org-units": "Szervezeti egységek",
+
+  // "item.page.projects": "Research Projects",
+  "item.page.projects": "Kutatási projektek",
+
+  // "item.page.publications": "Publications",
+  "item.page.publications": "Publikációk",
+
+  // "item.page.articles": "Articles",
+  "item.page.articles": "Cikkek",
+
+  // "item.page.journal": "Journal",
+  "item.page.journal": "Folyóirat",
+
+  // "item.page.journal-issue": "Journal Issue",
+  "item.page.journal-issue": "Folyóirat szám",
+
+  // "item.page.journal-issues": "Journal Issues",
+  "item.page.journal-issues": "Folyóirat számok",
+
+  // "item.page.journal-volume": "Journal Volume",
+  "item.page.journal-volume": "Folyóirat kötet",
+
+  // "item.page.journal-volumes": "Journal Volumes",
+  "item.page.journal-volumes": "Folyóirat kötetek",
 
   // "item.page.journal-issn": "Journal ISSN",
   "item.page.journal-issn": "Folyóirat ISSN",
@@ -4796,8 +4823,8 @@
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Kivonat",
 
-  // "item.page.author": "Authors",
-  "item.page.author": "Szerzők",
+  // "item.page.authors": "Authors",
+  "item.page.authors": "Szerzők",
 
   // "item.page.citation": "Citation",
   "item.page.citation": "Idézések",
@@ -6667,6 +6694,9 @@
   // "process.new.parameter.file.required": "Please select a file",
   "process.new.parameter.file.required": "Kérem válasszon egy fájlt",
 
+  // "process.new.parameter.integer.required": "Parameter value is required",
+  "process.new.parameter.integer.required": "Szüséges egy paraméter érték",
+
   // "process.new.parameter.string.required": "Parameter value is required",
   "process.new.parameter.string.required": "Szüséges egy paraméter érték",
 
@@ -7380,72 +7410,86 @@
   // TODO New key - Add a translation
   "relationships.add.error.title": "Unable to add relationship",
 
-  // "relationships.isAuthorOf": "Authors",
-  "relationships.isAuthorOf": "Szerzők",
+  // "relationships.Publication.isAuthorOfPublication.Person": "Authors (persons)",
+  "relationships.Publication.isAuthorOfPublication.Person": "Szerzők (személye)",
 
-  // "relationships.isAuthorOf.Person": "Authors (persons)",
-  "relationships.isAuthorOf.Person": "Szerzők (személye)",
+  // "relationships.Publication.isProjectOfPublication.Project": "Research Projects",
+  "relationships.Publication.isProjectOfPublication.Project": "Kutatási projektek",
 
-  // "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
-  "relationships.isAuthorOf.OrgUnit": "Szerzők (szervezeti egységek)",
+  // "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizational Units",
+  "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Szervezeti egységek",
 
-  // "relationships.isIssueOf": "Journal Issues",
-  "relationships.isIssueOf": "Folyóirat számok",
+  // "relationships.Publication.isAuthorOfPublication.OrgUnit": "Authors (organizational units)",
+  "relationships.Publication.isAuthorOfPublication.OrgUnit": "Szerzők (szervezeti egységek)",
 
-  // "relationships.isIssueOf.JournalIssue": "Journal Issue",
+  // "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
+  "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Folyóirat szám",
+
+  // "relationships.Publication.isContributorOfPublication.Person": "Contributor",
+  "relationships.Publication.isContributorOfPublication.Person": "Hozzájáruló",
+
+  // "relationships.Publication.isContributorOfPublication.OrgUnit": "Contributor (organizational units)",
+  "relationships.Publication.isContributorOfPublication.OrgUnit": "Hozzájáruló (Szervezet)",
+
+  // "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
+  "relationships.Person.isPublicationOfAuthor.Publication": "Publikációk",
+
+  // "relationships.Person.isProjectOfPerson.Project": "Research Projects",
+  "relationships.Person.isProjectOfPerson.Project": "Kutatási projektek",
+
+  // "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
+  "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Szervezeti egységek",
+
+  // "relationships.Person.isPublicationOfContributor.Publication": "Publications",
+  "relationships.Person.isPublicationOfContributor.Publication": "Publikációk",
+
+  // "relationships.Project.isPublicationOfProject.Publication": "Publications",
+  "relationships.Project.isPublicationOfProject.Publication": "Publikációk",
+
+  // "relationships.Project.isPersonOfProject.Person": "Authors",
+  "relationships.Project.isPersonOfProject.Person": "Szerzők",
+
+  // "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
+  "relationships.Project.isOrgUnitOfProject.OrgUnit": "Szervezeti egységek",
+
+  // "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Funder",
   // TODO New key - Add a translation
-  "relationships.isIssueOf.JournalIssue": "Journal Issue",
+  "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Funder",
 
-  // "relationships.isJournalIssueOf": "Journal Issue",
-  "relationships.isJournalIssueOf": "Folyóirat szám",
-
-  // "relationships.isJournalOf": "Journals",
-  "relationships.isJournalOf": "Folyóiratok",
-
-  // "relationships.isJournalVolumeOf": "Journal Volume",
+  // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
   // TODO New key - Add a translation
-  "relationships.isJournalVolumeOf": "Journal Volume",
+  "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
 
-  // "relationships.isOrgUnitOf": "Organizational Units",
-  "relationships.isOrgUnitOf": "Szervezeti egységek",
+  // "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Authors",
+  "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Szerzők",
 
-  // "relationships.isPersonOf": "Authors",
-  "relationships.isPersonOf": "Szerzők",
+  // "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Kutatási projektek",
 
-  // "relationships.isProjectOf": "Research Projects",
-  "relationships.isProjectOf": "Kutatási projektek",
-
-  // "relationships.isPublicationOf": "Publications",
-  "relationships.isPublicationOf": "Publikációk",
-
-  // "relationships.isPublicationOfJournalIssue": "Articles",
-  "relationships.isPublicationOfJournalIssue": "Cikkek",
-
-  // "relationships.isSingleJournalOf": "Journal",
-  "relationships.isSingleJournalOf": "Folyóirat",
-
-  // "relationships.isSingleVolumeOf": "Journal Volume",
-  "relationships.isSingleVolumeOf": "Folyóirat kötet",
-
-  // "relationships.isVolumeOf": "Journal Volumes",
-  "relationships.isVolumeOf": "Folyóirat kötetek",
-
-  // "relationships.isVolumeOf.JournalVolume": "Journal Volume",
+  // "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
   // TODO New key - Add a translation
-  "relationships.isVolumeOf.JournalVolume": "Journal Volume",
+  "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
 
-  // "relationships.isContributorOf": "Contributors",
-  "relationships.isContributorOf": "Közreműködők",
+  // "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publications",
+  "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publikációk",
 
-  // "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
-  "relationships.isContributorOf.OrgUnit": "Hozzájáruló (Szervezet)",
+  // "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Kutatási projektek",
 
-  // "relationships.isContributorOf.Person": "Contributor",
-  "relationships.isContributorOf.Person": "Hozzájáruló",
+  // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
+  "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Folyóirat kötet",
 
-  // "relationships.isFundingAgencyOf.OrgUnit": "Funder",
-  // TODO New key - Add a translation
-  "relationships.isFundingAgencyOf.OrgUnit": "Funder",
+  // "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publications",
+  "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publikációk",
+
+  // "relationships.JournalVolume.isJournalOfVolume.Journal": "Journals",
+  "relationships.JournalVolume.isJournalOfVolume.Journal": "Folyóiratok",
+
+  // "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Journal Issue",
+  "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Folyóirat szám",
+
+  // "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
+  "relationships.Journal.isVolumeOfJournal.JournalVolume": "Folyóirat kötet",
 
   // "repository.image.logo": "Repository logo",
   "repository.image.logo": "Adattár logó",
@@ -9933,9 +9977,9 @@
   // TODO New key - Add a translation
   "subscriptions.table.not-available-message": "The subscribed item has been deleted, or you don't currently have the permission to view it",
 
-  // "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a Community or Collection, use the subscription button on the object's page.",
+  // "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a community or collection, use the subscription button on the object's page.",
   // TODO New key - Add a translation
-  "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a Community or Collection, use the subscription button on the object's page.",
+  "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a community or collection, use the subscription button on the object's page.",
 
   // "thumbnail.default.alt": "Thumbnail Image",
   "thumbnail.default.alt": "Thumbnail kép",

@@ -1320,7 +1320,7 @@
   // "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
   "admin.metadata-import.page.help": "Sem můžete přetáhnout nebo vybrat CSV soubory, které obsahují dávkové operace na metadatech souborů",
 
-  // "admin.batch-import.page.help": "Select the Collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the Items to import",
+  // "admin.batch-import.page.help": "Select the collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the items to import",
   "admin.batch-import.page.help": "Vyberte kolekci, do které budete importovat. Poté přetáhněte nebo vyberte soubor typu Simple Archive Format (SAF), který obsahuje záznamy k importu",
 
   // "admin.batch-import.page.toggle.help": "It is possible to perform import either with file upload or via URL, use above toggle to set the input source",
@@ -1856,7 +1856,7 @@
   // "collection.create.head": "Create a Collection",
   "collection.create.head": "Vytvořit kolekci",
 
-  // "collection.create.notifications.success": "Successfully created the Collection",
+  // "collection.create.notifications.success": "Successfully created the collection",
   "collection.create.notifications.success": "Úspěšně vytvořena kolekce",
 
   // "collection.create.sub-head": "Create a Collection for Community {{ parent }}",
@@ -1964,10 +1964,10 @@
   // "collection.edit.logo.label": "Collection logo",
   "collection.edit.logo.label": "Logo kolekce",
 
-  // "collection.edit.logo.notifications.add.error": "Uploading Collection logo failed. Please verify the content before retrying.",
+  // "collection.edit.logo.notifications.add.error": "Uploading collection logo failed. Please verify the content before retrying.",
   "collection.edit.logo.notifications.add.error": "Nahrání loga kolekce se nezdařilo. Před dalším pokusem ověřte obsah.",
 
-  // "collection.edit.logo.notifications.add.success": "Upload Collection logo successful.",
+  // "collection.edit.logo.notifications.add.success": "Uploading collection logo successful.",
   "collection.edit.logo.notifications.add.success": "Nahrání loga kolekce proběhlo úspěšně.",
 
   // "collection.edit.logo.notifications.delete.success.title": "Logo deleted",
@@ -1979,10 +1979,10 @@
   // "collection.edit.logo.notifications.delete.error.title": "Error deleting logo",
   "collection.edit.logo.notifications.delete.error.title": "Chyba při mazání loga",
 
-  // "collection.edit.logo.upload": "Drop a Collection Logo to upload",
+  // "collection.edit.logo.upload": "Drop a collection logo to upload",
   "collection.edit.logo.upload": "Odstranit logo kolekce k nahrání",
 
-  // "collection.edit.notifications.success": "Successfully edited the Collection",
+  // "collection.edit.notifications.success": "Successfully edited the collection",
   "collection.edit.notifications.success": "Úspěšně upravena kolekce",
 
   // "collection.edit.return": "Back",
@@ -2312,7 +2312,7 @@
   // "community.create.head": "Create a Community",
   "community.create.head": "Vytvořit komunitu",
 
-  // "community.create.notifications.success": "Successfully created the Community",
+  // "community.create.notifications.success": "Successfully created the community",
   "community.create.notifications.success": "Úspěšně vytvořena komunita",
 
   // "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
@@ -2386,7 +2386,7 @@
   // "community.edit.logo.upload": "Drop a community logo to upload",
   "community.edit.logo.upload": "Nahrát logo komunity",
 
-  // "community.edit.notifications.success": "Successfully edited the Community",
+  // "community.edit.notifications.success": "Successfully edited the community",
   "community.edit.notifications.success": "Komunita byla úspěšně upravena",
 
   // "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
@@ -2561,7 +2561,7 @@
   // TODO New key - Add a translation
   "community.search.results.head": "Search Results",
 
-  // "community.sub-collection-list.head": "Collections in this Community",
+  // "community.sub-collection-list.head": "Collections in this community",
   // TODO Source message changed - Revise the translation
   "community.sub-collection-list.head": "Kolekce této komunity",
 
@@ -4261,7 +4261,7 @@
   // "item.edit.tabs.status.buttons.mappedCollections.label": "Manage mapped collections",
   "item.edit.tabs.status.buttons.mappedCollections.label": "Spravovat mapované kolekce",
 
-  // "item.edit.tabs.status.buttons.move.button": "Move this Item to a different Collection",
+  // "item.edit.tabs.status.buttons.move.button": "Move this item to a different collection",
   "item.edit.tabs.status.buttons.move.button": "Přesunout...",
 
   // "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
@@ -4360,6 +4360,33 @@
 
   // "item.page.description": "Description",
   "item.page.description": "Popis",
+
+  // "item.page.org-units": "Organizational Units",
+  "item.page.org-units": "Organizační jednotky",
+
+  // "item.page.projects": "Research Projects",
+  "item.page.projects": "Výzkumné projekty",
+
+  // "item.page.publications": "Publications",
+  "item.page.publications": "Publikace",
+
+  // "item.page.articles": "Articles",
+  "item.page.articles": "Články",
+
+  // "item.page.journal": "Journal",
+  "item.page.journal": "Časopisu",
+
+  // "item.page.journal-issue": "Journal Issue",
+  "item.page.journal-issue": "Číslo časopisu",
+
+  // "item.page.journal-issues": "Journal Issues",
+  "item.page.journal-issues": "Čísla časopisu",
+
+  // "item.page.journal-volume": "Journal Volume",
+  "item.page.journal-volume": "Ročník časopisu",
+
+  // "item.page.journal-volumes": "Journal Volumes",
+  "item.page.journal-volumes": "Ročníky časopisu",
 
   // "item.page.journal-issn": "Journal ISSN",
   "item.page.journal-issn": "ISSN časopisu",
@@ -4471,8 +4498,8 @@
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Abstrakt",
 
-  // "item.page.author": "Authors",
-  "item.page.author": "Autoři",
+  // "item.page.authors": "Authors",
+  "item.page.authors": "Autoři",
 
   // "item.page.citation": "Citation",
   "item.page.citation": "Citace",
@@ -6223,6 +6250,9 @@
   // "process.new.parameter.file.required": "Please select a file",
   "process.new.parameter.file.required": "Vyberte prosím soubor",
 
+  // "process.new.parameter.integer.required": "Parameter value is required",
+  "process.new.parameter.integer.required": "Hodnota parametru je povinná",
+
   // "process.new.parameter.string.required": "Parameter value is required",
   "process.new.parameter.string.required": "Hodnota parametru je povinná",
 
@@ -6878,71 +6908,85 @@
   // "relationships.add.error.title": "Unable to add relationship",
   "relationships.add.error.title": "Nelze přidat vztah",
 
-  // "relationships.isAuthorOf": "Authors",
-  "relationships.isAuthorOf": "Autoři",
+  // "relationships.Publication.isAuthorOfPublication.Person": "Authors (persons)",
+  "relationships.Publication.isAuthorOfPublication.Person": "Autoři (osoby)",
 
-  // "relationships.isAuthorOf.Person": "Authors (persons)",
-  "relationships.isAuthorOf.Person": "Autoři (osoby)",
+  // "relationships.Publication.isProjectOfPublication.Project": "Research Projects",
+  "relationships.Publication.isProjectOfPublication.Project": "Výzkumné projekty",
 
-  // "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
-  "relationships.isAuthorOf.OrgUnit": "Autoři (organizační jednotky)",
+  // "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizational Units",
+  "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizační jednotky",
 
-  // "relationships.isIssueOf": "Journal Issues",
-  "relationships.isIssueOf": "Čísla časopisu",
+  // "relationships.Publication.isAuthorOfPublication.OrgUnit": "Authors (organizational units)",
+  "relationships.Publication.isAuthorOfPublication.OrgUnit": "Autoři (organizační jednotky)",
 
-  // "relationships.isIssueOf.JournalIssue": "Journal Issue",
+  // "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
+  "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Číslo časopisu",
+
+  // "relationships.Publication.isContributorOfPublication.Person": "Contributor",
+  "relationships.Publication.isContributorOfPublication.Person": "Přispěvatel",
+
+  // "relationships.Publication.isContributorOfPublication.OrgUnit": "Contributor (organizational units)",
+  "relationships.Publication.isContributorOfPublication.OrgUnit": "Přispěvatel (Organizační jednotka)",
+
+  // "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
+  "relationships.Person.isPublicationOfAuthor.Publication": "Publikace",
+
+  // "relationships.Person.isProjectOfPerson.Project": "Research Projects",
+  "relationships.Person.isProjectOfPerson.Project": "Výzkumné projekty",
+
+  // "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
+  "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizační jednotky",
+
+  // "relationships.Person.isPublicationOfContributor.Publication": "Publications",
+  "relationships.Person.isPublicationOfContributor.Publication": "Publikace",
+
+  // "relationships.Project.isPublicationOfProject.Publication": "Publications",
+  "relationships.Project.isPublicationOfProject.Publication": "Publikace",
+
+  // "relationships.Project.isPersonOfProject.Person": "Authors",
+  "relationships.Project.isPersonOfProject.Person": "Autoři",
+
+  // "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
+  "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizační jednotky",
+
+  // "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Funder",
+  "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Poskytovatel financí",
+
+  // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
   // TODO New key - Add a translation
-  "relationships.isIssueOf.JournalIssue": "Journal Issue",
+  "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
 
-  // "relationships.isJournalIssueOf": "Journal Issue",
-  "relationships.isJournalIssueOf": "Číslo časopisu",
+  // "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Authors",
+  "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Autoři",
 
-  // "relationships.isJournalOf": "Journals",
-  "relationships.isJournalOf": "Časopisy",
+  // "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Výzkumné projekty",
 
-  // "relationships.isJournalVolumeOf": "Journal Volume",
+  // "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
   // TODO New key - Add a translation
-  "relationships.isJournalVolumeOf": "Journal Volume",
+  "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
 
-  // "relationships.isOrgUnitOf": "Organizational Units",
-  "relationships.isOrgUnitOf": "Organizační jednotky",
+  // "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publications",
+  "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publikace",
 
-  // "relationships.isPersonOf": "Authors",
-  "relationships.isPersonOf": "Autoři",
+  // "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Výzkumné projekty",
 
-  // "relationships.isProjectOf": "Research Projects",
-  "relationships.isProjectOf": "Výzkumné projekty",
+  // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
+  "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Ročník časopisu",
 
-  // "relationships.isPublicationOf": "Publications",
-  "relationships.isPublicationOf": "Publikace",
+  // "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publications",
+  "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publikace",
 
-  // "relationships.isPublicationOfJournalIssue": "Articles",
-  "relationships.isPublicationOfJournalIssue": "Články",
+  // "relationships.JournalVolume.isJournalOfVolume.Journal": "Journals",
+  "relationships.JournalVolume.isJournalOfVolume.Journal": "Časopisy",
 
-  // "relationships.isSingleJournalOf": "Journal",
-  "relationships.isSingleJournalOf": "Časopisu",
+  // "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Journal Issue",
+  "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Číslo časopisu",
 
-  // "relationships.isSingleVolumeOf": "Journal Volume",
-  "relationships.isSingleVolumeOf": "Ročník časopisu",
-
-  // "relationships.isVolumeOf": "Journal Volumes",
-  "relationships.isVolumeOf": "Ročníky časopisu",
-
-  // "relationships.isVolumeOf.JournalVolume": "Journal Volume",
-  // TODO New key - Add a translation
-  "relationships.isVolumeOf.JournalVolume": "Journal Volume",
-
-  // "relationships.isContributorOf": "Contributors",
-  "relationships.isContributorOf": "Přispěvatelé",
-
-  // "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
-  "relationships.isContributorOf.OrgUnit": "Přispěvatel (Organizační jednotka)",
-
-  // "relationships.isContributorOf.Person": "Contributor",
-  "relationships.isContributorOf.Person": "Přispěvatel",
-
-  // "relationships.isFundingAgencyOf.OrgUnit": "Funder",
-  "relationships.isFundingAgencyOf.OrgUnit": "Poskytovatel financí",
+  // "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
+  "relationships.Journal.isVolumeOfJournal.JournalVolume": "Ročník časopisu",
 
   // "repository.image.logo": "Repository logo",
   "repository.image.logo": "Logo repozitáře",
@@ -9214,14 +9258,14 @@
   // "subscriptions.table.not-available-message": "The subscribed item has been deleted, or you don't currently have the permission to view it",
   "subscriptions.table.not-available-message": "Záznam byl smazán, nebo nemáte oprávnění zobrazit si tento záznam.",
 
-  // "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a Community or Collection, use the subscription button on the object's page.",
+  // "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a community or collection, use the subscription button on the object's page.",
   "subscriptions.table.empty.message": "Momentálně nemáte nastavené žádné notifikace. K nastavení emailových notifikací na komunitu či kolekci, klikněte prosím na tlačítko notifikací u příslušné komunity či kolekce.",
 
   // "thumbnail.default.alt": "Thumbnail Image",
   "thumbnail.default.alt": "Náhled",
 
   // "thumbnail.default.placeholder": "No Thumbnail Available",
-  "thumbnail.default.placeholder": "Miniatura neexistuje",
+  "thumbnail.default.placeholder": "Náhled není k dispozici",
 
   // "thumbnail.project.alt": "Project Logo",
   "thumbnail.project.alt": "Logo projektu",

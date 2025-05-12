@@ -1345,9 +1345,9 @@
   // "admin.metadata-import.page.help": "You can drop or browse CSV files that contain batch metadata operations on files here",
   "admin.metadata-import.page.help": "Мұнда файлдарда метадеректермен пакеттік операциялары бар CSV файлдарын жоюға немесе көруге болады",
 
-  // "admin.batch-import.page.help": "Select the Collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the Items to import",
+  // "admin.batch-import.page.help": "Select the collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the items to import",
   // TODO New key - Add a translation
-  "admin.batch-import.page.help": "Select the Collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the Items to import",
+  "admin.batch-import.page.help": "Select the collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the items to import",
 
   // "admin.batch-import.page.toggle.help": "It is possible to perform import either with file upload or via URL, use above toggle to set the input source",
   // TODO New key - Add a translation
@@ -1932,7 +1932,7 @@
   // "collection.create.head": "Create a Collection",
   "collection.create.head": "Топтама Жасау",
 
-  // "collection.create.notifications.success": "Successfully created the Collection",
+  // "collection.create.notifications.success": "Successfully created the collection",
   "collection.create.notifications.success": "Топтама сәтті жасалды",
 
   // "collection.create.sub-head": "Create a Collection for Community {{ parent }}",
@@ -2040,10 +2040,10 @@
   // "collection.edit.logo.label": "Collection logo",
   "collection.edit.logo.label": "Топтама логотипі",
 
-  // "collection.edit.logo.notifications.add.error": "Uploading Collection logo failed. Please verify the content before retrying.",
+  // "collection.edit.logo.notifications.add.error": "Uploading collection logo failed. Please verify the content before retrying.",
   "collection.edit.logo.notifications.add.error": "Топтама логотипін жүктеу мүмкін емес. Қайта қолданар алдында мазмұның тексеріңіз.",
 
-  // "collection.edit.logo.notifications.add.success": "Upload Collection logo successful.",
+  // "collection.edit.logo.notifications.add.success": "Uploading collection logo successful.",
   "collection.edit.logo.notifications.add.success": "Топтама логотипін жүктеу сәтті өтті.",
 
   // "collection.edit.logo.notifications.delete.success.title": "Logo deleted",
@@ -2055,10 +2055,10 @@
   // "collection.edit.logo.notifications.delete.error.title": "Error deleting logo",
   "collection.edit.logo.notifications.delete.error.title": "Логотипті өшіру кезінде қате орын алды",
 
-  // "collection.edit.logo.upload": "Drop a Collection Logo to upload",
+  // "collection.edit.logo.upload": "Drop a collection logo to upload",
   "collection.edit.logo.upload": "Жүктеу үшін топтама логотипін жойыңыз",
 
-  // "collection.edit.notifications.success": "Successfully edited the Collection",
+  // "collection.edit.notifications.success": "Successfully edited the collection",
   "collection.edit.notifications.success": "Сәтті өзгертілген топтама",
 
   // "collection.edit.return": "Back",
@@ -2390,7 +2390,7 @@
   // "community.create.head": "Create a Community",
   "community.create.head": "Қауымдастық Құру",
 
-  // "community.create.notifications.success": "Successfully created the Community",
+  // "community.create.notifications.success": "Successfully created the community",
   "community.create.notifications.success": "Қауымдастық Сәтті құрылды",
 
   // "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
@@ -2467,7 +2467,7 @@
   // TODO Source message changed - Revise the translation
   "community.edit.logo.upload": "Жүктеу үшін Қауымдастық Логотипін жойыңыз",
 
-  // "community.edit.notifications.success": "Successfully edited the Community",
+  // "community.edit.notifications.success": "Successfully edited the community",
   "community.edit.notifications.success": "Сәтті өзгертілген Қауымдастық",
 
   // "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
@@ -2646,7 +2646,7 @@
   // TODO New key - Add a translation
   "community.search.results.head": "Search Results",
 
-  // "community.sub-collection-list.head": "Collections in this Community",
+  // "community.sub-collection-list.head": "Collections in this community",
   // TODO Source message changed - Revise the translation
   "community.sub-collection-list.head": "Қауымдастық Топтамалары",
 
@@ -4426,7 +4426,7 @@
   // "item.edit.tabs.status.buttons.mappedCollections.label": "Manage mapped collections",
   "item.edit.tabs.status.buttons.mappedCollections.label": "Салыстырмалы коллекцияларды басқару",
 
-  // "item.edit.tabs.status.buttons.move.button": "Move this Item to a different Collection",
+  // "item.edit.tabs.status.buttons.move.button": "Move this item to a different collection",
   "item.edit.tabs.status.buttons.move.button": "Ысыру...",
 
   // "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
@@ -4521,6 +4521,33 @@
 
   // "item.page.description": "Description",
   "item.page.description": "Сипаттама",
+
+  // "item.page.org-units": "Organizational Units",
+  "item.page.org-units": "Ұйымдастыру бөлімшелері",
+
+  // "item.page.projects": "Research Projects",
+  "item.page.projects": "Зерттеу жобалары",
+
+  // "item.page.publications": "Publications",
+  "item.page.publications": "Жарияланымдар",
+
+  // "item.page.articles": "Articles",
+  "item.page.articles": "Мақалалар",
+
+  // "item.page.journal": "Journal",
+  "item.page.journal": "Күнделік",
+
+  // "item.page.journal-issue": "Journal Issue",
+  "item.page.journal-issue": "Журнал шығару",
+
+  // "item.page.journal-issues": "Journal Issues",
+  "item.page.journal-issues": "Журналдың шығарылымдары",
+
+  // "item.page.journal-volume": "Journal Volume",
+  "item.page.journal-volume": "Журнал көлемі",
+
+  // "item.page.journal-volumes": "Journal Volumes",
+  "item.page.journal-volumes": "Журнал томдары",
 
   // "item.page.journal-issn": "Journal ISSN",
   "item.page.journal-issn": "ISSN журналы",
@@ -4640,8 +4667,8 @@
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Дерексіз",
 
-  // "item.page.author": "Authors",
-  "item.page.author": "Авторлар",
+  // "item.page.authors": "Authors",
+  "item.page.authors": "Авторлар",
 
   // "item.page.citation": "Citation",
   "item.page.citation": "Дәйексөз",
@@ -6444,6 +6471,9 @@
   // "process.new.parameter.file.required": "Please select a file",
   "process.new.parameter.file.required": "Файлды таңдаңыз",
 
+  // "process.new.parameter.integer.required": "Parameter value is required",
+  "process.new.parameter.integer.required": "Параметр мәні қажет",
+
   // "process.new.parameter.string.required": "Parameter value is required",
   "process.new.parameter.string.required": "Параметр мәні қажет",
 
@@ -7130,71 +7160,85 @@
   // "relationships.add.error.title": "Unable to add relationship",
   "relationships.add.error.title": "Байланыс қосу мүмкін емес",
 
-  // "relationships.isAuthorOf": "Authors",
-  "relationships.isAuthorOf": "Авторлар",
+  // "relationships.Publication.isAuthorOfPublication.Person": "Authors (persons)",
+  "relationships.Publication.isAuthorOfPublication.Person": "Авторлар (тұлғалар)",
 
-  // "relationships.isAuthorOf.Person": "Authors (persons)",
-  "relationships.isAuthorOf.Person": "Авторлар (тұлғалар)",
+  // "relationships.Publication.isProjectOfPublication.Project": "Research Projects",
+  "relationships.Publication.isProjectOfPublication.Project": "Зерттеу жобалары",
 
-  // "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
-  "relationships.isAuthorOf.OrgUnit": "Авторлар (ұйымдастыру бөлімшелері)",
+  // "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizational Units",
+  "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Ұйымдастыру бөлімшелері",
 
-  // "relationships.isIssueOf": "Journal Issues",
-  "relationships.isIssueOf": "Журналдың шығарылымдары",
+  // "relationships.Publication.isAuthorOfPublication.OrgUnit": "Authors (organizational units)",
+  "relationships.Publication.isAuthorOfPublication.OrgUnit": "Авторлар (ұйымдастыру бөлімшелері)",
 
-  // "relationships.isIssueOf.JournalIssue": "Journal Issue",
+  // "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
+  "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Журнал шығару",
+
+  // "relationships.Publication.isContributorOfPublication.Person": "Contributor",
+  "relationships.Publication.isContributorOfPublication.Person": "Қатысушы",
+
+  // "relationships.Publication.isContributorOfPublication.OrgUnit": "Contributor (organizational units)",
+  "relationships.Publication.isContributorOfPublication.OrgUnit": "Қатысушылар (Мекемелер)",
+
+  // "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
+  "relationships.Person.isPublicationOfAuthor.Publication": "Жарияланымдар",
+
+  // "relationships.Person.isProjectOfPerson.Project": "Research Projects",
+  "relationships.Person.isProjectOfPerson.Project": "Зерттеу жобалары",
+
+  // "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
+  "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Ұйымдастыру бөлімшелері",
+
+  // "relationships.Person.isPublicationOfContributor.Publication": "Publications",
+  "relationships.Person.isPublicationOfContributor.Publication": "Жарияланымдар",
+
+  // "relationships.Project.isPublicationOfProject.Publication": "Publications",
+  "relationships.Project.isPublicationOfProject.Publication": "Жарияланымдар",
+
+  // "relationships.Project.isPersonOfProject.Person": "Authors",
+  "relationships.Project.isPersonOfProject.Person": "Авторлар",
+
+  // "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
+  "relationships.Project.isOrgUnitOfProject.OrgUnit": "Ұйымдастыру бөлімшелері",
+
+  // "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Funder",
+  "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Жасаушы",
+
+  // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
   // TODO New key - Add a translation
-  "relationships.isIssueOf.JournalIssue": "Journal Issue",
+  "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
 
-  // "relationships.isJournalIssueOf": "Journal Issue",
-  "relationships.isJournalIssueOf": "Журнал шығару",
+  // "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Authors",
+  "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Авторлар",
 
-  // "relationships.isJournalOf": "Journals",
-  "relationships.isJournalOf": "Күнделіктер",
+  // "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Зерттеу жобалары",
 
-  // "relationships.isJournalVolumeOf": "Journal Volume",
+  // "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
   // TODO New key - Add a translation
-  "relationships.isJournalVolumeOf": "Journal Volume",
+  "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
 
-  // "relationships.isOrgUnitOf": "Organizational Units",
-  "relationships.isOrgUnitOf": "Ұйымдастыру бөлімшелері",
+  // "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publications",
+  "relationships.OrgUnit.isPublicationOfContributor.Publication": "Жарияланымдар",
 
-  // "relationships.isPersonOf": "Authors",
-  "relationships.isPersonOf": "Авторлары",
+  // "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Зерттеу жобалары",
 
-  // "relationships.isProjectOf": "Research Projects",
-  "relationships.isProjectOf": "Зерттеу жобалары",
+  // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
+  "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Журнал көлемі",
 
-  // "relationships.isPublicationOf": "Publications",
-  "relationships.isPublicationOf": "Жарияланымдар",
+  // "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publications",
+  "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Жарияланымдар",
 
-  // "relationships.isPublicationOfJournalIssue": "Articles",
-  "relationships.isPublicationOfJournalIssue": "Мақалалар",
+  // "relationships.JournalVolume.isJournalOfVolume.Journal": "Journals",
+  "relationships.JournalVolume.isJournalOfVolume.Journal": "Күнделіктер",
 
-  // "relationships.isSingleJournalOf": "Journal",
-  "relationships.isSingleJournalOf": "Күнделік",
+  // "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Journal Issue",
+  "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Журнал шығару",
 
-  // "relationships.isSingleVolumeOf": "Journal Volume",
-  "relationships.isSingleVolumeOf": "Журнал көлемі",
-
-  // "relationships.isVolumeOf": "Journal Volumes",
-  "relationships.isVolumeOf": "Журнал томдары",
-
-  // "relationships.isVolumeOf.JournalVolume": "Journal Volume",
-  // TODO New key - Add a translation
-  "relationships.isVolumeOf.JournalVolume": "Journal Volume",
-
-  // "relationships.isContributorOf": "Contributors",
-  "relationships.isContributorOf": "Қатысушылар",
-
-  // "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
-  "relationships.isContributorOf.OrgUnit": "Қатысушылар (Мекемелер)",
-
-  // "relationships.isContributorOf.Person": "Contributor",
-  "relationships.isContributorOf.Person": "Қатысушы",
-
-  // "relationships.isFundingAgencyOf.OrgUnit": "Funder",
-  "relationships.isFundingAgencyOf.OrgUnit": "Жасаушы",
+  // "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
+  "relationships.Journal.isVolumeOfJournal.JournalVolume": "Журнал көлемі",
 
   // "repository.image.logo": "Repository logo",
   "repository.image.logo": "Репозиторий логотипі",
@@ -9517,9 +9561,9 @@
   // TODO New key - Add a translation
   "subscriptions.table.not-available-message": "The subscribed item has been deleted, or you don't currently have the permission to view it",
 
-  // "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a Community or Collection, use the subscription button on the object's page.",
+  // "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a community or collection, use the subscription button on the object's page.",
   // TODO New key - Add a translation
-  "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a Community or Collection, use the subscription button on the object's page.",
+  "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a community or collection, use the subscription button on the object's page.",
 
   // "thumbnail.default.alt": "Thumbnail Image",
   "thumbnail.default.alt": "Кішірейтілген сурет",
