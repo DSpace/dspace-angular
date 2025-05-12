@@ -563,7 +563,7 @@ export class MenuResolverService  {
         {
           id: 'notifications',
           active: false,
-          visible: canSeeQa || isSiteAdmin,
+          visible: canSeeQa && isSiteAdmin,
           model: {
             type: MenuItemType.TEXT,
             text: 'menu.section.notifications',
