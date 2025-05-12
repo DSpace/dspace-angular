@@ -17,6 +17,7 @@ import {
 } from '../../../express.tokens';
 import { isNotEmpty } from '../../shared/empty.util';
 import { HardRedirectService } from './hard-redirect.service';
+import { ServerResponseService } from './server-response.service';
 
 /**
  * Service for performing hard redirects within the server app module
@@ -28,6 +29,7 @@ export class ServerHardRedirectService extends HardRedirectService {
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
     @Inject(REQUEST) protected req: Request,
     @Inject(RESPONSE) protected res: Response,
+    private responseService: ServerResponseService,
   ) {
     super();
   }
@@ -72,8 +74,10 @@ export class ServerHardRedirectService extends HardRedirectService {
 
       console.info(`Redirecting from ${this.req.url} to ${redirectUrl} with ${status}`);
 
+      this.setCorsHeader();
+
       this.res.redirect(status, redirectUrl);
-      this.res.end();
+      //this.res.end();
       // I haven't found a way to correctly stop Angular rendering.
       // So we just let it end its work, though we have already closed
       // the response.
@@ -95,5 +99,18 @@ export class ServerHardRedirectService extends HardRedirectService {
    */
   getCurrentOrigin(): string {
     return this.req.protocol + '://' + this.req.headers.host;
+  }
+
+  /**
+   * Set CORS header to allow embedding of redirected content
+   */
+  setCorsHeader() {
+    const currentOrigin = this.getCurrentOrigin();
+    const allowedOrigins = this.appConfig.rest.allowedOrigins;
+
+    if (currentOrigin && allowedOrigins?.length && allowedOrigins.includes(currentOrigin)) {
+      console.info('Setting cors header for origin ', currentOrigin);
+      this.responseService.setHeader('Access-Control-Allow-Origin', currentOrigin);
+    }
   }
 }
