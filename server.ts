@@ -58,6 +58,7 @@ import {
   REQUEST,
   RESPONSE,
 } from './src/express.tokens';
+import { SsrExcludePatterns } from "./src/config/ssr-config.interface";
 
 /*
  * Set path for the browser application's dist folder
@@ -633,9 +634,11 @@ function start() {
  * @param path
  * @param excludePathPattern
  */
-function isExcludedFromSsr(path: string, excludePathPattern: (string | RegExp)[]): boolean {
-  return excludePathPattern.some((pattern) => {
-    const regex = new RegExp(pattern);
+function isExcludedFromSsr(path: string, excludePathPattern: SsrExcludePatterns[]): boolean {
+  const patterns = excludePathPattern.map(p =>
+    new RegExp(p.pattern, p.flag || '')
+  );
+  return patterns.some((regex) => {
     return regex.test(path)
   });
 }
