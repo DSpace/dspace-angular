@@ -10,10 +10,7 @@
       </div>
       <ds-truncatable [id]="item.id">
         <h2 [innerHTML]="dsoTitle" [ngClass]="{'lead': true,'text-muted': !item.firstMetadataValue('dc.title')}"></h2>
-        <div *ngIf="item.hasMetadata('dspace.workflow.startDateTime') && item.hasMetadata('dc.date.accessioned')">
-          {{ 'mydspace.results.in-workflow-for' | translate }}
-          {{ getDateForArchivedItem(item.firstMetadataValue('dspace.workflow.startDateTime'), item.firstMetadataValue('dc.date.accessioned')) }}
-        </div>
+        <ds-in-workflow-statistics *ngIf="showWorkflowStatistics" [item]="item" ></ds-in-workflow-statistics>
         <div>
           <span class="text-muted">
             <ds-truncatable-part [id]="item.id" [minLines]="1">

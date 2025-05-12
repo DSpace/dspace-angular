@@ -10,6 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { fadeInOut } from '../../../../../../../app/shared/animations/fade';
 import { MetadataLinkViewComponent } from '../../../../../../../app/shared/metadata-link-view/metadata-link-view.component';
 import { ThemedBadgesComponent } from '../../../../../../../app/shared/object-collection/shared/badges/themed-badges.component';
+import { InWorkflowStatisticsComponent } from '../../../../../../../app/shared/object-collection/shared/in-workflow-statistics/in-workflow-statistics.component';
 import { ItemCollectionComponent } from '../../../../../../../app/shared/object-collection/shared/mydspace-item-collection/item-collection.component';
 import { ItemCorrectionComponent } from '../../../../../../../app/shared/object-collection/shared/mydspace-item-correction/item-correction.component';
 import { ItemSubmitterComponent } from '../../../../../../../app/shared/object-collection/shared/mydspace-item-submitter/item-submitter.component';
@@ -42,6 +43,7 @@ import { ThemedThumbnailComponent } from '../../../../../../../app/thumbnail/the
     MetadataLinkViewComponent,
     AdditionalMetadataComponent,
     ItemCorrectionComponent,
+    InWorkflowStatisticsComponent,
   ],
 })
 export class ItemListPreviewComponent extends BaseComponent {
