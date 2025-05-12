@@ -5,7 +5,8 @@
             [context]="badgeContext"
             [showLabel]="showLabel"
             [showMetrics]="false"
-            [showThumbnails]="showThumbnails"></ds-listable-object-component-loader>
+            [showThumbnails]="showThumbnails"
+            [showWorkflowStatistics]="showWorkflowStatistics"></ds-listable-object-component-loader>
     <div class="row">
         <div [ngClass]="showThumbnails ? 'offset-3 offset-xl-2  pl-3' : 'ml-3'">
             <ds-workspaceitem-actions [object]="dso" (processCompleted)="reloadedObject.emit($event.reloadedObject)"></ds-workspaceitem-actions>

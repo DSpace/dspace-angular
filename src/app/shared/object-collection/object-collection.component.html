@@ -12,6 +12,7 @@
                 [showPaginator]="showPaginator"
                 [showThumbnails]="showThumbnails"
                 [showCorrection]="showCorrection"
+                [showWorkflowStatistics]="showWorkflowStatistics"
                 (paginationChange)="onPaginationChange($event)"
                 (pageChange)="onPageChange($event)"
                 (pageSizeChange)="onPageSizeChange($event)"
@@ -43,6 +44,7 @@
                 [showMetrics]="showMetrics"
                 [showPaginator]="showPaginator"
                 [showThumbnails]="showThumbnails"
+                [showWorkflowStatistics]="showWorkflowStatistics"
                 (paginationChange)="onPaginationChange($event)"
                 (pageChange)="onPageChange($event)"
                 (pageSizeChange)="onPageSizeChange($event)"
@@ -62,6 +64,7 @@
                   [showMetrics]="showMetrics"
                   [showPaginator]="showPaginator"
                   [showThumbnails]="showThumbnails"
+                  [showWorkflowStatistics]="showWorkflowStatistics"
                   (contentChange)="contentChange.emit($event)"
                   *ngIf="(currentMode$ | async) === viewModeEnum.DetailedListElement">
 </ds-object-detail>

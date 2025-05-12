@@ -41,4 +41,5 @@ export enum FeatureID {
   EPersonForgotPassword = 'epersonForgotPassword',
   ShowClaimItem = 'showClaimItem',
   CanCorrectItem = 'canCorrectItem',
+  CanViewInWorkflowSinceStatistics = 'canViewInWorkflowSinceStatistics',
 }

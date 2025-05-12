@@ -130,6 +130,11 @@ export class ObjectListComponent {
   @Input() showCorrection = false;
 
   /**
+   * A boolean representing if to show workflow statistics
+   */
+  @Input() showWorkflowStatistics: boolean;
+
+  /**
    * Emit when one of the listed object has changed.
    */
   @Output() contentChange = new EventEmitter<any>();
