@@ -1,5 +1,10 @@
 import { Config } from './config.interface';
 
+export interface SsrExcludePatterns {
+  pattern: string | RegExp;
+  flag?: string;
+}
+
 export interface UniversalConfig extends Config {
   preboot: boolean;
   async: boolean;
@@ -34,7 +39,7 @@ export interface UniversalConfig extends Config {
   /**
    * Patterns to be used as regexes to match url's path and check if SSR is disabled for it.
    */
-  excludePathPatterns:  (string | RegExp)[];
+  excludePathPatterns:  SsrExcludePatterns[];
 
   /**
    * Whether to enable rendering of search component on SSR

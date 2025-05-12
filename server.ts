@@ -55,6 +55,7 @@ import { APP_CONFIG, AppConfig } from './src/config/app-config.interface';
 import { extendEnvironmentWithAppConfig } from './src/config/config.util';
 import { logStartupMessage } from './startup-message';
 import { TOKENITEM } from './src/app/core/auth/models/auth-token-info.model';
+import { SsrExcludePatterns } from './src/config/universal-config.interface';
 
 
 /*
@@ -631,9 +632,11 @@ function start() {
  * @param path
  * @param excludePathPattern
  */
-function isExcludedFromSsr(path: string, excludePathPattern: (string | RegExp)[]): boolean {
-  return excludePathPattern.some((pattern) => {
-    const regex = new RegExp(pattern);
+function isExcludedFromSsr(path: string, excludePathPattern: SsrExcludePatterns[]): boolean {
+  const patterns = excludePathPattern.map(p =>
+    new RegExp(p.pattern, p.flag || '')
+  );
+  return patterns.some((regex) => {
     return regex.test(path)
   });
 }
