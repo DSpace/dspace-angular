@@ -88,7 +88,7 @@ const _window = domino.createWindow(indexHtml);
 // The REST server base URL
 const REST_BASE_URL = environment.rest.ssrBaseUrl || environment.rest.baseUrl;
 
-const IIIF_ALLOWED_ORIGINS = environment.mirador.allowedOrigins;
+const IIIF_ALLOWED_ORIGINS = environment.rest.allowedOrigins || [];
 
 // Assign the DOM window and document objects to the global object
 (_window as any).screen = {deviceXDPI: 0, logicalXDPI: 0};
