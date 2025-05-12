@@ -1,8 +1,13 @@
 import {
+  AsyncPipe,
+  NgIf,
+} from '@angular/common';
+import {
   Component,
   Input,
   OnInit,
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import {
   differenceInDays,
   differenceInMilliseconds,
@@ -30,6 +35,11 @@ import { hasValue } from '../../../empty.util';
   templateUrl: './in-workflow-statistics.component.html',
   standalone: true,
   styleUrls: ['./in-workflow-statistics.component.scss'],
+  imports: [
+    TranslateModule,
+    AsyncPipe,
+    NgIf,
+  ],
 })
 export class InWorkflowStatisticsComponent implements OnInit {
 

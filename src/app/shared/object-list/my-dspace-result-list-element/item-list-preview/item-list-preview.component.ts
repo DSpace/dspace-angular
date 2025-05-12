@@ -27,6 +27,7 @@ import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail
 import { fadeInOut } from '../../../animations/fade';
 import { MetadataLinkViewComponent } from '../../../metadata-link-view/metadata-link-view.component';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
+import { InWorkflowStatisticsComponent } from '../../../object-collection/shared/in-workflow-statistics/in-workflow-statistics.component';
 import { ItemCollectionComponent } from '../../../object-collection/shared/mydspace-item-collection/item-collection.component';
 import { ItemCorrectionComponent } from '../../../object-collection/shared/mydspace-item-correction/item-correction.component';
 import { ItemSubmitterComponent } from '../../../object-collection/shared/mydspace-item-submitter/item-submitter.component';
@@ -60,6 +61,7 @@ import { AdditionalMetadataComponent } from '../../search-result-list-element/ad
     MetadataLinkViewComponent,
     AdditionalMetadataComponent,
     ItemCorrectionComponent,
+    InWorkflowStatisticsComponent,
   ],
 })
 export class ItemListPreviewComponent implements OnInit {
