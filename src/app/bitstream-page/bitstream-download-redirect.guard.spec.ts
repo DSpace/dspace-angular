@@ -162,8 +162,8 @@ describe('BitstreamDownloadRedirectGuard', () => {
       it('should redirect to the content link', waitForAsync(() => {
         TestBed.runInInjectionContext(() => {
           resolver(route, state).subscribe(() => {
-              expect(hardRedirectService.redirect).toHaveBeenCalledWith('bitstream-content-link');
-            }
+            expect(hardRedirectService.redirect).toHaveBeenCalledWith('bitstream-content-link', null, true);
+          },
           );
         });
       }));
@@ -176,7 +176,7 @@ describe('BitstreamDownloadRedirectGuard', () => {
       it('should redirect to an updated content link', waitForAsync(() => {
         TestBed.runInInjectionContext(() => {
           resolver(route, state).subscribe(() => {
-            expect(hardRedirectService.redirect).toHaveBeenCalledWith('content-url-with-headers');
+            expect(hardRedirectService.redirect).toHaveBeenCalledWith('content-url-with-headers', null, true);
           });
         });
       }));
