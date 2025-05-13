@@ -102,7 +102,7 @@ describe('ServerHardRedirectService', () => {
     service = new ServerHardRedirectService(environmentWithSSRUrl, mockRequest, mockResponse, serverResponseService);
 
     beforeEach(() => {
-      service.redirect(redirect);
+      service.redirect(redirect, null, true);
     });
 
     it('should set header', () => {
