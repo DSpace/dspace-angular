@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   KeyValuePipe,
-  NgForOf,
 } from '@angular/common';
 import {
   Component,
@@ -31,6 +30,7 @@ import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
 import { SearchFilterService } from '../../../core/shared/search/search-filter.service';
 import { FilterConfig } from '../../../core/shared/search/search-filters/search-config.model';
+import { BtnDisabledDirective } from '../../btn-disabled.directive';
 import {
   hasValue,
   isNotEmpty,
@@ -53,8 +53,8 @@ import { SearchFilterConfig } from '../models/search-filter-config.model';
     FilterInputSuggestionsComponent,
     FormsModule,
     KeyValuePipe,
-    NgForOf,
     TranslateModule,
+    BtnDisabledDirective,
   ],
 })
 export class AdvancedSearchComponent implements OnInit, OnDestroy {

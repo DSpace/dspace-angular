@@ -1,8 +1,6 @@
 import {
   AsyncPipe,
   NgClass,
-  NgFor,
-  NgIf,
 } from '@angular/common';
 import {
   Component,
@@ -65,6 +63,7 @@ import {
   getFirstSucceededRemoteDataPayload,
   getRemoteDataPayload,
 } from '../../../../core/shared/operators';
+import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
 import {
   hasNoValue,
   hasValue,
@@ -95,11 +94,10 @@ import { EditRelationshipComponent } from '../edit-relationship/edit-relationshi
     AsyncPipe,
     ObjectValuesPipe,
     VarDirective,
-    NgIf,
-    NgFor,
     TranslateModule,
     NgClass,
     ThemedLoadingComponent,
+    BtnDisabledDirective,
   ],
   standalone: true,
 })
@@ -154,6 +152,8 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
    * The translation key for the entity type
    */
   relationshipMessageKey$: Observable<string>;
+
+  currentEntityType$: Observable<ItemType>;
 
   /**
    * The list ID to save selected entities under
@@ -224,20 +224,12 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
    */
   public getRelationshipMessageKey(): Observable<string> {
     return observableCombineLatest([
+      this.currentEntityType$,
       this.getLabel(),
       this.relatedEntityType$,
     ]).pipe(
-      map(([label, relatedEntityType]) => {
-        if (hasValue(label) && label.indexOf('is') > -1 && label.indexOf('Of') > -1) {
-          const relationshipLabel = `${label.substring(2, label.indexOf('Of'))}`;
-          if (relationshipLabel !== relatedEntityType.label) {
-            return `relationships.is${relationshipLabel}Of.${relatedEntityType.label}`;
-          } else {
-            return `relationships.is${relationshipLabel}Of`;
-          }
-        } else {
-          return label;
-        }
+      map(([currentEntityType, label, relatedEntityType]: [ItemType, string, ItemType]) => {
+        return `relationships.${currentEntityType.label}.${label}.${relatedEntityType.label}`;
       }),
     );
   }
@@ -265,6 +257,22 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Check whether the current entity can have multiple relationships of this type
+   * This is based on the max cardinality of the relationship
+   * @private
+   */
+  private isRepeatable(): boolean {
+    const isLeft = this.currentItemIsLeftItem$.getValue();
+    if (isLeft) {
+      const leftMaxCardinality = this.relationshipType.leftMaxCardinality;
+      return hasNoValue(leftMaxCardinality) || leftMaxCardinality > 1;
+    } else {
+      const rightMaxCardinality = this.relationshipType.rightMaxCardinality;
+      return hasNoValue(rightMaxCardinality) || rightMaxCardinality > 1;
+    }
+  }
+
+  /**
    * Open the dynamic lookup modal to search for items to add as relationships
    */
   openLookup() {
@@ -281,6 +289,7 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     modalComp.toAdd = [];
     modalComp.toRemove = [];
     modalComp.isPending = false;
+    modalComp.repeatable = this.isRepeatable();
     modalComp.hiddenQuery = '-search.resourceid:' + this.item.uuid;
 
     this.item.owningCollection.pipe(
@@ -446,6 +455,17 @@ export class EditRelationshipListComponent implements OnInit, OnDestroy {
     this.relatedEntityType$ = this.relationshipLeftAndRightType$.pipe(
       map(([leftType, rightType]: [ItemType, ItemType]) => {
         if (leftType.uuid !== this.itemType.uuid) {
+          return leftType;
+        } else {
+          return rightType;
+        }
+      }),
+      hasValueOperator(),
+    );
+
+    this.currentEntityType$ = this.relationshipLeftAndRightType$.pipe(
+      map(([leftType, rightType]: [ItemType, ItemType]) => {
+        if (leftType.uuid === this.itemType.uuid) {
           return leftType;
         } else {
           return rightType;

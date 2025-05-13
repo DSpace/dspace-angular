@@ -32,7 +32,7 @@ export class UsageReport extends HALResource {
   id: string;
 
   @autoserializeAs('report-type')
-    reportType: string;
+  reportType: string;
 
   @autoserialize
   points: Point[];

@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   Input,
@@ -26,7 +26,7 @@ import { ValueInputComponent } from '../value-input.component';
     useFactory: controlContainerFactory,
     deps: [[new Optional(), NgForm]] }],
   standalone: true,
-  imports: [FormsModule, NgIf, TranslateModule],
+  imports: [FormsModule, TranslateModule],
 })
 export class StringValueInputComponent extends ValueInputComponent<string> implements OnInit {
   /**

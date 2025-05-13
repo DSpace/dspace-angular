@@ -24,7 +24,7 @@ export class BrowseBySwitcherComponent extends AbstractComponentLoaderComponent<
 
   @Input() context: Context;
 
-  @Input() browseByType: BrowseByDataType;
+  @Input() browseByType: { type: BrowseByDataType };
 
   @Input() displayTitle: boolean;
 
@@ -43,7 +43,7 @@ export class BrowseBySwitcherComponent extends AbstractComponentLoaderComponent<
   ];
 
   public getComponent(): GenericConstructor<Component> {
-    return getComponentByBrowseByType(this.browseByType, this.context, this.themeService.getThemeName());
+    return getComponentByBrowseByType(this.browseByType.type, this.context, this.themeService.getThemeName());
   }
 
 }

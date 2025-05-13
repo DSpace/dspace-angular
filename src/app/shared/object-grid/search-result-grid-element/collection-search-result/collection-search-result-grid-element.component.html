@@ -1,19 +1,29 @@
 <div class="card">
-  <a *ngIf="linkType !== linkTypes.None" [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="['/collections/', dso.id]" class="card-img-top" [attr.title]="'search.results.view-result' | translate">
-    <ds-thumbnail [thumbnail]="(dso.logo | async)?.payload" [limitWidth]="false">
-    </ds-thumbnail>
-  </a>
-  <span *ngIf="linkType === linkTypes.None" class="card-img-top">
-    <ds-thumbnail [thumbnail]="(dso.logo | async)?.payload" [limitWidth]="false">
-    </ds-thumbnail>
-  </span>
+  @if (linkType !== linkTypes.None) {
+    <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="['/collections/', dso.id]" class="card-img-top" [attr.title]="'search.results.view-result' | translate">
+      <ds-thumbnail [thumbnail]="(dso.logo | async)?.payload" [limitWidth]="false">
+      </ds-thumbnail>
+    </a>
+  }
+  @if (linkType === linkTypes.None) {
+    <span class="card-img-top">
+      <ds-thumbnail [thumbnail]="(dso.logo | async)?.payload" [limitWidth]="false">
+      </ds-thumbnail>
+    </span>
+  }
   <div class="card-body">
-    <ds-badges *ngIf="showLabel" [object]="dso" [context]="context"></ds-badges>
+    @if (showLabel) {
+      <ds-badges [object]="dso" [context]="context"></ds-badges>
+    }
     <h4 class="card-title">{{ dsoNameService.getName(dso) }}</h4>
-    <p *ngIf="dso.shortDescription" class="card-text">{{dso.shortDescription}}</p>
-    <div *ngIf="linkType !== linkTypes.None" class="text-center">
-      <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="['/collections/',  dso.id]" class="lead btn btn-primary viewButton">{{ 'search.results.view-result' | translate}}</a>
-    </div>
+    @if (dso.shortDescription) {
+      <p class="card-text">{{dso.shortDescription}}</p>
+    }
+    @if (linkType !== linkTypes.None) {
+      <div class="text-center">
+        <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null" [routerLink]="['/collections/',  dso.id]" class="lead btn btn-primary viewButton">{{ 'search.results.view-result' | translate}}</a>
+      </div>
+    }
   </div>
   <ng-content></ng-content>
 </div>

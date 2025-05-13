@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -48,7 +45,7 @@ import { VarDirective } from '../../shared/utils/var.directive';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeInOut],
   standalone: true,
-  imports: [VarDirective, NgIf, ObjectCollectionComponent, ErrorComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [VarDirective, ObjectCollectionComponent, ErrorComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
 })
 
 export class TopLevelCommunityListComponent implements OnInit, OnDestroy {
@@ -68,9 +65,10 @@ export class TopLevelCommunityListComponent implements OnInit, OnDestroy {
   pageId = 'tl';
 
   /**
-   * The sorting configuration
+   * The sorting configuration for the community list itself, and the optional RSS feed button
    */
   sortConfig: SortOptions;
+  rssSortConfig: SortOptions;
 
   /**
    * The subscription to the observable for the current page.
@@ -87,6 +85,7 @@ export class TopLevelCommunityListComponent implements OnInit, OnDestroy {
     this.config.pageSize = appConfig.homePage.topLevelCommunityList.pageSize;
     this.config.currentPage = 1;
     this.sortConfig = new SortOptions('dc.title', SortDirection.ASC);
+    this.rssSortConfig = new SortOptions('dc.date.accessioned', SortDirection.DESC);
   }
 
   ngOnInit() {

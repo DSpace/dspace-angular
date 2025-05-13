@@ -33,13 +33,14 @@ import { reloadGuard } from './core/reload/reload.guard';
 import { forgotPasswordCheckGuard } from './core/rest-property/forgot-password-check-guard.guard';
 import { ServerCheckGuard } from './core/server-check/server-check.guard';
 import { ThemedForbiddenComponent } from './forbidden/themed-forbidden.component';
+import { homePageResolver } from './home-page/home-page.resolver';
 import { ITEM_MODULE_PATH } from './item-page/item-page-routing-paths';
-import { menuResolver } from './menuResolver';
 import { provideSuggestionNotificationsState } from './notifications/provide-suggestion-notifications-state';
 import { ThemedPageErrorComponent } from './page-error/themed-page-error.component';
 import { ThemedPageInternalServerErrorComponent } from './page-internal-server-error/themed-page-internal-server-error.component';
 import { ThemedPageNotFoundComponent } from './pagenotfound/themed-pagenotfound.component';
 import { PROCESS_MODULE_PATH } from './process-page/process-page-routing.paths';
+import { viewTrackerResolver } from './statistics/angulartics/dspace/view-tracker.resolver';
 import { provideSubmissionState } from './submission/provide-submission-state';
 import { SUGGESTION_MODULE_PATH } from './suggestions-page/suggestions-page-routing-paths';
 
@@ -50,7 +51,6 @@ export const APP_ROUTES: Route[] = [
     path: '',
     canActivate: [authBlockingGuard],
     canActivateChild: [ServerCheckGuard],
-    resolve: [menuResolver],
     children: [
       { path: '', redirectTo: '/home', pathMatch: 'full' },
       {
@@ -63,9 +63,17 @@ export const APP_ROUTES: Route[] = [
         path: 'home',
         loadChildren: () => import('./home-page/home-page-routes')
           .then((m) => m.ROUTES),
-        data: { showBreadcrumbs: false },
+        data: {
+          showBreadcrumbs: false,
+          enableRSS: true,
+          dsoPath: 'site',
+        },
         providers: [provideSuggestionNotificationsState()],
         canActivate: [endUserAgreementCurrentUserGuard],
+        resolve: {
+          site: homePageResolver,
+          tracking: viewTrackerResolver,
+        },
       },
       {
         path: 'community-list',
@@ -137,6 +145,7 @@ export const APP_ROUTES: Route[] = [
         path: 'mydspace',
         loadChildren: () => import('./my-dspace-page/my-dspace-page-routes')
           .then((m) => m.ROUTES),
+        data: { enableRSS: true },
         providers: [provideSuggestionNotificationsState()],
         canActivate: [authenticatedGuard, endUserAgreementCurrentUserGuard],
       },
@@ -144,6 +153,7 @@ export const APP_ROUTES: Route[] = [
         path: 'search',
         loadChildren: () => import('./search-page/search-page-routes')
           .then((m) => m.ROUTES),
+        data: { enableRSS: true },
         canActivate: [endUserAgreementCurrentUserGuard],
       },
       {
@@ -156,6 +166,7 @@ export const APP_ROUTES: Route[] = [
         path: ADMIN_MODULE_PATH,
         loadChildren: () => import('./admin/admin-routes')
           .then((m) => m.ROUTES),
+        data: { enableRSS: true },
         canActivate: [siteAdministratorGuard, endUserAgreementCurrentUserGuard],
       },
       {
@@ -200,6 +211,7 @@ export const APP_ROUTES: Route[] = [
         providers: [provideSubmissionState()],
         loadChildren: () => import('./workflowitems-edit-page/workflowitems-edit-page-routes')
           .then((m) => m.ROUTES),
+        data: { enableRSS: true },
         canActivate: [endUserAgreementCurrentUserGuard],
       },
       {
@@ -256,6 +268,20 @@ export const APP_ROUTES: Route[] = [
         loadChildren: () => import('./subscriptions-page/subscriptions-page-routes')
           .then((m) => m.ROUTES),
         canActivate: [authenticatedGuard],
+      },
+      {
+        path: 'external-login/:token',
+        loadChildren: () => import('./external-login-page/external-login-routes').then((m) => m.ROUTES),
+      },
+      {
+        path: 'review-account/:token',
+        loadChildren: () => import('./external-login-review-account-info-page/external-login-review-account-info-page-routes')
+          .then((m) => m.ROUTES),
+      },
+      {
+        path: 'email-confirmation',
+        loadChildren: () => import('./external-login-email-confirmation-page/external-login-email-confirmation-page-routes')
+          .then((m) => m.ROUTES),
       },
       { path: '**', pathMatch: 'full', component: ThemedPageNotFoundComponent },
     ],

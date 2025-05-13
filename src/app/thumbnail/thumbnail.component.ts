@@ -1,9 +1,16 @@
-import { CommonModule } from '@angular/common';
+import {
+  CommonModule,
+  isPlatformBrowser,
+} from '@angular/common';
 import {
   Component,
+  Inject,
   Input,
   OnChanges,
+  PLATFORM_ID,
+  signal,
   SimpleChanges,
+  WritableSignal,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { of as observableOf } from 'rxjs';
@@ -21,7 +28,6 @@ import {
 } from '../shared/empty.util';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { SafeUrlPipe } from '../shared/utils/safe-url-pipe';
-import { VarDirective } from '../shared/utils/var.directive';
 
 /**
  * This component renders a given Bitstream as a thumbnail.
@@ -33,7 +39,7 @@ import { VarDirective } from '../shared/utils/var.directive';
   styleUrls: ['./thumbnail.component.scss'],
   templateUrl: './thumbnail.component.html',
   standalone: true,
-  imports: [VarDirective, CommonModule, ThemedLoadingComponent, TranslateModule, SafeUrlPipe],
+  imports: [CommonModule, ThemedLoadingComponent, TranslateModule, SafeUrlPipe],
 })
 export class ThumbnailComponent implements OnChanges {
   /**
@@ -50,7 +56,7 @@ export class ThumbnailComponent implements OnChanges {
   /**
    * The src attribute used in the template to render the image.
    */
-  src: string = undefined;
+  src: WritableSignal<string> = signal(undefined);
 
   retriedWithToken = false;
 
@@ -73,9 +79,10 @@ export class ThumbnailComponent implements OnChanges {
    * Whether the thumbnail is currently loading
    * Start out as true to avoid flashing the alt text while a thumbnail is being loaded.
    */
-  isLoading = true;
+  isLoading: WritableSignal<boolean> = signal(true);
 
   constructor(
+    @Inject(PLATFORM_ID) private platformID: any,
     protected auth: AuthService,
     protected authorizationService: AuthorizationDataService,
     protected fileService: FileService,
@@ -87,16 +94,18 @@ export class ThumbnailComponent implements OnChanges {
    * Use a default image if no actual image is available.
    */
   ngOnChanges(changes: SimpleChanges): void {
-    if (hasNoValue(this.thumbnail)) {
-      this.setSrc(this.defaultImage);
-      return;
-    }
+    if (isPlatformBrowser(this.platformID)) {
+      if (hasNoValue(this.thumbnail)) {
+        this.setSrc(this.defaultImage);
+        return;
+      }
 
-    const src = this.contentHref;
-    if (hasValue(src)) {
-      this.setSrc(src);
-    } else {
-      this.setSrc(this.defaultImage);
+      const src = this.contentHref;
+      if (hasValue(src)) {
+        this.setSrc(src);
+      } else {
+        this.setSrc(this.defaultImage);
+      }
     }
   }
 
@@ -126,7 +135,7 @@ export class ThumbnailComponent implements OnChanges {
    * Otherwise, fall back to the default image or a HTML placeholder
    */
   errorHandler() {
-    const src = this.src;
+    const src = this.src();
     const thumbnail = this.bitstream;
     const thumbnailSrc = thumbnail?._links?.content?.href;
 
@@ -178,9 +187,22 @@ export class ThumbnailComponent implements OnChanges {
    * @param src
    */
   setSrc(src: string): void {
-    this.src = src;
-    if (src === null) {
-      this.isLoading = false;
+    // only update the src if it has changed (the parent component may fire the same one multiple times
+    if (this.src() !== src) {
+      // every time the src changes we need to start the loading animation again, as it's possible
+      // that it is first set to null when the parent component initializes and then set to
+      // the actual value
+      //
+      // isLoading$ will be set to false by the error or success handler afterwards, except in the
+      // case where src is null, then we have to set it manually here (because those handlers won't
+      // trigger)
+      if (src !== null && this.isLoading() === false) {
+        this.isLoading.set(true);
+      }
+      this.src.set(src);
+      if (src === null && this.isLoading() === true) {
+        this.isLoading.set(false);
+      }
     }
   }
 
@@ -188,6 +210,6 @@ export class ThumbnailComponent implements OnChanges {
    * Stop the loading animation once the thumbnail is successfully loaded
    */
   successHandler() {
-    this.isLoading = false;
+    this.isLoading.set(false);
   }
 }

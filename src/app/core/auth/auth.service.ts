@@ -2,7 +2,6 @@ import { HttpHeaders } from '@angular/common/http';
 import {
   Inject,
   Injectable,
-  Optional,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import {
@@ -24,10 +23,6 @@ import {
 } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import {
-  REQUEST,
-  RESPONSE,
-} from '../../../express.tokens';
 import { AppState } from '../../app.reducer';
 import {
   hasNoValue,
@@ -62,6 +57,7 @@ import {
   getFirstCompletedRemoteData,
 } from '../shared/operators';
 import { PageInfo } from '../shared/page-info.model';
+import { URLCombiner } from '../url-combiner/url-combiner';
 import {
   CheckAuthenticationTokenAction,
   RefreshTokenAction,
@@ -111,18 +107,17 @@ export class AuthService {
    */
   private tokenRefreshTimer;
 
-  constructor(@Inject(REQUEST) protected req: any,
-              @Inject(NativeWindowService) protected _window: NativeWindowRef,
-              @Optional() @Inject(RESPONSE) private response: any,
-              protected authRequestService: AuthRequestService,
-              protected epersonService: EPersonDataService,
-              protected router: Router,
-              protected routeService: RouteService,
-              protected storage: CookieService,
-              protected store: Store<AppState>,
-              protected hardRedirectService: HardRedirectService,
-              private notificationService: NotificationsService,
-              private translateService: TranslateService,
+  constructor(
+    @Inject(NativeWindowService) protected _window: NativeWindowRef,
+    protected authRequestService: AuthRequestService,
+    protected epersonService: EPersonDataService,
+    protected router: Router,
+    protected routeService: RouteService,
+    protected storage: CookieService,
+    protected store: Store<AppState>,
+    protected hardRedirectService: HardRedirectService,
+    protected notificationService: NotificationsService,
+    protected translateService: TranslateService,
   ) {
     this.store.pipe(
       // when this service is constructed the store is not fully initialized yet
@@ -278,7 +273,7 @@ export class AuthService {
         if (status.hasSucceeded) {
           return status.payload.specialGroups;
         } else {
-          return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(),[]));
+          return createSuccessfulRemoteDataObject$(buildPaginatedList(new PageInfo(), []));
         }
       }),
     );
@@ -504,10 +499,6 @@ export class AuthService {
     if (this._window.nativeWindow.location) {
       // Hard redirect to login page, so that all state is definitely lost
       this._window.nativeWindow.location.href = redirectUrl;
-    } else if (this.response) {
-      if (!this.response._headerSent) {
-        this.response.redirect(302, redirectUrl);
-      }
     } else {
       this.router.navigateByUrl(redirectUrl);
     }
@@ -577,6 +568,31 @@ export class AuthService {
           this.setRedirectUrl(newRedirectUrl);
         }
       });
+  }
+
+  /**
+   * Returns the external server redirect URL.
+   * @param origin - The origin route.
+   * @param redirectRoute - The redirect route.
+   * @param location - The location.
+   * @returns The external server redirect URL.
+   */
+  getExternalServerRedirectUrl(origin: string, redirectRoute: string, location: string): string {
+    const correctRedirectUrl = new URLCombiner(origin, redirectRoute).toString();
+
+    let externalServerUrl = location;
+    const myRegexp = /\?redirectUrl=(.*)/g;
+    const match = myRegexp.exec(location);
+    const redirectUrlFromServer = (match && match[1]) ? match[1] : null;
+
+    // Check whether the current page is different from the redirect url received from rest
+    if (isNotNull(redirectUrlFromServer) && redirectUrlFromServer !== correctRedirectUrl) {
+      // change the redirect url with the current page url
+      const newRedirectUrl = `?redirectUrl=${correctRedirectUrl}`;
+      externalServerUrl = location.replace(/\?redirectUrl=(.*)/g, newRedirectUrl);
+    }
+
+    return externalServerUrl;
   }
 
   /**
@@ -663,5 +679,4 @@ export class AuthService {
       this.store.dispatch(new UnsetUserAsIdleAction());
     }
   }
-
 }

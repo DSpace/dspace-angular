@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgIf,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -41,7 +38,6 @@ import { hasValue } from '../shared/empty.util';
 import { ErrorComponent } from '../shared/error/error.component';
 import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
 import { VarDirective } from '../shared/utils/var.directive';
-import { ViewTrackerComponent } from '../statistics/angulartics/dspace/view-tracker.component';
 import { getCommunityPageRoute } from './community-page-routing-paths';
 import { ThemedCollectionPageSubCollectionListComponent } from './sections/sub-com-col-section/sub-collection-list/themed-community-page-sub-collection-list.component';
 import { ThemedCommunityPageSubCommunityListComponent } from './sections/sub-com-col-section/sub-community-list/themed-community-page-sub-community-list.component';
@@ -56,7 +52,6 @@ import { ThemedCommunityPageSubCommunityListComponent } from './sections/sub-com
     ThemedComcolPageContentComponent,
     ErrorComponent,
     ThemedLoadingComponent,
-    NgIf,
     TranslateModule,
     ThemedCommunityPageSubCommunityListComponent,
     ThemedCollectionPageSubCollectionListComponent,
@@ -66,7 +61,6 @@ import { ThemedCommunityPageSubCommunityListComponent } from './sections/sub-com
     ComcolPageLogoComponent,
     ComcolPageHeaderComponent,
     AsyncPipe,
-    ViewTrackerComponent,
     VarDirective,
     RouterOutlet,
     RouterModule,

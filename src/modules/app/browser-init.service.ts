@@ -42,9 +42,11 @@ import { InitService } from '../../app/init.service';
 import { OrejimeService } from '../../app/shared/cookies/orejime.service';
 import { isNotEmpty } from '../../app/shared/empty.util';
 import { MenuService } from '../../app/shared/menu/menu.service';
+import { MenuProviderService } from '../../app/shared/menu/menu-provider.service';
 import { ThemeService } from '../../app/shared/theme-support/theme.service';
 import { Angulartics2DSpace } from '../../app/statistics/angulartics/dspace-provider';
 import { GoogleAnalyticsService } from '../../app/statistics/google-analytics.service';
+import { MatomoService } from '../../app/statistics/matomo.service';
 import {
   StoreAction,
   StoreActionTypes,
@@ -54,6 +56,7 @@ import {
   APP_CONFIG_STATE,
   AppConfig,
 } from '../../config/app-config.interface';
+import { BuildConfig } from '../../config/build-config.interface';
 import { extendEnvironmentWithAppConfig } from '../../config/config.util';
 import { DefaultAppConfig } from '../../config/default-app-config';
 import { environment } from '../../environments/environment';
@@ -70,7 +73,7 @@ export class BrowserInitService extends InitService {
     protected store: Store<AppState>,
     protected correlationIdService: CorrelationIdService,
     protected transferState: TransferState,
-    @Inject(APP_CONFIG) protected appConfig: AppConfig,
+    @Inject(APP_CONFIG) protected appConfig: BuildConfig,
     protected translate: TranslateService,
     protected localeService: LocaleService,
     protected angulartics2DSpace: Angulartics2DSpace,
@@ -85,7 +88,8 @@ export class BrowserInitService extends InitService {
     protected router: Router,
     private requestService: RequestService,
     private halService: HALEndpointService,
-
+    private matomoService: MatomoService,
+    protected menuProviderService: MenuProviderService,
   ) {
     super(
       store,
@@ -98,6 +102,7 @@ export class BrowserInitService extends InitService {
       breadcrumbsService,
       themeService,
       menuService,
+      menuProviderService,
     );
   }
 
@@ -124,6 +129,7 @@ export class BrowserInitService extends InitService {
       this.initI18n();
       this.initAngulartics();
       this.initGoogleAnalytics();
+      this.initMatomo();
       this.initRouteListeners();
       this.themeService.listenForThemeChanges(true);
       this.trackAuthTokenExpiration();
@@ -131,6 +137,7 @@ export class BrowserInitService extends InitService {
       this.initOrejime();
 
       await lastValueFrom(this.authenticationReady$());
+      this.menuProviderService.initPersistentMenus(false);
 
       return true;
     };
@@ -144,15 +151,20 @@ export class BrowserInitService extends InitService {
    * @private
    */
   private async loadAppState(): Promise<boolean> {
-    const state = this.transferState.get<any>(InitService.NGRX_STATE, null);
-    this.transferState.remove(InitService.NGRX_STATE);
-    this.store.dispatch(new StoreAction(StoreActionTypes.REHYDRATE, state));
-    return lastValueFrom(
-      this.store.select(coreSelector).pipe(
-        find((core: any) => isNotEmpty(core)),
-        map(() => true),
-      ),
-    );
+    // The app state can be transferred only when SSR and CSR are using the same base url for the REST API
+    if (this.appConfig.ssr.transferState) {
+      const state = this.transferState.get<any>(InitService.NGRX_STATE, null);
+      this.transferState.remove(InitService.NGRX_STATE);
+      this.store.dispatch(new StoreAction(StoreActionTypes.REHYDRATE, state));
+      return lastValueFrom(
+        this.store.select(coreSelector).pipe(
+          find((core: any) => isNotEmpty(core)),
+          map(() => true),
+        ),
+      );
+    } else {
+      return Promise.resolve(true);
+    }
   }
 
   private trackAuthTokenExpiration(): void {
@@ -171,6 +183,10 @@ export class BrowserInitService extends InitService {
 
   protected initGoogleAnalytics() {
     this.googleAnalyticsService.addTrackingIdToPage();
+  }
+
+  protected initMatomo(): void {
+    this.matomoService.init();
   }
 
   /**
@@ -208,6 +224,7 @@ export class BrowserInitService extends InitService {
   protected initRouteListeners(): void {
     super.initRouteListeners();
     this.listenForRouteChanges();
+    this.menuProviderService.listenForRouteChanges(false);
   }
 
   /**

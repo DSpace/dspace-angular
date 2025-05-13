@@ -15,6 +15,7 @@ import { map } from 'rxjs/operators';
 
 import { SubmissionRestService } from '../../../core/submission/submission-rest.service';
 import { SubmissionScopeType } from '../../../core/submission/submission-scope-type';
+import { BtnDisabledDirective } from '../../../shared/btn-disabled.directive';
 import { isNotEmpty } from '../../../shared/empty.util';
 import { BrowserOnlyPipe } from '../../../shared/utils/browser-only.pipe';
 import { SubmissionService } from '../../submission.service';
@@ -23,11 +24,11 @@ import { SubmissionService } from '../../submission.service';
  * This component represents submission form footer bar.
  */
 @Component({
-  selector: 'ds-submission-form-footer',
+  selector: 'ds-base-submission-form-footer',
   styleUrls: ['./submission-form-footer.component.scss'],
   templateUrl: './submission-form-footer.component.html',
   standalone: true,
-  imports: [CommonModule, BrowserOnlyPipe, TranslateModule],
+  imports: [CommonModule, BrowserOnlyPipe, TranslateModule, BtnDisabledDirective],
 })
 export class SubmissionFormFooterComponent implements OnChanges {
 

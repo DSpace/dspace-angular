@@ -105,6 +105,10 @@ describe('SubmissionEditComponent Component', () => {
   });
 
   afterEach(() => {
+    if (fixture) {
+      // Ensure Angular cleans up the component properly
+      fixture.destroy();
+    }
     comp = null;
     fixture = null;
     router = null;

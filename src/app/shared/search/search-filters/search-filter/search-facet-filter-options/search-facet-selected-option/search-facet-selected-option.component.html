@@ -4,8 +4,8 @@
    [queryParams]="removeQueryParams | async"
    (click)="searchFilterService.minimizeAll()">
   <label class="mb-0 d-flex w-100">
-    <input type="checkbox" [checked]="true" class="my-1 align-self-stretch filter-checkbox"/>
-    <span class="filter-value pl-1 break-facet">
+    <input type="checkbox" [checked]="true" class="my-1 align-self-stretch filter-checkbox" role="checkbox" tabindex="0"/>
+    <span class="filter-value ps-1 break-facet">
         {{ 'search.filters.' + filterConfig.name + '.' + selectedValue.value | translate: {default: selectedValue.label} }}
     </span>
   </label>

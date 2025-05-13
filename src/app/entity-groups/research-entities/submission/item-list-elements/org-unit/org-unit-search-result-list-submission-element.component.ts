@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   Inject,
@@ -33,11 +33,11 @@ import { OrgUnitInputSuggestionsComponent } from './org-unit-suggestions/org-uni
 @listableObjectComponent('OrgUnitSearchResult', ViewMode.ListElement, Context.EntitySearchModal)
 @listableObjectComponent('OrgUnitSearchResult', ViewMode.ListElement, Context.EntitySearchModalWithNameVariants)
 @Component({
-  selector: 'ds-person-search-result-list-submission-element',
+  selector: 'ds-org-unit-search-result-list-submission-element',
   styleUrls: ['./org-unit-search-result-list-submission-element.component.scss'],
   templateUrl: './org-unit-search-result-list-submission-element.component.html',
   standalone: true,
-  imports: [NgIf, OrgUnitInputSuggestionsComponent, FormsModule],
+  imports: [OrgUnitInputSuggestionsComponent, FormsModule],
 })
 
 /**

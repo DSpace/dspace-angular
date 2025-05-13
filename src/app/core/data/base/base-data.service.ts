@@ -11,6 +11,7 @@ import {
   from as observableFrom,
   Observable,
   of as observableOf,
+  shareReplay,
 } from 'rxjs';
 import {
   map,
@@ -28,11 +29,16 @@ import {
   isNotEmptyOperator,
 } from '../../../shared/empty.util';
 import { FollowLinkConfig } from '../../../shared/utils/follow-link-config.model';
+import {
+  getLinkDefinition,
+  LinkDefinition,
+} from '../../cache/builders/build-decorators';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { CacheableObject } from '../../cache/cacheable-object.model';
 import { RequestParam } from '../../cache/models/request-param.model';
 import { ObjectCacheEntry } from '../../cache/object-cache.reducer';
 import { ObjectCacheService } from '../../cache/object-cache.service';
+import { GenericConstructor } from '../../shared/generic-constructor';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { HALLink } from '../../shared/hal-link.model';
 import { getFirstCompletedRemoteData } from '../../shared/operators';
@@ -283,6 +289,10 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
       isNotEmptyOperator(),
       take(1),
       map((href: string) => this.buildHrefFromFindOptions(href, {}, [], ...linksToFollow)),
+      shareReplay({
+        bufferSize: 1,
+        refCount: true,
+      }),
     );
 
     const startTime: number = new Date().getTime();
@@ -301,9 +311,10 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
       // Ensure all followLinks from the cached object are automatically invalidated when invalidating the cached object
       tap((remoteDataObject: RemoteData<T>) => {
         if (hasValue(remoteDataObject?.payload?._links)) {
-          for (const followLinkName of Object.keys(remoteDataObject.payload._links)) {
-            // only add the followLinks if they are embedded
-            if (hasValue(remoteDataObject.payload[followLinkName]) && followLinkName !== 'self') {
+          for (const followLinkName of Object.keys(remoteDataObject.payload._links) as (keyof typeof remoteDataObject.payload._links)[]) {
+            // only add the followLinks if they are embedded, and we get only links from the linkMap with the correct name
+            const linkDefinition: LinkDefinition<T> = getLinkDefinition(remoteDataObject.payload.constructor as GenericConstructor<T>, followLinkName);
+            if (linkDefinition?.propertyName && hasValue(remoteDataObject.payload[linkDefinition.propertyName]) && followLinkName !== 'self') {
               // followLink can be either an individual HALLink or a HALLink[]
               const followLinksList: HALLink[] = [].concat(remoteDataObject.payload._links[followLinkName]);
               for (const individualFollowLink of followLinksList) {
@@ -337,6 +348,10 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
       isNotEmptyOperator(),
       take(1),
       map((href: string) => this.buildHrefFromFindOptions(href, options, [], ...linksToFollow)),
+      shareReplay({
+        bufferSize: 1,
+        refCount: true,
+      }),
     );
 
     const startTime: number = new Date().getTime();
@@ -357,9 +372,10 @@ export class BaseDataService<T extends CacheableObject> implements HALDataServic
         if (hasValue(remoteDataObject?.payload?.page)) {
           for (const object of remoteDataObject.payload.page) {
             if (hasValue(object?._links)) {
-              for (const followLinkName of Object.keys(object._links)) {
-                // only add the followLinks if they are embedded
-                if (hasValue(object[followLinkName]) && followLinkName !== 'self') {
+              for (const followLinkName of Object.keys(object._links) as (keyof typeof object._links)[]) {
+                // only add the followLinks if they are embedded, and we get only links from the linkMap with the correct name
+                const linkDefinition: LinkDefinition<PaginatedList<T>> = getLinkDefinition(object.constructor as GenericConstructor<PaginatedList<T>>, followLinkName);
+                if (linkDefinition?.propertyName && followLinkName !== 'self' && hasValue(object[linkDefinition.propertyName])) {
                   // followLink can be either an individual HALLink or a HALLink[]
                   const followLinksList: HALLink[] = [].concat(object._links[followLinkName]);
                   for (const individualFollowLink of followLinksList) {
