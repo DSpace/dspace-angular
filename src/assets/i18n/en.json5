@@ -33,6 +33,8 @@
 
   "error-page.orcid.generic-error": "An error occurred during login via ORCID. Make sure you have shared your ORCID account email address with DSpace. If the error persists, contact the administrator",
 
+  "listelement.badge.access-status": "Access status:",
+
   "access-status.embargo.listelement.badge": "Embargo",
 
   "access-status.metadata.only.listelement.badge": "Metadata only",
@@ -2251,6 +2253,8 @@
 
   "item.edit.authorizations.title": "Edit item's Policies",
 
+  "item.badge.status": "Item status:",
+
   "item.badge.private": "Non-discoverable",
 
   "item.badge.withdrawn": "Withdrawn",
@@ -3591,6 +3595,8 @@
 
   "mydspace.show.supervisedWorkspace": "Supervised items",
 
+  "mydspace.status": "My DSpace status:",
+
   "mydspace.status.mydspaceArchived": "Archived",
 
   "mydspace.status.mydspaceValidation": "Validation",
@@ -3654,6 +3660,8 @@
   "nav.toggle": "Toggle navigation",
 
   "nav.user.description": "User profile bar",
+
+  "listelement.badge.dso-type": "Item type:",
 
   "none.listelement.badge": "Item",
 
