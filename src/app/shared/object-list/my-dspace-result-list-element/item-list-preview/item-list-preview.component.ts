@@ -1,19 +1,18 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit, } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Context } from 'src/app/core/shared/context.model';
+import { WorkflowItem } from 'src/app/core/submission/models/workflowitem.model';
 
 import { Item } from '../../../../core/shared/item.model';
 import { fadeInOut } from '../../../animations/fade';
 import { SearchResult } from '../../../search/models/search-result.model';
 import { APP_CONFIG, AppConfig } from '../../../../../config/app-config.interface';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
-import { Context } from '../../../../core/shared/context.model';
-import { WorkflowItem } from '../../../../core/submission/models/workflowitem.model';
 import {
   DuplicateMatchMetadataDetailConfig
 } from '../../../../submission/sections/detect-duplicate/models/duplicate-detail-metadata.model';
-import { parseISO, differenceInDays, differenceInMilliseconds } from 'date-fns';
 import { environment } from '../../../../../environments/environment';
 import { TruncatableService } from '../../../truncatable/truncatable.service';
-import { Observable } from 'rxjs';
 
 /**
  * This component show metadata for the given item object in the list view.
@@ -67,6 +66,11 @@ export class ItemListPreviewComponent implements OnInit {
   @Input() showCorrection = false;
 
   /**
+   * A boolean representing if to show workflow statistics
+   */
+  @Input() showWorkflowStatistics = false;
+
+  /**
    * An object representing the duplicate match
    */
   @Input() metadataList: DuplicateMatchMetadataDetailConfig[] = [];
@@ -91,18 +95,10 @@ export class ItemListPreviewComponent implements OnInit {
   ) {
   }
 
-  getDateForArchivedItem(itemStartDate: string, dateAccessioned: string) {
-    const itemStartDateConverted: Date = parseISO(itemStartDate);
-    const dateAccessionedConverted: Date = parseISO(dateAccessioned);
-    const days: number = Math.floor(differenceInDays(dateAccessionedConverted, itemStartDateConverted));
-    const remainingMilliseconds: number = differenceInMilliseconds(dateAccessionedConverted, itemStartDateConverted) - days * 24 * 60 * 60 * 1000;
-    const hours: number = Math.floor(remainingMilliseconds / (60 * 60 * 1000));
-    return `${days} d ${hours} h`;
-  }
-
   ngOnInit(): void {
     this.showThumbnails = this.showThumbnails ?? this.appConfig.browseBy.showThumbnails;
     this.dsoTitle = this.dsoNameService.getHitHighlights(this.object, this.item);
     this.isCollapsed$ = this.truncateService.isCollapsed(this.item.uuid);
   }
+
 }

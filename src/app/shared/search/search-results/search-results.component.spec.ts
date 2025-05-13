@@ -12,6 +12,8 @@ import { SearchConfigurationService } from '../../../core/shared/search/search-c
 import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
 import { SearchService } from '../../../core/shared/search/search.service';
 import { SearchServiceStub } from '../../testing/search-service.stub';
+import { APP_CONFIG } from '../../../../config/app-config.interface';
+import { environment } from '../../../../environments/environment';
 
 describe('SearchResultsComponent', () => {
   let comp: SearchResultsComponent;
@@ -30,6 +32,7 @@ describe('SearchResultsComponent', () => {
       providers: [
         { provide: SearchConfigurationService, useValue: new SearchConfigurationServiceStub() },
         { provide: SearchService, useValue: new SearchServiceStub() },
+        { provide: APP_CONFIG, useValue: environment },
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
