@@ -10,4 +10,5 @@ export class ServerConfig implements Config {
   // This boolean will be automatically set on server startup based on whether "baseUrl" and "ssrBaseUrl"
   // have different values.
   public hasSsrBaseUrl?: boolean;
+  public allowedOrigins?: string[];
 }

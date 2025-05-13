@@ -65,6 +65,8 @@ const DIST_FOLDER = join(process.cwd(), 'dist/browser');
 // Set path fir IIIF viewer.
 const IIIF_VIEWER = join(process.cwd(), 'dist/iiif');
 
+const miradorHtml = join(IIIF_VIEWER, '/mirador/index.html');
+
 const indexHtml = join(DIST_FOLDER, 'index.html');
 
 const cookieParser = require('cookie-parser');
@@ -86,8 +88,10 @@ const _window = domino.createWindow(indexHtml);
 // The REST server base URL
 const REST_BASE_URL = environment.rest.ssrBaseUrl || environment.rest.baseUrl;
 
+const IIIF_ALLOWED_ORIGINS = environment.rest.allowedOrigins || [];
+
 // Assign the DOM window and document objects to the global object
-(_window as any).screen = {deviceXDPI: 0, logicalXDPI: 0};
+(_window as any).screen = { deviceXDPI: 0, logicalXDPI: 0 };
 (global as any).window = _window;
 (global as any).document = _window.document;
 (global as any).navigator = _window.navigator;
@@ -231,6 +235,35 @@ export function app() {
   */
   router.use('/iiif', express.static(IIIF_VIEWER, { index: false }));
 
+  /*
+  * Adapt headers to allow embedding of IIIF viewer in authorized pages
+  */
+  server.get('/iiif/mirador/index.html', (req, res) => {
+    const referer = req.headers.referer;
+
+    if (referer && !referer.startsWith('/')) {
+      try {
+        const origin =  new URL(referer).origin;
+        if (IIIF_ALLOWED_ORIGINS.includes(origin)) {
+          console.info('Found allowed origin, setting headers for IIIF viewer');
+          // CORS header
+          res.setHeader('Access-Control-Allow-Origin', origin);
+          // CSP for iframe embedding
+          res.setHeader('Content-Security-Policy', `frame-ancestors ${origin};`);
+          console.info('Headers have been set ', res.getHeader('Access-Control-Allow-Origin'), res.getHeader('Content-Security-Policy'));
+        }
+      } catch (error) {
+        console.error('An error occurred setting security headers in response:', error.message);
+      }
+    }
+
+    res.sendFile(miradorHtml, (err) => {
+      if (err) {
+        res.status(500).send('Internal Server Error');
+      }
+    });
+  });
+
   /**
    * Checking server status
    */
@@ -286,6 +319,11 @@ function serverSideRender(req, res, sendToUser: boolean = true) {
     originUrl: environment.ui.baseUrl,
     requestUrl: req.originalUrl,
   }, (err, data) => {
+
+    if (res.writableEnded || res.headersSent || res.finished) {
+      return;
+    }
+
     if (hasNoValue(err) && hasValue(data)) {
       // Replace REST URL with UI URL
         if (environment.universal.replaceRestUrl && REST_BASE_URL !== environment.rest.baseUrl) {
@@ -644,10 +682,10 @@ function start() {
  * The callback function to serve client health check requests
  */
 function clientHealthCheck(req, res) {
-    const isServerHealthy = true;
-    if (isServerHealthy) {
-      res.status(200).json({ status: 'UP' });
-    }
+  const isServerHealthy = true;
+  if (isServerHealthy) {
+    res.status(200).json({ status: 'UP' });
+  }
 }
 
 /*
@@ -665,6 +703,8 @@ function healthCheck(req, res) {
       });
     });
 }
+
+
 // Webpack will replace 'require' with '__webpack_require__'
 // '__non_webpack_require__' is a proxy to Node 'require'
 // The below code is to ensure that the server is run only when not requiring the bundle.
