@@ -91,7 +91,7 @@ const REST_BASE_URL = environment.rest.ssrBaseUrl || environment.rest.baseUrl;
 const IIIF_ALLOWED_ORIGINS = environment.rest.allowedOrigins || [];
 
 // Assign the DOM window and document objects to the global object
-(_window as any).screen = {deviceXDPI: 0, logicalXDPI: 0};
+(_window as any).screen = { deviceXDPI: 0, logicalXDPI: 0 };
 (global as any).window = _window;
 (global as any).document = _window.document;
 (global as any).navigator = _window.navigator;
@@ -241,7 +241,7 @@ export function app() {
   server.get('/iiif/mirador/index.html', (req, res) => {
     const referer = req.headers.referer;
 
-    if(referer && !referer.startsWith('/')) {
+    if (referer && !referer.startsWith('/')) {
       try {
         const origin =  new URL(referer).origin;
         if (IIIF_ALLOWED_ORIGINS.includes(origin)) {
@@ -253,7 +253,7 @@ export function app() {
           console.info('Headers have been set ', res.getHeader('Access-Control-Allow-Origin'), res.getHeader('Content-Security-Policy'));
         }
       } catch (error) {
-        console.error("An error occurred setting security headers in response:", error.message);
+        console.error('An error occurred setting security headers in response:', error.message);
       }
     }
 
@@ -682,10 +682,10 @@ function start() {
  * The callback function to serve client health check requests
  */
 function clientHealthCheck(req, res) {
-    const isServerHealthy = true;
-    if (isServerHealthy) {
-      res.status(200).json({ status: 'UP' });
-    }
+  const isServerHealthy = true;
+  if (isServerHealthy) {
+    res.status(200).json({ status: 'UP' });
+  }
 }
 
 /*
