@@ -20,6 +20,7 @@ import {
   Subject,
 } from 'rxjs';
 import {
+  catchError,
   first,
   map,
   startWith,
@@ -59,44 +60,58 @@ export class SubscribeMenuProvider extends DSpaceObjectPageMenuProvider {
     if (!isPlatformBrowser(this.platformId)) {
       return of([]);
     }
-    const realSections$ = this.refresh$.pipe(
-      startWith(undefined),
-      switchMap(() =>
-        combineLatest([
-          this.authorizationService.isAuthorized(FeatureID.CanSubscribe, dso.self),
-          this.authService.getAuthenticatedUserFromStore().pipe(first()),
-        ]),
-      ),
+
+    // 1. Crear un ID único desde el principio
+    const sectionId = `subscribe-section-${dso.uuid}`;
+
+    return this.refresh$.pipe(
+      startWith(null), // Inicializar el flujo
+      switchMap(() => combineLatest([
+        this.authorizationService.isAuthorized(FeatureID.CanSubscribe, dso.self),
+        this.authService.getAuthenticatedUserFromStore().pipe(first()),
+      ])),
       switchMap(([canSubscribe, user]) => {
+        // 2. Siempre retornar estructura con ID incluso si no hay permiso
+        const baseSection = {
+          id: sectionId,
+          visible: false,
+          model: null,
+        } as PartialMenuSection;
+
         if (!canSubscribe || !user) {
-          return of([]);
+          // 3. Emitir sección oculta pero con ID válido
+          return of([baseSection]);
         }
+
         const openModal = () => {
           const modalRef = this.modalService.open(SubscriptionModalComponent);
           modalRef.componentInstance.dso = dso;
           modalRef.componentInstance.updated.subscribe(() => this.refresh$.next());
         };
+
         return this.subscriptionService.getSubscriptionsByPersonDSO(user.id, dso.uuid).pipe(
-          map((rd) => {
+          map(rd => {
             const subscription = rd.payload?.page?.[0];
-            const key = subscription ? 'subscriptions.manage' : 'subscriptions.tooltip';
-            return [
-              {
-                visible: true,
-                model: {
-                  type: MenuItemType.ONCLICK,
-                  text: key,
-                  function: openModal,
-                } as OnClickMenuItemModel,
-                icon: 'bell',
-              } as PartialMenuSection,
-            ];
+            return [{
+              ...baseSection,
+              visible: true,
+              model: {
+                type: MenuItemType.ONCLICK,
+                text: subscription ? 'subscriptions.manage' : 'subscriptions.tooltip',
+                function: openModal,
+              } as OnClickMenuItemModel,
+              icon: 'bell',
+            }];
           }),
+          catchError(() => of([baseSection])),// 4. En errores mantener sección oculta
         );
       }),
-    );
-    return realSections$.pipe(
-      startWith([] as PartialMenuSection[]),
+      // 5. Inicializar con la estructura básica
+      startWith([{
+        id: sectionId,
+        visible: false,
+        model: null,
+      } as PartialMenuSection]),
     );
   }
 }
