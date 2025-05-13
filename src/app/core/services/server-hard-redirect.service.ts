@@ -17,6 +17,7 @@ import {
 } from '../../../express.tokens';
 import { isNotEmpty } from '../../shared/empty.util';
 import { HardRedirectService } from './hard-redirect.service';
+import { ServerResponseService } from './server-response.service';
 
 /**
  * Service for performing hard redirects within the server app module
@@ -28,6 +29,7 @@ export class ServerHardRedirectService extends HardRedirectService {
     @Inject(APP_CONFIG) protected appConfig: AppConfig,
     @Inject(REQUEST) protected req: Request,
     @Inject(RESPONSE) protected res: Response,
+    private responseService: ServerResponseService,
   ) {
     super();
   }
@@ -39,8 +41,9 @@ export class ServerHardRedirectService extends HardRedirectService {
    *    the page to redirect to
    * @param statusCode
    *    optional HTTP status code to use for redirect (default = 302, which is a temporary redirect)
+   * @param shouldSetCorsHeader
    */
-  redirect(url: string, statusCode?: number) {
+  redirect(url: string, statusCode?: number, shouldSetCorsHeader?: boolean) {
     if (url === this.req.url) {
       return;
     }
@@ -70,6 +73,10 @@ export class ServerHardRedirectService extends HardRedirectService {
         status = 302;
       }
 
+      if (shouldSetCorsHeader) {
+        this.setCorsHeader();
+      }
+
       console.info(`Redirecting from ${this.req.url} to ${redirectUrl} with ${status}`);
 
       this.res.redirect(status, redirectUrl);
@@ -95,5 +102,13 @@ export class ServerHardRedirectService extends HardRedirectService {
    */
   getCurrentOrigin(): string {
     return this.req.protocol + '://' + this.req.headers.host;
+  }
+
+  /**
+   * Set CORS header to allow embedding of redirected content.
+   * The actual security header will be set by the rest
+   */
+  setCorsHeader() {
+    this.responseService.setHeader('Access-Control-Allow-Origin', '*');
   }
 }
