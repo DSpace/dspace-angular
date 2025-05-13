@@ -160,6 +160,9 @@
             ]
           }
         ],
+        "@angular-eslint/prefer-standalone": [
+          "error"
+        ],
         "@angular-eslint/no-attribute-decorator": "error",
         "@angular-eslint/no-output-native": "warn",
         "@angular-eslint/no-output-on-prefix": "warn",
