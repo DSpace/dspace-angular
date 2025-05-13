@@ -2608,10 +2608,10 @@
   resolved "https://registry.npmjs.org/@types/retry/-/retry-0.12.0.tgz"
   integrity sha512-wWKOClTTiizcZhXnPY4wikVAwmdYHp8q6DmC+EJUzAMsycb7HB32Kh9RN4+0gExjmPmZSAQjgURXIGATPegAvA==
 
-"@types/sanitize-html@^2.15.0":
-  version "2.15.0"
-  resolved "https://registry.yarnpkg.com/@types/sanitize-html/-/sanitize-html-2.15.0.tgz#fd090f13fe1f270289348521816ec1c762402e4a"
-  integrity sha512-71Z6PbYsVKfp4i6Jvr37s5ql6if1Q/iJQT80NbaSi7uGaG8CqBMXP0pk/EsURAOuGdk5IJCd/vnzKrR7S3Txsw==
+"@types/sanitize-html@^2.16.0":
+  version "2.16.0"
+  resolved "https://registry.yarnpkg.com/@types/sanitize-html/-/sanitize-html-2.16.0.tgz#860d72c1ba8a5d044946f37559cc359c0a13b24e"
+  integrity sha512-l6rX1MUXje5ztPT0cAFtUayXF06DqPhRyfVXareEN5gGCFaP/iwsxIyKODr9XDhfxPpN6vXUFNfo5kZMXCxBtw==
   dependencies:
     htmlparser2 "^8.0.0"
 
