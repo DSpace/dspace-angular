@@ -6520,7 +6520,7 @@
 
   // "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Research Projects",
   "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Projetos de investigação",
-  
+
   // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
   "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Volume da revista",
 
