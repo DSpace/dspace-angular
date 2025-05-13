@@ -244,7 +244,7 @@ export function app() {
     if(referer && !referer.startsWith('/')) {
       try {
         const origin =  new URL(referer).origin;
-        if (isIiifAllowedOrigin(origin)) {
+        if (IIIF_ALLOWED_ORIGINS.includes(origin)) {
           console.info('Found allowed origin, setting headers for IIIF viewer');
           // CORS header
           res.setHeader('Access-Control-Allow-Origin', origin);
@@ -704,12 +704,6 @@ function healthCheck(req, res) {
     });
 }
 
-/*
- * Helper to determine if the origin is allowed
- */
-function isIiifAllowedOrigin(origin) {
-  return origin === REST_BASE_URL.replace("/server", "") || IIIF_ALLOWED_ORIGINS.includes(origin);
-}
 
 // Webpack will replace 'require' with '__webpack_require__'
 // '__non_webpack_require__' is a proxy to Node 'require'
