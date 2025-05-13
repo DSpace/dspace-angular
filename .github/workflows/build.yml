@@ -29,6 +29,8 @@ jobs:
       DSPACE_CACHE_SERVERSIDE_ANONYMOUSCACHE_MAX: 0
       # Tell Cypress to run e2e tests using the same UI URL
       CYPRESS_BASE_URL: http://127.0.0.1:4000
+      # Disable the cookie consent banner in e2e tests to avoid errors because of elements hidden by it
+      DSPACE_INFO_ENABLECOOKIECONSENTPOPUP: false
       # When Chrome version is specified, we pin to a specific version of Chrome
       # Comment this out to use the latest release
       #CHROME_VERSION: "90.0.4430.212-1"

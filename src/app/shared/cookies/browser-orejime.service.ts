@@ -191,7 +191,7 @@ export class BrowserOrejimeService extends OrejimeService {
          */
         this.translateConfiguration();
 
-        if (environment.isE2E) {
+        if (!environment.info?.enableCookieConsentPopup) {
           this.orejimeConfig.apps = [];
         } else {
           this.orejimeConfig.apps = this.filterConfigApps(appsToHide);

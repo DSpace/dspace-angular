@@ -14,4 +14,7 @@ export const environment: Partial<BuildConfig> = {
     enableSearchComponent: false,
     enableBrowseComponent: false,
   },
+  info: {
+    enableCookieConsentPopup: true,
+  },
 };

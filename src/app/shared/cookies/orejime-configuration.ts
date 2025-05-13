@@ -151,6 +151,9 @@ export function getOrejimeConfiguration(_window: NativeWindowRef): any {
         cookies: [
           CORRELATION_ID_COOKIE,
         ],
+        callback: () => {
+          _window?.nativeWindow.initCorrelationId();
+        },
       },
       {
         name: MATOMO_OREJIME_KEY,

@@ -16,7 +16,10 @@ import {
   appReducers,
   storeModuleConfig,
 } from '../../app.reducer';
-import { CorrelationIdService } from '../../correlation-id/correlation-id.service';
+import {
+  CORRELATION_ID_COOKIE,
+  CorrelationIdService,
+} from '../../correlation-id/correlation-id.service';
 import { OrejimeService } from '../../shared/cookies/orejime.service';
 import { CORRELATION_ID_OREJIME_KEY } from '../../shared/cookies/orejime-configuration';
 import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
@@ -72,8 +75,8 @@ describe('LogInterceptor', () => {
     cookieService = TestBed.inject(CookieService);
     correlationIdService = TestBed.inject(CorrelationIdService);
 
-    cookieService.set('CORRELATION-ID','123455');
-    correlationIdService.initCorrelationId();
+    cookieService.set(CORRELATION_ID_COOKIE,'123455');
+    correlationIdService.setCorrelationId();
   });
 
 
