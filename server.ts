@@ -233,7 +233,7 @@ export function app() {
           console.info('Headers have been set ', res.getHeader('Access-Control-Allow-Origin'), res.getHeader('Content-Security-Policy'));
         }
       } catch (error) {
-        console.error("An error occurred setting security headers in response:", error.message);
+        console.error("An error occurred setting security headers in response:", error);
       }
     }
 
