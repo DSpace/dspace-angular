@@ -15,21 +15,9 @@ import { SubscribeMenuProvider } from './comcol-subscribe.menu';
 
 describe('SubscribeMenuProvider', () => {
 
-  const expectedSections: PartialMenuSection[] = [
-    {
-      visible: true,
-      model: {
-        type: MenuItemType.ONCLICK,
-        text: 'subscriptions.tooltip',
-        function: jasmine.any(Function) as any,
-      },
-      icon: 'bell',
-    },
-  ];
-
   let provider: SubscribeMenuProvider;
 
-  // Agregamos `uuid` para que el servicio pueda obtener la suscripción
+  // Colección de prueba con UUID
   const dso: Collection = Object.assign(new Collection(), {
     uuid: 'mock-uuid',
     _links: { self: { href: 'self-link' } },
@@ -82,10 +70,22 @@ describe('SubscribeMenuProvider', () => {
     it('should return the expected sections', (done) => {
       provider.getSectionsForContext(dso)
         .pipe(
-          filter((sections) => sections.length > 0),
+          filter((sections) => sections.length > 0 && sections[0].visible === true),
         )
-        .subscribe((sections) => {
-          expect(sections).toEqual(expectedSections);
+        .subscribe((sections: PartialMenuSection[]) => {
+          expect(sections.length).toBe(1);
+
+          const section = sections[0];
+          expect(section.id).toBe(`subscribe-btn-${dso.uuid}`);
+
+          expect(section.visible).toBeTrue();
+          expect(section.icon).toBe('bell');
+
+          expect(section.model.type).toBe(MenuItemType.ONCLICK);
+          const model: any = section.model;
+          expect(model.text).toBe('subscriptions.tooltip');
+          expect(typeof model.function).toBe('function');
+
           done();
         });
     });

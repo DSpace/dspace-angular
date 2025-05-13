@@ -60,18 +60,15 @@ export class SubscribeMenuProvider extends DSpaceObjectPageMenuProvider {
     if (!isPlatformBrowser(this.platformId)) {
       return of([]);
     }
-
-    // 1. Crear un ID único desde el principio
-    const sectionId = `subscribe-section-${dso.uuid}`;
+    const sectionId = `subscribe-btn-${dso.uuid}`;
 
     return this.refresh$.pipe(
-      startWith(null), // Inicializar el flujo
+      startWith(null),
       switchMap(() => combineLatest([
         this.authorizationService.isAuthorized(FeatureID.CanSubscribe, dso.self),
         this.authService.getAuthenticatedUserFromStore().pipe(first()),
       ])),
       switchMap(([canSubscribe, user]) => {
-        // 2. Siempre retornar estructura con ID incluso si no hay permiso
         const baseSection = {
           id: sectionId,
           visible: false,
@@ -79,7 +76,6 @@ export class SubscribeMenuProvider extends DSpaceObjectPageMenuProvider {
         } as PartialMenuSection;
 
         if (!canSubscribe || !user) {
-          // 3. Emitir sección oculta pero con ID válido
           return of([baseSection]);
         }
 
@@ -103,10 +99,9 @@ export class SubscribeMenuProvider extends DSpaceObjectPageMenuProvider {
               icon: 'bell',
             }];
           }),
-          catchError(() => of([baseSection])),// 4. En errores mantener sección oculta
+          catchError(() => of([baseSection])),
         );
       }),
-      // 5. Inicializar con la estructura básica
       startWith([{
         id: sectionId,
         visible: false,
