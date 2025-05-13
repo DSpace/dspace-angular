@@ -59,9 +59,11 @@ export class ServerHardRedirectService extends HardRedirectService {
         status = 302;
       }
 
-      console.info(`Redirecting from ${this.req.url} to ${redirectUrl} with ${status}`);
+      if (this.req.path.endsWith('download')) {
+        this.setCorsHeader();
+      }
 
-      this.setCorsHeader();
+      console.info(`Redirecting from ${this.req.url} to ${redirectUrl} with ${status}`);
 
       this.res.redirect(status, redirectUrl);
       this.res.end();
@@ -89,15 +91,10 @@ export class ServerHardRedirectService extends HardRedirectService {
   }
 
   /**
-   * Set CORS header to allow embedding of redirected content
+   * Set CORS header to allow embedding of redirected content.
+   * The actual security header will be set by the rest
    */
   setCorsHeader() {
-    const currentOrigin = this.getCurrentOrigin();
-    const allowedOrigins = this.appConfig.rest.allowedOrigins;
-
-    if (currentOrigin && allowedOrigins?.length && allowedOrigins.includes(currentOrigin)) {
-      console.info('Setting cors header for origin ', currentOrigin);
-      this.responseService.setHeader('Access-Control-Allow-Origin', currentOrigin);
-    }
+    this.responseService.setHeader('Access-Control-Allow-Origin', '*');
   }
 }
