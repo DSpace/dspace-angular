@@ -1,7 +1,4 @@
-import {
-  AsyncPipe,
-  NgClass,
-} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -84,7 +81,6 @@ import { ValidateEmailNotTaken } from './validators/email-taken.validator';
     FormComponent,
     AsyncPipe,
     TranslateModule,
-    NgClass,
     ThemedLoadingComponent,
     PaginationComponent,
     RouterLink,

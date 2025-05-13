@@ -35,6 +35,7 @@ import { PageInfo } from '../../core/shared/page-info.model';
 import { ViewMode } from '../../core/shared/view-mode.model';
 import { isEmpty } from '../empty.util';
 import { ObjectDetailComponent } from '../object-detail/object-detail.component';
+import { ObjectGeospatialMapComponent } from '../object-geospatial-map/object-geospatial-map.component';
 import { ObjectGridComponent } from '../object-grid/object-grid.component';
 import { ThemedObjectListComponent } from '../object-list/themed-object-list.component';
 import { ObjectTableComponent } from '../object-table/object-table.component';
@@ -51,7 +52,7 @@ import { ListableObject } from './shared/listable-object.model';
   styleUrls: ['./object-collection.component.scss'],
   templateUrl: './object-collection.component.html',
   standalone: true,
-  imports: [ThemedObjectListComponent, NgClass, ObjectGridComponent, ObjectDetailComponent, AsyncPipe, ObjectTableComponent],
+  imports: [ThemedObjectListComponent, NgClass, ObjectGridComponent, ObjectDetailComponent, AsyncPipe, ObjectTableComponent, ObjectGeospatialMapComponent],
 })
 export class ObjectCollectionComponent implements OnInit {
   /**
@@ -70,16 +71,21 @@ export class ObjectCollectionComponent implements OnInit {
   @Input() sortConfig: SortOptions;
 
   /**
-   * Whether or not the list elements have a border or not
+   * Whether the list elements have a border or not
    */
   @Input() hasBorder = false;
 
   /**
-   * Whether or not to hide the gear to change the sort and pagination configuration
+   * Whether to hide the gear to change the sort and pagination configuration
    */
   @Input() hideGear = false;
   @Input() selectable = false;
   @Input() selectionConfig: {repeatable: boolean, listId: string};
+
+  /**
+   * Whether to show an RSS syndication button for the current search options
+   */
+  @Input() showRSS: SortOptions | boolean = false;
 
   /**
    * Emit custom event for listable object custom actions.

@@ -43,17 +43,17 @@
   <ds-related-items
     [parentItem]="object"
     [relationType]="'isPersonOfProject'"
-    [label]="'relationships.isPersonOf' | translate">
+    [label]="'item.page.authors' | translate">
   </ds-related-items>
   <ds-related-items
     [parentItem]="object"
     [relationType]="'isPublicationOfProject'"
-    [label]="'relationships.isPublicationOf' | translate">
+    [label]="'item.page.publications' | translate">
   </ds-related-items>
   <ds-related-items
     [parentItem]="object"
     [relationType]="'isOrgUnitOfProject'"
-    [label]="'relationships.isOrgUnitOf' | translate">
+    [label]="'item.page.org-units' | translate">
   </ds-related-items>
   <ds-generic-item-page-field [item]="object"
     [fields]="['dc.description']"
@@ -64,7 +64,7 @@
     [label]="'project.page.keyword'">
   </ds-generic-item-page-field>
   <div>
-    <a class="btn btn-outline-primary" [routerLink]="[itemPageRoute + '/full']">
+    <a class="btn btn-outline-primary" [routerLink]="[itemPageRoute + '/full']" role="button" tabindex="0">
       {{"item.page.link.full" | translate}}
     </a>
   </div>

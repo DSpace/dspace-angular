@@ -1,0 +1,11 @@
+<div class="container">
+  <h1>{{ 'browse.metadata.map' | translate }}</h1>
+  @if (isPlatformBrowser(platformId)) {
+    <ds-geospatial-map [facetValues]="facetValues$"
+                       [currentScope]="this.scope$|async"
+                       [layout]="'browse'"
+                       style="width: 100%;">
+    </ds-geospatial-map>
+  }
+</div>
+

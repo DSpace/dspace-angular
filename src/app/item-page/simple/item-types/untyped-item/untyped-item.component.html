@@ -36,7 +36,7 @@
       [parentItem]="object"
       [itemType]="'Person'"
       [metadataFields]="['dc.contributor.author', 'dc.creator']"
-      [label]="'relationships.isAuthorOf' | translate">
+      [label]="'item.page.authors' | translate">
     </ds-metadata-representation-list>
     <ds-generic-item-page-field [item]="object"
       [fields]="['journal.title']"
@@ -71,6 +71,15 @@
       [fields]="['dc.identifier.citation']"
       [label]="'item.page.citation'">
     </ds-generic-item-page-field>
+    @if (geospatialItemPageFieldsEnabled) {
+      <ds-geospatial-item-page-field [item]="object"
+                                     [label]="'item.page.places'"
+                                     [pointFields]="['dcterms.spatial']"
+                                     [bboxFields]="['dcterms.spatial']"
+                                     [cluster]="true"
+      >
+      </ds-geospatial-item-page-field>
+    }
     <ds-item-page-uri-field [item]="object"
       [fields]="['dc.identifier.uri']"
       [label]="'item.page.uri'">
@@ -95,7 +104,7 @@
     <ds-item-page-cc-license-field [item]="object" [variant]="'full'">
     </ds-item-page-cc-license-field>
     <div>
-      <a class="btn btn-outline-primary" [routerLink]="[itemPageRoute + '/full']" role="button">
+      <a class="btn btn-outline-primary" [routerLink]="[itemPageRoute + '/full']" role="button" role="button" tabindex="0">
         <i class="fas fa-info-circle"></i> {{"item.page.link.full" | translate}}
       </a>
     </div>

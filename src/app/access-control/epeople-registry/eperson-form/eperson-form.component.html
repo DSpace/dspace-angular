@@ -26,18 +26,18 @@
         </div>
         }
         @if (canImpersonate$ | async) {
-        <div between class="btn-group ms-1">
-          @if (!isImpersonated) {
-          <button class="btn btn-primary" type="button" (click)="impersonate()">
-            <i class="fa fa-user-secret"></i> {{'admin.access-control.epeople.actions.impersonate' | translate}}
-          </button>
-          }
-          @if (isImpersonated) {
-          <button class="btn btn-primary" type="button" (click)="stopImpersonating()">
-            <i class="fa fa-user-secret"></i> {{'admin.access-control.epeople.actions.stop-impersonating' | translate}}
-          </button>
-          }
-        </div>
+          <div between class="btn-group">
+            @if (!isImpersonated) {
+              <button class="btn btn-primary" type="button" (click)="impersonate()">
+                <i class="fa fa-user-secret"></i> {{'admin.access-control.epeople.actions.impersonate' | translate}}
+              </button>
+            }
+            @if (isImpersonated) {
+              <button class="btn btn-primary" type="button" (click)="stopImpersonating()">
+                <i class="fa fa-user-secret"></i> {{'admin.access-control.epeople.actions.stop-impersonating' | translate}}
+              </button>
+            }
+          </div>
         }
         @if (canDelete$ | async) {
         <button after class="btn btn-danger delete-button" type="button" (click)="delete()">
