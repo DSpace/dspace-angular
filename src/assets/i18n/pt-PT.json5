@@ -807,7 +807,7 @@
   "admin.notifications.source.breadcrumbs": "Controlo de qualidade",
 
   // "admin.access-control.groups.form.tooltip.editGroupPage": "On this page, you can modify the properties and members of a group. In the top section, you can edit the group name and description, unless this is an admin group for a collection or community, in which case the group name and description are auto-generated and cannot be edited. In the following sections, you can edit group membership. See [the wiki](https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group) for more details.",
-  "admin.access-control.groups.form.tooltip.editGroupPage": "Nesta página, pode modificar as propriedades e os membros de um grupo. Na secção superior, pode editar o nome e a descrição do grupo, a menos que se trate de um grupo administrativo para uma coleção ou comunidade, em que o nome e a descrição do grupo são auto-gerados e não podem ser editados. Nas seções seguintes, pode editar o nome e a descrição do grupo. Ver [wiki](https://wiki.lyrasis.org/display/DSDOC7x/Create+ou+gerir+a+utilizador+grupo) para mais detalhes.",
+  "admin.access-control.groups.form.tooltip.editGroupPage": "Nesta página, pode modificar as propriedades e os membros de um grupo. Na secção superior, pode editar o nome e a descrição do grupo, a menos que se trate de um grupo administrativo para uma coleção ou comunidade, em que o nome e a descrição do grupo são auto-gerados e não podem ser editados. Nas seções seguintes, pode editar o nome e a descrição do grupo. Ver [wiki](https://wiki.lyrasis.org/display/DSDOC7x/Create+or+manage+a+user+group) para mais detalhes.",
 
   // "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "To add or remove an EPerson to/from this group, either click the 'Browse All' button or use the search bar below to search for users (use the dropdown to the left of the search bar to choose whether to search by metadata or by email). Then click the plus icon for each user you wish to add in the list below, or the trash can icon for each user you wish to remove. The list below may have several pages: use the page controls below the list to navigate to the next pages.",
   "admin.access-control.groups.form.tooltip.editGroup.addEpeople": "Para adicionar ou remover um utilizador de/para este grupo, clique no botão 'Procurar tudo' ou use a barra de pesquisa em baixo para procurar utilizadores (use o menu suspenso, à esquerda da barra de pesquisa, para escolher se pretende pesquisar por metadados ou por e-mail). Depois clique no ícone 'mais' para cada utilizador que deseja adicionar na lista em baixo, ou no ícone 'lixo' para cada utilizador que deseja remover. A lista pode conter várias páginas: utilize os controlos no final da lista para navegar para as páginas seguintes.",
@@ -4115,6 +4115,33 @@
   // "item.page.description": "Description",
   "item.page.description": "Descrição",
 
+  // "item.page.org-units": "Organizational Units",
+  "item.page.org-units": "Unidades organizacionais",
+
+  // "item.page.projects": "Research Projects",
+  "item.page.projects": "Projetos de investigação",
+
+  // "item.page.publications": "Publications",
+  "item.page.publications": "Publicações",
+
+  // "item.page.articles": "Articles",
+  "item.page.articles": "Artigos",
+
+  // "item.page.journal": "Journal",
+  "item.page.journal": "Revista",
+
+  // "item.page.journal-issue": "Journal Issue",
+  "item.page.journal-issue": "Fascículo",
+
+  // "item.page.journal-issues": "Journal Issues",
+  "item.page.journal-issues": "Fascículos",
+
+  // "item.page.journal-volume": "Journal Volume",
+  "item.page.journal-volume": "Volume de revista",
+
+  // "item.page.journal-volumes": "Journal Volumes",
+  "item.page.journal-volumes": "Volumes da revista",
+
   // "item.page.journal-issn": "Journal ISSN",
   "item.page.journal-issn": "ISSN da revista",
 
@@ -4211,8 +4238,8 @@
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Resumo",
 
-  // "item.page.author": "Authors",
-  "item.page.author": "Autores",
+  // "item.page.authors": "Authors",
+  "item.page.authors": "Autores",
 
   // "item.page.citation": "Citation",
   "item.page.citation": "Citação",
@@ -5819,6 +5846,9 @@
   // "process.new.parameter.file.required": "Please select a file",
   "process.new.parameter.file.required": "Selecione um ficheiro",
 
+  // "process.new.parameter.integer.required": "Parameter value is required",
+  "process.new.parameter.integer.required": "É necessário um valor no parâmetro",
+
   // "process.new.parameter.string.required": "Parameter value is required",
   "process.new.parameter.string.required": "É necessário um valor no parâmetro",
 
@@ -6425,68 +6455,86 @@
   // "relationships.add.error.title": "Unable to add relationship",
   "relationships.add.error.title": "Não foi possível adicionar um relação",
 
-  // "relationships.isAuthorOf": "Authors",
-  "relationships.isAuthorOf": "Autores",
+  // "relationships.Publication.isAuthorOfPublication.Person": "Authors (persons)",
+  "relationships.Publication.isAuthorOfPublication.Person": "Autores (pessoas)",
 
-  // "relationships.isAuthorOf.Person": "Authors (persons)",
-  "relationships.isAuthorOf.Person": "Autores (pessoas)",
+  // "relationships.Publication.isProjectOfPublication.Project": "Research Projects",
+  "relationships.Publication.isProjectOfPublication.Project": "Projetos de investigação",
 
-  // "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
-  "relationships.isAuthorOf.OrgUnit": "Autores (Unidades organizacionais)",
+  // "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizational Units",
+  "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Unidades organizacionais",
 
-  // "relationships.isIssueOf": "Journal Issues",
-  "relationships.isIssueOf": "Fascículos da revista",
+  // "relationships.Publication.isAuthorOfPublication.OrgUnit": "Authors (organizational units)",
+  "relationships.Publication.isAuthorOfPublication.OrgUnit": "Autores (Unidades organizacionais)",
 
-  // "relationships.isIssueOf.JournalIssue": "Journal Issue",
-  "relationships.isIssueOf.JournalIssue": "Fascículo da revista",
+  // "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
+  "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Fascículo da revista",
 
-  // "relationships.isJournalIssueOf": "Journal Issue",
-  "relationships.isJournalIssueOf": "Fascículo da revista",
+  // "relationships.Publication.isContributorOfPublication.Person": "Contributor",
+  "relationships.Publication.isContributorOfPublication.Person": "Contribuidor",
 
-  // "relationships.isJournalOf": "Journals",
-  "relationships.isJournalOf": "Revistas",
+  // "relationships.Publication.isContributorOfPublication.OrgUnit": "Contributor (organizational units)",
+  "relationships.Publication.isContributorOfPublication.OrgUnit": "Colaborador (Unidade organizacional)",
 
-  // "relationships.isJournalVolumeOf": "Journal Volume",
-  "relationships.isJournalVolumeOf": "Volume da revista",
+  // "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
+  "relationships.Person.isPublicationOfAuthor.Publication": "Publicações",
 
-  // "relationships.isOrgUnitOf": "Organizational Units",
-  "relationships.isOrgUnitOf": "Unidades organizacionais",
+  // "relationships.Person.isProjectOfPerson.Project": "Research Projects",
+  "relationships.Person.isProjectOfPerson.Project": "Projetos de investigação",
 
-  // "relationships.isPersonOf": "Authors",
-  "relationships.isPersonOf": "Autores",
+  // "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
+  "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Unidades organizacionais",
 
-  // "relationships.isProjectOf": "Research Projects",
-  "relationships.isProjectOf": "Projetos de investigação",
+  // "relationships.Person.isPublicationOfContributor.Publication": "Publications",
+  "relationships.Person.isPublicationOfContributor.Publication": "Publicações",
 
-  // "relationships.isPublicationOf": "Publications",
-  "relationships.isPublicationOf": "Publicações",
+  // "relationships.Project.isPublicationOfProject.Publication": "Publications",
+  "relationships.Project.isPublicationOfProject.Publication": "Publicações",
 
-  // "relationships.isPublicationOfJournalIssue": "Articles",
-  "relationships.isPublicationOfJournalIssue": "Artigos",
+  // "relationships.Project.isPersonOfProject.Person": "Authors",
+  "relationships.Project.isPersonOfProject.Person": "Autores",
 
-  // "relationships.isSingleJournalOf": "Journal",
-  "relationships.isSingleJournalOf": "Revista",
+  // "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
+  "relationships.Project.isOrgUnitOfProject.OrgUnit": "Unidades organizacionais",
 
-  // "relationships.isSingleVolumeOf": "Journal Volume",
-  "relationships.isSingleVolumeOf": "Volume de revista",
+  // "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Funder",
+  "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Financiador",
 
-  // "relationships.isVolumeOf": "Journal Volumes",
-  "relationships.isVolumeOf": "Volumes da revista",
+  // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
+  "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Publicaçõed da organização",
 
-  // "relationships.isVolumeOf.JournalVolume": "Journal Volume",
-  "relationships.isVolumeOf.JournalVolume": "Volume da revista",
+  // "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Authors",
+  "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Autores",
 
-  // "relationships.isContributorOf": "Contributors",
-  "relationships.isContributorOf": "Contribuidores",
+  // "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Projetos de investigação",
 
   // "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
-  "relationships.isContributorOf.OrgUnit": "Colaborador(Unidade organizacional)",
+  "relationships.isContributorOf.OrgUnit": "Colaborador (Unidade organizacional)",
 
-  // "relationships.isContributorOf.Person": "Contributor",
-  "relationships.isContributorOf.Person": "Contribuidor",
+  // "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
+  "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Autoria de publicações",
 
-  // "relationships.isFundingAgencyOf.OrgUnit": "Funder",
-  "relationships.isFundingAgencyOf.OrgUnit": "Financiador",
+  // "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publications",
+  "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publicações",
+
+  // "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Projetos de investigação",
+  
+  // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
+  "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Volume da revista",
+
+  // "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publications",
+  "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publicações",
+
+  // "relationships.JournalVolume.isJournalOfVolume.Journal": "Journals",
+  "relationships.JournalVolume.isJournalOfVolume.Journal": "Revistas",
+
+  // "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Journal Issue",
+  "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Fascículo da revista",
+
+  // "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
+  "relationships.Journal.isVolumeOfJournal.JournalVolume": "Volume da revista",
 
   // "repository.image.logo": "Repository logo",
   "repository.image.logo": "Logótipo do repositório",

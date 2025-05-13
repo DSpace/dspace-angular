@@ -4768,6 +4768,33 @@
   // "item.page.description": "Description",
   "item.page.description": "Опис",
 
+  // "item.page.org-units": "Organizational Units",
+  "item.page.org-units": "Структурні одиниці",
+
+  // "item.page.projects": "Research Projects",
+  "item.page.projects": "Дослідницькі проекти",
+
+  // "item.page.publications": "Publications",
+  "item.page.publications": "Публікації",
+
+  // "item.page.articles": "Articles",
+  "item.page.articles": "Публікації",
+
+  // "item.page.journal": "Journal",
+  "item.page.journal": "Видання",
+
+  // "item.page.journal-issue": "Journal Issue",
+  "item.page.journal-issue": "Випуск видання",
+
+  // "item.page.journal-issues": "Journal Issues",
+  "item.page.journal-issues": "Випуски видання",
+
+  // "item.page.journal-volume": "Journal Volume",
+  "item.page.journal-volume": "Том видання",
+
+  // "item.page.journal-volumes": "Journal Volumes",
+  "item.page.journal-volumes": "Томи видання",
+
   // "item.page.journal-issn": "Journal ISSN",
   "item.page.journal-issn": "Номер ISSN",
 
@@ -4890,8 +4917,8 @@
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Анотація",
 
-  // "item.page.author": "Authors",
-  "item.page.author": "Автори",
+  // "item.page.authors": "Authors",
+  "item.page.authors": "Автори",
 
   // "item.page.citation": "Citation",
   "item.page.citation": "Бібліографічний опис",
@@ -6768,6 +6795,9 @@
   // "process.new.parameter.file.required": "Please select a file",
   "process.new.parameter.file.required": "Виберіть файл",
 
+  // "process.new.parameter.integer.required": "Parameter value is required",
+  "process.new.parameter.integer.required": "Цей параметр є обв'язковим",
+
   // "process.new.parameter.string.required": "Parameter value is required",
   "process.new.parameter.string.required": "Цей параметр є обв'язковим",
 
@@ -7481,74 +7511,89 @@
   // "relationships.add.error.title": "Unable to add relationship",
   "relationships.add.error.title": "Неможливо додати зв'язок",
 
-  // "relationships.isAuthorOf": "Authors",
-  "relationships.isAuthorOf": "Автори",
+  // "relationships.Publication.isAuthorOfPublication.Person": "Authors (persons)",
+  // TODO Source message changed - Revise the translation
+  "relationships.Publication.isAuthorOfPublication.Person": "Автори (persons)",
 
-  // "relationships.isAuthorOf.Person": "Authors (persons)",
-  "relationships.isAuthorOf.Person": "Автори",
+  // "relationships.Publication.isProjectOfPublication.Project": "Research Projects",
+  "relationships.Publication.isProjectOfPublication.Project": "Дослідницькі проекти",
 
-  // "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
-  "relationships.isAuthorOf.OrgUnit": "Автори (структурна одиниця, наприклад університет)",
+  // "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizational Units",
+  "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Структурні одиниці",
 
-  // "relationships.isIssueOf": "Journal Issues",
-  "relationships.isIssueOf": "Випуски видання",
+  // "relationships.Publication.isAuthorOfPublication.OrgUnit": "Authors (organizational units)",
+  "relationships.Publication.isAuthorOfPublication.OrgUnit": "Автори (структурна одиниця, наприклад університет)",
 
-  // "relationships.isIssueOf.JournalIssue": "Journal Issue",
+  // "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
+  "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Випуск видання",
+
+  // "relationships.Publication.isContributorOfPublication.Person": "Contributor",
   // TODO New key - Add a translation
-  "relationships.isIssueOf.JournalIssue": "Journal Issue",
+  "relationships.Publication.isContributorOfPublication.Person": "Contributor",
 
-  // "relationships.isJournalIssueOf": "Journal Issue",
-  "relationships.isJournalIssueOf": "Випуск видання",
-
-  // "relationships.isJournalOf": "Journals",
-  "relationships.isJournalOf": "Видання",
-
-  // "relationships.isJournalVolumeOf": "Journal Volume",
+  // "relationships.Publication.isContributorOfPublication.OrgUnit": "Contributor (organizational units)",
   // TODO New key - Add a translation
-  "relationships.isJournalVolumeOf": "Journal Volume",
+  "relationships.Publication.isContributorOfPublication.OrgUnit": "Contributor (organizational units)",
 
-  // "relationships.isOrgUnitOf": "Organizational Units",
-  "relationships.isOrgUnitOf": "Структурні одиниці",
+  // "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
+  "relationships.Person.isPublicationOfAuthor.Publication": "Публікації",
 
-  // "relationships.isPersonOf": "Authors",
-  "relationships.isPersonOf": "Автори",
+  // "relationships.Person.isProjectOfPerson.Project": "Research Projects",
+  "relationships.Person.isProjectOfPerson.Project": "Дослідницькі проекти",
 
-  // "relationships.isProjectOf": "Research Projects",
-  "relationships.isProjectOf": "Дослідницькі проекти",
+  // "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
+  "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Структурні одиниці",
 
-  // "relationships.isPublicationOf": "Publications",
-  "relationships.isPublicationOf": "Публікації",
+  // "relationships.Person.isPublicationOfContributor.Publication": "Publications",
+  "relationships.Person.isPublicationOfContributor.Publication": "Публікації",
 
-  // "relationships.isPublicationOfJournalIssue": "Articles",
-  "relationships.isPublicationOfJournalIssue": "Публікації",
+  // "relationships.Project.isPublicationOfProject.Publication": "Publications",
+  "relationships.Project.isPublicationOfProject.Publication": "Публікації",
 
-  // "relationships.isSingleJournalOf": "Journal",
-  "relationships.isSingleJournalOf": "Видання",
+  // "relationships.Project.isPersonOfProject.Person": "Authors",
+  "relationships.Project.isPersonOfProject.Person": "Автори",
 
-  // "relationships.isSingleVolumeOf": "Journal Volume",
-  "relationships.isSingleVolumeOf": "Том видання",
+  // "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
+  "relationships.Project.isOrgUnitOfProject.OrgUnit": "Структурні одиниці",
 
-  // "relationships.isVolumeOf": "Journal Volumes",
-  "relationships.isVolumeOf": "Томи видання",
-
-  // "relationships.isVolumeOf.JournalVolume": "Journal Volume",
+  // "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Funder",
   // TODO New key - Add a translation
-  "relationships.isVolumeOf.JournalVolume": "Journal Volume",
+  "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Funder",
 
-  // "relationships.isContributorOf": "Contributors",
-  "relationships.isContributorOf": "Дописувачі",
-
-  // "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
+  // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
   // TODO New key - Add a translation
-  "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
+  "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
 
-  // "relationships.isContributorOf.Person": "Contributor",
-  // TODO New key - Add a translation
-  "relationships.isContributorOf.Person": "Contributor",
+  // "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Authors",
+  "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Автори",
 
-  // "relationships.isFundingAgencyOf.OrgUnit": "Funder",
+  // "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Дослідницькі проекти",
+
+  // "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
   // TODO New key - Add a translation
-  "relationships.isFundingAgencyOf.OrgUnit": "Funder",
+  "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
+
+  // "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publications",
+  "relationships.OrgUnit.isPublicationOfContributor.Publication": "Публікації",
+
+  // "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Дослідницькі проекти",
+
+  // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
+  "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Том видання",
+
+  // "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publications",
+  "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Публікації",
+
+  // "relationships.JournalVolume.isJournalOfVolume.Journal": "Journals",
+  "relationships.JournalVolume.isJournalOfVolume.Journal": "Видання",
+
+  // "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Journal Issue",
+  "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Випуск видання",
+
+  // "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
+  "relationships.Journal.isVolumeOfJournal.JournalVolume": "Том видання",
 
   // "repository.image.logo": "Repository logo",
   // TODO New key - Add a translation

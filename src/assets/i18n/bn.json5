@@ -4587,6 +4587,33 @@
   // "item.page.description": "Description",
   "item.page.description": "বর্ণনা",
 
+  // "item.page.org-units": "Organizational Units",
+  "item.page.org-units": "সাংগঠনিক ইউনিট",
+
+  // "item.page.projects": "Research Projects",
+  "item.page.projects": "গবেষণা প্রকল্পগুলো",
+
+  // "item.page.publications": "Publications",
+  "item.page.publications": "প্রকাশনা",
+
+  // "item.page.articles": "Articles",
+  "item.page.articles": "নিবন্ধসমূহ",
+
+  // "item.page.journal": "Journal",
+  "item.page.journal": "জার্নাল",
+
+  // "item.page.journal-issue": "Journal Issue",
+  "item.page.journal-issue": "জার্নাল ইস্যু",
+
+  // "item.page.journal-issues": "Journal Issues",
+  "item.page.journal-issues": "জার্নাল সমস্যা",
+
+  // "item.page.journal-volume": "Journal Volume",
+  "item.page.journal-volume": "জার্নাল ভলিউম",
+
+  // "item.page.journal-volumes": "Journal Volumes",
+  "item.page.journal-volumes": "জার্নাল ভলিউম",
+
   // "item.page.journal-issn": "Journal ISSN",
   "item.page.journal-issn": "জার্নাল ইশান",
 
@@ -4707,8 +4734,8 @@
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "বিমূর্ত",
 
-  // "item.page.author": "Authors",
-  "item.page.author": "লেখক",
+  // "item.page.authors": "Authors",
+  "item.page.authors": "লেখক",
 
   // "item.page.citation": "Citation",
   "item.page.citation": "উদ্ধৃতি",
@@ -6525,6 +6552,9 @@
   // "process.new.parameter.file.required": "Please select a file",
   "process.new.parameter.file.required": "দয়াকরে একটি ফাইল নির্বাচন করুন",
 
+  // "process.new.parameter.integer.required": "Parameter value is required",
+  "process.new.parameter.integer.required": "পরামিতির মান প্রয়োজন",
+
   // "process.new.parameter.string.required": "Parameter value is required",
   "process.new.parameter.string.required": "পরামিতির মান প্রয়োজন",
 
@@ -7232,71 +7262,85 @@
   // "relationships.add.error.title": "Unable to add relationship",
   "relationships.add.error.title": "সম্পর্ক যোগ করতে অক্ষম",
 
-  // "relationships.isAuthorOf": "Authors",
-  "relationships.isAuthorOf": "লেখক",
+  // "relationships.Publication.isAuthorOfPublication.Person": "Authors (persons)",
+  "relationships.Publication.isAuthorOfPublication.Person": "লেখক (ব্যক্তি)",
 
-  // "relationships.isAuthorOf.Person": "Authors (persons)",
-  "relationships.isAuthorOf.Person": "লেখক (ব্যক্তি)",
+  // "relationships.Publication.isProjectOfPublication.Project": "Research Projects",
+  "relationships.Publication.isProjectOfPublication.Project": "গবেষণা প্রকল্পগুলো",
 
-  // "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
-  "relationships.isAuthorOf.OrgUnit": "লেখক (সাংগঠনিক ইউনিট)",
+  // "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizational Units",
+  "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "সাংগঠনিক ইউনিট",
 
-  // "relationships.isIssueOf": "Journal Issues",
-  "relationships.isIssueOf": "জার্নাল সমস্যা",
+  // "relationships.Publication.isAuthorOfPublication.OrgUnit": "Authors (organizational units)",
+  "relationships.Publication.isAuthorOfPublication.OrgUnit": "লেখক (সাংগঠনিক ইউনিট)",
 
-  // "relationships.isIssueOf.JournalIssue": "Journal Issue",
+  // "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
+  "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "জার্নাল ইস্যু",
+
+  // "relationships.Publication.isContributorOfPublication.Person": "Contributor",
+  "relationships.Publication.isContributorOfPublication.Person": "অবদানকারী",
+
+  // "relationships.Publication.isContributorOfPublication.OrgUnit": "Contributor (organizational units)",
+  "relationships.Publication.isContributorOfPublication.OrgUnit": "অবদানকারী (সাংগঠনিক ইউনিট)",
+
+  // "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
+  "relationships.Person.isPublicationOfAuthor.Publication": "প্রকাশনা",
+
+  // "relationships.Person.isProjectOfPerson.Project": "Research Projects",
+  "relationships.Person.isProjectOfPerson.Project": "গবেষণা প্রকল্পগুলো",
+
+  // "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
+  "relationships.Person.isOrgUnitOfPerson.OrgUnit": "সাংগঠনিক ইউনিট",
+
+  // "relationships.Person.isPublicationOfContributor.Publication": "Publications",
+  "relationships.Person.isPublicationOfContributor.Publication": "প্রকাশনা",
+
+  // "relationships.Project.isPublicationOfProject.Publication": "Publications",
+  "relationships.Project.isPublicationOfProject.Publication": "প্রকাশনা",
+
+  // "relationships.Project.isPersonOfProject.Person": "Authors",
+  "relationships.Project.isPersonOfProject.Person": "লেখক",
+
+  // "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
+  "relationships.Project.isOrgUnitOfProject.OrgUnit": "সাংগঠনিক ইউনিট",
+
+  // "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Funder",
+  "relationships.Project.isFundingAgencyOfProject.OrgUnit": "তহবিল",
+
+  // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
   // TODO New key - Add a translation
-  "relationships.isIssueOf.JournalIssue": "Journal Issue",
+  "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
 
-  // "relationships.isJournalIssueOf": "Journal Issue",
-  "relationships.isJournalIssueOf": "জার্নাল ইস্যু",
+  // "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Authors",
+  "relationships.OrgUnit.isPersonOfOrgUnit.Person": "লেখক",
 
-  // "relationships.isJournalOf": "Journals",
-  "relationships.isJournalOf": "জার্নালগুলো",
+  // "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfOrgUnit.Project": "গবেষণা প্রকল্পগুলো",
 
-  // "relationships.isJournalVolumeOf": "Journal Volume",
+  // "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
   // TODO New key - Add a translation
-  "relationships.isJournalVolumeOf": "Journal Volume",
+  "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
 
-  // "relationships.isOrgUnitOf": "Organizational Units",
-  "relationships.isOrgUnitOf": "সাংগঠনিক ইউনিট",
+  // "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publications",
+  "relationships.OrgUnit.isPublicationOfContributor.Publication": "প্রকাশনা",
 
-  // "relationships.isPersonOf": "Authors",
-  "relationships.isPersonOf": "লেখক",
+  // "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfFundingAgency.Project": "গবেষণা প্রকল্পগুলো",
 
-  // "relationships.isProjectOf": "Research Projects",
-  "relationships.isProjectOf": "গবেষণা প্রকল্পগুলো",
+  // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
+  "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "জার্নাল ভলিউম",
 
-  // "relationships.isPublicationOf": "Publications",
-  "relationships.isPublicationOf": "প্রকাশনা",
+  // "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publications",
+  "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "প্রকাশনা",
 
-  // "relationships.isPublicationOfJournalIssue": "Articles",
-  "relationships.isPublicationOfJournalIssue": "নিবন্ধসমূহ",
+  // "relationships.JournalVolume.isJournalOfVolume.Journal": "Journals",
+  "relationships.JournalVolume.isJournalOfVolume.Journal": "জার্নালগুলো",
 
-  // "relationships.isSingleJournalOf": "Journal",
-  "relationships.isSingleJournalOf": "জার্নাল",
+  // "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Journal Issue",
+  "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "জার্নাল ইস্যু",
 
-  // "relationships.isSingleVolumeOf": "Journal Volume",
-  "relationships.isSingleVolumeOf": "জার্নাল ভলিউম",
-
-  // "relationships.isVolumeOf": "Journal Volumes",
-  "relationships.isVolumeOf": "জার্নাল ভলিউম",
-
-  // "relationships.isVolumeOf.JournalVolume": "Journal Volume",
-  // TODO New key - Add a translation
-  "relationships.isVolumeOf.JournalVolume": "Journal Volume",
-
-  // "relationships.isContributorOf": "Contributors",
-  "relationships.isContributorOf": "অবদানকারী",
-
-  // "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
-  "relationships.isContributorOf.OrgUnit": "অবদানকারী (সাংগঠনিক ইউনিট)",
-
-  // "relationships.isContributorOf.Person": "Contributor",
-  "relationships.isContributorOf.Person": "অবদানকারী",
-
-  // "relationships.isFundingAgencyOf.OrgUnit": "Funder",
-  "relationships.isFundingAgencyOf.OrgUnit": "তহবিল.",
+  // "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
+  "relationships.Journal.isVolumeOfJournal.JournalVolume": "জার্নাল ভলিউম",
 
   // "repository.image.logo": "Repository logo",
   "repository.image.logo": "রিপোজিটরি লোগো",

@@ -4919,6 +4919,33 @@
   // TODO New key - Add a translation
   "item.page.description": "Description",
 
+  // "item.page.org-units": "Organizational Units",
+  "item.page.org-units": "Struktūrvienības",
+
+  // "item.page.projects": "Research Projects",
+  "item.page.projects": "Pētniecības Projekti",
+
+  // "item.page.publications": "Publications",
+  "item.page.publications": "Publikācijas",
+
+  // "item.page.articles": "Articles",
+  "item.page.articles": "Raksti",
+
+  // "item.page.journal": "Journal",
+  "item.page.journal": "Žurnāls",
+
+  // "item.page.journal-issue": "Journal Issue",
+  "item.page.journal-issue": "Žurnāla Izdevums",
+
+  // "item.page.journal-issues": "Journal Issues",
+  "item.page.journal-issues": "Žurnāla Izdevumi",
+
+  // "item.page.journal-volume": "Journal Volume",
+  "item.page.journal-volume": "Žurnāla Sējums",
+
+  // "item.page.journal-volumes": "Journal Volumes",
+  "item.page.journal-volumes": "Žurnāla Sējums",
+
   // "item.page.journal-issn": "Journal ISSN",
   // TODO New key - Add a translation
   "item.page.journal-issn": "Journal ISSN",
@@ -5046,8 +5073,8 @@
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Kopsavilkums",
 
-  // "item.page.author": "Authors",
-  "item.page.author": "Autori",
+  // "item.page.authors": "Authors",
+  "item.page.authors": "Autori",
 
   // "item.page.citation": "Citation",
   "item.page.citation": "Citēšana",
@@ -6958,6 +6985,10 @@
   // TODO New key - Add a translation
   "process.new.parameter.file.required": "Please select a file",
 
+  // "process.new.parameter.integer.required": "Parameter value is required",
+  // TODO New key - Add a translation
+  "process.new.parameter.integer.required": "Parameter value is required",
+
   // "process.new.parameter.string.required": "Parameter value is required",
   // TODO New key - Add a translation
   "process.new.parameter.string.required": "Parameter value is required",
@@ -7721,76 +7752,90 @@
   // TODO New key - Add a translation
   "relationships.add.error.title": "Unable to add relationship",
 
-  // "relationships.isAuthorOf": "Authors",
-  "relationships.isAuthorOf": "Autori",
-
-  // "relationships.isAuthorOf.Person": "Authors (persons)",
+  // "relationships.Publication.isAuthorOfPublication.Person": "Authors (persons)",
   // TODO New key - Add a translation
-  "relationships.isAuthorOf.Person": "Authors (persons)",
+  "relationships.Publication.isAuthorOfPublication.Person": "Authors (persons)",
 
-  // "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
+  // "relationships.Publication.isProjectOfPublication.Project": "Research Projects",
+  "relationships.Publication.isProjectOfPublication.Project": "Pētniecības projekti",
+
+  // "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizational Units",
+  "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Struktūrvienības",
+
+  // "relationships.Publication.isAuthorOfPublication.OrgUnit": "Authors (organizational units)",
   // TODO New key - Add a translation
-  "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
+  "relationships.Publication.isAuthorOfPublication.OrgUnit": "Authors (organizational units)",
 
-  // "relationships.isIssueOf": "Journal Issues",
-  "relationships.isIssueOf": "Žurnāla Izdevumi",
+  // "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
+  "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Žurnāla Izdevums",
 
-  // "relationships.isIssueOf.JournalIssue": "Journal Issue",
+  // "relationships.Publication.isContributorOfPublication.Person": "Contributor",
   // TODO New key - Add a translation
-  "relationships.isIssueOf.JournalIssue": "Journal Issue",
+  "relationships.Publication.isContributorOfPublication.Person": "Contributor",
 
-  // "relationships.isJournalIssueOf": "Journal Issue",
-  "relationships.isJournalIssueOf": "Žurnāla Izdevums",
-
-  // "relationships.isJournalOf": "Journals",
-  "relationships.isJournalOf": "Žurnāli",
-
-  // "relationships.isJournalVolumeOf": "Journal Volume",
+  // "relationships.Publication.isContributorOfPublication.OrgUnit": "Contributor (organizational units)",
   // TODO New key - Add a translation
-  "relationships.isJournalVolumeOf": "Journal Volume",
+  "relationships.Publication.isContributorOfPublication.OrgUnit": "Contributor (organizational units)",
 
-  // "relationships.isOrgUnitOf": "Organizational Units",
-  "relationships.isOrgUnitOf": "Struktūrvienības",
+  // "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
+  "relationships.Person.isPublicationOfAuthor.Publication": "Publikācijas",
 
-  // "relationships.isPersonOf": "Authors",
-  "relationships.isPersonOf": "Autori",
+  // "relationships.Person.isProjectOfPerson.Project": "Research Projects",
+  "relationships.Person.isProjectOfPerson.Project": "Pētniecības Projekti",
 
-  // "relationships.isProjectOf": "Research Projects",
-  "relationships.isProjectOf": "Pētniecības Projekti",
+  // "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
+  "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Struktūrvienības",
 
-  // "relationships.isPublicationOf": "Publications",
-  "relationships.isPublicationOf": "Publikācijas",
+  // "relationships.Person.isPublicationOfContributor.Publication": "Publications",
+  "relationships.Person.isPublicationOfContributor.Publication": "Publikācijas",
 
-  // "relationships.isPublicationOfJournalIssue": "Articles",
-  "relationships.isPublicationOfJournalIssue": "Raksti",
+  // "relationships.Project.isPublicationOfProject.Publication": "Publications",
+  "relationships.Project.isPublicationOfProject.Publication": "Publikācijas",
 
-  // "relationships.isSingleJournalOf": "Journal",
-  "relationships.isSingleJournalOf": "Žurnāls",
+  // "relationships.Project.isPersonOfProject.Person": "Authors",
+  "relationships.Project.isPersonOfProject.Person": "Autori",
 
-  // "relationships.isSingleVolumeOf": "Journal Volume",
-  "relationships.isSingleVolumeOf": "Žurnāla Sējums",
+  // "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
+  "relationships.Project.isOrgUnitOfProject.OrgUnit": "Struktūrvienības",
 
-  // "relationships.isVolumeOf": "Journal Volumes",
-  "relationships.isVolumeOf": "Žurnāla Sējums",
-
-  // "relationships.isVolumeOf.JournalVolume": "Journal Volume",
+  // "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Funder",
   // TODO New key - Add a translation
-  "relationships.isVolumeOf.JournalVolume": "Journal Volume",
+  "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Funder",
 
-  // "relationships.isContributorOf": "Contributors",
-  "relationships.isContributorOf": "Līdzautori",
-
-  // "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
+  // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
   // TODO New key - Add a translation
-  "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
+  "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
 
-  // "relationships.isContributorOf.Person": "Contributor",
-  // TODO New key - Add a translation
-  "relationships.isContributorOf.Person": "Contributor",
+  // "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Authors",
+  "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Autori",
 
-  // "relationships.isFundingAgencyOf.OrgUnit": "Funder",
+  // "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Pētniecības Projekti",
+
+  // "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
   // TODO New key - Add a translation
-  "relationships.isFundingAgencyOf.OrgUnit": "Funder",
+  "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
+
+  // "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publications",
+  "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publikācijas",
+
+  // "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Pētniecības Projekti",
+
+  // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
+  "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Žurnāla Sējums",
+
+  // "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publications",
+  "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publikācijas",
+
+  // "relationships.JournalVolume.isJournalOfVolume.Journal": "Journals",
+  "relationships.JournalVolume.isJournalOfVolume.Journal": "Žurnāli",
+
+  // "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Journal Issue",
+  "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Žurnāla Izdevums",
+
+  // "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
+  "relationships.Journal.isVolumeOfJournal.JournalVolume": "Žurnāla Sējums",
 
   // "repository.image.logo": "Repository logo",
   // TODO New key - Add a translation

@@ -1,5 +1,4 @@
 {
-
   "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
 
   "401.link.home-page": "Take me to the home page",
@@ -640,7 +639,6 @@
 
   "admin.reports.items.title": "Title",
 
-
   "admin.reports.commons.filters": "Filters",
 
   "admin.reports.commons.additional-data": "Additional data to return",
@@ -660,7 +658,6 @@
   "admin.reports.commons.filters.select_all": "Select all filters",
 
   "admin.reports.commons.filters.matches_all": "Matches all specified filters",
-
 
   "admin.reports.commons.filters.property": "Item Property Filters",
 
@@ -2732,6 +2729,34 @@
 
   "item.page.description": "Description",
 
+  "item.page.org-unit": "Organizational Unit",
+
+  "item.page.org-units": "Organizational Units",
+
+  "item.page.project": "Research Project",
+
+  "item.page.projects": "Research Projects",
+
+  "item.page.publication": "Publications",
+
+  "item.page.publications": "Publications",
+
+  "item.page.article": "Article",
+
+  "item.page.articles": "Articles",
+
+  "item.page.journal": "Journal",
+
+  "item.page.journals": "Journals",
+
+  "item.page.journal-issue": "Journal Issue",
+
+  "item.page.journal-issues": "Journal Issues",
+
+  "item.page.journal-volume": "Journal Volume",
+
+  "item.page.journal-volumes": "Journal Volumes",
+
   "item.page.journal-issn": "Journal ISSN",
 
   "item.page.journal-title": "Journal Title",
@@ -2796,7 +2821,9 @@
 
   "item.page.abstract": "Abstract",
 
-  "item.page.author": "Authors",
+  "item.page.author": "Author",
+
+  "item.page.authors": "Authors",
 
   "item.page.citation": "Citation",
 
@@ -2909,6 +2936,14 @@
   "item.preview.oaire.citation.startPage": "Citation start page",
 
   "item.preview.oaire.citation.endPage": "Citation end page",
+
+  "item.preview.dc.relation.hasversion": "Has version",
+
+  "item.preview.dc.relation.ispartofseries": "Is part of series",
+
+  "item.preview.dc.rights": "Rights",
+
+  "item.preview.dc.identifier.other": "Other Identifier",
 
   "item.preview.dc.relation.issn": "ISSN",
 
@@ -3858,6 +3893,8 @@
 
   "process.new.parameter.file.required": "Please select a file",
 
+  "process.new.parameter.integer.required": "Parameter value is required",
+
   "process.new.parameter.string.required": "Parameter value is required",
 
   "process.new.parameter.type.value": "value",
@@ -4260,47 +4297,57 @@
 
   "relationships.add.error.title": "Unable to add relationship",
 
-  "relationships.isAuthorOf": "Authors",
+  "relationships.Publication.isAuthorOfPublication.Person": "Authors (persons)",
 
-  "relationships.isAuthorOf.Person": "Authors (persons)",
+  "relationships.Publication.isProjectOfPublication.Project": "Research Projects",
 
-  "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
+  "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizational Units",
 
-  "relationships.isIssueOf": "Journal Issues",
+  "relationships.Publication.isAuthorOfPublication.OrgUnit": "Authors (organizational units)",
 
-  "relationships.isIssueOf.JournalIssue": "Journal Issue",
+  "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
 
-  "relationships.isJournalIssueOf": "Journal Issue",
+  "relationships.Publication.isContributorOfPublication.Person": "Contributor",
 
-  "relationships.isJournalOf": "Journals",
+  "relationships.Publication.isContributorOfPublication.OrgUnit": "Contributor (organizational units)",
 
-  "relationships.isJournalVolumeOf": "Journal Volume",
+  "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
 
-  "relationships.isOrgUnitOf": "Organizational Units",
+  "relationships.Person.isProjectOfPerson.Project": "Research Projects",
 
-  "relationships.isPersonOf": "Authors",
+  "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
 
-  "relationships.isProjectOf": "Research Projects",
+  "relationships.Person.isPublicationOfContributor.Publication": "Publications (contributor to)",
 
-  "relationships.isPublicationOf": "Publications",
+  "relationships.Project.isPublicationOfProject.Publication": "Publications",
 
-  "relationships.isPublicationOfJournalIssue": "Articles",
+  "relationships.Project.isPersonOfProject.Person": "Authors",
 
-  "relationships.isSingleJournalOf": "Journal",
+  "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
 
-  "relationships.isSingleVolumeOf": "Journal Volume",
+  "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Funder",
 
-  "relationships.isVolumeOf": "Journal Volumes",
+  "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
 
-  "relationships.isVolumeOf.JournalVolume": "Journal Volume",
+  "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Authors",
 
-  "relationships.isContributorOf": "Contributors",
+  "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Research Projects",
 
-  "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
+  "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
 
-  "relationships.isContributorOf.Person": "Contributor",
+  "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publications (contributor to)",
 
-  "relationships.isFundingAgencyOf.OrgUnit": "Funder",
+  "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Research Projects (funder of)",
+
+  "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
+
+  "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publications",
+
+  "relationships.JournalVolume.isJournalOfVolume.Journal": "Journals",
+
+  "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Journal Issue",
+
+  "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
 
   "repository.image.logo": "Repository logo",
 
@@ -4640,6 +4687,10 @@
   "search.filters.filter.organizationFoundingDate.placeholder": "Date Founded",
 
   "search.filters.filter.organizationFoundingDate.label": "Search date founded",
+
+  "search.filters.filter.organizationFoundingDate.min.label": "Start",
+
+  "search.filters.filter.organizationFoundingDate.max.label": "End",
 
   "search.filters.filter.scope.head": "Scope",
 
@@ -5187,6 +5238,16 @@
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournalIssn": "Sherpa Journals by ISSN ({{ count }})",
 
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPerson": "OpenAlex ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexInstitution": "OpenAlex Search by Institution ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPublisher": "OpenAlex Search by Publisher ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexFunder": "OpenAlex Search by Funder ({{ count }})",
+
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.dataciteProject": "DataCite Search by Project ({{ count }})",
+
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfPublication": "Search for Funding Agencies",
 
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingOfPublication": "Search for Funding",
@@ -5206,6 +5267,8 @@
   "submission.sections.describe.relationship-lookup.title.isProjectOfPublication": "Projects",
 
   "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "Funder of the Project",
+
+  "submission.sections.describe.relationship-lookup.title.isPersonOfProject": "Person of the Project",
 
   "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Search...",
 
@@ -5322,6 +5385,16 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.wos": "Search Results",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title.ror": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openalexPerson": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openalexInstitution": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openalexPublisher": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openalexFunder": "Search Results",
+
+  "submission.sections.describe.relationship-lookup.selection-tab.title.dataciteProject": "Search Results",
 
   "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
 
@@ -5694,6 +5767,8 @@
   "subscriptions.frequency.W": "Weekly",
 
   "subscriptions.tooltip": "Subscribe",
+
+  "subscriptions.unsubscribe": "Unsubscribe",
 
   "subscriptions.modal.title": "Subscriptions",
 
@@ -7050,4 +7125,8 @@
   "metadata-export-filtered-items.columns.warning": "CSV export automatically includes all relevant fields, so selections in this list are not taken into account.",
 
   "embargo.listelement.badge": "Embargo until {{ date }}",
+
+  "metadata-export-search.submit.error.limit-exceeded": "Only the first {{limit}} items will be exported",
+
+  "file-download-link.request-copy": "Request a copy of ",
 }

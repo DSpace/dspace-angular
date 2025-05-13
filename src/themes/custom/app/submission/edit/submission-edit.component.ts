@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { SubmissionEditComponent as BaseComponent } from '../../../../../app/submission/edit/submission-edit.component';
-import { SubmissionFormComponent } from '../../../../../app/submission/form/submission-form.component';
+import { ThemedSubmissionFormComponent } from '../../../../../app/submission/form/themed-submission-form.component';
 
 /**
  * This component allows to edit an existing workspaceitem/workflowitem.
@@ -14,7 +14,7 @@ import { SubmissionFormComponent } from '../../../../../app/submission/form/subm
   templateUrl: '../../../../../app/submission/edit/submission-edit.component.html',
   standalone: true,
   imports: [
-    SubmissionFormComponent,
+    ThemedSubmissionFormComponent,
   ],
 })
 export class SubmissionEditComponent extends BaseComponent {

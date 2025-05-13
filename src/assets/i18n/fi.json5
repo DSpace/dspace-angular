@@ -4361,6 +4361,33 @@
   // "item.page.description": "Description",
   "item.page.description": "Kuvaus",
 
+  // "item.page.org-units": "Organizational Units",
+  "item.page.org-units": "Organisaatioyksiköt",
+
+  // "item.page.projects": "Research Projects",
+  "item.page.projects": "Tutkimusprojektit",
+
+  // "item.page.publications": "Publications",
+  "item.page.publications": "Julkaisut",
+
+  // "item.page.articles": "Articles",
+  "item.page.articles": "Artikkelit",
+
+  // "item.page.journal": "Journal",
+  "item.page.journal": "Kausijulkaisu",
+
+  // "item.page.journal-issue": "Journal Issue",
+  "item.page.journal-issue": "Kausijulkaisun numero",
+
+  // "item.page.journal-issues": "Journal Issues",
+  "item.page.journal-issues": "Kausijulkaisun numerot",
+
+  // "item.page.journal-volume": "Journal Volume",
+  "item.page.journal-volume": "Kausijulkaisun vuosikerta",
+
+  // "item.page.journal-volumes": "Journal Volumes",
+  "item.page.journal-volumes": "Kausijulkaisun vuosikerrat",
+
   // "item.page.journal-issn": "Journal ISSN",
   "item.page.journal-issn": "Kausijulkaisun ISSN",
 
@@ -4471,8 +4498,8 @@
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Tiivistelmä",
 
-  // "item.page.author": "Authors",
-  "item.page.author": "Tekijät",
+  // "item.page.authors": "Authors",
+  "item.page.authors": "Tekijät",
 
   // "item.page.citation": "Citation",
   "item.page.citation": "Viittaus",
@@ -6223,6 +6250,9 @@
   // "process.new.parameter.file.required": "Please select a file",
   "process.new.parameter.file.required": "Valitse tiedosto, ole hyvä",
 
+  // "process.new.parameter.integer.required": "Parameter value is required",
+  "process.new.parameter.integer.required": "Parametrin arvo on pakollinen tieto",
+
   // "process.new.parameter.string.required": "Parameter value is required",
   "process.new.parameter.string.required": "Parametrin arvo on pakollinen tieto",
 
@@ -6875,71 +6905,85 @@
   // "relationships.add.error.title": "Unable to add relationship",
   "relationships.add.error.title": "Yhteyttä ei voi lisätä",
 
-  // "relationships.isAuthorOf": "Authors",
-  "relationships.isAuthorOf": "Tekijät",
+  // "relationships.Publication.isAuthorOfPublication.Person": "Authors (persons)",
+  "relationships.Publication.isAuthorOfPublication.Person": "Tekijät (henkilöt)",
 
-  // "relationships.isAuthorOf.Person": "Authors (persons)",
-  "relationships.isAuthorOf.Person": "Tekijät (henkilöt)",
+  // "relationships.Publication.isProjectOfPublication.Project": "Research Projects",
+  "relationships.Publication.isProjectOfPublication.Project": "Tutkimusprojektit",
 
-  // "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
-  "relationships.isAuthorOf.OrgUnit": "Tekijät (organisaatioyksiköt)",
+  // "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizational Units",
+  "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organisaatioyksiköt",
 
-  // "relationships.isIssueOf": "Journal Issues",
-  "relationships.isIssueOf": "Kausijulkaisun numerot",
+  // "relationships.Publication.isAuthorOfPublication.OrgUnit": "Authors (organizational units)",
+  "relationships.Publication.isAuthorOfPublication.OrgUnit": "Tekijät (organisaatioyksiköt)",
 
-  // "relationships.isIssueOf.JournalIssue": "Journal Issue",
+  // "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
+  "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Kausijulkaisun numero",
+
+  // "relationships.Publication.isContributorOfPublication.Person": "Contributor",
+  "relationships.Publication.isContributorOfPublication.Person": "Osallistuja",
+
+  // "relationships.Publication.isContributorOfPublication.OrgUnit": "Contributor (organizational units)",
+  "relationships.Publication.isContributorOfPublication.OrgUnit": "Osallistuja (Organisaatioyksikkö)",
+
+  // "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
+  "relationships.Person.isPublicationOfAuthor.Publication": "Julkaisut",
+
+  // "relationships.Person.isProjectOfPerson.Project": "Research Projects",
+  "relationships.Person.isProjectOfPerson.Project": "Tutkimusprojektit",
+
+  // "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
+  "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organisaatioyksiköt",
+
+  // "relationships.Person.isPublicationOfContributor.Publication": "Publications",
+  "relationships.Person.isPublicationOfContributor.Publication": "Julkaisut",
+
+  // "relationships.Project.isPublicationOfProject.Publication": "Publications",
+  "relationships.Project.isPublicationOfProject.Publication": "Julkaisut",
+
+  // "relationships.Project.isPersonOfProject.Person": "Authors",
+  "relationships.Project.isPersonOfProject.Person": "Tekijät",
+
+  // "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
+  "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organisaatioyksiköt",
+
+  // "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Funder",
+  "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Rahoittaja",
+
+  // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
   // TODO New key - Add a translation
-  "relationships.isIssueOf.JournalIssue": "Journal Issue",
+  "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
 
-  // "relationships.isJournalIssueOf": "Journal Issue",
-  "relationships.isJournalIssueOf": "Kausijulkaisun numero",
+  // "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Authors",
+  "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Tekijät",
 
-  // "relationships.isJournalOf": "Journals",
-  "relationships.isJournalOf": "Kausijulkaisut",
+  // "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Tutkimusprojektit",
 
-  // "relationships.isJournalVolumeOf": "Journal Volume",
+  // "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
   // TODO New key - Add a translation
-  "relationships.isJournalVolumeOf": "Journal Volume",
+  "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
 
-  // "relationships.isOrgUnitOf": "Organizational Units",
-  "relationships.isOrgUnitOf": "Organisaatioyksiköt",
+  // "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publications",
+  "relationships.OrgUnit.isPublicationOfContributor.Publication": "Julkaisut",
 
-  // "relationships.isPersonOf": "Authors",
-  "relationships.isPersonOf": "Tekijät",
+  // "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Tutkimusprojektit",
 
-  // "relationships.isProjectOf": "Research Projects",
-  "relationships.isProjectOf": "Tutkimusprojektit",
+  // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
+  "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Kausijulkaisun vuosikerta",
 
-  // "relationships.isPublicationOf": "Publications",
-  "relationships.isPublicationOf": "Julkaisut",
+  // "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publications",
+  "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Julkaisut",
 
-  // "relationships.isPublicationOfJournalIssue": "Articles",
-  "relationships.isPublicationOfJournalIssue": "Artikkelit",
+  // "relationships.JournalVolume.isJournalOfVolume.Journal": "Journals",
+  "relationships.JournalVolume.isJournalOfVolume.Journal": "Kausijulkaisut",
 
-  // "relationships.isSingleJournalOf": "Journal",
-  "relationships.isSingleJournalOf": "Kausijulkaisu",
+  // "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Journal Issue",
+  "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Kausijulkaisun numero",
 
-  // "relationships.isSingleVolumeOf": "Journal Volume",
-  "relationships.isSingleVolumeOf": "Kausijulkaisun vuosikerta",
-
-  // "relationships.isVolumeOf": "Journal Volumes",
-  "relationships.isVolumeOf": "Kausijulkaisun vuosikerrat",
-
-  // "relationships.isVolumeOf.JournalVolume": "Journal Volume",
-  // TODO New key - Add a translation
-  "relationships.isVolumeOf.JournalVolume": "Journal Volume",
-
-  // "relationships.isContributorOf": "Contributors",
-  "relationships.isContributorOf": "Muut tekijät",
-
-  // "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
-  "relationships.isContributorOf.OrgUnit": "Osallistuja (Organisaatioyksikkö)",
-
-  // "relationships.isContributorOf.Person": "Contributor",
-  "relationships.isContributorOf.Person": "Osallistuja",
-
-  // "relationships.isFundingAgencyOf.OrgUnit": "Funder",
-  "relationships.isFundingAgencyOf.OrgUnit": "Rahoittaja",
+  // "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
+  "relationships.Journal.isVolumeOfJournal.JournalVolume": "Kausijulkaisun vuosikerta",
 
   // "repository.image.logo": "Repository logo",
   "repository.image.logo": "Julkaisuarkiston logo",
