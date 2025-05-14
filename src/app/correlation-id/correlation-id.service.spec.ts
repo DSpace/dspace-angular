@@ -12,12 +12,10 @@ import {
   storeModuleConfig,
 } from '../app.reducer';
 import { UUIDService } from '../core/shared/uuid.service';
+import { CORRELATION_ID_COOKIE } from '../shared/cookies/orejime-configuration';
 import { CookieServiceMock } from '../shared/mocks/cookie.service.mock';
 import { SetCorrelationIdAction } from './correlation-id.actions';
-import {
-  CORRELATION_ID_COOKIE,
-  CorrelationIdService,
-} from './correlation-id.service';
+import { CorrelationIdService } from './correlation-id.service';
 
 describe('CorrelationIdService', () => {
   let service: CorrelationIdService;

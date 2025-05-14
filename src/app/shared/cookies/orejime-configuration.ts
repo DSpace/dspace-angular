@@ -9,7 +9,6 @@ import {
 } from '../../core/google-recaptcha/google-recaptcha.service';
 import { LANG_COOKIE } from '../../core/locale/locale.service';
 import { NativeWindowRef } from '../../core/services/window.service';
-import { CORRELATION_ID_COOKIE } from '../../correlation-id/correlation-id.service';
 
 /**
  * Cookie for has_agreed_end_user
@@ -25,6 +24,8 @@ export const MATOMO_OREJIME_KEY = 'matomo';
 export const MATOMO_COOKIE = 'dsMatomo';
 
 export const CORRELATION_ID_OREJIME_KEY = 'correlation-id';
+
+export const CORRELATION_ID_COOKIE = 'CORRELATION-ID';
 
 /**
  * Orejime configuration

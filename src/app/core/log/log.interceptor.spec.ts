@@ -16,12 +16,12 @@ import {
   appReducers,
   storeModuleConfig,
 } from '../../app.reducer';
+import { CorrelationIdService } from '../../correlation-id/correlation-id.service';
+import { OrejimeService } from '../../shared/cookies/orejime.service';
 import {
   CORRELATION_ID_COOKIE,
-  CorrelationIdService,
-} from '../../correlation-id/correlation-id.service';
-import { OrejimeService } from '../../shared/cookies/orejime.service';
-import { CORRELATION_ID_OREJIME_KEY } from '../../shared/cookies/orejime-configuration';
+  CORRELATION_ID_OREJIME_KEY,
+} from '../../shared/cookies/orejime-configuration';
 import { CookieServiceMock } from '../../shared/mocks/cookie.service.mock';
 import { RouterStub } from '../../shared/testing/router.stub';
 import { RestRequestMethod } from '../data/rest-request-method';

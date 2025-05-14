@@ -16,12 +16,13 @@ import {
 } from '../core/services/window.service';
 import { UUIDService } from '../core/shared/uuid.service';
 import { OrejimeService } from '../shared/cookies/orejime.service';
-import { CORRELATION_ID_OREJIME_KEY } from '../shared/cookies/orejime-configuration';
+import {
+  CORRELATION_ID_COOKIE,
+  CORRELATION_ID_OREJIME_KEY,
+} from '../shared/cookies/orejime-configuration';
 import { isEmpty } from '../shared/empty.util';
 import { SetCorrelationIdAction } from './correlation-id.actions';
 import { correlationIdSelector } from './correlation-id.selector';
-
-export const CORRELATION_ID_COOKIE = 'CORRELATION-ID';
 
 /**
  * Service to manage the correlation id, an id used to give context to server side logs
