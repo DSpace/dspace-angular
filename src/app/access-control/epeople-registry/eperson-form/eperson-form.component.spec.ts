@@ -355,6 +355,7 @@ describe('EPersonFormComponent', () => {
     let requireCertificate;
 
     let expected;
+
     beforeEach(() => {
       firstName = 'testName';
       lastName = 'testLastName';
@@ -374,11 +375,17 @@ describe('EPersonFormComponent', () => {
               value: lastName,
             },
           ],
+          'eperson.phone': [
+            {
+              value: null,
+            },
+          ],
         },
         email: email,
         canLogIn: canLogIn,
         requireCertificate: requireCertificate,
       });
+
       spyOn(component.submitForm, 'emit');
       component.ngOnInit();
       component.firstName.value = firstName;
@@ -387,6 +394,7 @@ describe('EPersonFormComponent', () => {
       component.canLogIn.value = canLogIn;
       component.requireCertificate.value = requireCertificate;
     });
+
     describe('without active EPerson', () => {
       beforeEach(() => {
         spyOn(ePersonDataServiceStub, 'getActiveEPerson').and.returnValue(observableOf(undefined));
@@ -416,6 +424,11 @@ describe('EPersonFormComponent', () => {
                 value: lastName,
               },
             ],
+            'eperson.phone': [
+              {
+                value: null,
+              },
+            ],
           },
           email: email,
           canLogIn: canLogIn,
@@ -429,6 +442,7 @@ describe('EPersonFormComponent', () => {
             },
           },
         });
+
         spyOn(ePersonDataServiceStub, 'getActiveEPerson').and.returnValue(observableOf(expectedWithId));
         component.ngOnInit();
         component.onSubmit();
