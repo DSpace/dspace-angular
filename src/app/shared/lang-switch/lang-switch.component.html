@@ -3,7 +3,7 @@
           [attr.aria-label]="'nav.language' |translate"
           aria-controls="language-menu-list"
           aria-haspopup="menu"
-          [title]="'nav.language' | translate" class="dropdown-toggle btn btn-link px-1"
+          [title]="'nav.language' | translate" class="dropdown-toggle btn btn-link px-0"
           (click)="$event.preventDefault()" data-toggle="dropdown" ngbDropdownToggle
           data-test="lang-switch"
           tabindex="0">
@@ -11,6 +11,7 @@
   </button>
   <div ngbDropdownMenu class="dropdown-menu" role="listbox" [attr.aria-label]="'nav.language' |translate" id="language-menu-list">
     <div class="dropdown-item" tabindex="0" role="option" #langSelect *ngFor="let lang of translate.getLangs()"
+         [lang]="lang"
          (keyup.enter)="useLang(lang)"
          (click)="useLang(lang)"
          [attr.aria-selected]="lang === translate.currentLang"
