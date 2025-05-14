@@ -4,7 +4,7 @@
             [attr.aria-label]="'nav.language' |translate"
             aria-controls="language-menu-list"
             aria-haspopup="menu"
-            class="dropdown-toggle"
+            class="dropdown-toggle btn btn-link px-0"
             [title]="'nav.language' | translate"
             (click)="$event.preventDefault()" data-toggle="dropdown" ngbDropdownToggle
             data-test="lang-switch"
@@ -16,6 +16,7 @@
       @for (lang of translate.getLangs(); track lang) {
         <div class="dropdown-item" tabindex="0"
              role="option"
+             [lang]="lang"
              (keyup.enter)="useLang(lang)"
              (click)="useLang(lang)"
              [attr.aria-selected]="lang === translate.currentLang"
