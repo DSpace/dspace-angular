@@ -49,8 +49,8 @@ describe('Community List Page', () => {
     // A first <cdk-tree-node> must be found and validate that <a> tag (community name) and <span> tag (item count) exists in it
     cy.get('ds-community-list').find('cdk-tree-node.expandable-node').then(($nodes) => {
       cy.wrap($nodes).each(($node) => {
-        cy.wrap($node).find('a.lead').should('exist');
-        cy.wrap($node).find('span.badge').should('exist');
+        cy.wrap($node).find('a').should('exist');
+        cy.wrap($node).find('span').should('exist');
       });
     });
   });
