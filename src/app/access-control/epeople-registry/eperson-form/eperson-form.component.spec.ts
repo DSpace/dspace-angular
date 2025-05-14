@@ -530,6 +530,13 @@ describe('EPersonFormComponent', () => {
   });
 
   describe('delete group from member', () => {
+    let successSpy: jasmine.Spy;
+    let errorSpy: jasmine.Spy;
+
+    beforeEach(() => {
+      successSpy = spyOn((component as any).notificationsService, 'success');
+      errorSpy = spyOn((component as any).notificationsService, 'error');
+    });
 
     it('should delete group from member and show notification', (done) => {
       const group = { id: 'group1' } as any;
@@ -552,7 +559,6 @@ describe('EPersonFormComponent', () => {
 
     it('should show success notification on successful operation', () => {
       const response = createSuccessfulRemoteDataObject$(null);
-      const successSpy = spyOn((component as any).notificationsService, 'success');
 
       component.showNotifications('deleteMembership', response, 'TestGroup', EPersonMock);
 
@@ -561,14 +567,13 @@ describe('EPersonFormComponent', () => {
 
     it('should show error notification when response hasSucceeded is false', () => {
       const response = createFailedRemoteDataObject$(null);
-      const errorSpy = spyOn((component as any).notificationsService, 'error');
 
       component.showNotifications('deleteMembership', response, 'TestGroup', EPersonMock);
 
       expect(errorSpy).toHaveBeenCalled();
     });
-
   });
+
 
   describe('Reset Password', () => {
     let ePersonId;

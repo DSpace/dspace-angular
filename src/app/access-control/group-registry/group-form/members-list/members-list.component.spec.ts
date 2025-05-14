@@ -286,16 +286,12 @@ describe('MembersListComponent', () => {
   });
 
   describe('test for searchMembers', () => {
-    let fakePagination: any;
     let comp: any;
 
     beforeEach(() => {
-      fakePagination = { currentPage: 1, pageSize: 10 };
       comp = component as any;
-
-      spyOn(comp.paginationService, 'getCurrentPagination').and.returnValue(observableOf(fakePagination));
-
-      comp.ePersonDataService.searchMembers = jasmine.createSpy('searchMembers');
+      spyOn(comp.ePersonDataService, 'searchMembers');
+      spyOn(comp.notificationsService, 'error');
     });
 
     it('should search members and update ePeopleMembersOfGroup', fakeAsync(() => {
@@ -323,11 +319,10 @@ describe('MembersListComponent', () => {
 
       comp.ePersonDataService.searchMembers.and.returnValue(createFailedRemoteDataObject$('Server Error'));
 
-      const notificationSpy = spyOn(comp.notificationsService, 'error');
       comp.searchMembers({ queryCurrentMembers: 'John' });
       tick();
 
-      expect(notificationSpy).toHaveBeenCalled();
+      expect(comp.notificationsService.error).toHaveBeenCalled();
     }));
 
     it('should reset the searchCurrentMembersForm and call searchMembers with empty query', () => {
