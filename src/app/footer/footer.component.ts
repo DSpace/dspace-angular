@@ -62,7 +62,7 @@ export class FooterComponent implements OnInit {
   }
 
   openCookieSettings() {
-    if (hasValue(this.cookies)) {
+    if (hasValue(this.cookies) && this.cookies.showSettings instanceof Function) {
       this.cookies.showSettings();
     }
     return false;

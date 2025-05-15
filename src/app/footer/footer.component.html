@@ -49,8 +49,8 @@
   <!-- Grid container -->
 
   <!-- Copyright -->
-  <div class="bottom-footer p-1 d-flex justify-content-center align-items-center text-white">
-    <div class="content-container">
+  <div class="bottom-footer p-1 d-flex flex-column flex-md-row justify-content-center align-items-center text-white">
+    <div class="content-container align-self-center">
       <p class="m-0">
         <a class="text-white"
         href="http://www.dspace.org/" role="link" tabindex="0">{{ 'footer.link.dspace' | translate}}</a>
@@ -87,7 +87,7 @@
       </ul>
     </div>
     @if (coarLdnEnabled$ | async) {
-      <div class="notify-enabled text-white">
+      <div class="notify-enabled text-white align-self-end">
         <a class="coar-notify-support-route" routerLink="info/coar-notify-support" role="link" tabindex="0">
           <img class="n-coar" src="assets/images/n-coar.svg" [attr.alt]="'menu.header.image.logo' | translate" />
           {{ 'footer.link.coar-notify-support' | translate }}
