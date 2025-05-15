@@ -257,6 +257,16 @@ export class AuthService {
   }
 
   /**
+   * Returns the authenticated user id from the store
+   * @returns {User}
+   */
+  public getAuthenticatedUserIdFromStore(): Observable<string> {
+    return this.store.pipe(
+      select(getAuthenticatedUserId),
+    );
+  }
+
+  /**
    * Checks if token is present into browser storage and is valid.
    */
   public checkAuthenticationToken() {
