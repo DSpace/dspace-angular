@@ -20,7 +20,10 @@ import {
   CORRELATION_ID_COOKIE,
   CORRELATION_ID_OREJIME_KEY,
 } from '../shared/cookies/orejime-configuration';
-import { isEmpty } from '../shared/empty.util';
+import {
+  hasValue,
+  isEmpty,
+} from '../shared/empty.util';
 import { SetCorrelationIdAction } from './correlation-id.actions';
 import { correlationIdSelector } from './correlation-id.selector';
 
@@ -49,7 +52,7 @@ export class CorrelationIdService {
    */
   initCorrelationId(): void {
     this.orejimeService?.getSavedPreferences().subscribe(preferences => {
-      if (preferences[CORRELATION_ID_OREJIME_KEY]) {
+      if (hasValue(preferences) && preferences[CORRELATION_ID_OREJIME_KEY]) {
         this.setCorrelationId();
       }
     },
