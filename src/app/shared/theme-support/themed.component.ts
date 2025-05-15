@@ -11,11 +11,16 @@ import {
   HostBinding,
   ElementRef,
 } from '@angular/core';
-import { hasNoValue, hasValue, isNotEmpty } from '../empty.util';
 import { combineLatest, from as fromPromise, Observable, of as observableOf, Subscription, BehaviorSubject } from 'rxjs';
 import { ThemeService } from './theme.service';
 import { catchError, switchMap, map, tap } from 'rxjs/operators';
 import { GenericConstructor } from '../../core/shared/generic-constructor';
+import {
+  hasNoValue,
+  hasValue,
+  hasValueOperator,
+  isNotEmpty,
+} from '../empty.util';
 import { BASE_THEME_NAME } from './theme.constants';
 
 @Component({
@@ -54,6 +59,7 @@ export abstract class ThemedComponent<T> implements AfterViewInit, OnDestroy, On
   protected abstract getComponentName(): string;
 
   protected abstract importThemedComponent(themeName: string): Promise<any>;
+
   protected abstract importUnthemedComponent(): Promise<any>;
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -82,16 +88,17 @@ export abstract class ThemedComponent<T> implements AfterViewInit, OnDestroy, On
   }
 
   initComponentInstance(changes?: SimpleChanges) {
-    this.themeSub = this.themeService?.getThemeName$().subscribe(() => {
-      this.renderComponentInstance(changes);
-    });
+    this.themeSub = this.themeService?.getThemeName$()
+      .pipe(hasValueOperator())
+      .subscribe(() => {
+        this.renderComponentInstance(changes);
+      });
   }
 
   protected renderComponentInstance(changes?: SimpleChanges): void {
     if (hasValue(this.lazyLoadSub)) {
       this.lazyLoadSub.unsubscribe();
     }
-
     if (hasNoValue(this.lazyLoadObs)) {
       this.lazyLoadObs = combineLatest([
         observableOf(changes),
