@@ -23,11 +23,12 @@ import { RequestError } from './request-error.model';
 import { RestRequestMethod } from './rest-request-method';
 import { RestRequestWithResponseParser } from './rest-request-with-response-parser.model';
 import { RequestEntry } from './request-entry.model';
+import { ServerStatusService } from '../server-check/server-status.service';
 
 @Injectable()
 export class RequestEffects {
 
-   execute = createEffect(() => this.actions$.pipe(
+  execute = createEffect(() => this.actions$.pipe(
     ofType(RequestActionTypes.EXECUTE),
     mergeMap((action: RequestExecuteAction) => {
       return this.requestService.getByUUID(action.payload).pipe(
@@ -51,7 +52,14 @@ export class RequestEffects {
         map((response: ParsedResponse) => new RequestSuccessAction(request.uuid, response.statusCode, response.link, response.unCacheableObject)),
         catchError((error: RequestError) => {
           if (hasValue(error.statusCode)) {
-            // if it's an error returned by the server, complete the request
+            // if it's an error returned by the server, check if the server is still running and update its status
+            // then navigate to the internal error page while still completing the request
+            this.serverStatusService.checkAndUpdateServerStatus(request, error)
+              .subscribe((isAvailable: boolean) => {
+                if (!isAvailable) {
+                  this.serverStatusService.navigateToInternalServerErrorPage();
+              }
+              });
             return [new RequestErrorAction(request.uuid, error.statusCode, error.message)];
           } else {
             // if it's a client side error, throw it
@@ -70,7 +78,7 @@ export class RequestEffects {
    * This assumes that the server cached everything a negligible
    * time ago, and will likely need to be revisited later
    */
-   fixTimestampsOnRehydrate = createEffect(() => this.actions$
+  fixTimestampsOnRehydrate = createEffect(() => this.actions$
     .pipe(ofType(StoreActionTypes.REHYDRATE),
       map(() => new ResetResponseTimestampsAction(new Date().getTime()))
     ));
@@ -81,6 +89,8 @@ export class RequestEffects {
     private injector: Injector,
     protected requestService: RequestService,
     protected xsrfService: XSRFService,
-  ) { }
+    protected serverStatusService: ServerStatusService,
+  ) {
+  }
 
 }
