@@ -6,6 +6,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import { of as observableOf } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
+import { environment } from '../../../environments/environment';
 import { AuthService } from '../../core/auth/auth.service';
 import { RestResponse } from '../../core/cache/response.models';
 import { ConfigurationDataService } from '../../core/data/configuration-data.service';
@@ -77,6 +78,8 @@ describe('BrowserOrejimeService', () => {
         /* empty */
       },
     });
+
+    environment.info.enableCookieConsentPopup = true;
 
     TestBed.configureTestingModule({
       providers: [
