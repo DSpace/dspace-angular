@@ -1,6 +1,12 @@
-import { Injectable, Inject, Injector } from '@angular/core';
+import {
+  Injectable,
+  Inject,
+  Injector,
+  Optional,
+} from '@angular/core';
 import { Store, createFeatureSelector, createSelector, select } from '@ngrx/store';
 import { BehaviorSubject, EMPTY, Observable, of as observableOf, from, concatMap } from 'rxjs';
+import { HashedFileMapping } from '../../../modules/dynamic-hash/hashed-file-mapping';
 import { ThemeState } from './theme.reducer';
 import { SetThemeAction, ThemeActionTypes } from './theme.actions';
 import { defaultIfEmpty, expand, filter, map, switchMap, take, toArray } from 'rxjs/operators';
@@ -54,6 +60,7 @@ export class ThemeService {
     @Inject(GET_THEME_CONFIG_FOR_FACTORY) private gtcf: (str) => ThemeConfig,
     private router: Router,
     @Inject(DOCUMENT) private document: any,
+    @Optional() private hashedFileMapping: HashedFileMapping,
   ) {
     // Create objects from the theme configs in the environment file
     this.themes = environment.themes.map((themeConfig: ThemeConfig) => themeFactory(themeConfig, injector));
@@ -176,10 +183,14 @@ export class ThemeService {
     // automatically updated if we add nodes later
     const currentThemeLinks = Array.from(head.getElementsByClassName('theme-css'));
     const link = this.document.createElement('link');
+    const themeCSS = `${encodeURIComponent(themeName)}-theme.css`;
     link.setAttribute('rel', 'stylesheet');
     link.setAttribute('type', 'text/css');
     link.setAttribute('class', 'theme-css');
-    link.setAttribute('href', `${encodeURIComponent(themeName)}-theme.css`);
+    link.setAttribute(
+      'href',
+      this.hashedFileMapping?.resolve(themeCSS) ?? themeCSS,
+    );
     // wait for the new css to download before removing the old one to prevent a
     // flash of unstyled content
     link.onload = () => {
