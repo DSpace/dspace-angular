@@ -1,3 +1,4 @@
+import { AccessibilitySettingsConfig } from '../app/accessibility/accessibility-settings.config';
 import { AdminNotifyMetricsRow } from '../app/admin/admin-notify-dashboard/admin-notify-metrics/admin-notify-metrics.model';
 import { RestRequestMethod } from '../app/core/data/rest-request-method';
 import { LiveRegionConfig } from '../app/shared/live-region/live-region.config';
@@ -628,5 +629,10 @@ export class DefaultAppConfig implements AppConfig {
       lat: 41.015137,
       lng: 28.979530,
     },
+  };
+
+  // Accessibility settings configuration, used by the AccessibilitySettingsService
+  accessibility: AccessibilitySettingsConfig = {
+    cookieExpirationDuration: 7,
   };
 }

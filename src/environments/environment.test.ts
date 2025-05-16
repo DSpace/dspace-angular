@@ -473,4 +473,8 @@ export const environment: BuildConfig = {
       lng: 28.979530,
     },
   },
+
+  accessibility: {
+    cookieExpirationDuration: 7,
+  },
 };

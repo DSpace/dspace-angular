@@ -609,3 +609,8 @@ geospatialMapViewer:
   defaultCentrePoint:
     lat: 41.015137
     lng: 28.979530
+
+# Configuration for storing accessibility settings, used by the AccessibilitySettingsService
+accessibility:
+  # The duration in days after which the accessibility settings cookie expires
+  cookieExpirationDuration: 7
