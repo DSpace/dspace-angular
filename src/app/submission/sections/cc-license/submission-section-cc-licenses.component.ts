@@ -18,8 +18,9 @@ import { JsonPatchOperationPathCombiner } from '../../../core/json-patch/builder
 import { isNotEmpty, hasValue, hasNoValue } from '../../../shared/empty.util';
 import { JsonPatchOperationsBuilder } from '../../../core/json-patch/builder/json-patch-operations-builder';
 import { SubmissionCcLicenseUrlDataService } from '../../../core/submission/submission-cc-license-url-data.service';
-import {ConfigurationDataService} from '../../../core/data/configuration-data.service';
+import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { FindListOptions } from '../../../core/data/find-list-options.model';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * This component represents the submission section to select the Creative Commons license.
@@ -59,6 +60,18 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
    * Cache of the available Creative Commons licenses.
    */
   submissionCcLicenses: SubmissionCcLicence[] = [];
+
+  /**
+   * Map of licence uris to names
+   */
+  public licenseMap: Record<string, string> = {
+    'http://creativecommons.org/licenses/by/4.0/'       : 'CC BY 4.0 (Attribution 4.0 International)',
+    'http://creativecommons.org/licenses/by-sa/4.0/'    : 'CC BY-SA 4.0 (Attribution-ShareAlike 4.0 International)',
+    'http://creativecommons.org/licenses/by-nc/4.0/'    : 'CC BY-NC 4.0 (Attribution-NonCommercial 4.0 International)',
+    'http://creativecommons.org/licenses/by-nc-sa/4.0/' : 'CC BY-NC-SA 4.0 (Attribution-NonCommercial-ShareAlike 4.0 International)',
+    'http://creativecommons.org/licenses/by-nd/4.0/'    : 'CC BY-ND 4.0 (Attribution-NoDerivatives 4.0 International)',
+    'http://creativecommons.org/licenses/by-nc-nd/4.0/' : 'CC BY-NC-ND 4.0 (Attribution-NonCommercial-NoDerivatives 4.0 International)'
+  };
 
   /**
    * Reference to NgbModal
@@ -116,6 +129,7 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
     protected operationsBuilder: JsonPatchOperationsBuilder,
     protected configService: ConfigurationDataService,
     protected ref: ChangeDetectorRef,
+    private translate: TranslateService,
     @Inject('collectionIdProvider') public injectedCollectionId: string,
     @Inject('sectionDataProvider') public injectedSectionData: SectionDataObject,
     @Inject('submissionIdProvider') public injectedSubmissionId: string
@@ -157,10 +171,18 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
     }
     this.selectedCcLicense = ccLicense;
     this.setAccepted(false);
+
+    // Generate the defaults options for selected ccLicense
+    const defaults = {};
+    ccLicense.fields.forEach(field => {
+      const defaultEnumOption = field.enums.find(enumOption => enumOption.default);
+      if (defaultEnumOption) { defaults[field.id] = defaultEnumOption; }
+    });
+
     this.updateSectionData({
       ccLicense: {
         id: ccLicense.id,
-        fields: {},
+        fields: defaults
       },
       uri: undefined,
     });
@@ -195,6 +217,25 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
         }),
       },
       accepted: false,
+    });
+    this.ccLicenseLink$ = this.getCcLicenseLink$();
+  }
+
+  /**
+   * Update value for a given license field.
+   * @param ccLicense   the related Creative Commons license.
+   * @param field       the field for which to set a value.
+   */
+  updateInput(ccLicense: SubmissionCcLicence, field: Field) {
+     this.updateSectionData({
+      ccLicense: {
+        id: ccLicense.id,
+        fields: Object.assign({}, this.data.ccLicense.fields, {
+          [field.id]: this.data.ccLicense.fields[field.id]
+        }),
+      },
+      accepted: false,
+      uri: this.data.uri
     });
     this.ccLicenseLink$ = this.getCcLicenseLink$();
   }
@@ -290,11 +331,17 @@ export class SubmissionSectionCcLicensesComponent extends SectionModelComponent 
         if (this.data.accepted !== data.accepted) {
           const path = this.pathCombiner.getPath('uri');
           if (data.accepted) {
-            this.getCcLicenseLink$().pipe(
-              take(1),
-            ).subscribe((link) => {
-              this.operationsBuilder.add(path, link.toString(), false, true);
-            });
+            if (data.ccLicense.id === 'other') {
+              this.operationsBuilder.add(path, { 'uri': data.ccLicense.fields.dc_rights_uri, 'rights': data.ccLicense.fields.dc_rights }, false, true);
+            } else if (data.ccLicense.id === 'none') {
+              this.operationsBuilder.add(path, { 'uri': '', 'rights': this.translate.instant('submission.sections.ccLicense.copyrighted') }, false, true);
+            } else {
+              this.getCcLicenseLink$().pipe(
+                take(1),
+              ).subscribe((link) => {
+                this.operationsBuilder.add(path, link.toString(), false, true);
+              });
+            }
           } else if (!!this.data.uri) {
             this.operationsBuilder.remove(path);
           }

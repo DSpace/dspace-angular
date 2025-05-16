@@ -4549,19 +4549,33 @@
 
   "submission.sections.describe.relationship-lookup.name-variant.notification.decline": "Use only for this submission",
 
-  "submission.sections.ccLicense.type": "License Type",
+  "submission.sections.ccLicense.attribution": "The language in this tool is adapted from Creative Commons",
 
-  "submission.sections.ccLicense.select": "Select a license type…",
+  "submission.sections.ccLicense.change": "License selector…",
 
-  "submission.sections.ccLicense.change": "Change your license type…",
+  "submission.sections.ccLicense.confirmation": "I grant the license above",
 
-  "submission.sections.ccLicense.none": "No licenses available",
+  "submission.sections.ccLicense.copyrighted": "This work is protected by copyright unless stated otherwise.",
 
-  "submission.sections.ccLicense.option.select": "Select an option…",
+  "submission.sections.ccLicense.cczero": "I have read and understand the terms and intended legal effect of CC0 (Public domain). I hereby waive all copyright and related or neighboring rights together with all associated claims and causes of action with respect to this work to the extent possible under the law.",
+
+  "submission.sections.ccLicense.info": "Select license terms to limit how others may reuse your work. We recommend a CC BY-NC Creative Commons (CC) license. Learn more at <a href='https://creativecommons.org/share-your-work/cclicenses/' target='_blank'>About CC Licenses</a> or use the “Help me choose” option in the License Selector. Tip: If you save and then re-visit this submission form, your previous entries in this section will not be displayed. However, they will remain saved unless you make a new selection in this section.",
 
   "submission.sections.ccLicense.link": "You’ve selected the following license:",
 
-  "submission.sections.ccLicense.confirmation": "I grant the license above",
+  "submission.sections.ccLicense.link2": "All Creative Commons licenses require attribution, meaning that credit must be given to you, the creator.",
+
+  "submission.sections.ccLicense.none": "No licenses available",
+
+  "submission.sections.ccLicense.option.select": "Select…",
+
+  "submission.sections.ccLicense.publicdomain": "You have chosen to put your work into the public domain using the <a href='https://creativecommons.org/publicdomain/zero/1.0/' target='_blank' rel='noopener noreferrer'>CC0 Public Domain Dedication</a> deed.",
+
+  "submission.sections.ccLicense.select": "License selector…",
+
+  "submission.sections.ccLicense.selected": "You have selected",
+
+  "submission.sections.ccLicense.type": "License Type",
 
   "submission.sections.general.add-more": "Add more",
 
@@ -4609,7 +4623,7 @@
 
   "submission.sections.submit.progressbar.accessCondition": "Item access conditions",
 
-  "submission.sections.submit.progressbar.CClicense": "Creative commons license",
+  "submission.sections.submit.progressbar.CClicense": "Rights",
 
   "submission.sections.submit.progressbar.describe.recycle": "Recycle",
 
@@ -4618,6 +4632,8 @@
   "submission.sections.submit.progressbar.describe.stepone": "Describe",
 
   "submission.sections.submit.progressbar.describe.steptwo": "Describe",
+
+  "submission.sections.submit.progressbar.describe.rights": "Rights Statement",
 
   "submission.sections.submit.progressbar.detect-duplicate": "Potential duplicates",
 

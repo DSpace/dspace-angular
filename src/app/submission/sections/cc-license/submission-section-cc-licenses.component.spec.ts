@@ -50,11 +50,13 @@ describe('SubmissionSectionCcLicensesComponent', () => {
             {
               id: 'test enum id 1a I',
               label: 'test enum label 1a I',
+              default: true,
               description: 'test enum description 1a I',
             },
             {
               id: 'test enum id 1a II',
               label: 'test enum label 1a II',
+              default: false,
               description: 'test enum description 1a II',
             },
           ],
@@ -67,11 +69,13 @@ describe('SubmissionSectionCcLicensesComponent', () => {
             {
               id: 'test enum id 1b I',
               label: 'test enum label 1b I',
+              default: true,
               description: 'test enum description 1b I',
             },
             {
               id: 'test enum id 1b II',
               label: 'test enum label 1b II',
+              default: false,
               description: 'test enum description 1b II',
             },
           ],
@@ -96,11 +100,13 @@ describe('SubmissionSectionCcLicensesComponent', () => {
             {
               id: 'test enum id 2a I',
               label: 'test enum label 2a I',
+              default: true,
               description: 'test enum description 2a I'
             },
             {
               id: 'test enum id 2a II',
               label: 'test enum label 2a II',
+              default: false,
               description: 'test enum description 2a II'
             },
           ],
@@ -113,11 +119,13 @@ describe('SubmissionSectionCcLicensesComponent', () => {
             {
               id: 'test enum id 2b I',
               label: 'test enum label 2b I',
+              default: true,
               description: 'test enum description 2b I'
             },
             {
               id: 'test enum id 2b II',
               label: 'test enum label 2b II',
+              default: false,
               description: 'test enum description 2b II'
             },
           ],
