@@ -9,19 +9,20 @@ import {
 } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import {
-  Observable,
-  of as observableOf,
-  Subscription,
+  EMPTY,
+  Observable, of,
+  of as observableOf, ReplaySubject, share, Subject,
+  Subscription, timeout, TimeoutError,
   timer as observableTimer,
 } from 'rxjs';
 import {
   catchError,
-  concatMap,
+  concatMap, debounceTime,
   distinctUntilChanged,
-  filter,
+  filter, finalize,
   find,
   map,
-  startWith,
+  startWith, switchMap,
   take,
   tap,
 } from 'rxjs/operators';
@@ -102,6 +103,10 @@ export class SubmissionService {
    */
   protected autoSaveSub: Subscription;
 
+  private _currentSaveSubmissionId;
+  private _saveDebouncer = new Subject<{id: string, manual: boolean}>();
+  private activeStateSubscriptions: Map<string, Subscription[]> = new Map();
+
   /**
    * Observable used as timer
    */
@@ -109,6 +114,9 @@ export class SubmissionService {
 
   private workspaceLinkPath = 'workspaceitems';
   private workflowLinkPath = 'workflowitems';
+
+  // testing sub stuff
+  private submissionStateSubjects: Map<string, ReplaySubject<SubmissionObjectEntry>>;
   /**
    * Initialize service variables
    * @param {NotificationsService} notificationsService
@@ -130,7 +138,47 @@ export class SubmissionService {
               protected searchService: SearchService,
               protected requestService: RequestService,
               protected jsonPatchOperationService: SubmissionJsonPatchOperationsService) {
+    this._saveDebouncer.pipe(
+      debounceTime(300),
+      //distinctUntilChanged((prev, curr) => prev.id === curr.id),
+    ).subscribe(({ id, manual }) => {
+      this._dispatchSaveImpl(id, manual);
+    });
   }
+
+  // testing sub stuff
+  // Add this method to manage subscriptions better
+  private getOrCreateStateSubscription(submissionId: string): Observable<SubmissionObjectEntry> {
+    // Check if we already have an active subject for this submission
+    if (!this.submissionStateSubjects) {
+      this.submissionStateSubjects = new Map();
+    }
+
+    if (!this.submissionStateSubjects.has(submissionId)) {
+      // Create a new ReplaySubject to cache the latest state
+      const subject = new ReplaySubject<SubmissionObjectEntry>(1);
+
+      // Set up a single subscription to the store that feeds our subject
+      const subscription = this.store.select(submissionObjectFromIdSelector(submissionId))
+        .pipe(
+          filter((submission: SubmissionObjectEntry) => isNotUndefined(submission))
+        )
+        .subscribe(subject);
+
+      // Track this subscription so we can clean it up later
+      if (!this.activeStateSubscriptions.has(submissionId)) {
+        this.activeStateSubscriptions.set(submissionId, []);
+      }
+      this.activeStateSubscriptions.get(submissionId).push(subscription);
+
+      // Store our subject
+      this.submissionStateSubjects.set(submissionId, subject);
+    }
+
+    // Return the subject as an observable
+    return this.submissionStateSubjects.get(submissionId).asObservable();
+  }
+
 
   /**
    * Dispatch a new [ChangeSubmissionCollectionAction]
@@ -269,11 +317,60 @@ export class SubmissionService {
    *    whether is a manual save, default false
    */
   dispatchSave(submissionId, manual?: boolean) {
-    this.getSubmissionSaveProcessingStatus(submissionId).pipe(
-      find((isPending: boolean) => !isPending),
-    ).subscribe(() => {
-      this.store.dispatch(new SaveSubmissionFormAction(submissionId, manual));
-    });
+    console.log('qeueing save for', submissionId);
+    this._saveDebouncer.next({id: submissionId, manual: manual});
+  }
+  _dispatchSaveImpl(submissionId, manual?: boolean) {
+    console.log('Dispatching save for', submissionId);
+    const saveInProgress = this._currentSaveSubmissionId === submissionId;
+    if (saveInProgress) {
+      console.log(`Save already in progress, ignoring save for ${submissionId}`);
+      return;
+    }
+
+    this._currentSaveSubmissionId = submissionId;
+
+    // Check the current save processing status first
+    this.getSubmissionObject(submissionId).pipe(
+      take(1),
+      map((state: SubmissionObjectEntry) => state.savePending),
+      switchMap((isPending: boolean) => {
+        if (!isPending) {
+          // If not pending, proceed immediately
+          return of(false);
+        } else {
+          // Otherwise wait for non-pending state
+          return this.getSubmissionSaveProcessingStatus(submissionId).pipe(
+            find((pendingState: boolean) => !pendingState),
+            timeout(10000)
+          );
+        }
+      }),
+      finalize(() => {
+        console.log(`Clearing save in progress flag for ${submissionId}`);
+        this._currentSaveSubmissionId = null;
+      })
+    ).subscribe({
+      next: () => {
+        console.log('Proceeding with save dispatch');
+        this.store.dispatch(new SaveSubmissionFormAction(submissionId, manual));
+      },
+      error: error => {
+        console.error('Error waiting for non-pending state', error);
+        // Error handling logic - potentially still dispatch the save if it was a timeout
+        if (error instanceof TimeoutError) {
+          console.log('Timeout occurred, forcing save dispatch');
+          this.store.dispatch(new SaveSubmissionFormAction(submissionId, manual));
+        }
+      }
+    })
+    // ).subscribe(() => {
+    //   console.log('Proceeding with save dispatch');
+    //   this.store.dispatch(new SaveSubmissionFormAction(submissionId, manual));
+    // }, error => {
+    //   console.error('Error waiting for non-pending state', error);
+    //   this._currentSaveSubmissionId = null;
+    // });
   }
 
   /**
@@ -319,9 +416,18 @@ export class SubmissionService {
    * @return Observable<SubmissionObjectEntry>
    *    observable of SubmissionObjectEntry
    */
+  // getSubmissionObject(submissionId: string): Observable<SubmissionObjectEntry> {
+  //   console.log(`Getting submission object for submission ${submissionId}, active subs:`, this.activeStateSubscriptions.get(submissionId)?.length || 0);
+  //   return this.store.select(submissionObjectFromIdSelector(submissionId)).pipe(
+  //     filter((submission: SubmissionObjectEntry) => isNotUndefined(submission)),
+  //     share()
+  //   );
+  // }
+  //
   getSubmissionObject(submissionId: string): Observable<SubmissionObjectEntry> {
-    return this.store.select(submissionObjectFromIdSelector(submissionId)).pipe(
-      filter((submission: SubmissionObjectEntry) => isNotUndefined(submission)));
+    console.log(`Getting submission object for submission ${submissionId}, active subs:`,
+      this.activeStateSubscriptions.get(submissionId)?.length || 0);
+    return this.getOrCreateStateSubscription(submissionId);
   }
 
   /**
@@ -464,13 +570,26 @@ export class SubmissionService {
    * @return Observable<boolean>
    *    observable with submission save processing status
    */
+  // getSubmissionSaveProcessingStatus(submissionId: string): Observable<boolean> {
+  //   const requestId = Date.now(); // unique req id
+  //   console.log(`${requestId}: checking save status for ${submissionId}`);
+  //   return this.getSubmissionObject(submissionId).pipe(
+  //     tap((submission) => {
+  //       console.log('Current submission state:', submission.savePending ? 'PENDING' : 'NOT PENDING');
+  //     }),
+  //     map((state: SubmissionObjectEntry) => state.savePending),
+  //     distinctUntilChanged(),
+  //     tap(isPending => console.log(`Save pending status changed to: ${isPending ? 'PENDING' : 'NOT PENDING'}`)),
+  //     startWith(false));
+  // }
   getSubmissionSaveProcessingStatus(submissionId: string): Observable<boolean> {
     return this.getSubmissionObject(submissionId).pipe(
       map((state: SubmissionObjectEntry) => state.savePending),
       distinctUntilChanged(),
-      startWith(false));
+      // Only log when the status actually changes
+      tap(isPending => console.log(`Save pending status: ${isPending ? 'PENDING' : 'NOT PENDING'}`))
+    );
   }
-
   /**
    * Return the deposit processing status of the submission
    *
@@ -568,13 +687,47 @@ export class SubmissionService {
     ).subscribe();
   }
 
+
+
+
+  // clearSubmissionSubscriptions(submissionId: string) {
+  //   const subs = this.activeStateSubscriptions.get(submissionId) || [];
+  //   console.log(`Clearing ${subs.length} subscriptions for submission ${submissionId}`);
+  //
+  //   subs.forEach(sub => {
+  //     if (!sub.closed) {
+  //       sub.unsubscribe();
+  //     }
+  //   });
+  //
+  //   this.activeStateSubscriptions.set(submissionId, []);
+  // }
+  clearSubmissionSubscriptions(submissionId: string) {
+    const subs = this.activeStateSubscriptions.get(submissionId) || [];
+    console.log(`Clearing ${subs.length} subscriptions for submission ${submissionId}`);
+
+    subs.forEach(sub => {
+      if (!sub.closed) {
+        sub.unsubscribe();
+      }
+    });
+
+    this.activeStateSubscriptions.set(submissionId, []);
+
+    // Also clear any state subjects
+    if (this.submissionStateSubjects && this.submissionStateSubjects.has(submissionId)) {
+      this.submissionStateSubjects.delete(submissionId);
+    }
+  }
   /**
    * Dispatch a new [CancelSubmissionFormAction]
    */
   resetAllSubmissionObjects() {
+    Array.from(this.activeStateSubscriptions.keys()).forEach(submissionId => {
+      this.clearSubmissionSubscriptions(submissionId);
+    });
     this.store.dispatch(new CancelSubmissionFormAction());
   }
-
   /**
    * Dispatch a new [ResetSubmissionFormAction]
    *
