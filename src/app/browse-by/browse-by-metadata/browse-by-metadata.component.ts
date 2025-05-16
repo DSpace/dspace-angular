@@ -22,7 +22,7 @@ import {
   BehaviorSubject,
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -68,9 +68,9 @@ export const BBM_PAGINATION_ID = 'bbm';
   templateUrl: './browse-by-metadata.component.html',
   imports: [
     AsyncPipe,
-    TranslateModule,
-    ThemedLoadingComponent,
     ThemedBrowseByComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
   ],
   standalone: true,
 })
@@ -186,7 +186,7 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * Observable determining if the loading animation needs to be shown
    */
-  loading$ = observableOf(true);
+  loading$ = of(true);
   /**
    * Whether this component should be rendered or not in SSR
    */
@@ -213,7 +213,7 @@ export class BrowseByMetadataComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit(): void {
     if (this.ssrRenderingDisabled) {
-      this.loading$ = observableOf(false);
+      this.loading$ = of(false);
       return;
     }
     const sortConfig = new SortOptions('default', SortDirection.ASC);

@@ -14,7 +14,9 @@ import { ComcolPageHandleComponent } from './comcol-page-handle.component';
   styleUrls: [],
   templateUrl: '../../theme-support/themed.component.html',
   standalone: true,
-  imports: [ComcolPageHandleComponent],
+  imports: [
+    ComcolPageHandleComponent,
+  ],
 })
 
 

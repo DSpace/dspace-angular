@@ -8,7 +8,9 @@ import { ExternalSourceEntryImportModalComponent } from './external-source-entry
   styleUrls: [],
   templateUrl: '../../../../../../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [ExternalSourceEntryImportModalComponent],
+  imports: [
+    ExternalSourceEntryImportModalComponent,
+  ],
 })
 export class ThemedExternalSourceEntryImportModalComponent extends ThemedComponent<ExternalSourceEntryImportModalComponent> {
   protected getComponentName(): string {

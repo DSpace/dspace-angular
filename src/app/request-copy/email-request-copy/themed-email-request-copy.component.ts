@@ -18,7 +18,9 @@ import { RequestCopyEmail } from './request-copy-email.model';
   styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [EmailRequestCopyComponent],
+  imports: [
+    EmailRequestCopyComponent,
+  ],
 })
 export class ThemedEmailRequestCopyComponent extends ThemedComponent<EmailRequestCopyComponent> {
   /**

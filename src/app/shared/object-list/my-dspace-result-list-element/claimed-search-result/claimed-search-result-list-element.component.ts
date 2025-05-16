@@ -58,7 +58,14 @@ import { ThemedItemListPreviewComponent } from '../item-list-preview/themed-item
   styleUrls: ['../../search-result-list-element/search-result-list-element.component.scss'],
   templateUrl: './claimed-search-result-list-element.component.html',
   standalone: true,
-  imports: [ThemedItemListPreviewComponent, NgClass, ClaimedTaskActionsComponent, AsyncPipe, TranslateModule, VarDirective],
+  imports: [
+    AsyncPipe,
+    ClaimedTaskActionsComponent,
+    NgClass,
+    ThemedItemListPreviewComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 @listableObjectComponent(ClaimedTaskSearchResult, ViewMode.ListElement)
 export class ClaimedSearchResultListElementComponent extends SearchResultListElementComponent<ClaimedTaskSearchResult, ClaimedTask> implements OnInit, OnDestroy {

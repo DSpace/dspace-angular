@@ -28,7 +28,7 @@ import {
 import {
   combineLatest as observableCombineLatest,
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -70,12 +70,12 @@ import { AltchaCaptchaComponent } from './altcha-captcha.component';
   selector: 'ds-bitstream-request-a-copy-page',
   templateUrl: './bitstream-request-a-copy-page.component.html',
   imports: [
-    TranslateModule,
-    RouterLink,
-    AsyncPipe,
-    ReactiveFormsModule,
-    BtnDisabledDirective,
     AltchaCaptchaComponent,
+    AsyncPipe,
+    BtnDisabledDirective,
+    ReactiveFormsModule,
+    RouterLink,
+    TranslateModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   standalone: true,
@@ -230,7 +230,7 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
         if (authenticated) {
           return this.auth.getAuthenticatedUserFromStore();
         } else {
-          return observableOf(undefined);
+          return of(undefined);
         }
       }),
     );

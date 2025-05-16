@@ -35,7 +35,14 @@ import { MenuService } from '../../../menu/menu.service';
   templateUrl: './dso-edit-menu-expandable-section.component.html',
   styleUrls: ['./dso-edit-menu-expandable-section.component.scss'],
   standalone: true,
-  imports: [NgbDropdownModule, NgbTooltipModule, NgComponentOutlet, TranslateModule, AsyncPipe, BtnDisabledDirective],
+  imports: [
+    AsyncPipe,
+    BtnDisabledDirective,
+    NgbDropdownModule,
+    NgbTooltipModule,
+    NgComponentOutlet,
+    TranslateModule,
+  ],
 })
 export class DsoEditMenuExpandableSectionComponent extends AbstractMenuSectionComponent implements OnInit {
 

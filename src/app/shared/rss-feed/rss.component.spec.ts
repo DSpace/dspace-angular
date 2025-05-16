@@ -8,7 +8,7 @@ import {
   Router,
 } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import {
   SortDirection,
@@ -73,7 +73,7 @@ describe('RssComponent', () => {
       addTag: '',
     });
     const mockCollectionRD: RemoteData<Collection> = createSuccessfulRemoteDataObject(mockCollection);
-    const mockSearchOptions = observableOf(new PaginatedSearchOptions({
+    const mockSearchOptions = of(new PaginatedSearchOptions({
       pagination: Object.assign(new PaginationComponentOptions(), {
         id: 'search-page-configuration',
         pageSize: 10,

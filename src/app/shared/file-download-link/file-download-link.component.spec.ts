@@ -14,7 +14,7 @@ import {
   cold,
   getTestScheduler,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { APP_DATA_SERVICES_MAP } from 'src/config/app-config.interface';
 
 import { getBitstreamModuleRoute } from '../../app-routing-paths';
@@ -68,7 +68,7 @@ describe('FileDownloadLinkComponent', () => {
     storeMock = jasmine.createSpyObj('store', {
       dispatch: jasmine.createSpy('dispatch'),
       select: jasmine.createSpy('select'),
-      pipe: observableOf(true),
+      pipe: of(true),
     });
   }
 

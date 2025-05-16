@@ -12,7 +12,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 import {
@@ -43,14 +43,14 @@ describe('FileSectionComponent', () => {
 
   const bitstreamDataService = jasmine.createSpyObj('bitstreamDataService', {
     findAllByItemAndBundleName: createSuccessfulRemoteDataObject$(createPaginatedList([])),
-    findPrimaryBitstreamByItemAndName: observableOf(null),
+    findPrimaryBitstreamByItemAndName: of(null),
   });
 
   const mockBitstream: Bitstream = Object.assign(new Bitstream(),
     {
       sizeBytes: 10201,
       content: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/cf9b0c8e-a1eb-4b65-afd0-567366448713/content',
-      format: observableOf(MockBitstreamFormat1),
+      format: of(MockBitstreamFormat1),
       bundleName: 'ORIGINAL',
       _links: {
         self: {
@@ -112,14 +112,14 @@ describe('FileSectionComponent', () => {
 
   it('should set the id of primary bitstream', () => {
     comp.primaryBitstreamId = undefined;
-    bitstreamDataService.findPrimaryBitstreamByItemAndName.and.returnValue(observableOf(mockBitstream));
+    bitstreamDataService.findPrimaryBitstreamByItemAndName.and.returnValue(of(mockBitstream));
     comp.ngOnInit();
     expect(comp.primaryBitstreamId).toBe(mockBitstream.id);
   });
 
   it('should not set the id of primary bitstream', () => {
     comp.primaryBitstreamId = undefined;
-    bitstreamDataService.findPrimaryBitstreamByItemAndName.and.returnValue(observableOf(null));
+    bitstreamDataService.findPrimaryBitstreamByItemAndName.and.returnValue(of(null));
     comp.ngOnInit();
     expect(comp.primaryBitstreamId).toBeUndefined();
   });

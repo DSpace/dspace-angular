@@ -10,7 +10,7 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { AuthService } from '../../../../core/auth/auth.service';
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
@@ -58,7 +58,7 @@ describe('JournalVolumeGridElementComponent', () => {
   let fixture;
 
   const truncatableServiceStub: any = {
-    isCollapsed: (id: number) => observableOf(true),
+    isCollapsed: (id: number) => of(true),
     expand: (id: number) => null,
     collapse: (id: number) => null,
   };

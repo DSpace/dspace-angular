@@ -12,7 +12,7 @@ import union from 'lodash/union';
 import {
   from as observableFrom,
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   catchError,
@@ -161,7 +161,7 @@ export class SubmissionObjectEffects {
         action.payload.submissionId,
         'sections').pipe(
         map((response: SubmissionObject[]) => new SaveSubmissionFormSuccessAction(action.payload.submissionId, response, action.payload.isManual, action.payload.isManual)),
-        catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
+        catchError(() => of(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
     })));
 
   /**
@@ -175,7 +175,7 @@ export class SubmissionObjectEffects {
         action.payload.submissionId,
         'sections').pipe(
         map((response: SubmissionObject[]) => new SaveForLaterSubmissionFormSuccessAction(action.payload.submissionId, response)),
-        catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
+        catchError(() => of(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
     })));
 
   /**
@@ -216,7 +216,7 @@ export class SubmissionObjectEffects {
         'sections',
         action.payload.sectionId).pipe(
         map((response: SubmissionObject[]) => new SaveSubmissionSectionFormSuccessAction(action.payload.submissionId, response)),
-        catchError(() => observableOf(new SaveSubmissionSectionFormErrorAction(action.payload.submissionId))));
+        catchError(() => of(new SaveSubmissionSectionFormErrorAction(action.payload.submissionId))));
     })));
 
   /**
@@ -260,7 +260,7 @@ export class SubmissionObjectEffects {
             return new SaveSubmissionFormSuccessAction(action.payload.submissionId, response, false, true);
           }
         }),
-        catchError(() => observableOf(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
+        catchError(() => of(new SaveSubmissionFormErrorAction(action.payload.submissionId))));
     })));
 
   /**
@@ -272,7 +272,7 @@ export class SubmissionObjectEffects {
     switchMap(([action, state]: [DepositSubmissionAction, any]) => {
       return this.submissionService.depositSubmission(state.submission.objects[action.payload.submissionId].selfUrl).pipe(
         map(() => new DepositSubmissionSuccessAction(action.payload.submissionId)),
-        catchError((error: unknown) => observableOf(new DepositSubmissionErrorAction(action.payload.submissionId))));
+        catchError((error: unknown) => of(new DepositSubmissionErrorAction(action.payload.submissionId))));
     })));
 
   /**
@@ -307,7 +307,7 @@ export class SubmissionObjectEffects {
     switchMap((action: DepositSubmissionAction) => {
       return this.submissionService.discardSubmission(action.payload.submissionId).pipe(
         map(() => new DiscardSubmissionSuccessAction(action.payload.submissionId)),
-        catchError(() => observableOf(new DiscardSubmissionErrorAction(action.payload.submissionId))));
+        catchError(() => of(new DiscardSubmissionErrorAction(action.payload.submissionId))));
     })));
 
   /**
@@ -338,7 +338,7 @@ export class SubmissionObjectEffects {
           map((metadata: any) => new UpdateSectionDataAction(action.payload.submissionId, action.payload.sectionId, metadata, action.payload.errorsToShow, action.payload.serverValidationErrors, action.payload.metadata)),
         );
       } else {
-        return observableOf(new UpdateSectionDataSuccessAction());
+        return of(new UpdateSectionDataSuccessAction());
       }
     }),
   ));

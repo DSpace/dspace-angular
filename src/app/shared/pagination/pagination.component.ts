@@ -23,7 +23,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -69,7 +69,17 @@ interface PaginationDetails {
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
   standalone: true,
-  imports: [NgbDropdownModule, NgClass, RSSComponent, NgbPaginationModule, NgbTooltipModule, AsyncPipe, TranslateModule, EnumKeysPipe, BtnDisabledDirective],
+  imports: [
+    AsyncPipe,
+    BtnDisabledDirective,
+    EnumKeysPipe,
+    NgbDropdownModule,
+    NgbPaginationModule,
+    NgbTooltipModule,
+    NgClass,
+    RSSComponent,
+    TranslateModule,
+  ],
 })
 export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
   /**
@@ -361,7 +371,7 @@ export class PaginationComponent implements OnChanges, OnDestroy, OnInit {
    * Method to get pagination details of the current viewed page.
    */
   public getShowingDetails(collectionSize: number): Observable<PaginationDetails> {
-    return observableOf(collectionSize).pipe(
+    return of(collectionSize).pipe(
       hasValueOperator(),
       switchMap(() => this.paginationService.getCurrentPagination(this.id, this.paginationOptions)),
       map((currentPaginationOptions) => {

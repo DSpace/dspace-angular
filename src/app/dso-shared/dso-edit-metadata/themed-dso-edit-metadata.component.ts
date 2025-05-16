@@ -13,7 +13,9 @@ import { DsoEditMetadataComponent } from './dso-edit-metadata.component';
   styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [DsoEditMetadataComponent],
+  imports: [
+    DsoEditMetadataComponent,
+  ],
 })
 export class ThemedDsoEditMetadataComponent extends ThemedComponent<DsoEditMetadataComponent> {
 

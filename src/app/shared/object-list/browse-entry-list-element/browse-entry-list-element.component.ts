@@ -24,7 +24,10 @@ import { AbstractListableElementComponent } from '../../object-collection/shared
   styleUrls: ['./browse-entry-list-element.component.scss'],
   templateUrl: './browse-entry-list-element.component.html',
   standalone: true,
-  imports: [RouterLink, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    RouterLink,
+  ],
 })
 
 /**

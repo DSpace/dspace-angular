@@ -28,7 +28,12 @@ export const WORKFLOW_TASK_OPTION_RETURN_TO_POOL = 'return_to_pool';
   styleUrls: ['./claimed-task-actions-return-to-pool.component.scss'],
   templateUrl: './claimed-task-actions-return-to-pool.component.html',
   standalone: true,
-  imports: [NgbTooltipModule, AsyncPipe, TranslateModule, BtnDisabledDirective],
+  imports: [
+    AsyncPipe,
+    BtnDisabledDirective,
+    NgbTooltipModule,
+    TranslateModule,
+  ],
 })
 /**
  * Component for displaying and processing the return to pool action on a workflow task item

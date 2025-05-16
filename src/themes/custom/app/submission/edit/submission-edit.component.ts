@@ -3,9 +3,6 @@ import { Component } from '@angular/core';
 import { SubmissionEditComponent as BaseComponent } from '../../../../../app/submission/edit/submission-edit.component';
 import { ThemedSubmissionFormComponent } from '../../../../../app/submission/form/themed-submission-form.component';
 
-/**
- * This component allows to edit an existing workspaceitem/workflowitem.
- */
 @Component({
   selector: 'ds-themed-submission-edit',
   // styleUrls: ['./submission-edit.component.scss'],

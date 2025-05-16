@@ -13,7 +13,7 @@ import {
 import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { LiveRegionService } from 'src/app/shared/live-region/live-region.service';
 import {
   APP_CONFIG,
@@ -141,8 +141,8 @@ describe('SubmissionSectionAccessesComponent', () => {
       formService = TestBed.inject(FormService);
       formbuilderService = TestBed.inject(FormBuilderService);
       formService.validateAllFormFields.and.callFake(() => null);
-      formService.isValid.and.returnValue(observableOf(true));
-      formService.getFormData.and.returnValue(observableOf(mockAccessesFormData));
+      formService.isValid.and.returnValue(of(true));
+      formService.getFormData.and.returnValue(of(mockAccessesFormData));
       fixture.detectChanges();
     });
 
@@ -238,8 +238,8 @@ describe('SubmissionSectionAccessesComponent', () => {
       fixture = TestBed.createComponent(SubmissionSectionAccessesComponent);
       component = fixture.componentInstance;
       formService.validateAllFormFields.and.callFake(() => null);
-      formService.isValid.and.returnValue(observableOf(true));
-      formService.getFormData.and.returnValue(observableOf(mockAccessesFormData));
+      formService.isValid.and.returnValue(of(true));
+      formService.getFormData.and.returnValue(of(mockAccessesFormData));
       fixture.detectChanges();
     });
 

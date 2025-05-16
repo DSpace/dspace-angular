@@ -18,7 +18,9 @@ import { ItemListPreviewComponent } from './item-list-preview.component';
   styleUrls: [],
   templateUrl: '../../../theme-support/themed.component.html',
   standalone: true,
-  imports: [ItemListPreviewComponent],
+  imports: [
+    ItemListPreviewComponent,
+  ],
 })
 export class ThemedItemListPreviewComponent extends ThemedComponent<ItemListPreviewComponent> {
   protected inAndOutputNames: (keyof ItemListPreviewComponent & keyof this)[] = ['item', 'object', 'badgeContext', 'showSubmitter', 'workflowItem'];

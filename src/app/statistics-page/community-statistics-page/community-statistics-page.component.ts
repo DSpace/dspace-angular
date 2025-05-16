@@ -16,7 +16,13 @@ import { StatisticsTableComponent } from '../statistics-table/statistics-table.c
   templateUrl: '../statistics-page/statistics-page.component.html',
   styleUrls: ['./community-statistics-page.component.scss'],
   standalone: true,
-  imports: [CommonModule, VarDirective, ThemedLoadingComponent, StatisticsTableComponent, TranslateModule],
+  imports: [
+    CommonModule,
+    StatisticsTableComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 export class CommunityStatisticsPageComponent extends StatisticsPageDirective<Community> {
 

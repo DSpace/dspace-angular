@@ -6,7 +6,9 @@ import { SuggestionSourcesComponent } from '../../../notifications/suggestions/s
   selector: 'ds-admin-notifications-publication-claim-page',
   templateUrl: './admin-notifications-publication-claim-page.component.html',
   styleUrls: ['./admin-notifications-publication-claim-page.component.scss'],
-  imports: [ SuggestionSourcesComponent ],
+  imports: [
+    SuggestionSourcesComponent,
+  ],
   standalone: true,
 })
 export class AdminNotificationsPublicationClaimPageComponent {

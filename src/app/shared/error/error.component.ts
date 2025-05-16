@@ -15,7 +15,9 @@ import { AlertType } from '../alert/alert-type';
   styleUrls: ['./error.component.scss'],
   templateUrl: './error.component.html',
   standalone: true,
-  imports: [AlertComponent],
+  imports: [
+    AlertComponent,
+  ],
 })
 export class ErrorComponent implements OnDestroy, OnInit {
 

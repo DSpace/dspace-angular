@@ -9,7 +9,7 @@ import {
 } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { Item } from '../../../../core/shared/item.model';
 import { SelectableListService } from '../../../object-list/selectable-list/selectable-list.service';
@@ -44,8 +44,8 @@ describe('SelectableListItemControlComponent', () => {
     selectionService = jasmine.createSpyObj('selectionService', {
       selectSingle: jasmine.createSpy('selectSingle'),
       deselectSingle: jasmine.createSpy('deselectSingle'),
-      isObjectSelected: observableOf(true),
-      getSelectableList: observableOf({ selection }),
+      isObjectSelected: of(true),
+      getSelectableList: of({ selection }),
     },
     );
   }

@@ -10,7 +10,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { getMockThemeService } from 'src/app/shared/mocks/theme-service.mock';
 import { ActivatedRouteStub } from 'src/app/shared/testing/active-router.stub';
 import { ThemeService } from 'src/app/shared/theme-support/theme.service';
@@ -36,7 +36,7 @@ const mockItemWithMetadata: ItemSearchResult = Object.assign(
   new ItemSearchResult(),
   {
     indexableObject: Object.assign(new Item(), {
-      bundles: observableOf({}),
+      bundles: of({}),
       metadata: {
         'dc.title': [
           {
@@ -63,7 +63,7 @@ const mockItemWithoutMetadata: ItemSearchResult = Object.assign(
   new ItemSearchResult(),
   {
     indexableObject: Object.assign(new Item(), {
-      bundles: observableOf({}),
+      bundles: of({}),
       metadata: {
         'dc.title': [
           {

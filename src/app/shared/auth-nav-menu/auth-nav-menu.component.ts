@@ -19,7 +19,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
   Subscription,
 } from 'rxjs';
 import {
@@ -57,7 +57,17 @@ import { ThemedUserMenuComponent } from './user-menu/themed-user-menu.component'
   styleUrls: ['./auth-nav-menu.component.scss'],
   animations: [fadeInOut, fadeOut],
   standalone: true,
-  imports: [NgClass, NgbDropdownModule, ThemedLogInComponent, RouterLink, RouterLinkActive, ThemedUserMenuComponent, AsyncPipe, TranslateModule, BrowserOnlyPipe],
+  imports: [
+    AsyncPipe,
+    BrowserOnlyPipe,
+    NgbDropdownModule,
+    NgClass,
+    RouterLink,
+    RouterLinkActive,
+    ThemedLogInComponent,
+    ThemedUserMenuComponent,
+    TranslateModule,
+  ],
 })
 export class AuthNavMenuComponent implements OnInit {
   /**
@@ -74,7 +84,7 @@ export class AuthNavMenuComponent implements OnInit {
 
   public isMobile$: Observable<boolean>;
 
-  public showAuth$ = observableOf(false);
+  public showAuth$ = of(false);
 
   public user: Observable<EPerson>;
 

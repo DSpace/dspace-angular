@@ -53,14 +53,14 @@ import { OrcidSyncSettingsComponent } from './orcid-sync-settings/orcid-sync-set
   templateUrl: './orcid-page.component.html',
   styleUrls: ['./orcid-page.component.scss'],
   imports: [
-    CommonModule,
-    ThemedLoadingComponent,
     AlertComponent,
+    CommonModule,
     OrcidAuthComponent,
-    OrcidSyncSettingsComponent,
     OrcidQueueComponent,
-    TranslateModule,
+    OrcidSyncSettingsComponent,
     RouterLink,
+    ThemedLoadingComponent,
+    TranslateModule,
   ],
   standalone: true,
 })

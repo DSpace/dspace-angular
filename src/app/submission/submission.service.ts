@@ -10,7 +10,7 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
   Subscription,
   timer as observableTimer,
 } from 'rxjs';
@@ -164,7 +164,7 @@ export class SubmissionService {
   createSubmission(collectionId?: string): Observable<SubmissionObject> {
     return this.restService.postToEndpoint(this.workspaceLinkPath, {}, null, null, collectionId).pipe(
       map((workspaceitem: SubmissionObject[]) => workspaceitem[0] as SubmissionObject),
-      catchError(() => observableOf({} as SubmissionObject)));
+      catchError(() => of({} as SubmissionObject)));
   }
 
   /**

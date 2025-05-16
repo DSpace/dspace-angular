@@ -6,7 +6,9 @@ import { ConfirmationSentComponent } from '../external-log-in/email-confirmation
   templateUrl: './external-login-email-confirmation-page.component.html',
   styleUrls: ['./external-login-email-confirmation-page.component.scss'],
   standalone: true,
-  imports: [ConfirmationSentComponent],
+  imports: [
+    ConfirmationSentComponent,
+  ],
 })
 export class ExternalLoginEmailConfirmationPageComponent {
 }

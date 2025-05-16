@@ -27,7 +27,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Operation } from 'fast-json-patch';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
@@ -116,7 +116,7 @@ describe('GroupFormComponent', () => {
       activeGroup: null,
       createdGroup: null,
       getActiveGroup(): Observable<Group> {
-        return observableOf(this.activeGroup);
+        return of(this.activeGroup);
       },
       getGroupRegistryRouterLink(): string {
         return '/access-control/groups';
@@ -137,7 +137,7 @@ describe('GroupFormComponent', () => {
         this.activeGroup = null;
       },
       findById(id: string) {
-        return observableOf({ payload: null, hasSucceeded: true });
+        return of({ payload: null, hasSucceeded: true });
       },
       findByHref(href: string) {
         return createSuccessfulRemoteDataObject$(this.createdGroup);
@@ -164,7 +164,7 @@ describe('GroupFormComponent', () => {
       },
     };
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true),
+      isAuthorized: of(true),
     });
     dsoDataServiceStub = {
       findByHref(href: string): Observable<RemoteData<DSpaceObject>> {
@@ -330,7 +330,7 @@ describe('GroupFormComponent', () => {
             },
           },
         });
-        spyOn(groupsDataServiceStub, 'getActiveGroup').and.returnValue(observableOf(expected));
+        spyOn(groupsDataServiceStub, 'getActiveGroup').and.returnValue(of(expected));
         spyOn(groupsDataServiceStub, 'patch').and.returnValue(createSuccessfulRemoteDataObject$(expected2));
         component.ngOnInit();
       });
@@ -417,7 +417,7 @@ describe('GroupFormComponent', () => {
         },
       });
       spyOn(component.submitForm, 'emit');
-      spyOn(dsoDataServiceStub, 'findByHref').and.returnValue(observableOf(expected));
+      spyOn(dsoDataServiceStub, 'findByHref').and.returnValue(of(expected));
 
       fixture.detectChanges();
       component.initialisePage();
@@ -471,11 +471,11 @@ describe('GroupFormComponent', () => {
 
     beforeEach(async () => {
       spyOn(groupsDataServiceStub, 'delete').and.callThrough();
-      component.activeGroup$ = observableOf({
+      component.activeGroup$ = of({
         id: 'active-group',
         permanent: false,
       } as Group);
-      component.canEdit$ = observableOf(true);
+      component.canEdit$ = of(true);
 
       component.initialisePage();
 

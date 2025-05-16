@@ -18,8 +18,8 @@ import { ObjectKeysPipe } from '../../../../shared/utils/object-keys-pipe';
   templateUrl: './suggestion-evidences.component.html',
   animations: [fadeIn],
   imports: [
-    TranslateModule,
     ObjectKeysPipe,
+    TranslateModule,
   ],
   standalone: true,
 })

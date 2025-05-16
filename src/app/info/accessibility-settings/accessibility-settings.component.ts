@@ -40,12 +40,12 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
   selector: 'ds-accessibility-settings',
   templateUrl: './accessibility-settings.component.html',
   imports: [
-    CommonModule,
-    TranslateModule,
-    FormsModule,
-    UiSwitchModule,
-    ContextHelpDirective,
     AlertComponent,
+    CommonModule,
+    ContextHelpDirective,
+    FormsModule,
+    TranslateModule,
+    UiSwitchModule,
   ],
   standalone: true,
 })

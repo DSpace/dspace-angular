@@ -15,7 +15,7 @@ import {
   Router,
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { PaginationService } from '../../../../../../core/pagination/pagination.service';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
@@ -104,7 +104,7 @@ describe('SearchFacetOptionComponent', () => {
 
   describe('when isVisible emits true', () => {
     it('the facet option should be visible', () => {
-      comp.isVisible = observableOf(true);
+      comp.isVisible = of(true);
       fixture.detectChanges();
       const linkEl = fixture.debugElement.query(By.css('a'));
       expect(linkEl).not.toBeNull();
@@ -113,7 +113,7 @@ describe('SearchFacetOptionComponent', () => {
 
   describe('when isVisible emits false', () => {
     it('the facet option should not be visible', () => {
-      comp.isVisible = observableOf(false);
+      comp.isVisible = of(false);
       fixture.detectChanges();
       const linkEl = fixture.debugElement.query(By.css('a'));
       expect(linkEl).toBeNull();

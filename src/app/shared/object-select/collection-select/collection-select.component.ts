@@ -35,7 +35,18 @@ import { ObjectSelectComponent } from '../object-select/object-select.component'
   templateUrl: './collection-select.component.html',
   styleUrls: ['./collection-select.component.scss'],
   standalone: true,
-  imports: [VarDirective, PaginationComponent, FormsModule, RouterLink, ErrorComponent, ThemedLoadingComponent, NgClass, AsyncPipe, TranslateModule, BtnDisabledDirective],
+  imports: [
+    AsyncPipe,
+    BtnDisabledDirective,
+    ErrorComponent,
+    FormsModule,
+    NgClass,
+    PaginationComponent,
+    RouterLink,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 
 /**

@@ -44,7 +44,12 @@ import { PaginatedSearchOptions } from '../../shared/search/models/paginated-sea
   templateUrl: './browse-by-geospatial-data.component.html',
   styleUrls: ['./browse-by-geospatial-data.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [GeospatialMapComponent, NgIf, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    GeospatialMapComponent,
+    NgIf,
+    TranslateModule,
+  ],
   standalone: true,
 })
 /**

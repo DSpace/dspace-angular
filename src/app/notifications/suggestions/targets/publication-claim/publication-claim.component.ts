@@ -38,11 +38,11 @@ import { SuggestionTargetsStateService } from '../suggestion-targets.state.servi
   templateUrl: './publication-claim.component.html',
   styleUrls: ['./publication-claim.component.scss'],
   imports: [
-    ThemedLoadingComponent,
     AsyncPipe,
-    TranslateModule,
     PaginationComponent,
     RouterLink,
+    ThemedLoadingComponent,
+    TranslateModule,
   ],
   standalone: true,
 })

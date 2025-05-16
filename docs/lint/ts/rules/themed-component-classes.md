@@ -11,6 +11,8 @@ _______
 
 [Source code](../../../../lint/src/rules/ts/themed-component-classes.ts)
 
+
+
 ### Examples
 
 
@@ -26,6 +28,7 @@ _______
 class Something {
 }
 ```
+        
     
 ##### Base component
         
@@ -34,9 +37,10 @@ class Something {
   selector: 'ds-base-test-themable',
   standalone: true,
 })
-class TestThemeableTomponent {
+class TestThemeableComponent {
 }
 ```
+        
     
 ##### Wrapper component
         
@@ -50,9 +54,10 @@ Filename: `lint/test/fixture/src/app/test/themed-test-themeable.component.ts`
     TestThemeableComponent,
   ],
 })
-class ThemedTestThemeableTomponent extends ThemedComponent<TestThemeableComponent> {
+class ThemedTestThemeableComponent extends ThemedComponent<TestThemeableComponent> {
 }
 ```
+        
     
 ##### Override component
         
@@ -66,6 +71,7 @@ Filename: `lint/test/fixture/src/themes/test/app/test/test-themeable.component.t
 class Override extends BaseComponent {
 }
 ```
+        
     
 
 
@@ -80,6 +86,9 @@ class Override extends BaseComponent {
 })
 class TestThemeableComponent {
 }
+
+        
+
 ```
 Will produce the following error(s):
 ```
@@ -107,6 +116,9 @@ Filename: `lint/test/fixture/src/app/test/themed-test-themeable.component.ts`
 })
 class ThemedTestThemeableComponent extends ThemedComponent<TestThemeableComponent> {
 }
+
+        
+
 ```
 Will produce the following error(s):
 ```
@@ -137,6 +149,9 @@ Filename: `lint/test/fixture/src/app/test/themed-test-themeable.component.ts`
 })
 class ThemedTestThemeableComponent extends ThemedComponent<TestThemeableComponent> {
 }
+
+        
+
 ```
 Will produce the following error(s):
 ```
@@ -171,6 +186,9 @@ import { SomethingElse } from './somewhere-else';
 })
 class ThemedTestThemeableComponent extends ThemedComponent<TestThemeableComponent> {
 }
+
+        
+
 ```
 Will produce the following error(s):
 ```
@@ -207,6 +225,9 @@ import { Something, SomethingElse } from './somewhere-else';
 })
 class ThemedTestThemeableComponent extends ThemedComponent<TestThemeableComponent> {
 }
+
+        
+
 ```
 Will produce the following error(s):
 ```
@@ -237,6 +258,9 @@ Filename: `lint/test/fixture/src/themes/test/app/test/test-themeable.component.t
 })
 class Override extends BaseComponent {
 }
+
+        
+
 ```
 Will produce the following error(s):
 ```

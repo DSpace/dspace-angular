@@ -6,7 +6,7 @@ import {
 } from '@angular/router';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -33,6 +33,6 @@ export const groupPageGuard = (
   getObjectUrl = defaultGroupPageGetObjectUrl,
   getEPersonUuid?: StringGuardParamFn,
 ): CanActivateFn => someFeatureAuthorizationGuard(
-  () => observableOf([FeatureID.CanManageGroup]),
+  () => of([FeatureID.CanManageGroup]),
   getObjectUrl,
   getEPersonUuid);

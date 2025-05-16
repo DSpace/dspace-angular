@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { ConfigurationDataService } from '../../../core/data/configuration-data.service';
 import { buildPaginatedList } from '../../../core/data/paginated-list.model';
@@ -224,7 +224,7 @@ describe('MetadataSchemaComponent', () => {
     }));
 
     it('should cancel editing the selected field when clicked again', waitForAsync(() => {
-      comp.activeField$ = observableOf(mockFieldsList[2] as MetadataField);
+      comp.activeField$ = of(mockFieldsList[2] as MetadataField);
       spyOn(registryService, 'cancelEditMetadataField');
       row.click();
       fixture.detectChanges();
@@ -239,7 +239,7 @@ describe('MetadataSchemaComponent', () => {
 
     beforeEach(() => {
       spyOn(registryService, 'deleteMetadataField').and.callThrough();
-      comp.selectedMetadataFieldIDs$ = observableOf(selectedFields.map((metadataField: MetadataField) => metadataField.id));
+      comp.selectedMetadataFieldIDs$ = of(selectedFields.map((metadataField: MetadataField) => metadataField.id));
       comp.deleteFields();
       fixture.detectChanges();
     });

@@ -11,7 +11,9 @@ import { ExternalLoginPageComponent } from './external-login-page.component';
   styleUrls: [],
   templateUrl: './../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [ExternalLoginPageComponent],
+  imports: [
+    ExternalLoginPageComponent,
+  ],
 })
 export class ThemedExternalLoginPageComponent extends ThemedComponent<ExternalLoginPageComponent> {
   protected getComponentName(): string {

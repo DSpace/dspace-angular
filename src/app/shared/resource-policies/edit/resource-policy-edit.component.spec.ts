@@ -19,7 +19,7 @@ import {
   cold,
   getTestScheduler,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { LinkService } from '../../../core/cache/builders/link.service';
@@ -75,14 +75,14 @@ describe('ResourcePolicyEditComponent test suite', () => {
         href: 'https://rest.api/rest/api/resourcepolicies/1',
       },
     },
-    eperson: observableOf(createSuccessfulRemoteDataObject({})),
-    group: observableOf(createSuccessfulRemoteDataObject(GroupMock)),
+    eperson: of(createSuccessfulRemoteDataObject({})),
+    group: of(createSuccessfulRemoteDataObject(GroupMock)),
   };
 
   const resourcePolicyService: any = getMockResourcePolicyService();
   const linkService: any = getMockLinkService();
   const routeStub = {
-    data: observableOf({
+    data: of({
       resourcePolicy: createSuccessfulRemoteDataObject(resourcePolicy),
     }),
   };
@@ -188,7 +188,7 @@ describe('ResourcePolicyEditComponent test suite', () => {
     describe('', () => {
       beforeEach(() => {
         spyOn(comp, 'redirectToAuthorizationsPage').and.callThrough();
-        compAsAny.resourcePolicyService.update.and.returnValue(observableOf(createSuccessfulRemoteDataObject(resourcePolicy)));
+        compAsAny.resourcePolicyService.update.and.returnValue(of(createSuccessfulRemoteDataObject(resourcePolicy)));
 
         compAsAny.targetResourceUUID = 'itemUUID';
 
@@ -209,7 +209,7 @@ describe('ResourcePolicyEditComponent test suite', () => {
       });
 
       it('should notify success when update is successful', () => {
-        compAsAny.resourcePolicyService.update.and.returnValue(observableOf(createSuccessfulRemoteDataObject(resourcePolicy)));
+        compAsAny.resourcePolicyService.update.and.returnValue(of(createSuccessfulRemoteDataObject(resourcePolicy)));
 
         scheduler = getTestScheduler();
         scheduler.schedule(() => comp.updateResourcePolicy(eventPayload));
@@ -220,7 +220,7 @@ describe('ResourcePolicyEditComponent test suite', () => {
       });
 
       it('should notify error when update is not successful', () => {
-        compAsAny.resourcePolicyService.update.and.returnValue(observableOf(createFailedRemoteDataObject()));
+        compAsAny.resourcePolicyService.update.and.returnValue(of(createFailedRemoteDataObject()));
 
         scheduler = getTestScheduler();
         scheduler.schedule(() => comp.updateResourcePolicy(eventPayload));

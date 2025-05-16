@@ -19,9 +19,6 @@ import {
 import { AuthNavMenuComponent as BaseComponent } from '../../../../../app/shared/auth-nav-menu/auth-nav-menu.component';
 import { BrowserOnlyPipe } from '../../../../../app/shared/utils/browser-only.pipe';
 
-/**
- * Component representing the {@link AuthNavMenuComponent} of a page
- */
 @Component({
   selector: 'ds-themed-auth-nav-menu',
   // templateUrl: './auth-nav-menu.component.html',
@@ -30,7 +27,17 @@ import { BrowserOnlyPipe } from '../../../../../app/shared/utils/browser-only.pi
   styleUrls: ['../../../../../app/shared/auth-nav-menu/auth-nav-menu.component.scss'],
   animations: [fadeInOut, fadeOut],
   standalone: true,
-  imports: [NgClass, NgbDropdownModule, ThemedLogInComponent, RouterLink, RouterLinkActive, ThemedUserMenuComponent, AsyncPipe, TranslateModule, BrowserOnlyPipe],
+  imports: [
+    AsyncPipe,
+    BrowserOnlyPipe,
+    NgbDropdownModule,
+    NgClass,
+    RouterLink,
+    RouterLinkActive,
+    ThemedLogInComponent,
+    ThemedUserMenuComponent,
+    TranslateModule,
+  ],
 })
 export class AuthNavMenuComponent extends BaseComponent {
 }

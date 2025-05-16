@@ -33,7 +33,17 @@ import { ProcessOverviewTableComponent } from './table/process-overview-table.co
   selector: 'ds-process-overview',
   templateUrl: './process-overview.component.html',
   standalone: true,
-  imports: [RouterLink, PaginationComponent, VarDirective, AsyncPipe, DatePipe, TranslateModule, NgTemplateOutlet, ProcessOverviewTableComponent, BtnDisabledDirective],
+  imports: [
+    AsyncPipe,
+    BtnDisabledDirective,
+    DatePipe,
+    NgTemplateOutlet,
+    PaginationComponent,
+    ProcessOverviewTableComponent,
+    RouterLink,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 /**
  * Component displaying a list of all processes in a paginated table

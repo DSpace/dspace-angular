@@ -51,7 +51,10 @@ import { SearchFilter } from '../search/models/search-filter.model';
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.Emulated,
   standalone: true,
-  imports: [AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
 export class RSSComponent implements OnInit, OnDestroy, OnChanges {
 
