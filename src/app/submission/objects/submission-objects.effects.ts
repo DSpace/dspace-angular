@@ -118,6 +118,7 @@ export class SubmissionObjectEffects {
             sectionDefinition.mandatory,
             sectionDefinition.scope,
             sectionDefinition.sectionType,
+            sectionDefinition.extendsSectionType,
             sectionDefinition.visibility,
             enabled,
             sectionData,
