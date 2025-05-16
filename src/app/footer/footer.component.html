@@ -68,6 +68,10 @@
             {{ 'footer.link.cookies' | translate}}
           </button>
         </li>
+        <li>
+          <a class="text-white"
+             routerLink="info/accessibility">{{ 'footer.link.accessibility' | translate }}</a>
+        </li>
         <li *ngIf="showPrivacyPolicy">
           <a class="btn text-white"
              routerLink="info/privacy" role="link" tabindex="0">{{ 'footer.link.privacy-policy' | translate}}</a>
