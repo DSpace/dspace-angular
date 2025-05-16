@@ -100,7 +100,6 @@ import { SUBMISSION_LINKS_TO_FOLLOW } from '../../../../core/submission/resolver
 import { SubmissionObjectDataService } from '../../../../core/submission/submission-object-data.service';
 import { paginatedRelationsToItems } from '../../../../item-page/simple/item-types/shared/item-relationships-utils';
 import { SubmissionService } from '../../../../submission/submission.service';
-import { BtnDisabledDirective } from '../../../btn-disabled.directive';
 import {
   hasNoValue,
   hasValue,
@@ -123,6 +122,7 @@ import {
 } from './existing-metadata-list-element/existing-metadata-list-element.component';
 import { ExistingRelationListElementComponent } from './existing-relation-list-element/existing-relation-list-element.component';
 import { DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH } from './models/custom-switch/custom-switch.model';
+import { DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER } from './models/date-picker/date-picker.model';
 import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/dynamic-lookup-relation-modal.component';
 
 @Component({
@@ -140,7 +140,6 @@ import { DsDynamicLookupRelationModalComponent } from './relation-lookup-modal/d
     NgbTooltipModule,
     NgTemplateOutlet,
     ExistingRelationListElementComponent,
-    BtnDisabledDirective,
   ],
   standalone: true,
 })
@@ -300,6 +299,11 @@ export class DsDynamicFormControlContainerComponent extends DynamicFormControlCo
 
   get isCheckbox(): boolean {
     return this.model.type === DYNAMIC_FORM_CONTROL_TYPE_CHECKBOX || this.model.type === DYNAMIC_FORM_CONTROL_TYPE_CUSTOM_SWITCH;
+  }
+
+
+  get isDateField(): boolean {
+    return this.model.type === DYNAMIC_FORM_CONTROL_TYPE_DSDATEPICKER;
   }
 
   ngOnChanges(changes: SimpleChanges) {
