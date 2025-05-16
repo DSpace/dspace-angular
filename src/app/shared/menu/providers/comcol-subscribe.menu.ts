@@ -5,18 +5,34 @@
  *
  * http://www.dspace.org/license/
  */
-import { Injectable } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import {
+  Inject,
+  Injectable,
+  PLATFORM_ID,
+} from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from '@ngx-translate/core';
 import {
   combineLatest,
   Observable,
+  of,
+  Subject,
 } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {
+  catchError,
+  first,
+  map,
+  startWith,
+  switchMap,
+} from 'rxjs/operators';
+import { AuthService } from 'src/app/core/auth/auth.service';
 
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../../core/data/feature-authorization/feature-id';
 import { DSpaceObject } from '../../../core/shared/dspace-object.model';
 import { SubscriptionModalComponent } from '../../subscriptions/subscription-modal/subscription-modal.component';
+import { SubscriptionsDataService } from '../../subscriptions/subscriptions-data.service';
 import { OnClickMenuItemModel } from '../menu-item/models/onclick.model';
 import { MenuItemType } from '../menu-item-type.model';
 import { PartialMenuSection } from '../menu-provider.model';
@@ -27,33 +43,70 @@ import { DSpaceObjectPageMenuProvider } from './helper-providers/dso.menu';
  */
 @Injectable()
 export class SubscribeMenuProvider extends DSpaceObjectPageMenuProvider {
+  private refresh$ = new Subject<void>();
+
   constructor(
+    protected authService: AuthService,
     protected authorizationService: AuthorizationDataService,
+    protected subscriptionService: SubscriptionsDataService,
     protected modalService: NgbModal,
+    protected translateService: TranslateService,
+    @Inject(PLATFORM_ID) private platformId: unknown,
   ) {
     super();
   }
 
   public getSectionsForContext(dso: DSpaceObject): Observable<PartialMenuSection[]> {
-    return combineLatest([
-      this.authorizationService.isAuthorized(FeatureID.CanSubscribe, dso.self),
-    ]).pipe(
-      map(([canSubscribe]) => {
-        return [
-          {
-            visible: canSubscribe,
-            model: {
-              type: MenuItemType.ONCLICK,
-              text: 'subscriptions.tooltip',
-              function: () => {
-                const modalRef = this.modalService.open(SubscriptionModalComponent);
-                modalRef.componentInstance.dso = dso;
-              },
-            } as OnClickMenuItemModel,
-            icon: 'bell',
-          },
-        ] as PartialMenuSection[];
+    if (!isPlatformBrowser(this.platformId)) {
+      return of([]);
+    }
+    const sectionId = `subscribe-btn-${dso.uuid}`;
+
+    return this.refresh$.pipe(
+      startWith(null),
+      switchMap(() => combineLatest([
+        this.authorizationService.isAuthorized(FeatureID.CanSubscribe, dso.self),
+        this.authService.getAuthenticatedUserFromStore().pipe(first()),
+      ])),
+      switchMap(([canSubscribe, user]) => {
+        const baseSection = {
+          id: sectionId,
+          visible: false,
+          model: null,
+        } as PartialMenuSection;
+
+        if (!canSubscribe || !user) {
+          return of([baseSection]);
+        }
+
+        const openModal = () => {
+          const modalRef = this.modalService.open(SubscriptionModalComponent);
+          modalRef.componentInstance.dso = dso;
+          modalRef.componentInstance.updated.subscribe(() => this.refresh$.next());
+        };
+
+        return this.subscriptionService.getSubscriptionsByPersonDSO(user.id, dso.uuid).pipe(
+          map(rd => {
+            const subscription = rd.payload?.page?.[0];
+            return [{
+              ...baseSection,
+              visible: true,
+              model: {
+                type: MenuItemType.ONCLICK,
+                text: subscription ? 'subscriptions.manage' : 'subscriptions.tooltip',
+                function: openModal,
+              } as OnClickMenuItemModel,
+              icon: 'bell',
+            }];
+          }),
+          catchError(() => of([baseSection])),
+        );
       }),
+      startWith([{
+        id: sectionId,
+        visible: false,
+        model: null,
+      } as PartialMenuSection]),
     );
   }
 }

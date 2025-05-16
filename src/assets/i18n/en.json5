@@ -5830,7 +5830,7 @@
 
   "subscriptions.tooltip": "Subscribe",
 
-  "subscriptions.unsubscribe": "Unsubscribe",
+  "subscriptions.manage": "Manage Subscription",
 
   "subscriptions.modal.title": "Subscriptions",
 
@@ -5898,7 +5898,7 @@
 
   "thumbnail.person.placeholder": "No Profile Picture Available",
 
-  "title": "DSpace",
+  title: "DSpace",
 
   "vocabulary-treeview.header": "Hierarchical tree view",
 
