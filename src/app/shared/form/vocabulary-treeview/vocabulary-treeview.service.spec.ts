@@ -288,6 +288,25 @@ describe('VocabularyTreeviewService test suite', () => {
       expect(serviceAsAny.dataChange.value).toEqual(treeNodeListWithChildren);
     });
 
+    it('should not add more children if already present and is loadAll is true and onlyFirstTime is true', () => {
+      pageInfo = Object.assign(new PageInfo(), {
+        elementsPerPage: 1,
+        totalElements: 2,
+        totalPages: 2,
+        currentPage: 2,
+      });
+      spyOn(serviceAsAny, 'getChildrenNodesByParent').and.returnValue(hot('a', {
+        a: buildPaginatedList(pageInfo, []),
+      }));
+
+      serviceAsAny.dataChange.next(treeNodeListWithLoadMore);
+      serviceAsAny.nodeMap = nodeMapWithChildren;
+      scheduler.schedule(() => service.loadMore(item, [], true, true));
+      scheduler.flush();
+
+      expect(serviceAsAny.getChildrenNodesByParent).not.toHaveBeenCalled();
+    });
+
     it('should add loadMore node properly', () => {
       pageInfo = Object.assign(new PageInfo(), {
         elementsPerPage: 1,

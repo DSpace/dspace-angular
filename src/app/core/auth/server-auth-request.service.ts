@@ -6,6 +6,7 @@ import {
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { RESTURLCombiner } from 'src/app/core/url-combiner/rest-url-combiner';
 
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
 import { PostRequest } from '../data/request.models';
@@ -42,8 +43,8 @@ export class ServerAuthRequestService extends AuthRequestService {
    * @protected
    */
   protected createShortLivedTokenRequest(href: string): Observable<PostRequest> {
-    // First do a call to the root endpoint in order to get an XSRF token
-    return this.httpClient.get(this.halService.getRootHref(), { observe: 'response' }).pipe(
+    // First do a call to the csrf endpoint in order to get an XSRF token
+    return this.httpClient.get(new RESTURLCombiner('/security/csrf').toString(), { observe: 'response' }).pipe(
       // retrieve the XSRF token from the response header
       map((response: HttpResponse<any>) => response.headers.get(XSRF_RESPONSE_HEADER)),
       map((xsrfToken: string) => {

@@ -11,11 +11,6 @@ import {
   OnInit,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  differenceInDays,
-  differenceInMilliseconds,
-  parseISO,
-} from 'date-fns';
 import { Observable } from 'rxjs';
 import { Context } from 'src/app/core/shared/context.model';
 import { WorkflowItem } from 'src/app/core/submission/models/workflowitem.model';
@@ -32,6 +27,7 @@ import { ThemedThumbnailComponent } from '../../../../thumbnail/themed-thumbnail
 import { fadeInOut } from '../../../animations/fade';
 import { MetadataLinkViewComponent } from '../../../metadata-link-view/metadata-link-view.component';
 import { ThemedBadgesComponent } from '../../../object-collection/shared/badges/themed-badges.component';
+import { InWorkflowStatisticsComponent } from '../../../object-collection/shared/in-workflow-statistics/in-workflow-statistics.component';
 import { ItemCollectionComponent } from '../../../object-collection/shared/mydspace-item-collection/item-collection.component';
 import { ItemCorrectionComponent } from '../../../object-collection/shared/mydspace-item-correction/item-correction.component';
 import { ItemSubmitterComponent } from '../../../object-collection/shared/mydspace-item-submitter/item-submitter.component';
@@ -65,6 +61,7 @@ import { AdditionalMetadataComponent } from '../../search-result-list-element/ad
     MetadataLinkViewComponent,
     AdditionalMetadataComponent,
     ItemCorrectionComponent,
+    InWorkflowStatisticsComponent,
   ],
 })
 export class ItemListPreviewComponent implements OnInit {
@@ -110,6 +107,11 @@ export class ItemListPreviewComponent implements OnInit {
   @Input() showCorrection = false;
 
   /**
+   * A boolean representing if to show workflow statistics
+   */
+  @Input() showWorkflowStatistics = false;
+
+  /**
    * An object representing the duplicate match
    */
   @Input() metadataList: DuplicateMatchMetadataDetailConfig[] = [];
@@ -134,18 +136,10 @@ export class ItemListPreviewComponent implements OnInit {
   ) {
   }
 
-  getDateForArchivedItem(itemStartDate: string, dateAccessioned: string) {
-    const itemStartDateConverted: Date = parseISO(itemStartDate);
-    const dateAccessionedConverted: Date = parseISO(dateAccessioned);
-    const days: number = Math.floor(differenceInDays(dateAccessionedConverted, itemStartDateConverted));
-    const remainingMilliseconds: number = differenceInMilliseconds(dateAccessionedConverted, itemStartDateConverted) - days * 24 * 60 * 60 * 1000;
-    const hours: number = Math.floor(remainingMilliseconds / (60 * 60 * 1000));
-    return `${days} d ${hours} h`;
-  }
-
   ngOnInit(): void {
     this.showThumbnails = this.showThumbnails ?? this.appConfig.browseBy.showThumbnails;
     this.dsoTitle = this.dsoNameService.getHitHighlights(this.object, this.item);
     this.isCollapsed$ = this.truncateService.isCollapsed(this.item.uuid);
   }
+
 }

@@ -18,18 +18,27 @@ import {
 } from '@angular/router';
 import {
   BehaviorSubject,
-  combineLatest as observableCombineLatest,
+  combineLatest,
+  from,
   Observable,
   of as observableOf,
   Subscription,
 } from 'rxjs';
 import {
+  debounceTime,
   distinctUntilChanged,
+  filter,
   map,
+  mergeMap,
+  reduce,
   switchMap,
   take,
   tap,
 } from 'rxjs/operators';
+import {
+  getFacetValueForType,
+  stripOperatorFromFilterValue,
+} from 'src/app/shared/search/search.utils';
 
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
 import { getFirstSucceededRemoteDataPayload } from '../../../../../core/shared/operators';
@@ -40,6 +49,7 @@ import { SEARCH_CONFIG_SERVICE } from '../../../../../my-dspace-page/my-dspace-c
 import {
   hasNoValue,
   hasValue,
+  isNotEmpty,
 } from '../../../../empty.util';
 import { InputSuggestion } from '../../../../input-suggestions/input-suggestions.model';
 import { currentPath } from '../../../../utils/route.utils';
@@ -166,9 +176,33 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
     );
     this.subs.push(
       this.searchOptions$.subscribe(() => this.updateFilterValueList()),
+      this.refreshFilters.asObservable().pipe(
+        filter((toRefresh: boolean) => toRefresh),
+        // NOTE This is a workaround, otherwise retrieving filter values returns tha old cached response
+        debounceTime((100)),
+        mergeMap(() => this.retrieveFilterValues(false)),
+      ).subscribe(),
       this.retrieveFilterValues().subscribe(),
     );
-    this.selectedAppliedFilters$ = this.searchService.getSelectedValuesForFilter(this.filterConfig.name).pipe(
+
+    this.selectedAppliedFilters$ = combineLatest([
+      this.searchService.getSelectedValuesForFilter(this.filterConfig.name),
+      this.facetValues$.asObservable().pipe(
+        mergeMap((values: FacetValues[]) => from(values).pipe(
+          reduce((acc: FacetValue[], value: FacetValues) => acc.concat(value.page), []),
+        )),
+      ),
+    ]).pipe(
+      filter(([allAppliedFilters, facetValues]: [AppliedFilter[], FacetValue[]]) => isNotEmpty(facetValues)),
+      map(([allAppliedFilters, facetValues]: [AppliedFilter[], FacetValue[]]) => {
+        return allAppliedFilters.map((appliedValue) => {
+          const fValue = facetValues
+            .find((facetValue: FacetValue) => stripOperatorFromFilterValue(getFacetValueForType(facetValue, this.filterConfig)) === appliedValue.value);
+          return (hasValue(fValue)) ? Object.assign(appliedValue, {
+            label: fValue.label,
+          }) : appliedValue;
+        });
+      }),
       map((allAppliedFilters: AppliedFilter[]) => allAppliedFilters.filter((appliedFilter: AppliedFilter) => FACET_OPERATORS.includes(appliedFilter.operator))),
       distinctUntilChanged((previous: AppliedFilter[], next: AppliedFilter[]) => JSON.stringify(previous) === JSON.stringify(next)),
     );
@@ -287,9 +321,9 @@ export class SearchFacetFilterComponent implements OnInit, OnDestroy {
    * Retrieves all the filter value suggestion pages that need to be displayed in the facet and combines it into one
    * list.
    */
-  protected retrieveFilterValues(): Observable<FacetValues[]> {
-    return observableCombineLatest([this.searchOptions$, this.currentPage]).pipe(
-      switchMap(([options, page]: [SearchOptions, number]) => this.searchService.getFacetValuesFor(this.filterConfig, page, options).pipe(
+  protected retrieveFilterValues(useCachedVersionIfAvailable = true): Observable<FacetValues[]> {
+    return combineLatest([this.searchOptions$, this.currentPage]).pipe(
+      switchMap(([options, page]: [SearchOptions, number]) => this.searchService.getFacetValuesFor(this.filterConfig, page, options, null, useCachedVersionIfAvailable).pipe(
         getFirstSucceededRemoteDataPayload(),
         tap((facetValues: FacetValues) => {
           this.isLastPage$.next(hasNoValue(facetValues?.next));

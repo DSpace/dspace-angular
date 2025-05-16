@@ -22,6 +22,7 @@ import {
   switchMap,
   take,
 } from 'rxjs/operators';
+import { getItemPageRoute } from 'src/app/item-page/item-page-routing-paths';
 
 import { environment } from '../../../environments/environment';
 import { ItemDataService } from '../../core/data/item-data.service';
@@ -98,6 +99,11 @@ export class MetadataLinkViewComponent implements OnInit {
   relatedItem: Item;
 
   /**
+   * Route of related item page
+   */
+  relatedDsoRoute: string;
+
+  /**
    * Map all entities with the icons specified in the environment configuration file
    */
   constructor(private itemService: ItemDataService) { }
@@ -149,6 +155,7 @@ export class MetadataLinkViewComponent implements OnInit {
   private createMetadataView(itemRD: RemoteData<Item>, metadataValue: MetadataValue): MetadataView {
     if (itemRD.hasSucceeded) {
       this.relatedItem = itemRD.payload;
+      this.relatedDsoRoute = this.getItemPageRoute(this.relatedItem);
       const entityStyleValue = this.getCrisRefMetadata(itemRD.payload?.entityType);
       return {
         authority: metadataValue.authority,
@@ -205,6 +212,10 @@ export class MetadataLinkViewComponent implements OnInit {
       ];
     }
     return metadata ?? this.crisRefMetadata?.default;
+  }
+
+  getItemPageRoute(item: Item): string {
+    return getItemPageRoute(item);
   }
 
 }

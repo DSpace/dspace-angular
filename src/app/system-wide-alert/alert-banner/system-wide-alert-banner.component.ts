@@ -79,7 +79,7 @@ export class SystemWideAlertBannerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscriptions.push(this.systemWideAlertDataService.searchBy('active').pipe(
+    this.subscriptions.push(this.systemWideAlertDataService.searchBy('active', {}, false).pipe(
       getAllSucceededRemoteDataPayload(),
       map((payload: PaginatedList<SystemWideAlert>) => payload.page),
       filter((page) => isNotEmpty(page)),

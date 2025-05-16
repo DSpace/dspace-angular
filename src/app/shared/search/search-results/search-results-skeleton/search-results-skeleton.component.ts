@@ -1,9 +1,13 @@
-import { AsyncPipe } from '@angular/common';
+import {
+  AsyncPipe,
+  isPlatformBrowser,
+} from '@angular/common';
 import {
   Component,
   Inject,
   Input,
   OnInit,
+  PLATFORM_ID,
 } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
@@ -98,6 +102,7 @@ export class SearchResultsSkeletonComponent implements OnInit {
     private searchService: SearchService,
     private translate: TranslateService,
     @Inject(APP_CONFIG) private appConfig: AppConfig,
+    @Inject(PLATFORM_ID) public platformId: string,
   ) {
     this.viewMode$ = this.searchService.getViewMode();
     this.showFallbackMessages = this.showFallbackMessages ?? this.appConfig.loader.showFallbackMessagesByDefault;
@@ -113,7 +118,7 @@ export class SearchResultsSkeletonComponent implements OnInit {
       this.showThumbnails = true;
     }
 
-    if (this.showFallbackMessages) {
+    if (this.showFallbackMessages && isPlatformBrowser(this.platformId)) {
       this.setFallBackMessages();
     }
   }

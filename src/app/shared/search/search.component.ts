@@ -266,6 +266,11 @@ export class SearchComponent implements OnDestroy, OnInit {
   @Input() showCorrection: boolean;
 
   /**
+   * A boolean representing if to show workflow statistics
+   */
+  @Input() showWorkflowStatistics: boolean;
+
+  /**
    * Whether to show the view mode switch
    */
   @Input() showViewModes = true;
