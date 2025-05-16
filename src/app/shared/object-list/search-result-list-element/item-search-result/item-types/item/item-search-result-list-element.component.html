@@ -3,7 +3,7 @@
     <div class="col-3 col-md-2">
       @if (linkType !== linkTypes.None) {
         <a [target]="(linkType === linkTypes.ExternalLink) ? '_blank' : '_self'" [attr.rel]="(linkType === linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
-          [routerLink]="[itemPageRoute]" class="dont-break-out" role="button" tabindex="0">
+          [routerLink]="[itemPageRoute]" class="dont-break-out" tabindex="-1">
           <ds-thumbnail [thumbnail]="dso?.thumbnail | async" [limitWidth]="true">
           </ds-thumbnail>
         </a>

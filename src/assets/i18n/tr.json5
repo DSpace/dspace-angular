@@ -4741,6 +4741,33 @@
   // "item.page.description": "Description",
   "item.page.description": "Açıklama",
 
+  // "item.page.org-units": "Organizational Units",
+  "item.page.org-units": "Organizasyon Birimleri",
+
+  // "item.page.projects": "Research Projects",
+  "item.page.projects": "Araştırma Projeleri",
+
+  // "item.page.publications": "Publications",
+  "item.page.publications": "Yayınlar",
+
+  // "item.page.articles": "Articles",
+  "item.page.articles": "Makaleler",
+
+  // "item.page.journal": "Journal",
+  "item.page.journal": "Dergi",
+
+  // "item.page.journal-issue": "Journal Issue",
+  "item.page.journal-issue": "Dergi Sayısı",
+
+  // "item.page.journal-issues": "Journal Issues",
+  "item.page.journal-issues": "Dergi Sayıları",
+
+  // "item.page.journal-volume": "Journal Volume",
+  "item.page.journal-volume": "Dergi Cilti",
+
+  // "item.page.journal-volumes": "Journal Volumes",
+  "item.page.journal-volumes": "Dergi Ciltleri",
+
   // "item.page.journal-issn": "Journal ISSN",
   "item.page.journal-issn": "Süreli Yayın ISSN",
 
@@ -4862,8 +4889,8 @@
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Özet",
 
-  // "item.page.author": "Authors",
-  "item.page.author": "Yazarlar",
+  // "item.page.authors": "Authors",
+  "item.page.authors": "Yazarlar",
 
   // "item.page.citation": "Citation",
   "item.page.citation": "Alıntı",
@@ -7455,74 +7482,88 @@
   // "relationships.add.error.title": "Unable to add relationship",
   "relationships.add.error.title": "İlişki eklenemedi",
 
-  // "relationships.isAuthorOf": "Authors",
-  "relationships.isAuthorOf": "Yazarlar",
+  // "relationships.Publication.isAuthorOfPublication.Person": "Authors (persons)",
+  "relationships.Publication.isAuthorOfPublication.Person": "Yazarlar (kişiler)",
 
-  // "relationships.isAuthorOf.Person": "Authors (persons)",
-  "relationships.isAuthorOf.Person": "Yazarlar (kişiler)",
+  // "relationships.Publication.isProjectOfPublication.Project": "Research Projects",
+  "relationships.Publication.isProjectOfPublication.Project": "Araştırma Projeleri",
 
-  // "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
-  "relationships.isAuthorOf.OrgUnit": "Yazarlar (organizasyon birimleri)",
+  // "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizational Units",
+  "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizasyon Birimleri",
 
-  // "relationships.isIssueOf": "Journal Issues",
-  "relationships.isIssueOf": "Dergi Sayıları",
+  // "relationships.Publication.isAuthorOfPublication.OrgUnit": "Authors (organizational units)",
+  "relationships.Publication.isAuthorOfPublication.OrgUnit": "Yazarlar (organizasyon birimleri)",
 
-  // "relationships.isIssueOf.JournalIssue": "Journal Issue",
+  // "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
+  "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Dergi Sayısı",
+
+  // "relationships.Publication.isContributorOfPublication.Person": "Contributor",
   // TODO New key - Add a translation
-  "relationships.isIssueOf.JournalIssue": "Journal Issue",
+  "relationships.Publication.isContributorOfPublication.Person": "Contributor",
 
-  // "relationships.isJournalIssueOf": "Journal Issue",
-  "relationships.isJournalIssueOf": "Dergi Sayısı",
-
-  // "relationships.isJournalOf": "Journals",
-  "relationships.isJournalOf": "Dergiler",
-
-  // "relationships.isJournalVolumeOf": "Journal Volume",
+  // "relationships.Publication.isContributorOfPublication.OrgUnit": "Contributor (organizational units)",
   // TODO New key - Add a translation
-  "relationships.isJournalVolumeOf": "Journal Volume",
+  "relationships.Publication.isContributorOfPublication.OrgUnit": "Contributor (organizational units)",
 
-  // "relationships.isOrgUnitOf": "Organizational Units",
-  "relationships.isOrgUnitOf": "Organizasyon Birimleri",
+  // "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
+  "relationships.Person.isPublicationOfAuthor.Publication": "Yayınlar",
 
-  // "relationships.isPersonOf": "Authors",
-  "relationships.isPersonOf": "Yazarlar",
+  // "relationships.Person.isProjectOfPerson.Project": "Research Projects",
+  "relationships.Person.isProjectOfPerson.Project": "Araştırma Projeleri",
 
-  // "relationships.isProjectOf": "Research Projects",
-  "relationships.isProjectOf": "Araştırma Projeleri",
+  // "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
+  "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizasyon Birimleri",
 
-  // "relationships.isPublicationOf": "Publications",
-  "relationships.isPublicationOf": "Yayınlar",
+  // "relationships.Person.isPublicationOfContributor.Publication": "Publications",
+  "relationships.Person.isPublicationOfContributor.Publication": "Yayınlar",
 
-  // "relationships.isPublicationOfJournalIssue": "Articles",
-  "relationships.isPublicationOfJournalIssue": "Makaleler",
+  // "relationships.Project.isPublicationOfProject.Publication": "Publications",
+  "relationships.Project.isPublicationOfProject.Publication": "Yayınlar",
 
-  // "relationships.isSingleJournalOf": "Journal",
-  "relationships.isSingleJournalOf": "Dergi",
+  // "relationships.Project.isPersonOfProject.Person": "Authors",
+  "relationships.Project.isPersonOfProject.Person": "Yazarlar",
 
-  // "relationships.isSingleVolumeOf": "Journal Volume",
-  "relationships.isSingleVolumeOf": "Dergi Cilti",
+  // "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
+  "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizasyon Birimleri",
 
-  // "relationships.isVolumeOf": "Journal Volumes",
-  "relationships.isVolumeOf": "Dergi Ciltleri",
-
-  // "relationships.isVolumeOf.JournalVolume": "Journal Volume",
+  // "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Funder",
   // TODO New key - Add a translation
-  "relationships.isVolumeOf.JournalVolume": "Journal Volume",
+  "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Funder",
 
-  // "relationships.isContributorOf": "Contributors",
-  "relationships.isContributorOf": "Katkıda Bulunanlar",
-
-  // "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
+  // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
   // TODO New key - Add a translation
-  "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
+  "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
 
-  // "relationships.isContributorOf.Person": "Contributor",
-  // TODO New key - Add a translation
-  "relationships.isContributorOf.Person": "Contributor",
+  // "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Authors",
+  "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Yazarlar",
 
-  // "relationships.isFundingAgencyOf.OrgUnit": "Funder",
+  // "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Araştırma Projeleri",
+
+  // "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
   // TODO New key - Add a translation
-  "relationships.isFundingAgencyOf.OrgUnit": "Funder",
+  "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
+
+  // "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publications",
+  "relationships.OrgUnit.isPublicationOfContributor.Publication": "Yayınlar",
+
+  // "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Araştırma Projeleri",
+
+  // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
+  "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Dergi Cilti",
+
+  // "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publications",
+  "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Yayınlar",
+
+  // "relationships.JournalVolume.isJournalOfVolume.Journal": "Journals",
+  "relationships.JournalVolume.isJournalOfVolume.Journal": "Dergiler",
+
+  // "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Journal Issue",
+  "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Dergi Sayısı",
+
+  // "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
+  "relationships.Journal.isVolumeOfJournal.JournalVolume": "Dergi Cilti",
 
   // "repository.image.logo": "Repository logo",
   // TODO New key - Add a translation

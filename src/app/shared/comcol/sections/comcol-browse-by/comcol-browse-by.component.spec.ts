@@ -23,6 +23,7 @@ import { ComcolBrowseByComponent } from './comcol-browse-by.component';
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '',
+  standalone: true,
   template: '<span id="ComcolBrowseByComponent"></span>',
 })
 class BrowseByTestComponent {

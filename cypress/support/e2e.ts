@@ -54,12 +54,9 @@ before(() => {
 
 // Runs once before the first test in each "block"
 beforeEach(() => {
-  // Pre-agree to all Orejime cookies by setting the orejime-* cookies
+  // Pre-agree to all Orejime cookies by setting the orejime-anonymous cookie
   // This just ensures it doesn't get in the way of matching other objects in the page.
-  const cookieContent = '{"authentication":true,"preferences":true,"acknowledgement":true,"google-analytics":true,"matomo":true,"google-recaptcha":true,"accessibility":true}';
-  cy.setCookie('orejime-anonymous', cookieContent);
-  cy.setCookie(`orejime-${Cypress.env('DSPACE_TEST_ADMIN_USER_UUID')}`, cookieContent);
-  cy.setCookie(`orejime-${Cypress.env('DSPACE_TEST_SUBMIT_USER_UUID')}`, cookieContent);
+  cy.setCookie('orejime-anonymous', '{"authentication":true,"preferences":true,"acknowledgement":true,"google-analytics":true,"correlation-id":true,"accessibility":true}');
 
   // Remove any CSRF cookies saved from prior tests
   cy.clearCookie(DSPACE_XSRF_COOKIE);

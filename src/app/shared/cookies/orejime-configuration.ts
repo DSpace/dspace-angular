@@ -24,6 +24,10 @@ export const MATOMO_OREJIME_KEY = 'matomo';
 
 export const MATOMO_COOKIE = 'dsMatomo';
 
+export const CORRELATION_ID_OREJIME_KEY = 'correlation-id';
+
+export const CORRELATION_ID_COOKIE = 'CORRELATION-ID';
+
 /**
  * Orejime configuration
  * For more information see https://github.com/empreinte-digitale/orejime
@@ -141,6 +145,17 @@ export function getOrejimeConfiguration(_window: NativeWindowRef): any {
           [/^orejime-.+$/],
           HAS_AGREED_END_USER,
         ],
+      },
+      {
+        name: CORRELATION_ID_OREJIME_KEY,
+        purposes: ['statistical'],
+        required: false,
+        cookies: [
+          CORRELATION_ID_COOKIE,
+        ],
+        callback: () => {
+          _window?.nativeWindow.initCorrelationId();
+        },
       },
       {
         name: MATOMO_OREJIME_KEY,

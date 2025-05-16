@@ -4439,6 +4439,33 @@
   // "item.page.description": "Description",
   "item.page.description": "Mô tả",
 
+  // "item.page.org-units": "Organizational Units",
+  "item.page.org-units": "Đơn vị tổ chức",
+
+  // "item.page.projects": "Research Projects",
+  "item.page.projects": "Dự án nghiên cứu",
+
+  // "item.page.publications": "Publications",
+  "item.page.publications": "Ấn phẩm",
+
+  // "item.page.articles": "Articles",
+  "item.page.articles": "Bài báo",
+
+  // "item.page.journal": "Journal",
+  "item.page.journal": "Tạp chí",
+
+  // "item.page.journal-issue": "Journal Issue",
+  "item.page.journal-issue": "Số kỳ của tạp chí",
+
+  // "item.page.journal-issues": "Journal Issues",
+  "item.page.journal-issues": "Số kỳ của tạp chí",
+
+  // "item.page.journal-volume": "Journal Volume",
+  "item.page.journal-volume": "Số tập của tạp chí",
+
+  // "item.page.journal-volumes": "Journal Volumes",
+  "item.page.journal-volumes": "Số tập của tạp chí",
+
   // "item.page.journal-issn": "Journal ISSN",
   "item.page.journal-issn": "ISSN",
 
@@ -4558,8 +4585,8 @@
   // "item.page.abstract": "Abstract",
   "item.page.abstract": "Tóm tắt",
 
-  // "item.page.author": "Authors",
-  "item.page.author": "Tác giả",
+  // "item.page.authors": "Authors",
+  "item.page.authors": "Tác giả",
 
   // "item.page.citation": "Citation",
   "item.page.citation": "Trích dẫn",
@@ -7010,73 +7037,86 @@
   // "relationships.add.error.title": "Unable to add relationship",
   "relationships.add.error.title": "Không thể thêm mối quan hệ",
 
-  // "relationships.isAuthorOf": "Authors",
-  "relationships.isAuthorOf": "Tác giả",
+  // "relationships.Publication.isAuthorOfPublication.Person": "Authors (persons)",
+  "relationships.Publication.isAuthorOfPublication.Person": "Tác giả (người)",
 
-  // "relationships.isAuthorOf.Person": "Authors (persons)",
-  "relationships.isAuthorOf.Person": "Tác giả (người)",
+  // "relationships.Publication.isProjectOfPublication.Project": "Research Projects",
+  "relationships.Publication.isProjectOfPublication.Project": "Dự án nghiên cứu",
 
-  // "relationships.isAuthorOf.OrgUnit": "Authors (organizational units)",
-  "relationships.isAuthorOf.OrgUnit": "Tác giả (tổ chức)",
+  // "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizational Units",
+  "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Đơn vị tổ chức",
 
-  // "relationships.isIssueOf": "Journal Issues",
-  "relationships.isIssueOf": "Số kỳ của tạp chí",
+  // "relationships.Publication.isAuthorOfPublication.OrgUnit": "Authors (organizational units)",
+  "relationships.Publication.isAuthorOfPublication.OrgUnit": "Tác giả (tổ chức)",
 
-  // "relationships.isIssueOf.JournalIssue": "Journal Issue",
+  // "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
+  "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Số kỳ của tạp chí",
+
+  // "relationships.Publication.isContributorOfPublication.Person": "Contributor",
+  "relationships.Publication.isContributorOfPublication.Person": "Người tham gia",
+
+  // "relationships.Publication.isContributorOfPublication.OrgUnit": "Contributor (organizational units)",
+  "relationships.Publication.isContributorOfPublication.OrgUnit": "Người tham gia (Tổ chức)",
+
+  // "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
+  "relationships.Person.isPublicationOfAuthor.Publication": "Ấn phẩm",
+
+  // "relationships.Person.isProjectOfPerson.Project": "Research Projects",
+  "relationships.Person.isProjectOfPerson.Project": "Dự án nghiên cứu",
+
+  // "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
+  "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Đơn vị tổ chức",
+
+  // "relationships.Person.isPublicationOfContributor.Publication": "Publications",
+  "relationships.Person.isPublicationOfContributor.Publication": "Ấn phẩm",
+
+  // "relationships.Project.isPublicationOfProject.Publication": "Publications",
+  "relationships.Project.isPublicationOfProject.Publication": "Ấn phẩm",
+
+  // "relationships.Project.isPersonOfProject.Person": "Authors",
+  "relationships.Project.isPersonOfProject.Person": "Tác giả",
+
+  // "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
+  "relationships.Project.isOrgUnitOfProject.OrgUnit": "Đơn vị tổ chức",
+
+  // "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Funder",
+  "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Nhà tài trợ",
+
+  // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
   // TODO New key - Add a translation
-  "relationships.isIssueOf.JournalIssue": "Journal Issue",
+  "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
 
-  // "relationships.isJournalIssueOf": "Journal Issue",
-  "relationships.isJournalIssueOf": "Số kỳ của tạp chí",
+  // "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Authors",
+  "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Tác giả",
 
-  // "relationships.isJournalOf": "Journals",
-  "relationships.isJournalOf": "Tạp chí",
+  // "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Dự án nghiên cứu",
 
-  // "relationships.isJournalVolumeOf": "Journal Volume",
+  // "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
   // TODO New key - Add a translation
-  "relationships.isJournalVolumeOf": "Journal Volume",
+  "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
 
-  // "relationships.isOrgUnitOf": "Organizational Units",
-  "relationships.isOrgUnitOf": "Đơn vị tổ chức",
+  // "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publications",
+  "relationships.OrgUnit.isPublicationOfContributor.Publication": "Ấn phẩm",
 
-  // "relationships.isPersonOf": "Authors",
-  "relationships.isPersonOf": "Tác giả",
+  // "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Dự án nghiên cứu",
 
-  // "relationships.isProjectOf": "Research Projects",
-  "relationships.isProjectOf": "Dự án nghiên cứu",
+  // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
+  "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Số tập của tạp chí",
 
-  // "relationships.isPublicationOf": "Publications",
-  "relationships.isPublicationOf": "Ấn phẩm",
+  // "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publications",
+  "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Ấn phẩm",
 
-  // "relationships.isPublicationOfJournalIssue": "Articles",
-  "relationships.isPublicationOfJournalIssue": "Bài báo",
+  // "relationships.JournalVolume.isJournalOfVolume.Journal": "Journals",
+  "relationships.JournalVolume.isJournalOfVolume.Journal": "Tạp chí",
 
-  // "relationships.isSingleJournalOf": "Journal",
-  "relationships.isSingleJournalOf": "Tạp chí",
+  // "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Journal Issue",
+  "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Số kỳ của tạp chí",
 
-  // "relationships.isSingleVolumeOf": "Journal Volume",
-  "relationships.isSingleVolumeOf": "Số tập của tạp chí",
+  // "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
+  "relationships.Journal.isVolumeOfJournal.JournalVolume": "Số tập của tạp chí",
 
-  // "relationships.isVolumeOf": "Journal Volumes",
-  "relationships.isVolumeOf": "Số tập của tạp chí",
-
-  // "relationships.isVolumeOf.JournalVolume": "Journal Volume",
-  // TODO New key - Add a translation
-  "relationships.isVolumeOf.JournalVolume": "Journal Volume",
-
-  // "relationships.isContributorOf": "Contributors",
-  "relationships.isContributorOf": "Người tham gia",
-
-  // "relationships.isContributorOf.OrgUnit": "Contributor (Organizational Unit)",
-  "relationships.isContributorOf.OrgUnit": "Người tham gia (Tổ chức)",
-
-  // "relationships.isContributorOf.Person": "Contributor",
-  "relationships.isContributorOf.Person": "Người tham gia",
-
-  // "relationships.isFundingAgencyOf.OrgUnit": "Funder",
-  "relationships.isFundingAgencyOf.OrgUnit": "Nhà tài trợ",
-
-  // "repository.image.logo": "Repository logo",
   "repository.image.logo": "Logo lưu trữ",
 
   // "repository.title": "DSpace Repository",

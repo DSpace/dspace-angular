@@ -258,6 +258,16 @@ export class AuthService {
   }
 
   /**
+   * Returns the authenticated user id from the store
+   * @returns {User}
+   */
+  public getAuthenticatedUserIdFromStore(): Observable<string> {
+    return this.store.pipe(
+      select(getAuthenticatedUserId),
+    );
+  }
+
+  /**
    * Returns an observable which emits the currently authenticated user from the store,
    * or null if the user is not authenticated.
    */
