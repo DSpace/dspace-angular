@@ -21,6 +21,8 @@ import {
   Observable,
   of,
 } from 'rxjs';
+import { ConfigurationDataService } from 'src/app/core/data/configuration-data.service';
+import { ConfigurationDataServiceStub } from 'src/app/shared/testing/configuration-data.service.stub';
 
 import {
   APP_CONFIG,
@@ -131,6 +133,7 @@ describe('PublicationComponent', () => {
         { provide: SearchService, useValue: {} },
         { provide: RouteService, useValue: mockRouteService },
         { provide: BrowseDefinitionDataService, useValue: BrowseDefinitionDataServiceStub },
+        { provide: ConfigurationDataService, useValue: new ConfigurationDataServiceStub() },
         { provide: APP_CONFIG, useValue: environment },
         { provide: APP_DATA_SERVICES_MAP, useValue: {}  },
       ],

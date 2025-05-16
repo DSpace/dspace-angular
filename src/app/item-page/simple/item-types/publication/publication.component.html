@@ -106,6 +106,8 @@
       [fields]="['datacite.relation.isReferencedBy']"
       [label]="'item.page.referenced'">
     </ds-item-page-uri-field>
+    <ds-item-page-license-field [item]="object">
+    </ds-item-page-license-field>
     @if (geospatialItemPageFieldsEnabled) {
       <ds-geospatial-item-page-field [item]="object"
                                      [label]="'item.page.places'"
