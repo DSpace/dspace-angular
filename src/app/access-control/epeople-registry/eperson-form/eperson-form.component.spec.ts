@@ -443,7 +443,7 @@ describe('EPersonFormComponent', () => {
           },
         });
 
-        spyOn(ePersonDataServiceStub, 'getActiveEPerson').and.returnValue(observableOf(expectedWithId));
+        spyOn(ePersonDataServiceStub, 'getActiveEPerson').and.returnValue(of(expectedWithId));
         component.ngOnInit();
         component.onSubmit();
         fixture.detectChanges();
