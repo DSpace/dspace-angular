@@ -15,7 +15,7 @@ import {
   Operation,
 } from 'fast-json-patch';
 import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import {
   EPeopleRegistryCancelEPersonAction,
@@ -316,7 +316,7 @@ describe('EPersonDataService', () => {
   describe('clearEPersonRequests', () => {
     beforeEach(() => {
       spyOn(halService, 'getEndpoint').and.callFake((linkPath: string) => {
-        return observableOf(`${restEndpointURL}/${linkPath}`);
+        return of(`${restEndpointURL}/${linkPath}`);
       });
     });
     it('should remove the eperson hrefs in the request service', fakeAsync(() => {

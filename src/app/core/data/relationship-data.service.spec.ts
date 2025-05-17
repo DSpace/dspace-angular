@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { APP_CONFIG } from '../../../config/app-config.interface';
 import { environment } from '../../../environments/environment.test';
@@ -130,11 +130,11 @@ describe('RelationshipDataService', () => {
   const itemService = jasmine.createSpyObj('itemService', {
     findById: (uuid) => createSuccessfulRemoteDataObject(relatedItems.find((relatedItem) => relatedItem.id === uuid)),
     findByHref: createSuccessfulRemoteDataObject$(relatedItems[0]),
-    getIDHrefObs: (uuid: string) => observableOf(`https://demo.dspace.org/server/api/core/items/${uuid}`),
+    getIDHrefObs: (uuid: string) => of(`https://demo.dspace.org/server/api/core/items/${uuid}`),
   });
 
   const getRequestEntry$ = (successful: boolean) => {
-    return observableOf({
+    return of({
       response: { isSuccessful: successful, payload: relationships } as any,
     } as RequestEntry);
   };

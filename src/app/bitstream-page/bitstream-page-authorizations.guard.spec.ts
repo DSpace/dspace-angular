@@ -5,7 +5,7 @@ import {
 } from '@angular/router';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { AuthorizationDataService } from 'src/app/core/data/feature-authorization/authorization-data.service';
@@ -29,14 +29,14 @@ describe('bitstreamPageAuthorizationsGuard', () => {
 
   beforeEach(() => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true),
+      isAuthorized: of(true),
     });
     router = jasmine.createSpyObj('router', {
       parseUrl: {},
       navigateByUrl: undefined,
     });
     authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(true),
+      isAuthenticated: of(true),
     });
 
     parentRoute = {

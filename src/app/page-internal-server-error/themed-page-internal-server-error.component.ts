@@ -11,7 +11,9 @@ import { PageInternalServerErrorComponent } from './page-internal-server-error.c
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [PageInternalServerErrorComponent],
+  imports: [
+    PageInternalServerErrorComponent,
+  ],
 })
 export class ThemedPageInternalServerErrorComponent extends ThemedComponent<PageInternalServerErrorComponent> {
 

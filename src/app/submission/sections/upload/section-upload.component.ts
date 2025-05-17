@@ -68,11 +68,11 @@ export interface AccessConditionGroupsMapEntry {
   styleUrls: ['./section-upload.component.scss'],
   templateUrl: './section-upload.component.html',
   imports: [
-    ThemedSubmissionSectionUploadFileComponent,
-    SubmissionSectionUploadAccessConditionsComponent,
     AlertComponent,
-    TranslateModule,
     AsyncPipe,
+    SubmissionSectionUploadAccessConditionsComponent,
+    ThemedSubmissionSectionUploadFileComponent,
+    TranslateModule,
   ],
   standalone: true,
 })

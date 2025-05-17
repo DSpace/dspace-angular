@@ -1,6 +1,6 @@
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 /**
@@ -9,7 +9,7 @@ import {
 export class RequestServiceStub {
 
   removeByHrefSubstring(_href: string): Observable<boolean> {
-    return observableOf(true);
+    return of(true);
   }
 
 }

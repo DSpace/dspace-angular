@@ -34,8 +34,8 @@ import { NotificationsService } from '../../shared/notifications/notifications.s
   selector: 'ds-profile-page-security-form',
   templateUrl: './profile-page-security-form.component.html',
   imports: [
-    FormComponent,
     AlertComponent,
+    FormComponent,
     TranslateModule,
   ],
   standalone: true,

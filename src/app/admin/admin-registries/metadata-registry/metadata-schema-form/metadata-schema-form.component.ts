@@ -37,8 +37,8 @@ import { FormComponent } from '../../../../shared/form/form.component';
   templateUrl: './metadata-schema-form.component.html',
   imports: [
     AsyncPipe,
-    TranslateModule,
     FormComponent,
+    TranslateModule,
   ],
   standalone: true,
 })

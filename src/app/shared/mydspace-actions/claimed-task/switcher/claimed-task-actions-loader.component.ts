@@ -19,7 +19,9 @@ import { getComponentByWorkflowTaskOption } from './claimed-task-actions-decorat
   selector: 'ds-claimed-task-actions-loader',
   templateUrl: '../../../abstract-component-loader/abstract-component-loader.component.html',
   standalone: true,
-  imports: [ DynamicComponentLoaderDirective ],
+  imports: [
+    DynamicComponentLoaderDirective,
+  ],
 })
 /**
  * Component for loading a ClaimedTaskAction component depending on the "option" input

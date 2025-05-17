@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateService } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { EpersonRegistrationService } from '../../core/data/eperson-registration.service';
@@ -66,7 +66,7 @@ describe('ExternalLoginService', () => {
   });
 
   it('should call epersonRegistrationService.patchUpdateRegistration with the correct parameters', () => {
-    epersonRegistrationService.patchUpdateRegistration.and.returnValue(observableOf({} as RemoteData<Registration>));
+    epersonRegistrationService.patchUpdateRegistration.and.returnValue(of({} as RemoteData<Registration>));
     service.patchUpdateRegistration(values, field, registrationId, token, operation);
     expect(epersonRegistrationService.patchUpdateRegistration).toHaveBeenCalledWith(values, field, registrationId, token, operation);
   });
@@ -80,8 +80,8 @@ describe('ExternalLoginService', () => {
 
   it('should show an error notification if the remote data has failed', fakeAsync(() => {
     const remoteData = createFailedRemoteDataObject<NoContent>('error message');
-    epersonRegistrationService.patchUpdateRegistration.and.returnValue(observableOf(remoteData));
-    translate.get.and.returnValue(observableOf('error message'));
+    epersonRegistrationService.patchUpdateRegistration.and.returnValue(of(remoteData));
+    translate.get.and.returnValue(of('error message'));
 
     let result = null;
     service.patchUpdateRegistration(values, field, registrationId, token, operation).subscribe((data) => (result = data));

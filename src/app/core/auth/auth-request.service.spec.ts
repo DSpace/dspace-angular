@@ -1,6 +1,6 @@
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
@@ -40,7 +40,7 @@ describe(`AuthRequestService`, () => {
     }
 
     protected createShortLivedTokenRequest(href: string): Observable<PostRequest> {
-      return observableOf(new PostRequest(this.requestService.generateRequestId(), href));
+      return of(new PostRequest(this.requestService.generateRequestId(), href));
     }
   }
 

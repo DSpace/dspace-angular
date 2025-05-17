@@ -42,11 +42,11 @@ interface ItemDTO {
   selector: 'ds-virtual-metadata',
   templateUrl: './virtual-metadata.component.html',
   imports: [
+    AsyncPipe,
+    ListableObjectComponentLoaderComponent,
     NgClass,
     TranslateModule,
     VarDirective,
-    AsyncPipe,
-    ListableObjectComponentLoaderComponent,
   ],
   standalone: true,
 })

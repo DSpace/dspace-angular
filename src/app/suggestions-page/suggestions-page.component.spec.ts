@@ -16,7 +16,7 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { AuthService } from '../core/auth/auth.service';
@@ -54,17 +54,17 @@ describe('SuggestionPageComponent', () => {
   const mockSuggestionsTargetStateService = getMockSuggestionNotificationsStateService();
   const router = new RouterStub();
   const routeStub = {
-    data: observableOf({
+    data: of({
       suggestionTargets: createSuccessfulRemoteDataObject(mockSuggestionTargetsObjectOne),
     }),
-    queryParams: observableOf({}),
+    queryParams: of({}),
   };
   const workspaceitemServiceMock = jasmine.createSpyObj('WorkspaceitemDataService', {
     importExternalSourceEntry: jasmine.createSpy('importExternalSourceEntry'),
   });
 
   const authService = jasmine.createSpyObj('authService', {
-    isAuthenticated: observableOf(true),
+    isAuthenticated: of(true),
     setRedirectUrl: {},
   });
   const paginationService = new PaginationServiceStub();
@@ -118,7 +118,7 @@ describe('SuggestionPageComponent', () => {
 
   it('should update page on pagination change', () => {
     spyOn(component, 'updatePage').and.callThrough();
-    component.targetId$ = observableOf('testid');
+    component.targetId$ = of('testid');
 
     scheduler.schedule(() => component.onPaginationChange());
     scheduler.flush();
@@ -130,7 +130,7 @@ describe('SuggestionPageComponent', () => {
     spyOn(component.processing$, 'next');
     spyOn(component.suggestionsRD$, 'next');
 
-    component.targetId$ = observableOf('testid');
+    component.targetId$ = of('testid');
     scheduler.schedule(() => component.updatePage().subscribe());
     scheduler.flush();
 
@@ -142,7 +142,7 @@ describe('SuggestionPageComponent', () => {
 
   it('should flag suggestion for deletion', fakeAsync(() => {
     spyOn(component, 'updatePage').and.callThrough();
-    component.targetId$ = observableOf('testid');
+    component.targetId$ = of('testid');
 
     scheduler.schedule(() => component.ignoreSuggestion('1'));
     scheduler.flush();
@@ -154,7 +154,7 @@ describe('SuggestionPageComponent', () => {
 
   it('should flag all suggestion for deletion', () => {
     spyOn(component, 'updatePage').and.callThrough();
-    component.targetId$ = observableOf('testid');
+    component.targetId$ = of('testid');
 
     scheduler.schedule(() => component.ignoreSuggestionAllSelected());
     scheduler.flush();
@@ -166,7 +166,7 @@ describe('SuggestionPageComponent', () => {
 
   it('should approve and import', () => {
     spyOn(component, 'updatePage').and.callThrough();
-    component.targetId$ = observableOf('testid');
+    component.targetId$ = of('testid');
 
     scheduler.schedule(() => component.approveAndImport({ collectionId: '1234' } as unknown as SuggestionApproveAndImport));
     scheduler.flush();
@@ -178,7 +178,7 @@ describe('SuggestionPageComponent', () => {
 
   it('should approve and import multiple suggestions', () => {
     spyOn(component, 'updatePage').and.callThrough();
-    component.targetId$ = observableOf('testid');
+    component.targetId$ = of('testid');
 
     scheduler.schedule(() => component.approveAndImportAllSelected({ collectionId: '1234' } as unknown as SuggestionApproveAndImport));
     scheduler.flush();

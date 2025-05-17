@@ -33,7 +33,10 @@ import { parseGeoJsonFromMetadataValue } from '../utils/geospatial.functions';
   templateUrl: './object-geospatial-map.component.html',
   animations: [fadeIn],
   standalone: true,
-  imports: [ GeospatialMapComponent, NgIf ],
+  imports: [
+    GeospatialMapComponent,
+    NgIf,
+  ],
 })
 
 /**

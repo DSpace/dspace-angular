@@ -46,8 +46,8 @@ export const ADVANCED_WORKFLOW_ACTION_SELECT_REVIEWER = 'selectrevieweraction';
   imports: [
     CommonModule,
     ModifyItemOverviewComponent,
-    TranslateModule,
     ReviewersListComponent,
+    TranslateModule,
   ],
   standalone: true,
 })

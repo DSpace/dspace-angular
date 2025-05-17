@@ -37,7 +37,13 @@ import { AdminSidebarSectionComponent } from '../admin-sidebar-section/admin-sid
   styleUrls: ['./expandable-admin-sidebar-section.component.scss'],
   animations: [rotate, slide, bgColor],
   standalone: true,
-  imports: [NgClass, NgComponentOutlet, AsyncPipe, TranslateModule, BrowserOnlyPipe],
+  imports: [
+    AsyncPipe,
+    BrowserOnlyPipe,
+    NgClass,
+    NgComponentOutlet,
+    TranslateModule,
+  ],
 })
 
 export class ExpandableAdminSidebarSectionComponent extends AdminSidebarSectionComponent implements OnInit {

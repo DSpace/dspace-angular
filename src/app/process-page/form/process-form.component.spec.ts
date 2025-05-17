@@ -13,7 +13,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { ScriptDataService } from '../../core/data/processes/script-data.service';
 import { RequestService } from '../../core/data/request.service';
@@ -48,7 +48,7 @@ describe('ProcessFormComponent', () => {
     scriptService = jasmine.createSpyObj(
       'scriptService',
       {
-        invoke: observableOf({
+        invoke: of({
           response:
             {
               isSuccessful: true,

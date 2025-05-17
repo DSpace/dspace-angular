@@ -11,7 +11,9 @@ import { ForgotPasswordFormComponent } from './forgot-password-form.component';
   styleUrls: [],
   templateUrl: './../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [ForgotPasswordFormComponent],
+  imports: [
+    ForgotPasswordFormComponent,
+  ],
 })
 export class ThemedForgotPasswordFormComponent extends ThemedComponent<ForgotPasswordFormComponent> {
   protected getComponentName(): string {

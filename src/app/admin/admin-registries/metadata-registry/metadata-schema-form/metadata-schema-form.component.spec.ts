@@ -9,7 +9,7 @@ import {
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { MetadataSchema } from '../../../../core/metadata/metadata-schema.model';
 import { RegistryService } from '../../../../core/registry/registry.service';
@@ -72,7 +72,7 @@ describe('MetadataSchemaFormComponent', () => {
 
     describe('without an active schema', () => {
       beforeEach(() => {
-        component.activeMetadataSchema$ = observableOf(undefined);
+        component.activeMetadataSchema$ = of(undefined);
         component.onSubmit();
         fixture.detectChanges();
       });
@@ -91,7 +91,7 @@ describe('MetadataSchemaFormComponent', () => {
       } as MetadataSchema);
 
       beforeEach(() => {
-        component.activeMetadataSchema$ = observableOf(expectedWithId);
+        component.activeMetadataSchema$ = of(expectedWithId);
         component.onSubmit();
         fixture.detectChanges();
       });

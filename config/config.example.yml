@@ -467,6 +467,8 @@ info:
   enableEndUserAgreement: true
   enablePrivacyStatement: true
   enableCOARNotifySupport: true
+  # Whether to show the cookie consent popup and the cookie settings footer link or not.
+  enableCookieConsentPopup: true
 
 # Whether to enable Markdown (https://commonmark.org/) and MathJax (https://www.mathjax.org/)
 # display in supported metadata fields. By default, only dc.description.abstract is supported.
@@ -607,3 +609,8 @@ geospatialMapViewer:
   defaultCentrePoint:
     lat: 41.015137
     lng: 28.979530
+
+# Configuration for storing accessibility settings, used by the AccessibilitySettingsService
+accessibility:
+  # The duration in days after which the accessibility settings cookie expires
+  cookieExpirationDuration: 7

@@ -10,7 +10,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { AuthService } from '../../../core/auth/auth.service';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
@@ -48,9 +48,9 @@ describe('DsoEditMenuComponent', () => {
 
   beforeEach(waitForAsync(() => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true),
+      isAuthorized: of(true),
     });
-    spyOn(menuService, 'getMenuTopSections').and.returnValue(observableOf([section]));
+    spyOn(menuService, 'getMenuTopSections').and.returnValue(of([section]));
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), RouterTestingModule, DsoEditMenuComponent],
       providers: [
@@ -68,7 +68,7 @@ describe('DsoEditMenuComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DsoEditMenuComponent);
     comp = fixture.componentInstance;
-    comp.sections = observableOf([]);
+    comp.sections = of([]);
     fixture.detectChanges();
   });
 

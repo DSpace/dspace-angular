@@ -14,7 +14,7 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { RequestService } from '../../../../core/data/request.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
@@ -44,13 +44,13 @@ let mockWorkflowItemDataService: WorkflowItemDataService;
 describe('ClaimedTaskActionsApproveComponent', () => {
   const object = Object.assign(new ClaimedTask(), { id: 'claimed-task-1' });
   const claimedTaskService = jasmine.createSpyObj('claimedTaskService', {
-    submitTask: observableOf(new ProcessTaskResponse(true)),
+    submitTask: of(new ProcessTaskResponse(true)),
   });
 
   beforeEach(waitForAsync(() => {
     mockPoolTaskDataService = new PoolTaskDataService(null, null, null, null);
     mockWorkflowItemDataService = jasmine.createSpyObj('WorkflowItemDataService', {
-      'invalidateByHref': observableOf(false),
+      'invalidateByHref': of(false),
     });
 
     TestBed.configureTestingModule({
@@ -107,7 +107,7 @@ describe('ClaimedTaskActionsApproveComponent', () => {
 
     beforeEach(() => {
       spyOn(component.processCompleted, 'emit');
-      spyOn(component, 'startActionExecution').and.returnValue(observableOf(null));
+      spyOn(component, 'startActionExecution').and.returnValue(of(null));
 
       expectedBody = {
         [component.option]: 'true',

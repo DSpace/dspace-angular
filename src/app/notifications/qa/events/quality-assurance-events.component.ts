@@ -83,7 +83,17 @@ import { EPersonDataComponent } from './ePerson-data/ePerson-data.component';
   templateUrl: './quality-assurance-events.component.html',
   styleUrls: ['./quality-assurance-events.component.scss'],
   standalone: true,
-  imports: [AlertComponent, ThemedLoadingComponent, PaginationComponent, RouterLink, NgbTooltipModule, AsyncPipe, TranslateModule, EPersonDataComponent, BtnDisabledDirective],
+  imports: [
+    AlertComponent,
+    AsyncPipe,
+    BtnDisabledDirective,
+    EPersonDataComponent,
+    NgbTooltipModule,
+    PaginationComponent,
+    RouterLink,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 export class QualityAssuranceEventsComponent implements OnInit, OnDestroy {
   /**

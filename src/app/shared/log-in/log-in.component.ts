@@ -32,7 +32,11 @@ import { AUTH_METHOD_FOR_DECORATOR_MAP } from './methods/log-in.methods-decorato
   styleUrls: ['./log-in.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [ThemedLoadingComponent, LogInContainerComponent, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    LogInContainerComponent,
+    ThemedLoadingComponent,
+  ],
 })
 export class LogInComponent implements OnInit {
 

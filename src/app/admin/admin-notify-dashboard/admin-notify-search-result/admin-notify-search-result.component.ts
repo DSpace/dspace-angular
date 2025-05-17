@@ -39,12 +39,12 @@ import { AdminNotifyMessagesService } from '../services/admin-notify-messages.se
   ],
   standalone: true,
   imports: [
-    TranslateModule,
-    DatePipe,
     AsyncPipe,
+    DatePipe,
+    RouterLink,
+    TranslateModule,
     TruncatableComponent,
     TruncatablePartComponent,
-    RouterLink,
   ],
 })
 /**

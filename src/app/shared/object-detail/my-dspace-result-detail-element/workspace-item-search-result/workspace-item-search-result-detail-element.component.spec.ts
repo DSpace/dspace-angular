@@ -8,7 +8,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { Context } from 'src/app/core/shared/context.model';
 
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
@@ -33,7 +33,7 @@ mockResultObject.hitHighlights = {};
 const linkService = getMockLinkService();
 
 const item = Object.assign(new Item(), {
-  bundles: observableOf({}),
+  bundles: of({}),
   metadata: {
     'dc.title': [
       {
@@ -62,7 +62,7 @@ const item = Object.assign(new Item(), {
   },
 });
 const rd = createSuccessfulRemoteDataObject(item);
-mockResultObject.indexableObject = Object.assign(new WorkspaceItem(), { item: observableOf(rd) });
+mockResultObject.indexableObject = Object.assign(new WorkspaceItem(), { item: of(rd) });
 
 describe('WorkspaceItemSearchResultDetailElementComponent', () => {
   beforeEach(waitForAsync(() => {

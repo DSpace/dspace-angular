@@ -13,7 +13,12 @@ import { SubmissionFormFooterComponent as BaseComponent } from '../../../../../.
   // templateUrl: './submission-form-footer.component.html'
   templateUrl: '../../../../../../app/submission/form/footer/submission-form-footer.component.html',
   standalone: true,
-  imports: [CommonModule, BrowserOnlyPipe, TranslateModule, BtnDisabledDirective],
+  imports: [
+    BrowserOnlyPipe,
+    BtnDisabledDirective,
+    CommonModule,
+    TranslateModule,
+  ],
 })
 export class SubmissionFormFooterComponent extends BaseComponent {
 

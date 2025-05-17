@@ -18,8 +18,8 @@ import { ResourcePoliciesComponent } from '../../../shared/resource-policies/res
   selector: 'ds-collection-authorizations',
   templateUrl: './collection-authorizations.component.html',
   imports: [
-    ResourcePoliciesComponent,
     AsyncPipe,
+    ResourcePoliciesComponent,
   ],
   standalone: true,
 })

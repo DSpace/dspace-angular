@@ -66,14 +66,14 @@ import {
   templateUrl: './submission-import-external.component.html',
   animations: [fadeIn],
   imports: [
-    ObjectCollectionComponent,
-    ThemedLoadingComponent,
     AlertComponent,
     AsyncPipe,
+    ObjectCollectionComponent,
+    RouterLink,
     SubmissionImportExternalSearchbarComponent,
+    ThemedLoadingComponent,
     TranslateModule,
     VarDirective,
-    RouterLink,
   ],
   standalone: true,
 })

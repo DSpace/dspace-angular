@@ -2,7 +2,7 @@ import { Store } from '@ngrx/store';
 import { cold } from 'jasmine-marbles';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { NotificationsService } from '../../shared/notifications/notifications.service';
@@ -41,12 +41,12 @@ describe('ItemTemplateDataService', () => {
     getByHref(requestHref: string) {
       const responseCacheEntry = new RequestEntry();
       responseCacheEntry.response = new RestResponse(true, 200, 'OK');
-      return observableOf(responseCacheEntry);
+      return of(responseCacheEntry);
     },
     getByUUID(uuid: string) {
       const responseCacheEntry = new RequestEntry();
       responseCacheEntry.response = new RestResponse(true, 200, 'OK');
-      return observableOf(responseCacheEntry);
+      return of(responseCacheEntry);
     },
     commit(method?: RestRequestMethod) {
       // Do nothing
@@ -57,7 +57,7 @@ describe('ItemTemplateDataService', () => {
   const browseService = {} as BrowseService;
   const objectCache = {
     getObjectBySelfLink(self) {
-      return observableOf({});
+      return of({});
     },
     addPatch(self, operations) {
       // Do nothing
@@ -76,7 +76,7 @@ describe('ItemTemplateDataService', () => {
   } as any;
   const collectionService = {
     getIDHrefObs(id): Observable<string> {
-      return observableOf(collectionEndpoint);
+      return of(collectionEndpoint);
     },
   } as CollectionDataService;
 

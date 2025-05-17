@@ -21,9 +21,9 @@ import { ExternalLoginMethodEntryComponent } from '../../decorators/external-log
   styleUrls: ['./orcid-confirmation.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
+    BrowserOnlyPipe,
     ReactiveFormsModule,
     TranslateModule,
-    BrowserOnlyPipe,
   ],
   standalone: true,
 })

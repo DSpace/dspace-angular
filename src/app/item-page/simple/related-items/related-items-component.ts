@@ -36,7 +36,15 @@ import { AbstractIncrementalListComponent } from '../abstract-incremental-list/a
   styleUrls: ['./related-items.component.scss'],
   templateUrl: './related-items.component.html',
   standalone: true,
-  imports: [MetadataFieldWrapperComponent, NgClass, VarDirective, ListableObjectComponentLoaderComponent, ThemedLoadingComponent, AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    ListableObjectComponentLoaderComponent,
+    MetadataFieldWrapperComponent,
+    NgClass,
+    ThemedLoadingComponent,
+    TranslateModule,
+    VarDirective,
+  ],
 })
 /**
  * This component is used for displaying relations between items

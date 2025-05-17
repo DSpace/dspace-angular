@@ -34,9 +34,9 @@ import {
   selector: 'ds-suggestion-sources',
   standalone: true,
   imports: [
-    SourceListComponent,
-    AsyncPipe,
     AlertComponent,
+    AsyncPipe,
+    SourceListComponent,
     TranslatePipe,
   ],
   templateUrl: './suggestion-sources.component.html',

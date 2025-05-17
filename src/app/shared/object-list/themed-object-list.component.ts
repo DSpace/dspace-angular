@@ -26,7 +26,9 @@ import { ObjectListComponent } from './object-list.component';
   styleUrls: [],
   templateUrl: '../theme-support/themed.component.html',
   standalone: true,
-  imports: [ObjectListComponent],
+  imports: [
+    ObjectListComponent,
+  ],
 })
 export class ThemedObjectListComponent extends ThemedComponent<ObjectListComponent> {
 
@@ -59,7 +61,7 @@ export class ThemedObjectListComponent extends ThemedComponent<ObjectListCompone
 
   @Input() selectionConfig: { repeatable: boolean, listId: string };
 
-  @Input() showRSS: SortOptions | boolean = false;
+  @Input() showRSS: SortOptions | boolean;
 
   /**
    * The link type of the listable elements

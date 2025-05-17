@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { hot } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { BitstreamFormatDataService } from '../../../core/data/bitstream-format-data.service';
 import { PaginationService } from '../../../core/pagination/pagination.service';
@@ -88,14 +88,14 @@ describe('BitstreamFormatsComponent', () => {
     notificationsServiceStub = new NotificationsServiceStub();
 
     bitstreamFormatService = jasmine.createSpyObj('bitstreamFormatService', {
-      findAll: observableOf(mockFormatsRD),
+      findAll: of(mockFormatsRD),
       find: createSuccessfulRemoteDataObject$(mockFormatsList[0]),
       getSelectedBitstreamFormats: hot('a', { a: mockFormatsList }),
       selectBitstreamFormat: {},
       deselectBitstreamFormat: {},
       deselectAllBitstreamFormats: {},
       delete: createSuccessfulRemoteDataObject$({}),
-      clearBitStreamFormatRequests: observableOf('cleared'),
+      clearBitStreamFormatRequests: of('cleared'),
     });
 
     paginationService = new PaginationServiceStub();
@@ -225,14 +225,14 @@ describe('BitstreamFormatsComponent', () => {
       notificationsServiceStub = new NotificationsServiceStub();
 
       bitstreamFormatService = jasmine.createSpyObj('bitstreamFormatService', {
-        findAll: observableOf(mockFormatsRD),
+        findAll: of(mockFormatsRD),
         find: createSuccessfulRemoteDataObject$(mockFormatsList[0]),
-        getSelectedBitstreamFormats: observableOf(mockFormatsList),
+        getSelectedBitstreamFormats: of(mockFormatsList),
         selectBitstreamFormat: {},
         deselectBitstreamFormat: {},
         deselectAllBitstreamFormats: {},
         delete: createNoContentRemoteDataObject$(),
-        clearBitStreamFormatRequests: observableOf('cleared'),
+        clearBitStreamFormatRequests: of('cleared'),
       });
 
       paginationService = new PaginationServiceStub();
@@ -282,14 +282,14 @@ describe('BitstreamFormatsComponent', () => {
       notificationsServiceStub = new NotificationsServiceStub();
 
       bitstreamFormatService = jasmine.createSpyObj('bitstreamFormatService', {
-        findAll: observableOf(mockFormatsRD),
+        findAll: of(mockFormatsRD),
         find: createSuccessfulRemoteDataObject$(mockFormatsList[0]),
-        getSelectedBitstreamFormats: observableOf(mockFormatsList),
+        getSelectedBitstreamFormats: of(mockFormatsList),
         selectBitstreamFormat: {},
         deselectBitstreamFormat: {},
         deselectAllBitstreamFormats: {},
         delete: createFailedRemoteDataObject$(),
-        clearBitStreamFormatRequests: observableOf('cleared'),
+        clearBitStreamFormatRequests: of('cleared'),
       });
 
       paginationService = new PaginationServiceStub();
