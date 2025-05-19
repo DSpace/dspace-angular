@@ -40,11 +40,11 @@ import { VarDirective } from '../../../../shared/utils/var.directive';
   templateUrl: './file-section.component.html',
   imports: [
     CommonModule,
-    ThemedFileDownloadLinkComponent,
+    FileSizePipe,
     MetadataFieldWrapperComponent,
+    ThemedFileDownloadLinkComponent,
     ThemedLoadingComponent,
     TranslateModule,
-    FileSizePipe,
     VarDirective,
   ],
   standalone: true,

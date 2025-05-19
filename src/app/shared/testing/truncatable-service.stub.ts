@@ -1,12 +1,12 @@
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 export class TruncatableServiceStub {
 
   isCollapsed(_id: string): Observable<boolean> {
-    return observableOf(false);
+    return of(false);
   }
 
   // eslint-disable-next-line no-empty, @typescript-eslint/no-empty-function

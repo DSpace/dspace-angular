@@ -18,7 +18,14 @@ import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbn
   styleUrls: ['./project-search-result-list-element.component.scss'],
   templateUrl: './project-search-result-list-element.component.html',
   standalone: true,
-  imports: [RouterLink, ThemedThumbnailComponent, NgClass, TruncatableComponent, ThemedBadgesComponent, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    NgClass,
+    RouterLink,
+    ThemedBadgesComponent,
+    ThemedThumbnailComponent,
+    TruncatableComponent,
+  ],
 })
 /**
  * The component for displaying a list element for an item search result of the type Project

@@ -11,7 +11,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
@@ -41,7 +41,7 @@ describe('ItemAccessControlSelectBitstreamsModalComponent', () => {
   const mockPaginationService = new PaginationServiceStub();
 
   const translateServiceStub = {
-    get: () => observableOf('test-message'),
+    get: () => of('test-message'),
     onLangChange: new EventEmitter(),
     onTranslationChange: new EventEmitter(),
     onDefaultLangChange: new EventEmitter(),

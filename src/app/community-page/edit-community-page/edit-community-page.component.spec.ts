@@ -8,7 +8,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { CommunityDataService } from '../../core/data/community-data.service';
 import { EditCommunityPageComponent } from './edit-community-page.component';
@@ -18,7 +18,7 @@ describe('EditCommunityPageComponent', () => {
   let fixture: ComponentFixture<EditCommunityPageComponent>;
 
   const routeStub = {
-    data: observableOf({
+    data: of({
       dso: { payload: {} },
     }),
     routeConfig: {

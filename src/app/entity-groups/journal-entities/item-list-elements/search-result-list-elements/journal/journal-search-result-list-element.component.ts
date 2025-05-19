@@ -19,7 +19,15 @@ import { ThemedThumbnailComponent } from '../../../../../thumbnail/themed-thumbn
   styleUrls: ['./journal-search-result-list-element.component.scss'],
   templateUrl: './journal-search-result-list-element.component.html',
   standalone: true,
-  imports: [RouterLink, ThemedThumbnailComponent, NgClass, ThemedBadgesComponent, TruncatableComponent, TruncatablePartComponent, AsyncPipe],
+  imports: [
+    AsyncPipe,
+    NgClass,
+    RouterLink,
+    ThemedBadgesComponent,
+    ThemedThumbnailComponent,
+    TruncatableComponent,
+    TruncatablePartComponent,
+  ],
 })
 /**
  * The component for displaying a list element for an item search result of the type Journal

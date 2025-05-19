@@ -12,7 +12,9 @@ import { ProjectSearchResultListElementComponent } from '../search-result-list-e
   styleUrls: ['./project-list-element.component.scss'],
   templateUrl: './project-list-element.component.html',
   standalone: true,
-  imports: [ProjectSearchResultListElementComponent],
+  imports: [
+    ProjectSearchResultListElementComponent,
+  ],
 })
 /**
  * The component for displaying a list element for an item of the type Project

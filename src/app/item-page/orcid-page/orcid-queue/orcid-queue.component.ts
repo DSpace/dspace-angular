@@ -54,13 +54,13 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
   templateUrl: './orcid-queue.component.html',
   styleUrls: ['./orcid-queue.component.scss'],
   imports: [
+    AlertComponent,
     CommonModule,
     NgbTooltipModule,
+    ObjectTableComponent,
+    PaginationComponent,
     TranslateModule,
     ThemedLoadingComponent,
-    AlertComponent,
-    PaginationComponent,
-    ObjectTableComponent,
   ],
   standalone: true,
 })

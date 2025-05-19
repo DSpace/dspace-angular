@@ -8,7 +8,7 @@ import {
   getTestScheduler,
   hot,
 } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { RouterMock } from '../../shared/mocks/router.mock';
@@ -233,8 +233,8 @@ describe('ResearcherProfileService', () => {
       generateRequestId: requestUUID,
       send: true,
       removeByHrefSubstring: {},
-      getByHref: observableOf(responseCacheEntry),
-      getByUUID: observableOf(responseCacheEntry),
+      getByHref: of(responseCacheEntry),
+      getByUUID: of(responseCacheEntry),
       setStaleByHrefSubstring: jasmine.createSpy('setStaleByHrefSubstring'),
     });
     rdbService = jasmine.createSpyObj('rdbService', {
@@ -271,7 +271,7 @@ describe('ResearcherProfileService', () => {
 
     spyOn((service as any), 'findById').and.callThrough();
     spyOn((service as any), 'findByHref').and.callThrough();
-    spyOn((service as any), 'getLinkPath').and.returnValue(observableOf(endpointURL));
+    spyOn((service as any), 'getLinkPath').and.returnValue(of(endpointURL));
     spyOn((service as any).createData, 'create').and.callThrough();
     spyOn((service as any).patchData, 'update').and.callThrough();
     spyOn((service as any).searchData, 'searchBy').and.callThrough();

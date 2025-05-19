@@ -18,9 +18,9 @@ import { ItemVersionsComponent } from '../../versions/item-versions.component';
   selector: 'ds-item-version-history',
   templateUrl: './item-version-history.component.html',
   imports: [
+    AsyncPipe,
     ItemVersionsComponent,
     VarDirective,
-    AsyncPipe,
   ],
   standalone: true,
 })

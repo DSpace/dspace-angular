@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 import {
   catchError,
@@ -39,7 +39,7 @@ export class RootDataService extends BaseDataService<Root> {
     return this.findRoot().pipe(
       catchError((err: unknown) => {
         console.error(err);
-        return observableOf(false);
+        return of(false);
       }),
       getFirstCompletedRemoteData(),
       map((rootRd: RemoteData<Root>) => rootRd.statusCode === 200),

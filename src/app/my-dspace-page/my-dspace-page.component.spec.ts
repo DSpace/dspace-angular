@@ -11,7 +11,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { RoleService } from '../core/roles/role.service';
 import { Context } from '../core/shared/context.model';
@@ -65,7 +65,7 @@ describe('MyDSpacePageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     roleService = jasmine.createSpyObj('roleService', {
-      checkRole: ()=> observableOf(true),
+      checkRole: ()=> of(true),
     });
     TestBed.configureTestingModule({
       imports: [
@@ -114,7 +114,7 @@ describe('MyDSpacePageComponent', () => {
     fixture = TestBed.createComponent(MyDSpacePageComponent);
     comp = fixture.componentInstance; // SearchPageComponent test instance
     myDSpaceConfigurationServiceStub.getAvailableConfigurationOptions.and.returnValue(
-      observableOf(configurationList),
+      of(configurationList),
     );
 
     fixture.detectChanges();

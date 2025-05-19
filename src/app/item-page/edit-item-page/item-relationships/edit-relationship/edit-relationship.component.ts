@@ -47,11 +47,11 @@ import { VirtualMetadataComponent } from '../../virtual-metadata/virtual-metadat
   styleUrls: ['./edit-relationship.component.scss'],
   templateUrl: './edit-relationship.component.html',
   imports: [
-    ListableObjectComponentLoaderComponent,
     AsyncPipe,
+    BtnDisabledDirective,
+    ListableObjectComponentLoaderComponent,
     TranslateModule,
     VirtualMetadataComponent,
-    BtnDisabledDirective,
   ],
   standalone: true,
 })

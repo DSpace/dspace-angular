@@ -42,7 +42,14 @@ export const WORKFLOW_TASK_OPTION_REJECT = 'submit_reject';
   styleUrls: ['./claimed-task-actions-reject.component.scss'],
   templateUrl: './claimed-task-actions-reject.component.html',
   standalone: true,
-  imports: [NgbTooltipModule, FormsModule, ReactiveFormsModule, AsyncPipe, TranslateModule, BtnDisabledDirective],
+  imports: [
+    AsyncPipe,
+    BtnDisabledDirective,
+    FormsModule,
+    NgbTooltipModule,
+    ReactiveFormsModule,
+    TranslateModule,
+  ],
 })
 /**
  * Component for displaying and processing the reject action on a workflow task item

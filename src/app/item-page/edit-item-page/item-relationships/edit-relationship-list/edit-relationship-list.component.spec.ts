@@ -17,7 +17,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { cold } from 'jasmine-marbles';
 import {
   BehaviorSubject,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { APP_CONFIG } from '../../../../../config/app-config.interface';
@@ -95,7 +95,7 @@ describe('EditRelationshipListComponent', () => {
     comp.itemType = entityTypeLeft;
     comp.url = url;
     comp.relationshipType = relationshipType;
-    comp.hasChanges = observableOf(false);
+    comp.hasChanges = of(false);
     comp.currentItemIsLeftItem$ = currentItemIsLeftItem$;
     fixture.detectChanges();
   };
@@ -196,7 +196,7 @@ describe('EditRelationshipListComponent', () => {
 
     objectUpdatesService = jasmine.createSpyObj('objectUpdatesService',
       {
-        getFieldUpdates: observableOf({
+        getFieldUpdates: of({
           [relationships[0].uuid]: fieldUpdate1,
           [relationships[1].uuid]: fieldUpdate2,
         }),
@@ -210,7 +210,7 @@ describe('EditRelationshipListComponent', () => {
       {
         getRelatedItemsByLabel: createSuccessfulRemoteDataObject$(createPaginatedList([itemRight1, itemRight2])),
         getItemRelationshipsByLabel: createSuccessfulRemoteDataObject$(createPaginatedList(relationships)),
-        isLeftItem: observableOf(true),
+        isLeftItem: of(true),
       },
     );
 
@@ -385,7 +385,7 @@ describe('EditRelationshipListComponent', () => {
         });
 
         it('after hash changes changed', () => {
-          comp.hasChanges = observableOf(true);
+          comp.hasChanges = of(true);
           fixture.detectChanges();
           const element = de.query(By.css('.btn-success'));
           expect(element.nativeElement?.getAttribute('aria-disabled')).toBe('true');

@@ -13,7 +13,7 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import {
   BehaviorSubject,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { RemoteDataBuildService } from '../../../../../core/cache/builders/remote-data-build.service';
@@ -112,7 +112,7 @@ describe('SearchRangeFilterComponent', () => {
         { provide: SearchFilterService, useValue: filterService },
         { provide: Router, useValue: router },
         { provide: RouteService, useValue: routeServiceStub },
-        { provide: RemoteDataBuildService, useValue: { aggregate: () => observableOf({}) } },
+        { provide: RemoteDataBuildService, useValue: { aggregate: () => of({}) } },
         { provide: SEARCH_CONFIG_SERVICE, useValue: new SearchConfigurationServiceStub() },
         { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
       ],

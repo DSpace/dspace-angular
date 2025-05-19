@@ -11,7 +11,9 @@ import { HeaderNavbarWrapperComponent } from './header-navbar-wrapper.component'
   styleUrls: [],
   templateUrl: '../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [HeaderNavbarWrapperComponent],
+  imports: [
+    HeaderNavbarWrapperComponent,
+  ],
 })
 export class ThemedHeaderNavbarWrapperComponent extends ThemedComponent<HeaderNavbarWrapperComponent> {
   protected getComponentName(): string {

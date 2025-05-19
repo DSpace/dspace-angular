@@ -10,7 +10,7 @@ import {
   Router,
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { RequestService } from '../../../../core/data/request.service';
 import { SearchService } from '../../../../core/shared/search/search.service';
@@ -33,7 +33,7 @@ const workflowId = 'workflow-1';
 describe('AdvancedClaimedTaskActionSelectReviewerComponent', () => {
   const object = Object.assign(new ClaimedTask(), {
     id: taskId,
-    workflowitem: observableOf(Object.assign(new WorkflowItem(), {
+    workflowitem: of(Object.assign(new WorkflowItem(), {
       id: workflowId,
     })),
   });

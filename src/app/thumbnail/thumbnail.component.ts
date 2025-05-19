@@ -13,7 +13,7 @@ import {
   WritableSignal,
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { AuthService } from '../core/auth/auth.service';
@@ -39,7 +39,12 @@ import { SafeUrlPipe } from '../shared/utils/safe-url-pipe';
   styleUrls: ['./thumbnail.component.scss'],
   templateUrl: './thumbnail.component.html',
   standalone: true,
-  imports: [CommonModule, ThemedLoadingComponent, TranslateModule, SafeUrlPipe],
+  imports: [
+    CommonModule,
+    SafeUrlPipe,
+    ThemedLoadingComponent,
+    TranslateModule,
+  ],
 })
 export class ThumbnailComponent implements OnChanges {
   /**
@@ -150,14 +155,14 @@ export class ThumbnailComponent implements OnChanges {
           if (isLoggedIn) {
             return this.authorizationService.isAuthorized(FeatureID.CanDownload, thumbnail.self);
           } else {
-            return observableOf(false);
+            return of(false);
           }
         }),
         switchMap((isAuthorized) => {
           if (isAuthorized) {
             return this.fileService.retrieveFileDownloadLink(thumbnailSrc);
           } else {
-            return observableOf(null);
+            return of(null);
           }
         }),
       ).subscribe((url: string) => {

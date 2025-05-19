@@ -9,7 +9,9 @@ import { CommunityListComponent } from './community-list.component';
   styleUrls: [],
   templateUrl: '../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [CommunityListComponent],
+  imports: [
+    CommunityListComponent,
+  ],
 })
 export class ThemedCommunityListComponent extends ThemedComponent<CommunityListComponent> {
   protected getComponentName(): string {

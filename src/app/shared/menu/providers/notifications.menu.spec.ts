@@ -7,7 +7,7 @@
  */
 
 import { TestBed } from '@angular/core/testing';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { PUBLICATION_CLAIMS_PATH } from '../../../admin/admin-notifications/admin-notifications-routing-paths';
 import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
@@ -54,9 +54,9 @@ describe('NotificationsMenuProvider', () => {
   beforeEach(() => {
     spyOn(authorizationServiceStub, 'isAuthorized').and.callFake((id: FeatureID) => {
       if (id === FeatureID.CanSeeQA || id === FeatureID.AdministratorOf) {
-        return observableOf(true);
+        return of(true);
       } else {
-        return observableOf(false);
+        return of(false);
       }
     });
 

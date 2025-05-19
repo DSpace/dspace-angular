@@ -1,4 +1,8 @@
 import {
+  Injector,
+  runInInjectionContext,
+} from '@angular/core';
+import {
   fakeAsync,
   TestBed,
   tick,
@@ -53,6 +57,7 @@ describe('MatomoService', () => {
         { provide: OrejimeService, useValue: orejimeService },
         { provide: NativeWindowService, useValue: nativeWindowService },
         { provide: ConfigurationDataService, useValue: configService },
+        { provide: Injector, useValue: TestBed },
       ],
     });
 
@@ -70,11 +75,13 @@ describe('MatomoService', () => {
   });
 
   it('should call setConsentGiven when consent is true', () => {
+    service.matomoTracker = matomoTracker;
     service.changeMatomoConsent(true);
     expect(matomoTracker.setConsentGiven).toHaveBeenCalled();
   });
 
   it('should call forgetConsentGiven when consent is false', () => {
+    service.matomoTracker = matomoTracker;
     service.changeMatomoConsent(false);
     expect(matomoTracker.forgetConsentGiven).toHaveBeenCalled();
   });
@@ -91,7 +98,10 @@ describe('MatomoService', () => {
     configService.findByPropertyName.withArgs(MATOMO_SITE_ID).and.returnValue(
       createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), { values: ['1'] })));
     orejimeService.getSavedPreferences.and.returnValue(of({ matomo: true }));
-    service.init();
+
+    runInInjectionContext(TestBed, () => {
+      service.init();
+    });
 
     expect(matomoTracker.setConsentGiven).toHaveBeenCalled();
     expect(matomoInitializer.initializeTracker).toHaveBeenCalledWith({
@@ -100,7 +110,7 @@ describe('MatomoService', () => {
     });
   });
 
-  it('should initialize tracker with REST configuration correct parameters in production', () => {
+  it('should initialize tracker with REST configuration correct parameters in production', fakeAsync(() => {
     environment.production = true;
     environment.matomo = { trackerUrl: '' };
     configService.findByPropertyName.withArgs(MATOMO_TRACKER_URL).and.returnValue(
@@ -113,19 +123,25 @@ describe('MatomoService', () => {
       createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), { values: ['1'] })));
     orejimeService.getSavedPreferences.and.returnValue(of({ matomo: true }));
 
-    service.init();
+    runInInjectionContext(TestBed, () => {
+      service.init();
+    });
+
+    tick();
 
     expect(matomoTracker.setConsentGiven).toHaveBeenCalled();
     expect(matomoInitializer.initializeTracker).toHaveBeenCalledWith({
       siteId: '1',
       trackerUrl: 'http://example.com',
     });
-  });
+  }));
 
   it('should not initialize tracker if not in production', () => {
     environment.production = false;
 
-    service.init();
+    runInInjectionContext(TestBed, () => {
+      service.init();
+    });
 
     expect(matomoInitializer.initializeTracker).not.toHaveBeenCalled();
   });
@@ -143,7 +159,9 @@ describe('MatomoService', () => {
       createSuccessfulRemoteDataObject$(Object.assign(new ConfigurationProperty(), { values: ['1'] })));
     orejimeService.getSavedPreferences.and.returnValue(of({ matomo: true }));
 
-    service.init();
+    runInInjectionContext(TestBed, () => {
+      service.init();
+    });
 
     expect(matomoInitializer.initializeTracker).not.toHaveBeenCalled();
   });
@@ -151,6 +169,7 @@ describe('MatomoService', () => {
   describe('with visitorId set', () => {
     beforeEach(() => {
       matomoTracker.getVisitorId.and.returnValue(Promise.resolve('12345'));
+      service.matomoTracker = matomoTracker;
     });
 
     it('should add trackerId parameter', fakeAsync(() => {

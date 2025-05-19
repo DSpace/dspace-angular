@@ -11,9 +11,13 @@ import { By } from '@angular/platform-browser';
 import { BtnDisabledDirective } from './btn-disabled.directive';
 
 @Component({
+  standalone: true,
   template: `
     <button [dsBtnDisabled]="isDisabled">Test Button</button>
   `,
+  imports: [
+    BtnDisabledDirective,
+  ],
 })
 class TestComponent {
   isDisabled = false;
@@ -26,8 +30,7 @@ describe('DisabledDirective', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [BtnDisabledDirective],
-      declarations: [TestComponent],
+      imports: [BtnDisabledDirective, TestComponent],
     });
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;

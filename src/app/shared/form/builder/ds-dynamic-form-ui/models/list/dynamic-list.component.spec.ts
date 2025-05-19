@@ -312,7 +312,9 @@ describe('DsDynamicListComponent test suite', () => {
   selector: 'ds-test-cmp',
   template: ``,
   standalone: true,
-  imports: [DsDynamicListComponent],
+  imports: [
+    DsDynamicListComponent,
+  ],
 })
 class TestComponent {
 

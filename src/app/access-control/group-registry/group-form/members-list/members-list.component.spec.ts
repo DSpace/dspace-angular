@@ -32,7 +32,7 @@ import {
 } from '@ngx-translate/core';
 import {
   Observable,
-  of as observableOf,
+  of,
 } from 'rxjs';
 
 import { DSONameService } from '../../../../core/breadcrumbs/dso-name.service';
@@ -113,7 +113,7 @@ describe('MembersListComponent', () => {
       epersonMembers: epersonMembers,
       epersonNonMembers: epersonNonMembers,
       getActiveGroup(): Observable<Group> {
-        return observableOf(activeGroup);
+        return of(activeGroup);
       },
       getEPersonMembers() {
         return this.epersonMembers;
@@ -127,7 +127,7 @@ describe('MembersListComponent', () => {
             this.epersonNonMembers.splice(index, 1);
           }
         });
-        return observableOf(new RestResponse(true, 200, 'Success'));
+        return of(new RestResponse(true, 200, 'Success'));
       },
       clearGroupsRequests() {
         // empty
@@ -147,7 +147,7 @@ describe('MembersListComponent', () => {
         });
         // Add eperson to list of non-members
         this.epersonNonMembers = [...this.epersonNonMembers, epersonToDelete];
-        return observableOf(new RestResponse(true, 200, 'Success'));
+        return of(new RestResponse(true, 200, 'Success'));
       },
     };
     builderService = getMockFormBuilderService();

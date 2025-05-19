@@ -7,7 +7,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 import { buildPaginatedList } from '../../core/data/paginated-list.model';
@@ -25,7 +25,7 @@ import { BrowseByGeospatialDataComponent } from './browse-by-geospatial-data.com
 // create route stub
 const scope = 'test scope';
 const activatedRouteStub = {
-  queryParams: observableOf({
+  queryParams: of({
     scope: scope,
   }),
 };
@@ -107,7 +107,7 @@ describe('BrowseByGeospatialDataComponent', () => {
       fixture = TestBed.createComponent(BrowseByGeospatialDataComponent);
       component = fixture.componentInstance;
       spyOn(searchService, 'getFacetValuesFor').and.returnValue(mockPointValues);
-      component.scope$ = observableOf('');
+      component.scope$ = of('');
       component.ngOnInit();
       fixture.detectChanges();
     });
@@ -128,7 +128,7 @@ describe('BrowseByGeospatialDataComponent', () => {
       fixture = TestBed.createComponent(BrowseByGeospatialDataComponent);
       component = fixture.componentInstance;
       spyOn(searchService, 'getFacetValuesFor').and.returnValue(mockValues);
-      component.scope$ = observableOf('');
+      component.scope$ = of('');
       component.ngOnInit();
       fixture.detectChanges();
     });

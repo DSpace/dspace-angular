@@ -19,7 +19,7 @@ import {
 import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { APP_DATA_SERVICES_MAP } from '../../../../config/app-config.interface';
 import { AuthService } from '../../../core/auth/auth.service';
@@ -78,23 +78,23 @@ describe('BitstreamRequestACopyPageComponent', () => {
       },
     });
     authService = jasmine.createSpyObj('authService', {
-      isAuthenticated: observableOf(false),
-      getAuthenticatedUserFromStore: observableOf(eperson),
+      isAuthenticated: of(false),
+      getAuthenticatedUserFromStore: of(eperson),
     });
     authorizationService = jasmine.createSpyObj('authorizationSerivice', {
-      isAuthorized: observableOf(true),
+      isAuthorized: of(true),
     });
 
     itemRequestDataService = jasmine.createSpyObj('itemRequestDataService', {
       requestACopy: createSuccessfulRemoteDataObject$({}),
-      isProtectedByCaptcha: observableOf(true),
+      isProtectedByCaptcha: of(true),
     });
 
     requestService = Object.assign(getMockRequestService(), {
       getByHref(requestHref: string) {
         const responseCacheEntry = new RequestEntry();
         responseCacheEntry.response = new RestResponse(true, 200, 'OK');
-        return observableOf(responseCacheEntry);
+        return of(responseCacheEntry);
       },
       removeByHrefSubstring(href: string) {
         // Do nothing
@@ -118,12 +118,12 @@ describe('BitstreamRequestACopyPageComponent', () => {
     });
 
     activatedRoute = {
-      data: observableOf({
+      data: of({
         dso: createSuccessfulRemoteDataObject(
           item,
         ),
       }),
-      queryParams: observableOf({
+      queryParams: of({
         bitstream : bitstream.uuid,
       }),
     };
@@ -193,7 +193,7 @@ describe('BitstreamRequestACopyPageComponent', () => {
     describe('when the user is logged in', () => {
       beforeEach(waitForAsync(() => {
         init();
-        (authService.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(true));
+        (authService.isAuthenticated as jasmine.Spy).and.returnValue(of(true));
         initTestbed();
       }));
       beforeEach(() => {
@@ -213,12 +213,12 @@ describe('BitstreamRequestACopyPageComponent', () => {
       beforeEach(waitForAsync(() => {
         init();
         activatedRoute = {
-          data: observableOf({
+          data: of({
             dso: createSuccessfulRemoteDataObject(
               item,
             ),
           }),
-          queryParams: observableOf({
+          queryParams: of({
           }),
         };
         initTestbed();
@@ -242,7 +242,7 @@ describe('BitstreamRequestACopyPageComponent', () => {
     describe('when the user has authorization to download the file', () => {
       beforeEach(waitForAsync(() => {
         init();
-        (authService.isAuthenticated as jasmine.Spy).and.returnValue(observableOf(true));
+        (authService.isAuthenticated as jasmine.Spy).and.returnValue(of(true));
         initTestbed();
       }));
       beforeEach(() => {

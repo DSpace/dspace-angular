@@ -20,12 +20,12 @@ import { SectionsDirective } from '../../../../../../app/submission/sections/sec
   standalone: true,
   imports: [
     AlertComponent,
-    NgbAccordionModule,
-    NgComponentOutlet,
-    TranslateModule,
-    NgClass,
     AsyncPipe,
+    NgbAccordionModule,
+    NgClass,
+    NgComponentOutlet,
     SectionsDirective,
+    TranslateModule,
   ],
 })
 export class SubmissionSectionContainerComponent extends BaseComponent {

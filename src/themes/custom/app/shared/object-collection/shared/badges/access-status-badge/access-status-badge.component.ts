@@ -9,7 +9,10 @@ import { AccessStatusBadgeComponent as BaseComponent } from 'src/app/shared/obje
   // templateUrl: './access-status-badge.component.html',
   templateUrl: '../../../../../../../../app/shared/object-collection/shared/badges/access-status-badge/access-status-badge.component.html',
   standalone: true,
-  imports: [AsyncPipe, TranslateModule],
+  imports: [
+    AsyncPipe,
+    TranslateModule,
+  ],
 })
 export class AccessStatusBadgeComponent extends BaseComponent {
 }

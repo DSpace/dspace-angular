@@ -34,9 +34,9 @@ import {
   styleUrls: ['./item-alerts.component.scss'],
   imports: [
     AlertComponent,
-    TranslateModule,
-    RouterLink,
     AsyncPipe,
+    RouterLink,
+    TranslateModule,
   ],
   standalone: true,
 })

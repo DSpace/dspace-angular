@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { MockComponent } from 'ng-mocks';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { RequestService } from '../../../core/data/request.service';
 import { WorkflowActionDataService } from '../../../core/data/workflow-action-data.service';
@@ -58,7 +58,7 @@ describe('AdvancedWorkflowActionComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            data: observableOf({
+            data: of({
               id: workflowId,
             }),
             snapshot: {
@@ -89,7 +89,7 @@ describe('AdvancedWorkflowActionComponent', () => {
 
   describe('sendRequest', () => {
     it('should return true if the request succeeded', () => {
-      spyOn(claimedTaskDataService, 'submitTask').and.returnValue(observableOf(new ProcessTaskResponse(true, 200)));
+      spyOn(claimedTaskDataService, 'submitTask').and.returnValue(of(new ProcessTaskResponse(true, 200)));
       spyOn(workflowActionDataService, 'findById');
 
       const result = component.sendRequest(workflowId);
@@ -103,7 +103,7 @@ describe('AdvancedWorkflowActionComponent', () => {
     });
 
     it('should return false if the request didn\'t succeeded', () => {
-      spyOn(claimedTaskDataService, 'submitTask').and.returnValue(observableOf(new ProcessTaskResponse(false, 404)));
+      spyOn(claimedTaskDataService, 'submitTask').and.returnValue(of(new ProcessTaskResponse(false, 404)));
       spyOn(workflowActionDataService, 'findById');
 
       const result = component.sendRequest(workflowId);
@@ -123,7 +123,9 @@ describe('AdvancedWorkflowActionComponent', () => {
   selector: '',
   template: '',
   standalone: true,
-  imports: [RouterTestingModule],
+  imports: [
+    RouterTestingModule,
+  ],
 })
 class TestComponent extends AdvancedWorkflowActionComponent {
 

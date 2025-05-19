@@ -16,7 +16,10 @@ import { ScriptParameterType } from '../../scripts/script-parameter-type.model';
   templateUrl: './script-help.component.html',
   styleUrls: ['./script-help.component.scss'],
   standalone: true,
-  imports: [NgTemplateOutlet, TranslateModule],
+  imports: [
+    NgTemplateOutlet,
+    TranslateModule,
+  ],
 })
 export class ScriptHelpComponent {
   /**

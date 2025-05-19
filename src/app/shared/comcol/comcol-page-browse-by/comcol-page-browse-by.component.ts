@@ -12,7 +12,6 @@ import {
   NavigationEnd,
   Router,
   RouterLink,
-  RouterLinkActive,
   Scroll,
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -59,11 +58,10 @@ export interface ComColPageNavOption {
   styleUrls: ['./comcol-page-browse-by.component.scss'],
   templateUrl: './comcol-page-browse-by.component.html',
   imports: [
+    AsyncPipe,
     FormsModule,
     RouterLink,
-    RouterLinkActive,
     TranslateModule,
-    AsyncPipe,
   ],
   standalone: true,
 })

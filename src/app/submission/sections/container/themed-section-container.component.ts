@@ -12,7 +12,9 @@ import { SubmissionSectionContainerComponent } from './section-container.compone
   styleUrls: [],
   templateUrl: '../../../shared/theme-support/themed.component.html',
   standalone: true,
-  imports: [SubmissionSectionContainerComponent],
+  imports: [
+    SubmissionSectionContainerComponent,
+  ],
 })
 export class ThemedSubmissionSectionContainerComponent extends ThemedComponent<SubmissionSectionContainerComponent> {
   @Input() collectionId: string;

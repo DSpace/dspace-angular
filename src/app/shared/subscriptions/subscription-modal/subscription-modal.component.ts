@@ -60,7 +60,16 @@ import { SubscriptionsDataService } from '../subscriptions-data.service';
   templateUrl: './subscription-modal.component.html',
   styleUrls: ['./subscription-modal.component.scss'],
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, ThemedTypeBadgeComponent, AlertComponent, AsyncPipe, KeyValuePipe, TranslateModule, BtnDisabledDirective],
+  imports: [
+    AlertComponent,
+    AsyncPipe,
+    BtnDisabledDirective,
+    FormsModule,
+    KeyValuePipe,
+    ReactiveFormsModule,
+    ThemedTypeBadgeComponent,
+    TranslateModule,
+  ],
 })
 /**
  * Modal that allows to manage the subscriptions for the selected item

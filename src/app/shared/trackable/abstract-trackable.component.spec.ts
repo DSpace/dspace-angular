@@ -7,7 +7,7 @@ import {
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 
 import { ObjectUpdatesService } from '../../core/data/object-updates/object-updates.service';
@@ -46,11 +46,11 @@ describe('AbstractTrackableComponent', () => {
       {
         saveAddFieldUpdate: {},
         discardFieldUpdates: {},
-        reinstateFieldUpdates: observableOf(true),
+        reinstateFieldUpdates: of(true),
         initialize: {},
-        hasUpdates: observableOf(true),
-        isReinstatable: observableOf(false), // should always return something --> its in ngOnInit
-        isValidPage: observableOf(true),
+        hasUpdates: of(true),
+        isReinstatable: of(false), // should always return something --> its in ngOnInit
+        isValidPage: of(true),
       },
     );
     router = new RouterStub();
@@ -90,7 +90,7 @@ describe('AbstractTrackableComponent', () => {
 
   describe('isReinstatable', () => {
     beforeEach(() => {
-      objectUpdatesService.isReinstatable.and.returnValue(observableOf(true));
+      objectUpdatesService.isReinstatable.and.returnValue(of(true));
     });
 
     it('should return an observable that emits true', () => {
@@ -101,7 +101,7 @@ describe('AbstractTrackableComponent', () => {
 
   describe('hasChanges', () => {
     beforeEach(() => {
-      objectUpdatesService.hasUpdates.and.returnValue(observableOf(true));
+      objectUpdatesService.hasUpdates.and.returnValue(of(true));
     });
 
     it('should return an observable that emits true', () => {

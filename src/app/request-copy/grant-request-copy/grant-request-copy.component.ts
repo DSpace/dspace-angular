@@ -1,7 +1,6 @@
 import {
   AsyncPipe,
   CommonModule,
-  NgClass,
 } from '@angular/common';
 import {
   Component,
@@ -14,7 +13,7 @@ import {
   RouterLink,
 } from '@angular/router';
 import {
-  TranslateModule,
+  TranslatePipe,
   TranslateService,
 } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -48,7 +47,16 @@ import { ThemedEmailRequestCopyComponent } from '../email-request-copy/themed-em
   styleUrls: ['./grant-request-copy.component.scss'],
   templateUrl: './grant-request-copy.component.html',
   standalone: true,
-  imports: [CommonModule, VarDirective, ThemedEmailRequestCopyComponent, FormsModule, ThemedLoadingComponent, AsyncPipe, TranslateModule, RouterLink, NgClass],
+  imports: [
+    AsyncPipe,
+    CommonModule,
+    FormsModule,
+    RouterLink,
+    ThemedEmailRequestCopyComponent,
+    ThemedLoadingComponent,
+    TranslatePipe,
+    VarDirective,
+  ],
 })
 /**
  * Component for granting an item request

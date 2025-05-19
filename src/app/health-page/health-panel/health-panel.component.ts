@@ -23,7 +23,14 @@ import { HealthStatusComponent } from './health-status/health-status.component';
   templateUrl: './health-panel.component.html',
   styleUrls: ['./health-panel.component.scss'],
   standalone: true,
-  imports: [HealthStatusComponent, NgbAccordionModule, HealthComponentComponent, TitleCasePipe, ObjNgFor, TranslateModule],
+  imports: [
+    HealthComponentComponent,
+    HealthStatusComponent,
+    NgbAccordionModule,
+    ObjNgFor,
+    TitleCasePipe,
+    TranslateModule,
+  ],
 })
 export class HealthPanelComponent implements OnInit {
 

@@ -15,9 +15,9 @@ import { ThemedLoadingComponent } from '../../../../../app/shared/loading/themed
   standalone: true,
   imports: [
     AsyncPipe,
-    TranslateModule,
-    ThemedLoadingComponent,
     ThemedBrowseByComponent,
+    ThemedLoadingComponent,
+    TranslateModule,
   ],
 })
 export class BrowseByDateComponent extends BaseComponent {
