@@ -59,8 +59,8 @@ import { PaginationComponentOptions } from '../../../shared/pagination/paginatio
     NgbTooltipModule,
     ObjectTableComponent,
     PaginationComponent,
-    TranslateModule,
     ThemedLoadingComponent,
+    TranslateModule,
   ],
   standalone: true,
 })
