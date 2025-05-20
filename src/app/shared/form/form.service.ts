@@ -191,7 +191,7 @@ export class FormService {
       });
     }
 
-    field.markAsUntouched();
+    field.markAsUntouched({ onlySelf: true });
   }
 
   public resetForm(formGroup: UntypedFormGroup, groupModel: DynamicFormControlModel[], formId: string) {

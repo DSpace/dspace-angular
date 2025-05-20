@@ -93,7 +93,6 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
    */
   openDropdown(sdRef: NgbDropdown) {
     if (!this.model.readOnly) {
-      this.group.markAsUntouched();
       sdRef.open();
     }
   }
@@ -181,6 +180,11 @@ export class DsDynamicScrollableDropdownComponent extends DsDynamicVocabularyCom
     }
 
     this.currentValue = result;
+  }
+
+  onBlur(event: Event) {
+    super.onBlur(event);
+    this.group.markAsTouched();
   }
 
 }
