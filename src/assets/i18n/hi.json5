@@ -212,141 +212,141 @@
   "admin.registries.schema.form.scopenote": "स्कोप नोट",
 
   "admin.registries.schema.head": "मेटाडेटा स्कीमा",
- 
+
   "admin.registries.schema.notification.created": "सफलतापूर्वक मेटाडेटा स्कीमा \"{{prefix}}\" बनाया गया",
- 
+
   "admin.registries.schema.notification.deleted.failure": "{{amount}} मेटाडेटा स्कीमास को हटाने में विफल",
- 
+
   "admin.registries.schema.notification.deleted.success": "{{amount}} मेटाडेटा स्कीमास को सफलतापूर्वक हटाया गया",
- 
+
   "admin.registries.schema.notification.edited": "सफलतापूर्वक मेटाडेटा स्कीमा \"{{prefix}}\" संपादित किया गया",
- 
+
   "admin.registries.schema.notification.failure": "त्रुटि",
- 
+
   "admin.registries.schema.notification.field.created": "सफलतापूर्वक मेटाडेटा फील्ड \"{{field}}\" बनाया गया",
- 
+
   "admin.registries.schema.notification.field.deleted.failure": "{{amount}} मेटाडेटा फील्ड्स को हटाने में विफल",
- 
+
   "admin.registries.schema.notification.field.deleted.success": "{{amount}} मेटाडेटा फील्ड्स को सफलतापूर्वक हटाया गया",
- 
+
   "admin.registries.schema.notification.field.edited": "सफलतापूर्वक मेटाडेटा फील्ड \"{{field}}\" संपादित किया गया",
- 
+
   "admin.registries.schema.notification.success": "सफलता",
- 
+
   "admin.registries.schema.return": "वापस",
- 
+
   "admin.registries.schema.title": "मेटाडेटा स्कीमा रजिस्ट्री",
- 
+
   "admin.access-control.bulk-access.breadcrumbs": "बल्क एक्सेस मैनेजमेंट",
- 
+
   "administrativeBulkAccess.search.results.head": "खोज परिणाम",
- 
+
   "admin.access-control.bulk-access": "बल्क एक्सेस मैनेजमेंट",
- 
+
   "admin.access-control.bulk-access.title": "बल्क एक्सेस मैनेजमेंट",
- 
+
   "admin.access-control.bulk-access-browse.header": "चरण 1: वस्तुओं का चयन करें",
- 
+
   "admin.access-control.bulk-access-browse.search.header": "खोज",
- 
+
   "admin.access-control.bulk-access-browse.selected.header": "वर्तमान चयन({{number}})",
- 
+
   "admin.access-control.bulk-access-settings.header": "चरण 2: प्रदर्शन करने के लिए ऑपरेशन",
- 
+
   "admin.access-control.epeople.actions.delete": "ईपर्सन हटाएं",
- 
+
   "admin.access-control.epeople.actions.impersonate": "ईपर्सन का प्रतिरूपण करें",
- 
+
   "admin.access-control.epeople.actions.reset": "पासवर्ड रीसेट करें",
- 
+
   "admin.access-control.epeople.actions.stop-impersonating": "ईपर्सन का प्रतिरूपण करना बंद करें",
- 
+
   "admin.access-control.epeople.breadcrumbs": "ईपिपल",
- 
+
   "admin.access-control.epeople.title": "ईपिपल",
- 
+
   "admin.access-control.epeople.edit.breadcrumbs": "नया ईपर्सन",
- 
+
   "admin.access-control.epeople.edit.title": "नया ईपर्सन",
- 
+
   "admin.access-control.epeople.add.breadcrumbs": "ईपर्सन जोड़ें",
- 
+
   "admin.access-control.epeople.add.title": "ईपर्सन जोड़ें",
- 
+
   "admin.access-control.epeople.head": "ईपिपल",
- 
+
   "admin.access-control.epeople.search.head": "खोज",
- 
+
   "admin.access-control.epeople.button.see-all": "सभी ब्राउज़ करें",
- 
+
   "admin.access-control.epeople.search.scope.metadata": "मेटाडेटा",
- 
+
   "admin.access-control.epeople.search.scope.email": "ईमेल (सटीक)",
- 
+
   "admin.access-control.epeople.search.button": "खोज",
- 
+
   "admin.access-control.epeople.search.placeholder": "लोगों को खोजें...",
- 
+
   "admin.access-control.epeople.button.add": "ईपर्सन जोड़ें",
- 
+
   "admin.access-control.epeople.table.id": "आईडी",
- 
+
   "admin.access-control.epeople.table.name": "नाम",
- 
+
   "admin.access-control.epeople.table.email": "ईमेल (सटीक)",
- 
+
   "admin.access-control.epeople.table.edit": "संपादित करें",
- 
+
   "admin.access-control.epeople.table.edit.buttons.edit": "\"{{name}}\" संपादित करें",
- 
+
   "admin.access-control.epeople.table.edit.buttons.edit-disabled": "आप इस समूह को संपादित करने के लिए अधिकृत नहीं हैं",
- 
+
   "admin.access-control.epeople.table.edit.buttons.remove": "\"{{name}}\" हटाएं",
- 
+
   "admin.access-control.epeople.no-items": "दिखाने के लिए कोई ईपिपल नहीं हैं।",
- 
+
   "admin.access-control.epeople.form.create": "ईपर्सन बनाएं",
- 
+
   "admin.access-control.epeople.form.edit": "ईपर्सन संपादित करें",
- 
+
   "admin.access-control.epeople.form.firstName": "पहला नाम",
- 
+
   "admin.access-control.epeople.form.lastName": "अंतिम नाम",
- 
+
   "admin.access-control.epeople.form.email": "ईमेल",
- 
+
   "admin.access-control.epeople.form.emailHint": "एक मान्य ईमेल पता होना चाहिए",
- 
+
   "admin.access-control.epeople.form.canLogIn": "लॉग इन कर सकते हैं",
- 
+
   "admin.access-control.epeople.form.requireCertificate": "प्रमाणपत्र की आवश्यकता है",
- 
+
   "admin.access-control.epeople.form.return": "वापस",
- 
+
   "admin.access-control.epeople.form.notification.created.success": "सफलतापूर्वक ईपर्सन \"{{name}}\" बनाया गया",
- 
+
   "admin.access-control.epeople.form.notification.created.failure": "ईपर्सन \"{{name}}\" बनाने में विफल",
- 
+
   "admin.access-control.epeople.form.notification.created.failure.emailInUse": "ईपर्सन \"{{name}}\" बनाने में विफल, ईमेल \"{{email}}\" पहले से उपयोग में है।",
- 
+
   "admin.access-control.epeople.form.notification.edited.failure.emailInUse": "ईपर्सन \"{{name}}\" संपादित करने में विफल, ईमेल \"{{email}}\" पहले से उपयोग में है।",
- 
+
   "admin.access-control.epeople.form.notification.edited.success": "सफलतापूर्वक ईपर्सन \"{{name}}\" संपादित किया गया",
- 
+
   "admin.access-control.epeople.form.notification.edited.failure": "ईपर्सन \"{{name}}\" संपादित करने में विफल",
- 
+
   "admin.access-control.epeople.form.notification.deleted.success": "सफलतापूर्वक ईपर्सन \"{{name}}\" हटाया गया",
- 
+
   "admin.access-control.epeople.form.notification.deleted.failure": "ईपर्सन \"{{name}}\" हटाने में विफल",
- 
+
   "admin.access-control.epeople.form.groupsEPersonIsMemberOf": "इन समूहों के सदस्य:",
- 
+
   "admin.access-control.epeople.form.table.id": "आईडी",
- 
+
   "admin.access-control.epeople.form.table.name": "नाम",
- 
+
   "admin.access-control.epeople.form.table.collectionOrCommunity": "संग्रह/समुदाय",
- 
+
   "admin.access-control.epeople.form.memberOfNoGroups": "यह ईपर्सन किसी भी समूह का सदस्य नहीं है",
 
   "admin.access-control.epeople.form.goToGroups": "समूहों में जोड़ें",
@@ -4477,31 +4477,31 @@
   "ldn-service.form.pattern.announce-endorsement.label": "समर्थन की घोषणा करें",
   "ldn-service.form.pattern.announce-endorsement.description": "यह पैटर्न समर्थन की उपस्थिति की घोषणा करने के लिए उपयोग किया जाता है, समर्थित संसाधन का संदर्भ देते हुए।",
   "ldn-service.form.pattern.announce-endorsement.category": "घोषणाएँ",
- 
+
   "ldn-service.form.pattern.announce-ingest.label": "अवशोषण की घोषणा करें",
   "ldn-service.form.pattern.announce-ingest.description": "यह पैटर्न यह घोषणा करने के लिए उपयोग किया जाता है कि एक संसाधन को अवशोषित किया गया है।",
   "ldn-service.form.pattern.announce-ingest.category": "घोषणाएँ",
- 
+
   "ldn-service.form.pattern.announce-relationship.label": "संबंध की घोषणा करें",
   "ldn-service.form.pattern.announce-relationship.description": "यह पैटर्न दो संसाधनों के बीच संबंध की घोषणा करने के लिए उपयोग किया जाता है।",
   "ldn-service.form.pattern.announce-relationship.category": "घोषणाएँ",
- 
+
   "ldn-service.form.pattern.announce-review.label": "समीक्षा की घोषणा करें",
   "ldn-service.form.pattern.announce-review.description": "यह पैटर्न समीक्षा की उपस्थिति की घोषणा करने के लिए उपयोग किया जाता है, समीक्षा किए गए संसाधन का संदर्भ देते हुए।",
   "ldn-service.form.pattern.announce-review.category": "घोषणाएँ",
- 
+
   "ldn-service.form.pattern.announce-service-result.label": "सेवा परिणाम की घोषणा करें",
   "ldn-service.form.pattern.announce-service-result.description": "यह पैटर्न 'सेवा परिणाम' की उपस्थिति की घोषणा करने के लिए उपयोग किया जाता है, संबंधित संसाधन का संदर्भ देते हुए।",
   "ldn-service.form.pattern.announce-service-result.category": "घोषणाएँ",
- 
+
   "ldn-service.form.pattern.request-endorsement.label": "समर्थन का अनुरोध करें",
   "ldn-service.form.pattern.request-endorsement.description": "यह पैटर्न मूल प्रणाली द्वारा स्वामित्व वाले संसाधन के समर्थन का अनुरोध करने के लिए उपयोग किया जाता है।",
   "ldn-service.form.pattern.request-endorsement.category": "अनुरोध",
- 
+
   "ldn-service.form.pattern.request-ingest.label": "अवशोषण का अनुरोध करें",
   "ldn-service.form.pattern.request-ingest.description": "यह पैटर्न लक्ष्य प्रणाली से एक संसाधन को अवशोषित करने का अनुरोध करने के लिए उपयोग किया जाता है।",
   "ldn-service.form.pattern.request-ingest.category": "अनुरोध",
- 
+
   "ldn-service.form.pattern.request-review.label": "समीक्षा का अनुरोध करें",
   "ldn-service.form.pattern.request-review.description": "यह पैटर्न मूल प्रणाली द्वारा स्वामित्व वाले संसाधन की समीक्षा का अनुरोध करने के लिए उपयोग किया जाता है।",
   "ldn-service.form.pattern.request-review.category": "अनुरोध",
@@ -4520,7 +4520,7 @@
   "ldn-new-service.form.error.ldnurl": "LDN यूआरएल आवश्यक है",
   "ldn-new-service.form.error.patterns": "कम से कम एक पैटर्न आवश्यक है",
   "ldn-new-service.form.error.score": "कृपया एक मान्य स्कोर दर्ज करें (0 और 1 के बीच)। दशमलव विभाजक के रूप में “.” का उपयोग करें",
- 
+
   "ldn-new-service.form.label.inboundPattern": "समर्थित पैटर्न",
   "ldn-new-service.form.label.addPattern": "+ और जोड़ें",
   "ldn-new-service.form.label.removeItemFilter": "हटाएं",
@@ -4564,7 +4564,7 @@
   "ldn-edit-service.form.label.submit": "सहेजें",
   "ldn-edit-service.breadcrumbs": "सेवा संपादित करें",
   "ldn-service.control-constaint-select-none": "कोई नहीं चुनें",
- 
+
   "ldn-register-new-service.notification.error.title": "त्रुटि",
   "ldn-register-new-service.notification.error.content": "इस प्रक्रिया को बनाते समय एक त्रुटि हुई",
   "ldn-register-new-service.notification.success.title": "सफलता",
