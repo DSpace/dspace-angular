@@ -274,6 +274,9 @@ languages:
   - code: gd
     label: Gàidhlig
     active: true
+  - code: gu
+    label: ગુજરાતી
+    active: true
   - code: hi
     label: हिंदी
     active: true
@@ -288,6 +291,9 @@ languages:
     active: true
   - code: lv
     label: Latviešu
+    active: true
+  - code: mr
+    label: मराठी
     active: true
   - code: nl
     label: Nederlands
