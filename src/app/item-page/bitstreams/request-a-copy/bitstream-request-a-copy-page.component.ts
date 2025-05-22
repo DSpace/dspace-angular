@@ -20,6 +20,7 @@ import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { Location } from '@angular/common';
 import { BitstreamDataService } from '../../../core/data/bitstream-data.service';
 import { getItemPageRoute } from '../../item-page-routing-paths';
+import {VALID_EMAIL_PATTERN} from '../../../core/shared/form-patterns.constants';
 
 @Component({
   selector: 'ds-bitstream-request-a-copy-page',
@@ -64,7 +65,7 @@ export class BitstreamRequestACopyPageComponent implements OnInit, OnDestroy {
       }),
       email: new UntypedFormControl('', {
         validators: [Validators.required,
-        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]
+        Validators.pattern(VALID_EMAIL_PATTERN)]
       }),
       allfiles: new UntypedFormControl(''),
       message: new UntypedFormControl(''),
