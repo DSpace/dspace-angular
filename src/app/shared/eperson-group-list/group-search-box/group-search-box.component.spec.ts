@@ -1,12 +1,23 @@
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { UntypedFormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import {
+  Component,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+} from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { createTestComponent } from '../../testing/utils.test';
+import { SearchEvent } from '../eperson-group-list-event-type';
 import { GroupSearchBoxComponent } from './group-search-box.component';
-import { SearchEvent } from '../eperson-group-list.component';
 
 describe('GroupSearchBoxComponent test suite', () => {
   let comp: GroupSearchBoxComponent;
@@ -20,19 +31,17 @@ describe('GroupSearchBoxComponent test suite', () => {
       imports: [
         FormsModule,
         ReactiveFormsModule,
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        TranslateModule.forRoot(),
         GroupSearchBoxComponent,
-        TestComponent
+        TestComponent,
       ],
       providers: [
         UntypedFormBuilder,
-        GroupSearchBoxComponent
+        GroupSearchBoxComponent,
       ],
       schemas: [
-        NO_ERRORS_SCHEMA
-      ]
+        NO_ERRORS_SCHEMA,
+      ],
     }).compileComponents();
   }));
 
@@ -88,12 +97,12 @@ describe('GroupSearchBoxComponent test suite', () => {
 
     it('should emit new search event', () => {
       const data = {
-        query: 'test'
+        query: 'test',
       };
 
       const event: SearchEvent = {
         scope: '',
-        query: 'test'
+        query: 'test',
       };
       spyOn(comp.search, 'emit');
 
@@ -107,7 +116,10 @@ describe('GroupSearchBoxComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
+  standalone: true,
+  imports: [FormsModule,
+    ReactiveFormsModule],
 })
 class TestComponent {
 

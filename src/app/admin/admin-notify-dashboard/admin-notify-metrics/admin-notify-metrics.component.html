@@ -1,0 +1,13 @@
+@for (row of boxesConfig; track row) {
+  <div class="mb-5">
+    <div class="mb-2">{{ row.title | translate }}</div>
+    <div class="row justify-content-between">
+      @for (box of row.boxes; track box) {
+        <div class="col-sm">
+          <ds-notification-box (selectedBoxConfig)="navigateToSelectedSearchConfig($event)" [boxConfig]="box"></ds-notification-box>
+        </div>
+      }
+    </div>
+  </div>
+}
+

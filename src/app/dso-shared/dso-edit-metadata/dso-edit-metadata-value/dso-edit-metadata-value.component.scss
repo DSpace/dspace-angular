@@ -1,5 +1,5 @@
 .ds-success {
-  background-color: var(--bs-success-bg);
+  background-color: var(--ds-success-bg);
   border: 1px solid var(--bs-success);
 }
 
@@ -13,4 +13,7 @@
 
 .cdk-drag-placeholder {
   opacity: 0;
+}
+.badge.bg-light {
+  color: var(--bs-gray-900);
 }

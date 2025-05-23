@@ -1,14 +1,24 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { AbstractTrackableComponent } from './abstract-trackable.component';
-import { INotification, Notification } from '../notifications/models/notification.model';
-import { NotificationType } from '../notifications/models/notification-type';
-import { of as observableOf } from 'rxjs';
-import { TranslateModule } from '@ngx-translate/core';
-import { ObjectUpdatesService } from '../../core/data/object-updates/object-updates.service';
-import { NotificationsService } from '../notifications/notifications.service';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { TestScheduler } from 'rxjs/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { getTestScheduler } from 'jasmine-marbles';
+import { of } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
+
+import { ObjectUpdatesService } from '../../core/data/object-updates/object-updates.service';
+import {
+  INotification,
+  Notification,
+} from '../notifications/models/notification.model';
+import { NotificationType } from '../notifications/models/notification-type';
+import { NotificationsService } from '../notifications/notifications.service';
+import { RouterStub } from '../testing/router.stub';
+import { AbstractTrackableComponent } from './abstract-trackable.component';
 
 describe('AbstractTrackableComponent', () => {
   let comp: AbstractTrackableComponent;
@@ -24,9 +34,10 @@ describe('AbstractTrackableComponent', () => {
     {
       info: infoNotification,
       warning: warningNotification,
-      success: successNotification
-    }
+      success: successNotification,
+    },
   );
+  let router: RouterStub;
 
   const url = 'http://test-url.com/test-url';
 
@@ -35,32 +46,33 @@ describe('AbstractTrackableComponent', () => {
       {
         saveAddFieldUpdate: {},
         discardFieldUpdates: {},
-        reinstateFieldUpdates: observableOf(true),
+        reinstateFieldUpdates: of(true),
         initialize: {},
-        hasUpdates: observableOf(true),
-        isReinstatable: observableOf(false), // should always return something --> its in ngOnInit
-        isValidPage: observableOf(true)
-      }
+        hasUpdates: of(true),
+        isReinstatable: of(false), // should always return something --> its in ngOnInit
+        isValidPage: of(true),
+      },
     );
+    router = new RouterStub();
+    router.url = url;
 
     scheduler = getTestScheduler();
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [AbstractTrackableComponent],
+      imports: [TranslateModule.forRoot(), AbstractTrackableComponent],
       providers: [
         { provide: ObjectUpdatesService, useValue: objectUpdatesService },
         { provide: NotificationsService, useValue: notificationsService },
+        { provide: Router, useValue: router },
       ], schemas: [
-        NO_ERRORS_SCHEMA
-      ]
+        NO_ERRORS_SCHEMA,
+      ],
     }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AbstractTrackableComponent);
     comp = fixture.componentInstance;
-    comp.url = url;
 
     fixture.detectChanges();
   });
@@ -78,7 +90,7 @@ describe('AbstractTrackableComponent', () => {
 
   describe('isReinstatable', () => {
     beforeEach(() => {
-      objectUpdatesService.isReinstatable.and.returnValue(observableOf(true));
+      objectUpdatesService.isReinstatable.and.returnValue(of(true));
     });
 
     it('should return an observable that emits true', () => {
@@ -89,7 +101,7 @@ describe('AbstractTrackableComponent', () => {
 
   describe('hasChanges', () => {
     beforeEach(() => {
-      objectUpdatesService.hasUpdates.and.returnValue(observableOf(true));
+      objectUpdatesService.hasUpdates.and.returnValue(of(true));
     });
 
     it('should return an observable that emits true', () => {

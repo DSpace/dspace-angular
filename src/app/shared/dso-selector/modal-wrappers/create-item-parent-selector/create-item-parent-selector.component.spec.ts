@@ -1,13 +1,25 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterStub } from '../../../testing/router.stub';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { Collection } from '../../../../core/shared/collection.model';
-import { CreateItemParentSelectorComponent } from './create-item-parent-selector.component';
 import { MetadataValue } from '../../../../core/shared/metadata.models';
 import { createSuccessfulRemoteDataObject } from '../../../remote-data.utils';
+import { RouterStub } from '../../../testing/router.stub';
+import { AuthorizedCollectionSelectorComponent } from '../../dso-selector/authorized-collection-selector/authorized-collection-selector.component';
+import { CreateItemParentSelectorComponent } from './create-item-parent-selector.component';
 
 describe('CreateItemParentSelectorComponent', () => {
   let component: CreateItemParentSelectorComponent;
@@ -19,8 +31,8 @@ describe('CreateItemParentSelectorComponent', () => {
   collection.metadata = {
     'dc.title': [Object.assign(new MetadataValue(), {
       value: 'Collection title',
-      language: undefined
-    })]
+      language: undefined,
+    })],
   };
   const router = new RouterStub();
   const collectionRD = createSuccessfulRemoteDataObject(collection);
@@ -28,8 +40,7 @@ describe('CreateItemParentSelectorComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [CreateItemParentSelectorComponent],
+      imports: [TranslateModule.forRoot(), CreateItemParentSelectorComponent],
       providers: [
         { provide: NgbActiveModal, useValue: modalStub },
         {
@@ -41,15 +52,19 @@ describe('CreateItemParentSelectorComponent', () => {
                   dso: collectionRD,
                 },
               },
-            }
+            },
           },
         },
         {
-          provide: Router, useValue: router
-        }
+          provide: Router, useValue: router,
+        },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(CreateItemParentSelectorComponent, {
+        remove: { imports: [AuthorizedCollectionSelectorComponent] },
+      })
+      .compileComponents();
 
   }));
 

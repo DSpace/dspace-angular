@@ -1,28 +1,49 @@
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { ChangeDetectorRef, Component, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-
-import { cold, getTestScheduler } from 'jasmine-marbles';
-import { of as observableOf } from 'rxjs';
-import { TestScheduler } from 'rxjs/testing';
+import {
+  ChangeDetectorRef,
+  Component,
+  Injector,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
+import { of } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
 
-import { createFailedRemoteDataObject, createSuccessfulRemoteDataObject } from '../../remote-data.utils';
-import { createTestComponent } from '../../testing/utils.test';
 import { LinkService } from '../../../core/cache/builders/link.service';
-import { NotificationsService } from '../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
-import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
-import { getMockResourcePolicyService } from '../../mocks/mock-resource-policy-service';
-import { getMockLinkService } from '../../mocks/link-service.mock';
-import { RouterStub } from '../../testing/router.stub';
-import { ResourcePolicyEvent } from '../form/resource-policy-form.component';
-import { GroupMock } from '../../testing/group-mock';
-import { submittedResourcePolicy } from '../form/resource-policy-form.component.spec';
-import { PolicyType } from '../../../core/resource-policy/models/policy-type.model';
 import { ActionType } from '../../../core/resource-policy/models/action-type.model';
-import { ResourcePolicyEditComponent } from './resource-policy-edit.component';
+import { PolicyType } from '../../../core/resource-policy/models/policy-type.model';
 import { RESOURCE_POLICY } from '../../../core/resource-policy/models/resource-policy.resource-type';
+import { ResourcePolicyDataService } from '../../../core/resource-policy/resource-policy-data.service';
+import { getMockLinkService } from '../../mocks/link-service.mock';
+import { getMockResourcePolicyService } from '../../mocks/mock-resource-policy-service';
+import { NotificationsService } from '../../notifications/notifications.service';
+import {
+  createFailedRemoteDataObject,
+  createSuccessfulRemoteDataObject,
+} from '../../remote-data.utils';
+import { GroupMock } from '../../testing/group-mock';
+import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
+import { RouterStub } from '../../testing/router.stub';
+import { createTestComponent } from '../../testing/utils.test';
+import {
+  ResourcePolicyEvent,
+  ResourcePolicyFormComponent,
+} from '../form/resource-policy-form.component';
+import { submittedResourcePolicy } from '../form/resource-policy-form.component.spec';
+import { ResourcePolicyEditComponent } from './resource-policy-edit.component';
 
 describe('ResourcePolicyEditComponent test suite', () => {
   let comp: ResourcePolicyEditComponent;
@@ -45,38 +66,36 @@ describe('ResourcePolicyEditComponent test suite', () => {
     uuid: 'resource-policy-1',
     _links: {
       eperson: {
-        href: 'https://rest.api/rest/api/eperson'
+        href: 'https://rest.api/rest/api/eperson',
       },
       group: {
-        href: 'https://rest.api/rest/api/group'
+        href: 'https://rest.api/rest/api/group',
       },
       self: {
-        href: 'https://rest.api/rest/api/resourcepolicies/1'
+        href: 'https://rest.api/rest/api/resourcepolicies/1',
       },
     },
-    eperson: observableOf(createSuccessfulRemoteDataObject({})),
-    group: observableOf(createSuccessfulRemoteDataObject(GroupMock))
+    eperson: of(createSuccessfulRemoteDataObject({})),
+    group: of(createSuccessfulRemoteDataObject(GroupMock)),
   };
 
   const resourcePolicyService: any = getMockResourcePolicyService();
   const linkService: any = getMockLinkService();
   const routeStub = {
-    data: observableOf({
-      resourcePolicy: createSuccessfulRemoteDataObject(resourcePolicy)
-    })
+    data: of({
+      resourcePolicy: createSuccessfulRemoteDataObject(resourcePolicy),
+    }),
   };
   const routerStub = Object.assign(new RouterStub(), {
-    url: `url/edit`
+    url: `url/edit`,
   });
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        TranslateModule.forRoot()
-      ],
-      declarations: [
+        TranslateModule.forRoot(),
         ResourcePolicyEditComponent,
-        TestComponent
+        TestComponent,
       ],
       providers: [
         { provide: LinkService, useValue: linkService },
@@ -86,12 +105,16 @@ describe('ResourcePolicyEditComponent test suite', () => {
         { provide: Router, useValue: routerStub },
         ResourcePolicyEditComponent,
         ChangeDetectorRef,
-        Injector
+        Injector,
       ],
       schemas: [
-        NO_ERRORS_SCHEMA
-      ]
-    }).compileComponents();
+        NO_ERRORS_SCHEMA,
+      ],
+    })
+      .overrideComponent(ResourcePolicyEditComponent, {
+        remove: { imports: [ResourcePolicyFormComponent] },
+      })
+      .compileComponents();
   }));
 
   describe('', () => {
@@ -149,7 +172,7 @@ describe('ResourcePolicyEditComponent test suite', () => {
     it('should return true when is Processing', (done) => {
       compAsAny.processing$.next(true);
       expect(comp.isProcessing()).toBeObservable(cold('a', {
-        a: true
+        a: true,
       }));
       done();
     });
@@ -157,7 +180,7 @@ describe('ResourcePolicyEditComponent test suite', () => {
     it('should return false when is not Processing', (done) => {
       compAsAny.processing$.next(false);
       expect(comp.isProcessing()).toBeObservable(cold('a', {
-        a: false
+        a: false,
       }));
       done();
     });
@@ -165,7 +188,7 @@ describe('ResourcePolicyEditComponent test suite', () => {
     describe('', () => {
       beforeEach(() => {
         spyOn(comp, 'redirectToAuthorizationsPage').and.callThrough();
-        compAsAny.resourcePolicyService.update.and.returnValue(observableOf(createSuccessfulRemoteDataObject(resourcePolicy)));
+        compAsAny.resourcePolicyService.update.and.returnValue(of(createSuccessfulRemoteDataObject(resourcePolicy)));
 
         compAsAny.targetResourceUUID = 'itemUUID';
 
@@ -173,7 +196,7 @@ describe('ResourcePolicyEditComponent test suite', () => {
         eventPayload.object = submittedResourcePolicy;
         eventPayload.target = {
           type: 'group',
-          uuid: GroupMock.id
+          uuid: GroupMock.id,
         };
 
         compAsAny.resourcePolicy = resourcePolicy;
@@ -181,12 +204,12 @@ describe('ResourcePolicyEditComponent test suite', () => {
         updatedObject = Object.assign({}, submittedResourcePolicy, {
           id: resourcePolicy.id,
           type: RESOURCE_POLICY.value,
-          _links: resourcePolicy._links
+          _links: resourcePolicy._links,
         });
       });
 
       it('should notify success when update is successful', () => {
-        compAsAny.resourcePolicyService.update.and.returnValue(observableOf(createSuccessfulRemoteDataObject(resourcePolicy)));
+        compAsAny.resourcePolicyService.update.and.returnValue(of(createSuccessfulRemoteDataObject(resourcePolicy)));
 
         scheduler = getTestScheduler();
         scheduler.schedule(() => comp.updateResourcePolicy(eventPayload));
@@ -197,7 +220,7 @@ describe('ResourcePolicyEditComponent test suite', () => {
       });
 
       it('should notify error when update is not successful', () => {
-        compAsAny.resourcePolicyService.update.and.returnValue(observableOf(createFailedRemoteDataObject()));
+        compAsAny.resourcePolicyService.update.and.returnValue(of(createFailedRemoteDataObject()));
 
         scheduler = getTestScheduler();
         scheduler.schedule(() => comp.updateResourcePolicy(eventPayload));
@@ -214,7 +237,8 @@ describe('ResourcePolicyEditComponent test suite', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: ``,
+  standalone: true,
 })
 class TestComponent {
 

@@ -1,11 +1,15 @@
-import { ResponseParsingService } from '../data/parsing.service';
-import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
-import { RestResponse, TokenResponse } from '../cache/response.models';
-import { isNotEmpty } from '../../shared/empty.util';
 import { Injectable } from '@angular/core';
-import { RestRequest } from '../data/rest-request.model';
 
-@Injectable()
+import { isNotEmpty } from '../../shared/empty.util';
+import {
+  RestResponse,
+  TokenResponse,
+} from '../cache/response.models';
+import { ResponseParsingService } from '../data/parsing.service';
+import { RestRequest } from '../data/rest-request.model';
+import { RawRestResponse } from '../dspace-rest/raw-rest-response.model';
+
+@Injectable({ providedIn: 'root' })
 /**
  * A ResponseParsingService used to parse RawRestResponse coming from the REST API to a token string
  * wrapped in a TokenResponse

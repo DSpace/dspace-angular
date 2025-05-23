@@ -1,0 +1,76 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="border-bottom pb-2">{{'quality-assurance.title'| translate}}</h1>
+      @if (!targetId) {
+        <ds-alert [type]="'alert-info'">{{'quality-assurance.topics.description'| translate:{source: sourceId} }}</ds-alert>
+      }
+      @if (targetId) {
+        <ds-alert [type]="'alert-info'">
+          {{'quality-assurance.topics.description-with-target'| translate:{source: sourceId} }}
+          <a [routerLink]="itemPageUrl">{{(getTargetItemTitle() | async)}}</a>
+        </ds-alert>
+      }
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <h2 class="border-bottom pb-2">{{'quality-assurance.topics'| translate}}</h2>
+
+      @if ((isTopicsLoading() | async)) {
+        <ds-loading class="container" message="{{'quality-assurance.loading' | translate}}"></ds-loading>
+      }
+      @if ((isTopicsLoading() | async) !== true) {
+        <ds-pagination
+          [paginationOptions]="paginationConfig"
+          [collectionSize]="(totalElements$ | async)"
+          [hideGear]="false"
+          [hideSortOptions]="true"
+          (paginationChange)="getQualityAssuranceTopics(sourceId, targetId)">
+          @if ((isTopicsProcessing() | async)) {
+            <ds-loading class="container" message="'quality-assurance.loading' | translate"></ds-loading>
+          }
+          @if ((isTopicsProcessing() | async) !== true) {
+            @if ((topics$ | async)?.length === 0) {
+              <div class="alert alert-info w-100 mb-2 mt-2" role="alert">
+                {{'quality-assurance.noTopics' | translate}}
+              </div>
+            }
+            @if ((topics$ | async)?.length !== 0) {
+              <div class="table-responsive mt-2">
+                <table id="epeople" class="table table-striped table-hover table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col">{{'quality-assurance.table.topic' | translate}}</th>
+                      <th scope="col">{{'quality-assurance.table.last-event' | translate}}</th>
+                      <th scope="col">{{'quality-assurance.table.actions' | translate}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @for (topicElement of (topics$ | async); track topicElement; let i = $index) {
+                      <tr>
+                        <td>{{topicElement.name}}</td>
+                        <td>{{topicElement.lastEvent | date: 'dd/MM/yyyy hh:mm' }}</td>
+                        <td>
+                          <div class="btn-group edit-field">
+                            <button
+                              class="btn btn-outline-primary btn-sm"
+                              title="{{'quality-assurance.topics-list.button.detail' | translate : { param: topicElement.name } }}"
+                              [routerLink]="[getQualityAssuranceRoute(), sourceId, topicElement.id]">
+                              <span class="badge bg-info">{{topicElement.totalEvents}}</span>
+                              <i class="fas fa-info fa-fw"></i>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+            }
+          }
+        </ds-pagination>
+      }
+    </div>
+  </div>
+</div>

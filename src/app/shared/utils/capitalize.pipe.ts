@@ -1,7 +1,11 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {
+  Pipe,
+  PipeTransform,
+} from '@angular/core';
 
 @Pipe({
-  name: 'dsCapitalize'
+  name: 'dsCapitalize',
+  standalone: true,
 })
 
 /**

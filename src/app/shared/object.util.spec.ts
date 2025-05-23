@@ -1,4 +1,8 @@
-import { deleteProperty, difference, hasOnlyEmptyProperties } from './object.util';
+import {
+  deleteProperty,
+  difference,
+  hasOnlyEmptyProperties,
+} from './object.util';
 
 describe('Object Utils', () => {
   let object: any = {};

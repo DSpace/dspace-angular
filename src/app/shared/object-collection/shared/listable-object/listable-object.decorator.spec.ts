@@ -1,8 +1,12 @@
-  /* eslint-disable max-classes-per-file */
-import { ViewMode } from '../../../../core/shared/view-mode.model';
-import { DEFAULT_VIEW_MODE, getListableObjectComponent, listableObjectComponent } from './listable-object.decorator';
-import { Context } from '../../../../core/shared/context.model';
+/* eslint-disable max-classes-per-file */
 import { environment } from '../../../../../environments/environment';
+import { Context } from '../../../../core/shared/context.model';
+import { ViewMode } from '../../../../core/shared/view-mode.model';
+import {
+  DEFAULT_VIEW_MODE,
+  getListableObjectComponent,
+  listableObjectComponent,
+} from './listable-object.decorator';
 
 let ogEnvironmentThemes;
 
@@ -145,7 +149,7 @@ describe('ListableObject decorator function', () => {
           },
           {
             name: 'ancestor',         // Matches typeAncestor, but not typeUnthemed
-          }
+          },
         ];
       });
 
@@ -174,7 +178,7 @@ describe('ListableObject decorator function', () => {
         expect(() => {
           getListableObjectComponent([typeAncestor], ViewMode.ListElement, Context.Any, 'extension-cycle');
         }).toThrowError(
-          'Theme extension cycle detected: extension-cycle -> broken1 -> broken2 -> broken3 -> broken1'
+          'Theme extension cycle detected: extension-cycle -> broken1 -> broken2 -> broken3 -> broken1',
         );
       });
     });
@@ -185,7 +189,7 @@ describe('ListableObject decorator function', () => {
       environment.themes = [
         {
           name: 'custom',
-        }
+        },
       ];
     });
 

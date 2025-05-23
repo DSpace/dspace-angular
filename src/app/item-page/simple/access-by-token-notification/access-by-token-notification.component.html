@@ -1,0 +1,25 @@
+<ng-container *ngVar="(itemRequest$ | async) as itemRequest">
+  @if (hasValue(itemRequest)) {
+    @if (!itemRequest.acceptRequest) {
+      <!-- The request has NOT been accepted, display an error -->
+      <div class="alert alert-danger wb-100 mb-2 request-a-copy-access-success">
+        <p><span role="img" class="request-a-copy-access-error-icon" [attr.aria-label]="'bitstream-request-a-copy.access-by-token.alt-text' | translate"><i class="fa-solid fa-lock"></i></span>{{'bitstream-request-a-copy.access-by-token.not-granted' | translate}}</p>
+        <p>{{'bitstream-request-a-copy.access-by-token.re-request' | translate}}</p>
+      </div>
+    } @else if (itemRequest.accessExpired) {
+      <!-- The request is accepted, but the access period has expired, display an error -->
+      <div class="alert alert-danger wb-100 mb-2 request-a-copy-access-expired">
+        <p><span role="img" class="request-a-copy-access-error-icon" [attr.aria-label]="'bitstream-request-a-copy.access-by-token.alt-text' | translate"><i class="fa-solid fa-lock"></i></span>{{'bitstream-request-a-copy.access-by-token.expired' | translate}} {{ formatDate(itemRequest.accessExpiry) }}</p>
+        <p>{{'bitstream-request-a-copy.access-by-token.re-request' | translate}}</p>
+      </div>
+    } @else {
+      <div class="alert alert-warning wb-100 mb-2 request-a-copy-access-denied">
+        <p><span role="img" class="request-a-copy-access-icon" [attr.aria-label]="'bitstream-request-a-copy.access-by-token.alt-text' | translate"><i class="fa-solid fa-lock-open"></i></span>{{'bitstream-request-a-copy.access-by-token.warning' | translate}}</p>
+        <!-- Only show the expiry date if it's not null, and doesn't start with the "FOREVER" year -->
+        @if (hasValue(itemRequest.accessExpiry) && !itemRequest.accessExpiry.startsWith('+294276')) {
+          <p>{{ 'bitstream-request-a-copy.access-by-token.expiry-label' | translate }} {{ formatDate(itemRequest.accessExpiry) }}</p>
+        }
+      </div>
+    }
+  }
+</ng-container>

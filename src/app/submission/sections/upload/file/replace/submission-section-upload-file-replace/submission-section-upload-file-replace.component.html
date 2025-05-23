@@ -30,11 +30,13 @@
     <div class="mb-2 d-flex">
       <ui-switch size="small"
                  [(ngModel)]="shouldReplaceName"></ui-switch>
-      <span class="font-weight-bold ml-2">{{ 'bitstream.replace.page.replace-name' | translate }}</span>
+      <span class="font-weight-bold ms-2">{{ 'bitstream.replace.page.replace-name' | translate }}</span>
     </div>
-    <div *ngIf="!shouldReplaceName" class="mb-2">
-      <span class="text-muted"> {{ 'bitstream.replace.page.replace-name-hint' | translate }}</span>
-    </div>
+    @if (!shouldReplaceName) {
+      <div class="mb-2">
+        <span class="text-muted"> {{ 'bitstream.replace.page.replace-name-hint' | translate }}</span>
+      </div>
+    }
     <div class="button-row bottom">
       <div class="mt-4 float-right mb-2">
         <button class="save-button btn btn-primary" (click)="saveFile(uploader);"><i

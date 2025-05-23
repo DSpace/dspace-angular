@@ -1,5 +1,5 @@
-import { URLCombiner } from './url-combiner';
 import { environment } from '../../../environments/environment';
+import { URLCombiner } from './url-combiner';
 
 /**
  * Combines a variable number of strings representing parts

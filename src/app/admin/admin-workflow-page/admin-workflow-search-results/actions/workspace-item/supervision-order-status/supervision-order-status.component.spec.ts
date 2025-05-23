@@ -1,14 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NO_ERRORS_SCHEMA, SimpleChange } from '@angular/core';
+import {
+  NO_ERRORS_SCHEMA,
+  SimpleChange,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
 
-import { SupervisionOrderStatusComponent } from './supervision-order-status.component';
-import { VarDirective } from '../../../../../../shared/utils/var.directive';
 import { TranslateLoaderMock } from '../../../../../../shared/mocks/translate-loader.mock';
 import { supervisionOrderListMock } from '../../../../../../shared/testing/supervision-order.mock';
+import { VarDirective } from '../../../../../../shared/utils/var.directive';
+import { SupervisionOrderStatusComponent } from './supervision-order-status.component';
 
 describe('SupervisionOrderStatusComponent', () => {
   let component: SupervisionOrderStatusComponent;
@@ -21,16 +29,16 @@ describe('SupervisionOrderStatusComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
+        SupervisionOrderStatusComponent, VarDirective,
       ],
-      declarations: [ SupervisionOrderStatusComponent, VarDirective ],
       schemas: [
-        NO_ERRORS_SCHEMA
-      ]
+        NO_ERRORS_SCHEMA,
+      ],
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
@@ -38,7 +46,7 @@ describe('SupervisionOrderStatusComponent', () => {
     component = fixture.componentInstance;
     component.supervisionOrderList = supervisionOrderListMock;
     component.ngOnChanges(    {
-      supervisionOrderList: new SimpleChange(null, supervisionOrderListMock, true)
+      supervisionOrderList: new SimpleChange(null, supervisionOrderListMock, true),
     });
     fixture.detectChanges();
   });

@@ -8,9 +8,15 @@
 
 import { XhrFactory } from '@angular/common';
 import { Injectable } from '@angular/core';
-import { Agent as HttpAgent, AgentOptions as HttpAgentOptions } from 'http';
+import {
+  Agent as HttpAgent,
+  AgentOptions as HttpAgentOptions,
+} from 'http';
 import { Agent as HttpsAgent } from 'https';
-import { prototype, XMLHttpRequest } from 'xhr2';
+import {
+  prototype,
+  XMLHttpRequest,
+} from 'xhr2';
 
 /**
  * Allow HTTP sessions to be kept alive.
@@ -27,7 +33,7 @@ const httpAgent = new HttpAgent(agentOptions);
 const httpsAgent = new HttpsAgent(agentOptions);
 
 /**
- * Contructs the XMLHttpRequest instances used for all HttpClient requests.
+ * Constructs the XMLHttpRequest instances used for all HttpClient requests.
  * Emulated by https://github.com/pwnall/node-xhr2 on the server.
  * This class overrides the built-in Angular implementation to set additional configuration.
  *

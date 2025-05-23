@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <ng-container *ngVar="(suggestionsRD$ | async) as suggestionsRD">
+        @if ((processing$ | async)) {
+          <ds-loading></ds-loading>
+        }
+        @if ((processing$ | async) !== true && suggestionsRD?.pageInfo?.totalElements > 0) {
+          <div>
+            <h1>
+              {{'suggestion.suggestionFor' | translate}}
+              <a target="_blank" [routerLink]="['/entities/person/', researcherUuid]">{{researcherName}}</a>
+              {{'suggestion.from.source' | translate}} {{ translateSuggestionSource() | translate }}
+            </h1>
+            <div class="mb-3 mt-3">
+              <button class="btn me-2 btn-light" (click)="onToggleSelectAll(suggestionsRD.page)">Select / Deselect All</button>
+              <em>({{ getSelectedSuggestionsCount() }})</em>
+              @if (getSelectedSuggestionsCount() > 0) {
+                <ds-suggestion-actions
+                  class="m-2"
+                  [isBulk]="true"
+                  [isCollectionFixed]="isCollectionFixed(suggestionsRD.page)"
+                  (approveAndImport)="approveAndImportAllSelected($event)"
+                (ignoreSuggestionClicked)="ignoreSuggestionAllSelected()"></ds-suggestion-actions>
+              }
+              @if (isBulkOperationPending) {
+                <i class='fas fa-circle-notch fa-spin'></i>
+              }
+            </div>
+            @if ((processing$ | async) !== true) {
+              <ds-pagination
+                [paginationOptions]="paginationOptions"
+                [sortOptions]="paginationSortConfig"
+                [collectionSize]="suggestionsRD?.pageInfo?.totalElements" [hideGear]="false"
+                [hidePagerWhenSinglePage]="false" [hidePaginationDetail]="false"
+                (paginationChange)="onPaginationChange()">
+                <ul class="list-unstyled">
+                  @for (object of suggestionsRD?.page; track object; let i = $index; let last = $last) {
+                    <li class="mt-4 mb-4">
+                      <ds-suggestion-list-item
+                        [object]="object"
+                        [isSelected]="!!selectedSuggestions[object.id]"
+                        [isCollectionFixed]="isCollectionFixed([object])"
+                        (ignoreSuggestionClicked)="ignoreSuggestion($event)"
+                        (selected)="onSelected(object, $event)"
+                      (approveAndImport)="approveAndImport($event)"></ds-suggestion-list-item>
+                    </li>
+                  }
+                </ul>
+              </ds-pagination>
+            }
+          </div>
+        }
+        @if ((processing$ | async) !== true && (suggestionsRD?.pageInfo?.totalElements === 0 || !suggestionsRD)) {
+          <ds-alert [type]="'alert-info'">
+            {{'suggestion.count.missing'  | translate}}
+          </ds-alert>
+        }
+      </ng-container>
+    </div>
+  </div>
+</div>

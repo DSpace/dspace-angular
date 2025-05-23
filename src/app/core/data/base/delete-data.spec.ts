@@ -5,24 +5,35 @@
  *
  * http://www.dspace.org/license/
  */
-import { constructIdEndpointDefault } from './identifiable-data.service';
-import { RequestService } from '../request.service';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
+
+import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import {
+  createFailedRemoteDataObject,
+  createSuccessfulRemoteDataObject,
+  createSuccessfulRemoteDataObject$,
+} from '../../../shared/remote-data.utils';
+import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
 import { ObjectCacheService } from '../../cache/object-cache.service';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { FindListOptions } from '../find-list-options.model';
-import { Observable, of as observableOf } from 'rxjs';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
-import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { TestScheduler } from 'rxjs/testing';
 import { RemoteData } from '../remote-data';
+import { RequestService } from '../request.service';
 import { RequestEntryState } from '../request-entry-state.model';
-import { DeleteData, DeleteDataImpl } from './delete-data';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { createFailedRemoteDataObject, createSuccessfulRemoteDataObject, createSuccessfulRemoteDataObject$ } from '../../../shared/remote-data.utils';
 import { RestRequestMethod } from '../rest-request-method';
+import {
+  DeleteData,
+  DeleteDataImpl,
+} from './delete-data';
+import { constructIdEndpointDefault } from './identifiable-data.service';
 
 /**
  * Tests whether calls to `DeleteData` methods are correctly patched through in a concrete data service that implements it
@@ -34,7 +45,7 @@ export function testDeleteDataImplementation(serviceFactory: () => DeleteData<an
     const ID = '2ce78f3a-791b-4d70-b5eb-753d587bbadd';
     const HREF = 'https://rest.api/core/items/' + ID;
     const COPY_VIRTUAL_METADATA = [
-      'a', 'b', 'c'
+      'a', 'b', 'c',
     ];
 
     beforeAll(() => {
@@ -75,7 +86,7 @@ class TestService extends DeleteDataImpl<any> {
   }
 
   public getBrowseEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {
-    return observableOf(endpoint);
+    return of(endpoint);
   }
 }
 
@@ -105,13 +116,13 @@ describe('DeleteDataImpl', () => {
       },
       getByHref: () => {
         /* empty */
-      }
+      },
     } as any;
     notificationsService = {} as NotificationsService;
     selfLink = 'https://rest.api/endpoint/1698f1d3-be98-4c51-9fd8-6bfedcbd59b7';
     linksToFollow = [
       followLink('a'),
-      followLink('b')
+      followLink('b'),
     ];
 
     testScheduler = new TestScheduler((actual, expected) => {
@@ -158,7 +169,7 @@ describe('DeleteDataImpl', () => {
     let deleteByHrefSpy: jasmine.Spy;
 
     beforeEach(() => {
-      invalidateByHrefSpy = spyOn(service, 'invalidateByHref').and.returnValue(observableOf(true));
+      invalidateByHrefSpy = spyOn(service, 'invalidateByHref').and.returnValue(of(true));
       buildFromRequestUUIDAndAwaitSpy = spyOn(rdbService, 'buildFromRequestUUIDAndAwait').and.callThrough();
       getIDHrefObsSpy = spyOn(service, 'getIDHrefObs').and.callThrough();
       deleteByHrefSpy = spyOn(service, 'deleteByHref').and.callThrough();
@@ -168,7 +179,7 @@ describe('DeleteDataImpl', () => {
     });
 
     it('should retrieve href by ID and call deleteByHref', () => {
-      getIDHrefObsSpy.and.returnValue(observableOf('some-href'));
+      getIDHrefObsSpy.and.returnValue(of('some-href'));
       buildFromRequestUUIDAndAwaitSpy.and.returnValue(createSuccessfulRemoteDataObject$({}));
 
       service.delete('some-id', ['a', 'b', 'c']).subscribe(rd => {
@@ -179,7 +190,7 @@ describe('DeleteDataImpl', () => {
 
     describe('deleteByHref', () => {
       it('should send a DELETE request', (done) => {
-        buildFromRequestUUIDAndAwaitSpy.and.returnValue(observableOf(MOCK_SUCCEEDED_RD));
+        buildFromRequestUUIDAndAwaitSpy.and.returnValue(of(MOCK_SUCCEEDED_RD));
 
         service.deleteByHref('some-href').subscribe(() => {
           expect(requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({
@@ -191,13 +202,18 @@ describe('DeleteDataImpl', () => {
       });
 
       it('should include the virtual metadata to be copied in the DELETE request', (done) => {
-        buildFromRequestUUIDAndAwaitSpy.and.returnValue(observableOf(MOCK_SUCCEEDED_RD));
+        buildFromRequestUUIDAndAwaitSpy.and.returnValue(of(MOCK_SUCCEEDED_RD));
 
         service.deleteByHref('some-href', ['a', 'b', 'c']).subscribe(() => {
           expect(requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({
             method: RestRequestMethod.DELETE,
             href: 'some-href?copyVirtualMetadata=a&copyVirtualMetadata=b&copyVirtualMetadata=c',
           }));
+
+          const callback = (rdbService.buildFromRequestUUIDAndAwait as jasmine.Spy).calls.argsFor(0)[1];
+          callback();
+          expect(service.invalidateByHref).toHaveBeenCalledWith('some-href');
+
           done();
         });
       });
@@ -218,7 +234,7 @@ describe('DeleteDataImpl', () => {
       });
 
       it('should return the RemoteData of the response', (done) => {
-        buildFromRequestUUIDAndAwaitSpy.and.returnValue(observableOf(MOCK_SUCCEEDED_RD));
+        buildFromRequestUUIDAndAwaitSpy.and.returnValue(of(MOCK_SUCCEEDED_RD));
 
         service.deleteByHref('some-href').subscribe(rd => {
           expect(rd).toBe(MOCK_SUCCEEDED_RD);

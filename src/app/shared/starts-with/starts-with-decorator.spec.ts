@@ -1,4 +1,5 @@
-import { renderStartsWithFor, StartsWithType } from './starts-with-decorator';
+import { renderStartsWithFor } from './starts-with-decorator';
+import { StartsWithType } from './starts-with-type';
 
 describe('BrowseByStartsWithDecorator', () => {
   const textDecorator = renderStartsWithFor(StartsWithType.text);

@@ -1,5 +1,8 @@
+import {
+  ContextHelpAction,
+  ContextHelpActionTypes,
+} from './context-help.actions';
 import { ContextHelp } from './context-help.model';
-import { ContextHelpAction, ContextHelpActionTypes } from './context-help.actions';
 
 export interface ContextHelpModels {
   [id: string]: ContextHelp;
@@ -10,20 +13,20 @@ export interface ContextHelpState {
   models: ContextHelpModels;
 }
 
-const initialState: ContextHelpState = {allIconsVisible: false, models: {}};
+const initialState: ContextHelpState = { allIconsVisible: false, models: {} };
 
 export function contextHelpReducer(state: ContextHelpState = initialState, action: ContextHelpAction): ContextHelpState {
   switch (action.type) {
     case ContextHelpActionTypes.CONTEXT_HELP_TOGGLE_ICONS: {
-      return {...state, allIconsVisible: !state.allIconsVisible};
+      return { ...state, allIconsVisible: !state.allIconsVisible };
     }
     case ContextHelpActionTypes.CONTEXT_HELP_ADD: {
-      const newModels = {...state.models, [action.model.id]: action.model};
-      return {...state, models: newModels};
+      const newModels = { ...state.models, [action.model.id]: action.model };
+      return { ...state, models: newModels };
     }
     case ContextHelpActionTypes.CONTEXT_HELP_REMOVE: {
-      const {[action.id]: _, ...remainingModels} = state.models;
-      return {...state, models: remainingModels};
+      const { [action.id]: _, ...remainingModels } = state.models;
+      return { ...state, models: remainingModels };
     }
     case ContextHelpActionTypes.CONTEXT_HELP_TOGGLE_TOOLTIP: {
       return modifyTooltipVisibility(state, action.id, v => !v);
@@ -41,8 +44,8 @@ export function contextHelpReducer(state: ContextHelpState = initialState, actio
 }
 
 function modifyTooltipVisibility(state: ContextHelpState, id: string, modify: (vis: boolean) => boolean): ContextHelpState {
-  const {[id]: matchingModel, ...otherModels} = state.models;
-  const modifiedModel = {...matchingModel, isTooltipVisible: modify(matchingModel.isTooltipVisible)};
-  const newModels = {...otherModels, [id]: modifiedModel};
-  return {...state, models: newModels};
+  const { [id]: matchingModel, ...otherModels } = state.models;
+  const modifiedModel = { ...matchingModel, isTooltipVisible: modify(matchingModel.isTooltipVisible) };
+  const newModels = { ...otherModels, [id]: modifiedModel };
+  return { ...state, models: newModels };
 }

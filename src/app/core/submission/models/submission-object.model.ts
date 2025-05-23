@@ -1,8 +1,14 @@
-import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
+import {
+  autoserialize,
+  deserialize,
+  inheritSerialization,
+} from 'cerialize';
 import { Observable } from 'rxjs';
-import { link } from '../../cache/builders/build-decorators';
 
+import { link } from '../../cache/builders/build-decorators';
+import { CacheableObject } from '../../cache/cacheable-object.model';
 import { SubmissionDefinitionsModel } from '../../config/models/config-submission-definitions.model';
+import { PaginatedList } from '../../data/paginated-list.model';
 import { RemoteData } from '../../data/remote-data';
 import { EPerson } from '../../eperson/models/eperson.model';
 import { EPERSON } from '../../eperson/models/eperson.resource-type';
@@ -11,12 +17,10 @@ import { COLLECTION } from '../../shared/collection.resource-type';
 import { DSpaceObject } from '../../shared/dspace-object.model';
 import { HALLink } from '../../shared/hal-link.model';
 import { ITEM } from '../../shared/item.resource-type';
+import { SupervisionOrder } from '../../supervision-order/models/supervision-order.model';
+import { SUPERVISION_ORDER } from '../../supervision-order/models/supervision-order.resource-type';
 import { excludeFromEquals } from '../../utilities/equals.decorators';
 import { WorkspaceitemSectionsObject } from './workspaceitem-sections.model';
-import { CacheableObject } from '../../cache/cacheable-object.model';
-import { SUPERVISION_ORDER } from '../../supervision-order/models/supervision-order.resource-type';
-import { PaginatedList } from '../../data/paginated-list.model';
-import { SupervisionOrder } from '../../supervision-order/models/supervision-order.model';
 
 export interface SubmissionObjectError {
   message: string;
@@ -81,7 +85,7 @@ export abstract class SubmissionObject extends DSpaceObject implements Cacheable
    */
   @link(ITEM)
   /* This was changed from 'Observable<RemoteData<Item>> | Item' to 'any' to prevent issues in templates with async */
-  item?: any;
+    item?: any;
 
   /**
    * The configuration object that define this submission
@@ -103,6 +107,6 @@ export abstract class SubmissionObject extends DSpaceObject implements Cacheable
    */
   @link(SUPERVISION_ORDER)
   /* This was changed from 'Observable<RemoteData<WorkspaceItem>> | WorkspaceItem' to 'any' to prevent issues in templates with async */
-  supervisionOrders?: Observable<RemoteData<PaginatedList<SupervisionOrder>>>;
+    supervisionOrders?: Observable<RemoteData<PaginatedList<SupervisionOrder>>>;
 
 }

@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="border-bottom pb-2">{{'quality-assurance.title'| translate}}</h1>
+      <ds-alert [type]="'alert-info'" [content]="'quality-assurance.source.description'"></ds-alert>
+    </div>
+  </div>
+  <ds-source-list [loading]="(isSourceLoading() | async) === true || (isSourceProcessing() | async) === true"
+                  [paginationConfig]="paginationConfig"
+                  [showLastEvent]="true"
+                  [sources]="sources$ | async"
+                  [totalElements]="totalElements$ | async"
+                  (paginationChange)="getQualityAssuranceSource()"
+                  (sourceSelected)="onSelect($event)"></ds-source-list>
+</div>
+

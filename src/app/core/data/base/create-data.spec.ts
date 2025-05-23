@@ -5,23 +5,33 @@
  *
  * http://www.dspace.org/license/
  */
-import { RequestService } from '../request.service';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+
+import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
+import { NotificationsService } from '../../../shared/notifications/notifications.service';
+import {
+  createFailedRemoteDataObject,
+  createSuccessfulRemoteDataObject,
+} from '../../../shared/remote-data.utils';
+import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
 import { RemoteDataBuildService } from '../../cache/builders/remote-data-build.service';
+import { RequestParam } from '../../cache/models/request-param.model';
 import { ObjectCacheService } from '../../cache/object-cache.service';
+import { DSpaceObject } from '../../shared/dspace-object.model';
 import { HALEndpointService } from '../../shared/hal-endpoint.service';
 import { FindListOptions } from '../find-list-options.model';
-import { Observable, of as observableOf } from 'rxjs';
-import { CreateData, CreateDataImpl } from './create-data';
-import { NotificationsService } from '../../../shared/notifications/notifications.service';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
-import { HALEndpointServiceStub } from '../../../shared/testing/hal-endpoint-service.stub';
-import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
 import { RemoteData } from '../remote-data';
+import { RequestService } from '../request.service';
 import { RequestEntryState } from '../request-entry-state.model';
-import { createFailedRemoteDataObject, createSuccessfulRemoteDataObject } from '../../../shared/remote-data.utils';
-import { RequestParam } from '../../cache/models/request-param.model';
 import { RestRequestMethod } from '../rest-request-method';
-import { DSpaceObject } from '../../shared/dspace-object.model';
+import {
+  CreateData,
+  CreateDataImpl,
+} from './create-data';
 
 /**
  * Tests whether calls to `CreateData` methods are correctly patched through in a concrete data service that implements it
@@ -68,7 +78,7 @@ class TestService extends CreateDataImpl<any> {
   }
 
   public getEndpoint(options: FindListOptions = {}, linkPath: string = this.linkPath): Observable<string> {
-    return observableOf(endpoint);
+    return of(endpoint);
   }
 }
 
@@ -149,9 +159,9 @@ describe('CreateDataImpl', () => {
   describe('create', () => {
     it('should POST the object to the root endpoint with the given parameters and return the remote data', (done) => {
       const params = [
-        new RequestParam('abc', 123), new RequestParam('def', 456)
+        new RequestParam('abc', 123), new RequestParam('def', 456),
       ];
-      buildFromRequestUUIDSpy.and.returnValue(observableOf(remoteDataMocks.Success));
+      buildFromRequestUUIDSpy.and.returnValue(of(remoteDataMocks.Success));
 
       service.create(obj, ...params).subscribe(out => {
         expect(createOnEndpointSpy).toHaveBeenCalledWith(obj, jasmine.anything());
@@ -170,11 +180,11 @@ describe('CreateDataImpl', () => {
 
   describe('createOnEndpoint', () => {
     beforeEach(() => {
-      buildFromRequestUUIDSpy.and.returnValue(observableOf(remoteDataMocks.Success));
+      buildFromRequestUUIDSpy.and.returnValue(of(remoteDataMocks.Success));
     });
 
     it('should send a POST request with the object as JSON', (done) => {
-      service.createOnEndpoint(obj, observableOf('https://rest.api/core/custom?search')).subscribe(out => {
+      service.createOnEndpoint(obj, of('https://rest.api/core/custom?search')).subscribe(out => {
         expect(requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({
           method: RestRequestMethod.POST,
           body: JSON.stringify(obj),
@@ -185,7 +195,7 @@ describe('CreateDataImpl', () => {
 
     it('should send the POST request to the given endpoint', (done) => {
 
-      service.createOnEndpoint(obj, observableOf('https://rest.api/core/custom?search')).subscribe(out => {
+      service.createOnEndpoint(obj, of('https://rest.api/core/custom?search')).subscribe(out => {
         expect(requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({
           method: RestRequestMethod.POST,
           href: 'https://rest.api/core/custom?search',
@@ -195,7 +205,7 @@ describe('CreateDataImpl', () => {
     });
 
     it('should return the remote data for the sent request', (done) => {
-      service.createOnEndpoint(obj, observableOf('https://rest.api/core/custom?search')).subscribe(out => {
+      service.createOnEndpoint(obj, of('https://rest.api/core/custom?search')).subscribe(out => {
         expect(requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({
           method: RestRequestMethod.POST,
           uuid: requestService.generateRequestId(),
@@ -208,9 +218,9 @@ describe('CreateDataImpl', () => {
     });
 
     it('should show an error notification if the request fails', (done) => {
-      buildFromRequestUUIDSpy.and.returnValue(observableOf(remoteDataMocks.Error));
+      buildFromRequestUUIDSpy.and.returnValue(of(remoteDataMocks.Error));
 
-      service.createOnEndpoint(obj, observableOf('https://rest.api/core/custom?search')).subscribe(out => {
+      service.createOnEndpoint(obj, of('https://rest.api/core/custom?search')).subscribe(out => {
         expect(requestService.send).toHaveBeenCalledWith(jasmine.objectContaining({
           method: RestRequestMethod.POST,
           uuid: requestService.generateRequestId(),

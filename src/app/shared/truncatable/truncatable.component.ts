@@ -1,11 +1,18 @@
-import { AfterViewChecked, Component, ElementRef, Input, OnInit } from '@angular/core';
+import {
+  AfterViewChecked,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+} from '@angular/core';
+
 import { TruncatableService } from './truncatable.service';
 
 @Component({
   selector: 'ds-truncatable',
   templateUrl: './truncatable.component.html',
   styleUrls: ['./truncatable.component.scss'],
-
+  standalone: true,
 })
 
 /**
@@ -33,7 +40,7 @@ export class TruncatableComponent implements OnInit, AfterViewChecked {
    */
   @Input() showToggle = true;
 
-  public constructor(private service: TruncatableService, private el: ElementRef,) {
+  public constructor(private service: TruncatableService, private el: ElementRef) {
   }
 
   /**

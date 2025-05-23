@@ -1,17 +1,21 @@
-import { RequestService } from './request.service';
+import {
+  fakeAsync,
+  tick,
+} from '@angular/core/testing';
+import { Observable } from 'rxjs';
+
+import { hasNoValue } from '../../shared/empty.util';
 import { getMockRequestService } from '../../shared/mocks/request.service.mock';
+import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { HALEndpointServiceStub } from '../../shared/testing/hal-endpoint-service.stub';
 import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { fakeAsync, tick } from '@angular/core/testing';
-import { GetRequest } from './request.models';
-import { ObjectCacheService } from '../cache/object-cache.service';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
-import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
-import { Observable } from 'rxjs';
-import { RemoteData } from './remote-data';
-import { hasNoValue } from '../../shared/empty.util';
-import { AccessStatusDataService } from './access-status-data.service';
+import { ObjectCacheService } from '../cache/object-cache.service';
 import { Item } from '../shared/item.model';
+import { AccessStatusDataService } from './access-status-data.service';
+import { RemoteData } from './remote-data';
+import { GetRequest } from './request.models';
+import { RequestService } from './request.service';
 
 const url = 'fake-url';
 
@@ -29,12 +33,12 @@ describe('AccessStatusDataService', () => {
     name: 'test-item',
     _links: {
       accessStatus: {
-        href: `https://rest.api/items/${itemId}/accessStatus`
+        href: `https://rest.api/items/${itemId}/accessStatus`,
       },
       self: {
-        href: `https://rest.api/items/${itemId}`
-      }
-    }
+        href: `https://rest.api/items/${itemId}`,
+      },
+    },
   });
 
   describe('when the requests are successful', () => {
@@ -42,11 +46,11 @@ describe('AccessStatusDataService', () => {
       createService();
     });
 
-    describe('when calling findAccessStatusFor', () => {
+    describe('when calling findItemAccessStatusFor', () => {
       let contentSource$;
 
       beforeEach(() => {
-        contentSource$ = service.findAccessStatusFor(mockItem);
+        contentSource$ = service.findItemAccessStatusFor(mockItem);
       });
 
       it('should send a new GetRequest', fakeAsync(() => {
@@ -59,20 +63,20 @@ describe('AccessStatusDataService', () => {
 
   /**
    * Create an AccessStatusDataService used for testing
-   * @param reponse$   Supply a RemoteData to be returned by the REST API (optional)
+   * @param response$   Supply a RemoteData to be returned by the REST API (optional)
    */
-  function createService(reponse$?: Observable<RemoteData<any>>) {
+  function createService(response$?: Observable<RemoteData<any>>) {
     requestService = getMockRequestService();
-    let buildResponse$ = reponse$;
-    if (hasNoValue(reponse$)) {
+    let buildResponse$ = response$;
+    if (hasNoValue(response$)) {
       buildResponse$ = createSuccessfulRemoteDataObject$({});
     }
     rdbService = jasmine.createSpyObj('rdbService', {
       buildFromRequestUUID: buildResponse$,
-      buildSingle: buildResponse$
+      buildSingle: buildResponse$,
     });
     objectCache = jasmine.createSpyObj('objectCache', {
-      remove: jasmine.createSpy('remove')
+      remove: jasmine.createSpy('remove'),
     });
     halService = new HALEndpointServiceStub(url);
     notificationsService = new NotificationsServiceStub();

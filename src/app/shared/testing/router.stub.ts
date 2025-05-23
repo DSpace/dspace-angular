@@ -1,11 +1,12 @@
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
+
 export class RouterStub {
   url: string;
-  routeReuseStrategy = {shouldReuseRoute: {}};
+  routeReuseStrategy = { shouldReuseRoute: {} };
   //noinspection TypeScriptUnresolvedFunction
   navigate = jasmine.createSpy('navigate');
   parseUrl = jasmine.createSpy('parseUrl');
-  events = observableOf({});
+  events = of({});
   navigateByUrl(url): void {
     this.url = url;
   }

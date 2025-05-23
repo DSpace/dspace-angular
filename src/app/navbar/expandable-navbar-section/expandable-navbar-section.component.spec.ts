@@ -1,15 +1,29 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
-import { ExpandableNavbarSectionComponent } from './expandable-navbar-section.component';
+import {
+  Component,
+  DebugElement,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  flush,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { MenuServiceStub } from '../../shared/testing/menu-service.stub';
-import { Component } from '@angular/core';
-import { of as observableOf } from 'rxjs';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { of } from 'rxjs';
+
 import { HostWindowService } from '../../shared/host-window.service';
 import { MenuService } from '../../shared/menu/menu.service';
+import { LinkMenuItemModel } from '../../shared/menu/menu-item/models/link.model';
+import {
+  MenuItemModels,
+  MenuSection,
+} from '../../shared/menu/menu-section.model';
 import { HostWindowServiceStub } from '../../shared/testing/host-window-service.stub';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { VarDirective } from '../../shared/utils/var.directive';
+import { MenuServiceStub } from '../../shared/testing/menu-service.stub';
+import { HoverOutsideDirective } from '../../shared/utils/hover-outside.directive';
+import { ExpandableNavbarSectionComponent } from './expandable-navbar-section.component';
 
 describe('ExpandableNavbarSectionComponent', () => {
   let component: ExpandableNavbarSectionComponent;
@@ -19,23 +33,23 @@ describe('ExpandableNavbarSectionComponent', () => {
   describe('on larger screens', () => {
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [NoopAnimationsModule],
-        declarations: [ExpandableNavbarSectionComponent, TestComponent, VarDirective],
+        imports: [
+          ExpandableNavbarSectionComponent,
+          HoverOutsideDirective,
+          NoopAnimationsModule,
+          TestComponent,
+        ],
         providers: [
           { provide: 'sectionDataProvider', useValue: {} },
           { provide: MenuService, useValue: menuService },
-          { provide: HostWindowService, useValue: new HostWindowServiceStub(800) }
-        ]
-      }).overrideComponent(ExpandableNavbarSectionComponent, {
-        set: {
-          entryComponents: [TestComponent]
-        }
-      })
-        .compileComponents();
+          { provide: HostWindowService, useValue: new HostWindowServiceStub(800) },
+          TestComponent,
+        ],
+      }).compileComponents();
     }));
 
     beforeEach(() => {
-      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(observableOf([]));
+      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(of([{ id: 'test', visible: true, model: {} as MenuItemModels }]));
 
       fixture = TestBed.createComponent(ExpandableNavbarSectionComponent);
       component = fixture.componentInstance;
@@ -43,124 +57,253 @@ describe('ExpandableNavbarSectionComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should create', () => {
-      expect(component).toBeTruthy();
-    });
-
-    describe('when the mouse enters the section header', () => {
+    describe('when the mouse enters the section header (while inactive)', () => {
       beforeEach(() => {
+        spyOn(component, 'onMouseEnter').and.callThrough();
+        spyOn(component, 'activateSection').and.callThrough();
         spyOn(menuService, 'activateSection');
-        const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown'));
+        // Make sure section is 'inactive'. Requires calling ngOnInit() to update component 'active' property.
+        spyOn(menuService, 'isSectionActive').and.returnValue(of(false));
+        component.ngOnInit();
+        fixture.detectChanges();
+
+        const sidebarToggler = fixture.debugElement.query(By.css('[data-test="navbar-section-wrapper"]'));
         sidebarToggler.triggerEventHandler('mouseenter', {
           preventDefault: () => {/**/
-          }
+          },
         });
       });
 
-      it('should call activateSection on the menuService', () => {
+      it('should call onMouseEnter', () => {
+        expect(component.onMouseEnter).toHaveBeenCalled();
+      });
+
+      it('should activate the section', () => {
+        expect(component.activateSection).toHaveBeenCalled();
         expect(menuService.activateSection).toHaveBeenCalled();
       });
     });
 
-    describe('when the mouse leaves the section header', () => {
+    describe('when the mouse leaves the section header (while active)', () => {
       beforeEach(() => {
+        spyOn(component, 'onMouseLeave').and.callThrough();
+        spyOn(component, 'deactivateSection').and.callThrough();
         spyOn(menuService, 'deactivateSection');
-        const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown'));
+        // Make sure section is 'active'. Requires calling ngOnInit() to update component 'active' property.
+        spyOn(menuService, 'isSectionActive').and.returnValue(of(true));
+        component.ngOnInit();
+        component.mouseEntered = true;
+        fixture.detectChanges();
+
+        const sidebarToggler = fixture.debugElement.query(By.css('[data-test="navbar-section-wrapper"]'));
         sidebarToggler.triggerEventHandler('mouseleave', {
           preventDefault: () => {/**/
-          }
+          },
         });
       });
 
-      it('should call deactivateSection on the menuService', () => {
+      it('should call onMouseLeave', () => {
+        expect(component.onMouseLeave).toHaveBeenCalled();
+      });
+
+      it('should deactivate the section', () => {
+        expect(component.deactivateSection).toHaveBeenCalled();
         expect(menuService.deactivateSection).toHaveBeenCalled();
       });
     });
 
     describe('when Enter key is pressed on section header (while inactive)', () => {
       beforeEach(() => {
-        spyOn(menuService, 'activateSection');
+        spyOn(component, 'toggleSection').and.callThrough();
+        spyOn(menuService, 'toggleActiveSection');
         // Make sure section is 'inactive'. Requires calling ngOnInit() to update component 'active' property.
-        spyOn(menuService, 'isSectionActive').and.returnValue(observableOf(false));
+        spyOn(menuService, 'isSectionActive').and.returnValue(of(false));
         component.ngOnInit();
         fixture.detectChanges();
 
-        const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown'));
+        const sidebarToggler = fixture.debugElement.query(By.css('[data-test="navbar-section-toggler"]'));
         // dispatch the (keyup.enter) action used in our component HTML
         sidebarToggler.nativeElement.dispatchEvent(new KeyboardEvent('keyup', { key: 'Enter' }));
       });
 
       it('should call activateSection on the menuService', () => {
-        expect(menuService.activateSection).toHaveBeenCalled();
+        expect(component.toggleSection).toHaveBeenCalled();
+        expect(menuService.toggleActiveSection).toHaveBeenCalled();
       });
     });
 
     describe('when Enter key is pressed on section header (while active)', () => {
       beforeEach(() => {
-        spyOn(menuService, 'deactivateSection');
+        spyOn(component, 'toggleSection').and.callThrough();
+        spyOn(menuService, 'toggleActiveSection');
         // Make sure section is 'active'. Requires calling ngOnInit() to update component 'active' property.
-        spyOn(menuService, 'isSectionActive').and.returnValue(observableOf(true));
+        spyOn(menuService, 'isSectionActive').and.returnValue(of(true));
         component.ngOnInit();
         fixture.detectChanges();
 
-        const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown'));
+        const sidebarToggler = fixture.debugElement.query(By.css('[data-test="navbar-section-toggler"]'));
         // dispatch the (keyup.enter) action used in our component HTML
         sidebarToggler.nativeElement.dispatchEvent(new KeyboardEvent('keyup', { key: 'Enter' }));
       });
 
-      it('should call deactivateSection on the menuService', () => {
-        expect(menuService.deactivateSection).toHaveBeenCalled();
+      it('should call toggleSection on the menuService', () => {
+        expect(component.toggleSection).toHaveBeenCalled();
+        expect(menuService.toggleActiveSection).toHaveBeenCalled();
       });
     });
 
     describe('when spacebar is pressed on section header (while inactive)', () => {
+      let sidebarToggler: DebugElement;
+
       beforeEach(() => {
-        spyOn(menuService, 'activateSection');
+        spyOn(component, 'toggleSection').and.callThrough();
+        spyOn(menuService, 'toggleActiveSection');
         // Make sure section is 'inactive'. Requires calling ngOnInit() to update component 'active' property.
-        spyOn(menuService, 'isSectionActive').and.returnValue(observableOf(false));
+        spyOn(menuService, 'isSectionActive').and.returnValue(of(false));
         component.ngOnInit();
         fixture.detectChanges();
 
-        const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown'));
-        // dispatch the (keyup.space) action used in our component HTML
-        sidebarToggler.nativeElement.dispatchEvent(new KeyboardEvent('keyup', { key: ' ' }));
+        sidebarToggler = fixture.debugElement.query(By.css('[data-test="navbar-section-toggler"]'));
       });
 
-      it('should call activateSection on the menuService', () => {
-        expect(menuService.activateSection).toHaveBeenCalled();
+      it('should call toggleSection on the menuService', () => {
+        // dispatch the (keyup.space) action used in our component HTML
+        sidebarToggler.nativeElement.dispatchEvent(new KeyboardEvent('keyup', { code: 'Space', key: ' ' }));
+
+        expect(component.toggleSection).toHaveBeenCalled();
+        expect(menuService.toggleActiveSection).toHaveBeenCalled();
+      });
+
+      // Should not do anything in order to work correctly with NVDA: https://www.nvaccess.org/
+      it('should not do anything on keydown space', () => {
+        const event: Event = new KeyboardEvent('keydown', { code: 'Space', key: ' ' });
+        spyOn(event, 'preventDefault').and.callThrough();
+
+        // dispatch the (keyup.space) action used in our component HTML
+        sidebarToggler.nativeElement.dispatchEvent(event);
+
+        expect(event.preventDefault).toHaveBeenCalled();
       });
     });
 
     describe('when spacebar is pressed on section header (while active)', () => {
       beforeEach(() => {
-        spyOn(menuService, 'deactivateSection');
+        spyOn(component, 'toggleSection').and.callThrough();
+        spyOn(menuService, 'toggleActiveSection');
         // Make sure section is 'active'. Requires calling ngOnInit() to update component 'active' property.
-        spyOn(menuService, 'isSectionActive').and.returnValue(observableOf(true));
+        spyOn(menuService, 'isSectionActive').and.returnValue(of(true));
         component.ngOnInit();
         fixture.detectChanges();
 
-        const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown'));
+        const sidebarToggler = fixture.debugElement.query(By.css('[data-test="navbar-section-toggler"]'));
         // dispatch the (keyup.space) action used in our component HTML
         sidebarToggler.nativeElement.dispatchEvent(new KeyboardEvent('keyup', { key: ' ' }));
       });
 
-      it('should call deactivateSection on the menuService', () => {
-        expect(menuService.deactivateSection).toHaveBeenCalled();
+      it('should call toggleSection on the menuService', () => {
+        expect(component.toggleSection).toHaveBeenCalled();
+        expect(menuService.toggleActiveSection).toHaveBeenCalled();
       });
     });
 
-    describe('when a click occurs on the section header', () => {
+    describe('when enter is pressed on section header (while inactive)', () => {
+      let sidebarToggler: DebugElement;
+
       beforeEach(() => {
+        spyOn(component, 'toggleSection').and.callThrough();
         spyOn(menuService, 'toggleActiveSection');
-        const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown > a'));
-        sidebarToggler.triggerEventHandler('click', {
-          preventDefault: () => {/**/
-          }
-        });
+        // Make sure section is 'inactive'. Requires calling ngOnInit() to update component 'active' property.
+        spyOn(menuService, 'isSectionActive').and.returnValue(of(false));
+        component.ngOnInit();
+        fixture.detectChanges();
+
+        sidebarToggler = fixture.debugElement.query(By.css('[data-test="navbar-section-toggler"]'));
       });
 
-      it('should not call toggleActiveSection on the menuService', () => {
-        expect(menuService.toggleActiveSection).not.toHaveBeenCalled();
+      // Should not do anything in order to work correctly with NVDA: https://www.nvaccess.org/
+      it('should not do anything on keydown space', () => {
+        const event: Event = new KeyboardEvent('keydown', { code: 'Enter' });
+        spyOn(event, 'preventDefault').and.callThrough();
+
+        // dispatch the (keyup.space) action used in our component HTML
+        sidebarToggler.nativeElement.dispatchEvent(event);
+
+        expect(event.preventDefault).toHaveBeenCalled();
+      });
+    });
+
+    describe('when arrow down is pressed on section header', () => {
+      it('should call activateSection', () => {
+        spyOn(component, 'activateSection').and.callThrough();
+
+        const sidebarToggler: DebugElement = fixture.debugElement.query(By.css('[data-test="navbar-section-toggler"]'));
+        // dispatch the (keydown.ArrowDown) action used in our component HTML
+        sidebarToggler.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowDown' }));
+
+        expect(component.focusOnFirstChildSection).toBe(true);
+        expect(component.activateSection).toHaveBeenCalled();
+      });
+    });
+
+    describe('when tab is pressed on section header', () => {
+      it('should call deactivateSection', () => {
+        spyOn(component, 'deactivateSection').and.callThrough();
+
+        const sidebarToggler: DebugElement = fixture.debugElement.query(By.css('[data-test="navbar-section-toggler"]'));
+        // dispatch the (keydown.ArrowDown) action used in our component HTML
+        sidebarToggler.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { code: 'Tab' }));
+
+        expect(component.deactivateSection).toHaveBeenCalled();
+      });
+    });
+
+    describe('navigateDropdown', () => {
+      beforeEach(fakeAsync(() => {
+        jasmine.getEnv().allowRespy(true);
+        spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(of([
+          {
+            id: 'subSection1',
+            model: Object.assign(new LinkMenuItemModel(), {
+              type: 'TEST_LINK',
+            }),
+            visible: true,
+            parentID: component.section.id,
+          },
+          {
+            id: 'subSection2',
+            model: Object.assign(new LinkMenuItemModel(), {
+              type: 'TEST_LINK',
+            }),
+            visible: true,
+            parentID: component.section.id,
+          },
+        ] as MenuSection[]));
+        component.ngOnInit();
+        flush();
+        fixture.detectChanges();
+        component.focusOnFirstChildSection = true;
+        component.active$.next(true);
+        fixture.detectChanges();
+      }));
+
+      it('should close the modal on Tab', () => {
+        spyOn(menuService, 'deactivateSection').and.callThrough();
+
+        const firstSubsection: DebugElement = fixture.debugElement.queryAll(By.css('.dropdown-menu a[role="menuitem"]'))[0];
+        firstSubsection.nativeElement.focus();
+        firstSubsection.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { code: 'Tab' }));
+
+        expect(menuService.deactivateSection).toHaveBeenCalled();
+      });
+
+      it('should close the modal on Escape', () => {
+        spyOn(menuService, 'deactivateSection').and.callThrough();
+
+        const firstSubsection: DebugElement = fixture.debugElement.queryAll(By.css('.dropdown-menu a[role="menuitem"]'))[0];
+        firstSubsection.nativeElement.focus();
+        firstSubsection.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { code: 'Escape' }));
+
+        expect(menuService.deactivateSection).toHaveBeenCalled();
       });
     });
   });
@@ -168,23 +311,22 @@ describe('ExpandableNavbarSectionComponent', () => {
   describe('on smaller, mobile screens', () => {
     beforeEach(waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [NoopAnimationsModule],
-        declarations: [ExpandableNavbarSectionComponent, TestComponent, VarDirective],
+        imports: [
+          ExpandableNavbarSectionComponent,
+          HoverOutsideDirective,
+          NoopAnimationsModule,
+          TestComponent,
+        ],
         providers: [
           { provide: 'sectionDataProvider', useValue: {} },
           { provide: MenuService, useValue: menuService },
-          { provide: HostWindowService, useValue: new HostWindowServiceStub(300) }
-        ]
-      }).overrideComponent(ExpandableNavbarSectionComponent, {
-        set: {
-          entryComponents: [TestComponent]
-        }
-      })
-        .compileComponents();
+          { provide: HostWindowService, useValue: new HostWindowServiceStub(300) },
+        ],
+      }).compileComponents();
     }));
 
     beforeEach(() => {
-      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(observableOf([]));
+      spyOn(menuService, 'getSubSectionsByParentID').and.returnValue(of([{ id: 'test', visible: true, model: {} as MenuItemModels }]));
 
       fixture = TestBed.createComponent(ExpandableNavbarSectionComponent);
       component = fixture.componentInstance;
@@ -195,10 +337,10 @@ describe('ExpandableNavbarSectionComponent', () => {
     describe('when the mouse enters the section header', () => {
       beforeEach(() => {
         spyOn(menuService, 'activateSection');
-        const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown > a'));
+        const sidebarToggler = fixture.debugElement.query(By.css('[data-test="navbar-section-wrapper"]'));
         sidebarToggler.triggerEventHandler('mouseenter', {
           preventDefault: () => {/**/
-          }
+          },
         });
       });
 
@@ -210,10 +352,10 @@ describe('ExpandableNavbarSectionComponent', () => {
     describe('when the mouse leaves the section header', () => {
       beforeEach(() => {
         spyOn(menuService, 'deactivateSection');
-        const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown > a'));
+        const sidebarToggler = fixture.debugElement.query(By.css('[data-test="navbar-section-wrapper"]'));
         sidebarToggler.triggerEventHandler('mouseleave', {
           preventDefault: () => {/**/
-          }
+          },
         });
       });
 
@@ -225,10 +367,10 @@ describe('ExpandableNavbarSectionComponent', () => {
     describe('when a click occurs on the section header link', () => {
       beforeEach(() => {
         spyOn(menuService, 'toggleActiveSection');
-        const sidebarToggler = fixture.debugElement.query(By.css('div.nav-item.dropdown > a'));
+        const sidebarToggler = fixture.debugElement.query(By.css('[data-test="navbar-section-toggler"]'));
         sidebarToggler.triggerEventHandler('click', {
           preventDefault: () => {/**/
-          }
+          },
         });
       });
 
@@ -243,7 +385,10 @@ describe('ExpandableNavbarSectionComponent', () => {
 // declare a test component
 @Component({
   selector: 'ds-test-cmp',
-  template: ``
+  template: `
+    <a role="menuitem">link</a>
+  `,
+  standalone: true,
 })
 class TestComponent {
 }

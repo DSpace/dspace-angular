@@ -1,28 +1,91 @@
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+// eslint-disable-next-line max-classes-per-file
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Injector,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { TranslateModule } from '@ngx-translate/core';
-import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { MenuService } from './menu.service';
-import { MenuComponent } from './menu.component';
-import { MenuServiceStub } from '../testing/menu-service.stub';
-import { of as observableOf } from 'rxjs';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MenuSection } from './menu-section.model';
-import { MenuID } from './menu-id.model';
-import { Item } from '../../core/shared/item.model';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import {
+  MockStore,
+  provideMockStore,
+} from '@ngrx/store/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  BehaviorSubject,
+  of,
+} from 'rxjs';
+
+import {
+  AppState,
+  storeModuleConfig,
+} from '../../app.reducer';
+import { authReducer } from '../../core/auth/auth.reducer';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
+import { Item } from '../../core/shared/item.model';
+import { getMockThemeService } from '../mocks/theme-service.mock';
 import { createSuccessfulRemoteDataObject } from '../remote-data.utils';
 import { ThemeService } from '../theme-support/theme.service';
-import { getMockThemeService } from '../mocks/theme-service.mock';
+import { MenuComponent } from './menu.component';
+import { MenuService } from './menu.service';
+import { MenuID } from './menu-id.model';
+import { LinkMenuItemModel } from './menu-item/models/link.model';
+import { TextMenuItemModel } from './menu-item/models/text.model';
+import { MenuItemType } from './menu-item-type.model';
+import { rendersSectionForMenu } from './menu-section.decorator';
+import { MenuSection } from './menu-section.model';
+
+const mockMenuID = 'mock-menuID' as MenuID;
+
+@Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
+  selector: '',
+  template: '',
+  standalone: true,
+})
+@rendersSectionForMenu(mockMenuID, true)
+class TestExpandableMenuComponent {
+}
+
+@Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
+  selector: '',
+  template: '',
+  standalone: true,
+})
+@rendersSectionForMenu(mockMenuID, false)
+class TestMenuComponent {
+}
 
 describe('MenuComponent', () => {
   let comp: MenuComponent;
   let fixture: ComponentFixture<MenuComponent>;
   let menuService: MenuService;
+  let store: MockStore;
   let router: any;
 
-  const mockMenuID = 'mock-menuID' as MenuID;
+  const menuSection: MenuSection =       {
+    id: 'browse',
+    model: {
+      type: MenuItemType.TEXT,
+      text: 'menu.section.browse_global',
+    } as TextMenuItemModel,
+    icon: 'globe',
+    visible: true,
+  };
 
   const mockStatisticSection = { 'id': 'statistics_site', 'active': true, 'visible': true, 'index': 2, 'type': 'statistics', 'model': { 'type': 1, 'text': 'menu.section.statistics', 'link': 'statistics' } };
 
@@ -35,38 +98,65 @@ describe('MenuComponent', () => {
     lastModified: '2018',
     _links: {
       self: {
-        href: 'https://localhost:8000/items/fake-id'
-      }
-    }
+        href: 'https://localhost:8000/items/fake-id',
+      },
+    },
   });
 
 
   const routeStub = {
-    data: observableOf({
-      dso: createSuccessfulRemoteDataObject(mockItem)
+    data: of({
+      dso: createSuccessfulRemoteDataObject(mockItem),
     }),
-    children: []
+    children: [],
+  };
+
+  const initialState = {
+    menus: {
+      [mockMenuID]: {
+        collapsed: true,
+        id: mockMenuID,
+        previewCollapsed: true,
+        sectionToSubsectionIndex: {
+          section1: [],
+        },
+        sections: {
+          section1: {
+            id: 'section1',
+            active: false,
+            visible: true,
+            alwaysRenderExpandable: false,
+            model: {
+              type: MenuItemType.LINK,
+              text: 'test',
+              link: '/test',
+            } as LinkMenuItemModel,
+          },
+        },
+        visible: true,
+      },
+    },
   };
 
   beforeEach(waitForAsync(() => {
 
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(false)
+      isAuthorized: of(false),
     });
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule],
-      declarations: [MenuComponent],
+      imports: [TranslateModule.forRoot(), NoopAnimationsModule, RouterTestingModule, MenuComponent, StoreModule.forRoot(authReducer, storeModuleConfig), TestExpandableMenuComponent, TestMenuComponent],
       providers: [
         Injector,
         { provide: ThemeService, useValue: getMockThemeService() },
-        { provide: MenuService, useClass: MenuServiceStub },
+        MenuService,
+        provideMockStore({ initialState }),
         { provide: AuthorizationDataService, useValue: authorizationService },
         { provide: ActivatedRoute, useValue: routeStub },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(MenuComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -74,11 +164,62 @@ describe('MenuComponent', () => {
     fixture = TestBed.createComponent(MenuComponent);
     comp = fixture.componentInstance; // SearchPageComponent test instance
     comp.menuID = mockMenuID;
-    menuService = (comp as any).menuService;
-    router = TestBed.inject(Router);
-    spyOn(comp as any, 'getSectionDataInjector').and.returnValue(MenuSection);
-    spyOn(comp as any, 'getSectionComponent').and.returnValue(observableOf({}));
+    menuService = TestBed.inject(MenuService);
+    store = TestBed.inject(Store) as MockStore<AppState>;
+    spyOn(comp as any, 'getSectionDataInjector').and.returnValue(menuSection);
     fixture.detectChanges();
+  });
+
+  describe('ngOnInit', () => {
+    it('should trigger the section observable again when a new sub section has been added', () => {
+      spyOn(comp.sectionMap$, 'next').and.callThrough();
+      const hasSubSections = new BehaviorSubject(false);
+      spyOn(menuService, 'hasSubSections').and.returnValue(hasSubSections.asObservable());
+      spyOn(store, 'dispatch').and.callThrough();
+
+      store.setState({
+        menus: {
+          [mockMenuID]: {
+            collapsed: true,
+            id: mockMenuID,
+            previewCollapsed: true,
+            sectionToSubsectionIndex: {
+              section1: ['test'],
+            },
+            sections: {
+              section1: {
+                id: 'section1',
+                active: false,
+                visible: true,
+                alwaysRenderExpandable: false,
+                model: {
+                  type: MenuItemType.LINK,
+                  text: 'test',
+                  link: '/test',
+                } as LinkMenuItemModel,
+              },
+              test: {
+                id: 'test',
+                parentID: 'section1',
+                active: false,
+                visible: true,
+                alwaysRenderExpandable: false,
+                model: {
+                  type: MenuItemType.LINK,
+                  text: 'test',
+                  link: '/test',
+                } as LinkMenuItemModel,
+              },
+            },
+            visible: true,
+          },
+        },
+      });
+      expect(menuService.hasSubSections).toHaveBeenCalled();
+      hasSubSections.next(true);
+
+      expect(comp.sectionMap$.next).toHaveBeenCalled();
+    });
   });
 
   describe('toggle', () => {
@@ -132,35 +273,4 @@ describe('MenuComponent', () => {
       expect(menuService.collapseMenuPreview).toHaveBeenCalledWith(comp.menuID);
     }));
   });
-
-  describe('when unauthorized statistics', () => {
-
-    beforeEach(() => {
-      (authorizationService as any).isAuthorized.and.returnValue(observableOf(false));
-      fixture.detectChanges();
-    });
-
-    it('should return observable of empty object', done => {
-      comp.getAuthorizedStatistics(mockStatisticSection).subscribe((res) => {
-        expect(res).toEqual({});
-        done();
-      });
-    });
-  });
-
-  describe('get authorized statistics', () => {
-
-    beforeEach(() => {
-      (authorizationService as any).isAuthorized.and.returnValue(observableOf(true));
-      fixture.detectChanges();
-    });
-
-    it('should return observable of statistics section menu', done => {
-      comp.getAuthorizedStatistics(mockStatisticSection).subscribe((res) => {
-        expect(res).toEqual(mockStatisticSection);
-        done();
-      });
-    });
-  });
-
 });

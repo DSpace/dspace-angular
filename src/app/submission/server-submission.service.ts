@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
+import {
+  Observable,
+  of,
+} from 'rxjs';
 
-import { Observable, of as observableOf } from 'rxjs';
-
-import { SubmissionService } from './submission.service';
-import { SubmissionObject } from '../core/submission/models/submission-object.model';
 import { RemoteData } from '../core/data/remote-data';
+import { SubmissionObject } from '../core/submission/models/submission-object.model';
+import { SubmissionService } from './submission.service';
 
 /**
  * Instance of SubmissionService used on SSR.
@@ -19,7 +21,7 @@ export class ServerSubmissionService extends SubmissionService {
    *    observable of SubmissionObject
    */
   createSubmission(): Observable<SubmissionObject> {
-    return observableOf(null);
+    return of(null);
   }
 
   /**
@@ -29,7 +31,7 @@ export class ServerSubmissionService extends SubmissionService {
    *    observable of SubmissionObject
    */
   retrieveSubmission(submissionId): Observable<RemoteData<SubmissionObject>> {
-    return observableOf(null);
+    return of(null);
   }
 
   /**

@@ -1,0 +1,27 @@
+<div class="container my-4">
+  <div class="row">
+    <div class="col-12 col-md-3 text-left h4">{{((isInbound$ | async) ? 'admin.notify.dashboard.inbound'  : 'admin.notify.dashboard.outbound') | translate}}</div>
+    <div class="col-md-9">
+      <div class="h4">
+        @if ((selectedSearchConfig$ | async) !== defaultConfiguration) {
+          <button (click)="resetDefaultConfiguration()" class="badge bg-primary me-1 mb-1">
+            {{ 'admin-notify-logs.' + (selectedSearchConfig$ | async) | translate}}
+            <span> ×</span>
+          </button>
+        }
+      </div>
+      <ds-search-labels [inPlaceSearch]="true"></ds-search-labels>
+    </div>
+  </div>
+</div>
+
+
+<div>
+  <ds-search
+    [configuration]="selectedSearchConfig$ | async"
+    [showViewModes]="false"
+    [searchEnabled]="false"
+    [context]="context"
+  ></ds-search>
+</div>
+

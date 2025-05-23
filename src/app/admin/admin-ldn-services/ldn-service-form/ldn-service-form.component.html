@@ -1,0 +1,364 @@
+<div class="container">
+  <form (ngSubmit)="onSubmit()" [formGroup]="formModel">
+    <div class="d-flex">
+      <h1 class="flex-grow-1">{{ isNewService ? ('ldn-create-service.title' | translate) : ('ldn-edit-registered-service.title' | translate) }}</h1>
+    </div>
+    <!-- In the toggle section -->
+    @if (!isNewService) {
+      <div class="toggle-switch-container">
+        <label class="status-label font-weight-bold" for="enabled">{{ 'ldn-service-status' | translate }}</label>
+        <div>
+          <input formControlName="enabled" hidden id="enabled" name="enabled" type="checkbox">
+          <div (click)="toggleEnabled()" [class.checked]="formModel.get('enabled').value" class="toggle-switch">
+            <div class="slider"></div>
+          </div>
+        </div>
+      </div>
+    }
+    <!-- In the Name section -->
+    <div class="mb-5">
+      <label for="name" class="font-weight-bold">{{ 'ldn-new-service.form.label.name' | translate }}</label>
+      <input [class.invalid-field]="formModel.get('name').invalid && formModel.get('name').touched"
+        [placeholder]="'ldn-new-service.form.placeholder.name' | translate" class="form-control"
+        formControlName="name"
+        id="name"
+        name="name"
+        type="text">
+      @if (formModel.get('name').invalid && formModel.get('name').touched) {
+        <div class="error-text">
+          {{ 'ldn-new-service.form.error.name' | translate }}
+        </div>
+      }
+    </div>
+
+    <!-- In the description section -->
+    <div class="mb-5 mt-5 d-flex flex-column">
+      <label for="description" class="font-weight-bold">{{ 'ldn-new-service.form.label.description' | translate }}</label>
+      <textarea [placeholder]="'ldn-new-service.form.placeholder.description' | translate"
+      class="form-control" formControlName="description" id="description" name="description"></textarea>
+    </div>
+
+    <div class="mb-5 mt-5">
+      <!-- In the url section -->
+      <div class="d-flex align-items-center">
+        <div class="d-flex flex-column w-50 me-2">
+          <label for="url" class="font-weight-bold">{{ 'ldn-new-service.form.label.url' | translate }}</label>
+          <input [class.invalid-field]="formModel.get('url').invalid && formModel.get('url').touched"
+            [placeholder]="'ldn-new-service.form.placeholder.url' | translate" class="form-control"
+            formControlName="url"
+            id="url"
+            name="url"
+            type="text">
+          @if (formModel.get('url').invalid && formModel.get('url').touched) {
+            <div class="error-text">
+              {{ 'ldn-new-service.form.error.url' | translate }}
+            </div>
+          }
+        </div>
+
+        <div class="d-flex flex-column w-50">
+          <label for="score" class="font-weight-bold">{{ 'ldn-new-service.form.label.score' | translate }}</label>
+          <input [class.invalid-field]="formModel.get('score').invalid && formModel.get('score').touched"
+            [placeholder]="'ldn-new-service.form.placeholder.score' | translate" formControlName="score"
+            id="score"
+            name="score"
+            min="0"
+            max="1"
+            step=".01"
+            class="form-control"
+            type="number">
+          @if (formModel.get('score').invalid && formModel.get('score').touched) {
+            <div class="error-text">
+              {{ 'ldn-new-service.form.error.score' | translate }}
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- In the IP range section -->
+    <div class="mb-5 mt-5">
+      <label for="lowerIp" class="font-weight-bold">{{ 'ldn-new-service.form.label.ip-range' | translate }}</label>
+      <div class="d-flex">
+        <input [class.invalid-field]="formModel.get('lowerIp').invalid && formModel.get('lowerIp').touched"
+          [placeholder]="'ldn-new-service.form.placeholder.lowerIp' | translate" class="form-control me-2"
+          formControlName="lowerIp"
+          id="lowerIp"
+          name="lowerIp"
+          type="text">
+        <input [class.invalid-field]="formModel.get('upperIp').invalid && formModel.get('upperIp').touched"
+          [placeholder]="'ldn-new-service.form.placeholder.upperIp' | translate" class="form-control"
+          formControlName="upperIp"
+          id="upperIp"
+          name="upperIp"
+          type="text">
+      </div>
+      @if ((formModel.get('lowerIp').invalid && formModel.get('lowerIp').touched) || (formModel.get('upperIp').invalid && formModel.get('upperIp').touched)) {
+        <div class="error-text">
+          {{ 'ldn-new-service.form.error.ipRange' | translate }}
+        </div>
+      }
+      <div class="text-muted">
+        {{ 'ldn-new-service.form.hint.ipRange' | translate }}
+      </div>
+    </div>
+
+    <!-- In the ldnUrl section -->
+    <div class="mb-5 mt-5">
+      <label for="ldnUrl" class="font-weight-bold">{{ 'ldn-new-service.form.label.ldnUrl' | translate }}</label>
+      <input [class.invalid-field]="formModel.get('ldnUrl').invalid && formModel.get('ldnUrl').touched"
+        [placeholder]="'ldn-new-service.form.placeholder.ldnUrl' | translate" class="form-control"
+        formControlName="ldnUrl"
+        id="ldnUrl"
+        name="ldnUrl"
+        type="text">
+      @if (formModel.get('ldnUrl').invalid && formModel.get('ldnUrl').touched) {
+        <div >
+          @if (formModel.get('ldnUrl').errors['required']) {
+            <div class="error-text">
+              {{ 'ldn-new-service.form.error.ldnurl' | translate }}
+            </div>
+          }
+          @if (formModel.get('ldnUrl').errors['ldnUrlAlreadyAssociated']) {
+            <div class="error-text">
+              {{ 'ldn-new-service.form.error.ldnurl.ldnUrlAlreadyAssociated' | translate }}
+            </div>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- In the usesActorEmailId section -->
+    <div class="mb-5 mt-5">
+      <label class="status-label font-weight-bold" for="usesActorEmailId">{{ 'ldn-service-usesActorEmailId' | translate }}</label>
+      <div>
+        <input formControlName="usesActorEmailId" hidden id="usesActorEmailId"
+               name="usesActorEmailId" type="checkbox">
+        <div (click)="toggleUsesActorEmailId()"
+             [class.checked]="formModel.get('usesActorEmailId').value" class="toggle-switch">
+          <div class="slider"></div>
+        </div>
+        <div class="text-muted">
+          {{ 'ldn-service-usesActorEmailId-description' | translate }}
+        </div>
+      </div>
+    </div>
+
+
+    <!-- In the Inbound Patterns Labels section -->
+    @if (areControlsInitialized) {
+      <div class="row mb-1 mt-5">
+        <div class="col">
+          <label class="font-weight-bold">{{ 'ldn-new-service.form.label.inboundPattern' | translate }} </label>
+        </div>
+        @if (formModel.get('notifyServiceInboundPatterns')['controls'][0]?.value?.pattern) {
+          <div class="col">
+            <label class="font-weight-bold">{{ 'ldn-new-service.form.label.ItemFilter' | translate }}</label>
+          </div>
+          <div class="col-sm-1">
+            <label class="font-weight-bold">{{ 'ldn-new-service.form.label.automatic' | translate }}</label>
+          </div>
+        }
+        <div class="col-sm-2">
+        </div>
+      </div>
+    }
+
+    <!-- In the Inbound Patterns section -->
+    @if (areControlsInitialized) {
+      <div>
+        @for (patternGroup of formModel.get('notifyServiceInboundPatterns')['controls']; track patternGroup; let i = $index) {
+          <div
+            [class.marked-for-deletion]="markedForDeletionInboundPattern.includes(i)"
+            formGroupName="notifyServiceInboundPatterns">
+            <ng-container [formGroupName]="i">
+              <div class="row mb-1 align-items-center">
+                <div class="col">
+                  <div #inboundPatternDropdown="ngbDropdown" class="w-80" display="dynamic"
+                    id="additionalInboundPattern{{i}}"
+                    ngbDropdown placement="top-start">
+                    <div class="position-relative right-addon" role="combobox"  aria-expanded="false" aria-controls="inboundPatternDropdownButton">
+                      <i aria-hidden="true" class="position-absolute scrollable-dropdown-toggle"
+                      ngbDropdownToggle></i>
+                      <input
+                        (click)="inboundPatternDropdown.open();"
+                        [readonly]="true"
+                        [value]="selectedInboundPatterns"
+                        class="form-control w-80 scrollable-dropdown-input"
+                        formControlName="patternLabel"
+                        id="inboundPatternDropdownButton"
+                        ngbDropdownAnchor
+                        type="text"
+                        [attr.aria-label]="'ldn-service-input-inbound-pattern-dropdown' | translate"
+                        />
+                      <div aria-labelledby="inboundPatternDropdownButton"
+                        class="dropdown-menu dropdown-menu-top w-100 "
+                        ngbDropdownMenu>
+                        <div class="scrollable-menu" role="listbox">
+                          @for (pattern of inboundPatterns; track pattern; let internalIndex = $index) {
+                            <button (click)="selectInboundPattern(pattern, i); $event.stopPropagation()"
+                              [title]="'ldn-service.form.pattern.' + pattern + '.description' | translate"
+                              class="dropdown-item collection-item text-truncate w-100"
+                              ngbDropdownItem
+                              type="button">
+                              <div>{{ 'ldn-service.form.pattern.' + pattern + '.label' | translate }}</div>
+                            </button>
+                          }
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  @if (formModel.get('notifyServiceInboundPatterns')['controls'][i].value.pattern) {
+                    <div #inboundItemfilterDropdown="ngbDropdown" class="w-100" id="constraint{{i}}" ngbDropdown
+                      placement="top-start">
+                      <div class="position-relative right-addon" aria-expanded="false" aria-controls="inboundItemfilterDropdown" role="combobox">
+                        <i aria-hidden="true" class="position-absolute scrollable-dropdown-toggle"
+                        ngbDropdownToggle></i>
+                        <input
+                          [readonly]="true"
+                          class="form-control d-none w-100 scrollable-dropdown-input"
+                          formControlName="constraint"
+                          id="inboundItemfilterDropdown"
+                          ngbDropdownAnchor
+                          type="text"
+                          [attr.aria-label]="'ldn-service-input-inbound-item-filter-dropdown' | translate"
+                          />
+                        <input
+                          (click)="inboundItemfilterDropdown.open();"
+                          [readonly]="true"
+                          class="form-control w-100 scrollable-dropdown-input"
+                          formControlName="constraintFormatted"
+                          id="inboundItemfilterDropdownPrettified"
+                          ngbDropdownAnchor
+                          type="text"
+                          [attr.aria-label]="'ldn-service-input-inbound-item-filter-dropdown' | translate"
+                          />
+                        <div aria-labelledby="inboundItemfilterDropdownButton"
+                          class="dropdown-menu scrollable-dropdown-menu w-100 "
+                          ngbDropdownMenu>
+                          <div class="scrollable-menu" role="listbox">
+                            <button (click)="selectInboundItemFilter('', i); $event.stopPropagation()"
+                              class="dropdown-item collection-item text-truncate w-100" ngbDropdownItem type="button">
+                              <span> {{'ldn-service.control-constaint-select-none' | translate}} </span>
+                            </button>
+                            @for (constraint of (itemFiltersRD$ | async)?.payload?.page; track constraint; let internalIndex = $index) {
+                              <button (click)="selectInboundItemFilter(constraint.id, i); $event.stopPropagation()"
+                                class="dropdown-item collection-item text-truncate w-100"
+                                ngbDropdownItem
+                                type="button">
+                                <div>{{ constraint.id + '.label' | translate }}</div>
+                              </button>
+                            }
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  }
+                </div>
+                <div
+                  [style.visibility]="formModel.get('notifyServiceInboundPatterns')['controls'][i].value.pattern ? 'visible' : 'hidden'"
+                  class="col-sm-1">
+                  <input formControlName="automatic" hidden id="automatic{{i}}" name="automatic{{i}}"
+                    type="checkbox">
+                  <div (click)="toggleAutomatic(i)"
+                    [class.checked]="formModel.get('notifyServiceInboundPatterns.' + i + '.automatic').value"
+                    class="toggle-switch">
+                    <div class="slider"></div>
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                  <div class="btn-group">
+                    <button (click)="markForInboundPatternDeletion(i)" class="btn btn-outline-dark trash-button"
+                      [title]="'ldn-service-button-mark-inbound-deletion' | translate"
+                      type="button">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                    @if (markedForDeletionInboundPattern.includes(i)) {
+                      <button (click)="unmarkForInboundPatternDeletion(i)"
+                        [title]="'ldn-service-button-unmark-inbound-deletion' | translate"
+                        class="btn btn-warning "
+                        type="button">
+                        <i class="fas fa-undo"></i>
+                      </button>
+                    }
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        }
+      </div>
+    }
+
+    <span (click)="addInboundPattern()"
+    class="add-pattern-link mb-2">{{ 'ldn-new-service.form.label.addPattern' | translate }}</span>
+    <hr>
+      <div class="form-group row">
+        <div class="col text-right space-children-mr">
+          <ng-content select="[before]"></ng-content>
+          <button (click)="resetFormAndLeave()" class="btn btn-outline-secondary" type="button">
+            <span>&nbsp;{{ 'submission.general.back.submit' | translate }}</span>
+          </button>
+          <button class="btn btn-primary" type="submit">
+            <span><i class="fas fa-save"></i>&nbsp;{{ 'ldn-new-service.form.label.submit' | translate }}</span>
+          </button>
+
+        </div>
+      </div>
+    </form>
+  </div>
+  <ng-template #confirmModal>
+    <div class="modal-header">
+      @if (!isNewService) {
+        <h4>{{'service.overview.edit.modal' | translate }}</h4>
+      }
+      @if (isNewService) {
+        <h4>{{'service.overview.create.modal' | translate }}</h4>
+      }
+      <button (click)="closeModal()" aria-label="Close"
+        class="close" type="button">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      @if (!isNewService) {
+        <div>
+          {{ 'service.overview.edit.body' | translate }}
+        </div>
+      }
+      @if (isNewService) {
+        <span>
+          {{ 'service.overview.create.body' | translate }}
+        </span>
+      }
+    </div>
+    <div class="modal-footer">
+      @if (!isNewService) {
+        <div>
+          <button (click)="closeModal()" class="btn btn-outline-secondary me-2"
+            id="delete-confirm-edit">{{ 'service.detail.return' | translate }}
+          </button>
+          @if (!isNewService) {
+            <button (click)="patchService()"
+              class="btn btn-primary">{{ 'service.detail.update' | translate }}
+            </button>
+          }
+        </div>
+      }
+      @if (isNewService) {
+        <div>
+          <button (click)="closeModal()" class="btn btn-outline-secondary me-2 "
+            id="delete-confirm-new">{{ 'service.refuse.create' | translate }}
+          </button>
+          <button (click)="createService()"
+            class="btn btn-primary">{{ 'service.confirm.create' | translate }}
+          </button>
+        </div>
+      }
+    </div>
+  </ng-template>
+
+

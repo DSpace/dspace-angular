@@ -1,15 +1,27 @@
 <ng-template #descTemplate>
   <span class="text-muted">
-      <span *ngIf="mdRepresentation.allMetadata(['person.jobTitle']).length > 0"
-            class="item-list-job-title">
-              <span *ngFor="let value of mdRepresentation.allMetadataValues(['person.jobTitle']); let last=last;">
-                  <span [innerHTML]="value"><span [innerHTML]="value"></span></span>
-              </span>
-      </span>
-  </span>
+    @if (mdRepresentation.allMetadata(['person.jobTitle']).length > 0) {
+      <span
+        class="item-list-job-title">
+        @for (value of mdRepresentation.allMetadataValues(['person.jobTitle']); track value; let last = $last) {
+          <span>
+            <span [innerHTML]="value"></span>@if (!last) {
+            <span>; </span>
+          }
+        </span>
+      }
+    </span>
+  }
+</span>
 </ng-template>
 <ds-truncatable [id]="mdRepresentation.id">
   <a [routerLink]="[itemPageRoute]"
-     [innerHTML]="mdRepresentation.getValue()"
-     [ngbTooltip]="mdRepresentation.allMetadata(['person.jobTitle']).length > 0 ? descTemplate : null"></a>
+    [innerHTML]="mdRepresentation.getValue()"
+  [ngbTooltip]="mdRepresentation.allMetadata(['person.jobTitle']).length > 0 ? descTemplate : null"></a>
+  @if (mdRepresentation.firstMetadata('person.identifier.orcid')) {
+    <ds-orcid-badge-and-tooltip class="ml-1"
+      [orcid]="mdRepresentation.firstMetadata('person.identifier.orcid')"
+      [authenticatedTimestamp]="mdRepresentation.firstMetadata('dspace.orcid.authenticated')">
+    </ds-orcid-badge-and-tooltip>
+  }
 </ds-truncatable>

@@ -1,0 +1,72 @@
+<div class="container">
+  <div class="metadata-registry row">
+    <div class="col-12">
+
+      <h1 id="header" class="border-bottom pb-2">{{ "admin.reports.collections.head" | translate }}</h1>
+
+      <div id="metadatadiv">
+        <ngb-accordion [closeOthers]="true" activeIds="filters" #acc="ngbAccordion">
+          <ngb-panel id="filters">
+            <ng-template ngbPanelTitle>
+              {{ "admin.reports.commons.filters" | translate }}
+            </ng-template>
+            <ng-template ngbPanelContent>
+              <div class="container">
+                <div class="row">
+                  <span class="col-3"></span>
+                  <button class="btn btn-primary mt-1 col-6" (click)="submit()">{{ "admin.reports.button.show-collections" | translate }}</button>
+                </div>
+                <ds-filters [filtersForm]="filtersFormGroup()"></ds-filters>
+                <div class="row">
+                  <span class="col-3"></span>
+                  <button class="btn btn-primary mt-1 col-6" (click)="submit()">{{ "admin.reports.button.show-collections" | translate }}</button>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-panel>
+          <ngb-panel id="collections">
+            <ng-template ngbPanelTitle>
+              {{ "admin.reports.collections.collections-report" | translate }}
+            </ng-template>
+            <ng-template ngbPanelContent>
+              <table id="table" class="table table-striped">
+                <thead>
+                  <tr class="header">
+                    <th rowspan="2">{{ "admin.reports.collections.community" | translate }}</th>
+                    <th rowspan="2">{{ "admin.reports.collections.collection" | translate }}</th>
+                    <th>{{ "admin.reports.collections.nb_items" | translate }}</th>
+                    <th>{{ "admin.reports.collections.match_all_selected_filters" | translate }}</th>
+                    @for (filter of results.summary.values | keyvalue; track filter) {
+                      <th>{{ ("admin.reports.commons.filters." + getGroup(filter.key) + "." + filter.key) | translate }}</th>
+                    }
+                  </tr>
+                  <tr class="header">
+                    <th class="num">{{ results.summary.nbTotalItems }}</th>
+                    <th class="num">{{ results.summary.allFiltersValue }}</th>
+                    @for (filter of results.summary.values | keyvalue; track filter) {
+                      <th class="num">{{ filter.value }}</th>
+                    }
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (coll of results.collections; track coll) {
+                    <tr>
+                      <td><a href="/handle/{{ coll.communityHandle }}" rel="noopener noreferrer" target="_blank">{{ coll.communityLabel }}</a></td>
+                      <td><a href="/handle/{{ coll.handle }}" rel="noopener noreferrer" target="_blank">{{ coll.label }}</a></td>
+                      <td class="num">{{ coll.nbTotalItems }}</td>
+                      <td class="num">{{ coll.allFiltersValue }}</td>
+                      @for (filter of results.summary.values | keyvalue; track filter) {
+                        <td class="num">{{ coll.values[filter.key] || 0 }}</td>
+                      }
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </ng-template>
+          </ngb-panel>
+        </ngb-accordion>
+      </div>
+
+    </div>
+  </div>
+</div>

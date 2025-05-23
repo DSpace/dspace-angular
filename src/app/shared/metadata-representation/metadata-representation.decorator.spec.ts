@@ -1,14 +1,15 @@
-  /* eslint-disable max-classes-per-file */
+/* eslint-disable max-classes-per-file */
+import { v4 as uuidv4 } from 'uuid';
+
+import { environment } from '../../../environments/environment';
+import { Context } from '../../core/shared/context.model';
+import { MetadataRepresentationType } from '../../core/shared/metadata-representation/metadata-representation.model';
 import {
   DEFAULT_ENTITY_TYPE,
   DEFAULT_REPRESENTATION_TYPE,
   getMetadataRepresentationComponent,
-  metadataRepresentationComponent
+  metadataRepresentationComponent,
 } from './metadata-representation.decorator';
-import { MetadataRepresentationType } from '../../core/shared/metadata-representation/metadata-representation.model';
-import { Context } from '../../core/shared/context.model';
-import { v4 as uuidv4 } from 'uuid';
-import { environment } from '../../../environments/environment';
 
 let ogEnvironmentThemes;
 
@@ -114,7 +115,7 @@ describe('MetadataRepresentation decorator function', () => {
           },
           {
             name: 'ancestor',         // Matches typeAncestor, but not typeUnthemed
-          }
+          },
         ];
       });
 
@@ -143,7 +144,7 @@ describe('MetadataRepresentation decorator function', () => {
         expect(() => {
           getMetadataRepresentationComponent(prefix + typeAncestor, MetadataRepresentationType.Item, Context.Any, 'extension-cycle');
         }).toThrowError(
-          'Theme extension cycle detected: extension-cycle -> broken1 -> broken2 -> broken3 -> broken1'
+          'Theme extension cycle detected: extension-cycle -> broken1 -> broken2 -> broken3 -> broken1',
         );
       });
     });

@@ -1,12 +1,32 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  DebugElement,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
-import { Community } from '../../../core/shared/community.model';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { SearchResultsComponent } from './search-results.component';
-import { QueryParamsDirectiveStub } from '../../testing/query-params-directive.stub';
+
+import { Community } from '../../../core/shared/community.model';
+import { SearchService } from '../../../core/shared/search/search.service';
+import { SearchConfigurationService } from '../../../core/shared/search/search-configuration.service';
+import { ErrorComponent } from '../../error/error.component';
+import { getMockThemeService } from '../../mocks/theme-service.mock';
+import { ObjectCollectionComponent } from '../../object-collection/object-collection.component';
 import { createFailedRemoteDataObject } from '../../remote-data.utils';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
+import { QueryParamsDirectiveStub } from '../../testing/query-params-directive.stub';
+import { SearchConfigurationServiceStub } from '../../testing/search-configuration-service.stub';
+import { SearchServiceStub } from '../../testing/search-service.stub';
+import { ThemeService } from '../../theme-support/theme.service';
+import { SearchExportCsvComponent } from '../search-export-csv/search-export-csv.component';
+import { SearchResultsComponent } from './search-results.component';
+import { SearchResultsSkeletonComponent } from './search-results-skeleton/search-results-skeleton.component';
 
 describe('SearchResultsComponent', () => {
   let comp: SearchResultsComponent;
@@ -16,12 +36,34 @@ describe('SearchResultsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), NoopAnimationsModule],
-      declarations: [
+      providers: [
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        { provide: ThemeService, useValue: getMockThemeService() },
+        { provide: SearchService, useValue: new SearchServiceStub() },
+        {
+          provide: SearchConfigurationService,
+          useValue: new SearchConfigurationServiceStub(),
+        },
+      ],
+      imports: [
+        TranslateModule.forRoot(),
+        NoopAnimationsModule,
         SearchResultsComponent,
-        QueryParamsDirectiveStub],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(SearchResultsComponent, {
+        remove: {
+          imports: [
+            SearchExportCsvComponent,
+            ObjectCollectionComponent,
+            ErrorComponent,
+            SearchResultsSkeletonComponent,
+          ],
+        },
+        add: { imports: [QueryParamsDirectiveStub] },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -63,7 +105,7 @@ describe('SearchResultsComponent', () => {
 
   it('should display link with new search where query is quoted if search return a error 400', () => {
     (comp as any).searchResults = createFailedRemoteDataObject('Error', 400);
-    (comp as any).searchConfig = { query: 'foobar' };
+    (comp as any).searchConfig = { query: 'foobar', pagination: { pageSize: 10 } };
     fixture.detectChanges();
 
     const linkDes = fixture.debugElement.queryAll(By.directive(QueryParamsDirectiveStub));
@@ -110,15 +152,15 @@ export const objects = [
       self: {
         _isScalar: true,
         value: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/10b636d0-7890-4968-bcd6-0d83bf4e2b42',
-        scheduler: null
-      }
+        scheduler: null,
+      },
     },
     collections: {
       self: {
         _isScalar: true,
         value: '1506937433727',
-        scheduler: null
-      }
+        scheduler: null,
+      },
     },
     _links: {
       self: {
@@ -132,40 +174,40 @@ export const objects = [
       'dc.description': [
         {
           language: null,
-          value: ''
-        }
+          value: '',
+        },
       ],
       'dc.description.abstract': [
         {
           language: null,
-          value: 'This is a test community to hold content for the OR2017 demostration'
-        }
+          value: 'This is a test community to hold content for the OR2017 demostration',
+        },
       ],
       'dc.description.tableofcontents': [
         {
           language: null,
-          value: ''
-        }
+          value: '',
+        },
       ],
       'dc.rights': [
         {
           language: null,
-          value: ''
-        }
+          value: '',
+        },
       ],
       'dc.title': [
         {
           language: null,
-          value: 'OR2017 - Demonstration'
-        }
+          value: 'OR2017 - Demonstration',
+        },
       ],
       'dc.identifier.uri': [
         {
           language: null,
-          value: 'http://localhost:4000/handle/10673/11'
-        }
-      ]
-    }
+          value: 'http://localhost:4000/handle/10673/11',
+        },
+      ],
+    },
   }),
   Object.assign(new Community(),
     {
@@ -173,15 +215,15 @@ export const objects = [
         self: {
           _isScalar: true,
           value: 'https://dspace7.4science.it/dspace-spring-rest/api/core/bitstreams/f446c17d-6d51-45ea-a610-d58a73642d40',
-          scheduler: null
-        }
+          scheduler: null,
+        },
       },
       collections: {
         self: {
           _isScalar: true,
           value: '1506937433727',
-          scheduler: null
-        }
+          scheduler: null,
+        },
       },
       _links: {
         self: {
@@ -195,40 +237,40 @@ export const objects = [
         'dc.description': [
           {
             language: null,
-            value: '<p>This is the introductory text for the <em>Sample Community</em> on the DSpace Demonstration Site. It is editable by System or Community Administrators (of this Community).</p>\r\n<p><strong>DSpace Communities may contain one or more Sub-Communities or Collections (of Items).</strong></p>\r\n<p>This particular Community has its own logo (the <a href=\'http://www.duraspace.org/\'>DuraSpace</a> logo).</p>'
-          }
+            value: '<p>This is the introductory text for the <em>Sample Community</em> on the DSpace Demonstration Site. It is editable by System or Community Administrators (of this Community).</p>\r\n<p><strong>DSpace Communities may contain one or more Sub-Communities or Collections (of Items).</strong></p>\r\n<p>This particular Community has its own logo (the <a href=\'http://www.duraspace.org/\'>DuraSpace</a> logo).</p>',
+          },
         ],
         'dc.description.abstract': [
           {
             language: null,
-            value: 'This is a sample top-level community'
-          }
+            value: 'This is a sample top-level community',
+          },
         ],
         'dc.description.tableofcontents': [
           {
             language: null,
-            value: '<p>This is the <em>news section</em> for this <em>Sample Community</em>. System or Community Administrators (of this Community) can edit this News field.</p>'
-          }
+            value: '<p>This is the <em>news section</em> for this <em>Sample Community</em>. System or Community Administrators (of this Community) can edit this News field.</p>',
+          },
         ],
         'dc.rights': [
           {
             language: null,
-            value: '<p><em>If this Community had special copyright text to display, it would be displayed here.</em></p>'
-          }
+            value: '<p><em>If this Community had special copyright text to display, it would be displayed here.</em></p>',
+          },
         ],
         'dc.title': [
           {
             language: null,
-            value: 'Sample Community'
-          }
+            value: 'Sample Community',
+          },
         ],
         'dc.identifier.uri': [
           {
             language: null,
-            value: 'http://localhost:4000/handle/10673/1'
-          }
-        ]
-      }
-    }
-  )
+            value: 'http://localhost:4000/handle/10673/1',
+          },
+        ],
+      },
+    },
+  ),
 ];

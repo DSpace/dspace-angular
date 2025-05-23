@@ -1,4 +1,7 @@
-import { Observable, of as observableOf } from 'rxjs';
+import {
+  Observable,
+  of,
+} from 'rxjs';
 
 /**
  * Stub service for {@link RequestService}.
@@ -6,7 +9,7 @@ import { Observable, of as observableOf } from 'rxjs';
 export class RequestServiceStub {
 
   removeByHrefSubstring(_href: string): Observable<boolean> {
-    return observableOf(true);
+    return of(true);
   }
 
 }

@@ -1,12 +1,59 @@
 import { TestBed } from '@angular/core/testing';
-
-import { cold, hot } from 'jasmine-marbles';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { Store, StoreModule } from '@ngrx/store';
-import { Observable, of as observableOf, throwError as observableThrowError } from 'rxjs';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  Store,
+  StoreModule,
+} from '@ngrx/store';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
+import {
+  cold,
+  hot,
+} from 'jasmine-marbles';
+import {
+  Observable,
+  of,
+  throwError as observableThrowError,
+} from 'rxjs';
 
-import { SubmissionObjectEffects } from './submission-objects.effects';
+import {
+  AppState,
+  storeModuleConfig,
+} from '../../app.reducer';
+import { SubmissionSectionModel } from '../../core/config/models/config-submission-section.model';
+import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
+import { Item } from '../../core/shared/item.model';
+import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
+import { SubmissionObjectDataService } from '../../core/submission/submission-object-data.service';
+import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
+import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
+import {
+  mockSectionsData,
+  mockSectionsDataTwo,
+  mockSectionsErrors,
+  mockSectionsErrorsTouchedField,
+  mockSubmissionCollectionId,
+  mockSubmissionDefinition,
+  mockSubmissionDefinitionResponse,
+  mockSubmissionId,
+  mockSubmissionRestResponse,
+  mockSubmissionSelfUrl,
+  mockSubmissionState,
+} from '../../shared/mocks/submission.mock';
+import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
+import { SectionsServiceStub } from '../../shared/testing/sections-service.stub';
+import { StoreMock } from '../../shared/testing/store.mock';
+import { SubmissionJsonPatchOperationsServiceStub } from '../../shared/testing/submission-json-patch-operations-service.stub';
+import { mockSubmissionObjectDataService } from '../../shared/testing/submission-oject-data-service.mock';
+import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
+import { SectionsService } from '../sections/sections.service';
+import { SubmissionService } from '../submission.service';
+import parseSectionErrors from '../utils/parseSectionErrors';
 import {
   CompleteInitSubmissionFormAction,
   DepositSubmissionAction,
@@ -22,40 +69,9 @@ import {
   SaveSubmissionSectionFormErrorAction,
   SaveSubmissionSectionFormSuccessAction,
   SubmissionObjectActionTypes,
-  UpdateSectionDataAction
+  UpdateSectionDataAction,
 } from './submission-objects.actions';
-import {
-  mockSectionsData,
-  mockSectionsDataTwo,
-  mockSectionsErrors,
-  mockSectionsErrorsTouchedField,
-  mockSubmissionCollectionId,
-  mockSubmissionDefinition,
-  mockSubmissionDefinitionResponse,
-  mockSubmissionId,
-  mockSubmissionRestResponse,
-  mockSubmissionSelfUrl,
-  mockSubmissionState
-} from '../../shared/mocks/submission.mock';
-import { SubmissionSectionModel } from '../../core/config/models/config-submission-section.model';
-import { NotificationsServiceStub } from '../../shared/testing/notifications-service.stub';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { SubmissionJsonPatchOperationsServiceStub } from '../../shared/testing/submission-json-patch-operations-service.stub';
-import { SubmissionJsonPatchOperationsService } from '../../core/submission/submission-json-patch-operations.service';
-import { SectionsService } from '../sections/sections.service';
-import { SectionsServiceStub } from '../../shared/testing/sections-service.stub';
-import { SubmissionService } from '../submission.service';
-import { SubmissionServiceStub } from '../../shared/testing/submission-service.stub';
-import { TranslateLoaderMock } from '../../shared/mocks/translate-loader.mock';
-import { StoreMock } from '../../shared/testing/store.mock';
-import { AppState, storeModuleConfig } from '../../app.reducer';
-import parseSectionErrors from '../utils/parseSectionErrors';
-import { Item } from '../../core/shared/item.model';
-import { WorkspaceitemDataService } from '../../core/submission/workspaceitem-data.service';
-import { WorkflowItemDataService } from '../../core/submission/workflowitem-data.service';
-import { HALEndpointService } from '../../core/shared/hal-endpoint.service';
-import { SubmissionObjectDataService } from '../../core/submission/submission-object-data.service';
-import { mockSubmissionObjectDataService } from '../../shared/testing/submission-oject-data-service.mock';
+import { SubmissionObjectEffects } from './submission-objects.effects';
 
 describe('SubmissionObjectEffects test suite', () => {
   let submissionObjectEffects: SubmissionObjectEffects;
@@ -66,6 +82,8 @@ describe('SubmissionObjectEffects test suite', () => {
   let submissionServiceStub;
   let submissionJsonPatchOperationsServiceStub;
   let submissionObjectDataServiceStub;
+  let workspaceItemDataService;
+
   const collectionId: string = mockSubmissionCollectionId;
   const submissionId: string = mockSubmissionId;
   const submissionDefinitionResponse: any = mockSubmissionDefinitionResponse;
@@ -80,7 +98,11 @@ describe('SubmissionObjectEffects test suite', () => {
     submissionJsonPatchOperationsServiceStub = new SubmissionJsonPatchOperationsServiceStub();
     submissionObjectDataServiceStub = mockSubmissionObjectDataService;
 
-    submissionServiceStub.hasUnsavedModification.and.returnValue(observableOf(true));
+    submissionServiceStub.hasUnsavedModification.and.returnValue(of(true));
+
+    workspaceItemDataService = jasmine.createSpyObj('WorkspaceItemDataService', {
+      invalidateById: of(true),
+    });
 
     TestBed.configureTestingModule({
       imports: [
@@ -88,8 +110,8 @@ describe('SubmissionObjectEffects test suite', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
+            useClass: TranslateLoaderMock,
+          },
         }),
       ],
       providers: [
@@ -106,6 +128,7 @@ describe('SubmissionObjectEffects test suite', () => {
         { provide: WorkflowItemDataService, useValue: {} },
         { provide: HALEndpointService, useValue: {} },
         { provide: SubmissionObjectDataService, useValue: submissionObjectDataServiceStub },
+        { provide: WorkspaceitemDataService, useValue: workspaceItemDataService },
       ],
     });
 
@@ -124,10 +147,10 @@ describe('SubmissionObjectEffects test suite', () => {
             selfUrl: selfUrl,
             submissionDefinition: submissionDefinition,
             sections: {},
-            item: {metadata: {}},
+            item: { metadata: {} },
             errors: [],
-          }
-        }
+          },
+        },
       });
 
       const mappedActions = [];
@@ -144,6 +167,7 @@ describe('SubmissionObjectEffects test suite', () => {
             sectionDefinition.header,
             config,
             sectionDefinition.mandatory,
+            sectionDefinition.scope,
             sectionDefinition.sectionType,
             sectionDefinition.visibility,
             enabled,
@@ -159,7 +183,7 @@ describe('SubmissionObjectEffects test suite', () => {
         e: mappedActions[3],
         f: mappedActions[4],
         g: mappedActions[5],
-        h: mappedActions[6]
+        h: mappedActions[6],
       });
 
       expect(submissionObjectEffects.loadForm$).toBeObservable(expected);
@@ -179,8 +203,8 @@ describe('SubmissionObjectEffects test suite', () => {
             sections: {},
             item: new Item(),
             errors: [],
-          }
-        }
+          },
+        },
       });
 
       const expected = cold('--b-', {
@@ -191,8 +215,8 @@ describe('SubmissionObjectEffects test suite', () => {
           submissionDefinition,
           {},
           new Item(),
-          null
-        )
+          null,
+        ),
       });
 
       expect(submissionObjectEffects.resetForm$).toBeObservable(expected);
@@ -205,17 +229,17 @@ describe('SubmissionObjectEffects test suite', () => {
         a: {
           type: SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM,
           payload: {
-            submissionId: submissionId
-          }
-        }
+            submissionId: submissionId,
+          },
+        },
       });
 
-      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.returnValue(observableOf(mockSubmissionRestResponse));
+      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.returnValue(of(mockSubmissionRestResponse));
       const expected = cold('--b-', {
         b: new SaveSubmissionFormSuccessAction(
           submissionId,
-          mockSubmissionRestResponse as any
-        )
+          mockSubmissionRestResponse as any,
+        ),
       });
 
       expect(submissionObjectEffects.saveSubmission$).toBeObservable(expected);
@@ -227,19 +251,19 @@ describe('SubmissionObjectEffects test suite', () => {
           type: SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM,
           payload: {
             submissionId: submissionId,
-            isManual: true
-          }
-        }
+            isManual: true,
+          },
+        },
       });
 
-      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.returnValue(observableOf(mockSubmissionRestResponse));
+      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.returnValue(of(mockSubmissionRestResponse));
       const expected = cold('--b-', {
         b: new SaveSubmissionFormSuccessAction(
           submissionId,
           mockSubmissionRestResponse as any,
           true,
-          true
-        )
+          true,
+        ),
       });
 
       expect(submissionObjectEffects.saveSubmission$).toBeObservable(expected);
@@ -251,19 +275,19 @@ describe('SubmissionObjectEffects test suite', () => {
           type: SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM,
           payload: {
             submissionId: submissionId,
-            isManual: false
-          }
-        }
+            isManual: false,
+          },
+        },
       });
 
-      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.returnValue(observableOf(mockSubmissionRestResponse));
+      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.returnValue(of(mockSubmissionRestResponse));
       const expected = cold('--b-', {
         b: new SaveSubmissionFormSuccessAction(
           submissionId,
           mockSubmissionRestResponse as any,
           false,
-          false
-        )
+          false,
+        ),
       });
 
       expect(submissionObjectEffects.saveSubmission$).toBeObservable(expected);
@@ -274,18 +298,18 @@ describe('SubmissionObjectEffects test suite', () => {
         a: {
           type: SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM,
           payload: {
-            submissionId: submissionId
-          }
-        }
+            submissionId: submissionId,
+          },
+        },
       });
 
       submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.callFake(
-        () => observableThrowError('Error')
+        () => observableThrowError('Error'),
       );
       const expected = cold('--b-', {
         b: new SaveSubmissionFormErrorAction(
-          submissionId
-        )
+          submissionId,
+        ),
       });
 
       expect(submissionObjectEffects.saveSubmission$).toBeObservable(expected);
@@ -298,17 +322,17 @@ describe('SubmissionObjectEffects test suite', () => {
         a: {
           type: SubmissionObjectActionTypes.SAVE_FOR_LATER_SUBMISSION_FORM,
           payload: {
-            submissionId: submissionId
-          }
-        }
+            submissionId: submissionId,
+          },
+        },
       });
 
-      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.returnValue(observableOf(mockSubmissionRestResponse));
+      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.returnValue(of(mockSubmissionRestResponse));
       const expected = cold('--b-', {
         b: new SaveForLaterSubmissionFormSuccessAction(
           submissionId,
-          mockSubmissionRestResponse as any
-        )
+          mockSubmissionRestResponse as any,
+        ),
       });
 
       expect(submissionObjectEffects.saveForLaterSubmission$).toBeObservable(expected);
@@ -319,18 +343,18 @@ describe('SubmissionObjectEffects test suite', () => {
         a: {
           type: SubmissionObjectActionTypes.SAVE_FOR_LATER_SUBMISSION_FORM,
           payload: {
-            submissionId: submissionId
-          }
-        }
+            submissionId: submissionId,
+          },
+        },
       });
 
       submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.callFake(
-        () => observableThrowError('Error')
+        () => observableThrowError('Error'),
       );
       const expected = cold('--b-', {
         b: new SaveSubmissionFormErrorAction(
-          submissionId
-        )
+          submissionId,
+        ),
       });
 
       expect(submissionObjectEffects.saveForLaterSubmission$).toBeObservable(expected);
@@ -342,13 +366,13 @@ describe('SubmissionObjectEffects test suite', () => {
     it('should return a UPDATE_SECTION_DATA action for each updated section', () => {
       store.nextState({
         submission: {
-          objects: submissionState
-        }
+          objects: submissionState,
+        },
       } as any);
 
       const response = [Object.assign({}, mockSubmissionRestResponse[0], {
         sections: mockSectionsData,
-        errors: mockSectionsErrors
+        errors: mockSectionsErrors,
       })];
       actions = hot('--a-', {
         a: {
@@ -356,9 +380,9 @@ describe('SubmissionObjectEffects test suite', () => {
           payload: {
             submissionId: submissionId,
             submissionObject: response,
-            notify: true
-          }
-        }
+            notify: true,
+          },
+        },
       });
 
       const errorsList = parseSectionErrors(mockSectionsErrors);
@@ -368,21 +392,21 @@ describe('SubmissionObjectEffects test suite', () => {
           'traditionalpageone',
           mockSectionsData.traditionalpageone as any,
           errorsList.traditionalpageone || [],
-          errorsList.traditionalpageone || []
+          errorsList.traditionalpageone || [],
         ),
         c: new UpdateSectionDataAction(
           submissionId,
           'license',
           mockSectionsData.license as any,
           errorsList.license || [],
-          errorsList.license || []
+          errorsList.license || [],
         ),
         d: new UpdateSectionDataAction(
           submissionId,
           'upload',
           mockSectionsData.upload as any,
           errorsList.upload || [],
-          errorsList.upload || []
+          errorsList.upload || [],
         ),
       });
 
@@ -394,20 +418,20 @@ describe('SubmissionObjectEffects test suite', () => {
     it('should not display errors when notification are disabled and field are not touched', () => {
       store.nextState({
         submission: {
-          objects: submissionState
+          objects: submissionState,
         },
         forms: {
           '2_traditionalpageone': {
             touched: {
-              'dc.title': true
-            }
-          }
-        }
+              'dc.title': true,
+            },
+          },
+        },
       } as any);
 
       const response = [Object.assign({}, mockSubmissionRestResponse[0], {
         sections: mockSectionsData,
-        errors: mockSectionsErrors
+        errors: mockSectionsErrors,
       })];
       actions = hot('--a-', {
         a: {
@@ -415,9 +439,9 @@ describe('SubmissionObjectEffects test suite', () => {
           payload: {
             submissionId: submissionId,
             submissionObject: response,
-            notify: false
-          }
-        }
+            notify: false,
+          },
+        },
       });
 
       const errorsToShowList = parseSectionErrors(mockSectionsErrorsTouchedField);
@@ -428,21 +452,21 @@ describe('SubmissionObjectEffects test suite', () => {
           'traditionalpageone',
           mockSectionsData.traditionalpageone as any,
           errorsToShowList.traditionalpageone,
-          serverValidationErrorsList.traditionalpageone
+          serverValidationErrorsList.traditionalpageone,
         ),
         c: new UpdateSectionDataAction(
           submissionId,
           'license',
           mockSectionsData.license as any,
           errorsToShowList.license || [],
-          serverValidationErrorsList.license || []
+          serverValidationErrorsList.license || [],
         ),
         d: new UpdateSectionDataAction(
           submissionId,
           'upload',
           mockSectionsData.upload as any,
           errorsToShowList.upload || [],
-          serverValidationErrorsList.upload || []
+          serverValidationErrorsList.upload || [],
         ),
       });
 
@@ -453,21 +477,21 @@ describe('SubmissionObjectEffects test suite', () => {
     it('should display a success notification', () => {
       store.nextState({
         submission: {
-          objects: submissionState
-        }
+          objects: submissionState,
+        },
       } as any);
 
       const response = [Object.assign({}, mockSubmissionRestResponse[0], {
-        sections: mockSectionsData
+        sections: mockSectionsData,
       })];
       actions = hot('--a-', {
         a: {
           type: SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_SUCCESS,
           payload: {
             submissionId: submissionId,
-            submissionObject: response
-          }
-        }
+            submissionObject: response,
+          },
+        },
       });
 
       const expected = cold('--(bcd)-', {
@@ -476,21 +500,21 @@ describe('SubmissionObjectEffects test suite', () => {
           'traditionalpageone',
           mockSectionsData.traditionalpageone as any,
           [],
-          []
+          [],
         ),
         c: new UpdateSectionDataAction(
           submissionId,
           'license',
           mockSectionsData.license as any,
           [],
-          []
+          [],
         ),
         d: new UpdateSectionDataAction(
           submissionId,
           'upload',
           mockSectionsData.upload as any,
           [],
-          []
+          [],
         ),
       });
 
@@ -501,22 +525,22 @@ describe('SubmissionObjectEffects test suite', () => {
     it('should display a warning notification when there are errors', () => {
       store.nextState({
         submission: {
-          objects: submissionState
-        }
+          objects: submissionState,
+        },
       } as any);
 
       const response = [Object.assign({}, mockSubmissionRestResponse[0], {
         sections: mockSectionsData,
-        errors: mockSectionsErrors
+        errors: mockSectionsErrors,
       })];
       actions = hot('--a-', {
         a: {
           type: SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_SUCCESS,
           payload: {
             submissionId: submissionId,
-            submissionObject: response
-          }
-        }
+            submissionObject: response,
+          },
+        },
       });
 
       const errorsList = parseSectionErrors(mockSectionsErrors);
@@ -526,21 +550,21 @@ describe('SubmissionObjectEffects test suite', () => {
           'traditionalpageone',
           mockSectionsData.traditionalpageone as any,
           errorsList.traditionalpageone || [],
-          errorsList.traditionalpageone || []
+          errorsList.traditionalpageone || [],
         ),
         c: new UpdateSectionDataAction(
           submissionId,
           'license',
           mockSectionsData.license as any,
           errorsList.license || [],
-          errorsList.license || []
+          errorsList.license || [],
         ),
         d: new UpdateSectionDataAction(
           submissionId,
           'upload',
           mockSectionsData.upload as any,
           errorsList.upload || [],
-          errorsList.upload || []
+          errorsList.upload || [],
         ),
       });
 
@@ -551,22 +575,22 @@ describe('SubmissionObjectEffects test suite', () => {
     it('should detect and notify a new section', () => {
       store.nextState({
         submission: {
-          objects: submissionState
-        }
+          objects: submissionState,
+        },
       } as any);
 
       const response = [Object.assign({}, mockSubmissionRestResponse[0], {
         sections: mockSectionsDataTwo,
-        errors: mockSectionsErrors
+        errors: mockSectionsErrors,
       })];
       actions = hot('--a-', {
         a: {
           type: SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_SUCCESS,
           payload: {
             submissionId: submissionId,
-            submissionObject: response
-          }
-        }
+            submissionObject: response,
+          },
+        },
       });
 
       const errorsList = parseSectionErrors(mockSectionsErrors);
@@ -576,28 +600,28 @@ describe('SubmissionObjectEffects test suite', () => {
           'traditionalpageone',
           mockSectionsDataTwo.traditionalpageone as any,
           errorsList.traditionalpageone || [],
-          errorsList.traditionalpageone || []
+          errorsList.traditionalpageone || [],
         ),
         c: new UpdateSectionDataAction(
           submissionId,
           'traditionalpagetwo',
           mockSectionsDataTwo.traditionalpagetwo as any,
           errorsList.traditionalpagetwo || [],
-          errorsList.traditionalpagetwo || []
+          errorsList.traditionalpagetwo || [],
         ),
         d: new UpdateSectionDataAction(
           submissionId,
           'license',
           mockSectionsDataTwo.license as any,
           errorsList.license || [],
-          errorsList.license || []
+          errorsList.license || [],
         ),
         e: new UpdateSectionDataAction(
           submissionId,
           'upload',
           mockSectionsDataTwo.upload as any,
           errorsList.upload || [],
-          errorsList.upload || []
+          errorsList.upload || [],
         ),
       });
 
@@ -612,22 +636,22 @@ describe('SubmissionObjectEffects test suite', () => {
     it('should return a UPDATE_SECTION_DATA action for each updated section', () => {
       store.nextState({
         submission: {
-          objects: submissionState
-        }
+          objects: submissionState,
+        },
       } as any);
 
       const response = [Object.assign({}, mockSubmissionRestResponse[0], {
         sections: mockSectionsData,
-        errors: mockSectionsErrors
+        errors: mockSectionsErrors,
       })];
       actions = hot('--a-', {
         a: {
           type: SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_SUCCESS,
           payload: {
             submissionId: submissionId,
-            submissionObject: response
-          }
-        }
+            submissionObject: response,
+          },
+        },
       });
 
       const errorsList = parseSectionErrors(mockSectionsErrors);
@@ -637,21 +661,21 @@ describe('SubmissionObjectEffects test suite', () => {
           'traditionalpageone',
           mockSectionsData.traditionalpageone as any,
           [],
-          errorsList.traditionalpageone
+          errorsList.traditionalpageone,
         ),
         c: new UpdateSectionDataAction(
           submissionId,
           'license',
           mockSectionsData.license as any,
           errorsList.license || [],
-          errorsList.license || []
+          errorsList.license || [],
         ),
         d: new UpdateSectionDataAction(
           submissionId,
           'upload',
           mockSectionsData.upload as any,
           errorsList.upload || [],
-          errorsList.upload || []
+          errorsList.upload || [],
         ),
       });
 
@@ -662,21 +686,21 @@ describe('SubmissionObjectEffects test suite', () => {
     it('should not display a success notification', () => {
       store.nextState({
         submission: {
-          objects: submissionState
-        }
+          objects: submissionState,
+        },
       } as any);
 
       const response = [Object.assign({}, mockSubmissionRestResponse[0], {
-        sections: mockSectionsData
+        sections: mockSectionsData,
       })];
       actions = hot('--a-', {
         a: {
           type: SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_SUCCESS,
           payload: {
             submissionId: submissionId,
-            submissionObject: response
-          }
-        }
+            submissionObject: response,
+          },
+        },
       });
 
       const expected = cold('--(bcd)-', {
@@ -685,21 +709,21 @@ describe('SubmissionObjectEffects test suite', () => {
           'traditionalpageone',
           mockSectionsData.traditionalpageone as any,
           [],
-          []
+          [],
         ),
         c: new UpdateSectionDataAction(
           submissionId,
           'license',
           mockSectionsData.license as any,
           [],
-          []
+          [],
         ),
         d: new UpdateSectionDataAction(
           submissionId,
           'upload',
           mockSectionsData.upload as any,
           [],
-          []
+          [],
         ),
       });
 
@@ -710,22 +734,22 @@ describe('SubmissionObjectEffects test suite', () => {
     it('should not display a warning notification when there are errors', () => {
       store.nextState({
         submission: {
-          objects: submissionState
-        }
+          objects: submissionState,
+        },
       } as any);
 
       const response = [Object.assign({}, mockSubmissionRestResponse[0], {
         sections: mockSectionsData,
-        errors: mockSectionsErrors
+        errors: mockSectionsErrors,
       })];
       actions = hot('--a-', {
         a: {
           type: SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_SUCCESS,
           payload: {
             submissionId: submissionId,
-            submissionObject: response
-          }
-        }
+            submissionObject: response,
+          },
+        },
       });
 
       const serverValidationErrorsList = parseSectionErrors(mockSectionsErrors);
@@ -735,21 +759,21 @@ describe('SubmissionObjectEffects test suite', () => {
           'traditionalpageone',
           mockSectionsData.traditionalpageone as any,
           [],
-          serverValidationErrorsList.traditionalpageone
+          serverValidationErrorsList.traditionalpageone,
         ),
         c: new UpdateSectionDataAction(
           submissionId,
           'license',
           mockSectionsData.license as any,
           serverValidationErrorsList.license || [],
-          serverValidationErrorsList.license || []
+          serverValidationErrorsList.license || [],
         ),
         d: new UpdateSectionDataAction(
           submissionId,
           'upload',
           mockSectionsData.upload as any,
           serverValidationErrorsList.upload || [],
-          serverValidationErrorsList.upload || []
+          serverValidationErrorsList.upload || [],
         ),
       });
 
@@ -760,13 +784,13 @@ describe('SubmissionObjectEffects test suite', () => {
     it('should detect new sections but not notify for it', () => {
       store.nextState({
         submission: {
-          objects: submissionState
-        }
+          objects: submissionState,
+        },
       } as any);
 
       const response = [Object.assign({}, mockSubmissionRestResponse[0], {
         sections: mockSectionsDataTwo,
-        errors: mockSectionsErrors
+        errors: mockSectionsErrors,
       })];
       actions = hot('--a-', {
         a: {
@@ -774,8 +798,8 @@ describe('SubmissionObjectEffects test suite', () => {
           payload: {
             submissionId: submissionId,
             submissionObject: response,
-          }
-        }
+          },
+        },
       });
 
       const errorsList = parseSectionErrors(mockSectionsErrors);
@@ -785,28 +809,28 @@ describe('SubmissionObjectEffects test suite', () => {
           'traditionalpageone',
           mockSectionsDataTwo.traditionalpageone as any,
           [],
-          errorsList.traditionalpageone
+          errorsList.traditionalpageone,
         ),
         c: new UpdateSectionDataAction(
           submissionId,
           'traditionalpagetwo',
           mockSectionsDataTwo.traditionalpagetwo as any,
           errorsList.traditionalpagetwo || [],
-          errorsList.traditionalpagetwo || []
+          errorsList.traditionalpagetwo || [],
         ),
         d: new UpdateSectionDataAction(
           submissionId,
           'license',
           mockSectionsDataTwo.license as any,
           errorsList.license || [],
-          errorsList.license || []
+          errorsList.license || [],
         ),
         e: new UpdateSectionDataAction(
           submissionId,
           'upload',
           mockSectionsDataTwo.upload as any,
           errorsList.upload || [],
-          errorsList.upload || []
+          errorsList.upload || [],
         ),
       });
 
@@ -823,17 +847,17 @@ describe('SubmissionObjectEffects test suite', () => {
           type: SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM,
           payload: {
             submissionId: submissionId,
-            sectionId: 'traditionalpageone'
-          }
-        }
+            sectionId: 'traditionalpageone',
+          },
+        },
       });
 
-      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceID.and.returnValue(observableOf(mockSubmissionRestResponse));
+      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceID.and.returnValue(of(mockSubmissionRestResponse));
       const expected = cold('--b-', {
         b: new SaveSubmissionSectionFormSuccessAction(
           submissionId,
-          mockSubmissionRestResponse as any
-        )
+          mockSubmissionRestResponse as any,
+        ),
       });
 
       expect(submissionObjectEffects.saveSection$).toBeObservable(expected);
@@ -845,18 +869,18 @@ describe('SubmissionObjectEffects test suite', () => {
           type: SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM,
           payload: {
             submissionId: submissionId,
-            sectionId: 'traditionalpageone'
-          }
-        }
+            sectionId: 'traditionalpageone',
+          },
+        },
       });
 
       submissionJsonPatchOperationsServiceStub.jsonPatchByResourceID.and.callFake(
-        () => observableThrowError('Error')
+        () => observableThrowError('Error'),
       );
       const expected = cold('--b-', {
         b: new SaveSubmissionSectionFormErrorAction(
-          submissionId
-        )
+          submissionId,
+        ),
       });
 
       expect(submissionObjectEffects.saveSection$).toBeObservable(expected);
@@ -869,20 +893,20 @@ describe('SubmissionObjectEffects test suite', () => {
         a: {
           type: SubmissionObjectActionTypes.SAVE_AND_DEPOSIT_SUBMISSION,
           payload: {
-            submissionId: submissionId
-          }
-        }
+            submissionId: submissionId,
+          },
+        },
       });
 
       const response = [Object.assign({}, mockSubmissionRestResponse[0], {
-        sections: mockSectionsDataTwo
+        sections: mockSectionsDataTwo,
       })];
 
-      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.returnValue(observableOf(response));
+      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.returnValue(of(response));
       const expected = cold('--b-', {
         b: new DepositSubmissionAction(
-          submissionId
-        )
+          submissionId,
+        ),
       });
 
       expect(submissionObjectEffects.saveAndDeposit$).toBeObservable(expected);
@@ -892,28 +916,28 @@ describe('SubmissionObjectEffects test suite', () => {
     it('should return a SAVE_SUBMISSION_FORM_SUCCESS action when there are errors', () => {
       store.nextState({
         submission: {
-          objects: submissionState
-        }
+          objects: submissionState,
+        },
       } as any);
 
       actions = hot('--a-', {
         a: {
           type: SubmissionObjectActionTypes.SAVE_AND_DEPOSIT_SUBMISSION,
           payload: {
-            submissionId: submissionId
-          }
-        }
+            submissionId: submissionId,
+          },
+        },
       });
 
       const response = [Object.assign({}, mockSubmissionRestResponse[0], {
         sections: mockSectionsData,
-        errors: mockSectionsErrors
+        errors: mockSectionsErrors,
       })];
 
-      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.returnValue(observableOf(response));
+      submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.returnValue(of(response));
 
       const expected = cold('--b-', {
-        b: new SaveSubmissionFormSuccessAction(submissionId, response as any[], false, true)
+        b: new SaveSubmissionFormSuccessAction(submissionId, response as any[], false, true),
       });
 
       expect(submissionObjectEffects.saveAndDeposit$).toBeObservable(expected);
@@ -925,18 +949,18 @@ describe('SubmissionObjectEffects test suite', () => {
         a: {
           type: SubmissionObjectActionTypes.SAVE_AND_DEPOSIT_SUBMISSION,
           payload: {
-            submissionId: submissionId
-          }
-        }
+            submissionId: submissionId,
+          },
+        },
       });
 
       submissionJsonPatchOperationsServiceStub.jsonPatchByResourceType.and.callFake(
-        () => observableThrowError('Error')
+        () => observableThrowError('Error'),
       );
       const expected = cold('--b-', {
         b: new SaveSubmissionFormErrorAction(
-          submissionId
-        )
+          submissionId,
+        ),
       });
 
       expect(submissionObjectEffects.saveAndDeposit$).toBeObservable(expected);
@@ -947,24 +971,24 @@ describe('SubmissionObjectEffects test suite', () => {
     it('should return a DEPOSIT_SUBMISSION_SUCCESS action on success', () => {
       store.nextState({
         submission: {
-          objects: submissionState
-        }
+          objects: submissionState,
+        },
       } as any);
 
       actions = hot('--a-', {
         a: {
           type: SubmissionObjectActionTypes.DEPOSIT_SUBMISSION,
           payload: {
-            submissionId: submissionId
-          }
-        }
+            submissionId: submissionId,
+          },
+        },
       });
 
-      submissionServiceStub.depositSubmission.and.returnValue(observableOf(mockSubmissionRestResponse));
+      submissionServiceStub.depositSubmission.and.returnValue(of(mockSubmissionRestResponse));
       const expected = cold('--b-', {
         b: new DepositSubmissionSuccessAction(
-          submissionId
-        )
+          submissionId,
+        ),
       });
 
       expect(submissionObjectEffects.depositSubmission$).toBeObservable(expected);
@@ -973,26 +997,26 @@ describe('SubmissionObjectEffects test suite', () => {
     it('should return a DEPOSIT_SUBMISSION_ERROR action on error', () => {
       store.nextState({
         submission: {
-          objects: submissionState
-        }
+          objects: submissionState,
+        },
       } as any);
 
       actions = hot('--a-', {
         a: {
           type: SubmissionObjectActionTypes.DEPOSIT_SUBMISSION,
           payload: {
-            submissionId: submissionId
-          }
-        }
+            submissionId: submissionId,
+          },
+        },
       });
 
       submissionServiceStub.depositSubmission.and.callFake(
-        () => observableThrowError('Error')
+        () => observableThrowError('Error'),
       );
       const expected = cold('--b-', {
         b: new DepositSubmissionErrorAction(
-          submissionId
-        )
+          submissionId,
+        ),
       });
 
       expect(submissionObjectEffects.depositSubmission$).toBeObservable(expected);
@@ -1006,9 +1030,9 @@ describe('SubmissionObjectEffects test suite', () => {
           type: SubmissionObjectActionTypes.SAVE_FOR_LATER_SUBMISSION_FORM_SUCCESS,
           payload: {
             submissionId: submissionId,
-            submissionObject: mockSubmissionRestResponse
-          }
-        }
+            submissionObject: mockSubmissionRestResponse,
+          },
+        },
       });
 
       submissionObjectEffects.saveForLaterSubmissionSuccess$.subscribe(() => {
@@ -1024,9 +1048,9 @@ describe('SubmissionObjectEffects test suite', () => {
         a: {
           type: SubmissionObjectActionTypes.DEPOSIT_SUBMISSION_SUCCESS,
           payload: {
-            submissionId: submissionId
-          }
-        }
+            submissionId: submissionId,
+          },
+        },
       });
 
       submissionObjectEffects.depositSubmissionSuccess$.subscribe(() => {
@@ -1042,9 +1066,9 @@ describe('SubmissionObjectEffects test suite', () => {
         a: {
           type: SubmissionObjectActionTypes.DEPOSIT_SUBMISSION_ERROR,
           payload: {
-            submissionId: submissionId
-          }
-        }
+            submissionId: submissionId,
+          },
+        },
       });
 
       submissionObjectEffects.depositSubmissionError$.subscribe(() => {
@@ -1059,9 +1083,9 @@ describe('SubmissionObjectEffects test suite', () => {
         a: {
           type: SubmissionObjectActionTypes.SAVE_SUBMISSION_FORM_ERROR,
           payload: {
-            submissionId: submissionId
-          }
-        }
+            submissionId: submissionId,
+          },
+        },
       });
 
       submissionObjectEffects.saveError$.subscribe(() => {
@@ -1074,9 +1098,9 @@ describe('SubmissionObjectEffects test suite', () => {
         a: {
           type: SubmissionObjectActionTypes.SAVE_SUBMISSION_SECTION_FORM_ERROR,
           payload: {
-            submissionId: submissionId
-          }
-        }
+            submissionId: submissionId,
+          },
+        },
       });
 
       submissionObjectEffects.saveError$.subscribe(() => {
@@ -1089,24 +1113,24 @@ describe('SubmissionObjectEffects test suite', () => {
     it('should return a DISCARD_SUBMISSION_SUCCESS action on success', () => {
       store.nextState({
         submission: {
-          objects: submissionState
-        }
+          objects: submissionState,
+        },
       } as any);
 
       actions = hot('--a-', {
         a: {
           type: SubmissionObjectActionTypes.DISCARD_SUBMISSION,
           payload: {
-            submissionId: submissionId
-          }
-        }
+            submissionId: submissionId,
+          },
+        },
       });
 
-      submissionServiceStub.discardSubmission.and.returnValue(observableOf(mockSubmissionRestResponse));
+      submissionServiceStub.discardSubmission.and.returnValue(of(mockSubmissionRestResponse));
       const expected = cold('--b-', {
         b: new DiscardSubmissionSuccessAction(
-          submissionId
-        )
+          submissionId,
+        ),
       });
 
       expect(submissionObjectEffects.discardSubmission$).toBeObservable(expected);
@@ -1115,26 +1139,26 @@ describe('SubmissionObjectEffects test suite', () => {
     it('should return a DISCARD_SUBMISSION_ERROR action on error', () => {
       store.nextState({
         submission: {
-          objects: submissionState
-        }
+          objects: submissionState,
+        },
       } as any);
 
       actions = hot('--a-', {
         a: {
           type: SubmissionObjectActionTypes.DISCARD_SUBMISSION,
           payload: {
-            submissionId: submissionId
-          }
-        }
+            submissionId: submissionId,
+          },
+        },
       });
 
       submissionServiceStub.discardSubmission.and.callFake(
-        () => observableThrowError('Error')
+        () => observableThrowError('Error'),
       );
       const expected = cold('--b-', {
         b: new DiscardSubmissionErrorAction(
-          submissionId
-        )
+          submissionId,
+        ),
       });
 
       expect(submissionObjectEffects.discardSubmission$).toBeObservable(expected);
@@ -1147,9 +1171,9 @@ describe('SubmissionObjectEffects test suite', () => {
         a: {
           type: SubmissionObjectActionTypes.DISCARD_SUBMISSION_SUCCESS,
           payload: {
-            submissionId: submissionId
-          }
-        }
+            submissionId: submissionId,
+          },
+        },
       });
 
       submissionObjectEffects.discardSubmissionSuccess$.subscribe(() => {
@@ -1165,9 +1189,9 @@ describe('SubmissionObjectEffects test suite', () => {
         a: {
           type: SubmissionObjectActionTypes.DISCARD_SUBMISSION_ERROR,
           payload: {
-            submissionId: submissionId
-          }
-        }
+            submissionId: submissionId,
+          },
+        },
       });
 
       submissionObjectEffects.discardSubmissionError$.subscribe(() => {

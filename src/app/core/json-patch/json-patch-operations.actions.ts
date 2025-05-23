@@ -20,6 +20,7 @@ export const JsonPatchOperationsActionTypes = {
   COMMIT_JSON_PATCH_OPERATIONS: type('dspace/core/patch/COMMIT_JSON_PATCH_OPERATIONS'),
   ROLLBACK_JSON_PATCH_OPERATIONS: type('dspace/core/patch/ROLLBACK_JSON_PATCH_OPERATIONS'),
   FLUSH_JSON_PATCH_OPERATIONS: type('dspace/core/patch/FLUSH_JSON_PATCH_OPERATIONS'),
+  FLUSH_JSON_PATCH_OPERATION: type('dspace/core/patch/FLUSH_JSON_PATCH_OPERATION'),
   START_TRANSACTION_JSON_PATCH_OPERATIONS: type('dspace/core/patch/START_TRANSACTION_JSON_PATCH_OPERATIONS'),
   DELETE_PENDING_JSON_PATCH_OPERATIONS: type('dspace/core/patch/DELETE_PENDING_JSON_PATCH_OPERATIONS'),
 };
@@ -120,6 +121,32 @@ export class FlushPatchOperationsAction implements Action {
   }
 }
 
+
+/**
+ * An ngrx action to flush a single operation of the JSON Patch operations
+ */
+export class FlushPatchOperationAction implements Action {
+  type = JsonPatchOperationsActionTypes.FLUSH_JSON_PATCH_OPERATION;
+  payload: {
+    resourceType: string;
+    resourceId: string;
+    path: string
+  };
+
+  /**
+   * Create a new FlushPatchOperationsAction
+   *
+   * @param resourceType
+   *    the resource's type
+   * @param resourceId
+   *    the resource's ID
+   * @param path
+   *    the path of the operation
+   */
+  constructor(resourceType: string, resourceId: string, path: string) {
+    this.payload = { resourceType, resourceId, path };
+  }
+}
 /**
  * An ngrx action to Add new HTTP/PATCH ADD operations to state
  */
@@ -284,4 +311,5 @@ export type PatchOperationsActions
   | NewPatchReplaceOperationAction
   | RollbacktPatchOperationsAction
   | StartTransactionPatchOperationsAction
-  | DeletePendingJsonPatchOperationsAction;
+  | DeletePendingJsonPatchOperationsAction
+  | FlushPatchOperationAction;

@@ -27,15 +27,17 @@ input {
 .btn-link-focus {
   // behave as btn-link but does not override box-shadow of btn-link:focus
   font-weight: $font-weight-normal;
-  color: $link-color;
+  color: #1f7293;
   text-decoration: $link-decoration;
-  @include hover {
+  box-shadow: none;
+  &:hover {
     color: $link-hover-color;
     text-decoration: $link-hover-decoration;
   }
   &:disabled,
   &.disabled {
     color: $btn-link-disabled-color;
+    border: transparent;
     pointer-events: none;
   }
 

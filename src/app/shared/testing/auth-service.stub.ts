@@ -1,15 +1,21 @@
-import { Observable, of as observableOf } from 'rxjs';
+import {
+  Observable,
+  of,
+} from 'rxjs';
+
+import { RetrieveAuthMethodsAction } from '../../core/auth/auth.actions';
+import { AuthMethod } from '../../core/auth/models/auth.method';
+import { AuthMethodType } from '../../core/auth/models/auth.method-type';
 import { AuthStatus } from '../../core/auth/models/auth-status.model';
 import { AuthTokenInfo } from '../../core/auth/models/auth-token-info.model';
-import { EPersonMock } from './eperson.mock';
 import { EPerson } from '../../core/eperson/models/eperson.model';
-import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
-import { AuthMethod } from '../../core/auth/models/auth.method';
 import { hasValue } from '../empty.util';
+import { createSuccessfulRemoteDataObject$ } from '../remote-data.utils';
+import { EPersonMock } from './eperson.mock';
 
-export const authMethodsMock = [
-  new AuthMethod('password'),
-  new AuthMethod('shibboleth', 'dspace.test/shibboleth')
+export const authMethodsMock: AuthMethod[] = [
+  new AuthMethod(AuthMethodType.Password, 0),
+  new AuthMethod(AuthMethodType.Shibboleth, 1, 'dspace.test/shibboleth'),
 ];
 
 export class AuthServiceStub {
@@ -31,7 +37,7 @@ export class AuthServiceStub {
       authStatus.authenticated = true;
       authStatus.token = this.token;
       authStatus.eperson = createSuccessfulRemoteDataObject$(EPersonMock);
-      return observableOf(authStatus);
+      return of(authStatus);
     } else {
       console.log('error');
       throw (new Error('Message Error test'));
@@ -40,18 +46,22 @@ export class AuthServiceStub {
 
   public authenticatedUser(token: AuthTokenInfo): Observable<string> {
     if (token.accessToken === 'token_test') {
-      return observableOf(EPersonMock._links.self.href);
+      return of(EPersonMock._links.self.href);
     } else {
       throw (new Error('Message Error test'));
     }
   }
 
   public retrieveAuthenticatedUserByHref(href: string): Observable<EPerson> {
-    return observableOf(EPersonMock);
+    return of(EPersonMock);
   }
 
   public retrieveAuthenticatedUserById(id: string): Observable<EPerson> {
-    return observableOf(EPersonMock);
+    return of(EPersonMock);
+  }
+
+  getAuthenticatedUserFromStoreIfAuthenticated(): Observable<EPerson> {
+    return of(EPersonMock);
   }
 
   public buildAuthHeader(token?: AuthTokenInfo): string {
@@ -63,11 +73,11 @@ export class AuthServiceStub {
   }
 
   public hasValidAuthenticationToken(): Observable<AuthTokenInfo> {
-    return observableOf(this.token);
+    return of(this.token);
   }
 
   public logout(): Observable<boolean> {
-    return observableOf(true);
+    return of(true);
   }
 
   public isTokenExpired(token?: AuthTokenInfo): boolean {
@@ -89,11 +99,11 @@ export class AuthServiceStub {
   }
 
   public isTokenExpiring(): Observable<boolean> {
-    return observableOf(false);
+    return of(false);
   }
 
   public refreshAuthenticationToken(token: AuthTokenInfo): Observable<AuthTokenInfo> {
-    return observableOf(this.token);
+    return of(this.token);
   }
 
   public redirectToPreviousUrl() {
@@ -109,7 +119,7 @@ export class AuthServiceStub {
   }
 
   getRedirectUrl() {
-    return observableOf(this.redirectUrl);
+    return of(this.redirectUrl);
   }
 
   public storeToken(token: AuthTokenInfo) {
@@ -117,22 +127,23 @@ export class AuthServiceStub {
   }
 
   isAuthenticated() {
-    return observableOf(true);
+    return of(true);
   }
 
   checkAuthenticationCookie() {
     return;
   }
+
   setExternalAuthStatus(externalCookie: boolean) {
     this._isExternalAuth = externalCookie;
   }
 
   isExternalAuthentication(): Observable<boolean> {
-    return observableOf(this._isExternalAuth);
+    return of(this._isExternalAuth);
   }
 
   retrieveAuthMethodsFromAuthStatus(status: AuthStatus) {
-    return observableOf(authMethodsMock);
+    return of(authMethodsMock);
   }
 
   impersonate(id: string) {
@@ -172,6 +183,18 @@ export class AuthServiceStub {
   }
 
   clearRedirectUrl() {
+    return;
+  }
+
+  public replaceToken(token: AuthTokenInfo) {
+    return token;
+  }
+
+  getRetrieveAuthMethodsAction(authStatus: AuthStatus): RetrieveAuthMethodsAction {
+    return;
+  }
+
+  public getExternalServerRedirectUrl(redirectRoute: string, location: string) {
     return;
   }
 }

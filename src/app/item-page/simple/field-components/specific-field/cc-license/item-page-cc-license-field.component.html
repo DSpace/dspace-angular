@@ -1,0 +1,35 @@
+@let uri = (uri$ | async);
+@let name = (name$ | async);
+@if (uri && name) {
+  <div class="item-page-field">
+    <ds-metadata-field-wrapper [label]="'item.page.cc.license.title' | translate" [hideIfNoTextContent]="false">
+      <div [ngClass]="{'row': variant === 'full', 'col': variant === 'small'}">
+        <!-- 'img' tag is not rendered if any errors occurs when loading it -->
+        @if (showImage) {
+          <div [ngClass]="{'col-auto': variant === 'full', 'row': variant === 'small'}"
+            style="align-content: center;"
+            >
+            <a [href]="uri" target="_blank" class="link-anchor dont-break-out ds-simple-metadata-link">
+              <img (error)="showImage = false" [src]="imgSrc$ | async" [alt]="name" class="cc-image"
+              [ngStyle]="{
+                'width': 'var(--ds-thumbnail-max-width)',
+                'margin-bottom': variant === 'small'? '1ch' : '0',
+              }"
+                />
+            </a>
+          </div>
+        }
+        <!-- CC name is always displayed if the image fails to load -->
+        @if (showName || !showImage) {
+          <div [ngClass]="{ 'row': variant === 'small', 'col': variant === 'full' }">
+            <span>
+              {{ showDisclaimer ? ('item.page.cc.license.disclaimer' | translate) : '' }}
+              <a [href]="uri" target="_blank" id="cc-name">{{ name }}</a>
+            </span>
+          </div>
+        }
+      </div>
+    </ds-metadata-field-wrapper>
+  </div>
+}
+

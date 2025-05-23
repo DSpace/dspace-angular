@@ -5,31 +5,52 @@
  *
  * http://www.dspace.org/license/
  */
-import { select, Store } from '@ngrx/store';
-import { CheckAuthenticationTokenAction } from './core/auth/auth.actions';
-import { CorrelationIdService } from './correlation-id/correlation-id.service';
-import { APP_INITIALIZER, Inject, Provider, Type } from '@angular/core';
-import { makeStateKey, TransferState } from '@angular/platform-browser';
-import { APP_CONFIG, AppConfig } from '../config/app-config.interface';
+import {
+  APP_INITIALIZER,
+  Inject,
+  makeStateKey,
+  Provider,
+  TransferState,
+  Type,
+} from '@angular/core';
+import { DYNAMIC_FORM_CONTROL_MAP_FN } from '@ng-dynamic-forms/core';
+import {
+  select,
+  Store,
+} from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
+import isEqual from 'lodash/isEqual';
+import { Observable } from 'rxjs';
+import {
+  distinctUntilChanged,
+  find,
+} from 'rxjs/operators';
+
+import {
+  APP_CONFIG,
+  APP_DATA_SERVICES_MAP,
+  AppConfig,
+} from '../config/app-config.interface';
 import { environment } from '../environments/environment';
 import { AppState } from './app.reducer';
-import isEqual from 'lodash/isEqual';
-import { TranslateService } from '@ngx-translate/core';
-import { LocaleService } from './core/locale/locale.service';
-import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
-import { MetadataService } from './core/metadata/metadata.service';
 import { BreadcrumbsService } from './breadcrumbs/breadcrumbs.service';
-import { ThemeService } from './shared/theme-support/theme.service';
+import { CheckAuthenticationTokenAction } from './core/auth/auth.actions';
 import { isAuthenticationBlocking } from './core/auth/selectors';
-import { distinctUntilChanged, find } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { LAZY_DATA_SERVICES } from './core/data-services-map';
+import { LocaleService } from './core/locale/locale.service';
+import { HeadTagService } from './core/metadata/head-tag.service';
+import { CorrelationIdService } from './correlation-id/correlation-id.service';
+import { dsDynamicFormControlMapFn } from './shared/form/builder/ds-dynamic-form-ui/ds-dynamic-form-control-map-fn';
 import { MenuService } from './shared/menu/menu.service';
+import { MenuProviderService } from './shared/menu/menu-provider.service';
+import { ThemeService } from './shared/theme-support/theme.service';
+import { Angulartics2DSpace } from './statistics/angulartics/dspace-provider';
 
 /**
  * Performs the initialization of the app.
  *
  * Should be extended to implement server- & browser-specific functionality.
- * Initialization steps shared between the server and brower implementations
+ * Initialization steps shared between the server and browser implementations
  * can be included in this class.
  *
  * Note that the service cannot (indirectly) depend on injection tokens that are only available _after_ APP_INITIALIZER.
@@ -49,10 +70,11 @@ export abstract class InitService {
     protected translate: TranslateService,
     protected localeService: LocaleService,
     protected angulartics2DSpace: Angulartics2DSpace,
-    protected metadata: MetadataService,
+    protected headTagService: HeadTagService,
     protected breadcrumbsService: BreadcrumbsService,
     protected themeService: ThemeService,
     protected menuService: MenuService,
+    protected menuProviderService: MenuProviderService,
 
   ) {
   }
@@ -68,7 +90,7 @@ export abstract class InitService {
   public static providers(): Provider[] {
     if (!InitService.isPrototypeOf(this)) {
       throw new Error(
-        'Initalization providers should only be generated from concrete subclasses of InitService'
+        'Initalization providers should only be generated from concrete subclasses of InitService',
       );
     }
     return [
@@ -82,13 +104,21 @@ export abstract class InitService {
           this.resolveAppConfig(transferState);
           return environment;
         },
-        deps: [ TransferState ]
+        deps: [ TransferState ],
       },
       {
         provide: APP_INITIALIZER,
         useFactory: (initService: InitService) => initService.init(),
         deps: [ InitService ],
         multi: true,
+      },
+      {
+        provide: APP_DATA_SERVICES_MAP,
+        useValue: LAZY_DATA_SERVICES,
+      },
+      {
+        provide: DYNAMIC_FORM_CONTROL_MAP_FN,
+        useValue: dsDynamicFormControlMapFn,
       },
     ];
   }
@@ -103,9 +133,9 @@ export abstract class InitService {
    * @protected
    */
   protected static resolveAppConfig(
-    transferState: TransferState
+    transferState: TransferState,
   ): void {
-    // overriden in subclasses if applicable
+    // overridden in subclasses if applicable
   }
 
   /**
@@ -158,8 +188,8 @@ export abstract class InitService {
     // Load all the languages that are defined as active from the config file
     this.translate.addLangs(
       environment.languages
-                 .filter((LangConfig) => LangConfig.active === true)
-                 .map((a) => a.code)
+        .filter((LangConfig) => LangConfig.active === true)
+        .map((a) => a.code),
     );
 
     // Load the default language from the config file
@@ -178,16 +208,15 @@ export abstract class InitService {
 
   /**
    * Start route-listening subscriptions
-   * - {@link MetadataService.listenForRouteChange}
+   * - {@link HeadTagService.listenForRouteChange}
    * - {@link BreadcrumbsService.listenForRouteChanges}
    * - {@link ThemeService.listenForRouteChanges}
    * @protected
    */
   protected initRouteListeners(): void {
-    this.metadata.listenForRouteChange();
+    this.headTagService.listenForRouteChange();
     this.breadcrumbsService.listenForRouteChanges();
     this.themeService.listenForRouteChanges();
-    this.menuService.listenForRouteChanges();
   }
 
   /**
@@ -198,7 +227,7 @@ export abstract class InitService {
     return this.store.pipe(
       select(isAuthenticationBlocking),
       distinctUntilChanged(),
-      find((b: boolean) => b === false)
+      find((b: boolean) => b === false),
     );
   }
 }

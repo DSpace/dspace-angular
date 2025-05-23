@@ -1,15 +1,25 @@
-import { autoserialize, deserialize, inheritSerialization } from 'cerialize';
+import {
+  autoserialize,
+  deserialize,
+  inheritSerialization,
+} from 'cerialize';
 import { Observable } from 'rxjs';
-import { link, typedObject } from '../cache/builders/build-decorators';
+import { AccessStatusObject } from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status.model';
+import { ACCESS_STATUS } from 'src/app/shared/object-collection/shared/badges/access-status-badge/access-status.resource-type';
+
+import {
+  link,
+  typedObject,
+} from '../cache/builders/build-decorators';
 import { RemoteData } from '../data/remote-data';
+import { BITSTREAM } from './bitstream.resource-type';
 import { BitstreamFormat } from './bitstream-format.model';
 import { BITSTREAM_FORMAT } from './bitstream-format.resource-type';
-import { BITSTREAM } from './bitstream.resource-type';
+import { Bundle } from './bundle.model';
+import { BUNDLE } from './bundle.resource-type';
+import { ChildHALResource } from './child-hal-resource.model';
 import { DSpaceObject } from './dspace-object.model';
 import { HALLink } from './hal-link.model';
-import {BUNDLE} from './bundle.resource-type';
-import {Bundle} from './bundle.model';
-import { ChildHALResource } from './child-hal-resource.model';
 
 @typedObject
 @inheritSerialization(DSpaceObject)
@@ -44,6 +54,7 @@ export class Bitstream extends DSpaceObject implements ChildHALResource {
     format: HALLink;
     content: HALLink;
     thumbnail: HALLink;
+    accessStatus: HALLink;
   };
 
   /**
@@ -66,6 +77,13 @@ export class Bitstream extends DSpaceObject implements ChildHALResource {
    */
   @link(BUNDLE)
   bundle?: Observable<RemoteData<Bundle>>;
+
+  /**
+   * The access status for this Bitstream
+   * Will be undefined unless the access status {@link HALLink} has been resolved.
+   */
+  @link(ACCESS_STATUS, false, 'accessStatus')
+  accessStatus?: Observable<RemoteData<AccessStatusObject>>;
 
   getParentLinkKey(): keyof this['_links'] {
     return 'format';

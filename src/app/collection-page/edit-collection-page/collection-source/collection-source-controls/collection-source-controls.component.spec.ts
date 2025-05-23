@@ -1,27 +1,33 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ContentSource } from '../../../../core/shared/content-source.model';
-import { Collection } from '../../../../core/shared/collection.model';
-import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
-import { NotificationsService } from '../../../../shared/notifications/notifications.service';
-import { CollectionDataService } from '../../../../core/data/collection-data.service';
-import { RequestService } from '../../../../core/data/request.service';
+import { HttpClient } from '@angular/common/http';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { getTestScheduler } from 'jasmine-marbles';
+import { of } from 'rxjs';
+import { TestScheduler } from 'rxjs/testing';
+
+import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
+import { CollectionDataService } from '../../../../core/data/collection-data.service';
 import { ProcessDataService } from '../../../../core/data/processes/process-data.service';
 import { ScriptDataService } from '../../../../core/data/processes/script-data.service';
-import { HttpClient } from '@angular/common/http';
-import { BitstreamDataService } from '../../../../core/data/bitstream-data.service';
-import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
-import { Process } from '../../../../process-page/processes/process.model';
-import { of as observableOf } from 'rxjs';
-import { CollectionSourceControlsComponent } from './collection-source-controls.component';
+import { RequestService } from '../../../../core/data/request.service';
 import { Bitstream } from '../../../../core/shared/bitstream.model';
-import { getTestScheduler } from 'jasmine-marbles';
-import { TestScheduler } from 'rxjs/testing';
-import { By } from '@angular/platform-browser';
-import { VarDirective } from '../../../../shared/utils/var.directive';
+import { Collection } from '../../../../core/shared/collection.model';
+import { ContentSource } from '../../../../core/shared/content-source.model';
 import { ContentSourceSetSerializer } from '../../../../core/shared/content-source-set-serializer';
+import { Process } from '../../../../process-page/processes/process.model';
+import { BtnDisabledDirective } from '../../../../shared/btn-disabled.directive';
+import { NotificationsService } from '../../../../shared/notifications/notifications.service';
+import { createSuccessfulRemoteDataObject$ } from '../../../../shared/remote-data.utils';
+import { NotificationsServiceStub } from '../../../../shared/testing/notifications-service.stub';
+import { VarDirective } from '../../../../shared/utils/var.directive';
+import { CollectionSourceControlsComponent } from './collection-source-controls.component';
 
 describe('CollectionSourceControlsComponent', () => {
   let comp: CollectionSourceControlsComponent;
@@ -51,66 +57,65 @@ describe('CollectionSourceControlsComponent', () => {
         {
           id: 'dc',
           label: 'Simple Dublin Core',
-          nameSpace: 'http://www.openarchives.org/OAI/2.0/oai_dc/'
+          nameSpace: 'http://www.openarchives.org/OAI/2.0/oai_dc/',
         },
         {
           id: 'qdc',
           label: 'Qualified Dublin Core',
-          nameSpace: 'http://purl.org/dc/terms/'
+          nameSpace: 'http://purl.org/dc/terms/',
         },
         {
           id: 'dim',
           label: 'DSpace Intermediate Metadata',
-          nameSpace: 'http://www.dspace.org/xmlns/dspace/dim'
-        }
+          nameSpace: 'http://www.dspace.org/xmlns/dspace/dim',
+        },
       ],
       oaiSource: 'oai-harvest-source',
       oaiSetId: 'oai-set-id',
-      _links: {self: {href: 'contentsource-selflink'}}
+      _links: { self: { href: 'contentsource-selflink' } },
     });
     process = Object.assign(new Process(), {
       processId: 'process-id', processStatus: 'COMPLETED',
-      _links: {output: {href: 'output-href'}}
+      _links: { output: { href: 'output-href' } },
     });
 
-    bitstream = Object.assign(new Bitstream(), {_links: {content: {href: 'content-href'}}});
+    bitstream = Object.assign(new Bitstream(), { _links: { content: { href: 'content-href' } } });
 
     collection = Object.assign(new Collection(), {
       uuid: 'fake-collection-id',
-      _links: {self: {href: 'collection-selflink'}}
+      _links: { self: { href: 'collection-selflink' } },
     });
     notificationsService = new NotificationsServiceStub();
     collectionService = jasmine.createSpyObj('collectionService', {
       getContentSource: createSuccessfulRemoteDataObject$(contentSource),
-      findByHref: createSuccessfulRemoteDataObject$(collection)
+      findByHref: createSuccessfulRemoteDataObject$(collection),
     });
     scriptDataService = jasmine.createSpyObj('scriptDataService', {
       invoke: createSuccessfulRemoteDataObject$(process),
     });
     processDataService = jasmine.createSpyObj('processDataService', {
-      findById: createSuccessfulRemoteDataObject$(process),
+      autoRefreshUntilCompletion: createSuccessfulRemoteDataObject$(process),
     });
     bitstreamService = jasmine.createSpyObj('bitstreamService', {
       findByHref: createSuccessfulRemoteDataObject$(bitstream),
     });
     httpClient = jasmine.createSpyObj('httpClient', {
-      get: observableOf('Script text'),
+      get: of('Script text'),
     });
     requestService = jasmine.createSpyObj('requestService', ['removeByHrefSubstring', 'setStaleByHrefSubstring']);
 
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterTestingModule],
-      declarations: [CollectionSourceControlsComponent, VarDirective],
+      imports: [TranslateModule.forRoot(), RouterTestingModule, CollectionSourceControlsComponent, VarDirective, BtnDisabledDirective],
       providers: [
-        {provide: ScriptDataService, useValue: scriptDataService},
-        {provide: ProcessDataService, useValue: processDataService},
-        {provide: RequestService, useValue: requestService},
-        {provide: NotificationsService, useValue: notificationsService},
-        {provide: CollectionDataService, useValue: collectionService},
-        {provide: HttpClient, useValue: httpClient},
-        {provide: BitstreamDataService, useValue: bitstreamService}
+        { provide: ScriptDataService, useValue: scriptDataService },
+        { provide: ProcessDataService, useValue: processDataService },
+        { provide: RequestService, useValue: requestService },
+        { provide: NotificationsService, useValue: notificationsService },
+        { provide: CollectionDataService, useValue: collectionService },
+        { provide: HttpClient, useValue: httpClient },
+        { provide: BitstreamDataService, useValue: bitstreamService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
   beforeEach(() => {
@@ -132,12 +137,12 @@ describe('CollectionSourceControlsComponent', () => {
       scheduler.flush();
 
       expect(scriptDataService.invoke).toHaveBeenCalledWith('harvest', [
-        {name: '-g', value: null},
-        {name: '-a', value: contentSource.oaiSource},
-        {name: '-i', value: new ContentSourceSetSerializer().Serialize(contentSource.oaiSetId)},
+        { name: '-g', value: null },
+        { name: '-a', value: contentSource.oaiSource },
+        { name: '-i', value: new ContentSourceSetSerializer().Serialize(contentSource.oaiSetId) },
       ], []);
 
-      expect(processDataService.findById).toHaveBeenCalledWith(process.processId, false);
+      expect(processDataService.autoRefreshUntilCompletion).toHaveBeenCalledWith(process.processId);
       expect(bitstreamService.findByHref).toHaveBeenCalledWith(process._links.output.href);
       expect(notificationsService.info).toHaveBeenCalledWith(jasmine.anything() as any, 'Script text');
     });
@@ -148,10 +153,10 @@ describe('CollectionSourceControlsComponent', () => {
       scheduler.flush();
 
       expect(scriptDataService.invoke).toHaveBeenCalledWith('harvest', [
-        {name: '-r', value: null},
-        {name: '-c', value: collection.uuid},
+        { name: '-r', value: null },
+        { name: '-c', value: collection.uuid },
       ], []);
-      expect(processDataService.findById).toHaveBeenCalledWith(process.processId, false);
+      expect(processDataService.autoRefreshUntilCompletion).toHaveBeenCalledWith(process.processId);
       expect(notificationsService.success).toHaveBeenCalled();
     });
   });
@@ -161,10 +166,10 @@ describe('CollectionSourceControlsComponent', () => {
       scheduler.flush();
 
       expect(scriptDataService.invoke).toHaveBeenCalledWith('harvest', [
-        {name: '-o', value: null},
-        {name: '-c', value: collection.uuid},
+        { name: '-o', value: null },
+        { name: '-c', value: collection.uuid },
       ], []);
-      expect(processDataService.findById).toHaveBeenCalledWith(process.processId, false);
+      expect(processDataService.autoRefreshUntilCompletion).toHaveBeenCalledWith(process.processId);
       expect(notificationsService.success).toHaveBeenCalled();
     });
   });
@@ -189,9 +194,10 @@ describe('CollectionSourceControlsComponent', () => {
 
       const buttons = fixture.debugElement.queryAll(By.css('button'));
 
-      expect(buttons[0].nativeElement.disabled).toBeTrue();
-      expect(buttons[1].nativeElement.disabled).toBeTrue();
-      expect(buttons[2].nativeElement.disabled).toBeTrue();
+      buttons.forEach(button => {
+        expect(button.nativeElement.getAttribute('aria-disabled')).toBe('true');
+        expect(button.nativeElement.classList.contains('disabled')).toBeTrue();
+      });
     });
     it('should be enabled when isEnabled is true', () => {
       comp.shouldShow = true;
@@ -201,9 +207,10 @@ describe('CollectionSourceControlsComponent', () => {
 
       const buttons = fixture.debugElement.queryAll(By.css('button'));
 
-      expect(buttons[0].nativeElement.disabled).toBeFalse();
-      expect(buttons[1].nativeElement.disabled).toBeFalse();
-      expect(buttons[2].nativeElement.disabled).toBeFalse();
+      buttons.forEach(button => {
+        expect(button.nativeElement.getAttribute('aria-disabled')).toBe('false');
+        expect(button.nativeElement.classList.contains('disabled')).toBeFalse();
+      });
     });
     it('should call the corresponding button when clicked', () => {
       spyOn(comp, 'testConfiguration');

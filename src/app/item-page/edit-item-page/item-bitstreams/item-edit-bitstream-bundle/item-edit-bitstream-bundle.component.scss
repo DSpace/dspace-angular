@@ -1,0 +1,27 @@
+.header-row {
+  & > th {
+    padding: .75rem;
+  }
+  --bs-table-bg: var(--bs-dark);
+  --bs-table-bg-state: var(--bs-dark);
+  --bs-table-color-state: var(--bs-light);
+}
+
+.bundle-row {
+  --bs-table-color-state: var(--bs-dark);
+  --bs-table-bg: var(--bs-light-bg-subtle);
+  --bs-table-bg-state: var(--bs-light-bg-subtle);
+}
+
+.row-element {
+  padding: 0.75em;
+  border-bottom: var(--bs-table-border-width) solid var(--bs-table-border-color);
+}
+
+.bitstream-name {
+  font-weight: normal;
+}
+
+.table {
+  margin-bottom: 0;
+}

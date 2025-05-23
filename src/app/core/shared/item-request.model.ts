@@ -1,10 +1,14 @@
-import { autoserialize, deserialize } from 'cerialize';
+import {
+  autoserialize,
+  deserialize,
+} from 'cerialize';
+
 import { typedObject } from '../cache/builders/build-decorators';
-import { excludeFromEquals } from '../utilities/equals.decorators';
-import { ResourceType } from './resource-type';
-import { ITEM_REQUEST } from './item-request.resource-type';
-import { HALLink } from './hal-link.model';
 import { CacheableObject } from '../cache/cacheable-object.model';
+import { excludeFromEquals } from '../utilities/equals.decorators';
+import { HALLink } from './hal-link.model';
+import { ITEM_REQUEST } from './item-request.resource-type';
+import { ResourceType } from './resource-type';
 
 /**
  * Model class for an ItemRequest
@@ -76,7 +80,19 @@ export class ItemRequest implements CacheableObject {
    */
   @autoserialize
   bitstreamId: string;
+  /**
+   * Access token of the request (read-only)
+   */
+  @autoserialize
+  accessToken: string;
+  /**
+   * Access expiry date of the request
+   */
+  @autoserialize
+  accessExpiry: string;
 
+  @autoserialize
+  accessExpired: boolean;
   /**
    * The {@link HALLink}s for this ItemRequest
    */

@@ -5,12 +5,17 @@
  *
  * http://www.dspace.org/license/
  */
-import { constructSearchEndpointDefault, SearchData, SearchDataImpl } from './search-data';
-import { FindListOptions } from '../find-list-options.model';
-import { followLink } from '../../../shared/utils/follow-link-config.model';
-import { of as observableOf } from 'rxjs';
-import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
+import { of } from 'rxjs';
+
 import { getMockRemoteDataBuildService } from '../../../shared/mocks/remote-data-build.service.mock';
+import { getMockRequestService } from '../../../shared/mocks/request.service.mock';
+import { followLink } from '../../../shared/utils/follow-link-config.model';
+import { FindListOptions } from '../find-list-options.model';
+import {
+  constructSearchEndpointDefault,
+  SearchData,
+  SearchDataImpl,
+} from './search-data';
 
 /**
  * Tests whether calls to `SearchData` methods are correctly patched through in a concrete data service that implements it
@@ -56,7 +61,7 @@ describe('SearchDataImpl', () => {
   function initTestService(): SearchDataImpl<any> {
     requestService = getMockRequestService();
     halService = jasmine.createSpyObj('halService', {
-      getEndpoint: observableOf(endpoint),
+      getEndpoint: of(endpoint),
     });
     rdbService = getMockRemoteDataBuildService();
     linksToFollow = [

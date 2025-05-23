@@ -1,29 +1,39 @@
 import { Injectable } from '@angular/core';
-import { RequestService } from './request.service';
+import { Observable } from 'rxjs';
+
+import { NotificationsService } from '../../shared/notifications/notifications.service';
+import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
+import { SystemWideAlert } from '../../system-wide-alert/system-wide-alert.model';
 import { RemoteDataBuildService } from '../cache/builders/remote-data-build.service';
+import { RequestParam } from '../cache/models/request-param.model';
 import { ObjectCacheService } from '../cache/object-cache.service';
 import { HALEndpointService } from '../shared/hal-endpoint.service';
-import { Observable } from 'rxjs';
+import {
+  CreateData,
+  CreateDataImpl,
+} from './base/create-data';
+import {
+  FindAllData,
+  FindAllDataImpl,
+} from './base/find-all-data';
+import { IdentifiableDataService } from './base/identifiable-data.service';
+import {
+  PutData,
+  PutDataImpl,
+} from './base/put-data';
+import {
+  SearchData,
+  SearchDataImpl,
+} from './base/search-data';
+import { FindListOptions } from './find-list-options.model';
 import { PaginatedList } from './paginated-list.model';
 import { RemoteData } from './remote-data';
-import { IdentifiableDataService } from './base/identifiable-data.service';
-import { FollowLinkConfig } from '../../shared/utils/follow-link-config.model';
-import { FindAllData, FindAllDataImpl } from './base/find-all-data';
-import { FindListOptions } from './find-list-options.model';
-import { dataService } from './base/data-service.decorator';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { CreateData, CreateDataImpl } from './base/create-data';
-import { SYSTEMWIDEALERT } from '../../system-wide-alert/system-wide-alert.resource-type';
-import { SystemWideAlert } from '../../system-wide-alert/system-wide-alert.model';
-import { PutData, PutDataImpl } from './base/put-data';
-import { RequestParam } from '../cache/models/request-param.model';
-import { SearchData, SearchDataImpl } from './base/search-data';
+import { RequestService } from './request.service';
 
 /**
  * Dataservice representing a system-wide alert
  */
-@Injectable()
-@dataService(SYSTEMWIDEALERT)
+@Injectable({ providedIn: 'root' })
 export class SystemWideAlertDataService extends IdentifiableDataService<SystemWideAlert> implements FindAllData<SystemWideAlert>, CreateData<SystemWideAlert>, PutData<SystemWideAlert>, SearchData<SystemWideAlert> {
   private findAllData: FindAllDataImpl<SystemWideAlert>;
   private createData: CreateDataImpl<SystemWideAlert>;

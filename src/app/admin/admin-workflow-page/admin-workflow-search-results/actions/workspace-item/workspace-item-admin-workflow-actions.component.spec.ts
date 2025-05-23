@@ -1,31 +1,30 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
-
-import { of } from 'rxjs';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
 
-import { URLCombiner } from '../../../../../core/url-combiner/url-combiner';
-import { WorkspaceItemAdminWorkflowActionsComponent } from './workspace-item-admin-workflow-actions.component';
-import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
-import {
- getWorkspaceItemDeleteRoute,
-} from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
-import { Item } from '../../../../../core/shared/item.model';
+import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { RemoteData } from '../../../../../core/data/remote-data';
 import { RequestEntryState } from '../../../../../core/data/request-entry-state.model';
-import { NotificationsServiceStub } from '../../../../../shared/testing/notifications-service.stub';
-import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
-import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
-import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
+import { Item } from '../../../../../core/shared/item.model';
+import { WorkspaceItem } from '../../../../../core/submission/models/workspaceitem.model';
 import { SupervisionOrderDataService } from '../../../../../core/supervision-order/supervision-order-data.service';
+import { URLCombiner } from '../../../../../core/url-combiner/url-combiner';
 import { ConfirmationModalComponent } from '../../../../../shared/confirmation-modal/confirmation-modal.component';
+import { DSONameServiceMock } from '../../../../../shared/mocks/dso-name.service.mock';
+import { NotificationsService } from '../../../../../shared/notifications/notifications.service';
+import { NotificationsServiceStub } from '../../../../../shared/testing/notifications-service.stub';
 import { supervisionOrderEntryMock } from '../../../../../shared/testing/supervision-order.mock';
-import {
-  SupervisionOrderGroupSelectorComponent
-} from './supervision-order-group-selector/supervision-order-group-selector.component';
+import { getWorkspaceItemDeleteRoute } from '../../../../../workflowitems-edit-page/workflowitems-edit-page-routing-paths';
+import { SupervisionOrderGroupSelectorComponent } from './supervision-order-group-selector/supervision-order-group-selector.component';
+import { WorkspaceItemAdminWorkflowActionsComponent } from './workspace-item-admin-workflow-actions.component';
 
 describe('WorkspaceItemAdminWorkflowActionsComponent', () => {
   let component: WorkspaceItemAdminWorkflowActionsComponent;
@@ -56,15 +55,15 @@ describe('WorkspaceItemAdminWorkflowActionsComponent', () => {
       imports: [
         NgbModalModule,
         TranslateModule.forRoot(),
-        RouterTestingModule.withRoutes([])
+        RouterTestingModule.withRoutes([]),
+        WorkspaceItemAdminWorkflowActionsComponent,
       ],
-      declarations: [WorkspaceItemAdminWorkflowActionsComponent],
       providers: [
         { provide: DSONameService, useClass: DSONameServiceMock },
         { provide: NotificationsService, useValue: notificationService },
-        { provide: SupervisionOrderDataService, useValue: supervisionOrderDataService }
+        { provide: SupervisionOrderDataService, useValue: supervisionOrderDataService },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     })
       .compileComponents();
   }));
@@ -97,7 +96,7 @@ describe('WorkspaceItemAdminWorkflowActionsComponent', () => {
     beforeEach(() => {
       spyOn(component.delete, 'emit');
       spyOn((component as any).modalService, 'open').and.returnValue({
-        componentInstance: { response: of(true) }
+        componentInstance: { response: of(true) },
       });
     });
 
@@ -138,7 +137,7 @@ describe('WorkspaceItemAdminWorkflowActionsComponent', () => {
     beforeEach(() => {
       spyOn(component.create, 'emit');
       spyOn((component as any).modalService, 'open').and.returnValue({
-        componentInstance: { create: of(true) }
+        componentInstance: { create: of(true) },
       });
     });
 
@@ -146,7 +145,7 @@ describe('WorkspaceItemAdminWorkflowActionsComponent', () => {
       component.openSupervisionModal();
       expect((component as any).modalService.open).toHaveBeenCalledWith(SupervisionOrderGroupSelectorComponent, {
         size: 'lg',
-        backdrop: 'static'
+        backdrop: 'static',
       });
       expect(component.create.emit).toHaveBeenCalled();
     });

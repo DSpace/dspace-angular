@@ -1,10 +1,19 @@
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
-
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
-import { StringValueInputComponent } from './string-value-input.component';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+
 import { TranslateLoaderMock } from '../../../../../shared/mocks/translate-loader.mock';
+import { StringValueInputComponent } from './string-value-input.component';
 
 describe('StringValueInputComponent', () => {
   let component: StringValueInputComponent;
@@ -17,12 +26,12 @@ describe('StringValueInputComponent', () => {
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })],
-      declarations: [StringValueInputComponent],
-      providers: [
-      ]
+            useClass: TranslateLoaderMock,
+          },
+        }),
+        StringValueInputComponent,
+      ],
+      providers: [],
     })
       .compileComponents();
   }));

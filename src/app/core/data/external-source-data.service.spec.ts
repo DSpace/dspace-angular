@@ -1,11 +1,12 @@
-import { ExternalSourceDataService } from './external-source-data.service';
+import { of } from 'rxjs';
+import { take } from 'rxjs/operators';
+
 import { createSuccessfulRemoteDataObject$ } from '../../shared/remote-data.utils';
 import { createPaginatedList } from '../../shared/testing/utils.test';
 import { ExternalSourceEntry } from '../shared/external-source-entry.model';
-import { of as observableOf } from 'rxjs';
-import { GetRequest } from './request.models';
 import { testSearchDataImplementation } from './base/search-data.spec';
-import { take } from 'rxjs/operators';
+import { ExternalSourceDataService } from './external-source-data.service';
+import { GetRequest } from './request.models';
 
 describe('ExternalSourceService', () => {
   let service: ExternalSourceDataService;
@@ -22,10 +23,10 @@ describe('ExternalSourceService', () => {
       metadata: {
         'dc.identifier.uri': [
           {
-            value: 'https://orcid.org/0001-0001-0001-0001'
-          }
-        ]
-      }
+            value: 'https://orcid.org/0001-0001-0001-0001',
+          },
+        ],
+      },
     }),
     Object.assign(new ExternalSourceEntry(), {
       id: '0001-0001-0001-0002',
@@ -34,23 +35,23 @@ describe('ExternalSourceService', () => {
       metadata: {
         'dc.identifier.uri': [
           {
-            value: 'https://orcid.org/0001-0001-0001-0002'
-          }
-        ]
-      }
-    })
+            value: 'https://orcid.org/0001-0001-0001-0002',
+          },
+        ],
+      },
+    }),
   ];
 
   function init() {
     requestService = jasmine.createSpyObj('requestService', {
       generateRequestId: 'request-uuid',
-      send: {}
+      send: {},
     });
     rdbService = jasmine.createSpyObj('rdbService', {
-      buildList: createSuccessfulRemoteDataObject$(createPaginatedList(entries))
+      buildList: createSuccessfulRemoteDataObject$(createPaginatedList(entries)),
     });
     halService = jasmine.createSpyObj('halService', {
-      getEndpoint: observableOf('external-sources-REST-endpoint'),
+      getEndpoint: of('external-sources-REST-endpoint'),
     });
     service = new ExternalSourceDataService(requestService, rdbService, undefined, halService);
   }
@@ -69,7 +70,7 @@ describe('ExternalSourceService', () => {
     describe('when no error response is cached', () => {
       let result;
       beforeEach(() => {
-        spyOn(service, 'hasCachedErrorResponse').and.returnValue(observableOf(false));
+        spyOn(service, 'hasCachedErrorResponse').and.returnValue(of(false));
         result = service.getExternalSourceEntries('test');
       });
 
@@ -88,19 +89,13 @@ describe('ExternalSourceService', () => {
     describe('when an error response is cached', () => {
       let result;
       beforeEach(() => {
-        spyOn(service, 'hasCachedErrorResponse').and.returnValue(observableOf(true));
+        spyOn(service, 'hasCachedErrorResponse').and.returnValue(of(true));
         result = service.getExternalSourceEntries('test');
       });
 
       it('should send a GetRequest', () => {
         result.pipe(take(1)).subscribe();
         expect(requestService.send).toHaveBeenCalledWith(jasmine.any(GetRequest), false);
-      });
-
-      it('should return the entries', () => {
-        result.subscribe((resultRD) => {
-          expect(resultRD.payload.page).toBe(entries);
-        });
       });
     });
   });

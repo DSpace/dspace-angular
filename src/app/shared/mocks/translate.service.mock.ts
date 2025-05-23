@@ -5,6 +5,6 @@ export function getMockTranslateService(): TranslateService {
     get: jasmine.createSpy('get'),
     use: jasmine.createSpy('use'),
     instant: jasmine.createSpy('instant'),
-    setDefaultLang: jasmine.createSpy('setDefaultLang')
+    setDefaultLang: jasmine.createSpy('setDefaultLang'),
   });
 }

@@ -1,5 +1,5 @@
-import { MenusState } from './menus-state.model';
 import { MenuID } from './menu-id.model';
+import { MenusState } from './menus-state.model';
 
 /**
  * The initial state of the menus
@@ -12,7 +12,7 @@ export const initialMenusState: MenusState = {
       previewCollapsed: true,
       visible: false,
       sections: {},
-      sectionToSubsectionIndex: {}
+      sectionToSubsectionIndex: {},
     },
   [MenuID.PUBLIC]:
     {
@@ -21,15 +21,15 @@ export const initialMenusState: MenusState = {
       previewCollapsed: true,
       visible: true,
       sections: {},
-      sectionToSubsectionIndex: {}
+      sectionToSubsectionIndex: {},
     },
   [MenuID.DSO_EDIT]:
     {
       id: MenuID.DSO_EDIT,
       collapsed: true,
       previewCollapsed: true,
-      visible: false,
+      visible: true,
       sections: {},
-      sectionToSubsectionIndex: {}
+      sectionToSubsectionIndex: {},
     },
 };

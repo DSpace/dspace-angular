@@ -29,9 +29,9 @@ export function universalMetaReducer(reducer) {
 }
 
 export const debugMetaReducers = [
-  debugMetaReducer
+  debugMetaReducer,
 ];
 
 export const appMetaReducers = [
-  universalMetaReducer
+  universalMetaReducer,
 ];

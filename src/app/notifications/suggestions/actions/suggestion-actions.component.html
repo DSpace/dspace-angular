@@ -1,0 +1,35 @@
+<div class="d-inline">
+  <div ngbDropdown class="d-inline">
+    @if (isCollectionFixed) {
+      <button class="btn btn-success" type="button" (click)="approveAndImportCollectionFixed()">
+        <i class="fa fa-check" aria-hidden="true"></i> {{ approveAndImportLabel() | translate}}
+      </button>
+    } @else {
+      <button class="btn btn-success" id="dropdownSubmission" ngbDropdownToggle
+        type="button">
+        <i class="fa fa-check" aria-hidden="true"></i> {{ approveAndImportLabel() | translate}}
+        <span class="caret"></span>
+      </button>
+      <div ngbDropdownMenu
+        class="dropdown-menu"
+        id="entityControlsDropdownMenu"
+        aria-labelledby="dropdownSubmission">
+        <ds-entity-dropdown (selectionChange)="openDialog($event)"></ds-entity-dropdown>
+      </div>
+    }
+
+  </div>
+  <button (click)="ignoreSuggestion()" class="btn btn-danger ms-2"><i class="fa fa-ban"></i>
+{{ ignoreSuggestionLabel() | translate}}</button>
+@if (!isBulk) {
+  <button (click)="toggleSeeEvidences()" [dsBtnDisabled]="!hasEvidence" class="btn btn-info ms-2">
+    <i class="fa fa-eye"></i>
+    @if (!seeEvidence) {
+      {{ 'suggestion.seeEvidence' | translate}}
+    }
+    @if (seeEvidence) {
+      {{ 'suggestion.hideEvidence' | translate}}
+    }
+  </button>
+}
+</div>

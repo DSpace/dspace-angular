@@ -1,27 +1,62 @@
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { filter, map, switchMap, take } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
-import { hasValue, isNotEmpty } from '../../shared/empty.util';
-import { getRemoteDataPayload } from '../../core/shared/operators';
-import { Bitstream } from '../../core/shared/bitstream.model';
+import {
+  AsyncPipe,
+  isPlatformServer,
+  Location,
+} from '@angular/common';
+import {
+  Component,
+  Inject,
+  inject,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Params,
+  Router,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  combineLatest as observableCombineLatest,
+  Observable,
+  of,
+} from 'rxjs';
+import {
+  filter,
+  map,
+  switchMap,
+  take,
+} from 'rxjs/operators';
+
+import { getForbiddenRoute } from '../../app-routing-paths';
+import { AuthService } from '../../core/auth/auth.service';
+import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
+import { ConfigurationDataService } from '../../core/data/configuration-data.service';
 import { AuthorizationDataService } from '../../core/data/feature-authorization/authorization-data.service';
 import { FeatureID } from '../../core/data/feature-authorization/feature-id';
-import { AuthService } from '../../core/auth/auth.service';
-import { combineLatest as observableCombineLatest, Observable, of as observableOf } from 'rxjs';
-import { FileService } from '../../core/shared/file.service';
-import { HardRedirectService } from '../../core/services/hard-redirect.service';
-import { getForbiddenRoute } from '../../app-routing-paths';
 import { RemoteData } from '../../core/data/remote-data';
-import { redirectOn4xx } from '../../core/shared/authorized.operators';
-import { isPlatformServer, Location } from '@angular/common';
-import { DSONameService } from '../../core/breadcrumbs/dso-name.service';
 import { SignpostingDataService } from '../../core/data/signposting-data.service';
-import { ServerResponseService } from '../../core/services/server-response.service';
 import { SignpostingLink } from '../../core/data/signposting-links.model';
+import { HardRedirectService } from '../../core/services/hard-redirect.service';
+import { ServerResponseService } from '../../core/services/server-response.service';
+import { redirectOn4xx } from '../../core/shared/authorized.operators';
+import { Bitstream } from '../../core/shared/bitstream.model';
+import { FileService } from '../../core/shared/file.service';
+import { getRemoteDataPayload } from '../../core/shared/operators';
+import {
+  hasValue,
+  isNotEmpty,
+} from '../../shared/empty.util';
+import { MatomoService } from '../../statistics/matomo.service';
 
 @Component({
   selector: 'ds-bitstream-download-page',
-  templateUrl: './bitstream-download-page.component.html'
+  templateUrl: './bitstream-download-page.component.html',
+  imports: [
+    AsyncPipe,
+    TranslateModule,
+  ],
+  standalone: true,
 })
 /**
  * Page component for downloading a bitstream
@@ -30,6 +65,8 @@ export class BitstreamDownloadPageComponent implements OnInit {
 
   bitstream$: Observable<Bitstream>;
   bitstreamRD$: Observable<RemoteData<Bitstream>>;
+
+  configService = inject(ConfigurationDataService);
 
   constructor(
     private route: ActivatedRoute,
@@ -42,7 +79,8 @@ export class BitstreamDownloadPageComponent implements OnInit {
     public dsoNameService: DSONameService,
     private signpostingDataService: SignpostingDataService,
     private responseService: ServerResponseService,
-    @Inject(PLATFORM_ID) protected platformId: string
+    private matomoService: MatomoService,
+    @Inject(PLATFORM_ID) protected platformId: string,
   ) {
     this.initPageLinks();
   }
@@ -52,45 +90,66 @@ export class BitstreamDownloadPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const accessToken$: Observable<string> = this.route.queryParams.pipe(
+      map((queryParams: Params) => queryParams?.accessToken || null),
+      take(1),
+    );
 
     this.bitstreamRD$ = this.route.data.pipe(
       map((data) => data.bitstream));
 
     this.bitstream$ = this.bitstreamRD$.pipe(
       redirectOn4xx(this.router, this.auth),
-      getRemoteDataPayload()
+      getRemoteDataPayload(),
     );
 
     this.bitstream$.pipe(
       switchMap((bitstream: Bitstream) => {
         const isAuthorized$ = this.authorizationService.isAuthorized(FeatureID.CanDownload, isNotEmpty(bitstream) ? bitstream.self : undefined);
         const isLoggedIn$ = this.auth.isAuthenticated();
-        return observableCombineLatest([isAuthorized$, isLoggedIn$, observableOf(bitstream)]);
+        const isMatomoEnabled$ = this.matomoService.isMatomoEnabled$();
+        return observableCombineLatest([isAuthorized$, isLoggedIn$, isMatomoEnabled$, accessToken$, of(bitstream)]);
       }),
-      filter(([isAuthorized, isLoggedIn, bitstream]: [boolean, boolean, Bitstream]) => hasValue(isAuthorized) && hasValue(isLoggedIn)),
+      filter(([isAuthorized, isLoggedIn, isMatomoEnabled, accessToken, bitstream]: [boolean, boolean, boolean, string, Bitstream]) => (hasValue(isAuthorized) && hasValue(isLoggedIn)) || hasValue(accessToken)),
       take(1),
-      switchMap(([isAuthorized, isLoggedIn, bitstream]: [boolean, boolean, Bitstream]) => {
+      switchMap(([isAuthorized, isLoggedIn, isMatomoEnabled, accessToken, bitstream]: [boolean, boolean, boolean, string, Bitstream]) => {
         if (isAuthorized && isLoggedIn) {
           return this.fileService.retrieveFileDownloadLink(bitstream._links.content.href).pipe(
             filter((fileLink) => hasValue(fileLink)),
             take(1),
             map((fileLink) => {
-              return [isAuthorized, isLoggedIn, bitstream, fileLink];
+              return [isAuthorized, isLoggedIn, isMatomoEnabled, bitstream, fileLink];
             }));
+        } else if (hasValue(accessToken)) {
+          return [[isAuthorized, !isLoggedIn, isMatomoEnabled, bitstream, '', accessToken]];
         } else {
-          return [[isAuthorized, isLoggedIn, bitstream, '']];
+          return [[isAuthorized, isLoggedIn, isMatomoEnabled, bitstream, bitstream._links.content.href]];
         }
-      })
-    ).subscribe(([isAuthorized, isLoggedIn, bitstream, fileLink]: [boolean, boolean, Bitstream, string]) => {
+      }),
+      switchMap(([isAuthorized, isLoggedIn, isMatomoEnabled, bitstream, fileLink, accessToken]: [boolean, boolean, boolean, Bitstream, string, string]) => {
+        if (isMatomoEnabled) {
+          return this.matomoService.appendVisitorId(fileLink).pipe(
+            map((fileLinkWithVisitorId) => [isAuthorized, isLoggedIn, bitstream, fileLinkWithVisitorId, accessToken]),
+          );
+        }
+        return of([isAuthorized, isLoggedIn, bitstream, fileLink, accessToken]);
+      }),
+    ).subscribe(([isAuthorized, isLoggedIn, bitstream, fileLink, accessToken]: [boolean, boolean, Bitstream, string, string]) => {
       if (isAuthorized && isLoggedIn && isNotEmpty(fileLink)) {
         this.hardRedirectService.redirect(fileLink);
-      } else if (isAuthorized && !isLoggedIn) {
-        this.hardRedirectService.redirect(bitstream._links.content.href);
-      } else if (!isAuthorized && isLoggedIn) {
-        this.router.navigateByUrl(getForbiddenRoute(), {skipLocationChange: true});
-      } else if (!isAuthorized && !isLoggedIn) {
-        this.auth.setRedirectUrl(this.router.url);
-        this.router.navigateByUrl('login');
+      } else if (isAuthorized && !isLoggedIn && !hasValue(accessToken)) {
+        this.hardRedirectService.redirect(fileLink);
+      } else if (!isAuthorized) {
+        // Either we have an access token, or we are logged in, or we are not logged in.
+        // For now, the access token does not care if we are logged in or not.
+        if (hasValue(accessToken)) {
+          this.hardRedirectService.redirect(bitstream._links.content.href + '?accessToken=' + accessToken);
+        } else if (isLoggedIn) {
+          this.router.navigateByUrl(getForbiddenRoute(), { skipLocationChange: true });
+        } else if (!isLoggedIn) {
+          this.auth.setRedirectUrl(this.router.url);
+          this.router.navigateByUrl('login');
+        }
       }
     });
   }

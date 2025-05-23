@@ -1,11 +1,17 @@
-import { MetadataRepresentationListElementComponent } from '../metadata-representation-list-element.component';
-import { Component, OnInit, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
+
 import { ItemMetadataRepresentation } from '../../../../core/shared/metadata-representation/item/item-metadata-representation.model';
 import { getItemPageRoute } from '../../../../item-page/item-page-routing-paths';
+import { MetadataRepresentationListElementComponent } from '../metadata-representation-list-element.component';
 
 @Component({
   selector: 'ds-item-metadata-representation-list-element',
-  template: ''
+  template: '',
+  standalone: true,
 })
 /**
  * An abstract class for displaying a single ItemMetadataRepresentation

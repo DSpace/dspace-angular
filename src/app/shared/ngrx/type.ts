@@ -20,7 +20,7 @@ export function types(): string[] {
 
 export function type<T>(label: T | ''): T {
   if (typeCache[label as string]) {
-    throw new Error(`Action type "${label}" is not unique"`);
+    throw new Error(`Action type "${label as string}" is not unique"`);
   }
 
   typeCache[label as string] = true;

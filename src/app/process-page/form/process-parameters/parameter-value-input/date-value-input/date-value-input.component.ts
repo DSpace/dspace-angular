@@ -1,7 +1,19 @@
-import { Component, Input, Optional } from '@angular/core';
+
+import {
+  Component,
+  Input,
+  OnInit,
+  Optional,
+} from '@angular/core';
+import {
+  ControlContainer,
+  FormsModule,
+  NgForm,
+} from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { controlContainerFactory } from '../../../process-form-factory';
 import { ValueInputComponent } from '../value-input.component';
-import { ControlContainer, NgForm } from '@angular/forms';
-import { controlContainerFactory } from '../../../process-form.component';
 
 /**
  * Represents the user inputted value of a date parameter
@@ -10,11 +22,16 @@ import { controlContainerFactory } from '../../../process-form.component';
   selector: 'ds-date-value-input',
   templateUrl: './date-value-input.component.html',
   styleUrls: ['./date-value-input.component.scss'],
-  viewProviders: [ { provide: ControlContainer,
+  viewProviders: [{ provide: ControlContainer,
     useFactory: controlContainerFactory,
-    deps: [[new Optional(), NgForm]] } ]
+    deps: [[new Optional(), NgForm]] }],
+  standalone: true,
+  imports: [
+    FormsModule,
+    TranslateModule,
+  ],
 })
-export class DateValueInputComponent extends ValueInputComponent<string> {
+export class DateValueInputComponent extends ValueInputComponent<string> implements OnInit {
   /**
    * The current value of the date string
    */
@@ -25,7 +42,7 @@ export class DateValueInputComponent extends ValueInputComponent<string> {
    */
   @Input() initialValue;
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.value = this.initialValue;
   }
 

@@ -1,6 +1,4 @@
-import {
-  WorkspaceitemSectionSherpaPoliciesObject
-} from '../../core/submission/models/workspaceitem-section-sherpa-policies.model';
+import { WorkspaceitemSectionSherpaPoliciesObject } from '../../core/submission/models/workspaceitem-section-sherpa-policies.model';
 
 export const SherpaDataResponse = {
   'id': 'sherpaPolicies',
@@ -15,7 +13,7 @@ export const SherpaDataResponse = {
       'dateCreated': '2012-11-20 14:51:52',
       'dateModified': '2020-03-06 11:25:54',
       'inDOAJ': false,
-      'publiclyVisible': true
+      'publiclyVisible': true,
     },
     'journals': [{
       'titles': ['The Lancet', 'Lancet'],
@@ -31,7 +29,7 @@ export const SherpaDataResponse = {
         'identifier': null,
         'publicationCount': 0,
         'paidAccessDescription': 'Open access',
-        'paidAccessUrl': 'https://www.elsevier.com/about/open-science/open-access'
+        'paidAccessUrl': 'https://www.elsevier.com/about/open-science/open-access',
       },
       'publishers': [{
         'name': 'Elsevier',
@@ -41,7 +39,7 @@ export const SherpaDataResponse = {
         'identifier': null,
         'publicationCount': 0,
         'paidAccessDescription': 'Open access',
-        'paidAccessUrl': 'https://www.elsevier.com/about/open-science/open-access'
+        'paidAccessUrl': 'https://www.elsevier.com/about/open-science/open-access',
       }],
       'policies': [{
         'id': 0,
@@ -55,7 +53,7 @@ export const SherpaDataResponse = {
           'prerequisites': [],
           'locations': ['Author\'s Homepage', 'Preprint Repository'],
           'licenses': [],
-          'embargo': null
+          'embargo': null,
         }, {
           'articleVersion': 'accepted',
           'option': 1,
@@ -63,7 +61,7 @@ export const SherpaDataResponse = {
           'prerequisites': [],
           'locations': ['Author\'s Homepage', 'Institutional Website'],
           'licenses': ['CC BY-NC-ND'],
-          'embargo': null
+          'embargo': null,
         }, {
           'articleVersion': 'accepted',
           'option': 2,
@@ -71,7 +69,7 @@ export const SherpaDataResponse = {
           'prerequisites': ['If Required by Funder'],
           'locations': ['Non-Commercial Repository'],
           'licenses': ['CC BY-NC-ND'],
-          'embargo': { amount: 6, units: 'Months' }
+          'embargo': { amount: 6, units: 'Months' },
         }, {
           'articleVersion': 'accepted',
           'option': 3,
@@ -79,7 +77,7 @@ export const SherpaDataResponse = {
           'prerequisites': [],
           'locations': ['Non-Commercial Repository'],
           'licenses': [],
-          'embargo': null
+          'embargo': null,
         }],
         'urls': {
           'http://download.thelancet.com/flatcontentassets/authors/lancet-information-for-authors.pdf': 'Guidelines for Authors',
@@ -87,15 +85,15 @@ export const SherpaDataResponse = {
           'http://www.thelancet.com/lancet-information-for-authors/after-publication': 'What happens after publication?',
           'http://www.thelancet.com/lancet/information-for-authors/disclosure-of-results': 'Disclosure of results before publication',
           'https://www.elsevier.com/__data/assets/pdf_file/0005/78476/external-embargo-list.pdf': 'Journal Embargo Period List',
-          'https://www.elsevier.com/__data/assets/pdf_file/0011/78473/UK-Embargo-Periods.pdf': 'Journal Embargo List for UK Authors'
+          'https://www.elsevier.com/__data/assets/pdf_file/0011/78473/UK-Embargo-Periods.pdf': 'Journal Embargo List for UK Authors',
         },
         'openAccessProhibited': false,
         'publicationCount': 0,
         'preArchiving': 'can',
         'postArchiving': 'can',
-        'pubArchiving': 'cannot'
+        'pubArchiving': 'cannot',
       }],
-      'inDOAJ': false
-    }]
-  }
+      'inDOAJ': false,
+    }],
+  },
 } as WorkspaceitemSectionSherpaPoliciesObject;

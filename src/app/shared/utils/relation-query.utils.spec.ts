@@ -1,4 +1,7 @@
-import { getFilterByRelation, getQueryByRelations } from './relation-query.utils';
+import {
+  getFilterByRelation,
+  getQueryByRelations,
+} from './relation-query.utils';
 
 describe('Relation Query Utils', () => {
   const relationtype = 'isAuthorOfPublication';
