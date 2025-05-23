@@ -15,6 +15,7 @@ export class SearchOptions {
   view?: ViewMode = ViewMode.ListElement;
   scope?: string;
   query?: string;
+  expert?: boolean;
   dsoTypes?: DSpaceObjectType[];
   filters?: SearchFilter[];
   fixedFilter?: string;
@@ -22,7 +23,7 @@ export class SearchOptions {
   constructor(
     options: {
       configuration?: string, scope?: string, query?: string, dsoTypes?: DSpaceObjectType[], filters?: SearchFilter[],
-      fixedFilter?: string
+      fixedFilter?: string, expert?: boolean
     },
   ) {
     this.configuration = options.configuration;
@@ -31,6 +32,7 @@ export class SearchOptions {
     this.dsoTypes = options.dsoTypes;
     this.filters = options.filters;
     this.fixedFilter = options.fixedFilter;
+    this.expert = options.expert;
   }
 
   /**
@@ -47,7 +49,11 @@ export class SearchOptions {
       args.push(this.encodedFixedFilter);
     }
     if (isNotEmpty(this.query)) {
-      args.push(`query=${encodeURIComponent(this.query)}`);
+      if (!this.expert) {
+        args.push(`query=${encodeURIComponent(this.query.replace(':', '\\:'))}`);
+      } else {
+        args.push(`query=${encodeURIComponent(this.query)}`);
+      }
     }
     if (isNotEmpty(this.scope)) {
       args.push(`scope=${encodeURIComponent(this.scope)}`);
