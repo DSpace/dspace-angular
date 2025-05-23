@@ -1,7 +1,10 @@
 import { Collection } from '../../../../../core/shared/collection.model';
 import { Item } from '../../../../../core/shared/item.model';
 import { ItemSearchResult } from '../../../../../shared/object-collection/shared/item-search-result.model';
-import { createSidebarSearchListElementTests } from '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component.spec';
+import {
+  createSidebarSearchListElementTests,
+  getExpectedHierarchicalTitle,
+} from '../../../../../shared/object-list/sidebar-search-list-element/sidebar-search-list-element.component.spec';
 import { JournalVolumeSidebarSearchListElementComponent } from './journal-volume-sidebar-search-list-element.component';
 
 const object = Object.assign(new ItemSearchResult(), {
@@ -40,6 +43,11 @@ const parent = Object.assign(new Collection(), {
   },
 });
 
-describe('JournalVolumeSidebarSearchListElementComponent',
-  createSidebarSearchListElementTests(JournalVolumeSidebarSearchListElementComponent, object, parent, 'parent title', 'title', 'journal title (1) (2)'),
-);
+const expectedHierarchicalTitle = getExpectedHierarchicalTitle(parent, object);
+if (expectedHierarchicalTitle) {
+  expectedHierarchicalTitle.subscribe((hierarchicalTitle: string) => {
+    describe('JournalVolumeSidebarSearchListElementComponent', () => {
+      createSidebarSearchListElementTests(JournalVolumeSidebarSearchListElementComponent, object, parent, hierarchicalTitle, 'title', 'journal title (1) (2)');
+    });
+  });
+}
