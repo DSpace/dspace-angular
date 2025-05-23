@@ -10,6 +10,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 
@@ -36,17 +37,22 @@ describe('ComcolRoleComponent', () => {
   let comcolRole;
   let notificationsService;
 
-  const requestService = { hasByHref$: () => of(true) };
+  const requestService = {
+    hasByHref$: () => of(true),
+    setStaleByHrefSubstring: () => of(true),
+  };
 
   const groupService = {
     findByHref: jasmine.createSpy('findByHref'),
     createComcolGroup: jasmine.createSpy('createComcolGroup').and.returnValue(of({})),
     deleteComcolGroup: jasmine.createSpy('deleteComcolGroup').and.returnValue(of({})),
+    clearGroupsRequests: jasmine.createSpy('clearGroupsRequests'),
   };
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
+        NgbModule,
         RouterTestingModule.withRoutes([]),
         TranslateModule.forRoot(),
         NoopAnimationsModule,
@@ -174,17 +180,18 @@ describe('ComcolRoleComponent', () => {
         name: 'custom group name',
       };
       statusCode = 200;
-      comp.comcolRole = comcolRole;
+      comp.comcolRole = {
+        name: 'test role name' + Math.random(),
+        href: 'test role link',
+      };
+      comp.roleName$ = of(comcolRole.name);
       fixture.detectChanges();
     });
 
     it('should have a delete button but no create or restrict button', (done) => {
-      expect(de.query(By.css('.btn.create')))
-        .toBeNull();
-      expect(de.query(By.css('.btn.restrict')))
-        .toBeNull();
-      expect(de.query(By.css('.btn.delete')))
-        .toBeTruthy();
+      expect(de.query(By.css('.btn.create'))).toBeNull();
+      expect(de.query(By.css('.btn.restrict'))).toBeNull();
+      expect(de.query(By.css('.btn.delete'))).toBeTruthy();
       done();
     });
 
@@ -194,7 +201,16 @@ describe('ComcolRoleComponent', () => {
         de.query(By.css('.btn.delete')).nativeElement.click();
       });
 
+      afterEach(() => {
+        const modal = document.querySelector('ds-confirmation-modal');
+        if (modal) {
+          modal.remove();
+        }
+      });
+
       it('should call the groupService delete method', (done) => {
+        (document as any).querySelector('.modal-footer .confirm').click();
+        fixture.detectChanges();
         expect(groupService.deleteComcolGroup).toHaveBeenCalled();
         done();
       });
@@ -204,12 +220,24 @@ describe('ComcolRoleComponent', () => {
       beforeEach(() => {
         groupService.deleteComcolGroup.and.returnValue(createFailedRemoteDataObject$());
         de.query(By.css('.btn.delete')).nativeElement.click();
+        fixture.detectChanges();
+      });
+
+      afterEach(() => {
+        const modal = document.querySelector('ds-confirmation-modal');
+        if (modal) {
+          modal.remove();
+        }
       });
 
       it('should show an error notification', (done) => {
+        (document as any).querySelector('.modal-footer .confirm').click();
+        fixture.detectChanges();
+
         expect(notificationsService.error).toHaveBeenCalled();
         done();
       });
     });
+
   });
 });
