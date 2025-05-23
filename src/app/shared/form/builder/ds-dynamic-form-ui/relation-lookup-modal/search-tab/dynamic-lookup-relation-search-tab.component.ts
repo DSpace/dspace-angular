@@ -26,7 +26,10 @@ import { SearchResult } from '@dspace/core/shared/search/models/search-result.mo
 import { hasValue } from '@dspace/shared/utils/empty.util';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { BehaviorSubject, Observable, } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
 import { take } from 'rxjs/operators';
 import { BtnDisabledDirective } from '../../../../../btn-disabled.directive';
 
