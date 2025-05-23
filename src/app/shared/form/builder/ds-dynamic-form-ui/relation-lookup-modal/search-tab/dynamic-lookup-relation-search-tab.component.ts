@@ -1,8 +1,18 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { BehaviorSubject, Observable, } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+} from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { LookupRelationService } from '../../../../../../core/data/lookup-relation.service';
@@ -14,7 +24,10 @@ import { DSpaceObject } from '../../../../../../core/shared/dspace-object.model'
 import { Item } from '../../../../../../core/shared/item.model';
 import { Relationship } from '../../../../../../core/shared/item-relationships/relationship.model';
 import { RelationshipType } from '../../../../../../core/shared/item-relationships/relationship-type.model';
-import { getFirstSucceededRemoteData, getRemoteDataPayload, } from '../../../../../../core/shared/operators';
+import {
+  getFirstSucceededRemoteData,
+  getRemoteDataPayload,
+} from '../../../../../../core/shared/operators';
 import { SearchService } from '../../../../../../core/shared/search/search.service';
 import { SearchConfigurationService } from '../../../../../../core/shared/search/search-configuration.service';
 import { SEARCH_CONFIG_SERVICE } from '../../../../../../my-dspace-page/my-dspace-configuration.service';
