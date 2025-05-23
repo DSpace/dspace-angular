@@ -2756,7 +2756,6 @@
 
   // "supervision-group-selector.notification.create.already-existing": "A supervision order already exists on this item for selected group",
   "supervision-group-selector.notification.create.already-existing": "A supervision order already exists on this item for selected group",
-
   // "confirmation-modal.export-metadata.header": "Export metadata for {{ dsoName }}",
   "confirmation-modal.export-metadata.header": "Metaadat exportálásának célja {{ dsoName }}",
 
@@ -2800,45 +2799,40 @@
   "confirmation-modal.delete-profile.header": "Profil törlése",
 
   // "confirmation-modal.delete-profile.info": "Are you sure you want to delete your profile",
-  "confirmation-modal.delete-profile.info": "Are you sure you want to delete your profile",
+  "confirmation-modal.delete-profile.info": "Biztosan törölni szeretné a profilját?",
 
   // "confirmation-modal.delete-profile.cancel": "Cancel",
   "confirmation-modal.delete-profile.cancel": "Mégse",
 
   // "confirmation-modal.delete-profile.confirm": "Delete",
-  "confirmation-modal.delete-profile.confirm": "Delete",
+  "confirmation-modal.delete-profile.confirm": "Törlés",
 
   // "confirmation-modal.delete-subscription.header": "Delete Subscription",
-  "confirmation-modal.delete-subscription.header": "Delete Subscription",
+  "confirmation-modal.delete-subscription.header": "Feliratkozás törlése",
 
   // "confirmation-modal.delete-subscription.info": "Are you sure you want to delete subscription for \"{{ dsoName }}\"",
-  "confirmation-modal.delete-subscription.info": "Are you sure you want to delete subscription for \"{{ dsoName }}\"",
+  "confirmation-modal.delete-subscription.info": "Biztosan törölni szeretné a következő feliratkozást: \"{{ dsoName }}\"",
 
   // "confirmation-modal.delete-subscription.cancel": "Cancel",
   "confirmation-modal.delete-subscription.cancel": "Mégse",
 
   // "confirmation-modal.delete-subscription.confirm": "Delete",
-  "confirmation-modal.delete-subscription.confirm": "Delete",
+  "confirmation-modal.delete-subscription.confirm": "Törlés",
 
   // "confirmation-modal.review-account-info.header": "Save the changes",
-  // TODO New key - Add a translation
-  "confirmation-modal.review-account-info.header": "Save the changes",
+  "confirmation-modal.review-account-info.header": "Változtatások mentése",
 
   // "confirmation-modal.review-account-info.info": "Are you sure you want to save the changes to your profile",
-  // TODO New key - Add a translation
-  "confirmation-modal.review-account-info.info": "Are you sure you want to save the changes to your profile",
+  "confirmation-modal.review-account-info.info": "Biztosan menteni szeretné a profilján végzett változtatásokat?",
 
   // "confirmation-modal.review-account-info.cancel": "Cancel",
-  // TODO New key - Add a translation
-  "confirmation-modal.review-account-info.cancel": "Cancel",
+  "confirmation-modal.review-account-info.cancel": "Mégse",
 
   // "confirmation-modal.review-account-info.confirm": "Confirm",
-  // TODO New key - Add a translation
-  "confirmation-modal.review-account-info.confirm": "Confirm",
+  "confirmation-modal.review-account-info.confirm": "Megerősítés",
 
   // "confirmation-modal.review-account-info.save": "Save",
-  // TODO New key - Add a translation
-  "confirmation-modal.review-account-info.save": "Save",
+  "confirmation-modal.review-account-info.save": "Mentés",
 
   // "error.bitstream": "Error fetching bitstream",
   "error.bitstream": "Bitstream megjelenítése közben hiba történt",
@@ -3333,80 +3327,61 @@
   "home.top-level-communities.help": "Kérjük válasszon egy közösséget, hogy megtekinthesse annak gyűjteményeit.",
 
   // "info.accessibility-settings.breadcrumbs": "Accessibility settings",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.breadcrumbs": "Accessibility settings",
+  "info.accessibility-settings.breadcrumbs": "Akadálymentességi beállítások",
 
   // "info.accessibility-settings.cookie-warning": "Saving the accessibility settings is currently not possible. Either log in to save the settings in user data, or accept the 'Accessibility Settings' cookie using the 'Cookie Settings' menu at the bottom of the page. Once the cookie has been accepted, you can reload the page to remove this message.",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.cookie-warning": "Saving the accessibility settings is currently not possible. Either log in to save the settings in user data, or accept the 'Accessibility Settings' cookie using the 'Cookie Settings' menu at the bottom of the page. Once the cookie has been accepted, you can reload the page to remove this message.",
+  "info.accessibility-settings.cookie-warning": "Az akadálymentességi beállítások mentése jelenleg nem lehetséges. Jelentkezzen be a beállítások felhasználói adatokban való mentéséhez, vagy fogadja el az 'Akadálymentességi beállítások' sütit az oldal alján található 'Süti beállítások' menüben. A süti elfogadása után frissítse az oldalt a figyelmeztetés eltávolításához.",
 
   // "info.accessibility-settings.disableNotificationTimeOut.label": "Automatically close notifications after time out",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.disableNotificationTimeOut.label": "Automatically close notifications after time out",
+  "info.accessibility-settings.disableNotificationTimeOut.label": "Értesítések automatikus bezárása időkorlát után",
 
   // "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open untill manually closed.",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.disableNotificationTimeOut.hint": "When this toggle is activated, notifications will close automatically after the time out passes. When deactivated, notifications will remain open untill manually closed.",
+  "info.accessibility-settings.disableNotificationTimeOut.hint": "Ha ez a kapcsoló aktív, az értesítések az időkorlát lejárta után automatikusan bezáródnak. Ha inaktív, az értesítések csak kézi bezárás után tűnnek el.",
 
   // "info.accessibility-settings.failed-notification": "Failed to save accessibility settings",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.failed-notification": "Failed to save accessibility settings",
+  "info.accessibility-settings.failed-notification": "Az akadálymentességi beállítások mentése sikertelen volt",
 
   // "info.accessibility-settings.invalid-form-notification": "Did not save. The form contains invalid values.",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.invalid-form-notification": "Did not save. The form contains invalid values.",
+  "info.accessibility-settings.invalid-form-notification": "Nem sikerült menteni. A formában érvénytelen értékek találhatók.",
 
   // "info.accessibility-settings.liveRegionTimeOut.label": "ARIA Live region time out (in seconds)",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.liveRegionTimeOut.label": "ARIA Live region time out (in seconds)",
+  "info.accessibility-settings.liveRegionTimeOut.label": "ARIA élő régió időkorlát (másodpercben)",
 
   // "info.accessibility-settings.liveRegionTimeOut.hint": "The duration after which a message in the ARIA live region disappears. ARIA live regions are not visible on the page, but provide announcements of notifications (or other actions) to screen readers.",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.liveRegionTimeOut.hint": "The duration after which a message in the ARIA live region disappears. ARIA live regions are not visible on the page, but provide announcements of notifications (or other actions) to screen readers.",
+  "info.accessibility-settings.liveRegionTimeOut.hint": "Az az időtartam, amely után az ARIA élő régióban megjelenő üzenet eltűnik. Az ARIA élő régiók nem láthatóak az oldalon, de képernyőolvasók számára jelzéseket közvetítenek.",
 
   // "info.accessibility-settings.liveRegionTimeOut.invalid": "Live region time out must be greater than 0",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.liveRegionTimeOut.invalid": "Live region time out must be greater than 0",
+  "info.accessibility-settings.liveRegionTimeOut.invalid": "Az élő régió időkorlátjának nagyobbnak kell lennie, mint 0",
 
   // "info.accessibility-settings.notificationTimeOut.label": "Notification time out (in seconds)",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.notificationTimeOut.label": "Notification time out (in seconds)",
+  "info.accessibility-settings.notificationTimeOut.label": "Értesítés időkorlátja (másodpercben)",
 
   // "info.accessibility-settings.notificationTimeOut.hint": "The duration after which a notification disappears.",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.notificationTimeOut.hint": "The duration after which a notification disappears.",
+  "info.accessibility-settings.notificationTimeOut.hint": "Az az időtartam, amely után egy értesítés eltűnik.",
 
   // "info.accessibility-settings.notificationTimeOut.invalid": "Notification time out must be greater than 0",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.notificationTimeOut.invalid": "Notification time out must be greater than 0",
+  "info.accessibility-settings.notificationTimeOut.invalid": "Az értesítés időkorlátjának nagyobbnak kell lennie, mint 0",
 
   // "info.accessibility-settings.save-notification.cookie": "Successfully saved settings locally.",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.save-notification.cookie": "Successfully saved settings locally.",
+  "info.accessibility-settings.save-notification.cookie": "A beállításokat helyileg sikeresen mentettük.",
 
   // "info.accessibility-settings.save-notification.metadata": "Successfully saved settings on the user profile.",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.save-notification.metadata": "Successfully saved settings on the user profile.",
+  "info.accessibility-settings.save-notification.metadata": "A beállításokat sikeresen elmentettük a felhasználói profilban.",
 
   // "info.accessibility-settings.reset-failed": "Failed to reset. Either log in or accept the 'Accessibility Settings' cookie.",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.reset-failed": "Failed to reset. Either log in or accept the 'Accessibility Settings' cookie.",
+  "info.accessibility-settings.reset-failed": "Nem sikerült visszaállítani. Jelentkezzen be vagy fogadja el az 'Akadálymentességi beállítások' sütit.",
 
   // "info.accessibility-settings.reset-notification": "Successfully reset settings.",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.reset-notification": "Successfully reset settings.",
+  "info.accessibility-settings.reset-notification": "A beállításokat sikeresen visszaállítottuk.",
 
   // "info.accessibility-settings.reset": "Reset accessibility settings",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.reset": "Reset accessibility settings",
+  "info.accessibility-settings.reset": "Akadálymentességi beállítások visszaállítása",
 
   // "info.accessibility-settings.submit": "Save accessibility settings",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.submit": "Save accessibility settings",
+  "info.accessibility-settings.submit": "Akadálymentességi beállítások mentése",
 
   // "info.accessibility-settings.title": "Accessibility settings",
-  // TODO New key - Add a translation
-  "info.accessibility-settings.title": "Accessibility settings",
+  "info.accessibility-settings.title": "Akadálymentességi beállítások",
 
   // "info.end-user-agreement.accept": "I have read and I agree to the End User Agreement",
   "info.end-user-agreement.accept": "Elolvastam és elfogadom a felhasználói feltételeket",
@@ -3454,10 +3429,10 @@
   "info.feedback.title": "Visszajelzés",
 
   // "info.feedback.info": "Thanks for sharing your feedback about the DSpace system. Your comments are appreciated!",
-  "info.feedback.info": "Thanks for sharing your feedback about the DSpace system. Your comments are appreciated!",
+  "info.feedback.info": "Köszönjük, hogy megosztotta visszajelzését a DSpace rendszerről. Értékeljük a véleményét!",
 
   // "info.feedback.email_help": "This address will be used to follow up on your feedback.",
-  "info.feedback.email_help": "This address will be used to follow up on your feedback.",
+  "info.feedback.email_help": "Ezt a címet használjuk a visszajelzésével kapcsolatos további egyeztetéshez.",
 
   // "info.feedback.send": "Send Feedback",
   "info.feedback.send": "Visszajelzés küldése",
@@ -3469,25 +3444,22 @@
   "info.feedback.email-label": "Az e-mail címe",
 
   // "info.feedback.create.success": "Feedback Sent Successfully!",
-  "info.feedback.create.success": "Feedback Sent Successfully!",
+  "info.feedback.create.success": "A visszajelzés sikeresen elküldve!",
 
   // "info.feedback.error.email.required": "A valid email address is required",
-  "info.feedback.error.email.required": "A valid email address is required",
+  "info.feedback.error.email.required": "Érvényes e-mail cím megadása kötelező",
 
   // "info.feedback.error.message.required": "A comment is required",
-  "info.feedback.error.message.required": "A comment is required",
+  "info.feedback.error.message.required": "Megjegyzés megadása kötelező",
 
   // "info.feedback.page-label": "Page",
-  "info.feedback.page-label": "Page",
+  "info.feedback.page-label": "Oldal",
 
   // "info.feedback.page_help": "The page related to your feedback",
-  "info.feedback.page_help": "The page related to your feedback",
+  "info.feedback.page_help": "Az az oldal, amelyhez a visszajelzése kapcsolódik.",
 
   // "info.coar-notify-support.title": "COAR Notify Support",
   "info.coar-notify-support.title": "COAR Notify Support",
-
-  // "info.coar-notify-support.breadcrumbs": "COAR Notify Support",
-  "info.coar-notify-support.breadcrumbs": "COAR Notify Support",
 
   // "item.alerts.private": "This item is non-discoverable",
   "item.alerts.private": "Ez az elem privát",
@@ -4229,60 +4201,46 @@
   "item.page.description": "Leírás",
 
   // "item.page.org-unit": "Organizational Unit",
-  // TODO New key - Add a translation
-  "item.page.org-unit": "Organizational Unit",
+  "item.page.org-unit": "Szervezeti egység",
 
   // "item.page.org-units": "Organizational Units",
-  // TODO New key - Add a translation
-  "item.page.org-units": "Organizational Units",
+  "item.page.org-units": "Szervezeti egységek",
 
   // "item.page.project": "Research Project",
-  // TODO New key - Add a translation
-  "item.page.project": "Research Project",
+  "item.page.project": "Kutatási projekt",
 
   // "item.page.projects": "Research Projects",
-  // TODO New key - Add a translation
-  "item.page.projects": "Research Projects",
+  "item.page.projects": "Kutatási projektek",
 
   // "item.page.publication": "Publications",
-  // TODO New key - Add a translation
-  "item.page.publication": "Publications",
+  "item.page.publication": "Publikációk",
 
   // "item.page.publications": "Publications",
-  // TODO New key - Add a translation
-  "item.page.publications": "Publications",
+  "item.page.publications": "Publikációk",
 
   // "item.page.article": "Article",
-  // TODO New key - Add a translation
-  "item.page.article": "Article",
+  "item.page.article": "Cikk",
 
   // "item.page.articles": "Articles",
-  // TODO New key - Add a translation
-  "item.page.articles": "Articles",
+  "item.page.articles": "Cikkek",
 
   // "item.page.journal": "Journal",
-  // TODO New key - Add a translation
-  "item.page.journal": "Journal",
+  "item.page.journal": "Folyóirat",
 
   // "item.page.journals": "Journals",
-  // TODO New key - Add a translation
-  "item.page.journals": "Journals",
+  "item.page.journals": "Folyóiratok",
 
   // "item.page.journal-issue": "Journal Issue",
-  // TODO New key - Add a translation
-  "item.page.journal-issue": "Journal Issue",
+  "item.page.journal-issue": "Folyóirat szám",
 
   // "item.page.journal-issues": "Journal Issues",
-  // TODO New key - Add a translation
-  "item.page.journal-issues": "Journal Issues",
+  "item.page.journal-issues": "Folyóirat számok",
 
   // "item.page.journal-volume": "Journal Volume",
-  // TODO New key - Add a translation
-  "item.page.journal-volume": "Journal Volume",
+  "item.page.journal-volume": "Folyóirat kötete",
 
   // "item.page.journal-volumes": "Journal Volumes",
-  // TODO New key - Add a translation
-  "item.page.journal-volumes": "Journal Volumes",
+  "item.page.journal-volumes": "Folyóirat kötetek",
 
   // "item.page.journal-issn": "Journal ISSN",
   "item.page.journal-issn": "Folyóirat ISSN",
@@ -4300,8 +4258,7 @@
   "item.page.volume-title": "Kötet címe",
 
   // "item.page.dcterms.spatial": "Geospatial point",
-  // TODO New key - Add a translation
-  "item.page.dcterms.spatial": "Geospatial point",
+  "item.page.dcterms.spatial": "Földrajzi pont",
 
   // "item.search.results.head": "Item Search Results",
   "item.search.results.head": "Elem keresésének eredménye",
