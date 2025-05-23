@@ -1,25 +1,61 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AsyncPipe,
+  Location,
+  NgClass,
+} from '@angular/common';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  TranslatePipe,
+  TranslateService,
+} from '@ngx-translate/core';
+import { FileUploadModule } from 'ng2-file-upload';
+import { UiSwitchModule } from 'ngx-ui-switch';
 import { Observable } from 'rxjs';
-import { RemoteData } from '../../core/data/remote-data';
-import { Bitstream } from '../../core/shared/bitstream.model';
 import { map } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NotificationsService } from '../../shared/notifications/notifications.service';
-import { Location } from '@angular/common';
-import { TranslateService } from '@ngx-translate/core';
-import { isEmpty, hasValue } from '../../shared/empty.util';
+
+import { getBitstreamModuleRoute } from '../../app-routing-paths';
+import { AuthService } from '../../core/auth/auth.service';
+import { RemoteData } from '../../core/data/remote-data';
+import { RequestService } from '../../core/data/request.service';
+import { Bitstream } from '../../core/shared/bitstream.model';
 import { getFirstSucceededRemoteDataPayload } from '../../core/shared/operators';
 import { URLCombiner } from '../../core/url-combiner/url-combiner';
-import { AuthService } from '../../core/auth/auth.service';
-import { RequestService } from '../../core/data/request.service';
-import { getBitstreamModuleRoute } from '../../app-routing-paths';
-import { UploaderOptions } from '../../shared/upload/uploader/uploader-options.model';
+import {
+  hasValue,
+  isEmpty,
+} from '../../shared/empty.util';
+import { ErrorComponent } from '../../shared/error/error.component';
+import { ThemedLoadingComponent } from '../../shared/loading/themed-loading.component';
+import { NotificationsService } from '../../shared/notifications/notifications.service';
 import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
+import { UploaderOptions } from '../../shared/upload/uploader/uploader-options.model';
+import { FileSizePipe } from '../../shared/utils/file-size-pipe';
+import { VarDirective } from '../../shared/utils/var.directive';
 
 @Component({
   selector: 'ds-replace-bitstream-page',
   templateUrl: './replace-bitstream-page.component.html',
-  styleUrls: ['./replace-bitstream-page.component.scss']
+  styleUrls: ['./replace-bitstream-page.component.scss'],
+  imports: [
+    AsyncPipe,
+    ErrorComponent,
+    FileSizePipe,
+    FileUploadModule,
+    NgClass,
+    ThemedLoadingComponent,
+    TranslatePipe,
+    UiSwitchModule,
+    UploaderComponent,
+    VarDirective,
+  ],
+  standalone: true,
 })
 export class ReplaceBitstreamPageComponent implements OnInit {
   saveNotificationKey = 'bitstream.replace.page.upload.success';
@@ -33,7 +69,7 @@ export class ReplaceBitstreamPageComponent implements OnInit {
     authToken: null,
     disableMultipart: false,
     itemAlias: null,
-    autoUpload: false
+    autoUpload: false,
   });
 
   /**
@@ -99,7 +135,7 @@ export class ReplaceBitstreamPageComponent implements OnInit {
   setUploadUrl() {
     this.bitstreamRD$.pipe(
       getFirstSucceededRemoteDataPayload(),
-      map((bitstream) => bitstream._links.self.href)
+      map((bitstream) => bitstream._links.self.href),
     ).subscribe((href: string) => {
       this.uploadFilesUrlNoParam = href;
       this.setUploadUrlParameters();

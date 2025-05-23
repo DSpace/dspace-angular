@@ -1,9 +1,9 @@
 import { getMockObjectCacheService } from '../../shared/mocks/object-cache.service.mock';
-import { BrowseResponseParsingService } from './browse-response-parsing.service';
 import { ObjectCacheService } from '../cache/object-cache.service';
-import { HIERARCHICAL_BROWSE_DEFINITION } from '../shared/hierarchical-browse-definition.resource-type';
 import { FLAT_BROWSE_DEFINITION } from '../shared/flat-browse-definition.resource-type';
+import { HIERARCHICAL_BROWSE_DEFINITION } from '../shared/hierarchical-browse-definition.resource-type';
 import { VALUE_LIST_BROWSE_DEFINITION } from '../shared/value-list-browse-definition.resource-type';
+import { BrowseResponseParsingService } from './browse-response-parsing.service';
 
 class TestService extends BrowseResponseParsingService {
   constructor(protected objectCache: ObjectCacheService) {
@@ -26,22 +26,22 @@ describe('BrowseResponseParsingService', () => {
 
   describe('', () => {
     const mockFlatBrowse = {
-        id: 'title',
-        browseType: 'flatBrowse',
-        type: 'browse',
-      };
+      id: 'title',
+      browseType: 'flatBrowse',
+      type: 'browse',
+    };
 
     const mockValueList = {
-        id: 'author',
-        browseType: 'valueList',
-        type: 'browse',
-      };
+      id: 'author',
+      browseType: 'valueList',
+      type: 'browse',
+    };
 
     const mockHierarchicalBrowse = {
-        id: 'srsc',
-        browseType: 'hierarchicalBrowse',
-        type: 'browse',
-      };
+      id: 'srsc',
+      browseType: 'hierarchicalBrowse',
+      type: 'browse',
+    };
 
     it('should deserialize flatBrowses correctly', () => {
       let deserialized = service.deserialize(mockFlatBrowse);

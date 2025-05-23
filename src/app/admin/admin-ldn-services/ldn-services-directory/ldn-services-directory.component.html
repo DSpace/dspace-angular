@@ -1,0 +1,102 @@
+<div class="container">
+  <div class="d-flex">
+    <h1 class="flex-grow-1">{{ 'ldn-registered-services.title' | translate }}</h1>
+  </div>
+  <div class="d-flex justify-content-end">
+    <button class="btn btn-success" routerLink="/admin/ldn/services/new"><i
+    class="fas fa-plus pe-2"></i>{{ 'process.overview.new' | translate }}</button>
+  </div>
+  @if ((ldnServicesRD$ | async)?.payload?.totalElements > 0) {
+    <ds-pagination
+      [collectionSize]="(ldnServicesRD$ | async)?.payload?.totalElements"
+      [hideGear]="true"
+      [hidePagerWhenSinglePage]="true"
+      [paginationOptions]="pageConfig">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th scope="col">{{ 'service.overview.table.name' | translate }}</th>
+              <th scope="col">{{ 'service.overview.table.description' | translate }}</th>
+              <th scope="col">{{ 'service.overview.table.status' | translate }}</th>
+              <th scope="col">{{ 'service.overview.table.actions' | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (ldnService of (ldnServicesRD$ | async)?.payload?.page; track ldnService) {
+              <tr>
+                <td class="col-3">{{ ldnService.name }}</td>
+                <td>
+                  <ds-truncatable [id]="ldnService.id">
+                    <ds-truncatable-part [id]="ldnService.id" [minLines]="2">
+                      <div>
+                        {{ ldnService.description }}
+                      </div>
+                    </ds-truncatable-part>
+                  </ds-truncatable>
+                </td>
+                <td>
+                  <span (click)="toggleStatus(ldnService, ldnServicesService)"
+                    [ngClass]="{ 'status-enabled': ldnService.enabled, 'status-disabled': !ldnService.enabled }"
+                    [title]="ldnService.enabled ? ('ldn-service.overview.table.clickToDisable' | translate) : ('ldn-service.overview.table.clickToEnable' | translate)"
+                    class="status-indicator">
+                    {{ ldnService.enabled ? ('ldn-service.overview.table.enabled' | translate) : ('ldn-service.overview.table.disabled' | translate) }}
+                  </span>
+                </td>
+                <td>
+                  <div class="btn-group">
+                    <button
+                      (click)="selectServiceToDelete(ldnService.id)"
+                      [attr.aria-label]="'ldn-service-overview-select-delete' | translate"
+                      class="btn btn-outline-danger">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                    <button [routerLink]="['/admin/ldn/services/edit/', ldnService.id]"
+                      [attr.aria-label]="'ldn-service-overview-select-edit' | translate"
+                      class="btn btn-outline-dark">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </ds-pagination>
+  }
+</div>
+
+<ng-template #deleteModal>
+
+  <div>
+
+    <div class="modal-header">
+      <div>
+        <h4>{{'service.overview.delete.header' | translate }}</h4>
+      </div>
+      <button (click)="closeModal()" aria-label="Close"
+        [attr.aria-label]="'ldn-service-overview-close-modal' | translate"
+        class="close" type="button">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <div>
+        {{ 'service.overview.delete.body' | translate }}
+      </div>
+      <div class="mt-4 text-right">
+        <button (click)="closeModal()"
+          [attr.aria-label]="'ldn-service-overview-close-modal' | translate"
+        class="btn btn-outline-secondary me-2">{{ 'service.detail.delete.cancel' | translate }}</button>
+        <button (click)="deleteSelected(this.selectedServiceId.toString(), ldnServicesService)"
+          class="btn btn-danger"
+          [attr.aria-label]="'ldn-service-overview-select-delete' | translate"
+          id="delete-confirm">{{ 'service.overview.delete' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+

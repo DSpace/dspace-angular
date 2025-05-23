@@ -1,32 +1,49 @@
-import { EPerson } from '../../../core/eperson/models/eperson.model';
-import { ChangeDetectionStrategy, Injector, NO_ERRORS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { Router } from '@angular/router';
+import {
+  ChangeDetectionStrategy,
+  Injector,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import {
+  NgbModal,
+  NgbModule,
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  TranslateLoader,
+  TranslateModule,
+} from '@ngx-translate/core';
+import { of } from 'rxjs';
 
-import { of as observableOf } from 'rxjs';
-import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-
+import { AuthService } from '../../../core/auth/auth.service';
+import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { RequestService } from '../../../core/data/request.service';
+import { EPerson } from '../../../core/eperson/models/eperson.model';
+import { Item } from '../../../core/shared/item.model';
+import { SearchService } from '../../../core/shared/search/search.service';
+import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
+import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
+import { getMockRequestService } from '../../mocks/request.service.mock';
+import { getMockSearchService } from '../../mocks/search-service.mock';
 import { TranslateLoaderMock } from '../../mocks/translate-loader.mock';
 import { NotificationsService } from '../../notifications/notifications.service';
-import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
-import { RouterStub } from '../../testing/router.stub';
-import { Item } from '../../../core/shared/item.model';
-import { WorkspaceItem } from '../../../core/submission/models/workspaceitem.model';
-import { WorkspaceitemActionsComponent } from './workspaceitem-actions.component';
-import { WorkspaceitemDataService } from '../../../core/submission/workspaceitem-data.service';
 import {
   createFailedRemoteDataObject$,
   createSuccessfulRemoteDataObject,
-  createSuccessfulRemoteDataObject$
+  createSuccessfulRemoteDataObject$,
 } from '../../remote-data.utils';
-import { RequestService } from '../../../core/data/request.service';
-import { getMockRequestService } from '../../mocks/request.service.mock';
-import { getMockSearchService } from '../../mocks/search-service.mock';
-import { SearchService } from '../../../core/shared/search/search.service';
-import { AuthService } from '../../../core/auth/auth.service';
-import { AuthorizationDataService } from '../../../core/data/feature-authorization/authorization-data.service';
+import { ActivatedRouteStub } from '../../testing/active-router.stub';
+import { NotificationsServiceStub } from '../../testing/notifications-service.stub';
+import { RouterStub } from '../../testing/router.stub';
+import { WorkspaceitemActionsComponent } from './workspaceitem-actions.component';
 
 let component: WorkspaceitemActionsComponent;
 let fixture: ComponentFixture<WorkspaceitemActionsComponent>;
@@ -37,7 +54,7 @@ let authorizationService;
 let authService;
 
 const mockDataService = jasmine.createSpyObj('WorkspaceitemDataService', {
-  delete: jasmine.createSpy('delete')
+  delete: jasmine.createSpy('delete'),
 });
 
 const searchService = getMockSearchService();
@@ -45,36 +62,36 @@ const searchService = getMockSearchService();
 const requestServce = getMockRequestService();
 
 const item = Object.assign(new Item(), {
-  bundles: observableOf({}),
+  bundles: of({}),
   metadata: {
     'dc.title': [
       {
         language: 'en_US',
-        value: 'This is just another title'
-      }
+        value: 'This is just another title',
+      },
     ],
     'dc.type': [
       {
         language: null,
-        value: 'Article'
-      }
+        value: 'Article',
+      },
     ],
     'dc.contributor.author': [
       {
         language: 'en_US',
-        value: 'Smith, Donald'
-      }
+        value: 'Smith, Donald',
+      },
     ],
     'dc.date.issued': [
       {
         language: null,
-        value: '2015-06-26'
-      }
-    ]
-  }
+        value: '2015-06-26',
+      },
+    ],
+  },
 });
 const rd = createSuccessfulRemoteDataObject(item);
-mockObject = Object.assign(new WorkspaceItem(), { item: observableOf(rd), id: '1234', uuid: '1234' });
+mockObject = Object.assign(new WorkspaceItem(), { item: of(rd), id: '1234', uuid: '1234' });
 
 const ePersonMock: EPerson = Object.assign(new EPerson(), {
   handle: null,
@@ -94,7 +111,7 @@ const ePersonMock: EPerson = Object.assign(new EPerson(), {
         uuid: '0a53a0f2-e168-4ed9-b4af-cba9a2d267ca',
         language: null,
         value:
-          '{"authentication":true,"preferences":true,"acknowledgement":true,"google-analytics":true}',
+          '{"authentication":true,"preferences":true,"acknowledgement":true,"google-analytics":true,"correlation-id":true}',
         place: 0,
         authority: null,
         confidence: -1,
@@ -152,25 +169,25 @@ const ePersonMock: EPerson = Object.assign(new EPerson(), {
 });
 
 authService = jasmine.createSpyObj('authService', {
-  getAuthenticatedUserFromStore: jasmine.createSpy('getAuthenticatedUserFromStore')
+  getAuthenticatedUserFromStore: jasmine.createSpy('getAuthenticatedUserFromStore'),
 });
 
 describe('WorkspaceitemActionsComponent', () => {
   beforeEach(waitForAsync(async () => {
     authorizationService = jasmine.createSpyObj('authorizationService', {
-      isAuthorized: observableOf(true)
+      isAuthorized: of(true),
     });
-   await TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
       imports: [
         NgbModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
-            useClass: TranslateLoaderMock
-          }
-        })
+            useClass: TranslateLoaderMock,
+          },
+        }),
+        WorkspaceitemActionsComponent,
       ],
-      declarations: [WorkspaceitemActionsComponent],
       providers: [
         Injector,
         { provide: NotificationsService, useValue: new NotificationsServiceStub() },
@@ -178,13 +195,14 @@ describe('WorkspaceitemActionsComponent', () => {
         { provide: WorkspaceitemDataService, useValue: mockDataService },
         { provide: SearchService, useValue: searchService },
         { provide: RequestService, useValue: requestServce },
-        { provide: AuthService, useValue:  authService },
-        { provide: AuthorizationDataService, useValue: authorizationService},
-        NgbModal
+        { provide: AuthService, useValue: authService },
+        { provide: AuthorizationDataService, useValue: authorizationService },
+        { provide: ActivatedRoute, useValue: new ActivatedRouteStub() },
+        NgbModal,
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).overrideComponent(WorkspaceitemActionsComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     }).compileComponents();
   }));
 
@@ -193,7 +211,7 @@ describe('WorkspaceitemActionsComponent', () => {
     component = fixture.componentInstance;
     component.object = mockObject;
     notificationsServiceStub = TestBed.inject(NotificationsService as any);
-    (authService.getAuthenticatedUserFromStore as jasmine.Spy).and.returnValue(observableOf(ePersonMock));
+    (authService.getAuthenticatedUserFromStore as jasmine.Spy).and.returnValue(of(ePersonMock));
     fixture.detectChanges();
   });
 
@@ -229,7 +247,7 @@ describe('WorkspaceitemActionsComponent', () => {
 
   describe('on discard confirmation', () => {
     beforeEach((done) => {
-      mockDataService.delete.and.returnValue(observableOf(true));
+      mockDataService.delete.and.returnValue(of(true));
       spyOn(component, 'reload');
       const btn = fixture.debugElement.query(By.css('.btn-danger'));
       btn.nativeElement.click();

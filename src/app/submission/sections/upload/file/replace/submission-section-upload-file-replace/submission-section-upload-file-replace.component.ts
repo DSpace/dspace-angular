@@ -1,26 +1,58 @@
-import { Component, Input, OnInit, OnChanges, OnDestroy } from '@angular/core';
-import { WorkspaceItem } from '../../../../../../core/submission/models/workspaceitem.model';
-import { first, take, distinctUntilChanged, filter } from 'rxjs/operators';
-import parseSectionErrors from '../../../../../utils/parseSectionErrors';
-import { isNotEmpty, hasValue, isEmpty } from '../../../../../../shared/empty.util';
-import { normalizeSectionData } from '../../../../../../core/submission/submission-response-parsing.service';
-import { SectionsType } from '../../../../sections-type';
-import { TranslateService } from '@ngx-translate/core';
-import { NotificationsService } from '../../../../../../shared/notifications/notifications.service';
-import { SectionsService } from '../../../../sections.service';
-import { SubmissionService } from '../../../../../submission.service';
-import { UploaderOptions } from '../../../../../../shared/upload/uploader/uploader-options.model';
-import { Subscription, Observable, of as observableOf } from 'rxjs';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { UploaderComponent } from '../../../../../../shared/upload/uploader/uploader.component';
-import { HALEndpointService } from '../../../../../../core/shared/hal-endpoint.service';
+import {
+  TranslatePipe,
+  TranslateService,
+} from '@ngx-translate/core';
+import { UiSwitchModule } from 'ngx-ui-switch';
+import {
+  Observable,
+  of,
+  Subscription,
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  first,
+  take,
+} from 'rxjs/operators';
+
 import { AuthService } from '../../../../../../core/auth/auth.service';
+import { HALEndpointService } from '../../../../../../core/shared/hal-endpoint.service';
+import { WorkspaceItem } from '../../../../../../core/submission/models/workspaceitem.model';
+import { normalizeSectionData } from '../../../../../../core/submission/submission-response-parsing.service';
+import {
+  hasValue,
+  isEmpty,
+  isNotEmpty,
+} from '../../../../../../shared/empty.util';
+import { NotificationsService } from '../../../../../../shared/notifications/notifications.service';
+import { UploaderComponent } from '../../../../../../shared/upload/uploader/uploader.component';
+import { UploaderOptions } from '../../../../../../shared/upload/uploader/uploader-options.model';
+import { FileSizePipe } from '../../../../../../shared/utils/file-size-pipe';
+import { SubmissionService } from '../../../../../submission.service';
+import parseSectionErrors from '../../../../../utils/parseSectionErrors';
+import { SectionsService } from '../../../../sections.service';
+import { SectionsType } from '../../../../sections-type';
 
 
 @Component({
   selector: 'ds-submission-section-upload-file-replace',
   templateUrl: './submission-section-upload-file-replace.component.html',
-  styleUrls: ['./submission-section-upload-file-replace.component.scss']
+  styleUrls: ['./submission-section-upload-file-replace.component.scss'],
+  imports: [
+    FileSizePipe,
+    TranslatePipe,
+    UiSwitchModule,
+    UploaderComponent,
+  ],
+  standalone: true,
 })
 export class SubmissionSectionUploadFileReplaceComponent implements OnInit, OnChanges, OnDestroy {
 
@@ -75,7 +107,7 @@ export class SubmissionSectionUploadFileReplaceComponent implements OnInit, OnCh
    * A boolean representing if upload functionality is enabled
    * @type {boolean}
    */
-  private uploadEnabled: Observable<boolean> = observableOf(true);
+  private uploadEnabled: Observable<boolean> = of(true);
 
   /**
    * Whether to keep the file name of the new uploaded file
@@ -141,7 +173,7 @@ export class SubmissionSectionUploadFileReplaceComponent implements OnInit, OnCh
                 });
             }
           }
-        })
+        }),
     );
   }
 
@@ -194,7 +226,7 @@ export class SubmissionSectionUploadFileReplaceComponent implements OnInit, OnCh
           this.uploadFilesUrlNoParam = endpointURL;
           this.setUploadUrlParameters();
           this.uploadFilesOptions.url = endpointURL.concat(`/${this.submissionId}?replaceFile=${this.fileIndex}&replaceName=${this.shouldReplaceName}`);
-        })
+        }),
     );
   }
 

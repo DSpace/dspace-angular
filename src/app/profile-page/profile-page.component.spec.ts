@@ -1,28 +1,54 @@
-import { ProfilePageComponent } from './profile-page.component';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { VarDirective } from '../shared/utils/var.directive';
-import { TranslateModule } from '@ngx-translate/core';
-import { RouterTestingModule } from '@angular/router/testing';
+import { NgTemplateOutlet } from '@angular/common';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { EPerson } from '../core/eperson/models/eperson.model';
-import { StoreModule } from '@ngrx/store';
-import { storeModuleConfig } from '../app.reducer';
-import { AuthTokenInfo } from '../core/auth/models/auth-token-info.model';
-import { EPersonDataService } from '../core/eperson/eperson-data.service';
-import { NotificationsService } from '../shared/notifications/notifications.service';
-import { authReducer } from '../core/auth/auth.reducer';
-import { createFailedRemoteDataObject$, createSuccessfulRemoteDataObject$ } from '../shared/remote-data.utils';
-import { createPaginatedList } from '../shared/testing/utils.test';
-import { BehaviorSubject, of as observableOf } from 'rxjs';
-import { AuthService } from '../core/auth/auth.service';
-import { RestResponse } from '../core/cache/response.models';
-import { provideMockStore } from '@ngrx/store/testing';
-import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
-import { cold, getTestScheduler } from 'jasmine-marbles';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { EmptySpecialGroupDataMock$, SpecialGroupDataMock$ } from '../shared/testing/special-group.mock';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import {
+  cold,
+  getTestScheduler,
+} from 'jasmine-marbles';
+import {
+  BehaviorSubject,
+  of,
+} from 'rxjs';
+
+import { storeModuleConfig } from '../app.reducer';
+import { authReducer } from '../core/auth/auth.reducer';
+import { AuthService } from '../core/auth/auth.service';
+import { AuthTokenInfo } from '../core/auth/models/auth-token-info.model';
+import { RestResponse } from '../core/cache/response.models';
 import { ConfigurationDataService } from '../core/data/configuration-data.service';
+import { AuthorizationDataService } from '../core/data/feature-authorization/authorization-data.service';
+import { EPersonDataService } from '../core/eperson/eperson-data.service';
+import { EPerson } from '../core/eperson/models/eperson.model';
 import { ConfigurationProperty } from '../core/shared/configuration-property.model';
+import { SuggestionsNotificationComponent } from '../notifications/suggestions/notification/suggestions-notification.component';
+import { ErrorComponent } from '../shared/error/error.component';
+import { ThemedLoadingComponent } from '../shared/loading/themed-loading.component';
+import { NotificationsService } from '../shared/notifications/notifications.service';
+import { PaginationComponent } from '../shared/pagination/pagination.component';
+import {
+  createFailedRemoteDataObject$,
+  createSuccessfulRemoteDataObject$,
+} from '../shared/remote-data.utils';
+import {
+  EmptySpecialGroupDataMock$,
+  SpecialGroupDataMock$,
+} from '../shared/testing/special-group.mock';
+import { createPaginatedList } from '../shared/testing/utils.test';
+import { VarDirective } from '../shared/utils/var.directive';
+import { ProfilePageComponent } from './profile-page.component';
+import { ThemedProfilePageMetadataFormComponent } from './profile-page-metadata-form/themed-profile-page-metadata-form.component';
+import { ProfilePageResearcherFormComponent } from './profile-page-researcher-form/profile-page-researcher-form.component';
+import { ProfilePageSecurityFormComponent } from './profile-page-security-form/profile-page-security-form.component';
 
 describe('ProfilePageComponent', () => {
   let component: ProfilePageComponent;
@@ -40,19 +66,19 @@ describe('ProfilePageComponent', () => {
   const validConfiguration = Object.assign(new ConfigurationProperty(), {
     name: 'researcher-profile.entity-type',
     values: [
-      'Person'
-    ]
+      'Person',
+    ],
   });
   const emptyConfiguration = Object.assign(new ConfigurationProperty(), {
     name: 'researcher-profile.entity-type',
-    values: []
+    values: [],
   });
 
   function init() {
     user = Object.assign(new EPerson(), {
       id: 'userId',
       groups: createSuccessfulRemoteDataObject$(createPaginatedList([])),
-      _links: { self: { href: 'test.com/uuid/1234567654321' } }
+      _links: { self: { href: 'test.com/uuid/1234567654321' } },
     });
     initialState = {
       core: {
@@ -63,37 +89,39 @@ describe('ProfilePageComponent', () => {
           loading: false,
           authToken: new AuthTokenInfo('test_token'),
           userId: user.id,
-          authMethods: []
-        }
-      }
+          authMethods: [],
+        },
+      },
     };
     authorizationService = jasmine.createSpyObj('authorizationService', { isAuthorized: canChangePassword });
     authService = jasmine.createSpyObj('authService', {
-      getAuthenticatedUserFromStore: observableOf(user),
-      getSpecialGroupsFromAuthStatus: SpecialGroupDataMock$
+      getAuthenticatedUserFromStore: of(user),
+      getSpecialGroupsFromAuthStatus: SpecialGroupDataMock$,
     });
     epersonService = jasmine.createSpyObj('epersonService', {
       findById: createSuccessfulRemoteDataObject$(user),
-      patch: observableOf(Object.assign(new RestResponse(true, 200, 'Success')))
+      patch: of(Object.assign(new RestResponse(true, 200, 'Success'))),
     });
     notificationsService = jasmine.createSpyObj('notificationsService', {
       success: {},
       error: {},
-      warning: {}
+      warning: {},
     });
     configurationService = jasmine.createSpyObj('configurationDataService', {
-      findByPropertyName: jasmine.createSpy('findByPropertyName')
+      findByPropertyName: jasmine.createSpy('findByPropertyName'),
     });
   }
 
   beforeEach(waitForAsync(() => {
     init();
     TestBed.configureTestingModule({
-      declarations: [ProfilePageComponent, VarDirective],
       imports: [
         StoreModule.forRoot({ auth: authReducer }, storeModuleConfig),
         TranslateModule.forRoot(),
-        RouterTestingModule.withRoutes([])
+        RouterModule.forRoot([]),
+        ProfilePageComponent,
+        VarDirective,
+        NoopAnimationsModule,
       ],
       providers: [
         { provide: EPersonDataService, useValue: epersonService },
@@ -103,8 +131,23 @@ describe('ProfilePageComponent', () => {
         { provide: AuthorizationDataService, useValue: authorizationService },
         provideMockStore({ initialState }),
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    })
+      .overrideComponent(ProfilePageComponent, {
+        remove: {
+          imports: [
+            ThemedProfilePageMetadataFormComponent,
+            ProfilePageSecurityFormComponent,
+            ProfilePageResearcherFormComponent,
+            SuggestionsNotificationComponent,
+            NgTemplateOutlet,
+            PaginationComponent,
+            ThemedLoadingComponent,
+            ErrorComponent,
+          ],
+        },
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -122,9 +165,13 @@ describe('ProfilePageComponent', () => {
     describe('updateProfile', () => {
       describe('when the metadata form returns false and the security form returns true', () => {
         beforeEach(() => {
-          component.metadataForm = jasmine.createSpyObj('metadataForm', {
-            updateProfile: false
-          });
+          component.metadataForm = {
+            compRef: {
+              instance: {
+                updateProfile: () => false,
+              },
+            },
+          } as any;
           spyOn(component, 'updateSecurity').and.returnValue(true);
           component.updateProfile();
         });
@@ -136,9 +183,13 @@ describe('ProfilePageComponent', () => {
 
       describe('when the metadata form returns true and the security form returns false', () => {
         beforeEach(() => {
-          component.metadataForm = jasmine.createSpyObj('metadataForm', {
-            updateProfile: true
-          });
+          component.metadataForm = {
+            compRef: {
+              instance: {
+                updateProfile: () => true,
+              },
+            },
+          } as any;
           component.updateProfile();
         });
 
@@ -149,9 +200,13 @@ describe('ProfilePageComponent', () => {
 
       describe('when the metadata form returns true and the security form returns true', () => {
         beforeEach(() => {
-          component.metadataForm = jasmine.createSpyObj('metadataForm', {
-            updateProfile: true
-          });
+          component.metadataForm = {
+            compRef: {
+              instance: {
+                updateProfile: () => true,
+              },
+            },
+          } as any;
           component.updateProfile();
         });
 
@@ -162,9 +217,13 @@ describe('ProfilePageComponent', () => {
 
       describe('when the metadata form returns false and the security form returns false', () => {
         beforeEach(() => {
-          component.metadataForm = jasmine.createSpyObj('metadataForm', {
-            updateProfile: false
-          });
+          component.metadataForm = {
+            compRef: {
+              instance: {
+                updateProfile: () => false,
+              },
+            },
+          } as any;
           component.updateProfile();
         });
 
@@ -219,7 +278,7 @@ describe('ProfilePageComponent', () => {
           component.setCurrentPasswordValue('current-password');
 
           operations = [
-            { 'op': 'add', 'path': '/password', 'value': { 'new_password': 'testest', 'current_password': 'current-password' } }
+            { 'op': 'add', 'path': '/password', 'value': { 'new_password': 'testest', 'current_password': 'current-password' } },
           ];
           result = component.updateSecurity();
         });
@@ -238,12 +297,12 @@ describe('ProfilePageComponent', () => {
         let operations;
 
         it('should return call epersonService.patch', (done) => {
-          epersonService.patch.and.returnValue(observableOf(Object.assign(new RestResponse(false, 403, 'Error'))));
+          epersonService.patch.and.returnValue(of(Object.assign(new RestResponse(false, 403, 'Error'))));
           component.setPasswordValue('testest');
           component.setInvalid(false);
           component.setCurrentPasswordValue('current-password');
           operations = [
-            { 'op': 'add', 'path': '/password', 'value': {'new_password': 'testest', 'current_password': 'current-password'  }}
+            { 'op': 'add', 'path': '/password', 'value': { 'new_password': 'testest', 'current_password': 'current-password'  } },
           ];
           result = component.updateSecurity();
           epersonService.patch(user, operations).subscribe((response) => {
@@ -288,26 +347,26 @@ describe('ProfilePageComponent', () => {
       });
     });
 
-  describe('check for specialGroups', () => {
-    it('should contains specialGroups list', () => {
-      const specialGroupsEle = fixture.debugElement.query(By.css('[data-test="specialGroups"]'));
-      expect(specialGroupsEle).toBeTruthy();
-    });
+    describe('check for specialGroups', () => {
+      it('should contains specialGroups list', () => {
+        const specialGroupsEle = fixture.debugElement.query(By.css('[data-test="specialGroups"]'));
+        expect(specialGroupsEle).toBeTruthy();
+      });
 
-    it('should not contains specialGroups list', () => {
-      component.specialGroupsRD$ = null;
-      fixture.detectChanges();
-      const specialGroupsEle = fixture.debugElement.query(By.css('[data-test="specialGroups"]'));
-      expect(specialGroupsEle).toBeFalsy();
-    });
+      it('should not contains specialGroups list', () => {
+        component.specialGroupsRD$ = null;
+        fixture.detectChanges();
+        const specialGroupsEle = fixture.debugElement.query(By.css('[data-test="specialGroups"]'));
+        expect(specialGroupsEle).toBeFalsy();
+      });
 
-    it('should not contains specialGroups list', () => {
-      component.specialGroupsRD$ = EmptySpecialGroupDataMock$;
-      fixture.detectChanges();
-      const specialGroupsEle = fixture.debugElement.query(By.css('[data-test="specialGroups"]'));
-      expect(specialGroupsEle).toBeFalsy();
+      it('should not contains specialGroups list', () => {
+        component.specialGroupsRD$ = EmptySpecialGroupDataMock$;
+        fixture.detectChanges();
+        const specialGroupsEle = fixture.debugElement.query(By.css('[data-test="specialGroups"]'));
+        expect(specialGroupsEle).toBeFalsy();
+      });
     });
-  });
   });
 
   describe('isResearcherProfileEnabled', () => {
@@ -320,9 +379,9 @@ describe('ProfilePageComponent', () => {
       });
 
       it('should return true', () => {
-        const result = component.isResearcherProfileEnabled();
+        const result = component.isResearcherProfileEnabled$;
         const expected = cold('a', {
-          a: true
+          a: true,
         });
         expect(result).toBeObservable(expected);
       });
@@ -336,9 +395,9 @@ describe('ProfilePageComponent', () => {
       });
 
       it('should return false', () => {
-        const result = component.isResearcherProfileEnabled();
+        const result = component.isResearcherProfileEnabled$;
         const expected = cold('a', {
-          a: false
+          a: false,
         });
         expect(result).toBeObservable(expected);
       });
@@ -352,9 +411,9 @@ describe('ProfilePageComponent', () => {
       });
 
       it('should return false', () => {
-        const result = component.isResearcherProfileEnabled();
+        const result = component.isResearcherProfileEnabled$;
         const expected = cold('a', {
-          a: false
+          a: false,
         });
         expect(result).toBeObservable(expected);
       });

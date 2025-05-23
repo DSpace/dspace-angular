@@ -1,23 +1,37 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ReplaceBitstreamPageComponent } from './replace-bitstream-page.component';
-import { By } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NotificationsService } from '../../../app/shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../app/shared/testing/notifications-service.stub';import { of as observableOf } from 'rxjs';
-import { Bitstream } from '../../../app/core/shared/bitstream.model';
-import { TranslateModule } from '@ngx-translate/core';
-import { VarDirective } from '../../../app/shared/utils/var.directive';
 import { Location } from '@angular/common';
-import { FileSizePipe } from '../../../app/shared/utils/file-size-pipe';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  Router,
+} from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+
+import { AuthService } from '../../../app/core/auth/auth.service';
+import { RequestService } from '../../../app/core/data/request.service';
+import { Bitstream } from '../../../app/core/shared/bitstream.model';
+import { NotificationsService } from '../../../app/shared/notifications/notifications.service';
 import { createSuccessfulRemoteDataObject } from '../../../app/shared/remote-data.utils';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AuthServiceStub } from '../../../app/shared/testing/auth-service.stub';
+import { NotificationsServiceStub } from '../../../app/shared/testing/notifications-service.stub';
+import { RouterStub } from '../../../app/shared/testing/router.stub';
 import { UploaderOptions } from '../../../app/shared/upload/uploader/uploader-options.model';
 import { UploaderProperties } from '../../../app/shared/upload/uploader/uploader-properties.model';
-import { AuthService } from '../../../app/core/auth/auth.service';
-import { AuthServiceStub } from '../../../app/shared/testing/auth-service.stub';
-import { RouterStub } from '../../../app/shared/testing/router.stub';
-import { RequestService } from '../../../app/core/data/request.service';
+import { FileSizePipe } from '../../../app/shared/utils/file-size-pipe';
+import { VarDirective } from '../../../app/shared/utils/var.directive';
 import { UploaderComponent } from '../../shared/upload/uploader/uploader.component';
+import { ReplaceBitstreamPageComponent } from './replace-bitstream-page.component';
 
 describe('ReplaceBitstreamPageComponent', () => {
   let component: ReplaceBitstreamPageComponent;
@@ -29,28 +43,34 @@ describe('ReplaceBitstreamPageComponent', () => {
   const bitstream = Object.assign(new Bitstream(), {
     _links: {
       self: { href: bitstreamSelfLink },
-      bundle: { href: bundleSelfLink }
-    }
+      bundle: { href: bundleSelfLink },
+    },
   });
-  const route = { data: observableOf({ bitstream: createSuccessfulRemoteDataObject(bitstream) }) };
+  const route = { data: of({ bitstream: createSuccessfulRemoteDataObject(bitstream) }) };
   const requestService = jasmine.createSpyObj('requestService', ['setStaleByHrefSubstring']);
   const router = new RouterStub();
 
   beforeEach(waitForAsync(() => {
-      TestBed.configureTestingModule({
-        imports: [TranslateModule.forRoot()],
-        declarations: [ReplaceBitstreamPageComponent, VarDirective, FileSizePipe, TestUploaderComponent],
-        providers: [
-          { provide: Location, useValue: locationObject },
-          { provide: ActivatedRoute, useValue: route },
-          { provide: NotificationsService, useClass: NotificationsServiceStub },
-          { provide: AuthService, useClass: AuthServiceStub },
-          { provide: Router, useValue: router },
-          { provide: RequestService, useValue: requestService }
-        ]
-      })
-        .compileComponents();
-    })
+    TestBed.configureTestingModule({
+      imports: [
+        ReplaceBitstreamPageComponent,
+        TranslateModule.forRoot(),
+        VarDirective,
+        FileSizePipe,
+      ],
+      providers: [
+        { provide: Location, useValue: locationObject },
+        { provide: ActivatedRoute, useValue: route },
+        { provide: NotificationsService, useClass: NotificationsServiceStub },
+        { provide: AuthService, useClass: AuthServiceStub },
+        { provide: Router, useValue: router },
+        { provide: RequestService, useValue: requestService },
+      ],
+    }).overrideComponent(ReplaceBitstreamPageComponent, {
+      remove: { imports: [UploaderComponent] },
+      add: { imports: [TestUploaderComponent] },
+    }).compileComponents();
+  }),
   );
 
   beforeEach(() => {
@@ -114,7 +134,8 @@ describe('ReplaceBitstreamPageComponent', () => {
 
 @Component({
   selector: 'ds-uploader',
-  template: ``
+  template: ``,
+  standalone: true,
 })
 class TestUploaderComponent {
   @Input() dropMsg: string;

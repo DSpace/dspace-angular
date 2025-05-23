@@ -1,32 +1,40 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { SubmissionSectionUploadFileReplaceComponent } from './submission-section-upload-file-replace.component';
 import { Location } from '@angular/common';
-import { NotificationsService } from '../../../../../../shared/notifications/notifications.service';
-import { NotificationsServiceStub } from '../../../../../../shared/testing/notifications-service.stub';
-import { AuthService } from '../../../../../../core/auth/auth.service';
-import { AuthServiceStub } from '../../../../../../shared/testing/auth-service.stub';
-import { VarDirective } from '../../../../../../shared/utils/var.directive';
-import { FileSizePipe } from '../../../../../../shared/utils/file-size-pipe';
-import { TranslateModule } from '@ngx-translate/core';
-import { Bitstream } from '../../../../../../core/shared/bitstream.model';
-import { UploaderComponent } from '../../../../../../shared/upload/uploader/uploader.component';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { AuthService } from '../../../../../../core/auth/auth.service';
+import { Bitstream } from '../../../../../../core/shared/bitstream.model';
+import { HALEndpointService } from '../../../../../../core/shared/hal-endpoint.service';
+import { NotificationsService } from '../../../../../../shared/notifications/notifications.service';
+import { AuthServiceStub } from '../../../../../../shared/testing/auth-service.stub';
+import { HALEndpointServiceStub } from '../../../../../../shared/testing/hal-endpoint-service.stub';
+import { NotificationsServiceStub } from '../../../../../../shared/testing/notifications-service.stub';
+import { SectionsServiceStub } from '../../../../../../shared/testing/sections-service.stub';
+import { SubmissionServiceStub } from '../../../../../../shared/testing/submission-service.stub';
+import { UploaderComponent } from '../../../../../../shared/upload/uploader/uploader.component';
 import { UploaderOptions } from '../../../../../../shared/upload/uploader/uploader-options.model';
 import { UploaderProperties } from '../../../../../../shared/upload/uploader/uploader-properties.model';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { HALEndpointService } from '../../../../../../core/shared/hal-endpoint.service';
-import { HALEndpointServiceStub } from '../../../../../../shared/testing/hal-endpoint-service.stub';
-import { SectionsService } from '../../../../sections.service';
-import { SubmissionServiceStub } from '../../../../../../shared/testing/submission-service.stub';
-import { SectionsServiceStub } from '../../../../../../shared/testing/sections-service.stub';
+import { FileSizePipe } from '../../../../../../shared/utils/file-size-pipe';
+import { VarDirective } from '../../../../../../shared/utils/var.directive';
 import { SubmissionService } from '../../../../../submission.service';
+import { SectionsService } from '../../../../sections.service';
+import { SubmissionSectionUploadFileReplaceComponent } from './submission-section-upload-file-replace.component';
 
 describe('SubmissionSectionUploadFileReplaceComponent', () => {
   let component: SubmissionSectionUploadFileReplaceComponent;
   let fixture: ComponentFixture<SubmissionSectionUploadFileReplaceComponent>;
-  let uploadComponent: UploaderComponent;
+  let uploadComponent;
   const bitstreamReplaceUrl = 'bitstream-replace-endpoint';
   let halService = new HALEndpointServiceStub(bitstreamReplaceUrl);
 
@@ -38,15 +46,19 @@ describe('SubmissionSectionUploadFileReplaceComponent', () => {
       self: { href: bitstreamSelfLink },
       bundle: { href: bundleSelfLink },
       id: '123',
-    }
+    },
   });
   const fileIndex = '0';
   const submissionId = '0';
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [SubmissionSectionUploadFileReplaceComponent, VarDirective, FileSizePipe, TestUploaderComponent],
+      imports: [
+        SubmissionSectionUploadFileReplaceComponent,
+        TranslateModule.forRoot(),
+        VarDirective,
+        FileSizePipe,
+      ],
       providers: [
         { provide: Location, useValue: locationObject },
         { provide: NotificationsService, useClass: NotificationsServiceStub },
@@ -55,9 +67,11 @@ describe('SubmissionSectionUploadFileReplaceComponent', () => {
         { provide: SectionsService, useClass: SectionsServiceStub },
         { provide: SubmissionService, useClass: SubmissionServiceStub },
         { provide: NgbActiveModal },
-      ]
-    })
-      .compileComponents();
+      ],
+    }).overrideComponent(SubmissionSectionUploadFileReplaceComponent, {
+      remove: { imports: [UploaderComponent] },
+      add: { imports: [TestUploaderComponent] },
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SubmissionSectionUploadFileReplaceComponent);
     component = fixture.componentInstance;
@@ -71,7 +85,7 @@ describe('SubmissionSectionUploadFileReplaceComponent', () => {
   describe('on init', () => {
     it('should have upload url with replaceFile param', () => {
       expect(uploadComponent.uploadFilesOptions.url)
-        .toBe(bitstreamReplaceUrl.concat(`/${bitstream.id}/${submissionId}?replaceFile=${fileIndex}&replaceName=undefined`));
+        .toBe(bitstreamReplaceUrl.concat(`/${bitstream.id}/${submissionId}?replaceFile=${fileIndex}&replaceName=true`));
     });
   });
 
@@ -96,7 +110,8 @@ describe('SubmissionSectionUploadFileReplaceComponent', () => {
 
 @Component({
   selector: 'ds-uploader',
-  template: ``
+  template: ``,
+  standalone: true,
 })
 class TestUploaderComponent {
   @Input() dropMsg: string;

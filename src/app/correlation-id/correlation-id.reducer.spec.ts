@@ -1,5 +1,5 @@
-import { correlationIdReducer } from './correlation-id.reducer';
 import { SetCorrelationIdAction } from './correlation-id.actions';
+import { correlationIdReducer } from './correlation-id.reducer';
 
 describe('correlationIdReducer', () => {
   it('should set the correlatinId with SET action', () => {

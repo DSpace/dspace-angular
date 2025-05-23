@@ -28,4 +28,12 @@ export class ItemOperation {
     this.disabled = disabled;
   }
 
+  /**
+   * Set whether this operation is authorized
+   * @param authorized
+   */
+  setAuthorized(authorized: boolean): void {
+    this.authorized = authorized;
+  }
+
 }

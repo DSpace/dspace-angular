@@ -1,23 +1,4 @@
-.header-row {
-  color: var(--bs-table-dark-color);
-  background-color: var(--bs-table-dark-bg);
-  border-color: var(--bs-table-dark-border-color);
-}
-
-.bundle-row {
-  color: var(--bs-table-head-color);
-  background-color: var(--bs-table-head-bg);
-  border-color: var(--bs-table-border-color);
-}
-
-.row-element {
-  padding: 12px;
-  padding: 0.75em;
-  border-bottom: var(--bs-table-border-width) solid var(--bs-table-border-color);
-}
-
 .drag-handle {
-  visibility: hidden;
   &:hover {
     cursor: move;
   }
@@ -25,10 +6,6 @@
 
 .bitstream-row-drag-handle:hover {
   cursor: move;
-}
-
-:host ::ng-deep .bitstream-row:hover .drag-handle, :host ::ng-deep .bitstream-row-drag-handle:focus .drag-handle {
-  visibility: visible !important;
 }
 
 .cdk-drag-preview {
@@ -53,4 +30,26 @@
 
 :host ::ng-deep .larger-tooltip .tooltip-inner {
   max-width: 500px;
+}
+
+.table-border {
+  border: 1px solid #dee2e6;
+}
+
+:host ::ng-deep .pagination {
+  padding-top: 0.5rem;
+}
+
+.scrollable-table {
+  overflow-x: auto;
+}
+
+.disabled-overlay {
+  opacity: 0.6;
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 50%;
+  left: 50%;
 }

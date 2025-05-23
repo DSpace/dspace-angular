@@ -1,13 +1,28 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
-import { Observable, of as observableOf } from 'rxjs';
-import { isEmpty } from '../../empty.util';
-import { RestRequestMethod } from '../../../core/data/rest-request-method';
+import {
+  HttpClient,
+  HttpHeaders,
+} from '@angular/common/http';
+import {
+  Inject,
+  Injectable,
+} from '@angular/core';
+import {
+  Observable,
+  of,
+} from 'rxjs';
 
-import { RawRestResponse } from '../../../core/dspace-rest/raw-rest-response.model';
-import { DspaceRestService, HttpOptions } from '../../../core/dspace-rest/dspace-rest.service';
-import { MOCK_RESPONSE_MAP, ResponseMapMock } from './mocks/response-map.mock';
 import { environment } from '../../../../environments/environment';
+import { RestRequestMethod } from '../../../core/data/rest-request-method';
+import {
+  DspaceRestService,
+  HttpOptions,
+} from '../../../core/dspace-rest/dspace-rest.service';
+import { RawRestResponse } from '../../../core/dspace-rest/raw-rest-response.model';
+import { isEmpty } from '../../empty.util';
+import {
+  MOCK_RESPONSE_MAP,
+  ResponseMapMock,
+} from './mocks/response-map.mock';
 
 /**
  * Service to access DSpace's REST API.
@@ -21,7 +36,7 @@ export class EndpointMockingRestService extends DspaceRestService {
 
   constructor(
     @Inject(MOCK_RESPONSE_MAP) protected mockResponseMap: ResponseMapMock,
-    protected http: HttpClient
+    protected http: HttpClient,
   ) {
     super(http);
   }
@@ -79,11 +94,11 @@ export class EndpointMockingRestService extends DspaceRestService {
    *    an Observable<RawRestResponse> containing the mock response
    */
   private toMockResponse$(mockData: any): Observable<RawRestResponse> {
-    return observableOf({
+    return of({
       payload: mockData,
       headers: new HttpHeaders(),
       statusCode: 200,
-      statusText: 'OK'
+      statusText: 'OK',
     });
   }
 
@@ -91,7 +106,7 @@ export class EndpointMockingRestService extends DspaceRestService {
    * Get the mock response associated with this URL from this.mockResponseMap
    *
    * @param urlStr
-   *    the URL to fetch a mock reponse for
+   *    the URL to fetch a mock response for
    * @return any
    *    the mock response if there is one, undefined otherwise
    */

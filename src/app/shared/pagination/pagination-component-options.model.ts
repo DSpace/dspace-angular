@@ -1,7 +1,7 @@
-import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Injectable } from '@angular/core';
+import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class PaginationComponentOptions extends NgbPaginationConfig {
   /**
    * ID for the pagination instance. Only useful if you wish to
