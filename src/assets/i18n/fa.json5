@@ -16,47 +16,48 @@
 
   // "403.forbidden": "Forbidden",
   // TODO New key - Add a translation
-  "403.forbidden": "Forbidden",
+  "403.forbidden": "ممنوع",
 
   // "500.page-internal-server-error": "Service unavailable",
   // TODO New key - Add a translation
-  "500.page-internal-server-error": "Service unavailable",
+  "500.page-internal-server-error": "سرویس دردسترس نیست",
 
   // "500.help": "The server is temporarily unable to service your request due to maintenance downtime or capacity problems. Please try again later.",
   // TODO New key - Add a translation
-  "500.help": "The server is temporarily unable to service your request due to maintenance downtime or capacity problems. Please try again later.",
+  "500.help": "سرور به دلیل قطعی سرویس یا مشکلات ظرفیت، موقتاً قادر به ارائه خدمات به درخواست شما نیست. لطفاً بعداً دوباره تلاش کنید.",
 
   // "500.link.home-page": "Take me to the home page",
   // TODO New key - Add a translation
-  "500.link.home-page": "Take me to the home page",
+  "500.link.home-page": "انتقال به صفحه اصلی",
+
 
   // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
   // TODO New key - Add a translation
-  "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
+  "404.help": "ما نمی‌توانیم صفحه مورد نظر شما را پیدا کنیم. ممکن است صفحه منتقل یا حذف شده باشد. می‌توانید از دکمه زیر برای بازگشت به صفحه اصلی استفاده کنید. ",
 
   // "404.link.home-page": "Take me to the home page",
   // TODO New key - Add a translation
-  "404.link.home-page": "Take me to the home page",
+  "404.link.home-page": "انتقال به صفحه اصلی",
 
   // "404.page-not-found": "Page not found",
   // TODO New key - Add a translation
-  "404.page-not-found": "Page not found",
+  "404.page-not-found": "صفحه پیدا نشد",
 
   // "error-page.description.401": "Unauthorized",
   // TODO New key - Add a translation
-  "error-page.description.401": "Unauthorized",
+  "error-page.description.401": "غیرمجاز",
 
   // "error-page.description.403": "Forbidden",
   // TODO New key - Add a translation
-  "error-page.description.403": "Forbidden",
+  "error-page.description.403": "ممنوع",
 
   // "error-page.description.500": "Service unavailable",
   // TODO New key - Add a translation
-  "error-page.description.500": "Service unavailable",
+  "error-page.description.500": "سرویس در دسترس نیست",
 
   // "error-page.description.404": "Page not found",
   // TODO New key - Add a translation
-  "error-page.description.404": "Page not found",
+  "error-page.description.404": "صفحه پیدا نشد",
 
   // "error-page.orcid.generic-error": "An error occurred during login via ORCID. Make sure you have shared your ORCID account email address with DSpace. If the error persists, contact the administrator",
   // TODO New key - Add a translation
