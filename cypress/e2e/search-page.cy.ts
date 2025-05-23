@@ -1,8 +1,10 @@
 import { Options } from 'cypress-axe';
-import { TEST_SEARCH_TERM } from 'cypress/support/e2e';
 import { testA11y } from 'cypress/support/utils';
 
 describe('Search Page', () => {
+    // NOTE: these tests currently assume this query will return results!
+    const query = Cypress.env('DSPACE_TEST_SEARCH_TERM');
+
     it('should redirect to the correct url when query was set and submit button was triggered', () => {
         const queryString = 'Another interesting query string';
         cy.visit('/search');
@@ -13,8 +15,8 @@ describe('Search Page', () => {
     });
 
     it('should load results and pass accessibility tests', () => {
-        cy.visit('/search?query='.concat(TEST_SEARCH_TERM));
-        cy.get('[data-test="search-box"]').should('have.value', TEST_SEARCH_TERM);
+        cy.visit('/search?query='.concat(query));
+        cy.get('[data-test="search-box"]').should('have.value', query);
 
         // <ds-search-page> tag must be loaded
         cy.get('ds-search-page').should('be.visible');
@@ -27,25 +29,11 @@ describe('Search Page', () => {
         cy.get('[data-test="filter-toggle"]').click({ multiple: true });
 
         // Analyze <ds-search-page> for accessibility issues
-        testA11y(
-            {
-                include: ['ds-search-page'],
-                exclude: [
-                    ['nouislider'] // Date filter slider is missing ARIA labels. Will be fixed by #1175
-                ],
-            },
-            {
-                rules: {
-                    // Search filters fail these two "moderate" impact rules
-                    'heading-order': { enabled: false },
-                    'landmark-unique': { enabled: false }
-                }
-            } as Options
-        );
+        testA11y('ds-search-page');
     });
 
     it('should have a working grid view that passes accessibility tests', () => {
-        cy.visit('/search?query='.concat(TEST_SEARCH_TERM));
+        cy.visit('/search?query='.concat(query));
 
         // Click button in sidebar to display grid view
         cy.get('ds-search-sidebar [data-test="grid-view"]').click();
@@ -60,9 +48,8 @@ describe('Search Page', () => {
         testA11y('ds-search-page',
             {
                 rules: {
-                    // Search filters fail these two "moderate" impact rules
-                    'heading-order': { enabled: false },
-                    'landmark-unique': { enabled: false }
+                    // Card titles fail this test currently
+                    'heading-order': { enabled: false }
                 }
             } as Options
         );

@@ -30,8 +30,12 @@ import { filter, find, map } from 'rxjs/operators';
 import { isNotEmpty } from '../../app/shared/empty.util';
 import { logStartupMessage } from '../../../startup-message';
 import { MenuService } from '../../app/shared/menu/menu.service';
+import { RequestService } from '../../app/core/data/request.service';
 import { RootDataService } from '../../app/core/data/root-data.service';
-import { firstValueFrom, Subscription } from 'rxjs';
+import { firstValueFrom, lastValueFrom, Subscription } from 'rxjs';
+import { ServerCheckGuard } from '../../app/core/server-check/server-check.guard';
+import { HALEndpointService } from '../../app/core/shared/hal-endpoint.service';
+import { BuildConfig } from '../../config/build-config.interface';
 
 /**
  * Performs client-side initialization.
@@ -45,7 +49,7 @@ export class BrowserInitService extends InitService {
     protected store: Store<AppState>,
     protected correlationIdService: CorrelationIdService,
     protected transferState: TransferState,
-    @Inject(APP_CONFIG) protected appConfig: AppConfig,
+    @Inject(APP_CONFIG) protected appConfig: BuildConfig,
     protected translate: TranslateService,
     protected localeService: LocaleService,
     protected angulartics2DSpace: Angulartics2DSpace,
@@ -56,7 +60,10 @@ export class BrowserInitService extends InitService {
     protected authService: AuthService,
     protected themeService: ThemeService,
     protected menuService: MenuService,
-    private rootDataService: RootDataService
+    private rootDataService: RootDataService,
+    protected serverCheckGuard: ServerCheckGuard,
+    private requestService: RequestService,
+    private halService: HALEndpointService,
   ) {
     super(
       store,
@@ -115,13 +122,20 @@ export class BrowserInitService extends InitService {
    * @private
    */
   private async loadAppState(): Promise<boolean> {
-    const state = this.transferState.get<any>(InitService.NGRX_STATE, null);
-    this.transferState.remove(InitService.NGRX_STATE);
-    this.store.dispatch(new StoreAction(StoreActionTypes.REHYDRATE, state));
-    return this.store.select(coreSelector).pipe(
-      find((core: any) => isNotEmpty(core)),
-      map(() => true)
-    ).toPromise();
+    // The app state can be transferred only when SSR and CSR are using the same base url for the REST API
+    if (this.appConfig.universal.transferState) {
+      const state = this.transferState.get<any>(InitService.NGRX_STATE, null);
+      this.transferState.remove(InitService.NGRX_STATE);
+      this.store.dispatch(new StoreAction(StoreActionTypes.REHYDRATE, state));
+      return lastValueFrom(
+        this.store.select(coreSelector).pipe(
+          find((core: any) => isNotEmpty(core)),
+          map(() => true),
+        ),
+      );
+    } else {
+      return Promise.resolve(true);
+    }
   }
 
   private trackAuthTokenExpiration(): void {
@@ -143,17 +157,15 @@ export class BrowserInitService extends InitService {
   }
 
   /**
-   * During an external authentication flow invalidate the SSR transferState
+   * During an external authentication flow invalidate the
    * data in the cache. This allows the app to fetch fresh content.
    * @private
    */
   private externalAuthCheck() {
-
     this.sub = this.authService.isExternalAuthentication().pipe(
         filter((externalAuth: boolean) => externalAuth)
       ).subscribe(() => {
-        // Clear the transferState data.
-        this.rootDataService.invalidateRootCache();
+        this.requestService.setStaleByHrefSubstring(this.halService.getRootHref());
         this.authService.setExternalAuthStatus(false);
       }
     );
@@ -170,6 +182,15 @@ export class BrowserInitService extends InitService {
     firstValueFrom(this.authenticationReady$()).then(() => {
         this.sub.unsubscribe();
       });
+  }
+
+  /**
+   * Start route-listening subscriptions
+   * @protected
+   */
+  protected initRouteListeners(): void {
+    super.initRouteListeners();
+    this.serverCheckGuard.listenForRouteChanges();
   }
 
 }

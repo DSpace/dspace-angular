@@ -1,5 +1,5 @@
 <ng-container *ngVar="(objects$ | async) as objects">
-  <h3 [ngClass]="{'sr-only': parentname }">{{title | translate}}</h3>
+  <h1 [ngClass]="{'sr-only': parentname }">{{title | translate}}</h1>
   <ng-container *ngComponentOutlet="getStartsWithComponent(); injector: objectInjector;"></ng-container>
   <div *ngIf="objects?.hasSucceeded && !objects?.isLoading && objects?.payload?.page.length > 0" @fadeIn>
       <div *ngIf="shouldDisplayResetButton$ |async" class="mb-2 reset">

@@ -26,9 +26,19 @@
         li {
           display: inline-flex;
 
-          a {
+          a, .btn-link {
             padding: 0 calc(var(--bs-spacer) / 2);
-            color: inherit
+            color: inherit;
+            font-size: .875em;
+
+            &:focus {
+              box-shadow: none;
+              text-decoration: underline;
+            }
+
+            &:focus-visible {
+              box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5);
+            }
           }
 
           &:not(:last-child) {

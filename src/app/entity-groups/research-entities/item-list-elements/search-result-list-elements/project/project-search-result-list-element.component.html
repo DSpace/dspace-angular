@@ -2,7 +2,7 @@
   <div *ngIf="showThumbnails" class="col-3 col-md-2">
     <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'"
        [attr.rel]="(linkType == linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
-       [routerLink]="[itemPageRoute]" class="dont-break-out">
+       [routerLink]="[itemPageRoute]" class="dont-break-out" role="link" tabindex="0">
       <ds-thumbnail [thumbnail]="dso?.thumbnail | async"
                     [defaultImage]="'assets/images/project-placeholder.svg'"
                     [alt]="'thumbnail.project.alt'"
@@ -23,7 +23,7 @@
       <a *ngIf="linkType != linkTypes.None" [target]="(linkType == linkTypes.ExternalLink) ? '_blank' : '_self'"
          [attr.rel]="(linkType == linkTypes.ExternalLink) ? 'noopener noreferrer' : null"
          [routerLink]="[itemPageRoute]" class="lead item-list-title dont-break-out"
-         [innerHTML]="dsoTitle"></a>
+         [innerHTML]="dsoTitle" role="link" tabindex="0"></a>
       <span *ngIf="linkType == linkTypes.None"
             class="lead item-list-title dont-break-out"
             [innerHTML]="dsoTitle"></span>
@@ -32,7 +32,7 @@
       <!--<span *ngIf="dso.allMetadata(['project.identifier.status']).length > 0"-->
       <!--class="item-list-status">-->
       <!--<span *ngFor="let value of allMetadataValues(['project.identifier.status']); let last=last;">-->
-      <!--<span [innerHTML]="value"><span [innerHTML]="value"></span></span>-->
+      <!--<span [innerHTML]="value"></span><span *ngIf="!last">; </span>-->
       <!--</span>-->
       <!--</span>-->
       <!--</ds-truncatable-part>-->

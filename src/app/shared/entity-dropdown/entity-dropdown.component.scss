@@ -1,5 +1,9 @@
-.list-item:active {
-  color: white !important;
+.dropdown-item {
+  padding: 0.35rem 1rem;
+
+  &:active {
+    color: white !important;
+  }
 }
 
 .scrollable-menu {
@@ -8,7 +12,7 @@
   overflow-x: hidden;
 }
 
-.entity-item {
+li:not(:last-of-type) .dropdown-item {
   border-bottom: var(--bs-dropdown-border-width) solid var(--bs-dropdown-border-color);
 }
 

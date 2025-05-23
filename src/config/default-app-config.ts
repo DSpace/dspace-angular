@@ -12,7 +12,7 @@ import { MediaViewerConfig } from './media-viewer-config.interface';
 import { INotificationBoardOptions } from './notifications-config.interfaces';
 import { ServerConfig } from './server-config.interface';
 import { SubmissionConfig } from './submission-config.interface';
-import { ThemeConfig } from './theme.model';
+import { ThemeConfig } from './theme.config';
 import { UIServerConfig } from './ui-server-config.interface';
 import { BundleConfig } from './bundle-config.interface';
 import { ActuatorsConfig } from './actuators.config';
@@ -22,6 +22,8 @@ import { HomeConfig } from './homepage-config.interface';
 import { MarkdownConfig } from './markdown-config.interface';
 import { FilterVocabularyConfig } from './filter-vocabulary-config';
 import { DiscoverySortConfig } from './discovery-sort.config';
+import { LiveRegionConfig } from '../app/shared/live-region/live-region.config';
+import { SearchConfig } from './search-page-config.interface';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -216,28 +218,31 @@ export class DefaultAppConfig implements AppConfig {
   // When set to active, users will be able to switch to the use of this language in the user interface.
   languages: LangConfig[] = [
     { code: 'en', label: 'English', active: true },
+    { code: 'ar', label: 'العربية', active: true },
+    { code: 'bn', label: 'বাংলা', active: true },
     { code: 'ca', label: 'Català', active: true },
     { code: 'cs', label: 'Čeština', active: true },
     { code: 'de', label: 'Deutsch', active: true },
+    { code: 'el', label: 'Ελληνικά', active: true },
     { code: 'es', label: 'Español', active: true },
+    { code: 'fi', label: 'Suomi', active: true },
     { code: 'fr', label: 'Français', active: true },
     { code: 'gd', label: 'Gàidhlig', active: true },
-    { code: 'it', label: 'Italiano', active: true },
-    { code: 'lv', label: 'Latviešu', active: true },
+    { code: 'hi', label: 'हिंदी', active: true },
     { code: 'hu', label: 'Magyar', active: true },
+    { code: 'it', label: 'Italiano', active: true },
+    { code: 'kk', label: 'Қазақ', active: true },
+    { code: 'lv', label: 'Latviešu', active: true },
     { code: 'nl', label: 'Nederlands', active: true },
     { code: 'pl', label: 'Polski', active: true },
     { code: 'pt-PT', label: 'Português', active: true },
     { code: 'pt-BR', label: 'Português do Brasil', active: true },
-    { code: 'fi', label: 'Suomi', active: true },
+    { code: 'sr-lat', label: 'Srpski (lat)', active: true },
+    { code: 'sr-cyr', label: 'Српски', active: true },
     { code: 'sv', label: 'Svenska', active: true },
     { code: 'tr', label: 'Türkçe', active: true },
+    { code: 'uk', label: 'Yкраї́нська', active: true },
     { code: 'vi', label: 'Tiếng Việt', active: true },
-    { code: 'kk', label: 'Қазақ', active: true },
-    { code: 'bn', label: 'বাংলা', active: true },
-    { code: 'hi', label: 'हिंदी', active: true},
-    { code: 'el', label: 'Ελληνικά', active: true },
-    { code: 'uk', label: 'Yкраї́нська', active: true}
   ];
 
   // Browse-By Pages
@@ -431,5 +436,15 @@ export class DefaultAppConfig implements AppConfig {
   comcolSelectionSort: DiscoverySortConfig = {
     sortField:'dc.title',
     sortDirection:'ASC',
+  };
+
+  // Live Region configuration, used by the LiveRegionService
+  liveRegion: LiveRegionConfig = {
+    messageTimeOutDurationMs: 30000,
+    isVisible: false,
+  };
+
+  search: SearchConfig = {
+    filterPlaceholdersCount: 5
   };
 }

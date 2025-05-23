@@ -15,8 +15,8 @@ import { NotificationsService } from '../../../shared/notifications/notification
 import { NotificationsServiceStub } from '../../../shared/testing/notifications-service.stub';
 import { BitstreamFormat } from '../../../core/shared/bitstream-format.model';
 import { BitstreamFormatSupportLevel } from '../../../core/shared/bitstream-format-support-level';
-import { cold, getTestScheduler, hot } from 'jasmine-marbles';
-import { TestScheduler } from 'rxjs/testing';
+import { XSRFService } from '../../../core/xsrf/xsrf.service';
+import { hot } from 'jasmine-marbles';
 import {
   createNoContentRemoteDataObject$,
   createSuccessfulRemoteDataObject,
@@ -31,7 +31,6 @@ describe('BitstreamFormatsComponent', () => {
   let comp: BitstreamFormatsComponent;
   let fixture: ComponentFixture<BitstreamFormatsComponent>;
   let bitstreamFormatService;
-  let scheduler: TestScheduler;
   let notificationsServiceStub;
   let paginationService;
 
@@ -86,8 +85,6 @@ describe('BitstreamFormatsComponent', () => {
   const initAsync = () => {
     notificationsServiceStub = new NotificationsServiceStub();
 
-    scheduler = getTestScheduler();
-
     bitstreamFormatService = jasmine.createSpyObj('bitstreamFormatService', {
       findAll: observableOf(mockFormatsRD),
       find: createSuccessfulRemoteDataObject$(mockFormatsList[0]),
@@ -108,7 +105,8 @@ describe('BitstreamFormatsComponent', () => {
         { provide: BitstreamFormatDataService, useValue: bitstreamFormatService },
         { provide: HostWindowService, useValue: new HostWindowServiceStub(0) },
         { provide: NotificationsService, useValue: notificationsServiceStub },
-        { provide: PaginationService, useValue: paginationService }
+        { provide: PaginationService, useValue: paginationService },
+        { provide: XSRFService, useValue: {} },
       ]
     }).compileComponents();
   };
@@ -178,17 +176,17 @@ describe('BitstreamFormatsComponent', () => {
     beforeEach(waitForAsync(initAsync));
     beforeEach(initBeforeEach);
     it('should return an observable of true if the provided bistream is in the list returned by the service', () => {
-      const result = comp.isSelected(bitstreamFormat1);
-
-      expect(result).toBeObservable(cold('b', { b: true }));
+      comp.selectedBitstreamFormatIDs().subscribe((selectedBitstreamFormatIDs: string[]) => {
+        expect(selectedBitstreamFormatIDs).toContain(bitstreamFormat1.id);
+      });
     });
     it('should return an observable of false if the provided bistream is not in the list returned by the service', () => {
       const format = new BitstreamFormat();
       format.uuid = 'new';
 
-      const result = comp.isSelected(format);
-
-      expect(result).toBeObservable(cold('b', { b: false }));
+      comp.selectedBitstreamFormatIDs().subscribe((selectedBitstreamFormatIDs: string[]) => {
+        expect(selectedBitstreamFormatIDs).not.toContain(format.id);
+      });
     });
   });
 
@@ -213,8 +211,6 @@ describe('BitstreamFormatsComponent', () => {
   describe('deleteFormats success', () => {
     beforeEach(waitForAsync(() => {
         notificationsServiceStub = new NotificationsServiceStub();
-
-        scheduler = getTestScheduler();
 
         bitstreamFormatService = jasmine.createSpyObj('bitstreamFormatService', {
           findAll: observableOf(mockFormatsRD),
@@ -262,8 +258,6 @@ describe('BitstreamFormatsComponent', () => {
   describe('deleteFormats error', () => {
     beforeEach(waitForAsync(() => {
         notificationsServiceStub = new NotificationsServiceStub();
-
-        scheduler = getTestScheduler();
 
         bitstreamFormatService = jasmine.createSpyObj('bitstreamFormatService', {
           findAll: observableOf(mockFormatsRD),

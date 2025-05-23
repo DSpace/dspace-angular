@@ -64,7 +64,7 @@ describe('AuthorizationDataService', () => {
     const ePersonUuid = 'fake-eperson-uuid';
 
     function createExpected(providedObjectUrl: string, providedEPersonUuid?: string, providedFeatureId?: FeatureID): FindListOptions {
-      const searchParams = [new RequestParam('uri', providedObjectUrl)];
+      const searchParams = [new RequestParam('uri', providedObjectUrl, false)];
       if (hasValue(providedFeatureId)) {
         searchParams.push(new RequestParam('feature', providedFeatureId));
       }

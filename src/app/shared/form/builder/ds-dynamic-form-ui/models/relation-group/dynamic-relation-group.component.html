@@ -32,21 +32,21 @@
 
         <button type="button"
                 class="btn btn-link"
-                [disabled]="isMandatoryFieldEmpty()"
+                [dsBtnDisabled]="isMandatoryFieldEmpty()"
                 (click)="save()">
           <i class="fas fa-save text-primary fa-2x"
              aria-hidden="true"></i>
         </button>
         <button type="button"
                 class="btn btn-link"
-                [disabled]="!editMode"
+                [dsBtnDisabled]="!editMode"
                 (click)="delete()">
           <i class="fas fa-trash text-danger fa-2x"
              aria-hidden="true"></i>
         </button>
         <button type="button"
                 class="btn btn-link"
-                [disabled]="isMandatoryFieldEmpty()"
+                [dsBtnDisabled]="isMandatoryFieldEmpty()"
                 (click)="clear()">
           <i class="fas fa-undo fa-2x"
              aria-hidden="true"></i>
@@ -62,7 +62,7 @@
       <input type="text"
              class="border-0 form-control-plaintext tag-input mt-1 mb-1 pl-2 text-muted"
              readonly
-             tabindex="-1"
+             tabindex="0"
              value="{{'form.no-value' | translate}}">
     </div>
     <ds-chips
