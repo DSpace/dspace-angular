@@ -1195,7 +1195,7 @@
   "admin.metadata-import.page.help": "Töltsön fel vagy válasszon ki CSV fájlokat, amelyek az itt tárolt fájlokhoz kapcsolódó műveleteket tartalmaznak",
 
   // "admin.batch-import.page.help": "Select the collection to import into. Then, drop or browse to a Simple Archive Format (SAF) zip file that includes the items to import",
-  // TODO Source message changed - Revise the translation
+
   "admin.batch-import.page.help": "Válassza ki a gyűjteményt, ahová importálni szeretne. Ezután húzzon ide vagy tallózzon egy Simple Archive Format (SAF) formátumú ZIP fájlt, amely tartalmazza az importálandó tételeket.",
 
   // "admin.batch-import.page.toggle.help": "It is possible to perform import either with file upload or via URL, use above toggle to set the input source",
@@ -1719,7 +1719,7 @@
   "collection.create.head": "Gyűjtemény létrehozása",
 
   // "collection.create.notifications.success": "Successfully created the collection",
-  // TODO Source message changed - Revise the translation
+
   "collection.create.notifications.success": "Gyűjtemény sikeresen létrehozva",
 
   // "collection.create.sub-head": "Create a Collection for Community {{ parent }}",
@@ -1828,11 +1828,11 @@
   "collection.edit.logo.label": "Gyűjtemény logó",
 
   // "collection.edit.logo.notifications.add.error": "Uploading collection logo failed. Please verify the content before retrying.",
-  // TODO Source message changed - Revise the translation
+
   "collection.edit.logo.notifications.add.error": "Gyűjtemény logó feltöltése sikertelen. Kérjük, ellenőrizze a tartalmat, mielőtt újra próbálkozna.",
 
   // "collection.edit.logo.notifications.add.success": "Uploading collection logo successful.",
-  // TODO Source message changed - Revise the translation
+
   "collection.edit.logo.notifications.add.success": "Gyűjtemény logó feltöltése sikeres.",
 
   // "collection.edit.logo.notifications.delete.success.title": "Logo deleted",
@@ -1845,11 +1845,11 @@
   "collection.edit.logo.notifications.delete.error.title": "Logó törlése közben hiba történt",
 
   // "collection.edit.logo.upload": "Drop a collection logo to upload",
-  // TODO Source message changed - Revise the translation
+
   "collection.edit.logo.upload": "A feltöltéshez húzza ide a gyűjteményi logóként feltöltendő fájlt",
 
   // "collection.edit.notifications.success": "Successfully edited the collection",
-  // TODO Source message changed - Revise the translation
+
   "collection.edit.notifications.success": "Gyűjtemény szerkesztése sikeres",
 
   // "collection.edit.return": "Back",
@@ -2034,7 +2034,7 @@
 
   // "collection.page.options": "Options",
   // TODO New key - Add a translation
-  "collection.page.options": "Options",
+  "collection.page.options": "Beállítások",
 
   // "collection.search.breadcrumbs": "Search",
   // TODO New key - Add a translation
@@ -2167,7 +2167,7 @@
   "community.create.head": "Közösség létrehozása",
 
   // "community.create.notifications.success": "Successfully created the community",
-  // TODO Source message changed - Revise the translation
+
   "community.create.notifications.success": "Közösség sikeresen létrehozva",
 
   // "community.create.sub-head": "Create a Sub-Community for Community {{ parent }}",
@@ -2240,7 +2240,7 @@
   "community.edit.logo.upload": "A feltöltéshez húzza ide a közösségi logóként feltöltendő fájlt",
 
   // "community.edit.notifications.success": "Successfully edited the community",
-  // TODO Source message changed - Revise the translation
+
   "community.edit.notifications.success": "Közösség szerkesztése sikeres",
 
   // "community.edit.notifications.unauthorized": "You do not have privileges to make this change",
@@ -2397,25 +2397,22 @@
   "community.page.news": "Hírek",
 
   // "community.page.options": "Options",
-  // TODO New key - Add a translation
-  "community.page.options": "Options",
+  "community.page.options": "Beállítások",
 
   // "community.all-lists.head": "Subcommunities and Collections",
   "community.all-lists.head": "Alközösségek és gyűjtemények",
 
   // "community.search.breadcrumbs": "Search",
-  // TODO New key - Add a translation
-  "community.search.breadcrumbs": "Search",
+  "community.search.breadcrumbs": "Keresés",
 
   // "community.search.results.head": "Search Results",
   "community.search.results.head": "Keresés eredménye",
 
   // "community.sub-collection-list.head": "Collections in this community",
-  // TODO Source message changed - Revise the translation
-  "community.sub-collection-list.head": "Ennek a közösségnek a gyűjteményei",
+  "community.sub-collection-list.head": "Gyűjtemények listája",
 
   // "community.sub-community-list.head": "Communities in this Community",
-  "community.sub-community-list.head": "Ennek a közösségnek az alközösségei",
+  "community.sub-community-list.head": "Alközösségek listája",
 
   // "cookies.consent.accept-all": "Accept all",
   "cookies.consent.accept-all": "Mind elfogad",
@@ -2448,8 +2445,7 @@
   "cookies.consent.decline": "Elutasít",
 
   // "cookies.consent.decline-all": "Decline all",
-  // TODO New key - Add a translation
-  "cookies.consent.decline-all": "Decline all",
+  "cookies.consent.decline-all": "Mindegyik elutasítása",
 
   // "cookies.consent.ok": "That's ok",
   "cookies.consent.ok": "Elfogadom",
@@ -2458,8 +2454,7 @@
   "cookies.consent.save": "Mentés",
 
   // "cookies.consent.content-notice.description": "We collect and process your personal information for the following purposes: {purposes}",
-  // TODO Source message changed - Revise the translation
-  "cookies.consent.content-notice.description": "Az adatok gyűjtése és feldolgozása a következő célból történik: <strong>Hitelesítés, Beállítások, Elfogadás és Statisztikák</strong>. <br/> A részletek a következő link segítségével érhetők el: {privacyPolicy}.",
+  "cookies.consent.content-notice.description": "Személyes adataidat az alábbi célokra gyűjtjük és dolgozzuk fel: {purposes}",
 
   // "cookies.consent.content-notice.learnMore": "Customize",
   "cookies.consent.content-notice.learnMore": "Testreszabás",
@@ -3161,30 +3156,28 @@
   "form.create": "Létrehoz",
 
   // "form.number-picker.decrement": "Decrement {{field}}",
-  "form.number-picker.decrement": "Decrement {{field}}",
+  "form.number-picker.decrement": "{{field}} csökkentése",
 
   // "form.number-picker.increment": "Increment {{field}}",
-  "form.number-picker.increment": "Increment {{field}}",
+  "form.number-picker.increment": "{{field}} növelése",
 
   // "form.repeatable.sort.tip": "Drop the item in the new position",
-  "form.repeatable.sort.tip": "Drop the item in the new position",
+  "form.repeatable.sort.tip": "Húzd az elemet az új pozícióba",
 
   // "grant-deny-request-copy.deny": "Deny access request",
-  // TODO Source message changed - Revise the translation
-  "grant-deny-request-copy.deny": "Don't send copy",
+  "grant-deny-request-copy.deny": "Hozzáférés megtagadása",
 
   // "grant-deny-request-copy.revoke": "Revoke access",
-  // TODO New key - Add a translation
-  "grant-deny-request-copy.revoke": "Revoke access",
+  "grant-deny-request-copy.revoke": "Hozzáférés visszavonása",
 
   // "grant-deny-request-copy.email.back": "Back",
   "grant-deny-request-copy.email.back": "Vissza",
 
   // "grant-deny-request-copy.email.message": "Optional additional message",
-  "grant-deny-request-copy.email.message": "Optional additional message",
+  "grant-deny-request-copy.email.message": "Opcionális kiegészítő üzenet",
 
   // "grant-deny-request-copy.email.message.empty": "Please enter a message",
-  "grant-deny-request-copy.email.message.empty": "Please enter a message",
+  "grant-deny-request-copy.email.message.empty": "Kérlek, adj meg egy üzenetet",
 
   // "grant-deny-request-copy.email.permissions.info": "You may use this occasion to reconsider the access restrictions on the document, to avoid having to respond to these requests. If you’d like to ask the repository administrators to remove these restrictions, please check the box below.",
   "grant-deny-request-copy.email.permissions.info": "You may use this occasion to reconsider the access restrictions on the document, to avoid having to respond to these requests. If you’d like to ask the repository administrators to remove these restrictions, please check the box below.",
@@ -3202,8 +3195,7 @@
   "grant-deny-request-copy.email.subject.empty": "Please enter a subject",
 
   // "grant-deny-request-copy.grant": "Grant access request",
-  // TODO Source message changed - Revise the translation
-  "grant-deny-request-copy.grant": "Send copy",
+  "grant-deny-request-copy.grant": "Hozzáférés engedélyezése",
 
   // "grant-deny-request-copy.header": "Document copy request",
   "grant-deny-request-copy.header": "Document copy request",
@@ -3218,8 +3210,7 @@
   "grant-deny-request-copy.intro2": "After choosing an option, you will be presented with a suggested email reply which you may edit.",
 
   // "grant-deny-request-copy.previous-decision": "This request was previously granted with a secure access token. You may revoke this access now to immediately invalidate the access token",
-  // TODO New key - Add a translation
-  "grant-deny-request-copy.previous-decision": "This request was previously granted with a secure access token. You may revoke this access now to immediately invalidate the access token",
+  "grant-deny-request-copy.previous-decision": "Ez a kérés korábban engedélyezve lett egy biztonságos hozzáférési tokennel. Most visszavonhatod a hozzáférést, hogy azonnal érvénytelenítsd a tokent.",
 
   // "grant-deny-request-copy.processed": "This request has already been processed. You can use the button below to get back to the home page.",
   "grant-deny-request-copy.processed": "This request has already been processed. You can use the button below to get back to the home page.",
@@ -4151,11 +4142,10 @@
   "item.edit.tabs.status.buttons.mappedCollections.label": "Hozzárendelt gyűjtemények szervezése",
 
   // "item.edit.tabs.status.buttons.move.button": "Move this item to a different collection",
-  // TODO Source message changed - Revise the translation
-  "item.edit.tabs.status.buttons.move.button": "Áthelyezés...",
+  "item.edit.tabs.status.buttons.move.button": "Tárgy áthelyezése egy másik gyűjteménybe",
 
   // "item.edit.tabs.status.buttons.move.label": "Move item to another collection",
-  "item.edit.tabs.status.buttons.move.label": "Tárgy áthelyezése másik gyűjteménybe",
+  "item.edit.tabs.status.buttons.move.label": "Tárgy áthelyezése egy másik gyűjteménybe",
 
   // "item.edit.tabs.status.buttons.private.button": "Make it non-discoverable...",
   "item.edit.tabs.status.buttons.private.button": "Legyen privát...",
@@ -4401,12 +4391,10 @@
   "item.page.abstract": "Kivonat",
 
   // "item.page.author": "Author",
-  // TODO Source message changed - Revise the translation
-  "item.page.author": "Szerzők",
+  "item.page.author": "Szerző",
 
   // "item.page.authors": "Authors",
-  // TODO New key - Add a translation
-  "item.page.authors": "Authors",
+  "item.page.authors": "Szerzők",
 
   // "item.page.citation": "Citation",
   "item.page.citation": "Idézések",
@@ -4454,8 +4442,8 @@
   "item.page.link.simple": "A tétel rövid nézete",
 
   // "item.page.options": "Options",
-  // TODO New key - Add a translation
-  "item.page.options": "Options",
+
+  "item.page.options": "Beállítások",
 
   // "item.page.orcid.title": "ORCID",
   "item.page.orcid.title": "ORCID",
@@ -4592,7 +4580,7 @@
   "item.preview.dc.rights": "Jogkezelés",
 
   // "item.preview.dc.identifier.other": "Other Identifier",
-  // TODO Source message changed - Revise the translation
+
   "item.preview.dc.identifier.other": "Egyéb azonosító:",
 
   // "item.preview.dc.relation.issn": "ISSN",
@@ -4677,11 +4665,11 @@
   "item.preview.creativework.publisher": "Publisher",
 
   // "item.preview.creativeworkseries.issn": "ISSN",
-  // TODO New key - Add a translation
+
   "item.preview.creativeworkseries.issn": "ISSN",
 
   // "item.preview.dc.identifier.issn": "ISSN",
-  // TODO New key - Add a translation
+
   "item.preview.dc.identifier.issn": "ISSN",
 
   // "item.preview.dc.identifier.openalex": "OpenAlex Identifier",
@@ -5011,8 +4999,8 @@
   "journal.page.publisher": "Kiadó",
 
   // "journal.page.options": "Options",
-  // TODO New key - Add a translation
-  "journal.page.options": "Options",
+
+  "journal.page.options": "Beállítások",
 
   // "journal.page.titleprefix": "Journal: ",
   "journal.page.titleprefix": "Folyóirat: ",
@@ -5051,8 +5039,8 @@
   "journalissue.page.number": "Szám",
 
   // "journalissue.page.options": "Options",
-  // TODO New key - Add a translation
-  "journalissue.page.options": "Options",
+
+  "journalissue.page.options": "Beállítások",
 
   // "journalissue.page.titleprefix": "Journal Issue: ",
   "journalissue.page.titleprefix": "Folyóirat szám: ",
@@ -5073,8 +5061,8 @@
   "journalvolume.page.issuedate": "Megjelenés dátuma",
 
   // "journalvolume.page.options": "Options",
-  // TODO New key - Add a translation
-  "journalvolume.page.options": "Options",
+
+  "journalvolume.page.options": "Beállítások",
 
   // "journalvolume.page.titleprefix": "Journal Volume: ",
   "journalvolume.page.titleprefix": "Folyóirat kötet: ",
@@ -5194,8 +5182,7 @@
   "login.form.password": "Jelszó",
 
   // "login.form.saml": "Log in with SAML",
-  // TODO New key - Add a translation
-  "login.form.saml": "Log in with SAML",
+  "login.form.saml": "Bejelentkezés SAML révén",
 
   // "login.form.shibboleth": "Log in with Shibboleth",
   "login.form.shibboleth": "Bejelentkezés Shiboleth révén",
@@ -5926,8 +5913,8 @@
   "orgunit.page.id": "Azonosító",
 
   // "orgunit.page.options": "Options",
-  // TODO New key - Add a translation
-  "orgunit.page.options": "Options",
+
+  "orgunit.page.options": "Beállítások",
 
   // "orgunit.page.titleprefix": "Organizational Unit: ",
   "orgunit.page.titleprefix": "Szervezeti egység: ",
@@ -5984,8 +5971,8 @@
   "person.page.link.full": "Minden metaadat megjelenítése",
 
   // "person.page.options": "Options",
-  // TODO New key - Add a translation
-  "person.page.options": "Options",
+
+  "person.page.options": "Beállítások",
 
   // "person.page.orcid": "ORCID",
   "person.page.orcid": "ORCID",
@@ -6367,8 +6354,8 @@
   "project.page.keyword": "Kulcsszavak",
 
   // "project.page.options": "Options",
-  // TODO New key - Add a translation
-  "project.page.options": "Options",
+
+  "project.page.options": "Beállítások",
 
   // "project.page.status": "Status",
   "project.page.status": "Állapot",
@@ -6401,8 +6388,8 @@
   "publication.page.publisher": "Kiadó",
 
   // "publication.page.options": "Options",
-  // TODO New key - Add a translation
-  "publication.page.options": "Options",
+
+  "publication.page.options": "Beállítások",
 
   // "publication.page.titleprefix": "Publication: ",
   "publication.page.titleprefix": "Publikáció: ",
@@ -6516,7 +6503,7 @@
   "suggestion.source.openaire": "OpenAIRE Graph",
 
   // "suggestion.source.openalex": "OpenAlex",
-  // TODO New key - Add a translation
+
   "suggestion.source.openalex": "OpenAlex",
 
   // "suggestion.from.source": "from the ",
@@ -6768,7 +6755,7 @@
   "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
 
   // "repository.image.logo": "Repository logo",
-  "repository.image.logo": "Adattár logó",
+  "repository.image.logo": "Repozitórium logó",
 
   // "repository.title": "DSpace Repository",
   "repository.title": "DSpace Repozitórium",
@@ -9004,7 +8991,7 @@
   "subscriptions.table.not-available-message": "A felirakozott elem törlésre került vagy nincs meg a szükséges jogosultsága a megtekintéshez",
 
   // "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a community or collection, use the subscription button on the object's page.",
-  // TODO Source message changed - Revise the translation
+
   "subscriptions.table.empty.message": "Jelenleg nincs egyetlen feliratkozása sem. A közösségek és gyűjtemények kapcsán email értesítőre való feliratkozáshoz használja a feliratkozás gombot az adott elem oldalán.",
 
   // "thumbnail.default.alt": "Thumbnail Image",
@@ -10244,7 +10231,7 @@
   "request-status-alert-box.rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been rejected.",
 
   // "request-status-alert-box.tentative_rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been tentatively rejected. Revisions are required",
-  // TODO Source message changed - Revise the translation
+
   "request-status-alert-box.tentative_rejected": "A kért {{ offerType }} a <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }} </a> szolgáltatásra ideiglenesen elutasításra került. Módosítások szükségesek.",
 
   // "request-status-alert-box.requested": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> is pending.",
