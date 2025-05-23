@@ -35,6 +35,7 @@ import { FormService } from '../../../../shared/form/form.service';
 import { SubmissionService } from '../../../submission.service';
 import { SectionUploadService } from '../section-upload.service';
 import { SubmissionSectionUploadFileEditComponent } from './edit/section-upload-file-edit.component';
+import { SubmissionSectionUploadFileReplaceComponent } from './replace/submission-section-upload-file-replace/submission-section-upload-file-replace.component';
 import { SubmissionSectionUploadFileViewComponent } from './view/section-upload-file-view.component';
 
 /**
@@ -305,6 +306,19 @@ export class SubmissionSectionUploadFileComponent implements OnChanges, OnInit, 
       });
     },
     );
+  }
+
+  protected replaceBitstream(): void {
+    const options: NgbModalOptions = {
+      size: 'xl',
+      backdrop: 'static',
+    };
+    const modal = this.modalService.open(SubmissionSectionUploadFileReplaceComponent, options);
+    const instance: SubmissionSectionUploadFileReplaceComponent = modal.componentInstance;
+    instance.fileIndex = this.fileIndex;
+    instance.fileName = this.fileName;
+    instance.fileSizeBytes = this.fileData.sizeBytes;
+    instance.submissionId = this.submissionId;
   }
 
   /**
