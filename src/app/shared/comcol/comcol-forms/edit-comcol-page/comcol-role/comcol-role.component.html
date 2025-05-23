@@ -38,7 +38,7 @@
         </button>
         <button *ngIf="hasCustomGroup$ | async"
              class="btn btn-danger delete"
-             (click)="delete()">
+                (click)="confirmDelete(dsoNameService.getName(group))">
           <i class="fas fa-trash" aria-hidden="true"></i> {{'comcol-role.edit.delete' | translate}}
         </button>
       </div>
