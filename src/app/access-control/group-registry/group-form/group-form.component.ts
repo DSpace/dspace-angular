@@ -46,6 +46,7 @@ import { ValidateGroupExists } from './validators/group-exists.validator';
 import { DSONameService } from '../../../core/breadcrumbs/dso-name.service';
 import { environment } from '../../../../environments/environment';
 import { getGroupEditRoute, getGroupsRoute } from '../../access-control-routing-paths';
+import { RouteService } from '../../../core/services/route.service';
 
 @Component({
   selector: 'ds-group-form',
@@ -155,6 +156,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
     public requestService: RequestService,
     protected changeDetectorRef: ChangeDetectorRef,
     public dsoNameService: DSONameService,
+    protected routeService: RouteService,
   ) {
   }
 
@@ -267,7 +269,11 @@ export class GroupFormComponent implements OnInit, OnDestroy {
   onCancel() {
     this.groupDataService.cancelEditGroup();
     this.cancelForm.emit();
-    void this.router.navigate([getGroupsRoute()]);
+    this.routeService.getPreviousUrl().pipe(
+      take(1),
+    ).subscribe((previousURL) => {
+      void this.router.navigate([previousURL && previousURL.trim().length > 0 ? previousURL : getGroupsRoute()]);
+    });
   }
 
   /**
