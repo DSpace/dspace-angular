@@ -3180,88 +3180,79 @@
   "grant-deny-request-copy.email.message.empty": "Kérlek, adj meg egy üzenetet",
 
   // "grant-deny-request-copy.email.permissions.info": "You may use this occasion to reconsider the access restrictions on the document, to avoid having to respond to these requests. If you’d like to ask the repository administrators to remove these restrictions, please check the box below.",
-  "grant-deny-request-copy.email.permissions.info": "You may use this occasion to reconsider the access restrictions on the document, to avoid having to respond to these requests. If you’d like to ask the repository administrators to remove these restrictions, please check the box below.",
+  "grant-deny-request-copy.email.permissions.info": "Használhatod ezt az alkalmat arra, hogy újragondold a dokumentum hozzáférési korlátozásait, így elkerülve a hasonló kérésekre való válaszadást. Ha szeretnéd, hogy az adminisztrátorok eltávolítsák ezeket a korlátozásokat, kérlek, jelöld be az alábbi mezőt.",
 
   // "grant-deny-request-copy.email.permissions.label": "Change to open access",
-  "grant-deny-request-copy.email.permissions.label": "Change to open access",
+  "grant-deny-request-copy.email.permissions.label": "Nyílt hozzáférésre váltás",
 
   // "grant-deny-request-copy.email.send": "Send",
-  "grant-deny-request-copy.email.send": "Send",
+  "grant-deny-request-copy.email.send": "Küldés",
 
   // "grant-deny-request-copy.email.subject": "Subject",
-  "grant-deny-request-copy.email.subject": "Subject",
+  "grant-deny-request-copy.email.subject": "Tárgy",
 
   // "grant-deny-request-copy.email.subject.empty": "Please enter a subject",
-  "grant-deny-request-copy.email.subject.empty": "Please enter a subject",
+  "grant-deny-request-copy.email.subject.empty": "Kérlek, adj meg egy tárgyat",
 
   // "grant-deny-request-copy.grant": "Grant access request",
   "grant-deny-request-copy.grant": "Hozzáférés engedélyezése",
 
   // "grant-deny-request-copy.header": "Document copy request",
-  "grant-deny-request-copy.header": "Document copy request",
+  "grant-deny-request-copy.header": "Dokumentummásolat kérés",
 
   // "grant-deny-request-copy.home-page": "Take me to the home page",
-  "grant-deny-request-copy.home-page": "Take me to the home page",
+  "grant-deny-request-copy.home-page": "Vissza a főoldalra",
 
   // "grant-deny-request-copy.intro1": "If you are one of the authors of the document <a href='{{ url }}'>{{ name }}</a>, then please use one of the options below to respond to the user's request.",
-  "grant-deny-request-copy.intro1": "If you are one of the authors of the document <a href='{{ url }}'>{{ name }}</a>, then please use one of the options below to respond to the user's request.",
+  "grant-deny-request-copy.intro1": "Ha Ön a dokumentum <a href='{{ url }}'>{{ name }}</a> szerzői közé tartozik, kérjük, az alábbi lehetőségek valamelyikével válaszoljon a felhasználó kérésére.",
 
   // "grant-deny-request-copy.intro2": "After choosing an option, you will be presented with a suggested email reply which you may edit.",
-  "grant-deny-request-copy.intro2": "After choosing an option, you will be presented with a suggested email reply which you may edit.",
+  "grant-deny-request-copy.intro2": "A választás után megjelenik egy javasolt email válasz, melyet szerkeszthet.",
 
   // "grant-deny-request-copy.previous-decision": "This request was previously granted with a secure access token. You may revoke this access now to immediately invalidate the access token",
   "grant-deny-request-copy.previous-decision": "Ez a kérés korábban engedélyezve lett egy biztonságos hozzáférési tokennel. Most visszavonhatod a hozzáférést, hogy azonnal érvénytelenítsd a tokent.",
 
   // "grant-deny-request-copy.processed": "This request has already been processed. You can use the button below to get back to the home page.",
-  "grant-deny-request-copy.processed": "This request has already been processed. You can use the button below to get back to the home page.",
+  "grant-deny-request-copy.processed": "Ez a kérés már feldolgozásra került. Az alábbi gombbal visszatérhetsz a főoldalra.",
 
   // "grant-request-copy.email.subject": "Request copy of document",
-  "grant-request-copy.email.subject": "Request copy of document",
+  "grant-request-copy.email.subject": "Dokumentummásolat kérése",
 
   // "grant-request-copy.error": "An error occurred",
-  "grant-request-copy.error": "An error occurred",
+  "grant-request-copy.error": "Hiba történt",
 
   // "grant-request-copy.header": "Grant document copy request",
-  "grant-request-copy.header": "Grant document copy request",
+  "grant-request-copy.header": "Dokumentummásolat kérés engedélyezése",
 
   // "grant-request-copy.intro.attachment": "A message will be sent to the applicant of the request. The requested document(s) will be attached.",
-  // TODO New key - Add a translation
-  "grant-request-copy.intro.attachment": "A message will be sent to the applicant of the request. The requested document(s) will be attached.",
+  "grant-request-copy.intro.attachment": "Üzenet kerül kiküldésre a kérvényezőnek. A kért dokumentum(ok) csatolva lesznek.",
 
   // "grant-request-copy.intro.link": "A message will be sent to the applicant of the request. A secure link providing access to the requested document(s) will be attached. The link will provide access for the duration of time selected in the \"Access Period\" menu below.",
-  // TODO New key - Add a translation
-  "grant-request-copy.intro.link": "A message will be sent to the applicant of the request. A secure link providing access to the requested document(s) will be attached. The link will provide access for the duration of time selected in the \"Access Period\" menu below.",
+  "grant-request-copy.intro.link": "Üzenet kerül kiküldésre a kérvényezőnek. Egy biztonságos link, amely hozzáférést biztosít a kért dokumentum(ok)hoz, csatolva lesz. A link a \"Hozzáférési időszak\" menüben kiválasztott időtartamra érvényes.",
 
   // "grant-request-copy.intro.link.preview": "Below is a preview of the link that will be sent to the applicant:",
-  // TODO New key - Add a translation
-  "grant-request-copy.intro.link.preview": "Below is a preview of the link that will be sent to the applicant:",
+  "grant-request-copy.intro.link.preview": "Az alábbiakban látható a kérvényezőnek küldendő link előnézete:",
 
   // "grant-request-copy.success": "Successfully granted item request",
-  "grant-request-copy.success": "Successfully granted item request",
+  "grant-request-copy.success": "A kérés sikeresen engedélyezve.",
 
   // "grant-request-copy.access-period.header": "Access period",
-  // TODO New key - Add a translation
-  "grant-request-copy.access-period.header": "Access period",
+  "grant-request-copy.access-period.header": "Hozzáférési időszak",
 
   // "grant-request-copy.access-period.+1DAY": "1 day",
-  // TODO New key - Add a translation
-  "grant-request-copy.access-period.+1DAY": "1 day",
+  "grant-request-copy.access-period.+1DAY": "1 nap",
 
   // "grant-request-copy.access-period.+7DAYS": "1 week",
-  // TODO New key - Add a translation
-  "grant-request-copy.access-period.+7DAYS": "1 week",
+  "grant-request-copy.access-period.+7DAYS": "1 hét",
 
   // "grant-request-copy.access-period.+1MONTH": "1 month",
-  // TODO New key - Add a translation
-  "grant-request-copy.access-period.+1MONTH": "1 month",
+  "grant-request-copy.access-period.+1MONTH": "1 hónap",
 
   // "grant-request-copy.access-period.+3MONTHS": "3 months",
-  // TODO New key - Add a translation
-  "grant-request-copy.access-period.+3MONTHS": "3 months",
+  "grant-request-copy.access-period.+3MONTHS": "3 hónap",
 
   // "grant-request-copy.access-period.FOREVER": "Forever",
-  // TODO New key - Add a translation
-  "grant-request-copy.access-period.FOREVER": "Forever",
+  "grant-request-copy.access-period.FOREVER": "Véglegesen",
 
   // "health.breadcrumbs": "Health",
   "health.breadcrumbs": "Monitoring",
