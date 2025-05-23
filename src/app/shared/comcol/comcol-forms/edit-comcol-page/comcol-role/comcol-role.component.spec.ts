@@ -12,7 +12,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
-import { of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 import { DSONameService } from '../../../../../core/breadcrumbs/dso-name.service';
 import { RequestService } from '../../../../../core/data/request.service';
@@ -37,12 +37,16 @@ describe('ComcolRoleComponent', () => {
   let comcolRole;
   let notificationsService;
 
-  const requestService = { hasByHref$: () => observableOf(true) };
+  const requestService = {
+    hasByHref$: () => of(true),
+    setStaleByHrefSubstring: () => of(true),
+  };
 
   const groupService = {
     findByHref: jasmine.createSpy('findByHref'),
-    createComcolGroup: jasmine.createSpy('createComcolGroup').and.returnValue(observableOf({})),
-    deleteComcolGroup: jasmine.createSpy('deleteComcolGroup').and.returnValue(observableOf({})),
+    createComcolGroup: jasmine.createSpy('createComcolGroup').and.returnValue(of({})),
+    deleteComcolGroup: jasmine.createSpy('deleteComcolGroup').and.returnValue(of({})),
+    clearGroupsRequests: jasmine.createSpy('clearGroupsRequests'),
   };
 
   beforeEach(waitForAsync(() => {
@@ -84,7 +88,7 @@ describe('ComcolRoleComponent', () => {
         href: 'test role link',
       };
       comp.comcolRole = comcolRole;
-      comp.roleName$ = observableOf(comcolRole.name);
+      comp.roleName$ = of(comcolRole.name);
 
       fixture.detectChanges();
     });
@@ -180,7 +184,7 @@ describe('ComcolRoleComponent', () => {
         name: 'test role name' + Math.random(),
         href: 'test role link',
       };
-      comp.roleName$ = observableOf(comcolRole.name);
+      comp.roleName$ = of(comcolRole.name);
       fixture.detectChanges();
     });
 
