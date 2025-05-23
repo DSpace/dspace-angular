@@ -2,15 +2,20 @@
   //"401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
 "401.help": "شما مجاز به دسترسی به این صفحه نیستید. از دکمه زیر برای بازگشت به صفحه اصلی می‌توانید استفاده کنید.",
 
-  "401.link.home-page": "Take me to the home page",
+  //"401.link.home-page": "Take me to the home page",
+"401.link.home-page": "انتقال به صفحه اصلی",
 
-  "401.unauthorized": "Unauthorized",
+  //"401.unauthorized": "Unauthorized",
+"401.unauthorized": "غیرمجاز",
 
-  "403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
+  //"403.help": "You don't have permission to access this page. You can use the button below to get back to the home page.",
+"403.help": "شما اجازه دسترسی به این صفحه را ندارید. از دکمه زیر برای بازگشت به صفحه اصلی می‌توانید استفاده کنید.",
 
-  "403.link.home-page": "Take me to the home page",
+  //"403.link.home-page": "Take me to the home page",
+"403.link.home-page": "انتقال به صفحه اصلی",
 
-  "403.forbidden": "Forbidden",
+  //"403.forbidden": "Forbidden",
+"403.forbidden": "Forbidden",
 
   "500.page-internal-server-error": "Service unavailable",
 
