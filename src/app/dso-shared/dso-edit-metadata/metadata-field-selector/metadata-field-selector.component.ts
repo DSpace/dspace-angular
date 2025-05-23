@@ -45,6 +45,7 @@ import {
   SortDirection,
   SortOptions,
 } from '../../../core/cache/models/sort-options.model';
+import { FindListOptions } from '../../../core/data/find-list-options.model';
 import { RegistryService } from '../../../core/registry/registry.service';
 import {
   getAllSucceededRemoteData,
@@ -129,6 +130,11 @@ export class MetadataFieldSelectorComponent implements OnInit, OnDestroy, AfterV
    */
   showInvalid = false;
 
+  searchOptions: FindListOptions = {
+    elementsPerPage: 10,
+    sort: new SortOptions('fieldName', SortDirection.ASC),
+  };
+
   /**
    * Subscriptions to unsubscribe from on destroy
    */
@@ -211,7 +217,7 @@ export class MetadataFieldSelectorComponent implements OnInit, OnDestroy, AfterV
    * Upon subscribing to the returned observable, the showInvalid flag is updated accordingly to show the feedback under the input
    */
   validate(): Observable<boolean> {
-    return this.registryService.queryMetadataFields(this.mdField, null, true, false, followLink('schema')).pipe(
+    return this.registryService.queryMetadataFields(this.mdField, this.searchOptions, true, false, followLink('schema')).pipe(
       getFirstCompletedRemoteData(),
       switchMap((rd) => {
         if (rd.hasSucceeded) {
