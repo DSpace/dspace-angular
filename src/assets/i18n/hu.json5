@@ -6050,7 +6050,7 @@
   "process.detail.delete.header": "Folyamat törlése",
 
   // "process.detail.delete.body": "Are you sure you want to delete the current process?",
-  "process.detail.delete.body": "Biztosan szeretné törölni a jelenlegi folyamatot?",
+  "process.detail.delete.body": "Biztosan törölni szeretné a jelenlegi folyamatot?",
 
   // "process.detail.delete.cancel": "Cancel",
   "process.detail.delete.cancel": "Mégse",
@@ -6059,52 +6059,52 @@
   "process.detail.delete.confirm": "Folyamat törlése",
 
   // "process.detail.delete.success": "The process was successfully deleted.",
-  "process.detail.delete.success": "A folyamat sikeresen törölve.",
+  "process.detail.delete.success": "A folyamat sikeresen törölve lett.", // Eredeti: "A folyamat sikeresen törölve." -> Javított (pontosabb)
 
   // "process.detail.delete.error": "Something went wrong when deleting the process",
-  "process.detail.delete.error": "Hiba történt a folyamat törlése közben",
+  "process.detail.delete.error": "Hiba történt a folyamat törlése közben.",
 
   // "process.detail.refreshing": "Auto-refreshing…",
   "process.detail.refreshing": "Automatikus frissítés…",
 
   // "process.overview.table.completed.info": "Finish time (UTC)",
-  "process.overview.table.completed.info": "Befejezés dátuma (UTC)",
+  "process.overview.table.completed.info": "Befejezési idő (UTC)", // Eredeti: "Befejezés dátuma (UTC)" -> Javított (Finish time)
 
   // "process.overview.table.completed.title": "Succeeded processes",
-  "process.overview.table.completed.title": "Sikeresen lefutott processzek",
+  "process.overview.table.completed.title": "Sikeres folyamatok", // Eredeti: "Sikeresen lefutott processzek" -> Javított
 
   // "process.overview.table.empty": "No matching processes found.",
-  "process.overview.table.empty": "No matching processes found.",
+  "process.overview.table.empty": "Nem találhatóak megfelelő folyamatok.", // Lefordítva
 
   // "process.overview.table.failed.info": "Finish time (UTC)",
-  "process.overview.table.failed.info": "Befejezés dátuma (UTC)",
+  "process.overview.table.failed.info": "Befejezési idő (UTC)",
 
   // "process.overview.table.failed.title": "Failed processes",
-  "process.overview.table.failed.title": "Sikertelen processzek",
+  "process.overview.table.failed.title": "Sikertelen folyamatok", // Eredeti: "Sikertelen processzek" -> Javított
 
   // "process.overview.table.finish": "Finish time (UTC)",
-  "process.overview.table.finish": "Befejezés dátuma (UTC)",
+  "process.overview.table.finish": "Befejezési idő (UTC)",
 
   // "process.overview.table.id": "Process ID",
-  "process.overview.table.id": "Folyamat ID",
+  "process.overview.table.id": "Folyamatazonosító", // Eredeti: "Folyamat ID" -> Javított
 
   // "process.overview.table.name": "Name",
   "process.overview.table.name": "Név",
 
   // "process.overview.table.running.info": "Start time (UTC)",
-  "process.overview.table.running.info": "Indítás dátuma (UTC)",
+  "process.overview.table.running.info": "Kezdési idő (UTC)", // Eredeti: "Indítás dátuma (UTC)" -> Javított
 
   // "process.overview.table.running.title": "Running processes",
-  "process.overview.table.running.title": "Futó állapotú processzek",
+  "process.overview.table.running.title": "Futó folyamatok", // Eredeti: "Futó állapotú processzek" -> Javított
 
   // "process.overview.table.scheduled.info": "Creation time (UTC)",
-  "process.overview.table.scheduled.info": "Processz létrehozásának dátuma (UTC)",
+  "process.overview.table.scheduled.info": "Létrehozási idő (UTC)", // Eredeti: "Processz létrehozásának dátuma (UTC)" -> Javított
 
   // "process.overview.table.scheduled.title": "Scheduled processes",
-  "process.overview.table.scheduled.title": "Időzített processzek",
+  "process.overview.table.scheduled.title": "Ütemezett folyamatok", // Eredeti: "Időzített processzek" -> Javított
 
   // "process.overview.table.start": "Start time (UTC)",
-  "process.overview.table.start": "Indítás dátuma (UTC)",
+  "process.overview.table.start": "Kezdési idő (UTC)",
 
   // "process.overview.table.status": "Status",
   "process.overview.table.status": "Állapot",
@@ -6113,10 +6113,10 @@
   "process.overview.table.user": "Felhasználó",
 
   // "process.overview.title": "Processes Overview",
-  "process.overview.title": "Folyamat áttekintő",
+  "process.overview.title": "Folyamatok áttekintése", // Eredeti: "Folyamat áttekintő" -> Javított
 
   // "process.overview.breadcrumbs": "Processes Overview",
-  "process.overview.breadcrumbs": "Folyamat áttekintő",
+  "process.overview.breadcrumbs": "Folyamatok áttekintése",
 
   // "process.overview.new": "New",
   "process.overview.new": "Új",
@@ -6131,43 +6131,43 @@
   "process.overview.delete-process": "Folyamat törlése",
 
   // "process.overview.delete.clear": "Clear delete selection",
-  "process.overview.delete.clear": "A törlésre való megjelölés visszavonása",
+  "process.overview.delete.clear": "Törlési kijelölés megszüntetése", // Eredeti: "A törlésre való megjelölés visszavonása" -> Javított
 
   // "process.overview.delete.processing": "{{count}} process(es) are being deleted. Please wait for the deletion to fully complete. Note that this can take a while.",
-  "process.overview.delete.processing": "{{count}} process(es) are being deleted. Please wait for the deletion to fully complete. Note that this can take a while.",
+  "process.overview.delete.processing": "{{count}} folyamat törlése van folyamatban. Kérjük, várja meg, amíg a törlés teljesen befejeződik. Ez eltarthat egy ideig.", // Lefordítva
 
   // "process.overview.delete.body": "Are you sure you want to delete {{count}} process(es)?",
-  "process.overview.delete.body": "Are you sure you want to delete {{count}} process(es)?",
+  "process.overview.delete.body": "Biztosan törölni szeretne {{count}} folyamatot?", // Lefordítva
 
   // "process.overview.delete.header": "Delete processes",
-  "process.overview.delete.header": "Delete processes",
+  "process.overview.delete.header": "Folyamatok törlése", // Lefordítva
 
   // "process.overview.unknown.user": "Unknown",
-  "process.overview.unknown.user": "Unknown",
+  "process.overview.unknown.user": "Ismeretlen", // Lefordítva
 
   // "process.bulk.delete.error.head": "Error on deleteing process",
-  "process.bulk.delete.error.head": "Error on deleteing process",
+  "process.bulk.delete.error.head": "Hiba a folyamat törlésekor", // Lefordítva (figyelembe véve a "deleteing" elírást a forráskulcsban)
 
   // "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted. ",
-  "process.bulk.delete.error.body": "The process with ID {{processId}} could not be deleted. The remaining processes will continue being deleted. ",
+  "process.bulk.delete.error.body": "A(z) {{processId}} azonosítójú folyamatot nem sikerült törölni. A fennmaradó folyamatok törlése folytatódik.", // Lefordítva
 
   // "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
-  "process.bulk.delete.success": "{{count}} process(es) have been succesfully deleted",
+  "process.bulk.delete.success": "{{count}} folyamat sikeresen törölve.", // Lefordítva (figyelembe véve a "succesfully" elírást a forráskulcsban)
 
   // "profile.breadcrumbs": "Update Profile",
   "profile.breadcrumbs": "Profil frissítése",
 
   // "profile.card.accessibility.content": "Accessibility settings can be configured on the accessibility settings page.",
   // TODO New key - Add a translation
-  "profile.card.accessibility.content": "Accessibility settings can be configured on the accessibility settings page.",
+  "profile.card.accessibility.content": "Az akadálymentességi beállítások az akadálymentességi beállítások oldalon konfigurálhatók.", // Lefordítva
 
   // "profile.card.accessibility.header": "Accessibility",
   // TODO New key - Add a translation
-  "profile.card.accessibility.header": "Accessibility",
+  "profile.card.accessibility.header": "Akadálymentesség", // Lefordítva
 
   // "profile.card.accessibility.link": "Go to Accessibility Settings Page",
   // TODO New key - Add a translation
-  "profile.card.accessibility.link": "Go to Accessibility Settings Page",
+  "profile.card.accessibility.link": "Ugrás az Akadálymentességi Beállítások oldalra", // Lefordítva
 
   // "profile.card.identify": "Identify",
   "profile.card.identify": "Azonosítás",
@@ -6176,19 +6176,19 @@
   "profile.card.security": "Biztonság",
 
   // "profile.form.submit": "Save",
-  "profile.form.submit": "Profil frissítése",
+  "profile.form.submit": "Mentés", // Eredeti: "Profil frissítése" -> Javított (a "Save" gomb általánosabb)
 
   // "profile.groups.head": "Authorization groups you belong to",
-  "profile.groups.head": "Tagja a következő csoportoknak",
+  "profile.groups.head": "Csoportok, amelyeknek tagja vagy", // Eredeti: "Tagja a következő csoportoknak" -> Javított (kifejezőbb)
 
   // "profile.special.groups.head": "Authorization special groups you belong to",
-  "profile.special.groups.head": "Tagja a következő speciális csoportoknak",
+  "profile.special.groups.head": "Speciális csoportok, amelyeknek tagja vagy", // Eredeti: "Tagja a következő speciális csoportoknak" -> Javított
 
   // "profile.metadata.form.error.firstname.required": "First Name is required",
-  "profile.metadata.form.error.firstname.required": "Keresztnév kötelező",
+  "profile.metadata.form.error.firstname.required": "A keresztnév megadása kötelező.", // Eredeti: "Keresztnév kötelező" -> Javított
 
   // "profile.metadata.form.error.lastname.required": "Last Name is required",
-  "profile.metadata.form.error.lastname.required": "Családnév kötelező",
+  "profile.metadata.form.error.lastname.required": "A vezetéknév megadása kötelező.", // Eredeti: "Családnév kötelező" -> Javított (Vezetéknév használata konzisztensen)
 
   // "profile.metadata.form.label.email": "Email Address",
   "profile.metadata.form.label.email": "E-mail cím",
@@ -6200,55 +6200,55 @@
   "profile.metadata.form.label.language": "Nyelv",
 
   // "profile.metadata.form.label.lastname": "Last Name",
-  "profile.metadata.form.label.lastname": "Családnév",
+  "profile.metadata.form.label.lastname": "Vezetéknév", // Eredeti: "Családnév" -> Javított
 
   // "profile.metadata.form.label.phone": "Contact Telephone",
   "profile.metadata.form.label.phone": "Telefonos elérhetőség",
 
   // "profile.metadata.form.notifications.success.content": "Your changes to the profile were saved.",
-  "profile.metadata.form.notifications.success.content": "Profilmódosítások elmentve.",
+  "profile.metadata.form.notifications.success.content": "A profil módosításai mentve lettek.", // Eredeti: "Profilmódosítások elmentve." -> Javított
 
   // "profile.metadata.form.notifications.success.title": "Profile saved",
-  "profile.metadata.form.notifications.success.title": "Profil elmentve",
+  "profile.metadata.form.notifications.success.title": "Profil mentve", // Eredeti: "Profil elmentve" -> Javított
 
   // "profile.notifications.warning.no-changes.content": "No changes were made to the Profile.",
-  "profile.notifications.warning.no-changes.content": "Profil nem módosult.",
+  "profile.notifications.warning.no-changes.content": "Nem történt módosítás a Profilon.", // Eredeti: "Profil nem módosult." -> Javított
 
   // "profile.notifications.warning.no-changes.title": "No changes",
   "profile.notifications.warning.no-changes.title": "Nincs változtatás",
 
   // "profile.security.form.error.matching-passwords": "The passwords do not match.",
-  "profile.security.form.error.matching-passwords": "A jelszavak nem találnak.",
+  "profile.security.form.error.matching-passwords": "A jelszavak nem egyeznek.", // Eredeti: "A jelszavak nem találnak." -> Javított
 
   // "profile.security.form.info": "Optionally, you can enter a new password in the box below, and confirm it by typing it again into the second box.",
-  "profile.security.form.info": "Ha szeretne jelszót megadni, írja be az első mezőbe, majd erősítse meg a másodikban. A jelszónak legalább 6 karakterből kell állnia.",
+  "profile.security.form.info": "Opcionálisan új jelszót adhat meg az alábbi mezőben, és megerősítheti azt a második mezőbe történő újbóli beírással.", // Eredeti: "Ha szeretne jelszót megadni, írja be az első mezőbe, majd erősítse meg a másodikban. A jelszónak legalább 6 karakterből kell állnia." -> Javított (a 6 karakteres kitétel eltávolítva, hacsak a forrás nem tartalmazza)
 
   // "profile.security.form.label.password": "Password",
-  "profile.security.form.label.password": "Új jelszó",
+  "profile.security.form.label.password": "Jelszó", // Eredeti: "Új jelszó" -> Javított (általánosabb)
 
   // "profile.security.form.label.passwordrepeat": "Retype to confirm",
-  "profile.security.form.label.passwordrepeat": "Új jelszó megadása ismét",
+  "profile.security.form.label.passwordrepeat": "Jelszó megerősítése", // Eredeti: "Új jelszó megadása ismét" -> Javított
 
   // "profile.security.form.label.current-password": "Current password",
   "profile.security.form.label.current-password": "Jelenlegi jelszó",
 
   // "profile.security.form.notifications.success.content": "Your changes to the password were saved.",
-  "profile.security.form.notifications.success.content": "Jelszó módosítása elmentve.",
+  "profile.security.form.notifications.success.content": "A jelszómódosítások mentve lettek.", // Eredeti: "Jelszó módosítása elmentve." -> Javított
 
   // "profile.security.form.notifications.success.title": "Password saved",
-  "profile.security.form.notifications.success.title": "Jelszó elmentve",
+  "profile.security.form.notifications.success.title": "Jelszó mentve", // Eredeti: "Jelszó elmentve" -> Javított
 
   // "profile.security.form.notifications.error.title": "Error changing passwords",
-  "profile.security.form.notifications.error.title": "Jelszó megváltoztatásakor hiba történt",
+  "profile.security.form.notifications.error.title": "Hiba a jelszavak módosításakor.", // Eredeti: "Jelszó megváltoztatásakor hiba történt" -> Javított
 
   // "profile.security.form.notifications.error.change-failed": "An error occurred while trying to change the password. Please check if the current password is correct.",
-  "profile.security.form.notifications.error.change-failed": "Hiba történt a jelszó módosítása során. Kérjük, ellenőrizze, hogy a jelenlegi jelszó helyes-e.",
+  "profile.security.form.notifications.error.change-failed": "Hiba történt a jelszó módosítása közben.\nKérjük, ellenőrizze, hogy a jelenlegi jelszó helyes-e.",
 
   // "profile.security.form.notifications.error.not-same": "The provided passwords are not the same.",
-  "profile.security.form.notifications.error.not-same": "A megadott jelszavak nem azonosak.",
+  "profile.security.form.notifications.error.not-same": "A megadott jelszavak nem egyeznek.",
 
   // "profile.security.form.notifications.error.general": "Please fill required fields of security form.",
-  "profile.security.form.notifications.error.general": "Please fill required fields of security form.",
+  "profile.security.form.notifications.error.general": "Kérjük, töltse ki a biztonsági űrlap kötelező mezőit.", // Lefordítva
 
   // "profile.title": "Update Profile",
   "profile.title": "Profil frissítése",
@@ -6257,7 +6257,7 @@
   "profile.card.researcher": "Kutatói profil",
 
   // "project.listelement.badge": "Research Project",
-  "project.listelement.badge": "Kutatási projekt",
+  "project.listelement.badge": "Kutatási Projekt", // Eredeti: "Kutatási projekt" -> Javított (nagybetűs)
 
   // "project.page.contributor": "Contributors",
   "project.page.contributor": "Közreműködők",
@@ -6266,7 +6266,7 @@
   "project.page.description": "Leírás",
 
   // "project.page.edit": "Edit this item",
-  "project.page.edit": "Elem szerkesztése",
+  "project.page.edit": "Tétel szerkesztése", // Eredeti: "Elem szerkesztése" -> Javított
 
   // "project.page.expectedcompletion": "Expected Completion",
   "project.page.expectedcompletion": "Várható befejezés",
@@ -6281,20 +6281,19 @@
   "project.page.keyword": "Kulcsszavak",
 
   // "project.page.options": "Options",
-
-  "project.page.options": "Beállítások",
+  "project.page.options": "Opciók", // Eredeti: "Beállítások" -> Javított
 
   // "project.page.status": "Status",
   "project.page.status": "Állapot",
 
   // "project.page.titleprefix": "Research Project: ",
-  "project.page.titleprefix": "Kutatási projekt: ",
+  "project.page.titleprefix": "Kutatási Projekt: ",
 
   // "project.search.results.head": "Project Search Results",
-  "project.search.results.head": "Projekt keresési eredménye",
+  "project.search.results.head": "Projekt keresési eredményei", // Eredeti: "Projekt keresési eredménye" -> Javított
 
   // "project-relationships.search.results.head": "Project Search Results",
-  "project-relationships.search.results.head": "Projekt keresési eredménye",
+  "project-relationships.search.results.head": "Projekt keresési eredményei",
 
   // "publication.listelement.badge": "Publication",
   "publication.listelement.badge": "Publikáció",
@@ -6303,7 +6302,7 @@
   "publication.page.description": "Leírás",
 
   // "publication.page.edit": "Edit this item",
-  "publication.page.edit": "Elem szerkesztése",
+  "publication.page.edit": "Tétel szerkesztése",
 
   // "publication.page.journal-issn": "Journal ISSN",
   "publication.page.journal-issn": "Folyóirat ISSN",
@@ -6315,8 +6314,7 @@
   "publication.page.publisher": "Kiadó",
 
   // "publication.page.options": "Options",
-
-  "publication.page.options": "Beállítások",
+  "publication.page.options": "Opciók",
 
   // "publication.page.titleprefix": "Publication: ",
   "publication.page.titleprefix": "Publikáció: ",
@@ -6325,13 +6323,13 @@
   "publication.page.volume-title": "Kötet címe",
 
   // "publication.search.results.head": "Publication Search Results",
-  "publication.search.results.head": "Publikáció keresés eredménye",
+  "publication.search.results.head": "Publikáció keresési eredményei", // Eredeti: "Publikáció keresés eredménye" -> Javított
 
   // "publication-relationships.search.results.head": "Publication Search Results",
-  "publication-relationships.search.results.head": "Publikáció keresés eredménye",
+  "publication-relationships.search.results.head": "Publikáció keresési eredményei",
 
   // "publication.search.title": "Publication Search",
-  "publication.search.title": "DSpace Repozitórium :: Publikáció keresése",
+  "publication.search.title": "Publikációkeresés", // Eredeti: "DSpace Repozitórium :: Publikáció keresése" -> Javított
 
   // "media-viewer.next": "Next",
   "media-viewer.next": "Következő",
@@ -6340,107 +6338,106 @@
   "media-viewer.previous": "Előző",
 
   // "media-viewer.playlist": "Playlist",
-  "media-viewer.playlist": "Lejászólista",
+  "media-viewer.playlist": "Lejátszási lista", // Eredeti: "Lejászólista" -> Javított
 
   // "suggestion.loading": "Loading ...",
-  "suggestion.loading": "Loading ...",
+  "suggestion.loading": "Betöltés...", // Lefordítva
 
   // "suggestion.title": "Publication Claim",
-  "suggestion.title": "Publikáció igénylése",
+  "suggestion.title": "Publikációigénylés", // Eredeti: "Publikáció igénylése" -> Javított
 
   // "suggestion.title.breadcrumbs": "Publication Claim",
-  "suggestion.title.breadcrumbs": "Publikáció igénylése",
+  "suggestion.title.breadcrumbs": "Publikációigénylés",
 
   // "suggestion.targets.description": "Below you can see all the suggestions ",
-  "suggestion.targets.description": "Below you can see all the suggestions ",
+  "suggestion.targets.description": "Alább láthatja az összes javaslatot.", // Lefordítva
 
   // "suggestion.targets": "Current Suggestions",
-  "suggestion.targets": "Current Suggestions",
+  "suggestion.targets": "Aktuális javaslatok", // Lefordítva
 
   // "suggestion.table.name": "Researcher Name",
-  "suggestion.table.name": "Researcher Name",
+  "suggestion.table.name": "Kutató neve", // Lefordítva
 
   // "suggestion.table.actions": "Actions",
   "suggestion.table.actions": "Műveletek",
 
   // "suggestion.button.review": "Review {{ total }} suggestion(s)",
-  "suggestion.button.review": "Review {{ total }} suggestion(s)",
+  "suggestion.button.review": "{{ total }} javaslat áttekintése", // Lefordítva
 
   // "suggestion.button.review.title": "Review {{ total }} suggestion(s) for ",
-  "suggestion.button.review.title": "Review {{ total }} suggestion(s) for ",
+  "suggestion.button.review.title": "{{ total }} javaslat áttekintése ehhez: ", // Lefordítva
 
   // "suggestion.noTargets": "No target found.",
-  "suggestion.noTargets": "No target found.",
+  "suggestion.noTargets": "Nem található cél.", // Lefordítva
 
   // "suggestion.target.error.service.retrieve": "An error occurred while loading the Suggestion targets",
-  "suggestion.target.error.service.retrieve": "An error occurred while loading the Suggestion targets",
+  "suggestion.target.error.service.retrieve": "Hiba történt a javaslati célok betöltésekor.", // Lefordítva
 
   // "suggestion.evidence.type": "Type",
-  "suggestion.evidence.type": "Type",
+  "suggestion.evidence.type": "Típus", // Lefordítva
 
   // "suggestion.evidence.score": "Score",
-  "suggestion.evidence.score": "Score",
+  "suggestion.evidence.score": "Pontszám", // Lefordítva
 
   // "suggestion.evidence.notes": "Notes",
-  "suggestion.evidence.notes": "Notes",
+  "suggestion.evidence.notes": "Megjegyzések", // Lefordítva
 
   // "suggestion.approveAndImport": "Approve & import",
-  "suggestion.approveAndImport": "Approve & import",
+  "suggestion.approveAndImport": "Jóváhagyás és importálás", // Lefordítva
 
   // "suggestion.approveAndImport.success": "The suggestion has been imported successfully. <a href='{{ url }}'>View.</a>",
-  "suggestion.approveAndImport.success": "The suggestion has been imported successfully. <a href='{{ url }}'>View.</a>",
+  "suggestion.approveAndImport.success": "A javaslat sikeresen importálva. <a href='{{ url }}'>Megtekintés.</a>", // Lefordítva
 
   // "suggestion.approveAndImport.bulk": "Approve & import Selected",
-  "suggestion.approveAndImport.bulk": "Approve & import Selected",
+  "suggestion.approveAndImport.bulk": "Kiválasztottak jóváhagyása és importálása", // Lefordítva
 
   // "suggestion.approveAndImport.bulk.success": "{{ count }} suggestions have been imported successfully ",
-  "suggestion.approveAndImport.bulk.success": "{{ count }} suggestions have been imported successfully ",
+  "suggestion.approveAndImport.bulk.success": "{{ count }} javaslat sikeresen importálva.", // Lefordítva
 
   // "suggestion.approveAndImport.bulk.error": "{{ count }} suggestions haven't been imported due to unexpected server errors",
-  "suggestion.approveAndImport.bulk.error": "{{ count }} suggestions haven't been imported due to unexpected server errors",
+  "suggestion.approveAndImport.bulk.error": "{{ count }} javaslat importálása nem sikerült váratlan szerverhibák miatt.", // Lefordítva
 
   // "suggestion.ignoreSuggestion": "Ignore Suggestion",
-  "suggestion.ignoreSuggestion": "Ignore Suggestion",
+  "suggestion.ignoreSuggestion": "Javaslat figyelmen kívül hagyása", // Lefordítva
 
   // "suggestion.ignoreSuggestion.success": "The suggestion has been discarded",
-  "suggestion.ignoreSuggestion.success": "The suggestion has been discarded",
+  "suggestion.ignoreSuggestion.success": "A javaslat elvetve.", // Lefordítva
 
   // "suggestion.ignoreSuggestion.bulk": "Ignore Suggestion Selected",
-  "suggestion.ignoreSuggestion.bulk": "Ignore Suggestion Selected",
+  "suggestion.ignoreSuggestion.bulk": "Kiválasztott javaslatok figyelmen kívül hagyása", // Lefordítva
 
   // "suggestion.ignoreSuggestion.bulk.success": "{{ count }} suggestions have been discarded ",
-  "suggestion.ignoreSuggestion.bulk.success": "{{ count }} suggestions have been discarded ",
+  "suggestion.ignoreSuggestion.bulk.success": "{{ count }} javaslat elvetve.", // Lefordítva
 
   // "suggestion.ignoreSuggestion.bulk.error": "{{ count }} suggestions haven't been discarded due to unexpected server errors",
-  "suggestion.ignoreSuggestion.bulk.error": "{{ count }} suggestions haven't been discarded due to unexpected server errors",
+  "suggestion.ignoreSuggestion.bulk.error": "{{ count }} javaslat elvetése nem sikerült váratlan szerverhibák miatt.", // Lefordítva
 
   // "suggestion.seeEvidence": "See evidence",
-  "suggestion.seeEvidence": "See evidence",
+  "suggestion.seeEvidence": "Bizonyíték megtekintése", // Lefordítva
 
   // "suggestion.hideEvidence": "Hide evidence",
-  "suggestion.hideEvidence": "Hide evidence",
+  "suggestion.hideEvidence": "Bizonyíték elrejtése", // Lefordítva
 
   // "suggestion.suggestionFor": "Suggestions for",
-  "suggestion.suggestionFor": "Suggestions for",
+  "suggestion.suggestionFor": "Javaslatok neki:", // Lefordítva
 
   // "suggestion.suggestionFor.breadcrumb": "Suggestions for {{ name }}",
-  "suggestion.suggestionFor.breadcrumb": "Suggestions for {{ name }}",
+  "suggestion.suggestionFor.breadcrumb": "Javaslatok neki: {{ name }}", // Lefordítva
 
   // "suggestion.source.openaire": "OpenAIRE Graph",
   "suggestion.source.openaire": "OpenAIRE Graph",
 
   // "suggestion.source.openalex": "OpenAlex",
-
   "suggestion.source.openalex": "OpenAlex",
 
   // "suggestion.from.source": "from the ",
-  "suggestion.from.source": "from the ",
+  "suggestion.from.source": "innen: ", // Lefordítva
 
   // "suggestion.count.missing": "You have no publication claims left",
-  "suggestion.count.missing": "Nincs több igényelhető publikációja",
+  "suggestion.count.missing": "Nincs több igényelhető publikációja.",
 
   // "suggestion.totalScore": "Total Score",
-  "suggestion.totalScore": "Total Score",
+  "suggestion.totalScore": "Összpontszám", // Lefordítva
 
   // "suggestion.type.openaire": "OpenAIRE",
   "suggestion.type.openaire": "OpenAIRE",
@@ -6461,13 +6458,13 @@
   "register-page.create-profile.identification.first-name": "Keresztnév *",
 
   // "register-page.create-profile.identification.first-name.error": "Please fill in a First Name",
-  "register-page.create-profile.identification.first-name.error": "Írja be a keresztnevet",
+  "register-page.create-profile.identification.first-name.error": "Kérjük, adja meg a keresztnevét!", // Eredeti: "Írja be a keresztnevet" -> Javított
 
   // "register-page.create-profile.identification.last-name": "Last Name *",
-  "register-page.create-profile.identification.last-name": "Családnév *",
+  "register-page.create-profile.identification.last-name": "Vezetéknév *", // Eredeti: "Családnév *" -> Javított
 
   // "register-page.create-profile.identification.last-name.error": "Please fill in a Last Name",
-  "register-page.create-profile.identification.last-name.error": "Írja be a családnevet",
+  "register-page.create-profile.identification.last-name.error": "Kérjük, adja meg a vezetéknevét!", // Eredeti: "Írja be a családnevet" -> Javított
 
   // "register-page.create-profile.identification.contact": "Contact Telephone",
   "register-page.create-profile.identification.contact": "Telefonszám",
@@ -6479,16 +6476,16 @@
   "register-page.create-profile.security.header": "Biztonság",
 
   // "register-page.create-profile.security.info": "Please enter a password in the box below, and confirm it by typing it again into the second box.",
-  "register-page.create-profile.security.info": "Írjon be egy jelszót a lenti mezőbe, és írja be újra az alatta levőbe. Legalább hat karakter hosszú kell legyen.",
+  "register-page.create-profile.security.info": "Kérjük, adjon meg egy jelszót az alábbi mezőben, és erősítse meg azt a második mezőbe történő újbóli beírással.\nA jelszónak legalább hat karakter hosszúnak kell lennie.", // Eredeti: "Írjon be egy jelszót a lenti mezőbe, és írja be újra az alatta levőbe. Legalább hat karakter hosszú kell legyen." -> Javított
 
   // "register-page.create-profile.security.label.password": "Password *",
   "register-page.create-profile.security.label.password": "Jelszó *",
 
   // "register-page.create-profile.security.label.passwordrepeat": "Retype to confirm *",
-  "register-page.create-profile.security.label.passwordrepeat": "Jelszó visszaigazolása *",
+  "register-page.create-profile.security.label.passwordrepeat": "Jelszó megerősítése *", // Eredeti: "Jelszó visszaigazolása *" -> Javított
 
   // "register-page.create-profile.security.error.empty-password": "Please enter a password in the box below.",
-  "register-page.create-profile.security.error.empty-password": "Írja be a jelszót a lenti mezőbe.",
+  "register-page.create-profile.security.error.empty-password": "Kérjük, adjon meg egy jelszót az alábbi mezőben.", // Eredeti: "Írja be a jelszót a lenti mezőbe." -> Javított
 
   // "register-page.create-profile.security.error.matching-passwords": "The passwords do not match.",
   "register-page.create-profile.security.error.matching-passwords": "A jelszavak nem egyeznek.",
@@ -6497,37 +6494,37 @@
   "register-page.create-profile.submit": "Regisztráció befejezése",
 
   // "register-page.create-profile.submit.error.content": "Something went wrong while registering a new user.",
-  "register-page.create-profile.submit.error.content": "Hiba történt a regisztrációs folyamat során.",
+  "register-page.create-profile.submit.error.content": "Hiba történt az új felhasználó regisztrációja közben.", // Eredeti: "Hiba történt a regisztrációs folyamat során." -> Javított
 
   // "register-page.create-profile.submit.error.head": "Registration failed",
-  "register-page.create-profile.submit.error.head": "Hibás regisztráció",
+  "register-page.create-profile.submit.error.head": "Sikertelen regisztráció", // Eredeti: "Hibás regisztráció" -> Javított
 
   // "register-page.create-profile.submit.success.content": "The registration was successful. You have been logged in as the created user.",
-  "register-page.create-profile.submit.success.content": "Sikeres regisztráció. Beléphet a létrehozott felhasználóval.",
+  "register-page.create-profile.submit.success.content": "A regisztráció sikeres volt. Belépett a létrehozott felhasználóval.", // Eredeti: "Sikeres regisztráció. Beléphet a létrehozott felhasználóval." -> Javított
 
   // "register-page.create-profile.submit.success.head": "Registration completed",
-  "register-page.create-profile.submit.success.head": "Sikeres regisztráció",
+  "register-page.create-profile.submit.success.head": "Regisztráció befejezve", // Eredeti: "Sikeres regisztráció" -> Javított
 
   // "register-page.registration.header": "New user registration",
-  "register-page.registration.header": "Új felhasználó regisztrálása",
+  "register-page.registration.header": "Új felhasználó regisztrációja",
 
   // "register-page.registration.info": "Register an account to subscribe to collections for email updates, and submit new items to DSpace.",
-  "register-page.registration.info": "Hozzon létre egy felhasználói fiókot, hogy feliratkozhasson gyűjtemények e-mail értesítéseire és új elemeket tölthessen fel a DSpace rendszerébe.",
+  "register-page.registration.info": "Regisztráljon fiókot, hogy feliratkozhasson gyűjtemények e-mail értesítéseire, és új tételeket küldhessen be a DSpace rendszerbe.",
 
   // "register-page.registration.email": "Email Address *",
   "register-page.registration.email": "E-mail cím *",
 
   // "register-page.registration.email.error.required": "Please fill in an email address",
-  "register-page.registration.email.error.required": "Töltse ki az e-mail címet",
+  "register-page.registration.email.error.required": "Kérjük, adja meg az e-mail címét!", // Eredeti: "Töltse ki az e-mail címet" -> Javított
 
   // "register-page.registration.email.error.not-email-form": "Please fill in a valid email address.",
-  "register-page.registration.email.error.not-email-form": "Please fill in a valid email address.",
+  "register-page.registration.email.error.not-email-form": "Kérjük, érvényes e-mail címet adjon meg.", // Lefordítva
 
   // "register-page.registration.email.error.not-valid-domain": "Use email with allowed domains: {{ domains }}",
-  "register-page.registration.email.error.not-valid-domain": "Use email with allowed domains: {{ domains }}",
+  "register-page.registration.email.error.not-valid-domain": "Használjon e-mail címet az engedélyezett domainekkel: {{ domains }}", // Lefordítva
 
   // "register-page.registration.email.hint": "This address will be verified and used as your login name.",
-  "register-page.registration.email.hint": "A regisztráció során szükség lesz az e-mail cím megerősítésére, mivel ez szolgál majd bejelentkezési névként.",
+  "register-page.registration.email.hint": "Ezt a címet ellenőrizni fogjuk, és bejelentkezési névként fog szolgálni.", // Eredeti: "A regisztráció során szükség lesz az e-mail cím megerősítésére, mivel ez szolgál majd bejelentkezési névként." -> Javított
 
   // "register-page.registration.submit": "Register",
   "register-page.registration.submit": "Regisztráció",
@@ -6536,153 +6533,150 @@
   "register-page.registration.success.head": "Ellenőrző e-mail elküldve",
 
   // "register-page.registration.success.content": "An email has been sent to {{ email }} containing a special URL and further instructions.",
-  "register-page.registration.success.content": "Egy e-mail elküldve a(z) {{ email }} címre, amely tartalmaz egy hivatkozást a további utasításokhoz.",
+  "register-page.registration.success.content": "E-mailt küldtünk a(z) {{ email }} címre, amely egy speciális URL-t és további utasításokat tartalmaz.", // Eredeti: "Egy e-mail elküldve a(z) {{ email }} címre, amely tartalmaz egy hivatkozást a további utasításokhoz." -> Javított
 
   // "register-page.registration.error.head": "Error when trying to register email",
-  "register-page.registration.error.head": "Hiba történt az e-mail cím regisztrációjakor",
+  "register-page.registration.error.head": "Hiba az e-mail cím regisztrálásakor", // Eredeti: "Hiba történt az e-mail cím regisztrációjakor" -> Javított
 
   // "register-page.registration.error.content": "An error occurred when registering the following email address: {{ email }}",
   "register-page.registration.error.content": "Hiba történt a következő e-mail cím regisztrálásakor: {{ email }}",
 
   // "register-page.registration.error.recaptcha": "Error when trying to authenticate with recaptcha",
-  "register-page.registration.error.recaptcha": "Error when trying to authenticate with recaptcha",
+  "register-page.registration.error.recaptcha": "Hiba a reCAPTCHA-val történő hitelesítéskor.", // Lefordítva
 
   // "register-page.registration.google-recaptcha.must-accept-cookies": "In order to register you must accept the <b>Registration and Password recovery</b> (Google reCaptcha) cookies.",
-  "register-page.registration.google-recaptcha.must-accept-cookies": "In order to register you must accept the <b>Registration and Password recovery</b> (Google reCaptcha) cookies.",
+  "register-page.registration.google-recaptcha.must-accept-cookies": "A regisztrációhoz el kell fogadnia a <b>Regisztráció és jelszó-visszaállítás</b> (Google reCaptcha) sütiket.", // Lefordítva
 
   // "register-page.registration.error.maildomain": "This email address is not on the list of domains who can register. Allowed domains are {{ domains }}",
-  "register-page.registration.error.maildomain": "This email address is not on the list of domains who can register. Allowed domains are {{ domains }}",
+  "register-page.registration.error.maildomain": "Ez az e-mail cím nem szerepel a regisztrálható domainek listáján. Engedélyezett domainek: {{ domains }}", // Lefordítva
 
   // "register-page.registration.google-recaptcha.open-cookie-settings": "Open cookie settings",
-  "register-page.registration.google-recaptcha.open-cookie-settings": "Open cookie settings",
+  "register-page.registration.google-recaptcha.open-cookie-settings": "Süti beállítások megnyitása", // Lefordítva
 
   // "register-page.registration.google-recaptcha.notification.title": "Google reCaptcha",
-  "register-page.registration.google-recaptcha.notification.title": "Google reCaptcha",
+  "register-page.registration.google-recaptcha.notification.title": "Google reCAPTCHA", // Eredeti: Google reCaptcha -> Javítva
 
   // "register-page.registration.google-recaptcha.notification.message.error": "An error occurred during reCaptcha verification",
-  "register-page.registration.google-recaptcha.notification.message.error": "An error occurred during reCaptcha verification",
+  "register-page.registration.google-recaptcha.notification.message.error": "Hiba történt a reCAPTCHA ellenőrzése során.", // Lefordítva
 
   // "register-page.registration.google-recaptcha.notification.message.expired": "Verification expired. Please verify again.",
-  "register-page.registration.google-recaptcha.notification.message.expired": "Verification expired. Please verify again.",
+  "register-page.registration.google-recaptcha.notification.message.expired": "Az ellenőrzés lejárt. Kérjük, ellenőrizze újra.", // Lefordítva
 
   // "register-page.registration.info.maildomain": "Accounts can be registered for mail addresses of the domains",
-  "register-page.registration.info.maildomain": "Accounts can be registered for mail addresses of the domains",
+  "register-page.registration.info.maildomain": "Fiókok regisztrálhatók a következő domainekhez tartozó e-mail címekkel:", // Lefordítva (feltételezve, hogy a domainek listája követi)
 
   // "relationships.add.error.relationship-type.content": "No suitable match could be found for relationship type {{ type }} between the two items",
-  "relationships.add.error.relationship-type.content": "No suitable match could be found for relationship type {{ type }} between the two items",
+  "relationships.add.error.relationship-type.content": "Nem található megfelelő egyezés a(z) {{ type }} kapcsolattípushoz a két tétel között.", // Lefordítva
 
   // "relationships.add.error.server.content": "The server returned an error",
-  "relationships.add.error.server.content": "The server returned an error",
-
-  // "relationships.add.error.title": "Unable to add relationship",
-  "relationships.add.error.title": "Unable to add relationship",
+  "relationships.add.error.server.content": "A szerver hibát adott vissza.", // Lefordítva
 
   // "relationships.Publication.isAuthorOfPublication.Person": "Authors (persons)",
   // TODO New key - Add a translation
-  "relationships.Publication.isAuthorOfPublication.Person": "Authors (persons)",
+  "relationships.Publication.isAuthorOfPublication.Person": "Szerzők (személyek)", // Lefordítva
 
   // "relationships.Publication.isProjectOfPublication.Project": "Research Projects",
   // TODO New key - Add a translation
-  "relationships.Publication.isProjectOfPublication.Project": "Research Projects",
+  "relationships.Publication.isProjectOfPublication.Project": "Kutatási projektek", // Lefordítva
 
   // "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizational Units",
   // TODO New key - Add a translation
-  "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Organizational Units",
+  "relationships.Publication.isOrgUnitOfPublication.OrgUnit": "Szervezeti egységek", // Lefordítva
 
   // "relationships.Publication.isAuthorOfPublication.OrgUnit": "Authors (organizational units)",
   // TODO New key - Add a translation
-  "relationships.Publication.isAuthorOfPublication.OrgUnit": "Authors (organizational units)",
+  "relationships.Publication.isAuthorOfPublication.OrgUnit": "Szerzők (szervezeti egységek)", // Lefordítva
 
   // "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
   // TODO New key - Add a translation
-  "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Journal Issue",
+  "relationships.Publication.isJournalIssueOfPublication.JournalIssue": "Folyóiratszám", // Lefordítva
 
   // "relationships.Publication.isContributorOfPublication.Person": "Contributor",
   // TODO New key - Add a translation
-  "relationships.Publication.isContributorOfPublication.Person": "Contributor",
+  "relationships.Publication.isContributorOfPublication.Person": "Közreműködő", // Lefordítva
 
   // "relationships.Publication.isContributorOfPublication.OrgUnit": "Contributor (organizational units)",
   // TODO New key - Add a translation
-  "relationships.Publication.isContributorOfPublication.OrgUnit": "Contributor (organizational units)",
+  "relationships.Publication.isContributorOfPublication.OrgUnit": "Közreműködő (szervezeti egységek)", // Lefordítva
 
   // "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
   // TODO New key - Add a translation
-  "relationships.Person.isPublicationOfAuthor.Publication": "Publications",
+  "relationships.Person.isPublicationOfAuthor.Publication": "Publikációk", // Lefordítva
 
   // "relationships.Person.isProjectOfPerson.Project": "Research Projects",
   // TODO New key - Add a translation
-  "relationships.Person.isProjectOfPerson.Project": "Research Projects",
+  "relationships.Person.isProjectOfPerson.Project": "Kutatási projektek", // Lefordítva
 
   // "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
   // TODO New key - Add a translation
-  "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Organizational Units",
+  "relationships.Person.isOrgUnitOfPerson.OrgUnit": "Szervezeti egységek", // Lefordítva
 
   // "relationships.Person.isPublicationOfContributor.Publication": "Publications (contributor to)",
   // TODO New key - Add a translation
-  "relationships.Person.isPublicationOfContributor.Publication": "Publications (contributor to)",
+  "relationships.Person.isPublicationOfContributor.Publication": "Publikációk (közreműködőként)", // Lefordítva
 
   // "relationships.Project.isPublicationOfProject.Publication": "Publications",
   // TODO New key - Add a translation
-  "relationships.Project.isPublicationOfProject.Publication": "Publications",
+  "relationships.Project.isPublicationOfProject.Publication": "Publikációk", // Lefordítva
 
   // "relationships.Project.isPersonOfProject.Person": "Authors",
   // TODO New key - Add a translation
-  "relationships.Project.isPersonOfProject.Person": "Authors",
+  "relationships.Project.isPersonOfProject.Person": "Szerzők", // Lefordítva
 
   // "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
   // TODO New key - Add a translation
-  "relationships.Project.isOrgUnitOfProject.OrgUnit": "Organizational Units",
+  "relationships.Project.isOrgUnitOfProject.OrgUnit": "Szervezeti egységek", // Lefordítva
 
   // "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Funder",
   // TODO New key - Add a translation
-  "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Funder",
+  "relationships.Project.isFundingAgencyOfProject.OrgUnit": "Támogató", // Lefordítva
 
   // "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
   // TODO New key - Add a translation
-  "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Organisation Publications",
+  "relationships.OrgUnit.isPublicationOfOrgUnit.Publication": "Szervezet publikációi", // Lefordítva
 
   // "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Authors",
   // TODO New key - Add a translation
-  "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Authors",
+  "relationships.OrgUnit.isPersonOfOrgUnit.Person": "Szerzők", // Lefordítva
 
   // "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Research Projects",
   // TODO New key - Add a translation
-  "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Research Projects",
+  "relationships.OrgUnit.isProjectOfOrgUnit.Project": "Kutatási projektek", // Lefordítva
 
   // "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
   // TODO New key - Add a translation
-  "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Authored Publications",
+  "relationships.OrgUnit.isPublicationOfAuthor.Publication": "Szerzőséggel rendelkező publikációk", // Lefordítva
 
   // "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publications (contributor to)",
   // TODO New key - Add a translation
-  "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publications (contributor to)",
+  "relationships.OrgUnit.isPublicationOfContributor.Publication": "Publikációk (közreműködőként)", // Lefordítva
 
   // "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Research Projects (funder of)",
   // TODO New key - Add a translation
-  "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Research Projects (funder of)",
+  "relationships.OrgUnit.isProjectOfFundingAgency.Project": "Kutatási projektek (támogatóként)", // Lefordítva
 
   // "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
   // TODO New key - Add a translation
-  "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Journal Volume",
+  "relationships.JournalIssue.isJournalVolumeOfIssue.JournalVolume": "Folyóiratkötet", // Lefordítva
 
   // "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publications",
   // TODO New key - Add a translation
-  "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publications",
+  "relationships.JournalIssue.isPublicationOfJournalIssue.Publication": "Publikációk", // Lefordítva
 
   // "relationships.JournalVolume.isJournalOfVolume.Journal": "Journals",
   // TODO New key - Add a translation
-  "relationships.JournalVolume.isJournalOfVolume.Journal": "Journals",
+  "relationships.JournalVolume.isJournalOfVolume.Journal": "Folyóiratok", // Lefordítva
 
   // "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Journal Issue",
   // TODO New key - Add a translation
-  "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Journal Issue",
+  "relationships.JournalVolume.isIssueOfJournalVolume.JournalIssue": "Folyóiratszám", // Lefordítva
 
   // "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
   // TODO New key - Add a translation
-  "relationships.Journal.isVolumeOfJournal.JournalVolume": "Journal Volume",
+  "relationships.Journal.isVolumeOfJournal.JournalVolume": "Folyóiratkötet", // Lefordítva
 
   // "repository.image.logo": "Repository logo",
-  "repository.image.logo": "Repozitórium logó",
+  "repository.image.logo": "Repozitórium logója",
 
   // "repository.title": "DSpace Repository",
   "repository.title": "DSpace Repozitórium",
@@ -6694,76 +6688,76 @@
   "resource-policies.add.button": "Hozzáadás",
 
   // "resource-policies.add.for.": "Add a new policy",
-  "resource-policies.add.for.": "Új szabály",
+  "resource-policies.add.for.": "Új szabályzat", // Eredeti: "Új szabály" -> Javított: "Új szabályzat"
 
   // "resource-policies.add.for.bitstream": "Add a new Bitstream policy",
-  "resource-policies.add.for.bitstream": "Új Bitstream szabály",
+  "resource-policies.add.for.bitstream": "Új Bitstream szabályzat", // Eredeti: "Új Bitstream szabály" -> Javított
 
   // "resource-policies.add.for.bundle": "Add a new Bundle policy",
-  "resource-policies.add.for.bundle": "Új csomag szabály",
+  "resource-policies.add.for.bundle": "Új csomagszabályzat", // Eredeti: "Új csomag szabály" -> Javított
 
   // "resource-policies.add.for.item": "Add a new Item policy",
-  "resource-policies.add.for.item": "Új elem szabály",
+  "resource-policies.add.for.item": "Új tételszabályzat", // Eredeti: "Új elem szabály" -> Javított
 
   // "resource-policies.add.for.community": "Add a new Community policy",
-  "resource-policies.add.for.community": "Új közösségi szabály hozzáadása",
+  "resource-policies.add.for.community": "Új közösségi szabályzat hozzáadása", // Eredeti: "Új közösségi szabály hozzáadása" -> Javított
 
   // "resource-policies.add.for.collection": "Add a new Collection policy",
-  "resource-policies.add.for.collection": "Új gyűjtemény szabály hozzáadása",
+  "resource-policies.add.for.collection": "Új gyűjteményi szabályzat hozzáadása", // Eredeti: "Új gyűjtemény szabály hozzáadása" -> Javított
 
   // "resource-policies.create.page.heading": "Create new resource policy for ",
-  "resource-policies.create.page.heading": "Új erőforráa szabály ...",
+  "resource-policies.create.page.heading": "Új erőforrás-szabályzat létrehozása ehhez: ", // Eredeti: "Új erőforráa szabály ..." -> Javított
 
   // "resource-policies.create.page.failure.content": "An error occurred while creating the resource policy.",
-  "resource-policies.create.page.failure.content": "Hiba történt az erőforrás szabály létrehozásakor.",
+  "resource-policies.create.page.failure.content": "Hiba történt az erőforrás-szabályzat létrehozásakor.", // Eredeti: "Hiba történt az erőforrás szabály létrehozásakor." -> Javított
 
   // "resource-policies.create.page.success.content": "Operation successful",
-  "resource-policies.create.page.success.content": "A művelet sikeres",
+  "resource-policies.create.page.success.content": "A művelet sikeres volt.", // Eredeti: "A művelet sikeres" -> Javított
 
   // "resource-policies.create.page.title": "Create new resource policy",
-  "resource-policies.create.page.title": "Új erőforráa szabály",
+  "resource-policies.create.page.title": "Új erőforrás-szabályzat létrehozása", // Eredeti: "Új erőforráa szabály" -> Javított
 
   // "resource-policies.delete.btn": "Delete selected",
-  "resource-policies.delete.btn": "Kijelöltek törlése",
+  "resource-policies.delete.btn": "Kiválasztottak törlése",
 
   // "resource-policies.delete.btn.title": "Delete selected resource policies",
-  "resource-policies.delete.btn.title": "Kijelölt erőforrás szabályok törlése",
+  "resource-policies.delete.btn.title": "Kiválasztott erőforrás-szabályzatok törlése", // Eredeti: "Kijelölt erőforrás szabályok törlése" -> Javított
 
   // "resource-policies.delete.failure.content": "An error occurred while deleting selected resource policies.",
-  "resource-policies.delete.failure.content": "Hiba történt az erőforrás szabályok törlésekor.",
+  "resource-policies.delete.failure.content": "Hiba történt a kiválasztott erőforrás-szabályzatok törlésekor.", // Eredeti: "Hiba történt az erőforrás szabályok törlésekor." -> Javított
 
   // "resource-policies.delete.success.content": "Operation successful",
-  "resource-policies.delete.success.content": "A művelet sikeres",
+  "resource-policies.delete.success.content": "A művelet sikeres volt.",
 
   // "resource-policies.edit.page.heading": "Edit resource policy ",
-  "resource-policies.edit.page.heading": "Erőforrás szabály szerkesztése ",
+  "resource-policies.edit.page.heading": "Erőforrás-szabályzat szerkesztése ", // Eredeti: "Erőforrás szabály szerkesztése " -> Javított
 
   // "resource-policies.edit.page.failure.content": "An error occurred while editing the resource policy.",
-  "resource-policies.edit.page.failure.content": "Hiba történt az erőforrás szabály szerkesztésekor.",
+  "resource-policies.edit.page.failure.content": "Hiba történt az erőforrás-szabályzat szerkesztésekor.", // Eredeti: "Hiba történt az erőforrás szabály szerkesztésekor." -> Javított
 
   // "resource-policies.edit.page.target-failure.content": "An error occurred while editing the target (ePerson or group) of the resource policy.",
-  "resource-policies.edit.page.target-failure.content": "An error occurred while editing the target (ePerson or group) of the resource policy.",
+  "resource-policies.edit.page.target-failure.content": "Hiba történt az erőforrás-szabályzat céljának (felhasználó vagy csoport) szerkesztésekor.", // Lefordítva
 
   // "resource-policies.edit.page.other-failure.content": "An error occurred while editing the resource policy. The target (ePerson or group) has been successfully updated.",
-  "resource-policies.edit.page.other-failure.content": "An error occurred while editing the resource policy. The target (ePerson or group) has been successfully updated.",
+  "resource-policies.edit.page.other-failure.content": "Hiba történt az erőforrás-szabályzat szerkesztésekor. A cél (felhasználó vagy csoport) sikeresen frissítve lett.", // Lefordítva
 
   // "resource-policies.edit.page.success.content": "Operation successful",
-  "resource-policies.edit.page.success.content": "A művelet sikeres",
+  "resource-policies.edit.page.success.content": "A művelet sikeres volt.",
 
   // "resource-policies.edit.page.title": "Edit resource policy",
-  "resource-policies.edit.page.title": "Erőforrás szabály szerkesztése",
+  "resource-policies.edit.page.title": "Erőforrás-szabályzat szerkesztése", // Eredeti: "Erőforrás szabály szerkesztése" -> Javított
 
   // "resource-policies.form.action-type.label": "Select the action type",
-  "resource-policies.form.action-type.label": "Művelet típusának kiválasztása",
+  "resource-policies.form.action-type.label": "Művelettípus kiválasztása",
 
   // "resource-policies.form.action-type.required": "You must select the resource policy action.",
-  "resource-policies.form.action-type.required": "Ki kell válasszon egy műveletet.",
+  "resource-policies.form.action-type.required": "Ki kell választania az erőforrás-szabályzat műveletét.", // Eredeti: "Ki kell válasszon egy műveletet." -> Javított
 
   // "resource-policies.form.eperson-group-list.label": "The eperson or group that will be granted the permission",
-  "resource-policies.form.eperson-group-list.label": "Az eperson vagy csoport neve, amely jogosulttá válik",
+  "resource-policies.form.eperson-group-list.label": "A felhasználó vagy csoport, amely megkapja az engedélyt", // Eredeti: "Az eperson vagy csoport neve, amely jogosulttá válik" -> Javított
 
   // "resource-policies.form.eperson-group-list.select.btn": "Select",
-  "resource-policies.form.eperson-group-list.select.btn": "Kiválaszt",
+  "resource-policies.form.eperson-group-list.select.btn": "Kiválasztás", // Eredeti: "Kiválaszt" -> Javított
 
   // "resource-policies.form.eperson-group-list.tab.eperson": "Search for a ePerson",
   "resource-policies.form.eperson-group-list.tab.eperson": "Felhasználó keresése",
@@ -6775,31 +6769,31 @@
   "resource-policies.form.eperson-group-list.table.headers.action": "Művelet",
 
   // "resource-policies.form.eperson-group-list.table.headers.id": "ID",
-  "resource-policies.form.eperson-group-list.table.headers.id": "ID",
+  "resource-policies.form.eperson-group-list.table.headers.id": "Azonosító", // Eredeti: "ID" -> Javított
 
   // "resource-policies.form.eperson-group-list.table.headers.name": "Name",
   "resource-policies.form.eperson-group-list.table.headers.name": "Név",
 
   // "resource-policies.form.eperson-group-list.modal.header": "Cannot change type",
-  "resource-policies.form.eperson-group-list.modal.header": "Nem lehet megváltoztatni a típust",
+  "resource-policies.form.eperson-group-list.modal.header": "Típus nem módosítható", // Eredeti: "Nem lehet megváltoztatni a típust" -> Javított
 
   // "resource-policies.form.eperson-group-list.modal.text1.toGroup": "It is not possible to replace an ePerson with a group.",
-  "resource-policies.form.eperson-group-list.modal.text1.toGroup": "Nem lehetséges egy ESzemélyt egy csoporttal helyettesíteni.",
+  "resource-policies.form.eperson-group-list.modal.text1.toGroup": "Felhasználó nem cserélhető csoportra.", // Eredeti: "Nem lehetséges egy ESzemélyt egy csoporttal helyettesíteni." -> Javított
 
   // "resource-policies.form.eperson-group-list.modal.text1.toEPerson": "It is not possible to replace a group with an ePerson.",
-  "resource-policies.form.eperson-group-list.modal.text1.toEPerson": "Egy csoportot nem lehet helyettesíteni egy ESzeméllyel.",
+  "resource-policies.form.eperson-group-list.modal.text1.toEPerson": "Csoport nem cserélhető felhasználóra.", // Eredeti: "Egy csoportot nem lehet helyettesíteni egy ESzeméllyel." -> Javított
 
   // "resource-policies.form.eperson-group-list.modal.text2": "Delete the current resource policy and create a new one with the desired type.",
-  "resource-policies.form.eperson-group-list.modal.text2": "Törölje a jelenlegi szabálytípust, és hozzon létre egy újat a kívánt típussal.",
+  "resource-policies.form.eperson-group-list.modal.text2": "Törölje a jelenlegi erőforrás-szabályzatot, és hozzon létre egy újat a kívánt típussal.", // Eredeti: "Törölje a jelenlegi szabálytípust, és hozzon létre egy újat a kívánt típussal." -> Javított
 
   // "resource-policies.form.eperson-group-list.modal.close": "Ok",
   "resource-policies.form.eperson-group-list.modal.close": "Ok",
 
   // "resource-policies.form.date.end.label": "End Date",
-  "resource-policies.form.date.end.label": "Végső dátum",
+  "resource-policies.form.date.end.label": "Befejezés dátuma", // Eredeti: "Végső dátum" -> Javított (End Date)
 
   // "resource-policies.form.date.start.label": "Start Date",
-  "resource-policies.form.date.start.label": "Kezdő dátum",
+  "resource-policies.form.date.start.label": "Kezdés dátuma", // Eredeti: "Kezdő dátum" -> Javított (Start Date)
 
   // "resource-policies.form.description.label": "Description",
   "resource-policies.form.description.label": "Leírás",
@@ -6808,31 +6802,31 @@
   "resource-policies.form.name.label": "Név",
 
   // "resource-policies.form.name.hint": "Max 30 characters",
-  "resource-policies.form.name.hint": "Max 30 karakter",
+  "resource-policies.form.name.hint": "Max. 30 karakter",
 
   // "resource-policies.form.policy-type.label": "Select the policy type",
-  "resource-policies.form.policy-type.label": "Szabály típusának kiválasztása",
+  "resource-policies.form.policy-type.label": "Szabályzattípus kiválasztása", // Eredeti: "Szabály típusának kiválasztása" -> Javított
 
   // "resource-policies.form.policy-type.required": "You must select the resource policy type.",
-  "resource-policies.form.policy-type.required": "Ki kell válasszon egy szabálytípust.",
+  "resource-policies.form.policy-type.required": "Ki kell választania az erőforrás-szabályzat típusát.", // Eredeti: "Ki kell válasszon egy szabálytípust." -> Javított
 
   // "resource-policies.table.headers.action": "Action",
   "resource-policies.table.headers.action": "Művelet",
 
   // "resource-policies.table.headers.date.end": "End Date",
-  "resource-policies.table.headers.date.end": "Végső dátum",
+  "resource-policies.table.headers.date.end": "Befejezés dátuma",
 
   // "resource-policies.table.headers.date.start": "Start Date",
-  "resource-policies.table.headers.date.start": "Kezdő dátum",
+  "resource-policies.table.headers.date.start": "Kezdés dátuma",
 
   // "resource-policies.table.headers.edit": "Edit",
-  "resource-policies.table.headers.edit": "Szerkeszt",
+  "resource-policies.table.headers.edit": "Szerkesztés", // Eredeti: "Szerkeszt" -> Javított
 
   // "resource-policies.table.headers.edit.group": "Edit group",
-  "resource-policies.table.headers.edit.group": "Csoport módosítása",
+  "resource-policies.table.headers.edit.group": "Csoport szerkesztése", // Eredeti: "Csoport módosítása" -> Javított
 
   // "resource-policies.table.headers.edit.policy": "Edit policy",
-  "resource-policies.table.headers.edit.policy": "Szabály módosítása",
+  "resource-policies.table.headers.edit.policy": "Szabályzat szerkesztése", // Eredeti: "Szabály módosítása" -> Javított
 
   // "resource-policies.table.headers.eperson": "EPerson",
   "resource-policies.table.headers.eperson": "Felhasználó",
@@ -6844,16 +6838,16 @@
   "resource-policies.table.headers.select-all": "Összes kijelölése",
 
   // "resource-policies.table.headers.deselect-all": "Deselect all",
-  "resource-policies.table.headers.deselect-all": "Összes kijelölés visszavonása",
+  "resource-policies.table.headers.deselect-all": "Összes kijelölésének megszüntetése", // Eredeti: "Összes kijelölés visszavonása" -> Javított
 
   // "resource-policies.table.headers.select": "Select",
   "resource-policies.table.headers.select": "Kijelölés",
 
   // "resource-policies.table.headers.deselect": "Deselect",
-  "resource-policies.table.headers.deselect": "Kijelölés törlése",
+  "resource-policies.table.headers.deselect": "Kijelölés megszüntetése", // Eredeti: "Kijelölés törlése" -> Javított
 
   // "resource-policies.table.headers.id": "ID",
-  "resource-policies.table.headers.id": "ID",
+  "resource-policies.table.headers.id": "Azonosító", // Eredeti: "ID" -> Javított
 
   // "resource-policies.table.headers.name": "Name",
   "resource-policies.table.headers.name": "Név",
@@ -6862,19 +6856,19 @@
   "resource-policies.table.headers.policyType": "típus",
 
   // "resource-policies.table.headers.title.for.bitstream": "Policies for Bitstream",
-  "resource-policies.table.headers.title.for.bitstream": "Bitstream szabály",
+  "resource-policies.table.headers.title.for.bitstream": "Bitstream szabályzatok", // Eredeti: "Bitstream szabály" -> Javított
 
   // "resource-policies.table.headers.title.for.bundle": "Policies for Bundle",
-  "resource-policies.table.headers.title.for.bundle": "Csomagra vonatkozó szabály",
+  "resource-policies.table.headers.title.for.bundle": "Csomagszabályzatok", // Eredeti: "Csomagra vonatkozó szabály" -> Javított
 
   // "resource-policies.table.headers.title.for.item": "Policies for Item",
-  "resource-policies.table.headers.title.for.item": "Elem szabály",
+  "resource-policies.table.headers.title.for.item": "Tételszabályzatok", // Eredeti: "Elem szabály" -> Javított
 
   // "resource-policies.table.headers.title.for.community": "Policies for Community",
-  "resource-policies.table.headers.title.for.community": "Közösségi szabályok",
+  "resource-policies.table.headers.title.for.community": "Közösségi szabályzatok", // Eredeti: "Közösségi szabályok" -> Javított
 
   // "resource-policies.table.headers.title.for.collection": "Policies for Collection",
-  "resource-policies.table.headers.title.for.collection": "Gyűjtemény szabályok",
+  "resource-policies.table.headers.title.for.collection": "Gyűjteményi szabályzatok", // Eredeti: "Gyűjtemény szabályok" -> Javított
 
   // "root.skip-to-content": "Skip to main content",
   "root.skip-to-content": "Ugrás a fő tartalomra",
@@ -6883,7 +6877,7 @@
   "search.description": "",
 
   // "search.switch-configuration.title": "Show",
-  "search.switch-configuration.title": "Megtekintés",
+  "search.switch-configuration.title": "Megjelenítés", // Eredeti: "Megtekintés" -> Javított (Show)
 
   // "search.title": "Search",
   "search.title": "Keresés",
@@ -6892,10 +6886,10 @@
   "search.breadcrumbs": "Keresés",
 
   // "search.search-form.placeholder": "Search the repository ...",
-  "search.search-form.placeholder": "Keresés a repozitóriumban ...",
+  "search.search-form.placeholder": "Keresés a repozitóriumban...",
 
   // "search.filters.remove": "Remove filter of type {{ type }} with value {{ value }}",
-  "search.filters.remove": "Remove filter of type {{ type }} with value {{ value }}",
+  "search.filters.remove": "{{ type }} típusú szűrő eltávolítása {{ value }} értékkel", // Lefordítva
 
   // "search.filters.applied.f.title": "Title",
   "search.filters.applied.f.title": "Cím",
@@ -6904,31 +6898,32 @@
   "search.filters.applied.f.author": "Szerző",
 
   // "search.filters.applied.f.dateIssued.max": "End date",
-  "search.filters.applied.f.dateIssued.max": "Végső dátum",
+  "search.filters.applied.f.dateIssued.max": "Befejezés dátuma", // Eredeti: "Végső dátum" -> Javított
 
   // "search.filters.applied.f.dateIssued.min": "Start date",
-  "search.filters.applied.f.dateIssued.min": "Kezdő dátum",
+  "search.filters.applied.f.dateIssued.min": "Kezdés dátuma", // Eredeti: "Kezdő dátum" -> Javított
 
   // "search.filters.applied.f.dateSubmitted": "Date submitted",
-  "search.filters.applied.f.dateSubmitted": "Feltöltés dátuma",
+  "search.filters.applied.f.dateSubmitted": "Beküldés dátuma", // Eredeti: "Feltöltés dátuma" -> Javított (submission)
 
   // "search.filters.applied.f.discoverable": "Non-discoverable",
-  "search.filters.applied.f.discoverable": "Privát",
+  "search.filters.applied.f.discoverable": "Nem kereshető", // Eredeti: "Privát" -> Javított (Non-discoverable)
 
   // "search.filters.applied.f.entityType": "Item Type",
-  "search.filters.applied.f.entityType": "Tárgy típusa",
+  "search.filters.applied.f.entityType": "Tételtípus", // Eredeti: "Tárgy típusa" -> Javított
 
   // "search.filters.applied.f.has_content_in_original_bundle": "Has files",
   "search.filters.applied.f.has_content_in_original_bundle": "Fájlokat tartalmaz",
 
   // "search.filters.applied.f.original_bundle_filenames": "File name",
-  "search.filters.applied.f.original_bundle_filenames": "Fájl név",
+  "search.filters.applied.f.original_bundle_filenames": "Fájlnév", // Eredeti: "Fájl név" -> Javított
 
   // "search.filters.applied.f.original_bundle_descriptions": "File description",
-  "search.filters.applied.f.original_bundle_descriptions": "File leírás",
+  "search.filters.applied.f.original_bundle_descriptions": "Fájlleírás", // Eredeti: "File leírás" -> Javított
+
   // "search.filters.applied.f.has_geospatial_metadata": "Has geographical location",
   // TODO New key - Add a translation
-  "search.filters.applied.f.has_geospatial_metadata": "Has geographical location",
+  "search.filters.applied.f.has_geospatial_metadata": "Földrajzi helyadatokkal rendelkezik", // Lefordítva
 
   // "search.filters.applied.f.itemtype": "Type",
   "search.filters.applied.f.itemtype": "Típus",
@@ -6940,47 +6935,47 @@
   "search.filters.applied.f.subject": "Tárgyszó",
 
   // "search.filters.applied.f.submitter": "Submitter",
-  "search.filters.applied.f.submitter": "Feltöltő",
+  "search.filters.applied.f.submitter": "Beküldő", // Eredeti: "Feltöltő" -> Javított (Submitter)
 
   // "search.filters.applied.f.jobTitle": "Job Title",
   "search.filters.applied.f.jobTitle": "Munkakör",
 
   // "search.filters.applied.f.birthDate.max": "End birth date",
-  "search.filters.applied.f.birthDate.max": "Születési dátum vége",
+  "search.filters.applied.f.birthDate.max": "Születési idő vége", // Eredeti: "Születési dátum vége" -> Javított (End birth date)
 
   // "search.filters.applied.f.birthDate.min": "Start birth date",
-  "search.filters.applied.f.birthDate.min": "Születési dátum eleje",
+  "search.filters.applied.f.birthDate.min": "Születési idő kezdete", // Eredeti: "Születési dátum eleje" -> Javított (Start birth date)
 
   // "search.filters.applied.f.supervisedBy": "Supervised by",
-  "search.filters.applied.f.supervisedBy": "Felügyeli",
+  "search.filters.applied.f.supervisedBy": "Felügyelő", // Eredeti: "Felügyeli" -> Javított (személyre utalhat)
 
   // "search.filters.applied.f.withdrawn": "Withdrawn",
   "search.filters.applied.f.withdrawn": "Visszavonva",
 
   // "search.filters.applied.operator.equals": "",
-  "search.filters.applied.operator.equals": "",
+  "search.filters.applied.operator.equals": "", // Marad üres, ha ez a cél
 
   // "search.filters.applied.operator.notequals": " not equals",
-  "search.filters.applied.operator.notequals": " not equals",
+  "search.filters.applied.operator.notequals": " nem egyenlő", // Lefordítva
 
   // "search.filters.applied.operator.authority": "",
-  "search.filters.applied.operator.authority": "",
+  "search.filters.applied.operator.authority": "", // Marad üres
 
   // "search.filters.applied.operator.notauthority": " not authority",
-  "search.filters.applied.operator.notauthority": " not authority",
+  "search.filters.applied.operator.notauthority": " nem autoritás", // Lefordítva
 
   // "search.filters.applied.operator.contains": " contains",
-  "search.filters.applied.operator.contains": " contains",
+  "search.filters.applied.operator.contains": " tartalmazza", // Lefordítva
 
   // "search.filters.applied.operator.notcontains": " not contains",
-  "search.filters.applied.operator.notcontains": " not contains",
+  "search.filters.applied.operator.notcontains": " nem tartalmazza", // Lefordítva
 
   // "search.filters.applied.operator.query": "",
-  "search.filters.applied.operator.query": "",
+  "search.filters.applied.operator.query": "", // Marad üres
 
   // "search.filters.applied.f.point": "Coordinates",
   // TODO New key - Add a translation
-  "search.filters.applied.f.point": "Coordinates",
+  "search.filters.applied.f.point": "Koordináták", // Lefordítva
 
   // "search.filters.filter.title.head": "Title",
   "search.filters.filter.title.head": "Cím",
@@ -6989,7 +6984,7 @@
   "search.filters.filter.title.placeholder": "Cím",
 
   // "search.filters.filter.title.label": "Search Title",
-  "search.filters.filter.title.label": "Cím keresése",
+  "search.filters.filter.title.label": "Keresés címre", // Eredeti: "Cím keresése" -> Javított
 
   // "search.filters.filter.author.head": "Author",
   "search.filters.filter.author.head": "Szerző",
@@ -6998,7 +6993,7 @@
   "search.filters.filter.author.placeholder": "Szerző neve",
 
   // "search.filters.filter.author.label": "Search author name",
-  "search.filters.filter.author.label": "Szerző keresése",
+  "search.filters.filter.author.label": "Keresés szerzőnévre", // Eredeti: "Szerző keresése" -> Javított
 
   // "search.filters.filter.birthDate.head": "Birth Date",
   "search.filters.filter.birthDate.head": "Születési dátum",
@@ -7007,7 +7002,7 @@
   "search.filters.filter.birthDate.placeholder": "Születési dátum",
 
   // "search.filters.filter.birthDate.label": "Search birth date",
-  "search.filters.filter.birthDate.label": "Születési dátum keresése",
+  "search.filters.filter.birthDate.label": "Keresés születési dátumra",
 
   // "search.filters.filter.collapse": "Collapse filter",
   "search.filters.filter.collapse": "Szűrő összecsukása",
@@ -7019,7 +7014,7 @@
   "search.filters.filter.creativeDatePublished.placeholder": "Publikálás dátuma",
 
   // "search.filters.filter.creativeDatePublished.label": "Search date published",
-  "search.filters.filter.creativeDatePublished.label": "Kiadási dátum keresése",
+  "search.filters.filter.creativeDatePublished.label": "Keresés publikálás dátumára", // Eredeti: "Kiadási dátum keresése" -> Javított
 
   // "search.filters.filter.creativeDatePublished.min.label": "Start",
   "search.filters.filter.creativeDatePublished.min.label": "Kezdete",
@@ -7034,7 +7029,10 @@
   "search.filters.filter.creativeWorkEditor.placeholder": "Szerkesztő",
 
   // "search.filters.filter.creativeWorkEditor.label": "Search editor",
-  "search.filters.filter.creativeWorkEditor.label": "Szerkesztő keresése",
+  "search.filters.filter.creativeWorkEditor.label": "Keresés szerkesztőre",
+
+  // "relationships.add.error.title": "Unable to add relationship",
+  "relationships.add.error.title": "Nem sikerült kapcsolatot hozzáadni.", // Lefordítva
 
   // "search.filters.filter.creativeWorkKeywords.head": "Subject",
   "search.filters.filter.creativeWorkKeywords.head": "Tárgyszó",
