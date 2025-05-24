@@ -24,10 +24,10 @@
   "500.help": "A rendszer jelenleg nem elérhető karbantartás vagy túlterheltség miatt.\nKérjük, próbálkozzon később.",
 
   // "500.link.home-page": "Take me to the home page",
-  "500.link.home-page": "Vissza a kezdőlapra", // "kezdőlapra" vs "főoldalra" - mindkettő jó, a "főoldalra" konzisztensebb a többi hasonlóval. Marad "kezdőlapra", hacsak nem kéred.,
+  "500.link.home-page": "Vissza a kezdőlapra",
 
   // "404.help": "We can't find the page you're looking for. The page may have been moved or deleted. You can use the button below to get back to the home page. ",
-  "404.help": "A keresett oldal nem található. Az oldalt elköltöztették, vagy letörölték.\nAz alsó gombbal visszakerülhet a honlapra ", // "honlapra" vs "főoldalra" - "főoldalra" konzisztensebb lenne. Marad "honlapra".,
+  "404.help": "A keresett oldal nem található. Az oldalt elköltöztették, vagy letörölték.<br>Az alsó gombbal visszakerülhet a kezdőlapra ",
 
   // "404.link.home-page": "Take me to the home page",
   "404.link.home-page": "Vissza a főoldalra",
@@ -36,10 +36,10 @@
   "404.page-not-found": "Az oldal nem található",
 
   // "error-page.description.401": "Unauthorized",
-  "error-page.description.401": "jogosulatlan",
+  "error-page.description.401": "Jogosulatlan",
 
   // "error-page.description.403": "Forbidden",
-  "error-page.description.403": "elérhetetlen", // Lehetne "tiltott",
+  "error-page.description.403": "Tiltott",
 
   // "error-page.description.500": "Service unavailable",
   "error-page.description.500": "A szolgáltatás nem elérhető",
@@ -51,25 +51,25 @@
   "error-page.orcid.generic-error": "Hiba történt az ORCID-on keresztüli bejelentkezés során.\nGyőződjön meg róla, hogy megosztotta ORCID fiókjának e-mail címét a DSpace rendszerrel.\nHa a hiba továbbra is fennáll, lépjen kapcsolatba az adminisztrátorral.",
 
   // "listelement.badge.access-status": "Access status:",
-  "listelement.badge.access-status": "Hozzáférési állapot:",
+  "listelement.badge.access-status": "Hozzáférés állapota:",
 
   // "access-status.embargo.listelement.badge": "Embargo",
-  "access-status.embargo.listelement.badge": "Embargó", // "Embargo" is elfogadható, de "Embargó" magyarosabb.,
+  "access-status.embargo.listelement.badge": "Embargó",
 
   // "access-status.metadata.only.listelement.badge": "Metadata only",
-  "access-status.metadata.only.listelement.badge": "Csak metaadattal rendelkező", // "Csak metaadatok" lenne a pontosabb fordítás. Jelenlegi is érthető.,
+  "access-status.metadata.only.listelement.badge": "Csak metaadattal rendelkező",
 
   // "access-status.open.access.listelement.badge": "Open Access",
-  "access-status.open.access.listelement.badge": "Nyílt hozzáférés", // "Open Access" is maradhatna, de a "Nyílt hozzáférés" is jó.,
+  "access-status.open.access.listelement.badge": "Nyílt hozzáférés",
 
   // "access-status.restricted.listelement.badge": "Restricted",
-  "access-status.restricted.listelement.badge": "Korlátozott", // "Védett" helyett "Korlátozott" pontosabb.,
+  "access-status.restricted.listelement.badge": "Korlátozott",
 
   // "access-status.unknown.listelement.badge": "Unknown",
   "access-status.unknown.listelement.badge": "Ismeretlen",
 
   // "admin.curation-tasks.breadcrumbs": "System curation tasks",
-  "admin.curation-tasks.breadcrumbs": "Rendszer karbantartási feladatok", // "Karbantartási feladatok" helyett "Rendszer karbantartási feladatok" pontosabb.,
+  "admin.curation-tasks.breadcrumbs": "Rendszer karbantartási feladatok",
 
   // "admin.curation-tasks.title": "System curation tasks",
   "admin.curation-tasks.title": "Rendszer karbantartási feladatok",
@@ -84,37 +84,37 @@
   "admin.registries.bitstream-formats.create.breadcrumbs": "Bitstream formátum",
 
   // "admin.registries.bitstream-formats.create.failure.content": "An error occurred while creating the new bitstream format.",
-  "admin.registries.bitstream-formats.create.failure.content": "Új bitstream formátum létrehozása közben hiba történt.", // "Bitstream létrehozása közben hiba történt" -> "Új bitstream formátum létrehozása közben hiba történt.",
+  "admin.registries.bitstream-formats.create.failure.content": "Új bitstream formátum létrehozása közben hiba történt.",
 
   // "admin.registries.bitstream-formats.create.failure.head": "Failure",
-  "admin.registries.bitstream-formats.create.failure.head": "Sikertelen", // "Hiba történt" helyett "Sikertelen" közelebb áll a "Failure"-höz.,
+  "admin.registries.bitstream-formats.create.failure.head": "Sikertelen",
 
   // "admin.registries.bitstream-formats.create.head": "Create bitstream format",
   "admin.registries.bitstream-formats.create.head": "Bitstream formátum létrehozása",
 
   // "admin.registries.bitstream-formats.create.new": "Add a new bitstream format",
-  "admin.registries.bitstream-formats.create.new": "Új bitstream formátum hozzáadása", // "Bitstream formátum hozzáadása" -> "Új bitstream formátum hozzáadása",
+  "admin.registries.bitstream-formats.create.new": "Új bitstream formátum hozzáadása",
 
   // "admin.registries.bitstream-formats.create.success.content": "The new bitstream format was successfully created.",
   "admin.registries.bitstream-formats.create.success.content": "Az új bitstream formátum sikeresen létrehozva.",
 
   // "admin.registries.bitstream-formats.create.success.head": "Success",
-  "admin.registries.bitstream-formats.create.success.head": "Siker", // "Sikeres művelet" helyett "Siker" közelebb áll a "Success"-hez.,
+  "admin.registries.bitstream-formats.create.success.head": "Siker",
 
   // "admin.registries.bitstream-formats.delete.failure.amount": "Failed to remove {{ amount }} format(s)",
-  "admin.registries.bitstream-formats.delete.failure.amount": "A(z) {{ amount }} formátum(ok) eltávolítása sikertelen.", // "törlése" -> "eltávolítása",
+  "admin.registries.bitstream-formats.delete.failure.amount": "{{ amount }} formátum eltávolítása sikertelen.",
 
   // "admin.registries.bitstream-formats.delete.failure.head": "Failure",
   "admin.registries.bitstream-formats.delete.failure.head": "Sikertelen",
 
   // "admin.registries.bitstream-formats.delete.success.amount": "Successfully removed {{ amount }} format(s)",
-  "admin.registries.bitstream-formats.delete.success.amount": "A(z) {{ amount }} formátum(ok) sikeresen eltávolítva.", // "törölve" -> "eltávolítva",
+  "admin.registries.bitstream-formats.delete.success.amount": "{{ amount }} formátum(ok) sikeresen eltávolítva.",
 
   // "admin.registries.bitstream-formats.delete.success.head": "Success",
   "admin.registries.bitstream-formats.delete.success.head": "Siker",
 
   // "admin.registries.bitstream-formats.description": "This list of bitstream formats provides information about known formats and their support level.",
-  "admin.registries.bitstream-formats.description": "Ez a bitstream formátum lista információt nyújt az ismert formátumokról és azok támogatási szintjéről.", // "Az alábbi lista" -> "Ez a bitstream formátum lista",
+  "admin.registries.bitstream-formats.description": "Az alábbi bitstream formátum lista információt nyújt az ismert formátumokról és azok támogatási szintjéről.",
 
   // "admin.registries.bitstream-formats.edit.breadcrumbs": "Bitstream format",
   "admin.registries.bitstream-formats.edit.breadcrumbs": "Bitstream formátum",
@@ -129,10 +129,10 @@
   "admin.registries.bitstream-formats.edit.extensions.hint": "A kiterjesztések olyan fájlkiterjesztések, amelyek a feltöltött fájlok formátumának automatikus azonosítására szolgálnak.\nMinden formátumhoz több kiterjesztést is megadhat.",
 
   // "admin.registries.bitstream-formats.edit.extensions.label": "File extensions",
-  "admin.registries.bitstream-formats.edit.extensions.label": "Fájlkiterjesztések", // "Állomány kiterjesztés" -> "Fájlkiterjesztések" (többes szám),
+  "admin.registries.bitstream-formats.edit.extensions.label": "Fájlkiterjesztések",
 
   // "admin.registries.bitstream-formats.edit.extensions.placeholder": "Enter a file extension without the dot",
-  "admin.registries.bitstream-formats.edit.extensions.placeholder": "Írja be a fájlkiterjesztést pont nélkül", // "állomány kiterjesztését" -> "fájlkiterjesztést",
+  "admin.registries.bitstream-formats.edit.extensions.placeholder": "Írja be a fájlkiterjesztést pont nélkül",
 
   // "admin.registries.bitstream-formats.edit.failure.content": "An error occurred while editing the bitstream format.",
   "admin.registries.bitstream-formats.edit.failure.content": "A bitstream formátum szerkesztése közben hiba történt.",
@@ -153,7 +153,7 @@
   "admin.registries.bitstream-formats.edit.mimetype.hint": "Az ehhez a formátumhoz társított MIME típusnak nem kell egyedinek lennie.",
 
   // "admin.registries.bitstream-formats.edit.mimetype.label": "MIME Type",
-  "admin.registries.bitstream-formats.edit.mimetype.label": "MIME típus", // "MIME Típus" -> "MIME típus" (kis t),
+  "admin.registries.bitstream-formats.edit.mimetype.label": "MIME típus",
 
   // "admin.registries.bitstream-formats.edit.shortDescription.hint": "A unique name for this format, (e.g. Microsoft Word XP or Microsoft Word 2000)",
   "admin.registries.bitstream-formats.edit.shortDescription.hint": "Egyedi név ennek a formátumnak (pl. Microsoft Word XP vagy Microsoft Word 2000)",
@@ -162,22 +162,22 @@
   "admin.registries.bitstream-formats.edit.shortDescription.label": "Név",
 
   // "admin.registries.bitstream-formats.edit.success.content": "The bitstream format was successfully edited.",
-  "admin.registries.bitstream-formats.edit.success.content": "A bitstream formátum sikeresen szerkesztve.", // "Bitstream formátum szerkesztése sikeres." -> "A bitstream formátum sikeresen szerkesztve.",
+  "admin.registries.bitstream-formats.edit.success.content": "A bitstream formátum sikeresen szerkesztve.",
 
   // "admin.registries.bitstream-formats.edit.success.head": "Success",
   "admin.registries.bitstream-formats.edit.success.head": "Siker",
 
   // "admin.registries.bitstream-formats.edit.supportLevel.hint": "The level of support your institution pledges for this format.",
-  "admin.registries.bitstream-formats.edit.supportLevel.hint": "Az intézménye által ehhez a formátumhoz vállalt támogatási szint.", // "Intézménye ilyen szintű támogatást biztosít ennek a formátumnak." -> "Az intézménye által ehhez a formátumhoz vállalt támogatási szint.",
+  "admin.registries.bitstream-formats.edit.supportLevel.hint": "Az intézménye által ehhez a formátumhoz vállalt támogatási szint.",
 
   // "admin.registries.bitstream-formats.edit.supportLevel.label": "Support level",
   "admin.registries.bitstream-formats.edit.supportLevel.label": "Támogatási szint",
 
   // "admin.registries.bitstream-formats.head": "Bitstream Format Registry",
-  "admin.registries.bitstream-formats.head": "Bitstream Formátum Nyilvántartás", // "leíró adatbázis" -> "Nyilvántartás" (gyakoribb),
+  "admin.registries.bitstream-formats.head": "Bitstream formátum nyilvántartás",
 
   // "admin.registries.bitstream-formats.no-items": "No bitstream formats to show.",
-  "admin.registries.bitstream-formats.no-items": "Nincsenek megjeleníthető bitstream formátumok.", // "Nincs látható bitstream formátum." -> "Nincsenek megjeleníthető bitstream formátumok.",
+  "admin.registries.bitstream-formats.no-items": "Nincsenek megjeleníthető bitstream formátumok.",
 
   // "admin.registries.bitstream-formats.table.delete": "Delete selected",
   "admin.registries.bitstream-formats.table.delete": "Kiválasztottak törlése",
@@ -216,7 +216,7 @@
   "admin.registries.bitstream-formats.table.supportLevel.head": "Támogatási szint",
 
   // "admin.registries.bitstream-formats.title": "Bitstream Format Registry",
-  "admin.registries.bitstream-formats.title": "Bitstream Formátum Nyilvántartás",
+  "admin.registries.bitstream-formats.title": "Bitstream formátum nyilvántartás",
 
   // "admin.registries.bitstream-formats.select": "Select",
   "admin.registries.bitstream-formats.select": "Kijelölés",
@@ -225,10 +225,10 @@
   "admin.registries.bitstream-formats.deselect": "Kijelölés törlése",
 
   // "admin.registries.metadata.breadcrumbs": "Metadata registry",
-  "admin.registries.metadata.breadcrumbs": "Metaadat Nyilvántartás", // "leíró adatbázis" -> "Nyilvántartás",
+  "admin.registries.metadata.breadcrumbs": "Metaadat nyilvántartás",
 
   // "admin.registries.metadata.description": "The metadata registry maintains a list of all metadata fields available in the repository. These fields may be divided amongst multiple schemas. However, DSpace requires the qualified Dublin Core schema.",
-  "admin.registries.metadata.description": "A metaadat nyilvántartás tartalmazza a repozitóriumban elérhető összes metaadat mező listáját.\nEzek a mezők több séma között oszthatók meg. A DSpace azonban a minősített Dublin Core sémát igényli.",
+  "admin.registries.metadata.description": "A metaadat nyilvántartás tartalmazza a repozitóriumban elérhető összes metaadat mező listáját. Ezek a mezők több séma között oszthatók meg. A DSpace azonban a minősített Dublin Core sémát igényli.",
 
   // "admin.registries.metadata.form.create": "Create metadata schema",
   "admin.registries.metadata.form.create": "Metaadat séma létrehozása",
@@ -240,13 +240,13 @@
   "admin.registries.metadata.form.name": "Név",
 
   // "admin.registries.metadata.form.namespace": "Namespace",
-  "admin.registries.metadata.form.namespace": "Névtér", // "Névhely" -> "Névtér" (gyakoribb),
+  "admin.registries.metadata.form.namespace": "Névtér",
 
   // "admin.registries.metadata.head": "Metadata Registry",
-  "admin.registries.metadata.head": "Metaadat Nyilvántartás",
+  "admin.registries.metadata.head": "Metaadat nyilvántartás",
 
   // "admin.registries.metadata.schemas.no-items": "No metadata schemas to show.",
-  "admin.registries.metadata.schemas.no-items": "Nincsenek megjeleníthető metaadat sémák.", // "Nincs elérhető metaadat séma." -> "Nincsenek megjeleníthető metaadat sémák.",
+  "admin.registries.metadata.schemas.no-items": "Nincsenek megjeleníthető metaadat sémák.",
 
   // "admin.registries.metadata.schemas.select": "Select",
   "admin.registries.metadata.schemas.select": "Kijelölés",
@@ -270,7 +270,7 @@
   "admin.registries.metadata.schemas.table.namespace": "Névtér",
 
   // "admin.registries.metadata.title": "Metadata Registry",
-  "admin.registries.metadata.title": "Metaadat Nyilvántartás",
+  "admin.registries.metadata.title": "Metaadat nyilvántartás",
 
   // "admin.registries.schema.breadcrumbs": "Metadata schema",
   "admin.registries.schema.breadcrumbs": "Metaadat séma",
@@ -285,13 +285,13 @@
   "admin.registries.schema.fields.deselect": "Kijelölés törlése",
 
   // "admin.registries.schema.fields.head": "Schema metadata fields",
-  "admin.registries.schema.fields.head": "Séma metaadat mezői", // "Séma metaadat mezők" -> "Séma metaadat mezői" (birtokos),
+  "admin.registries.schema.fields.head": "Séma metaadat mezői",
 
   // "admin.registries.schema.fields.no-items": "No metadata fields to show.",
-  "admin.registries.schema.fields.no-items": "Nincsenek megjeleníthető metaadat mezők.", // "Nincs elérhető metaadat mező." -> "Nincsenek megjeleníthető metaadat mezők.",
+  "admin.registries.schema.fields.no-items": "Nincsenek megjeleníthető metaadat mezők.",
 
   // "admin.registries.schema.fields.table.delete": "Delete selected",
-  "admin.registries.schema.fields.table.delete": "Kiválasztottak törlése", // "Kiválasztások törlése" -> "Kiválasztottak törlése",
+  "admin.registries.schema.fields.table.delete": "Kiválasztottak törlése",
 
   // "admin.registries.schema.fields.table.field": "Field",
   "admin.registries.schema.fields.table.field": "Mező",
@@ -303,13 +303,13 @@
   "admin.registries.schema.fields.table.id": "Azonosító",
 
   // "admin.registries.schema.fields.table.scopenote": "Scope Note",
-  "admin.registries.schema.fields.table.scopenote": "Hatóköri megjegyzés", // "Cél megjegyzés" -> "Hatóköri megjegyzés" (Scope Note pontosabb fordítása),
+  "admin.registries.schema.fields.table.scopenote": "Hatóköri megjegyzés",
 
   // "admin.registries.schema.form.create": "Create metadata field",
   "admin.registries.schema.form.create": "Metaadat mező létrehozása",
 
   // "admin.registries.schema.form.edit": "Edit metadata field",
-  "admin.registries.schema.form.edit": "Metaadat mező szerkesztése", // "metaadat mező szerkesztése" -> "Metaadat mező szerkesztése" (Nagy M),
+  "admin.registries.schema.form.edit": "Metaadat mező szerkesztése",
 
   // "admin.registries.schema.form.element": "Element",
   "admin.registries.schema.form.element": "Elem",
@@ -5143,7 +5143,7 @@
   "menu.section.access_control_people": "Felhasználók",
 
   // "menu.section.reports": "Reports",
-  "menu.section.reports": "Reports",
+  "menu.section.reports": "Jelentések",
 
   // "menu.section.reports.collections": "Filtered Collections",
   "menu.section.reports.collections": "Filtered Collections",
@@ -5837,7 +5837,7 @@
   "pagination.results-per-page": "Találatok oldalanként",
 
   // "pagination.showing.detail": "{{ range }} of {{ total }}",
-  "pagination.showing.detail": "{{ range }}/{{ total }}", // Eredeti: "{{ range }} / {{ total }}" -> Javított (egységesítés),
+  "pagination.showing.detail": "{{ range }} / {{ total }}", // Eredeti: "{{ range }} / {{ total }}" -> Javított (egységesítés),
 
   // "pagination.showing.label": "Now showing ",
   "pagination.showing.label": "Jelenleg látható: ",
@@ -10799,7 +10799,7 @@
   "live-region.ordering.instructions": "Nyomja meg a szóköz billentyűt a(z) {{ itemName }} átrendezéséhez.",
 
   // "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of  {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
-  "live-region.ordering.status": "{{ itemName }} megragadva. Jelenlegi pozíció a listában: {{ index }}/{{ length }}.\nHasználja a fel és le nyilakat a pozíció megváltoztatásához, a szóköz billentyűt a lerakáshoz, az Escape billentyűt a megszakításhoz.",
+  "live-region.ordering.status": "{{ itemName }} megragadva. Jelenlegi pozíció a listában: {{ index }} / {{ length }}.\nHasználja a fel és le nyilakat a pozíció megváltoztatásához, a szóköz billentyűt a lerakáshoz, az Escape billentyűt a megszakításhoz.",
 
   // "live-region.ordering.moved": "{{ itemName }}, moved to position {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
   "live-region.ordering.moved": "{{ itemName }} áthelyezve a(z) {{ index }}. pozícióba a(z) {{ length }} közül.\nHasználja a fel és le nyilakat a pozíció megváltoztatásához, a szóköz billentyűt a lerakáshoz, az Escape billentyűt a megszakításhoz.",
