@@ -61,71 +61,71 @@
 
   // "error-page.orcid.generic-error": "An error occurred during login via ORCID. Make sure you have shared your ORCID account email address with DSpace. If the error persists, contact the administrator",
   // TODO New key - Add a translation
-  "error-page.orcid.generic-error": "An error occurred during login via ORCID. Make sure you have shared your ORCID account email address with DSpace. If the error persists, contact the administrator",
+  "error-page.orcid.generic-error": "هنگام ورود از طریق ORCID خطایی روی داد. مطمئن شوید که آدرس ایمیل حساب ORCID خود را با دی اسپیس به اشتراک گذاشته‌اید. اگر خطا ادامه داشت، با مدیر تماس بگیرید.",
 
   // "access-status.embargo.listelement.badge": "Embargo",
   // TODO New key - Add a translation
-  "access-status.embargo.listelement.badge": "Embargo",
+  "access-status.embargo.listelement.badge": "مسدود",
 
   // "access-status.metadata.only.listelement.badge": "Metadata only",
   // TODO New key - Add a translation
-  "access-status.metadata.only.listelement.badge": "Metadata only",
+  "access-status.metadata.only.listelement.badge": "فقط ابرداده",
 
   // "access-status.open.access.listelement.badge": "Open Access",
   // TODO New key - Add a translation
-  "access-status.open.access.listelement.badge": "Open Access",
+  "access-status.open.access.listelement.badge": "دسترسی باز",
 
   // "access-status.restricted.listelement.badge": "Restricted",
   // TODO New key - Add a translation
-  "access-status.restricted.listelement.badge": "Restricted",
+  "access-status.restricted.listelement.badge": "محدود",
 
   // "access-status.unknown.listelement.badge": "Unknown",
   // TODO New key - Add a translation
-  "access-status.unknown.listelement.badge": "Unknown",
+  "access-status.unknown.listelement.badge": "ناشناخته",
 
   // "admin.curation-tasks.breadcrumbs": "System curation tasks",
   // TODO New key - Add a translation
-  "admin.curation-tasks.breadcrumbs": "System curation tasks",
+  "admin.curation-tasks.breadcrumbs": "کارهای اصلاح سیستم",
 
   // "admin.curation-tasks.title": "System curation tasks",
   // TODO New key - Add a translation
-  "admin.curation-tasks.title": "System curation tasks",
+  "admin.curation-tasks.title": "کارهای اصلاح سیستم",
 
   // "admin.curation-tasks.header": "System curation tasks",
   // TODO New key - Add a translation
-  "admin.curation-tasks.header": "System curation tasks",
+  "admin.curation-tasks.header": "کارهای اصلاح سیستم",
 
   // "admin.registries.bitstream-formats.breadcrumbs": "Format registry",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.breadcrumbs": "Format registry",
+  "admin.registries.bitstream-formats.breadcrumbs": "قالب ثبت",
 
   // "admin.registries.bitstream-formats.create.breadcrumbs": "Bitstream format",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.breadcrumbs": "Bitstream format",
+  "admin.registries.bitstream-formats.create.breadcrumbs": "قالب فایل",
 
   // "admin.registries.bitstream-formats.create.failure.content": "An error occurred while creating the new bitstream format.",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.failure.content": "An error occurred while creating the new bitstream format.",
+  "admin.registries.bitstream-formats.create.failure.content": "هنگام ایجاد قالب فایل جدید، خطایی روی داد.",
 
   // "admin.registries.bitstream-formats.create.failure.head": "Failure",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.failure.head": "Failure",
+  "admin.registries.bitstream-formats.create.failure.head": "نارسایی",
 
   // "admin.registries.bitstream-formats.create.head": "Create bitstream format",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.head": "Create bitstream format",
+  "admin.registries.bitstream-formats.create.head": "ایجاد قالب فایل",
 
   // "admin.registries.bitstream-formats.create.new": "Add a new bitstream format",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.new": "Add a new bitstream format",
+  "admin.registries.bitstream-formats.create.new": "افزودن یک قالب فایل جدید،",
 
   // "admin.registries.bitstream-formats.create.success.content": "The new bitstream format was successfully created.",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.success.content": "The new bitstream format was successfully created.",
+  "admin.registries.bitstream-formats.create.success.content": "قالب فایل جدید با موفقیت ایجاد شد",
 
   // "admin.registries.bitstream-formats.create.success.head": "Success",
   // TODO New key - Add a translation
-  "admin.registries.bitstream-formats.create.success.head": "Success",
+  "admin.registries.bitstream-formats.create.success.head": "موفق",
 
   // "admin.registries.bitstream-formats.delete.failure.amount": "Failed to remove {{ amount }} format(s)",
   // TODO New key - Add a translation
