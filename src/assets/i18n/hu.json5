@@ -9345,190 +9345,190 @@
   "person.page.orcid.sync-queue.description.external_ids": "Külső azonosítók", // Eredeti: "External ids" -> Javított
 
   // "person.page.orcid.sync-queue.description.other_names": "Other names",
-  "person.page.orcid.sync-queue.description.other_names": "Other names",
+  "person.page.orcid.sync-queue.description.other_names": "Egyéb nevek",
 
   // "person.page.orcid.sync-queue.description.qualification": "Qualifications",
-  "person.page.orcid.sync-queue.description.qualification": "Qualifications",
+  "person.page.orcid.sync-queue.description.qualification": "Képesítések",
 
   // "person.page.orcid.sync-queue.description.researcher_urls": "Researcher urls",
-  "person.page.orcid.sync-queue.description.researcher_urls": "Researcher urls",
+  "person.page.orcid.sync-queue.description.researcher_urls": "Kutatói URL-ek",
 
   // "person.page.orcid.sync-queue.description.keywords": "Keywords",
-  "person.page.orcid.sync-queue.description.keywords": "Keywords",
+  "person.page.orcid.sync-queue.description.keywords": "Kulcsszavak",
 
   // "person.page.orcid.sync-queue.tooltip.insert": "Add a new entry in the ORCID registry",
-  "person.page.orcid.sync-queue.tooltip.insert": "Add a new entry in the ORCID registry",
+  "person.page.orcid.sync-queue.tooltip.insert": "Új bejegyzés hozzáadása az ORCID nyilvántartáshoz",
 
   // "person.page.orcid.sync-queue.tooltip.update": "Update this entry on the ORCID registry",
-  "person.page.orcid.sync-queue.tooltip.update": "Update this entry on the ORCID registry",
+  "person.page.orcid.sync-queue.tooltip.update": "Ennek a bejegyzésnek a frissítése az ORCID nyilvántartásban",
 
   // "person.page.orcid.sync-queue.tooltip.delete": "Remove this entry from the ORCID registry",
-  "person.page.orcid.sync-queue.tooltip.delete": "Remove this entry from the ORCID registry",
+  "person.page.orcid.sync-queue.tooltip.delete": "Ennek a bejegyzésnek az eltávolítása az ORCID nyilvántartásból",
 
   // "person.page.orcid.sync-queue.tooltip.publication": "Publication",
   "person.page.orcid.sync-queue.tooltip.publication": "Publikáció",
 
   // "person.page.orcid.sync-queue.tooltip.project": "Project",
-  "person.page.orcid.sync-queue.tooltip.project": "Project",
+  "person.page.orcid.sync-queue.tooltip.project": "Projekt",
 
   // "person.page.orcid.sync-queue.tooltip.affiliation": "Affiliation",
-  "person.page.orcid.sync-queue.tooltip.affiliation": "Affiliation",
+  "person.page.orcid.sync-queue.tooltip.affiliation": "Kapcsolt intézmény",
 
   // "person.page.orcid.sync-queue.tooltip.education": "Education",
-  "person.page.orcid.sync-queue.tooltip.education": "Education",
+  "person.page.orcid.sync-queue.tooltip.education": "Tanulmányok",
 
   // "person.page.orcid.sync-queue.tooltip.qualification": "Qualification",
-  "person.page.orcid.sync-queue.tooltip.qualification": "Qualification",
+  "person.page.orcid.sync-queue.tooltip.qualification": "Képesítés",
 
   // "person.page.orcid.sync-queue.tooltip.other_names": "Other name",
-  "person.page.orcid.sync-queue.tooltip.other_names": "Other name",
+  "person.page.orcid.sync-queue.tooltip.other_names": "Egyéb név",
 
   // "person.page.orcid.sync-queue.tooltip.country": "Country",
-  "person.page.orcid.sync-queue.tooltip.country": "Country",
+  "person.page.orcid.sync-queue.tooltip.country": "Ország",
 
   // "person.page.orcid.sync-queue.tooltip.keywords": "Keyword",
-  "person.page.orcid.sync-queue.tooltip.keywords": "Keyword",
+  "person.page.orcid.sync-queue.tooltip.keywords": "Kulcsszó",
 
   // "person.page.orcid.sync-queue.tooltip.external_ids": "External identifier",
-  "person.page.orcid.sync-queue.tooltip.external_ids": "External identifier",
+  "person.page.orcid.sync-queue.tooltip.external_ids": "Külső azonosító",
 
   // "person.page.orcid.sync-queue.tooltip.researcher_urls": "Researcher url",
-  "person.page.orcid.sync-queue.tooltip.researcher_urls": "Researcher url",
+  "person.page.orcid.sync-queue.tooltip.researcher_urls": "Kutatói URL",
 
   // "person.page.orcid.sync-queue.send": "Synchronize with ORCID registry",
-  "person.page.orcid.sync-queue.send": "Synchronize with ORCID registry",
+  "person.page.orcid.sync-queue.send": "Szinkronizálás az ORCID nyilvántartással",
 
   // "person.page.orcid.sync-queue.send.unauthorized-error.title": "The submission to ORCID failed for missing authorizations.",
-  "person.page.orcid.sync-queue.send.unauthorized-error.title": "The submission to ORCID failed for missing authorizations.",
+  "person.page.orcid.sync-queue.send.unauthorized-error.title": "Az ORCID-ba történő beküldés hiányzó engedélyek miatt meghiúsult.",
 
   // "person.page.orcid.sync-queue.send.unauthorized-error.content": "Click <a href='{{orcid}}'>here</a> to grant again the required permissions. If the problem persists, contact the administrator",
-  "person.page.orcid.sync-queue.send.unauthorized-error.content": "Click <a href='{{orcid}}'>here</a> to grant again the required permissions. If the problem persists, contact the administrator",
+  "person.page.orcid.sync-queue.send.unauthorized-error.content": "Kattintson <a href='{{orcid}}'>ide</a> a szükséges engedélyek újbóli megadásához. Ha a probléma továbbra is fennáll, lépjen kapcsolatba az adminisztrátorral.",
 
   // "person.page.orcid.sync-queue.send.bad-request-error": "The submission to ORCID failed because the resource sent to ORCID registry is not valid",
-  "person.page.orcid.sync-queue.send.bad-request-error": "The submission to ORCID failed because the resource sent to ORCID registry is not valid",
+  "person.page.orcid.sync-queue.send.bad-request-error": "Az ORCID-ba történő beküldés meghiúsult, mert az ORCID nyilvántartásba küldött erőforrás érvénytelen.",
 
   // "person.page.orcid.sync-queue.send.error": "The submission to ORCID failed",
-  "person.page.orcid.sync-queue.send.error": "The submission to ORCID failed",
+  "person.page.orcid.sync-queue.send.error": "Az ORCID-ba történő beküldés meghiúsult.",
 
   // "person.page.orcid.sync-queue.send.conflict-error": "The submission to ORCID failed because the resource is already present on the ORCID registry",
-  "person.page.orcid.sync-queue.send.conflict-error": "The submission to ORCID failed because the resource is already present on the ORCID registry",
+  "person.page.orcid.sync-queue.send.conflict-error": "Az ORCID-ba történő beküldés meghiúsult, mert az erőforrás már szerepel az ORCID nyilvántartásban.",
 
   // "person.page.orcid.sync-queue.send.not-found-warning": "The resource does not exists anymore on the ORCID registry.",
-  "person.page.orcid.sync-queue.send.not-found-warning": "The resource does not exists anymore on the ORCID registry.",
+  "person.page.orcid.sync-queue.send.not-found-warning": "Az erőforrás már nem létezik az ORCID nyilvántartásban.",
 
   // "person.page.orcid.sync-queue.send.success": "The submission to ORCID was completed successfully",
-  "person.page.orcid.sync-queue.send.success": "The submission to ORCID was completed successfully",
+  "person.page.orcid.sync-queue.send.success": "Az ORCID-ba történő beküldés sikeresen befejeződött.",
 
   // "person.page.orcid.sync-queue.send.validation-error": "The data that you want to synchronize with ORCID is not valid",
-  "person.page.orcid.sync-queue.send.validation-error": "The data that you want to synchronize with ORCID is not valid",
+  "person.page.orcid.sync-queue.send.validation-error": "Az ORCID-dal szinkronizálni kívánt adatok érvénytelenek.",
 
   // "person.page.orcid.sync-queue.send.validation-error.amount-currency.required": "The amount's currency is required",
-  "person.page.orcid.sync-queue.send.validation-error.amount-currency.required": "The amount's currency is required",
+  "person.page.orcid.sync-queue.send.validation-error.amount-currency.required": "Az összeg pénznemének megadása kötelező.",
 
   // "person.page.orcid.sync-queue.send.validation-error.external-id.required": "The resource to be sent requires at least one identifier",
-  "person.page.orcid.sync-queue.send.validation-error.external-id.required": "The resource to be sent requires at least one identifier",
+  "person.page.orcid.sync-queue.send.validation-error.external-id.required": "A küldendő erőforrásnak legalább egy azonosítóval kell rendelkeznie.",
 
   // "person.page.orcid.sync-queue.send.validation-error.title.required": "The title is required",
-  "person.page.orcid.sync-queue.send.validation-error.title.required": "The title is required",
+  "person.page.orcid.sync-queue.send.validation-error.title.required": "A cím megadása kötelező.",
 
   // "person.page.orcid.sync-queue.send.validation-error.type.required": "The dc.type is required",
-  "person.page.orcid.sync-queue.send.validation-error.type.required": "The dc.type is required",
+  "person.page.orcid.sync-queue.send.validation-error.type.required": "A dc.type megadása kötelező.",
 
   // "person.page.orcid.sync-queue.send.validation-error.start-date.required": "The start date is required",
-  "person.page.orcid.sync-queue.send.validation-error.start-date.required": "The start date is required",
+  "person.page.orcid.sync-queue.send.validation-error.start-date.required": "A kezdő dátum megadása kötelező.",
 
   // "person.page.orcid.sync-queue.send.validation-error.funder.required": "The funder is required",
-  "person.page.orcid.sync-queue.send.validation-error.funder.required": "The funder is required",
+  "person.page.orcid.sync-queue.send.validation-error.funder.required": "A támogató megadása kötelező.",
 
   // "person.page.orcid.sync-queue.send.validation-error.country.invalid": "Invalid 2 digits ISO 3166 country",
-  "person.page.orcid.sync-queue.send.validation-error.country.invalid": "Invalid 2 digits ISO 3166 country",
+  "person.page.orcid.sync-queue.send.validation-error.country.invalid": "Érvénytelen 2 számjegyű ISO 3166 országkód.",
 
   // "person.page.orcid.sync-queue.send.validation-error.organization.required": "The organization is required",
-  "person.page.orcid.sync-queue.send.validation-error.organization.required": "The organization is required",
+  "person.page.orcid.sync-queue.send.validation-error.organization.required": "A szervezet megadása kötelező.",
 
   // "person.page.orcid.sync-queue.send.validation-error.organization.name-required": "The organization's name is required",
-  "person.page.orcid.sync-queue.send.validation-error.organization.name-required": "The organization's name is required",
+  "person.page.orcid.sync-queue.send.validation-error.organization.name-required": "A szervezet nevének megadása kötelező.",
 
   // "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid": "The publication date must be one year after 1900",
-  "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid": "The publication date must be one year after 1900",
+  "person.page.orcid.sync-queue.send.validation-error.publication.date-invalid": "A publikáció dátumának 1900 utáni évnek kell lennie.",
 
   // "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "The organization to be sent requires an address",
-  "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "The organization to be sent requires an address",
+  "person.page.orcid.sync-queue.send.validation-error.organization.address-required": "A küldendő szervezetnek címmel kell rendelkeznie.",
 
   // "person.page.orcid.sync-queue.send.validation-error.organization.city-required": "The address of the organization to be sent requires a city",
-  "person.page.orcid.sync-queue.send.validation-error.organization.city-required": "The address of the organization to be sent requires a city",
+  "person.page.orcid.sync-queue.send.validation-error.organization.city-required": "A küldendő szervezet címének tartalmaznia kell a várost.",
 
   // "person.page.orcid.sync-queue.send.validation-error.organization.country-required": "The address of the organization to be sent requires a valid 2 digits ISO 3166 country",
-  "person.page.orcid.sync-queue.send.validation-error.organization.country-required": "The address of the organization to be sent requires a valid 2 digits ISO 3166 country",
+  "person.page.orcid.sync-queue.send.validation-error.organization.country-required": "A küldendő szervezet címének tartalmaznia kell egy érvényes 2 számjegyű ISO 3166 országkódot.",
 
   // "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.required": "An identifier to disambiguate organizations is required. Supported ids are GRID, Ringgold, Legal Entity identifiers (LEIs) and Crossref Funder Registry identifiers",
-  "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.required": "An identifier to disambiguate organizations is required. Supported ids are GRID, Ringgold, Legal Entity identifiers (LEIs) and Crossref Funder Registry identifiers",
+  "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.required": "A szervezetek egyértelműsítéséhez azonosító szükséges. Támogatott azonosítók: GRID, Ringgold, Jogi Egység Azonosítók (LEI) és Crossref Támogatói Nyilvántartás azonosítók.",
 
   // "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.value-required": "The organization's identifiers requires a value",
-  "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.value-required": "The organization's identifiers requires a value",
+  "person.page.orcid.sync-queue.send.validation-error.disambiguated-organization.value-required": "A szervezet azonosítóihoz érték szükséges.",
 
   // "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.required": "The organization's identifiers requires a source",
-  "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.required": "The organization's identifiers requires a source",
+  "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.required": "A szervezet azonosítóihoz forrás szükséges.",
 
   // "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.invalid": "The source of one of the organization identifiers is invalid. Supported sources are RINGGOLD, GRID, LEI and FUNDREF",
-  "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.invalid": "The source of one of the organization identifiers is invalid. Supported sources are RINGGOLD, GRID, LEI and FUNDREF",
+  "person.page.orcid.sync-queue.send.validation-error.disambiguation-source.invalid": "Az egyik szervezetazonosító forrása érvénytelen. Támogatott források: RINGGOLD, GRID, LEI és FUNDREF.",
 
   // "person.page.orcid.synchronization-mode": "Synchronization mode",
-  "person.page.orcid.synchronization-mode": "Synchronization mode",
+  "person.page.orcid.synchronization-mode": "Szinkronizációs mód",
 
   // "person.page.orcid.synchronization-mode.batch": "Batch",
-  "person.page.orcid.synchronization-mode.batch": "Batch",
+  "person.page.orcid.synchronization-mode.batch": "Kötegelt",
 
   // "person.page.orcid.synchronization-mode.label": "Synchronization mode",
-  "person.page.orcid.synchronization-mode.label": "Synchronization mode",
+  "person.page.orcid.synchronization-mode.label": "Szinkronizációs mód",
 
   // "person.page.orcid.synchronization-mode-message": "Please select how you would like synchronization to ORCID to occur. The options include \"Manual\" (you must send your data to ORCID manually), or \"Batch\" (the system will send your data to ORCID via a scheduled script).",
-  "person.page.orcid.synchronization-mode-message": "Please select how you would like synchronization to ORCID to occur. The options include \"Manual\" (you must send your data to ORCID manually), or \"Batch\" (the system will send your data to ORCID via a scheduled script).",
+  "person.page.orcid.synchronization-mode-message": "Kérjük, válassza ki, hogyan történjen az ORCID-dal való szinkronizálás. A lehetőségek között szerepel a \"Manuális\" (az adatokat manuálisan kell elküldenie az ORCID-nak), vagy a \"Kötegelt\" (a rendszer ütemezett szkript segítségével küldi el az adatait az ORCID-nak).",
 
   // "person.page.orcid.synchronization-mode-funding-message": "Select whether to send your linked Project entities to your ORCID record's list of funding information.",
-  "person.page.orcid.synchronization-mode-funding-message": "Select whether to send your linked Project entities to your ORCID record's list of funding information.",
+  "person.page.orcid.synchronization-mode-funding-message": "Válassza ki, hogy elküldje-e a kapcsolt Projekt entitásokat az ORCID rekordjának finanszírozási információinak listájához.",
 
   // "person.page.orcid.synchronization-mode-publication-message": "Select whether to send your linked Publication entities to your ORCID record's list of works.",
-  "person.page.orcid.synchronization-mode-publication-message": "Select whether to send your linked Publication entities to your ORCID record's list of works.",
+  "person.page.orcid.synchronization-mode-publication-message": "Válassza ki, hogy elküldje-e a kapcsolt Publikáció entitásokat az ORCID rekordjának műveinek listájához.",
 
   // "person.page.orcid.synchronization-mode-profile-message": "Select whether to send your biographical data or personal identifiers to your ORCID record.",
-  "person.page.orcid.synchronization-mode-profile-message": "Select whether to send your biographical data or personal identifiers to your ORCID record.",
+  "person.page.orcid.synchronization-mode-profile-message": "Válassza ki, hogy elküldje-e életrajzi adatait vagy személyes azonosítóit az ORCID rekordjához.",
 
   // "person.page.orcid.synchronization-settings-update.success": "The synchronization settings have been updated successfully",
-  "person.page.orcid.synchronization-settings-update.success": "The synchronization settings have been updated successfully",
+  "person.page.orcid.synchronization-settings-update.success": "A szinkronizációs beállítások sikeresen frissítve.",
 
   // "person.page.orcid.synchronization-settings-update.error": "The update of the synchronization settings failed",
-  "person.page.orcid.synchronization-settings-update.error": "The update of the synchronization settings failed",
+  "person.page.orcid.synchronization-settings-update.error": "A szinkronizációs beállítások frissítése meghiúsult.",
 
   // "person.page.orcid.synchronization-mode.manual": "Manual",
-  "person.page.orcid.synchronization-mode.manual": "Manual",
+  "person.page.orcid.synchronization-mode.manual": "Manuális",
 
   // "person.page.orcid.scope.authenticate": "Get your ORCID iD",
-  "person.page.orcid.scope.authenticate": "Get your ORCID iD",
+  "person.page.orcid.scope.authenticate": "ORCID iD lekérése",
 
   // "person.page.orcid.scope.read-limited": "Read your information with visibility set to Trusted Parties",
-  "person.page.orcid.scope.read-limited": "Read your information with visibility set to Trusted Parties",
+  "person.page.orcid.scope.read-limited": "Információinak olvasása Megbízható Felekre korlátozott láthatósággal",
 
   // "person.page.orcid.scope.activities-update": "Add/update your research activities",
-  "person.page.orcid.scope.activities-update": "Add/update your research activities",
+  "person.page.orcid.scope.activities-update": "Kutatási tevékenységeinek hozzáadása/frissítése",
 
   // "person.page.orcid.scope.person-update": "Add/update other information about you",
-  "person.page.orcid.scope.person-update": "Add/update other information about you",
+  "person.page.orcid.scope.person-update": "Egyéb információk hozzáadása/frissítése Önről",
 
   // "person.page.orcid.unlink.success": "The disconnection between the profile and the ORCID registry was successful",
-  "person.page.orcid.unlink.success": "The disconnection between the profile and the ORCID registry was successful",
+  "person.page.orcid.unlink.success": "A profil és az ORCID nyilvántartás közötti kapcsolat bontása sikeres volt.",
 
   // "person.page.orcid.unlink.error": "An error occurred while disconnecting between the profile and the ORCID registry. Try again",
-  "person.page.orcid.unlink.error": "An error occurred while disconnecting between the profile and the ORCID registry. Try again",
+  "person.page.orcid.unlink.error": "Hiba történt a profil és az ORCID nyilvántartás közötti kapcsolat bontásakor. Próbálja újra.",
 
   // "person.orcid.sync.setting": "ORCID Synchronization settings",
-  "person.orcid.sync.setting": "ORCID Synchronization settings",
+  "person.orcid.sync.setting": "ORCID Szinkronizációs beállítások",
 
   // "person.orcid.registry.queue": "ORCID Registry Queue",
-  "person.orcid.registry.queue": "ORCID Registry Queue",
+  "person.orcid.registry.queue": "ORCID Nyilvántartási Várólista",
 
   // "person.orcid.registry.auth": "ORCID Authorizations",
-  "person.orcid.registry.auth": "ORCID Authorizations",
+  "person.orcid.registry.auth": "ORCID Engedélyek",
 
   // "person.orcid-tooltip.authenticated": "{{orcid}}",
   "person.orcid-tooltip.authenticated": "{{orcid}}",
@@ -9537,25 +9537,25 @@
   "person.orcid-tooltip.not-authenticated": "{{orcid}} (nem megerősített)",
 
   // "home.recent-submissions.head": "Recent Submissions",
-  "home.recent-submissions.head": "Legutóbbi feltöltések",
+  "home.recent-submissions.head": "Legutóbbi beküldések", // Eredeti: "Legutóbbi feltöltések" -> Javított (submissions)
 
   // "listable-notification-object.default-message": "This object couldn't be retrieved",
-  "listable-notification-object.default-message": "This object couldn't be retrieved",
+  "listable-notification-object.default-message": "Ezt az objektumot nem sikerült lekérni.", // Lefordítva
 
   // "system-wide-alert-banner.retrieval.error": "Something went wrong retrieving the system-wide alert banner",
-  "system-wide-alert-banner.retrieval.error": "Something went wrong retrieving the system-wide alert banner",
+  "system-wide-alert-banner.retrieval.error": "Hiba történt a rendszerszintű figyelmeztető sáv lekérésekor.", // Lefordítva
 
   // "system-wide-alert-banner.countdown.prefix": "In",
-  "system-wide-alert-banner.countdown.prefix": "In",
+  "system-wide-alert-banner.countdown.prefix": "Még", // Lefordítva
 
   // "system-wide-alert-banner.countdown.days": "{{days}} day(s),",
-  "system-wide-alert-banner.countdown.days": "{{days}} day(s),",
+  "system-wide-alert-banner.countdown.days": "{{days}} nap,", // Lefordítva
 
   // "system-wide-alert-banner.countdown.hours": "{{hours}} hour(s) and",
-  "system-wide-alert-banner.countdown.hours": "{{hours}} hour(s) and",
+  "system-wide-alert-banner.countdown.hours": "{{hours}} óra és", // Lefordítva
 
   // "system-wide-alert-banner.countdown.minutes": "{{minutes}} minute(s):",
-  "system-wide-alert-banner.countdown.minutes": "{{minutes}} minute(s):",
+  "system-wide-alert-banner.countdown.minutes": "{{minutes}} perc:", // Lefordítva
 
   // "menu.section.system-wide-alert": "System-wide Alert",
   "menu.section.system-wide-alert": "Rendszerszintű figyelmeztetés",
@@ -9564,7 +9564,7 @@
   "system-wide-alert.form.header": "Rendszerszintű figyelmeztetés",
 
   // "system-wide-alert-form.retrieval.error": "Something went wrong retrieving the system-wide alert",
-  "system-wide-alert-form.retrieval.error": "Something went wrong retrieving the system-wide alert",
+  "system-wide-alert-form.retrieval.error": "Hiba történt a rendszerszintű figyelmeztetés lekérésekor.", // Lefordítva
 
   // "system-wide-alert.form.cancel": "Cancel",
   "system-wide-alert.form.cancel": "Mégse",
@@ -9579,34 +9579,34 @@
   "system-wide-alert.form.label.inactive": "INAKTÍV",
 
   // "system-wide-alert.form.error.message": "The system wide alert must have a message",
-  "system-wide-alert.form.error.message": "The system wide alert must have a message",
+  "system-wide-alert.form.error.message": "A rendszerszintű figyelmeztetésnek tartalmaznia kell üzenetet.", // Lefordítva
 
   // "system-wide-alert.form.label.message": "Alert message",
-  "system-wide-alert.form.label.message": "Figyelmeztetés szövege",
+  "system-wide-alert.form.label.message": "Figyelmeztetés üzenete", // Eredeti: "Figyelmeztetés szövege" -> Javított
 
   // "system-wide-alert.form.label.countdownTo.enable": "Enable a countdown timer",
-  "system-wide-alert.form.label.countdownTo.enable": "Visszaszámlálós időzítő engedélyezése",
+  "system-wide-alert.form.label.countdownTo.enable": "Visszaszámláló engedélyezése", // Eredeti: "Visszaszámlálós időzítő engedélyezése" -> Javított
 
   // "system-wide-alert.form.label.countdownTo.hint": "Hint: Set a countdown timer. When enabled, a date can be set in the future and the system-wide alert banner will perform a countdown to the set date. When this timer ends, it will disappear from the alert. The server will NOT be automatically stopped.",
-  "system-wide-alert.form.label.countdownTo.hint": "Tipp: Visszaszámlálós időzítő engedélyezése. Használata révén egy jövőbeli dátum adható meg, amelyhez képest egy visszaszámláló el fog indulni a figyelmeztetés szövegével együtt. A beállított dátumot elérve a rendszerszintű figyelmeztetés automatikusan el fog tűnni.",
+  "system-wide-alert.form.label.countdownTo.hint": "Tipp: Állítson be egy visszaszámlálót. Engedélyezés esetén beállítható egy jövőbeli dátum, és a rendszerszintű figyelmeztető sáv visszaszámlálást végez a beállított dátumig. Amikor ez az időzítő lejár, eltűnik a figyelmeztetésből. A szerver NEM áll le automatikusan.", // Eredeti: "Tipp: Visszaszámlálós időzítő engedélyezése. Használata révén egy jövőbeli dátum adható meg, amelyhez képest egy visszaszámláló el fog indulni a figyelmeztetés szövegével együtt. A beállított dátumot elérve a rendszerszintű figyelmeztetés automatikusan el fog tűnni." -> Javított
 
   // "system-wide-alert-form.select-date-by-calendar": "Select date using calendar",
-  "system-wide-alert-form.select-date-by-calendar": "Dátum kiválasztása dátumválasztó révén",
+  "system-wide-alert-form.select-date-by-calendar": "Dátum kiválasztása naptár segítségével", // Eredeti: "Dátum kiválasztása dátumválasztó révén" -> Javított
 
   // "system-wide-alert.form.label.preview": "System-wide alert preview",
-  "system-wide-alert.form.label.preview": "A rendszerszintű figyelmeztetés előnézete",
+  "system-wide-alert.form.label.preview": "Rendszerszintű figyelmeztetés előnézete",
 
   // "system-wide-alert.form.update.success": "The system-wide alert was successfully updated",
-  "system-wide-alert.form.update.success": "A rendszerszintű figyelmeztetés sikeresen módosítva",
+  "system-wide-alert.form.update.success": "A rendszerszintű figyelmeztetés sikeresen frissítve.", // Eredeti: "A rendszerszintű figyelmeztetés sikeresen módosítva" -> Javított
 
   // "system-wide-alert.form.update.error": "Something went wrong when updating the system-wide alert",
-  "system-wide-alert.form.update.error": "A rendszerszintű figyelmeztetés módosítása sikertelen",
+  "system-wide-alert.form.update.error": "Hiba történt a rendszerszintű figyelmeztetés frissítésekor.", // Eredeti: "A rendszerszintű figyelmeztetés módosítása sikertelen" -> Javított
 
   // "system-wide-alert.form.create.success": "The system-wide alert was successfully created",
-  "system-wide-alert.form.create.success": "A rendszerszintű figyelmeztetés létrehozása sikeres",
+  "system-wide-alert.form.create.success": "A rendszerszintű figyelmeztetés sikeresen létrehozva.",
 
   // "system-wide-alert.form.create.error": "Something went wrong when creating the system-wide alert",
-  "system-wide-alert.form.create.error": "A rendszerszintű figyelmeztetés létrehozása sikertelen",
+  "system-wide-alert.form.create.error": "Hiba történt a rendszerszintű figyelmeztetés létrehozásakor.", // Eredeti: "A rendszerszintű figyelmeztetés létrehozása sikertelen" -> Javított
 
   // "admin.system-wide-alert.breadcrumbs": "System-wide Alerts",
   "admin.system-wide-alert.breadcrumbs": "Rendszerszintű figyelmeztetések",
@@ -9615,55 +9615,55 @@
   "admin.system-wide-alert.title": "Rendszerszintű figyelmeztetések",
 
   // "discover.filters.head": "Discover",
-  "discover.filters.head": "Discover",
+  "discover.filters.head": "Felfedezés", // Eredeti: "Discover" -> Javítva
 
   // "item-access-control-title": "This form allows you to perform changes to the access conditions of the item's metadata or its bitstreams.",
-  "item-access-control-title": "Az alábbi űrlap lehetővé teszi az elem metaadatai illetve bitstreamei esetében a hozzáférési szabályok módosítását.",
+  "item-access-control-title": "Ez az űrlap lehetővé teszi a tétel metaadatainak vagy bitstreamjeinek hozzáférési feltételein történő változtatásokat.", // Eredeti: "Az alábbi űrlap lehetővé teszi az elem metaadatai illetve bitstreamei esetében a hozzáférési szabályok módosítását." -> Javítva
 
   // "collection-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by this collection. Changes may be performed to either all Item metadata or all content (bitstreams).",
-  "collection-access-control-title": "Az alábbi űrlap lehetővé teszi a gyűjtemény összes eleme esetén a hozzáférési szabályok módosítását. A változtatások végrehajthatók az összes elem metaadatai illetve összes fájlja (bitstreame) esetében.",
+  "collection-access-control-title": "Ez az űrlap lehetővé teszi a gyűjteményhez tartozó összes tétel hozzáférési feltételein történő változtatásokat.\nA módosítások elvégezhetők az összes tétel metaadatain vagy az összes tartalmon (bitstreameken).", // Eredeti: "Az alábbi űrlap lehetővé teszi a gyűjtemény összes eleme esetén a hozzáférési szabályok módosítását. A változtatások végrehajthatók az összes elem metaadatai illetve összes fájlja (bitstreame) esetében." -> Javítva
 
   // "community-access-control-title": "This form allows you to perform changes to the access conditions of all the items owned by any collection under this community. Changes may be performed to either all Item metadata or all content (bitstreams).",
-  "community-access-control-title": "Az alábbi űrlap lehetővé teszi a közösségbe tartozó összes gyűjtemény összes eleme esetén a hozzáférési szabályok módosítását. A változtatások végrehajthatók az összes elem metaadatai illetve összes fájlja (bitstreame) esetében.",
+  "community-access-control-title": "Ez az űrlap lehetővé teszi a közösséghez tartozó bármely gyűjtemény összes tételének hozzáférési feltételein történő változtatásokat.\nA módosítások elvégezhetők az összes tétel metaadatain vagy az összes tartalmon (bitstreameken).", // Eredeti: "Az alábbi űrlap lehetővé teszi a közösségbe tartozó összes gyűjtemény összes eleme esetén a hozzáférési szabályok módosítását. A változtatások végrehajthatók az összes elem metaadatai illetve összes fájlja (bitstreame) esetében." -> Javítva
 
   // "access-control-item-header-toggle": "Item's Metadata",
-  "access-control-item-header-toggle": "Elemhez tartozó metaadatok",
+  "access-control-item-header-toggle": "Tétel metaadatai", // Eredeti: "Elemhez tartozó metaadatok" -> Javítva
 
   // "access-control-item-toggle.enable": "Enable option to perform changes on the item's metadata",
-  "access-control-item-toggle.enable": "Elemhez tartozó metaadatok módosításnak engedélyezése",
+  "access-control-item-toggle.enable": "Opció engedélyezése a tétel metaadatain történő változtatásokhoz", // Eredeti: "Elemhez tartozó metaadatok módosításnak engedélyezése" -> Javítva
 
   // "access-control-item-toggle.disable": "Disable option to perform changes on the item's metadata",
-  "access-control-item-toggle.disable": "Elemhez tartozó metaadatok módosításnak tiltása",
+  "access-control-item-toggle.disable": "Opció letiltása a tétel metaadatain történő változtatásokhoz", // Eredeti: "Elemhez tartozó metaadatok módosításnak tiltása" -> Javítva
 
   // "access-control-bitstream-header-toggle": "Bitstreams",
   "access-control-bitstream-header-toggle": "Bitstreamek",
 
   // "access-control-bitstream-toggle.enable": "Enable option to perform changes on the bitstreams",
-  "access-control-bitstream-toggle.enable": "Bitstreamek módosításnak engedélyezése",
+  "access-control-bitstream-toggle.enable": "Opció engedélyezése a bitstreameken történő változtatásokhoz", // Eredeti: "Bitstreamek módosításnak engedélyezése" -> Javítva
 
   // "access-control-bitstream-toggle.disable": "Disable option to perform changes on the bitstreams",
-  "access-control-bitstream-toggle.disable": "Bitstreamek módosításnak tiltása",
+  "access-control-bitstream-toggle.disable": "Opció letiltása a bitstreameken történő változtatásokhoz", // Eredeti: "Bitstreamek módosításnak tiltása" -> Javítva
 
   // "access-control-mode": "Mode",
   "access-control-mode": "Mód",
 
   // "access-control-access-conditions": "Access conditions",
-  "access-control-access-conditions": "Hozzáférési szabályok",
+  "access-control-access-conditions": "Hozzáférési feltételek", // Eredeti: "Hozzáférési szabályok" -> Javítva (consistency)
 
   // "access-control-no-access-conditions-warning-message": "Currently, no access conditions are specified below. If executed, this will replace the current access conditions with the default access conditions inherited from the owning collection.",
-  "access-control-no-access-conditions-warning-message": "Jelenleg nem választott ki egyetlen hozzáférési szabályt sem az alábbi listából. Ha így folytatja a folyamatot, a rendszer a jelenlegi hozzáférési szabályokat lecseréli a tartalmazó gyűjtemény alapértelmezett szabályaira.",
+  "access-control-no-access-conditions-warning-message": "Jelenleg nincsenek hozzáférési feltételek megadva alább.\nHa végrehajtja, ez lecseréli a jelenlegi hozzáférési feltételeket a birtokló gyűjteményből örökölt alapértelmezett hozzáférési feltételekre.", // Eredeti: "Jelenleg nem választott ki egyetlen hozzáférési szabályt sem az alábbi listából. Ha így folytatja a folyamatot, a rendszer a jelenlegi hozzáférési szabályokat lecseréli a tartalmazó gyűjtemény alapértelmezett szabályaira." -> Javítva
 
   // "access-control-replace-all": "Replace access conditions",
-  "access-control-replace-all": "Jelenlegi hozzáférési szabály cseréje",
+  "access-control-replace-all": "Hozzáférési feltételek cseréje", // Eredeti: "Jelenlegi hozzáférési szabály cseréje" -> Javítva
 
   // "access-control-add-to-existing": "Add to existing ones",
-  "access-control-add-to-existing": "Hozzáadás a jelenlegihez",
+  "access-control-add-to-existing": "Hozzáadás a meglévőkhöz", // Eredeti: "Hozzáadás a jelenlegihez" -> Javítva
 
   // "access-control-limit-to-specific": "Limit the changes to specific bitstreams",
-  "access-control-limit-to-specific": "A módosítások korlátozása bizonyos bitstreamekre",
+  "access-control-limit-to-specific": "Változtatások korlátozása meghatározott bitstreamekre",
 
   // "access-control-process-all-bitstreams": "Update all the bitstreams in the item",
-  "access-control-process-all-bitstreams": "Az elemhez tartozó összes bitstream frissítése",
+  "access-control-process-all-bitstreams": "A tétel összes bitstreamjének frissítése", // Eredeti: "Az elemhez tartozó összes bitstream frissítése" -> Javítva
 
   // "access-control-bitstreams-selected": "bitstreams selected",
   "access-control-bitstreams-selected": "bitstream kiválasztva",
@@ -9675,7 +9675,7 @@
   "access-control-cancel": "Mégse",
 
   // "access-control-execute": "Execute",
-  "access-control-execute": "Végrehajt",
+  "access-control-execute": "Végrehajtás", // Eredeti: "Végrehajt" -> Javítva
 
   // "access-control-add-more": "Add more",
   "access-control-add-more": "Továbbiak hozzáadása",
@@ -9687,58 +9687,58 @@
   "access-control-select-bitstreams-modal.title": "Bitstreamek kiválasztása",
 
   // "access-control-select-bitstreams-modal.no-items": "No items to show.",
-  "access-control-select-bitstreams-modal.no-items": "Nincs megmutatható tétel.",
+  "access-control-select-bitstreams-modal.no-items": "Nincsenek megjeleníthető tételek.", // Eredeti: "Nincs megmutatható tétel." -> Javítva
 
   // "access-control-select-bitstreams-modal.close": "Close",
   "access-control-select-bitstreams-modal.close": "Bezárás",
 
   // "access-control-option-label": "Access condition type",
-  "access-control-option-label": "Hozzáférés szabályának típusa",
+  "access-control-option-label": "Hozzáférési feltétel típusa", // Eredeti: "Hozzáférés szabályának típusa" -> Javítva
 
   // "access-control-option-note": "Choose an access condition to apply to selected objects.",
-  "access-control-option-note": "Válasszon egy hozzáférési szabályt, amely alkalmazásra kerül a kiválasztott elemeken.",
+  "access-control-option-note": "Válasszon egy hozzáférési feltételt a kiválasztott objektumokra történő alkalmazáshoz.", // Eredeti: "Válasszon egy hozzáférési szabályt, amely alkalmazásra kerül a kiválasztott elemeken." -> Javítva
 
   // "access-control-option-start-date": "Grant access from",
-  "access-control-option-start-date": "Hozzáférés megadása innen",
+  "access-control-option-start-date": "Hozzáférés megadása ettől:", // Eredeti: "Hozzáférés megadása innen" -> Javítva
 
   // "access-control-option-start-date-note": "Select the date from which the related access condition is applied",
-  "access-control-option-start-date-note": "Válassza ki a dátumot, amelytől a vonatkozó hozzáférési szabály érvényes lesz",
+  "access-control-option-start-date-note": "Válassza ki a dátumot, amelytől a kapcsolódó hozzáférési feltétel alkalmazandó.", // Eredeti: "Válassza ki a dátumot, amelytől a vonatkozó hozzáférési szabály érvényes lesz" -> Javítva
 
   // "access-control-option-end-date": "Grant access until",
-  "access-control-option-end-date": "Hozzáférés megadása eddig",
+  "access-control-option-end-date": "Hozzáférés megadása eddig:", // Eredeti: "Hozzáférés megadása eddig" -> Javítva
 
   // "access-control-option-end-date-note": "Select the date until which the related access condition is applied",
-  "access-control-option-end-date-note": "Válassza ki a dátumot, ameddig a vonatkozó hozzáférési szabály érvényes lesz",
+  "access-control-option-end-date-note": "Válassza ki a dátumot, ameddig a kapcsolódó hozzáférési feltétel alkalmazandó.", // Eredeti: "Válassza ki a dátumot, ameddig a vonatkozó hozzáférési szabály érvényes lesz" -> Javítva
 
   // "vocabulary-treeview.search.form.add": "Add",
   "vocabulary-treeview.search.form.add": "Hozzáadás",
 
   // "admin.notifications.publicationclaim.breadcrumbs": "Publication Claim",
-  "admin.notifications.publicationclaim.breadcrumbs": "Publikáció igénylése",
+  "admin.notifications.publicationclaim.breadcrumbs": "Publikációigénylés", // Eredeti: "Publikáció igénylése" -> Javítva
 
   // "admin.notifications.publicationclaim.page.title": "Publication Claim",
-  "admin.notifications.publicationclaim.page.title": "Publikáció igénylése",
+  "admin.notifications.publicationclaim.page.title": "Publikációigénylés",
 
   // "coar-notify-support.title": "COAR Notify Protocol",
-  "coar-notify-support.title": "COAR értesítési protokoll",
+  "coar-notify-support.title": "COAR Értesítési Protokoll", // Eredeti: "COAR értesítési protokoll" -> Javítva
 
   // "coar-notify-support-title.content": "Here, we fully support the COAR Notify protocol, which is designed to enhance the communication between repositories. To learn more about the COAR Notify protocol, visit the <a href=\"https://notify.coar-repositories.org/\" rel=\"noopener noreferrer\">COAR Notify website</a>.",
-  "coar-notify-support-title.content": "Here, we fully support the COAR Notify protocol, which is designed to enhance the communication between repositories. To learn more about the COAR Notify protocol, visit the <a href=\"https://notify.coar-repositories.org/\" rel=\"noopener noreferrer\">COAR Notify website</a>.",
+  "coar-notify-support-title.content": "Teljes mértékben támogatjuk a COAR Értesítési Protokollt, amely a repozitóriumok közötti kommunikáció javítására szolgál.\nTovábbi információkért a COAR Értesítési Protokollról látogasson el a <a href=\"https://notify.coar-repositories.org/\" rel=\"noopener noreferrer\">COAR Notify weboldalra</a>.", // Eredeti: "Here, we fully support the COAR Notify protocol, which is designed to enhance the communication between repositories. To learn more about the COAR Notify protocol, visit the <a href=\"https://notify.coar-repositories.org/\" rel=\"noopener noreferrer\">COAR Notify website</a>." -> Javítva (Here eltávolítva)
 
   // "coar-notify-support.ldn-inbox.title": "LDN InBox",
-  "coar-notify-support.ldn-inbox.title": "LDN InBox",
+  "coar-notify-support.ldn-inbox.title": "LDN Bejövő Postafiók", // Eredeti: "LDN InBox" -> Javítva
 
   // "coar-notify-support.ldn-inbox.content": "For your convenience, our LDN (Linked Data Notifications) InBox is easily accessible at {{ ldnInboxUrl }}. The LDN InBox enables seamless communication and data exchange, ensuring efficient and effective collaboration.",
-  "coar-notify-support.ldn-inbox.content": "For your convenience, our LDN (Linked Data Notifications) InBox is easily accessible at {{ ldnInboxUrl }}. The LDN InBox enables seamless communication and data exchange, ensuring efficient and effective collaboration.",
+  "coar-notify-support.ldn-inbox.content": "Kényelme érdekében LDN (Linked Data Notifications) Bejövő Postafiókunk könnyen elérhető a(z) {{ ldnInboxUrl }} címen.\nAz LDN Bejövő Postafiók zökkenőmentes kommunikációt és adatcserét tesz lehetővé, biztosítva a hatékony és eredményes együttműködést.", // Eredeti: "For your convenience, our LDN (Linked Data Notifications) InBox is easily accessible at {{ ldnInboxUrl }}. The LDN InBox enables seamless communication and data exchange, ensuring efficient and effective collaboration." -> Javítva
 
   // "coar-notify-support.message-moderation.title": "Message Moderation",
   "coar-notify-support.message-moderation.title": "Üzenetmoderálás",
 
   // "coar-notify-support.message-moderation.content": "To ensure a secure and productive environment, all incoming LDN messages are moderated. If you are planning to exchange information with us, kindly reach out via our dedicated",
-  "coar-notify-support.message-moderation.content": "To ensure a secure and productive environment, all incoming LDN messages are moderated. If you are planning to exchange information with us, kindly reach out via our dedicated",
+  "coar-notify-support.message-moderation.content": "A biztonságos és produktív környezet biztosítása érdekében minden bejövő LDN üzenet moderálásra kerül.\nHa információcserét tervez velünk, kérjük, vegye fel velünk a kapcsolatot a dedikált", // Lefordítva
 
   // "coar-notify-support.message-moderation.feedback-form": " Feedback form.",
-  "coar-notify-support.message-moderation.feedback-form": " Visszajelzés űrlap.",
+  "coar-notify-support.message-moderation.feedback-form": " Visszajelzési űrlapon keresztül.", // Eredeti: " Visszajelzés űrlap." -> Javítva
 
   // "service.overview.delete.header": "Delete Service",
   "service.overview.delete.header": "Szolgáltatás törlése",
@@ -9759,13 +9759,13 @@
   "ldn-registered-services.new.breadcrumbs": "Regisztrált szolgáltatások",
 
   // "ldn-service.overview.table.enabled": "Enabled",
-  "ldn-service.overview.table.enabled": "Engedélyezett",
+  "ldn-service.overview.table.enabled": "Engedélyezve", // Eredeti: "Engedélyezett" -> Javítva
   // "ldn-service.overview.table.disabled": "Disabled",
-  "ldn-service.overview.table.disabled": "Tiltott",
+  "ldn-service.overview.table.disabled": "Letiltva", // Eredeti: "Tiltott" -> Javítva
   // "ldn-service.overview.table.clickToEnable": "Click to enable",
-  "ldn-service.overview.table.clickToEnable": "Kattinson az engedélyezéshez",
+  "ldn-service.overview.table.clickToEnable": "Kattintson az engedélyezéshez",
   // "ldn-service.overview.table.clickToDisable": "Click to disable",
-  "ldn-service.overview.table.clickToDisable": "Kattinson a tiltáshoz",
+  "ldn-service.overview.table.clickToDisable": "Kattintson a letiltáshoz",
 
   // "ldn-edit-registered-service.title": "Edit Service",
   "ldn-edit-registered-service.title": "Szolgáltatás szerkesztése",
@@ -9774,11 +9774,11 @@
   // "service.overview.create.modal": "Create Service",
   "service.overview.create.modal": "Szolgáltatás létrehozása",
   // "service.overview.create.body": "Please confirm the creation of this service.",
-  "service.overview.create.body": "Erősítse meg ennek a szolgáltatásnak a létrehozását.",
+  "service.overview.create.body": "Kérjük, erősítse meg ennek a szolgáltatásnak a létrehozását.",
   // "ldn-service-status": "Status",
   "ldn-service-status": "Állapot",
   // "service.confirm.create": "Create",
-  "service.confirm.create": "Létrehoz",
+  "service.confirm.create": "Létrehozás", // Eredeti: "Létrehoz" -> Javítva
   // "service.refuse.create": "Cancel",
   "service.refuse.create": "Mégse",
   // "ldn-register-new-service.title": "Register a new service",
@@ -9788,164 +9788,164 @@
   // "ldn-new-service.form.label.name": "Name",
   "ldn-new-service.form.label.name": "Név",
   // "ldn-new-service.form.label.description": "Description",
-  "ldn-new-service.form.label.description": "Description",
+  "ldn-new-service.form.label.description": "Leírás", // Lefordítva
   // "ldn-new-service.form.label.url": "Service URL",
-  "ldn-new-service.form.label.url": "Szolgáltatás URL",
+  "ldn-new-service.form.label.url": "Szolgáltatás URL-címe", // Eredeti: "Szolgáltatás URL" -> Javítva
   // "ldn-new-service.form.label.ip-range": "Service IP range",
-  "ldn-new-service.form.label.ip-range": "Szolgáltatás IP tartomány",
+  "ldn-new-service.form.label.ip-range": "Szolgáltatás IP-tartománya", // Eredeti: "Szolgáltatás IP tartomány" -> Javítva
   // "ldn-new-service.form.label.score": "Level of trust",
   "ldn-new-service.form.label.score": "Bizalmi szint",
   // "ldn-new-service.form.label.ldnUrl": "LDN Inbox URL",
-  "ldn-new-service.form.label.ldnUrl": "LDN Inbox URL",
+  "ldn-new-service.form.label.ldnUrl": "LDN Bejövő Postafiók URL-címe", // Eredeti: "LDN Inbox URL" -> Javítva
   // "ldn-new-service.form.placeholder.name": "Please provide service name",
-  "ldn-new-service.form.placeholder.name": "Kérem, adja meg a szolgáltatás nevét",
+  "ldn-new-service.form.placeholder.name": "Kérjük, adja meg a szolgáltatás nevét.",
   // "ldn-new-service.form.placeholder.description": "Please provide a description regarding your service",
-  "ldn-new-service.form.placeholder.description": "Kérem, adja meg a leírást szolgáltatáshoz",
+  "ldn-new-service.form.placeholder.description": "Kérjük, adjon leírást a szolgáltatásáról.", // Eredeti: "Kérem, adja meg a leírást szolgáltatáshoz" -> Javítva
   // "ldn-new-service.form.placeholder.url": "Please input the URL for users to check out more information about the service",
-  "ldn-new-service.form.placeholder.url": "Kérem, adja meg az URL-t a felhasználóknak a szolgáltatáshoz tartozó információk eléréséhez",
+  "ldn-new-service.form.placeholder.url": "Kérjük, adja meg az URL-t, ahol a felhasználók további információkat találhatnak a szolgáltatásról.",
   // "ldn-new-service.form.placeholder.lowerIp": "IPv4 range lower bound",
-  "ldn-new-service.form.placeholder.lowerIp": "IPv4 range lower bound",
+  "ldn-new-service.form.placeholder.lowerIp": "IPv4 tartomány alsó korlátja", // Eredeti: "IPv4 range lower bound" -> Javítva
   // "ldn-new-service.form.placeholder.upperIp": "IPv4 range upper bound",
-  "ldn-new-service.form.placeholder.upperIp": "IPv4 range upper bound",
+  "ldn-new-service.form.placeholder.upperIp": "IPv4 tartomány felső korlátja", // Eredeti: "IPv4 range upper bound" -> Javítva
   // "ldn-new-service.form.placeholder.ldnUrl": "Please specify the URL of the LDN Inbox",
-  "ldn-new-service.form.placeholder.ldnUrl": "Please specify the URL of the LDN Inbox",
+  "ldn-new-service.form.placeholder.ldnUrl": "Kérjük, adja meg az LDN Bejövő Postafiók URL-címét.", // Eredeti: "Please specify the URL of the LDN Inbox" -> Javítva
   // "ldn-new-service.form.placeholder.score": "Please enter a value between 0 and 1. Use the “.” as decimal separator",
-  "ldn-new-service.form.placeholder.score": "Please enter a value between 0 and 1. Use the “.” as decimal separator",
+  "ldn-new-service.form.placeholder.score": "Kérjük, adjon meg egy értéket 0 és 1 között. Tizedeselválasztóként „.” karaktert használjon.", // Eredeti: "Please enter a value between 0 and 1. Use the “.” as decimal separator" -> Javítva
   // "ldn-service.form.label.placeholder.default-select": "Select a pattern",
-  "ldn-service.form.label.placeholder.default-select": "Válasszon mintát",
+  "ldn-service.form.label.placeholder.default-select": "Válasszon egy mintát",
 
   // "ldn-service.form.pattern.ack-accept.label": "Acknowledge and Accept",
-  "ldn-service.form.pattern.ack-accept.label": "Acknowledge and Accept",
+  "ldn-service.form.pattern.ack-accept.label": "Tudomásulvétel és Elfogadás", // Lefordítva
   // "ldn-service.form.pattern.ack-accept.description": "This pattern is used to acknowledge and accept a request (offer). It implies an intention to act on the request.",
-  "ldn-service.form.pattern.ack-accept.description": "This pattern is used to acknowledge and accept a request (offer). It implies an intention to act on the request.",
+  "ldn-service.form.pattern.ack-accept.description": "Ez a minta egy kérés (ajánlat) tudomásulvételére és elfogadására szolgál. A kérésre vonatkozó cselekvési szándékot jelez.", // Lefordítva
   // "ldn-service.form.pattern.ack-accept.category": "Acknowledgements",
-  "ldn-service.form.pattern.ack-accept.category": "Acknowledgements",
+  "ldn-service.form.pattern.ack-accept.category": "Tudomásulvételek", // Lefordítva
 
   // "ldn-service.form.pattern.ack-reject.label": "Acknowledge and Reject",
-  "ldn-service.form.pattern.ack-reject.label": "Acknowledge and Reject",
+  "ldn-service.form.pattern.ack-reject.label": "Tudomásulvétel és Elutasítás", // Lefordítva
   // "ldn-service.form.pattern.ack-reject.description": "This pattern is used to acknowledge and reject a request (offer). It signifies no further action regarding the request.",
-  "ldn-service.form.pattern.ack-reject.description": "This pattern is used to acknowledge and reject a request (offer). It signifies no further action regarding the request.",
+  "ldn-service.form.pattern.ack-reject.description": "Ez a minta egy kérés (ajánlat) tudomásulvételére és elutasítására szolgál. Ez azt jelenti, hogy a kéréssel kapcsolatban nincs további teendő.", // Lefordítva
   // "ldn-service.form.pattern.ack-reject.category": "Acknowledgements",
-  "ldn-service.form.pattern.ack-reject.category": "Acknowledgements",
+  "ldn-service.form.pattern.ack-reject.category": "Tudomásulvételek",
 
   // "ldn-service.form.pattern.ack-tentative-accept.label": "Acknowledge and Tentatively Accept",
-  "ldn-service.form.pattern.ack-tentative-accept.label": "Acknowledge and Tentatively Accept",
+  "ldn-service.form.pattern.ack-tentative-accept.label": "Tudomásulvétel és Ideiglenes Elfogadás", // Lefordítva
   // "ldn-service.form.pattern.ack-tentative-accept.description": "This pattern is used to acknowledge and tentatively accept a request (offer). It implies an intention to act, which may change.",
-  "ldn-service.form.pattern.ack-tentative-accept.description": "This pattern is used to acknowledge and tentatively accept a request (offer). It implies an intention to act, which may change.",
+  "ldn-service.form.pattern.ack-tentative-accept.description": "Ez a minta egy kérés (ajánlat) tudomásulvételére és ideiglenes elfogadására szolgál. Ez cselekvési szándékot jelent, amely változhat.", // Lefordítva
   // "ldn-service.form.pattern.ack-tentative-accept.category": "Acknowledgements",
-  "ldn-service.form.pattern.ack-tentative-accept.category": "Acknowledgements",
+  "ldn-service.form.pattern.ack-tentative-accept.category": "Tudomásulvételek",
 
   // "ldn-service.form.pattern.ack-tentative-reject.label": "Acknowledge and Tentatively Reject",
-  "ldn-service.form.pattern.ack-tentative-reject.label": "Acknowledge and Tentatively Reject",
+  "ldn-service.form.pattern.ack-tentative-reject.label": "Tudomásulvétel és Ideiglenes Elutasítás", // Lefordítva
   // "ldn-service.form.pattern.ack-tentative-reject.description": "This pattern is used to acknowledge and tentatively reject a request (offer). It signifies no further action, subject to change.",
-  "ldn-service.form.pattern.ack-tentative-reject.description": "This pattern is used to acknowledge and tentatively reject a request (offer). It signifies no further action, subject to change.",
+  "ldn-service.form.pattern.ack-tentative-reject.description": "Ez a minta egy kérés (ajánlat) tudomásulvételére és ideiglenes elutasítására szolgál. Ez azt jelenti, hogy nincs további teendő, de ez változhat.", // Lefordítva
   // "ldn-service.form.pattern.ack-tentative-reject.category": "Acknowledgements",
-  "ldn-service.form.pattern.ack-tentative-reject.category": "Acknowledgements",
+  "ldn-service.form.pattern.ack-tentative-reject.category": "Tudomásulvételek",
 
   // "ldn-service.form.pattern.announce-endorsement.label": "Announce Endorsement",
-  "ldn-service.form.pattern.announce-endorsement.label": "Announce Endorsement",
+  "ldn-service.form.pattern.announce-endorsement.label": "Támogatás Bejelentése", // Lefordítva
   // "ldn-service.form.pattern.announce-endorsement.description": "This pattern is used to announce the existence of an endorsement, referencing the endorsed resource.",
-  "ldn-service.form.pattern.announce-endorsement.description": "This pattern is used to announce the existence of an endorsement, referencing the endorsed resource.",
+  "ldn-service.form.pattern.announce-endorsement.description": "Ez a minta egy támogatás létezésének bejelentésére szolgál, hivatkozva a támogatott erőforrásra.", // Lefordítva
   // "ldn-service.form.pattern.announce-endorsement.category": "Announcements",
-  "ldn-service.form.pattern.announce-endorsement.category": "Announcements",
+  "ldn-service.form.pattern.announce-endorsement.category": "Bejelentések", // Lefordítva
 
   // "ldn-service.form.pattern.announce-ingest.label": "Announce Ingest",
-  "ldn-service.form.pattern.announce-ingest.label": "Announce Ingest",
+  "ldn-service.form.pattern.announce-ingest.label": "Befogadás Bejelentése", // Lefordítva
   // "ldn-service.form.pattern.announce-ingest.description": "This pattern is used to announce that a resource has been ingested.",
-  "ldn-service.form.pattern.announce-ingest.description": "This pattern is used to announce that a resource has been ingested.",
+  "ldn-service.form.pattern.announce-ingest.description": "Ez a minta annak bejelentésére szolgál, hogy egy erőforrás befogadásra került.", // Lefordítva
   // "ldn-service.form.pattern.announce-ingest.category": "Announcements",
-  "ldn-service.form.pattern.announce-ingest.category": "Announcements",
+  "ldn-service.form.pattern.announce-ingest.category": "Bejelentések",
 
   // "ldn-service.form.pattern.announce-relationship.label": "Announce Relationship",
-  "ldn-service.form.pattern.announce-relationship.label": "Announce Relationship",
+  "ldn-service.form.pattern.announce-relationship.label": "Kapcsolat Bejelentése", // Lefordítva
   // "ldn-service.form.pattern.announce-relationship.description": "This pattern is used to announce a relationship between two resources.",
-  "ldn-service.form.pattern.announce-relationship.description": "This pattern is used to announce a relationship between two resources.",
+  "ldn-service.form.pattern.announce-relationship.description": "Ez a minta két erőforrás közötti kapcsolat bejelentésére szolgál.", // Lefordítva
   // "ldn-service.form.pattern.announce-relationship.category": "Announcements",
-  "ldn-service.form.pattern.announce-relationship.category": "Announcements",
+  "ldn-service.form.pattern.announce-relationship.category": "Bejelentések",
 
   // "ldn-service.form.pattern.announce-review.label": "Announce Review",
-  "ldn-service.form.pattern.announce-review.label": "Announce Review",
+  "ldn-service.form.pattern.announce-review.label": "Bírálat Bejelentése", // Lefordítva
   // "ldn-service.form.pattern.announce-review.description": "This pattern is used to announce the existence of a review, referencing the reviewed resource.",
-  "ldn-service.form.pattern.announce-review.description": "This pattern is used to announce the existence of a review, referencing the reviewed resource.",
+  "ldn-service.form.pattern.announce-review.description": "Ez a minta egy bírálat létezésének bejelentésére szolgál, hivatkozva a bírált erőforrásra.", // Lefordítva
   // "ldn-service.form.pattern.announce-review.category": "Announcements",
-  "ldn-service.form.pattern.announce-review.category": "Announcements",
+  "ldn-service.form.pattern.announce-review.category": "Bejelentések",
 
   // "ldn-service.form.pattern.announce-service-result.label": "Announce Service Result",
-  "ldn-service.form.pattern.announce-service-result.label": "Announce Service Result",
+  "ldn-service.form.pattern.announce-service-result.label": "Szolgáltatási Eredmény Bejelentése", // Lefordítva
   // "ldn-service.form.pattern.announce-service-result.description": "This pattern is used to announce the existence of a 'service result', referencing the relevant resource.",
-  "ldn-service.form.pattern.announce-service-result.description": "This pattern is used to announce the existence of a 'service result', referencing the relevant resource.",
+  "ldn-service.form.pattern.announce-service-result.description": "Ez a minta egy 'szolgáltatási eredmény' létezésének bejelentésére szolgál, hivatkozva a releváns erőforrásra.", // Lefordítva
   // "ldn-service.form.pattern.announce-service-result.category": "Announcements",
-  "ldn-service.form.pattern.announce-service-result.category": "Announcements",
+  "ldn-service.form.pattern.announce-service-result.category": "Bejelentések",
 
   // "ldn-service.form.pattern.request-endorsement.label": "Request Endorsement",
-  "ldn-service.form.pattern.request-endorsement.label": "Request Endorsement",
+  "ldn-service.form.pattern.request-endorsement.label": "Támogatás Kérése", // Lefordítva
   // "ldn-service.form.pattern.request-endorsement.description": "This pattern is used to request endorsement of a resource owned by the origin system.",
-  "ldn-service.form.pattern.request-endorsement.description": "This pattern is used to request endorsement of a resource owned by the origin system.",
+  "ldn-service.form.pattern.request-endorsement.description": "Ez a minta a kiindulási rendszer tulajdonában lévő erőforrás támogatásának kérésére szolgál.", // Lefordítva
   // "ldn-service.form.pattern.request-endorsement.category": "Requests",
-  "ldn-service.form.pattern.request-endorsement.category": "Requests",
+  "ldn-service.form.pattern.request-endorsement.category": "Kérések", // Lefordítva
 
   // "ldn-service.form.pattern.request-ingest.label": "Request Ingest",
-  "ldn-service.form.pattern.request-ingest.label": "Request Ingest",
+  "ldn-service.form.pattern.request-ingest.label": "Befogadás Kérése", // Lefordítva
   // "ldn-service.form.pattern.request-ingest.description": "This pattern is used to request that the target system ingest a resource.",
-  "ldn-service.form.pattern.request-ingest.description": "This pattern is used to request that the target system ingest a resource.",
+  "ldn-service.form.pattern.request-ingest.description": "Ez a minta annak kérésére szolgál, hogy a célrendszer fogadjon be egy erőforrást.", // Lefordítva
   // "ldn-service.form.pattern.request-ingest.category": "Requests",
-  "ldn-service.form.pattern.request-ingest.category": "Requests",
+  "ldn-service.form.pattern.request-ingest.category": "Kérések",
 
   // "ldn-service.form.pattern.request-review.label": "Request Review",
-  "ldn-service.form.pattern.request-review.label": "Request Review",
+  "ldn-service.form.pattern.request-review.label": "Bírálat Kérése", // Lefordítva
   // "ldn-service.form.pattern.request-review.description": "This pattern is used to request a review of a resource owned by the origin system.",
-  "ldn-service.form.pattern.request-review.description": "This pattern is used to request a review of a resource owned by the origin system.",
+  "ldn-service.form.pattern.request-review.description": "Ez a minta a kiindulási rendszer tulajdonában lévő erőforrás bírálatának kérésére szolgál.", // Lefordítva
   // "ldn-service.form.pattern.request-review.category": "Requests",
-  "ldn-service.form.pattern.request-review.category": "Requests",
+  "ldn-service.form.pattern.request-review.category": "Kérések",
 
   // "ldn-service.form.pattern.undo-offer.label": "Undo Offer",
-  "ldn-service.form.pattern.undo-offer.label": "Undo Offer",
+  "ldn-service.form.pattern.undo-offer.label": "Ajánlat Visszavonása", // Lefordítva
   // "ldn-service.form.pattern.undo-offer.description": "This pattern is used to undo (retract) an offer previously made.",
-  "ldn-service.form.pattern.undo-offer.description": "This pattern is used to undo (retract) an offer previously made.",
+  "ldn-service.form.pattern.undo-offer.description": "Ez a minta egy korábban tett ajánlat visszavonására szolgál.", // Eredeti: "Ez a minta egy korábban tett ajánlat visszavonására (visszavonására) szolgál." -> Javítva
   // "ldn-service.form.pattern.undo-offer.category": "Undo",
-  "ldn-service.form.pattern.undo-offer.category": "Undo",
+  "ldn-service.form.pattern.undo-offer.category": "Visszavonás", // Lefordítva
 
   // "ldn-new-service.form.label.placeholder.selectedItemFilter": "No Item Filter Selected",
-  "ldn-new-service.form.label.placeholder.selectedItemFilter": "No Item Filter Selected",
+  "ldn-new-service.form.label.placeholder.selectedItemFilter": "Nincs tételszűrő kiválasztva", // Lefordítva
   // "ldn-new-service.form.label.ItemFilter": "Item Filter",
-  "ldn-new-service.form.label.ItemFilter": "Item Filter",
+  "ldn-new-service.form.label.ItemFilter": "Tételszűrő", // Lefordítva
   // "ldn-new-service.form.label.automatic": "Automatic",
-  "ldn-new-service.form.label.automatic": "Automatic",
+  "ldn-new-service.form.label.automatic": "Automatikus",
   // "ldn-new-service.form.error.name": "Name is required",
-  "ldn-new-service.form.error.name": "Name is required",
+  "ldn-new-service.form.error.name": "A név megadása kötelező.", // Lefordítva
   // "ldn-new-service.form.error.url": "URL is required",
-  "ldn-new-service.form.error.url": "URL is required",
+  "ldn-new-service.form.error.url": "Az URL megadása kötelező.", // Lefordítva
   // "ldn-new-service.form.error.ipRange": "Please enter a valid IP range",
-  "ldn-new-service.form.error.ipRange": "Please enter a valid IP range",
+  "ldn-new-service.form.error.ipRange": "Kérjük, érvényes IP-tartományt adjon meg.", // Lefordítva
   // "ldn-new-service.form.hint.ipRange": "Please enter a valid IpV4 in both range bounds (note: for single IP, please enter the same value in both fields)",
-  "ldn-new-service.form.hint.ipRange": "Please enter a valid IpV4 in both range bounds (note: for single IP, please enter the same value in both fields)",
+  "ldn-new-service.form.hint.ipRange": "Kérjük, adjon meg érvényes IPv4 címet mindkét tartományhatárhoz (megjegyzés: egyetlen IP-cím esetén mindkét mezőbe ugyanazt az értéket írja).", // Lefordítva
   // "ldn-new-service.form.error.ldnurl": "LDN URL is required",
-  "ldn-new-service.form.error.ldnurl": "LDN URL is required",
+  "ldn-new-service.form.error.ldnurl": "Az LDN URL megadása kötelező.", // Lefordítva
   // "ldn-new-service.form.error.patterns": "At least a pattern is required",
-  "ldn-new-service.form.error.patterns": "At least a pattern is required",
+  "ldn-new-service.form.error.patterns": "Legalább egy minta megadása kötelező.", // Lefordítva
   // "ldn-new-service.form.error.score": "Please enter a valid score (between 0 and 1). Use the “.” as decimal separator",
-  "ldn-new-service.form.error.score": "Please enter a valid score (between 0 and 1). Use the “.” as decimal separator",
+  "ldn-new-service.form.error.score": "Kérjük, érvényes pontszámot adjon meg (0 és 1 között). Tizedeselválasztóként „.” karaktert használjon.", // Lefordítva
 
   // "ldn-new-service.form.label.inboundPattern": "Supported Pattern",
-  "ldn-new-service.form.label.inboundPattern": "Inbound Pattern",
+  "ldn-new-service.form.label.inboundPattern": "Támogatott minta (bejövő)", // Eredeti: "Inbound Pattern" -> Javítva
   // "ldn-new-service.form.label.addPattern": "+ Add more",
-  "ldn-new-service.form.label.addPattern": "+ Add more",
+  "ldn-new-service.form.label.addPattern": "+ Továbbiak hozzáadása",
   // "ldn-new-service.form.label.removeItemFilter": "Remove",
-  "ldn-new-service.form.label.removeItemFilter": "Remove",
+  "ldn-new-service.form.label.removeItemFilter": "Eltávolítás",
   // "ldn-register-new-service.breadcrumbs": "New Service",
-  "ldn-register-new-service.breadcrumbs": "New Service",
+  "ldn-register-new-service.breadcrumbs": "Új szolgáltatás", // Eredeti: "New Service" -> Javítva
   // "service.overview.delete.body": "Are you sure you want to delete this service?",
-  "service.overview.delete.body": "Are you sure you want to delete this service?",
+  "service.overview.delete.body": "Biztosan törölni szeretné ezt a szolgáltatást?", // Lefordítva
   // "service.overview.edit.body": "Do you confirm the changes?",
-  "service.overview.edit.body": "Do you confirm the changes?",
+  "service.overview.edit.body": "Megerősíti a változtatásokat?", // Lefordítva
   // "service.overview.edit.modal": "Edit Service",
-  "service.overview.edit.modal": "Edit Service",
+  "service.overview.edit.modal": "Szolgáltatás szerkesztése", // Lefordítva
   // "service.detail.update": "Confirm",
-  "service.detail.update": "Megerősít",
+  "service.detail.update": "Megerősítés",
   // "service.detail.return": "Cancel",
   "service.detail.return": "Mégse",
   // "service.overview.reset-form.body": "Are you sure you want to discard the changes and leave?",
-  "service.overview.reset-form.body": "Are you sure you want to discard the changes and leave?",
+  "service.overview.reset-form.body": "Biztosan elveti a változtatásokat és kilép?", // Eredeti: "Biztosan elveti a változtatásokat és távozik?" -> Javítva
   // "service.overview.reset-form.modal": "Discard Changes",
   "service.overview.reset-form.modal": "Változtatások elvetése",
   // "service.overview.reset-form.reset-confirm": "Discard",
@@ -9953,33 +9953,33 @@
   // "admin.registries.services-formats.modify.success.head": "Successful Edit",
   "admin.registries.services-formats.modify.success.head": "Sikeres szerkesztés",
   // "admin.registries.services-formats.modify.success.content": "The service has been edited",
-  "admin.registries.services-formats.modify.success.content": "A szolgáltatás szerkesztve lett",
+  "admin.registries.services-formats.modify.success.content": "A szolgáltatás szerkesztve lett.",
   // "admin.registries.services-formats.modify.failure.head": "Failed Edit",
   "admin.registries.services-formats.modify.failure.head": "Sikertelen szerkesztés",
   // "admin.registries.services-formats.modify.failure.content": "The service has not been edited",
-  "admin.registries.services-formats.modify.failure.content": "A szolgáltatás nem lett szerkesztve",
+  "admin.registries.services-formats.modify.failure.content": "A szolgáltatás nem lett szerkesztve.",
   // "ldn-service-notification.created.success.title": "Successful Create",
   "ldn-service-notification.created.success.title": "Sikeres létrehozás",
   // "ldn-service-notification.created.success.body": "The service has been created",
-  "ldn-service-notification.created.success.body": "A szolgáltatás létre lett hozva",
+  "ldn-service-notification.created.success.body": "A szolgáltatás létre lett hozva.",
   // "ldn-service-notification.created.failure.title": "Failed Create",
   "ldn-service-notification.created.failure.title": "Sikertelen létrehozás",
   // "ldn-service-notification.created.failure.body": "The service has not been created",
-  "ldn-service-notification.created.failure.body": "A szolgáltatás nem lett létrehozva",
+  "ldn-service-notification.created.failure.body": "A szolgáltatás nem lett létrehozva.",
   // "ldn-service-notification.created.warning.title": "Please select at least one Inbound Pattern",
-  "ldn-service-notification.created.warning.title": "Please select at least one Inbound Pattern",
+  "ldn-service-notification.created.warning.title": "Kérjük, válasszon ki legalább egy bejövő mintát.", // Lefordítva
   // "ldn-enable-service.notification.success.title": "Successful status updated",
-  "ldn-enable-service.notification.success.title": "Successful status updated",
+  "ldn-enable-service.notification.success.title": "Az állapot sikeresen frissítve.", // Lefordítva
   // "ldn-enable-service.notification.success.content": "The service status has been updated",
-  "ldn-enable-service.notification.success.content": "The service status has been updated",
+  "ldn-enable-service.notification.success.content": "A szolgáltatás állapota frissítve lett.", // Lefordítva
   // "ldn-service-delete.notification.success.title": "Successful Deletion",
-  "ldn-service-delete.notification.success.title": "Successful Deletion",
+  "ldn-service-delete.notification.success.title": "Sikeres törlés.", // Lefordítva
   // "ldn-service-delete.notification.success.content": "The service has been deleted",
-  "ldn-service-delete.notification.success.content": "The service has been deleted",
+  "ldn-service-delete.notification.success.content": "A szolgáltatás törölve lett.", // Lefordítva
   // "ldn-service-delete.notification.error.title": "Failed Deletion",
-  "ldn-service-delete.notification.error.title": "Failed Deletion",
+  "ldn-service-delete.notification.error.title": "Sikertelen törlés.", // Lefordítva
   // "ldn-service-delete.notification.error.content": "The service has not been deleted",
-  "ldn-service-delete.notification.error.content": "The service has not been deleted",
+  "ldn-service-delete.notification.error.content": "A szolgáltatás nem lett törölve.", // Lefordítva
   // "service.overview.reset-form.reset-return": "Cancel",
   "service.overview.reset-form.reset-return": "Mégse",
   // "service.overview.delete": "Delete service",
@@ -9991,709 +9991,708 @@
   // "ldn-edit-service.form.label.description": "Description",
   "ldn-edit-service.form.label.description": "Leírás",
   // "ldn-edit-service.form.label.url": "Service URL",
-  "ldn-edit-service.form.label.url": "Szolgáltatás URL",
+  "ldn-edit-service.form.label.url": "Szolgáltatás URL-címe", // Eredeti: "Szolgáltatás URL" -> Javítva
   // "ldn-edit-service.form.label.ldnUrl": "LDN Inbox URL",
-  "ldn-edit-service.form.label.ldnUrl": "LDN Inbox URL",
+  "ldn-edit-service.form.label.ldnUrl": "LDN Bejövő Postafiók URL-címe", // Eredeti: "LDN Inbox URL" -> Javítva
   // "ldn-edit-service.form.label.inboundPattern": "Inbound Pattern",
-  "ldn-edit-service.form.label.inboundPattern": "Inbound Pattern",
+  "ldn-edit-service.form.label.inboundPattern": "Bejövő minta", // Lefordítva
   // "ldn-edit-service.form.label.noInboundPatternSelected": "No Inbound Pattern",
-  "ldn-edit-service.form.label.noInboundPatternSelected": "No Inbound Pattern",
+  "ldn-edit-service.form.label.noInboundPatternSelected": "Nincs bejövő minta", // Lefordítva
   // "ldn-edit-service.form.label.selectedItemFilter": "Selected Item Filter",
-  "ldn-edit-service.form.label.selectedItemFilter": "Selected Item Filter",
+  "ldn-edit-service.form.label.selectedItemFilter": "Kiválasztott tételszűrő", // Lefordítva
   // "ldn-edit-service.form.label.selectItemFilter": "No Item Filter",
-  "ldn-edit-service.form.label.selectItemFilter": "No Item Filter",
+  "ldn-edit-service.form.label.selectItemFilter": "Nincs tételszűrő", // Lefordítva
   // "ldn-edit-service.form.label.automatic": "Automatic",
-  "ldn-edit-service.form.label.automatic": "Automatic",
+  "ldn-edit-service.form.label.automatic": "Automatikus",
   // "ldn-edit-service.form.label.addInboundPattern": "+ Add more",
-  "ldn-edit-service.form.label.addInboundPattern": "+ Add more",
+  "ldn-edit-service.form.label.addInboundPattern": "+ Továbbiak hozzáadása",
   // "ldn-edit-service.form.label.submit": "Save",
   "ldn-edit-service.form.label.submit": "Mentés",
   // "ldn-edit-service.breadcrumbs": "Edit Service",
-  "ldn-edit-service.breadcrumbs": "Edit Service",
+  "ldn-edit-service.breadcrumbs": "Szolgáltatás szerkesztése", // Eredeti: "Edit Service" -> Javítva
   // "ldn-service.control-constaint-select-none": "Select none",
-  "ldn-service.control-constaint-select-none": "Select none",
+  "ldn-service.control-constaint-select-none": "Egyiket sem választja", // Lefordítva
 
   // "ldn-register-new-service.notification.error.title": "Error",
-  "ldn-register-new-service.notification.error.title": "Error",
+  "ldn-register-new-service.notification.error.title": "Hiba", // Lefordítva
   // "ldn-register-new-service.notification.error.content": "An error occurred while creating this process",
-  "ldn-register-new-service.notification.error.content": "An error occurred while creating this process",
+  "ldn-register-new-service.notification.error.content": "Hiba történt a folyamat létrehozásakor.", // Lefordítva
   // "ldn-register-new-service.notification.success.title": "Success",
-  "ldn-register-new-service.notification.success.title": "Success",
+  "ldn-register-new-service.notification.success.title": "Siker", // Lefordítva
   // "ldn-register-new-service.notification.success.content": "The process was successfully created",
-  "ldn-register-new-service.notification.success.content": "The process was successfully created",
+  "ldn-register-new-service.notification.success.content": "A folyamat sikeresen létrehozva.", // Lefordítva
 
   // "submission.sections.notify.info": "The selected service is compatible with the item according to its current status. {{ service.name }}: {{ service.description }}",
-  "submission.sections.notify.info": "The selected service is compatible with the item according to its current status. {{ service.name }}: {{ service.description }}",
+  "submission.sections.notify.info": "A kiválasztott szolgáltatás kompatibilis a tétellel annak jelenlegi állapota szerint. {{ service.name }}: {{ service.description }}", // Lefordítva
 
   // "item.page.endorsement": "Endorsement",
-  "item.page.endorsement": "Jóváhagyás",
+  "item.page.endorsement": "Támogatás", // Eredeti: "Jóváhagyás" -> Javítva
 
   // "item.page.places": "Related places",
   // TODO New key - Add a translation
-  "item.page.places": "Related places",
+  "item.page.places": "Kapcsolódó helyek", // Lefordítva
 
   // "item.page.review": "Review",
-  "item.page.review": "Review",
+  "item.page.review": "Bírálat", // Eredeti: "Review" -> Javítva
 
   // "item.page.referenced": "Referenced By",
-  "item.page.referenced": "Hivatkozó",
+  "item.page.referenced": "Hivatkozik rá", // Eredeti: "Hivatkozó" -> Javítva
 
   // "item.page.supplemented": "Supplemented By",
   "item.page.supplemented": "Kiegészítve általa",
 
   // "menu.section.icon.ldn_services": "LDN Services overview",
-  "menu.section.icon.ldn_services": "LDN Services overview",
+  "menu.section.icon.ldn_services": "LDN Szolgáltatások áttekintése", // Lefordítva
 
   // "menu.section.services": "LDN Services",
-  "menu.section.services": "LDN Services",
+  "menu.section.services": "LDN Szolgáltatások", // Lefordítva
 
   // "menu.section.services_new": "LDN Service",
-  "menu.section.services_new": "LDN Service",
+  "menu.section.services_new": "LDN Szolgáltatás", // Lefordítva
 
   // "quality-assurance.topics.description-with-target": "Below you can see all the topics received from the subscriptions to {{source}} in regards to the",
-  "quality-assurance.topics.description-with-target": "Below you can see all the topics received from the subscriptions to {{source}} in regards to the",
+  "quality-assurance.topics.description-with-target": "Alább láthatja az összes témakört, amelyet a(z) {{source}} feliratkozásai alapján kapott, a következővel kapcsolatban:", // Lefordítva
   // "quality-assurance.events.description": "Below the list of all the suggestions for the selected topic <b>{{topic}}</b>, related to <b>{{source}}</b>.",
-  "quality-assurance.events.description": "Below the list of all the suggestions for the selected topic <b>{{topic}}</b>, related to <b>{{source}}</b>.",
+  "quality-assurance.events.description": "Alább található a kiválasztott <b>{{topic}}</b> témakörhöz kapcsolódó összes javaslat listája, amely a(z) <b>{{source}}</b> forrásból származik.",
 
   // "quality-assurance.events.description-with-topic-and-target": "Below the list of all the suggestions for the selected topic <b>{{topic}}</b>, related to <b>{{source}}</b> and ",
-  "quality-assurance.events.description-with-topic-and-target": "Below the list of all the suggestions for the selected topic <b>{{topic}}</b>, related to <b>{{source}}</b> and ",
+  "quality-assurance.events.description-with-topic-and-target": "Alább található a kiválasztott <b>{{topic}}</b> témakörhöz kapcsolódó összes javaslat listája, amely a(z) <b>{{source}}</b> forrásból származik és kapcsolódik ",
 
   // "quality-assurance.event.table.event.message.serviceUrl": "Actor:",
-  "quality-assurance.event.table.event.message.serviceUrl": "Szolgáltatás:",
+  "quality-assurance.event.table.event.message.serviceUrl": "Szereplő:", // Eredeti: "Szolgáltatás:" -> Javítva (Actor)
 
   // "quality-assurance.event.table.event.message.link": "Link:",
-  "quality-assurance.event.table.event.message.link": "Link:",
+  "quality-assurance.event.table.event.message.link": "Hivatkozás:", // Eredeti: "Link:" -> Javítva
 
   // "service.detail.delete.cancel": "Cancel",
   "service.detail.delete.cancel": "Mégse",
 
   // "service.detail.delete.button": "Delete service",
-  "service.detail.delete.button": "Delete service",
+  "service.detail.delete.button": "Szolgáltatás törlése", // Lefordítva
 
   // "service.detail.delete.header": "Delete service",
-  "service.detail.delete.header": "Delete service",
+  "service.detail.delete.header": "Szolgáltatás törlése", // Lefordítva
 
   // "service.detail.delete.body": "Are you sure you want to delete the current service?",
-  "service.detail.delete.body": "Are you sure you want to delete the current service?",
+  "service.detail.delete.body": "Biztosan törölni szeretné a jelenlegi szolgáltatást?", // Lefordítva
 
   // "service.detail.delete.confirm": "Delete service",
-  "service.detail.delete.confirm": "Delete service",
+  "service.detail.delete.confirm": "Szolgáltatás törlése", // Lefordítva
 
   // "service.detail.delete.success": "The service was successfully deleted.",
-  "service.detail.delete.success": "The service was successfully deleted.",
+  "service.detail.delete.success": "A szolgáltatás sikeresen törölve.", // Lefordítva
 
   // "service.detail.delete.error": "Something went wrong when deleting the service",
-  "service.detail.delete.error": "Something went wrong when deleting the service",
+  "service.detail.delete.error": "Hiba történt a szolgáltatás törlésekor.", // Lefordítva
 
   // "service.overview.table.id": "Services ID",
-  "service.overview.table.id": "Services ID",
+  "service.overview.table.id": "Szolgáltatásazonosító", // Eredeti: "Services ID" -> Javítva
 
   // "service.overview.table.name": "Name",
   "service.overview.table.name": "Név",
 
   // "service.overview.table.start": "Start time (UTC)",
-  "service.overview.table.start": "Indítás dátuma (UTC)",
+  "service.overview.table.start": "Kezdési idő (UTC)", // Eredeti: "Indítás dátuma (UTC)" -> Javítva
 
   // "service.overview.table.status": "Status",
   "service.overview.table.status": "Állapot",
 
   // "service.overview.table.user": "User",
-  "service.overview.table.user": "User",
+  "service.overview.table.user": "Felhasználó", // Lefordítva
 
   // "service.overview.title": "Services Overview",
-  "service.overview.title": "Services Overview",
+  "service.overview.title": "Szolgáltatások áttekintése", // Lefordítva
 
   // "service.overview.breadcrumbs": "Services Overview",
-  "service.overview.breadcrumbs": "Services Overview",
+  "service.overview.breadcrumbs": "Szolgáltatások áttekintése", // Lefordítva
 
   // "service.overview.table.actions": "Actions",
   "service.overview.table.actions": "Műveletek",
 
   // "service.overview.table.description": "Description",
-  "service.overview.table.description": "Description",
+  "service.overview.table.description": "Leírás", // Lefordítva
 
   // "submission.sections.submit.progressbar.coarnotify": "COAR Notify",
-  "submission.sections.submit.progressbar.coarnotify": "COAR Notify",
+  "submission.sections.submit.progressbar.coarnotify": "COAR Értesítés", // Eredeti: "COAR Notify" -> Javítva
 
   // "submission.section.section-coar-notify.control.request-review.label": "You can request a review to one of the following services",
-  "submission.section.section-coar-notify.control.request-review.label": "You can request a review to one of the following services",
+  "submission.section.section-coar-notify.control.request-review.label": "Bírálatot kérhet az alábbi szolgáltatások egyikétől:", // Lefordítva
 
   // "submission.section.section-coar-notify.control.request-endorsement.label": "You can request an Endorsement to one of the following overlay journals",
-  "submission.section.section-coar-notify.control.request-endorsement.label": "You can request an Endorsement to one of the following overlay journals",
+  "submission.section.section-coar-notify.control.request-endorsement.label": "Támogatást kérhet az alábbi overlay folyóiratok egyikétől:", // Lefordítva
 
   // "submission.section.section-coar-notify.control.request-ingest.label": "You can request to ingest a copy of your submission to one of the following services",
-  "submission.section.section-coar-notify.control.request-ingest.label": "You can request to ingest a copy of your submission to one of the following services",
+  "submission.section.section-coar-notify.control.request-ingest.label": "Kérheti beküldésének másolatának befogadását az alábbi szolgáltatások egyikébe:", // Lefordítva
 
   // "submission.section.section-coar-notify.dropdown.no-data": "No data available",
-  "submission.section.section-coar-notify.dropdown.no-data": "No data available",
+  "submission.section.section-coar-notify.dropdown.no-data": "Nincs elérhető adat.", // Lefordítva
 
   // "submission.section.section-coar-notify.dropdown.select-none": "Select none",
-  "submission.section.section-coar-notify.dropdown.select-none": "Select none",
+  "submission.section.section-coar-notify.dropdown.select-none": "Egyiket sem választja", // Eredeti: "Select none" -> Javítva
 
   // "submission.section.section-coar-notify.small.notification": "Select a service for {{ pattern }} of this item",
-  "submission.section.section-coar-notify.small.notification": "Select a service for {{ pattern }} of this item",
+  "submission.section.section-coar-notify.small.notification": "Válasszon szolgáltatást a(z) {{ pattern }} művelethez ennél a tételnél.", // Lefordítva
 
   // "submission.section.section-coar-notify.selection.description": "Selected service's description:",
-  "submission.section.section-coar-notify.selection.description": "Selected service's description:",
+  "submission.section.section-coar-notify.selection.description": "Kiválasztott szolgáltatás leírása:",
 
   // "submission.section.section-coar-notify.selection.no-description": "No further information is available",
-  "submission.section.section-coar-notify.selection.no-description": "No further information is available",
+  "submission.section.section-coar-notify.selection.no-description": "Nincs további információ.", // Lefordítva
 
   // "submission.section.section-coar-notify.notification.error": "The selected service is not suitable for the current item. Please check the description for details about which record can be managed by this service.",
-  "submission.section.section-coar-notify.notification.error": "The selected service is not suitable for the current item. Please check the description for details about which record can be managed by this service.",
+  "submission.section.section-coar-notify.notification.error": "A kiválasztott szolgáltatás nem megfelelő a jelenlegi tételhez.\nKérjük, ellenőrizze a leírást a részletekért, hogy melyik rekordot kezeli ez a szolgáltatás.", // Lefordítva
 
   // "submission.section.section-coar-notify.info.no-pattern": "No configurable patterns found.",
-  "submission.section.section-coar-notify.info.no-pattern": "No configurable patterns found.",
+  "submission.section.section-coar-notify.info.no-pattern": "Nem található konfigurálható minta.", // Lefordítva
 
   // "error.validation.coarnotify.invalidfilter": "Invalid filter, try to select another service or none.",
-  "error.validation.coarnotify.invalidfilter": "Invalid filter, try to select another service or none.",
+  "error.validation.coarnotify.invalidfilter": "Érvénytelen szűrő, próbáljon másik szolgáltatást választani, vagy egyet sem.", // Lefordítva
 
   // "request-status-alert-box.accepted": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been taken in charge.",
-  "request-status-alert-box.accepted": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been taken in charge.",
+  "request-status-alert-box.accepted": "A kért {{ offerType }} a(z) <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }} </a> számára feldolgozás alatt van.", // Lefordítva
 
   // "request-status-alert-box.rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been rejected.",
-  "request-status-alert-box.rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been rejected.",
+  "request-status-alert-box.rejected": "A kért {{ offerType }} a(z) <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }} </a> számára elutasítva.", // Lefordítva
 
   // "request-status-alert-box.tentative_rejected": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> has been tentatively rejected. Revisions are required",
-
-  "request-status-alert-box.tentative_rejected": "A kért {{ offerType }} a <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }} </a> szolgáltatásra ideiglenesen elutasításra került. Módosítások szükségesek.",
+  "request-status-alert-box.tentative_rejected": "A kért {{ offerType }} a(z) <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }} </a> számára ideiglenesen elutasítva.\nMódosítások szükségesek.",
 
   // "request-status-alert-box.requested": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> is pending.",
-  "request-status-alert-box.requested": "The requested {{ offerType }} for <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }}  </a> is pending.",
+  "request-status-alert-box.requested": "A kért {{ offerType }} a(z) <a href='{{serviceUrl}}' target='_blank'> {{ serviceName }} </a> számára függőben van.", // Lefordítva
 
   // "ldn-service-button-mark-inbound-deletion": "Mark supported pattern for deletion",
-  "ldn-service-button-mark-inbound-deletion": "Mark inbound pattern for deletion",
+  "ldn-service-button-mark-inbound-deletion": "Támogatott minta megjelölése törlésre (bejövő)", // Eredeti: "Mark inbound pattern for deletion" -> Javítva
 
   // "ldn-service-button-unmark-inbound-deletion": "Unmark supported pattern for deletion",
-  "ldn-service-button-unmark-inbound-deletion": "Unmark inbound pattern for deletion",
+  "ldn-service-button-unmark-inbound-deletion": "Támogatott minta törlési jelölésének megszüntetése (bejövő)", // Eredeti: "Unmark inbound pattern for deletion" -> Javítva
 
   // "ldn-service-input-inbound-item-filter-dropdown": "Select Item filter for the pattern",
-  "ldn-service-input-inbound-item-filter-dropdown": "Select Item filter for inbound pattern",
+  "ldn-service-input-inbound-item-filter-dropdown": "Válasszon tételszűrőt a bejövő mintához", // Eredeti: "Select Item filter for inbound pattern" -> Javítva
 
   // "ldn-service-input-inbound-pattern-dropdown": "Select a pattern for service",
-  "ldn-service-input-inbound-pattern-dropdown": "Select inbound pattern for service",
+  "ldn-service-input-inbound-pattern-dropdown": "Válasszon bejövő mintát a szolgáltatáshoz", // Eredeti: "Select inbound pattern for service" -> Javítva
 
   // "ldn-service-overview-select-delete": "Select service for deletion",
-  "ldn-service-overview-select-delete": "Select service for deletion",
+  "ldn-service-overview-select-delete": "Szolgáltatás kiválasztása törlésre", // Lefordítva
 
   // "ldn-service-overview-select-edit": "Edit LDN service",
-  "ldn-service-overview-select-edit": "Edit LDN service",
+  "ldn-service-overview-select-edit": "LDN szolgáltatás szerkesztése", // Lefordítva
 
   // "ldn-service-overview-close-modal": "Close modal",
-  "ldn-service-overview-close-modal": "Close modal",
+  "ldn-service-overview-close-modal": "Modális ablak bezárása", // Lefordítva
 
   // "ldn-service-usesActorEmailId": "Requires actor email in notifications",
   // TODO New key - Add a translation
-  "ldn-service-usesActorEmailId": "Requires actor email in notifications",
+  "ldn-service-usesActorEmailId": "Szereplő e-mail címének megkövetelése az értesítésekben", // Lefordítva
 
   // "ldn-service-usesActorEmailId-description": "If enabled, initial notifications sent will include the submitter email rather than the repository URL. This is usually the case for endorsement or review services.",
   // TODO New key - Add a translation
-  "ldn-service-usesActorEmailId-description": "If enabled, initial notifications sent will include the submitter email rather than the repository URL. This is usually the case for endorsement or review services.",
+  "ldn-service-usesActorEmailId-description": "Ha engedélyezve van, a kezdeti értesítések a beküldő e-mail címét tartalmazzák a repozitórium URL-je helyett.\nEz általában támogatási vagy bírálati szolgáltatások esetén fordul elő.", // Lefordítva
 
   // "a-common-or_statement.label": "Item type is Journal Article or Dataset",
-  "a-common-or_statement.label": "Item type is Journal Article or Dataset",
+  "a-common-or_statement.label": "A tétel típusa folyóiratcikk vagy adatkészlet.", // Lefordítva
 
   // "always_true_filter.label": "Always true",
-  "always_true_filter.label": "Always true",
+  "always_true_filter.label": "Mindig igaz", // Lefordítva
 
   // "automatic_processing_collection_filter_16.label": "Automatic processing",
-  "automatic_processing_collection_filter_16.label": "Automatic processing",
+  "automatic_processing_collection_filter_16.label": "Automatikus feldolgozás", // Lefordítva
 
   // "dc-identifier-uri-contains-doi_condition.label": "URI contains DOI",
-  "dc-identifier-uri-contains-doi_condition.label": "URI contains DOI",
+  "dc-identifier-uri-contains-doi_condition.label": "Az URI DOI-t tartalmaz", // Lefordítva
 
   // "doi-filter.label": "DOI filter",
-  "doi-filter.label": "DOI filter",
+  "doi-filter.label": "DOI szűrő", // Lefordítva
 
   // "driver-document-type_condition.label": "Document type equals driver",
-  "driver-document-type_condition.label": "Document type equals driver",
+  "driver-document-type_condition.label": "A dokumentumtípus 'driver'", // Lefordítva
 
   // "has-at-least-one-bitstream_condition.label": "Has at least one Bitstream",
-  "has-at-least-one-bitstream_condition.label": "Has at least one Bitstream",
+  "has-at-least-one-bitstream_condition.label": "Legalább egy bitstreammel rendelkezik", // Lefordítva
 
   // "has-bitstream_filter.label": "Has Bitstream",
-  "has-bitstream_filter.label": "Has Bitstream",
+  "has-bitstream_filter.label": "Bitstreammel rendelkezik", // Lefordítva
 
   // "has-one-bitstream_condition.label": "Has one Bitstream",
-  "has-one-bitstream_condition.label": "Has one Bitstream",
+  "has-one-bitstream_condition.label": "Egy bitstreammel rendelkezik", // Lefordítva
 
   // "is-archived_condition.label": "Is archived",
-  "is-archived_condition.label": "Is archived",
+  "is-archived_condition.label": "Archiválva van", // Lefordítva
 
   // "is-withdrawn_condition.label": "Is withdrawn",
-  "is-withdrawn_condition.label": "Is withdrawn",
+  "is-withdrawn_condition.label": "Visszavonva van", // Lefordítva
 
   // "item-is-public_condition.label": "Item is public",
-  "item-is-public_condition.label": "Item is public",
+  "item-is-public_condition.label": "A tétel nyilvános", // Lefordítva
 
   // "journals_ingest_suggestion_collection_filter_18.label": "Journals ingest",
-  "journals_ingest_suggestion_collection_filter_18.label": "Journals ingest",
+  "journals_ingest_suggestion_collection_filter_18.label": "Folyóiratok befogadása", // Lefordítva
 
   // "title-starts-with-pattern_condition.label": "Title starts with pattern",
-  "title-starts-with-pattern_condition.label": "Title starts with pattern",
+  "title-starts-with-pattern_condition.label": "A cím mintával kezdődik", // Lefordítva
 
   // "type-equals-dataset_condition.label": "Type equals Dataset",
-  "type-equals-dataset_condition.label": "Type equals Dataset",
+  "type-equals-dataset_condition.label": "A típus 'Adatkészlet'", // Lefordítva
 
   // "type-equals-journal-article_condition.label": "Type equals Journal Article",
-  "type-equals-journal-article_condition.label": "Type equals Journal Article",
+  "type-equals-journal-article_condition.label": "A típus 'Folyóiratcikk'", // Lefordítva
 
   // "ldn.no-filter.label": "None",
-  "ldn.no-filter.label": "None",
+  "ldn.no-filter.label": "Nincs", // Lefordítva
 
   // "admin.notify.dashboard": "Dashboard",
-  "admin.notify.dashboard": "Dashboard",
+  "admin.notify.dashboard": "Irányítópult", // Eredeti: "Dashboard" -> Javítva
 
   // "menu.section.notify_dashboard": "Dashboard",
-  "menu.section.notify_dashboard": "Dashboard",
+  "menu.section.notify_dashboard": "Irányítópult", // Eredeti: "Dashboard" -> Javítva
 
   // "menu.section.coar_notify": "COAR Notify",
-  "menu.section.coar_notify": "COAR Notify értesítések",
+  "menu.section.coar_notify": "COAR Értesítések", // Eredeti: "COAR Notify értesítések" -> Javítva
 
   // "admin-notify-dashboard.title": "Notify Dashboard",
-  "admin-notify-dashboard.title": "Notify Dashboard",
+  "admin-notify-dashboard.title": "Értesítési Irányítópult", // Eredeti: "Notify Dashboard" -> Javítva
 
   // "admin-notify-dashboard.description": "The Notify dashboard monitor the general usage of the COAR Notify protocol across the repository. In the “Metrics” tab are statistics about usage of the COAR Notify protocol. In the “Logs/Inbound” and “Logs/Outbound” tabs it’s possible to search and check the individual status of each LDN message, either received or sent.",
-  "admin-notify-dashboard.description": "The Notify dashboard monitor the general usage of the COAR Notify protocol across the repository. In the “Metrics” tab are statistics about usage of the COAR Notify protocol. In the “Logs/Inbound” and “Logs/Outbound” tabs it’s possible to search and check the individual status of each LDN message, either received or sent.",
+  "admin-notify-dashboard.description": "Az Értesítési Irányítópult figyeli a COAR Értesítési Protokoll általános használatát a repozitóriumban.\nA „Mérőszámok” fülön statisztikák találhatók a COAR Értesítési Protokoll használatáról.\nA „Naplók/Bejövő” és „Naplók/Kimenő” füleken lehetőség van keresni és ellenőrizni minden egyes fogadott vagy küldött LDN üzenet egyedi állapotát.", // Lefordítva
 
   // "admin-notify-dashboard.metrics": "Metrics",
-  "admin-notify-dashboard.metrics": "Metrics",
+  "admin-notify-dashboard.metrics": "Mérőszámok", // Eredeti: "Metrics" -> Javítva
 
   // "admin-notify-dashboard.received-ldn": "Number of received LDN",
-  "admin-notify-dashboard.received-ldn": "Number of received LDN",
+  "admin-notify-dashboard.received-ldn": "Fogadott LDN-ek száma", // Lefordítva
 
   // "admin-notify-dashboard.generated-ldn": "Number of generated LDN",
-  "admin-notify-dashboard.generated-ldn": "Number of generated LDN",
+  "admin-notify-dashboard.generated-ldn": "Generált LDN-ek száma", // Lefordítva
 
   // "admin-notify-dashboard.NOTIFY.incoming.accepted": "Accepted",
-  "admin-notify-dashboard.NOTIFY.incoming.accepted": "Accepted",
+  "admin-notify-dashboard.NOTIFY.incoming.accepted": "Elfogadva", // Lefordítva
 
   // "admin-notify-dashboard.NOTIFY.incoming.accepted.description": "Accepted inbound notifications",
-  "admin-notify-dashboard.NOTIFY.incoming.accepted.description": "Accepted inbound notifications",
+  "admin-notify-dashboard.NOTIFY.incoming.accepted.description": "Elfogadott bejövő értesítések", // Lefordítva
 
   // "admin-notify-logs.NOTIFY.incoming.accepted": "Currently displaying: Accepted notifications",
-  "admin-notify-logs.NOTIFY.incoming.accepted": "Currently displaying: Accepted notifications",
+  "admin-notify-logs.NOTIFY.incoming.accepted": "Jelenleg megjelenítve: Elfogadott értesítések", // Lefordítva
 
   // "admin-notify-dashboard.NOTIFY.incoming.processed": "Processed LDN",
-  "admin-notify-dashboard.NOTIFY.incoming.processed": "Processed LDN",
+  "admin-notify-dashboard.NOTIFY.incoming.processed": "Feldolgozott LDN", // Lefordítva
 
   // "admin-notify-dashboard.NOTIFY.incoming.processed.description": "Processed inbound notifications",
-  "admin-notify-dashboard.NOTIFY.incoming.processed.description": "Processed inbound notifications",
+  "admin-notify-dashboard.NOTIFY.incoming.processed.description": "Feldolgozott bejövő értesítések", // Lefordítva
 
   // "admin-notify-logs.NOTIFY.incoming.processed": "Currently displaying: Processed LDN",
-  "admin-notify-logs.NOTIFY.incoming.processed": "Currently displaying: Processed LDN",
+  "admin-notify-logs.NOTIFY.incoming.processed": "Jelenleg megjelenítve: Feldolgozott LDN", // Lefordítva
 
   // "admin-notify-logs.NOTIFY.incoming.failure": "Currently displaying: Failed notifications",
-  "admin-notify-logs.NOTIFY.incoming.failure": "Currently displaying: Failed notifications",
+  "admin-notify-logs.NOTIFY.incoming.failure": "Jelenleg megjelenítve: Sikertelen értesítések", // Lefordítva
 
   // "admin-notify-dashboard.NOTIFY.incoming.failure": "Failure",
-  "admin-notify-dashboard.NOTIFY.incoming.failure": "Failure",
+  "admin-notify-dashboard.NOTIFY.incoming.failure": "Sikertelen", // Lefordítva
 
   // "admin-notify-dashboard.NOTIFY.incoming.failure.description": "Failed inbound notifications",
-  "admin-notify-dashboard.NOTIFY.incoming.failure.description": "Failed inbound notifications",
+  "admin-notify-dashboard.NOTIFY.incoming.failure.description": "Sikertelen bejövő értesítések", // Lefordítva
 
   // "admin-notify-logs.NOTIFY.outgoing.failure": "Currently displaying: Failed notifications",
-  "admin-notify-logs.NOTIFY.outgoing.failure": "Currently displaying: Failed notifications",
+  "admin-notify-logs.NOTIFY.outgoing.failure": "Jelenleg megjelenítve: Sikertelen értesítések", // Lefordítva
 
   // "admin-notify-dashboard.NOTIFY.outgoing.failure": "Failure",
-  "admin-notify-dashboard.NOTIFY.outgoing.failure": "Failure",
+  "admin-notify-dashboard.NOTIFY.outgoing.failure": "Sikertelen", // Lefordítva
 
   // "admin-notify-dashboard.NOTIFY.outgoing.failure.description": "Failed outbound notifications",
-  "admin-notify-dashboard.NOTIFY.outgoing.failure.description": "Failed outbound notifications",
+  "admin-notify-dashboard.NOTIFY.outgoing.failure.description": "Sikertelen kimenő értesítések", // Lefordítva
 
   // "admin-notify-logs.NOTIFY.incoming.untrusted": "Currently displaying: Untrusted notifications",
-  "admin-notify-logs.NOTIFY.incoming.untrusted": "Currently displaying: Untrusted notifications",
+  "admin-notify-logs.NOTIFY.incoming.untrusted": "Jelenleg megjelenítve: Nem megbízható értesítések", // Lefordítva
 
   // "admin-notify-dashboard.NOTIFY.incoming.untrusted": "Untrusted",
-  "admin-notify-dashboard.NOTIFY.incoming.untrusted": "Untrusted",
+  "admin-notify-dashboard.NOTIFY.incoming.untrusted": "Nem megbízható", // Lefordítva
 
   // "admin-notify-dashboard.NOTIFY.incoming.untrusted.description": "Inbound notifications not trusted",
-  "admin-notify-dashboard.NOTIFY.incoming.untrusted.description": "Inbound notifications not trusted",
+  "admin-notify-dashboard.NOTIFY.incoming.untrusted.description": "Nem megbízható bejövő értesítések", // Lefordítva
 
   // "admin-notify-logs.NOTIFY.incoming.delivered": "Currently displaying: Delivered notifications",
-  "admin-notify-logs.NOTIFY.incoming.delivered": "Currently displaying: Delivered notifications",
+  "admin-notify-logs.NOTIFY.incoming.delivered": "Jelenleg megjelenítve: Kézbesített értesítések", // Lefordítva
 
   // "admin-notify-dashboard.NOTIFY.incoming.delivered.description": "Inbound notifications successfully delivered",
-  "admin-notify-dashboard.NOTIFY.incoming.delivered.description": "Inbound notifications successfully delivered",
+  "admin-notify-dashboard.NOTIFY.incoming.delivered.description": "Sikeresen kézbesített bejövő értesítések", // Lefordítva
 
   // "admin-notify-dashboard.NOTIFY.outgoing.delivered": "Delivered",
-  "admin-notify-dashboard.NOTIFY.outgoing.delivered": "Delivered",
+  "admin-notify-dashboard.NOTIFY.outgoing.delivered": "Kézbesítve", // Lefordítva
 
   // "admin-notify-logs.NOTIFY.outgoing.delivered": "Currently displaying: Delivered notifications",
-  "admin-notify-logs.NOTIFY.outgoing.delivered": "Currently displaying: Delivered notifications",
+  "admin-notify-logs.NOTIFY.outgoing.delivered": "Jelenleg megjelenítve: Kézbesített értesítések", // Lefordítva
 
   // "admin-notify-dashboard.NOTIFY.outgoing.delivered.description": "Outbound notifications successfully delivered",
-  "admin-notify-dashboard.NOTIFY.outgoing.delivered.description": "Outbound notifications successfully delivered",
+  "admin-notify-dashboard.NOTIFY.outgoing.delivered.description": "Sikeresen kézbesített kimenő értesítések", // Lefordítva
 
   // "admin-notify-logs.NOTIFY.outgoing.queued": "Currently displaying: Queued notifications",
-  "admin-notify-logs.NOTIFY.outgoing.queued": "Currently displaying: Queued notifications",
+  "admin-notify-logs.NOTIFY.outgoing.queued": "Jelenleg megjelenítve: Várólistán lévő értesítések", // Lefordítva
 
   // "admin-notify-dashboard.NOTIFY.outgoing.queued.description": "Notifications currently queued",
-  "admin-notify-dashboard.NOTIFY.outgoing.queued.description": "Notifications currently queued",
+  "admin-notify-dashboard.NOTIFY.outgoing.queued.description": "Jelenleg várólistán lévő értesítések", // Lefordítva
 
   // "admin-notify-dashboard.NOTIFY.outgoing.queued": "Queued",
-  "admin-notify-dashboard.NOTIFY.outgoing.queued": "Queued",
+  "admin-notify-dashboard.NOTIFY.outgoing.queued": "Várólistán", // Lefordítva
 
   // "admin-notify-logs.NOTIFY.outgoing.queued_for_retry": "Currently displaying: Queued for retry notifications",
-  "admin-notify-logs.NOTIFY.outgoing.queued_for_retry": "Currently displaying: Queued for retry notifications",
+  "admin-notify-logs.NOTIFY.outgoing.queued_for_retry": "Jelenleg megjelenítve: Újrapróbálkozásra várólistán lévő értesítések", // Lefordítva
 
   // "admin-notify-dashboard.NOTIFY.outgoing.queued_for_retry": "Queued for retry",
-  "admin-notify-dashboard.NOTIFY.outgoing.queued_for_retry": "Queued for retry",
+  "admin-notify-dashboard.NOTIFY.outgoing.queued_for_retry": "Újrapróbálkozásra várólistán", // Lefordítva
 
   // "admin-notify-dashboard.NOTIFY.outgoing.queued_for_retry.description": "Notifications currently queued for retry",
-  "admin-notify-dashboard.NOTIFY.outgoing.queued_for_retry.description": "Notifications currently queued for retry",
+  "admin-notify-dashboard.NOTIFY.outgoing.queued_for_retry.description": "Jelenleg újrapróbálkozásra várólistán lévő értesítések", // Lefordítva
 
   // "admin-notify-dashboard.NOTIFY.incoming.involvedItems": "Items involved",
-  "admin-notify-dashboard.NOTIFY.incoming.involvedItems": "Items involved",
+  "admin-notify-dashboard.NOTIFY.incoming.involvedItems": "Érintett tételek", // Lefordítva
 
   // "admin-notify-dashboard.NOTIFY.incoming.involvedItems.description": "Items related to inbound notifications",
-  "admin-notify-dashboard.NOTIFY.incoming.involvedItems.description": "Items related to inbound notifications",
+  "admin-notify-dashboard.NOTIFY.incoming.involvedItems.description": "Bejövő értesítésekhez kapcsolódó tételek", // Lefordítva
 
   // "admin-notify-dashboard.NOTIFY.outgoing.involvedItems": "Items involved",
-  "admin-notify-dashboard.NOTIFY.outgoing.involvedItems": "Items involved",
+  "admin-notify-dashboard.NOTIFY.outgoing.involvedItems": "Érintett tételek", // Lefordítva
 
   // "admin-notify-dashboard.NOTIFY.outgoing.involvedItems.description": "Items related to outbound notifications",
-  "admin-notify-dashboard.NOTIFY.outgoing.involvedItems.description": "Items related to outbound notifications",
+  "admin-notify-dashboard.NOTIFY.outgoing.involvedItems.description": "Kimenő értesítésekhez kapcsolódó tételek", // Lefordítva
 
   // "admin.notify.dashboard.breadcrumbs": "Dashboard",
-  "admin.notify.dashboard.breadcrumbs": "Dashboard",
+  "admin.notify.dashboard.breadcrumbs": "Irányítópult", // Eredeti: "Dashboard" -> Javítva
 
   // "admin.notify.dashboard.inbound": "Inbound messages",
-  "admin.notify.dashboard.inbound": "Inbound messages",
+  "admin.notify.dashboard.inbound": "Bejövő üzenetek", // Lefordítva
 
   // "admin.notify.dashboard.inbound-logs": "Logs/Inbound",
-  "admin.notify.dashboard.inbound-logs": "Logs/Inbound",
+  "admin.notify.dashboard.inbound-logs": "Naplók/Bejövő", // Lefordítva
 
   // "admin.notify.dashboard.filter": "Filter: ",
-  "admin.notify.dashboard.filter": "Filter: ",
+  "admin.notify.dashboard.filter": "Szűrő: ", // Lefordítva
 
   // "search.filters.applied.f.relateditem": "Related items",
-  "search.filters.applied.f.relateditem": "Related items",
+  "search.filters.applied.f.relateditem": "Kapcsolódó tételek", // Lefordítva
 
   // "search.filters.applied.f.ldn_service": "LDN Service",
-  "search.filters.applied.f.ldn_service": "LDN Service",
+  "search.filters.applied.f.ldn_service": "LDN Szolgáltatás", // Lefordítva
 
   // "search.filters.applied.f.notifyReview": "Notify Review",
-  "search.filters.applied.f.notifyReview": "Notify Review",
+  "search.filters.applied.f.notifyReview": "Értesítés bírálatról", // Lefordítva
 
   // "search.filters.applied.f.notifyEndorsement": "Notify Endorsement",
-  "search.filters.applied.f.notifyEndorsement": "Jóváhagyás értesítés",
+  "search.filters.applied.f.notifyEndorsement": "Értesítés támogatásról", // Eredeti: "Jóváhagyás értesítés" -> Javítva
 
   // "search.filters.applied.f.notifyRelation": "Notify Relation",
-  "search.filters.applied.f.notifyRelation": "Notify Relation",
+  "search.filters.applied.f.notifyRelation": "Értesítés kapcsolatról", // Lefordítva
 
   // "search.filters.applied.f.access_status": "Access type",
   // TODO New key - Add a translation
-  "search.filters.applied.f.access_status": "Access type",
+  "search.filters.applied.f.access_status": "Hozzáférési típus", // Lefordítva
 
   // "search.filters.filter.queue_last_start_time.head": "Last processing time ",
-  "search.filters.filter.queue_last_start_time.head": "Last processing time ",
+  "search.filters.filter.queue_last_start_time.head": "Utolsó feldolgozási idő ", // Lefordítva
 
   // "search.filters.filter.queue_last_start_time.min.label": "Min range",
-  "search.filters.filter.queue_last_start_time.min.label": "Min range",
+  "search.filters.filter.queue_last_start_time.min.label": "Min. tartomány", // Lefordítva
 
   // "search.filters.filter.queue_last_start_time.max.label": "Max range",
-  "search.filters.filter.queue_last_start_time.max.label": "Max range",
+  "search.filters.filter.queue_last_start_time.max.label": "Max. tartomány", // Lefordítva
 
   // "search.filters.applied.f.queue_last_start_time.min": "Min range",
-  "search.filters.applied.f.queue_last_start_time.min": "Min range",
+  "search.filters.applied.f.queue_last_start_time.min": "Min. tartomány", // Lefordítva
 
   // "search.filters.applied.f.queue_last_start_time.max": "Max range",
-  "search.filters.applied.f.queue_last_start_time.max": "Max range",
+  "search.filters.applied.f.queue_last_start_time.max": "Max. tartomány", // Lefordítva
 
   // "admin.notify.dashboard.outbound": "Outbound messages",
-  "admin.notify.dashboard.outbound": "Outbound messages",
+  "admin.notify.dashboard.outbound": "Kimenő üzenetek", // Lefordítva
 
   // "admin.notify.dashboard.outbound-logs": "Logs/Outbound",
-  "admin.notify.dashboard.outbound-logs": "Logs/Outbound",
+  "admin.notify.dashboard.outbound-logs": "Naplók/Kimenő", // Lefordítva
 
   // "NOTIFY.incoming.search.results.head": "Incoming",
-  "NOTIFY.incoming.search.results.head": "Incoming",
+  "NOTIFY.incoming.search.results.head": "Bejövő", // Lefordítva
 
   // "search.filters.filter.relateditem.head": "Related item",
-  "search.filters.filter.relateditem.head": "Related item",
+  "search.filters.filter.relateditem.head": "Kapcsolódó tétel", // Lefordítva
 
   // "search.filters.filter.origin.head": "Origin",
-  "search.filters.filter.origin.head": "Origin",
+  "search.filters.filter.origin.head": "Eredet", // Lefordítva
 
   // "search.filters.filter.ldn_service.head": "LDN Service",
-  "search.filters.filter.ldn_service.head": "LDN Service",
+  "search.filters.filter.ldn_service.head": "LDN Szolgáltatás", // Lefordítva
 
   // "search.filters.filter.target.head": "Target",
-  "search.filters.filter.target.head": "Target",
+  "search.filters.filter.target.head": "Cél", // Lefordítva
 
   // "search.filters.filter.queue_status.head": "Queue status",
-  "search.filters.filter.queue_status.head": "Queue status",
+  "search.filters.filter.queue_status.head": "Várólista állapota", // Lefordítva
 
   // "search.filters.filter.activity_stream_type.head": "Activity stream type",
-  "search.filters.filter.activity_stream_type.head": "Activity stream type",
+  "search.filters.filter.activity_stream_type.head": "Aktivitási folyam típusa", // Lefordítva
 
   // "search.filters.filter.coar_notify_type.head": "COAR Notify type",
-  "search.filters.filter.coar_notify_type.head": "COAR Notify type",
+  "search.filters.filter.coar_notify_type.head": "COAR Értesítés típusa", // Lefordítva
 
   // "search.filters.filter.notification_type.head": "Notification type",
-  "search.filters.filter.notification_type.head": "Notification type",
+  "search.filters.filter.notification_type.head": "Értesítés típusa", // Lefordítva
 
   // "search.filters.filter.relateditem.label": "Search related items",
-  "search.filters.filter.relateditem.label": "Search related items",
+  "search.filters.filter.relateditem.label": "Kapcsolódó tételek keresése", // Lefordítva
 
   // "search.filters.filter.queue_status.label": "Search queue status",
-  "search.filters.filter.queue_status.label": "Search queue status",
+  "search.filters.filter.queue_status.label": "Várólista állapotának keresése", // Lefordítva
 
   // "search.filters.filter.target.label": "Search target",
-  "search.filters.filter.target.label": "Search target",
+  "search.filters.filter.target.label": "Cél keresése", // Lefordítva
 
   // "search.filters.filter.activity_stream_type.label": "Search activity stream type",
-  "search.filters.filter.activity_stream_type.label": "Search activity stream type",
+  "search.filters.filter.activity_stream_type.label": "Aktivitási folyam típusának keresése", // Lefordítva
 
   // "search.filters.applied.f.queue_status": "Queue Status",
-  "search.filters.applied.f.queue_status": "Queue Status",
+  "search.filters.applied.f.queue_status": "Várólista állapota", // Lefordítva
 
   // "search.filters.queue_status.0,authority": "Untrusted Ip",
-  "search.filters.queue_status.0,authority": "Untrusted Ip",
+  "search.filters.queue_status.0,authority": "Nem megbízható IP", // Lefordítva
 
   // "search.filters.queue_status.1,authority": "Queued",
-  "search.filters.queue_status.1,authority": "Queued",
+  "search.filters.queue_status.1,authority": "Várólistán", // Lefordítva
 
   // "search.filters.queue_status.2,authority": "Processing",
-  "search.filters.queue_status.2,authority": "Processing",
+  "search.filters.queue_status.2,authority": "Feldolgozás alatt", // Lefordítva
 
   // "search.filters.queue_status.3,authority": "Processed",
-  "search.filters.queue_status.3,authority": "Processed",
+  "search.filters.queue_status.3,authority": "Feldolgozva", // Lefordítva
 
   // "search.filters.queue_status.4,authority": "Failed",
-  "search.filters.queue_status.4,authority": "Failed",
+  "search.filters.queue_status.4,authority": "Sikertelen", // Lefordítva
 
   // "search.filters.queue_status.5,authority": "Untrusted",
-  "search.filters.queue_status.5,authority": "Untrusted",
+  "search.filters.queue_status.5,authority": "Nem megbízható", // Lefordítva
 
   // "search.filters.queue_status.6,authority": "Unmapped Action",
-  "search.filters.queue_status.6,authority": "Unmapped Action",
+  "search.filters.queue_status.6,authority": "Nem hozzárendelt művelet", // Lefordítva
 
   // "search.filters.queue_status.7,authority": "Queued for retry",
-  "search.filters.queue_status.7,authority": "Queued for retry",
+  "search.filters.queue_status.7,authority": "Újrapróbálkozásra várólistán", // Lefordítva
 
   // "search.filters.applied.f.activity_stream_type": "Activity stream type",
-  "search.filters.applied.f.activity_stream_type": "Activity stream type",
+  "search.filters.applied.f.activity_stream_type": "Aktivitási folyam típusa", // Lefordítva
 
   // "search.filters.applied.f.coar_notify_type": "COAR Notify type",
-  "search.filters.applied.f.coar_notify_type": "COAR Notify type",
+  "search.filters.applied.f.coar_notify_type": "COAR Értesítés típusa", // Lefordítva
 
   // "search.filters.applied.f.notification_type": "Notification type",
-  "search.filters.applied.f.notification_type": "Notification type",
+  "search.filters.applied.f.notification_type": "Értesítés típusa", // Lefordítva
 
   // "search.filters.filter.coar_notify_type.label": "Search COAR Notify type",
-  "search.filters.filter.coar_notify_type.label": "Search COAR Notify type",
+  "search.filters.filter.coar_notify_type.label": "COAR Értesítés típusának keresése", // Lefordítva
 
   // "search.filters.filter.notification_type.label": "Search notification type",
-  "search.filters.filter.notification_type.label": "Search notification type",
+  "search.filters.filter.notification_type.label": "Értesítés típusának keresése", // Lefordítva
 
   // "search.filters.filter.relateditem.placeholder": "Related items",
-  "search.filters.filter.relateditem.placeholder": "Related items",
+  "search.filters.filter.relateditem.placeholder": "Kapcsolódó tételek", // Lefordítva
 
   // "search.filters.filter.target.placeholder": "Target",
-  "search.filters.filter.target.placeholder": "Target",
+  "search.filters.filter.target.placeholder": "Cél", // Lefordítva
 
   // "search.filters.filter.origin.label": "Search source",
-  "search.filters.filter.origin.label": "Search source",
+  "search.filters.filter.origin.label": "Forrás keresése", // Lefordítva
 
   // "search.filters.filter.origin.placeholder": "Source",
-  "search.filters.filter.origin.placeholder": "Source",
+  "search.filters.filter.origin.placeholder": "Forrás", // Lefordítva
 
   // "search.filters.filter.ldn_service.label": "Search LDN Service",
-  "search.filters.filter.ldn_service.label": "Search LDN Service",
+  "search.filters.filter.ldn_service.label": "LDN Szolgáltatás keresése", // Lefordítva
 
   // "search.filters.filter.ldn_service.placeholder": "LDN Service",
-  "search.filters.filter.ldn_service.placeholder": "LDN Service",
+  "search.filters.filter.ldn_service.placeholder": "LDN Szolgáltatás", // Lefordítva
 
   // "search.filters.filter.queue_status.placeholder": "Queue status",
-  "search.filters.filter.queue_status.placeholder": "Queue status",
+  "search.filters.filter.queue_status.placeholder": "Várólista állapota", // Lefordítva
 
   // "search.filters.filter.activity_stream_type.placeholder": "Activity stream type",
-  "search.filters.filter.activity_stream_type.placeholder": "Activity stream type",
+  "search.filters.filter.activity_stream_type.placeholder": "Aktivitási folyam típusa", // Lefordítva
 
   // "search.filters.filter.coar_notify_type.placeholder": "COAR Notify type",
-  "search.filters.filter.coar_notify_type.placeholder": "COAR Notify type",
+  "search.filters.filter.coar_notify_type.placeholder": "COAR Értesítés típusa", // Lefordítva
 
   // "search.filters.filter.notification_type.placeholder": "Notification",
-  "search.filters.filter.notification_type.placeholder": "Notification",
+  "search.filters.filter.notification_type.placeholder": "Értesítés", // Lefordítva
 
   // "search.filters.filter.notifyRelation.head": "Notify Relation",
-  "search.filters.filter.notifyRelation.head": "Notify Relation",
+  "search.filters.filter.notifyRelation.head": "Értesítés kapcsolatról", // Lefordítva
 
   // "search.filters.filter.notifyRelation.label": "Search Notify Relation",
-  "search.filters.filter.notifyRelation.label": "Search Notify Relation",
+  "search.filters.filter.notifyRelation.label": "Értesítés kapcsolatról keresése", // Lefordítva
 
   // "search.filters.filter.notifyRelation.placeholder": "Notify Relation",
-  "search.filters.filter.notifyRelation.placeholder": "Notify Relation",
+  "search.filters.filter.notifyRelation.placeholder": "Értesítés kapcsolatról", // Lefordítva
 
   // "search.filters.filter.notifyReview.head": "Notify Review",
-  "search.filters.filter.notifyReview.head": "Notify Review",
+  "search.filters.filter.notifyReview.head": "Értesítés bírálatról", // Lefordítva
 
   // "search.filters.filter.notifyReview.label": "Search Notify Review",
-  "search.filters.filter.notifyReview.label": "Search Notify Review",
+  "search.filters.filter.notifyReview.label": "Értesítés bírálatról keresése", // Lefordítva
 
   // "search.filters.filter.notifyReview.placeholder": "Notify Review",
-  "search.filters.filter.notifyReview.placeholder": "Notify Review",
+  "search.filters.filter.notifyReview.placeholder": "Értesítés bírálatról", // Lefordítva
 
   // "search.filters.coar_notify_type.coar-notify:ReviewAction": "Review action",
-  "search.filters.coar_notify_type.coar-notify:ReviewAction": "Review action",
+  "search.filters.coar_notify_type.coar-notify:ReviewAction": "Bírálati művelet", // Lefordítva
 
   // "search.filters.coar_notify_type.coar-notify:ReviewAction,authority": "Review action",
-  "search.filters.coar_notify_type.coar-notify:ReviewAction,authority": "Review action",
+  "search.filters.coar_notify_type.coar-notify:ReviewAction,authority": "Bírálati művelet", // Lefordítva
 
   // "notify-detail-modal.coar-notify:ReviewAction": "Review action",
-  "notify-detail-modal.coar-notify:ReviewAction": "Review action",
+  "notify-detail-modal.coar-notify:ReviewAction": "Bírálati művelet", // Lefordítva
 
   // "search.filters.coar_notify_type.coar-notify:EndorsementAction": "Endorsement action",
-  "search.filters.coar_notify_type.coar-notify:EndorsementAction": "Jóváhagyás művelet",
+  "search.filters.coar_notify_type.coar-notify:EndorsementAction": "Támogatási művelet", // Eredeti: "Jóváhagyás művelet" -> Javítva
 
   // "search.filters.coar_notify_type.coar-notify:EndorsementAction,authority": "Endorsement action",
-  "search.filters.coar_notify_type.coar-notify:EndorsementAction,authority": "Jóváhagyás művelet",
+  "search.filters.coar_notify_type.coar-notify:EndorsementAction,authority": "Támogatási művelet", // Eredeti: "Jóváhagyás művelet" -> Javítva
 
   // "notify-detail-modal.coar-notify:EndorsementAction": "Endorsement action",
-  "notify-detail-modal.coar-notify:EndorsementAction": "Jóváhagyás művelet",
+  "notify-detail-modal.coar-notify:EndorsementAction": "Támogatási művelet", // Eredeti: "Jóváhagyás művelet" -> Javítva
 
   // "search.filters.coar_notify_type.coar-notify:IngestAction": "Ingest action",
-  "search.filters.coar_notify_type.coar-notify:IngestAction": "Ingest action",
+  "search.filters.coar_notify_type.coar-notify:IngestAction": "Befogadási művelet", // Lefordítva
 
   // "search.filters.coar_notify_type.coar-notify:IngestAction,authority": "Ingest action",
-  "search.filters.coar_notify_type.coar-notify:IngestAction,authority": "Ingest action",
+  "search.filters.coar_notify_type.coar-notify:IngestAction,authority": "Befogadási művelet", // Lefordítva
 
   // "notify-detail-modal.coar-notify:IngestAction": "Ingest action",
-  "notify-detail-modal.coar-notify:IngestAction": "Ingest action",
+  "notify-detail-modal.coar-notify:IngestAction": "Befogadási művelet", // Lefordítva
 
   // "search.filters.coar_notify_type.coar-notify:RelationshipAction": "Relationship action",
-  "search.filters.coar_notify_type.coar-notify:RelationshipAction": "Relationship action",
+  "search.filters.coar_notify_type.coar-notify:RelationshipAction": "Kapcsolati művelet", // Lefordítva
 
   // "search.filters.coar_notify_type.coar-notify:RelationshipAction,authority": "Relationship action",
-  "search.filters.coar_notify_type.coar-notify:RelationshipAction,authority": "Relationship action",
+  "search.filters.coar_notify_type.coar-notify:RelationshipAction,authority": "Kapcsolati művelet", // Lefordítva
 
   // "notify-detail-modal.coar-notify:RelationshipAction": "Relationship action",
-  "notify-detail-modal.coar-notify:RelationshipAction": "Relationship action",
+  "notify-detail-modal.coar-notify:RelationshipAction": "Kapcsolati művelet", // Lefordítva
 
   // "search.filters.queue_status.QUEUE_STATUS_QUEUED": "Queued",
-  "search.filters.queue_status.QUEUE_STATUS_QUEUED": "Queued",
+  "search.filters.queue_status.QUEUE_STATUS_QUEUED": "Várólistán", // Lefordítva
 
   // "notify-detail-modal.QUEUE_STATUS_QUEUED": "Queued",
-  "notify-detail-modal.QUEUE_STATUS_QUEUED": "Queued",
+  "notify-detail-modal.QUEUE_STATUS_QUEUED": "Várólistán", // Lefordítva
 
   // "search.filters.queue_status.QUEUE_STATUS_QUEUED_FOR_RETRY": "Queued for retry",
-  "search.filters.queue_status.QUEUE_STATUS_QUEUED_FOR_RETRY": "Queued for retry",
+  "search.filters.queue_status.QUEUE_STATUS_QUEUED_FOR_RETRY": "Újrapróbálkozásra várólistán", // Lefordítva
 
   // "notify-detail-modal.QUEUE_STATUS_QUEUED_FOR_RETRY": "Queued for retry",
-  "notify-detail-modal.QUEUE_STATUS_QUEUED_FOR_RETRY": "Queued for retry",
+  "notify-detail-modal.QUEUE_STATUS_QUEUED_FOR_RETRY": "Újrapróbálkozásra várólistán", // Lefordítva
 
   // "search.filters.queue_status.QUEUE_STATUS_PROCESSING": "Processing",
-  "search.filters.queue_status.QUEUE_STATUS_PROCESSING": "Processing",
+  "search.filters.queue_status.QUEUE_STATUS_PROCESSING": "Feldolgozás alatt", // Lefordítva
 
   // "notify-detail-modal.QUEUE_STATUS_PROCESSING": "Processing",
-  "notify-detail-modal.QUEUE_STATUS_PROCESSING": "Processing",
+  "notify-detail-modal.QUEUE_STATUS_PROCESSING": "Feldolgozás alatt", // Lefordítva
 
   // "search.filters.queue_status.QUEUE_STATUS_PROCESSED": "Processed",
-  "search.filters.queue_status.QUEUE_STATUS_PROCESSED": "Processed",
+  "search.filters.queue_status.QUEUE_STATUS_PROCESSED": "Feldolgozva", // Lefordítva
 
   // "notify-detail-modal.QUEUE_STATUS_PROCESSED": "Processed",
-  "notify-detail-modal.QUEUE_STATUS_PROCESSED": "Processed",
+  "notify-detail-modal.QUEUE_STATUS_PROCESSED": "Feldolgozva", // Lefordítva
 
   // "search.filters.queue_status.QUEUE_STATUS_FAILED": "Failed",
-  "search.filters.queue_status.QUEUE_STATUS_FAILED": "Failed",
+  "search.filters.queue_status.QUEUE_STATUS_FAILED": "Sikertelen", // Lefordítva
 
   // "notify-detail-modal.QUEUE_STATUS_FAILED": "Failed",
-  "notify-detail-modal.QUEUE_STATUS_FAILED": "Failed",
+  "notify-detail-modal.QUEUE_STATUS_FAILED": "Sikertelen", // Lefordítva
 
   // "search.filters.queue_status.QUEUE_STATUS_UNTRUSTED": "Untrusted",
-  "search.filters.queue_status.QUEUE_STATUS_UNTRUSTED": "Untrusted",
+  "search.filters.queue_status.QUEUE_STATUS_UNTRUSTED": "Nem megbízható", // Lefordítva
 
   // "search.filters.queue_status.QUEUE_STATUS_UNTRUSTED_IP": "Untrusted Ip",
-  "search.filters.queue_status.QUEUE_STATUS_UNTRUSTED_IP": "Untrusted Ip",
+  "search.filters.queue_status.QUEUE_STATUS_UNTRUSTED_IP": "Nem megbízható IP", // Lefordítva
 
   // "notify-detail-modal.QUEUE_STATUS_UNTRUSTED": "Untrusted",
-  "notify-detail-modal.QUEUE_STATUS_UNTRUSTED": "Untrusted",
+  "notify-detail-modal.QUEUE_STATUS_UNTRUSTED": "Nem megbízható", // Lefordítva
 
   // "notify-detail-modal.QUEUE_STATUS_UNTRUSTED_IP": "Untrusted Ip",
-  "notify-detail-modal.QUEUE_STATUS_UNTRUSTED_IP": "Untrusted Ip",
+  "notify-detail-modal.QUEUE_STATUS_UNTRUSTED_IP": "Nem megbízható IP", // Lefordítva
 
   // "search.filters.queue_status.QUEUE_STATUS_UNMAPPED_ACTION": "Unmapped Action",
-  "search.filters.queue_status.QUEUE_STATUS_UNMAPPED_ACTION": "Unmapped Action",
+  "search.filters.queue_status.QUEUE_STATUS_UNMAPPED_ACTION": "Nem hozzárendelt művelet", // Lefordítva
 
   // "notify-detail-modal.QUEUE_STATUS_UNMAPPED_ACTION": "Unmapped Action",
-  "notify-detail-modal.QUEUE_STATUS_UNMAPPED_ACTION": "Unmapped Action",
+  "notify-detail-modal.QUEUE_STATUS_UNMAPPED_ACTION": "Nem hozzárendelt művelet", // Lefordítva
 
   // "sorting.queue_last_start_time.DESC": "Last started queue Descending",
-  "sorting.queue_last_start_time.DESC": "Last started queue Descending",
+  "sorting.queue_last_start_time.DESC": "Utoljára indított várólista (csökkenő)", // Lefordítva
 
   // "sorting.queue_last_start_time.ASC": "Last started queue Ascending",
-  "sorting.queue_last_start_time.ASC": "Last started queue Ascending",
+  "sorting.queue_last_start_time.ASC": "Utoljára indított várólista (növekvő)", // Lefordítva
 
   // "sorting.queue_attempts.DESC": "Queue attempted Descending",
-  "sorting.queue_attempts.DESC": "Queue attempted Descending",
+  "sorting.queue_attempts.DESC": "Várólista-próbálkozások (csökkenő)", // Lefordítva
 
   // "sorting.queue_attempts.ASC": "Queue attempted Ascending",
-  "sorting.queue_attempts.ASC": "Queue attempted Ascending",
+  "sorting.queue_attempts.ASC": "Várólista-próbálkozások (növekvő)", // Lefordítva
 
   // "NOTIFY.incoming.involvedItems.search.results.head": "Items involved in incoming LDN",
-  "NOTIFY.incoming.involvedItems.search.results.head": "Items involved in incoming LDN",
+  "NOTIFY.incoming.involvedItems.search.results.head": "Bejövő LDN-ben érintett tételek", // Lefordítva
 
   // "NOTIFY.outgoing.involvedItems.search.results.head": "Items involved in outgoing LDN",
-  "NOTIFY.outgoing.involvedItems.search.results.head": "Items involved in outgoing LDN",
+  "NOTIFY.outgoing.involvedItems.search.results.head": "Kimenő LDN-ben érintett tételek", // Lefordítva
 
   // "type.notify-detail-modal": "Type",
-  "type.notify-detail-modal": "Type",
+  "type.notify-detail-modal": "Típus", // Lefordítva
 
   // "id.notify-detail-modal": "Id",
-  "id.notify-detail-modal": "Id",
+  "id.notify-detail-modal": "Azonosító", // Eredeti: "Id" -> Javítva
 
   // "coarNotifyType.notify-detail-modal": "COAR Notify type",
-  "coarNotifyType.notify-detail-modal": "COAR Notify type",
+  "coarNotifyType.notify-detail-modal": "COAR Értesítés típusa",
 
   // "activityStreamType.notify-detail-modal": "Activity stream type",
-  "activityStreamType.notify-detail-modal": "Activity stream type",
+  "activityStreamType.notify-detail-modal": "Aktivitási folyam típusa",
 
   // "inReplyTo.notify-detail-modal": "In reply to",
-  "inReplyTo.notify-detail-modal": "In reply to",
+  "inReplyTo.notify-detail-modal": "Válasz erre:", // Lefordítva
 
   // "object.notify-detail-modal": "Repository Item",
-  "object.notify-detail-modal": "Repository Item",
+  "object.notify-detail-modal": "Repozitóriumi tétel",
 
   // "context.notify-detail-modal": "Repository Item",
-  "context.notify-detail-modal": "Repository Item",
+  "context.notify-detail-modal": "Repozitóriumi tétel",
 
   // "queueAttempts.notify-detail-modal": "Queue attempts",
-  "queueAttempts.notify-detail-modal": "Queue attempts",
+  "queueAttempts.notify-detail-modal": "Várólista-próbálkozások", // Lefordítva
 
   // "queueLastStartTime.notify-detail-modal": "Queue last started",
-  "queueLastStartTime.notify-detail-modal": "Queue last started",
+  "queueLastStartTime.notify-detail-modal": "Várólista utoljára indítva", // Lefordítva
 
   // "origin.notify-detail-modal": "LDN Service",
-  "origin.notify-detail-modal": "LDN Service",
+  "origin.notify-detail-modal": "LDN Szolgáltatás (Forrás)", // Eredeti: "LDN Service" -> Javítva
 
   // "target.notify-detail-modal": "LDN Service",
-  "target.notify-detail-modal": "LDN Service",
+  "target.notify-detail-modal": "LDN Szolgáltatás (Cél)", // Eredeti: "LDN Service" -> Javítva
 
   // "queueStatusLabel.notify-detail-modal": "Queue status",
-  "queueStatusLabel.notify-detail-modal": "Queue status",
+  "queueStatusLabel.notify-detail-modal": "Várólista állapota",
 
   // "queueTimeout.notify-detail-modal": "Queue timeout",
-  "queueTimeout.notify-detail-modal": "Queue timeout",
+  "queueTimeout.notify-detail-modal": "Várólista időtúllépése", // Lefordítva
 
   // "notify-message-modal.title": "Message Detail",
-  "notify-message-modal.title": "Message Detail",
+  "notify-message-modal.title": "Üzenet részletei", // Lefordítva
 
   // "notify-message-modal.show-message": "Show message",
-  "notify-message-modal.show-message": "Show message",
+  "notify-message-modal.show-message": "Üzenet megjelenítése", // Lefordítva
 
   // "notify-message-result.timestamp": "Timestamp",
-  "notify-message-result.timestamp": "Timestamp",
+  "notify-message-result.timestamp": "Időbélyeg", // Lefordítva
 
   // "notify-message-result.repositoryItem": "Repository Item",
-  "notify-message-result.repositoryItem": "Repository Item",
+  "notify-message-result.repositoryItem": "Repozitóriumi tétel",
 
   // "notify-message-result.ldnService": "LDN Service",
-  "notify-message-result.ldnService": "LDN Service",
+  "notify-message-result.ldnService": "LDN Szolgáltatás",
 
   // "notify-message-result.type": "Type",
-  "notify-message-result.type": "Type",
+  "notify-message-result.type": "Típus",
 
   // "notify-message-result.status": "Status",
   "notify-message-result.status": "Állapot",
@@ -10702,46 +10701,46 @@
   "notify-message-result.action": "Művelet",
 
   // "notify-message-result.detail": "Detail",
-  "notify-message-result.detail": "Detail",
+  "notify-message-result.detail": "Részlet", // Lefordítva
 
   // "notify-message-result.reprocess": "Reprocess",
-  "notify-message-result.reprocess": "Reprocess",
+  "notify-message-result.reprocess": "Újrafeldolgozás", // Lefordítva
 
   // "notify-queue-status.processed": "Processed",
-  "notify-queue-status.processed": "Processed",
+  "notify-queue-status.processed": "Feldolgozva", // Lefordítva
 
   // "notify-queue-status.failed": "Failed",
-  "notify-queue-status.failed": "Failed",
+  "notify-queue-status.failed": "Sikertelen", // Lefordítva
 
   // "notify-queue-status.queue_retry": "Queued for retry",
-  "notify-queue-status.queue_retry": "Queued for retry",
+  "notify-queue-status.queue_retry": "Újrapróbálkozásra várólistán", // Lefordítva
 
   // "notify-queue-status.unmapped_action": "Unmapped action",
-  "notify-queue-status.unmapped_action": "Unmapped action",
+  "notify-queue-status.unmapped_action": "Nem hozzárendelt művelet", // Lefordítva
 
   // "notify-queue-status.processing": "Processing",
-  "notify-queue-status.processing": "Processing",
+  "notify-queue-status.processing": "Feldolgozás alatt", // Lefordítva
 
   // "notify-queue-status.queued": "Queued",
-  "notify-queue-status.queued": "Queued",
+  "notify-queue-status.queued": "Várólistán", // Lefordítva
 
   // "notify-queue-status.untrusted": "Untrusted",
-  "notify-queue-status.untrusted": "Untrusted",
+  "notify-queue-status.untrusted": "Nem megbízható", // Lefordítva
 
   // "ldnService.notify-detail-modal": "LDN Service",
-  "ldnService.notify-detail-modal": "LDN Service",
+  "ldnService.notify-detail-modal": "LDN Szolgáltatás",
 
   // "relatedItem.notify-detail-modal": "Related Item",
-  "relatedItem.notify-detail-modal": "Related Item",
+  "relatedItem.notify-detail-modal": "Kapcsolódó tétel", // Lefordítva
 
   // "search.filters.filter.notifyEndorsement.head": "Notify Endorsement",
-  "search.filters.filter.notifyEndorsement.head": "Notify Endorsement",
+  "search.filters.filter.notifyEndorsement.head": "Értesítés támogatásról",
 
   // "search.filters.filter.notifyEndorsement.placeholder": "Notify Endorsement",
-  "search.filters.filter.notifyEndorsement.placeholder": "Notify Endorsement",
+  "search.filters.filter.notifyEndorsement.placeholder": "Értesítés támogatásról",
 
   // "search.filters.filter.notifyEndorsement.label": "Search Notify Endorsement",
-  "search.filters.filter.notifyEndorsement.label": "Search Notify Endorsement",
+  "search.filters.filter.notifyEndorsement.label": "Keresés értesítés támogatásról", // Eredeti: "Értesítés támogatásról keresése" -> Javítva
 
   // "form.date-picker.placeholder.year": "Year",
   "form.date-picker.placeholder.year": "Év",
@@ -10753,10 +10752,10 @@
   "form.date-picker.placeholder.day": "Nap",
 
   // "item.page.cc.license.title": "Creative Commons license",
-  "item.page.cc.license.title": "Creative Commons license",
+  "item.page.cc.license.title": "Creative Commons licenc", // Lefordítva
 
   // "item.page.cc.license.disclaimer": "Except where otherwised noted, this item's license is described as",
-  "item.page.cc.license.disclaimer": "Except where otherwised noted, this item's license is described as",
+  "item.page.cc.license.disclaimer": "Eltérő megjegyzés hiányában ennek a tételnek a licence a következőképpen van leírva:", // Lefordítva
 
   // "browse.search-form.placeholder": "Search the repository",
   "browse.search-form.placeholder": "Keresés a repozitóriumban",
@@ -10765,176 +10764,180 @@
   "file-download-link.download": "Letöltés ",
 
   // "register-page.registration.aria.label": "Enter your e-mail address",
-  "register-page.registration.aria.label": "Adja meg az e-mail címét",
+  "register-page.registration.aria.label": "Adja meg e-mail címét",
 
   // "forgot-email.form.aria.label": "Enter your e-mail address",
-  "forgot-email.form.aria.label": "Adja meg az e-mail címét",
+  "forgot-email.form.aria.label": "Adja meg e-mail címét",
 
   // "search-facet-option.update.announcement": "The page will be reloaded. Filter {{ filter }} is selected.",
-  "search-facet-option.update.announcement": "Az oldal újratöltődik. A(z) {{ filter }} szűrő ki van választva.",
+  "search-facet-option.update.announcement": "Az oldal újratöltődik. A(z) {{ filter }} szűrő kiválasztva.",
 
   // "live-region.ordering.instructions": "Press spacebar to reorder {{ itemName }}.",
-  "live-region.ordering.instructions": "Nyomja meg a szóközt a(z) {{ itemName }} átrendezéséhez.",
+  "live-region.ordering.instructions": "Nyomja meg a szóköz billentyűt a(z) {{ itemName }} átrendezéséhez.",
 
   // "live-region.ordering.status": "{{ itemName }}, grabbed. Current position in list: {{ index }} of  {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
-  "live-region.ordering.status": "{{ itemName }}, megragadva. Jelenlegi helyezés a listában: {{ index }} / {{ length }}. Használja a fel/le nyilakat a pozíció módosításához, a szóköz billentyűt a letételhez, az Escape-et a művelet megszakításához.",
+  "live-region.ordering.status": "{{ itemName }} megragadva. Jelenlegi pozíció a listában: {{ index }}/{{ length }}.\nHasználja a fel és le nyilakat a pozíció megváltoztatásához, a szóköz billentyűt a lerakáshoz, az Escape billentyűt a megszakításhoz.",
 
   // "live-region.ordering.moved": "{{ itemName }}, moved to position {{ index }} of {{ length }}. Press up and down arrow keys to change position, SpaceBar to drop, Escape to cancel.",
-  "live-region.ordering.moved": "{{ itemName }}, áthelyezve a(z) {{ index }}. pozícióba a {{ length }} elemből. Használja a fel/le nyilakat a pozíció módosításához, a szóköz billentyűt a letételhez, az Escape-et a művelet megszakításához.",
+  "live-region.ordering.moved": "{{ itemName }} áthelyezve a(z) {{ index }}. pozícióba a(z) {{ length }} közül.\nHasználja a fel és le nyilakat a pozíció megváltoztatásához, a szóköz billentyűt a lerakáshoz, az Escape billentyűt a megszakításhoz.",
 
   // "live-region.ordering.dropped": "{{ itemName }}, dropped at position {{ index }} of {{ length }}.",
-  "live-region.ordering.dropped": "{{ itemName }} áthelyezve a(z) {{ index }}. pozícióba a {{ length }} elemből.",
+  "live-region.ordering.dropped": "{{ itemName }} lerakva a(z) {{ index }}. pozícióba a(z) {{ length }} közül.",
 
   // "dynamic-form-array.sortable-list.label": "Sortable list",
   "dynamic-form-array.sortable-list.label": "Rendezhető lista",
 
   // "external-login.component.or": "or",
   // TODO New key - Add a translation
-  "external-login.component.or": "or",
+  "external-login.component.or": "vagy", // Lefordítva
 
   // "external-login.confirmation.header": "Information needed to complete the login process",
   // TODO New key - Add a translation
-  "external-login.confirmation.header": "Information needed to complete the login process",
+  "external-login.confirmation.header": "A bejelentkezési folyamat befejezéséhez szükséges információk", // Lefordítva
 
   // "external-login.noEmail.informationText": "The information received from {{authMethod}} are not sufficient to complete the login process. Please provide the missing information below, or login via a different method to associate your {{authMethod}} to an existing account.",
   // TODO New key - Add a translation
-  "external-login.noEmail.informationText": "The information received from {{authMethod}} are not sufficient to complete the login process. Please provide the missing information below, or login via a different method to associate your {{authMethod}} to an existing account.",
+  "external-login.noEmail.informationText": "A(z) {{authMethod}} szolgáltatótól kapott információk nem elegendőek a bejelentkezési folyamat befejezéséhez.\nKérjük, adja meg alább a hiányzó információkat, vagy jelentkezzen be egy másik módszerrel, hogy összekapcsolja {{authMethod}} fiókját egy meglévő fiókkal.", // Lefordítva
 
   // "external-login.haveEmail.informationText": "It seems that you have not yet an account in this system. If this is the case, please confirm the data received from {{authMethod}} and a new account will be created for you. Otherwise, if you already have an account in the system, please update the email address to match the one already in use in the system or login via a different method to associate your {{authMethod}} to your existing account.",
   // TODO New key - Add a translation
-  "external-login.haveEmail.informationText": "It seems that you have not yet an account in this system. If this is the case, please confirm the data received from {{authMethod}} and a new account will be created for you. Otherwise, if you already have an account in the system, please update the email address to match the one already in use in the system or login via a different method to associate your {{authMethod}} to your existing account.",
+  "external-login.haveEmail.informationText": "Úgy tűnik, még nincs fiókja ebben a rendszerben.\nEbben az esetben kérjük, erősítse meg a(z) {{authMethod}} szolgáltatótól kapott adatokat, és új fiókot hozunk létre Önnek.\nEllenkező esetben, ha már rendelkezik fiókkal a rendszerben, kérjük, frissítse az e-mail címet, hogy megegyezzen a rendszerben már használt címmel, vagy jelentkezzen be egy másik módszerrel, hogy összekapcsolja {{authMethod}} fiókját meglévő fiókjával.", // Lefordítva
 
   // "external-login.confirm-email.header": "Confirm or update email",
   // TODO New key - Add a translation
-  "external-login.confirm-email.header": "Confirm or update email",
+  "external-login.confirm-email.header": "E-mail megerősítése vagy frissítése", // Lefordítva
 
   // "external-login.confirmation.email-required": "Email is required.",
   // TODO New key - Add a translation
-  "external-login.confirmation.email-required": "Email is required.",
+  "external-login.confirmation.email-required": "Az e-mail cím megadása kötelező.", // Lefordítva
 
   // "external-login.confirmation.email-label": "User Email",
   // TODO New key - Add a translation
-  "external-login.confirmation.email-label": "User Email",
+  "external-login.confirmation.email-label": "Felhasználói e-mail", // Lefordítva
 
   // "external-login.confirmation.email-invalid": "Invalid email format.",
   // TODO New key - Add a translation
-  "external-login.confirmation.email-invalid": "Invalid email format.",
+  "external-login.confirmation.email-invalid": "Érvénytelen e-mail formátum.", // Lefordítva
 
   // "external-login.confirm.button.label": "Confirm this email",
   // TODO New key - Add a translation
-  "external-login.confirm.button.label": "Confirm this email",
+  "external-login.confirm.button.label": "E-mail cím megerősítése", // Lefordítva
 
   // "external-login.confirm-email-sent.header": "Confirmation email sent",
   // TODO New key - Add a translation
-  "external-login.confirm-email-sent.header": "Confirmation email sent",
+  "external-login.confirm-email-sent.header": "Megerősítő e-mail elküldve", // Lefordítva
 
   // "external-login.confirm-email-sent.info": " We have sent an email to the provided address to validate your input. <br> Please follow the instructions in the email to complete the login process.",
   // TODO New key - Add a translation
-  "external-login.confirm-email-sent.info": " We have sent an email to the provided address to validate your input. <br> Please follow the instructions in the email to complete the login process.",
+  "external-login.confirm-email-sent.info": "E-mailt küldtünk a megadott címre a bemenet érvényesítéséhez.\n<br> Kérjük, kövesse az e-mailben található utasításokat a bejelentkezési folyamat befejezéséhez.", // Lefordítva
 
   // "external-login.provide-email.header": "Provide email",
   // TODO New key - Add a translation
-  "external-login.provide-email.header": "Provide email",
+  "external-login.provide-email.header": "E-mail cím megadása", // Lefordítva
 
   // "external-login.provide-email.button.label": "Send Verification link",
   // TODO New key - Add a translation
-  "external-login.provide-email.button.label": "Send Verification link",
+  "external-login.provide-email.button.label": "Ellenőrző link küldése", // Lefordítva
 
   // "external-login-validation.review-account-info.header": "Review your account information",
   // TODO New key - Add a translation
-  "external-login-validation.review-account-info.header": "Review your account information",
+  "external-login-validation.review-account-info.header": "Fiókinformációk áttekintése", // Lefordítva
 
   // "external-login-validation.review-account-info.info": "The information received from ORCID differs from the one recorded in your profile. <br /> Please review them and decide if you want to update any of them.After saving you will be redirected to your profile page.",
   // TODO New key - Add a translation
-  "external-login-validation.review-account-info.info": "The information received from ORCID differs from the one recorded in your profile. <br /> Please review them and decide if you want to update any of them.After saving you will be redirected to your profile page.",
+  "external-login-validation.review-account-info.info": "Az ORCID-tól kapott információk eltérnek a profiljában rögzítettektől.\n<br /> Kérjük, tekintse át őket, és döntse el, szeretné-e valamelyiket frissíteni. Mentés után átirányítjuk a profiloldalára.", // Lefordítva
 
   // "external-login-validation.review-account-info.table.header.information": "Information",
   // TODO New key - Add a translation
-  "external-login-validation.review-account-info.table.header.information": "Information",
+  "external-login-validation.review-account-info.table.header.information": "Információ", // Lefordítva
 
   // "external-login-validation.review-account-info.table.header.received-value": "Received value",
   // TODO New key - Add a translation
-  "external-login-validation.review-account-info.table.header.received-value": "Received value",
+  "external-login-validation.review-account-info.table.header.received-value": "Kapott érték", // Lefordítva
 
   // "external-login-validation.review-account-info.table.header.current-value": "Current value",
   // TODO New key - Add a translation
-  "external-login-validation.review-account-info.table.header.current-value": "Current value",
+  "external-login-validation.review-account-info.table.header.current-value": "Jelenlegi érték", // Lefordítva
 
   // "external-login-validation.review-account-info.table.header.action": "Override",
   // TODO New key - Add a translation
-  "external-login-validation.review-account-info.table.header.action": "Override",
+  "external-login-validation.review-account-info.table.header.action": "Felülírás", // Lefordítva
 
   // "external-login-validation.review-account-info.table.row.not-applicable": "N/A",
   // TODO New key - Add a translation
-  "external-login-validation.review-account-info.table.row.not-applicable": "N/A",
+  "external-login-validation.review-account-info.table.row.not-applicable": "N/A", // Lefordítva (vagy "Nem alkalmazható")
 
   // "on-label": "ON",
   // TODO New key - Add a translation
-  "on-label": "ON",
+  "on-label": "BE", // Lefordítva
 
   // "off-label": "OFF",
   // TODO New key - Add a translation
-  "off-label": "OFF",
+  "off-label": "KI", // Lefordítva
 
   // "review-account-info.merge-data.notification.success": "Your account information has been updated successfully",
   // TODO New key - Add a translation
-  "review-account-info.merge-data.notification.success": "Your account information has been updated successfully",
+  "review-account-info.merge-data.notification.success": "Fiókinformációi sikeresen frissültek.", // Lefordítva
 
   // "review-account-info.merge-data.notification.error": "Something went wrong while updating your account information",
   // TODO New key - Add a translation
-  "review-account-info.merge-data.notification.error": "Something went wrong while updating your account information",
+  "review-account-info.merge-data.notification.error": "Hiba történt a fiókinformációk frissítése közben.", // Lefordítva
 
   // "review-account-info.alert.error.content": "Something went wrong. Please try again later.",
   // TODO New key - Add a translation
-  "review-account-info.alert.error.content": "Something went wrong. Please try again later.",
+  "review-account-info.alert.error.content": "Hiba történt.\nKérjük, próbálja újra később.", // Lefordítva
 
   // "external-login-page.provide-email.notifications.error": "Something went wrong.Email address was omitted or the operation is not valid.",
   // TODO New key - Add a translation
-  "external-login-page.provide-email.notifications.error": "Something went wrong.Email address was omitted or the operation is not valid.",
+  "external-login-page.provide-email.notifications.error": "Hiba történt. Az e-mail cím hiányzott, vagy a művelet érvénytelen.", // Lefordítva
 
   // "external-login.error.notification": "There was an error while processing your request. Please try again later.",
   // TODO New key - Add a translation
-  "external-login.error.notification": "There was an error while processing your request. Please try again later.",
+  "external-login.error.notification": "Hiba történt a kérés feldolgozása közben.\nKérjük, próbálja újra később.", // Lefordítva
+
+  // "external-login.error.notification": "There was an error while processing your request. Please try again later.",
+  // TODO New key - Add a translation
+  "external-login.error.notification": "Hiba történt a kérés feldolgozása közben. Kérjük, próbálja újra később.",
 
   // "external-login.connect-to-existing-account.label": "Connect to an existing user",
   // TODO New key - Add a translation
-  "external-login.connect-to-existing-account.label": "Connect to an existing user",
+  "external-login.connect-to-existing-account.label": "Csatlakozás meglévő felhasználóhoz",
 
   // "external-login.modal.label.close": "Close",
   // TODO New key - Add a translation
-  "external-login.modal.label.close": "Close",
+  "external-login.modal.label.close": "Bezárás",
 
   // "external-login-page.provide-email.create-account.notifications.error.header": "Something went wrong",
   // TODO New key - Add a translation
-  "external-login-page.provide-email.create-account.notifications.error.header": "Something went wrong",
+  "external-login-page.provide-email.create-account.notifications.error.header": "Hiba történt",
 
   // "external-login-page.provide-email.create-account.notifications.error.content": "Please check again your email address and try again.",
   // TODO New key - Add a translation
-  "external-login-page.provide-email.create-account.notifications.error.content": "Please check again your email address and try again.",
+  "external-login-page.provide-email.create-account.notifications.error.content": "Kérjük, ellenőrizze újra e-mail címét, és próbálja újra.",
 
   // "external-login-page.confirm-email.create-account.notifications.error.no-netId": "Something went wrong with this email account. Try again or use a different method to login.",
   // TODO New key - Add a translation
-  "external-login-page.confirm-email.create-account.notifications.error.no-netId": "Something went wrong with this email account. Try again or use a different method to login.",
+  "external-login-page.confirm-email.create-account.notifications.error.no-netId": "Hiba történt ezzel az e-mail fiókkal. Próbálja újra, vagy használjon másik bejelentkezési módot.",
 
   // "external-login-page.orcid-confirmation.firstname": "First name",
   // TODO New key - Add a translation
-  "external-login-page.orcid-confirmation.firstname": "First name",
+  "external-login-page.orcid-confirmation.firstname": "Keresztnév",
 
   // "external-login-page.orcid-confirmation.firstname.label": "First name",
   // TODO New key - Add a translation
-  "external-login-page.orcid-confirmation.firstname.label": "First name",
+  "external-login-page.orcid-confirmation.firstname.label": "Keresztnév",
 
   // "external-login-page.orcid-confirmation.lastname": "Last name",
   // TODO New key - Add a translation
-  "external-login-page.orcid-confirmation.lastname": "Last name",
+  "external-login-page.orcid-confirmation.lastname": "Vezetéknév",
 
   // "external-login-page.orcid-confirmation.lastname.label": "Last name",
   // TODO New key - Add a translation
-  "external-login-page.orcid-confirmation.lastname.label": "Last name",
+  "external-login-page.orcid-confirmation.lastname.label": "Vezetéknév",
 
   // "external-login-page.orcid-confirmation.netid": "Account Identifier",
   // TODO New key - Add a translation
-  "external-login-page.orcid-confirmation.netid": "Account Identifier",
+  "external-login-page.orcid-confirmation.netid": "Fiókazonosító",
 
   // "external-login-page.orcid-confirmation.netid.placeholder": "xxxx-xxxx-xxxx-xxxx",
   // TODO New key - Add a translation
@@ -10942,59 +10945,57 @@
 
   // "external-login-page.orcid-confirmation.email": "Email",
   // TODO New key - Add a translation
-  "external-login-page.orcid-confirmation.email": "Email",
+  "external-login-page.orcid-confirmation.email": "E-mail",
 
   // "external-login-page.orcid-confirmation.email.label": "Email",
   // TODO New key - Add a translation
-  "external-login-page.orcid-confirmation.email.label": "Email",
+  "external-login-page.orcid-confirmation.email.label": "E-mail",
 
   // "search.filters.access_status.open.access": "Open access",
   // TODO New key - Add a translation
-  "search.filters.access_status.open.access": "Open access",
+  "search.filters.access_status.open.access": "Nyílt hozzáférés",
 
   // "search.filters.access_status.restricted": "Restricted access",
   // TODO New key - Add a translation
-  "search.filters.access_status.restricted": "Restricted access",
+  "search.filters.access_status.restricted": "Korlátozott hozzáférés",
 
   // "search.filters.access_status.embargo": "Embargoed access",
   // TODO New key - Add a translation
-  "search.filters.access_status.embargo": "Embargoed access",
+  "search.filters.access_status.embargo": "Embargós hozzáférés",
 
   // "search.filters.access_status.metadata.only": "Metadata only",
   // TODO New key - Add a translation
-  "search.filters.access_status.metadata.only": "Metadata only",
+  "search.filters.access_status.metadata.only": "Csak metaadatok",
 
   // "search.filters.access_status.unknown": "Unknown",
   // TODO New key - Add a translation
-  "search.filters.access_status.unknown": "Unknown",
+  "search.filters.access_status.unknown": "Ismeretlen",
 
   // "metadata-export-filtered-items.tooltip": "Export report output as CSV",
   // TODO New key - Add a translation
-  "metadata-export-filtered-items.tooltip": "Export report output as CSV",
+  "metadata-export-filtered-items.tooltip": "Szűrt tételek exportálása CSV-ként",
 
   // "metadata-export-filtered-items.submit.success": "CSV export succeeded.",
   // TODO New key - Add a translation
-  "metadata-export-filtered-items.submit.success": "CSV export succeeded.",
+  "metadata-export-filtered-items.submit.success": "A CSV exportálás sikeres.",
 
   // "metadata-export-filtered-items.submit.error": "CSV export failed.",
   // TODO New key - Add a translation
-  "metadata-export-filtered-items.submit.error": "CSV export failed.",
+  "metadata-export-filtered-items.submit.error": "A CSV exportálás sikertelen.",
 
   // "metadata-export-filtered-items.columns.warning": "CSV export automatically includes all relevant fields, so selections in this list are not taken into account.",
   // TODO New key - Add a translation
-  "metadata-export-filtered-items.columns.warning": "CSV export automatically includes all relevant fields, so selections in this list are not taken into account.",
+  "metadata-export-filtered-items.columns.warning": "A CSV export automatikusan tartalmazza az összes releváns mezőt, így a listában végzett kijelölések nem kerülnek figyelembevételre.",
 
   // "embargo.listelement.badge": "Embargo until {{ date }}",
   // TODO New key - Add a translation
-  "embargo.listelement.badge": "Embargo until {{ date }}",
+  "embargo.listelement.badge": "Embargó {{ date }}-ig",
 
   // "metadata-export-search.submit.error.limit-exceeded": "Only the first {{limit}} items will be exported",
   // TODO New key - Add a translation
-  "metadata-export-search.submit.error.limit-exceeded": "Only the first {{limit}} items will be exported",
+  "metadata-export-search.submit.error.limit-exceeded": "Csak az első {{limit}} tétel kerül exportálásra",
 
   // "file-download-link.request-copy": "Request a copy of ",
   // TODO New key - Add a translation
-  "file-download-link.request-copy": "Request a copy of ",
-
-
+  "file-download-link.request-copy": "Másolat kérése "
 }
