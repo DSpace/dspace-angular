@@ -7041,7 +7041,7 @@
   "search.filters.filter.creativeWorkKeywords.placeholder": "Tárgyszó",
 
   // "search.filters.filter.creativeWorkKeywords.label": "Search subject",
-  "search.filters.filter.creativeWorkKeywords.label": "Tárgyszó keresése",
+  "search.filters.filter.creativeWorkKeywords.label": "Keresés tárgyszóra", // Eredeti: "Tárgyszó keresése" -> Javított
 
   // "search.filters.filter.creativeWorkPublisher.head": "Publisher",
   "search.filters.filter.creativeWorkPublisher.head": "Kiadó",
@@ -7050,49 +7050,49 @@
   "search.filters.filter.creativeWorkPublisher.placeholder": "Kiadó",
 
   // "search.filters.filter.creativeWorkPublisher.label": "Search publisher",
-  "search.filters.filter.creativeWorkPublisher.label": "Kiadó keresése",
+  "search.filters.filter.creativeWorkPublisher.label": "Keresés kiadóra", // Eredeti: "Kiadó keresése" -> Javított
 
   // "search.filters.filter.dateIssued.head": "Date",
   "search.filters.filter.dateIssued.head": "Dátum",
 
   // "search.filters.filter.dateIssued.max.placeholder": "Maximum Date",
-  "search.filters.filter.dateIssued.max.placeholder": "Maximum Dátum",
+  "search.filters.filter.dateIssued.max.placeholder": "Legkésőbbi dátum", // Eredeti: "Maximum Dátum" -> Javított
 
   // "search.filters.filter.dateIssued.max.label": "End",
-  "search.filters.filter.dateIssued.max.label": "Végdátum",
+  "search.filters.filter.dateIssued.max.label": "Vége", // Eredeti: "Végdátum" -> Javított
 
   // "search.filters.filter.dateIssued.min.placeholder": "Minimum Date",
-  "search.filters.filter.dateIssued.min.placeholder": "Minimum Dátum",
+  "search.filters.filter.dateIssued.min.placeholder": "Legkorábbi dátum", // Eredeti: "Minimum Dátum" -> Javított
 
   // "search.filters.filter.dateIssued.min.label": "Start",
-  "search.filters.filter.dateIssued.min.label": "Kezdő dátum",
+  "search.filters.filter.dateIssued.min.label": "Kezdete", // Eredeti: "Kezdő dátum" -> Javított
 
   // "search.filters.filter.dateSubmitted.head": "Date submitted",
-  "search.filters.filter.dateSubmitted.head": "Feltöltés dátuma",
+  "search.filters.filter.dateSubmitted.head": "Beküldés dátuma", // Eredeti: "Feltöltés dátuma" -> Javított
 
   // "search.filters.filter.dateSubmitted.placeholder": "Date submitted",
-  "search.filters.filter.dateSubmitted.placeholder": "Feltöltés dátuma",
+  "search.filters.filter.dateSubmitted.placeholder": "Beküldés dátuma",
 
   // "search.filters.filter.dateSubmitted.label": "Search date submitted",
-  "search.filters.filter.dateSubmitted.label": "Search date submitted",
+  "search.filters.filter.dateSubmitted.label": "Keresés beküldés dátumára", // Eredeti: "Search date submitted" -> Javított
 
   // "search.filters.filter.discoverable.head": "Non-discoverable",
-  "search.filters.filter.discoverable.head": "Privát",
+  "search.filters.filter.discoverable.head": "Nem kereshető", // Eredeti: "Privát" -> Javított
 
   // "search.filters.filter.withdrawn.head": "Withdrawn",
-  "search.filters.filter.withdrawn.head": "Visszavonva",
+  "search.filters.filter.withdrawn.head": "Visszavont", // Eredeti: "Visszavonva" -> Javított
 
   // "search.filters.filter.entityType.head": "Item Type",
-  "search.filters.filter.entityType.head": "Tárgy típusa",
+  "search.filters.filter.entityType.head": "Tételtípus", // Eredeti: "Tárgy típusa" -> Javított
 
   // "search.filters.filter.entityType.placeholder": "Item Type",
-  "search.filters.filter.entityType.placeholder": "Tárgy típusa",
+  "search.filters.filter.entityType.placeholder": "Tételtípus",
 
   // "search.filters.filter.entityType.label": "Search item type",
-  "search.filters.filter.entityType.label": "Tárgy típus keresése",
+  "search.filters.filter.entityType.label": "Keresés tételtípusra", // Eredeti: "Tárgy típus keresése" -> Javított
 
   // "search.filters.filter.expand": "Expand filter",
-  "search.filters.filter.expand": "Expand filter",
+  "search.filters.filter.expand": "Szűrő kibontása", // Eredeti: "Expand filter" -> Javított
 
   // "search.filters.filter.has_content_in_original_bundle.head": "Has files",
   "search.filters.filter.has_content_in_original_bundle.head": "Fájlokat tartalmaz",
@@ -7102,22 +7102,22 @@
 
   // "search.filters.filter.has_geospatial_metadata.head": "Has geographical location",
   // TODO New key - Add a translation
-  "search.filters.filter.has_geospatial_metadata.head": "Has geographical location",
+  "search.filters.filter.has_geospatial_metadata.head": "Földrajzi helyadatokkal rendelkezik", // Lefordítva
 
   // "search.filters.filter.original_bundle_filenames.placeholder": "File name",
   "search.filters.filter.original_bundle_filenames.placeholder": "Fájlnév",
 
   // "search.filters.filter.original_bundle_filenames.label": "Search File name",
-  "search.filters.filter.original_bundle_filenames.label": "Fájlnév keresése",
+  "search.filters.filter.original_bundle_filenames.label": "Keresés fájlnévre", // Eredeti: "Fájlnév keresése" -> Javított
 
   // "search.filters.filter.original_bundle_descriptions.head": "File description",
-  "search.filters.filter.original_bundle_descriptions.head": "Fájl leírása",
+  "search.filters.filter.original_bundle_descriptions.head": "Fájlleírás", // Eredeti: "Fájl leírása" -> Javított
 
   // "search.filters.filter.original_bundle_descriptions.placeholder": "File description",
-  "search.filters.filter.original_bundle_descriptions.placeholder": "Fájl leírása",
+  "search.filters.filter.original_bundle_descriptions.placeholder": "Fájlleírás",
 
   // "search.filters.filter.original_bundle_descriptions.label": "Search File description",
-  "search.filters.filter.original_bundle_descriptions.label": "Fájl leírása keresése",
+  "search.filters.filter.original_bundle_descriptions.label": "Keresés fájlleírásra", // Eredeti: "Fájl leírása keresése" -> Javított
 
   // "search.filters.filter.itemtype.head": "Type",
   "search.filters.filter.itemtype.head": "Típus",
@@ -7126,7 +7126,7 @@
   "search.filters.filter.itemtype.placeholder": "Típus",
 
   // "search.filters.filter.itemtype.label": "Search type",
-  "search.filters.filter.itemtype.label": "Típus keresése",
+  "search.filters.filter.itemtype.label": "Keresés típusra", // Eredeti: "Típus keresése" -> Javított
 
   // "search.filters.filter.jobTitle.head": "Job Title",
   "search.filters.filter.jobTitle.head": "Munkakör",
@@ -7135,7 +7135,7 @@
   "search.filters.filter.jobTitle.placeholder": "Munkakör",
 
   // "search.filters.filter.jobTitle.label": "Search job title",
-  "search.filters.filter.jobTitle.label": "Search job title",
+  "search.filters.filter.jobTitle.label": "Keresés munkakörre", // Eredeti: "Search job title" -> Javított
 
   // "search.filters.filter.knowsLanguage.head": "Known language",
   "search.filters.filter.knowsLanguage.head": "Ismert nyelv",
@@ -7144,7 +7144,7 @@
   "search.filters.filter.knowsLanguage.placeholder": "Ismert nyelv",
 
   // "search.filters.filter.knowsLanguage.label": "Search known language",
-  "search.filters.filter.knowsLanguage.label": "Search known language",
+  "search.filters.filter.knowsLanguage.label": "Keresés ismert nyelvre", // Eredeti: "Search known language" -> Javított
 
   // "search.filters.filter.namedresourcetype.head": "Status",
   "search.filters.filter.namedresourcetype.head": "Állapot",
@@ -7153,25 +7153,25 @@
   "search.filters.filter.namedresourcetype.placeholder": "Állapot",
 
   // "search.filters.filter.namedresourcetype.label": "Search status",
-  "search.filters.filter.namedresourcetype.label": "Search status",
+  "search.filters.filter.namedresourcetype.label": "Keresés állapotra", // Eredeti: "Search status" -> Javított
 
   // "search.filters.filter.objectpeople.head": "People",
-  "search.filters.filter.objectpeople.head": "Felhasználók",
+  "search.filters.filter.objectpeople.head": "Személyek", // Eredeti: "Felhasználók" -> Javított (People)
 
   // "search.filters.filter.objectpeople.placeholder": "People",
-  "search.filters.filter.objectpeople.placeholder": "Felhasználók",
+  "search.filters.filter.objectpeople.placeholder": "Személyek",
 
   // "search.filters.filter.objectpeople.label": "Search people",
-  "search.filters.filter.objectpeople.label": "Search people",
+  "search.filters.filter.objectpeople.label": "Keresés személyekre", // Eredeti: "Search people" -> Javított
 
   // "search.filters.filter.organizationAddressCountry.head": "Country",
-  "search.filters.filter.organizationAddressCountry.head": "Országy",
+  "search.filters.filter.organizationAddressCountry.head": "Ország", // Eredeti: "Országy" -> Javított (elírás)
 
   // "search.filters.filter.organizationAddressCountry.placeholder": "Country",
   "search.filters.filter.organizationAddressCountry.placeholder": "Ország",
 
   // "search.filters.filter.organizationAddressCountry.label": "Search country",
-  "search.filters.filter.organizationAddressCountry.label": "Ország keresése",
+  "search.filters.filter.organizationAddressCountry.label": "Keresés országra",
 
   // "search.filters.filter.organizationAddressLocality.head": "City",
   "search.filters.filter.organizationAddressLocality.head": "Város",
@@ -7180,7 +7180,7 @@
   "search.filters.filter.organizationAddressLocality.placeholder": "Város",
 
   // "search.filters.filter.organizationAddressLocality.label": "Search city",
-  "search.filters.filter.organizationAddressLocality.label": "Város keresése",
+  "search.filters.filter.organizationAddressLocality.label": "Keresés városra",
 
   // "search.filters.filter.organizationFoundingDate.head": "Date Founded",
   "search.filters.filter.organizationFoundingDate.head": "Alapítás dátuma",
@@ -7189,30 +7189,30 @@
   "search.filters.filter.organizationFoundingDate.placeholder": "Alapítás dátuma",
 
   // "search.filters.filter.organizationFoundingDate.label": "Search date founded",
-  "search.filters.filter.organizationFoundingDate.label": "Alapítás dátum keresése",
+  "search.filters.filter.organizationFoundingDate.label": "Keresés alapítás dátumára", // Eredeti: "Alapítás dátum keresése" -> Javított
 
   // "search.filters.filter.organizationFoundingDate.min.label": "Start",
   // TODO New key - Add a translation
-  "search.filters.filter.organizationFoundingDate.min.label": "Start",
+  "search.filters.filter.organizationFoundingDate.min.label": "Kezdete", // Lefordítva
 
   // "search.filters.filter.organizationFoundingDate.max.label": "End",
   // TODO New key - Add a translation
-  "search.filters.filter.organizationFoundingDate.max.label": "End",
+  "search.filters.filter.organizationFoundingDate.max.label": "Vége", // Lefordítva
 
   // "search.filters.filter.scope.head": "Scope",
-  "search.filters.filter.scope.head": "Célja",
+  "search.filters.filter.scope.head": "Hatókör", // Eredeti: "Célja" -> Javított (Scope)
 
   // "search.filters.filter.scope.placeholder": "Scope filter",
-  "search.filters.filter.scope.placeholder": "Cél szűrő",
+  "search.filters.filter.scope.placeholder": "Hatókörszűrő", // Eredeti: "Cél szűrő" -> Javított
 
   // "search.filters.filter.scope.label": "Search scope filter",
-  "search.filters.filter.scope.label": "Search scope filter",
+  "search.filters.filter.scope.label": "Keresés hatókörszűrőre", // Eredeti: "Search scope filter" -> Javított
 
   // "search.filters.filter.show-less": "Collapse",
-  "search.filters.filter.show-less": "Összecsuk",
+  "search.filters.filter.show-less": "Összecsukás", // Eredeti: "Összecsuk" -> Javított (Noun form)
 
   // "search.filters.filter.show-more": "Show more",
-  "search.filters.filter.show-more": "Továbbiak",
+  "search.filters.filter.show-more": "Több mutatása",
 
   // "search.filters.filter.subject.head": "Subject",
   "search.filters.filter.subject.head": "Tárgyszó",
@@ -7221,52 +7221,52 @@
   "search.filters.filter.subject.placeholder": "Tárgyszó",
 
   // "search.filters.filter.subject.label": "Search subject",
-  "search.filters.filter.subject.label": "Tárgyszó keresése",
+  "search.filters.filter.subject.label": "Keresés tárgyszóra",
 
   // "search.filters.filter.submitter.head": "Submitter",
-  "search.filters.filter.submitter.head": "Feltöltő",
+  "search.filters.filter.submitter.head": "Beküldő", // Eredeti: "Feltöltő" -> Javított
 
   // "search.filters.filter.submitter.placeholder": "Submitter",
-  "search.filters.filter.submitter.placeholder": "Feltöltő",
+  "search.filters.filter.submitter.placeholder": "Beküldő",
 
   // "search.filters.filter.submitter.label": "Search submitter",
-  "search.filters.filter.submitter.label": "Search submitter",
+  "search.filters.filter.submitter.label": "Keresés beküldőre", // Eredeti: "Search submitter" -> Javított
 
   // "search.filters.filter.show-tree": "Browse {{ name }} tree",
-  "search.filters.filter.show-tree": "Browse {{ name }} tree",
+  "search.filters.filter.show-tree": "{{ name }} fastruktúra böngészése", // Eredeti: "Browse {{ name }} tree" -> Javított
 
   // "search.filters.filter.funding.head": "Funding",
-  "search.filters.filter.funding.head": "Funding",
+  "search.filters.filter.funding.head": "Finanszírozás", // Eredeti: "Funding" -> Javított
 
   // "search.filters.filter.funding.placeholder": "Funding",
-  "search.filters.filter.funding.placeholder": "Funding",
+  "search.filters.filter.funding.placeholder": "Finanszírozás",
 
   // "search.filters.filter.supervisedBy.head": "Supervised By",
-  "search.filters.filter.supervisedBy.head": "Felügyeli",
+  "search.filters.filter.supervisedBy.head": "Felügyelő", // Eredeti: "Felügyeli" -> Javított (Supervised By as a noun)
 
   // "search.filters.filter.supervisedBy.placeholder": "Supervised By",
-  "search.filters.filter.supervisedBy.placeholder": "Felügyeli",
+  "search.filters.filter.supervisedBy.placeholder": "Felügyelő",
 
   // "search.filters.filter.supervisedBy.label": "Search Supervised By",
-  "search.filters.filter.supervisedBy.label": "Search Supervised By",
+  "search.filters.filter.supervisedBy.label": "Keresés felügyelőre", // Eredeti: "Search Supervised By" -> Javított
 
   // "search.filters.filter.access_status.head": "Access type",
   // TODO New key - Add a translation
-  "search.filters.filter.access_status.head": "Access type",
+  "search.filters.filter.access_status.head": "Hozzáférési típus", // Lefordítva
 
   // "search.filters.filter.access_status.placeholder": "Access type",
   // TODO New key - Add a translation
-  "search.filters.filter.access_status.placeholder": "Access type",
+  "search.filters.filter.access_status.placeholder": "Hozzáférési típus", // Lefordítva
 
   // "search.filters.filter.access_status.label": "Search by access type",
   // TODO New key - Add a translation
-  "search.filters.filter.access_status.label": "Search by access type",
+  "search.filters.filter.access_status.label": "Keresés hozzáférési típus szerint", // Lefordítva
 
   // "search.filters.entityType.JournalIssue": "Journal Issue",
-  "search.filters.entityType.JournalIssue": "Folyóirat száma",
+  "search.filters.entityType.JournalIssue": "Folyóiratszám", // Eredeti: "Folyóirat száma" -> Javított
 
   // "search.filters.entityType.JournalVolume": "Journal Volume",
-  "search.filters.entityType.JournalVolume": "JFolyóirat kötet",
+  "search.filters.entityType.JournalVolume": "Folyóiratkötet", // Eredeti: "JFolyóirat kötet" -> Javított (elírás)
 
   // "search.filters.entityType.OrgUnit": "Organizational Unit",
   "search.filters.entityType.OrgUnit": "Szervezeti egység",
@@ -7288,17 +7288,17 @@
 
   // "search.filters.has_geospatial_metadata.true": "Yes",
   // TODO New key - Add a translation
-  "search.filters.has_geospatial_metadata.true": "Yes",
+  "search.filters.has_geospatial_metadata.true": "Igen", // Lefordítva
 
   // "search.filters.has_geospatial_metadata.false": "No",
   // TODO New key - Add a translation
-  "search.filters.has_geospatial_metadata.false": "No",
+  "search.filters.has_geospatial_metadata.false": "Nem", // Lefordítva
 
   // "search.filters.discoverable.true": "No",
-  "search.filters.discoverable.true": "Nem",
+  "search.filters.discoverable.true": "Nem", // (Discoverable: No -> Nem kereshető)
 
   // "search.filters.discoverable.false": "Yes",
-  "search.filters.discoverable.false": "Igen",
+  "search.filters.discoverable.false": "Igen", // (Discoverable: Yes -> Kereshető)
 
   // "search.filters.namedresourcetype.Archived": "Archived",
   "search.filters.namedresourcetype.Archived": "Archivált",
@@ -7307,28 +7307,28 @@
   "search.filters.namedresourcetype.Validation": "Ellenőrzés alatt",
 
   // "search.filters.namedresourcetype.Waiting for Controller": "Waiting for reviewer",
-  "search.filters.namedresourcetype.Waiting for Controller": "Értékelőre vár",
+  "search.filters.namedresourcetype.Waiting for Controller": "Bírálóra vár", // Eredeti: "Értékelőre vár" -> Javított (reviewer)
 
   // "search.filters.namedresourcetype.Workflow": "Workflow",
-  "search.filters.namedresourcetype.Workflow": "Workflow",
+  "search.filters.namedresourcetype.Workflow": "Munkafolyamat",
 
   // "search.filters.namedresourcetype.Workspace": "Workspace",
-  "search.filters.namedresourcetype.Workspace": "Workspace",
+  "search.filters.namedresourcetype.Workspace": "Munkaterület",
 
   // "search.filters.withdrawn.true": "Yes",
-  "search.filters.withdrawn.true": "Igen",
+  "search.filters.withdrawn.true": "Igen", // (Withdrawn: Yes -> Visszavonva)
 
   // "search.filters.withdrawn.false": "No",
-  "search.filters.withdrawn.false": "Nem",
+  "search.filters.withdrawn.false": "Nem", // (Withdrawn: No -> Nincs visszavonva)
 
   // "search.filters.head": "Filters",
   "search.filters.head": "Szűrők",
 
   // "search.filters.reset": "Reset filters",
-  "search.filters.reset": "Szűrők visszaállítása",
+  "search.filters.reset": "Szűrők alaphelyzetbe állítása", // Eredeti: "Szűrők visszaállítása" -> Javított
 
   // "search.filters.search.submit": "Submit",
-  "search.filters.search.submit": "Szűrés",
+  "search.filters.search.submit": "Alkalmaz", // Eredeti: "Szűrés" -> Javított (Submit a filter context)
 
   // "search.filters.operator.equals.text": "Equals",
   "search.filters.operator.equals.text": "Egyenlő",
@@ -7337,16 +7337,16 @@
   "search.filters.operator.notequals.text": "Nem egyenlő",
 
   // "search.filters.operator.authority.text": "Authority",
-  "search.filters.operator.authority.text": "Hitelesített érték",
+  "search.filters.operator.authority.text": "Autoritás", // Eredeti: "Hitelesített érték" -> Javított (Authority)
 
   // "search.filters.operator.notauthority.text": "Not Authority",
-  "search.filters.operator.notauthority.text": "Nem hitelesített érték",
+  "search.filters.operator.notauthority.text": "Nem autoritás", // Eredeti: "Nem hitelesített érték" -> Javított
 
   // "search.filters.operator.contains.text": "Contains",
-  "search.filters.operator.contains.text": "Tartalmaz",
+  "search.filters.operator.contains.text": "Tartalmazza",
 
   // "search.filters.operator.notcontains.text": "Not Contains",
-  "search.filters.operator.notcontains.text": "Nem tartalmaz",
+  "search.filters.operator.notcontains.text": "Nem tartalmazza",
 
   // "search.filters.operator.query.text": "Query",
   "search.filters.operator.query.text": "Lekérdezés",
@@ -7358,65 +7358,65 @@
   "search.form.search_dspace": "Teljes repozitórium",
 
   // "search.form.scope.all": "All of DSpace",
-  "search.form.scope.all": "A teljes DSpace",
+  "search.form.scope.all": "Egész DSpace", // Eredeti: "A teljes DSpace" -> Javított
 
   // "search.results.head": "Search Results",
   "search.results.head": "Keresési eredmények",
 
   // "search.results.no-results": "Your search returned no results. Having trouble finding what you're looking for? Try putting",
-  "search.results.no-results": "A keresésnek nincs eredménye. Nem találja amit keres? Próbálja",
+  "search.results.no-results": "A keresés nem hozott eredményt.\nNehezen találja, amit keres? Próbálja meg", // Eredeti: "A keresésnek nincs eredménye. Nem találja amit keres? Próbálja" -> Javított
 
   // "search.results.no-results-link": "quotes around it",
-  "search.results.no-results-link": "idézőjelek közé írni",
+  "search.results.no-results-link": "idézőjelek közé tenni", // Eredeti: "idézőjelek közé írni" -> Javított
 
   // "search.results.empty": "Your search returned no results.",
-  "search.results.empty": "A keresésnek nincs eredménye.",
+  "search.results.empty": "A keresés nem hozott eredményt.",
 
   // "search.results.geospatial-map.empty": "No results on this page with geospatial locations",
   // TODO New key - Add a translation
-  "search.results.geospatial-map.empty": "No results on this page with geospatial locations",
+  "search.results.geospatial-map.empty": "Ezen az oldalon nincsenek földrajzi helyadatokkal rendelkező eredmények.", // Lefordítva
 
   // "search.results.view-result": "View",
-  "search.results.view-result": "Megnyitás",
+  "search.results.view-result": "Megtekintés", // Eredeti: "Megnyitás" -> Javított
 
   // "search.results.response.500": "An error occurred during query execution, please try again later",
-  "search.results.response.500": "An error occurred during query execution, please try again later",
+  "search.results.response.500": "Hiba történt a lekérdezés végrehajtása során, kérjük, próbálja újra később.", // Lefordítva
 
   // "default.search.results.head": "Search Results",
-  "default.search.results.head": "Keresés eredménye",
+  "default.search.results.head": "Keresési eredmények",
 
   // "default-relationships.search.results.head": "Search Results",
-  "default-relationships.search.results.head": "Keresés eredménye",
+  "default-relationships.search.results.head": "Keresési eredmények",
 
   // "search.sidebar.close": "Back to results",
-  "search.sidebar.close": "Vissza a találatokhoz",
+  "search.sidebar.close": "Vissza az eredményekhez",
 
   // "search.sidebar.filters.title": "Filters",
   "search.sidebar.filters.title": "Szűrők",
 
   // "search.sidebar.open": "Search Tools",
-  "search.sidebar.open": "Kereső eszközök",
+  "search.sidebar.open": "Keresőeszközök", // Eredeti: "Kereső eszközök" -> Javított
 
   // "search.sidebar.results": "results",
-  "search.sidebar.results": "eredmények",
+  "search.sidebar.results": "eredmény", // Eredeti: "eredmények" -> Javított (egyes szám általában jobb itt)
 
   // "search.sidebar.settings.rpp": "Results per page",
-  "search.sidebar.settings.rpp": "Eredmények oldalanként",
+  "search.sidebar.settings.rpp": "Találatok oldalanként",
 
   // "search.sidebar.settings.sort-by": "Sort By",
-  "search.sidebar.settings.sort-by": "Rendezési szempont",
+  "search.sidebar.settings.sort-by": "Rendezés", // Eredeti: "Rendezési szempont" -> Javított
 
   // "search.sidebar.advanced-search.title": "Advanced Search",
   "search.sidebar.advanced-search.title": "Összetett keresés",
 
   // "search.sidebar.advanced-search.filter-by": "Filter by",
-  "search.sidebar.advanced-search.filter-by": "Szűrőfeltétel",
+  "search.sidebar.advanced-search.filter-by": "Szűrés erre:", // Eredeti: "Szűrőfeltétel" -> Javított
 
   // "search.sidebar.advanced-search.filters": "Filters",
-  "search.sidebar.advanced-search.filters": "Szűrőfeltételek",
+  "search.sidebar.advanced-search.filters": "Szűrők", // Eredeti: "Szűrőfeltételek" -> Javított
 
   // "search.sidebar.advanced-search.operators": "Operators",
-  "search.sidebar.advanced-search.operators": "Logikai feltételek",
+  "search.sidebar.advanced-search.operators": "Operátorok", // Eredeti: "Logikai feltételek" -> Javított
 
   // "search.sidebar.advanced-search.add": "Add",
   "search.sidebar.advanced-search.add": "Hozzáadás",
@@ -7425,23 +7425,23 @@
   "search.sidebar.settings.title": "Beállítások",
 
   // "search.view-switch.show-detail": "Show detail",
-  "search.view-switch.show-detail": "Részletek megjelenítése",
+  "search.view-switch.show-detail": "Részletes nézet", // Eredeti: "Részletek megjelenítése" -> Javított
 
   // "search.view-switch.show-grid": "Show as grid",
-  "search.view-switch.show-grid": "Megjelenítés rácsként",
+  "search.view-switch.show-grid": "Rácsnézet", // Eredeti: "Megjelenítés rácsként" -> Javított
 
   // "search.view-switch.show-list": "Show as list",
-  "search.view-switch.show-list": "Megjelenítés listaként",
+  "search.view-switch.show-list": "Listanézet", // Eredeti: "Megjelenítés listaként" -> Javított
 
   // "search.view-switch.show-geospatialMap": "Show as map",
   // TODO New key - Add a translation
-  "search.view-switch.show-geospatialMap": "Show as map",
+  "search.view-switch.show-geospatialMap": "Térképnézet", // Lefordítva
 
   // "selectable-list-item-control.deselect": "Deselect item",
-  "selectable-list-item-control.deselect": "Elem kijelölésének megszüntetése",
+  "selectable-list-item-control.deselect": "Kijelölés megszüntetése", // Eredeti: "Elem kijelölésének megszüntetése" -> Javított
 
   // "selectable-list-item-control.select": "Select item",
-  "selectable-list-item-control.select": "Elem kijelölése",
+  "selectable-list-item-control.select": "Kijelölés", // Eredeti: "Elem kijelölése" -> Javított
 
   // "sorting.ASC": "Ascending",
   "sorting.ASC": "Növekvő",
@@ -7459,106 +7459,106 @@
   "sorting.score.ASC": "Legkevésbé releváns",
 
   // "sorting.score.DESC": "Most Relevant",
-  "sorting.score.DESC": "Leginkább releváns",
+  "sorting.score.DESC": "Legrelevánsabb", // Eredeti: "Leginkább releváns" -> Javított
 
   // "sorting.dc.date.issued.ASC": "Date Issued Ascending",
-  "sorting.dc.date.issued.ASC": "Megjelenés dátuma szerint növekvő",
+  "sorting.dc.date.issued.ASC": "Kiadás dátuma (növekvő)", // Eredeti: "Megjelenés dátuma szerint növekvő" -> Javított
 
   // "sorting.dc.date.issued.DESC": "Date Issued Descending",
-  "sorting.dc.date.issued.DESC": "Megjelenés dátuma szerint csökkenő",
+  "sorting.dc.date.issued.DESC": "Kiadás dátuma (csökkenő)", // Eredeti: "Megjelenés dátuma szerint csökkenő" -> Javított
 
   // "sorting.dc.date.accessioned.ASC": "Accessioned Date Ascending",
-  "sorting.dc.date.accessioned.ASC": "Hozzáférés dátuma szerint növekvő",
+  "sorting.dc.date.accessioned.ASC": "Befogadás dátuma (növekvő)", // Eredeti: "Hozzáférés dátuma szerint növekvő" -> Javított
 
   // "sorting.dc.date.accessioned.DESC": "Accessioned Date Descending",
-  "sorting.dc.date.accessioned.DESC": "Hozzáférés dátuma szerint csökkenő",
+  "sorting.dc.date.accessioned.DESC": "Befogadás dátuma (csökkenő)", // Eredeti: "Hozzáférés dátuma szerint csökkenő" -> Javított
 
   // "sorting.lastModified.ASC": "Last modified Ascending",
-  "sorting.lastModified.ASC": "Utolsó módosítás dátuma szerint növekvő",
+  "sorting.lastModified.ASC": "Utolsó módosítás (növekvő)", // Eredeti: "Utolsó módosítás dátuma szerint növekvő" -> Javított
 
   // "sorting.lastModified.DESC": "Last modified Descending",
-  "sorting.lastModified.DESC": "Utolsó módosítás dátuma szerint csökkenő",
+  "sorting.lastModified.DESC": "Utolsó módosítás (csökkenő)", // Eredeti: "Utolsó módosítás dátuma szerint csökkenő" -> Javított
 
   // "sorting.person.familyName.ASC": "Surname Ascending",
-  "sorting.person.familyName.ASC": "Vezetéknév szerint növekvő",
+  "sorting.person.familyName.ASC": "Vezetéknév (növekvő)", // Eredeti: "Vezetéknév szerint növekvő" -> Javított
 
   // "sorting.person.familyName.DESC": "Surname Descending",
-  "sorting.person.familyName.DESC": "Vezetéknév szerint csökkenő",
+  "sorting.person.familyName.DESC": "Vezetéknév (csökkenő)", // Eredeti: "Vezetéknév szerint csökkenő" -> Javított
 
   // "sorting.person.givenName.ASC": "Name Ascending",
-  "sorting.person.givenName.ASC": "Név szerint növekvő",
+  "sorting.person.givenName.ASC": "Keresztnév (növekvő)", // Eredeti: "Név szerint növekvő" -> Javított (Given Name)
 
   // "sorting.person.givenName.DESC": "Name Descending",
-  "sorting.person.givenName.DESC": "Név szerint csökkenő",
+  "sorting.person.givenName.DESC": "Keresztnév (csökkenő)", // Eredeti: "Név szerint csökkenő" -> Javított
 
   // "sorting.person.birthDate.ASC": "Birth Date Ascending",
-  "sorting.person.birthDate.ASC": "Születési dátum szerint növekvő",
+  "sorting.person.birthDate.ASC": "Születési dátum (növekvő)", // Eredeti: "Születési dátum szerint növekvő" -> Javított
 
   // "sorting.person.birthDate.DESC": "Birth Date Descending",
-  "sorting.person.birthDate.DESC": "Születési dátum szerint csökkenő",
+  "sorting.person.birthDate.DESC": "Születési dátum (csökkenő)", // Eredeti: "Születési dátum szerint csökkenő" -> Javított
 
   // "statistics.title": "Statistics",
   "statistics.title": "Statisztikák",
 
   // "statistics.header": "Statistics for {{ scope }}",
-  "statistics.header": "Statisztikák: {{ scope }}",
+  "statistics.header": "Statisztikák ehhez: {{ scope }}",
 
   // "statistics.breadcrumbs": "Statistics",
   "statistics.breadcrumbs": "Statisztikák",
 
   // "statistics.page.no-data": "No data available",
-  "statistics.page.no-data": "Nincsenek adatok",
+  "statistics.page.no-data": "Nincs elérhető adat.", // Eredeti: "Nincsenek adatok" -> Javított (pontosabb)
 
   // "statistics.table.no-data": "No data available",
-  "statistics.table.no-data": "Nincsenek adatok",
+  "statistics.table.no-data": "Nincs elérhető adat.",
 
   // "statistics.table.title.TotalVisits": "Total visits",
-  "statistics.table.title.TotalVisits": "Összes megtekintés",
+  "statistics.table.title.TotalVisits": "Összes látogatás", // Eredeti: "Összes megtekintés" -> Javított (visits)
 
   // "statistics.table.title.TotalVisitsPerMonth": "Total visits per month",
-  "statistics.table.title.TotalVisitsPerMonth": "Látogatások száma havi bontásban",
+  "statistics.table.title.TotalVisitsPerMonth": "Összes látogatás havonta", // Eredeti: "Látogatások száma havi bontásban" -> Javított
 
   // "statistics.table.title.TotalDownloads": "File Visits",
-  "statistics.table.title.TotalDownloads": "Fájl elérések",
+  "statistics.table.title.TotalDownloads": "Fájlletöltések", // Eredeti: "Fájl elérések" -> Javított (Downloads)
 
   // "statistics.table.title.TopCountries": "Top country views",
-  "statistics.table.title.TopCountries": "Elérések országok szerint",
+  "statistics.table.title.TopCountries": "Leggyakoribb országok (megtekintés)", // Eredeti: "Elérések országok szerint" -> Javított
 
   // "statistics.table.title.TopCities": "Top city views",
-  "statistics.table.title.TopCities": "Elérések városok szerint",
+  "statistics.table.title.TopCities": "Leggyakoribb városok (megtekintés)", // Eredeti: "Elérések városok szerint" -> Javított
 
   // "statistics.table.header.views": "Views",
-  "statistics.table.header.views": "Látogatások",
+  "statistics.table.header.views": "Megtekintések", // Eredeti: "Látogatások" -> Javított (Views)
 
   // "statistics.table.no-name": "(object name could not be loaded)",
-  "statistics.table.no-name": "(object name could not be loaded)",
+  "statistics.table.no-name": "(az objektum neve nem tölthető be)", // Lefordítva
 
   // "submission.edit.breadcrumbs": "Edit Submission",
-  "submission.edit.breadcrumbs": "Feltöltés szerkesztése",
+  "submission.edit.breadcrumbs": "Beküldés szerkesztése", // Eredeti: "Feltöltés szerkesztése" -> Javított (Submission)
 
   // "submission.edit.title": "Edit Submission",
-  "submission.edit.title": "Feltöltés szerkesztése",
+  "submission.edit.title": "Beküldés szerkesztése",
 
   // "submission.general.cancel": "Cancel",
   "submission.general.cancel": "Mégse",
 
   // "submission.general.cannot_submit": "You don't have permission to make a new submission.",
-  "submission.general.cannot_submit": "Önnek nincs meg a szükséges engedélye egy új feltöltéshez.",
+  "submission.general.cannot_submit": "Nincs jogosultsága új beküldést indítani.", // Eredeti: "Önnek nincs meg a szükséges engedélye egy új feltöltéshez." -> Javított
 
   // "submission.general.deposit": "Deposit",
-  "submission.general.deposit": "Beküld",
+  "submission.general.deposit": "Beküldés", // Eredeti: "Beküld" -> Javított (Noun form)
 
   // "submission.general.discard.confirm.cancel": "Cancel",
   "submission.general.discard.confirm.cancel": "Mégse",
 
   // "submission.general.discard.confirm.info": "This operation can't be undone. Are you sure?",
-  "submission.general.discard.confirm.info": "Ez a művelet nem vonható vissza. Biztos benne?",
+  "submission.general.discard.confirm.info": "Ez a művelet nem vonható vissza.\nBiztos benne?",
 
   // "submission.general.discard.confirm.submit": "Yes, I'm sure",
-  "submission.general.discard.confirm.submit": "Igen",
+  "submission.general.discard.confirm.submit": "Igen, biztos vagyok benne.", // Eredeti: "Igen" -> Javított
 
   // "submission.general.discard.confirm.title": "Discard submission",
-  "submission.general.discard.confirm.title": "Feltöltés elvetése",
+  "submission.general.discard.confirm.title": "Beküldés elvetése", // Eredeti: "Feltöltés elvetése" -> Javított
 
   // "submission.general.discard.submit": "Discard",
   "submission.general.discard.submit": "Elvetés",
@@ -7570,7 +7570,7 @@
   "submission.general.info.saved": "Mentve",
 
   // "submission.general.info.pending-changes": "Unsaved changes",
-  "submission.general.info.pending-changes": "Nem mentett változtatások",
+  "submission.general.info.pending-changes": "Mentetlen változtatások",
 
   // "submission.general.save": "Save",
   "submission.general.save": "Mentés",
@@ -7591,10 +7591,10 @@
   "submission.import-external.title.JournalIssue": "Folyóiratszám importálása külső forrásból",
 
   // "submission.import-external.title.JournalVolume": "Import a journal volume from an external source",
-  "submission.import-external.title.JournalVolume": "Folyóirat kötet importálása külső forrásból",
+  "submission.import-external.title.JournalVolume": "Folyóiratkötet importálása külső forrásból",
 
   // "submission.import-external.title.OrgUnit": "Import a publisher from an external source",
-  "submission.import-external.title.OrgUnit": "Kiadó importálása külső forrásból",
+  "submission.import-external.title.OrgUnit": "Kiadó importálása külső forrásból", // Megjegyzés: OrgUnit itt publisher-ként van fordítva a kontextus alapján. Ha általánosabb, akkor "Szervezeti egység".
 
   // "submission.import-external.title.Person": "Import a person from an external source",
   "submission.import-external.title.Person": "Személy importálása külső forrásból",
@@ -7606,25 +7606,25 @@
   "submission.import-external.title.Publication": "Publikáció importálása külső forrásból",
 
   // "submission.import-external.title.none": "Import metadata from an external source",
-  "submission.import-external.title.none": "Metaadat importálása külső forrásból",
+  "submission.import-external.title.none": "Metaadatok importálása külső forrásból",
 
   // "submission.import-external.page.hint": "Enter a query above to find items from the web to import in to DSpace.",
-  "submission.import-external.page.hint": "Írjon be egy lekérést hogy elemeket találjon a web-en amiket importálhat DSpace-be.",
+  "submission.import-external.page.hint": "Írjon be egy lekérdezést fent, hogy tételeket találjon a weben a DSpace-be történő importáláshoz.", // Eredeti: "Írjon be egy lekérést hogy elemeket találjon a web-en amiket importálhat DSpace-be." -> Javított
 
   // "submission.import-external.back-to-my-dspace": "Back to MyDSpace",
   "submission.import-external.back-to-my-dspace": "Vissza a MyDSpace oldalra",
 
   // "submission.import-external.search.placeholder": "Search the external source",
-  "submission.import-external.search.placeholder": "Külső forrás keresése",
+  "submission.import-external.search.placeholder": "Keresés a külső forrásban",
 
   // "submission.import-external.search.button": "Search",
   "submission.import-external.search.button": "Keresés",
 
   // "submission.import-external.search.button.hint": "Write some words to search",
-  "submission.import-external.search.button.hint": "Írjon be keresési szavakat",
+  "submission.import-external.search.button.hint": "Írjon be néhány szót a kereséshez.", // Eredeti: "Írjon be keresési szavakat" -> Javított
 
   // "submission.import-external.search.source.hint": "Pick an external source",
-  "submission.import-external.search.source.hint": "Válasszon egy külső forrást",
+  "submission.import-external.search.source.hint": "Válasszon külső forrást",
 
   // "submission.import-external.source.arxiv": "arXiv",
   "submission.import-external.source.arxiv": "arXiv",
@@ -7643,7 +7643,7 @@
 
   // "submission.import-external.source.dataciteProject": "DataCite",
   // TODO New key - Add a translation
-  "submission.import-external.source.dataciteProject": "DataCite",
+  "submission.import-external.source.dataciteProject": "DataCite (Projektek)", // Lefordítva, kontextus alapján kiegészítve
 
   // "submission.import-external.source.doi": "DOI",
   "submission.import-external.source.doi": "DOI",
@@ -7658,165 +7658,165 @@
   "submission.import-external.source.vufind": "VuFind",
 
   // "submission.import-external.source.wos": "Web Of Science",
-  "submission.import-external.source.wos": "Web Of Science",
+  "submission.import-external.source.wos": "Web of Science", // Nagybetűsítés javítva
 
   // "submission.import-external.source.orcidWorks": "ORCID",
-  "submission.import-external.source.orcidWorks": "ORCID",
+  "submission.import-external.source.orcidWorks": "ORCID (Művek)", // Eredeti: "ORCID" -> Javított (kontextus)
 
   // "submission.import-external.source.epo": "European Patent Office (EPO)",
-  "submission.import-external.source.epo": "European Patent Office (EPO)",
+  "submission.import-external.source.epo": "Európai Szabadalmi Hivatal (EPO)", // Eredeti: "European Patent Office (EPO)" -> Javított
 
   // "submission.import-external.source.loading": "Loading ...",
-  "submission.import-external.source.loading": "Betöltés ...",
+  "submission.import-external.source.loading": "Betöltés...", // Eredeti: "Betöltés ..." -> Javított
 
   // "submission.import-external.source.sherpaJournal": "SHERPA Journals",
-  "submission.import-external.source.sherpaJournal": "SHERPA folyóiratok",
+  "submission.import-external.source.sherpaJournal": "SHERPA Folyóiratok",
 
   // "submission.import-external.source.sherpaJournalIssn": "SHERPA Journals by ISSN",
-  "submission.import-external.source.sherpaJournalIssn": "SHERPA folyóirat ISSN megadásával",
+  "submission.import-external.source.sherpaJournalIssn": "SHERPA Folyóiratok ISSN alapján", // Eredeti: "SHERPA folyóirat ISSN megadásával" -> Javított
 
   // "submission.import-external.source.sherpaPublisher": "SHERPA Publishers",
-  "submission.import-external.source.sherpaPublisher": "SHERPA kiadók",
+  "submission.import-external.source.sherpaPublisher": "SHERPA Kiadók",
 
   // "submission.import-external.source.openaire": "OpenAIRE Search by Authors",
-  "submission.import-external.source.openaire": "OpenAIRE szerzők",
+  "submission.import-external.source.openaire": "OpenAIRE Keresés Szerzők Szerint", // Eredeti: "OpenAIRE szerzők" -> Javított
 
   // "submission.import-external.source.openaireTitle": "OpenAIRE Search by Title",
-  "submission.import-external.source.openaireTitle": "OpenAIRE címek",
+  "submission.import-external.source.openaireTitle": "OpenAIRE Keresés Cím Szerint", // Eredeti: "OpenAIRE címek" -> Javított
 
   // "submission.import-external.source.openaireFunding": "OpenAIRE Search by Funder",
-  "submission.import-external.source.openaireFunding": "OpenAIRE támogatás",
+  "submission.import-external.source.openaireFunding": "OpenAIRE Keresés Támogató Szerint", // Eredeti: "OpenAIRE támogatás" -> Javított
 
   // "submission.import-external.source.orcid": "ORCID",
   "submission.import-external.source.orcid": "ORCID",
 
   // "submission.import-external.source.pubmed": "Pubmed",
-  "submission.import-external.source.pubmed": "Pubmed",
+  "submission.import-external.source.pubmed": "PubMed", // Eredeti: "Pubmed" -> Javított
 
   // "submission.import-external.source.pubmedeu": "Pubmed Europe",
-  "submission.import-external.source.pubmedeu": "Pubmed Europe",
+  "submission.import-external.source.pubmedeu": "PubMed Europe", // Eredeti: "Pubmed Europe" -> Javított
 
   // "submission.import-external.source.lcname": "Library of Congress Names",
-  "submission.import-external.source.lcname": "Library of Congress Names",
+  "submission.import-external.source.lcname": "Library of Congress Nevek",
 
   // "submission.import-external.source.ror": "Research Organization Registry (ROR)",
-  "submission.import-external.source.ror": "Research Organization Registry (ROR)",
+  "submission.import-external.source.ror": "Kutató Szervezetek Nyilvántartása (ROR)", // Eredeti: "Research Organization Registry (ROR)" -> Javított
 
   // "submission.import-external.source.openalexPublication": "OpenAlex Search by Title",
   // TODO New key - Add a translation
-  "submission.import-external.source.openalexPublication": "OpenAlex Search by Title",
+  "submission.import-external.source.openalexPublication": "OpenAlex Keresés Cím Szerint", // Lefordítva
 
   // "submission.import-external.source.openalexPublicationByAuthorId": "OpenAlex Search by Author ID",
   // TODO New key - Add a translation
-  "submission.import-external.source.openalexPublicationByAuthorId": "OpenAlex Search by Author ID",
+  "submission.import-external.source.openalexPublicationByAuthorId": "OpenAlex Keresés Szerzői Azonosító Szerint", // Lefordítva
 
   // "submission.import-external.source.openalexPublicationByDOI": "OpenAlex Search by DOI",
   // TODO New key - Add a translation
-  "submission.import-external.source.openalexPublicationByDOI": "OpenAlex Search by DOI",
+  "submission.import-external.source.openalexPublicationByDOI": "OpenAlex Keresés DOI Szerint", // Lefordítva
 
   // "submission.import-external.source.openalexPerson": "OpenAlex Search by name",
   // TODO New key - Add a translation
-  "submission.import-external.source.openalexPerson": "OpenAlex Search by name",
+  "submission.import-external.source.openalexPerson": "OpenAlex Keresés Név Szerint", // Lefordítva
 
   // "submission.import-external.source.openalexJournal": "OpenAlex Journals",
   // TODO New key - Add a translation
-  "submission.import-external.source.openalexJournal": "OpenAlex Journals",
+  "submission.import-external.source.openalexJournal": "OpenAlex Folyóiratok", // Lefordítva
 
   // "submission.import-external.source.openalexInstitution": "OpenAlex Institutions",
   // TODO New key - Add a translation
-  "submission.import-external.source.openalexInstitution": "OpenAlex Institutions",
+  "submission.import-external.source.openalexInstitution": "OpenAlex Intézmények", // Lefordítva
 
   // "submission.import-external.source.openalexPublisher": "OpenAlex Publishers",
   // TODO New key - Add a translation
-  "submission.import-external.source.openalexPublisher": "OpenAlex Publishers",
+  "submission.import-external.source.openalexPublisher": "OpenAlex Kiadók", // Lefordítva
 
   // "submission.import-external.source.openalexFunder": "OpenAlex Funders",
   // TODO New key - Add a translation
-  "submission.import-external.source.openalexFunder": "OpenAlex Funders",
+  "submission.import-external.source.openalexFunder": "OpenAlex Támogatók", // Lefordítva
 
   // "submission.import-external.preview.title": "Item Preview",
-  "submission.import-external.preview.title": "Elem előnézet",
+  "submission.import-external.preview.title": "Tétel előnézete", // Eredeti: "Elem előnézet" -> Javított
 
   // "submission.import-external.preview.title.Publication": "Publication Preview",
-  "submission.import-external.preview.title.Publication": "Publikáció Előnézet",
+  "submission.import-external.preview.title.Publication": "Publikáció előnézete", // Eredeti: "Publikáció Előnézet" -> Javított
 
   // "submission.import-external.preview.title.none": "Item Preview",
-  "submission.import-external.preview.title.none": "Tárgy Előnézet",
+  "submission.import-external.preview.title.none": "Tétel előnézete", // Eredeti: "Tárgy Előnézet" -> Javított
 
   // "submission.import-external.preview.title.Journal": "Journal Preview",
-  "submission.import-external.preview.title.Journal": "Folyóirat Előnézet",
+  "submission.import-external.preview.title.Journal": "Folyóirat előnézete", // Eredeti: "Folyóirat Előnézet" -> Javított
 
   // "submission.import-external.preview.title.OrgUnit": "Organizational Unit Preview",
-  "submission.import-external.preview.title.OrgUnit": "Szervezeti Egység Előnézet",
+  "submission.import-external.preview.title.OrgUnit": "Szervezeti egység előnézete", // Eredeti: "Szervezeti Egység Előnézet" -> Javított
 
   // "submission.import-external.preview.title.Person": "Person Preview",
-  "submission.import-external.preview.title.Person": "Személy Előnézet",
+  "submission.import-external.preview.title.Person": "Személy előnézete", // Eredeti: "Személy Előnézet" -> Javított
 
   // "submission.import-external.preview.title.Project": "Project Preview",
-  "submission.import-external.preview.title.Project": "Projekt Előnézet",
+  "submission.import-external.preview.title.Project": "Projekt előnézete", // Eredeti: "Projekt Előnézet" -> Javított
 
   // "submission.import-external.preview.subtitle": "The metadata below was imported from an external source. It will be pre-filled when you start the submission.",
-  "submission.import-external.preview.subtitle": "A lentebbi metaadat importálva a külső forrásból. Ki lesz töltve ha elkezdi a beküldési folyamatot.",
+  "submission.import-external.preview.subtitle": "Az alábbi metaadatok külső forrásból lettek importálva.\nA beküldés megkezdésekor előre ki lesznek töltve.", // Eredeti: "A lentebbi metaadat importálva a külső forrásból. Ki lesz töltve ha elkezdi a beküldési folyamatot." -> Javított
 
   // "submission.import-external.preview.button.import": "Start submission",
-  "submission.import-external.preview.button.import": "Beküldés elkezdése",
+  "submission.import-external.preview.button.import": "Beküldés indítása", // Eredeti: "Beküldés elkezdése" -> Javított
 
   // "submission.import-external.preview.error.import.title": "Submission error",
   "submission.import-external.preview.error.import.title": "Beküldési hiba",
 
   // "submission.import-external.preview.error.import.body": "An error occurs during the external source entry import process.",
-  "submission.import-external.preview.error.import.body": "Hiba történt a külső forrásból történő importálás folyamán.",
+  "submission.import-external.preview.error.import.body": "Hiba történt a külső forrásból származó bejegyzés importálása során.", // Eredeti: "Hiba történt a külső forrásból történő importálás folyamán." -> Javított
 
   // "submission.sections.describe.relationship-lookup.close": "Close",
   "submission.sections.describe.relationship-lookup.close": "Bezárás",
 
   // "submission.sections.describe.relationship-lookup.external-source.added": "Successfully added local entry to the selection",
-  "submission.sections.describe.relationship-lookup.external-source.added": "Helyi bevitel sikeresen hozzáadva a kiválasztotthoz",
+  "submission.sections.describe.relationship-lookup.external-source.added": "Helyi bejegyzés sikeresen hozzáadva a kiválasztáshoz.", // Eredeti: "Helyi bevitel sikeresen hozzáadva a kiválasztotthoz" -> Javított
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.isAuthorOfPublication": "Import remote author",
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.isAuthorOfPublication": "Szerző importálása külső rendszerből",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.isAuthorOfPublication": "Távoli szerző importálása", // Eredeti: "Szerző importálása külső rendszerből" -> Javított
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal": "Import remote journal",
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal": "Folyóirat importálása külső rendszerből",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal": "Távoli folyóirat importálása", // Eredeti: "Folyóirat importálása külső rendszerből" -> Javított
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Issue": "Import remote journal issue",
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Issue": "Folyóiratszám importálása külső rendszerből",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Issue": "Távoli folyóiratszám importálása", // Eredeti: "Folyóiratszám importálása külső rendszerből" -> Javított
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Import remote journal volume",
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Folyóirat kötet importálása külső rendszerből",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Journal Volume": "Távoli folyóiratkötet importálása", // Eredeti: "Folyóirat kötet importálása külső rendszerből" -> Javított
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.isProjectOfPublication": "Project",
   "submission.sections.describe.relationship-lookup.external-source.import-button-title.isProjectOfPublication": "Projekt",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.none": "Import remote item",
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.none": "Elem importálása külső rendszerből",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.none": "Távoli tétel importálása", // Eredeti: "Elem importálása külső rendszerből" -> Javított
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Event": "Import remote event",
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Event": "Esemény importálása külső rendszerből",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Event": "Távoli esemény importálása", // Eredeti: "Esemény importálása külső rendszerből" -> Javított
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Product": "Import remote product",
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Product": "Termék importálása külső rendszerből",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Product": "Távoli termék importálása", // Eredeti: "Termék importálása külső rendszerből" -> Javított
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Equipment": "Import remote equipment",
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Equipment": "Import remote equipment",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Equipment": "Távoli eszköz importálása", // Eredeti: "Import remote equipment" -> Javított
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.OrgUnit": "Import remote organizational unit",
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.OrgUnit": "Szervezeti egység importálása külső rendszerből",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.OrgUnit": "Távoli szervezeti egység importálása", // Eredeti: "Szervezeti egység importálása külső rendszerből" -> Javított
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Funding": "Import remote fund",
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Funding": "Támogató importálása külső rendszerből",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Funding": "Távoli finanszírozás importálása", // Eredeti: "Támogató importálása külső rendszerből" -> Javított (fund)
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Person": "Import remote person",
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Person": "Személy importálása külső rendszerből",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Person": "Távoli személy importálása", // Eredeti: "Személy importálása külső rendszerből" -> Javított
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Patent": "Import remote patent",
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Patent": "Szabadalom importálása külső rendszerből",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Patent": "Távoli szabadalom importálása", // Eredeti: "Szabadalom importálása külső rendszerből" -> Javított
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Project": "Import remote project",
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Project": "Project importálása külső rendszerből",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Project": "Távoli projekt importálása", // Eredeti: "Project importálása külső rendszerből" -> Javított
 
   // "submission.sections.describe.relationship-lookup.external-source.import-button-title.Publication": "Import remote publication",
-  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Publication": "Publikáció importálása külső rendszerből",
+  "submission.sections.describe.relationship-lookup.external-source.import-button-title.Publication": "Távoli publikáció importálása", // Eredeti: "Publikáció importálása külső rendszerből" -> Javított
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.added.new-entity": "New Entity Added!",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.added.new-entity": "Új entitás hozzáadva!",
@@ -7825,118 +7825,118 @@
   "submission.sections.describe.relationship-lookup.external-source.import-modal.isProjectOfPublication.title": "Projekt",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Import Remote Author",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Szerző importálása külső rendszerből",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.title": "Távoli szerző importálása",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.local-entity": "Successfully added local author to the selection",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.local-entity": "Sikeresen hozzáadta a helyi szerzőt a kiválasztáshoz",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.local-entity": "Helyi szerző sikeresen hozzáadva a kiválasztáshoz.", // Eredeti: "Sikeresen hozzáadta a helyi szerzőt a kiválasztáshoz" -> Javított
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "Successfully imported and added external author to the selection",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "Sikeresen importált és hozzáadott külső rendszerből származó szerzőt a kiválasztáshoz",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isAuthorOfPublication.added.new-entity": "Külső szerző sikeresen importálva és hozzáadva a kiválasztáshoz.", // Eredeti: "Sikeresen importált és hozzáadott külső rendszerből származó szerzőt a kiválasztáshoz" -> Javított
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.authority": "Authority",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.authority": "Autoritás",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.authority.new": "Import as a new local authority entry",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.authority.new": "Importál új helyi autoritás bevitelként",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.authority.new": "Importálás új helyi autoritás bejegyzésként",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.cancel": "Cancel",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.cancel": "Mégse",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.collection": "Select a collection to import new entries to",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.collection": "Válasszon ki gyűjteményt, amelyhez az új bevitelt importálja",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.collection": "Válasszon gyűjteményt az új bejegyzések importálásához",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.entities": "Entities",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.entities": "Entitások",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.entities.new": "Import as a new local entity",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.entities.new": "ÍÚj entitásként importál",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.entities.new": "Importálás új helyi entitásként", // Eredeti: "ÍÚj entitásként importál" -> Javított
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.lcname": "Importing from LC Name",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.lcname": "LC Nnévről importál",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.lcname": "Importálás LC Name-ből", // Eredeti: "LC Nnévről importál" -> Javított
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcid": "Importing from ORCID",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcid": "ORCID-ról importál",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.orcid": "Importálás ORCID-ból", // Eredeti: "ORCID-ról importál" -> Javított
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaire": "Importing from OpenAIRE",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaire": "Importálás az OpenAIRE szerzői közül",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaire": "Importálás OpenAIRE-ből (Szerzők)", // Eredeti: "Importálás az OpenAIRE szerzői közül" -> Javított
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireTitle": "Importing from OpenAIRE",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireTitle": "Importálás az OpenAIRE címei közül",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireTitle": "Importálás OpenAIRE-ből (Címek)", // Eredeti: "Importálás az OpenAIRE címei közül" -> Javított
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireFunding": "Importing from OpenAIRE",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireFunding": "Importálás az OpenAIRE támogatói közül",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.openaireFunding": "Importálás OpenAIRE-ből (Támogatók)", // Eredeti: "Importálás az OpenAIRE támogatói közül" -> Javított
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importing from Sherpa Journal",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Sherpa Journal-ról importál",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaJournal": "Importálás Sherpa Journal-ból", // Eredeti: "Sherpa Journal-ról importál" -> Javított
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Importing from Sherpa Publisher",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Sherpa Publisher-ről importál",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.sherpaPublisher": "Importálás Sherpa Publisher-ből", // Eredeti: "Sherpa Publisher-ről importál" -> Javított
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.pubmed": "Importing from PubMed",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.pubmed": "PubMed-ről importál",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.pubmed": "Importálás PubMed-ből", // Eredeti: "PubMed-ről importál" -> Javított
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.arxiv": "Importing from arXiv",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.arxiv": "arXiv-ről importál",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.arxiv": "Importálás arXiv-ről",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.head.ror": "Import from ROR",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.ror": "Importálás a ROR rendszeréből",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.head.ror": "Importálás ROR-ból", // Eredeti: "Importálás a ROR rendszeréből" -> Javított
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.import": "Import",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.import": "Importál",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.import": "Importálás", // Eredeti: "Importál" -> Javított
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.title": "Import Remote Journal",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.title": "Távoli folyóiratot importál",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.title": "Távoli folyóirat importálása", // Eredeti: "Távoli folyóiratot importál" -> Javított
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.added.local-entity": "Successfully added local journal to the selection",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.added.local-entity": "Helyi folyóirat sikeresen hozzáadva a kiválasztotthoz",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.added.local-entity": "Helyi folyóirat sikeresen hozzáadva a kiválasztáshoz.",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.added.new-entity": "Successfully imported and added external journal to the selection",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.added.new-entity": "Külső folyóirat sikeresen importálva és hozzáadva a kiválasztotthoz",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal.added.new-entity": "Külső folyóirat sikeresen importálva és hozzáadva a kiválasztáshoz.",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Issue.title": "Import Remote Journal Issue",
   "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Issue.title": "Távoli folyóiratszám importálása",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Issue.added.local-entity": "Successfully added local journal issue to the selection",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Issue.added.local-entity": "Helyi folyóirat sikeresen hozzáadva a kiválasztotthoz",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Issue.added.local-entity": "Helyi folyóiratszám sikeresen hozzáadva a kiválasztáshoz.", // Eredeti: "Helyi folyóirat sikeresen hozzáadva a kiválasztotthoz" -> Javított (folyóiratszám)
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Issue.added.new-entity": "Successfully imported and added external journal issue to the selection",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Issue.added.new-entity": "Távoli folyóirat sikeresen importálva és hozzáadva a kiválasztotthoz",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Issue.added.new-entity": "Külső folyóiratszám sikeresen importálva és hozzáadva a kiválasztáshoz.", // Eredeti: "Távoli folyóirat sikeresen importálva és hozzáadva a kiválasztotthoz" -> Javított (folyóiratszám)
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Volume.title": "Import Remote Journal Volume",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Volume.title": "Távoli folyóirat kötet importálása",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Volume.title": "Távoli folyóiratkötet importálása", // Eredeti: "Távoli folyóirat kötet importálása" -> Javított
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Volume.added.local-entity": "Successfully added local journal volume to the selection",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Volume.added.local-entity": "Helyi folyóirat kötet sikeresen hozzáadva a kiválasztotthoz",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Volume.added.local-entity": "Helyi folyóiratkötet sikeresen hozzáadva a kiválasztáshoz.", // Eredeti: "Helyi folyóirat kötet sikeresen hozzáadva a kiválasztotthoz" -> Javított
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Volume.added.new-entity": "Successfully imported and added external journal volume to the selection",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Volume.added.new-entity": "Külső folyóirat kötet sikeresen importálva és hozzáadva a kiválasztotthoz",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.Journal Volume.added.new-entity": "Külső folyóiratkötet sikeresen importálva és hozzáadva a kiválasztáshoz.", // Eredeti: "Külső folyóirat kötet sikeresen importálva és hozzáadva a kiválasztotthoz" -> Javított
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.select": "Select a local match:",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.select": "Válasszon helyi találatot:",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.select": "Válasszon helyi egyezést:",
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfProject.title": "Import Remote Organization",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfProject.title": "Szervezet importálása külső rendszerből",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfProject.title": "Távoli szervezet importálása", // Eredeti: "Szervezet importálása külső rendszerből" -> Javított
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfProject.added.local-entity": "Successfully added local organization to the selection",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfProject.added.local-entity": "Sikeresen hozzáadta a helyi szervezetet a kiválasztáshoz",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfProject.added.local-entity": "Helyi szervezet sikeresen hozzáadva a kiválasztáshoz.", // Eredeti: "Sikeresen hozzáadta a helyi szervezetet a kiválasztáshoz" -> Javított
 
   // "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfProject.added.new-entity": "Successfully imported and added external organization to the selection",
-  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfProject.added.new-entity": "Sikeresen importálta és hozzáadta a külső rendszerből származó szervezetet a kiválasztáshoz",
+  "submission.sections.describe.relationship-lookup.external-source.import-modal.isOrgUnitOfProject.added.new-entity": "Külső szervezet sikeresen importálva és hozzáadva a kiválasztáshoz.", // Eredeti: "Sikeresen importálta és hozzáadta a külső rendszerből származó szervezetet a kiválasztáshoz" -> Javított
 
   // "submission.sections.describe.relationship-lookup.search-tab.deselect-all": "Deselect all",
-  "submission.sections.describe.relationship-lookup.search-tab.deselect-all": "Az összes kijelölés megszüntetése",
+  "submission.sections.describe.relationship-lookup.search-tab.deselect-all": "Összes kijelölésének megszüntetése",
 
   // "submission.sections.describe.relationship-lookup.search-tab.deselect-page": "Deselect page",
-  "submission.sections.describe.relationship-lookup.search-tab.deselect-page": "Oldal kiválasztásának megszüntetése",
+  "submission.sections.describe.relationship-lookup.search-tab.deselect-page": "Oldal kijelölésének megszüntetése", // Eredeti: "Oldal kiválasztásának megszüntetése" -> Javított
 
   // "submission.sections.describe.relationship-lookup.search-tab.loading": "Loading...",
   "submission.sections.describe.relationship-lookup.search-tab.loading": "Betöltés...",
 
   // "submission.sections.describe.relationship-lookup.search-tab.placeholder": "Search query",
-  "submission.sections.describe.relationship-lookup.search-tab.placeholder": "Keresett szó",
+  "submission.sections.describe.relationship-lookup.search-tab.placeholder": "Keresőkifejezés", // Eredeti: "Keresett szó" -> Javított
 
   // "submission.sections.describe.relationship-lookup.search-tab.search": "Go",
-  "submission.sections.describe.relationship-lookup.search-tab.search": "Mehet",
+  "submission.sections.describe.relationship-lookup.search-tab.search": "Keresés", // Eredeti: "Mehet" -> Javított
 
   // "submission.sections.describe.relationship-lookup.search-tab.search-form.placeholder": "Search...",
   "submission.sections.describe.relationship-lookup.search-tab.search-form.placeholder": "Keresés...",
@@ -7945,10 +7945,10 @@
   "submission.sections.describe.relationship-lookup.search-tab.select-all": "Összes kiválasztása",
 
   // "submission.sections.describe.relationship-lookup.search-tab.select-page": "Select page",
-  "submission.sections.describe.relationship-lookup.search-tab.select-page": "Oldal választása",
+  "submission.sections.describe.relationship-lookup.search-tab.select-page": "Oldal kiválasztása",
 
   // "submission.sections.describe.relationship-lookup.selected": "Selected {{ size }} items",
-  "submission.sections.describe.relationship-lookup.selected": "Kiválasztott {{ size }} tárgyak",
+  "submission.sections.describe.relationship-lookup.selected": "{{ size }} tétel kiválasztva", // Eredeti: "Kiválasztott {{ size }} tárgyak" -> Javított
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfPublication": "Local Authors ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isAuthorOfPublication": "Helyi szerzők ({{ count }})",
@@ -7960,7 +7960,7 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.Project": "Helyi projektek ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.Publication": "Local Publications ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Publication": "Helyi kiadványok ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.Publication": "Helyi publikációk ({{ count }})", // Eredeti: "Helyi kiadványok ({{ count }})" -> Javított
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.Person": "Local Authors ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.Person": "Helyi szerzők ({{ count }})",
@@ -7969,10 +7969,10 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.OrgUnit": "Helyi szervezeti egységek ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.DataPackage": "Local Data Packages ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.DataPackage": "Helyi adat csomagok ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.DataPackage": "Helyi adatcsomagok ({{ count }})", // Eredeti: "Helyi adat csomagok ({{ count }})" -> Javított
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.DataFile": "Local Data Files ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.DataFile": "Helyi adatállományok ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.DataFile": "Helyi adatfájlok ({{ count }})", // Eredeti: "Helyi adatállományok ({{ count }})" -> Javított
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal": "Local Journals ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.Journal": "Helyi folyóiratok ({{ count }})",
@@ -7984,13 +7984,13 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalIssue": "Helyi folyóiratszámok ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfIssue": "Local Journal Volumes ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfIssue": "Helyi folyóirat kötetek ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfIssue": "Helyi folyóiratkötetek ({{ count }})", // Eredeti: "Helyi folyóirat kötetek ({{ count }})" -> Javított
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Local Journal Volumes ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Helyi folyóirat kötetek ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isJournalVolumeOfPublication": "Helyi folyóiratkötetek ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Local Journal Volumes ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Helyi folyóirat kötetek ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.JournalVolume": "Helyi folyóiratkötetek ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa Journals ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournal": "Sherpa folyóiratok ({{ count }})",
@@ -8014,7 +8014,7 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.ror": "ROR ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcidWorks": "ORCID ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcidWorks": "ORCID ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.orcidWorks": "ORCID (Művek) ({{ count }})", // Eredeti: "ORCID ({{ count }})" -> Javított (pontosítás)
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.crossref": "Crossref ({{ count }})",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.crossref": "CrossRef ({{ count }})",
@@ -8023,57 +8023,57 @@
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.scopus": "Scopus ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaire": "OpenAIRE Search by Authors ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaire": "OpenAIRE szerzők ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaire": "OpenAIRE Keresés Szerzők Szerint ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireTitle": "OpenAIRE Search by Title ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireTitle": "OpenAIRE címek ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireTitle": "OpenAIRE Keresés Cím Szerint ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireFunding": "OpenAIRE Search by Funder ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireFunding": "OpenAIRE támogatók ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openaireFunding": "OpenAIRE Keresés Támogató Szerint ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournalIssn": "Sherpa Journals by ISSN ({{ count }})",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournalIssn": "Sherpa folyóiratok ISSN megadásával ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.sherpaJournalIssn": "Sherpa Folyóiratok ISSN alapján ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPerson": "OpenAlex ({{ count }})",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPerson": "OpenAlex ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPerson": "OpenAlex (Személyek) ({{ count }})", // Lefordítva, kontextus alapján
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexInstitution": "OpenAlex Search by Institution ({{ count }})",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexInstitution": "OpenAlex Search by Institution ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexInstitution": "OpenAlex Keresés Intézmény Szerint ({{ count }})", // Lefordítva
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPublisher": "OpenAlex Search by Publisher ({{ count }})",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPublisher": "OpenAlex Search by Publisher ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexPublisher": "OpenAlex Keresés Kiadó Szerint ({{ count }})", // Lefordítva
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexFunder": "OpenAlex Search by Funder ({{ count }})",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexFunder": "OpenAlex Search by Funder ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.openalexFunder": "OpenAlex Keresés Támogató Szerint ({{ count }})", // Lefordítva
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.dataciteProject": "DataCite Search by Project ({{ count }})",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.dataciteProject": "DataCite Search by Project ({{ count }})",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.dataciteProject": "DataCite Keresés Projekt Szerint ({{ count }})", // Lefordítva
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfPublication": "Search for Funding Agencies",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfPublication": "Támogató szervezetek keresése",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfPublication": "Finanszírozó ügynökségek keresése", // Eredeti: "Támogató szervezetek keresése" -> Javított
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingOfPublication": "Search for Funding",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingOfPublication": "Támogatás keresése",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingOfPublication": "Finanszírozás keresése", // Eredeti: "Támogatás keresése" -> Javított
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isChildOrgUnitOf": "Search for Organizational Units",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isChildOrgUnitOf": "Intézményi egységek kereséset",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isChildOrgUnitOf": "Szervezeti egységek keresése", // Eredeti: "Intézményi egységek kereséset" -> Javított
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isProjectOfPublication": "Projects",
   "submission.sections.describe.relationship-lookup.search-tab.tab-title.isProjectOfPublication": "Projektek",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfProject": "Funder of the Project",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfProject": "A projekt támogatója",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isFundingAgencyOfProject": "A projekt finanszírozója", // Eredeti: "A projekt támogatója" -> Javított (Funder)
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isPublicationOfAuthor": "Publication of the Author",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isPublicationOfAuthor": "A publikáció szerzője",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isPublicationOfAuthor": "A szerző publikációja",
 
   // "submission.sections.describe.relationship-lookup.search-tab.tab-title.isOrgUnitOfProject": "OrgUnit of the Project",
-  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isOrgUnitOfProject": "A projekthez kapcsolódó szervezeti egység",
+  "submission.sections.describe.relationship-lookup.search-tab.tab-title.isOrgUnitOfProject": "A projekt szervezeti egysége", // Eredeti: "A projekthez kapcsolódó szervezeti egység" -> Javított
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Project",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isProjectOfPublication": "Projekt",
@@ -8082,35 +8082,35 @@
   "submission.sections.describe.relationship-lookup.title.isProjectOfPublication": "Projektek",
 
   // "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "Funder of the Project",
-  "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "A projekt támogatója",
+  "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfProject": "A projekt finanszírozója",
 
   // "submission.sections.describe.relationship-lookup.title.isPersonOfProject": "Person of the Project",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.title.isPersonOfProject": "Person of the Project",
+  "submission.sections.describe.relationship-lookup.title.isPersonOfProject": "A projekt személye", // Lefordítva
 
   // "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Search...",
   "submission.sections.describe.relationship-lookup.selection-tab.search-form.placeholder": "Keresés...",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Current Selection ({{ count }})",
-  "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Jelenleg kiválasztott ({{ count }})",
+  "submission.sections.describe.relationship-lookup.selection-tab.tab-title": "Jelenlegi kiválasztás ({{ count }})",
 
   // "submission.sections.describe.relationship-lookup.title.Journal": "Journal",
   "submission.sections.describe.relationship-lookup.title.Journal": "Folyóirat",
 
   // "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Journal Issues",
-  "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Folyóirat számok",
+  "submission.sections.describe.relationship-lookup.title.isJournalIssueOfPublication": "Folyóiratszámok",
 
   // "submission.sections.describe.relationship-lookup.title.JournalIssue": "Journal Issues",
-  "submission.sections.describe.relationship-lookup.title.JournalIssue": "Folyóirat számok",
+  "submission.sections.describe.relationship-lookup.title.JournalIssue": "Folyóiratszámok",
 
   // "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfIssue": "Journal Volumes",
-  "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfIssue": "Folyóirat kötetek",
+  "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfIssue": "Folyóiratkötetek", // Eredeti: "Folyóirat kötetek" -> Javított
 
   // "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Journal Volumes",
-  "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Folyóirat kötetek",
+  "submission.sections.describe.relationship-lookup.title.isJournalVolumeOfPublication": "Folyóiratkötetek",
 
   // "submission.sections.describe.relationship-lookup.title.JournalVolume": "Journal Volumes",
-  "submission.sections.describe.relationship-lookup.title.JournalVolume": "Folyóirat kötetek",
+  "submission.sections.describe.relationship-lookup.title.JournalVolume": "Folyóiratkötetek",
 
   // "submission.sections.describe.relationship-lookup.title.isJournalOfPublication": "Journals",
   "submission.sections.describe.relationship-lookup.title.isJournalOfPublication": "Folyóiratok",
@@ -8119,13 +8119,13 @@
   "submission.sections.describe.relationship-lookup.title.isAuthorOfPublication": "Szerzők",
 
   // "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfPublication": "Funding Agency",
-  "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfPublication": "Támogató szervezet",
+  "submission.sections.describe.relationship-lookup.title.isFundingAgencyOfPublication": "Finanszírozó ügynökség", // Eredeti: "Támogató szervezet" -> Javított
 
   // "submission.sections.describe.relationship-lookup.title.Project": "Projects",
   "submission.sections.describe.relationship-lookup.title.Project": "Projektek",
 
   // "submission.sections.describe.relationship-lookup.title.Publication": "Publications",
-  "submission.sections.describe.relationship-lookup.title.Publication": "Kiadványok",
+  "submission.sections.describe.relationship-lookup.title.Publication": "Publikációk", // Eredeti: "Kiadványok" -> Javított
 
   // "submission.sections.describe.relationship-lookup.title.Person": "Authors",
   "submission.sections.describe.relationship-lookup.title.Person": "Szerzők",
@@ -8137,13 +8137,13 @@
   "submission.sections.describe.relationship-lookup.title.DataPackage": "Adatcsomagok",
 
   // "submission.sections.describe.relationship-lookup.title.DataFile": "Data Files",
-  "submission.sections.describe.relationship-lookup.title.DataFile": "Adatállományok",
+  "submission.sections.describe.relationship-lookup.title.DataFile": "Adatfájlok", // Eredeti: "Adatállományok" -> Javított
 
   // "submission.sections.describe.relationship-lookup.title.Funding Agency": "Funding Agency",
-  "submission.sections.describe.relationship-lookup.title.Funding Agency": "Támogató szervezet",
+  "submission.sections.describe.relationship-lookup.title.Funding Agency": "Finanszírozó ügynökség",
 
   // "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Funding",
-  "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Támogatás",
+  "submission.sections.describe.relationship-lookup.title.isFundingOfPublication": "Finanszírozás", // Eredeti: "Támogatás" -> Javított
 
   // "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Parent Organizational Unit",
   "submission.sections.describe.relationship-lookup.title.isChildOrgUnitOf": "Szülő szervezeti egység",
@@ -8155,13 +8155,13 @@
   "submission.sections.describe.relationship-lookup.title.isOrgUnitOfProject": "Szervezeti egység",
 
   // "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Toggle dropdown",
-  "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Lenyíló menü váltás",
+  "submission.sections.describe.relationship-lookup.search-tab.toggle-dropdown": "Lenyíló menü váltása",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.settings": "Settings",
   "submission.sections.describe.relationship-lookup.selection-tab.settings": "Beállítások",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.no-selection": "Your selection is currently empty.",
-  "submission.sections.describe.relationship-lookup.selection-tab.no-selection": "Amit kiválasztott az jelenleg üres.",
+  "submission.sections.describe.relationship-lookup.selection-tab.no-selection": "A kiválasztás jelenleg üres.", // Eredeti: "Amit kiválasztott az jelenleg üres." -> Javított
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isAuthorOfPublication": "Selected Authors",
   "submission.sections.describe.relationship-lookup.selection-tab.title.isAuthorOfPublication": "Kiválasztott szerzők",
@@ -8170,207 +8170,207 @@
   "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalOfPublication": "Kiválasztott folyóiratok",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfIssue": "Selected Journal Volume",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfIssue": "Kiválasztott folyóirat kötet",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfIssue": "Kiválasztott folyóiratkötet", // Eredeti: "Kiválasztott folyóirat kötet" -> Javított
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Selected Journal Volume",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Kiválasztott folyóirat kötet",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalVolumeOfPublication": "Kiválasztott folyóiratkötet", // Eredeti: "Kiválasztott folyóirat kötet" -> Javított
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.Project": "Selected Projects",
   "submission.sections.describe.relationship-lookup.selection-tab.title.Project": "Kiválasztott projektek",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.Publication": "Selected Publications",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.Publication": "Kiválasztott kiadványok",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.Publication": "Kiválasztott publikációk", // Eredeti: "Kiválasztott kiadványok" -> Javított
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.Person": "Selected Authors",
   "submission.sections.describe.relationship-lookup.selection-tab.title.Person": "Kiválasztott szerzők",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.OrgUnit": "Selected Organizational Units",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.OrgUnit": "Választott szervezeti egységek",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.OrgUnit": "Kiválasztott szervezeti egységek", // Eredeti: "Választott szervezeti egységek" -> Javított
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.DataPackage": "Selected Data Packages",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.DataPackage": "Választott adatcsomagok",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.DataPackage": "Kiválasztott adatcsomagok", // Eredeti: "Választott adatcsomagok" -> Javított
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.DataFile": "Selected Data Files",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.DataFile": "Választott adatfájlok",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.DataFile": "Kiválasztott adatfájlok", // Eredeti: "Választott adatfájlok" -> Javított
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.Journal": "Selected Journals",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.Journal": "Választott folyóiratok",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.Journal": "Kiválasztott folyóiratok", // Eredeti: "Választott folyóiratok" -> Javított
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalIssueOfPublication": "Selected Issue",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalIssueOfPublication": "Választott szám",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isJournalIssueOfPublication": "Kiválasztott szám", // Eredeti: "Választott szám" -> Javított
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.JournalVolume": "Selected Journal Volume",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.JournalVolume": "Választott folyóirat kötet",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.JournalVolume": "Kiválasztott folyóiratkötet", // Eredeti: "Választott folyóirat kötet" -> Javított
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingAgencyOfPublication": "Selected Funding Agency",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingAgencyOfPublication": "Választott támogató szervezet",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingAgencyOfPublication": "Kiválasztott finanszírozó ügynökség", // Eredeti: "Választott támogató szervezet" -> Javított
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingOfPublication": "Selected Funding",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingOfPublication": "Választott támogatás",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isFundingOfPublication": "Kiválasztott finanszírozás", // Eredeti: "Választott támogatás" -> Javított
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.JournalIssue": "Selected Issue",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.JournalIssue": "Választott szám",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.JournalIssue": "Kiválasztott szám",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Selected Organizational Unit",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Választott szervezeti egység",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.isChildOrgUnitOf": "Kiválasztott szervezeti egység",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Keresés eredménye",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaJournal": "Keresési eredmények",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Keresés eredménye",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.sherpaPublisher": "Keresési eredmények",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.orcid": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.orcid": "Keresés eredménye",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.orcid": "Keresési eredmények",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.orcidv2": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.orcidv2": "Keresés eredménye",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.orcidv2": "Keresési eredmények",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.openaire": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.openaire": "Keresés eredménye",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openaire": "Keresési eredmények",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.openaireTitle": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.openaireTitle": "Keresés eredménye",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openaireTitle": "Keresési eredmények",
 
-  // "submission.sections.describe.relationship-lookup.selection-tab.title.openaireFundin": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.openaireFundin": "Keresés eredménye",
+  // "submission.sections.describe.relationship-lookup.selection-tab.title.openaireFundin": "Search Results", // Valószínűleg "openaireFunding" akart lenni
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openaireFunding": "Keresési eredmények", // Javítva "openaireFunding"-ra
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.lcname": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.lcname": "Keresés eredménye",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.lcname": "Keresési eredmények",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.pubmed": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.pubmed": "Keresés eredménye",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.pubmed": "Keresési eredmények",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.arxiv": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.arxiv": "Keresés eredménye",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.arxiv": "Keresési eredmények",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.crossref": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.crossref": "Keresés eredménye",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.crossref": "Keresési eredmények",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.epo": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.epo": "Keresés eredménye",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.epo": "Keresési eredmények",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.scopus": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.scopus": "Keresés eredménye",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.scopus": "Keresési eredmények",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.scielo": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.scielo": "Keresés eredménye",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.scielo": "Keresési eredmények",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.wos": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.wos": "Keresés eredménye",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.wos": "Keresési eredmények",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.ror": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title.ror": "Keresés eredménye",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.ror": "Keresési eredmények",
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.openalexPerson": "Search Results",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.openalexPerson": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openalexPerson": "Keresési eredmények (OpenAlex Személyek)", // Lefordítva, kontextus alapján
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.openalexInstitution": "Search Results",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.openalexInstitution": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openalexInstitution": "Keresési eredmények (OpenAlex Intézmények)", // Lefordítva
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.openalexPublisher": "Search Results",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.openalexPublisher": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openalexPublisher": "Keresési eredmények (OpenAlex Kiadók)", // Lefordítva
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.openalexFunder": "Search Results",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.openalexFunder": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.openalexFunder": "Keresési eredmények (OpenAlex Támogatók)", // Lefordítva
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title.dataciteProject": "Search Results",
   // TODO New key - Add a translation
-  "submission.sections.describe.relationship-lookup.selection-tab.title.dataciteProject": "Search Results",
+  "submission.sections.describe.relationship-lookup.selection-tab.title.dataciteProject": "Keresési eredmények (DataCite Projektek)", // Lefordítva
 
   // "submission.sections.describe.relationship-lookup.selection-tab.title": "Search Results",
-  "submission.sections.describe.relationship-lookup.selection-tab.title": "Keresés eredménye",
+  "submission.sections.describe.relationship-lookup.selection-tab.title": "Keresési eredmények",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Would you like to save \"{{ value }}\" as a name variant for this person so you and others can reuse it for future submissions? If you don't you can still use it for this submission.",
-  "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Óhajtja-e elmenteni \"{{ value }}\" névváltozatként ennek a személynek, hogy később ön is és mások is újrahasználhassák feltöltéshez? Amennyiben nem, még mindig használhatja ehhez a feltöltéshez.",
+  "submission.sections.describe.relationship-lookup.name-variant.notification.content": "Szeretné elmenteni a(z) \"{{ value }}\" értéket névváltozatként ehhez a személyhez, hogy Ön és mások is újra felhasználhassák jövőbeli beküldéseknél?\nHa nem, akkor is használhatja ezt a beküldéshez.",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Save a new name variant",
-  "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Mentsen el új névvariánst",
+  "submission.sections.describe.relationship-lookup.name-variant.notification.confirm": "Új névváltozat mentése",
 
   // "submission.sections.describe.relationship-lookup.name-variant.notification.decline": "Use only for this submission",
-  "submission.sections.describe.relationship-lookup.name-variant.notification.decline": "Használja csak ehhez a feltöltéshez",
+  "submission.sections.describe.relationship-lookup.name-variant.notification.decline": "Csak ehhez a beküldéshez használja",
 
   // "submission.sections.ccLicense.type": "License Type",
-  "submission.sections.ccLicense.type": "Licenc típus",
+  "submission.sections.ccLicense.type": "Licenctípus", // Eredeti: "Licenc típus" -> Javított
 
   // "submission.sections.ccLicense.select": "Select a license type…",
-  "submission.sections.ccLicense.select": "Válasszon ki egy licenc típust…",
+  "submission.sections.ccLicense.select": "Válasszon licenctípust…",
 
   // "submission.sections.ccLicense.change": "Change your license type…",
-  "submission.sections.ccLicense.change": "Válassza ki a licenc típusát…",
+  "submission.sections.ccLicense.change": "Változtassa meg licenctípusát…", // Eredeti: "Válassza ki a licenc típusát…" -> Javított
 
   // "submission.sections.ccLicense.none": "No licenses available",
-  "submission.sections.ccLicense.none": "Nincs elérhető licenc",
+  "submission.sections.ccLicense.none": "Nincs elérhető licenc.",
 
   // "submission.sections.ccLicense.option.select": "Select an option…",
-  "submission.sections.ccLicense.option.select": "Válasszon ki valamit…",
+  "submission.sections.ccLicense.option.select": "Válasszon egy lehetőséget…",
 
   // "submission.sections.ccLicense.link": "You’ve selected the following license:",
   "submission.sections.ccLicense.link": "A következő licencet választotta:",
 
   // "submission.sections.ccLicense.confirmation": "I grant the license above",
-  "submission.sections.ccLicense.confirmation": "Engedélyezem a lentebbi licencet",
+  "submission.sections.ccLicense.confirmation": "Elfogadom a fenti licencet.", // Eredeti: "Engedélyezem a lentebbi licencet" -> Javított (above)
 
   // "submission.sections.general.add-more": "Add more",
   "submission.sections.general.add-more": "Továbbiak hozzáadása",
 
   // "submission.sections.general.cannot_deposit": "Deposit cannot be completed due to errors in the form.<br>Please fill out all required fields to complete the deposit.",
-  "submission.sections.general.cannot_deposit": "Az űrlapon található hibák miatt az elem beküldése nem teljesíthető.<br>Kérjük töltse ki az összes kötelező mezőt a beküldéshez.",
+  "submission.sections.general.cannot_deposit": "A beküldés nem fejezhető be az űrlapon lévő hibák miatt.<br>Kérjük, töltse ki az összes kötelező mezőt a beküldés befejezéséhez.",
 
   // "submission.sections.general.collection": "Collection",
   "submission.sections.general.collection": "Gyűjtemény",
 
   // "submission.sections.general.deposit_error_notice": "There was an issue when submitting the item, please try again later.",
-  "submission.sections.general.deposit_error_notice": "Tárgy feltöltésekor probléma keletkezett, kérjük próbálja újra később.",
+  "submission.sections.general.deposit_error_notice": "Probléma merült fel a tétel beküldésekor, kérjük, próbálja újra később.", // Eredeti: "Tárgy feltöltésekor probléma keletkezett, kérjük próbálja újra később." -> Javított
 
   // "submission.sections.general.deposit_success_notice": "Submission deposited successfully.",
-  "submission.sections.general.deposit_success_notice": "Feltöltés sikeresen elraktározva.",
+  "submission.sections.general.deposit_success_notice": "A beküldés sikeresen letétbe helyezve.", // Eredeti: "Feltöltés sikeresen elraktározva." -> Javított
 
   // "submission.sections.general.discard_error_notice": "There was an issue when discarding the item, please try again later.",
-  "submission.sections.general.discard_error_notice": "Tárgy elvetésekor probléma keletkezett, kérjük próbálja újra később.",
+  "submission.sections.general.discard_error_notice": "Probléma merült fel a tétel elvetésekor, kérjük, próbálja újra később.", // Eredeti: "Tárgy elvetésekor probléma keletkezett, kérjük próbálja újra később." -> Javított
 
   // "submission.sections.general.discard_success_notice": "Submission discarded successfully.",
-  "submission.sections.general.discard_success_notice": "Feltöltés sikeresen törölve.",
+  "submission.sections.general.discard_success_notice": "A beküldés sikeresen elvetve.", // Eredeti: "Feltöltés sikeresen törölve." -> Javított
 
   // "submission.sections.general.metadata-extracted": "New metadata have been extracted and added to the <strong>{{sectionId}}</strong> section.",
-  "submission.sections.general.metadata-extracted": "Új metaadat kivonva és hozzáadva a <strong>{{sectionId}}</strong> szakaszhoz.",
+  "submission.sections.general.metadata-extracted": "Új metaadatok lettek kinyerve és hozzáadva a <strong>{{sectionId}}</strong> szakaszhoz.",
 
   // "submission.sections.general.metadata-extracted-new-section": "New <strong>{{sectionId}}</strong> section has been added to submission.",
-  "submission.sections.general.metadata-extracted-new-section": "Új <strong>{{sectionId}}</strong> szakasz lett hozzáadva a feltöltéshez.",
+  "submission.sections.general.metadata-extracted-new-section": "Új <strong>{{sectionId}}</strong> szakasz lett hozzáadva a beküldéshez.", // Eredeti: "Új <strong>{{sectionId}}</strong> szakasz lett hozzáadva a feltöltéshez." -> Javított
 
   // "submission.sections.general.no-collection": "No collection found",
-  "submission.sections.general.no-collection": "Nem található gyűjtemény",
+  "submission.sections.general.no-collection": "Nem található gyűjtemény.",
 
   // "submission.sections.general.no-entity": "No entity types found",
-  "submission.sections.general.no-entity": "Nem találhatóak entitástípusok",
+  "submission.sections.general.no-entity": "Nem található entitástípus.", // Eredeti: "Nem találhatóak entitástípusok" -> Javított (egyes szám)
 
   // "submission.sections.general.no-sections": "No options available",
-  "submission.sections.general.no-sections": "Nincs elérhető opció",
+  "submission.sections.general.no-sections": "Nincsenek elérhető opciók.",
 
   // "submission.sections.general.save_error_notice": "There was an issue when saving the item, please try again later.",
-  "submission.sections.general.save_error_notice": "Tárgy elmentésekor probléma keletkezett, kérjük próbálja újra később.",
+  "submission.sections.general.save_error_notice": "Probléma merült fel a tétel mentésekor, kérjük, próbálja újra később.", // Eredeti: "Tárgy elmentésekor probléma keletkezett, kérjük próbálja újra később." -> Javított
 
   // "submission.sections.general.save_success_notice": "Submission saved successfully.",
-  "submission.sections.general.save_success_notice": "Feltöltés sikeresen elmentve.",
+  "submission.sections.general.save_success_notice": "A beküldés sikeresen mentve.", // Eredeti: "Feltöltés sikeresen elmentve." -> Javított
 
   // "submission.sections.general.search-collection": "Search for a collection",
   "submission.sections.general.search-collection": "Gyűjtemény keresése",
 
   // "submission.sections.general.sections_not_valid": "There are incomplete sections.",
-  "submission.sections.general.sections_not_valid": "Egyes szakaszok nem teljesek.",
+  "submission.sections.general.sections_not_valid": "Vannak hiányos szakaszok.", // Eredeti: "Egyes szakaszok nem teljesek." -> Javított
 
   // "submission.sections.identifiers.info": "The following identifiers will be created for your item:",
-  "submission.sections.identifiers.info": "A következő azonosítók kerülnek létrehozásra a tárgyához:",
+  "submission.sections.identifiers.info": "A következő azonosítók jönnek létre a tétele számára:", // Eredeti: "A következő azonosítók kerülnek létrehozásra a tárgyához:" -> Javított
 
   // "submission.sections.identifiers.no_handle": "No handles have been minted for this item.",
-  "submission.sections.identifiers.no_handle": "Az elemhez nem készült handle azonosító.",
+  "submission.sections.identifiers.no_handle": "Ehhez a tételhez nem készültek Handle azonosítók.", // Eredeti: "Az elemhez nem készült handle azonosító." -> Javított
 
   // "submission.sections.identifiers.no_doi": "No DOIs have been minted for this item.",
-  "submission.sections.identifiers.no_doi": "Az elemhez nem készült DOI.",
+  "submission.sections.identifiers.no_doi": "Ehhez a tételhez nem készültek DOI azonosítók.", // Eredeti: "Az elemhez nem készült DOI." -> Javított
 
   // "submission.sections.identifiers.handle_label": "Handle: ",
   "submission.sections.identifiers.handle_label": "Handle: ",
@@ -8382,43 +8382,43 @@
   "submission.sections.identifiers.otherIdentifiers_label": "Egyéb azonosítók: ",
 
   // "submission.sections.submit.progressbar.accessCondition": "Item access conditions",
-  "submission.sections.submit.progressbar.accessCondition": "Az elem hozzáférési feltételei",
+  "submission.sections.submit.progressbar.accessCondition": "Tétel hozzáférési feltételei", // Eredeti: "Az elem hozzáférési feltételei" -> Javított
 
   // "submission.sections.submit.progressbar.CClicense": "Creative commons license",
-  "submission.sections.submit.progressbar.CClicense": "Creative commons license",
+  "submission.sections.submit.progressbar.CClicense": "Creative Commons licenc",
 
   // "submission.sections.submit.progressbar.describe.recycle": "Recycle",
-  "submission.sections.submit.progressbar.describe.recycle": "Újrafelhasznál",
+  "submission.sections.submit.progressbar.describe.recycle": "Újrahasznosítás", // Eredeti: "Újrafelhasznál" -> Javított
 
   // "submission.sections.submit.progressbar.describe.stepcustom": "Describe",
-  "submission.sections.submit.progressbar.describe.stepcustom": "Leíró adatok megadása",
+  "submission.sections.submit.progressbar.describe.stepcustom": "Leírás", // Eredeti: "Leíró adatok megadása" -> Javított
 
   // "submission.sections.submit.progressbar.describe.stepone": "Describe",
-  "submission.sections.submit.progressbar.describe.stepone": "Leíró adatok megadása",
+  "submission.sections.submit.progressbar.describe.stepone": "Leírás",
 
   // "submission.sections.submit.progressbar.describe.steptwo": "Describe",
-  "submission.sections.submit.progressbar.describe.steptwo": "Leíró adatok megadása",
+  "submission.sections.submit.progressbar.describe.steptwo": "Leírás",
 
   // "submission.sections.submit.progressbar.duplicates": "Potential duplicates",
-  "submission.sections.submit.progressbar.duplicates": "Lehetséges duplikációk",
+  "submission.sections.submit.progressbar.duplicates": "Lehetséges duplikátumok", // Eredeti: "Lehetséges duplikációk" -> Javított
 
   // "submission.sections.submit.progressbar.identifiers": "Identifiers",
   "submission.sections.submit.progressbar.identifiers": "Azonosítók",
 
   // "submission.sections.submit.progressbar.license": "Deposit license",
-  "submission.sections.submit.progressbar.license": "Beküldési engedély",
+  "submission.sections.submit.progressbar.license": "Letéti licenc", // Eredeti: "Beküldési engedély" -> Javított
 
   // "submission.sections.submit.progressbar.sherpapolicy": "Sherpa policies",
-  "submission.sections.submit.progressbar.sherpapolicy": "Sherpa irányelvek",
+  "submission.sections.submit.progressbar.sherpapolicy": "SHERPA/RoMEO szabályzatok", // Eredeti: "Sherpa irányelvek" -> Javított
 
   // "submission.sections.submit.progressbar.upload": "Upload files",
   "submission.sections.submit.progressbar.upload": "Fájlok feltöltése",
 
   // "submission.sections.submit.progressbar.sherpaPolicies": "Publisher open access policy information",
-  "submission.sections.submit.progressbar.sherpaPolicies": "A kiadó nyílt hozzáférésről szóló információja",
+  "submission.sections.submit.progressbar.sherpaPolicies": "Kiadói nyílt hozzáférési szabályzat információk", // Eredeti: "A kiadó nyílt hozzáférésről szóló információja" -> Javított
 
   // "submission.sections.sherpa-policy.title-empty": "No publisher policy information available. If your work has an associated ISSN, please enter it above to see any related publisher open access policies.",
-  "submission.sections.sherpa-policy.title-empty": "Nem áll rendelkezésre kiadó nyílt hozzáférésről szóló információja. Ha a művéhez tartozik ISSN, kérjük, adja meg fentebb, hogy láthassa a kapcsolódó kiadók nyílt hozzáférésről szóló irányelveit.",
+  "submission.sections.sherpa-policy.title-empty": "Nem áll rendelkezésre kiadói szabályzatinformáció.\nHa művéhez tartozik ISSN, kérjük, adja meg fentebb a kapcsolódó kiadói nyílt hozzáférési szabályzatok megtekintéséhez.",
 
   // "submission.sections.status.errors.title": "Errors",
   "submission.sections.status.errors.title": "Hibák",
@@ -8445,31 +8445,31 @@
   "submission.sections.status.info.aria": "További információk",
 
   // "submission.sections.toggle.open": "Open section",
-  "submission.sections.toggle.open": "Szekció megnyitása",
+  "submission.sections.toggle.open": "Szakasz megnyitása",
 
   // "submission.sections.toggle.close": "Close section",
-  "submission.sections.toggle.close": "Szekció bezárása",
+  "submission.sections.toggle.close": "Szakasz bezárása",
 
   // "submission.sections.toggle.aria.open": "Expand {{sectionHeader}} section",
-  "submission.sections.toggle.aria.open": "A(z) {{sectionHeader}} szekció megnyitása",
+  "submission.sections.toggle.aria.open": "{{sectionHeader}} szakasz kibontása", // Eredeti: "A(z) {{sectionHeader}} szekció megnyitása" -> Javított
 
   // "submission.sections.toggle.aria.close": "Collapse {{sectionHeader}} section",
-  "submission.sections.toggle.aria.close": "A(z) {{sectionHeader}} szekció becsukása",
+  "submission.sections.toggle.aria.close": "{{sectionHeader}} szakasz összecsukása", // Eredeti: "A(z) {{sectionHeader}} szekció becsukása" -> Javított
 
   // "submission.sections.upload.primary.make": "Make {{fileName}} the primary bitstream",
-  "submission.sections.upload.primary.make": "Legyen a(z) {{fileName}} elsődleges bitstream",
+  "submission.sections.upload.primary.make": "Legyen a(z) {{fileName}} az elsődleges bitstream",
 
   // "submission.sections.upload.primary.remove": "Remove {{fileName}} as the primary bitstream",
-  "submission.sections.upload.primary.remove": "Az elsődleges bitstream tulajdonság eltávolítása a(z) {{fileName}} fájlról",
+  "submission.sections.upload.primary.remove": "A(z) {{fileName}} eltávolítása elsődleges bitstreamként", // Eredeti: "Az elsődleges bitstream tulajdonság eltávolítása a(z) {{fileName}} fájlról" -> Javított
 
   // "submission.sections.upload.delete.confirm.cancel": "Cancel",
   "submission.sections.upload.delete.confirm.cancel": "Mégse",
 
   // "submission.sections.upload.delete.confirm.info": "This operation can't be undone. Are you sure?",
-  "submission.sections.upload.delete.confirm.info": "Ez a művelet nem vonható vissza. Biztos benne?",
+  "submission.sections.upload.delete.confirm.info": "Ez a művelet nem vonható vissza.\nBiztos benne?",
 
   // "submission.sections.upload.delete.confirm.submit": "Yes, I'm sure",
-  "submission.sections.upload.delete.confirm.submit": "Igen",
+  "submission.sections.upload.delete.confirm.submit": "Igen, biztos vagyok benne.",
 
   // "submission.sections.upload.delete.confirm.title": "Delete bitstream",
   "submission.sections.upload.delete.confirm.title": "Bitstream törlése",
@@ -8478,67 +8478,67 @@
   "submission.sections.upload.delete.submit": "Törlés",
 
   // "submission.sections.upload.download.title": "Download bitstream",
-  "submission.sections.upload.download.title": "Bitstream letöltés",
+  "submission.sections.upload.download.title": "Bitstream letöltése",
 
   // "submission.sections.upload.drop-message": "Drop files to attach them to the item",
-  "submission.sections.upload.drop-message": "Húzza ide a feltöltendő fájlokat",
+  "submission.sections.upload.drop-message": "Húzza ide a fájlokat a tételhez való csatoláshoz.", // Eredeti: "Húzza ide a feltöltendő fájlokat" -> Javított (pontosítás)
 
   // "submission.sections.upload.edit.title": "Edit bitstream",
-  "submission.sections.upload.edit.title": "Bitstream szerkesztés",
+  "submission.sections.upload.edit.title": "Bitstream szerkesztése",
 
   // "submission.sections.upload.form.access-condition-label": "Access condition type",
-  "submission.sections.upload.form.access-condition-label": "Hozzáférés szabályának típusa",
+  "submission.sections.upload.form.access-condition-label": "Hozzáférési feltétel típusa",
 
   // "submission.sections.upload.form.access-condition-hint": "Select an access condition to apply on the bitstream once the item is deposited",
-  "submission.sections.upload.form.access-condition-hint": "A kiválasztott hozzáférési szabály az elem beküldését követően rögtön beállításra kerül a bitstreamen",
+  "submission.sections.upload.form.access-condition-hint": "Válasszon hozzáférési feltételt, amely a bitstreamre alkalmazandó a tétel letétbe helyezése után.", // Eredeti: "A kiválasztott hozzáférési szabály az elem beküldését követően rögtön beállításra kerül a bitstreamen" -> Javított
 
   // "submission.sections.upload.form.date-required": "Date is required.",
-  "submission.sections.upload.form.date-required": "Dátum kötelező.",
+  "submission.sections.upload.form.date-required": "Dátum megadása kötelező.",
 
   // "submission.sections.upload.form.date-required-from": "Grant access from date is required.",
   "submission.sections.upload.form.date-required-from": "A hozzáférés kezdő dátumának megadása kötelező.",
 
   // "submission.sections.upload.form.date-required-until": "Grant access until date is required.",
-  "submission.sections.upload.form.date-required-until": "A hozzáférés visszavonási dátumának megadása kötelező.",
+  "submission.sections.upload.form.date-required-until": "A hozzáférés záró dátumának megadása kötelező.", // Eredeti: "A hozzáférés visszavonási dátumának megadása kötelező." -> Javított
 
   // "submission.sections.upload.form.from-label": "Grant access from",
-  "submission.sections.upload.form.from-label": "Elérhetőség megadása innen",
+  "submission.sections.upload.form.from-label": "Hozzáférés megadása ettől:",
 
   // "submission.sections.upload.form.from-hint": "Select the date from which the related access condition is applied",
-  "submission.sections.upload.form.from-hint": "A kezdő dátum kiválasztása, amelyet követően a kiválasztott hozzáférési szabály alkalmazásra kerül",
+  "submission.sections.upload.form.from-hint": "Válassza ki a dátumot, amelytől a kapcsolódó hozzáférési feltétel érvényes.", // Eredeti: "A kezdő dátum kiválasztása, amelyet követően a kiválasztott hozzáférési szabály alkalmazásra kerül" -> Javított
 
   // "submission.sections.upload.form.from-placeholder": "From",
-  "submission.sections.upload.form.from-placeholder": "Kezdő dátum",
+  "submission.sections.upload.form.from-placeholder": "Ettől", // Eredeti: "Kezdő dátum" -> Javított (From)
 
   // "submission.sections.upload.form.group-label": "Group",
   "submission.sections.upload.form.group-label": "Csoport",
 
   // "submission.sections.upload.form.group-required": "Group is required.",
-  "submission.sections.upload.form.group-required": "Csoport kötelező.",
+  "submission.sections.upload.form.group-required": "Csoport megadása kötelező.",
 
   // "submission.sections.upload.form.until-label": "Grant access until",
-  "submission.sections.upload.form.until-label": "A hozzáférés engedély végső dátuma",
+  "submission.sections.upload.form.until-label": "Hozzáférés megadása eddig:", // Eredeti: "A hozzáférés engedély végső dátuma" -> Javított
 
   // "submission.sections.upload.form.until-hint": "Select the date until which the related access condition is applied",
-  "submission.sections.upload.form.until-hint": "A végső dátum kiválasztása, amely dátumig a kiválasztott hozzáférési szabály érvényben marad",
+  "submission.sections.upload.form.until-hint": "Válassza ki a dátumot, ameddig a kapcsolódó hozzáférési feltétel érvényes.", // Eredeti: "A végső dátum kiválasztása, amely dátumig a kiválasztott hozzáférési szabály érvényben marad" -> Javított
 
   // "submission.sections.upload.form.until-placeholder": "Until",
-  "submission.sections.upload.form.until-placeholder": "Végső dátum",
+  "submission.sections.upload.form.until-placeholder": "Eddig", // Eredeti: "Végső dátum" -> Javított (Until)
 
   // "submission.sections.upload.header.policy.default.nolist": "Uploaded files in the {{collectionName}} collection will be accessible according to the following group(s):",
-  "submission.sections.upload.header.policy.default.nolist": "A {{collectionName}} gyűjteménybe feltöltött fájlok a következő csoport(ok) számára lesznek elérhetők:",
+  "submission.sections.upload.header.policy.default.nolist": "A(z) {{collectionName}} gyűjteménybe feltöltött fájlok a következő csoport(ok) szerint lesznek elérhetők:",
 
   // "submission.sections.upload.header.policy.default.withlist": "Please note that uploaded files in the {{collectionName}} collection will be accessible, in addition to what is explicitly decided for the single file, with the following group(s):",
-  "submission.sections.upload.header.policy.default.withlist": "Felhívjuk figyelmét, hogy a {{collectionName}} gyűjteménybe feltöltött fájlok az egyedi fájlokra vonatkozó kifejezett döntéseken túl a következő csoport(ok) számára is elérhetők lesznek:",
+  "submission.sections.upload.header.policy.default.withlist": "Felhívjuk figyelmét, hogy a(z) {{collectionName}} gyűjteménybe feltöltött fájlok – az egyes fájlokra vonatkozó kifejezett döntéseken túlmenően – a következő csoport(ok) számára is elérhetők lesznek:",
 
   // "submission.sections.upload.info": "Here you will find all the files currently in the item. You can update the file metadata and access conditions or <strong>upload additional files by dragging & dropping them anywhere on the page.</strong>",
-  "submission.sections.upload.info": "A tárgyhoz kapcsolódó fájlok listájában frissítheti azok metaadatait és hozzáférési szabályait vagy <strong>feltölthet további fájlokat az oldalra történő behúzással</strong>",
+  "submission.sections.upload.info": "Itt találhatóak a tételhez jelenleg tartozó összes fájl.\nFrissítheti a fájl metaadatait és hozzáférési feltételeit, vagy <strong>további fájlokat tölthet fel az oldal bármely pontjára történő húzással.</strong>", // Eredeti: "A tárgyhoz kapcsolódó fájlok listájában frissítheti azok metaadatait és hozzáférési szabályait vagy <strong>feltölthet további fájlokat az oldalra történő behúzással</strong>" -> Javított
 
   // "submission.sections.upload.no-entry": "No",
   "submission.sections.upload.no-entry": "Nem",
 
   // "submission.sections.upload.no-file-uploaded": "No file uploaded yet.",
-  "submission.sections.upload.no-file-uploaded": "Még nincs feltöltött állomány.",
+  "submission.sections.upload.no-file-uploaded": "Még nincs fájl feltöltve.", // Eredeti: "Még nincs feltöltött állomány." -> Javított
 
   // "submission.sections.upload.save-metadata": "Save metadata",
   "submission.sections.upload.save-metadata": "Metaadatok mentése",
@@ -8547,22 +8547,22 @@
   "submission.sections.upload.undo": "Mégse",
 
   // "submission.sections.upload.upload-failed": "Upload failed",
-  "submission.sections.upload.upload-failed": "Sikertelen feltöltés",
+  "submission.sections.upload.upload-failed": "Feltöltés sikertelen",
 
   // "submission.sections.upload.upload-successful": "Upload successful",
   "submission.sections.upload.upload-successful": "Sikeres feltöltés",
 
   // "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
-  "submission.sections.accesses.form.discoverable-description": "When checked, this item will be discoverable in search/browse. When unchecked, the item will only be available via a direct link and will never appear in search/browse.",
+  "submission.sections.accesses.form.discoverable-description": "Ha be van jelölve, ez a tétel kereshető/böngészhető lesz.\nHa nincs bejelölve, a tétel csak közvetlen hivatkozással lesz elérhető, és soha nem jelenik meg a keresésben/böngészésben.",
 
   // "submission.sections.accesses.form.discoverable-label": "Discoverable",
-  "submission.sections.accesses.form.discoverable-label": "Böngészhető",
+  "submission.sections.accesses.form.discoverable-label": "Kereshető", // Eredeti: "Böngészhető" -> Javított (Discoverable)
 
   // "submission.sections.accesses.form.access-condition-label": "Access condition type",
-  "submission.sections.accesses.form.access-condition-label": "Hozzáférés szabályának típusa",
+  "submission.sections.accesses.form.access-condition-label": "Hozzáférési feltétel típusa",
 
   // "submission.sections.accesses.form.access-condition-hint": "Select an access condition to apply on the item once it is deposited",
-  "submission.sections.accesses.form.access-condition-hint": "A kiválasztott hozzáférési szabály az elem beküldését követően rögtön beállításra kerül",
+  "submission.sections.accesses.form.access-condition-hint": "Válasszon hozzáférési feltételt, amely a tételre alkalmazandó a letétbe helyezés után.", // Eredeti: "A kiválasztott hozzáférési szabály az elem beküldését követően rögtön beállításra kerül" -> Javított
 
   // "submission.sections.accesses.form.date-required": "Date is required.",
   "submission.sections.accesses.form.date-required": "Dátum megadása kötelező.",
@@ -8571,16 +8571,16 @@
   "submission.sections.accesses.form.date-required-from": "A hozzáférés kezdő dátumának megadása kötelező.",
 
   // "submission.sections.accesses.form.date-required-until": "Grant access until date is required.",
-  "submission.sections.accesses.form.date-required-until": "A hozzférés végső dátumának megadása kötelező.",
+  "submission.sections.accesses.form.date-required-until": "A hozzáférés záró dátumának megadása kötelező.", // Eredeti: "A hozzférés végső dátumának megadása kötelező." -> Javított (elírás)
 
   // "submission.sections.accesses.form.from-label": "Grant access from",
-  "submission.sections.accesses.form.from-label": "A hozzáférés kezdő dátuma",
+  "submission.sections.accesses.form.from-label": "Hozzáférés megadása ettől:", // Eredeti: "A hozzáférés kezdő dátuma" -> Javított
 
   // "submission.sections.accesses.form.from-hint": "Select the date from which the related access condition is applied",
-  "submission.sections.accesses.form.from-hint": "A kezdő dátum kiválasztása, amelyet követően a kiválasztott hozzáférési szabály alkalmazásra kerül",
+  "submission.sections.accesses.form.from-hint": "Válassza ki a dátumot, amelytől a kapcsolódó hozzáférési feltétel érvényes.",
 
   // "submission.sections.accesses.form.from-placeholder": "From",
-  "submission.sections.accesses.form.from-placeholder": "Kezdő dátum",
+  "submission.sections.accesses.form.from-placeholder": "Ettől",
 
   // "submission.sections.accesses.form.group-label": "Group",
   "submission.sections.accesses.form.group-label": "Csoport",
@@ -8589,37 +8589,37 @@
   "submission.sections.accesses.form.group-required": "Csoport megadása kötelező.",
 
   // "submission.sections.accesses.form.until-label": "Grant access until",
-  "submission.sections.accesses.form.until-label": "A hozzáférés végső dátuma",
+  "submission.sections.accesses.form.until-label": "Hozzáférés megadása eddig:", // Eredeti: "A hozzáférés végső dátuma" -> Javított
 
   // "submission.sections.accesses.form.until-hint": "Select the date until which the related access condition is applied",
-  "submission.sections.accesses.form.until-hint": "A végső dátum kiválasztása, amely dátumig a kiválasztott hozzáférési szabály érvényben marad",
+  "submission.sections.accesses.form.until-hint": "Válassza ki a dátumot, ameddig a kapcsolódó hozzáférési feltétel érvényes.",
 
   // "submission.sections.accesses.form.until-placeholder": "Until",
-  "submission.sections.accesses.form.until-placeholder": "Végső dátum",
+  "submission.sections.accesses.form.until-placeholder": "Eddig",
 
   // "submission.sections.duplicates.none": "No duplicates were detected.",
-  "submission.sections.duplicates.none": "Nem találhatóak duplikációk.",
+  "submission.sections.duplicates.none": "Nem észlelhetők duplikátumok.", // Eredeti: "Nem találhatóak duplikációk." -> Javított
 
   // "submission.sections.duplicates.detected": "Potential duplicates were detected. Please review the list below.",
-  "submission.sections.duplicates.detected": "Lehetséges duplikációkatat észleltünk. Kérjük vizsgálja meg az alábbi listát.",
+  "submission.sections.duplicates.detected": "Lehetséges duplikátumok észlelve.\nKérjük, tekintse át az alábbi listát.",
 
   // "submission.sections.duplicates.in-workspace": "This item is in workspace",
-  "submission.sections.duplicates.in-workspace": "Ez az elem workspace állapotú",
+  "submission.sections.duplicates.in-workspace": "Ez a tétel munkaterületen van.", // Eredeti: "Ez az elem workspace állapotú" -> Javított
 
   // "submission.sections.duplicates.in-workflow": "This item is in workflow",
-  "submission.sections.duplicates.in-workflow": "Ez az elem munkafolyamat állapotú",
+  "submission.sections.duplicates.in-workflow": "Ez a tétel munkafolyamatban van.", // Eredeti: "Ez az elem munkafolyamat állapotú" -> Javított
 
   // "submission.sections.license.granted-label": "I confirm the license above",
-  "submission.sections.license.granted-label": "Elfogadom a fenti licenszt",
+  "submission.sections.license.granted-label": "Elfogadom a fenti licencet.", // Eredeti: "Elfogadom a fenti licenszt" -> Javított (licencet)
 
   // "submission.sections.license.required": "You must accept the license",
-  "submission.sections.license.required": "A licensz elfogadása kötelező",
+  "submission.sections.license.required": "El kell fogadnia a licencet.", // Eredeti: "A licensz elfogadása kötelező" -> Javított
 
   // "submission.sections.license.notgranted": "You must accept the license",
-  "submission.sections.license.notgranted": "A licensz elfogadása kötelező",
+  "submission.sections.license.notgranted": "El kell fogadnia a licencet.",
 
   // "submission.sections.sherpa.publication.information": "Publication information",
-  "submission.sections.sherpa.publication.information": "Publikáció információ",
+  "submission.sections.sherpa.publication.information": "Publikációs információk", // Eredeti: "Publikáció információ" -> Javított
 
   // "submission.sections.sherpa.publication.information.title": "Title",
   "submission.sections.sherpa.publication.information.title": "Cím",
@@ -8634,19 +8634,19 @@
   "submission.sections.sherpa.publication.information.publishers": "Kiadó",
 
   // "submission.sections.sherpa.publication.information.romeoPub": "Romeo Pub",
-  "submission.sections.sherpa.publication.information.romeoPub": "Romeo Pub",
+  "submission.sections.sherpa.publication.information.romeoPub": "RoMEO Pub", // Javítva: Romeo -> RoMEO
 
   // "submission.sections.sherpa.publication.information.zetoPub": "Zeto Pub",
-  "submission.sections.sherpa.publication.information.zetoPub": "Zeto Pub",
+  "submission.sections.sherpa.publication.information.zetoPub": "Zeto Pub", // (Ha ez egy név, akkor maradhat)
 
   // "submission.sections.sherpa.publisher.policy": "Publisher Policy",
-  "submission.sections.sherpa.publisher.policy": "Kiadó jogi szabályozása",
+  "submission.sections.sherpa.publisher.policy": "Kiadói szabályzat", // Eredeti: "Kiadó jogi szabályozása" -> Javított (policy)
 
   // "submission.sections.sherpa.publisher.policy.description": "The below information was found via Sherpa Romeo. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
-  "submission.sections.sherpa.publisher.policy.description": "The below information was found via Sherpa Romeo. Based on the policies of your publisher, it provides advice regarding whether an embargo may be necessary and/or which files you are allowed to upload. If you have questions, please contact your site administrator via the feedback form in the footer.",
+  "submission.sections.sherpa.publisher.policy.description": "Az alábbi információk a SHERPA/RoMEO szolgáltatásból származnak.\nA kiadója szabályzatai alapján tanácsot ad arra vonatkozóan, hogy szükséges-e embargó, és/vagy mely fájlokat töltheti fel.\nHa kérdései vannak, kérjük, lépjen kapcsolatba a webhely adminisztrátorával a láblécben található visszajelzési űrlapon keresztül.", // Átdolgozva a pontosság és érthetőség érdekében
 
   // "submission.sections.sherpa.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
-  "submission.sections.sherpa.publisher.policy.openaccess": "Open Access pathways permitted by this journal's policy are listed below by article version. Click on a pathway for a more detailed view",
+  "submission.sections.sherpa.publisher.policy.openaccess": "A folyóirat szabályzata által engedélyezett nyílt hozzáférési utak alább cikkverziók szerint vannak felsorolva.\nKattintson egy útvonalra a részletesebb nézetért.", // Átdolgozva
 
   // "submission.sections.sherpa.publisher.policy.more.information": "For more information, please see the following links:",
   "submission.sections.sherpa.publisher.policy.more.information": "További információkért kérjük, tekintse meg a következő hivatkozásokat:",
@@ -8658,13 +8658,13 @@
   "submission.sections.sherpa.publisher.policy.embargo": "Embargó",
 
   // "submission.sections.sherpa.publisher.policy.noembargo": "No Embargo",
-  "submission.sections.sherpa.publisher.policy.noembargo": "Nincs beállított embargó",
+  "submission.sections.sherpa.publisher.policy.noembargo": "Nincs embargó", // Eredeti: "Nincs beállított embargó" -> Javított
 
   // "submission.sections.sherpa.publisher.policy.nolocation": "None",
   "submission.sections.sherpa.publisher.policy.nolocation": "Nincs",
 
   // "submission.sections.sherpa.publisher.policy.license": "License",
-  "submission.sections.sherpa.publisher.policy.license": "Licensz",
+  "submission.sections.sherpa.publisher.policy.license": "Licenc", // Eredeti: "Licensz" -> Javított
 
   // "submission.sections.sherpa.publisher.policy.prerequisites": "Prerequisites",
   "submission.sections.sherpa.publisher.policy.prerequisites": "Előfeltételek",
@@ -8673,154 +8673,154 @@
   "submission.sections.sherpa.publisher.policy.location": "Hely",
 
   // "submission.sections.sherpa.publisher.policy.conditions": "Conditions",
-  "submission.sections.sherpa.publisher.policy.conditions": "Hozzáférési feltételek",
+  "submission.sections.sherpa.publisher.policy.conditions": "Feltételek", // Eredeti: "Hozzáférési feltételek" -> Javított (általánosabb)
 
   // "submission.sections.sherpa.publisher.policy.refresh": "Refresh",
   "submission.sections.sherpa.publisher.policy.refresh": "Frissítés",
 
   // "submission.sections.sherpa.record.information": "Record Information",
-  "submission.sections.sherpa.record.information": "Rekord információ",
+  "submission.sections.sherpa.record.information": "Rekordinformációk", // Eredeti: "Rekord információ" -> Javított
 
   // "submission.sections.sherpa.record.information.id": "ID",
-  "submission.sections.sherpa.record.information.id": "ID",
+  "submission.sections.sherpa.record.information.id": "Azonosító", // Eredeti: "ID" -> Javított
 
   // "submission.sections.sherpa.record.information.date.created": "Date Created",
   "submission.sections.sherpa.record.information.date.created": "Létrehozás dátuma",
 
   // "submission.sections.sherpa.record.information.date.modified": "Last Modified",
-  "submission.sections.sherpa.record.information.date.modified": "Utolsó módosítás dátuma",
+  "submission.sections.sherpa.record.information.date.modified": "Utolsó módosítás", // Eredeti: "Utolsó módosítás dátuma" -> Javított
 
   // "submission.sections.sherpa.record.information.uri": "URI",
   "submission.sections.sherpa.record.information.uri": "URI",
 
   // "submission.sections.sherpa.error.message": "There was an error retrieving sherpa informations",
-  "submission.sections.sherpa.error.message": "Hiba történt a sherpa információ lekérdezése közben",
+  "submission.sections.sherpa.error.message": "Hiba történt a SHERPA/RoMEO információk lekérésekor.", // Eredeti: "Hiba történt a sherpa információ lekérdezése közben" -> Javított
 
   // "submission.submit.breadcrumbs": "New submission",
-  "submission.submit.breadcrumbs": "Új feltöltés",
+  "submission.submit.breadcrumbs": "Új beküldés",
 
   // "submission.submit.title": "New submission",
-  "submission.submit.title": "Új feltöltés",
+  "submission.submit.title": "Új beküldés",
 
   // "submission.workflow.generic.delete": "Delete",
-  "submission.workflow.generic.delete": "Töröl",
+  "submission.workflow.generic.delete": "Törlés",
 
   // "submission.workflow.generic.delete-help": "Select this option to discard this item. You will then be asked to confirm it.",
-  "submission.workflow.generic.delete-help": "Válassza ezt az opciót amennyiben törölni szeretné az elemet. Kérjük döntését ezt követően erősítse meg.",
+  "submission.workflow.generic.delete-help": "Válassza ezt az opciót a tétel elvetéséhez.\nEzután meg kell erősítenie.",
 
   // "submission.workflow.generic.edit": "Edit",
   "submission.workflow.generic.edit": "Szerkesztés",
 
   // "submission.workflow.generic.edit-help": "Select this option to change the item's metadata.",
-  "submission.workflow.generic.edit-help": "Válassza ezt, hogy módosítsa a tárgy metaadatait.",
+  "submission.workflow.generic.edit-help": "Válassza ezt az opciót a tétel metaadatainak módosításához.", // Eredeti: "Válassza ezt, hogy módosítsa a tárgy metaadatait." -> Javított
 
   // "submission.workflow.generic.view": "View",
-  "submission.workflow.generic.view": "Megnyitás",
+  "submission.workflow.generic.view": "Megtekintés", // Eredeti: "Megnyitás" -> Javított
 
   // "submission.workflow.generic.view-help": "Select this option to view the item's metadata.",
-  "submission.workflow.generic.view-help": "Válassza ezt, hogy megtekintse a tárgy metaadatait.",
+  "submission.workflow.generic.view-help": "Válassza ezt az opciót a tétel metaadatainak megtekintéséhez.", // Eredeti: "Válassza ezt, hogy megtekintse a tárgy metaadatait." -> Javított
 
   // "submission.workflow.generic.submit_select_reviewer": "Select Reviewer",
-  "submission.workflow.generic.submit_select_reviewer": "Reviewer kiválasztása",
+  "submission.workflow.generic.submit_select_reviewer": "Bíráló kiválasztása", // Eredeti: "Reviewer kiválasztása" -> Javított
 
   // "submission.workflow.generic.submit_select_reviewer-help": "",
-  "submission.workflow.generic.submit_select_reviewer-help": "",
+  "submission.workflow.generic.submit_select_reviewer-help": "", // Marad üres
 
   // "submission.workflow.generic.submit_score": "Rate",
   "submission.workflow.generic.submit_score": "Értékelés",
 
   // "submission.workflow.generic.submit_score-help": "",
-  "submission.workflow.generic.submit_score-help": "",
+  "submission.workflow.generic.submit_score-help": "", // Marad üres
 
   // "submission.workflow.tasks.claimed.approve": "Approve",
-  "submission.workflow.tasks.claimed.approve": "Jóváhagy",
+  "submission.workflow.tasks.claimed.approve": "Jóváhagyás", // Eredeti: "Jóváhagy" -> Javított
 
   // "submission.workflow.tasks.claimed.approve_help": "If you have reviewed the item and it is suitable for inclusion in the collection, select \"Approve\".",
-  "submission.workflow.tasks.claimed.approve_help": "Ha ellenőrizte a tárgyat és gyűjteménybe kerülésre alkalmas, válassza a \"Jóváhagy\" gombot.",
+  "submission.workflow.tasks.claimed.approve_help": "Ha áttekintette a tételt, és alkalmasnak találja a gyűjteménybe való felvételre, válassza a \"Jóváhagyás\" lehetőséget.", // Eredeti: "Ha ellenőrizte a tárgyat és gyűjteménybe kerülésre alkalmas, válassza a \"Jóváhagy\" gombot." -> Javított
 
   // "submission.workflow.tasks.claimed.edit": "Edit",
-  "submission.workflow.tasks.claimed.edit": "Szerkeszt",
+  "submission.workflow.tasks.claimed.edit": "Szerkesztés",
 
   // "submission.workflow.tasks.claimed.edit_help": "Select this option to change the item's metadata.",
-  "submission.workflow.tasks.claimed.edit_help": "Válassza a \"Szerkeszt\" opciót, hogy módosítsa a tárgy metaadatait.",
+  "submission.workflow.tasks.claimed.edit_help": "Válassza ezt az opciót a tétel metaadatainak módosításához.", // Eredeti: "Válassza a \"Szerkeszt\" opciót, hogy módosítsa a tárgy metaadatait." -> Javított
 
   // "submission.workflow.tasks.claimed.decline": "Decline",
-  "submission.workflow.tasks.claimed.decline": "Visszautasít",
+  "submission.workflow.tasks.claimed.decline": "Elutasítás", // Eredeti: "Visszautasít" -> Javított (Decline)
 
   // "submission.workflow.tasks.claimed.decline_help": "",
-  "submission.workflow.tasks.claimed.decline_help": "",
+  "submission.workflow.tasks.claimed.decline_help": "", // Marad üres
 
   // "submission.workflow.tasks.claimed.reject.reason.info": "Please enter your reason for rejecting the submission into the box below, indicating whether the submitter may fix a problem and resubmit.",
-  "submission.workflow.tasks.claimed.reject.reason.info": "Kérjük jelölje meg az alábbi mezőben, miért utasítja vissza a feltöltést és amennyiben a feltöltő javítható hibát követett el, pontosítsa, hogy újra feltölthesse.",
+  "submission.workflow.tasks.claimed.reject.reason.info": "Kérjük, írja be az alábbi mezőbe az elutasítás okát, jelezve, hogy a beküldő javíthatja-e a problémát és újra beküldheti-e.",
 
   // "submission.workflow.tasks.claimed.reject.reason.placeholder": "Describe the reason of reject",
   "submission.workflow.tasks.claimed.reject.reason.placeholder": "Írja le az elutasítás okát",
 
   // "submission.workflow.tasks.claimed.reject.reason.submit": "Reject item",
-  "submission.workflow.tasks.claimed.reject.reason.submit": "Tárgy bekerülésének elutasítása",
+  "submission.workflow.tasks.claimed.reject.reason.submit": "Tétel elutasítása", // Eredeti: "Tárgy bekerülésének elutasítása" -> Javított
 
   // "submission.workflow.tasks.claimed.reject.reason.title": "Reason",
-  "submission.workflow.tasks.claimed.reject.reason.title": "Elutasítás oka",
+  "submission.workflow.tasks.claimed.reject.reason.title": "Ok", // Eredeti: "Elutasítás oka" -> Javított (Reason)
 
   // "submission.workflow.tasks.claimed.reject.submit": "Reject",
   "submission.workflow.tasks.claimed.reject.submit": "Elutasítás",
 
-  // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\".  You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
-  "submission.workflow.tasks.claimed.reject_help": "Amennyiben ellenőrizte a tárgyat és úgy találja, hogy az <strong>nem</strong> alkalmas a gyűjteménybe történő befogadásra, válassza az \"Elutasítás\" gombot. Ezt követően írjon be egy üzenetet, amelyben megindokolja, miért nem alkalmas a tárgy és hogy a feltöltő tud-e módosítani rajta, hogy újra feltölthesse.",
+  // "submission.workflow.tasks.claimed.reject_help": "If you have reviewed the item and found it is <strong>not</strong> suitable for inclusion in the collection, select \"Reject\". You will then be asked to enter a message indicating why the item is unsuitable, and whether the submitter should change something and resubmit.",
+  "submission.workflow.tasks.claimed.reject_help": "Ha áttekintette a tételt, és úgy találta, hogy <strong>nem</strong> alkalmas a gyűjteménybe való felvételre, válassza az \"Elutasítás\" lehetőséget.\nEzután meg kell adnia egy üzenetet, amelyben jelzi, miért nem megfelelő a tétel, és hogy a beküldőnek módosítania kell-e valamit és újra be kell-e küldenie.",
 
   // "submission.workflow.tasks.claimed.return": "Return to pool",
   "submission.workflow.tasks.claimed.return": "Vissza a feladatlistába",
 
   // "submission.workflow.tasks.claimed.return_help": "Return the task to the pool so that another user may perform the task.",
-  "submission.workflow.tasks.claimed.return_help": "Adja vissza a feladatot a közös feladatok közé, hogy más elvégezhesse.",
+  "submission.workflow.tasks.claimed.return_help": "Tegye vissza a feladatot a közös feladatok közé, hogy egy másik felhasználó elvégezhesse.", // Eredeti: "Adja vissza a feladatot a közös feladatok közé, hogy más elvégezhesse." -> Javított
 
   // "submission.workflow.tasks.generic.error": "Error occurred during operation...",
-  "submission.workflow.tasks.generic.error": "Művelet során hiba történt...",
+  "submission.workflow.tasks.generic.error": "Hiba történt a művelet során...",
 
   // "submission.workflow.tasks.generic.processing": "Processing...",
   "submission.workflow.tasks.generic.processing": "Feldolgozás...",
 
   // "submission.workflow.tasks.generic.submitter": "Submitter",
-  "submission.workflow.tasks.generic.submitter": "Feltöltő",
+  "submission.workflow.tasks.generic.submitter": "Beküldő", // Eredeti: "Feltöltő" -> Javított
 
   // "submission.workflow.tasks.generic.success": "Operation successful",
-  "submission.workflow.tasks.generic.success": "Művelet sikeres",
+  "submission.workflow.tasks.generic.success": "A művelet sikeres volt.", // Eredeti: "Művelet sikeres" -> Javított
 
   // "submission.workflow.tasks.pool.claim": "Claim",
-  "submission.workflow.tasks.pool.claim": "Elvállalom",
+  "submission.workflow.tasks.pool.claim": "Feladat elvállalása", // Eredeti: "Elvállalom" -> Javított (Claim)
 
   // "submission.workflow.tasks.pool.claim_help": "Assign this task to yourself.",
-  "submission.workflow.tasks.pool.claim_help": "Worklow feladat elvállalása.",
+  "submission.workflow.tasks.pool.claim_help": "Rendelje ezt a feladatot magához.", // Eredeti: "Worklow feladat elvállalása." -> Javított
 
   // "submission.workflow.tasks.pool.hide-detail": "Hide detail",
   "submission.workflow.tasks.pool.hide-detail": "Részletek elrejtése",
 
   // "submission.workflow.tasks.pool.show-detail": "Show detail",
-  "submission.workflow.tasks.pool.show-detail": "Részletek felfedése",
+  "submission.workflow.tasks.pool.show-detail": "Részletek megjelenítése", // Eredeti: "Részletek felfedése" -> Javított
 
   // "submission.workflow.tasks.duplicates": "potential duplicates were detected for this item. Claim and edit this item to see details.",
-  "submission.workflow.tasks.duplicates": "lehetséges duplikációt észleltünk az elem kapcsán. Rendelje magához a worklow feladatot és válassza a szerkesztést a részletek megtekintéséhez.",
+  "submission.workflow.tasks.duplicates": "Lehetséges duplikátumokat észleltünk ennél a tételnél.\nA részletek megtekintéséhez vállalja el és szerkessze ezt a tételt.",
 
   // "submission.workspace.generic.view": "View",
-  "submission.workspace.generic.view": "Megnyitás",
+  "submission.workspace.generic.view": "Megtekintés",
 
   // "submission.workspace.generic.view-help": "Select this option to view the item's metadata.",
-  "submission.workspace.generic.view-help": "Válassza ezt az opciót az elem leíró adatainak megtekintéséhez.",
+  "submission.workspace.generic.view-help": "Válassza ezt az opciót a tétel metaadatainak megtekintéséhez.",
 
   // "submitter.empty": "N/A",
-  "submitter.empty": "Nem elérhető",
+  "submitter.empty": "N/A", // Eredeti: "Nem elérhető" -> Visszaállítva (N/A gyakoribb ilyen helyen)
 
   // "subscriptions.title": "Subscriptions",
   "subscriptions.title": "Feliratkozások",
 
   // "subscriptions.item": "Subscriptions for items",
-  "subscriptions.item": "Tárgy feliratkozások",
+  "subscriptions.item": "Feliratkozások tételekre", // Eredeti: "Tárgy feliratkozások" -> Javított
 
   // "subscriptions.collection": "Subscriptions for collections",
-  "subscriptions.collection": "Gyűjtemény feliratkozások",
+  "subscriptions.collection": "Feliratkozások gyűjteményekre",
 
   // "subscriptions.community": "Subscriptions for communities",
-  "subscriptions.community": "Közösség feliratkozások",
+  "subscriptions.community": "Feliratkozások közösségekre", // Eredeti: "Közösség feliratkozások" -> Javított
 
   // "subscriptions.subscription_type": "Subscription type",
   "subscriptions.subscription_type": "Feliratkozás típusa",
@@ -8829,13 +8829,13 @@
   "subscriptions.frequency": "Feliratkozás gyakorisága",
 
   // "subscriptions.frequency.D": "Daily",
-  "subscriptions.frequency.D": "Napi",
+  "subscriptions.frequency.D": "Naponta", // Eredeti: "Napi" -> Javított
 
   // "subscriptions.frequency.M": "Monthly",
-  "subscriptions.frequency.M": "Havi",
+  "subscriptions.frequency.M": "Havonta", // Eredeti: "Havi" -> Javított
 
   // "subscriptions.frequency.W": "Weekly",
-  "subscriptions.frequency.W": "Heti",
+  "subscriptions.frequency.W": "Hetente", // Eredeti: "Heti" -> Javított
 
   // "subscriptions.tooltip": "Subscribe",
   "subscriptions.tooltip": "Feliratkozás",
@@ -8853,46 +8853,46 @@
   "subscriptions.modal.close": "Bezárás",
 
   // "subscriptions.modal.delete-info": "To remove this subscription, please visit the \"Subscriptions\" page under your user profile",
-  "subscriptions.modal.delete-info": "A feliratkozás törléséhez kérjük látogasson a felhasználói profilja alatt található \"Feliratkozások\" oldalra",
+  "subscriptions.modal.delete-info": "A feliratkozás eltávolításához kérjük, látogasson el a felhasználói profilja alatt található \"Feliratkozások\" oldalra.",
 
   // "subscriptions.modal.new-subscription-form.type.content": "Content",
   "subscriptions.modal.new-subscription-form.type.content": "Tartalom",
 
   // "subscriptions.modal.new-subscription-form.frequency.D": "Daily",
-  "subscriptions.modal.new-subscription-form.frequency.D": "Napi",
+  "subscriptions.modal.new-subscription-form.frequency.D": "Naponta",
 
   // "subscriptions.modal.new-subscription-form.frequency.W": "Weekly",
-  "subscriptions.modal.new-subscription-form.frequency.W": "Heti",
+  "subscriptions.modal.new-subscription-form.frequency.W": "Hetente",
 
   // "subscriptions.modal.new-subscription-form.frequency.M": "Monthly",
-  "subscriptions.modal.new-subscription-form.frequency.M": "Havi",
+  "subscriptions.modal.new-subscription-form.frequency.M": "Havonta",
 
   // "subscriptions.modal.new-subscription-form.submit": "Submit",
-  "subscriptions.modal.new-subscription-form.submit": "Küldés",
+  "subscriptions.modal.new-subscription-form.submit": "Beküldés", // Eredeti: "Küldés" -> Javított
 
   // "subscriptions.modal.new-subscription-form.processing": "Processing...",
   "subscriptions.modal.new-subscription-form.processing": "Feldolgozás...",
 
   // "subscriptions.modal.create.success": "Subscribed to {{ type }} successfully.",
-  "subscriptions.modal.create.success": "Sikeres feliratkozás a következőre {{ type }}.",
+  "subscriptions.modal.create.success": "Sikeresen feliratkozott a(z) {{ type }} típusra.", // Eredeti: "Sikeres feliratkozás a következőre {{ type }}." -> Javított
 
   // "subscriptions.modal.delete.success": "Subscription deleted successfully",
-  "subscriptions.modal.delete.success": "A feliratkozás sikeresen törölve",
+  "subscriptions.modal.delete.success": "A feliratkozás sikeresen törölve.",
 
   // "subscriptions.modal.update.success": "Subscription to {{ type }} updated successfully",
-  "subscriptions.modal.update.success": "A feliratkozás sikeresen frissítve a következőre {{ type }}.",
+  "subscriptions.modal.update.success": "A(z) {{ type }} típusú feliratkozás sikeresen frissítve.", // Eredeti: "A feliratkozás sikeresen frissítve a következőre {{ type }}." -> Javított
 
   // "subscriptions.modal.create.error": "An error occurs during the subscription creation",
-  "subscriptions.modal.create.error": "Hiba történt a feliratkozás közben",
+  "subscriptions.modal.create.error": "Hiba történt a feliratkozás létrehozása során.", // Eredeti: "Hiba történt a feliratkozás közben" -> Javított
 
   // "subscriptions.modal.delete.error": "An error occurs during the subscription delete",
-  "subscriptions.modal.delete.error": "Hiba történt a feliratkozás törlése közben",
+  "subscriptions.modal.delete.error": "Hiba történt a feliratkozás törlése során.",
 
   // "subscriptions.modal.update.error": "An error occurs during the subscription update",
-  "subscriptions.modal.update.error": "Hiba történt a feliratkozás frissítése közben",
+  "subscriptions.modal.update.error": "Hiba történt a feliratkozás frissítése során.",
 
   // "subscriptions.table.dso": "Subject",
-  "subscriptions.table.dso": "Tárgyszó",
+  "subscriptions.table.dso": "Tárgy", // Eredeti: "Tárgyszó" -> Javított (Subject of subscription)
 
   // "subscriptions.table.subscription_type": "Subscription Type",
   "subscriptions.table.subscription_type": "Feliratkozás típusa",
@@ -8913,176 +8913,175 @@
   "subscriptions.table.not-available": "Nem elérhető",
 
   // "subscriptions.table.not-available-message": "The subscribed item has been deleted, or you don't currently have the permission to view it",
-  "subscriptions.table.not-available-message": "A felirakozott elem törlésre került vagy nincs meg a szükséges jogosultsága a megtekintéshez",
+  "subscriptions.table.not-available-message": "A feliratkozott tétel törölve lett, vagy jelenleg nincs jogosultsága a megtekintéséhez.", // Eredeti: "A felirakozott elem törlésre került vagy nincs meg a szükséges jogosultsága a megtekintéshez" -> Javított
 
   // "subscriptions.table.empty.message": "You do not have any subscriptions at this time. To subscribe to email updates for a community or collection, use the subscription button on the object's page.",
-
-  "subscriptions.table.empty.message": "Jelenleg nincs egyetlen feliratkozása sem. A közösségek és gyűjtemények kapcsán email értesítőre való feliratkozáshoz használja a feliratkozás gombot az adott elem oldalán.",
+  "subscriptions.table.empty.message": "Jelenleg nincsenek feliratkozásai.\nKözösség vagy gyűjtemény e-mail frissítéseire való feliratkozáshoz használja a feliratkozás gombot az objektum oldalán.",
 
   // "thumbnail.default.alt": "Thumbnail Image",
-  "thumbnail.default.alt": "Thumbnail kép",
+  "thumbnail.default.alt": "Bélyegkép", // Eredeti: "Thumbnail kép" -> Javított
 
   // "thumbnail.default.placeholder": "No Thumbnail Available",
-  "thumbnail.default.placeholder": "Kép nélkül",
+  "thumbnail.default.placeholder": "Nincs elérhető bélyegkép", // Eredeti: "Kép nélkül" -> Javított
 
   // "thumbnail.project.alt": "Project Logo",
-  "thumbnail.project.alt": "Projekt Logo",
+  "thumbnail.project.alt": "Projekt logója",
 
   // "thumbnail.project.placeholder": "Project Placeholder Image",
-  "thumbnail.project.placeholder": "Projekt Placeholder képe",
+  "thumbnail.project.placeholder": "Projekt helykitöltő képe", // Eredeti: "Projekt Placeholder képe" -> Javított
 
   // "thumbnail.orgunit.alt": "OrgUnit Logo",
-  "thumbnail.orgunit.alt": "Szervezeti egység Logo",
+  "thumbnail.orgunit.alt": "Szervezeti egység logója",
 
   // "thumbnail.orgunit.placeholder": "OrgUnit Placeholder Image",
-  "thumbnail.orgunit.placeholder": "Szervezeti egység Placeholder képe",
+  "thumbnail.orgunit.placeholder": "Szervezeti egység helykitöltő képe",
 
   // "thumbnail.person.alt": "Profile Picture",
   "thumbnail.person.alt": "Profilkép",
 
   // "thumbnail.person.placeholder": "No Profile Picture Available",
-  "thumbnail.person.placeholder": "Profilkép nem elérhető",
+  "thumbnail.person.placeholder": "Nincs elérhető profilkép", // Eredeti: "Profilkép nem elérhető" -> Javított
 
   // "title": "DSpace",
   "title": "DSpace",
 
   // "vocabulary-treeview.header": "Hierarchical tree view",
-  "vocabulary-treeview.header": "Hierarchikus fa nézet",
+  "vocabulary-treeview.header": "Hierarchikus fanézet",
 
   // "vocabulary-treeview.load-more": "Load more",
   "vocabulary-treeview.load-more": "Továbbiak betöltése",
 
   // "vocabulary-treeview.search.form.reset": "Reset",
-  "vocabulary-treeview.search.form.reset": "Visszaállítás",
+  "vocabulary-treeview.search.form.reset": "Alaphelyzet", // Eredeti: "Visszaállítás" -> Javított (Reset gomb)
 
   // "vocabulary-treeview.search.form.search": "Search",
   "vocabulary-treeview.search.form.search": "Keresés",
 
   // "vocabulary-treeview.search.form.search-placeholder": "Filter results by typing the first few letters",
-  "vocabulary-treeview.search.form.search-placeholder": "Találatok szűrése a szűrőfeltétel első néhány karakterének begépelésével",
+  "vocabulary-treeview.search.form.search-placeholder": "Eredmények szűrése az első néhány betű beírásával", // Eredeti: "Találatok szűrése a szűrőfeltétel első néhány karakterének begépelésével" -> Javított
 
   // "vocabulary-treeview.search.no-result": "There were no items to show",
-  "vocabulary-treeview.search.no-result": "Nincsenek megjelenítendő elemek",
+  "vocabulary-treeview.search.no-result": "Nincsenek megjeleníthető tételek.", // Eredeti: "Nincsenek megjelenítendő elemek" -> Javított
 
   // "vocabulary-treeview.tree.description.nsi": "The Norwegian Science Index",
-  "vocabulary-treeview.tree.description.nsi": "Norvégiai tudományos index",
+  "vocabulary-treeview.tree.description.nsi": "Norvég Tudományos Index", // Eredeti: "Norvégiai tudományos index" -> Javított
 
   // "vocabulary-treeview.tree.description.srsc": "Research Subject Categories",
-  "vocabulary-treeview.tree.description.srsc": "Kutatási tárgy közösségek",
+  "vocabulary-treeview.tree.description.srsc": "Kutatási tárgyszókategóriák", // Eredeti: "Kutatási tárgy közösségek" -> Javított
 
   // "vocabulary-treeview.info": "Select a subject to add as search filter",
-  "vocabulary-treeview.info": "Tárgyszó kiválasztása szűrőfeltételként",
+  "vocabulary-treeview.info": "Válasszon tárgyszót keresési szűrőként történő hozzáadáshoz.", // Eredeti: "Tárgyszó kiválasztása szűrőfeltételként" -> Javított
 
   // "uploader.browse": "browse",
-  "uploader.browse": "kattintson a tallózásra",
+  "uploader.browse": "tallózás", // Eredeti: "kattintson a tallózásra" -> Javított (browse önmagában)
 
   // "uploader.drag-message": "Drag & Drop your files here",
-  "uploader.drag-message": "Húzza ide az fájlokat",
+  "uploader.drag-message": "Húzza ide a fájlokat!", // Eredeti: "Húzza ide az fájlokat" -> Javított
 
   // "uploader.delete.btn-title": "Delete",
-  "uploader.delete.btn-title": "Töröl",
+  "uploader.delete.btn-title": "Törlés", // Eredeti: "Töröl" -> Javított
 
   // "uploader.or": ", or ",
-  "uploader.or": ", vagy",
+  "uploader.or": ", vagy ",
 
   // "uploader.processing": "Processing uploaded file(s)... (it's now safe to close this page)",
-  "uploader.processing": "Fájlok feldolgozása...(most már biztonságosan bezárható az oldal)",
+  "uploader.processing": "Feltöltött fájl(ok) feldolgozása... (az oldal most már biztonságosan bezárható)", // Eredeti: "Fájlok feldolgozása...(most már biztonságosan bezárható az oldal)" -> Javított
 
   // "uploader.queue-length": "Queue length",
-  "uploader.queue-length": "Sor hossza",
+  "uploader.queue-length": "Várólista hossza", // Eredeti: "Sor hossza" -> Javított
 
   // "virtual-metadata.delete-item.info": "Select the types for which you want to save the virtual metadata as real metadata",
-  "virtual-metadata.delete-item.info": "Válassza ki azokat a típusokat, amelyekhez óhajtja a virtuális metaadatok elmentését valódi metaadatokként",
+  "virtual-metadata.delete-item.info": "Válassza ki azokat a típusokat, amelyeknél a virtuális metaadatokat valós metaadatokként szeretné menteni.",
 
   // "virtual-metadata.delete-item.modal-head": "The virtual metadata of this relation",
   "virtual-metadata.delete-item.modal-head": "Ennek a kapcsolatnak a virtuális metaadatai",
 
   // "virtual-metadata.delete-relationship.modal-head": "Select the items for which you want to save the virtual metadata as real metadata",
-  "virtual-metadata.delete-relationship.modal-head": "Válassza ki azokat a tárgyakat, amelyekhez óhajtja a virtuális metaadatok elmentését valódi metaadatokként",
+  "virtual-metadata.delete-relationship.modal-head": "Válassza ki azokat a tételeket, amelyeknél a virtuális metaadatokat valós metaadatokként szeretné menteni.", // Eredeti: "Válassza ki azokat a tárgyakat, amelyekhez óhajtja a virtuális metaadatok elmentését valódi metaadatokként" -> Javított
 
   // "supervisedWorkspace.search.results.head": "Supervised Items",
-  "supervisedWorkspace.search.results.head": "Jóváhagyásra váró elemek",
+  "supervisedWorkspace.search.results.head": "Felügyelt tételek",
 
   // "workspace.search.results.head": "Your submissions",
-  "workspace.search.results.head": "Feltöltéseim",
+  "workspace.search.results.head": "Beküldéseim", // Eredeti: "Feltöltéseim" -> Javított
 
   // "workflowAdmin.search.results.head": "Administer Workflow",
-  "workflowAdmin.search.results.head": "Workflow szervezése",
+  "workflowAdmin.search.results.head": "Munkafolyamat adminisztráció", // Eredeti: "Workflow szervezése" -> Javított
 
   // "workflow.search.results.head": "Workflow tasks",
-  "workflow.search.results.head": "Workflow feladatok",
+  "workflow.search.results.head": "Munkafolyamat-feladatok",
 
   // "supervision.search.results.head": "Workflow and Workspace tasks",
-  "supervision.search.results.head": "Workflow és workspace feladatok",
+  "supervision.search.results.head": "Munkafolyamat és munkaterületi feladatok", // Eredeti: "Workflow és workspace feladatok" -> Javított
 
   // "workflow-item.edit.breadcrumbs": "Edit workflowitem",
-  "workflow-item.edit.breadcrumbs": "Workflow elem szerkesztése",
+  "workflow-item.edit.breadcrumbs": "Munkafolyamat-elem szerkesztése", // Eredeti: "Workflow elem szerkesztése" -> Javított (workflowitem)
 
   // "workflow-item.edit.title": "Edit workflowitem",
-  "workflow-item.edit.title": "Workflow elem szerkesztése",
+  "workflow-item.edit.title": "Munkafolyamat-elem szerkesztése",
 
   // "workflow-item.delete.notification.success.title": "Deleted",
   "workflow-item.delete.notification.success.title": "Törölve",
 
   // "workflow-item.delete.notification.success.content": "This workflow item was successfully deleted",
-  "workflow-item.delete.notification.success.content": "Workflow elem sikeresen törölve",
+  "workflow-item.delete.notification.success.content": "Ez a munkafolyamat-elem sikeresen törölve lett.", // Eredeti: "Workflow elem sikeresen törölve" -> Javított
 
   // "workflow-item.delete.notification.error.title": "Something went wrong",
-  "workflow-item.delete.notification.error.title": "Valami hiba keletkezett",
+  "workflow-item.delete.notification.error.title": "Hiba történt", // Eredeti: "Valami hiba keletkezett" -> Javított
 
   // "workflow-item.delete.notification.error.content": "The workflow item could not be deleted",
-  "workflow-item.delete.notification.error.content": "Workflow elem törlése sikertelen",
+  "workflow-item.delete.notification.error.content": "A munkafolyamat-elemet nem sikerült törölni.", // Eredeti: "Workflow elem törlése sikertelen" -> Javított
 
   // "workflow-item.delete.title": "Delete workflow item",
-  "workflow-item.delete.title": "Workflow elem törlése",
+  "workflow-item.delete.title": "Munkafolyamat-elem törlése",
 
   // "workflow-item.delete.header": "Delete workflow item",
-  "workflow-item.delete.header": "Workflow elem törlése",
+  "workflow-item.delete.header": "Munkafolyamat-elem törlése",
 
   // "workflow-item.delete.button.cancel": "Cancel",
   "workflow-item.delete.button.cancel": "Mégse",
 
   // "workflow-item.delete.button.confirm": "Delete",
-  "workflow-item.delete.button.confirm": "Töröl",
+  "workflow-item.delete.button.confirm": "Törlés",
 
   // "workflow-item.send-back.notification.success.title": "Sent back to submitter",
-  "workflow-item.send-back.notification.success.title": "Visszaküldve a feladónak",
+  "workflow-item.send-back.notification.success.title": "Visszaküldve a beküldőnek", // Eredeti: "Visszaküldve a feladónak" -> Javított
 
   // "workflow-item.send-back.notification.success.content": "This workflow item was successfully sent back to the submitter",
-  "workflow-item.send-back.notification.success.content": "Workflow elem sikeresen visszaküldve a feladónak",
+  "workflow-item.send-back.notification.success.content": "Ez a munkafolyamat-elem sikeresen visszaküldve a beküldőnek.", // Eredeti: "Workflow elem sikeresen visszaküldve a feladónak" -> Javított
 
   // "workflow-item.send-back.notification.error.title": "Something went wrong",
-  "workflow-item.send-back.notification.error.title": "Valami hiba keletkezett",
+  "workflow-item.send-back.notification.error.title": "Hiba történt",
 
   // "workflow-item.send-back.notification.error.content": "The workflow item could not be sent back to the submitter",
-  "workflow-item.send-back.notification.error.content": "Workflow elem visszaküldése a feladónak sikertelen",
+  "workflow-item.send-back.notification.error.content": "A munkafolyamat-elemet nem sikerült visszaküldeni a beküldőnek.", // Eredeti: "Workflow elem visszaküldése a feladónak sikertelen" -> Javított
 
   // "workflow-item.send-back.title": "Send workflow item back to submitter",
-  "workflow-item.send-back.title": "Munkafolyamt elemet visszaküld a feladónak",
+  "workflow-item.send-back.title": "Munkafolyamat-elem visszaküldése a beküldőnek", // Eredeti: "Munkafolyamt elemet visszaküld a feladónak" -> Javított
 
   // "workflow-item.send-back.header": "Send workflow item back to submitter",
-  "workflow-item.send-back.header": "Munkafolyamt elemet visszaküld a feladónak",
+  "workflow-item.send-back.header": "Munkafolyamat-elem visszaküldése a beküldőnek",
 
   // "workflow-item.send-back.button.cancel": "Cancel",
   "workflow-item.send-back.button.cancel": "Mégse",
 
   // "workflow-item.send-back.button.confirm": "Send back",
-  "workflow-item.send-back.button.confirm": "Visszaküld",
+  "workflow-item.send-back.button.confirm": "Visszaküldés",
 
   // "workflow-item.view.breadcrumbs": "Workflow View",
-  "workflow-item.view.breadcrumbs": "Workflow nézet",
+  "workflow-item.view.breadcrumbs": "Munkafolyamat nézet", // Eredeti: "Workflow nézet" -> Javított
 
   // "workspace-item.view.breadcrumbs": "Workspace View",
-  "workspace-item.view.breadcrumbs": "Workspace nézet",
+  "workspace-item.view.breadcrumbs": "Munkaterület nézet", // Eredeti: "Workspace nézet" -> Javított
 
   // "workspace-item.view.title": "Workspace View",
-  "workspace-item.view.title": "Workspace nézet",
+  "workspace-item.view.title": "Munkaterület nézet",
 
   // "workspace-item.delete.breadcrumbs": "Workspace Delete",
-  "workspace-item.delete.breadcrumbs": "Workspace törlése",
+  "workspace-item.delete.breadcrumbs": "Munkaterület törlése", // Eredeti: "Workspace törlése" -> Javított
 
   // "workspace-item.delete.header": "Delete workspace item",
-  "workspace-item.delete.header": "Workspace elem törlése",
+  "workspace-item.delete.header": "Munkaterületi tétel törlése", // Eredeti: "Workspace elem törlése" -> Javított
 
   // "workspace-item.delete.button.confirm": "Delete",
   "workspace-item.delete.button.confirm": "Törlés",
@@ -9094,70 +9093,70 @@
   "workspace-item.delete.notification.success.title": "Törölve",
 
   // "workspace-item.delete.title": "This workspace item was successfully deleted",
-  "workspace-item.delete.title": "A workspace állapotú tárgy sikeresen törlésre került",
+  "workspace-item.delete.title": "Ez a munkaterületi tétel sikeresen törölve lett.", // Eredeti: "A workspace állapotú tárgy sikeresen törlésre került" -> Javított
 
   // "workspace-item.delete.notification.error.title": "Something went wrong",
   "workspace-item.delete.notification.error.title": "Hiba történt",
 
   // "workspace-item.delete.notification.error.content": "The workspace item could not be deleted",
-  "workspace-item.delete.notification.error.content": "A workspace elem nem törölhető",
+  "workspace-item.delete.notification.error.content": "A munkaterületi tételt nem sikerült törölni.", // Eredeti: "A workspace elem nem törölhető" -> Javított
 
   // "workflow-item.advanced.title": "Advanced workflow",
-  "workflow-item.advanced.title": "Advanced workflow",
+  "workflow-item.advanced.title": "Haladó munkafolyamat", // Eredeti: "Advanced workflow" -> Javított
 
   // "workflow-item.selectrevieweraction.notification.success.title": "Selected reviewer",
-  "workflow-item.selectrevieweraction.notification.success.title": "Selected reviewer",
+  "workflow-item.selectrevieweraction.notification.success.title": "Bíráló kiválasztva", // Eredeti: "Selected reviewer" -> Javított
 
   // "workflow-item.selectrevieweraction.notification.success.content": "The reviewer for this workflow item has been successfully selected",
-  "workflow-item.selectrevieweraction.notification.success.content": "The reviewer for this workflow item has been successfully selected",
+  "workflow-item.selectrevieweraction.notification.success.content": "Ennek a munkafolyamat-elemnek a bírálója sikeresen kiválasztva.", // Eredeti: "The reviewer for this workflow item has been successfully selected" -> Javított
 
   // "workflow-item.selectrevieweraction.notification.error.title": "Something went wrong",
-  "workflow-item.selectrevieweraction.notification.error.title": "Something went wrong",
+  "workflow-item.selectrevieweraction.notification.error.title": "Hiba történt", // Eredeti: "Something went wrong" -> Javított
 
   // "workflow-item.selectrevieweraction.notification.error.content": "Couldn't select the reviewer for this workflow item",
-  "workflow-item.selectrevieweraction.notification.error.content": "Couldn't select the reviewer for this workflow item",
+  "workflow-item.selectrevieweraction.notification.error.content": "Nem sikerült kiválasztani a bírálót ehhez a munkafolyamat-elemhez.", // Eredeti: "Couldn't select the reviewer for this workflow item" -> Javított
 
   // "workflow-item.selectrevieweraction.title": "Select Reviewer",
-  "workflow-item.selectrevieweraction.title": "Select Reviewer",
+  "workflow-item.selectrevieweraction.title": "Bíráló kiválasztása", // Eredeti: "Select Reviewer" -> Javított
 
   // "workflow-item.selectrevieweraction.header": "Select Reviewer",
-  "workflow-item.selectrevieweraction.header": "Select Reviewer",
+  "workflow-item.selectrevieweraction.header": "Bíráló kiválasztása",
 
   // "workflow-item.selectrevieweraction.button.cancel": "Cancel",
   "workflow-item.selectrevieweraction.button.cancel": "Mégse",
 
   // "workflow-item.selectrevieweraction.button.confirm": "Confirm",
-  "workflow-item.selectrevieweraction.button.confirm": "Megerősít",
+  "workflow-item.selectrevieweraction.button.confirm": "Megerősítés",
 
   // "workflow-item.scorereviewaction.notification.success.title": "Rating review",
-  "workflow-item.scorereviewaction.notification.success.title": "Rating review",
+  "workflow-item.scorereviewaction.notification.success.title": "Értékelés bírálata", // Eredeti: "Rating review" -> Javított
 
   // "workflow-item.scorereviewaction.notification.success.content": "The rating for this item workflow item has been successfully submitted",
-  "workflow-item.scorereviewaction.notification.success.content": "The rating for this item workflow item has been successfully submitted",
+  "workflow-item.scorereviewaction.notification.success.content": "Ennek a tétel munkafolyamat-elemnek az értékelése sikeresen beküldve.", // Eredeti: "The rating for this item workflow item has been successfully submitted" -> Javított
 
   // "workflow-item.scorereviewaction.notification.error.title": "Something went wrong",
-  "workflow-item.scorereviewaction.notification.error.title": "Something went wrong",
+  "workflow-item.scorereviewaction.notification.error.title": "Hiba történt",
 
   // "workflow-item.scorereviewaction.notification.error.content": "Couldn't rate this item",
-  "workflow-item.scorereviewaction.notification.error.content": "Couldn't rate this item",
+  "workflow-item.scorereviewaction.notification.error.content": "Nem sikerült értékelni ezt a tételt.", // Eredeti: "Couldn't rate this item" -> Javított
 
   // "workflow-item.scorereviewaction.title": "Rate this item",
-  "workflow-item.scorereviewaction.title": "Rate this item",
+  "workflow-item.scorereviewaction.title": "Értékelje ezt a tételt", // Eredeti: "Rate this item" -> Javított
 
   // "workflow-item.scorereviewaction.header": "Rate this item",
-  "workflow-item.scorereviewaction.header": "Rate this item",
+  "workflow-item.scorereviewaction.header": "Értékelje ezt a tételt",
 
   // "workflow-item.scorereviewaction.button.cancel": "Cancel",
   "workflow-item.scorereviewaction.button.cancel": "Mégse",
 
   // "workflow-item.scorereviewaction.button.confirm": "Confirm",
-  "workflow-item.scorereviewaction.button.confirm": "Megerősít",
+  "workflow-item.scorereviewaction.button.confirm": "Megerősítés",
 
   // "idle-modal.header": "Session will expire soon",
   "idle-modal.header": "A munkamenet hamarosan lejár",
 
   // "idle-modal.info": "For security reasons, user sessions expire after {{ timeToExpire }} minutes of inactivity. Your session will expire soon. Would you like to extend it or log out?",
-  "idle-modal.info": "Biztonsági okokból a felhasználói munkamenetek {{ timeToExpire }} perc inaktivitás után lejárnak. A munkamenete hamarosan lejár. Szeretné meghosszabbítani, vagy kijelentkezik?",
+  "idle-modal.info": "Biztonsági okokból a felhasználói munkamenetek {{ timeToExpire }} perc inaktivitás után lejárnak.\nA munkamenete hamarosan lejár. Szeretné meghosszabbítani vagy kijelentkezik?",
 
   // "idle-modal.log-out": "Log out",
   "idle-modal.log-out": "Kijelentkezés",
@@ -9166,184 +9165,184 @@
   "idle-modal.extend-session": "Munkamenet meghosszabbítása",
 
   // "researcher.profile.action.processing": "Processing...",
-  "researcher.profile.action.processing": "Processing...",
+  "researcher.profile.action.processing": "Feldolgozás...", // Eredeti: "Processing..." -> Javított
 
   // "researcher.profile.associated": "Researcher profile associated",
-  "researcher.profile.associated": "Hozzárendelt kutatói profil",
+  "researcher.profile.associated": "Kutatói profil társítva",
 
   // "researcher.profile.change-visibility.fail": "An unexpected error occurs while changing the profile visibility",
-  "researcher.profile.change-visibility.fail": "An unexpected error occurs while changing the profile visibility",
+  "researcher.profile.change-visibility.fail": "Váratlan hiba történt a profil láthatóságának módosítása közben.", // Eredeti: "An unexpected error occurs while changing the profile visibility" -> Javított
 
   // "researcher.profile.create.new": "Create new",
-  "researcher.profile.create.new": "Új profil létrehozása",
+  "researcher.profile.create.new": "Új létrehozása", // Eredeti: "Új profil létrehozása" -> Javított (Create new)
 
   // "researcher.profile.create.success": "Researcher profile created successfully",
-  "researcher.profile.create.success": "Kutatói profil létrehozása sikeres",
+  "researcher.profile.create.success": "Kutatói profil sikeresen létrehozva.",
 
   // "researcher.profile.create.fail": "An error occurs during the researcher profile creation",
-  "researcher.profile.create.fail": "An error occurs during the researcher profile creation",
+  "researcher.profile.create.fail": "Hiba történt a kutatói profil létrehozása során.", // Eredeti: "An error occurs during the researcher profile creation" -> Javított
 
   // "researcher.profile.delete": "Delete",
   "researcher.profile.delete": "Törlés",
 
   // "researcher.profile.expose": "Expose",
-  "researcher.profile.expose": "Expose",
+  "researcher.profile.expose": "Felfedés", // Eredeti: "Expose" -> Javított
 
   // "researcher.profile.hide": "Hide",
-  "researcher.profile.hide": "Hide",
+  "researcher.profile.hide": "Elrejtés", // Eredeti: "Hide" -> Javított
 
   // "researcher.profile.not.associated": "Researcher profile not yet associated",
-  "researcher.profile.not.associated": "A kutatói profil még nincs társítva",
+  "researcher.profile.not.associated": "Kutatói profil még nincs társítva.",
 
   // "researcher.profile.view": "View",
-  "researcher.profile.view": "Megnyitás",
+  "researcher.profile.view": "Megtekintés", // Eredeti: "Megnyitás" -> Javított
 
   // "researcher.profile.private.visibility": "PRIVATE",
   "researcher.profile.private.visibility": "PRIVÁT",
 
   // "researcher.profile.public.visibility": "PUBLIC",
-  "researcher.profile.public.visibility": "PUBLIKUS",
+  "researcher.profile.public.visibility": "NYILVÁNOS", // Eredeti: "PUBLIKUS" -> Javított (gyakoribb magyar megfelelő)
 
   // "researcher.profile.status": "Status:",
   "researcher.profile.status": "Állapot:",
 
   // "researcherprofile.claim.not-authorized": "You are not authorized to claim this item. For more details contact the administrator(s).",
-  "researcherprofile.claim.not-authorized": "You are not authorized to claim this item. For more details contact the administrator(s).",
+  "researcherprofile.claim.not-authorized": "Nincs jogosultsága igényelni ezt a tételt.\nTovábbi részletekért lépjen kapcsolatba az adminisztrátor(okk)al.", // Eredeti: "You are not authorized to claim this item. For more details contact the administrator(s)." -> Javított
 
   // "researcherprofile.error.claim.body": "An error occurred while claiming the profile, please try again later",
-  "researcherprofile.error.claim.body": "An error occurred while claiming the profile, please try again later",
+  "researcherprofile.error.claim.body": "Hiba történt a profil igénylése közben, kérjük, próbálja újra később.", // Eredeti: "An error occurred while claiming the profile, please try again later" -> Javított
 
   // "researcherprofile.error.claim.title": "Error",
-  "researcherprofile.error.claim.title": "Error",
+  "researcherprofile.error.claim.title": "Hiba", // Eredeti: "Error" -> Javított
 
   // "researcherprofile.success.claim.body": "Profile claimed with success",
-  "researcherprofile.success.claim.body": "Profile claimed with success",
+  "researcherprofile.success.claim.body": "A profil sikeresen igényelve.", // Eredeti: "Profile claimed with success" -> Javított
 
   // "researcherprofile.success.claim.title": "Success",
-  "researcherprofile.success.claim.title": "Success",
+  "researcherprofile.success.claim.title": "Siker", // Eredeti: "Success" -> Javított
 
   // "person.page.orcid.create": "Create an ORCID ID",
-  "person.page.orcid.create": "Create an ORCID ID",
+  "person.page.orcid.create": "ORCID azonosító létrehozása", // Eredeti: "Create an ORCID ID" -> Javított
 
   // "person.page.orcid.granted-authorizations": "Granted authorizations",
-  "person.page.orcid.granted-authorizations": "Granted authorizations",
+  "person.page.orcid.granted-authorizations": "Megadott engedélyek", // Eredeti: "Granted authorizations" -> Javított
 
   // "person.page.orcid.grant-authorizations": "Grant authorizations",
-  "person.page.orcid.grant-authorizations": "Grant authorizations",
+  "person.page.orcid.grant-authorizations": "Engedélyek megadása", // Eredeti: "Grant authorizations" -> Javított
 
   // "person.page.orcid.link": "Connect to ORCID ID",
-  "person.page.orcid.link": "Connect to ORCID ID",
+  "person.page.orcid.link": "Csatlakozás ORCID azonosítóhoz", // Eredeti: "Connect to ORCID ID" -> Javított
 
   // "person.page.orcid.link.processing": "Linking profile to ORCID...",
-  "person.page.orcid.link.processing": "Linking profile to ORCID...",
+  "person.page.orcid.link.processing": "Profil összekapcsolása az ORCID-dal...", // Eredeti: "Linking profile to ORCID..." -> Javított
 
   // "person.page.orcid.link.error.message": "Something went wrong while connecting the profile with ORCID. If the problem persists, contact the administrator.",
-  "person.page.orcid.link.error.message": "Something went wrong while connecting the profile with ORCID. If the problem persists, contact the administrator.",
+  "person.page.orcid.link.error.message": "Hiba történt a profil ORCID-dal való összekapcsolása közben.\nHa a probléma továbbra is fennáll, lépjen kapcsolatba az adminisztrátorral.", // Eredeti: "Something went wrong while connecting the profile with ORCID. If the problem persists, contact the administrator." -> Javított
 
   // "person.page.orcid.orcid-not-linked-message": "The ORCID iD of this profile ({{ orcid }}) has not yet been connected to an account on the ORCID registry or the connection is expired.",
-  "person.page.orcid.orcid-not-linked-message": "The ORCID iD of this profile ({{ orcid }}) has not yet been connected to an account on the ORCID registry or the connection is expired.",
+  "person.page.orcid.orcid-not-linked-message": "Ennek a profilnak az ORCID azonosítója ({{ orcid }}) még nincs összekapcsolva egy fiókkal az ORCID nyilvántartásban, vagy a kapcsolat lejárt.", // Eredeti: "The ORCID iD of this profile ({{ orcid }}) has not yet been connected to an account on the ORCID registry or the connection is expired." -> Javított
 
   // "person.page.orcid.unlink": "Disconnect from ORCID",
-  "person.page.orcid.unlink": "Disconnect from ORCID",
+  "person.page.orcid.unlink": "Leválasztás az ORCID-ról", // Eredeti: "Disconnect from ORCID" -> Javított
 
   // "person.page.orcid.unlink.processing": "Processing...",
-  "person.page.orcid.unlink.processing": "Processing...",
+  "person.page.orcid.unlink.processing": "Feldolgozás...",
 
   // "person.page.orcid.missing-authorizations": "Missing authorizations",
-  "person.page.orcid.missing-authorizations": "Missing authorizations",
+  "person.page.orcid.missing-authorizations": "Hiányzó engedélyek", // Eredeti: "Missing authorizations" -> Javított
 
   // "person.page.orcid.missing-authorizations-message": "The following authorizations are missing:",
-  "person.page.orcid.missing-authorizations-message": "The following authorizations are missing:",
+  "person.page.orcid.missing-authorizations-message": "A következő engedélyek hiányoznak:",
 
   // "person.page.orcid.no-missing-authorizations-message": "Great! This box is empty, so you have granted all access rights to use all functions offers by your institution.",
-  "person.page.orcid.no-missing-authorizations-message": "Great! This box is empty, so you have granted all access rights to use all functions offers by your institution.",
+  "person.page.orcid.no-missing-authorizations-message": "Nagyszerű! Ez a mező üres, tehát minden hozzáférési jogot megadott az intézménye által kínált összes funkció használatához.", // Eredeti: "Great! This box is empty, so you have granted all access rights to use all functions offers by your institution." -> Javított
 
   // "person.page.orcid.no-orcid-message": "No ORCID iD associated yet. By clicking on the button below it is possible to link this profile with an ORCID account.",
-  "person.page.orcid.no-orcid-message": "No ORCID iD associated yet. By clicking on the button below it is possible to link this profile with an ORCID account.",
+  "person.page.orcid.no-orcid-message": "Még nincs ORCID azonosító társítva.\nAz alábbi gombra kattintva lehetséges ezt a profilt egy ORCID fiókkal összekapcsolni.", // Eredeti: "No ORCID iD associated yet. By clicking on the button below it is possible to link this profile with an ORCID account." -> Javított
 
   // "person.page.orcid.profile-preferences": "Profile preferences",
-  "person.page.orcid.profile-preferences": "Profile preferences",
+  "person.page.orcid.profile-preferences": "Profilbeállítások", // Eredeti: "Profile preferences" -> Javított
 
   // "person.page.orcid.funding-preferences": "Funding preferences",
-  "person.page.orcid.funding-preferences": "Funding preferences",
+  "person.page.orcid.funding-preferences": "Finanszírozási beállítások", // Eredeti: "Funding preferences" -> Javított
 
   // "person.page.orcid.publications-preferences": "Publication preferences",
-  "person.page.orcid.publications-preferences": "Publication preferences",
+  "person.page.orcid.publications-preferences": "Publikációs beállítások", // Eredeti: "Publication preferences" -> Javított
 
   // "person.page.orcid.remove-orcid-message": "If you need to remove your ORCID, please contact the repository administrator",
-  "person.page.orcid.remove-orcid-message": "If you need to remove your ORCID, please contact the repository administrator",
+  "person.page.orcid.remove-orcid-message": "Ha el kell távolítania ORCID azonosítóját, kérjük, lépjen kapcsolatba a repozitórium adminisztrátorával.", // Eredeti: "If you need to remove your ORCID, please contact the repository administrator" -> Javított
 
   // "person.page.orcid.save.preference.changes": "Update settings",
-  "person.page.orcid.save.preference.changes": "Update settings",
+  "person.page.orcid.save.preference.changes": "Beállítások frissítése", // Eredeti: "Update settings" -> Javított
 
   // "person.page.orcid.sync-profile.affiliation": "Affiliation",
-  "person.page.orcid.sync-profile.affiliation": "Affiliation",
+  "person.page.orcid.sync-profile.affiliation": "Kapcsolt intézmény", // Eredeti: "Affiliation" -> Javított
 
   // "person.page.orcid.sync-profile.biographical": "Biographical data",
-  "person.page.orcid.sync-profile.biographical": "Biographical data",
+  "person.page.orcid.sync-profile.biographical": "Életrajzi adatok", // Eredeti: "Biographical data" -> Javított
 
   // "person.page.orcid.sync-profile.education": "Education",
-  "person.page.orcid.sync-profile.education": "Education",
+  "person.page.orcid.sync-profile.education": "Tanulmányok", // Eredeti: "Education" -> Javított
 
   // "person.page.orcid.sync-profile.identifiers": "Identifiers",
-  "person.page.orcid.sync-profile.identifiers": "Identifiers",
+  "person.page.orcid.sync-profile.identifiers": "Azonosítók",
 
   // "person.page.orcid.sync-fundings.all": "All fundings",
-  "person.page.orcid.sync-fundings.all": "All fundings",
+  "person.page.orcid.sync-fundings.all": "Minden finanszírozás", // Eredeti: "All fundings" -> Javított
 
   // "person.page.orcid.sync-fundings.mine": "My fundings",
-  "person.page.orcid.sync-fundings.mine": "My fundings",
+  "person.page.orcid.sync-fundings.mine": "Saját finanszírozásaim", // Eredeti: "My fundings" -> Javított
 
   // "person.page.orcid.sync-fundings.my_selected": "Selected fundings",
-  "person.page.orcid.sync-fundings.my_selected": "Selected fundings",
+  "person.page.orcid.sync-fundings.my_selected": "Kiválasztott finanszírozások", // Eredeti: "Selected fundings" -> Javított
 
   // "person.page.orcid.sync-fundings.disabled": "Disabled",
-  "person.page.orcid.sync-fundings.disabled": "Disabled",
+  "person.page.orcid.sync-fundings.disabled": "Letiltva",
 
   // "person.page.orcid.sync-publications.all": "All publications",
-  "person.page.orcid.sync-publications.all": "All publications",
+  "person.page.orcid.sync-publications.all": "Minden publikáció", // Eredeti: "All publications" -> Javított
 
   // "person.page.orcid.sync-publications.mine": "My publications",
-  "person.page.orcid.sync-publications.mine": "My publications",
+  "person.page.orcid.sync-publications.mine": "Saját publikációim", // Eredeti: "My publications" -> Javított
 
   // "person.page.orcid.sync-publications.my_selected": "Selected publications",
-  "person.page.orcid.sync-publications.my_selected": "Selected publications",
+  "person.page.orcid.sync-publications.my_selected": "Kiválasztott publikációk", // Eredeti: "Selected publications" -> Javított
 
   // "person.page.orcid.sync-publications.disabled": "Disabled",
-  "person.page.orcid.sync-publications.disabled": "Disabled",
+  "person.page.orcid.sync-publications.disabled": "Letiltva",
 
   // "person.page.orcid.sync-queue.discard": "Discard the change and do not synchronize with the ORCID registry",
-  "person.page.orcid.sync-queue.discard": "Discard the change and do not synchronize with the ORCID registry",
+  "person.page.orcid.sync-queue.discard": "Változtatás elvetése és ne szinkronizáljon az ORCID nyilvántartással.", // Eredeti: "Discard the change and do not synchronize with the ORCID registry" -> Javított
 
   // "person.page.orcid.sync-queue.discard.error": "The discarding of the ORCID queue record failed",
-  "person.page.orcid.sync-queue.discard.error": "The discarding of the ORCID queue record failed",
+  "person.page.orcid.sync-queue.discard.error": "Az ORCID várólistarekord elvetése sikertelen.", // Eredeti: "The discarding of the ORCID queue record failed" -> Javított
 
   // "person.page.orcid.sync-queue.discard.success": "The ORCID queue record have been discarded successfully",
-  "person.page.orcid.sync-queue.discard.success": "The ORCID queue record have been discarded successfully",
+  "person.page.orcid.sync-queue.discard.success": "Az ORCID várólistarekord sikeresen elvetve.", // Eredeti: "The ORCID queue record have been discarded successfully" -> Javított
 
   // "person.page.orcid.sync-queue.empty-message": "The ORCID queue registry is empty",
-  "person.page.orcid.sync-queue.empty-message": "The ORCID queue registry is empty",
+  "person.page.orcid.sync-queue.empty-message": "Az ORCID várólista-nyilvántartás üres.", // Eredeti: "The ORCID queue registry is empty" -> Javított
 
   // "person.page.orcid.sync-queue.table.header.type": "Type",
-  "person.page.orcid.sync-queue.table.header.type": "Type",
+  "person.page.orcid.sync-queue.table.header.type": "Típus",
 
   // "person.page.orcid.sync-queue.table.header.description": "Description",
-  "person.page.orcid.sync-queue.table.header.description": "Description",
+  "person.page.orcid.sync-queue.table.header.description": "Leírás",
 
   // "person.page.orcid.sync-queue.table.header.action": "Action",
   "person.page.orcid.sync-queue.table.header.action": "Művelet",
 
   // "person.page.orcid.sync-queue.description.affiliation": "Affiliations",
-  "person.page.orcid.sync-queue.description.affiliation": "Affiliations",
+  "person.page.orcid.sync-queue.description.affiliation": "Kapcsolt intézmények", // Eredeti: "Affiliations" -> Javított
 
   // "person.page.orcid.sync-queue.description.country": "Country",
-  "person.page.orcid.sync-queue.description.country": "Country",
+  "person.page.orcid.sync-queue.description.country": "Ország",
 
   // "person.page.orcid.sync-queue.description.education": "Educations",
-  "person.page.orcid.sync-queue.description.education": "Educations",
+  "person.page.orcid.sync-queue.description.education": "Tanulmányok", // Eredeti: "Educations" -> Javított
 
   // "person.page.orcid.sync-queue.description.external_ids": "External ids",
-  "person.page.orcid.sync-queue.description.external_ids": "External ids",
+  "person.page.orcid.sync-queue.description.external_ids": "Külső azonosítók", // Eredeti: "External ids" -> Javított
 
   // "person.page.orcid.sync-queue.description.other_names": "Other names",
   "person.page.orcid.sync-queue.description.other_names": "Other names",
